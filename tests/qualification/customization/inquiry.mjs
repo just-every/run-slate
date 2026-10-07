@@ -1,0 +1,6 @@
+import {op} from '../core/support.mjs';
+export async function inquiryRecords(request,pageId,refs,owner){
+ const inquiry=await request('/api/inquiries',{operationKey:op(),pageId,question:'Will the owner review policy preserve knowledge?',refs,audience:[owner],hypotheses:[{statement:'Owner policy preserves original records.',disconfirmation:'Any original identity or content changes.'},{statement:'New pages receive the owner review policy.',disconfirmation:'A new native page lacks the policy.'}]});
+ const trial=await request('/api/experiments',{operationKey:op(),inquiryId:inquiry.value.id,plan:{eligibility:'Recorded mechanics fixture only; no customer experiment',assignment:[{subjectId:'fixture-a',arm:'treatment'},{subjectId:'fixture-b',arm:'treatment'},{subjectId:'fixture-c',arm:'comparison'},{subjectId:'fixture-d',arm:'comparison'}],assignmentMethod:'observational',seed:'mechanics-only',confounding:['Synthetic records; no empirical efficacy claim'],baseline:'Original record identities',metric:'Preserved records',meaningfulEffect:1,maximumHalfWidth:1,startsAt:'2098-01-01T00:00:00.000Z',endsAt:'2098-01-02T00:00:00.000Z',supportGuardrail:0,contactLimit:0,maximumCostMicros:0,forecast:'Preservation under owner customization',instrumentationRevision:'recorded-mechanics-fixture',refs,effects:[]}});
+ return {inquiry:inquiry.value,trial:trial.value};
+}

@@ -1,0 +1,107 @@
+import {compareTreePages} from './treePosition';
+import {TreeMoveDialog,type TreeDestination} from './TreeMoveDialog';
+import {ScheduledPublication} from './ScheduledPublication';
+import {StoredIcon} from "../../features/pages/ui/workspace/PageAppearance";
+import {useResource} from "../../client/useResource";
+import {mutate, operationKey, errorMessage} from "../../client/transport";
+import {CreatePageDialog} from "./CreatePageDialog";
+import { useState } from "react";
+import { ChevronRight, FileText } from "lucide-react";
+import type { PageRef } from "../../shared/api/content";
+export type TreePage = PageRef & {
+  parentPageId?: string | null;
+  treePosition?: string|null;
+  icon?: string | null;
+  containerLabel?: string;
+  permissions?: { level: string; canEdit: boolean };
+};
+export function PageTree({
+  pages,
+  parentId = null,
+  ancestors = [],
+}: {
+  pages: TreePage[];
+  parentId?: string | null;
+  ancestors?: string[];
+}) {
+  const ids = new Set(pages.map((page) => page.id));
+  const children = pages
+    .filter((page) =>
+      parentId
+        ? page.parentPageId === parentId
+        : !page.parentPageId || !ids.has(page.parentPageId),
+    )
+    .sort(compareTreePages);
+  return (
+    <ul className="page-tree">
+      {children
+        .filter((page) => !ancestors.includes(page.id))
+        .map((page) => (
+          <TreeItem
+            key={page.id}
+            page={page}
+            pages={pages}
+            ancestors={ancestors}
+          />
+        ))}
+    </ul>
+  );
+}
+function TreeItem({
+  page,
+  pages,
+  ancestors,
+}: {
+  page: TreePage;
+  pages: TreePage[];
+  ancestors: string[];
+}) {
+  const hasChildren = pages.some((item) => item.parentPageId === page.id);
+  const expansion = useResource<{expanded:boolean}>(hasChildren ? `/api/pages/${page.id}/expansion` : null);
+  const open = expansion.data?.expanded ?? false;
+  const [move,setMove]=useState<{page:TreePage;destination?:TreeDestination}|null>(null);
+  const [create,setCreate] = useState(false);
+  const [error,setError] = useState<unknown>();
+  const canMove = page.permissions?.canEdit === true;
+  return (
+    <li>
+      <div className="tree-row" draggable={canMove} onDragStart={event=>{if(!canMove){event.preventDefault();return;}event.dataTransfer.setData("application/x-slate-page",page.id);event.dataTransfer.effectAllowed="move";}} onDragOver={event=>{if(event.dataTransfer.types.includes("application/x-slate-page")){event.preventDefault();event.dataTransfer.dropEffect="move";}}} onDrop={event=>{event.preventDefault();const source=pages.find(item=>item.id===event.dataTransfer.getData("application/x-slate-page"));if(!source||!source.permissions?.canEdit||source.id===page.id)return;const box=event.currentTarget.getBoundingClientRect();const before=event.clientY<box.top+box.height/3,after=event.clientY>box.bottom-box.height/3;setMove({page:source,destination:{containerId:page.containerId,parentPageId:before||after?page.parentPageId??null:page.id,...(before?{beforeId:page.id}:after?{afterId:page.id}:{})}});}}>
+        {hasChildren ? (
+          <button
+            className="iconbutton"
+            aria-label={`${open ? "Collapse" : "Expand"} ${page.title}`}
+            aria-expanded={open}
+            disabled={expansion.loading || expansion.error !== undefined}
+            onClick={(event) => {
+              event.stopPropagation();
+              void mutate(`/api/pages/${page.id}/expansion`, {operationKey:operationKey(),expanded:!open}).then(expansion.reload).catch(setError);
+            }}
+          >
+            <ChevronRight
+              style={{ transform: open ? "rotate(90deg)" : undefined }}
+            />
+          </button>
+        ) : (
+          <span className="tree-spacer" />
+        )}
+        <a className="navlink" href={`/app/pages/${page.id}`}>
+          {page.icon ? <StoredIcon icon={page.icon}/> : <FileText />}
+          <span>{page.title || "Untitled"}<ScheduledPublication page={page}/></span>
+        </a>
+        <button className="iconbutton" aria-label={`Move ${page.title} in tree`} disabled={!canMove} onClick={()=>setMove({page})}>↕</button>
+        <button className="iconbutton" aria-label={`Create child of ${page.title}`} disabled={!canMove} onClick={event=>{event.stopPropagation();setCreate(true);}}>＋</button>
+      </div>
+      {move?<TreeMoveDialog page={move.page} pages={pages} initial={move.destination} onClose={()=>setMove(null)}/>:null}
+      {error ? <p role="alert">{errorMessage(error)}</p> : null}
+      {expansion.error ? <p role="alert">{errorMessage(expansion.error)} <button onClick={() => void expansion.reload()}>Retry tree expansion</button></p> : null}
+      {create ? <CreatePageDialog parentPageId={page.id} defaultContainerId={page.containerId} onClose={()=>setCreate(false)} onCreated={id=>window.location.assign(`/app/pages/${id}`)}/> : null}
+      {open ? (
+        <PageTree
+          pages={pages}
+          parentId={page.id}
+          ancestors={[...ancestors, page.id]}
+        />
+      ) : null}
+    </li>
+  );
+}

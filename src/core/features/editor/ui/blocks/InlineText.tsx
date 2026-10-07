@@ -1,0 +1,103 @@
+import type { ReactNode } from "react";
+import { cn } from "../../../../ui";
+import type { InlineColour, InlineSpan, RichText } from "../types";
+
+/**
+ * `BLOCK-002` — bold, italic, underline, strikethrough, inline code, colour,
+ * links and mentions. Nothing else renders here, because nothing else is stored.
+ */
+
+const colourClass: Record<InlineColour, string> = {
+  yellow: "bg-hl-yellow",
+  blue: "bg-hl-blue",
+  green: "bg-hl-green",
+  red: "bg-hl-red",
+  purple: "bg-hl-purple",
+};
+
+const mentionPrefix: Record<NonNullable<InlineSpan["mention"]>["kind"], string> = {
+  person: "@",
+  page: "",
+  date: "",
+};
+
+function Mention({ span }: { span: InlineSpan }) {
+  const mention = span.mention;
+  if (!mention) return null;
+  return (
+    <span
+      className={cn(
+        "rounded-control px-1 py-0.5 text-[0.95em]",
+        mention.kind === "person" ? "bg-accent-soft text-accent" : "bg-sidebar-hover text-ink",
+        mention.kind === "page" ? "underline decoration-line-strong underline-offset-2" : "",
+      )}
+      data-mention-kind={mention.kind}
+    >
+      {mentionPrefix[mention.kind]}
+      {mention.kind==='page' && mention.id && mention.available!==false ? <a href={`/app/pages/${encodeURIComponent(mention.id)}`}>{mention.label}</a>:mention.kind==='date' ? new Date(`${mention.id}T12:00:00`).toLocaleDateString() : mention.label}
+      {mention.kind==='page' && mention.state==='restricted' ? <button type="button" data-request-page-access={mention.id}>Request access</button>:null}
+      {mention.state && mention.state!=='live'?<small> · {mention.state==='restricted'?'Unavailable':mention.state}</small>:null}
+    </span>
+  );
+}
+
+function withMarks(span: InlineSpan, node: ReactNode): ReactNode {
+  const marks = span.marks ?? [];
+  let out = node;
+  if (marks.includes("code")) {
+    out = (
+      <code className="rounded-[3px] bg-sidebar-hover px-1 py-0.5 font-mono text-[0.9em] text-ink">{out}</code>
+    );
+  }
+  if (marks.includes("strikethrough")) out = <s>{out}</s>;
+  if (marks.includes("underline")) out = <u className="underline-offset-2">{out}</u>;
+  if (marks.includes("italic")) out = <em>{out}</em>;
+  if (marks.includes("bold")) out = <strong className="font-semibold">{out}</strong>;
+  if (span.colour) {
+    out = <span className={cn("rounded-[3px] px-0.5", colourClass[span.colour])}>{out}</span>;
+  }
+  return out;
+}
+
+function Span({ span }: { span: InlineSpan }) {
+  if (span.mention) return <Mention span={span} />;
+
+  let node: ReactNode = withMarks(span, span.text);
+
+  if (span.link) {
+    node = (
+      <a className="text-accent underline underline-offset-2" href={span.link.href} rel="noreferrer" target="_blank">
+        {node}
+      </a>
+    );
+  }
+
+  if (span.commentAnchorId) {
+    // An anchored comment is marked by a highlight *and* an underline, never by
+    // colour alone.
+    node = (
+      <mark
+        className="bg-hl-yellow text-ink underline decoration-warn decoration-2 underline-offset-4"
+        data-comment-anchor={span.commentAnchorId}
+      >
+        {node}
+      </mark>
+    );
+  }
+
+  return <>{node}</>;
+}
+
+export function InlineText({ value }: { value: RichText }) {
+  return (
+    <>
+      {value.map((span, index) =>
+        span.text.length === 0 && !span.mention ? null : (
+          <span key={index} data-inline-span={index} contentEditable={span.mention ? false : undefined}>
+            <Span span={span} />
+          </span>
+        ),
+      )}
+    </>
+  );
+}

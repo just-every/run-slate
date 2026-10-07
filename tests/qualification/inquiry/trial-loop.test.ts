@@ -1,0 +1,15 @@
+import {test,expect,vi,afterEach} from 'vitest';
+import {env} from 'cloudflare:test';
+import {trialFixture,waitUntil} from './trial-fixture';
+import {executeTrial} from '../../../src/core/features/experiments/execution';
+import {collectMeasurements} from '../../../src/core/features/experiments/measurement';
+import {concludeTrial} from '../../../src/core/features/experiments/service';
+import {prepareLearnedSkill} from '../../../src/core/features/experiments/learning';
+import {transitionSkill} from '../../../src/core/features/skills/service';
+afterEach(()=>vi.unstubAllGlobals());
+for(const [classification,values]of [['benefit',[1,1,8,8]],['null',[8,8,8,8]],['adverse',[12,12,8,8]],['inconclusive',[1,20,1,20]]] as const)test(`TRIAL-001 TRIAL-002 TRIAL-003 TRIAL-004 ${classification}: actual local elapsed window, provider-double receipts, field collection and inactive learning`,async()=>{
+ const f=await trialFixture([...values]);await expect(concludeTrial(f.context(),{id:f.trialId,operationKey:'trial-premature-conclude',expectedRevisionId:f.active.value.revisionId,instrumentationRevision:f.plan.instrumentationRevision})).rejects.toMatchObject({code:'WINDOW_OPEN'});
+ await waitUntil(f.plan.startsAt);const execution=await executeTrial(f.context(),f.trialId);expect(execution.state).toBe('observing');expect(f.sends()).toBe(2);await collectMeasurements(f.context(),f.trialId);const collectedAt=Date.now();expect(collectedAt).toBeGreaterThanOrEqual(Date.parse(f.plan.startsAt));expect(collectedAt).toBeLessThan(Date.parse(f.plan.endsAt));console.log(JSON.stringify({classification,startsAt:f.plan.startsAt,endsAt:f.plan.endsAt,collectedAt:new Date(collectedAt).toISOString(),collectionElapsedMs:collectedAt-Date.parse(f.plan.startsAt)}));expect(await env.DB.prepare('SELECT count(*) n FROM intelligence_observations WHERE experiment_id=?').bind(f.trialId).first<number>('n')).toBe(4);await waitUntil(f.plan.endsAt);
+ const conclusion=await concludeTrial(f.context(),{id:f.trialId,operationKey:'trial-local-conclude',expectedRevisionId:f.active.value.revisionId,instrumentationRevision:'caller-cannot-override'});expect(conclusion.value.outcome.classification).toBe(classification);expect(conclusion.value.outcome.instrumentation.state).toBe('unchanged');
+ const learned=await prepareLearnedSkill(f.context(),{id:f.trialId,operationKey:'trial-local-learn',expectedRevisionId:conclusion.value.methodRevision});expect(learned.value.state).toBe('draft');const definition=JSON.parse((await env.DB.prepare('SELECT definition_json FROM intelligence_skill_versions WHERE id=?').bind(learned.value.skillRevisionId).first<string>('definition_json'))!);expect(definition.instructions).toContain('Instrumentation changed');expect(definition.instructions).toContain('disconfirmed');expect(definition.instructions).toContain(f.plan.forecast);await expect(transitionSkill(f.context(),{operationKey:'trial-unevaluated-activation',revisionId:learned.value.skillRevisionId,action:'activate'})).rejects.toMatchObject({code:'EVALUATION_REQUIRED'});
+},30000);

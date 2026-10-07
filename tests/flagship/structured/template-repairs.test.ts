@@ -1,0 +1,44 @@
+import { test,expect } from "vitest";
+import { env } from "cloudflare:test";
+import { setup,databaseWith,field } from "./repair-fixture";
+import { seedPageGrant,seedContainer,seedContainerGrant } from "../../e2e/setup/fixtures";
+import { createRecord,saveField } from "../../../src/core/features/databases/service";
+import { updateRecord,openRecord } from "../../../src/core/features/databases/records";
+import { readPage,updatePage,createPage } from "../../../src/core/features/pages/service";
+import { readRevision } from "../../../src/core/features/versions/service";
+import { saveTemplate,previewTemplate,applyTemplate } from "../../../src/core/features/templates/service";
+import { uploadMedia,serveMedia } from "../../../src/core/features/media/service";
+test("DB-002 historical page, record and template properties remove current hidden relation IDs and counts",async()=>{
+ const {ctx,reader,containerId}=await setup();const db=await databaseWith(ctx,containerId,"privacy",[field("n","number")]);
+ let rev=await saveField(ctx,db.id,{operationKey:"privacy-rel",expectedRevisionId:db.revisionId,field:field("relation","relation",{databaseId:db.id})});
+ await saveField(ctx,db.id,{operationKey:"privacy-count",expectedRevisionId:rev.receipt.revisionId,field:field("count","rollup",{relationField:"relation",targetField:"n",calculation:"count"})});
+ const secret=await createRecord(ctx,db.id,{operationKey:"privacy-secret",title:"Secret",values:{n:10}});
+ const visible=await createRecord(ctx,db.id,{operationKey:"privacy-visible",title:"Visible",values:{relation:[secret.value.pageId]}});
+ await seedPageGrant(visible.value.pageId,{principalKind:"member",principalId:reader.actor.id,level:"edit"});
+ await env.DB.prepare("UPDATE pages SET access_inheritance='restricted',lifecycle='draft' WHERE id=?").bind(secret.value.pageId).run();
+ const template=await saveTemplate(ctx,{operationKey:"privacy-template",sourcePageId:visible.value.pageId,includeChildren:false,containerId:null,title:"Relations",description:"",category:""});
+ for(const result of [await readPage(reader,visible.value.pageId),await readRevision(reader,visible.value.pageId,visible.receipt.revisionId),await openRecord(reader,visible.value.pageId),await previewTemplate(reader,template.value.id)])expect(JSON.stringify(result)).not.toContain(secret.value.pageId);
+ const preview=await previewTemplate(reader,template.value.id);expect(preview.snapshot.properties.databaseFields).toMatchObject({relation:[],count:0});
+});
+test("TPL-001 template icon and file properties, including children, materialize independently for destination-only readers",async()=>{
+ const {ctx,reader,containerId}=await setup();const db=await databaseWith(ctx,containerId,"property-assets",[field("attachment","file")]);
+ const record=await createRecord(ctx,db.id,{operationKey:"property-assets-record",title:"Source",values:{}});
+ const icon=await uploadMedia(ctx,{operationKey:"property-assets-icon",pageId:record.value.pageId,name:"icon.txt",contentType:"text/plain",bytes:new TextEncoder().encode("icon retained")});
+ const attachment=await uploadMedia(ctx,{operationKey:"property-assets-file",pageId:record.value.pageId,name:"asset.txt",contentType:"text/plain",bytes:new TextEncoder().encode("property retained")});
+ let page=await readPage(ctx,record.value.pageId);
+ await updateRecord(ctx,record.value.pageId,{operationKey:"property-assets-values",expectedRevisionId:page.page.revisionId,values:{attachment:[attachment.value.id]}});
+ page=await readPage(ctx,record.value.pageId);
+ await updatePage(ctx,record.value.pageId,{operationKey:"property-assets-icon-set",expectedRevisionId:page.page.revisionId,properties:{icon:`file:${icon.value.id}`}});
+ const child=await createPage(ctx,{operationKey:"property-assets-child",containerId,parentPageId:record.value.pageId,title:"Child",properties:{icon:`file:${icon.value.id}`}});
+ const template=await saveTemplate(ctx,{operationKey:"property-assets-template",sourcePageId:record.value.pageId,includeChildren:true,containerId:null,title:"Assets",description:"",category:""});
+ for(const id of [icon.value.id,attachment.value.id]){const row=await env.DB.prepare("SELECT storage_key FROM files WHERE id=?").bind(id).first<{storage_key:string}>();await env.FILES.delete(row!.storage_key);await env.DB.prepare("UPDATE files SET deleted_at=? WHERE id=?").bind(ctx.now,id).run();}
+ const {containerId:destination}=await seedContainer(ctx.actor.workspaceId,{ownerMemberId:ctx.actor.id,visibility:"default"});
+ await seedContainerGrant(destination,{principalKind:"member",principalId:reader.actor.id,level:"view"});
+ const applied=await applyTemplate(ctx,template.value.id,{operationKey:"property-assets-apply",containerId:destination,expectedRevisionId:template.receipt.revisionId});
+ const result=await readPage(reader,applied.value.pageId);const newIcon=result.properties.icon!.slice(5),newFile=(result.properties.databaseFields!.attachment as string[])[0];
+ expect(newIcon).not.toBe(icon.value.id);expect(newFile).not.toBe(attachment.value.id);
+ expect(await(await serveMedia(reader,newIcon)).text()).toBe("icon retained");expect(await(await serveMedia(reader,newFile)).text()).toBe("property retained");
+ const children=await env.DB.prepare("SELECT id FROM pages WHERE parent_page_id=?").bind(applied.value.pageId).all<{id:string}>();expect(children.results).toHaveLength(1);
+ const copiedChild=await readPage(reader,children.results[0].id);const childIcon=copiedChild.properties.icon!.slice(5);expect(childIcon).not.toBe(newIcon);expect(await(await serveMedia(reader,childIcon)).text()).toBe("icon retained");
+ expect(child.value.pageId).not.toBe(children.results[0].id);
+});

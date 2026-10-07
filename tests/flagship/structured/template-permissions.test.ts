@@ -1,0 +1,37 @@
+import { env } from "cloudflare:test";
+import { test,expect } from "vitest";
+import { setup } from "./repair-fixture";
+import { seedContainerGrant,seedPageGrant,seedMember,seedContainer } from "../../e2e/setup/fixtures";
+import { createPage } from "../../../src/core/features/pages/service";
+import { saveTemplate,listTemplates,previewTemplate,applyTemplate } from "../../../src/core/features/templates/service";
+test("TMPL-003/005 current server capabilities distinguish manage, apply destinations, shipped copies and revoked access",async()=>{
+ const {ctx,reader,containerId}=await setup();
+ const source=await createPage(ctx,{operationKey:"capability-source",containerId,title:"Granted parent"});
+ const saved=await saveTemplate(ctx,{operationKey:"capability-template",sourcePageId:source.value.pageId,includeChildren:false,containerId,title:"Reusable",description:"",category:""});
+ await seedContainerGrant(containerId,{principalKind:"member",principalId:reader.actor.id,level:"view"});
+ const list=await listTemplates(reader,{containerId});
+ expect(list.items[0].permissions).toEqual({canManage:false,canApply:false,canDuplicate:true});
+ expect(list.applyDestinations).toEqual([]);
+ await expect(applyTemplate(reader,saved.value.id,{operationKey:"capability-denied",containerId,expectedRevisionId:saved.receipt.revisionId})).rejects.toMatchObject({status:404});
+ await seedPageGrant(source.value.pageId,{principalKind:"member",principalId:reader.actor.id,level:"edit"});
+ await seedContainer(ctx.actor.workspaceId,{ownerMemberId:ctx.actor.id,visibility:"personal",name:"Do not disclose this container"});
+ const preview=await previewTemplate(reader,saved.value.id);
+ expect(preview.permissions).toEqual({canManage:false,canApply:true,canDuplicate:true});
+ expect(preview.applyDestinations).toEqual([{containerId,parentPageId:source.value.pageId,label:"Inside Granted parent"}]);
+ expect(JSON.stringify(preview.applyDestinations)).not.toContain("Do not disclose");
+ const copy=await applyTemplate(reader,saved.value.id,{operationKey:"capability-apply",containerId,parentPageId:source.value.pageId,expectedRevisionId:saved.receipt.revisionId});expect(copy.value.pageId).toBeTruthy();
+ const owner=await previewTemplate(ctx,saved.value.id);expect(owner.permissions.canManage).toBe(true);
+ await env.DB.prepare("UPDATE knowledge_templates SET is_shipped=1 WHERE id=?").bind(saved.value.id).run();
+ expect((await previewTemplate(ctx,saved.value.id)).permissions).toMatchObject({canManage:false,canDuplicate:true});
+ await env.DB.prepare("DELETE FROM page_grants WHERE page_id=? AND principal_id=?").bind(source.value.pageId,reader.actor.id).run();
+ expect((await previewTemplate(reader,saved.value.id)).permissions.canApply).toBe(false);
+});
+test("TMPL-003 guest parent destinations do not require or expose a container index",async()=>{
+ const {ctx,containerId}=await setup();const {memberId}=await seedMember(ctx.actor.workspaceId,{role:"member",isGuest:true,email:`${ctx.actor.workspaceId}@template-guest.invalid`,displayName:"Guest"});
+ const guest={...ctx,actor:{...ctx.actor,id:memberId,role:"member" as const}};
+ const page=await createPage(ctx,{operationKey:"capability-guest-page",containerId,title:"Shared parent"});
+ await seedPageGrant(page.value.pageId,{principalKind:"member",principalId:memberId,level:"edit"});
+ const saved=await saveTemplate(ctx,{operationKey:"capability-guest-template",sourcePageId:page.value.pageId,includeChildren:false,containerId:null,title:"Shared template",description:"",category:""});
+ const preview=await previewTemplate(guest,saved.value.id);expect(preview.permissions.canApply).toBe(true);
+ expect(preview.applyDestinations).toEqual([{containerId,parentPageId:page.value.pageId,label:"Inside Shared parent"}]);
+});

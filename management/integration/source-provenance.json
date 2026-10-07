@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "sourceRepository": "just-every/slate",
+  "sourceFiles": {
+    "deploy/wrangler.template.toml": "e3dd4048e797e7d7b1be2f2c0bcde54c0541e0aaef76d9fc33e6b8cf79ec4638",
+    "src/server.ts": "b5b5365ebe2993595b7a66b057977690c39dc7b8c157b90a81257b24a47f4cd1",
+    "src/core/features/workspace/bootstrap.ts": "1c504e305aed6576acabac51fb6202f117b2b8050c800f199a2811c6870f886e",
+    "src/core/platform/config/runtime.ts": "cdd0929cbf9c4010ccb3515fcbd8b8ce357460ce6e57daf7b70aa3e8f06afe90",
+    "scripts/release/deployment-spec.mjs": "749d34c08618c9a925e52c210b79af9716cb3c67440d8b020b152720f0cd512c",
+    "migrations/core/0001_knowledge_foundation.sql": "88bb09f3c90f4741bc686f333fd765ca838ff6e96969d5182b292df0c4816c39",
+    "migrations/core/0002_core_runtime.sql": "34e5c0c5c9a3f4bb7364e649054a87ec8fe614bd469417e6e7c3412ba1e47346",
+    "migrations/core/0003_content_collaboration.sql": "534fe0d90d535c02a669c55591698b02520cd478c2bb3b87d74825154c71d1f7",
+    "migrations/core/0004_structured_work.sql": "0d7b125abce670a4c0ddc91ea1b6aabf01040d5b43ccf55d87deb4c6d9265b84",
+    "migrations/core/0005_discovery.sql": "30fdacd003ca45ae696e7a1f43295c7b5edcf832b5dd606127d256aa883657cf",
+    "migrations/core/0006_federation.sql": "82ce8833fa9c44896161d348ad8b6eab8de8a4eea7846965424d76b8ed9ff490",
+    "migrations/core/0007_intelligence.sql": "0aa93951924b7ec18aeb42c9fa9a4c8ce73130e556b64bc67dd25b731f943e95",
+    "migrations/core/0008_identity_mail_outbox.sql": "54081fa31f8455c807a8a30e92f4c36d6ba58c0cb7723cc44c6c80d85cbb0c41",
+    "migrations/core/0010_inquiry_runtime.sql": "c2902e39803be0cfc68ec08be664ecfde3757c3d942569c39d44e24634439c30",
+    "migrations/core/0011_core_qualification.sql": "62504724d2b837fc4c83582186dd0dc3a570cd53a32602f132e17f03fded2c44",
+    "migrations/core/0012_search_capacity.sql": "192154b7f46b994e8409870bfb03fc0c31a62543adc1d78da599e1f9a4edf139",
+    "migrations/core/0013_decision_layer.sql": "3478d3f0ae6afcdac150b5477d13c1a69e9da749c890624c12cf7cb5d03c697b",
+    "migrations/core/0014_publication_choices.sql": "b0e9592fb7e3439024766e843b9c12d4ed64debcbff5b06608e0e37b40550c26",
+    "migrations/core/0015_archive_nullable_position.sql": "3892580f32f9483c531919b0a405d032eee86a7a87ae7b9aa5b3caf0b491a10a",
+    "migrations/core/0016_portability_jobs.sql": "53ad45c8d187ab1f5442525f091d264b51879896dcf07abd4982acd9e62f4471",
+    "migrations/core/0017_inquiry_branch_admission.sql": "79b5952892b8f4d60c7eb36f8acd0c041503f0ee5a638ec5a40b692e7ad0e09a"
+  }
+}

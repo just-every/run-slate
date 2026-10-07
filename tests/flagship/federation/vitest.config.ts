@@ -1,0 +1,10 @@
+import path from 'node:path';
+import {readFile} from 'node:fs/promises';
+import {cloudflareTest,readD1Migrations} from '@cloudflare/vitest-pool-workers';
+import {tanstackStart} from '@tanstack/react-start/plugin/vite';
+import react from '@vitejs/plugin-react';
+import {defineConfig} from 'vitest/config';
+import {resolveVitestWranglerConfigPath} from '../../e2e/setup/wrangler-config.ts';
+const root=process.cwd();
+const migrations=await readD1Migrations(path.join(root,'migrations/core'));
+export default defineConfig({plugins:[cloudflareTest({miniflare:{bindings:{TEST_MIGRATIONS:migrations},serviceBindings:{TEST_IMPORT_FIXTURES:async(request)=>{const name=new URL(request.url).pathname.slice(1);const known=['notion-workspace-export.zip','confluence-space-export.zip','google-docs-download.docx'];const file=name==='word-government-impact-assessment.docx'?path.join(root,'tests/flagship/federation/fixtures',name):known.includes(name)?path.join(root,'tests/e2e/imports/fixtures/real',name):null;return file?new Response(await readFile(file)):new Response('Not found',{status:404});}}},wrangler:{configPath:resolveVitestWranglerConfigPath(root, 'flagship')}}),tanstackStart({prerender:{enabled:false,autoStaticPathsDiscovery:false,crawlLinks:false,failOnError:true}}),react()],test:{include:['tests/flagship/federation/**/*.test.ts'],setupFiles:['./tests/e2e/setup/apply-migrations.ts'],testTimeout:60000,expect:{requireAssertions:true}}});

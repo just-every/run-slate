@@ -1,0 +1,27 @@
+import {env} from 'cloudflare:test';
+import {test,expect,vi,afterEach} from 'vitest';
+import {fixture,answer,providerResponse} from './fixture';
+import {seedPage,seedPageGrant} from '../../e2e/setup/fixtures';
+import {createSkill,transitionSkill} from '../../../src/core/features/skills/service';
+import {prepareEvaluation,recordEvaluationAttention,recordEvaluationBaseline} from '../../../src/core/features/skills/evaluation-workflow';
+import {startRun} from '../../../src/core/features/runs/service';
+import {consumeIntelligenceJob} from '../../../src/core/features/runs/worker';
+import {requireRun,reauthorizeRun} from '../../../src/core/features/runs/repository';
+import {runView} from '../../../src/core/features/runs/view';
+import {saveGrant} from '../../../src/core/features/sharing/grants';
+import type {AppBindings} from '../../../src/core/app/types';
+afterEach(()=>vi.unstubAllGlobals());
+test('AI-013 SKILL-001 retained output and all resumed use include skill-only source closure after actual grant revocation',async()=>{
+ const f=await fixture(),containerId=(await env.DB.prepare('SELECT container_id FROM pages WHERE id=?').bind(f.page.pageId).first<string>('container_id'))!;
+ const source=await seedPage(containerId,{title:'Method-only source',authorMemberId:f.reader});const grant=await seedPageGrant(source.pageId,{principalKind:'member',principalId:f.owner,level:'full'});
+ await env.DB.prepare("INSERT INTO page_revisions(id,page_id,author_member_id,origin,content_hash,body_json,properties_json,created_at) VALUES(?,?,?,'autosave','test-method-source','[]','{}',?)").bind(source.workingRevisionId,source.pageId,f.reader,f.context().now).run();
+ const extra={kind:'page' as const,sourceId:source.pageId,revisionId:source.workingRevisionId};
+ const skill=await createSkill(f.context(),{operationKey:'retained-method-create',pageId:f.page.pageId,name:'Method with extra source',definition:{instructions:'Use the original handoff and the method-only source.',refs:[...f.refs,extra],audience:[f.owner],tools:['read-evidence'],effects:[],preconditions:['Both sources readable'],successTests:['The source is available.'],escalations:['Source denied'],maxCostMicros:1000000}});
+ const prepared=await prepareEvaluation(f.context(),skill.value.id,{operationKey:'retained-method-evaluate',expectedOutcome:'The source is available.'},{apiKey:'test-only'}),binding={...env,AI_API_KEY:'test-only'} as AppBindings;
+ vi.stubGlobal('fetch',async()=>providerResponse(answer));for(const runId of [prepared.candidateRunId,prepared.genericRunId])await consumeIntelligenceJob(binding,{kind:'intelligence.run',workspaceId:f.workspaceId,runId});
+ await recordEvaluationAttention(f.context(),prepared.id,{operationKey:'retained-method-attention',candidateOwnerSeconds:3,genericOwnerSeconds:4});expect(await recordEvaluationBaseline(f.context(),prepared.id,{operationKey:'retained-method-expert',result:'The source is available.',method:'Test-only current process',startedAt:prepared.startedAt,ownerSeconds:5,toolCostMicros:0})).toMatchObject({passed:true});
+ await transitionSkill(f.context(),{operationKey:'retained-method-activate',revisionId:skill.value.revisionId,action:'activate'});
+ const retained=await startRun(f.context(),{...f.ask,operationKey:'retained-subset-run',refs:f.refs,audience:[f.owner],skillRevisionId:skill.value.revisionId},{apiKey:'test-only'});await consumeIntelligenceJob(binding,{kind:'intelligence.run',workspaceId:f.workspaceId,runId:retained.value.id});const stored=await requireRun(f.context(),retained.value.id);expect(stored.status).toBe('completed');expect(JSON.parse(stored.refs_json)).toEqual(f.refs);
+ await saveGrant(f.context(),{operationKey:'retained-extra-revocation',targetKind:'page',targetId:source.pageId,id:grant.grantId,principalKind:'member',principalId:f.owner,level:'full',revoke:true});
+ await expect(runView(f.context(),retained.value.id)).rejects.toMatchObject({status:404});await expect(reauthorizeRun(f.context(),stored)).rejects.toMatchObject({status:404});
+});

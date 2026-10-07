@@ -1,0 +1,32 @@
+import { test, expect } from 'vitest';
+import { scenario, key, profile, textBlock } from './helpers';
+import { createPage, readPage, updatePage } from '../../../src/core/features/pages/service';
+import { publishPage } from '../../../src/core/features/lifecycle/service';
+import { archivePage, permanentDeletePage } from '../../../src/core/features/archive/service';
+import { saveGrant } from '../../../src/core/features/sharing/grants';
+
+test('LINK-003 LINK-004 LIFE-005 SHARE-007: current page mention states preserve published labels and hide inaccessible target metadata', async () => {
+    const { owner, reader, containerId } = await scenario();
+    await profile(owner, { 'page.lifecycle.v1': 'draft-then-publish' });
+    const target = await createPage(owner, { operationKey: key('target'), containerId, title: 'Mention draft' });
+    const id = target.value.pageId;
+    const source = await createPage(owner, { operationKey: key('source'), containerId, title: 'Mention host', lifecycle: 'live', blocks: [{ ...textBlock(key('mention'), 'Cached title'), content: { text: [{ text: 'Cached title', mention: { kind: 'page', id, label: 'Cached title' } }] } }] });
+    await saveGrant(owner, { operationKey: key('source-reader'), targetKind: 'page', targetId: source.value.pageId, principalKind: 'member', principalId: reader.actor.id, level: 'view' });
+    const mention = async (actor = owner) => (await readPage({ ...actor }, source.value.pageId)).mentions[id];
+    expect(await mention()).toEqual({ label: 'Mention draft', available: true, state: 'draft' });
+    expect(await mention(reader)).toEqual({ label: 'Restricted page', available: false, state: 'restricted' });
+    const scheduled = await publishPage(owner, id, { operationKey: key('schedule'), expectedRevisionId: target.receipt.revisionId, publishAt: new Date(Date.parse(owner.now) + 60000).toISOString() });
+    expect(await mention()).toEqual({ label: 'Mention draft', available: true, state: 'scheduled' });
+    const live = await publishPage(owner, id, { operationKey: key('publish'), expectedRevisionId: scheduled.receipt.revisionId });
+    await saveGrant(owner, { operationKey: key('target-reader'), targetKind: 'page', targetId: id, principalKind: 'member', principalId: reader.actor.id, level: 'view' });
+    expect(await mention(reader)).toEqual({ label: 'Mention draft', available: true, state: 'live' });
+    const edited = await updatePage(owner, id, { operationKey: key('edit'), expectedRevisionId: live.receipt.revisionId, properties: { title: 'Editor secret title' } });
+    expect((await mention()).label).toBe('Editor secret title');
+    expect((await mention(reader)).label).toBe('Mention draft');
+    await archivePage(owner, id, { operationKey: key('archive'), expectedRevisionId: edited.receipt.revisionId, action: 'archive' });
+    expect(await mention(reader)).toEqual({ label: 'Mention draft', available: true, state: 'archived' });
+    await archivePage(owner, id, { operationKey: key('trash'), expectedRevisionId: edited.receipt.revisionId, action: 'trash' });
+    expect(await mention(reader)).toEqual({ label: 'Mention draft', available: false, state: 'trashed' });
+    await permanentDeletePage(owner, id, { operationKey: key('delete'), confirmedPageIds: [id] });
+    expect(await mention(reader)).toMatchObject({ label: 'Deleted page', available: false, state: 'deleted', deletedAt: owner.now });
+});

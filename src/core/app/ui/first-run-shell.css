@@ -1,0 +1,15 @@
+.first-run-shell > .topbar {
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
+  min-height: 64px;
+  gap: 12px 24px;
+  padding: 16px 20px;
+}
+.first-run-shell > .topbar a,
+.first-run-shell > .topbar span {
+  overflow-wrap: anywhere;
+}
+.first-run-shell > .topbar > :last-child {
+  margin-left: auto;
+}

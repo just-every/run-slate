@@ -1,0 +1,23 @@
+import {env} from 'cloudflare:test';
+import {test,expect,vi,afterEach} from 'vitest';
+import {fixture} from './measured-fixture';
+import {startRun} from '../../../src/core/features/runs/service';
+import {connect} from '../../../src/core/features/connectors/service';
+import {previewNativeEffect,authorizeNativeEffect} from '../../../src/core/features/effects/native-proposal';
+import {dispatchEffect} from '../../../src/core/features/effects/service';
+import {revokeGrant} from '../../../src/core/features/effects/grants';
+afterEach(()=>vi.unstubAllGlobals());
+test('Exact native review derives source boundaries, refuses stale approval and content expansion, and revokes unsent work',async()=>{
+ const f=await fixture(),ctx={...f.context(),sourceSecret:'test-only-secret-for-native-proposal-32'},run=await startRun(f.context(),{...f.ask,kind:'procedure'},{apiKey:'test-only'});
+ const target='opportunities/example/handoffs/next',identity={protocol:'rer-delegation/1',provider:'orbit',installationId:'installation',accountId:'account',principalId:'native-owner',label:'Owner',grantId:'source-grant',expiresAt:'2099-01-01T00:00:00Z',scopes:['crm.evidence.read','crm.handoff.write'],targets:[target],capabilities:{readKinds:['crm.handoff'],operations:['orbit.handoff.upsert'],conditionalWrite:true,providerIdempotency:true,readBack:true,reconciliationAttribution:true}};
+ let revision='before',sends=0;
+ vi.stubGlobal('fetch',async(input:string|URL|Request)=>{const url=new URL(typeof input==='string'?input:input instanceof URL?input:input.url);if(url.pathname.endsWith('/identity'))return Response.json(identity);if(url.pathname.endsWith('/check'))return Response.json({provider:'orbit',installationId:'installation',accountId:'account',principalId:'native-owner',target,revision,observedAt:new Date().toISOString(),audience:{kind:'source-principals',principalIds:['native-owner']}});if(url.pathname.endsWith('/audience'))return Response.json({kind:'source-principals',principalIds:['native-owner'],audienceRevision:'audience'});sends++;throw Error('No source write is authorized by preview or approval');});
+ const c=await connect(ctx,{operationKey:'native-preview-connection',provider:'orbit',accountId:'account',token:'test-only',nativeConfig:{origin:'https://native.test',accountId:'account',clientId:'slate',allowLoopback:false}},ctx.sourceSecret);
+ const content={title:'Next step',description:'Approved handoff',assigneeId:null,dueAt:null,status:'open'},input={runId:run.value.id,connectionId:c.value.id,target,content};
+ const proposal=await previewNativeEffect(ctx,input);expect(proposal.expectedRevision).toBe('before');expect(proposal.audience).toEqual(expect.arrayContaining([f.owner,f.reader]));expect(proposal.sourceIds).toEqual([f.page.pageId]);expect(sends).toBe(0);
+ const approval={...input,operationKey:'approve-native-preview',expectedRevision:proposal.expectedRevision,expectedAudienceRevision:proposal.expectedAudienceRevision,expiresAt:'2099-01-01T00:00:00Z'};
+ revision='changed';await expect(authorizeNativeEffect(ctx,approval)).rejects.toMatchObject({code:'SOURCE_CHANGED'});expect(await env.DB.prepare('SELECT count(*) AS n FROM intelligence_grants').first<number>('n')).toBe(0);
+ revision='before';const authorized=await authorizeNativeEffect(ctx,approval);expect(authorized.state).toBe('prepared');expect(sends).toBe(0);
+ const grant=await env.DB.prepare('SELECT scope_json FROM intelligence_grants WHERE id=?').bind(authorized.grantId).first<{scope_json:string}>();expect(JSON.parse(grant!.scope_json)).toMatchObject({operations:['orbit.handoff.upsert'],targets:[target],conditions:{expectedRevision:'before',expectedAudienceRevision:'audience'},maxCostMicros:0});
+ await revokeGrant(ctx,{id:authorized.grantId,operationKey:'revoke-native-preview'});expect(await env.DB.prepare('SELECT state FROM intelligence_effects WHERE id=?').bind(authorized.effectId).first<string>('state')).toBe('cancelled');await expect(dispatchEffect(ctx,authorized.effectId)).rejects.toMatchObject({code:'GRANT_REQUIRED'});expect(sends).toBe(0);
+});

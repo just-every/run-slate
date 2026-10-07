@@ -1,0 +1,4 @@
+import type { EntityRef, JsonValue } from './common';
+export interface EvidenceRef { sourceId: string; sourceRevisionId: string; passageId?: string; observedAt: string; freshness: string; scope: string; authorityState: string }
+export interface EffectView { id: string; idempotencyKey: string; operation: string; target: EntityRef; intentAt: string; state: 'prepared' | 'dispatched' | 'uncertain' | 'confirmed' | 'failed' | 'cancelled'; receipt?: JsonValue; observedState?: JsonValue; confirmedAt?: string }
+export interface RunView { id: string; kind: string; status: 'queued' | 'running' | 'needs-review' | 'paused' | 'completed' | 'failed' | 'cancelled'; stage: string; skillRevisionId?: string; inputRefs: EvidenceRef[]; audience: string[]; pendingReason?: string; cost: number; completedEffects: EffectView[]; uncertainEffects: EffectView[]; availableActions: string[] }

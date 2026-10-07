@@ -1,0 +1,5 @@
+import type {AppBindings} from '../../app/types';
+import {audienceContext} from '../ai/evidence';
+import {completeEvaluation} from './evaluation-workflow';
+import {ApiProblem} from '../../app/problems';
+export async function scheduleEvaluations(env:AppBindings,now:string){const rows=await env.DB.prepare("SELECT id,workspace_id,owner_id FROM intelligence_evaluation_cases WHERE json_extract(execution_json,'$.expertRunId') IS NOT NULL AND json_extract(execution_json,'$.evaluationId') IS NULL AND json_extract(execution_json,'$.recoveryPausedAt') IS NULL LIMIT 30").all<{id:string;workspace_id:string;owner_id:string}>();for(const row of rows.results){const base={db:env.DB,files:env.FILES,jobs:env.JOBS,now,sourceSecret:env.CONNECTOR_CREDENTIALS_KEY,actor:{id:row.owner_id,workspaceId:row.workspace_id,workspaceName:'',displayName:'',email:'',initials:'',role:'member' as const}};try{await completeEvaluation(await audienceContext(base,row.owner_id),row.id,{apiKey:env.AI_API_KEY,localUrl:env.AI_LOCAL_URL,localToken:env.AI_LOCAL_TOKEN});}catch(error){if(!(error instanceof ApiProblem))throw error;}}}

@@ -1,0 +1,24 @@
+import {env} from 'cloudflare:test';
+import {test,expect,vi,afterEach} from 'vitest';
+import {fixture,document,reset} from '../authority/fixture';
+import {answer,providerResponse} from '../inquiry/fixture';
+import {bindings,deferred} from './fixture';
+import {recordRouteEvaluation} from '../../../src/core/features/ai/route-evaluation';
+import {setModelPolicy} from '../../../src/core/features/ai/model-policy';
+import {startRun,controlRun} from '../../../src/core/features/runs/service';
+import {consumeIntelligenceJob} from '../../../src/core/features/runs/worker';
+import {attemptView} from '../../../src/core/features/runs/attempt-view';
+import {exportWorkspace,restoreWorkspace} from '../../../src/core/features/portability/service';
+import type {RunRow} from '../../../src/core/features/ai/contracts';
+afterEach(()=>vi.unstubAllGlobals());
+test('real D1/R2 export restores unfinished attempt as historical evidence with no executable lease',async()=>{
+ await reset();const f=await fixture(),page=await document(f,'Attempt recovery source');await env.DB.prepare('UPDATE workspaces SET ai_enabled=1,ai_monthly_budget_micros=1000000 WHERE id=?').bind(f.workspaceId).run();
+ const evaluation=await recordRouteEvaluation(f.context(),{operationKey:'recovery-attempt-eval',provider:'openai',model:'test-only',task:'answer',cutoff:'2020-01-01T00:00:00.000Z',expiresAt:'2099-01-01T00:00:00.000Z',minimumFit:1,cases:[{caseId:'mechanics-only',heldOut:true,observedAt:f.context().now,passed:true,costMicros:1,elapsedMs:1,receipt:'not-model-quality',refs:[page.ref]}]});
+ await setModelPolicy(f.context(),{operationKey:'recovery-attempt-policy',policy:{attentionBudget:100,routes:[{provider:'openai',model:'test-only',role:'frontier',inputMicrosPerMillion:1000000,outputMicrosPerMillion:1000000,maxRunMicros:200000,monthlyMicros:1000000,tasks:['answer'],evaluationId:evaluation.value.id}]}});
+ const run=await startRun(f.context(),{operationKey:'recovery-attempt-start',pageId:page.id,question:'What is recorded?',kind:'answer',refs:[page.ref],audience:[f.owner],frontier:true,maxOutputTokens:100},{apiKey:'TEST-ONLY-NO-SEND'}),d=deferred();
+ const job={kind:'intelligence.run',workspaceId:f.workspaceId,runId:run.value.id},pending=consumeIntelligenceJob(bindings(),job);await d.ready;
+ const original=await env.DB.prepare('SELECT * FROM intelligence_stages WHERE run_id=?').bind(run.value.id).first();const exported=await exportWorkspace(f.context());const key=await env.DB.prepare('SELECT archive_key FROM federation_exports WHERE id=?').bind(exported.id).first<string>('archive_key');const bytes=new Uint8Array(await(await env.FILES.get(key!))!.arrayBuffer());
+ await controlRun(f.context(),{id:run.value.id,operationKey:'cleanup-old-execution',expectedRevisionId:run.value.revisionId,action:'cancel'});d.release(providerResponse(answer));await pending;
+ await reset();const target=await fixture();await restoreWorkspace(target.context(),bytes);expect(await env.DB.prepare('SELECT * FROM intelligence_stages WHERE run_id=?').bind(run.value.id).first()).toEqual(original);
+ const restored=(await env.DB.prepare('SELECT * FROM intelligence_runs WHERE id=?').bind(run.value.id).first<RunRow>())!;expect(restored.status).toBe('paused');expect(restored.lease_id).toBeNull();const view=await attemptView(env.DB,restored);expect(view.attempts[0].executionState).toBe('historical-unfinished');expect(view.attempts[0].detail?.knownCost).toBeNull();const fetch=vi.fn();vi.stubGlobal('fetch',fetch);await consumeIntelligenceJob(bindings(),job);expect(fetch).not.toHaveBeenCalled();
+});

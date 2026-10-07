@@ -1,0 +1,102 @@
+import { useState } from "react";
+import { useWorkspace } from "../../../../app/ui/WorkspaceContext";
+import { useResource } from "../../../../client/useResource";
+import {
+  mutate,
+  operationKey,
+  errorMessage,
+} from "../../../../client/transport";
+export interface Reaction {
+  id: string;
+  commentId: string | null;
+  emoji: string;
+  memberId: string;
+  displayName: string;
+}
+export function ReactionControls({
+  pageId,
+  commentId,
+  reactions,
+  onChanged,
+}: {
+  pageId: string;
+  commentId?: string;
+  reactions: Reaction[];
+  onChanged: () => void;
+}) {
+  const { member } = useWorkspace();
+  const [emoji, setEmoji] = useState("👍"),
+    [pending, setPending] = useState(false),
+    [error, setError] = useState<unknown>();
+  const current = reactions.filter(
+      (reaction) => (reaction.commentId ?? undefined) === commentId,
+    ),
+    mine = current.some(
+      (reaction) => reaction.memberId === member.id && reaction.emoji === emoji,
+    );
+  return (
+    <>
+      <ul aria-label="Reactions">
+        {current.map((reaction) => (
+          <li key={reaction.id}>
+            {reaction.emoji} {reaction.displayName}
+          </li>
+        ))}
+      </ul>
+      <div className="reaction-controls">
+        <label>
+          <span className="sr-only">Reaction emoji</span>
+          <select
+            value={emoji}
+            onChange={(event) => setEmoji(event.target.value)}
+          >
+            {["👍", "❤️", "🎉", "💡", "👀", "✅"].map((value) => (
+              <option key={value}>{value}</option>
+            ))}
+          </select>
+        </label>
+        <button
+          aria-label={
+            emoji === "👍" ? "React with thumbs up" : `React with ${emoji}`
+          }
+          aria-pressed={mine}
+          disabled={pending}
+          onClick={async () => {
+            setPending(true);
+            setError(undefined);
+            try {
+              await mutate(`/api/comments/page/${pageId}/reaction`, {
+                operationKey: operationKey(),
+                ...(commentId ? { commentId } : {}),
+                emoji,
+                remove: mine,
+              });
+              await onChanged();
+            } catch (cause) {
+              setError(cause);
+            } finally {
+              setPending(false);
+            }
+          }}
+        >
+          {mine ? "Remove" : "Add"} {emoji}
+        </button>
+      </div>
+      {error ? <p role="alert">{errorMessage(error)}</p> : null}
+    </>
+  );
+}
+export function PageReactions({ pageId }: { pageId: string }) {
+  const resource = useResource<{ reactions: Reaction[] }>(
+    `/api/comments/page/${pageId}`,
+  );
+  return resource.data ? (
+    <section aria-label="Page reactions">
+      <ReactionControls
+        pageId={pageId}
+        reactions={resource.data.reactions}
+        onChanged={resource.reload}
+      />
+    </section>
+  ) : null;
+}

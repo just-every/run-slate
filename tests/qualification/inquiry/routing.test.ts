@@ -1,0 +1,9 @@
+import {test,expect} from 'vitest';
+import {env} from 'cloudflare:test';
+import {fixture as unmeasured} from '../../flagship/intelligence/fixture';
+import {fixture} from './fixture';
+import {chooseRoute} from '../../../src/core/features/ai/model-policy';
+import {startRun} from '../../../src/core/features/runs/service';
+test('AI-014 INQ-004 all routes require exact measured fit; frontier bypass cannot use a fabricated evaluation ID',async()=>{const f=await unmeasured();await expect(startRun(f.context(),f.ask,{apiKey:'test-only'})).rejects.toMatchObject({code:'MODEL_ROUTE_UNQUALIFIED'});expect(await env.DB.prepare('SELECT count(*) n FROM intelligence_runs WHERE workspace_id=?').bind(f.workspaceId).first<number>('n')).toBe(0);});
+test('AI-014 INQ-004 measured task/model and explicit frontier bypass; expiry/revocation fail closed',async()=>{const f=await fixture();expect((await chooseRoute(f.context(),'routing',false)).route.role).toBe('fast');expect((await chooseRoute(f.context(),'routing',true)).route.role).toBe('frontier');await env.DB.prepare('UPDATE intelligence_route_evaluations SET revoked_at=? WHERE workspace_id=? AND task=? AND model=?').bind(f.context().now,f.workspaceId,'routing','measured-test-fast').run();await expect(chooseRoute(f.context(),'routing',false)).rejects.toMatchObject({code:'MODEL_ROUTE_UNQUALIFIED'});await env.DB.prepare("UPDATE intelligence_route_evaluations SET expires_at='2000-01-01T00:00:00.000Z' WHERE workspace_id=?").bind(f.workspaceId).run();await expect(chooseRoute(f.context(),'answer',true)).rejects.toMatchObject({code:'MODEL_ROUTE_UNQUALIFIED'});});
+test('AI-001 no provider preserves read/prepared state and never queues work',async()=>{const f=await fixture();await expect(startRun(f.context(),f.ask,{})).rejects.toMatchObject({code:'PROVIDER_UNAVAILABLE'});expect(await env.DB.prepare('SELECT count(*) n FROM intelligence_runs WHERE workspace_id=?').bind(f.workspaceId).first<number>('n')).toBe(0);});

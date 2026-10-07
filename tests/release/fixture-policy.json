@@ -1,0 +1,1011 @@
+{
+  "policy": "Synthetic public media and identities; genuine exporter package structures retained",
+  "archives": [
+    {
+      "path": "tests/e2e/imports/fixtures/real/confluence-space-export.zip",
+      "entries": [
+        {
+          "name": "bandana.csv.gz",
+          "compression": 8,
+          "bytes": 109
+        },
+        {
+          "name": "spaces.csv.gz",
+          "compression": 8,
+          "bytes": 391
+        },
+        {
+          "name": "spacepermissions.csv.gz",
+          "compression": 8,
+          "bytes": 20110
+        },
+        {
+          "name": "pagetemplates.csv.gz",
+          "compression": 8,
+          "bytes": 204
+        },
+        {
+          "name": "content.csv.gz",
+          "compression": 8,
+          "bytes": 3610
+        },
+        {
+          "name": "contentproperties.csv.gz",
+          "compression": 8,
+          "bytes": 1502
+        },
+        {
+          "name": "bodycontent.csv.gz",
+          "compression": 8,
+          "bytes": 34549
+        },
+        {
+          "name": "likes.csv.gz",
+          "compression": 8,
+          "bytes": 54
+        },
+        {
+          "name": "trackbacklinks.csv.gz",
+          "compression": 8,
+          "bytes": 122
+        },
+        {
+          "name": "links.csv.gz",
+          "compression": 8,
+          "bytes": 4977
+        },
+        {
+          "name": "usercontent_relation.csv.gz",
+          "compression": 8,
+          "bytes": 957
+        },
+        {
+          "name": "extrnlnks.csv.gz",
+          "compression": 8,
+          "bytes": 99
+        },
+        {
+          "name": "content_perm_set.csv.gz",
+          "compression": 8,
+          "bytes": 55
+        },
+        {
+          "name": "content_perm.csv.gz",
+          "compression": 8,
+          "bytes": 102
+        },
+        {
+          "name": "content_label.csv.gz",
+          "compression": 8,
+          "bytes": 224
+        },
+        {
+          "name": "label.csv.gz",
+          "compression": 8,
+          "bytes": 168
+        },
+        {
+          "name": "content_relation.csv.gz",
+          "compression": 8,
+          "bytes": 125
+        },
+        {
+          "name": "notifications.csv.gz",
+          "compression": 8,
+          "bytes": 580
+        },
+        {
+          "name": "os_propertyentry.csv.gz",
+          "compression": 8,
+          "bytes": 210
+        },
+        {
+          "name": "content_data_classification_mapping.csv.gz",
+          "compression": 8,
+          "bytes": 135
+        },
+        {
+          "name": "templateproperties.csv.gz",
+          "compression": 8,
+          "bytes": 113
+        },
+        {
+          "name": "content_permissions.csv.gz",
+          "compression": 8,
+          "bytes": 1220
+        },
+        {
+          "name": "content_restriction_states.csv.gz",
+          "compression": 8,
+          "bytes": 142
+        },
+        {
+          "name": "spaceroles.csv.gz",
+          "compression": 8,
+          "bytes": 378
+        },
+        {
+          "name": "spacerole_permissions.csv.gz",
+          "compression": 8,
+          "bytes": 5519
+        },
+        {
+          "name": "spacerole_assignments.csv.gz",
+          "compression": 8,
+          "bytes": 1242
+        },
+        {
+          "name": "user_mapping.csv.gz",
+          "compression": 8,
+          "bytes": 5938
+        },
+        {
+          "name": "AO_BAF3AA_AOINLINE_TASK.csv.gz",
+          "compression": 8,
+          "bytes": 5567
+        },
+        {
+          "name": "AO_187CCC_SIDEBAR_LINK.csv.gz",
+          "compression": 8,
+          "bytes": 138
+        },
+        {
+          "name": "AO_950DC3_TC_SUBCALS_IN_SPACE.csv.gz",
+          "compression": 8,
+          "bytes": 30
+        },
+        {
+          "name": "AO_950DC3_TC_SUBCALS.csv.gz",
+          "compression": 8,
+          "bytes": 144
+        },
+        {
+          "name": "AO_950DC3_TC_EVENTS.csv.gz",
+          "compression": 8,
+          "bytes": 201
+        },
+        {
+          "name": "AO_950DC3_TC_EVENTS_EXCL.csv.gz",
+          "compression": 8,
+          "bytes": 31
+        },
+        {
+          "name": "AO_950DC3_TC_EVENTS_INVITEES.csv.gz",
+          "compression": 8,
+          "bytes": 24
+        },
+        {
+          "name": "AO_950DC3_TC_REMINDER_USERS.csv.gz",
+          "compression": 8,
+          "bytes": 29
+        },
+        {
+          "name": "AO_950DC3_TC_REMINDER_SETTINGS.csv.gz",
+          "compression": 8,
+          "bytes": 72
+        },
+        {
+          "name": "AO_950DC3_TC_JIRA_REMI_EVENTS.csv.gz",
+          "compression": 8,
+          "bytes": 146
+        },
+        {
+          "name": "AO_950DC3_TC_SUBCALS_PRIV_GRP.csv.gz",
+          "compression": 8,
+          "bytes": 45
+        },
+        {
+          "name": "AO_950DC3_TC_SUBCALS_PRIV_USR.csv.gz",
+          "compression": 8,
+          "bytes": 34
+        },
+        {
+          "name": "AO_950DC3_TC_SUBCALS_PROPS.csv.gz",
+          "compression": 8,
+          "bytes": 30
+        },
+        {
+          "name": "AO_950DC3_TC_CUSTOM_EV_TYPES.csv.gz",
+          "compression": 8,
+          "bytes": 46
+        },
+        {
+          "name": "AO_950DC3_TC_DISABLE_EV_TYPES.csv.gz",
+          "compression": 8,
+          "bytes": 30
+        },
+        {
+          "name": "templateattachments.csv.gz",
+          "compression": 8,
+          "bytes": 109
+        },
+        {
+          "name": "templateattachmentproperties.csv.gz",
+          "compression": 8,
+          "bytes": 36
+        },
+        {
+          "name": "space_alias.csv.gz",
+          "compression": 8,
+          "bytes": 345
+        },
+        {
+          "name": "space_owner.csv.gz",
+          "compression": 8,
+          "bytes": 149
+        },
+        {
+          "name": "whiteboardContentIds.csv.gz",
+          "compression": 8,
+          "bytes": 161
+        },
+        {
+          "name": "space_export_counts.csv.gz",
+          "compression": 8,
+          "bytes": 582
+        },
+        {
+          "name": "exportDescriptor.properties.gz",
+          "compression": 8,
+          "bytes": 852
+        },
+        {
+          "name": "whiteboards/data/whiteboardExport_1.csv",
+          "compression": 8,
+          "bytes": 20189
+        }
+      ],
+      "sha256": "e2e8caaf19ab3edb9c3375608d562412ab5e11fc3248f4e93e7858c9de72363a",
+      "semanticExternalUrls": []
+    },
+    {
+      "path": "tests/e2e/imports/fixtures/real/google-docs-download.docx",
+      "entries": [
+        {
+          "name": "word/numbering.xml",
+          "compression": 8,
+          "bytes": 1690
+        },
+        {
+          "name": "word/settings.xml",
+          "compression": 8,
+          "bytes": 2152
+        },
+        {
+          "name": "word/fontTable.xml",
+          "compression": 8,
+          "bytes": 1719
+        },
+        {
+          "name": "word/styles.xml",
+          "compression": 8,
+          "bytes": 5421
+        },
+        {
+          "name": "word/document.xml",
+          "compression": 8,
+          "bytes": 2877
+        },
+        {
+          "name": "word/_rels/document.xml.rels",
+          "compression": 8,
+          "bytes": 812
+        },
+        {
+          "name": "_rels/.rels",
+          "compression": 8,
+          "bytes": 298
+        },
+        {
+          "name": "word/theme/theme1.xml",
+          "compression": 8,
+          "bytes": 7643
+        },
+        {
+          "name": "[Content_Types].xml",
+          "compression": 8,
+          "bytes": 1172
+        }
+      ],
+      "sha256": "3d0500a282d90ad5a4d50456f80322dc966b10736f89dee7f856220bc93f5b1f",
+      "semanticExternalUrls": []
+    },
+    {
+      "path": "tests/e2e/imports/fixtures/real/notion-workspace-export.zip",
+      "entries": [
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Goals HQ \ud83c\udfaf f30f3f0b03175179a870f33f514815b9.md",
+          "compression": 8,
+          "bytes": 325
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Goals HQ \ud83c\udfaf/Goals 859eeb372f8a5334b7bb55c94970436a_all.csv",
+          "compression": 8,
+          "bytes": 134
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List 90918c3e42525a25947ec341d22487a9.md",
+          "compression": 8,
+          "bytes": 96
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List aa21ecf10a32524485ac3ecedf18d743_all.csv",
+          "compression": 8,
+          "bytes": 579
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Home 0d6f7f213d6b566cb1652d25ee482dc6.md",
+          "compression": 8,
+          "bytes": 284
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler d23a62794fee5e61b1429d8e3870a360.md",
+          "compression": 8,
+          "bytes": 1301
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Copy_of_misty_thinking_glitch.png",
+          "compression": 8,
+          "bytes": 2892963,
+          "image": {
+            "format": "PNG",
+            "width": 3000,
+            "height": 3000,
+            "bytes": 2892963,
+            "sha256": "c80e354bcf06a4f8001ac31c7b355f865950902f877d7d385a5a3c60393ad694"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Domains f982139c3a4e5c3cbdf00d1bb12d3933_all.csv",
+          "compression": 8,
+          "bytes": 276
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Topics eb8a07e4a23a5c9694d80f1430967d8a_all.csv",
+          "compression": 8,
+          "bytes": 128
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Library 6eafd60e5af8507d9ce434ea75a2bd67.md",
+          "compression": 8,
+          "bytes": 68
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/People 2ffc24c322df5bb3a654db15c25130e4.md",
+          "compression": 8,
+          "bytes": 119
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/People 2ffc24c322df5bb3a654db15c25130e4_all.csv",
+          "compression": 8,
+          "bytes": 61
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Goals HQ \ud83c\udfaf/Goals/Waaaaaaah e6b3445b5d3e5eb0a7dd32fcb07986cd.md",
+          "compression": 8,
+          "bytes": 11
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Goals HQ \ud83c\udfaf/Goals/Cry b35b57b054c3550fb787bdb89a6543d5.md",
+          "compression": 8,
+          "bytes": 26
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Goals HQ \ud83c\udfaf/Goals/Eat more pizza 6576adf214d157c89b87cbd372a25a89.md",
+          "compression": 8,
+          "bytes": 30
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Goals HQ \ud83c\udfaf/Goals/Eat pizza 38591183762c5c06a351f4ecdafb9fcd.md",
+          "compression": 8,
+          "bytes": 25
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Goals HQ \ud83c\udfaf/Goals/Lose weight 2b112f9091c25f70bb390254a282b72f.md",
+          "compression": 8,
+          "bytes": 34
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/Click the blue New button to add a task 9614e218e3cc55e396aec91a7998e41d.md",
+          "compression": 8,
+          "bytes": 106
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/Check the box to mark items as done b34fc96517135047943ff7578011bd3e.md",
+          "compression": 8,
+          "bytes": 95
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/Click me to see even more detail 6507441bb21851959bf7d7f9b9f3e864.md",
+          "compression": 8,
+          "bytes": 1024
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/See finished items in the \u201cDone\u201d view 534ecb2c6aa851db92ef18c75c36af49.md",
+          "compression": 8,
+          "bytes": 403
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/See finished items in the \u201cDone\u201d view/image.png",
+          "compression": 8,
+          "bytes": 205864,
+          "image": {
+            "format": "PNG",
+            "width": 2995,
+            "height": 1685,
+            "bytes": 205864,
+            "sha256": "cfea3b5136bafa29b47e4d657ad0069b8a001df6e0a3c80f1906145a2a08561b"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/Click me to learn how to see your content your way ee547b617c6f586eb9418890f4a869e1.md",
+          "compression": 8,
+          "bytes": 867
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/Click me to learn how to see your content your way/image.png",
+          "compression": 8,
+          "bytes": 169960,
+          "image": {
+            "format": "PNG",
+            "width": 1911,
+            "height": 1381,
+            "bytes": 169960,
+            "sha256": "99db3a505772eeb9229cfa46f30c16d87d0bab00d98b756247467334bb94139b"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/Click me to learn how to see your content your way/image 1.png",
+          "compression": 8,
+          "bytes": 171006,
+          "image": {
+            "format": "PNG",
+            "width": 2203,
+            "height": 1336,
+            "bytes": 171006,
+            "sha256": "42ba7db3ae1484c4a26ea28266f9ba2207c033c70b58ca567d4ca0c42cbd5312"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/Click me to learn how to see your content your way/image 2.png",
+          "compression": 8,
+          "bytes": 253950,
+          "image": {
+            "format": "PNG",
+            "width": 2880,
+            "height": 1664,
+            "bytes": 253950,
+            "sha256": "8ac2e1bcc8bdc9b28245938fe18470b2ccd9cf7cccb07726135e71b86c56fc19"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/Click the due date to change it dac57493c8f657e2a13932fc006c1337.md",
+          "compression": 8,
+          "bytes": 98
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/Click me to learn how to hide checked items 01e2e21c7ebf5dbd81c12c9461f0b30a.md",
+          "compression": 8,
+          "bytes": 900
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/Click me to learn how to hide checked items/image.png",
+          "compression": 8,
+          "bytes": 188699,
+          "image": {
+            "format": "PNG",
+            "width": 2467,
+            "height": 1496,
+            "bytes": 188699,
+            "sha256": "a52d6efd8c638f9eda2cbd462a11b0a7d3e3f179d1ecded10a4a8b016d84d962"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/Click me to learn how to hide checked items/image 1.png",
+          "compression": 8,
+          "bytes": 220851,
+          "image": {
+            "format": "PNG",
+            "width": 2673,
+            "height": 1475,
+            "bytes": 220851,
+            "sha256": "2e13fabbc89469d08065263f7e51657110d4a27d2bc0556945b46d9030817447"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/Click me to learn how to hide checked items/image 2.png",
+          "compression": 8,
+          "bytes": 181651,
+          "image": {
+            "format": "PNG",
+            "width": 2676,
+            "height": 1511,
+            "bytes": 181651,
+            "sha256": "070781263040edfc082ccea95dff460d43a19fd4595b5bfd9e16220330705596"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/Basdfsadf d4ec316c774055b08e3643da607628fe.md",
+          "compression": 8,
+          "bytes": 47
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Home/My Tasks bbfc40a31d735686aff30844a24f3ad1.md",
+          "compression": 8,
+          "bytes": 73
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Home/Home views e9d93ba58c585e33b8f0a5b32dddfd26.md",
+          "compression": 8,
+          "bytes": 79
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/manual c04b15e110da529aa74fd79a88362912.md",
+          "compression": 8,
+          "bytes": 4041
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/manual/6d419adf-1bc6-59f8-802f-5088fe8dd04f_4_5005_c.jpeg",
+          "compression": 8,
+          "bytes": 28310,
+          "image": {
+            "format": "JPEG",
+            "width": 360,
+            "height": 360,
+            "bytes": 28310,
+            "sha256": "7a121ee73028fc4f146bc50aad4d25a3358b10378c8ffab4b8ab34bb2c2694aa"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/manual/Screen_Shot_2022-09-20_at_12.56.33_PM.png",
+          "compression": 8,
+          "bytes": 34398,
+          "image": {
+            "format": "PNG",
+            "width": 1196,
+            "height": 262,
+            "bytes": 34398,
+            "sha256": "c478b254b7f72ab3d2f58bf99c5b4d6e015fb557859d895e9d141b66238be0ae"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/manual/Screen_Shot_2022-09-20_at_1.24.45_PM.png",
+          "compression": 8,
+          "bytes": 141316,
+          "image": {
+            "format": "PNG",
+            "width": 486,
+            "height": 195,
+            "bytes": 141316,
+            "sha256": "dc7e31ae6b3d3bae49a760a2eb4a11983cd995994c856846dfcc9899478868dd"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/manual/IMG_F267A44D038F-1.jpeg",
+          "compression": 8,
+          "bytes": 1382306,
+          "image": {
+            "format": "JPEG",
+            "width": 1125,
+            "height": 2436,
+            "bytes": 1382306,
+            "sha256": "54725fa4cd51cdb8f773abee6e122b6fac9ee9b72f3c2847937ea937f84fcff4"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/manual/Screenshot_2024-09-19_at_10.41.57_PM.png",
+          "compression": 8,
+          "bytes": 25932,
+          "image": {
+            "format": "PNG",
+            "width": 1209,
+            "height": 177,
+            "bytes": 25932,
+            "sha256": "3ee8ce029e77c1d551b34e5434c45fe274899cad4e0b5f0e3cb668451957196c"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Topics eb8a07e4a23a5c9694d80f1430967d8a.md",
+          "compression": 8,
+          "bytes": 111
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Domains f982139c3a4e5c3cbdf00d1bb12d3933.md",
+          "compression": 8,
+          "bytes": 72
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Migration 99ea03c81aaa59eb937a5ef58deeea8f.md",
+          "compression": 8,
+          "bytes": 354
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Migration/misty_thinking_glitch.png",
+          "compression": 8,
+          "bytes": 2892963,
+          "image": {
+            "format": "PNG",
+            "width": 3000,
+            "height": 3000,
+            "bytes": 2892963,
+            "sha256": "c80e354bcf06a4f8001ac31c7b355f865950902f877d7d385a5a3c60393ad694"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Untitled f982-3933_all.csv",
+          "compression": 8,
+          "bytes": 276
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Domains/physics 59fc970246c85d7ca72cd83a5a8e91da.md",
+          "compression": 8,
+          "bytes": 2846
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Untitled 97c1-d418_all.csv",
+          "compression": 8,
+          "bytes": 128
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Domains/Untitled bb66030ffa955084b71a2e0ea9672df7.md",
+          "compression": 8,
+          "bytes": 105
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Domains/writing d3fc57b97e4a548ba0cdc44b600a73cc.md",
+          "compression": 8,
+          "bytes": 104
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Domains/music 431323fc54615d3b9cb43e26d1d973d4.md",
+          "compression": 8,
+          "bytes": 275
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Topics/asdfasdf 84d5b1feac43513ebd0706e154eb2b4d.md",
+          "compression": 8,
+          "bytes": 102
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Topics/Untitled e87c771cb1575fbc9e55f9d594e05983.md",
+          "compression": 8,
+          "bytes": 349
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Topics/Untitled/misty_thinking_glitch.png",
+          "compression": 8,
+          "bytes": 2892963,
+          "image": {
+            "format": "PNG",
+            "width": 3000,
+            "height": 3000,
+            "bytes": 2892963,
+            "sha256": "c80e354bcf06a4f8001ac31c7b355f865950902f877d7d385a5a3c60393ad694"
+          }
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Topics/Untitled 1d7222299e825b42923b565da728d7f3.md",
+          "compression": 8,
+          "bytes": 346
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/Study Scheduler/Topics/Untitled 657f91f78bcd575faebfbe8eba809dfc.md",
+          "compression": 8,
+          "bytes": 343
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/People/Alex 381924b7cb385a2b93b6bd99ffe6c545.md",
+          "compression": 8,
+          "bytes": 77
+        },
+        {
+          "name": "Export-55d2240a-3a3f-5664-9fe5-317cd2c6e129/To Do List/Todo List/Click me to see even more detail/Example sub-page 925dcac1a06854b8ba192662b98382d5.md",
+          "compression": 8,
+          "bytes": 18
+        }
+      ],
+      "sha256": "315ed82a80abf502d2a01ec7abf2ee9ca5a10919db6964ee0cd2fada910dccbc",
+      "semanticExternalUrls": [
+        "https://app.notion.com/p/0c9c05c43e725a1f81379c77cff1bc87?pvs=21",
+        "https://app.notion.com/p/14ed966cd81b5ba4a7b735bb998aedad?pvs=21",
+        "https://app.notion.com/p/18c3d39e8be55a6da92504874dda3593?pvs=21",
+        "https://app.notion.com/p/197d7218947155e7905099ebd184e315?pvs=21",
+        "https://app.notion.com/p/1afa72ac5f9555d18acb6c0e41afde2b?pvs=21",
+        "https://app.notion.com/p/1bfa758085375a99b523e7036e5d8a2f?pvs=21",
+        "https://app.notion.com/p/2a0f29047ce45ca69d2f3fbc22dc827e?pvs=21",
+        "https://app.notion.com/p/2c94f45c1bb754c8846faebe28a78298?pvs=21",
+        "https://app.notion.com/p/3aa1b86fca5053dea6d7482f1fcf94f2?pvs=21",
+        "https://app.notion.com/p/3c6320698d4c5c0c9b2f9a244fbc68f8?pvs=21",
+        "https://app.notion.com/p/53a9de4f13c7553e896b67f5b4dfb522?pvs=21",
+        "https://app.notion.com/p/6601189017c25858bd898c9f24de0c84?pvs=21",
+        "https://app.notion.com/p/74fbf59fdede5e8793a1b4f00ceb61d5?pvs=21",
+        "https://app.notion.com/p/7dcd237f2fae5782b7ce8eab1f05c757?pvs=21",
+        "https://app.notion.com/p/7e3d5d57281d5e2cad192c4a85e615e4?pvs=21",
+        "https://app.notion.com/p/7f12b174cf115e4996a43755629feea6?pvs=21",
+        "https://app.notion.com/p/7f329eeb23f855779362842eae0ee735?pvs=21",
+        "https://app.notion.com/p/8edcfca39c045f769c0aa2e745afc359?pvs=21",
+        "https://app.notion.com/p/936c304a885b580d82d066ba5de9c2df?pvs=21",
+        "https://app.notion.com/p/97265ab3c7e15ad0b5a61c666c3b3135?pvs=21",
+        "https://app.notion.com/p/a1d78b50d904551d80c85411a873958b?pvs=21",
+        "https://app.notion.com/p/a8bb5bd786b555c9b94e9fd06234feb6?pvs=21",
+        "https://app.notion.com/p/acde0727fa4e5450843027f6bf470ddb?pvs=21",
+        "https://app.notion.com/p/b1a263d1453a57e89c4c41ea16fb69d4?pvs=21",
+        "https://app.notion.com/p/c2a3e2d6b72d5b509149a6ecd8d18f9e?pvs=21",
+        "https://app.notion.com/p/c6115d7eca35567fb137c96d7804c542?pvs=21",
+        "https://app.notion.com/p/d1adfc9d89ea54d0bcd951ca50e861bc?pvs=21",
+        "https://app.notion.com/p/d372ef63b7fb5c188f8303c7aedc0a30?pvs=21",
+        "https://app.notion.com/p/df19609253305824b6d9448a91526e94?pvs=21",
+        "https://app.notion.com/p/e0fd723936d853dd91968c94481cf816?pvs=21",
+        "https://app.notion.com/p/e22eced963295ac1a2f2445ad33b9096?pvs=21",
+        "https://app.notion.com/p/e3214d43b59d5daaa7b77ea3b7d1765e?pvs=21",
+        "https://app.notion.com/p/ea20111c2bc55361a517a6a8401b1004?pvs=21",
+        "https://app.notion.com/p/f4f06cec502f51449a77efe7dfa1b2f1?pvs=21",
+        "https://app.notion.com/p/fe09f3f8cb7e518194a3fd130d5cc13f?pvs=21"
+      ]
+    },
+    {
+      "path": "tests/flagship/federation/fixtures/word-government-impact-assessment.docx",
+      "entries": [
+        {
+          "name": "[Content_Types].xml",
+          "compression": 8,
+          "bytes": 4885
+        },
+        {
+          "name": "_rels/.rels",
+          "compression": 8,
+          "bytes": 737
+        },
+        {
+          "name": "word/document.xml",
+          "compression": 8,
+          "bytes": 348187
+        },
+        {
+          "name": "word/_rels/document.xml.rels",
+          "compression": 8,
+          "bytes": 7273
+        },
+        {
+          "name": "word/header2.xml",
+          "compression": 8,
+          "bytes": 4638
+        },
+        {
+          "name": "word/footer1.xml",
+          "compression": 8,
+          "bytes": 2766
+        },
+        {
+          "name": "word/footer2.xml",
+          "compression": 8,
+          "bytes": 3470
+        },
+        {
+          "name": "word/header3.xml",
+          "compression": 8,
+          "bytes": 2766
+        },
+        {
+          "name": "word/footer3.xml",
+          "compression": 8,
+          "bytes": 2766
+        },
+        {
+          "name": "word/header5.xml",
+          "compression": 8,
+          "bytes": 4558
+        },
+        {
+          "name": "word/header4.xml",
+          "compression": 8,
+          "bytes": 2766
+        },
+        {
+          "name": "word/footer6.xml",
+          "compression": 8,
+          "bytes": 2766
+        },
+        {
+          "name": "word/header6.xml",
+          "compression": 8,
+          "bytes": 2766
+        },
+        {
+          "name": "word/footer5.xml",
+          "compression": 8,
+          "bytes": 3469
+        },
+        {
+          "name": "word/footer4.xml",
+          "compression": 8,
+          "bytes": 2766
+        },
+        {
+          "name": "word/footnotes.xml",
+          "compression": 8,
+          "bytes": 3390
+        },
+        {
+          "name": "word/endnotes.xml",
+          "compression": 8,
+          "bytes": 3382
+        },
+        {
+          "name": "word/header1.xml",
+          "compression": 8,
+          "bytes": 2766
+        },
+        {
+          "name": "word/theme/theme1.xml",
+          "compression": 8,
+          "bytes": 7643
+        },
+        {
+          "name": "word/settings.xml",
+          "compression": 8,
+          "bytes": 42376
+        },
+        {
+          "name": "word/glossary/document.xml",
+          "compression": 8,
+          "bytes": 31837
+        },
+        {
+          "name": "word/glossary/settings.xml",
+          "compression": 8,
+          "bytes": 4664
+        },
+        {
+          "name": "word/glossary/_rels/document.xml.rels",
+          "compression": 8,
+          "bytes": 818
+        },
+        {
+          "name": "customXml/item1.xml",
+          "compression": 8,
+          "bytes": 6256
+        },
+        {
+          "name": "customXml/itemProps1.xml",
+          "compression": 8,
+          "bytes": 730
+        },
+        {
+          "name": "customXml/item2.xml",
+          "compression": 8,
+          "bytes": 289
+        },
+        {
+          "name": "customXml/itemProps2.xml",
+          "compression": 8,
+          "bytes": 341
+        },
+        {
+          "name": "customXml/item3.xml",
+          "compression": 8,
+          "bytes": 20426
+        },
+        {
+          "name": "customXml/item4.xml",
+          "compression": 8,
+          "bytes": 1681
+        },
+        {
+          "name": "word/webSettings.xml",
+          "compression": 8,
+          "bytes": 1849
+        },
+        {
+          "name": "word/styles.xml",
+          "compression": 8,
+          "bytes": 42057
+        },
+        {
+          "name": "word/numbering.xml",
+          "compression": 8,
+          "bytes": 77149
+        },
+        {
+          "name": "word/fontTable.xml",
+          "compression": 8,
+          "bytes": 4613
+        },
+        {
+          "name": "word/glossary/numbering.xml",
+          "compression": 8,
+          "bytes": 5531
+        },
+        {
+          "name": "word/glossary/styles.xml",
+          "compression": 8,
+          "bytes": 46444
+        },
+        {
+          "name": "word/glossary/webSettings.xml",
+          "compression": 8,
+          "bytes": 1069
+        },
+        {
+          "name": "word/glossary/fontTable.xml",
+          "compression": 8,
+          "bytes": 5568
+        },
+        {
+          "name": "customXml/itemProps5.xml",
+          "compression": 8,
+          "bytes": 335
+        },
+        {
+          "name": "docProps/core.xml",
+          "compression": 8,
+          "bytes": 827
+        },
+        {
+          "name": "docProps/app.xml",
+          "compression": 8,
+          "bytes": 992
+        },
+        {
+          "name": "docProps/custom.xml",
+          "compression": 8,
+          "bytes": 7201
+        },
+        {
+          "name": "customXml/item5.xml",
+          "compression": 8,
+          "bytes": 219
+        },
+        {
+          "name": "customXml/itemProps4.xml",
+          "compression": 8,
+          "bytes": 321
+        },
+        {
+          "name": "customXml/itemProps3.xml",
+          "compression": 8,
+          "bytes": 1393
+        },
+        {
+          "name": "customXml/_rels/item2.xml.rels",
+          "compression": 8,
+          "bytes": 296
+        },
+        {
+          "name": "customXml/_rels/item3.xml.rels",
+          "compression": 8,
+          "bytes": 296
+        },
+        {
+          "name": "customXml/_rels/item4.xml.rels",
+          "compression": 8,
+          "bytes": 296
+        },
+        {
+          "name": "customXml/_rels/item5.xml.rels",
+          "compression": 8,
+          "bytes": 296
+        },
+        {
+          "name": "customXml/_rels/item1.xml.rels",
+          "compression": 8,
+          "bytes": 296
+        }
+      ],
+      "sha256": "5a20cb7e75695db6972feae3ebbb7583ce8928c969805a26d9b6fbf623a6609c",
+      "semanticExternalUrls": [
+        "https://consult.defra.gov.uk/natural-environment-policy/consultation-on-environmental-targets/supporting_documents/Environment%20Targets%20Public%20Consultation.pdf",
+        "https://www.gov.uk/government/collections/rpc-case-histories",
+        "https://www.gov.uk/government/publications/better-regulation-framework",
+        "https://www.gov.uk/government/publications/competition-impact-assessment-guidelines-for-policymakers",
+        "https://www.gov.uk/government/publications/environmental-principles-policy-statement/draft-environmental-principles-policy-statement",
+        "https://www.gov.uk/government/publications/guide-to-making-legislation",
+        "https://www.gov.uk/government/publications/small-and-micro-business-assessment-samba-guidance",
+        "https://www.gov.uk/government/publications/the-green-book-appraisal-and-evaluation-in-central-governent/the-green-book-2020",
+        "https://www.gov.uk/government/publications/valuation-of-energy-use-and-greenhouse-gas-emissions-for-appraisal",
+        "https://www.gov.uk/guidance/enabling-a-natural-capital-approach-enca",
+        "https://www.gov.uk/guidance/trading-under-wto-rules"
+      ]
+    }
+  ]
+}

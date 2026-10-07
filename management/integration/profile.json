@@ -1,0 +1,21 @@
+{
+  "id": "slate",
+  "name": "slate",
+  "sourceRepository": "https://github.com/just-every/slate",
+  "artifactFile": "delivery-artifact/slate-worker-artifact.json",
+  "artifactNamePrefix": "slate-worker-",
+  "compiler": "management/integration",
+  "requiredPublicInputs": [
+    "SETUP_OWNER_EMAIL",
+    "MAIL_FROM"
+  ],
+  "ownerSetup": "The configured initial mailbox proves possession through Slate's native mail sign-in; bootstrapOwner creates the first workspace only when no workspace exists. RER does not insert a user or replace session authority.",
+  "providerSetup": [
+    "Verified native mail sender and MAIL_API_KEY",
+    "SESSION_SECRET retained independently of source; rotate with a session invalidation plan"
+  ],
+  "operationalGaps": [
+    "Live service registration/adoption and provider acceptance require separate verification",
+    "Same-original-store upgrade and recovery remains unqualified"
+  ]
+}

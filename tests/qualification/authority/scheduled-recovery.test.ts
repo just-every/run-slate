@@ -1,0 +1,34 @@
+import {env} from 'cloudflare:test';
+import {beforeEach,test,expect} from 'vitest';
+import {fixture,reset,document} from './fixture';
+import {previewPublication} from '../../../src/core/features/lifecycle/publication-preview';
+import {publishPage} from '../../../src/core/features/lifecycle/service';
+import {runContentJobs} from '../../../src/core/features/lifecycle/jobs';
+import {exportWorkspace,restoreWorkspace} from '../../../src/core/features/portability/service';
+import {decodeArchive} from '../../../src/core/features/portability/archive';
+
+beforeEach(reset);
+test('FLAG-004 — pending publication choices retain exact provenance while recovery cancels scheduled execution',async()=>{
+ const f=await fixture(),host=await document(f,'Retained publication choices'),ctx=f.context();
+ const page=await env.DB.prepare('SELECT revision_id,container_id FROM pages WHERE id=?').bind(host.id).first<{revision_id:string;container_id:string}>();
+ const due=new Date(Date.parse(ctx.now)+3600000).toISOString();
+ const choices={destination:{containerId:page!.container_id,parentPageId:null,treePosition:'0090'},generalAccess:{kind:'restricted' as const},publishAsMemberId:f.owner};
+ const input={expectedRevisionId:page!.revision_id,publishAt:due,label:'Retained future publication',...choices};
+ const unchanged=await env.DB.prepare('SELECT * FROM pages WHERE id=?').bind(host.id).first();
+ await expect(publishPage(ctx,host.id,{operationKey:'recovery-publication-without-preview',...input})).rejects.toMatchObject({code:'PUBLICATION_PREVIEW_CHANGED'});
+ expect(await env.DB.prepare('SELECT * FROM pages WHERE id=?').bind(host.id).first()).toEqual(unchanged);
+ expect(await env.DB.prepare('SELECT * FROM content_schedules WHERE page_id=?').bind(host.id).first()).toBeNull();
+ const preview=await previewPublication(ctx,host.id,input);
+ await publishPage(ctx,host.id,{operationKey:'recovery-publication-schedule',...input,previewFingerprint:preview.previewFingerprint});
+ const prior=await env.DB.prepare('SELECT * FROM content_schedules WHERE page_id=?').bind(host.id).first<Record<string,string|null>>();
+ expect(prior!.state).toBe('scheduled');expect(JSON.parse(prior!.publication_json!)).toMatchObject(choices);
+ const exported=await exportWorkspace(ctx),key=await env.DB.prepare('SELECT archive_key FROM federation_exports WHERE id=?').bind(exported.id).first<string>('archive_key'),bytes=new Uint8Array(await(await env.FILES.get(key!))!.arrayBuffer());
+ await reset();const target=await fixture();await restoreWorkspace(target.context(),bytes);
+ expect(await env.DB.prepare('SELECT * FROM content_schedules WHERE page_id=?').bind(host.id).first()).toEqual({...prior,state:'cancelled'});
+ const before=await env.DB.prepare('SELECT * FROM pages WHERE id=?').bind(host.id).first();
+ expect((await runContentJobs(env,new Date(Date.parse(due)+1000).toISOString())).schedules).toBe(0);
+ expect(await env.DB.prepare('SELECT * FROM pages WHERE id=?').bind(host.id).first()).toEqual(before);
+ const again=await exportWorkspace(f.context()),againKey=await env.DB.prepare('SELECT archive_key FROM federation_exports WHERE id=?').bind(again.id).first<string>('archive_key'),after=await decodeArchive(new Uint8Array(await(await env.FILES.get(againKey!))!.arrayBuffer()));
+ expect(after.manifest.tables.content_schedules).toEqual([{...prior,state:'cancelled'}]);
+ expect((await env.DB.prepare('PRAGMA foreign_key_check').all()).results).toEqual([]);
+});

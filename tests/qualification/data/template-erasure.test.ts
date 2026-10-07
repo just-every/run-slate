@@ -1,0 +1,32 @@
+import {env} from 'cloudflare:test';
+import {test,expect} from 'vitest';
+import {permanentlyEraseTemplate} from '../../../src/core/features/templates/erasure';
+import {changeTemplate,listTemplates} from '../../../src/core/features/templates/service';
+import {fixture,insert,canary} from './fixture';
+test('BASE-DATA-003 template erasure preserves soft restore and shared assets, and pending cleanup survives reload without personal text',async()=>{
+ const {ctx,workspaceId,page}=await fixture(),now=ctx.now,key='template-assets/data-erasure-unique',shared='template-assets/data-erasure-shared';await env.FILES.put(key,canary);await env.FILES.put(shared,canary);
+ const snapshot={title:canary,properties:{},blocks:[],children:[],assets:[{fileId:'fixture-file',storageKey:key,name:canary,contentType:'text/plain'},{fileId:'shared-file',storageKey:shared,name:canary,contentType:'text/plain'}]};
+ const seed=(id:string,value:unknown)=>insert('knowledge_templates',{id,workspace_id:workspaceId,title:canary,description:canary,category:canary,snapshot_json:JSON.stringify(value),created_at:now,updated_at:now,revision_id:id+'-revision'});
+ await seed('template-to-erase',snapshot);await seed('template-shared-control',{...snapshot,assets:[snapshot.assets[1]]});
+ await expect(permanentlyEraseTemplate(ctx,'template-to-erase',{operationKey:'template-unconfirmed',expectedRevisionId:'template-to-erase-revision',confirmed:false as never})).rejects.toMatchObject({code:'CONFIRM_ERASURE'});
+ await expect(permanentlyEraseTemplate(ctx,'template-to-erase',{operationKey:'template-not-deleted',expectedRevisionId:'template-to-erase-revision',confirmed:true})).rejects.toMatchObject({code:'NOT_DELETED'});
+ const soft=await changeTemplate(ctx,'template-to-erase',{operationKey:'template-soft-delete',expectedRevisionId:'template-to-erase-revision',action:'delete'});
+ const restored=await changeTemplate(ctx,'template-to-erase',{operationKey:'template-soft-restore',expectedRevisionId:soft.receipt.revisionId,action:'restore'});
+ const deleted=await changeTemplate(ctx,'template-to-erase',{operationKey:'template-soft-delete-again',expectedRevisionId:restored.receipt.revisionId,action:'delete'});
+ const files=new Proxy(env.FILES,{get(target,property){if(property==='delete')return async()=>{throw Error('Test-only outage');};const v=Reflect.get(target,property);return typeof v==='function'?v.bind(target):v;}});
+ await expect(permanentlyEraseTemplate({...ctx,files},'template-to-erase',{operationKey:'template-permanent-erase',expectedRevisionId:deleted.receipt.revisionId,confirmed:true})).rejects.toMatchObject({code:'ERASURE_PENDING'});
+ const pending=(await listTemplates(ctx,{state:'deleted'})).items.find(t=>t.id==='template-to-erase')!;expect(pending.title).toBe('Deleted template');expect(pending.erasurePending).toBe(1);expect(pending.permissions.canErase).toBe(true);expect(JSON.stringify(pending)).not.toContain(canary);
+ await permanentlyEraseTemplate(ctx,pending.id,{operationKey:'template-resume-after-reload',expectedRevisionId:pending.revisionId,confirmed:true});
+ expect(await env.FILES.get(key)).toBeNull();expect(await env.FILES.get(shared)).not.toBeNull();expect((await listTemplates(ctx,{state:'deleted'})).items.some(t=>t.id===pending.id)).toBe(false);
+ expect(await env.DB.prepare('SELECT title FROM pages WHERE id=?').bind(page.pageId).first()).toEqual({title:canary});
+ expect(await env.DB.prepare("SELECT count(*) n FROM activity_entries WHERE target_id=? AND action='templates.permanent-delete'").bind(pending.id).first()).toEqual({n:1});
+});
+test('BASE-DATA-003 template permanent erasure rejects shipped templates, stale revision and unauthorized callers',async()=>{
+ const {ctx,workspaceId,subject,page}=await fixture(),now=ctx.now,snapshot=JSON.stringify({title:canary,properties:{},blocks:[],children:[]});
+ for(const [id,isShipped] of [['shipped-template',1],['private-template',0]] as const)await insert('knowledge_templates',{id,workspace_id:workspaceId,container_id:page.containerId,title:canary,description:'',category:'test',snapshot_json:snapshot,is_shipped:isShipped,deleted_at:now,created_at:now,updated_at:now,revision_id:id+'-revision'});
+ await expect(permanentlyEraseTemplate(ctx,'shipped-template',{operationKey:'protected-shipped-erase',expectedRevisionId:'shipped-template-revision',confirmed:true})).rejects.toMatchObject({code:'SHIPPED_TEMPLATE'});
+ const {seedContainerGrant}=await import('../../e2e/setup/fixtures');await seedContainerGrant(page.containerId,{principalKind:'member',principalId:ctx.actor.id,level:'full'});
+ await expect(permanentlyEraseTemplate(ctx,'private-template',{operationKey:'protected-stale-erase',expectedRevisionId:'stale-revision',confirmed:true})).rejects.toMatchObject({code:'REVISION_CONFLICT'});
+ await expect(permanentlyEraseTemplate({...ctx,actor:{...ctx.actor,id:subject,role:'member'}},'private-template',{operationKey:'protected-denied-erase',expectedRevisionId:'private-template-revision',confirmed:true})).rejects.toThrow();
+ expect(await env.DB.prepare('SELECT snapshot_json FROM knowledge_templates WHERE id=?').bind('private-template').first()).toEqual({snapshot_json:snapshot});
+});

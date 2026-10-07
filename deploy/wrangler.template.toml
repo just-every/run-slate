@@ -1,0 +1,65 @@
+name = "__WORKER_NAME__"
+main = "./src/server.ts"
+compatibility_date = "2026-09-08"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+SLATE_PROFILE = "__SLATE_PROFILE__"
+ALLOW_LOOPBACK_DELEGATION = "false"
+HAPPYTOHELP_DELEGATION_ORIGIN = "__HAPPYTOHELP_DELEGATION_ORIGIN__"
+HAPPYTOHELP_DELEGATION_CLIENT_ID = "__HAPPYTOHELP_DELEGATION_CLIENT_ID__"
+HAPPYTOHELP_DELEGATION_ACCOUNT_ID = "__HAPPYTOHELP_DELEGATION_ACCOUNT_ID__"
+ORBIT_DELEGATION_ORIGIN = "__ORBIT_DELEGATION_ORIGIN__"
+ORBIT_DELEGATION_CLIENT_ID = "__ORBIT_DELEGATION_CLIENT_ID__"
+ORBIT_DELEGATION_ACCOUNT_ID = "__ORBIT_DELEGATION_ACCOUNT_ID__"
+APP_URL = "__APP_URL__"
+SETUP_OWNER_EMAIL = "__SETUP_OWNER_EMAIL__"
+MAIL_PROVIDER = "__MAIL_PROVIDER__"
+MAIL_FROM = "__MAIL_FROM__"
+PUBLIC_PAGE_HOST = "__PUBLIC_PAGE_HOST__"
+LINK_PREVIEWS_ENABLED = "__LINK_PREVIEWS_ENABLED__"
+AI_PROVIDER = "openai"
+GOOGLE_CLIENT_ID = "__GOOGLE_CLIENT_ID__"
+SLACK_CLIENT_ID = "__SLACK_CLIENT_ID__"
+GITHUB_CLIENT_ID = "__GITHUB_CLIENT_ID__"
+AI_ENABLED = "__AI_ENABLED__"
+AI_MODEL = "__AI_MODEL__"
+SSO_ENABLED = "__SSO_ENABLED__"
+IDENTITY_ISSUER_URL = "__IDENTITY_ISSUER_URL__"
+IDENTITY_CLIENT_ID = "__IDENTITY_CLIENT_ID__"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "__DATABASE_NAME__"
+database_id = "__DATABASE_ID__"
+migrations_dir = "./migrations/core"
+
+[[r2_buckets]]
+binding = "FILES"
+bucket_name = "__FILES_BUCKET__"
+
+[[queues.producers]]
+binding = "JOBS"
+queue = "__JOBS_QUEUE__"
+
+# No [assets] block. The Cloudflare Vite plugin generates the assets
+# configuration from the build output, `not_found_handling` stays unset so an
+# unknown path reaches the Worker instead of an application shell, and
+# `src/server.ts` owns routing from there.
+
+[[durable_objects.bindings]]
+name = "CONTENT_COLLABORATION"
+class_name = "ContentCollaboration"
+
+[[migrations]]
+tag = "v1-content-collaboration"
+new_sqlite_classes = ["ContentCollaboration"]
+
+[[queues.consumers]]
+queue = "__JOBS_QUEUE__"
+max_batch_size = 10
+max_batch_timeout = 5
+max_retries = 3
+
+[triggers]
+crons = ["* * * * *"]

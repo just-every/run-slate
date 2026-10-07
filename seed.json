@@ -1,0 +1,961 @@
+{
+  "id": "slate",
+  "name": "Slate",
+  "version": "0.1.0",
+  "maturity": "Core-wiki first-release candidate. Advanced flagship systems remain outside the first public release acceptance.",
+  "category": "knowledge",
+  "spine": {
+    "id": "knowledge",
+    "record": "a page in a tree in a container"
+  },
+  "replaces": [
+    {
+      "name": "Notion",
+      "edition": null
+    },
+    {
+      "name": "Confluence",
+      "edition": null
+    }
+  ],
+  "description": "A self-hosted core wiki for pages, containers, collaborative editing, comments, search, sharing, imports, and portable backup and restore.",
+  "scope": "One business, one workspace; complete inherited knowledge workspace plus all six journeys, full flagship and sustained inquiry. Requirements are not acceptance evidence.",
+  "capabilities": [
+    {
+      "id": "public-landing",
+      "description": "A buyer-configured owner identity plate at the public root with a sign-in action and an optional static credit.",
+      "clauses": [
+        "HOME-001"
+      ]
+    },
+    {
+      "id": "workspace-and-members",
+      "description": "One workspace with roles, groups, guests, invitations, an identity-provider adapter, settings, theme and first run, and visible sign-in and invitation mail delivery.",
+      "clauses": [
+        "WORK-001",
+        "WORK-003",
+        "WORK-006",
+        "WORK-007",
+        "WORK-008",
+        "WORK-009",
+        "WORK-010",
+        "WORK-011",
+        "WORK-012",
+        "WORK-013",
+        "WORK-014",
+        "WORK-015",
+        "MAIL-001",
+        "MAIL-002"
+      ]
+    },
+    {
+      "id": "editing-and-saving",
+      "description": "Durable save, revision conflicts, idempotent mutations, recovery and optional real co-editing with current access.",
+      "clauses": [
+        "SAVE-001",
+        "SAVE-002",
+        "SAVE-003",
+        "SAVE-004",
+        "SAVE-005",
+        "SAVE-006"
+      ]
+    },
+    {
+      "id": "the-page",
+      "description": "The primary record: identity that survives every move, creation, duplication, icon and cover, details and owner, favourite, watch, outline, present, display options, analytics and reactions.",
+      "clauses": [
+        "PAGE-001",
+        "PAGE-002",
+        "PAGE-003",
+        "PAGE-004",
+        "PAGE-005",
+        "PAGE-006",
+        "PAGE-007",
+        "PAGE-008",
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-013",
+        "PAGE-014"
+      ]
+    },
+    {
+      "id": "page-tree",
+      "description": "A nested tree per container with explicit ordering, a shared-with-me list, a per-container title filter, and create in place.",
+      "clauses": [
+        "TREE-001",
+        "TREE-002",
+        "TREE-003",
+        "TREE-004",
+        "TREE-005"
+      ]
+    },
+    {
+      "id": "page-body",
+      "description": "A block editor: typed reorderable blocks, inline text, the insert menu, Markdown shortcuts, mentions, structured blocks, task items, media, safe link cards and live content queries.",
+      "clauses": [
+        "BLOCK-001",
+        "BLOCK-002",
+        "BLOCK-003",
+        "BLOCK-004",
+        "BLOCK-005",
+        "BLOCK-006",
+        "BLOCK-007",
+        "BLOCK-008",
+        "BLOCK-009",
+        "BLOCK-010"
+      ]
+    },
+    {
+      "id": "page-lifecycle",
+      "description": "Draft, scheduled, live and unpublished-changes states over one model, a draft that is private whatever the profile, and a lifecycle profile that follows either incumbent.",
+      "clauses": [
+        "LIFE-001",
+        "LIFE-002",
+        "LIFE-003",
+        "LIFE-004",
+        "LIFE-005",
+        "LIFE-006",
+        "LIFE-007"
+      ]
+    },
+    {
+      "id": "sharing-and-access",
+      "description": "Grants to people, groups, containers and the workspace at four levels, inheritance and restriction, general access, guest invitations, immediate revocation and expiring grants.",
+      "clauses": [
+        "SHARE-001",
+        "SHARE-002",
+        "SHARE-003",
+        "SHARE-004",
+        "SHARE-005",
+        "SHARE-006",
+        "SHARE-007",
+        "SHARE-008"
+      ]
+    },
+    {
+      "id": "public-links",
+      "description": "Anonymous reading that takes two acts and an ungated container veto, a stored slug and theme, a chrome-free read view, no inherited publishing, indexing off by default, and immediate unpublish.",
+      "clauses": [
+        "WEB-001",
+        "WEB-002",
+        "WEB-003",
+        "WEB-004",
+        "WEB-005",
+        "WEB-006",
+        "WEB-007"
+      ]
+    },
+    {
+      "id": "versions",
+      "description": "Content-hashed immutable revisions, readable history, restore, compare, citations that resolve to the revision they name, version deletion, and a numbered or snapshot profile.",
+      "clauses": [
+        "REV-001",
+        "REV-002",
+        "REV-003",
+        "REV-004",
+        "REV-005",
+        "REV-006",
+        "REV-007"
+      ]
+    },
+    {
+      "id": "status-and-verification",
+      "description": "A workspace status vocabulary, one status per page, verification by someone who opened the revision, honest lapse, and an open-vocabulary or verification-only profile.",
+      "clauses": [
+        "STAT-001",
+        "STAT-002",
+        "STAT-003",
+        "STAT-004",
+        "STAT-005"
+      ]
+    },
+    {
+      "id": "comments",
+      "description": "Anchored and page threads, authorship-bound editing, mentions, anchors that survive edits, reactions, a discussions panel and resolve.",
+      "clauses": [
+        "COMM-001",
+        "COMM-002",
+        "COMM-003",
+        "COMM-004",
+        "COMM-005",
+        "COMM-006",
+        "COMM-007"
+      ]
+    },
+    {
+      "id": "archive-trash-and-deletion",
+      "description": "Archive with restore, a trash nothing leaves on a timer, and explicit permanent deletion with tombstones.",
+      "clauses": [
+        "ARCH-001",
+        "ARCH-002",
+        "ARCH-003",
+        "ARCH-004",
+        "ARCH-005",
+        "ARCH-006"
+      ]
+    },
+    {
+      "id": "containers",
+      "description": "Containers with visibility, grants and external-access switches, creation from a purpose, an index, their own settings shell, personal containers, bulk actions and an access profile.",
+      "clauses": [
+        "CONT-001",
+        "CONT-002",
+        "CONT-003",
+        "CONT-004",
+        "CONT-005",
+        "CONT-006",
+        "CONT-007",
+        "CONT-008",
+        "CONT-009"
+      ]
+    },
+    {
+      "id": "structured-records",
+      "description": "Databases in the same tree: typed fields, named views, layouts, filters, grouping, calculations, charts, structure locks, embedded views, and a record that is a page or a row.",
+      "clauses": [
+        "DB-001",
+        "DB-002",
+        "DB-003",
+        "DB-004",
+        "DB-005",
+        "DB-006",
+        "DB-007",
+        "DB-008",
+        "DB-009",
+        "DB-010",
+        "DB-011",
+        "DB-012"
+      ]
+    },
+    {
+      "id": "automation",
+      "description": "Rules that run as their actor, never exceed that member's access, keep a run log, are bounded against loops, and scope to a source, a container or the site.",
+      "clauses": [
+        "AUTO-001",
+        "AUTO-002",
+        "AUTO-003",
+        "AUTO-004",
+        "AUTO-005"
+      ]
+    },
+    {
+      "id": "search",
+      "description": "Ranked search over retained text with filters, freshness, a permission boundary that hides existence, container scope, honest empty results, and results without AI.",
+      "clauses": [
+        "SEARCH-001",
+        "SEARCH-002",
+        "SEARCH-003",
+        "SEARCH-004",
+        "SEARCH-005",
+        "SEARCH-006",
+        "SEARCH-007",
+        "SEARCH-008",
+        "SEARCH-009"
+      ]
+    },
+    {
+      "id": "personal-surfaces",
+      "description": "Home, recents, favourites, one navigation whose order is data, global create, and a touch client that edits rather than reads.",
+      "clauses": [
+        "NAV-001",
+        "NAV-002",
+        "NAV-003",
+        "NAV-004",
+        "NAV-005",
+        "NAV-006"
+      ]
+    },
+    {
+      "id": "notifications",
+      "description": "An in-app inbox for mentions, comments, watched pages, grants and lapsed verifications, and an optional chat destination that carries a link rather than content.",
+      "clauses": [
+        "NOTIF-001",
+        "NOTIF-002",
+        "NOTIF-003"
+      ]
+    },
+    {
+      "id": "activity",
+      "description": "An append-only, access-filtered timeline of member, automation and AI work that survives deletion of what it describes.",
+      "clauses": [
+        "ACT-001",
+        "ACT-002",
+        "ACT-003",
+        "ACT-004",
+        "ACT-005"
+      ]
+    },
+    {
+      "id": "templates",
+      "description": "A searchable gallery, honest previews, snapshot on use, custom templates, saving a page as one, and workspace or container scope.",
+      "clauses": [
+        "TMPL-001",
+        "TMPL-002",
+        "TMPL-003",
+        "TMPL-004",
+        "TMPL-005",
+        "TMPL-006"
+      ]
+    },
+    {
+      "id": "importers",
+      "description": "Rolled-back, reported, idempotent import jobs, one importer for each incumbent's own export, safe extraction, and document import into a page.",
+      "clauses": [
+        "IMP-001",
+        "IMP-002",
+        "IMP-003",
+        "IMP-004",
+        "IMP-005"
+      ]
+    },
+    {
+      "id": "portability",
+      "description": "A complete workspace export, referential restore, visible jobs, rebuilt search, an access boundary on import, atomic import, and page and container export.",
+      "clauses": [
+        "PORT-001",
+        "PORT-002",
+        "PORT-003",
+        "PORT-004",
+        "PORT-005",
+        "PORT-006",
+        "PORT-007"
+      ]
+    },
+    {
+      "id": "references-and-links",
+      "description": "Permanent URLs, tombstones, references that follow their target, and links that reveal nothing about a record the reader may not open.",
+      "clauses": [
+        "LINK-001",
+        "LINK-002",
+        "LINK-003",
+        "LINK-004"
+      ]
+    },
+    {
+      "id": "reviewed-ai",
+      "description": "Cited scoped AI, proposals or explicitly granted effects, durable staged runs and owner-bounded budgets with current requester/audience checks.",
+      "clauses": [
+        "AI-001",
+        "AI-002",
+        "AI-003",
+        "AI-004",
+        "AI-005",
+        "AI-006",
+        "AI-007",
+        "AI-008",
+        "AI-009",
+        "AI-010",
+        "AI-011",
+        "AI-012",
+        "AI-013",
+        "AI-014",
+        "AI-015",
+        "AI-016",
+        "AI-017"
+      ]
+    },
+    {
+      "id": "decisions",
+      "description": "A decision layer over a page: states, an editable proposal, an immutable accepted record with citations to revisions, a filterable log and review dates.",
+      "clauses": [
+        "DEC-001",
+        "DEC-002",
+        "DEC-003",
+        "DEC-004",
+        "DEC-005",
+        "DEC-006"
+      ]
+    },
+    {
+      "id": "flagship-sug",
+      "description": "Anchored suggestions; Resolve explicitly. Requirements pending acceptance.",
+      "clauses": [
+        "SUG-001",
+        "SUG-002"
+      ]
+    },
+    {
+      "id": "flagship-source",
+      "description": "Connector contract; Exact passages; Scoped claims and authority; Live observations; Revocation and deletion; Credential lifecycle. Requirements pending acceptance.",
+      "clauses": [
+        "SOURCE-001",
+        "SOURCE-002",
+        "SOURCE-003",
+        "SOURCE-004",
+        "SOURCE-005",
+        "SOURCE-006"
+      ]
+    },
+    {
+      "id": "flagship-skill",
+      "description": "Versioned procedure; Evaluation and activation; Version transitions. Requirements pending acceptance.",
+      "clauses": [
+        "SKILL-001",
+        "SKILL-002",
+        "SKILL-003"
+      ]
+    },
+    {
+      "id": "flagship-effect",
+      "description": "Durable effects; Consent and product custody; Impact and maintenance. Requirements pending acceptance.",
+      "clauses": [
+        "EFFECT-001",
+        "EFFECT-002",
+        "EFFECT-003"
+      ]
+    },
+    {
+      "id": "flagship-agent",
+      "description": "Semantic parity; Portable owner interfaces. Requirements pending acceptance.",
+      "clauses": [
+        "AGENT-001",
+        "AGENT-002"
+      ]
+    },
+    {
+      "id": "flagship-inq",
+      "description": "Open questions; Reproducible reasoning; Bounded planning; Routing and ambient discovery; Economical sustained work. Requirements pending acceptance.",
+      "clauses": [
+        "INQ-001",
+        "INQ-002",
+        "INQ-003",
+        "INQ-004",
+        "INQ-005"
+      ]
+    },
+    {
+      "id": "flagship-trial",
+      "description": "Predeclared comparison; Exposure and safety; Outcome classification; Reusable learning. Requirements pending acceptance.",
+      "clauses": [
+        "TRIAL-001",
+        "TRIAL-002",
+        "TRIAL-003",
+        "TRIAL-004"
+      ]
+    },
+    {
+      "id": "flagship-flag",
+      "description": "Complete product gate; Independent evidence; Value and held-out evaluation; Complete portable knowledge. Requirements pending acceptance.",
+      "clauses": [
+        "FLAG-001",
+        "FLAG-002",
+        "FLAG-003",
+        "FLAG-004"
+      ]
+    }
+  ],
+  "nonGoals": [
+    "Plan ladders, subscription trials, credits, seat counting, and in-product upgrade paths: one product with every feature on has nothing to gate.",
+    "A vendor product shelf, app switcher, or cross-product chrome from a suite this product is not part of.",
+    "A commercial marketplace or storefront of templates, apps, agents, or services; the extension surface ships and the shop does not.",
+    "Deep coupling to one issue tracker: an issue URL is a link card like any other.",
+    "A bundled screen recorder: a recording is a media block.",
+    "More than one workspace or tenant per deployment.",
+    "A native mobile application: the operator app is one responsive web application, and it edits rather than reads on touch."
+  ],
+  "externals": [
+    {
+      "id": "cloudflare-platform",
+      "required": true,
+      "why": "The supported deployment target supplies Worker compute, D1 records and search, R2 files and media, and Queues for import, export and automation jobs.",
+      "data": [
+        "Every page, record, comment, file and activity entry in the deployment",
+        "Member email addresses and session identifiers",
+        "Anonymous readers' requests to published pages"
+      ],
+      "adapters": []
+    },
+    {
+      "id": "resend-transactional-email",
+      "required": false,
+      "why": "Resend sends magic-link sign-in, member invitations and guest invitations through the mail.sender.v1 adapter; Cloudflare's owned primitives do not send email.",
+      "data": [
+        "The recipient's email address",
+        "The workspace name and the inviting member's display name",
+        "A single-use sign-in or invitation URL"
+      ],
+      "adapters": [
+        "mail.sender.v1"
+      ],
+      "requiredWhen": "MAIL_PROVIDER=resend (default)"
+    },
+    {
+      "id": "ai-inference-provider",
+      "required": false,
+      "requiredWhen": "AI_ENABLED=true",
+      "why": "Selection editing, summaries, workspace answers and agents require model inference, which no owned primitive provides.",
+      "data": [
+        "The member's instruction or question",
+        "The text of the pages and revisions the run is scoped to, which the asking member may already read",
+        "Record identifiers used to cite the answer",
+        "Authorized connected-source passages, skill procedures, inquiry context and experiment evidence included in the asking member-readable evidence packet"
+      ],
+      "adapters": [
+        "ai.provider.v1"
+      ]
+    },
+    {
+      "id": "identity-provider",
+      "required": false,
+      "requiredWhen": "SSO_ENABLED=true",
+      "why": "Sign-in through the buyer's own identity provider cannot be served by the deployment's native session auth, which remains the default.",
+      "data": [
+        "The signing-in member's email address",
+        "The authentication request and its returned assertion"
+      ],
+      "adapters": [
+        "identity.provider.v1"
+      ]
+    },
+    {
+      "id": "pasted-url-origin",
+      "required": false,
+      "requiredWhen": "LINK_PREVIEWS_ENABLED=true and a member pastes a URL",
+      "why": "A link card shows the target's own title, description and icon, which only the target origin can supply; no owned primitive can know them.",
+      "data": [
+        "The URL a member pasted, sent to that URL's own origin",
+        "The deployment's outbound IP address and user agent"
+      ],
+      "adapters": [
+        "link.preview.v1"
+      ]
+    },
+    {
+      "id": "chat-notification-destination",
+      "required": false,
+      "requiredWhen": "a workspace owner connects a chat destination",
+      "why": "Delivering a notification into the buyer's chat tool requires that tool's own API; nothing owned can post into it.",
+      "data": [
+        "The event name and the actor's display name",
+        "The page title and a link to it, never the page body"
+      ],
+      "adapters": [
+        "chat.notifier.v1"
+      ]
+    },
+    {
+      "id": "connected-source-providers",
+      "required": false,
+      "requiredWhen": "An owner connects Google Docs, Slack, GitHub, HappyToHelp or Orbit, or grants a supported provider effect",
+      "why": "Configured provider APIs perform identity, current authorization, evidence reads and explicitly granted effects. Native HappyToHelp and Orbit use owner-configured exact origins and expiring delegated accounts. Local adapter checks do not establish live provider acceptance.",
+      "data": [
+        "Provider token sent only to its provider API",
+        "Selected source identifiers and authenticated principal/account",
+        "Authorized GitHub issue title/body/state for an explicitly granted update",
+        "OAuth authorization code, PKCE verifier and configured client identity sent only to the selected provider token endpoint",
+        "Native HappyToHelp article content/status and Orbit handoff content, exact targets, audience and operation receipt identifiers for explicitly granted effects"
+      ],
+      "adapters": []
+    },
+    {
+      "id": "link-preview-dns",
+      "required": false,
+      "requiredWhen": "LINK_PREVIEWS_ENABLED=true and a member requests a link preview",
+      "why": "Cloudflare DNS-over-HTTPS resolves the pasted hostname before public-address validation and each redirect.",
+      "data": [
+        "The pasted URL hostname and record types A and AAAA, sent to cloudflare-dns.com",
+        "The deployment outbound IP address"
+      ],
+      "adapters": [
+        "link.preview.v1"
+      ]
+    },
+    {
+      "id": "sendgrid-transactional-email",
+      "required": false,
+      "why": "Base Mail SendGrid adapter sends sign-in and invitation links; uncertain acceptance is held for provider review without automatic resubmission.",
+      "data": [
+        "The recipient's email address",
+        "The workspace name and the inviting member's display name",
+        "A single-use sign-in or invitation URL"
+      ],
+      "adapters": [
+        "mail.sender.v1"
+      ],
+      "requiredWhen": "MAIL_PROVIDER=sendgrid"
+    }
+  ],
+  "env": [
+    {
+      "name": "APP_URL",
+      "secret": false,
+      "required": true,
+      "why": "Canonical deployment URL used in sign-in links, invitations and page links."
+    },
+    {
+      "name": "SETUP_OWNER_EMAIL",
+      "secret": false,
+      "required": true,
+      "why": "Allow-listed workspace owner created by setup."
+    },
+    {
+      "name": "SESSION_SECRET",
+      "secret": true,
+      "required": true,
+      "why": "Signs and revokes authenticated sessions."
+    },
+    {
+      "name": "MAIL_FROM",
+      "secret": false,
+      "required": true,
+      "why": "Verified sender for sign-in links and invitations."
+    },
+    {
+      "name": "MAIL_API_KEY",
+      "secret": true,
+      "required": true,
+      "why": "Authenticates the configured Resend or Base Mail SendGrid adapter."
+    },
+    {
+      "name": "PUBLIC_PAGE_HOST",
+      "secret": false,
+      "required": false,
+      "default": "the host in APP_URL",
+      "why": "The host published pages are served from, where an owner points a second hostname at the deployment."
+    },
+    {
+      "name": "LINK_PREVIEWS_ENABLED",
+      "secret": false,
+      "required": false,
+      "default": "true",
+      "why": "Turns off outbound preview fetches for owners who want no request to leave for a pasted URL."
+    },
+    {
+      "name": "AI_ENABLED",
+      "secret": false,
+      "required": false,
+      "default": "false",
+      "why": "Makes intentional AI disablement distinct from missing configuration."
+    },
+    {
+      "name": "AI_API_KEY",
+      "secret": true,
+      "required": false,
+      "requiredWhen": "AI_ENABLED=true and AI_PROVIDER=openai (the default)",
+      "why": "Authenticates the configured AI adapter."
+    },
+    {
+      "name": "AI_MODEL",
+      "secret": false,
+      "required": false,
+      "requiredWhen": "AI_ENABLED=true",
+      "why": "Pins the model used and recorded by AI runs."
+    },
+    {
+      "name": "SSO_ENABLED",
+      "secret": false,
+      "required": false,
+      "default": "false",
+      "why": "Makes an intentionally unconfigured identity provider distinct from a broken one."
+    },
+    {
+      "name": "IDENTITY_ISSUER_URL",
+      "secret": false,
+      "required": false,
+      "requiredWhen": "SSO_ENABLED=true",
+      "why": "The identity provider the sign-in adapter trusts."
+    },
+    {
+      "name": "IDENTITY_CLIENT_ID",
+      "secret": false,
+      "required": false,
+      "requiredWhen": "SSO_ENABLED=true",
+      "why": "Identifies this deployment to that provider."
+    },
+    {
+      "name": "IDENTITY_CLIENT_SECRET",
+      "secret": true,
+      "required": false,
+      "requiredWhen": "SSO_ENABLED=true",
+      "why": "Authenticates this deployment to that provider."
+    },
+    {
+      "name": "CONNECTOR_CREDENTIALS_KEY",
+      "secret": true,
+      "required": false,
+      "requiredWhen": "a connector or chat destination stores encrypted credentials",
+      "why": "An at-least-32-character key encrypts stored connector and chat credentials at rest."
+    },
+    {
+      "name": "AI_PROVIDER",
+      "secret": false,
+      "required": false,
+      "why": "Selects openai (default) or local-codex; local-codex is restricted to loopback development with LOCAL_SAMPLE_DATA."
+    },
+    {
+      "name": "AI_LOCAL_URL",
+      "secret": false,
+      "required": false,
+      "why": "Loopback evidence-only inference bridge URL; never a hosted provider.",
+      "requiredWhen": "AI_ENABLED=true and AI_PROVIDER=local-codex"
+    },
+    {
+      "name": "AI_LOCAL_TOKEN",
+      "secret": true,
+      "required": false,
+      "why": "Authenticates requests to the local evidence-only bridge.",
+      "requiredWhen": "AI_ENABLED=true and AI_PROVIDER=local-codex"
+    },
+    {
+      "name": "GOOGLE_CLIENT_ID",
+      "secret": false,
+      "required": false,
+      "why": "Authenticates the Google connector OAuth flow.",
+      "requiredWhen": "Google OAuth connector configured"
+    },
+    {
+      "name": "GOOGLE_CLIENT_SECRET",
+      "secret": true,
+      "required": false,
+      "why": "Authenticates the Google connector OAuth flow.",
+      "requiredWhen": "Google OAuth connector configured"
+    },
+    {
+      "name": "SLACK_CLIENT_ID",
+      "secret": false,
+      "required": false,
+      "why": "Authenticates the Slack connector OAuth flow.",
+      "requiredWhen": "Slack OAuth connector configured"
+    },
+    {
+      "name": "SLACK_CLIENT_SECRET",
+      "secret": true,
+      "required": false,
+      "why": "Authenticates the Slack connector OAuth flow.",
+      "requiredWhen": "Slack OAuth connector configured"
+    },
+    {
+      "name": "GITHUB_CLIENT_ID",
+      "secret": false,
+      "required": false,
+      "why": "Authenticates the Github connector OAuth flow.",
+      "requiredWhen": "Github OAuth connector configured"
+    },
+    {
+      "name": "GITHUB_CLIENT_SECRET",
+      "secret": true,
+      "required": false,
+      "why": "Authenticates the Github connector OAuth flow.",
+      "requiredWhen": "Github OAuth connector configured"
+    },
+    {
+      "name": "HAPPYTOHELP_DELEGATION_ORIGIN",
+      "secret": false,
+      "required": false,
+      "requiredWhen": "HAPPYTOHELP native delegation configured",
+      "why": "Part of the complete native delegation origin/client/account binding triplet; hosted origin must be exact HTTPS."
+    },
+    {
+      "name": "HAPPYTOHELP_DELEGATION_CLIENT_ID",
+      "secret": false,
+      "required": false,
+      "requiredWhen": "HAPPYTOHELP native delegation configured",
+      "why": "Part of the complete native delegation origin/client/account binding triplet; hosted origin must be exact HTTPS."
+    },
+    {
+      "name": "HAPPYTOHELP_DELEGATION_ACCOUNT_ID",
+      "secret": false,
+      "required": false,
+      "requiredWhen": "HAPPYTOHELP native delegation configured",
+      "why": "Part of the complete native delegation origin/client/account binding triplet; hosted origin must be exact HTTPS."
+    },
+    {
+      "name": "ORBIT_DELEGATION_ORIGIN",
+      "secret": false,
+      "required": false,
+      "requiredWhen": "ORBIT native delegation configured",
+      "why": "Part of the complete native delegation origin/client/account binding triplet; hosted origin must be exact HTTPS."
+    },
+    {
+      "name": "ORBIT_DELEGATION_CLIENT_ID",
+      "secret": false,
+      "required": false,
+      "requiredWhen": "ORBIT native delegation configured",
+      "why": "Part of the complete native delegation origin/client/account binding triplet; hosted origin must be exact HTTPS."
+    },
+    {
+      "name": "ORBIT_DELEGATION_ACCOUNT_ID",
+      "secret": false,
+      "required": false,
+      "requiredWhen": "ORBIT native delegation configured",
+      "why": "Part of the complete native delegation origin/client/account binding triplet; hosted origin must be exact HTTPS."
+    },
+    {
+      "name": "SLATE_PROFILE",
+      "secret": false,
+      "required": false,
+      "default": "core-wiki",
+      "why": "Selects core-wiki or explicit flagship development scope. Does not override AI, SSO, grants or budgets; invalid values fail configuration."
+    },
+    {
+      "name": "MAIL_PROVIDER",
+      "secret": false,
+      "required": false,
+      "default": "resend",
+      "why": "Select resend or sendgrid. SendGrid uses the maintained Base Mail adapter."
+    }
+  ],
+  "deploy": {
+    "healthPath": "/health",
+    "operatorPath": "/app",
+    "apiPath": "/api",
+    "publicPaths": [
+      "/",
+      "/signin",
+      "/health",
+      "/api/auth/",
+      "/assets/",
+      "/p/"
+    ],
+    "notes": "The root is the owner identity plate and is matched exactly, opening nothing beneath it. /p/ serves published pages: a path under it resolves only while that page's public exposure record is live and its container permits public links, and returns a content-free page otherwise. Everything else, including /app and every workspace data endpoint, requires a session. /_serverFn/ is TanStack Start's generated transport and is not a public path: each private handler validates the native session itself before any private read or mutation, and an anonymous call receives the framework's serialized denial with no product payload."
+  },
+  "customFields": [
+    "page",
+    "container",
+    "decision"
+  ],
+  "extensionPoints": {
+    "contributions": [
+      "page.block-type.v1",
+      "database.field-type.v1",
+      "tree.node-type.v1",
+      "container.section.v1",
+      "workspace.additional-page.v1",
+      "settings.additional-section.v1",
+      "workspace.scheduled-job.v1"
+    ],
+    "policies": [
+      "page.lifecycle.v1",
+      "page.access.v1",
+      "page.public-access.v1",
+      "page.version.v1",
+      "page.status.v1",
+      "record.page-parity.v1",
+      "automation.scope.v1",
+      "container.access.v1"
+    ],
+    "events": [
+      "page.created.v1",
+      "page.published.v1",
+      "page.updated.v1",
+      "page.moved.v1",
+      "page.archived.v1",
+      "page.access-changed.v1",
+      "comment.created.v1",
+      "comment.resolved.v1",
+      "record.changed.v1",
+      "container.created.v1",
+      "member.invited.v1",
+      "import.completed.v1",
+      "ai.run-reviewed.v1"
+    ],
+    "slots": [
+      "workspace.navigation.after.v1",
+      "home.after.v1",
+      "page.header.actions.v1",
+      "page.byline.after.v1",
+      "page.detail.panel.after.v1",
+      "tree.node.actions.v1",
+      "discussions.panel.after.v1",
+      "container.index.filters.after.v1",
+      "record.row.actions.v1",
+      "search.filters.after.v1",
+      "settings.sections.after.v1"
+    ],
+    "adapters": [
+      "mail.sender.v1",
+      "ai.provider.v1",
+      "identity.provider.v1",
+      "chat.notifier.v1",
+      "link.preview.v1"
+    ]
+  },
+  "limits": {
+    "status": "estimated and unverified; every value here is a bootstrap estimate rewritten by the load test, and contract times are p95 at these values",
+    "capacityEstimate": {
+      "membersPerDeployment": 250,
+      "guestsPerDeployment": 250,
+      "containersPerWorkspace": 200,
+      "pagesPerWorkspace": 100000,
+      "pagesPerContainer": 20000,
+      "treeDepth": 20,
+      "blocksPerPage": 5000,
+      "revisionsPerPage": 1000,
+      "commentsPerPage": 1000,
+      "databasesPerWorkspace": 2000,
+      "recordsPerDatabase": 50000,
+      "fieldsPerDatabase": 100,
+      "viewsPerDatabase": 25,
+      "automationRulesPerWorkspace": 200,
+      "automationChainDepth": 5,
+      "activityEntriesPerDeployment": 5000000
+    },
+    "attachmentStorageBytesPerDeployment": 8589934592,
+    "uploadBytesPerFile": 104857600,
+    "uploadTypes": [
+      "application/pdf",
+      "text/plain",
+      "text/markdown",
+      "text/csv",
+      "text/html",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/epub+zip",
+      "application/zip",
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      "image/gif",
+      "image/svg+xml",
+      "video/mp4",
+      "audio/mpeg"
+    ],
+    "exportArchiveBytes": 17179869184,
+    "importArchiveBytes": 5368709120,
+    "maximumUrlFetchRedirects": 3,
+    "maximumUrlFetchBytes": 524288,
+    "maximumUrlFetchSeconds": 5,
+    "allowedFetchMediaTypes": [
+      "text/html",
+      "application/xhtml+xml"
+    ],
+    "concurrentAiRuns": 5,
+    "operatorApiRequestsPerMinute": 600,
+    "publicRequestsPerIpPerMinute": 120
+  },
+  "accessibility": {
+    "level": "WCAG 2.2 AA",
+    "status": "a target, not a result: no audit has run against the spine's surfaces",
+    "includes": [
+      "operator app",
+      "sign-in flow",
+      "the anonymous read view of a published page"
+    ]
+  },
+  "operatingCost": {
+    "status": "Planning estimate only; native topology is source-derived, provider usage and capacity remain unmeasured.",
+    "asOf": "2026-10-06",
+    "profile": "core-wiki",
+    "plan": "Workers Paid Standard recommended for the hosted candidate; no plan purchase or deployment performed.",
+    "cloudflareUsdPerMonth": "Approximately 5 for the explicit small-workspace assumptions in deploy/footprint.md, subject to account-wide usage and overages.",
+    "document": "deploy/footprint.md",
+    "exclusions": [
+      "mail provider",
+      "AI (off by default)",
+      "RER management and gateway infrastructure",
+      "other applications sharing account allowances"
+    ],
+    "notes": "Free-plan CPU suitability is unqualified. Retained Durable Object storage and export archives still consume resources. No measured load/cost or release acceptance."
+  },
+  "launchProfile": {
+    "default": "core-wiki",
+    "binding": "SLATE_PROFILE",
+    "values": [
+      "core-wiki",
+      "flagship"
+    ],
+    "acceptance": "ACCEPTANCE.md",
+    "status": "candidate; no release or full flagship acceptance"
+  }
+}

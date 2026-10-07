@@ -1,0 +1,151 @@
+import {
+  listDatabases,
+  resolveReferences,
+  referenceOptions,
+} from "./discovery";
+import {
+  parseInput,
+  viewInput,
+  databaseInput,
+  lockInput,
+  fieldInput,
+  recordCreateInput,
+  recordUpdateInput,
+} from "./validation";
+import { Hono } from "hono";
+import type { AppEnvironment } from "../../app/types";
+import { featureContext } from "../../app/feature-context";
+import {
+  createDatabase,
+  setStructureLock,
+  saveField,
+  createRecord,
+} from "./service";
+import { saveView, listViews, queryView, chart } from "./views";
+import { openRecord, updateRecord } from "./records";
+import { database, fields, requireRecordDatabase } from "./repository";
+export function createDatabasesRoutes() {
+  const r = new Hono<AppEnvironment>();
+  r.get("/", async (c) =>
+    c.json(await listDatabases(featureContext(c), c.req.query("containerId"))),
+  );
+  r.post("/references", async (c) =>
+    c.json(await resolveReferences(featureContext(c), await c.req.json())),
+  );
+  r.get("/:id/references/:fieldId", async (c) =>
+    c.json(
+      await referenceOptions(
+        featureContext(c),
+        c.req.param("id"),
+        c.req.param("fieldId"),
+        c.req.query("query"),
+      ),
+    ),
+  );
+  r.post("/", async (c) =>
+    c.json(
+      await createDatabase(
+        featureContext(c),
+        parseInput(databaseInput, await c.req.json()),
+      ),
+      201,
+    ),
+  );
+  r.get("/:id", async (c) => {
+    const ctx = featureContext(c),
+      id = c.req.param("id");
+    return c.json({
+      database: await database(ctx, id),
+      fields: await fields(ctx, id),
+      views: await listViews(ctx, id),
+    });
+  });
+  r.post("/:id/lock", async (c) =>
+    c.json(
+      await setStructureLock(
+        featureContext(c),
+        c.req.param("id"),
+        parseInput(lockInput, await c.req.json()),
+      ),
+    ),
+  );
+  r.post("/:id/fields", async (c) =>
+    c.json(
+      await saveField(
+        featureContext(c),
+        c.req.param("id"),
+        parseInput(fieldInput, await c.req.json()),
+      ),
+    ),
+  );
+  r.post("/:id/views", async (c) =>
+    c.json(
+      await saveView(
+        featureContext(c),
+        c.req.param("id"),
+        parseInput(viewInput, await c.req.json()),
+      ),
+    ),
+  );
+  r.get("/:id/views/:viewId", async (c) =>
+    c.json(
+      await queryView(
+        featureContext(c),
+        c.req.param("id"),
+        c.req.param("viewId"),
+      ),
+    ),
+  );
+  r.post("/:id/views/:viewId/query", async (c) =>
+    c.json(
+      await queryView(
+        featureContext(c),
+        c.req.param("id"),
+        c.req.param("viewId"),
+        await c.req.json(),
+      ),
+    ),
+  );
+  r.get("/:id/views/:viewId/chart", async (c) =>
+    c.json(
+      await chart(
+        featureContext(c),
+        c.req.param("id"),
+        c.req.param("viewId"),
+        c.req.query("group") ?? "",
+        c.req.query("numeric"),
+        c.req.query("calculation"),
+      ),
+    ),
+  );
+  r.post("/:id/records", async (c) =>
+    c.json(
+      await createRecord(
+        featureContext(c),
+        c.req.param("id"),
+        parseInput(recordCreateInput, await c.req.json()),
+      ),
+      201,
+    ),
+  );
+  r.get("/:id/records/:pageId", async (c) => {
+    const ctx = featureContext(c);
+    await requireRecordDatabase(ctx, c.req.param("id"), c.req.param("pageId"));
+    return c.json(await openRecord(ctx, c.req.param("pageId")));
+  });
+  r.patch("/:id/records/:pageId", async (c) => {
+    await requireRecordDatabase(
+      featureContext(c),
+      c.req.param("id"),
+      c.req.param("pageId"),
+    );
+    return c.json(
+      await updateRecord(
+        featureContext(c),
+        c.req.param("pageId"),
+        parseInput(recordUpdateInput, await c.req.json()),
+      ),
+    );
+  });
+  return r;
+}

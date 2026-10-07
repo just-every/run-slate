@@ -1,0 +1,13 @@
+# Slate v0.1.0 source state — 7 October 2026
+
+Slate's public release scope is the default core wiki: pages, containers, rich-text editing, comments, permissions, search, revision history, imports, email sign-in and portable backup/restore. The React/TanStack Start documents and Hono APIs run in one Cloudflare Worker with native sessions, D1, R2 and Queues.
+
+Run the commands in README.md. `pnpm verify` runs typecheck/build, emitted-artifact access checks, the Worker contract suite, foundation/platform tests and profile checks. The Worker suite preserves 191 planned contract tests. The full flagship contract and prospective provider/value outcomes remain unproven; the core-wiki profile does not waive those requirements. Existing data and applied migration history are retained when switching profiles.
+
+Publication relocation and append-import erasure have dedicated regression suites in tests/qualification/publication-relocation and tests/qualification/erasure-metadata. The emitted browser console regression is in tests/qualification/release-shell. Import fixtures retain the shapes emitted by Notion, Confluence and Google Docs with synthetic account identifiers; tests assert mapping, relationship counts, permissions and unmapped residue. Their provenance document records the anonymization.
+
+The MAIL-002 amendment dated 7 October 2026 adds maintained Base Mail SendGrid support alongside Resend. Retry is automatic only when duplicate suppression is guaranteed for the exact request. SendGrid explicit rejection permits an owner retry; ambiguous transport, missing acceptance identifiers and expired dispatch ownership remain durably uncertain without a blind resend. The provider and credential digest bind admitted intent. An acceptance receipt does not prove inbox delivery.
+
+Source provenance is in edition.json and sources.lock.json. `pnpm integration:sync` regenerates deployment metadata; `pnpm source:lock` records intentionally staged source. `pnpm artifact:delivery` produces the compiled Worker delivery descriptor. Source verification and compiled-artifact checks do not establish live provider, deployment or prior-store upgrade acceptance. A same-original-store upgrade and recovery remains unqualified. Restore owner exports only into a separate empty deployment and verify permissions, attachments and public exposure before switching traffic.
+
+Historical execution logs and private coordination notes are not public source inputs. tests/requirements contains executable requirement/test registration metadata, checked against freshly executed tests. No historical result is accepted as a current test result.

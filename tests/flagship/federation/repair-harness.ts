@@ -1,0 +1,12 @@
+import {DatabaseSync} from 'node:sqlite';
+import {readFileSync,readdirSync} from 'node:fs';
+import type {FeatureContext} from '../../../src/core/app/feature-context';
+export function harness(){
+ const sqlite=new DatabaseSync(':memory:',{enableDoubleQuotedStringLiterals:true});sqlite.exec('PRAGMA foreign_keys=ON');for(const name of readdirSync('migrations/core').filter(n=>n.endsWith('.sql')).sort())sqlite.exec(readFileSync('migrations/core/'+name,'utf8'));
+ const statement=(sql:string,values:unknown[]=[])=>({bind:(...v:unknown[])=>statement(sql,v),async first(column?:string){const row=sqlite.prepare(sql).get(...values as never[]) as Record<string,unknown>|undefined;return column?row?.[column]??null:row??null;},async all(){return {results:sqlite.prepare(sql).all(...values as never[]),success:true};},async run(){const meta=sqlite.prepare(sql).run(...values as never[]);return {success:true,meta:{changes:Number(meta.changes)}};},sql,values});
+ const db={prepare:statement,async batch(statements:ReturnType<typeof statement>[]){sqlite.exec('BEGIN');try{const values=[];for(const item of statements){const query=sqlite.prepare(item.sql);if(query.columns().length)values.push({results:query.all(...item.values as never[]),success:true});else {const meta=query.run(...item.values as never[]);values.push({results:[],success:true,meta:{changes:Number(meta.changes)}});}}sqlite.exec('COMMIT');return values;}catch(error){sqlite.exec('ROLLBACK');throw error;}}};
+ const blobs=new Map<string,Uint8Array>();const files={async put(key:string,bytes:Uint8Array){blobs.set(key,bytes.slice());},async get(key:string){const value=blobs.get(key);return value?{arrayBuffer:async()=>value.slice().buffer,text:async()=>new TextDecoder().decode(value),body:value}:null;},async delete(key:string){blobs.delete(key);}};
+ const now=new Date().toISOString();sqlite.prepare("INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES ('w','Test','TT',?,?,'w1')").run(now,now);sqlite.prepare("INSERT INTO members(id,workspace_id,email,display_name,initials,role,status,is_setup_owner,created_at,updated_at) VALUES ('owner','w','owner@test.test','Owner','OW','owner','active',1,?,?)").run(now,now);
+ const ctx={db,files,jobs:{send:async()=>{}},actor:{id:'owner',workspaceId:'w',email:'owner@test.test',displayName:'Owner',initials:'OW',role:'owner'},now} as unknown as FeatureContext;
+ return {ctx,sqlite,blobs,close:()=>sqlite.close()};
+}

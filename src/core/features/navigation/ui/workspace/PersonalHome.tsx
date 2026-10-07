@@ -1,0 +1,7 @@
+import {ScheduledPublication} from '../../../../app/ui/ScheduledPublication';
+import {useWorkspace} from '../../../../app/ui/WorkspaceContext';
+import {RequestState} from '../../../../app/ui/RequestState';
+export function PersonalHome(){
+ const {navigation:resource}=useWorkspace();
+ return <RequestState loading={resource.loading} error={resource.error} retry={resource.reload}><div className="personal-home"><section><h2>Recent pages</h2>{[...new Set(resource.data?.recents.map(r=>r.day))].map(day=><section key={day}><h3>{day}</h3><ul>{resource.data?.recents.filter(r=>r.day===day).map(r=><li key={r.id}><a href={`/app/pages/${r.id}`}>{r.title}<ScheduledPublication page={r}/></a></li>)}</ul></section>)}{resource.data?.recents.length===0?<p>No recently opened pages.</p>:null}</section><section><h2>Your favourites</h2><ul>{resource.data?.favourites.map(r=><li key={r.id}><a href={r.href}>{r.title}<ScheduledPublication page={r}/></a></li>)}</ul>{resource.data?.favourites.length===0?<p>No favourites yet.</p>:null}</section><section><h2>Your spaces</h2><ul>{resource.data?.containers.map(r=><li key={r.id}><a href={`/app/containers/${r.id}`}>{r.name}</a></li>)}</ul></section></div></RequestState>;
+}

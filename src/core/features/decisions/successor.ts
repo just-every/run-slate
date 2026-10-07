@@ -1,0 +1,12 @@
+import type {FeatureContext} from '../../app/feature-context';
+import {ApiProblem} from '../../app/problems';
+import {commitOperation,mutationGuard} from '../../app/operations';
+import {prepareCreatePage} from '../pages/service';
+import {requirePageLevel} from '../sharing/current-access';
+import {requireDestinationEvidence} from '../ai/disclosure';
+import {getDecision} from './service';
+import {id,revision,json} from '../ai/persistence';
+export async function proposeDecisionSuccessor(ctx:FeatureContext,decisionId:string,input:{operationKey:string}){
+ const previous=await getDecision(ctx,decisionId);if(previous.removed_at||previous.state!=='accepted'||previous.owner_member_id!==ctx.actor.id)throw new ApiProblem(403,'DECISION_OWNER_REQUIRED','The accepted decision owner prepares its replacement.');
+ return commitOperation(ctx,{operationKey:input.operationKey,action:'decisions.propose-successor',request:{decisionId,...input},authorize:async()=>{await requirePageLevel(ctx,previous.page_id,'edit');await requireDestinationEvidence(ctx,previous.page_id,previous.content.citations);},prepare:async({revisionId})=>{const pageId=id(),nextId=id(),container=await ctx.db.prepare('SELECT container_id FROM pages WHERE id=?').bind(previous.page_id).first<{container_id:string}>();if(!container)throw new ApiProblem(404,'NOT_FOUND','Not found.');const page=await prepareCreatePage(ctx,{operationKey:input.operationKey,id:pageId,containerId:container.container_id,parentPageId:previous.page_id,title:`Proposed replacement: ${previous.question}`},id());const content={...previous.content,pageId,id:nextId,outcome:'',decidedAt:null,supersedesId:decisionId};return {entity:{id:nextId,kind:'decision',revisionId},value:{id:nextId,pageId,revisionId,state:'proposed',supersedesId:decisionId},statements:[mutationGuard(ctx.db,"SELECT revision_id=? AND state='accepted' AND removed_at IS NULL FROM knowledge_decisions WHERE id=?",[previous.revision_id,decisionId]),...page.statements,ctx.db.prepare('INSERT INTO knowledge_decisions(id,page_id,workspace_id,question,options_json,outcome,rationale,owner_member_id,decided_at,review_at,created_at,updated_at,revision_id) VALUES(?,?,?,?,?,?,?, ?,NULL,NULL,?,?,?)').bind(nextId,pageId,ctx.actor.workspaceId,previous.question,previous.options_json,'',previous.rationale,ctx.actor.id,ctx.now,ctx.now,revisionId),revision(ctx,revisionId,'decision',nextId,content)]};}});
+}

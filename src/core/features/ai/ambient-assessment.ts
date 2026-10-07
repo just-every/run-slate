@@ -1,0 +1,2 @@
+import {z} from 'zod';
+export const ambientAssessmentSchema=z.object({novelty:z.number().min(0).max(1),contradiction:z.number().min(0).max(1),impact:z.number().min(0).max(1),relevance:z.number().min(0).max(1),consequential:z.boolean(),question:z.string().min(1).max(8000).nullable(),explanation:z.string().min(1),evidenceIds:z.array(z.string()).min(1),nextStep:z.enum(['investigate','wait','stop']),restartCondition:z.string().min(1)}).strict();

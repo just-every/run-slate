@@ -1,0 +1,10 @@
+// Slate-owned bounded JSONL transport; lifecycle pattern adapted from native H2H JsonlRpc.
+import {spawn} from 'node:child_process';
+export class Rpc {
+ constructor(args,cwd){this.next=0;this.pending=new Map();this.listeners=new Set();this.buffer='';this.child=spawn('codex',args,{cwd,stdio:['pipe','pipe','pipe'],env:{PATH:process.env.PATH,HOME:process.env.HOME,CODEX_HOME:process.env.CODEX_HOME,TMPDIR:process.env.TMPDIR}});this.child.stderr.resume();this.child.stdout.on('data',b=>this.consume(b));this.child.on('error',e=>this.fail(e));this.child.on('exit',()=>this.fail(new Error('Codex process exited.')));}
+ consume(bytes){this.buffer+=bytes.toString();if(this.buffer.length>2e6){this.fail(new Error('RPC frame too large.'));this.child.kill();return;}const lines=this.buffer.split('\n');this.buffer=lines.pop()??'';for(const line of lines){if(!line.trim())continue;let m;try{m=JSON.parse(line);}catch{this.fail(new Error('Invalid RPC frame.'));return;}if(m.method){if(m.id!==undefined)this.child.stdin.write(JSON.stringify({id:m.id,error:{code:-32601,message:'Tools and permission requests are disabled.'}})+'\n');for(const fn of this.listeners)fn(m);}else{const p=this.pending.get(m.id);if(p){clearTimeout(p.timer);this.pending.delete(m.id);m.error?p.reject(new Error(m.error.message)):p.resolve(m.result);}}}}
+ request(method,params,timeout=30000){return new Promise((resolve,reject)=>{const id=++this.next,timer=setTimeout(()=>{this.pending.delete(id);reject(new Error(`${method} timed out.`));},timeout);this.pending.set(id,{resolve,reject,timer});this.child.stdin.write(JSON.stringify({id,method,params})+'\n');});}
+ notify(method,params){this.child.stdin.write(JSON.stringify({method,params})+'\n');}
+ fail(error){for(const p of this.pending.values()){clearTimeout(p.timer);p.reject(error);}this.pending.clear();for(const fn of this.listeners)fn({method:'transport/error'});}
+ async close(){this.child.kill('SIGTERM');await Promise.race([new Promise(r=>this.child.once('exit',r)),new Promise(r=>setTimeout(r,1000))]);if(this.child.exitCode===null&&this.child.signalCode===null)this.child.kill('SIGKILL');}
+}

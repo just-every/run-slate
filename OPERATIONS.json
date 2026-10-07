@@ -1,0 +1,205 @@
+{
+  "version": 2,
+  "project": "just-every/slate",
+  "runtime": {
+    "requirements": [
+      {
+        "name": "node",
+        "version": ">=22.12.0"
+      },
+      {
+        "name": "pnpm",
+        "version": "8.15.6"
+      },
+      {
+        "name": "Cloudflare Workers",
+        "version": "compatibility_date 2026-09-08"
+      }
+    ]
+  },
+  "requiredEnvironment": [
+    "SLATE_DEPLOY_ENV",
+    "SLATE_APP_URL",
+    "SLATE_SETUP_OWNER_EMAIL",
+    "SLATE_MAIL_FROM",
+    "SLATE_SESSION_SECRET",
+    "SLATE_MAIL_API_KEY"
+  ],
+  "documentation": {
+    "document": "OPERATIONS.md"
+  },
+  "acceptance": {
+    "document": "ACCEPTANCE.md"
+  },
+  "configuration": {
+    "module": "scripts/operations-config.mjs"
+  },
+  "commands": {
+    "dev": {
+      "argv": [
+        "pnpm",
+        "run",
+        "dev"
+      ],
+      "inputs": [
+        "package.json",
+        "scripts/dev.mjs",
+        "deploy/wrangler.local.toml"
+      ],
+      "effects": "Applies local D1 migrations and starts the loopback Vite development server; writes local retained state."
+    },
+    "build": {
+      "argv": [
+        "pnpm",
+        "run",
+        "build"
+      ],
+      "inputs": [
+        "package.json",
+        "vite.config.ts",
+        "src/server.ts",
+        "scripts/build.mjs"
+      ],
+      "effects": "Builds local Worker and client artifacts; does not deploy."
+    },
+    "verify": {
+      "argv": [
+        "pnpm",
+        "run",
+        "verify"
+      ],
+      "inputs": [
+        "package.json",
+        "scripts/verify.mjs"
+      ],
+      "effects": "Runs typecheck, build and existing contract/foundation/platform checks; uncovered requirements may remain."
+    },
+    "setup": {
+      "argv": [
+        "pnpm",
+        "run",
+        "setup"
+      ],
+      "inputs": [
+        "package.json",
+        "scripts/setup.mjs",
+        "scripts/deployment.mjs",
+        "deploy/wrangler.template.toml"
+      ],
+      "effects": "Validates setup inputs, provisions Cloudflare D1/R2/Queue, writes local deployment config/cache, applies remote D1 migrations and uploads configured secrets."
+    },
+    "deploy": {
+      "argv": [
+        "pnpm",
+        "run",
+        "deploy"
+      ],
+      "inputs": [
+        "package.json",
+        "scripts/deploy.mjs",
+        "scripts/setup.mjs",
+        "scripts/deployment.mjs",
+        "deploy/wrangler.template.toml"
+      ],
+      "effects": "Runs setup including remote migrations, builds the Worker/client, deploys dist/server/wrangler.json, then requests health and checks database/files reachability."
+    },
+    "backup": {
+      "argv": [
+        "node",
+        "src/core/features/portability/command.mjs",
+        "backup",
+        "ARCHIVE.zip"
+      ],
+      "inputs": [
+        "src/core/features/portability/command.mjs"
+      ],
+      "effects": "Creates a server-side owner export and downloads an archive to a new mode-0600 local file; requires SLATE_APP_URL and current owner SLATE_SESSION_COOKIE. Replace ARCHIVE.zip with destination path."
+    },
+    "restore": {
+      "argv": [
+        "node",
+        "src/core/features/portability/command.mjs",
+        "restore",
+        "ARCHIVE.zip"
+      ],
+      "inputs": [
+        "src/core/features/portability/command.mjs"
+      ],
+      "effects": "Uploads an archive and restores into an empty deployment as its authenticated setup owner; writes remote data and files. Requires SLATE_APP_URL and SLATE_SESSION_COOKIE. Replace ARCHIVE.zip with source path; independent restore acceptance is pending."
+    },
+    "dev-local-ai": {
+      "argv": [
+        "node",
+        "local-agent/dev.mjs",
+        "--",
+        "--port",
+        "4174",
+        "--strictPort"
+      ],
+      "inputs": [
+        "local-agent/dev.mjs",
+        "local-agent/server.mjs",
+        "local-agent/task.mjs",
+        "local-agent/codex.mjs",
+        "local-agent/rpc.mjs",
+        "scripts/dev.mjs",
+        "deploy/wrangler.local.toml",
+        "package.json"
+      ],
+      "effects": "Starts loopback Slate development and a private-token local Codex evidence bridge using existing codex login; applies local migrations and retains local state. Optional SLATE_AI_MODEL defaults to gpt-6-astra. Inference sends authorized evidence to Codex; no hosted provider acceptance. Stops owned children on exit."
+    },
+    "source-check": {
+      "argv": [
+        "pnpm",
+        "run",
+        "source:check"
+      ],
+      "inputs": [
+        "edition.json",
+        "sources.lock.json",
+        "scripts/edition-authoring/cli.mjs",
+        "scripts/sync-integration.mjs"
+      ],
+      "effects": "Reads tracked source and retained comparison material; rejects source or migration drift; no deployment."
+    },
+    "integration-sync": {
+      "argv": [
+        "pnpm",
+        "run",
+        "integration:sync"
+      ],
+      "inputs": [
+        "scripts/sync-integration.mjs",
+        "scripts/release/deployment-spec.mjs",
+        "deploy/wrangler.template.toml"
+      ],
+      "effects": "Rewrites derived management resource recipe and provenance from actual source; review diff, stage and relock."
+    },
+    "artifact": {
+      "argv": [
+        "pnpm",
+        "run",
+        "artifact:delivery"
+      ],
+      "inputs": [
+        "rer-project.json",
+        "scripts/build-delivery-artifact.mjs",
+        "management/integration/deployment-spec.json"
+      ],
+      "effects": "Requires clean committed source and a matching native build receipt; writes local delivery-artifact bundle with exact Worker modules, client assets and SQL. No deployment or admission."
+    },
+    "deployment-check": {
+      "argv": [
+        "pnpm",
+        "run",
+        "check:deployment"
+      ],
+      "inputs": [
+        "OPERATIONS.json",
+        "scripts/operations.mjs",
+        "scripts/operations-config.mjs"
+      ],
+      "effects": "Validates local deployment input names and syntax only. Missing configuration fails; never authenticates, provisions or claims provider readiness."
+    }
+  }
+}

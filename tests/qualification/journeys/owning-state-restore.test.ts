@@ -1,0 +1,20 @@
+import {test,expect,afterEach,vi} from 'vitest';
+import {env} from 'cloudflare:test';
+import {createGuidedTask} from '../../../src/core/features/skills/guided';
+import {owningFixture} from './owning-state-fixture';
+import {fixture,reset} from '../authority/fixture';
+import {exportWorkspace,restoreWorkspace} from '../../../src/core/features/portability/service';
+import {scheduleGuidedTasks} from '../../../src/core/features/skills/guided-scheduler';
+import type {AppBindings} from '../../../src/core/app/types';
+afterEach(()=>vi.unstubAllGlobals());
+test('typed guided definitions and receipts survive real D1/R2 export and fresh import with old authority disabled',async()=>{
+ const f=await owningFixture('cancelled');const result=await f.verify();const before=await env.DB.prepare('SELECT verification_json,receipt_json FROM intelligence_guided_steps WHERE id=?').bind(f.stepId).first();
+ const pending=await createGuidedTask(f.context(),{operationKey:'pending-portable-guide',runId:f.runId,steps:f.task.steps.map(s=>({instruction:s.instruction,refs:JSON.parse(s.source_refs_json),verification:JSON.parse(s.verification_json)}))});
+ const exported=await exportWorkspace(f.context()),key=await env.DB.prepare('SELECT archive_key FROM federation_exports WHERE id=?').bind(exported.id).first<string>('archive_key');const bytes=new Uint8Array(await(await env.FILES.get(key!))!.arrayBuffer());
+ await reset();const destination=await fixture();await restoreWorkspace(destination.context(),bytes);
+ const after=await env.DB.prepare('SELECT verification_json,receipt_json FROM intelligence_guided_steps WHERE id=?').bind(f.stepId).first();expect(after).toEqual(before);expect(JSON.parse(String(after!.receipt_json))).toEqual(result.value.receipt);
+ expect(await env.DB.prepare('SELECT state FROM intelligence_guided_tasks WHERE id=?').bind(f.task.id).first<string>('state')).toBe('completed');
+ expect(await env.DB.prepare('SELECT state FROM intelligence_guided_tasks WHERE id=?').bind(pending.value.id).first<string>('state')).toBe('paused');
+ expect(await env.DB.prepare('SELECT state,credential_ciphertext FROM federation_connections WHERE id=?').bind(f.connectionId).first()).toMatchObject({state:'needs-attention',credential_ciphertext:null});
+ const calls=f.control.calls;await scheduleGuidedTasks({...env,CONNECTOR_CREDENTIALS_KEY:f.context().sourceSecret} as AppBindings,new Date().toISOString());expect(f.control.calls).toBe(calls);await expect(f.verify()).rejects.toHaveProperty('code');
+},30000);

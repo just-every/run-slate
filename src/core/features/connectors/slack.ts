@@ -1,0 +1,12 @@
+import { ApiProblem } from '../../app/problems';
+import {providerJson} from './http';
+import type {Adapter,RemoteDocument} from './types';
+interface Message {ts:string;text:string;edited?:{ts:string};subtype?:string}
+export class SlackAdapter implements Adapter {
+ constructor(private token:string){}
+ private async call<T>(method:string,params:Record<string,string>={}){const data=await providerJson<T&{ok:boolean;error?:string}>(`https://slack.com/api/${method}?${new URLSearchParams(params)}`,this.token);if(!data.ok){if(['not_authed','invalid_auth','token_revoked','account_inactive','missing_scope'].includes(data.error??''))throw new ApiProblem(403,'SOURCE_ACCESS_REVOKED','Slack authorization is missing, expired or revoked. Reconnect or request access.');if(['channel_not_found','message_not_found'].includes(data.error??''))throw new ApiProblem(404,'SOURCE_DELETED','The source message is unavailable.');throw new ApiProblem(502,'SLACK_SOURCE_UNAVAILABLE','Slack could not authorize or retrieve this source.');}return data;}
+ async identity(){const identity=await this.call<{team_id:string;user_id:string;user:string;bot_id?:string}>('auth.test');if(identity.bot_id)throw new ApiProblem(422,'PERSON_IDENTITY_REQUIRED','Use a Slack user token so source permissions follow the person.');return {accountId:identity.team_id,principalId:identity.user_id,label:identity.user};}
+ private async message(id:string){const [channel,ts]=id.split('/');if(!/^[CGD][A-Z0-9]+$/.test(channel??'')||!/^\d+\.\d+$/.test(ts??''))throw new ApiProblem(400,'INVALID_SOURCE_ID','Use Slack channel/message-timestamp.');const result=await this.call<{messages:Message[]}>('conversations.history',{channel,oldest:ts,latest:ts,inclusive:'true',limit:'1'});const message=result.messages.find(m=>m.ts===ts);if(!message||message.subtype==='message_deleted')throw new ApiProblem(404,'SOURCE_DELETED','The source message is unavailable.');return message;}
+ async check(id:string){const [message,identity]=await Promise.all([this.message(id),this.identity()]);return {revision:message.edited?.ts??message.ts,...identity};}
+ async read(id:string):Promise<RemoteDocument>{const message=await this.message(id),identity=await this.identity();return {remoteId:id,revision:message.edited?.ts??message.ts,title:`Slack message ${message.ts}`,text:message.text,acl:{accountId:identity.accountId,principalId:identity.principalId},observedAt:new Date().toISOString()};}
+}

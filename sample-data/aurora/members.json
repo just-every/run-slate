@@ -1,0 +1,35 @@
+[
+  {
+    "id": "01JBF2JH4M0D3S8ZJ1TQW7K0B1",
+    "workspaceId": "01JBF2JH4M0D3S8ZJ1TQW7K0A1",
+    "email": "jamie@aurora.example",
+    "displayName": "Jamie Park",
+    "initials": "JP",
+    "role": "owner",
+    "isSetupOwner": true,
+    "createdAt": "2026-08-31T00:00:00.000Z",
+    "updatedAt": "2026-08-31T00:00:00.000Z"
+  },
+  {
+    "id": "01JBF2JH4M0D3S8ZJ1TQW7K0B2",
+    "workspaceId": "01JBF2JH4M0D3S8ZJ1TQW7K0A1",
+    "email": "maya@aurora.example",
+    "displayName": "Maya Harris",
+    "initials": "MH",
+    "role": "member",
+    "isSetupOwner": false,
+    "createdAt": "2026-08-31T00:00:00.000Z",
+    "updatedAt": "2026-08-31T00:00:00.000Z"
+  },
+  {
+    "id": "01JBF2JH4M0D3S8ZJ1TQW7K0B3",
+    "workspaceId": "01JBF2JH4M0D3S8ZJ1TQW7K0A1",
+    "email": "priya@aurora.example",
+    "displayName": "Priya Shah",
+    "initials": "PS",
+    "role": "member",
+    "isSetupOwner": false,
+    "createdAt": "2026-08-31T00:00:00.000Z",
+    "updatedAt": "2026-08-31T00:00:00.000Z"
+  }
+]

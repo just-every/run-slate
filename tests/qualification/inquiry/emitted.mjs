@@ -1,0 +1,30 @@
+import {mkdtemp} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import assert from 'node:assert/strict';
+import {writeFile} from 'node:fs/promises';
+import {chromium} from '@playwright/test';
+import {createRuntime} from '../local/runtime.mjs';
+import {fixtureFirstOwner} from '../local/first-owner.mjs';
+const evidence=process.env.QUAL_EVIDENCE??await mkdtemp(tmpdir()+'/slate-qualification-');let runtime,browser;
+try{
+ runtime=await createRuntime({root:process.cwd(),evidence,appPort:8744,inspectorPort:8745});
+ browser=await chromium.launch({headless:true});const context=await browser.newContext();const owner=await fixtureFirstOwner(runtime,context);
+ const request=async(path,body)=>{const response=body?await context.request.post(runtime.origin+path,{data:body,headers:{origin:runtime.origin}}):await context.request.get(runtime.origin+path);return {status:response.status(),body:await response.json()};};
+ const pageId=(await runtime.sql('SELECT id FROM pages LIMIT 1'))[0].results[0].id;
+ const document=await request('/api/pages/'+pageId);assert.equal(document.status,200);const doc=document.body;
+ const revisionId=doc.workingRevisionId??doc.document?.workingRevisionId;
+ assert.ok(revisionId,'Read a real working revision through the emitted page API');
+ const refs=[{kind:'page',sourceId:pageId,revisionId}];
+ const availability=await request('/api/ai/availability');assert.equal(availability.body.providerConfigured,false);assert.equal(availability.body.enabled,false);
+ const ask=await request('/api/ai/ask',{operationKey:'emitted-ask-no-inference',pageId,question:'What is supported?',refs,audience:[owner.memberId]});assert.equal(ask.status,503);assert.equal(ask.body.error?.code??ask.body.code,'PROVIDER_UNAVAILABLE');
+ const tools=await request('/api/agent/tools');assert.equal(tools.status,200);for(const name of ['accept_changes','review_run','refine_run','successor_run'])assert.ok(tools.body.tools.some(t=>t.name===name));
+ const mcp=await request('/api/agent/mcp',{jsonrpc:'2.0',id:1,method:'tools/list'});assert.deepEqual(mcp.body.result.tools,tools.body.tools);
+ const scope=await request('/api/inquiries/ambient',{operationKey:'emitted-ambient-prepared',pageId,objective:'Find consequential contradictions',refs,audience:[owner.memberId]});assert.equal(scope.status,200,JSON.stringify(scope));
+ const first=await request('/api/inquiries/ambient/'+scope.body.value.id);assert.equal(first.status,200);assert.equal(first.body.scope.state,'active');
+ const stopped=await request('/api/inquiries/ambient/'+scope.body.value.id+'/control',{operationKey:'emitted-ambient-stop',expectedRevisionId:scope.body.value.revisionId,action:'stop'});assert.equal(stopped.status,200);
+ assert.equal((await request('/api/inquiries/ambient/'+scope.body.value.id)).body.scope.state,'stopped');
+ assert.equal((await runtime.sql('SELECT count(*) n FROM intelligence_runs'))[0].results[0].n,0);
+ assert.equal((await runtime.sql('SELECT count(*) n FROM intelligence_effects'))[0].results[0].n,0);
+ await owner.page.screenshot({path:runtime.directory+'/inquiry-host.png',fullPage:true});
+ await writeFile(runtime.directory+'/inquiry-emitted.json',JSON.stringify({passed:true,artifactHash:runtime.artifact.artifactHash,checks:14,assertions:['real emitted authenticated page revision','AI off and provider unavailable before queueing','REST and MCP same proposal/review/refine/successor catalogue','real durable ambient preparation/read/stop','zero run/effect creation without inference authority'],limits:owner.limits+' No inference, live provider, meaningful generated answer or paid SSO activation.'},null,2));console.log(runtime.directory);
+}finally{await browser?.close();await runtime?.close();}

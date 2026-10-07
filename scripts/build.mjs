@@ -1,0 +1,11 @@
+import {mkdir, writeFile, rm} from 'node:fs/promises';
+import {execFileSync} from 'node:child_process';
+import {sourceIdentity, outputIdentity} from './release/source-identity.mjs';
+const root = process.cwd();
+await rm('.artifacts/build-source.json', {force: true});
+const before = await sourceIdentity(root);
+execFileSync('pnpm', ['exec', 'vite', 'build'], {cwd: root, stdio: 'inherit'});
+const after = await sourceIdentity(root);
+if (JSON.stringify(before) !== JSON.stringify(after)) throw Error('Source changed during build; inspect generated changes and rebuild');
+await mkdir('.artifacts', {recursive: true});
+await writeFile('.artifacts/build-source.json', JSON.stringify({schema: 1, ...after, outputSha256: await outputIdentity(root)}) + '\n');

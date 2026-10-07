@@ -1,0 +1,23 @@
+name: Verify Slate
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8.15.6
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 26.8.1
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm verify
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:release-regressions

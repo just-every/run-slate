@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "id": "just-every/slate",
+  "toolchain": {
+    "id": "runeditrun/edition-authoring",
+    "version": "1.1.0"
+  },
+  "parent": null,
+  "components": [
+    {
+      "id": "just-every/slate-native",
+      "role": "edition",
+      "source": {
+        "kind": "local",
+        "paths": [
+          "src",
+          "migrations",
+          "deploy",
+          "package.json",
+          "pnpm-lock.yaml"
+        ]
+      },
+      "assumptions": [
+        "Native TanStack Start/React documents and Hono APIs in one Worker; native session, owner bootstrap, D1/R2/queue authority.",
+        "Core-wiki defaults do not remove retained flagship data or applied migrations."
+      ]
+    },
+    {
+      "id": "runeditrun/edition-authoring",
+      "role": "module",
+      "source": {
+        "kind": "local",
+        "paths": [
+          "scripts/edition-authoring"
+        ],
+        "origin": {
+          "repository": "https://github.com/runeditrun/base.git",
+          "revision": "35241a1a6d9408fbea89d266ec04806e9071a1b8",
+          "path": "edition-authoring",
+          "paths": [
+            "cli.mjs",
+            "files.mjs",
+            "lifecycle.test.mjs",
+            "manifest.mjs",
+            "release.mjs",
+            "snapshot-integrity.test.mjs",
+            "sources.mjs",
+            "updates.mjs",
+            "updates.test.mjs"
+          ]
+        }
+      }
+    },
+    {
+      "id": "just-every/slate-management",
+      "role": "module",
+      "source": {
+        "kind": "local",
+        "paths": [
+          "management/integration"
+        ]
+      }
+    },
+    {
+      "id": "runeditrun/mail-sendgrid",
+      "role": "module",
+      "source": {
+        "kind": "local",
+        "paths": [
+          "modules/base-mail"
+        ],
+        "origin": {
+          "repository": "https://github.com/runeditrun/base.git",
+          "revision": "712a4b43d8fc3f30b8d4c2f354c8a10e060bfc38",
+          "path": "modules/mail",
+          "paths": [
+            "LICENSE",
+            "src/adapters/sendgrid/index.mjs",
+            "src/adapters/sendgrid/serialize.mjs",
+            "src/core/errors.mjs",
+            "src/core/transport.mjs",
+            "src/core/validation.mjs"
+          ]
+        }
+      },
+      "assumptions": [
+        "Exact Base mail SendGrid adapter and its core dependencies; Slate owns durable admission, attempts and uncertain review."
+      ]
+    }
+  ],
+  "custody": {
+    "repository": "https://github.com/just-every/slate",
+    "meaning": "Public source repository; sources.lock.json records current file identities."
+  },
+  "runtimeProfile": "core-wiki",
+  "name": "slate"
+}

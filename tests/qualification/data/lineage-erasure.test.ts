@@ -1,0 +1,30 @@
+import {env} from 'cloudflare:test';
+import {test,expect} from 'vitest';
+import {fixture,insert,canary,canaries} from './fixture';
+import {seedPage} from '../../e2e/setup/fixtures';
+import {archivePage,permanentDeletePage} from '../../../src/core/features/archive/service';
+import {removeMember} from '../../../src/core/features/workspace/members';
+test('BASE-DATA-003 source-linked skill derivatives and method-linked inquiry erase across an unrelated host page',async()=>{
+ const {ctx,workspaceId,owner,page}=await fixture(),host=await seedPage(page.containerId,{title:'Unrelated host remains',authorMemberId:owner}),now=ctx.now;
+ await insert('intelligence_skills',{id:'lineage-skill',workspace_id:workspaceId,page_id:host.pageId,owner_id:owner,name:canary,current_revision_id:'lineage-version',created_at:now,updated_at:now});
+ await insert('intelligence_skill_versions',{id:'lineage-version',skill_id:'lineage-skill',state:'draft',definition_json:JSON.stringify({refs:[{sourceId:page.pageId}],instructions:canary}),created_at:now});
+ await insert('intelligence_runs',{id:'lineage-run',workspace_id:workspaceId,requester_id:owner,page_id:host.pageId,kind:'answer',status:'completed',revision_id:'lineage-run-revision',input_json:'{}',refs_json:'[]',output_json:JSON.stringify({text:canary}),skill_revision_id:'lineage-version',created_at:now,updated_at:now});
+ await insert('intelligence_evaluations',{id:'lineage-evaluation',workspace_id:workspaceId,skill_revision_id:'lineage-version',case_hash:'test',result_json:JSON.stringify({text:canary}),passed:0,created_at:now});
+ await insert('intelligence_inquiries',{id:'lineage-inquiry',workspace_id:workspaceId,page_id:host.pageId,owner_id:owner,question:canary,revision_id:'lineage-inquiry-revision',refs_json:'[]',audience_json:'[]',method_revision_id:'lineage-version',created_at:now,updated_at:now});
+ const tables=['intelligence_skills','intelligence_skill_versions','intelligence_runs','intelligence_evaluations','intelligence_inquiries'];expect(Object.values(await canaries(tables)).every(n=>n>0)).toBe(true);
+ await archivePage(ctx,page.pageId,{operationKey:'lineage-source-trash',expectedRevisionId:page.revisionId,action:'trash'});await permanentDeletePage(ctx,page.pageId,{operationKey:'lineage-source-erase',confirmedPageIds:[page.pageId]});
+ expect(await canaries(tables)).toEqual(Object.fromEntries(tables.map(t=>[t,0])));expect(await env.DB.prepare('SELECT title,deleted_at FROM pages WHERE id=?').bind(host.pageId).first()).toEqual({title:'Unrelated host remains',deleted_at:null});
+});
+test('BASE-DATA-003 member erasure clears reviews, interruptions and guided steps on retained shared work',async()=>{
+ const {ctx,workspaceId,owner,subject,page}=await fixture(),now=ctx.now,json=JSON.stringify({text:canary});
+ await insert('intelligence_runs',{id:'shared-run',workspace_id:workspaceId,requester_id:owner,page_id:page.pageId,kind:'answer',status:'completed',revision_id:'shared-run-revision',input_json:'{}',refs_json:'[]',output_json:'{"shared":"retained"}',created_at:now,updated_at:now});
+ await insert('intelligence_reviews',{id:'member-review',run_id:'shared-run',actor_id:subject,outcome:'accepted',detail_json:json,created_at:now});
+ await insert('intelligence_interruptions',{id:'member-interruption',workspace_id:workspaceId,recipient_id:subject,equivalence_key:canary,run_id:'shared-run',seconds:1,state:'delivered',mandatory:0,created_at:now,updated_at:now});
+ await insert('intelligence_guided_tasks',{id:'member-task',workspace_id:workspaceId,run_id:'shared-run',page_id:page.pageId,owner_id:subject,state:'running',revision_id:'member-task-revision',created_at:now});
+ await insert('intelligence_guided_steps',{id:'member-step',task_id:'member-task',ordinal:0,instruction:canary,source_refs_json:'[]',verification_json:json,state:'pending'});
+ await insert('knowledge_decisions',{id:'member-decision',page_id:page.pageId,workspace_id:workspaceId,question:'Shared decision',owner_member_id:subject,created_at:now,updated_at:now,revision_id:'member-decision-revision'});
+ await insert('decision_reviews',{id:'member-decision-review',decision_id:'member-decision',note:canary,reviewed_by_member_id:subject,created_at:now});
+ const tables=['intelligence_reviews','intelligence_interruptions','intelligence_guided_steps','decision_reviews'];expect(Object.values(await canaries(tables)).every(n=>n>0)).toBe(true);
+ await removeMember(ctx,{operationKey:'member-derived-erase',memberId:subject,erase:true});expect(await canaries(tables)).toEqual(Object.fromEntries(tables.map(t=>[t,0])));
+ expect(await env.DB.prepare('SELECT output_json FROM intelligence_runs WHERE id=?').bind('shared-run').first()).toEqual({output_json:'{"shared":"retained"}'});expect(await env.DB.prepare('SELECT owner_member_id FROM knowledge_decisions WHERE id=?').bind('member-decision').first()).toEqual({owner_member_id:null});
+});

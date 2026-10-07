@@ -1,0 +1,22 @@
+import {env} from 'cloudflare:test';
+import {test,expect} from 'vitest';
+import {removeMember} from '../../../src/core/features/workspace/members';
+import {fixture,insert,canary,canaries} from './fixture';
+test('BASE-DATA-003 member erasure removes personal navigation, source content and credential custody while retaining shared page',async()=>{
+ const {ctx,workspaceId,subject,page}=await fixture(),now=ctx.now,json=JSON.stringify({personal:canary});
+ await insert('saved_searches',{id:'erase-search',workspace_id:workspaceId,member_id:subject,name:canary,query_json:json,revision_id:'erase-search-revision',created_at:now,updated_at:now});
+ await insert('discovery_preferences',{member_id:subject,workspace_id:workspaceId,value_json:json,revision_id:'erase-preference',updated_at:now});
+ await insert('discovery_revisions',{id:'erase-discovery',workspace_id:workspaceId,member_id:subject,entity_kind:'search',entity_id:'erase-search',body_json:json,created_at:now});
+ await insert('federation_connections',{id:'erase-connection',workspace_id:workspaceId,member_id:subject,provider:'github',account_id:canary,credential_ciphertext:canary,config_json:json,state:'connected',revision_id:'erase-connection-revision',created_at:now,updated_at:now});
+ await insert('federation_sources',{id:'erase-source',workspace_id:workspaceId,connection_id:'erase-connection',remote_id:canary,published_revision_id:'erase-source-revision',revision_id:'erase-source-entity',created_at:now,updated_at:now});
+ await insert('federation_revisions',{id:'erase-source-revision',source_id:'erase-source',remote_revision:canary,title:canary,content_hash:'test-hash',acl_json:json,observed_at:now});
+ await insert('federation_passages',{id:'erase-passage',revision_id:'erase-source-revision',ordinal:0,content:canary});
+ await insert('content_schedules',{page_id:page.pageId,publish_at:'2099-01-01T00:00:00.000Z',actor_member_id:subject,expected_revision_id:'schedule-revision',operation_key:'personal-schedule',label:canary,publication_json:json,state:'scheduled',created_at:now,updated_at:now});
+ const tables=['content_schedules','saved_searches','discovery_preferences','discovery_revisions','federation_connections','federation_sources','federation_revisions','federation_passages'];
+ expect(Object.values(await canaries(tables)).every(n=>n>0)).toBe(true);
+ expect((await removeMember(ctx,{operationKey:'erase-member-personal',memberId:subject,erase:true})).value.erased).toBe(true);
+ expect(await canaries(tables)).toEqual(Object.fromEntries(tables.map(t=>[t,0])));
+ expect(await env.DB.prepare('SELECT state,publication_json FROM content_schedules WHERE page_id=?').bind(page.pageId).first()).toEqual({state:'cancelled',publication_json:null});
+ expect(await env.DB.prepare('SELECT title,deleted_at FROM pages WHERE id=?').bind(page.pageId).first()).toEqual({title:canary,deleted_at:null});
+ expect(await env.DB.prepare('SELECT display_name,email FROM members WHERE id=?').bind(subject).first()).toEqual({display_name:'Deleted person',email:`erased-${subject}@invalid`});
+});

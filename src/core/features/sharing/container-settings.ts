@@ -1,0 +1,11 @@
+import type {FeatureContext} from '../../app/feature-context';
+import {commitOperation,mutationGuard} from '../../app/operations';
+import {ApiProblem} from '../../app/problems';
+import {requireWorkspaceOwner,requireContainerLevel} from './current-access';
+import {containerRevision} from '../containers/service';
+export async function setContainerAccess(ctx:FeatureContext,input:{operationKey:string;id:string;expectedRevisionId:string;guestAccess:'allowed'|'forbidden';publicLinkAccess:'allowed'|'forbidden';anonymousAccess:'allowed'|'forbidden';visibility:'default'|'open'|'closed'|'private'}){
+  return commitOperation(ctx,{operationKey:input.operationKey,action:'container.access-settings',request:input,authorize:async()=>{try{await requireContainerLevel(ctx,input.id,'full');}catch(cause){if(!(cause instanceof ApiProblem)||cause.status!==404)throw cause;await requireWorkspaceOwner(ctx);}},prepare:async({revisionId})=>{
+    const row=await ctx.db.prepare('SELECT visibility FROM containers WHERE id=? AND workspace_id=?').bind(input.id,ctx.actor.workspaceId).first<{visibility:string}>();if(!row)throw new ApiProblem(404,'NOT_FOUND','Not found.');if(row.visibility==='personal')throw new ApiProblem(403,'PERSONAL_PRIVATE','A personal container cannot be opened.');
+    return {entity:{id:input.id,kind:'container',revisionId},value:{id:input.id,revisionId},statements:[mutationGuard(ctx.db,'SELECT revision_id=? FROM containers WHERE id=?',[input.expectedRevisionId,input.id]),ctx.db.prepare('UPDATE containers SET guest_access=?,public_link_access=?,anonymous_access=?,visibility=?,revision_id=?,updated_at=? WHERE id=?').bind(input.guestAccess,input.publicLinkAccess,input.anonymousAccess,input.visibility,revisionId,ctx.now,input.id),await containerRevision(ctx,input.id,revisionId,input)]};
+  }});
+}

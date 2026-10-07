@@ -1,0 +1,12 @@
+.DS_Store
+.artifacts/
+dist/
+node_modules/
+.wrangler/
+.tanstack/
+.dev.vars*
+wrangler.toml
+worker-configuration.d.ts
+.seed/deployment/
+.vitest/
+delivery-artifact/

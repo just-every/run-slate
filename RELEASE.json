@@ -1,0 +1,318 @@
+{
+  "version": "0.1.0",
+  "date": "2026-10-06",
+  "contractChanges": {
+    "BASE-ACCESS-002": {
+      "change": "changed",
+      "summary": "Otherwise-admissible protected API requests return 401 at session validation, while native documents and generated RPC preserve their identifiable session-denial protocols with no private product payload or requested mutation.",
+      "was": "A session expires after at most 30 days of inactivity; sign-out revokes that session. Every operator endpoint requires a valid session and returns 401 without one.",
+      "now": "A session expires after at most 30 days of inactivity; sign-out revokes that session. A valid session is required before an operator request reads private product data or performs its requested action. A protected operator document and each private generated server-function handler validate the session independently; a document gate does not authorize a function call. For an otherwise-admissible request that reaches session validation, a protected operator HTTP API returns 401 when the session is missing, expired, or revoked; a protected document returns its native sign-in response; and a generated transport may encode an identifiable session denial or sign-in redirect in its framework protocol, including a 200 serialized redirect. No such denial response exposes private product data or performs the requested mutation. Declared public exceptions remain governed by BASE-ACCESS-003, and host, method, Origin/CSRF, input, and runtime guards retain their normal order."
+    },
+    "BLOCK-008": {
+      "change": "added",
+      "summary": "Media blocks are stored under BASE-INPUT-003 and served inline when the file is requested for display and with a download disposition for every other request, both with the declared content type and nosniff, and with access unchanged.",
+      "supersedes": "BASE-INPUT-003"
+    },
+    "IMP-003": {
+      "change": "changed",
+      "summary": "The unreleased Confluence importer contract now includes Cloud CSV-table exports alongside Server/Data Center XML, preserves named user and group restrictions, and prohibits general grants in personal containers.",
+      "was": "Slate imports a Confluence space export in its XML form, and single documents in the forms each editor exports: Word's `.docx`, and a Google Docs document downloaded as `.docx` or as zipped HTML, Google Docs having no file form of its own. Pages become pages with their tree, their labels (`PAGE-001`), their versions with their comments and ordinals where the export carries them, their status, and their published state; page and attachment links resolve to the imported records; and a page restricted in the export arrives with a container-scoped general grant, never a workspace-wide one (`SHARE-005`). The report names what did not map, including whiteboards, blogs, calendars and folders, and a folder is imported as a page with an empty body so its tree survives. Its test fixtures are a space export produced by Confluence itself and one document downloaded from each of Word and Google Docs, committed with the test; a fixture written by hand does not satisfy this clause.",
+      "now": "Slate imports a Confluence space export in whichever form the product emits \u2014 Confluence Cloud's CSV table export, where `content.csv` carries the tree and the version ledger and `bodycontent.csv` carries storage-format bodies, or the single `entities.xml` a Server or Data Center export writes \u2014 and single documents in the forms each editor exports: Word's `.docx`, and a Google Docs document downloaded as `.docx` or as zipped HTML, Google Docs having no file form of its own. Pages become pages with their tree, their labels (`PAGE-001`), their versions with their comments and ordinals where the export carries them, their status, and their published state; page and attachment links resolve to the imported records; and named user and group restrictions remain named grants. A general grant is container-scoped, never workspace-wide (`SHARE-005`), and a personal container carries no general grant (`SHARE-004`). The report names what did not map, including whiteboards, blogs, calendars and folders, and a folder is imported as a page with an empty body so its tree survives. Its test fixtures are a space export produced by Confluence itself and one document downloaded from each of Word and Google Docs, committed with the test; a fixture written by hand does not satisfy this clause."
+    },
+    "AI-002": {
+      "change": "changed",
+      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
+      "was": "Run lifecycle.** A member can start a selection edit, a page or comment summary, a difference summary, a workspace answer or an agent run. A run moves Queued \u2192 Running \u2192 Needs review \u2192 Completed. A member can cancel a Queued or Running run; a run in any non-terminal state becomes Failed on error, and a run that has been Running for 10 minutes becomes Failed; Completed, Cancelled and Failed are terminal. A run reaches Completed when a member accepts or discards its output, and discarding records the rejection.",
+      "now": "Run lifecycle.** A member can start selection edits, summaries, workspace answers, agent work and sustained inquiry. Runs move Queued \u2192 Running \u2192 Needs review or Paused \u2192 Running, then Completed, Failed or Cancelled. Each Running stage is bounded to ten minutes; exceeding it or encountering an error fails visibly. Scheduled waits and pauses persist their reason and progress and release execution. Any non-terminal run can be cancelled. Terminal runs never resume: continued work is a linked new run preserving earlier effects and reconciling ambiguity first. Proposal work completes on explicit acceptance or discard, recording rejection; granted work completes only after every required effect and output check is confirmed. A request created or uncertain effect is not completion."
+    },
+    "AI-003": {
+      "change": "changed",
+      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
+      "was": "Review before mutation.** A run produces a proposal. Until a member accepts it, no page, block, record, comment, status, grant, container or state changes.",
+      "now": "Proposal or bounded delegation.** A run produces a proposal unless a current, named, bounded owner grant authorizes the exact effect, target, source scope, audience and conditions. Without that authority no product mutation occurs before member acceptance. Determinate maintenance within that authority commits directly as an attributable revision with sources, checks and receipt; it does not demand repeated ritual approval. Consequential business choices and out-of-grant effects remain pending for the accountable authority. No output approves itself."
+    },
+    "AI-005": {
+      "change": "changed",
+      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
+      "was": "Acceptance.** Accepting a proposal applies only the changes the member selected and records the accepting member, those changes, the input record revisions, and the provider and model. The mutations and their activity entries commit together or not at all.",
+      "now": "Acceptance and granted mutation.** Accepting a proposal applies only selected changes and records accepting member, changes, input revisions, provider and model. Delegated mutation records the exact grant and issuing owner instead of inventing an accepting person. Local mutations, revisions, receipts and activity commit together or not at all. Remote effects retain durable intent and confirmed receipts, never a claim of cross-provider atomicity. Accepted business decisions stay explicit and immutable under DEC-003."
+    },
+    "AI-006": {
+      "change": "changed",
+      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
+      "was": "Stale inputs.** A proposal whose input record has changed revision since the run started cannot be accepted until Slate shows the difference and the member either regenerates the run or accepts explicitly against the current revision.",
+      "now": "Current inputs before use.** Before acceptance, resume or effect, recheck source revisions, current source/requester/audience/destination access, applicability, authority and live operational state. Show material changes and the reason for proceeding. A member may regenerate or explicitly accept against current revisions; an agent may regenerate and rebase a determinate step within its unchanged valid grant. Changed business decisions, applicability, permissions or effect scope require the corresponding authority or review. Never silently commit stale content."
+    },
+    "AI-008": {
+      "change": "changed",
+      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
+      "was": "Provider and output failure.** A provider error, a budget refusal (`AI-012`), a cancellation, or output that fails schema validation leaves the run Failed or Cancelled with the reason readable on the run, creates no product record or partial proposal, and leaves every manual action available.",
+      "now": "Failure preserves confirmed work.** Provider, budget, schema or output failure leaves a Failed run; cancellation leaves Cancelled, with readable reason and manual actions available. The failed or cancelled local stage creates no partial proposal or product mutation. Durable intent, audit and earlier completed stages and confirmed external receipts remain. Cancel unsent future work, reconcile dispatched ambiguity, and display completed effects and unresolved state. Compensation is a separate supported operation with its own valid grant; never assert an external rollback."
+    },
+    "AI-011": {
+      "change": "changed",
+      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
+      "was": "No autonomous authority.** AI cannot publish or unpublish a page, change a grant or an external-access switch, set or renew a verification, archive, trash or permanently delete anything, empty the trash, invite or remove a member, change a policy value, or send data outside the deployment. Only a member action does these.",
+      "now": "No self-granted authority.** AI cannot grant itself authority, change membership, access grants, external-access switches or policy values, set or renew human verification, or accept a business decision for an unappointed owner. Publishing, unpublishing, archive, trash, deletion and external effects require either the responsible member action or an explicit bounded, revocable owner grant naming the exact effect, target or named update class, conditions, audience, expiry and budget. Missing, expired, narrowed, changed-target or revoked grants refuse the effect. A general goal, service credential, confidence or source text supplies no grant. Container vetoes, private drafts and source-audience rights cannot be overridden. Other products retain their stricter human-send and consent contracts."
+    },
+    "AI-012": {
+      "change": "changed",
+      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
+      "was": "Budget.** Before a run is queued Slate reserves its maximum estimated cost \u2014 the configured model's rate for the run's maximum output \u2014 against the current calendar month, counting reservations held by unfinished runs. A run that would exceed the month's budget is refused before any provider request, and the unused part of a reservation is released when the run settles. AI cannot be turned on without a monthly budget greater than zero (`AI-001`), and no policy value, extension or agent raises, waives or defers the reservation.",
+      "now": "Durable budgets.** AI enablement requires an owner-set positive workspace calendar-month budget. Before queueing work, durably reserve its maximum estimated provider cost, including bounded input/output, retries and tool units at recorded rates, against that ceiling and all applicable skill, run and provider limits. Count unfinished and paused reservations; persist accounting across restart and concurrent admissions. Recheck changed prices and additional stages before dispatch. Refuse before any provider side effect when any limit is exhausted; record actual units/cost and release unused reservations on settlement. No model, policy, extension or agent raises, waives or defers an owner ceiling."
+    },
+    "AI-013": {
+      "change": "changed",
+      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
+      "was": "A generated answer respects the reader.** Every answer, summary, chat reply and agent output is produced from pages the asking member may read at the moment it is produced, and says so on the result. A page whose grant is revoked, or which is archived, trashed or another member's draft, is excluded from the next answer with no re-index step, and no cache, embedding, transcript or stored proposal re-exposes it. This holds under every policy value and cannot be overridden.",
+      "now": "Requester and audience boundary.** Every generated answer, summary, chat reply and agent output uses only sources currently authorized for the asking member, owner policy and task scope. This includes external sources and investigators using broader service credentials. Background work declares an authorized output audience and destination before execution; every source must permit that audience and executing identity. Recheck every contributor before fan-in, generation, write, delivery, resume and later read of persisted output. Changed or uncertain ACLs, source/requester/audience/destination rights withhold or invalidate derived artifacts, including caches, embeddings, transcripts and proposals; no titles, counts, hints or citations disclose restricted facts. Revoked, archived, trashed and another member\u2019s draft content is excluded without reindexing. Credentials supply capability, never disclosure authority. LIFE-002 and source deletion rules remain absolute under every policy."
+    },
+    "AI-014": {
+      "change": "changed",
+      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
+      "was": "Agents.** An agent is a named record with instructions, a source scope and an owner. It runs under the access of the member who invoked it, never wider (`AI-013`), its writes are proposals under `AI-003`, and its runs appear in the usage record with the agent named. 1.0 carries the agent object; model choice, per-agent budgets and per-destination write levels do not ship.",
+      "now": "Scoped agents.** An agent is an auditable named record with instructions, owner, represented identity, exact source and effect scopes, audiences and destinations. Interactive access never exceeds current invoking-member access; background work follows AI-013. Writes follow AI-003 and AI-011. Owner policy bounds providers/models, skill/run/provider budgets and permitted effects; Slate routes automatically by measured task fit within it. Runs name actor, audience, agent, exact skill revision, provider/model and cost. No model selector or agent-management chore is required for ordinary work."
+    },
+    "AI-016": {
+      "change": "changed",
+      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
+      "was": "Summaries.** A member can summarise a page, its comment threads, or the difference between two revisions. A summary names the revision it read and is offered as text to insert or copy, never written into the page without `AI-003`.",
+      "now": "Summaries.** A member can summarize a page, its comments or a difference between two revisions. The result names exact revisions and may be copied, proposed for insertion, or inserted directly when the member\u2019s request explicitly authorizes that exact insertion or a valid bounded grant covers it. Current access, destination rights, revisions and atomic receipts still apply; an ordinary request to summarize does not authorize unrelated edits."
+    },
+    "NOTIF-001": {
+      "change": "changed",
+      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
+      "was": "What notifies.** A member is notified in the app when they are mentioned, when someone comments or replies on a page they watch or authored, when a page they watch is published or republished, when a verification they own lapses (`STAT-004`), when they are granted access to a page or container, and when an AI run they started needs review or failed. Their own action never notifies them, and nothing notifies anyone about a record they may not read.",
+      "now": "Meaningful notifications.** A member is notified in the app when they are mentioned, when someone comments or replies on a page they watch or authored, when a page they watch is published or republished, when a verification they own lapses (`STAT-004`), when they are granted access to a page or container, and when an AI run they started needs review or failed. Deliver these notices when the triggering event occurs; overdue decision notices go to the decision owner under `DEC-005`. Route an unresolved policy/authority choice to its named owner when the choice blocks action, an actionable paused or failed run to its run owner when it pauses or fails, and a consequential experiment result to its accountable owner when the result is recorded and ready for action. Coalesce related granted maintenance into one concise Today outcome with inspectable changes; routine standing-authorized success and unchanged checks stay quiet and require no fresh approval. Never coalesce away direct mentions, access changes, lapsed human attestations, meaningful failures or required decisions. Own direct actions never notify their actor; delegated events retain the named recipient rules. Recheck recipient access and the authorized output audience at creation, delivery and read; never notify about unreadable records or disclose sources beyond their authorized audience. Preserve `NOTIF-002` inbox behavior, `NOTIF-003` optional link-only chat delivery and `MAIL-001` limited email use."
+    },
+    "SAVE-006": {
+      "change": "changed",
+      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
+      "was": "Concurrent editing without co-editing.** Several members may edit different blocks of one page at the same time and each save succeeds; two edits to one block are resolved by `SAVE-003`, never merged. A page shows who else has it open as an avatar stack and nothing more: there are no shared cursors, no character-by-character streaming, and no automatic merge. An open page refreshes another member's committed blocks within 10 seconds, leaving the reader's own unsaved block untouched.",
+      "now": "Concurrent editing and optional co-editing.** Different blocks can be edited concurrently; revision conflicts retain SAVE-003 and unsent text. Committed blocks refresh within ten seconds without replacing a reader\u2019s unsaved block. A page shows who has it open. Deployments may enable real live co-editing, shared cursors and presence with durable accepted operations, current ACL checks, revocation, reconnect recovery and attributable revision history. Co-editing never silently loses an accepted edit or converts unconfirmed local text into Saved. The full flagship acceptance exercises real co-editing; a deployment may keep it disabled."
+    },
+    "DB-002": {
+      "change": "changed",
+      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
+      "was": "Field types.** A field is one of: text, number, checkbox, date, select, multi-select, status, person, file, URL, email, phone, place, relation to another database, rollup over a relation, formula, created and updated metadata, and identifier. Each has a defined empty value, a defined sort order and a defined import and export representation, and changing a field's type either converts every value or is rejected naming what would be lost. Rollup and formula are stored, imported, exported and displayed in 1.0 and are not evaluated: an imported rollup or formula field keeps its configuration and the values the export carried, shows on the field that it is not being recomputed, and is never presented as current. Evaluating them is a Notion-edition contribution on `database.field-type.v1`. Relation ships evaluated, because both incumbents have it and Confluence's Page, Jira and Other-Database fields land on it at import; neither incumbent's evidenced field list has a rollup or a formula.",
+      "now": "Field types and evaluation.** Fields support text, number, checkbox, date, select, multi-select, status, person, file, URL, email, phone, place, relation, rollup, formula, created/updated metadata and identifier. Each defines empty value, sort order and import/export representation. Type changes convert every value or reject with the loss named. Relations resolve actual records. Bounded formulas and rollups evaluate typed expressions with explicit null/error semantics, dependency tracking, cycle rejection and resource limits; no arbitrary code or network execution. Recompute affected dependencies after changes. Evaluation and aggregation use current reader-authorized records and never leak restricted values or counts. Preserve imported configuration and unsupported expressions with visible not-recomputed state, never fabricated current values; export and restore retain definitions and dependencies."
+    },
+    "WEB-001": {
+      "change": "changed",
+      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
+      "was": "Anonymous access takes two acts.** A page is readable without signing in only when a member with `full` access on it publishes it (`WEB-002`) and only while its container allows it. Each of the container's three switches (`CONT-007`) vetoes its own act and no other. While public links are forbidden, publishing a page in that container is rejected and every existing public link on its pages stops resolving at once. While anonymous access is forbidden, a published page in that container resolves only for a signed-in member who may read it. While guests are forbidden, a guest invitation to that container or to a page in it is rejected and existing guest access to it ends under `SHARE-007`. Each veto is not gated by a plan or a role beyond container administration, is not a policy value, and no extension, automation or AI action may bypass it.",
+      "now": "Anonymous access takes two acts.** A page is readable without signing in only when a member with `full` access publishes it (`WEB-002`), directly or through an explicit bounded revocable owner grant for that exact page or named publication class under `AI-011` and only while its container allows it. Each of the container's three switches (`CONT-007`) vetoes its own act and no other. While public links are forbidden, publishing a page in that container is rejected and every existing public link on its pages stops resolving at once. While anonymous access is forbidden, a published page in that container resolves only for a signed-in member who may read it. While guests are forbidden, a guest invitation to that container or to a page in it is rejected and existing guest access to it ends under `SHARE-007`. Each veto is not gated by a plan or a role beyond container administration, is not a policy value, and no extension, automation or AI action may bypass it. Each delegated publication rechecks the grant, current full access, exact source-audience disclosure rights and target; standing authority avoids repeated approval but supplies no audience or veto bypass."
+    },
+    "SUG-001": {
+      "change": "added",
+      "summary": "Anchored suggestions",
+      "now": "Members with comment or edit access can propose a typed change as a separate record anchored to an exact page/block revision, inspect its diff and discuss it. A suggestion changes neither working page/block content nor published content before explicit acceptance under `SUG-002`. Preserve author, time, original text and exact revision; inaccessible anchors disclose no content. Direct granted maintenance remains a separate attributable revision path under `AI-003`/`AI-005`, not suggestion acceptance or a forced review queue."
+    },
+    "SUG-002": {
+      "change": "added",
+      "summary": "Resolve explicitly",
+      "now": "An authorized editor accepts selected suggestions atomically with a new revision/activity/receipt or rejects them with attribution. Recheck current access and revision; conflicting or lost anchors require explicit rebase/review, never silent application. Suggestion history survives reload and export."
+    },
+    "SOURCE-001": {
+      "change": "added",
+      "summary": "Connector contract",
+      "now": "Each connected source declares provider/tenant identity, owner, represented principals, scopes, supported effects, ACL mapping or named service identity, discovery coverage, cursor, last success/error, freshness and lag, deletion/revocation and retention guarantees. Unsupported guarantees are visibly unavailable. Multiple real document, collaboration/evidence and operational connector families are required."
+    },
+    "SOURCE-002": {
+      "change": "added",
+      "summary": "Exact passages",
+      "now": "Retain immutable source-native IDs, revision/hash, observed and source times, permitted originals or restorable references, extraction version and stable passage anchors. Citations open that exact revision or a content-free tombstone, never silently newest content."
+    },
+    "SOURCE-003": {
+      "change": "added",
+      "summary": "Scoped claims and authority",
+      "now": "Claims retain proposition, exact passages, kind, account/product/plan/audience/jurisdiction scope, effective/expiry interval, owner, verification, conflict and unknown state. Record named approving person or delegated office and applicable authority separately. Recency, popularity, model confidence and conversational evidence cannot create policy authority."
+    },
+    "SOURCE-004": {
+      "change": "added",
+      "summary": "Live observations",
+      "now": "Operational state is a typed response from its owning system with tenant/account identity, observation time and freshness. Documents cannot substitute for live entitlement or activation. Reconcile contradictions by scope, authority and effective dates; preserve unknown prices, expiry and unsupported facts."
+    },
+    "SOURCE-005": {
+      "change": "added",
+      "summary": "Revocation and deletion",
+      "now": "Source changes trace dependent claims, decisions, answers, skills and runs. Revoke access immediately at every use boundary, invalidate derived content and indexes, remove deleted material from exports and retain only permitted tombstones. Uncertain source ACLs fail closed. Partial indexing and lag remain visible."
+    },
+    "SOURCE-006": {
+      "change": "added",
+      "summary": "Credential lifecycle",
+      "now": "Credentials name issuer/owner, represented identity, scope/destinations, expiry and revocation. Disconnect blocks new dispatch, suspends queued/paused work, stops active work at a safe boundary and cancels unsent effects. Dispatched uncertainty remains unresolved until authorized read-back. Reconnect verifies identity, scopes, ACLs/deletions/revisions and each run/audience; old authority is never inherited automatically."
+    },
+    "SKILL-001": {
+      "change": "added",
+      "summary": "Versioned procedure",
+      "now": "Skills retain owner, immutable version, instructions, preconditions, context/source scope, allowed semantic tools and exact effects/targets, budgets, expected outputs/checks and escalation conditions. Runs pin exact versions; export SKILL.md and attachments as labelled snapshots, not live synchronization."
+    },
+    "SKILL-002": {
+      "change": "added",
+      "summary": "Evaluation and activation",
+      "now": "Draft \u2192 evaluated \u2192 active \u2192 superseded/retired lifecycle retains domain outcome and forbidden-effect evaluations, contradictions, stale inputs, outages, permission boundaries and prior accepted cases. Failed evaluation cannot activate. Activation requires owner action or exact recorded standing authority for evaluated routine refinement; it cannot widen sources/effects/audiences/budgets or change policy."
+    },
+    "SKILL-003": {
+      "change": "added",
+      "summary": "Version transitions",
+      "now": "Superseded/retired versions cannot start runs. Suspend queued/paused pinned runs and active work at boundaries by default; direct or applicable standing authority may cancel, continue the exact version or create a linked successor. Recheck all current sources/grants; stop and revocation override continuation. Preserve immutable history and receipts, reconcile ambiguity and never silently substitute versions. Notify subscribed external agents of changes."
+    },
+    "EFFECT-001": {
+      "change": "added",
+      "summary": "Durable effects",
+      "now": "Before external dispatch persist intent, exact semantic operation, principal/account/target, grant, source revisions and idempotency key. Distinguish prepared, dispatched, uncertain, confirmed, failed and cancelled. Reconcile lost responses by provider key or read-back; no blind repeat while uncertain and no success without receipt or verified state transition."
+    },
+    "EFFECT-002": {
+      "change": "added",
+      "summary": "Consent and product custody",
+      "now": "An inquiry causes no account/charge effect even if a tool grant exists. Paid SSO activation separately requires account-authorized consent, current price/interval/discount scope/expiry, applicable commercial approval, verified purchase/entitlement and exact activation grant. Distinguish request creation, customer setup pending and confirmed enabled. Article repair has independent publication authority. HappyToHelp owns conversations/replies and Orbit owns CRM/outreach, including their exact-human-send boundaries."
+    },
+    "EFFECT-003": {
+      "change": "added",
+      "summary": "Impact and maintenance",
+      "now": "Prepare read-only impact rehearsal before policy acceptance, identifying affected accounts/exceptions and dependent answers, procedures, skills and open work. Preserve immutable decisions; apply only determinate granted repairs, evaluate changed skills, invalidate stale answers and coalesce outcomes. Unaffected scoped exceptions stay scoped. Simulation is labelled read-only/isolated and never proof of live effects."
+    },
+    "AGENT-001": {
+      "change": "added",
+      "summary": "Semantic parity",
+      "now": "UI, API and MCP expose the same authorized reads, exact citations, proposals, granted effects, run status, pause/resume, stop and outcomes, with operation keys, current ACL/grant checks and receipts. External identities cannot bypass browser or product consent boundaries. Unsupported operations fail explicitly."
+    },
+    "AGENT-002": {
+      "change": "added",
+      "summary": "Portable owner interfaces",
+      "now": "Task/inquiry/experiment views derive from durable records, skill schemas and grants and preserve the accepted editor/tree/comments/history. Interface definitions are source-controlled or exportable. Owners can customize source/core/schema/UI/providers without losing data, skills, decisions, runs, interface definitions or migration history; no vendor kill switch or required proprietary hosted data account."
+    },
+    "INQ-001": {
+      "change": "added",
+      "summary": "Open questions",
+      "now": "An outcome request prepares an inquiry with decision context, rival hypotheses, discriminating observations, unresolved dependencies and independent investigations. Preserve useful interim findings, falsified hypotheses, uncertainty, next informative step and cost across bounded stages and durable waits. Members inspect/correct scope or stop work without designing schemas or coordinating agents."
+    },
+    "INQ-002": {
+      "change": "added",
+      "summary": "Reproducible reasoning",
+      "now": "Retain observations, assumptions, deductions and business choices separately, with population/applicability, counterexamples, failed hypotheses, executable analysis inputs/code/tool versions and results sufficient for independent replay. No private reasoning transcript is required. Checked logical propositions state bounds and checker versions; exact arithmetic/feasibility is not causal customer evidence."
+    },
+    "INQ-003": {
+      "change": "added",
+      "summary": "Bounded planning",
+      "now": "Prepare objectives, constraints, allocations, sensitivity and counterexamples from current evidence. Code checks arithmetic and invariants; retain assumptions and accepting owner. A feasible allocation is not proof of benefit. Methods and contextual interfaces are prepared from the request rather than assigned as setup chores."
+    },
+    "INQ-004": {
+      "change": "added",
+      "summary": "Routing and ambient discovery",
+      "now": "Typed semantic checks assess relevant permitted events for novelty, contradiction and impact and prepare consequential questions. Owner questions and scheduled frontier sweeps bypass ranking; shadow comparisons and sampled low-score audits measure missed important events. Routing follows measured fit within owner policy, never grants authority or fabricates a fallback after invalid output."
+    },
+    "INQ-005": {
+      "change": "added",
+      "summary": "Economical sustained work",
+      "now": "Deduplicate overlapping work only within an authorized audience and reuse revision-pinned context only after freshness/applicability/access checks. Budget compute and interruptions, keep meaningful progress inspectable and routine checks quiet. Stop branches with no useful information, exhausted budget or inaccessible evidence with reason/restart condition; independent authorized branches may continue."
+    },
+    "TRIAL-001": {
+      "change": "added",
+      "summary": "Predeclared comparison",
+      "now": "Before any trial effect, durably record eligibility, treatment/comparison assignment, baseline/instrumentation, forecast, expected and smallest meaningful effect, required precision, observation window, stopping conditions, guardrails, owner authority and exact effects. Prefer defensible randomization when feasible and disclose confounding otherwise. Changing a plan creates a revision, never retroactive predeclaration."
+    },
+    "TRIAL-002": {
+      "change": "added",
+      "summary": "Exposure and safety",
+      "now": "Only owning systems perform granted changes; retain attempted versus confirmed effects, receipts, actual exposure, missing observations and instrumentation changes. Guardrail breaches stop future effects and initiate only separately authorized supported recovery. Prospective windows must actually elapse; fixtures or simulated time are not prospective outcome evidence."
+    },
+    "TRIAL-003": {
+      "change": "added",
+      "summary": "Outcome classification",
+      "now": "At the declared window classify benefit, null, adverse or inconclusive against the predeclared comparison and guardrails, with uncertainty, applicability, selection bias and measurement quality. Null counts against a mechanism only with enough precision to rule out the meaningful effect; incomplete exposure or changed instrumentation may be inconclusive. Never substitute model agreement for empirical evidence."
+    },
+    "TRIAL-004": {
+      "change": "added",
+      "summary": "Reusable learning",
+      "now": "Every outcome revises explanations and methods while retaining original forecast, decision and failed hypotheses. Learned procedures/prompts/tests/code are versioned and evaluated before owner-authorized activation. No automatic model-weight tuning or cross-deployment sharing. Verify repeated-work savings without invalid assumption reuse."
+    },
+    "FLAG-001": {
+      "change": "changed",
+      "summary": "core-wiki launch amendment / release review authorizes the core-wiki launch profile; all full flagship requirements remain pending.",
+      "was": "All 191 inherited clauses with only recorded explicit amendments, all 22 baseline obligations, every value of the eight policies, all six USER-JOURNEYS.md journeys, full flagship and complete customer-activation inquiry \u2192 experiment \u2192 outcome \u2192 learning loop are required. No minimum subset, parser/component suite or self-report substitutes for full product acceptance.",
+      "now": "All 191 inherited clauses with only recorded explicit amendments, all 22 baseline obligations, every value of the eight policies, all six USER-JOURNEYS.md journeys, full flagship and complete customer-activation inquiry \u2192 experiment \u2192 outcome \u2192 learning loop are required. No minimum subset, parser/component suite or self-report substitutes for full product acceptance. core-wiki launch amendment authorizes a separately labelled core-wiki release with the default-disabled surfaces and retained obligations specified in the core-wiki launch amendment. This changes the launch gate only; it does not satisfy or waive full flagship acceptance."
+    },
+    "FLAG-002": {
+      "change": "added",
+      "summary": "Independent evidence",
+      "now": "Verify clean install, real browser/Worker journeys, customized owner copy, old-data migrations, restart/failure/revocation, complete export/restore, accessibility and load. Test genuine incumbent exports including Word; use real authorized document, evidence and operational providers for provider acceptance. Separate requirements, local implementation evidence, provider evidence and release/deployment evidence; no claim advances without independent semantic verification."
+    },
+    "FLAG-003": {
+      "change": "added",
+      "summary": "Value and held-out evaluation",
+      "now": "Compare identical accessible sources/tools against expert/current-tools and capable generic-agent baselines and owner-customized Slate. Freeze held-out cases separately from development and prevent future outcomes, later summaries/labels/indexes leaking past decision cutoff. Measure discoveries, falsification, missed-event recall, reproducibility, forecasts/interventions and every attempt\u2019s cost/time/attention, setup, interruptions, failures and repair. Repeated quality-preserving useful outcomes, including null/adverse/inconclusive cases, are required; privacy/authority failures cannot trade for productivity."
+    },
+    "FLAG-004": {
+      "change": "added",
+      "summary": "Complete portable knowledge",
+      "now": "PORT-001/002/005/006 extend to source revisions/passages, claims/authority, skill versions/evaluations/grants, run stages/effect receipts, inquiries/analyses/trials/outcomes/learning and interface definitions with exact lineage. Retain credential metadata but exclude secrets/sessions and require fresh activation/authorization after restore. External state is reported, not recreated by assertion; exact public publishing and imported-actor restrictions remain."
+    },
+    "MAIL-002": {
+      "change": "changed",
+      "summary": "Owner-required Base Mail SendGrid support preserves durable uncertain review instead of unsafe replay; Resend bounded idempotent retry is retained.",
+      "was": "A send that fails is retried up to 3 times over 5 minutes. A send that still fails is recorded with the provider's error and shown to a person \u2014 on the sign-in screen for a sign-in link, in settings for an invitation \u2014 and is never reported as sent.",
+      "now": "A send that fails is retried up to 3 times over 5 minutes when the provider guarantees duplicate suppression for that exact request. With SendGrid, explicit rejection is shown for owner retry; ambiguous transport, expired dispatch ownership, or acceptance without a receipt is durably held for provider review with no automatic or explicit blind resend. A send that still fails or remains uncertain is recorded with a safe provider error and shown to a person \u2014 on the sign-in screen for a sign-in link, in settings for an invitation \u2014 and is never reported as sent. A provider receipt establishes acceptance, not inbox delivery.",
+      "date": "2026-10-07"
+    }
+  },
+  "extensionPointChanges": [],
+  "migrations": [
+    {
+      "id": "0001_knowledge_foundation.sql",
+      "buyerSteps": "Preserve already-applied 0001 history and data. This original foundation migration remains unchanged. Apply later additive migrations through the actual edition commands only after independent old-data and recovery verification; migration presence alone is not acceptance."
+    },
+    {
+      "id": "0002_core_runtime.sql",
+      "buyerSteps": "Additive flagship migration; preserve prior applied history and owner data. Independent old-data transition, restart and recovery evidence is pending root integration. Inspect the actual migration and operating commands before authorized application; listing here does not assert deployment."
+    },
+    {
+      "id": "0003_content_collaboration.sql",
+      "buyerSteps": "Additive flagship migration; preserve prior applied history and owner data. Independent old-data transition, restart and recovery evidence is pending root integration. Inspect the actual migration and operating commands before authorized application; listing here does not assert deployment."
+    },
+    {
+      "id": "0004_structured_work.sql",
+      "buyerSteps": "Additive flagship migration; preserve prior applied history and owner data. Independent old-data transition, restart and recovery evidence is pending root integration. Inspect the actual migration and operating commands before authorized application; listing here does not assert deployment."
+    },
+    {
+      "id": "0005_discovery.sql",
+      "buyerSteps": "Additive flagship migration; preserve prior applied history and owner data. Independent old-data transition, restart and recovery evidence is pending root integration. Inspect the actual migration and operating commands before authorized application; listing here does not assert deployment."
+    },
+    {
+      "id": "0006_federation.sql",
+      "buyerSteps": "Additive flagship migration; preserve prior applied history and owner data. Independent old-data transition, restart and recovery evidence is pending root integration. Inspect the actual migration and operating commands before authorized application; listing here does not assert deployment."
+    },
+    {
+      "id": "0007_intelligence.sql",
+      "buyerSteps": "Additive flagship migration; preserve prior applied history and owner data. Independent old-data transition, restart and recovery evidence is pending root integration. Inspect the actual migration and operating commands before authorized application; listing here does not assert deployment."
+    },
+    {
+      "id": "0008_identity_mail_outbox.sql",
+      "buyerSteps": "Additive identity-mail custody and retry migration; preserve prior data and applied history. See docs/MAIL-DELIVERY.md. Migration presence and local tests do not establish provider delivery, live cron, inbox or release acceptance; independent old-data recovery and deployment verification remain required."
+    }
+  ],
+  "breaking": true,
+  "agentUpdateInstructions": "Slate 0.1.0 uses the default core-wiki scope in CONTRACT.md and ACCEPTANCE.md. Flagship is explicit development opt-in, not acceptance. Preserve all requirement IDs, baseline obligations, eight policy profiles, private drafts, current source/requester/audience rights, immutable decisions, grants, budgets and exact effect receipts. STAT-003/004 require a human to open the exact revision; automatic renewal is prohibited. Preserve applied migration history; verify forward transition and recovery before upgrading existing data. Source checks do not establish provider, deployment or complete flagship acceptance.",
+  "launchProfile": {
+    "default": "core-wiki",
+    "binding": "SLATE_PROFILE",
+    "values": [
+      "core-wiki",
+      "flagship"
+    ],
+    "authority": "core-wiki launch amendment / release review, 2026-10-06",
+    "status": "local candidate; release qualification pending",
+    "preserves": "All 220 clause IDs, 22 baseline obligations, eight content policies and all stored data/migrations."
+  },
+  "candidateStatus": {
+    "phase": "source-integration",
+    "edition": "just-every/slate",
+    "profile": "core-wiki",
+    "releaseAccepted": false,
+    "sealedPriorStore": "Unqualified; original-store upgrade and recovery remains to be verified",
+    "crossEdition": "External integration acceptance is separate from local source verification",
+    "sourceAndDelivery": "docs/release/source-and-delivery.md",
+    "footprint": "deploy/footprint.md"
+  }
+}
