@@ -40,7 +40,8 @@ export async function withWorkspace(viewport, profile, run, overrides = {}) {
     const ownerSession=await signInWithOutbox(runtime.baseUrl,'owner@test.invalid');
     const readerSession=await signInWithOutbox(runtime.baseUrl,'reader@test.invalid');
     const token=ownerSession.cookie.split('=')[1],readerToken=readerSession.cookie.split('=')[1];
-    browser = await chromium.launch({ headless: true });
+    // Software raster with fixed colour handling: captures of the same page match across runs and machines.
+    browser = await chromium.launch({ headless: true, args: ['--disable-gpu', '--disable-skia-runtime-opts', '--force-color-profile=srgb'] });
     const context = await browser.newContext({ viewport, permissions: ['clipboard-read', 'clipboard-write'], locale: 'en-US' });
     await context.addCookies([{ name: 'slate_session', value: token, url: runtime.baseUrl }]);
     const page = await context.newPage();
