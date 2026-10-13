@@ -70,7 +70,7 @@ export async function shareJourney({ page, origin, api, readerCookie, switchIden
   await page.getByRole('button', { name: 'Share', exact: true }).click();
   const ownerPanel = page.locator('.right');
   const ownerGrant = ownerPanel.locator('.grant-list > li').filter({
-    has: ownerPanel.getByRole('combobox', { name: 'Access for Morgan Reader', exact: true }),
+    has: page.getByRole('combobox', { name: 'Access for Morgan Reader', exact: true }),
   });
   await ownerGrant.locator('details summary').click();
   await ownerGrant.getByRole('button', { name: 'Remove access', exact: true }).click();

@@ -1,6 +1,7 @@
 import {beforeEach,expect,it} from 'vitest';
 import {env} from 'cloudflare:test';
 import {createApi} from '../../../src/core/app/hono';
+import {parseImport,type ImportFormat} from '../../../src/core/features/imports';
 import {seedWorkspace,seedMember,sessionFor} from '../setup/fixtures';
 import {resetDatabase} from '../setup/reset-database';
 
@@ -91,18 +92,24 @@ it.each(['historical','shared across imports'] as const)('erases an imported per
  const request=(path:string,body?:unknown)=>app.request(origin+path,{method:body===undefined?'GET':'POST',headers:{host,origin,Cookie:cookie,...(body===undefined||body instanceof FormData?{}:{'Content-Type':'application/json'})},...(body===undefined?{}:{body:body instanceof FormData?body:JSON.stringify(body)})},bindings);
  const call=async(path:string,body?:unknown)=>{const response=await request(path,body),data=await response.json() as any;expect(response.status,JSON.stringify(data)).toBe(200);return data;};
  let sharedPerson:{id:string;email:string;display_name:string}|undefined;
- const importArchive=async(format:string,name:string,sharePerson=false)=>{
+ const importArchive=async(format:ImportFormat,name:string,sharePerson=false)=>{
   const bytes=await (await (env as typeof env&{TEST_IMPORT_FIXTURES:Fetcher}).TEST_IMPORT_FIXTURES.fetch(`https://fixtures/${name}`)).arrayBuffer();
   const form=new FormData();form.set('file',new File([bytes],name));form.set('format',format);form.set('operationKey',crypto.randomUUID());
   let job=await call('/api/imports',form);job=await call(`/api/imports/${job.id}/preview`,{});
   if(sharePerson){
-   const person=job.report.principals.find((p:any)=>p.kind==='member');expect(person).toBeTruthy();
+   // The first export identity is an addon with no native content references.
+   // Map a real source grant so both imports retain this person's custody.
+   const parsed=parseImport(format,{name,bytes:new Uint8Array(bytes)});
+   const grant=parsed.pages.flatMap(page=>page.grants).find(grant=>!grant.general&&grant.principalKind==='member');expect(grant).toBeTruthy();
+   const person=job.report.principals.find((p:any)=>p.kind==='member'&&p.sourceId===grant!.principalSourceId);expect(person).toBeTruthy();
    if(!sharedPerson){const email='erased-import@example.org',member=await seedMember(workspaceId,{email,displayName:person.label,role:'member'});sharedPerson={id:member.memberId,email,display_name:person.label};}
    job=await call(`/api/imports/${job.id}/preview`,{mappings:[{sourceId:person.sourceId,kind:'member',targetId:sharedPerson.id}]});
   }
   job=await call(`/api/imports/${job.id}/apply`,{fingerprint:job.report.fingerprint});
   for(let n=0;job.state!=='completed'&&n<150;n++)job=await call(`/api/imports/${job.id}/resume`,{});
-  expect(job.state).toBe('completed');return job;
+  expect(job.state).toBe('completed');
+  if(sharePerson)expect(await env.DB.prepare("SELECT count(*) AS n FROM page_grants g JOIN import_native_targets t ON t.kind='page' AND t.target_id=g.page_id WHERE t.import_id=? AND g.principal_kind='member' AND g.principal_id=?").bind(job.id,sharedPerson!.id).first<number>('n')).toBeGreaterThan(0);
+  return job;
  };
  const affected=[await importArchive('confluence-space','confluence-space-export.zip',mode==='shared across imports')];
  if(sharedPerson)affected.push(await importArchive('confluence-space','confluence-space-export.zip',true));

@@ -5,7 +5,7 @@ import { StatusSettings } from "../../../page-status/ui/workspace/StatusSettings
 import { AutomationWorkspace } from "../../../automation/ui/workspace/AutomationWorkspace";
 import { ActivityWorkspace } from "../../../activity/ui/workspace/ActivityWorkspace";
 import { PersonalPreferences } from "../../../navigation/ui/workspace/PersonalPreferences";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ConnectionsPanel } from "../../../connectors/ui/workspace/ConnectionsPanel";
 import { WorkspacePreferences } from "./WorkspacePreferences";
 import { AppearancePanel } from "./AppearancePanel";
@@ -29,6 +29,9 @@ const sections = [
 ] as const;
 export function SettingsWorkspace() {
   const tabs = useRef<HTMLElement>(null);
+  const [scrollReady, setScrollReady] = useState(false);
+  // Links work from the server HTML; these controls need their React handlers.
+  useEffect(() => setScrollReady(true), []);
   const flagship = useFlagshipEnabled();
   const requested = useSearch({ from: "/app/settings" }).section;
   const section = sections.some(([id]) => id === requested) ? requested : "workspace";
@@ -52,7 +55,11 @@ export function SettingsWorkspace() {
             </Link>
           ))}
         </nav>
-        <div className="settings-scroll-controls"><button type="button" className="secondary-button" aria-label="Previous settings sections" onClick={() => tabs.current?.scrollBy({left:-260,behavior:"smooth"})}>←</button><span>Scroll for more sections</span><button type="button" className="secondary-button" aria-label="More settings sections" onClick={() => tabs.current?.scrollBy({left:260,behavior:"smooth"})}>→</button></div>
+        <div className="settings-scroll-controls">
+          <button type="button" className="secondary-button" aria-label="Previous settings sections" disabled={!scrollReady} onClick={() => tabs.current?.scrollBy({ left: -260, behavior: "smooth" })}>←</button>
+          <span>Scroll for more sections</span>
+          <button type="button" className="secondary-button" aria-label="More settings sections" disabled={!scrollReady} onClick={() => tabs.current?.scrollBy({ left: 260, behavior: "smooth" })}>→</button>
+        </div>
         {section === "chat" ? (
           <ChatNotifications />
         ) : section === "spaces" ? (
