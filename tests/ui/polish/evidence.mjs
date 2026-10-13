@@ -28,8 +28,11 @@ export async function capture(page, name, { fullPage = false, requiredControls =
     await Promise.all([mkdir(output, { recursive: true }), mkdir(evidenceRoot, { recursive: true })]);
     const stem = `${page.viewportSize().width}-${name}`;
     const artifact = JSON.parse(await readFile(new URL('../../../.cache/slate/build-source.json', import.meta.url), 'utf8'));
+    // The camera restore and control sweep move the page and its pointer target; let that settle too.
+    await waitForScrollSettled(page);
     const frame = await guard.unchanged('beforeScreenshot');
-    const screenshot = await page.screenshot({ path: path.join(output, `${stem}.png`), fullPage });
+    // Wall-clock stamps from the real Worker differ on every run; the rest of the page must not.
+    const screenshot = await page.screenshot({ path: path.join(output, `${stem}.png`), fullPage, mask: [page.locator('time')] });
     integrity.screenshot = assertScreenshotCamera(screenshot, frame, fullPage, name);
     await guard.unchanged('afterScreenshot');
     await writeFile(path.join(evidenceRoot, `${stem}.json`), JSON.stringify({ name, url: page.url(), artifact, geometry, sweep, axe, integrity }, null, 2));
