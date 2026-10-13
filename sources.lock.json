@@ -6471,7 +6471,7 @@
       "executable": false
     },
     "src/core/features/session/local-setup.ts": {
-      "sha256": "838cdad1ececfd2ae6c72e8f85a98719137085ab595a31eef56121e157155476",
+      "sha256": "f2914acf3647a37411e497f04dd4373477f7169abd2be5249d4f117923f7c6c0",
       "executable": false
     },
     "src/core/features/session/mail-admission.ts": {
@@ -6519,7 +6519,7 @@
       "executable": false
     },
     "src/core/features/session/routes.ts": {
-      "sha256": "a7f07777b5f56516a47cb83522f836247c33b9bc51e0832797c714ec4c4dc7b5",
+      "sha256": "5acb740af9f811adb65c2571067079f080866b99ac15ba59a97b8a556ad8e1de",
       "executable": false
     },
     "src/core/features/session/service.ts": {

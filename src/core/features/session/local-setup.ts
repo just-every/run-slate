@@ -7,10 +7,10 @@ import { slateSessions } from './auth';
 export const LOCAL_SETUP_PATH = '/auth/setup-complete';
 
 /** Acknowledge the existing native claim to rer setup; never create authority. */
-export async function completeNativeLocalSetup(request: Request, db: D1Database, config: RuntimeConfig) {
+export async function completeNativeLocalSetup(request: Request, db: D1Database, config: RuntimeConfig, rawSessionSecret: string) {
   // The CLI signs with the raw private setting. Keep this proof confined to
   // completion; Base email/provider proofs retain Slate's derived auth key.
-  const local = { origin: new URL(config.appUrl!).origin, local: config.localDevelopment, SESSION_SECRET: config.sessionSecret };
+  const local = { origin: new URL(config.appUrl!).origin, local: config.localDevelopment, SESSION_SECRET: rawSessionSecret };
   requirePost(request, local);
   requireLoopback(request);
   if (!await isLocalCli(request, local)) throw new AuthError('owner_required', 403);

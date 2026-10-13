@@ -35,7 +35,7 @@ function authProblem(cause: unknown, failure?: string): never {
 export function createSessionRoutes() {
   return new Hono<AppEnvironment>()
     .all(LOCAL_SETUP_PATH, async c => {
-      try { return c.json(await completeNativeLocalSetup(c.req.raw, c.env.DB, c.get("runtimeConfig"))); }
+      try { return c.json(await completeNativeLocalSetup(c.req.raw, c.env.DB, c.get("runtimeConfig"), c.env.SESSION_SECRET!)); }
       catch (cause) { authProblem(cause); }
     })
     .get("/api/auth/capabilities", async (context) => context.json(await storedSignInCapabilities(context.env.DB, context.get("runtimeConfig"))))
