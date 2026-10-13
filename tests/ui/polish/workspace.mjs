@@ -3,6 +3,8 @@ import { expect } from '@playwright/test';
 import { openNavigation } from '../../qualification/ui-convergence/browser-support.mjs';
 import { capture, control, separated, checkboxBeside, labelsDoNotOverlap, insideViewport } from './evidence.mjs';
 
+import { waitForRenderedResourceReadiness } from './resource-readiness.mjs';
+import { waitForScrollSettled } from './scroll-settle.mjs';
 import { headingGap, filterAlignment, drawerDoesNotIntercept } from './layout.mjs';
 
 export async function spacesJourney({ page }) {
@@ -99,6 +101,9 @@ async function settingsTab(page, tabs, name, width) {
   await insideViewport(page, tab, name);
   await tab.click();
   await expect(tab).toHaveAttribute('aria-current', 'page');
+  // The panel's resources load after the click and move the page; later scrolling must start from the settled layout.
+  await waitForRenderedResourceReadiness(page);
+  await waitForScrollSettled(page);
   return tab;
 }
 

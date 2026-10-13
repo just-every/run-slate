@@ -10,7 +10,7 @@ export async function waitForScrollSettled(page) {
     const state = window.__slateSettle ??= { frames: 0, last: '' };
     const nodes = [...document.querySelectorAll('*')].filter(node => node.scrollTop || node.scrollLeft);
     const offsets = [`${scrollX},${scrollY}`, ...nodes.map(node => `${node.scrollLeft},${node.scrollTop}`)].join('|');
-    const running = document.getAnimations().some(animation => animation.playState === 'running' && Number.isFinite(animation.effect?.getComputedTiming().endTime));
+    const running = document.getAnimations().some(animation => ['pending', 'running'].includes(animation.playState) && Number.isFinite(animation.effect?.getComputedTiming().endTime));
     state.frames = !running && offsets === state.last ? state.frames + 1 : 0;
     state.last = offsets;
     if (state.frames < stableFrames) return false;
