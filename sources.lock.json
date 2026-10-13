@@ -789,6 +789,14 @@
     }
   ],
   "files": {
+    ".github/assets/banner-dark.webp": {
+      "sha256": "51e4349b1a6ad7d6e07a42a6e8bf30d8b26bc19c81ffbc29447607c4bcc75399",
+      "executable": false
+    },
+    ".github/assets/banner-light.webp": {
+      "sha256": "a88ff18c635e44eac048be9491e3a31272d13ae20286c0b8e1bab3a997339b22",
+      "executable": false
+    },
     ".github/workflows/deploy.yml": {
       "sha256": "43ebd67d713bf5dcc1a4c3bdee66aabd2b08a2d214235054fdcc38211326015f",
       "executable": false
@@ -3170,7 +3178,7 @@
       "executable": false
     },
     "README.md": {
-      "sha256": "1fcc85c2579f01a6d7b39b53afd4b831b53e9b9fd34d88ac5073bce088f9c09a",
+      "sha256": "416e155955c0f4c5bf3f808bb2a81aa47653cb2b871d078f3f4820138701e69f",
       "executable": false
     },
     "RELEASE.json": {
