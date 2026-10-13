@@ -120,7 +120,8 @@
   "pnpm": {
     "comment": "@cloudflare/vitest-pool-workers 0.22.0 pins miniflare 5.20260815.0-alpha, whose workerd supports compatibility dates only up to 2026-08-22 and so refuses this seed's 2026-09-08. The override lifts the pool onto the same miniflare wrangler 4.129.1 depends on, so tests, `wrangler dev`, and production run one workerd.",
     "overrides": {
-      "miniflare": "5.20260907.0-alpha"
+      "miniflare": "5.20260907.0-alpha",
+      "sharp": "0.35.5"
     },
     "onlyBuiltDependencies": [
       "esbuild",
