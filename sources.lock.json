@@ -8211,7 +8211,7 @@
       "executable": false
     },
     "tests/profile/profile.worker.test.ts": {
-      "sha256": "77ff2fc545ca04cefb742081748e9ed367153ca2ac5491bcb42db2e1d56f76c1",
+      "sha256": "e84b14483ea97e2251ce016828145ea9f9a71b0aff471b5de3e6768fc0a9a2af",
       "executable": false
     },
     "tests/profile/vitest.config.ts": {
