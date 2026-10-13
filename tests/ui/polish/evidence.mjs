@@ -10,12 +10,14 @@ import { recordCapture } from './inventory.mjs';
 import { sweepControls, assertControlSweep } from './control-sweep.mjs';
 import { guardCaptureCamera, assertScreenshotCamera } from './capture-camera.mjs';
 import { waitForRenderedResourceReadiness } from './resource-readiness.mjs';
+import { waitForScrollSettled } from './scroll-settle.mjs';
 
 const output = process.env.SLATE_POLISH_SHOTS ?? fileURLToPath(new URL('../../../.artifacts/slate-polish/shots', import.meta.url));
 const evidenceRoot = path.join(path.dirname(output), 'polish-evidence');
 export async function capture(page, name, { fullPage = false, requiredControls = [], requiredDocumentControls = [] } = {}) {
   await page.waitForLoadState('networkidle');
   await waitForRenderedResourceReadiness(page);
+  await waitForScrollSettled(page);
   const guard = await guardCaptureCamera(page, name, () => new AxeBuilder({ page }).analyze());
   try {
     const { axe, integrity } = guard;
