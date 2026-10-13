@@ -85,7 +85,6 @@ it.each([
 
 it.each(['historical','shared across imports'] as const)('erases an imported person (%s) through confirmed native removal, atomically retires custody and keeps unrelated Undo',async(mode)=>{
  const {developmentOutbox}=await import('../../../src/core/app/development-outbox');
- const {installationRedactionStatements}=await import('../../../src/core/features/portability/checkpoint');
  const {createPortability}=await import('@runeditrun/rer/modules/portability');
  const {workspaceId}=await seedWorkspace();
  const owner=await seedMember(workspaceId,{email:'custody-owner@example.org',displayName:'Custody owner',role:'owner',isSetupOwner:true});
@@ -146,13 +145,13 @@ it.each(['historical','shared across imports'] as const)('erases an imported per
  const link=new URL((await detail!.text()).match(/class="open" href="([^"<>]+)"/)![1]!.replaceAll('&amp;','&'));
  const confirmed=await app.request(origin+'/auth/confirm',{method:'POST',headers:{host,origin,Cookie:cookie,'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({token:link.searchParams.get('token')!})},bindings);
  expect(confirmed.status).toBe(303);
- // Initialize storage before comparing the final-guard failure. No checkpoint
- // statements execute here: the last-owner SQL guard must roll all of them back.
+ // Record the controller-owned migration ledger before testing removal.
+ // The last-owner SQL guard must roll back all erasure statements.
  await env.DB.exec("CREATE TABLE _rer_deploy_migrations(name TEXT PRIMARY KEY,sha256 TEXT NOT NULL,state TEXT NOT NULL); INSERT INTO _rer_deploy_migrations VALUES('0001_core.sql','controller-owned-test-identity','applied')");
  const ledgerBefore=(await env.DB.prepare('SELECT * FROM _rer_deploy_migrations').all()).results;
- await installationRedactionStatements(env.DB,env.FILES);
- // A real completed Base export retains snapshot tables until erasure retires
- // them. Repeating its DROP statements for two imports must never abort removal.
+ // A real completed Base export initializes portability and retains snapshot
+ // tables until erasure retires them. Repeated DROP statements for two imports
+ // must never abort removal.
  const portability=await createPortability({db:env.DB,policy:{product:'just-every/slate',excludeTables:['%'],includeTables:['workspaces','members']}});
  const exportId=await portability.exports.create(owner.memberId);
  let exported=await portability.exports.advance(exportId,{maxParts:100});

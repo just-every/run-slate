@@ -26,9 +26,9 @@ export function beginImportErasure(original:FeatureContext,operationKey:string) 
       for(const row of rows)found.set(row.id,row);
       guards.push(capture.statement(mutationGuard(capture.db,`SELECT (SELECT COALESCE(json_group_array(id),'[]') FROM (SELECT id FROM federation_imports WHERE id IN (${scope.sql}) ORDER BY id))=?`,[...scope.params??[],JSON.stringify(rows.map(row=>row.id).sort())] as (string|number|null)[])));
     }
-    const checkpoint=(await installationRedactionStatements(capture.db,ctx.files)).map(capture.statement);
+    const checkpointPlan=await installationRedactionStatements(capture.db);
+    const checkpoint=checkpointPlan.statements.map(capture.statement);
     if(!found.size)return original.db.batch([...guards,...statements.map(capture.statement),...checkpoint].map(capture.prepare));
-    const checkpointState=(await original.db.prepare('SELECT source_identity,epoch FROM rer_portability_state WHERE id=1').first<{source_identity:string;epoch:number}>())!;
     const destinations:NativeImportBinding[]=[];
     const custody='SELECT 1 FROM ik_jobs WHERE destination=? UNION ALL SELECT 1 FROM ik_d1_streams WHERE destination=? UNION ALL SELECT 1 FROM ik_d1_staging WHERE destination=?';
     for(const row of found.values()){
@@ -61,7 +61,7 @@ export function beginImportErasure(original:FeatureContext,operationKey:string) 
       // later retirements assert that shared restore fence in the same batch.
       const fence=index===0?checkpoint:[capture.statement(mutationGuard(capture.db,
         'SELECT EXISTS(SELECT 1 FROM rer_portability_state s JOIN rer_portability_epochs e ON e.source=s.source_identity WHERE s.id=1 AND s.source_identity=? AND s.epoch=? AND e.epoch>=s.epoch)',
-        [checkpointState.source_identity,checkpointState.epoch+1]))];
+        [checkpointPlan.state.sourceIdentity,checkpointPlan.state.epoch+1]))];
       const entry=await retireD1ImportCustody({values:['slate-native-import']},native,context,fence);
       return entry.nativeResults;
     };

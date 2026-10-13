@@ -1691,6 +1691,14 @@
         {
           "file": "tests/e2e/imports/undo-cross-references.test.ts",
           "testName": "Undo removes unedited and merely shared imported pages and keeps an edited page with every page and file it needs"
+        },
+        {
+          "file": "tests/e2e/imports/preview-undo.test.ts",
+          "testName": "erases an imported person (historical) through confirmed native removal, atomically retires custody and keeps unrelated Undo"
+        },
+        {
+          "file": "tests/e2e/imports/preview-undo.test.ts",
+          "testName": "erases an imported person (shared across imports) through confirmed native removal, atomically retires custody and keeps unrelated Undo"
         }
       ]
     },
@@ -3052,6 +3060,14 @@
         {
           "file": "tests/flagship/core/erasure.test.ts",
           "testName": "BASE-DATA-003 member erasure removes private personal bodies and R2 content while keeping anonymous audit"
+        },
+        {
+          "file": "tests/e2e/imports/preview-undo.test.ts",
+          "testName": "erases an imported person (historical) through confirmed native removal, atomically retires custody and keeps unrelated Undo"
+        },
+        {
+          "file": "tests/e2e/imports/preview-undo.test.ts",
+          "testName": "erases an imported person (shared across imports) through confirmed native removal, atomically retires custody and keeps unrelated Undo"
         }
       ]
     },

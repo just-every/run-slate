@@ -2210,6 +2210,26 @@
         "LINK-004"
       ],
       "reason": "Asserts that a reader whose mention labels differ from the stored titles saves another block through the structure route without a false BLOCK_CONFLICT, and that no reader's label is written back over the stored title. Its supporting scope is limited to the listed requirements; it does not establish the editor UI, every profile or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/e2e/imports/preview-undo.test.ts",
+      "testName": "erases an imported person (historical) through confirmed native removal, atomically retires custody and keeps unrelated Undo",
+      "kind": "supporting-regression",
+      "clauses": [
+        "IMP-001",
+        "BASE-DATA-003"
+      ],
+      "reason": "Through local Worker HTTP routes in the historical case, checks step-up refusal with unchanged custody followed by confirmation, atomic last-owner refusal with unchanged selected import, erasure and portability state and retained snapshots, and confirmed native person removal. Checks affected import-custody retirement, identity scrubbing in selected import and erasure stores, removal of affected imports’ non-media storage objects, retired import resume refusal, erasure of retained portability snapshot tables with export download refusal, preservation of another member and existing native pages and blocks, and unrelated import Undo preserving its native edit. These support the specific import and erasure mechanics only; full IMP-001 and BASE-DATA-003 acceptance remains unproven."
+    },
+    {
+      "file": "tests/e2e/imports/preview-undo.test.ts",
+      "testName": "erases an imported person (shared across imports) through confirmed native removal, atomically retires custody and keeps unrelated Undo",
+      "kind": "supporting-regression",
+      "clauses": [
+        "IMP-001",
+        "BASE-DATA-003"
+      ],
+      "reason": "Through local Worker HTTP routes in the shared across imports case, checks step-up refusal with unchanged custody followed by confirmation, atomic last-owner refusal with unchanged selected import, erasure and portability state and retained snapshots, and confirmed native person removal. Checks affected import-custody retirement, identity scrubbing in selected import and erasure stores, removal of affected imports’ non-media storage objects, retired import resume refusal, erasure of retained portability snapshot tables with export download refusal, preservation of another member and existing native pages and blocks, and unrelated import Undo preserving its native edit. These support the specific import and erasure mechanics only; full IMP-001 and BASE-DATA-003 acceptance remains unproven."
     }
   ]
 }
