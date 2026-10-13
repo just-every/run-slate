@@ -4726,7 +4726,7 @@
       "executable": false
     },
     "src/core/features/editor/service.ts": {
-      "sha256": "cd9ead7a10722fd7d5798e799eb47150611c42200e0ab7f7ba2a3a1d786ed8a5",
+      "sha256": "483fec5d7828ccef3fe2edeaa81ae4c21664bf33735c7f46039ca392bc1ba575",
       "executable": false
     },
     "src/core/features/editor/tasks.ts": {
@@ -6470,7 +6470,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/MembersPanel.tsx": {
-      "sha256": "3259c57fdd4ed893da8185edd98ae5f318f277ad10895405b94807f7b4cac159",
+      "sha256": "75477445f2a2a94142a037f585e8b37c55d5d02ff288e96be89cf8cd10c4928d",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/NavigationSettings.tsx": {
@@ -7559,6 +7559,10 @@
     },
     "tests/flagship/content/sqlite-harness.mts": {
       "sha256": "359b70ad91cfbfc23aaa218179faf5b3b9e3ac66c10111e7e8e9b4032f7051bb",
+      "executable": false
+    },
+    "tests/flagship/content/structure-save-labels.test.ts": {
+      "sha256": "91e048893948a0a68e7465ea624012124d0931f90f5461e8ccfe1720ccb166d7",
       "executable": false
     },
     "tests/flagship/core/access.test.ts": {
@@ -8974,7 +8978,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/browser-support.mjs": {
-      "sha256": "2a4b9b93fa488117d0fa717dd31457682e78159d38fd064662ee75c8f0dc4a82",
+      "sha256": "f1693b9a5febdb39a5cd0219ee236d7a314ac7075314649e20dd432da4adbd02",
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
@@ -9130,7 +9134,7 @@
       "executable": false
     },
     "tests/ui/polish/evidence.mjs": {
-      "sha256": "e8ca1eb4dd74c83d65755678910f29b4ab0e60fff4145e89b36d40ce9ae50afc",
+      "sha256": "8b0f62fd05f2c86748a96406de0a18876caf4c2485ebcfab36c0fb50667d6d18",
       "executable": false
     },
     "tests/ui/polish/header.mjs": {
@@ -9153,8 +9157,12 @@
       "sha256": "c007817cbcec9fa3e3ccf0e9a89f7889f5ca3b914d0592cf2b02d08238d9ef90",
       "executable": false
     },
+    "tests/ui/polish/scroll-settle.mjs": {
+      "sha256": "8521f6f601921c173ef61f4c8fbd8f3b81c93d3c630c6bebafbfe572b9387c41",
+      "executable": false
+    },
     "tests/ui/polish/workspace.mjs": {
-      "sha256": "38129ffa35401072a65d5eb36c1ab3fbbedff4175888661c0b777000c3d669ae",
+      "sha256": "9a8811061e3e87f460c96beca4d8f28039cf087045b1e83bd5087033681ed092",
       "executable": false
     },
     "tests/ui/README.md": {
