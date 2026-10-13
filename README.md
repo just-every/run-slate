@@ -10,6 +10,25 @@
 
 <p align="center"><a href="https://run-slate.com">run-slate.com</a> · <a href="https://justevery.com">Part of Just Every</a> · <a href="LICENSE">MIT licensed</a></p>
 
+<p align="center">
+  <a href="https://justevery.com/#vol-slate"><img src=".github/assets/media/preview.gif" width="800" alt="Slate's editor: a heading, an @ mention of a person, a link to a page and a checklist item typed into a page"></a>
+</p>
+<p align="center"><a href="https://justevery.com/#vol-slate"><b>Watch the full demo</b></a> · 47 seconds</p>
+
+<p align="center">
+  <img src=".github/assets/media/flow.webp" width="800" alt="The same search for launch: sam sees four results within his access, maya sees five including the Leadership budget page">
+</p>
+
+<p align="center">
+  <img src=".github/assets/media/screen-1.webp" width="800" alt="Slate's Launch plan page: a Launch week heading, a mention of @alice, a link to the Launch checklist page and a to-do, each block saved"><br>
+  <sub>Pages with mentions, page links and blocks that save as you write.</sub>
+</p>
+
+<p align="center">
+  <img src=".github/assets/media/screen-2.webp" width="800" alt="The Projects database in Slate as a board grouped by status, each record with an owner and a due date"><br>
+  <sub>Databases with board, chart and automation views.</sub>
+</p>
+
 # Slate
 
 Slate is a self-hosted team wiki built with React, TanStack Start, Hono and Cloudflare Workers. The default `core-wiki` profile provides pages and containers, rich-text editing, comments, permissions, search, revision history, imports, and backup and restore. The public source repository is [just-every/run-slate](https://github.com/just-every/run-slate). Source publication does not establish product or provider acceptance.
