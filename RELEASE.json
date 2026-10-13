@@ -369,7 +369,7 @@
   },
   "candidateStatus": {
     "phase": "source-integration",
-    "edition": "just-every/slate",
+    "edition": "just-every/run-slate",
     "profile": "core-wiki",
     "releaseAccepted": false,
     "sealedPriorStore": "Unqualified; original-store upgrade and recovery remains to be verified",

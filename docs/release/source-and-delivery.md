@@ -6,7 +6,7 @@ Byte-exact Base exports and retained origin evidence are recorded in `base-copie
 
 After changing source, build, run `pnpm integration:sync`, stage intended files, run `pnpm source:lock`, then commit. `pnpm source:check` checks the source lock and the integration generated from the emitted Wrangler config through Base's spec reader. `pnpm artifact:delivery` writes a fresh schema-2 output directory containing the descriptor and raw payloads; each has its size and SHA-256. Existing output directories are refused. Build provenance remains in `.cache/slate/build-source.json`; the producer is untrusted input to independent workflow attestation.
 
-`rer-project.json` and `.github/workflows/rer-managed.yml` are generated from the same packaging policy. The descriptor's setup digest binds the committed root manifest. The public identity remains `just-every/slate`; this private source work does not publish a release or update the existing public tag.
+`rer-project.json` and `.github/workflows/rer-managed.yml` are generated from the same packaging policy. The descriptor's setup digest binds the committed root manifest. The public identity remains `just-every/run-slate`; this private source work does not publish a release or update the existing public tag.
 
 `pnpm publish-check` runs verify, operations description and publication-input validation. Full-history publication hygiene and `rer release --dry-run` also run through Base's release tools at the recorded main pin. A passing local artifact check does not establish trusted workflow attestation, provider acceptance or hosted admission.
 

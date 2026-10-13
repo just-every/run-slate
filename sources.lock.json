@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "parent": null,
-  "edition": "just-every/slate",
-  "manifest": "e7c2d8ad5a4ed4fd0f4fd312652cf0c5707e8ab851070f5c723b01e661f1aefd",
+  "edition": "just-every/run-slate",
+  "manifest": "2c40fd788d7c705fbcaea97888913417ecef600cdbb164866b13c66ce2938b36",
   "toolchain": {
     "id": "runeditrun/edition-authoring",
     "version": "1.1.0",
@@ -797,6 +797,10 @@
       "sha256": "c8ae4072e5d51182518e792fe9eef95971c974dd3541442900bf1fe2e07603fe",
       "executable": false
     },
+    ".github/workflows/run-site-probe.yml": {
+      "sha256": "1df392c7066be826cb282a286b7351c893741e523142dc43371620e9c139096c",
+      "executable": false
+    },
     ".github/workflows/verify.yml": {
       "sha256": "2cf87d6562a2ec3e10999db14f2a2d84d15fe4847ab5e7dbece13767d12b7d31",
       "executable": false
@@ -870,7 +874,7 @@
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
-      "sha256": "fd2c41bb5adf6d53e4942f567e8d80709b4f21248aafb7e195c8ece5ee7be7af",
+      "sha256": "f3bfaa3949ceca3f284b9f8a6c31b51e44b5900b9740ce37abf761b82e97a4fe",
       "executable": false
     },
     "docs/EMAIL.md": {
@@ -918,7 +922,7 @@
       "executable": false
     },
     "docs/release/source-and-delivery.md": {
-      "sha256": "6ddf6ddaf05fa9db4c6478506da55ba6c47ee22cae560c9f4e811366b73710e1",
+      "sha256": "e2b5612214003823246573cc6a365e06f3d6180dc6931151f3b5d68e4d65cc52",
       "executable": false
     },
     "docs/site.json": {
@@ -930,7 +934,7 @@
       "executable": false
     },
     "edition.json": {
-      "sha256": "e7c2d8ad5a4ed4fd0f4fd312652cf0c5707e8ab851070f5c723b01e661f1aefd",
+      "sha256": "2c40fd788d7c705fbcaea97888913417ecef600cdbb164866b13c66ce2938b36",
       "executable": false
     },
     "FLAGSHIP-DELIVERY.md": {
@@ -946,7 +950,7 @@
       "executable": false
     },
     "HANDOVER.md": {
-      "sha256": "6358d9ded44f9759d6b953495ea6f4a4fe6a9d639c673b930cf6ca5eee299903",
+      "sha256": "04513aa709c9e9b6d97b0f31f0414a41b34e8c527aa9bbc3d59ad06c0a0bdcfb",
       "executable": false
     },
     "LICENSE": {
@@ -1014,7 +1018,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "f0ea9f3fba32f8bb8261bf0d3ef229ce02b6010f92177a22162ee56854056d7d",
+      "sha256": "9a577afa8d2f3b72e4f91ddd01cef56459b303fa697f07a97cd127a9fa72b5cd",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -3102,7 +3106,7 @@
       "executable": false
     },
     "OPERATIONS.md": {
-      "sha256": "56ac520bb6c63f16fc836ec7d39c93e4a62fa03e354d23d2317297d1b34eb2dd",
+      "sha256": "1a9e5febe63ccafc21d041ac82658d1fc980f95108d6bf1036384b699dc8f46f",
       "executable": false
     },
     "package.json": {
@@ -3170,11 +3174,11 @@
       "executable": false
     },
     "RELEASE.json": {
-      "sha256": "4fdd863c1137da45dcdcef8da18b13d8743258cef740e70439eace1c31af74ad",
+      "sha256": "510c2a917c641283394ef9d3325ec2c7e797c707065c59646a7fa11cd1802f5a",
       "executable": false
     },
     "rer-project.json": {
-      "sha256": "ae5157f865c6bafe1670a02f054f1a14cb1cd0cc9eb12a2f3211279023e8b356",
+      "sha256": "c0c4c85945bdfe2be545519254326b211cbc8d1d195f4b7d3034443489c617ee",
       "executable": false
     },
     "rer-setup.json": {
@@ -3282,7 +3286,7 @@
       "executable": false
     },
     "scripts/delivery/base/packaging.json": {
-      "sha256": "f462d4c79abe584c7ec5f00b8e3a07397f1d1575e408c1683e0a96a3e1f375d9",
+      "sha256": "33adacbceb904fc5e593987f73b5144e76bf461d6a0a6db3ff67ff075b461177",
       "executable": false
     },
     "scripts/delivery/base/paths.mjs": {
@@ -5422,7 +5426,7 @@
       "executable": false
     },
     "src/core/features/landing/drawings/TerminalDrawing.tsx": {
-      "sha256": "37679a40f52e7522518115fee0973b852adbd1471395c89e3952fee5694360bf",
+      "sha256": "40943b94589a0031424ce39b5a9fb961b8b2de9deb729eb7eb48e23ce78867fe",
       "executable": false
     },
     "src/core/features/landing/icons/Icon.tsx": {
