@@ -39,3 +39,5 @@ when you try; open it, confirm, then try again.
 switches between the owner, the `editor` and `guest` personas and signed out;
 `rer dev --login` uses the outbox sign-in instead. The local outbox now needs
 the checkout's dev key, which `rer` supplies.
+
+**Linked provider setup.** Setup offers an optional existing provider URL. Leaving it blank keeps native email sign-in. The Base native accounts adapter currently refuses unattended first-time provider approval (`native_capability_unavailable`); selected provider setup is blocked until Base supplies that capability. An existing owner may approve a prepared link through the shared owner-authorized protocol, and relink/unlink/logout keep their explicit authority checks. Local protocol evidence proves that boundary, not first-time setup or hosted provider acceptance.

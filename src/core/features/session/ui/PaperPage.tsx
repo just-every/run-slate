@@ -3,6 +3,7 @@ import { ownerIdentity } from "../../../app/ext-client";
 import { SlateMark } from "../../../ui/brand/SlateMark";
 import { Mug } from "../../landing/drawings/hero/Mug";
 import { Plant } from "../../landing/drawings/hero/Plant";
+import { HydrationUnit } from "../../../../base/runtime/hydration/unit";
 import "./paper.css";
 
 /**
@@ -14,16 +15,18 @@ export function PaperPage({ owner, className = "", children }: { owner?: string;
   const lockup = <><SlateMark />{ownerIdentity.name}</>;
   return (
     <div className={`paper-page ${className}`.trim()} data-theme="light">
-      <header className="paper-header">
-        <a className="paper-brand" href="/">{lockup}</a>
-        {owner ? (
-          <span className="paper-owner" title={owner}>
-            <span className="paper-owner-initial" aria-hidden="true">{owner.charAt(0)}</span>
-            <span className="paper-owner-email" data-testid="member-email">{owner}</span>
-          </span>
-        ) : null}
-      </header>
-      <main className="paper-main">{children}</main>
+      <HydrationUnit>
+        <header className="paper-header">
+          <a className="paper-brand" href="/">{lockup}</a>
+          {owner ? (
+            <span className="paper-owner" title={owner}>
+              <span className="paper-owner-initial" aria-hidden="true">{owner.charAt(0)}</span>
+              <span className="paper-owner-email" data-testid="member-email">{owner}</span>
+            </span>
+          ) : null}
+        </header>
+      </HydrationUnit>
+      <main className="paper-main"><HydrationUnit>{children}</HydrationUnit></main>
     </div>
   );
 }

@@ -25,7 +25,7 @@ Slate is a self-hosted team wiki. Pages, databases and search live in one open-s
 To look around locally right now, use Node 22.20.0 and pnpm 10.12.4, then run:
 
 ```sh
-npm install -g @runeditrun/rer
+npm install -g @runeditrun/rer@0.2.1
 git clone https://github.com/just-every/run-slate.git slate
 cd slate
 rer install
@@ -34,6 +34,8 @@ rer dev
 ```
 
 Open the printed outbox, choose the newest sign-in message and follow its one-use link. No email is sent.
+
+For an existing installation, follow [Update your existing wiki](INSTALL.md#update-your-existing-wiki): export first, pull the source update, install dependencies, then deploy to the same environment.
 
 ## About the project
 

@@ -11,7 +11,7 @@ import { acceptInvitation, previewInvitation } from "../workspace/invitations";
 import { invitationAcceptedPage, invitationPage } from "../workspace/invitation-page";
 import { bootstrapOwner } from "../workspace/bootstrap";
 import { parseBody } from "../workspace/routes";
-import { signInCapabilities } from "./capabilities";
+import { signInCapabilities, storedSignInCapabilities } from "./capabilities";
 import { mailStatus } from "./mail-status";
 import type { MailRow } from "./mail-authority";
 
@@ -32,7 +32,7 @@ function authProblem(cause: unknown, failure?: string): never {
 
 export function createSessionRoutes() {
   return new Hono<AppEnvironment>()
-    .get("/api/auth/capabilities", (context) => context.json(signInCapabilities(context.get("runtimeConfig"))))
+    .get("/api/auth/capabilities", async (context) => context.json(await storedSignInCapabilities(context.env.DB, context.get("runtimeConfig"))))
     .post("/api/auth/magic", async c => {
       const schema = z.object({ email: z.string().email().max(254), requestKey: z.string().min(32).max(160).optional() }).strict();
       const form = c.req.header("content-type")?.split(";", 1)[0]!.trim().toLowerCase() === "application/x-www-form-urlencoded";

@@ -70,7 +70,7 @@
     "@cloudflare/vitest-pool-workers": "0.22.0",
     "@cloudflare/workers-types": "5.20260908.1",
     "@playwright/test": "1.63.0",
-    "@runeditrun/rer": "0.2.0",
+    "@runeditrun/rer": "0.2.1",
     "@tailwindcss/vite": "4.3.3",
     "@types/node": "26.5.0",
     "@types/react": "19.2.18",
@@ -118,9 +118,11 @@
     "zod": "4.1.5"
   },
   "pnpm": {
-    "comment": "@cloudflare/vitest-pool-workers 0.22.0 pins miniflare 5.20260815.0-alpha, whose workerd supports compatibility dates only up to 2026-08-22 and so refuses this seed's 2026-09-08. The override lifts the pool onto the same miniflare wrangler 4.129.1 depends on, so tests, `wrangler dev`, and production run one workerd.",
+    "comment": "@cloudflare/vitest-pool-workers 0.22.0 pins miniflare 5.20260815.0-alpha, whose workerd supports compatibility dates only up to 2026-08-22 and so refuses this seed's 2026-09-08. The override lifts the pool onto the same miniflare wrangler 4.129.1 depends on, so tests, `wrangler dev`, and production run one workerd. Reviewed security overrides pin sharp 0.35.5 and only this miniflare version's undici 7.29.1; direct dependency pins remain unchanged.",
     "overrides": {
-      "miniflare": "5.20260907.0-alpha"
+      "miniflare": "5.20260907.0-alpha",
+      "sharp": "0.35.5",
+      "miniflare@5.20260907.0-alpha>undici": "7.29.1"
     },
     "onlyBuiltDependencies": [
       "esbuild",

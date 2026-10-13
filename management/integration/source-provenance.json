@@ -2,10 +2,10 @@
   "schema": 1,
   "sourceRepository": "just-every/run-slate",
   "sourceFiles": {
-    "scripts/delivery/base/packaging.json": "33adacbceb904fc5e593987f73b5144e76bf461d6a0a6db3ff67ff075b461177",
-    "src/server.ts": "26916628515fe2c05b9ddab531c9bb2f8ad68e017966bdb9c50dccd26b1ac8d2",
+    "scripts/delivery/base/packaging.json": "1967e77aac0bc70f212fb02a3e956c8f714b9be31801666bad1435fbffb72a71",
+    "src/server.ts": "c1dd6dc405dafc3585cb6dd872ded9d7387f95ec6af42cc144e2b6f75deb6658",
     "src/core/features/workspace/bootstrap.ts": "1c504e305aed6576acabac51fb6202f117b2b8050c800f199a2811c6870f886e",
-    "src/core/platform/config/runtime.ts": "b1954f94d6eef3e6f78b34aab278a5b483a02bfcc917ddb54fa4f0b3a85af0ff",
+    "src/core/platform/config/runtime.ts": "8ec8dc49fe9c5a0c5deb223e011cec9596ad062ed3321c85615ce6c1a300d1be",
     "migrations/core/0001_knowledge_foundation.sql": "88bb09f3c90f4741bc686f333fd765ca838ff6e96969d5182b292df0c4816c39",
     "migrations/core/0002_core_runtime.sql": "34e5c0c5c9a3f4bb7364e649054a87ec8fe614bd469417e6e7c3412ba1e47346",
     "migrations/core/0003_content_collaboration.sql": "534fe0d90d535c02a669c55591698b02520cd478c2bb3b87d74825154c71d1f7",
@@ -31,6 +31,9 @@
     "migrations/core/0024_reviewed_imports.sql": "5ca0b2c214db4c518ad950b6cdd282c35248b615877cad43d3ff75faa42ac01b",
     "migrations/core/0025_import_generation.sql": "54b9e7de95dbc1d0a0088717f2230b953f8503e988526eeeb811788191eb8029",
     "migrations/core/0026_verification_review.sql": "3b781bb6ec64ea5dd3855b4b0b70c09bfdb9e37af193076a87310bd3bc7fec73",
-    "migrations/core/0027_mention_titles_reindex.sql": "ff8ac67f6b5598e6b4dbb292748c8ded3d12c0552438adaff343e206ee3874f7"
+    "migrations/core/0027_mention_titles_reindex.sql": "ff8ac67f6b5598e6b4dbb292748c8ded3d12c0552438adaff343e206ee3874f7",
+    "migrations/core/0028_import_reversal_fences.sql": "48709d8ddb1ac828e9d48d22633baed4938d2d5a565a770a09917fb3a91e5a83",
+    "migrations/core/0029_import_retirement.sql": "8fbb81317ee0667a26b88a7a9fa1a42c56eb254654468e6dd8b8c7d810be5693",
+    "migrations/core/0030_native_dependencies.sql": "bb14fa7c0797f2aa3b04e08dfe8711615e9dbe9a4df9c0e3eed988dda8c5823b"
   }
 }

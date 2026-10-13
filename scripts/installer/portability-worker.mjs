@@ -10,9 +10,10 @@ import { main as archiveCLI } from '@runeditrun/rer/modules/portability/cli';
 import { installationPolicy } from '../../src/core/features/portability/installation.ts';
 import { ApiProblem } from '../../src/core/app/problems.ts';
 import { exportFiles } from './portability-files.mjs';
-import { RestoreRefusal, configuredOwner, restoreOwner, clearSetupBootstrap, activateOwner } from './restore-owner.mjs';
+import { RestoreRefusal, configuredOwner, restoreOwner, activateOwner } from './restore-owner.mjs';
+import { bootstrapReplacement } from './restore-bootstrap.mjs';
 import { normaliseImported, dropRemovedMemberAccess } from './restore-normalise.mjs';
-const [direction, path] = process.argv.slice(2);
+const [direction, path, journalPath] = process.argv.slice(2);
 const root = process.cwd(), require = createRequire(join(root, 'package.json'));
 // Symbolic codes stay in the message so a report can be matched; the sentence says what happened.
 const damaged = ['archive_json', 'archive_format', 'content_checksum', 'archive_checksum', 'part_checksum', 'binary_checksum', 'part_order', 'part_count', 'closing_missing', 'data_after_closing', 'row_order', 'rows_missing', 'archive_incomplete'];
@@ -22,20 +23,29 @@ function plainReason(code) {
   if (direction === 'import') return `Restore failed (${code}): nothing was restored. Preserve the archive and inspect the private log.`;
   return code;
 }
-let proxy, server, directory, reason, jobId, handler, policy, origin, cookie, remoteError, owner, warnings = [], complete = false;
+let proxy, server, directory, reason, jobId, handler, policy, origin, cookie, remoteError, owner, warnings = [], complete = false, laterJournal;
 try {
   // Validate the complete input, and who will own the restore, before opening resource bindings.
   if (direction === 'import') {
     for await (const record of readArchive(Readable.toWeb((await import('node:fs')).createReadStream(path)))) {}
+    if (journalPath) {
+      let latest;
+      for await (const record of readArchive(Readable.toWeb((await import('node:fs')).createReadStream(journalPath)))) if (record.kind === 'manifest') latest = record;
+      laterJournal = {sourceIdentity:latest.sourceIdentity, epoch:latest.epoch, journal:latest.journal};
+    }
     owner = await restoreOwner(path, await configuredOwner(root));
   }
   proxy = await require('wrangler').getPlatformProxy({ configPath: resolve('wrangler.jsonc'), persist: { path: resolve('.wrangler/state/v3') }, remoteBindings: false });
-  if (direction === 'import') await clearSetupBootstrap(proxy.env.DB, owner.email);
   cookie = 'rer_local_transfer=' + randomBytes(32).toString('hex');
   server = createServer(async (incoming, outgoing) => {
     try {
-      const request = new Request(new URL(incoming.url, origin), { method: incoming.method, headers: incoming.headers,
+      let request = new Request(new URL(incoming.url, origin), { method: incoming.method, headers: incoming.headers,
         ...(!['GET', 'HEAD'].includes(incoming.method) ? { body: Readable.toWeb(incoming), duplex: 'half' } : {}) });
+      if (laterJournal && incoming.method === 'POST' && new URL(request.url).pathname.endsWith('/finalize')) {
+        const body = await request.json(), headers = new Headers(request.headers);
+        headers.delete('Content-Length');
+        request = new Request(request.url, {method:'POST', headers, body:JSON.stringify({...body,laterJournal})});
+      }
       const response = await handler(request);
       if (response.status === 201) jobId = (await response.clone().json()).id;
       if (!response.ok) {
@@ -56,7 +66,8 @@ try {
   // native product's retained originals, without moving derived/deleted bytes.
   const files = direction === 'export' ? await exportFiles(proxy.env.DB, proxy.env.FILES) : proxy.env.FILES;
   policy = await installationPolicy(proxy.env.DB);
-  handler = await createPortabilityHandler({ db: proxy.env.DB, buckets: { FILES: files }, policy, appOrigin: origin,
+  const target = direction === 'import' ? await bootstrapReplacement(proxy.env.DB, policy, owner.email) : { db: proxy.env.DB, policy };
+  handler = await createPortabilityHandler({ ...target, buckets: { FILES: files }, appOrigin: origin,
     authorize: request => request.headers.get('Cookie') === cookie ? 'local-owner' : null });
   directory = await mkdtemp(resolve('.seed/installer/transfer-'));
   const session = join(directory, 'session'); await writeFile(session, cookie, { mode: 0o600 });

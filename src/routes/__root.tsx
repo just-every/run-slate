@@ -8,6 +8,7 @@ import { HeadContent, Outlet, Scripts, createRootRoute } from "@tanstack/react-r
 import { ExtensionSlotProvider } from "../core/app/ext-client";
 import appCss from "../core/app/styles.css?url";
 import { fontLinks } from "../core/app/font-head";
+import { introCss, introGuardScript } from "../base/runtime/hydration/intro-guard";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -60,6 +61,8 @@ function Document({ children }: Readonly<{ children: ReactNode }>) {
       <head>
         {fontLinks.map(link => <link key={link.href} {...link} />)}
         <HeadContent />
+        <script dangerouslySetInnerHTML={{ __html: introGuardScript }} />
+        <style>{introCss}</style>
       </head>
       <body>
         {children}

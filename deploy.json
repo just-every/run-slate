@@ -41,7 +41,8 @@
     "SSO_ENABLED": "false",
     "LOCAL_DEVELOPMENT": "false",
     "MAIL_PROVIDER": "resend",
-    "MAIL_FROM": "auth@example.test"
+    "MAIL_FROM": "auth@example.test",
+    "IDENTITY_PROVIDER": ""
   },
   "secrets": [
     {

@@ -44,6 +44,7 @@ export function personFence(person: { id: string; email: string; version: number
 }
 
 const PROVIDER_PIN = "(s.provider_id IS NULL OR EXISTS(SELECT 1 FROM oa_identity_providers ip WHERE ip.provider_id=s.provider_id AND ip.issuer=s.issuer AND ip.linked_at=s.provider_linked_at AND ip.status='linked'))";
+const identityPolicy = "((s.provider_id='auth' OR ?=1) AND COALESCE((SELECT idp_sign_in FROM auth_identity_policy WHERE id=1),?)=1)";
 const PROVIDER_SESSION = `(s.created_at>? AND s.provider_generation=(SELECT generation FROM auth_identity_policy WHERE id=1) AND ${PROVIDER_PIN} AND EXISTS(SELECT 1 FROM member_identity_bindings b WHERE b.issuer=s.issuer AND b.subject=s.subject AND b.member_id=s.member_id))`;
 
 /**
@@ -54,8 +55,8 @@ const PROVIDER_SESSION = `(s.created_at>? AND s.provider_generation=(SELECT gene
  */
 export function actorFence(actor: { id: string; operator: { id: string; version: number } }, now: number, identityEnabled: boolean) {
   return {
-    sql: `EXISTS(SELECT 1 FROM sessions s JOIN members m ON m.id=s.member_id WHERE s.id=? AND m.id=? AND ${version('m')}=? AND m.status='active' AND s.revoked_at IS NULL AND s.expires_at>? AND (s.kind IS NULL OR s.authority_version=${version('m')}) AND (s.kind IS NOT 'oidc' OR (?=1 AND ${PROVIDER_SESSION})))`,
-    args: [actor.id, actor.operator.id, actor.operator.version, iso(now), Number(identityEnabled), iso(now - LIFETIME.oidc)],
+    sql: `EXISTS(SELECT 1 FROM sessions s JOIN members m ON m.id=s.member_id WHERE s.id=? AND m.id=? AND m.workspace_id=${TENANT} AND ${version('m')}=? AND m.status='active' AND s.revoked_at IS NULL AND s.expires_at>? AND (s.kind IS NULL OR s.authority_version=${version('m')}) AND (s.kind IS NOT 'oidc' OR (${identityPolicy} AND ${PROVIDER_SESSION})))`,
+    args: [actor.id, actor.operator.id, actor.operator.version, iso(now), Number(identityEnabled), Number(identityEnabled), iso(now - LIFETIME.oidc)],
   };
 }
 
@@ -87,9 +88,9 @@ export function sessionStore(db: D1Database, input: { secret: string; secure: bo
       const token = readCookie(request.headers, SESSION_COOKIE_NAME);
       if (!token) return null;
       const row = await db.prepare(`SELECT s.id AS session_id,s.kind,s.created_at AS session_created_at,s.expires_at,s.issuer,s.subject,s.sid,s.token_digest,m.*,${version('m')} AS authority_version FROM sessions s JOIN members m ON m.id=s.member_id
-        WHERE s.token_digest=? AND s.revoked_at IS NULL AND s.expires_at>? AND m.status='active'
-          AND (s.kind IS NULL OR s.authority_version=${version('m')}) AND (s.kind IS NOT 'oidc' OR (?=1 AND ${PROVIDER_SESSION}))`)
-        .bind(await sessionDigest(secret, token), iso(now), Number(identityEnabled), iso(now - LIFETIME.oidc))
+        WHERE s.token_digest=? AND m.workspace_id=${TENANT} AND s.revoked_at IS NULL AND s.expires_at>? AND m.status='active'
+          AND (s.kind IS NULL OR s.authority_version=${version('m')}) AND (s.kind IS NOT 'oidc' OR (${identityPolicy} AND ${PROVIDER_SESSION}))`)
+        .bind(await sessionDigest(secret, token), iso(now), Number(identityEnabled), Number(identityEnabled), iso(now - LIFETIME.oidc))
         .first<MemberRow & { session_id: string; kind: SlateSession['kind'] | null; session_created_at: string; expires_at: string; issuer: string | null; subject: string | null; sid: string | null; token_digest: string }>();
       if (!row) return null;
       // A dev session counts only on a request that passes the local key gate.

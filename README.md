@@ -25,7 +25,7 @@ git clone https://github.com/just-every/run-slate.git slate
 cd slate
 ```
 
-Install rer once per computer (`npm install -g @runeditrun/rer`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins. Then install the pinned dependencies, prepare your native owner, and start development:
+Install rer once per computer (`npm install -g @runeditrun/rer@0.2.1`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins. Then install the pinned dependencies, prepare your native owner, and start development:
 
 ```sh
 rer install
@@ -62,7 +62,7 @@ rer import --input exports/installation.rer --yes
 rer setup --owner-email you@example.test
 ```
 
-Re-enter the archived native owner's email. Fresh sign-in is required; restored automation, grants and effects require renewed owner authority. Existing workspace ZIP exports and the authenticated web restore API remain a separate native product flow. Remote CLI transfer is unsupported.
+Re-enter the archived native owner's email. Fresh sign-in is required; restored automation, grants and effects require renewed owner authority. Existing workspace ZIP exports and the authenticated web restore API remain a separate native product flow. Hosted installation export uses `rer export --target remote --origin https://wiki.example.com --session-file .seed/owner-session --output exports/hosted.rer`; put only your native owner cookie in an owned mode-0600 session file. Remote installation import is unsupported; restore the archive into a separate empty local checkout first.
 
 Reset lists its local removal inventory and requires explicit confirmation:
 

@@ -116,7 +116,7 @@ for (const profile of ['core-wiki', 'flagship']) {
       assert.equal(await page.getByRole('combobox', { name: 'Space', exact: true }).inputValue(), containers[0].id);
       await page.goto(runtime.baseUrl + '/app/settings', { waitUntil: 'networkidle' });
       const sections = page.getByRole('navigation', { name: 'Settings sections', exact: true });
-      assert.equal(await sections.getByRole('button', { name: 'Connections', exact: true }).count(), profile === 'flagship' ? 1 : 0);
+      assert.equal(await sections.getByRole('link', { name: 'Connections', exact: true }).count(), profile === 'flagship' ? 1 : 0);
       if (profile === 'core-wiki') {
         const refused = await api('/api/runs');
         assert.equal(refused.status, 403);

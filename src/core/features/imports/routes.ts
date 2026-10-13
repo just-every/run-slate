@@ -41,6 +41,7 @@ export function createImportRoutes(){
  const invoke=async(c:Context<AppEnvironment>,action:'preview'|'apply'|'resume'|'undo'|'run')=>{
   const ctx=featureContext(c),job=await readImport(ctx,c.req.param('id')!);
   try {
+   if(job.state==='deleted')throw new ApiProblem(409,'IMPORT_SOURCE_ERASED','The import source and recovery custody were erased.');
    if(!space(job)||job.destination_mode==='append') {
     if(!['run','resume'].includes(action))throw new ApiProblem(409,'IMPORT_ACTION_UNAVAILABLE','Use the document import action for this format.');
     return c.json(view(await runLegacyImport(ctx,job.id)));

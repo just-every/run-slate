@@ -8,7 +8,6 @@ import { Readable } from 'node:stream';
 import { readArchive } from '@runeditrun/rer/modules/portability';
 import { readSettings } from '@runeditrun/rer/adapter-settings';
 import { settingsFor } from './settings.mjs';
-import { emptyTargetSelects, bootstrapCustodyTables } from '../../src/core/features/portability/restore-plan.ts';
 
 /** A refusal the person can act on; nothing has been restored or removed. */
 export class RestoreRefusal extends Error {}
@@ -46,16 +45,6 @@ export async function restoreOwner(path, configured) {
   if (owner[0].member_kind !== 'member')
     throw new RestoreRefusal(`Restore refused: ${owner[0].email} is a guest in the archive, and only a full member can own the restored workspace. Run setup with the address of an archived member who is not a guest. Nothing was restored.`);
   return { email: owner[0].email, archived: active[0].email };
-}
-
-/** Setup's own sign-in bootstrap is disposable; any other data blocks the import. */
-export async function clearSetupBootstrap(db, owner) {
-  const [members, ...empty] = await db.batch([db.prepare('SELECT email FROM members'), ...emptyTargetSelects.map(sql => db.prepare(sql))]);
-  if (!members.results.length) return false;
-  if (members.results.length !== 1 || !same(members.results[0].email, owner) || empty.some(result => !result.results[0]?.empty))
-    throw new RestoreRefusal('Restore refused: this installation already holds workspace data. Import needs an empty installation; export what you need, then run rer reset --yes. Nothing was restored.');
-  await db.batch(bootstrapCustodyTables.map(name => db.prepare(`DELETE FROM "${name}"`)));
-  return true;
 }
 
 /** Makes the named archived member the one active owner; the archived owner becomes historical and removed members stay removed. */

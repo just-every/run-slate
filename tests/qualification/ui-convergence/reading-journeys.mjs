@@ -55,7 +55,7 @@ export async function settingsJourney({ page, origin }, width) {
   await page.goto(origin + '/app/settings', { waitUntil: 'networkidle' });
   const tabs = page.getByRole('navigation', { name: 'Settings sections' });
   await expect(tabs).toBeVisible();
-  await expect(tabs.getByRole('button', { name: 'Workspace', exact: true })).toHaveAttribute('aria-current', 'page');
+  await expect(tabs.getByRole('link', { name: 'Workspace', exact: true })).toHaveAttribute('aria-current', 'page');
   const headingLayout = await page.locator('.settings-panel').evaluate(panel => {
     // The ad-hoc eyebrow above the heading is gone (one shared header system); the heading still sits clear of the line after it.
     const heading = panel.querySelector('h2').getBoundingClientRect();
@@ -64,19 +64,19 @@ export async function settingsJourney({ page, origin }, width) {
   });
   assert.ok(headingLayout, 'Settings heading and adjacent lines do not overlap.');
   if (width === 390) {
-    const lines = await tabs.locator('button').evaluateAll(elements => new Set(elements.map(element => Math.round(element.getBoundingClientRect().top))).size);
+    const lines = await tabs.locator('a').evaluateAll(elements => new Set(elements.map(element => Math.round(element.getBoundingClientRect().top))).size);
     assert.ok(lines <= 2, 'Mobile settings navigation avoids a four-row tab wall.');
   }
   await accessible(page, 'workspace settings');
-  await tabs.getByRole('button', { name: 'Workspace', exact: true }).focus();
+  await tabs.getByRole('link', { name: 'Workspace', exact: true }).focus();
   await page.keyboard.press('Tab');
-  await expect(tabs.getByRole('button', { name: 'People', exact: true })).toBeFocused();
-  const focusStyle = await tabs.getByRole('button', { name: 'People', exact: true }).evaluate(element => ({
+  await expect(tabs.getByRole('link', { name: 'People', exact: true })).toBeFocused();
+  const focusStyle = await tabs.getByRole('link', { name: 'People', exact: true }).evaluate(element => ({
     width: parseFloat(getComputedStyle(element).outlineWidth), style: getComputedStyle(element).outlineStyle,
   }));
   assert.ok(focusStyle.width > 0 && focusStyle.style !== 'none', 'Settings keyboard focus is visible.');
-  await tabs.getByRole('button', { name: 'Spaces', exact: true }).click();
-  await expect(tabs.getByRole('button', { name: 'Spaces', exact: true })).toHaveAttribute('aria-current', 'page');
+  await tabs.getByRole('link', { name: 'Spaces', exact: true }).click();
+  await expect(tabs.getByRole('link', { name: 'Spaces', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.locator('.spaces-workspace').getByRole('heading', { name: 'Spaces', exact: true })).toBeVisible();
   await expect(page.locator('body')).not.toContainText(/\bContainers?\b/);
   await accessible(page, 'space settings');

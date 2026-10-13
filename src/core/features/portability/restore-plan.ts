@@ -1,3 +1,4 @@
+import {nativeRestoreCheckpoint} from './checkpoint';
 import type {FeatureContext} from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
 import {requireWorkspaceOwner} from '../sharing/current-access';
@@ -13,7 +14,7 @@ export const emptyTargetSelects=[emptyBootstrapStatusSelect,...Array.from({lengt
 // A setup bootstrap's authentication custody, response caches and untouched
 // vocabulary: discarded when a restore replaces the workspace. These rows can
 // reference the disposable owner/workspace even before product data exists.
-export const bootstrapCustodyTables=['mail_deliveries','auth_proofs','auth_limits','member_identity_bindings','sessions','magic_links','invitations','identity_states','rer_mail_development_outbox','operation_receipts','discovery_snapshots','status_entries','member_authority','members','workspace_policies','workspaces'];
+export const bootstrapCustodyTables=['auth_identity_audit','auth_identity_logout','rer_dependency_pending','rer_dependency_codes','rer_dependency_keys','rer_dependency_link','rer_dependency_installation','mail_deliveries','auth_proofs','auth_limits','member_identity_bindings','sessions','magic_links','invitations','identity_states','rer_mail_development_outbox','operation_receipts','discovery_snapshots','status_entries','member_authority','members','workspace_policies','workspaces'];
 export async function requireEmptyRestoreTarget(ctx:FeatureContext){
  const empty=await ctx.db.batch<{empty:number}>(emptyTargetSelects.map(sql=>ctx.db.prepare(sql)));
  if(empty.some(result=>!result.results[0]?.empty))throw new ApiProblem(409,'RESTORE_NOT_EMPTY','Restore requires a deployment with no containers or product records.');
@@ -23,6 +24,9 @@ export async function prepareRestore(ctx:FeatureContext,bytes:Uint8Array){
  const owner=await ctx.db.prepare('SELECT email,is_setup_owner FROM members WHERE id=?').bind(ctx.actor.id).first<{email:string;is_setup_owner:number}>();
  if(!owner?.is_setup_owner)throw new ApiProblem(403,'SETUP_OWNER_REQUIRED','Authenticate as the configured setup owner.');
  const {manifest,entries}=await decodeArchive(bytes),columns=await schema(ctx.db);
+ const checkpoint=await nativeRestoreCheckpoint(ctx.db,manifest.checkpoint);
+ const fence=await ctx.db.prepare(checkpoint.select).bind(...checkpoint.values).first<Record<string,number>>();
+ if(!fence||Object.values(fence)[0]!==1)throw new ApiProblem(409,'ERASURE_CHECKPOINT','This archive predates a retained redaction checkpoint.');
  if(JSON.stringify(Object.keys(columns).sort())!==JSON.stringify(Object.keys(manifest.tables).sort()))throw new ApiProblem(409,'ARCHIVE_SCHEMA_MISMATCH','Archive tables do not match the installed schema.');
  for(const name of Object.keys(manifest.tables)){
   if(!portableTables.includes(name as never)||JSON.stringify(columns[name])!==JSON.stringify(manifest.columns[name]))throw new ApiProblem(409,'ARCHIVE_SCHEMA_MISMATCH','Archive columns do not match the installed schema.');

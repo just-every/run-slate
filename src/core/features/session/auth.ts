@@ -40,7 +40,7 @@ async function baseConfig(config: RuntimeConfig): Promise<AuthConfig> {
     origin, local: config.localDevelopment, OWNER_EMAIL: config.setupOwnerEmail!, MAIL_FROM: config.mailFrom,
     SESSION_SECRET: await sessionDigest(config.sessionSecret, 'slate:operator-auth:v1'),
     branding: { productName: 'Slate', accentColor: '#1b1b18', signInPath: '/signin', theme: '/rer-theme.css' },
-    linkSeconds: 3600,
+    linkSeconds: 3600, dependencies: true,
     providers: providerConfig(config, origin),
     ...(config.identityProvider ? { OIDC_TRANSACTION_SECRET: config.identityProvider.transactionSecret } : {}),
   };
