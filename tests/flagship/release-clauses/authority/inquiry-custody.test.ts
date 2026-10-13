@@ -1,9 +1,11 @@
 import {env} from 'cloudflare:test';
-import {test,expect,afterEach,vi} from 'vitest';
+import {beforeEach,test,expect,afterEach,vi} from 'vitest';
+import {resetDeployment} from '../../../e2e/setup/reset-deployment';
 import {effectFixture,effects,receipts} from './fixture';
 import {issueAgentCredential} from '../../../../src/core/features/external-agent/credentials';
 import {readPage} from '../../../../src/core/features/pages/service';
 afterEach(()=>vi.unstubAllGlobals());
+beforeEach(resetDeployment);
 test('EFFECT-002 — admitted inquiry and credentialed MCP refuse operational consent and unsupported product sends',async()=>{
  const f=await effectFixture();
  const credential=await issueAgentCredential(f.context(),{operationKey:'custody-agent',subjectId:f.owner,expiresAt:'2099-01-01T00:00:00.000Z',scope:{tools:['prepare_effect'],sourceIds:[f.page.pageId],audience:[f.owner,f.reader],grantIds:[f.grant.value.id]}});

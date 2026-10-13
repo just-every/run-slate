@@ -1,4 +1,5 @@
-import {it,expect} from 'vitest';
+import {beforeEach,it,expect} from 'vitest';
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
 import {env} from 'cloudflare:test';
 import {createUlid} from '../../../src/core/shared/ulid';
 import {Hono} from 'hono';
@@ -13,6 +14,7 @@ import {createMediaRoutes} from '../../../src/core/features/media/routes';
 import {createPublishingRoutes,createPublicPagesRoutes} from '../../../src/core/features/publishing/routes';
 import {createCommentsRoutes} from '../../../src/core/features/comments/routes';
 import {collaborationSnapshot,updatePresence,refreshPresence} from '../../../src/core/features/collaboration/service';
+beforeEach(resetDeployment);
 async function fixture(){
  const now=new Date().toISOString(),w=createUlid(),a=createUlid(),b=createUlid();
  await env.DB.prepare('INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES (?,?,?,?,?,?)').bind(w,'Repair','R',now,now,createUlid()).run();

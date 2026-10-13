@@ -48,7 +48,8 @@ describe("HOME-001 landing page supporting regressions", () => {
       const response = await SELF.fetch("https://slate.test/");
       expect(response.status).toBe(200);
       expect(response.headers.get("content-type")).toMatch(/text\/html/);
-      expect(response.headers.get("cache-control")).toBe("no-store");
+      const cacheDirectives = response.headers.get("cache-control")?.split(",").map(directive => directive.trim().toLowerCase()) ?? [];
+      expect(cacheDirectives).toEqual(expect.arrayContaining(["no-store", "no-transform"]));
       expect(response.headers.get("set-cookie")).toBeNull();
       return response.text();
     };

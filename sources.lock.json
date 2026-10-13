@@ -7431,7 +7431,7 @@
       "executable": false
     },
     "tests/e2e/docs.test.ts": {
-      "sha256": "d1162ddd77f76449001ca1b01b08399e729033a73a5386c26b97c5e7d07e3265",
+      "sha256": "657ee7077887328b4fa0c2a6ee57611f3a7a199a6fa82ee498ded8850f4c1cf5",
       "executable": false
     },
     "tests/e2e/editor/editable-composition.test.mjs": {
@@ -7531,7 +7531,7 @@
       "executable": false
     },
     "tests/e2e/landing.test.ts": {
-      "sha256": "93c23e972bfebce83c50e8d53be019bf53274c372ae71cd5225261cbeac1f2ad",
+      "sha256": "229d9c56637b651e71ea31140d35a99d236f21fa354c533ab0a5a2eae7defb18",
       "executable": false
     },
     "tests/e2e/local-outbox.node.test.mts": {
@@ -7607,7 +7607,7 @@
       "executable": false
     },
     "tests/e2e/setup/fixtures.test.ts": {
-      "sha256": "acc01870d69ea8975a319511fc33d3d483b27e508b96ce0e0d0784af44a95f56",
+      "sha256": "9ba04771a63f8bccce98db66e59e4326c00b21a800d02eb614a214e9e79ba764",
       "executable": false
     },
     "tests/e2e/setup/fixtures.ts": {
@@ -7616,6 +7616,10 @@
     },
     "tests/e2e/setup/reset-database.ts": {
       "sha256": "e090d98b1e4bc5fdddee0612022f14b8391e1e276a6968a20d59fe4c40e6709d",
+      "executable": false
+    },
+    "tests/e2e/setup/reset-deployment.ts": {
+      "sha256": "1d18b00879d002269d94a4ff6dcc600a0788b62d2d371035bc8869eaf0bc2ba7",
       "executable": false
     },
     "tests/e2e/setup/wrangler-config.ts": {
@@ -7647,7 +7651,7 @@
       "executable": false
     },
     "tests/flagship/content/http.test.ts": {
-      "sha256": "3cc08d53627a26c0ed1e632e7f97e234969ceec8d4402bb1eda39302223dc980",
+      "sha256": "16ff667d220887eac01646f54df8741c573c279a1534984b685bd71f88aaccc1",
       "executable": false
     },
     "tests/flagship/content/management.node.test.mts": {
@@ -7671,7 +7675,7 @@
       "executable": false
     },
     "tests/flagship/content/repair.test.ts": {
-      "sha256": "a8ce56ad1586358ddf7680d5a93c275d67245d1460d9bec3a9081ab9636ea9ed",
+      "sha256": "7fe3dbcd5cc944493c7f8b7088e678ecf17211cc5c1c834c83e69770f58cb45d",
       "executable": false
     },
     "tests/flagship/content/sqlite-harness.mts": {
@@ -7715,7 +7719,7 @@
       "executable": false
     },
     "tests/flagship/core/mail.test.ts": {
-      "sha256": "9511b1d31b4df2f24a2b114c9cd4d48c7ee89acaeae32952a170fb4bf3478df8",
+      "sha256": "37ea65f34db3eec83aa36e95d87f9fa6b4d5fb997138e845505718abe4e54c92",
       "executable": false
     },
     "tests/flagship/core/security.test.ts": {
@@ -7963,7 +7967,7 @@
       "executable": false
     },
     "tests/flagship/release-clauses/authority/inquiry-custody.test.ts": {
-      "sha256": "ea898d81d3f01bbc7c536bd7ef5921370c9c8489d28fd6592800ca531d66e2b0",
+      "sha256": "54901cbdaca8647aa102b16cbcc2110de6c76c532e745ca8610f8cfceb953db5",
       "executable": false
     },
     "tests/flagship/release-clauses/authority/maintenance-fixture.ts": {
@@ -8095,7 +8099,7 @@
       "executable": false
     },
     "tests/flagship/structured/structured.test.ts": {
-      "sha256": "738219ef1dd726d1c73c7faa77871e3b4e5505bebe6ac2abb18ac2bf774a605e",
+      "sha256": "eae266bbed308067cdbce6a4a0382c98873753f7bdfa4149a3d146292e19e764",
       "executable": false
     },
     "tests/flagship/structured/template-permissions.test.ts": {
