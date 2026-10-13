@@ -3699,7 +3699,7 @@
       "executable": false
     },
     "src/core/app/hono.ts": {
-      "sha256": "d5c9f4f5652862441d8b984d52e15363856707352af06e3e7e1a62a2657e5540",
+      "sha256": "1c9f219d77593cafa1cecd8c7e167326ec20e561c1d8e32e13a10027afc47f78",
       "executable": false
     },
     "src/core/app/http-security.ts": {
@@ -6451,7 +6451,7 @@
       "executable": false
     },
     "src/core/features/session/base-identity.d.ts": {
-      "sha256": "b4cc38e10e4be6f7875e91ed6ba7d9f4e03c0a5002acb86ca110a077747df999",
+      "sha256": "01f3e7efa3f87421d715a2ad22631ed592d19a8a5b350e4a8dbe055d319ee1ea",
       "executable": false
     },
     "src/core/features/session/capabilities.ts": {
@@ -6468,6 +6468,10 @@
     },
     "src/core/features/session/loader.ts": {
       "sha256": "89bb3069041e7cb85656fc47e5f25899251d45f50c9d14eefe2608c4f180c428",
+      "executable": false
+    },
+    "src/core/features/session/local-setup.ts": {
+      "sha256": "838cdad1ececfd2ae6c72e8f85a98719137085ab595a31eef56121e157155476",
       "executable": false
     },
     "src/core/features/session/mail-admission.ts": {
@@ -6515,7 +6519,7 @@
       "executable": false
     },
     "src/core/features/session/routes.ts": {
-      "sha256": "f0629f5f3eab65616998887a7059d9192332eb684abd7cba400bc898c2c5cfb4",
+      "sha256": "a7f07777b5f56516a47cb83522f836247c33b9bc51e0832797c714ec4c4dc7b5",
       "executable": false
     },
     "src/core/features/session/service.ts": {

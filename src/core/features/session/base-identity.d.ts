@@ -1,4 +1,11 @@
 /** Declaration at the native boundary; copied Base implementation stays byte-exact. */
+declare module '*modules/operator-auth/http.mjs' {
+  export function requireLoopback(request: Request): void;
+  export function requirePost(request: Request, config: { origin: string; local: boolean }): void;
+}
+declare module '*modules/operator-auth/local-cli.mjs' {
+  export function isLocalCli(request: Request, config: { local: boolean; SESSION_SECRET: string }): Promise<boolean>;
+}
 declare module '*modules/operator-auth/identity/email-link/confirmation.mjs' {
   export function confirmationResponse(input: {
     branding: { productName: string; accentColor: string; signInPath: string; theme?: string };
