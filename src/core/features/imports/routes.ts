@@ -1,11 +1,12 @@
 import {startStreamImport} from './upload-stream';
-import {readReportSection} from './report-store';
+import {readReportSection,retainedImportReport} from './report-store';
+import {mappingCandidates} from './principal-mapping';
 import {PlanTooLargeError} from '../../../../modules/import-kit/src/d1/index.ts';
 import {registerActivityResolver} from '../activity/service';
 import {Hono,type Context} from 'hono';
 import {z} from 'zod';
 import type {AppEnvironment} from '../../app/types';
-import {featureContext} from '../../app/feature-context';
+import {featureContext,type FeatureContext} from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
 import {startImport,runLegacyImport,readImport,deleteImportArchive,recoverImports,type ImportJob} from './jobs';
 import {importRequestContext} from './request-context';
@@ -15,7 +16,11 @@ import {ImportError} from './errors';
 const formats=z.enum(['slate-readable','notion-workspace','confluence-space','docx','google-docx','google-html-zip','markdown','html','text','csv','pdf','epub']);
 const space=(job:ImportJob)=>job.format==='notion-workspace'||job.format==='confluence-space';
 const publicProgress=(job:ImportJob)=>{const {pageIds:_pageIds,...progress}=JSON.parse(job.progress_json??'{}');return progress;};
-const view=(job:ImportJob)=>({id:job.id,filename:job.filename,format:job.format,state:job.state,revisionId:job.revision_id,report:JSON.parse(job.report_json),counts:JSON.parse(job.counts_json),progress:publicProgress(job)});
+const view=async(ctx:FeatureContext,job:ImportJob)=>{
+ const report=retainedImportReport(job.report_json);
+ if(Array.isArray(report.principals))report.candidates=await mappingCandidates(ctx);
+ return {id:job.id,filename:job.filename,format:job.format,state:job.state,revisionId:job.revision_id,report,counts:JSON.parse(job.counts_json),progress:publicProgress(job)};
+};
 const mappings=z.array(z.object({sourceId:z.string().min(1),kind:z.enum(['member','group']),targetId:z.string().min(1)}));
 export function createImportRoutes(){
  registerActivityResolver('import',async(ctx,id)=>{try{await readImport(ctx,id);return true;}catch{return false;}});
@@ -34,17 +39,17 @@ export function createImportRoutes(){
  });
  r.get('/',async c=>{
   const ctx=featureContext(c);const rows=(await ctx.db.prepare("SELECT id FROM federation_imports WHERE workspace_id=? AND actor_id=? AND state!='deleted' ORDER BY created_at DESC LIMIT 50").bind(ctx.actor.workspaceId,ctx.actor.id).all<{id:string}>()).results;
-  const jobs=[];for(const row of rows)jobs.push(view(await readImport(ctx,row.id)));return c.json({jobs});
+  const jobs=[];for(const row of rows)jobs.push(await view(ctx,await readImport(ctx,row.id)));return c.json({jobs});
  });
  r.post('/recover',async c=>{await recoverImports(featureContext(c));return c.json({recovered:true});});
- r.get('/:id',async c=>c.json(view(await readImport(featureContext(c),c.req.param('id')!))));
+ r.get('/:id',async c=>{const ctx=featureContext(c);return c.json(await view(ctx,await readImport(ctx,c.req.param('id')!)));});
  const invoke=async(c:Context<AppEnvironment>,action:'preview'|'apply'|'resume'|'undo'|'run')=>{
   const ctx=featureContext(c),job=await readImport(ctx,c.req.param('id')!);
   try {
    if(job.state==='deleted')throw new ApiProblem(409,'IMPORT_SOURCE_ERASED','The import source and recovery custody were erased.');
    if(!space(job)||job.destination_mode==='append') {
     if(!['run','resume'].includes(action))throw new ApiProblem(409,'IMPORT_ACTION_UNAVAILABLE','Use the document import action for this format.');
-    return c.json(view(await runLegacyImport(ctx,job.id)));
+    return c.json(await view(ctx,await runLegacyImport(ctx,job.id)));
    }
    const request=await importRequestContext(c);
    if(action==='preview'||action==='run'&&['queued','failed'].includes(job.state)){
@@ -56,7 +61,7 @@ export function createImportRoutes(){
    }else if(action==='resume'){
     if(job.state==='undoing')await undoReviewedImport(request,job);else await applyReviewedImport(request,job);
    }else if(job.state!=='completed')throw new ApiProblem(409,'IMPORT_PREVIEW_REQUIRED','Review this import and choose Apply.');
-   return c.json({...view(await readImport(request,job.id)),requestMetrics:{...request.sqlMetrics,...(request.previewTimings?{previewTimings:request.previewTimings}:{})}});
+   return c.json({...await view(request,await readImport(request,job.id)),requestMetrics:{...request.sqlMetrics,...(request.previewTimings?{previewTimings:request.previewTimings}:{})}});
   }catch(error){
    if(error instanceof PlanTooLargeError)throw new ApiProblem(413,error.code,`The reviewed plan is ${error.bytes} canonical bytes; the limit is ${error.limit}.`);
    if(error instanceof ImportError){await ctx.db.prepare("UPDATE federation_imports SET state='failed',report_json=?,updated_at=? WHERE id=? AND (state IN ('queued','preview','failed') OR state='preparing' AND kit_id IS NULL)").bind(JSON.stringify({failure:error.code,message:error.message}),ctx.now,job.id).run();throw new ApiProblem(error.code==='IMPORT_FILE_TOO_LARGE'?413:400,error.code,error.message);}

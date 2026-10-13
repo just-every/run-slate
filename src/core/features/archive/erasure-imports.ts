@@ -18,6 +18,10 @@ export async function prepareEraseImportMetadata(ctx: FeatureContext, pageIds: s
   const exact=JSON.stringify(selected),imports='SELECT value FROM json_each(?)',values=[ctx.actor.workspaceId,exact];
   return [
     mutationGuard(ctx.db,`SELECT (SELECT COALESCE(json_group_array(id),'[]') FROM (${selection} ORDER BY id))=?`,[...selectionValues,exact]),
+    // Older previews copied the entire live directory into unrelated reports.
+    // Candidates are now response-only; remove those snapshots atomically while
+    // preserving every unrelated import's report, native effects and Undo.
+    ...(memberId?[ctx.db.prepare("UPDATE federation_imports SET report_json=json_remove(report_json,'$.candidates') WHERE workspace_id=? AND json_type(report_json,'$.candidates') IS NOT NULL").bind(ctx.actor.workspaceId)]:[]),
     ...prepareEraseImportCustody(ctx,imports,values.slice(1)),
     ctx.db.prepare(`UPDATE core_entity_revisions SET content_json='{}',content_hash='',author_member_id=NULL
       WHERE workspace_id=? AND entity_kind='import' AND entity_id IN (${imports})`).bind(...values),

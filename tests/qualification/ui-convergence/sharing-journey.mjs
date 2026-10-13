@@ -69,9 +69,11 @@ export async function shareJourney({ page, origin, api, readerCookie, switchIden
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   await page.getByRole('button', { name: 'Share', exact: true }).click();
   const ownerPanel = page.locator('.right');
+  await ownerPanel.locator('.advanced-access > summary').click();
   const ownerGrant = ownerPanel.locator('.grant-list > li').filter({
     has: page.getByRole('combobox', { name: 'Access for Morgan Reader', exact: true }),
   });
+  await expect(ownerGrant.getByRole('combobox', { name: 'Access for Morgan Reader', exact: true })).toBeVisible();
   await ownerGrant.locator('details summary').click();
   await ownerGrant.getByRole('button', { name: 'Remove access', exact: true }).click();
   await expect.poll(async () => (await api(`/api/sharing/pages/${pageId}`)).items.find(item => item.principalId === 'browser-reader').revokedAt).not.toBeNull();

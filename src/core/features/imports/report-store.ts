@@ -4,6 +4,11 @@ import {mutationGuard} from '../../app/operations';
 
 export interface ReportSection {prefix:string;count:number;pages:number}
 const encoder=new TextEncoder();
+/** Destination candidates are live workspace directory data, not import
+ * custody. Discard older snapshots before a report is read or written again. */
+export function retainedImportReport(serialized:string) {
+ const report=JSON.parse(serialized);delete report.candidates;return report;
+}
 /** Reports retain every item in immutable R2 pages. The durable job and each
  * progress response carry only one small page and constant-size section counts. */
 export async function storeReportSection(ctx:FeatureContext,importId:string,prefix:string,items:unknown[],startPage=0) {

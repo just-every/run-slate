@@ -25,6 +25,8 @@ it.each([
  const form=new FormData();form.set('file',new File([bytes],name));form.set('format',format);form.set('operationKey',crypto.randomUUID());
  const uploaded=await call('',form);let job=await call(`/${uploaded.id}/preview`,{});
  expect(job.state).toBe('preview');expect(job.report.wouldCreate.length).toBeGreaterThan(0);
+ expect(job.report.candidates.members).toContainEqual({id:mapped.memberId,label:'Mapped member'});
+ expect(JSON.parse((await env.DB.prepare('SELECT report_json FROM federation_imports WHERE id=?').bind(job.id).first<string>('report_json'))!)).not.toHaveProperty('candidates');
  expect(await env.DB.prepare('SELECT COUNT(*) AS n FROM pages').first('n')).toBe(0);
  expect(await env.DB.prepare('SELECT COUNT(*) AS n FROM containers').first('n')).toBe(0);
  if(job.report.principals.length){job=await call(`/${job.id}/preview`,{mappings:job.report.principals.filter((p:any)=>p.kind==='member').map((p:any)=>({sourceId:p.sourceId,kind:'member',targetId:mapped.memberId}))});}
@@ -119,6 +121,12 @@ it.each(['historical','shared across imports'] as const)('erases an imported per
  const pagesBefore=(await env.DB.prepare('SELECT * FROM pages WHERE workspace_id=? ORDER BY id').bind(workspaceId).all()).results;
  const blocksBefore=(await env.DB.prepare('SELECT * FROM page_blocks ORDER BY id').all()).results;
  const control=await importArchive('notion-workspace','notion-workspace-export.zip');
+ const controlReport=JSON.parse((await env.DB.prepare('SELECT report_json FROM federation_imports WHERE id=?').bind(control.id).first<string>('report_json'))!);
+ expect(controlReport).not.toHaveProperty('candidates');
+ // An older completed import retained this response-only directory snapshot.
+ // Removal must repair that historical row without retiring its real custody.
+ if(sharedPerson)expect(control.report.candidates.members).toContainEqual({id:erased.id,label:erased.display_name});
+ await env.DB.prepare("UPDATE federation_imports SET report_json=json_set(report_json,'$.candidates',json(?)) WHERE id=?").bind(JSON.stringify(control.report.candidates),control.id).run();
  const controlPages=(await env.DB.prepare("SELECT p.id,p.revision_id FROM pages p JOIN import_native_targets t ON t.target_id=p.id WHERE t.import_id=? AND t.kind='page'").bind(control.id).all<{id:string;revision_id:string}>()).results;
  const edited=controlPages[0]!;
  const editedResponse=await app.request(origin+`/api/pages/${edited.id}`,{method:'PATCH',headers:{host,origin,Cookie:cookie,'Content-Type':'application/json'},body:JSON.stringify({operationKey:crypto.randomUUID(),expectedRevisionId:edited.revision_id,properties:{title:'Native edit after unrelated import'}})},bindings);
@@ -173,6 +181,10 @@ it.each(['historical','shared across imports'] as const)('erases an imported per
   expect(await env.DB.prepare('SELECT count(*) n FROM ik_jobs WHERE destination=?').bind(job.id).first('n')).toBe(0);
   const retiredResume=await request(`/api/imports/${job.id}/resume`,{});expect(retiredResume.status).toBe(409);expect(await retiredResume.json()).toMatchObject({code:'IMPORT_SOURCE_ERASED'});
  }
+ expect(JSON.parse((await env.DB.prepare('SELECT report_json FROM federation_imports WHERE id=?').bind(control.id).first<string>('report_json'))!)).toEqual(controlReport);
+ const currentCandidates=(await call(`/api/imports/${control.id}`)).report.candidates.members;
+ expect(currentCandidates).toContainEqual({id:owner.memberId,label:'Custody owner'});
+ expect(currentCandidates.some((candidate:{id:string})=>candidate.id===erased.id)).toBe(false);
  expect(await env.DB.prepare('SELECT count(*) n FROM ik_jobs WHERE destination=?').bind(control.id).first<number>('n')).toBeGreaterThan(0);
  let undo=await call(`/api/imports/${control.id}/undo`,{});for(let n=0;undo.state!=='undone'&&n<150;n++)undo=await call(`/api/imports/${control.id}/resume`,{});
  expect(undo.state).toBe('undone');expect(await env.DB.prepare('SELECT title FROM pages WHERE id=?').bind(edited.id).first('title')).toBe('Native edit after unrelated import');
