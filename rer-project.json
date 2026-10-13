@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "projectId": "just-every/slate",
+  "projectId": "just-every/run-slate",
   "name": "slate",
   "sourceRepository": "https://github.com/just-every/run-slate",
   "license": "MIT",

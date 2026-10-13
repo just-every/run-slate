@@ -2,7 +2,7 @@ import { cloneUrl } from "../links";
 import { Icon } from "../icons/Icon";
 import { Sketch, WindowDots } from "../sketch/Sketch";
 
-const commands = ["cd slate", "node scripts/rer.mjs install", "node scripts/rer.mjs setup --owner-email owner@example.test", "node scripts/rer.mjs dev"];
+const commands = ["cd run-slate", "rer install", "rer setup", "rer dev"];
 
 /** A terminal that takes Slate from clone to local development, with the MIT licence tagged on its corner. */
 export function TerminalDrawing() {

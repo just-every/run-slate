@@ -19,7 +19,7 @@ Deployment stores the native owner email, session secret and selected mail provi
 
 ## How things are named
 
-`rer deploy --environment preview` uses Base deploy-kit with `deploy.json`. Names derive from the public project `just-every/slate`, the selected environment and each resource binding:
+`rer deploy --environment preview` uses Base deploy-kit with `deploy.json`. Names derive from the stable deployment project `just-every/slate`, the selected environment and each resource binding:
 
 | Resource | Name for `preview` |
 |---|---|

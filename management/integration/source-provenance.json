@@ -2,7 +2,7 @@
   "schema": 1,
   "sourceRepository": "just-every/run-slate",
   "sourceFiles": {
-    "scripts/delivery/base/packaging.json": "f462d4c79abe584c7ec5f00b8e3a07397f1d1575e408c1683e0a96a3e1f375d9",
+    "scripts/delivery/base/packaging.json": "33adacbceb904fc5e593987f73b5144e76bf461d6a0a6db3ff67ff075b461177",
     "src/server.ts": "26916628515fe2c05b9ddab531c9bb2f8ad68e017966bdb9c50dccd26b1ac8d2",
     "src/core/features/workspace/bootstrap.ts": "1c504e305aed6576acabac51fb6202f117b2b8050c800f199a2811c6870f886e",
     "src/core/platform/config/runtime.ts": "b1954f94d6eef3e6f78b34aab278a5b483a02bfcc917ddb54fa4f0b3a85af0ff",

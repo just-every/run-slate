@@ -68,6 +68,6 @@ Every run still requires a current, source-readable evaluation qualifying its ex
 
 ## Source and acceptance
 
-`verify:app` is the internal complete suite called by rer verify. It cannot call its public alias recursively. After intentional source edits, run `pnpm integration:sync`, stage intended files, then `pnpm source:lock` and `pnpm source:check`. Release/source changes require `pnpm test:release-source`; import changes require `pnpm test:imports`. `rer release --repo PATH --output PATH --clean-history` prepares a local source export without pushing or deploying. Public identity remains `just-every/slate`.
+`verify:app` is the internal complete suite called by rer verify. It cannot call its public alias recursively. After intentional source edits, run `pnpm integration:sync`, stage intended files, then `pnpm source:lock` and `pnpm source:check`. Release/source changes require `pnpm test:release-source`; import changes require `pnpm test:imports`. `rer release --repo PATH --output PATH --clean-history` prepares a local source export without pushing or deploying. Public identity remains `just-every/run-slate`.
 
 The optional management editor requires `RER_MANAGEMENT_ORIGIN` and `RER_INSTALLATION_ID` together, native owner authorization and expiring editor grants. Actual management registration and source → build → hosted reload require stage evidence. See CONTRACT.md, ACCEPTANCE.md and HANDOVER.md: structural checks, local synthetic provider tests and builds do not establish full product, live provider or deployed acceptance.
