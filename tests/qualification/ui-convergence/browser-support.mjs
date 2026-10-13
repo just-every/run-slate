@@ -40,8 +40,9 @@ export async function withWorkspace(viewport, profile, run, overrides = {}) {
     const ownerSession=await signInWithOutbox(runtime.baseUrl,'owner@test.invalid');
     const readerSession=await signInWithOutbox(runtime.baseUrl,'reader@test.invalid');
     const token=ownerSession.cookie.split('=')[1],readerToken=readerSession.cookie.split('=')[1];
-    // Software raster with fixed colour handling: captures of the same page match across runs and machines.
-    browser = await chromium.launch({ headless: true, args: ['--disable-gpu', '--disable-skia-runtime-opts', '--force-color-profile=srgb'] });
+    // Software raster, one raster thread, fixed colour and text handling: captures of the same page match across browser launches.
+    const rasterArgs = ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--disable-gpu-rasterization', '--disable-lcd-text', '--font-render-hinting=none', '--force-color-profile=srgb', '--num-raster-threads=1', '--disable-partial-raster', '--disable-skia-runtime-opts'];
+    browser = await chromium.launch({ headless: true, args: rasterArgs });
     const context = await browser.newContext({ viewport, permissions: ['clipboard-read', 'clipboard-write'], locale: 'en-US' });
     await context.addCookies([{ name: 'slate_session', value: token, url: runtime.baseUrl }]);
     const page = await context.newPage();
