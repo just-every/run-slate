@@ -3535,7 +3535,7 @@
       "executable": false
     },
     "scripts/installer/restore-owner.mjs": {
-      "sha256": "3df2b43ae284cac8bf04a7ef4f61708f6025b887694ba17d3254802d24207aa4",
+      "sha256": "ed4fadb4038ff3672aedc92618903ab51fd50e5e012e117687c29d86165f2c5a",
       "executable": false
     },
     "scripts/installer/settings.d.mts": {
