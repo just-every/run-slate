@@ -15,7 +15,7 @@ test('a structure save never reports a conflict for a block whose only differenc
   const {memberId: alice} = await seedMember(workspaceId, {role: 'owner', email: `alice-${workspaceId}@example.test`, displayName: 'Alice Owner'});
   const {memberId: bob} = await seedMember(workspaceId, {role: 'member', email: `bob-${workspaceId}@example.test`, displayName: 'Bob Editor'});
   const {memberId: carol} = await seedMember(workspaceId, {role: 'member', email: `carol-${workspaceId}@example.test`, displayName: 'Carol Editor'});
-  const [aliceCookie, bobCookie, carolCookie] = await Promise.all([alice, bob, carol].map(sessionFor));
+  const [aliceCookie, bobCookie, carolCookie] = await Promise.all([alice, bob, carol].map(member => sessionFor(member)));
   const call = async (cookie: string, method: string, path: string, body?: unknown) => {
     const response = await api.request(origin + path, {method, headers: {cookie, ...(body ? {'content-type': 'application/json', origin} : {})}, ...(body ? {body: JSON.stringify(body)} : {})}, env);
     return {status: response.status, json: await response.json() as any};
