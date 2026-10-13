@@ -810,6 +810,22 @@
       "sha256": "a88ff18c635e44eac048be9491e3a31272d13ae20286c0b8e1bab3a997339b22",
       "executable": false
     },
+    ".github/assets/media/flow.webp": {
+      "sha256": "62c3c163c73f048f891e348a328eba0fc32f7638c64dbf1482aec66a478495f6",
+      "executable": false
+    },
+    ".github/assets/media/preview.gif": {
+      "sha256": "cb37f9764d24844c85c14abe589827d1d86a0328b86ad48c51189cafbbbea368",
+      "executable": false
+    },
+    ".github/assets/media/screen-1.webp": {
+      "sha256": "bdb5398b9f0cd0b5e319a70a9ef9ec5a41f46c5e31783a0f19d1b93f0574aa67",
+      "executable": false
+    },
+    ".github/assets/media/screen-2.webp": {
+      "sha256": "f04d92c9482cbfbe53c85f31434af99df9810c7bd4d6476d5978eda813179bf2",
+      "executable": false
+    },
     ".github/workflows/deploy.yml": {
       "sha256": "43ebd67d713bf5dcc1a4c3bdee66aabd2b08a2d214235054fdcc38211326015f",
       "executable": false
@@ -3247,7 +3263,7 @@
       "executable": false
     },
     "README.md": {
-      "sha256": "b16e1c37474af80cf49b18a518d9d7ade5222e5824198b1f23e8dd2c999f9634",
+      "sha256": "f5d32e892b46fa4293b9cb8b141fb6f81684b1ee2ef9712f25bc5d204f99ead3",
       "executable": false
     },
     "RELEASE.json": {
