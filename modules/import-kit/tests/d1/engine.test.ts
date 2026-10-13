@@ -1,0 +1,207 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { planD1Import, createD1ImportJob, applyD1ImportBatches, resumeD1Import, undoD1Import, rollbackD1Import, readD1ImportJob, readD1ImportOriginals, readD1PersistedImport } from '../../src/d1/index.ts';
+import { runtime, source, mapping, targets } from './fixtures.ts';
+
+async function create(ctx: any, count = 3) { const plan = await planD1Import(source(count), mapping, ctx); return createD1ImportJob(plan, { ...ctx, reviewedFingerprint: plan.fingerprint }); }
+test('real D1: bounded native contact + evidence publication, durable reopen/resume, originals, restartable undo', async t => {
+  const r = await runtime(t), ctx = r.context(), job = await create(ctx);
+  assert.equal((await applyD1ImportBatches(job, { ...ctx, maxBatches: 1 })).checkpoint, 1);
+  assert.equal((await readD1PersistedImport(ctx)).rows.length, 1);
+  await r.reopen();
+  const completed = await resumeD1Import(job.id, r.context());
+  assert.equal(completed.state, 'completed'); assert.equal(completed.checkpoint, 3);
+  assert.equal((await readD1PersistedImport(r.context())).provenance.length, 3);
+  assert.equal((await readD1ImportOriginals(job.id, r.context()))[0].original.status, 'retained');
+  assert.equal((await undoD1Import(job.id, { ...r.context(), maxBatches: 1 })).state, 'undoing');
+  await r.reopen();
+  assert.equal((await resumeD1Import(job.id, r.context())).state, 'undone');
+  assert.equal((await readD1PersistedImport(r.context())).rows.length, 0);
+  assert.equal((await r.db().prepare('SELECT COUNT(*) AS n FROM evidence').first())?.n, 0);
+  assert.equal((await undoD1Import(job.id, r.context())).state, 'undone');
+  assert.equal((await readD1ImportOriginals(job.id, r.context()))[0].original.status, 'retained');
+});
+test('real D1: failed native statement rolls back rows, evidence, provenance, source claim and checkpoint', async t => {
+  const r = await runtime(t), ctx = r.context(), job = await create(ctx, 1);
+  const bad = { ...targets, write(row: any) { return [...targets.write(row), { sql: 'INSERT INTO table_that_does_not_exist VALUES(1)' }]; } };
+  await assert.rejects(applyD1ImportBatches(job, { ...ctx, storage: { ...ctx.storage, targets: bad } }));
+  for (const table of ['contacts', 'evidence', 'ik_provenance', 'ik_sources', 'ik_batches']) assert.equal((await r.db().prepare(`SELECT COUNT(*) AS n FROM ${table}`).first())?.n, 0);
+  assert.equal((await readD1ImportJob(job.id, ctx)).checkpoint, 0);
+  assert.equal((await resumeD1Import(job.id, ctx)).state, 'completed');
+});
+test('real D1: authority revoked after preflight or during native write aborts atomic publication', async t => {
+  const r = await runtime(t), ctx = r.context(), job = await create(ctx, 1);
+  const revoking = { ...targets, async read(...args: Parameters<typeof targets.read>) { const row = await targets.read(...args); await r.db().prepare("UPDATE sessions SET enabled=0").run(); return row; } };
+  await assert.rejects(applyD1ImportBatches(job, { ...ctx, storage: { ...ctx.storage, targets: revoking } }), /IMPORT_ATOMIC_GUARD/);
+  assert.equal((await r.db().prepare('SELECT COUNT(*) AS n FROM contacts').first())?.n, 0);
+  await r.db().prepare('UPDATE sessions SET enabled=1').run();
+  const mid = { ...targets, write(row: any) { return [...targets.write(row), { sql: 'UPDATE sessions SET enabled=0' }]; } };
+  await assert.rejects(applyD1ImportBatches(job, { ...ctx, storage: { ...ctx.storage, targets: mid } }), /IMPORT_ATOMIC_GUARD/);
+  assert.equal((await r.db().prepare('SELECT enabled FROM sessions').first())?.enabled, 1);
+  assert.equal((await readD1ImportJob(job.id, ctx)).checkpoint, 0);
+});
+test('real D1: native value edit even without revision change blocks undo and forward resume', async t => {
+  const r = await runtime(t), ctx = r.context(), job = await create(ctx, 1);
+  await resumeD1Import(job.id, ctx);
+  await r.db().prepare("UPDATE evidence SET detail='native correction'").run();
+  await assert.rejects(undoD1Import(job.id, ctx), /NATIVE_EDIT_CONFLICT/);
+  assert.equal((await readD1ImportJob(job.id, ctx)).state, 'undoing');
+  await assert.rejects(applyD1ImportBatches(job, ctx), /IMPORT_ALREADY_REVERSING/);
+  assert.equal((await r.db().prepare('SELECT detail FROM evidence').first())?.detail, 'native correction');
+});
+test('real D1: concurrent requests have one atomic winner and resume does not duplicate', async t => {
+  const r = await runtime(t), ctx = r.context(), job = await create(ctx, 1);
+  const results = await Promise.allSettled([resumeD1Import(job.id, ctx), resumeD1Import(job.id, ctx)]);
+  assert.ok(results.some(r => r.status === 'fulfilled'));
+  assert.equal((await resumeD1Import(job.id, ctx)).state, 'completed');
+  assert.equal((await r.db().prepare('SELECT COUNT(*) AS n FROM ik_provenance').first())?.n, 1);
+  assert.equal((await r.db().prepare('SELECT COUNT(*) AS n FROM ik_batches').first())?.n, 1);
+});
+test('real D1: review and actor binding, changed source conflict, partial rollback retains originals', async t => {
+  const r = await runtime(t), ctx = r.context(), plan = await planD1Import(source(), mapping, ctx);
+  await assert.rejects(createD1ImportJob(plan, ctx), /REVIEW_FINGERPRINT_MISMATCH/);
+  const job = await createD1ImportJob(plan, { ...ctx, reviewedFingerprint: plan.fingerprint });
+  await assert.rejects(readD1ImportJob(job.id, { ...ctx, authorization: { ...ctx.authorization, principalId: 'another' } }), /JOB_BINDING_MISMATCH/);
+  await applyD1ImportBatches(job, { ...ctx, maxBatches: 1 });
+  assert.equal((await rollbackD1Import(job.id, ctx)).state, 'rolled_back');
+  assert.equal((await readD1PersistedImport(ctx)).rows.length, 0);
+  assert.equal((await readD1ImportOriginals(job.id, ctx)).length, 1);
+});
+test('real D1: immutable plans, custody corruption and deleted provenance fail closed', async t => {
+  const r = await runtime(t), ctx = r.context(), job = await create(ctx, 1);
+  await resumeD1Import(job.id, ctx);
+  await r.db().prepare('DELETE FROM ik_provenance WHERE job_id=?').bind(job.id).run();
+  await assert.rejects(undoD1Import(job.id, ctx), /IMPORT_INVENTORY_MISMATCH/);
+  assert.equal((await r.db().prepare('SELECT COUNT(*) AS n FROM contacts').first())?.n, 1);
+  await r.db().prepare("UPDATE ik_originals SET bytes=X'00' WHERE job_id=?").bind(job.id).run();
+  await assert.rejects(readD1ImportOriginals(job.id, ctx), /ORIGINAL_CUSTODY_MISMATCH/);
+});
+test('real D1: explicit replacement restores full native before image; source duplicate retains original ownership', async t => {
+  const r = await runtime(t), ctx = r.context();
+  await r.db().prepare("INSERT INTO contacts VALUES('workspace','contact','0','native-1','before@example.test')").run();
+  await r.db().prepare("INSERT INTO evidence VALUES('0','before evidence')").run();
+  const replacement = { version: 'v1', map: (record: any) => ({ effects: [{ ...mapping.map(record).effects[0], expectedRevision: 'native-1' }] }) };
+  const plan = await planD1Import(source(1), replacement, ctx), job = await createD1ImportJob(plan, { ...ctx, reviewedFingerprint: plan.fingerprint });
+  await resumeD1Import(job.id, ctx);
+  const duplicate = await createD1ImportJob(plan, { ...ctx, operationKey: 'another-review', reviewedFingerprint: plan.fingerprint });
+  await resumeD1Import(duplicate.id, ctx);
+  await undoD1Import(duplicate.id, ctx);
+  assert.equal((await r.db().prepare('SELECT COUNT(*) AS n FROM ik_sources').first())?.n, 1);
+  await undoD1Import(job.id, ctx);
+  const restored = await targets.read(r.db(), 'workspace', 'contact', '0');
+  assert.deepEqual(restored?.value, { email: 'before@example.test', evidence: 'before evidence' });
+  assert.equal(restored?.revision, 'native-1');
+});
+test('real D1: changed source identity refuses overwrite and failed postcondition rolls whole batch back', async t => {
+  const r = await runtime(t), ctx = r.context(), job = await create(ctx, 1);
+  await resumeD1Import(job.id, ctx);
+  const changed = { ...mapping, map: (record: any) => ({ effects: [{ ...mapping.map(record).effects[0], value: { email: 'changed@example.test', evidence: 'different' } }] }) };
+  const plan = await planD1Import(source(1), changed, ctx), other = await createD1ImportJob(plan, { ...ctx, reviewedFingerprint: plan.fingerprint });
+  await assert.rejects(resumeD1Import(other.id, ctx), /SOURCE_ID_CONTENT_CONFLICT/);
+  await undoD1Import(job.id, ctx);
+  const bad = { ...targets, write(row: any) { return targets.write(row).slice(0, 1); } };
+  await assert.rejects(resumeD1Import(other.id, { ...ctx, storage: { ...ctx.storage, targets: bad } }), /IMPORT_ATOMIC_GUARD/);
+  assert.equal((await r.db().prepare('SELECT COUNT(*) AS n FROM contacts').first())?.n, 0);
+});
+test('real D1: native edit after undo preflight and malformed provenance preserve native state', async t => {
+  const r = await runtime(t), ctx = r.context(), job = await create(ctx, 1);
+  await resumeD1Import(job.id, ctx);
+  let edited = false;
+  const racing = { ...targets, async read(...args: Parameters<typeof targets.read>) { const row = await targets.read(...args); if (!edited) { edited = true; await r.db().prepare("UPDATE contacts SET email='later@example.test'").run(); } return row; } };
+  await assert.rejects(undoD1Import(job.id, { ...ctx, storage: { ...ctx.storage, targets: racing } }), /IMPORT_ATOMIC_GUARD/);
+  assert.equal((await r.db().prepare('SELECT email FROM contacts').first())?.email, 'later@example.test');
+  await r.db().prepare("UPDATE ik_provenance SET target_id='corrupt'").run();
+  await assert.rejects(readD1PersistedImport(ctx), /PROVENANCE_STORAGE_MISMATCH/);
+  await assert.rejects(resumeD1Import(job.id, ctx), /PROVENANCE_STORAGE_MISMATCH/);
+});
+test('real D1: sequential imports transfer attribution and newer undo restores the original ownership chain', async t => {
+  const r = await runtime(t), ctx = r.context(), first = await create(ctx, 1);
+  await resumeD1Import(first.id, ctx);
+  const original = await targets.read(r.db(), 'workspace', 'contact', '0');
+  const nextSource = source(1); nextSource.records[0].sourceId = 'cleaned-file-row';
+  const nextMapping = { version: 'v1', map: (record: any) => ({ effects: [{ targetKind: 'contact', targetId: '0', expectedRevision: original!.revision, value: { email: 'person0@example.test', evidence: 'cleaned: do not send' } }] }) };
+  const plan = await planD1Import(nextSource, nextMapping, ctx);
+  const second = await createD1ImportJob(plan, { ...ctx, reviewedFingerprint: plan.fingerprint });
+  await resumeD1Import(second.id, ctx);
+  assert.equal((await targets.read(r.db(), 'workspace', 'contact', '0'))?.value && (await r.db().prepare('SELECT detail FROM evidence').first())?.detail, 'cleaned: do not send');
+  assert.equal((await readD1PersistedImport(ctx)).provenance[0].jobId, second.id);
+  await assert.rejects(undoD1Import(first.id, ctx), /IMPORT_SUPERSEDED/);
+  assert.equal((await readD1ImportJob(first.id, ctx)).state, 'completed');
+  await r.reopen();
+  assert.equal((await undoD1Import(second.id, r.context())).state, 'undone');
+  assert.deepEqual(await targets.read(r.db(), 'workspace', 'contact', '0'), original);
+  assert.equal((await readD1PersistedImport(r.context())).provenance[0].jobId, first.id);
+  assert.equal((await r.db().prepare('SELECT COUNT(*) AS n FROM ik_d1_history').first())?.n, 0);
+  assert.equal((await readD1ImportOriginals(first.id, r.context())).length, 1);
+  assert.equal((await readD1ImportOriginals(second.id, r.context())).length, 1);
+  await undoD1Import(first.id, r.context());
+  assert.equal((await targets.read(r.db(), 'workspace', 'contact', '0')), undefined);
+});
+test('real D1: history transfer rolls back with failed effects and current authority; native edit blocks successor undo', async t => {
+  const r = await runtime(t), ctx = r.context(), first = await create(ctx, 1);
+  await resumeD1Import(first.id, ctx);
+  const original = await targets.read(r.db(), 'workspace', 'contact', '0');
+  const nextSource = source(1); nextSource.records[0].sourceId = 'second-file';
+  const plan = await planD1Import(nextSource, { version: 'v1', map: () => ({ effects: [{ targetKind: 'contact', targetId: '0', expectedRevision: original!.revision, value: { email: 'person0@example.test', evidence: 'suppressed' } }] }) }, ctx);
+  const next = await createD1ImportJob(plan, { ...ctx, reviewedFingerprint: plan.fingerprint });
+  const revoked = { ...targets, write(row: any) { return [...targets.write(row), { sql: 'UPDATE sessions SET enabled=0' }]; } };
+  await assert.rejects(resumeD1Import(next.id, { ...ctx, storage: { ...ctx.storage, targets: revoked } }), /IMPORT_ATOMIC_GUARD/);
+  assert.deepEqual(await targets.read(r.db(), 'workspace', 'contact', '0'), original);
+  assert.equal((await r.db().prepare('SELECT COUNT(*) AS n FROM ik_d1_history').first())?.n, 0);
+  assert.equal((await readD1PersistedImport(ctx)).provenance[0].jobId, first.id);
+  await resumeD1Import(next.id, ctx);
+  await r.db().prepare("UPDATE evidence SET detail='native edit'").run();
+  await assert.rejects(undoD1Import(next.id, ctx), /NATIVE_EDIT_CONFLICT/);
+  await assert.rejects(undoD1Import(first.id, ctx), /IMPORT_SUPERSEDED/);
+  assert.equal((await r.db().prepare('SELECT detail FROM evidence').first())?.detail, 'native edit');
+});
+test('real D1: multiple target transfers from one predecessor are atomic and reversal restarts across batches', async t => {
+  const r = await runtime(t), ctx = { ...r.context(), batchSize: 3 }, first = await create(ctx, 3);
+  await resumeD1Import(first.id, ctx);
+  const prior = await targets.list(r.db(), ctx.destination);
+  const nextSource = source(3); nextSource.records.forEach(record => { record.sourceId = 'next-' + record.sourceId; });
+  const plan = await planD1Import(nextSource, { version: 'v1', map: record => { const id = record.sourceId.slice(5); return { effects: [{ targetKind: 'contact', targetId: id, expectedRevision: prior.find(row => row.targetId === id)!.revision, value: { email: `person${id}@example.test`, evidence: 'cleaned' } }] }; } }, ctx);
+  const next = await createD1ImportJob(plan, { ...ctx, reviewedFingerprint: plan.fingerprint });
+  await resumeD1Import(next.id, ctx);
+  assert.equal((await r.db().prepare('SELECT COUNT(*) AS n FROM ik_d1_history').first())?.n, 3);
+  await assert.rejects(undoD1Import(first.id, ctx), /IMPORT_SUPERSEDED/);
+  assert.equal((await undoD1Import(next.id, { ...ctx, batchSize: 1, maxBatches: 1 })).state, 'undoing');
+  await r.reopen();
+  await resumeD1Import(next.id, r.context());
+  assert.deepEqual(await targets.list(r.db(), ctx.destination), prior);
+  await undoD1Import(first.id, r.context());
+  assert.equal((await targets.list(r.db(), ctx.destination)).length, 0);
+});
+test('real D1: competing successors have one ownership winner and three-layer undo restores each exact state', async t => {
+  const r = await runtime(t), ctx = r.context(), first = await create(ctx, 1);
+  await resumeD1Import(first.id, ctx);
+  const original = await targets.read(r.db(), ctx.destination, 'contact', '0');
+  async function successor(label: string, revision: string) {
+    const input = source(1); input.records[0].sourceId = label;
+    const plan = await planD1Import(input, { version: 'v1', map: () => ({ effects: [{ targetKind: 'contact', targetId: '0', expectedRevision: revision, value: { email: 'person0@example.test', evidence: label } }] }) }, ctx);
+    return createD1ImportJob(plan, { ...ctx, reviewedFingerprint: plan.fingerprint });
+  }
+  const second = await successor('second', original!.revision), competing = await successor('competing', original!.revision);
+  const results = await Promise.allSettled([resumeD1Import(second.id, ctx), resumeD1Import(competing.id, ctx)]);
+  assert.equal(results.filter(result => result.status === 'fulfilled').length, 1);
+  const winner = results[0].status === 'fulfilled' ? second : competing;
+  const middle = await targets.read(r.db(), ctx.destination, 'contact', '0');
+  assert.equal((await r.db().prepare('SELECT COUNT(*) AS n FROM ik_d1_history').first())?.n, 1);
+  const third = await successor('third', middle!.revision); await resumeD1Import(third.id, ctx);
+  await assert.rejects(undoD1Import(winner.id, ctx), /IMPORT_SUPERSEDED/);
+  await assert.rejects(undoD1Import(first.id, ctx), /IMPORT_SUPERSEDED/);
+  await undoD1Import(third.id, ctx); assert.deepEqual(await targets.read(r.db(), ctx.destination, 'contact', '0'), middle);
+  await undoD1Import(winner.id, ctx); assert.deepEqual(await targets.read(r.db(), ctx.destination, 'contact', '0'), original);
+  await undoD1Import(first.id, ctx); assert.equal(await targets.read(r.db(), ctx.destination, 'contact', '0'), undefined);
+});
+test('real D1: missing predecessor custody prevents successor undo from losing attribution', async t => {
+  const r = await runtime(t), ctx = r.context(), first = await create(ctx, 1); await resumeD1Import(first.id, ctx);
+  const original = await targets.read(r.db(), ctx.destination, 'contact', '0');
+  const input = source(1); input.records[0].sourceId = 'next-original';
+  const plan = await planD1Import(input, { version: 'v1', map: () => ({ effects: [{ targetKind: 'contact', targetId: '0', expectedRevision: original!.revision, value: { email: 'person0@example.test', evidence: 'cleaned' } }] }) }, ctx);
+  const next = await createD1ImportJob(plan, { ...ctx, reviewedFingerprint: plan.fingerprint }); await resumeD1Import(next.id, ctx);
+  await r.db().prepare('DELETE FROM ik_d1_history').run();
+  await assert.rejects(undoD1Import(next.id, ctx), /IMPORT_HISTORY_MISMATCH/);
+  assert.equal((await r.db().prepare('SELECT detail FROM evidence').first())?.detail, 'cleaned');
+  assert.equal((await readD1PersistedImport(ctx)).provenance[0].jobId, next.id);
+});

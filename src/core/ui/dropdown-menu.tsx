@@ -3,7 +3,14 @@ import { Check, ChevronRight } from "lucide-react";
 import type { ComponentProps } from "react";
 import { cn } from "./cn";
 
-export const DropdownMenu = DropdownMenuPrimitive.Root;
+/**
+ * Non-modal by default: a modal Radix menu marks the rest of the app aria-hidden while its
+ * focusable controls stay in the tab order (axe aria-hidden-focus). Escape, arrow keys,
+ * outside-click close and focus return to the trigger behave the same.
+ */
+export function DropdownMenu({ modal = false, ...props }: ComponentProps<typeof DropdownMenuPrimitive.Root>) {
+  return <DropdownMenuPrimitive.Root modal={modal} {...props} />;
+}
 export const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 export const DropdownMenuGroup = DropdownMenuPrimitive.Group;
 export const DropdownMenuSub = DropdownMenuPrimitive.Sub;
@@ -23,7 +30,7 @@ export function DropdownMenuContent({
       <DropdownMenuPrimitive.Content
         align={align}
         className={cn(
-          "z-50 min-w-56 rounded-card border border-line bg-surface p-1 text-ink shadow-[0_12px_32px_rgb(15_15_15/0.14)]",
+          "z-50 min-w-56 rounded-card border border-line bg-surface p-1 text-ink shadow-popover",
           className,
         )}
         sideOffset={sideOffset}
@@ -112,7 +119,7 @@ export function DropdownMenuSubContent({ className, ...props }: ComponentProps<t
     <DropdownMenuPrimitive.Portal>
       <DropdownMenuPrimitive.SubContent
         className={cn(
-          "z-50 min-w-44 rounded-card border border-line bg-surface p-1 text-ink shadow-[0_12px_32px_rgb(15_15_15/0.14)]",
+          "z-50 min-w-44 rounded-card border border-line bg-surface p-1 text-ink shadow-popover",
           className,
         )}
         {...props}

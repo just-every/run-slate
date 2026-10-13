@@ -3,7 +3,7 @@ import test from "node:test";
 import { createR2BlobStore } from "../../src/core/platform/blobs";
 import { probeDependencies } from "../../src/core/platform/health";
 import { createQueueDispatcher, isQueuedJob } from "../../src/core/platform/jobs";
-import { createResendMailer, MailDeliveryError } from "../../src/core/platform/mail";
+import { createMailer, MailDeliveryError } from "../../src/core/platform/mail";
 
 test("R2 blob store keeps access-neutral metadata and rejects unsafe keys", async () => {
   let write: { key: string; options: unknown } | null = null;
@@ -64,7 +64,8 @@ test("dependency health surfaces an unreachable dependency instead of reporting 
 
 test("Resend adapter sends a real provider-shaped request and surfaces provider failures", async () => {
   const requests: Request[] = [];
-  const mailer = createResendMailer({
+  const mailer = createMailer({
+    provider: "resend",
     from: "Slate <mail@example.com>",
     apiKey: "provider-token",
     fetch: async (input, init) => {
@@ -78,8 +79,8 @@ test("Resend adapter sends a real provider-shaped request and surfaces provider 
   assert.ok(request);
   assert.equal(request.url, "https://api.resend.com/emails");
   assert.equal(request.headers.get("authorization"), "Bearer provider-token");
-  assert.deepEqual(await request.json(), { from: "Slate <mail@example.com>", to: ["member@example.com"], subject: "Sign in", text: "Open this link" });
+  assert.deepEqual(await request.json(), { from: "Slate <mail@example.com>", to: ["member@example.com"], subject: "Sign in", text: "Open this link", headers: {} });
 
-  const failing = createResendMailer({ from: "Slate <mail@example.com>", apiKey: "provider-token", fetch: async () => new Response("sender is not verified", { status: 403 }) });
+  const failing = createMailer({ provider: "resend", from: "Slate <mail@example.com>", apiKey: "provider-token", fetch: async () => new Response("sender is not verified", { status: 403 }) });
   await assert.rejects(() => failing.send({ to: "member@example.com", subject: "Sign in", text: "Open this link" }), (cause: unknown) => cause instanceof MailDeliveryError && cause.status === 403 && cause.message.includes("sender is not verified"));
 });

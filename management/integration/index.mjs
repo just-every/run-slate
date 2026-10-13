@@ -30,7 +30,7 @@ export function createIntegration(host) {
       if (!Array.isArray(input.secretNames) || input.secretNames.some(name => !allowed.has(name)) || specification.secretNames.some(name => !input.secretNames.includes(name))) throw Error('Core-wiki requires exactly its native mail/session secret names');
       const editable = ['SETUP_OWNER_EMAIL', 'MAIL_FROM', 'LINK_PREVIEWS_ENABLED'];
       for (const [name, value] of Object.entries(input.publicVariables)) if (!editable.includes(name) && value !== plan.publicVariables[name]) throw Error(`Unsupported core-wiki configuration: ${name}`);
-      const changed = publicInputs(Object.fromEntries(editable.map(name => [name, input.publicVariables[name] ?? plan.publicVariables[name]])));
+      const changed = publicInputs({...Object.fromEntries(editable.map(name => [name, input.publicVariables[name] ?? plan.publicVariables[name]])), MAIL_PROVIDER: plan.publicVariables.MAIL_PROVIDER});
       for (const name of fixedVariables) if (input.publicVariables[name] !== undefined && input.publicVariables[name] !== plan.publicVariables[name]) throw Error(`Fixed native configuration: ${name}`);
       const next = structuredClone(plan);
       next.publicVariables = {...plan.publicVariables, ...changed};

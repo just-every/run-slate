@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useResource } from "../../../client/useResource";
 import { mutate, operationKey, errorMessage } from "../../../client/transport";
 import { RequestState } from "../../../app/ui/RequestState";
+import { TopBar } from "../../../app/ui/header/TopBar";
+import { PageTitle } from "../../../app/ui/header/PageTitle";
 interface Notice {
   id: string;
   title: string | null;
@@ -35,9 +37,9 @@ export function WorkspaceInbox() {
   }
   return (
     <>
-      <header className="topbar">Inbox</header>
+      <TopBar trail={[{ label: "Inbox" }]} />
       <section className="main">
-        <h1 className="title">For your attention.</h1><p>{resource.data?.unreadCount??0} unread notifications</p>
+        <PageTitle>For your attention.</PageTitle><p className="page-lede">{resource.data?.unreadCount??0} unread notifications</p>
         <div className="editor-actions">
           <select
             aria-label="Notification audience"

@@ -1,9 +1,10 @@
+import { signInBrowser } from '../../e2e/outbox-auth.mjs';
 import {chromium} from '@playwright/test';
 import assert from 'node:assert/strict';
 const browser=await chromium.launch({headless:true});
 try {
  const context=await browser.newContext();const page=await context.newPage();
- await page.goto('http://127.0.0.1:4174/signin');await page.getByTestId('local-sign-in').click();await page.waitForURL('**/app');
+ await signInBrowser(page, 'http://127.0.0.1:4174', process.env.SLATE_BROWSER_EMAIL ?? 'jamie@aurora.example');
  await page.goto('http://127.0.0.1:4174/app/pages/01M3G6EKVGCF2350MAPABQHGT0');
  const block=page.locator('[contenteditable="true"]').first();await block.waitFor();const original=await block.innerText();
  await context.setOffline(true);await block.fill(`${original} Recovery check.`);await page.waitForTimeout(1100);

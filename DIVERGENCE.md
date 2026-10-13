@@ -28,17 +28,17 @@ Where the planted shared documents (`AGENTS.md`, `BASELINE.md`, `AGENTS.consumer
 
 ## 4. No "not applicable" state for baseline clauses
 
-**Didn't fit.** `BASE-PUBLIC-001` and `BASE-PUBLIC-002` govern widgets, booking pages, forms, status pages, and embeddable surfaces. Slate now intentionally ships the `HOME-001` owner identity plate at `/`, but it is none of those public product surfaces. The reporting states are satisfied, overridden, or broken, so the honest outcome is still a vacuous test or a fake one.
+**Didn't fit.** `BASE-PUBLIC-001` and `BASE-PUBLIC-002` govern widgets, booking pages, forms, status pages, and embeddable surfaces. Slate intentionally ships the `HOME-001` public root at `/` (an owner identity plate until the 8 October 2026 amendment, a static landing page until the 13 October 2026 amendment, the shared Lobby since), but it is none of those public product surfaces. The reporting states are satisfied, overridden, or broken, so the honest outcome is still a vacuous test or a fake one.
 
-**Did instead.** Declared the exact identity-plate and sign-in paths in `seed.json → deploy.publicPaths`, and constrained the landing in `HOME-001` to no records, marketing, metrics, tracking, or third-party resources. Nothing is claimed as satisfied for the shared public-surface clauses.
+**Did instead.** Declared the exact landing and sign-in paths in `seed.json → deploy.publicPaths`, and constrained the landing in `HOME-001` to no workspace records or member identity, no metrics, testimonials or pricing, no cookies or tracking, and no third-party resources. The 8 October 2026 amendment lets it describe the core-wiki product (the earlier no-marketing and no-feature-tour limits are replaced by a core-wiki-only claim limit), and the 9 October 2026 revision gives that description the owner's approved illustrated design with the same limits, drawn with Slate's card logo and no decorative tick lines. The same card mark is shown on the sign-in page and in the app and is the favicon, served from four declared same-origin static paths; the buyer-configured mark is gone. The 9 October 2026 `DOCS-001` amendment adds `/docs` and `/docs/<slug>` to the declared public paths (the landing's Docs link and "Read the guide" open `/docs`; "Read the setup guide" opens `/docs/install`): first-party documentation rendered at build time from the repository Markdown, under the same limits (no workspace records or member identity, no cookies or tracking, same-origin resources only, default-profile content only). The 13 October 2026 amendment moves the landing to the static run site (`run-slate.com`, its primary action "Run Slate" to `/run`, no sign-in links) and answers the installed `/` with Base's Lobby and `/setup/state`, which reveal only whether first-run setup is finished; `/setup/state` and `/brand/band.svg` join the declared public paths. Nothing is claimed as satisfied for the shared public-surface clauses.
 
 **For the shared docs.** Add a declared not-applicable state, derived from the manifest (no qualifying public surface declared → `BASE-PUBLIC-*` reports as not applicable) rather than asserted by the seed.
 
 ## 5. The shared baseline test pack does not exist yet
 
-**Didn't fit.** `BASELINE.md` states "Every clause has a test in the shared baseline pack that `pnpm verify` runs alongside the product contract." The pack is not planted with the doc, so the sentence is untrue in every seed today.
+**Didn't fit.** `BASELINE.md` states "Every clause has a test in the shared baseline pack that `rer verify` runs alongside the product contract." The pack is not planted with the doc, so the sentence is untrue in every seed today.
 
-**Did instead.** `pnpm verify` reports baseline behaviour as `{satisfied: 0, planned: 22, sharedPackPresent: false}` instead of implying coverage.
+**Did instead.** `rer verify` reports baseline behaviour as `{satisfied: 0, planned: 22, sharedPackPresent: false}` instead of implying coverage.
 
 **For the shared docs.** Ship the pack with the planted files, or phrase the sentence as a requirement on the released seed rather than a statement of fact.
 
@@ -94,7 +94,7 @@ Where the planted shared documents (`AGENTS.md`, `BASELINE.md`, `AGENTS.consumer
 
 **Didn't fit.** The original shared guide left an open seam: `AGENTS.consumer.md` tells the owner's agent that `seed.json` names the importer for each product the seed replaces, but `replaces[]` carries only `{name, edition}`, and whether the importer arrives as a field there or as a contribution ID the agent can look up was left to the first spine's contract. This is that contract.
 
-**Did instead.** Neither. An importer is a clause with a test — `IMP-002` for Notion, `IMP-003` for Confluence — inside the `importers` capability in `seed.json`, and `replaces[].name` implies it. A guarantee belongs where `pnpm verify` can report it satisfied, overridden or broken; a manifest field naming an importer would duplicate the clause and could drift from it, and a contribution ID would say the importer is optional when the plan makes it a condition of the name appearing in `replaces` at all.
+**Did instead.** Neither. An importer is a clause with a test — `IMP-002` for Notion, `IMP-003` for Confluence — inside the `importers` capability in `seed.json`, and `replaces[].name` implies it. A guarantee belongs where `rer verify` can report it satisfied, overridden or broken; a manifest field naming an importer would duplicate the clause and could drift from it, and a contribution ID would say the importer is optional when the plan makes it a condition of the name appearing in `replaces` at all.
 
 **For the shared docs.** Change the sentence in `AGENTS.consumer.md` to point the owner's agent at the `importers` capability and its clauses rather than at `replaces[]`.
 
@@ -115,7 +115,7 @@ inline, every other request for a stored file is served with a download
 disposition, both send the declared content type and `nosniff`, an SVG is
 sanitised under `BASE-INPUT-002` first, and access is unchanged either way. The
 contract header names the supersession, and `BLOCK-008` carries the test, so
-`pnpm verify` will report `BASE-INPUT-003` as superseded rather than broken.
+`rer verify` will report `BASE-INPUT-003` as superseded rather than broken.
 
 **For the shared docs.** Split the baseline clause: storage, type and size limits,
 and the access rule are one clause every seed satisfies; disposition is a second
@@ -173,3 +173,68 @@ published, and item 14 above settles that a first release records supersessions 
 current exporter. Contract wording should name the product and the round trip, and
 leave the wire form to the fixture — otherwise every incumbent's next export format
 change is a contract change.
+
+## 16. Shared identity with native accounts — owner decision, 10 October 2026
+
+The approved COMMON-LOGIN phases 1–4 supersede the 8 October implementation
+exemption. Slate retains **own accounts, sessions and roles**, including its
+existing member IDs, group memberships and scoped guests. Base owns the intended
+identity proof and dependency protocols. No second owner or operator ledger is
+introduced. WORK-008, WORK-009, WORK-010 and WORK-015 remain binding.
+
+Base operator-auth now signs Slate in. The copied Base modules are byte-exact at
+`9ec15a63a410d209cd5a179749336bb61751e0f6`. `src/core/features/session/native/`
+supplies Base's paired native accounts and proof adapters over Slate's own
+`members`, `sessions` and `member_identity_bindings`; the service never creates
+Base account or session tables. Admission, proofs and owner lookups are scoped to
+the installation's workspace, selected by the server. Member IDs, owner/member
+roles, groups, scoped guests and the `slate_session` cookie are unchanged.
+
+- **Email (BASE-ACCESS-001).** `POST /api/auth/magic` asks Base for a one-use
+  link (one hour, keyed digest only). GET `/auth/confirm` previews; a same-origin
+  POST consumes the proof and issues a 30-day native session in one D1 batch that
+  rechecks the member's status, email and authority version. Links sent before
+  this release, by either earlier engine, show the request-new-link page.
+- **Incumbent provider (WORK-015).** Base's `legacy-rs256` preset keeps the
+  configured issuer, client and the registered `/api/auth/identity/callback`, and
+  adds exact HTTPS pins for the authorization, token and JWKS endpoints. The first
+  provider sign-in binds the issuer/subject to the member whose verified mailbox
+  it presents; a binding never moves to another member. Provider sessions last at
+  most 24 hours and end when the provider configuration or its pin changes.
+- **Authority (WORK-008/009/010).** `member_authority` advances on any email,
+  role, kind, status or ownership change. Sessions issued from now on, and every
+  pending proof, are fenced at that version. Sessions from before this release
+  keep their existing contract: valid until expiry, revocation or removal, with
+  the member's current role read on every request. Nobody gains authority.
+- **Step-up.** Workspace export, restore, permanent deletion, ownership changes,
+  owner removal or erasure, agent credentials and connectors need a Base email
+  proof from the last ten minutes in the asking session. Without one, Slate emails
+  the member a confirmation link and refuses the attempt; the commit repeats the
+  proof check.
+- **Dev identity (SC-05).** The local-only entry `src/dev/server.ts` serves
+  key-gated dev sessions for the claimed owner and real `editor` and `guest`
+  personas at `<as>@dev.localhost`. The outbox answers only with the checkout's
+  dev key. Archives exclude sessions and restore every non-owner member inactive.
+
+Slate has no domain rules, passwords or linked dependency providers, so Base's
+domain, password-revocation and dependency logout/fence paths have no Slate flow;
+those service methods refuse as Base specifies. Invitation acceptance remains
+Slate's native account administration.
+
+## 17. The homepage names what Slate replaces — owner decision, 12 October 2026
+
+**Didn't fit.** The landing test refused every percentage in the page copy and the platform's naming rule kept
+incumbent names off homepages (OD-16). Search and a switching buyer both need one plain line that says what Slate
+replaces.
+
+**Did instead.** The hero carries one line under the subhead, "100% free, open source alternative to Notion,
+Confluence and Guru" (`src/core/features/landing/copy.ts`), and the same sentence ends the page's meta description
+(`src/routes/index.tsx`). `seed.json` `replaces` adds Guru beside Notion and Confluence. Guru has no dedicated
+importer; this is a nominative "alternative to" name, not an import claim. `tests/e2e/landing.test.ts` now allows
+exactly that line's "100%" and the three names, and still refuses any other percentage, price or count and any
+comparative claim ("better than", "unlike", "instead of", "beats", "versus"). The owner chose this on 12 October 2026,
+reversing OD-16 for homepages.
+
+## Deployment input validation
+
+Slate selects `resend` or `sendgrid` explicitly with `SLATE_MAIL_PROVIDER` and uses `SLATE_MAIL_API_KEY` for either selection. `scripts/installer/deploy.mjs` writes the selected provider and sender into the Base deploy-kit declaration. OPERATIONS.json records the actual account/token and native secret inputs. Local validation checks syntax and command availability; provider identity, delivery and deployed health require separate evidence.

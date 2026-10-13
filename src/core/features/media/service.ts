@@ -1,3 +1,4 @@
+import {storeImportedSource,sanitizedImportBytes} from './import-source';
 import { bodyReferencesFile, propertyReferencesFile, snapshotDisplayAllowed } from './references';
 import { contentLimits } from '../editor/limits';
 import type { FeatureContext } from '../../app/feature-context';
@@ -17,17 +18,19 @@ export interface MediaInput {
 }
 export async function prepareMedia(ctx: FeatureContext, input: MediaInput) { await requirePageLevel(ctx, input.pageId, 'edit'); writable(await pageRow(ctx, input.pageId)); return prepareImportedMedia(ctx, input); }
 /** Import caller authorizes destination and includes the new page in the same transaction. */
-export async function prepareImportedMedia(ctx: FeatureContext, input: MediaInput) {
-    if (input.bytes.byteLength > contentLimits.uploadBytesPerFile)
+export async function prepareImportedMedia(ctx: FeatureContext, input: MediaInput | (Omit<MediaInput,'bytes'> & {source:{sizeBytes:number;open:()=>ReadableStream<Uint8Array>}}),stage=true) {
+    const size='bytes' in input?input.bytes.byteLength:input.source.sizeBytes;
+    if (size > contentLimits.uploadBytesPerFile)
         throw new ApiProblem(413, 'FILE_TOO_LARGE', 'File exceeds the deployment upload limit.');
     if (!contentLimits.uploadTypes.includes(input.contentType))
         throw new ApiProblem(400, 'UNSUPPORTED_FILE_TYPE', 'This file type is not allowed.');
     if (!input.name || input.name.length > 255 || !/^[-\w.+]+\/[-\w.+]+$/.test(input.contentType))
         throw new ApiProblem(400, 'INVALID_FILE', 'Invalid filename or media type.');
-    const used=await ctx.db.prepare('SELECT COALESCE(SUM(size_bytes),0) AS bytes FROM files WHERE deleted_at IS NULL').first<{bytes:number}>();if((used?.bytes??0)+input.bytes.byteLength>contentLimits.attachmentStorageBytesPerDeployment)throw new ApiProblem(429,'STORAGE_LIMIT','Attachment storage is full.');const id = createUlid(), storageKey = `pages/${ctx.actor.workspaceId}/${input.pageId}/${id}`;
-    const bytes = input.contentType === 'image/svg+xml' ? new TextEncoder().encode(sanitizeSvg(new TextDecoder().decode(input.bytes))) : input.bytes;
-    await ctx.files.put(storageKey, bytes, { httpMetadata: { contentType: input.contentType } });
-    return { id, storageKey, statements: [mutationGuard(ctx.db,'SELECT COALESCE(SUM(size_bytes),0)+?<=? FROM files WHERE deleted_at IS NULL',[bytes.byteLength,contentLimits.attachmentStorageBytesPerDeployment]),ctx.db.prepare('INSERT INTO files (id,workspace_id,page_id,storage_key,original_name,content_type,size_bytes,created_at) VALUES (?,?,?,?,?,?,?,?)').bind(id, ctx.actor.workspaceId, input.pageId, storageKey, input.name, input.contentType, bytes.byteLength, ctx.now)], value: { id, pageId: input.pageId, name: input.name, contentType: input.contentType, sizeBytes: bytes.byteLength, url: `/api/media/${id}` } };
+    const used=await ctx.db.prepare('SELECT COALESCE(SUM(size_bytes),0) AS bytes FROM files WHERE deleted_at IS NULL').first<{bytes:number}>();if((used?.bytes??0)+size>contentLimits.attachmentStorageBytesPerDeployment)throw new ApiProblem(429,'STORAGE_LIMIT','Attachment storage is full.');const id = createUlid(), storageKey = `pages/${ctx.actor.workspaceId}/${input.pageId}/${id}`;
+    const source='bytes' in input?{sizeBytes:size,open:()=>new Blob([input.bytes as Uint8Array<ArrayBuffer>]).stream()}:input.source;
+    const storedSize=input.contentType==='image/svg+xml'?(await sanitizedImportBytes(source)).length:size;
+    if(stage)await storeImportedSource(ctx.files,storageKey,input.contentType,source,storedSize);
+    return { id, storageKey, statements: [mutationGuard(ctx.db,'SELECT COALESCE(SUM(size_bytes),0)+?<=? FROM files WHERE deleted_at IS NULL',[storedSize,contentLimits.attachmentStorageBytesPerDeployment]),ctx.db.prepare('INSERT INTO files (id,workspace_id,page_id,storage_key,original_name,content_type,size_bytes,created_at) VALUES (?,?,?,?,?,?,?,?)').bind(id, ctx.actor.workspaceId, input.pageId, storageKey, input.name, input.contentType, storedSize, ctx.now)], value: { id, pageId: input.pageId, name: input.name, contentType: input.contentType, sizeBytes: storedSize, url: `/api/media/${id}` } };
 }
 export async function uploadMedia(ctx: FeatureContext, input: MediaInput) {
     const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new Uint8Array(input.bytes))), b => b.toString(16).padStart(2, '0')).join('');

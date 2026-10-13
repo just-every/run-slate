@@ -1,3 +1,4 @@
+import { displayDate } from "../../../../app/ui/displayDate";
 import {ReactionControls} from './ReactionControls';
 import type {PageSelection} from "./selection";
 import {Editable} from "../../../editor/ui/blocks/Editable";
@@ -35,7 +36,7 @@ interface Thread {
   block_id: string | null;
   anchor_revision_id: string | null;
 }
-export function PageComments({ document, selection }: { document: DocumentView; selection?:PageSelection }) {
+export function PageComments({ document, selection, onSent, title = "Discussion" }: { document: DocumentView; selection?:PageSelection; onSent?: () => void; title?: string }) {
   const { member } = useWorkspace();
   const resource = useResource<{ threads: Thread[]; comments: Comment[]; reactions:{id:string;commentId:string;emoji:string;memberId:string;displayName:string}[] }>(
     `/api/comments/page/${document.page.id}`,
@@ -47,11 +48,13 @@ export function PageComments({ document, selection }: { document: DocumentView; 
   const [reply, setReply] = useState<string>();
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<unknown>();
+  const [sendFailed, setSendFailed] = useState(false);
   const [edit, setEdit] = useState<Comment>();
   useEffect(()=>{const params=new URLSearchParams(window.location.search);const thread=params.get("thread"),comment=params.get("comment");if(thread||comment)window.document.getElementById(`${thread?"thread":"comment"}-${thread??comment}`)?.scrollIntoView({block:"center"});},[resource.data]);
   const allowed = document.permissions.level !== "view";
   async function action(path: string, value: unknown, method = "POST") {
     setError(undefined);
+    setSendFailed(false);
     try {
       await mutate(path, value, method);
       await resource.reload();
@@ -61,10 +64,10 @@ export function PageComments({ document, selection }: { document: DocumentView; 
     }
   }
   return (
-    <section>
-      <h2>Discussion</h2>
-      <label>Threads<select aria-label="Threads" value={filter} onChange={e=>setFilter(e.target.value)}><option value="all">All threads</option><option value="open">Open threads</option><option value="resolved">Resolved threads</option></select></label>
-      {allowed && resource.data?.threads.some(t=>t.state==='open') ? <button onClick={()=>void action(`/api/comments/page/${document.page.id}/resolve-all`,{operationKey:operationKey()}).catch(()=>{})}>Resolve all open threads</button>:null}
+    <section className="comments-panel">
+      <h2>{title}</h2>
+      <label className="panel-filter"><span>Threads</span><select aria-label="Threads" value={filter} onChange={e=>setFilter(e.target.value)}><option value="all">All threads</option><option value="open">Open threads</option><option value="resolved">Resolved threads</option></select></label>
+      {allowed && resource.data?.threads.some(t=>t.state==='open') ? <button className="secondary-button" onClick={()=>void action(`/api/comments/page/${document.page.id}/resolve-all`,{operationKey:operationKey()}).catch(()=>{})}>Resolve all open threads</button>:null}
       <RequestState
         loading={resource.loading}
         error={resource.error}
@@ -108,7 +111,7 @@ export function PageComments({ document, selection }: { document: DocumentView; 
                           : "Workspace member")}
                     </strong>
                     <time dateTime={comment.createdAt}>
-                      {new Date(comment.createdAt).toLocaleString()}
+                      {displayDate(comment.createdAt, true)}
                     </time>
                   </header>
                   {comment.deletedAt ? (
@@ -118,7 +121,7 @@ export function PageComments({ document, selection }: { document: DocumentView; 
                       <p><InlineText value={comment.body ?? []} /></p>
                       <ReactionControls pageId={document.page.id} commentId={comment.id} reactions={resource.data?.reactions??[]} onChanged={resource.reload}/>
                       {comment.updatedAt !== comment.createdAt ? (
-                        <small>Edited <time dateTime={comment.updatedAt}>{new Date(comment.updatedAt).toLocaleString()}</time></small>
+                        <small>Edited <time dateTime={comment.updatedAt}>{displayDate(comment.updatedAt, true)}</time></small>
                       ) : null}
                       {allowed ? (
                         <div className="comment-actions">
@@ -179,7 +182,9 @@ export function PageComments({ document, selection }: { document: DocumentView; 
               });
               commentKey.current=null;setBody([]);
               setReply(undefined);
+              onSent?.();
             } catch {
+              setSendFailed(true);
             } finally {
               setPending(false);
             }
@@ -190,6 +195,7 @@ export function PageComments({ document, selection }: { document: DocumentView; 
             {selection && !reply ? <blockquote>{selection.quote}</blockquote>:null}
             <Editable value={body} onChange={setBody} canEdit={!pending} label={reply?"Reply text":"Comment text"} placeholder="Write a comment; type @ to mention"/>
           </label>
+          {error ? <p className="comment-error" role="alert">{errorMessage(error)}{sendFailed ? " Your draft is kept. Choose Send comment to retry." : null}</p> : null}
           <button className="primary-button" type="submit" disabled={pending || !body.some(span=>span.text.trim())}>
             {pending ? "Sending…" : "Send comment"}
           </button>
@@ -202,7 +208,7 @@ export function PageComments({ document, selection }: { document: DocumentView; 
       ) : (
         <p className="muted">Read-only discussion.</p>
       )}
-      {error ? <p role="alert">{errorMessage(error)}</p> : null}
+      {!allowed && error ? <p role="alert">{errorMessage(error)}</p> : null}
       {edit ? (
         <ActionDialog
           title="Edit comment"

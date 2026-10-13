@@ -48,3 +48,13 @@ test('AGENT-001 — revoking the exact effect grant fences an admitted procedure
  expect((await f.mcp(credential.token!,'run_status',{id:f.run.value.id})).body.result.isError).not.toBe(true);
  const before=await effects(f.workspaceId),result=await f.mcp(credential.token!,'dispatch_effect',{id:prepared.value.id});expect(result.value.code).toBe('GRANT_REQUIRED');expect(await effects(f.workspaceId)).toEqual(before);expect(before[0]).toMatchObject({state:'cancelled',receipt_json:null,dispatched_at:null});expect(f.issue.body).toBe('Unchanged target');expect(f.sends).toEqual([]);
 });
+test('AGENT-001 — a credential minted from a local dev session never authenticates without the local key gate',async()=>{
+ const calls=refuseNetwork(),f=await fixture(),api=await transport(f),run=await startRun(f.context(),f.ask,{apiKey:'test-only'});
+ const scope={tools:['run_status'],sourceIds:[f.page.pageId],audience:[f.owner,f.reader],grantIds:[]} as const;
+ const ordinary=await issueAgentCredential(f.context(),{operationKey:'native-minted-agent',subjectId:f.owner,expiresAt:'2099-01-01T00:00:00.000Z',scope:{...scope,tools:[...scope.tools],sourceIds:[...scope.sourceIds],audience:[...scope.audience],grantIds:[]}});
+ const dev=await issueAgentCredential(f.context(),{operationKey:'dev-minted-agent',subjectId:f.owner,expiresAt:'2099-01-01T00:00:00.000Z',scope:{...scope,tools:[...scope.tools],sourceIds:[...scope.sourceIds],audience:[...scope.audience],grantIds:[]}},true);
+ expect((await api.mcp(ordinary.token!,'run_status',{id:run.value.id})).value.id).toBe(run.value.id);
+ // This deployed Worker never loads the local-only dev layer, so no request passes the key gate.
+ expect((await api.mcp(dev.token!,'run_status',{id:run.value.id})).status).toBe(401);
+ expect(calls).toEqual([]);
+});

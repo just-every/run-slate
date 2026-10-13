@@ -1,0 +1,14 @@
+/* The sketch primitive (sketch/Sketch.tsx): a paper box with a hand-drawn ink outline laid over it. The box is a size container,
+   and the body's font size follows its width (--sk-base design pixels at the nominal width --sk-w), so a drawing written in em
+   shrinks and grows as one piece. */
+.slate-landing .sk { position: relative; container-type: inline-size; border-radius: var(--sk-r); }
+.slate-landing .sk-body { position: relative; border-radius: var(--sk-r); background: var(--card); color: var(--ink); font-size: max(12.5px, calc(var(--sk-base, 14) * 100cqw / var(--sk-w))); line-height: 1.3; overflow: hidden; }
+.slate-landing .sk-ink { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; fill: none; stroke: var(--ink); stroke-width: 2.3px; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.slate-landing .sk-ink path { vector-effect: non-scaling-stroke; }
+.slate-landing .sk-dots { display: inline-flex; gap: 0.55em; }
+.slate-landing .sk-dots i { width: 0.72em; height: 0.72em; border-radius: 50%; background: var(--ink); }
+
+/* A soft wash and the stage that holds a drawing on its wash. */
+.slate-landing .wash { position: absolute; inset: 0; width: 100%; height: 100%; fill: var(--wash); }
+.slate-landing .stage { position: relative; padding: clamp(24px, 7%, 64px) clamp(20px, 6%, 72px); }
+.slate-landing .stage-art { position: relative; }

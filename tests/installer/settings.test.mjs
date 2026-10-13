@@ -1,0 +1,56 @@
+import manifest from '../../rer-setup.json' with {type: 'json'};
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile, stat, writeFile, mkdir } from 'node:fs/promises';
+import { join } from 'node:path';
+import { prepareSettings } from '@runeditrun/rer/adapter-settings';
+import { withoutLocalVariables } from '@runeditrun/rer/local/build';
+import { localOperation } from '@runeditrun/rer/local/operation';
+import { settingsFor, loadLocalSettings } from '../../scripts/installer/settings.mjs';
+import { fixture } from './helpers.mjs';
+
+const store = { step: async () => {}, addSecrets: () => {} };
+test('explicit settings path is read and preserved, with no secret generated per load', async t => {
+  const { root } = await fixture(t); await mkdir(join(root, 'private'));
+  const env = { SLATE_LOCAL_SETTINGS_PATH: join(root, 'private/local.vars') };
+  const context = { root, manifest, input: { SETUP_OWNER_EMAIL: 'owner@example.test' }, store };
+  await prepareSettings(context, { secrets: settingsFor(env) });
+  const first = await readFile(env.SLATE_LOCAL_SETTINGS_PATH);
+  assert.deepEqual(await loadLocalSettings(root, env), context.vars);
+  assert.deepEqual(await loadLocalSettings(root, env), context.vars);
+  assert.deepEqual(await readFile(env.SLATE_LOCAL_SETTINGS_PATH), first);
+});
+test('local build hides exact private settings, honors operation lock and restores them after failure', async t => {
+  const { root } = await fixture(t);
+  const context = { root, manifest, input: { SETUP_OWNER_EMAIL: 'owner@example.test' }, store };
+  await prepareSettings(context, { secrets: settingsFor({}) });
+  const file = join(root, '.dev.vars'), before = await readFile(file), original = await stat(file);
+  const lock = await localOperation(root);
+  let builtWhileBusy = false;
+  // This fixture is a separate checkout, not the CLI verify operation's child.
+  // Explicit standalone custody prevents inheriting another root's token.
+  try {
+    await assert.rejects(withoutLocalVariables(root, () => { builtWhileBusy = true; }, { nested: null }));
+    assert.equal(builtWhileBusy, false, 'a competing build never runs');
+    assert.deepEqual(await readFile(file), before, 'busy refusal leaves private settings untouched');
+  }
+  finally { await lock.release(); }
+  await assert.rejects(withoutLocalVariables(root, async () => {
+    await assert.rejects(readFile(file), { code: 'ENOENT' }); throw Error('build failed');
+  }, { nested: null }), /build failed/);
+  assert.deepEqual(await readFile(file), before); assert.equal((await stat(file)).ino, original.ino);
+});
+test('unsafe settings never start local development', async t => {
+  const { root } = await fixture(t);
+  await writeFile(join(root, '.dev.vars'), 'APP_URL=https://hosted.example.test\nLOCAL_DEVELOPMENT=true\n');
+  await assert.rejects(loadLocalSettings(root));
+});
+test('a saved ephemeral port is rejected before development can choose another origin', async t => {
+  const { root } = await fixture(t, `throw Error('dev must not spawn');`);
+  const context = { root, manifest, input: { SETUP_OWNER_EMAIL: 'owner@example.test' }, store };
+  await prepareSettings(context, { secrets: settingsFor({}) });
+  const path = join(root, '.dev.vars');
+  await writeFile(path, (await readFile(path, 'utf8')).replace(context.vars.APP_URL, 'http://127.0.0.1:0'));
+  await assert.rejects(loadLocalSettings(root));
+
+});

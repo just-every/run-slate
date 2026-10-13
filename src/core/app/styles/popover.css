@@ -1,0 +1,30 @@
+/* The page's More menu: a compact list of actions that scrolls inside the room under the top bar, plus the notice a saved template leaves. */
+.page-more-menu {
+  width: 264px;
+  max-height: min(var(--radix-dropdown-menu-content-available-height), 640px);
+  overflow-y: auto;
+}
+.page-more-menu [role="menuitem"] { min-height: 32px; }
+.page-more-menu [role="menuitem"][data-disabled] { opacity: 0.55; }
+.page-more-menu [role="separator"] + [role="separator"] { display: none; }
+.page-more-note { margin: 0; padding: 6px 8px; color: var(--slate-ink-muted); font-size: 12px; line-height: 1.4; }
+.slate-app .page-notice {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 10px 12px 10px 16px;
+  border: 1px solid var(--slate-line);
+  border-radius: 8px;
+  background: var(--slate-surface);
+  box-shadow: var(--slate-shadow-popover);
+  font-size: 14px;
+}
+.slate-app .page-notice a { color: var(--slate-accent); text-decoration: underline; }
+.slate-app .page-notice button { display: inline-flex; align-items: center; justify-content: center; border-color: transparent; }
+.slate-app .page-notice button svg { width: 16px; height: 16px; }
+.slate-app .right .detail-close { display: block; min-height: 32px; margin: 0 0 8px auto; border-color: transparent; background-color: var(--slate-surface); }

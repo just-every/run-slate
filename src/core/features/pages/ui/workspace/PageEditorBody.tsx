@@ -6,7 +6,7 @@ import type {PageSelection} from "./selection";
 import {formatSelection} from "../../../editor/ui/formatSelection";
 import {richTextToPlain} from "../../../editor/ui/types";
 import {typedBlock} from "../../../editor/ui/typedFormatting";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { EditorMediaDialog } from "./EditorMediaDialog";
 import { BlockEditor } from "../../../editor/ui/BlockEditor";
 import { BlockView } from "../../../editor/ui/blocks/BlockView";
@@ -19,27 +19,41 @@ import type { DocumentView } from "../../../../client/content";
 import { contentApi, editorBlocks } from "../../../../client/content";
 import { errorMessage } from "../../../../client/transport";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
+import { useInsertedBlockFocus } from "./useInsertedBlockFocus";
 
 export function PageEditorBody({
   editor,
   document,
   onAsk,
   onComment,
+  footer,
 }: {
   editor: ReturnType<typeof usePageEditor>;
   document: DocumentView;
   onAsk: (selection?:PageSelection) => void;
   onComment: (selection?:PageSelection) => void;
+  /** Quiet controls that share the row below the body with Add block. */
+  footer?: ReactNode;
 }) {
   const liveQueries=useContentQueries(document.page.id,editor.blocks);
   const [queryEditor,setQueryEditor]=useState<string|null>(null);
   const editedQuery=editor.blocks.find(block=>block.id===queryEditor);
   const undoConversion = useRef<EditorBlock | null>(null);
   const wrapper = useRef<HTMLDivElement>(null);
+  const requestInsertFocus = useInsertedBlockFocus(wrapper, document.page.id, editor.blocks, document.permissions.canEdit && editor.structureState !== "saving");
   useEffect(() => {
     const element = wrapper.current;
     if (!element) return;
-    const insertAt = (event:Event) => {const target=event.target as HTMLElement;setInsert({after:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId ?? null,range:(event as CustomEvent<{anchor:number;focus:number}>).detail});};
+    const insertAt = (event:Event) => {
+      const target=event.target as HTMLElement;
+      const selection=window.getSelection();
+      const caret=selection?.rangeCount ? selection.getRangeAt(0).cloneRange() : null;
+      const caretRect=caret?.getBoundingClientRect();
+      // Empty editables can have a 0×0 Range at the viewport origin. Keep
+      // real line carets (zero width, positive height) anchored to the Range.
+      const anchor=caret && caretRect && (caretRect.width>0 || caretRect.height>0) ? caret : target;
+      setInsert({after:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId ?? null,range:(event as CustomEvent<{anchor:number;focus:number}>).detail,anchor});
+    };
     const undo=(event:KeyboardEvent)=>{if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='z'&&undoConversion.current){event.preventDefault();const previous=undoConversion.current;undoConversion.current=null;void editor.structure(editor.blocks.map(b=>b.id===previous.id?previous:b)).catch(setError);}};
     element.addEventListener('slate-insert-at-cursor',insertAt);
     element.addEventListener('keydown',undo);
@@ -50,7 +64,7 @@ export function PageEditorBody({
       if(!block || !('text' in block) || !range)return;
       const start=Math.min(range.anchor,range.focus),end=Math.max(range.anchor,range.focus),anchorId=crypto.randomUUID();
       const value:PageSelection={blockId:block.id,blockRevisionId:document.blocks.find(b=>b.id===block.id)?.revisionId??'',revisionId:editor.workingRevisionId,anchorId,start,end,quote:richTextToPlain(block.text).slice(start,end)};
-      if(comment){try{await editor.structure(editor.blocks.map(b=>b.id===block.id?{...block,text:formatSelection(block.text,start,end,span=>({...span,commentAnchorId:anchorId}))}:b));const fresh=await contentApi.document(document.page.id);value.revisionId=fresh.workingRevisionId;onComment(value);}catch(cause){setError(cause);}}
+      if(comment){setError(undefined);try{await editor.structure(editor.blocks.map(b=>b.id===block.id?{...block,text:formatSelection(block.text,start,end,span=>({...span,commentAnchorId:anchorId}))}:b));const fresh=await contentApi.document(document.page.id);value.revisionId=fresh.workingRevisionId;onComment(value);}catch(cause){setError(cause);}}
       else onAsk(value);
     };
     const comment=(event:Event)=>{void selected(event,true);};const ask=(event:Event)=>{void selected(event,false);};
@@ -63,7 +77,7 @@ export function PageEditorBody({
       element.removeEventListener("slate-ask-selection", ask);
     };
   }, [onAsk, onComment,editor]);
-  const [insert, setInsert] = useState<{ after: string | null; range?:{anchor:number;focus:number} } | null>(null);
+  const [insert, setInsert] = useState<{ after: string | null; range?:{anchor:number;focus:number}; anchor: HTMLElement | Range } | null>(null);
   const [query, setQuery] = useState("");
   const [error, setError] = useState<unknown>();
   const [conflict, setConflict] = useState<{
@@ -77,8 +91,10 @@ export function PageEditorBody({
     setError(undefined);
     try {
       await editor.structure(next);
+      return true;
     } catch (cause) {
       setError(cause);
+      return false;
     }
   }
   function add(kind: InsertKind) {
@@ -95,7 +111,8 @@ export function PageEditorBody({
     }else next.splice(index, 0, inserted);
     setInsert(null);
     setQuery("");
-    void apply(next).then(()=>requestAnimationFrame(()=>window.document.querySelector<HTMLElement>(`[data-block-id="${inserted.id}"] [contenteditable="true"]`)?.focus()));
+    const finishFocus = requestInsertFocus(inserted.id);
+    void apply(next).then(finishFocus);
   }
   function move(id: string, movement: BlockMove) {
     const next = [...editor.blocks];
@@ -135,18 +152,10 @@ export function PageEditorBody({
   }
   return (
     <div ref={wrapper} data-page-editor tabIndex={-1}>
-      {document.permissions.canEdit ? (
-        <div className="editor-actions">
-          <button type="button" onClick={() => setInsert({ after: null })}>
-            ＋ Add block
-          </button>
-        </div>
-      ) : (
-        <p className="muted">You have read access to this page.</p>
-      )}
       {insert ? (
         <InsertMenu
           open
+          anchor={insert.anchor}
           query={query}
           onQueryChange={setQuery}
           onInsert={add}
@@ -155,7 +164,7 @@ export function PageEditorBody({
       ) : null}
       {editedQuery?.type==='content-query'?<ContentQueryDialog block={editedQuery} onClose={()=>setQueryEditor(null)} onSave={async definition=>{await editor.structure(editor.blocks.map(block=>block.id===editedQuery.id?{...editedQuery,definition,results:[],lastRanLabel:"Not run yet"}:block));}}/>:null}
       {error ? <p role="alert">{errorMessage(error)}</p> : null}
-      {editor.structureState?<p role="status">{editor.structureState==="saving"?"Saving page structure…":"Saved page structure"}</p>:null}
+      {editor.structureState?<p className="editor-save-status" role="status">{editor.structureState==="saving"?"Saving…":"Saved"}</p>:null}
       {!editor.blocks.length&&document.permissions.canEdit?<EmptyPageDraft pageId={document.page.id} editor={editor}/>:<BlockEditor
         blocks={liveQueries.blocks.map(block=>{
           const mentions=(document as DocumentView&{mentions?:Record<string,{label:string;available:boolean;state:string}>}).mentions;
@@ -184,7 +193,7 @@ export function PageEditorBody({
           onOpenQueryResult: (id) => window.location.assign(`/app/pages/${id}`),
         }}
         onChange={(id,rendered)=>{const clean=(value:unknown):unknown=>Array.isArray(value)?value.map(clean):value&&typeof value==="object"?Object.fromEntries(Object.entries(value).map(([key,item])=>[key,key==="mention"&&item&&typeof item==="object"?Object.fromEntries(Object.entries(item).filter(([field])=>field!=="state"&&field!=="available"&&field!=="deletedAt")):clean(item)])):value;const next=clean(rendered) as EditorBlock;const conversion=typedBlock(next);if(conversion){undoConversion.current=next;void apply(editor.blocks.map(block=>block.id===id?conversion:block)).then(()=>requestAnimationFrame(()=>{const target=window.document.querySelector<HTMLElement>(`[data-block-id="${id}"] [contenteditable="true"]`);(target??wrapper.current)?.focus();}));}else{undoConversion.current=null;editor.change(id,next);}}}
-        onInsert={(after) => setInsert({ after })}
+        onInsert={(after, anchor) => setInsert({ after, anchor })}
         onDelete={(id) =>
           void apply(editor.blocks.filter((block) => block.id !== id))
         }
@@ -203,9 +212,17 @@ export function PageEditorBody({
           block?.querySelector<HTMLElement>('[data-slate-editable]')?.focus();
           void editor.retry(id);
         }}
-        onResolveConflict={(id) => void compare(id)}
+        onResolveConflict={(id, choice) => {
+          if (choice !== "compare") setError(undefined);
+          if (choice === "compare") void compare(id);
+          else void editor.resolve(id, choice === "overwrite").catch(setError);
+        }}
         placeholder="Add your first block to start writing."
       />}
+      <div className="page-footer">
+        {document.permissions.canEdit ? <div className="editor-actions"><button type="button" onClick={(event) => setInsert({ after: null, anchor: event.currentTarget })}>＋ Add block</button></div> : null}
+        {footer}
+      </div>
       {media && editor.blocks.some((block) => block.id === media.id) ? (
         <EditorMediaDialog
           pageId={document.page.id}

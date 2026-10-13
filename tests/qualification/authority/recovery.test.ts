@@ -23,7 +23,7 @@ test('FLAG-004 — real D1 and R2 archive restore retains evaluated history whil
  const exported=await exportWorkspace(f.context()),key=await env.DB.prepare('SELECT archive_key FROM federation_exports WHERE id=?').bind(exported.id).first<string>('archive_key');
  const bytes=new Uint8Array(await(await env.FILES.get(key!))!.arrayBuffer()),before=(await decodeArchive(bytes)).manifest;
  expect(before.tables.intelligence_skill_versions![0]).toMatchObject({state:'active',authority_id:`member:${f.owner}`,evaluation_id:evaluationId});
- await reset();const target=await fixture();await restoreWorkspace(target.context(),bytes);
+ await reset();const target=await fixture({withReader:false});await restoreWorkspace(target.context(),bytes);
  const retained=await env.DB.prepare('SELECT * FROM intelligence_skill_versions WHERE id=?').bind(skill.value.revisionId).first();
  expect(retained).toMatchObject({state:'evaluated',authority_id:null,evaluation_id:evaluationId,definition_json:JSON.stringify(def)});
  expect(await env.DB.prepare('SELECT passed FROM intelligence_evaluations WHERE id=?').bind(evaluationId).first<number>('passed')).toBe(1);

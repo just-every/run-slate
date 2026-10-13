@@ -1,5 +1,6 @@
+import {signInWithOutbox} from '../../e2e/outbox-auth.mjs';
 import assert from 'node:assert/strict';
-import {createHmac,randomBytes,randomUUID} from 'node:crypto';
+import {randomUUID} from 'node:crypto';
 import {writeFile,mkdir} from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
@@ -7,9 +8,9 @@ import {createRuntime} from '../local/runtime.mjs';
 const evidence=process.env.QUAL_EVIDENCE??path.join(os.tmpdir(),'slate-data-proof'),root=process.cwd();await mkdir(evidence,{recursive:true});
 const runtime=await createRuntime({root,evidence,appPort:8738,inspectorPort:8739}),assertions=[];
 try{
- const now=new Date().toISOString(),expires=new Date(Date.now()+3600000).toISOString(),token=randomBytes(32).toString('base64url'),digest=createHmac('sha256',runtime.sessionSecret).update(token).digest('hex');
- await runtime.sql(`INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES('data-workspace','Before wizard','','${now}','${now}','data-initial'); INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('data-owner','data-workspace','qualification-owner@test.invalid','Data owner','DO','owner','member','active',1,'${now}','${now}'); INSERT INTO sessions(id,member_id,token_digest,created_at,updated_at,expires_at) VALUES('data-session','data-owner','${digest}','${now}','${now}','${expires}');`);
- const cookie=`slate_session=${token}`;
+ const now=new Date().toISOString();
+ await runtime.sql(`INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES('data-workspace','Before wizard','','${now}','${now}','data-initial'); INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('data-owner','data-workspace','qualification-owner@test.invalid','Data owner','DO','owner','member','active',1,'${now}','${now}');`);
+ const {cookie}=await signInWithOutbox(runtime.origin,'qualification-owner@test.invalid');
  const request=async(method,route,body)=>{const response=await fetch(runtime.origin+route,{method,headers:{cookie,origin:runtime.origin,...(body instanceof FormData?{}:{'content-type':'application/json'})},body:body===undefined?undefined:body instanceof FormData?body:JSON.stringify(body)});const data=await response.json();assert.ok(response.ok,`${method} ${route}: ${response.status} ${JSON.stringify(data)}`);return data;};
  const first=await request('POST','/api/workspace/first-run',{operationKey:randomUUID(),workspaceName:'Data qualification',containerName:'Data container',pageTitle:'Personal native page canary'}),pageId=first.value.pageId;
  const initial=await request('GET',`/api/pages/${pageId}`);await writeFile(path.join(runtime.directory,'initial-page.json'),JSON.stringify(initial,null,2));assert.equal(typeof initial.page.revisionId,'string');
@@ -20,5 +21,5 @@ try{
  const [probe]=await runtime.sql(`SELECT (SELECT count(*) FROM content_archive_locations WHERE page_id='${pageId}') AS archiveReasons,(SELECT count(*) FROM page_blocks WHERE page_id='${pageId}') AS blocks,(SELECT count(*) FROM page_revisions WHERE page_id='${pageId}' AND body_json!='[]') AS retainedBodies,(SELECT count(*) FROM content_media_cleanup) AS pendingBlobs,(SELECT count(*) FROM activity_entries WHERE target_id='${pageId}' AND action='archive.permanent-delete') AS deletionAudits,(SELECT title FROM pages WHERE id='${pageId}') AS title;`);assert.deepEqual(probe.results[0],{archiveReasons:0,blocks:0,retainedBodies:0,pendingBlobs:0,deletionAudits:1,title:''});
  assert.equal((await fetch(runtime.origin+uploaded.value.url,{headers:{cookie}})).status,404);await runtime.restart();assert.equal((await fetch(runtime.origin+'/health')).status,200);assert.deepEqual(await request('POST',`/api/archive/${pageId}/permanent-delete`,operation),removed);
  assertions.push('Native HTTP first run, page attachment upload, explicit trash and permanent erasure','R2 queue empty before deletion confirmation under 5 minutes','Personal page title and archive reason removed; one retained deletion audit','Exact operation replay succeeds before and after Worker restart; deleted media returns 404');
- await writeFile(path.join(runtime.directory,'data-proof.json'),JSON.stringify({passed:true,artifact:runtime.artifact,elapsedMs:Date.now()-start,assertions,clauses:['BASE-DATA-003'],limits:'Identity/session fixture replaces mailbox possession. Workerd outbound interception and physical R2 outage/absence checks are separate Workers tests. Local checkpoint only; no live providers/deployment.'},null,2));console.log(runtime.directory);
+ await writeFile(path.join(runtime.directory,'data-proof.json'),JSON.stringify({passed:true,artifact:runtime.artifact,elapsedMs:Date.now()-start,assertions,clauses:['BASE-DATA-003'],limits:'Identity records are test fixtures; sessions use the native development outbox. Workerd outbound interception and physical R2 outage/absence checks are separate Workers tests. Local checkpoint only; no live providers/deployment.'},null,2));console.log(runtime.directory);
 }finally{await runtime.close();}

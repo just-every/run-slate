@@ -5,11 +5,11 @@ import { notificationStatements } from '../notifications/events';
 import type { FeatureContext } from '../../app/feature-context';
 import { commitOperation,mutationGuard } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
-import { currentSubject,requirePageLevel,requireContainerLevel } from './current-access';
+import { currentSubject,requirePageLevel,requireContainerAdministration } from './current-access';
 import { createUlid } from '../../shared/ulid';
 import type { AccessLevel,GrantPrincipalKind } from '../../shared/knowledge/model';
 export async function saveGrant(ctx:FeatureContext,input:{operationKey:string;targetKind:'page'|'container';targetId:string;id?:string;principalKind:GrantPrincipalKind;principalId:string;level:AccessLevel;expiresAt?:string|null;revoke?:boolean}){
-  return commitOperation(ctx,{operationKey:input.operationKey,action:'sharing.grant',request:input,authorize:async()=>{if(input.targetKind==='page')await requirePageLevel(ctx,input.targetId,'full');else await requireContainerLevel(ctx,input.targetId,'full');},prepare:async({revisionId})=>{
+  return commitOperation(ctx,{operationKey:input.operationKey,action:'sharing.grant',request:input,authorize:async()=>{if(input.targetKind==='page')await requirePageLevel(ctx,input.targetId,'full');else await requireContainerAdministration(ctx,input.targetId);},prepare:async({revisionId})=>{
     if(!input.revoke)await requireConfiguredLevel(ctx,input.level);
     const id=input.id??createUlid(),table=input.targetKind==='page'?'page_grants':'container_grants',key=input.targetKind==='page'?'page_id':'container_id';
     const container=await ctx.db.prepare(input.targetKind==='page'?'SELECT c.* FROM containers c JOIN pages p ON p.container_id=c.id WHERE p.id=?':'SELECT * FROM containers WHERE id=?').bind(input.targetId).first<{id:string;visibility:string;guest_access:string}>();

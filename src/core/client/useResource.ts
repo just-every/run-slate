@@ -17,11 +17,16 @@ export type ResourcePolicy<T> = {
 };
 
 /** Strict by default. Only explicitly authorized same-resource reads may retain data. */
-export function useResource<T>(path:string|null,policy:ResourcePolicy<T>={}):Resource<T>{
+export function useResource<T>(path:string|null,policy:ResourcePolicy<T>={}):Resource<T>&{invalidate:()=>void}{
  const [state,setState]=useState<{path:string|null;data?:T;error?:unknown;loading:boolean}>({path,loading:Boolean(path)});
  const currentPath=useRef(path),sequence=useRef(0),active=useRef(false),controller=useRef<AbortController|null>(null);
  const currentPolicy=useRef(policy);currentPolicy.current=policy;
  currentPath.current=path;
+ const invalidate=useCallback(()=>{
+  ++sequence.current;
+  controller.current?.abort();
+  controller.current=null;
+ },[]);
  const read=useCallback(async(load:Read<T>)=>{
   const requestedPath=currentPath.current,current=++sequence.current;
   controller.current?.abort();
@@ -44,5 +49,5 @@ export function useResource<T>(path:string|null,policy:ResourcePolicy<T>={}):Res
   active.current=true;void reload();
   return()=>{active.current=false;++sequence.current;controller.current?.abort();};
  },[path,reload]);
- return {...(state.path===path?state:{loading:Boolean(path)}),reload,read};
+ return {...(state.path===path?state:{loading:Boolean(path)}),reload,read,invalidate};
 }

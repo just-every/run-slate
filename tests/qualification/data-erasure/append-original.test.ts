@@ -5,6 +5,7 @@ import {startImport,runImport,readImport} from '../../../src/core/features/impor
 import {archivePage,permanentDeletePage} from '../../../src/core/features/archive/service';
 import {exportWorkspace} from '../../../src/core/features/portability/service';
 import {decodeArchive} from '../../../src/core/features/portability/archive';
+import {portableTables} from '../../../src/core/features/portability/tables';
 beforeEach(reset);
 test.each([false,true])('append originals follow historical destination custody and cleanup is truthful (storage failure=%s)',async(failCleanup)=>{
  const f=await fixture(),ctx=f.context(),page=await document(f,'Original retained page'),copy=await document(f,'Original retained page');
@@ -35,7 +36,7 @@ test.each([false,true])('append originals follow historical destination custody 
  expect(await env.DB.prepare('SELECT title,deleted_at FROM pages WHERE id=?').bind(copy.id).first()).toEqual({title:'Original retained page',deleted_at:null});
  const exported=await exportWorkspace(ctx),key=await env.DB.prepare('SELECT archive_key FROM federation_exports WHERE id=?').bind(exported.id).first<string>('archive_key');
  const {manifest,entries}=await decodeArchive(new Uint8Array(await(await env.FILES.get(key!))!.arrayBuffer()));
- expect(Object.keys(manifest.tables)).toHaveLength(106);
+ expect(Object.keys(manifest.tables).sort()).toEqual([...portableTables].sort());
  expect(manifest.blobs.map(b=>b.key)).toContain(unrelated);
  for(const job of appended)expect(manifest.blobs.map(b=>b.key)).not.toContain(job.archive_key);
  expect(Object.values(entries).map(v=>new TextDecoder().decode(v)).join('')).not.toContain('Private appended payload');

@@ -1,0 +1,15 @@
+/* Shared geometry for the live workspace, using the member's theme tokens. */
+.slate-app * { box-sizing: border-box; }
+.slate-app button, .slate-app a, .slate-app summary { -webkit-tap-highlight-color: transparent; }
+.slate-app button { font: inherit; cursor: pointer; }
+.slate-app a { color: inherit; text-decoration: none; }
+.slate-app .center { min-width: 0; }
+.slate-app .eyebrow { margin: 0 0 4px; color: var(--slate-ink-muted); font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; }
+.slate-app .intro { font-size: 18px; line-height: 1.65; margin: 0 0 24px; }
+.slate-app .finding { border-bottom: 1px solid var(--slate-line); padding-block: 24px; }
+.slate-app .finding summary { display: flex; align-items: center; gap: 14px; }
+.slate-app .finding small { display: block; margin-top: 5px; }
+.slate-app .decision h2 { font: 28px/1.2 var(--slate-serif); margin: 0 0 22px; }
+.slate-app .right { border-left: 1px solid var(--slate-line); min-width: 0; }
+.slate-app .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding: 16px 0 21px; border-block: 1px solid var(--slate-line); }
+.slate-app .actions button { min-height: 44px; border-radius: 6px; padding: 8px 16px; }

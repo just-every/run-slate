@@ -1,3 +1,5 @@
+import {archiveMediaSource} from '../archive-stream';
+import {compactBlockStore} from '../compact-block-store';
 import { archiveMediaType } from "../archive";
 import { createImportReport, reportCreated, reportMissingArchiveFile, reportUnmapped, reportWarning } from "../report";
 import { importSafetyLimits } from "../safety";
@@ -71,7 +73,7 @@ function walkBlocks(blocks: ImportedBlock[], visit: (block: ImportedBlock) => vo
   }
 }
 
-export function parseConfluenceCsvSpace(files: Map<string, Uint8Array>, source: ImportSourceFile, options?: ImportParseOptions): NormalizedImport {
+export function parseConfluenceCsvSpace(files: Map<string, Uint8Array>, source: Pick<ImportSourceFile,'name'>, options?: ImportParseOptions): NormalizedImport {
   const { tables, descriptor } = readConfluenceExport(files, importSafetyLimits(options));
   const report = createImportReport();
   const noted = new Set<string>();
@@ -115,20 +117,22 @@ export function parseConfluenceCsvSpace(files: Map<string, Uint8Array>, source: 
 
   // `bodycontent` has one row per body type. Only storage format (2) is a page
   // body; a plugin payload row must never blank the page it shares an id with.
-  const bodiesByContent = new Map<string, Map<string, string>>();
+  const bodiesByContent = new Map<string, Map<string, Record<string,string>>>();
   for (const row of tableRows(tables, "bodycontent")) {
     const id = row.contentid ?? "";
     if (!bodiesByContent.has(id)) bodiesByContent.set(id, new Map());
-    bodiesByContent.get(id)!.set(row.bodytypeid ?? "", row.body ?? "");
+    // Keep the lazy row rather than copying every decompressed body into a
+    // second map. Only the requested page/revision body is expanded below.
+    bodiesByContent.get(id)!.set(row.bodytypeid ?? "", row);
   }
   const storageBodyFor = (contentid: string): string | undefined => {
     const byType = bodiesByContent.get(contentid);
     if (!byType) return undefined;
-    for (const [type, body] of byType) {
+    for (const [type, row] of byType) {
       if (type === storageBodyType) continue;
-      if (body.trim()) note(`Confluence body type ${type} is a plugin payload, not storage format`, `confluence-content:${contentid}`);
+      if ((row.body??'').trim()) note(`Confluence body type ${type} is a plugin payload, not storage format`, `confluence-content:${contentid}`);
     }
-    return byType.get(storageBodyType);
+    return byType.get(storageBodyType)?.body;
   };
 
   const current = content.filter((row) => !row.prevver && row.content_status === "current");
@@ -139,13 +143,25 @@ export function parseConfluenceCsvSpace(files: Map<string, Uint8Array>, source: 
     note(`Confluence content status "${row.content_status}" is neither current nor draft, so it was not imported`, `confluence-content:${row.contentid}`, row.title || undefined);
   }
 
-  // Page icons ride in `contentproperties` as a `titleEmoji` code point.
+  // Account for every property row, without expanding thousands of identical
+  // unsupported property names into equally many review items.
   const icons = new Map<string, string>();
+  const propertyLosses=new Map<string,{unsupported:number;malformed:number;unmapped:number}>();
+  const iconTargets=new Set(current.filter(row=>importedAsPage.has(row.contenttype)||importedAsEmptyPage.has(row.contenttype)).map(row=>row.contentid));
   for (const property of tableRows(tables, "contentproperties")) {
-    if (property.propertyname !== "titleEmoji") continue;
-    const icon = emojiFrom(property.stringval ?? "");
-    if (icon) icons.set(property.contentid!, icon);
+    const name=property.propertyname||'(unnamed)';
+    const counts=propertyLosses.get(name)??{unsupported:0,malformed:0,unmapped:0};
+    if(name!=="titleEmoji")counts.unsupported++;
+    else {
+      const value=(property.stringval??'').replace(/^"|"$/g,'');
+      const icon=/^[0-9a-f]+$/i.test(value)?emojiFrom(value):undefined;
+      if(!icon)counts.malformed++;
+      else if(!iconTargets.has(property.contentid??''))counts.unmapped++;
+      else icons.set(property.contentid!,icon);
+    }
+    if(counts.unsupported+counts.malformed+counts.unmapped)propertyLosses.set(name,counts);
   }
+  for(const [name,counts] of propertyLosses)note(`Confluence content property "${name}" did not cross`,undefined,`${counts.unsupported+counts.malformed+counts.unmapped} rows: ${counts.unsupported} unsupported, ${counts.malformed} malformed, ${counts.unmapped} without an imported current page`);
 
   const labelNames = new Map(tableRows(tables, "label").map((row) => [row.labelid!, row]));
   const labelsByContent = new Map<string, string[]>();
@@ -177,7 +193,7 @@ export function parseConfluenceCsvSpace(files: Map<string, Uint8Array>, source: 
     const sourceId = `confluence-attachment:${attachment.contentid}`;
     const path = [...files.keys()].find((candidate) => candidate.includes(`/${attachment.contentid}/`) || candidate.split("/").at(-1) === attachment.title);
     if (!path) { reportMissingArchiveFile(report, attachment.title, sourceId); continue; }
-    media.push({ sourceId, sourceIdentityKind: "native", name: attachment.title, archivePath: path, mediaType: archiveMediaType(attachment.title), bytes: files.get(path)! });
+    media.push({ sourceId, sourceIdentityKind: "native", name: attachment.title, archivePath: path, mediaType: archiveMediaType(attachment.title),source:archiveMediaSource(files,path), get bytes(){return files.get(path)!;} });
     mediaByName.set(attachment.title, sourceId);
     reportCreated(report, "file", attachment.title, sourceId);
   }
@@ -190,12 +206,13 @@ export function parseConfluenceCsvSpace(files: Map<string, Uint8Array>, source: 
   ]);
   const pageIds = new Map(pageRows.map((row) => [row.contentid, `confluence-page:${row.contentid}`]));
 
+  const blockStore=compactBlockStore();
   const parseBody = (contentid: string, sourceId: string): ImportedBlock[] => {
     const body = storageBodyFor(contentid);
     if (!body) return [];
     const parsed = parseStorageFormat(body, sourceId);
     for (const construct of parsed.constructs) note(construct.label, sourceId, construct.detail);
-    return parsed.blocks;
+    return blockStore.retain(parsed.blocks);
   };
 
   const pages: ImportedPage[] = pageRows.map((row) => {
@@ -264,6 +281,7 @@ export function parseConfluenceCsvSpace(files: Map<string, Uint8Array>, source: 
       labels: labelsByContent.get(row.contentid) ?? [],
       properties: {},
       status: row.content_status,
+      restricted: tableRows(tables, "content_permissions").some(permission => permission.content_id === row.contentid) || tableRows(tables, "content_perm_set").some(permission => (permission.content_id ?? permission.contentid) === row.contentid),
       grants,
       revisions,
     };

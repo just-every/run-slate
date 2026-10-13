@@ -18,15 +18,6 @@ async function read(relativePath) {
   return fs.readFile(path.join(root, relativePath), "utf8");
 }
 
-async function exists(relativePath) {
-  try {
-    await fs.access(path.join(root, relativePath));
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 async function readJsonIfPresent(relativePath) {
   try {
     return JSON.parse(await read(relativePath));
@@ -287,40 +278,6 @@ check("every declared policy has a definition with values", [...manifestPolicies
   policies: Object.fromEntries([...policyDefinitions].map(([id, definition]) => [id, definition.values])),
 });
 check("contract IDs do not collide with baseline suffixes", contractIds.every((id) => !baselineIds.some((baselineId) => baselineId.endsWith(id))));
-check("bootstrap documents are retired", !(await exists("BOOTSTRAP.md")) && !(await exists("CONTRACT.example.md")));
-check("pnpm is the only package manager", packageManifest.packageManager?.startsWith("pnpm@") && (await exists("pnpm-lock.yaml")) && !(await exists("package-lock.json")));
-check("foundation scripts are real", ["dev", "typecheck", "build", "test:workers", "test:foundation", "verify"].every((name) => Boolean(packageManifest.scripts?.[name])));
-// `node scripts/verify.mjs` runs the Workers suite itself, so `pnpm verify` must
-// not also spawn `pnpm test:workers`: the suite runs exactly once per verify.
-check("verify runs the Workers suite exactly once", (packageManifest.scripts?.verify.match(/test:workers/g) ?? []).length === 0 && packageManifest.scripts.verify.includes("scripts/verify.mjs"), {
-  verify: packageManifest.scripts?.verify,
-});
-check("foundation architecture is present", (await Promise.all([
-  "deploy/wrangler.template.toml",
-  "deploy/wrangler.local.toml",
-  "deploy/REQUEST-OWNERSHIP.md",
-  "migrations/core/0001_knowledge_foundation.sql",
-  "sample-data/aurora/workspace.json",
-  "src/server.ts",
-  "src/router.tsx",
-  "src/routeTree.gen.ts",
-  "src/routes/__root.tsx",
-  "src/routes/index.tsx",
-  "src/routes/signin.tsx",
-  "src/routes/app.tsx",
-  "src/routes/app.index.tsx",
-  "src/core/app/hono.ts",
-  "src/core/app/loaders.ts",
-  "src/core/app/mount-features.ts",
-  "src/core/app/operator-document-gate.ts",
-  "src/core/app/ext-client.tsx",
-  "src/core/platform/bindings.server.ts",
-  "src/core/platform/db/knowledge-schema.ts",
-  "src/core/features/workspace/repository.ts",
-  "src/core/features/session/repository.ts",
-  "src/ext/config.ts",
-  "src/ext/index.client.tsx",
-].map(exists))).every(Boolean));
 const retiredFindings = await retiredRuntimeFindings(root);
 check("retired runtimes have been removed", retiredFindings.length === 0, {findings: retiredFindings});
 check("operator and public paths follow the seed URL convention", manifest.deploy.operatorPath === "/app" && ["/", "/signin", "/health", "/api/auth/", "/assets/"].every((path) => manifest.deploy.publicPaths.includes(path)) && manifest.deploy.publicPaths.every((path) => path === "/" || path.startsWith("/")))

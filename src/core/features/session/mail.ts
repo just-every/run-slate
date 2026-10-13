@@ -1,5 +1,5 @@
 import type { RuntimeConfig } from '../../platform/config/runtime';
-import { createResendMailer, MailDeliveryError } from '../../platform/mail/resend';
+import { identityMailer, MailDeliveryError } from '../../platform/mail';
 import { deliverSendGridIdentity, holdUncertainMail } from './mail-sendgrid';
 import { ApiProblem } from '../../app/problems';
 import { sessionDigest } from '../../platform/auth/token';
@@ -36,16 +36,16 @@ export async function deliverIdentityMail(db:D1Database,config:RuntimeConfig,id:
  try{
   requireMailConfig(config);
   if(row.provider_key_digest!==await sessionDigest(config.sessionSecret,`mail-provider:${config.mailApiKey}`))throw new ApiProblem(409,'MAIL_PROVIDER_CHANGED','Restore the admitted mail provider credentials before retrying this message.');
-  if((row.provider??'resend')!==(config.mailProvider??'resend'))throw new ApiProblem(409,'MAIL_PROVIDER_CHANGED','Restore the admitted mail provider before retrying.');
+  if(row.provider!==config.mailProvider)throw new ApiProblem(409,'MAIL_PROVIDER_CHANGED','Restore the admitted mail provider before retrying.');
   const payload=await openMailPayload(config,row);
   if(config.mailProvider==='sendgrid'){await deliverSendGridIdentity(db,config,row,payload,attempt,now);return;}
-  const sent=await createResendMailer({from:payload.from,apiKey:config.mailApiKey!}).send({...payload,idempotencyKey:`slate-mail:${id}`});
-  await db.prepare("UPDATE mail_deliveries SET state='sent',delivery_phase='sent',provider='resend',provider_message_id=?,sent_at=?,updated_at=?,lease_until=NULL,next_attempt_at=NULL,payload_ciphertext=NULL,error_detail=NULL WHERE id=? AND attempt_count=? AND delivery_phase='sending'").bind(sent.id,now,now,id,attempt).run();
+  const sent=await identityMailer(config,db,payload.from).send({...payload,idempotencyKey:`slate-mail:${id}`});
+  await db.prepare("UPDATE mail_deliveries SET state='sent',delivery_phase='sent',provider_message_id=?,sent_at=?,updated_at=?,lease_until=NULL,next_attempt_at=NULL,payload_ciphertext=NULL,error_detail=NULL WHERE id=? AND attempt_count=? AND delivery_phase='sending'").bind(sent.id,now,now,id,attempt).run();
  }catch(cause){
   // Retain HTTP status/category, never an untrusted body or exception containing links.
   if(row.provider==='sendgrid'&&!(cause instanceof ApiProblem)){await holdUncertainMail(db,id,now);return;}
   const status=cause instanceof MailDeliveryError?cause.status:null;
-  const transient=!(cause instanceof ApiProblem)&&(status===null||status===409||status===429||status>=500||status<300);
+  const transient=!(cause instanceof ApiProblem)&&(!(cause instanceof MailDeliveryError)||cause.retryable)&&(status===null||status===409||status===429||status>=500||status<300);
   const retry=transient&&cycle<3;
   const detail=cause instanceof ApiProblem?`${cause.code}: delivery configuration/custody unavailable`:status?`Resend HTTP ${status}: ${transient?'delivery not confirmed':'request rejected'}`:'Resend transport or receipt persistence failure: delivery not confirmed';
   const next=retry?new Date(Date.parse(row.cycle_started_at??now)+cycle*150000).toISOString():null;

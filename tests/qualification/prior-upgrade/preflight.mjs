@@ -1,6 +1,0 @@
-import assert from 'node:assert/strict';
-import path from 'node:path';
-import {readFile} from 'node:fs/promises';
-import {evidence,seal,free,json,save,command} from './support.mjs';
-export async function preflight(){assert.equal(process.version,'v26.8.1');assert.match((await command('pnpm',['--version'])).trim(),/^8\./);const result=await json(path.join(evidence,'result.json'));assert.equal(result.baselineSHA,'b6a303b79f73c4155a4819cd2ae5c9a085eb18ef');assert.equal(result.localUpgrade.executed,false);assert.equal(result.baselineRecoveryPassed,true);assert.equal(result.baselineRecovery.observedLocalMs,2394);const snapshot=await json(path.join(evidence,'baseline-snapshot.json'));assert.equal(Object.keys(snapshot.tables).length,121);assert.equal(snapshot.tables.d1_migrations.count,8);const sealed=await seal();assert.equal(sealed.files,28);await free(8730);await free(8731);const report={passed:true,nonmutating:true,node:process.version,sealed,baselineSHA:result.baselineSHA,baselineProvenance:'unreleased WIP; no prior released-tag claim',originalStateOpened:false,candidateExecuted:false};await save('preflight.json',report);return report;}
-if(process.argv[1]===import.meta.filename)console.log(JSON.stringify(await preflight()));

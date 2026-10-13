@@ -1,0 +1,38 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { sqliteRuntime, sqliteMapping, sqliteSource, sqliteTargets } from './sqlite-runtime.ts';
+import { canonicalJson, sha256, planD1Import, createD1ImportJob, applyD1ImportBatches, undoD1Import, readD1ImportUndoReport, eraseD1ImportTarget } from '../../src/d1/index.ts';
+
+test('erasure removes preserved undo values and cross-effect evidence while retaining coherent dispositions', async t => {
+  const r = await sqliteRuntime(t), sentinel = 'private erased response sentinel';
+  const source = sqliteSource(2); source.artifacts.forEach(a => { a.original = { status: 'unavailable', reason: 'not-supplied' }; });
+  source.records.forEach((record, index) => { record.payload = { label: index ? 'unrelated response' : sentinel }; record.payloadHash = sha256(canonicalJson(record.payload)); });
+  const targets = { ...sqliteTargets, async preparePreservedUndo(db, destination, effects) { const snapshot = await sqliteTargets.preparePreservedUndo!.call(sqliteTargets, db, destination, effects); return { ...snapshot, observations: snapshot.observations.map(o => ({ ...o, evidence: { crossEffect: sentinel } })) }; } };
+  const context = { ...r.context(), reversalPolicy: 'preserve-conflicts' as const, storage: { database: r.db(), targets } };
+  const plan = await planD1Import(source, sqliteMapping, context), job = await createD1ImportJob(plan, { ...context, reviewedFingerprint: plan.fingerprint });
+  await applyD1ImportBatches(job.id, context);
+  r.native().exec("UPDATE native_records SET revision='later',value_json='{\"label\":\"later native edit\"}'");
+  assert.equal((await undoD1Import(job.id, context)).state, 'undone');
+  assert.equal((await readD1ImportUndoReport(job.id, context)).dispositions.length, 2);
+  await eraseD1ImportTarget('record', '0', targets.remove('workspace', 'record', '0'), context);
+  const stored = r.native().prepare('SELECT record_json FROM ik_d1_reversal_reports').all().map(row => row.record_json).join('');
+  assert.equal(stored.includes(sentinel), false);
+  assert.equal(r.native().prepare('SELECT count(*) AS n FROM ik_d1_creation_plans').get()!.n, 0);
+  const report = await readD1ImportUndoReport(job.id, context);
+  assert.equal(report.cursor, 2); assert.equal(report.dispositions.filter(d => d.redacted === 'erased').length, 1);
+  assert.equal(report.dispositions.filter(d => d.redacted === 'evidence').length, 1);
+  assert.ok(report.dispositions.every(d => Object.values(d.expected).every(v => v === null) && Object.values(d.observed).every(v => v === null) && d.evidence === null));
+  assert.ok(report.dispositions.every(d => ['erased', 'redacted'].includes(d.targetKind) && d.targetId === d.effectId && d.entity.recordId === d.effectId));
+  assert.equal((await undoD1Import(job.id, context)).state, 'undone');
+  assert.equal((await sqliteTargets.list(r.db(), 'workspace')).length, 1);
+  r.reopen();
+  const cold = { ...r.context(), storage: { database: r.db(), targets } };
+  assert.equal((await readD1ImportUndoReport(job.id, cold)).dispositions.length, 2);
+  assert.equal((await undoD1Import(job.id, cold)).state, 'undone');
+  r.native().exec("UPDATE ik_d1_reversal_reports SET record_json=replace(record_json,'redacted','changed') WHERE position=0");
+  await assert.rejects(readD1ImportUndoReport(job.id, cold), /IMPORT_REVERSAL_INTEGRITY/);
+  const before = r.native().prepare('SELECT * FROM native_records').all();
+  await assert.rejects(eraseD1ImportTarget('record', '1', targets.remove('workspace', 'record', '1'), cold), /IMPORT_REVERSAL_INTEGRITY/);
+  assert.deepEqual(r.native().prepare('SELECT * FROM native_records').all(), before);
+  assert.equal(r.native().prepare('SELECT count(*) AS n FROM ik_d1_erased_targets').get()!.n, 1);
+});

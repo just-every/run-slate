@@ -42,9 +42,173 @@ not satisfied capability. FLAG-002/003/004 and the six complete journeys remain
 the full flagship gate; no provider or prospective-value claim follows from a
 core-wiki release. See ACCEPTANCE.md for the distinct evidence requirements.
 
+## Shared identity with native accounts — owner decision, 10 October 2026
+
+The approved COMMON-LOGIN phases 1–4 supersede the 8 October implementation
+exemption. Slate retains **own accounts, sessions and roles**, including its
+existing member IDs, group memberships and scoped guests. Base owns the intended
+identity proof and dependency protocols. No second owner or operator ledger is
+introduced. WORK-008, WORK-009, WORK-010 and WORK-015 remain binding.
+
+Base operator-auth now signs Slate in. The copied Base modules are byte-exact at
+`9ec15a63a410d209cd5a179749336bb61751e0f6`. `src/core/features/session/native/`
+supplies Base's paired native accounts and proof adapters over Slate's own
+`members`, `sessions` and `member_identity_bindings`; the service never creates
+Base account or session tables. Admission, proofs and owner lookups are scoped to
+the installation's workspace, selected by the server. Member IDs, owner/member
+roles, groups, scoped guests and the `slate_session` cookie are unchanged.
+
+- **Email (BASE-ACCESS-001).** `POST /api/auth/magic` asks Base for a one-use
+  link (one hour, keyed digest only). GET `/auth/confirm` previews; a same-origin
+  POST consumes the proof and issues a 30-day native session in one D1 batch that
+  rechecks the member's status, email and authority version. Links sent before
+  this release, by either earlier engine, show the request-new-link page.
+- **Incumbent provider (WORK-015).** Base's `legacy-rs256` preset keeps the
+  configured issuer, client and the registered `/api/auth/identity/callback`, and
+  adds exact HTTPS pins for the authorization, token and JWKS endpoints. The first
+  provider sign-in binds the issuer/subject to the member whose verified mailbox
+  it presents; a binding never moves to another member. Provider sessions last at
+  most 24 hours and end when the provider configuration or its pin changes.
+- **Authority (WORK-008/009/010).** `member_authority` advances on any email,
+  role, kind, status or ownership change. Sessions issued from now on, and every
+  pending proof, are fenced at that version. Sessions from before this release
+  keep their existing contract: valid until expiry, revocation or removal, with
+  the member's current role read on every request. Nobody gains authority.
+- **Step-up.** Workspace export, restore, permanent deletion, ownership changes,
+  owner removal or erasure, agent credentials and connectors need a Base email
+  proof from the last ten minutes in the asking session. Without one, Slate emails
+  the member a confirmation link and refuses the attempt; the commit repeats the
+  proof check.
+- **Dev identity (SC-05).** The local-only entry `src/dev/server.ts` serves
+  key-gated dev sessions for the claimed owner and real `editor` and `guest`
+  personas at `<as>@dev.localhost`. The outbox answers only with the checkout's
+  dev key. Archives exclude sessions and restore every non-owner member inactive.
+
+Slate has no domain rules, passwords or linked dependency providers, so Base's
+domain, password-revocation and dependency logout/fence paths have no Slate flow;
+those service methods refuse as Base specifies. Invitation acceptance remains
+Slate's native account administration.
+
+## HOME-001 amendment — 8 October 2026
+
+The owner asked for the public root to become a marketing landing page. This amendment
+changes `HOME-001` only; every other requirement ID and assertion is unchanged.
+
+Affected IDs: `HOME-001`, its mirrors in `seed.json` (capability `public-landing` and
+`deploy.publicPaths` notes), `DIVERGENCE.md` item 4, `deploy/REQUEST-OWNERSHIP.md`
+and `tests/requirements`. `BASE-PUBLIC-001` to `BASE-PUBLIC-003` still govern the
+anonymous surface through the shared baseline and are neither satisfied nor waived by
+this change.
+
+Replacement behaviour: the root was an owner identity plate that forbade marketing
+claims and any feature tour. It is now a static landing page that describes the
+default `core-wiki` product (hero, open source and the MIT licence, pages, databases,
+access-aware search, sharing and publishing, revision history, the other core-wiki
+capabilities, moving in from another wiki, a closing call to action) around the
+owner's mark, name, description, sign-in action and optional credit. Claims are
+limited to capabilities the default profile ships; flagship-only surfaces are never
+advertised.
+
+Security consequences: none of the plate's protections is relaxed. The root still
+reads no workspace record, member identity or session, is matched exactly and lists
+no workspace content, is rendered per request, sets no cookie, runs no analytics and
+loads only same-origin resources (the typeface is self-hosted and every illustration
+is inline). The only new outbound surface is plain navigation links to the source
+repository, its guide, its licence and the credit; the page loads nothing from them.
+Metrics, testimonials, customer logos and pricing remain forbidden; the page may state
+only that there is no per-seat pricing.
+
+Revised 9 October 2026: the owner approved a redesigned page in the 12ui Design
+workspace, drawn by hand as inline SVG and HTML with CSS. Affected IDs are unchanged
+(`HOME-001` and the mirrors listed above). The replacement behaviour is the section
+list above, with the other core-wiki features shown on the page (comments, templates,
+verification, inbox, containers, backup and restore) among its sections: the clause now
+names the sections and the one illustrated style, and the sample names and pages in the drawings are inline drawings, never workspace records or
+member identity. Security consequences: none. The page is still rendered per request,
+reads no workspace record or session, sets no cookie, runs no tracking, loads only
+same-origin resources (no raster or embedded image, no third-party font) and keeps its
+fixed light palette when the document is dark; its motion is optional, CSS-only,
+gated on no reduced-motion preference and never loops. The same revision simplifies the decoration: Slate's logo is two stacked cards with no letter, the landing no longer renders the buyer-configured mark and the decorative tick lines are dropped, with no security consequence.
+
+## HOME-001 amendment — first-party documentation and card mark (9 October 2026)
+
+This amendment changes `HOME-001` only; every other requirement ID and assertion is unchanged. It carries two changes to the
+landing: Slate's card mark replaces the buyer-configured mark everywhere, and the landing's setup links open first-party
+documentation instead of the source repository. The documentation itself is the separate `DOCS-001` addition below.
+
+Affected IDs: `HOME-001` and its mirrors (`seed.json` capability `public-landing` and `deploy.publicPaths` with its notes,
+`RELEASE.json`, `DIVERGENCE.md` item 4, `deploy/REQUEST-OWNERSHIP.md` and `tests/requirements`). `BASE-PUBLIC-001` to
+`BASE-PUBLIC-003` still govern the anonymous surface through the shared baseline and are neither satisfied nor waived.
+
+Replacement behaviour, card mark: the buyer-configured mark is removed from the owner identity configuration altogether. The
+landing header and footer, the sign-in page and the app's sidebar all show Slate's card mark beside the owner's name (the letter
+tile on the sign-in page and the glyph in the sidebar are gone), and the favicon is the same card mark, served from the
+deployment's own origin as `/favicon.svg`, `/favicon-32.png`, `/favicon.ico` and `/apple-touch-icon.png`, which are declared in
+`seed.json → deploy.publicPaths`.
+
+Replacement behaviour, documentation links: the landing's links no longer go to the source repository's readme. "Read the guide"
+opens `/docs`, "Deploy your own" and "Read the setup guide" open `/docs/install`, and the header and footer each gain a Docs link
+to `/docs`; all of them are client-side links to first-party pages. The source repository link and the credit link stay outbound
+navigation. The root lists no workspace content and links only to these targets, the sign-in page, the source repository and,
+while the credit toggle is on, the credit; the page's wording, sections and limits are otherwise unchanged.
+
+Security consequences: none beyond four fixed same-origin static files answered by the assets binding, with no session read, no
+cookie and no third-party resource, and the documentation links, which are plain same-origin navigation to the public `/docs`
+paths declared by `DOCS-001`. The workspace's own `mark` setting in the database is a different thing and is unchanged. No
+existing protection is relaxed.
+
+## DOCS-001 addition — 9 October 2026
+
+The owner asked for first-party documentation, so the setup guide the landing links to is no longer the repository's readme.
+This addition adds `DOCS-001`; the `HOME-001` link changes it enables are recorded in the amendment above.
+
+Affected IDs: `DOCS-001` (new) and its mirrors in `seed.json` (capability `public-documentation`, and `deploy.publicPaths` with its
+notes), `RELEASE.json`, `DIVERGENCE.md` item 4, `deploy/REQUEST-OWNERSHIP.md`, `src/core/app/http-security.ts` (the public-document
+rate limit) and `tests/requirements`. Every other requirement ID and assertion is unchanged.
+
+New behaviour: `/docs` and `/docs/<slug>` become public documents. The documentation Markdown is rendered to HTML at build
+time, by a Vite plugin, from the files `docs/site.json` publishes: the Overview, Install and deploy, Moving in and Backup and
+restore under "Start here", and Email delivery and the Cloudflare footprint under "Run it". Every other Markdown file stays on
+GitHub, with a reason in the manifest.
+
+Security consequences: the new public path is a static build artifact. It reads no workspace record, member identity or
+session, sets no cookie, loads only same-origin resources, and sits behind the configuration gate and the same
+public-document rate limit as the landing, so a misconfigured deployment answers it with `503` and a flood is limited at
+the declared rate. Markdown is rendered with raw HTML disabled, a link-scheme allowlist and images restricted to
+`docs/media/`, and no Markdown library reaches the Worker or the browser bundle. Published pages are limited to the default
+profile by the manifest and its tests. No existing protection is relaxed.
+
+## HOME-001 amendment — the Lobby and the run site (13 October 2026)
+
+The owner decided on 12 October 2026 that every seed has two homepages: an installed instance answers `/` with the shared
+Lobby, and the owner-approved landing page becomes the static run site at `run-slate.com`, whose primary action reads
+**Run Slate** and opens `/run`. This amendment changes `HOME-001` only; every other requirement ID and assertion is unchanged.
+
+Affected IDs: `HOME-001` and its mirrors (`seed.json` capability `public-landing` and `deploy.publicPaths` with its notes,
+`RELEASE.json`, `DIVERGENCE.md` item 4, `deploy/REQUEST-OWNERSHIP.md` and `tests/requirements`). `DOCS-001` is unchanged: an
+installed Slate still serves `/docs`, and the run site carries the same pages. `BASE-PUBLIC-001` to `BASE-PUBLIC-003` still
+govern the anonymous surface through the shared baseline and are neither satisfied nor waived.
+
+Replacement behaviour: `/` on an installed Slate is Base's Lobby (`src/base/runtime/lobby.ts`, edition identity in
+`src/identity.ts`): Slate's mark and name, one line naming the owner's deployment, and Finish setup (to `/setup`) until the
+owner finishes first-run setup (`workspaces.first_run_completed_at`, `WORK-013`), then Sign in (to `/signin`). Base's
+`GET /setup/state` answers `{"state":"unclaimed"}` or `{"state":"claimed"}` from the same reading. The approved landing page
+is unchanged except that its two "Deploy your own" actions read "Run Slate" and open the Run page at `/run`, and the header
+pill, footer link and closing link to sign-in are left out. `rer build --site` renders it once (`src/site/pages.tsx`) with the
+Run page, the docs and a not-found page, and `rer deploy --site` publishes those static files on `run-slate.com`.
+
+Security consequences: the Lobby and `/setup/state` reveal one fact to anyone, whether the owner has finished first-run setup.
+They read no other workspace record, member identity or session, set no cookie, run no script, answer another origin or Host
+with the ordinary `404` and send `no-store`; the Lobby's content security policy admits only its hashed style and same-origin
+theme, font and image files (one more declared public static path, `/brand/band.svg`, beside the existing `/rer-theme.css` and
+`/slate-mark.svg`). The run site is static files built from the edition's source: `rer build --site` refuses a page that links
+an instance-only route or loads from another origin, and refuses server code, settings, data, the owner's identity, a secret
+or the dev key in its output. No existing protection is relaxed.
+
 ## Public landing
 
-- **HOME-001 — Owner identity plate.** The public root path (`/`) shows only the deployment owner's buyer-configured mark, name, and one-line description, plus a sign-in action. It may show a static “Powered by Slate · runeditrun.com” link when the buyer-configured credit toggle is on, which is its default. The landing exposes no workspace records or member identity, makes no marketing claims, and shows no metrics, testimonials, pricing, feature tour, tracking, or third-party resources. Pages published to the anonymous web are served under the published-page prefix and are governed by `WEB-001` to `WEB-007`; the root never lists them.
+- **HOME-001 — Public landing.** An installed Slate answers its public root path (`/`) with the shared Lobby (Base `lobbyResponse`): Slate's card mark and name, one line naming the owner's deployment, and one action, Finish setup (to `/setup`) until the owner has finished first-run setup (`WORK-013`) and Sign in (to `/signin`) after, over Slate's floor art; Base's `GET /setup/state` answers exactly `{"state":"unclaimed"}` or `{"state":"claimed"}` from the same reading. The Lobby and `/setup/state` reveal only that state: they read no other workspace record, member identity or session, set no cookie, run no script, load only same-origin files, answer another origin or Host with the ordinary `404`, are rendered per request and send `no-store`. The product's static landing page is the run site's homepage (`run-slate.com/`), written by `rer build --site` from the edition's own source and configuration with no installation data. Its header and footer carry the configured owner name beside Slate's card logo, the same card mark the sign-in page and the app show beside the owner's name and the deployment serves from its own origin as its favicon (an SVG with PNG fallbacks and an apple-touch icon), the name being the page's only top-level heading, and the footer shows the owner's one-line description. The body is a fixed, owner-editable description of the product in one illustrated style: a hero that says what Slate is, then a section each for open source under the MIT licence, pages, databases, search that respects who is asking, sharing and publishing, revision history, the other core-wiki capabilities (comments, templates, verification, inbox, containers, backup and restore) and moving in from another wiki, and a closing call to action. "Run Slate" in the hero and in the closing call to action opens the run site's Run page at `/run` (install rer, then clone the public source and start it with `rer dev`); a Docs link in its header and footer and a "Read the guide" link open `/docs`, and "Read the setup guide" opens `/docs/install` (the run site carries the same first-party pages as `DOCS-001`); and it links to the source repository. The landing links only to those targets, the source repository and, while the credit toggle is on, the credit, and never to an instance-only route (sign-in, setup, the app or its API). It describes only capabilities the default `core-wiki` profile ships. It may show a static “Powered by Slate · runeditrun.com” link when the buyer-configured credit toggle is on, which is its default. The landing exposes no workspace records or member identity and shows no metrics, testimonials, customer logos, plans or prices (it may say only that there is no per-seat pricing). It sets no cookies and runs no analytics or tracking; every font, style and image is served from the run site's own origin and every illustration, with the sample names and pages in its drawings, is drawn inline, so it loads no third-party resource. It stays readable without scripts and with reduced motion, and keeps its own fixed light palette in a dark-themed browser. Pages published to the anonymous web are served under the published-page prefix and are governed by `WEB-001` to `WEB-007`; the root never lists them.
+- **DOCS-001 — Public documentation.** The public paths `/docs` and `/docs/<slug>` serve Slate's first-party documentation: the Markdown files that `docs/site.json` lists as published, in the sections and order it gives, which is the only navigation. The documentation Markdown is rendered to HTML at build time: a Vite plugin renders each page to static HTML when Vite loads it, in a build and in development, and never in the Worker or the browser: the emitted Worker and client bundles contain no Markdown or syntax-highlighting code, and each page is its own lazily loaded chunk that the Worker renders per request inside the landing's own header, footer, paper, ink and typeface. A page has its title as its one top-level heading (the landing's brand heading is not repeated), a section menu, an on-this-page list, previous and next links, tables in labelled scrollable regions and an Edit-on-GitHub link. Every Markdown file at the repository root, under `docs/` and as a top-level `<directory>/README.md` is either published or listed in the manifest as GitHub-only with a reason, and an unlisted file, a broken link or anchor, raw HTML, an image outside `docs/media/` or an absolute build-machine path fails verification or the build. Published pages describe only the default `core-wiki` profile, contain no maintainer-only material, and never advertise a flagship-only surface. The documentation reads no workspace record, member identity or session, sets no cookie, runs no analytics or tracking and loads only same-origin resources. An unknown, miscased or nested slug answers the branded `404`, a misconfigured deployment answers `/docs` with the same `503` as the landing, and `/docs` shares the landing's public-document rate limit.
 
 ## Workspace and members
 
@@ -57,7 +221,7 @@ core-wiki release. See ACCEPTANCE.md for the distinct evidence requirements.
 - **WORK-010 — Guests.** A guest is a person invited to named pages or containers only. A guest is outside the member count and the member list, reaches nothing but what they were granted, and cannot see the container index, the workspace member list, or search results beyond their grants. A container may forbid guests (`CONT-007`).
 - **WORK-011 — Workspace settings.** Settings are a shell with its own navigation, holding workspace identity, members, groups, guests, the status vocabulary, published-page and guest switches, connected services, AI, import and export. It is separate from a container's own settings shell (`CONT-004`), and a change in one never silently changes the other.
 - **WORK-012 — Theme.** Light, dark and follow-the-system are offered, apply to every operator surface including editors, and persist per member across sessions and devices. The anonymous read view uses the published page's own theme (`WEB-002`), never the reader's member setting.
-- **WORK-013 — First run.** A new deployment runs a short wizard that names the workspace, creates the first container and its first page, and ends on an invitation step that can be skipped. It runs once, is never shown to a member who joins later, and creates nothing beyond those three records.
+- **WORK-013 — First run.** A new deployment runs a short wizard that names the workspace, creates the first container and its first page, and ends on an invitation step that can be skipped. It runs once, is never shown to a member who joins later, and creates nothing beyond those three records. Its native owner wizard lives at `/setup`: unfinished owners are redirected there from operator app routes after sign-in; completed setup and later members proceed to `/app`. The same native session and owner authorization guard the route and completion API.
 - **WORK-014 — Shortcut reference.** One reference lists every keyboard shortcut and every typed formatting shortcut the editor accepts, is reachable from anywhere in the operator app by a single shortcut, and matches what the editor actually does.
 - **WORK-015 — Identity provider.** Sign-in is by the baseline's magic link (`BASE-ACCESS-001`) and, when a workspace owner configures one, by an identity provider through `identity.provider.v1`. A provider sign-in creates no member who was not invited or allow-listed, and an unconfigured or failing provider leaves magic-link sign-in working and says which is unavailable. There is no password, no security question and no account-recovery path, because `BASE-ACCESS-001` stores no password: access to the mailbox is the credential, and the identity provider is the only alternative to it. A member who has lost their mailbox is re-invited at a new address (`WORK-003`), which is not a recovery flow and does not restore their old sessions.
 
@@ -262,9 +426,9 @@ core-wiki release. See ACCEPTANCE.md for the distinct evidence requirements.
 
 ## Import
 
-- **IMP-001 — Import jobs.** An import shows Queued, Running, Completed or Failed with counts of the records created, and produces a report naming every page, database, record, file and version created and every construct it did not map. It is idempotent by operation key (`SAVE-005`), reaches Completed only under `PORT-004`, and a failed import leaves no partially created tree: it is rolled back and can be retried. The source archive is retained with the job until a member deletes it, so nothing that failed to map is unrecoverable.
+- **IMP-001 — Import jobs.** An import is idempotent by operation key (`SAVE-005`), retains its exact supplied original, and names every physical page, database, record, file and version created and every construct it did not map. Notion workspace and Confluence space jobs first show a durable Preview with would-create counts, the complete paged loss report, reviewed principal mappings and measured canonical plan size; Preview creates no target tree. Explicit Apply uses that exact review and commits bounded batches with durable journals. Preparing, Running and Indexing progress survives reload and resumes from its committed checkpoint. Incomplete trees stay inaccessible through all native reads and mutations; the whole native tree becomes visible atomically. Completed requires `PORT-004`. Undo is available after partial or completed Apply: it removes independent unchanged creations, preserves native edits, additions and their required dependencies, and reports each retained conflict as `NATIVE_EDIT_CONFLICT`. Preparation can be cancelled without publishing a tree. Failed document imports roll back; interrupted reviewed space imports retain an inaccessible, resumable checkpoint. The original remains downloadable until explicitly deleted or invalidated by privacy erasure. Erasing any imported source under `ARCH-006` invalidates the indivisible retained original and all import recovery custody, makes retry, resume and Undo unavailable with a plain reason, and leaves unaffected native pages in place.
 - **IMP-002 — Notion import.** Slate imports a Notion workspace export in its Markdown and CSV form: pages become pages with their tree and titles, icons and covers where the export carries them, page bodies become blocks of the equivalent types, links between exported pages resolve to the imported pages, CSV databases become databases with typed fields and records, and files become media blocks. Every page arrives live, and the report names what did not map. Its test fixture is an export produced by Notion itself, committed with the test; a fixture written by hand does not satisfy this clause, because the construct-by-construct mapping is only tested against what the incumbent actually emits.
-- **IMP-003 — Confluence import.** Slate imports a Confluence space export in whichever form the product emits — Confluence Cloud's CSV table export, where `content.csv` carries the tree and the version ledger and `bodycontent.csv` carries storage-format bodies, or the single `entities.xml` a Server or Data Center export writes — and single documents in the forms each editor exports: Word's `.docx`, and a Google Docs document downloaded as `.docx` or as zipped HTML, Google Docs having no file form of its own. Pages become pages with their tree, their labels (`PAGE-001`), their versions with their comments and ordinals where the export carries them, their status, and their published state; page and attachment links resolve to the imported records; and named user and group restrictions remain named grants. A general grant is container-scoped, never workspace-wide (`SHARE-005`), and a personal container carries no general grant (`SHARE-004`). The report names what did not map, including whiteboards, blogs, calendars and folders, and a folder is imported as a page with an empty body so its tree survives. Its test fixtures are a space export produced by Confluence itself and one document downloaded from each of Word and Google Docs, committed with the test; a fixture written by hand does not satisfy this clause.
+- **IMP-003 — Confluence import.** Slate imports a Confluence space export in whichever form the product emits — Confluence Cloud's CSV table export, where `content.csv` carries the tree and the version ledger and `bodycontent.csv` carries storage-format bodies, or the single `entities.xml` a Server or Data Center export writes — and single documents in the forms each editor exports: Word's `.docx`, and a Google Docs document downloaded as `.docx` or as zipped HTML, Google Docs having no file form of its own. Pages become pages with their tree, their labels (`PAGE-001`), their versions with their comments and ordinals where the export carries them, their status, and their published state; page and attachment links resolve to the imported records; and named user and group restrictions remain named grants only through explicit reviewed source-principal-ID mappings to existing active same-workspace members or groups. Mapping authority and current membership are validated at Apply and every batch; names and email addresses never activate or implicitly match accounts. Unmapped people remain inactive historical actors. Empty, unknown or unmapped restriction sets preserve restricted inheritance and importing-member recovery access, with unresolved restrictions named in the report. Source edit restrictions conservatively close native inheritance and disclose that conversion. No import publishes an anonymous page. A general grant is container-scoped, never workspace-wide (`SHARE-005`), and a personal container carries no general grant (`SHARE-004`). The report names what did not map, including whiteboards, blogs, calendars and folders, and a folder is imported as a page with an empty body so its tree survives. Its test fixtures are a space export produced by Confluence itself and one document downloaded from each of Word and Google Docs, committed with the test; a fixture written by hand does not satisfy this clause.
 - **IMP-004 — Import safety.** Imported markup, documents and attachments are validated and sanitised under `BASE-INPUT-001` to `BASE-INPUT-003`. An import fetches nothing from the network: media comes from the archive, and a link to a file the archive does not contain is imported as a link and named in the report.
 - **IMP-005 — Importing into a page.** A member can import a Markdown, HTML, Word, PDF, EPUB, plain text or CSV document into a page or as a set of pages, mapping its headings to blocks and its tables to tables. The same report and the same safety rules apply.
 
@@ -273,7 +437,7 @@ core-wiki release. See ACCEPTANCE.md for the distinct evidence requirements.
 - **PORT-001 — Export contents.** An export contains workspace settings; members, groups and guests; every container, page, database, record, template, comment thread, notification, automation rule, AI run and activity entry as JSON, with each record's revision history and grants; and every uploaded file in its original form.
 - **PORT-002 — Referential restore.** Importing an archive into an empty deployment restores identifiers, revisions, tree order, grants, links, mentions, comment anchors, public-link slugs and files, so every link from the source deployment resolves to the same record.
 - **PORT-003 — Visible jobs.** Export and import show Queued, Running, Completed or Failed with record counts and, on failure, a report naming what failed. A failed job is never shown as complete.
-- **PORT-004 — Search rebuild.** An import is not Completed until search has been rebuilt over the imported records and they satisfy `SEARCH-001` to `SEARCH-006`.
+- **PORT-004 — Search rebuild.** An import is not Completed until every imported page and record has its canonical search projection, no imported page has a pending dirty generation, and the records satisfy `SEARCH-001` to `SEARCH-006`. Bounded index rebuilds retain an explicit, resumable Indexing state. Completion is fenced by indexed-ID and dirty-generation readback before any first user search can trigger a lazy refresh.
 - **PORT-005 — Access boundary.** An export excludes sessions, sign-in links, pending invitations, stored operation-key responses and provider secrets. An import activates only the member named by `SETUP_OWNER_EMAIL`; every other imported member is an inactive historical actor until invited, and no imported page is published to the anonymous web until a member publishes it.
 - **PORT-006 — Atomic import.** An import stages records and files outside the live namespace, validates the whole archive, and publishes it in one step. A failed import leaves the deployment empty and can be retried.
 - **PORT-007 — Exporting a page or a container.** A member can export one page, a page with its descendants, or a whole container as Markdown, HTML or PDF, with records as CSV, in one archive with its media. The export is readable without Slate, and re-importing it under `IMP-005` reproduces the tree.
@@ -382,4 +546,13 @@ Whiteboards and other contributed tree nodes/folders, blogs, container calendars
 
 ## Retired clause IDs
 
-These IDs were used by earlier versions of this contract in this repository and are never reused. The private `v0.1.0` source tag exists and remains unpublished. These retired IDs were excluded from that release and have no `RELEASE.json` amendment entry; this list keeps them out of every later release. The source tag does not establish full product acceptance. The planning product's records — `BRIEF-001` to `BRIEF-008`, `DECI-001` to `DECI-005`, `PLAN-001` to `PLAN-009`, `MILE-001` to `MILE-004`, `TASK-001` to `TASK-008`, `RISK-001` to `RISK-004`, and `EVID-001` to `EVID-008` — are retired with the product-planning scope they described; the decision layer returns over pages as `DEC-001` to `DEC-006` and evidence returns as verification over revisions (`STAT-003`, `REV-005`). `WORK-002` (equal operators with no roles) is retired because this family has access levels, groups and guests. `WORK-004` (authenticated sharing only) is retired because this family publishes pages to the anonymous web under `WEB-001`. `WORK-005` (the planning overview) is retired in favour of `NAV-001`. `SAVE-007` (one long-text format) is retired in favour of `BLOCK-001` and `BLOCK-002`.
+These retired product clause IDs were used by earlier versions of this contract
+and are never reused. The public repository is `just-every/run-slate`. Earlier
+planning-record categories are retired with their planning scope; decision and
+evidence behavior now belongs to `DEC-001` through `DEC-006` and verification
+over revisions (`STAT-003`, `REV-005`). `WORK-002` (equal operators with no
+roles) is retired because this family has access levels, groups and guests.
+`WORK-004` (authenticated sharing only) is retired because this family publishes
+pages to the anonymous web under `WEB-001`. `WORK-005` (the planning overview) is
+retired in favour of `NAV-001`. `SAVE-007` (one long-text format) is retired in
+favour of `BLOCK-001` and `BLOCK-002`.

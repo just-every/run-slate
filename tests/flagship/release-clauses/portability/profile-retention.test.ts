@@ -125,7 +125,7 @@ test('FLAG-001 — core-profile restore retains and exports flagship history whi
   expect(afterD1.counts).toEqual(archiveCounts);
   const owner=await env.DB.prepare('SELECT id,email,role,status,is_setup_owner FROM members WHERE id=?').bind(source.ownerId).first<{id:string;email:string;role:string;status:string;is_setup_owner:number}>();
   expect(owner).toEqual({id:source.ownerId,email:source.ownerEmail,role:'owner',status:'active',is_setup_owner:1});
-  const cookie=await sessionFor(source.ownerId);
+  const cookie=await sessionFor(source.ownerId,{freshProof:true});
   await expectCoreBlocks(cookie,'');
   const page=await apiJson(`/api/pages/${source.pages.rootId}`,cookie,'');
   expect(page.status).toBe(200);

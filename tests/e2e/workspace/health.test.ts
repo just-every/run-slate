@@ -13,9 +13,12 @@ contract("BASE-OPS-001", "health reports ready when the database answers", async
   const response = await SELF.fetch("https://slate.test/health");
 
   expect(response.status).toBe(200);
+  // Outside a Base deploy the identity variables are absent, so Base's `deploymentHealth` reports each identity field as null.
   expect(await response.json()).toEqual({
+    ok: true,
     status: "ok",
     checks: { database: { status: "reachable" }, files: { status: "reachable" } },
+    deployment: { sourceSha: null, fingerprint: null, versionId: null },
   });
 });
 

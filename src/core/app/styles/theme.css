@@ -1,0 +1,262 @@
+@import "tailwindcss";
+
+/*
+ * Slate theme tokens.
+ *
+ * WORK-012 offers light, dark and follow-the-system. An explicit member choice
+ * stamps `data-theme` on the document element; with nothing stamped the system
+ * preference decides. Every colour is defined on bare `:root` first so no token
+ * exists only inside a media query.
+ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  --color-canvas: var(--slate-canvas);
+  --color-surface: var(--slate-surface);
+  --color-sidebar: var(--slate-sidebar);
+  --color-wash: var(--slate-wash);
+  --color-sidebar-hover: var(--slate-sidebar-hover);
+  --color-overlay: var(--slate-overlay);
+
+  --color-ink: var(--slate-ink);
+  --color-ink-strong: var(--slate-ink-strong);
+  --color-ink-muted: var(--slate-ink-muted);
+  --color-ink-faint: var(--slate-ink-faint);
+  --color-ink-inverse: var(--slate-ink-inverse);
+
+  --color-line: var(--slate-line);
+  --color-line-strong: var(--slate-line-strong);
+
+  --color-accent: var(--slate-accent);
+  --color-accent-hover: var(--slate-accent-hover);
+  --color-accent-soft: var(--slate-accent-soft);
+  --color-accent-ink: var(--slate-accent-ink);
+
+  --color-danger: var(--slate-danger);
+  --color-danger-soft: var(--slate-danger-soft);
+  --color-warn: var(--slate-warn);
+  --color-warn-soft: var(--slate-warn-soft);
+  --color-good: var(--slate-good);
+  --color-good-soft: var(--slate-good-soft);
+  --color-draft: var(--slate-draft);
+  --color-draft-soft: var(--slate-draft-soft);
+
+  --color-hl-yellow: var(--slate-hl-yellow);
+  --color-hl-blue: var(--slate-hl-blue);
+  --color-hl-green: var(--slate-hl-green);
+  --color-hl-red: var(--slate-hl-red);
+  --color-hl-purple: var(--slate-hl-purple);
+
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--slate-serif);
+  --font-mono:
+    "SFMono-Regular", ui-monospace, "JetBrains Mono", Menlo, monospace;
+
+  /* Type scale read off the reference captures at a 1568px viewport. */
+  --text-micro: 0.6875rem;
+  --text-micro--line-height: 1rem;
+  --text-tiny: 0.75rem;
+  --text-tiny--line-height: 1.125rem;
+  --text-small: 0.8125rem;
+  --text-small--line-height: 1.25rem;
+  --text-ui: 0.875rem;
+  --text-ui--line-height: 1.375rem;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5rem;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.6rem;
+  --text-h2: 1.5rem;
+  --text-h2--line-height: 1.9rem;
+  --text-h1: 1.875rem;
+  --text-h1--line-height: 2.25rem;
+  --text-title: 2.5rem;
+  --text-title--line-height: 3rem;
+
+  --shadow-popover: var(--slate-shadow-popover);
+
+  --radius-card: 0.5rem;
+  --radius-control: 0.375rem;
+
+  /* Reference geometry: the sidebar is ~18% of the desktop view and a normal
+     page body is ~700px at the reference's 1568px viewport. */
+  --spacing-sidebar: 17rem;
+  --spacing-reading: 43.75rem;
+  --spacing-wide: 60rem;
+  --spacing-panel: 22rem;
+}
+
+/*
+ * The light palette is defined on bare `:root` so no token exists only inside a
+ * media query, and again on `[data-theme="light"]` so a light subtree — the
+ * anonymous read view of a page published with a light theme (`WEB-002`,
+ * `WEB-003`) — stays light inside a dark document.
+ */
+:root {
+  --slate-serif: "Lyon Text", Georgia, ui-serif, serif;
+}
+
+:root,
+[data-theme="light"] {
+  --slate-canvas: #f9faf8;
+  --slate-surface: #fdfefd;
+  --slate-wash: #f2f5f1;
+  --slate-sidebar: #f0f2ef;
+  --slate-sidebar-hover: #e2e8e2;
+  --slate-overlay: rgb(15 15 15 / 0.3);
+  --slate-shadow-popover: 0 16px 48px rgb(15 25 20 / 0.18);
+
+  /* Every ink on every ground it is used on clears WCAG 2.1 AA (4.5:1 for the
+     text ramp, 3:1 for control boundaries). */
+  --slate-ink: #2d3a37;
+  --slate-ink-strong: #15221e;
+  --slate-ink-muted: #4d5955;
+  --slate-ink-faint: #5c6864;
+  --slate-ink-inverse: #ffffff;
+
+  --slate-line: #e0e5e1;
+  --slate-line-strong: #859089;
+
+  --slate-accent: #46694d;
+  --slate-accent-hover: #365240;
+  --slate-accent-soft: #e6eee4;
+  --slate-accent-ink: #ffffff;
+
+  --slate-danger: #b3261e;
+  --slate-danger-soft: #fbeae9;
+  --slate-warn: #8a5b00;
+  --slate-warn-soft: #fbf3db;
+  --slate-good: #1f7a4d;
+  --slate-good-soft: #e4f3ea;
+  --slate-draft: #6b4fbb;
+  --slate-draft-soft: #efeafc;
+
+  --slate-hl-yellow: #fbf3db;
+  --slate-hl-blue: #edf3e9;
+  --slate-hl-green: #e4f3ea;
+  --slate-hl-red: #fbeae9;
+  --slate-hl-purple: #efeafc;
+
+  /* The two card fills of Slate's mark (`ui/brand/SlateMark`); its stroke is the ink. */
+  --slate-mark-back: #e6eede;
+  --slate-mark-front: #ffffff;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --slate-canvas: #090e0d;
+    --slate-surface: #0d1411;
+    --slate-wash: #111a15;
+    --slate-sidebar: #0d1411;
+    --slate-sidebar-hover: #202a21;
+    --slate-overlay: rgb(0 0 0 / 0.6);
+    --slate-shadow-popover: 0 16px 48px rgb(0 0 0 / 0.55);
+
+    --slate-ink: #f1f2ee;
+    --slate-ink-strong: #fbfcf8;
+    --slate-ink-muted: #b7c0b9;
+    --slate-ink-faint: #a3afa6;
+    --slate-ink-inverse: #090e0d;
+
+    --slate-line: #29332d;
+    --slate-line-strong: #6b6b6b;
+
+    --slate-accent: #a8c49e;
+    --slate-accent-hover: #bfd5b7;
+    --slate-accent-soft: #17231b;
+    --slate-accent-ink: #111c12;
+
+    --slate-danger: #ff8b80;
+    --slate-danger-soft: #3a1f1d;
+    --slate-warn: #e5bc61;
+    --slate-warn-soft: #372d18;
+    --slate-good: #6fcf97;
+    --slate-good-soft: #16301f;
+    --slate-draft: #b6a1f0;
+    --slate-draft-soft: #272040;
+
+    --slate-hl-yellow: #372d18;
+    --slate-hl-blue: #17231b;
+    --slate-hl-green: #16301f;
+    --slate-hl-red: #3a1f1d;
+    --slate-hl-purple: #272040;
+
+    --slate-mark-back: #3f5a3b;
+    --slate-mark-front: #17231b;
+
+    color-scheme: dark;
+  }
+}
+
+[data-theme="dark"] {
+  --slate-canvas: #090e0d;
+  --slate-surface: #0d1411;
+  --slate-wash: #111a15;
+  --slate-sidebar: #0d1411;
+  --slate-sidebar-hover: #202a21;
+  --slate-overlay: rgb(0 0 0 / 0.6);
+  --slate-shadow-popover: 0 16px 48px rgb(0 0 0 / 0.55);
+
+  --slate-ink: #f1f2ee;
+  --slate-ink-strong: #fbfcf8;
+  --slate-ink-muted: #b7c0b9;
+  --slate-ink-faint: #a3afa6;
+  --slate-ink-inverse: #090e0d;
+
+  --slate-line: #29332d;
+  --slate-line-strong: #6b6b6b;
+
+  --slate-accent: #a8c49e;
+  --slate-accent-hover: #bfd5b7;
+  --slate-accent-soft: #17231b;
+  --slate-accent-ink: #111c12;
+
+  --slate-danger: #ff8b80;
+  --slate-danger-soft: #3a1f1d;
+  --slate-warn: #e5bc61;
+  --slate-warn-soft: #372d18;
+  --slate-good: #6fcf97;
+  --slate-good-soft: #16301f;
+  --slate-draft: #b6a1f0;
+  --slate-draft-soft: #272040;
+
+  --slate-hl-yellow: #372d18;
+  --slate-hl-blue: #17231b;
+  --slate-hl-green: #16301f;
+  --slate-hl-red: #3a1f1d;
+  --slate-hl-purple: #272040;
+
+  --slate-mark-back: #3f5a3b;
+  --slate-mark-front: #17231b;
+
+  color-scheme: dark;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-width: 320px;
+  background: var(--slate-canvas);
+  color: var(--slate-ink);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--slate-accent);
+  outline-offset: 2px;
+}
+
+[data-slate-editable]:empty::before {
+  content: attr(data-placeholder);
+  color: var(--slate-ink-faint);
+  pointer-events: none;
+}

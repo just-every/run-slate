@@ -1,3 +1,4 @@
+import {resetDatabase} from '../../../e2e/setup/reset-database';
 import {env} from 'cloudflare:test';
 import {createApi} from '../../../../src/core/app/hono';
 import type {FeatureContext} from '../../../../src/core/app/feature-context';
@@ -66,8 +67,7 @@ export async function resetNative(){
   await env.DB.prepare('DROP TRIGGER IF EXISTS release_portability_revoke_setup_owner').run();
   await env.DB.prepare('DROP TRIGGER IF EXISTS release_portability_revoke_empty_target').run();
   await env.DB.prepare('DROP TRIGGER IF EXISTS release_portability_add_group_after_admission').run();
-  const tables=(await env.DB.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_cf_%' AND name NOT IN ('d1_migrations','core_acl_epoch')").all<{name:string}>()).results;
-  await env.DB.batch([env.DB.prepare('PRAGMA defer_foreign_keys=ON'),...tables.map(t=>env.DB.prepare(`DELETE FROM "${t.name}"`))]);
+  await resetDatabase(env.DB);
   let cursor:string|undefined;
   do{
     const page=await env.FILES.list({limit:1000,...(cursor?{cursor}:{})});
@@ -104,8 +104,10 @@ export function apiBindings(profile:'core-wiki'|'flagship'|''|undefined,includeC
 export async function apiRequest(path:string,cookie:string,profile:'core-wiki'|'flagship'|''|undefined,init:RequestInit={}){
   const headers=new Headers(init.headers);
   headers.set('cookie',cookie);
-  headers.set('origin','https://slate.example');
-  return createApi().request(`https://slate.example${path}`,{...init,headers},apiBindings(profile) as never);
+  // The deployment origin: Base step-up admits sessions only on APP_URL.
+  const origin=new URL(String(env.APP_URL)).origin;
+  headers.set('origin',origin);
+  return createApi().request(`${origin}${path}`,{...init,headers},apiBindings(profile) as never);
 }
 
 export async function makePageTree(h:WorkspaceHarness):Promise<PageTree>{
@@ -218,7 +220,8 @@ export async function portableSnapshot(options:{omitSetupOwner?:boolean;omitTabl
   return {hash:await byteHash(bytes),counts:Object.fromEntries(Object.entries(tables).map(([name,rows])=>[name,rows.length]))};
 }
 
-export async function setupOwnerCookie(h:WorkspaceHarness){return sessionFor(h.ownerId);}
+/** The setup owner just confirmed their mailbox, so export and restore need no further step-up. */
+export async function setupOwnerCookie(h:WorkspaceHarness){return sessionFor(h.ownerId,{freshProof:true});}
 
 export function randomOperationKey(name:string){return op(name);}
 

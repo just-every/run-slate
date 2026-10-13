@@ -1,0 +1,19 @@
+/* The pieces every drawn interface shares: icons, chips, avatars, mentions, checks, switches and placeholder lines. All sizes
+   are in em, so they follow the drawing they sit in. */
+.slate-landing .ic { flex: none; width: 1.25em; height: 1.25em; }
+.slate-landing .ic--chev { width: 0.95em; height: 0.95em; }
+.slate-landing .ic--feature { width: 40px; height: 40px; stroke-width: 1.5; }
+.slate-landing .chip { display: inline-block; padding: 0.12em 0.62em; border-radius: 999px; background: var(--chip-grey); color: #2f2e29; font-size: max(12px, 0.94em); font-weight: 400; line-height: 1.35; white-space: nowrap; }
+.slate-landing .chip--progress, .slate-landing .chip--done { background: var(--chip-green); color: #243a21; }
+.slate-landing .chip--blocked { background: var(--chip-amber); color: #5a3a0a; }
+.slate-landing .mention { padding: 0.05em 0.38em; border-radius: 0.4em; background: #e4ecdb; color: var(--green-deep); font-weight: 400; }
+.slate-landing .check { display: inline-grid; place-items: center; flex: none; width: 1.3em; height: 1.3em; border-radius: 0.3em; background: var(--green); color: #fff; }
+.slate-landing .check .ic { width: 1em; height: 1em; stroke-width: 2.4; }
+.slate-landing .avatar { display: inline-grid; place-items: center; flex: none; width: 1.9em; height: 1.9em; border-radius: 50%; background: #dbe7d6; color: var(--green-deep); font-size: max(12px, 0.85em); font-weight: 600; line-height: 1; }
+.slate-landing .switch { position: relative; flex: none; width: 2.5em; height: 1.4em; border-radius: 999px; background: #c9c6b9; }
+.slate-landing .switch::after { content: ""; position: absolute; top: 0.2em; left: 0.2em; width: 1em; height: 1em; border-radius: 50%; background: #fff; transition: transform 0.2s; }
+.slate-landing .switch.is-on { background: var(--green); }
+.slate-landing .switch.is-on::after { transform: translateX(1.1em); }
+.slate-landing .skeleton { display: block; height: 0.55em; margin-top: 0.7em; border-radius: 999px; background: #e5e2d6; }
+.slate-landing .skeleton--short { width: 60%; }
+.slate-landing .caret { display: inline-block; width: 0.12em; height: 1.1em; margin-left: 0.1em; vertical-align: -0.2em; background: var(--green); }

@@ -8,7 +8,11 @@ test('NAV-004 local: concurrent first navigation configuration has one durable w
   const results=await Promise.all(requests.map(input=>f.request('PUT','/api/navigation/configuration',input)));
   expect(results.map(result=>result.status).sort()).toEqual([200,409]);
   const index=results.findIndex(result=>result.status===200),winner=results[index]!;
-  expect((await f.request('GET','/api/navigation/configuration')).data).toEqual(winner.data.value);
+  // The read is the winner's revision with its saved destinations first, in order;
+  // destinations added to Slate since the save follow them.
+  const read=(await f.request('GET','/api/navigation/configuration')).data;
+  expect(read.revisionId).toBe(winner.data.value.revisionId);
+  expect(read.destinations.filter((item:{id:string})=>winner.data.value.destinations.some((saved:{id:string})=>saved.id===item.id))).toEqual(winner.data.value.destinations);
   expect((await f.request('PUT','/api/navigation/configuration',requests[index])).data).toEqual(winner.data);
   expect((await f.request('PUT','/api/navigation/configuration',{...requests[index],operationKey:createUlid()})).status).toBe(409);
   const updated=await f.request('PUT','/api/navigation/configuration',{operationKey:createUlid(),expectedRevisionId:winner.data.value.revisionId,destinations:choices[1-index]});

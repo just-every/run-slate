@@ -14,7 +14,7 @@ import type { WorkspaceSnapshot } from "./ui/workspaceSnapshot";
  * sign-in redirect protocol without returning any member record.
  */
 export const loadWorkspace = createServerFn({ method: "GET" }).handler(async (): Promise<WorkspaceSnapshot> => {
-  const [{ createSessionService }, { startRequestHeaders }, { requestBindings }, { runtimeConfigFor }, { getRequestUrl }] = await Promise.all([
+  const [{ createSessionService, sessionOptions }, { startRequestHeaders }, { requestBindings }, { runtimeConfigFor }, { getRequestUrl }] = await Promise.all([
     import("../features/session/service"),
     import("../platform/auth/start-request"),
     import("../platform/bindings.server"),
@@ -25,7 +25,7 @@ export const loadWorkspace = createServerFn({ method: "GET" }).handler(async ():
   // BASE-SECRET-002 has already refused a misconfigured deployment in
   // `src/server.ts`; this call is how the handler obtains the checked secret.
   const config = runtimeConfigFor(bindings, getRequestUrl().hostname);
-  const member = await createSessionService(bindings.DB, config.sessionSecret).authenticate(startRequestHeaders());
+  const member = await createSessionService(bindings.DB, sessionOptions(config)).authenticate(startRequestHeaders());
   if (!member) throw redirect({ to: "/signin", search: { next: "/app" } });
   // Use the same authorized services as the API. Nothing private is read before
   // the current request's native session has been checked above.
@@ -38,5 +38,5 @@ export const loadWorkspace = createServerFn({ method: "GET" }).handler(async ():
   const [workspace, setup, personalNavigation] = await Promise.all([
     readWorkspace(context), firstRunState(context), navigation(context),
   ]);
-  return { member, workspace, setup, navigation: personalNavigation, profile: { profile: config.launchProfile ?? "core-wiki" } };
+  return { member, workspace, setup, navigation: personalNavigation, editorEnabled: Boolean(bindings.RER_MANAGEMENT_ORIGIN && bindings.RER_INSTALLATION_ID), profile: { profile: config.launchProfile ?? "core-wiki" } };
 });

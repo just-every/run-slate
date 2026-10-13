@@ -17,7 +17,7 @@ export interface BlockEditorProps {
   onSelectionChange?: (ids: string[]) => void;
   onChange: (blockId: string, next: EditorBlock) => void;
   /** Null inserts at the top of the body. */
-  onInsert: (afterBlockId: string | null) => void;
+  onInsert: (afterBlockId: string | null, anchor: HTMLElement) => void;
   onDelete: (blockId: string) => void;
   onMove: (blockId: string, move: BlockMove) => void;
   onDuplicate: (blockId: string) => void;
@@ -37,7 +37,7 @@ export interface BlockEditorProps {
 function Column({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div className="flex w-full justify-center gap-1">
-      <div aria-hidden="true" className="w-12 shrink-0" />
+      <div aria-hidden="true" className="block-gutter w-12 shrink-0" />
       <div className={cn("w-full max-w-reading min-w-0", className)}>{children}</div>
     </div>
   );
@@ -158,7 +158,7 @@ export function BlockEditor({
           onDragStart={() => setDraggingId(block.id)}
           onDropHere={() => dropOn(block.id)}
           onDuplicate={() => onDuplicate(block.id)}
-          onInsert={() => onInsert(block.id)}
+          onInsert={(anchor) => onInsert(block.id, anchor)}
           onMove={(move) => onMove(block.id, move)}
           onResolveConflict={(choice) => onResolveConflict?.(block.id, choice)}
           onRetrySave={() => onRetrySave?.(block.id)}

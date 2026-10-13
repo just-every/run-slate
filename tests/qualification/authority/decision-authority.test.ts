@@ -27,7 +27,7 @@ test('SOURCE-003 — claims keep accepted authority through review, withdraw it 
  await expect(reviseClaim(ctx,{operationKey:'reuse-removed-authority',revisionId:revised.value.revisionId,scope:original.scope,authority,conflicts:[],unknowns:[]})).rejects.toMatchObject({code:'STALE_EVIDENCE'});
  const prior=await env.DB.prepare('SELECT * FROM knowledge_decisions WHERE id=?').bind(decision.value.id).first();
  const exported=await exportWorkspace(ctx),key=await env.DB.prepare('SELECT archive_key FROM federation_exports WHERE id=?').bind(exported.id).first<string>('archive_key'),bytes=new Uint8Array(await(await env.FILES.get(key!))!.arrayBuffer());
- await reset();const target=await fixture();await restoreWorkspace(target.context(),bytes);
+ await reset();const target=await fixture({withReader:false});await restoreWorkspace(target.context(),bytes);
  expect(await env.DB.prepare('SELECT * FROM knowledge_decisions WHERE id=?').bind(decision.value.id).first()).toEqual(prior);
  expect((await readClaim(f.context(),revised.value.revisionId)).authorityCurrent).toBe(false);
  expect((await env.DB.prepare('PRAGMA foreign_key_check').all()).results).toEqual([]);

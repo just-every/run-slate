@@ -65,7 +65,8 @@ export function TableView({
         <tbody>
           {records.map((record) => (
             <tr className="border-b border-line hover:bg-sidebar/60" key={record.id}>
-              <td className="h-9 max-w-64 px-2 align-middle">
+              {/* No left padding: the record button carries its own inset, so the icon lands on the page's content edge. */}
+              <td className="h-9 max-w-64 pr-2 pl-0 align-middle">
                 <RecordTitle
                   icon={record.icon}
                   onOpen={() => onOpenRecord(record.id)}

@@ -13,43 +13,48 @@
       "source": {
         "kind": "local",
         "paths": [
-          "src",
-          "migrations",
+          "src/branding.json",
+          "src/core",
+          "src/dev",
+          "src/editor-init.ts",
+          "src/editor-leaf.tsx",
+          "src/ext",
+          "src/routeTree.gen.ts",
+          "src/router.tsx",
+          "src/routes",
+          "src/server.ts",
           "deploy",
           "package.json",
-          "pnpm-lock.yaml"
+          "pnpm-lock.yaml",
+          "migrations/core/0001_knowledge_foundation.sql",
+          "migrations/core/0002_core_runtime.sql",
+          "migrations/core/0003_content_collaboration.sql",
+          "migrations/core/0004_structured_work.sql",
+          "migrations/core/0005_discovery.sql",
+          "migrations/core/0006_federation.sql",
+          "migrations/core/0007_intelligence.sql",
+          "migrations/core/0008_identity_mail_outbox.sql",
+          "migrations/core/0010_inquiry_runtime.sql",
+          "migrations/core/0011_core_qualification.sql",
+          "migrations/core/0012_search_capacity.sql",
+          "migrations/core/0013_decision_layer.sql",
+          "migrations/core/0014_publication_choices.sql",
+          "migrations/core/0015_archive_nullable_position.sql",
+          "migrations/core/0016_portability_jobs.sql",
+          "migrations/core/0017_inquiry_branch_admission.sql",
+          "migrations/core/0021_search_fts.sql",
+          "migrations/core/0020_identity_adapter_preparation.sql",
+          "migrations/core/0022_native_identity_authority.sql",
+          "migrations/core/0024_reviewed_imports.sql",
+          "migrations/core/0025_import_generation.sql",
+          "migrations/core/0026_verification_review.sql",
+          "migrations/core/0027_mention_titles_reindex.sql"
         ]
       },
       "assumptions": [
         "Native TanStack Start/React documents and Hono APIs in one Worker; native session, owner bootstrap, D1/R2/queue authority.",
         "Core-wiki defaults do not remove retained flagship data or applied migrations."
       ]
-    },
-    {
-      "id": "runeditrun/edition-authoring",
-      "role": "module",
-      "source": {
-        "kind": "local",
-        "paths": [
-          "scripts/edition-authoring"
-        ],
-        "origin": {
-          "repository": "https://github.com/runeditrun/base.git",
-          "revision": "35241a1a6d9408fbea89d266ec04806e9071a1b8",
-          "path": "edition-authoring",
-          "paths": [
-            "cli.mjs",
-            "files.mjs",
-            "lifecycle.test.mjs",
-            "manifest.mjs",
-            "release.mjs",
-            "snapshot-integrity.test.mjs",
-            "sources.mjs",
-            "updates.mjs",
-            "updates.test.mjs"
-          ]
-        }
-      }
     },
     {
       "id": "just-every/slate-management",
@@ -62,35 +67,710 @@
       }
     },
     {
-      "id": "runeditrun/mail-sendgrid",
+      "id": "runeditrun/edition-authoring",
       "role": "module",
       "source": {
         "kind": "local",
         "paths": [
-          "modules/base-mail"
+          "scripts/edition-authoring"
         ],
         "origin": {
-          "repository": "https://github.com/runeditrun/base.git",
-          "revision": "712a4b43d8fc3f30b8d4c2f354c8a10e060bfc38",
-          "path": "modules/mail",
+          "repository": "runeditrun/base",
+          "revision": "9ec15a63a410d209cd5a179749336bb61751e0f6",
+          "path": ".",
           "paths": [
-            "LICENSE",
-            "src/adapters/sendgrid/index.mjs",
-            "src/adapters/sendgrid/serialize.mjs",
-            "src/core/errors.mjs",
-            "src/core/transport.mjs",
-            "src/core/validation.mjs"
+            "edition-authoring/README.md",
+            "edition-authoring/base-copies.mjs",
+            "edition-authoring/cli.mjs",
+            "edition-authoring/files.mjs",
+            "edition-authoring/manifest.mjs",
+            "edition-authoring/parent-comparison.mjs",
+            "edition-authoring/projection-lock.mjs",
+            "edition-authoring/release.mjs",
+            "edition-authoring/sources.mjs",
+            "edition-authoring/updates.mjs"
           ]
-        }
+        },
+        "mappings": [
+          {
+            "path": "scripts/edition-authoring",
+            "originPath": "edition-authoring"
+          }
+        ]
+      }
+    },
+    {
+      "id": "runeditrun/mail",
+      "role": "module",
+      "source": {
+        "kind": "local",
+        "paths": [
+          "modules/mail",
+          "migrations/core/0018_development_mail_outbox.sql"
+        ],
+        "origin": {
+          "repository": "runeditrun/base",
+          "revision": "9ec15a63a410d209cd5a179749336bb61751e0f6",
+          "path": ".",
+          "paths": [
+            "modules/mail/.gitignore",
+            "modules/mail/LICENSE",
+            "modules/mail/README.md",
+            "modules/mail/doctor.mjs",
+            "modules/mail/index.mjs",
+            "modules/mail/live-proof/README.md",
+            "modules/mail/live-proof/run.mjs",
+            "modules/mail/package.json",
+            "modules/mail/pnpm-lock.yaml",
+            "modules/mail/src/adapters/cloudflare/README.md",
+            "modules/mail/src/adapters/cloudflare/headers.mjs",
+            "modules/mail/src/adapters/cloudflare/index.mjs",
+            "modules/mail/src/adapters/cloudflare/response.mjs",
+            "modules/mail/src/adapters/messaging/README.md",
+            "modules/mail/src/adapters/messaging/contract.mjs",
+            "modules/mail/src/adapters/messaging/event-schema.mjs",
+            "modules/mail/src/adapters/messaging/index.mjs",
+            "modules/mail/src/adapters/messaging/jws.mjs",
+            "modules/mail/src/adapters/messaging/request.mjs",
+            "modules/mail/src/adapters/messaging/serialize.mjs",
+            "modules/mail/src/adapters/resend/README.md",
+            "modules/mail/src/adapters/resend/index.mjs",
+            "modules/mail/src/adapters/resend/response.mjs",
+            "modules/mail/src/adapters/resend/serialize.mjs",
+            "modules/mail/src/adapters/resend/size.mjs",
+            "modules/mail/src/adapters/sendgrid/README.md",
+            "modules/mail/src/adapters/sendgrid/index.mjs",
+            "modules/mail/src/adapters/sendgrid/serialize.mjs",
+            "modules/mail/src/core/errors.mjs",
+            "modules/mail/src/core/transport.mjs",
+            "modules/mail/src/core/validation.mjs",
+            "modules/mail/src/development/index.d.mts",
+            "modules/mail/src/development/index.mjs",
+            "modules/mail/src/development/outbox.mjs",
+            "modules/mail/src/development/schema.sql",
+            "modules/mail/src/development/viewer-html.mjs",
+            "modules/mail/src/development/viewer.mjs",
+            "modules/mail/src/doctor/README.md",
+            "modules/mail/src/doctor/common.mjs",
+            "modules/mail/src/doctor/dns.mjs",
+            "modules/mail/src/doctor/index.mjs",
+            "modules/mail/src/doctor/probe.mjs",
+            "modules/mail/src/doctor/receive.mjs",
+            "modules/mail/src/doctor/records.mjs",
+            "modules/mail/src/events/README.md",
+            "modules/mail/src/events/d1-schema.sql",
+            "modules/mail/src/events/d1-storage.mjs",
+            "modules/mail/src/events/index.mjs",
+            "modules/mail/src/events/intake.mjs",
+            "modules/mail/src/events/storage.mjs",
+            "modules/mail/src/events/verify.mjs",
+            "modules/mail/src/inbound/README.md",
+            "modules/mail/src/inbound/bytes.mjs",
+            "modules/mail/src/inbound/headers.mjs",
+            "modules/mail/src/inbound/index.mjs",
+            "modules/mail/src/inbound/mime.mjs",
+            "modules/mail/src/inbound/multipart.mjs",
+            "modules/mail/src/inbound/resend-attachment.mjs",
+            "modules/mail/src/inbound/resend.mjs",
+            "modules/mail/src/inbound/sendgrid.mjs",
+            "modules/mail/src/sender.mjs",
+            "modules/mail/src/sendgrid-email/index.d.mts",
+            "modules/mail/src/sendgrid-email/index.mjs",
+            "modules/mail/src/unsubscribe/index.mjs"
+          ]
+        },
+        "mappings": [
+          {
+            "path": "migrations/core/0018_development_mail_outbox.sql",
+            "originPath": "modules/mail/src/development/schema.sql"
+          },
+          {
+            "path": "modules/mail",
+            "originPath": "modules/mail"
+          }
+        ]
+      }
+    },
+    {
+      "id": "runeditrun/delivery-producer",
+      "role": "module",
+      "source": {
+        "kind": "local",
+        "paths": [
+          "scripts/delivery/base"
+        ],
+        "origin": {
+          "repository": "runeditrun/base",
+          "revision": "9ec15a63a410d209cd5a179749336bb61751e0f6",
+          "path": ".",
+          "paths": [
+            "modules/delivery-producer/artifact.mjs",
+            "modules/delivery-producer/bindings.mjs",
+            "modules/delivery-producer/capabilities.mjs",
+            "modules/delivery-producer/cli.mjs",
+            "modules/delivery-producer/declarations.mjs",
+            "modules/delivery-producer/export.mjs",
+            "modules/delivery-producer/generators/integration.mjs",
+            "modules/delivery-producer/generators/managed.mjs",
+            "modules/delivery-producer/generators/project.mjs",
+            "modules/delivery-producer/generators/validation.mjs",
+            "modules/delivery-producer/migrations.mjs",
+            "modules/delivery-producer/package.mjs",
+            "modules/delivery-producer/paths.mjs",
+            "modules/delivery-producer/payloads.mjs",
+            "modules/delivery-producer/spec.mjs",
+            "schema/SETUP.schema.json",
+            "schema/dependencies.mjs",
+            "schema/json-schema.mjs",
+            "schema/setup-validation.mjs"
+          ]
+        },
+        "mappings": [
+          {
+            "path": "scripts/delivery/base/artifact.mjs",
+            "originPath": "modules/delivery-producer/artifact.mjs"
+          },
+          {
+            "path": "scripts/delivery/base/bindings.mjs",
+            "originPath": "modules/delivery-producer/bindings.mjs"
+          },
+          {
+            "path": "scripts/delivery/base/capabilities.mjs",
+            "originPath": "modules/delivery-producer/capabilities.mjs"
+          },
+          {
+            "path": "scripts/delivery/base/cli.mjs",
+            "originPath": "modules/delivery-producer/cli.mjs"
+          },
+          {
+            "path": "scripts/delivery/base/declarations.mjs",
+            "originPath": "modules/delivery-producer/declarations.mjs"
+          },
+          {
+            "path": "scripts/delivery/base/export.mjs",
+            "originPath": "modules/delivery-producer/export.mjs"
+          },
+          {
+            "path": "scripts/delivery/base/generators",
+            "originPath": "modules/delivery-producer/generators"
+          },
+          {
+            "path": "scripts/delivery/base/migrations.mjs",
+            "originPath": "modules/delivery-producer/migrations.mjs"
+          },
+          {
+            "path": "scripts/delivery/base/package.mjs",
+            "originPath": "modules/delivery-producer/package.mjs"
+          },
+          {
+            "path": "scripts/delivery/base/paths.mjs",
+            "originPath": "modules/delivery-producer/paths.mjs"
+          },
+          {
+            "path": "scripts/delivery/base/payloads.mjs",
+            "originPath": "modules/delivery-producer/payloads.mjs"
+          },
+          {
+            "path": "scripts/delivery/base/schema",
+            "originPath": "schema"
+          },
+          {
+            "path": "scripts/delivery/base/spec.mjs",
+            "originPath": "modules/delivery-producer/spec.mjs"
+          }
+        ]
+      }
+    },
+    {
+      "id": "runeditrun/editor",
+      "role": "module",
+      "source": {
+        "kind": "local",
+        "paths": [
+          "src/editor"
+        ],
+        "origin": {
+          "repository": "runeditrun/base",
+          "revision": "9ec15a63a410d209cd5a179749336bb61751e0f6",
+          "path": ".",
+          "paths": [
+            "modules/editor/src/config.ts",
+            "modules/editor/src/index.ts",
+            "modules/editor/src/lifecycle.ts",
+            "modules/editor/src/react.tsx",
+            "modules/editor/src/visual-edits.json",
+            "modules/editor/src/widget/editor-icons.ts",
+            "modules/editor/src/widget/editor-protocol.ts",
+            "modules/editor/src/widget/editor-surface.ts",
+            "modules/editor/src/widget/editor-widget.ts",
+            "modules/editor/src/widget/live-edit-contracts.ts",
+            "modules/editor/src/widget/live-edit-dom.ts",
+            "modules/editor/src/widget/live-edit-runtime.ts",
+            "modules/editor/src/widget/visual-style.ts"
+          ]
+        },
+        "mappings": [
+          {
+            "path": "src/editor",
+            "originPath": "modules/editor/src"
+          }
+        ]
+      }
+    },
+    {
+      "id": "runeditrun/foundation-runtime",
+      "role": "module",
+      "source": {
+        "kind": "local",
+        "paths": [
+          "src/base"
+        ],
+        "origin": {
+          "repository": "runeditrun/base",
+          "revision": "8981bc2c4d9e61feca5787c83b4ed44056659dd9",
+          "path": ".",
+          "paths": [
+            "foundation/runtime/deployment-health.ts",
+            "foundation/runtime/dispatch.ts",
+            "foundation/runtime/font-head.ts",
+            "foundation/runtime/font-response.ts",
+            "foundation/runtime/hydration/README.md",
+            "foundation/runtime/hydration/intro-guard.ts",
+            "foundation/runtime/hydration/report.ts",
+            "foundation/runtime/hydration/unit.tsx",
+            "foundation/runtime/identity.ts",
+            "foundation/runtime/lobby.ts",
+            "foundation/runtime/page-style.ts",
+            "foundation/runtime/rejected-response.ts",
+            "foundation/runtime/run-site.ts",
+            "foundation/runtime/setup-state.ts",
+            "foundation/runtime/setup.ts",
+            "foundation/runtime/static-assets.ts",
+            "foundation/runtime/theme-frame.ts"
+          ]
+        },
+        "mappings": [
+          {
+            "path": "src/base/runtime",
+            "originPath": "foundation/runtime"
+          }
+        ]
       },
       "assumptions": [
-        "Exact Base mail SendGrid adapter and its core dependencies; Slate owns durable admission, attempts and uncertain review."
+        "Byte-exact Base runtime at the commit @runeditrun/rer 0.2.0 was cut from: staticAssetResponse serves built files first under run_worker_first; deploymentHealth is the /health deploy identity; lobbyResponse and setupStateResponse serve the installed / and /setup/state; run-site renders /run and the site 404."
       ]
+    },
+    {
+      "id": "runeditrun/seed-cli",
+      "role": "module",
+      "source": {
+        "kind": "local",
+        "paths": [
+          "RUN-LOCALLY.md",
+          "SEED-COMMAND-CONTRACT.md"
+        ],
+        "origin": {
+          "repository": "runeditrun/base",
+          "revision": "8981bc2c4d9e61feca5787c83b4ed44056659dd9",
+          "path": ".",
+          "paths": [
+            "export/RUN-LOCALLY.md",
+            "export/SEED-COMMAND-CONTRACT.md"
+          ]
+        },
+        "mappings": [
+          {
+            "path": "RUN-LOCALLY.md",
+            "originPath": "export/RUN-LOCALLY.md"
+          },
+          {
+            "path": "SEED-COMMAND-CONTRACT.md",
+            "originPath": "export/SEED-COMMAND-CONTRACT.md"
+          }
+        ]
+      }
+    },
+    {
+      "id": "runeditrun/operator-auth",
+      "role": "module",
+      "source": {
+        "kind": "local",
+        "paths": [
+          "modules/operator-auth",
+          "modules/dependencies",
+          "modules/owner-claim",
+          "migrations/core/0023_identity_providers.sql"
+        ]
+      },
+      "assumptions": [
+        "Byte-exact Base copies. Slate composes them over its native accounts and proofs in src/core/features/session."
+      ]
+    },
+    {
+      "id": "runeditrun/import-kit",
+      "role": "module",
+      "source": {
+        "kind": "local",
+        "paths": [
+          "modules/import-kit"
+        ],
+        "origin": {
+          "repository": "runeditrun/base",
+          "revision": "9ec15a63a410d209cd5a179749336bb61751e0f6",
+          "path": ".",
+          "paths": [
+            "modules/import-kit/CONTRACT.md",
+            "modules/import-kit/FIXTURES.md",
+            "modules/import-kit/README.md",
+            "modules/import-kit/extraction.json",
+            "modules/import-kit/proof/zendesk/README.md",
+            "modules/import-kit/proof/zendesk/compare.ts",
+            "modules/import-kit/proof/zendesk/port.ts",
+            "modules/import-kit/proof/zendesk/run.ts",
+            "modules/import-kit/proof/zendesk/runtime.ts",
+            "modules/import-kit/proof/zendesk/source-manifest.json",
+            "modules/import-kit/proof/zendesk/source.ts",
+            "modules/import-kit/proof/zendesk/sqlite.ts",
+            "modules/import-kit/proof/zendesk/worker.ts",
+            "modules/import-kit/schema/importer-verification-receipt.schema.json",
+            "modules/import-kit/schema/importers.schema.json",
+            "modules/import-kit/src/d1/README.md",
+            "modules/import-kit/src/d1/apply.ts",
+            "modules/import-kit/src/d1/budget.ts",
+            "modules/import-kit/src/d1/compressed-plan.ts",
+            "modules/import-kit/src/d1/creation.ts",
+            "modules/import-kit/src/d1/custody-state-schema.ts",
+            "modules/import-kit/src/d1/database.ts",
+            "modules/import-kit/src/d1/erased-artifacts.ts",
+            "modules/import-kit/src/d1/erased-custody.ts",
+            "modules/import-kit/src/d1/erased-plan.ts",
+            "modules/import-kit/src/d1/erased-reversal.ts",
+            "modules/import-kit/src/d1/erasure-bounded.ts",
+            "modules/import-kit/src/d1/erasure-claims.ts",
+            "modules/import-kit/src/d1/erasure-compiler.ts",
+            "modules/import-kit/src/d1/erasure-disposition.ts",
+            "modules/import-kit/src/d1/erasure-fragments.ts",
+            "modules/import-kit/src/d1/erasure-index.ts",
+            "modules/import-kit/src/d1/erasure-pages.ts",
+            "modules/import-kit/src/d1/erasure-related.ts",
+            "modules/import-kit/src/d1/erasure-report.ts",
+            "modules/import-kit/src/d1/erasure-schema.ts",
+            "modules/import-kit/src/d1/erasure-snapshot.ts",
+            "modules/import-kit/src/d1/erasure-values.ts",
+            "modules/import-kit/src/d1/erasure-writes.ts",
+            "modules/import-kit/src/d1/erasure.ts",
+            "modules/import-kit/src/d1/evolutions/0001-preserved-undo.ts",
+            "modules/import-kit/src/d1/expected-state.ts",
+            "modules/import-kit/src/d1/guards.ts",
+            "modules/import-kit/src/d1/history.ts",
+            "modules/import-kit/src/d1/index.ts",
+            "modules/import-kit/src/d1/integrity.ts",
+            "modules/import-kit/src/d1/inventory-snapshot.ts",
+            "modules/import-kit/src/d1/jobs.ts",
+            "modules/import-kit/src/d1/native-staging-admission.ts",
+            "modules/import-kit/src/d1/native-staging-context.ts",
+            "modules/import-kit/src/d1/native-staging-lifecycle.ts",
+            "modules/import-kit/src/d1/native-staging-publication.ts",
+            "modules/import-kit/src/d1/native-staging-rows.ts",
+            "modules/import-kit/src/d1/native-staging-schema.ts",
+            "modules/import-kit/src/d1/native-staging-state.ts",
+            "modules/import-kit/src/d1/native-staging.ts",
+            "modules/import-kit/src/d1/original-copies.ts",
+            "modules/import-kit/src/d1/original-storage.ts",
+            "modules/import-kit/src/d1/originals.ts",
+            "modules/import-kit/src/d1/plan-dictionary.ts",
+            "modules/import-kit/src/d1/plans.ts",
+            "modules/import-kit/src/d1/preparation-fingerprint.ts",
+            "modules/import-kit/src/d1/preparation-header.ts",
+            "modules/import-kit/src/d1/preparation-reader.ts",
+            "modules/import-kit/src/d1/preparation-schema.ts",
+            "modules/import-kit/src/d1/preparation-state.ts",
+            "modules/import-kit/src/d1/preparations.ts",
+            "modules/import-kit/src/d1/preserved-reverse.ts",
+            "modules/import-kit/src/d1/provenance-set.ts",
+            "modules/import-kit/src/d1/publication-fence.ts",
+            "modules/import-kit/src/d1/publication-receipt-schema.ts",
+            "modules/import-kit/src/d1/published-stream.ts",
+            "modules/import-kit/src/d1/read-fence.ts",
+            "modules/import-kit/src/d1/read-results.ts",
+            "modules/import-kit/src/d1/retained-values.ts",
+            "modules/import-kit/src/d1/reverse.ts",
+            "modules/import-kit/src/d1/reviewed-source.ts",
+            "modules/import-kit/src/d1/sets.ts",
+            "modules/import-kit/src/d1/staging-admission.ts",
+            "modules/import-kit/src/d1/staging-control.ts",
+            "modules/import-kit/src/d1/staging-erasure.ts",
+            "modules/import-kit/src/d1/staging-lifecycle.ts",
+            "modules/import-kit/src/d1/staging-plan.ts",
+            "modules/import-kit/src/d1/staging-privacy.ts",
+            "modules/import-kit/src/d1/staging-publication.ts",
+            "modules/import-kit/src/d1/staging-schema.ts",
+            "modules/import-kit/src/d1/staging-statements.ts",
+            "modules/import-kit/src/d1/staging-transport.ts",
+            "modules/import-kit/src/d1/stream-boundary.ts",
+            "modules/import-kit/src/d1/stream-create.ts",
+            "modules/import-kit/src/d1/stream-identity-admission.ts",
+            "modules/import-kit/src/d1/stream-input.ts",
+            "modules/import-kit/src/d1/stream-layout.ts",
+            "modules/import-kit/src/d1/stream-origin.ts",
+            "modules/import-kit/src/d1/stream-page-integrity.ts",
+            "modules/import-kit/src/d1/stream-partition.ts",
+            "modules/import-kit/src/d1/stream-plan.ts",
+            "modules/import-kit/src/d1/stream-receipt.ts",
+            "modules/import-kit/src/d1/stream-revision-schema.ts",
+            "modules/import-kit/src/d1/stream-snapshot.ts",
+            "modules/import-kit/src/d1/stream-stage.ts",
+            "modules/import-kit/src/d1/stream-state.ts",
+            "modules/import-kit/src/d1/stream-working-set.ts",
+            "modules/import-kit/src/d1/streams.ts",
+            "modules/import-kit/src/d1/target-guards.ts",
+            "modules/import-kit/src/d1/target-identities.ts",
+            "modules/import-kit/src/d1/transport.ts",
+            "modules/import-kit/src/d1/types.ts",
+            "modules/import-kit/src/d1/undo-observations.ts",
+            "modules/import-kit/src/d1/undo-report.ts",
+            "modules/import-kit/src/d1/undo-snapshot.ts",
+            "modules/import-kit/src/d1/undo-state.ts",
+            "modules/import-kit/src/d1/undo-types.ts",
+            "modules/import-kit/src/engine/apply.ts",
+            "modules/import-kit/src/engine/index.ts",
+            "modules/import-kit/src/engine/reverse.ts",
+            "modules/import-kit/src/index.ts",
+            "modules/import-kit/src/journal/authority.ts",
+            "modules/import-kit/src/journal/boundary.ts",
+            "modules/import-kit/src/journal/jobs.ts",
+            "modules/import-kit/src/journal/originals.ts",
+            "modules/import-kit/src/plan/budget.ts",
+            "modules/import-kit/src/plan/index.ts",
+            "modules/import-kit/src/plan/size.ts",
+            "modules/import-kit/src/provenance/canonical-hash.ts",
+            "modules/import-kit/src/provenance/canonical-stream.ts",
+            "modules/import-kit/src/provenance/credentials.ts",
+            "modules/import-kit/src/provenance/identity.ts",
+            "modules/import-kit/src/provenance/json-snapshot.ts",
+            "modules/import-kit/src/provenance/numeric-credentials.ts",
+            "modules/import-kit/src/provenance/validate-json.ts",
+            "modules/import-kit/src/readers/README.md",
+            "modules/import-kit/src/readers/api-policy.ts",
+            "modules/import-kit/src/readers/api.ts",
+            "modules/import-kit/src/readers/bytes.ts",
+            "modules/import-kit/src/readers/errors.ts",
+            "modules/import-kit/src/readers/file.ts",
+            "modules/import-kit/src/readers/index.ts",
+            "modules/import-kit/src/readers/json.ts",
+            "modules/import-kit/src/readers/numeric-lexemes.ts",
+            "modules/import-kit/src/readers/original.ts",
+            "modules/import-kit/src/readers/records.ts",
+            "modules/import-kit/src/reconcile/index.ts",
+            "modules/import-kit/src/status/encoding.ts",
+            "modules/import-kit/src/status/evidence.ts",
+            "modules/import-kit/src/status/index.ts",
+            "modules/import-kit/src/status/schema.ts",
+            "modules/import-kit/src/status/types.ts",
+            "modules/import-kit/src/storage/cleanup.ts",
+            "modules/import-kit/src/storage/integrity.ts",
+            "modules/import-kit/src/storage/originals.ts",
+            "modules/import-kit/src/storage/provenance.ts",
+            "modules/import-kit/src/storage/schema.ts",
+            "modules/import-kit/src/storage/sqlite.ts",
+            "modules/import-kit/src/types.ts",
+            "modules/import-kit/tests/api-numeric-lexemes.test.ts",
+            "modules/import-kit/tests/canonical-buffer.test.ts",
+            "modules/import-kit/tests/canonical-large-string.test.ts",
+            "modules/import-kit/tests/canonical-operation-cache.test.ts",
+            "modules/import-kit/tests/commit-boundary.test.ts",
+            "modules/import-kit/tests/core/claim-cleanup.test.ts",
+            "modules/import-kit/tests/core/commit-boundary.test.ts",
+            "modules/import-kit/tests/core/crash-child.ts",
+            "modules/import-kit/tests/core/crash.test.ts",
+            "modules/import-kit/tests/core/engine.test.ts",
+            "modules/import-kit/tests/core/fencing.test.ts",
+            "modules/import-kit/tests/core/fixtures.ts",
+            "modules/import-kit/tests/core/native.test.ts",
+            "modules/import-kit/tests/core/operation-atomicity.test.ts",
+            "modules/import-kit/tests/core/operation-crash-child.ts",
+            "modules/import-kit/tests/core/operation-crash.test.ts",
+            "modules/import-kit/tests/core/operation-integrity.test.ts",
+            "modules/import-kit/tests/core/operation-native-fixtures.ts",
+            "modules/import-kit/tests/core/original-custody.test.ts",
+            "modules/import-kit/tests/core/originals-child.ts",
+            "modules/import-kit/tests/core/originals-fixtures.ts",
+            "modules/import-kit/tests/core/provenance-integrity.test.ts",
+            "modules/import-kit/tests/core/target-inventory.test.ts",
+            "modules/import-kit/tests/d1-baseline.test.ts",
+            "modules/import-kit/tests/d1-erasure-originals.test.ts",
+            "modules/import-kit/tests/d1-integrity-undo.test.ts",
+            "modules/import-kit/tests/d1-legacy-stream-origin.test.ts",
+            "modules/import-kit/tests/d1-normalized-worker.test.ts",
+            "modules/import-kit/tests/d1-origin-depth.test.ts",
+            "modules/import-kit/tests/d1-original-name-custody.test.ts",
+            "modules/import-kit/tests/d1-original-name.test.ts",
+            "modules/import-kit/tests/d1-preparation-races.test.ts",
+            "modules/import-kit/tests/d1-preparations.test.ts",
+            "modules/import-kit/tests/d1-preserved-provider.test.ts",
+            "modules/import-kit/tests/d1-preserved-scale.test.ts",
+            "modules/import-kit/tests/d1-provenance-transport.test.ts",
+            "modules/import-kit/tests/d1-published-return.test.ts",
+            "modules/import-kit/tests/d1-read-only.test.ts",
+            "modules/import-kit/tests/d1-stream-custody.test.ts",
+            "modules/import-kit/tests/d1-undo-report-staging.test.ts",
+            "modules/import-kit/tests/d1.test.ts",
+            "modules/import-kit/tests/d1/bounded-creation.test.ts",
+            "modules/import-kit/tests/d1/bounded-runtime.ts",
+            "modules/import-kit/tests/d1/bounds.test.ts",
+            "modules/import-kit/tests/d1/create-budget.test.ts",
+            "modules/import-kit/tests/d1/creation-atomicity.test.ts",
+            "modules/import-kit/tests/d1/creation-remaining-budget.test.ts",
+            "modules/import-kit/tests/d1/custody-capacity.test.ts",
+            "modules/import-kit/tests/d1/custody-packing.test.ts",
+            "modules/import-kit/tests/d1/custody-state.test.ts",
+            "modules/import-kit/tests/d1/deleted-provenance.test.ts",
+            "modules/import-kit/tests/d1/engine.test.ts",
+            "modules/import-kit/tests/d1/erased-index-binding.test.ts",
+            "modules/import-kit/tests/d1/erased-reversal.test.ts",
+            "modules/import-kit/tests/d1/erasure-encoding.test.ts",
+            "modules/import-kit/tests/d1/erasure-final-authority.test.ts",
+            "modules/import-kit/tests/d1/erasure-many-copies.test.ts",
+            "modules/import-kit/tests/d1/erasure-original-transport.test.ts",
+            "modules/import-kit/tests/d1/erasure-originals.test.ts",
+            "modules/import-kit/tests/d1/erasure-related.test.ts",
+            "modules/import-kit/tests/d1/erasure-replay-budget.test.ts",
+            "modules/import-kit/tests/d1/erasure-transport.test.ts",
+            "modules/import-kit/tests/d1/erasure.test.ts",
+            "modules/import-kit/tests/d1/export-consistency.test.ts",
+            "modules/import-kit/tests/d1/fixture-evidence.ts",
+            "modules/import-kit/tests/d1/fixtures.ts",
+            "modules/import-kit/tests/d1/guard-depth.test.ts",
+            "modules/import-kit/tests/d1/late-erased-tombstone.test.ts",
+            "modules/import-kit/tests/d1/legacy-stream-origin-fixture.ts",
+            "modules/import-kit/tests/d1/legacy-stream-origin.test.ts",
+            "modules/import-kit/tests/d1/meter.ts",
+            "modules/import-kit/tests/d1/native-staging-evolution.test.ts",
+            "modules/import-kit/tests/d1/native-staging-fences.test.ts",
+            "modules/import-kit/tests/d1/native-staging-fixture.ts",
+            "modules/import-kit/tests/d1/native-staging.test.ts",
+            "modules/import-kit/tests/d1/normalized-worker.test.ts",
+            "modules/import-kit/tests/d1/origin-depth-fixture.ts",
+            "modules/import-kit/tests/d1/plan-cap-boundaries.test.ts",
+            "modules/import-kit/tests/d1/plan-chunks.test.ts",
+            "modules/import-kit/tests/d1/plan-memory-probe.ts",
+            "modules/import-kit/tests/d1/planning-read-only.test.ts",
+            "modules/import-kit/tests/d1/preflight.test.ts",
+            "modules/import-kit/tests/d1/preparation-fixture.ts",
+            "modules/import-kit/tests/d1/preparation-races.test.ts",
+            "modules/import-kit/tests/d1/preparation-schema.test.ts",
+            "modules/import-kit/tests/d1/preparations.test.ts",
+            "modules/import-kit/tests/d1/preserved-graph.test.ts",
+            "modules/import-kit/tests/d1/preserved-guard-budget.test.ts",
+            "modules/import-kit/tests/d1/preserved-late-guard.test.ts",
+            "modules/import-kit/tests/d1/preserved-native-provider-scale.test.ts",
+            "modules/import-kit/tests/d1/preserved-native-set.test.ts",
+            "modules/import-kit/tests/d1/preserved-native-set.ts",
+            "modules/import-kit/tests/d1/preserved-provider-scale-fixture.ts",
+            "modules/import-kit/tests/d1/preserved-provider.test.ts",
+            "modules/import-kit/tests/d1/preserved-report-provider-scale.test.ts",
+            "modules/import-kit/tests/d1/preserved-scale-fixture.ts",
+            "modules/import-kit/tests/d1/preserved-set-provider.test.ts",
+            "modules/import-kit/tests/d1/preserved-undo.test.ts",
+            "modules/import-kit/tests/d1/provenance-transport-fixture.ts",
+            "modules/import-kit/tests/d1/provenance-transport-meter.ts",
+            "modules/import-kit/tests/d1/provenance-transport.test.ts",
+            "modules/import-kit/tests/d1/published-journeys.test.ts",
+            "modules/import-kit/tests/d1/published-return-fixture.ts",
+            "modules/import-kit/tests/d1/read-guard-packing.test.ts",
+            "modules/import-kit/tests/d1/read-only-custody.test.ts",
+            "modules/import-kit/tests/d1/read-only-provider.test.ts",
+            "modules/import-kit/tests/d1/read-only-races.test.ts",
+            "modules/import-kit/tests/d1/read-only-sqlite.test.ts",
+            "modules/import-kit/tests/d1/read-only-tools.ts",
+            "modules/import-kit/tests/d1/retained-fixtures.ts",
+            "modules/import-kit/tests/d1/return-budget.test.ts",
+            "modules/import-kit/tests/d1/reuse-owner.test.ts",
+            "modules/import-kit/tests/d1/reused-claim-validity.test.ts",
+            "modules/import-kit/tests/d1/reused-inventory.test.ts",
+            "modules/import-kit/tests/d1/scale-adapter.ts",
+            "modules/import-kit/tests/d1/scale-size.ts",
+            "modules/import-kit/tests/d1/scale.test.ts",
+            "modules/import-kit/tests/d1/set-guards.test.ts",
+            "modules/import-kit/tests/d1/sqlite-runtime.ts",
+            "modules/import-kit/tests/d1/sqlite-text.test.ts",
+            "modules/import-kit/tests/d1/sqlite-text.ts",
+            "modules/import-kit/tests/d1/staging-evolution.test.ts",
+            "modules/import-kit/tests/d1/staging-insertion.test.ts",
+            "modules/import-kit/tests/d1/staging.test.ts",
+            "modules/import-kit/tests/d1/stream-codec.test.ts",
+            "modules/import-kit/tests/d1/stream-memory.test.ts",
+            "modules/import-kit/tests/d1/stream-original-validation.test.ts",
+            "modules/import-kit/tests/d1/stream-read-only.test.ts",
+            "modules/import-kit/tests/d1/stream-return-budget.test.ts",
+            "modules/import-kit/tests/d1/streams.test.ts",
+            "modules/import-kit/tests/d1/transport-batches.test.ts",
+            "modules/import-kit/tests/d1/undo-evolution.test.ts",
+            "modules/import-kit/tests/d1/wide-adapter.ts",
+            "modules/import-kit/tests/d1/worker.test.ts",
+            "modules/import-kit/tests/dictionary-boundaries.test.ts",
+            "modules/import-kit/tests/dictionary-canonical.test.ts",
+            "modules/import-kit/tests/dictionary-json-strings.test.ts",
+            "modules/import-kit/tests/fixture-layout.test.ts",
+            "modules/import-kit/tests/fixtures/workspace-archive-v1/adapter.ts",
+            "modules/import-kit/tests/fixtures/workspace-archive-v1/expected.json",
+            "modules/import-kit/tests/fixtures/workspace-archive-v1/manifest.json",
+            "modules/import-kit/tests/fixtures/workspace-archive-v1/mapping.json",
+            "modules/import-kit/tests/fixtures/workspace-archive-v1/source/export.json",
+            "modules/import-kit/tests/helpers/logical-size.ts",
+            "modules/import-kit/tests/import-kit.test.ts",
+            "modules/import-kit/tests/mapped-validation.test.ts",
+            "modules/import-kit/tests/operation-integrity.test.ts",
+            "modules/import-kit/tests/original-custody.test.ts",
+            "modules/import-kit/tests/original-name-bytes.test.ts",
+            "modules/import-kit/tests/plan-cap-d1.test.ts",
+            "modules/import-kit/tests/plan-cap-sqlite.test.ts",
+            "modules/import-kit/tests/plan-mapping-size.test.ts",
+            "modules/import-kit/tests/plan-size-budget.test.ts",
+            "modules/import-kit/tests/plan-size-cache.test.ts",
+            "modules/import-kit/tests/plan-size-safe-aggregate.test.ts",
+            "modules/import-kit/tests/plan-size-values.test.ts",
+            "modules/import-kit/tests/plan-size.test.ts",
+            "modules/import-kit/tests/provenance-integrity.test.ts",
+            "modules/import-kit/tests/readers.test.ts",
+            "modules/import-kit/tests/readers/api.test.ts",
+            "modules/import-kit/tests/readers/cancellation.test.ts",
+            "modules/import-kit/tests/readers/custody.test.ts",
+            "modules/import-kit/tests/readers/file.test.ts",
+            "modules/import-kit/tests/readers/helpers.ts",
+            "modules/import-kit/tests/readers/integration.test.ts",
+            "modules/import-kit/tests/readers/json.test.ts",
+            "modules/import-kit/tests/readers/pagination-cursors.test.ts",
+            "modules/import-kit/tests/readers/rate-limit.test.ts",
+            "modules/import-kit/tests/readers/secret-boolean.test.ts",
+            "modules/import-kit/tests/readers/security.test.ts",
+            "modules/import-kit/tests/reviewed-source-native.test.ts",
+            "modules/import-kit/tests/reviewed-source.test.ts",
+            "modules/import-kit/tests/runtime-reuse.md",
+            "modules/import-kit/tests/scale/create-boundary.test.ts",
+            "modules/import-kit/tests/staging.test.ts",
+            "modules/import-kit/tests/status.test.ts",
+            "modules/import-kit/tests/status/fixtures.ts",
+            "modules/import-kit/tests/status/status.test.ts",
+            "modules/import-kit/tests/stream-planner-parity.test.ts",
+            "modules/import-kit/tests/stream-retention.test.ts",
+            "modules/import-kit/tests/stream-review-integrity.test.ts",
+            "modules/import-kit/tests/zendesk.test.ts",
+            "modules/import-kit/tests/zendesk/native.test.ts"
+          ]
+        },
+        "mappings": [
+          {
+            "path": "modules/import-kit",
+            "originPath": "modules/import-kit"
+          }
+        ]
+      }
     }
   ],
   "custody": {
-    "repository": "https://github.com/just-every/slate",
-    "meaning": "Public source repository; sources.lock.json records current file identities."
+    "repository": "https://github.com/just-every/run-slate",
+    "meaning": "Public source is just-every/run-slate. Maintainers develop in a private workspace and produce reviewed clean-history exports. Retained comparison archives and native Git objects authenticate the recorded Base source without private repository access."
   },
   "runtimeProfile": "core-wiki",
   "name": "slate"

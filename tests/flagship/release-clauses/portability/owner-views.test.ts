@@ -46,7 +46,7 @@ async function restoreArchiveForFreshOwner(){
   expect(restored.response.status).toBe(200);
   expect(restored.body.state).toBe('completed');
   expect(await migrationNames()).toEqual(sourceMigrations);
-  return {cookie:await sessionFor(source.ownerId),restored,beforeR2};
+  return {cookie:await sessionFor(source.ownerId,{freshProof:true}),restored,beforeR2};
 }
 
 test('AGENT-002 — an owner-defined page view does not expose its private skill to a page-only member',async()=>{

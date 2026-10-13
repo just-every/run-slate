@@ -22,17 +22,17 @@ export function refuseNetwork(){const calls:string[]=[];vi.stubGlobal('fetch',as
 export async function effectFixture(kind:'answer'|'procedure'='answer'){
  const f=await fixture(),context=()=>({...f.context(),sourceSecret:secret});
  const requests:string[]=[],sends:string[]=[];
- const issue={id:99,number:1,title:'Before',body:'Unchanged target',state:'open',updated_at:'2026-09-01T00:00:00Z',html_url:'https://github.com/test/repo/issues/1'};
- vi.stubGlobal('fetch',async(input:string|URL|Request,init?:RequestInit)=>{const url=new URL(input instanceof Request?input.url:String(input)),method=init?.method??'GET';requests.push(method+' '+url);if(url.origin==='https://api.github.com'&&url.pathname==='/user'&&method==='GET')return Response.json({id:7,login:'fixture-owner'});if(url.origin==='https://api.github.com'&&url.pathname==='/repos/test/repo/issues/1'&&method==='GET')return Response.json(issue);if(method!=='GET')sends.push(method+' '+url);throw new Error('Unmatched authority test transport: '+method+' '+url);});
+ const issue={id:99,number:1,title:'Before',body:'Unchanged target',state:'open',updated_at:'2026-09-01T00:00:00Z',html_url:'https://github.com/just-every/run-slate/issues/1'};
+ vi.stubGlobal('fetch',async(input:string|URL|Request,init?:RequestInit)=>{const url=new URL(input instanceof Request?input.url:String(input)),method=init?.method??'GET';requests.push(method+' '+url);if(url.origin==='https://api.github.com'&&url.pathname==='/user'&&method==='GET')return Response.json({id:7,login:'fixture-owner'});if(url.origin==='https://api.github.com'&&url.pathname==='/repos/just-every/run-slate/issues/1'&&method==='GET')return Response.json(issue);if(method!=='GET')sends.push(method+' '+url);throw new Error('Unmatched authority test transport: '+method+' '+url);});
  const conn=await connect(context(),{operationKey:'custody-connection',provider:'github',token:'test-only-token',accountId:'fixture-owner'},secret);
  await publishPublicPage(context(),f.page.pageId,{operationKey:'custody-public-source',expectedRevisionId:f.page.revisionId,host:'test.invalid',slug:f.page.pageId});
  const run=await startRun(context(),{...f.ask,kind},{apiKey:'test-only'});
  const stored=await env.DB.prepare('SELECT * FROM intelligence_runs WHERE id=?').bind(run.value.id).first<any>();
  expect(stored).toMatchObject({kind,status:'queued',model:'measured-test-frontier'});
  expect(JSON.parse(stored.input_json).route.evaluationId).toBe(f.routes.find(r=>r.tasks[0]===kind)!.evaluationId);
- const expectedRevision=(await(await getEffectAdapter(context(),conn.value.id,secret)).read('test/repo/1')).revision,content={body:'Proposed update'};
- const grant=await issueGrant(context(),{operationKey:'custody-grant',subjectId:f.owner,kind:'effect',expiresAt:'2099-01-01T00:00:00.000Z',scope:{operations:['github.issue.update'],targets:['test/repo/1'],accounts:['fixture-owner'],sourceIds:[f.page.pageId],audience:[f.owner,f.reader,'public'],maxCostMicros:0,contentHash:await requestHash(content),conditions:{expectedRevision},acceptNonAtomicProvider:true}});
- const input={operationKey:'custody-intent',runId:run.value.id,grantId:grant.value.id,connectionId:conn.value.id,operation:'github.issue.update' as const,accountId:'fixture-owner',target:'test/repo/1',expectedRevision,content,costMicros:0 as const};
+ const expectedRevision=(await(await getEffectAdapter(context(),conn.value.id,secret)).read('just-every/run-slate/1')).revision,content={body:'Proposed update'};
+ const grant=await issueGrant(context(),{operationKey:'custody-grant',subjectId:f.owner,kind:'effect',expiresAt:'2099-01-01T00:00:00.000Z',scope:{operations:['github.issue.update'],targets:['just-every/run-slate/1'],accounts:['fixture-owner'],sourceIds:[f.page.pageId],audience:[f.owner,f.reader,'public'],maxCostMicros:0,contentHash:await requestHash(content),conditions:{expectedRevision},acceptNonAtomicProvider:true}});
+ const input={operationKey:'custody-intent',runId:run.value.id,grantId:grant.value.id,connectionId:conn.value.id,operation:'github.issue.update' as const,accountId:'fixture-owner',target:'just-every/run-slate/1',expectedRevision,content,costMicros:0 as const};
  return {...f,context,run,grant,input,requests,sends,issue,...await transport(f)};
 }
 export async function effects(workspaceId:string){return (await env.DB.prepare('SELECT * FROM intelligence_effects WHERE workspace_id=? ORDER BY id').bind(workspaceId).all()).results;}

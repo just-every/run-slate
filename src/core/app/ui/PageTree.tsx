@@ -4,9 +4,10 @@ import {ScheduledPublication} from './ScheduledPublication';
 import {StoredIcon} from "../../features/pages/ui/workspace/PageAppearance";
 import {useResource} from "../../client/useResource";
 import {mutate, operationKey, errorMessage} from "../../client/transport";
-import {CreatePageDialog} from "./CreatePageDialog";
+import {useCreatePage} from "./useCreatePage";
+import {DEFAULT_PAGE_TITLE} from "./pageDestination";
 import { useState } from "react";
-import { ChevronRight, FileText } from "lucide-react";
+import { ArrowUpDown, ChevronRight, FileText, Plus } from "lucide-react";
 import type { PageRef } from "../../shared/api/content";
 export type TreePage = PageRef & {
   parentPageId?: string | null;
@@ -19,10 +20,13 @@ export function PageTree({
   pages,
   parentId = null,
   ancestors = [],
+  activePath,
 }: {
   pages: TreePage[];
   parentId?: string | null;
   ancestors?: string[];
+  /** The path being viewed, so the row for the open page is marked as current. */
+  activePath?: string;
 }) {
   const ids = new Set(pages.map((page) => page.id));
   const children = pages
@@ -42,6 +46,7 @@ export function PageTree({
             page={page}
             pages={pages}
             ancestors={ancestors}
+            activePath={activePath}
           />
         ))}
     </ul>
@@ -51,16 +56,18 @@ function TreeItem({
   page,
   pages,
   ancestors,
+  activePath,
 }: {
   page: TreePage;
   pages: TreePage[];
   ancestors: string[];
+  activePath?: string;
 }) {
   const hasChildren = pages.some((item) => item.parentPageId === page.id);
   const expansion = useResource<{expanded:boolean}>(hasChildren ? `/api/pages/${page.id}/expansion` : null);
   const open = expansion.data?.expanded ?? false;
   const [move,setMove]=useState<{page:TreePage;destination?:TreeDestination}|null>(null);
-  const [create,setCreate] = useState(false);
+  const creation = useCreatePage();
   const [error,setError] = useState<unknown>();
   const canMove = page.permissions?.canEdit === true;
   return (
@@ -77,29 +84,30 @@ function TreeItem({
               void mutate(`/api/pages/${page.id}/expansion`, {operationKey:operationKey(),expanded:!open}).then(expansion.reload).catch(setError);
             }}
           >
-            <ChevronRight
+            <ChevronRight aria-hidden="true"
               style={{ transform: open ? "rotate(90deg)" : undefined }}
             />
           </button>
         ) : (
           <span className="tree-spacer" />
         )}
-        <a className="navlink" href={`/app/pages/${page.id}`}>
-          {page.icon ? <StoredIcon icon={page.icon}/> : <FileText />}
+        <a className="navlink" href={`/app/pages/${page.id}`} aria-current={activePath === `/app/pages/${page.id}` ? "page" : undefined}>
+          {page.icon ? <StoredIcon icon={page.icon}/> : <FileText aria-hidden="true" />}
           <span>{page.title || "Untitled"}<ScheduledPublication page={page}/></span>
         </a>
-        <button className="iconbutton" aria-label={`Move ${page.title} in tree`} disabled={!canMove} onClick={()=>setMove({page})}>↕</button>
-        <button className="iconbutton" aria-label={`Create child of ${page.title}`} disabled={!canMove} onClick={event=>{event.stopPropagation();setCreate(true);}}>＋</button>
+        <button className="iconbutton tree-action" aria-label={`Move ${page.title} in tree`} disabled={!canMove} onClick={()=>setMove({page})}><ArrowUpDown aria-hidden="true"/></button>
+        <button className="iconbutton tree-action" aria-label={`Create child of ${page.title}`} disabled={!canMove} aria-busy={creation.pending||undefined} onClick={event=>{event.stopPropagation();void creation.create(async()=>({containerId:page.containerId,parentPageId:page.id,title:DEFAULT_PAGE_TITLE}));}}><Plus aria-hidden="true"/></button>
       </div>
       {move?<TreeMoveDialog page={move.page} pages={pages} initial={move.destination} onClose={()=>setMove(null)}/>:null}
+      {creation.error ? <p role="alert">{errorMessage(creation.error)}</p> : null}
       {error ? <p role="alert">{errorMessage(error)}</p> : null}
       {expansion.error ? <p role="alert">{errorMessage(expansion.error)} <button onClick={() => void expansion.reload()}>Retry tree expansion</button></p> : null}
-      {create ? <CreatePageDialog parentPageId={page.id} defaultContainerId={page.containerId} onClose={()=>setCreate(false)} onCreated={id=>window.location.assign(`/app/pages/${id}`)}/> : null}
       {open ? (
         <PageTree
           pages={pages}
           parentId={page.id}
           ancestors={[...ancestors, page.id]}
+          activePath={activePath}
         />
       ) : null}
     </li>

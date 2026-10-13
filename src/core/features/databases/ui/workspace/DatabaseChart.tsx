@@ -26,7 +26,7 @@ export function DatabaseChart({
   return (
     <section>
       <h2>Chart this view</h2>
-      <div className="action-row">
+      <div className="chart-controls">
         <label>
           Group
           <select aria-label="Group" value={group} onChange={(e) => setGroup(e.target.value)}>

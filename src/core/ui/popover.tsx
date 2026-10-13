@@ -17,7 +17,7 @@ export function PopoverContent({
       <PopoverPrimitive.Content
         align={align}
         className={cn(
-          "z-50 rounded-card border border-line bg-surface p-1 text-ink shadow-[0_12px_32px_rgb(15_15_15/0.14)]",
+          "z-50 rounded-card border border-line bg-surface p-1 text-ink shadow-popover",
           className,
         )}
         sideOffset={sideOffset}

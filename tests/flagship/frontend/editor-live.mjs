@@ -1,3 +1,4 @@
+import { signInBrowser } from '../../e2e/outbox-auth.mjs';
 import { chromium } from "@playwright/test";
 const browser = await chromium.launch();
 try {
@@ -6,16 +7,14 @@ try {
   });
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto("http://127.0.0.1:4174/signin");
-  await page.getByTestId("local-sign-in").click();
-  await page.waitForURL("**/app");
-  await page.getByRole("button", { name: "Create a page" }).click();
-  await page
-    .getByLabel("Page title", { exact: true })
-    .fill("Interface review notes");
-  await page.getByLabel("Keep it in", { exact: true }).waitFor();
-  await page.getByRole("button", { name: "Create page", exact: true }).click();
+  await signInBrowser(page, "http://127.0.0.1:4174", process.env.SLATE_BROWSER_EMAIL ?? 'jamie@aurora.example');
+  await page.getByRole("button", { name: "Create", exact: true }).click();
+  await page.getByRole("menu", { name: "Create content", exact: true })
+    .getByRole("menuitem", { name: "Page", exact: true }).click();
   await page.waitForURL("**/app/pages/**");
+  const title = page.getByLabel("Page title", { exact: true });
+  await title.fill("Interface review notes");
+  await title.press("Tab");
   await page.getByRole("button", { name: "＋ Add block" }).click();
   console.log(await page.locator("body").innerText());
   console.log(JSON.stringify({ url: page.url(), errors }));

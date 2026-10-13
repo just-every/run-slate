@@ -1,3 +1,4 @@
+import {prepareEraseImportCustody} from '../imports/erase-custody';
 import type {FeatureContext} from '../../app/feature-context';
 
 /** Import originals also have durable revision, receipt and activity metadata.
@@ -11,6 +12,7 @@ export function prepareEraseImportMetadata(ctx: FeatureContext, pageIds: string[
   const ids = JSON.stringify(pageIds);
   const values = [ctx.actor.workspaceId, ctx.actor.workspaceId, memberId ?? null, ids, ids];
   return [
+    ...prepareEraseImportCustody(ctx,imports,values.slice(1)),
     ctx.db.prepare(`UPDATE core_entity_revisions SET content_json='{}',content_hash='',author_member_id=NULL
       WHERE workspace_id=? AND entity_kind='import' AND entity_id IN (${imports})`).bind(...values),
     ctx.db.prepare(`UPDATE operation_receipts SET response_json='{"value":{"deleted":true}}'

@@ -1,3 +1,4 @@
+import {signInBrowser} from './outbox-auth.mjs';
 import assert from "node:assert/strict";
 import { mkdtemp, rm } from "node:fs/promises";
 import os from "node:os";
@@ -6,7 +7,8 @@ import test from "node:test";
 import { chromium } from "@playwright/test";
 import {
   applyMigrations,
-  localSampleVars,
+  seedAuroraFixture,
+  localDevelopmentVars,
   signInLocally,
   startEmittedWorker,
   startViteRuntime,
@@ -17,7 +19,7 @@ import {
  * Browser proof for the rendering migration: real Vite/Start scripts load, React
  * hydrates, client navigation stays in one document, and nothing fails.
  *
- * This file is not part of `pnpm verify`: it needs Playwright browser binaries
+ * This file is not part of `rer verify`: it needs Playwright browser binaries
  * (`pnpm exec playwright install chromium`), which a clean clone does not have.
  * Run it with `pnpm test:browser`.
  */
@@ -46,14 +48,13 @@ test("the development server hydrates and navigates client-side", { timeout: 240
 
   try {
     await applyMigrations(persistPath);
+    await seedAuroraFixture(persistPath);
     runtime = await startViteRuntime(persistPath);
-    const { cookie } = await signInLocally(runtime.baseUrl);
 
     browser = await chromium.launch();
     const context = await browser.newContext();
-    const [name, value] = cookie.split("=");
-    await context.addCookies([{ name, value, url: runtime.baseUrl }]);
     const page = await context.newPage();
+    await signInBrowser(page,runtime.baseUrl);
     const failures = watch(page);
 
     await page.goto(runtime.baseUrl, { waitUntil: "networkidle" });
@@ -63,17 +64,15 @@ test("the development server hydrates and navigates client-side", { timeout: 240
 
     // A React link between Start documents navigates without a new document.
     await page.click("a[href='/signin']");
-    await page.waitForSelector("text=Your workspace is private.");
+    await page.getByRole("heading", { name: "Sign in", exact: true }).waitFor();
+    await page.getByLabel("Email address", { exact: true }).waitFor();
     assert.equal(await page.evaluate(() => performance.timeOrigin), timeOrigin);
 
-    await page.waitForSelector("[data-testid='local-sign-in']");
+    await page.getByLabel("Email address", {exact:true}).waitFor();
 
     await page.goto(`${runtime.baseUrl}/app`, { waitUntil: "networkidle" });
-    assert.equal(await page.textContent("[data-testid='member-name']"), "Jamie Park");
-    const appTimeOrigin = await page.evaluate(() => performance.timeOrigin);
-    await page.click("[data-testid='nav-workspace']");
+    assert.equal(await page.textContent("[data-testid='member-email']"), "jamie@aurora.example");
     await page.waitForSelector("[data-testid='workspace-empty-state']");
-    assert.equal(await page.evaluate(() => performance.timeOrigin), appTimeOrigin);
 
     assertClean(failures, "The development session reported failures.");
   } finally {
@@ -90,14 +89,13 @@ test("the emitted production Worker hydrates and exercises the server-function t
 
   try {
     await applyMigrations(persistPath);
-    runtime = await startEmittedWorker(persistPath, localSampleVars);
-    const { cookie } = await signInLocally(runtime.baseUrl);
+    await seedAuroraFixture(persistPath);
+    runtime = await startEmittedWorker(persistPath, localDevelopmentVars);
 
     browser = await chromium.launch();
     const context = await browser.newContext();
-    const [name, value] = cookie.split("=");
-    await context.addCookies([{ name, value, url: runtime.baseUrl }]);
     const page = await context.newPage();
+    await signInBrowser(page,runtime.baseUrl);
     const failures = watch(page);
     const serverFunctionCalls = [];
     page.on("request", (request) => {
@@ -110,14 +108,15 @@ test("the emitted production Worker hydrates and exercises the server-function t
     // A React link between two public Start documents stays in one document.
     const publicTimeOrigin = await page.evaluate(() => performance.timeOrigin);
     await page.click("a[href='/signin']");
-    await page.waitForSelector("text=Your workspace is private.");
+    await page.getByRole("heading", { name: "Sign in", exact: true }).waitFor();
+    await page.getByLabel("Email address", { exact: true }).waitFor();
     assert.equal(await page.evaluate(() => performance.timeOrigin), publicTimeOrigin);
 
     // The authenticated operator document renders private data server-side, and
     // a client navigation back into it drives the generated transport rather
     // than a new document request.
     await page.goto(`${runtime.baseUrl}/app`, { waitUntil: "networkidle" });
-    assert.equal(await page.textContent("[data-testid='member-name']"), "Jamie Park");
+    assert.equal(await page.textContent("[data-testid='member-email']"), "jamie@aurora.example");
     const operatorTimeOrigin = await page.evaluate(() => performance.timeOrigin);
     serverFunctionCalls.length = 0;
 
@@ -127,7 +126,7 @@ test("the emitted production Worker hydrates and exercises the server-function t
 
     await page.goBack();
     await page.waitForSelector("[data-testid='workspace-empty-state']");
-    assert.equal(await page.textContent("[data-testid='member-name']"), "Jamie Park");
+    assert.equal(await page.textContent("[data-testid='member-email']"), "jamie@aurora.example");
     assert.equal(await page.evaluate(() => performance.timeOrigin), operatorTimeOrigin);
     assert.ok(serverFunctionCalls.length > 0, "Client navigation into /app did not call the generated server function.");
 

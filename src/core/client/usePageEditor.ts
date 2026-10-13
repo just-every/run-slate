@@ -1,18 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import type { EditorBlock, BlockSaveState } from "../features/editor/ui/types";
 import { contentApi, editorBlocks, type DocumentView } from "./content";
-import { ApiError, errorMessage, operationKey } from "./transport";
+import { ApiError, TransportError, errorMessage, operationKey } from "./transport";
 
 import {
+  draftKeys,
   readDraft,
   storeDraft,
   type PendingEdit as Pending,
 } from "./draftRecovery";
 import { useWorkspace } from "../app/ui/WorkspaceContext";
+/** How long a structure change waits for the page read around its save. */
+const STRUCTURE_READ_MS = 15_000;
 
-export function usePageEditor(document: DocumentView) {
+export function usePageEditor(document: DocumentView, invalidateRead: () => void) {
   const { member } = useWorkspace();
-  const journalKey = `slate:draft:${member.workspaceId}:${member.id}:${document.page.id}`;
+  const journalKey = draftKeys(member.workspaceId, member.id, document.page.id).journal;
   const restored = useRef(document.permissions.canEdit ? readDraft(journalKey) : null);
   const [blocks, setBlocks] = useState(() => {
     const saved = editorBlocks(document.blocks);
@@ -41,6 +44,12 @@ export function usePageEditor(document: DocumentView) {
   );
   // Mutable page CAS may advance without creating a content snapshot (sharing, status).
   const [revision, setRevision] = useState(document.page.revisionId);
+  // A read dispatched before a committed mutation may still be in transport.
+  // Retire it before publishing the receipt's newer compare-and-swap revision.
+  function updateRevision(value: string) {
+    invalidateRead();
+    setRevision(value);
+  }
   const [workingRevisionId, setWorkingRevisionId] = useState(document.workingRevisionId);
   const [firstBlockDirty,setFirstBlockDirty]=useState(false);
   const [structureState,setStructureState]=useState<"saving"|"saved"|null>(null);
@@ -49,6 +58,9 @@ export function usePageEditor(document: DocumentView) {
   const revisions = useRef(
     new Map(document.blocks.map((block) => [block.id, block.revisionId])),
   );
+  // The page revision this tab's copies of every block were last read at. A save
+  // receipt can adopt a newer page revision that includes other people's commits.
+  const synced = useRef(document.page.revisionId);
   const pending = useRef(
     new Map<string, Pending>(restored.current?.edits ?? []),
   );
@@ -114,8 +126,10 @@ export function usePageEditor(document: DocumentView) {
           "The server did not confirm the block revision. Your text remains here.",
         );
       revisions.current.set(id, receipt.value.blockRevisionId);
+      if (receipt.value.previousRevisionId === synced.current)
+        synced.current = receipt.value.revisionId;
       if (alive.current) {
-        setRevision(receipt.value.revisionId);
+        updateRevision(receipt.value.revisionId);
         setWorkingRevisionId(receipt.value.revisionId);
       }
       const latest = current.current.find((block) => block.id === id);
@@ -144,8 +158,12 @@ export function usePageEditor(document: DocumentView) {
                 atLabel: "since your last save",
               },
             }
-          : !navigator.onLine ? { status: "offline" } : { status: "failed", message: errorMessage(error) },
+          : !navigator.onLine || error instanceof TransportError ? { status: "offline" } : { status: "failed", message: errorMessage(error) },
       );
+      // SHARE-007: a refused save means access changed; re-read the page now so
+      // the editor closes with its explanation and the draft stays recoverable.
+      if (error instanceof ApiError && (error.status === 403 || error.status === 404))
+        window.dispatchEvent(new CustomEvent("slate:page-mutated", { detail: { pageId } }));
       busy.current.delete(id);
       if (propagate) throw error;
       return;
@@ -168,6 +186,7 @@ export function usePageEditor(document: DocumentView) {
       !busy.current.has(id) &&
       saveState[id]?.status !== "failed" &&
       saveState[id]?.status !== "offline" &&
+      saveState[id]?.status !== "unsaved" &&
       saveState[id]?.status !== "conflict"
     )
       pending.current.set(id, {
@@ -179,7 +198,8 @@ export function usePageEditor(document: DocumentView) {
     if (
       saveState[id]?.status !== "conflict" &&
       saveState[id]?.status !== "failed" &&
-      saveState[id]?.status !== "offline"
+      saveState[id]?.status !== "offline" &&
+      saveState[id]?.status !== "unsaved"
     ) {
       status(id, { status: "idle" });
       timers.current.set(
@@ -188,63 +208,8 @@ export function usePageEditor(document: DocumentView) {
       );
     }
   }
-  async function structure(next: EditorBlock[]) {
-    if (!alive.current || !canEdit.current) throw new Error("This page is read-only with your current access.");
-    if (structureBusy.current || busy.current.size || pending.current.size)
-      throw new Error(
-        "Save or resolve your current edits before changing the page structure.",
-      );
-    structureBusy.current=true;
-    setStructureState("saving");
-    try {
-    await contentApi.structure(pageId, revision, next);
-    const fresh = await contentApi.document(pageId);
-    const loaded = editorBlocks(fresh.blocks);
-    current.current = loaded;
-    setBlocks(loaded);
-    setRevision(fresh.page.revisionId);
-    setWorkingRevisionId(fresh.workingRevisionId);
-    revisions.current = new Map(
-      fresh.blocks.map((block) => [block.id, block.revisionId]),
-    );
-    setStructureState("saved");
-    } catch(error) {setStructureState(null);throw error;} finally {structureBusy.current=false;}
-  }
-  async function resolve(id: string, keepMine: boolean) {
-    if (!alive.current || !canEdit.current) throw new Error("This page is read-only with your current access.");
-    const fresh = await contentApi.document(pageId);
-    const saved = fresh.blocks.find((block) => block.id === id);
-    if (!saved)
-      throw new Error(
-        "This block was removed. Copy your text before reloading the page.",
-      );
-    revisions.current.set(id, saved.revisionId);
-    setRevision(fresh.page.revisionId);
-    setWorkingRevisionId(fresh.workingRevisionId);
-    if (keepMine) {
-      const block = current.current.find((item) => item.id === id)!;
-      pending.current.set(id, {
-        block,
-        key: operationKey(),
-        revision: saved.revisionId,
-      });
-      await save(id, true);
-    } else {
-      pending.current.delete(id);
-      const restored = editorBlocks(fresh.blocks).find(
-        (block) => block.id === id,
-      )!;
-      const next = current.current.map((block) =>
-        block.id === id ? restored : block,
-      );
-      current.current = next;
-      setBlocks(next);
-      status(id, { status: "idle" });
-      persistDraft();
-    }
-  }
-  function receive(fresh: DocumentView) {
-    if(!alive.current || fresh.page.id!==pageId || structureBusy.current)return;
+  /** Takes the server's blocks, keeping this tab's unsaved or in-flight edits. */
+  function adopt(fresh: DocumentView) {
     const loaded = editorBlocks(fresh.blocks);
     const byId = new Map(current.current.map((block) => [block.id, block]));
     const next = loaded.map((block) =>
@@ -271,8 +236,134 @@ export function usePageEditor(document: DocumentView) {
       current.current = next;
       setBlocks(next);
     }
+    synced.current = fresh.page.revisionId;
     setRevision(fresh.page.revisionId);
     setWorkingRevisionId(fresh.workingRevisionId);
+  }
+  /**
+   * SAVE-003: a structure change built on stale copies of other people's blocks
+   * is rebased on a fresh read. Blocks the change itself edits keep the revision
+   * this tab holds, so the server refuses them if someone else committed since.
+   */
+  /**
+   * A structure change reads the page before and after it saves. A read that
+   * never answers fails the change, so the editor never waits forever with its
+   * refreshes paused, and the next change rebases on a fresh read.
+   */
+  async function structureRead(stage: "before" | "after") {
+    try {
+      return await contentApi.document(pageId, AbortSignal.timeout(STRUCTURE_READ_MS));
+    } catch (error) {
+      if (!(error instanceof DOMException && ["TimeoutError", "AbortError"].includes(error.name))) throw error;
+      synced.current = "";
+      throw new Error(stage === "before"
+        ? "The page could not be reloaded, so your change was not saved. Try again."
+        : "Your change was sent, but the page could not be reloaded to confirm it. The page shows the saved version when it next refreshes; check it before changing it again.");
+    }
+  }
+  async function rebase(next: EditorBlock[]) {
+    const fresh = await structureRead("before");
+    const saved = new Map(editorBlocks(fresh.blocks).map((block) => [block.id, block]));
+    const local = new Map(current.current.map((block) => [block.id, block]));
+    if (saved.size !== local.size || [...local.keys()].some((id) => !saved.has(id))) {
+      adopt(fresh);
+      throw new Error(
+        "Someone else added or removed blocks on this page. Nothing was changed; the page now shows their blocks, so try again.",
+      );
+    }
+    const content = ({ id: _id, indent: _indent, ...rest }: EditorBlock) => JSON.stringify(rest);
+    const known = new Map(revisions.current);
+    const rebased = next.map((block) => {
+      const before = local.get(block.id), theirs = saved.get(block.id);
+      if (!before || !theirs || content(before) !== content(block)) return block;
+      known.set(block.id, fresh.blocks.find((item) => item.id === block.id)!.revisionId);
+      return { ...theirs, indent: block.indent };
+    });
+    return { next: rebased, revision: fresh.page.revisionId, known };
+  }
+  async function structure(next: EditorBlock[]) {
+    if (!alive.current || !canEdit.current) throw new Error("This page is read-only with your current access.");
+    if (structureBusy.current || busy.current.size || pending.current.size)
+      throw new Error(
+        "Save or resolve your current edits before changing the page structure.",
+      );
+    structureBusy.current=true;
+    setStructureState("saving");
+    try {
+    const plan = synced.current === revision
+      ? { next, revision, known: revisions.current }
+      : await rebase(next);
+    try {
+      await contentApi.structure(pageId, plan.revision, plan.next, Object.fromEntries(plan.known));
+    } catch (error) {
+      const conflict = error instanceof ApiError && error.code === "BLOCK_CONFLICT" ? (error.details as { blockId?: string } | undefined)?.blockId : undefined;
+      if (conflict)
+        status(conflict, {
+          status: "conflict",
+          conflict: {
+            fromRevision: plan.known.get(conflict) ?? "",
+            currentRevision: "changed",
+            byMemberName: "Another editor",
+            atLabel: "since you loaded it",
+          },
+        });
+      throw error;
+    }
+    invalidateRead();
+    const fresh = await structureRead("after");
+    const loaded = editorBlocks(fresh.blocks);
+    current.current = loaded;
+    setBlocks(loaded);
+    synced.current = fresh.page.revisionId;
+    updateRevision(fresh.page.revisionId);
+    setWorkingRevisionId(fresh.workingRevisionId);
+    revisions.current = new Map(
+      fresh.blocks.map((block) => [block.id, block.revisionId]),
+    );
+    setStructureState("saved");
+    } catch(error) {setStructureState(null);throw error;} finally {structureBusy.current=false;}
+  }
+  async function resolve(id: string, keepMine: boolean) {
+    if (!alive.current || !canEdit.current) throw new Error("This page is read-only with your current access.");
+    const fresh = await contentApi.document(pageId);
+    const saved = fresh.blocks.find((block) => block.id === id);
+    if (!saved)
+      throw new Error(
+        "This block was removed. Copy your text before reloading the page.",
+      );
+    revisions.current.set(id, saved.revisionId);
+    updateRevision(fresh.page.revisionId);
+    setWorkingRevisionId(fresh.workingRevisionId);
+    if (keepMine) {
+      const block = current.current.find((item) => item.id === id)!;
+      pending.current.set(id, {
+        block,
+        key: operationKey(),
+        revision: saved.revisionId,
+      });
+      await save(id, true);
+    } else {
+      pending.current.delete(id);
+      const restored = editorBlocks(fresh.blocks).find(
+        (block) => block.id === id,
+      )!;
+      const next = current.current.map((block) =>
+        block.id === id ? restored : block,
+      );
+      current.current = next;
+      setBlocks(next);
+      status(id, { status: "idle" });
+      persistDraft();
+    }
+  }
+  function receive(fresh: DocumentView) {
+    if(!alive.current || fresh.page.id!==pageId || structureBusy.current)return;
+    adopt(fresh);
+    // The server answered, so it is reachable: an unsent draft is now labelled
+    // unsaved and waits for an explicit save, never sent on its own.
+    setSaveState((old) => Object.values(old).some((state) => state.status === "offline")
+      ? Object.fromEntries(Object.entries(old).map(([id, state]) => [id, state.status === "offline" ? { status: "unsaved" } : state]))
+      : old);
   }
   return {
     receive,
@@ -283,7 +374,7 @@ export function usePageEditor(document: DocumentView) {
     structureState,
     setFirstBlockDirty,
     hasUnsavedChanges: firstBlockDirty || structureState === "saving" || pending.current.size > 0 || busy.current.size > 0,
-    setRevision,
+    setRevision: updateRevision,
     change,
     structure,
     retry: save,

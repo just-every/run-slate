@@ -3,9 +3,9 @@ import {readFile, writeFile, mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {parseArgs} from 'node:util';
-import {requireClean, git} from './release/source-identity.mjs';
-import {integrationRecipe} from './release/integration-recipe.mjs';
-const {values} = parseArgs({options: {'service-root': {type: 'string'}, output: {type: 'string'}}});
+import {requireClean, git} from './build/source-identity.mjs';
+import {integrationRecipe} from './sync-integration.mjs';
+const {values} = parseArgs({args: process.argv.slice(2).filter(arg => arg !== '--'), options: {'service-root': {type: 'string'}, output: {type: 'string'}}});
 if (!values['service-root'] || !values.output) throw Error('Use --service-root READ_ONLY_CHECKOUT --output NEW_SCRATCH_DIRECTORY');
 const root = process.cwd(), service = resolve(values['service-root']), output = resolve(values.output);
 if (output === service || output.startsWith(service + '/')) throw Error('Adoption check may not modify the service checkout');
@@ -31,7 +31,7 @@ for (const environment of ['production', 'preview']) {
   const addresses = {kind: 'workers_dev', subdomain: 'adoption-check', createSubdomain: false, app: {workerName: `${workerName}-app`, hostname: `${workerName}-app.adoption-check.workers.dev`, path: '/signin'}};
   // Test-only public configuration. No mail, credentials, owner data or provider
   // requests are used; the actual service validator checks the generated plan.
-  const config = {...integration.generatedConfiguration(addresses), SETUP_OWNER_EMAIL: 'source-check@example.test', MAIL_FROM: 'Slate <source-check@example.test>', RER_MANAGEMENT_ORIGIN: 'https://management.example.test', ...(environment === 'preview' ? {controlledProviders: ['test-owned-mail']} : {})};
+  const config = {...integration.generatedConfiguration(addresses), SETUP_OWNER_EMAIL: 'source-check@example.test', MAIL_FROM: 'source-check@example.test', MAIL_PROVIDER: 'resend', RER_MANAGEMENT_ORIGIN: 'https://management.example.test', ...(environment === 'preview' ? {controlledProviders: ['test-owned-mail']} : {})};
   const plan = await integration.generatePlan(installationId, environment, config);
   plan.addresses = addresses; integration.validateAddresses(plan); await validatePlan(plan);
   assert.deepEqual(plan.migrations, spec.migrations, 'Plan must retain every original SQL byte and hash');

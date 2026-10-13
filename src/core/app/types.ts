@@ -1,11 +1,12 @@
 import type { RuntimeBindings, RuntimeConfig } from "../platform/config/runtime";
 
-export interface AppBindings extends RuntimeBindings {
-  DB: D1Database;
-  FILES: R2Bucket;
-  JOBS: Queue<unknown>;
-  CONTENT_COLLABORATION?: DurableObjectNamespace;
-}
+export type AppBindings = RuntimeBindings & Omit<SlateWorkerBindings, keyof RuntimeBindings | "CONTENT_COLLABORATION"> & {
+  CONTENT_COLLABORATION?: SlateWorkerBindings["CONTENT_COLLABORATION"];
+  /** Base deploy-kit's deployment identity, which `/health` reports back. */
+  RER_DEPLOY_SOURCE?: string;
+  RER_DEPLOY_FINGERPRINT?: string;
+  RER_VERSION?: WorkerVersionMetadata;
+};
 
 /** The person the baseline calls an operator. `knowledge/vocabulary.ts` names them a member. */
 export interface AuthenticatedMember {
@@ -20,6 +21,10 @@ export interface AuthenticatedMember {
 
 export interface AppVariables {
   member?: AuthenticatedMember;
+  /** The native session that authenticated `member`; absent for agent credentials. */
+  sessionId?: string;
+  /** Set by a route that passed Base step-up; its commit repeats the proof check. */
+  stepUp?: { sessionId: string; since: number };
   runtimeConfig: RuntimeConfig;
 }
 

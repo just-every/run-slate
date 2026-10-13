@@ -1,6 +1,7 @@
 import type { SearchDocument } from './documents';
 import { retainedText } from './documents';
 import {searchTextRows} from './text-rows';
+import type { RecordFields } from './shared-records';
 
 type Row=Record<string,string|number|null>;
 /** Pure preparation: append after canonical inserts in the SAME restore transaction. */
@@ -8,10 +9,13 @@ export function prepareSearchRestoreStatements(db:D1Database,tables:Record<strin
  const result:D1PreparedStatement[]=[],pages=new Map((tables.pages??[]).map(r=>[r.id,r])),revisions=new Map((tables.page_revisions??[]).filter(r=>!r.deleted_at).map(r=>[r.id,r]));
  const group=(table:string,key:string)=>{const map=new Map<string,Row[]>();for(const r of tables[table]??[]){const id=String(r[key]);const list=map.get(id)??[];list.push(r);map.set(id,list);}return map;};
  const blocks=group('page_blocks','page_id'),contributors=group('page_contributors','page_id'),comments=group('comments','thread_id');
+ const definitions=group('database_fields','database_id'),records=new Map((tables.database_records??[]).map(r=>[String(r.page_id),{
+  values:String(r.field_values_json),fields:(definitions.get(String(r.database_id))??[]).map(f=>({id:String(f.id),type:String(f.field_type),position:Number(f.position)})).sort((a,b)=>a.position-b.position),
+ } satisfies RecordFields]));
  const entries:Record<string,unknown>[]=[];
  const add=(row:SearchDocument,workspace:string)=>{
   const page=row.pageId?pages.get(row.pageId):undefined,revision=page&&page.published_revision_id!==page.working_revision_id?revisions.get(page.published_revision_id):undefined;
-  entries.push(...searchTextRows(row,workspace,revision?{id:String(revision.id),body_json:String(revision.body_json),properties_json:String(revision.properties_json)}:undefined));
+  entries.push(...searchTextRows(row,workspace,revision?{id:String(revision.id),body_json:String(revision.body_json),properties_json:String(revision.properties_json)}:undefined,records.get(row.id)));
  };
  const pageDocument=(p:Row):SearchDocument=>({kind:p.page_kind==='record'?'record':'page',id:String(p.id),pageId:String(p.id),containerId:String(p.container_id),title:String(p.title),text:retainedText(JSON.stringify({blocks:(blocks.get(String(p.id))??[]).map(b=>JSON.parse(String(b.content_json))),fields:{}})),status:p.status_key as string|null,lifecycle:p.lifecycle as string,archivedAt:p.archived_at as string|null,trashedAt:p.trashed_at as string|null,authorId:String(p.author_member_id),updatedAt:String(p.updated_at),revisionId:String(p.revision_id),contributors:(contributors.get(String(p.id))??[]).map(c=>String(c.member_id))});
  for(const p of pages.values())if(!p.deleted_at)add(pageDocument(p),String(p.workspace_id));

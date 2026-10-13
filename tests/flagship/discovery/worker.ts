@@ -16,7 +16,7 @@ import { deliverChat,reconcileChat } from '../../../src/core/features/notificati
 import { ChatProviderError,type ChatNotifier } from '../../../src/core/features/notifications/slack';
 const app=new Hono<AppEnvironment>();
 app.onError((e,c)=>c.json({code:e instanceof ApiProblem?e.code:'INTERNAL',message:e.message},e instanceof ApiProblem?e.status:500));
-app.use('*',async(c,next)=>{const member=await createSessionService(c.env.DB,c.env.SESSION_SECRET!).authenticate(c.req.raw.headers);if(!member)return c.json({code:'UNAUTHENTICATED'},401);c.set('member',member);await next();});
+app.use('*',async(c,next)=>{const member=await createSessionService(c.env.DB,{sessionSecret:c.env.SESSION_SECRET!,identityEnabled:false}).authenticate(c.req.raw);if(!member)return c.json({code:'UNAUTHENTICATED'},401);c.set('member',member);await next();});
 app.route('/api/search',createSearchRoutes());app.route('/api/navigation',createNavigationRoutes());app.route('/api/notifications',createNotificationsRoutes());app.route('/api/activity',createActivityRoutes());app.route('/api/analytics',createAnalyticsRoutes());
 app.post('/test/emit',async c=>{const ctx=featureContext(c);await ctx.db.batch(notificationStatements(ctx,await c.req.json()));return c.json({ok:true});});
 app.post('/test/drain',async c=>c.json(await processNotificationOutbox(featureContext(c))));

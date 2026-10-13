@@ -46,8 +46,12 @@ export async function identityChecks({r,owner,check,context}){
  for(const state of ['valid','expired','revoked']){
  const token=randomBytes(32).toString('base64url'),digest=createHmac('sha256',r.sessionSecret).update(token).digest('hex'),now=new Date().toISOString();
  await r.sql(`INSERT INTO invitations(id,workspace_id,email,kind,token_digest,invited_by_member_id,expires_at,created_at,revoked_at) VALUES(${q('inv-'+state)},'qualification-workspace',${q(state+'-invite@test.invalid')},'member',${q(digest)},'qualification-owner',${q(state==='expired'?'2000-01-01T00:00:00Z':'2099-01-01T00:00:00Z')},${q(now)},${state==='revoked'?q(now):'NULL'});`);
- const accepted=await api(r,'/api/auth/invitation/accept?token='+token);assert.equal(accepted.status,state==='valid'?302:400);
- assert.equal((await api(r,'/api/auth/invitation/accept?token='+token)).status,400);
+ // The link only shows the confirmation page; nothing is accepted and no session is set until its form is posted.
+ const shown=await api(r,'/api/auth/invitation/accept?token='+token);assert.equal(shown.status,state==='valid'?200:400);assert.equal(shown.headers.get('set-cookie'),null);
+ assert.equal((await rows(r,`SELECT accepted_by_member_id FROM invitations WHERE id=${q('inv-'+state)}`))[0].accepted_by_member_id,null);
+ const accept=()=>fetch(r.origin+'/api/auth/invitation/accept',{method:'POST',redirect:'manual',headers:{origin:r.origin,'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({token}),signal:AbortSignal.timeout(15000)});
+ const accepted=await accept();assert.equal(accepted.status,state==='valid'?303:400);assert.equal(accepted.headers.getSetCookie().some(c=>c.startsWith('slate_session=')),state==='valid');
+ assert.equal((await accept()).status,400);
  assert.equal((await rows(r,`SELECT count(*) n FROM invitations WHERE id=${q('inv-'+state)}`))[0].n,1);
  }
  });
@@ -63,6 +67,6 @@ export async function identityChecks({r,owner,check,context}){
  assert.equal((await api(r,'/api/auth/logout',otherOwner,{})).status,204);assert.equal((await api(r,'/api/session',otherOwner)).status,401);
  assert.equal((await api(r,'/api/members/remove',owner,{operationKey:op(),memberId:'other-owner'})).status,200);assert.equal((await api(r,'/api/members/remove',owner,{operationKey:op(),memberId:'qualification-owner'})).status,409);
  });
- await check(['WORK-015'],'unconfigured-identity-stays-unavailable',async()=>{const cap=(await api(r,'/api/auth/capabilities')).data;assert.equal(cap.identityProvider,false);assert.equal(cap.localSession,false);assert.equal((await api(r,'/api/auth/identity')).status,503);});
+ await check(['WORK-015'],'unconfigured-identity-stays-unavailable',async()=>{const cap=(await api(r,'/api/auth/capabilities')).data;assert.equal(cap.identityProvider,false);assert.equal(cap.localOutbox,true);for(const path of ['/auth/oidc/identity/start','/api/auth/identity/callback'])assert.equal((await api(r,path)).status,404,`${path} has no provider behind it`);});
  return {guest};
 }

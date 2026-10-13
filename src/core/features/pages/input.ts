@@ -9,7 +9,7 @@ const block = z.object({ id, blockType: z.string(), content: z.any(), parentBloc
 export const createPageSchema = z.object({ operationKey: op, containerId: id, parentPageId: id.nullable().optional(), title: z.string().max(1000), blocks: z.array(block).optional(), properties: properties.optional(), treePosition: z.string().optional() }).strict();
 export const updatePageSchema = z.object({ operationKey: op, expectedRevisionId: id, properties }).strict();
 export const updateBlockSchema = z.object({ operationKey: op, expectedRevisionId: id, content: z.any() }).strict();
-export const replaceBlocksSchema = z.object({ operationKey: op, expectedRevisionId: id, blocks: z.array(block) }).strict();
+export const replaceBlocksSchema = z.object({ operationKey: op, expectedRevisionId: id, blocks: z.array(block), blockRevisions: z.record(id, id).optional() }).strict();
 export async function validatedJson<T>(c: Context<AppEnvironment>, schema: z.ZodType<T>): Promise<T> {
     const body = await c.req.json().catch(() => { throw new ApiProblem(400, 'INVALID_JSON', 'Provide a JSON object.'); });
     const result = schema.safeParse(body);

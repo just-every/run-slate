@@ -1,0 +1,15 @@
+.slate-app .navigation-create > button { display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; }
+.slate-app .navigation-create svg { width: 18px; height: 18px; }
+.slate-app .create-menu { display: grid; gap: 4px; padding: 6px; margin-top: 8px; border: 1px solid var(--slate-line); border-radius: 8px; background: var(--slate-surface); box-shadow: var(--slate-shadow-popover); }
+.slate-app .create-menu > button, .slate-app .create-menu > a { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 8px 10px; text-align: left; border-radius: 4px; }
+.slate-app .create-menu > :hover, .slate-app .create-menu > :focus-visible { background: var(--slate-sidebar-hover); }
+.slate-app .personal-home { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 16px; margin-top: 24px; }
+.slate-app .personal-home > section { padding: 18px 20px; border-radius: 10px; background: var(--slate-wash); }
+.slate-app .personal-home h2 { font-size: 15px; font-weight: 600; margin: 0 0 12px; }
+.slate-app .personal-home h3 { font-size: 12px; font-weight: 500; color: var(--slate-ink-muted); margin: 14px 0 4px; }
+.slate-app .personal-home ul { list-style: none; padding: 0; margin: 0; }
+.slate-app .navigation-backdrop { display: none; }
+@media (max-width: 700px) {
+  .slate-app .navigation-backdrop { display: block; position: fixed; inset: 61px 0 0 min(320px, 90vw); background: rgb(0 0 0 / .25); border: 0; border-radius: 0; padding: 0; z-index: 35; }
+}
+.slate-app .create-menu-hint { margin-left: auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--slate-ink-muted); font-size: .85em; }

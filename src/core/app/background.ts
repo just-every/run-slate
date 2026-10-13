@@ -31,13 +31,17 @@ export async function scheduledJobs(env:AppBindings){
     ['content', () => runContentJobs(env)],
     ['discovery', () => scheduledDiscovery(env)],
     ['automation', () => scheduledAutomation(env)],
-    ['identity-mail', () => scheduleIdentityMail(env.DB,readRuntimeConfig(env,false),{files:env.FILES,jobs:env.JOBS})],
+    // A cron event comes from the runtime itself, not a remote request; the loopback
+    // APP_URL requirement for LOCAL_DEVELOPMENT still applies.
+    ['identity-mail', () => scheduleIdentityMail(env.DB,readRuntimeConfig(env,true),{files:env.FILES,jobs:env.JOBS})],
   ];
   if (flagship) tasks.push(['intelligence', () => scheduleIntelligence(env)], ['federation', () => scheduleSourceRefreshes(env)]);
-  const outcomes = await Promise.allSettled(tasks.map(([, run]) => run()));
+  const outcomes = await Promise.allSettled(tasks.map(([, run]) => Promise.resolve().then(run)));
   const names = tasks.map(([name]) => name);
   let failed=false;
   for(let i=0;i<outcomes.length;i++)if(outcomes[i]!.status==='fulfilled'){await env.DB.prepare("UPDATE core_job_failures SET state='recovered',updated_at=? WHERE id=?").bind(new Date().toISOString(),`schedule:${names[i]}`).run();}else{failed=true;await env.DB.prepare("INSERT INTO core_job_failures (id,kind,attempts,state,error_code,updated_at) VALUES (?, ?,1,'failed','SCHEDULE_FAILED',?) ON CONFLICT(id) DO UPDATE SET attempts=attempts+1,state='failed',updated_at=excluded.updated_at").bind(`schedule:${names[i]}`,names[i]!,new Date().toISOString()).run();}
   await env.DB.prepare('DELETE FROM request_limits WHERE expires_at<=?').bind(new Date().toISOString()).run();
   if(failed)throw new Error('One or more scheduled domain jobs failed; see owner job status.');
+  // Owner job status also shows when the whole schedule last ran without a failure.
+  await env.DB.prepare("INSERT INTO core_job_failures (id,kind,attempts,state,error_code,updated_at) VALUES ('schedule:last-run','schedule',0,'succeeded','',?) ON CONFLICT(id) DO UPDATE SET updated_at=excluded.updated_at").bind(new Date().toISOString()).run();
 }

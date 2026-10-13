@@ -25,13 +25,13 @@ export function ContainerSettings({
     <section>
       <h4>Space settings</h4>
       <div className="action-row">
-        <button onClick={() => start("details")}>Edit details</button>
+        <button className="secondary-button" onClick={() => start("details")}>Edit details</button>
         {container.visibility !== "personal" ? (
           <>
-            <button onClick={() => start("access")}>
+            <button className="secondary-button" onClick={() => start("access")}>
               {classLed ? "Visibility & public access" : "External access"}
             </button>
-            <button onClick={() => start("archive")}>
+            <button className="secondary-button" onClick={() => start("archive")}>
               {container.archivedAt ? "Restore space" : "Archive space"}
             </button>
           </>
@@ -40,7 +40,7 @@ export function ContainerSettings({
         )}
       </div>
       {container.visibility !== "personal" ? (
-        classLed ? <details><summary>Manage access</summary><ContainerSharing id={container.id}/></details>:<ContainerSharing id={container.id}/>
+        classLed ? <details className="space-access-details"><summary>Manage access</summary><ContainerSharing id={container.id}/></details>:<ContainerSharing id={container.id}/>
       ) : null}
       {action ? (
         <ActionDialog

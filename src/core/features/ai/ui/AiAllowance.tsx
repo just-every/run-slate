@@ -20,21 +20,19 @@ export function AiAllowance() {
     return availability.error ? (
       <p role="alert">{errorMessage(availability.error)}</p>
     ) : null;
-  const configured = state.enabled && state.modelPolicyConfigured;
+  const configured = state.enabled && state.providerConfigured && state.modelPolicyConfigured;
   if (configured && (!state.localProvider || member.data?.role !== "owner")) return null;
   return (
-    <details className="finding" open={!configured}>
+    <details className="finding ai-allowance" open={!configured}>
       <summary>AI allowance</summary>
       <h3>
         {configured ? "Local inference allowance" : state.providerConfigured
           ? "An owner allowance is needed"
-          : "Connect an inference provider"}
+          : "Connect an AI provider"}
       </h3>
       {!state.providerConfigured ? (
         <p>
-          The workspace has no connected inference provider. An owner needs to
-          connect its provider account before Slate can answer. Your page and
-          question remain here.
+          AI answers are not set up for this workspace yet. Your workspace owner can connect an AI provider. Your question stays in this tab when you navigate away.
         </p>
       ) : member.data?.role !== "owner" ? (
         <p>A workspace owner needs to set the allowance for this work.</p>
@@ -101,6 +99,7 @@ export function AiAllowance() {
           before it can run. No work has been charged by this request.
         </p>
       )}
+      {!configured && member.data?.role === "owner" ? <details><summary>Owner setup instructions</summary><p>In your deployment settings, configure an AI provider and its credentials, then enable AI and approve its model policy and allowance. For a local provider, set the allowance above.</p><a href="https://github.com/just-every/run-slate/blob/main/OPERATIONS.md">Open AI setup instructions</a></details> : null}
       {error ? <p role="alert">{errorMessage(error)}</p> : null}
     </details>
   );

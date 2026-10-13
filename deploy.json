@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "project": "just-every/slate",
+  "compatibilityDate": "2026-09-08",
+  "compatibilityFlags": [
+    "nodejs_compat"
+  ],
+  "d1": [
+    {
+      "binding": "DB"
+    }
+  ],
+  "r2": [
+    {
+      "binding": "FILES"
+    }
+  ],
+  "queues": [
+    {
+      "binding": "JOBS",
+      "consumer": {
+        "batch_size": 10,
+        "max_retries": 3
+      }
+    }
+  ],
+  "durableObjects": [
+    {
+      "binding": "CONTENT_COLLABORATION",
+      "className": "ContentCollaboration",
+      "storage": "sqlite"
+    }
+  ],
+  "crons": [
+    "* * * * *"
+  ],
+  "originVar": "APP_URL",
+  "vars": {
+    "SLATE_PROFILE": "core-wiki",
+    "AI_ENABLED": "false",
+    "SSO_ENABLED": "false",
+    "LOCAL_DEVELOPMENT": "false",
+    "MAIL_PROVIDER": "resend",
+    "MAIL_FROM": "auth@example.test"
+  },
+  "secrets": [
+    {
+      "binding": "SETUP_OWNER_EMAIL",
+      "environment": "SLATE_SETUP_OWNER_EMAIL"
+    },
+    {
+      "binding": "SESSION_SECRET",
+      "environment": "SLATE_SESSION_SECRET"
+    },
+    {
+      "binding": "MAIL_API_KEY",
+      "environment": "SLATE_MAIL_API_KEY"
+    }
+  ]
+}

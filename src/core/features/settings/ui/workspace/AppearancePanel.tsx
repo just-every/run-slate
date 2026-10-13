@@ -30,7 +30,6 @@ export function AppearancePanel() {
   }
   return (
     <section className="settings-panel">
-      <p className="eyebrow">MAKE YOURSELF AT HOME</p>
       <h2>A little more you.</h2>
       <RequestState
         loading={resource.loading}

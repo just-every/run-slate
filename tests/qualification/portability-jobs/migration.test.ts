@@ -12,7 +12,7 @@ test('PORT-003 additive migration applies over all originals with populated cano
  // New migration re-applied over the original schema, populated with actual product writes.
  await env.DB.batch(migration.replace(/^--.*$/gm,'').split(';').filter(sql=>sql.trim()).map(sql=>env.DB.prepare(sql)));
  expect((await env.DB.prepare('SELECT * FROM pages').all()).results).toEqual(before.results);
- expect(Object.keys(await schema(env.DB))).toHaveLength(106);expect(portableTables).toHaveLength(106);
+ expect(Object.keys(await schema(env.DB)).sort()).toEqual([...portableTables].sort());
  expect((await env.DB.prepare('PRAGMA foreign_key_list(portability_jobs)').all()).results).toEqual([]);
  await env.DB.prepare('CREATE TABLE portability_unregistered_probe(id TEXT)').run();
  try{await expect(schema(env.DB)).rejects.toMatchObject({code:'UNREGISTERED_PORTABLE_TABLE'});}finally{await env.DB.prepare('DROP TABLE portability_unregistered_probe').run();}

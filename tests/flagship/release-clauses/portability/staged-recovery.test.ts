@@ -1,8 +1,9 @@
 import {afterAll,beforeAll,expect,test} from 'vitest';
 import {env} from 'cloudflare:test';
 import {byteHash} from '../../../../src/core/features/portability/archive';
+import {createApi} from '../../../../src/core/app/hono';
 import {sessionFor} from '../../../e2e/setup/fixtures';
-import {apiJson,exportNativeArchive,finishPages,grantPageView,makeImport,makeInquirySet,makePageTree,makeSkillTrialSet,makeWorkspace,migrationNames,ownerEmail,originalFileBytes,portableSnapshot,resetNative,r2Keys,r2Snapshot,runRestoreThroughApi,stageRestoreThroughApi,tableCounts,type DurableScenario,type InquirySet,type PageSet,type PageTree,type SkillTrialSet,type WorkspaceHarness} from './support';
+import {apiBindings,apiJson,exportNativeArchive,finishPages,grantPageView,makeImport,makeInquirySet,makePageTree,makeSkillTrialSet,makeWorkspace,migrationNames,ownerEmail,originalFileBytes,portableSnapshot,resetNative,r2Keys,r2Snapshot,runRestoreThroughApi,stageRestoreThroughApi,tableCounts,type DurableScenario,type InquirySet,type PageSet,type PageTree,type SkillTrialSet,type WorkspaceHarness} from './support';
 
 let source:DurableScenario;
 let sourceArchive:Awaited<ReturnType<typeof exportNativeArchive>>;
@@ -37,7 +38,8 @@ test('FLAG-002 — staged restore refuses a target that gains a product row and 
   const empty=await target(),staged=await stageRestoreThroughApi(empty,sourceArchive.bytes);
   expect(staged.response.status).toBe(202);
   expect(staged.body.state).toBe('queued');
-  const before=await tableCounts(),beforeSnapshot=await portableSnapshot({omitTables:['groups']}),beforeObjects=await r2Snapshot();
+  // The import fence counter advances on every native write, including the injected group.
+  const before=await tableCounts(),beforeSnapshot=await portableSnapshot({omitTables:['groups','import_native_epoch']}),beforeObjects=await r2Snapshot(),importEpochBefore=await env.DB.prepare('SELECT revision FROM import_native_epoch WHERE id=1').first<number>('revision');
   expect(beforeObjects.map(object=>object.key)).toEqual([`federation/staging/${staged.body.id}/source.zip`]);
   const lateGroupId='release-late-target-group';
   await env.DB.prepare(`CREATE TRIGGER release_portability_add_group_after_admission AFTER UPDATE OF cleanup_json ON portability_jobs WHEN NEW.id='${staged.body.id}' AND OLD.cleanup_json='[]' AND NEW.cleanup_json<>'[]' BEGIN INSERT INTO groups(id,workspace_id,name,created_at,updated_at,revision_id) VALUES('${lateGroupId}','${empty.workspaceId}','Added after restore admission','2026-10-06T00:00:00.000Z','2026-10-06T00:00:00.000Z','release-late-target-revision'); END`).run();
@@ -47,8 +49,9 @@ test('FLAG-002 — staged restore refuses a target that gains a product row and 
   expect(refused.body.report.code).toBe('RESTORE_NOT_EMPTY');
   const afterCounts=await tableCounts();
   expect(afterCounts).toEqual({...before,groups:before.groups+1});
-  const afterSnapshot=await portableSnapshot({omitTables:['groups']});
+  const afterSnapshot=await portableSnapshot({omitTables:['groups','import_native_epoch']});
   expect(afterSnapshot.hash).toBe(beforeSnapshot.hash);
+  expect(await env.DB.prepare('SELECT revision FROM import_native_epoch WHERE id=1').first<number>('revision')).toBe(importEpochBefore!+1);
   expect(await migrationNames()).toEqual(migrations);
   const retained=await env.DB.prepare('SELECT id,workspace_id,name,revision_id FROM groups WHERE id=?').bind(lateGroupId).first<{id:string;workspace_id:string;name:string;revision_id:string}>();
   expect(retained).toEqual({id:lateGroupId,workspace_id:empty.workspaceId,name:'Added after restore admission',revision_id:'release-late-target-revision'});
@@ -66,15 +69,36 @@ test('FLAG-002 — restore rechecks current setup-owner authority inside the can
   await resetNative();
   const empty=await target(),staged=await stageRestoreThroughApi(empty,sourceArchive.bytes);
   expect(staged.response.status).toBe(202);
-  const before=await tableCounts(),beforeSnapshot=await portableSnapshot({omitSetupOwner:true}),beforeObjects=await r2Snapshot(),epochBefore=await env.DB.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first<number>('epoch');
-  await env.DB.prepare(`CREATE TRIGGER release_portability_revoke_setup_owner AFTER UPDATE OF cleanup_json ON portability_jobs WHEN NEW.id='${staged.body.id}' BEGIN UPDATE members SET is_setup_owner=0 WHERE id='${empty.ownerId}'; UPDATE core_acl_epoch SET epoch=epoch-1 WHERE id=1; END`).run();
-  const refused=await runRestoreThroughApi(empty,staged.body.id);
+  // The import fence counter advances once for the injected setup-owner revocation.
+  const before=await tableCounts(),beforeSnapshot=await portableSnapshot({omitSetupOwner:true,omitTables:['import_native_epoch']}),beforeObjects=await r2Snapshot(),importEpochBefore=await env.DB.prepare('SELECT revision FROM import_native_epoch WHERE id=1').first<number>('revision'),epochBefore=await env.DB.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first<number>('epoch');
+  const restoreId=await env.DB.prepare('SELECT planned_restore_id FROM portability_jobs WHERE id=?').bind(staged.body.id).first<string>('planned_restore_id');
+  const remainingKeys=new Set(sourceArchive.manifest.blobs.map(blob=>`federation/restore/${restoreId}/${blob.entry}`));
+  // Labelled race only: every byte is written to native R2 before revocation.
+  // Inject after the last put so the unchanged atomic setup-owner guard is exercised.
+  const files=new Proxy(env.FILES,{get(bucket,property){
+    if(property==='put')return async(...args:Parameters<R2Bucket['put']>)=>{
+      const result=await bucket.put(...args);
+      if(result&&remainingKeys.delete(args[0])&&remainingKeys.size===0){
+        await env.DB.batch([
+          env.DB.prepare('UPDATE members SET is_setup_owner=0 WHERE id=?').bind(empty.ownerId),
+          env.DB.prepare('UPDATE core_acl_epoch SET epoch=epoch-1 WHERE id=1'),
+        ]);
+      }
+      return result;
+    };
+    const value=Reflect.get(bucket,property);return typeof value==='function'?value.bind(bucket):value;
+  }});
+  const response=await createApi().request(`https://slate.example/api/exports/jobs/${staged.body.id}/run`,{
+    method:'POST',headers:{cookie:await sessionFor(empty.ownerId,{freshProof:true}),origin:'https://slate.example'},
+  },{...apiBindings('flagship'),FILES:files} as never);
+  const refused={response,body:await response.json() as Awaited<ReturnType<typeof runRestoreThroughApi>>['body']};
   expect(refused.response.status).toBe(200);
   expect(refused.body.state).toBe('failed');
   expect(refused.body.report.code).toBe('RESTORE_FAILED');
   expect(await tableCounts()).toEqual(before);
-  const afterSnapshot=await portableSnapshot({omitSetupOwner:true});
+  const afterSnapshot=await portableSnapshot({omitSetupOwner:true,omitTables:['import_native_epoch']});
   expect(afterSnapshot.hash).toBe(beforeSnapshot.hash);
+  expect(await env.DB.prepare('SELECT revision FROM import_native_epoch WHERE id=1').first<number>('revision')).toBe(importEpochBefore!+1);
   const owner=await env.DB.prepare('SELECT id,email,role,status,is_setup_owner FROM members WHERE id=?').bind(empty.ownerId).first<{id:string;email:string;role:string;status:string;is_setup_owner:number}>();
   expect(owner).toEqual({id:empty.ownerId,email:source.ownerEmail,role:'owner',status:'active',is_setup_owner:0});
   expect(await env.DB.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first<number>('epoch')).toBe(epochBefore);
@@ -106,7 +130,7 @@ test('FLAG-002 — a second empty target restores the complete archive, imported
   expect(actualCounts).toEqual(expectedCounts);
   const afterD1=await portableSnapshot();
   expect(afterD1.counts).toEqual(expectedCounts);
-  const cookie=await sessionFor(source.ownerId);
+  const cookie=await sessionFor(source.ownerId,{freshProof:true});
   const page=await apiJson(`/api/pages/${source.pages.rootId}`,cookie,'flagship');
   expect(page.status).toBe(200);
   const inquiry=await apiJson(`/api/inquiries/${source.inquiryId}`,cookie,'flagship');

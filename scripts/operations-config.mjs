@@ -1,28 +1,16 @@
-import { readDeploymentInput } from './deployment.mjs';
+import { fileURLToPath } from 'node:url';
+import { checkOperationCommands } from './check-operation-commands.mjs';
 
-// Pure local validation. Never authenticates, provisions or prints input values.
+// Validate declared deploy-kit inputs locally; never contact providers or print values.
 export function validateConfiguration(env) {
-  // Parse APP_URL even when an explicit public host bypasses deployment fallback.
-  // Match runtime syntax without importing TypeScript or installed dependencies.
-  let appUrl;
-  try { appUrl = new URL(env.SLATE_APP_URL); } catch { throw new Error('Invalid APP_URL.'); }
-  if (!['http:', 'https:'].includes(appUrl.protocol)) throw new Error('Invalid APP_URL.');
-  const publicHost = env.SLATE_PUBLIC_PAGE_HOST?.trim();
-  if (publicHost && !/^[a-z0-9.-]+(?::\d{1,5})?$/i.test(publicHost)) throw new Error('Invalid PUBLIC_PAGE_HOST.');
-  if (env.SLATE_AI_PROVIDER && env.SLATE_AI_PROVIDER !== 'openai') throw new Error('Invalid hosted AI_PROVIDER.');
-  const input = readDeploymentInput(env);
-  let oauthConfigured = false;
-  for (const provider of ['GOOGLE', 'SLACK', 'GITHUB']) {
-    const id = env[`SLATE_${provider}_CLIENT_ID`]?.trim();
-    const secret = env[`SLATE_${provider}_CLIENT_SECRET`]?.trim();
-    if (id || secret) {
-      if (!id || !secret) throw new Error('Incomplete OAuth configuration.');
-      oauthConfigured = true;
-    }
+  checkOperationCommands(fileURLToPath(new URL('../', import.meta.url)));
+  const required = ['CLOUDFLARE_ACCOUNT_ID', 'CLOUDFLARE_API_TOKEN', 'SLATE_SETUP_OWNER_EMAIL', 'SLATE_MAIL_PROVIDER', 'SLATE_MAIL_FROM', 'SLATE_SESSION_SECRET', 'SLATE_MAIL_API_KEY'];
+  const missing = required.filter(name => !env[name]?.trim());
+  if (missing.length) throw new Error(`Missing deployment inputs: ${missing.join(', ')}.`);
+  if (!/^[a-f0-9]{32}$/i.test(env.CLOUDFLARE_ACCOUNT_ID)) throw new Error('Invalid CLOUDFLARE_ACCOUNT_ID.');
+  if (!['resend', 'sendgrid'].includes(env.SLATE_MAIL_PROVIDER)) throw new Error('Invalid SLATE_MAIL_PROVIDER.');
+  for (const name of ['SLATE_SETUP_OWNER_EMAIL', 'SLATE_MAIL_FROM']) {
+    if (!/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(env[name])) throw new Error(`Invalid ${name}.`);
   }
-  if (oauthConfigured && (env.SLATE_CONNECTOR_CREDENTIALS_KEY?.trim().length ?? 0) < 32) throw new Error('Invalid connector custody key.');
-  const required = ['SLATE_SESSION_SECRET', 'SLATE_MAIL_API_KEY'];
-  if (input.aiEnabled === 'true') required.push('SLATE_AI_API_KEY');
-  if (input.ssoEnabled === 'true') required.push('SLATE_IDENTITY_CLIENT_SECRET');
-  if (required.some(name => !env[name]?.trim())) throw new Error('Missing setup secret.');
+  if (env.SLATE_SESSION_SECRET.trim().length < 32) throw new Error('Invalid SLATE_SESSION_SECRET.');
 }

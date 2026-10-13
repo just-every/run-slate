@@ -4,6 +4,7 @@ import { requirePageLevel, requireContainerLevel, resolveCurrentAccess } from '.
 import { pageRow } from './repository';
 import { readPage } from './service';
 import { commitOperation } from '../../app/operations';
+import { effectiveStatusSql } from '../page-status/state';
 export async function contentQuery(ctx: FeatureContext, pageId: string, definition: {
     container?: string;
     ancestor?: string;
@@ -31,7 +32,9 @@ export async function contentQuery(ctx: FeatureContext, pageId: string, definiti
             throw new ApiProblem(404, 'QUERY_SOURCE_UNAVAILABLE', 'The query source is unavailable.');
         }
     }
-    const rows = (await ctx.db.prepare("SELECT id FROM pages WHERE workspace_id=? AND lifecycle IN ('live','live-with-unpublished-changes') AND deleted_at IS NULL AND trashed_at IS NULL AND archived_at IS NULL AND (? IS NULL OR container_id=?) AND (? IS NULL OR page_kind=?) AND (? IS NULL OR status_key=?) ORDER BY updated_at DESC,id").bind(ctx.actor.workspaceId, definition.container ?? null, definition.container ?? null, definition.pageType ?? null, definition.pageType ?? null, definition.status ?? null, definition.status ?? null).all<{
+    // STAT-004: an attested status filters by what readers see; a lapsed or changed-since
+    // verification matches `lapsed`, never the attested status.
+    const rows = (await ctx.db.prepare(`SELECT p.id FROM pages p WHERE p.workspace_id=? AND p.lifecycle IN ('live','live-with-unpublished-changes') AND p.deleted_at IS NULL AND p.trashed_at IS NULL AND p.archived_at IS NULL AND (? IS NULL OR p.container_id=?) AND (? IS NULL OR p.page_kind=?) AND (? IS NULL OR ${effectiveStatusSql('p', '?')}=?) ORDER BY p.updated_at DESC,p.id`).bind(ctx.actor.workspaceId, definition.container ?? null, definition.container ?? null, definition.pageType ?? null, definition.pageType ?? null, definition.status ?? null, ctx.now, definition.status ?? null).all<{
         id: string;
     }>()).results;
     const items = [];

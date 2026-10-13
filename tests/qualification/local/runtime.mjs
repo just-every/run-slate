@@ -1,3 +1,4 @@
+import {testDevKey} from '../../e2e/dev-key.mjs';
 import {randomUUID} from 'node:crypto';
 import {readFile,writeFile,mkdir,mkdtemp} from 'node:fs/promises';
 import {createServer} from 'node:net';
@@ -7,10 +8,10 @@ import {identity} from './identity.mjs';
 import {qualificationPorts} from './ports.mjs';
 async function free(port){const server=createServer();await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(port,'127.0.0.1',resolve);});await new Promise((resolve,reject)=>server.close(e=>e?reject(e):resolve()));}
 /** Real emitted Worker. Caller must close in finally. No provider credentials are inherited. */
-export async function createRuntime({root,evidence,appPort,inspectorPort,portRange,omitVariables=[],expectedHealthStatus=200}){
+export async function createRuntime({root,evidence,appPort,inspectorPort,portRange,omitVariables=[],expectedHealthStatus=200,mailProvider='development'}){
  const ports=qualificationPorts(appPort,inspectorPort,portRange);
  if(![200,503].includes(expectedHealthStatus))throw Error('Expected health must be 200 or explicit negative 503');
- const allowedOmissions=['APP_URL','SETUP_OWNER_EMAIL','SESSION_SECRET','MAIL_FROM','MAIL_API_KEY'];if(omitVariables.some(x=>!allowedOmissions.includes(x)))throw Error('Only required configuration may be omitted');
+ const allowedOmissions=['APP_URL','SETUP_OWNER_EMAIL','SESSION_SECRET','MAIL_PROVIDER','MAIL_FROM','MAIL_API_KEY'];if(omitVariables.some(x=>!allowedOmissions.includes(x)))throw Error('Only required configuration may be omitted');
  if(appPort===inspectorPort)throw Error('App and inspector ports must differ');
  root=path.resolve(root);evidence=path.resolve(evidence);await mkdir(evidence,{recursive:true});
  const directory=await mkdtemp(path.join(evidence,'runtime-')),persist=path.join(directory,'state'),configPath=path.join(directory,'wrangler.json');
@@ -18,7 +19,7 @@ export async function createRuntime({root,evidence,appPort,inspectorPort,portRan
  const origin=`http://127.0.0.1:${appPort}`,sessionSecret=randomUUID();let proc;let generation=0;let storageQueue=Promise.resolve();const storageOperations=[];
  const artifact=await identity(root);await writeFile(path.join(directory,'identity.json'),JSON.stringify(artifact,null,2));
  const server=path.join(root,'dist/server'),emitted=JSON.parse(await readFile(path.join(server,'wrangler.json'),'utf8'));
- const config={...emitted,main:path.resolve(server,emitted.main),assets:{...emitted.assets,directory:path.resolve(server,emitted.assets.directory)},d1_databases:emitted.d1_databases.map(db=>({...db,migrations_dir:path.join(root,'migrations/core')})),vars:{...(process.env.SLATE_PROFILE ? {SLATE_PROFILE:process.env.SLATE_PROFILE} : {}),APP_URL:origin,SETUP_OWNER_EMAIL:'qualification-owner@test.invalid',SESSION_SECRET:sessionSecret,MAIL_FROM:'qualification@test.invalid',MAIL_API_KEY:'TEST-FIXTURE-NOT-A-PROVIDER-CREDENTIAL',LOCAL_SAMPLE_DATA:'false',AI_ENABLED:'false',SSO_ENABLED:'false',LINK_PREVIEWS_ENABLED:'false'},no_bundle:true};
+ const config={...emitted,main:path.resolve(server,emitted.main),assets:{...emitted.assets,directory:path.resolve(server,emitted.assets.directory)},d1_databases:emitted.d1_databases.map(db=>({...db,migrations_dir:path.join(root,'migrations/core')})),vars:{...(process.env.SLATE_PROFILE ? {SLATE_PROFILE:process.env.SLATE_PROFILE} : {}),APP_URL:origin,SETUP_OWNER_EMAIL:'qualification-owner@test.invalid',SESSION_SECRET:sessionSecret,MAIL_PROVIDER:mailProvider, MAIL_FROM:'qualification@test.invalid',MAIL_API_KEY:'TEST-FIXTURE-NOT-A-PROVIDER-CREDENTIAL',LOCAL_DEVELOPMENT:mailProvider==='development'?'true':'false',...(mailProvider==='development'?{RER_DEV_KEY:testDevKey}:{}),AI_ENABLED:'false',SSO_ENABLED:'false',LINK_PREVIEWS_ENABLED:'false'},no_bundle:true};
  for(const name of omitVariables)delete config.vars[name];
  await writeFile(configPath,JSON.stringify(config,null,2),{mode:0o600});
  const cli=path.join(root,'node_modules/wrangler/bin/wrangler.js');

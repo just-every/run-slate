@@ -1,0 +1,120 @@
+.proposal-diff { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.proposal-review .finding { margin-block: 20px; }
+.finding pre { white-space: pre-wrap; overflow-wrap: anywhere; max-width: 100%; }
+.inquiry-document .hypotheses, .trial-bounds { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 16px; }
+@media (max-width: 700px) { .proposal-diff { grid-template-columns: minmax(0, 1fr); } }
+.slate-app .page-outline { margin-block: 4px 24px; border: 1px solid var(--slate-line); border-radius: 8px; background: var(--slate-wash); color: var(--slate-ink-muted); }
+.slate-app .page-outline > summary { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 0; background-color: var(--slate-wash); color: var(--slate-ink-muted); font-size: 13px; list-style: none; }
+.slate-app .page-outline > summary::-webkit-details-marker { display: none; }
+.slate-app .page-outline > summary::before { content: ""; width: 0; height: 0; border-block: 4px solid transparent; border-left: 6px solid currentColor; transition: transform 120ms ease; }
+.slate-app .page-outline[open] > summary::before { transform: rotate(90deg); }
+.page-presentation { width: 100vw; height: 100dvh; max-width: none; max-height: none; border: 0; padding: 10vh max(24px, calc((100vw - 950px) / 2)); background: var(--slate-bg); color: var(--slate-ink); }
+.page-presentation article { max-height: 75dvh; overflow: auto; }
+.page-presentation footer { display: flex; justify-content: space-between; gap: 24px; margin-top: 36px; }
+.presentation-close { position: absolute; top: 22px; right: 24px; }
+@media print { .sidebar,.topbar,.mobile-bar,.right,.editor-actions,.page-outline { display: none !important; } .slate-app .app,.slate-app .content-frame { display: block; } .slate-app .main { width: 100%; padding: 0; } }
+
+/* Existing review language, with long native record identifiers kept readable. */
+.slate-app .native-effect { min-width: 0; overflow-wrap: anywhere; }
+.slate-app .native-effect summary { cursor: pointer; padding-block: 12px; }
+.slate-app .native-effect .detail-form { min-width: 0; }
+.slate-app .native-effect input,
+.slate-app .native-effect select,
+.slate-app .native-effect textarea { min-width: 0; max-width: 100%; box-sizing: border-box; }
+.slate-app .native-effect-details { display: grid; gap: 16px; margin: 20px 0; }
+.slate-app .native-effect-details dt { font-size: 12px; color: var(--slate-ink-muted); margin-bottom: 5px; }
+.slate-app .native-effect-details dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.slate-app .native-effect-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+.slate-app .native-effect-adjust { border: 1px solid var(--slate-line-strong); border-radius: 6px; padding: 12px 20px; min-height: 44px; }
+.slate-app .native-effect button:focus-visible,
+.slate-app .native-effect summary:focus-visible { outline: 2px solid var(--slate-accent); outline-offset: 3px; }
+
+.slate-app .native-effect fieldset { display: grid; gap: 14px; min-width: 0; padding: 16px 0; border: 0; }
+.slate-app .native-effect fieldset legend { font-size: 13px; padding: 0; }
+.slate-app .native-effect fieldset button { justify-self: start; }
+
+.slate-app .shortcut {color:var(--slate-ink-muted)}
+.slate-app .record-peek {max-height:95dvh;overflow:auto;border:1px solid var(--slate-line);background:var(--slate-surface);color:var(--slate-ink);padding:16px}
+.slate-app .record-peek-side {width:min(850px,95vw);margin:2.5dvh 0 2.5dvh auto}
+.slate-app .record-peek-center {width:min(1000px,95vw);margin:2.5dvh auto}
+.slate-app .record-peek .main {padding:20px;max-width:100%}
+.slate-app .page-status-chip {display:inline-block;border:1px solid currentColor;border-radius:12px;padding:2px 8px;font-size:12px;margin-inline:8px}
+.slate-app .favourite-row {display:flex;align-items:center;gap:4px;min-width:0}.slate-app .favourite-row>a {min-width:0;flex:1}
+.slate-app .tools {flex-wrap:wrap}
+
+.search-context { padding: .6rem 1rem; background: #fff5d7; color: #282820; }
+
+/* Navigation and disclosure controls remain operable by touch at every size. */
+.slate-app .sidebar-toggle {min-height:44px;min-width:44px;padding:10px;}
+.slate-app summary {padding-block:4px;box-sizing:border-box;cursor:pointer;}
+@media (max-width:700px) {.slate-app button {min-height:44px;}.slate-app .iconbutton {min-width:36px;}}
+
+.slate-app .public-page-banner {display:flex;flex-wrap:wrap;align-items:center;gap:10px;border:1px solid var(--slate-line);padding:12px;margin-bottom:20px;font-size:14px;}
+
+.slate-app .scheduled-publication {display:block;font-size:11px;white-space:normal;line-height:1.5;}
+
+.slate-app .template-snapshot {border:1px solid var(--slate-line);padding:20px;margin-block:16px;overflow-wrap:anywhere;}
+.slate-app .template-snapshot[data-typeface="serif"] {font-family:Georgia,serif;}.slate-app .template-snapshot[data-typeface="mono"] {font-family:monospace;}.slate-app .template-snapshot[data-small-text="true"] {font-size:13px;}
+
+.slate-app .reaction-controls {flex-wrap:wrap;font-size:13px;}.slate-app .reaction-controls label{gap:4px;}
+.slate-app .personal-home li > a {display:block;min-height:32px;padding:6px 0;line-height:20px;}
+@media(max-width:700px){.slate-app .personal-home li > a {min-height:44px;padding:12px 0;}}
+
+.transfer-counts > div { display: flex; justify-content: space-between; gap: 16px; padding-block: 4px; }
+.transfer-counts dt { overflow-wrap: anywhere; }
+.transfer-counts dd { margin: 0; font-variant-numeric: tabular-nums; }
+
+.slate-app .transfer-action { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; }
+
+/* Keep the reading/writing path clear without removing contextual actions. */
+.slate-app .page-reading-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.slate-app .reaction-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.slate-app .reaction-controls label {
+  display: inline-flex;
+}
+.slate-app .reaction-controls select {
+  min-width: 46px;
+}
+.slate-app .search-form {
+  display: flex;
+  gap: 12px;
+  margin-block: 24px;
+}
+.slate-app .search-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--slate-line);
+  border-radius: 4px;
+}
+.slate-app .search-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.slate-app .search-refinements {
+  margin-bottom: 12px;
+}
+.slate-app .search-results {
+  list-style: none;
+  padding: 0;
+  margin-block: 24px;
+}
+.slate-app .search-results li {
+  padding-block: 16px;
+  border-block-end: 1px solid var(--slate-line);
+}
+.slate-app .search-results h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-block: 4px 8px;
+}

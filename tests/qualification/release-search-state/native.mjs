@@ -29,6 +29,7 @@ try {
    await page.goto(r.origin+'/app/search?containerId='+container.id,{waitUntil:'commit'});
    const query=page.getByRole('searchbox',{name:'Search your workspace',exact:true});
    await query.waitFor();
+   await page.locator('.search-options > summary').click();
    const earlyActions=Promise.all([
     page.getByRole('combobox',{name:'Look in',exact:true}).selectOption('page'),query.fill(title)
    ]);
@@ -50,13 +51,12 @@ try {
    await expect(query).toHaveValue(title);
    assert.deepEqual([...new URL(page.url()).searchParams], [['q',title]]);
    await page.getByRole('button',{name:'Create a page titled “'+title+'”',exact:true}).click();
-   const dialog=page.getByRole('dialog',{name:'Create a page',exact:true});await dialog.waitFor();
-   await expect(dialog.getByLabel('Page title',{exact:true})).toHaveValue(title);
-   await dialog.getByLabel('Container',{exact:true}).selectOption(container.id);
-   await dialog.getByRole('button',{name:'Create page',exact:true}).click();
    await page.waitForURL('**/app/pages/*');
    const id=new URL(page.url()).pathname.split('/').at(-1);
-   assert.equal((await api(r,'/api/pages/'+id,owner)).data.page.title,title);
+   const created=(await api(r,'/api/pages/'+id,owner)).data;
+   assert.equal(created.page.title,title);
+   assert.equal(created.page.containerId,container.id);
+   assert.equal((await api(r,'/api/containers',owner)).data.items.find(item=>item.id===created.page.containerId)?.permissions.canCreatePages,true);
    assert.equal((await api(r,'/api/search?q='+encodeURIComponent('"'+title+'"'),owner)).data.total,1);
   } catch(error) {
    await writeFile(r.directory+'/early-input-failure.txt',await page.locator('body').ariaSnapshot());
@@ -70,6 +70,7 @@ try {
    const params=new URLSearchParams({q:query,kind:'page',containerId:container.id,contributorId:'qualification-owner',includeArchived:'true',updatedFrom:'2020-01-01',updatedTo:'2099-01-01',includeTrashed:'true',isAdmin:'true',results:'forged private text'});
    await page.goto(r.origin+'/app/search?'+params);
    const result=page.locator('.search-results a').filter({hasText:query});await result.waitFor();
+   await page.locator('.search-options > summary').click();
    await expect(page.getByRole('searchbox',{name:'Search your workspace',exact:true})).toHaveValue(query);
    await expect(page.getByRole('combobox',{name:'Look in',exact:true})).toHaveValue('page');
    await expect(page.getByRole('checkbox',{name:'Include archive',exact:true})).toBeChecked();
@@ -84,6 +85,7 @@ try {
    await result.click();await page.waitForURL('**/app/pages/*?highlight=*');const destination=page.url();
    await page.goBack();await result.waitFor();assert.equal(page.url(),retained);
    await expect(page.getByRole('searchbox',{name:'Search your workspace',exact:true})).toHaveValue(query);
+   await page.locator('.search-options > summary').click();
    await expect(page.getByRole('combobox',{name:'Look in',exact:true})).toHaveValue('page');
    await page.goForward();await page.waitForURL(destination);
   } finally {await page.close();}

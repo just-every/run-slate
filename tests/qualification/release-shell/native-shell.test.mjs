@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import { chromium } from '@playwright/test';
-import { applyMigrations, localSampleVars, signInLocally, stop } from '../../e2e/runtime-harness.mjs';
+import { applyMigrations, seedAuroraFixture, localDevelopmentVars, signInLocally, stop } from '../../e2e/runtime-harness.mjs';
 import { startShellWorker } from './runtime.mjs';
 
 // WORK-001/013, SEARCH-003/006, BASE-ACCESS-002/004, BASE-PUBLIC-003.
@@ -16,13 +16,14 @@ for (const profile of ['core-wiki', 'flagship']) {
     const failures = [];
     try {
       await applyMigrations(state);
-      runtime = await startShellWorker(state, { ...localSampleVars, ...(profile === 'flagship' ? { SLATE_PROFILE: profile } : {}) });
+    await seedAuroraFixture(state);
+      runtime = await startShellWorker(state, { ...localDevelopmentVars, ...(profile === 'flagship' ? { SLATE_PROFILE: profile } : {}) });
       const { cookie, body: { member } } = await signInLocally(runtime.baseUrl);
       const api = async (route, init = {}) => fetch(runtime.baseUrl + route, { ...init, headers: { cookie, origin: runtime.baseUrl, ...init.headers } });
       const initial = await (await api('/app')).text();
-      assert.ok(initial.includes(`data-testid="member-name">${member.displayName}</`));
+      // Setup names the signed-in owner by address; the workspace has no name of its own until step 1.
+      assert.ok(initial.includes(`data-testid="member-email"`) && initial.includes(member.email));
       assert.ok(initial.includes('Name this workspace'));
-      assert.ok(initial.includes(`data-testid="workspace-name">${member.workspaceName}</`));
       assert.equal((await (await api('/api/workspace/first-run')).json()).required, true);
       assert.equal((await (await api('/api/profile')).json()).profile, profile);
       browser = await chromium.launch();
@@ -42,11 +43,11 @@ for (const profile of ['core-wiki', 'flagship']) {
         await page.screenshot({ path: path.join(process.env.SHELL_EVIDENCE, `${profile}-${label}.jpg`), fullPage: true, type: 'jpeg', quality: 85 });
       };
       await page.goto(runtime.baseUrl + '/app', { waitUntil: 'networkidle' });
-      assert.equal(await page.getByText(member.displayName, { exact: true }).isVisible(), true);
+      assert.equal(await page.getByText(member.email, { exact: true }).isVisible(), true);
       assert.equal(await page.getByRole('button', { name: 'Create', exact: true }).count(), 0);
       await capture('first-use-desktop');
       await page.setViewportSize({ width: 390, height: 844 });
-      assert.equal(await page.getByText(member.displayName, { exact: true }).isVisible(), true);
+      assert.equal(await page.getByText(member.email, { exact: true }).isVisible(), true);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
       await capture('first-use-mobile');
       const origin = await page.evaluate(() => performance.timeOrigin);
@@ -59,7 +60,13 @@ for (const profile of ['core-wiki', 'flagship']) {
       await page.getByLabel('Workspace name', { exact: true }).fill('Shell qualification workspace');
       await page.getByRole('button', { name: 'Continue', exact: true }).click();
       assert.equal(await page.getByRole('button', { name: 'Continue', exact: true }).isDisabled(), true);
-      await page.getByPlaceholder('Customer Success').fill('Shell qualification space');
+      // A reload of /setup keeps the step and what was typed.
+      await page.reload({ waitUntil: 'networkidle' });
+      await page.getByRole('textbox', { name: 'Space name', exact: true }).waitFor();
+      await page.getByRole('button', { name: 'Back', exact: true }).click();
+      assert.equal(await page.getByLabel('Workspace name', { exact: true }).inputValue(), 'Shell qualification workspace');
+      await page.getByRole('button', { name: 'Continue', exact: true }).click();
+      await page.getByRole('textbox', { name: 'Space name', exact: true }).fill('Shell qualification space');
       await page.getByLabel('First page title', { exact: true }).fill('Shell qualification page');
       await page.getByRole('button', { name: 'Continue', exact: true }).click();
       await page.getByLabel('Email addresses', { exact: true }).fill('invalid');
@@ -86,9 +93,10 @@ for (const profile of ['core-wiki', 'flagship']) {
       const returningOrigin = await page.evaluate(() => performance.timeOrigin);
       await page.getByRole('navigation', { name: 'Workspace navigation', exact: true }).getByRole('link', { name: /Search/ }).click();
       await page.waitForURL('**/app/search');
-      await page.getByRole('heading', { name: 'A thought away.', exact: true }).waitFor();
+      await page.getByRole('heading', { name: 'Search your workspace', exact: true }).waitFor();
       assert.equal(await page.evaluate(() => performance.timeOrigin), returningOrigin);
       assert.equal(await page.getByRole('button', { name: 'Open navigation', exact: true }).isVisible(), true);
+      await page.locator('.search-options > summary').click();
       assert.equal(await page.getByRole('combobox', { name: 'Look in', exact: true }).isVisible(), true);
       await page.getByRole('combobox', { name: 'Look in', exact: true }).selectOption('page');
       await capture('search-mobile');
@@ -102,6 +110,7 @@ for (const profile of ['core-wiki', 'flagship']) {
       await page.waitForURL(url => url.pathname === '/app' && !url.hash);
       assert.equal(await page.evaluate(() => performance.timeOrigin), returningOrigin);
       await page.goto(runtime.baseUrl + '/app/search?containerId=' + encodeURIComponent(containers[0].id));
+      await page.getByText('Search options & saved searches', { exact: true }).click();
       await page.getByText('Refine your search', { exact: true }).click();
       await page.getByRole('combobox', { name: 'Space', exact: true }).locator(`option[value="${containers[0].id}"]`).waitFor({ state: 'attached' });
       assert.equal(await page.getByRole('combobox', { name: 'Space', exact: true }).inputValue(), containers[0].id);

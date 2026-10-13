@@ -1,3 +1,5 @@
+import { deploymentHealth } from "../../base/runtime/deployment-health";
+import {editorConfig} from "./editor-config";
 import { assertRequestOrigin, enforceRateLimit } from "./http-security";
 import { ApiProblem } from "./problems";
 import { invalidateContentRooms } from "../features/collaboration/invalidation";
@@ -5,10 +7,11 @@ import { authenticateExternalAgent } from "../features/external-agent/credential
 import { ZodError } from "zod";
 import { Hono } from "hono";
 import { createSessionRoutes, createSessionService } from "../features/session";
+import { sessionOptions } from "../features/session/service";
+import { BASE_AUTH_PATHS } from "../features/session/routes";
 import { probeDependencies } from "../platform/health";
 import { RuntimeConfigurationError } from "../platform/config/runtime";
 import { error } from "../shared/errors";
-import { seedLocalAuroraSampleData } from "./local-sample-data";
 import { mountFeatures } from "./mount-features";
 import { runtimeConfigFor, assertStoredConfiguration } from "./runtime-gate";
 import type { AppEnvironment } from "./types";
@@ -19,7 +22,8 @@ import type { AppEnvironment } from "./types";
  * or a catch-all.
  */
 export function isHonoRequest(pathname: string): boolean {
-  return pathname === "/health"
+  return BASE_AUTH_PATHS.has(pathname)
+    || pathname === "/health"
     || pathname === "/api"
     || pathname.startsWith("/api/")
     || pathname === "/p"
@@ -27,7 +31,7 @@ export function isHonoRequest(pathname: string): boolean {
 }
 
 /** `/api/` members that answer without a native session. Everything else does not. */
-const publicApiPaths = new Set(["/api/auth/capabilities", "/api/auth/local-sign-in", "/api/auth/logout", "/api/auth/magic", "/api/auth/magic/status", "/api/auth/magic/accept", "/api/auth/invitation/accept", "/api/auth/identity", "/api/auth/identity/callback"]);
+const publicApiPaths = new Set(["/api/auth/capabilities", "/api/auth/logout", "/api/auth/magic", "/api/auth/magic/status", "/api/auth/magic/accept", "/api/auth/invitation/accept", "/api/auth/identity/callback"]);
 
 export function createApi() {
   const app = new Hono<AppEnvironment>()
@@ -42,7 +46,7 @@ export function createApi() {
       context.header('Referrer-Policy','same-origin');
       context.header('Cache-Control','no-store');
       const path=new URL(context.req.url).pathname;
-      if(path.startsWith('/api/auth/')) await enforceRateLimit(context,'auth',120);
+      if(path.startsWith('/api/auth/')||BASE_AUTH_PATHS.has(path)) await enforceRateLimit(context,'auth',120);
       else if(path.startsWith('/p/')) await enforceRateLimit(context,'public-page',120);
       await next();
       if(!['GET','HEAD','OPTIONS'].includes(context.req.method)&&context.res.ok&&(path==='/api/auth/logout'||/^\/api\/(sharing|groups|members|workspace)(?:\/|$)/.test(path))) await invalidateContentRooms(context.env);
@@ -51,8 +55,9 @@ export function createApi() {
     // matching, so an anonymous unknown member keeps the native 401 and only a
     // valid session reaches the Hono 404.
     .use("/api/*", async (context, next) => {
-      const service = createSessionService(context.env.DB, context.get("runtimeConfig").sessionSecret);
-      let member = await service.authenticate(context.req.raw.headers);
+      const current = await createSessionService(context.env.DB, sessionOptions(context.get("runtimeConfig"))).current(context.req.raw);
+      if (current) context.set("sessionId", current.session.id);
+      let member = current?.member ?? null;
       const pathname=new URL(context.req.url).pathname;
       if(!member&&(pathname==="/api/agent"||pathname.startsWith("/api/agent/")))member=await authenticateExternalAgent(context.env.DB,context.req.raw.headers);
       if (member) { context.set("member", member); await enforceRateLimit(context,`operator:${member.id}`,600); }
@@ -61,21 +66,28 @@ export function createApi() {
       }
       await next();
     })
-    .use('/p/*',async(context,next)=>{const member=await createSessionService(context.env.DB,context.get('runtimeConfig').sessionSecret).authenticate(context.req.raw.headers);if(member)context.set('member',member);await next();})
+    .use('/p/*',async(context,next)=>{const member=await createSessionService(context.env.DB,sessionOptions(context.get('runtimeConfig'))).authenticate(context.req.raw);if(member)context.set('member',member);await next();})
     .get("/health", async (context) => {
       try {
         await assertStoredConfiguration(context.env);
         await enforceRateLimit(context,'health',120);
         const checks = await probeDependencies({ database: context.env.DB, files: context.env.FILES, jobs: context.env.JOBS });
-        return context.json({ status: "ok", checks });
+        // Base's deploy-identity check reads `ok` and `deployment` after every upload.
+        return context.json({ status: "ok", checks, ...deploymentHealth(context.env) });
       } catch (cause) {
         if(cause instanceof ApiProblem||cause instanceof RuntimeConfigurationError)throw cause;
         return context.json(error("DEPENDENCY_UNAVAILABLE", "A Slate dependency is unavailable."), 503);
       }
     })
-    .route("/", createSessionRoutes({ seedLocalSampleData: seedLocalAuroraSampleData }))
+    .route("/", createSessionRoutes())
 ;
 
+  app.get('/api/editor/config', context => {
+    if (context.get('member')?.role !== 'owner') return context.json(error('FORBIDDEN', 'Workspace owner authority is required.'), 403);
+    const config = editorConfig(context.env);
+    if (!config) return context.json(error('EDITOR_DISABLED', 'The editor is not configured for this installation.'), 503);
+    return context.json({config, expiresAt: Date.now() + 30_000});
+  });
   mountFeatures(app);
 
   app.notFound((context) => context.json(error("NOT_FOUND", "Not found."), 404));

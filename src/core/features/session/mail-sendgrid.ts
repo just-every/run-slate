@@ -1,4 +1,4 @@
-import { sendSendGrid } from '../../../../modules/base-mail/src/adapters/sendgrid/index.mjs';
+import { createMailSender } from '../../../../modules/mail/src/sender.mjs';
 import type { RuntimeConfig } from '../../platform/config/runtime';
 import type { MailPayload } from './mail-admission';
 import type { MailRow } from './mail-authority';
@@ -10,7 +10,7 @@ export async function holdUncertainMail(db: D1Database, id: string, now: string)
 
 /** One Base Mail submission, following the already committed attempt ownership. */
 export async function deliverSendGridIdentity(db: D1Database, config: RuntimeConfig, row: MailRow, payload: MailPayload, attempt: number, now: string) {
-  const result = await sendSendGrid({provider: 'sendgrid', mode: 'production', apiKey: config.mailApiKey!}, {
+  const result = await createMailSender({provider: 'sendgrid', mode: 'production', apiKey: config.mailApiKey!}).send({
     deliveryId: row.id, from: payload.from, to: [payload.to], subject: payload.subject, text: payload.text,
   });
   if (result.status === 'uncertain' || result.status === 'accepted' && !result.providerMessageId) {

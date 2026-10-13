@@ -1,0 +1,50 @@
+/* The landing page's own fixed light palette, scoped under .slate-landing so nothing leaks into the app. Warm paper, near-black
+   ink and one geometric sans-serif; the only colour is Slate's green (#466643 and its tints). The page sets its own background and
+   text colour, so it stays light when the document is switched to the app's dark theme (that only changes the app's own tokens). */
+body:has(.slate-landing) { margin: 0; padding: 0; background: #f6f3e8; color: #1b1b18; }
+.slate-landing {
+  --paper: #f6f3e8;
+  --card: #fbf9f1;
+  --ink: #1b1b18;
+  --soft: #46453f;
+  --muted: #65635b;
+  --line: #d6d3c6;
+  --green: #466643;
+  --green-deep: #365233;
+  --wash: #e6eede;
+  --slate-mark-back: var(--wash);
+  --slate-mark-front: var(--card);
+  --chip-green: #c4d9bf;
+  --chip-grey: #e9e7de;
+  --chip-amber: #fbdfb0;
+  --gutter: clamp(20px, 5.34vw, 82px);
+  --u: min(100vw / 1536, 1px);
+  --header: max(72px, calc(100 * var(--u)));
+  --rhythm: clamp(60px, calc(2.6vw + 5.2svh), 160px);
+  --split: clamp(40px, 6vw, 112px);
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  color-scheme: light;
+  font-family: Outfit, 'Outfit Fallback', 'Avenir Next', 'Segoe UI', sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  background-color: var(--paper);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+.slate-landing *, .slate-landing *::before, .slate-landing *::after { box-sizing: border-box; }
+.slate-landing h1, .slate-landing h2, .slate-landing h3, .slate-landing p, .slate-landing ul, .slate-landing ol, .slate-landing figure { margin: 0; padding: 0; }
+.slate-landing ul, .slate-landing ol { list-style: none; }
+.slate-landing a { color: inherit; text-decoration: none; }
+.slate-landing svg { display: block; }
+.slate-landing a:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; border-radius: 6px; }
+.slate-landing main { max-width: 1536px; margin: 0 auto; padding: 0 var(--gutter); }
+
+.slate-landing .skip-link { position: fixed; top: 8px; left: 8px; z-index: 100; padding: 10px 16px; background: var(--paper); border: 1.5px solid var(--ink); border-radius: 999px; transform: translateY(-200%); }
+.slate-landing .skip-link:focus { transform: none; outline: 3px solid var(--ink); outline-offset: 2px; }
+
+/* Section headings, shared by every section below the hero. */
+.slate-landing .eyebrow { display: inline-block; margin-bottom: 14px; color: var(--green); font-size: 15px; font-weight: 600; letter-spacing: 0.16em; line-height: 1.2; text-transform: uppercase; }
+.slate-landing .sec h2, .slate-landing .included h2, .slate-landing .start h2 { font-size: clamp(38px, 3.75vw, 62px); font-weight: 650; letter-spacing: -0.03em; line-height: 1.04; text-wrap: balance; }
+.slate-landing .fine { color: var(--muted); font-size: 16px; line-height: 1.4; }

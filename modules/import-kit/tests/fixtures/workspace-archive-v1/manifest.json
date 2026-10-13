@@ -1,0 +1,12 @@
+{
+  "name": "workspace-archive-v1",
+  "provenance": "synthetic",
+  "destination": "fixture-workspace",
+  "namespace": "workspace-archive",
+  "mappingVersion": "workspace-archive-v1",
+  "source": {
+    "name": "workspace-export.json",
+    "path": "source/export.json",
+    "format": "json"
+  }
+}

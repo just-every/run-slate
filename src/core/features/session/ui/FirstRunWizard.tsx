@@ -1,5 +1,5 @@
-import { useId } from "react";
-import { Button, ErrorState, Input, Textarea } from "../../../ui";
+import { useEffect, useId, useState } from "react";
+import { PaperPage, PaperScene } from "./PaperPage";
 import { FirstRunProgress, type FirstRunStep } from "./FirstRunProgress";
 import { containerNoun, sentenceCase } from "./nouns";
 
@@ -18,7 +18,9 @@ export interface FirstRunWizardProps {
   onNext: () => void;
   onSkipInvitations: () => void;
   onFinish: () => void;
-  onRestore?:()=>void;
+  onRestore?: () => void;
+  /** The signed-in owner's own address, shown in the header. */
+  owner?: string;
   submitting?: boolean;
   failure?: string | null;
   className?: string;
@@ -47,11 +49,18 @@ export function FirstRunWizard({
   onSkipInvitations,
   onFinish,
   onRestore,
+  owner,
   submitting = false,
   failure,
   className,
 }: FirstRunWizardProps) {
   const fieldId = useId();
+  // Controlled fields cannot accept input until their client handlers exist.
+  const [interactive, setInteractive] = useState(false);
+  useEffect(() => setInteractive(true), []);
+  useEffect(() => {
+    if (interactive && step < 3) document.getElementById(`${fieldId}-${step === 1 ? "workspace" : "container"}`)?.focus();
+  }, [interactive, step, fieldId]);
   const hasInvitations = invitationAddresses.trim().length > 0;
   const canContinue =
     step === 1
@@ -60,119 +69,123 @@ export function FirstRunWizard({
         ? containerNameValue.trim().length > 0 && firstPageTitle.trim().length > 0
         : true;
 
+  const hint = step === 1 ? "Enter your workspace name to continue." : "Enter a space name and first page title to continue.";
+
   return (
-    <main className={className}>
-      <div className="mx-auto flex min-h-screen w-full max-w-reading flex-col justify-center gap-6 px-5 py-12">
+    <PaperPage className={className} owner={owner}>
+      <div className="paper-columns paper-columns--rail">
         <FirstRunProgress step={step} />
 
-        {step === 1 ? (
-          <section className="flex flex-col gap-3">
-            <h1 className="text-h2 font-semibold tracking-tight text-ink">Name this workspace</h1>
-            <p className="text-ui text-ink-muted">
-              You can rename it later in settings.
-            </p>
-            <div className="flex flex-col gap-1">
-              <label className="text-tiny font-medium text-ink-muted" htmlFor={`${fieldId}-workspace`}>
-                Workspace name
-              </label>
-              <Input
-                autoFocus
-                className="h-10"
-                id={`${fieldId}-workspace`}
-                onChange={(event) => onWorkspaceNameChange(event.target.value)}
-                placeholder="Northwind Field Operations"
-                value={workspaceName}
-              />
-            </div>
-          </section>
-        ) : null}
-
-        {step === 2 ? (
-          <section className="flex flex-col gap-3">
-            <h1 className="text-h2 font-semibold tracking-tight text-ink">
-              Create the first {containerNoun}
-            </h1>
-            <p className="text-ui text-ink-muted">
-              Keep related pages together in a {containerNoun}.
-            </p>
-            <div className="flex flex-col gap-1">
-              <label className="text-tiny font-medium text-ink-muted" htmlFor={`${fieldId}-container`}>
-                {sentenceCase(containerNoun)} name
-              </label>
-              <Input
-                autoFocus
-                className="h-10"
-                id={`${fieldId}-container`}
-                onChange={(event) => onContainerNameChange(event.target.value)}
-                placeholder="Customer Success"
-                value={containerNameValue}
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-tiny font-medium text-ink-muted" htmlFor={`${fieldId}-page`}>
-                First page title
-              </label>
-              <Input
-                className="h-10"
-                id={`${fieldId}-page`}
-                onChange={(event) => onFirstPageTitleChange(event.target.value)}
-                placeholder="How we handle an escalation"
-                value={firstPageTitle}
-              />
-            </div>
-          </section>
-        ) : null}
-
-        {step === 3 ? (
-          <section className="flex flex-col gap-3">
-            <h1 className="text-h2 font-semibold tracking-tight text-ink">Invite people</h1>
-            <p className="text-ui text-ink-muted">
-              Optional. One address per line. Invitations expire after 24 hours and can be used once.
-            </p>
-            <div className="flex flex-col gap-1">
-              <label className="text-tiny font-medium text-ink-muted" htmlFor={`${fieldId}-invitations`}>
-                Email addresses
-              </label>
-              <Textarea
-                className="min-h-28"
-                id={`${fieldId}-invitations`}
-                onChange={(event) => onInvitationAddressesChange(event.target.value)}
-                placeholder={"rosa.medina@example.com\ndaniel.okafor@example.com"}
-                value={invitationAddresses}
-              />
-            </div>
-          </section>
-        ) : null}
-
-        {failure ? <ErrorState detail={failure} title="Slate could not finish this step." /> : null}
-
-        <div className="flex flex-wrap items-center gap-2">
-          {step > 1 ? (
-            <Button disabled={submitting} onClick={onBack} variant="secondary">
-              Back
-            </Button>
+        <div className="paper-body">
+          {step === 1 ? (
+            <section className="paper-body">
+              <h1 className="paper-title">Name this workspace</h1>
+              <p className="paper-lede">You can rename it later in settings.</p>
+              <div className="paper-field">
+                <label htmlFor={`${fieldId}-workspace`}>Workspace name</label>
+                <input
+                  autoFocus
+                  className="paper-input"
+                  disabled={!interactive || submitting}
+                  id={`${fieldId}-workspace`}
+                  onChange={(event) => onWorkspaceNameChange(event.target.value)}
+                  value={workspaceName}
+                />
+              </div>
+            </section>
           ) : null}
-          {step < 3 ? (
-            <Button disabled={submitting || !canContinue} onClick={onNext}>
-              Continue
-            </Button>
-          ) : (
-            <>
-              {hasInvitations ? <Button disabled={submitting} onClick={onFinish}>
-                {submitting ? "Sending the invitations…" : "Send the invitations and finish"}
-              </Button> : null}
-              <Button disabled={submitting} onClick={onSkipInvitations} variant={hasInvitations ? "ghost" : "primary"}>
-                {submitting && !hasInvitations ? "Creating workspace…" : "Skip this step"}
-              </Button>
-            </>
-          )}
+
+          {step === 2 ? (
+            <section className="paper-body">
+              <h1 className="paper-title">Create the first {containerNoun}</h1>
+              <p className="paper-lede">Keep related pages together in a {containerNoun}.</p>
+              <div className="paper-field">
+                <label htmlFor={`${fieldId}-container`}>{sentenceCase(containerNoun)} name</label>
+                <input
+                  autoFocus
+                  className="paper-input"
+                  disabled={!interactive || submitting}
+                  id={`${fieldId}-container`}
+                  onChange={(event) => onContainerNameChange(event.target.value)}
+                  value={containerNameValue}
+                />
+              </div>
+              <div className="paper-field">
+                <label htmlFor={`${fieldId}-page`}>First page title</label>
+                <input
+                  className="paper-input"
+                  disabled={!interactive || submitting}
+                  id={`${fieldId}-page`}
+                  onChange={(event) => onFirstPageTitleChange(event.target.value)}
+                  value={firstPageTitle}
+                />
+              </div>
+            </section>
+          ) : null}
+
+          {step === 3 ? (
+            <section className="paper-body">
+              <h1 className="paper-title">Invite people</h1>
+              <p className="paper-lede">Optional. One address per line. Invitations expire after 24 hours and can be used once.</p>
+              <div className="paper-field">
+                <label htmlFor={`${fieldId}-invitations`}>Email addresses</label>
+                <textarea
+                  className="paper-input"
+                  disabled={!interactive || submitting}
+                  id={`${fieldId}-invitations`}
+                  onChange={(event) => onInvitationAddressesChange(event.target.value)}
+                  value={invitationAddresses}
+                />
+              </div>
+            </section>
+          ) : null}
+
+          {failure ? (
+            <div className="paper-alert" role="alert">
+              <strong>Slate could not finish this step.</strong>
+              <span>{failure}</span>
+            </div>
+          ) : null}
+
+          <div className="paper-actions">
+            {step > 1 ? (
+              <button className="paper-pill paper-pill--quiet" disabled={!interactive || submitting} onClick={onBack} type="button">
+                Back
+              </button>
+            ) : null}
+            {step < 3 ? (
+              <button className="paper-pill" disabled={!interactive || submitting || !canContinue} onClick={onNext} type="button">
+                Continue
+              </button>
+            ) : (
+              <>
+                {hasInvitations ? (
+                  <button className="paper-pill" disabled={!interactive || submitting} onClick={onFinish} type="button">
+                    {submitting ? "Sending the invitations…" : "Send the invitations and finish"}
+                  </button>
+                ) : null}
+                <button className={`paper-pill${hasInvitations ? " paper-pill--quiet" : ""}`} disabled={!interactive || submitting} onClick={onSkipInvitations} type="button">
+                  {submitting && !hasInvitations ? "Creating workspace…" : "Skip this step"}
+                </button>
+              </>
+            )}
+            {!canContinue ? <p className="paper-note">{hint}</p> : null}
+          </div>
+
+          {step === 1 && onRestore ? (
+            <div className="paper-actions">
+              <button className="paper-pill paper-pill--quiet" disabled={!interactive || submitting} onClick={onRestore} type="button">
+                Restore an existing workspace
+              </button>
+            </div>
+          ) : null}
+          <p className="paper-note paper-foot">
+            This setup runs once. It creates your workspace, one {containerNoun} and one page, and nothing else.
+          </p>
         </div>
 
-        {step===1&&onRestore?<Button onClick={onRestore} variant="ghost">Restore an existing workspace</Button>:null}
-        <p className="text-tiny text-ink-faint">
-          This setup runs once. It creates your workspace, one {containerNoun} and one page, and nothing else.
-        </p>
+        <PaperScene />
       </div>
-    </main>
+    </PaperPage>
   );
 }

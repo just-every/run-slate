@@ -1,10 +1,10 @@
 # Policy/content/structured local semantic qualification
 
-Run with Node 26.8.1 / pnpm 8.15.6:
+Run with Node 22.20.0 / pnpm 10.12.4:
 
 ```
 pnpm exec vitest run --config tests/qualification/policies/vitest.config.ts
-pnpm build
+rer build
 QUAL_EVIDENCE=/absolute/evidence/path node tests/qualification/policies/emitted.mjs
 ```
 

@@ -1,16 +1,21 @@
+import {editorLeaf} from "../editor-leaf";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { SignInPage } from "../core/features/session/ui/SignInPage";
 import { safeAppPath } from "../core/platform/auth/paths";
+import { loadSignInCapabilities } from '../core/features/session/loader';
 
-const searchSchema = z.object({ next: z.string().optional() });
+// The router JSON-parses search values, so the no-script form's `?requested=1` arrives as the number 1.
+const searchSchema = z.object({ next: z.string().optional(), requested: z.literal(1).optional() });
 
 export const Route = createFileRoute("/signin")({
   validateSearch: searchSchema,
-  head: () => ({ meta: [{ title: "Sign in — Slate" }] }),
-  component: SignIn,
+  loader: () => loadSignInCapabilities(),
+  head: () => ({ meta: [{ title: "Sign in — Slate" }], links: [{ rel: "stylesheet", href: "/rer-theme.css" }] }),
+  component: editorLeaf(SignIn),
 });
 
 function SignIn() {
-  return <SignInPage next={safeAppPath(Route.useSearch().next)} />;
+  const search = Route.useSearch();
+  return <SignInPage next={safeAppPath(search.next)} capabilities={Route.useLoaderData()} requested={search.requested === 1} />;
 }

@@ -1,34 +1,55 @@
-import { randomUUID } from "node:crypto";
 import { existsSync } from "node:fs";
+import { isAbsolute, relative, resolve, sep } from "node:path";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { loadLocalSettings, localPaths } from "./scripts/installer/settings.mjs";
+import { archiveOutputGuard } from "@runeditrun/rer/archive-output";
+import { docsSite } from "./src/core/features/docs/build/plugin.ts";
 
-const configPath = process.env.SLATE_WRANGLER_CONFIG_PATH
-  ?? (existsSync("wrangler.toml") ? "wrangler.toml" : "deploy/wrangler.local.toml");
-const localSampleData = process.env.SLATE_LOCAL_SAMPLE_DATA === "true";
-const persistPath = process.env.SLATE_PERSIST_STATE_PATH ?? ".wrangler/state";
-
-// A session digest is keyed by SESSION_SECRET in every mode, so the local
-// development binding needs one too. It is generated per dev process and never
-// written anywhere: local sessions last as long as the dev server, and no
-// secret is committed. Set SLATE_SESSION_SECRET to keep sessions across restarts.
-const localServerVariables=Object.fromEntries(['APP_URL','HAPPYTOHELP_DELEGATION_ORIGIN','HAPPYTOHELP_DELEGATION_CLIENT_ID','HAPPYTOHELP_DELEGATION_ACCOUNT_ID','ORBIT_DELEGATION_ORIGIN','ORBIT_DELEGATION_CLIENT_ID','ORBIT_DELEGATION_ACCOUNT_ID','ALLOW_LOOPBACK_DELEGATION','GOOGLE_CLIENT_ID','GOOGLE_CLIENT_SECRET','SLACK_CLIENT_ID','SLACK_CLIENT_SECRET','GITHUB_CLIENT_ID','GITHUB_CLIENT_SECRET','AI_ENABLED','AI_PROVIDER','AI_API_KEY','AI_MODEL','AI_LOCAL_URL','AI_LOCAL_TOKEN','CONNECTOR_CREDENTIALS_KEY'].flatMap(name=>{const value=process.env[`SLATE_${name}`];return value?[[name,value]]:[]}));
-const localSessionSecret = process.env.SLATE_SESSION_SECRET ?? randomUUID();
-
-export default defineConfig({
+export default defineConfig(async ({ command }) => {
+  const paths = localPaths();
+  const configPath = command === 'build' && !process.env.SLATE_WRANGLER_CONFIG_PATH && existsSync('wrangler.toml') ? 'wrangler.toml' : paths.configPath;
+  const persistPath = paths.persistPath;
+  const persistWatchRoot = resolve(persistPath);
+  // Settings are required to serve, not to resolve this config: rer's export-path
+  // guard reads the served folders even right after `rer reset`.
+  let missingSettings: unknown;
+  const local = command === 'serve' ? await loadLocalSettings(process.cwd()).catch(error => { missingSettings = error; return undefined; }) : undefined;
+  if (local && process.env.RER_DEV_ORIGIN) local.APP_URL = process.env.RER_DEV_ORIGIN;
+  // Only `vite dev` receives the checkout's dev key and loads the local-only dev identity entry.
+  if (local && process.env.RER_DEV_KEY) Object.assign(local, { RER_DEV_KEY: process.env.RER_DEV_KEY, RER_DEV_IDENTITY: process.env.RER_DEV_IDENTITY ?? 'on' });
+  const optionalBindings = ['RER_MANAGEMENT_ORIGIN','RER_INSTALLATION_ID','HAPPYTOHELP_DELEGATION_ORIGIN','HAPPYTOHELP_DELEGATION_CLIENT_ID','HAPPYTOHELP_DELEGATION_ACCOUNT_ID','ORBIT_DELEGATION_ORIGIN','ORBIT_DELEGATION_CLIENT_ID','ORBIT_DELEGATION_ACCOUNT_ID','ALLOW_LOOPBACK_DELEGATION','GOOGLE_CLIENT_ID','GOOGLE_CLIENT_SECRET','SLACK_CLIENT_ID','SLACK_CLIENT_SECRET','GITHUB_CLIENT_ID','GITHUB_CLIENT_SECRET','AI_ENABLED','AI_PROVIDER','AI_API_KEY','AI_MODEL','AI_LOCAL_URL','AI_LOCAL_TOKEN','CONNECTOR_CREDENTIALS_KEY','SLATE_PROFILE'];
+  const extra = Object.fromEntries(optionalBindings.flatMap(name => {
+    const value = process.env[name === 'SLATE_PROFILE' ? name : `SLATE_${name}`];
+    return value ? [[name, value]] : [];
+  }));
+  return {
+  server: { watch: {
+    // Native R2/D1 writes are runtime state, and must not reload an active import.
+    ignored: (path: string) => {
+      const fromState = relative(persistWatchRoot, resolve(path));
+      return fromState === '' || (!isAbsolute(fromState) && fromState !== '..' && !fromState.startsWith(`..${sep}`));
+    },
+  }, fs: {
+    // The Worker runner also loads copied modules and the public seed descriptor.
+    strict: true,
+    allow: ["src", "modules", "seed.json", "public", "node_modules"],
+    deny: ["**/.rer/**", "**/.seed/**", "**/exports/**", "**/*.rer", "**/.env*", "**/.dev.vars*", "**/.git/**"],
+  } },
   plugins: [
+    ...(missingSettings ? [{ name: 'slate-local-settings', configureServer() { throw missingSettings; } }] : []),
     cloudflare({
       inspectorPort: process.env.SLATE_INSPECTOR_PORT ? Number(process.env.SLATE_INSPECTOR_PORT) : false,
       viteEnvironment: { name: "ssr" },
       configPath,
       persistState: { path: persistPath },
-      config: localSampleData
-        ? { vars: { LOCAL_SAMPLE_DATA: "true", SESSION_SECRET: localSessionSecret, ...localServerVariables, ...(process.env.SLATE_PROFILE ? { SLATE_PROFILE: process.env.SLATE_PROFILE } : {}) } }
-        : undefined,
+      config: local ? { main: 'src/dev/server.ts', vars: { ...local, ...extra } } : undefined,
     }),
+    // /docs: the repository's Markdown rendered when Vite loads it (DOCS-001), never in the Worker or the browser.
+    docsSite(),
     // Prerendering is configured and off. This seed has no deployment-invariant
     // document: `/` renders the buyer's owner identity, `/signin` reports the
     // deployment's configured capabilities, and `/app` is a session surface.
@@ -43,5 +64,8 @@ export default defineConfig({
     }),
     react(),
     tailwindcss(),
+    // A build whose output holds an installation archive (copied from public/ or emitted) is refused.
+    archiveOutputGuard(),
   ],
+  };
 });

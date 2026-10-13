@@ -140,7 +140,7 @@ export function WorkspaceTransferJobs({
         Credentials are excluded; restored integrations require reconnection.
       </p>
       {!restoreOnly ? (
-        <button disabled={working} onClick={() => void stage()}>
+        <button className="secondary-button" disabled={working} onClick={() => void stage()}>
           Export workspace
         </button>
       ) : null}
@@ -161,7 +161,7 @@ export function WorkspaceTransferJobs({
             Slate archive
             <input name="file" type="file" accept=".zip" required />
           </label>
-          <button disabled={working}>Restore workspace</button>
+          <button className="primary-button" type="submit" disabled={working}>Restore workspace</button>
         </form>
       </details>
       {working && !job ? <p role="status">Requesting a transfer job…</p> : null}
@@ -187,10 +187,10 @@ export function WorkspaceTransferJobs({
             </>
           ) : null}
           {!working && job.state === "queued" ? (
-            <button onClick={() => void run(job)}>Run queued transfer</button>
+            <button className="secondary-button" onClick={() => void run(job)}>Run queued transfer</button>
           ) : null}
           {!working && job.state === "failed" && job.kind === "export" ? (
-            <button onClick={() => void stage()}>Start another export</button>
+            <button className="secondary-button" onClick={() => void stage()}>Start another export</button>
           ) : null}
           {job.state === "failed" && job.kind === "restore" ? (
             <p>Choose the archive above to start a new restore operation.</p>

@@ -1,0 +1,22 @@
+import './d1/engine.test.ts';
+import './d1/worker.test.ts';
+import './d1/scale.test.ts';
+import './d1/set-guards.test.ts';
+import './d1/bounds.test.ts';
+import './d1/export-consistency.test.ts';
+import './d1/reuse-owner.test.ts';
+import './d1/create-budget.test.ts';
+import './d1/return-budget.test.ts';
+import './d1/reused-inventory.test.ts';
+import './d1/reused-claim-validity.test.ts';
+import './d1/guard-depth.test.ts';
+import './d1/plan-chunks.test.ts';
+import './d1/erasure.test.ts';
+import './d1/erasure-encoding.test.ts';
+
+import './d1/streams.test.ts';
+import './d1/stream-codec.test.ts';
+import './d1/preflight.test.ts';
+import './d1/custody-packing.test.ts';
+import './d1/custody-capacity.test.ts';
+import './d1/creation-remaining-budget.test.ts';

@@ -1,0 +1,71 @@
+{
+  "name": "slate-local",
+  "main": "src/server.ts",
+  "assets": {
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "compatibility_date": "2026-09-08",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "slate-local",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations/core"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "FILES",
+      "bucket_name": "slate-local-files"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "JOBS",
+        "queue": "slate-local-jobs"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "slate-local-jobs",
+        "max_batch_size": 10,
+        "max_batch_timeout": 5,
+        "max_retries": 3
+      }
+    ]
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "CONTENT_COLLABORATION",
+        "class_name": "ContentCollaboration"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1-content-collaboration",
+      "new_sqlite_classes": [
+        "ContentCollaboration"
+      ]
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "* * * * *"
+    ]
+  },
+  "vars": {
+    "SLATE_PROFILE": "core-wiki",
+    "AI_ENABLED": "false",
+    "SSO_ENABLED": "false",
+    "LINK_PREVIEWS_ENABLED": "true",
+    "AI_PROVIDER": "openai",
+    "ALLOW_LOOPBACK_DELEGATION": "false"
+  }
+}

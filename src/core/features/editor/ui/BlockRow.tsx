@@ -56,7 +56,7 @@ export interface BlockRowProps {
   actions?: BlockActions;
   placeholder?: string;
   onChange: (next: EditorBlock) => void;
-  onInsert: () => void;
+  onInsert: (anchor: HTMLElement) => void;
   onMove: (move: BlockMove) => void;
   onDuplicate: () => void;
   onDelete: () => void;
@@ -94,7 +94,7 @@ export function BlockRow({
 
   return (
     <div
-      className="group/row flex w-full justify-center gap-1"
+      className="block-row group/row flex w-full justify-center gap-1"
       data-block-id={block.id}
       data-selected={selected ? "true" : undefined}
       onDragOver={onDropHere ? (event) => event.preventDefault() : undefined}
@@ -120,7 +120,7 @@ export function BlockRow({
 
       <div
         className={cn(
-          "w-full max-w-reading min-w-0 rounded-card px-1",
+          "block-content w-full max-w-reading min-w-0 rounded-card px-1",
           indentClass[Math.min(block.indent ?? 0, 3)],
           selected ? "bg-accent-soft ring-1 ring-accent/40" : "",
         )}
@@ -160,6 +160,8 @@ export function BlockRow({
         {status === "saving" ? <SaveStatus className="mt-1" state="saving" /> : null}
 
         {status === "offline" ? <SaveStatus className="mt-1" state="offline" onRetry={onRetrySave} /> : null}
+
+        {status === "unsaved" ? <SaveStatus className="mt-1" state="unsaved" onRetry={onRetrySave} /> : null}
 
         {status === "saved" && saveState?.status === "saved" ? (
           <SaveStatus className="mt-1" savedAtLabel={saveState.atLabel} state="saved" />

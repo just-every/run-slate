@@ -1,0 +1,16 @@
+{
+  "hero": [
+    { "name": "Search", "owner": "Alice", "status": "In progress", "tone": "progress", "target": "Apr 28" },
+    { "name": "Imports", "owner": "Sam", "status": "Todo", "tone": "todo", "target": "May 12" },
+    { "name": "Mobile app", "owner": "Taylor", "status": "Blocked", "tone": "blocked", "target": "May 30" },
+    { "name": "Analytics", "owner": "Jordan", "status": "Done", "tone": "done", "target": "Apr 15" }
+  ],
+  "collection": [
+    { "name": "Search", "owner": "Alice", "status": "In progress", "tone": "progress" },
+    { "name": "Imports", "owner": "Sam", "status": "Todo", "tone": "todo" },
+    { "name": "Mobile app", "owner": "Taylor", "status": "In progress", "tone": "progress" },
+    { "name": "Analytics", "owner": "Jordan", "status": "Done", "tone": "done" },
+    { "name": "Exports", "owner": "Sam", "status": "Todo", "tone": "todo" },
+    { "name": "Permissions", "owner": "Alice", "status": "Done", "tone": "done" }
+  ]
+}

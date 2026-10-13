@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import {chromium} from '@playwright/test';
-import {applyMigrations, localSampleVars, signInLocally, stop} from '../../e2e/runtime-harness.mjs';
+import {applyMigrations, seedAuroraFixture, localDevelopmentVars, signInLocally, stop} from '../../e2e/runtime-harness.mjs';
 import {startShellWorker} from './runtime.mjs';
 
 test('WORK-013 SEARCH-001 WORK-011 — core-wiki native pages remain free of browser console and uncaught errors', {timeout: 180000}, async () => {
@@ -12,7 +12,8 @@ test('WORK-013 SEARCH-001 WORK-011 — core-wiki native pages remain free of bro
   let runtime, browser;
   try {
     await applyMigrations(state);
-    runtime = await startShellWorker(state, {...localSampleVars, SLATE_PROFILE: 'core-wiki'});
+    await seedAuroraFixture(state);
+    runtime = await startShellWorker(state, {...localDevelopmentVars, SLATE_PROFILE: 'core-wiki'});
     const {cookie} = await signInLocally(runtime.baseUrl);
     const first = await fetch(runtime.baseUrl+'/api/workspace/first-run', {method: 'POST', headers: {cookie, origin: runtime.baseUrl, 'content-type': 'application/json'}, body: JSON.stringify({operationKey: crypto.randomUUID(), workspaceName: 'Console regression', containerName: 'Documentation', pageTitle: 'Working page'})});
     assert.equal(first.status, 200, await first.clone().text());

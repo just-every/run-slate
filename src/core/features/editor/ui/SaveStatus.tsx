@@ -50,6 +50,7 @@ export function SaveStatus({
         <span className="flex items-center gap-1.5 text-ink-muted">
           <Pencil aria-hidden="true" className={iconClass} />
           {recoveredDraft ? "Unsaved — a draft was recovered on this device" : "Unsaved changes"}
+          {onRetry ? <Button onClick={onRetry} size="sm" variant="secondary">Try saving again</Button> : null}
         </span>
       ) : null}
 

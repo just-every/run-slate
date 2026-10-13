@@ -25,7 +25,7 @@ export function BlockConflictBadge({ conflict, onChoose, className }: BlockConfl
       <p className="text-tiny text-ink">
         {conflict.byMemberName} saved this block {conflict.atLabel}. Your draft is kept and nothing was merged.
       </p>
-      <div className="ml-auto flex items-center gap-1">
+      <div className="ml-auto flex flex-wrap items-center gap-1">
         <Button onClick={() => onChoose("compare")} size="sm" variant="ghost">
           <GitCompare aria-hidden="true" className="size-3.5" />
           Compare

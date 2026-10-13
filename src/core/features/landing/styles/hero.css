@@ -1,0 +1,35 @@
+/* The hero: the approved composition, drawn on a 1536-wide grid and scaled with the page (--u is one grid pixel, capped at 1px). */
+.slate-landing .hero { --gap-top: clamp(32px, 8svh, 140px); --gap-mid: clamp(16px, 4.5svh, 80px); --gap-end: clamp(28px, 6svh, 96px); padding-bottom: var(--gap-end); --us: var(--u); }
+/* On a desktop or laptop the hero is one screen: it fills the viewport under the header. --u (the text) and --us (the stage) shrink with the
+   height until the headline block reaches its reading size, after which only the stage shrinks, so the stage, headline and buttons always
+   fit; any height left over is shared above the stage and below the buttons. The stage is 550 grid pixels tall, the headline block 334 (its tallest, at the smallest reading size). */
+@media (min-width: 961px) and (min-height: 720px) {
+  .slate-landing .hero { --room: calc(100svh - var(--header) - var(--gap-top) - var(--gap-mid) - var(--gap-end)); --u: min(100vw / 1536, 1px, max(0.72px, var(--room) / 900)); --us: min(100vw / 1536, 1px, (var(--room) - 334 * var(--u)) / 550); display: flex; flex-direction: column; min-height: calc(100svh - var(--header)); }
+  .slate-landing .hero::before, .slate-landing .hero::after { content: ""; flex: 1 1 0; max-height: clamp(0px, 6svh, 72px); }
+  .slate-landing .hero::after { order: 3; }
+}
+.slate-landing .hs { position: relative; width: calc(1536 * var(--us)); margin: var(--gap-top) calc((100% - 1536 * var(--us)) / 2) 0; aspect-ratio: 1536 / 550; }
+.slate-landing .hs > * { position: absolute; }
+.slate-landing .hs-window, .slate-landing .hs-plant, .slate-landing .hs-mug { left: var(--l); top: var(--t); width: var(--w); }
+.slate-landing .hs-wash, .slate-landing .hs-ground { inset: 0; width: 100%; height: 100%; }
+.slate-landing .hs-wash path { fill: var(--wash); }
+.slate-landing .hs-ground path { fill: none; stroke: var(--ink); stroke-width: 2.6px; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.slate-landing .hs-plant svg, .slate-landing .hs-mug .mug-body { width: 100%; height: auto; }
+.slate-landing .mug { position: relative; transform: rotate(-3deg); transform-origin: 50% 100%; }
+.slate-landing .mug-mark { position: absolute; left: 20%; top: 32%; width: 48%; height: auto; color: var(--ink); }
+
+.slate-landing .hero-copy { margin-top: var(--gap-mid); text-align: center; }
+.slate-landing .hero-copy h2 { max-width: 11.8em; margin-inline: auto; text-wrap: balance; font-size: max(44px, calc(70.5 * var(--u))); font-weight: 600; letter-spacing: -0.032em; line-height: 0.99; }
+.slate-landing .hero-sub { max-width: calc(600 * var(--u)); margin-inline: auto; text-wrap: balance; margin-top: calc(18 * var(--u)); color: #36352f; font-size: max(18px, calc(21.5 * var(--u))); line-height: 1.4; }
+.slate-landing .hero-copy .actions { justify-content: center; margin-top: calc(24 * var(--u)); }
+.slate-landing .hero-copy .fine { margin-top: calc(17 * var(--u)); font-size: max(15px, calc(16.5 * var(--u))); }
+.slate-landing .hero-copy .hero-replaces { margin-top: calc(12 * var(--u)); text-wrap: balance; }
+.slate-landing .hero-replaces strong { font-weight: 600; }
+
+/* The window (drawn at 836 x 472). Sizes are em of a 14-unit base. */
+.slate-landing .hw { --sk-base: 14; aspect-ratio: 836 / 472; }
+.slate-landing .hw .sk-body { font-size: calc(var(--sk-base) * 100cqw / var(--sk-w)); display: flex; flex-direction: column; height: 100%; }
+.slate-landing .hw-bar { display: flex; align-items: flex-end; height: 2.14em; padding: 0 0 0.22em 1.43em; border-bottom: 1.5px solid var(--line); }
+.slate-landing .hw-body { display: grid; grid-template-columns: 13.2em minmax(0, 1fr) 16.1em; flex: 1; min-height: 0; }
+.slate-landing .hw-search { position: absolute; z-index: 2; top: 3.2em; right: 1.35em; display: flex; align-items: center; gap: 0.6em; width: 15.75em; height: 2.65em; padding: 0 1em; border: 2px solid #5d8a5a; border-radius: 1.5em; background: var(--card); color: #66645c; font-size: 1.07em; }
+.slate-landing .hw-search .ic { width: 1.3em; height: 1.3em; color: var(--ink); }

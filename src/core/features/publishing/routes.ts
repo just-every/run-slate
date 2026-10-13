@@ -5,11 +5,11 @@ import { createUlid } from '../../shared/ulid';
 import { Hono } from 'hono';
 import type { AppEnvironment } from '../../app/types';
 import { featureContext } from '../../app/feature-context';
-import { publishPublicPage, publicPage, publicLinkMap } from './service';
+import { publishPublicPage, publicPage, publicTargets } from './service';
+import { labelPageMentions } from '../pages/mention-labels';
 import { renderPublicDocument } from './render';
 import { ApiProblem } from '../../app/problems';
 import { requirePageLevel } from '../sharing/current-access';
-import { createSessionService } from '../session/service';
 import { mediaResponse } from '../media/service';
 async function authorizePublic(c: import('hono').Context<AppEnvironment>, p: Record<string, any>) {
     if (p.anonymous_access === 'forbidden' || p.workspace_anonymous === 'forbidden') {
@@ -41,5 +41,7 @@ export function createPublicPagesRoutes() {
         const display = c.req.query('display'), inline = !!display && blocks.some((b: any) => b.id === display && b.blockType === 'media' && b.content.kind !== 'file' && (b.content.source?.fileId === f.id || b.content.source?.url === `/api/media/${f.id}`));
         return mediaResponse(c.env.FILES, f, inline);
     }).get('/*', async (c) => { const p = await publicPage(c.env.DB, new URL(c.req.url).host, decodeURIComponent(new URL(c.req.url).pathname.slice(3))); await authorizePublic(c, p); if (!c.get('member'))
-        await publicViewStatement(c.env.DB, { viewId: createUlid(), pageId: p.page_id, host: new URL(c.req.url).host, slug: p.slug, now: new Date().toISOString() }).run(); return c.html(renderPublicDocument(await publicHeader(c.env.DB, await publicQueries(c.env.DB, p), c.req.query('q')??''), await publicLinkMap(c.env.DB, p)), 200, { 'X-Robots-Tag': p.indexable ? 'index,follow' : 'noindex,nofollow', 'Content-Security-Policy': "default-src 'none'; img-src 'self'; media-src 'self'; style-src 'unsafe-inline'; frame-ancestors 'none'", 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' }); });
+        await publicViewStatement(c.env.DB, { viewId: createUlid(), pageId: p.page_id, host: new URL(c.req.url).host, slug: p.slug, now: new Date().toISOString() }).run(); const { links, titles } = await publicTargets(c.env.DB, p), shown = await publicHeader(c.env.DB, await publicQueries(c.env.DB, p), c.req.query('q')??'');
+        // LINK-004: an anonymous reader sees the title of a mentioned page only when that page is public too.
+        return c.html(renderPublicDocument({ ...shown, body_json: JSON.stringify(labelPageMentions(JSON.parse((shown as Record<string, any>).body_json), id => titles[id] ?? 'Restricted page')) }, links), 200, { 'X-Robots-Tag': p.indexable ? 'index,follow' : 'noindex,nofollow', 'Content-Security-Policy': "default-src 'none'; img-src 'self'; media-src 'self'; style-src 'unsafe-inline'; frame-ancestors 'none'", 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' }); });
 }

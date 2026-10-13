@@ -10,7 +10,7 @@ import { createEffectsRoutes } from "../features/effects/routes";
 import { createDecisionsRoutes } from "../features/decisions/routes";
 import { createRunsRoutes } from "../features/runs/routes";
 import { createAiRoutes } from "../features/ai/routes";
-import { createExportRoutes } from "../features/exports/routes";
+import { createExportRoutes } from "../features/workspace-export/routes";
 import { createImportRoutes } from "../features/imports/routes";
 import { createSourceRoutes } from "../features/source-memory/routes";
 import { createConnectorRoutes } from "../features/connectors/routes";

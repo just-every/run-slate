@@ -1,8 +1,9 @@
 import { authorScheduleProjections } from '../lifecycle/schedule-view';
+import { verificationState } from '../page-status/state';
 import { mergeAppearance, validateAppearance, validateUploadedAppearance } from './appearance';
 import { filterRecordProperties } from '../databases/property-access';
 import { normalizeTask } from '../editor/tasks';
-import { resolveMentions, type MentionResolution } from './mentions';
+import { resolveMentions, labelPageMentions, type MentionResolution } from './mentions';
 import type { FeatureContext } from '../../app/feature-context';
 import { commitOperation, requestHash } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
@@ -66,9 +67,12 @@ export async function readPage(ctx: FeatureContext, id: string): Promise<PageDoc
         displayName: string;
     }>()).results;
     const schedule = canEdit ? await ctx.db.prepare('SELECT publish_at AS publishAt,state,failure FROM content_schedules WHERE page_id=?').bind(id).first() : null;
-    const v = await ctx.db.prepare('SELECT revision_id AS revisionId,status_key AS statusKey,owner_member_id AS ownerMemberId,expires_at AS expiresAt FROM page_verifications WHERE page_id=? ORDER BY created_at DESC,id DESC LIMIT 1').bind(id).first<Record<string, any>>();
+    const v = await ctx.db.prepare("SELECT v.revision_id AS revisionId,v.status_key AS statusKey,v.owner_member_id AS ownerMemberId,v.expires_at AS expiresAt,v.created_at AS verifiedAt,m.display_name AS ownerDisplayName,m.status='active' AS ownerActive FROM page_verifications v LEFT JOIN members m ON m.id=v.owner_member_id WHERE v.page_id=? ORDER BY v.created_at DESC,v.id DESC LIMIT 1").bind(id).first<Record<string, any>>();
+    const verificationNow = v ? verificationState({ status_key: v.statusKey, revision_id: v.revisionId, expires_at: v.expiresAt }, p, ctx.now) : null;
     const scheduledProjection=(await authorScheduleProjections(ctx,[id])).get(id);
-    return { authorDisplayName: author?.displayName ?? 'Former member', contributors, schedule, verification: v ? { ...v, lapsed: !!v.expiresAt && v.expiresAt <= ctx.now, current: v.revisionId === p.working_revision_id && (!v.expiresAt || v.expiresAt > ctx.now) } : undefined, mentions: await resolveMentions(ctx, blocks), page: { ...ref(p), ...scheduledProjection, title: props.title }, blocks, properties: props, parentPageId: p.parent_page_id, createdAt: p.created_at, updatedAt: p.updated_at, authorMemberId: p.author_member_id, workingRevisionId: p.working_revision_id, publishedRevisionId: p.published_revision_id, permissions: { level: access.decision.level!, canEdit: canEdit && !p.archived_at, canShare: access.decision.level === 'full' }, policyProfile: await contentPolicy(ctx) };
+    const mentions = await resolveMentions(ctx, blocks);
+    blocks = labelPageMentions(blocks, mention => mentions[mention]?.label ?? 'Unavailable page');
+    return { authorDisplayName: author?.displayName ?? 'Former member', contributors, schedule, verification: v ? { ...v, ownerDisplayName: v.ownerDisplayName ?? 'Former member', ownerActive: !!v.ownerActive, state: verificationNow, lapsed: !!v.expiresAt && v.expiresAt <= ctx.now, current: verificationNow === 'current' } : undefined, mentions, page: { ...ref(p), ...scheduledProjection, title: props.title }, blocks, properties: props, parentPageId: p.parent_page_id, createdAt: p.created_at, updatedAt: p.updated_at, authorMemberId: p.author_member_id, workingRevisionId: p.working_revision_id, publishedRevisionId: p.published_revision_id, permissions: { level: access.decision.level!, canEdit: canEdit && !p.archived_at, canShare: access.decision.level === 'full' }, policyProfile: await contentPolicy(ctx) };
 }
 export async function createPage(ctx: FeatureContext, input: PageCreateInput) {
     return commitOperation(ctx, { operationKey: input.operationKey, action: 'pages.create', request: input, authorize: () => destination(ctx, input.containerId, input.parentPageId), prepare: async ({ revisionId }) => {

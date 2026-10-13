@@ -5,12 +5,14 @@ import { StatusSettings } from "../../../page-status/ui/workspace/StatusSettings
 import { AutomationWorkspace } from "../../../automation/ui/workspace/AutomationWorkspace";
 import { ActivityWorkspace } from "../../../activity/ui/workspace/ActivityWorkspace";
 import { PersonalPreferences } from "../../../navigation/ui/workspace/PersonalPreferences";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ConnectionsPanel } from "../../../connectors/ui/workspace/ConnectionsPanel";
 import { WorkspacePreferences } from "./WorkspacePreferences";
 import { AppearancePanel } from "./AppearancePanel";
 import { PortabilityPanel } from "./PortabilityPanel";
 import { MembersPanel } from "./MembersPanel";
+import { TopBar } from "../../../../app/ui/header/TopBar";
+import { PageTitle } from "../../../../app/ui/header/PageTitle";
 const sections = [
   ["workspace", "Workspace"],
   ["members", "People"],
@@ -25,22 +27,18 @@ const sections = [
   ["portability", "Import & export"],
 ] as const;
 export function SettingsWorkspace() {
+  const tabs = useRef<HTMLElement>(null);
   const flagship = useFlagshipEnabled();
-  const [section, setSection] = useState(() =>
-    typeof window === "undefined"
-      ? "workspace"
-      : (new URLSearchParams(window.location.search).get("section") ??
-        "workspace"),
-  );
+  const [section, setSection] = useState<string>("workspace");
   useEffect(()=>{const requested=new URLSearchParams(window.location.search).get("section");if(requested&&sections.some(([id])=>id===requested))setSection(requested);},[]);
   return (
     <>
-      <header className="topbar">
-        <span>Settings</span>
+      <TopBar trail={[{ label: "Settings" }]}>
         <a href="/app">Back to workspace</a>
-      </header>
-      <section className="main settings-workspace"><h1 className="sr-only">Settings</h1>
-        <nav className="settings-tabs" aria-label="Settings sections">
+      </TopBar>
+      <section className="main settings-workspace">
+        <PageTitle>Settings</PageTitle>
+        <nav ref={tabs} className="tabs tabs-rule settings-tabs" aria-label="Settings sections">
           {sections.filter(([id]) => flagship || id !== "connections").map(([id, label]) => (
             <button
               key={id}
@@ -54,10 +52,11 @@ export function SettingsWorkspace() {
             </button>
           ))}
         </nav>
+        <div className="settings-scroll-controls"><button type="button" className="secondary-button" aria-label="Previous settings sections" onClick={() => tabs.current?.scrollBy({left:-260,behavior:"smooth"})}>←</button><span>Scroll for more sections</span><button type="button" className="secondary-button" aria-label="More settings sections" onClick={() => tabs.current?.scrollBy({left:260,behavior:"smooth"})}>→</button></div>
         {section === "chat" ? (
           <ChatNotifications />
         ) : section === "spaces" ? (
-          <ContainerWorkspace />
+          <ContainerWorkspace embedded />
         ) : section === "statuses" ? (
           <StatusSettings />
         ) : section === "automation" ? (

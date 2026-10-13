@@ -236,6 +236,8 @@ export type BlockSaveState =
   | { status: "saved"; atLabel?: string }
   | { status: "failed"; message: string }
   | { status: "offline" }
+  /** SAVE-004: the server is reachable again and the unsent draft awaits an explicit save. */
+  | { status: "unsaved" }
   | { status: "conflict"; conflict: RevisionConflict };
 
 /** What a member may choose when an edit hits a superseded revision. */

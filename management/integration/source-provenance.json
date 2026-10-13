@@ -1,12 +1,11 @@
 {
   "schema": 1,
-  "sourceRepository": "just-every/slate",
+  "sourceRepository": "just-every/run-slate",
   "sourceFiles": {
-    "deploy/wrangler.template.toml": "e3dd4048e797e7d7b1be2f2c0bcde54c0541e0aaef76d9fc33e6b8cf79ec4638",
-    "src/server.ts": "b5b5365ebe2993595b7a66b057977690c39dc7b8c157b90a81257b24a47f4cd1",
+    "scripts/delivery/base/packaging.json": "f462d4c79abe584c7ec5f00b8e3a07397f1d1575e408c1683e0a96a3e1f375d9",
+    "src/server.ts": "26916628515fe2c05b9ddab531c9bb2f8ad68e017966bdb9c50dccd26b1ac8d2",
     "src/core/features/workspace/bootstrap.ts": "1c504e305aed6576acabac51fb6202f117b2b8050c800f199a2811c6870f886e",
-    "src/core/platform/config/runtime.ts": "cdd0929cbf9c4010ccb3515fcbd8b8ce357460ce6e57daf7b70aa3e8f06afe90",
-    "scripts/release/deployment-spec.mjs": "749d34c08618c9a925e52c210b79af9716cb3c67440d8b020b152720f0cd512c",
+    "src/core/platform/config/runtime.ts": "b1954f94d6eef3e6f78b34aab278a5b483a02bfcc917ddb54fa4f0b3a85af0ff",
     "migrations/core/0001_knowledge_foundation.sql": "88bb09f3c90f4741bc686f333fd765ca838ff6e96969d5182b292df0c4816c39",
     "migrations/core/0002_core_runtime.sql": "34e5c0c5c9a3f4bb7364e649054a87ec8fe614bd469417e6e7c3412ba1e47346",
     "migrations/core/0003_content_collaboration.sql": "534fe0d90d535c02a669c55591698b02520cd478c2bb3b87d74825154c71d1f7",
@@ -22,6 +21,16 @@
     "migrations/core/0014_publication_choices.sql": "b0e9592fb7e3439024766e843b9c12d4ed64debcbff5b06608e0e37b40550c26",
     "migrations/core/0015_archive_nullable_position.sql": "3892580f32f9483c531919b0a405d032eee86a7a87ae7b9aa5b3caf0b491a10a",
     "migrations/core/0016_portability_jobs.sql": "53ad45c8d187ab1f5442525f091d264b51879896dcf07abd4982acd9e62f4471",
-    "migrations/core/0017_inquiry_branch_admission.sql": "79b5952892b8f4d60c7eb36f8acd0c041503f0ee5a638ec5a40b692e7ad0e09a"
+    "migrations/core/0017_inquiry_branch_admission.sql": "79b5952892b8f4d60c7eb36f8acd0c041503f0ee5a638ec5a40b692e7ad0e09a",
+    "migrations/core/0018_development_mail_outbox.sql": "45d6b03eadfe1e91737763ae85cdff74e7216f859869e34431550bba48294996",
+    "migrations/core/0019_installation_portability.sql": "c7db9042f6d5c571e10297c02df858ad2f3466beb4fa85649fee407cc228747b",
+    "migrations/core/0020_identity_adapter_preparation.sql": "9c9ca33da5d4d38ea21202242d99bf53cd455ab6fc53be99ea482b2be4add1f0",
+    "migrations/core/0021_search_fts.sql": "2e0200633f80b21142b7ebfa394150fc7526f7147632731c778024e243d9b834",
+    "migrations/core/0022_native_identity_authority.sql": "3b0525e350286313717c900aa05e131ba51478140642950136fdef394a897f56",
+    "migrations/core/0023_identity_providers.sql": "f879fb86b079e591dfe4a8513752a8e0394e252b940aa35d3f7430f27b7382c6",
+    "migrations/core/0024_reviewed_imports.sql": "5ca0b2c214db4c518ad950b6cdd282c35248b615877cad43d3ff75faa42ac01b",
+    "migrations/core/0025_import_generation.sql": "54b9e7de95dbc1d0a0088717f2230b953f8503e988526eeeb811788191eb8029",
+    "migrations/core/0026_verification_review.sql": "3b781bb6ec64ea5dd3855b4b0b70c09bfdb9e37af193076a87310bd3bc7fec73",
+    "migrations/core/0027_mention_titles_reindex.sql": "ff8ac67f6b5598e6b4dbb292748c8ded3d12c0552438adaff343e206ee3874f7"
   }
 }

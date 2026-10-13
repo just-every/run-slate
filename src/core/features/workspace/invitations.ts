@@ -1,6 +1,6 @@
 import type { AccessLevel } from '../../shared/knowledge/model';
 import { requireConfiguredLevel } from '../sharing/configuration';
-import { createSessionRepository } from '../session/repository';
+import { createMemberRepository } from '../session/repository';
 import { personalContainerStatements } from './personal';
 import type { FeatureContext } from '../../app/feature-context';
 import type { RuntimeConfig } from '../../platform/config/runtime';
@@ -10,12 +10,12 @@ import { createUlid } from '../../shared/ulid';
 import { commitOperation, mutationGuard } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
 import { deliverIdentityMail } from '../session/mail';
-import { admitIdentityMail } from '../session/mail-admission';
+import { admitIdentityMail, requireMailConfig } from '../session/mail-admission';
 export async function invite(ctx:FeatureContext,config:RuntimeConfig,input:{operationKey:string;email:string;kind:'member'|'guest';pageId?:string;containerId?:string;level?:AccessLevel;expiresAt?:string|null}) {
   if(input.kind==='member'&&(input.level!==undefined||input.expiresAt!==undefined))throw new ApiProblem(400,'INVALID_INVITATION_SCOPE','Resource permissions apply only to guest invitations.');
   if(input.expiresAt!==undefined&&input.expiresAt!==null&&(!Number.isFinite(Date.parse(input.expiresAt))||input.expiresAt<=ctx.now))throw new ApiProblem(400,'INVALID_GRANT_EXPIRY','Choose a future grant expiry.');
   if((input.pageId&&input.containerId)||(input.kind==='member'&&(input.pageId||input.containerId)))throw new ApiProblem(400,'INVALID_INVITATION_SCOPE','A guest invitation names exactly one page or container; member invitations do not confer resource grants.');
-  if(!config.appUrl||!config.mailApiKey||!config.mailFrom) throw new ApiProblem(503,'MAIL_UNAVAILABLE','Invitation mail is not configured.');
+  requireMailConfig(config);
   const token=createOpaqueToken();
   const result=await commitOperation(ctx,{operationKey:input.operationKey,action:'member.invite',request:input,authorize:async()=>{
     const subject=await currentSubject(ctx);if(subject.isGuest)throw new ApiProblem(403,'FORBIDDEN','Guests cannot invite people.');
@@ -31,21 +31,29 @@ export async function invite(ctx:FeatureContext,config:RuntimeConfig,input:{oper
   if(delivery)await deliverIdentityMail(ctx.db,config,delivery.id,ctx,ctx.now);
   return result;
 }
-export async function acceptInvitation(db:D1Database,config:RuntimeConfig,token:string,resources?:{files:R2Bucket;jobs:Queue<unknown>}) {
+/** The confirmation page reads a pending invitation without changing anything (WORK-006). */
+export async function previewInvitation(db:D1Database,config:RuntimeConfig,token:string):Promise<{expiresAt:string}|null> {
+  return db.prepare('SELECT expires_at AS expiresAt FROM invitations WHERE token_digest=? AND revoked_at IS NULL AND accepted_by_member_id IS NULL AND expires_at>?').bind(await sessionDigest(config.sessionSecret,token),new Date().toISOString()).first<{expiresAt:string}>();
+}
+/** Accepts once and returns the member; the caller issues the session through the native session store. */
+export async function acceptInvitation(db:D1Database,config:RuntimeConfig,token:string,resources?:{files:R2Bucket;jobs:Queue<unknown>}):Promise<{memberId:string}> {
   const now=new Date().toISOString();
   const row=await db.prepare('SELECT * FROM invitations WHERE token_digest=? AND revoked_at IS NULL AND accepted_by_member_id IS NULL AND expires_at>?').bind(await sessionDigest(config.sessionSecret,token),now).first<{id:string;workspace_id:string;email:string;kind:string;invited_by_member_id:string;page_id:string|null;container_id:string|null;page_grant_id:string|null;container_grant_id:string|null}>();
   if(!row)throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or expired.');
   let accessEpoch:number|undefined;
-  if(row.kind==='guest'){if(!resources)throw new ApiProblem(503,'INVITATION_UNAVAILABLE','Guest invitation validation requires the application runtime.');const inviter=await createSessionRepository(db).getMember(row.invited_by_member_id);if(!inviter)throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or expired.');const accessCtx:FeatureContext={db,files:resources.files,jobs:resources.jobs,actor:inviter,now};if(row.page_id)await requirePageLevel(accessCtx,row.page_id,'full');else if(row.container_id)await requireContainerLevel(accessCtx,row.container_id,'full');else throw new ApiProblem(400,'LINK_INVALID','This invitation has no target.');accessEpoch=accessCtx.authorizationEpoch;}
+  if(row.kind==='guest'){if(!resources)throw new ApiProblem(503,'INVITATION_UNAVAILABLE','Guest invitation validation requires the application runtime.');const inviter=await createMemberRepository(db).getMember(row.invited_by_member_id);if(!inviter)throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or expired.');const accessCtx:FeatureContext={db,files:resources.files,jobs:resources.jobs,actor:inviter,now};if(row.page_id)await requirePageLevel(accessCtx,row.page_id,'full');else if(row.container_id)await requireContainerLevel(accessCtx,row.container_id,'full');else throw new ApiProblem(400,'LINK_INVALID','This invitation has no target.');accessEpoch=accessCtx.authorizationEpoch;}
   const former=await db.prepare('SELECT id,status FROM members WHERE workspace_id=? AND lower(email)=lower(?)').bind(row.workspace_id,row.email).first<{id:string;status:string}>();
-  if(former&&former.status!=='removed')throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or already used.');
-  const id=former?.id??createUlid(),sessionToken=createOpaqueToken(),expiresAt=new Date(Date.parse(now)+30*86400000).toISOString();
-  const statements=[mutationGuard(db,'SELECT accepted_by_member_id IS NULL AND revoked_at IS NULL AND expires_at>? FROM invitations WHERE id=?',[now,row.id]),former?db.prepare("UPDATE members SET status='active',role='member',member_kind=?,updated_at=? WHERE id=?").bind(row.kind,now,id):db.prepare("INSERT INTO members (id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES (?,?,?,?,?,'member',?,'active',0,?,?)").bind(id,row.workspace_id,row.email,row.email.split('@')[0],row.email.slice(0,2).toUpperCase(),row.kind,now,now),db.prepare('UPDATE invitations SET accepted_by_member_id=? WHERE id=?').bind(id,row.id),db.prepare('INSERT INTO sessions (id,member_id,token_digest,created_at,updated_at,expires_at) VALUES (?,?,?,?,?,?)').bind(createUlid(),id,await sessionDigest(config.sessionSecret,sessionToken),now,now,expiresAt)];
+  // A removed member, or a restored historical actor (PORT-005), returns under the same id.
+  if(former&&!['removed','historical'].includes(former.status))throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or already used.');
+  const personal=former?.status==='historical'&&!!await db.prepare("SELECT 1 FROM containers WHERE workspace_id=? AND key=? AND archived_at IS NULL").bind(row.workspace_id,`personal:${former.id}`).first();
+  const id=former?.id??createUlid();
+  const statements=[mutationGuard(db,'SELECT accepted_by_member_id IS NULL AND revoked_at IS NULL AND expires_at>? FROM invitations WHERE id=?',[now,row.id]),former?db.prepare("UPDATE members SET status='active',role='member',member_kind=?,updated_at=? WHERE id=?").bind(row.kind,now,id):db.prepare("INSERT INTO members (id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES (?,?,?,?,?,'member',?,'active',0,?,?)").bind(id,row.workspace_id,row.email,row.email.split('@')[0],row.email.slice(0,2).toUpperCase(),row.kind,now,now),db.prepare('UPDATE invitations SET accepted_by_member_id=? WHERE id=?').bind(id,row.id)];
   statements.unshift(mutationGuard(db,"SELECT status='active' FROM members WHERE id=?",[row.invited_by_member_id]));
   if(accessEpoch!==undefined)statements.unshift(mutationGuard(db,'SELECT epoch=? FROM core_acl_epoch WHERE id=1',[accessEpoch]));
-  if(former)statements.unshift(mutationGuard(db,"SELECT status='removed' FROM members WHERE id=?",[id]));
+  if(former)statements.unshift(mutationGuard(db,"SELECT status=? FROM members WHERE id=?",[former.status,id]));
   if(row.kind==='member'&&former)statements.push(db.prepare("UPDATE containers SET key='archived:'||id WHERE workspace_id=? AND key=? AND archived_at IS NOT NULL").bind(row.workspace_id,`personal:${id}`));
-  if(row.kind==='member')statements.push(...personalContainerStatements(db,{workspaceId:row.workspace_id,memberId:id,now}));
+  // A returning historical member keeps the personal space that came back with them.
+  if(row.kind==='member'&&!personal)statements.push(...personalContainerStatements(db,{workspaceId:row.workspace_id,memberId:id,now}));
   if(row.kind==='guest') statements.unshift(mutationGuard(db,"SELECT c.visibility!='personal' AND c.guest_access='allowed' AND w.guest_access='allowed' FROM containers c JOIN workspaces w ON w.id=c.workspace_id WHERE c.id=COALESCE(?,(SELECT container_id FROM pages WHERE id=? AND deleted_at IS NULL))",[row.container_id,row.page_id]));
   if(row.kind==='guest'){
     const table=row.page_id?'page_grants':'container_grants',key=row.page_id?'page_id':'container_id',grantId=row.page_grant_id??row.container_grant_id;
@@ -53,7 +61,7 @@ export async function acceptInvitation(db:D1Database,config:RuntimeConfig,token:
     statements.push(db.prepare(`UPDATE ${table} SET principal_id=?,updated_at=? WHERE id=?`).bind(id,now,grantId));
   }
   try { await db.batch(statements); } catch {throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or already used.');}
-  return {token:sessionToken,expiresAt};
+  return {memberId:id};
 }
 export async function revokeInvitation(ctx:FeatureContext,input:{operationKey:string;id:string}) {
   return commitOperation(ctx,{operationKey:input.operationKey,action:'invitation.revoke',request:input,authorize:()=>requireWorkspaceOwner(ctx),prepare:async({revisionId})=>({entity:{id:input.id,kind:'invitation',revisionId},value:{revoked:true},statements:[mutationGuard(ctx.db,'SELECT workspace_id=? AND accepted_by_member_id IS NULL AND revoked_at IS NULL AND expires_at>? FROM invitations WHERE id=?',[ctx.actor.workspaceId,ctx.now,input.id]),ctx.db.prepare('UPDATE invitations SET revoked_at=? WHERE id=?').bind(ctx.now,input.id),ctx.db.prepare('UPDATE page_grants SET revoked_at=?,updated_at=? WHERE id=(SELECT page_grant_id FROM invitations WHERE id=?)').bind(ctx.now,ctx.now,input.id),ctx.db.prepare('UPDATE container_grants SET revoked_at=?,updated_at=? WHERE id=(SELECT container_grant_id FROM invitations WHERE id=?)').bind(ctx.now,ctx.now,input.id),ctx.db.prepare("UPDATE mail_deliveries SET state=CASE WHEN state='sent' THEN state ELSE 'failed' END,delivery_phase=CASE WHEN state='sent' THEN delivery_phase ELSE 'cancelled' END,payload_ciphertext=NULL,next_attempt_at=NULL,lease_until=NULL,updated_at=? WHERE invitation_id=?").bind(ctx.now,input.id)]})});

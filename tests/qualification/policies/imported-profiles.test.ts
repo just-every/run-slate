@@ -1,3 +1,4 @@
+import {applyReviewedSpace} from '../../e2e/imports/reviewed-space';
 import { env } from 'cloudflare:test';
 import { test, expect } from 'vitest';
 import { scenario, profile, key, rows } from './helpers';
@@ -15,7 +16,7 @@ for (const [format, name] of [['notion-workspace', 'notion-workspace-export.zip'
         }).TEST_IMPORT_FIXTURES.fetch(`https://fixtures/${name}`)).arrayBuffer());
         expect(bytes.length).toBeGreaterThan(1000);
         const job = await startImport(owner, { operationKey: key('genuine-import'), format, source: { name, bytes } });
-        const result = await runImport(owner, job.id);
+        const result = await (format==='notion-workspace'||format==='confluence-space'?applyReviewedSpace(owner,job.id):runImport(owner,job.id));
         expect(result.state).toBe('completed');
         expect(JSON.parse(result.counts_json).pages).toBeGreaterThan(0);
         const tables = ['pages', 'page_blocks', 'page_revisions', 'page_grants', 'containers', 'container_grants', 'public_exposures', 'status_entries', 'database_records', 'database_fields', 'automation_rules', 'automation_runs'];

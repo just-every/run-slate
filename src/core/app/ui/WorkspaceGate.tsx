@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { useWorkspace } from "./WorkspaceContext";
-import { FirstRunShell } from "./FirstRunShell";
 import { RequestState } from "./RequestState";
 export function WorkspaceGate({ children }: { children: ReactNode }) {
   const { workspace, setup } = useWorkspace();
@@ -13,13 +12,7 @@ export function WorkspaceGate({ children }: { children: ReactNode }) {
         setup.reload();
       }}
     >
-      {workspace.data && setup.data ? (
-        setup.data.required && setup.data.canComplete ? (
-          <FirstRunShell />
-        ) : (
-          children
-        )
-      ) : null}
+      {workspace.data && setup.data ? children : null}
     </RequestState>
   );
 }

@@ -23,7 +23,7 @@ export function DeletedTemplateActions({
     setAction(next);
   };
   return (
-    <section>
+    <section className="deleted-template-actions">
       <p>
         {template.erasurePending
           ? "File cleanup is pending. The template contents have been erased."
@@ -34,12 +34,12 @@ export function DeletedTemplateActions({
         . Existing page copies remain independent.
       </p>
       {template.permissions.canManage && !template.erasurePending ? (
-        <button onClick={() => open("restore")}>
+        <button className="secondary-button" onClick={() => open("restore")}>
           Restore deleted template
         </button>
       ) : null}
       {template.permissions.canErase ? (
-        <button onClick={() => open("erase")}>
+        <button className="secondary-button" onClick={() => open("erase")}>
           {template.erasurePending
             ? "Confirm pending cleanup"
             : "Permanently erase template"}

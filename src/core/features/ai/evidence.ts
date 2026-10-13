@@ -2,6 +2,8 @@ import type { FeatureContext } from '../../app/feature-context';
 import { ApiProblem } from '../../app/problems';
 import {readRevision} from '../versions/service';
 import { requirePageLevel } from '../sharing/current-access';
+import { labelForAudience } from '../pages/mentions';
+import { filterRecordProperties } from '../databases/property-access';
 import { resolveEvidence as resolveSourceEvidence } from '../source-memory/service';
 import type { EvidenceInput, EvidencePacket, Answer } from './contracts';
 export async function audienceContext(ctx:FeatureContext,memberId:string):Promise<FeatureContext>{
@@ -32,16 +34,18 @@ export async function resolveEvidence(ctx:FeatureContext,refs:EvidenceInput[],au
    if(source.state!=='available'||(options.cutoff&&source.observedAt>options.cutoff))throw new ApiProblem(404,'EVIDENCE_UNAVAILABLE','The exact evidence revision is unavailable.');
    result.push({id:`E${index+1}`,ref,text:source.text,current:source.freshness==='current',observedAt:source.observedAt,authorityState:source.authorityState});continue;
   }
-  for(const reader of readers){const exact=await readRevision(reader===ctx.actor.id?ctx:await audienceContext(ctx,reader),ref.sourceId,ref.revisionId);if('deleted'in exact&&exact.deleted)throw new ApiProblem(404,'EVIDENCE_UNAVAILABLE','The exact evidence revision is unavailable.');}
+  const readerContexts=await Promise.all(readers.map(reader=>reader===ctx.actor.id?ctx:audienceContext(ctx,reader)));
+  for(const reader of readerContexts){const exact=await readRevision(reader,ref.sourceId,ref.revisionId);if('deleted'in exact&&exact.deleted)throw new ApiProblem(404,'EVIDENCE_UNAVAILABLE','The exact evidence revision is unavailable.');}
   const row=await ctx.db.prepare("SELECT r.body_json,r.properties_json,r.created_at,p.working_revision_id,p.lifecycle,p.trashed_at FROM page_revisions r JOIN pages p ON p.id=r.page_id WHERE r.id=? AND r.page_id=? AND r.deleted_at IS NULL AND p.deleted_at IS NULL AND p.workspace_id=?").bind(ref.revisionId,ref.sourceId,ctx.actor.workspaceId).first<{body_json:string;properties_json:string;created_at:string;working_revision_id:string;lifecycle:string;trashed_at:string|null}>();
   if(!row||row.trashed_at||['archived','draft','scheduled'].includes(row.lifecycle)||(options.cutoff&&row.created_at>options.cutoff))throw new ApiProblem(404,'EVIDENCE_UNAVAILABLE','The exact evidence revision is unavailable.');
   if(options.current&&row.working_revision_id!==ref.revisionId)throw new ApiProblem(409,'STALE_EVIDENCE','Evidence changed; regenerate against the current revision.');
-  result.push({id:`E${index+1}`,ref,text:jsonText(row.body_json,row.properties_json),current:row.working_revision_id===ref.revisionId,observedAt:row.created_at,authorityState:'document-not-authority'});
+  // A packet carries only the text and fields every reader in its audience may see, as readRevision gives each of them.
+  let properties=JSON.parse(row.properties_json);for(const reader of readerContexts)properties=await filterRecordProperties(reader,ref.sourceId,properties);
+  result.push({id:`E${index+1}`,ref,text:JSON.stringify({body:await labelForAudience(readerContexts,JSON.parse(row.body_json)),properties}),current:row.working_revision_id===ref.revisionId,observedAt:row.created_at,authorityState:'document-not-authority'});
  }
  if((await ctx.db.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first<{epoch:number}>())!.epoch!==epoch)throw new ApiProblem(409,'AUTHORIZATION_CHANGED','Authorization changed while preparing the evidence packet.');
  ctx.authorizationEpoch=epoch;return result;
 }
-function jsonText(body:string,properties:string){return JSON.stringify({body:JSON.parse(body),properties:JSON.parse(properties)});}
 export function validateEvidenceIds(answer:Answer,issued:EvidencePacket[]){
  const ids=new Set(issued.map(p=>p.id));
  if(answer.procedurePlan?.steps.some(step=>step.evidenceIds.some(e=>!ids.has(e))||step.verification.kind==='owning-source'&&!ids.has(step.verification.evidenceId)))throw new ApiProblem(409,'INVALID_MODEL_EVIDENCE','The procedure cited an unissued source.');

@@ -47,7 +47,7 @@ export async function restoredFixture(){
  const exported=await exportWorkspace(f.ctx);
  const key=await env.DB.prepare('SELECT archive_key FROM federation_exports WHERE id=?').bind(exported.id).first<string>('archive_key');
  const archive=new Uint8Array(await(await env.FILES.get(key!))!.arrayBuffer());
- await reset();const destination=await fixture();
+ await reset();const destination=await fixture({withReader:false});
  await restoreWorkspace(destination.context(),archive);
  return {...f,confirmed};
 }

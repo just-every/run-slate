@@ -2,7 +2,9 @@
 
 > `HANDOVER.md` records the current verification scope and remaining requirements.
 
-This repository contains the editable source of the owner's product. Read `CONTRACT.md`, `BASELINE.md`, `seed.json`, `HANDOVER.md`, actual package
+This repository contains the editable source of the owner's product. Slate's
+public source repository is `just-every/run-slate`
+(https://github.com/just-every/run-slate). Read `CONTRACT.md`, `BASELINE.md`, `seed.json`, `HANDOVER.md`, actual package
 scripts and existing customisations before changing behaviour. Use `README.md`
 where present; distinguish product requirements from implemented scope and
 verification coverage.

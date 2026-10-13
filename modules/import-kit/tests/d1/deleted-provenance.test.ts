@@ -1,0 +1,42 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { nativeStagingFixture } from './retained-fixtures.ts';
+import { nativePrivateTables } from './native-staging-fixture.ts';
+import { sqliteRuntime } from './retained-fixtures.ts';
+import { sqliteSource,sqliteMapping } from './sqlite-runtime.ts';
+import { canonicalJson,sha256,planD1ImportStream,createD1ImportStream,resumeD1ImportStream,undoD1ImportStream } from '../../src/d1/index.ts';
+
+for(const staged of [false,true])for(const restore of [false,true])test(`deleted related provenance stays absent through ${restore?'restore':'supersession'} with private transport ${staged}`,async t=>{
+  const large=staged?await nativeStagingFixture(t):undefined,r=large??await sqliteRuntime(t),targets=large?{...large.targets,write(row:any){return [...large.targets.remove(row.destination,row.targetKind,row.targetId),...large.targets.write(row)];}}:r.context().storage.targets;
+  let privateBatches=0;const wire:number[]=[];
+  const context=()=>{const database=r.db();return {...r.context(),maxBatchBytes:2*1024*1024,maxBatches:1,storage:{database:{prepare:database.prepare,async batch(statements:any[]){privateBatches+=Number(statements.some(row=>row.query.startsWith('INSERT INTO ik_d1_native_staging_values')));wire.push(Buffer.byteLength(JSON.stringify(statements.map(row=>({sql:row.query,params:row.values})))));return database.batch(statements);}},targets}};};
+  const source=large?structuredClone(large.source):sqliteSource(1);source.artifacts.forEach(a=>a.original={status:'unavailable',reason:'not-supplied'});
+  if(staged){(source.records[0].payload as any).rows=(source.records[0].payload as any).rows.map((row:string)=>row.slice(0,24000));source.records[0].payloadHash=sha256(canonicalJson(source.records[0].payload));}
+  const initialPlan=await planD1ImportStream(source,sqliteMapping,context());
+  const first=await createD1ImportStream(initialPlan,{...context(),operationKey:'legal-before-image',reviewedFingerprint:initialPlan.fingerprint});
+  assert.equal((await resumeD1ImportStream(first.id,context())).state,'completed');
+  const original=await targets.read(r.db(),'workspace','record','0');
+  if(staged)assert.ok(Buffer.byteLength(canonicalJson(original))<2_000_000,'each provenance before-image fits the unchanged value ceiling');
+  source.records[0].sourceId='replacement';
+  if(staged)(source.records[0].payload as any).rows[0]+='replacement';else source.records[0].payload={label:'replacement'};
+  source.records[0].payloadHash=sha256(canonicalJson(source.records[0].payload));
+  const plan=await planD1ImportStream(source,{version:'v1',map:record=>({effects:[{targetKind:'record',targetId:'0',expectedRevision:original!.revision,value:record.payload}]})},context());
+  const next=await createD1ImportStream(plan,{...context(),reviewedFingerprint:plan.fingerprint});
+  if(restore)assert.equal((await resumeD1ImportStream(next.id,context())).state,'completed');
+  const table=restore?'ik_d1_history':'ik_provenance',columns='id,job_id,ordinal,effect_ordinal,source_identity,destination,target_kind,target_id,reversed,record_json'+(restore?',successor_id':'');
+  const values=columns.split(',').map(column=>column==='reversed'&&!restore?'1':`OLD.${column}`).join(',');
+  const before=JSON.stringify(r.native().prepare('SELECT * FROM ik_provenance ORDER BY id').all()),history=JSON.stringify(r.native().prepare('SELECT * FROM ik_d1_history ORDER BY id').all()),native=await targets.read(r.db(),'workspace','record','0');
+  const batchesBeforeFault=privateBatches;
+  r.native().exec(`CREATE TRIGGER reinsert_deleted AFTER DELETE ON ${table} BEGIN INSERT INTO ${table}(${columns}) VALUES(${values});END`);
+  await assert.rejects(restore?undoD1ImportStream(next.id,context()):resumeD1ImportStream(next.id,context()),/IMPORT_ATOMIC_GUARD|PUBLICATION_CHANGED|malformed JSON/);
+  assert.equal(JSON.stringify(r.native().prepare('SELECT * FROM ik_provenance ORDER BY id').all()),before);
+  assert.equal(JSON.stringify(r.native().prepare('SELECT * FROM ik_d1_history ORDER BY id').all()),history);
+  assert.deepEqual(await targets.read(r.db(),'workspace','record','0'),native);
+  if(staged)assert.ok(privateBatches>batchesBeforeFault,'the absence fault reaches private native publication');
+  assert.ok(wire.every(bytes=>bytes<=2*1024*1024));
+  if(large)for(const table of nativePrivateTables)assert.equal(r.native().prepare(`SELECT count(*) n FROM ${table}`).get()!.n,0,table);
+  r.native().exec('DROP TRIGGER reinsert_deleted');
+  if(!restore)assert.equal((await resumeD1ImportStream(next.id,context())).state,'completed');
+  assert.equal((await undoD1ImportStream(next.id,context())).state,'undone');
+  assert.deepEqual(await targets.read(r.db(),'workspace','record','0'),original);
+});

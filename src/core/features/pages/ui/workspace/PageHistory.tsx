@@ -29,7 +29,7 @@ export function PageHistory({
     `/api/revisions/${document.page.id}`,
   );
   const [selected, setSelected] = useState<string | null>(()=>new URLSearchParams(window.location.search).get("revision"));
-  const [compare,setCompare]=useState<string>("");
+  const [compare,setCompare]=useState<string>(()=>new URLSearchParams(window.location.search).get("compare")??"");
   const [deleting,setDeleting]=useState(false);
   const comparison=useResource<{blocks:{id:string;change:string;before:BlockView|null;after:BlockView|null}[];properties:{before:unknown;after:unknown}}>(selected&&compare?`/api/revisions/${document.page.id}/compare/${selected}/${compare}`:null);
   const [restoring, setRestoring] = useState(false);

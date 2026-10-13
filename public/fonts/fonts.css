@@ -1,0 +1,52 @@
+/* Outfit (SIL Open Font License 1.1), self-hosted from public/fonts/outfit (LICENSE.txt beside the files). The root document links this file once on every route and preloads the Latin file, so the page makes no third-party request and no route swaps fonts in late. */
+@font-face {
+  font-family: Outfit;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/outfit/outfit-latin-wght-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: Outfit;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/outfit/outfit-latin-ext-wght-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Outfit Fallback: the system Arial (or its metric twin Liberation Sans) resized to Outfit's advance widths and given Outfit's
+   vertical metrics (ascent 1000, descent 260, no line gap, per 1000 units), so the text the browser paints before Outfit
+   arrives takes the room Outfit will and nothing reflows when it swaps in. Arial has two weights where Outfit is variable, so
+   each weight the pages use gets its own scale: 400, 500 and 600 (Arial Bold). Each override is divided by its size-adjust,
+   because the browser scales the overrides by it again. */
+@font-face {
+  font-family: 'Outfit Fallback';
+  font-style: normal;
+  font-weight: 100 450;
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('LiberationSans');
+  size-adjust: 97.5%;
+  ascent-override: 102.56%;
+  descent-override: 26.67%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Outfit Fallback';
+  font-style: normal;
+  font-weight: 451 549;
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('LiberationSans');
+  size-adjust: 99.8%;
+  ascent-override: 100.2%;
+  descent-override: 26.05%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Outfit Fallback';
+  font-style: normal;
+  font-weight: 550 900;
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('LiberationSans-Bold');
+  size-adjust: 94.2%;
+  ascent-override: 106.16%;
+  descent-override: 27.6%;
+  line-gap-override: 0%;
+}

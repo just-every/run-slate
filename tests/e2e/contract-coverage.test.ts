@@ -7,7 +7,8 @@ import { contract } from './contract';
 // contract.profile journey per value in its policy definition before
 // scripts/verify.mjs will count it satisfied. Keep this list in CONTRACT.md order.
 const plannedClauses: ReadonlyArray<readonly [string, string]> = [
-  ['HOME-001', 'Owner identity plate'],
+  ['HOME-001', 'Public landing'],
+  ['DOCS-001', 'Public documentation'],
   ['WORK-001', 'One workspace'],
   ['WORK-003', 'Member management'],
   ['WORK-006', 'Invitations'],

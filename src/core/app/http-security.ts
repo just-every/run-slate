@@ -21,7 +21,7 @@ export async function enforceRateLimit(c:Context<AppEnvironment>,scope:string,li
 }
 
 export async function publicDocumentLimit(request:Request,db:D1Database):Promise<Response|null>{
- const url=new URL(request.url);if(url.pathname!=='/'&&url.pathname!=='/signin'&&!url.pathname.startsWith('/assets/'))return null;
+ const url=new URL(request.url);if(url.pathname!=='/'&&url.pathname!=='/signin'&&url.pathname!=='/docs'&&!url.pathname.startsWith('/docs/')&&!url.pathname.startsWith('/assets/'))return null;
  const minute=Math.floor(Date.now()/60000),key=await requestHash({scope:'public-document',address:request.headers.get('cf-connecting-ip')??'local',minute});
  const row=await db.prepare('INSERT INTO request_limits (key,count,expires_at) VALUES (?,1,?) ON CONFLICT(key) DO UPDATE SET count=count+1 RETURNING count').bind(key,new Date((minute+1)*60000).toISOString()).first<{count:number}>();
  return row&&row.count>120?Response.json({code:'RATE_LIMITED',message:'Too many requests. Try again later.'},{status:429,headers:{'Retry-After':'60'}}):null;

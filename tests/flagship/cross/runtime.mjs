@@ -1,3 +1,5 @@
+import {testDevKey} from '../../e2e/dev-key.mjs';
+import {randomUUID} from 'node:crypto';
 import {execFile} from 'node:child_process';
 import {launch,stop as stopProcess} from '../../qualification/local/process.mjs';
 import {promisify} from 'node:util';
@@ -51,6 +53,13 @@ export async function start(cwd,args,name,origin,env=environment){
  cwd=runtimeRoot(cwd);args=runtimeArguments(args,origin);
  const appPort=Number(new URL(origin).port);qualificationPorts(appPort,appPort+1,portRange);
  if(env.SLATE_INSPECTOR_PORT)env={...env,SLATE_INSPECTOR_PORT:String(Number(new URL(origin).port)+1)};
+ if(cwd===root&&args[0]==='node_modules/vite/bin/vite.js'){
+  await mkdir(evidence,{recursive:true});
+  const settingsPath=path.join(evidence,name+'.dev.vars');
+  const settings={APP_URL:origin,SETUP_OWNER_EMAIL:'jamie@aurora.example',SESSION_SECRET:env.SLATE_SESSION_SECRET??randomUUID(),MAIL_PROVIDER:'development',MAIL_FROM:'auth@test.invalid',LOCAL_DEVELOPMENT:'true',AI_ENABLED:'false',RER_DEV_KEY:testDevKey};
+  await writeFile(settingsPath,Object.entries(settings).map(([key,value])=>`${key}=${JSON.stringify(value)}`).join('\n')+'\n',{mode:0o600});
+  env={...env,SLATE_LOCAL_SETTINGS_PATH:settingsPath};
+ }
  await requireNoInferenceConfig(cwd,args,env);
  await requireUnoccupiedOrigin(origin);
  await requireUnoccupiedOrigin(new URL(origin).origin.replace(':'+appPort,':'+(appPort+1)));

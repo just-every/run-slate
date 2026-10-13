@@ -1,0 +1,124 @@
+/*
+ * One header system for every destination of the signed-in app: the top bar (location on the left, actions on the right, one
+ * height and one divider), the page title (one family, size and weight), the content column (one left edge and one maximum
+ * width per layout type, `data-layout`), and the single tab style.
+ */
+.slate-app {
+  --topbar-height: 56px;
+  --col-gutter: clamp(16px, 4vw, 40px);
+  --col-reading: 880px;
+  --col-wide: 1120px;
+}
+
+/* Top bar */
+.slate-app .topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: var(--topbar-height);
+  padding: 8px 24px;
+  border-bottom: 1px solid var(--slate-line);
+  background: var(--slate-canvas);
+}
+.slate-app .crumbs { min-width: 0; }
+.slate-app .crumbs ol { display: flex; align-items: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.slate-app .crumbs li { display: flex; align-items: center; gap: 8px; min-width: 0; color: var(--slate-ink-muted); font-size: 14px; }
+.slate-app .crumbs li + li::before { content: "\203A"; color: var(--slate-ink-faint); }
+.slate-app .crumbs a:hover { color: var(--slate-ink-strong); }
+.slate-app .crumbs [aria-current="page"] { overflow: hidden; color: var(--slate-ink-strong); text-overflow: ellipsis; white-space: nowrap; }
+.slate-app .tools { display: flex; flex-shrink: 0; flex-wrap: nowrap; align-items: center; gap: 8px; }
+.slate-app .tools > a:not(.icon-action) { padding: 6px 4px; color: var(--slate-ink-muted); font-size: 14px; }
+.slate-app .tools > a:not(.icon-action):hover { color: var(--slate-ink-strong); }
+.slate-app .tool, .slate-app .icon-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.slate-app .tool { padding-inline: 14px; }
+.slate-app .tool svg { width: 16px; height: 16px; }
+.slate-app .tool-primary { border-color: var(--slate-accent); background-color: var(--slate-accent); color: var(--slate-accent-ink); font-weight: 600; }
+.slate-app .tool-primary:not(:disabled):hover { background-color: var(--slate-accent-hover); }
+.slate-app a.icon-action { border: 1px solid var(--slate-line); border-radius: 6px; background-color: var(--slate-surface); }
+.slate-app .icon-action { width: 36px; min-width: 36px; padding: 0 8px; color: var(--slate-ink-muted); }
+.slate-app .icon-action svg { width: 18px; height: 18px; }
+.slate-app .icon-action:hover { color: var(--slate-ink-strong); }
+
+/* Tooltips: the accessible name, shown on hover and on keyboard focus; never intercepts a pointer. */
+.slate-app [data-tooltip] { position: relative; }
+.slate-app [data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  z-index: 60;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--slate-ink-strong);
+  color: var(--slate-canvas);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transition: opacity 120ms ease;
+}
+.slate-app [data-tooltip]:hover::after, .slate-app [data-tooltip]:focus-visible::after { opacity: 1; transition-delay: 350ms; }
+.slate-app [data-tooltip-align="end"]::after { right: 0; left: auto; transform: none; }
+.slate-app [data-tooltip-align="right"]::after { top: 50%; left: calc(100% + 8px); transform: translateY(-50%); }
+
+/* Title and content column */
+.slate-app .main {
+  width: 100%;
+  max-width: calc(var(--col-reading) + 2 * var(--col-gutter));
+  margin-inline: auto;
+  padding: 40px var(--col-gutter) 96px;
+}
+.slate-app .main[data-layout="wide"] { max-width: calc(var(--col-wide) + 2 * var(--col-gutter)); }
+.slate-app .page-title {
+  margin: 0 0 20px;
+  color: var(--slate-ink-strong);
+  font: 400 2.5rem/1.15 var(--slate-serif);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.slate-app textarea.page-title-input { display: block; width: 100%; min-height: 1.15em; padding: 0; border: 0; background: transparent; resize: none; overflow: hidden; field-sizing: content; }
+.slate-app .page-title-input:focus-visible { outline: none; }
+.slate-app .page-title:has(+ .page-lede) { margin-bottom: 8px; }
+.slate-app .page-title + .tabs { margin-top: 0; }
+.slate-app .page-lede { margin: 0 0 24px; color: var(--slate-ink-muted); font-size: 15px; line-height: 1.6; }
+
+/* Tabs: the one tab style (settings sections, saved views, space and archive tabs). */
+.slate-app .tabs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-block: 16px; }
+.slate-app .tabs > :is(button, a) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 6px;
+  background-color: var(--slate-canvas);
+  color: var(--slate-ink-muted);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.slate-app .tabs > :is(button, a):not(:disabled):hover { background-color: var(--slate-sidebar-hover); color: var(--slate-ink-strong); }
+.slate-app .tabs > :is([aria-pressed="true"], [aria-current="page"], [aria-expanded="true"]) { background-color: var(--slate-accent-soft); color: var(--slate-accent); font-weight: 600; }
+.slate-app :is(.main, .space-detail) > .tabs { margin-left: -14px; }
+.slate-app .main > .db-toolbar > .db-tabs { margin-left: -14px; }
+.slate-app .tabs-rule { padding-bottom: 12px; border-bottom: 1px solid var(--slate-line); }
+
+@media (max-width: 700px) {
+  .slate-app .tabs.settings-tabs { flex-wrap: nowrap; overflow-x: auto; margin-bottom: 8px; scrollbar-width: auto; }
+  .slate-app .topbar { flex-wrap: wrap; row-gap: 4px; min-height: 60px; padding: 8px 16px; }
+  .slate-app .crumbs { flex: 1 1 auto; }
+  .slate-app .main { padding-top: 28px; }
+  .slate-app .page-title { font-size: 2rem; }
+}

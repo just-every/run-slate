@@ -1,6 +1,6 @@
 import type {FeatureContext} from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
-import {requestHash,mutationGuard} from '../../app/operations';
+import {requestHash,mutationGuard,freshProofGuard} from '../../app/operations';
 import {createUlid} from '../../shared/ulid';
 import {requireWorkspaceOwner} from '../sharing/current-access';
 import {requireExportCoverage} from './coverage';
@@ -22,7 +22,7 @@ export async function stagePortabilityJob(ctx:FeatureContext,kind:'export'|'rest
  const previous=await lookup();if(previous)return replay(previous);
  if(kind==='restore'){if(!bytes)throw new ApiProblem(400,'FILE_REQUIRED','Attach a Slate workspace archive.');await prepareRestore(ctx,bytes);}
  const id=createUlid(),now=clock(),source=kind==='restore'?`federation/staging/${id}/source.zip`:null,lease=kind==='restore'?createUlid():null;
- try{await ctx.db.batch([identityGuard(ctx),aclGuard(ctx),
+ try{await ctx.db.batch([identityGuard(ctx),aclGuard(ctx),...(ctx.stepUp?[freshProofGuard(ctx)]:[]),
   ctx.db.prepare("INSERT INTO portability_jobs(id,kind,admission_workspace_id,admission_actor_id,operation_key,request_hash,status_workspace_id,status_actor_id,state,export_id,source_archive_key,planned_restore_id,source_ready,lease_id,lease_until,created_at,updated_at,expires_at) VALUES(?,?,?,?,?,?,?,?,'queued',?,?,?,?,?,?,?,?,?)").bind(id,kind,ctx.actor.workspaceId,ctx.actor.id,operationKey,hash,ctx.actor.workspaceId,ctx.actor.id,kind==='export'?id:null,source,kind==='restore'?createUlid():null,kind==='export'?1:0,lease,lease?leaseDeadline():null,now,now,retentionDeadline()),
   ...(kind==='export'?await exportAdmission(ctx,id,operationKey,now):[])
  ]);}catch(error){const raced=await lookup();if(raced)return replay(raced);throw error;}

@@ -1,3 +1,4 @@
+import { labelForReader } from '../pages/mentions';
 import { filterRecordProperties } from '../databases/property-access';
 import type { FeatureContext } from '../../app/feature-context';
 import { commitOperation } from '../../app/operations';
@@ -21,7 +22,7 @@ export async function readRevision(ctx: FeatureContext, pageId: string, id: stri
     if (r.deleted_at)
         return { id: r.id, deleted: true, ordinal: r.ordinal, deletedAt: r.deleted_at };
     const p = await pageRow(ctx, pageId);
-    return { id: r.id, blocks: JSON.parse(r.body_json), properties: await filterRecordProperties(ctx, pageId, JSON.parse(r.properties_json)), createdAt: r.created_at, newerRevisionExists: p.working_revision_id !== id };
+    return { id: r.id, blocks: await labelForReader(ctx, JSON.parse(r.body_json)), properties: await filterRecordProperties(ctx, pageId, JSON.parse(r.properties_json)), createdAt: r.created_at, newerRevisionExists: p.working_revision_id !== id };
 }
 export async function restorePageRevision(ctx: FeatureContext, pageId: string, id: string, input: {
     operationKey: string;

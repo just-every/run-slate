@@ -1,11 +1,14 @@
-import {createHmac,randomBytes,randomUUID} from 'node:crypto';
+import {signInWithOutbox} from '../../e2e/outbox-auth.mjs';
+import {randomUUID} from 'node:crypto';
 export const q=value=>`'${String(value).replaceAll("'","''")}'`;
 export const op=()=>randomUUID();
 export async function rows(r,sql){return (await r.sql(sql))[0].results;}
 export async function actor(r,id,{role='member',kind='member',expired=false,revoked=false}={}){
- const now=new Date().toISOString(),token=randomBytes(32).toString('base64url'),digest=createHmac('sha256',r.sessionSecret).update(token).digest('hex');
- await r.sql(`INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,created_at,updated_at) VALUES(${q(id)},'qualification-workspace',${q(id+'@test.invalid')},${q(id)},'QA',${q(role)},${q(kind)},'active',${q(now)},${q(now)}); INSERT INTO sessions(id,member_id,token_digest,created_at,updated_at,expires_at,revoked_at) VALUES(${q(id+'-session')},${q(id)},${q(digest)},${q(now)},${q(now)},${q(expired?'2000-01-01T00:00:00Z':'2099-01-01T00:00:00Z')},${revoked?q(now):'NULL'});`);
- return `slate_session=${token}`;
+ const now=new Date().toISOString();
+ await r.sql(`INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,created_at,updated_at) VALUES(${q(id)},'qualification-workspace',${q(id+'@test.invalid')},${q(id)},'QA',${q(role)},${q(kind)},'active',${q(now)},${q(now)});`);
+ const {cookie}=await signInWithOutbox(r.origin,id+'@test.invalid');
+ if(expired||revoked) await r.sql(`UPDATE sessions SET ${expired?"expires_at='2000-01-01T00:00:00Z'":"revoked_at="+q(now)} WHERE member_id=${q(id)}`);
+ return cookie;
 }
 export async function api(r,path,cookie,body,method=body?'POST':'GET'){
  const start=performance.now(),res=await fetch(r.origin+path,{method,redirect:'manual',headers:{...(cookie?{cookie}:{}),...(body?{'content-type':'application/json',origin:r.origin}: {})},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(15000)});const text=await res.text();let data;try{data=JSON.parse(text);}catch{data=text;}return {status:res.status,data,headers:res.headers,ms:performance.now()-start};

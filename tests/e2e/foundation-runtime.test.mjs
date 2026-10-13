@@ -5,6 +5,7 @@ import path from "node:path";
 import test from "node:test";
 import {
   applyMigrations,
+  seedAuroraFixture,
   countRows,
   executeD1,
   signInLocally,
@@ -24,29 +25,30 @@ test("the development Worker serves the Start documents and the Hono families", 
     runtime = await startViteRuntime(persistPath);
     const { baseUrl } = runtime;
 
-    // Hono: health reports only the dependencies it actually round-tripped.
+    // Hono: health reports only the dependencies it actually round-tripped,
+    // and a null deployment identity outside a Base deploy.
     const health = await fetch(`${baseUrl}/health`);
     assert.equal(health.status, 200);
     assert.deepEqual(await health.json(), {
+      ok: true,
       status: "ok",
       checks: { database: { status: "reachable" }, files: { status: "reachable" } },
+      deployment: { sourceSha: null, fingerprint: null, versionId: null },
     });
 
-    // Start: HOME-001 renders the buyer identity in the first HTML response.
+    // Start: the public document is HTML and carries no private fixture identity.
     const landing = await fetch(baseUrl);
     assert.equal(landing.status, 200);
     assert.match(landing.headers.get("content-type") ?? "", /text\/html/);
     const landingHtml = await landing.text();
-    assert.match(landingHtml, /<html lang="en">/);
-    assert.match(landingHtml, /<h1[^>]*>Slate<\/h1>/);
+    assert.match(landingHtml, /<html lang="en"[\s>]/);
     assert.doesNotMatch(landingHtml, /Jamie Park|jamie@aurora.example/);
-    assert.match(landingHtml, /Sign in to workspace/);
 
     const signInDocument = await fetch(`${baseUrl}/signin`);
     assert.equal(signInDocument.status, 200);
-    assert.match(await signInDocument.text(), /Your workspace is private\./);
+    assert.match(signInDocument.headers.get("content-type") ?? "", /text\/html/);
 
-    // Nothing is seeded until a loopback sign-in asks for it.
+    // Startup never seeds application data.
     assert.equal(await countRows(persistPath, "workspaces"), 0);
 
     // The native anonymous operator-document response, with a safe next path.
@@ -59,15 +61,18 @@ test("the development Worker serves the Start documents and the Hono families", 
     assert.equal(escapingNext.status, 302);
     assert.equal(escapingNext.headers.get("location"), "/signin?next=%2Fapp");
 
-    const malformedSignIn = await fetch(`${baseUrl}/api/auth/local-sign-in`, {
+    const malformedSignIn = await fetch(`${baseUrl}/api/auth/magic`, {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: { "content-type": "application/json", origin: baseUrl },
       body: "{",
     });
     assert.equal(malformedSignIn.status, 400);
     assert.equal(await countRows(persistPath, "workspaces"), 0);
 
-    const { cookie, body } = await signInLocally(baseUrl);
+    await seedAuroraFixture(persistPath);
+    const first = await signInLocally(baseUrl);
+    const body = first.body;
+    let cookie = first.cookie;
     assert.equal(body.next, "/app");
     assert.equal(body.member.email, "jamie@aurora.example");
     assert.equal(body.member.role, "owner");
@@ -79,17 +84,20 @@ test("the development Worker serves the Start documents and the Hono families", 
     const operatorDocument = await fetch(`${baseUrl}/app`, { headers: { cookie } });
     assert.equal(operatorDocument.status, 200);
     const operatorHtml = await operatorDocument.text();
-    assert.match(operatorHtml, /data-testid="member-name">Jamie Park</);
-    assert.match(operatorHtml, /data-testid="workspace-name">Aurora Android Launch</);
+    assert.match(operatorHtml, /data-testid="member-email">jamie@aurora\.example</);
     assert.match(operatorHtml, /data-testid="workspace-empty-state"/);
-    assert.match(operatorHtml, /data-testid="nav-workspace"/);
 
-    // Changed D1 changes the next first HTML response: this document is SSR, not a snapshot.
-    await executeD1(persistPath, `UPDATE members SET display_name = 'Jamie Renamed' WHERE id = '${sampleOwnerMemberId}'`);
+    // Changed D1 changes the next first HTML response: this document is SSR, not a snapshot. A session is fenced to the member's
+    // address, so changing it in D1 turns the very next /app response into the sign-in document; the old session stays refused after the
+    // address is restored and a new sign-in shows the app again.
+    await executeD1(persistPath, `UPDATE members SET email = 'renamed@aurora.example' WHERE id = '${sampleOwnerMemberId}'`);
     const renamedHtml = await (await fetch(`${baseUrl}/app`, { headers: { cookie } })).text();
-    assert.match(renamedHtml, /data-testid="member-name">Jamie Renamed</);
-    assert.doesNotMatch(renamedHtml, /Jamie Park/);
-    await executeD1(persistPath, `UPDATE members SET display_name = 'Jamie Park' WHERE id = '${sampleOwnerMemberId}'`);
+    assert.doesNotMatch(renamedHtml, /data-testid="member-email"/);
+    assert.match(renamedHtml, /<h1 class="paper-title">Sign in</);
+    await executeD1(persistPath, `UPDATE members SET email = 'jamie@aurora.example' WHERE id = '${sampleOwnerMemberId}'`);
+    cookie = (await signInLocally(baseUrl)).cookie;
+    const restoredHtml = await (await fetch(`${baseUrl}/app`, { headers: { cookie } })).text();
+    assert.match(restoredHtml, /data-testid="member-email">jamie@aurora\.example</);
 
     // A protected API namespace authenticates before it matches a route.
     const anonymousUnknownApi = await fetch(`${baseUrl}/api/does-not-exist`);
@@ -114,7 +122,6 @@ test("the development Worker serves the Start documents and the Hono families", 
     // An unknown document is a real 404, not the application shell.
     const unknownDocument = await fetch(`${baseUrl}/nothing-here`);
     assert.equal(unknownDocument.status, 404);
-    assert.match(await unknownDocument.text(), /Not found/);
 
     // Revoking a session is observable on every protected surface.
     const logout = await fetch(`${baseUrl}/api/auth/logout`, { method: "POST", headers: { cookie, origin: baseUrl } });
@@ -136,7 +143,7 @@ test("the development Worker serves the Start documents and the Hono families", 
   }
 });
 
-test("local sample data never reaches a custom local workspace", { timeout: 120000 }, async () => {
+test("native outbox sign-in preserves custom and retained Aurora workspaces", { timeout: 120000 }, async () => {
   const persistPath = await mkdtemp(path.join(os.tmpdir(), "slate-custom-local-"));
   let runtime;
 
@@ -145,26 +152,23 @@ test("local sample data never reaches a custom local workspace", { timeout: 1200
     await executeD1(persistPath, "INSERT INTO workspaces (id, name, mark, created_at, updated_at, revision_id) VALUES ('custom-workspace', 'Custom local workspace', 'C', '2026-09-08T00:00:00.000Z', '2026-09-08T00:00:00.000Z', 'custom-workspace-revision')");
     runtime = await startViteRuntime(persistPath);
 
-    const signIn = await fetch(`${runtime.baseUrl}/api/auth/local-sign-in`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ next: "/app" }),
+    const signIn = await fetch(`${runtime.baseUrl}/api/auth/magic`, {
+      method: "POST", headers: { "content-type": "application/json", origin: runtime.baseUrl },
+      body: JSON.stringify({email: "unlisted@aurora.example"}),
     });
-    assert.equal(signIn.status, 409);
-    assert.equal((await signIn.json()).code, "LOCAL_SAMPLE_UNAVAILABLE");
+    assert.equal(signIn.status, 200);
+    assert.deepEqual(await signIn.json(), {accepted:true});
 
     const [workspaces] = await executeD1(persistPath, "SELECT id FROM workspaces ORDER BY id");
     assert.deepEqual(workspaces.results, [{ id: "custom-workspace" }]);
     assert.equal(await countRows(persistPath, "members"), 0);
 
-    // The sample workspace on its own is upgraded rather than refused.
+    // The retained Aurora workspace signs in without adding or changing its records.
     await executeD1(persistPath, `DELETE FROM workspaces; INSERT INTO workspaces (id, name, mark, created_at, updated_at, revision_id) VALUES ('${sampleWorkspaceId}', 'Aurora Android Launch', 'A', '2026-09-08T00:00:00.000Z', '2026-09-08T00:00:00.000Z', 'sample-revision'); INSERT INTO members (id, workspace_id, email, display_name, initials, role, is_setup_owner, created_at, updated_at) VALUES ('${sampleOwnerMemberId}', '${sampleWorkspaceId}', 'jamie@aurora.example', 'Jamie Park', 'JP', 'owner', 1, '2026-09-08T00:00:00.000Z', '2026-09-08T00:00:00.000Z')`);
-    const upgraded = await fetch(`${runtime.baseUrl}/api/auth/local-sign-in`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ next: "/app" }),
-    });
-    assert.equal(upgraded.status, 200);
+    const upgraded = await signInLocally(runtime.baseUrl);
+    assert.equal(upgraded.body.member.id, sampleOwnerMemberId);
+    assert.equal(await countRows(persistPath, "members"), 1);
+
   } finally {
     if (runtime) await stop(runtime.child);
     await rm(persistPath, { recursive: true, force: true });

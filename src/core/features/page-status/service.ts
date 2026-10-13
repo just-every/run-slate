@@ -4,11 +4,14 @@ import { ApiProblem } from '../../app/problems';
 import { createUlid } from '../../shared/ulid';
 import { requirePageLevel, requireWorkspaceOwner } from '../sharing/current-access';
 import { pageRow, pageGuard, snapshot, revisionStatement, contentEvent, writable } from '../pages/repository';
+import { verificationExpiry, verificationState } from './state';
 export async function setPageStatus(ctx: FeatureContext, id: string, input: {
     operationKey: string;
     expectedRevisionId: string;
     statusKey: string | null;
     attestRevisionId?: string;
+    /** STAT-003: 7, 30 or 90 days from the server's clock, or `expiresAt`, or neither for no expiry. */
+    expiresInDays?: number | null;
     expiresAt?: string | null;
 }) {
     return commitOperation(ctx, { operationKey: input.operationKey, action: 'pages.status', request: { id, ...input }, authorize: async () => { await requirePageLevel(ctx, id, 'edit'); }, prepare: async ({ revisionId }) => {
@@ -24,19 +27,36 @@ export async function setPageStatus(ctx: FeatureContext, id: string, input: {
             const statements = [pageGuard(ctx, p, input.expectedRevisionId)];
             if (status?.requires_verification) {
                 if (input.attestRevisionId !== p.working_revision_id)
-                    throw new ApiProblem(409, 'EXACT_REVISION_REQUIRED', 'Open the exact current revision before attesting.');
+                    throw new ApiProblem(409, 'EXACT_REVISION_REQUIRED', 'Someone changed this page after you opened it. Reload the page, read the current version, then verify it.');
                 const opened = await ctx.db.prepare('SELECT 1 FROM content_page_opens WHERE member_id=? AND page_id=? AND revision_id=?').bind(ctx.actor.id, id, input.attestRevisionId).first();
                 if (!opened)
-                    throw new ApiProblem(409, 'REVISION_NOT_OPENED', 'Open this revision before human verification.');
-                if (input.expiresAt && (!Number.isFinite(Date.parse(input.expiresAt)) || input.expiresAt <= ctx.now))
-                    throw new ApiProblem(400, 'INVALID_EXPIRY', 'Expiry must be in the future.');
-                statements.push(ctx.db.prepare('INSERT INTO page_verifications (id,page_id,revision_id,status_key,owner_member_id,verified_by_member_id,expires_at,created_at) VALUES (?,?,?,?,?,?,?,?)').bind(createUlid(), id, p.working_revision_id, input.statusKey, ctx.actor.id, ctx.actor.id, input.expiresAt ?? null, ctx.now));
+                    throw new ApiProblem(409, 'REVISION_NOT_OPENED', 'You have not opened the current version of this page. Open the page, read it as it is now, then verify it.');
+                const expiresAt = verificationExpiry(input, ctx.now);
+                statements.push(ctx.db.prepare('INSERT INTO page_verifications (id,page_id,revision_id,status_key,owner_member_id,verified_by_member_id,expires_at,created_at) VALUES (?,?,?,?,?,?,?,?)').bind(createUlid(), id, p.working_revision_id, input.statusKey, ctx.actor.id, ctx.actor.id, expiresAt, ctx.now));
             }
             statements.push(ctx.db.prepare('UPDATE pages SET status_key=?,revision_id=?,updated_at=? WHERE id=?').bind(input.statusKey, revisionId, ctx.now, id), await revisionStatement(ctx, id, revisionId, s), contentEvent(ctx, id, revisionId, 'status'));
             return { statements, entity: { id, kind: 'page', revisionId }, value: { pageId: id, revisionId } };
         } });
 }
-export async function verification(ctx: FeatureContext, pageId: string) { await requirePageLevel(ctx, pageId, 'view'); const p = await pageRow(ctx, pageId); const v = await ctx.db.prepare('SELECT * FROM page_verifications WHERE page_id=? ORDER BY created_at DESC,id DESC LIMIT 1').bind(pageId).first<Record<string, any>>(); return v ? { ...v, lapsed: !!v.expires_at && v.expires_at <= ctx.now, current: v.revision_id === p.working_revision_id && (!v.expires_at || v.expires_at > ctx.now) } : null; }
+/** The page's latest verification as its badge and panel show it (STAT-003, STAT-004). */
+export async function verification(ctx: FeatureContext, pageId: string) {
+    const access = await requirePageLevel(ctx, pageId, 'view');
+    const p = await pageRow(ctx, pageId);
+    const v = await ctx.db.prepare("SELECT v.*,m.display_name AS verifier_name,m.status='active' AS verifier_active,r.created_at AS revision_created_at FROM page_verifications v LEFT JOIN members m ON m.id=v.owner_member_id LEFT JOIN page_revisions r ON r.id=v.revision_id WHERE v.page_id=? ORDER BY v.created_at DESC,v.id DESC LIMIT 1").bind(pageId).first<Record<string, any>>();
+    if (!v)
+        return null;
+    const { verifier_name, verifier_active, revision_created_at, ...row } = v;
+    const state = verificationState(v as { status_key: string; revision_id: string; expires_at: string | null }, p, ctx.now);
+    const changedSince = v.revision_id !== p.working_revision_id;
+    const opened = await ctx.db.prepare('SELECT 1 FROM content_page_opens WHERE member_id=? AND page_id=? AND revision_id=?').bind(ctx.actor.id, pageId, p.working_revision_id).first();
+    const changes = changedSince ? await changesSince(ctx, pageId, v.created_at, ['edit', 'full'].includes(access.decision.level!)) : { revisions: 0, editors: [] };
+    return { ...row, state, current: state === 'current', lapsed: !!v.expires_at && v.expires_at <= ctx.now, changedSince, workingRevisionId: p.working_revision_id, revisionCreatedAt: revision_created_at ?? null, verifier: { id: v.owner_member_id, displayName: verifier_name ?? 'Former member', active: !!verifier_active }, revisionsSince: changes.revisions, editorsSince: changes.editors, openedCurrent: !!opened };
+}
+/** Revisions committed after a verification, limited to those the reader's history shows (REV-002). */
+export async function changesSince(ctx: FeatureContext, pageId: string, since: string, editor: boolean) {
+    const row = await ctx.db.prepare("SELECT COUNT(*) AS revisions,(SELECT json_group_array(display_name) FROM (SELECT DISTINCT m.display_name FROM page_revisions x JOIN members m ON m.id=x.author_member_id WHERE x.page_id=?1 AND x.created_at>?2 AND x.deleted_at IS NULL AND (?3 OR EXISTS(SELECT 1 FROM content_published_revisions pv WHERE pv.page_id=x.page_id AND pv.revision_id=x.id)) ORDER BY m.display_name)) AS editors FROM page_revisions r WHERE r.page_id=?1 AND r.created_at>?2 AND r.deleted_at IS NULL AND (?3 OR EXISTS(SELECT 1 FROM content_published_revisions pv WHERE pv.page_id=r.page_id AND pv.revision_id=r.id))").bind(pageId, since, +editor).first<{ revisions: number; editors: string }>();
+    return { revisions: row?.revisions ?? 0, editors: JSON.parse(row?.editors ?? '[]') as string[] };
+}
 export async function setStatusEntry(ctx: FeatureContext, input: {
     operationKey: string;
     key: string;

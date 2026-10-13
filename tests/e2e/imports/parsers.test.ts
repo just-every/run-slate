@@ -13,15 +13,18 @@ test("synthetic Notion archive preserves the page tree, page links, CSV fields, 
   expect(parsed.media.length).toBe(1);
 });
 
-test("synthetic Confluence archive keeps source container restrictions scoped and reports unsupported constructs", () => {
+test("synthetic Confluence archive keeps unmapped restrictions closed and reports unsupported constructs", () => {
   const parsed = parseImport("confluence-space", { name: "synthetic-confluence.zip", bytes: syntheticConfluenceArchive() });
   const overview = parsed.pages.find((page) => page.title === "Overview")!;
   const child = parsed.pages.find((page) => page.title === "Child")!;
   expect(overview.labels).toEqual(["team"]);
-  expect(overview.grants[0]?.principalKind).toBe("container");
-  expect(overview.grants[0]?.principalSourceId).toBe(parsed.containers[0]!.sourceId);
+  expect(overview.restricted).toBe(true);
+  expect(overview.grants).toEqual([]);
   expect(overview.blocks.find((block) => block.kind === "paragraph")?.links[0]?.targetSourceId).toBe(child.sourceId);
   expect(overview.revisions[0]?.ordinal).toBe(3);
+  expect(parsed.media).toHaveLength(1);
+  expect(parsed.media[0]?.ownerPageSourceId).toBe(overview.sourceId);
+  expect([...parsed.media[0]!.bytes]).toEqual([137, 80, 78, 71]);
   expect(parsed.pages.find((page) => page.title === "Legacy folder")?.blocks.length).toBe(0);
   expect(parsed.report.unmapped.some((entry) => entry.label.includes("BlogPost"))).toBe(true);
 });

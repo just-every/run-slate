@@ -1,3 +1,5 @@
+import { AccessExpiry } from "../../../../app/ui/AccessExpiry";
+import { displayDate } from "../../../../app/ui/displayDate";
 import { useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import {
@@ -26,6 +28,7 @@ interface Grant {
   invitationExpiresAt?:string;
 
 }
+function accessLabel(level: string) { return ({view:"View",comment:"Comment",edit:"Edit",full:"Manage access"} as Record<string,string>)[level] ?? level; }
 export function PageSharing({ document }: { document: DocumentView }) {
   const { workspace } = useWorkspace();
   const grants = useResource<{ items: Grant[]; inheritedItems?:Grant[]; effectiveItems?:Grant[];levels?:string[];container?:{id:string;name:string};restricted?:boolean }>(
@@ -72,21 +75,29 @@ export function PageSharing({ document }: { document: DocumentView }) {
     if (grant.principalKind === "workspace")
       return "Everyone in this workspace";
     if (grant.principalKind === "container")
-      return `Everyone in ${grants.data?.container?.name ?? "this container"}`;
+      return `Everyone in ${grants.data?.container?.name ?? "this space"}`;
     return (
       members.data?.items.find((item) => item.id === grant.principalId)
         ?.displayName ??
       groups.data?.items.find((item) => item.id === grant.principalId)?.name ??
-      "Unavailable principal"
+      "Former member or group"
     );
   }
   return (
     <section>
       <h2>Share this page</h2>
-      <p className="muted">
-        Access stays within this workspace unless you explicitly publish a
-        public page.
-      </p>
+      <p className="muted">Invite people to this page. Copying its link does not change who can access it.</p>
+      <button className="secondary-button"
+        type="button"
+        onClick={() => {
+          void navigator.clipboard
+            .writeText(`${window.location.origin}/app/pages/${document.page.id}`)
+            .then(() => setCopied(true))
+            .catch(setError);
+        }}
+      >
+        {copied ? "Link copied" : "Copy page link"}
+      </button>
       {!document.permissions.canShare ? (
         <p>You need full access to change who can read this page.</p>
       ) : (
@@ -95,44 +106,6 @@ export function PageSharing({ document }: { document: DocumentView }) {
           error={grants.error}
           retry={grants.reload}
         >
-          <p>Your effective access: {document.permissions.level}</p><p>{grants.data?.restricted?'Inheritance is restricted. Only direct grants apply.':'Access inherits from the parent page and space.'}</p>
-          <button disabled={pending} onClick={async()=>{setPending(true);setError(undefined);try{await mutate(`/api/sharing/pages/${document.page.id}/inheritance`,{operationKey:operationKey(),expectedRevisionId:document.page.revisionId,restricted:!grants.data?.restricted},'PUT');grants.reload();window.dispatchEvent(new CustomEvent('slate:page-mutated',{detail:{pageId:document.page.id}}));}catch(error){setError(error);}finally{setPending(false);}}}>{grants.data?.restricted?'Restore inherited access':'Restrict inherited access'}</button>
-          {grants.data?.inheritedItems?.length ? <section><h3>Inherited access</h3><ul>{grants.data.inheritedItems.map(grant=><li key={grant.id}>{name(grant)} · {grant.level} · {grant.status} · From {grant.origin?.name}</li>)}</ul></section>:null}
-          <ul className="grant-list">
-            {grants.data?.items.map((grant) => (
-              <li key={grant.id}>
-                <span>{name(grant)}{grant.invitationId ? ` · ${grant.status??"Pending"} invitation` : ""}{grant.expiresAt ? ` · ${new Date(grant.expiresAt)<new Date()?"Expired":"Expires"} ${new Date(grant.expiresAt).toLocaleString()}` : ""}</span>
-                {grant.revokedAt ? (
-                  <span>Revoked {!grant.invitationId?<button disabled={pending} onClick={()=>void save({...grant,expiresAt:null})}>Regrant access</button>:null}</span>
-                ) : (
-                  <>
-                    <select
-                      aria-label={`Access for ${name(grant)}`}
-                      value={grant.level}
-                      disabled={pending || !!grant.invitationId}
-                      onChange={(event) =>
-                        void save({ ...grant, level: event.target.value })
-                      }
-                    >
-                      {!grants.data?.levels?.includes(grant.level)?<option value={grant.level} disabled>{grant.level} (stored)</option>:null}
-                      {(grants.data?.levels ?? []).map((level) => (
-                        <option key={level}>{level}</option>
-                      ))}
-                    </select>
-                    {grant.status==='expired'&&!grant.invitationId?<button disabled={pending} onClick={()=>void save({...grant,expiresAt:null})}>Regrant access</button>:null}
-                    {!grant.invitationId ? <label>Access expires<input type="datetime-local" defaultValue={grant.expiresAt?.slice(0,16)??""} onBlur={e=>{const expiresAt=e.target.value?new Date(e.target.value).toISOString():null;if(expiresAt!==grant.expiresAt)void save({...grant,expiresAt});}}/></label>:null}
-                    <button
-                      type="button"
-                      disabled={pending}
-                      onClick={() => void save({ ...grant, revoke: true })}
-                    >
-                      Remove access
-                    </button>
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
           <form
             className="detail-form"
             onSubmit={(event) => {
@@ -168,19 +141,58 @@ export function PageSharing({ document }: { document: DocumentView }) {
               </select>
             </label>
             <label>
-              Access
+              Permission
               <select name="level" defaultValue="view">
                 {(grants.data?.levels ?? []).map((level) => (
-                  <option key={level}>{level}</option>
+                  <option key={level} value={level}>{accessLabel(level)}</option>
                 ))}
               </select>
             </label>
-            <label>Access expires (optional)<input name="expiresAt" type="datetime-local"/></label>
+            <details><summary>Set an access expiry</summary><label>Access expires (optional)<AccessExpiry name="expiresAt"/></label></details>
             <button className="primary-button" type="submit" disabled={pending}>
-              Grant access
+              Share page
             </button>
           </form>
-          <details><summary>Invite by email</summary><form className="detail-form" onSubmit={async event=>{event.preventDefault();const data=new FormData(event.currentTarget);setPending(true);setError(undefined);try{await mutate("/api/invitations",{operationKey:operationKey(),email:String(data.get("email")),kind:"guest",pageId:document.page.id,level:String(data.get("level")),expiresAt:data.get("expires")?new Date(String(data.get("expires"))).toISOString():null});setInvited(true);grants.reload();}catch(error){setError(error);}finally{setPending(false);}}}><label>Email address<input name="email" type="email" required/></label><label>Invitation access<select name="level">{grants.data?.levels?.map(level=><option key={level}>{level}</option>)}</select></label><label>Guest access expires<input type="datetime-local" name="expires"/></label><p>Sending creates a pending invitation. Access begins only when it is accepted; the invitation expires after 24 hours.</p><button disabled={pending}>Send invitation</button>{invited?<p role="status">Invitation requested. Pending access is shown above.</p>:null}</form></details>
+          <details><summary>Invite by email</summary><form className="detail-form" onSubmit={async event=>{event.preventDefault();const data=new FormData(event.currentTarget);setPending(true);setError(undefined);try{await mutate("/api/invitations",{operationKey:operationKey(),email:String(data.get("email")),kind:"guest",pageId:document.page.id,level:String(data.get("level")),expiresAt:data.get("expires")?new Date(String(data.get("expires"))).toISOString():null});setInvited(true);grants.reload();}catch(error){setError(error);}finally{setPending(false);}}}><label>Email address<input name="email" type="email" required/></label><label>Invitation access<select name="level">{grants.data?.levels?.map(level=><option key={level} value={level}>{accessLabel(level)}</option>)}</select></label><details><summary>Set an access expiry</summary><label>Guest access expires<AccessExpiry name="expires"/></label></details><p>Sending creates a pending invitation. Access begins only when it is accepted; the invitation expires after 24 hours.</p><button disabled={pending}>Send invitation</button>{invited?<p role="status">Invitation requested. Pending access is shown above.</p>:null}</form></details>
+          <details className="advanced-access"><summary>Advanced access</summary>
+          <p>{document.permissions.level === "full" ? "You can manage access to this page." : `You can ${accessLabel(document.permissions.level).toLowerCase()} ${document.permissions.level === "comment" ? "on " : ""}this page.`}</p><p>{grants.data?.restricted?'Only people invited directly can access this page.':'People with access to the parent page or space can also access this page.'}</p>
+          <button disabled={pending} onClick={async()=>{setPending(true);setError(undefined);try{await mutate(`/api/sharing/pages/${document.page.id}/inheritance`,{operationKey:operationKey(),expectedRevisionId:document.page.revisionId,restricted:!grants.data?.restricted},'PUT');grants.reload();window.dispatchEvent(new CustomEvent('slate:page-mutated',{detail:{pageId:document.page.id}}));}catch(error){setError(error);}finally{setPending(false);}}}>{grants.data?.restricted?'Restore inherited access':'Restrict inherited access'}</button>
+          {grants.data?.inheritedItems?.length ? <section><h3>Inherited access</h3><ul>{grants.data.inheritedItems.map(grant=><li key={grant.id}>{name(grant)} · {accessLabel(grant.level)} · {grant.status} · From {grant.origin?.name}</li>)}</ul></section>:null}
+          <ul className="grant-list">
+            {grants.data?.items.map((grant) => (
+              <li key={grant.id}>
+                <span>{name(grant)}{grant.invitationId ? ` · ${grant.status??"Pending"} invitation` : ""}{grant.expiresAt ? ` · ${new Date(grant.expiresAt)<new Date()?"Expired":"Expires"} ${displayDate(grant.expiresAt, true)}` : ""}</span>
+                {grant.revokedAt ? (
+                  <span>Revoked {!grant.invitationId?<button disabled={pending} onClick={()=>void save({...grant,expiresAt:null})}>Regrant access</button>:null}</span>
+                ) : (
+                  <>
+                    <select
+                      aria-label={`Access for ${name(grant)}`}
+                      value={grant.level}
+                      disabled={pending || !!grant.invitationId}
+                      onChange={(event) =>
+                        void save({ ...grant, level: event.target.value })
+                      }
+                    >
+                      {!grants.data?.levels?.includes(grant.level)?<option value={grant.level} disabled>{grant.level} (stored)</option>:null}
+                      {(grants.data?.levels ?? []).map((level) => (
+                        <option key={level} value={level}>{accessLabel(level)}</option>
+                      ))}
+                    </select>
+                    {grant.status==='expired'&&!grant.invitationId?<button disabled={pending} onClick={()=>void save({...grant,expiresAt:null})}>Regrant access</button>:null}
+                    <details><summary>Expiry & removal</summary>{!grant.invitationId ? <label>Access expires<AccessExpiry value={grant.expiresAt} onSave={expiresAt => {if(expiresAt!==grant.expiresAt)void save({...grant,expiresAt});}}/></label> : null}
+                    <button
+                      type="button"
+                      disabled={pending}
+                      onClick={() => void save({ ...grant, revoke: true })}
+                    >
+                      Remove access
+                    </button></details>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
           {document.page.lifecycle !== "draft" &&
           document.page.lifecycle !== "scheduled" &&
           workspace.data ? (
@@ -208,19 +220,9 @@ export function PageSharing({ document }: { document: DocumentView }) {
           ) : (
             <p>Private drafts have no general access.</p>
           )}
+          </details>
         </RequestState>
       )}
-      <button
-        type="button"
-        onClick={() => {
-          void navigator.clipboard
-            .writeText(window.location.href)
-            .then(() => setCopied(true))
-            .catch(setError);
-        }}
-      >
-        {copied ? "Link copied" : "Copy page link"}
-      </button>
       {error ? <p role="alert">{errorMessage(error)}</p> : null}
     </section>
   );

@@ -21,7 +21,7 @@ export function ViewCriteria({
         : `${name(value.field)} ${({ eq: "is", ne: "is not", contains: "contains", gt: "greater than", gte: "at least", lt: "less than", lte: "at most", empty: "is empty", "not-empty": "is not empty" } as Record<string, string>)[value.op ?? "eq"] ?? value.op}${["empty", "not-empty"].includes(value.op ?? "") ? "" : ` ${String(value.value ?? "")}`}`;
   if (!view.filters.length && !view.sorts.length) return null;
   return (
-    <section aria-label="Applied view criteria">
+    <section className="view-criteria" aria-label="Applied view criteria">
       {view.filters.length ? (
         <>
           <p>

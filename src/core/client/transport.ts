@@ -46,6 +46,7 @@ export async function request<T>(
   let response: Response;
   try { response = await fetch(path, options); }
   catch (cause) { transportFailure(cause, init.signal); }
+  if (typeof window !== 'undefined' && (response.status === 401 || (path === '/api/auth/logout' && response.ok))) window.dispatchEvent(new Event('slate:session-ended'));
   let text: string;
   try { text = await response.text(); }
   catch (cause) {

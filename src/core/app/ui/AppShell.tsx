@@ -1,15 +1,15 @@
+import {EditorMount} from "./EditorMount";
 import { LaunchProfileProvider } from "./LaunchProfile";
 import {AccessRequestHandler} from "../../features/sharing/ui/AccessRequestHandler";
 import {RoutedSearchHighlight} from "../../features/search/ui/workspace/SearchHighlight";
 import { KeyboardReference } from "./KeyboardReference";
 import { PublicDuplicate } from "./PublicDuplicate";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Menu, X } from "lucide-react";
 import type { WorkspaceSnapshot } from "./workspaceSnapshot";
 import { AppNavigation } from "./AppNavigation";
 import { WorkspaceGate } from "./WorkspaceGate";
 import { WorkspaceProvider } from "./WorkspaceContext";
-import "./folio.generated.css";
 import { useAppearance } from "../../client/useAppearance";
 
 export function AppShell({
@@ -23,8 +23,10 @@ export function AppShell({
   useAppearance();
   const [shortcuts, setShortcuts] = useState(false);
   const [open, setOpen] = useState(false);
+  const navigationTrigger = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     const shortcut = (event: KeyboardEvent) => {
+      if (event.defaultPrevented) return;
       if ((event.metaKey || event.ctrlKey) && event.key === "k") {
         event.preventDefault();
         window.location.assign("/app/search");
@@ -33,13 +35,19 @@ export function AppShell({
         event.preventDefault();
         setShortcuts(true);
       }
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape" && !document.querySelector("dialog[open], [role=dialog]")) {
+        setOpen(current => {
+          if (current) navigationTrigger.current?.focus();
+          return false;
+        });
+      }
     };
     window.addEventListener("keydown", shortcut);
     return () => window.removeEventListener("keydown", shortcut);
   }, []);
   return (
     <LaunchProfileProvider initial={snapshot.profile}><WorkspaceProvider snapshot={snapshot}>
+      {snapshot.editorEnabled && member.role === 'owner' ? <EditorMount ownerId={member.id} /> : null}
       <WorkspaceGate>
         <div className="slate-app">
           <PublicDuplicate />
@@ -58,6 +66,7 @@ export function AppShell({
           </a>
           <div className="mobile-bar">
             <button
+              ref={navigationTrigger}
               type="button"
               aria-label={open ? "Close navigation" : "Open navigation"}
               aria-expanded={open}
@@ -68,6 +77,7 @@ export function AppShell({
             <span>{member.workspaceName}</span>
           </div>
           <div className="app" data-navigation-open={open}>
+            {open ? <button className="navigation-backdrop" aria-label="Close navigation" onClick={() => {setOpen(false);navigationTrigger.current?.focus();}} /> : null}
             <AppNavigation onNavigate={() => setOpen(false)} />
             <main className="center" id="workspace-content" tabIndex={-1}>
               <AccessRequestHandler /><RoutedSearchHighlight />

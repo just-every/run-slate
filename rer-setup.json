@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "title": "Slate setup",
+  "groups": [
+    {
+      "id": "owner",
+      "label": "Native owner account"
+    },
+    {
+      "id": "email",
+      "label": "Sign-in email",
+      "help": "Local development uses the loopback outbox. Hosting requires Resend or SendGrid."
+    },
+    {
+      "id": "deployment",
+      "label": "Hosted deployment"
+    },
+    {
+      "id": "session",
+      "label": "Native session"
+    }
+  ],
+  "fields": [
+    {
+      "name": "SETUP_OWNER_EMAIL",
+      "label": "Owner email",
+      "kind": "email",
+      "required": true,
+      "group": "owner",
+      "runtimeEditable": false
+    },
+    {
+      "name": "MAIL_PROVIDER",
+      "label": "Email provider",
+      "kind": "select",
+      "required": true,
+      "default": "development",
+      "options": [
+        {
+          "value": "development",
+          "label": "Local outbox"
+        },
+        {
+          "value": "resend",
+          "label": "Resend"
+        },
+        {
+          "value": "sendgrid",
+          "label": "SendGrid"
+        }
+      ],
+      "group": "email",
+      "runtimeEditable": false
+    },
+    {
+      "name": "MAIL_FROM",
+      "label": "Sender email",
+      "kind": "email",
+      "default": "auth@localhost.test",
+      "required": true,
+      "group": "email",
+      "runtimeEditable": true
+    },
+    {
+      "name": "MAIL_API_KEY",
+      "label": "Mail API key",
+      "kind": "secret",
+      "input": "entered",
+      "required": false,
+      "ownerVisible": true,
+      "group": "email",
+      "presentations": [
+        {
+          "when": {
+            "field": "MAIL_PROVIDER",
+            "equals": "resend"
+          },
+          "label": "Resend API key",
+          "required": true
+        },
+        {
+          "when": {
+            "field": "MAIL_PROVIDER",
+            "equals": "sendgrid"
+          },
+          "label": "SendGrid API key",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "DEPLOY_ENV",
+      "label": "Deployment environment",
+      "kind": "text",
+      "group": "deployment",
+      "help": "Required for hosting in your Cloudflare account."
+    },
+    {
+      "name": "APP_URL",
+      "label": "Application origin",
+      "kind": "url",
+      "runtimeEditable": false
+    },
+    {
+      "name": "PUBLIC_PAGE_HOST",
+      "label": "Published-page host",
+      "kind": "text",
+      "runtimeEditable": false
+    },
+    {
+      "name": "RER_MANAGEMENT_ORIGIN",
+      "label": "Management origin",
+      "kind": "url",
+      "runtimeEditable": false
+    },
+    {
+      "name": "RER_INSTALLATION_ID",
+      "label": "Installation identifier",
+      "kind": "text",
+      "runtimeEditable": false
+    },
+    {
+      "name": "SESSION_SECRET",
+      "label": "Session secret",
+      "kind": "secret",
+      "required": true,
+      "ownerVisible": false,
+      "generate": "hex",
+      "group": "session"
+    }
+  ],
+  "runtime": {
+    "additionalFields": false,
+    "exclude": [
+      "DEPLOY_ENV"
+    ]
+  },
+  "steps": [
+    {
+      "type": "extension",
+      "id": "slate-native-owner"
+    },
+    {
+      "type": "extension",
+      "id": "email"
+    }
+  ]
+}

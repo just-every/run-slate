@@ -36,7 +36,7 @@ test('TRIAL-004 — native restore retains learned forecast and falsification wh
   const bytes=new Uint8Array(await(await env.FILES.get(key))!.arrayBuffer()),archive=await decodeArchive(bytes);
   expect(archive.manifest.blobs.length).toBeGreaterThan(0);expect(archive.manifest.tables.intelligence_skill_versions!.find(r=>r.id===learned.value.skillRevisionId)!.definition_json).toBe(version.definition_json);
   expect(await env.DB.prepare('SELECT count(*) n FROM intelligence_grants').first<number>('n')).toBe(grantsBefore);expect(await effects(f.trialId)).toEqual(effectRows);expect(f.wire.sends).toHaveLength(0);
-  await reset();const target=await fixture();await restoreWorkspace(target.context(),bytes);
+  await reset();const target=await fixture({withReader:false});await restoreWorkspace(target.context(),bytes);
   const cookie=await sessionFor(f.owner),response=await createApi().request('/api/skills/'+learned.value.skillId,{headers:{cookie}}, {...env,SLATE_PROFILE:'flagship',CONNECTOR_CREDENTIALS_KEY:f.context().sourceSecret});expect(response.status,await response.clone().text()).toBe(200);
   const restored=await readSkill(f.context(),learned.value.skillId);expect(restored).toBeTruthy();
   const restoredVersion=(await env.DB.prepare('SELECT definition_json,state,authority_id,evaluation_id FROM intelligence_skill_versions WHERE id=?').bind(learned.value.skillRevisionId).first())!;

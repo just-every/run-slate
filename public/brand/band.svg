@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+  <!-- Slate's floor art for the Lobby and the run site: the landing's soft green washes as rolling ground, one hand-drawn
+       ink line along the middle hill and a few leaves, in the landing's palette (paper #f6f3e8, wash #e6eede, greens
+       #c4d9bf, #466643 and #365233, ink #1b1b18). -->
+  <path fill="#e6eede" d="M0 168C180 140 352 136 540 156S900 196 1080 176 1340 128 1440 130V300H0Z"/>
+  <path fill="#c4d9bf" d="M0 238C170 220 330 222 520 240S880 266 1080 252 1330 214 1440 212V300H0Z"/>
+  <path fill="none" stroke="#1b1b18" stroke-width="3" stroke-linecap="round" d="M-8 236C168 218 330 220 520 238S880 264 1080 250 1330 212 1450 210"/>
+  <path fill="#466643" d="M0 270C200 256 380 256 590 266S960 286 1170 276 1380 254 1440 252V300H0Z"/>
+  <path fill="#365233" d="M0 288C220 280 430 280 660 286S1060 296 1260 292 1410 284 1440 283V300H0Z"/>
+  <g fill="#fbf9f1" stroke="#1b1b18" stroke-width="2.4" stroke-linejoin="round">
+    <path d="M232 221c10-16 30-20 44-14-8 14-28 22-44 14Z"/>
+    <path d="M1162 226c12-14 32-15 44-7-10 12-30 17-44 7Z"/>
+  </g>
+  <g fill="none" stroke="#1b1b18" stroke-width="2.4" stroke-linecap="round">
+    <path d="M232 221c-6 6-10 12-12 18"/>
+    <path d="M1162 226c-6 5-10 11-12 17"/>
+  </g>
+</svg>

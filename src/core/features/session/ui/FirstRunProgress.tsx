@@ -1,4 +1,3 @@
-import { cn } from "../../../ui";
 import { containerNoun } from "./nouns";
 
 /** The three steps `WORK-013` runs, and no fourth. */
@@ -10,11 +9,11 @@ export const firstRunStepTitles: readonly string[] = [
 
 export type FirstRunStep = 1 | 2 | 3;
 
-export function FirstRunProgress({ step, className }: { step: FirstRunStep; className?: string }) {
+export function FirstRunProgress({ step }: { step: FirstRunStep }) {
   return (
-    <div className={cn("flex flex-col gap-2", className)}>
-      <p className="text-tiny font-medium text-ink-muted">Step {step} of 3</p>
-      <ol className="flex gap-1.5">
+    <div className="paper-steps" role="group" aria-label="Setup progress">
+      <p className="paper-steps-label">Step {step} of 3</p>
+      <ol className="paper-steps-list">
         {firstRunStepTitles.map((title, index) => {
           const position = index + 1;
           const done = position < step;
@@ -22,17 +21,11 @@ export function FirstRunProgress({ step, className }: { step: FirstRunStep; clas
           return (
             <li
               aria-current={current ? "step" : undefined}
-              className="flex flex-1 flex-col gap-1"
+              className={`paper-step${done ? " paper-step--done" : ""}`}
               key={title}
             >
-              <span
-                aria-hidden="true"
-                className={cn(
-                  "block h-1 rounded-full",
-                  done ? "bg-accent" : current ? "bg-accent" : "bg-line",
-                )}
-              />
-              <span className={cn("text-tiny", current ? "font-medium text-ink" : "text-ink-faint")}>
+              <span aria-hidden="true" className="paper-step-num">{position}</span>
+              <span className="paper-step-title">
                 <span className="sr-only">{done ? "Done: " : current ? "Now: " : "Next: "}</span>
                 {title}
               </span>

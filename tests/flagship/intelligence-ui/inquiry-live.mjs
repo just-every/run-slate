@@ -1,3 +1,4 @@
+import { signInBrowser } from '../../e2e/outbox-auth.mjs';
 import assert from "node:assert/strict";
 import { chromium } from "@playwright/test";
 const browser = await chromium.launch({ headless: true });
@@ -6,9 +7,7 @@ try {
       viewport: { width: 1536, height: 1024 },
     }),
     page = await context.newPage();
-  await page.goto("http://127.0.0.1:4174/signin");
-  await page.getByTestId("local-sign-in").click();
-  await page.waitForURL("**/app");
+  await signInBrowser(page, "http://127.0.0.1:4174", process.env.SLATE_BROWSER_EMAIL ?? 'jamie@aurora.example');
   const fixture = await page.evaluate(async () => {
     const pages = await (await fetch("/api/pages")).json(),
       member = await (await fetch("/api/members/current")).json(),

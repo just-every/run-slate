@@ -1,6 +1,6 @@
 import type { FeatureContext } from '../../app/feature-context';
 import type { KnowledgeGrant } from '../../shared/knowledge/model';
-import { requirePageLevel, requireContainerLevel } from './current-access';
+import { requirePageLevel, requireContainerAdministration } from './current-access';
 import { sharingConfiguration } from './configuration';
 import { isPrivateLifecycle } from './access';
 import { currentPageTitle, permitted } from '../search/visibility';
@@ -16,7 +16,7 @@ function presented(row:GrantRow,origin:{kind:'page'|'container';id:string|null;n
 /** Keep direct rows for editing; inherited rows are read-only and follow the exact current ACL traversal. */
 export async function listGrants(ctx:FeatureContext,kind:'page'|'container',id:string) {
   const access=kind==='page'?await requirePageLevel(ctx,id,'full'):null;
-  if(kind==='container')await requireContainerLevel(ctx,id,'full');
+  if(kind==='container')await requireContainerAdministration(ctx,id);
   const configuration=await sharingConfiguration(ctx);
   const containerId=access?.context.container.id??id;
   const container=await ctx.db.prepare('SELECT name FROM containers WHERE id=?').bind(containerId).first<{name:string}>();

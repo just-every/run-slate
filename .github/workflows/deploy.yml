@@ -21,6 +21,7 @@ jobs:
       SLATE_DEPLOY_ENV: ${{ inputs.environment }}
       SLATE_APP_URL: ${{ inputs.environment == 'preview' && vars.SLATE_PREVIEW_URL || vars.SLATE_PRODUCTION_URL }}
       SLATE_SETUP_OWNER_EMAIL: ${{ vars.SLATE_SETUP_OWNER_EMAIL }}
+      SLATE_MAIL_PROVIDER: ${{ vars.SLATE_MAIL_PROVIDER }}
       SLATE_MAIL_FROM: ${{ vars.SLATE_MAIL_FROM }}
       SLATE_SESSION_SECRET: ${{ secrets.SLATE_SESSION_SECRET }}
       SLATE_MAIL_API_KEY: ${{ secrets.SLATE_MAIL_API_KEY }}
@@ -30,10 +31,10 @@ jobs:
       - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
         with:
-          version: 8.15.6
+          version: 10.12.4
       - uses: actions/setup-node@v5
         with:
-          node-version: 22.12.0
+          node-version: 22.20.0
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm verify

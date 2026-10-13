@@ -59,7 +59,6 @@ export function ChatNotifications() {
   if (!allowed) return <p>A workspace owner manages delivery to chat.</p>;
   return (
     <section className="settings-panel">
-      <p className="eyebrow">A USEFUL SIGNAL</p>
       <h2>Send updates to Slack.</h2>
       <RequestState
         loading={current.loading}

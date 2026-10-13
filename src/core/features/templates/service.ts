@@ -8,6 +8,7 @@ import {
   currentSubject,
 } from "../sharing/current-access";
 import { destination } from "../pages/service";
+import { labelForReader } from "../pages/mentions";
 import { createUlid } from "../../shared/ulid";
 import { revision } from "../databases/repository";
 import {
@@ -101,10 +102,11 @@ export async function previewTemplate(ctx: FeatureContext, id: string) {
     archivedAt: t.archived_at,
     deletedAt: t.deleted_at,
     isShipped: !!t.is_shipped,
-    snapshot: previewSnapshot(
+    // A template keeps the mention labels its author saw; each reader sees their own.
+    snapshot: await labelForReader(ctx, previewSnapshot(
       id,
       await currentSnapshot(ctx, JSON.parse(t.snapshot_json) as TemplateSnapshot),
-    ),
+    )),
   };
 }
 export async function saveTemplate(

@@ -1,5 +1,5 @@
 import {createImportRoutes} from '../../../src/core/features/imports/routes';
-import {createExportRoutes} from '../../../src/core/features/exports/routes';
+import {createExportRoutes} from '../../../src/core/features/workspace-export/routes';
 import {activity} from '../../../src/core/features/activity/service';
 import {createDatabase,saveField,createRecord} from '../../../src/core/features/databases/service';
 import {archivePage,permanentDeletePage} from '../../../src/core/features/archive/service';
@@ -14,7 +14,7 @@ import {accessToken} from '../../../src/core/features/connectors/credentials';
 import {encryptSecret} from '../../../src/core/platform/secrets/custody';
 import {startImport,runImport} from '../../../src/core/features/imports/jobs';
 import {exportWorkspace,restoreWorkspace} from '../../../src/core/features/portability/service';
-import {exportReadable} from '../../../src/core/features/exports/readable';
+import {exportReadable} from '../../../src/core/features/workspace-export/readable';
 import {decodeArchive} from '../../../src/core/features/portability/archive';
 import {prepareInvalidateExports} from '../../../src/core/features/portability/invalidation';
 import {unzipSync} from 'fflate';
@@ -33,4 +33,18 @@ test('external-agent run restores with immutable credential provenance but no li
 test('page erasure invalidates old download and physically removes derived archive and retained import original',async()=>{const h=harness();try{const p=await page(h.ctx),exported=await exportWorkspace(h.ctx);const key=await h.ctx.db.prepare('SELECT archive_key FROM federation_exports WHERE id=?').bind(exported.id).first<string>('archive_key');const original=await h.ctx.db.prepare('SELECT archive_key FROM federation_imports').first<string>('archive_key');assert(await h.ctx.files.get(key!));await archivePage(h.ctx,p.id,{operationKey:'trash-export-source',expectedRevisionId:p.revision_id,action:'trash'});await permanentDeletePage(h.ctx,p.id,{operationKey:'erase-export-source',confirmedPageIds:[p.id]});assert.equal(await h.ctx.db.prepare('SELECT state FROM federation_exports WHERE id=?').bind(exported.id).first('state'),'invalidated');await runContentJobs({DB:h.ctx.db,FILES:h.ctx.files,JOBS:h.ctx.jobs} as never,h.ctx.now);assert.equal(await h.ctx.files.get(key!),null);assert.equal(await h.ctx.files.get(original!),null);assert.equal(await h.ctx.db.prepare('SELECT state FROM federation_imports').first('state'),'deleted');}finally{h.close();}});
 test('workspace owner cannot export another author draft until a direct edit grant exists',async()=>{const h=harness();try{const p=await page(h.ctx);h.sqlite.exec("INSERT INTO members(id,workspace_id,email,display_name,initials,role,status,created_at,updated_at) SELECT 'other',workspace_id,'other@test.test','Other','OT','member','active',created_at,updated_at FROM members WHERE id='owner';UPDATE pages SET lifecycle='draft',author_member_id='other';DELETE FROM page_grants");await assert.rejects(exportWorkspace(h.ctx),{code:'EXPORT_SCOPE_INCOMPLETE'});h.sqlite.prepare("INSERT INTO page_grants(id,page_id,principal_kind,principal_id,level,created_at,updated_at) VALUES ('shared-draft',?,'member','owner','edit',?,?)").run(p.id,h.ctx.now,h.ctx.now);assert.equal((await exportWorkspace(h.ctx)).state,'completed');}finally{h.close();}});
 test('readable record JSON and CSV omit inaccessible relation ids',async()=>{const h=harness();try{await page(h.ctx);const containerId=(await h.ctx.db.prepare('SELECT id FROM containers').first<string>('id'))!;const db=await createDatabase(h.ctx,{operationKey:'relation-database',containerId,title:'Records'});await saveField(h.ctx,db.value.id,{operationKey:'relation-field',expectedRevisionId:db.value.revisionId,field:{id:'relation',name:'Related',type:'relation',config:{databaseId:db.value.id},position:0}});const hidden=await createRecord(h.ctx,db.value.id,{operationKey:'hidden-record',title:'Private target',values:{}});const visible=await createRecord(h.ctx,db.value.id,{operationKey:'visible-record',title:'Visible',values:{relation:[hidden.value.pageId]}});h.sqlite.exec("INSERT INTO members(id,workspace_id,email,display_name,initials,role,status,created_at,updated_at) SELECT 'reader',workspace_id,'reader@test.test','Reader','RE','member','active',created_at,updated_at FROM members WHERE id='owner'");h.sqlite.prepare("UPDATE pages SET access_inheritance='restricted' WHERE id=?").run(hidden.value.pageId);for(const pageId of [db.value.pageId,visible.value.pageId])h.sqlite.prepare("INSERT INTO page_grants(id,page_id,principal_kind,principal_id,level,created_at,updated_at) VALUES (?,?,'member','reader','view',?,?)").run(crypto.randomUUID(),pageId,h.ctx.now,h.ctx.now);const archive=await exportReadable({...h.ctx,authorizationEpoch:undefined,actor:{...h.ctx.actor,id:'reader'}},{scope:'page',id:visible.value.pageId,format:'markdown'});const entries=unzipSync(archive.bytes),manifest=JSON.parse(new TextDecoder().decode(entries['slate-readable.json']));assert.deepEqual(manifest.records[0].values.relation,[]);assert(!new TextDecoder().decode(entries[`records/${visible.value.pageId}.csv`]).includes(hidden.value.pageId));}finally{h.close();}});
-test('import/export activity resolves through current actor authority',async()=>{const h=harness();try{createImportRoutes();createExportRoutes();await page(h.ctx);await exportWorkspace(h.ctx);assert((await activity(h.ctx,{kind:'import'})).items.length>0);assert((await activity(h.ctx,{kind:'export'})).items.length>0);h.sqlite.exec("INSERT INTO members(id,workspace_id,email,display_name,initials,role,status,created_at,updated_at) SELECT 'other',workspace_id,'other@test.test','Other','OT','member','active',created_at,updated_at FROM members WHERE id='owner'");const other={...h.ctx,authorizationEpoch:undefined,actor:{...h.ctx.actor,id:'other',role:'member' as const}};assert.equal((await activity(other,{kind:'import'})).items.length,0);assert.equal((await activity(other,{kind:'export'})).items.length,0);}finally{h.close();}});
+test('import/export activity resolves through current actor authority', async () => {
+  const h = harness();
+  try {
+    createImportRoutes(); createExportRoutes();
+    await page(h.ctx); await exportWorkspace(h.ctx);
+    // A subsequent request observes events written after the initial fixture time.
+    const reading = { ...h.ctx, now: new Date().toISOString() };
+    assert((await activity(reading, { kind: 'import' })).items.length > 0);
+    assert((await activity(reading, { kind: 'export' })).items.length > 0);
+    h.sqlite.exec("INSERT INTO members(id,workspace_id,email,display_name,initials,role,status,created_at,updated_at) SELECT 'other',workspace_id,'other@test.test','Other','OT','member','active',created_at,updated_at FROM members WHERE id='owner'");
+    const other = { ...reading, authorizationEpoch: undefined, actor: { ...h.ctx.actor, id: 'other', role: 'member' as const } };
+    assert.equal((await activity(other, { kind: 'import' })).items.length, 0);
+    assert.equal((await activity(other, { kind: 'export' })).items.length, 0);
+  } finally { h.close(); }
+});

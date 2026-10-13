@@ -1,0 +1,229 @@
+{
+  "sections": [
+    {
+      "title": "Start here",
+      "pages": [
+        {
+          "slug": "",
+          "source": "docs/OVERVIEW.md",
+          "label": "Overview"
+        },
+        {
+          "slug": "install",
+          "source": "docs/INSTALL.md",
+          "label": "Install and deploy"
+        },
+        {
+          "slug": "moving-in",
+          "source": "docs/IMPORTING.md",
+          "label": "Moving in"
+        },
+        {
+          "slug": "move-from-notion",
+          "source": "docs/MOVE-FROM-NOTION.md",
+          "label": "Move from Notion"
+        },
+        {
+          "slug": "move-from-confluence",
+          "source": "docs/MOVE-FROM-CONFLUENCE.md",
+          "label": "Move from Confluence"
+        },
+        {
+          "slug": "trustworthy-handbook",
+          "source": "docs/TRUSTWORTHY-HANDBOOK.md",
+          "label": "Keep your handbook trustworthy"
+        },
+        {
+          "slug": "backup",
+          "source": "docs/BACKUP.md",
+          "label": "Backup and restore"
+        }
+      ]
+    },
+    {
+      "title": "Run it",
+      "pages": [
+        {
+          "slug": "email-delivery",
+          "source": "docs/EMAIL.md",
+          "label": "Email delivery"
+        },
+        {
+          "slug": "cloudflare-footprint",
+          "source": "docs/CLOUDFLARE.md",
+          "label": "Cloudflare footprint"
+        }
+      ]
+    }
+  ],
+  "githubOnly": [
+    {
+      "source": "ACCEPTANCE.md",
+      "reason": "Release evidence gates for the contract clauses, for maintainers"
+    },
+    {
+      "source": "AGENTS.consumer.md",
+      "reason": "Instructions for coding agents working in a buyer's copy of the source"
+    },
+    {
+      "source": "AGENTS.md",
+      "reason": "Contributor and coding-agent rules for working on Slate"
+    },
+    {
+      "source": "BASELINE.md",
+      "reason": "Security, privacy and operations requirement clauses, for maintainers"
+    },
+    {
+      "source": "CHANGELOG.md",
+      "reason": "Release history for maintainers, which names development-only functionality and internal requirement records; the Overview links it on GitHub"
+    },
+    {
+      "source": "CLAUDE.md",
+      "reason": "A one-line pointer to AGENTS.md for coding agents"
+    },
+    {
+      "source": "CONTRACT.md",
+      "reason": "Product requirement clauses, for maintainers and reviewers"
+    },
+    {
+      "source": "DIVERGENCE.md",
+      "reason": "Design decisions record for maintainers, including development-only material"
+    },
+    {
+      "source": "FLAGSHIP-DELIVERY.md",
+      "reason": "Plan for development-only functionality outside the default profile"
+    },
+    {
+      "source": "FLAGSHIP-PLAN.md",
+      "reason": "Plan for development-only functionality outside the default profile"
+    },
+    {
+      "source": "FRONTIER-EXTENSION.md",
+      "reason": "Plan for development-only functionality outside the default profile"
+    },
+    {
+      "source": "HANDOVER.md",
+      "reason": "Maintainer orientation and current verification scope"
+    },
+    {
+      "source": "OPERATIONS.md",
+      "reason": "Maintainer operating description that also covers development-only inputs; the operator steps are in Install and deploy"
+    },
+    {
+      "source": "PROOF.md",
+      "reason": "Verification record for maintainers"
+    },
+    {
+      "source": "README.md",
+      "reason": "The repository front page, with developer commands and a note on development-only code; the docs home is Overview"
+    },
+    {
+      "source": "USER-JOURNEYS.md",
+      "reason": "Journeys for development-only functionality outside the default profile"
+    },
+    {
+      "source": "deploy/footprint.md",
+      "reason": "Maintainer resource budget for the native candidate, with release-management notes; the operator summary is in Cloudflare footprint"
+    },
+    {
+      "source": "docs/FLAGSHIP-API.md",
+      "reason": "API notes for development-only functionality outside the default profile"
+    },
+    {
+      "source": "docs/MAIL-DELIVERY.md",
+      "reason": "Mail custody, retry and recovery notes for maintainers, with test evidence; the operator summary is in Install and deploy"
+    },
+    {
+      "source": "docs/release/core-wiki-profile.md",
+      "reason": "Release scope notes that name development-only surfaces; the published pages describe only the default profile"
+    },
+    {
+      "source": "docs/release/sendgrid-deployment.md",
+      "reason": "Maintainer deployment and mail-adapter notes, which cite source provenance records; the operator summary is in Email delivery"
+    },
+    {
+      "source": "docs/release/source-and-delivery.md",
+      "reason": "Source provenance, delivery artifact and verification workflow for maintainers"
+    },
+    {
+      "source": "local-agent/README.md",
+      "reason": "Development-only local tooling outside the default profile"
+    },
+    {
+      "source": "scripts/edition-authoring/README.md",
+      "reason": "Pinned shared tooling reference for maintainers."
+    },
+    {
+      "source": "scripts/base-proof/README.md",
+      "reason": "Pinned shared tooling reference for maintainers."
+    },
+    {
+      "source": "src/base/runtime/hydration/README.md",
+      "reason": "Pinned shared tooling reference for maintainers."
+    },
+    {
+      "source": "RUN-LOCALLY.md",
+      "reason": "Shared seed command and local operation contract."
+    },
+    {
+      "source": "SEED-COMMAND-CONTRACT.md",
+      "reason": "Shared seed command and local operation contract."
+    },
+    {
+      "source": "tests/requirements/cli-journey.md",
+      "reason": "Exact native CLI owner-journey specification and its evidence boundary."
+    },
+    {
+      "source": "modules/operator-auth/README.md",
+      "reason": "Pinned Base implementation reference; Slate composes it over native accounts."
+    },
+    {
+      "source": "modules/operator-auth/docs/README.md",
+      "reason": "Pinned Base implementation reference; Slate composes it over native accounts."
+    },
+    {
+      "source": "modules/operator-auth/docs/tanstack-start.md",
+      "reason": "Pinned Base implementation reference; Slate composes it over native accounts."
+    },
+    {
+      "source": "modules/operator-auth/docs/vite-spa.md",
+      "reason": "Pinned Base implementation reference; Slate composes it over native accounts."
+    },
+    {
+      "source": "modules/operator-auth/identity/oidc/README.md",
+      "reason": "Pinned Base implementation reference; Slate composes it over native accounts."
+    },
+    {
+      "source": "docs/release/identity-preparation.md",
+      "reason": "Maintainer upgrade note for the Base sign-in release; not core-wiki product documentation."
+    },
+    {
+      "source": "modules/import-kit/CONTRACT.md",
+      "reason": "Pinned shared import-kit tooling reference for maintainers."
+    },
+    {
+      "source": "modules/import-kit/FIXTURES.md",
+      "reason": "Pinned shared import-kit tooling reference for maintainers."
+    },
+    {
+      "source": "modules/import-kit/README.md",
+      "reason": "Pinned shared import-kit tooling reference for maintainers."
+    },
+    {
+      "source": "modules/import-kit/proof/zendesk/README.md",
+      "reason": "Pinned shared import-kit tooling reference for maintainers."
+    },
+    {
+      "source": "modules/import-kit/src/d1/README.md",
+      "reason": "Pinned shared import-kit tooling reference for maintainers."
+    },
+    {
+      "source": "modules/import-kit/src/readers/README.md",
+      "reason": "Pinned shared import-kit tooling reference for maintainers."
+    },
+    {
+      "source": "modules/import-kit/tests/runtime-reuse.md",
+      "reason": "Pinned shared import-kit tooling reference for maintainers."
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import {resetDatabase} from '../../../e2e/setup/reset-database';
 import { env } from "cloudflare:test";
 import { createApi } from "../../../../src/core/app/hono";
 import type { FeatureContext } from "../../../../src/core/app/feature-context";
@@ -28,17 +29,7 @@ let providerCallCount = 0;
 const retainedFiles = new Set<string>();
 
 async function resetD1(): Promise<void> {
-  const tables = (
-    await env.DB.prepare(
-      "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_cf_%' AND name NOT IN ('d1_migrations','core_acl_epoch')",
-    ).all<{ name: string }>()
-  ).results;
-  await env.DB.batch([
-    env.DB.prepare("PRAGMA defer_foreign_keys=ON"),
-    ...tables.map((table) =>
-      env.DB.prepare(`DELETE FROM "${table.name.replaceAll('"', '""')}"`),
-    ),
-  ]);
+  await resetDatabase(env.DB);
 }
 
 export async function clearProductDatabase(): Promise<void> {

@@ -1,0 +1,213 @@
+.slate-app .empty-start {
+  margin-top: 45px;
+  padding-top: 28px;
+  border-top: 1px solid var(--slate-line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+}
+.slate-app .empty-start p {
+  flex-basis: 100%;
+  margin-top: 12px;
+  font-size: 13px;
+}
+.slate-app .today-section {
+  margin-top: 38px;
+}
+.slate-app .today-section h2 {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+}
+.slate-app .outcome-list {
+  list-style: none;
+  padding: 0;
+}
+.slate-app .outcome-list li {
+  border-top: 1px solid var(--slate-line);
+}
+.slate-app .outcome-list a {
+  display: block;
+  position: relative;
+  padding: 24px 36px 24px 0;
+}
+.slate-app .outcome-kind {
+  color: var(--slate-accent);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+}
+.slate-app .outcome-list h3 {
+  font:
+    25px/1.3 Georgia,
+    serif;
+  margin: 8px 0;
+}
+.slate-app .outcome-list time {
+  font-size: 12px;
+  color: var(--slate-ink-muted);
+}
+.slate-app .outcome-arrow {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  font-size: 25px;
+  color: var(--slate-accent);
+}
+.slate-app .settings-panel h2 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 28px 0 16px;
+}
+.slate-app .settings-panel h3 {
+  margin-top: 32px;
+}
+.slate-app .settings-panel form {
+  margin: 24px 0;
+}
+.slate-app .settings-panel label {
+  display: flex;
+  gap: 12px;
+  margin: 12px 0;
+  flex-direction: column;
+}
+.slate-app .settings-panel label:has(input[type="radio"]),
+.slate-app .settings-panel label:has(input[type="checkbox"]) {
+  flex-direction: row;
+  align-items: center;
+}
+.slate-app .settings-panel input:not([type="radio"]):not([type="checkbox"]),
+.slate-app .settings-panel select,
+.slate-app .settings-panel textarea {
+  border: 1px solid var(--slate-line);
+  background: var(--slate-canvas);
+  color: var(--slate-ink);
+  border-radius: 6px;
+  padding: 10px;
+  width: 100%;
+}
+.slate-app .portability-panel > section[aria-live="polite"] {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.slate-app .portability-panel > section[aria-live="polite"] :is(fieldset, label, select) {
+  min-width: 0;
+  max-width: 100%;
+}
+.slate-app .portability-panel > section[aria-live="polite"] button {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.slate-app .portability-panel > section[aria-live="polite"] nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.slate-app .settings-list {
+  list-style: none;
+  padding: 0;
+}
+.slate-app .settings-list li,
+.slate-app .settings-facts > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--slate-line);
+  gap: 20px;
+}
+.slate-app .settings-facts dd {
+  margin: 0;
+  color: var(--slate-ink-muted);
+  text-align: right;
+}
+.slate-app .action-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.slate-app .page-document[data-typeface="serif"] [contenteditable] {
+  font-family: Georgia, serif;
+}
+.slate-app .page-document[data-typeface="mono"] [contenteditable] {
+  font-family: ui-monospace, monospace;
+}
+.slate-app .page-small-text [contenteditable] {
+  font-size: 14px;
+}
+.slate-app .main.page-full-width {
+  max-width: none;
+}
+.slate-app .hypotheses article {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--slate-line);
+}
+.slate-app .trial-panel {
+  border-top: 1px solid var(--slate-line);
+  padding: 32px 0;
+  margin-top: 32px;
+}
+.slate-app .trial-bounds {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 24px;
+  margin: 24px 0;
+}
+.slate-app .trial-bounds dt {
+  font-size: 12px;
+  color: var(--slate-ink-muted);
+}
+.slate-app .trial-bounds dd {
+  margin: 8px 0;
+  font-size: 20px;
+  font-family: Georgia, serif;
+}
+.slate-app .inline-formatting {
+  position: sticky;
+  top: 85px;
+  z-index: 10;
+  max-width: 100%;
+  overflow: auto;
+  padding: 8px 0;
+}
+.slate-app .record-field {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--slate-line);
+}
+.slate-app .record-field dd {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.slate-app .chart-row {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) 65px;
+  gap: 12px;
+  align-items: center;
+  margin: 14px 0;
+}
+.slate-app .chart-bar {
+  height: 14px;
+  background: var(--slate-accent);
+  border-radius: 2px;
+}
+.folio-dialog .formula-expression {
+  border-left: 2px solid var(--slate-line);
+  padding: 12px;
+  margin: 8px 0;
+}
+@media (max-width: 700px) {
+  .slate-app .record-field {
+    grid-template-columns: 110px minmax(0, 1fr);
+  }
+}

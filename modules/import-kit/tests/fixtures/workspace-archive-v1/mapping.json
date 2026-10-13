@@ -1,0 +1,21 @@
+{
+  "version": "workspace-archive-v1",
+  "kinds": {
+    "card": {
+      "targetKind": "card",
+      "fields": {
+        "title": "title",
+        "body": "body"
+      }
+    },
+    "tag-link": {
+      "targetKind": "card-tag",
+      "fields": {
+        "cardId": "cardId",
+        "label": "label"
+      }
+    }
+  },
+  "unsupportedKindReason": "No native representation is configured for this source kind.",
+  "unsupportedFieldReason": "No native target field is configured for this source field."
+}

@@ -1,0 +1,13 @@
+/* The header's navigation on a phone: Docs and the sign-in action stay; the repository link (also in the footer) steps aside so
+   the sign-in pill is never cut off. */
+@media (max-width: 560px) {
+  .slate-landing .site-header nav a[href^="http"] { display: none; }
+}
+@media (max-width: 400px) {
+  .slate-landing .site-header { gap: 8px; }
+  .slate-landing .site-header nav { gap: 8px 14px; }
+  .slate-landing .site-header .pill { padding: 0 12px; font-size: 13px; }
+  .slate-landing .brand { gap: 6px; }
+  .slate-landing .brand-name { font-size: 24px; }
+  .slate-landing .brand-mark { width: 36px; }
+}

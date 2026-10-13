@@ -11,7 +11,7 @@
  * hydration.
  *
  * Run it with `node scripts/ext-client-proof.mjs`. It is not part of
- * `pnpm verify`: it needs Playwright browser binaries.
+ * `rer verify`: it needs Playwright browser binaries.
  */
 import assert from "node:assert/strict";
 import { mkdtemp, readdir, readFile, rm, symlink, writeFile } from "node:fs/promises";

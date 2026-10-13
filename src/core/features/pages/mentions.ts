@@ -1,13 +1,16 @@
 import type { FeatureContext } from '../../app/feature-context';
 import type { BlockView } from '../../shared/api/content';
+import type { JsonValue } from '../../shared/api/common';
 import { resolveCurrentAccessMany } from '../sharing/current-access';
+import { labelPageMentions } from './mention-labels';
+export { labelPageMentions };
 export interface MentionResolution {
     label:string;
     available:boolean;
     state:'live'|'draft'|'scheduled'|'archived'|'trashed'|'deleted'|'restricted'|'unavailable';
     deletedAt?:string;
 }
-export async function resolveMentions(ctx:FeatureContext,blocks:BlockView[]):Promise<Record<string,MentionResolution>> {
+export async function resolveMentions(ctx:FeatureContext,blocks:Pick<BlockView,'content'>[]):Promise<Record<string,MentionResolution>> {
     const ids=new Set<string>();
     function collect(value:unknown) {
         if(Array.isArray(value))value.forEach(collect);
@@ -37,4 +40,28 @@ export async function resolveMentions(ctx:FeatureContext,blocks:BlockView[]):Pro
         labels[id]={label,available:!row.trashed_at,state};
     }
     return labels;
+}
+/** The given content with every page mention labelled for this reader. */
+export async function labelForReader<T>(ctx:FeatureContext,value:T):Promise<T> {
+    const mentions=await resolveMentions(ctx,[{content:value as JsonValue}]);
+    return labelPageMentions(value,id=>mentions[id]?.label??'Unavailable page');
+}
+/**
+ * The given content labelled for everyone it is shown to at once, such as an
+ * evidence packet prepared for an audience: each mention shows only what every
+ * one of them may see.
+ */
+export async function labelForAudience<T>(readers:FeatureContext[],value:T):Promise<T> {
+    if(readers.length===1)return labelForReader(readers[0]!,value);
+    const each=await Promise.all(readers.map(reader=>resolveMentions(reader,[{content:value as JsonValue}])));
+    const labels:Record<string,string>={};
+    for(const id of new Set(each.flatMap(mentions=>Object.keys(mentions)))) {
+        const seen=each.map(mentions=>mentions[id]??{label:'Unavailable page',available:false,state:'unavailable' as const});
+        const hidden=seen.find(item=>['restricted','unavailable','deleted'].includes(item.state));
+        if(hidden||new Set(seen.map(item=>item.label)).size===1){labels[id]=(hidden??seen[0]!).label;continue;}
+        // Editors see the working title and readers the published one; all of them may see the published one.
+        const published=await readers[0]!.db.prepare('SELECT r.properties_json FROM pages p JOIN page_revisions r ON r.id=p.published_revision_id AND r.page_id=p.id AND r.deleted_at IS NULL WHERE p.id=? AND p.workspace_id=?').bind(id,readers[0]!.actor.workspaceId).first<{properties_json:string}>();
+        labels[id]=published?String(JSON.parse(published.properties_json).title):'Restricted page';
+    }
+    return labelPageMentions(value,id=>labels[id]??'Unavailable page');
 }

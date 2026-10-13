@@ -9,15 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
+import { Route as SetupRouteImport } from './routes/setup'
 import { Route as SigninRouteImport } from './routes/signin'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppArchiveRouteImport } from './routes/app.archive'
 import { Route as AppContainersRouteImport } from './routes/app.containers'
 import { Route as AppInboxRouteImport } from './routes/app.inbox'
+import { Route as AppReviewRouteImport } from './routes/app.review'
 import { Route as AppSearchRouteImport } from './routes/app.search'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as DocsIndexRouteImport } from './routes/docs.index'
+import { Route as DocsSlugRouteImport } from './routes/docs.$slug'
 import { Route as AppContainersIndexRouteImport } from './routes/app.containers.index'
 import { Route as AppContainersContainerIdRouteImport } from './routes/app.containers.$containerId'
 import { Route as AppDecisionsIndexRouteImport } from './routes/app.decisions.index'
@@ -30,14 +33,14 @@ import { Route as AppTemplatesTemplateIdRouteImport } from './routes/app.templat
 import { Route as AppDatabasesDatabaseIdIndexRouteImport } from './routes/app.databases.$databaseId.index'
 import { Route as AppDatabasesDatabaseIdRecordsRecordIdRouteImport } from './routes/app.databases.$databaseId.records.$recordId'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AppRoute = AppRouteImport.update({
   id: '/app',
   path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SetupRoute = SetupRouteImport.update({
+  id: '/setup',
+  path: '/setup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SigninRoute = SigninRouteImport.update({
@@ -65,6 +68,11 @@ const AppInboxRoute = AppInboxRouteImport.update({
   path: '/inbox',
   getParentRoute: () => AppRoute,
 } as any)
+const AppReviewRoute = AppReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppSearchRoute = AppSearchRouteImport.update({
   id: '/search',
   path: '/search',
@@ -74,6 +82,16 @@ const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
   getParentRoute: () => AppRoute,
+} as any)
+const DocsIndexRoute = DocsIndexRouteImport.update({
+  id: '/docs/',
+  path: '/docs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsSlugRoute = DocsSlugRouteImport.update({
+  id: '/docs/$slug',
+  path: '/docs/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AppContainersIndexRoute = AppContainersIndexRouteImport.update({
   id: '/',
@@ -135,15 +153,18 @@ const AppDatabasesDatabaseIdRecordsRecordIdRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/setup': typeof SetupRoute
   '/signin': typeof SigninRoute
   '/app/archive': typeof AppArchiveRoute
   '/app/containers': typeof AppContainersRouteWithChildren
   '/app/inbox': typeof AppInboxRoute
+  '/app/review': typeof AppReviewRoute
   '/app/search': typeof AppSearchRoute
   '/app/settings': typeof AppSettingsRoute
+  '/docs/$slug': typeof DocsSlugRoute
   '/app/': typeof AppIndexRoute
+  '/docs/': typeof DocsIndexRoute
   '/app/containers/$containerId': typeof AppContainersContainerIdRoute
   '/app/decisions/$decisionId': typeof AppDecisionsDecisionIdRoute
   '/app/inquiries/$inquiryId': typeof AppInquiriesInquiryIdRoute
@@ -157,13 +178,16 @@ export interface FileRoutesByFullPath {
   '/app/databases/$databaseId/records/$recordId': typeof AppDatabasesDatabaseIdRecordsRecordIdRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/setup': typeof SetupRoute
   '/signin': typeof SigninRoute
   '/app/archive': typeof AppArchiveRoute
   '/app/inbox': typeof AppInboxRoute
+  '/app/review': typeof AppReviewRoute
   '/app/search': typeof AppSearchRoute
   '/app/settings': typeof AppSettingsRoute
+  '/docs/$slug': typeof DocsSlugRoute
   '/app': typeof AppIndexRoute
+  '/docs': typeof DocsIndexRoute
   '/app/containers/$containerId': typeof AppContainersContainerIdRoute
   '/app/decisions/$decisionId': typeof AppDecisionsDecisionIdRoute
   '/app/inquiries/$inquiryId': typeof AppInquiriesInquiryIdRoute
@@ -178,15 +202,18 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/setup': typeof SetupRoute
   '/signin': typeof SigninRoute
   '/app/archive': typeof AppArchiveRoute
   '/app/containers': typeof AppContainersRouteWithChildren
   '/app/inbox': typeof AppInboxRoute
+  '/app/review': typeof AppReviewRoute
   '/app/search': typeof AppSearchRoute
   '/app/settings': typeof AppSettingsRoute
+  '/docs/$slug': typeof DocsSlugRoute
   '/app/': typeof AppIndexRoute
+  '/docs/': typeof DocsIndexRoute
   '/app/containers/$containerId': typeof AppContainersContainerIdRoute
   '/app/decisions/$decisionId': typeof AppDecisionsDecisionIdRoute
   '/app/inquiries/$inquiryId': typeof AppInquiriesInquiryIdRoute
@@ -202,15 +229,18 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/app'
+    | '/setup'
     | '/signin'
     | '/app/archive'
     | '/app/containers'
     | '/app/inbox'
+    | '/app/review'
     | '/app/search'
     | '/app/settings'
+    | '/docs/$slug'
     | '/app/'
+    | '/docs/'
     | '/app/containers/$containerId'
     | '/app/decisions/$decisionId'
     | '/app/inquiries/$inquiryId'
@@ -224,13 +254,16 @@ export interface FileRouteTypes {
     | '/app/databases/$databaseId/records/$recordId'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
+    | '/setup'
     | '/signin'
     | '/app/archive'
     | '/app/inbox'
+    | '/app/review'
     | '/app/search'
     | '/app/settings'
+    | '/docs/$slug'
     | '/app'
+    | '/docs'
     | '/app/containers/$containerId'
     | '/app/decisions/$decisionId'
     | '/app/inquiries/$inquiryId'
@@ -244,15 +277,18 @@ export interface FileRouteTypes {
     | '/app/databases/$databaseId/records/$recordId'
   id:
     | '__root__'
-    | '/'
     | '/app'
+    | '/setup'
     | '/signin'
     | '/app/archive'
     | '/app/containers'
     | '/app/inbox'
+    | '/app/review'
     | '/app/search'
     | '/app/settings'
+    | '/docs/$slug'
     | '/app/'
+    | '/docs/'
     | '/app/containers/$containerId'
     | '/app/decisions/$decisionId'
     | '/app/inquiries/$inquiryId'
@@ -267,25 +303,27 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  SetupRoute: typeof SetupRoute
   SigninRoute: typeof SigninRoute
+  DocsSlugRoute: typeof DocsSlugRoute
+  DocsIndexRoute: typeof DocsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/app': {
       id: '/app'
       path: '/app'
       fullPath: '/app'
       preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/setup': {
+      id: '/setup'
+      path: '/setup'
+      fullPath: '/setup'
+      preLoaderRoute: typeof SetupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/signin': {
@@ -323,6 +361,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppInboxRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/review': {
+      id: '/app/review'
+      path: '/review'
+      fullPath: '/app/review'
+      preLoaderRoute: typeof AppReviewRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/search': {
       id: '/app/search'
       path: '/search'
@@ -336,6 +381,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/settings'
       preLoaderRoute: typeof AppSettingsRouteImport
       parentRoute: typeof AppRoute
+    }
+    '/docs/': {
+      id: '/docs/'
+      path: '/docs'
+      fullPath: '/docs/'
+      preLoaderRoute: typeof DocsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs/$slug': {
+      id: '/docs/$slug'
+      path: '/docs/$slug'
+      fullPath: '/docs/$slug'
+      preLoaderRoute: typeof DocsSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/app/containers/': {
       id: '/app/containers/'
@@ -435,6 +494,7 @@ interface AppRouteChildren {
   AppArchiveRoute: typeof AppArchiveRoute
   AppContainersRoute: typeof AppContainersRouteWithChildren
   AppInboxRoute: typeof AppInboxRoute
+  AppReviewRoute: typeof AppReviewRoute
   AppSearchRoute: typeof AppSearchRoute
   AppSettingsRoute: typeof AppSettingsRoute
   AppIndexRoute: typeof AppIndexRoute
@@ -453,6 +513,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppArchiveRoute: AppArchiveRoute,
   AppContainersRoute: AppContainersRouteWithChildren,
   AppInboxRoute: AppInboxRoute,
+  AppReviewRoute: AppReviewRoute,
   AppSearchRoute: AppSearchRoute,
   AppSettingsRoute: AppSettingsRoute,
   AppIndexRoute: AppIndexRoute,
@@ -471,9 +532,11 @@ const AppRouteChildren: AppRouteChildren = {
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  SetupRoute: SetupRoute,
   SigninRoute: SigninRoute,
+  DocsSlugRoute: DocsSlugRoute,
+  DocsIndexRoute: DocsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

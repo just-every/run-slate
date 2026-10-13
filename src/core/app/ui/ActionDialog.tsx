@@ -4,6 +4,7 @@ import {
   useState,
   type FormEvent,
   type ReactNode,
+  type RefObject,
 } from "react";
 import { errorMessage } from "../../client/transport";
 
@@ -14,36 +15,45 @@ export function ActionDialog({
   action,
   onSubmit,
   onClose,
+  initialFocus,
+  busy = false,
 }: {
   title: string;
   children: ReactNode;
   action: string;
   onSubmit: (data: FormData) => Promise<void | boolean>;
   onClose: () => void;
+  initialFocus?: RefObject<HTMLElement | null>;
+  /** Work started by the dialog continues outside it (e.g. the browser is leaving); keeps it disabled. */
+  busy?: boolean;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
-  const [pending, setPending] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const pending = submitting || busy;
   const [error, setError] = useState<unknown>();
   useEffect(() => {
     const previous = document.activeElement;
-    dialog.current?.showModal();
+    const modal = dialog.current;
+    modal?.showModal();
+    const target = initialFocus?.current;
+    if (target && modal?.contains(target)) target.focus();
     return () => {
       if (previous instanceof HTMLElement && previous.isConnected)
         previous.focus();
     };
-  }, []);
+  }, [initialFocus]);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    setPending(true);
+    setSubmitting(true);
     setError(undefined);
     try {
       const close = await onSubmit(data);
       if (close !== false) onClose();
-      else setPending(false);
+      else setSubmitting(false);
     } catch (cause) {
       setError(cause);
-      setPending(false);
+      setSubmitting(false);
     }
   }
   return (

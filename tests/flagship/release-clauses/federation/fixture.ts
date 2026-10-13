@@ -1,3 +1,4 @@
+import {resetDatabase} from '../../../e2e/setup/reset-database';
 import {env} from 'cloudflare:test';
 import {expect, vi} from 'vitest';
 import {seedWorkspace, seedMember} from '../../../e2e/setup/fixtures';
@@ -17,8 +18,7 @@ export async function actors() {
 }
 export function fresh(ctx:FeatureContext):FeatureContext {return {...ctx,authorizationEpoch:undefined,now:new Date().toISOString()};}
 export async function reset() {
- const tables = (await env.DB.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_cf_%' AND name NOT IN ('d1_migrations','core_acl_epoch')").all<{name:string}>()).results;
- await env.DB.batch([env.DB.prepare('PRAGMA defer_foreign_keys=ON'),...tables.map(t=>env.DB.prepare(`DELETE FROM "${t.name}"`))]);
+ await resetDatabase(env.DB);
 }
 
 /** Only native HTTP transport is controlled. Every service and authorization check stays real. */

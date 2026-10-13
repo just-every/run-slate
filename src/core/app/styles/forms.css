@@ -1,0 +1,341 @@
+.slate-app .request-notice {
+  margin: 20px 0;
+  padding: 18px;
+  border: 1px solid var(--slate-danger);
+  border-radius: 6px;
+  font-size: 14px;
+}
+.slate-app .request-notice h2 {
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+.slate-app .request-notice button,
+.slate-app .request-notice a {
+  text-decoration: underline;
+  margin-top: 10px;
+}
+/* SAVE-004/SHARE-007: a writer's unsent text, kept in this tab only. */
+.slate-app .unsaved-draft {
+  margin: 20px 0;
+  padding: 18px;
+  border: 1px solid var(--slate-line-strong);
+  border-radius: 6px;
+  font-size: 14px;
+}
+.slate-app .unsaved-draft h2 {
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+.slate-app .unsaved-draft-text {
+  margin: 12px 0;
+  padding: 8px 12px;
+  border-left: 3px solid var(--slate-line-strong);
+}
+.slate-app .unsaved-draft-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.slate-app .request-loading {
+  color: var(--slate-ink-muted);
+  padding: 20px 0;
+}
+.folio-dialog {
+  margin:auto;
+  max-height:calc(100dvh - 32px);
+  overflow:auto;
+  color: var(--slate-ink);
+  background: var(--slate-surface);
+  border: 1px solid var(--slate-line-strong);
+  border-radius: 10px;
+  max-width: min(560px, calc(100vw - 32px));
+  width: 100%;
+  padding: 26px;
+}
+.folio-dialog::backdrop {
+  background: rgb(0 0 0 / 0.55);
+  backdrop-filter: blur(3px);
+}
+.folio-dialog header,
+.folio-dialog footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.folio-dialog h2 {
+  font:
+    28px/1.2 Georgia,
+    serif;
+}
+.folio-dialog fieldset {
+  border: 0;
+  padding: 24px 0;
+  display: grid;
+  gap: 18px;
+}
+.folio-dialog label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+}
+.folio-dialog input,
+.folio-dialog select,
+.folio-dialog textarea {
+  border: 1px solid var(--slate-line-strong);
+  border-radius: 5px;
+  background: var(--slate-canvas);
+  color: var(--slate-ink);
+  padding: 11px;
+  width: 100%;
+}
+.folio-dialog button {
+  min-height: 44px;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.folio-dialog .primary {
+  background: var(--slate-accent);
+  color: var(--slate-accent-ink);
+}
+.folio-dialog [role="alert"] {
+  color: var(--slate-danger);
+  margin-bottom: 18px;
+}
+.slate-app .mobile-bar {
+  display: none;
+}
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  transform: translateY(-150%);
+  z-index: 100;
+  background: var(--slate-accent);
+  color: var(--slate-accent-ink);
+  padding: 10px;
+}
+.skip-link:focus {
+  transform: none;
+}
+@media (max-width: 1200px) {
+  .slate-app .content-frame:has(> .right:not([data-popover])) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .slate-app .right {
+    grid-column: auto;
+    display: block;
+    border-top: 1px solid var(--slate-line);
+  }
+}
+@media (max-width: 700px) {
+  .slate-app .intro {
+    font-size: 17px;
+    line-height: 1.65;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .slate-app button,
+  .slate-app a {
+    transition:
+      background-color 140ms ease,
+      color 140ms ease;
+  }
+}
+.slate-app .editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 15px 0;
+  border-block: 1px solid var(--slate-line);
+  margin: 20px 0;
+}
+.slate-app .editor-actions button {
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+.slate-app .page-document .max-w-wide {
+  padding-inline: 0;
+}
+.slate-app .page-document .max-w-reading {
+  max-width: none;
+}
+.slate-app .detail-close {
+  font-size: 12px;
+  color: var(--slate-ink-muted);
+  margin-bottom: 24px;
+  min-height: 35px;
+}
+.slate-app .right h2 {
+  font:
+    23px/1.3 Georgia,
+    serif;
+  margin-bottom: 18px;
+}
+.slate-app .right h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 18px 0 10px;
+}
+.slate-app .detail-form,
+.slate-app .comment-form {
+  display: grid;
+  gap: 14px;
+  margin: 22px 0;
+}
+.slate-app .detail-form label,
+.slate-app .comment-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+}
+.slate-app .detail-form input,
+.slate-app .detail-form select,
+.slate-app .detail-form textarea,
+.slate-app .comment-form textarea,
+.slate-app .grant-list select {
+  width: 100%;
+  min-height: 40px;
+  padding: 9px;
+  border: 1px solid var(--slate-line-strong);
+  border-radius: 5px;
+  color: var(--slate-ink);
+  background: var(--slate-canvas);
+}
+.slate-app input[type="radio"],
+.slate-app input[type="checkbox"] {
+  width: 18px;
+  min-height: 18px;
+  accent-color: var(--slate-accent);
+}
+.slate-app textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+.slate-app .right > section > button {
+  display: block;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--slate-line);
+  background: var(--slate-surface);
+  border-radius: 5px;
+  margin-block: 8px;
+  text-align: left;
+}
+.slate-app .comment-thread {
+  border-block-end: 1px solid var(--slate-line);
+}
+.slate-app .thread-heading,
+.slate-app .comment-actions {
+  display: flex;
+  font-size: 12px;
+}
+.slate-app .comment {
+  padding: 16px 0;
+}
+.slate-app .comment header {
+  display: grid;
+  gap: 3px;
+  font-size: 12px;
+}
+.slate-app .comment time {
+  color: var(--slate-ink-muted);
+  font-size: 11px;
+}
+.slate-app .comment p {
+  margin: 12px 0;
+  white-space: pre-wrap;
+}
+.slate-app .comment-actions button {
+  min-height: 32px;
+}
+.slate-app .history-list {
+  list-style: none;
+  padding: 0;
+}
+.slate-app .history-list button {
+  display: grid;
+  gap: 4px;
+  text-align: left;
+  padding: 14px 0;
+  width: 100%;
+  border-bottom: 1px solid var(--slate-line);
+}
+.slate-app .history-list span {
+  color: var(--slate-ink-muted);
+  font-size: 12px;
+}
+.slate-app .revision-preview {
+  border-block: 1px solid var(--slate-line);
+  padding: 15px 0;
+}
+.slate-app .grant-list {
+  list-style: none;
+  padding: 0;
+}
+.slate-app .grant-list li {
+  display: grid;
+  gap: 8px;
+  border-bottom: 1px solid var(--slate-line);
+  padding: 14px 0;
+}
+.slate-app .publication-settings {
+  border-top: 1px solid var(--slate-line);
+  padding-top: 16px;
+  margin-top: 20px;
+}
+.slate-app .publication-settings p {
+  font-size: 13px;
+  color: var(--slate-ink-muted);
+  margin-bottom: 14px;
+}
+.slate-app .finding-statement {
+  border-bottom: 1px solid var(--slate-line);
+  padding: 18px 0;
+}
+.slate-app .finding-statement p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 8px 0;
+}
+.slate-app .statement-kind {
+  color: var(--slate-accent);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.slate-app .run-detail {
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+}
+.slate-app .run-detail dt {
+  color: var(--slate-ink-muted);
+}
+.conflict-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.conflict-columns pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 300px;
+  overflow: auto;
+  font-size: 12px;
+}
+@media (max-width: 700px) {
+  .conflict-columns {
+    grid-template-columns: 1fr;
+  }
+  .slate-app .page-document .group\/row {
+    position: relative;
+    margin-left: 0;
+    width: 100%;
+    display: block;
+  }
+}
+
+.folio-dialog header > button, .folio-dialog footer > button:not(.primary) { border: 1px solid var(--slate-line); background: var(--slate-surface); color: var(--slate-ink); }

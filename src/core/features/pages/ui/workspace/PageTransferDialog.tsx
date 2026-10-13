@@ -1,3 +1,5 @@
+import { PageMovePicker, type PageMoveDestination } from "../PageMovePicker";
+import { ApiError, errorMessage } from "../../../../client/transport";
 import { useRef, useState } from "react";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import { useResource } from "../../../../client/useResource";
@@ -34,13 +36,17 @@ export function PageTransferDialog({
     "/api/containers",
   );
   const pages = useResource<{
-    items: { id: string; title: string; containerId: string }[];
+    items: { id: string; title: string; containerId: string; parentPageId?: string | null }[];
   }>("/api/pages");
   const members = useResource<{ items: { id: string; displayName: string }[] }>(
     "/api/members",
   );
   const [spaceQuery,setSpaceQuery]=useState("");
   const [parentQuery,setParentQuery]=useState("");
+  const [moveQuery, setMoveQuery] = useState("");
+  const [selectedMove, setSelectedMove] = useState<string | null>(null);
+  const [movePending, setMovePending] = useState(false);
+  const [moveError, setMoveError] = useState<unknown>();
   const [destination, setDestination] = useState("");
   const [plan, setPlan] = useState<Plan | null>(null);
   const advancing = useRef(false);
@@ -95,16 +101,38 @@ export function PageTransferDialog({
         </button>
       </ActionDialog>
     );
+  if (kind === "move") {
+    const descendants = new Set([pageId]);
+    for (let changed = true; changed;) {
+      changed = false;
+      for (const page of pages.data?.items ?? []) if (page.parentPageId && descendants.has(page.parentPageId) && !descendants.has(page.id)) { descendants.add(page.id); changed = true; }
+    }
+    const destinations: PageMoveDestination[] = [
+      ...(spaces.data?.items ?? []).map(space => ({id:`container:${space.id}`,label:space.name,path:"",kind:"container" as const})),
+      ...(pages.data?.items ?? []).filter(page => !descendants.has(page.id)).map(page => ({id:`page:${page.id}`,label:page.title,path:spaces.data?.items.find(space => space.id === page.containerId)?.name ?? "",kind:"page" as const})),
+    ].filter(destination => `${destination.path} ${destination.label}`.toLocaleLowerCase().includes(moveQuery.toLocaleLowerCase()));
+    const failure = spaces.error || pages.error || moveError;
+    const state = failure ? failure instanceof ApiError && failure.status === 403 ? "denied" : "error" : spaces.loading || pages.loading || movePending ? "loading" : destinations.length ? "ready" : "empty";
+    return <><PageMovePicker open onOpenChange={open => {if (!open && !movePending) onClose();}} pageTitle={pages.data?.items.find(page => page.id === pageId)?.title ?? "Page"} currentPath={spaces.data?.items.find(space => space.id === pages.data?.items.find(page => page.id === pageId)?.containerId)?.name ?? "Current space"} childCount={descendants.size-1} destinations={destinations} state={state} query={moveQuery} onQueryChange={setMoveQuery} selectedDestinationId={selectedMove} onSelectDestination={setSelectedMove} onRetry={() => {setMoveError(undefined);void spaces.reload();void pages.reload();}} onConfirm={() => {
+      if (state !== "ready" || !selectedMove) return;
+      const selected = destinations.find(item => item.id === selectedMove);
+      if (!selected) return;
+      const parent = selected.kind === "page" ? pages.data?.items.find(page => `page:${page.id}` === selected.id) : null;
+      const containerId = parent?.containerId ?? selected.id.slice("container:".length);
+      const parentPageId = parent?.id ?? null;
+      setMovePending(true);setMoveError(undefined);
+      void mutate<Pick<Plan,"changes"|"accessPreviewHash"|"orderPreviewHash">>(`/api/pages/${pageId}/move-preview`, {containerId,parentPageId,atEnd:true}).then(preview => setPlan({...preview,containerId,parentPageId})).catch(setMoveError).finally(() => setMovePending(false));
+    }} />{moveError ? <p role="alert">{errorMessage(moveError)}</p> : null}</>;
+  }
   return (
     <ActionDialog
-      title={kind === "move" ? "Move page" : "Duplicate page"}
-      action={kind === "move" ? "Review access changes" : "Create copy"}
+      title="Duplicate page"
+      action="Create copy"
       onClose={() => {
         if (!advancing.current) onClose();
       }}
       onSubmit={async (data) => {
         const parentPageId = String(data.get("parent")) || null;
-        if (kind === "duplicate") {
           const result = await mutate<{ value: { pageId: string } }>(
             `/api/pages/${pageId}/duplicate`,
             {
@@ -116,22 +144,7 @@ export function PageTransferDialog({
             },
           );
           onDone(result.value.pageId);
-          return;
-        }
-        const preview = await mutate<
-          Pick<Plan, "changes" | "accessPreviewHash" | "orderPreviewHash">
-        >(`/api/pages/${pageId}/move-preview`, {
-          containerId: destination,
-          parentPageId,
-          atEnd:true,
-        });
-        advancing.current = true;
-        setPlan({
-          ...preview,
-          containerId: destination,
-          parentPageId,
-        });
-        return false;
+
       }}
     >
       <label>Find a space<input type="search" value={spaceQuery} onChange={event=>setSpaceQuery(event.target.value)}/></label>
@@ -168,7 +181,7 @@ export function PageTransferDialog({
             ))}
         </select>
       </label>
-      {kind === "duplicate" && !publicSource ? (
+      {!publicSource ? (
         <label>
           <input type="checkbox" name="children" />
           Include child pages

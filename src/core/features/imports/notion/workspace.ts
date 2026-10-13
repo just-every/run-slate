@@ -1,3 +1,4 @@
+import {archiveMediaSource} from '../archive-stream';
 import { archiveMediaType, readZipArchive, requireArchiveText } from "../archive";
 import { parseCsv, validateCsvTable } from "../csv";
 import { ImportError } from "../errors";
@@ -44,7 +45,9 @@ function bom(text: string): string {
 }
 
 export function parseNotionWorkspace(source: ImportSourceFile, options?: ImportParseOptions): NormalizedImport {
-  const files = readZipArchive(source.bytes, options?.limits);
+  return parseNotionFiles(readZipArchive(source.bytes,options?.limits),source,options);
+}
+export function parseNotionFiles(files:Map<string,Uint8Array>,source:Pick<ImportSourceFile,'name'>,options?:ImportParseOptions):NormalizedImport {
   const markdownPaths = [...files.keys()].filter((path) => /\.md$/i.test(path)).sort();
   if (!markdownPaths.length) throw new ImportError("IMPORT_FORMAT_INVALID", "The Notion archive has no Markdown pages.");
   const csvPaths = [...files.keys()].filter((path) => /\.csv$/i.test(path)).sort();
@@ -56,7 +59,7 @@ export function parseNotionWorkspace(source: ImportSourceFile, options?: ImportP
   // extension allowlist: a file the archive contains is never reported missing.
   const mediaBySourceId = new Map<string, ImportedMedia>();
   const mediaByPath = new Map<string, string>();
-  for (const [path, bytes] of [...files.entries()].sort(([left], [right]) => left.localeCompare(right))) {
+  for (const path of [...files.keys()].sort()) {
     if (/\.(?:md|csv)$/i.test(path)) continue;
     const sourceId = `notion-file:${path}`;
     mediaByPath.set(path, sourceId);
@@ -65,8 +68,9 @@ export function parseNotionWorkspace(source: ImportSourceFile, options?: ImportP
       sourceIdentityKind: "path-derived",
       name: path.split("/").at(-1) ?? path,
       archivePath: path,
-      mediaType: archiveMediaType(path, bytes),
-      bytes,
+      mediaType: archiveMediaType(path,archiveMediaType(path)==='application/octet-stream'?(archiveMediaSource(files,path)?.prefix??files.get(path)):undefined),
+      source:archiveMediaSource(files,path),
+      get bytes(){return files.get(path)!;},
     });
   }
 

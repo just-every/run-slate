@@ -4,6 +4,8 @@ import {mutate,operationKey} from '../../../client/transport';
 import {RequestState} from '../../../app/ui/RequestState';
 import {ActionDialog} from '../../../app/ui/ActionDialog';
 import {DecisionCard,type Decision} from './PageDecisions';
+import {TopBar} from '../../../app/ui/header/TopBar';
+import {PageTitle} from '../../../app/ui/header/PageTitle';
 
 export function DecisionWorkspace({id}:{id?:string}) {
  const [filters,setFilters]=useState('');
@@ -13,7 +15,7 @@ export function DecisionWorkspace({id}:{id?:string}) {
  const members=useResource<{items:{id:string;displayName:string}[]}>('/api/members');
  const spaces=useResource<{items:{id:string;name:string}[]}>('/api/containers');
  const [remove,setRemove]=useState(false);
- return <section className="main"><header><a href="/app">Workspace</a><h1 className="title">Decisions</h1></header>
+ return <><TopBar trail={id?[{label:'Decisions',href:'/app/decisions'},{label:'Decision'}]:[{label:'Decisions'}]}/><section className="main"><PageTitle>Decisions</PageTitle>
  {id?<><a href="/app/decisions">All decisions</a><RequestState loading={selected.loading} error={selected.error} retry={selected.reload}>{selected.data?<>
  {revision?<p role="status">Exact retained decision revision: {revision}</p>:null}
  {selected.data.revision?<p>{selected.data.revision.kind} · {new Date(selected.data.revision.createdAt).toLocaleString()} · {members.data?.items.find(member=>member.id===selected.data!.revision!.actorId)?.displayName??selected.data.revision.actorId}</p>:null}
@@ -33,7 +35,7 @@ export function DecisionWorkspace({id}:{id?:string}) {
  <label>Evidence currency<select name="citationsCurrent"><option value="">Any evidence state</option><option value="true">Current</option><option value="false">Changed</option></select></label><button>Filter decisions</button></form>
  <RequestState loading={resource.loading} error={resource.error} retry={resource.reload}><ul className="settings-list">{resource.data?.items.map(item=><li key={item.id}><a href={item.acceptedRevisionHref??`/app/decisions/${item.id}`}><strong>{item.question}</strong><p>{item.state} · {item.citationsCurrent?'Current evidence':'Evidence changed'}{item.review_at?` · Review ${new Date(item.review_at).toLocaleDateString()}`:''}</p></a><a href={`/app/decisions/${item.id}`}>Current record</a></li>)}</ul>{resource.data?.items.length===0?<p>No decisions match these filters.</p>:null}</RequestState>
  </>}
- </section>;
+ </section></>;
 }
 function DecisionHistory({id,revision}:{id:string;revision:string}){
  const history=useResource<{items:{id:string;entity_kind:string;actor_id:string;created_at:string}[]}>(`/api/decisions/${id}/history`);

@@ -1,4 +1,4 @@
-import { Outlet, createFileRoute } from "@tanstack/react-router";
+import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 import { AppShell } from "../core/app/ui/AppShell";
 import { loadWorkspace } from "../core/app/loaders";
 
@@ -12,6 +12,7 @@ import { loadWorkspace } from "../core/app/loaders";
 export const Route = createFileRoute("/app")({
   beforeLoad: async () => {
     const workspace = await loadWorkspace();
+    if (workspace.setup.required && workspace.setup.canComplete) throw redirect({ to: "/setup" });
     return { workspace };
   },
   head: () => ({ meta: [{ title: "Workspace — Slate" }] }),

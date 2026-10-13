@@ -1,0 +1,59 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { DatabaseSync } from 'node:sqlite';
+import { sqlitePort } from './sqlite-runtime.ts';
+
+test('SQLite test port decodes complete TEXT bytes, types and bindings on Node 22 and 26', async t => {
+  const native = new DatabaseSync(':memory:'); t.after(() => native.close());
+  const db = sqlitePort(native), value = '🌱\u0000"\\\n漢', empty = '';
+  await db.batch([db.prepare('CREATE TABLE text_values(id INTEGER PRIMARY KEY,value TEXT,other TEXT,bytes BLOB,n REAL,z TEXT)'), db.prepare('INSERT INTO text_values VALUES(?,?,?,?,?,?)').bind(1, value, empty, Buffer.from([0, 255, 42]), 1.5, null)]);
+  const expected = { id: 1, value, other: empty, bytes: new Uint8Array([0, 255, 42]), n: 1.5, z: null };
+  const first = await db.prepare('SELECT * FROM text_values WHERE id=?').bind(1).first();
+  assert.deepEqual({ ...first }, expected);
+  assert.equal(Object.getPrototypeOf(first), Object.getPrototypeOf(native.prepare('SELECT 1').get()));
+  assert.equal(Buffer.from(first!.value).toString('hex').toUpperCase(), native.prepare('SELECT hex(value) AS full FROM text_values').get()!.full);
+  const all = await db.prepare('WITH chosen AS (SELECT * FROM text_values WHERE id=?) SELECT * FROM chosen').bind(1).all();
+  assert.deepEqual(all.results.map(row => ({ ...row })), [expected]);
+  const result = await db.batch([db.prepare('SELECT value,other FROM text_values ORDER BY id'), db.prepare('SELECT ? AS literal,? AS counter').bind(value, 2)]);
+  assert.equal((result[0] as any[])[0].value, value); assert.equal((result[1] as any[])[0].literal, value); assert.equal((result[1] as any[])[0].counter, 2);
+  assert.equal((await db.prepare('/* read */ SELECT ? AS value; -- trailing comment').bind(value).first())!.value, value);
+  assert.equal((await db.prepare('PRAGMA table_info(text_values)').all()).results[1].name, 'value');
+  assert.equal((await db.prepare('SELECT ? AS duplicate,? AS duplicate').bind('first', value).first())!.duplicate, value);
+  native.exec('PRAGMA query_only=ON');
+  assert.equal((await db.prepare('SELECT value FROM text_values').first())!.value, value);
+});
+
+test('SQLite test port materializes expression values once and retains row order and rollback', async t => {
+  const native = new DatabaseSync(':memory:'); t.after(() => native.close());
+  let calls = 0; native.function('next_text', () => `value-${++calls}\u0000complete`);
+  const db = sqlitePort(native), rows = await db.prepare('SELECT next_text() AS text FROM (SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3)').all();
+  assert.equal(calls, 3); assert.deepEqual(rows.results.map(row => row.text), ['value-1\u0000complete', 'value-2\u0000complete', 'value-3\u0000complete']);
+  calls = 0;
+  assert.equal((await db.prepare('SELECT next_text() AS text FROM (SELECT 1 UNION ALL SELECT 2)').first())!.text, 'value-1\u0000complete');
+  assert.equal(calls, 1, 'first reads only one expression row');
+  const ordered = await db.prepare('SELECT column1 AS n FROM (VALUES(1),(2),(3)) ORDER BY n DESC').all();
+  assert.deepEqual(ordered.results.map(row => row.n), [3, 2, 1]);
+  await db.batch([db.prepare('CREATE TABLE ik_test_rows(value TEXT)'), db.prepare('INSERT INTO ik_test_rows VALUES(?)').bind('relation\u0000name')]);
+  assert.equal((await db.prepare('SELECT value FROM ik_test_rows').first())!.value, 'relation\u0000name');
+  await db.batch([db.prepare('CREATE TABLE rollback_probe(value TEXT CHECK(value=\'allowed\'))')]);
+  await assert.rejects(db.batch([db.prepare("INSERT INTO rollback_probe VALUES('allowed')"), db.prepare("INSERT INTO rollback_probe VALUES('denied')")]), /CHECK/);
+  assert.equal((await db.prepare('SELECT COUNT(*) AS n FROM rollback_probe').first())!.n, 0);
+});
+
+test('SQLite test port classifies WITH SELECT and keeps WITH INSERT/UPDATE/DELETE RETURNING native', async t => {
+  const native = new DatabaseSync(':memory:'); t.after(() => native.close());
+  const db = sqlitePort(native);
+  await db.batch([db.prepare('CREATE TABLE cte_mutations(id INTEGER PRIMARY KEY,value TEXT)')]);
+  const initial = native.prepare('SELECT total_changes() AS n').get()!.n as number;
+  const inserted = await db.batch([db.prepare("WITH /* grouping and quoted words */ \"INSERT\"(id,value) AS MATERIALIZED (SELECT 1,'one'), next AS NOT MATERIALIZED (SELECT * FROM \"INSERT\") INSERT INTO cte_mutations SELECT * FROM next RETURNING id,value")]);
+  assert.deepEqual({ ...(inserted[0] as any[])[0] }, { id: 1, value: 'one' });
+  const updated = await db.prepare("WITH RECURSIVE seq(n) AS (SELECT 1 UNION ALL SELECT n+1 FROM seq WHERE n<2) UPDATE cte_mutations SET value='two' WHERE id IN (SELECT n FROM seq) RETURNING id,value").all();
+  assert.deepEqual(updated.results.map(row => ({ ...row })), [{ id: 1, value: 'two' }]);
+  const complete = 'nested\u0000complete';
+  const selected = await db.prepare('WITH RECURSIVE "UPDATE"("value") AS NOT MATERIALIZED (SELECT ?), "🌱" AS MATERIALIZED (SELECT value FROM "UPDATE") SELECT value FROM "🌱"; -- keep comment').bind(complete).first();
+  assert.equal(selected!.value, complete);
+  const deleted = await db.prepare('WITH candidate(id) AS (SELECT id FROM cte_mutations) DELETE FROM cte_mutations WHERE id IN (SELECT id FROM candidate) RETURNING id,value').all();
+  assert.deepEqual(deleted.results.map(row => ({ ...row })), [{ id: 1, value: 'two' }]);
+  assert.equal(native.prepare('SELECT total_changes() AS n').get()!.n, initial + 3);
+  assert.equal((await db.prepare('SELECT COUNT(*) AS n FROM cte_mutations').first())!.n, 0);
+});

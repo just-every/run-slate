@@ -24,7 +24,7 @@ export function syntheticConfluenceArchive(): Uint8Array {
         <object class="Page"><property name="id">page-2</property><property name="spaceId">space-1</property><property name="parentId">page-1</property><property name="title">Child</property><property name="body"><![CDATA[<p>Child body</p>]]></property></object>
         <object class="Folder"><property name="id">folder-1</property><property name="spaceId">space-1</property><property name="parentId">page-1</property><property name="title">Legacy folder</property></object>
         <object class="Version"><property name="id">version-1</property><property name="contentId">page-1</property><property name="versionNumber">3</property><property name="comment">Published</property></object>
-        <object class="Attachment"><property name="id">attachment-1</property><property name="fileName">diagram.png</property></object>
+        <object class="Attachment"><property name="id">attachment-1</property><property name="container"><id>page-1</id></property><property name="fileName">diagram.png</property></object>
         <object class="BlogPost"><property name="id">blog-1</property></object>
       </hibernate-generic>`),
     "attachments/diagram.png": new Uint8Array([137, 80, 78, 71]),

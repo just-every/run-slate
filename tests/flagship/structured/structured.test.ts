@@ -106,7 +106,7 @@ const adapters = {
 test("real D1 database structure CAS, record page revisions, replay and lock enforcement", async () => {
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
-    operationKey: "create-database-01",
+    operationKey: "case:001",
     containerId,
     title: "Work",
   });
@@ -118,25 +118,25 @@ test("real D1 database structure CAS, record page revisions, replay and lock enf
     position: 0,
   };
   const definition = await saveField(ctx, db.value.id, {
-    operationKey: "save-field-01",
+    operationKey: "case:002",
     expectedRevisionId: db.receipt.revisionId,
     field,
   });
   await expect(
     saveField(ctx, db.value.id, {
-      operationKey: "save-field-stale",
+      operationKey: "case:003",
       expectedRevisionId: db.receipt.revisionId,
       field,
     }),
   ).rejects.toMatchObject({ code: "REVISION_CONFLICT" });
   const rec = await createRecord(ctx, db.value.id, {
-    operationKey: "create-record-01",
+    operationKey: "case:004",
     title: "First",
     values: { estimate: 2 },
   });
   expect((await readPage(ctx, rec.value.pageId)).page.title).toBe("First");
   const changes = {
-    operationKey: "record-change-01",
+    operationKey: "case:005",
     expectedRevisionId: rec.receipt.revisionId,
     values: { estimate: 4 },
   };
@@ -149,13 +149,13 @@ test("real D1 database structure CAS, record page revisions, replay and lock enf
     a.receipt.revisionId,
   );
   await setStructureLock(ctx, db.value.id, {
-    operationKey: "structure-lock-01",
+    operationKey: "case:006",
     expectedRevisionId: definition.receipt.revisionId,
     locked: true,
   });
   await expect(
     saveField(ctx, db.value.id, {
-      operationKey: "locked-change-01",
+      operationKey: "case:007",
       expectedRevisionId: definition.receipt.revisionId,
       field,
     }),
@@ -163,7 +163,7 @@ test("real D1 database structure CAS, record page revisions, replay and lock enf
   expect(
     (
       await updateRecord(ctx, rec.value.pageId, {
-        operationKey: "record-locked-01",
+        operationKey: "case:008",
         expectedRevisionId: a.receipt.revisionId,
         values: { estimate: 8 },
       })
@@ -173,7 +173,7 @@ test("real D1 database structure CAS, record page revisions, replay and lock enf
 test("reader filtering precedes summaries and unauthorized reader cannot mutate", async () => {
   const { ctx, containerId, reader } = await scenario();
   const db = await createDatabase(ctx, {
-    operationKey: "database-reader-01",
+    operationKey: "case:009",
     containerId,
     title: "Work",
   });
@@ -183,12 +183,12 @@ test("reader filtering precedes summaries and unauthorized reader cannot mutate"
     level: "view",
   });
   const a = await createRecord(ctx, db.value.id, {
-    operationKey: "record-visible-01",
+    operationKey: "case:010",
     title: "Visible",
     values: {},
   });
   const b = await createRecord(ctx, db.value.id, {
-    operationKey: "record-private-01",
+    operationKey: "case:011",
     title: "Hidden",
     values: {},
   });
@@ -209,7 +209,7 @@ test("reader filtering precedes summaries and unauthorized reader cannot mutate"
     position: 0,
   };
   await saveView(ctx, db.value.id, {
-    operationKey: "reader-view-save",
+    operationKey: "case:012",
     expectedRevisionId: db.receipt.revisionId,
     view,
   });
@@ -217,7 +217,7 @@ test("reader filtering precedes summaries and unauthorized reader cannot mutate"
   expect(result.records.map((r) => r.pageId)).toEqual([a.value.pageId]);
   await expect(
     updateRecord(reader, a.value.pageId, {
-      operationKey: "reader-edit-denied",
+      operationKey: "case:013",
       expectedRevisionId: a.receipt.revisionId,
       values: {},
     }),
@@ -244,18 +244,18 @@ test("typed formula cycles reject and arithmetic evaluates without executable co
 test("template snapshots retain prescribed children independently and application replays", async () => {
   const { ctx, containerId } = await scenario();
   const source = await createPage(ctx, {
-    operationKey: "template-source-01",
+    operationKey: "case:014",
     containerId,
     title: "Root",
   });
   await createPage(ctx, {
-    operationKey: "template-child-01",
+    operationKey: "case:015",
     containerId,
     parentPageId: source.value.pageId,
     title: "Child",
   });
   const template = await saveTemplate(ctx, {
-    operationKey: "template-save-01",
+    operationKey: "case:016",
     sourcePageId: source.value.pageId,
     includeChildren: true,
     containerId: null,
@@ -264,7 +264,7 @@ test("template snapshots retain prescribed children independently and applicatio
     category: "Work",
   });
   const input = {
-    operationKey: "template-apply-01",
+    operationKey: "case:017",
     containerId,
     expectedRevisionId: template.receipt.revisionId,
   };
@@ -272,7 +272,7 @@ test("template snapshots retain prescribed children independently and applicatio
   expect(first.value.pageIds).toHaveLength(2);
   expect(await applyTemplate(ctx, template.value.id, input)).toEqual(first);
   await changeTemplate(ctx, template.value.id, {
-    operationKey: "template-archive-01",
+    operationKey: "case:018",
     expectedRevisionId: template.receipt.revisionId,
     action: "archive",
   });
@@ -281,17 +281,17 @@ test("template snapshots retain prescribed children independently and applicatio
 test("rule action executes once with durable receipts and revoked actor loses execution", async () => {
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
-    operationKey: "automation-db-01",
+    operationKey: "case:019",
     containerId,
     title: "Work",
   });
   const record = await createRecord(ctx, db.value.id, {
-    operationKey: "automation-record-01",
+    operationKey: "case:020",
     title: "Task",
     values: {},
   });
   const rule = await saveRule(ctx, {
-    operationKey: "automation-rule-01",
+    operationKey: "case:021",
     name: "Comment",
     scope: "source",
     sourceDatabaseId: db.value.id,
@@ -346,12 +346,12 @@ test("rule action executes once with durable receipts and revoked actor loses ex
 test("record body persists across both parity profiles", async () => {
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
-    operationKey: "parity-db-01",
+    operationKey: "case:022",
     containerId,
     title: "Work",
   });
   const record = await createRecord(ctx, db.value.id, {
-    operationKey: "parity-record-01",
+    operationKey: "case:023",
     title: "Task",
     values: {},
   });
@@ -374,12 +374,12 @@ test("record body persists across both parity profiles", async () => {
 test("empty database accepts numeric formula, recomputes changed fields, rejects invalid types and cycles", async () => {
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
-    operationKey: "formula-empty-db",
+    operationKey: "case:024",
     containerId,
     title: "Numbers",
   });
   const amount = await saveField(ctx, db.value.id, {
-    operationKey: "formula-amount",
+    operationKey: "case:025",
     expectedRevisionId: db.receipt.revisionId,
     field: {
       id: "amount",
@@ -390,7 +390,7 @@ test("empty database accepts numeric formula, recomputes changed fields, rejects
     },
   });
   const formula = await saveField(ctx, db.value.id, {
-    operationKey: "formula-computed",
+    operationKey: "case:026",
     expectedRevisionId: amount.receipt.revisionId,
     field: {
       id: "double",
@@ -406,20 +406,20 @@ test("empty database accepts numeric formula, recomputes changed fields, rejects
     },
   });
   const record = await createRecord(ctx, db.value.id, {
-    operationKey: "formula-record",
+    operationKey: "case:027",
     title: "Value",
     values: { amount: 3 },
   });
   expect((await openRecord(ctx, record.value.pageId)).values.double).toBe(6);
   await updateRecord(ctx, record.value.pageId, {
-    operationKey: "formula-update",
+    operationKey: "case:028",
     expectedRevisionId: record.receipt.revisionId,
     values: { amount: 8 },
   });
   expect((await openRecord(ctx, record.value.pageId)).values.double).toBe(16);
   await expect(
     saveField(ctx, db.value.id, {
-      operationKey: "formula-invalid-type",
+      operationKey: "case:029",
       expectedRevisionId: formula.receipt.revisionId,
       field: {
         id: "bad",
@@ -437,7 +437,7 @@ test("empty database accepts numeric formula, recomputes changed fields, rejects
   ).rejects.toMatchObject({ code: "FORMULA_TYPE" });
   await expect(
     saveField(ctx, db.value.id, {
-      operationKey: "formula-cycle",
+      operationKey: "case:030",
       expectedRevisionId: formula.receipt.revisionId,
       field: {
         id: "double",
@@ -454,7 +454,7 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
   const { sessionFor } = await import("../../e2e/setup/fixtures");
   const { ctx, containerId, reader } = await scenario();
   const input = {
-    operationKey: "http-db-created",
+    operationKey: "case:031",
     containerId,
     title: "HTTP database",
   };
@@ -506,13 +506,13 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
 test("rollups filter related unreadable records before aggregate and reject stale references", async () => {
   const { ctx, containerId, reader } = await scenario();
   const db = await createDatabase(ctx, {
-    operationKey: "rollup-db-create",
+    operationKey: "case:032",
     containerId,
     title: "Relations",
   });
   let rev = (
     await saveField(ctx, db.value.id, {
-      operationKey: "rollup-num-field",
+      operationKey: "case:033",
       expectedRevisionId: db.receipt.revisionId,
       field: {
         id: "num",
@@ -525,7 +525,7 @@ test("rollups filter related unreadable records before aggregate and reject stal
   ).receipt.revisionId;
   rev = (
     await saveField(ctx, db.value.id, {
-      operationKey: "rollup-rel-field",
+      operationKey: "case:034",
       expectedRevisionId: rev,
       field: {
         id: "rel",
@@ -537,7 +537,7 @@ test("rollups filter related unreadable records before aggregate and reject stal
     })
   ).receipt.revisionId;
   await saveField(ctx, db.value.id, {
-    operationKey: "rollup-sum-field",
+    operationKey: "case:035",
     expectedRevisionId: rev,
     field: {
       id: "sum",
@@ -548,7 +548,7 @@ test("rollups filter related unreadable records before aggregate and reject stal
     },
   });
   const secret = await createRecord(ctx, db.value.id, {
-    operationKey: "rollup-secret-record",
+    operationKey: "case:036",
     title: "Private",
     values: { num: 100 },
   });
@@ -558,7 +558,7 @@ test("rollups filter related unreadable records before aggregate and reject stal
     .bind(secret.value.pageId)
     .run();
   const visible = await createRecord(ctx, db.value.id, {
-    operationKey: "rollup-visible-record",
+    operationKey: "case:037",
     title: "Visible",
     values: { num: 2, rel: [secret.value.pageId] },
   });
@@ -577,7 +577,7 @@ test("rollups filter related unreadable records before aggregate and reject stal
 test("all automation scopes persist; schedules deduplicate and chains throttle with a log", async () => {
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
-    operationKey: "scope-db-create",
+    operationKey: "case:038",
     containerId,
     title: "Work",
   });
@@ -610,7 +610,7 @@ test("all automation scopes persist; schedules deduplicate and chains throttle w
   const { runAutomationSchedule } =
     await import("../../../src/core/features/automation/jobs");
   const scheduled = await saveRule(ctx, {
-    operationKey: "scope-schedule-create",
+    operationKey: "case:039",
     name: "Schedule",
     scope: "site",
     trigger: {
@@ -633,13 +633,13 @@ test("all automation scopes persist; schedules deduplicate and chains throttle w
 test("rollup cycle writes reject while prior records remain readable", async () => {
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
-    operationKey: "cycle-db-create",
+    operationKey: "case:040",
     containerId,
     title: "Cycles",
   });
   let rev = (
     await saveField(ctx, db.value.id, {
-      operationKey: "cycle-rel-field",
+      operationKey: "case:041",
       expectedRevisionId: db.receipt.revisionId,
       field: {
         id: "cycle-rel",
@@ -651,7 +651,7 @@ test("rollup cycle writes reject while prior records remain readable", async () 
     })
   ).receipt.revisionId;
   const base = await saveField(ctx, db.value.id, {
-    operationKey: "cycle-num-field",
+    operationKey: "case:042",
     expectedRevisionId: rev,
     field: {
       id: "cycle-number",
@@ -662,22 +662,22 @@ test("rollup cycle writes reject while prior records remain readable", async () 
     },
   });
   const a = await createRecord(ctx, db.value.id, {
-    operationKey: "cycle-record-a",
+    operationKey: "case:043",
     title: "A",
     values: { "cycle-number": 2 },
   });
   const b = await createRecord(ctx, db.value.id, {
-    operationKey: "cycle-record-b",
+    operationKey: "case:044",
     title: "B",
     values: { "cycle-rel": [a.value.pageId] },
   });
   await updateRecord(ctx, a.value.pageId, {
-    operationKey: "cycle-record-link",
+    operationKey: "case:045",
     expectedRevisionId: a.receipt.revisionId,
     values: { "cycle-rel": [b.value.pageId] },
   });
   const roll = await saveField(ctx, db.value.id, {
-    operationKey: "cycle-roll-field",
+    operationKey: "case:046",
     expectedRevisionId: base.receipt.revisionId,
     field: {
       id: "cycle-roll",
@@ -692,7 +692,7 @@ test("rollup cycle writes reject while prior records remain readable", async () 
     },
   });
   await expect(saveField(ctx, db.value.id, {
-    operationKey: "cycle-roll-recursive",
+    operationKey: "case:047",
     expectedRevisionId: roll.receipt.revisionId,
     field: {
       id: "cycle-roll",
@@ -726,12 +726,12 @@ test("all eight policy alternatives preserve structured data and template exclus
     .bind(ctx.actor.workspaceId, JSON.stringify(alternatives), ctx.now)
     .run();
   const db = await createDatabase(ctx, {
-    operationKey: "all-policies-db",
+    operationKey: "case:048",
     containerId,
     title: "Policy data",
   });
   const record = await createRecord(ctx, db.value.id, {
-    operationKey: "all-policies-record",
+    operationKey: "case:049",
     title: "Private",
     values: {},
   });
@@ -739,7 +739,7 @@ test("all eight policy alternatives preserve structured data and template exclus
   expect(opened.page.policyProfile).toEqual(alternatives);
   expect(opened.page.page.lifecycle).toBe("draft");
   const tmpl = await saveTemplate(ctx, {
-    operationKey: "all-policies-template",
+    operationKey: "case:050",
     sourcePageId: record.value.pageId,
     includeChildren: false,
     containerId: null,
@@ -763,12 +763,12 @@ test("committed content events drain durably and self-triggering field rules are
     await import("../../../src/core/features/automation/events");
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
-    operationKey: "loop-db-create",
+    operationKey: "case:051",
     containerId,
     title: "Loops",
   });
   await saveField(ctx, db.value.id, {
-    operationKey: "loop-field-create",
+    operationKey: "case:052",
     expectedRevisionId: db.receipt.revisionId,
     field: {
       id: "loop-num",
@@ -779,12 +779,12 @@ test("committed content events drain durably and self-triggering field rules are
     },
   });
   const record = await createRecord(ctx, db.value.id, {
-    operationKey: "loop-record-create",
+    operationKey: "case:053",
     title: "Task",
     values: { "loop-num": 1 },
   });
   const rule = await saveRule(ctx, {
-    operationKey: "loop-rule-create",
+    operationKey: "case:054",
     name: "Update",
     scope: "source",
     sourceDatabaseId: db.value.id,
@@ -793,7 +793,7 @@ test("committed content events drain durably and self-triggering field rules are
     actions: [{ type: "edit-fields", values: { "loop-num": 9 } }],
   });
   await updateRecord(ctx, record.value.pageId, {
-    operationKey: "loop-record-update",
+    operationKey: "case:055",
     expectedRevisionId: record.receipt.revisionId,
     values: { "loop-num": 3 },
   });
@@ -823,17 +823,17 @@ test("rule permission loss skips unauthorized later effects and retains confirme
     await import("../../../src/core/features/notifications/commands");
   const { ctx, containerId, reader } = await scenario();
   const db = await createDatabase(ctx, {
-    operationKey: "loss-db-create",
+    operationKey: "case:056",
     containerId,
     title: "Work",
   });
   const record = await createRecord(ctx, db.value.id, {
-    operationKey: "loss-record-create",
+    operationKey: "case:057",
     title: "Task",
     values: {},
   });
   await saveRule(ctx, {
-    operationKey: "loss-rule-create",
+    operationKey: "case:058",
     name: "Notify then comment",
     scope: "source",
     sourceDatabaseId: db.value.id,
@@ -904,12 +904,12 @@ test("draft profile record readers never see unpublished field values", async ()
     )
     .run();
   const db = await createDatabase(ctx, {
-    operationKey: "draft-db-create",
+    operationKey: "case:059",
     containerId,
     title: "Drafts",
   });
   await saveField(ctx, db.value.id, {
-    operationKey: "draft-field-create",
+    operationKey: "case:060",
     expectedRevisionId: db.receipt.revisionId,
     field: {
       id: "draft-value",
@@ -920,7 +920,7 @@ test("draft profile record readers never see unpublished field values", async ()
     },
   });
   const record = await createRecord(ctx, db.value.id, {
-    operationKey: "draft-record-create",
+    operationKey: "case:061",
     title: "Record",
     values: { "draft-value": 2 },
   });
@@ -930,11 +930,11 @@ test("draft profile record readers never see unpublished field values", async ()
     level: "view",
   });
   const published = await publishPage(ctx, record.value.pageId, {
-    operationKey: "draft-record-publish",
+    operationKey: "case:062",
     expectedRevisionId: record.receipt.revisionId,
   });
   await updateRecord(ctx, record.value.pageId, {
-    operationKey: "draft-record-change",
+    operationKey: "case:063",
     expectedRevisionId: published.receipt.revisionId,
     values: { "draft-value": 99 },
   });
@@ -949,7 +949,7 @@ test("views persist every layout, filter summaries, charts and independent embed
   const { chart } = await import("../../../src/core/features/databases/views");
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
-    operationKey: "view-db-create",
+    operationKey: "case:064",
     containerId,
     title: "Layouts",
   });
@@ -985,12 +985,12 @@ test("views persist every layout, filter summaries, charts and independent embed
       })
     ).receipt.revisionId;
   await createRecord(ctx, db.value.id, {
-    operationKey: "view-record-open",
+    operationKey: "case:065",
     title: "Open",
     values: { "v-status": "Open", "v-number": 3, "v-date": "2026-09-27" },
   });
   await createRecord(ctx, db.value.id, {
-    operationKey: "view-record-done",
+    operationKey: "case:066",
     title: "Done",
     values: { "v-status": "Done", "v-number": 9, "v-date": "2026-09-28" },
   });
@@ -1052,12 +1052,12 @@ test("template attachments are immutable independent copies and remain readable 
     await import("../../../src/core/features/templates/service");
   const { ctx, containerId } = await scenario();
   const source = await createPage(ctx, {
-    operationKey: "asset-source-page",
+    operationKey: "case:067",
     containerId,
     title: "Media template",
   });
   const file = await uploadMedia(ctx, {
-    operationKey: "asset-source-upload",
+    operationKey: "case:068",
     pageId: source.value.pageId,
     name: "guide.txt",
     contentType: "text/plain",
@@ -1065,7 +1065,7 @@ test("template attachments are immutable independent copies and remain readable 
   });
   const current = await readPage(ctx, source.value.pageId);
   await replaceBlocks(ctx, source.value.pageId, {
-    operationKey: "asset-source-blocks",
+    operationKey: "case:069",
     expectedRevisionId: current.page.revisionId,
     blocks: [
       {
@@ -1087,7 +1087,7 @@ test("template attachments are immutable independent copies and remain readable 
     ],
   });
   const template = await saveTemplate(ctx, {
-    operationKey: "asset-template-save",
+    operationKey: "case:070",
     sourcePageId: source.value.pageId,
     includeChildren: false,
     containerId: null,
@@ -1108,7 +1108,7 @@ test("template attachments are immutable independent copies and remain readable 
     await (await templateAsset(ctx, template.value.id, file.value.id)).text(),
   ).toBe("Independent retained attachment");
   const applied = await applyTemplate(ctx, template.value.id, {
-    operationKey: "asset-template-apply",
+    operationKey: "case:071",
     containerId,
     expectedRevisionId: template.receipt.revisionId,
   });
@@ -1127,7 +1127,7 @@ test("template attachments are immutable independent copies and remain readable 
 test("retained imported formulas remain labelled and do not block later schema edits", async () => {
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
-    operationKey: "retained-db-create",
+    operationKey: "case:072",
     containerId,
     title: "Imported",
   });
@@ -1145,7 +1145,7 @@ test("retained imported formulas remain labelled and do not block later schema e
     )
     .run();
   const record = await createRecord(ctx, db.value.id, {
-    operationKey: "retained-record-create",
+    operationKey: "case:073",
     title: "Imported",
     values: {},
   });
@@ -1155,7 +1155,7 @@ test("retained imported formulas remain labelled and do not block later schema e
     .bind(JSON.stringify({ "retained-formula": 42 }), record.value.pageId)
     .run();
   await saveField(ctx, db.value.id, {
-    operationKey: "retained-add-field",
+    operationKey: "case:074",
     expectedRevisionId: db.receipt.revisionId,
     field: {
       id: "retained-new",
@@ -1176,17 +1176,17 @@ test("database navigation and reference hydration expose actual permitted labels
     await import("../../../src/core/features/databases/discovery");
   const { ctx, containerId, reader } = await scenario();
   const db = await createDatabase(ctx, {
-    operationKey: "reference-db-create",
+    operationKey: "case:075",
     containerId,
     title: "Readable work",
   });
   const visible = await createRecord(ctx, db.value.id, {
-    operationKey: "reference-visible",
+    operationKey: "case:076",
     title: "Named record",
     values: {},
   });
   const secret = await createRecord(ctx, db.value.id, {
-    operationKey: "reference-secret",
+    operationKey: "case:077",
     title: "Hidden record",
     values: {},
   });
@@ -1210,7 +1210,7 @@ test("database navigation and reference hydration expose actual permitted labels
   });
   expect(labels.items.map((r) => r.label)).toEqual(["Owner", "Named record"]);
   await saveField(ctx, db.value.id, {
-    operationKey: "reference-rel-field",
+    operationKey: "case:078",
     expectedRevisionId: db.receipt.revisionId,
     field: {
       id: "reference-rel",

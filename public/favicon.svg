@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="1.5 1.5 52 52">
+  <style>
+    .ink { stroke: #1b1b18; }
+    .back { fill: #e6eede; }
+    .front { fill: #fbf9f1; }
+    @media (prefers-color-scheme: dark) {
+      .ink { stroke: #f1f0e6; }
+      .back { fill: #5f8a5a; }
+      .front { fill: #20271f; }
+    }
+  </style>
+  <g class="ink" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round">
+    <rect class="back" x="5" y="22" width="26" height="27" rx="4"/>
+    <rect class="front" x="16" y="9" width="30" height="30" rx="4.5" transform="rotate(-20 31 24)"/>
+  </g>
+</svg>

@@ -8,7 +8,7 @@ import {DecisionCard, type Decision} from '../../src/core/features/decisions/ui/
 import {InlineToolbar} from '../../src/core/features/editor/ui/InlineToolbar';
 
 test('FLAG-001 — deployment and runtime default to core wiki and reject misspelled profiles',()=>{
-  const local={LOCAL_SAMPLE_DATA:'true',SESSION_SECRET:'profile-test-only'};
+  const local={LOCAL_DEVELOPMENT:'true',APP_URL:'http://127.0.0.1:8787',SETUP_OWNER_EMAIL:'owner@test.invalid',MAIL_PROVIDER:'development',MAIL_FROM:'slate@test.invalid',SESSION_SECRET:'profile-test-only'};
   assert.equal(readLaunchProfile(),'core-wiki');
   assert.equal(readRuntimeConfig(local,true).launchProfile,'core-wiki');
   assert.equal(readRuntimeConfig({...local,SLATE_PROFILE:'flagship'},true).launchProfile,'flagship');

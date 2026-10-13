@@ -18,7 +18,7 @@ const policies = [
     "General access",
     [
       ["workspace-general", "Workspace members"],
-      ["container-general", "Container members"],
+      ["container-general", "Space members"],
     ],
   ],
   [
@@ -58,13 +58,13 @@ const policies = [
     "Automation boundaries",
     [
       ["source", "Source"],
-      ["container", "Container"],
+      ["container", "Space"],
       ["site", "Workspace"],
     ],
   ],
   [
     "container.access.v1",
-    "Container access",
+    "Space access",
     [
       ["class-led", "Open, closed or private"],
       ["grant-led", "Explicit grants"],
@@ -77,8 +77,7 @@ export function WorkspacePreferences() {
   const data = workspace.data;
   return (
     <section className="settings-panel">
-      <p className="eyebrow">WORKSPACE</p>
-      <h2>A shared way of working.</h2>
+      <h2>Workspace settings</h2>
       <RequestState
         loading={workspace.loading}
         error={workspace.error}
@@ -104,7 +103,7 @@ export function WorkspacePreferences() {
               ))}
             </dl>
             {member.role === "owner" ? (
-              <button onClick={() => setEditing(true)}>
+              <button className="secondary-button" onClick={() => setEditing(true)}>
                 Edit workspace & policies
               </button>
             ) : (

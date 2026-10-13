@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "project": {
+    "schema": 1,
+    "projectId": "just-every/slate",
+    "name": "slate",
+    "sourceRepository": "https://github.com/just-every/run-slate",
+    "license": "MIT",
+    "deployment": {
+      "target": "cloudflare-workers",
+      "artifactFile": "slate-worker-artifact.json"
+    },
+    "operations": {
+      "setup": "pnpm install --frozen-lockfile && pnpm exec playwright install --with-deps chromium",
+      "build": "pnpm exec rer build",
+      "verify": "pnpm exec rer verify",
+      "artifact": "node scripts/build-delivery-artifact.mjs",
+      "recovery": "Preserve accepted source/artifact, native session configuration, applied migrations and R2 files. Restore an owner export only into a separate empty deployment and verify ACLs, attachments and public exposure before traffic cutover. See OPERATIONS.md; sealed prior-store upgrade is pending."
+    }
+  },
+  "managed": {
+    "workflowRef": "runeditrun/delivery/.github/workflows/trusted-build.yml@bf7a25abb44bec1457a7bc738ff63921d90fb52e",
+    "artifactFile": "slate-worker-artifact.json",
+    "buildProfile": "project",
+    "pnpmVersion": "10.12.4",
+    "verificationProfiles": [
+      "full"
+    ]
+  },
+  "setup": {
+    "manifestFile": "rer-setup.json"
+  },
+  "edition": {
+    "manifestFile": "edition.json",
+    "componentId": "just-every/slate-native"
+  },
+  "artifact": {
+    "specInputs": {
+      "publicVariableNames": [
+        "SLATE_PROFILE",
+        "APP_URL",
+        "SETUP_OWNER_EMAIL",
+        "MAIL_PROVIDER",
+        "MAIL_FROM",
+        "PUBLIC_PAGE_HOST",
+        "LINK_PREVIEWS_ENABLED",
+        "AI_ENABLED",
+        "AI_PROVIDER",
+        "SSO_ENABLED",
+        "ALLOW_LOOPBACK_DELEGATION",
+        "RER_MANAGEMENT_ORIGIN",
+        "RER_INSTALLATION_ID"
+      ],
+      "secretNames": [
+        "SESSION_SECRET",
+        "MAIL_API_KEY"
+      ],
+      "optionalSecretNames": [],
+      "recovery": "Preserve accepted source/artifact, native session configuration, applied migrations and R2 files. Restore an owner export only into a separate empty deployment and verify ACLs, attachments and public exposure before traffic cutover. See OPERATIONS.md; sealed prior-store upgrade is pending.",
+      "providerEffects": [
+        "outbound-mail"
+      ],
+      "surfaces": {
+        "app": {
+          "path": "/signin"
+        }
+      }
+    }
+  }
+}

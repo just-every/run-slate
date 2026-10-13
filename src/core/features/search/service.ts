@@ -43,8 +43,10 @@ export async function search(ctx:FeatureContext,raw:SearchInput) {
        'kind',json((SELECT json_group_object(kind,n) FROM (SELECT kind,COUNT(*) n FROM visible GROUP BY kind))),
        'container',json((SELECT json_group_object(containerId,n) FROM (SELECT containerId,COUNT(*) n FROM visible WHERE containerId IS NOT NULL GROUP BY containerId))),
        'status',json((SELECT json_group_object(status,n) FROM (SELECT status,COUNT(*) n FROM visible WHERE status IS NOT NULL GROUP BY status))))
+      WHERE ${query.ready}
       RETURNING search_summary_json`).bind(...query.values,snapshotId,ctx.actor.workspaceId,ctx.actor.id,queryHash,new Date(Date.parse(ctx.now)+3600000).toISOString(),input.limit!).first<{search_summary_json:string}>();
-    const data=JSON.parse(summary!.search_summary_json) as {total:number;items:SearchDocument[];kind:Record<string,number>;container:Record<string,number>;status:Record<string,number>};
+    if(!summary)throw new ApiProblem(409,'SEARCH_CHANGED','Content or access changed during search. Start a fresh search.');
+    const data=JSON.parse(summary.search_summary_json) as {total:number;items:SearchDocument[];kind:Record<string,number>;container:Record<string,number>;status:Record<string,number>};
     return {items:data.items.map(r=>result(r,terms)),total:data.total,facets:{kind:data.kind,container:data.container,status:data.status},filters,nextCursor:data.total>data.items.length?encodeCursor({snapshot:snapshotId,offset:data.items.length}):undefined};
   }
   const parameter=query.values.length;
@@ -54,9 +56,13 @@ export async function search(ctx:FeatureContext,raw:SearchInput) {
     (SELECT json_group_array(json_object('document',json_set(COALESCE(document_json,(SELECT t.document_json FROM search_text t WHERE t.key=selected.key AND t.variant=selected.variant)),'$.status',status),'position',position)) FROM selected) AS items,
     (SELECT json_group_object(kind,n) FROM (SELECT kind,COUNT(*) n FROM ordered GROUP BY kind)) AS kinds,
     (SELECT json_group_object(containerId,n) FROM (SELECT containerId,COUNT(*) n FROM ordered WHERE containerId IS NOT NULL GROUP BY containerId)) AS containers,
-    (SELECT json_group_object(status,n) FROM (SELECT status,COUNT(*) n FROM ordered WHERE status IS NOT NULL GROUP BY status)) AS statuses`).bind(...query.values,snapshotId,cursor?.offset??0,input.limit!).first<{total:number;remaining:number;items:string;kinds:string;containers:string;statuses:string}>();
-  const selected=JSON.parse(data!.items) as {document:SearchDocument;position:number}[];
+    (SELECT json_group_object(status,n) FROM (SELECT status,COUNT(*) n FROM ordered WHERE status IS NOT NULL GROUP BY status)) AS statuses WHERE ${query.ready}`).bind(...query.values,snapshotId,cursor?.offset??0,input.limit!).first<{total:number;remaining:number;items:string;kinds:string;containers:string;statuses:string}>();
+  if(!data)throw new ApiProblem(409,'SEARCH_CHANGED','Content or access changed during search. Start a fresh search.');
+  const selected=JSON.parse(data.items) as {document:SearchDocument;position:number}[];
   return {items:selected.map(r=>result(r.document,terms)),total:data!.total,facets:{kind:JSON.parse(data!.kinds),container:JSON.parse(data!.containers),status:JSON.parse(data!.statuses)},filters,nextCursor:data!.remaining>selected.length?encodeCursor({snapshot:snapshotId,offset:selected.at(-1)!.position+1}):undefined};
 }
-/** Import completion drains every canonical dirty generation before verifying indexed IDs. */
-export async function verifySearchable(ctx:FeatureContext,pageIds:string[]) { await refreshSearchIndex(ctx);const rows=(await ctx.db.prepare('SELECT DISTINCT page_id FROM search_text WHERE workspace_id=? AND page_id IN (SELECT value FROM json_each(?))').bind(ctx.actor.workspaceId,JSON.stringify(pageIds)).all<{page_id:string}>()).results;const ids=new Set(rows.map(r=>r.page_id));return pageIds.every(id=>ids.has(id)); }
+/** Import completion proves every requested canonical ID has a clean indexed generation. */
+export async function verifySearchable(ctx:FeatureContext,pageIds:string[],bounds?:import('./index').SearchRefreshBounds) {
+ await refreshSearchIndex(ctx,bounds);
+ return !!await ctx.db.prepare("SELECT NOT EXISTS(SELECT 1 FROM json_each(?) i WHERE NOT EXISTS(SELECT 1 FROM search_text s WHERE s.workspace_id=? AND s.page_id=i.value) OR EXISTS(SELECT 1 FROM search_dirty d WHERE d.workspace_id=? AND d.key IN ('page:'||i.value,'record:'||i.value))) AS ready").bind(JSON.stringify(pageIds),ctx.actor.workspaceId,ctx.actor.workspaceId).first<number>('ready');
+}

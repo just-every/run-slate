@@ -1,0 +1,26 @@
+[
+  {
+    "type": "card",
+    "id": "card-101",
+    "title": "Revised title",
+    "body": "Imported body",
+    "color": "violet"
+  },
+  {
+    "type": "card",
+    "id": "card-102",
+    "title": "Second card",
+    "body": "Imported second body"
+  },
+  {
+    "type": "tag-link",
+    "id": "link-101",
+    "cardId": "card-101",
+    "label": "urgent"
+  },
+  {
+    "type": "automation",
+    "id": "automation-201",
+    "rule": "notify every responder"
+  }
+]

@@ -1,3 +1,4 @@
+import {requireImportPublication} from '../imports/publication';
 import type { FeatureContext } from '../../app/feature-context';
 import { commitOperation, mutationGuard, requestHash } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
@@ -48,6 +49,7 @@ export async function updateContainer(ctx: FeatureContext, id: string, input: {
     key?: string | null;
 }) {
     return commitOperation(ctx, { operationKey: input.operationKey, action: 'containers.update', request: { id, ...input }, authorize: async () => {
+            await requireImportPublication(ctx,id);
             try {
                 await requireContainerLevel(ctx, id, 'full');
             }

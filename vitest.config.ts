@@ -5,6 +5,9 @@ import { cloudflareTest, readD1Migrations } from "@cloudflare/vitest-pool-worker
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
+import { zipSync } from "fflate";
+import { buildServerDcBlueprint } from "./scripts/import-scale/generate-server-dc.ts";
+import { docsSite } from "./src/core/features/docs/build/plugin.ts";
 import { resolveVitestWranglerConfigPath } from "./tests/e2e/setup/wrangler-config.ts";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
@@ -22,6 +25,11 @@ export default defineConfig({
           TEST_IMPORT_FIXTURES: async (request) => {
             const name = new URL(request.url).pathname.slice(1);
             const names = ["notion-workspace-export.zip", "confluence-space-export.zip", "google-docs-download.docx"];
+            // The committed scale generator's Server/DC archive, built in memory.
+            if (name === "server-dc-entities-scale.zip") {
+              const entries = buildServerDcBlueprint(root, "server-dc-entities", "scale-reader@example.test").entries;
+              return new Response(zipSync(Object.fromEntries(entries.map((entry) => [entry.path, entry.source as Uint8Array]))), { headers: { "Content-Type": "application/octet-stream" } });
+            }
             const fixture = name === "word-government-impact-assessment.docx"
               ? path.join(root, "tests/flagship/federation/fixtures", name)
               : names.includes(name) ? path.join(root, "tests/e2e/imports/fixtures/real", name) : null;
@@ -33,6 +41,8 @@ export default defineConfig({
       },
       wrangler: { configPath: resolveVitestWranglerConfigPath(root, 'flagship') },
     }),
+    // The /docs routes import the docs virtual modules (DOCS-001).
+    docsSite(),
     // `src/server.ts` is a TanStack Start entry: it imports
     // `#tanstack-router-entry` and `#tanstack-start-entry`, which only the Start
     // Vite plugin supplies. Without it the pool cannot even load the Worker.

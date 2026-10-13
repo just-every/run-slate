@@ -1,10 +1,10 @@
 import { useFlagshipEnabled } from "../../../../app/ui/LaunchProfile";
 import {PersonalHome} from "./PersonalHome";
-import { useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import { RequestState } from "../../../../app/ui/RequestState";
-import { CreatePageDialog } from "../../../../app/ui/CreatePageDialog";
 import { mutate, operationKey } from "../../../../client/transport";
+import { TopBar } from "../../../../app/ui/header/TopBar";
+import { PageTitle } from "../../../../app/ui/header/PageTitle";
 interface Notice {
   id: string;
   title: string | null;
@@ -21,11 +21,10 @@ interface Today {
   unreadCount: number;
 }
 export function TodayWorkspace() {
-  return useFlagshipEnabled() ? <FlagshipToday /> : <><header className="topbar"><span>Home</span><a href="/app/inbox">Inbox</a></header><section className="main"><h1>Your workspace</h1><PersonalHome /></section></>;
+  return useFlagshipEnabled() ? <FlagshipToday /> : <><TopBar trail={[{ label: "Today" }]} /><section className="main"><PageTitle>Your workspace</PageTitle><PersonalHome /></section></>;
 }
 function FlagshipToday() {
   const resource = useResource<Today>("/api/notifications/today");
-  const [create, setCreate] = useState(false);
   const data = resource.data;
   const empty =
     data &&
@@ -66,24 +65,13 @@ function FlagshipToday() {
   }
   return (
     <>
-      <header className="topbar">
-        <span>Today</span>
+      <TopBar trail={[{ label: "Today" }]}>
         <a href="/app/inbox">
           Inbox{data?.unreadCount ? ` · ${data.unreadCount}` : ""}
         </a>
-      </header>
+      </TopBar>
       <section className="main" data-testid="workspace-empty-state">
-        <p className="eyebrow">YOUR WORKSPACE</p>
-        <h1 className="title">
-          {empty
-            ? "A little clarity.\nRoom to begin."
-            : "The work that matters today."}
-        </h1>
-        <p className="intro">
-          {empty
-            ? "Keep a thought, work through a question, or bring your team’s knowledge together."
-            : "Useful outcomes and decisions that need you. The details are here when you want them."}
-        </p>
+        <PageTitle>Today</PageTitle>
         <RequestState
           loading={resource.loading}
           error={resource.error}
@@ -91,13 +79,6 @@ function FlagshipToday() {
         >
           {empty ? (
             <div className="empty-start">
-              <button
-                className="primary-button"
-                type="button"
-                onClick={() => setCreate(true)}
-              >
-                Create a page <span aria-hidden="true">↗</span>
-              </button>
               <a href="/app/settings?section=portability">
                 Import your knowledge
               </a>
@@ -133,12 +114,6 @@ function FlagshipToday() {
           ) : null}
         </RequestState>
         <PersonalHome/>
-        {create ? (
-          <CreatePageDialog
-            onClose={() => setCreate(false)}
-            onCreated={(id) => window.location.assign(`/app/pages/${id}`)}
-          />
-        ) : null}
       </section>
     </>
   );

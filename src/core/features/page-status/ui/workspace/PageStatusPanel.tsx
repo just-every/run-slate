@@ -1,9 +1,12 @@
 import {useWorkspace} from "../../../../app/ui/WorkspaceContext";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import { mutate, operationKey } from "../../../../client/transport";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import { RequestState } from "../../../../app/ui/RequestState";
+import { VerifyDialog } from "./VerifyDialog";
+import { reviewChanged } from "./ReviewQueue";
+import { VerificationSummary, type VerificationView } from "./VerificationSummary";
 export type StatusEntry = {
   key: string;
   label: string;
@@ -27,15 +30,14 @@ export function PageStatusPanel({
   const {workspace,member}=useWorkspace();
   const verificationOnly=workspace.data?.policies["page.status.v1"] === "verification-only";
   const statuses = useResource<{ items: StatusEntry[] }>("/api/status");
-  const verification = useResource<{
-    verification: null | {
-      current: boolean;
-      lapsed: boolean;
-      created_at: string;
-      expires_at: string | null;
-      revision_id: string;
-    };
-  }>(`/api/status/page/${pageId}`);
+  const verification = useResource<{ verification: null | VerificationView }>(`/api/status/page/${pageId}`);
+  const [again, setAgain] = useState(false);
+  // The page records its opening after this panel may have loaded; refresh so the dialog knows.
+  useEffect(() => {
+    const opened = () => { void verification.reload(); };
+    window.addEventListener("slate:page-opened", opened);
+    return () => window.removeEventListener("slate:page-opened", opened);
+  }, [verification.reload]);
   const [custom,setCustom]=useState(false);
   const [selected, setSelected] = useState<string | null>(null);
   const key = useRef("");
@@ -54,19 +56,13 @@ export function PageStatusPanel({
         }}
       >
         {verification.data?.verification ? (
-          <p>
-            {verification.data.verification.current
-              ? "Human verification is current."
-              : verification.data.verification.lapsed
-                ? "Human verification has expired."
-                : "The page changed since human verification."}
-            {verification.data.verification.expires_at
-              ? ` Expires ${new Date(verification.data.verification.expires_at).toLocaleString()}.`
-              : ""}
-          </p>
+          <VerificationSummary pageId={pageId} verification={verification.data.verification} canEdit={canEdit} />
         ) : (
           <p>No human verification recorded.</p>
         )}
+        {canEdit && verification.data?.verification?.state && verification.data.verification.state !== "current" ? (
+          <button type="button" className="secondary-button" onClick={() => setAgain(true)}>Verify again</button>
+        ) : null}
         {canEdit ? (
           <>
             <label>
@@ -100,55 +96,47 @@ export function PageStatusPanel({
       </RequestState>
       {!verificationOnly && canEdit && member.role==='owner'?<button onClick={()=>setCustom(true)}>Create a custom status</button>:null}
       {custom?<ActionDialog title="Create custom page status" action="Create and set status" onClose={()=>setCustom(false)} onSubmit={async data=>{const statusKey=crypto.randomUUID();await mutate('/api/status',{operationKey:operationKey(),key:statusKey,label:String(data.get('label')),color:String(data.get('color')),requiresVerification:false});await mutate(`/api/status/page/${pageId}`,{operationKey:operationKey(),expectedRevisionId:revision,statusKey});await statuses.reload();await onSaved();}}><label>Custom status label<input name="label" maxLength={20} required/></label><label>Status colour<input name="color" type="color" defaultValue="#54735b"/></label></ActionDialog>:null}
-      {selected ? (
-        <ActionDialog
-          title={
-            selectedStatus?.requiresVerification
-              ? "Verify this exact revision"
-              : "Change page status"
-          }
-          action={
-            selectedStatus?.requiresVerification
-              ? "I reviewed this revision"
-              : "Set status"
-          }
+      {again && verification.data?.verification ? (
+        <VerifyDialog
+          pageId={pageId}
+          statusKey={verification.data.verification.status_key}
+          expectedRevisionId={revision}
+          attestRevisionId={workingRevisionId}
+          openedCurrent={verification.data.verification.openedCurrent && verification.data.verification.workingRevisionId === workingRevisionId}
+          onClose={() => setAgain(false)}
+          onVerified={async () => { await verification.reload(); await onSaved(); reviewChanged(); }}
+        />
+      ) : null}
+      {selected && selectedStatus?.requiresVerification ? (
+        <VerifyDialog
+          pageId={pageId}
+          statusKey={selected}
+          expectedRevisionId={revision}
+          attestRevisionId={workingRevisionId}
+          openedCurrent={verification.data?.verification ? verification.data.verification.openedCurrent && verification.data.verification.workingRevisionId === workingRevisionId : undefined}
           onClose={() => setSelected(null)}
-          onSubmit={async (data) => {
+          onVerified={async () => { await verification.reload(); await onSaved(); reviewChanged(); }}
+        />
+      ) : selected ? (
+        <ActionDialog
+          title="Change page status"
+          action="Set status"
+          onClose={() => setSelected(null)}
+          onSubmit={async () => {
             await mutate(`/api/status/page/${pageId}`, {
               operationKey: key.current,
               expectedRevisionId: revision,
               statusKey: selected === "__clear" ? null : selected,
-              ...(selectedStatus?.requiresVerification
-                ? {
-                    attestRevisionId: workingRevisionId,
-                    expiresAt: data.get("expires")
-                      ? new Date(String(data.get("expires"))).toISOString()
-                      : null,
-                  }
-                : {}),
             });
             await verification.reload();
             await onSaved();
           }}
         >
-          {selectedStatus?.requiresVerification ? (
-            <>
-              <p>
-                This is your human attestation that you reviewed the currently
-                opened revision. An automated check cannot provide it.
-              </p>
-              <label>
-                Expires at (optional)
-                <input name="expires" type="datetime-local" />
-              </label>
-            </>
-          ) : (
-            <p>
-              {selected === "__clear"
-                ? "Remove the current status."
-                : `Set the status to ${selectedStatus?.label}.`}
-            </p>
-          )}
+          <p>
+            {selected === "__clear"
+              ? "Remove the current status."
+              : `Set the status to ${selectedStatus?.label}.`}
+          </p>
         </ActionDialog>
       ) : null}
     </section>

@@ -39,7 +39,7 @@ import { createUlid } from "../../../src/core/shared/ulid";
  * seeded rather than re-reading it.
  */
 
-/** Session lifetime used by `createLocalSession` in the session service. */
+/** Native session lifetime used for explicit expiry fixtures. */
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
 function nowIso(): string {
@@ -397,6 +397,12 @@ export interface SessionForInput {
   expiresAt?: string;
   /** Set to build the revoked control of the session transport matrix. */
   revokedAt?: string;
+  /**
+   * The session an email confirmation issues: kind `native`, fenced at the
+   * member's current authority version, holding the fresh app-local proof Base
+   * step-up accepts for ten minutes. Without it the row is a pre-Base session.
+   */
+  freshProof?: boolean;
 }
 
 /**
@@ -412,9 +418,10 @@ export async function sessionFor(memberId: string, options: SessionForInput = {}
   const created = new Date();
   const timestamp = created.toISOString();
 
+  const proven = options.freshProof ? created.getTime() : null;
   await run(
-    `INSERT INTO sessions (id, member_id, token_digest, created_at, updated_at, expires_at, revoked_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO sessions (id, member_id, token_digest, created_at, updated_at, expires_at, revoked_at, kind, authority_version, proof_at, proof_version)
+     SELECT ?, ?, ?, ?, ?, ?, ?, ?, CASE WHEN ? THEN COALESCE((SELECT version FROM member_authority WHERE member_id = members.id), 1) END, ?, CASE WHEN ? THEN COALESCE((SELECT version FROM member_authority WHERE member_id = members.id), 1) END FROM members WHERE id = ?`,
     createUlid(),
     memberId,
     await sessionDigest(env.SESSION_SECRET, token),
@@ -422,6 +429,11 @@ export async function sessionFor(memberId: string, options: SessionForInput = {}
     timestamp,
     options.expiresAt ?? new Date(created.getTime() + THIRTY_DAYS_MS).toISOString(),
     options.revokedAt ?? null,
+    options.freshProof ? "native" : null,
+    options.freshProof ? 1 : 0,
+    proven,
+    options.freshProof ? 1 : 0,
+    memberId,
   );
 
   return `${SESSION_COOKIE_NAME}=${token}`;

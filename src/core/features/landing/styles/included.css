@@ -1,0 +1,8 @@
+/* Also included: a heading on the left, six capabilities on the right, each a line icon in a pale green circle. */
+.slate-landing .included { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--split); align-items: start; padding: var(--rhythm) 0; border-top: 1.5px solid var(--line); }
+.slate-landing .included-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 44px clamp(20px, 2.6vw, 40px); }
+.slate-landing .included-grid li { display: flex; align-items: flex-start; gap: 18px; }
+.slate-landing .included-icon { display: grid; place-items: center; flex: none; width: 62px; height: 62px; border-radius: 50%; background: #e1ebd9; }
+.slate-landing .ic--included { width: 28px; height: 28px; }
+.slate-landing .included h3 { font-size: 19px; font-weight: 600; line-height: 1.25; }
+.slate-landing .included-grid p { margin-top: 5px; color: var(--soft); font-size: 17px; line-height: 1.4; }

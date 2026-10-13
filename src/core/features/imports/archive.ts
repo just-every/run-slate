@@ -1,9 +1,10 @@
-import { unzipSync } from "fflate";
+import {registerArchiveSources,inflateArchiveEntry} from './archive-stream';
+import { Inflate } from "fflate";
 import { ImportError } from "./errors";
 import { importSafetyLimits } from "./safety";
 import type { ImportSafetyLimits } from "./types";
 
-interface ZipDirectoryEntry {
+export interface ZipDirectoryEntry {
   path: string;
   compressedBytes: number;
   expandedBytes: number;
@@ -44,21 +45,16 @@ export function assertSafeArchivePath(path: string) {
   }
 }
 
-function listZipDirectory(bytes: Uint8Array, limits: ImportSafetyLimits): ZipDirectoryEntry[] {
-  const end = findEndOfCentralDirectory(bytes);
-  const diskNumber = readU16(bytes, end + 4);
-  const directoryDisk = readU16(bytes, end + 6);
-  const count = readU16(bytes, end + 10);
-  const directorySize = readU32(bytes, end + 12);
-  const directoryOffset = readU32(bytes, end + 16);
-
-  if (diskNumber !== 0 || directoryDisk !== 0 || count === ZIP64_SENTINEL || directoryOffset === 0xffffffff) {
-    throw new ImportError("IMPORT_ARCHIVE_INVALID", "Multi-disk and ZIP64 archives are not supported.");
-  }
-  if (count > limits.maximumEntries || directoryOffset + directorySize > bytes.length) {
-    throw new ImportError("IMPORT_ARCHIVE_LIMIT_EXCEEDED", "The archive directory exceeds the import safety limits.");
-  }
-
+export interface ZipDirectoryInfo {count:number;directorySize:number;directoryOffset:number}
+export function zipDirectoryInfo(bytes:Uint8Array):ZipDirectoryInfo {
+  const end=findEndOfCentralDirectory(bytes),count=readU16(bytes,end+10),directorySize=readU32(bytes,end+12),directoryOffset=readU32(bytes,end+16);
+  if(readU16(bytes,end+4)!==0||readU16(bytes,end+6)!==0||readU16(bytes,end+8)!==count||count===ZIP64_SENTINEL||directoryOffset===0xffffffff||directorySize===0xffffffff)throw new ImportError('IMPORT_ARCHIVE_INVALID','Multi-disk and ZIP64 archives are not supported.');
+  return {count,directorySize,directoryOffset};
+}
+export function listZipDirectory(bytes: Uint8Array, limits: ImportSafetyLimits, supplied?:{info:ZipDirectoryInfo;archiveSize:number}): ZipDirectoryEntry[] {
+  const info=supplied?.info??zipDirectoryInfo(bytes),{count,directorySize}=info;
+  const archiveSize=supplied?.archiveSize??bytes.length,directoryOffset=supplied?0:info.directoryOffset;
+  if(count>limits.maximumEntries||info.directoryOffset+directorySize>archiveSize||directorySize>bytes.length)throw new ImportError('IMPORT_ARCHIVE_LIMIT_EXCEEDED','The archive directory exceeds the import safety limits.');
   const decoder = new TextDecoder("utf-8", { fatal: true });
   const entries: ZipDirectoryEntry[] = [];
   const paths = new Set<string>();
@@ -105,15 +101,12 @@ function listZipDirectory(bytes: Uint8Array, limits: ImportSafetyLimits): ZipDir
     entries.push({ path, compressedBytes, expandedBytes, localHeaderOffset, flags, method, directory });
     offset = endOfEntry;
   }
+  if(offset!==directoryOffset+directorySize)throw new ImportError('IMPORT_ARCHIVE_INVALID','The archive directory length does not match its entries.');
   return entries;
 }
 
-function validateLocalHeaders(bytes: Uint8Array, entries: ZipDirectoryEntry[]) {
-  for (const entry of entries) {
-    const offset = entry.localHeaderOffset;
-    if (offset + 30 > bytes.length || readU32(bytes, offset) !== LOCAL_FILE_SIGNATURE) {
-      throw new ImportError("IMPORT_ARCHIVE_INVALID", `The archive local header is malformed: ${entry.path}.`);
-    }
+export function validateZipLocalHeader(bytes:Uint8Array,entry:ZipDirectoryEntry,offset=0,archiveSize=bytes.length):number {
+  if(offset+30>bytes.length||readU32(bytes,offset)!==LOCAL_FILE_SIGNATURE)throw new ImportError('IMPORT_ARCHIVE_INVALID',`The archive local header is malformed: ${entry.path}.`);
     const flags = readU16(bytes, offset + 6);
     const method = readU16(bytes, offset + 8);
     const compressedBytes = readU32(bytes, offset + 18);
@@ -127,14 +120,15 @@ function validateLocalHeaders(bytes: Uint8Array, entries: ZipDirectoryEntry[]) {
     } catch {
       throw new ImportError("IMPORT_ARCHIVE_INVALID", `The archive local filename is invalid: ${entry.path}.`);
     }
-    if ((flags & 0x0001) !== 0 || flags !== entry.flags || method !== entry.method || localPath !== entry.path || ![0, 8].includes(method) || dataStart + entry.compressedBytes > bytes.length) {
+    if ((flags & 0x0001) !== 0 || flags !== entry.flags || method !== entry.method || localPath !== entry.path || ![0, 8].includes(method) || entry.localHeaderOffset+(dataStart-offset)+entry.compressedBytes > archiveSize) {
       throw new ImportError("IMPORT_ARCHIVE_INVALID", `The archive entry is unreadable: ${entry.path}.`);
     }
     if ((flags & 0x0008) === 0 && (compressedBytes !== entry.compressedBytes || expandedBytes !== entry.expandedBytes)) {
       throw new ImportError("IMPORT_ARCHIVE_INVALID", `The archive entry size does not match its directory: ${entry.path}.`);
     }
-  }
+  return entry.localHeaderOffset+(dataStart-offset);
 }
+function validateLocalHeaders(bytes:Uint8Array,entries:ZipDirectoryEntry[]){for(const entry of entries)validateZipLocalHeader(bytes,entry,entry.localHeaderOffset,bytes.length);}
 
 export function readZipArchive(bytes: Uint8Array, overrides?: Partial<ImportSafetyLimits>): Map<string, Uint8Array> {
   const limits = importSafetyLimits({ limits: overrides });
@@ -143,25 +137,32 @@ export function readZipArchive(bytes: Uint8Array, overrides?: Partial<ImportSafe
   }
   const directory = listZipDirectory(bytes, limits);
   validateLocalHeaders(bytes, directory);
-  let contents: Record<string, Uint8Array>;
-  try {
-    contents = unzipSync(bytes);
-  } catch {
-    throw new ImportError("IMPORT_ARCHIVE_INVALID", "The archive could not be decompressed.");
+  const entries=new Map(directory.filter(entry=>!entry.directory).map(entry=>[entry.path,entry]));
+  const extract=(entry:ZipDirectoryEntry)=>{
+    const offset=entry.localHeaderOffset,dataStart=offset+30+readU16(bytes,offset+26)+readU16(bytes,offset+28);
+    const compressed=bytes.subarray(dataStart,dataStart+entry.compressedBytes);
+    if(entry.method===0){if(compressed.length!==entry.expandedBytes)throw new ImportError("IMPORT_ARCHIVE_INVALID",`The archive entry is incomplete: ${entry.path}.`);return compressed;}
+    const output=new Uint8Array(entry.expandedBytes);let written=0;
+    try {
+      const stream=new Inflate(chunk=>{if(written+chunk.length>entry.expandedBytes)throw new ImportError("IMPORT_ARCHIVE_LIMIT_EXCEEDED","The archive expands beyond the import safety limits.");output.set(chunk,written);written+=chunk.length;});
+      for(let position=0;position<compressed.length;position+=64)stream.push(compressed.subarray(position,position+64),position+64>=compressed.length);
+      if(!compressed.length)stream.push(compressed,true);
+    }catch(error){if(error instanceof ImportError)throw error;throw new ImportError("IMPORT_ARCHIVE_INVALID",`The archive entry could not be decompressed: ${entry.path}.`);}
+    if(written!==entry.expandedBytes)throw new ImportError("IMPORT_ARCHIVE_INVALID",`The archive entry is incomplete: ${entry.path}.`);
+    return output;
+  };
+  // Archive callers retain the established Map interface. Values are extracted
+  // on demand, never cached as a second expanded copy of the entire archive.
+  class ZipFiles extends Map<string,Uint8Array> {
+    constructor(){super();for(const path of entries.keys())super.set(path,new Uint8Array());}
+    override get(path:string){const entry=entries.get(path);return entry?extract(entry):undefined;}
+    override *entries():MapIterator<[string,Uint8Array]>{for(const path of entries.keys())yield [path,this.get(path)!];}
+    override *values():MapIterator<Uint8Array>{for(const path of entries.keys())yield this.get(path)!;}
+    override [Symbol.iterator](){return this.entries();}
+    override forEach(callback:(value:Uint8Array,key:string,map:Map<string,Uint8Array>)=>void,thisArg?:unknown){for(const path of entries.keys())callback.call(thisArg,this.get(path)!,path,this);}
   }
-
-  const files = new Map<string, Uint8Array>();
-  for (const entry of directory) {
-    const content = contents[entry.path];
-    if (entry.directory) {
-      if (content && content.byteLength !== 0) throw new ImportError("IMPORT_ARCHIVE_INVALID", `The archive directory produced data: ${entry.path}.`);
-      continue;
-    }
-    if (!content || content.byteLength !== entry.expandedBytes) {
-      throw new ImportError("IMPORT_ARCHIVE_INVALID", `The archive entry is incomplete: ${entry.path}.`);
-    }
-    files.set(entry.path, content);
-  }
+  const files=new ZipFiles();
+  registerArchiveSources(files,new Map([...entries].map(([path,entry])=>[path,{sizeBytes:entry.expandedBytes,open:()=>{const offset=entry.localHeaderOffset,start=offset+30+readU16(bytes,offset+26)+readU16(bytes,offset+28);return inflateArchiveEntry(bytes.subarray(start,start+entry.compressedBytes),entry.method,entry.expandedBytes);}}])));
   return files;
 }
 

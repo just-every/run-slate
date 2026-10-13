@@ -1,3 +1,4 @@
+import { signInBrowser } from '../tests/e2e/outbox-auth.mjs';
 import assert from 'node:assert/strict';
 import {writeFile} from 'node:fs/promises';
 import {chromium} from '@playwright/test';
@@ -7,7 +8,7 @@ const browser=await chromium.launch();
 try{
  const context=await browser.newContext({viewport:{width:1440,height:1000}}),page=await context.newPage(),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
- await page.goto(origin+'/signin');await page.getByTestId('local-sign-in').click();await page.waitForURL('**/app');
+ await signInBrowser(page, origin, process.env.SLATE_BROWSER_EMAIL ?? 'jamie@aurora.example');
  const pages=await(await context.request.get(origin+'/api/pages')).json();const id=pages.items[0].id;
  await page.goto(origin+'/app/pages/'+id);await page.getByRole('button',{name:'Ask',exact:true}).click();
  const availability=await(await context.request.get(origin+'/api/ai/availability')).json();if(!availability.modelPolicyConfigured||availability.perRunTokenAllowance<150000){if(availability.modelPolicyConfigured)await page.getByText('AI allowance',{exact:true}).click();await page.getByLabel('Monthly token allowance').fill('1000000');await page.getByLabel('Token allowance for one run').fill('150000');await page.getByRole('checkbox').check();await page.getByRole('button',{name:'Set allowance',exact:true}).click();await page.getByRole('heading',{name:'Local inference allowance',exact:true}).waitFor();}

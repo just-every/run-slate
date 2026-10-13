@@ -3,7 +3,7 @@
 The core-wiki launch amendment dated 6 October 2026 defines this release scope. The default is
 `SLATE_PROFILE=core-wiki`; `SLATE_PROFILE=flagship` explicitly exposes the retained
 flagship development surfaces. The flag is a deployment binding, passed through
-setup's Wrangler template, not a ninth content policy or a data migration.
+the deployment declaration, not a ninth content policy or a data migration.
 Invalid values fail configuration. `AI_ENABLED` and `SSO_ENABLED` remain false
 by default. Enabling flagship does not enable AI or supply any grant or budget.
 
@@ -29,9 +29,9 @@ identity mail retain their ordinary behaviors.
 
 ## Local commands and integration
 
-Use pinned pnpm 8.15.6 and Node 26.8.1 as in the push verification workflow. `pnpm test:profile` runs new bounded
+Use Node.js 22.20.0 and pnpm 10.12.4. `pnpm test:profile` runs bounded
 configuration, UI rendering, real Worker/D1 API and queued-job checks. The suite
 uses SLATE_TEST_PORT (default 55500), plus the next two ports, and all existing
 migrations. These tests prove only profile behavior; original tests remain intact.
 
-`pnpm publish-check` runs full verification, release-source tests, source/integration checks, operations description and publication-input validation. Deployment readiness is checked separately by `pnpm check:deployment`; real provider credentials and receipts remain deployment prerequisites. Neither command publishes a tag or deployment.
+`pnpm publish-check` runs full verification, release-source tests, source/integration checks, operations description and publication-input validation. Use `rer deploy --environment production --dry-run` for local build/declaration validation; real provider credentials and receipts remain deployment prerequisites. Neither command publishes a tag or deployment.

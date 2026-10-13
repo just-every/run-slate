@@ -1,42 +1,46 @@
 import { ImportError } from "./errors";
 import type { ImportedBlock, ImportedField } from "./types";
 
-export function parseCsv(text: string): string[][] {
-  const rows: string[][] = [];
-  let row: string[] = [];
-  let value = "";
-  let quoted = false;
-  let afterQuote = false;
-
-  for (let index = 0; index < text.length; index += 1) {
-    const char = text[index]!;
-    if (quoted) {
-      if (char === '"') {
-        if (text[index + 1] === '"') { value += '"'; index += 1; } else { quoted = false; afterQuote = true; }
-      } else value += char;
-      continue;
-    }
-    if (afterQuote) {
-      if (char === ",") { row.push(value); value = ""; afterQuote = false; continue; }
-      if (char === "\n" || char === "\r") {
-        if (char === "\r" && text[index + 1] === "\n") index += 1;
-        row.push(value); rows.push(row); row = []; value = ""; afterQuote = false; continue;
+/** The same strict CSV grammar accepts incremental decoded windows. Each
+ * completed row can be consumed immediately, without retaining a whole table
+ * string or an intermediate array of all cell arrays. */
+export function* parseCsvRows(chunks:Iterable<string>):Generator<string[]> {
+  let row:string[]=[],parts:string[]=[];
+  let state:'unquoted'|'quoted'|'afterQuote'='unquoted',skipLf=false;
+  const append=(text:string,start:number,end:number)=>{if(end>start)parts.push(text.slice(start,end));};
+  const finish=()=>{row.push(parts.length===1?parts[0]!:parts.join(''));parts=[];state='unquoted';};
+  for(const text of chunks){
+    let start=0;
+    for(let index=0;index<text.length;index++){
+      const char=text[index]!;
+      if(skipLf){skipLf=false;if(char==='\n'){start=index+1;continue;}}
+      if(state==='quoted'){
+        if(char==='"'){append(text,start,index);state='afterQuote';start=index+1;}
+        continue;
       }
-      throw new ImportError("IMPORT_FORMAT_INVALID", "A CSV quoted field has unexpected trailing content.");
+      if(state==='afterQuote'){
+        if(char==='"'){parts.push('"');state='quoted';start=index+1;continue;}
+        if(char!==','&&char!=='\n'&&char!=='\r')throw new ImportError('IMPORT_FORMAT_INVALID','A CSV quoted field has unexpected trailing content.');
+      }else if(char==='"'){
+        if(index!==start||parts.length)throw new ImportError('IMPORT_FORMAT_INVALID','A CSV quote must begin a field.');
+        state='quoted';start=index+1;continue;
+      }
+      if(char===','||char==='\n'||char==='\r'){
+        if(state!=='afterQuote')append(text,start,index);
+        finish();start=index+1;
+        if(char!==','){
+          if(row.some(cell=>cell.length>0))yield row;
+          row=[];skipLf=char==='\r';
+        }
+      }
     }
-    if (char === '"') {
-      if (value) throw new ImportError("IMPORT_FORMAT_INVALID", "A CSV quote must begin a field.");
-      quoted = true;
-    } else if (char === ",") { row.push(value); value = ""; }
-    else if (char === "\n" || char === "\r") {
-      if (char === "\r" && text[index + 1] === "\n") index += 1;
-      row.push(value); rows.push(row); row = []; value = "";
-    } else value += char;
+    if(state!=='afterQuote')append(text,start,text.length);
   }
-  if (quoted) throw new ImportError("IMPORT_FORMAT_INVALID", "A CSV field is not terminated.");
-  if (value || row.length || afterQuote) { row.push(value); rows.push(row); }
-  return rows.filter((row) => row.some((cell) => cell.length > 0));
+  if(state==='quoted')throw new ImportError('IMPORT_FORMAT_INVALID','A CSV field is not terminated.');
+  if(parts.length||row.length||(state as string)==='afterQuote')finish();
+  if(row.some(cell=>cell.length>0))yield row;
 }
+export function parseCsv(text: string): string[][] { return [...parseCsvRows([text])]; }
 
 export function validateCsvTable(rows: string[][]): { header: string[]; records: string[][] } {
   const [header, ...records] = rows;

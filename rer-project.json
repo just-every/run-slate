@@ -2,17 +2,21 @@
   "schema": 1,
   "projectId": "just-every/slate",
   "name": "slate",
-  "sourceRepository": "https://github.com/just-every/slate",
+  "sourceRepository": "https://github.com/just-every/run-slate",
   "license": "MIT",
   "deployment": {
     "target": "cloudflare-workers",
     "artifactFile": "slate-worker-artifact.json"
   },
   "operations": {
-    "setup": "npm exec --yes --package=node@22.12.0 --package=pnpm@8.15.6 -- node scripts/release/trusted-command.mjs setup",
-    "build": "npm exec --yes --package=node@22.12.0 --package=pnpm@8.15.6 -- node scripts/release/trusted-command.mjs build",
-    "verify": "npm exec --yes --package=node@22.12.0 --package=pnpm@8.15.6 -- node scripts/release/trusted-command.mjs verify",
-    "artifact": "npm exec --yes --package=node@22.12.0 --package=pnpm@8.15.6 -- node scripts/release/trusted-command.mjs artifact",
+    "setup": "pnpm install --frozen-lockfile && pnpm exec playwright install --with-deps chromium",
+    "build": "pnpm exec rer build",
+    "verify": "pnpm exec rer verify",
+    "artifact": "node scripts/build-delivery-artifact.mjs",
     "recovery": "Preserve accepted source/artifact, native session configuration, applied migrations and R2 files. Restore an owner export only into a separate empty deployment and verify ACLs, attachments and public exposure before traffic cutover. See OPERATIONS.md; sealed prior-store upgrade is pending."
+  },
+  "setup": {
+    "path": "rer-setup.json",
+    "sha256": "ceacdee3b56933b4aa3a6947fe54b6e1ac911225be7dce358ccf1f43ac352bca"
   }
 }

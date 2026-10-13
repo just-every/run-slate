@@ -1,0 +1,116 @@
+/*
+ * The signed-in shell: the sidebar rail. One inset (--row-inset) places every icon and label of the rail — the workspace
+ * mark, navigation icons, the "Pages" label, space and page rows, and the account avatar — on the same left edge, and every
+ * row box (navigation, Create, spaces, account) spans the same width, with the same radius and 36px height.
+ */
+.slate-app {
+  --rail-width: 300px;
+  --rail-inset: 12px;
+  --row-inset: 10px;
+  --row-height: 36px;
+}
+.slate-app .app { display: grid; grid-template-columns: var(--rail-width) minmax(0, 1fr); min-height: 100vh; }
+.slate-app .sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100dvh;
+  padding: 14px var(--rail-inset) 0;
+  border-right: 1px solid var(--slate-line);
+  background: var(--slate-sidebar);
+}
+.slate-app .sidebar-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 40px; margin-bottom: 14px; padding-left: var(--row-inset); }
+.slate-app .brand { display: flex; align-items: center; gap: 10px; min-width: 0; color: var(--slate-ink-strong); font: 400 22px/1.2 var(--slate-serif); }
+.slate-app .brand-mark { flex: none; width: 30px; line-height: 0; }
+.slate-app .brand-mark svg { display: block; width: 100%; height: auto; }
+.slate-app .brand-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.slate-app .sidebar-content { display: flex; flex: 1; flex-direction: column; min-height: 0; overflow-x: hidden; overflow-y: auto; }
+
+.slate-app .navlink { display: flex; align-items: center; gap: 12px; min-height: var(--row-height); padding: 0 var(--row-inset); border-radius: 6px; color: var(--slate-ink); font-size: 14px; }
+.slate-app .navlink svg { width: 18px; height: 18px; flex-shrink: 0; stroke-width: 1.75; }
+.slate-app .navlink > span:not(.shortcut, .scheduled-publication) { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.slate-app .navlink:hover, .slate-app .navlink:focus-visible { background: var(--slate-sidebar-hover); }
+.slate-app .navlink[aria-current="page"], .slate-app .navlink[data-status="active"] { background: var(--slate-sidebar-hover); color: var(--slate-ink-strong); font-weight: 500; }
+.slate-app .shortcut { margin-left: auto; color: var(--slate-ink-muted); font-size: 12px; }
+.slate-app .primary { display: grid; gap: 2px; padding-bottom: 12px; border-bottom: 1px solid var(--slate-line); }
+.slate-app .navigation-create { margin-top: 14px; }
+.slate-app .navigation-create > button { min-height: 40px; border-radius: 6px; }
+.slate-app .sidebar-label { margin: 16px 0 4px; padding: 0; color: var(--slate-ink-muted); font-size: 13px; font-weight: 500; }
+.slate-app .favourites { margin-top: 4px; }
+.slate-app .empty-tree { margin: 0; padding: 8px var(--row-inset); color: var(--slate-ink-muted); font-size: 13px; }
+
+.slate-app .page-links { flex: 1 1 auto; min-height: 96px; padding-bottom: 12px; overflow-y: auto; scrollbar-width: thin; }
+.slate-app .space-group > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--row-height);
+  padding: 0 var(--row-inset);
+  border: 0;
+  border-radius: 6px;
+  background-color: var(--slate-sidebar);
+  color: var(--slate-ink);
+  font-size: 14px;
+  font-weight: 500;
+  list-style: none;
+}
+.slate-app .space-group > summary::-webkit-details-marker { display: none; }
+.slate-app .space-group > summary::before { content: ""; flex: none; width: 0; height: 0; margin-inline: 4px 6px; border-inline: 4px solid transparent; border-top: 6px solid currentColor; transition: transform 120ms ease; }
+.slate-app .space-group:not([open]) > summary::before { transform: rotate(-90deg); }
+.slate-app .space-group > summary:hover, .slate-app .space-group > summary:focus-visible { background-color: var(--slate-sidebar-hover); }
+
+.slate-app .page-tree { margin: 0; padding: 0; list-style: none; }
+.slate-app .page-tree .page-tree { margin-left: 20px; }
+.slate-app .tree-row { display: flex; align-items: center; gap: 0; min-width: 0; min-height: var(--row-height); }
+.slate-app .tree-row > .navlink { flex: 1; min-width: 0; padding-left: 8px; }
+.slate-app .tree-spacer { flex: none; width: 28px; }
+.slate-app .tree-row .iconbutton { flex: none; width: 32px; min-width: 32px; height: 32px; margin-right: -4px; padding: 0; border: 0; background-color: var(--slate-sidebar); color: var(--slate-ink-muted); }
+.slate-app .tree-row .iconbutton svg { width: 16px; height: 16px; }
+.slate-app .tree-row .iconbutton:hover { background-color: var(--slate-sidebar-hover); }
+.slate-app .tree-row .tree-action { display: none; margin-right: 0; border-radius: 6px; }
+.slate-app .tree-row:hover .tree-action, .slate-app .tree-row:focus-within .tree-action { display: inline-flex; align-items: center; justify-content: center; }
+.slate-app .tree-row .tree-action svg { width: 14px; height: 14px; }
+.slate-app .favourite-row { display: flex; align-items: center; gap: 4px; min-width: 0; }
+.slate-app .favourite-row > .navlink { flex: 1; min-width: 0; }
+.slate-app .favourite-row > .icon-action { display: none; }
+.slate-app .favourite-row:hover > .icon-action, .slate-app .favourite-row:focus-within > .icon-action { display: inline-flex; }
+@media (hover: none) {
+  .slate-app .tree-row .tree-action, .slate-app .favourite-row > .icon-action { display: inline-flex; }
+}
+
+.slate-app .workspace { position: relative; margin-top: auto; padding: 10px 0 12px; border-top: 1px solid var(--slate-line); }
+.slate-app .workspace > nav { display: grid; gap: 4px; margin-bottom: 8px; }
+.slate-app .workrow { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px; padding: 0 var(--row-inset); border: 0; border-radius: 8px; background-color: var(--slate-sidebar); color: var(--slate-ink-strong); font-size: 14px; font-weight: 500; text-align: left; }
+.slate-app .workrow:hover { background-color: var(--slate-sidebar-hover); }
+.slate-app .workrow > span:nth-child(2) { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.slate-app .workrow-chevron { width: 16px; height: 16px; margin-left: auto; color: var(--slate-ink-muted); transition: transform 120ms ease; }
+.slate-app .workrow[aria-expanded="true"] .workrow-chevron { transform: rotate(-90deg); }
+.slate-app .member-initials { display: grid; flex: none; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--slate-accent); color: var(--slate-accent-ink); font-size: 11px; font-weight: 600; }
+
+/* Collapsed: a 72px rail holding the mark and the button that opens it again. */
+.slate-app .app:has(.sidebar[data-collapsed="true"]) { grid-template-columns: 72px minmax(0, 1fr); }
+.slate-app .sidebar[data-collapsed="true"] { padding-inline: 20px; }
+.slate-app .sidebar[data-collapsed="true"] .sidebar-header { flex-direction: column; gap: 14px; padding-left: 0; }
+.slate-app .sidebar[data-collapsed="true"] .sidebar-content { display: none; }
+/* The name stays in the accessibility tree (it names the link) while only the mark shows. */
+.slate-app .sidebar[data-collapsed="true"] .brand-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 1200px) {
+  .slate-app { --rail-width: 260px; }
+}
+@media (max-width: 700px) {
+  .slate-app .app, .slate-app .app:has(.sidebar[data-collapsed="true"]) { display: block; }
+  .slate-app .mobile-bar { display: flex; position: sticky; top: 0; z-index: 30; align-items: center; gap: 15px; padding: 10px 16px; background: var(--slate-sidebar); border-bottom: 1px solid var(--slate-line); }
+  .slate-app .mobile-bar button { width: 40px; height: 40px; }
+  .slate-app .sidebar { display: none; position: fixed; top: 61px; left: 0; z-index: 40; width: min(320px, 90vw); height: calc(100dvh - 61px); padding: 14px var(--rail-inset) 0; box-shadow: var(--slate-shadow-popover); }
+  .slate-app .sidebar[data-collapsed="true"] { width: min(320px, 90vw); padding-inline: var(--rail-inset); }
+  .slate-app .sidebar[data-collapsed="true"] .sidebar-content { display: flex; }
+  .slate-app .sidebar[data-collapsed="true"] .brand-name { position: static; width: auto; height: auto; overflow: hidden; clip-path: none; }
+  .slate-app .sidebar .sidebar-toggle { display: none; }
+  .slate-app [data-navigation-open="true"] > .sidebar { display: flex; }
+  .slate-app .sidebar[data-collapsed="true"] .sidebar-header { flex-direction: row; padding-left: var(--row-inset); }
+}
+.slate-app button.navlink { width: 100%; border: 0; background-color: var(--slate-sidebar); text-align: left; }
+.slate-app button.navlink:hover, .slate-app button.navlink:focus-visible { background-color: var(--slate-sidebar-hover); }

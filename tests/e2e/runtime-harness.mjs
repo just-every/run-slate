@@ -1,27 +1,33 @@
+import { testDevKey } from "./dev-key.mjs";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { request as httpRequest } from "node:http";
 import { createServer } from "node:net";
 import path from "node:path";
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { seedAurora } from "../fixtures/aurora/seed.mjs";
+import { signInWithOutbox } from "./outbox-auth.mjs";
+import { emittedRuntimeConfig } from './emitted-runtime-config.mjs';
 import process from "node:process";
 import { fileURLToPath } from "node:url";
-import { launch, stop as stopProcess } from "../qualification/local/process.mjs";
+import { launch, safeEnvironment, stop as stopProcess } from "../qualification/local/process.mjs";
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-export const localWranglerConfig = "deploy/wrangler.local.toml";
+export const localWranglerConfig = "wrangler.jsonc";
 const runtimes = new Map();
+const runtimeSettings = new Map();
 
 /** Own the whole CLI process group, including pnpm, workerd and esbuild. */
 export function launchRuntime(command, args, options = {}) {
-  const runtime = launch(command, args, { cwd: root, env: process.env, ...options });
+  const runtime = launch(command, args, { cwd: root, env: safeEnvironment(), ...options });
   runtimes.set(runtime.child, runtime);
   return runtime.child;
 }
 
 export function run(command, args, options = {}) {
   return new Promise((resolve, reject) => {
-    const child = spawn(command, args, { cwd: root, ...options });
+    const child = spawn(command, args, { cwd: root, env: safeEnvironment(), ...options });
     let output = "";
     let errorOutput = "";
     child.stdout.on("data", (chunk) => { output += chunk; });
@@ -86,39 +92,42 @@ export async function countRows(persistPath, table) {
 /** A real per-run secret. A session digest is keyed by SESSION_SECRET in every mode. */
 export const testSessionSecret = randomUUID();
 
-/** The vars a locally bound emitted Worker needs to behave like `pnpm dev`. */
-export const localSampleVars = { LOCAL_SAMPLE_DATA: "true", SESSION_SECRET: testSessionSecret };
+/** The vars a locally bound emitted Worker needs to behave like `rer dev`. */
+export const localDevelopmentVars = { RER_DEV_KEY: testDevKey, LOCAL_DEVELOPMENT: "true", SESSION_SECRET: testSessionSecret, SETUP_OWNER_EMAIL: "jamie@aurora.example", MAIL_PROVIDER: "development", MAIL_FROM: "slate@test.invalid", AI_ENABLED: "false", SSO_ENABLED: "false", LINK_PREVIEWS_ENABLED: "false" };
+export const seedAuroraFixture = persistPath => seedAurora(sql => executeD1(persistPath, sql));
 
 /** `vite dev` on Miniflare with the local D1/R2/Queue bindings. */
 export async function startViteRuntime(persistPath) {
   const port = await availablePort();
+  const baseUrl = `http://127.0.0.1:${port}`;
+  const settingsRoot = path.join(root, ".artifacts/local-runtimes");
+  await mkdir(settingsRoot, { recursive: true, mode: 0o700 });
+  const settingsDirectory = await mkdtemp(path.join(settingsRoot, "runtime-"));
+  const settingsPath = path.join(settingsDirectory, ".dev.vars");
+  await writeFile(settingsPath, Object.entries({...localDevelopmentVars, APP_URL: baseUrl}).map(([key,value]) => `${key}=${JSON.stringify(value)}`).join("\n") + "\n", {mode: 0o600});
   const child = launchRuntime("pnpm", ["exec", "vite", "--host", "127.0.0.1", "--port", String(port), "--strictPort"], {
     cwd: root,
     env: {
-      ...process.env,
-      SLATE_LOCAL_SAMPLE_DATA: "true",
-      SLATE_SESSION_SECRET: testSessionSecret,
+      ...safeEnvironment(),
+      ...(process.env.SLATE_PROFILE ? {SLATE_PROFILE:process.env.SLATE_PROFILE} : {}),
+      SLATE_LOCAL_SETTINGS_PATH: settingsPath,
       SLATE_PERSIST_STATE_PATH: persistPath,
       SLATE_WRANGLER_CONFIG_PATH: localWranglerConfig,
     },
   });
-  const baseUrl = `http://127.0.0.1:${port}`;
+  runtimeSettings.set(child, settingsDirectory);
   try { await waitForReady(baseUrl, child); } catch (error) { await stop(child); throw error; }
   return { baseUrl, child };
 }
 
-/** `wrangler dev` over the emitted production artifact, in local workerd. */
+/** The adopted Base production module/converter path over the emitted artifact. */
 export async function startEmittedWorker(persistPath, vars = {}) {
   const port = await availablePort();
-  const varArgs = Object.entries(vars).flatMap(([name, value]) => ["--var", `${name}:${value}`]);
-  const child = launchRuntime("pnpm", [
-    "exec", "wrangler", "dev",
-    "--config", "dist/server/wrangler.json",
-    "--local", "--ip", "127.0.0.1", "--port", String(port),
-    "--persist-to", persistPath,
-    ...varArgs,
-  ], { cwd: root });
+  const config = await emittedRuntimeConfig(root, persistPath);
   const baseUrl = `http://127.0.0.1:${port}`;
+  const varsPath = path.join(persistPath, 'runtime-config', 'vars.json');
+  await writeFile(varsPath, JSON.stringify({ ...vars, ...(vars.LOCAL_DEVELOPMENT === "true" ? { APP_URL: baseUrl } : {}) }), { mode: 0o600 });
+  const child = launchRuntime("node", ["tests/e2e/emitted-runtime.mjs", config, persistPath, String(port), varsPath], { cwd: root });
   try { await waitForReady(baseUrl, child); } catch (error) { await stop(child); throw error; }
   return { baseUrl, child };
 }
@@ -152,6 +161,8 @@ export async function stop(child) {
   if (!runtime) return;
   await stopProcess(runtime);
   runtimes.delete(child);
+  const settingsDirectory = runtimeSettings.get(child);
+  if (settingsDirectory) { await rm(settingsDirectory, { recursive: true, force: true }); runtimeSettings.delete(child); }
 }
 
 export function sessionCookie(response) {
@@ -160,13 +171,8 @@ export function sessionCookie(response) {
   return header.split(";", 1)[0];
 }
 
-export async function signInLocally(baseUrl, next = "/app") {
-  const response = await fetch(`${baseUrl}/api/auth/local-sign-in`, {
-    method: "POST",
-    headers: { "content-type": "application/json", origin: baseUrl },
-    body: JSON.stringify({ next }),
-  });
-  const payload = await response.text();
-  assert.equal(response.status, 200, `Local sign-in failed: ${payload}`);
-  return { cookie: sessionCookie(response), body: JSON.parse(payload) };
+export async function signInLocally(baseUrl, next = "/app", email = "jamie@aurora.example") {
+  const session = await signInWithOutbox(baseUrl, email);
+  assert.equal(session.body.next, next);
+  return session;
 }

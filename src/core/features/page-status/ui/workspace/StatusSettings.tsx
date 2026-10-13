@@ -16,7 +16,6 @@ export function StatusSettings() {
   };
   return (
     <section className="settings-panel">
-      <p className="eyebrow">SHARED VOCABULARY</p>
       <h2>Name the state of the work.</h2>
       {member.role === "owner" ? (
         <button onClick={() => start("new")}>Add status</button>

@@ -57,10 +57,10 @@ export function CreateDatabaseDialog({ onClose }: { onClose: () => void }) {
         retry={containers.reload}
       >
         <label>
-          Container
+          Space
           <select name="containerId" required defaultValue="">
             <option value="" disabled>
-              Choose a container
+              Choose a space
             </option>
             {containers.data?.items.map((item) => (
               <option key={item.id} value={item.id}>

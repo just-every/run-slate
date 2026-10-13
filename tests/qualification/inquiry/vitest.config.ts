@@ -1,4 +1,0 @@
-import {mergeConfig} from 'vitest/config';
-import base from '../../../vitest.config';
-base.test!.include=['tests/qualification/inquiry/*.test.ts'];
-export default mergeConfig(base,{server:{port:8744,strictPort:true},test:{include:['tests/qualification/inquiry/*.test.ts']}});

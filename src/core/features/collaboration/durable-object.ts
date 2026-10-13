@@ -33,7 +33,7 @@ export class ContentCollaboration {
     private async context(a: Attachment): Promise<FeatureContext> {
         if (readLaunchProfile(this.env.SLATE_PROFILE) !== 'flagship')
             throw new ApiProblem(403, 'FEATURE_DISABLED', 'Live co-editing is unavailable in the core-wiki profile.');
-        const member = await createSessionService(this.env.DB, this.env.SESSION_SECRET!).authenticate(new Headers({ cookie: a.cookie }));
+        const member = await createSessionService(this.env.DB, { sessionSecret: this.env.SESSION_SECRET!, identityEnabled: this.env.SSO_ENABLED === 'true' }).authenticate(new Headers({ cookie: a.cookie }));
         if (!member)
             throw new ApiProblem(401, 'UNAUTHENTICATED', 'Session ended.');
         const ctx = { db: this.env.DB, files: this.env.FILES, jobs: this.env.JOBS, actor: member, now: new Date().toISOString() };

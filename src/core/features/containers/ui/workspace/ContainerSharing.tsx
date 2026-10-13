@@ -1,4 +1,5 @@
-import {localDateTime} from "../../../../app/ui/localDateTime";
+import { AccessExpiry } from "../../../../app/ui/AccessExpiry";
+import { displayDate } from "../../../../app/ui/displayDate";
 import { useRef, useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import {
@@ -45,7 +46,7 @@ export function ContainerSharing({ id }: { id: string }) {
           "Unavailable person or group");
   return (
     <section>
-      <h4>Who has access</h4>{grantLed?<nav aria-label="Access principals">{["member","group","guest"].map(value=><button key={value} aria-pressed={tab===value} onClick={()=>setTab(value)}>{value}s</button>)}</nav>:null}
+      <h4>Who has access</h4>{grantLed?<nav className="tabs" aria-label="Access principals">{["member","group","guest"].map(value=><button key={value} aria-pressed={tab===value} onClick={()=>setTab(value)}>{value}s</button>)}</nav>:null}
       <RequestState
         loading={grants.loading}
         error={grants.error}
@@ -57,11 +58,12 @@ export function ContainerSharing({ id }: { id: string }) {
               <span>
                 {name(grant)} · {grant.revokedAt ? "Revoked" : grant.level}
                 {grant.expiresAt
-                  ? ` · Until ${new Date(grant.expiresAt).toLocaleString()}`
+                  ? ` · Until ${displayDate(grant.expiresAt, true)}`
                   : ""}
               </span>
               {!grant.revokedAt ? (
                 <button
+                  className="secondary-button"
                   onClick={() => {
                     key.current = operationKey();
                     setEditing(grant);
@@ -75,6 +77,7 @@ export function ContainerSharing({ id }: { id: string }) {
         </ul>
       </RequestState>
       <button
+        className="secondary-button"
         onClick={() => {
           key.current = operationKey();
           setEditing("new");
@@ -145,21 +148,13 @@ export function ContainerSharing({ id }: { id: string }) {
               defaultValue={editing === "new" ? "view" : editing.level}
             >
               {["view", "comment", "edit", "full"].map((level) => (
-                <option key={level}>{level}</option>
+                <option key={level} value={level}>{({view:"View",comment:"Comment",edit:"Edit",full:"Manage access"} as Record<string,string>)[level]}</option>
               ))}
             </select>
           </label>
           <label>
             Expires (optional)
-            <input
-              name="expires"
-              type="datetime-local"
-              defaultValue={
-                editing === "new" || !editing.expiresAt
-                  ? ""
-                  : localDateTime(editing.expiresAt)
-              }
-            />
+            <AccessExpiry name="expires" value={editing === "new" ? null : editing.expiresAt} />
           </label>
           {editing !== "new" ? (
             <label>

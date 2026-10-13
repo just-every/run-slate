@@ -66,7 +66,6 @@ export function ConnectionsPanel() {
   }
   return (
     <section className="settings-panel">
-      <p className="eyebrow">YOUR SOURCES</p>
       <h2>Knowledge, with its context.</h2>
       <p>
         Paste a HappyToHelp article, Orbit record, Google document, Slack message, or GitHub issue. Slate uses your
@@ -82,7 +81,7 @@ export function ConnectionsPanel() {
           Source link
           <input type="url" name="url" required placeholder="https://…" />
         </label>
-        <button className="primary" disabled={pending}>
+        <button className="primary-button" type="submit" disabled={pending}>
           {pending ? "Checking access…" : "Add source"}
         </button>
       </form>
@@ -113,7 +112,7 @@ export function ConnectionsPanel() {
                   {item.accountId} · {item.state}
                 </p>
               </div>
-              <button onClick={() => setRemove(item)}>Disconnect</button>
+              <button className="secondary-button" onClick={() => setRemove(item)}>Disconnect</button>
             </li>
           ))}
         </ul>
@@ -122,6 +121,7 @@ export function ConnectionsPanel() {
       <div className="action-row">
         {Object.entries(names).map(([key, name]) => (
           <button
+            className="secondary-button"
             key={key}
             disabled={pending}
             onClick={() => void connect(key)}

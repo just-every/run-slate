@@ -1,3 +1,4 @@
+import {resetDatabase} from '../../e2e/setup/reset-database';
 import {applyD1Migrations, env} from 'cloudflare:test';
 import {expect} from 'vitest';
 import type {FeatureContext} from '../../../src/core/app/feature-context';
@@ -25,8 +26,7 @@ export async function freshRestore(source: FeatureContext, bytes: Uint8Array) {
   const bindings = env as unknown as {Q11_RESTORE_DB: D1Database; Q11_RESTORE_FILES: R2Bucket};
   const db = bindings.Q11_RESTORE_DB, files = bindings.Q11_RESTORE_FILES;
   await applyD1Migrations(db, env.TEST_MIGRATIONS);
-  const tables = (await db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_cf_%' AND name NOT IN ('d1_migrations','core_acl_epoch')").all<{name: string}>()).results;
-  await db.batch([db.prepare('PRAGMA defer_foreign_keys=ON'), ...tables.map(({name}) => db.prepare(`DELETE FROM "${name}"`))]);
+  await resetDatabase(db);
   for (const object of (await files.list()).objects) await files.delete(object.key);
   const workspaceId = crypto.randomUUID(), memberId = crypto.randomUUID();
   // Test-only bootstrap identities; every restored product row comes through restoreWorkspace.

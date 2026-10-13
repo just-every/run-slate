@@ -1,3 +1,4 @@
+import { requireStepUp } from '../session/step-up';
 import { ApiProblem } from '../../app/problems';
 import { Hono } from 'hono';
 import type { AppEnvironment } from '../../app/types';
@@ -18,5 +19,5 @@ export function createArchiveRoutes() {
             }
         }
         return c.json({ items: out });
-    }).post('/:id', async (c) => c.json(await archivePage(featureContext(c), c.req.param('id'), await c.req.json()))).post('/:id/permanent-delete', async (c) => c.json(await permanentDeletePage(featureContext(c), c.req.param('id'), await c.req.json())));
+    }).post('/:id', async (c) => c.json(await archivePage(featureContext(c), c.req.param('id'), await c.req.json()))).post('/:id/permanent-delete', async (c) => { const input = await c.req.json(); await requireStepUp(c, 'delete'); return c.json(await permanentDeletePage(featureContext(c), c.req.param('id'), input)); });
 }

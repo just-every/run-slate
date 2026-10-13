@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased — 9 October 2026
+
+A page mention names its target only as each reader may see it at every door that returns page text, now including AI evidence and Ask packets (labelled for everyone in their audience), suggestions, template previews and retained claims (LINK-004). `rer import` sets every imported row to what export writes, so a changed archive cannot bring back a live agent credential or chat or federation connection, and a member removed before the export stays removed: any grant or group membership the archive gives them is left out with a warning (PORT-005). A structure change whose page read does not answer within 15 seconds fails with a message instead of leaving the editor waiting with its refreshes paused.
+
+Two people editing one page no longer lose each other's text when one of them moves, adds, deletes or converts a block, or anchors a comment, right after their own save: the editor rebases the change on a fresh read, and the server refuses any block whose stored text changed since the editor's copy with the block's Compare, Reload and Overwrite choices (SAVE-003, SAVE-006). A page mention names its target only to readers who may open it, in the page, history, comments, readable export and public page, and search no longer indexes mentioned titles; migration 0027 rebuilds the search rows (LINK-004). Restoring an earlier revision keeps live inline comments anchored by their quote and orphans only those whose text is gone (COMM-004). `rer import` refuses a guest's address as the new owner and an archive naming more than one setup owner, and imports any archive's rows as export would have written them, so a public link restores revoked (PORT-005).
+
+The signed-in app is refined to the owner-picked design. The sidebar collapses with an icon button beside the workspace name and its icons, labels, Create button, space rows and account button share one inset. Every destination, page, database and record mounts one top bar (location left, actions right) and one page title, and the settings, space, archive and database tabs share one style. A page's top bar keeps Share as the one primary action with Comments, History and Details as named icon buttons and More as a compact keyboard-operable menu whose items act at once or open the existing dialogs and side panels (status, readership and contributors, display settings, public access) only when chosen, and a database keeps its view tabs, a compact find field, two option menus and one New record button, with its favourite and About controls as named icon buttons. Every control remains reachable.
+
+Slate serves its own documentation at `/docs`, built from the repository's Markdown when the app is built. It adds guides for installing and deploying, moving in from other tools, and backup and restore, and the operator notes on email delivery and the Cloudflare footprint (DOCS-001). The landing page's guide and setup links now open these pages, and Slate's two-card mark is now the favicon and the mark beside the owner's name on the landing, sign-in and app pages (HOME-001).
+
 ## 0.1.0 — 7 October 2026
 
 Slate's first public source release provides a core wiki with pages and containers, rich-text editing, sharing and permissions, comments, search, revision history, imports, and portable backup and restore. It includes email sign-in and first-owner setup, edition metadata, deployment commands, and corrections to page relocation and erasure. Advanced federation and inquiry remain development features outside this release's acceptance.
@@ -7,5 +17,9 @@ Slate's first public source release provides a core wiki with pages and containe
 ### MAIL-002 amendment — 7 October 2026
 
 Base Mail adds SendGrid alongside Resend. Automatic retry is allowed only when the provider suppresses duplicate requests. SendGrid rejections permit an owner retry; ambiguous transport, expired dispatch ownership or missing acceptance receipts are held durably for provider review without a blind resend. Resend's bounded idempotent retry remains. A provider receipt means acceptance, not inbox delivery. CONTRACT.md and RELEASE.json retain this amendment.
+
+### Local setup and identity — 8 October 2026
+
+The owner-approved identity override keeps Slate's native magic-link, OIDC, session, role, group and guest model, preserving existing identity and grant data. Local installation now uses private owner-only `.dev.vars` and a loopback-only development outbox; it creates no sample workspace. Owner-account deployment uses `node scripts/rer.mjs deploy --environment production`, with explicit `SLATE_MAIL_PROVIDER`, matching key and verified sender. Local setup and dev use only the loopback outbox. Assisted and Managed installations are unavailable. This records operating guidance in the existing source line and claims no provider or release acceptance.
 
 Incumbent import fixtures use synthetic identities while retaining archive and parser edge cases. Source documentation describes reproducible setup and verification; historical private execution logs are excluded.

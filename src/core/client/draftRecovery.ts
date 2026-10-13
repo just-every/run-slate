@@ -39,3 +39,13 @@ export function storeDraft(
     } satisfies DraftJournal),
   );
 }
+export function discardDraft(key: string) {
+  try { sessionStorage.removeItem(key); } catch { /* nothing to discard */ }
+}
+/** The browser-storage keys holding one member's unsent edits to one page. */
+export function draftKeys(workspaceId: string, memberId: string, pageId: string) {
+  return {
+    journal: `slate:draft:${workspaceId}:${memberId}:${pageId}`,
+    title: `slate:unsaved-title:${workspaceId}:${memberId}:${pageId}`,
+  };
+}

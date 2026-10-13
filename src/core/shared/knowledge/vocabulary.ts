@@ -1,5 +1,5 @@
 export const knowledgeNouns = {
-  container: "container",
+  container: "space",
   record: "record",
   pageBody: "page body",
   member: "member",

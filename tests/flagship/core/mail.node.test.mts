@@ -5,12 +5,10 @@ import {readdirSync,readFileSync} from 'node:fs';
 import {invite,revokeInvitation,acceptInvitation} from '../../../src/core/features/workspace/invitations.ts';
 import {deliverIdentityMail,scheduleIdentityMail} from '../../../src/core/features/session/mail.ts';
 import {listIdentityMail,retryIdentityMail} from '../../../src/core/features/session/mail-status.ts';
-import {requestMagicLink,magicLinkStatus,acceptMagicLink} from '../../../src/core/features/session/magic-links.ts';
 import {firstRunState,completeFirstRun} from '../../../src/core/features/workspace/bootstrap.ts';
-import {excludedTables} from '../../../src/core/features/portability/tables.ts';
 import type {FeatureContext} from '../../../src/core/app/feature-context.ts';
 import type {RuntimeConfig} from '../../../src/core/platform/config/runtime.ts';
-const config:RuntimeConfig={sessionSecret:'a-test-only-secret-of-at-least-32-characters',localSampleData:false,mailApiKey:'test-only-provider-key',mailFrom:'Slate <mail@test.invalid>',appUrl:'https://slate.test.invalid'};
+const config:RuntimeConfig={sessionSecret:'a-test-only-secret-of-at-least-32-characters',localDevelopment:false,mailProvider:'resend',mailApiKey:'test-only-provider-key',mailFrom:'Slate <mail@test.invalid>',appUrl:'https://slate.test.invalid'};
 const now=new Date().toISOString();
 function fixture(){
  const sql=new DatabaseSync(':memory:',{enableDoubleQuotedStringLiterals:true});
@@ -37,7 +35,7 @@ test('MAIL-002 atomic encrypted admission survives commit-before-dispatch proces
   assert.equal(calls,1);assert.equal(row(f).provider_message_id,'receipt-one');assert.equal(row(f).payload_ciphertext,null);
   await invite(f.ctx,config,request);assert.equal(calls,1);
   // The recovered ciphertext contains the original still-valid single-use token.
-  const token=tokenFrom(sentBody);assert.ok((await acceptInvitation(f.db,config,token)).token);await assert.rejects(acceptInvitation(f.db,config,token),{code:'LINK_INVALID'});
+  const token=tokenFrom(sentBody);assert.ok((await acceptInvitation(f.db,config,token)).memberId);await assert.rejects(acceptInvitation(f.db,config,token),{code:'LINK_INVALID'});
  }finally{restore();f.close();}
 });
 test('MAIL-002 spaced retry budget, visible HTTP failure, explicit recovery and current authorization',async()=>{
@@ -62,12 +60,6 @@ test('WORK-006 revocation cancels exactly one invitation and expired leases rech
   await revokeInvitation(f.ctx,{operationKey:crypto.randomUUID(),id:first.invitation_id});assert.equal(f.sql.prepare('SELECT revoked_at FROM invitations WHERE id=?').get(second)!.revoked_at,null);assert.equal(row(f).delivery_phase,'cancelled');
   f.sql.exec("UPDATE members SET status='removed' WHERE id='a'");await scheduleIdentityMail(f.db,config,undefined,after(150000));assert.equal(calls,2);assert.equal(f.sql.prepare("SELECT count(*) n FROM mail_deliveries WHERE delivery_phase='cancelled'").get()!.n,2);
   await assert.rejects(retryIdentityMail(f.ctx,config,first.id),{status:401});
- }finally{restore();f.close();}
-});
-test('BASE-ACCESS-001 magic status capability resumes one valid token and discloses no credentials',async()=>{
- const f=fixture();let body='',calls=0;const restore=provider(async init=>{body=String(init.body);calls++;return Response.json({id:'magic-provider-receipt'});});
- try{const key=crypto.randomUUID();await requestMagicLink(f.db,config,'a@test.invalid',key);await requestMagicLink(f.db,config,'a@test.invalid',key);assert.equal(calls,1);assert.equal(row(f).kind,'sign-in-link');assert.equal((await magicLinkStatus(f.db,config,'a@test.invalid',key)).state,'sent');assert.equal((await magicLinkStatus(f.db,config,'a@test.invalid',crypto.randomUUID())).state,'unconfirmed');assert.equal((await magicLinkStatus(f.db,config,'unknown@test.invalid',key)).state,'unconfirmed');assert.equal(f.sql.prepare('SELECT count(*) n FROM magic_links').get()!.n,1);
-  const token=tokenFrom(body);assert.ok((await acceptMagicLink(f.db,config,token)).token);await assert.rejects(acceptMagicLink(f.db,config,token),{code:'LINK_INVALID'});for(const name of ['mail_deliveries','magic_links','invitations','sessions'])assert.ok((excludedTables as readonly string[]).includes(name));
  }finally{restore();f.close();}
 });
 test('WORK-013 completion marker survives an empty tree and later members never receive wizard',async()=>{

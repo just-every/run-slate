@@ -16,6 +16,10 @@
     {
       "name": "Confluence",
       "edition": null
+    },
+    {
+      "name": "Guru",
+      "edition": null
     }
   ],
   "description": "A self-hosted core wiki for pages, containers, collaborative editing, comments, search, sharing, imports, and portable backup and restore.",
@@ -23,9 +27,16 @@
   "capabilities": [
     {
       "id": "public-landing",
-      "description": "A buyer-configured owner identity plate at the public root with a sign-in action and an optional static credit.",
+      "description": "An installed Slate answers the root with the shared Lobby (Finish setup until first-run setup is finished, then Sign in) and Base's /setup/state; the static landing page is the run site's homepage (run-slate.com), around the owner's name and description beside Slate's card logo (the same card mark the sign-in page, the app and the favicon use), with Run Slate to /run, a Docs link to /docs, \"Read the guide\" to /docs and \"Read the setup guide\" to /docs/install, a link to the source repository, one illustrated section for each core-wiki capability it names, and an optional static credit.",
       "clauses": [
         "HOME-001"
+      ]
+    },
+    {
+      "id": "public-documentation",
+      "description": "First-party public documentation at /docs: the repository Markdown that docs/site.json publishes, rendered to HTML at build time by a Vite plugin, in the landing's own header, footer and type, describing only the default core-wiki profile.",
+      "clauses": [
+        "DOCS-001"
       ]
     },
     {
@@ -470,7 +481,7 @@
     {
       "id": "resend-transactional-email",
       "required": false,
-      "why": "Resend sends magic-link sign-in, member invitations and guest invitations through the mail.sender.v1 adapter; Cloudflare's owned primitives do not send email.",
+      "why": "Resend sends magic-link sign-in, member invitations and guest invitations through the mail.sender.v1 adapter; Cloudflare's owned primitives do not send hosted email.",
       "data": [
         "The recipient's email address",
         "The workspace name and the inviting member's display name",
@@ -479,7 +490,7 @@
       "adapters": [
         "mail.sender.v1"
       ],
-      "requiredWhen": "MAIL_PROVIDER=resend (default)"
+      "requiredWhen": "MAIL_PROVIDER=resend"
     },
     {
       "id": "ai-inference-provider",
@@ -565,7 +576,7 @@
     {
       "id": "sendgrid-transactional-email",
       "required": false,
-      "why": "Base Mail SendGrid adapter sends sign-in and invitation links; uncertain acceptance is held for provider review without automatic resubmission.",
+      "why": "Slate's SendGrid adapter sends sign-in and invitation links; uncertain acceptance is held for provider review without automatic resubmission.",
       "data": [
         "The recipient's email address",
         "The workspace name and the inviting member's display name",
@@ -605,8 +616,9 @@
     {
       "name": "MAIL_API_KEY",
       "secret": true,
-      "required": true,
-      "why": "Authenticates the configured Resend or Base Mail SendGrid adapter."
+      "required": false,
+      "requiredWhen": "MAIL_PROVIDER=resend or MAIL_PROVIDER=sendgrid",
+      "why": "Authenticates the configured Resend or Slate SendGrid adapter."
     },
     {
       "name": "PUBLIC_PAGE_HOST",
@@ -682,7 +694,7 @@
       "name": "AI_PROVIDER",
       "secret": false,
       "required": false,
-      "why": "Selects openai (default) or local-codex; local-codex is restricted to loopback development with LOCAL_SAMPLE_DATA."
+      "why": "Selects openai (default) or local-codex; local-codex is restricted to loopback development with LOCAL_DEVELOPMENT=true."
     },
     {
       "name": "AI_LOCAL_URL",
@@ -783,6 +795,13 @@
       "why": "Part of the complete native delegation origin/client/account binding triplet; hosted origin must be exact HTTPS."
     },
     {
+      "name": "LOCAL_DEVELOPMENT",
+      "secret": false,
+      "required": false,
+      "default": "false",
+      "why": "Enables development mail and local-codex only for an exact loopback origin; hosted setup removes this flag."
+    },
+    {
       "name": "SLATE_PROFILE",
       "secret": false,
       "required": false,
@@ -792,9 +811,8 @@
     {
       "name": "MAIL_PROVIDER",
       "secret": false,
-      "required": false,
-      "default": "resend",
-      "why": "Select resend or sendgrid. SendGrid uses the maintained Base Mail adapter."
+      "required": true,
+      "why": "Required at runtime: hosted setup explicitly selects resend or sendgrid; development uses development only with LOCAL_DEVELOPMENT=true and loopback."
     }
   ],
   "deploy": {
@@ -803,13 +821,24 @@
     "apiPath": "/api",
     "publicPaths": [
       "/",
+      "/setup/state",
       "/signin",
+      "/auth/confirm",
+      "/docs",
+      "/docs/",
       "/health",
       "/api/auth/",
       "/assets/",
+      "/favicon.svg",
+      "/favicon-32.png",
+      "/favicon.ico",
+      "/apple-touch-icon.png",
+      "/rer-theme.css",
+      "/slate-mark.svg",
+      "/brand/band.svg",
       "/p/"
     ],
-    "notes": "The root is the owner identity plate and is matched exactly, opening nothing beneath it. /p/ serves published pages: a path under it resolves only while that page's public exposure record is live and its container permits public links, and returns a content-free page otherwise. Everything else, including /app and every workspace data endpoint, requires a session. /_serverFn/ is TanStack Start's generated transport and is not a public path: each private handler validates the native session itself before any private read or mutation, and an anonymous call receives the framework's serialized denial with no product payload."
+    "notes": "The root is the shared Lobby (HOME-001, amended 13 October 2026; the static landing page is the run site's homepage at run-slate.com): matched exactly, it shows Finish setup or Sign in from the first-run record alone, lists no workspace content, sets no cookie, runs no script and loads only same-origin resources. /setup/state is Base's exact claimed-or-unclaimed answer from the same reading, with no session, no cookie and no-store. /docs is the first-party documentation (DOCS-001, 9 October 2026): the exact path and everything under /docs/ are public build-time documents that read no workspace record, set no cookie and load only same-origin resources, behind the same configuration gate and public-document rate limit as the landing; an unknown slug is a 404. The favicon files (/favicon.svg, /favicon-32.png, /favicon.ico, /apple-touch-icon.png) are fixed same-origin static files of Slate's card mark; /rer-theme.css (the landing's colours, Outfit and radius, read by the shared confirmation page and the Lobby and linked by /signin and /setup), /slate-mark.svg (the same mark, light only) and /brand/band.svg (the Lobby's floor art) are three more. /p/ serves published pages: a path under it resolves only while that page's public exposure record is live and its container permits public links, and returns a content-free page otherwise. Everything else, including /app and every workspace data endpoint, requires a session. /_serverFn/ is TanStack Start's generated transport and is not a public path: each private handler validates the native session itself before any private read or mutation, and an anonymous call receives the framework's serialized denial with no product payload. The exact /auth/confirm route is a Hono-owned server-rendered native email confirmation: GET only previews; same-origin POST consumes a new token and creates the session. It shares configuration and auth rate checks. Other /auth paths remain ordinary unmatched documents. Previously issued /api/auth/magic/accept links return the request-new-link page."
   },
   "customFields": [
     "page",
@@ -873,7 +902,7 @@
     ]
   },
   "limits": {
-    "status": "estimated and unverified; every value here is a bootstrap estimate rewritten by the load test, and contract times are p95 at these values",
+    "status": "capacity values remain estimates; local Worker/D1 search now has measurements at 10,000, 50,000 and 100,000 mixed searchable rows for first-page latency, edit freshness and rebuild; hosted capacity and other limits remain unverified",
     "capacityEstimate": {
       "membersPerDeployment": 250,
       "guestsPerDeployment": 250,

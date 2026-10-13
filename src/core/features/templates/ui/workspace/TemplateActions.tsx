@@ -34,14 +34,14 @@ export function TemplateActions({
   return (
     <>
       <div className="action-row">
-        <button disabled={!template.permissions?.canManage} onClick={() => start("edit")}>Update from a page</button>
-        <button disabled={!template.permissions?.canDuplicate} onClick={() => start("duplicate")}>Duplicate</button>
-        <button disabled={!template.permissions?.canManage} onClick={() => start("move")}>Move collection</button>
-        <button disabled={!template.permissions?.canManage} onClick={() => start(archived ? "restore" : "archive")}>
+        <button className="secondary-button" disabled={!template.permissions?.canManage} onClick={() => start("edit")}>Update from a page</button>
+        <button className="secondary-button" disabled={!template.permissions?.canDuplicate} onClick={() => start("duplicate")}>Duplicate</button>
+        <button className="secondary-button" disabled={!template.permissions?.canManage} onClick={() => start("move")}>Move collection</button>
+        <button className="secondary-button" disabled={!template.permissions?.canManage} onClick={() => start(archived ? "restore" : "archive")}>
           {archived ? "Restore" : "Archive"}
         </button>
         {archived ? (
-          <button disabled={!template.permissions?.canManage} onClick={() => start("delete")}>Delete template</button>
+          <button className="secondary-button" disabled={!template.permissions?.canManage} onClick={() => start("delete")}>Delete template</button>
         ) : null}
       </div>
       {action ? (

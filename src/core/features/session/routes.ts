@@ -1,66 +1,102 @@
 import { Hono } from "hono";
 import { z } from "zod";
+import { AuthError } from "../../../../modules/operator-auth/index.mjs";
+import { confirmationResponse } from "../../../../modules/operator-auth/identity/email-link/confirmation.mjs";
 import type { AppEnvironment } from "../../app/types";
+import { ApiProblem } from "../../app/problems";
 import { error } from "../../shared/errors";
-import { isLoopbackHostname, safeAppPath } from "../../platform/auth/paths";
-import { createSessionService } from "./service";
+import { sessionDigest } from "../../platform/auth/token";
+import { createSlateAuth, PROVIDER_CALLBACK, PROVIDER_START, slateSessions } from "./auth";
+import { acceptInvitation, previewInvitation } from "../workspace/invitations";
+import { invitationAcceptedPage, invitationPage } from "../workspace/invitation-page";
+import { bootstrapOwner } from "../workspace/bootstrap";
+import { parseBody } from "../workspace/routes";
+import { signInCapabilities } from "./capabilities";
+import { mailStatus } from "./mail-status";
+import type { MailRow } from "./mail-authority";
 
-import { beginIdentity, finishIdentity } from './oidc';
-import { readCookie } from '../../platform/auth/cookie';
-import { requestMagicLink, acceptMagicLink, magicLinkStatus } from './magic-links';
-import { acceptInvitation } from '../workspace/invitations';
-import { parseBody } from '../workspace/routes';
-const localSignInInput = z.object({ next: z.string().optional() });
+const branding = { productName: "Slate", accentColor: "#1b1b18", signInPath: "/signin", theme: "/rer-theme.css" };
+const retiredLink = (method: string) => confirmationResponse({ branding, preview: null, token: "", method });
+/** Paths Base operator-auth owns on Slate's listener: confirmation, step-up and the incumbent provider. */
+export const BASE_AUTH_PATHS = new Set(["/auth/confirm", "/auth/step-up", PROVIDER_START, PROVIDER_CALLBACK]);
+const invitationToken = z.string().min(20).max(512);
+const requestDigest = (secret: string, email: string, key: string) => sessionDigest(secret, `mail-request:${email.toLowerCase()}:${key}`);
 
-export function createSessionRoutes({ seedLocalSampleData }: { seedLocalSampleData: (binding: D1Database) => Promise<boolean> }) {
+function authProblem(cause: unknown, failure?: string): never {
+  if (!(cause instanceof AuthError)) throw cause;
+  if (cause.code === "mail_unavailable") throw new ApiProblem(502, "MAIL_NOT_SENT", failure ? `The sign-in email was not sent: ${failure}.` : "The sign-in email could not be sent.");
+  if (cause.code === "rate_limited") throw new ApiProblem(429, "RATE_LIMITED", "Too many sign-in requests. Try again later.");
+  if (cause.code === "invalid_email") throw new ApiProblem(400, "INVALID_REQUEST", "Enter a valid email address.");
+  throw new ApiProblem(cause.status as ConstructorParameters<typeof ApiProblem>[0], cause.code.toUpperCase(), "Sign-in could not be completed.");
+}
+
+export function createSessionRoutes() {
   return new Hono<AppEnvironment>()
-    .get("/api/auth/capabilities", (context) => {
-      const config = context.get("runtimeConfig");
-      const localSampleData = config.localSampleData && isLoopbackHostname(new URL(context.req.url).hostname);
-      return context.json({localSession:localSampleData,mailDelivery:!!(config.mailApiKey&&config.mailFrom&&config.appUrl),identityProvider:!!config.ssoEnabled});
+    .get("/api/auth/capabilities", (context) => context.json(signInCapabilities(context.get("runtimeConfig"))))
+    .post("/api/auth/magic", async c => {
+      const schema = z.object({ email: z.string().email().max(254), requestKey: z.string().min(32).max(160).optional() }).strict();
+      const form = c.req.header("content-type")?.split(";", 1)[0]!.trim().toLowerCase() === "application/x-www-form-urlencoded";
+      const input = form ? schema.parse(await c.req.parseBody({ all: true })) : await parseBody(c.req, schema);
+      const config = c.get("runtimeConfig");
+      // The configured setup mailbox claims an empty installation; it still must prove possession.
+      await bootstrapOwner(c.env.DB, config, input.email);
+      // A no-script form has no status key of its own; a server key still records its delivery for Settings.
+      const requestKey = input.requestKey ?? (form ? crypto.randomUUID() : undefined);
+      const delivery = { requestDigest: requestKey ? await requestDigest(config.sessionSecret, input.email, requestKey) : undefined, failure: undefined as string | undefined };
+      const { auth } = await createSlateAuth(c.env.DB, config, { delivery });
+      try { await auth.requestMagicLink(c.req.raw, { email: input.email, returnTo: "/app" }); }
+      catch (cause) { authProblem(cause, delivery.failure); }
+      // Every request gets the same acknowledgement; no member lookup is exposed.
+      if (form) return c.redirect(signInCapabilities(config).localOutbox ? "/__dev/outbox" : "/signin?requested=1", 303);
+      return c.json({ accepted: true });
     })
-    .get('/api/auth/identity',async c=>{const result=await beginIdentity(c.env.DB,c.get('runtimeConfig'));c.header('Set-Cookie',`slate_identity_state=${result.state}; Path=/api/auth/identity; HttpOnly; SameSite=Lax; Secure; Max-Age=600`);return c.redirect(result.url);})
-    .get('/api/auth/identity/callback',async c=>{const config=c.get('runtimeConfig');const input=z.object({state:z.string().min(20).max(512),code:z.string().min(1).max(4096)}).safeParse(c.req.query());if(!input.success)return c.json(error('IDENTITY_INVALID','Invalid identity response.'),400);const session=await finishIdentity(c.env.DB,config,{...input.data,cookieState:readCookie(c.req.raw.headers,'slate_identity_state')??''});c.header('Set-Cookie',createSessionService(c.env.DB,config.sessionSecret).cookieFor(session.token,session.expiresAt,true));return c.redirect('/app');})
-    .post('/api/auth/magic', async c => {const input=await parseBody(c.req,z.object({email:z.string().email().max(254),requestKey:z.string().min(32).max(160).optional()}).strict());return c.json(await requestMagicLink(c.env.DB,c.get('runtimeConfig'),input.email,input.requestKey));})
-    .post('/api/auth/magic/status', async c => {const input=await parseBody(c.req,z.object({email:z.string().email().max(254),requestKey:z.string().min(32).max(160)}).strict());return c.json(await magicLinkStatus(c.env.DB,c.get('runtimeConfig'),input.email,input.requestKey));})
-    .get('/api/auth/magic/accept', async c => {
-      const token=z.string().min(20).max(512).safeParse(c.req.query('token'));
-      if(!token.success)return c.json(error('LINK_INVALID','Invalid link.'),400);
-      const config=c.get('runtimeConfig');const session=await acceptMagicLink(c.env.DB,config,token.data);
-      c.header('Set-Cookie',createSessionService(c.env.DB,config.sessionSecret).cookieFor(session.token,session.expiresAt,new URL(c.req.url).protocol==='https:'));
-      return c.redirect('/app');
+    /** The unguessable request key is a status capability, never a sign-in credential. */
+    .post("/api/auth/magic/status", async c => {
+      const input = await parseBody(c.req, z.object({ email: z.string().email().max(254), requestKey: z.string().min(32).max(160) }).strict());
+      const row = await c.env.DB.prepare("SELECT * FROM mail_deliveries WHERE request_digest=?").bind(await requestDigest(c.get("runtimeConfig").sessionSecret, input.email, input.requestKey)).first<MailRow>();
+      if (!row) return c.json({ state: "unconfirmed", errorDetail: null, nextAttemptAt: null, canRetry: false });
+      const { state, errorDetail, nextAttemptAt, canRetry } = mailStatus(row, new Date().toISOString());
+      return c.json({ state, errorDetail, nextAttemptAt, canRetry });
     })
-    .get('/api/auth/invitation/accept', async c => {
-      const token=z.string().min(20).max(512).safeParse(c.req.query('token'));
-      if(!token.success)return c.json(error('LINK_INVALID','Invalid link.'),400);
-      const config=c.get('runtimeConfig');const session=await acceptInvitation(c.env.DB,config,token.data,{files:c.env.FILES,jobs:c.env.JOBS});
-      c.header('Set-Cookie',createSessionService(c.env.DB,config.sessionSecret).cookieFor(session.token,session.expiresAt,new URL(c.req.url).protocol==='https:'));
-      return c.redirect('/app');
+    .on(["GET", "HEAD", "POST"], [...BASE_AUTH_PATHS], async c => {
+      const { handle } = await createSlateAuth(c.env.DB, c.get("runtimeConfig"), { waitUntil: promise => c.executionCtx.waitUntil(promise) });
+      const response = await handle(c.req.raw);
+      // With SSO off no provider owns the callback, and Base answers null for it.
+      if (!response) return c.json(error("NOT_FOUND", "Not found."), 404);
+      // A used, expired or foreign link submitted from the confirmation page gets the same page, not JSON.
+      if (c.req.path === "/auth/confirm" && c.req.method === "POST" && response.status === 400) return retiredLink("POST");
+      return response;
     })
-    .post("/api/auth/local-sign-in", async (context) => {
-      const hostname = new URL(context.req.url).hostname;
-      const body = await context.req.json().catch(() => null);
-      const input = localSignInInput.safeParse(body);
-      if (!input.success) return context.json(error("INVALID_REQUEST", "The local sign-in request is invalid."), 400);
-
-      const config = context.get("runtimeConfig");
-      const localSampleData = config.localSampleData && isLoopbackHostname(hostname);
-      const service = createSessionService(context.env.DB, config.sessionSecret);
-      if (localSampleData && !await seedLocalSampleData(context.env.DB)) {
-        return context.json(error("LOCAL_SAMPLE_UNAVAILABLE", "Local sample sign-in only operates on an empty database or the sole Aurora sample workspace."), 409);
+    .get("/api/auth/magic/accept", c => retiredLink(c.req.method))
+    // WORK-006: the link only shows a confirmation page; its same-origin POST accepts once and
+    // the session is issued by the native session store Base's adapters use.
+    .get("/api/auth/invitation/accept", async c => {
+      const token = invitationToken.safeParse(c.req.query("token"));
+      const preview = token.success ? await previewInvitation(c.env.DB, c.get("runtimeConfig"), token.data) : null;
+      return invitationPage({ token: token.success ? token.data : "", expiresAt: preview?.expiresAt ?? null, method: c.req.method });
+    })
+    .post("/api/auth/invitation/accept", async c => {
+      const form = await c.req.parseBody();
+      const token = invitationToken.safeParse(form.token);
+      if (!token.success) return invitationPage({ token: "", expiresAt: null, method: "POST" });
+      const config = c.get("runtimeConfig");
+      let accepted: { memberId: string };
+      try { accepted = await acceptInvitation(c.env.DB, config, token.data, { files: c.env.FILES, jobs: c.env.JOBS }); }
+      catch (cause) {
+        if (cause instanceof ApiProblem && cause.code === "LINK_INVALID") return invitationPage({ token: "", expiresAt: null, method: "POST" });
+        throw cause;
       }
-      const session = await service.createLocalSession(localSampleData);
-      if (!session) return context.json(error("NOT_FOUND", "Not found."), 404);
-
-      const secure = new URL(context.req.url).protocol === "https:";
-      context.header("Set-Cookie", service.cookieFor(session.token, session.expiresAt, secure));
-      return context.json({ next: safeAppPath(input.data.next), member: session.member });
+      const store = slateSessions(c.env.DB, config), person = await store.member("id=?", accepted.memberId);
+      const completed = person && await store.issue({ person, kind: "native", now: Date.now(), returnTo: "/app", freshProof: true });
+      if (!completed) return invitationAcceptedPage("POST");
+      c.header("Set-Cookie", completed.cookie);
+      return c.redirect(completed.returnTo, 303);
     })
-    .post("/api/auth/logout", async (context) => {
-      const config = context.get("runtimeConfig");
-      const cookie = await createSessionService(context.env.DB, config.sessionSecret).logout(context.req.raw.headers);
-      context.header("Set-Cookie", cookie);
-      return context.body(null, 204);
+    .post("/api/auth/logout", async c => {
+      const { auth } = await createSlateAuth(c.env.DB, c.get("runtimeConfig"));
+      try { c.header("Set-Cookie", (await auth.signOut(c.req.raw)).cookie); }
+      catch (cause) { authProblem(cause); }
+      return c.body(null, 204);
     })
     .get("/api/session", (context) => {
       const member = context.get("member");

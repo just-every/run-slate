@@ -1,0 +1,30 @@
+/* Header, footer, the brand lockup, pills and text links. */
+.slate-landing .site-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; max-width: 1536px; height: var(--header); margin: 0 auto; padding: 0 var(--gutter); }
+.slate-landing .site-header nav { display: flex; align-items: center; gap: 8px max(24px, calc(36 * var(--u))); font-size: max(16px, calc(17 * var(--u))); font-weight: 400; }
+.slate-landing .site-header .pill { min-height: max(44px, calc(45 * var(--u))); padding: 0 max(20px, calc(21 * var(--u))); font-size: max(15px, calc(16.4 * var(--u))); }
+
+.slate-landing .brand { display: inline-flex; align-items: center; gap: max(8px, calc(14 * var(--u))); }
+.slate-landing .brand-name { font-size: max(28px, calc(36 * var(--u))); font-weight: 500; letter-spacing: -0.035em; line-height: 1; }
+.slate-landing .brand-mark { display: block; flex: none; width: max(48px, calc(66 * var(--u))); color: var(--ink); }
+.slate-landing .brand-mark svg { width: 100%; height: auto; }
+
+.slate-landing .pill { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 26px; border-radius: 999px; font-size: 17px; font-weight: 500; line-height: 1; white-space: nowrap; transition: background-color 0.18s, border-color 0.18s; }
+.slate-landing .pill--ink { background: var(--ink); color: #fff; border: 1.5px solid var(--ink); }
+.slate-landing .pill--ink:hover { background: #3a3a35; border-color: #3a3a35; }
+.slate-landing .pill--large { min-height: max(54px, calc(62 * var(--u))); padding: 0 max(30px, calc(39 * var(--u))); font-size: max(18px, calc(20 * var(--u))); }
+.slate-landing .text-link { font-size: max(18px, calc(20 * var(--u))); font-weight: 500; text-decoration: underline; text-decoration-color: #5d8a5a; text-decoration-thickness: 2px; text-underline-offset: 7px; transition: text-decoration-color 0.18s; }
+.slate-landing .text-link:hover { text-decoration-color: var(--ink); }
+.slate-landing .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px max(24px, calc(38 * var(--u))); }
+.slate-landing .ic--inline { width: 18px; height: 18px; }
+
+.slate-landing .site-footer { max-width: 1536px; margin: 0 auto; padding: 0 var(--gutter) 44px; }
+.slate-landing .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 20px 32px; padding-top: 40px; border-top: 1.5px solid var(--line); }
+.slate-landing .footer-id { display: flex; align-items: center; gap: 22px; }
+.slate-landing .footer-id .brand-name { font-size: 26px; }
+.slate-landing .footer-id .brand-mark { width: 42px; }
+.slate-landing .footer-tagline { color: var(--soft); font-size: 16px; }
+.slate-landing .footer-row nav { display: flex; gap: 8px 32px; margin-left: auto; font-size: 16px; }
+.slate-landing .footer-row nav a:hover, .slate-landing .footer-credit a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.slate-landing .footer-credit { color: var(--soft); font-size: 15px; }
+.slate-landing .footer-credit a { text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; }
+.slate-landing .footer-about { margin-top: 14px; color: var(--muted); font-size: 14px; }

@@ -1,4 +1,4 @@
-export const requiredPublicInputs = ['SETUP_OWNER_EMAIL', 'MAIL_FROM'];
+export const requiredPublicInputs = ['SETUP_OWNER_EMAIL', 'MAIL_FROM', 'MAIL_PROVIDER'];
 export const fixedVariables = ['APP_URL', 'PUBLIC_PAGE_HOST', 'SLATE_PROFILE', 'AI_ENABLED', 'SSO_ENABLED', 'AI_PROVIDER', 'ALLOW_LOOPBACK_DELEGATION', 'RER_INSTALLATION_ID', 'RER_MANAGEMENT_ORIGIN'];
 const editable = new Set([...requiredPublicInputs, 'LINK_PREVIEWS_ENABLED']);
 export function publicInputs(config) {
@@ -12,6 +12,7 @@ export function publicInputs(config) {
   if (requiredPublicInputs.some(name => !result[name])) throw Error('Setup owner email and sender are required');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(result.SETUP_OWNER_EMAIL) || /[\r\n]/.test(result.MAIL_FROM)) throw Error('Invalid owner or sender');
   if (result.LINK_PREVIEWS_ENABLED !== undefined && !['true', 'false'].includes(result.LINK_PREVIEWS_ENABLED)) throw Error('Invalid link preview setting');
+  if (!['resend', 'sendgrid'].includes(result.MAIL_PROVIDER)) throw Error('Hosted mail requires Resend or SendGrid.');
   return result;
 }
 export function validateAddresses(plan) {

@@ -2,6 +2,12 @@ import {ViewCriteria} from "./ViewCriteria";
 import {FavouriteControl} from "../../../navigation/ui/workspace/FavouriteControl";
 import {RecordPeek} from "./RecordPeek";
 import {AutomationWorkspace} from "../../../automation/ui/workspace/AutomationWorkspace";
+import {DatabaseToolbar, type DatabaseMode} from "./DatabaseToolbar";
+import {FieldsMenu, ViewMenu} from "./DatabaseMenus";
+import {IconLink} from "../../../../app/ui/header/IconAction";
+import {TopBar} from "../../../../app/ui/header/TopBar";
+import {PageTitle} from "../../../../app/ui/header/PageTitle";
+import { Info } from "lucide-react";
 import { useState } from "react";
 import { useRecordReferences } from "../../../../client/useRecordReferences";
 import { useResource } from "../../../../client/useResource";
@@ -31,7 +37,6 @@ import { ReferenceValueDialog } from "./ReferenceValueDialog";
 import { RecordValueDialog } from "./RecordValueDialog";
 import type { FieldValue } from "../types";
 export function DatabaseWorkspace({ id }: { id: string }) {
-  const [automations,setAutomations]=useState(false);
   const [peek,setPeek]=useState<string>();
   const [peekMode,setPeekMode]=useState<"side"|"center">("side");
   const resource = useResource<DatabaseDto>(`/api/databases/${id}`);
@@ -46,12 +51,26 @@ export function DatabaseWorkspace({ id }: { id: string }) {
     view ? `/api/databases/${id}/views/${view.id}` : null,
   );
   const [fieldEdit, setFieldEdit] = useState<FieldDto>();
-  const [chart, setChart] = useState(false);
+  const [mode, setMode] = useState<DatabaseMode>("records");
   const [dialog, setDialog] = useState<"new" | "view" | "delete-view" | null>(null);
   const [edit, setEdit] = useState<{ record: RecordDto; field: FieldDto }>();
   const [error, setError] = useState<unknown>();
   const [search, setSearch] = useState("");
   const canEdit = page.data?.permissions.canEdit ?? false;
+  const locked = !!resource.data?.database.structure_locked_at;
+  const title = page.data?.page.title ?? "Records";
+  const newView = (position: number): ViewDto => ({
+    id: crypto.randomUUID(),
+    name: "New view",
+    layout: "table",
+    filters: [],
+    sorts: [],
+    groups: [],
+    calculations: {},
+    display: {},
+    position,
+    revisionId: "",
+  });
   async function reload() {
     if(!await resource.reload())throw new Error('The change was saved, but the database could not be refreshed. Reload it before editing again.');
     await query.reload();
@@ -101,17 +120,16 @@ export function DatabaseWorkspace({ id }: { id: string }) {
   return (
     <>
       {peek?<RecordPeek databaseId={id} id={peek} mode={peekMode} onMode={setPeekMode} onClose={()=>setPeek(undefined)}/>:null}
-      <header className="topbar">
-        <a href="/app">Records</a>
-        <button onClick={()=>setAutomations(!automations)}>Automations</button><FavouriteControl kind="database" id={id}/>
+      <TopBar trail={[{ label: "Databases" }, { label: title }]}>
+        <FavouriteControl iconOnly kind="database" id={id}/>
         {page.data ? (
-          <a href={`/app/pages/${page.data.page.id}`}>About this database</a>
+          <IconLink label="About this database" tooltipAlign="end" href={`/app/pages/${page.data.page.id}`}>
+            <Info aria-hidden="true" />
+          </IconLink>
         ) : null}
-      </header>
-      {automations ? <AutomationWorkspace sourceId={id}/>:null}
-      <section className="main database-workspace">
-        <p className="eyebrow">STRUCTURED KNOWLEDGE</p>
-        <h1 className="title">{page.data?.page.title ?? "Records"}</h1>
+      </TopBar>
+      <section className="main database-workspace" data-layout="wide">
+        <PageTitle>{title}</PageTitle>
         <RequestState
           loading={resource.loading || page.loading}
           error={resource.error ?? page.error}
@@ -119,89 +137,33 @@ export function DatabaseWorkspace({ id }: { id: string }) {
         >
           {resource.data ? (
             <>
-              <div className="action-row">
-                <nav aria-label="Saved views">
-                  {resource.data.views.map((item) => (
-                    <button
-                      key={item.id}
-                      aria-pressed={view?.id === item.id}
-                      onClick={() => setActive(item.id)}
-                    >
-                      {item.name}
-                    </button>
-                  ))}
-                </nav>
+              <DatabaseToolbar
+                views={resource.data.views}
+                activeViewId={view?.id}
+                onSelectView={(next) => { setMode("records"); setActive(next); }}
+                mode={mode}
+                onMode={setMode}
+                search={search}
+                onSearch={setSearch}
+              >
                 {canEdit ? (
-                  <>
-                    <button
-                      disabled={!!resource.data.database.structure_locked_at}
-                      onClick={() =>
-                        setFieldEdit({
-                          id: crypto.randomUUID(),
-                          name: "",
-                          type: "text",
-                          config: {},
-                          position: fields.length,
-                        })
-                      }
-                    >
-                      Add field
-                    </button>
-                    <button disabled={!!resource.data.database.structure_locked_at} onClick={() => setDialog("view")}>
-                      View settings
-                    </button>
-                    <button
-                      disabled={!!resource.data.database.structure_locked_at}
-                      onClick={() =>
-                        void saveView({
-                          id: crypto.randomUUID(),
-                          name: "New view",
-                          layout: "table",
-                          filters: [],
-                          sorts: [],
-                          groups: [],
-                          calculations: {},
-                          display: {},
-                          position: resource.data!.views.length,
-                          revisionId: "",
-                        }).catch(setError)
-                      }
-                    >
-                      Add view
-                    </button>
-                    {view?<><button disabled={!!resource.data.database.structure_locked_at} onClick={()=>void saveView({...view,id:crypto.randomUUID(),name:`${view.name} copy`,position:resource.data!.views.length,revisionId:''}).catch(setError)}>Duplicate view</button><button disabled={!!resource.data.database.structure_locked_at} onClick={()=>setDialog('delete-view')}>Delete view</button></>:null}
-                    <button
-                      className="primary-button"
-                      onClick={() => setDialog("new")}
-                    >
-                      New record
-                    </button>
-                  </>
-                ) : null}
-                <button onClick={() => setChart(!chart)} aria-expanded={chart}>
-                  Chart
-                </button>
-                <label>
-                  Find in this view
-                  <input
-                    type="search"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                  <ViewMenu
+                    hasView={!!view}
+                    locked={locked}
+                    onSettings={() => setDialog("view")}
+                    onAdd={() => void saveView(newView(resource.data!.views.length)).catch(setError)}
+                    onDuplicate={() => view && void saveView({ ...view, id: crypto.randomUUID(), name: `${view.name} copy`, position: resource.data!.views.length, revisionId: "" }).catch(setError)}
+                    onDelete={() => setDialog("delete-view")}
                   />
-                </label>
-              </div>
-              {view?<ViewCriteria view={view} fields={fields} canClear={canEdit&&!resource.data.database.structure_locked_at} onClear={()=>void saveView({...view,filters:[]}).catch(setError)}/>:null}
-              {resource.data.database.structure_locked_at ? (
-                <p>
-                  Structure locked by{" "}
-                  {resource.data.database.structure_locked_by_name ??
-                    "a workspace member"}
-                  . Record values remain editable.
-                </p>
-              ) : null}
-              {page.data?.permissions.canShare ? (
-                <button
-                  onClick={() =>
+                ) : null}
+                <FieldsMenu
+                  fields={fields}
+                  canEdit={canEdit}
+                  canShare={page.data?.permissions.canShare ?? false}
+                  locked={locked}
+                  onAddField={() => setFieldEdit({ id: crypto.randomUUID(), name: "", type: "text", config: {}, position: fields.length })}
+                  onEditField={setFieldEdit}
+                  onToggleLock={() =>
                     void mutate(`/api/databases/${id}/lock`, {
                       operationKey: operationKey(),
                       expectedRevisionId: resource.data!.database.revision_id,
@@ -210,23 +172,24 @@ export function DatabaseWorkspace({ id }: { id: string }) {
                       .then(reload)
                       .catch(setError)
                   }
-                >
-                  {resource.data.database.structure_locked_at
-                    ? "Unlock structure"
-                    : "Lock structure"}
-                </button>
+                />
+                {canEdit ? (
+                  <button className="tool tool-primary" type="button" onClick={() => setDialog("new")}>
+                    New record
+                  </button>
+                ) : null}
+              </DatabaseToolbar>
+              {mode === "automations" ? <AutomationWorkspace sourceId={id}/> : <>
+              {view?<ViewCriteria view={view} fields={fields} canClear={canEdit&&!locked} onClear={()=>void saveView({...view,filters:[]}).catch(setError)}/>:null}
+              {locked ? (
+                <p className="muted">
+                  Structure locked by{" "}
+                  {resource.data.database.structure_locked_by_name ??
+                    "a workspace member"}
+                  . Record values remain editable.
+                </p>
               ) : null}
-              {canEdit && !resource.data.database.structure_locked_at ? (
-                <details>
-                  <summary>Fields</summary>
-                  {fields.map((field) => (
-                    <button key={field.id} onClick={() => setFieldEdit(field)}>
-                      {field.name}
-                    </button>
-                  ))}
-                </details>
-              ) : null}
-              {chart && view ? (
+              {mode === "chart" && view ? (
                 <DatabaseChart
                   databaseId={id}
                   viewId={view.id}
@@ -299,6 +262,7 @@ export function DatabaseWorkspace({ id }: { id: string }) {
                   <p className="muted">No records match this view.</p>
                 ) : null}
               </RequestState>
+              </>}
             </>
           ) : null}
         </RequestState>

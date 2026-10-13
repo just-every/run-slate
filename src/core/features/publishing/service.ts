@@ -68,9 +68,11 @@ export async function publicPage(db: D1Database, host: string, slug: string) {
         throw new ApiProblem(404, 'NOT_FOUND', 'This link is no longer available.');
     return p;
 }
-export async function publicLinkMap(db: D1Database, exposure: Record<string, any>) { const ids = new Set<string>(JSON.stringify(JSON.parse(exposure.body_json)).match(/[0-9A-HJKMNP-TV-Z]{26}/g) ?? []); if (!ids.size)
-    return {}; const rows = (await db.prepare("SELECT p.id,e.host,e.slug FROM public_exposures e JOIN pages p ON p.id=e.page_id JOIN containers c ON c.id=p.container_id JOIN workspaces w ON w.id=p.workspace_id WHERE p.workspace_id=? AND e.revoked_at IS NULL AND p.deleted_at IS NULL AND p.trashed_at IS NULL AND p.archived_at IS NULL AND p.lifecycle IN ('live','live-with-unpublished-changes') AND c.public_link_access='allowed' AND c.anonymous_access='allowed' AND w.public_link_access='allowed' AND w.anonymous_access='allowed'").bind(exposure.workspace_id).all<{
+/** Anonymous links and published titles for the pages a public page mentions or links to. */
+export async function publicTargets(db: D1Database, exposure: Record<string, any>): Promise<{ links: Record<string, string>; titles: Record<string, string> }> { const ids = new Set<string>(JSON.stringify(JSON.parse(exposure.body_json)).match(/[0-9A-HJKMNP-TV-Z]{26}/g) ?? []); if (!ids.size)
+    return { links: {}, titles: {} }; const rows = (await db.prepare("SELECT p.id,e.host,e.slug,(SELECT json_extract(r.properties_json,'$.title') FROM page_revisions r WHERE r.id=p.published_revision_id) AS title FROM public_exposures e JOIN pages p ON p.id=e.page_id JOIN containers c ON c.id=p.container_id JOIN workspaces w ON w.id=p.workspace_id WHERE p.workspace_id=? AND e.revoked_at IS NULL AND p.deleted_at IS NULL AND p.trashed_at IS NULL AND p.archived_at IS NULL AND p.lifecycle IN ('live','live-with-unpublished-changes') AND c.public_link_access='allowed' AND c.anonymous_access='allowed' AND w.public_link_access='allowed' AND w.anonymous_access='allowed'").bind(exposure.workspace_id).all<{
     id: string;
     host: string;
     slug: string;
-}>()).results; return Object.fromEntries(rows.filter(r => ids.has(r.id)).map(r => [r.id, r.host === exposure.host ? `/p/${r.slug}` : `https://${r.host}/p/${r.slug}`])); }
+    title: string | null;
+}>()).results.filter(r => ids.has(r.id)); return { links: Object.fromEntries(rows.map(r => [r.id, r.host === exposure.host ? `/p/${r.slug}` : `https://${r.host}/p/${r.slug}`])), titles: Object.fromEntries(rows.flatMap(r => r.title === null ? [] : [[r.id, r.title]])) }; }

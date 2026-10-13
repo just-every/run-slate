@@ -342,15 +342,6 @@
     },
     {
       "file": "tests/flagship/core/identity.test.ts",
-      "testName": "BASE-ACCESS-001 magic links are single-use and expired/revoked-member links fail",
-      "kind": "supporting-regression",
-      "clauses": [
-        "BASE-ACCESS-001"
-      ],
-      "reason": "Asserts BASE-ACCESS-001 magic links are single-use and expired/revoked-member links fail. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
       "testName": "WORK-006 invitation concurrent replay creates exactly one active member",
       "kind": "supporting-regression",
       "clauses": [
@@ -375,15 +366,6 @@
         "BASE-ACCESS-002"
       ],
       "reason": "Asserts cross-origin cookie mutations are denied before writes. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
-      "testName": "WORK-015 configured identity rejects browser-state mismatch before remote sign-in",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-015"
-      ],
-      "reason": "Asserts WORK-015 configured identity rejects browser-state mismatch before remote sign-in. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/core/identity.test.ts",
@@ -466,15 +448,6 @@
         "MAIL-002"
       ],
       "reason": "Asserts MAIL-002 Worker lost provider response replays identical request without a second logical email. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/oidc.test.ts",
-      "testName": "WORK-015 signed configured OIDC validates nonce audience issuer and existing mailbox, then consumes state",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-015"
-      ],
-      "reason": "Asserts WORK-015 signed configured OIDC validates nonce audience issuer and existing mailbox, then consumes state. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/core/security.test.ts",
@@ -751,13 +724,13 @@
     },
     {
       "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation imports genuine Notion and Confluence exports atomically",
+      "testName": "durable imports and federation reviews genuine Notion and Confluence exports before atomic publication",
       "kind": "supporting-regression",
       "clauses": [
         "IMP-002",
         "IMP-003"
       ],
-      "reason": "Asserts durable imports and federation imports genuine Notion and Confluence exports atomically. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts durable imports and federation reviews genuine Notion and Confluence exports before atomic publication. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/federation/federation.test.ts",
@@ -2061,6 +2034,171 @@
         "INQ-005"
       ],
       "reason": "Controlled local Worker regression; no provider or full clause acceptance claim."
+    },
+    {
+      "file": "tests/e2e/landing.test.ts",
+      "testName": "HOME-001 landing page supporting regressions installed root: the Worker answers / with the Lobby, which offers setup until the owner finishes first-run setup and sign-in after",
+      "kind": "supporting-regression",
+      "clauses": [
+        "HOME-001"
+      ],
+      "reason": "Controlled local Worker regression of the amended HOME-001 installed root: the shared Lobby and GET /setup/state before and after the first-run record, with no workspace data, cookie or script. No browser, accessibility or full clause acceptance claim."
+    },
+    {
+      "file": "tests/e2e/landing.test.ts",
+      "testName": "HOME-001 landing page supporting regressions landing page: owner identity, description and the credit toggle are read from the owner configuration",
+      "kind": "supporting-regression",
+      "clauses": [
+        "HOME-001"
+      ],
+      "reason": "Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim."
+    },
+    {
+      "file": "tests/e2e/landing.test.ts",
+      "testName": "HOME-001 landing page supporting regressions landing page: sections, the Run page link and outbound addresses are the static product description only",
+      "kind": "supporting-regression",
+      "clauses": [
+        "HOME-001"
+      ],
+      "reason": "Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim."
+    },
+    {
+      "file": "tests/e2e/landing.test.ts",
+      "testName": "HOME-001 landing page supporting regressions landing page: source loads nothing off-origin, sets no cookies and tracks no one",
+      "kind": "supporting-regression",
+      "clauses": [
+        "HOME-001"
+      ],
+      "reason": "Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim."
+    },
+    {
+      "file": "tests/e2e/docs.test.ts",
+      "testName": "DOCS-001 public documentation supporting regressions docs: the Worker serves /docs and each published page with one h1, the landing frame and the section navigation",
+      "kind": "supporting-regression",
+      "clauses": [
+        "DOCS-001"
+      ],
+      "reason": "Controlled local Worker regression of the DOCS-001 public documentation routes: what the documents render and which requests they refuse. No browser, cookie, accessibility, emitted-artifact or full clause acceptance claim."
+    },
+    {
+      "file": "tests/e2e/docs.test.ts",
+      "testName": "DOCS-001 public documentation supporting regressions docs: an unknown, miscased or nested slug is a real 404 and /docs is not a Hono or operator route",
+      "kind": "supporting-regression",
+      "clauses": [
+        "DOCS-001"
+      ],
+      "reason": "Controlled local Worker regression of the DOCS-001 public documentation routes: what the documents render and which requests they refuse. No browser, cookie, accessibility, emitted-artifact or full clause acceptance claim."
+    },
+    {
+      "file": "tests/e2e/docs.test.ts",
+      "testName": "DOCS-001 public documentation supporting regressions docs: the landing links to /docs and /docs/install and the docs header has no brand h1",
+      "kind": "supporting-regression",
+      "clauses": [
+        "DOCS-001"
+      ],
+      "reason": "Controlled local Worker regression of the DOCS-001 public documentation routes: what the documents render and which requests they refuse. No browser, cookie, accessibility, emitted-artifact or full clause acceptance claim."
+    },
+    {
+      "file": "tests/e2e/search/fts-permissions.test.ts",
+      "testName": "Indexed search uses current native authority for literal matches, totals, facets and cursors",
+      "kind": "supporting-regression",
+      "clauses": [
+        "SEARCH-001",
+        "SEARCH-002",
+        "SEARCH-003"
+      ],
+      "reason": "Local native public search route exercises live member/guest/grant boundaries, private content, archive/trash filters, literal syntax, cursor revocation and reader-specific computed record values. This is supporting regression evidence, not full search UI or hosted capacity acceptance."
+    },
+    {
+      "file": "tests/e2e/search/fts-upgrade.test.ts",
+      "testName": "Prior-data search upgrade backfills existing text, preserves pending work and rebuilds from canonical content",
+      "kind": "supporting-regression",
+      "clauses": [
+        "SEARCH-001",
+        "SEARCH-002",
+        "SEARCH-003",
+        "PORT-002",
+        "PORT-006"
+      ],
+      "reason": "Local D1 prior-data upgrade preserves canonical rows, pending dirty work, saved search and completed import metadata; checks FTS migration backfill before route repair, then compares public search responses before and after canonical rebuild. Real CLI and native archive transfer are separate evidence; this does not establish complete portability or hosted acceptance."
+    },
+    {
+      "file": "tests/flagship/core/identity-upgrade.test.ts",
+      "testName": "published v0.1.0 members, groups, guests and live sessions keep identity, access and authority through Base sign-in adoption",
+      "kind": "supporting-regression",
+      "clauses": [
+        "BASE-ACCESS-001",
+        "BASE-ACCESS-002",
+        "WORK-008",
+        "WORK-009",
+        "WORK-010",
+        "WORK-015"
+      ],
+      "reason": "A D1 store at the published v0.1.0 schema with owner, member, scoped guest, group and live sessions upgrades through 0018-0023; the access table holds through HTTP. Earlier GET links retire; Base email proofs preview inert and confirm once by same-origin POST; the pinned incumbent provider with a real RS256 signature binds the verified mailbox's member and never moves a binding; ownership change needs a step-up proof from the asking session and ends the changed member's fenced sessions. Live provider acceptance and full product acceptance are separate."
+    },
+    {
+      "file": "tests/e2e/imports/preview-undo.test.ts",
+      "testName": "reviews, applies and reverses real notion-workspace content without losing native edits",
+      "kind": "supporting-regression",
+      "clauses": [
+        "IMP-001",
+        "IMP-002",
+        "PORT-004"
+      ],
+      "reason": "Through actual Worker HTTP routes, the committed small anonymised export is previewed without target writes, explicitly applied and resumed, indexed before Completed, downloaded exactly and undone while preserving a native edit and reporting its conflict. This supports the listed flows only; it does not establish generated scale, hosted capacity, all UI states or complete product acceptance."
+    },
+    {
+      "file": "tests/e2e/imports/preview-undo.test.ts",
+      "testName": "reviews, applies and reverses real confluence-space content without losing native edits",
+      "kind": "supporting-regression",
+      "clauses": [
+        "IMP-001",
+        "IMP-003",
+        "PORT-004"
+      ],
+      "reason": "Through actual Worker HTTP routes, the committed small anonymised export is previewed without target writes, explicitly applied and resumed, indexed before Completed, downloaded exactly and undone while preserving a native edit and reporting its conflict. This supports the listed flows only; it does not establish generated scale, hosted capacity, all UI states or complete product acceptance."
+    },
+    {
+      "file": "tests/e2e/review/review-access.test.ts",
+      "testName": "Needs review lists only pages each member may read now, by filter, with live access on every request and cursor page",
+      "kind": "supporting-regression",
+      "clauses": [
+        "STAT-003",
+        "STAT-004",
+        "SEARCH-001"
+      ],
+      "reason": "Local native review-list route over the search fixture's members: owner, reader, guest, page-only guest, denied, expired and revoked grants, inactive and removed members and anonymous; drafts, personal containers, a restricted child, archived, trashed and cleared-status pages; totals, titles, states, filter counts, sidebar count, a cursor taken before a revocation and no space name for page-only guests. Supporting regression evidence, not full UI acceptance."
+    },
+    {
+      "file": "tests/e2e/review/verification-flow.test.ts",
+      "testName": "Verifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current",
+      "kind": "supporting-regression",
+      "clauses": [
+        "STAT-003",
+        "REV-004",
+        "REV-005"
+      ],
+      "reason": "Local native status route: server-clock 7/30/90-day expiries, a future date, no expiry, refused past dates and invalid presets, the unopened-revision and outdated-revision refusals, and a second member's edit making the verified revision not current with revisions and editors since, the verified revision readable as committed and comparable with now. Supporting regression evidence, not full UI acceptance."
+    },
+    {
+      "file": "tests/e2e/review/verification-upgrade.test.ts",
+      "testName": "Existing verifications upgrade in place and the list and lapse notice treat each correctly",
+      "kind": "supporting-regression",
+      "clauses": [
+        "STAT-004",
+        "NOTIF-001"
+      ],
+      "reason": "Local D1 prior-data upgrade through migration 0026: current, lapsed and notified, lapsed and due, changed-since and departed-verifier rows are unchanged, the review list and page reads show each state, and two lapse-job runs notify only the due row once without stalling on the departed verifier. Real CLI export/import of an upgraded store is separate evidence."
+    },
+    {
+      "file": "tests/e2e/imports/undo-cross-references.test.ts",
+      "testName": "Undo removes unedited and merely shared imported pages and keeps an edited page with every page and file it needs",
+      "kind": "supporting-regression",
+      "clauses": [
+        "IMP-001",
+        "IMP-003"
+      ],
+      "reason": "Through actual Worker HTTP routes, the generated server-dc-entities scale archive (3,000 pages whose first three link each other's attachments across stream children) is imported, one page is edited and the import is undone: unedited cross-linked pages and files are removed, and only the edited page and what it needs are kept and labelled. This supports Undo only; it does not establish hosted capacity or complete product acceptance."
     }
   ]
 }

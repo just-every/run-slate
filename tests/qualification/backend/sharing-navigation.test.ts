@@ -47,7 +47,10 @@ test('NAV-001/003/004 local: favourites preserve database destinations and perso
   const destinations=[{id:'search',label:'Find',href:'/app/search',visible:true},{id:'home',label:'Home',href:'/app',visible:false}];
   const configuration=await f.request('PUT','/api/navigation/configuration',{operationKey:createUlid(),expectedRevisionId:null,destinations});
   expect(configuration.status).toBe(200);
-  expect((await f.request('GET','/api/navigation',undefined,f.readerId)).data.configuration.destinations).toEqual(destinations);
+  // The workspace's saved destinations reach every member in their saved order and
+  // visibility; destinations added to Slate since the save are appended after them.
+  const shown=(await f.request('GET','/api/navigation',undefined,f.readerId)).data.configuration.destinations as {id:string}[];
+  expect(shown.filter(item=>destinations.some(saved=>saved.id===item.id))).toEqual(destinations);
   expect((await f.request('PUT','/api/navigation/configuration',{operationKey:createUlid(),expectedRevisionId:null,destinations})).status).toBe(409);
   expect((await f.request('PUT','/api/navigation/configuration',{operationKey:createUlid(),expectedRevisionId:configuration.data.value.revisionId,destinations},f.readerId)).status).toBe(403);
   expect((await f.request('PUT','/api/navigation/favourites',{operationKey:createUlid(),kind:'database',id:db.data.value.id,enabled:false})).status).toBe(200);

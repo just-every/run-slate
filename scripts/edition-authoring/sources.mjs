@@ -2,17 +2,10 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
-import {hash, json, git, safe, digest, noLinks} from './files.mjs';
+import {hash, json, git, raw, safe, digest, noLinks} from './files.mjs';
+import {snapshotOrigin, verifyProjectionLock} from './projection-lock.mjs';
 
 const environment = {...process.env, GIT_NO_REPLACE_OBJECTS: '1'};
-function raw(root, ...args) {
-  try {
-    return execFileSync('git', ['-C', root, ...args], {env: environment, maxBuffer: 64 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe']});
-  } catch (error) {
-    if (error.code === 'ENOBUFS') throw Error('Git source output exceeds the 64 MiB acquisition limit');
-    throw error;
-  }
-}
 function selected(name, ref) {
   const prefix = ref.path && ref.path !== '.' ? ref.path : '';
   if (prefix && name !== prefix && !name.startsWith(prefix + '/')) return false;
@@ -44,13 +37,17 @@ function committed(root, ref, archives) {
   return files;
 }
 export function snapshot(root, ref, retain = false) {
-  const origin = {repository: ref.repository, revision: ref.revision, path: ref.path || '.', paths: ref.paths || null, excludeSnapshots: !!ref.excludeSnapshots};
+  if (ref.projection && ref.workspace) throw Error('Public projections cannot select workspace source');
+  const origin = snapshotOrigin(ref);
   const key = hash(json(origin));
   noLinks(root, '.edition/sources/' + key + '.json');
   const filename = path.join(root, '.edition/sources', key + '.json');
   if (fs.existsSync(filename)) {
-    const saved = JSON.parse(fs.readFileSync(filename));
+    if (!fs.lstatSync(filename).isFile()) throw Error('Retained source snapshot must be a regular file');
+    const bytes = fs.readFileSync(filename);
+    const saved = JSON.parse(bytes);
     if (saved.key !== key || json(saved.origin) !== json(origin) || saved.digest !== digest(saved.files)) throw Error('Corrupt retained source snapshot');
+    if (ref.projection) verifyProjectionLock(root, origin, saved, bytes);
     for (const dependency of saved.dependencies || []) {
       noLinks(root, '.edition/sources/' + dependency.key + '.json');
       const ancestor = JSON.parse(fs.readFileSync(path.join(root, '.edition/sources', dependency.key + '.json')));
@@ -60,6 +57,8 @@ export function snapshot(root, ref, retain = false) {
     }
     return saved;
   }
+  // A projection has no fetchable revision; it exists only as a reviewed retained archive.
+  if (ref.projection) throw Error('Missing retained public projection; regenerate from the pinned private original outside the public tree');
   const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'edition-source-'));
   try {
     execFileSync('git', ['clone', '--no-checkout', '--', ref.repository, temp], {env: environment, stdio: 'pipe'});
@@ -83,6 +82,7 @@ export function snapshot(root, ref, retain = false) {
   }
 }
 export function source(root, ref, dev = false, retain = false) {
+  if (ref.projection && ref.workspace) throw Error('Public projections cannot select workspace source');
   if (!dev || !ref.workspace) return snapshot(root, ref, retain).files;
   if (fs.realpathSync(git(ref.workspace, 'rev-parse', '--show-toplevel')) !== fs.realpathSync(ref.workspace)) throw Error('Workspace must name the repository root');
   const files = Object.create(null);

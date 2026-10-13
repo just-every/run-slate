@@ -1,0 +1,38 @@
+/* A database screen: compact toolbar above a quiet table. */
+.slate-app .db-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin: 20px 0 12px; padding-bottom: 12px; border-bottom: 1px solid var(--slate-line); }
+.slate-app .db-tabs { margin-block: 0; min-width: 0; }
+.slate-app .db-tabs .tabs-divider { align-self: stretch; width: 1px; margin: 6px 4px; background: var(--slate-line); }
+.slate-app .db-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.slate-app .db-find { position: relative; display: flex; align-items: center; }
+.slate-app .db-find svg { position: absolute; left: 10px; width: 16px; height: 16px; color: var(--slate-ink-faint); pointer-events: none; }
+.slate-app .db-find input { width: 200px; height: 36px; padding: 0 10px 0 32px; border: 1px solid var(--slate-line); border-radius: 6px; background: var(--slate-surface); color: var(--slate-ink); font-size: 14px; }
+.slate-app .db-find input::placeholder { color: var(--slate-ink-faint); }
+.slate-app .view-criteria { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; margin: 0 0 12px; color: var(--slate-ink-muted); font-size: 13px; }
+.slate-app .view-criteria p { margin: 0; }
+.slate-app .view-criteria button { min-height: 28px; padding: 0 10px; font-size: 13px; }
+
+.slate-app .database-workspace table { width: calc(100% + 16px); margin-inline: -8px; border-collapse: collapse; }
+.slate-app .database-workspace thead th { height: 40px; font-size: 13px; font-weight: 500; }
+.slate-app .database-workspace td { background-color: var(--slate-canvas); }
+.slate-app .database-workspace tbody tr:hover td { background-color: var(--slate-wash); }
+.slate-app .database-workspace td :is(button, [role="button"]) { min-width: 0; min-height: 28px; border-color: transparent; background-color: inherit; }
+.slate-app .database-workspace td input { min-height: 28px; border-color: transparent; background-color: inherit; }
+.slate-app .database-workspace td :is(button, [role="button"]):hover { background-color: var(--slate-sidebar-hover); }
+.slate-app .database-workspace tfoot td { background-color: var(--slate-canvas); }
+.slate-app .database-workspace tfoot button { border-color: var(--slate-line); }
+
+.slate-app .record-fields-list { margin: 0 0 24px; }
+@media (max-width: 700px) {
+  .slate-app .db-actions { width: 100%; }
+  .slate-app .db-find { flex: 1 1 100%; }
+  .slate-app .db-find input { width: 100%; }
+}
+.slate-app .database-workspace article :is(button, [role="button"]) { min-width: 0; min-height: 28px; border-color: transparent; background-color: var(--slate-surface); }
+.slate-app .database-workspace section[aria-label] > button { border-color: transparent; background-color: var(--slate-canvas); }
+.slate-app .record-field dd > button { min-height: 28px; border-color: transparent; background-color: var(--slate-canvas); color: var(--slate-ink-muted); }
+.slate-app .record-peek .record-field dd > button { background-color: var(--slate-surface); }
+
+/* The chart panel: three labelled selects of one width on one row, wrapping together on a narrow screen. */
+.slate-app .chart-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 220px)); gap: 12px 16px; margin: 12px 0 16px; }
+.slate-app .chart-controls > label { display: grid; gap: 6px; min-width: 0; color: var(--slate-ink-muted); font-size: 13px; font-weight: 500; }
+.slate-app .chart-controls select { width: 100%; min-width: 0; }

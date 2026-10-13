@@ -4,6 +4,7 @@ import { mutate, operationKey } from "../../../../client/transport";
 import { useResource } from "../../../../client/useResource";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import { RequestState } from "../../../../app/ui/RequestState";
+import { displayDate } from "../../../../app/ui/displayDate";
 type Exposure = {
   host: string;
   slug: string;
@@ -70,7 +71,7 @@ export function PagePublication({
         {exposure?.revokedAt ? (
           <p>
             Public access was stopped{" "}
-            {new Date(exposure.revokedAt).toLocaleString()}.
+            {displayDate(exposure.revokedAt, true)}.
           </p>
         ) : null}
       </RequestState>
@@ -120,7 +121,7 @@ export function PagePublication({
                 <input
                   name="slug"
                   required
-                  pattern="[A-Za-z0-9][A-Za-z0-9/_-]*"
+                  pattern="[A-Za-z0-9][A-Za-z0-9\/_\-]*"
                   defaultValue={exposure?.slug}
                   placeholder="team-handbook"
                 />

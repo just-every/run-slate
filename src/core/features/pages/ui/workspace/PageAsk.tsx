@@ -1,3 +1,5 @@
+import { useWorkspace } from "../../../../app/ui/WorkspaceContext";
+import { askDraftKey, readAskDraft, saveAskDraft } from "./askDraft";
 import type {PageSelection} from "./selection";
 import { PageSuggestions } from "../../../suggestions/ui/PageSuggestions";
 import { ContextDisclosure } from "../../../ai/ui/ContextDisclosure";
@@ -19,13 +21,17 @@ export function PageAsk({ document,selection }: { document: DocumentView;selecti
   const requestKey = useRef<{ signature: string; key: string } | undefined>(
     undefined,
   );
+  const { member } = useWorkspace();
+  const draftKey = askDraftKey(member.workspaceId, member.id, document.page.id);
+  const availability = useResource<{ enabled: boolean; providerConfigured: boolean; modelPolicyConfigured: boolean }>("/api/ai/availability");
+  const canAsk = !!availability.data?.enabled && availability.data.providerConfigured && availability.data.modelPolicyConfigured;
   useEffect(() => {
     setRun(undefined);
-    setQuestion("");
+    setQuestion(readAskDraft(sessionStorage, draftKey));
     setError(undefined);
     requestKey.current = undefined;
-  }, [document.page.id]);
-  const [question, setQuestion] = useState("");
+  }, [draftKey]);
+  const [question, setQuestion] = useState(() => typeof window === "undefined" ? "" : readAskDraft(sessionStorage, draftKey));
   const [selectionAction,setSelectionAction]=useState("improve");
   const [run, setRun] = useState<string>();
   const [error, setError] = useState<unknown>();
@@ -42,10 +48,12 @@ export function PageAsk({ document,selection }: { document: DocumentView;selecti
         uncertainty visible.
       </p>
       <AiAllowance />
+      {availability.error ? <p role="alert">{errorMessage(availability.error)} <button onClick={() => void availability.reload()}>Check AI availability again</button></p> : null}
       <form
         className="detail-form"
         onSubmit={async (event) => {
           event.preventDefault();
+          if (!canAsk || pending) return;
           const data = new FormData(event.currentTarget);
           setPending(true);
           setError(undefined);
@@ -88,19 +96,19 @@ export function PageAsk({ document,selection }: { document: DocumentView;selecti
           }
         }}
       >
-        {selection?<label>Writing action<select value={selectionAction} onChange={e=>setSelectionAction(e.target.value)}>{[['improve','Improve'],['shorten','Shorten'],['expand','Lengthen'],['proofread','Proofread'],['explain','Explain'],['translate','Translate'],['tone','Change tone'],['custom','Free-form instruction']].map(([value,label])=><option key={value} value={value}>{label}</option>)}</select></label>:null}
+        {selection?<label>Writing action<select disabled={!canAsk || pending} value={selectionAction} onChange={e=>setSelectionAction(e.target.value)}>{[['improve','Improve'],['shorten','Shorten'],['expand','Lengthen'],['proofread','Proofread'],['explain','Explain'],['translate','Translate'],['tone','Change tone'],['custom','Free-form instruction']].map(([value,label])=><option key={value} value={value}>{label}</option>)}</select></label>:null}
         <label>
           {selection ? "Instructions, target language or tone" : "Your question"}
           <textarea
             required={!selection || ['translate','tone','custom'].includes(selectionAction)}
             value={question}
-            onChange={(event) => setQuestion(event.target.value)}
+            onChange={(event) => { setQuestion(event.target.value); saveAskDraft(sessionStorage, draftKey, event.target.value); }}
             placeholder="What did we decide, and what remains?"
           />
         </label>
         {!selection ? <label>
           How can Slate help?
-          <select name="kind" defaultValue="answer">
+          <select name="kind" defaultValue="answer" disabled={!canAsk || pending}>
             <option value="answer">Answer a question</option>
             <option value="investigation">
               Investigate a difficult question
@@ -110,7 +118,7 @@ export function PageAsk({ document,selection }: { document: DocumentView;selecti
             <option value="edit">Prepare an edit</option>
           </select>
         </label>:null}
-        <button className="primary-button" disabled={pending} type="submit">
+        <button className="primary-button" disabled={pending || !canAsk} type="submit">
           {pending ? "Starting…" : "Ask Slate"}
         </button>
       </form>

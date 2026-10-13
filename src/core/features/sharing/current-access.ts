@@ -1,3 +1,4 @@
+import {requireImportPublication} from '../imports/publication';
 import type { FeatureContext } from '../../app/feature-context';
 import { ApiProblem } from '../../app/problems';
 import type { AccessLevel, KnowledgeGrant, MemberSubject, PageLifecycle } from '../../shared/knowledge/model';
@@ -46,7 +47,19 @@ export async function requireWorkspaceOwner(ctx:FeatureContext):Promise<void> {
   const owner=await ctx.db.prepare("SELECT id FROM members WHERE id=? AND workspace_id=? AND role='owner' AND member_kind='member' AND status='active'").bind(ctx.actor.id,ctx.actor.workspaceId).first();
   if(!owner) throw new ApiProblem(403,'FORBIDDEN','A workspace owner is required.');
 }
+/** CONT-009 and WORK-008: a container's administrator, or a workspace owner for
+ * any container that is not someone's personal space, administers its access. */
+export async function requireContainerAdministration(ctx:FeatureContext,containerId:string):Promise<void> {
+  try { await requireContainerLevel(ctx,containerId,'full'); }
+  catch(cause) {
+    if(!(cause instanceof ApiProblem)||cause.status!==404)throw cause;
+    const row=await ctx.db.prepare('SELECT visibility FROM containers WHERE id=? AND workspace_id=?').bind(containerId,ctx.actor.workspaceId).first<{visibility:string}>();
+    if(!row||row.visibility==='personal')throw cause;
+    await requireWorkspaceOwner(ctx);
+  }
+}
 export async function requireContainerLevel(ctx:FeatureContext,containerId:string,level:AccessLevel):Promise<void> {
+  await requireImportPublication(ctx,containerId);
   const subject=await currentSubject(ctx);
   const row=await ctx.db.prepare('SELECT c.visibility,c.guest_access,w.guest_access AS workspace_guests FROM containers c JOIN workspaces w ON w.id=c.workspace_id WHERE c.id=? AND c.workspace_id=?').bind(containerId,ctx.actor.workspaceId).first<{visibility:string;guest_access:string;workspace_guests:string}>();
   if(!row || (subject.isGuest&&(row.guest_access==='forbidden'||row.workspace_guests==='forbidden'))) throw new ApiProblem(404,'NOT_FOUND','Not found.');

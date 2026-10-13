@@ -14,7 +14,7 @@ export interface PageProperties {
 }
 export type DocumentView = PageDocument & { properties?: PageProperties };
 export type ContentReceipt = {
-  value: { pageId: string; revisionId: string; blockRevisionId?: string };
+  value: { pageId: string; revisionId: string; blockRevisionId?: string; previousRevisionId?: string };
   receipt: MutationReceipt;
 };
 
@@ -71,8 +71,8 @@ export const contentApi = {
     request<PageResult<PageRef>>(
       `/api/pages${containerId ? `?containerId=${encodeURIComponent(containerId)}` : ""}`,
     ),
-  document: (id: string) =>
-    request<DocumentView>(`/api/pages/${encodeURIComponent(id)}`),
+  document: (id: string, signal?: AbortSignal) =>
+    request<DocumentView>(`/api/pages/${encodeURIComponent(id)}`, { signal }),
   create: (containerId: string, title: string, parentPageId?: string) =>
     mutate<ContentReceipt>("/api/pages", {
       operationKey: operationKey(),
@@ -103,13 +103,14 @@ export const contentApi = {
       "PATCH",
     );
   },
-  structure: (id: string, expectedRevisionId: string, blocks: EditorBlock[]) =>
+  structure: (id: string, expectedRevisionId: string, blocks: EditorBlock[], blockRevisions: Record<string, string>) =>
     mutate<ContentReceipt>(
       `/api/pages/${encodeURIComponent(id)}/blocks`,
       {
         operationKey: operationKey(),
         expectedRevisionId,
         blocks: storedBlocks(blocks),
+        blockRevisions,
       },
       "PUT",
     ),

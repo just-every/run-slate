@@ -51,7 +51,7 @@ test('Unavailable branch admission survives stop, export, fresh restore and re-e
   expect(await env.DB.prepare('SELECT count(*) n FROM intelligence_runs').first<number>('n')).toBe(countBefore);
   const ownerEmail=await env.DB.prepare('SELECT email FROM members WHERE id=?').bind(f.owner).first<string>('email');
   const bytes=await archive(f.context()),before=(await decodeArchive(bytes)).manifest.tables.intelligence_hypotheses!;
-  await reset();const target=await targetFixture();
+  await reset();const target=await targetFixture({withReader:false});
   await env.DB.prepare('UPDATE members SET email=? WHERE id=?').bind(ownerEmail,target.owner).run();
   await restoreWorkspace(target.context(),bytes);
   const restored=await inquiryView(f.context(),inquiryId);

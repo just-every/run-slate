@@ -4,8 +4,12 @@ import {safe} from './files.mjs';
 export const VERSION = '1.1.0';
 const identity = /^[a-zA-Z0-9][a-zA-Z0-9._-]*\/[a-zA-Z0-9][a-zA-Z0-9._-]*$/;
 export function origin(value) {
-  if (!value || typeof value.repository !== 'string' || !value.repository || value.repository.startsWith('-') || !/^[a-f0-9]{40}$/.test(value.revision)) {
+  if (!value || typeof value.repository !== 'string' || !value.repository || value.repository.startsWith('-') || (!value.projection && !/^[a-f0-9]{40}$/.test(value.revision))) {
     throw Error('Source requires repository and immutable full commit');
+  }
+  if (value.projection) {
+    const p = value.projection;
+    if (value.revision !== undefined || p.schemaVersion !== 1 || !/^[a-f0-9]{64}$/.test(p.originalSha256) || !/^[a-f0-9]{64}$/.test(p.recipeSha256) || Object.keys(p).sort().join(',') !== 'originalSha256,recipeSha256,schemaVersion') throw Error('Invalid public projection identity');
   }
   if (value.paths) {
     if (!Array.isArray(value.paths) || !value.paths.length) throw Error('Origin paths must be nonempty');

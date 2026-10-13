@@ -4,14 +4,13 @@ import { useState } from "react";
 import { useRecordReferences } from "../../../../client/useRecordReferences";
 import { useResource } from "../../../../client/useResource";
 import { mutate, operationKey } from "../../../../client/transport";
-import {
-  fieldView,
-  fieldValue,
-  type FieldDto,
-} from "../../../../client/records";
+import type { FieldDto } from "../../../../client/records";
 import type { DocumentView } from "../../../../client/content";
 import { RequestState } from "../../../../app/ui/RequestState";
-import { FieldDisplay } from "../fields/FieldDisplay";
+import { RecordFields } from "./RecordFields";
+import { RecordMoreMenu, RecordPrintItem } from "./RecordPrint";
+import { TopBar } from "../../../../app/ui/header/TopBar";
+import { PageTitle } from "../../../../app/ui/header/PageTitle";
 import { RecordValueDialog } from "./RecordValueDialog";
 import { ReferenceValueDialog } from "./ReferenceValueDialog";
 import { PageWorkspace } from "../../../pages/ui/workspace/PageWorkspace";
@@ -60,12 +59,16 @@ export function RecordWorkspace({
     );
     await resource.reload();
   }
+  const databases = useResource<{ items: { id: string; title: string }[] }>("/api/databases");
+  const trail = [
+    { label: "Databases" },
+    { label: databases.data?.items.find((item) => item.id === databaseId)?.title ?? "Database", href: `/app/databases/${databaseId}` },
+  ];
+  const fields = data ? (
+    <RecordFields fields={data.fields} values={data.values} references={references} canEdit={data.page.permissions.canEdit} onEdit={setEdit} />
+  ) : null;
   return (
     <>
-      <header className="topbar">
-        <a href={`/app/databases/${databaseId}`}>← Back to records</a>
-        <button onClick={() => window.print()}>Print record</button>
-      </header>
       <RequestState
         loading={resource.loading}
         error={resource.error}
@@ -73,35 +76,17 @@ export function RecordWorkspace({
       >
         {data ? (
           <>
-            <section className="main record-fields">
-              <p className="eyebrow">RECORD</p>
-              <h1 className="title">{data.page.page.title}</h1>
-              <dl>
-                {data.fields.map((field) => (
-                  <div key={field.id} className="record-field">
-                    <dt>{field.name}</dt>
-                    <dd>
-                      <FieldDisplay
-                        density="detail"
-                        field={fieldView(field)}
-                        value={fieldValue(
-                          field,
-                          data.values[field.id],
-                          references,
-                        )}
-                      />
-                      {data.page.permissions.canEdit && !field.readOnly ? (
-                        <button onClick={() => setEdit(field)}>Edit</button>
-                      ) : null}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </section>
             {data.parity === "record-is-page" ? (
-              <PageWorkspace pageId={id} />
+              <PageWorkspace pageId={id} host={{ trail, moreItems: <RecordPrintItem />, properties: fields }} />
             ) : (
-              <section className="main"><details><summary>Record comments</summary><PageComments document={data.page}/></details><details><summary>Record history</summary><PageHistory document={data.page} revision={data.page.page.revisionId} reload={resource.reload}/></details></section>
+              <>
+                <TopBar trail={[...trail, { label: data.page.page.title }]}><RecordMoreMenu /></TopBar>
+                <section className="main record-fields">
+                  <PageTitle>{data.page.page.title}</PageTitle>
+                  {fields}
+                </section>
+                <section className="main"><details><summary>Record comments</summary><PageComments document={data.page}/></details><details><summary>Record history</summary><PageHistory document={data.page} revision={data.page.page.revisionId} reload={resource.reload}/></details></section>
+              </>
             )}
             {edit ? (
               ["relation", "person", "file"].includes(edit.type) ? (

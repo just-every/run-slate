@@ -3,6 +3,8 @@ import { useResource } from "../../../client/useResource";
 import { mutate, operationKey, errorMessage } from "../../../client/transport";
 import { RequestState } from "../../../app/ui/RequestState";
 import { ActionDialog } from "../../../app/ui/ActionDialog";
+import { TopBar } from "../../../app/ui/header/TopBar";
+import { PageTitle } from "../../../app/ui/header/PageTitle";
 interface Archived {
   id: string;
   containerId:string;
@@ -12,7 +14,8 @@ interface Archived {
   trashedAt: string | null;
   reason: string | null;
 }
-export function WorkspaceArchive({containerId}:{containerId?:string}={}) {
+/** `embedded` puts the list inside a space's Trash tab, which already has its own top bar and title. */
+export function WorkspaceArchive({containerId,embedded}:{containerId?:string;embedded?:boolean}={}) {
   const resource = useResource<{ items: Archived[] }>("/api/archive");
   const [tab, setTab] = useState(containerId?"trash":"archive");
   const [selected, setSelected] = useState<Archived>();
@@ -29,28 +32,17 @@ export function WorkspaceArchive({containerId}:{containerId?:string}={}) {
       setError(cause);
     }
   }
-  return (
-    <>
-      <header className="topbar">Archive & trash</header>
-      <section className="main">
-        <p className="eyebrow">KEEP WHAT MATTERS</p>
-        <h1 className="title">Out of the way.\nStill within reach.</h1>
-        <div className="editor-actions">
-          <button
-            type="button"
-            aria-pressed={tab === "archive"}
-            onClick={() => setTab("archive")}
-          >
-            Archive
-          </button>
-          <button
-            type="button"
-            aria-pressed={tab === "trash"}
-            onClick={() => setTab("trash")}
-          >
-            Trash
-          </button>
-        </div>
+  const tabs = (
+    <div className="tabs" role="group" aria-label="Archive and trash">
+      <button type="button" aria-pressed={tab === "archive"} onClick={() => setTab("archive")}>
+        Archive
+      </button>
+      <button type="button" aria-pressed={tab === "trash"} onClick={() => setTab("trash")}>
+        Trash
+      </button>
+    </div>
+  );
+  const body = <>
         <p className="muted">
           Archived pages retain their history. Permanently deleting trash is
           irreversible.
@@ -71,11 +63,11 @@ export function WorkspaceArchive({containerId}:{containerId?:string}={}) {
                     <h2>{item.title}</h2>
                     <p>{item.reason}</p>
                   </div>
-                  <button type="button" onClick={() => void restore(item)}>
+                  <button className="secondary-button" type="button" onClick={() => void restore(item)}>
                     Restore
                   </button>
                   {item.trashedAt ? (
-                    <button type="button" onClick={() => setSelected(item)}>
+                    <button className="secondary-button" type="button" onClick={() => setSelected(item)}>
                       Delete permanently
                     </button>
                   ) : null}
@@ -107,7 +99,9 @@ export function WorkspaceArchive({containerId}:{containerId?:string}={}) {
             <p>
               This removes the page’s content and revision content permanently.
               If it has children, Slate will require confirmation of the full
-              list before any deletion.
+              list before any deletion. For imported content, this also removes
+              the retained source archive and its import recovery history. Other
+              native pages remain, but that import can no longer be retried or undone.
             </p>
             <label>
               Type the page title
@@ -115,6 +109,15 @@ export function WorkspaceArchive({containerId}:{containerId?:string}={}) {
             </label>
           </ActionDialog>
         ) : null}
+  </>;
+  if (embedded) return <section className="archive-workspace">{tabs}{body}</section>;
+  return (
+    <>
+      <TopBar trail={[{ label: "Archive & trash" }]} />
+      <section className="main archive-workspace">
+        <PageTitle>Archive & trash</PageTitle>
+        {tabs}
+        {body}
       </section>
     </>
   );

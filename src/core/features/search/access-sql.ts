@@ -1,5 +1,14 @@
 import type { MemberSubject } from '../../shared/knowledge/model';
 
+/**
+ * A candidate page's live access level (0 none, 1 view … 4 full) over the CTEs below. It
+ * reads the aliases p (pages), pl (page_levels), g (page_grants_live), c (containers_live),
+ * cl (container_levels), l (content_archive_locations) and s (subject).
+ */
+export const pageAccessLevelSql=`CASE WHEN p.id IS NULL OR p.deleted_at IS NOT NULL OR p.workspace_id<>s.workspace OR NOT s.trash AND p.trashed_at IS NOT NULL OR c.id IS NULL OR c.visibility='personal' AND NOT c.owned THEN 0
+ WHEN p.parent_page_id IS NOT NULL THEN COALESCE(pl.level,0)
+ WHEN p.lifecycle IN ('draft','scheduled') OR p.lifecycle='archived' AND l.prior_lifecycle IN ('draft','scheduled') THEN CASE WHEN p.author_member_id=s.member THEN 4 ELSE COALESCE(g.private_level,0) END
+ ELSE MAX(COALESCE(g.level,0),CASE WHEN p.access_inheritance='restricted' THEN 0 ELSE COALESCE(cl.level,0) END) END`;
 /** Same grant rules as current-access; evaluated over candidates and their live ancestors. */
 export function accessSql(subject:MemberSubject,now:string,includeTrashed:boolean) {
  const parameters=[subject.memberId,subject.workspaceId,JSON.stringify(subject.groupIds),JSON.stringify(subject.containerIds),+subject.isGuest,now,+includeTrashed];

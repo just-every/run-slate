@@ -36,8 +36,12 @@ try {
   assert.equal(countTree(), 1);
   assert.equal(expansionReads(leaf), 0);
   assert.equal(expansionReads(child), 0);
-  await page.getByText('Recently opened', {exact: true}).click();
-  await expect(page.locator('aside.sidebar details').filter({has: page.locator('summary', {hasText: 'Recently opened'})}).getByRole('link', {name: 'Navigation parent', exact: true})).toBeVisible();
+  await page.getByTestId('nav-workspace').click();
+  await page.waitForURL(url => url.pathname === '/app');
+  await expect(page.locator('.personal-home > section').first().getByRole('link', {name: 'Navigation parent', exact: true})).toBeVisible();
+  await page.goBack();
+  await page.waitForURL(url => url.pathname === '/app/pages/'+parent);
+  await expect(page.getByRole('textbox', {name: 'Page title', exact: true})).toHaveValue('Navigation parent');
   checks.push('Native page open updates recents with one unchanged-tree read and no leaf expansion reads');
 
   await tree.getByRole('button', {name: 'Expand Navigation parent', exact: true}).click();
@@ -62,21 +66,25 @@ try {
   const oldReads = countTree();
   await page.getByRole('textbox', {name: 'Page title', exact: true}).fill('Renamed navigation parent');
   await page.getByRole('button', {name: 'More', exact: true}).click();
+  await page.keyboard.press('Escape');
   await expect(link('Renamed navigation parent')).toBeVisible();
   assert.equal(countTree(), oldReads+1);
   assert.equal((await read('/api/pages/'+parent)).page.title, 'Renamed navigation parent');
   checks.push('Native rename still invalidates and refreshes the page tree');
 
+  await link('Renamed navigation parent').hover();
   await tree.getByRole('button', {name: 'Create child of Renamed navigation parent', exact: true}).click();
-  const create = page.getByRole('dialog', {name: 'Create a page', exact: true});
-  await create.getByRole('textbox', {name: 'Page title', exact: true}).fill('UI created child');
-  await create.getByRole('button', {name: 'Create page', exact: true}).click();
   await page.waitForURL(url => url.pathname.startsWith('/app/pages/') && !url.pathname.endsWith(parent));
+  const childTitle = page.getByRole('textbox', {name: 'Page title', exact: true});
+  await expect(childTitle).toBeFocused();
+  await page.keyboard.type('UI created child');
+  await childTitle.press('Tab');
   await expect(link('UI created child')).toBeVisible();
   const createdId = new URL(page.url()).pathname.split('/').at(-1);
   assert.equal((await read('/api/pages/'+createdId)).parentPageId, parent);
   checks.push('Native child creation appears under its persisted parent');
 
+  await link('UI created child').hover();
   await tree.getByRole('button', {name: 'Move UI created child in tree', exact: true}).click();
   const move = page.getByRole('dialog');
   await move.getByLabel('Parent page', {exact: true}).selectOption(leaf);
@@ -88,7 +96,7 @@ try {
   checks.push('Native reviewed tree move refreshes and renders its new persisted parent');
 
   await page.getByRole('button', {name: 'More', exact: true}).click();
-  await page.getByRole('button', {name: 'Move to trash', exact: true}).click();
+  await page.getByRole('menuitem', {name: 'Move to trash', exact: true}).click();
   const trash = page.getByRole('dialog', {name: 'Move this page to trash?', exact: true});
   await trash.getByRole('button', {name: 'Confirm', exact: true}).click();
   await expect(link('UI created child')).toHaveCount(0);

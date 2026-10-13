@@ -1,5 +1,6 @@
+import {signInWithOutbox} from '../../e2e/outbox-auth.mjs';
 import assert from 'node:assert/strict';
-import {createHmac,randomBytes,randomUUID} from 'node:crypto';
+import {randomUUID} from 'node:crypto';
 import {mkdtemp,mkdir,writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
@@ -9,9 +10,9 @@ await mkdir(evidence,{recursive:true});
 const runtime=await createRuntime({root:process.cwd(),evidence,appPort:8750,inspectorPort:8751});
 const checks=[];
 try {
- const now=new Date().toISOString(),expires=new Date(Date.now()+3600000).toISOString(),token=randomBytes(32).toString('base64url'),digest=createHmac('sha256',runtime.sessionSecret).update(token).digest('hex');
- await runtime.sql(`INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES('publication-workspace','Publication proof','','${now}','${now}','initial-publication'); INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('publication-owner','publication-workspace','qualification-owner@test.invalid','Publication owner','PO','owner','member','active',1,'${now}','${now}'); INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('publication-reader','publication-workspace','qualification-reader@test.invalid','Publication reader','PR','member','member','active',0,'${now}','${now}'); INSERT INTO sessions(id,member_id,token_digest,created_at,updated_at,expires_at) VALUES('publication-session','publication-owner','${digest}','${now}','${now}','${expires}');`);
- const cookie=`slate_session=${token}`;
+ const now=new Date().toISOString();
+ await runtime.sql(`INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES('publication-workspace','Publication proof','','${now}','${now}','initial-publication'); INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('publication-owner','publication-workspace','qualification-owner@test.invalid','Publication owner','PO','owner','member','active',1,'${now}','${now}'); INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('publication-reader','publication-workspace','qualification-reader@test.invalid','Publication reader','PR','member','member','active',0,'${now}','${now}');`);
+ const {cookie}=await signInWithOutbox(runtime.origin,'qualification-owner@test.invalid');
  async function request(method,route,body,status=200){const response=await fetch(runtime.origin+route,{method,headers:{cookie,'content-type':'application/json',origin:runtime.origin},body:body===undefined?undefined:JSON.stringify(body)});const data=await response.json();assert.equal(response.status,status,`${method} ${route}: ${JSON.stringify(data)}`);return data;}
  const source=(await request('POST','/api/containers',{operationKey:randomUUID(),name:'Drafts',visibility:'private'})).value.id;
  const destinationId=(await request('POST','/api/containers',{operationKey:randomUUID(),name:'Published destination',visibility:'private'})).value.id;

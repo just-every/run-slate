@@ -1,27 +1,85 @@
 # Slate
 
-Slate is a self-hosted team wiki built with React, TanStack Start, Hono and Cloudflare Workers. The default `core-wiki` profile provides pages and containers, rich-text editing, comments, permissions, search, revision history, imports, and backup and restore. Source: https://github.com/just-every/slate.
+Slate is a self-hosted team wiki built with React, TanStack Start, Hono and Cloudflare Workers. The default `core-wiki` profile provides pages and containers, rich-text editing, comments, permissions, search, revision history, imports, and backup and restore. The public source repository is [just-every/run-slate](https://github.com/just-every/run-slate). Source publication does not establish product or provider acceptance.
 
-Use Node 26.8.1 and pnpm 8.15.6 (the package requires Node 22.12 or newer).
+Node.js **22.20.0** and pnpm **10.12.4** are the tested tool pins. Select them with your existing version manager and Corepack.
+
+## Run it on your computer
+
+Clone the public source repository and enter the checkout:
 
 ```sh
-pnpm install --frozen-lockfile
-pnpm dev
+git clone https://github.com/just-every/run-slate.git slate
+cd slate
 ```
 
-`pnpm dev` applies local D1 migrations and starts Vite on loopback with local sample data. Open the URL Vite prints. Local state is stored in `.wrangler/state`; `SLATE_PERSIST_STATE_PATH` and `SLATE_WRANGLER_CONFIG_PATH` select another local state directory or Wrangler configuration. Sign-in and first-owner setup use the native session flow; see [OPERATIONS.md](OPERATIONS.md) for configuration and provider prerequisites.
+Install rer once per computer (`npm install -g @runeditrun/rer`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins. Then install the pinned dependencies, prepare your native owner, and start development:
 
 ```sh
-pnpm verify
+rer install
+rer setup --owner-email you@example.test
+rer dev
+```
+
+Use your own email address. Setup builds the real Worker, applies local migrations, writes mode-0600 `.dev.vars`, and requests an ordinary native sign-in message. It exits with no app running. A second setup preserves the saved settings bytes, workspace and owner. Slate declares `APP_URL` and `SETUP_OWNER_EMAIL`; it has no owner-name field. Conflicting saved choices require explicit recovery or reset.
+
+Dev prints `RER_READY` and `RER_SIGN_IN` only after health and native outbox checks. Open the outbox, choose the newest **Read message**, then **Open this link** and **Confirm**. No email is sent. Each native sign-in link works once. An unfinished native owner lands at `/setup` to name the workspace and create its first space and page; completed setup proceeds to the app. Retained local data lives in `.wrangler/state`; credentials stay out of production builds.
+
+In a second terminal, inspect the outbox and run the checks after stopping dev:
+
+```sh
+rer outbox
+rer dev --stop
+rer verify
+```
+
+`rer build` then `rer preview` serves a fixed production build. Dev supports Vite editing/HMR. Both reuse a compatible running instance, preserve the saved origin and native identity, and accept explicit loopback `--host`, `--port`, and `--idle-timeout`. Stop the active mode before changing modes. `rer doctor` reports missing local inputs without provider requests. `rer check --profile first-party` validates the command contract before dependencies or setup exist.
+
+## Back up, restore and reset
+
+Stop dev or preview before moving local data. Export to a new private file:
+
+```sh
+rer export --output exports/installation.rer
+```
+
+The archive includes D1 facts and identity lineage plus retained FILES attachments and source import originals. Derived ZIP exports, deleted files and unreferenced staging objects are excluded. Session capabilities, provider credentials, local configuration and transient caches are excluded. Native agent credential metadata is retained as revoked records with erased digests and empty scopes; no agent token or usable digest moves. Restore into a fresh empty checkout **before its first setup/sign-in**:
+
+```sh
+rer import --input exports/installation.rer --yes
+rer setup --owner-email you@example.test
+```
+
+Re-enter the archived native owner's email. Fresh sign-in is required; restored automation, grants and effects require renewed owner authority. Existing workspace ZIP exports and the authenticated web restore API remain a separate native product flow. Remote CLI transfer is unsupported.
+
+Reset lists its local removal inventory and requires explicit confirmation:
+
+```sh
+rer reset --yes
+```
+
+It removes local D1/R2/collaboration state, settings, outbox and installer drafts, preserving source, dependencies, owner exports and deployment receipts. Back up first. Reset refuses while another operation owns local state.
+
+## Deploy to your Cloudflare account
+
+Use the Base deploy-kit with the binding declaration in `deploy.json`. Supply the account/token and declared `SLATE_*` inputs from your private vault, including an explicitly selected Resend or SendGrid provider, verified sender and API key. Review the locally built declaration first:
+
+```sh
+rer deploy --environment production --dry-run
+rer deploy --environment production
+```
+
+Dry run makes no provider request. The second command creates owner-account resources, applies migrations, uploads secrets, deploys and checks health. It requires separate deployment authorization. See [OPERATIONS.md](OPERATIONS.md) for inputs and limitations. Source `rer release --repo PATH --output PATH --clean-history` validates and prepares a local export; it does not push, tag a public repository or deploy.
+
+## Verify and acceptance
+
+```sh
+rer verify
 pnpm test:imports
 pnpm test:release-source
 pnpm source:check
 ```
 
-`verify` checks types, builds the emitted Worker, exercises anonymous/session access, runs the Worker contract suite, and tests foundation, platform and profile behavior. The suite reports planned clauses explicitly: passing checks do not imply complete flagship acceptance. `pnpm test:release-regressions` additionally exercises publication relocation, erasure and the emitted browser console; install Chromium with `pnpm exec playwright install chromium` first.
+`verify` checks generated Worker binding freshness, types and the emitted build, then runs the installer, local journey and outbox checks along with the foundation, platform, profile, type-generation, portability and operations checks. Planned contract clauses remain visible; a passing check does not imply full flagship acceptance. `pnpm test:release-regressions` separately exercises publication relocation, erasure and the emitted browser console; install Chromium with `pnpm exec playwright install chromium` first.
 
-For hosted setup, authenticate Wrangler to your Cloudflare account. Set `SLATE_DEPLOY_ENV`, `SLATE_APP_URL`, `SLATE_SETUP_OWNER_EMAIL`, `SLATE_MAIL_FROM`, `SLATE_SESSION_SECRET` and `SLATE_MAIL_API_KEY`. Choose `SLATE_MAIL_PROVIDER=resend` (default) or `sendgrid`, with a verified sender and its provider key. Then run `pnpm run setup` to provision D1, R2 and a queue, install secrets and apply remote migrations. `pnpm run deploy` runs setup, builds, deploys and verifies database/file health. These commands change the selected account. [Deployment details](docs/release/sendgrid-deployment.md) and [resource footprint](deploy/footprint.md) describe the inputs.
-
-`pnpm run export ARCHIVE.zip` and `pnpm run import ARCHIVE.zip` provide backup and restore; read [OPERATIONS.md](OPERATIONS.md) before restoring into an empty deployment. Preserve applied migration history and installation secrets.
-
-Advanced federation and inquiry code remains in the source under the explicit `SLATE_PROFILE=flagship` development profile. It is outside v0.1.0 core-wiki acceptance. [CONTRACT.md](CONTRACT.md), [ACCEPTANCE.md](ACCEPTANCE.md), and [HANDOVER.md](HANDOVER.md) state requirements and limits. Slate is MIT licensed.
+Advanced federation and inquiry code remains in the source under the explicit `SLATE_PROFILE=flagship` development profile. It is outside the core-wiki release acceptance. [CONTRACT.md](CONTRACT.md), [ACCEPTANCE.md](ACCEPTANCE.md), and [HANDOVER.md](HANDOVER.md) state requirements and current evidence limits. Slate is MIT licensed.

@@ -8,6 +8,7 @@ import path from 'node:path';
 import { once } from 'node:events';
 import assert from 'node:assert/strict';
 import { checkInteractions } from './interactions.mjs';
+import { retainedStoryIds } from './story-inventory.mjs';
 const evidence = process.env.SLATE_UI_EVIDENCE_DIR;
 if (!evidence) throw new Error('SLATE_UI_EVIDENCE_DIR must name the evidence output directory');
 const base='http://127.0.0.1:4198';
@@ -25,7 +26,7 @@ try {
  await writeFile(path.join(evidence,'interactions.json'),JSON.stringify(interactions,null,2)+'\n');
  const index=await browser.newPage();await index.goto(base);await index.locator('li a').first().waitFor();
  const stories=await index.locator('li a').evaluateAll(links=>links.map(a=>({id:new URL(a.href).searchParams.get('story'),title:a.textContent})));
- assert.ok(stories.length >= 100, 'the complete component story inventory must render');
+ assert.deepEqual(stories.map(story => story.id).sort(), [...retainedStoryIds].sort(), 'the exact retained component story inventory must render');
  assert.equal(new Set(stories.map(s=>s.id)).size,stories.length,'story IDs must be unique');
  await index.close();
  const requested=process.env.SLATE_UI_STORIES?.split(',').filter(Boolean);

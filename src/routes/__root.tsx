@@ -1,7 +1,13 @@
+import "../editor-init";
+import {useEffect} from "react";
+import {useRouter} from "@tanstack/react-router";
+import {setLiveEditsReady} from "../editor";
+import {editorLeaf} from "../editor-leaf";
 import type { ReactNode } from "react";
 import { HeadContent, Outlet, Scripts, createRootRoute } from "@tanstack/react-router";
 import { ExtensionSlotProvider } from "../core/app/ext-client";
 import appCss from "../core/app/styles.css?url";
+import { fontLinks } from "../core/app/font-head";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -10,14 +16,24 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "description", content: "Slate — a self-hosted knowledge workspace." },
       { title: "Slate" },
+      { name: "theme-color", content: "#f6f3e8" },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    // Slate's card mark, served from the deployment's own `public/` directory (regenerate the rasters with scripts/generate-icons.mjs).
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
+      { rel: "shortcut icon", href: "/favicon.ico" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+    ],
   }),
-  notFoundComponent: NotFound,
+  notFoundComponent: editorLeaf(NotFound),
   component: Root,
 });
 
 function Root() {
+  const router = useRouter();
+  useEffect(() => router.subscribe('onBeforeNavigate', () => setLiveEditsReady(false)), [router]);
   return (
     <Document>
       <ExtensionSlotProvider>
@@ -42,6 +58,7 @@ function Document({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
       <head>
+        {fontLinks.map(link => <link key={link.href} {...link} />)}
         <HeadContent />
       </head>
       <body>

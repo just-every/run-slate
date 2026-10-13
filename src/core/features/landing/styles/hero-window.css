@@ -1,0 +1,31 @@
+/* Inside the hero window: the page tree, the Roadmap page with its task and Projects table, and the recent list. */
+.slate-landing .hw-side { padding: 1.3em 0.7em; border-right: 1.5px solid var(--line); }
+.slate-landing .hw-space { display: flex; align-items: center; gap: 0.6em; height: 2.2em; padding-left: 0.55em; margin-bottom: 0.1em; font-size: 1.07em; font-weight: 500; }
+.slate-landing .hw-folder, .slate-landing .hw-leaf { display: flex; align-items: center; height: 2.04em; border-radius: 0.5em; font-size: 0.97em; }
+.slate-landing .hw-folder { gap: 0.35em; padding-left: 0.55em; font-weight: 500; }
+.slate-landing .hw-leaf { gap: 0.55em; padding-left: 2.75em; }
+.slate-landing .hw-leaf .ic { width: 1.5em; height: 1.5em; }
+.slate-landing .hw-folder .ic { width: 1.6em; height: 1.6em; }
+.slate-landing .hw-folder .ic--chev { width: 1.15em; height: 1.15em; stroke-width: 2; }
+.slate-landing .hw-space .ic { width: 1.8em; height: 1.8em; }
+.slate-landing .hw-leaf.is-current { background: #e8eddf; }
+
+.slate-landing .hw-page { padding: 1.35em 1.5em 0 1.65em; min-width: 0; }
+.slate-landing .hw-title { display: flex; align-items: center; gap: 0.5em; font-size: 2.15em; font-weight: 600; letter-spacing: -0.025em; line-height: 1.2; }
+.slate-landing .hw-title .ic { width: 1.1em; height: 1.1em; stroke-width: 1.4; }
+.slate-landing .hw-text { margin-top: 0.7em; padding-left: 0.3em; font-size: 1.18em; line-height: 1.4; }
+.slate-landing .hw-text span { display: block; white-space: nowrap; }
+.slate-landing .hw-task { display: flex; align-items: center; gap: 0.75em; height: 2.7em; margin-top: 1.1em; padding: 0 1em 0 0.85em; border-radius: 0.5em; background: #e9efe0; font-size: 1.04em; }
+.slate-landing .hw-task time { margin-left: auto; color: var(--muted); }
+.slate-landing .hw-section { display: flex; align-items: center; gap: 0.65em; margin-top: 1.15em; padding-top: 0.95em; border-top: 1.5px solid var(--line); font-size: 1.22em; font-weight: 500; }
+.slate-landing .hw-table { margin-top: 0.55em; border: 1.5px solid #b9b6aa; border-radius: 0.6em; overflow: hidden; font-size: 0.97em; }
+.slate-landing .hw-row { display: grid; grid-template-columns: 8.2em 6.1em 7.8em 1fr; align-items: center; height: 2.32em; padding-left: 0.85em; border-top: 1.5px solid #e1ded2; }
+.slate-landing .hw-row:first-child { border-top: 0; }
+.slate-landing .hw-row--head { height: 2.2em; border-top: 0; border-bottom: 1.5px solid #d6d3c6; font-weight: 500; }
+.slate-landing .hw-row .chip { font-size: 0.95em; }
+
+.slate-landing .hw-recent { margin: 5.5em 0 1.2em; padding: 0.7em 1.2em 0 1.5em; border-left: 1.5px solid var(--line); font-size: 1.03em; }
+.slate-landing .hw-recent-title { display: flex; align-items: center; gap: 0.6em; height: 2.1em; font-size: 1.07em; font-weight: 500; }
+.slate-landing .hw-recent li { display: flex; align-items: center; gap: 0.65em; height: 2.15em; }
+.slate-landing .hw-recent li .ic { width: 1.5em; height: 1.5em; }
+.slate-landing .hw-recent-title .ic, .slate-landing .hw-section .ic { width: 1.5em; height: 1.5em; }

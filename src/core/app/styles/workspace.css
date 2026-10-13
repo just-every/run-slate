@@ -1,0 +1,74 @@
+/* Adapted from the completed 12ui folio conversion, retaining its geometry and
+   editorial hierarchy while applying live data, themes and a collapsible rail. */
+.slate-app {
+  --folio-rule: var(--slate-line);
+  min-height: 100vh;
+  background: var(--slate-canvas);
+  color: var(--slate-ink);
+  font-size: 15px;
+}
+.slate-app .decision h2 {
+  color: var(--slate-ink-strong);
+}
+.slate-app .muted {
+  color: var(--slate-ink-muted);
+}
+.slate-app .intro {
+  color: var(--slate-ink-muted);
+}
+.slate-app .content-frame {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.slate-app .content-frame:has(> .right:not([data-popover])) {
+  grid-template-columns: minmax(0, 1fr) 300px;
+}
+.slate-app .right {
+  border-color: var(--slate-line);
+  background: var(--slate-surface);
+}
+.slate-app .right:before {
+  display: none;
+}
+.slate-app .factbox {
+  border-color: var(--slate-line);
+  border-left-color: var(--slate-accent);
+  background: var(--slate-accent-soft);
+}
+.slate-app .fact p,
+.slate-app .fact h2,
+.slate-app .metric dd {
+  color: var(--slate-ink);
+}
+.slate-app .fact + .fact,
+.slate-app .finding,
+.slate-app .metric + .metric,
+.slate-app .actions {
+  border-color: var(--slate-line);
+}
+.slate-app .open,
+.slate-app .actions button,
+.slate-app .footer .revision {
+  color: var(--slate-accent);
+}
+.slate-app .metric dt,
+.slate-app .finding small {
+  color: var(--slate-ink-muted);
+}
+.slate-app .actions .run,
+.slate-app .primary-button {
+  background: var(--slate-accent);
+  color: var(--slate-accent-ink);
+}
+.slate-app .actions .adjust {
+  border-color: var(--slate-line-strong);
+}
+.slate-app button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.slate-app .primary-button {
+  border-radius: 6px;
+  padding: 0 18px;
+  min-height: 40px;
+}

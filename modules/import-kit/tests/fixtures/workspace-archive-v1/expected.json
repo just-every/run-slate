@@ -1,0 +1,149 @@
+{
+  "counts": {
+    "input": 4,
+    "unique": 4,
+    "duplicates": 0,
+    "mapped": 3,
+    "unmapped": 2,
+    "rejected": 0,
+    "effects": 3,
+    "byKind": {
+      "automation": 1,
+      "card": 2,
+      "tag-link": 1
+    }
+  },
+  "sourceArtifacts": [
+    {
+      "name": "workspace-export.json",
+      "sha256": "ab1d87bc4844c01022f717073808dd00a1df5962668f2847b0a244125cfdc1b4",
+      "size": 452
+    }
+  ],
+  "entries": [
+    {
+      "kind": "card",
+      "sourceId": "card-101",
+      "effects": [
+        {
+          "targetKind": "card",
+          "targetId": "card-101",
+          "value": {
+            "title": "Revised title",
+            "body": "Imported body"
+          },
+          "expectedRevision": "native-rev-7"
+        }
+      ],
+      "unmapped": [
+        {
+          "field": "color",
+          "reason": "No native target field is configured for this source field."
+        }
+      ]
+    },
+    {
+      "kind": "card",
+      "sourceId": "card-102",
+      "effects": [
+        {
+          "targetKind": "card",
+          "targetId": "card-102",
+          "value": {
+            "title": "Second card",
+            "body": "Imported second body"
+          }
+        }
+      ],
+      "unmapped": []
+    },
+    {
+      "kind": "tag-link",
+      "sourceId": "link-101",
+      "effects": [
+        {
+          "targetKind": "card-tag",
+          "targetId": "link-101",
+          "value": {
+            "cardId": "card-101",
+            "label": "urgent"
+          }
+        }
+      ],
+      "unmapped": []
+    },
+    {
+      "kind": "automation",
+      "sourceId": "automation-201",
+      "effects": [],
+      "unmapped": [
+        {
+          "field": "type",
+          "reason": "No native representation is configured for this source kind."
+        },
+        {
+          "field": "rule",
+          "reason": "No native target field is configured for this source field."
+        }
+      ]
+    }
+  ],
+  "priorState": [
+    {
+      "targetKind": "card",
+      "targetId": "card-101",
+      "revision": "native-rev-7",
+      "value": {
+        "title": "Existing draft",
+        "body": "Keep this before-image."
+      }
+    }
+  ],
+  "afterUndo": [
+    {
+      "targetKind": "card",
+      "targetId": "card-101",
+      "revision": "native-rev-7",
+      "value": {
+        "title": "Existing draft",
+        "body": "Keep this before-image."
+      }
+    }
+  ],
+  "afterFirstBatch": [
+    {
+      "targetKind": "card",
+      "targetId": "card-101",
+      "value": {
+        "title": "Revised title",
+        "body": "Imported body"
+      }
+    }
+  ],
+  "afterApply": [
+    {
+      "targetKind": "card",
+      "targetId": "card-101",
+      "value": {
+        "title": "Revised title",
+        "body": "Imported body"
+      }
+    },
+    {
+      "targetKind": "card",
+      "targetId": "card-102",
+      "value": {
+        "title": "Second card",
+        "body": "Imported second body"
+      }
+    },
+    {
+      "targetKind": "card-tag",
+      "targetId": "link-101",
+      "value": {
+        "cardId": "card-101",
+        "label": "urgent"
+      }
+    }
+  ]
+}

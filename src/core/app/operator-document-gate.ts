@@ -1,15 +1,16 @@
 import { createSessionService } from "../features/session";
+import { sessionOptions } from "../features/session/service";
 import { safeAppPath } from "../platform/auth/paths";
 import type { RuntimeConfig } from "../platform/config/runtime";
 import type { AppBindings } from "./types";
 
 function isOperatorDocument(pathname: string): boolean {
-  return pathname === "/app" || pathname.startsWith("/app/");
+  return pathname === "/setup" || pathname === "/app" || pathname.startsWith("/app/");
 }
 
 /**
  * The native anonymous operator-document response, run before TanStack Start so
- * that the raw `/app` request keeps its 302 and safe `next` semantics. It does
+ * that raw `/app` and `/setup` requests keep their 302 and safe `next` semantics. It does
  * not authorize RPC: every private server function revalidates the session in
  * its own handler.
  */
@@ -21,7 +22,7 @@ export async function operatorDocumentGate(
 ): Promise<Response | null> {
   if (!isOperatorDocument(url.pathname)) return null;
 
-  const member = await createSessionService(bindings.DB, runtimeConfig.sessionSecret).authenticate(request.headers);
+  const member = await createSessionService(bindings.DB, sessionOptions(runtimeConfig)).authenticate(request);
   if (member) return null;
 
   const next = safeAppPath(`${url.pathname}${url.search}`);

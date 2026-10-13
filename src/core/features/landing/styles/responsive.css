@@ -1,0 +1,87 @@
+/* Narrow screens. Below 960px the hero becomes a compact stage (one simplified window, the plant and mug on its corners) and every
+   section stacks: copy first, then its drawing. Below 560px the features become a list and the header tightens. Drawings that hold two
+   panes stack them when their own box is narrow (container queries on .sk). */
+@media (max-width: 960px) {
+  .slate-landing { --gutter: clamp(20px, 5vw, 48px); --pw: clamp(66px, 17vw, 110px); --rhythm: 52px; --split: 32px; }
+  .slate-landing .site-header { height: 76px; }
+
+  .slate-landing .hs { width: auto; margin: 0; padding: 40px 0 calc(var(--pw) * 1.66 + 16px); aspect-ratio: auto; }
+  .slate-landing .hs-wash { inset: 0 -3%; width: 106%; }
+  .slate-landing .hs-ground { display: none; }
+  .slate-landing .hs-window { position: relative; left: auto; top: auto; width: auto; max-width: 640px; margin: 0 auto; }
+  .slate-landing .hs-plant { left: 3%; top: auto; bottom: 8px; width: var(--pw); }
+  .slate-landing .hs-mug { left: auto; right: 4%; top: auto; bottom: 6px; width: calc(var(--pw) * 1.15); }
+  .slate-landing .hw { aspect-ratio: auto; }
+  .slate-landing .hw .sk-body { font-size: clamp(12.5px, calc(14 * 100cqw / 420), 15.5px); height: auto; }
+  .slate-landing .hw-table, .slate-landing .hw-row .chip { font-size: 1em; }
+  .slate-landing .hw-side, .slate-landing .hw-recent { display: none; }
+  .slate-landing .hw-body { display: block; }
+  .slate-landing .hw-search { position: static; width: auto; height: 2.6em; margin: 0.9em 1.2em 0; }
+  .slate-landing .hw-page { padding: 1em 1.2em 1.3em; }
+  .slate-landing .hw-row { grid-template-columns: 8em minmax(0, 1fr) 5.5em; }
+  .slate-landing .hw-row > :nth-child(2) { display: none; }
+  .slate-landing .hero { --gap-mid: 28px; --gap-end: 40px; }
+  .slate-landing .hero-copy h2 { max-width: 12em; font-size: clamp(38px, 8vw, 64px); }
+  .slate-landing .hero-sub { max-width: 30em; margin-top: 16px; font-size: clamp(18px, 2.6vw, 21px); }
+  .slate-landing .hero-copy .actions { margin-top: 24px; }
+  .slate-landing .hero-copy .fine { margin-top: 20px; font-size: 15px; }
+  .slate-landing .hero-copy .hero-replaces { margin-top: 10px; }
+
+  .slate-landing .sec, .slate-landing .sec--right, .slate-landing .sec--wide-art { grid-template-columns: minmax(0, 1fr); }
+  .slate-landing .sec--right .sec-copy { order: 0; }
+  .slate-landing .sec-art { width: 100%; max-width: 660px; margin-inline: auto; }
+  .slate-landing .pair { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .slate-landing .included { grid-template-columns: minmax(0, 1fr); }
+  .slate-landing .timeline { grid-template-columns: minmax(0, 1fr); gap: 26px; padding: 4px 0 8px; }
+  .slate-landing .timeline li { padding: 0 0 0 44px; }
+  .slate-landing .timeline li::before, .slate-landing .timeline li:last-child::before { top: 20px; bottom: -30px; left: 8px; right: auto; width: 2px; height: auto; background: #b9cdb4; }
+  .slate-landing .timeline li:last-child::before { display: none; }
+  .slate-landing .timeline i { top: 2px; }
+  .slate-landing .start { padding: 64px 0 56px; }
+  .slate-landing .start .wash { inset: 2% -4%; width: 108%; height: 96%; }
+  .slate-landing .footer-row { flex-wrap: wrap; }
+  .slate-landing .footer-row nav { margin-left: 0; }
+}
+
+@media (max-width: 560px) {
+  .slate-landing .site-header { height: 68px; gap: 12px; }
+  .slate-landing .site-header nav { gap: 8px 18px; font-size: 15px; }
+  .slate-landing .site-header .pill { min-height: 40px; padding: 0 14px; font-size: 14px; }
+  .slate-landing .brand { gap: 8px; }
+  .slate-landing .brand-name { font-size: 28px; }
+  .slate-landing .brand-mark { width: 42px; }
+  .slate-landing .hs-wash { inset: 0 -6%; width: 112%; }
+  .slate-landing .hero-copy h2 { font-size: clamp(36px, 10.4vw, 46px); }
+  .slate-landing .pill--large { min-height: 52px; padding: 0 28px; font-size: 18px; }
+  .slate-landing .actions { gap: 16px 28px; }
+  .slate-landing .sec h2, .slate-landing .included h2 { font-size: clamp(34px, 9.4vw, 44px); }
+  .slate-landing .start h2 { font-size: clamp(36px, 10.4vw, 50px); }
+  .slate-landing .sec-body { font-size: 18px; }
+  .slate-landing .features { grid-template-columns: minmax(0, 1fr); gap: 16px; max-width: none; margin-top: 28px; }
+  .slate-landing .features li { flex-direction: row; align-items: center; gap: 16px; }
+  .slate-landing .ic--feature { width: 34px; height: 34px; }
+  .slate-landing .stage { padding: 22px 14px 32px; }
+  .slate-landing .td { padding-bottom: 52px; }
+
+  .slate-landing .included-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .slate-landing .footer-id { flex-wrap: wrap; gap: 8px 16px; }
+  .slate-landing .footer-row { flex-direction: column; align-items: flex-start; }
+}
+
+@container (max-width: 520px) {
+  .slate-landing .td-screen { overflow-wrap: anywhere; }
+  .slate-landing .td-licence { width: 44%; }
+  .slate-landing .ed-body { grid-template-columns: minmax(0, 1fr); }
+  .slate-landing .ed-tree { display: none; }
+  .slate-landing .cd-body, .slate-landing .sd-readers, .slate-landing .rv-panes { grid-template-columns: minmax(0, 1fr); }
+  .slate-landing .cd-head { flex-wrap: wrap; }
+  .slate-landing .cd-body { padding-bottom: 1.6em; }
+  .slate-landing .rv-head { flex-wrap: wrap; }
+}
+
+/* Once the collection drawing is too narrow for two panes, the opened page rests below them instead of over their corner. */
+@container cdwrap (max-width: 520px) {
+  .slate-landing .cd-wrap { padding-bottom: 0; }
+  .slate-landing .cd-page { position: relative; right: auto; width: min(84%, 300px); margin: 14px 0 0 auto; }
+  .slate-landing .cd-page .sk-body { font-size: 14px; }
+}

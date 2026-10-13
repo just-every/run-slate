@@ -1,6 +1,6 @@
 import { AlertTriangle, Mail } from "lucide-react";
 import { useId } from "react";
-import { Button, Input, cn } from "../../../ui";
+import { PaperPage, PaperScene } from "./PaperPage";
 
 /**
  * The four states the magic-link sign-in screen has.
@@ -21,9 +21,8 @@ export function SignInScreen({
   submitting = false,
   deliveryError,
   identityProvider,
-  productName,
-  productMark,
   className,
+  localOutbox = false,
 }: {
   state: SignInScreenState;
   email: string;
@@ -35,148 +34,126 @@ export function SignInScreen({
   deliveryError?: string | null;
   /** `WORK-015` — offered only when a provider is configured and working. */
   identityProvider?: { name: string; onSignIn: () => void } | null;
-  productName: string;
-  productMark: string;
   className?: string;
+  localOutbox?: boolean;
 }) {
   const fieldId = useId();
   const showsForm =
     state === "request" ||
     state === "link-expired" ||
     state === "delivery-failed";
+  const anotherAddress = (
+    <a
+      className="paper-link"
+      href="/signin"
+      onClick={(event) => { event.preventDefault(); onUseAnotherAddress(); }}
+    >
+      Use a different address
+    </a>
+  );
 
   return (
-    <main
-      className={cn(
-        "flex min-h-screen items-center justify-center bg-canvas px-5 py-12",
-        className,
-      )}
-    >
-      <div className="w-full max-w-sm">
-        <div className="flex items-center gap-2">
-          <span
-            aria-hidden="true"
-            className="flex size-7 items-center justify-center rounded-control bg-ink text-tiny font-semibold text-ink-inverse"
-          >
-            {productMark}
-          </span>
-          <span className="text-ui font-semibold text-ink">{productName}</span>
-        </div>
+    <PaperPage className={className}>
+      <div className="paper-columns">
+        <div className="paper-body paper-body--narrow">
+          <h1 className="paper-title">
+            {state === "sent" ? (localOutbox ? "Open your local outbox" : "Check your email") : "Sign in"}
+          </h1>
 
-        <h1 className="mt-8 text-h2 font-semibold tracking-tight text-ink">
-          {state === "sent" ? "Check your email" : "Sign in"}
-        </h1>
+          {state === "request" ? <p className="paper-lede">Use your email address to get a one-time sign-in link.</p> : null}
 
-        {state === "link-expired" ? (
-          <p className="mt-2 text-ui text-ink-muted">
-            That link has been used already or is more than an hour old. A
-            sign-in link works once. Ask for a new one.
-          </p>
-        ) : null}
-
-        {state === "pending" || state === "unconfirmed" ? <div className="mt-4 flex flex-col gap-3" role="status"><p>{state === "pending" ? "Your sign-in email is queued. We’ll show delivery status here." : "Your request was received. If this address can sign in, check its inbox. Delivery has not been confirmed here."}</p><Button onClick={onUseAnotherAddress} variant="link">Use a different address</Button></div> : null}
-        {state === "sent" ? (
-          <div className="mt-4 flex flex-col gap-3">
-            <p className="flex items-start gap-2 rounded-card border border-line bg-sidebar px-3 py-2.5 text-ui text-ink">
-              <Mail
-                aria-hidden="true"
-                className="mt-0.5 size-4 shrink-0 text-ink-muted"
-              />
-              <span>
-                A sign-in link is on its way to{" "}
-                <span className="font-medium">{email}</span>. It works once and
-                stops working an hour after it was sent.
-              </span>
+          {state === "link-expired" ? (
+            <p className="paper-lede">
+              That link has been used already or is more than an hour old. A
+              sign-in link works once. Ask for a new one.
             </p>
-            <Button
-              className="self-start"
-              onClick={onUseAnotherAddress}
-              variant="link"
-            >
-              Use a different address
-            </Button>
-          </div>
-        ) : null}
+          ) : null}
 
-        {state === "delivery-failed" ? (
-          <div
-            className="mt-4 flex flex-col gap-1.5 rounded-card border border-danger/30 bg-danger-soft p-3"
-            role="alert"
-          >
-            <p className="flex items-center gap-1.5 text-ui font-medium text-danger">
-              <AlertTriangle aria-hidden="true" className="size-4" />
-              The email was not sent
-            </p>
-            <p className="text-ui text-ink-muted">
-              The mail provider did not confirm delivery. You can request
-              another link when the problem is resolved.
-            </p>
-            {deliveryError ? (
-              <p className="rounded-control bg-canvas px-2 py-1 font-mono text-tiny text-ink-muted">
-                {deliveryError}
-              </p>
-            ) : null}
-          </div>
-        ) : null}
-
-        {showsForm ? (
-          <form
-            className="mt-6 flex flex-col gap-2"
-            onSubmit={(event) => {
-              event.preventDefault();
-              onSubmit();
-            }}
-          >
-            <label
-              className="text-tiny font-medium text-ink-muted"
-              htmlFor={fieldId}
-            >
-              Email address
-            </label>
-            <Input
-              autoComplete="email"
-              className="h-10"
-              disabled={submitting}
-              id={fieldId}
-              onChange={(event) => onEmailChange(event.target.value)}
-              placeholder="you@example.com"
-              required
-              type="email"
-              value={email}
-            />
-            <Button
-              className="mt-1"
-              disabled={submitting || email.trim().length === 0}
-              size="lg"
-              type="submit"
-            >
-              {submitting ? "Sending the link…" : "Email me a sign-in link"}
-            </Button>
-          </form>
-        ) : null}
-
-        {identityProvider ? (
-          <div className="mt-5 flex flex-col gap-3">
-            <div className="flex items-center gap-3">
-              <span aria-hidden="true" className="h-px flex-1 bg-line" />
-              <span className="text-tiny text-ink-faint">or</span>
-              <span aria-hidden="true" className="h-px flex-1 bg-line" />
+          {state === "pending" || state === "unconfirmed" ? (
+            <div className="paper-body" role="status">
+              <p className="paper-lede">{state === "pending" ? "Your sign-in email is queued. We’ll show delivery status here." : "Your request was received. If this address can sign in, check its inbox. Delivery has not been confirmed here."}</p>
+              <div>{anotherAddress}</div>
             </div>
-            <Button
-              onClick={identityProvider.onSignIn}
-              size="lg"
-              variant="secondary"
-            >
-              Continue with {identityProvider.name}
-            </Button>
-          </div>
-        ) : null}
+          ) : null}
 
-        <p className="mt-8 text-tiny text-ink-faint">
-          Slate stores no password, so there is nothing to reset. Access to your
-          mailbox is what signs you in.
-        </p>
+          {state === "sent" ? (
+            <div className="paper-body">
+              <p className="paper-sent">
+                <Mail aria-hidden="true" className="size-5" />
+                <span>
+                  {localOutbox ? "A sign-in link is saved locally for " : "A sign-in link is on its way to "}
+                  <strong>{email}</strong>. It works once and
+                  stops working an hour after it was created.
+                </span>
+              </p>
+              <div>{anotherAddress}</div>
+            </div>
+          ) : null}
+
+          {state === "delivery-failed" ? (
+            <div className="paper-alert" role="alert">
+              <strong className="paper-alert-title">
+                <AlertTriangle aria-hidden="true" className="size-5" />
+                The email was not sent
+              </strong>
+              <span>
+                The mail provider did not confirm delivery. You can request
+                another link when the problem is resolved.
+              </span>
+              {deliveryError ? <code>{deliveryError}</code> : null}
+            </div>
+          ) : null}
+
+          {showsForm ? (
+            <form
+              action="/api/auth/magic"
+              method="post"
+              className="paper-form"
+              onSubmit={(event) => {
+                event.preventDefault();
+                onSubmit();
+              }}
+            >
+              <div className="paper-field">
+                <label htmlFor={fieldId}>Email address</label>
+                <input
+                  autoComplete="email"
+                  className="paper-input"
+                  disabled={submitting}
+                  id={fieldId}
+                  name="email"
+                  onChange={(event) => onEmailChange(event.target.value)}
+                  placeholder="you@example.com"
+                  required
+                  type="email"
+                  value={email}
+                />
+              </div>
+              <div className="paper-actions">
+                <button className="paper-pill" disabled={submitting} type="submit">
+                  {submitting ? "Sending the link…" : "Email me a sign-in link"}
+                </button>
+              </div>
+            </form>
+          ) : null}
+
+          {identityProvider ? (
+            <div className="paper-actions">
+              <button className="paper-pill paper-pill--quiet" onClick={identityProvider.onSignIn} type="button">
+                Continue with {identityProvider.name}
+              </button>
+            </div>
+          ) : null}
+
+          {localOutbox ? <p className="paper-note">Local development: sign-in links are saved in <a href="/__dev/outbox">the local outbox</a>. No email is sent.</p> : null}
+
+          <p className="paper-note">
+            Slate stores no password, so there is nothing to reset. Access to your
+            mailbox is what signs you in.
+          </p>
+        </div>
+        <PaperScene />
       </div>
-    </main>
+    </PaperPage>
   );
 }

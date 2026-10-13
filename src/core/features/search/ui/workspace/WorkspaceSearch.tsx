@@ -1,6 +1,10 @@
 import {HighlightedText} from "./SearchHighlight";
+import {TopBar} from "../../../../app/ui/header/TopBar";
+import {PageTitle} from "../../../../app/ui/header/PageTitle";
 import {RetainedSearchAnswer} from "./RetainedSearchAnswer";
-import {CreatePageDialog} from "../../../../app/ui/CreatePageDialog";
+import {useCreatePage} from "../../../../app/ui/useCreatePage";
+import {useInferredSpace} from "../../../../app/ui/useInferredSpace";
+import {DEFAULT_PAGE_TITLE,type SpaceChoice} from "../../../../app/ui/pageDestination";
 import {SearchRefinements,emptyRefinements} from "./SearchRefinements";
 import {SavedSearches} from "./SavedSearches";
 import { useEffect, useRef, useState } from "react";
@@ -34,7 +38,9 @@ export function WorkspaceSearch() {
   const [refinements,setRefinements]=useState(initial.refinements);
   const [savedVersion,setSavedVersion]=useState(0);
   const extra=new URLSearchParams(Object.entries(refinements).filter(([,value])=>value!==""&&value!==false).map(([key,value])=>[key,String(value)])).toString();
-  const [create,setCreate]=useState(false);
+  const creation=useCreatePage();
+  const spaces=useResource<{items:SpaceChoice[]}>("/api/containers");
+  const destination=useInferredSpace(refinements.containerId||null,spaces);
   const [query, setQuery] = useState(initial.query);
   const [kind, setKind] = useState(initial.kind);
   const [archived, setArchived] = useState(initial.archived);
@@ -57,12 +63,9 @@ export function WorkspaceSearch() {
   );
   return (
     <>
-      <header className="topbar">
-        <span>Search</span>
-      </header>
-      <section className="main">
-        <p className="eyebrow">FIND SOMETHING WORTH KEEPING</p>
-        <h1 className="title">A thought away.</h1>
+      <TopBar trail={[{ label: "Search" }]} />
+      <section className="main search-workspace">
+        <PageTitle>Search your workspace</PageTitle>
         <form
           className="search-form"
           aria-busy={!ready}
@@ -75,7 +78,7 @@ export function WorkspaceSearch() {
           <label className="sr-only" htmlFor="workspace-query">
             Search your workspace
           </label>
-          <input
+          <div className="search-input-wrap"><input
             ref={queryInput}
             disabled={!ready}
             id="workspace-query"
@@ -84,48 +87,11 @@ export function WorkspaceSearch() {
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search pages, records and conversations…"
           />
+          {query ? <button type="button" className="search-clear" aria-label="Clear search" onClick={() => {setQuery("");queryInput.current?.focus();}}>×</button> : null}</div>
           <button className="primary-button" type="submit" disabled={!ready}>
             Search
           </button>
         </form>
-        <div className="search-filters">
-          <label>
-            Look in
-            <select
-              disabled={!ready}
-              value={kind}
-              onChange={(event) => {
-                setKind(event.target.value);
-                setCursor(undefined);
-              }}
-            >
-              <option value="">Everything you can read</option>
-              {[
-                "page",
-                "record",
-                "container",
-                "template",
-                "comment-thread",
-              ].map((value) => (
-                <option key={value}>{value}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              disabled={!ready}
-              checked={archived}
-              onChange={(event) => {
-                setArchived(event.target.checked);
-                setCursor(undefined);
-              }}
-            />
-            Include archive
-          </label>
-        </div>
-        <SearchRefinements disabled={!ready} value={refinements} activeCount={Number(Boolean(kind))+Number(archived)} onChange={value=>{setRefinements(value);setCursor(undefined);}} />
-        <SavedSearches version={savedVersion} onChoose={value=>{setQuery(value.query??"");setSubmitted(value.query??"");setKind(value.kind??"");setArchived(value.includeArchived??false);setRefinements({...emptyRefinements,...value});setCursor(undefined);}}/>
         <RequestState
           loading={resource.loading}
           error={resource.error}
@@ -139,16 +105,16 @@ export function WorkspaceSearch() {
                 {resource.data.total === 1 ? "" : "s"} within your access.
               </p>
               {resource.data.items.length === 0 ? (
-                <section><p>No matches for “{submitted}”.</p><p>Filters: {[kind,archived?"Including archive":"",...Object.entries(refinements).filter(([,value])=>value!==""&&value!==false).map(([key,value])=>`${key}: ${value}`)].filter(Boolean).join(" · ") || "None"}</p><button onClick={()=>{setKind("");setArchived(false);setRefinements(emptyRefinements);setCursor(undefined);}}>Clear all filters</button><button onClick={()=>setCreate(true)}>Create a page titled “{submitted}”</button></section>
+                <section className="search-empty"><p>No matches for “{submitted}”.</p><p>Filters: {[kind,archived?"Including archive":"",...Object.entries(refinements).filter(([,value])=>value!==""&&value!==false).map(([key,value])=>`${key}: ${value}`)].filter(Boolean).join(" · ") || "None"}</p>{kind || archived || Object.values(refinements).some(value => value !== "" && value !== false) ? <button className="secondary-button" onClick={()=>{setKind("");setArchived(false);setRefinements(emptyRefinements);setCursor(undefined);}}>Clear all filters</button> : null}<button className="primary-button" aria-busy={creation.pending||undefined} onClick={()=>{const title=submitted||DEFAULT_PAGE_TITLE;void creation.create(async()=>({containerId:(await destination.resolve())?.id??null,title}));}}>Create a page titled “{submitted}”</button></section>
               ) : (
                 <ul className="search-results">
                   {resource.data.items.map((result) => (
                     <li key={`${result.kind}:${result.id}`}>
                       <a href={`${result.href}${result.href.includes("?")?"&":"?"}${new URLSearchParams(result.highlights.map(term=>["highlight",term])).toString()}`}>
                         <span className="eyebrow">
-                          {result.kind.replaceAll("-", " ")}
+                          {({page:"Page",record:"Record",container:"Space",template:"Template","comment-thread":"Comment"} as Record<string,string>)[result.kind] ?? result.kind}
                         </span>
-                        <h2><HighlightedText text={result.title} terms={result.highlights}/></h2>
+                        <h2>{result.kind === "comment-thread" ? "Comment on " : ""}<HighlightedText text={result.title} terms={result.highlights}/></h2>
                         <p><HighlightedText text={result.snippet} terms={result.highlights}/></p>
                       </a>
                     </li>
@@ -165,6 +131,7 @@ export function WorkspaceSearch() {
               ) : null}
               <button
                 type="button"
+                className="secondary-button"
                 onClick={() => {
                   void mutate("/api/search/saved", {
                     operationKey: operationKey(),
@@ -187,7 +154,47 @@ export function WorkspaceSearch() {
             </p>
           )}
         </RequestState>
-        {create ? <CreatePageDialog defaultTitle={submitted} onClose={()=>setCreate(false)} onCreated={id=>window.location.assign(`/app/pages/${id}`)}/>:null}
+        <details className="search-options"><summary>Search options & saved searches</summary>
+        <div className="search-filters">
+          <label><span>Look in</span>
+            <select
+              disabled={!ready}
+              value={kind}
+              onChange={(event) => {
+                setKind(event.target.value);
+                setCursor(undefined);
+              }}
+            >
+              <option value="">Everything you can read</option>
+              {[
+                "page",
+                "record",
+                "container",
+                "template",
+                "comment-thread",
+              ].map((value) => (
+                <option key={value} value={value}>{({page:"Pages",record:"Records",container:"Spaces",template:"Templates","comment-thread":"Comments"} as Record<string,string>)[value]}</option>
+              ))}
+            </select>
+          </label>
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              disabled={!ready}
+              checked={archived}
+              onChange={(event) => {
+                setArchived(event.target.checked);
+                setCursor(undefined);
+              }}
+            />
+            Include archive
+          </label>
+        </div>
+        <SearchRefinements disabled={!ready} value={refinements} activeCount={Number(Boolean(kind))+Number(archived)} onChange={value=>{setRefinements(value);setCursor(undefined);}} />
+        <SavedSearches version={savedVersion} onChoose={value=>{setQuery(value.query??"");setSubmitted(value.query??"");setKind(value.kind??"");setArchived(value.includeArchived??false);setRefinements({...emptyRefinements,...value});setCursor(undefined);}}/>
+        </details>
+        {creation.prompt}
+        {creation.error ? <p role="alert">{errorMessage(creation.error)}</p> : null}
         {error ? <p role="alert">{errorMessage(error)}</p> : null}
       </section>
     </>

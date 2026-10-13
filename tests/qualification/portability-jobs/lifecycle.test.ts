@@ -5,6 +5,7 @@ import {stagePortabilityJob as stage,runPortabilityJob as run,getPortabilityJob 
 import {readJob} from '../../../src/core/features/portability/jobs-store';
 import {prepareInvalidateExports} from '../../../src/core/features/portability/invalidation';
 import {decodeArchive} from '../../../src/core/features/portability/archive';
+import {portableTables} from '../../../src/core/features/portability/tables';
 import {exportWorkspace} from '../../../src/core/features/portability/service';
 import {latchR2,faultR2} from './helpers';
 beforeEach(reset);
@@ -13,7 +14,7 @@ test('PORT-003 committed Queued, concurrent Running, canonical counts, download,
  expect(j.state).toBe('queued');expect(j.counts).toEqual({});expect((await status(f.context(),j.id)).state).toBe('queued');
  const latch=latchR2(f.context(),'federation/exports/'),running=run(latch.ctx,j.id);await latch.started;
  try{expect((await status(f.context(),j.id)).state).toBe('running');expect((await run(f.context(),j.id)).state).toBe('running');expect((await stage(f.context(),'export','export-life')).id).toBe(j.id);}finally{latch.release();}
- const final=await running;expect(final.state).toBe('completed');expect(final.counts.pages).toBe(1);expect(Object.keys(final.counts)).toHaveLength(106);expect(final.downloadPath).toBe(`/api/exports/${j.id}/download`);
+ const final=await running;expect(final.state).toBe('completed');expect(final.counts.pages).toBe(1);expect(Object.keys(final.counts).sort()).toEqual([...portableTables].sort());expect(final.downloadPath).toBe(`/api/exports/${j.id}/download`);
  const row=await env.DB.prepare('SELECT archive_key FROM federation_exports WHERE id=?').bind(j.id).first<string>('archive_key');const archive=await decodeArchive(new Uint8Array(await(await env.FILES.get(row!))!.arrayBuffer()));expect(archive.manifest.tables.portability_jobs).toBeUndefined();
  expect(await run(faultR2(f.context(),'put'),j.id)).toEqual(final);expect((await exportWorkspace(faultR2(f.context(),'put'),{operationKey:'export-life'})).state).toBe('completed');
 });

@@ -1,0 +1,11 @@
+/* Motion is optional and quiet: the hero's window settles into place and the plant and mug fade in once, when the page loads. Nothing
+   loops, nothing waits for a script, and without this file or with reduced motion every drawing is simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  .slate-landing .hs-window { animation: slate-landing-settle 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .slate-landing .hs-plant, .slate-landing .hs-mug { animation: slate-landing-fade 0.7s 0.25s ease-out both; }
+  @keyframes slate-landing-settle { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes slate-landing-fade { from { opacity: 0; } to { opacity: 1; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slate-landing *, .slate-landing *::before, .slate-landing *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

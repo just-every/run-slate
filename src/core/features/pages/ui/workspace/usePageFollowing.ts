@@ -1,0 +1,37 @@
+import { useState } from "react";
+import { useResource } from "../../../../client/useResource";
+import { mutate, operationKey, errorMessage } from "../../../../client/transport";
+
+/** Whether the member has favourited or is watching this page, and the two toggles. */
+export function usePageFollowing(pageId: string) {
+  const resource = useResource<{ watches: string[]; favourites: { kind: string; id: string }[] }>("/api/navigation");
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<unknown>();
+  const favourite = resource.data?.favourites.some((item) => item.kind === "page" && item.id === pageId) ?? false;
+  const watched = resource.data?.watches.includes(pageId) ?? false;
+  async function toggle(kind: "watch" | "favourite", enabled: boolean) {
+    setPending(true);
+    setError(undefined);
+    try {
+      await mutate(
+        `/api/navigation/${kind === "watch" ? "watches" : "favourites"}`,
+        { operationKey: operationKey(), ...(kind === "watch" ? { pageId } : { id: pageId, kind: "page" }), enabled },
+        "PUT",
+      );
+      await resource.reload();
+      window.dispatchEvent(new Event("slate:navigation-changed"));
+    } catch (cause) {
+      setError(cause);
+    } finally {
+      setPending(false);
+    }
+  }
+  return {
+    favourite,
+    watched,
+    disabled: pending || !resource.data,
+    error: error || resource.error ? errorMessage(error || resource.error) : null,
+    toggleFavourite: () => toggle("favourite", !favourite),
+    toggleWatch: () => toggle("watch", !watched),
+  };
+}

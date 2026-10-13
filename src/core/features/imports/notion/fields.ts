@@ -33,7 +33,7 @@ export function inferNotionFieldType(values: string[], first: boolean): NotionFi
   if (present.some((value) => relationValue.test(value))) return "relation";
   if (present.every((value) => /^(?:yes|no)$/i.test(value))) return "checkbox";
   if (present.every(isDate)) return "date";
-  if (present.every((value) => numberValue.test(value))) return "number";
+  if (present.every((value) => numberValue.test(value) && !/^-?0\d/.test(value) && Number.isFinite(Number(value)) && (!/^-?\d+$/.test(value) || Number.isSafeInteger(Number(value))))) return "number";
   if (present.every((value) => emailValue.test(value))) return "email";
   if (present.every((value) => urlValue.test(value))) return "url";
 

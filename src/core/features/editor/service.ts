@@ -8,8 +8,11 @@ import { createUlid } from '../../shared/ulid';
 import { requirePageLevel } from '../sharing/current-access';
 import { pageRow, pageBlocks, properties, pageGuard, revisionStatement, writable, contentEvent } from '../pages/repository';
 import type { BlockInput, BlockUpdateInput } from '../pages/types';
+import type { BlockView } from '../../shared/api/content';
+import type { JsonValue } from '../../shared/api/common';
 import { validateBlockContent, validateBlockTree, plainContent } from './validation';
 import { contentPolicy } from '../pages/policy';
+import { labelForReader } from '../pages/mentions';
 function revisionUpdate(ctx: FeatureContext, id: string, revisionId: string, live: boolean) { return ctx.db.prepare("UPDATE pages SET working_revision_id=?,revision_id=?,published_revision_id=CASE WHEN ? THEN ? ELSE published_revision_id END,lifecycle=CASE WHEN ? THEN lifecycle WHEN lifecycle IN ('live','live-with-unpublished-changes') THEN 'live-with-unpublished-changes' ELSE lifecycle END,updated_at=? WHERE id=?").bind(revisionId, revisionId, +live, revisionId, +live, ctx.now, id); }
 export async function updateBlock(ctx: FeatureContext, pageId: string, blockId: string, input: BlockUpdateInput) {
     // Retry only snapshot contention from a different block. The submitted block CAS is never rebased.
@@ -22,15 +25,15 @@ export async function updateBlock(ctx: FeatureContext, pageId: string, blockId: 
                     if (!block)
                         throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
                     if (block.revisionId !== input.expectedRevisionId)
-                        throw new ApiProblem(409, 'BLOCK_CONFLICT', 'This block changed. Keep your unsaved text and compare.', { blockId, currentRevisionId: block.revisionId, serverContent: block.content });
+                        throw new ApiProblem(409, 'BLOCK_CONFLICT', 'This block changed. Keep your unsaved text and compare.', { blockId, currentRevisionId: block.revisionId, serverContent: await labelForReader(ctx, block.content) });
                     let content = validateBlockContent(block.blockType, input.content);
                     content = normalizeTask(ctx, { ...block, content }, block);
                     if (await requestHash(content) === await requestHash(block.content))
-                        return { noChange: true, statements: [pageGuard(ctx, page, page.revision_id), mutationGuard(ctx.db, 'SELECT revision_id=? FROM page_blocks WHERE id=? AND page_id=?', [input.expectedRevisionId, blockId, pageId])], entity: { id: pageId, kind: 'page', revisionId: page.revision_id }, value: { pageId, revisionId: page.revision_id, blockRevisionId: block.revisionId } };
+                        return { noChange: true, statements: [pageGuard(ctx, page, page.revision_id), mutationGuard(ctx.db, 'SELECT revision_id=? FROM page_blocks WHERE id=? AND page_id=?', [input.expectedRevisionId, blockId, pageId])], entity: { id: pageId, kind: 'page', revisionId: page.revision_id }, value: { pageId, revisionId: page.revision_id, blockRevisionId: block.revisionId, previousRevisionId: page.revision_id } };
                     const blockRevisionId = createUlid();
                     const next = blocks.map(b => b.id === blockId ? { ...b, content, revisionId: blockRevisionId } : b);
                     const policy = await contentPolicy(ctx), live = policy['page.lifecycle.v1'] === 'always-live' && !['draft', 'scheduled'].includes(page.lifecycle);
-                    return { statements: [pageGuard(ctx, page, page.revision_id), mutationGuard(ctx.db, 'SELECT revision_id=? FROM page_blocks WHERE id=? AND page_id=?', [input.expectedRevisionId, blockId, pageId]), ctx.db.prepare('UPDATE page_blocks SET content_json=?,revision_id=?,updated_at=? WHERE id=?').bind(JSON.stringify(content), blockRevisionId, ctx.now, blockId), revisionUpdate(ctx, pageId, revisionId, live), await revisionStatement(ctx, pageId, revisionId, { blocks: next, properties: await properties(ctx, page) }), ctx.db.prepare('INSERT OR IGNORE INTO page_contributors VALUES (?,?,?)').bind(pageId, ctx.actor.id, ctx.now), contentEvent(ctx, pageId, revisionId, 'block', { blockId, blockRevisionId }), ...anchorUpdates(ctx, pageId, next),...notificationStatements(ctx,{id:`${revisionId}:mentions`,event:'mention',pageId,recipientIds:mentionIds(content).filter(id=>!mentionIds(block.content).includes(id))})], entity: { id: pageId, kind: 'page', revisionId }, value: { pageId, revisionId, blockRevisionId } };
+                    return { statements: [pageGuard(ctx, page, page.revision_id), mutationGuard(ctx.db, 'SELECT revision_id=? FROM page_blocks WHERE id=? AND page_id=?', [input.expectedRevisionId, blockId, pageId]), ctx.db.prepare('UPDATE page_blocks SET content_json=?,revision_id=?,updated_at=? WHERE id=?').bind(JSON.stringify(content), blockRevisionId, ctx.now, blockId), revisionUpdate(ctx, pageId, revisionId, live), await revisionStatement(ctx, pageId, revisionId, { blocks: next, properties: await properties(ctx, page) }), ctx.db.prepare('INSERT OR IGNORE INTO page_contributors VALUES (?,?,?)').bind(pageId, ctx.actor.id, ctx.now), contentEvent(ctx, pageId, revisionId, 'block', { blockId, blockRevisionId }), ...anchorUpdates(ctx, pageId, next),...notificationStatements(ctx,{id:`${revisionId}:mentions`,event:'mention',pageId,recipientIds:mentionIds(content).filter(id=>!mentionIds(block.content).includes(id))})], entity: { id: pageId, kind: 'page', revisionId }, value: { pageId, revisionId, blockRevisionId, previousRevisionId: page.revision_id } };
                 } });
         }
         catch (e) {
@@ -58,16 +61,40 @@ export async function replaceBlocks(ctx: FeatureContext, pageId: string, input: 
     operationKey: string;
     expectedRevisionId: string;
     blocks: BlockInput[];
+    blockRevisions?: Record<string, string>;
 }) { return commitOperation(ctx, { operationKey: input.operationKey, action: 'pages.blocks.replace', request: { pageId, ...input }, authorize: async () => { await requirePageLevel(ctx, pageId, 'edit'); }, prepare: ({ revisionId }) => prepareReplaceBlocks(ctx, pageId, input, revisionId) }); }
+/**
+ * SAVE-003: the editor sends the block revision it holds for every block it knows. A stored
+ * block committed after that revision is kept unless this request leaves its content exactly
+ * as stored; otherwise the whole change is refused with the block's saved content. A caller
+ * that builds the whole page from one read at expectedRevisionId may omit the revisions: the
+ * page revision guard then covers every block.
+ */
+async function blockConflict(old: BlockView[], next: { id: string; blockType: string; content: JsonValue }[], known: Record<string, string>) {
+    for (const stored of old) {
+        if (known[stored.id] === stored.revisionId)
+            continue;
+        const sent = next.find(b => b.id === stored.id);
+        if (sent && sent.blockType === stored.blockType && await requestHash(sent.content) === await requestHash(stored.content))
+            continue;
+        return stored;
+    }
+}
 export async function prepareReplaceBlocks(ctx: FeatureContext, pageId: string, input: {
     expectedRevisionId: string;
     blocks: BlockInput[];
+    blockRevisions?: Record<string, string>;
 }, revisionId: string) {
     const incoming = validateBlockTree(input.blocks);
     const page = await pageRow(ctx, pageId);
     writable(page);
     const old = await pageBlocks(ctx.db, pageId);
-    const next = incoming.map(b => ({ ...b, content: normalizeTask(ctx, b, old.find(o => o.id === b.id)), pageId, parentBlockId: b.parentBlockId ?? null, revisionId: createUlid() }));
+    const normalized = incoming.map(b => ({ ...b, content: normalizeTask(ctx, b, old.find(o => o.id === b.id)) }));
+    const conflict = input.blockRevisions && await blockConflict(old, normalized, input.blockRevisions);
+    if (conflict)
+        throw new ApiProblem(409, 'BLOCK_CONFLICT', 'Someone else changed a block on this page since you loaded it. Nothing was changed; compare or reload that block, then try again.', { blockId: conflict.id, currentRevisionId: conflict.revisionId, serverContent: await labelForReader(ctx, conflict.content) });
+    // A block whose content this change leaves as stored keeps its revision, so a concurrent edit to it still saves.
+    const next = await Promise.all(normalized.map(async b => { const stored = old.find(o => o.id === b.id); return { ...b, pageId, parentBlockId: b.parentBlockId ?? null, revisionId: stored && stored.blockType === b.blockType && await requestHash(stored.content) === await requestHash(b.content) ? stored.revisionId : createUlid() }; }));
     for (const b of next) {
         const foreign = await ctx.db.prepare('SELECT page_id FROM page_blocks WHERE id=?').bind(b.id).first<{
             page_id: string;

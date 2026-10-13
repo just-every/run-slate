@@ -5,11 +5,11 @@
     "requirements": [
       {
         "name": "node",
-        "version": ">=22.12.0"
+        "version": "22.20.0"
       },
       {
         "name": "pnpm",
-        "version": "8.15.6"
+        "version": "10.12.4"
       },
       {
         "name": "Cloudflare Workers",
@@ -18,9 +18,10 @@
     ]
   },
   "requiredEnvironment": [
-    "SLATE_DEPLOY_ENV",
-    "SLATE_APP_URL",
+    "CLOUDFLARE_ACCOUNT_ID",
+    "CLOUDFLARE_API_TOKEN",
     "SLATE_SETUP_OWNER_EMAIL",
+    "SLATE_MAIL_PROVIDER",
     "SLATE_MAIL_FROM",
     "SLATE_SESSION_SECRET",
     "SLATE_MAIL_API_KEY"
@@ -37,104 +38,70 @@
   "commands": {
     "dev": {
       "argv": [
-        "pnpm",
-        "run",
+        "rer",
         "dev"
       ],
       "inputs": [
         "package.json",
-        "scripts/dev.mjs",
-        "deploy/wrangler.local.toml"
+        "scripts/installer/local.mjs",
+        "rer-setup.json"
       ],
-      "effects": "Applies local D1 migrations and starts the loopback Vite development server; writes local retained state."
+      "effects": "Starts one health-gated foreground Vite development instance with native outbox and retained local data; --stop tears it down."
     },
     "build": {
       "argv": [
-        "pnpm",
-        "run",
+        "rer",
         "build"
       ],
       "inputs": [
         "package.json",
-        "vite.config.ts",
-        "src/server.ts",
-        "scripts/build.mjs"
+        "scripts/installer/local.mjs",
+        "rer-setup.json"
       ],
-      "effects": "Builds local Worker and client artifacts; does not deploy."
+      "effects": "Builds production Worker/assets with private settings isolated and restored exactly; records native source/output identity."
     },
     "verify": {
       "argv": [
-        "pnpm",
-        "run",
+        "rer",
         "verify"
       ],
       "inputs": [
         "package.json",
-        "scripts/verify.mjs"
+        "scripts/installer/local.mjs",
+        "rer-setup.json"
       ],
-      "effects": "Runs typecheck, build and existing contract/foundation/platform checks; uncovered requirements may remain."
+      "effects": "Runs the complete internal verification target; no deployment."
     },
     "setup": {
       "argv": [
-        "pnpm",
-        "run",
+        "rer",
         "setup"
       ],
       "inputs": [
         "package.json",
-        "scripts/setup.mjs",
-        "scripts/deployment.mjs",
-        "deploy/wrangler.template.toml"
+        "scripts/installer/local.mjs",
+        "rer-setup.json"
       ],
-      "effects": "Validates setup inputs, provisions Cloudflare D1/R2/Queue, writes local deployment config/cache, applies remote D1 migrations and uploads configured secrets."
+      "effects": "Builds Slate, applies local migrations, preserves private native settings and prepares native owner sign-in; stops the temporary app. No provider calls."
     },
     "deploy": {
       "argv": [
-        "pnpm",
-        "run",
+        "rer",
         "deploy"
       ],
       "inputs": [
         "package.json",
-        "scripts/deploy.mjs",
-        "scripts/setup.mjs",
-        "scripts/deployment.mjs",
-        "deploy/wrangler.template.toml"
+        "scripts/installer/local.mjs",
+        "rer-setup.json",
+        "scripts/installer/deploy.mjs",
+        "deploy.json"
       ],
-      "effects": "Runs setup including remote migrations, builds the Worker/client, deploys dist/server/wrangler.json, then requests health and checks database/files reachability."
-    },
-    "backup": {
-      "argv": [
-        "node",
-        "src/core/features/portability/command.mjs",
-        "backup",
-        "ARCHIVE.zip"
-      ],
-      "inputs": [
-        "src/core/features/portability/command.mjs"
-      ],
-      "effects": "Creates a server-side owner export and downloads an archive to a new mode-0600 local file; requires SLATE_APP_URL and current owner SLATE_SESSION_COOKIE. Replace ARCHIVE.zip with destination path."
-    },
-    "restore": {
-      "argv": [
-        "node",
-        "src/core/features/portability/command.mjs",
-        "restore",
-        "ARCHIVE.zip"
-      ],
-      "inputs": [
-        "src/core/features/portability/command.mjs"
-      ],
-      "effects": "Uploads an archive and restores into an empty deployment as its authenticated setup owner; writes remote data and files. Requires SLATE_APP_URL and SLATE_SESSION_COOKIE. Replace ARCHIVE.zip with source path; independent restore acceptance is pending."
+      "effects": "Uses Base deploy-kit in the owner Cloudflare account, with health checking; --dry-run builds and validates locally with no provider requests."
     },
     "dev-local-ai": {
       "argv": [
         "node",
-        "local-agent/dev.mjs",
-        "--",
-        "--port",
-        "4174",
-        "--strictPort"
+        "local-agent/dev.mjs"
       ],
       "inputs": [
         "local-agent/dev.mjs",
@@ -142,9 +109,8 @@
         "local-agent/task.mjs",
         "local-agent/codex.mjs",
         "local-agent/rpc.mjs",
-        "scripts/dev.mjs",
-        "deploy/wrangler.local.toml",
-        "package.json"
+        "package.json",
+        "wrangler.jsonc"
       ],
       "effects": "Starts loopback Slate development and a private-token local Codex evidence bridge using existing codex login; applies local migrations and retains local state. Optional SLATE_AI_MODEL defaults to gpt-6-astra. Inference sends authorized evidence to Codex; no hosted provider acceptance. Stops owned children on exit."
     },
@@ -170,7 +136,7 @@
       ],
       "inputs": [
         "scripts/sync-integration.mjs",
-        "scripts/release/deployment-spec.mjs",
+        "scripts/delivery/base/spec.mjs",
         "deploy/wrangler.template.toml"
       ],
       "effects": "Rewrites derived management resource recipe and provenance from actual source; review diff, stage and relock."
@@ -186,20 +152,174 @@
         "scripts/build-delivery-artifact.mjs",
         "management/integration/deployment-spec.json"
       ],
-      "effects": "Requires clean committed source and a matching native build receipt; writes local delivery-artifact bundle with exact Worker modules, client assets and SQL. No deployment or admission."
+      "effects": "Packages the emitted native build through the pinned Base schema-2 producer into a fresh output directory, with exact module/asset payload digests and SQL bytes. No deployment or admission."
     },
-    "deployment-check": {
+    "export": {
+      "argv": [
+        "rer",
+        "export"
+      ],
+      "inputs": [
+        "package.json",
+        "scripts/installer/local.mjs",
+        "rer-setup.json"
+      ],
+      "effects": "Writes a new owner-only complete local D1/R2 installation archive through Base portability; excludes credentials, sessions and transient caches. Remote transfer is unsupported."
+    },
+    "import": {
+      "argv": [
+        "rer",
+        "import"
+      ],
+      "inputs": [
+        "package.json",
+        "scripts/installer/local.mjs",
+        "rer-setup.json"
+      ],
+      "effects": "Validates and restores into an empty local installation after explicit confirmation; identities require fresh native sign-in and effect authority must be renewed. Remote transfer is unsupported."
+    },
+    "cf-typegen": {
       "argv": [
         "pnpm",
         "run",
-        "check:deployment"
+        "cf-typegen"
       ],
       "inputs": [
-        "OPERATIONS.json",
-        "scripts/operations.mjs",
-        "scripts/operations-config.mjs"
+        "package.json",
+        "scripts/cf-typegen.mjs",
+        "wrangler.jsonc"
       ],
-      "effects": "Validates local deployment input names and syntax only. Missing configuration fails; never authenticates, provisions or claims provider readiness."
+      "effects": "Uses Wrangler to regenerate committed Worker binding declarations from local configuration; no deployment."
+    },
+    "source-lock": {
+      "argv": [
+        "pnpm",
+        "run",
+        "source:lock"
+      ],
+      "inputs": [
+        "edition.json",
+        "scripts/edition-authoring/cli.mjs"
+      ],
+      "effects": "Records intentionally staged source identities and retained origin comparison snapshots; no deployment."
+    },
+    "install": {
+      "argv": [
+        "rer",
+        "install"
+      ],
+      "inputs": [
+        "package.json",
+        "scripts/installer/local.mjs",
+        "rer-setup.json"
+      ],
+      "effects": "Frozen dependency installation only; no setup or remote effect."
+    },
+    "preview": {
+      "argv": [
+        "rer",
+        "preview"
+      ],
+      "inputs": [
+        "package.json",
+        "scripts/installer/local.mjs",
+        "rer-setup.json"
+      ],
+      "effects": "Builds changed production output and serves a fixed foreground Worker with native outbox and retained local data; --stop tears it down."
+    },
+    "reset": {
+      "argv": [
+        "rer",
+        "reset"
+      ],
+      "inputs": [
+        "package.json",
+        "scripts/installer/local.mjs",
+        "rer-setup.json"
+      ],
+      "effects": "After explicit confirmation removes only declared local state, settings and installer drafts; retains source, exports and deployment receipts."
+    },
+    "release": {
+      "argv": [
+        "rer",
+        "release"
+      ],
+      "inputs": [
+        "package.json",
+        "scripts/installer/local.mjs",
+        "rer-setup.json"
+      ],
+      "effects": "Runs Base release validation, scans and local clean-history export; never pushes or deploys."
+    },
+    "outbox": {
+      "argv": [
+        "rer",
+        "outbox"
+      ],
+      "inputs": [
+        "package.json",
+        "scripts/installer/local.mjs",
+        "rer-setup.json"
+      ],
+      "effects": "Prints the running local outbox URL; --owner-email requests an ordinary native sign-in message."
+    },
+    "doctor": {
+      "argv": [
+        "rer",
+        "doctor"
+      ],
+      "inputs": [
+        "package.json",
+        "scripts/installer/local.mjs",
+        "rer-setup.json"
+      ],
+      "effects": "Read-only tool/configuration/state diagnostics; no provider requests."
+    },
+    "describe": {
+      "argv": [
+        "rer",
+        "describe"
+      ],
+      "inputs": [
+        "package.json",
+        "scripts/installer/local.mjs",
+        "rer-setup.json"
+      ],
+      "effects": "Read-only command, flags, aliases, effects and state description."
+    },
+    "check": {
+      "argv": [
+        "rer",
+        "check"
+      ],
+      "inputs": [
+        "package.json",
+        "scripts/installer/local.mjs",
+        "rer-setup.json"
+      ],
+      "effects": "Read-only structural first-party contract validation before dependencies or configuration exist."
     }
+  },
+  "environmentSources": {
+    "CLOUDFLARE_ACCOUNT_ID": "Owner vault and deployment guide in OPERATIONS.md",
+    "CLOUDFLARE_API_TOKEN": "Owner vault and deployment guide in OPERATIONS.md",
+    "SLATE_SETUP_OWNER_EMAIL": "Owner vault and deployment guide in OPERATIONS.md",
+    "SLATE_MAIL_PROVIDER": "Owner vault and deployment guide in OPERATIONS.md",
+    "SLATE_MAIL_FROM": "Owner vault and deployment guide in OPERATIONS.md",
+    "SLATE_SESSION_SECRET": "Owner vault and deployment guide in OPERATIONS.md",
+    "SLATE_MAIL_API_KEY": "Owner vault and deployment guide in OPERATIONS.md"
+  },
+  "loops": [
+    {
+      "id": "jobs",
+      "type": "worker",
+      "required": true,
+      "enabled": true
+    }
+  ],
+  "seedContract": {
+    "version": 1,
+    "profile": "first-party",
+    "adapter": "scripts/installer/local.mjs"
   }
 }

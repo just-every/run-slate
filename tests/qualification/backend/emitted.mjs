@@ -1,7 +1,8 @@
+import {signInWithOutbox} from '../../e2e/outbox-auth.mjs';
 import {mkdtemp} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import assert from 'node:assert/strict';
-import {createHmac,randomBytes,randomUUID} from 'node:crypto';
+import {randomUUID} from 'node:crypto';
 import {mkdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {createRuntime} from '../local/runtime.mjs';
@@ -10,10 +11,10 @@ await mkdir(evidence,{recursive:true});
 const runtime=await createRuntime({root,evidence,appPort:8750,inspectorPort:8751});
 const checks=[];
 try {
-  const now=new Date().toISOString(),expires=new Date(Date.now()+3600000).toISOString(),token=randomBytes(32).toString('base64url'),digest=createHmac('sha256',runtime.sessionSecret).update(token).digest('hex');
+  const now=new Date().toISOString();
   // Test-only membership/session fixture replaces mailbox possession; all product records below use native HTTP.
-  await runtime.sql(`INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES('core-proof-workspace','Before wizard','','${now}','${now}','initial-core-revision'); INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('core-proof-owner','core-proof-workspace','qualification-owner@test.invalid','Core owner','CO','owner','member','active',1,'${now}','${now}'); INSERT INTO sessions(id,member_id,token_digest,created_at,updated_at,expires_at) VALUES('core-proof-session','core-proof-owner','${digest}','${now}','${now}','${expires}');`);
-  const cookie=`slate_session=${token}`;
+  await runtime.sql(`INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES('core-proof-workspace','Before wizard','','${now}','${now}','initial-core-revision'); INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('core-proof-owner','core-proof-workspace','qualification-owner@test.invalid','Core owner','CO','owner','member','active',1,'${now}','${now}');`);
+  const {cookie}=await signInWithOutbox(runtime.origin,'qualification-owner@test.invalid');
   async function request(method,route,body) {
     const response=await fetch(runtime.origin+route,{method,headers:{cookie,'content-type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});
     const data=await response.json();assert.ok(response.ok,`${method} ${route}: ${response.status} ${JSON.stringify(data)}`);return data;
@@ -35,8 +36,9 @@ try {
   const configuration=await request('GET','/api/navigation/configuration');const destinations=[...configuration.destinations].reverse();await request('PUT','/api/navigation/configuration',{operationKey:randomUUID(),expectedRevisionId:configuration.revisionId,destinations});assert.deepEqual((await request('GET','/api/navigation')).configuration.destinations,destinations);checks.push('NAV-004 workspace-owned configuration round trip');
   const details=await request('GET',`/api/pages/${page.id}/details`);assert.deepEqual(details.owner,{id:'core-proof-owner',displayName:'Core owner'});assert.deepEqual(details.linkedFrom,[]);checks.push('PAGE-007 reader detail contract');
   await request('PUT','/api/sharing/configuration',{operationKey:randomUUID(),expectedRevisionId:null,levels:['full','edit','view']});assert.deepEqual((await request('GET',`/api/sharing/pages/${child.pageId}`)).levels,['full','edit','view']);checks.push('SHARE-005 configured levels persisted');
-  const requesterToken=randomBytes(32).toString('base64url'),requesterDigest=createHmac('sha256',runtime.sessionSecret).update(requesterToken).digest('hex');
-  await runtime.sql(`INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,created_at,updated_at) VALUES('requester-proof','core-proof-workspace','requester@test.invalid','Requester','RQ','member','member','active','${now}','${now}'); INSERT INTO sessions(id,member_id,token_digest,created_at,updated_at,expires_at) VALUES('requester-session','requester-proof','${requesterDigest}','${now}','${now}','${expires}');`);
+
+  await runtime.sql(`INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,created_at,updated_at) VALUES('requester-proof','core-proof-workspace','requester@test.invalid','Requester','RQ','member','member','active','${now}','${now}');`);
+  const requesterToken=(await signInWithOutbox(runtime.origin,'requester@test.invalid')).cookie.split('=')[1];
   const privatePage=(await request('POST','/api/pages',{operationKey:randomUUID(),containerId:page.containerId,title:'Request target private title'})).value;
   for(const targetId of [privatePage.pageId,privatePage.pageId,'unknown-target']) {
     const response=await fetch(`${runtime.origin}/api/sharing/pages/${targetId}/request-access`,{method:'POST',headers:{cookie:`slate_session=${requesterToken}`,'content-type':'application/json'},body:JSON.stringify({operationKey:randomUUID()})});

@@ -3,6 +3,7 @@ import type { BlockView } from '../../shared/api/content';
 import { requirePageLevel,resolveCurrentAccessMany } from '../sharing/current-access';
 import { pageRow,revisionRow } from './repository';
 import { plainContent } from '../editor/validation';
+import { labelForReader } from './mentions';
 
 function linksTo(value:unknown,pageId:string,appOrigin?:string):boolean {
   if(Array.isArray(value))return value.some(item=>linksTo(item,pageId,appOrigin));
@@ -34,7 +35,7 @@ export async function pageDetails(ctx:FeatureContext,pageId:string,appOrigin?:st
     if(!body||!properties||!linksTo(JSON.parse(body),pageId,appOrigin))continue;
     linkedFrom.push({id:row.id,title:JSON.parse(properties).title});
   }
-  const text=(JSON.parse(revision.body_json) as BlockView[]).map(block=>plainContent(block.content)).join(' ').trim();
+  const text=(await labelForReader(ctx,JSON.parse(revision.body_json) as BlockView[])).map(block=>plainContent(block.content)).join(' ').trim();
   const wordCount=text?text.split(/\s+/u).length:0;
   return {owner,linkedFrom,wordCount,readingMinutes:Math.max(1,Math.ceil(wordCount/200))};
 }

@@ -1,3 +1,4 @@
+import { signInBrowser } from '../../e2e/outbox-auth.mjs';
 import assert from "node:assert/strict";
 import AxeBuilder from "@axe-core/playwright";
 import { mkdir } from "node:fs/promises";
@@ -11,9 +12,7 @@ try {
   const page = await context.newPage();
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto("http://127.0.0.1:4174/signin");
-  await page.getByTestId("local-sign-in").click();
-  await page.waitForURL("**/app");
+  await signInBrowser(page, "http://127.0.0.1:4174", process.env.SLATE_BROWSER_EMAIL ?? 'jamie@aurora.example');
   const document = await page.evaluate(async () => {
     const list = await (await fetch("/api/pages")).json();
     if (!list.items.length)

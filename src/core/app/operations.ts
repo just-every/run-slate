@@ -42,6 +42,7 @@ export async function commitOperation<T>(ctx: FeatureContext, input: {
       ctx.db.prepare('INSERT INTO operation_receipts (id,workspace_id,actor_member_id,operation_key,request_hash,target_kind,target_id,response_status,response_json,created_at,expires_at) VALUES (?,?,?,?,?,?,?,200,?,?,?)').bind(createUlid(),ctx.actor.workspaceId,ctx.actor.id,input.operationKey,hash,plan.entity.kind,plan.entity.id,JSON.stringify(result),ctx.now,expires),
       ...(authorizationEpoch === undefined ? [] : [mutationGuard(ctx.db, 'SELECT epoch=? FROM core_acl_epoch WHERE id=1',[authorizationEpoch])]),
       mutationGuard(ctx.db, "SELECT status='active' FROM members WHERE id=? AND workspace_id=?", [ctx.actor.id,ctx.actor.workspaceId]),
+      ...(ctx.stepUp ? [freshProofGuard(ctx)] : []),
       ...plan.statements,
       ...(plan.noChange?[]:[ctx.db.prepare('INSERT INTO activity_entries (id,workspace_id,actor_member_id,feature,action,target_kind,target_id,detail_json,operation_key,occurred_at) VALUES (?,?,?,?,?,?,?,?,?,?)').bind(activityId,ctx.actor.workspaceId,ctx.actor.id,input.action.split('.')[0],input.action,plan.entity.kind,plan.entity.id,JSON.stringify(plan.detail??{}),input.operationKey,ctx.now)]),
     ]);
@@ -54,6 +55,11 @@ export async function commitOperation<T>(ctx: FeatureContext, input: {
   await refreshAfterCommit(ctx);
   await dispatchCommittedNotifications(ctx);
   return result;
+}
+/** The asking session still holds a fresh step-up proof at the member's current authority version. */
+export function freshProofGuard(ctx: FeatureContext): D1PreparedStatement {
+  const proof = ctx.stepUp!;
+  return mutationGuard(ctx.db, "SELECT EXISTS(SELECT 1 FROM sessions s JOIN members m ON m.id=s.member_id WHERE s.id=? AND s.member_id=? AND m.status='active' AND s.revoked_at IS NULL AND s.proof_at>=? AND s.proof_version=COALESCE((SELECT version FROM member_authority WHERE member_id=m.id),1))", [proof.sessionId, ctx.actor.id, proof.since]);
 }
 /** Guard SELECT must return a boolean scalar. It executes inside the same atomic D1 batch as writes. */
 export function mutationGuard(db: D1Database, select: string, values: (string | number | null)[]): D1PreparedStatement {

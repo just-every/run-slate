@@ -1,9 +1,16 @@
 import type { BlockView } from '../../shared/api/content';
-export async function publicQueries(db: D1Database, exposure: Record<string, any>) { const blocks: BlockView[] = JSON.parse(exposure.body_json); for (const block of blocks) {
+import { effectiveStatusSql, latestVerificationSql } from '../page-status/state';
+/**
+ * STAT-004 for anonymous readers: with no unpublished changes the page's own status counts,
+ * as members see it; otherwise the published revision's status, and an attestation of any
+ * other revision than the published one reads as lapsed, never as verified.
+ */
+const publicStatus = `CASE WHEN p.published_revision_id=p.working_revision_id THEN ${effectiveStatusSql('p', '?')} WHEN EXISTS(SELECT 1 FROM page_verifications ev WHERE ev.id=${latestVerificationSql('p')} AND ev.status_key IS r.status_key AND (ev.expires_at<=? OR ev.revision_id<>p.published_revision_id)) THEN 'lapsed' ELSE r.status_key END`;
+export async function publicQueries(db: D1Database, exposure: Record<string, any>, now = new Date().toISOString()) { const blocks: BlockView[] = JSON.parse(exposure.body_json); for (const block of blocks) {
     if (block.blockType !== 'content-query')
         continue;
     const definition = (block.content as any).definition ?? {};
-    const rows = (await db.prepare("SELECT p.id,p.parent_page_id,p.updated_at,r.properties_json,e.host,e.slug FROM pages p JOIN public_exposures e ON e.page_id=p.id JOIN page_revisions r ON r.id=p.published_revision_id JOIN containers c ON c.id=p.container_id JOIN workspaces w ON w.id=p.workspace_id WHERE p.workspace_id=? AND p.deleted_at IS NULL AND p.trashed_at IS NULL AND p.archived_at IS NULL AND p.lifecycle IN ('live','live-with-unpublished-changes') AND e.revoked_at IS NULL AND c.public_link_access='allowed' AND c.anonymous_access='allowed' AND w.public_link_access='allowed' AND w.anonymous_access='allowed' AND (? IS NULL OR p.container_id=?) AND (? IS NULL OR p.page_kind=?) AND (? IS NULL OR r.status_key=?) ORDER BY p.updated_at DESC LIMIT 100").bind(exposure.workspace_id, definition.container ?? null, definition.container ?? null, definition.pageType ?? null, definition.pageType ?? null, definition.status ?? null, definition.status ?? null).all<{
+    const rows = (await db.prepare(`SELECT p.id,p.parent_page_id,p.updated_at,r.properties_json,e.host,e.slug FROM pages p JOIN public_exposures e ON e.page_id=p.id JOIN page_revisions r ON r.id=p.published_revision_id JOIN containers c ON c.id=p.container_id JOIN workspaces w ON w.id=p.workspace_id WHERE p.workspace_id=? AND p.deleted_at IS NULL AND p.trashed_at IS NULL AND p.archived_at IS NULL AND p.lifecycle IN ('live','live-with-unpublished-changes') AND e.revoked_at IS NULL AND c.public_link_access='allowed' AND c.anonymous_access='allowed' AND w.public_link_access='allowed' AND w.anonymous_access='allowed' AND (? IS NULL OR p.container_id=?) AND (? IS NULL OR p.page_kind=?) AND (? IS NULL OR ${publicStatus}=?) ORDER BY p.updated_at DESC LIMIT 100`).bind(exposure.workspace_id, definition.container ?? null, definition.container ?? null, definition.pageType ?? null, definition.pageType ?? null, definition.status ?? null, now, now, definition.status ?? null).all<{
         id: string;
         parent_page_id: string | null;
         updated_at: string;

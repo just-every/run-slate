@@ -10,14 +10,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      - name: Prepare runner disk for local journeys
+        shell: bash
+        run: |
+          set -euo pipefail
+          df -Pk /
+          # Unused Android, .NET and Haskell SDKs from the Ubuntu runner image.
+          sudo rm -rf -- /usr/local/lib/android /usr/share/dotnet /usr/local/.ghcup
+          df -Pk /
+          available_kib=$(df -Pk / | awk 'NR == 2 {print $4}')
+          if ! [ "$available_kib" -ge "$((15 * 1024 * 1024))" ]; then
+            echo '::error::Local journeys require at least 15 GiB free on the runner root filesystem.'
+            exit 1
+          fi
       - uses: pnpm/action-setup@v4
         with:
-          version: 8.15.6
+          version: 10.12.4
       - uses: actions/setup-node@v5
         with:
-          node-version: 26.8.1
+          node-version: 22.20.0
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm verify
+      - run: pnpm test:ui:reachability
+      - run: pnpm test:ui:state
       - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm verify
       - run: pnpm test:release-regressions
+      - run: pnpm test:ui:journeys
+      - name: Retain redacted local journey failures
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: local-journey-failures
+          path: .artifacts/local-journey/*-failure.log
+          if-no-files-found: ignore

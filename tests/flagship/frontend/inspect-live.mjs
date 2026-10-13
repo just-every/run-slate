@@ -1,3 +1,4 @@
+import { signInBrowser } from '../../e2e/outbox-auth.mjs';
 import { chromium } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 const directory =
@@ -10,11 +11,9 @@ try {
   });
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto("http://127.0.0.1:4174/signin");
-  await page.getByTestId("local-sign-in").click();
-  await page.waitForURL("**/app");
+  await signInBrowser(page, "http://127.0.0.1:4174", process.env.SLATE_BROWSER_EMAIL ?? 'jamie@aurora.example');
   await page
-    .getByRole("heading", { name: /clarity|work that matters/ })
+    .getByRole("heading", { name: "Today", exact: true, level: 1 })
     .waitFor();
   await page
     .getByText("Loading…", { exact: true })

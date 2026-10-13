@@ -1,3 +1,4 @@
+import { requireStepUp } from '../session/step-up';
 import { listIdentityMail,retryIdentityMail } from '../session/mail-status';
 import { requireWorkspaceOwner } from '../sharing/current-access';
 import { completeFirstRun,firstRunState } from './bootstrap';
@@ -25,9 +26,12 @@ export function createWorkspaceRoutes(){return new Hono<AppEnvironment>()
 .get('/api/members/current',async c=>c.json(await currentMember(featureContext(c))))
 .put('/api/members/current/theme',async c=>c.json(await setTheme(featureContext(c),await parseBody(c.req,z.object({operationKey:op,theme:z.enum(['light','dark','system'])}).strict()))))
 .get('/api/members',async c=>c.json(await listMembers(featureContext(c),'member')))
-.put('/api/members/:id/role',async c=>c.json(await setMemberRole(featureContext(c),{...await parseBody(c.req,z.object({operationKey:op,expectedRole:z.enum(['owner','member']),role:z.enum(['owner','member'])}).strict()),memberId:c.req.param('id')})))
+.put('/api/members/:id/role',async c=>{const input=await parseBody(c.req,z.object({operationKey:op,expectedRole:z.enum(['owner','member']),role:z.enum(['owner','member'])}).strict());await requireWorkspaceOwner(featureContext(c));await requireStepUp(c,'owner:transfer');return c.json(await setMemberRole(featureContext(c),{...input,memberId:c.req.param('id')}));})
 .get('/api/guests',async c=>c.json(await listMembers(featureContext(c),'guest')))
-.post('/api/members/remove',async c=>c.json(await removeMember(featureContext(c),await parseBody(c.req,z.object({operationKey:op,memberId:id,erase:z.boolean().optional()}).strict()))))
+.post('/api/members/remove',async c=>{const input=await parseBody(c.req,z.object({operationKey:op,memberId:id,erase:z.boolean().optional()}).strict());const ctx=featureContext(c),target=await c.env.DB.prepare("SELECT role,is_setup_owner FROM members WHERE id=? AND status='active'").bind(input.memberId).first<{role:string;is_setup_owner:number}>();if(input.erase||target?.role==='owner'){
+  // Refuse what can never succeed before emailing a step-up confirmation; the service checks both again.
+  if(input.memberId!==ctx.actor.id){await requireWorkspaceOwner(ctx);if(target?.is_setup_owner)throw new ApiProblem(403,'SETUP_OWNER','Only the setup owner can remove themselves.');}
+  await requireStepUp(c,input.erase?'delete':'owner:transfer');}return c.json(await removeMember(ctx,input));})
 .post('/api/invitations',async c=>c.json(await invite(featureContext(c),c.get('runtimeConfig'),await parseBody(c.req,z.object({operationKey:op,email:z.string().email().max(254),kind:z.enum(['member','guest']),pageId:id.optional(),containerId:id.optional(),level:z.enum(['full','edit','comment','view']).optional(),expiresAt:z.string().datetime().nullable().optional()}).strict()))))
 .post('/api/invitations/revoke',async c=>c.json(await revokeInvitation(featureContext(c),await parseBody(c.req,z.object({operationKey:op,id}).strict()))))
 .get('/api/groups',async c=>c.json(await listGroups(featureContext(c))))

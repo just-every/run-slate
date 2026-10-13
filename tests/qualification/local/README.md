@@ -1,7 +1,7 @@
 # Bounded local qualification
 
 Use pinned Node and pnpm from the calling environment. Build the current repository
-with `pnpm install --frozen-lockfile && pnpm build` before invoking this helper.
+with `pnpm install --frozen-lockfile && rer build` before invoking this helper.
 It reads the emitted artifact; it does not build or alter application inputs.
 
 ```sh

@@ -17,7 +17,6 @@ export function MembersPanel() {
   const owner = member.role === "owner";
   return (
     <section className="settings-panel">
-      <p className="eyebrow">PEOPLE & ACCESS</p>
       <h2>Good work is shared.</h2>
       <button onClick={() => setInvite(true)}>Invite a member</button>
       {sent ? (

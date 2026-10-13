@@ -11,6 +11,6 @@ export function prepareInvalidateExports(ctx:FeatureContext,pageIds:string[]=[])
  // original's custody record. Use it as well as mappings for existing archives.
  for(const pageId of pageIds){const affected="(destination_page_id=? OR id IN (SELECT import_job_id FROM federation_import_mappings WHERE target_id=?))";statements.push(
  ctx.db.prepare(`INSERT INTO content_media_cleanup(storage_key,created_at) SELECT archive_key,? FROM federation_imports WHERE workspace_id=? AND ${affected} AND state!='deleted' ON CONFLICT DO NOTHING`).bind(ctx.now,ctx.actor.workspaceId,pageId,pageId),
- ctx.db.prepare(`UPDATE federation_imports SET state='deleted',report_json='{}',counts_json='{}',filename='Erased original archive',revision_id=?,updated_at=? WHERE workspace_id=? AND ${affected}`).bind(crypto.randomUUID(),ctx.now,ctx.actor.workspaceId,pageId,pageId));}
+ ctx.db.prepare(`UPDATE federation_imports SET state='deleted',report_json='{}',counts_json='{}',filename='Erased original archive',revision_id=?,updated_at=? WHERE workspace_id=? AND ${affected} AND state!='deleted'`).bind(crypto.randomUUID(),ctx.now,ctx.actor.workspaceId,pageId,pageId));}
  return statements;
 }

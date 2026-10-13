@@ -5,6 +5,7 @@ import type { navigation } from "../../features/navigation/service";
 
 /** Only authorized, serializable presentation data crosses the Start boundary. */
 export interface WorkspaceSnapshot {
+  editorEnabled?: boolean;
   member: AuthenticatedMember;
   workspace: WorkspaceView;
   setup: { required: boolean; canComplete: boolean };

@@ -12,7 +12,6 @@ export function AutomationWorkspace({sourceId}:{sourceId?:string}={}) {
   const [selected, setSelected] = useState<string | null>(null);
   return (
     <section className="settings-panel">
-      <p className="eyebrow">REPEATABLE WORK</p>
       <h2>Let the routine run.</h2>
       {!sourceOnly || sourceId ? <button onClick={() => setEditing("new")}>New automation</button>:<p>Create and review source automations from a database’s toolbar.</p>}
       <RequestState

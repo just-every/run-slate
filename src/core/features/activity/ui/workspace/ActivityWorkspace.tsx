@@ -29,7 +29,6 @@ export function ActivityWorkspace() {
   );
   return (
     <section className="settings-panel">
-      <p className="eyebrow">WORKSPACE ACTIVITY</p>
       <h2>What changed.</h2>
       <form
         className="detail-form"

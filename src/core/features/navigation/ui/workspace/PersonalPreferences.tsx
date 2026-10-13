@@ -19,7 +19,6 @@ export function PersonalPreferences() {
   }>("/api/navigation/preferences");
   return (
     <section className="settings-panel">
-      <p className="eyebrow">YOUR WORKING DAY</p>
       <h2>Keep the signal.</h2>
       <RequestState
         loading={resource.loading}
@@ -114,7 +113,7 @@ function PreferencesForm({
         />
         Start with compact navigation
       </label>
-      <button disabled={pending}>
+      <button className="primary-button" type="submit" disabled={pending}>
         {pending ? "Saving…" : "Save preferences"}
       </button>
       {confirmed ? <p role="status">Preferences saved.</p> : null}

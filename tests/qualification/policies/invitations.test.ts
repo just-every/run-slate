@@ -5,7 +5,7 @@ import { createPage, readPage } from '../../../src/core/features/pages/service';
 import { invite, acceptInvitation } from '../../../src/core/features/workspace/invitations';
 import { saveGrant, listGrants } from '../../../src/core/features/sharing/grants';
 import { readRuntimeConfig } from '../../../src/core/platform/config/runtime';
-import { createSessionRepository } from '../../../src/core/features/session/repository';
+import { createMemberRepository } from '../../../src/core/features/session/repository';
 test('SHARE-006 SHARE-001 SHARE-007: pending guest invitation grants no access, local provider double captures exact acceptance token, revoke invalidates pending grant', async () => {
     const { owner, containerId } = await scenario();
     const page = await createPage(owner, { operationKey: key('page'), containerId, title: 'Guest invitation' });
@@ -28,7 +28,7 @@ test('SHARE-006 SHARE-001 SHARE-007: pending guest invitation grants no access, 
         const token = requests[1].match(/https:\/\/qualification\.invalid\/api\/auth\/invitation\/accept\?token=([A-Za-z0-9_-]+)/)![1];
         await acceptInvitation(env.DB, config, token, { files: env.FILES, jobs: env.JOBS });
         const [accepted] = await rows("SELECT id FROM members WHERE email='accepted@qualification.invalid'");
-        const actor = await createSessionRepository(env.DB).getMember(accepted.id as string);
+        const actor = await createMemberRepository(env.DB).getMember(accepted.id as string);
         expect((await readPage({ ...owner, actor: actor! }, page.value.pageId)).page.title).toBe('Guest invitation');
         await expect(acceptInvitation(env.DB, config, token, { files: env.FILES, jobs: env.JOBS })).rejects.toMatchObject({ code: 'LINK_INVALID' });
     }

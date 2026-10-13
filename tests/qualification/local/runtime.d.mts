@@ -5,4 +5,4 @@ export interface QualificationRuntime {
  restart():Promise<void>;
  sql(sql:string):Promise<{results:Record<string,unknown>[]}[]>;
 }
-export function createRuntime(options:{root:string;evidence:string;appPort:number;inspectorPort:number;portRange?:string;omitVariables?:string[];expectedHealthStatus?:200|503}):Promise<QualificationRuntime>;
+export function createRuntime(options:{root:string;evidence:string;appPort:number;inspectorPort:number;portRange?:string;omitVariables?:string[];expectedHealthStatus?:200|503;mailProvider?:'development'|'resend'|'sendgrid'}):Promise<QualificationRuntime>;

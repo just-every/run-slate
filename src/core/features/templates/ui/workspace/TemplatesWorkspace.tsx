@@ -6,6 +6,8 @@ import { useResource } from "../../../../client/useResource";
 import { mutate, operationKey } from "../../../../client/transport";
 import { RequestState } from "../../../../app/ui/RequestState";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
+import { TopBar } from "../../../../app/ui/header/TopBar";
+import { PageTitle } from "../../../../app/ui/header/PageTitle";
 interface Template {
   id: string;
   title: string;
@@ -18,7 +20,8 @@ interface Template {
   applyDestinations?: {containerId:string;parentPageId:string|null;label:string}[];
   snapshot?:TemplatePreviewSnapshot;
 }
-export function TemplatesWorkspace({ templateId,defaultContainerId }: { templateId?: string;defaultContainerId?:string }) {
+/** `embedded` puts only the templates inside another screen (a space's Templates tab), which already has a top bar and a title. */
+export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: { templateId?: string;defaultContainerId?:string;embedded?:boolean }) {
   const [state, setState] = useState("active");
   const [query, setQuery] = useState("");
   const [category,setCategory]=useState("");
@@ -34,20 +37,8 @@ export function TemplatesWorkspace({ templateId,defaultContainerId }: { template
     selected&&state!=="deleted" ? `/api/templates/${selected}` : null,
   );
   const [apply, setApply] = useState(false);
-  return (
-    <>
-      <header className="topbar">
-        <span>Templates</span>
-        <a href="/app">Workspace</a>
-      </header>
-      <section className="main">
-        <p className="eyebrow">A THOUGHTFUL START</p>
-        <h1 className="title">Make room for the work.</h1>
-        <p className="intro">
-          Reusable pages, with their structure intact. Create templates from a
-          page’s More menu.
-        </p>
-        <div className="action-row">
+  const body = <>
+        <div className="action-row template-filters">
           <label>
             Show
             <select
@@ -94,7 +85,7 @@ export function TemplatesWorkspace({ templateId,defaultContainerId }: { template
           <ul className="outcome-list">
             {items.data?.items.map((item) => (
               <li key={item.id}>
-                <button onClick={() => setSelected(item.id)}>
+                <button className="template-choice" aria-pressed={selected === item.id} onClick={() => setSelected(item.id)}>
                   <span className="eyebrow">{item.category}</span>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
@@ -163,7 +154,7 @@ export function TemplatesWorkspace({ templateId,defaultContainerId }: { template
               Create in
               <select name="destination" required defaultValue="">
                 <option value="" disabled>
-                  Choose a container
+                  Choose a space
                 </option>
                 {preview.data.applyDestinations?.map((item,index)=><option key={`${item.containerId}:${item.parentPageId}`} value={index}>{item.label}</option>)}
               </select>
@@ -174,6 +165,15 @@ export function TemplatesWorkspace({ templateId,defaultContainerId }: { template
             </p>
           </ActionDialog>
         ) : null}
+  </>;
+  if (embedded) return <section className="templates-workspace">{body}</section>;
+  return (
+    <>
+      <TopBar trail={[{ label: "Templates" }]} />
+      <section className="main templates-workspace">
+        <PageTitle>Templates</PageTitle>
+        <p className="page-lede">Reusable pages, with their structure intact. Create templates from a page’s More menu.</p>
+        {body}
       </section>
     </>
   );

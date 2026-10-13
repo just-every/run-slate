@@ -9,7 +9,7 @@ history. The precise scope is in CONTRACT.md. All eight content policies and
 all applicable baseline requirements remain binding. `flagship` is an explicit
 configuration opt-in, not evidence of acceptance or a release recommendation.
 
-The launch gate requires the original `pnpm verify` assertions without weakening, plus the core,
+The launch gate requires the original `node scripts/rer.mjs verify` assertions without weakening, plus the core,
 portability, search and publication qualification suites from a clean clone;
 Publication relocation and erasure regressions, including actual erased-filename export → fresh
 restore → re-export; the sealed prior-store upgrade/recovery run; and repeated
@@ -24,7 +24,7 @@ Competing-reservation fixtures use distinct intents because identical work
 coalesces; the original budget and assertions stay intact, and a separate
 same-intent check retains that input's one-run/one-reservation coverage.
 `pnpm test:release-regressions` executes publication relocation, erasure and a real emitted-Worker browser
-console regression. Main CI runs it after `pnpm verify` with headless Chromium.
+console regression. Main CI runs it after `node scripts/rer.mjs verify` with headless Chromium.
 Passing this command does not satisfy the full flagship or external-provider gate.
 
 Profile tests must exercise the default UI/API refusal and explicit opt-in,
@@ -33,6 +33,53 @@ migration history and queued-work refusal. A profile test is bounded evidence,
 not proof of the remaining core journeys. Existing tests and fixtures stay intact.
 No live provider call is required merely to select core wiki; no real-export,
 provider, deployment or prospective-value proof may be replaced by fixtures.
+
+## Shared identity with native accounts — owner decision, 10 October 2026
+
+The approved COMMON-LOGIN phases 1–4 supersede the 8 October implementation
+exemption. Slate retains **own accounts, sessions and roles**, including its
+existing member IDs, group memberships and scoped guests. Base owns the intended
+identity proof and dependency protocols. No second owner or operator ledger is
+introduced. WORK-008, WORK-009, WORK-010 and WORK-015 remain binding.
+
+Base operator-auth now signs Slate in. The copied Base modules are byte-exact at
+`9ec15a63a410d209cd5a179749336bb61751e0f6`. `src/core/features/session/native/`
+supplies Base's paired native accounts and proof adapters over Slate's own
+`members`, `sessions` and `member_identity_bindings`; the service never creates
+Base account or session tables. Admission, proofs and owner lookups are scoped to
+the installation's workspace, selected by the server. Member IDs, owner/member
+roles, groups, scoped guests and the `slate_session` cookie are unchanged.
+
+- **Email (BASE-ACCESS-001).** `POST /api/auth/magic` asks Base for a one-use
+  link (one hour, keyed digest only). GET `/auth/confirm` previews; a same-origin
+  POST consumes the proof and issues a 30-day native session in one D1 batch that
+  rechecks the member's status, email and authority version. Links sent before
+  this release, by either earlier engine, show the request-new-link page.
+- **Incumbent provider (WORK-015).** Base's `legacy-rs256` preset keeps the
+  configured issuer, client and the registered `/api/auth/identity/callback`, and
+  adds exact HTTPS pins for the authorization, token and JWKS endpoints. The first
+  provider sign-in binds the issuer/subject to the member whose verified mailbox
+  it presents; a binding never moves to another member. Provider sessions last at
+  most 24 hours and end when the provider configuration or its pin changes.
+- **Authority (WORK-008/009/010).** `member_authority` advances on any email,
+  role, kind, status or ownership change. Sessions issued from now on, and every
+  pending proof, are fenced at that version. Sessions from before this release
+  keep their existing contract: valid until expiry, revocation or removal, with
+  the member's current role read on every request. Nobody gains authority.
+- **Step-up.** Workspace export, restore, permanent deletion, ownership changes,
+  owner removal or erasure, agent credentials and connectors need a Base email
+  proof from the last ten minutes in the asking session. Without one, Slate emails
+  the member a confirmation link and refuses the attempt; the commit repeats the
+  proof check.
+- **Dev identity (SC-05).** The local-only entry `src/dev/server.ts` serves
+  key-gated dev sessions for the claimed owner and real `editor` and `guest`
+  personas at `<as>@dev.localhost`. The outbox answers only with the checkout's
+  dev key. Archives exclude sessions and restore every non-owner member inactive.
+
+Slate has no domain rules, passwords or linked dependency providers, so Base's
+domain, password-revocation and dependency logout/fence paths have no Slate flow;
+those service methods refuse as Base specifies. Invitation acceptance remains
+Slate's native account administration.
 
 The following full flagship requirements remain unchanged except for FLAG-001's
 explicit separate launch gate. Full acceptance remains pending; core-wiki

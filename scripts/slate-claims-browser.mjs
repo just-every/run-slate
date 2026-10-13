@@ -1,3 +1,4 @@
+import { signInBrowser } from '../tests/e2e/outbox-auth.mjs';
 import assert from 'node:assert/strict';
 import {readFile,writeFile} from 'node:fs/promises';
 import {chromium} from '@playwright/test';
@@ -8,7 +9,7 @@ const browser=await chromium.launch();
 try{
  const context=await browser.newContext({viewport:{width:1440,height:1000}}),page=await context.newPage(),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
- await page.goto(origin+'/signin');await page.getByTestId('local-sign-in').click();await page.waitForURL('**/app');
+ await signInBrowser(page, origin, process.env.SLATE_BROWSER_EMAIL ?? 'jamie@aurora.example');
  await page.goto(origin+'/app/runs/'+prior.run.id);
  const capture=page.locator('details').filter({has:page.getByText('Retain a scoped claim',{exact:true})}).first();
  await capture.getByText('Retain a scoped claim',{exact:true}).click();

@@ -1,0 +1,4 @@
+/* The two card fills of Slate's mark (`ui/brand/SlateMark`). Classes, not inline styles, so every document that draws the mark
+   (the landing, the docs, sign-in and the app) stays free of style attributes; the surface sets the two custom properties. */
+.slate-mark-back { fill: var(--slate-mark-back, #e6eede); }
+.slate-mark-front { fill: var(--slate-mark-front, #fbf9f1); }

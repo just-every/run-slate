@@ -74,6 +74,9 @@ export interface ImportedGrant {
 }
 
 export interface ImportedRevision extends SourceIdentity {
+  /** Snapshot metadata, when the source exports it independently of current content. */
+  title?: string;
+  labels?: string[];
   ordinal?: number;
   label?: string;
   status?: string;
@@ -102,6 +105,8 @@ export interface ImportedPage extends SourceIdentity {
   /** Property lines the source export wrote above the body, verbatim. */
   properties: Record<string, string>;
   status?: string;
+  /** Source restrictions survive missing or unknown principal mappings. */
+  restricted?: boolean;
   grants: ImportedGrant[];
   revisions: ImportedRevision[];
   publicExposure?: ImportedPublicExposure;
@@ -131,6 +136,9 @@ export interface ImportedRecord extends SourceIdentity {
 }
 
 export interface ImportedMedia extends SourceIdentity {
+  /** Explicit XML content owner; prevents reference inference from widening access. */
+  ownerPageSourceId?: string;
+  source?:import('./archive-stream').ArchiveMediaSource;
   name: string;
   archivePath?: string;
   mediaType: string;

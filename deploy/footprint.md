@@ -55,4 +55,4 @@ and operation classes, and retained DO state against real accepted workloads.
 No such provider/load measurement was performed for this source candidate.
 No plan, subscription, account setting, remote resource or deployment was changed.
 
-Measure each committed candidate with `pnpm build` and `pnpm artifact:delivery`. The delivery descriptor records emitted modules, client assets and applied SQL migrations. Output size does not establish provider CPU, billing, capacity or production workload limits.
+Measure each committed candidate with `rer build` and `pnpm artifact:delivery`. The delivery descriptor records emitted modules, client assets and applied SQL migrations. Output size does not establish provider CPU, billing, capacity or production workload limits.

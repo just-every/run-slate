@@ -9,6 +9,8 @@ import { AnalysisRecord, type Analysis } from "./AnalysisRecord";
 import { useEffect } from "react";
 import { useResource } from "../../../client/useResource";
 import { RequestState } from "../../../app/ui/RequestState";
+import { TopBar } from "../../../app/ui/header/TopBar";
+import { PageTitle } from "../../../app/ui/header/PageTitle";
 import { RunPanel } from "../../runs/ui/RunPanel";
 import { TrialPanel, type Trial } from "../../experiments/ui/TrialPanel";
 interface Inquiry {
@@ -50,12 +52,9 @@ export function InquiryWorkspace({ id }: { id: string }) {
   }, [inquiry, resource.reload]);
   return (
     <>
-      <header className="topbar">
-        <a href={inquiry ? `/app/pages/${inquiry.pageRef.id}` : "/app"}>
-          {inquiry?.pageRef.title ?? "Workspace"}
-        </a>
-        <button onClick={resource.reload}>Refresh findings</button>
-      </header>
+      <TopBar trail={[{ label: inquiry?.pageRef.title ?? "Workspace", href: inquiry ? `/app/pages/${inquiry.pageRef.id}` : "/app" }, { label: "Inquiry" }]}>
+        <button className="tool" onClick={resource.reload}>Refresh findings</button>
+      </TopBar>
       <section className="main inquiry-document">
         <RequestState
           loading={resource.loading}
@@ -64,8 +63,7 @@ export function InquiryWorkspace({ id }: { id: string }) {
         >
           {inquiry ? (
             <>
-              <p className="eyebrow">A QUESTION WORTH WORKING THROUGH</p>
-              <h1 className="title">{inquiry.question}</h1>
+              <PageTitle>{inquiry.question}</PageTitle>
               {inquiry.interimFinding?.text ? (
                 <section className="finding">
                   <span className="eyebrow">{inquiry.interimFinding.kind}</span>
