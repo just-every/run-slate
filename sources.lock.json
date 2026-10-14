@@ -859,7 +859,7 @@
       "executable": false
     },
     "AGENTS.md": {
-      "sha256": "7c6704ff1fe62c3f577799d729c16762e8457529b5d98b1667ec2dec4a6c6f22",
+      "sha256": "cb2d6cad64e70f8f39ff85ec24a6172d7dbc7b248600f297f4f146e7064d2a02",
       "executable": false
     },
     "base-copies.json": {
@@ -3203,11 +3203,11 @@
       "executable": false
     },
     "package.json": {
-      "sha256": "78c5dc36446e131fea753ad5b03326e91963120fb8e252c254ad67c2d4f6e20a",
+      "sha256": "1bb741f7945c2ac5a733992baa9d84e59808c52f6ab995b4b4eb93c263590a8c",
       "executable": false
     },
     "pnpm-lock.yaml": {
-      "sha256": "f3d0696e4377dbfc2a61a6021c5305104f9cbd33586bdf2c12a0e4a5c62943de",
+      "sha256": "b5a8b86514d1858fdb4fa4c739cc1a5705449d05b7001cb0f1a3437989da3502",
       "executable": false
     },
     "pnpm-workspace.yaml": {
@@ -3263,7 +3263,7 @@
       "executable": false
     },
     "README.md": {
-      "sha256": "790e267cbd776590737b5b6a662f175ea7ff9dad214b4ee72d69d3fc22dfeb24",
+      "sha256": "2cca8f1d77fe83cc179b658fb68c308d2027447fed41b903cd194802443b621c",
       "executable": false
     },
     "RELEASE.json": {
