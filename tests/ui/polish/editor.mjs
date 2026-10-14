@@ -29,7 +29,8 @@ export async function editorJourney({ page, origin, api }, pageId, width) {
   await page.getByRole('option', { name: 'Text', exact: true }).click();
   await expect(page.getByRole('textbox', { name: 'Paragraph', exact: true })).toHaveCount(2);
   const second = page.getByRole('textbox', { name: 'Paragraph', exact: true }).nth(1);
-  await second.fill('A truly nested block keeps its own indentation.');
+  await expect(second).toBeFocused();
+  await page.keyboard.insertText('A truly nested block keeps its own indentation.');
   await expect.poll(async () => JSON.stringify((await api(`/api/pages/${pageId}`)).blocks)).toContain('A truly nested block');
   const secondRow = page.locator('[data-block-id]').nth(1);
   await secondRow.getByRole('button', { name: /Block actions for/ }).click();
@@ -65,7 +66,11 @@ export async function editorJourney({ page, origin, api }, pageId, width) {
   assert.ok(lowerMenu && anchor && lowerMenu.y + lowerMenu.height <= anchor.y, 'Lower-edge insert menu opens above its trigger');
   await page.getByRole('option', { name: 'Text', exact: true }).click();
   await expect(page.getByRole('textbox', { name: 'Paragraph', exact: true })).toHaveCount(3);
-  await page.getByRole('textbox', { name: 'Paragraph', exact: true }).nth(2).fill('Inserted by the real lower-edge menu.');
+  // A rendered row can precede the insertion's focus handoff. Type only after
+  // Slate has finished that handoff, rather than letting fill choose the focus.
+  const inserted = page.getByRole('textbox', { name: 'Paragraph', exact: true }).nth(2);
+  await expect(inserted).toBeFocused();
+  await page.keyboard.insertText('Inserted by the real lower-edge menu.');
   await expect.poll(async () => JSON.stringify((await api(`/api/pages/${pageId}`)).blocks)).toContain('Inserted by the real lower-edge menu.');
   await page.reload({ waitUntil: 'networkidle' });
   await expect(page.getByRole('textbox', { name: 'Paragraph', exact: true }).nth(2)).toContainText('Inserted by the real lower-edge menu.');

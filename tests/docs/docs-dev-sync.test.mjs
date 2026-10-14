@@ -35,7 +35,9 @@ test("the docs plugin follows edits to Markdown and docs/site.json in a running 
   };
   for (const [path, text] of Object.entries(files)) await writeFile(join(root, path), text);
   // No WebSocket server: the plugin's full-reload goes nowhere here, and no fixed HMR port is taken.
-  const server = await createServer({ root, configFile: false, logLevel: "silent", appType: "custom", server: { middlewareMode: true, ws: false }, plugins: [docsSite()] });
+  // Observe this rapidly rewritten temporary fixture by content polling. macOS
+  // FSEvents can coalesce its edits; the same five-second freshness assertions apply.
+  const server = await createServer({ root, configFile: false, logLevel: "silent", appType: "custom", server: { middlewareMode: true, ws: false, watch: { usePolling: true } }, plugins: [docsSite()] });
   // What each environment is sent: the browser's full reload when the docs change, an error if the plugin throws.
   const sent = [];
   for (const environment of Object.values(server.environments)) {

@@ -859,7 +859,7 @@
       "executable": false
     },
     "AGENTS.md": {
-      "sha256": "911a95d590c8b4f10661bfd54d94af634142c68871d5d1f55e4a83842655fd4a",
+      "sha256": "7c6704ff1fe62c3f577799d729c16762e8457529b5d98b1667ec2dec4a6c6f22",
       "executable": false
     },
     "base-copies.json": {
@@ -927,7 +927,7 @@
       "executable": false
     },
     "docs/INSTALL.md": {
-      "sha256": "7b7723ceea0ae34f23cb870973c6e1b8abaaf5373e0d7682d739be2481e4316e",
+      "sha256": "c1c681f8766d7a924c2b123ff3727371d600e042f689f0549d9b5d6e176eba89",
       "executable": false
     },
     "docs/MAIL-DELIVERY.md": {
@@ -3199,7 +3199,7 @@
       "executable": false
     },
     "OPERATIONS.md": {
-      "sha256": "f533f74cf16e1b8d6eb8cbeab4c14f375a24cf1da181c5f6cdfbe2474cba959a",
+      "sha256": "ebaacbadfeeea4c9a6dcad4e499a58233968a92a01c68f2ffab65295632fefc7",
       "executable": false
     },
     "package.json": {
@@ -3263,7 +3263,7 @@
       "executable": false
     },
     "README.md": {
-      "sha256": "6b43257b3ca1fafa96a897af38cf3302666ddc05776d623e95ec760320a8982e",
+      "sha256": "790e267cbd776590737b5b6a662f175ea7ff9dad214b4ee72d69d3fc22dfeb24",
       "executable": false
     },
     "RELEASE.json": {
@@ -7411,7 +7411,7 @@
       "executable": false
     },
     "tests/docs/docs-dev-sync.test.mjs": {
-      "sha256": "fff566fe13633e204ce3b52e73f4038fd06f8a9ef896cac792bbe8028546164b",
+      "sha256": "b05a3d86847146e062012ed3c77a0ca75afec2ddaf188a021aab1c3c6d3071f8",
       "executable": false
     },
     "tests/docs/docs-site.test.mjs": {
@@ -9275,7 +9275,7 @@
       "executable": false
     },
     "tests/ui/polish/editor.mjs": {
-      "sha256": "ee6858abdb8c518cc6cc96fb27c9e85391ad30fc013f7964c10fc1a3e73e4ea8",
+      "sha256": "834b92c2b4bbe5fef9576cb192df964f1538966c65ea6a8227671cd705dca551",
       "executable": false
     },
     "tests/ui/polish/evidence.mjs": {

@@ -44,7 +44,7 @@ Before pulling, restore the backup into a separate empty checkout pinned to its 
 
 Review `rer deploy --environment production --dry-run` before deploying. Afterwards, check the receipt's project, environment and origin and match `/health`'s `deployment.sourceSha`, `fingerprint` and `versionId` to it. Open retained pages, revision history, search, attachments and existing shared/public links with the same owner and expected access. A health response alone does not prove retained data or access.
 
-Fresh rer 0.2.4 exports work with its `d1_migrations` ledger; upgrades from a legacy ledger need separate proof. Stop if export refuses a ledger or unknown table; preserve it for review. See [Operating Slate](../OPERATIONS.md) for recovery and the migration-ledger compatibility boundaries.
+Fresh rer 0.2.5 exports work with its `d1_migrations` ledger; upgrades from a legacy ledger need separate proof. Stop if export refuses a ledger or unknown table; preserve it for review. See [Operating Slate](../OPERATIONS.md) for recovery and the migration-ledger compatibility boundaries.
 
 ## Remove a deployment
 
