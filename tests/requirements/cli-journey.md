@@ -51,6 +51,10 @@ still performs local migrations; its development HTTP forwarding process is no
 longer the emitted-artifact listener. No assertion, request, retry or extra
 readiness request was added to obtain a passing confirmation.
 
+After reset and re-setup, the CLI journey probes preview's announced ready URL.
+The prior installation's saved origin can differ on a shared host; every public
+preview path still has to return 404 without a key or session.
+
 The source export feature moves to `workspace-export` without changing its
 bytes or public routes, retaining Vite's `**/exports/**` private-folder denial.
 Its existing supplementary Node case `import/export activity resolves through current actor authority`

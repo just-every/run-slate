@@ -209,7 +209,8 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
     await run('setup', ['--owner-email', email]); await assertOneOwner(copy.run);
     await run('build');
     await resources(); dev = copy.start('node', cli('preview')); await waitFor(() => { if (dev.exitCode !== null) throw Error('CLI server failed; private output withheld'); return dev.output.includes('"event":"ready"'); }, 'preview ready');
-    await publicStatuses(vars.APP_URL, copy.root, 'preview');
+    const previewOrigin = JSON.parse(dev.output.split('\n').find(line => line.includes('"event":"ready"'))).url;
+    await publicStatuses(previewOrigin, copy.root, 'preview');
     const reuse = await run('preview'); assert.ok(JSON.parse(reuse.trim().split('\n').at(-1)).reused);
     await run('preview', ['--stop']); await copy.stop(dev); dev = undefined;
     await run('reset', ['--yes']); await run('setup', ['--owner-email', email]);

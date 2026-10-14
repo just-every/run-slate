@@ -8167,7 +8167,7 @@
       "executable": false
     },
     "tests/local-journey/cli.test.mjs": {
-      "sha256": "65d39e0235edd2cacfeca7e9ef905d9675117eac4b7264b464f0eef24ef7b532",
+      "sha256": "d6e31d25bd65b3f7038dd46cab4c07fa240d68fb5c9e0e8a49e9a7a91574d068",
       "executable": false
     },
     "tests/local-journey/diagnostics.mjs": {
@@ -9207,7 +9207,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "7e2c1f37fd4cc7a80ee245fea91823ac77ec5713e032201e7e852da5c2538c1d",
+      "sha256": "5ec15505ec83328a266959690d1f16e30451051d758a36626779ac9b916563f4",
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
