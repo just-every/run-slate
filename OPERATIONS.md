@@ -51,7 +51,7 @@ The 7 October 2026 MAIL-002 decision requires duplicate-safe retry: SendGrid unc
 
 ## Update an existing deployment
 
-Keep the existing checkout, native owner identity, deployment receipts, environment name and private deployment inputs. First sign in as the owner and confirm your email for export. Save the single `slate_session=VALUE` cookie in an owned mode-0600 `.seed/owner-session` file; never put it in shell history or a shared log. Substitute your existing origin and environment below:
+Keep the existing checkout, native owner identity, deployment receipts, environment name and private deployment inputs. Before exporting, confirm the checkout is clean and `git rev-parse HEAD` matches both the running wiki's `/health` `deployment.sourceSha` and the deploy receipt's `source.sha`. If they differ, preserve local changes and find the deployed source revision before continuing; the local HEAD alone does not identify the remote backup's recovery source. Sign in as the owner and confirm your email for export. Save the single `slate_session=VALUE` cookie in an owned mode-0600 `.seed/owner-session` file; never put it in shell history or a shared log. Substitute your existing origin and environment below:
 
 ```sh
 rer export --target remote --origin https://wiki.example.com --session-file .seed/owner-session --output exports/before-update.rer

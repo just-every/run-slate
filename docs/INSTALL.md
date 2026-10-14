@@ -27,7 +27,7 @@ For an optional linked identity provider, `SLATE_IDENTITY_PROVIDER` selects its 
 
 ## Update your existing wiki
 
-Export your running wiki first. Sign in as its owner, confirm your email for the sensitive export, and save the single owner session cookie in an owned mode-0600 `.seed/owner-session` file. Replace the origin and environment below with the ones you already use:
+Export your running wiki first. Before exporting, confirm the checkout is clean and `git rev-parse HEAD` matches the running wiki's `/health` `deployment.sourceSha` and the deployment receipt's `source.sha`. If they differ, preserve your local changes and find the deployed source revision before continuing. Sign in as its owner, confirm your email for the sensitive export, and save the single owner session cookie in an owned mode-0600 `.seed/owner-session` file. Replace the origin and environment below with the ones you already use:
 
 ```sh
 rer export --target remote --origin https://wiki.example.com --session-file .seed/owner-session --output exports/before-update.rer

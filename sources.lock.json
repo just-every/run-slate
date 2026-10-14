@@ -927,7 +927,7 @@
       "executable": false
     },
     "docs/INSTALL.md": {
-      "sha256": "45aa89357ee79f5d2908e343b8192d39e28c4b64248ab76e005890cda452db70",
+      "sha256": "784f381d062f7aeeec52249e2d87b37876778590d37313e8cc5b0fa702a2aef2",
       "executable": false
     },
     "docs/MAIL-DELIVERY.md": {
@@ -3199,7 +3199,7 @@
       "executable": false
     },
     "OPERATIONS.md": {
-      "sha256": "b6f27f550c59d2b42c086e1aba44c1aae92857b942a89a3af3e754212ebf6aad",
+      "sha256": "a28a2a7a54d952da627757687fa59b8d744cb0532ee427c87921c8939a789635",
       "executable": false
     },
     "package.json": {
@@ -3539,7 +3539,7 @@
       "executable": false
     },
     "scripts/installer/portability-worker.mjs": {
-      "sha256": "e9f9dc41bfcce3741281cecbee02eefe1964ce296224294378ab8147b9eeb670",
+      "sha256": "c53ff7d6d07fce35ad82376409413edea3420d2f979e5a0cffb506d5dccf69f8",
       "executable": false
     },
     "scripts/installer/portability.mjs": {
