@@ -13,7 +13,7 @@
 <p align="center">
   <a href="https://justevery.com/#vol-slate"><img src=".github/assets/media/preview.gif" width="800" alt="Slate's editor: a heading, an @ mention of a person, a link to a page and a checklist item typed into a page"></a>
 </p>
-<p align="center"><a href="https://justevery.com/#vol-slate"><b>Watch the full demo</b></a> · 47 seconds</p>
+<p align="center"><a href="https://justevery.com/#vol-slate"><b>Watch the full demo</b></a> · 50 seconds</p>
 
 <p align="center">
   <img src=".github/assets/media/flow.webp" width="800" alt="The same search for launch: sam sees four results within his access, maya sees five including the Leadership budget page">
