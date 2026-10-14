@@ -31,7 +31,7 @@ export function createWorkspaceRoutes(){return new Hono<AppEnvironment>()
 .post('/api/members/remove',async c=>{const input=await parseBody(c.req,z.object({operationKey:op,memberId:id,erase:z.boolean().optional()}).strict());const ctx=featureContext(c),target=await c.env.DB.prepare("SELECT role,is_setup_owner FROM members WHERE id=? AND status='active'").bind(input.memberId).first<{role:string;is_setup_owner:number}>();if(input.erase||target?.role==='owner'){
   // Refuse what can never succeed before emailing a step-up confirmation; the service checks both again.
   if(input.memberId!==ctx.actor.id){await requireWorkspaceOwner(ctx);if(target?.is_setup_owner)throw new ApiProblem(403,'SETUP_OWNER','Only the setup owner can remove themselves.');}
-  await requireStepUp(c,input.erase?'delete':'owner:transfer');}return c.json(await removeMember(ctx,input));})
+  await requireStepUp(c,input.erase?'delete':'owner:transfer');}return c.json(await removeMember(featureContext(c),input));})
 .post('/api/invitations',async c=>c.json(await invite(featureContext(c),c.get('runtimeConfig'),await parseBody(c.req,z.object({operationKey:op,email:z.string().email().max(254),kind:z.enum(['member','guest']),pageId:id.optional(),containerId:id.optional(),level:z.enum(['full','edit','comment','view']).optional(),expiresAt:z.string().datetime().nullable().optional()}).strict()))))
 .post('/api/invitations/revoke',async c=>c.json(await revokeInvitation(featureContext(c),await parseBody(c.req,z.object({operationKey:op,id}).strict()))))
 .get('/api/groups',async c=>c.json(await listGroups(featureContext(c))))

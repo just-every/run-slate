@@ -1,3 +1,4 @@
+import { createInstallationExportRoutes } from '../features/portability/installation-routes';
 import { mountLaunchProfile } from "./launch-profile";
 import {createClaimRoutes} from "../features/claims/routes";
 import { createExternalAgentRoutes } from "../features/external-agent/routes";
@@ -77,6 +78,7 @@ export function mountFeatures(app: Hono<AppEnvironment>): Hono<AppEnvironment> {
   app.route("/api/sources", createSourceRoutes());
   app.route("/api/imports", createImportRoutes());
   app.route("/api/exports", createExportRoutes());
+  app.route("/api/portability", createInstallationExportRoutes());
   app.route("/api/ai", createAiRoutes());
   app.route("/api/runs", createRunsRoutes());
   app.route("/api/decisions", createDecisionsRoutes());

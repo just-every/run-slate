@@ -9,7 +9,7 @@ history. The precise scope is in CONTRACT.md. All eight content policies and
 all applicable baseline requirements remain binding. `flagship` is an explicit
 configuration opt-in, not evidence of acceptance or a release recommendation.
 
-The launch gate requires the original `node scripts/rer.mjs verify` assertions without weakening, plus the core,
+The launch gate requires the original `rer verify` assertions without weakening, plus the core,
 portability, search and publication qualification suites from a clean clone;
 Publication relocation and erasure regressions, including actual erased-filename export → fresh
 restore → re-export; the sealed prior-store upgrade/recovery run; and repeated
@@ -24,7 +24,7 @@ Competing-reservation fixtures use distinct intents because identical work
 coalesces; the original budget and assertions stay intact, and a separate
 same-intent check retains that input's one-run/one-reservation coverage.
 `pnpm test:release-regressions` executes publication relocation, erasure and a real emitted-Worker browser
-console regression. Main CI runs it after `node scripts/rer.mjs verify` with headless Chromium.
+console regression. Main CI runs it after `rer verify` with headless Chromium.
 Passing this command does not satisfy the full flagship or external-provider gate.
 
 Profile tests must exercise the default UI/API refusal and explicit opt-in,
@@ -43,7 +43,8 @@ identity proof and dependency protocols. No second owner or operator ledger is
 introduced. WORK-008, WORK-009, WORK-010 and WORK-015 remain binding.
 
 Base operator-auth now signs Slate in. The copied Base modules are byte-exact at
-`9ec15a63a410d209cd5a179749336bb61751e0f6`. `src/core/features/session/native/`
+`363da337fe618bfc62fa3b6b5fd3e7f2f67d5879`; the original
+`9ec15a63a410d209cd5a179749336bb61751e0f6` proof pin remains historical evidence. `src/core/features/session/native/`
 supplies Base's paired native accounts and proof adapters over Slate's own
 `members`, `sessions` and `member_identity_bindings`; the service never creates
 Base account or session tables. Admission, proofs and owner lookups are scoped to
@@ -88,8 +89,9 @@ qualification must never be reported as full flagship qualification.
 ## Retained flagship scope
 
 The owner accepted the complete flagship and sustained-inquiry implementation on
-27 September 2026. [CONTRACT.md](CONTRACT.md) now contains 220 requirements:
-191 inherited IDs (14 explicit amendments) and 29 new IDs. All 22
+27 September 2026. [CONTRACT.md](CONTRACT.md) now contains 221 requirements:
+191 inherited IDs (14 explicit amendments), 29 flagship additions and the
+separate `DOCS-001` public-documentation addition. All 22
 [baseline obligations](BASELINE.md) remain. STAT-003/004 and all eight policy
 clauses and their values remain unchanged. [RELEASE.json](RELEASE.json) records
 exact old/new wording. See HANDOVER.md for current source verification limits.
@@ -102,7 +104,7 @@ semantic checks and records exact artifact, date, environment and limits.
 
 ## Full gate
 
-All 220 current clauses, 22 baseline obligations and every policy value must have
+All 221 current clauses, 22 baseline obligations and every policy value must have
 observable evidence. The original BLOCK-008 disposition-only supersession of
 BASE-INPUT-003 remains; storage, size, type and access obligations remain intact.
 The full [delivery scope](FLAGSHIP-DELIVERY.md), [six journeys](USER-JOURNEYS.md)

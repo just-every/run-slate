@@ -28,6 +28,7 @@ export const hooks = {
 export const lifecycle = localInstaller(hooks);
 export const commandAdapter = describeAdapter(lifecycle, {
   dev: developmentTarget, preview, verify: ['pnpm', ['run', 'verify:app']], deploy: deploy(lifecycle), portability,
+  publicPages: ['/signin', '/docs', '/docs/install', '/docs/moving-in', '/docs/move-from-notion', '/docs/move-from-confluence', '/docs/trustworthy-handbook', '/docs/backup', '/docs/email-delivery', '/docs/cloudflare-footprint'],
   setup: { manifestFile: 'rer-setup.json' }, product: 'Slate',
   // Local-only persona sign-in; vite.config.ts loads the entry for `vite dev` alone.
   devIdentity: { entry: 'src/dev/server.ts', output: ['dist'], emailLinkTest: 'tests/local-journey/cli.test.mjs' },

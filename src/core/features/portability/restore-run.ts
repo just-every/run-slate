@@ -1,3 +1,4 @@
+import {nativeRestoreCheckpoint,restoreCheckpointStatements} from './checkpoint';
 import {retainedImportObjectKeys,importRestoreTriggers} from '../imports/storage-inventory';
 import type {FeatureContext} from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
@@ -19,7 +20,9 @@ export async function runWorkspaceRestore(ctx:FeatureContext,job:PortabilityJob)
  for(const blob of manifest.blobs){const key=importKeys.has(blob.key)?blob.key:`federation/restore/${job.planned_restore_id}/${blob.entry}`;await putTracked(ctx,job,key,entries[blob.entry]!,()=>requireEmptyRestoreTarget(ctx));keys.set(blob.key,key);}
  await requireWorkspaceOwner(ctx);
  const now=clock(),counts=JSON.stringify(Object.fromEntries(Object.entries(manifest.tables).map(([name,rows])=>[name,rows.length])));
- const statements=[ctx.db.prepare('PRAGMA defer_foreign_keys=ON'),claimGuard(ctx,job),identityGuard(ctx),aclGuard(ctx),
+ const checkpointWrites=await restoreCheckpointStatements(ctx.db,ctx.files,manifest.checkpoint);
+ const checkpoint=await nativeRestoreCheckpoint(ctx.db,manifest.checkpoint);
+ const statements=[mutationGuard(ctx.db,checkpoint.select,checkpoint.values),ctx.db.prepare('PRAGMA defer_foreign_keys=ON'),claimGuard(ctx,job),identityGuard(ctx),aclGuard(ctx),
   mutationGuard(ctx.db,'SELECT is_setup_owner=1 AND email=? FROM members WHERE id=?',[owner.email,ctx.actor.id]),
   ...emptyTargetSelects.map(sql=>mutationGuard(ctx.db,sql,[])),
   // Discard the bootstrap's custody in the same transaction that replaces the workspace.
@@ -31,7 +34,7 @@ export async function runWorkspaceRestore(ctx:FeatureContext,job:PortabilityJob)
   const row=restoredRow(name,original,owner.email,now,keys),names=columns[name]!;
   statements.push(ctx.db.prepare(`INSERT ${name==='content_published_revisions'?'OR IGNORE ':name==='import_native_epoch'?'OR REPLACE ':''}INTO "${name}" (${names.map(n=>`"${n}"`).join(',')}) VALUES (${names.map(()=>'?').join(',')})`).bind(...names.map(n=>row[n]??null)));
  }
- statements.push(...importTriggers.after);
+ statements.push(...importTriggers.after,...checkpointWrites);
  statements.push(...prepareSearchRestoreStatements(ctx.db,manifest.tables));
  // Journal the disposable input in the same commit as workspace replacement.
  // Recovery must not depend on a response, witness read, or terminal-receipt scan.

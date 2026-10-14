@@ -8,6 +8,7 @@ import { scratch, waitFor, resources, repo } from './runtime.mjs';
 import { saveFailure } from './diagnostics.mjs';
 import { http, populate, snapshotQueries } from './populated.mjs';
 import { corrupt, resealWithRow } from './archive-edit.mjs';
+import { archiveFacts, equalArchiveFacts } from './archive-facts.mjs';
 
 const cli = (verb, flags = []) => ['node_modules/@runeditrun/rer/bin/rer.mjs', verb, ...flags, '--json', '--non-interactive'];
 const last = output => JSON.parse(output.trim().split('\n').filter(line => line.startsWith('{')).at(-1));
@@ -165,7 +166,22 @@ test('a populated installation comes back on fresh authority under a different o
     await run('import', ['--input', 'exports/populated.rer', '--yes']);
     const again = last(await run('export', ['--output', 'exports/again.rer']));
     assert.equal(again.contentHash, exported.contentHash, 're-export has the same content hash');
-    const summary = { pages: made.pages.length, restricted: made.restricted.length, files: made.files.length, threads: made.threads.length, links: made.links.length, sessionsBeforeExport: before.sessions[0].n, contentHash: exported.contentHash, refusals, bobOpensBeforeAndAfter: bobBefore };
+    const originalFacts = await archiveFacts(archive);
+    equalArchiveFacts(originalFacts, await archiveFacts(join(copy.root, 'exports/again.rer')));
+
+    // An additive migration exists only in this disposable installation. A
+    // same-schema replay alone cannot satisfy this actual changed-schema case.
+    await run('reset', ['--yes']);
+    const additive = join(copy.root, 'migrations/core/0031_journey_archive_default.sql');
+    await writeFile(additive, "ALTER TABLE pages ADD COLUMN journey_restore_label TEXT NOT NULL DEFAULT 'preserved';\n");
+    await run('import', ['--input', 'exports/populated.rer', '--yes']);
+    await run('export', ['--output', 'exports/after-additive.rer']);
+    const upgraded = await archiveFacts(join(copy.root, 'exports/after-additive.rer'));
+    assert.notEqual(upgraded.manifest.schema, originalFacts.manifest.schema, 'the portable schema actually changed');
+    equalArchiveFacts(originalFacts, upgraded, { pages: { journey_restore_label: 'preserved' } });
+    assert.deepEqual(await sql('SELECT DISTINCT journey_restore_label FROM pages'), [{ journey_restore_label: 'preserved' }], 'stored rows take the new column default');
+
+    const summary = { pages: made.pages.length, restricted: made.restricted.length, files: made.files.length, threads: made.threads.length, links: made.links.length, sessionsBeforeExport: before.sessions[0].n, contentHash: exported.contentHash, additiveSchema: upgraded.manifest.schema, refusals, bobOpensBeforeAndAfter: bobBefore };
     await writeFile(join(evidence, 'populated-restore.json'), JSON.stringify(summary, null, 2));
     console.log('Populated restore: ' + JSON.stringify(summary));
   } catch (error) { try { await saveFailure(copy, dev, 'populated-restore', error); } finally { throw error; } }

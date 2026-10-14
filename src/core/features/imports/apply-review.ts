@@ -1,7 +1,7 @@
 import {restoredNativeSource} from './native-source';
 import {readNormalizedSource} from './source-store';
 import {cancelImportPreparation,cleanCancelledMedia} from './cancel-preparation';
-import {storeReportSection} from './report-store';
+import {retainedImportReport,storeReportSection} from './report-store';
 import {retainedZipBody,retainedArchiveHash} from './archive-r2';
 import {storeImportedSource} from '../media/import-source';
 import {PlanTooLargeError,PLAN_BYTES_LIMIT,prepareD1ImportStream,publishD1ImportPreparation,resumeD1ImportStream,undoD1ImportStream,readD1ImportUndoReport} from '../../../../modules/import-kit/src/d1/index.ts';
@@ -76,7 +76,7 @@ export async function applyReviewedImport(ctx:ImportRequestContext,job:ReviewedJ
     const indexed=await ctx.db.prepare('SELECT COUNT(DISTINCT page_id) AS n FROM search_text WHERE workspace_id=? AND page_id IN (SELECT value FROM json_each(?))').bind(ctx.actor.workspaceId,JSON.stringify(review.pageIds)).first<number>('n');
     await ctx.db.batch([authorized(),ctx.db.prepare("UPDATE federation_imports SET progress_json=?,updated_at=? WHERE id=? AND state='indexing'").bind(JSON.stringify({phase:'indexing',checkpoint:indexed??0,total:review.pageIds.length}),ctx.now,job.id),authorized()]);return;
   }
-  const report=JSON.parse(job.report_json),counts=report.counts;
+  const report=retainedImportReport(job.report_json),counts=report.counts;
   report.created=report.wouldCreate;delete report.wouldCreate;
   if(report.sections?.wouldCreate){report.sections.created=report.sections.wouldCreate;delete report.sections.wouldCreate;}
   report.indexedPages=review.pageIds.length;
@@ -95,7 +95,7 @@ export async function undoReviewedImport(ctx:ImportRequestContext,job:ReviewedJo
   if(!job.kit_id)throw new ApiProblem(409,'IMPORT_UNDO_UNAVAILABLE','This import has no applied batches to undo.');
   const progress=previous.state==='undone'?previous:await undoD1ImportStream(job.kit_id,context);
   const authorization=context.authorization.predicate('undo',job.id),authorized=()=>mutationGuard(ctx.db,`SELECT (${authorization.sql})`,authorization.params as (string|number|null)[]);
-  const report=JSON.parse(job.report_json);
+  const report=retainedImportReport(job.report_json);
   report.undo??={conflicts:[],reportPage:0,reportOffset:0};
   // Read one maintained child report per separate request after reversal has
   // finished. Reporting never spends the next child's budget in this batch.

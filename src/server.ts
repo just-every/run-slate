@@ -12,6 +12,7 @@ import { staticAssetResponse } from "./base/runtime/static-assets";
 import { lobbyResponse } from "./base/runtime/lobby";
 import { setupStateResponse } from "./base/runtime/setup-state";
 import { claimed, identity } from "./identity";
+import { slateDependencyResponse } from "./core/features/session/dependencies";
 
 const api = createApi();
 
@@ -33,9 +34,19 @@ export default {
   async queue(batch,bindings:AppBindings){ await consumeJobs(batch,bindings); },
   async scheduled(_event,bindings:AppBindings){ await scheduledJobs(bindings); },
   async fetch(request, bindings: AppBindings, execution): Promise<Response> {
-    return editorHeaders(await handleRequest(request, bindings, execution), bindings);
+    return editorHeaders(withDocumentNoTransform(await handleRequest(request, bindings, execution)), bindings);
   },
 } satisfies ExportedHandler<AppBindings>;
+
+function withDocumentNoTransform(response: Response): Response {
+  if (!response.headers.get("content-type")?.toLowerCase().includes("text/html")) return response;
+  const headers = new Headers(response.headers);
+  const directives = headers.get("cache-control");
+  if (!directives?.split(",").some(directive => directive.trim().toLowerCase() === "no-transform")) {
+    headers.set("cache-control", directives ? `${directives}, no-transform` : "no-transform");
+  }
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+}
 
 /**
  * Under `vite dev` the Worker also runs first, and `ASSETS` is Vite's dev
@@ -70,6 +81,9 @@ async function handleRequest(request: Request, bindings: AppBindings, execution:
     } catch (cause) {
       return configurationFailureResponse(cause);
     }
+
+    const dependency = await slateDependencyResponse(request, checkedBindings.DB, runtimeConfig);
+    if (dependency) return dependency;
 
     const limited=await publicDocumentLimit(request,checkedBindings.DB);
     if(limited)return limited;

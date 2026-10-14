@@ -164,7 +164,7 @@
         "scripts/installer/local.mjs",
         "rer-setup.json"
       ],
-      "effects": "Writes a new owner-only complete local D1/R2 installation archive through Base portability; excludes credentials, sessions and transient caches. Remote transfer is unsupported."
+      "effects": "Writes a new owner-only complete local D1/R2 installation archive through Base portability, or exports an authenticated hosted installation with --target remote --origin and --session-file; requires current native owner coverage and fresh email proof. Excludes credentials, sessions and transient caches. Base deployment controller ledger remains a native inventory integration blocker."
     },
     "import": {
       "argv": [

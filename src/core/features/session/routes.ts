@@ -11,14 +11,16 @@ import { acceptInvitation, previewInvitation } from "../workspace/invitations";
 import { invitationAcceptedPage, invitationPage } from "../workspace/invitation-page";
 import { bootstrapOwner } from "../workspace/bootstrap";
 import { parseBody } from "../workspace/routes";
-import { signInCapabilities } from "./capabilities";
+import { signInCapabilities, storedSignInCapabilities } from "./capabilities";
 import { mailStatus } from "./mail-status";
 import type { MailRow } from "./mail-authority";
+import { completeNativeLocalSetup, LOCAL_SETUP_PATH } from "./local-setup";
 
 const branding = { productName: "Slate", accentColor: "#1b1b18", signInPath: "/signin", theme: "/rer-theme.css" };
 const retiredLink = (method: string) => confirmationResponse({ branding, preview: null, token: "", method });
 /** Paths Base operator-auth owns on Slate's listener: confirmation, step-up and the incumbent provider. */
 export const BASE_AUTH_PATHS = new Set(["/auth/confirm", "/auth/step-up", PROVIDER_START, PROVIDER_CALLBACK]);
+export const SESSION_AUTH_PATHS = new Set([...BASE_AUTH_PATHS, LOCAL_SETUP_PATH]);
 const invitationToken = z.string().min(20).max(512);
 const requestDigest = (secret: string, email: string, key: string) => sessionDigest(secret, `mail-request:${email.toLowerCase()}:${key}`);
 
@@ -32,7 +34,11 @@ function authProblem(cause: unknown, failure?: string): never {
 
 export function createSessionRoutes() {
   return new Hono<AppEnvironment>()
-    .get("/api/auth/capabilities", (context) => context.json(signInCapabilities(context.get("runtimeConfig"))))
+    .all(LOCAL_SETUP_PATH, async c => {
+      try { return c.json(await completeNativeLocalSetup(c.req.raw, c.env.DB, c.get("runtimeConfig"), c.env.SESSION_SECRET!)); }
+      catch (cause) { authProblem(cause); }
+    })
+    .get("/api/auth/capabilities", async (context) => context.json(await storedSignInCapabilities(context.env.DB, context.get("runtimeConfig"))))
     .post("/api/auth/magic", async c => {
       const schema = z.object({ email: z.string().email().max(254), requestKey: z.string().min(32).max(160).optional() }).strict();
       const form = c.req.header("content-type")?.split(";", 1)[0]!.trim().toLowerCase() === "application/x-www-form-urlencoded";

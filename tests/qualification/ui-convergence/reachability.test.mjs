@@ -35,6 +35,8 @@ test('module resolution follows TS extensions, index barrels and configured alia
     const files = {
       'tsconfig.json': JSON.stringify({ compilerOptions: { moduleResolution: 'Bundler', module: 'ESNext', baseUrl: '.', paths: { '@ui/*': ['src/ui/*'] } } }),
       'src/routes/index.tsx': "import '@ui/barrel'; const load=()=>import('../ui/dynamic.js');",
+      'src/client.tsx': "import '@ui/browser'; import type { Shape } from './ui/client-type'; // import './ui/client-comment';",
+      'src/ui/browser.tsx': '', 'src/ui/client-type.tsx': 'export type Shape = {};', 'src/ui/client-comment.tsx': '',
       'src/server.ts': "import start from '@tanstack/react-start/server-entry';", 'src/router.tsx': '', 'src/core/app/ext-client.tsx': "const load=()=>import('../../ext/index.client');",
       'src/ext/index.client.tsx': '', 'src/ui/barrel/index.ts': "export { default } from '../leaf';",
       'src/ui/leaf.tsx': 'export default function Leaf() {}', 'src/ui/dynamic.tsx': '',
@@ -46,7 +48,9 @@ test('module resolution follows TS extensions, index barrels and configured alia
     }
     const result = await inspectUiReachability(scratch);
     assert.deepEqual(result.unresolved, []);
-    assert.deepEqual(result.unreachable, ['src/ui/orphan.tsx']);
+    assert.deepEqual(result.unreachable, ['src/ui/client-comment.tsx', 'src/ui/client-type.tsx', 'src/ui/orphan.tsx']);
+    assert.ok(result.roots.includes('src/client.tsx'));
+    assert.ok(result.reached.includes('src/ui/browser.tsx'));
     assert.ok(result.reached.includes('src/router.tsx'));
     assert.ok(result.reached.includes('src/ext/index.client.tsx'));
     assert.ok(result.reached.includes('src/ui/dynamic.tsx'));

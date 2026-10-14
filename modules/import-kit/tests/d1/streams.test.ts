@@ -117,3 +117,22 @@ test('a self-consistent child cannot retain metadata or source copies outside th
  await assert.rejects(createD1ImportStream(changed,{...r.context(),reviewedFingerprint:plan.fingerprint}),/IMPORT_STREAM_PAGE_CHANGED/);
  assert.equal((await r.db().prepare('SELECT COUNT(*) n FROM ik_jobs').first()).n,0);
 });
+
+test('a page of many tiny effects splits into unit-bounded children whose preserved undo fits every request',async t=>{
+ const {meter}=await import('./meter.ts');
+ const r=await runtime(t),bundle=source(40);bundle.artifacts[0].original={status:'unavailable',reason:'not-supplied'};
+ const tiny={version:'v1',map:(record:any)=>({effects:Array.from({length:30},(_,i)=>({targetKind:'contact',targetId:`${record.sourceId}:${i}`,value:record.payload}))})};
+ // Like a real native adapter, classification reads every unreversed effect of the child.
+ const adapter={...targets,async preparePreservedUndo(db:any,destination:string,effects:any[]){
+  const observations=[];for(const e of effects)observations.push({effectId:e.provenance.id,current:await targets.read(db,destination,e.expected.targetKind,e.expected.targetId)??null,entity:{table:'contacts',recordId:e.expected.targetId}});
+  return {observations,dependencies:[],guards:observations.map(o=>targets.matches(o.current,destination,'contact',o.entity.recordId))};
+ }};
+ const m=meter(r.db()),ctx={...r.context(),reversalPolicy:'preserve-conflicts' as const,storage:{database:m.database,targets:adapter}};
+ const plan=await m.request('plan',()=>planD1ImportStream(bundle,tiny,ctx));
+ assert.ok(plan.pages.length>1,'one source page of 1,200 effects is not one child');
+ let job=await m.request('create',()=>createD1ImportStream(plan,{...ctx,reviewedFingerprint:plan.fingerprint})),rounds=0;
+ while(job.state!=='completed'){job=await m.request('apply',()=>resumeD1ImportStream(job.id,{...ctx,batchSize:100}));assert.ok(++rounds<500);}
+ assert.equal((await targets.list(r.db(),'workspace')).length,1200);
+ while(job.state!=='undone'){job=await m.request('undo',()=>undoD1ImportStream(job.id,{...ctx,batchSize:100}));assert.ok(++rounds<1000);}
+ assert.equal((await targets.list(r.db(),'workspace')).length,0);
+});

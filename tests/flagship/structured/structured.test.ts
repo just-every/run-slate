@@ -1,5 +1,6 @@
 import { env } from "cloudflare:test";
-import { test, expect } from "vitest";
+import { beforeEach, test, expect } from "vitest";
+import { resetDeployment } from "../../e2e/setup/reset-deployment";
 import {
   seedWorkspace,
   seedMember,
@@ -40,6 +41,9 @@ import {
 } from "../../../src/core/features/automation/jobs";
 import { archivePage } from "../../../src/core/features/archive/service";
 import { ApiProblem } from "../../../src/core/app/problems";
+
+beforeEach(resetDeployment);
+
 async function scenario() {
   const { workspaceId } = await seedWorkspace();
   const { memberId } = await seedMember(workspaceId, {

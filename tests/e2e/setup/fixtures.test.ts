@@ -1,5 +1,6 @@
 import { SELF, env } from "cloudflare:test";
-import { expect, test } from "vitest";
+import { beforeEach, expect, test } from "vitest";
+import { resetDeployment } from "./reset-deployment";
 import {
   seedBlock,
   seedContainer,
@@ -12,6 +13,8 @@ import {
   seedWorkspace,
   sessionFor,
 } from "./fixtures";
+
+beforeEach(resetDeployment);
 
 /**
  * The fixtures' own proof. These are harness self-tests, not clause journeys:

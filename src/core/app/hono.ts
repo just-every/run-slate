@@ -8,7 +8,7 @@ import { ZodError } from "zod";
 import { Hono } from "hono";
 import { createSessionRoutes, createSessionService } from "../features/session";
 import { sessionOptions } from "../features/session/service";
-import { BASE_AUTH_PATHS } from "../features/session/routes";
+import { SESSION_AUTH_PATHS } from "../features/session/routes";
 import { probeDependencies } from "../platform/health";
 import { RuntimeConfigurationError } from "../platform/config/runtime";
 import { error } from "../shared/errors";
@@ -22,7 +22,7 @@ import type { AppEnvironment } from "./types";
  * or a catch-all.
  */
 export function isHonoRequest(pathname: string): boolean {
-  return BASE_AUTH_PATHS.has(pathname)
+  return SESSION_AUTH_PATHS.has(pathname)
     || pathname === "/health"
     || pathname === "/api"
     || pathname.startsWith("/api/")
@@ -46,7 +46,7 @@ export function createApi() {
       context.header('Referrer-Policy','same-origin');
       context.header('Cache-Control','no-store');
       const path=new URL(context.req.url).pathname;
-      if(path.startsWith('/api/auth/')||BASE_AUTH_PATHS.has(path)) await enforceRateLimit(context,'auth',120);
+      if(path.startsWith('/api/auth/')||SESSION_AUTH_PATHS.has(path)) await enforceRateLimit(context,'auth',120);
       else if(path.startsWith('/p/')) await enforceRateLimit(context,'public-page',120);
       await next();
       if(!['GET','HEAD','OPTIONS'].includes(context.req.method)&&context.res.ok&&(path==='/api/auth/logout'||/^\/api\/(sharing|groups|members|workspace)(?:\/|$)/.test(path))) await invalidateContentRooms(context.env);

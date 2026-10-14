@@ -61,7 +61,7 @@ export function MembersPanel() {
             <li key={item.id}>
               <div>
                 <strong>{item.name}</strong>
-                <p>{item.memberIds.length} members</p>
+                <p>{item.memberIds.length} {item.memberIds.length === 1 ? "member" : "members"}</p>
               </div>
               {owner ? (
                 <button onClick={() => setGroup(item)}>Edit</button>

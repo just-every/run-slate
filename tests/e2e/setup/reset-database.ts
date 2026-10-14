@@ -17,7 +17,7 @@ export async function resetDatabase(db: D1Database): Promise<void> {
   tables.sort((a,b)=>order(a.name)-order(b.name));
   // The Kit revision tombstone is deliberately immutable in product operations.
   // Test isolation creates a truly empty deployment, then restores its triggers.
-  const revisionTriggers=(await db.prepare("SELECT name,sql FROM sqlite_master WHERE type='trigger' AND tbl_name='ik_d1_stream_revisions'").all<{name:string;sql:string}>()).results;
+  const revisionTriggers=(await db.prepare("SELECT name,sql FROM sqlite_master WHERE type='trigger' AND tbl_name IN ('ik_d1_stream_revisions','ik_d1_erasure_journal','ik_d1_retirements')").all<{name:string;sql:string}>()).results;
   await db.batch([
     db.prepare('PRAGMA defer_foreign_keys=ON'),
     ...revisionTriggers.map(trigger=>db.prepare(`DROP TRIGGER "${trigger.name}"`)),

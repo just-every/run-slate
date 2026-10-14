@@ -48,6 +48,10 @@ export async function inspectUiReachability(root) {
   const roots = all.filter(file => file.startsWith(path.join(root, 'src/routes') + path.sep)
     && /\.[cm]?[jt]sx?$/.test(file));
   roots.push(path.join(root, 'src/server.ts'), path.join(root, 'src/core/app/ext-client.tsx'));
+  // vite.config.ts leaves TanStack Start's client.entry at its default: optional src/client.
+  // This browser entry is selected by the plugin, so no server-side import points to it.
+  const client = ts.resolveModuleName('./client', path.join(root, 'src/server.ts'), parsed.options, ts.sys).resolvedModule;
+  if (client) roots.push(client.resolvedFileName);
   // The run site's entry (commandAdapter site.entry, built by `rer build --site`) renders the landing.
   const site = path.join(root, 'src/site/pages.tsx');
   if (all.includes(site)) roots.push(site);

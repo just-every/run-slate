@@ -18,6 +18,7 @@ export interface MutationPlan<T> { statements: D1PreparedStatement[]; entity: En
 /** Domain callers must include immutable revision writes and SQL CAS guards in statements. */
 export async function commitOperation<T>(ctx: FeatureContext, input: {
   operationKey: string; action: string; request: unknown;
+  commit?: (statements:D1PreparedStatement[]) => Promise<unknown>;
   authorize: () => Promise<void>;
   prepare: (receipt: { revisionId: string; activityId: string }) => Promise<MutationPlan<T>>;
 }): Promise<{ value: T; receipt: MutationReceipt }> {
@@ -38,7 +39,7 @@ export async function commitOperation<T>(ctx: FeatureContext, input: {
   const result = {value:plan.value,receipt};
   const expires = new Date(Date.parse(ctx.now)+86400000).toISOString();
   try {
-    await ctx.db.batch([
+    await (input.commit ?? (statements=>ctx.db.batch(statements)))([
       ctx.db.prepare('INSERT INTO operation_receipts (id,workspace_id,actor_member_id,operation_key,request_hash,target_kind,target_id,response_status,response_json,created_at,expires_at) VALUES (?,?,?,?,?,?,?,200,?,?,?)').bind(createUlid(),ctx.actor.workspaceId,ctx.actor.id,input.operationKey,hash,plan.entity.kind,plan.entity.id,JSON.stringify(result),ctx.now,expires),
       ...(authorizationEpoch === undefined ? [] : [mutationGuard(ctx.db, 'SELECT epoch=? FROM core_acl_epoch WHERE id=1',[authorizationEpoch])]),
       mutationGuard(ctx.db, "SELECT status='active' FROM members WHERE id=? AND workspace_id=?", [ctx.actor.id,ctx.actor.workspaceId]),

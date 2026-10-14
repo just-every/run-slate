@@ -1,6 +1,6 @@
 # Operating Slate
 
-Use Node.js **22.20.0** and pnpm **10.12.4**. Start with the [README](README.md) journey through `rer install`, `setup --owner-email owner@example.test` and `dev`. `rer describe` lists the actual flags and effects. `rer check --profile first-party` validates the structural command contract without credentials or dependencies. `doctor` diagnoses the local tools and state without provider requests.
+Use Git and Node.js 22 or later. Rer provides this checkout's pinned Node.js **22.20.0**, pnpm **10.12.4** and dependencies for its commands; a separate pnpm installation is unnecessary. Start with the [README](README.md) journey through `rer install`, `setup --owner-email owner@example.test` and `dev`. `rer describe` lists the actual flags and effects. `rer check --profile first-party` validates the structural command contract without credentials or dependencies. `doctor` diagnoses the local tools and state without provider requests.
 
 Setup builds and migrates the app, prepares private native settings and requests ordinary owner sign-in through the local outbox. It exits with no server running. Reruns preserve exact settings and existing owner/data; conflicting owner or origin choices require explicit recovery or reset. The manifest declares `APP_URL` and `SETUP_OWNER_EMAIL`, with no owner-name field. Slate retains native magic-link/OIDC/session/role/group/guest authority under the owner's 8 October 2026 override; there is no Base owner ledger.
 
@@ -19,7 +19,9 @@ rer import --input exports/installation.rer --yes
 rer setup --owner-email owner@example.test
 ```
 
-Reset removes only its printed local inventory and refuses active custody. It preserves source, dependencies, owner archives and `.rer/deploy` receipts. Import requires an empty destination. Either import before setup and then set up with the archived owner's email, or run setup first with any archived full member's email: that member becomes the one active owner, the archived owner becomes a historical actor, and an address that is not an archived member, or is an archived guest, is refused with nothing restored. An archive that names more than one setup owner is refused, and every imported row is set to what export writes, so public links come back revoked and agent credentials erased. A member removed before the export stays removed, and a grant or group membership an archive gives them is left out with one warning per row. Local archives include D1 facts and identities, retained FILES attachments and source import originals. Derived ZIP exports, deleted/unreferenced objects, session capabilities, credentials, private settings and transient caches are excluded. Agent metadata moves only as revoked records with erased digests and empty scopes. Search is rebuilt; restored automation, grants and effects require new owner authority. Remote CLI transfer is unsupported. Authenticated workspace ZIP backup/restore is a distinct product format.
+Reset removes only its printed local inventory and refuses active custody. It preserves source, dependencies, owner archives and `.rer/deploy` receipts. Import requires an empty destination. Either import before setup and then set up with the archived owner's email, or run setup first with any archived full member's email: that member becomes the one active owner, the archived owner becomes a historical actor, and an address that is not an archived member, or is an archived guest, is refused with nothing restored. An archive that names more than one setup owner is refused, and every imported row is set to what export writes, so public links come back revoked and agent credentials erased. A member removed before the export stays removed, and a grant or group membership an archive gives them is left out with one warning per row. Local archives include D1 facts and identities, retained FILES attachments and source import originals. Derived ZIP exports, deleted/unreferenced objects, session capabilities, credentials, private settings and transient caches are excluded. Agent metadata moves only as revoked records with erased digests and empty scopes. Search is rebuilt; restored automation, grants and effects require new owner authority. Hosted installation export uses `rer export --target remote` with an exact `--origin` and private `--session-file`. It authenticates the native owner, requires a recent email confirmation and complete workspace read coverage. Remote installation import is unsupported; import into a separate empty local checkout first. Authenticated workspace ZIP backup/restore is a distinct product format.
+
+When recovering an older installation archive after a person was erased, retain a newer complete installation archive as the trusted redaction checkpoint and pass it as `--journal` to local import. Base refuses the older archive when that checkpoint says it predates erasure; the destination remains empty. Native ZIP backups also carry the value-free source checkpoint and refuse an older or checkpoint-free archive when the destination already retains a newer erasure epoch. Preserve the newer backup: a fresh destination cannot infer an erasure it has never seen.
 
 ## Owner-account deployment
 
@@ -32,6 +34,7 @@ The real deployment declaration is [deploy.json](deploy.json); `scripts/installe
 | `SLATE_SETUP_OWNER_EMAIL` | First native owner mailbox. |
 | `SLATE_MAIL_PROVIDER` | Explicit `resend` or `sendgrid`; no provider default. |
 | `SLATE_MAIL_FROM` | Verified sender for that provider. |
+| `SLATE_IDENTITY_PROVIDER` | Optional exact HTTPS origin of a linked identity provider; leave blank for native email sign-in. |
 | `SLATE_SESSION_SECRET` | Private secret; preserve across deployments to retain session and encrypted custody continuity. |
 | `SLATE_MAIL_API_KEY` | Private key belonging to the selected mail provider. |
 
@@ -42,7 +45,28 @@ rer deploy --environment production
 
 Dry run builds/validates locally and makes zero provider requests. Actual deployment requires caller authorization, creates owner-account resources, applies original migrations, uploads declared secrets, publishes and checks health. Base derives resource names and the workers.dev origin from the public project and environment; receipts in `.rer/deploy` retain resource custody. Preserve existing hosted resources and receipts during any deliberate resource change. Local input validation does not establish provider permissions, sender verification, inbox delivery or deployed health.
 
+The optional linked provider is selected before first setup and then immutable; its runtime binding is `IDENTITY_PROVIDER`. Base currently refuses unattended first-time provider approval with `native_capability_unavailable` for native accounts. Leave this optional input blank for a fresh installation until Base supplies that capability. Existing-owner approval, relink, unlink and logout protocol checks do not establish unattended initial setup or hosted provider acceptance.
+
 The 7 October 2026 MAIL-002 decision requires duplicate-safe retry: SendGrid uncertain sends remain held for provider review. Resend uses bounded exact-body idempotency. An accepted receipt proves provider acceptance, not inbox delivery.
+
+## Update an existing deployment
+
+Keep the existing checkout, native owner identity, deployment receipts, environment name and private deployment inputs. Before exporting, confirm the checkout is clean and `git rev-parse HEAD` matches both the running wiki's `/health` `deployment.sourceSha` and the deploy receipt's `source.sha`. If they differ, preserve local changes and find the deployed source revision before continuing; the local HEAD alone does not identify the remote backup's recovery source. Sign in as the owner and confirm your email for export. Save the single `slate_session=VALUE` cookie in an owned mode-0600 `.seed/owner-session` file; never put it in shell history or a shared log. Substitute your existing origin and environment below:
+
+```sh
+rer export --target remote --origin https://wiki.example.com --session-file .seed/owner-session --output exports/before-update.rer
+git rev-parse HEAD > exports/before-update.source
+git pull --ff-only
+rer deploy --environment production
+```
+
+Rer deploy provisions the pinned tooling and installs frozen dependencies automatically; the private pnpm it supplies is available to rer commands, not as a bare shell command. `rer update` updates the rer CLI, not your wiki source; use the deployment identity and retained-data checks below to validate the wiki update.
+
+Export must finish before pulling. Keep the archive and its recorded source revision. Before pulling, restore the archive into a distinct empty checkout pinned to that export-source revision with `rer import --input exports/before-update.rer --yes`, then set up with the archived owner's email and inspect the result. Restoration into a newer source revision requires separate migration-compatibility validation; the current Base importer can refuse migration 0029's trigger replacement for an older archive. Preserve the export-source checkout as your recovery path when that newer restore is unsupported. A failed export stops the update. A non-fast-forward pull requires review of your local changes; preserve them before resolving the update. Run `rer deploy --environment production --dry-run` to review the changed build and declaration locally before the authorized deployment.
+
+Deploy to the same environment and preserve `SLATE_SESSION_SECRET`, account, resource names and `.rer/deploy` receipts. After deployment, check the deploy receipt's project, environment and origin, and match `/health`'s `deployment.sourceSha`, `fingerprint` and `versionId` to that receipt. Sign in as the same native owner, and verify retained pages and revision history, search, groups/guest access and original attachments. Check a formerly public page at its existing URL and private pages anonymously. Confirm applied migration history is unchanged apart from new additive migrations. A green build or health response alone does not prove retained-data equivalence.
+
+Rer 0.2.2 uses Cloudflare's `d1_migrations` ledger for fresh deployments, which Slate's export inventory accepts. An existing 0.2.1 deployment retaining `_rer_deploy_migrations` needs separate upgrade and export validation. The CLI has a legacy-ledger transition path, but its existence alone does not prove that installation's migration. If your pre-update export refuses a controller ledger or unknown table, preserve the ledger and the refusal, retain your known-good backup and pause the update for review. Never delete or rename tables to obtain a backup.
 
 ## AI owner setup
 
@@ -58,7 +82,7 @@ For local development, complete rer setup first, stop any running dev instance, 
 | `SLATE_AI_MODEL` | `AI_MODEL` | The exact model selected by the owner; the workspace policy must also approve the model and task. |
 | `SLATE_AI_API_KEY` | `AI_API_KEY` | Private OpenAI API credential when using `openai`. |
 
-Inject credentials from your private vault into the process environment. Keep keys and bridge tokens out of committed files, command arguments, browser code, screenshots and logs. Restart dev after changing configuration. These environment mappings apply to Vite development; they are not rer deployment flags. The current hosted deployment declaration keeps AI disabled and exposes only the seven inputs in **Owner-account deployment**. Hosted AI provisioning is not provided by that command.
+Inject credentials from your private vault into the process environment. Keep keys and bridge tokens out of committed files, command arguments, browser code, screenshots and logs. Restart dev after changing configuration. These environment mappings apply to Vite development; they are not rer deployment flags. The current hosted deployment declaration keeps AI disabled and exposes only the declared inputs in **Owner-account deployment**. Hosted AI provisioning is not provided by that command.
 
 For the optional local Codex bridge, use an existing `codex login` account and run `SLATE_PROFILE=flagship node local-agent/dev.mjs` after setup. It starts rer dev and supplies enablement, provider, model, loopback `AI_LOCAL_URL` and a private process-only `AI_LOCAL_TOKEN`; `SLATE_AI_MODEL` selects the model. See [local-agent/README.md](local-agent/README.md) for the advanced single-bridge setup and inference boundaries. Starting the bridge performs provider capability evaluation using that account. Stop it with Ctrl-C.
 

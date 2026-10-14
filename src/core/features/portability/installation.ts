@@ -1,3 +1,5 @@
+import type { Row } from '@runeditrun/rer/modules/portability';
+import { ApiProblem } from '../../app/problems';
 import { excludedTables, derivedSearchTables } from './tables';
 import { forbiddenColumns, schema, type DataRow } from './archive';
 import { restoredRow } from './rows';
@@ -20,7 +22,9 @@ export async function installationPolicy(db: D1Database) {
     secretColumns, replaceableTables: ['import_native_epoch'],
     requiredConfiguration: ['APP_URL', 'SETUP_OWNER_EMAIL', 'SESSION_SECRET', 'LOCAL_DEVELOPMENT', 'MAIL_PROVIDER', 'MAIL_FROM'],
     buckets: { FILES: {} },
-    exportRow(table: string, row: DataRow) {
+    exportRow(table: string, input: Row) {
+      if (Object.values(input).some(value => value !== null && typeof value !== "string" && typeof value !== "number")) throw new ApiProblem(409, "INVALID_ARCHIVE_ROW", "The native archive requires scalar product records.");
+      const row = input as DataRow;
       if (table === agentMetadata) return { ...row, token_hash: 'erased:' + row.id, scope_json: '{}', expires_at: restoredAt, revoked_at: row.revoked_at ?? restoredAt };
       const owner = table === 'members' && row.is_setup_owner === 1 ? String(row.email) : '';
       return restoredRow(table, row, owner, restoredAt, new Map());

@@ -3,6 +3,8 @@ import { expect } from '@playwright/test';
 import { openNavigation } from '../../qualification/ui-convergence/browser-support.mjs';
 import { capture, control, separated, checkboxBeside, labelsDoNotOverlap, insideViewport } from './evidence.mjs';
 
+import { waitForRenderedResourceReadiness } from './resource-readiness.mjs';
+import { waitForScrollSettled } from './scroll-settle.mjs';
 import { headingGap, filterAlignment, drawerDoesNotIntercept } from './layout.mjs';
 
 export async function spacesJourney({ page }) {
@@ -72,7 +74,7 @@ export async function spacesJourney({ page }) {
 // Traverse the visible application affordances; automatic locator scrolling
 // would conceal a broken Previous/More button on a narrow viewport.
 async function settingsTab(page, tabs, name, width) {
-  const tab = tabs.getByRole('button', { name, exact: true });
+  const tab = tabs.getByRole('link', { name, exact: true });
   await expect(tab).toBeVisible();
   if (width === 390) {
     const position = () => tab.evaluate(el => {
@@ -99,22 +101,29 @@ async function settingsTab(page, tabs, name, width) {
   await insideViewport(page, tab, name);
   await tab.click();
   await expect(tab).toHaveAttribute('aria-current', 'page');
+  // The panel's resources load after the click and move the page; later scrolling must start from the settled layout.
+  await waitForRenderedResourceReadiness(page);
+  await waitForScrollSettled(page);
   return tab;
 }
 
 export async function settingsJourney({ page, origin }, width) {
-  await page.goto(origin + '/app/settings', { waitUntil: 'networkidle' });
+  await page.goto(origin + '/app/settings?section=appearance', { waitUntil: 'domcontentloaded' });
   const tabs = page.getByRole('navigation', { name: 'Settings sections', exact: true });
   const names = ['Workspace', 'People', 'Appearance', 'Preferences', 'Activity', 'Automations', 'Statuses', 'Spaces', 'Chat notifications', 'Connections', 'Import & export'];
-  await expect(tabs.getByRole('button')).toHaveCount(names.length);
-  const buttons = names.map(name => tabs.getByRole('button', { name, exact: true }));
-  for (let i = 0; i < names.length; i++) await control(buttons[i], names[i]);
-  await separated(buttons, 'Settings tabs');
-  if (width === 1440) for (const button of buttons) await insideViewport(page, button, await button.innerText());
+  await expect(tabs.getByRole('link')).toHaveCount(names.length);
+  const appearance = tabs.getByRole('link', { name: 'Appearance', exact: true });
+  await expect(appearance).toHaveAttribute('aria-current', 'page');
+  await settingsTab(page, tabs, 'Import & export', width);
+  await expect(page.getByRole('button', { name: 'Export workspace', exact: true })).toBeVisible();
+  const links = names.map(name => tabs.getByRole('link', { name, exact: true }));
+  for (let i = 0; i < names.length; i++) await control(links[i], names[i]);
+  await separated(links, 'Settings tabs');
+  if (width === 1440) for (const link of links) await insideViewport(page, link, await link.innerText());
   else {
     const affordance = await tabs.evaluate(el => {
       const r = el.getBoundingClientRect();
-      const clipped = [...el.querySelectorAll('button')].some(b => { const q = b.getBoundingClientRect(); return q.left < r.right && q.right > r.right; });
+      const clipped = [...el.querySelectorAll('a')].some(a => { const q = a.getBoundingClientRect(); return q.left < r.right && q.right > r.right; });
       const marker = el.parentElement.querySelector('.settings-scroll-controls, [aria-label*="Scroll"], [aria-label*="scroll"], .settings-scroll-hint');
       return { overflow: el.scrollWidth > el.clientWidth, clipped, marker: marker && marker.getBoundingClientRect().width > 0 };
     });

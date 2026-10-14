@@ -6,6 +6,7 @@ import { DocsPager } from './DocsPager';
 import { DocsSidebar } from './DocsSidebar';
 import { DocsToc } from './DocsToc';
 import type { DocsView } from './types';
+import { HydrationUnit } from '../../../base/runtime/hydration/unit';
 import { useCurrentDocs } from './useCurrentDocs';
 import '../landing/styles';
 import './docs.css';
@@ -17,17 +18,17 @@ export function DocsPage({ page, sections, repository, version }: DocsView) {
   const index = order.findIndex(entry => entry.slug === page.slug);
   const current = order[index];
   return <div className="slate-landing slate-docs" id="top">
-    <a className="skip-link" href="#docs-content">Skip to the content</a>
-    <SiteHeader page="docs" />
+    <HydrationUnit><a className="skip-link" href="#docs-content">Skip to the content</a></HydrationUnit>
+    <HydrationUnit><SiteHeader page="docs" /></HydrationUnit>
     <div className="docs-shell">
-      <DocsSidebar sections={sections} current={page.slug} />
+      <HydrationUnit><DocsSidebar sections={sections} current={page.slug} /></HydrationUnit>
       <main id="docs-content" tabIndex={-1} className="docs-main">
-        <DocsMenu sections={sections} current={page.slug} label={current.label} />
+        <HydrationUnit><DocsMenu sections={sections} current={page.slug} label={current.label} /></HydrationUnit>
         <DocsArticle page={page} section={current.section} />
         <DocsPager previous={order[index - 1]} next={order[index + 1]} editUrl={`${repository.url}/edit/${repository.branch}/${page.source}`} />
       </main>
-      <DocsToc toc={page.toc} />
+      <HydrationUnit><DocsToc toc={page.toc} /></HydrationUnit>
     </div>
-    <SiteFooter />
+    <HydrationUnit><SiteFooter /></HydrationUnit>
   </div>;
 }

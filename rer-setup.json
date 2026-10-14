@@ -127,6 +127,15 @@
       "ownerVisible": false,
       "generate": "hex",
       "group": "session"
+    },
+    {
+      "name": "IDENTITY_PROVIDER",
+      "label": "Identity provider",
+      "kind": "url",
+      "required": false,
+      "default": "",
+      "help": "Optional shared identity provider. Leave blank for native email links. An existing owner links it with a fresh email proof.",
+      "runtimeEditable": false
     }
   ],
   "runtime": {
@@ -143,6 +152,18 @@
     {
       "type": "extension",
       "id": "email"
+    }
+  ],
+  "dependencies": [
+    {
+      "interface": "oidc-provider@1",
+      "optional": true,
+      "cardinality": 1,
+      "address": "IDENTITY_PROVIDER",
+      "paths": [
+        "/auth/oidc/auth/callback",
+        "/auth/oidc/auth/logout"
+      ]
     }
   ]
 }

@@ -1,6 +1,7 @@
 import { AlertTriangle, Mail } from "lucide-react";
 import { useId } from "react";
 import { PaperPage, PaperScene } from "./PaperPage";
+import type { SignInIdentityProvider } from "../capabilities";
 
 /**
  * The four states the magic-link sign-in screen has.
@@ -20,7 +21,7 @@ export function SignInScreen({
   onUseAnotherAddress,
   submitting = false,
   deliveryError,
-  identityProvider,
+  identityProviders = [],
   className,
   localOutbox = false,
 }: {
@@ -32,8 +33,8 @@ export function SignInScreen({
   submitting?: boolean;
   /** `MAIL-002` — the provider's own error, shown verbatim. */
   deliveryError?: string | null;
-  /** `WORK-015` — offered only when a provider is configured and working. */
-  identityProvider?: { name: string; onSignIn: () => void } | null;
+  /** `WORK-015` — each configured, enabled provider keeps its own sign-in. */
+  identityProviders?: SignInIdentityProvider[];
   className?: string;
   localOutbox?: boolean;
 }) {
@@ -137,11 +138,15 @@ export function SignInScreen({
             </form>
           ) : null}
 
-          {identityProvider ? (
+          {identityProviders.length ? (
             <div className="paper-actions">
-              <button className="paper-pill paper-pill--quiet" onClick={identityProvider.onSignIn} type="button">
-                Continue with {identityProvider.name}
-              </button>
+              {identityProviders.map((provider) => (
+                <form action={provider.start} method="post" key={provider.start}>
+                  <button className="paper-pill paper-pill--quiet" type="submit">
+                    Continue with {provider.name}
+                  </button>
+                </form>
+              ))}
             </div>
           ) : null}
 

@@ -13,6 +13,7 @@ import { PortabilityPanel } from "./PortabilityPanel";
 import { MembersPanel } from "./MembersPanel";
 import { TopBar } from "../../../../app/ui/header/TopBar";
 import { PageTitle } from "../../../../app/ui/header/PageTitle";
+import { Link, useSearch } from "@tanstack/react-router";
 const sections = [
   ["workspace", "Workspace"],
   ["members", "People"],
@@ -28,9 +29,12 @@ const sections = [
 ] as const;
 export function SettingsWorkspace() {
   const tabs = useRef<HTMLElement>(null);
+  const [scrollReady, setScrollReady] = useState(false);
+  // Links work from the server HTML; these controls need their React handlers.
+  useEffect(() => setScrollReady(true), []);
   const flagship = useFlagshipEnabled();
-  const [section, setSection] = useState<string>("workspace");
-  useEffect(()=>{const requested=new URLSearchParams(window.location.search).get("section");if(requested&&sections.some(([id])=>id===requested))setSection(requested);},[]);
+  const requested = useSearch({ from: "/app/settings" }).section;
+  const section = sections.some(([id]) => id === requested) ? requested : "workspace";
   return (
     <>
       <TopBar trail={[{ label: "Settings" }]}>
@@ -40,19 +44,22 @@ export function SettingsWorkspace() {
         <PageTitle>Settings</PageTitle>
         <nav ref={tabs} className="tabs tabs-rule settings-tabs" aria-label="Settings sections">
           {sections.filter(([id]) => flagship || id !== "connections").map(([id, label]) => (
-            <button
+            <Link
               key={id}
+              to="/app/settings"
+              search={{ section: id }}
+              replace
               aria-current={section === id ? "page" : undefined}
-              onClick={() => {
-                setSection(id);
-                history.replaceState(null, "", `?section=${id}`);
-              }}
             >
               {label}
-            </button>
+            </Link>
           ))}
         </nav>
-        <div className="settings-scroll-controls"><button type="button" className="secondary-button" aria-label="Previous settings sections" onClick={() => tabs.current?.scrollBy({left:-260,behavior:"smooth"})}>←</button><span>Scroll for more sections</span><button type="button" className="secondary-button" aria-label="More settings sections" onClick={() => tabs.current?.scrollBy({left:260,behavior:"smooth"})}>→</button></div>
+        <div className="settings-scroll-controls">
+          <button type="button" className="secondary-button" aria-label="Previous settings sections" disabled={!scrollReady} onClick={() => tabs.current?.scrollBy({ left: -260, behavior: "smooth" })}>←</button>
+          <span>Scroll for more sections</span>
+          <button type="button" className="secondary-button" aria-label="More settings sections" disabled={!scrollReady} onClick={() => tabs.current?.scrollBy({ left: 260, behavior: "smooth" })}>→</button>
+        </div>
         {section === "chat" ? (
           <ChatNotifications />
         ) : section === "spaces" ? (

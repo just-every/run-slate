@@ -48,7 +48,11 @@
           "migrations/core/0024_reviewed_imports.sql",
           "migrations/core/0025_import_generation.sql",
           "migrations/core/0026_verification_review.sql",
-          "migrations/core/0027_mention_titles_reindex.sql"
+          "migrations/core/0027_mention_titles_reindex.sql",
+          "src/client.tsx",
+          "migrations/core/0028_import_reversal_fences.sql",
+          "migrations/core/0029_import_retirement.sql",
+          "migrations/core/0030_native_dependencies.sql"
         ]
       },
       "assumptions": [
@@ -415,8 +419,8 @@
           "modules/import-kit"
         ],
         "origin": {
-          "repository": "runeditrun/base",
-          "revision": "9ec15a63a410d209cd5a179749336bb61751e0f6",
+          "repository": "https://github.com/runeditrun/base.git",
+          "revision": "363da337fe618bfc62fa3b6b5fd3e7f2f67d5879",
           "path": ".",
           "paths": [
             "modules/import-kit/CONTRACT.md",
@@ -461,6 +465,7 @@
             "modules/import-kit/src/d1/erasure.ts",
             "modules/import-kit/src/d1/evolutions/0001-preserved-undo.ts",
             "modules/import-kit/src/d1/expected-state.ts",
+            "modules/import-kit/src/d1/field-redaction.ts",
             "modules/import-kit/src/d1/guards.ts",
             "modules/import-kit/src/d1/history.ts",
             "modules/import-kit/src/d1/index.ts",
@@ -493,7 +498,14 @@
             "modules/import-kit/src/d1/published-stream.ts",
             "modules/import-kit/src/d1/read-fence.ts",
             "modules/import-kit/src/d1/read-results.ts",
+            "modules/import-kit/src/d1/redacted-custody.ts",
             "modules/import-kit/src/d1/retained-values.ts",
+            "modules/import-kit/src/d1/retirement-schema.ts",
+            "modules/import-kit/src/d1/retirement-scope.ts",
+            "modules/import-kit/src/d1/retirement-tally.ts",
+            "modules/import-kit/src/d1/retirement.ts",
+            "modules/import-kit/src/d1/reversal-fence-schema.ts",
+            "modules/import-kit/src/d1/reversal-fence.ts",
             "modules/import-kit/src/d1/reverse.ts",
             "modules/import-kit/src/d1/reviewed-source.ts",
             "modules/import-kit/src/d1/sets.ts",
@@ -640,6 +652,7 @@
             "modules/import-kit/tests/d1/export-consistency.test.ts",
             "modules/import-kit/tests/d1/fixture-evidence.ts",
             "modules/import-kit/tests/d1/fixtures.ts",
+            "modules/import-kit/tests/d1/flat-reversal.test.ts",
             "modules/import-kit/tests/d1/guard-depth.test.ts",
             "modules/import-kit/tests/d1/late-erased-tombstone.test.ts",
             "modules/import-kit/tests/d1/legacy-stream-origin-fixture.ts",
