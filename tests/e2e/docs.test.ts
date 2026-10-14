@@ -46,7 +46,12 @@ describe("DOCS-001 public documentation supporting regressions", () => {
     expect(install).toContain('rel="prev"');
     // The current page alone is marked in the section navigation.
     expect(install.match(/aria-current="page"[^>]*href="\/docs\/install"/g)).toHaveLength(2);
-    expect(install).not.toMatch(/<(img|iframe|video|audio|object|embed|form|input|style)[\s>]/i);
+    expect(install).not.toMatch(/<(img|iframe|video|audio|object|embed|form|input)[\s>]/i);
+    // The document head contains the trusted hydration intro guard's stylesheet;
+    // documentation content must still introduce no media, forms or styles.
+    const body = install.slice(install.indexOf("<body"));
+    expect(body).toMatch(/^<body[\s>]/i);
+    expect(body).not.toMatch(/<(img|iframe|video|audio|object|embed|form|input|style)[\s>]/i);
     expect(install).not.toMatch(/\sstyle="|\son[a-z]+="/);
   });
 

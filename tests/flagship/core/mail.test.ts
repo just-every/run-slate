@@ -1,5 +1,6 @@
 import {env} from 'cloudflare:test';
-import {test,expect,vi} from 'vitest';
+import {beforeEach,test,expect,vi} from 'vitest';
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
 import {seedWorkspace,seedMember,seedContainer,seedContainerGrant,sessionFor} from '../../e2e/setup/fixtures';
 import {createApi} from '../../../src/core/app/hono';
 import {readRuntimeConfig} from '../../../src/core/platform/config/runtime';
@@ -8,6 +9,7 @@ import {scheduleIdentityMail} from '../../../src/core/features/session/mail';
 import {retryIdentityMail,listIdentityMail} from '../../../src/core/features/session/mail-status';
 import type {FeatureContext} from '../../../src/core/app/feature-context';
 const config={...readRuntimeConfig(env,false),appUrl:'https://slate.test.invalid',mailFrom:'Slate <mail@test.invalid>',mailApiKey:'test-only-key'};
+beforeEach(resetDeployment);
 async function fixture(){const{workspaceId}=await seedWorkspace();const{memberId}=await seedMember(workspaceId,{email:`${workspaceId}@test.invalid`,displayName:'Owner',role:'owner',isSetupOwner:true});return {db:env.DB,files:env.FILES,jobs:env.JOBS,actor:{id:memberId,workspaceId,workspaceName:'Workspace',email:`${workspaceId}@test.invalid`,displayName:'Owner',initials:'O',role:'owner'},now:new Date().toISOString()} as FeatureContext;}
 test('MAIL-002 Worker D1 durable retry uses a single encrypted message across five minutes and explicit recovery',async()=>{
  const ctx=await fixture();let success=false;const provider=vi.spyOn(globalThis,'fetch').mockImplementation(async()=>success?Response.json({id:'provider-confirmed'}):new Response('provider raw secret',{status:503}));

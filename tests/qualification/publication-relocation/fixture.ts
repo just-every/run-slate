@@ -1,10 +1,14 @@
 import { env } from 'cloudflare:test';
-import { expect } from 'vitest';
+import { beforeEach, expect } from 'vitest';
 import { createApi } from '../../../src/core/app/hono';
 import { createPage } from '../../../src/core/features/pages/service';
 import { scenario, key } from '../policies/helpers';
 import { seedContainer, seedContainerGrant, sessionFor } from '../../e2e/setup/fixtures';
+import { resetDeployment } from '../../e2e/setup/reset-deployment';
 import type { PublicationPreviewResponse } from '../../../src/core/features/lifecycle/publication-preview';
+
+// Each independent case owns one deployment and its WORK-001 workspace.
+beforeEach(resetDeployment);
 
 export { env, key };
 export async function fixture(crossContainer = true, draft = false) {

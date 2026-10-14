@@ -145,6 +145,17 @@ sign-in page, which offers the email link instead of redirecting. A hidden
 provider is checked again at most once a minute, after the page answers
 (`waitUntil`), and shown again once a check succeeds.
 
+Connection health is separate from the pin's `status`. `list().linked` and
+`links().healthy` require a successfully exchanged, signature- and claim-verified
+ID token for the current `linkedAt` generation, with no subsequent exchange or
+reachability failure. A pin created by discovery alone is not healthy. Successful
+discovery or a JWKS probe cannot clear exchange failure; a valid new exchange
+can. Application membership and admission remain separate from provider health.
+The existing health table stores exchange observations under reserved
+`exchange:<id>:<linkedAt>` keys (configured IDs cannot contain colons), so older
+stores need no schema change. Writes fence the current pin and prune obsolete
+exchange generations. Relinking therefore requires fresh exchange proof.
+
 ## Storage and limits
 
 `oa_oidc_transactions` stores domain-separated HMAC hashes of state, binding and

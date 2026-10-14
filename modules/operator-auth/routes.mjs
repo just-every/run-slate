@@ -19,7 +19,7 @@ function notice(auth, code, extra = {}) {
 
 /** Fetch-compatible optional HTTP adapter. Returns null for paths it does not own. */
 export function createAuthHandler(auth) {
-  const oidc = auth.providers ? createOidcHandler(auth.providers) : null;
+  const oidc = auth.providers ? createOidcHandler(auth.providers, { signInPath: auth.presentation.signInPath }) : null;
   return async function handleAuth(request) {
     const url = new URL(request.url);
     const path = url.pathname;

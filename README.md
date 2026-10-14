@@ -1,8 +1,39 @@
+<p align="center">
+  <a href="https://run-slate.com">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/banner-dark.webp">
+      <source media="(prefers-color-scheme: light)" srcset=".github/assets/banner-light.webp">
+      <img src=".github/assets/banner-light.webp" width="100%" alt="Slate: One home for everything your team knows. 100% free, open source alternative to Notion, Confluence and Guru.">
+    </picture>
+  </a>
+</p>
+
+<p align="center"><a href="https://run-slate.com">run-slate.com</a> · <a href="https://justevery.com">Part of Just Every</a> · <a href="LICENSE">MIT licensed</a></p>
+
+<p align="center">
+  <a href="https://justevery.com/#vol-slate"><img src=".github/assets/media/preview.gif" width="800" alt="Slate's editor: a heading, an @ mention of a person, a link to a page and a checklist item typed into a page"></a>
+</p>
+<p align="center"><a href="https://justevery.com/#vol-slate"><b>Watch the full demo</b></a> · 47 seconds</p>
+
+<p align="center">
+  <img src=".github/assets/media/flow.webp" width="800" alt="The same search for launch: sam sees four results within his access, maya sees five including the Leadership budget page">
+</p>
+
+<p align="center">
+  <img src=".github/assets/media/screen-1.webp" width="800" alt="Slate's Launch plan page: a Launch week heading, a mention of @alice, a link to the Launch checklist page and a to-do, each block saved"><br>
+  <sub>Pages with mentions, page links and blocks that save as you write.</sub>
+</p>
+
+<p align="center">
+  <img src=".github/assets/media/screen-2.webp" width="800" alt="The Projects database in Slate as a board grouped by status, each record with an owner and a due date"><br>
+  <sub>Databases with board, chart and automation views.</sub>
+</p>
+
 # Slate
 
 Slate is a self-hosted team wiki built with React, TanStack Start, Hono and Cloudflare Workers. The default `core-wiki` profile provides pages and containers, rich-text editing, comments, permissions, search, revision history, imports, and backup and restore. The public source repository is [just-every/run-slate](https://github.com/just-every/run-slate). Source publication does not establish product or provider acceptance.
 
-Node.js **22.20.0** and pnpm **10.12.4** are the tested tool pins. Select them with your existing version manager and Corepack.
+Install Git and Node.js 22 or later. The checkout pins Node.js **22.20.0** and pnpm **10.12.4**; rer provides the pinned tools and dependencies for its commands. You do not need to install pnpm separately.
 
 ## Run it on your computer
 
@@ -13,7 +44,7 @@ git clone https://github.com/just-every/run-slate.git slate
 cd slate
 ```
 
-Install rer once per computer (`npm install -g @runeditrun/rer`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins. Then install the pinned dependencies, prepare your native owner, and start development:
+Install rer once per computer (`npm install -g @runeditrun/rer@0.2.2`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins. Then install the pinned dependencies, prepare your native owner, and start development:
 
 ```sh
 rer install
@@ -50,7 +81,7 @@ rer import --input exports/installation.rer --yes
 rer setup --owner-email you@example.test
 ```
 
-Re-enter the archived native owner's email. Fresh sign-in is required; restored automation, grants and effects require renewed owner authority. Existing workspace ZIP exports and the authenticated web restore API remain a separate native product flow. Remote CLI transfer is unsupported.
+Re-enter the archived native owner's email. Fresh sign-in is required; restored automation, grants and effects require renewed owner authority. Existing workspace ZIP exports and the authenticated web restore API remain a separate native product flow. Hosted installation export uses `rer export --target remote --origin https://wiki.example.com --session-file .seed/owner-session --output exports/hosted.rer`; put only your native owner cookie in an owned mode-0600 session file. Remote installation import is unsupported; restore the archive into a separate empty local checkout first.
 
 Reset lists its local removal inventory and requires explicit confirmation:
 

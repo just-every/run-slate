@@ -1,6 +1,7 @@
 import { createSuggestionsRoutes } from '../../../src/core/features/suggestions/routes';
 import { createSharingRoutes } from '../../../src/core/features/sharing/routes';
-import { describe,it,expect } from 'vitest';
+import { beforeEach,describe,it,expect } from 'vitest';
+import { resetDeployment } from '../../e2e/setup/reset-deployment';
 import { env } from 'cloudflare:test';
 import { Hono } from 'hono';
 import type { AppEnvironment,AuthenticatedMember } from '../../../src/core/app/types';
@@ -17,6 +18,7 @@ import { createUlid } from '../../../src/core/shared/ulid';
 import { createApi } from '../../../src/core/app/hono';
 import { sessionFor } from '../../e2e/setup/fixtures';
 const now=new Date().toISOString();
+beforeEach(resetDeployment);
 async function fixture(){const w=createUlid(),a=createUlid(),b=createUlid();await env.DB.prepare('INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES (?,?,?,?,?,?)').bind(w,'Content test','C',now,now,createUlid()).run();for(const id of [a,b])await env.DB.prepare("INSERT INTO members(id,workspace_id,email,display_name,initials,role,created_at,updated_at) VALUES (?,?,?,?,?,'owner',?,?)").bind(id,w,`${id}@test.invalid`,id,'CT',now,now).run();const actors=new Map([a,b].map(id=>[id,{id,workspaceId:w,workspaceName:'Content test',email:`${id}@test.invalid`,displayName:id,initials:'CT',role:'owner'} as AuthenticatedMember]));const app=new Hono<AppEnvironment>();app.use('*',async(c,next)=>{const actor=actors.get(c.req.header('x-test-actor')??'');if(actor)c.set('member',actor);await next();});app.onError((e,c)=>e instanceof ApiProblem?c.json({code:e.code,message:e.message,details:e.details},e.status):c.json({code:'ERROR',message:e.message},500));app.route('/api/suggestions',createSuggestionsRoutes());app.route('/api/sharing',createSharingRoutes());app.route('/api/pages',createPagesRoutes());app.route('/api/containers',createContainersRoutes());app.route('/api/revisions',createRevisionsRoutes());app.route('/api/comments',createCommentsRoutes());app.route('/api/status',createStatusRoutes());app.route('/api/media',createMediaRoutes());app.route('/api/publishing',createPublishingRoutes());app.route('/api/archive',createArchiveRoutes());app.route('/p',createPublicPagesRoutes());const request=async(method:string,path:string,body?:unknown,actor=a)=>{const r=await app.request(`https://local.test${path}`,{method,headers:{'content-type':'application/json','x-test-actor':actor},body:body===undefined?undefined:JSON.stringify(body)},env);const data=await r.json<any>();return {status:r.status,data};};const container=await request('POST','/api/containers',{operationKey:createUlid(),name:'Team'});expect(container.status,JSON.stringify(container.data)).toBe(200);return {w,a,b,actors,app,request,containerId:container.data.value.id};}
 const block=(id:string,text:string)=>({id,blockType:'paragraph',content:{text:[{text,marks:['bold'],colour:'blue'}]},treePosition:id});
 describe('content durable HTTP',()=>{

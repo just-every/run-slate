@@ -1,6 +1,7 @@
 import type { NativeAccountsAdapter } from '../../../../../modules/operator-auth/accounts/native.mjs';
 import { clearSessionCookie } from '../../../platform/auth/cookie';
 import { mutationGuard } from '../../../app/operations';
+import { nativeDependencies, setIdentitySettings } from './dependencies';
 import { TENANT, type SessionStore, type SlateRole } from './store';
 
 /**
@@ -11,7 +12,10 @@ import { TENANT, type SessionStore, type SlateRole } from './store';
 export function createNativeAccounts(store: SessionStore, input: { clock: () => number; providerFingerprint: string | null }): NativeAccountsAdapter<SlateRole> {
   const { db } = store;
   const refuse = async (): Promise<never> => { throw new Error('Slate binds and issues provider sessions atomically.'); };
+  const enabled = async () => !!(await db.prepare('SELECT COALESCE(idp_sign_in,?) AS enabled FROM auth_identity_policy WHERE id=1').bind(Number(store.identityEnabled)).first<{ enabled: number }>())?.enabled;
   return {
+    dependencies: nativeDependencies(store),
+    setIdentitySettings: ({ actor, idpSignIn, now }) => setIdentitySettings(store, actor, idpSignIn, now),
     findById: id => store.member('id=?', id),
     findByEmail: email => store.member('lower(email)=lower(?)', email),
     async findBinding({ issuer, subject }) {
@@ -29,7 +33,7 @@ export function createNativeAccounts(store: SessionStore, input: { clock: () => 
       await db.prepare(`UPDATE sessions SET revoked_at=COALESCE(revoked_at,?),updated_at=? WHERE id=? AND member_id IN (SELECT id FROM members WHERE workspace_id=${TENANT})`).bind(now, now, id).run();
     },
     owner: () => store.member("role='owner' AND status='active' ORDER BY is_setup_owner DESC, created_at, id"),
-    async identityEnabled() { return store.identityEnabled; },
+    identityEnabled: enabled,
     /** A changed provider configuration advances the generation exactly once. */
     async policyVersion() {
       if (input.providerFingerprint !== null) await db.prepare('UPDATE auth_identity_policy SET generation=generation+1,fingerprint=? WHERE id=1 AND fingerprint IS NOT ?').bind(input.providerFingerprint, input.providerFingerprint).run();
@@ -42,12 +46,12 @@ export function createNativeAccounts(store: SessionStore, input: { clock: () => 
       return rows.length === 1 ? rows[0]!.subject : null;
     },
     async bindAndIssueSession({ person, principal, returnTo }) {
-      if (!store.identityEnabled || !Number.isSafeInteger(principal.providerGeneration) || principal.providerGeneration < 0) return null;
+      if (!await enabled() || !Number.isSafeInteger(principal.providerGeneration) || principal.providerGeneration < 0) return null;
       const now = input.clock(), pin = principal.providerPin;
       // One transaction: current person, policy generation and pin; never move
       // an existing binding to another member. Slate has no passwords to revoke.
       return store.issue({ person: person as Parameters<SessionStore['issue']>[0]['person'], kind: 'oidc', now, returnTo, principal, statements: [
-        mutationGuard(db, 'SELECT generation=? FROM auth_identity_policy WHERE id=1', [principal.providerGeneration]),
+        mutationGuard(db, 'SELECT generation=? AND COALESCE(idp_sign_in,?)=1 FROM auth_identity_policy WHERE id=1', [principal.providerGeneration, Number(store.identityEnabled)]),
         // Protocol sign-ins carry the provider pin; Base's server-verified seams carry none.
         ...(pin ? [mutationGuard(db, "SELECT EXISTS(SELECT 1 FROM oa_identity_providers WHERE provider_id=? AND status='linked' AND issuer=? AND client_id=? AND linked_at=?)", [pin.id, pin.issuer, pin.clientId, pin.linkedAt])] : []),
         db.prepare('INSERT INTO member_identity_bindings (issuer,subject,member_id,created_at) VALUES (?,?,?,?) ON CONFLICT(issuer,subject) DO NOTHING').bind(principal.issuer, principal.subject, person.id, new Date(now).toISOString()),

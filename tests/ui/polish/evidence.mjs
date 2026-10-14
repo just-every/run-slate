@@ -10,12 +10,14 @@ import { recordCapture } from './inventory.mjs';
 import { sweepControls, assertControlSweep } from './control-sweep.mjs';
 import { guardCaptureCamera, assertScreenshotCamera } from './capture-camera.mjs';
 import { waitForRenderedResourceReadiness } from './resource-readiness.mjs';
+import { waitForScrollSettled } from './scroll-settle.mjs';
 
 const output = process.env.SLATE_POLISH_SHOTS ?? fileURLToPath(new URL('../../../.artifacts/slate-polish/shots', import.meta.url));
 const evidenceRoot = path.join(path.dirname(output), 'polish-evidence');
 export async function capture(page, name, { fullPage = false, requiredControls = [], requiredDocumentControls = [] } = {}) {
   await page.waitForLoadState('networkidle');
   await waitForRenderedResourceReadiness(page);
+  await waitForScrollSettled(page);
   const guard = await guardCaptureCamera(page, name, () => new AxeBuilder({ page }).analyze());
   try {
     const { axe, integrity } = guard;
@@ -26,8 +28,11 @@ export async function capture(page, name, { fullPage = false, requiredControls =
     await Promise.all([mkdir(output, { recursive: true }), mkdir(evidenceRoot, { recursive: true })]);
     const stem = `${page.viewportSize().width}-${name}`;
     const artifact = JSON.parse(await readFile(new URL('../../../.cache/slate/build-source.json', import.meta.url), 'utf8'));
+    // The camera restore and control sweep move the page and its pointer target; let that settle too.
+    await waitForScrollSettled(page);
     const frame = await guard.unchanged('beforeScreenshot');
-    const screenshot = await page.screenshot({ path: path.join(output, `${stem}.png`), fullPage });
+    // Wall-clock stamps (dated <time> text and the editor's "Saved 3:40:42 AM") differ on every run; the rest of the page must not.
+    const screenshot = await page.screenshot({ path: path.join(output, `${stem}.png`), fullPage, mask: [page.locator('time'), page.locator('[role="status"]', { hasText: /^Saved\s+\d{1,2}:\d{2}/ })] });
     integrity.screenshot = assertScreenshotCamera(screenshot, frame, fullPage, name);
     await guard.unchanged('afterScreenshot');
     await writeFile(path.join(evidenceRoot, `${stem}.json`), JSON.stringify({ name, url: page.url(), artifact, geometry, sweep, axe, integrity }, null, 2));

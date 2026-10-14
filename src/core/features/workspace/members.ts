@@ -1,3 +1,4 @@
+import {beginImportErasure} from '../imports/retire-custody';
 import {completeErasure} from '../archive/erasure-cleanup';
 import { prepareEraseMemberContent } from '../archive/erasure';
 import { ensurePersonalContainer } from './personal';
@@ -20,12 +21,14 @@ export async function setTheme(ctx:FeatureContext,input:{operationKey:string;the
   return commitOperation(ctx,{operationKey:input.operationKey,action:'member.theme',request:input,authorize:async()=>{await currentSubject(ctx)},prepare:async({revisionId})=>({entity:{id:ctx.actor.id,kind:'member',revisionId},value:{theme:input.theme},statements:[await identityRevision(ctx,revisionId,'member',ctx.actor.id,{theme:input.theme}),ctx.db.prepare('UPDATE members SET theme=?,updated_at=? WHERE id=?').bind(input.theme,ctx.now,ctx.actor.id)]})});
 }
 export async function removeMember(ctx:FeatureContext,input:{operationKey:string;memberId:string;erase?:boolean}) {
+  const erasure=input.erase?beginImportErasure(ctx,input.operationKey):undefined;
+  if(erasure)ctx=erasure.ctx;
   const authorize=async()=>{
     await currentSubject(ctx);
     const selfException=input.memberId===ctx.actor.id&&(input.erase||!!await ctx.db.prepare('SELECT id FROM members WHERE id=? AND is_setup_owner=1').bind(ctx.actor.id).first());
     if(!selfException)await requireWorkspaceOwner(ctx);
   };
-  const result=await commitOperation(ctx,{operationKey:input.operationKey,action:input.erase?'member.erase':'member.remove',request:input,authorize,prepare:async({revisionId})=>{
+  const result=await commitOperation(ctx,{commit:erasure?.commit,operationKey:input.operationKey,action:input.erase?'member.erase':'member.remove',request:input,authorize,prepare:async({revisionId})=>{
     const target=await ctx.db.prepare('SELECT email,is_setup_owner FROM members WHERE id=? AND workspace_id=?').bind(input.memberId,ctx.actor.workspaceId).first<{email:string;is_setup_owner:number}>();
     if(!target) throw new ApiProblem(404,'NOT_FOUND','Not found.');
     if(target.is_setup_owner&&input.memberId!==ctx.actor.id) throw new ApiProblem(403,'SETUP_OWNER','Only the setup owner can remove themselves.');

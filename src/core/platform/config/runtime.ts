@@ -32,6 +32,7 @@ export interface RuntimeBindings {
   AI_API_KEY?: string;
   AI_MODEL?: string;
   SSO_ENABLED?: string;
+  IDENTITY_PROVIDER?: string;
   IDENTITY_ISSUER_URL?: string;
   IDENTITY_CLIENT_ID?: string;
   IDENTITY_CLIENT_SECRET?: string;
@@ -68,6 +69,8 @@ export interface RuntimeConfig {
   ssoEnabled?: boolean;
   /** The incumbent provider, pinned to exact issuer, client and HTTPS endpoints. */
   identityProvider?: IdentityProviderPin;
+  /** Optional shared dependency provider origin; credentials are persisted by the pull link. */
+  dependencyProvider?: string;
   connectorCredentialsKey?: string;
 }
 
@@ -168,6 +171,11 @@ export function readRuntimeConfig(env: RuntimeBindings, isLoopback: boolean): Ru
     throw new RuntimeConfigurationError(`Missing required configuration: ${conditionalMissing.join(", ")}.`);
   }
 
+  const dependencyProvider = env.IDENTITY_PROVIDER?.trim() || undefined;
+  if (dependencyProvider) {
+    const provider = requireHttpUrl(dependencyProvider, 'IDENTITY_PROVIDER');
+    if (provider.protocol !== 'https:' || provider.origin !== dependencyProvider || provider.username || provider.password) throw new RuntimeConfigurationError('IDENTITY_PROVIDER must be an exact HTTPS origin.');
+  }
   const tokenAuthMethod = env.IDENTITY_TOKEN_AUTH_METHOD?.trim() || 'client_secret_post';
   if (tokenAuthMethod !== 'client_secret_post' && tokenAuthMethod !== 'client_secret_basic') throw new RuntimeConfigurationError('IDENTITY_TOKEN_AUTH_METHOD must be client_secret_post or client_secret_basic.');
   if (ssoEnabled && env.IDENTITY_TRANSACTION_SECRET!.trim().length < 32) throw new RuntimeConfigurationError("IDENTITY_TRANSACTION_SECRET must contain at least 32 characters.");
@@ -192,6 +200,7 @@ export function readRuntimeConfig(env: RuntimeBindings, isLoopback: boolean): Ru
     aiApiKey: env.AI_API_KEY,
     aiModel: env.AI_MODEL,
     ssoEnabled,
+    dependencyProvider,
     identityProvider: ssoEnabled ? {
       issuer: env.IDENTITY_ISSUER_URL!.trim(),
       clientId: env.IDENTITY_CLIENT_ID!.trim(),

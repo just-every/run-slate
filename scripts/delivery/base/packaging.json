@@ -49,7 +49,8 @@
         "SSO_ENABLED",
         "ALLOW_LOOPBACK_DELEGATION",
         "RER_MANAGEMENT_ORIGIN",
-        "RER_INSTALLATION_ID"
+        "RER_INSTALLATION_ID",
+        "IDENTITY_PROVIDER"
       ],
       "secretNames": [
         "SESSION_SECRET",

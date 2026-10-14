@@ -1,8 +1,11 @@
 import {env} from 'cloudflare:test';
-import {it, expect} from 'vitest';
+import {beforeEach, it, expect} from 'vitest';
 import {createApi} from '../../src/core/app/hono';
 import {consumeJobs} from '../../src/core/app/background';
 import {seedWorkspace,seedMember,seedContainer,seedContainerGrant,sessionFor} from '../e2e/setup/fixtures';
+import {resetDeployment} from '../e2e/setup/reset-deployment';
+
+beforeEach(resetDeployment);
 
 async function workspace() {
   const {workspaceId} = await seedWorkspace();

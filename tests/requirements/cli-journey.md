@@ -62,3 +62,9 @@ The existing restore-identity matrix adds populated native identity bindings to
 its nonempty-target cases. Both legacy and current first-run targets retain all
 rows when restore is refused; the binding table is part of both archive policies'
 native table inventory.
+
+The populated installation restore case also applies a scratch-only additive
+column migration before import, then re-exports and compares every retained row
+and object byte, with the new column's default checked separately. This proves
+additive schema replay; it does not claim compatibility across data-changing
+historical migrations, which Base continues to refuse.

@@ -65,4 +65,22 @@ export async function shareJourney({ page, origin, api, readerCookie, switchIden
     assert.equal(await page.locator('.page-document [contenteditable="true"]').count(), 0, 'The granted reader renders committed content without editable controls.');
     await accessible(page, 'granted reader page');
   } finally { await switchIdentity('owner'); }
+
+  await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
+  await page.getByRole('button', { name: 'Share', exact: true }).click();
+  const ownerPanel = page.locator('.right');
+  await ownerPanel.locator('.advanced-access > summary').click();
+  const ownerGrant = ownerPanel.locator('.grant-list > li').filter({
+    has: page.getByRole('combobox', { name: 'Access for Morgan Reader', exact: true }),
+  });
+  await expect(ownerGrant.getByRole('combobox', { name: 'Access for Morgan Reader', exact: true })).toBeVisible();
+  await ownerGrant.locator('details summary').click();
+  await ownerGrant.getByRole('button', { name: 'Remove access', exact: true }).click();
+  await expect.poll(async () => (await api(`/api/sharing/pages/${pageId}`)).items.find(item => item.principalId === 'browser-reader').revokedAt).not.toBeNull();
+  const activityLink = page.locator('a[href="/app/settings?section=activity"]');
+  await expect(activityLink).toBeVisible();
+  await activityLink.click();
+  await page.waitForURL(url => url.pathname === '/app/settings' && url.searchParams.get('section') === 'activity');
+  await expect(page.getByRole('heading', { name: 'What changed.', exact: true })).toBeVisible();
+  assert.ok((await api(`/api/sharing/pages/${pageId}`)).items.find(item => item.principalId === 'browser-reader').revokedAt, 'Opening Activity leaves the removed page grant revoked.');
 }

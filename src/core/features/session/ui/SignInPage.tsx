@@ -5,15 +5,6 @@ import { PaperPage, PaperScene } from "./PaperPage";
 
 import type { SignInCapabilities } from '../capabilities';
 
-/** Base starts provider sign-in only from a same-origin POST. */
-function startIdentityProvider() {
-  const form = document.createElement("form");
-  form.method = "post";
-  form.action = "/auth/oidc/identity/start";
-  document.body.appendChild(form);
-  form.submit();
-}
-
 /** Public capabilities are request-specific first-response content. */
 export function SignInPage({ capabilities, requested = false }: { next: string; capabilities: SignInCapabilities; requested?: boolean }) {
   const [failure, setFailure] = useState<string | null>(null);
@@ -86,14 +77,7 @@ export function SignInPage({ capabilities, requested = false }: { next: string; 
           requestKey.current = null;
           setFailure(null);
         }}
-        identityProvider={
-          capabilities.identityProvider
-            ? {
-                name: "your identity provider",
-                onSignIn: startIdentityProvider,
-              }
-            : null
-        }
+        identityProviders={capabilities.identityProviders}
         onSubmit={() => {
           setSubmitting(true);
           setFailure(null);
@@ -129,11 +113,15 @@ export function SignInPage({ capabilities, requested = false }: { next: string; 
             workspace.
           </div>
 
-          {capabilities?.identityProvider ? (
+          {capabilities.identityProviders.length ? (
             <div className="paper-actions">
-              <button className="paper-pill" onClick={startIdentityProvider} type="button">
-                Continue with your identity provider
-              </button>
+              {capabilities.identityProviders.map((provider) => (
+                <form action={provider.start} method="post" key={provider.start}>
+                  <button className="paper-pill" type="submit">
+                    Continue with {provider.name}
+                  </button>
+                </form>
+              ))}
             </div>
           ) : null}
 

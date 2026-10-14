@@ -120,6 +120,7 @@ export function FirstRunWizard({
                   value={firstPageTitle}
                 />
               </div>
+              <p className="paper-note">Everyone with active workspace membership can view the first page.</p>
             </section>
           ) : null}
 

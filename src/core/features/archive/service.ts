@@ -1,3 +1,4 @@
+import {beginImportErasure} from '../imports/retire-custody';
 import {completeErasure} from './erasure-cleanup';
 import {currentSubject} from '../sharing/current-access';
 import { prepareErasePages } from './erasure';
@@ -56,7 +57,8 @@ export async function permanentDeletePage(ctx: FeatureContext, id: string, input
     operationKey: string;
     confirmedPageIds: string[];
 }) {
-    const result = await commitOperation(ctx, { operationKey: input.operationKey, action: 'archive.permanent-delete', request: { id, ...input }, authorize: async () => {
+    const erasure=beginImportErasure(ctx,input.operationKey);ctx=erasure.ctx;
+    const result = await commitOperation(ctx, { commit:erasure.commit, operationKey: input.operationKey, action: 'archive.permanent-delete', request: { id, ...input }, authorize: async () => {
             await currentSubject(ctx);
             const replay=await ctx.db.prepare("SELECT 1 FROM operation_receipts WHERE workspace_id=? AND actor_member_id=? AND operation_key=? AND target_id=? AND target_kind='page'").bind(ctx.actor.workspaceId,ctx.actor.id,input.operationKey,id).first();
             if(!replay)await requirePageLevel(ctx, id, 'full', { includeTrashed: true });

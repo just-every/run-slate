@@ -15,6 +15,7 @@ import './d1/erasure.test.ts';
 import './d1/erasure-encoding.test.ts';
 
 import './d1/streams.test.ts';
+import './d1/flat-reversal.test.ts';
 import './d1/stream-codec.test.ts';
 import './d1/preflight.test.ts';
 import './d1/custody-packing.test.ts';
