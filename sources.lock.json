@@ -859,7 +859,7 @@
       "executable": false
     },
     "AGENTS.md": {
-      "sha256": "6ec7c0f163498b330a90bc7cad0d23b2bdbab71e7e02fa7cae10d701ac26e85e",
+      "sha256": "911a95d590c8b4f10661bfd54d94af634142c68871d5d1f55e4a83842655fd4a",
       "executable": false
     },
     "base-copies.json": {
@@ -927,7 +927,7 @@
       "executable": false
     },
     "docs/INSTALL.md": {
-      "sha256": "784f381d062f7aeeec52249e2d87b37876778590d37313e8cc5b0fa702a2aef2",
+      "sha256": "7b7723ceea0ae34f23cb870973c6e1b8abaaf5373e0d7682d739be2481e4316e",
       "executable": false
     },
     "docs/MAIL-DELIVERY.md": {
@@ -943,7 +943,7 @@
       "executable": false
     },
     "docs/OVERVIEW.md": {
-      "sha256": "ecfc3f2794b51c9db90a31409e3753d55f56528181a5b7ff898182061bd52b94",
+      "sha256": "bf3c57804094471b017dd37e2f712f736b8d0d3e7558f161d99a5789f3560dd1",
       "executable": false
     },
     "docs/release/core-wiki-profile.md": {
@@ -3199,15 +3199,15 @@
       "executable": false
     },
     "OPERATIONS.md": {
-      "sha256": "a28a2a7a54d952da627757687fa59b8d744cb0532ee427c87921c8939a789635",
+      "sha256": "f533f74cf16e1b8d6eb8cbeab4c14f375a24cf1da181c5f6cdfbe2474cba959a",
       "executable": false
     },
     "package.json": {
-      "sha256": "28a8bd45217aac7f6f2f13f367d6ea21c2020feeaf3660bd624f0ec2ccbf1ba1",
+      "sha256": "ce5b2e0ba88d909a6c47ad8c58c65b55dd05861398d953e69840939a034122eb",
       "executable": false
     },
     "pnpm-lock.yaml": {
-      "sha256": "f8b48b214d045f4ac5be0586deb97b55b17adbcfff5aff18cbc30be986252550",
+      "sha256": "04d404274fe215975dd0401fb41baf49d7a828c5d9e5c1b96ab72023ed390c2f",
       "executable": false
     },
     "pnpm-workspace.yaml": {
@@ -3263,7 +3263,7 @@
       "executable": false
     },
     "README.md": {
-      "sha256": "a236c7be192ee5ca81980cbb4c2cd816107d9d2623db7235f64b6daa4304bc28",
+      "sha256": "c6b15f90bce08b6bc5582f279adde5a87ea3f682d7f94315e47888f2758a03c5",
       "executable": false
     },
     "RELEASE.json": {
@@ -7403,7 +7403,7 @@
       "executable": false
     },
     "src/site/run.ts": {
-      "sha256": "4ca84c07ba56760352a691745d85b83abd9b5521307cf540546bae207963d773",
+      "sha256": "62f19107700aecbfc4c5a0fbc4de451653d03680477499243384f7b95b1630f9",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {

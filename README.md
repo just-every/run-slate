@@ -33,7 +33,7 @@
 
 Slate is a self-hosted team wiki built with React, TanStack Start, Hono and Cloudflare Workers. The default `core-wiki` profile provides pages and containers, rich-text editing, comments, permissions, search, revision history, imports, and backup and restore. The public source repository is [just-every/run-slate](https://github.com/just-every/run-slate). Source publication does not establish product or provider acceptance.
 
-Install Git and Node.js 22 or later. The checkout pins Node.js **22.20.0** and pnpm **10.12.4**; rer provides the pinned tools and dependencies for its commands. You do not need to install pnpm separately.
+Install Git and Node.js 22 or later to run rer. There is no Node or pnpm version to choose: the checkout pins Node.js **22.20.0** and pnpm **10.12.4**, and rer fetches and uses exactly those for its commands.
 
 ## Run it on your computer
 
@@ -44,7 +44,7 @@ git clone https://github.com/just-every/run-slate.git slate
 cd slate
 ```
 
-Install rer once per computer (`npm install -g @runeditrun/rer@0.2.2`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins. Then install the pinned dependencies, prepare your native owner, and start development:
+Install rer once per computer (`npm install -g @runeditrun/rer`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins (0.2.4). In a fresh checkout `rer dev` alone installs the pinned dependencies, makes a placeholder local owner and starts Slate. To choose your own owner email, prepare it first:
 
 ```sh
 rer install
@@ -93,14 +93,27 @@ It removes local D1/R2/collaboration state, settings, outbox and installer draft
 
 ## Deploy to your Cloudflare account
 
-Use the Base deploy-kit with the binding declaration in `deploy.json`. Supply the account/token and declared `SLATE_*` inputs from your private vault, including an explicitly selected Resend or SendGrid provider, verified sender and API key. Review the locally built declaration first:
+Rer's own deploy kit deploys from the binding declaration in `deploy.json`; nothing is vendored in this repository. Supply `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN` and the declared `SLATE_*` inputs from your private vault: your owner email, an explicitly selected Resend or SendGrid provider, a verified sender and its API key (rer generates the session secret on a first deploy). Review the locally built declaration first:
 
 ```sh
 rer deploy --environment production --dry-run
 rer deploy --environment production
 ```
 
-Dry run makes no provider request. The second command creates owner-account resources, applies migrations, uploads secrets, deploys and checks health. It requires separate deployment authorization. See [OPERATIONS.md](OPERATIONS.md) for inputs and limitations. Source `rer release --repo PATH --output PATH --clean-history` validates and prepares a local export; it does not push, tag a public repository or deploy.
+Dry run makes no provider request. The second command creates owner-account resources, applies migrations, uploads secrets, deploys and checks health. It requires separate deployment authorization. Slate has no setup token to claim or retire: you become the owner when you first sign in by email at the printed address as `SLATE_SETUP_OWNER_EMAIL`, then name the workspace at `/setup`. See [OPERATIONS.md](OPERATIONS.md) for inputs and limitations.
+
+To update a deployed wiki, export it first (see [docs/INSTALL.md](docs/INSTALL.md#update-your-existing-wiki)), then:
+
+```sh
+git pull --ff-only
+rer deploy --environment production
+```
+
+To remove a deployment and every resource rer created for it, including its data (export first):
+
+```sh
+rer deploy --environment production --remove --yes
+``` Source `rer release --repo PATH --output PATH --clean-history` validates and prepares a local export; it does not push, tag a public repository or deploy.
 
 ## Verify and acceptance
 

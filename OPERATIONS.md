@@ -25,7 +25,7 @@ When recovering an older installation archive after a person was erased, retain 
 
 ## Owner-account deployment
 
-The real deployment declaration is [deploy.json](deploy.json); `scripts/installer/deploy.mjs` selects the native provider and sender before calling Base deploy-kit. Supply these inputs from the owner's private vault or deployment environment:
+The real deployment declaration is [deploy.json](deploy.json); `scripts/installer/deploy.mjs` selects the native provider and sender before calling rer's own deploy kit (the pinned `@runeditrun/rer` package; none is vendored here). Supply these inputs from the owner's private vault or deployment environment:
 
 | Input | Source and purpose |
 | --- | --- |
@@ -35,7 +35,7 @@ The real deployment declaration is [deploy.json](deploy.json); `scripts/installe
 | `SLATE_MAIL_PROVIDER` | Explicit `resend` or `sendgrid`; no provider default. |
 | `SLATE_MAIL_FROM` | Verified sender for that provider. |
 | `SLATE_IDENTITY_PROVIDER` | Optional exact HTTPS origin of a linked identity provider; leave blank for native email sign-in. |
-| `SLATE_SESSION_SECRET` | Private secret; preserve across deployments to retain session and encrypted custody continuity. |
+| `SLATE_SESSION_SECRET` | Private secret; rer generates one on a first deploy. Preserve it across deployments to retain session and encrypted custody continuity. |
 | `SLATE_MAIL_API_KEY` | Private key belonging to the selected mail provider. |
 
 ```sh
@@ -44,6 +44,10 @@ rer deploy --environment production
 ```
 
 Dry run builds/validates locally and makes zero provider requests. Actual deployment requires caller authorization, creates owner-account resources, applies original migrations, uploads declared secrets, publishes and checks health. Base derives resource names and the workers.dev origin from the public project and environment; receipts in `.rer/deploy` retain resource custody. Preserve existing hosted resources and receipts during any deliberate resource change. Local input validation does not establish provider permissions, sender verification, inbox delivery or deployed health.
+
+Slate declares no setup token, so a deploy has no owner to claim and nothing to retire. The first sign-in by email as `SLATE_SETUP_OWNER_EMAIL` at the deployed address claims the empty installation (the mailbox must prove possession), and that owner then names the workspace at `/setup`.
+
+To delete a deployment, export first, then run `rer deploy --environment production --remove --yes` from the checkout that deployed it. It removes the Worker and the D1, R2 and queue resources its receipt says rer created for that environment, with their data, and reads back that none remains.
 
 The optional linked provider is selected before first setup and then immutable; its runtime binding is `IDENTITY_PROVIDER`. Base currently refuses unattended first-time provider approval with `native_capability_unavailable` for native accounts. Leave this optional input blank for a fresh installation until Base supplies that capability. Existing-owner approval, relink, unlink and logout protocol checks do not establish unattended initial setup or hosted provider acceptance.
 
@@ -66,7 +70,7 @@ Export must finish before pulling. Keep the archive and its recorded source revi
 
 Deploy to the same environment and preserve `SLATE_SESSION_SECRET`, account, resource names and `.rer/deploy` receipts. After deployment, check the deploy receipt's project, environment and origin, and match `/health`'s `deployment.sourceSha`, `fingerprint` and `versionId` to that receipt. Sign in as the same native owner, and verify retained pages and revision history, search, groups/guest access and original attachments. Check a formerly public page at its existing URL and private pages anonymously. Confirm applied migration history is unchanged apart from new additive migrations. A green build or health response alone does not prove retained-data equivalence.
 
-Rer 0.2.2 uses Cloudflare's `d1_migrations` ledger for fresh deployments, which Slate's export inventory accepts. An existing 0.2.1 deployment retaining `_rer_deploy_migrations` needs separate upgrade and export validation. The CLI has a legacy-ledger transition path, but its existence alone does not prove that installation's migration. If your pre-update export refuses a controller ledger or unknown table, preserve the ledger and the refusal, retain your known-good backup and pause the update for review. Never delete or rename tables to obtain a backup.
+Rer 0.2.4 uses Cloudflare's `d1_migrations` ledger for fresh deployments, which Slate's export inventory accepts. An existing 0.2.1 deployment retaining `_rer_deploy_migrations` needs separate upgrade and export validation. The CLI has a legacy-ledger transition path, but its existence alone does not prove that installation's migration. If your pre-update export refuses a controller ledger or unknown table, preserve the ledger and the refusal, retain your known-good backup and pause the update for review. Never delete or rename tables to obtain a backup.
 
 ## AI owner setup
 

@@ -6,7 +6,7 @@ export const run: RunData = {
   repository: "https://github.com/just-every/run-slate",
   clone: "git clone https://github.com/just-every/run-slate.git slate",
   folder: "slate",
-  requirements: "Needs Git and Node 22 or later, on macOS, Linux or Windows with WSL2. rer provides the pinned tooling.",
+  requirements: "Needs Git and Node 22 or later, on macOS, Linux or Windows with WSL2. rer installs the pnpm and Node versions Slate pins by itself.",
   licence: "MIT",
   docs: true,
   hosted: [],

@@ -2,7 +2,7 @@
 
 ## Run it locally
 
-Use Node.js 22.20.0 and pnpm 10.12.4, with `rer` installed (`npm install -g @runeditrun/rer@0.2.1`; the checkout pins its own `@runeditrun/rer` 0.2.1). From the checkout root:
+Use Node.js 22.20.0 and pnpm 10.12.4, with `rer` installed (`npm install -g @runeditrun/rer`; the checkout pins its own `@runeditrun/rer` 0.2.4 in package mode, so change the pin with `pnpm add -D -E @runeditrun/rer@X` then `rer install`). From the checkout root:
 
 ```sh
 rer install
