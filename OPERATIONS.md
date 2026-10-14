@@ -1,6 +1,6 @@
 # Operating Slate
 
-Use Node.js **22.20.0** and pnpm **10.12.4**. Start with the [README](README.md) journey through `rer install`, `setup --owner-email owner@example.test` and `dev`. `rer describe` lists the actual flags and effects. `rer check --profile first-party` validates the structural command contract without credentials or dependencies. `doctor` diagnoses the local tools and state without provider requests.
+Use Git and Node.js 22 or later. Rer provides this checkout's pinned Node.js **22.20.0**, pnpm **10.12.4** and dependencies for its commands; a separate pnpm installation is unnecessary. Start with the [README](README.md) journey through `rer install`, `setup --owner-email owner@example.test` and `dev`. `rer describe` lists the actual flags and effects. `rer check --profile first-party` validates the structural command contract without credentials or dependencies. `doctor` diagnoses the local tools and state without provider requests.
 
 Setup builds and migrates the app, prepares private native settings and requests ordinary owner sign-in through the local outbox. It exits with no server running. Reruns preserve exact settings and existing owner/data; conflicting owner or origin choices require explicit recovery or reset. The manifest declares `APP_URL` and `SETUP_OWNER_EMAIL`, with no owner-name field. Slate retains native magic-link/OIDC/session/role/group/guest authority under the owner's 8 October 2026 override; there is no Base owner ledger.
 
@@ -55,16 +55,18 @@ Keep the existing checkout, native owner identity, deployment receipts, environm
 
 ```sh
 rer export --target remote --origin https://wiki.example.com --session-file .seed/owner-session --output exports/before-update.rer
+git rev-parse HEAD > exports/before-update.source
 git pull --ff-only
-pnpm install
 rer deploy --environment production
 ```
 
-Export must finish before pulling. Keep the archive and restore it into a distinct empty local checkout with `rer import --input exports/before-update.rer --yes`, then set up with the archived owner's email and inspect the result. A failed export stops the update. A non-fast-forward pull requires review of your local changes; preserve them before resolving the update. Run `rer deploy --environment production --dry-run` to review the changed build and declaration locally before the authorized deployment.
+Rer deploy provisions the pinned tooling and installs frozen dependencies automatically; the private pnpm it supplies is available to rer commands, not as a bare shell command. `rer update` updates the rer CLI, not your wiki source; use the deployment identity and retained-data checks below to validate the wiki update.
 
-Deploy to the same environment and preserve `SLATE_SESSION_SECRET`, account, resource names and `.rer/deploy` receipts. After deployment, check `/health`'s deployment project/environment/revision against the deploy receipt, sign in as the same native owner, and verify retained pages and revision history, search, groups/guest access and original attachments. Check a formerly public page at its existing URL and private pages anonymously. Confirm applied migration history is unchanged apart from new additive migrations. A green build or health response alone does not prove retained-data equivalence.
+Export must finish before pulling. Keep the archive and its recorded source revision. Before pulling, restore the archive into a distinct empty checkout pinned to that export-source revision with `rer import --input exports/before-update.rer --yes`, then set up with the archived owner's email and inspect the result. Restoration into a newer source revision requires separate migration-compatibility validation; the current Base importer can refuse migration 0029's trigger replacement for an older archive. Preserve the export-source checkout as your recovery path when that newer restore is unsupported. A failed export stops the update. A non-fast-forward pull requires review of your local changes; preserve them before resolving the update. Run `rer deploy --environment production --dry-run` to review the changed build and declaration locally before the authorized deployment.
 
-Base's permanent `_rer_deploy_migrations` controller ledger is currently refused by Slate's native table inventory. A deployment with that ledger cannot make a native or installation export until the Base-owned deployment-metadata integration gap has a reviewed native inventory policy. Base's archive catalogue already excludes the controller ledger; Slate's native inventory runs first and refuses it. Preserve that ledger and the unknown-product-table refusal; do not delete or rename it to obtain a backup. Use a retained known-good backup and pause this update when the export is refused.
+Deploy to the same environment and preserve `SLATE_SESSION_SECRET`, account, resource names and `.rer/deploy` receipts. After deployment, check the deploy receipt's project, environment and origin, and match `/health`'s `deployment.sourceSha`, `fingerprint` and `versionId` to that receipt. Sign in as the same native owner, and verify retained pages and revision history, search, groups/guest access and original attachments. Check a formerly public page at its existing URL and private pages anonymously. Confirm applied migration history is unchanged apart from new additive migrations. A green build or health response alone does not prove retained-data equivalence.
+
+Rer 0.2.2 uses Cloudflare's `d1_migrations` ledger for fresh deployments, which Slate's export inventory accepts. An existing 0.2.1 deployment retaining `_rer_deploy_migrations` needs separate upgrade and export validation. The CLI has a legacy-ledger transition path, but its existence alone does not prove that installation's migration. If your pre-update export refuses a controller ledger or unknown table, preserve the ledger and the refusal, retain your known-good backup and pause the update for review. Never delete or rename tables to obtain a backup.
 
 ## AI owner setup
 

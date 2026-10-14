@@ -33,7 +33,7 @@
 
 Slate is a self-hosted team wiki built with React, TanStack Start, Hono and Cloudflare Workers. The default `core-wiki` profile provides pages and containers, rich-text editing, comments, permissions, search, revision history, imports, and backup and restore. The public source repository is [just-every/run-slate](https://github.com/just-every/run-slate). Source publication does not establish product or provider acceptance.
 
-Node.js **22.20.0** and pnpm **10.12.4** are the tested tool pins. Select them with your existing version manager and Corepack.
+Install Git and Node.js 22 or later. The checkout pins Node.js **22.20.0** and pnpm **10.12.4**; rer provides the pinned tools and dependencies for its commands. You do not need to install pnpm separately.
 
 ## Run it on your computer
 
@@ -44,7 +44,7 @@ git clone https://github.com/just-every/run-slate.git slate
 cd slate
 ```
 
-Install rer once per computer (`npm install -g @runeditrun/rer@0.2.1`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins. Then install the pinned dependencies, prepare your native owner, and start development:
+Install rer once per computer (`npm install -g @runeditrun/rer@0.2.2`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins. Then install the pinned dependencies, prepare your native owner, and start development:
 
 ```sh
 rer install

@@ -22,10 +22,10 @@ Slate is a self-hosted team wiki. Pages, databases and search live in one open-s
 - [Email delivery](EMAIL.md) covers choosing Resend or SendGrid, what Slate sends, how failed sends are retried and what to check when mail does not arrive.
 - [Cloudflare footprint](CLOUDFLARE.md) shows what Slate uses on your Cloudflare account and a worked cost example.
 
-To look around locally right now, use Node 22.20.0 and pnpm 10.12.4, then run:
+To look around locally, install Git and Node.js 22 or later, then run the commands below. Rer provides the checkout's pinned tooling and dependencies; no separate pnpm installation is required.
 
 ```sh
-npm install -g @runeditrun/rer@0.2.1
+npm install -g @runeditrun/rer@0.2.2
 git clone https://github.com/just-every/run-slate.git slate
 cd slate
 rer install
@@ -35,7 +35,7 @@ rer dev
 
 Open the printed outbox, choose the newest sign-in message and follow its one-use link. No email is sent.
 
-For an existing installation, follow [Update your existing wiki](INSTALL.md#update-your-existing-wiki): export first, pull the source update, install dependencies, then deploy to the same environment.
+For an existing installation, follow [Update your existing wiki](INSTALL.md#update-your-existing-wiki): export first, pull the source update, then deploy to the same environment. Rer installs the pinned dependencies as part of deployment.
 
 ## About the project
 

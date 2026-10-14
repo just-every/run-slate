@@ -13,6 +13,7 @@ import { exportFiles } from './portability-files.mjs';
 import { RestoreRefusal, configuredOwner, restoreOwner, activateOwner } from './restore-owner.mjs';
 import { bootstrapReplacement } from './restore-bootstrap.mjs';
 import { normaliseImported, dropRemovedMemberAccess } from './restore-normalise.mjs';
+import { installationMigrations } from './portability-migrations.mjs';
 const [direction, path, journalPath] = process.argv.slice(2);
 const root = process.cwd(), require = createRequire(join(root, 'package.json'));
 // Symbolic codes stay in the message so a report can be matched; the sentence says what happened.
@@ -68,6 +69,7 @@ try {
   policy = await installationPolicy(proxy.env.DB);
   const target = direction === 'import' ? await bootstrapReplacement(proxy.env.DB, policy, owner.email) : { db: proxy.env.DB, policy };
   handler = await createPortabilityHandler({ ...target, buckets: { FILES: files }, appOrigin: origin,
+    migrations: () => installationMigrations(root, target, require('wrangler').unstable_splitSqlQuery),
     authorize: request => request.headers.get('Cookie') === cookie ? 'local-owner' : null });
   directory = await mkdtemp(resolve('.seed/installer/transfer-'));
   const session = join(directory, 'session'); await writeFile(session, cookie, { mode: 0o600 });
