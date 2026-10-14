@@ -360,11 +360,12 @@ test("Base's deploy-identity check accepts the emitted Worker's /health", { time
     const versionId = "4f9d6a3e-0c1b-4e7a-9b2d-5a8c7e6f1d20";
     runtime = await startEmittedWorker(persistPath, { ...localDevelopmentVars, RER_DEPLOY_SOURCE: receipt.source.sha, RER_DEPLOY_FINGERPRINT: receipt.fingerprint, RER_VERSION: { id: versionId, tag: "", timestamp: new Date().toISOString() } });
     const request = (url, init) => fetch(url, init);
-    const accepted = await healthRequest({ origin: runtime.baseUrl, receipt, versionId, request, timeoutMs: 10000, offsetMs: 0 });
+    const expected = { sourceSha: receipt.source.sha, fingerprint: receipt.fingerprint, versionId };
+    const accepted = await healthRequest({ origin: runtime.baseUrl, expected, request, timeoutMs: 10000, offsetMs: 0 });
     assert.equal(accepted.attempt.status, 200);
     assert.equal(accepted.attempt.errorClass, null, accepted.attempt.body);
     // A Worker answering for another upload is refused by the same check.
-    const stale = await healthRequest({ origin: runtime.baseUrl, receipt, versionId: "another-version", request, timeoutMs: 10000, offsetMs: 0 });
+    const stale = await healthRequest({ origin: runtime.baseUrl, expected: { ...expected, versionId: "another-version" }, request, timeoutMs: 10000, offsetMs: 0 });
     assert.equal(stale.attempt.errorClass, "health-identity-mismatch");
   } finally {
     if (runtime) await stop(runtime.child);
