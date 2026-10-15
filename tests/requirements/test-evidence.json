@@ -420,7 +420,7 @@
       "clauses": [
         "MAIL-002"
       ],
-      "reason": "Exercises public sign-in and owner mail routes with real Worker D1 and a relay fake only at fetch: exact RER request, accepted sign-in, visible credential rejection, durable Retry-After queue and replay, and held ambiguous delivery. Retains authentication and status-capability checks. Supporting scope only; no live relay or full UI acceptance claim."
+      "reason": "Exercises public sign-in and owner mail routes with real Worker D1 and native Request validation before the network fake: exact RER envelope, accepted sign-in, redirects refused without following, visible credential rejection, durable Retry-After queue and replay, and held ambiguous delivery. Retains authentication and status-capability checks. Supporting scope only; no live relay or full UI acceptance claim."
     },
     {
       "file": "tests/flagship/core/mail.test.ts",
