@@ -30,7 +30,11 @@ export function usePageInsertion(pageId: string, editor: ReturnType<typeof usePa
       const parsed = stored ? JSON.parse(stored) : legacy ? [JSON.parse(legacy)] : null;
       const recovered = Array.isArray(parsed) ? {blocks: parsed as EditorBlock[]} : parsed as {blocks: EditorBlock[]; expected?: Record<string, string>} | null;
       // A response can be interrupted after the server committed the creation.
-      if (recovered && recovered.blocks.length === editor.blocks.length && recovered.blocks.every((block, index) => sameBlock(block, editor.blocks[index]))) return null;
+      if (recovered && recovered.blocks.length === editor.blocks.length && recovered.blocks.every((block, index) => sameBlock(block, editor.blocks[index]))) {
+        sessionStorage.removeItem(key);
+        sessionStorage.removeItem(legacyKey);
+        return null;
+      }
       return recovered;
     }
     catch { return null; }

@@ -6211,7 +6211,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/usePageInsertion.ts": {
-      "sha256": "5f0707093e8e42b46b157b7ed3284a19fb8aa5bd0252643723ebc7f83cf5746a",
+      "sha256": "eb8da528fc269ea5baa98bf65915e5b480fc340a4b52fd79856661632573479b",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/WorkspacePublicationDialog.tsx": {
