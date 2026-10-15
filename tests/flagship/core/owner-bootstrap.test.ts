@@ -9,7 +9,7 @@ const claim=(body:unknown,bindings=hosted)=>createApi().request(`${origin}/auth/
 beforeEach(resetDeployment);
 
 // The hosted owner claim RER makes after the first publication (Base operator-auth's POST /auth/bootstrap).
-test('BASE-DATA-005 POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards',async()=>{
+test('POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards',async()=>{
  const refused=await claim({token:'c'.repeat(64),displayName:'Owner',returnTo:'/'});
  expect(refused.status).toBe(403);expect(await env.DB.prepare('SELECT count(*) n FROM workspaces').first()).toEqual({n:0});
  expect((await claim({token,displayName:'Owner',returnTo:'/'},env)).status).toBe(403);

@@ -2230,6 +2230,15 @@
         "BASE-DATA-003"
       ],
       "reason": "Through local Worker HTTP routes in the shared across imports case, checks step-up refusal with unchanged custody followed by confirmation, atomic last-owner refusal with unchanged selected import, erasure and portability state and retained snapshots, and confirmed native person removal. Checks affected import-custody retirement, identity scrubbing in selected import and erasure stores, removal of affected imports’ non-media storage objects, retired import resume refusal, erasure of retained portability snapshot tables with export download refusal, preservation of another member and existing native pages and blocks, and unrelated import Undo preserving its native edit. These support the specific import and erasure mechanics only; full IMP-001 and BASE-DATA-003 acceptance remains unproven."
+    },
+    {
+      "file": "tests/flagship/core/owner-bootstrap.test.ts",
+      "testName": "POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards",
+      "kind": "supporting-regression",
+      "clauses": [
+        "BASE-DATA-005"
+      ],
+      "reason": "Asserts POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     }
   ]
 }
