@@ -96,6 +96,9 @@ export async function withWorkspace(viewport, profile, run, overrides = {}) {
       await run({ page, context, origin: runtime.baseUrl, api, records, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}` });
     } catch (cause) {
       await accessible(page, `${profile} journey failure`).catch(() => {});
+      await Promise.allSettled([...captures]);
+      // A label that never changed looks the same whether the click did nothing or the server rejected it; say which.
+      console.error('Journey failure context', JSON.stringify({ rejected: network.filter(entry => entry.error || entry.status >= 400).slice(-10), consoleErrors: consoleErrors.slice(-10) }, null, 2).slice(0, 8000));
       throw cause;
     }
     assert.deepEqual(modelRequests, [], 'This no-provider suite must never submit model work.');
