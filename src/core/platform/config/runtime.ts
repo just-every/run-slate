@@ -19,6 +19,7 @@ export interface RuntimeBindings {
   GITHUB_CLIENT_ID?: string;
   GITHUB_CLIENT_SECRET?: string;
   SETUP_OWNER_EMAIL?: string;
+  SETUP_TOKEN?: string;
   SESSION_SECRET?: string;
   MAIL_PROVIDER?: string;
   MAIL_FROM?: string;
@@ -55,6 +56,8 @@ export interface RuntimeConfig {
   sessionSecret: string;
   appUrl?: string;
   setupOwnerEmail?: string;
+  /** One-time token for POST /auth/bootstrap; present only until the deployment claims its owner. */
+  setupToken?: string;
   mailProvider?: "resend" | "sendgrid" | "development";
   mailFrom?: string;
   mailApiKey?: string;
@@ -188,6 +191,7 @@ export function readRuntimeConfig(env: RuntimeBindings, isLoopback: boolean): Ru
     sessionSecret: requireSessionSecret(env),
     appUrl: localDevelopment ? env.APP_URL : appUrl.toString(),
     setupOwnerEmail: env.SETUP_OWNER_EMAIL,
+    setupToken: env.SETUP_TOKEN?.trim() || undefined,
     mailProvider: mailProvider as RuntimeConfig["mailProvider"],
     mailFrom: env.MAIL_FROM,
     mailApiKey: env.MAIL_API_KEY,

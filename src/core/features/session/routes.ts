@@ -18,8 +18,8 @@ import { completeNativeLocalSetup, LOCAL_SETUP_PATH } from "./local-setup";
 
 const branding = { productName: "Slate", accentColor: "#1b1b18", signInPath: "/signin", theme: "/rer-theme.css" };
 const retiredLink = (method: string) => confirmationResponse({ branding, preview: null, token: "", method });
-/** Paths Base operator-auth owns on Slate's listener: confirmation, step-up and the incumbent provider. */
-export const BASE_AUTH_PATHS = new Set(["/auth/confirm", "/auth/step-up", PROVIDER_START, PROVIDER_CALLBACK]);
+/** Paths Base operator-auth owns on Slate's listener: owner claim, confirmation, step-up and the incumbent provider. */
+export const BASE_AUTH_PATHS = new Set(["/auth/bootstrap", "/auth/confirm", "/auth/step-up", PROVIDER_START, PROVIDER_CALLBACK]);
 export const SESSION_AUTH_PATHS = new Set([...BASE_AUTH_PATHS, LOCAL_SETUP_PATH]);
 const invitationToken = z.string().min(20).max(512);
 const requestDigest = (secret: string, email: string, key: string) => sessionDigest(secret, `mail-request:${email.toLowerCase()}:${key}`);

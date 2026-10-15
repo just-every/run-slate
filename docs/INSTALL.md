@@ -19,7 +19,7 @@ In a fresh checkout `rer dev` alone sets up a placeholder local owner. To use yo
 
 Provide the account/token, owner email and mail settings from your private vault as described in [OPERATIONS.md](../OPERATIONS.md); rer generates the session secret on a first deploy. A Resend or SendGrid provider and verified sender must be selected explicitly. Review `rer deploy --environment production --dry-run`, which makes no provider request. Authorized `rer deploy --environment production` uses rer's own deploy kit to create resources, apply migrations, publish and check health. Keep its `.rer/deploy` receipts.
 
-Slate has no setup token. After the deploy, open the printed address and sign in by email as the owner email you deployed with: the first sign-in with that address claims the new wiki, and you then name the workspace at `/setup`. For a normal update in the same account and environment, follow the update steps below. Moving accounts or changing resource names needs a separate migration plan.
+After the deploy, rer claims the owner email you deployed with as the owner, using a one-time setup token that it then removes. Open the printed address and sign in by email as that owner, and you then name the workspace at `/setup`. For a normal update in the same account and environment, follow the update steps below. Moving accounts or changing resource names needs a separate migration plan.
 
 For [backup and restore](BACKUP.md) and confirmed reset, follow [README.md](../README.md). Product acceptance and inbox delivery remain separate from successful local or deployment checks.
 

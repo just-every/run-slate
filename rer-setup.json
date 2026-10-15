@@ -27,7 +27,8 @@
       "kind": "email",
       "required": true,
       "group": "owner",
-      "runtimeEditable": false
+      "runtimeEditable": false,
+      "prefill": "account-email"
     },
     {
       "name": "MAIL_PROVIDER",
@@ -129,6 +130,15 @@
       "group": "session"
     },
     {
+      "name": "SETUP_TOKEN",
+      "label": "Owner setup token",
+      "kind": "secret",
+      "required": true,
+      "ownerVisible": false,
+      "generate": "hex",
+      "group": "session"
+    },
+    {
       "name": "IDENTITY_PROVIDER",
       "label": "Identity provider",
       "kind": "url",
@@ -145,6 +155,13 @@
     ]
   },
   "steps": [
+    {
+      "type": "owner-claim",
+      "mode": "signed",
+      "emailField": "SETUP_OWNER_EMAIL",
+      "tokenField": "SETUP_TOKEN",
+      "path": "/auth/bootstrap"
+    },
     {
       "type": "extension",
       "id": "slate-native-owner"

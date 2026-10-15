@@ -9,7 +9,7 @@ import { TENANT, type SessionStore, type SlateRole } from './store';
  * bindings. Member IDs, roles, groups, guests and the slate_session cookie stay
  * native. Every read and mutation is scoped to the installation's workspace.
  */
-export function createNativeAccounts(store: SessionStore, input: { clock: () => number; providerFingerprint: string | null }): NativeAccountsAdapter<SlateRole> {
+export function createNativeAccounts(store: SessionStore, input: { clock: () => number; providerFingerprint: string | null; claimOwner: (email: string) => Promise<boolean> }): NativeAccountsAdapter<SlateRole> {
   const { db } = store;
   const refuse = async (): Promise<never> => { throw new Error('Slate binds and issues provider sessions atomically.'); };
   const enabled = async () => !!(await db.prepare('SELECT COALESCE(idp_sign_in,?) AS enabled FROM auth_identity_policy WHERE id=1').bind(Number(store.identityEnabled)).first<{ enabled: number }>())?.enabled;
@@ -31,6 +31,12 @@ export function createNativeAccounts(store: SessionStore, input: { clock: () => 
     async revokeSession(id) {
       const now = new Date(input.clock()).toISOString();
       await db.prepare(`UPDATE sessions SET revoked_at=COALESCE(revoked_at,?),updated_at=? WHERE id=? AND member_id IN (SELECT id FROM members WHERE workspace_id=${TENANT})`).bind(now, now, id).run();
+    },
+    /** The configured setup mailbox claims an empty installation; an existing workspace answers already_initialized. */
+    async bootstrap({ email, returnTo, now }) {
+      if (!await input.claimOwner(email)) return null;
+      const person = await store.member('lower(email)=lower(?)', email);
+      return person && store.issue({ person, kind: 'native', now, returnTo });
     },
     owner: () => store.member("role='owner' AND status='active' ORDER BY is_setup_owner DESC, created_at, id"),
     identityEnabled: enabled,

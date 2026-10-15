@@ -40,7 +40,8 @@ export function createApi() {
       if(new URL(context.req.url).pathname!=="/health")await assertStoredConfiguration(context.env);
       assertRequestOrigin(context);
       if(!['GET','HEAD','OPTIONS'].includes(context.req.method)&&context.req.header('content-type')?.includes('application/json')) {
-        try { await context.req.json(); } catch { throw new ApiProblem(400,'INVALID_REQUEST','The request must contain valid JSON.'); }
+        // A clone, so Base operator-auth's own routes can still read the body (the owner claim posts JSON).
+        try { await context.req.raw.clone().json(); } catch { throw new ApiProblem(400,'INVALID_REQUEST','The request must contain valid JSON.'); }
       }
       context.header('X-Content-Type-Options','nosniff');
       context.header('Referrer-Policy','same-origin');

@@ -1,5 +1,6 @@
 import { setTimeout } from 'node:timers/promises';
 import { createHmac } from 'node:crypto';
+import { owner as claimWithSetupToken } from '@runeditrun/rer/adapter-auth';
 const hmac = (key, value) => createHmac('sha256', key).update(value).digest('hex');
 // Base operator-auth's local CLI proof (modules/operator-auth/local-cli.mjs), keyed
 // by the operator-auth secret Slate derives from SESSION_SECRET (session/auth.ts):
@@ -14,9 +15,12 @@ async function messages(context) {
   return (await response.text()).split('<article>').slice(1).filter(part => part.toLowerCase().includes(wanted))
     .map(part => /\?message=([^"&]+)"/.exec(part)?.[1]).filter(Boolean).map(decodeURIComponent);
 }
-// Slate's first native request claims an empty installation for SETUP_OWNER_EMAIL.
-// Existing owners and their workspaces are preserved by the native auth service.
+// A hosted deploy hands over the one-time setup token: Base operator-auth's POST /auth/bootstrap
+// claims the empty installation for SETUP_OWNER_EMAIL (303), or keeps its owner (409 already_initialized).
+// Local setup (LOCAL_DEVELOPMENT) claims it through Slate's first native request for that email instead.
+// Existing owners and their workspaces are preserved by the native auth service either way.
 export async function owner(context) {
+  if (context.vars.LOCAL_DEVELOPMENT !== 'true' && context.vars[context.ownerClaim?.tokenField ?? 'SETUP_TOKEN']) return claimWithSetupToken(context, {});
   const before = new Set(await messages(context));
   const response = await fetch(new URL('/api/auth/magic', context.origin), {
     method: 'POST', signal: context.signal, redirect: 'error',

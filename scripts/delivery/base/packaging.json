@@ -54,16 +54,19 @@
       ],
       "secretNames": [
         "SESSION_SECRET",
+        "SETUP_TOKEN"
+      ],
+      "optionalSecretNames": [
         "MAIL_API_KEY"
       ],
-      "optionalSecretNames": [],
       "recovery": "Preserve accepted source/artifact, native session configuration, applied migrations and R2 files. Restore an owner export only into a separate empty deployment and verify ACLs, attachments and public exposure before traffic cutover. See OPERATIONS.md; sealed prior-store upgrade is pending.",
       "providerEffects": [
         "outbound-mail"
       ],
       "surfaces": {
         "app": {
-          "path": "/signin"
+          "path": "/signin",
+          "originVariable": "APP_URL"
         }
       }
     }

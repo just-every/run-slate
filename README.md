@@ -100,7 +100,7 @@ rer deploy --environment production --dry-run
 rer deploy --environment production
 ```
 
-Dry run makes no provider request. The second command creates owner-account resources, applies migrations, uploads secrets, deploys and checks health. It requires separate deployment authorization. Slate has no setup token to claim or retire: you become the owner when you first sign in by email at the printed address as `SLATE_SETUP_OWNER_EMAIL`, then name the workspace at `/setup`. See [OPERATIONS.md](OPERATIONS.md) for inputs and limitations.
+Dry run makes no provider request. The second command creates owner-account resources, applies migrations, uploads secrets, deploys and checks health. It requires separate deployment authorization. After a healthy deploy rer claims `SLATE_SETUP_OWNER_EMAIL` as the owner with a one-time setup token and removes the token; you then sign in by email at the printed address and name the workspace at `/setup`. See [OPERATIONS.md](OPERATIONS.md) for inputs and limitations.
 
 To update a deployed wiki, export it first (see [docs/INSTALL.md](docs/INSTALL.md#update-your-existing-wiki)), then:
 

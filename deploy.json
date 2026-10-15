@@ -54,6 +54,10 @@
       "environment": "SLATE_SESSION_SECRET"
     },
     {
+      "binding": "SETUP_TOKEN",
+      "environment": "SLATE_SETUP_TOKEN"
+    },
+    {
       "binding": "MAIL_API_KEY",
       "environment": "SLATE_MAIL_API_KEY"
     }

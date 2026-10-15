@@ -11,7 +11,7 @@ mailbox bootstrap, session validation, grants, D1/R2 storage and Worker handlers
 `pnpm integration:sync` through the Base spec reader from emitted `dist/server/wrangler.json`, original migration
 bytes and named native source inputs. `pnpm source:check` refuses drift. No setup
 SQL is invented: the native `bootstrapOwner` creates an initial workspace only
-for the configured mailbox after its sign-in flow, when no workspace exists.
+for the configured mailbox when no workspace exists: on its first sign-in request, or on the hosted owner claim, `POST /auth/bootstrap` with the one-time `SETUP_TOKEN` (Base operator-auth; 303 claims, 409 `already_initialized` keeps the owner).
 No worker/database/object/queue names or credentials are baked into the recipe.
 Core-wiki fixes `SLATE_PROFILE=core-wiki`, `AI_ENABLED=false`, `SSO_ENABLED=false`
 and denies unsupported provider configuration. The retained collaboration class

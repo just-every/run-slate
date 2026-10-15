@@ -3,6 +3,7 @@ import { devAdmitted } from '../../../../modules/operator-auth/dev-admission.mjs
 import type { RuntimeConfig } from '../../platform/config/runtime';
 import { sessionDigest } from '../../platform/auth/token';
 import { identityMailSender, type SignInDelivery } from './mail-sender';
+import { bootstrapOwner } from '../workspace/bootstrap';
 import { createNativeAccounts } from './native/accounts';
 import { createNativeProofs } from './native/proofs';
 import { sessionStore, type SessionStore } from './native/store';
@@ -38,6 +39,7 @@ async function baseConfig(config: RuntimeConfig): Promise<AuthConfig> {
   const origin = new URL(config.appUrl!).origin;
   return {
     origin, local: config.localDevelopment, OWNER_EMAIL: config.setupOwnerEmail!, MAIL_FROM: config.mailFrom,
+    ...(config.setupToken ? { SETUP_TOKEN: config.setupToken } : {}),
     SESSION_SECRET: await sessionDigest(config.sessionSecret, 'slate:operator-auth:v1'),
     branding: { productName: 'Slate', accentColor: '#1b1b18', signInPath: '/signin', theme: '/rer-theme.css' },
     linkSeconds: 3600, dependencies: true,
@@ -56,7 +58,7 @@ export function slateSessions(db: D1Database, config: RuntimeConfig): SessionSto
 /** Base operator-auth composed over Slate's native accounts and proofs for one request. */
 export async function createSlateAuth(db: D1Database, config: RuntimeConfig, options: { waitUntil?: (promise: Promise<unknown>) => void; delivery?: SignInDelivery } = {}) {
   const clock = Date.now, store = slateSessions(db, config);
-  const accounts = createNativeAccounts(store, { clock, providerFingerprint: fingerprint(config) });
+  const accounts = createNativeAccounts(store, { clock, providerFingerprint: fingerprint(config), claimOwner: email => bootstrapOwner(db, config, email) });
   const auth = createOperatorAuth({
     db, config: await baseConfig(config), accounts, proofs: createNativeProofs(store),
     mailSender: identityMailSender(db, config, options.delivery ?? {}), clientIp, clock,
