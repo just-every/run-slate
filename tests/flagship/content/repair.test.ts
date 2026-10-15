@@ -102,8 +102,9 @@ it('public header controls and social metadata render from explicit publication 
  expect((await expose(child.data.value.pageId,child.data.value.revisionId,`child-${parent.pageId}`,{headerControls:['search','breadcrumbs','duplicate'],duplicateAsTemplate:true,socialPreview:{title:'Social <title>',description:'Social description'}})).status).toBe(200);
  await f.request('POST','/api/pages',{operationKey:createUlid(),containerId:f.containerId,title:'Secret needle'});
  const request=async(q='')=>{const r=await f.app.request(`https://local.test/p/child-${parent.pageId}${q}`,{},env);expect(r.status).toBe(200);return r.text();};
- let html=await request('?q=needle');expect(html).toContain('Published ancestors');expect(html).toContain('role="search"');expect(html).toContain('Duplicate this page');expect(html).toContain('Social &lt;title&gt;');expect(html).toContain('No published pages found');expect(html).not.toContain('Secret needle');
- await env.DB.prepare("UPDATE public_exposures SET revoked_at=? WHERE page_id=?").bind(f.ctx.now,parent.pageId).run();html=await request();expect(html).not.toContain('Published ancestors');
+ const ancestorLink=`href="/p/ancestor-${parent.pageId}"`;
+ let html=await request('?q=needle');expect(html).toContain(ancestorLink);expect(html).toContain('role="search"');expect(html).toContain('Duplicate this page');expect(html).toContain('Social &lt;title&gt;');expect(html).toContain('No published pages found');expect(html).not.toContain('Secret needle');
+ await env.DB.prepare("UPDATE public_exposures SET revoked_at=? WHERE page_id=?").bind(f.ctx.now,parent.pageId).run();html=await request();expect(html).not.toContain(ancestorLink);expect(html).toContain('aria-current="page">Public child');
  expect((await expose(child.data.value.pageId,child.data.value.revisionId,`child-${parent.pageId}`,{headerControls:[],duplicateAsTemplate:true})).status).toBe(200);html=await request('?q=Public');expect(html).not.toMatch(/role="search"|Duplicate this page|Search results/);
 });
 it('comment activity receives exact entity revision context in the atomic operation',async()=>{
