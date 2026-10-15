@@ -9127,7 +9127,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/browser-support.mjs": {
-      "sha256": "f1693b9a5febdb39a5cd0219ee236d7a314ac7075314649e20dd432da4adbd02",
+      "sha256": "db1b4a69bce1e991d27d50178627f736ce23fcea1c0248a822a3da5a63c7f29d",
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
