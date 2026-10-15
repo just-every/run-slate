@@ -112,11 +112,18 @@ test("the development Worker serves the Start documents and the Hono families", 
     assert.equal(knownApi.status, 200);
     assert.equal((await knownApi.json()).member.id, sampleOwnerMemberId);
 
-    // `/p/*` is reserved for the WEB family and answers a real 404 until it ships.
+    // Missing public links stay real 404 documents with Slate's anonymous shell.
     for (const publishedPath of ["/p", "/p/a-page"]) {
       const published = await fetch(`${baseUrl}${publishedPath}`);
       assert.equal(published.status, 404, publishedPath);
-      assert.equal((await published.json()).code, "NOT_FOUND");
+      assert.match(published.headers.get("content-type") ?? "", /text\/html/);
+      assert.match(published.headers.get("cache-control") ?? "", /(?:^|,\s*)no-store(?:,|$)/);
+      const unavailableHtml = await published.text();
+      assert.match(unavailableHtml, /<style>[\s\S]+<\/style>/);
+      assert.match(unavailableHtml, /<header[\s>]/);
+      assert.match(unavailableHtml, /<main[\s>]/);
+      assert.match(unavailableHtml, /<h1[\s>]/);
+      assert.doesNotMatch(unavailableHtml, /Jamie Park|jamie@aurora.example/);
     }
 
     // An unknown document is a real 404, not the application shell.
