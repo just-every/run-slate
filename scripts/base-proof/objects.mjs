@@ -4,7 +4,7 @@ import {inflateSync, deflateSync} from 'node:zlib';
 
 // The approved Base commits, oldest first. Each copy record names one of them; the
 // restored repository's HEAD is the newest.
-export const PINS = ['9ec15a63a410d209cd5a179749336bb61751e0f6', '8981bc2c4d9e61feca5787c83b4ed44056659dd9', '363da337fe618bfc62fa3b6b5fd3e7f2f67d5879', 'fc0e1041efa55771142bbb57c4ab4743147e264d'];
+export const PINS = ['9ec15a63a410d209cd5a179749336bb61751e0f6', '8981bc2c4d9e61feca5787c83b4ed44056659dd9', '363da337fe618bfc62fa3b6b5fd3e7f2f67d5879', 'e17843562355e1b6e5068289c8e037951fbc8d3d'];
 export const HEAD = PINS.at(-1);
 export const REPOSITORY = 'retained-native-base';
 export const objectId = bytes => createHash('sha1').update(bytes).digest('hex');
