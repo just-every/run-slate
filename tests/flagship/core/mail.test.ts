@@ -24,6 +24,33 @@ test('MAIL-002 Worker D1 durable retry uses a single encrypted message across fi
 test('MAIL-002 Worker routes require current authentication and expose public sign-in status only with capability',async()=>{
  const ctx=await fixture(),api=createApi();const noSession=await api.request('/api/workspace/mail',{},env);expect(noSession.status).toBe(401);const cookie=await sessionFor(ctx.actor.id);expect((await api.request('/api/workspace/mail',{headers:{cookie}},env)).status).toBe(200);
  const status=await api.request('/api/auth/magic/status',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:'unknown@test.invalid',requestKey:crypto.randomUUID()})},env);expect(status.status).toBe(200);expect(await status.json()).toMatchObject({state:'unconfirmed'});
+ const relayEnv={...env,APP_URL:'https://slate.test.invalid',MAIL_PROVIDER:'rer',MAIL_FROM:'auth@test.invalid',MAIL_API_KEY:'test-only-relay-key',MAIL_RELAY_URL:'https://management.test.invalid/api/managed-mail/send'};
+ let responseStatus=202;
+ const provider=vi.spyOn(globalThis,'fetch').mockImplementation(async(url,init)=>{
+  expect(String(url)).toBe(relayEnv.MAIL_RELAY_URL);expect(init!.method).toBe('POST');expect(init!.redirect).toBe('error');
+  expect(Object.fromEntries(new Headers(init!.headers))).toEqual({authorization:'Bearer test-only-relay-key','content-type':'application/json'});
+  const body=JSON.parse(String(init!.body));expect(Object.keys(body).sort()).toEqual(['html','subject','text','to'].filter(key=>key!=='html'||body.html));expect(typeof body.to).toBe('string');expect(body.subject).toBeTruthy();expect(body.text).toBeTruthy();
+  return Response.json(responseStatus===202?{accepted:true}:{error:'private relay response'}, {status:responseStatus,headers:responseStatus===429?{'Retry-After':'240'}:{}});
+ });
+ try{
+  const headers={'content-type':'application/json',origin:relayEnv.APP_URL,host:'slate.test.invalid'};
+  const magic=()=>api.request(`${relayEnv.APP_URL}/api/auth/magic`,{method:'POST',headers,body:JSON.stringify({email:ctx.actor.email,requestKey:crypto.randomUUID()})},relayEnv);
+  expect((await magic()).status).toBe(200);expect(provider).toHaveBeenCalledTimes(1);
+  const signIn=JSON.parse(String(provider.mock.calls[0]![1]!.body));expect(signIn.to).toBe(ctx.actor.email.toLowerCase());expect(signIn.text).toContain('/auth/confirm?token=');
+  responseStatus=401;const refused=await magic();expect(refused.status).toBe(502);expect(await refused.json()).toMatchObject({code:'MAIL_NOT_SENT'});
+  const ownerMail=await api.request(`${relayEnv.APP_URL}/api/workspace/mail`,{headers:{cookie}},relayEnv);expect(ownerMail.status).toBe(200);const ownerStatus=await ownerMail.json() as {items:Array<{state:string;errorDetail:string|null}>};expect(ownerStatus.items.some(item=>item.state==='failed'&&typeof item.errorDetail==='string'&&item.errorDetail.length>0)).toBe(true);expect(JSON.stringify(ownerStatus)).not.toContain('private relay response');
+  responseStatus=429;
+  const invited=await api.request(`${relayEnv.APP_URL}/api/invitations`,{method:'POST',headers:{...headers,cookie},body:JSON.stringify({operationKey:crypto.randomUUID(),email:'relay-invite@test.invalid',kind:'member'})},relayEnv);expect(invited.status).toBe(200);
+  const read=()=>env.DB.prepare("SELECT * FROM mail_deliveries WHERE target_email='relay-invite@test.invalid'").first<any>();
+  const queued=await read();expect(queued.delivery_phase).toBe('retry');expect(Date.parse(queued.next_attempt_at)-Date.parse(queued.last_attempted_at)).toBe(240000);
+  const sentBody=provider.mock.calls.at(-1)![1]!.body,calls=provider.mock.calls.length;
+  const relayConfig=readRuntimeConfig(relayEnv,false);
+  await scheduleIdentityMail(env.DB,relayConfig,ctx,new Date(Date.parse(queued.next_attempt_at)-1).toISOString());expect(provider).toHaveBeenCalledTimes(calls);
+  responseStatus=202;await scheduleIdentityMail(env.DB,relayConfig,ctx,queued.next_attempt_at);expect(provider).toHaveBeenCalledTimes(calls+1);expect(provider.mock.calls.at(-1)![1]!.body).toBe(sentBody);expect(await read()).toMatchObject({delivery_phase:'sent',provider_message_id:null});
+  // Without relay idempotency, transport ambiguity stays held instead of replaying.
+  responseStatus=503;await api.request(`${relayEnv.APP_URL}/api/invitations`,{method:'POST',headers:{...headers,cookie},body:JSON.stringify({operationKey:crypto.randomUUID(),email:'relay-uncertain@test.invalid',kind:'member'})},relayEnv);
+  expect(await env.DB.prepare("SELECT delivery_phase FROM mail_deliveries WHERE target_email='relay-uncertain@test.invalid'").first()).toMatchObject({delivery_phase:'uncertain'});
+ }finally{provider.mockRestore();}
  const first=await api.request('/api/workspace/first-run',{headers:{cookie}},env);expect(await first.json()).toEqual({required:true,canComplete:true});await env.DB.prepare("UPDATE members SET status='removed' WHERE id=?").bind(ctx.actor.id).run();expect((await api.request('/api/workspace/first-run',{headers:{cookie}},env)).status).toBe(401);
 });
 test('WORK-006 Worker pending guest grant is durable and exact revocation disables delivery',async()=>{

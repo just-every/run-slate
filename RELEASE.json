@@ -12,7 +12,8 @@
       "change": "changed",
       "summary": "Local setup persists the private loopback configuration required for native magic-link development; hosted mail requires an explicit provider selection and matching runtime binding.",
       "was": "Missing required configuration fails at startup naming the variable. The product never runs in a degraded mode.",
-      "now": "Missing required configuration fails at startup naming the variable. The product never runs in a degraded mode. Local setup writes owner-only `.dev.vars` settings with `LOCAL_DEVELOPMENT=true`, an exact loopback `APP_URL`, `SETUP_OWNER_EMAIL`, a generated `SESSION_SECRET` and `MAIL_PROVIDER=development`; development mail and its outbox are available only under that flag and loopback origin. Hosted setup requires an explicit `SLATE_MAIL_PROVIDER` selection of `resend` or `sendgrid` and renders it as runtime `MAIL_PROVIDER`; there is no mail-provider default. Existing local state and already-rendered hosted `MAIL_PROVIDER` bindings are retained."
+      "now": "Missing required configuration fails at startup naming the variable. The product never runs in a degraded mode. Local setup writes owner-only `.dev.vars` settings with `LOCAL_DEVELOPMENT=true`, an exact loopback `APP_URL`, `SETUP_OWNER_EMAIL`, a generated `SESSION_SECRET` and `MAIL_PROVIDER=development`; development mail and its outbox are available only under that flag and loopback origin. Hosted setup requires an explicit `SLATE_MAIL_PROVIDER` selection of `resend` or `sendgrid` and renders it as runtime `MAIL_PROVIDER`; there is no mail-provider default. Existing local state and already-rendered hosted `MAIL_PROVIDER` bindings are retained. Managed hosting assigns and hides MAIL_PROVIDER=rer, MAIL_FROM, MAIL_RELAY_URL and a generated private MAIL_API_KEY. The key is optional in the deployment declaration and required by the chosen provider; a hosted plan cannot omit working mail.",
+      "date": "2026-10-16"
     },
     "BLOCK-008": {
       "change": "added",
@@ -257,10 +258,10 @@
     },
     "MAIL-002": {
       "change": "changed",
-      "summary": "Owner-required Base Mail SendGrid support preserves durable uncertain review instead of unsafe replay; Resend bounded idempotent retry is retained.",
+      "summary": "Managed relay mail uses Base rer; explicit throttling respects Retry-After, uncertainty stays held, and ordinary providers retain their policy.",
       "was": "A send that fails is retried up to 3 times over 5 minutes. A send that still fails is recorded with the provider's error and shown to a person \u2014 on the sign-in screen for a sign-in link, in settings for an invitation \u2014 and is never reported as sent.",
-      "now": "A send that fails is retried up to 3 times over 5 minutes when the provider guarantees duplicate suppression for that exact request. With SendGrid, explicit rejection is shown for owner retry; ambiguous transport, expired dispatch ownership, or acceptance without a receipt is durably held for provider review with no automatic or explicit blind resend. A send that still fails or remains uncertain is recorded with a safe provider error and shown to a person \u2014 on the sign-in screen for a sign-in link, in settings for an invitation \u2014 and is never reported as sent. A provider receipt establishes acceptance, not inbox delivery.",
-      "date": "2026-10-07"
+      "now": "A send that fails is retried up to 3 times over 5 minutes when the provider guarantees duplicate suppression for that exact request. With SendGrid, explicit rejection is shown for owner retry; ambiguous transport, expired dispatch ownership, or acceptance without a receipt is durably held for provider review with no automatic or explicit blind resend. A send that still fails or remains uncertain is recorded with a safe provider error and shown to a person \u2014 on the sign-in screen for a sign-in link, in settings for an invitation \u2014 and is never reported as sent. Managed hosting uses Base\u2019s `rer` adapter with RER-assigned `MAIL_PROVIDER`, `MAIL_FROM`, `MAIL_RELAY_URL` and private `MAIL_API_KEY`; no provider account is needed. Relay HTTP 202 establishes acceptance without a provider message ID. Explicit relay throttling is queued within the existing three-attempt budget, no earlier than Retry-After; other relay rejections are visible failures. Ambiguous relay sends and expired dispatch ownership are held for review without blind resend. A provider receipt establishes acceptance, not inbox delivery.",
+      "date": "2026-10-16"
     },
     "HOME-001": {
       "change": "changed",

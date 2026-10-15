@@ -1,6 +1,6 @@
 import profile from './profile.json' with {type: 'json'};
 import specification from './deployment-spec.json' with {type: 'json'};
-import {fixedVariables, publicInputs, validateAddresses, generatedConfiguration} from './configuration.mjs';
+import {fixedVariables, publicInputs, validateAddresses, generatedConfiguration, validateMailSecrets} from './configuration.mjs';
 export function createIntegration(host) {
   return {
     profile, sourceEnvironmentPrefix: 'SLATE', surfaces: {app: '/signin'}, fixedVariables,
@@ -20,21 +20,24 @@ export function createIntegration(host) {
         ...spec, workerName: `${prefix}-slate`, environment,
         resources: spec.resources.map(row => ({...row, name: `${prefix}-${row.binding.toLowerCase()}`})),
         publicVariables: {...spec.publicVariables, ...variables},
+        secretNames: [...new Set([...spec.secretNames, 'MAIL_API_KEY'])],
         ...(environment === 'preview' ? {schedules: [], queueConsumers: [], previewEffects: {schedulesDisabled: true, controlledProviders: [...controlledProviders]}} : {}),
       };
+      validateMailSecrets(plan.publicVariables, plan.secretNames);
       await host.validatePlan(plan);
       return plan;
     },
     async revisePlan(plan, input) {
-      const allowed = new Set(specification.secretNames);
-      if (!Array.isArray(input.secretNames) || input.secretNames.some(name => !allowed.has(name)) || specification.secretNames.some(name => !input.secretNames.includes(name))) throw Error('Core-wiki requires exactly its native mail/session secret names');
-      const editable = ['SETUP_OWNER_EMAIL', 'MAIL_FROM', 'LINK_PREVIEWS_ENABLED'];
+      const allowed = new Set([...specification.secretNames, ...(specification.optionalSecretNames ?? [])]);
+      if (!Array.isArray(input.secretNames) || input.secretNames.some(name => !allowed.has(name)) || specification.secretNames.some(name => !input.secretNames.includes(name))) throw Error('Core-wiki requires its declared required secrets and accepts only declared optional secrets');
+      const editable = ['SETUP_OWNER_EMAIL', 'MAIL_FROM', 'MAIL_RELAY_URL', 'LINK_PREVIEWS_ENABLED'];
       for (const [name, value] of Object.entries(input.publicVariables)) if (!editable.includes(name) && value !== plan.publicVariables[name]) throw Error(`Unsupported core-wiki configuration: ${name}`);
-      const changed = publicInputs({...Object.fromEntries(editable.map(name => [name, input.publicVariables[name] ?? plan.publicVariables[name]])), MAIL_PROVIDER: plan.publicVariables.MAIL_PROVIDER});
+      const changed = publicInputs({...Object.fromEntries(editable.map(name => [name, input.publicVariables[name] ?? plan.publicVariables[name]]).filter(([, value]) => value !== undefined)), MAIL_PROVIDER: plan.publicVariables.MAIL_PROVIDER});
       for (const name of fixedVariables) if (input.publicVariables[name] !== undefined && input.publicVariables[name] !== plan.publicVariables[name]) throw Error(`Fixed native configuration: ${name}`);
       const next = structuredClone(plan);
       next.publicVariables = {...plan.publicVariables, ...changed};
       next.secretNames = [...new Set(input.secretNames)];
+      validateMailSecrets(next.publicVariables, next.secretNames);
       if (plan.environment === 'preview') {
         if (!input.controlledProviders?.length || input.controlledProviders.some(value => typeof value !== 'string' || !value.trim())) throw Error('Preview provider isolation must remain explicit');
         next.previewEffects = {schedulesDisabled: true, controlledProviders: [...input.controlledProviders]};

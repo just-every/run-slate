@@ -9,7 +9,7 @@
     {
       "id": "email",
       "label": "Sign-in email",
-      "help": "Local development uses the loopback outbox. Hosting requires Resend or SendGrid."
+      "help": "Managed mail is included by RER. Free and Assisted hosting use your Resend or SendGrid account; local development uses the loopback outbox."
     },
     {
       "id": "session",
@@ -29,7 +29,7 @@
     {
       "name": "MAIL_PROVIDER",
       "label": "Email provider",
-      "help": "Hosted installs send real sign-in email and need Resend or SendGrid. The local outbox is only for running Slate on this computer.",
+      "help": "Managed hosting configures mail automatically. Free and Assisted hosting need a real delivery provider. The local outbox is only for this computer.",
       "kind": "select",
       "required": true,
       "default": "resend",
@@ -37,6 +37,10 @@
         {
           "value": "development",
           "label": "Local outbox"
+        },
+        {
+          "value": "rer",
+          "label": "RER managed mail"
         },
         {
           "value": "resend",
@@ -60,6 +64,18 @@
       "runtimeEditable": true
     },
     {
+      "name": "MAIL_RELAY_URL",
+      "label": "Managed mail relay URL",
+      "kind": "url",
+      "required": true,
+      "when": {
+        "field": "MAIL_PROVIDER",
+        "equals": "rer"
+      },
+      "group": "email",
+      "runtimeEditable": false
+    },
+    {
       "name": "MAIL_API_KEY",
       "label": "Mail API key",
       "kind": "secret",
@@ -68,6 +84,14 @@
       "ownerVisible": true,
       "group": "email",
       "presentations": [
+        {
+          "when": {
+            "field": "MAIL_PROVIDER",
+            "equals": "rer"
+          },
+          "label": "Managed mail credential",
+          "required": true
+        },
         {
           "when": {
             "field": "MAIL_PROVIDER",
@@ -95,18 +119,6 @@
     {
       "name": "PUBLIC_PAGE_HOST",
       "label": "Published-page host",
-      "kind": "text",
-      "runtimeEditable": false
-    },
-    {
-      "name": "RER_MANAGEMENT_ORIGIN",
-      "label": "Management origin",
-      "kind": "url",
-      "runtimeEditable": false
-    },
-    {
-      "name": "RER_INSTALLATION_ID",
-      "label": "Installation identifier",
       "kind": "text",
       "runtimeEditable": false
     },

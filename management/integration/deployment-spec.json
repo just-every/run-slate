@@ -214,14 +214,18 @@
     "SSO_ENABLED": "false",
     "LINK_PREVIEWS_ENABLED": "true",
     "AI_PROVIDER": "openai",
-    "ALLOW_LOOPBACK_DELEGATION": "false"
+    "ALLOW_LOOPBACK_DELEGATION": "false",
+    "MAIL_PROVIDER": "",
+    "MAIL_FROM": "",
+    "MAIL_RELAY_URL": ""
   },
   "secretNames": [
     "SESSION_SECRET",
-    "SETUP_TOKEN",
+    "SETUP_TOKEN"
+  ],
+  "optionalSecretNames": [
     "MAIL_API_KEY"
   ],
-  "optionalSecretNames": [],
   "schedules": [
     "* * * * *"
   ],
@@ -243,5 +247,10 @@
       "path": "/signin",
       "originVariable": "APP_URL"
     }
+  },
+  "mail": {
+    "providers": [
+      "rer"
+    ]
   }
 }

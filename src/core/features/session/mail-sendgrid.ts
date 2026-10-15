@@ -2,11 +2,7 @@ import { createMailSender } from '../../../../modules/mail/src/sender.mjs';
 import type { RuntimeConfig } from '../../platform/config/runtime';
 import type { MailPayload } from './mail-admission';
 import type { MailRow } from './mail-authority';
-
-/** SendGrid has no idempotent retry guarantee. A lost lease/receipt is held. */
-export async function holdUncertainMail(db: D1Database, id: string, now: string) {
-  await db.prepare("UPDATE mail_deliveries SET state='failed',delivery_phase='uncertain',error_detail='SendGrid acceptance is uncertain; provider receipt review is required. No automatic resend.',lease_until=NULL,next_attempt_at=NULL,updated_at=? WHERE id=? AND delivery_phase='sending'").bind(now, id).run();
-}
+import { holdUncertainMail } from './mail-uncertain';
 
 /** One Base Mail submission, following the already committed attempt ownership. */
 export async function deliverSendGridIdentity(db: D1Database, config: RuntimeConfig, row: MailRow, payload: MailPayload, attempt: number, now: string) {
@@ -14,7 +10,7 @@ export async function deliverSendGridIdentity(db: D1Database, config: RuntimeCon
     deliveryId: row.id, from: payload.from, to: [payload.to], subject: payload.subject, text: payload.text,
   });
   if (result.status === 'uncertain' || result.status === 'accepted' && !result.providerMessageId) {
-    await holdUncertainMail(db, row.id, now);
+    await holdUncertainMail(db, row.id, now, 'sendgrid');
     return;
   }
   if (result.status === 'accepted') {

@@ -15,10 +15,12 @@ export function identityMailSender(db: D1Database, config: RuntimeConfig, delive
   if (!config.mailProvider) return undefined;
   const sender = createMailSender(config.mailProvider === 'development'
     ? { provider: 'development', mode: 'development' }
-    : { provider: config.mailProvider, mode: 'production', apiKey: config.mailApiKey }, config.mailProvider === 'development' ? { outbox: createD1DevelopmentOutbox({ db }) } : {});
+    : { provider: config.mailProvider, mode: 'production', apiKey: config.mailApiKey, ...(config.mailProvider === 'rer' ? {relayUrl: config.mailRelayUrl} : {}) }, config.mailProvider === 'development' ? { outbox: createD1DevelopmentOutbox({ db }) } : {});
   async function record(id: string, to: string, result: { status: string; providerMessageId: string | null; code?: string } | null) {
     const sent = result?.status === 'accepted' || result?.status === 'development';
-    delivery.failure = sent ? undefined : `${config.mailProvider} ${result?.status ?? 'transport failure'}${result?.code ? `: ${result.code}` : ''}`;
+    delivery.failure = sent ? undefined : config.mailProvider === 'rer'
+      ? 'Managed mail could not send this email. Check mail in your Run Edit Run hosting settings'
+      : `${config.mailProvider} ${result?.status ?? 'transport failure'}${result?.code ? `: ${result.code}` : ''}`;
     if (!delivery.requestDigest) return;
     const now = new Date().toISOString();
     await db.batch([
@@ -31,7 +33,10 @@ export function identityMailSender(db: D1Database, config: RuntimeConfig, delive
   return {
     async send(message) {
       let result;
-      try { result = await sender.send(message); }
+      // Base auth's Auto-Submitted header has no relay representation. RER owns
+      // message headers, sender and installation identity on this transport.
+      const { headers: _headers, ...relayMessage } = message;
+      try { result = await sender.send(config.mailProvider === 'rer' ? relayMessage : message); }
       catch (cause) { await record(message.deliveryId, message.to[0]!, null); throw cause; }
       await record(message.deliveryId, message.to[0]!, result);
       return result;

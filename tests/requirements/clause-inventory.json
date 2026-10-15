@@ -1505,7 +1505,7 @@
       "id": "MAIL-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of MAIL-002 — Delivery failure. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Exact supporting regressions cover public relay sign-in and rejection, durable Retry-After invitation delivery, held uncertainty, and ordinary provider policy. Full UI, profile and live relay acceptance remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/mail.test.ts",

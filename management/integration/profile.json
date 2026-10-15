@@ -12,7 +12,7 @@
   ],
   "ownerSetup": "The configured initial mailbox proves possession through Slate's native mail sign-in; bootstrapOwner creates the first workspace only when no workspace exists. RER does not insert a user or replace session authority.",
   "providerSetup": [
-    "Verified native mail sender and MAIL_API_KEY",
+    "Explicit RER, Resend or SendGrid mail provider, configured sender and private MAIL_API_KEY; RER also requires MAIL_RELAY_URL",
     "SESSION_SECRET retained independently of source; rotate with a session invalidation plan"
   ],
   "operationalGaps": [

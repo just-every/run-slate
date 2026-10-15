@@ -15,6 +15,10 @@ rer dev
 
 In a fresh checkout `rer dev` alone sets up a placeholder local owner. To use your own email instead, run `rer setup --owner-email owner@example.test` before `rer dev` (use your own address). When Slate is ready, open the printed `RER_OPEN` link to sign in as the local owner. Keep this link private. No email or outbox step is needed. On first use, name the workspace and create its first space and page at `/setup`. Private settings and local data survive restart; Slate creates no sample workspace. Setup reruns preserve your settings and owner. Stop dev with `rer dev --stop`. Use `rer preview` for a fixed production build.
 
+## Run Edit Run hosting
+
+Managed hosting includes mail without a Resend or SendGrid account. Run Edit Run Configure fills and hides `MAIL_PROVIDER`, `MAIL_FROM`, `MAIL_RELAY_URL` and `MAIL_API_KEY`, generating a private installation/environment credential. Free and Assisted hosting retain the options to use your own Resend or SendGrid account, verified sender and key. See [Email delivery](EMAIL.md) for relay acceptance and retry behavior.
+
 ## Your Cloudflare account
 
 Before deploying, you need a real Resend or SendGrid account, a verified sender and an owner mailbox you can read. Hosted Slate uses email sign-in. Supply these settings from your private vault or deployment environment:

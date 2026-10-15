@@ -28,6 +28,7 @@ export interface RuntimeBindings {
   MAIL_PROVIDER?: string;
   MAIL_FROM?: string;
   MAIL_API_KEY?: string;
+  MAIL_RELAY_URL?: string;
   PUBLIC_PAGE_HOST?: string;
   LINK_PREVIEWS_ENABLED?: string;
   AI_ENABLED?: string;
@@ -63,9 +64,10 @@ export interface RuntimeConfig {
   setupOwnerEmail?: string;
   /** One-time token for POST /auth/bootstrap; present only until the deployment claims its owner. */
   setupToken?: string;
-  mailProvider?: "resend" | "sendgrid" | "development";
+  mailProvider?: "rer" | "resend" | "sendgrid" | "development";
   mailFrom?: string;
   mailApiKey?: string;
+  mailRelayUrl?: string;
   publicPageHost?: string;
   linkPreviewsEnabled?: boolean;
   aiEnabled?: boolean;
@@ -158,7 +160,11 @@ export function readRuntimeConfig(env: RuntimeBindings, isLoopback: boolean): Ru
   const missing = missingDeploymentVariables(env);
   if (missing.length) throw new RuntimeConfigurationError(`Missing required configuration: ${missing.join(", ")}.`);
   const mailProvider = env.MAIL_PROVIDER!.trim();
-  if (!["resend", "sendgrid", "development"].includes(mailProvider)) throw new RuntimeConfigurationError("MAIL_PROVIDER must be resend, sendgrid or development.");
+  if (!["rer", "resend", "sendgrid", "development"].includes(mailProvider)) throw new RuntimeConfigurationError("MAIL_PROVIDER must be rer, resend, sendgrid or development.");
+  if (mailProvider === 'rer') {
+    const relay = requireHttpUrl(env.MAIL_RELAY_URL ?? '', 'MAIL_RELAY_URL');
+    if (relay.protocol !== 'https:' || relay.username || relay.password || relay.search || relay.hash || relay.href !== env.MAIL_RELAY_URL) throw new RuntimeConfigurationError('MAIL_RELAY_URL must be an exact HTTPS URL without credentials, query or fragment.');
+  }
   const appUrl = requireHttpUrl(env.APP_URL!, "APP_URL");
   const localDevelopment = env.LOCAL_DEVELOPMENT === "true";
   if (env.LOCAL_DEVELOPMENT && !["true", "false"].includes(env.LOCAL_DEVELOPMENT)) throw new RuntimeConfigurationError('LOCAL_DEVELOPMENT must be "true" or "false".');
@@ -201,6 +207,7 @@ export function readRuntimeConfig(env: RuntimeBindings, isLoopback: boolean): Ru
     mailProvider: mailProvider as RuntimeConfig["mailProvider"],
     mailFrom: env.MAIL_FROM,
     mailApiKey: env.MAIL_API_KEY,
+    mailRelayUrl: env.MAIL_RELAY_URL,
     publicPageHost: readPublicPageHost(env, appUrl),
     linkPreviewsEnabled: readBoolean(env, "LINK_PREVIEWS_ENABLED", true),
     aiEnabled,

@@ -2,7 +2,7 @@
 
 ## Run it locally
 
-Use Node.js 22.20.0 and pnpm 10.12.4, with `rer` installed (`npm install -g @runeditrun/rer`; the checkout pins its own `@runeditrun/rer` 0.2.19 in package mode, so change the pin with `pnpm add -D -E @runeditrun/rer@X` then `rer install`). From the checkout root:
+Use Node.js 22.20.0 and pnpm 10.12.4, with `rer` installed (`npm install -g @runeditrun/rer`; the checkout pins its own `@runeditrun/rer` 0.2.22 in package mode, so change the pin with `pnpm add -D -E @runeditrun/rer@X` then `rer install`). From the checkout root:
 
 ```sh
 rer install
@@ -42,3 +42,5 @@ Preserve every requirement ID and assertion. A deliberate requirement amendment 
 The default profile is core-wiki. Flagship is explicitly configured development functionality; enabling it does not grant authority, enable AI or establish product acceptance. The MAIL-002 amendment dated 7 October 2026 requires duplicate-safe retry: SendGrid uncertain sends stay held for provider review; a receipt proves acceptance only, not inbox delivery.
 
 `SLATE_MAIL_PROVIDER` is an explicit deployment input (`resend` or `sendgrid`) rendered as runtime `MAIL_PROVIDER`; do not restore a provider default. Development mail is allowed only with `LOCAL_DEVELOPMENT=true` and an exact loopback origin. Deployment and remote provider operations need the caller's authorization. `rer setup` prepares local native settings and owner sign-in; `rer deploy --environment NAME` uses Base deploy-kit for owner-account resources, secrets, migrations and health. Record local, deployed and provider evidence separately. Stop servers and watchers started for checks when finished.
+
+Managed hosting uses the copied Base `rer` mail relay adapter and needs no owner provider account. RER Configure fills and hides `MAIL_PROVIDER=rer`, `MAIL_FROM`, `MAIL_RELAY_URL` and private `MAIL_API_KEY`, generating the installation/environment credential. Never expose that credential or the upstream provider key. Free and Assisted hosting retain own-account Resend/SendGrid options; owner-account `rer deploy` still requires explicit `SLATE_MAIL_PROVIDER=resend` or `sendgrid`. Preserve the loopback development outbox and dev v2 flow. Relay acceptance is not inbox delivery; record deployed relay evidence separately from local checks.

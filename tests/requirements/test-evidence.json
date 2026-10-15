@@ -420,7 +420,7 @@
       "clauses": [
         "MAIL-002"
       ],
-      "reason": "Asserts MAIL-002 Worker routes require current authentication and expose public sign-in status only with capability. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Exercises public sign-in and owner mail routes with real Worker D1 and a relay fake only at fetch: exact RER request, accepted sign-in, visible credential rejection, durable Retry-After queue and replay, and held ambiguous delivery. Retains authentication and status-capability checks. Supporting scope only; no live relay or full UI acceptance claim."
     },
     {
       "file": "tests/flagship/core/mail.test.ts",

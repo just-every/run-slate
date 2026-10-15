@@ -1,6 +1,7 @@
 import type { RuntimeConfig } from '../../platform/config/runtime';
 import { identityMailer, MailDeliveryError } from '../../platform/mail';
-import { deliverSendGridIdentity, holdUncertainMail } from './mail-sendgrid';
+import { deliverSendGridIdentity } from './mail-sendgrid';
+import { holdUncertainMail } from './mail-uncertain';
 import { ApiProblem } from '../../app/problems';
 import { sessionDigest } from '../../platform/auth/token';
 import { mutationGuard } from '../../app/operations';
@@ -15,7 +16,7 @@ export async function readMail(db:D1Database,id:string){return db.prepare('SELEC
 export async function deliverIdentityMail(db:D1Database,config:RuntimeConfig,id:string,resources?:MailResources,now=new Date().toISOString()){
  const row=await readMail(db,id);
  if(!row||['sent','cancelled','failed','legacy','uncertain'].includes(row.delivery_phase)||row.state==='sent'||(row.next_attempt_at&&row.next_attempt_at>now)||(row.lease_until&&row.lease_until>now))return;
- if(row.provider==='sendgrid'&&row.delivery_phase==='sending'){await holdUncertainMail(db,id,now);return;}
+ if((row.provider==='sendgrid'||row.provider==='rer')&&row.delivery_phase==='sending'){await holdUncertainMail(db,id,now,row.provider);return;}
  if(providerRetryDeadline(row)<=Date.parse(now)){
   await db.prepare("UPDATE mail_deliveries SET state='failed',delivery_phase='failed',error_detail='Provider receipt is uncertain; the safe retry window has ended. Request a new link.',payload_ciphertext=NULL,next_attempt_at=NULL,lease_until=NULL,updated_at=? WHERE id=? AND state!='sent'").bind(now,id).run();return;
  }
@@ -43,12 +44,17 @@ export async function deliverIdentityMail(db:D1Database,config:RuntimeConfig,id:
   await db.prepare("UPDATE mail_deliveries SET state='sent',delivery_phase='sent',provider_message_id=?,sent_at=?,updated_at=?,lease_until=NULL,next_attempt_at=NULL,payload_ciphertext=NULL,error_detail=NULL WHERE id=? AND attempt_count=? AND delivery_phase='sending'").bind(sent.id,now,now,id,attempt).run();
  }catch(cause){
   // Retain HTTP status/category, never an untrusted body or exception containing links.
-  if(row.provider==='sendgrid'&&!(cause instanceof ApiProblem)){await holdUncertainMail(db,id,now);return;}
+  if(row.provider==='sendgrid'&&!(cause instanceof ApiProblem)){await holdUncertainMail(db,id,now,'sendgrid');return;}
   const status=cause instanceof MailDeliveryError?cause.status:null;
+  if(row.provider==='rer'&&!(cause instanceof ApiProblem)&&(!(cause instanceof MailDeliveryError)||cause.retryable&&status!==429)){
+   await holdUncertainMail(db,id,now,'rer');return;
+  }
   const transient=!(cause instanceof ApiProblem)&&(!(cause instanceof MailDeliveryError)||cause.retryable)&&(status===null||status===409||status===429||status>=500||status<300);
   const retry=transient&&cycle<3;
-  const detail=cause instanceof ApiProblem?`${cause.code}: delivery configuration/custody unavailable`:status?`Resend HTTP ${status}: ${transient?'delivery not confirmed':'request rejected'}`:'Resend transport or receipt persistence failure: delivery not confirmed';
-  const next=retry?new Date(Date.parse(row.cycle_started_at??now)+cycle*150000).toISOString():null;
+  const provider=row.provider==='rer'?'RER mail relay':'Resend';
+  const detail=cause instanceof ApiProblem?`${cause.code}: delivery configuration/custody unavailable`:status?`${provider} HTTP ${status}: ${transient?'delivery not confirmed':'request rejected'}`:`${provider} transport or receipt persistence failure: delivery not confirmed`;
+  const retryAfter=cause instanceof MailDeliveryError?cause.retryAfterSeconds??0:0;
+  const next=retry?new Date(Math.max(Date.parse(row.cycle_started_at??now)+cycle*150000,Date.parse(now)+retryAfter*1000)).toISOString():null;
   await db.prepare("UPDATE mail_deliveries SET state=?,delivery_phase=?,error_detail=?,next_attempt_at=?,lease_until=NULL,failed_at=?,updated_at=? WHERE id=? AND attempt_count=? AND delivery_phase='sending'").bind(retry?'queued':'failed',retry?'retry':'failed',detail,next,now,now,id,attempt).run();
  }
 }

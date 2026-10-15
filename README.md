@@ -44,7 +44,7 @@ git clone https://github.com/just-every/run-slate.git slate
 cd slate
 ```
 
-Install rer once per computer (`npm install -g @runeditrun/rer`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins (0.2.19). In a fresh checkout `rer dev` alone installs the pinned dependencies, makes a placeholder local owner and starts Slate. To choose your own owner email, prepare it first:
+Install rer once per computer (`npm install -g @runeditrun/rer`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins (0.2.22). In a fresh checkout `rer dev` alone installs the pinned dependencies, makes a placeholder local owner and starts Slate. To choose your own owner email, prepare it first:
 
 ```sh
 rer install
@@ -94,6 +94,10 @@ rer reset --yes
 ```
 
 It removes local D1/R2/collaboration state, settings, outbox and installer drafts, preserving source, dependencies, owner exports and deployment receipts. Back up first. Reset refuses while another operation owns local state.
+
+## Mail with Run Edit Run hosting
+
+Managed hosting includes mail through Run Edit Run; you do not need a Resend or SendGrid account. Configure fills and hides `MAIL_PROVIDER`, `MAIL_FROM`, `MAIL_RELAY_URL` and `MAIL_API_KEY`, generating a private credential for the installation and environment. Slate uses Base's copied `rer` relay adapter. Free and Assisted hosting keep the options to use your own Resend or SendGrid account, key and verified sender. Local development keeps its loopback outbox and dev v2 sign-in flow.
 
 ## Deploy to your Cloudflare account
 
