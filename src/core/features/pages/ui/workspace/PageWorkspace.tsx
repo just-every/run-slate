@@ -331,7 +331,7 @@ function LoadedPage({
             document={document}
             onAsk={selection=>{if(flagship){setSelection(selection);setDetail("ask");}}}
             onComment={selection=>{setSelection(selection);setDetail("comments");if(selection)reload();}}
-            footer={<details className="page-reactions"><summary>Reactions</summary><PageReactions pageId={document.page.id}/></details>}
+            footer={<details className="page-reactions"><summary>👍 Reactions</summary><PageReactions pageId={document.page.id}/></details>}
           />
         </article>
         {detail && Object.hasOwn(panelTitles, detail) && (flagship || detail !== "ask") ? (
