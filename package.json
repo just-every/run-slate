@@ -73,7 +73,7 @@
     "@cloudflare/vitest-pool-workers": "0.22.0",
     "@cloudflare/workers-types": "5.20260908.1",
     "@playwright/test": "1.63.0",
-    "@runeditrun/rer": "0.2.7",
+    "@runeditrun/rer": "0.2.15",
     "@tailwindcss/vite": "4.3.3",
     "@types/node": "26.5.0",
     "@types/react": "19.2.18",

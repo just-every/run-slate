@@ -7,12 +7,12 @@ export interface Mailer { send(message: OutboundMail): Promise<{ id: string }> }
 export class MailDeliveryError extends Error {
   constructor(message: string, readonly status: number | null, readonly retryable = true) { super(message); }
 }
-export interface MailerOptions { provider: 'resend' | 'sendgrid' | 'development'; from: string; apiKey?: string; fetch?: typeof globalThis.fetch; db?: D1Database; localDevelopment?: boolean; appUrl?: string }
+export interface MailerOptions { provider: 'resend' | 'sendgrid' | 'development'; from: string; apiKey?: string; fetch?: typeof globalThis.fetch; db?: D1Database; localDevelopment?: boolean; appUrl?: string; demo?: boolean }
 
 /** Native compatibility seam; all transport and provider classification belong to Base Mail. */
 export function createMailer(options: MailerOptions): Mailer {
   if (!options.from.trim()) throw new Error('MAIL_FROM is required to create the mail adapter.');
-  if (options.provider === 'development' && (!options.localDevelopment || !isLocalOrigin(options.appUrl))) throw new Error('Development mail requires LOCAL_DEVELOPMENT and a loopback APP_URL.');
+  if (options.provider === 'development' && !options.demo && (!options.localDevelopment || !isLocalOrigin(options.appUrl))) throw new Error('Development mail requires LOCAL_DEVELOPMENT and a loopback APP_URL.');
   if (options.provider === 'development' && !options.db) throw new Error('Development mail requires a database.');
   const outbox = options.provider === 'development' ? createD1DevelopmentOutbox({db: options.db!}) : undefined;
   const fetcher = options.fetch ?? globalThis.fetch;
@@ -40,5 +40,5 @@ export function createMailer(options: MailerOptions): Mailer {
 
 export function identityMailer(config: RuntimeConfig, db: D1Database, from: string) {
   if (!config.mailProvider) throw new Error('MAIL_PROVIDER is required.');
-  return createMailer({ provider: config.mailProvider, from, apiKey: config.mailApiKey, db, localDevelopment: config.localDevelopment, appUrl: config.appUrl });
+  return createMailer({ provider: config.mailProvider, from, apiKey: config.mailApiKey, db, localDevelopment: config.localDevelopment, appUrl: config.appUrl, demo: config.demo });
 }

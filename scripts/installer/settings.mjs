@@ -39,7 +39,7 @@ export async function loadLocalSettings(root, env = process.env) {
 }
 export const localPaths = (env = process.env) => ({
   configPath: env.SLATE_WRANGLER_CONFIG_PATH ?? 'wrangler.jsonc',
-  persistPath: env.SLATE_PERSIST_STATE_PATH ?? '.wrangler/state',
+  persistPath: env.RER_STATE_DIR ?? env.SLATE_PERSIST_STATE_PATH ?? '.wrangler/state',
 });
 export function migrationCommand(env = process.env) {
   const { configPath, persistPath } = localPaths(env);

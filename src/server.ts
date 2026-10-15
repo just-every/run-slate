@@ -1,3 +1,5 @@
+import { withDemo } from "./modules/demo/index.mjs";
+import { seedDemo, demoOwner } from "./demo";
 import {editorHeaders} from "./core/app/editor-config";
 import { developmentOutbox } from "./core/app/development-outbox";
 import { publicDocumentLimit } from "./core/app/http-security";
@@ -30,13 +32,13 @@ const api = createApi();
  *
  * Native queue, cron and page collaboration exports delegate to their domain owners.
  */
-export default {
+export default withDemo({
   async queue(batch,bindings:AppBindings){ await consumeJobs(batch,bindings); },
   async scheduled(_event,bindings:AppBindings){ await scheduledJobs(bindings); },
   async fetch(request, bindings: AppBindings, execution): Promise<Response> {
     return editorHeaders(withDocumentNoTransform(await handleRequest(request, bindings, execution)), bindings);
   },
-} satisfies ExportedHandler<AppBindings>;
+} satisfies ExportedHandler<AppBindings>, { seed: seedDemo, owner: demoOwner });
 
 function withDocumentNoTransform(response: Response): Response {
   if (!response.headers.get("content-type")?.toLowerCase().includes("text/html")) return response;
