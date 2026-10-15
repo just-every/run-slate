@@ -3343,7 +3343,7 @@
       "executable": false
     },
     "scripts/cf-typegen.mjs": {
-      "sha256": "aef93b1e5a0504859a8bda0e8ee2f40aa13a77e52c4db6e2ac358d3f4c75c586",
+      "sha256": "433194ed27c2941bcaa28ed4174ee948a799ab7bc4bab93c17854c29a7f098a2",
       "executable": false
     },
     "scripts/check-artifact.mjs": {
@@ -9479,7 +9479,7 @@
       "executable": false
     },
     "worker-configuration.d.ts": {
-      "sha256": "e8845400cbe9be329b87eca6fcb95457e6a0384fe4797908937ab90fe6c3e023",
+      "sha256": "e9114a9f87c7dbf561296caa5cb5583a66e8dba69fe6000448d0e19f9170d284",
       "executable": false
     },
     "wrangler.jsonc": {
