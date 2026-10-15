@@ -33,7 +33,8 @@ export const commandAdapter = describeAdapter(lifecycle, {
   // Local-only persona sign-in; vite.config.ts loads the entry for `vite dev` alone.
   devIdentity: { entry: 'src/dev/server.ts', output: ['dist'], emailLinkTest: 'tests/local-journey/cli.test.mjs' },
   settings: [secrets.file, secrets.file + '.previous'],
-  input: { names: { email: 'SETUP_OWNER_EMAIL' } },
+  // Hosted setup defaults to a real provider; this computer's setup answers the development outbox itself.
+  input: { names: { email: 'SETUP_OWNER_EMAIL' }, defaults: async () => ({ MAIL_PROVIDER: 'development', MAIL_FROM: 'auth@localhost.test' }) },
   // The run site (run-slate.com): `rer build --site` writes src/site/pages.tsx's pages to dist/site; `rer deploy --site` publishes it.
   site: { entry: 'src/site/pages.tsx', output: 'dist/site', declaration: 'deploy-site.json', config: 'vite.site.config.ts' },
 });
