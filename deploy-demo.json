@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "domain": "run-slate.com",
+  "name": "Slate",
+  "settings": {
+    "SETUP_OWNER_EMAIL": "owner@demo.invalid",
+    "MAIL_PROVIDER": "development",
+    "MAIL_FROM": "Slate demo <demo@demo.invalid>",
+    "LOCAL_DEVELOPMENT": "false",
+    "AI_ENABLED": "false",
+    "SSO_ENABLED": "false",
+    "IDENTITY_PROVIDER": "",
+    "SLATE_PROFILE": "flagship"
+  }
+}
