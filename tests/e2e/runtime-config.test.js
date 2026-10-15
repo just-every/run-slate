@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { readRuntimeConfig, RuntimeConfigurationError } from "../../src/core/platform/config/runtime.ts";
-const local = {LOCAL_DEVELOPMENT:'true', APP_URL:'http://127.0.0.1:4312',SETUP_OWNER_EMAIL:'owner@example.com',SESSION_SECRET:'local-development-secret',MAIL_PROVIDER:'development',MAIL_FROM:'auth@localhost.test'};
+const local = {LOCAL_DEVELOPMENT:'true', APP_URL:'http://127.0.0.1:4312',SETUP_OWNER_EMAIL:'owner@example.com',SESSION_SECRET:'synthetic-local-development-secret',MAIL_PROVIDER:'development',MAIL_FROM:'auth@localhost.test'};
 
 test("local development requires an explicit flag and exact loopback configured origin and request", () => {
   const config = readRuntimeConfig(local, true);
   assert.equal(config.localDevelopment, true);
-  assert.equal(config.sessionSecret, "local-development-secret");
+  assert.equal(config.sessionSecret, "synthetic-local-development-secret");
   assert.equal(config.mailProvider, 'development');
   assert.equal(config.appUrl, 'http://127.0.0.1:4312');
   for (const APP_URL of ['https://hosted.example.com','http://127.0.0.1:4312/path','http://127.0.0.1:4312/','http://user@127.0.0.1:4312','http://127.0.0.1:4312?x=1']) assert.throws(() => readRuntimeConfig({...local,APP_URL},true), /LOCAL_DEVELOPMENT/);

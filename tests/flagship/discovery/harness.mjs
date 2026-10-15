@@ -8,7 +8,7 @@ const {Miniflare,convertV4MiniflareOptions}=dependencies('miniflare');const {bui
 export async function harness(options={}){
  const temp=await mkdtemp(path.join(tmpdir(),'slate-discovery-'));const outfile=path.join(temp,'worker.mjs');
  await build({entryPoints:['tests/flagship/discovery/worker.ts'],outfile,bundle:true,format:'esm',platform:'browser',target:'es2022'});
- const mf=new Miniflare(convertV4MiniflareOptions({workers:[{name:'discovery',modules:true,script:await readFile(outfile,'utf8'),compatibilityDate:'2026-09-08',compatibilityFlags:['nodejs_compat'],d1Databases:{DB:'discovery'},r2Buckets:['FILES'],queueProducers:{JOBS:'discovery-jobs'},bindings:{SESSION_SECRET:'test-session-secret-with-at-least-32-characters',CONNECTOR_CREDENTIALS_KEY:'test-credential-key-with-at-least-32-characters'}}]}));
+ const mf=new Miniflare(convertV4MiniflareOptions({workers:[{name:'discovery',modules:true,script:await readFile(outfile,'utf8'),compatibilityDate:'2026-09-08',compatibilityFlags:['nodejs_compat'],d1Databases:{DB:'discovery'},r2Buckets:['FILES'],queueProducers:{JOBS:'discovery-jobs'},bindings:{SESSION_SECRET:'synthetic-test-session-secret-with-at-least-32-characters',CONNECTOR_CREDENTIALS_KEY:'synthetic-test-credential-key-with-at-least-32-characters'}}]}));
  let db;try{db=await mf.getD1Database('DB');}catch(error){await mf.dispose();throw error;}
  try{
  // SQLite complete statements preserve trigger bodies while D1 batch gives the real migration transaction.
@@ -18,7 +18,7 @@ export async function harness(options={}){
  await db.prepare("INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES('w','Discovery fixture','S',?,?,'wrev')").bind(now,now).run();
  for(const [id,role,kind] of [['owner','owner','member'],['reader','member','member'],['denied','member','member'],['guest','member','guest']]){
   await db.prepare('INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?)').bind(id,'w',`${id}@example.test`,id,id.slice(0,2),role,kind,now,now).run();
-  const digest=createHmac('sha256','test-session-secret-with-at-least-32-characters').update(`${id}-token`).digest('hex');await db.prepare('INSERT INTO sessions(id,member_id,token_digest,created_at,updated_at,expires_at) VALUES(?,?,?,?,?,?)').bind(`${id}-session`,id,digest,now,now,'2099-01-01T00:00:00.000Z').run();
+  const digest=createHmac('sha256','synthetic-test-session-secret-with-at-least-32-characters').update(`${id}-token`).digest('hex');await db.prepare('INSERT INTO sessions(id,member_id,token_digest,created_at,updated_at,expires_at) VALUES(?,?,?,?,?,?)').bind(`${id}-session`,id,digest,now,now,'2099-01-01T00:00:00.000Z').run();
  }
  await db.prepare("INSERT INTO containers(id,workspace_id,name,created_at,updated_at,revision_id) VALUES('c','w','Shared fixture',?,?,'crev')").bind(now,now).run();
  await db.prepare("INSERT INTO container_owners VALUES('c','owner',?)").bind(now).run();

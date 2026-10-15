@@ -21,6 +21,7 @@ const last = output => JSON.parse(output.trim().split('\n').filter(line => line.
  */
 test('a populated installation comes back on fresh authority under a different owner', { timeout: 40 * 60_000 }, async () => {
   const copy = await scratch(); let dev;
+  const credentialId = 'synthetic-journey-credential';
   const run = (verb, flags) => copy.run('node', cli(verb, flags));
   const refused = async (verb, flags) => { const child = copy.start('node', cli(verb, flags)); const code = await child.done; await copy.stop(child); return { code, result: last(child.output), error: child.output.split('\n').filter(line => line.includes('"event":"error"')).map(line => JSON.parse(line)).at(-1) }; };
   const sql = async command => JSON.parse(await copy.run('pnpm', ['exec', 'wrangler', 'd1', 'execute', 'DB', '--local', '--persist-to', '.wrangler/state', '--config', 'wrangler.jsonc', '--command', command, '--json']))[0].results;
@@ -57,7 +58,7 @@ test('a populated installation comes back on fresh authority under a different o
     await api.ok(alice.cookie, 'POST', '/api/members/remove', { operationKey: crypto.randomUUID(), memberId: dave.member.id });
     await stopDev();
     // An agent credential, which export always erases.
-    await sql(`INSERT INTO intelligence_agent_credentials(id,workspace_id,owner_id,subject_id,token_hash,scope_json,expires_at,revoked_at,created_at,dev_minted) SELECT 'journey-credential',workspace_id,id,id,'digest-'||hex(randomblob(16)),'{}','2099-01-01T00:00:00.000Z',NULL,'2026-10-01T00:00:00.000Z',0 FROM members WHERE id='${aliceId}'`);
+    await sql(`INSERT INTO intelligence_agent_credentials(id,workspace_id,owner_id,subject_id,token_hash,scope_json,expires_at,revoked_at,created_at,dev_minted) SELECT '${credentialId}',workspace_id,id,id,'digest-'||hex(randomblob(16)),'{}','2099-01-01T00:00:00.000Z',NULL,'2026-10-01T00:00:00.000Z',0 FROM members WHERE id='${aliceId}'`);
     const before = await snapshot();
     assert.ok(before.sessions[0].n >= 3, 'live sessions for the owner and two members');
     await mkdir(join(copy.root, 'exports'), { recursive: true });
@@ -100,7 +101,7 @@ test('a populated installation comes back on fresh authority under a different o
     await run('setup', ['--owner-email', 'alice@example.test']);
     const doctored = last(await run('import', ['--input', 'exports/doctored.rer', '--yes']));
     assert.ok((await sql('SELECT revoked_at FROM public_exposures')).every(row => row.revoked_at), 'the doctored public link is revoked on import');
-    assert.deepEqual(await sql("SELECT token_hash,scope_json,revoked_at IS NOT NULL AS revoked FROM intelligence_agent_credentials"), [{ token_hash: 'erased:journey-credential', scope_json: '{}', revoked: 1 }], 'the doctored credential is erased as export erases it');
+    assert.deepEqual(await sql("SELECT token_hash,scope_json,revoked_at IS NOT NULL AS revoked FROM intelligence_agent_credentials"), [{ token_hash: 'erased:' + credentialId, scope_json: '{}', revoked: 1 }], 'the doctored credential is erased as export erases it');
     assert.deepEqual(await sql(`SELECT status FROM members WHERE id='${dave.member.id}'`), [{ status: 'removed' }], 'a removed member stays removed');
     assert.deepEqual(await sql(`SELECT id FROM page_grants WHERE principal_id='${dave.member.id}'`), [], "the removed member's doctored grant is left out");
     assert.equal(doctored.warnings?.length, 1, 'and the import says so');

@@ -2,6 +2,8 @@
 
 ## Unreleased — 9 October 2026
 
+Test credentials are explicitly synthetic so hosted source checks accept Slate-owned fixtures while preserving security assertions.
+
 The checkout pins `@runeditrun/rer` exactly to 0.2.23 and adopts Base's Managed mail transport fix. Sign-in passes Base's Auto-Submitted header to the relay adapter; requests use Workers-supported manual redirects and reject relay redirects without following them. Retry-After scheduling and safe owner-visible errors remain. `/signin?login_hint=<email>` prefills the Email field using Base's email validation without sending a request. Emitted-Worker checks establish relay acceptance, redirect refusal, rate-limit recovery and credential rejection locally; they do not establish inbox delivery.
 
 A page mention names its target only as each reader may see it at every door that returns page text, now including AI evidence and Ask packets (labelled for everyone in their audience), suggestions, template previews and retained claims (LINK-004). `rer import` sets every imported row to what export writes, so a changed archive cannot bring back a live agent credential or chat or federation connection, and a member removed before the export stays removed: any grant or group membership the archive gives them is left out with a warning (PORT-005). A structure change whose page read does not answer within 15 seconds fails with a message instead of leaving the editor waiting with its refreshes paused.

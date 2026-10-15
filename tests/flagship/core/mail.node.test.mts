@@ -104,7 +104,7 @@ test('MAIL-002 interrupted failure persistence retains spacing and provider cust
  const f=fixture();let calls=0;const restore=provider(async()=>{calls++;return new Response('down',{status:503});});try{
   let interrupt=true;f.setFault(q=>{if(interrupt&&q.startsWith('UPDATE mail_deliveries SET state=?')){interrupt=false;return true;}return false;});await assert.rejects(invite(f.ctx,config,input()),/injected/);assert.equal(row(f).delivery_phase,'sending');assert.equal(row(f).next_attempt_at,after(150000));f.setFault(()=>false);
   await scheduleIdentityMail(f.db,config,undefined,after(60000));assert.equal(calls,1);await scheduleIdentityMail(f.db,config,undefined,after(150000));assert.equal(calls,2);
-  await scheduleIdentityMail(f.db,{...config,mailApiKey:'different-provider-credential'},undefined,after(300000));assert.equal(calls,2);assert.equal(row(f).state,'failed');assert.match(row(f).error_detail,/MAIL_PROVIDER_CHANGED/);
+  await scheduleIdentityMail(f.db,{...config,mailApiKey:'synthetic-different-provider-credential'},undefined,after(300000));assert.equal(calls,2);assert.equal(row(f).state,'failed');assert.match(row(f).error_detail,/MAIL_PROVIDER_CHANGED/);
  }finally{restore();f.close();}
 });
 

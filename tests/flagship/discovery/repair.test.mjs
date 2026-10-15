@@ -7,7 +7,7 @@ const {connectChat}=await tsImport('../../../src/core/features/notifications/cha
 const {createComment}=await tsImport('../../../src/core/features/comments/service.ts',import.meta.url);
 const {notificationStatements}=await tsImport('../../../src/core/features/notifications/events.ts',import.meta.url);
 const {ChatProviderError}=await tsImport('../../../src/core/features/notifications/slack.ts',import.meta.url);
-const secret='test-credential-key-with-at-least-32-characters';
+const secret='synthetic-test-credential-key-with-at-least-32-characters';
 function context(h){return {db:h.db,files:{},jobs:{send:async()=>{}},actor:{id:'owner',workspaceId:'w',role:'owner',email:'owner@example.test',displayName:'owner',initials:'ow',workspaceName:'test'},now:h.now};}
 const adapter={audience:async()=>({emails:['reader@example.test'],teamId:'TTEST'}),send:async()=> 'receipt',findReceipt:async()=>null};
 const config={credentialKey:secret,appUrl:'https://slate.example.test',adapter};

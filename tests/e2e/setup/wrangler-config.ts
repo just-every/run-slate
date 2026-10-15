@@ -22,7 +22,7 @@ const testVars: Record<string, string> = {
   SETUP_OWNER_EMAIL: "owner@slate.test",
   SESSION_SECRET: "slate-workers-test-session-secret",
   MAIL_PROVIDER: 'resend', MAIL_FROM: "slate@slate.test",
-  MAIL_API_KEY: "slate-workers-test-mail-key",
+  MAIL_API_KEY: "synthetic-slate-workers-test-mail-key",
 };
 
 /**

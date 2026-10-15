@@ -30,7 +30,7 @@ export async function owningFixture(expectedState:'open'|'completed'|'cancelled'
   }
   throw Error('Unexpected fixture request: '+url.href);
  });
- const connected=await connect(f.context(),{operationKey:'typed-connection',provider:'orbit',accountId:'account',token:'protocol-fixture-token',nativeConfig:{origin:'https://native.test',accountId:'account',clientId:'slate',allowLoopback:false}},secret),connectionId=connected.value.id;
+ const connected=await connect(f.context(),{operationKey:'typed-connection',provider:'orbit',accountId:'account',token:'synthetic-protocol-fixture-token',nativeConfig:{origin:'https://native.test',accountId:'account',clientId:'slate',allowLoopback:false}},secret),connectionId=connected.value.id;
  await env.DB.prepare('UPDATE workspaces SET ai_enabled=1,ai_monthly_budget_micros=1000000 WHERE id=?').bind(f.workspaceId).run();
  const measuredContext=f.context();const measured=await recordRouteEvaluation(measuredContext,{operationKey:'typed-route-evaluation',provider:'openai',model:'protocol-fixture',task:'procedure',cutoff:'2020-01-01T00:00:00Z',expiresAt:'2099-01-01T00:00:00Z',minimumFit:0.9,cases:[{caseId:'labelled-protocol-fixture',heldOut:true,observedAt:measuredContext.now,passed:true,costMicros:1,elapsedMs:1,receipt:'test-only',refs:f.refs}]});
  await setModelPolicy(f.context(),{operationKey:'typed-model-policy',policy:{attentionBudget:100,routes:[{provider:'openai',model:'protocol-fixture',role:'frontier',inputMicrosPerMillion:1000000,outputMicrosPerMillion:1000000,maxRunMicros:1000000,monthlyMicros:1000000,tasks:['procedure'],evaluationId:measured.value.id}]}});
