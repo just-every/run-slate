@@ -3287,7 +3287,7 @@
       "executable": false
     },
     "README.md": {
-      "sha256": "2485726feaec18b2b0f73a0df0b17669e5fe3dc6955899b7c57b7965ba87c0d4",
+      "sha256": "aaed7b84c733729d4a1294464d3f063c9945383c36544e847c68f96fc9c8e28f",
       "executable": false
     },
     "RELEASE.json": {
@@ -3295,11 +3295,11 @@
       "executable": false
     },
     "rer-project.json": {
-      "sha256": "9c91cc30d943d5353cd022e5f210603041a4c9bcae1b0dbe7ed02847f49d6a30",
+      "sha256": "6f029fa951dd127cdaa78bf08f3deda75c604b57a66c0eb709123973b394c23f",
       "executable": false
     },
     "rer-setup.json": {
-      "sha256": "7efd68144b885e776a3951e926f17305c3d384bb2da0d70b0a1376ef11c2a782",
+      "sha256": "65490dcb41ce85dd7f6b2bd8bf31a7c9a4d67aad2a6c5a40ac6da8b4b3325bbf",
       "executable": false
     },
     "RUN-LOCALLY.md": {
@@ -3871,7 +3871,7 @@
       "executable": false
     },
     "src/core/app/ui/AppNavigation.tsx": {
-      "sha256": "cc5aceab7b314aad13af27b1f23694282a2991fa722b964b9c8c12a65c19c434",
+      "sha256": "d08fe0115314b54e338bf2d04ba3da52ddfd16b9c758b4d555bca5cb56f11b9e",
       "executable": false
     },
     "src/core/app/ui/AppShell.tsx": {
@@ -3951,7 +3951,7 @@
       "executable": false
     },
     "src/core/app/ui/SpaceTrees.tsx": {
-      "sha256": "cf3cfc9f4d221b53e4696a091896063ed7791b02ba34644aa4f060a7b16848ca",
+      "sha256": "f36549cc12a32441201f0f7b79c8164abb7e3fcffc131f4819e4a9c2619ef098",
       "executable": false
     },
     "src/core/app/ui/TreeMoveDialog.tsx": {
@@ -6159,7 +6159,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageSharing.tsx": {
-      "sha256": "f359452e456c9850c4ff8bb2def32e81855db4c3c2629fb01808012c4d28b237",
+      "sha256": "935a9535888a90aac0c1e03431c1d89334869b426159a55b66ffdefe4b807221",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageStatusBadge.tsx": {
@@ -6171,7 +6171,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageTransferDialog.tsx": {
-      "sha256": "c29289d555119349efab7cfbe2194144340b2bb0b5bf3e4d6bb36d2a6b159c66",
+      "sha256": "ac9b08ee14f60c5fea1b23aa26e88905307bcb560f34713450f2ca9ab9f41647",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageWorkspace.tsx": {

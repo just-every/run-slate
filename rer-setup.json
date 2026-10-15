@@ -12,10 +12,6 @@
       "help": "Local development uses the loopback outbox. Hosting requires Resend or SendGrid."
     },
     {
-      "id": "deployment",
-      "label": "Hosted deployment"
-    },
-    {
       "id": "session",
       "label": "Native session"
     }
@@ -91,13 +87,6 @@
       ]
     },
     {
-      "name": "DEPLOY_ENV",
-      "label": "Deployment environment",
-      "kind": "text",
-      "group": "deployment",
-      "help": "Required for hosting in your Cloudflare account."
-    },
-    {
       "name": "APP_URL",
       "label": "Application origin",
       "kind": "url",
@@ -150,10 +139,7 @@
     }
   ],
   "runtime": {
-    "additionalFields": false,
-    "exclude": [
-      "DEPLOY_ENV"
-    ]
+    "additionalFields": false
   },
   "steps": [
     {

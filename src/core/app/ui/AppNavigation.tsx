@@ -28,7 +28,7 @@ import { useCreatePage } from "./useCreatePage";
 import { useInferredSpace } from "./useInferredSpace";
 import { DEFAULT_PAGE_TITLE, type SpaceChoice } from "./pageDestination";
 import { SidebarHeader } from "./SidebarHeader";
-import { SpaceTrees } from "./SpaceTrees";
+import { SpaceTrees, type NavigationDatabases } from "./SpaceTrees";
 import { AccountMenu } from "./AccountMenu";
 
 const destinationIcons: Record<string, typeof Search> = {"/app":CalendarDays,"/app/search":Search,"/app/inbox":Inbox,"/app/review":ShieldCheck,"/app/containers":Folder,"/app/templates":LayoutTemplate,"/app/archive":Archive,"/app/settings":Settings};
@@ -42,19 +42,19 @@ function MemberNavigation({ onNavigate }: { onNavigate?: () => void }) {
   const { member, workspace, navigation } = useWorkspace();
   const flagship = useFlagshipEnabled();
   const pages = useResource<PageResult<TreePage>>("/api/pages");
-  const databases = useResource<{ items: { id: string; title: string }[] }>(
+  const databases = useResource<NavigationDatabases>(
     "/api/databases",
   );
   useEffect(() => {
     const refreshRecents = () => { void navigation.reload(); };
-    const refreshTree = () => { refreshRecents(); void pages.reload(); };
+    const refreshTree = () => { refreshRecents(); void pages.reload(); void databases.reload(); };
     window.addEventListener("slate:page-opened", refreshRecents);
     window.addEventListener("slate:navigation-changed", refreshTree);
     return () => {
       window.removeEventListener("slate:page-opened", refreshRecents);
       window.removeEventListener("slate:navigation-changed", refreshTree);
     };
-  }, [navigation.reload, pages.reload]);
+  }, [navigation.reload, pages.reload, databases.reload]);
   const containers=useResource<{items:SpaceChoice[]}>(navigation.data?.isGuest ? null : "/api/containers");
   const review=useResource<{count:number}>("/api/status/review/count");
   useEffect(()=>{const refresh=()=>{void review.reload();};window.addEventListener("slate:review-changed",refresh);return()=>window.removeEventListener("slate:review-changed",refresh);},[review.reload]);

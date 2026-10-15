@@ -44,7 +44,7 @@ git clone https://github.com/just-every/run-slate.git slate
 cd slate
 ```
 
-Install rer once per computer (`npm install -g @runeditrun/rer`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins (0.2.7). In a fresh checkout `rer dev` alone installs the pinned dependencies, makes a placeholder local owner and starts Slate. To choose your own owner email, prepare it first:
+Install rer once per computer (`npm install -g @runeditrun/rer`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins (0.2.19). In a fresh checkout `rer dev` alone installs the pinned dependencies, makes a placeholder local owner and starts Slate. To choose your own owner email, prepare it first:
 
 ```sh
 rer install
@@ -54,14 +54,19 @@ rer dev
 
 Use your own email address. Setup prepares the local app, database and private settings, then exits with no app running. Running setup again preserves your settings, workspace and owner. Changing a saved owner or address requires explicit recovery or reset.
 
-When Slate is ready, dev prints an `RER_OPEN` link. Open that link to sign in as the local owner; no email or outbox step is needed. Keep the link private. On first use, name the workspace and create its first space and page at `/setup`; later visits open your existing workspace. Local data lives in `.wrangler/state`; credentials stay out of production builds.
+When Slate is ready, dev prints an `RER_OPEN` link. Open that link to sign in as the local owner; no email or outbox step is needed for this initial sign-in. Keep the link private. On first use, name the workspace and create its first space and page at `/setup`; later visits open your existing workspace. Local data lives in `.wrangler/state`; credentials stay out of production builds.
+
+Sensitive operations still require a fresh email confirmation. In local development, open `/__dev/outbox` on the same Slate origin in the browser where you used `RER_OPEN`, read the newest confirmation message, follow its link, then retry the operation. Local messages stay in this outbox; no email is sent.
 
 In a second terminal, stop dev before running the checks:
 
 ```sh
 rer dev --stop
+node_modules/.bin/playwright install chromium
 rer verify
 ```
+
+`rer verify` requires Playwright's Chromium for its production hydration check. Install it once after `rer install` using the checkout's command above; no global pnpm installation is needed.
 
 `rer build` then `rer preview` serves a fixed production build. Dev supports Vite editing/HMR. Both reuse a compatible running instance, preserve the saved origin and native identity, and accept explicit loopback `--host`, `--port`, and `--idle-timeout`. Stop the active mode before changing modes. `rer doctor` reports missing local inputs without provider requests. `rer check --profile first-party` validates the command contract before dependencies or setup exist.
 
@@ -124,6 +129,6 @@ pnpm test:release-source
 pnpm source:check
 ```
 
-`rer verify` checks command contracts, generated Worker binding freshness, types, static contracts and boundaries, source integrity and the emitted build/artifact; it runs no test suites. `pnpm verify:ci` runs those checks plus Slate's CI test suites, including installer, local journey, outbox, foundation, platform, profile, type-generation, portability and operations coverage. Build and deploy commands do not run test suites. Planned contract clauses remain visible; a passing check does not imply full flagship acceptance. `pnpm test:release-regressions` separately exercises publication relocation, erasure and the emitted browser console; install Chromium with `pnpm exec playwright install chromium` first.
+`rer verify` checks command contracts, generated Worker binding freshness, types, static contracts and boundaries, source integrity and the emitted build/artifact; it runs no test suites. It requires Chromium installed with `node_modules/.bin/playwright install chromium` after `rer install`. `pnpm verify:ci` runs those checks plus Slate's CI test suites, including installer, local journey, outbox, foundation, platform, profile, type-generation, portability and operations coverage. Build and deploy commands do not run test suites. Planned contract clauses remain visible; a passing check does not imply full flagship acceptance. `pnpm test:release-regressions` separately exercises publication relocation, erasure and the emitted browser console using the same Chromium installation.
 
 Advanced federation and inquiry code remains in the source under the explicit `SLATE_PROFILE=flagship` development profile. It is outside the core-wiki release acceptance. [CONTRACT.md](CONTRACT.md), [ACCEPTANCE.md](ACCEPTANCE.md), and [HANDOVER.md](HANDOVER.md) state requirements and current evidence limits. Slate is MIT licensed.

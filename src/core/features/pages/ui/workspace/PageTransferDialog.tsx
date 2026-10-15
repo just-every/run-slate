@@ -71,7 +71,7 @@ export function PageTransferDialog({
         }}
       >
         <p>
-          The page and its children will move together. Current access changes:
+          {pages.data?.items.some((page) => page.parentPageId === pageId) ? "The page and its children will move together." : "The page will move; it has no child pages."} Current access changes:
         </p>
         {plan.changes.length ? (
           <ul>
