@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { normalizeEmail } from "../../../../../modules/operator-auth/index.mjs";
 import { requestJson } from "../../../api/request";
 import { SignInScreen } from "./SignInScreen";
 import { PaperPage, PaperScene } from "./PaperPage";
@@ -6,10 +7,12 @@ import { PaperPage, PaperScene } from "./PaperPage";
 import type { SignInCapabilities } from '../capabilities';
 
 /** Public capabilities are request-specific first-response content. */
-export function SignInPage({ capabilities, requested = false }: { next: string; capabilities: SignInCapabilities; requested?: boolean }) {
+export function SignInPage({ capabilities, requested = false, loginHint }: { loginHint?: string; next: string; capabilities: SignInCapabilities; requested?: boolean }) {
   const [failure, setFailure] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => {
+    try { return normalizeEmail(loginHint); } catch { return ""; }
+  });
   const [delivery, setDelivery] = useState<
     "queued" | "sent" | "failed" | "uncertain" | "unconfirmed" | null
   >(requested ? "unconfirmed" : null);

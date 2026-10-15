@@ -1,6 +1,5 @@
 import { createMailSender } from '../../../../modules/mail/src/sender.mjs';
 import { isLocalOrigin, type RuntimeConfig } from '../config/runtime';
-import { fetchMail } from './fetch';
 
 export interface OutboundMail { to: string; subject: string; text: string; html?: string; idempotencyKey?: string }
 export interface Mailer { send(message: OutboundMail): Promise<{ id: string | null }> }
@@ -22,7 +21,7 @@ export function createMailer(options: MailerOptions): Mailer {
       ? { provider: 'development', mode: 'development' }
       : { provider: options.provider, mode: 'production', apiKey: options.apiKey, ...(options.provider === 'rer' ? {relayUrl: options.relayUrl} : {}) }, {
       fetch: async (input: RequestInfo | URL, init?: RequestInit) => {
-        const response = await fetchMail(input, init, fetcher);
+        const response = await fetcher(input, init);
         status = response.status;
         const retryAfter = response.headers.get('Retry-After');
         if (response.status === 429 && retryAfter && /^\d+$/.test(retryAfter)) retryAfterSeconds = Number(retryAfter);

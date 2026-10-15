@@ -54,7 +54,7 @@ test('MAIL-002 Worker routes require current authentication and expose public si
   responseStatus=503;await api.request(`${relayEnv.APP_URL}/api/invitations`,{method:'POST',headers:{...headers,cookie},body:JSON.stringify({operationKey:crypto.randomUUID(),email:'relay-uncertain@test.invalid',kind:'member'})},relayEnv);
   expect(await env.DB.prepare("SELECT delivery_phase FROM mail_deliveries WHERE target_email='relay-uncertain@test.invalid'").first()).toMatchObject({delivery_phase:'uncertain'});
   responseStatus=302;const beforeInviteRedirect=provider.mock.calls.length;await api.request(`${relayEnv.APP_URL}/api/invitations`,{method:'POST',headers:{...headers,cookie},body:JSON.stringify({operationKey:crypto.randomUUID(),email:'relay-redirect@test.invalid',kind:'member'})},relayEnv);
-  expect(provider).toHaveBeenCalledTimes(beforeInviteRedirect+1);expect(await env.DB.prepare("SELECT delivery_phase FROM mail_deliveries WHERE target_email='relay-redirect@test.invalid'").first()).toMatchObject({delivery_phase:'uncertain'});
+  expect(provider).toHaveBeenCalledTimes(beforeInviteRedirect+1);expect(await env.DB.prepare("SELECT delivery_phase FROM mail_deliveries WHERE target_email='relay-redirect@test.invalid'").first()).toMatchObject({delivery_phase:'failed'});
  }finally{provider.mockRestore();}
  const first=await api.request('/api/workspace/first-run',{headers:{cookie}},env);expect(await first.json()).toEqual({required:true,canComplete:true});await env.DB.prepare("UPDATE members SET status='removed' WHERE id=?").bind(ctx.actor.id).run();expect((await api.request('/api/workspace/first-run',{headers:{cookie}},env)).status).toBe(401);
 });

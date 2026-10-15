@@ -65,7 +65,7 @@ jobs:
           - suite: app
             command: node scripts/sync-project-setup.mjs --check && pnpm verify
           - suite: core
-            command: pnpm build && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox
+            command: pnpm build && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts
           - suite: tooling
             command: pnpm build && pnpm test:base-proof && pnpm test:docs && pnpm test:typegen && pnpm test:portability && pnpm test:release-source && pnpm test:rer-editor
           - suite: delivery

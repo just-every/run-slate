@@ -1,6 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {DatabaseSync} from 'node:sqlite';
+import {createServer} from 'node:net';
 import {readdirSync,readFileSync} from 'node:fs';
 import {invite,revokeInvitation,acceptInvitation} from '../../../src/core/features/workspace/invitations.ts';
 import {deliverIdentityMail,scheduleIdentityMail} from '../../../src/core/features/session/mail.ts';
@@ -105,4 +106,64 @@ test('MAIL-002 interrupted failure persistence retains spacing and provider cust
   await scheduleIdentityMail(f.db,config,undefined,after(60000));assert.equal(calls,1);await scheduleIdentityMail(f.db,config,undefined,after(150000));assert.equal(calls,2);
   await scheduleIdentityMail(f.db,{...config,mailApiKey:'different-provider-credential'},undefined,after(300000));assert.equal(calls,2);assert.equal(row(f).state,'failed');assert.match(row(f).error_detail,/MAIL_PROVIDER_CHANGED/);
  }finally{restore();f.close();}
+});
+
+test('MAIL-002 emitted Worker sends Managed sign-in and safely handles relay redirect, rate limit and credential refusal', {timeout:60000}, async () => {
+ const {managedMailRuntime} = await import('../../e2e/mail-runtime.mjs');
+ const server=createServer();await new Promise<void>(resolve=>server.listen(0,'127.0.0.1',resolve));
+ const port=(server.address() as {port:number}).port;await new Promise<void>(resolve=>server.close(()=>resolve()));
+ const origin=`http://127.0.0.1:${port}`,relay='https://management.test.invalid/api/managed-mail/send',email='jamie@aurora.example';
+ const requests: Array<{body:{to:string;subject:string;text:string;html?:string};wire:string}> = [];
+ let status=202,edgeError:unknown;
+ const runtime=await managedMailRuntime({APP_URL:origin,LOCAL_DEVELOPMENT:'true',MAIL_PROVIDER:'rer',MAIL_FROM:'auth@test.invalid',MAIL_RELAY_URL:relay,MAIL_API_KEY:'test-only-relay-key',SESSION_SECRET:'test-only-emitted-secret-at-least-32-characters',SETUP_TOKEN:'test-only-setup-token-at-least-32-characters',SETUP_OWNER_EMAIL:email},async(request:Request)=>{
+  try {
+  assert.equal(request.url,relay,'No redirect target may receive a request');
+  assert.equal(request.method,'POST');
+  const headers=new Headers(request.headers);
+  assert.equal(headers.get('host'),new URL(relay).host);
+  for(const name of ['host','content-length','cf-worker'])headers.delete(name);
+  assert.deepEqual(Object.fromEntries(headers),{authorization:'Bearer test-only-relay-key','content-type':'application/json'});
+  const wire=await request.text(),body=JSON.parse(wire);
+  assert.deepEqual(Object.keys(body).sort(),['subject','text','to',...(body.html?['html']:[])].sort());
+  assert.equal(typeof body.to,'string');assert.ok(body.subject);assert.ok(body.text);
+  requests.push({body,wire});
+  return Response.json(status===202?{accepted:true}:{error:'private provider response'}, {status,headers:status===302?{location:'https://untrusted.test.invalid/mail'}:status===429?{'retry-after':'240'}:{}});
+  } catch(cause) {edgeError=cause;throw cause;}
+ },{port});
+ try {
+  const db=await runtime.getD1Database('DB'),worker=await runtime.getWorker();
+  const {readD1Migrations}=await import('@cloudflare/vitest-pool-workers');
+  for(const migration of await readD1Migrations('migrations/core'))await db.batch(migration.queries.map(query=>db.prepare(query)));
+  const post=(path:string,body:unknown,cookie='')=>fetch(origin+path,{method:'POST',headers:{origin,host:new URL(origin).host,'content-type':'application/json',...(cookie?{cookie}:{})},body:JSON.stringify(body)});
+  const magic=()=>post('/api/auth/magic',{email,requestKey:crypto.randomUUID()});
+  const first=await magic();if(edgeError)throw edgeError;assert.equal(first.status,200,await first.text());assert.equal(requests.length,1);
+  assert.equal(requests[0].body.to,email);
+  assert.ok(requests[0].body.subject.includes('Slate'));
+  const link=new URL(requests[0].body.text.match(/https?:\/\/\S+/)![0]);
+  assert.equal(link.origin,origin);assert.equal(link.pathname,'/auth/confirm');assert.ok(link.searchParams.get('token'));
+  const confirmed=await fetch(origin+'/auth/confirm',{method:'POST',redirect:'manual',headers:{origin,host:new URL(origin).host,'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({token:link.searchParams.get('token')!}).toString()});
+  assert.equal(confirmed.status,303);
+  const cookie=confirmed.headers.get('set-cookie')!.split(';')[0];
+  console.log('Emitted Worker: sign-in reached MAIL_RELAY_URL; exact POST headers/body contract; redirect=manual; native confirmation succeeded.');
+  status=302;let before=requests.length;assert.equal((await magic()).status,502);assert.equal(requests.length,before+1);
+  const invite=(target:string)=>post('/api/invitations',{operationKey:crypto.randomUUID(),email:target,kind:'member'},cookie);
+  assert.equal((await invite('redirect@example.test')).status,200);
+  assert.equal((await db.prepare("SELECT delivery_phase FROM mail_deliveries WHERE target_email='redirect@example.test'").first<any>())!.delivery_phase,'failed');
+  console.log('Emitted Worker: relay 302 refused, never followed; invitation rejected rather than held uncertain.');
+  status=401;const refused=await magic();assert.equal(refused.status,502);const problem=await refused.json() as any;assert.equal(problem.code,'MAIL_NOT_SENT');assert.match(problem.message,/could not send|not sent/i);assert.doesNotMatch(JSON.stringify(problem),/private provider response|test-only-relay-key|provider_rejected/);
+  const ownerStatus=await (await fetch(origin+'/api/workspace/mail',{headers:{cookie}})).json() as any;
+  assert.ok(ownerStatus.items.some((item:any)=>item.state==='failed'&&item.errorDetail?.includes('Managed mail could not send')));
+  console.log('Emitted Worker: relay 401 gives a plain owner-visible mail problem without provider response or credential.');
+  status=429;assert.equal((await invite('retry@example.test')).status,200);
+  const read=()=>db.prepare("SELECT * FROM mail_deliveries WHERE target_email='retry@example.test'").first<any>();
+  const queued=await read();assert.equal(queued.delivery_phase,'retry');assert.equal(Date.parse(queued.next_attempt_at)-Date.parse(queued.last_attempted_at),240000);
+  before=requests.length;
+  await worker.scheduled({cron:'* * * * *'});assert.equal(requests.length,before);
+  const wire=requests.at(-1)!.wire;
+  // Move the durable deadline to now; exercise the emitted scheduled handler without a four-minute sleep.
+  await db.prepare("UPDATE mail_deliveries SET next_attempt_at=? WHERE id=?").bind(new Date(Date.now()-1).toISOString(),queued.id).run();
+  status=202;await worker.scheduled({cron:'* * * * *'});
+  assert.equal(requests.length,before+1);assert.equal(requests.at(-1)!.wire,wire);assert.equal((await read()).delivery_phase,'sent');
+  console.log('Emitted Worker: relay 429 queues with Retry-After, no early retry; scheduled retry sends identical payload and records acceptance.');
+ } finally {await runtime.dispose();}
 });

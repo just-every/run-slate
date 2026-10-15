@@ -1,7 +1,6 @@
 import type { MailSender } from '../../../../modules/operator-auth/index.mjs';
 import { createMailSender } from '../../../../modules/mail/src/sender.mjs';
 import type { RuntimeConfig } from '../../platform/config/runtime';
-import { fetchMail } from '../../platform/mail/fetch';
 import { TENANT } from './native/store';
 
 export interface SignInDelivery { requestDigest?: string; failure?: string }
@@ -15,7 +14,7 @@ export function identityMailSender(db: D1Database, config: RuntimeConfig, delive
   if (!config.mailProvider) return undefined;
   const sender = createMailSender(config.mailProvider === 'development'
     ? { provider: 'development', mode: 'development' }
-    : { provider: config.mailProvider, mode: 'production', apiKey: config.mailApiKey, ...(config.mailProvider === 'rer' ? {relayUrl: config.mailRelayUrl} : {}) }, {fetch: fetchMail});
+    : { provider: config.mailProvider, mode: 'production', apiKey: config.mailApiKey, ...(config.mailProvider === 'rer' ? {relayUrl: config.mailRelayUrl} : {}) });
   async function record(id: string, to: string, result: { status: string; providerMessageId: string | null; code?: string } | null) {
     const sent = result?.status === 'accepted' || result?.status === 'development';
     delivery.failure = sent ? undefined : config.mailProvider === 'rer'
@@ -33,10 +32,7 @@ export function identityMailSender(db: D1Database, config: RuntimeConfig, delive
   return {
     async send(message) {
       let result;
-      // Base auth's Auto-Submitted header has no relay representation. RER owns
-      // message headers, sender and installation identity on this transport.
-      const { headers: _headers, ...relayMessage } = message;
-      try { result = await sender.send(config.mailProvider === 'rer' ? relayMessage : message); }
+      try { result = await sender.send(message); }
       catch (cause) { await record(message.deliveryId, message.to[0]!, null); throw cause; }
       await record(message.deliveryId, message.to[0]!, result);
       return result;
