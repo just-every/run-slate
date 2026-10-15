@@ -7655,7 +7655,7 @@
       "executable": false
     },
     "tests/e2e/landing.test.ts": {
-      "sha256": "229d9c56637b651e71ea31140d35a99d236f21fa354c533ab0a5a2eae7defb18",
+      "sha256": "30951a7c0948b7f5c1aaf9dfe5c4bcecc03c26711c7cff9f079bdeaee32cac5c",
       "executable": false
     },
     "tests/e2e/local-outbox.node.test.mts": {

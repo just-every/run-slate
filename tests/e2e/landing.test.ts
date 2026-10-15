@@ -18,6 +18,7 @@ import { seedWorkspace } from "./setup/fixtures";
 const sections = ["top", "open-source", "pages", "databases", "search", "sharing", "history", "included", "move-in", "start", "colophon"];
 // Every absolute address the landing may link to. All are navigation targets: the page loads nothing from them.
 const navigationTargets = new Set([
+  "https://demo.run-slate.com/",
   "https://github.com/just-every/run-slate",
   "https://github.com/just-every/run-slate#readme",
   "https://runeditrun.com",
@@ -110,7 +111,10 @@ describe("HOME-001 landing page supporting regressions", () => {
     expect(files.length).toBeGreaterThan(0);
     for (const [file, source] of files) {
       const withoutXmlns = source.replaceAll("http://www.w3.org/2000/svg", "");
-      const urls = withoutXmlns.match(/https?:\/\/[^\s"'`)<>]+/g) ?? [];
+      // Authorized navigation never loads a resource until the visitor follows it.
+      const withoutNavigation = withoutXmlns.replace(/<a\b[^>]*\bhref="([^"]+)"[^>]*>/g,
+        (tag, href: string) => navigationTargets.has(href) ? "" : tag);
+      const urls = withoutNavigation.match(/https?:\/\/[^\s"'`)<>]+/g) ?? [];
       if (!file.endsWith("/links.ts")) expect(urls, file).toEqual([]);
       expect(source, file).not.toMatch(/@import|url\(\s*["']?(?:https?:)?\/\/|url\(\s*["']?data:/);
       expect(source, file).not.toMatch(/document\.cookie|localStorage|sessionStorage|sendBeacon|XMLHttpRequest|\bfetch\(|<img|<script|<iframe|navigator\.|gtag|analytics/i);
