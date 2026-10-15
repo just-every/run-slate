@@ -1413,7 +1413,7 @@
     {
       "path": "src/modules/demo",
       "originPath": "modules/demo",
-      "revision": "fc0e1041efa55771142bbb57c4ab4743147e264d",
+      "revision": "e17843562355e1b6e5068289c8e037951fbc8d3d",
       "files": {
         "src/modules/demo/index.d.mts": "2fe3e8715a0b41cc931dbc31a0a73a01a8ddfd8363334f32ebc8978854016e22",
         "src/modules/demo/index.mjs": "154c7fea50350afc5e19100a143aae6a5c6834d03f293a6452b5862a5adc10bc",

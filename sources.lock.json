@@ -875,11 +875,11 @@
       "executable": false
     },
     "AGENTS.md": {
-      "sha256": "a6b4af50688a11bb78ff8bc6bac54247c577495c92fdae2e0b8cc52c147700ca",
+      "sha256": "e01f6f18e4f4ac2323232018e0a7c1da3f7bec9e10786aa67948c32388d25e4d",
       "executable": false
     },
     "base-copies.json": {
-      "sha256": "df81399eb5541f3975b51f62c4514f74c5ca53222880182baf4e83ed05d9b193",
+      "sha256": "ca157ec760125caaf0432198d8c20d1d3e3a99fd0343c9bf407ece0a0e6ed52d",
       "executable": false
     },
     "BASELINE.md": {
@@ -899,7 +899,7 @@
       "executable": false
     },
     "DEMO.md": {
-      "sha256": "d96b22884b0776a5eb8de925ff650c27752e8056657b1d3311db374630290d9a",
+      "sha256": "88f03cade4ef280101da645122955060970cbf8636293c721d7fdfd0af0bf58c",
       "executable": false
     },
     "deploy-demo.json": {
@@ -911,7 +911,7 @@
       "executable": false
     },
     "deploy.json": {
-      "sha256": "b6e166501197ea164f143474aba52f6e59e666ffdd8016e7d0a955993d6fb737",
+      "sha256": "bf965677c5bfcdc303e4a7ecac1a9f130961850436875a5918a0d68048a2a049",
       "executable": false
     },
     "deploy/footprint.md": {
@@ -3227,11 +3227,11 @@
       "executable": false
     },
     "package.json": {
-      "sha256": "01daff6aa2aeba66b3449e9db8472a2498201d52b36aa331c2c35997fb009a7c",
+      "sha256": "1ad752ce76ac6a1a74531abd3a60ec8e250280674f3c13c284c2009520d9129f",
       "executable": false
     },
     "pnpm-lock.yaml": {
-      "sha256": "b2ab4bda8aadf49a5f29e35f8b6c6fbaaf9f556c352465156c23b0c8d0459718",
+      "sha256": "36efcd59acc0644f5ae193168c90cca80a236627c38431ff27d35238d52ee662",
       "executable": false
     },
     "pnpm-workspace.yaml": {
@@ -3307,11 +3307,11 @@
       "executable": false
     },
     "scripts/base-proof/objects.mjs": {
-      "sha256": "65ed0a905187fb5785e522f0dbb8428fcfa64550d2cf541bd40729c01f384753",
+      "sha256": "d1f14f76fd92b11c653b3ad5d7795818c72f3f20e7712f4392bb29cd418bcb96",
       "executable": false
     },
     "scripts/base-proof/pin-objects.json": {
-      "sha256": "da53848531635ea4c81fa18c897289c982f43e8649c7e1250dce7333ea182e0f",
+      "sha256": "1663010bf73f7664fcf77b64be532a0a70e8a774806d172308aa7c2520b76e47",
       "executable": false
     },
     "scripts/base-proof/README.md": {

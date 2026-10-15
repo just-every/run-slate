@@ -61,5 +61,9 @@
       "binding": "MAIL_API_KEY",
       "environment": "SLATE_MAIL_API_KEY"
     }
+  ],
+  "platforms": [
+    "workers",
+    "container"
   ]
 }
