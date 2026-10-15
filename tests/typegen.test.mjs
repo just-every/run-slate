@@ -13,6 +13,7 @@ test('binding check rejects stale declarations without overwriting them', async 
     await fs.mkdir(path.join(directory, 'node_modules/wrangler/bin'), { recursive: true });
     await fs.writeFile(path.join(directory, 'package.json'), '{"type":"module"}');
     await fs.copyFile(new URL('scripts/cf-typegen.mjs', root), path.join(directory, 'scripts/cf-typegen.mjs'));
+    await fs.copyFile(new URL('scripts/cf-typegen.env', root), path.join(directory, 'scripts/cf-typegen.env'));
     // Test-only generator isolates stale checking from the installed Wrangler runtime.
     await fs.writeFile(path.join(directory, 'node_modules/wrangler/bin/wrangler.js'), `
       import fs from 'node:fs';

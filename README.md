@@ -118,11 +118,12 @@ rer deploy --environment production --remove --yes
 
 ```sh
 rer verify
+pnpm verify:ci
 pnpm test:imports
 pnpm test:release-source
 pnpm source:check
 ```
 
-`verify` checks generated Worker binding freshness, types and the emitted build, then runs the installer, local journey and outbox checks along with the foundation, platform, profile, type-generation, portability and operations checks. Planned contract clauses remain visible; a passing check does not imply full flagship acceptance. `pnpm test:release-regressions` separately exercises publication relocation, erasure and the emitted browser console; install Chromium with `pnpm exec playwright install chromium` first.
+`rer verify` checks command contracts, generated Worker binding freshness, types, static contracts and boundaries, source integrity and the emitted build/artifact; it runs no test suites. `pnpm verify:ci` runs those checks plus Slate's CI test suites, including installer, local journey, outbox, foundation, platform, profile, type-generation, portability and operations coverage. Build and deploy commands do not run test suites. Planned contract clauses remain visible; a passing check does not imply full flagship acceptance. `pnpm test:release-regressions` separately exercises publication relocation, erasure and the emitted browser console; install Chromium with `pnpm exec playwright install chromium` first.
 
 Advanced federation and inquiry code remains in the source under the explicit `SLATE_PROFILE=flagship` development profile. It is outside the core-wiki release acceptance. [CONTRACT.md](CONTRACT.md), [ACCEPTANCE.md](ACCEPTANCE.md), and [HANDOVER.md](HANDOVER.md) state requirements and current evidence limits. Slate is MIT licensed.

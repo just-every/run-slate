@@ -13,7 +13,8 @@ try {
   const result = spawnSync(process.execPath, [
     path.join(root, 'node_modules/wrangler/bin/wrangler.js'), 'types', output,
     '--config=wrangler.jsonc', '--env-interface=SlateWorkerBindings', '--include-runtime=false',
-  ], { cwd: root, stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, WRANGLER_SEND_METRICS: 'false', CI: 'true' } });
+    '--env-file=scripts/cf-typegen.env',
+  ], { cwd: root, stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, CLOUDFLARE_INCLUDE_PROCESS_ENV: 'false', WRANGLER_SEND_METRICS: 'false', CI: 'true' } });
   if (result.error || result.status !== 0) throw new Error('Wrangler binding generation failed.');
   // Only the invocation comment contains the temporary destination; declarations stay verbatim.
   const generated = (await fs.readFile(output, 'utf8')).replace(output, target);

@@ -3263,7 +3263,7 @@
       "executable": false
     },
     "README.md": {
-      "sha256": "af552130052c27b89d381c3eaafc0c889c5b11f1d824ca8fb8b4243f33da7678",
+      "sha256": "2485726feaec18b2b0f73a0df0b17669e5fe3dc6955899b7c57b7965ba87c0d4",
       "executable": false
     },
     "RELEASE.json": {
@@ -3318,8 +3318,12 @@
       "sha256": "d374055686748efabe0320b3d5f8157a016b9b8b975432f6cb879a0aa16983a1",
       "executable": false
     },
+    "scripts/cf-typegen.env": {
+      "sha256": "74be3639f71fec14582a13eea98090e83016647e185ae8cc1d8a0796031d7337",
+      "executable": false
+    },
     "scripts/cf-typegen.mjs": {
-      "sha256": "aef93b1e5a0504859a8bda0e8ee2f40aa13a77e52c4db6e2ac358d3f4c75c586",
+      "sha256": "b7176076a142990c3becf7fe368fa8c16bbc80eb70230b9848c30737cc5007bc",
       "executable": false
     },
     "scripts/check-artifact.mjs": {
@@ -9267,7 +9271,7 @@
       "executable": false
     },
     "tests/typegen.test.mjs": {
-      "sha256": "68d073512a191de0b49eb660018be641ac269af83a2a5b4aac64010408c49a18",
+      "sha256": "75abac66546128d057258432e75984722c0a48aca77030ca79d07678ff78c8a2",
       "executable": false
     },
     "tests/ui/capture.mjs": {
@@ -9415,7 +9419,7 @@
       "executable": false
     },
     "worker-configuration.d.ts": {
-      "sha256": "e8845400cbe9be329b87eca6fcb95457e6a0384fe4797908937ab90fe6c3e023",
+      "sha256": "0474c9f782cfa1726c631aeb43d24d05b13480007554d9d3cfafd2f925c75b98",
       "executable": false
     },
     "wrangler.jsonc": {
