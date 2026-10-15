@@ -13,6 +13,8 @@ import { ApiProblem } from '../../app/problems';
 import { requirePageLevel } from '../sharing/current-access';
 import { mediaResponse } from '../media/service';
 async function authorizePublic(c: import('hono').Context<AppEnvironment>, p: Record<string, any>) {
+    if (c.env.RER_DEMO === '1' && !c.get('member'))
+        throw new ApiProblem(404, 'NOT_FOUND', 'This link is no longer available.');
     if (p.anonymous_access === 'forbidden' || p.workspace_anonymous === 'forbidden') {
         const member = c.get('member');
         if (!member)
