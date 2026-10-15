@@ -1055,7 +1055,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "f38395922001eea8a44c04d5d811df5f22e27ee228e41d2cb28dcf5b6fcc72af",
+      "sha256": "3304a9ddfc3ad459c6b73ce56f56f31b18660073cc07cf6de99e7af0a29d8c73",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -3595,7 +3595,7 @@
       "executable": false
     },
     "scripts/sync-integration.mjs": {
-      "sha256": "6876a088527dd0a60f1ac11d60b7d14bbbe376ac9f7fdfc52b2ab1d6268ffb13",
+      "sha256": "91aa65ed1f8681e70073bf103c5c30a50be25a7e316db0a2846bc93bcd9a59ce",
       "executable": false
     },
     "scripts/ui-reachability.mjs": {
