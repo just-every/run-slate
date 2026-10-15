@@ -1428,25 +1428,6 @@
         "src/modules/demo/vite.d.mts": "100644",
         "src/modules/demo/vite.mjs": "100644"
       }
-    },
-    {
-      "path": "src/modules/operator-auth",
-      "originPath": "modules/operator-auth",
-      "revision": "fc0e1041efa55771142bbb57c4ab4743147e264d",
-      "files": {
-        "src/modules/operator-auth/crypto.mjs": "c9a843518d9223ec91698060bacd5a44cd0c4361adaa6b09c05be69f11a828b8",
-        "src/modules/operator-auth/csp.mjs": "9bf6c5c5b2adcfc6f6c82a657af38346b8ec4e2344aea20b4d972a2564cffaed",
-        "src/modules/operator-auth/errors.mjs": "393de2f6a068fc32d0904e238e88d6fae90576b197cca463da8d7dfabef36f47",
-        "src/modules/operator-auth/http.mjs": "caf5ddf8b50070b1339afd6f19e3ef3c73677cc7726a355fbac5cda371f09b53",
-        "src/modules/operator-auth/loopback.mjs": "13b32a076bce23a3124be1745202c18eda553f298fad3d9f5cb93ac61aee3115"
-      },
-      "modes": {
-        "src/modules/operator-auth/crypto.mjs": "100644",
-        "src/modules/operator-auth/csp.mjs": "100644",
-        "src/modules/operator-auth/errors.mjs": "100644",
-        "src/modules/operator-auth/http.mjs": "100644",
-        "src/modules/operator-auth/loopback.mjs": "100644"
-      }
     }
   ]
 }
