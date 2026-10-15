@@ -5,7 +5,7 @@ export async function integrationRecipe(root, write = false) {
   const config = JSON.parse(await readFile(new URL('./delivery/base/packaging.json', import.meta.url)));
   const spec = await deploymentSpec(root, config.artifact.specInputs);
   const sourceFiles = ['scripts/delivery/base/packaging.json', 'src/server.ts', 'src/core/features/workspace/bootstrap.ts', 'src/core/platform/config/runtime.ts', ...spec.migrations.map(row => `migrations/core/${row.name}`)];
-  const provenance = {schema: 1, sourceRepository: 'just-every/run-slate', sourceFiles: await Promise.all(sourceFiles.map(async path => ({path, sha256: sha256(await readFile(`${root}/${path}`))})))};
+  const provenance = {schema: 1, sourceRepository: 'just-every/run-slate', sourceFiles: Object.fromEntries(await Promise.all(sourceFiles.map(async name => [name, `sha256:${sha256(await readFile(`${root}/${name}`))}`])))};
   for (const [name, value] of [['deployment-spec.json', spec], ['source-provenance.json', provenance]]) {
     const bytes = JSON.stringify(value, null, 2) + '\n', file = `${root}/management/integration/${name}`;
     if (write) await writeFile(file, bytes);
