@@ -32,14 +32,22 @@ for (const width of [1440, 390]) {
   test(`genuine insertion focus lifecycle at ${width}px`, { timeout: 180000 }, async () => {
     // Isolate this new journey's authoring from the original suite's request
     // budget; each workspace still runs the production rate limits unchanged.
-    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'flagship', async state => {
       await setupWorkspace(state);
       const page = (await state.api('/api/pages')).items.find(page => page.title === 'Welcome');
       assert.ok(page, 'Real first run supplies the lifecycle journey container');
       await editorFocusJourney(state, page.containerId);
+      assert.deepEqual(state.modelRequests, [], 'Insertion focus does not submit model work');
+    });
+    // A distinct workspace keeps this core flow within the real request budget
+    // after the insertion journey's deliberate failures and repeated reads.
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      const page = (await state.api('/api/pages')).items.find(page => page.title === 'Welcome');
+      assert.ok(page, 'Real first run supplies the mention journey page');
       await state.page.goto(`${state.origin}/app/pages/${page.id}`, { waitUntil: 'networkidle' });
       await mentionTypingJourney(state, page.id);
-      assert.deepEqual(state.modelRequests, [], 'Insertion focus does not submit model work');
+      assert.deepEqual(state.modelRequests, [], 'Mention editing does not submit model work');
     });
   });
 }

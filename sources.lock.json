@@ -9539,7 +9539,7 @@
       "executable": false
     },
     "tests/ui/polish-journeys.test.mjs": {
-      "sha256": "ff609ca25a92f4115be32f327ea4bcff9450a00f93a095c5bfb25e425c8ed3f2",
+      "sha256": "e68d99906c939813d810d014ac07bf53472f1832e36093191525a3ae38374285",
       "executable": false
     },
     "tests/ui/polish/capture-camera.mjs": {
