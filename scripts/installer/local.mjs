@@ -22,7 +22,7 @@ export const hooks = {
   prepare({ input }) {
     if (input.MAIL_PROVIDER !== 'development' || input.MAIL_API_KEY) throw new Error('Local setup requires the development mail outbox without provider credentials. Configure hosted mail through rer deploy.');
   },
-  migrate: context => { validateLocalSettings(context.vars); return migrationCommand(); },
+  migrate: context => { validateLocalSettings(context.vars); return migrationCommand({ ...process.env, ...(context.demo ? { RER_STATE_DIR: context.demo.state } : {}) }); },
   start: preview, owner, signIn, localOwner,
 };
 export const lifecycle = localInstaller(hooks);

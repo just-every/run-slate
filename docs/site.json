@@ -224,6 +224,10 @@
     {
       "source": "modules/import-kit/tests/runtime-reuse.md",
       "reason": "Pinned shared import-kit tooling reference for maintainers."
+    },
+    {
+      "source": "DEMO.md",
+      "reason": "Demo setup and isolation reference for maintainers."
     }
   ]
 }

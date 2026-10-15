@@ -3,9 +3,9 @@
   "sourceRepository": "just-every/run-slate",
   "sourceFiles": {
     "scripts/delivery/base/packaging.json": "sha256:4804ba22479abf7594924648a222f6445c968694e8baef6f63b3bf43d007c35a",
-    "src/server.ts": "sha256:c1dd6dc405dafc3585cb6dd872ded9d7387f95ec6af42cc144e2b6f75deb6658",
+    "src/server.ts": "sha256:f63493d4e8833a8418d300dde1dd23ef80e977c04f1a0b3ca1e0b6792c1568a0",
     "src/core/features/workspace/bootstrap.ts": "sha256:070dbb22a0bdcfd8d131168e390a1c4c61af03d20fdb09f878321d6be9ddf262",
-    "src/core/platform/config/runtime.ts": "sha256:29d671cb3f33c6b2a4142e9838829345367a7c5d33d40c87609a5f4a948a0beb",
+    "src/core/platform/config/runtime.ts": "sha256:6afc6957b802bbcffd911ef6b7323566c4bedb3d9c427f30f0c4f10f58f8670e",
     "migrations/core/0001_knowledge_foundation.sql": "sha256:88bb09f3c90f4741bc686f333fd765ca838ff6e96969d5182b292df0c4816c39",
     "migrations/core/0002_core_runtime.sql": "sha256:34e5c0c5c9a3f4bb7364e649054a87ec8fe614bd469417e6e7c3412ba1e47346",
     "migrations/core/0003_content_collaboration.sql": "sha256:534fe0d90d535c02a669c55591698b02520cd478c2bb3b87d74825154c71d1f7",

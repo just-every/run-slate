@@ -1,3 +1,4 @@
+import { ownerClaim } from "./owner-claim";
 import { Hono } from "hono";
 import { z } from "zod";
 import { AuthError } from "../../../../modules/operator-auth/index.mjs";
@@ -20,7 +21,7 @@ const branding = { productName: "Slate", accentColor: "#1b1b18", signInPath: "/s
 const retiredLink = (method: string) => confirmationResponse({ branding, preview: null, token: "", method });
 /** Paths Base operator-auth owns on Slate's listener: owner claim, confirmation, step-up and the incumbent provider. */
 export const BASE_AUTH_PATHS = new Set(["/auth/bootstrap", "/auth/confirm", "/auth/step-up", PROVIDER_START, PROVIDER_CALLBACK]);
-export const SESSION_AUTH_PATHS = new Set([...BASE_AUTH_PATHS, LOCAL_SETUP_PATH]);
+export const SESSION_AUTH_PATHS = new Set([...BASE_AUTH_PATHS, LOCAL_SETUP_PATH, "/auth/owner-claim"]);
 const invitationToken = z.string().min(20).max(512);
 const requestDigest = (secret: string, email: string, key: string) => sessionDigest(secret, `mail-request:${email.toLowerCase()}:${key}`);
 
@@ -34,6 +35,7 @@ function authProblem(cause: unknown, failure?: string): never {
 
 export function createSessionRoutes() {
   return new Hono<AppEnvironment>()
+    .all("/auth/owner-claim", c => ownerClaim(c.req.raw, c.env, c.get("runtimeConfig")))
     .all(LOCAL_SETUP_PATH, async c => {
       try { return c.json(await completeNativeLocalSetup(c.req.raw, c.env.DB, c.get("runtimeConfig"), c.env.SESSION_SECRET!)); }
       catch (cause) { authProblem(cause); }

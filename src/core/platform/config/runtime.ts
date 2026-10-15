@@ -1,6 +1,10 @@
 import { readLaunchProfile, type LaunchProfile } from "./launch-profile";
 
 export interface RuntimeBindings {
+  RER_DEMO?: string;
+  RER_OWNER_CLAIM_ISSUER?: string;
+  RER_OWNER_CLAIM_INSTALLATION_ID?: string;
+  RER_OWNER_CLAIM_PUBLIC_KEYS?: string;
   RER_MANAGEMENT_ORIGIN?: string;
   RER_INSTALLATION_ID?: string;
   SLATE_PROFILE?: string;
@@ -49,6 +53,7 @@ export interface RuntimeBindings {
 }
 
 export interface RuntimeConfig {
+  demo?: boolean;
   /** Omitted by narrow adapter callers; deployment reads always resolve this. */
   launchProfile?: LaunchProfile;
   localDevelopment: boolean;
@@ -158,10 +163,10 @@ export function readRuntimeConfig(env: RuntimeBindings, isLoopback: boolean): Ru
   const localDevelopment = env.LOCAL_DEVELOPMENT === "true";
   if (env.LOCAL_DEVELOPMENT && !["true", "false"].includes(env.LOCAL_DEVELOPMENT)) throw new RuntimeConfigurationError('LOCAL_DEVELOPMENT must be "true" or "false".');
   if (localDevelopment && (!isLoopback || !isLocalOrigin(env.APP_URL))) throw new RuntimeConfigurationError('LOCAL_DEVELOPMENT requires an exact loopback APP_URL origin and a loopback request.');
-  if (mailProvider === "development" && !localDevelopment) throw new RuntimeConfigurationError('MAIL_PROVIDER development requires LOCAL_DEVELOPMENT and a loopback APP_URL.');
+  if (mailProvider === "development" && !localDevelopment && env.RER_DEMO !== "1") throw new RuntimeConfigurationError('MAIL_PROVIDER development requires LOCAL_DEVELOPMENT and a loopback APP_URL.');
   if (env.AI_PROVIDER === 'local-codex' && !localDevelopment) throw new RuntimeConfigurationError('AI_PROVIDER local-codex is development-only and cannot run on a hosted deployment.');
   if (env.AI_PROVIDER && !['openai', 'local-codex'].includes(env.AI_PROVIDER)) throw new RuntimeConfigurationError('AI_PROVIDER must be openai or local-codex.');
-  const aiEnabled = readBoolean(env, "AI_ENABLED", false);
+  const aiEnabled = env.RER_DEMO !== "1" && readBoolean(env, "AI_ENABLED", false);
   const ssoEnabled = readBoolean(env, "SSO_ENABLED", false);
   const missingAiVariables = aiEnabled
     ? (env.AI_PROVIDER === 'local-codex' ? ['AI_LOCAL_URL', 'AI_LOCAL_TOKEN', 'AI_MODEL'] as const : requiredAiVariables).filter((name) => !env[name]?.trim())
@@ -187,6 +192,7 @@ export function readRuntimeConfig(env: RuntimeBindings, isLoopback: boolean): Ru
 
   return {
     launchProfile,
+    demo: env.RER_DEMO === "1",
     localDevelopment,
     sessionSecret: requireSessionSecret(env),
     appUrl: localDevelopment ? env.APP_URL : appUrl.toString(),

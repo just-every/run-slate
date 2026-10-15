@@ -52,7 +52,9 @@
           "src/client.tsx",
           "migrations/core/0028_import_reversal_fences.sql",
           "migrations/core/0029_import_retirement.sql",
-          "migrations/core/0030_native_dependencies.sql"
+          "migrations/core/0030_native_dependencies.sql",
+          "src/demo.ts",
+          "src/demo"
         ]
       },
       "assumptions": [
@@ -777,6 +779,16 @@
             "path": "modules/import-kit",
             "originPath": "modules/import-kit"
           }
+        ]
+      }
+    },
+    {
+      "id": "runeditrun/demo",
+      "role": "module",
+      "source": {
+        "kind": "local",
+        "paths": [
+          "src/modules"
         ]
       }
     }
