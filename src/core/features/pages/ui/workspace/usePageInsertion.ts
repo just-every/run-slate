@@ -5,11 +5,17 @@ import { errorMessage } from "../../../../client/transport";
 import { newBlock } from "../../../editor/ui/newBlock";
 import type { EditorBlock } from "../../../editor/ui/types";
 
+function ordered(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(ordered);
+  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).sort(([a], [b]) => a.localeCompare(b)).map(([key, item]) => [key, ordered(item)]));
+  return value;
+}
+
 function sameBlock(a: EditorBlock, b: EditorBlock | undefined) {
   if (!b || a.id !== b.id || a.type !== b.type || (a.indent ?? 0) !== (b.indent ?? 0)) return false;
   const {id: _a, type: _at, indent: _ai, ...left} = a;
   const {id: _b, type: _bt, indent: _bi, ...right} = b;
-  return JSON.stringify(left) === JSON.stringify(right);
+  return JSON.stringify(ordered(left)) === JSON.stringify(ordered(right));
 }
 
 /** Keep the editable mounted while its creation and the latest typing commit. */
