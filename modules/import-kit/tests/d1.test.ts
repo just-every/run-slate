@@ -12,6 +12,7 @@ import './d1/reused-claim-validity.test.ts';
 import './d1/guard-depth.test.ts';
 import './d1/plan-chunks.test.ts';
 import './d1/erasure.test.ts';
+import './d1/preparation-steps.test.ts';
 import './d1/erasure-encoding.test.ts';
 
 import './d1/streams.test.ts';

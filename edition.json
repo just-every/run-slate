@@ -788,7 +788,7 @@
       "source": {
         "kind": "local",
         "paths": [
-          "src/modules"
+          "modules/demo"
         ]
       }
     }

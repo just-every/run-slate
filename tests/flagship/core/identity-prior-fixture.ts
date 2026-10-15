@@ -40,7 +40,7 @@ export async function priorIdentityFixture() {
   const origin = 'http://localhost:8787';
   const issuer = 'https://prior-provider.example.org';
   // The incumbent provider keeps its issuer, client and callback; upgrade adds its exact endpoint pins.
-  const bindings = { ...env, DB: db, APP_URL: origin, LOCAL_DEVELOPMENT: 'true', MAIL_PROVIDER: 'development', RER_DEV_KEY: 'test-only-dev-key-'.padEnd(43, 'k'),
+  const bindings = { ...env, DB: db, APP_URL: origin, LOCAL_DEVELOPMENT: 'true', MAIL_PROVIDER: 'resend', MAIL_API_KEY: 'test-only-mail-key', RER_DEV_KEY: 'test-only-dev-key-'.padEnd(43, 'k'),
     SSO_ENABLED: 'true', IDENTITY_ISSUER_URL: issuer, IDENTITY_CLIENT_ID: 'prior-client', IDENTITY_CLIENT_SECRET: 'test-only-prior-client-secret',
     IDENTITY_AUTHORIZATION_ENDPOINT: issuer + '/authorize', IDENTITY_TOKEN_ENDPOINT: issuer + '/token', IDENTITY_JWKS_URI: issuer + '/keys',
     IDENTITY_TRANSACTION_SECRET: 'test-only-prior-transaction-secret-32+' };

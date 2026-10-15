@@ -1,6 +1,6 @@
 import { createServer } from "node:net";
 import { qualificationPorts } from "../local/ports.mjs";
-import { availablePort, launchRuntime, root, stop, waitForReady } from '../../e2e/runtime-harness.mjs';
+import { availablePort, startEmittedWorker, root, stop, waitForReady } from '../../e2e/runtime-harness.mjs';
 import { emittedRuntimeConfig } from '../../e2e/emitted-runtime-config.mjs';
 
 /** Use OS-assigned ports by default; explicit parent allocations remain strict. */
@@ -22,9 +22,6 @@ export async function startShellWorker(persistPath, vars, allocatedPorts) {
     await new Promise((resolve, reject) => { server.once('error', reject); server.listen(port, '127.0.0.1', resolve); });
     await new Promise((resolve, reject) => server.close(error => error ? reject(error) : resolve()));
   }));
-  const config = await emittedRuntimeConfig(root, persistPath);
-  const child = launchRuntime('pnpm', ['exec', 'wrangler', 'dev', '--config', config, '--local', '--ip', '127.0.0.1', '--port', String(appPort), '--inspector-port', String(inspectorPort), '--persist-to', persistPath, ...Object.entries({...vars,...(vars.LOCAL_DEVELOPMENT==='true'?{APP_URL:`http://127.0.0.1:${appPort}`}:{})}).flatMap(([name, value]) => ['--var', `${name}:${value}`])], { cwd: root });
-  const baseUrl = `http://127.0.0.1:${appPort}`;
-  try { await waitForReady(baseUrl, child); } catch (error) { await stop(child); throw error; }
+  const {baseUrl,child} = await startEmittedWorker(persistPath, vars, appPort);
   return { baseUrl, child, ports };
 }

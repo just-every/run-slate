@@ -12,7 +12,7 @@ export async function sentinels(root) {
 
 /** Probe the actual public listener, without a local key or session cookie. */
 export async function publicStatuses(origin, root, mode) {
-  // The outbox and dev identity answer only with the checkout's dev key.
+  // Removed outbox routes stay absent; dev identity requires the checkout key.
   const paths = ['/cdn-cgi/local/explorer/api/d1/database', '/cdn-cgi/handler/scheduled', '/.rer/local/dev-key.env', '/.seed/installer', '/__dev/outbox', '/__dev/personas', '/auth/dev/enter?as=owner'];
   const result = [];
   for (const path of paths) {

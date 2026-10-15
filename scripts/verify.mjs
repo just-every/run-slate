@@ -33,6 +33,15 @@ async function readJsonIfPresent(relativePath) {
  * this run's result.
  */
 async function runWorkersContractSuite() {
+  if (process.env.SLATE_WORKERS_REPORTS) {
+    const directory = process.env.SLATE_WORKERS_REPORTS;
+    const reports = await Promise.all(Array.from({length: 6}, (_, index) => fs.readFile(path.join(directory, `contract-${index + 1}.json`), 'utf8').then(JSON.parse)));
+    const testResults = reports.flatMap(report => report.testResults ?? []);
+    if (new Set(testResults.map(file => file.name)).size !== testResults.length) throw new Error('Contract shards overlap.');
+    await fs.mkdir(path.dirname(path.join(root, resultsPath)), {recursive: true});
+    await fs.writeFile(path.join(root, resultsPath), JSON.stringify({testResults}));
+    return reports.every(report => report.success === true) ? 0 : 1;
+  }
   await fs.rm(path.join(root, resultsPath), { force: true });
   const result = spawnSync(
     process.execPath,

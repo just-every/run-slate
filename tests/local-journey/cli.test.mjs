@@ -49,7 +49,7 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
     await publicStatuses(vars.APP_URL, copy.root, 'dev');
     browser = await chromium.launch({ headless: true });
     // Dev identity: RER_OPEN signs the browser in as the claimed owner with a real
-    // key-gated dev session; the badge switches to real local personas.
+    // key-gated dev session; the private enter route selects real local personas.
     const open = [...dev.output.matchAll(/RER_OPEN (\S+)/g)].at(-1)[1];
     for (const route of ['/__dev/personas', '/auth/dev/enter?as=editor']) assert.equal((await fetch(vars.APP_URL + route, { redirect: 'manual' })).status, 404, 'dev identity needs the key');
     assert.deepEqual((await (await fetch(vars.APP_URL + '/__dev/personas', keyed)).json()).map(persona => persona.as), ['owner', 'editor', 'guest', 'signed-out']);
@@ -59,7 +59,7 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
         const page = await context.newPage(), session = () => page.evaluate(async () => { const r = await fetch('/api/session'); return { status: r.status, body: await r.json() }; });
         await page.goto(open); await page.waitForURL(vars.APP_URL + '/setup');
         assert.deepEqual((await session()).body.member.email, email);
-        await page.getByText('Dev: ' + email).waitFor();
+        await page.getByLabel('Workspace name', {exact:true}).waitFor();
         await page.screenshot({ path: join(repo, '.artifacts/local-journey', `dev-owner-${width}.png`), fullPage: true });
         for (const [as, persona] of [['editor', 'editor@dev.localhost'], ['guest', 'guest@dev.localhost']]) {
           await page.goto(vars.APP_URL + '/auth/dev/enter?as=' + as); await page.waitForURL(url => url.pathname.startsWith('/app'));
@@ -74,10 +74,7 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
     assert.equal(rejectedOrigin.status, 403, 'HTML transport retains the native origin guard');
     const screenshots = join(repo, '.artifacts/local-journey'); await mkdir(screenshots, { recursive: true });
     for (const width of [1440, 390]) {
-      await run('outbox', ['--owner-email', email]);
-      const listing = await fetch(vars.APP_URL + '/__dev/outbox', keyed);
-      const message = (await listing.text()).match(/href="(\/__dev\/outbox\?message=[^"]+)"/)[1];
-      await signIn(browser, new URL(message, vars.APP_URL).href, email, width, async page => {
+      await signIn(browser, vars.APP_URL, email, width, async page => {
         await page.waitForURL(vars.APP_URL + '/setup');
         await page.goto(vars.APP_URL + '/app/search');
         await page.waitForURL(vars.APP_URL + '/setup');
@@ -87,16 +84,7 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
     }
     let owner, agent, createdPageId, createdFileId;
     for (const width of [1440, 390]) {
-      await run('outbox', ['--owner-email', email]);
-      const page = await browser.newPage({ viewport: { width, height: 900 }, javaScriptEnabled: false });
-      await page.goto(vars.APP_URL + '/signin');
-      await page.getByLabel('Email address', { exact: true }).fill(email);
-      await Promise.all([page.waitForNavigation(), page.getByRole('button', { name: 'Email me a sign-in link', exact: true }).click()]);
-      assert.equal((await page.context().request.post(vars.APP_URL + '/__dev/key', { data: { key: devKey } })).status(), 204);
-      await page.goto(vars.APP_URL + '/__dev/outbox');
-      const message = await page.getByRole('link', { name: 'Read message', exact: true }).first().getAttribute('href');
-      await page.close();
-      const current = await signIn(browser, new URL(message, vars.APP_URL).href, email, width, async page => {
+      const current = await signIn(browser, vars.APP_URL, email, width, async page => {
         if (width === 1440) {
           await page.getByLabel('Workspace name', { exact: true }).fill('CLI owner workspace');
           await page.getByRole('button', { name: 'Continue', exact: true }).click();
@@ -130,10 +118,7 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
     // flagship session adds a real credential whose capability must not move.
     await resources(); dev = copy.start('node', cli('dev'), copy.root, { SLATE_PROFILE: 'flagship' });
     await waitFor(() => { if (dev.exitCode !== null) throw Error('CLI server failed; private output withheld'); return dev.output.includes('"event":"ready"'); }, 'flagship ready');
-    await run('outbox', ['--owner-email', email]);
-    const listing = await fetch(vars.APP_URL + '/__dev/outbox', keyed);
-    const messagePath = (await listing.text()).match(/href="(\/__dev\/outbox\?message=[^"]+)"/)[1];
-    await signIn(browser, new URL(messagePath, vars.APP_URL).href, email, 1440, async (page, member) => {
+    await signIn(browser, vars.APP_URL, email, 1440, async (page, member) => {
       agent = await page.evaluate(async input => {
         const response = await fetch('/api/agent/credentials', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input) });
         if (!response.ok) throw Error('Native credential issuance failed'); return response.json();
@@ -189,10 +174,7 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
     await waitFor(() => { if (dev.exitCode !== null) throw Error('CLI server failed; private output withheld'); return dev.output.includes('"event":"ready"'); }, 'restored ready');
     assert.equal((await fetch(targetOrigin + '/api/agent/tools', { headers: { Authorization: 'Bearer ' + agent.token } })).status, 401, 'former agent capability cannot authenticate after restore');
     for (const width of [1440, 390]) {
-      await restore('outbox', ['--owner-email', email]);
-      const listing = await fetch(targetOrigin + '/__dev/outbox', { headers: { 'x-rer-dev-key': targetKey } });
-      const message = (await listing.text()).match(/href="(\/__dev\/outbox\?message=[^"]+)"/)[1];
-      await signIn(browser, new URL(message, targetOrigin).href, email, width, async page => {
+      await signIn(browser, targetOrigin, email, width, async page => {
         await page.goto(targetOrigin + '/app/pages/' + createdPageId);
         const title = page.getByRole('textbox', { name: 'Page title', exact: true }); await title.waitFor(); assert.equal(await title.inputValue(), 'Retained CLI page');
         const restored = await page.evaluate(async fileId => {

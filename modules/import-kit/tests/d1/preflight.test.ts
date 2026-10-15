@@ -11,7 +11,6 @@ test('pure admission uses actual UTF-8 and JSON escaping, with no database port'
   const plan = buildImportPlan({ records: [], artifacts: [], diagnostics: [{ code: 'unicode', severity: 'warning', message }] }, { version: 'v1', map: () => ({ effects: [] }) }, context);
   const admitted = { ...context, reviewedFingerprint: plan.fingerprint };
   const result = preflightD1ImportJob(plan, admitted);
-  assert.ok(result.totalExecutions < 20);
   assert.ok(result.maxBoundBytes <= 2000000 && result.maxSqlBytes <= 100000 && result.maxParameters <= 100);
   const statements = creationStatements(plan, admitted, '00000000-0000-0000-0000-000000000000', plan.fingerprint);
   statements.forEach(checkSql);

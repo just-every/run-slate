@@ -1,5 +1,4 @@
 import { createMailSender } from '../../../../modules/mail/src/sender.mjs';
-import { createD1DevelopmentOutbox } from '../../../../modules/mail/src/development/index.mjs';
 import { isLocalOrigin, type RuntimeConfig } from '../config/runtime';
 
 export interface OutboundMail { to: string; subject: string; text: string; html?: string; idempotencyKey?: string }
@@ -13,8 +12,6 @@ export interface MailerOptions { provider: 'rer' | 'resend' | 'sendgrid' | 'deve
 export function createMailer(options: MailerOptions): Mailer {
   if (!options.from.trim()) throw new Error('MAIL_FROM is required to create the mail adapter.');
   if (options.provider === 'development' && !options.demo && (!options.localDevelopment || !isLocalOrigin(options.appUrl))) throw new Error('Development mail requires LOCAL_DEVELOPMENT and a loopback APP_URL.');
-  if (options.provider === 'development' && !options.db) throw new Error('Development mail requires a database.');
-  const outbox = options.provider === 'development' ? createD1DevelopmentOutbox({db: options.db!}) : undefined;
   const fetcher = options.fetch ?? globalThis.fetch;
   return { async send(message) {
     let status: number | null = null;
@@ -23,7 +20,6 @@ export function createMailer(options: MailerOptions): Mailer {
     const sender = createMailSender(options.provider === 'development'
       ? { provider: 'development', mode: 'development' }
       : { provider: options.provider, mode: 'production', apiKey: options.apiKey, ...(options.provider === 'rer' ? {relayUrl: options.relayUrl} : {}) }, {
-      ...(options.provider === 'development' ? { outbox } : {}),
       fetch: async (input: RequestInfo | URL, init?: RequestInit) => {
         const response = await fetcher(input, init);
         status = response.status;

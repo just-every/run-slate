@@ -11,7 +11,9 @@ import { commitOperation, mutationGuard } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
 import { deliverIdentityMail } from '../session/mail';
 import { admitIdentityMail, requireMailConfig } from '../session/mail-admission';
-export async function invite(ctx:FeatureContext,config:RuntimeConfig,input:{operationKey:string;email:string;kind:'member'|'guest';pageId?:string;containerId?:string;level?:AccessLevel;expiresAt?:string|null}) {
+type InvitationInput={operationKey:string;email:string;kind:'member'|'guest';pageId?:string;containerId?:string;level?:AccessLevel;expiresAt?:string|null};
+/** Admit the invitation and encrypted delivery together, before transport. */
+export async function prepareInvitation(ctx:FeatureContext,config:RuntimeConfig,input:InvitationInput) {
   if(input.kind==='member'&&(input.level!==undefined||input.expiresAt!==undefined))throw new ApiProblem(400,'INVALID_INVITATION_SCOPE','Resource permissions apply only to guest invitations.');
   if(input.expiresAt!==undefined&&input.expiresAt!==null&&(!Number.isFinite(Date.parse(input.expiresAt))||input.expiresAt<=ctx.now))throw new ApiProblem(400,'INVALID_GRANT_EXPIRY','Choose a future grant expiry.');
   if((input.pageId&&input.containerId)||(input.kind==='member'&&(input.pageId||input.containerId)))throw new ApiProblem(400,'INVALID_INVITATION_SCOPE','A guest invitation names exactly one page or container; member invitations do not confer resource grants.');
@@ -26,6 +28,10 @@ export async function invite(ctx:FeatureContext,config:RuntimeConfig,input:{oper
     if(!existing) { if(grantId){const table=input.pageId?'page_grants':'container_grants',key=input.pageId?'page_id':'container_id';statements.push(ctx.db.prepare(`INSERT INTO ${table} (id,${key},principal_kind,principal_id,level,expires_at,created_at,updated_at) VALUES (?,?,'member',?,?,?,?,?)`).bind(grantId,input.pageId??input.containerId!,`invitation:${id}`,input.level??'view',input.expiresAt??null,ctx.now,ctx.now));} statements.push(ctx.db.prepare('INSERT INTO invitations (id,workspace_id,email,kind,container_id,page_id,container_grant_id,page_grant_id,token_digest,invited_by_member_id,expires_at,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)').bind(id,ctx.actor.workspaceId,input.email.toLowerCase(),input.kind,input.containerId??null,input.pageId??null,input.containerId?grantId:null,input.pageId?grantId:null,await sessionDigest(config.sessionSecret,token),ctx.actor.id,new Date(Date.parse(ctx.now)+86400000).toISOString(),ctx.now)); const url=new URL('/api/auth/invitation/accept',config.appUrl);url.searchParams.set('token',token);const delivery=await admitIdentityMail(ctx.db,config,{workspaceId:ctx.actor.workspaceId,email:input.email.toLowerCase(),kind:'invitation',invitationId:id,url:url.toString(),operationKey:input.operationKey,requestedByMemberId:ctx.actor.id},ctx.now);statements.push(delivery.statement); }
     return {entity:{id:ctx.actor.workspaceId,kind:'invitation',revisionId},value:{accepted:true},statements};
   }});
+  return result;
+}
+export async function invite(ctx:FeatureContext,config:RuntimeConfig,input:InvitationInput) {
+  const result=await prepareInvitation(ctx,config,input);
   // Admission, encrypted command and receipt committed together; replay resumes the same command.
   const delivery=await ctx.db.prepare('SELECT id FROM mail_deliveries WHERE workspace_id=? AND requested_by_member_id=? AND operation_key=?').bind(ctx.actor.workspaceId,ctx.actor.id,input.operationKey).first<{id:string}>();
   if(delivery)await deliverIdentityMail(ctx.db,config,delivery.id,ctx,ctx.now);

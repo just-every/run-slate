@@ -67,6 +67,6 @@ export async function identityChecks({r,owner,check,context}){
  assert.equal((await api(r,'/api/auth/logout',otherOwner,{})).status,204);assert.equal((await api(r,'/api/session',otherOwner)).status,401);
  assert.equal((await api(r,'/api/members/remove',owner,{operationKey:op(),memberId:'other-owner'})).status,200);assert.equal((await api(r,'/api/members/remove',owner,{operationKey:op(),memberId:'qualification-owner'})).status,409);
  });
- await check(['WORK-015'],'unconfigured-identity-stays-unavailable',async()=>{const cap=(await api(r,'/api/auth/capabilities')).data;assert.equal(cap.identityProvider,false);assert.equal(cap.localOutbox,true);for(const path of ['/auth/oidc/identity/start','/api/auth/identity/callback'])assert.equal((await api(r,path)).status,404,`${path} has no provider behind it`);});
+ await check(['WORK-015'],'unconfigured-identity-stays-unavailable',async()=>{const cap=(await api(r,'/api/auth/capabilities')).data;assert.equal(cap.identityProvider,false);for(const path of ['/auth/oidc/identity/start','/api/auth/identity/callback'])assert.equal((await api(r,path)).status,404,`${path} has no provider behind it`);});
  return {guest};
 }

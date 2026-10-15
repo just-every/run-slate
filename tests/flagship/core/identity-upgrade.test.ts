@@ -2,7 +2,7 @@ import { env, applyD1Migrations } from 'cloudflare:test';
 import { test, expect } from 'vitest';
 import { createOpaqueToken, sessionDigest } from '../../../src/core/platform/auth/token';
 import { readRuntimeConfig } from '../../../src/core/platform/config/runtime';
-import { developmentOutbox } from '../../../src/core/app/development-outbox';
+import { captureMail } from '../../e2e/helpers/mail-edge';
 import { priorIdentityFixture } from './identity-prior-fixture';
 import { providerEdge } from './identity-provider-fixture';
 
@@ -13,7 +13,9 @@ const project = (rows: unknown[], like: unknown[]) => {
 };
 function http(fixture: Fixture) {
   const { api, origin, bindings } = fixture, host = new URL(origin).host;
-  const outbox = (path: string) => developmentOutbox(new Request(origin + path, { headers: { host, 'x-rer-dev-key': bindings.RER_DEV_KEY } }), bindings);
+  bindings.MAIL_PROVIDER = 'resend';
+  bindings.MAIL_API_KEY = 'test-only-mail-key';
+  const mail = captureMail();
   return {
     host,
     get: (path: string, cookie?: string) => api.request(origin + path, { headers: { host, ...(cookie ? { cookie } : {}) } }, bindings),
@@ -21,13 +23,7 @@ function http(fixture: Fixture) {
     confirm: (token: string, cookie?: string, from = origin) => api.request(origin + '/auth/confirm', { method: 'POST', headers: { host, origin: from, 'content-type': 'application/x-www-form-urlencoded', ...(cookie ? { cookie } : {}) }, body: new URLSearchParams({ token }) }, bindings),
     /** The newest outbox message for an address, opened as a person would. */
     async latestLink(email: string) {
-      const listing = await outbox('/__dev/outbox'); expect(listing?.status).toBe(200);
-      // Newest first: the first article addressed to this mailbox.
-      const article = (await listing!.text()).split('<article>').find(part => part.includes(`To: ${email}</p>`));
-      const message = article?.match(/href="(\/__dev\/outbox\?message=[^"]+)"/)?.[1];
-      expect(message).toBeTruthy();
-      const detail = await outbox(message!.replaceAll('&amp;', '&')); expect(detail?.status).toBe(200);
-      const link = new URL((await detail!.text()).match(/class="open" href="([^"<>]+)"/)![1]!.replaceAll('&amp;', '&'));
+      const link = mail.latestLink(email);
       expect(link.origin + link.pathname).toBe(origin + '/auth/confirm');
       return link.searchParams.get('token')!;
     },

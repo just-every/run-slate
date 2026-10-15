@@ -52,7 +52,6 @@ export function SignInPage({ capabilities, requested = false }: { next: string; 
   if (capabilities?.mailDelivery)
     return (
       <SignInScreen
-        localOutbox={capabilities.localOutbox}
         email={email}
         onEmailChange={(value) => {
           setEmail(value);

@@ -1,7 +1,6 @@
-import { withDemo } from "./modules/demo/index.mjs";
+import { withDemo } from "../modules/demo/index.mjs";
 import { seedDemo, demoOwner } from "./demo";
 import {editorHeaders} from "./core/app/editor-config";
-import { developmentOutbox } from "./core/app/development-outbox";
 import { publicDocumentLimit } from "./core/app/http-security";
 import { consumeJobs, scheduledJobs } from "./core/app/background";
 import start from "@tanstack/react-start/server-entry";
@@ -68,8 +67,6 @@ async function handleRequest(request: Request, bindings: AppBindings, execution:
     const url = new URL(request.url);
     const asset = import.meta.env.DEV ? await developmentAsset(request, bindings) : await staticAssetResponse(request, bindings);
     if (asset) return asset;
-    const outbox = await developmentOutbox(request, bindings);
-    if (outbox) return outbox;
     const checkedBindings = requireBindings(bindings);
 
     if (isHonoRequest(url.pathname)) {

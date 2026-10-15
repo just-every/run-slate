@@ -37,7 +37,7 @@ while(streamed.state!=='undone')streamed=await undoD1ImportStream(streamed.id,ct
 return Response.json({job,originals:await readD1ImportOriginals(job.id,ctx),completed,streamed,pages:paged.pages.length});
 }};`;
   const directory = await mkdtemp(join(tmpdir(), 'import-worker-'));
-  const mf = new Miniflare({ ...convertV4MiniflareOptions({ modules: [{ type: 'ESModule', path: join(root, 'worker.js'), contents: script }, ...modules], modulesRoot: root, compatibilityDate: '2026-09-01', compatibilityFlags: ['nodejs_compat'], d1Databases: { DB: 'worker-import' } }), resourcePersistencePath: directory });
+  const mf = new Miniflare({ ...convertV4MiniflareOptions({ modules: [{ type: 'ESModule', path: join(root, 'worker.js'), contents: script }, ...modules], modulesRoot: resolve(root, "../.."), compatibilityDate: '2026-09-01', compatibilityFlags: ['nodejs_compat'], d1Databases: { DB: 'worker-import' } }), resourcePersistencePath: directory });
   try { const response = await mf.dispatchFetch('http://localhost'); assert.equal(response.status, 200, await response.clone().text()); const result = await response.json() as any; assert.equal(result.job.state, 'queued'); assert.equal(result.originals[0].original.base64, 'W10='); assert.equal(result.completed.total,201); assert.equal(result.completed.checkpoint,201); assert.equal(result.streamed.state,'undone'); assert.equal(result.pages,3); }
   finally { await mf.dispose(); await rm(directory, { recursive: true, force: true }); }
 });

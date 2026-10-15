@@ -1,23 +1,25 @@
 # Try Slate
 
-`pnpm exec rer demo` uses a disposable workspace and signs in the configured
-local owner. Stop it with `pnpm exec rer demo --stop`; starting again creates a
-fresh Northstar Studio handbook, linked pages, project table, comments and members.
-The normal `.wrangler/state` is not used.
+`pnpm exec rer demo` creates a disposable Slate workspace and signs in its
+owner. Stop it with `pnpm exec rer demo --stop`. Each start gets the team
+handbook, linked pages, a project tracker, comments and members, through Slate's
+normal domain operations. The checkout's normal state is never written.
+
+The demo runtime and all other vendored Base modules are copied together from
+`rer-v0.2.22`; the CLI is pinned to `@runeditrun/rer` 0.2.22 in package mode.
+The marked navigation name reads **Slate Demo**, and document titles carry the
+Demo suffix. There is no demo bar or captured-mail outbox.
+
+Public reads run for real. External writes return success without sending;
+Base Mail silently suppresses demo invitations and sign-in mail. Model calls
+use `demoEffect` with a grounded, provider-shaped response. Production keeps
+the real providers. Every visitor gets separate data and collaboration rooms.
+The host controls expiry and destroys the visitor's container.
 
 The Run demo workflow uses the `run-demo` environment. Dispatch `test_only` for
-the separate test host and published Turnstile test keys; dispatch `remove` with
-`test_only` to delete it. Production uses the environment's real Turnstile keys.
-The workflow does not enable automatic deployment.
-
-The copied Base demo runtime lives in `src/modules/demo`, and is pinned to `rer-v0.2.19`; its stateless helpers import the pinned npm package so Slate’s existing auth runtime keeps its own single Base pin. It blocks outbound fetch and sockets
-and supplies the slim Demo strip. Hosted containers also deny network egress.
-Mail uses the captured outbox. AI and connectors have no provider credentials.
-The demo enables Slate’s existing flagship profile for live collaboration;
-connector and AI requests are refused in demo mode.
-Published pages require the native visitor session locally and the hosted visitor cookie in production, as does the entire hosted app.
-Each visitor has separate storage and collaboration rooms. The host controls
-expiry and destroys the visitor's container.
+the separate test host with published Turnstile test keys. Dispatch `remove`
+with `test_only` to delete it and read back its removal. Production uses the
+environment's real Turnstile keys. Automatic deployment is not enabled here.
 
 Hosted sign-in verifies Base's signed owner claim and uses Slate's native
 empty-workspace claim and session store. It cannot claim an existing workspace;

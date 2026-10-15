@@ -4,7 +4,7 @@
 import worker, { ContentCollaboration } from "../server";
 import { devGate, devNotFound } from "../../modules/operator-auth/index.mjs";
 import { registerDevAdmission } from "../../modules/operator-auth/dev-admission.mjs";
-import { decorate } from "../../modules/operator-auth/dev/badge.mjs";
+import { decorateLabel } from "../../modules/demo/label.mjs";
 import { isLoopbackHostname } from "../core/platform/auth/paths";
 import { clearSessionCookie } from "../core/platform/auth/cookie";
 import { readRuntimeConfig } from "../core/platform/config/runtime";
@@ -36,10 +36,7 @@ function identity(env: AppBindings) {
   return {
     store, everyone,
     list: () => [...everyone(), { as: "signed-out" }],
-    async badge(request: Request) {
-      const session = await store.read(request, Date.now());
-      return { session: session ? { operator: { email: session.operator.email, role: session.operator.memberKind === "guest" ? "guest" : session.operator.role } } : null, choices: everyone() };
-    },
+
   };
 }
 
@@ -93,9 +90,8 @@ export default {
       if (!gate || env.RER_DEV_IDENTITY === "off" || !await gate.admits(request)) return devNotFound();
       return path === "/__dev/personas" ? Response.json(identity(env).list(), { headers }) : enter(request, env, gate);
     }
+    if (path === "/__dev/key") return gate ? (await gate.exchange(request) ?? devNotFound()) : devNotFound();
     const response = await worker.fetch(request, env, execution);
-    if (!gate || request.method !== "GET" || path.startsWith("/__dev/")) return response;
-    const badge = await gate.admits(request) && env.RER_DEV_IDENTITY !== "off" ? await identity(env).badge(request) : null;
-    return decorate(response, { exchange: path === "/", badge });
+    return env.RER_DEMO === '1' ? response : decorateLabel(response, 'Dev');
   },
 } satisfies ExportedHandler<AppBindings>;

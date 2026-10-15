@@ -23,7 +23,6 @@ export function SignInScreen({
   deliveryError,
   identityProviders = [],
   className,
-  localOutbox = false,
 }: {
   state: SignInScreenState;
   email: string;
@@ -36,7 +35,6 @@ export function SignInScreen({
   /** `WORK-015` — each configured, enabled provider keeps its own sign-in. */
   identityProviders?: SignInIdentityProvider[];
   className?: string;
-  localOutbox?: boolean;
 }) {
   const fieldId = useId();
   const showsForm =
@@ -58,7 +56,7 @@ export function SignInScreen({
       <div className="paper-columns">
         <div className="paper-body paper-body--narrow">
           <h1 className="paper-title">
-            {state === "sent" ? (localOutbox ? "Open your local outbox" : "Check your email") : "Sign in"}
+            {state === "sent" ? "Check your email" : "Sign in"}
           </h1>
 
           {state === "request" ? <p className="paper-lede">Use your email address to get a one-time sign-in link.</p> : null}
@@ -82,7 +80,7 @@ export function SignInScreen({
               <p className="paper-sent">
                 <Mail aria-hidden="true" className="size-5" />
                 <span>
-                  {localOutbox ? "A sign-in link is saved locally for " : "A sign-in link is on its way to "}
+                  A sign-in link is on its way to 
                   <strong>{email}</strong>. It works once and
                   stops working an hour after it was created.
                 </span>
@@ -150,7 +148,6 @@ export function SignInScreen({
             </div>
           ) : null}
 
-          {localOutbox ? <p className="paper-note">Local development: sign-in links are saved in <a href="/__dev/outbox">the local outbox</a>. No email is sent.</p> : null}
 
           <p className="paper-note">
             Slate stores no password, so there is nothing to reset. Access to your
