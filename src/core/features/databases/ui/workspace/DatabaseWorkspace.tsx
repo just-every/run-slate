@@ -197,7 +197,7 @@ export function DatabaseWorkspace({ id }: { id: string }) {
                 />
               ) : null}
               {error ? <p role="alert">{errorMessage(error)}</p> : null}
-              <RequestState
+              {mode === "records" ? <RequestState
                 loading={query.loading}
                 error={query.error}
                 retry={query.reload}
@@ -261,7 +261,7 @@ export function DatabaseWorkspace({ id }: { id: string }) {
                 {query.data?.records.length === 0 ? (
                   <p className="muted">No records match this view.</p>
                 ) : null}
-              </RequestState>
+              </RequestState> : null}
               </>}
             </>
           ) : null}

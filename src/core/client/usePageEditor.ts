@@ -14,7 +14,7 @@ import { useWorkspace } from "../app/ui/WorkspaceContext";
 /** How long a structure change waits for the page read around its save. */
 const STRUCTURE_READ_MS = 15_000;
 
-export function usePageEditor(document: DocumentView, invalidateRead: () => void) {
+export function usePageEditor(document: DocumentView, invalidateRead: () => void, pendingTitle?: () => Promise<void> | null) {
   const { member } = useWorkspace();
   const journalKey = draftKeys(member.workspaceId, member.id, document.page.id).journal;
   const restored = useRef(document.permissions.canEdit ? readDraft(journalKey) : null);
@@ -131,6 +131,7 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
     busy.current.add(id);
     status(id, { status: "saving" });
     try {
+      await pendingTitle?.();
       const receipt = edit.structure || blockTypes.current.get(id) !== edit.block.type
         ? await saveBlockType(pageId, edit, persistDraft)
         : await contentApi.block(
@@ -304,6 +305,10 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
     return { next: rebased, revision: fresh.page.revisionId, known };
   }
   async function structure(next: EditorBlock[], expectedBlocks?: Record<string, string>) {
+    if (!alive.current || !canEdit.current) throw new Error("This page is read-only with your current access.");
+    // Enter in the title moves focus immediately; its receipt advances the
+    // same page revision used by the first body block's creation.
+    await pendingTitle?.();
     if (!alive.current || !canEdit.current) throw new Error("This page is read-only with your current access.");
     if (structureBusy.current || busy.current.size || pending.current.size)
       throw new Error(

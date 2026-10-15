@@ -213,7 +213,7 @@ export function parseDocx(source: ImportSourceFile, format: Extract<ImportFormat
       if (rows.length) { const block = makeBlock(id, blockIndex++, "table"); block.rows = rows; blocks.push(block); }
     }
   }
-  const title = titleFor(source);
+  const title = blocks.find(block => block.kind === "heading" && block.level === 1)?.text || titleFor(source);
   reportCreated(report, "container", title, id);
   reportCreated(report, "page", title, id);
   return {

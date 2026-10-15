@@ -7,13 +7,13 @@ Slate runs as one Cloudflare Worker with D1, R2, a jobs queue and collaboration 
 Install Git and Node.js 22 or later to run rer. There is no Node or pnpm version to choose: rer fetches the ones this checkout pins and installs the pinned dependencies itself. Then:
 
 ```sh
-npm install -g @runeditrun/rer
+curl -fsSL https://runeditrun.com/install.sh | sh
 git clone https://github.com/just-every/run-slate.git slate
 cd slate
 rer dev
 ```
 
-In a fresh checkout `rer dev` alone sets up a placeholder local owner. To use your own email instead, run `rer setup --owner-email owner@example.test` before `rer dev` (use your own address). When Slate is ready, open the printed `RER_OPEN` link to sign in as the local owner. Keep this link private. No email or outbox step is needed. On first use, name the workspace and create its first space and page at `/setup`. Private settings and local data survive restart; Slate creates no sample workspace. Setup reruns preserve your settings and owner. Stop dev with `rer dev --stop`. Use `rer preview` for a fixed production build.
+You can also install rer with `npm install -g @runeditrun/rer`. In a fresh checkout `rer dev` alone installs the pinned dependencies and sets up a placeholder local owner; separate `rer install` and `rer setup` steps are optional. To use your own email instead, run `rer setup --owner-email owner@example.test` before `rer dev` (use your own address). When Slate is ready, open the printed `RER_OPEN` link to sign in as the local owner. Keep this link private. No email or outbox step is needed. On first use, name the workspace and create its first space and page at `/setup`. Private settings and local data survive restart; Slate creates no sample workspace. Setup reruns preserve your settings and owner. Stop dev with `rer dev --stop`. Use `rer preview` for a fixed production build.
 
 ## Run Edit Run hosting
 

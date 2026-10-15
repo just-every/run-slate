@@ -25,13 +25,13 @@ Slate is a self-hosted team wiki. Pages, databases and search live in one open-s
 To look around locally, install Git and Node.js 22 or later, then run the commands below. There is no Node or pnpm version to choose: rer fetches the ones the checkout pins and installs its dependencies itself.
 
 ```sh
-npm install -g @runeditrun/rer
+curl -fsSL https://runeditrun.com/install.sh | sh
 git clone https://github.com/just-every/run-slate.git slate
 cd slate
 rer dev
 ```
 
-`rer dev` prints a link that opens Slate signed in as a placeholder local owner. No email is sent.
+You can also install rer with `npm install -g @runeditrun/rer`. In a fresh checkout, `rer dev` installs the pinned dependencies, prepares a placeholder local owner and prints a link that opens Slate signed in. Separate `rer install` and `rer setup` steps are optional; run `rer setup --owner-email you@example.test` first to choose your own owner email. No email is sent locally.
 
 For an existing installation, follow [Update your existing wiki](INSTALL.md#update-your-existing-wiki): export first, then `git pull --ff-only` and `rer deploy` to the same environment. Rer installs the pinned dependencies as part of deployment.
 

@@ -48,6 +48,9 @@ export interface SourceIdentity {
 
 export interface ImportedLink {
   href: string;
+  /** Range in the block's plain text occupied by this link's label. */
+  textStart?: number;
+  textEnd?: number;
   targetSourceId?: string;
   kind: "external" | "page" | "database" | "attachment";
 }

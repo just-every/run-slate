@@ -56,7 +56,7 @@ Use your own email address. Setup prepares the local app, database and private s
 
 When Slate is ready, dev prints an `RER_OPEN` link. Open that link to sign in as the local owner; no email or outbox step is needed for this initial sign-in. Keep the link private. On first use, name the workspace and create its first space and page at `/setup`; later visits open your existing workspace. Local data lives in `.wrangler/state`; credentials stay out of production builds.
 
-Sensitive operations still require a fresh email confirmation. In local development, open `/__dev/outbox` on the same Slate origin in the browser where you used `RER_OPEN`, read the newest confirmation message, follow its link, then retry the operation. Local messages stay in this outbox; no email is sent.
+Local mail is silently suppressed; there is no local email outbox. A signed-in local owner can use Settings → Import & export → **Export workspace** without email confirmation. Hosted workspace export still requires a fresh email confirmation. Other sensitive operations retain their email confirmation requirement; use the CLI below for local backup and restore.
 
 In a second terminal, stop dev before running the checks:
 
@@ -78,7 +78,7 @@ Stop dev or preview before moving local data. Export to a new private file:
 rer export --output exports/installation.rer
 ```
 
-The archive includes D1 facts and identity lineage plus retained FILES attachments and source import originals. Derived ZIP exports, deleted files and unreferenced staging objects are excluded. Session capabilities, provider credentials, local configuration and transient caches are excluded. Native agent credential metadata is retained as revoked records with erased digests and empty scopes; no agent token or usable digest moves. Restore into a fresh empty checkout **before its first setup/sign-in**:
+The archive includes D1 facts and identity lineage plus retained FILES attachments and source import originals. Derived ZIP exports, deleted files and unreferenced staging objects are excluded. Session capabilities, provider credentials, local configuration and transient caches are excluded. Native agent credential metadata is retained as revoked records with erased digests and empty scopes; no agent token or usable digest moves. Restore into a fresh empty checkout **before its first setup/sign-in**. Copy the archive into that destination checkout's `exports/` directory first, then run these commands from the destination root. `--input` must name a path contained in that checkout; paths into another checkout, including `../slate/exports/installation.rer`, are refused:
 
 ```sh
 rer import --input exports/installation.rer --yes
@@ -97,7 +97,7 @@ It removes local D1/R2/collaboration state, settings and installer drafts, prese
 
 ## Mail with Run Edit Run hosting
 
-Managed hosting includes mail through Run Edit Run; you do not need a Resend or SendGrid account. Configure fills and hides `MAIL_PROVIDER`, `MAIL_FROM`, `MAIL_RELAY_URL` and `MAIL_API_KEY`, generating a private credential for the installation and environment. Slate uses Base's copied `rer` relay adapter. Free and Assisted hosting keep the options to use your own Resend or SendGrid account, key and verified sender. Local development keeps its loopback outbox and dev v2 sign-in flow.
+Managed hosting includes mail through Run Edit Run; you do not need a Resend or SendGrid account. Configure fills and hides `MAIL_PROVIDER`, `MAIL_FROM`, `MAIL_RELAY_URL` and `MAIL_API_KEY`, generating a private credential for the installation and environment. Slate uses Base's copied `rer` relay adapter. Free and Assisted hosting keep the options to use your own Resend or SendGrid account, key and verified sender. Local development suppresses mail and uses the printed one-click sign-in link.
 
 ## Deploy to your Cloudflare account
 
@@ -121,7 +121,9 @@ To remove a deployment and every resource rer created for it, including its data
 
 ```sh
 rer deploy --environment production --remove --yes
-``` Source `rer release --repo PATH --output PATH --clean-history` validates and prepares a local export; it does not push, tag a public repository or deploy.
+```
+
+Source `rer release --repo PATH --output PATH --clean-history` validates and prepares a local export; it does not push, tag a public repository or deploy.
 
 ## Verify and acceptance
 

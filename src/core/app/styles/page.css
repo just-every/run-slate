@@ -18,6 +18,7 @@
 .slate-app [data-page-editor] .text-good { display: inline-block; margin-top: 6px; }
 .slate-app .search-context { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0; padding: 8px 20px; min-height: 44px; font-size: 12px; background: var(--slate-hl-yellow); color: var(--slate-ink); }
 .slate-app .search-context button { flex-shrink: 0; text-decoration: underline; }
+.slate-app [data-slate-editable] a { color: var(--slate-accent); text-decoration: underline; text-underline-offset: 3px; }
 ::highlight(search-match), .slate-app mark { background: var(--slate-hl-yellow); color: var(--slate-ink); }
 /* verification-only puts the status chip beside the breadcrumb; narrow screens hide the breadcrumb, so the byline carries it there. */
 .slate-app .byline-status-narrow { display: none; }

@@ -94,7 +94,7 @@ export function PortabilityPanel() {
         </fieldset>
       </form>
       {pending?<p role="status">The server is processing this request. Completion has not been confirmed.</p>:null}
-      {error ? <p role="alert">{errorMessage(error)}</p> : null}
+      {error ? <p className="request-notice" role="alert">{errorMessage(error)}</p> : null}
       {jobs.length?<label>Retained imports<select aria-label="Retained imports" disabled={pending} value={job?.id??''} onChange={event=>{const id=event.target.value;void request<Job>(`/api/imports/${id}`).then(setJob).catch(setError);}}>{jobs.map(item=><option key={item.id} value={item.id}>{item.filename??item.id} · {item.state}</option>)}</select></label>:null}
       {job ? <ImportReview key={`${job.id}:${job.report?.fingerprint??''}`} job={job} pending={pending} act={(verb,body)=>void action(async()=>{
         let next=await mutate<Job>(`/api/imports/${job.id}/${verb}`,body??{});setJob(next);

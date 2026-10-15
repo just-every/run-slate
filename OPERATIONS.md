@@ -31,7 +31,7 @@ Slate uses the copied Base `rer` relay adapter. It posts one recipient, subject,
 
 Managed mail shares production/preview limits of 20 messages per minute, 200 per hour and 1,000 per day per installation. Valid attempts consume allowance even when the provider fails. Credential rotation invalidates pending releases: build and publish again to bind the new credential. Revocation stops access, and ordinary Configure save cannot revive a revoked credential. The relay checks paid Managed access and hosting state on every send.
 
-This hosted configuration leaves local development's loopback outbox and dev v2 sign-in unchanged. The owner-account deployment command below still requires an explicit Resend or SendGrid account and verified sender; it does not provision Managed relay mail. Local checks establish neither deployed relay access nor inbox delivery.
+Local development suppresses mail and has no email outbox; sign in through the printed one-click link. A signed-in local owner can export a workspace from Settings without email confirmation. Hosted workspace export retains its fresh email confirmation. The owner-account deployment command below requires an explicit Resend or SendGrid account and verified sender; it does not provision Managed relay mail. Local checks establish neither deployed relay access nor inbox delivery.
 
 ## Owner-account deployment
 

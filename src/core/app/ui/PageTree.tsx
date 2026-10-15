@@ -7,9 +7,10 @@ import {mutate, operationKey, errorMessage} from "../../client/transport";
 import {useCreatePage} from "./useCreatePage";
 import {DEFAULT_PAGE_TITLE} from "./pageDestination";
 import { useState } from "react";
-import { ArrowUpDown, ChevronRight, FileText, Plus } from "lucide-react";
+import { ArrowUpDown, ChevronRight, Database, FileText, Plus } from "lucide-react";
 import type { PageRef } from "../../shared/api/content";
 export type TreePage = PageRef & {
+  databaseId?: string;
   parentPageId?: string | null;
   treePosition?: string|null;
   icon?: string | null;
@@ -91,8 +92,8 @@ function TreeItem({
         ) : (
           <span className="tree-spacer" />
         )}
-        <a className="navlink" href={`/app/pages/${page.id}`} aria-current={activePath === `/app/pages/${page.id}` ? "page" : undefined}>
-          {page.icon ? <StoredIcon icon={page.icon}/> : <FileText aria-hidden="true" />}
+        <a className="navlink" href={page.databaseId ? `/app/databases/${page.databaseId}` : `/app/pages/${page.id}`} aria-current={activePath === (page.databaseId ? `/app/databases/${page.databaseId}` : `/app/pages/${page.id}`) ? "page" : undefined}>
+          {page.icon ? <StoredIcon icon={page.icon}/> : page.databaseId ? <Database aria-hidden="true" /> : <FileText aria-hidden="true" />}
           <span>{page.title || "Untitled"}<ScheduledPublication page={page}/></span>
         </a>
         <button className="iconbutton tree-action" aria-label={`Move ${page.title} in tree`} disabled={!canMove} onClick={()=>setMove({page})}><ArrowUpDown aria-hidden="true"/></button>

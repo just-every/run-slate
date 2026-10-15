@@ -1,10 +1,10 @@
 import { Plus } from "lucide-react";
-import { cn } from "../../../../ui";
 import { knowledgeNoun } from "../../../../shared/knowledge/vocabulary";
 import { FieldCell, FieldGlyph, fieldTypeLabel } from "../fields";
 import { RecordTitle } from "../RecordTitle";
 import type { CalculationKind, ColumnCalculation } from "../types";
 import { CalculationFooterCell } from "./CalculationFooterCell";
+import { TableScrollRegion } from "./TableScrollRegion";
 import type { RecordViewProps } from "./shared";
 
 /**
@@ -36,7 +36,7 @@ export function TableView({
   onCalculationChange: (fieldId: string, kind: CalculationKind) => void;
 }) {
   return (
-    <div className={cn("relative w-full overflow-x-auto", className)}>
+    <TableScrollRegion className={className}>
       <table className="w-full min-w-[48rem] border-collapse text-ui">
         <thead>
           <tr className="border-b border-line">
@@ -126,6 +126,6 @@ export function TableView({
           </tr>
         </tfoot>
       </table>
-    </div>
+    </TableScrollRegion>
   );
 }

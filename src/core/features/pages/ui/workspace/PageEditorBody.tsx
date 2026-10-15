@@ -80,6 +80,10 @@ export function PageEditorBody({
       const range = (event as CustomEvent<EditableSelection>).detail;
       if (!block || !('text' in block) || !range) return;
       event.preventDefault();
+      if (block.type === 'task' && richTextToPlain(block.text).trim() === '') {
+        changeKind({id: block.id, type: 'paragraph', text: [], indent: block.indent});
+        return;
+      }
       const start = Math.min(range.anchor, range.focus), end = Math.max(range.anchor, range.focus);
       const inserted = newBlock(block.type === 'task' ? 'task' : 'text');
       if (!('text' in inserted)) return;

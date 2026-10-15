@@ -29,7 +29,7 @@ member with the same verified mailbox; it never moves to another member later.
 Provider sessions last up to 24 hours, and changing the provider settings ends
 them.
 
-**Confirm-by-email for sensitive actions.** Exporting or restoring the workspace,
+**Confirm-by-email for sensitive actions.** Hosted workspace export, restoration,
 permanently deleting a page, changing ownership, removing an owner or erasing a
 person, issuing an agent credential and connecting a source now need an email
 confirmation from the last ten minutes. Slate sends the link to your own address
@@ -37,7 +37,7 @@ when you try; open it, confirm, then try again.
 
 **Local development.** `rer dev` opens signed in as the owner. The dev badge
 switches between the owner, the `editor` and `guest` personas and signed out;
-`rer dev --login` uses the outbox sign-in instead. The local outbox now needs
-the checkout's dev key, which `rer` supplies.
+local mail is silently suppressed. A signed-in local owner can export without
+email confirmation. No mail-capture page is available.
 
 **Linked provider setup.** Setup offers an optional existing provider URL. Leaving it blank keeps native email sign-in. The Base native accounts adapter currently refuses unattended first-time provider approval (`native_capability_unavailable`); selected provider setup is blocked until Base supplies that capability. An existing owner may approve a prepared link through the shared owner-authorized protocol, and relink/unlink/logout keep their explicit authority checks. Local protocol evidence proves that boundary, not first-time setup or hosted provider acceptance.

@@ -30,6 +30,7 @@ import { PageDetails, panelTitles } from "./PageDetails";
 import { PageMoreMenu } from "./PageMoreMenu";
 import { PageTopBar } from "./PageTopBar";
 import { useNewPageArrival } from "./useNewPageArrival";
+import { usePageTrail } from "./usePageTrail";
 import type { Crumb } from "../../../../app/ui/header/TopBar";
 
 /** What a host adds around a page: its own location, extra More-menu items, and properties shown beneath the byline. */
@@ -93,7 +94,9 @@ function LoadedPage({
   const {member}=useWorkspace();
   const navigate = useNavigate();
   const flagship = useFlagshipEnabled();
-  const editor = usePageEditor(document, invalidateRead);
+  const trail = usePageTrail(document, host?.trail);
+  const titleWrite = useRef<Promise<void> | null>(null);
+  const editor = usePageEditor(document, invalidateRead, () => titleWrite.current);
   const collaboration = useCollaboration(document.page.id, read);
   const keys=draftKeys(member.workspaceId,member.id,document.page.id),titleKey=keys.title;
   const recovered=useRef<{title:string;revision:string;key:string}|null>(null);
@@ -205,6 +208,12 @@ function LoadedPage({
     } catch (cause) { setError(cause); }
   }
   async function saveTitle() {
+    if (titleWrite.current) return titleWrite.current;
+    const task = commitTitle();
+    titleWrite.current = task;
+    try { await task; } finally { titleWrite.current = null; }
+  }
+  async function commitTitle() {
     if (!document.permissions.canEdit || title === savedTitle || titleSaving) return;
     setTitleSaving(true);
     setTitleSaved(false);
@@ -231,7 +240,7 @@ function LoadedPage({
   return (
     <>
       <PageTopBar
-        trail={[...(host?.trail ?? [{ label: "Pages", href: "/app" }]), { label: document.page.title || "Untitled", suffix: document.policyProfile["page.status.v1"] === "verification-only" ? <PageStatusBadge document={document}/> : null }]}
+        trail={[...trail, { label: document.page.title || "Untitled", suffix: document.policyProfile["page.status.v1"] === "verification-only" ? <PageStatusBadge document={document}/> : null }]}
         flagship={flagship}
         detail={detail}
         onToggle={value => {setSelection(undefined);setDetail(detail === value ? null : value);}}
@@ -284,6 +293,7 @@ function LoadedPage({
               if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {
                 event.preventDefault();
                 void saveTitle();
+                event.currentTarget.closest('article')?.querySelector<HTMLElement>('[data-page-editor] [data-slate-editable]')?.focus();
               }
             }}
           />

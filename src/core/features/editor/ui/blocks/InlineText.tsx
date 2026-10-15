@@ -93,7 +93,7 @@ export function InlineText({ value }: { value: RichText }) {
     <>
       {value.map((span, index) =>
         span.text.length === 0 && !span.mention ? null : (
-          <span key={index} data-inline-span={index} contentEditable={span.mention ? false : undefined}>
+          <span key={index} data-inline-span={index} data-slate-mention-length={span.mention ? span.text.length : undefined} contentEditable={span.mention ? false : undefined}>
             <Span span={span} />
           </span>
         ),

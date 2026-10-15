@@ -6,32 +6,40 @@ const bullet = /^\s*[-*+]\s+(.+)$/;
 const ordered = /^\s*\d+[.)]\s+(.+)$/;
 const task = /^\s*[-*+]\s+\[([ xX])\]\s+(.+)$/;
 
-function linksIn(text: string): ImportedLink[] {
+function inlineMarkdown(source: string): { text: string; links: ImportedLink[] } {
   const links: ImportedLink[] = [];
-  for (const match of text.matchAll(/\[([^\]]*)\]\(([^)]+)\)/g)) {
-    const link = safeImportLink(match[2]!);
-    if (link) links.push(link);
+  let text = "", cursor = 0;
+  for (const match of source.matchAll(/(!?)\[([^\]]*)\]\(([^()\n]*(?:\([^()\n]*\)[^()\n]*)*)\)/g)) {
+    text += stripFormatting(source.slice(cursor, match.index));
+    const label = stripFormatting(match[2]!);
+    const textStart = text.length;
+    text += label;
+    const link = safeImportLink(match[3]!);
+    if (link) links.push({ ...link, textStart, textEnd: text.length });
+    cursor = match.index! + match[0].length;
   }
-  return links;
+  text += stripFormatting(source.slice(cursor));
+  return { text, links };
 }
 
-function block(sourceId: string, index: number, kind: ImportedBlock["kind"], text?: string, linkSource?: string): ImportedBlock {
+function block(sourceId: string, index: number, kind: ImportedBlock["kind"], text?: string): ImportedBlock {
+  const inline = kind === "code" ? { text, links: [] } : inlineMarkdown(text ?? "");
   return {
     sourceId: `${sourceId}#block-${index}`,
     sourceIdentityKind: "path-derived",
     kind,
-    text,
-    links: (linkSource ?? text) ? linksIn(linkSource ?? text!) : [],
+    text: inline.text,
+    links: inline.links,
     children: [],
   };
 }
 
-function stripInlineMarkdown(value: string): string {
-  return value.replace(/!?(\[[^\]]*\])\(([^)]+)\)/g, "$1").replace(/[*_`~]/g, "").trim();
+function stripFormatting(value: string): string {
+  return value.replace(/[*_`~]/g, "");
 }
 
 function tableRows(lines: string[]): string[][] {
-  return lines.filter((line) => !/^\s*\|?\s*:?-{3,}/.test(line)).map((line) => line.trim().replace(/^\||\|$/g, "").split("|").map((cell) => stripInlineMarkdown(cell.trim())));
+  return lines.filter((line) => !/^\s*\|?\s*:?-{3,}/.test(line)).map((line) => line.trim().replace(/^\||\|$/g, "").split("|").map((cell) => inlineMarkdown(cell.trim()).text));
 }
 
 export function markdownBlocks(markdown: string, sourceId: string): ImportedBlock[] {
@@ -55,7 +63,7 @@ export function markdownBlocks(markdown: string, sourceId: string): ImportedBloc
     }
     const heading = line.match(marker);
     if (heading) {
-      const next = block(sourceId, index++, "heading", stripInlineMarkdown(heading[2]!));
+      const next = block(sourceId, index++, "heading", heading[2]!.trim());
       next.level = heading[1]!.length;
       blocks.push(next);
       continue;
@@ -66,23 +74,23 @@ export function markdownBlocks(markdown: string, sourceId: string): ImportedBloc
     }
     const checked = line.match(task);
     if (checked) {
-      const next = block(sourceId, index++, "task", stripInlineMarkdown(checked[2]!));
+      const next = block(sourceId, index++, "task", checked[2]!.trim());
       next.checked = checked[1]!.toLowerCase() === "x";
       blocks.push(next);
       continue;
     }
     const list = line.match(bullet);
     if (list) {
-      blocks.push(block(sourceId, index++, "bulleted-list", stripInlineMarkdown(list[1]!)));
+      blocks.push(block(sourceId, index++, "bulleted-list", list[1]!.trim()));
       continue;
     }
     const numbered = line.match(ordered);
     if (numbered) {
-      blocks.push(block(sourceId, index++, "numbered-list", stripInlineMarkdown(numbered[1]!)));
+      blocks.push(block(sourceId, index++, "numbered-list", numbered[1]!.trim()));
       continue;
     }
     if (/^>\s?/.test(line)) {
-      blocks.push(block(sourceId, index++, "quote", stripInlineMarkdown(line.replace(/^>\s?/, ""))));
+      blocks.push(block(sourceId, index++, "quote", line.replace(/^>\s?/, "").trim()));
       continue;
     }
     if (line.includes("|") && cursor + 1 < lines.length && /^\s*\|?\s*:?-{3,}/.test(lines[cursor + 1]!)) {
@@ -99,7 +107,7 @@ export function markdownBlocks(markdown: string, sourceId: string): ImportedBloc
       paragraph.push(lines[++cursor]!.trim());
     }
     const rawParagraph = paragraph.join(" ");
-    blocks.push(block(sourceId, index++, "paragraph", stripInlineMarkdown(rawParagraph), rawParagraph));
+    blocks.push(block(sourceId, index++, "paragraph", rawParagraph));
   }
   return blocks;
 }

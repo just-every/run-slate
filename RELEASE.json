@@ -12,7 +12,7 @@
       "change": "changed",
       "summary": "Local setup persists the private loopback configuration required for native magic-link development; hosted mail requires an explicit provider selection and matching runtime binding.",
       "was": "Missing required configuration fails at startup naming the variable. The product never runs in a degraded mode.",
-      "now": "Missing required configuration fails at startup naming the variable. The product never runs in a degraded mode. Local setup writes owner-only `.dev.vars` settings with `LOCAL_DEVELOPMENT=true`, an exact loopback `APP_URL`, `SETUP_OWNER_EMAIL`, a generated `SESSION_SECRET` and `MAIL_PROVIDER=development`; development mail and its outbox are available only under that flag and loopback origin. Hosted setup requires an explicit `SLATE_MAIL_PROVIDER` selection of `resend` or `sendgrid` and renders it as runtime `MAIL_PROVIDER`; there is no mail-provider default. Existing local state and already-rendered hosted `MAIL_PROVIDER` bindings are retained. Managed hosting assigns and hides MAIL_PROVIDER=rer, MAIL_FROM, MAIL_RELAY_URL and a generated private MAIL_API_KEY. The key is optional in the deployment declaration and required by the chosen provider; a hosted plan cannot omit working mail.",
+      "now": "Missing required configuration fails at startup naming the variable. The product never runs in a degraded mode. Local setup writes owner-only `.dev.vars` settings with `LOCAL_DEVELOPMENT=true`, an exact loopback `APP_URL`, `SETUP_OWNER_EMAIL`, a generated `SESSION_SECRET` and `MAIL_PROVIDER=development`; development mail is silently suppressed and no local email outbox is available. Hosted setup requires an explicit `SLATE_MAIL_PROVIDER` selection of `resend` or `sendgrid` and renders it as runtime `MAIL_PROVIDER`; there is no mail-provider default. Existing local state and already-rendered hosted `MAIL_PROVIDER` bindings are retained. Managed hosting assigns and hides MAIL_PROVIDER=rer, MAIL_FROM, MAIL_RELAY_URL and a generated private MAIL_API_KEY. The key is optional in the deployment declaration and required by the chosen provider; a hosted plan cannot omit working mail.",
       "date": "2026-10-16"
     },
     "BLOCK-008": {
@@ -287,7 +287,10 @@
       "change": "changed",
       "summary": "Base operator-auth email proofs over Slate's native accounts.",
       "was": "Native email links (GET in v0.1.0, then POST confirmation over Slate's own token engine) created native sessions.",
-      "now": "Base issues one-use, one-hour email links; GET previews and a same-origin POST consumes the proof and issues a native 30-day session in one D1 batch that rechecks the member's status, email and authority version. Links sent before this release show the request-new-link page. Sensitive operations need a ten-minute Base email step-up in the asking session."
+      "now": "Base issues one-use, one-hour email links; GET previews and a same-origin POST consumes the proof and issues a native 30-day session in one D1 batch that rechecks the member's status, email and authority version. Links sent before this release show the request-new-link page. Sensitive operations need a ten-minute Base email step-up in the asking session. Amendment of 16 October 2026: native workspace ZIP export accepts a signed-in local owner without email proof only with LOCAL_DEVELOPMENT=true and the runtime-validated exact loopback origin. Hosted export and installation archive HTTP export still require Base email step-up; restore and other sensitive operations retain their existing requirements.",
+      "date": "2026-10-16",
+      "affectedRequirements": ["BASE-ACCESS-001", "PORT-003", "PORT-005"],
+      "securityConsequences": "The local ZIP export exception neither fabricates nor persists an email proof. Native session authentication, current owner authority, full workspace read coverage, origin checks and identity/ACL commit guards remain required; remote requests cannot enable local mode."
     },
     "WORK-015": {
       "change": "changed",
@@ -392,7 +395,7 @@
       "BASE-ACCESS-001",
       "WORK-015"
     ],
-    "behavior": "Email and the incumbent provider sign in through Base operator-auth composed over native members and sessions. Existing sessions, member IDs, roles, groups and guests are preserved. Export, restore, permanent deletion, ownership changes, owner removal or erasure, agent credentials and connectors need a fresh email step-up. Local dev identity serves key-gated owner, editor and guest sessions.",
+    "behavior": "Email and the incumbent provider sign in through Base operator-auth composed over native members and sessions. Existing sessions, member IDs, roles, groups and guests are preserved. Hosted workspace export, installation archive HTTP export, restore, permanent deletion, ownership changes, owner removal or erasure, agent credentials and connectors need a fresh email step-up. Local dev identity serves key-gated owner, editor and guest sessions. Native workspace ZIP export by a signed-in local owner needs no email proof under the exact-loopback LOCAL_DEVELOPMENT gate.",
     "securityConsequences": "GET never creates a session. Email proofs, step-up challenges and provider sessions are fenced by the member's authority version; provider sessions also by the 24-hour cap, policy generation, pin and binding. A provider binding never moves to another member. Dev sessions count only behind the local key gate and never enter archives."
   }
 }

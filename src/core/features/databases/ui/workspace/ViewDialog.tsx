@@ -59,7 +59,7 @@ export function ViewDialog({
         >
           {["table", "board", "list", "gallery", "calendar", "timeline"].map(
             (value) => (
-              <option key={value}>{value}</option>
+              <option key={value} value={value}>{value[0].toUpperCase() + value.slice(1)}</option>
             ),
           )}
         </select>
@@ -110,6 +110,7 @@ export function ViewDialog({
         Sort by
         <select name="sortField" defaultValue={view.sorts[0]?.field ?? ""}>
           <option value="">No sort</option>
+          <option value="$title">Name</option>
           {fields.map((field) => (
             <option key={field.id} value={field.id}>
               {field.name}

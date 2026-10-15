@@ -120,7 +120,7 @@ export async function saveView(
         );
       for (const s of v.sorts)
         if (
-          !fs.some((f) => f.id === s.field) ||
+          (s.field !== "$title" && !fs.some((f) => f.id === s.field)) ||
           !["asc", "desc"].includes(s.direction)
         )
           throw new ApiProblem(400, "INVALID_SORT", "Unknown sort.");
@@ -273,7 +273,8 @@ export async function queryView(
       const av = a.values[s.field],
         bv = b.values[s.field];
       const c =
-        field &&
+        // The record's name belongs to the page, outside its typed field map.
+        s.field === "$title" ? a.title.localeCompare(b.title) : field &&
         validateFormulas(fs).get(field.id) === "date" &&
         av != null &&
         bv != null

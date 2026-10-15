@@ -65,6 +65,28 @@
 .transfer-counts dd { margin: 0; font-variant-numeric: tabular-nums; }
 
 .slate-app .transfer-action { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; }
+.slate-app .transfer-actions { margin-top: 20px; column-gap: 20px; }
+.slate-app :is(.import-review, .workspace-transfer-panel) {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--slate-line);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.slate-app :is(.import-review, .workspace-transfer-panel) h3 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.slate-app .import-review h4 { margin: 20px 0 8px; font-size: 14px; font-weight: 600; }
+.slate-app :is(.import-review, .workspace-transfer-panel) > p { margin-block: 12px; line-height: 1.6; }
+.slate-app :is(.import-review, .workspace-transfer-panel) .transfer-counts { margin-block: 12px 20px; }
+.slate-app .import-report-section { margin-block: 12px; }
+.slate-app .import-report-section summary { font-weight: 500; padding: 8px 12px; }
+.slate-app .import-report-section ul { list-style: disc; margin: 12px 0; padding-left: 24px; }
+.slate-app .import-report-section li { padding-block: 4px; line-height: 1.5; }
+.slate-app .portability-panel fieldset { min-width: 0; }
 
 /* Keep the reading/writing path clear without removing contextual actions. */
 .slate-app .page-reading-actions {

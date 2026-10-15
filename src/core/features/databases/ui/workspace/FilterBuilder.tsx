@@ -1,4 +1,5 @@
 import type { FieldDto } from "../../../../client/records";
+import { fieldView } from "../../../../client/records";
 export type FilterValue = {
   field?: string;
   op?: string;
@@ -116,6 +117,16 @@ export function FilterBuilder({
                       >
                         <option value="true">Checked</option>
                         <option value="false">Unchecked</option>
+                      </select>
+                    ) : field && ["select", "status", "multi-select"].includes(field.type) ? (
+                      <select
+                        value={String(filter.value ?? "")}
+                        onChange={(event) => change(index, { ...filter, value: event.target.value })}
+                      >
+                        <option value="">Choose an option</option>
+                        {fieldView(field).options?.map((option) => (
+                          <option key={option.id} value={option.id}>{option.label}</option>
+                        ))}
                       </select>
                     ) : (
                       <input

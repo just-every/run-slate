@@ -62,6 +62,19 @@ reads activity with a subsequent request timestamp after export completion;
 the fixture's original timestamp precedes the recorded export event. Its two
 positive activity assertions and two other-member refusals remain intact.
 
+The 16 October local workspace-export amendment (BASE-ACCESS-001, PORT-003/005)
+is checked through the public HTTP doors: a local owner session with no email
+proof stages a queued workspace ZIP export, runs it to Completed, reads status
+and downloads the archive; the synchronous export door also succeeds. No mail
+request is made. Anonymous and non-owner sessions, cross-origin mutations and
+an owner whose role was removed are denied. The exception requires local mode
+and the configured exact loopback origin. Hosted owners without fresh proof
+still receive STEP_UP_REQUIRED after provider acceptance of the confirmation
+email; a fresh Base proof admits the export. This is one-off local Worker
+evidence with substitution only at the mail network edge, not a permanent new
+test or live hosted/inbox acceptance. Installation archive HTTP export and other
+sensitive operations retain their existing step-up checks.
+
 The existing restore-identity matrix adds populated native identity bindings to
 its nonempty-target cases. Both legacy and current first-run targets retain all
 rows when restore is refused; the binding table is part of both archive policies'

@@ -8,6 +8,7 @@ const primary: Record<string, string> = {
 };
 export function TransferCounts({ counts }: { counts: Record<string, number> }) {
   const entries = Object.entries(counts);
+  const remaining = entries.filter(([key]) => !(key in primary));
   if (!entries.length) return null;
   const rows = (items: [string, number][]) =>
     items.map(([key, count]) => (
@@ -21,12 +22,12 @@ export function TransferCounts({ counts }: { counts: Record<string, number> }) {
       <dl className="transfer-counts">
         {rows(entries.filter(([key]) => key in primary))}
       </dl>
-      <details>
+      {remaining.length ? <details>
         <summary>All archive counts ({entries.length} categories)</summary>
         <dl className="transfer-counts">
-          {rows(entries.filter(([key]) => !(key in primary)))}
+          {rows(remaining)}
         </dl>
-      </details>
+      </details> : null}
     </>
   );
 }

@@ -12,7 +12,7 @@ export function ViewCriteria({
   onClear: () => void;
 }) {
   const name = (id?: string) =>
-    fields.find((field) => field.id === id)?.name ?? "Unavailable field";
+    id === "$title" ? "Name" : fields.find((field) => field.id === id)?.name ?? "Unavailable field";
   const describe = (value: FilterValue): string =>
     value.and
       ? `All of (${value.and.map(describe).join("; ")})`

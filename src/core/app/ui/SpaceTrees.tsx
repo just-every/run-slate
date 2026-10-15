@@ -1,4 +1,3 @@
-import { Database } from "lucide-react";
 import { useLocation } from "@tanstack/react-router";
 import { PageTree, type TreePage } from "./PageTree";
 import { RequestState } from "./RequestState";
@@ -28,8 +27,8 @@ export function SpaceTrees({
 }) {
   const { pathname } = useLocation();
   const preferences = navigation.data?.preferences;
-  const databasePages = new Set(databases.data?.items.map((database) => database.pageId));
-  const treePages = pages.data?.items.filter((page) => !databasePages.has(page.id)) ?? [];
+  const databasePages = new Map(databases.data?.items.map((database) => [database.pageId, database.id]));
+  const treePages = pages.data?.items.map((page) => ({ ...page, databaseId: databasePages.get(page.id) })) ?? [];
   const spaceIds = new Set([
     ...(pages.data?.items.map((page) => page.containerId) ?? []),
     ...(databases.data?.items.map((database) => database.containerId) ?? []),
@@ -45,7 +44,7 @@ export function SpaceTrees({
   }
   return (
     <nav className="page-links" aria-label="Pages" onClick={onNavigate}>
-      <RequestState loading={pages.loading} error={pages.error} retry={pages.reload}>
+      <RequestState loading={pages.loading || databases.loading} error={pages.error ?? databases.error} retry={async () => { await Promise.all([pages.reload(), databases.reload()]); }}>
         {[...spaceIds].map((id) => {
           const container = containers.data?.items.find((item) => item.id === id);
           return (
@@ -59,19 +58,6 @@ export function SpaceTrees({
                 {container ? `Space · ${container.name}` : `Shared with me · ${pages.data?.items.find((page) => page.containerId === id)?.containerLabel ?? "Unavailable space"}`}
               </summary>
               <PageTree pages={treePages.filter((page) => page.containerId === id)} activePath={pathname} />
-              <ul className="page-tree database-links">
-                {databases.data?.items.filter((database) => database.containerId === id).map((database) => (
-                  <li key={database.id}>
-                    <div className="tree-row">
-                      <span className="tree-spacer" />
-                      <a className="navlink" href={`/app/databases/${database.id}`} aria-current={pathname === `/app/databases/${database.id}` ? "page" : undefined}>
-                        <Database aria-hidden="true" />
-                        <span>{database.title}</span>
-                      </a>
-                    </div>
-                  </li>
-                ))}
-              </ul>
             </details>
           );
         })}

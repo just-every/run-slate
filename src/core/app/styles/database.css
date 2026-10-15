@@ -20,6 +20,9 @@
 .slate-app .database-workspace td :is(button, [role="button"]):hover { background-color: var(--slate-sidebar-hover); }
 .slate-app .database-workspace tfoot td { background-color: var(--slate-canvas); }
 .slate-app .database-workspace tfoot button { border-color: var(--slate-line); }
+.slate-app .database-table { width: 100%; min-width: 0; }
+.slate-app .database-table-scroll-hint { display: flex; align-items: center; gap: 6px; margin: 0 0 8px; color: var(--slate-ink-muted); font-size: 12px; }
+.slate-app .database-table-scroll-hint svg { width: 14px; height: 14px; flex: none; }
 
 .slate-app .record-fields-list { margin: 0 0 24px; }
 @media (max-width: 700px) {

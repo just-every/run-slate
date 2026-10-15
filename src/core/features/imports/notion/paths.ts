@@ -37,9 +37,7 @@ export function nativeId(path: string): string | undefined {
 }
 
 export function treeKey(path: string): string {
-  const value = stem(path);
-  const cut = value.lastIndexOf("/") + 1;
-  return `${value.slice(0, cut)}${value.slice(cut).replace(nativeIdSuffix, "").replace(shortIdSuffix, "")}`;
+  return stem(path).split("/").map(segment => segment.replace(nativeIdSuffix, "").replace(shortIdSuffix, "")).join("/");
 }
 
 export function parentKey(key: string): string {

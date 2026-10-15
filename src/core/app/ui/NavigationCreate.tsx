@@ -13,6 +13,20 @@ export function NavigationCreate({ onPage, onDatabase, pageDestination, pending 
   useEffect(() => {
     if (open) menu.current?.querySelector<HTMLElement>("button, a")?.focus();
   }, [open]);
+  useEffect(() => {
+    if (!open) return;
+    const dismiss = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { event.preventDefault(); close(); }
+    };
+    const outside = (event: MouseEvent) => {
+      if (event.target instanceof Node && !menu.current?.contains(event.target) && !trigger.current?.contains(event.target)) setOpen(false);
+    };
+    document.addEventListener("keydown", dismiss);
+    // Dismiss after hit testing the click. Collapsing this inline menu on
+    // pointerdown moves the tree before mouseup and consumes a child-page click.
+    document.addEventListener("click", outside, true);
+    return () => { document.removeEventListener("keydown", dismiss); document.removeEventListener("click", outside, true); };
+  }, [open]);
   function close() { setOpen(false); trigger.current?.focus(); }
   return <div className="navigation-create" onKeyDown={event => {
     if (open && event.key === "Escape") { event.preventDefault(); event.stopPropagation(); close(); }

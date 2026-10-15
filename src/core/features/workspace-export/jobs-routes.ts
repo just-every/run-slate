@@ -6,11 +6,12 @@ import {ApiProblem} from '../../app/problems';
 import {requireWorkspaceOwner} from '../sharing/current-access';
 import {stagePortabilityJob,getPortabilityJob,runPortabilityJob} from '../portability/jobs';
 import {requireStepUp} from '../session/step-up';
+import {requireWorkspaceExportAuthority} from './authorization';
 /** Register before the legacy /:id routes. Status never contains storage keys or identity data. */
 export function registerPortabilityJobRoutes(routes:Hono<AppEnvironment>){
  routes.post('/jobs/workspace',async c=>{
   const {operationKey}=z.object({operationKey:z.string()}).parse(await c.req.json());
-  await requireWorkspaceOwner(featureContext(c));await requireStepUp(c,'export');
+  await requireWorkspaceExportAuthority(c);
   return c.json(await stagePortabilityJob(featureContext(c),'export',operationKey),202);
  });
  routes.post('/jobs/restore',async c=>{

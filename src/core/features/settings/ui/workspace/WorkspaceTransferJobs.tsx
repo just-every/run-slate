@@ -2,7 +2,6 @@ import { TransferCounts } from "./TransferCounts";
 import { useEffect, useRef, useState } from "react";
 import { useWorkspace } from "../../../../app/ui/WorkspaceContext";
 import {
-  ApiError,
   request,
   mutate,
   operationKey,
@@ -132,7 +131,7 @@ export function WorkspaceTransferJobs({
     }
   }
   return (
-    <section>
+    <section className="workspace-transfer-panel">
       <h3>
         {restoreOnly ? "Restore a workspace" : "Take your workspace with you"}
       </h3>
@@ -166,7 +165,7 @@ export function WorkspaceTransferJobs({
         </form>
       </details>
       {working && !job ? <p role="status">Requesting a transfer job…</p> : null}
-      {error ? <p role="alert">{errorMessage(error)}{error instanceof ApiError && error.code === "STEP_UP_REQUIRED" && typeof window !== "undefined" && ["127.0.0.1", "localhost", "[::1]"].includes(window.location.hostname) ? <> On this computer, open the <a href="/__dev/outbox" target="_blank" rel="noreferrer">local outbox</a>, choose the confirmation message, then return here and export again.</> : null}</p> : null}
+      {error ? <p className="request-notice" role="alert">{errorMessage(error)}</p> : null}
       {job ? (
         <section aria-label="Workspace transfer job" aria-live="polite">
           <h3>
