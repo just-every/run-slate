@@ -1,3 +1,4 @@
+import { demoSockets } from "./src/modules/demo/vite.mjs";
 import { existsSync } from "node:fs";
 import { isAbsolute, relative, resolve, sep } from "node:path";
 import { cloudflare } from "@cloudflare/vite-plugin";
@@ -12,7 +13,7 @@ import { docsSite } from "./src/core/features/docs/build/plugin.ts";
 export default defineConfig(async ({ command }) => {
   const paths = localPaths();
   const configPath = command === 'build' && !process.env.SLATE_WRANGLER_CONFIG_PATH && existsSync('wrangler.toml') ? 'wrangler.toml' : paths.configPath;
-  const persistPath = paths.persistPath;
+  const persistPath = process.env.RER_STATE_DIR ?? paths.persistPath;
   const persistWatchRoot = resolve(persistPath);
   // Settings are required to serve, not to resolve this config: rer's export-path
   // guard reads the served folders even right after `rer reset`.
@@ -40,13 +41,14 @@ export default defineConfig(async ({ command }) => {
     deny: ["**/.rer/**", "**/.seed/**", "**/exports/**", "**/*.rer", "**/.env*", "**/.dev.vars*", "**/.git/**"],
   } },
   plugins: [
+    demoSockets(),
     ...(missingSettings ? [{ name: 'slate-local-settings', configureServer() { throw missingSettings; } }] : []),
     cloudflare({
       inspectorPort: process.env.SLATE_INSPECTOR_PORT ? Number(process.env.SLATE_INSPECTOR_PORT) : false,
       viteEnvironment: { name: "ssr" },
       configPath,
       persistState: { path: persistPath },
-      config: local ? { main: 'src/dev/server.ts', vars: { ...local, ...extra } } : undefined,
+      config: local ? { main: 'src/dev/server.ts', vars: { ...local, ...extra, ...(process.env.RER_DEMO === "1" ? { RER_DEMO: "1", RER_DEMO_EXPIRES: process.env.RER_DEMO_EXPIRES ?? "", SLATE_PROFILE: "flagship", AI_ENABLED: "false", AI_API_KEY: "", AI_LOCAL_URL: "", AI_LOCAL_TOKEN: "" } : {}) } } : undefined,
     }),
     // /docs: the repository's Markdown rendered when Vite loads it (DOCS-001), never in the Worker or the browser.
     docsSite(),
