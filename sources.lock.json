@@ -5639,7 +5639,7 @@
       "executable": false
     },
     "src/core/features/landing/sections/Hero.tsx": {
-      "sha256": "ac0a6b1890fbf2118284ab112d9aa68b707b21634c5751488fb9f53ca940711d",
+      "sha256": "aa9d51498ecd55bceb6cdbba58a35b76c6b4d1a8a49083a26d51c3bd7ff43a91",
       "executable": false
     },
     "src/core/features/landing/sections/History.tsx": {
