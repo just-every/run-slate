@@ -875,7 +875,7 @@
       "executable": false
     },
     "AGENTS.md": {
-      "sha256": "2346fff7b6f92c233b5028d41e60237e386bfa7eb277bdb0b5e6d795acf24bca",
+      "sha256": "8f8534fc6d2e1efa3c613af298d948be8b35b611bd2ef3ef975d15d474447b35",
       "executable": false
     },
     "base-copies.json": {
@@ -3447,7 +3447,7 @@
       "executable": false
     },
     "README.md": {
-      "sha256": "7704d033388564e3476b3690003aa789062cd086a28bf9dd2b971625bbeb6d96",
+      "sha256": "9474c2634054d4c77d13cc45cdd36b6bd6d16a814dac31b5a7615a5d30a019a6",
       "executable": false
     },
     "RELEASE.json": {
@@ -3755,7 +3755,7 @@
       "executable": false
     },
     "scripts/installer/restore-owner.mjs": {
-      "sha256": "ed4fadb4038ff3672aedc92618903ab51fd50e5e012e117687c29d86165f2c5a",
+      "sha256": "41ad00fc2a783f3a91c3f5bd8d345c0b74abf8594476341414f55d634e682690",
       "executable": false
     },
     "scripts/installer/settings.d.mts": {
@@ -6431,7 +6431,7 @@
       "executable": false
     },
     "src/core/features/portability/installation.ts": {
-      "sha256": "9dbcd9a98029754769cf2e599f98637ddc95f433f1958a7f274d32a893a4e453",
+      "sha256": "2b22c1ffe73e958b14543805916408e68cd76a843acaaa02a23a7105bd6e671a",
       "executable": false
     },
     "src/core/features/portability/invalidation.ts": {
@@ -6451,7 +6451,7 @@
       "executable": false
     },
     "src/core/features/portability/restore-plan.ts": {
-      "sha256": "e6ebf8c0ee3afb8e745c07535772466c3fa25caa23187d31879058e5b05be5d7",
+      "sha256": "587db007ee71faecd9839e4f3346e81bb53737748ac5c1d07984993d6a3d542b",
       "executable": false
     },
     "src/core/features/portability/restore-run.ts": {
@@ -6459,7 +6459,7 @@
       "executable": false
     },
     "src/core/features/portability/rows.ts": {
-      "sha256": "6baceda28e0bf3d90890b0980da941f6e4cba76a2ca70fd7f226f73f27e702b5",
+      "sha256": "bd6df4d595e12b2b212585857c71870b5658104fc114569cec1da7d73952f655",
       "executable": false
     },
     "src/core/features/portability/service.ts": {
@@ -7215,11 +7215,11 @@
       "executable": false
     },
     "src/core/features/workspace/invitations.ts": {
-      "sha256": "cb4e5452ebd8d8c79ab2659e5d3387fc29ae6aefd8f7a496cee5a1c2e8d70fa6",
+      "sha256": "3064dfecb5063af07599ac3c080e7b62acd4d060b6b4344b8adf2479cad603e3",
       "executable": false
     },
     "src/core/features/workspace/members.ts": {
-      "sha256": "dc79fb9dc92d7a82e83dce4d2596b088b950b4b54821a6e28c80c0cf7919ed02",
+      "sha256": "da3b237b06a6029ec61c574dc59ae0506caf206f378a926e2943123dfa887df0",
       "executable": false
     },
     "src/core/features/workspace/personal.ts": {
@@ -8458,6 +8458,10 @@
       "sha256": "97b63197bf330366b79e0eff36ccef5fe78f8401faf6195e23762e3809e4d40f",
       "executable": false
     },
+    "tests/local-journey/owner-removal-restore.test.mjs": {
+      "sha256": "c7a020cfb5f6f7c75bfb0359579c6d881193ff827ff524c7e9d9e021a6b3d6b2",
+      "executable": false
+    },
     "tests/local-journey/owner.mjs": {
       "sha256": "7f8646cb6ae420ab34a1d53cf805af479dd90a58c0c98bb91adddf048a479a07",
       "executable": false
@@ -9010,10 +9014,6 @@
       "sha256": "95fa6aa6ec445d77009858ff19cc88882d8fdc26cf05ae7def4f5244a7474181",
       "executable": false
     },
-    "tests/qualification/local/release-reserved-ports.test.mjs": {
-      "sha256": "0affd0291c05c92fbc6493779b3345cb7f2b37af59e96c5ab4aec0eb868f4df2",
-      "executable": false
-    },
     "tests/qualification/local/release-runtime-process.test.mjs": {
       "sha256": "2eb8b7b4a22ab25b752511544b4b8eecd0d02cbb4fb395afb835386320eb1a5c",
       "executable": false
@@ -9319,7 +9319,7 @@
       "executable": false
     },
     "tests/qualification/run.mjs": {
-      "sha256": "acc8bb1b3ac8aa89b152694ec7d6ff93ae25bb377d742b1006dd84aae269eef8",
+      "sha256": "e3b7d19bcf6655d6c91c1b7cc27ed63b09b99dffa33446c42bbdc670af14b88d",
       "executable": false
     },
     "tests/qualification/search/ancestry.mjs": {

@@ -21,7 +21,7 @@ rer deploy --environment production --dry-run
 rer describe
 ```
 
-Export before a destructive reset. Import requires an empty destination, then setup with the archived owner's email; or set up first with any archived full member's (not a guest's) email, who becomes the only active owner. Reset removes only the printed local inventory. Deployment dry run validates/builds locally with no provider requests; authorized `rer deploy --environment production` provisions the owner account and checks health. Read OPERATIONS.md for its required inputs.
+Export before a destructive reset. Import requires an empty destination, then setup with the archived owner's email; or set up first with any archived full member's (not a guest's, not a removed member's) email, who becomes the only active owner; an archive with more than one owner needs that choice. Reset removes only the printed local inventory. Deployment dry run validates/builds locally with no provider requests; authorized `rer deploy --environment production` provisions the owner account and checks health. Read OPERATIONS.md for its required inputs.
 
 Slate is a self-hosted team wiki. Public source is `just-every/run-slate`. Read README.md, CONTRACT.md, BASELINE.md, OPERATIONS.md and HANDOVER.md for requirements and evidence.
 

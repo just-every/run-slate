@@ -85,7 +85,7 @@ rer import --input exports/installation.rer --yes
 rer setup --owner-email you@example.test
 ```
 
-Re-enter the archived native owner's email. Fresh sign-in is required; restored automation, grants and effects require renewed owner authority. Existing workspace ZIP exports and the authenticated web restore API remain a separate native product flow. Hosted installation export uses `rer export --target remote --origin https://wiki.example.com --session-file .seed/owner-session --output exports/hosted.rer`; put only your native owner cookie in an owned mode-0600 session file. Remote installation import is unsupported; restore the archive into a separate empty local checkout first.
+Re-enter the archived native owner's email. If the archive was taken while more than one person owned the workspace, import asks you to choose: run `rer setup --owner-email` with the owner's address first, then import. A member removed before the export stays removed. Fresh sign-in is required; restored automation, grants and effects require renewed owner authority. Existing workspace ZIP exports and the authenticated web restore API remain a separate native product flow. Hosted installation export uses `rer export --target remote --origin https://wiki.example.com --session-file .seed/owner-session --output exports/hosted.rer`; put only your native owner cookie in an owned mode-0600 session file. Remote installation import is unsupported; restore the archive into a separate empty local checkout first.
 
 Reset lists its local removal inventory and requires explicit confirmation:
 

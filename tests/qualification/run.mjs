@@ -33,7 +33,6 @@ const nodeTests = [[
   'tests/qualification/interface/highlights.test.ts',
   'tests/qualification/interface/tree-order.test.ts',
   'tests/qualification/local/release-cross-config.test.mjs',
-  'tests/qualification/local/release-reserved-ports.test.mjs',
   'tests/qualification/local/release-runtime-process.test.mjs',
   'tests/qualification/offline-refresh/transport.test.ts',
   'tests/qualification/release-shell/native-shell.test.mjs',

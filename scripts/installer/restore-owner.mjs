@@ -1,8 +1,9 @@
 // PORT-005 for `rer import`: exactly one restored member is active, and it is
 // the owner this installation names. When `rer setup` ran first, that is its
 // SETUP_OWNER_EMAIL, so an archive can come back under a different archived
-// member; otherwise it is the archive's own setup owner. Every other member
-// stays an inactive historical actor until invited again.
+// member; otherwise it is the archive's own owner, and an archive that names
+// several owners asks for that choice. Every other member stays an inactive
+// historical actor until invited again, and a removed member stays removed.
 import { createReadStream } from 'node:fs';
 import { Readable } from 'node:stream';
 import { readArchive } from '@runeditrun/rer/modules/portability';
@@ -43,6 +44,11 @@ export async function restoreOwner(path, configured) {
   const setupOwners = members.filter(row => row.is_setup_owner === 1).length;
   if (setupOwners !== 1)
     throw new RestoreRefusal(`Restore refused: the archive's member records name ${setupOwners} setup owners; an export names exactly one. Nothing was restored.`);
+  // An archive taken while several people owned the workspace cannot say who owns it
+  // now (one may have been removed since), so the person restoring chooses.
+  const owners = members.filter(row => row.role === 'owner' && row.member_kind === 'member' && row.status !== 'removed');
+  if (!configured && owners.length > 1)
+    throw new RestoreRefusal(`Restore refused: the archive was taken while ${owners.length} people owned the workspace (${owners.map(row => row.email).join(', ')}), so it cannot say who owns it now. Choose the owner first with rer setup --owner-email <address>, then import again. Nothing was restored.`);
   const address = configured || active[0].email;
   const owner = members.filter(row => same(row.email, address));
   if (owner.length > 1)

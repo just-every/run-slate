@@ -24,8 +24,8 @@ row.authority_id=null;},
  'intelligence_experiments':(row)=>{if(row.state==='active')row.state='stopped';row.grant_id=null;},
  'intelligence_guided_tasks':(row)=>{if(row.state==='active')row.state='paused';},
  'intelligence_evaluation_cases':(row,_ownerEmail,now)=>{if(row.execution_json){const execution=JSON.parse(String(row.execution_json));if(!execution.evaluationId)row.execution_json=JSON.stringify({...execution,recoveryPausedAt:now});}},
- // A removed member stays removed, so access they lost is never reopened by an invitation.
- 'members':(row,ownerEmail)=>{row.status=String(row.email).toLowerCase()===ownerEmail.toLowerCase()?'active':row.status==='removed'?'removed':'historical';
+ // A removed member stays removed, even under the restoring owner's address, so access they lost is never reopened.
+ 'members':(row,ownerEmail)=>{row.status=row.status==='removed'?'removed':String(row.email).toLowerCase()===ownerEmail.toLowerCase()?'active':'historical';
 row.is_setup_owner=row.status==='active'?1:0;if(row.status==='active')row.role='owner';},
  'public_exposures':(row,_ownerEmail,now)=>{row.revoked_at=row.revoked_at??now;},
  'notification_outbox':(row,_ownerEmail,now)=>{row.processed_at=now;},

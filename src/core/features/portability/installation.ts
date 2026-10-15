@@ -9,6 +9,9 @@ const agentMetadata = 'intelligence_agent_credentials';
 const omittedTables = excludedTables.filter(name => name !== agentMetadata);
 export async function installationPolicy(db: D1Database) {
   const columns = await schema(db); // Native inventory refuses unregistered product tables and excludes D1 internals.
+  // The archive names the workspace's current owner, chosen as sign-in chooses it. A setup
+  // owner who removed themselves keeps their flag and must not come back with the archive.
+  const owner = columns.members ? (await db.prepare("SELECT email FROM members WHERE role='owner' AND status='active' AND member_kind='member' ORDER BY is_setup_owner DESC,created_at,id LIMIT 1").first<{email:string}>())?.email ?? '' : '';
   columns[agentMetadata] = (await db.prepare(`PRAGMA table_info("${agentMetadata}")`).all<{name:string}>()).results.map(column => column.name);
   const secretColumns: Record<string, string[]> = {};
   for (const [name, names] of Object.entries(columns)) {
@@ -26,8 +29,7 @@ export async function installationPolicy(db: D1Database) {
       if (Object.values(input).some(value => value !== null && typeof value !== "string" && typeof value !== "number")) throw new ApiProblem(409, "INVALID_ARCHIVE_ROW", "The native archive requires scalar product records.");
       const row = input as DataRow;
       if (table === agentMetadata) return { ...row, token_hash: 'erased:' + row.id, scope_json: '{}', expires_at: restoredAt, revoked_at: row.revoked_at ?? restoredAt };
-      const owner = table === 'members' && row.is_setup_owner === 1 ? String(row.email) : '';
-      return restoredRow(table, row, owner, restoredAt, new Map());
+      return restoredRow(table, row, table === 'members' ? owner : '', restoredAt, new Map());
     },
   };
 }

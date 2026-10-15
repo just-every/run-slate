@@ -44,6 +44,7 @@ export async function prepareRestore(ctx:FeatureContext,bytes:Uint8Array){
  }
  const owners=manifest.tables.members?.filter(m=>String(m.email).toLowerCase()===owner.email.toLowerCase());
  if(owners?.length!==1)throw new ApiProblem(409,'RESTORE_OWNER_MISSING','Archive must contain the authenticated setup owner email.');
+ if(owners[0]!.status==='removed'||owners[0]!.member_kind!=='member')throw new ApiProblem(409,'RESTORE_OWNER_REMOVED','You were removed from, or were a guest in, the archived workspace. Restore as a full member who was not removed.');
  await requireEmptyRestoreTarget(ctx);
  return {owner,manifest,entries,columns,restoredOwner:owners[0]!};
 }
