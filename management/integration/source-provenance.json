@@ -4,7 +4,7 @@
   "sourceFiles": [
     {
       "path": "scripts/delivery/base/packaging.json",
-      "sha256": "191641eb788970a63a5361f1e2a48e5e15f9f86bffafd0968c30d94024803178"
+      "sha256": "af7941f92fde44531e9f5de754adbf27c6a3b345f72fbe1f1052193fa38a6319"
     },
     {
       "path": "src/server.ts",

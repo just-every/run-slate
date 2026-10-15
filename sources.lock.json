@@ -831,7 +831,7 @@
       "executable": false
     },
     ".github/workflows/rer-managed.yml": {
-      "sha256": "c8ae4072e5d51182518e792fe9eef95971c974dd3541442900bf1fe2e07603fe",
+      "sha256": "ab882c50367760acd05d6c38cd2abbd619c05609671427fe80aac40a24880ec7",
       "executable": false
     },
     ".github/workflows/run-site.yml": {
@@ -1055,7 +1055,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "c7fe92e065a31e1aea3db37bc74010150afea8869523542e659bae94c3d62989",
+      "sha256": "268505d44f01b9ecd3e32f71081815804d5f57edde4e3ec3b14f95566e0c8435",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -3271,7 +3271,7 @@
       "executable": false
     },
     "rer-project.json": {
-      "sha256": "5e95e4d6965988ad47b1c8a235e3a6e028a5da5271ca2562030b4aec44a04ecc",
+      "sha256": "e3feab557eacc0a9135fef3e34bbce13a09dd936c42eda6f91c61ae1096bb374",
       "executable": false
     },
     "rer-setup.json": {
@@ -3379,7 +3379,7 @@
       "executable": false
     },
     "scripts/delivery/base/packaging.json": {
-      "sha256": "191641eb788970a63a5361f1e2a48e5e15f9f86bffafd0968c30d94024803178",
+      "sha256": "af7941f92fde44531e9f5de754adbf27c6a3b345f72fbe1f1052193fa38a6319",
       "executable": false
     },
     "scripts/delivery/base/paths.mjs": {
