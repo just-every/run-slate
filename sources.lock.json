@@ -9539,7 +9539,7 @@
       "executable": false
     },
     "tests/ui/polish-journeys.test.mjs": {
-      "sha256": "e68d99906c939813d810d014ac07bf53472f1832e36093191525a3ae38374285",
+      "sha256": "8d5e384159b6af9173697c6a7886459712569b54d1a313974c27b247d8b0b7e2",
       "executable": false
     },
     "tests/ui/polish/capture-camera.mjs": {
@@ -9555,7 +9555,7 @@
       "executable": false
     },
     "tests/ui/polish/editor-focus.mjs": {
-      "sha256": "1161600fa02692c756d38b908f56addd5d8faec454ef19b7f88b55e9e196b9ae",
+      "sha256": "c390c8d0cdf534fc1d803651cc4b1b71dcd1db2094ab8274ab969309282248b6",
       "executable": false
     },
     "tests/ui/polish/editor.mjs": {

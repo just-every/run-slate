@@ -4,7 +4,7 @@ import { expect } from '@playwright/test';
 import { openNavigation } from '../../qualification/ui-convergence/browser-support.mjs';
 import { withHeldResponse, withPausedCollaboration } from './editor-focus-transport.mjs';
 
-export async function editorFocusJourney({ page, context, origin, api }, containerId) {
+export async function editorFocusJourney({ page, context, origin, api }, containerId, part) {
   const paragraph = () => page.getByRole('textbox', { name: 'Paragraph', exact: true });
   const heading = () => page.getByRole('textbox', { name: 'Heading level 1', exact: true });
   const title = () => page.getByRole('textbox', { name: 'Page title', exact: true });
@@ -43,6 +43,7 @@ export async function editorFocusJourney({ page, context, origin, api }, contain
     await expect(heading()).toHaveText(text);
   }
 
+  if (part === 'insertion') {
   const delayed = await freshPage('Delayed heading focus');
   const replacedId = (await api(`/api/pages/${delayed}`)).blocks[0].id;
   await withHeldResponse(page, `/api/pages/${delayed}`, 'GET', async gate => {
@@ -104,6 +105,8 @@ export async function editorFocusJourney({ page, context, origin, api }, contain
   await collaboratorWrites(redirected, 'Collaboration cannot revive a cancelled focus request.');
   await expect(title()).toBeFocused();
 
+  }
+  if (part === 'navigation') {
   const failed = await freshPage('Failed insertion focus is cancelled');
   await withPausedCollaboration(page, failed, async resume => {
     await withHeldResponse(page, `/api/pages/${failed}/blocks`, 'PUT', async gate => {
@@ -152,6 +155,8 @@ export async function editorFocusJourney({ page, context, origin, api }, contain
   await expect(heading()).toHaveText('Returning to the page does not revive its disposed focus request.');
   await expect(heading()).not.toBeFocused();
 
+  }
+  if (part === 'formatting') {
   // One shortcut journey: real typing changes the stored kind, retains rich
   // content and the block ID, supports one-step undo, then survives a reload.
   for (const level of [1, 2, 3]) {
@@ -201,5 +206,6 @@ export async function editorFocusJourney({ page, context, origin, api }, contain
     await page.reload({ waitUntil: 'networkidle' });
     await expect(converted).toContainText('Launch');
     assert.deepEqual((await api(`/api/pages/${shortcutPage}`)).blocks[0].content.text, source);
+  }
   }
 }
