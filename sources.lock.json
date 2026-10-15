@@ -879,7 +879,7 @@
       "executable": false
     },
     "base-copies.json": {
-      "sha256": "81927d174ee69ae6e2fd1b7bed1839d68063eec68d5642d16359b2e3def5fcda",
+      "sha256": "df81399eb5541f3975b51f62c4514f74c5ca53222880182baf4e83ed05d9b193",
       "executable": false
     },
     "BASELINE.md": {
@@ -899,7 +899,7 @@
       "executable": false
     },
     "DEMO.md": {
-      "sha256": "db30d9956f6fcbd6e01c30b84a4d1944acf0e02583a867a57c57f3b548375fd3",
+      "sha256": "d96b22884b0776a5eb8de925ff650c27752e8056657b1d3311db374630290d9a",
       "executable": false
     },
     "deploy-demo.json": {
@@ -3311,7 +3311,7 @@
       "executable": false
     },
     "scripts/base-proof/pin-objects.json": {
-      "sha256": "087d55728d9101a946fff9a91bca44be82986c6bf635a1561df10be91d8ef488",
+      "sha256": "da53848531635ea4c81fa18c897289c982f43e8649c7e1250dce7333ea182e0f",
       "executable": false
     },
     "scripts/base-proof/README.md": {
@@ -7382,24 +7382,12 @@
       "sha256": "e38556e50c954814ee8e12278babd627d5cdd051a7ea2c242a61d6c5d84d12f8",
       "executable": false
     },
-    "src/modules/operator-auth/crypto.mjs": {
-      "sha256": "c9a843518d9223ec91698060bacd5a44cd0c4361adaa6b09c05be69f11a828b8",
-      "executable": false
-    },
     "src/modules/operator-auth/csp.mjs": {
-      "sha256": "9bf6c5c5b2adcfc6f6c82a657af38346b8ec4e2344aea20b4d972a2564cffaed",
-      "executable": false
-    },
-    "src/modules/operator-auth/errors.mjs": {
-      "sha256": "393de2f6a068fc32d0904e238e88d6fae90576b197cca463da8d7dfabef36f47",
+      "sha256": "4ad63282b4652f384f5730bbab99e2aec2638fd498d9d6c028f2949171d91861",
       "executable": false
     },
     "src/modules/operator-auth/http.mjs": {
-      "sha256": "caf5ddf8b50070b1339afd6f19e3ef3c73677cc7726a355fbac5cda371f09b53",
-      "executable": false
-    },
-    "src/modules/operator-auth/loopback.mjs": {
-      "sha256": "13b32a076bce23a3124be1745202c18eda553f298fad3d9f5cb93ac61aee3115",
+      "sha256": "42b546c5a82c0462c96acc16983268fded8936f485ccddb7007e503e76f6b376",
       "executable": false
     },
     "src/router.tsx": {
