@@ -15,7 +15,7 @@ A hosted owner's first sign-in uses an emailed link; Managed hosting supplies ma
 
 ## Choose a provider
 
-Managed hosting includes mail through Run Edit Run with no provider account of your own. Run Edit Run Configure fills and hides `MAIL_PROVIDER=rer`, `MAIL_FROM`, `MAIL_RELAY_URL` and private `MAIL_API_KEY`, generating a credential for the installation and environment. The provider key stays with Run Edit Run.
+Managed hosting includes mail through Run Edit Run with no provider account of your own. Run Edit Run Configure supplies the sender and relay settings and generates a private credential automatically. The provider key stays with Run Edit Run.
 
 Free and Assisted hosting retain own-account **Resend** or **SendGrid** options. Owner-account `rer deploy` also requires one of these explicitly, with a provider account, verified sender and API key:
 

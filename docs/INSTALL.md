@@ -17,7 +17,7 @@ In a fresh checkout `rer dev` alone sets up a placeholder local owner. To use yo
 
 ## Run Edit Run hosting
 
-Managed hosting includes mail without a Resend or SendGrid account. Run Edit Run Configure fills and hides `MAIL_PROVIDER`, `MAIL_FROM`, `MAIL_RELAY_URL` and `MAIL_API_KEY`, generating a private installation/environment credential. Free and Assisted hosting retain the options to use your own Resend or SendGrid account, verified sender and key. See [Email delivery](EMAIL.md) for relay acceptance and retry behavior.
+Managed hosting includes mail without a Resend or SendGrid account. Run Edit Run Configure supplies the sender and relay settings and generates a private credential automatically. Free and Assisted hosting retain the options to use your own Resend or SendGrid account, verified sender and key. See [Email delivery](EMAIL.md) for relay acceptance and retry behavior.
 
 ## Your Cloudflare account
 
