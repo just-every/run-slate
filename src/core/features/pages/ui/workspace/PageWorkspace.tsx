@@ -287,7 +287,7 @@ function LoadedPage({
               }
             }}
           />
-          <PageReadMetadata document={document} saveState={titleSaving ? "Saving title…" : titleSaved ? "Saved" : title !== savedTitle ? "Unsaved title" : undefined} />
+          <PageReadMetadata document={document} saveState={titleSaving ? "Saving title…" : titleSaved && !editor.hasUnsavedChanges ? "Saved" : title !== savedTitle ? "Unsaved title" : undefined} />
           {host?.properties}
           {collaboration.presence.length > 1 ? (
             <p className="muted">

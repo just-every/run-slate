@@ -6171,7 +6171,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageWorkspace.tsx": {
-      "sha256": "712a630e940c889ae9a1bb9aac595e9cc8f2d2e3e2f7b0ea6096808b9924fa34",
+      "sha256": "b51ae90176180b39a970145260df1160c103e6e4f5abd9e570d65fea2887831f",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PublicationReviewPanel.tsx": {
