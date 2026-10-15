@@ -6131,7 +6131,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageSharing.tsx": {
-      "sha256": "7792a15f7dd0657206f35b65aecbb326e397d217a94c60b401f9f3e949a74561",
+      "sha256": "f359452e456c9850c4ff8bb2def32e81855db4c3c2629fb01808012c4d28b237",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageStatusBadge.tsx": {
