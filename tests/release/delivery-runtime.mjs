@@ -1,3 +1,4 @@
+import {launchMailRuntime} from '../e2e/mail-runtime.mjs';
 import {testDevKey} from '../e2e/dev-key.mjs';
 import {signInWithOutbox} from '../e2e/outbox-auth.mjs';
 import assert from 'node:assert/strict';
@@ -30,7 +31,7 @@ async function close() {
 async function start(variables, expectedStatus) {
   await writeFile(configPath, JSON.stringify({...config, vars: variables}), {mode: 0o600});
   generation++;
-  proc = launch(process.execPath, [cli, 'dev', '--local', '--config', configPath, '--persist-to', persist, '--ip', '127.0.0.1', '--port', String(ports.appPort), '--inspector-port', String(ports.inspectorPort)], {cwd: directory});
+  proc = await launchMailRuntime({root,configPath,persist,port:ports.appPort,variables});
   const deadline = Date.now() + 60000;
   while (Date.now() < deadline) {
     if (proc.child.exitCode !== null) throw Error(proc.output());
@@ -58,7 +59,7 @@ try {
   const {cookie}=await signInWithOutbox(origin,'delivery-owner@test.invalid');
   assert.equal((await request('/api/auth/local-sign-in', 'POST', {next: '/app'}, cookie)).status, 404);
   assert.equal((await request('/api/session', 'GET', undefined, cookie)).status, 200);
-  checks.push('native outbox session accepts existing identity; anonymous and retired endpoint access refused');
+  checks.push('native mail-edge session accepts existing identity; anonymous and retired endpoint access refused');
   const firstDocument = await request('/app', 'GET', undefined, cookie);
   assert.equal(firstDocument.status, 307);
   assert.equal(firstDocument.headers.get('location'), '/setup');
@@ -105,7 +106,7 @@ try {
   assert.equal((await request('/assets/missing-delivery-asset.js')).status, 404);
   checks.push('packaged client asset bytes served exactly; internal and missing assets not served');
   assert.deepEqual(await sourceIdentity(root), source, 'Source changed during packaged artifact verification');
-  await writeFile(resolve(directory, 'result.json'), JSON.stringify({passed: true, artifactSha256, source, checks, limits: 'Local unpacked delivery artifact only. Identity records are test fixtures; native development outbox sign-in; no provider delivery, empty-store owner bootstrap, browser UI, prior upgrade or hosted acceptance.'}, null, 2));
+  await writeFile(resolve(directory, 'result.json'), JSON.stringify({passed: true, artifactSha256, source, checks, limits: 'Local unpacked delivery artifact only. Identity records are test fixtures; native sign-in with a fake paid mail edge; no provider delivery, empty-store owner bootstrap, browser UI, prior upgrade or hosted acceptance.'}, null, 2));
   console.log(JSON.stringify({passed: true, artifactSha256, directory, checks}, null, 2));
 } catch (error) {
   await writeFile(resolve(directory, 'failure.txt'), String(error.stack).replaceAll(sessionSecret, '<test-session-secret>'));

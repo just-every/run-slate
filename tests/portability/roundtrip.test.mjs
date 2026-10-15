@@ -1,4 +1,5 @@
 import {devKeyHeaders} from '../e2e/dev-key.mjs';
+import {inbox} from '../e2e/outbox-auth.mjs';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {mkdir,mkdtemp,readFile,rm} from 'node:fs/promises';
@@ -55,12 +56,12 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-005 — actual native ZIP backup/rest
     const [index]=await target.sql('SELECT (SELECT COUNT(DISTINCT page_id) FROM search_text WHERE page_id IS NOT NULL) AS indexed,(SELECT COUNT(*) FROM search_dirty) AS pending');
     assert.deepEqual(index.results,[{indexed:3,pending:0}],'Search is already rebuilt before a page or search request can repair it.');
     await target.start();const targetCookie=await signIn(target);
-    const outboxBefore=await(await fetch(target.origin+'/__dev/outbox',{headers:devKeyHeaders})).text();
+    const outboxBefore=await inbox(target.origin);
     for(const email of ['archive-member@example.invalid','archive-guest@example.invalid']){
       const inactive=await fetch(target.origin+'/api/auth/magic',{method:'POST',headers:{Origin:target.origin,'Content-Type':'application/json'},body:JSON.stringify({email,requestKey:randomUUID()})});
       assert.equal(inactive.status,200);assert.equal((await inactive.json()).accepted,true);
     }
-    assert.ok(await(await fetch(target.origin+'/__dev/outbox',{headers:devKeyHeaders})).text()===outboxBefore,'Imported member and guest cannot obtain fresh sign-in mail before an invitation.');
+    assert.deepEqual(await inbox(target.origin),outboxBefore,'Imported member and guest cannot obtain fresh sign-in mail before an invitation.');
     for(const pageId of pageIds){const page=await(await api(target,targetCookie,`/api/pages/${pageId}`)).json();assert.equal(page.page.id,pageId);assert.equal(page.workingRevisionId,`${pageId}-current`);assert.equal(page.blocks[0].id,`${pageId}-block`);assert.deepEqual(page.properties.labels,['portable','research']);}
     for(const original of originals){const restored=await api(target,targetCookie,`/api/media/${original.id}`);assert.deepEqual(Buffer.from(await restored.arrayBuffer()),original.bytes);}
     // Use the source publication Host: a different target Host alone cannot prove unpublication.

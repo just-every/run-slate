@@ -15,7 +15,7 @@ const { modulesRules, ...workerOptions } = selected.workerOptions;
 const mailbox = resolve('.artifacts/mail-edge', port + '.jsonl');
 await mkdir(resolve('.artifacts/mail-edge'), {recursive:true});
 await writeFile(mailbox, '');
-const vars = JSON.parse(await readFile(varsPath, 'utf8'));
+const vars = {...workerOptions.bindings, ...JSON.parse(await readFile(varsPath, 'utf8'))};
 const mail = vars.MAIL_PROVIDER === 'development' ? {MAIL_PROVIDER:'resend',MAIL_API_KEY:'test-only-mail-key'} : {};
 const worker = { ...workerOptions, name: config.name,
   ...await productionModules(selected.main, modulesRules, miniflare),

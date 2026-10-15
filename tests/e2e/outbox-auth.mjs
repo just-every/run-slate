@@ -1,3 +1,4 @@
+import {testDevKey,sourceDevOrigins} from './dev-key.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
@@ -22,6 +23,18 @@ export async function newOutboxLink(origin, before = []) {
 }
 /** Fake only the paid mail edge; confirmation uses the emitted production Worker. */
 export async function signInWithOutbox(origin, email) {
+  if(sourceDevOrigins.has(origin)) {
+    const response=await fetch(origin+'/auth/dev/enter?as=owner',{headers:{'x-rer-dev-key':testDevKey},redirect:'manual'});
+    assert.equal(response.status,303);
+    const cookies=response.headers.getSetCookie().map(value=>value.split(';',1)[0]);
+    const sessionCookie=cookies.find(value=>value.startsWith('slate_session='));
+    assert.ok(sessionCookie);
+    const cookie=[sessionCookie,...cookies.filter(value=>!value.startsWith('slate_session='))].join('; ');
+    const session=await fetch(origin+'/api/session',{headers:{cookie}});
+    assert.equal(session.status,200);
+    const body=await session.json();assert.equal(body.member.email,email);
+    return {cookie,body:{next:response.headers.get('location'),...body}};
+  }
   const before = await inbox(origin);
   const request = await fetch(origin + '/api/auth/magic', {method:'POST',headers:{'content-type':'application/json',origin},body:JSON.stringify({email,requestKey:randomUUID()})});
   assert.equal(request.status,200);
@@ -35,6 +48,11 @@ export async function signInWithOutbox(origin, email) {
   return {cookie,body:{next:response.headers.get('location'),...(await session.json())}};
 }
 export async function signInBrowser(page, origin, email='jamie@aurora.example') {
+  if(sourceDevOrigins.has(origin)) {
+    const {cookie}=await signInWithOutbox(origin,email);
+    await page.context().addCookies(cookie.split('; ').map(item=>{const [name,value]=item.split('=');return {name,value,url:origin};}));
+    await page.goto(origin+'/app');return;
+  }
   const before=await inbox(origin);
   await page.goto(origin+'/signin');
   await page.getByLabel('Email address',{exact:true}).fill(email);

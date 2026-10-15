@@ -1,3 +1,4 @@
+import {launchMailRuntime} from '../../e2e/mail-runtime.mjs';
 import {testDevKey} from '../../e2e/dev-key.mjs';
 import {randomUUID} from 'node:crypto';
 import {readFile,writeFile,mkdir,mkdtemp} from 'node:fs/promises';
@@ -27,7 +28,7 @@ export async function createRuntime({root,evidence,appPort,inspectorPort,portRan
  const close=async()=>{if(!proc)return;await stop(proc);const result=await proc.ended;await writeFile(path.join(directory,`worker-${generation}-process.json`),JSON.stringify({pid:proc.child.pid,processGroup:proc.child.pid,appPort,inspectorPort,exitCode:result.code,signal:result.signal,closedAt:new Date().toISOString()},null,2));const log=proc.output().replaceAll(sessionSecret,'<redacted-test-session-secret>');await writeFile(path.join(directory,`worker-${generation}.log`),log,{mode:0o600});await writeFile(path.join(directory,'worker.log'),log,{mode:0o600});proc=undefined;};
  const start=async()=>{
  await free(appPort);await free(inspectorPort);generation++;
- proc=launch(process.execPath,[cli,'dev','--local','--config',configPath,'--persist-to',persist,'--ip','127.0.0.1','--port',String(appPort),'--inspector-port',String(inspectorPort)],{cwd:directory});
+ proc=await launchMailRuntime({root,configPath,persist,port:appPort,variables:config.vars});
  const deadline=Date.now()+60000;let ready=false;while(Date.now()<deadline){if(proc.child.exitCode!==null)throw Error(proc.output());try{const res=await fetch(origin+'/health',{signal:AbortSignal.timeout(1000)});if(res.status===expectedHealthStatus){ready=true;break;}}catch{}await delay(200);}if(!ready)throw Error('Worker readiness timeout: '+proc.output());
  };
  try{

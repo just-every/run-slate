@@ -1,4 +1,4 @@
-import { testDevKey } from "./dev-key.mjs";
+import { testDevKey, sourceDevOrigins } from "./dev-key.mjs";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
@@ -17,6 +17,7 @@ export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "
 export const localWranglerConfig = "wrangler.jsonc";
 const runtimes = new Map();
 const runtimeSettings = new Map();
+const runtimeOrigins = new Map();
 
 /** Own the whole CLI process group, including pnpm, workerd and esbuild. */
 export function launchRuntime(command, args, options = {}) {
@@ -116,6 +117,8 @@ export async function startViteRuntime(persistPath) {
     },
   });
   runtimeSettings.set(child, settingsDirectory);
+  sourceDevOrigins.add(baseUrl);
+  runtimeOrigins.set(child,baseUrl);
   try { await waitForReady(baseUrl, child); } catch (error) { await stop(child); throw error; }
   return { baseUrl, child };
 }
@@ -161,6 +164,8 @@ export async function stop(child) {
   if (!runtime) return;
   await stopProcess(runtime);
   runtimes.delete(child);
+  sourceDevOrigins.delete(runtimeOrigins.get(child));
+  runtimeOrigins.delete(child);
   const settingsDirectory = runtimeSettings.get(child);
   if (settingsDirectory) { await rm(settingsDirectory, { recursive: true, force: true }); runtimeSettings.delete(child); }
 }
