@@ -54,9 +54,7 @@
       ],
       "secretNames": [
         "SESSION_SECRET",
-        "SETUP_TOKEN"
-      ],
-      "optionalSecretNames": [
+        "SETUP_TOKEN",
         "MAIL_API_KEY"
       ],
       "recovery": "Preserve accepted source/artifact, native session configuration, applied migrations and R2 files. Restore an owner export only into a separate empty deployment and verify ACLs, attachments and public exposure before traffic cutover. See OPERATIONS.md; sealed prior-store upgrade is pending.",

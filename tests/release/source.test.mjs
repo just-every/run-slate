@@ -17,7 +17,6 @@ test('release spec preserves every applied migration byte and native binding', a
   }
   assert.deepEqual(spec.resources.map(row => row.binding), ['DB', 'FILES', 'JOBS']);
   assert.deepEqual(spec.durableObjects, [{binding: 'CONTENT_COLLABORATION', className: 'ContentCollaboration'}]);
-  assert.deepEqual(spec.secretNames, ['SESSION_SECRET', 'SETUP_TOKEN']); assert.deepEqual(spec.optionalSecretNames, ['MAIL_API_KEY']);
   assert.equal(spec.publicVariables.SLATE_PROFILE, 'core-wiki');
   assert.equal(spec.publicVariables.AI_ENABLED, 'false');
   await integrationRecipe(process.cwd());

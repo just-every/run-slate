@@ -1031,7 +1031,7 @@
       "executable": false
     },
     "management/integration/deployment-spec.json": {
-      "sha256": "83ec2179e2dafdb140037f9b0ec901c11691a952e90f912631d19d639b75eb9d",
+      "sha256": "e9a2b79b4e295cec1e1ea44f62ac9ce94de973a4efaf4c93678fde90bc5b1d64",
       "executable": false
     },
     "management/integration/index.d.mts": {
@@ -1055,7 +1055,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "90d67ab5981d417a92bcd65c934ae3e7a4b7907f31bbb9554b581ce38769118b",
+      "sha256": "6d9c7e02d05a5ff0a2ba284d4506f9c8c1e98087088e9107e19a193b99016a01",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -3271,11 +3271,11 @@
       "executable": false
     },
     "rer-project.json": {
-      "sha256": "e3feab557eacc0a9135fef3e34bbce13a09dd936c42eda6f91c61ae1096bb374",
+      "sha256": "9c91cc30d943d5353cd022e5f210603041a4c9bcae1b0dbe7ed02847f49d6a30",
       "executable": false
     },
     "rer-setup.json": {
-      "sha256": "8a55680ed0e6392784e8357101dc3c8545706485adaa00e386ff959f74e5045c",
+      "sha256": "7efd68144b885e776a3951e926f17305c3d384bb2da0d70b0a1376ef11c2a782",
       "executable": false
     },
     "RUN-LOCALLY.md": {
@@ -3379,7 +3379,7 @@
       "executable": false
     },
     "scripts/delivery/base/packaging.json": {
-      "sha256": "af7941f92fde44531e9f5de754adbf27c6a3b345f72fbe1f1052193fa38a6319",
+      "sha256": "4804ba22479abf7594924648a222f6445c968694e8baef6f63b3bf43d007c35a",
       "executable": false
     },
     "scripts/delivery/base/paths.mjs": {
@@ -3523,7 +3523,7 @@
       "executable": false
     },
     "scripts/installer/local.mjs": {
-      "sha256": "4c0a825151bcf3296fcbc58aba7dfed3246f39c499539ac168ceaadab20f861e",
+      "sha256": "4a5aad2ffd83291111a869b5723bda3763b6b49a4267a3bd91e19605c9cd3a0e",
       "executable": false
     },
     "scripts/installer/owner.mjs": {
@@ -9203,7 +9203,7 @@
       "executable": false
     },
     "tests/release/source.test.mjs": {
-      "sha256": "c33279e9f59c21fac0d010382e0d80aad59686ea82f69a727ac80a9d9c67fa1f",
+      "sha256": "2039676a965abc6ef49f19376e3fb2697cd5ba1f12f998d3d32fecf604808e42",
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
