@@ -1,4 +1,6 @@
 import type { ReferenceLabel } from "./useRecordReferences";
+import { displayDate } from "../app/ui/displayDate";
+import { recordDate } from "./recordDates";
 import type {
   DatabaseField,
   DatabaseRecord,
@@ -92,7 +94,7 @@ export function fieldValue(
     case "checkbox":
       return { kind: "checkbox", checked: value === true };
     case "date":
-      return { kind: "date", display: String(value) };
+      return { kind: "date", display: recordDate(String(value)), stored: String(value) };
     case "select":
     case "status":
       return { kind: "options", optionIds: [String(value)] };
@@ -144,7 +146,7 @@ export function fieldValue(
     case "updated-at":
       return {
         kind: "metadata",
-        display: new Date(String(value)).toLocaleString(),
+        display: displayDate(String(value), true),
       };
     case "identifier":
       return { kind: "identifier", display: String(value) };
@@ -179,7 +181,9 @@ export function storedValue(value: FieldValue | null): unknown {
     case "text":
       return value.text;
     case "date":
-      return value.display;
+      if (value.stored === undefined)
+        throw new Error("A displayed date cannot be saved without its stored value.");
+      return value.stored;
     case "options":
       return [...value.optionIds];
     case "people":

@@ -54,7 +54,7 @@
     "test:local-outbox": "tsx --test tests/e2e/local-outbox.node.test.mts",
     "test:base-proof": "node --test --test-concurrency=1 tests/base-proof/*.test.mjs",
     "test:rer-editor": "node --test --test-concurrency=1 tests/rer/editor.test.mjs",
-    "verify:app": "rer check --profile first-party && pnpm cf-typegen:check && pnpm verify-base && pnpm test:base-proof && pnpm typecheck && pnpm test:docs && pnpm build && pnpm test:ui:polish && node scripts/verify.mjs && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:installer && pnpm test:typegen && pnpm test:portability && pnpm check:operation-commands && pnpm test:local-journey && pnpm test:local-outbox && pnpm test:release-source && pnpm source:check && pnpm test:delivery-artifact && pnpm test:rer-editor",
+    "verify:app": "rer check --profile first-party && pnpm cf-typegen:check && pnpm verify-base && pnpm typecheck && pnpm check:contract && pnpm check:operation-commands && pnpm build && pnpm source:check && pnpm check:artifact",
     "reset": "rer reset",
     "release": "rer release",
     "outbox": "rer outbox",
@@ -62,7 +62,10 @@
     "describe": "rer describe",
     "check": "rer check",
     "deps": "rer install",
-    "rer": "rer"
+    "rer": "rer",
+    "check:contract": "node scripts/check-contract.mjs",
+    "check:artifact": "node scripts/check-artifact.mjs",
+    "verify:ci": "pnpm verify && pnpm test:base-proof && pnpm test:docs && pnpm test:ui:polish && node scripts/verify.mjs && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:installer && pnpm test:typegen && pnpm test:portability && pnpm test:local-journey && pnpm test:local-outbox && pnpm test:release-source && pnpm test:delivery-artifact && pnpm test:rer-editor"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

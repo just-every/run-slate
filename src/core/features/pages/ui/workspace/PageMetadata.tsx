@@ -13,7 +13,7 @@ interface Details extends DocumentView {authorDisplayName:string;createdAt:strin
 export function PageMetadata({document,revision,reload}:{document:DocumentView;revision:string;reload:()=>void}){
  const page=document as Details;
  const details=useResource<{owner:{id:string;displayName:string}|null;linkedFrom:{id:string;title:string}[];wordCount:number;readingMinutes:number}>(`/api/pages/${document.page.id}/details`);
- const members=useResource<{items:{id:string;displayName:string}[]}>('/api/members');
+ const members=useResource<{items:{id:string;displayName:string}[]}>(document.permissions.canShare ? '/api/members' : null);
  const [edit,setEdit]=useState<'owner'|'labels'|null>(null);
  const text=editorBlocks(document.blocks).map(b=>'text' in b?richTextToPlain(b.text):'code'in b?b.code:'').join(' ');
  return <section><h2>Page details</h2><dl><dt>Owner</dt><dd>{details.data?.owner?.displayName??'Unassigned'}{document.permissions.canShare?<button onClick={()=>setEdit('owner')}>Reassign owner</button>:null}</dd><dt>Created by</dt><dd>{page.authorDisplayName}</dd><dt>Contributors</dt><dd>{page.contributors?.map(m=>m.displayName).join(', ')||'No other contributors'}</dd><dt>Created</dt><dd>{page.createdAt?displayDate(page.createdAt, true):''}</dd><dt>Updated</dt><dd>{page.updatedAt?displayDate(page.updatedAt, true):''}</dd><dt>Length</dt><dd>{text.trim().split(/\s+/).filter(Boolean).length} words · {text.length} characters</dd><dt>Labels</dt><dd>{page.properties?.labels?.join(', ')||'No labels'}{document.permissions.canEdit?<button onClick={()=>setEdit('labels')}>Edit labels</button>:null}</dd></dl>

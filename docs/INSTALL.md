@@ -13,13 +13,28 @@ cd slate
 rer dev
 ```
 
-In a fresh checkout `rer dev` alone sets up a placeholder local owner. To use your own email instead, run `rer setup --owner-email owner@example.test` before `rer dev` (use your own address). Open the printed outbox, choose the newest sign-in message, then follow its one-use link and choose **Confirm**. Previously issued links require a new sign-in request. No email is sent. Private settings and local data survive restart; Slate creates no sample workspace. Setup reruns preserve your settings and owner. Stop dev with `rer dev --stop`. Use `rer preview` for a fixed production build.
+In a fresh checkout `rer dev` alone sets up a placeholder local owner. To use your own email instead, run `rer setup --owner-email owner@example.test` before `rer dev` (use your own address). When Slate is ready, open the printed `RER_OPEN` link to sign in as the local owner. Keep this link private. No email or outbox step is needed. On first use, name the workspace and create its first space and page at `/setup`. Private settings and local data survive restart; Slate creates no sample workspace. Setup reruns preserve your settings and owner. Stop dev with `rer dev --stop`. Use `rer preview` for a fixed production build.
 
 ## Your Cloudflare account
 
-Provide the account/token, owner email and mail settings from your private vault as described in [OPERATIONS.md](../OPERATIONS.md); rer generates the session secret on a first deploy. A Resend or SendGrid provider and verified sender must be selected explicitly. Review `rer deploy --environment production --dry-run`, which makes no provider request. Authorized `rer deploy --environment production` uses rer's own deploy kit to create resources, apply migrations, publish and check health. Keep its `.rer/deploy` receipts.
+Before deploying, you need a real Resend or SendGrid account, a verified sender and an owner mailbox you can read. Hosted Slate uses email sign-in. Supply these settings from your private vault or deployment environment:
 
-After the deploy, rer claims the owner email you deployed with as the owner, using a one-time setup token that it then removes. Open the printed address and sign in by email as that owner, and you then name the workspace at `/setup`. For a normal update in the same account and environment, follow the update steps below. Moving accounts or changing resource names needs a separate migration plan.
+- `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` for your Cloudflare account.
+- `SLATE_SETUP_OWNER_EMAIL`: your readable owner mailbox.
+- `SLATE_MAIL_PROVIDER`: `resend` or `sendgrid`.
+- `SLATE_MAIL_FROM`: a sender verified with that provider.
+- `SLATE_MAIL_API_KEY`: the selected provider's API key.
+
+See [OPERATIONS.md](../OPERATIONS.md#owner-account-deployment) for all inputs and credential requirements; rer generates the session secret on a first deploy. Validate and build locally, then deploy:
+
+```sh
+rer deploy --environment production --dry-run
+rer deploy --environment production
+```
+
+Dry run makes no provider request and cannot verify your sender, API key or inbox delivery. Deployment creates resources in your Cloudflare account, applies database updates, publishes and checks health. Keep its `.rer/deploy` receipts.
+
+After a healthy first deploy, rer claims `SLATE_SETUP_OWNER_EMAIL` as the owner using a one-time setup token, then removes the token. Open the printed address, request a sign-in email for that owner address and follow the link in your mailbox. You do not need a setup token. After signing in, name the workspace at `/setup`. A successful deployment alone does not prove that sign-in mail reaches your inbox. For a normal update in the same account and environment, follow the update steps below. Moving accounts or changing resource names needs a separate migration plan.
 
 For [backup and restore](BACKUP.md) and confirmed reset, follow [README.md](../README.md). Product acceptance and inbox delivery remain separate from successful local or deployment checks.
 
@@ -40,11 +55,11 @@ Rer deploy installs the pinned dependencies automatically. `rer update` updates 
 
 Continue only after export succeeds. Keep the same Cloudflare account, environment, resource names, `.rer/deploy` receipts and private settings, including the session secret and identity-provider selection. Preserve local source edits when a pull refuses to fast-forward.
 
-Before pulling, restore the backup into a separate empty checkout pinned to its recorded source revision and inspect it. An older archive may be refused by newer migration rules, including migration 0029's trigger replacement; keep the export-source checkout for recovery until that upgrade restore is separately validated.
+Before pulling, restore the backup into a separate empty checkout pinned to its recorded source revision and inspect it. An older archive may be refused by newer database update rules. Keep the checkout matching your backup for recovery until you have also verified restoration with the newer source.
 
-Review `rer deploy --environment production --dry-run` before deploying. Afterwards, check the receipt's project, environment and origin and match `/health`'s `deployment.sourceSha`, `fingerprint` and `versionId` to it. Open retained pages, revision history, search, attachments and existing shared/public links with the same owner and expected access. A health response alone does not prove retained data or access.
+Run `rer deploy --environment production --dry-run` to validate and build locally before deploying. Afterwards, check the receipt's project, environment and origin and match `/health`'s `deployment.sourceSha`, `fingerprint` and `versionId` to it. Open retained pages, revision history, search, attachments and existing shared/public links with the same owner and expected access. A health response alone does not prove retained data or access.
 
-Fresh rer 0.2.5 exports work with its `d1_migrations` ledger; upgrades from a legacy ledger need separate proof. Stop if export refuses a ledger or unknown table; preserve it for review. See [Operating Slate](../OPERATIONS.md) for recovery and the migration-ledger compatibility boundaries.
+Older deployments may record database updates in a format the exporter does not accept. If export refuses a migration record or unknown table, stop the update and preserve the database for review. See [Operating Slate](../OPERATIONS.md#update-an-existing-deployment) for compatibility details and recovery.
 
 ## Remove a deployment
 

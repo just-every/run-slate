@@ -1,4 +1,5 @@
 import {HighlightedText} from "./SearchHighlight";
+import {formatSearchSnippet} from "./formatSearchSnippet";
 import {TopBar} from "../../../../app/ui/header/TopBar";
 import {PageTitle} from "../../../../app/ui/header/PageTitle";
 import {RetainedSearchAnswer} from "./RetainedSearchAnswer";
@@ -115,7 +116,7 @@ export function WorkspaceSearch() {
                           {({page:"Page",record:"Record",container:"Space",template:"Template","comment-thread":"Comment"} as Record<string,string>)[result.kind] ?? result.kind}
                         </span>
                         <h2>{result.kind === "comment-thread" ? "Comment on " : ""}<HighlightedText text={result.title} terms={result.highlights}/></h2>
-                        <p><HighlightedText text={result.snippet} terms={result.highlights}/></p>
+                        <p><HighlightedText text={formatSearchSnippet(result.snippet)} terms={result.highlights}/></p>
                       </a>
                     </li>
                   ))}

@@ -3,17 +3,17 @@ import { useState } from "react";
 import { useWorkspace } from "./WorkspaceContext";
 
 /** The account button at the foot of the sidebar; its tools open upward so they never fall below the rail. */
-export function AccountMenu({ onNewDatabase }: { onNewDatabase: () => void }) {
+export function AccountMenu({ onNewDatabase }: { onNewDatabase?: () => void }) {
   const { member } = useWorkspace();
   const [open, setOpen] = useState(false);
   return (
     <div className="workspace">
       {open ? (
         <nav aria-label="Workspace tools">
-          <button className="navlink" onClick={onNewDatabase}>
+          {onNewDatabase ? <button className="navlink" onClick={onNewDatabase}>
             <Database aria-hidden="true" />
             New database
-          </button>
+          </button> : null}
           <a className="navlink" href="/app/templates">
             <LayoutTemplate aria-hidden="true" />
             Templates

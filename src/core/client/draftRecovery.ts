@@ -1,5 +1,11 @@
 import type { EditorBlock } from "../features/editor/ui/types";
-export type PendingEdit = { block: EditorBlock; key: string; revision: string };
+export type PendingEdit = {
+  block: EditorBlock;
+  key: string;
+  revision: string;
+  /** Keep an uncertain type-change request byte-for-byte for an explicit retry. */
+  structure?: { revision: string; blocks: EditorBlock[]; blockRevisions: Record<string, string> };
+};
 export type DraftJournal = {
   version: 1;
   edits: [string, PendingEdit][];

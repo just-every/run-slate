@@ -5,25 +5,25 @@ import { RequestState } from "../../../../app/ui/RequestState";
 import type { FieldDto, DatabaseDto } from "../../../../client/records";
 import { FormulaBuilder, type Expression } from "./FormulaBuilder";
 const types = [
-  "text",
-  "number",
-  "checkbox",
-  "date",
-  "select",
-  "multi-select",
-  "status",
-  "person",
-  "file",
-  "url",
-  "email",
-  "phone",
-  "place",
-  "relation",
-  "rollup",
-  "formula",
-  "created-at",
-  "updated-at",
-  "identifier",
+  ["text", "Text"],
+  ["number", "Number"],
+  ["checkbox", "Checkbox"],
+  ["date", "Date"],
+  ["select", "Select"],
+  ["multi-select", "Multi-select"],
+  ["status", "Status"],
+  ["person", "Person"],
+  ["file", "File"],
+  ["url", "URL"],
+  ["email", "Email"],
+  ["phone", "Phone"],
+  ["place", "Place"],
+  ["relation", "Relation"],
+  ["rollup", "Rollup"],
+  ["formula", "Formula"],
+  ["created-at", "Created time"],
+  ["updated-at", "Updated time"],
+  ["identifier", "Identifier"],
 ];
 export function FieldDialog({
   field,
@@ -89,8 +89,8 @@ export function FieldDialog({
       <label>
         Type
         <select aria-label="Type" value={type} onChange={(e) => setType(e.target.value)}>
-          {types.map((value) => (
-            <option key={value}>{value}</option>
+          {types.map(([value, label]) => (
+            <option key={value} value={value}>{label}</option>
           ))}
         </select>
       </label>

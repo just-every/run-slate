@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { EditorBlock, BlockSaveState } from "../features/editor/ui/types";
 import { contentApi, editorBlocks, type DocumentView } from "./content";
 import { ApiError, TransportError, errorMessage, operationKey } from "./transport";
+import { saveBlockType } from "./saveBlockType";
 
 import {
   draftKeys,
@@ -58,6 +59,7 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
   const revisions = useRef(
     new Map(document.blocks.map((block) => [block.id, block.revisionId])),
   );
+  const blockTypes = useRef(new Map(document.blocks.map(block => [block.id, block.blockType])));
   // The page revision this tab's copies of every block were last read at. A save
   // receipt can adopt a newer page revision that includes other people's commits.
   const synced = useRef(document.page.revisionId);
@@ -115,7 +117,9 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
     busy.current.add(id);
     status(id, { status: "saving" });
     try {
-      const receipt = await contentApi.block(
+      const receipt = edit.structure || blockTypes.current.get(id) !== edit.block.type
+        ? await saveBlockType(pageId, edit, persistDraft)
+        : await contentApi.block(
         pageId,
         edit.block,
         edit.revision,
@@ -126,6 +130,7 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
           "The server did not confirm the block revision. Your text remains here.",
         );
       revisions.current.set(id, receipt.value.blockRevisionId);
+      blockTypes.current.set(id, edit.block.type);
       if (receipt.value.previousRevisionId === synced.current)
         synced.current = receipt.value.revisionId;
       if (alive.current) {
@@ -230,8 +235,10 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
         });
       }
     for (const block of fresh.blocks)
-      if (!pending.current.has(block.id) && !busy.current.has(block.id))
+      if (!pending.current.has(block.id) && !busy.current.has(block.id)) {
         revisions.current.set(block.id, block.revisionId);
+        blockTypes.current.set(block.id, block.blockType);
+      }
     if (JSON.stringify(next) !== JSON.stringify(current.current)) {
       current.current = next;
       setBlocks(next);
@@ -320,6 +327,7 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
     revisions.current = new Map(
       fresh.blocks.map((block) => [block.id, block.revisionId]),
     );
+    blockTypes.current = new Map(fresh.blocks.map(block => [block.id, block.blockType]));
     setStructureState("saved");
     } catch(error) {setStructureState(null);throw error;} finally {structureBusy.current=false;}
   }
@@ -332,6 +340,7 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
         "This block was removed. Copy your text before reloading the page.",
       );
     revisions.current.set(id, saved.revisionId);
+    blockTypes.current.set(id, saved.blockType);
     updateRevision(fresh.page.revisionId);
     setWorkingRevisionId(fresh.workingRevisionId);
     if (keepMine) {

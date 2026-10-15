@@ -280,6 +280,12 @@ function LoadedPage({
               event.target.style.height = `${event.target.scrollHeight}px`;
             }}
             onBlur={() => void saveTitle()}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {
+                event.preventDefault();
+                void saveTitle();
+              }
+            }}
           />
           <PageReadMetadata document={document} saveState={titleSaving ? "Saving title…" : titleSaved ? "Saved" : title !== savedTitle ? "Unsaved title" : undefined} />
           {host?.properties}

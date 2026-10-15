@@ -44,7 +44,7 @@ git clone https://github.com/just-every/run-slate.git slate
 cd slate
 ```
 
-Install rer once per computer (`npm install -g @runeditrun/rer`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins (0.2.6). In a fresh checkout `rer dev` alone installs the pinned dependencies, makes a placeholder local owner and starts Slate. To choose your own owner email, prepare it first:
+Install rer once per computer (`npm install -g @runeditrun/rer`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins (0.2.7). In a fresh checkout `rer dev` alone installs the pinned dependencies, makes a placeholder local owner and starts Slate. To choose your own owner email, prepare it first:
 
 ```sh
 rer install
@@ -52,14 +52,13 @@ rer setup --owner-email you@example.test
 rer dev
 ```
 
-Use your own email address. Setup builds the real Worker, applies local migrations, writes mode-0600 `.dev.vars`, and requests an ordinary native sign-in message. It exits with no app running. A second setup preserves the saved settings bytes, workspace and owner. Slate declares `APP_URL` and `SETUP_OWNER_EMAIL`; it has no owner-name field. Conflicting saved choices require explicit recovery or reset.
+Use your own email address. Setup prepares the local app, database and private settings, then exits with no app running. Running setup again preserves your settings, workspace and owner. Changing a saved owner or address requires explicit recovery or reset.
 
-Dev prints `RER_READY` and `RER_SIGN_IN` only after health and native outbox checks. Open the outbox, choose the newest **Read message**, then **Open this link** and **Confirm**. No email is sent. Each native sign-in link works once. An unfinished native owner lands at `/setup` to name the workspace and create its first space and page; completed setup proceeds to the app. Retained local data lives in `.wrangler/state`; credentials stay out of production builds.
+When Slate is ready, dev prints an `RER_OPEN` link. Open that link to sign in as the local owner; no email or outbox step is needed. Keep the link private. On first use, name the workspace and create its first space and page at `/setup`; later visits open your existing workspace. Local data lives in `.wrangler/state`; credentials stay out of production builds.
 
-In a second terminal, inspect the outbox and run the checks after stopping dev:
+In a second terminal, stop dev before running the checks:
 
 ```sh
-rer outbox
 rer dev --stop
 rer verify
 ```
@@ -93,14 +92,14 @@ It removes local D1/R2/collaboration state, settings, outbox and installer draft
 
 ## Deploy to your Cloudflare account
 
-Rer's own deploy kit deploys from the binding declaration in `deploy.json`; nothing is vendored in this repository. Supply `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN` and the declared `SLATE_*` inputs from your private vault: your owner email, an explicitly selected Resend or SendGrid provider, a verified sender and its API key (rer generates the session secret on a first deploy). Review the locally built declaration first:
+Before deploying, set up a real Resend or SendGrid account and a verified sender. Hosted Slate signs you in by email, so `SLATE_SETUP_OWNER_EMAIL` must be a mailbox you can read. Supply `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN`, `SLATE_SETUP_OWNER_EMAIL`, `SLATE_MAIL_PROVIDER` (`resend` or `sendgrid`), `SLATE_MAIL_FROM` (the verified sender) and `SLATE_MAIL_API_KEY` (that provider's API key) from your private vault or deployment environment. Rer generates the session secret on a first deploy. See [OPERATIONS.md](OPERATIONS.md#owner-account-deployment) for all inputs. Validate and build locally first:
 
 ```sh
 rer deploy --environment production --dry-run
 rer deploy --environment production
 ```
 
-Dry run makes no provider request. The second command creates owner-account resources, applies migrations, uploads secrets, deploys and checks health. It requires separate deployment authorization. After a healthy deploy rer claims `SLATE_SETUP_OWNER_EMAIL` as the owner with a one-time setup token and removes the token; you then sign in by email at the printed address and name the workspace at `/setup`. See [OPERATIONS.md](OPERATIONS.md) for inputs and limitations.
+Dry run makes no provider request and cannot check mail delivery. The second command creates resources in your Cloudflare account, applies database updates, uploads secrets, deploys and checks health. After a healthy first deploy, rer claims `SLATE_SETUP_OWNER_EMAIL` as the owner and removes its one-time setup token. Open the printed address, request a sign-in email for that owner address and follow the link in your mailbox. You do not need a setup token. After signing in, name the workspace at `/setup`. A successful deployment alone does not prove that sign-in mail reaches your inbox.
 
 To update a deployed wiki, export it first (see [docs/INSTALL.md](docs/INSTALL.md#update-your-existing-wiki)), then:
 

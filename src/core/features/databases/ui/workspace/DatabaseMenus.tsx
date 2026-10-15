@@ -76,7 +76,7 @@ export function FieldsMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="tool" type="button" aria-label="Field options">
+        <button className="tool" type="button">
           <Columns3 aria-hidden="true" />
           Fields
           <ChevronDown aria-hidden="true" />

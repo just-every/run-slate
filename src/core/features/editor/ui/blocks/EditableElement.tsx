@@ -11,6 +11,8 @@ import {
 import { EditableToolbar } from "./EditableToolbar";
 import { cn } from "../../../../ui";
 import type { EditableProps } from "./Editable";
+import type {RichText} from '../types';
+import {sliceRichText} from '../sliceRichText';
 import { readRichText } from "./readRichText";
 import {
   readEditableSelection,
@@ -34,7 +36,7 @@ export function EditableElement({
   // A fresh object on an unrelated render would reset an in-progress IME edit.
   const markup = useMemo(() => ({ __html: html }), [html]);
   const root = useRef<HTMLElement>(null);
-  const [mention,setMention] = useState<EditableSelection|null>(null);
+  const [mention,setMention] = useState<{start:number;before:RichText;after:RichText}|null>(null);
   const inlineUndo = useRef<typeof value | null>(null);
   const pendingSelection = useRef<EditableSelection | null>(null);
   const publish = (element: HTMLElement) => {
@@ -48,6 +50,7 @@ export function EditableElement({
   useLayoutEffect(() => {
     const element = root.current;
     if (!element) return;
+    if (mention && (!canEdit || value.length === 0)) setMention(null);
     if (pendingSelection.current)
       restoreEditableSelection(element, pendingSelection.current);
     pendingSelection.current = null;
@@ -75,11 +78,10 @@ export function EditableElement({
         onChange={onChange}
         canEdit={canEdit}
       />
-      {mention ? <MentionPicker onClose={()=>setMention(null)} onSelect={span=>{
-        const start=Math.min(mention.anchor,mention.focus),end=Math.max(mention.anchor,mention.focus);
-        let offset=0;const before:typeof value=[],after:typeof value=[];
-        for(const item of value){const to=offset+item.text.length;if(offset<start)before.push({...item,text:item.text.slice(0,Math.min(item.text.length,start-offset))});if(to>end)after.push({...item,text:item.text.slice(Math.max(0,end-offset))});offset=to;}
-        pendingSelection.current={anchor:start+span.text.length,focus:start+span.text.length};onChange([...before,span,...after]);root.current?.focus();
+      {mention && canEdit ? <MentionPicker onClose={()=>{setMention(null);root.current?.focus();}} onQueryChange={query=>{
+        onChange([...mention.before,{text:'@'+query},...mention.after]);
+      }} onSelect={span=>{
+        pendingSelection.current={anchor:mention.start+span.text.length,focus:mention.start+span.text.length};onChange([...mention.before,span,...mention.after]);root.current?.focus();
       }}/> : null}
       <Tag
         ref={root}
@@ -100,7 +102,12 @@ export function EditableElement({
           if(!event.metaKey&&!event.ctrlKey&&!event.altKey&&(event.key==='@' || (event.key==='/'&&event.currentTarget.closest('[data-page-editor]')))){
             const selected=readEditableSelection(event.currentTarget);if(!selected)return;
             event.preventDefault();
-            if(event.key==='@')setMention(selected);
+            if(event.key==='@'){
+              const start=Math.min(selected.anchor,selected.focus),end=Math.max(selected.anchor,selected.focus);
+              const before=sliceRichText(value,0,start),after=sliceRichText(value,end);
+              onChange([...before,{text:'@'},...after]);
+              setMention({start,before,after});
+            }
             else event.currentTarget.dispatchEvent(new CustomEvent('slate-insert-at-cursor',{bubbles:true,detail:selected}));
           }
         }}

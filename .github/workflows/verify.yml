@@ -34,7 +34,7 @@ jobs:
       - run: pnpm test:ui:reachability
       - run: pnpm test:ui:state
       - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm verify
+      - run: pnpm verify:ci
       - run: pnpm test:release-regressions
       - run: pnpm test:ui:journeys
       - name: Retain redacted local journey failures

@@ -55,7 +55,7 @@ function MemberNavigation({ onNavigate }: { onNavigate?: () => void }) {
       window.removeEventListener("slate:navigation-changed", refreshTree);
     };
   }, [navigation.reload, pages.reload]);
-  const containers=useResource<{items:SpaceChoice[]}>("/api/containers");
+  const containers=useResource<{items:SpaceChoice[]}>(navigation.data?.isGuest ? null : "/api/containers");
   const review=useResource<{count:number}>("/api/status/review/count");
   useEffect(()=>{const refresh=()=>{void review.reload();};window.addEventListener("slate:review-changed",refresh);return()=>window.removeEventListener("slate:review-changed",refresh);},[review.reload]);
   const { pathname } = useLocation();
@@ -91,13 +91,13 @@ function MemberNavigation({ onNavigate }: { onNavigate?: () => void }) {
             ))}
         </nav>
       ) : null}
-      <NavigationCreate pageDestination={destination.space === undefined ? undefined : destination.space?.name ?? null} pending={creation.pending} onPage={() => void creation.create(async () => ({ containerId: (await destination.resolve())?.id ?? null, title: DEFAULT_PAGE_TITLE }))} onDatabase={() => setCreateDatabase(true)} />
+      {!navigation.data?.isGuest ? <NavigationCreate pageDestination={destination.space === undefined ? undefined : destination.space?.name ?? null} pending={creation.pending} onPage={() => void creation.create(async () => ({ containerId: (await destination.resolve())?.id ?? null, title: DEFAULT_PAGE_TITLE }))} onDatabase={() => setCreateDatabase(true)} /> : null}
       {creation.error ? <p role="alert">{errorMessage(creation.error)}</p>:null}
       {error ? <p role="alert">{errorMessage(error)}</p>:null}
       <p className="sidebar-label pagesbar">Pages</p>
       <SpaceTrees pages={pages} containers={containers} databases={databases} navigation={navigation} onError={setError} onNavigate={onNavigate} />
       <ExtensionSlot id="workspace.navigation.after.v1" />
-      <AccountMenu onNewDatabase={() => setCreateDatabase(true)} />
+      <AccountMenu onNewDatabase={navigation.data?.isGuest ? undefined : () => setCreateDatabase(true)} />
       </div>
       {createDatabase ? (
         <CreateDatabaseDialog onClose={() => setCreateDatabase(false)} />

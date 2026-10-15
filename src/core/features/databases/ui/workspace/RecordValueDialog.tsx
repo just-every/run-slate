@@ -1,4 +1,4 @@
-import {localDateTime} from "../../../../app/ui/localDateTime";
+import { recordDateInput } from "../../../../client/recordDates";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import type { FieldDto } from "../../../../client/records";
 export function RecordValueDialog({
@@ -22,8 +22,10 @@ export function RecordValueDialog({
         if (field.type === "number") next = next === "" ? null : Number(next);
         if (field.type === "checkbox") next = next === "on";
         if (field.type === "multi-select") next = form.getAll("value");
-        if (field.type === "date" && next)
-          next = new Date(String(next)).toISOString();
+        if (field.type === "date") {
+          // Preserve an existing timestamp when its calendar day was not changed.
+          next = next === "" ? null : value && next === recordDateInput(String(value)) ? value : next;
+        }
         await onSave(next);
       }}
     >
@@ -64,7 +66,7 @@ export function RecordValueDialog({
               field.type === "number"
                 ? "number"
                 : field.type === "date"
-                  ? "datetime-local"
+                  ? "date"
                   : field.type === "email"
                     ? "email"
                     : field.type === "url"
@@ -74,7 +76,7 @@ export function RecordValueDialog({
             step="any"
             defaultValue={
               field.type === "date" && value
-                ? localDateTime(String(value))
+                ? recordDateInput(String(value))
                 : String(value ?? "")
             }
           />

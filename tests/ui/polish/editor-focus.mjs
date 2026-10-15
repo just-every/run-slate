@@ -127,4 +127,55 @@ export async function editorFocusJourney({ page, context, origin, api }, contain
   await page.reload({ waitUntil: 'networkidle' });
   await expect(heading()).toHaveText('Returning to the page does not revive its disposed focus request.');
   await expect(heading()).not.toBeFocused();
+
+  // One shortcut journey: real typing changes the stored kind, retains rich
+  // content and the block ID, supports one-step undo, then survives a reload.
+  for (const level of [1, 2, 3]) {
+    const shortcutPage = await freshPage(`Typed heading ${level}`);
+    let stored = await api(`/api/pages/${shortcutPage}`);
+    const source = [
+      { text: 'Launch', marks: ['bold', 'italic'], colour: 'yellow', commentAnchorId: 'heading-anchor' },
+      { text: ' source', link: { href: 'https://example.invalid/heading' }, marks: ['underline'] },
+      { text: '15 Oct 2026', mention: { kind: 'date', id: '2026-10-15', label: '15 Oct 2026' } },
+      { text: ' tail' },
+    ];
+    const blockId = stored.blocks[0].id;
+    const prepared = await context.request.patch(`${origin}/api/pages/${shortcutPage}/blocks/${blockId}`, {
+      data: { operationKey: randomUUID(), expectedRevisionId: stored.blocks[0].revisionId, content: { text: source } },
+    });
+    assert.equal(prepared.status(), 200, await prepared.text());
+    await page.reload({ waitUntil: 'networkidle' });
+    await paragraph().focus();
+    await paragraph().evaluate(element => {
+      element.focus();
+      const range = document.createRange();range.selectNodeContents(element);range.collapse(true);
+      const selection = getSelection();selection.removeAllRanges();selection.addRange(range);
+    });
+    await page.keyboard.type('#'.repeat(level));
+    await page.keyboard.press('Space');
+    const converted = page.getByRole('textbox', { name: `Heading level ${level}`, exact: true });
+    await expect(converted).toBeFocused();
+    await page.keyboard.press('ControlOrMeta+z');
+    await expect(paragraph()).toBeFocused();
+    await expect(paragraph()).toContainText('#'.repeat(level));
+    // Reinsert the shortcut in a single browser input event as well.
+    await paragraph().evaluate(element => {
+      element.focus();
+      const range = document.createRange();range.selectNodeContents(element);range.collapse(true);
+      const selection = getSelection();selection.removeAllRanges();selection.addRange(range);
+    });
+    for (let index = 0; index <= level; index++) await page.keyboard.press('Shift+ArrowRight');
+    await page.keyboard.press('Backspace');
+    await page.keyboard.insertText('#'.repeat(level) + ' ');
+    await expect(converted).toBeFocused();
+    await expect.poll(async () => {
+      stored = await api(`/api/pages/${shortcutPage}`);
+      return stored.blocks[0].blockType === 'heading' && stored.blocks[0].content.level === level;
+    }).toBe(true);
+    assert.equal(stored.blocks[0].id, blockId);
+    assert.deepEqual(stored.blocks[0].content.text, source);
+    await page.reload({ waitUntil: 'networkidle' });
+    await expect(converted).toContainText('Launch');
+    assert.deepEqual((await api(`/api/pages/${shortcutPage}`)).blocks[0].content.text, source);
+  }
 }

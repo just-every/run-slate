@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { displayDate } from "../../../../app/ui/displayDate";
+import { recordDate, recordDateTime } from "../../../../client/recordDates";
 import { TableView } from "../views/TableView";
 import { ListView } from "../views/ListView";
 import { GalleryView } from "../views/GalleryView";
@@ -41,6 +43,7 @@ export function RecordLayouts({
   if (view.layout === "gallery") return <GalleryView {...props} />;
   if (view.layout === "board") {
     const fieldId = view.groups[0]?.field;
+    const groupField = rawFields.find((field) => field.id === fieldId);
     const grouped = query.groups.find((group) => group.field === fieldId);
     if (!grouped)
       return (
@@ -50,7 +53,10 @@ export function RecordLayouts({
       <BoardView
         groups={grouped.groups.map((group, index) => ({
           id: String(index),
-          label: group.value == null ? "No value" : String(group.value),
+          label: group.value == null ? "No value"
+            : groupField?.type === "date" ? recordDate(String(group.value))
+            : groupField && ["created-at", "updated-at"].includes(groupField.type)
+              ? displayDate(String(group.value), true) : String(group.value),
           colour: "neutral",
           count: group.count,
           records: props.records.filter((record) =>
@@ -89,7 +95,7 @@ export function RecordLayouts({
       );
     const dates = rawRecords.flatMap((record) => {
       const value = record.values[fieldId];
-      const time = typeof value === "string" ? Date.parse(value) : NaN;
+      const time = typeof value === "string" ? recordDateTime(value).getTime() : NaN;
       const shown = props.records.find((item) => item.id === record.pageId);
       return Number.isFinite(time) && shown ? [{ time, record: shown }] : [];
     });
@@ -105,12 +111,12 @@ export function RecordLayouts({
             record: item.record,
             startPercent: ((item.time - min) / span) * 90,
             widthPercent: 2,
-            rangeLabel: new Date(item.time).toLocaleDateString(),
+            rangeLabel: recordDate(new Date(item.time).toISOString()),
           }))}
           columnLabels={[
-            new Date(min).toLocaleDateString(),
-            new Date(min + span / 2).toLocaleDateString(),
-            new Date(min + span).toLocaleDateString(),
+            recordDate(new Date(min).toISOString()),
+            recordDate(new Date(min + span / 2).toISOString()),
+            recordDate(new Date(min + span).toISOString()),
           ]}
           dateFieldName={field.name}
           showRecordIcon={props.showRecordIcon}

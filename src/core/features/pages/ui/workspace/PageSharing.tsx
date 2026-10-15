@@ -107,6 +107,44 @@ export function PageSharing({ document }: { document: DocumentView }) {
           error={grants.error}
           retry={grants.reload}
         >
+          <section aria-label="Who has access"><h3>Who has access</h3>
+          {grants.data?.inheritedItems?.length ? <section><h3>Inherited access</h3><ul>{grants.data.inheritedItems.map(grant=><li key={grant.id}>{name(grant)} · {accessLabel(grant.level)} · {grant.status} · From {grant.origin?.name}</li>)}</ul></section>:null}
+          <ul className="grant-list">
+            {grants.data?.items.map((grant) => (
+              <li key={grant.id}>
+                <span>{name(grant)}{grant.invitationId ? ` · ${grant.status??"Pending"} invitation` : ""}{grant.expiresAt ? ` · ${new Date(grant.expiresAt)<new Date()?"Expired":"Expires"} ${displayDate(grant.expiresAt, true)}` : ""}</span>
+                {grant.revokedAt ? (
+                  <span>Revoked {!grant.invitationId?<button disabled={pending} onClick={()=>void save({...grant,expiresAt:null})}>Regrant access</button>:null}</span>
+                ) : (
+                  <>
+                    <select
+                      aria-label={`Access for ${name(grant)}`}
+                      value={grant.level}
+                      disabled={pending || !!grant.invitationId}
+                      onChange={(event) =>
+                        void save({ ...grant, level: event.target.value })
+                      }
+                    >
+                      {!grants.data?.levels?.includes(grant.level)?<option value={grant.level} disabled>{grant.level} (stored)</option>:null}
+                      {(grants.data?.levels ?? []).map((level) => (
+                        <option key={level} value={level}>{accessLabel(level)}</option>
+                      ))}
+                    </select>
+                    {grant.status==='expired'&&!grant.invitationId?<button disabled={pending} onClick={()=>void save({...grant,expiresAt:null})}>Regrant access</button>:null}
+                    <details><summary>Expiry & removal</summary>{!grant.invitationId ? <label>Access expires<AccessExpiry value={grant.expiresAt} onSave={expiresAt => {if(expiresAt!==grant.expiresAt)void save({...grant,expiresAt});}}/></label> : null}
+                    <button
+                      type="button"
+                      disabled={pending}
+                      onClick={() => void save({ ...grant, revoke: true })}
+                    >
+                      Remove access
+                    </button></details>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+          </section>
           <form
             className="detail-form"
             onSubmit={(event) => {
@@ -158,42 +196,6 @@ export function PageSharing({ document }: { document: DocumentView }) {
           <details className="advanced-access"><summary>Advanced access</summary>
           <p>{document.permissions.level === "full" ? "You can manage access to this page." : `You can ${accessLabel(document.permissions.level).toLowerCase()} ${document.permissions.level === "comment" ? "on " : ""}this page.`}</p><p>{grants.data?.restricted?'Only people invited directly can access this page.':'People with access to the parent page or space can also access this page.'}</p>
           <button disabled={pending} onClick={async()=>{setPending(true);setError(undefined);try{await mutate(`/api/sharing/pages/${document.page.id}/inheritance`,{operationKey:operationKey(),expectedRevisionId:document.page.revisionId,restricted:!grants.data?.restricted},'PUT');grants.reload();window.dispatchEvent(new CustomEvent('slate:page-mutated',{detail:{pageId:document.page.id}}));}catch(error){setError(error);}finally{setPending(false);}}}>{grants.data?.restricted?'Restore inherited access':'Restrict inherited access'}</button>
-          {grants.data?.inheritedItems?.length ? <section><h3>Inherited access</h3><ul>{grants.data.inheritedItems.map(grant=><li key={grant.id}>{name(grant)} · {accessLabel(grant.level)} · {grant.status} · From {grant.origin?.name}</li>)}</ul></section>:null}
-          <ul className="grant-list">
-            {grants.data?.items.map((grant) => (
-              <li key={grant.id}>
-                <span>{name(grant)}{grant.invitationId ? ` · ${grant.status??"Pending"} invitation` : ""}{grant.expiresAt ? ` · ${new Date(grant.expiresAt)<new Date()?"Expired":"Expires"} ${displayDate(grant.expiresAt, true)}` : ""}</span>
-                {grant.revokedAt ? (
-                  <span>Revoked {!grant.invitationId?<button disabled={pending} onClick={()=>void save({...grant,expiresAt:null})}>Regrant access</button>:null}</span>
-                ) : (
-                  <>
-                    <select
-                      aria-label={`Access for ${name(grant)}`}
-                      value={grant.level}
-                      disabled={pending || !!grant.invitationId}
-                      onChange={(event) =>
-                        void save({ ...grant, level: event.target.value })
-                      }
-                    >
-                      {!grants.data?.levels?.includes(grant.level)?<option value={grant.level} disabled>{grant.level} (stored)</option>:null}
-                      {(grants.data?.levels ?? []).map((level) => (
-                        <option key={level} value={level}>{accessLabel(level)}</option>
-                      ))}
-                    </select>
-                    {grant.status==='expired'&&!grant.invitationId?<button disabled={pending} onClick={()=>void save({...grant,expiresAt:null})}>Regrant access</button>:null}
-                    <details><summary>Expiry & removal</summary>{!grant.invitationId ? <label>Access expires<AccessExpiry value={grant.expiresAt} onSave={expiresAt => {if(expiresAt!==grant.expiresAt)void save({...grant,expiresAt});}}/></label> : null}
-                    <button
-                      type="button"
-                      disabled={pending}
-                      onClick={() => void save({ ...grant, revoke: true })}
-                    >
-                      Remove access
-                    </button></details>
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
           {document.page.lifecycle !== "draft" &&
           document.page.lifecycle !== "scheduled" &&
           workspace.data ? (

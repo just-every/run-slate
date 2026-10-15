@@ -103,11 +103,11 @@ export const contentApi = {
       "PATCH",
     );
   },
-  structure: (id: string, expectedRevisionId: string, blocks: EditorBlock[], blockRevisions: Record<string, string>) =>
-    mutate<ContentReceipt>(
+  structure: (id: string, expectedRevisionId: string, blocks: EditorBlock[], blockRevisions: Record<string, string>, key = operationKey()) =>
+    mutate<ContentReceipt & {value: {blocks: BlockView[]}}>(
       `/api/pages/${encodeURIComponent(id)}/blocks`,
       {
-        operationKey: operationKey(),
+        operationKey: key,
         expectedRevisionId,
         blocks: storedBlocks(blocks),
         blockRevisions,

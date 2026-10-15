@@ -7,6 +7,7 @@ import { type SearchDocument } from './documents';
 import { refreshSearchIndex } from './index';
 import { searchQuery } from './query';
 import { decodeCursor,encodeCursor,limitValue } from './pagination';
+import { nameSnippetMembers, snippetText } from './snippets';
 export interface SearchInput { query:string; kind?:string; containerId?:string; contributorId?:string; status?:string; updatedFrom?:string; updatedTo?:string; includeArchived?:boolean; includeTrashed?:boolean; limit?:number; cursor?:string }
 export interface SearchResult extends Omit<SearchDocument,'text'|'contributors'> { snippet:string; highlights:string[]; href:string; score:number }
 const allowedKinds=['page','record','container','template','comment-thread'];
@@ -18,9 +19,8 @@ export function validateSearch(input:SearchInput):SearchInput {
 }
 export function queryTerms(query:string):string[] { return Array.from(query.matchAll(/"([^"\n]+)"|(\S+)/g),m=>(m[1]??m[2]).toLocaleLowerCase()); }
 function result(row:SearchDocument,terms:string[]):SearchResult {
-  const text=row.text;const position=Math.max(0,text.toLocaleLowerCase().indexOf(terms[0]??''));const from=Math.max(0,position-65);
   const {text:_,contributors:__,...rest}=row;
-  return {...rest,snippet:(from?'…':'')+text.slice(from,from+220)+(text.length>from+220?'…':''),highlights:terms,href:row.kind==='container'?`/app/containers/${row.id}`:row.kind==='template'?`/app/templates/${row.id}`:`/app/pages/${row.pageId}${row.kind==='comment-thread'?`?thread=${row.id}`:''}`,score:terms.reduce((n,t)=>n+(row.title.toLocaleLowerCase()===t?20:row.title.toLocaleLowerCase().includes(t)?10:1),0)};
+  return {...rest,snippet:snippetText(row.text,terms),highlights:terms,href:row.kind==='container'?`/app/containers/${row.id}`:row.kind==='template'?`/app/templates/${row.id}`:`/app/pages/${row.pageId}${row.kind==='comment-thread'?`?thread=${row.id}`:''}`,score:terms.reduce((n,t)=>n+(row.title.toLocaleLowerCase()===t?20:row.title.toLocaleLowerCase().includes(t)?10:1),0)};
 }
 export async function search(ctx:FeatureContext,raw:SearchInput) {
   const subject=await currentSubject(ctx),input=validateSearch(raw),terms=queryTerms(input.query);
@@ -47,7 +47,7 @@ export async function search(ctx:FeatureContext,raw:SearchInput) {
       RETURNING search_summary_json`).bind(...query.values,snapshotId,ctx.actor.workspaceId,ctx.actor.id,queryHash,new Date(Date.parse(ctx.now)+3600000).toISOString(),input.limit!).first<{search_summary_json:string}>();
     if(!summary)throw new ApiProblem(409,'SEARCH_CHANGED','Content or access changed during search. Start a fresh search.');
     const data=JSON.parse(summary.search_summary_json) as {total:number;items:SearchDocument[];kind:Record<string,number>;container:Record<string,number>;status:Record<string,number>};
-    return {items:data.items.map(r=>result(r,terms)),total:data.total,facets:{kind:data.kind,container:data.container,status:data.status},filters,nextCursor:data.total>data.items.length?encodeCursor({snapshot:snapshotId,offset:data.items.length}):undefined};
+    return {items:await nameSnippetMembers(ctx,data.items.map(r=>result(r,terms))),total:data.total,facets:{kind:data.kind,container:data.container,status:data.status},filters,nextCursor:data.total>data.items.length?encodeCursor({snapshot:snapshotId,offset:data.items.length}):undefined};
   }
   const parameter=query.values.length;
   const data=await ctx.db.prepare(query.sql+`, ordered AS MATERIALIZED (SELECT v.*,CAST(s.key AS INTEGER) AS position FROM visible v JOIN discovery_snapshots snap ON snap.id=?${parameter+1} JOIN json_each(snap.ids_json) s ON s.value=v.key), selected AS (SELECT * FROM ordered WHERE position>=?${parameter+2} ORDER BY position LIMIT ?${parameter+3})
@@ -59,7 +59,7 @@ export async function search(ctx:FeatureContext,raw:SearchInput) {
     (SELECT json_group_object(status,n) FROM (SELECT status,COUNT(*) n FROM ordered WHERE status IS NOT NULL GROUP BY status)) AS statuses WHERE ${query.ready}`).bind(...query.values,snapshotId,cursor?.offset??0,input.limit!).first<{total:number;remaining:number;items:string;kinds:string;containers:string;statuses:string}>();
   if(!data)throw new ApiProblem(409,'SEARCH_CHANGED','Content or access changed during search. Start a fresh search.');
   const selected=JSON.parse(data.items) as {document:SearchDocument;position:number}[];
-  return {items:selected.map(r=>result(r.document,terms)),total:data!.total,facets:{kind:JSON.parse(data!.kinds),container:JSON.parse(data!.containers),status:JSON.parse(data!.statuses)},filters,nextCursor:data!.remaining>selected.length?encodeCursor({snapshot:snapshotId,offset:selected.at(-1)!.position+1}):undefined};
+  return {items:await nameSnippetMembers(ctx,selected.map(r=>result(r.document,terms))),total:data!.total,facets:{kind:JSON.parse(data!.kinds),container:JSON.parse(data!.containers),status:JSON.parse(data!.statuses)},filters,nextCursor:data!.remaining>selected.length?encodeCursor({snapshot:snapshotId,offset:selected.at(-1)!.position+1}):undefined};
 }
 /** Import completion proves every requested canonical ID has a clean indexed generation. */
 export async function verifySearchable(ctx:FeatureContext,pageIds:string[],bounds?:import('./index').SearchRefreshBounds) {

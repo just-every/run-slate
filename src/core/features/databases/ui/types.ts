@@ -108,7 +108,7 @@ export type FieldValue =
   | { kind: "text"; text: string }
   | { kind: "number"; number: number; display: string }
   | { kind: "checkbox"; checked: boolean }
-  | { kind: "date"; display: string; endDisplay?: string | null }
+  | { kind: "date"; display: string; endDisplay?: string | null; stored?: string }
   | { kind: "options"; optionIds: readonly string[] }
   | { kind: "people"; people: readonly RecordPerson[] }
   | { kind: "files"; files: readonly RecordFile[] }

@@ -6,7 +6,8 @@ import type {PageSelection} from "./selection";
 import {formatSelection} from "../../../editor/ui/formatSelection";
 import {richTextToPlain} from "../../../editor/ui/types";
 import {typedBlock} from "../../../editor/ui/typedFormatting";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import {readEditableSelection, restoreEditableSelection, type EditableSelection} from '../../../editor/ui/blocks/editableSelection';
 import { EditorMediaDialog } from "./EditorMediaDialog";
 import { BlockEditor } from "../../../editor/ui/BlockEditor";
 import { BlockView } from "../../../editor/ui/blocks/BlockView";
@@ -38,8 +39,22 @@ export function PageEditorBody({
   const liveQueries=useContentQueries(document.page.id,editor.blocks);
   const [queryEditor,setQueryEditor]=useState<string|null>(null);
   const editedQuery=editor.blocks.find(block=>block.id===queryEditor);
-  const undoConversion = useRef<EditorBlock | null>(null);
+  const undoConversion = useRef<{block:EditorBlock;removed:number} | null>(null);
+  const conversionFocus = useRef<{id:string;selection:EditableSelection|null}|null>(null);
   const wrapper = useRef<HTMLDivElement>(null);
+  function changeKind(block:EditorBlock, removed=0) {
+    const root = [...(wrapper.current?.querySelectorAll<HTMLElement>('[data-block-id]')??[])].find(element=>element.dataset.blockId===block.id)?.querySelector<HTMLElement>('[data-slate-editable]');
+    const selection = root ? readEditableSelection(root) : null;
+    conversionFocus.current = {id:block.id,selection:selection ? {anchor:Math.max(0,selection.anchor-removed),focus:Math.max(0,selection.focus-removed)} : null};
+    editor.change(block.id,block);
+  }
+  useLayoutEffect(()=>{
+    const intent = conversionFocus.current;
+    if (!intent) return;
+    conversionFocus.current = null;
+    const root = [...(wrapper.current?.querySelectorAll<HTMLElement>('[data-block-id]')??[])].find(element=>element.dataset.blockId===intent.id)?.querySelector<HTMLElement>('[data-slate-editable]');
+    if (root) {root.focus();if(intent.selection)restoreEditableSelection(root,intent.selection);}
+  },[editor.blocks]);
   const requestInsertFocus = useInsertedBlockFocus(wrapper, document.page.id, editor.blocks, document.permissions.canEdit && editor.structureState !== "saving");
   useEffect(() => {
     const element = wrapper.current;
@@ -54,7 +69,7 @@ export function PageEditorBody({
       const anchor=caret && caretRect && (caretRect.width>0 || caretRect.height>0) ? caret : target;
       setInsert({after:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId ?? null,range:(event as CustomEvent<{anchor:number;focus:number}>).detail,anchor});
     };
-    const undo=(event:KeyboardEvent)=>{if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='z'&&undoConversion.current){event.preventDefault();const previous=undoConversion.current;undoConversion.current=null;void editor.structure(editor.blocks.map(b=>b.id===previous.id?previous:b)).catch(setError);}};
+    const undo=(event:KeyboardEvent)=>{if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='z'&&undoConversion.current&&editor.blocks.some(block=>block.id===undoConversion.current?.block.id)){event.preventDefault();const previous=undoConversion.current;undoConversion.current=null;changeKind(previous.block,-previous.removed);}};
     element.addEventListener('slate-insert-at-cursor',insertAt);
     element.addEventListener('keydown',undo);
     const selected = async (event:Event, comment:boolean) => {
@@ -165,7 +180,7 @@ export function PageEditorBody({
       {editedQuery?.type==='content-query'?<ContentQueryDialog block={editedQuery} onClose={()=>setQueryEditor(null)} onSave={async definition=>{await editor.structure(editor.blocks.map(block=>block.id===editedQuery.id?{...editedQuery,definition,results:[],lastRanLabel:"Not run yet"}:block));}}/>:null}
       {error ? <p role="alert">{errorMessage(error)}</p> : null}
       {editor.structureState?<p className="editor-save-status" role="status">{editor.structureState==="saving"?"Saving…":"Saved"}</p>:null}
-      {!editor.blocks.length&&document.permissions.canEdit?<EmptyPageDraft pageId={document.page.id} editor={editor}/>:<BlockEditor
+      {!editor.blocks.length&&document.permissions.canEdit?<EmptyPageDraft pageId={document.page.id} editor={editor} onConversion={value=>{undoConversion.current=value;}} onSave={requestInsertFocus}/>:<BlockEditor
         blocks={liveQueries.blocks.map(block=>{
           const mentions=(document as DocumentView&{mentions?:Record<string,{label:string;available:boolean;state:string}>}).mentions;
           const hydrate=(value:unknown):unknown=>Array.isArray(value)?value.map(hydrate):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([key,item])=>[key,key==='mention'&&item&&typeof item==='object'&&'id'in item&&mentions?.[String(item.id)]?{...item,...mentions[String(item.id)]}:hydrate(item)])):value;
@@ -192,7 +207,16 @@ export function PageEditorBody({
           onRerunQuery: liveQueries.rerun,
           onOpenQueryResult: (id) => window.location.assign(`/app/pages/${id}`),
         }}
-        onChange={(id,rendered)=>{const clean=(value:unknown):unknown=>Array.isArray(value)?value.map(clean):value&&typeof value==="object"?Object.fromEntries(Object.entries(value).map(([key,item])=>[key,key==="mention"&&item&&typeof item==="object"?Object.fromEntries(Object.entries(item).filter(([field])=>field!=="state"&&field!=="available"&&field!=="deletedAt")):clean(item)])):value;const next=clean(rendered) as EditorBlock;const conversion=typedBlock(next);if(conversion){undoConversion.current=next;void apply(editor.blocks.map(block=>block.id===id?conversion:block)).then(()=>requestAnimationFrame(()=>{const target=window.document.querySelector<HTMLElement>(`[data-block-id="${id}"] [contenteditable="true"]`);(target??wrapper.current)?.focus();}));}else{undoConversion.current=null;editor.change(id,next);}}}
+        onChange={(id,rendered)=>{
+          const clean=(value:unknown):unknown=>Array.isArray(value)?value.map(clean):value&&typeof value==="object"?Object.fromEntries(Object.entries(value).map(([key,item])=>[key,key==="mention"&&item&&typeof item==="object"?Object.fromEntries(Object.entries(item).filter(([field])=>field!=="state"&&field!=="available"&&field!=="deletedAt")):clean(item)])):value;
+          const next=clean(rendered) as EditorBlock;
+          const conversion=typedBlock(next);
+          if(conversion){
+            const removed=next.type==='paragraph' ? richTextToPlain(next.text).length-('text' in conversion ? richTextToPlain(conversion.text).length : 0) : 0;
+            undoConversion.current={block:next,removed};
+            changeKind(conversion,removed);
+          }else{undoConversion.current=null;editor.change(id,next);}
+        }}
         onInsert={(after, anchor) => setInsert({ after, anchor })}
         onDelete={(id) =>
           void apply(editor.blocks.filter((block) => block.id !== id))
@@ -217,7 +241,7 @@ export function PageEditorBody({
           if (choice === "compare") void compare(id);
           else void editor.resolve(id, choice === "overwrite").catch(setError);
         }}
-        placeholder="Add your first block to start writing."
+        placeholder="Write something, or press / for blocks"
       />}
       <div className="page-footer">
         {document.permissions.canEdit ? <div className="editor-actions"><button type="button" onClick={(event) => setInsert({ after: null, anchor: event.currentTarget })}>＋ Add block</button></div> : null}
