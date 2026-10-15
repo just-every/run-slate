@@ -29,8 +29,9 @@ export async function editorFocusJourney({ page, context, origin, api }, contain
   }
   async function pending() {
     await expect(page.locator('.editor-save-status')).toHaveText('Saving…');
-    await expect(paragraph()).toHaveAttribute('contenteditable', 'false');
-    await expect(heading()).toHaveCount(0);
+    await expect(heading()).toHaveAttribute('contenteditable', 'true');
+    await expect(heading()).toBeFocused();
+    await expect(paragraph()).toHaveCount(0);
   }
   async function collaboratorWrites(pageId, text) {
     const saved = await api(`/api/pages/${pageId}`), block = saved.blocks[0];
@@ -67,6 +68,28 @@ export async function editorFocusJourney({ page, context, origin, api }, contain
   await expect(heading()).toHaveText('A later collaboration update leaves focus alone.');
   assert.equal((await api(`/api/pages/${delayed}`)).blocks[0].content.level, 1);
 
+  // Hold the genuine creation receipt across the first typing, without a fill
+  // or focus call that could hide the new-block race. No API result is faked.
+  for (const delay of [0, 300, 2000]) {
+    const target = await freshPage(`Immediate typing after ${delay}ms`);
+    await withHeldResponse(page, `/api/pages/${target}/blocks`, 'PUT', async gate => {
+      await page.getByRole('button', { name: '＋ Add block', exact: true }).click();
+      await page.getByRole('option', { name: 'Text', exact: true }).click();
+      await page.waitForTimeout(delay);
+      const text = `Typed after ${delay}ms without losing the first letters.`;
+      const typing = page.keyboard.type(text, { delay: 90 });
+      await gate.arrived;
+      await expect(page.locator('.editor-save-status')).toHaveText('Saving…');
+      const element = await paragraph().last().elementHandle();
+      gate.release();
+      await typing;
+      await expect.poll(async () => (await api(`/api/pages/${target}`)).blocks.at(-1).content.text.map(span => span.text).join('')).toBe(text);
+      assert.equal(await element.evaluate(node => node.isConnected), true, 'The editable survives its creation receipt');
+      await page.reload({ waitUntil: 'networkidle' });
+      await expect(paragraph().last()).toHaveText(text);
+    });
+  }
+
   const redirected = await freshPage('Later title focus wins');
   await withHeldResponse(page, `/api/pages/${redirected}`, 'GET', async gate => {
     await insertHeading();
@@ -89,8 +112,9 @@ export async function editorFocusJourney({ page, context, origin, api }, contain
       await pending();
       gate.release();
       await expect(page.getByRole('alert')).toContainText('The server could not be reached');
-      await expect(paragraph()).toHaveAttribute('contenteditable', 'true');
-      await expect(heading()).toHaveCount(0);
+      await expect(heading()).toHaveAttribute('contenteditable', 'true');
+      await expect(page.locator('.editor-save-status')).toContainText('Unsaved');
+      await title().click();
       // The Worker committed, but its response was lost. A later genuine read
       // must expose that heading without reviving the failed operation's focus.
       resume();

@@ -95,6 +95,7 @@ export function errorMessage(error: unknown): string {
   if (error instanceof ApiError) {
     if (error.status === 401)
       return "Your session has ended. Sign in again to continue. Unsaved changes remain here.";
+    if (error.code === "STEP_UP_REQUIRED") return error.message;
     if (error.status === 403 || error.status === 404)
       return "This content is unavailable with your current access.";
     return error.message;

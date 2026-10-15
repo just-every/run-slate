@@ -45,10 +45,12 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
   );
   // Mutable page CAS may advance without creating a content snapshot (sharing, status).
   const [revision, setRevision] = useState(document.page.revisionId);
+  const revisionRef = useRef(revision);
   // A read dispatched before a committed mutation may still be in transport.
   // Retire it before publishing the receipt's newer compare-and-swap revision.
   function updateRevision(value: string) {
     invalidateRead();
+    revisionRef.current = value;
     setRevision(value);
   }
   const [workingRevisionId, setWorkingRevisionId] = useState(document.workingRevisionId);
@@ -67,6 +69,7 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
     new Map<string, Pending>(restored.current?.edits ?? []),
   );
   const busy = useRef(new Set<string>());
+  const saving = useRef(new Map<string, Promise<void>>());
   const timers = useRef(new Map<string, ReturnType<typeof setTimeout>>());
   const alive = useRef(true);
   const pageId = document.page.id;
@@ -110,7 +113,18 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
   function status(id: string, value: BlockSaveState) {
     if (alive.current) setSaveState((old) => ({ ...old, [id]: value }));
   }
-  async function save(id: string, propagate = false) {
+  async function save(id: string, propagate = false): Promise<void> {
+    const active = saving.current.get(id);
+    if (active) return active;
+    const task = (async () => {
+      while (await performSave(id, propagate)) {
+        if (!pending.current.has(id) || !alive.current || !canEdit.current) break;
+      }
+    })();
+    saving.current.set(id, task);
+    try { await task; } finally { saving.current.delete(id); }
+  }
+  async function performSave(id: string, propagate = false) {
     if (!alive.current || !canEdit.current || busy.current.has(id)) return;
     const edit = pending.current.get(id);
     if (!edit) return;
@@ -171,13 +185,13 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
         window.dispatchEvent(new CustomEvent("slate:page-mutated", { detail: { pageId } }));
       busy.current.delete(id);
       if (propagate) throw error;
-      return;
+      return false;
     }
     persistDraft();
     busy.current.delete(id);
-    if (pending.current.has(id) && alive.current) void save(id);
+    return true;
   }
-  function change(id: string, block: EditorBlock) {
+  function change(id: string, block: EditorBlock, expectedRevision?: string) {
     if (!alive.current || !canEdit.current) return;
     setStructureState(null);
     const next = current.current.map((existing) =>
@@ -197,7 +211,7 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
       pending.current.set(id, {
         block,
         key: operationKey(),
-        revision: revisions.current.get(id)!,
+        revision: expectedRevision ?? revisions.current.get(id)!,
       });
     persistDraft();
     if (
@@ -244,6 +258,7 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
       setBlocks(next);
     }
     synced.current = fresh.page.revisionId;
+    revisionRef.current = fresh.page.revisionId;
     setRevision(fresh.page.revisionId);
     setWorkingRevisionId(fresh.workingRevisionId);
   }
@@ -288,7 +303,7 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
     });
     return { next: rebased, revision: fresh.page.revisionId, known };
   }
-  async function structure(next: EditorBlock[]) {
+  async function structure(next: EditorBlock[], expectedBlocks?: Record<string, string>) {
     if (!alive.current || !canEdit.current) throw new Error("This page is read-only with your current access.");
     if (structureBusy.current || busy.current.size || pending.current.size)
       throw new Error(
@@ -297,11 +312,12 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
     structureBusy.current=true;
     setStructureState("saving");
     try {
-    const plan = synced.current === revision
-      ? { next, revision, known: revisions.current }
+    let committed: Awaited<ReturnType<typeof contentApi.structure>>;
+    const plan = synced.current === revisionRef.current
+      ? { next, revision: revisionRef.current, known: revisions.current }
       : await rebase(next);
     try {
-      await contentApi.structure(pageId, plan.revision, plan.next, Object.fromEntries(plan.known));
+      committed = await contentApi.structure(pageId, plan.revision, plan.next, expectedBlocks ?? Object.fromEntries(plan.known));
     } catch (error) {
       const conflict = error instanceof ApiError && error.code === "BLOCK_CONFLICT" ? (error.details as { blockId?: string } | undefined)?.blockId : undefined;
       if (conflict)
@@ -329,6 +345,7 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
     );
     blockTypes.current = new Map(fresh.blocks.map(block => [block.id, block.blockType]));
     setStructureState("saved");
+    return committed.value.blocks;
     } catch(error) {setStructureState(null);throw error;} finally {structureBusy.current=false;}
   }
   async function resolve(id: string, keepMine: boolean) {
@@ -376,6 +393,19 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
   }
   return {
     receive,
+    blockRevisions: () => Object.fromEntries(revisions.current),
+    readBlocks: () => current.current,
+    async flush() {
+      for (const timer of timers.current.values()) clearTimeout(timer);
+      timers.current.clear();
+      for (const id of pending.current.keys()) {
+        if (["failed", "offline", "conflict", "unsaved"].includes(saveState[id]?.status ?? ""))
+          throw new Error("Save or resolve your current edits before adding a block.");
+        await save(id, true);
+      }
+      if (pending.current.size || busy.current.size)
+        throw new Error("Save or resolve your current edits before adding a block.");
+    },
     blocks,
     saveState,
     revision,

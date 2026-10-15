@@ -15,6 +15,7 @@ import { TaskBlock } from "./TaskBlock";
 
 export interface BlockViewProps {
   block: EditorBlock;
+  textLabel?: string;
   canEdit: boolean;
   onChange: (next: EditorBlock) => void;
   actions?: BlockActions;
@@ -23,11 +24,11 @@ export interface BlockViewProps {
 }
 
 /** One block, rendered by its type. Every renderer is props-in, callbacks-out. */
-export function BlockView({ block, canEdit, onChange, actions, placeholder }: BlockViewProps) {
+export function BlockView({ block, canEdit, onChange, actions, placeholder, textLabel }: BlockViewProps) {
   switch (block.type) {
     case "paragraph":
       return (
-        <ParagraphBlock block={block} canEdit={canEdit} onChange={onChange} placeholder={placeholder} />
+        <ParagraphBlock block={block} canEdit={canEdit} onChange={onChange} placeholder={placeholder} label={textLabel} />
       );
     case "heading":
       return <HeadingBlock block={block} canEdit={canEdit} onChange={onChange} />;

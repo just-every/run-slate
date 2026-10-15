@@ -62,7 +62,11 @@ export function EditableElement({
       )
         return;
       event.preventDefault();
-      if (!multiline) return;
+      if (event.inputType === "insertParagraph" && element.closest('[data-page-editor]')) {
+        const selection = readEditableSelection(element);
+        if (selection && !element.dispatchEvent(new CustomEvent('slate-split-block', {bubbles: true, cancelable: true, detail: selection}))) return;
+      }
+      if (!multiline && !element.closest('[data-page-editor]')) return;
       insertEditableLineBreak(element);
       publish(element);
     };

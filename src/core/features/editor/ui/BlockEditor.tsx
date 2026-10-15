@@ -9,6 +9,7 @@ import type { BlockActions, BlockMove, BlockSaveState, ConflictChoice, EditorBlo
 export interface BlockEditorProps {
   state?: SurfaceState;
   blocks: EditorBlock[];
+  emptyBlockId?: string;
   canEdit: boolean;
   /** `SAVE-003` catches conflicts at block grain, so save state is per block. */
   saveState?: Record<string, BlockSaveState>;
@@ -51,6 +52,7 @@ function Column({ children, className }: { children: ReactNode; className?: stri
 export function BlockEditor({
   state = "ready",
   blocks,
+  emptyBlockId,
   canEdit,
   saveState,
   actions,
@@ -149,6 +151,7 @@ export function BlockEditor({
       {blocks.map((block) => (
         <BlockRow
           actions={actions}
+          textLabel={block.id === emptyBlockId ? "Page body" : undefined}
           block={block}
           canEdit={canEdit}
           key={block.id}

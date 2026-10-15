@@ -50,6 +50,7 @@ export function describeBlock(block: EditorBlock): string {
 
 export interface BlockRowProps {
   block: EditorBlock;
+  textLabel?: string;
   canEdit: boolean;
   selected?: boolean;
   saveState?: BlockSaveState;
@@ -72,6 +73,7 @@ export interface BlockRowProps {
 /** One row of the body: the gutter, the block, and the block's own save state. */
 export function BlockRow({
   block,
+  textLabel,
   canEdit,
   selected = false,
   saveState,
@@ -130,10 +132,10 @@ export function BlockRow({
             : undefined
         }
       >
-        {selected ? <span className="sr-only">Selected with its neighbours.</span> : null}
 
         <BlockView
           actions={actions}
+          textLabel={textLabel}
           block={block}
           canEdit={canEdit}
           onChange={onChange}

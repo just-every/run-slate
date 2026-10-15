@@ -14,7 +14,7 @@ function sourceId(prefix: string, source: ImportSourceFile): string {
 function documentImport(format: ImportFormat, source: ImportSourceFile, blocks: NormalizedImport["pages"][number]["blocks"]): NormalizedImport {
   const id = sourceId(format, source);
   const report = createImportReport();
-  const title = source.name.replace(/\.[^.]+$/, "") || "Imported document";
+  const title = (format === "markdown" ? blocks.find(block => block.kind === "heading" && block.level === 1)?.text?.trim() : undefined) || source.name.replace(/\.[^.]+$/, "") || "Imported document";
   reportCreated(report, "container", title, id);
   reportCreated(report, "page", title, id);
   return {

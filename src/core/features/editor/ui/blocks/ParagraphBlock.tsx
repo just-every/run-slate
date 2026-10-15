@@ -6,13 +6,14 @@ export function ParagraphBlock({
   block,
   canEdit,
   onChange,
+  label = "Paragraph",
   placeholder = "Write something, or press / for blocks",
-}: BlockRenderProps<ParagraphBlockData> & { placeholder?: string }) {
+}: BlockRenderProps<ParagraphBlockData> & { placeholder?: string; label?: string }) {
   return (
     <Editable
       canEdit={canEdit}
       className="py-0.5 text-body leading-relaxed text-ink"
-      label="Paragraph"
+      label={label}
       onChange={(text) => onChange({ ...block, text })}
       placeholder={placeholder}
       value={block.text}
