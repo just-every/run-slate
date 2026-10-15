@@ -6323,7 +6323,7 @@
       "executable": false
     },
     "src/core/features/publishing/routes.ts": {
-      "sha256": "af015d5bf9a74960ea7ccf2484dcea022c5507bbb516df6cd219dc805041a9de",
+      "sha256": "a3c88ee7457801976e8535f191538bcfd7dec495c1ac2da0ac38da25588f7116",
       "executable": false
     },
     "src/core/features/publishing/service.ts": {
