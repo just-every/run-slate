@@ -74,7 +74,7 @@ export function AppShell({
             >
               {open ? <X /> : <Menu />}
             </button>
-            <span>{member.workspaceName}</span>
+            <span data-rer-name>{member.workspaceName}</span>
           </div>
           <div className="app" data-navigation-open={open}>
             {open ? <button className="navigation-backdrop" aria-label="Close navigation" onClick={() => {setOpen(false);navigationTrigger.current?.focus();}} /> : null}

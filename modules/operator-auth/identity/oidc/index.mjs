@@ -1,3 +1,4 @@
+import { rejectedResponse } from '../../rejected-response.mjs';
 // Server-only entry. Never include this module or its configuration in a browser bundle.
 // OpenID Connect sign-in for several pinned providers at once. Each provider
 // has its own start and callback route; its output is a verified principal,
@@ -8,7 +9,7 @@ import { configure } from './config.mjs';
 import { check, OidcError } from './errors.mjs';
 import { random, isRandom, digest, keyedHash, seal, unseal } from './crypto.mjs';
 import { storage } from './store.mjs';
-import { discover, exchange, readJson } from './network.mjs';
+import { discover, exchange, readJson, GrantRejected } from './network.mjs';
 import { parseIdToken, knowsKey, verifyIdToken, principalOf } from './jwt.mjs';
 import { PRESETS, MINIMUM_PROVIDER_VERSION } from './presets.mjs';
 import { refuseInProduction } from '../principal.mjs';
@@ -206,7 +207,7 @@ export function createOidcProviders({ admission, db, config: input, clientIp, fe
         const keys = await keysFor(provider, link, parsed.header.kid);
         claims = await verifyIdToken(parsed, keys, link, view, config, transaction, { ...tokens, code }, clock());
       } catch (error) {
-        if (error?.code !== 'oidc_storage_unavailable') await store.exchangeHealth(link, false, error?.hard === true, clock());
+        if (!(error instanceof GrantRejected) && error?.code !== 'oidc_storage_unavailable') await store.exchangeHealth(link, false, error?.hard === true, clock());
         if (error instanceof OidcError && error.status !== 400) throw error;
         throw new OidcError(error instanceof OidcError ? error.code : 'oidc_invalid_response');
       }
@@ -279,7 +280,7 @@ export function createOidcProviders({ admission, db, config: input, clientIp, fe
 
 // Exact routes only: /auth/oidc/<id>/start and /auth/oidc/<id>/callback.
 export function createOidcHandler(oidc, { signInPath = oidc.signInPath ?? '/signin' } = {}) {
-  return async request => {
+  const handle = async request => {
     const path = new URL(request.url).pathname;
     const callbackId = oidc.callbackPaths?.[path];
     if (callbackId) return oidc.callback(request, callbackId);
@@ -302,5 +303,9 @@ export function createOidcHandler(oidc, { signInPath = oidc.signInPath ?? '/sign
       check(input && typeof input === 'object' && !Array.isArray(input));
       return oidc.begin(request, match[1], { returnTo: input.returnTo });
     } catch (e) { return errorResponse(e instanceof OidcError ? e : new OidcError('oidc_invalid_input'), { signInPath }, request); }
+  };
+  return async request => {
+    const response = await handle(request);
+    return response ? rejectedResponse(request, response) : response;
   };
 }

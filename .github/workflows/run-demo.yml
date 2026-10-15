@@ -6,6 +6,11 @@ on:
         description: 'Deploy a separate demo-test environment with Turnstile test keys'
         type: boolean
         default: false
+      instance_type:
+        description: 'Test-only container size (configured keeps deploy-demo.json)'
+        type: choice
+        default: configured
+        options: [configured, basic, standard-1, standard-2]
       remove:
         description: 'Remove the selected demo host instead of deploying it'
         type: boolean
@@ -33,7 +38,9 @@ jobs:
           COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
       - name: Scope test deployment
         if: inputs.test_only
-        run: node --input-type=module -e "import fs from 'node:fs'; const p='deploy-demo.json'; const d=JSON.parse(fs.readFileSync(p)); d.domain='test.run-slate.com'; fs.writeFileSync(p,JSON.stringify(d));"
+        run: node --input-type=module -e "import fs from 'node:fs'; const p='deploy-demo.json'; const d=JSON.parse(fs.readFileSync(p)); d.domain='test.run-slate.com'; if(process.env.DEMO_INSTANCE_TYPE!=='configured') d.instanceType=process.env.DEMO_INSTANCE_TYPE; fs.writeFileSync(p,JSON.stringify(d));"
+        env:
+          DEMO_INSTANCE_TYPE: ${{ inputs.instance_type || 'configured' }}
       - run: pnpm exec rer deploy --demo --environment "$DEMO_ENVIRONMENT" ${{ inputs.remove && '--remove --yes' || '' }}
         env:
           DEMO_ENVIRONMENT: ${{ inputs.test_only && 'demo-test' || 'production' }}

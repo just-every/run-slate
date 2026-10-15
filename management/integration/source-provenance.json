@@ -3,7 +3,7 @@
   "sourceRepository": "just-every/run-slate",
   "sourceFiles": {
     "scripts/delivery/base/packaging.json": "sha256:c2e277ff9bfbc9f06539ba9427ee9e72a6f2c82baee193085987aadd6c985fec",
-    "src/server.ts": "sha256:f63493d4e8833a8418d300dde1dd23ef80e977c04f1a0b3ca1e0b6792c1568a0",
+    "src/server.ts": "sha256:b358ff1fb52828e94d0d27171f143925fa7bef1c4328a9a8cb528321ca566e30",
     "src/core/features/workspace/bootstrap.ts": "sha256:070dbb22a0bdcfd8d131168e390a1c4c61af03d20fdb09f878321d6be9ddf262",
     "src/core/platform/config/runtime.ts": "sha256:4f9dcdf5cd808a5cb305443a6d616e73ae7d0381a81dd843e813e798da7a8714",
     "migrations/core/0001_knowledge_foundation.sql": "sha256:88bb09f3c90f4741bc686f333fd765ca838ff6e96969d5182b292df0c4816c39",
@@ -34,6 +34,7 @@
     "migrations/core/0027_mention_titles_reindex.sql": "sha256:ff8ac67f6b5598e6b4dbb292748c8ded3d12c0552438adaff343e206ee3874f7",
     "migrations/core/0028_import_reversal_fences.sql": "sha256:48709d8ddb1ac828e9d48d22633baed4938d2d5a565a770a09917fb3a91e5a83",
     "migrations/core/0029_import_retirement.sql": "sha256:8fbb81317ee0667a26b88a7a9fa1a42c56eb254654468e6dd8b8c7d810be5693",
-    "migrations/core/0030_native_dependencies.sql": "sha256:bb14fa7c0797f2aa3b04e08dfe8711615e9dbe9a4df9c0e3eed988dda8c5823b"
+    "migrations/core/0030_native_dependencies.sql": "sha256:bb14fa7c0797f2aa3b04e08dfe8711615e9dbe9a4df9c0e3eed988dda8c5823b",
+    "migrations/core/0031_import_preparation_progress.sql": "sha256:0df0299800a546a8da6c0a52585f987ba8d08a6fc10d2c826fa31da85f523d6a"
   }
 }

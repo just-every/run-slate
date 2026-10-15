@@ -121,8 +121,8 @@ export async function startViteRuntime(persistPath) {
 }
 
 /** The adopted Base production module/converter path over the emitted artifact. */
-export async function startEmittedWorker(persistPath, vars = {}) {
-  const port = await availablePort();
+export async function startEmittedWorker(persistPath, vars = {}, allocatedPort) {
+  const port = allocatedPort ?? await availablePort();
   const config = await emittedRuntimeConfig(root, persistPath);
   const baseUrl = `http://127.0.0.1:${port}`;
   const varsPath = path.join(persistPath, 'runtime-config', 'vars.json');

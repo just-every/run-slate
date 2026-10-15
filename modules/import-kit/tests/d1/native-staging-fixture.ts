@@ -2,7 +2,7 @@ import { sqliteRuntime, sqliteSource, sqliteMapping } from './sqlite-runtime.ts'
 import { canonicalJson, sha256, retainedSql, planD1ImportStream, createD1ImportStream, type D1TargetAdapter, type D1Sql } from '../../src/d1/index.ts';
 const query=(sql:string,...params:any[]):D1Sql=>({sql,params});
 export const nativePrivateTables=['ik_d1_native_staging','ik_d1_native_staging_index','ik_d1_native_staging_values','ik_d1_publication_fences','native_publication_fence'];
-export async function nativeStagingFixture(t:any){
+export async function nativeStagingStorageFixture(t:any){
   const r=await sqliteRuntime(t);
   r.native().exec(`CREATE TABLE native_parts(target_id TEXT,ordinal INTEGER,body TEXT,PRIMARY KEY(target_id,ordinal)); CREATE TABLE native_clock(value INTEGER NOT NULL,seal TEXT);INSERT INTO native_clock VALUES(0,NULL);CREATE TABLE native_publication_fence(stage_id TEXT PRIMARY KEY);`);
   r.native().exec(`CREATE TRIGGER native_receipt_invalidate AFTER UPDATE OF value ON native_clock BEGIN UPDATE native_clock SET seal=NULL; END;CREATE TRIGGER native_receipt_guard BEFORE UPDATE OF seal ON native_clock WHEN NEW.seal IS NOT NULL AND NOT EXISTS(SELECT 1 FROM native_publication_fence WHERE stage_id=NEW.seal) BEGIN SELECT RAISE(ABORT,'NATIVE_RECEIPT_CHANGED'); END`);
@@ -20,6 +20,10 @@ export async function nativeStagingFixture(t:any){
     matchesCount(count,destination){return query('(SELECT count(*) FROM native_records WHERE destination=?)=?',destination,count);},
   };
   const context=()=>({...r.context(),maxBatchBytes:2*1024*1024,maxBatches:1,storage:{database:r.db(),targets}});
+  return {...r,context,targets};
+}
+export async function nativeStagingFixture(t:any){
+  const r=await nativeStagingStorageFixture(t),{context,targets}=r;
   const source=sqliteSource(1);source.artifacts.forEach(a=>a.original={status:'unavailable',reason:'not-supplied'});
   source.records[0].payload={rows:Array.from({length:20},(_,i)=>String(i)+'漢'.repeat(49000))};source.records[0].payloadHash=sha256(canonicalJson(source.records[0].payload));
   const plan=await planD1ImportStream(source,sqliteMapping,context());

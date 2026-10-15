@@ -1,5 +1,6 @@
 import {readFile, readdir, stat} from 'node:fs/promises';
 import path from 'node:path';
+import {withoutRenderedDocs} from './build/docs-boundary.mjs';
 
 // Inspect emitted bytes only. Runtime access journeys run in Slate's Verify CI.
 const root = process.cwd();
@@ -42,7 +43,7 @@ for (const {file, text} of clientScripts) {
     check(!text.includes(symbol), `${relative} contains server-only symbol ${symbol}.`);
   }
   if (docsChunks.has(file)) {
-    check(!/(?<!SLATE_)(?:SESSION_SECRET|MAIL_API_KEY)/.test(text), `${relative} names a server binding.`);
+    check(!/(?:SESSION_SECRET|MAIL_API_KEY)/.test(withoutRenderedDocs(text)), `${relative} names a server binding.`);
   } else {
     for (const symbol of ['SESSION_SECRET', 'MAIL_API_KEY']) {
       check(!text.includes(symbol), `${relative} contains server-only symbol ${symbol}.`);

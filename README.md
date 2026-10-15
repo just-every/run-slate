@@ -93,7 +93,7 @@ Reset lists its local removal inventory and requires explicit confirmation:
 rer reset --yes
 ```
 
-It removes local D1/R2/collaboration state, settings, outbox and installer drafts, preserving source, dependencies, owner exports and deployment receipts. Back up first. Reset refuses while another operation owns local state.
+It removes local D1/R2/collaboration state, settings and installer drafts, preserving source, dependencies, owner exports and deployment receipts. Back up first. Reset refuses while another operation owns local state.
 
 ## Mail with Run Edit Run hosting
 
@@ -133,6 +133,6 @@ pnpm test:release-source
 pnpm source:check
 ```
 
-`rer verify` checks command contracts, generated Worker binding freshness, types, static contracts and boundaries, source integrity and the emitted build/artifact; it runs no test suites. It requires Chromium installed with `node_modules/.bin/playwright install chromium` after `rer install`. `pnpm verify:ci` runs those checks plus Slate's CI test suites, including installer, local journey, outbox, foundation, platform, profile, type-generation, portability and operations coverage. Build and deploy commands do not run test suites. Planned contract clauses remain visible; a passing check does not imply full flagship acceptance. `pnpm test:release-regressions` separately exercises publication relocation, erasure and the emitted browser console using the same Chromium installation.
+`rer verify` checks command contracts, generated Worker binding freshness, types, static contracts and boundaries, source integrity and the emitted build/artifact; it runs no test suites. It requires Chromium installed with `node_modules/.bin/playwright install chromium` after `rer install`. `pnpm verify:ci` runs those checks plus Slate's CI test suites, including identity mail, foundation, platform, profile, type-generation, portability and operations coverage. Push CI runs parallel shards; installer and README journeys run nightly and on release tags. Build and deploy commands do not run test suites. Planned contract clauses remain visible; a passing check does not imply full flagship acceptance. `pnpm test:release-regressions` separately exercises publication relocation, erasure and the emitted browser console using the same Chromium installation.
 
 Advanced federation and inquiry code remains in the source under the explicit `SLATE_PROFILE=flagship` development profile. It is outside the core-wiki release acceptance. [CONTRACT.md](CONTRACT.md), [ACCEPTANCE.md](ACCEPTANCE.md), and [HANDOVER.md](HANDOVER.md) state requirements and current evidence limits. Slate is MIT licensed.

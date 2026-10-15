@@ -3,6 +3,7 @@ import { readFile, readdir, mkdtemp, rm, stat, writeFile } from "node:fs/promise
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
+import {withoutRenderedDocs} from '../../scripts/build/docs-boundary.mjs';
 import {
   applyMigrations,
   seedAuroraFixture,
@@ -71,10 +72,10 @@ test("the build emits a clean client bundle and no prerendered HTML", async () =
   for (const serverOnly of ["cloudflare:workers", "drizzle-orm", "sqliteTable", "token_digest", "tokenDigest", "SESSION_SECRET", "MAIL_API_KEY"]) {
     assert.doesNotMatch(bundle, new RegExp(serverOnly.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `The client bundle contains the server-only symbol ${serverOnly}.`);
   }
-  // The docs chunks keep every one of those checks, except that the documented deployment inputs carry the SLATE_ prefix.
+  // Rendered documentation may name bindings; executable code keeps the same boundary.
   for (const { file, text } of docsChunks) {
     for (const serverOnly of ["cloudflare:workers", "drizzle-orm", "sqliteTable", "token_digest", "tokenDigest"]) assert.ok(!text.includes(serverOnly), `${file} contains the server-only symbol ${serverOnly}.`);
-    assert.doesNotMatch(text, /(?<!SLATE_)(?:SESSION_SECRET|MAIL_API_KEY)/, `${file} names a binding rather than the documented SLATE_ input.`);
+    assert.doesNotMatch(withoutRenderedDocs(text), /(?:SESSION_SECRET|MAIL_API_KEY)/, `${file} contains a server binding in executable code.`);
   }
 
   // Prerendering is configured and disabled, so the build emits no HTML at all.

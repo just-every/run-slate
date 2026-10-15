@@ -6,7 +6,6 @@ export interface SignInIdentityProvider {
 }
 
 export interface SignInCapabilities {
-  localOutbox: boolean;
   mailDelivery: boolean;
   identityProvider: boolean;
   identityProviders: SignInIdentityProvider[];
@@ -19,7 +18,6 @@ export function signInCapabilities(config: RuntimeConfig): SignInCapabilities {
     ? [{ name: 'your identity provider', start: '/auth/oidc/identity/start' }]
     : [];
   return {
-    localOutbox: config.localDevelopment && config.mailProvider === 'development',
     mailDelivery: Boolean((config.mailApiKey || config.mailProvider === 'development') && config.mailFrom && config.appUrl),
     identityProvider: identityProviders.length > 0,
     identityProviders,

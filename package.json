@@ -57,7 +57,6 @@
     "verify:app": "rer check --profile first-party && pnpm cf-typegen:check && pnpm verify-base && pnpm typecheck && pnpm check:contract && pnpm check:operation-commands && pnpm build && pnpm source:check && pnpm check:artifact",
     "reset": "rer reset",
     "release": "rer release",
-    "outbox": "rer outbox",
     "doctor": "rer doctor",
     "describe": "rer describe",
     "check": "rer check",

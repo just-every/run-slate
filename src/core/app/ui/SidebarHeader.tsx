@@ -14,7 +14,7 @@ export function SidebarHeader({ name, collapsed, onToggle }: { name: string; col
         <span className="brand-mark" aria-hidden="true">
           <SlateMark />
         </span>
-        <span className="brand-name" data-testid="workspace-name">{name}</span>
+        <span className="brand-name" data-rer-name data-testid="workspace-name">{name}</span>
       </Link>
       <IconAction className="sidebar-toggle" label={collapsed ? "Expand sidebar" : "Collapse sidebar"} tooltipAlign={collapsed ? "right" : "end"} onClick={onToggle}>
         {collapsed ? <ChevronRight aria-hidden="true" /> : <ChevronLeft aria-hidden="true" />}

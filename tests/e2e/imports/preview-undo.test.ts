@@ -1,11 +1,11 @@
-import {beforeEach,expect,it} from 'vitest';
+import {beforeEach,expect,it,vi} from 'vitest';
 import {env} from 'cloudflare:test';
 import {createApi} from '../../../src/core/app/hono';
 import {parseImport,type ImportFormat} from '../../../src/core/features/imports';
 import {seedWorkspace,seedMember,sessionFor} from '../setup/fixtures';
 import {resetDatabase} from '../setup/reset-database';
 
-beforeEach(()=>resetDatabase(env.DB));
+beforeEach(async()=>{vi.restoreAllMocks();await resetDatabase(env.DB);await env.DB.exec('DROP TABLE IF EXISTS _rer_deploy_migrations');});
 it.each([
  ['notion-workspace','notion-workspace-export.zip'],
  ['confluence-space','confluence-space-export.zip'],
@@ -84,12 +84,13 @@ it.each([
 },120_000);
 
 it.each(['historical','shared across imports'] as const)('erases an imported person (%s) through confirmed native removal, atomically retires custody and keeps unrelated Undo',async(mode)=>{
- const {developmentOutbox}=await import('../../../src/core/app/development-outbox');
+ const {captureMail}=await import('../helpers/mail-edge');
+ const mail=captureMail();
  const {createPortability}=await import('@runeditrun/rer/modules/portability');
  const {workspaceId}=await seedWorkspace();
  const owner=await seedMember(workspaceId,{email:'custody-owner@example.org',displayName:'Custody owner',role:'owner',isSetupOwner:true});
  const cookie=await sessionFor(owner.memberId),app=createApi(),origin='http://localhost:8787',host='localhost:8787';
- const bindings={...env,APP_URL:origin,LOCAL_DEVELOPMENT:'true',MAIL_PROVIDER:'development',RER_DEV_KEY:'test-custody-dev-key-'.padEnd(43,'k')};
+ const bindings={...env,APP_URL:origin,LOCAL_DEVELOPMENT:'true',MAIL_PROVIDER:'resend',MAIL_API_KEY:'test-only-mail-key',RER_DEV_KEY:'test-custody-dev-key-'.padEnd(43,'k')};
  const request=(path:string,body?:unknown)=>app.request(origin+path,{method:body===undefined?'GET':'POST',headers:{host,origin,Cookie:cookie,...(body===undefined||body instanceof FormData?{}:{'Content-Type':'application/json'})},...(body===undefined?{}:{body:body instanceof FormData?body:JSON.stringify(body)})},bindings);
  const call=async(path:string,body?:unknown)=>{const response=await request(path,body),data=await response.json() as any;expect(response.status,JSON.stringify(data)).toBe(200);return data;};
  let sharedPerson:{id:string;email:string;display_name:string}|undefined;
@@ -138,11 +139,7 @@ it.each(['historical','shared across imports'] as const)('erases an imported per
  const removal={operationKey:crypto.randomUUID(),memberId:erased!.id,erase:true};
  const refused=await request('/api/members/remove',removal);expect(refused.status).toBe(403);expect(await refused.json()).toMatchObject({code:'STEP_UP_REQUIRED'});
  expect(await custody()).toBe(custodyBefore);
- const outbox=(path:string)=>developmentOutbox(new Request(origin+path,{headers:{host,'x-rer-dev-key':bindings.RER_DEV_KEY}}),bindings);
- const listing=await outbox('/__dev/outbox');expect(listing?.status).toBe(200);
- const article=(await listing!.text()).split('<article>').find(part=>part.includes('To: custody-owner@example.org</p>'))!;
- const detail=await outbox(article.match(/href="(\/__dev\/outbox\?message=[^"]+)"/)![1]!.replaceAll('&amp;','&'));
- const link=new URL((await detail!.text()).match(/class="open" href="([^"<>]+)"/)![1]!.replaceAll('&amp;','&'));
+ const link=mail.latestLink('custody-owner@example.org');
  const confirmed=await app.request(origin+'/auth/confirm',{method:'POST',headers:{host,origin,Cookie:cookie,'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({token:link.searchParams.get('token')!})},bindings);
  expect(confirmed.status).toBe(303);
  // Record the controller-owned migration ledger before testing removal.

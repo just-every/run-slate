@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
 import { createHash, randomUUID } from 'node:crypto';
+import {inbox, newOutboxLink} from '../e2e/outbox-auth.mjs';
 
 /**
  * A populated installation built only through Slate's public routes and the
- * checkout's dev-keyed outbox: nested trees, revisions, anchored comments,
+ * fake paid mail edge: nested trees, revisions, anchored comments,
  * links and mentions, groups, a guest, restricted pages, files, a published
  * page, a pending invitation and live sessions for two members.
  */
@@ -22,22 +23,11 @@ export function http(origin, devKey) {
     assert.ok(result.status >= 200 && result.status < 300, `${method} ${path}: ${result.status} ${result.text.slice(0, 300)}`);
     return result.body;
   };
-  const outbox = async () => {
-    const response = await fetch(origin + '/__dev/outbox', { headers: { 'x-rer-dev-key': devKey } });
-    assert.equal(response.status, 200, 'the dev outbox answers the checkout key');
-    return [...(await response.text()).matchAll(/href="(\/__dev\/outbox\?message=[^"]+)"/g)].map(match => match[1].replaceAll('&amp;', '&'));
-  };
-  /** The newest message link that opens `pathname`, among messages sent after `before`. */
+  const outbox = () => inbox(origin);
   const link = async (before, pathname) => {
-    for (let attempt = 0; attempt < 100; attempt++) {
-      for (const message of (await outbox()).filter(entry => !before.includes(entry))) {
-        const html = await (await fetch(origin + message, { headers: { 'x-rer-dev-key': devKey } })).text();
-        const href = html.match(/class="open" href="([^"]+)"/)?.[1]?.replaceAll('&amp;', '&');
-        if (href && new URL(href).pathname === pathname) return new URL(href);
-      }
-      await new Promise(resolve => setTimeout(resolve, 100));
-    }
-    throw Error(`No new outbox message opens ${pathname}`);
+    const target = new URL(await newOutboxLink(origin, before));
+    assert.equal(target.pathname, pathname);
+    return target;
   };
   const sessionFrom = response => response.headers.get('set-cookie')?.split(';', 1)[0];
   return {

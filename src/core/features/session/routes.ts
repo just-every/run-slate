@@ -55,7 +55,7 @@ export function createSessionRoutes() {
       try { await auth.requestMagicLink(c.req.raw, { email: input.email, returnTo: "/app" }); }
       catch (cause) { authProblem(cause, delivery.failure); }
       // Every request gets the same acknowledgement; no member lookup is exposed.
-      if (form) return c.redirect(signInCapabilities(config).localOutbox ? "/__dev/outbox" : "/signin?requested=1", 303);
+      if (form) return c.redirect("/signin?requested=1", 303);
       return c.json({ accepted: true });
     })
     /** The unguessable request key is a status capability, never a sign-in credential. */

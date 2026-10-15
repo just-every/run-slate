@@ -1,3 +1,5 @@
+import { demoEffect } from '../../../../modules/demo/index.mjs';
+import { demoModelAnswer } from '../../../demo/model';
 import { z } from 'zod';
 import { ApiProblem } from '../../app/problems';
 import { answerSchema, type EvidencePacket, type Answer } from './contracts';
@@ -7,6 +9,9 @@ export class MeteredOutputFailure extends ApiProblem {constructor(public meter:P
 export class TransportFailure extends Error {constructor(public retryable:boolean,message:string){super(message);}}
 /** Responses API, verified against official structured-output docs 2026-09-27. No tools or provider-side retrieval widen the packet. */
 export async function generateAnswer(config:{apiKey?:string;localUrl?:string;localToken?:string},route:ModelRoute,question:string,packet:EvidencePacket[],maxOutputTokens:number,signal:AbortSignal,beforeDispatch?:()=>Promise<void>):Promise<ModelResult>{
+ return demoEffect(() => generateRealAnswer(config,route,question,packet,maxOutputTokens,signal,beforeDispatch), async () => { await beforeDispatch?.(); return demoModelAnswer(packet); });
+}
+async function generateRealAnswer(config:{apiKey?:string;localUrl?:string;localToken?:string},route:ModelRoute,question:string,packet:EvidencePacket[],maxOutputTokens:number,signal:AbortSignal,beforeDispatch?:()=>Promise<void>):Promise<ModelResult>{
  if(route.provider==='local-codex')return generateLocalAnswer(config,route,question,packet,maxOutputTokens,signal,beforeDispatch);
  if(!config.apiKey)throw new ApiProblem(503,'PROVIDER_UNAVAILABLE','AI_API_KEY is not configured.');
  await beforeDispatch?.();

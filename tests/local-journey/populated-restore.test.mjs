@@ -9,6 +9,7 @@ import { saveFailure } from './diagnostics.mjs';
 import { http, populate, snapshotQueries } from './populated.mjs';
 import { corrupt, resealWithRow } from './archive-edit.mjs';
 import { archiveFacts, equalArchiveFacts } from './archive-facts.mjs';
+import {startEmittedWorker, stop as stopWorker} from '../e2e/runtime-harness.mjs';
 
 const cli = (verb, flags = []) => ['node_modules/@runeditrun/rer/bin/rer.mjs', verb, ...flags, '--json', '--non-interactive'];
 const last = output => JSON.parse(output.trim().split('\n').filter(line => line.startsWith('{')).at(-1));
@@ -26,8 +27,13 @@ test('a populated installation comes back on fresh authority under a different o
   // One wrangler process at a time owns the local SQLite file.
   const snapshot = async () => { const result = {}; for (const [name, query] of Object.entries(snapshotQueries)) result[name] = await sql(query); return result; };
   const counts = async () => (await sql('SELECT (SELECT COUNT(*) FROM workspaces) AS workspaces,(SELECT COUNT(*) FROM members) AS members,(SELECT COUNT(*) FROM pages) AS pages,(SELECT COUNT(*) FROM files) AS files'))[0];
-  const start = async (env = {}) => { await resources(); dev = copy.start('node', cli('dev'), copy.root, env); await waitFor(() => { if (dev.exitCode !== null) throw Error('CLI dev failed; private output withheld'); return dev.output.includes('"event":"ready"'); }, 'dev ready'); };
-  const stopDev = async () => { await run('dev', ['--stop']); await copy.stop(dev); dev = undefined; };
+  const start = async (env = {}) => {
+    await resources();
+    const vars = parseEnv(await readFile(join(copy.root, '.dev.vars'), 'utf8'));
+    const runtime = await startEmittedWorker(join(copy.root, '.wrangler/state'), {...vars, ...env}, Number(new URL(vars.APP_URL).port));
+    dev = runtime.child;
+  };
+  const stopDev = async () => { await stopWorker(dev); dev = undefined; };
   const local = async () => { const vars = parseEnv(await readFile(join(copy.root, '.dev.vars'), 'utf8')); return { vars, api: http(vars.APP_URL, parseEnv(await readFile(join(copy.root, '.rer/local/dev-key.env'), 'utf8')).RER_DEV_KEY) }; };
   const evidence = join(repo, '.artifacts/local-journey'); await mkdir(evidence, { recursive: true });
   try {
@@ -185,5 +191,5 @@ test('a populated installation comes back on fresh authority under a different o
     await writeFile(join(evidence, 'populated-restore.json'), JSON.stringify(summary, null, 2));
     console.log('Populated restore: ' + JSON.stringify(summary));
   } catch (error) { try { await saveFailure(copy, dev, 'populated-restore', error); } finally { throw error; } }
-  finally { try { await copy.stop(dev); } finally { await copy.close(); } }
+  finally { try { await stopWorker(dev); } finally { await copy.close(); } }
 });
