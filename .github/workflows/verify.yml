@@ -63,7 +63,7 @@ jobs:
       matrix:
         include:
           - suite: app
-            command: pnpm verify
+            command: node scripts/sync-project-setup.mjs --check && pnpm verify
           - suite: core
             command: pnpm build && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox
           - suite: tooling

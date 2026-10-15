@@ -855,7 +855,7 @@
       "executable": false
     },
     ".github/workflows/verify.yml": {
-      "sha256": "84ef44b705bde20c967dd76b79613fd7cbb6bcc75aa462302f355d15f60f7779",
+      "sha256": "19bdff30f0a303f5355ad3bc2042184d27bd02af858ddf987a2bbf638d59fe9c",
       "executable": false
     },
     ".gitignore": {
@@ -3455,7 +3455,7 @@
       "executable": false
     },
     "rer-project.json": {
-      "sha256": "6f029fa951dd127cdaa78bf08f3deda75c604b57a66c0eb709123973b394c23f",
+      "sha256": "e717245007a375060062ac0a54bf71d371cf06863da5516665f30acb52cd7d4a",
       "executable": false
     },
     "rer-setup.json": {
@@ -3796,6 +3796,10 @@
     },
     "scripts/sync-integration.mjs": {
       "sha256": "91aa65ed1f8681e70073bf103c5c30a50be25a7e316db0a2846bc93bcd9a59ce",
+      "executable": false
+    },
+    "scripts/sync-project-setup.mjs": {
+      "sha256": "3e2fec6b17f6cfd131e83564c48af7441a947bb2758de18a8c166cb4b30ea9e2",
       "executable": false
     },
     "scripts/ui-reachability.mjs": {
