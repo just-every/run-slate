@@ -838,6 +838,10 @@
       "sha256": "f04d92c9482cbfbe53c85f31434af99df9810c7bd4d6476d5978eda813179bf2",
       "executable": false
     },
+    ".github/assets/release/slate-0.2.0-page-1440.png": {
+      "sha256": "82b23a3f30116aae7d5beae21f96a546daa60832e59720ad35942c703cb6d4da",
+      "executable": false
+    },
     ".github/workflows/deploy.yml": {
       "sha256": "43ebd67d713bf5dcc1a4c3bdee66aabd2b08a2d214235054fdcc38211326015f",
       "executable": false
@@ -875,11 +879,11 @@
       "executable": false
     },
     "AGENTS.md": {
-      "sha256": "8f8534fc6d2e1efa3c613af298d948be8b35b611bd2ef3ef975d15d474447b35",
+      "sha256": "109074babb3b3c7c4ac5fb9805a59792b166d152e8a79741b2d8073006736859",
       "executable": false
     },
     "base-copies.json": {
-      "sha256": "94e7a0fdfdda51df146844972860ae4d89709e5d2328c5b2342e75b52fd3ef96",
+      "sha256": "56f2f648f8a45a7fd0ab5041258ce029fa831b6646509d93df5d99e72f163576",
       "executable": false
     },
     "BASELINE.md": {
@@ -1455,7 +1459,7 @@
       "executable": false
     },
     "modules/import-kit/src/d1/erasure-stage.ts": {
-      "sha256": "9ecbdf112c28bb1bccf49ad28fcb2f469b01c8982a726efd99d3271ec64018b4",
+      "sha256": "9e4a69b1373d49269ef38bf3311468102bb94b308391838a8317ca361ddbe42d",
       "executable": false
     },
     "modules/import-kit/src/d1/erasure-step.ts": {
@@ -1463,7 +1467,7 @@
       "executable": false
     },
     "modules/import-kit/src/d1/erasure-values.ts": {
-      "sha256": "aa84881bea35969c83fce0b072a2878e761cbbc58137786a6d657ea28a27f22d",
+      "sha256": "57ccad1fc84f020c6b8d4d8bed2d2018028455961e38bc793acc5f27865094fe",
       "executable": false
     },
     "modules/import-kit/src/d1/erasure-writes.ts": {
@@ -1659,7 +1663,7 @@
       "executable": false
     },
     "modules/import-kit/src/d1/retirement-bounded.ts": {
-      "sha256": "508f3e2efa5624e525eb4ebf1c75ed954a3cfbdce8129ee10f8821a125f8e25d",
+      "sha256": "832581740e597e7c42e701370cf01372a67f97be84d42c44d701c13f5e62eaca",
       "executable": false
     },
     "modules/import-kit/src/d1/retirement-schema.ts": {
@@ -2719,7 +2723,7 @@
       "executable": false
     },
     "modules/import-kit/tests/readers/security.test.ts": {
-      "sha256": "920c027c1bc79c932f36fa6119a91a4cb2b7a2ebab8aac5d38798684153b3290",
+      "sha256": "1fa68879cb369632ca591baa1c4172861010a6e41fade9eb324192548999a120",
       "executable": false
     },
     "modules/import-kit/tests/reviewed-source-native.test.ts": {
@@ -3387,11 +3391,11 @@
       "executable": false
     },
     "package.json": {
-      "sha256": "bdefef51b42744f4adb4a12ef161eadc4f40809cd89498e68562f250f168890d",
+      "sha256": "7b84c125a894bd8c9dda3d866dc31bdf7cabd739cbac8154129605911cf99d8b",
       "executable": false
     },
     "pnpm-lock.yaml": {
-      "sha256": "651c9c3ee9138385537026b2937a365150e93f86e555aadc8652cb86ced18cbe",
+      "sha256": "7cd39a369cfef388248308201fd888cd13e062da2fca347a2fb83fb622e9ae0e",
       "executable": false
     },
     "pnpm-workspace.yaml": {
@@ -3467,15 +3471,15 @@
       "executable": false
     },
     "scripts/base-proof/objects.mjs": {
-      "sha256": "08c2fdd7572cdb757d4b4ed8e79d71eabcfb703f89b4926df96b1449a66d8063",
+      "sha256": "cf9b4efbecce816d3246d4f50454b8d04dda82f3ac5c2a15b1db502210e53a0c",
       "executable": false
     },
     "scripts/base-proof/pin-objects.json": {
-      "sha256": "5a2a8b668aa5ccb7fc3c1cbe3ceed66e18211e967e8959dd47a20e7fb060184b",
+      "sha256": "f2d6092e2bf6cf8a918757c30d52ad164daf50a55ddbe3d2f182b3d5e9dfc481",
       "executable": false
     },
     "scripts/base-proof/README.md": {
-      "sha256": "758c732d037818d3dedafcd42d66869c03d59ae653917937330918e24c3c8409",
+      "sha256": "0e225cdc42cecc2c6ff7b92219bdbd451a778185a0a2c609d55d61d7c7f64f8c",
       "executable": false
     },
     "scripts/base-proof/repository.mjs": {

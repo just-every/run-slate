@@ -102,7 +102,7 @@ test('authentication in excluded metadata rejects before parsing while unrelated
     }
     // A value is not inferred to be authentication merely because it is encoded.
     const bytes = Buffer.from(JSON.stringify({ items: [], pagination: { next_page_token: encoded } }, null, 2) + '\r\n');
-    const bundle = await readApiSource(apiInput({ token: 'different-synthetic-auth', paginationCursorPolicy: 'page-token-v1', parsePage: () => ({ records: [] }) }), async () => new Response(bytes));
+    const bundle = await readApiSource(apiInput({ token: 'synthetic-different-synthetic-auth', paginationCursorPolicy: 'page-token-v1', parsePage: () => ({ records: [] }) }), async () => new Response(bytes));
     const original = bundle.artifacts[0].original;
     assert.equal(original?.status, 'available');
     if (original?.status !== 'available') assert.fail('Missing original bytes');
