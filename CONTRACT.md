@@ -25,10 +25,10 @@ A buyer replacing an incumbent needs the whole job, so the target is the whole j
 - **Write together.** Live co-editing with presence and cursors (`COLLAB-001` to `COLLAB-005`), rich blocks, tables, synced blocks, columns, a table of contents, status labels, equations and diagrams including diagrams.net (`BLOCK-001` to `BLOCK-020`), attached files with in-browser previews, versions and full-text search (`BLOCK-021`, `BLOCK-022`, `SEARCH-013`), comments, person and group mentions, assigned tasks with due dates, My tasks and task reports (`BLOCK-015`, `BLOCK-016`, `NAV-007`), reminders, suggestions and page locks.
 - **Organise.** Spaces (containers) with page trees, labels, starter and custom templates, blogs, a company hub, and watching of pages and whole containers with autowatch (`PAGE-016`, `CONT-012`), plus databases with relations, rollups, formulas, board/calendar/timeline views, forms and dashboards (`DB-001` to `DB-016`).
 - **Find and ask.** Ranked permission-aware search that prefers verified current pages, and cited AI answers in the product, in chat and over MCP that never use a page the asker cannot read (`SEARCH-*`, `ANSWER-*`, `AI-*`).
-- **Keep it true.** Owners, review dates, verification and lapse, expert review queues, verification rules, Guru-style knowledge cards, and agents that find contradicted or stale pages and propose exact fixes for a human to accept (`STAT-*`, `CARD-*`, `KEEP-*`).
-- **Connect.** Slack, Microsoft Teams and Nook; Jira and Vector; GitHub and GitLab; Google Drive, SharePoint/OneDrive and Chest; Figma, Miro, Lucid and Loom embeds; personal notifications as chat direct messages (`CHAT-004`); a public REST API, webhooks, an MCP endpoint, and published Zapier and Make apps (`CHAT-*`, `EMBED-*`, `CONNECT-*`, `API-*`).
+- **Keep it true.** Owners, review dates, verification and lapse, expert review queues, verification rules, Guru-style knowledge cards, agents that find contradicted or stale pages and propose exact fixes for a human to accept, and agents a team builds for itself under the same controls (`STAT-*`, `CARD-*`, `KEEP-*`, `KEEP-010`).
+- **Connect.** Slack, Microsoft Teams and Nook; Jira and Vector; GitHub and GitLab; Google Drive, SharePoint/OneDrive and Chest; Figma, Miro, Lucid and Loom embeds; the issues that link to each page and a Slate for Jira app that renders Slate links and lists a space's pages in the Jira project (`EMBED-007`, `EMBED-008`); personal notifications as chat direct messages (`CHAT-004`); a public REST API, webhooks, an MCP endpoint, and published Zapier and Make apps (`CHAT-*`, `EMBED-*`, `CONNECT-*`, `API-*`).
 - **Administer.** Roles, groups, guests, SAML SSO, SCIM, audit export, content governance, workspace analytics and workspace notification defaults (`WORK-*`, `ADMIN-*`, `NOTIF-006`). Every one of these surfaces, and every AI, connector and MCP surface, ships in the default product and is switched on by an owner (`ADMIN-007`).
-- **Move in and out.** Notion, Confluence, Guru, Google Docs, Word and SharePoint imports, with Confluence macros, diagrams, tasks and space permissions mapped to named Slate equivalents (`IMP-010`, `IMP-011`), and complete exports, including Word, and restores (`IMP-*`, `PORT-*`).
+- **Move in and out.** Notion, Confluence, Guru, Google Docs, Word and SharePoint imports, with Confluence macros, diagrams, tasks and space permissions mapped to named Slate equivalents (`IMP-010`, `IMP-011`); old Confluence links that keep working after the Confluence site is cancelled, because Slate resolves old URLs itself, back-fills links between spaces migrated in separate passes and re-points the Jira links to migrated pages (`IMP-013`, `IMP-014`, `SEARCH-014`, `EMBED-006`); and complete exports, including Word, and restores (`IMP-*`, `PORT-*`).
 - **Anywhere.** The responsive web app, native iOS and Android apps, a desktop app, offline pages and push notifications (`NAV-006`, `MOBILE-*`).
 
 ### Neighbouring products stay separate
@@ -37,7 +37,7 @@ Slate is one product. Where the market sells a neighbouring product separately, 
 
 | Job | Owned by | How Slate meets it |
 | --- | --- | --- |
-| Issue tracking and sprints | [Vector](https://github.com/just-every/run-vector) (or Jira, Linear) | Live issue embeds, create-issue-from-text and issue-triggered automations (`EMBED-001`, `AUTO-007`) |
+| Issue tracking and sprints | [Vector](https://github.com/just-every/run-vector) (or Jira, Linear) | Live issue embeds, create-issue-from-text, backlinks, issues that link here, re-pointed Confluence links, the Slate for Jira app and issue-triggered automations (`EMBED-001`, `EMBED-005` to `EMBED-008`, `AUTO-007`) |
 | Team chat | [Nook](https://github.com/just-every/run-nook) (or Slack, Microsoft Teams) | Notifications, unfurls, ask-in-chat and capture-to-page (`CHAT-001` to `CHAT-003`) |
 | File storage and sync | [Chest](https://github.com/just-every/run-chest) (or Google Drive, SharePoint) | Live file cards, embeds and connected search (`EMBED-004`, `CONNECT-001`) |
 | Large relational databases and internal apps | [Cradle](https://github.com/just-every/run-cradle) (or Airtable) | Wiki-scale databases inside pages, within `seed.json → limits` |
@@ -74,7 +74,7 @@ Replacement behaviour:
 - **Chat delivery widens** from one Slack destination to several, across Slack, Microsoft Teams and Nook (`NOTIF-003` → `CHAT-001`).
 - **Notification email and digests join sign-in and invitation mail** (`MAIL-001` → `NOTIF-005`, `NOTIF-006`). A workspace owner sets the default delivery for each event kind, and a member's own choice, including an unsubscribe, overrides it. A new workspace starts with Confluence's defaults (mentions and replies by immediate email, watched changes as a daily digest); a workspace upgraded from an earlier version sends only sign-in and invitation mail until an owner sets a default.
 - **Cited answers become part of the default product** once an owner configures a provider and turns AI on. The core-wiki profile then no longer hides them (`AI-001`, `AI-015` → `ANSWER-001`). Until a build round meets `ANSWER-003`, the core-wiki profile keeps refusing AI surfaces as it does today.
-- **Every target and push-further clause ships in the default product** (`ADMIN-007`). The core-wiki launch amendment's disabled-surface list no longer hides any surface that a target clause needs: Ask and AI writing and answers (`ANSWER-*`, `AI-016`, `AI-017`, `DB-016`), suggestions (`SUG-001`, `SUG-002`, used by `API-003` and `KEEP-002`), the external-agent and MCP surface (`API-003`), source connectors (`CONNECT-*`, `SEARCH-012`, `CHAT-002`, `EMBED-*`, `AUTO-007`), the runs, skills, claims and impact tracing that `KEEP-001` to `KEEP-009` use, live co-editing sockets (`COLLAB-*`), and the intelligence and connector jobs those clauses dispatch. Each surface is turned on by an owner action (an AI provider with AI on, a connected connector, a client grant), never by `SLATE_PROFILE`, and stays refused with `FEATURE_DISABLED` until its own safety acceptance passes. Each target clause's acceptance runs in the default profile; evidence produced under `SLATE_PROFILE=flagship` never satisfies a target clause. Inquiry, experiments, trials and production effects (`INQ-*`, `TRIAL-*`, `EFFECT-002`) stay the flagship extension.
+- **Every target and push-further clause ships in the default product** (`ADMIN-007`). The core-wiki launch amendment's disabled-surface list no longer hides any surface that a target clause needs: Ask and AI writing and answers (`ANSWER-*`, `AI-016`, `AI-017`, `DB-016`), suggestions (`SUG-001`, `SUG-002`, used by `API-003` and `KEEP-002`), the external-agent and MCP surface (`API-003`), source connectors (`CONNECT-*`, `SEARCH-012`, `CHAT-002`, `EMBED-*`, `AUTO-007`), the runs, skills, claims and impact tracing that `KEEP-001` to `KEEP-010` use, live co-editing sockets (`COLLAB-*`), and the intelligence and connector jobs those clauses dispatch. Each surface is turned on by an owner action (an AI provider with AI on, a connected connector, a client grant), never by `SLATE_PROFILE`, and stays refused with `FEATURE_DISABLED` until its own safety acceptance passes. Each target clause's acceptance runs in the default profile; evidence produced under `SLATE_PROFILE=flagship` never satisfies a target clause. Inquiry, experiments, trials and production effects (`INQ-*`, `TRIAL-*`, `EFFECT-002`) stay the flagship extension.
 - **Tasks gain assignees, due dates, My tasks and task reports** (`BLOCK-007` → `BLOCK-015`, `BLOCK-016`, `NAV-007`). Task items stay blocks and still never appear in a database view.
 - **Watching widens** to whole containers and to pages a member creates or edits (`PAGE-009` → `PAGE-016`, `CONT-012`).
 - **Confluence imports map every common macro, diagram, task and space permission** to a named Slate equivalent (`IMP-003` → `IMP-010`, `IMP-011`). The body gains a table-of-contents block and status labels (`BLOCK-006` → `BLOCK-017`, `BLOCK-018`), and diagrams.net diagrams become native (`BLOCK-019`).
@@ -82,12 +82,13 @@ Replacement behaviour:
 - **Attached files preview, keep versions and are searchable** (`BLOCK-008` → `BLOCK-021`, `BLOCK-022`; `SEARCH-001` → `SEARCH-013`). A PDF, Office or OpenDocument attachment opens in an in-page and a full-screen viewer; the raw file keeps `BLOCK-008`'s download disposition, and only the sanitised preview rendition Slate derives from it is served inline as a display request. Uploading a file with the same name to the same page creates its next version. Global search also matches the text inside attachments. `SEARCH-001`'s 500ms bound and every `SEARCH-005` exclusion apply to that text.
 - **Personal notifications reach chat** (`NOTIF-003` → `CHAT-004`). Beside the owner-configured channel messages, a member who links their Slack, Teams or Nook identity can receive their own notifications as direct messages from the Slate app.
 - **Confluence personal spaces become personal containers** where the space's owner maps to a member (`IMP-003` → `IMP-012`), instead of private containers owned by the importing member.
+- **Old Confluence links keep working after cutover** (`IMP-003` → `IMP-013`, `IMP-014`, `SEARCH-014`, `EMBED-006`). Every Confluence import keeps its map from source page, blog post, space and attachment to Slate record, and Slate answers old Confluence URLs itself at an authenticated route, at an old hostname the buyer owns, in search, in pasted links, in chat unfurls and through the browser extension (`CARD-002`). Links between spaces imported in separate passes are rewritten when the target space arrives, instead of resolving only within one import, and an optional reviewed cutover step re-points the Jira issue links that pointed at migrated Confluence pages.
 - **FLAG-001 stays the gate for the full flagship.** The category target sits beside it: the target clauses are the product's requirements, while the inquiry and trial extensions stay flagship requirements.
 
 Security consequences:
 
 - **Co-editing** moves live sockets into the default attack surface. `COLLAB-001` therefore requires the per-operation access recheck, revocation within five seconds and durable attributed operations that `SAVE-006` already demanded.
-- **Notification email and push payloads** carry a page title and a link and never a body. Recipient access is rechecked at send, and a title the recipient cannot read is never sent.
+- **Notification email and push payloads** carry a page title, a link and, for watched changes, counts of what changed, and never a body. Section headings appear in a change summary only when a workspace owner turns that on (`NOTIF-005`), and never block or comment text. Recipient access is rechecked at send, and a title or heading the recipient cannot read is never sent.
 - **SCIM bearer tokens and SAML signing certificates** are new secrets. They are covered by `BASE-SECRET-001`/`002` and are excluded from exports under `PORT-005`.
 - **Personal access tokens, OAuth apps, webhooks and MCP clients** each act as exactly one member and never widen that member's access (`API-001` to `API-004`).
 - **Offline copies on devices** are encrypted at rest by the operating system and erased on revocation or remote sign-out at the next connection (`MOBILE-003`). An offline copy is never a source for answers or exports.
@@ -99,6 +100,10 @@ Security consequences:
 - **Attachment previews** are renditions of untrusted files. Slate renders them itself and never sends a file to a third-party viewer. A rendition runs no script or macro from the file, fetches no external reference, and is served same-origin in a sandboxed frame under a content security policy that allows no third-party request. Rendition and text extraction run as bounded jobs within `seed.json → limits`, and a file that fails to render shows its download state with the reason, never a partial rendition (`BLOCK-021`).
 - **Attachment text in search and answers** is page content. It is never shown to a member who cannot read the page, and it is never counted in a total or facet they see (`SEARCH-013`, `SEARCH-005`). It is untrusted content to every AI run (`AI-007`).
 - **Chat direct messages** carry the event kind, the actor, the page title and a link, never a page body or comment text. Recipient access is rechecked at send, and a member's chat identity link is a credential that unlinking or removal (`WORK-007`) revokes from the next event (`CHAT-004`).
+- **Old-URL resolution** reveals no more than `LINK-004` allows. The resolver answers only signed-in members and guests, redirects to the record's permanent URL where the normal access check runs, and tells an unmapped URL apart only by naming the source space key the URL or the import records carry, never a page title. Lookups are rate-limited per member (`seed.json → limits.legacyLinkLookupsPerMinute`). An old hostname pointed at the deployment serves only redirects to the main origin: it sets no cookie, serves no app, API or file, and resolves nothing itself (`IMP-013`).
+- **Cutover link rewriting** changes only link targets. Back-filled links (`IMP-014`) grant no access, keep every native edit and are reverted by Undo, and the Jira re-pointing step (`EMBED-006`) writes only under the running member's linked Jira account, previews every change, records each one in the run log and is reversible.
+- **The Slate for Jira app** (`EMBED-008`) holds no Slate content. It asks Slate for each title and page list as the viewing Jira user's linked Slate identity, and shows "Restricted Slate page" when that identity cannot read the page.
+- **Team-built agents** (`KEEP-010`) read only the intersection of their declared scope and what the member they run for may read, keep every `AI-*` guarantee, and can never verify, publish or change access.
 - **No existing protection is relaxed.** `LIFE-002`, `SEARCH-005`, `AI-011`, `AI-013`, `STAT-003`/`004` and the container vetoes in `WEB-001` stay absolute under every target clause.
 
 ## Core-wiki launch amendment — 6 October 2026
@@ -871,9 +876,9 @@ Search and container views filter by label. Queries accept the operators `title:
 *Status:* partial. Labels are stored and search has kind, container, contributor, status and date filters (`src/core/features/pages/service.ts`, `src/core/features/search/service.ts`, `tests/e2e/search/fts-permissions.test.ts`); label filtering, operators and saved searches do not exist.
 
 #### SEARCH-011 — Verified-first ranking and trust badges.
-Search results, link cards, content queries and answers show each page's verification state (verified with its owner and expiry, lapsed, or unverified) and its last-updated time. Among equally relevant results, ranking puts current verified pages ahead of unverified ones and lapsed or archived pages last, and collapses near-duplicates into one result with a "similar pages" control. A member can sort by relevance, last updated or most viewed.
+Search results, link cards, content queries and answers show each page's verification state (verified with its owner and expiry, lapsed, or unverified) and its last-updated time. Among equally relevant results, ranking puts current verified pages ahead of unverified ones and lapsed or archived pages last, and collapses near-duplicates into one result with a "similar pages" control. Two pages are near-duplicates when the Jaccard similarity of their current revisions' 5-word shingles, estimated by MinHash, is at least `seed.json → limits.nearDuplicateSimilarity` (0.8 by default); the same definition drives `KEEP-004`. A member can sort by relevance, last updated or most viewed.
 
-*Acceptance:* a Workers journey over a seeded corpus of a verified, a lapsed and an unverified page with equal text matches asserts their order and badges. A browser journey sees the badges and the collapsed near-duplicates.
+*Acceptance:* a Workers journey over a seeded corpus of a verified, a lapsed and an unverified page with equal text matches asserts their order and badges. A seeded pair at a measured similarity of 0.85 collapses into one result and a pair at 0.7 does not; lowering the limit to 0.65 collapses the second pair too. A browser journey sees the badges and the collapsed near-duplicates.
 
 *Status:* partial. Status and verification state exist and search ranks by relevance (`src/core/features/page-status/state.ts`, `src/core/features/search/service.ts`); verification-aware ranking, badges in results and duplicate collapse do not.
 
@@ -904,6 +909,18 @@ Slate extracts the text of every attachment of a type `BLOCK-021` previews and i
 
 *Status:* missing. Search indexes titles, bodies, record fields, containers, comments and templates (`src/core/features/search/record-build.ts`); attachment text is not extracted.
 
+#### SEARCH-014 — Old Confluence URLs find their Slate record.
+Wherever a member can paste a URL, an old Confluence URL that `IMP-013` recognises resolves to its imported record:
+
+- **Search.** Pasting the URL into global search (`SEARCH-001`) returns the record as the first result. A record the member cannot read is returned as `LINK-004`'s access-needed result, with no title, snippet or author, and an unmapped URL returns one "Not migrated" result naming the source space key.
+- **Link field.** Pasting the URL into the editor's link field links to the record's permanent URL and shows its current title (`LINK-003`).
+- **Page body.** Pasting the URL into a page body inserts a link to the record, not a link card to the old site. One undo restores the URL as pasted.
+- **API and MCP.** `GET /api/v1/resolve?url=` and the MCP `resolve` tool (`API-001`, `API-003`) return the record's ID and URL to a token or client acting as a member who can read it, the access-needed result otherwise, and `not_migrated` for an unmapped URL.
+
+*Acceptance:* over the `IMP-013` fixture's tiny link, page-ID URL, `/display/` URL and blog URL, a Workers journey searches each one and gets its record first, and calls the resolve endpoint with tokens for a reader and a non-reader: the reader gets the record, the non-reader gets the access-needed result with no title. A browser journey at 1440 and 390 pastes the tiny link into the link field and sees the record's current title, pastes the page-ID URL into a paragraph and gets a link to the record, undoes once and gets the URL as pasted, and pastes an unmapped URL into search and sees "Not migrated" with its space key.
+
+*Status:* missing.
+
 ### Keeping knowledge true
 
 #### STAT-006 — Review requests and expert queues.
@@ -930,7 +947,9 @@ A card is a short page kind with a soft length limit (`seed.json → limits`, 50
 #### CARD-002 — Browser extension.
 A Chrome and Edge extension signs in as the member and searches and asks Slate from any tab. On sites the owner allowlists, such as Salesforce, Zendesk, HappyToHelp, Orbit and GitHub, it suggests cards relevant to the open record. It reads page text only after the member opens the extension on that tab, sends only the query and the record title, and shows only what the member can read.
 
-*Acceptance:* an automated Chromium journey loads the packed extension, signs in, opens an allowlisted fixture page, sees a relevant verified card, and confirms through a request log that no page text left the tab before the member opened the extension.
+After a Confluence cutover, a workspace owner lists the old Confluence hostnames (`IMP-013`). The extension then redirects the member's navigation to a Confluence path on those hosts (`/wiki/*`, and `/display/*`, `/x/*`, `/pages/*`, `/spaces/*` and `/download/*` on a Server or Data Center hostname) to Slate's resolver, using a browser redirect rule. It holds no map, reads nothing from the old page and leaves every other path on the host, such as Jira's `/browse/*` on the same `atlassian.net` site, untouched. A member can switch the redirect off. IT can force-install the extension, with the old hostnames preset, on managed Chrome and Edge browsers through enterprise policy.
+
+*Acceptance:* an automated Chromium journey loads the packed extension, signs in, opens an allowlisted fixture page, sees a relevant verified card, and confirms through a request log that no page text left the tab before the member opened the extension. With `ourcompany.atlassian.net` listed as an old hostname and served by a fixture host, navigating to the `IMP-013` fixture's tiny link and page-ID URL lands on their Slate records, `/browse/ENG-1` on the same host is not redirected, and with the member's switch off the tiny link is not redirected.
 
 *Status:* missing.
 
@@ -981,9 +1000,9 @@ A date mention (`BLOCK-005`) can carry a reminder at the date or at a chosen off
 *Status:* missing.
 
 #### NOTIF-005 — Email, push and digest delivery.
-Each member chooses, per event kind, between in-app only, immediate email, a daily or weekly digest, push on their devices (`MOBILE-004`), and a chat direct message (`CHAT-004`), or keeps the workspace default for that kind (`NOTIF-006`). The inbox item is created whatever the choice. Email goes through `mail.sender.v1` from the configured sender and carries the event, the actor, the page title and a link, never a page body. Recipient access is rechecked at send, and an unsubscribe link changes that member's preference without sign-in. Digests coalesce watched page and container changes (`CONT-012`), mentions, task assignments and due tasks, review requests and lapsed verifications.
+Each member chooses, per event kind, between in-app only, immediate email, a daily or weekly digest, push on their devices (`MOBILE-004`), and a chat direct message (`CHAT-004`), or keeps the workspace default for that kind (`NOTIF-006`). The inbox item is created whatever the choice. Email goes through `mail.sender.v1` from the configured sender and carries the event, the actor, the page title and a link, never a page body. Recipient access is rechecked at send, and an unsubscribe link changes that member's preference without sign-in. Digests coalesce watched page and container changes (`CONT-012`), mentions, task assignments and due tasks, review requests and lapsed verifications. A watched change carries a change summary: the counts of blocks added, changed and removed and of comments added since the member's last notice. When a workspace owner turns on "section names in notifications", the summary also names the headings the changed blocks sit under, for example "3 blocks changed in Rollout plan". It never carries block or comment text.
 
-*Acceptance:* a Workers journey with a mail provider fake at the network edge opts a member into a daily digest, generates eight events including one on a page the member later loses access to, and receives exactly one digest with seven items and no body text. The unsubscribe link changes the preference.
+*Acceptance:* a Workers journey with a mail provider fake at the network edge opts a member into a daily digest, generates eight events including one on a page the member later loses access to, and receives exactly one digest with seven items and no body text. The unsubscribe link changes the preference. An edit that changes 3 blocks under the heading "Rollout plan" appears as "3 blocks changed" with the owner switch off and "3 blocks changed in Rollout plan" with it on, and no text from those blocks appears in either email.
 
 *Status:* missing. `MAIL-001` currently limits mail to sign-in and invitations.
 
@@ -1041,7 +1060,7 @@ Through the Confluence Cloud REST API (OAuth), Slate imports one or more spaces 
 - labels (`PAGE-001`, `SEARCH-010`);
 - page restrictions, space permissions (`IMP-011`) and personal spaces (`IMP-012`).
 
-Macros, diagrams and tasks with their assignees and due dates map as `IMP-010` names. It can re-sync deltas until cutover. A delta adds exactly what changed since the last pass, keyed by source ID and version, and never duplicates a page, version, comment or attachment. It produces a redirect map from every old Confluence URL to its Slate URL, which the buyer can serve, and a cutover report of what changed since the first pass.
+Macros, diagrams and tasks with their assignees and due dates map as `IMP-010` names. It can re-sync deltas until cutover. A delta adds exactly what changed since the last pass, keyed by source ID and version, and never duplicates a page, version, comment or attachment. Its redirect map, from every old Confluence URL to its Slate record, is kept in Slate and served by Slate itself (`IMP-013`), so a buyer whose site lives on `atlassian.net`, where only Confluence Premium offers a custom domain, needs no host of its own. Links into spaces imported in later passes are back-filled (`IMP-014`). The cutover report lists what changed since the first pass, every link in Slate that still points at the old site (`IMP-014`), the old URLs requested since cutover that map to nothing (`IMP-013`), and the changes made by the Jira re-pointing step (`EMBED-006`).
 
 *Acceptance:* the recorded Confluence Cloud API fixture holds:
 
@@ -1062,7 +1081,7 @@ After import, a Workers journey asserts block by block that:
 - the blog post is a post with its original date and author;
 - the personal space lands as `IMP-012` requires.
 
-A delta that adds one comment and one page version adds exactly those two and duplicates nothing. The run emits a redirect map in which every old page and blog URL resolves to its imported record. The same fixture's macros, diagrams, tasks and space permissions arrive as `IMP-010` and `IMP-011` require. A provider acceptance run repeats this against a real Confluence Cloud site.
+A delta that adds one comment and one page version adds exactly those two and duplicates nothing. Every old page and blog URL in the fixture, in each `IMP-013` form, resolves through Slate's own resolver route to its imported record with no host other than the deployment, and the cutover report lists the fixture's links into a space that was not imported. The same fixture's macros, diagrams, tasks and space permissions arrive as `IMP-010` and `IMP-011` require. A provider acceptance run repeats this against a real Confluence Cloud site.
 
 *Status:* missing. Only file exports import (`IMP-003`).
 
@@ -1147,6 +1166,52 @@ No imported page carries a general grant.
 
 *Status:* partial. The file import recognises a personal space and gives its pages no general grant (`src/core/features/imports/confluence/space.ts`, `tests/e2e/imports/mapping-regressions.test.ts`), but imports it as a private container owned by the importing member (`src/core/features/imports/persist.ts`).
 
+#### IMP-013 — Old Confluence links resolve in Slate.
+Every Confluence import, by file (`IMP-003`) or by API (`IMP-007`), keeps a link map in Slate from each imported space, page, blog post, attachment and comment to its Slate record. The map is keyed by source site and source ID, and keeps every title a page or post has had as an alias. Slate recognises these old URL forms, on an `atlassian.net/wiki` site and on a Server or Data Center base URL:
+
+- tiny links (`/wiki/x/AbCd`, `/x/AbCd`), decoded with Confluence's tiny-link encoding of the page ID;
+- page-ID URLs (`/wiki/spaces/KEY/pages/123/Title`, its editor forms, and `viewpage.action?pageId=123`);
+- title URLs (`/display/KEY/Title`), matched against the page's current and earlier titles;
+- blog URLs (`/wiki/spaces/KEY/blog/2024/01/15/123/Title` and `/display/KEY/2024/01/15/Title`);
+- space home URLs (`/wiki/spaces/KEY/overview`, `/display/KEY`) and attachment downloads (`/download/attachments/123/name`);
+- `focusedCommentId` parameters and heading fragments, which carry through to the comment thread and the heading anchor.
+
+Slate serves the map itself, so the buyer needs no host of its own:
+
+- **Resolver route.** `/go/confluence?url=<old URL>` is an authenticated Slate route. A signed-out visitor signs in first and then continues, and learns nothing about the map before sign-in. A mapped URL redirects to the record's permanent URL (`LINK-001`). A member without access gets `LINK-004`'s access-needed state there and learns nothing more, and a deleted record resolves to its tombstone (`LINK-002`). An unmapped URL shows a "Not migrated" page with an "Ask an owner" action. It names the source space key when the URL or the import records carry it, and never a title.
+- **Old hostname.** An owner who controls the old hostname, such as a Server or Data Center site or a Confluence Premium custom domain, can add it as a legacy hostname and point it at the deployment. Every old path on it then redirects to the resolver on Slate's own origin, keeping the fragment.
+- **Chat.** An owner can add the old Confluence hostname to the Slack, Teams and Nook apps' unfurl domains. A newly posted old URL then unfurls as its Slate record under `CHAT-002`'s access rule, with an "Open in Slate" action.
+- **Browser.** Members with the browser extension are sent from the old site to Slate (`CARD-002`).
+- **Map export.** An owner can download the map as CSV (old URL, Slate URL) to serve from any proxy they run.
+
+Later passes add to the map (`IMP-014`). Complete export and restore carry it (`PORT-001`, `PORT-002`), and only an Undo removes entries, for the records it removes. Every unmapped URL that reaches the resolver after cutover is counted in the cutover report (`IMP-007`) by source URL, with no member identity.
+
+*Acceptance:* the `IMP-007` fixture and an `IMP-003` CSV export of the same space each import a page, a renamed page, a blog post, an attachment and an inline comment. A Workers journey then requests `/go/confluence?url=` with:
+
+- the page's tiny link, its page-ID URL and its `viewpage.action` URL;
+- the renamed page's old `/display/` title URL;
+- the blog URL and the attachment download URL;
+- the comment's `focusedCommentId` URL.
+
+Each redirects to its imported record. A member without access to the page follows the redirect and gets the access-needed state with no title. A signed-out request reaches sign-in and reveals nothing else. A URL from a space that was not imported shows "Not migrated" with its space key. A request to a configured legacy hostname for the tiny link redirects to the resolver on the main origin and sets no cookie. With a chat provider fake at the network edge, a posted page-ID URL unfurls as the Slate page for a reader and as "Restricted Slate page" for a non-reader. The downloaded CSV lists every mapped URL, and after export and restore into an empty deployment the tiny link still resolves. Exceeding the lookup limit returns 429.
+
+*Status:* partial. Each import persists its source-to-record mappings (`src/core/platform/db/knowledge-operations-schema.ts`), and page-ID links resolve within one export (`src/core/features/imports/confluence/space.ts`); no route, hostname or other surface resolves an old URL.
+
+#### IMP-014 — Links between spaces imported in separate passes.
+A link in an imported body whose target lies outside that import is kept as a pending link. The target can be a Confluence page, blog post or attachment, named by a Confluence URL in any `IMP-013` form or by a storage-format reference with its space key and title or content ID. A pending link renders as the original URL with a "not yet migrated" marker, and Slate records its page, block and target. When a later pass imports the target, by file (`IMP-003`) or by API (`IMP-007`) and in either order:
+
+- each pending link becomes a link to the imported record, in one revision per page attributed to that import run, and only the link target changes;
+- a native edit made since the earlier pass is kept, and a pending link whose block was deleted leaves the list with no change;
+- an `IMP-010` block whose target lay outside the earlier import, such as an excerpt from a space not yet imported, becomes live;
+- a link rewritten once never changes again, so re-running a pass or a delta changes nothing;
+- Undo of the later pass (`IMP-001`) restores the original URLs and keeps native edits.
+
+The cutover report (`IMP-007`) lists, by page, every link in Slate content that still points at an old Confluence hostname, pending links and plain URLs in text alike, grouped by target space with counts. It shows titles only of pages its viewer can read, counts the rest, and downloads as CSV.
+
+*Acceptance:* the fixture holds two spaces. In space A, page A1 links to space B's page B1 by a page-ID URL, a tiny link and a storage-format page reference, and includes an excerpt from B's page B2. A Workers journey imports A from its CSV file export. A1's three links render as pending, the excerpt shows its access-needed state, and the cutover report lists A1 with three links to space B. A member then edits another paragraph of A1. Importing B by API turns all three links into links to B1's record and the excerpt into a live synced block. The native edit is intact, and A1's history shows exactly one import revision. A delta pass of B changes nothing, and the cutover report lists no link to space B. Undo of B's import restores the three original URLs and keeps the native edit. A member without access to A1 sees neither its title nor its links in the report.
+
+*Status:* missing. Links resolve only within one export (`IMP-003`).
+
 #### PORT-008 — Exports carry comments.
 Workspace, container and page exports in HTML include page and inline comment threads with their authors, times and resolved state, anchored to their blocks. Markdown exports carry the same threads in a sidecar JSON file, and re-importing a Slate export restores the threads.
 
@@ -1199,9 +1264,55 @@ A file picker inserts Google Drive, SharePoint/OneDrive or [Chest](https://githu
 *Status:* missing.
 
 #### EMBED-005 — Backlinks on Jira and Vector issues.
-When a page embeds, mentions or links a Jira or Vector issue (`EMBED-001`), or a member or a rule creates an issue from it (`EMBED-001`, `AUTO-006`), Slate writes exactly one link to the page on the issue, so the issue lists the Slate pages that reference it. In Jira Cloud this is a remote issue link (`POST /rest/api/3/issue/{key}/remotelink`) with a stable global ID for each page and issue, written under the acting member's linked account. In [Vector](https://github.com/just-every/run-vector) it is Vector's own page link. Embedding the same issue again on the same page writes nothing new. Renaming the page updates the link's title. Removing the page's last reference to the issue, or trashing or erasing the page, removes the link, and restoring the page writes it again. A page in a `private` or `personal` container, a draft (`LIFE-002`), or a page under a Confidential classification (`ADMIN-006`) gets a link titled "Slate page" with no page title, and opening any backlink still requires Slate access. A failed write is retried under its operation key and shown on the embed, never dropped silently.
+When a page embeds, mentions or links a Jira or Vector issue (`EMBED-001`), or a member or a rule creates an issue from it (`EMBED-001`, `AUTO-006`), Slate writes exactly one link to the page on the issue, so the issue lists the Slate pages that reference it. In Jira Cloud this is a remote issue link (`POST /rest/api/3/issue/{key}/remotelink`) with a stable global ID for each page and issue, written under the acting member's linked account. In [Vector](https://github.com/just-every/run-vector) it is Vector's own page link. Embedding the same issue again on the same page writes nothing new. Renaming the page updates the link's title. Removing the page's last reference to the issue, or trashing or erasing the page, removes the link, and restoring the page writes it again. A page in a `private` or `personal` container, a draft (`LIFE-002`), or a page under a Confidential classification (`ADMIN-006`) gets a link titled "Slate page" with no page title, and opening any backlink still requires Slate access. A failed write is retried under its operation key and shown on the embed, never dropped silently. Links that people add to the page from the Jira or Vector side are listed on the page (`EMBED-007`), and the links Jira already holds to Confluence pages that Slate migrated are re-pointed at cutover (`EMBED-006`).
 
 *Acceptance:* a Workers journey against recorded Jira Cloud and Vector API fixtures embeds one issue, mentions a second and creates a third from selected text, and finds exactly one remote link to the page URL on each issue. Embedding the first issue again writes no second link, renaming the page updates the link titles, removing the embed deletes its link, and a draft's link carries the neutral title. Provider acceptance repeats this against a real Jira Cloud site.
+
+*Status:* missing.
+
+#### EMBED-006 — Jira links to migrated Confluence pages are re-pointed at cutover.
+An optional cutover step re-points the Jira issue links that point at Confluence pages Slate has migrated (`IMP-007`, `IMP-003`). A workspace owner runs it under their own linked Jira Cloud account. It finds the links in two ways:
+
+- Jira's `issuesWithRemoteLinksByGlobalId` query for the application-link global ID of every migrated page, which finds the links Confluence wrote when a page embedded an issue;
+- a scan of the remote links on issues in the Jira projects the owner selects, matching each web link's URL against the `IMP-013` map in any of its forms.
+
+A preview lists every proposed change by issue: the old link, the Slate link to be written and the action for the old link. Issues the account cannot edit and links to pages that were not migrated are listed separately and left alone. On apply:
+
+- each issue gets exactly one Slate backlink to the migrated page, with `EMBED-005`'s semantics: a stable global ID, the neutral title "Slate page" for a page in a `private` or `personal` container, a draft or a Confidential page, and no second link where an `EMBED-005` backlink already exists;
+- the old Confluence link is removed, or relabelled "Confluence (retired): title", as the owner chose for the run. A relabelled link keeps its URL, so the resolver and the extension still route it;
+- each change is recorded in the run log with its issue, old link, new link and action, and appears in the cutover report;
+- re-running the step changes nothing, and reverting a run restores each old link and removes each Slate link it wrote.
+
+[Vector](https://github.com/just-every/run-vector) issues that carry Confluence links, for example from a Jira import into Vector, are re-pointed the same way through Vector's API.
+
+*Acceptance:* a Workers journey runs against a recorded Jira Cloud fixture:
+
+- issue J1 has an application-linked remote link to migrated page P1;
+- J2 has a web link to P1's tiny link;
+- J3 has a web link to the page-ID URL of P2, in a `private` container;
+- J4 links to a page that was not migrated;
+- J5 is in a project the owner's account cannot edit.
+
+The preview lists changes for J1, J2 and J3, lists J4 as not migrated and J5 as skipped. Applying in relabel mode leaves J1, J2 and J3 each with exactly one Slate remote link carrying the stable global ID, beside the relabelled Confluence link, and J3's Slate link is titled "Slate page". J4 and J5 are unchanged, and the run log has three entries. Re-running writes nothing. A second run on a fresh fixture in remove mode removes the Confluence links, and reverting it restores them. A variant in which J1 already carries an `EMBED-005` backlink writes no second link. The same journey runs against a recorded Vector fixture, and provider acceptance repeats it against a real Jira Cloud site.
+
+*Status:* missing.
+
+#### EMBED-007 — Issues that link here.
+Each page has an Issues panel, like Confluence's Jira links button, listing the Jira and Vector issues that link to the page. That includes the backlinks `EMBED-005` and `EMBED-006` wrote, and remote links people added from the Jira or Vector side to the page's Slate URL or to an old Confluence URL that `IMP-013` maps to it. Slate finds the links three ways: Jira's `issuesWithRemoteLinksByGlobalId` query for its own global IDs, a periodic scan of the remote links on issues in the connected projects within `seed.json → limits`, and Vector's page-link query. Each reader sees an issue's key, title and status only through their own linked account (`EMBED-001`). An issue their account cannot read is neither shown nor counted, and a reader with no linked account sees "Connect to view". The page header shows the panel's count, and each issue opens in its tracker.
+
+*Acceptance:* a Workers journey against recorded Jira Cloud and Vector fixtures links four issues to one page: one by a Slate backlink from an embed, one by a web link to the page's Slate URL added from the Jira side, one by a web link to the page's old Confluence URL, and one in a project that a second reader's account cannot read. A browser journey shows a reader with full Jira access all four, the second reader three with no trace or count of the fourth, and an unlinked member "Connect to view". A link added from the Jira side after the first scan appears after the next scan interval with no Slate edit. Provider acceptance repeats this on a real Jira Cloud site.
+
+*Status:* missing.
+
+#### EMBED-008 — Slate for Jira: smart links and project pages.
+Slate ships an Atlassian Forge app that gives Jira what Confluence's own integration gave it. The buyer installs it on their Jira Cloud site from a distribution link, with no Marketplace listing.
+
+- **Smart Links.** A Slate URL pasted into a Jira issue description or comment renders as a Smart Link with the page's title, verification state and last update. Slate reads it as the viewing Jira user's linked Slate identity, linked once like `CHAT-002`'s chat identity. A page that identity cannot read renders as "Restricted Slate page", and an unlinked viewer gets a "Connect Slate" prompt.
+- **Project pages.** A Jira project admin links the project to one or more Slate containers. The project sidebar then shows a "Slate" page listing the pages of those containers that the viewer's linked identity can read, with search, recently updated pages and a "Create page" action that opens Slate.
+
+[Vector](https://github.com/just-every/run-vector) projects get the same through Vector's own project link: a linked container's readable pages appear in the project, and Slate URLs render with their titles.
+
+*Acceptance:* a Workers journey sends the app's recorded Forge invocations, link resolution and project-page requests, to Slate's app endpoint for a reader, a non-reader and an unlinked Jira user. The reader gets the title, verification state and last update, the non-reader gets "Restricted Slate page", and the unlinked user gets the connect prompt. The project page lists only each user's readable pages of the linked container. A browser journey does the same through Vector's project view. Provider acceptance deploys the app to a real Jira Cloud development site, pastes a Slate URL into an issue and sees the Smart Link, and opens the project's Slate page.
 
 *Status:* missing.
 
@@ -1495,13 +1606,13 @@ Agents keep the knowledge true, not just stored. Each clause names what the agen
 *Status:* missing.
 
 #### KEEP-004 — Duplicates and conflicts.
-*What the agent does:* finds near-duplicate pages and statements that conflict across pages, and proposes a merge (one canonical page, with the others redirecting through `LINK-003` tombstone links) or a reconciliation for the owners to choose.
+*What the agent does:* finds near-duplicate pages, by `SEARCH-011`'s definition and its `seed.json → limits.nearDuplicateSimilarity` threshold, and statements that conflict across pages, and proposes a merge (one canonical page, with the others redirecting through `LINK-003` tombstone links) or a reconciliation for the owners to choose.
 
 *Data:* page revisions within one audience; it never compares across an access boundary for a reader who lacks either side.
 
 *Human control:* owners of both pages must accept a merge, which is reversible through restore.
 
-*Acceptance:* a Workers journey over a seeded corpus with two duplicates and one conflict proposes exactly one merge and one reconciliation. Accepting the merge leaves the old URL resolving to the canonical page, and search collapses the pair (`SEARCH-011`).
+*Acceptance:* a Workers journey over a seeded corpus with a pair of pages at a measured similarity of 0.9, a pair at 0.7 and one conflict proposes exactly one merge and one reconciliation, and nothing for the pair at 0.7. Accepting the merge leaves the old URL resolving to the canonical page, and search collapses the pair (`SEARCH-011`).
 
 *Status:* partial. Claim conflict and unknown states exist behind the flagship profile (`src/core/features/claims/service.ts`); duplicate detection and merge proposals do not.
 
@@ -1560,6 +1671,22 @@ Agents keep the knowledge true, not just stored. Each clause names what the agen
 
 *Status:* partial. Quality and instrumentation regressions exist (`tests/qualification/core/quality.test.ts`, `tests/qualification/core/instrumentation.test.ts`); there is no knowledge-health report.
 
+#### KEEP-010 — Team-built agents.
+*What the agent does:* a member whom an owner allows builds an agent for their team without code. The agent has a name, instructions, a knowledge scope (containers, labels, cards and connected sources), the tools it may use, and when it runs:
+
+- **Tools:** search and cited answers (`ANSWER-001`), drafting pages and cards, proposing edits as suggestions (`SUG-001`), filing issues (`EMBED-001`) and posting to a chat channel (`CHAT-001`).
+- **Triggers:** asked in Slate, in chat (`CHAT-002`) or over MCP (`API-003`), on a schedule, or on an automation event (`AUTO-*`).
+
+Each agent is an `AI-014` agent record. Its builder can test it against sample questions before sharing it with groups.
+
+*Data:* the intersection of the agent's declared scope and what the member it runs for may read. A scheduled or event run reads as the agent's owner, and its output reaches only an audience that may read every source it used (`AI-013`).
+
+*Human control:* the agent can never verify, publish, archive, delete or change access. Its edits are suggestions and its pages are drafts until a member accepts them. Every run records its actor, scope, tools, sources and cost against the owner's budget (`AI-010`, `AI-012`). Owners can see, pause or delete any agent, and removing an agent's owner pauses it (`WORK-007`).
+
+*Acceptance:* a Workers journey with a provider fake at the network edge builds an agent scoped to one container with the answer and propose-edit tools, and shares it with a group. A group member who can read only half the container asks it a question, and the answer cites only pages that member can read. The agent's proposed edit lands as a suggestion and changes nothing until it is accepted. A page in scope that instructs the agent to publish itself or grant access produces a refusal and no change. A scheduled run posts once to a channel fake, citing only sources its audience can read. Pausing the agent stops its next scheduled run, and exhausting its budget stops it with a notice to its owner. A browser journey at 1440 and 390 builds, tests and shares the agent.
+
+*Status:* partial. Scoped agent records with exact scopes, budgets and run records exist behind the flagship profile (`tests/qualification/inquiry/routing.test.ts`, `AI-014`); there is no agent builder, no scheduled or chat trigger, and nothing runs in the default profile.
+
 ## Honest boundaries
 
 Slate is a US-first owned wiki. These are the jobs it deliberately does not do, and how a buyer gets each one done.
@@ -1577,6 +1704,7 @@ Slate is a US-first owned wiki. These are the jobs it deliberately does not do, 
 - **Hosting frontier models or unbounded compute.** Inference runs at the owner's chosen provider under owner budgets (`ANSWER-006`, `AI-012`). Long jobs run as bounded durable stages within Cloudflare Workers limits.
 - **Regulated records management.** Legal hold, records retention schedules, HIPAA and FedRAMP programmes are not promised by ordinary wiki security. Buyers keep regulated records in an approved records system and connect scoped knowledge. SOC 2 evidence collection belongs to [Evidence](https://github.com/just-every/run-evidence).
 - **Hosting region, currency and language.** Slate is US-first: it is deployed to the buyer's Cloudflare account, budgets are in USD and the interface is in US English. EU data-residency guarantees and localized interfaces are not claimed.
+- **Rewriting links stored in other products.** Slate does not edit the Slack or Teams messages, emails, Google Docs or Jira comment text that contain old Confluence URLs, and Confluence does not either when a site moves. Those links still reach the right record through the resolver, chat unfurls, pasted-URL resolution and the browser extension, which IT can force-install on managed browsers (`IMP-013`, `SEARCH-014`, `CARD-002`), and Jira's issue links are re-pointed (`EMBED-006`). Atlassian owns the `atlassian.net` hostname, so after that site is cancelled a click on an old link in a browser without the extension reaches Atlassian, not Slate.
 - **Native app distribution.** This needs the buyer's or Run Edit Run's Apple and Google developer accounts. That is engineering and release work (`MOBILE-001`, `MOBILE-002`), not a reason to drop the apps.
 
 ## Out of scope
@@ -1621,8 +1749,8 @@ Judged from the code and tests at commit `8956e45` (16 October 2026); see [How t
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 160 | 61 | 0 | 221 |
-| Target and push further | 0 | 51 | 47 | 98 |
-| All | 160 | 112 | 47 | 319 |
+| Target and push further | 0 | 53 | 52 | 105 |
+| All | 160 | 114 | 52 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1877,6 +2005,7 @@ Judged from the code and tests at commit `8956e45` (16 October 2026); see [How t
 | `SEARCH-011` | Verified-first ranking and trust badges | target | partial | `src/core/features/page-status/state.ts` | see the clause |
 | `SEARCH-012` | Connected results in search | target | partial | `src/core/features/source-memory/service.ts` | see the clause |
 | `SEARCH-013` | Search inside attached files | target | missing | — | not implemented |
+| `SEARCH-014` | Old Confluence URLs find their Slate record | target | missing | — | not implemented |
 | `STAT-006` | Review requests and expert queues | target | partial | `src/core/features/page-status/review.ts` | see the clause |
 | `STAT-007` | Verification rules | target | missing | — | not implemented |
 | `CARD-001` | Knowledge cards and collections | target | partial | `src/core/features/containers/service.ts` | see the clause |
@@ -1899,6 +2028,8 @@ Judged from the code and tests at commit `8956e45` (16 October 2026); see [How t
 | `IMP-010` | Confluence macros, tasks and diagrams map to Slate blocks | target | partial | `src/core/features/imports/confluence/storage.ts` | see the clause |
 | `IMP-011` | Confluence space permissions become container grants | target | missing | — | not implemented |
 | `IMP-012` | Confluence personal spaces become personal containers | target | partial | `src/core/features/imports/confluence/space.ts` | see the clause |
+| `IMP-013` | Old Confluence links resolve in Slate | target | partial | `src/core/platform/db/knowledge-operations-schema.ts` | see the clause |
+| `IMP-014` | Links between spaces imported in separate passes | target | missing | — | not implemented |
 | `PORT-008` | Exports carry comments | target | missing | `src/core/features/workspace-export/readable.ts` | not implemented |
 | `PORT-009` | Scheduled backups to the buyer's storage | target | partial | `docs/BACKUP.md` | see the clause |
 | `PORT-010` | Word export of a page | target | missing | — | not implemented |
@@ -1907,6 +2038,9 @@ Judged from the code and tests at commit `8956e45` (16 October 2026); see [How t
 | `EMBED-003` | Design, video and document embeds | target | partial | `tests/flagship/content/preview.test.ts` | see the clause |
 | `EMBED-004` | Live file cards from Drive, SharePoint and Chest | target | missing | — | not implemented |
 | `EMBED-005` | Backlinks on Jira and Vector issues | target | missing | — | not implemented |
+| `EMBED-006` | Jira links to migrated Confluence pages are re-pointed at cutover | target | missing | — | not implemented |
+| `EMBED-007` | Issues that link here | target | missing | — | not implemented |
+| `EMBED-008` | Slate for Jira: smart links and project pages | target | missing | — | not implemented |
 | `CHAT-001` | Chat notifications to Slack, Microsoft Teams and Nook | target | partial | `src/core/features/notifications/slack.ts` | see the clause |
 | `CHAT-002` | Ask and unfurl in chat | target | missing | `src/core/features/connectors/slack.ts` | not implemented |
 | `CHAT-003` | Capture chat into pages | target | missing | — | not implemented |
@@ -1945,3 +2079,4 @@ Judged from the code and tests at commit `8956e45` (16 October 2026); see [How t
 | `KEEP-007` | Onboarding paths | target | missing | — | not implemented |
 | `KEEP-008` | Stale-knowledge sweeps | target | partial | `src/core/features/notifications/events.ts` | see the clause |
 | `KEEP-009` | Measured knowledge health | target | partial | `tests/qualification/core/quality.test.ts` | see the clause |
+| `KEEP-010` | Team-built agents | target | partial | `tests/qualification/inquiry/routing.test.ts` | see the clause |
