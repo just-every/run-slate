@@ -4,9 +4,85 @@ What this product does. Every clause has a stable ID and requires tagged observa
 
 ## Scope
 
-A knowledge workspace for one business: the family a Notion user and a Confluence user both arrive from. The primary record is a page — a title, an icon, a cover, a byline and a body of blocks — living in a tree inside a container, commented on in place, versioned, shared with named people and groups, and exposed to the anonymous web only by an explicit act. Members organise pages into containers, keep structured records in the same tree, search everything they may read, and ask AI over the same boundary. Slate replaces Notion and Confluence: it imports each product's own export, ships Notion's conventions as its defaults, and reaches Confluence's through the eight policies below. It is one product, not a suite. The accepted full flagship adds federated operational memory, authorized skills and effects, collaboration, and sustained inquiry through reproducible experiments and reusable learning. The complete flagship still requires all six USER-JOURNEYS.md journeys, FLAGSHIP-DELIVERY.md and the FRONTIER-EXTENSION.md inquiry loop. The 6 October 2026 core-wiki launch amendment below separately authorizes a core-wiki launch candidate without claiming flagship acceptance. Requirements are accepted; implementation, provider and release acceptance remain pending independent evidence. Exclusions appear below.
+A knowledge workspace for one business: the family a Notion user and a Confluence user both arrive from. The primary record is a page — a title, an icon, a cover, a byline and a body of blocks — living in a tree inside a container, commented on in place, versioned, shared with named people and groups, and exposed to the anonymous web only by an explicit act. Members organise pages into containers, keep structured records in the same tree, search everything they may read, and ask AI over the same boundary. Slate replaces Notion, Confluence and Guru: it imports each product's own export (Guru under `IMP-008`), ships Notion's conventions as its defaults, and reaches Confluence's through the eight policies below. It is one product, not a suite. The accepted full flagship adds federated operational memory, authorized skills and effects, collaboration, and sustained inquiry through reproducible experiments and reusable learning. The complete flagship still requires all six USER-JOURNEYS.md journeys, FLAGSHIP-DELIVERY.md and the FRONTIER-EXTENSION.md inquiry loop. The 6 October 2026 core-wiki launch amendment below separately authorizes a core-wiki launch candidate without claiming flagship acceptance. Requirements are accepted; implementation, provider and release acceptance remain pending independent evidence. Exclusions appear below.
 
 The words in this contract are the family's, not either product's. A **container** is what Notion calls a teamspace and Confluence a space. A **record** is what Notion calls a page in a database and Confluence an entry. A **page body** is what Notion calls blocks and Confluence elements or macros. A **member** is a person with an account in the workspace; `BASELINE.md` calls the same person an operator, and the two words mean one thing. An edition relabels these words; no clause changes when it does.
+
+## Product target — 16 October 2026
+
+Slate is the owned company wiki and knowledge workspace a US small or mid-size team buys instead of a Confluence space, a Notion wiki or a Guru knowledge base: real-time block editing, spaces and page trees, databases, permission-aware search and cited AI answers, kept current by verification and by agents that notice when knowledge has gone stale. This contract describes that product, which is what Slate is being built towards, and marks how close the current code is (see [Status](#status)).
+
+| | |
+| --- | --- |
+| Category | Team wiki and knowledge management |
+| Incumbents a buyer switches from | Confluence, Notion, Guru |
+| Up-and-comers it must also beat | Slite, Outline, Glean (and Dust for team agents) |
+| First buyer | A US team of 20 to 500 people moving a Notion wiki, a Confluence space or a Guru knowledge base; costs in USD, no per-seat pricing, the buyer's own Cloudflare account |
+| What switching means | Their content arrives with its hierarchy, links, comments, owners and an explicit list of what did not map; every daily job (writing together, organising, finding, asking, verifying, reviewing) has a Slate equivalent; their chat, issue tracker, file store and identity provider plug in; their admins keep SSO, SCIM, audit, guest control and analytics |
+
+A buyer replacing an incumbent needs the whole job, so the target is the whole job:
+
+- **Write together.** Live co-editing with presence and cursors (`COLLAB-001` to `COLLAB-005`), rich blocks, tables, synced blocks, columns, equations and diagrams (`BLOCK-001` to `BLOCK-014`), comments, mentions, reminders, suggestions and page locks.
+- **Organise.** Spaces (containers) with page trees, labels, templates, blogs and a company hub, plus databases with relations, rollups, formulas, board/calendar/timeline views, forms and dashboards (`DB-001` to `DB-016`).
+- **Find and ask.** Ranked permission-aware search that prefers verified current pages, and cited AI answers in the product, in chat and over MCP that never use a page the asker cannot read (`SEARCH-*`, `ANSWER-*`, `AI-*`).
+- **Keep it true.** Owners, review dates, verification and lapse, expert review queues, verification rules, Guru-style knowledge cards, and agents that find contradicted or stale pages and propose exact fixes for a human to accept (`STAT-*`, `CARD-*`, `KEEP-*`).
+- **Connect.** Slack, Microsoft Teams and Nook; Jira and Vector; GitHub and GitLab; Google Drive, SharePoint/OneDrive and Chest; Figma, Miro, Lucid and Loom embeds; a public REST API, webhooks and an MCP endpoint (`CHAT-*`, `EMBED-*`, `CONNECT-*`, `API-*`).
+- **Administer.** Roles, groups, guests, SAML SSO, SCIM, audit export, content governance and workspace analytics (`WORK-*`, `ADMIN-*`).
+- **Move in and out.** Notion, Confluence, Guru, Google Docs, Word and SharePoint imports, and complete exports and restores (`IMP-*`, `PORT-*`).
+- **Anywhere.** The responsive web app, native iOS and Android apps, a desktop app, offline pages and push notifications (`NAV-006`, `MOBILE-*`).
+
+### Neighbouring products stay separate
+
+Slate is one product. Where the market sells a neighbouring product separately, Slate connects to it and does not rebuild it; when the neighbour is a Run Edit Run sibling, Slate links to that sibling first and to the US incumbent second.
+
+| Job | Owned by | How Slate meets it |
+| --- | --- | --- |
+| Issue tracking and sprints | [Vector](https://github.com/just-every/run-vector) (or Jira, Linear) | Live issue embeds, create-issue-from-text and issue-triggered automations (`EMBED-001`, `AUTO-007`) |
+| Team chat | [Nook](https://github.com/just-every/run-nook) (or Slack, Microsoft Teams) | Notifications, unfurls, ask-in-chat and capture-to-page (`CHAT-001` to `CHAT-003`) |
+| File storage and sync | [Chest](https://github.com/just-every/run-chest) (or Google Drive, SharePoint) | Live file cards, embeds and connected search (`EMBED-004`, `CONNECT-001`) |
+| Large relational databases and internal apps | [Cradle](https://github.com/just-every/run-cradle) (or Airtable) | Wiki-scale databases inside pages, within `seed.json → limits` |
+| Standalone forms and surveys | [Pencil](https://github.com/just-every/run-pencil) (or Typeform) | Database intake forms only (`DB-013`) |
+| Courses and training records | [Beam](https://github.com/just-every/run-beam) (or TalentLMS) | Reading paths built from wiki pages (`KEEP-007`) |
+| Customer-facing help centre and ticket deflection | [HappyToHelp](https://github.com/just-every/run-happytohelp) (or Zendesk) | Published pages and cards that HappyToHelp can cite (`WEB-*`, `API-003`) |
+| IT service desk knowledge | [Linen](https://github.com/just-every/run-linen) (or ServiceNow) | Pages Linen cites through the API |
+| Identity provider | [Auth](https://github.com/just-every/run-auth) (or Okta, Microsoft Entra ID) | SAML service provider and SCIM client (`ADMIN-001`, `ADMIN-002`) |
+| Workflow automation across apps | [Crank](https://github.com/just-every/run-crank) (or Zapier) | Webhooks, REST API and in-product rules (`API-001`, `API-002`, `AUTO-*`) |
+| Product feedback boards | [Penny](https://github.com/just-every/run-penny) (or Canny) | Not rebuilt; pages link to feedback items |
+| Compliance automation | [Evidence](https://github.com/just-every/run-evidence) (or Vanta) | Policy pages with owners and review dates that Evidence reads |
+
+Cross-functional task and project management (Asana, monday.com, ClickUp) belongs to no sibling. Slate's databases can hold a lightweight tracker, but Slate does not become a project-management product.
+
+### How to read this contract
+
+- **Published clauses** are the `- **ID — Title.**` bullets in the sections from [Public landing](#public-landing) to [Full flagship and sustained inquiry](#full-flagship-and-sustained-inquiry). Each is registered in `seed.json → capabilities`, `tests/e2e/contract-coverage.test.ts` and `tests/requirements/clause-inventory.json`, and is checked by `scripts/check-contract.mjs` and `scripts/verify.mjs`.
+- **Target clauses** are the `#### ID — Title.` headings in [Target clauses](#target-clauses) and [Push further](#push-further). They are binding product requirements that are not yet registered. A build round that starts one registers it in the same change: a `seed.json` capability, a planned `contract.todo` entry, and a clause-inventory entry with its unmet reason. It also turns the heading into a published bullet with the same ID. IDs never change.
+- **Status** (in [Status](#status) and after each target clause) is `done`, `partial` or `missing`, judged from the code and tests at commit `8956e45` (16 October 2026). `done` means the behaviour ships in the default `core-wiki` profile and a cited test or journey exercises it. `partial` means some of it ships, or it ships only under the explicit `SLATE_PROFILE=flagship` opt-in, or there is code with no requirement-level test. `missing` means there is no implementation. Status is a build-planning judgement, not acceptance. [ACCEPTANCE.md](ACCEPTANCE.md) still decides acceptance, and the clause inventory still records every published clause as unproven until it is independently verified.
+
+## Target amendment — 16 October 2026
+
+The owner directed on 16 October 2026 that every seed's contract describe a genuine competitor to its category's incumbents. This amendment records which published clauses the target changes. It removes no requirement and no assertion, and none of these clauses is renumbered.
+
+Affected IDs: `SAVE-006`, `PAGE-001`, `WORK-015`, `NAV-006`, `NOTIF-003`, `MAIL-001`, `FLAG-001`, the [Out of scope](#out-of-scope) list, and the core-wiki launch amendment's disabled-surface list. Their mirrors in `RELEASE.json`, `seed.json` and `tests/requirements` change when a build round implements the target clauses below. This document changes no code.
+
+Replacement behaviour:
+
+- **Live co-editing becomes the default.** It is no longer an optional deployment choice (`SAVE-006` → `COLLAB-001` to `COLLAB-005`).
+- **Labels can be filtered and searched** (`PAGE-001` → `SEARCH-010`).
+- **SAML SSO and SCIM provisioning** join the OIDC identity provider (`WORK-015` → `ADMIN-001`, `ADMIN-002`).
+- **Native apps join the responsive client.** Native iOS, Android and desktop apps with offline pages and push notifications are added (`NAV-006` → `MOBILE-001` to `MOBILE-004`).
+- **Chat delivery widens** from one Slack destination to several, across Slack, Microsoft Teams and Nook (`NOTIF-003` → `CHAT-001`).
+- **Members may opt in to notification email and digests** (`MAIL-001` → `NOTIF-005`). Sign-in and invitation mail stay the only mail Slate sends without that opt-in.
+- **Cited answers become part of the default product** once an owner configures a provider and turns AI on. The core-wiki profile then no longer hides them (`AI-001`, `AI-015` → `ANSWER-001`). Until a build round meets `ANSWER-003`, the core-wiki profile keeps refusing AI surfaces as it does today.
+- **FLAG-001 stays the gate for the full flagship.** The category target sits beside it: the target clauses are the product's requirements, while the inquiry and trial extensions stay flagship requirements.
+
+Security consequences:
+
+- **Co-editing** moves live sockets into the default attack surface. `COLLAB-001` therefore requires the per-operation access recheck, revocation within five seconds and durable attributed operations that `SAVE-006` already demanded.
+- **Notification email and push payloads** carry a page title and a link and never a body. Recipient access is rechecked at send, and a title the recipient cannot read is never sent.
+- **SCIM bearer tokens and SAML signing certificates** are new secrets. They are covered by `BASE-SECRET-001`/`002` and are excluded from exports under `PORT-005`.
+- **Personal access tokens, OAuth apps, webhooks and MCP clients** each act as exactly one member and never widen that member's access (`API-001` to `API-004`).
+- **Offline copies on devices** are encrypted at rest by the operating system and erased on revocation or remote sign-out at the next connection (`MOBILE-003`). An offline copy is never a source for answers or exports.
+- **No existing protection is relaxed.** `LIFE-002`, `SEARCH-005`, `AI-011`, `AI-013`, `STAT-003`/`004` and the container vetoes in `WEB-001` stay absolute under every target clause.
 
 ## Core-wiki launch amendment — 6 October 2026
 
@@ -229,7 +305,7 @@ or the dev key in its output. No existing protection is relaxed.
 - **WORK-012 — Theme.** Light, dark and follow-the-system are offered, apply to every operator surface including editors, and persist per member across sessions and devices. The anonymous read view uses the published page's own theme (`WEB-002`), never the reader's member setting.
 - **WORK-013 — First run.** An owner claimed through RER’s verified bootstrap or signed claim receives the configured deployment name, a General space and a Welcome page atomically, with first run complete; the name, space and page remain editable. RER currently does not convey its independently renamed app name. A local deployment runs a short wizard that names the workspace, creates the first container and its first page, and ends on an invitation step that can be skipped. It runs once, is never shown to a member who joins later, and creates nothing beyond those three records. Its native owner wizard lives at `/setup`: unfinished owners are redirected there from operator app routes after sign-in; completed setup and later members proceed to `/app`. The same native session and owner authorization guard the route and completion API.
 - **WORK-014 — Shortcut reference.** One reference lists every keyboard shortcut and every typed formatting shortcut the editor accepts, is reachable from anywhere in the operator app by a single shortcut, and matches what the editor actually does.
-- **WORK-015 — Identity provider.** Sign-in is by the baseline's magic link (`BASE-ACCESS-001`) and, when a workspace owner configures one, by an identity provider through `identity.provider.v1`. A provider sign-in creates no member who was not invited or allow-listed, and an unconfigured or failing provider leaves magic-link sign-in working and says which is unavailable. There is no password, no security question and no account-recovery path, because `BASE-ACCESS-001` stores no password: access to the mailbox is the credential, and the identity provider is the only alternative to it. A member who has lost their mailbox is re-invited at a new address (`WORK-003`), which is not a recovery flow and does not restore their old sessions.
+- **WORK-015 — Identity provider.** Sign-in is by the baseline's magic link (`BASE-ACCESS-001`) and, when a workspace owner configures one, by an identity provider through `identity.provider.v1`. A provider sign-in creates no member who was not invited or allow-listed, and an unconfigured or failing provider leaves magic-link sign-in working and says which is unavailable. There is no password, no security question and no account-recovery path, because `BASE-ACCESS-001` stores no password: access to the mailbox is the credential, and the identity provider is the only alternative to it. A member who has lost their mailbox is re-invited at a new address (`WORK-003`), which is not a recovery flow and does not restore their old sessions. Target (16 October 2026): SAML single sign-on and SCIM provisioning are `ADMIN-001` and `ADMIN-002`.
 
 ## Editing and saving
 
@@ -238,11 +314,11 @@ or the dev key in its output. No existing protection is relaxed.
 - **SAVE-003 — Revision conflicts.** Every edit is submitted with the revision it began from: the block's revision for a body edit, the page's for a title, property, structure or order change. An edit against a superseded revision is rejected with 409, keeps the local draft, and offers compare, reload, or explicit overwrite. Slate never resolves a conflict by last write wins.
 - **SAVE-004 — Network loss.** While the server is unreachable the editor shows Offline and keeps the unsent draft in browser storage as recovery only. A recovered draft is labelled unsaved and never appears in the tree, in lists, in search, or in export as workspace data.
 - **SAVE-005 — Operation keys.** Every mutation accepts an operation key. Repeating a key with the same body within 24 hours returns the first response and creates no second record, notification, AI run, publish, import, or activity entry; repeating it with a different body is rejected with 409.
-- **SAVE-006 — Concurrent editing and optional co-editing.** Different blocks can be edited concurrently; revision conflicts retain SAVE-003 and unsent text. Committed blocks refresh within ten seconds without replacing a reader’s unsaved block. A page shows who has it open. Deployments may enable real live co-editing, shared cursors and presence with durable accepted operations, current ACL checks, revocation, reconnect recovery and attributable revision history. Co-editing never silently loses an accepted edit or converts unconfirmed local text into Saved. The full flagship acceptance exercises real co-editing; a deployment may keep it disabled.
+- **SAVE-006 — Concurrent editing and optional co-editing.** Different blocks can be edited concurrently; revision conflicts retain SAVE-003 and unsent text. Committed blocks refresh within ten seconds without replacing a reader’s unsaved block. A page shows who has it open. Deployments may enable real live co-editing, shared cursors and presence with durable accepted operations, current ACL checks, revocation, reconnect recovery and attributable revision history. Co-editing never silently loses an accepted edit or converts unconfirmed local text into Saved. The full flagship acceptance exercises real co-editing; a deployment may keep it disabled. Target (16 October 2026): live co-editing becomes the default behaviour, specified by `COLLAB-001` to `COLLAB-005`.
 
 ## The page
 
-- **PAGE-001 — What a page is.** A page has an identifier, a title, an optional icon, an optional cover, an owner, contributors, created and updated times, a container, a position in that container's tree, a body (`BLOCK-001`), a lifecycle state (`LIFE-001`), grants (`SHARE-001`), a revision (`REV-001`) and a set of labels. A label is a short text tag, unique on the page, added and removed by anyone with edit access, shown in the page's details (`PAGE-007`), carried through import (`IMP-003`) and through export and re-import (`PORT-001`, `PORT-002`, `PORT-007`), and never discarded; filtering a container by label is a Confluence-edition contribution and is not in 1.0. A database record is a page (`DB-010`), and every comment thread, revision, decision record and public exposure record names exactly one page.
+- **PAGE-001 — What a page is.** A page has an identifier, a title, an optional icon, an optional cover, an owner, contributors, created and updated times, a container, a position in that container's tree, a body (`BLOCK-001`), a lifecycle state (`LIFE-001`), grants (`SHARE-001`), a revision (`REV-001`) and a set of labels. A label is a short text tag, unique on the page, added and removed by anyone with edit access, shown in the page's details (`PAGE-007`), carried through import (`IMP-003`) and through export and re-import (`PORT-001`, `PORT-002`, `PORT-007`), and never discarded; filtering and searching by label is target clause `SEARCH-010`. A database record is a page (`DB-010`), and every comment thread, revision, decision record and public exposure record names exactly one page.
 - **PAGE-002 — Creation.** A member with edit access on the destination can create a page blank or from a template (`TMPL-003`), from the tree, from the global create action, or as a child of an open page. It is created in exactly one container at one position, and its initial lifecycle state follows `LIFE-006`.
 - **PAGE-003 — Identity survives everything.** A page keeps its identifier for its lifetime. Renaming it, editing it, moving it within or between containers, archiving, trashing, restoring, publishing and unpublishing never change it, and every link, mention, citation, content query and search result continues to resolve to it (`LINK-001`).
 - **PAGE-004 — Move.** A member with edit access on both places can move a page to another position, another parent, or another container, choosing the destination from a searchable picker. Children move with it, grants are re-resolved against the new parent and the change is shown before it is applied, and comments, versions and links are unchanged.
@@ -400,19 +476,19 @@ or the dev key in its output. No existing protection is relaxed.
 - **NAV-003 — Favourites.** Favourited pages and containers (`PAGE-008`) are listed in the navigation, reorderable by the member, and removed from the list in one action.
 - **NAV-004 — One navigation.** The operator app has one sidebar holding the global destinations, the personal sections and the container trees, collapsible to leave the page full width. Its order and which entries appear come from workspace configuration and from the navigation slot (`workspace.navigation.after.v1`); changing any policy value in this contract changes no entry in it and no entry's position. A container's own navigation nests inside it rather than replacing it.
 - **NAV-005 — Global create.** One create action is available from every operator screen and creates a page, a database, a container or a page from a template, naming the destination before it creates.
-- **NAV-006 — The touch client edits.** Every operator surface in this contract works at phone width on a touch device, and none of them is read-only there: a member can create and edit a page and its blocks, comment, resolve, publish, share, and use every database layout. Where a gesture cannot carry a desktop interaction, the touch form is named in the same clause — the insert menu from a labelled control above the keyboard (`BLOCK-003`), reordering by a drag handle rather than a hover target (`BLOCK-001`). Slate is one responsive application; a native mobile application is a non-goal.
+- **NAV-006 — The touch client edits.** Every operator surface in this contract works at phone width on a touch device, and none of them is read-only there: a member can create and edit a page and its blocks, comment, resolve, publish, share, and use every database layout. Where a gesture cannot carry a desktop interaction, the touch form is named in the same clause — the insert menu from a labelled control above the keyboard (`BLOCK-003`), reordering by a drag handle rather than a hover target (`BLOCK-001`). The responsive application is the baseline; native iOS, Android and desktop apps with offline pages and push notifications are target clauses `MOBILE-001` to `MOBILE-004`.
 
 ## Notifications
 
 - **NOTIF-001 — Meaningful notifications.** A member is notified in the app when they are mentioned, when someone comments or replies on a page they watch or authored, when a page they watch is published or republished, when a verification they own lapses (`STAT-004`), when they are granted access to a page or container, and when an AI run they started needs review or failed. Deliver these notices when the triggering event occurs; overdue decision notices go to the decision owner under `DEC-005`. Route an unresolved policy/authority choice to its named owner when the choice blocks action, an actionable paused or failed run to its run owner when it pauses or fails, and a consequential experiment result to its accountable owner when the result is recorded and ready for action. Coalesce related granted maintenance into one concise Today outcome with inspectable changes; routine standing-authorized success and unchanged checks stay quiet and require no fresh approval. Never coalesce away direct mentions, access changes, lapsed human attestations, meaningful failures or required decisions. Own direct actions never notify their actor; delegated events retain the named recipient rules. Recheck recipient access and the authorized output audience at creation, delivery and read; never notify about unreadable records or disclose sources beyond their authorized audience. Preserve `NOTIF-002` inbox behavior, `NOTIF-003` optional link-only chat delivery and `MAIL-001` limited email use.
 - **NOTIF-002 — Inbox.** Notifications are listed newest first, grouped by period, with an unread count and separate views for those addressed to the member and those from watched pages. Opening one marks it read and opens the referenced record at the referenced comment; a member can mark all read and archive read notifications.
-- **NOTIF-003 — Chat notifications.** A workspace owner can connect one chat destination through `chat.notifier.v1` and choose which events reach it. A message carries the event, the actor, the page title and a link, never the page body, and the link still requires access. The connection shows its last delivery and its last failure, retries only transient transport failures, and stops sending the moment it is disconnected; its credential is encrypted with `CONNECTOR_CREDENTIALS_KEY`, returned by no API response, and destroyed on disconnect. A deployment with a chat destination connected and that variable missing fails at startup naming it (`BASE-SECRET-002`) rather than running with the connection off. An expired or revoked authorisation marks the connection as needing attention, offers a reconnect action, and stops sending without deleting the connection, its event selection or its delivery history.
+- **NOTIF-003 — Chat notifications.** A workspace owner can connect one chat destination through `chat.notifier.v1` and choose which events reach it. A message carries the event, the actor, the page title and a link, never the page body, and the link still requires access. The connection shows its last delivery and its last failure, retries only transient transport failures, and stops sending the moment it is disconnected; its credential is encrypted with `CONNECTOR_CREDENTIALS_KEY`, returned by no API response, and destroyed on disconnect. A deployment with a chat destination connected and that variable missing fails at startup naming it (`BASE-SECRET-002`) rather than running with the connection off. An expired or revoked authorisation marks the connection as needing attention, offers a reconnect action, and stops sending without deleting the connection, its event selection or its delivery history. Target (16 October 2026): `CHAT-001` extends this to any number of Slack, Microsoft Teams and Nook destinations with the same guarantees.
 
 ## Mail
 
 Managed-mail amendment — 16 October 2026 (MAIL-001/002 and BASE-SECRET-002): Managed hosting supplies and hides the relay settings and credential. Free and Assisted hosting retain explicit Resend or SendGrid settings. Hosted plans require a working selected mail provider and its credentials; local dev and demo suppress mail silently per rer 0.2.22, with one-click sign-in. The relay owns sender identity and accepts only the recipient, subject and body, without redirects.
 
-- **MAIL-001 — Outbound only, two kinds.** Slate sends mail only to deliver a sign-in link (`BASE-ACCESS-001`) and an invitation — a member invitation (`WORK-006`) or a guest invitation (`SHARE-006`) — from the configured sender address through `mail.sender.v1`. No product event sends mail, and Slate accepts no inbound mail: a reply to that address creates and changes nothing.
+- **MAIL-001 — Outbound only, two kinds.** Slate sends mail only to deliver a sign-in link (`BASE-ACCESS-001`) and an invitation — a member invitation (`WORK-006`) or a guest invitation (`SHARE-006`) — from the configured sender address through `mail.sender.v1`. No product event sends mail, and Slate accepts no inbound mail: a reply to that address creates and changes nothing. Target (16 October 2026): `NOTIF-005` adds notification email and digests that a member opts into, through the same sender; without that opt-in, sign-in and invitation mail remain the only mail Slate sends.
 - **MAIL-002 — Delivery failure.** A send that fails is retried up to 3 times over 5 minutes when the provider guarantees duplicate suppression for that exact request. With SendGrid, explicit rejection is shown for owner retry; ambiguous transport, expired dispatch ownership, or acceptance without a receipt is durably held for provider review with no automatic or explicit blind resend. A send that still fails or remains uncertain is recorded with a safe provider error and shown to a person — on the sign-in screen for a sign-in link, in settings for an invitation — and is never reported as sent. Managed hosting uses Base’s `rer` adapter with RER-assigned `MAIL_PROVIDER`, `MAIL_FROM`, `MAIL_RELAY_URL` and private `MAIL_API_KEY`; no provider account is needed. Relay HTTP 202 establishes acceptance without a provider message ID. Explicit relay throttling is queued within the existing three-attempt budget, no earlier than Retry-After; other relay rejections are visible failures. Ambiguous relay sends and expired dispatch ownership are held for review without blind resend. A provider receipt establishes acceptance, not inbox delivery.
 
 ## Activity
@@ -488,6 +564,8 @@ Managed-mail amendment — 16 October 2026 (MAIL-001/002 and BASE-SECRET-002): M
 
 ## Full flagship and sustained inquiry
 
+Within the category job these clauses carry machinery the target clauses rely on: suggestions (`SUG-*`) for `KEEP-002`, sources (`SOURCE-*`) for `CONNECT-*`, skills and effects (`SKILL-*`, `EFFECT-001`, `EFFECT-003`) for `KEEP-006`, and the agent interface (`AGENT-001`) for `API-003`. The inquiry (`INQ-*`), trial (`TRIAL-*`) and account-activation (`EFFECT-002`) clauses go beyond maintaining and answering company knowledge. They remain the owner-accepted flagship extension of 27 September 2026, unchanged, and are not the centre of the product.
+
 - **SUG-001 — Anchored suggestions.** Members with comment or edit access can propose a typed change as a separate record anchored to an exact page/block revision, inspect its diff and discuss it. A suggestion changes neither working page/block content nor published content before explicit acceptance under `SUG-002`. Preserve author, time, original text and exact revision; inaccessible anchors disclose no content. Direct granted maintenance remains a separate attributable revision path under `AI-003`/`AI-005`, not suggestion acceptance or a forced review queue.
 
 - **SUG-002 — Resolve explicitly.** An authorized editor accepts selected suggestions atomically with a new revision/activity/receipt or rejects them with attribution. Recheck current access and revision; conflicting or lost anchors require explicit rebase/review, never silent application. Suggestion history survives reload and export.
@@ -546,11 +624,478 @@ Managed-mail amendment — 16 October 2026 (MAIL-001/002 and BASE-SECRET-002): M
 
 - **FLAG-004 — Complete portable knowledge.** PORT-001/002/005/006 extend to source revisions and passages, claims/authority, skill versions/evaluations/grants, run stages/effect receipts, inquiries/analyses/trials/outcomes/learning and interface definitions with exact lineage. Retain credential metadata but exclude secrets/sessions and require fresh activation/authorization after restore. External state is reported, not recreated by assertion; exact public publishing and imported-actor restrictions remain.
 
+## Target clauses
+
+These clauses complete the category job alongside the published clauses above. Each one states the behaviour a buyer gets, the acceptance evidence that proves it through a public door (an HTTP route, the browser at 1440 and 390 pixels, a native app, a chat app, an MCP client or an import or export file), and its current status. Fakes are allowed only at a paid or network edge, and a provider fake proves local semantics only, never live provider behaviour (see [ACCEPTANCE.md](ACCEPTANCE.md)).
+
+### Writing together
+
+#### COLLAB-001 — Live co-editing by default.
+Two or more members with `edit` access can type in the same page, and in the same block, at the same time. Their characters merge without conflict: there is no 409 and no last-write-wins for concurrent text, and `SAVE-003` conflicts remain only for structural edits that cannot merge, such as editing a block another member deleted, which offers restore. Every accepted operation is durable before it is acknowledged. A member's access is rechecked on every operation. Narrowing or revoking access closes that member's socket within 5 seconds, keeps their unsent text locally as an unsaved draft (`SAVE-004`), and never applies it. Reconnecting replays unacknowledged operations exactly once. Saved means committed (`SAVE-001`).
+*Acceptance:* a two-browser journey at 1440 and 390 in which two members type into one paragraph at the same time and both see the same final text within 1 second. It also covers a dropped connection that reconnects with no lost or duplicated characters, and a grant revoked mid-typing that closes the editor within 5 seconds, keeps the draft unsaved and lists no revision for it. A Workers journey sends interleaved operations to the collaboration route and reads back one revision history.
+*Status:* partial. A Durable Object co-editing service and a two-person journey exist (`src/core/features/collaboration/durable-object.ts`, `tests/qualification/ui-convergence/two-people-editing.mjs`), but the socket is disabled in the default `core-wiki` profile (`src/core/platform/config/launch-profile.ts`).
+
+#### COLLAB-002 — Presence, cursors and following.
+A page shows who is viewing and who is editing, with an avatar, a name and a colour. Each editor's cursor and selection appear live with their name. Clicking a collaborator follows their viewport, and members idle for more than 5 minutes are shown as idle. Presence reveals only members who can already read the page, and it never appears on the anonymous read view (`WEB-003`).
+*Acceptance:* a browser journey with three members in which one sees two named cursors move within 500ms of typing and follows a collaborator to another heading. The anonymous published view of the same page shows no presence.
+*Status:* partial. Committed-content refresh and "who has it open" ship by default, and live cursors ship behind the flagship socket (`src/core/features/collaboration/service.ts`, `tests/profile/profile.worker.test.ts`).
+
+#### COLLAB-003 — Offline edits that merge.
+Edits made while a client is offline, whether a browser with a cached page (`SAVE-004`) or an offline page in a native app (`MOBILE-003`), merge on reconnect through the same operation path as `COLLAB-001`. They are attributed to their author with their original time. A conflict that cannot merge, such as editing a block another member deleted, is shown with both versions and a restore action, and is never resolved silently.
+*Acceptance:* a browser journey takes one client offline, edits three blocks while a second client edits one of them and deletes another, then reconnects. The merged page keeps both edits to the shared block, offers the deleted block for restore, and shows four attributed operations in history.
+*Status:* partial. Offline detection and unsaved-draft recovery exist (`src/core/features/editor/ui/SaveStatus.tsx`, `tests/qualification/offline-refresh/transport.test.ts`); merging offline operations does not.
+
+#### COLLAB-004 — Long pages and heavy tables stay fast.
+A page with 2,000 blocks or a 50 × 500 table opens in under 1.5 seconds at p95 on a mid-range laptop and in under 3 seconds on a mid-range phone. With 20 co-editors, typing echoes locally in under 50ms and reaches the others in under 500ms. Table insert, delete, resize and sort complete in under 200ms. The limits are declared in `seed.json → limits`.
+*Acceptance:* a scripted load journey against a deployed Worker records p95 open time, keystroke echo and remote-arrival latency at the declared limits, and the run's raw timings are kept with the release evidence.
+*Status:* missing. No measured performance journey exists for these sizes.
+
+#### COLLAB-005 — Attributed history from co-editing.
+Co-edited operations become revisions (`REV-001`) that are grouped by time window and list every contributing author. Compare (`REV-004`) colours each change by its author, and restore (`REV-003`) works on any grouped revision.
+*Acceptance:* after a two-author session, history lists one revision naming both authors, compare attributes each changed block to its author, and restoring the previous revision brings back the earlier text for both authors.
+*Status:* partial. Revisions, compare and restore ship (`src/core/features/versions/service.ts`, `tests/qualification/ui-convergence/two-people-history.mjs`); grouping of co-edited operations by author depends on `COLLAB-001`.
+
+#### PAGE-015 — Page lock.
+A member with `edit` access can lock a page against accidental edits. Locking is separate from permissions: it changes no grant. A locked page shows a "Locked by name" banner and opens read-only for everyone, and an `edit` member unlocks it in one action. Both acts are recorded in activity. API calls, automations, imports and AI runs respect the lock and refuse with `PAGE_LOCKED`. Comments stay open.
+*Acceptance:* a browser journey in which one member locks a page, a second editor sees it read-only with the banner while comments still post, an API update and an automation action on that page refuse with `PAGE_LOCKED`, and unlocking restores editing. Activity shows both acts.
+*Status:* missing. Only database structure locks exist (`DB-009`, `src/core/features/databases/service.ts`).
+
+#### BLOCK-011 — Synced blocks.
+A block can be made synced: its content is defined once and rendered live in many pages, as with Notion synced blocks and Confluence excerpt-include. Editing any copy edits all of them, and each copy names its source page. A reader sees a copy only if they can read the source, and otherwise sees `LINK-004`'s access-needed state. Deleting the source turns each copy into a static block that keeps its last content.
+*Acceptance:* a browser journey that syncs a block into two pages, edits one copy and sees the change in the other within 5 seconds. A member without access to the source sees the access-needed state, and deleting the source leaves static copies.
+*Status:* missing.
+
+#### BLOCK-012 — Columns and page layouts.
+A page body can hold 2 to 5 side-by-side columns that blocks can be dragged into. Columns stack in order at phone width. Page export (`PORT-007`) and the Notion and Confluence imports (`IMP-002`, `IMP-003`) preserve the column layout.
+*Acceptance:* a browser journey creates a three-column section at 1440 and sees it stack at 390. Importing a Notion export with columns and a Confluence page with a two-column layout reproduces both.
+*Status:* missing. The editor supports single-column blocks only (`src/core/features/editor/validation.ts`).
+
+#### BLOCK-013 — Equations and diagrams as code.
+Inline and block LaTeX equations render with KaTeX, and Mermaid diagram blocks render as SVG. Both are rendered without network access, are sanitised under `BASE-INPUT-002`, are kept as source in Markdown export, and are imported from Notion equation blocks and Confluence code macros.
+*Acceptance:* a browser journey that inserts an equation and a Mermaid flowchart, sees both render offline, exports Markdown that contains the source, and re-imports it unchanged.
+*Status:* missing.
+
+#### BLOCK-014 — Tables that work like tables.
+Table blocks support header rows and columns, column widths, merged cells, cell colour, and sorting by a column. Rows and columns can be added and removed from the keyboard. Pasting from Excel or Google Sheets keeps rows and columns, and a table converts to a database (`DB-001`) and back without losing cells.
+*Acceptance:* a browser journey that pastes a 10 × 20 range copied from a spreadsheet and keeps its shape, merges cells, sorts by a column, converts the table to a database and back, and finds the cells identical.
+*Status:* partial. Table blocks with header rows ship (`src/core/features/editor/validation.ts`, `tests/qualification/interface/blocks.mjs`); merge, sort, paste fidelity and conversion do not.
+
+### Organising and finding
+
+#### CONT-010 — Space blog and announcements.
+A container has a blog: dated posts with an author, a cover and comments that appear in a feed in the container and on followers' home pages (`NAV-001`). Following a container notifies its followers of new posts (`NOTIF-001`). Posts are pages and keep every page clause. Confluence blogs import as posts (`IMP-003`), not as folders.
+*Acceptance:* a browser journey in which one member publishes a post, a follower gets the notification and sees the post on Home, and importing a Confluence space with blog posts creates posts that keep their dates and authors.
+*Status:* missing. The Confluence importer reports blogs as unmapped (`IMP-003`).
+
+#### CONT-011 — Space home and company hub.
+Each container has an editable home page that its index opens first. Workspace owners curate a company hub: one page that every member sees from Home, made of chosen links, a news feed of announcement posts and verified key pages.
+*Acceptance:* a browser journey in which an owner builds a hub, a new member's first Home shows it, and the hub's links show each reader only pages that reader can read.
+*Status:* partial. A container index with names, descriptions and access ships (`src/core/features/containers/service.ts`, `tests/qualification/policies/container-links.test.ts`); there are no curated container homes or hub.
+
+#### WORK-016 — People directory and expertise.
+Each member has a profile with their name, title, team, manager, time zone and the pages they own, verify and frequently edit. Expertise tags are derived from that work, and the member can edit or hide them. The directory is searchable, guests see only the people on pages shared with them, and expertise is used to route reviews and questions (`STAT-006`, `KEEP-003`).
+*Acceptance:* a browser journey that finds the expert for a topic from the directory, sees the pages they own and verify, hides a derived tag, and confirms a guest cannot list members beyond their shared pages.
+*Status:* missing.
+
+#### SEARCH-010 — Labels and advanced search.
+Search and container views filter by label. Queries accept the operators `title:`, `label:`, `in:` (container), `by:` (contributor), `owner:`, `status:`, `verified:`, `before:`, `after:`, `type:` and quoted phrases, combined with `AND`, `OR` and `-`. A member can save a search, and a saved search can feed a content query (`BLOCK-010`). Operators never widen access (`SEARCH-005`).
+*Acceptance:* a Workers journey over seeded pages checks each operator and each combination against expected result IDs for two members with different grants. A browser journey saves a search and embeds it in a page.
+*Status:* partial. Labels are stored and search has kind, container, contributor, status and date filters (`src/core/features/pages/service.ts`, `src/core/features/search/service.ts`, `tests/e2e/search/fts-permissions.test.ts`); label filtering, operators and saved searches do not exist.
+
+#### SEARCH-011 — Verified-first ranking and trust badges.
+Search results, link cards, content queries and answers show each page's verification state (verified with its owner and expiry, lapsed, or unverified) and its last-updated time. Among equally relevant results, ranking puts current verified pages ahead of unverified ones and lapsed or archived pages last, and collapses near-duplicates into one result with a "similar pages" control. A member can sort by relevance, last updated or most viewed.
+*Acceptance:* a Workers journey over a seeded corpus of a verified, a lapsed and an unverified page with equal text matches asserts their order and badges. A browser journey sees the badges and the collapsed near-duplicates.
+*Status:* partial. Status and verification state exist and search ranks by relevance (`src/core/features/page-status/state.ts`, `src/core/features/search/service.ts`); verification-aware ranking, badges in results and duplicate collapse do not.
+
+#### SEARCH-012 — Connected results in search.
+When connectors are attached (`CONNECT-001`), one search covers Slate content and connected items, which are labelled with their source and opened in their source. Each connected result is shown only if the asking member's mapped identity can read it in the source now (`CONNECT-002`). Connected results never change Slate result ranking for members without that source.
+*Acceptance:* a Workers journey with a provider fake at the network edge returns a Drive file to a member mapped to its reader and hides it from an unmapped member, with identical Slate results for both. Provider acceptance repeats this against a real authorized Google Drive.
+*Status:* partial. Source memory and retrieval exist behind the flagship profile (`src/core/features/source-memory/service.ts`); there is no unified search surface.
+
+### Keeping knowledge true
+
+#### STAT-006 — Review requests and expert queues.
+A page owner or editor can request review from a named member or group, with a due date and a note. The reviewer gets an inbox item (`NOTIF-002`) and a queue of pages awaiting their review, and can verify (`STAT-003`), request changes as a comment, or reassign. An overdue review reminds the reviewer once and then the container owner. Owners can re-verify in bulk from the queue, opening each exact revision (`STAT-003` still requires a human to open the revision being attested).
+*Acceptance:* a browser journey in which one member requests review, the reviewer sees the queue item, opens the revision and verifies it, and an overdue request reminds the reviewer and then the container owner exactly once each.
+*Status:* partial. Review state and access checks exist (`src/core/features/page-status/review.ts`, `tests/e2e/review/review-access.test.ts`); there are no queues, due-date reminders or escalation.
+
+#### STAT-007 — Verification rules.
+Container owners configure nightly rules that flag or unverify, never verify. Examples: unverify a page when a page or source it cites changes, flag pages with no owner, and flag verified pages unviewed for 180 days. Each run records what it changed and why in activity, notifies affected owners once in a coalesced notice, and can be previewed before it is turned on. No rule, automation or AI action renews verification (`STAT-004`).
+*Acceptance:* a Workers journey runs a rule over seeded pages and asserts exactly the expected unverifications, flags, activity entries and one coalesced notice per owner. An attempted rule action of "verify" is rejected.
+*Status:* missing.
+
+#### CARD-001 — Knowledge cards and collections.
+A card is a short page kind of at most about 500 words with a question-style title, an owner, verification required by default, and placement in a collection (a container with card-friendly views). Cards render compactly in search, answers, chat (`CHAT-002`) and the browser extension (`CARD-002`). Guru cards import as cards (`IMP-008`).
+*Acceptance:* a browser journey creates a card and finds it as a compact result with its verification badge. A Guru import creates cards in collections that keep their owners and their verification intervals as imported metadata.
+*Status:* partial. Containers organise pages (`src/core/features/containers/service.ts`); there is no card kind or compact rendering.
+
+#### CARD-002 — Browser extension.
+A Chrome and Edge extension signs in as the member and searches and asks Slate from any tab. On sites the owner allowlists, such as Salesforce, Zendesk, HappyToHelp, Orbit and GitHub, it suggests cards relevant to the open record. It reads page text only after the member opens the extension on that tab, sends only the query and the record title, and shows only what the member can read.
+*Acceptance:* an automated Chromium journey loads the packed extension, signs in, opens an allowlisted fixture page, sees a relevant verified card, and confirms through a request log that no page text left the tab before the member opened the extension.
+*Status:* missing.
+
+#### CARD-003 — Required reading and announcements.
+An owner can send a page or card to a group as required reading. Each member gets an inbox item and a reminder after a set number of days, and their acknowledgement is recorded. The sender sees who has acknowledged. Slate records no reading time and no scroll depth, and acknowledgements are visible only to the sender and workspace owners.
+*Acceptance:* a browser journey sends a page to a group, two members acknowledge, one is reminded once, and the sender's report lists exactly those states with no reading-time data.
+*Status:* missing.
+
+### Structured knowledge
+
+#### DB-013 — Database forms.
+A database can publish a form whose questions map to its fields, with required fields, help text and simple conditional questions. A form is open to members, to named guests or, if the container allows public links (`CONT-007`), to an anonymous link with rate limits and a spam check. Each submission creates a record and can trigger automations (`AUTO-001`). Standalone survey and quiz products belong to [Pencil](https://github.com/just-every/run-pencil).
+*Acceptance:* a browser journey publishes a form, submits it as a guest and anonymously, sees two records with mapped values, and sees an automation fire on each submission. Forbidding public links makes the anonymous form stop resolving at once.
+*Status:* missing.
+
+#### DB-014 — Dashboards.
+A page can hold a dashboard: several charts (`DB-008`) and views (`DB-011`) arranged in a grid, with dashboard-wide filters such as a date range or a person that apply to every tile. Each tile computes over the reader's authorized records only (`DB-002`).
+*Acceptance:* a browser journey builds a dashboard of three charts and a view, applies a date filter that changes every tile, and confirms a member with fewer grants sees lower counts and no restricted values.
+*Status:* partial. Charts over a view exist (`src/core/features/databases/ui/workspace/DatabaseChart.tsx`, `tests/qualification/policies/structured-views.test.ts`); multi-tile dashboards with shared filters do not.
+
+#### DB-015 — Record templates and recurring records.
+A database has record templates (default fields and a body), and a template can repeat on a schedule (daily, weekly on given days, monthly or yearly), creating a record at the set time in the owner's time zone. A schedule runs exactly once per occurrence, even after restarts, and pauses with a visible reason if its creator loses access.
+*Acceptance:* a Workers journey advances a scheduled trigger across two occurrences and a restart and finds exactly two records. Revoking the creator's access pauses the schedule with its reason shown.
+*Status:* partial. Scheduled automation triggers and page templates exist (`src/core/features/automation/events.ts`, `src/core/features/templates/service.ts`, `tests/qualification/policies/automation-templates.test.ts`); record templates and recurring templates do not.
+
+#### DB-016 — AI autofill fields.
+A field can be an AI field (summary, extraction, classification or translation) computed from the record's own content. It re-runs when its inputs change, cites the record revision it read, is labelled AI-generated, counts against AI budgets (`AI-012`), and never reads records the field's owner cannot read. A member can override a value, and an override is kept until it is cleared.
+*Acceptance:* a Workers journey with a provider fake at the network edge fills a classification field for 20 records, re-runs only the 3 records that changed, keeps a manual override, and records usage against the budget.
+*Status:* missing.
+
+### Notifications and follow-up
+
+#### NOTIF-004 — Reminders.
+A date mention (`BLOCK-005`) can carry a reminder at the date or at a chosen offset. A member can set a reminder on any page or task item (`BLOCK-007`). Reminders arrive in the inbox, and by email or push where the member opted in (`NOTIF-005`), at the member's local time, exactly once, and are rechecked against access at delivery.
+*Acceptance:* a Workers journey sets reminders in two time zones, advances time, and finds exactly one inbox item each at the right local time. A reminder on a page whose access was revoked is not delivered.
+*Status:* missing.
+
+#### NOTIF-005 — Email, push and digest delivery.
+Each member chooses, per event kind, between in-app only, immediate email, a daily or weekly digest, and push on their devices (`MOBILE-004`). Email goes through `mail.sender.v1` from the configured sender and carries the event, the actor, the page title and a link, never a page body. Recipient access is rechecked at send, and an unsubscribe link changes that member's preference without sign-in. Digests coalesce watched changes, mentions, review requests and lapsed verifications.
+*Acceptance:* a Workers journey with a mail provider fake at the network edge opts a member into a daily digest, generates eight events including one on a page the member later loses access to, and receives exactly one digest with seven items and no body text. The unsubscribe link changes the preference.
+*Status:* missing. `MAIL-001` currently limits mail to sign-in and invitations.
+
+#### AUTO-006 — Outbound automation actions.
+Rule actions (`AUTO-001`) can also:
+
+- post to a Slack, Microsoft Teams or Nook channel;
+- call a signed webhook (`API-002`);
+- send an email from a member's own connected Gmail or Outlook mailbox under that member's OAuth grant, never from Slate's sender (`MAIL-001`);
+- create a Vector or Jira issue.
+
+Each action acts as the rule's actor (`AUTO-002`), sends only titles, links and fields the actor can read, uses an operation key so retries never duplicate, and records its receipt in the run log (`AUTO-003`).
+*Acceptance:* a Workers journey with provider fakes at the network edge fires one rule four times and finds one message, one webhook, one email and one issue per firing. A retried firing produces no duplicate, and every receipt appears in the run log.
+*Status:* partial. Field, page and notification actions and a Slack chat notifier exist (`src/core/features/automation/actions.ts`, `src/core/features/notifications/slack.ts`); Teams, Nook, webhook, mailbox and issue actions do not.
+
+#### AUTO-007 — Triggers from connected tools.
+Rules can trigger on events from connected tools: a GitHub or GitLab pull request merged or released, a Vector or Jira issue changing state, a Drive file changing, or an inbound signed webhook. They can then flag a page, request review, create a record or start a `KEEP-001` check. Event payloads are untrusted content (`AI-007`).
+*Acceptance:* a Workers journey posts a signed GitHub-shaped webhook and sees the matching rule run once and request review on the linked page. An unsigned or replayed delivery is rejected and logged.
+*Status:* missing.
+
+#### AUTO-008 — Accountable follow-through.
+Every background action is a durable job with an accountable owner, a due condition, visible progress, a visible failure and an explicit stop or resolution state. This covers rules, schedules, reminders, review escalations, connector syncs, verification rules and agent work. A failed or stuck job appears on the owner's Home without a search. Re-running a job never duplicates a message, record or issue, and stopping a job cancels its unsent work.
+*Acceptance:* a Workers journey kills a job mid-run and finds it resumed once with no duplicate effect. A forced failure appears on the owner's Home, and stopping a queued job cancels its pending sends.
+*Status:* partial. Automation run logs with failure states and repeated-failure disable exist (`src/core/features/automation/jobs.ts`, `tests/qualification/policies/automation-templates.test.ts`); the guarantee does not yet span every job kind.
+
+### Moving in and out
+
+#### IMP-006 — Notion import with comments and live databases.
+Slate imports Notion's HTML export, including page and block comments, which become threads anchored to the matching blocks with their authors and times. It also imports through the Notion API, keeping databases with their relations, rollups, formulas, views and filters, with page-level sharing mapped through reviewed principal mappings (`IMP-003`'s rules). An API import can re-sync changed pages until cutover, and the loss report names every unsupported block, formula function and permission.
+*Acceptance:* imports of a real Notion HTML export with comments and of a real Notion workspace over the API with a provider-recorded fixture. Threads land on the right blocks, rollups recompute to Notion's values or are marked not-recomputed, and a re-sync updates only changed pages. A provider acceptance run repeats this against a real workspace.
+*Status:* partial. Notion Markdown and CSV import with preview, apply and undo ships (`src/core/features/imports/service.ts`, `tests/e2e/imports/real-exports.test.ts`, `tests/e2e/imports/preview-undo.test.ts`); HTML comments and API import do not.
+
+#### IMP-007 — Confluence Cloud live migration.
+Through the Confluence Cloud REST API (OAuth), Slate imports one or more spaces, including pages, blog posts, comments, attachments, labels, versions and restrictions, using `IMP-003`'s reviewed principal mapping. It can re-sync deltas until cutover. It produces a redirect map from every old Confluence URL to its Slate URL, which the buyer can serve, and a cutover report of what changed since the first pass.
+*Acceptance:* a Workers journey against a recorded Confluence Cloud API fixture imports a space, applies a delta and emits a redirect map in which every old page URL resolves to its imported page. A provider acceptance run repeats this against a real Confluence Cloud site.
+*Status:* missing. Only file exports import (`IMP-003`).
+
+#### IMP-008 — Guru import.
+Slate imports a Guru export or reads the Guru API, turning collections into containers, folders into tree pages and cards into cards (`CARD-001`), with their owners, verifiers and verification intervals. Guru verification arrives as imported metadata that reads "Verified in Guru by name on date". It never counts as Slate verification until a member verifies the exact revision (`STAT-003`).
+*Acceptance:* an import of a real Guru export fixture creates the expected collections, cards and owners, every imported card shows the Guru verification line and Slate status "unverified", and verifying one card produces a normal `STAT-003` record.
+*Status:* missing.
+
+#### IMP-009 — Folder imports from Google Drive and SharePoint.
+A member can import a Google Drive folder or a SharePoint/OneDrive folder of Google Docs, Word and PDF files as a page tree, keeping folder hierarchy, titles, headings, tables, images and links between imported documents. Each source document keeps a link back to the original, and the report names every file it did not import.
+*Acceptance:* a Workers journey with recorded provider fixtures imports a nested folder of 12 documents into a tree with resolved cross-links. Provider acceptance repeats this with a real Drive and a real SharePoint site.
+*Status:* partial. Single Word and Google Docs (`.docx` or zipped HTML) imports ship (`src/core/features/imports/service.ts`, `tests/e2e/imports/real-exports.test.ts`); folder imports through provider APIs do not.
+
+#### PORT-008 — Exports carry comments.
+Workspace, container and page exports in HTML include page and inline comment threads with their authors, times and resolved state, anchored to their blocks. Markdown exports carry the same threads in a sidecar JSON file, and re-importing a Slate export restores the threads.
+*Acceptance:* a round trip of export to HTML and Markdown and re-import into a fresh deployment restores every thread on the same block with the same authors and resolved states.
+*Status:* missing. Readable HTML, Markdown and CSV exports ship without comments (`src/core/features/workspace-export/readable.ts`).
+
+#### PORT-009 — Scheduled backups to the buyer's storage.
+An owner can schedule a nightly or weekly complete export (`PORT-001`) to the buyer's own S3-compatible bucket, Cloudflare R2 or [Chest](https://github.com/just-every/run-chest), with a retention count, failure notices to owners, and a restore drill that restores the latest backup into an empty deployment (`PORT-002`).
+*Acceptance:* a scheduled run writes a backup to a test bucket, a forced failure notifies owners, and the restore drill restores into an empty deployment where links resolve to the same records.
+*Status:* partial. Complete manual export and restore ship (`docs/BACKUP.md`, `tests/portability/roundtrip.test.mjs`); scheduling and external destinations do not.
+
+### Integrations
+
+#### EMBED-001 — Live issue embeds from Vector and Jira.
+Pasting a [Vector](https://github.com/just-every/run-vector) or Jira issue URL, or a Vector or JQL query, renders a live card or table showing status, assignee, priority and sprint, refreshed on open and every 5 minutes. Each reader sees issue details only through their own linked account. A reader without a linked account sees "Connect to view", never the details Slate fetched for someone else. Selecting text offers "Create issue", which files the issue under the member's account and links it back to the page.
+*Acceptance:* a browser journey with recorded Jira and Vector API fixtures renders a card and a query table, refreshes a changed status, creates an issue from selected text with a backlink, and shows "Connect to view" to an unlinked member. Provider acceptance repeats this against a real Jira Cloud site.
+*Status:* missing.
+
+#### EMBED-002 — GitHub and GitLab embeds.
+Pull request, issue, commit and release links render live cards with their state and checks. A file-range permalink renders the code pinned to its commit, with a notice when the default branch has changed those lines since. Reader access follows `EMBED-001`'s per-member rule.
+*Acceptance:* a browser journey with recorded GitHub and GitLab fixtures renders a PR card, a pinned code range with a "changed since" notice after the fixture's branch moves, and the unlinked-member state.
+*Status:* missing. A GitHub source connector exists for flagship source memory (`src/core/features/connectors/github.ts`), but it renders no embeds.
+
+#### EMBED-003 — Design, video and document embeds.
+Allowlisted embeds render inline through oEmbed or provider iframes: Figma, Miro, Lucid, Loom, YouTube, Vimeo, Google Docs, Sheets and Slides, and Microsoft 365 files. Each sets a sandbox and a content security policy per provider, loads nothing before the reader interacts on a published page (`BASE-PUBLIC-001`), and falls back to a link card (`BLOCK-009`) when the provider refuses.
+*Acceptance:* a browser journey embeds one item per provider using recorded fixtures, checks the sandbox and CSP attributes, and confirms that a published page loads no third-party request before a click.
+*Status:* partial. Safe link cards ship (`BLOCK-009`, `tests/flagship/content/preview.test.ts`); provider iframe embeds do not.
+
+#### EMBED-004 — Live file cards from Drive, SharePoint and Chest.
+A file picker inserts Google Drive, SharePoint/OneDrive or [Chest](https://github.com/just-every/run-chest) files by reference. Each card shows the file's current title, owner, last modified time and type, and whether the reader can open it. Slate never copies the file unless the member chooses "attach a copy" (`BLOCK-008`).
+*Acceptance:* a browser journey with recorded provider fixtures inserts one file from each source, sees a renamed file's new title after refresh, and sees "request access" for a reader without access.
+*Status:* missing.
+
+#### CHAT-001 — Chat notifications to Slack, Microsoft Teams and Nook.
+Workspace and container owners connect any number of channels in Slack, Microsoft Teams or [Nook](https://github.com/just-every/run-nook), each with its own event selection: published or updated pages, new comments, blog posts, review requests and lapsed verifications in the container. `NOTIF-003`'s guarantees apply to every destination: link-only messages, access-checked links, encrypted credentials, delivery and failure state, transient-only retry, and stopping on disconnect.
+*Acceptance:* a Workers journey with provider fakes at the network edge connects one channel per provider, fires each event kind and finds exactly one link-only message per destination. Disconnecting one destination stops only that destination. Provider acceptance repeats this with real Slack and Teams workspaces.
+*Status:* partial. One Slack destination ships (`src/core/features/notifications/slack.ts`, `src/core/features/notifications/chat-config.ts`); Teams, Nook and multiple destinations do not.
+
+#### CHAT-002 — Ask and unfurl in chat.
+In Slack, Teams and Nook:
+
+- a Slate page link unfurls with its title, status and verification, owner and last update, but only when the unfurling user's linked Slate identity can read the page; otherwise it shows "Restricted Slate page";
+- `/slate` or a mention asks a question and gets a cited answer (`ANSWER-001`) computed for the asker alone, posted only to the asker when the channel's audience is broader than the sources' readers.
+
+*Acceptance:* a Workers journey with chat provider fakes unfurls a readable and a restricted link for two linked users. An in-channel question citing a restricted page is answered privately to the asker, and an unlinked user is asked to link their account first. Provider acceptance repeats this in a real Slack workspace.
+*Status:* missing. A Slack source connector exists behind the flagship profile (`src/core/features/connectors/slack.ts`); there is no unfurl or ask app.
+
+#### CHAT-003 — Capture chat into pages.
+A message shortcut in Slack, Teams or Nook creates a Slate page or card, or appends to an existing one, from a message or thread. It quotes the messages with their authors and a link back to the thread, and opens as a draft for the member to edit. When the same question recurs in a channel, Slate suggests to the member who answered that their answer become a card.
+*Acceptance:* a Workers journey with chat provider fakes captures a five-message thread into a new page with attributed quotes and a source link, and appends a second thread to the same page.
+*Status:* missing.
+
+#### CONNECT-001 — Named connectors.
+Slate connects to Google Drive, SharePoint/OneDrive, Confluence Cloud, Notion, Slack, Microsoft Teams, [Nook](https://github.com/just-every/run-nook), Jira, [Vector](https://github.com/just-every/run-vector), GitHub, GitLab, Salesforce, Zendesk, [HappyToHelp](https://github.com/just-every/run-happytohelp) and [Chest](https://github.com/just-every/run-chest), and to a member's own Gmail or Outlook mailbox when that member opts in. Each connector meets `SOURCE-001`: it declares its scopes, identity mapping, discovery coverage, an incremental sync target of 15 minutes, deletion and revocation propagation within 1 hour, and retention. Each is turned on per workspace by an owner.
+*Acceptance:* each connector has a Workers journey against a recorded provider fixture covering first sync, an incremental change, a deletion and a revoked user, and provider acceptance against a real authorized account for at least Drive, SharePoint, Slack, Teams, Jira and GitHub.
+*Status:* partial. Slack, Google Drive and GitHub connector code exists behind the flagship profile (`src/core/features/connectors/slack.ts`, `src/core/features/connectors/google-drive.ts`, `src/core/features/connectors/github.ts`); the other connectors do not exist.
+
+#### CONNECT-002 — Source permissions are mirrored.
+Every connected item carries its source ACL, refreshed with the item. A member sees a connected item in search, answers, embeds or agent work only when their mapped source identity can read it now. An unmapped or ambiguous identity sees nothing from that source, a source ACL that fails to refresh fails closed, and a revocation in the source removes the item from that member's results within the connector's propagation target.
+*Acceptance:* a Workers journey with provider fakes runs a matrix of three members against items shared to a user, a group, a domain and nobody, revokes one share in the source, and asserts results before and after propagation, including that answers stop citing the revoked item.
+*Status:* partial. Connector authority mapping and disclosure tests exist behind the flagship profile (`src/core/features/connectors/authority.ts`, `tests/flagship/release-clauses/federation/connector-disclosure.test.ts`).
+
+#### CONNECT-003 — Connector health.
+Owners see per connector: last sync, lag, items indexed and excluded with reasons, errors, identity-mapping coverage, and the next scheduled run. An owner can pause a connector, re-sync it, or disconnect and purge it, which removes its indexed content and derived answers within 1 hour (`SOURCE-005`, `SOURCE-006`).
+*Acceptance:* a browser journey shows a lagging connector's health, pauses and resumes it, and purges it, after which a search finds none of its items and an answer that cited them is marked invalidated.
+*Status:* partial. Connector service state exists behind the flagship profile (`src/core/features/connectors/service.ts`); there is no owner health surface.
+
+### Answers
+
+#### ANSWER-001 — Cited answers in the default product.
+Once an owner configures a provider and turns AI on (`AI-001`), every member gets Ask: a box above search results and a side panel on any page. It answers from pages, records, comments and connected items the asker can read, with inline citations that open the exact revision (`AI-004`, `REV-005`). It keeps the conversation and offers follow-ups. This needs no `SLATE_PROFILE=flagship` opt-in, and every `AI-*` guarantee applies.
+*Acceptance:* in the default profile with AI on and a provider fake at the network edge, a browser journey asks a question in search and in a page panel and gets an answer whose every citation opens its exact revision. With AI off, Ask is absent and search is unchanged (`SEARCH-008`).
+*Status:* partial. Workspace answers exist behind the flagship profile (`src/core/features/ai/integration.ts`, `tests/qualification/inquiry/inquiry-mechanics.test.ts`) and are refused in the default profile (`src/core/platform/config/launch-profile.ts`).
+
+#### ANSWER-002 — Answers state their trust.
+Each answer shows, for every cited source, its verification state, owner and last update. It flags disagreement between sources, separates what the sources state from what the model inferred, and gives its uncertainty in words. When the only evidence is lapsed or conflicting, it says so and names the owner to ask, with a one-click review request (`STAT-006`). It prefers current verified sources (`SEARCH-011`).
+*Acceptance:* a Workers journey with a provider fake asks over a corpus with a verified, a lapsed and a conflicting page, and asserts that the response's structured fields mark each citation's state, the conflict and the named owner, and that the review request is created once.
+*Status:* partial. Citation provenance exists behind the flagship profile (`tests/flagship/intelligence/authority.test.ts`); verification state, conflict flags and uncertainty statements do not.
+
+#### ANSWER-003 — Answers never leak restricted knowledge.
+No answer, citation, follow-up suggestion, "no answer" wording, latency pattern, cache entry, embedding neighbour or count reveals a page, record, comment or connected item the asker cannot read. Caches and embeddings are keyed to the access state they were computed under and invalidated when it changes (`AI-013`).
+*Acceptance:* an adversarial Workers suite asks 50 probing questions as a member without access to a seeded secret page, including paraphrases, title guesses, "does a page exist" questions and prompt injection inside readable pages. It asserts no secret token, title or count appears and that "no answer" responses are identical with and without the secret page present. The suite then revokes a grant and repeats.
+*Status:* partial. Audience and disclosure regressions exist behind the flagship profile (`tests/qualification/authority/skill-disclosure.test.ts`, `tests/qualification/authority/snapshot.test.ts`); there is no adversarial no-leak suite over the default Ask surface.
+
+#### ANSWER-004 — Feedback and unanswered questions.
+Members rate answers as helpful or not helpful and can report a wrong answer with a note. Unanswered and low-rated questions are logged with their timestamps but without the asker's identity, unless the asker chooses to follow up. They are clustered weekly into a report for container owners showing frequency, the sources tried and suggested experts. This report feeds `KEEP-003`.
+*Acceptance:* a Workers journey records 30 questions with ratings, runs clustering, and asserts the report's clusters, counts and anonymity, and that a "wrong answer" report notifies the cited page's owner once.
+*Status:* missing.
+
+#### ANSWER-005 — Summaries and catch-up.
+A member can summarize a page, a comment thread, the changes to a page since their last visit, or a container's week. Each summary cites exact revisions and can be posted to chat (`CHAT-001`) or inserted under `AI-016`.
+*Acceptance:* a Workers journey with a provider fake summarizes "changes since last visit" for a member and finds that the summary cites exactly the revisions after that member's last view.
+*Status:* partial. Page and diff summaries exist behind the flagship profile (`src/core/features/ai/routes.ts`); "since last visit" and container summaries do not.
+
+#### ANSWER-006 — Owner-chosen models and data controls.
+The owner picks the provider (Anthropic, OpenAI, Azure OpenAI, Amazon Bedrock, Google Vertex AI or a local model), sets a monthly budget in USD (`AI-012`), and can exclude containers or labels from AI entirely. Excluded content is never sent to a provider or embedded. Settings show what each provider retains under the owner's agreement with it.
+*Acceptance:* a Workers journey configures two providers with fakes at the network edge, excludes a container and asserts that no request body ever contains its content, and stops at the USD budget with a visible reason.
+*Status:* partial. Provider configuration, routing and durable budgets exist behind the flagship profile (`src/core/features/ai/integration.ts`, `tests/flagship/intelligence/reservation-prerequisites.test.ts`); container and label exclusion do not.
+
+### Platform
+
+#### API-001 — Public REST API.
+A versioned `/api/v1` covers pages, blocks, databases, records, comments, search, members, groups and files, described by a published OpenAPI document. It uses cursor pagination, operation keys (`SAVE-005`), declared rate limits and a stable error shape. Authentication is a personal access token or an OAuth 2.0 app with scopes (read or write, per container). Every call acts as exactly one member and passes the same checks as the UI (`SHARE-002`, `LIFE-002`, `SEARCH-005`).
+*Acceptance:* a contract suite generated from the OpenAPI document runs every operation over HTTP with a token for each of two members, asserting the schemas and that every access difference matches the UI's. Expired, revoked and under-scoped tokens are refused.
+*Status:* partial. The app uses internal JSON routes under `/api` (`src/core/features/pages/routes.ts`); there are no tokens, versioning or published specification.
+
+#### API-002 — Webhooks.
+Owners and OAuth apps subscribe to page, record, comment, status, verification and member events by container. Deliveries are HMAC-signed with a timestamp, retried with backoff for 24 hours, logged with their responses, replayable, and disabled with a notice after repeated failure. Payloads carry IDs and titles only when the subscription's acting member can read the record.
+*Acceptance:* a Workers journey subscribes a test endpoint, produces events, verifies the signatures, forces failures and sees the backoff and the disable notice, replays one delivery, and confirms that a record the subscriber cannot read produces no payload.
+*Status:* missing.
+
+#### API-003 — MCP server.
+A remote MCP endpoint (Streamable HTTP with OAuth 2.1) exposes search, fetch page with citations, list and query databases, ask (`ANSWER-001`), comment, and create or update a page. Claude, ChatGPT, Cursor and other MCP clients can use it. Every tool acts as the signed-in member. Write tools create suggestions (`SUG-001`) unless the member has granted direct writes to that client for named containers (`AI-011`), and page text returned to the client is marked as untrusted content.
+*Acceptance:* an MCP client conformance run lists the tools, calls each one as two members and asserts access parity with the UI, confirms that a write without a grant becomes a suggestion, and confirms that revoking the client ends its session at once.
+*Status:* partial. An external-agent MCP route with semantic parity exists behind the flagship profile (`src/core/features/external-agent/routes.ts`, `tests/qualification/inquiry/transport-parity.test.ts`); public OAuth client registration does not.
+
+#### API-004 — App and token administration.
+Owners see every personal access token, OAuth app, MCP client and webhook, with its member, scopes, creation time and last use, and can revoke any of them. Members see and revoke their own. Tokens expire after a default of 90 days. Revocation takes effect on the next request, and every grant and revocation is recorded in activity.
+*Acceptance:* a browser journey creates a token and an OAuth app, sees both with last use after an API call, revokes each and gets 401 on the next request, and finds the activity entries.
+*Status:* missing.
+
+#### ADMIN-001 — SAML single sign-on.
+Slate is a SAML 2.0 service provider for Okta, Microsoft Entra ID, Google Workspace, JumpCloud and [Auth](https://github.com/just-every/run-auth). It supports both SP- and IdP-initiated sign-in, signed assertions, a verified email domain and just-in-time creation of invited or allow-listed members. When an owner enforces SSO, members sign in only through the provider, guests keep magic links, and one designated owner keeps a magic-link break-glass path. The OIDC provider (`WORK-015`) stays available.
+*Acceptance:* a browser journey against a SAML test IdP signs in through SP and IdP flows, rejects an unsigned assertion and one with the wrong audience, enforces SSO for a member while a guest uses a magic link, and confirms break-glass access for the designated owner. Provider acceptance repeats this with real Okta and Entra tenants.
+*Status:* partial. An OIDC identity provider with pinned endpoints ships (`src/core/features/session/native/`, `tests/flagship/core/identity-upgrade.test.ts`); SAML does not.
+
+#### ADMIN-002 — SCIM provisioning.
+A SCIM 2.0 endpoint provisions users and groups from Okta, Entra ID, JumpCloud and Auth. Create invites the member. Update changes the name, email and groups (`WORK-009`). Deactivate runs `WORK-007` removal within 60 seconds, revoking sessions, tokens and devices. The bearer token is owner-generated, rotatable and stored hashed.
+*Acceptance:* a SCIM compliance run (Okta's SCIM test suite shape) creates, updates, pushes groups to and deactivates users, and asserts the resulting members, groups, revoked sessions and activity entries.
+*Status:* missing.
+
+#### ADMIN-003 — Guest management.
+Owners list every guest with what they can access, who invited them, when they were last active, and their expiry. They can set a default guest expiry, keep allow and deny lists of email domains, and revoke guests in bulk. A guest's access never outlives their expiry (`SHARE-008`).
+*Acceptance:* a browser journey lists three guests with their access, bulk-revokes two (their open sessions end under `SHARE-007`), and rejects an invite to a denied domain.
+*Status:* partial. Guest invitations and page- and container-scoped guest grants ship (`src/core/features/workspace/invitations.ts`, `tests/qualification/policies/invitations.test.ts`); there is no guest console, domain list or default expiry.
+
+#### ADMIN-004 — Workspace analytics.
+Owners and container owners get reports on views and unique viewers (`PAGE-013`), stale pages (unedited and unverified for a chosen period), pages without an owner, lapsed verifications by owner, most-viewed unverified pages, searches with no results, and container growth. Reports export as CSV. They never show an individual's reading history beyond what `PAGE-013` already shows on a page.
+*Acceptance:* a Workers journey over a seeded workspace asserts each report's rows, the CSV export, and that a container owner sees only their own container's figures.
+*Status:* partial. Page and container view analytics exist (`src/core/features/analytics/`); the admin reports do not.
+
+#### ADMIN-005 — Audit export and SIEM streaming.
+Owners filter the workspace audit trail (`ACT-*`, including sign-ins, permission and sharing changes, exports, token use and admin settings) and export it as CSV or JSON. They can stream it to Splunk, Datadog or Microsoft Sentinel through a signed webhook (`API-002`), with a retention setting no shorter than one year.
+*Acceptance:* a Workers journey produces each audited action kind, exports it and finds every action with its actor, time and target, and streams it to a test receiver with valid signatures and no gaps after a receiver outage.
+*Status:* partial. A durable activity timeline with audit coverage ships (`src/core/features/activity/service.ts`, `tests/qualification/core/audit-content.test.ts`); export of admin actions and streaming do not.
+
+#### ADMIN-006 — Content governance.
+Owners decide who may create containers, publish publicly, invite guests, export and use AI. A container may carry a classification label, such as Confidential, that by default forbids public links and AI for its pages, and only a workspace owner can lift those defaults. Every governance change is recorded in activity.
+*Acceptance:* a browser journey restricts public publishing to owners, labels a container Confidential, and confirms that a member's publish attempt, an AI request over a confidential page and an export by a non-permitted member are each refused with a reason.
+*Status:* partial. Container external-access switches ship (`CONT-007`, `tests/qualification/policies/access-publication.test.ts`); role-scoped governance and classification labels do not.
+
+#### MOBILE-001 — Native iOS and Android apps.
+App Store and Google Play apps let a member sign in (magic link, OIDC or SAML), read, search, ask, edit pages and blocks, comment, use the inbox, verify, and take photos straight into pages. They support share-sheet capture into Slate, deep links that open slate URLs in the app, and an optional biometric lock. They use the same API as the web (`API-001`) and the same access rules.
+*Acceptance:* automated device-farm journeys on current iOS and Android sign in, edit and comment on a page, verify it, receive a mention push, and open a deep link. App Store and Play review builds are recorded with the release evidence.
+*Status:* missing. Only the responsive web client exists (`NAV-006`, `tests/qualification/interface/routed.browser.mjs`).
+
+#### MOBILE-002 — Desktop app.
+A macOS and Windows desktop app opens Slate links natively, keeps several windows, supports offline pages (`MOBILE-003`) and system notifications, and updates itself through signed releases.
+*Acceptance:* automated journeys on macOS and Windows open a deep link, edit offline and sync, and receive a system notification. The signed installers are recorded with the release evidence.
+*Status:* missing.
+
+#### MOBILE-003 — Offline pages.
+A member marks pages or containers as available offline on a device. Those pages, with their media and comments, stay readable and editable without a connection and merge on reconnect (`COLLAB-003`). A revoked grant, a removed member or a remote sign-out erases the offline copies at the next connection, and an owner can require that sessions on lost devices be signed out remotely.
+*Acceptance:* a device journey marks a container offline, edits in airplane mode and merges on reconnect, then has its access revoked and finds the offline copy erased on the next connection.
+*Status:* partial. Browser-side offline detection and draft recovery exist (`src/core/features/editor/ui/SaveStatus.tsx`, `tests/qualification/offline-refresh/transport.test.ts`); chosen offline pages do not.
+
+#### MOBILE-004 — Push notifications.
+Mentions, replies, review requests, reminders and lapsed verifications can be pushed to a member's devices through APNs and FCM according to `NOTIF-005` preferences. A push payload carries the event and the page title only, and access is rechecked at send.
+*Acceptance:* a Workers journey with APNs and FCM fakes at the network edge sends exactly one push per eligible event, none for a page whose access was revoked before send, and payloads with no body text.
+*Status:* missing.
+
+## Push further
+
+Agents keep the knowledge true, not just stored. Each clause names what the agent does, on which data, and under what human control. Every agent action runs under `AI-002` to `AI-014`: it is cited, budgeted and audience-bound, and it never verifies, publishes or changes access on its own authority.
+
+### Agents that maintain knowledge
+
+#### KEEP-001 — Contradiction watch.
+*What the agent does:* watches authoritative change and checks which pages it contradicts. Authoritative change means merged pull requests and releases (GitHub, GitLab), resolved issues (Vector, Jira), revised policy and decision pages (`DEC-*`), changed connected documents, and newly verified pages. The agent maps each change to the specific statements in dependent pages, cards and recent answers. Where a statement is now contradicted, it places a "possibly outdated" flag on the exact block revision, citing the change, the evidence and its confidence.
+*Data:* page revisions the agent's declared audience may read, connector events (`CONNECT-*`) and decisions.
+*Human control:* flags are read-only. They notify the page owner once, in a coalesced notice, and appear to editors and in answers (`ANSWER-002`). An owner dismisses a flag with a reason, which suppresses identical future flags. The agent never edits.
+*Acceptance:* a Workers journey with a provider fake merges a fixture pull request that renames a configuration flag. Exactly the two dependent blocks are flagged, with citations to the pull request, and the unrelated page that mentions the old name only historically is not flagged. Dismissing a flag suppresses its re-flag. Precision and recall on a held-out set of 100 labelled change and page pairs are recorded under `FLAG-003`.
+*Status:* partial. Impact and claim tracing exist behind the flagship profile (`src/core/features/impact/routes.ts`, `src/core/features/claims/service.ts`); connector-event contradiction detection does not.
+
+#### KEEP-002 — Revision-specific fix proposals.
+*What the agent does:* for each flag, drafts a suggestion (`SUG-001`) against the exact block revision. The suggestion carries a diff, the sources, the readers who will see the change, and the answers and runbooks it affects, and is routed to the page owner.
+*Data:* the flagged page revision, the cited change and the pages that depend on it.
+*Human control:* nothing changes until the owner accepts (`SUG-002`). The exception is a change within a named routine update class that the owner granted in advance (`AI-011`), such as renaming a configuration key across pages. Such a change commits as an attributed revision that `REV-003` can roll back in one action. Verification never carries over: an edited verified page shows that its verified revision is not current (`STAT-003`).
+*Acceptance:* a browser journey in which the owner receives a fix suggestion, inspects the diff and sources, and accepts it, producing one revision. A second case applies a granted rename across three pages and rolls one back. A suggestion whose anchor changed in the meantime requires a rebase and never applies silently.
+*Status:* partial. Anchored suggestions and granted maintenance exist behind the flagship profile (`src/core/features/suggestions/routes.ts`, `tests/flagship/release-clauses/suggestions/anchors.test.ts`); proposals generated from flags do not.
+
+#### KEEP-003 — Close knowledge gaps as work.
+*What the agent does:* takes clusters of unanswered questions and low-rated answers (`ANSWER-004`) and repeated questions in chat (`CHAT-003`), finds the best expert (page owners, frequent editors, verifiers and `WORK-016` expertise), and sends that expert a short evidence request with the question, what was found and what is missing. From the expert's reply it drafts a card or page, and after the expert verifies it, re-asks the original questions to confirm they now retrieve it.
+*Data:* questions without asker identity, expertise signals and the expert's reply.
+*Human control:* the expert decides whether the draft is correct and sets its verification expiry. The agent cannot verify its own draft, and the draft is visible only to its eventual audience.
+*Acceptance:* a Workers journey with a provider fake clusters seeded unanswered questions and sends one evidence request to the right expert. The expert's reply produces a draft, the expert verifies it, and re-asking the cluster's questions returns the new card as a top citation. The gap report then shows the cluster closed.
+*Status:* missing.
+
+#### KEEP-004 — Duplicates and conflicts.
+*What the agent does:* finds near-duplicate pages and statements that conflict across pages, and proposes a merge (one canonical page, with the others redirecting through `LINK-003` tombstone links) or a reconciliation for the owners to choose.
+*Data:* page revisions within one audience; it never compares across an access boundary for a reader who lacks either side.
+*Human control:* owners of both pages must accept a merge, which is reversible through restore.
+*Acceptance:* a Workers journey over a seeded corpus with two duplicates and one conflict proposes exactly one merge and one reconciliation. Accepting the merge leaves the old URL resolving to the canonical page, and search collapses the pair (`SEARCH-011`).
+*Status:* partial. Claim conflict and unknown states exist behind the flagship profile (`src/core/features/claims/service.ts`); duplicate detection and merge proposals do not.
+
+#### KEEP-005 — Answers with current evidence and stated uncertainty.
+*What the agent does:* before answering, checks each candidate source's verification, lapse, open flags (`KEEP-001`) and the freshness of connected sources. It answers with what is verified, what is inferred and what is uncertain, gives the date each fact was last confirmed, and names the owner to ask when the evidence is stale.
+*Data:* the asker's readable pages and connected items.
+*Human control:* "Ask the owner" creates a review request (`STAT-006`) only when the asker clicks it.
+*Acceptance:* a Workers journey asks about a fact whose only page carries an open outdated flag. The answer states the flag and names the owner, and clicking "Ask the owner" creates exactly one review request.
+*Status:* partial. Cited answers exist behind the flagship profile (`tests/flagship/intelligence/authority.test.ts`); flag-aware uncertainty does not.
+
+#### KEEP-006 — Checked runbooks.
+*What the agent does:* converts a procedure page into steps. On a schedule or on demand, it dry-runs them against current tool schemas and owner-approved test accounts (read-only calls to GitHub, Vector, Jira or connected admin APIs), and checks links, screenshots against the current UI where possible, and command syntax. It reports each broken step on the exact block.
+*Data:* the runbook page, tool schemas and responses from test accounts.
+*Human control:* runs are read-only by default. Any effect requires an exact grant for an isolated test resource (`EFFECT-001`, `AI-011`). The agent stops on ambiguity and never touches production without owner approval for that run.
+*Acceptance:* a Workers journey with recorded tool fixtures dry-runs a runbook whose third step references a removed API field, flags exactly that step with the schema evidence, and makes no write call.
+*Status:* partial. Versioned skills and bounded runs exist behind the flagship profile (`src/core/features/skills/routes.ts`, `src/core/features/runs/routes.ts`); runbook dry-runs do not.
+
+#### KEEP-007 — Onboarding paths.
+*What the agent does:* for a new member, assembles a reading path for their group or role from current verified pages (`CARD-003` can make it required). It asks short comprehension questions, answers follow-ups with citations, and routes confusion ("this step no longer matches") to the page owner as a flag.
+*Data:* verified pages readable by the new member and their questions.
+*Human control:* the member controls whether their progress is shared. Their manager sees only the progress they agree to share, and nothing is inferred about performance. Formal courses and certifications belong to [Beam](https://github.com/just-every/run-beam).
+*Acceptance:* a browser journey assigns a path to a new member, who answers questions and reports one confusing step. That step becomes a flag for its owner, and the manager's view shows only the shared completion.
+*Status:* missing.
+
+#### KEEP-008 — Stale-knowledge sweeps.
+*What the agent does:* once a week, prepares each owner one digest of their lapsed verifications, open flags, ownerless pages in their containers and pages nobody has opened in 180 days. Each item comes with a prepared action: re-verify (which opens the revision), accept a fix, reassign, or archive.
+*Data:* status, analytics (`PAGE-013`), flags and ownership.
+*Human control:* every action is the owner's own click. The sweep never verifies, archives or reassigns by itself.
+*Acceptance:* a Workers journey advances a week over a seeded workspace and delivers exactly one digest per owner with the expected items. Acting on two items applies the actions and leaves no duplicate notices.
+*Status:* partial. Lapse notices to owners ship (`src/core/features/notifications/events.ts`, `tests/qualification/policies/status-archive.test.ts`); prepared weekly sweeps do not.
+
+#### KEEP-009 — Measured knowledge health.
+*What the agent does:* maintains a workspace knowledge-health report: the share of views landing on current verified pages, the median time from flag to fix, the flag false-positive rate from dismissals, and answer accuracy on an owner-curated held-out question set re-run monthly.
+*Data:* analytics, flags and answer runs.
+*Human control:* owners curate the question set and its expected answers, and the report never ranks individual people.
+*Acceptance:* a Workers journey seeds a month of events and checks every report figure against hand-computed values. A held-out re-run records its accuracy and cost under `FLAG-003`'s rules.
+*Status:* partial. Quality and instrumentation regressions exist (`tests/qualification/core/quality.test.ts`, `tests/qualification/core/instrumentation.test.ts`); there is no knowledge-health report.
+
+## Honest boundaries
+
+Slate is a US-first owned wiki. These are the jobs it deliberately does not do, and how a buyer gets each one done.
+
+- **Office documents, spreadsheets and slides.** Slate is not a full office suite. Google Workspace or Microsoft 365 files are embedded and linked (`EMBED-003`, `EMBED-004`) and kept in [Chest](https://github.com/just-every/run-chest), Drive or SharePoint, while Slate pages stay the place knowledge is written and co-edited.
+- **Whiteboards and diagramming suites.** Slate is not a whiteboard. Figma, Miro and Lucid boards are embedded (`EMBED-003`); diagrams as code are native (`BLOCK-013`).
+- **Video recording.** Slate does not record video. Loom and YouTube recordings are embedded (`EMBED-003`).
+- **Issue tracking, sprints and project portfolios.** These belong to [Vector](https://github.com/just-every/run-vector) or Jira, embedded and connected (`EMBED-001`, `AUTO-007`). Databases can hold a light tracker. Cross-functional project management (Asana, monday.com) is a category no Run Edit Run product owns today.
+- **Chat.** Slack, Microsoft Teams and [Nook](https://github.com/just-every/run-nook) are connected (`CHAT-*`).
+- **Large relational databases and internal apps.** These belong to [Cradle](https://github.com/just-every/run-cradle). Slate databases stay within `seed.json → limits`, and beyond them the buyer links a Cradle base.
+- **Formal training and compliance certifications.** These belong to [Beam](https://github.com/just-every/run-beam) and [Evidence](https://github.com/just-every/run-evidence). Slate provides reading paths and acknowledgements (`KEEP-007`, `CARD-003`).
+- **A customer-facing help centre and ticket deflection.** These belong to [HappyToHelp](https://github.com/just-every/run-happytohelp), which can cite Slate pages and cards. Slate publishes pages (`WEB-*`), not a support portal.
+- **Identity provider.** Slate is a SAML and OIDC relying party and a SCIM client (`ADMIN-001`, `ADMIN-002`). The directory itself is Okta, Entra ID or [Auth](https://github.com/just-every/run-auth).
+- **Freshness and access beyond what a source's API exposes.** Connectors mirror documented ACLs and deletions and show their lag (`CONNECT-002`, `CONNECT-003`). Slate promises nothing beyond what a source's API exposes, and a working credential is never treated as permission to disclose.
+- **Hosting frontier models or unbounded compute.** Inference runs at the owner's chosen provider under owner budgets (`ANSWER-006`, `AI-012`). Long jobs run as bounded durable stages within Cloudflare Workers limits.
+- **Regulated records management.** Legal hold, records retention schedules, HIPAA and FedRAMP programmes are not promised by ordinary wiki security. Buyers keep regulated records in an approved records system and connect scoped knowledge. SOC 2 evidence collection belongs to [Evidence](https://github.com/just-every/run-evidence).
+- **Hosting region, currency and language.** Slate is US-first: it is deployed to the buyer's Cloudflare account, budgets are in USD and the interface is in US English. EU data-residency guarantees and localized interfaces are not claimed.
+- **Native app distribution.** This needs the buyer's or Run Edit Run's Apple and Google developer accounts. That is engineering and release work (`MOBILE-001`, `MOBILE-002`), not a reason to drop the apps.
+
 ## Out of scope
 
-Commercial plan ladders, subscription trials/credits, seat counting and upgrade gates; vendor suite chrome; a commercial marketplace/storefront; deep coupling to one issue tracker; a bundled screen recorder; multiple workspaces per deployment; and native mobile binaries remain non-goals. Bounded product experiments are not subscription trials. Optional real co-editing, evaluated formulas/rollups, suggested edits and scoped agent budgets are now in scope.
+The following remain non-goals:
 
-Whiteboards and other contributed tree nodes/folders, blogs, container calendars/landing pages, company hubs/team profiles, meeting-note specializations, cross-container assignments, container label filtering and page locking remain future extensions; existing page/comment/activity requirements are not waived. The accepted flagship adds no new policy profile and preserves all eight profiles and every value unchanged.
+- commercial plan ladders, subscription trials and credits, seat counting and upgrade gates;
+- vendor suite chrome;
+- a commercial marketplace or storefront;
+- coupling to a single issue tracker (Vector and Jira connect through the same embed and automation clauses);
+- a bundled screen recorder;
+- multiple workspaces per deployment.
+
+Bounded product experiments are not subscription trials. Live co-editing, evaluated formulas and rollups, suggested edits, scoped agent budgets, native apps (`MOBILE-*`), page locks (`PAGE-015`), label filtering (`SEARCH-010`), space blogs (`CONT-010`) and a company hub (`CONT-011`) are in scope.
+
+Some incumbent features are met another way:
+
+- native whiteboards by embeds (`EMBED-003`) and diagrams as code (`BLOCK-013`);
+- container calendars by database calendar views (`DB-004`);
+- meeting-note specializations by templates (`TMPL-*`);
+- team profiles by the people directory (`WORK-016`).
+
+Contributed tree node kinds beyond pages, databases, cards and posts, and cross-container assignments, remain future extensions; existing page, comment and activity requirements are not waived. The target adds no new policy profile and preserves all eight profiles and every value unchanged. [Honest boundaries](#honest-boundaries) lists what Slate connects to instead of building.
 
 ## Retired clause IDs
 
@@ -564,3 +1109,312 @@ roles) is retired because this family has access levels, groups and guests.
 pages to the anonymous web under `WEB-001`. `WORK-005` (the planning overview) is
 retired in favour of `NAV-001`. `SAVE-007` (one long-text format) is retired in
 favour of `BLOCK-001` and `BLOCK-002`.
+
+## Status
+
+Judged from the code and tests at commit `8956e45` (16 October 2026); see [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance.
+
+| Clauses | Done | Partial | Missing | Total |
+| --- | ---: | ---: | ---: | ---: |
+| Published | 160 | 61 | 0 | 221 |
+| Target and push further | 0 | 43 | 32 | 75 |
+| All | 160 | 104 | 32 | 296 |
+
+| Clause | Title | Kind | Status | Evidence | Gap |
+| --- | --- | --- | --- | --- | --- |
+| `HOME-001` | Public landing | published | done | `tests/e2e/landing-styles.test.mjs` |  |
+| `DOCS-001` | Public documentation | published | done | `tests/e2e/docs.test.ts` |  |
+| `WORK-001` | One workspace | published | done | `tests/qualification/backend/workspace-lifecycle.test.ts` |  |
+| `WORK-003` | Member management | published | done | `tests/qualification/backend/workspace-lifecycle.test.ts` |  |
+| `WORK-006` | Invitations | published | done | `tests/e2e/local-outbox.node.test.mts` |  |
+| `WORK-007` | Removal | published | done | `tests/qualification/core/identity.mjs` |  |
+| `WORK-008` | Roles | published | done | `tests/qualification/core/identity.mjs` |  |
+| `WORK-009` | Groups | published | done | `tests/qualification/core/identity.mjs` |  |
+| `WORK-010` | Guests | published | done | `tests/qualification/core/identity.mjs` |  |
+| `WORK-011` | Workspace settings | published | done | `tests/qualification/core/identity.mjs` |  |
+| `WORK-012` | Theme | published | done | `tests/qualification/core/identity.mjs` |  |
+| `WORK-013` | First run | published | done | `tests/qualification/backend/emitted.mjs` |  |
+| `WORK-014` | Shortcut reference | published | done | `tests/qualification/core/shell.mjs` |  |
+| `WORK-015` | Identity provider | published | done | `tests/qualification/core/identity.mjs` |  |
+| `SAVE-001` | Durable save state | published | done | `tests/qualification/interface/routed.browser.mjs` |  |
+| `SAVE-002` | Failed writes | published | partial | `src/core/features/editor/ui/SaveStatus.tsx` | failed-write state in UI stories only |
+| `SAVE-003` | Revision conflicts | published | done | `tests/qualification/policies/comments-suggestions.test.ts` |  |
+| `SAVE-004` | Network loss | published | done | `tests/qualification/offline-refresh/transport.test.ts` |  |
+| `SAVE-005` | Operation keys | published | done | `tests/qualification/backend/request-access.test.ts` |  |
+| `SAVE-006` | Concurrent editing and optional co-editing | published | partial | `tests/qualification/ui-convergence/two-people-editing.mjs` | live co-editing only under the flagship opt-in; see COLLAB-001 |
+| `PAGE-001` | What a page is | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
+| `PAGE-002` | Creation | published | done | `tests/qualification/interface/content.mjs` |  |
+| `PAGE-003` | Identity survives everything | published | done | `tests/qualification/policies/container-links.test.ts` |  |
+| `PAGE-004` | Move | published | done | `tests/e2e/page-move-state.test.tsx` |  |
+| `PAGE-005` | Duplicate | published | done | `tests/flagship/content/http.test.ts` |  |
+| `PAGE-006` | Icon and cover | published | done | `tests/qualification/backend/appearance-invitations.test.ts` |  |
+| `PAGE-007` | Details | published | done | `tests/qualification/backend/emitted.mjs` |  |
+| `PAGE-008` | Favourite | published | done | `tests/qualification/backend/sharing-navigation.test.ts` |  |
+| `PAGE-009` | Watch | published | partial | `src/core/features/comments/service.ts` | watch code; no journey |
+| `PAGE-010` | Outline | published | partial | `src/core/features/pages/ui/PageOutline.tsx` | outline UI; no journey |
+| `PAGE-011` | Present | published | partial | `src/core/features/pages/ui/workspace/PagePresentation.tsx` | present mode UI; no journey |
+| `PAGE-012` | Page display options | published | partial | `src/core/features/pages/ui/workspace/PageDisplay.tsx` | display options UI; no journey |
+| `PAGE-013` | Analytics | published | partial | `src/core/features/analytics/` | analytics code; no requirement-level journey |
+| `PAGE-014` | Reactions | published | partial | `src/core/features/pages/ui/workspace/ReactionControls.tsx` | page reactions UI; no journey |
+| `TREE-001` | A nested tree in a container | published | done | `tests/qualification/tree-correction/regression.test.ts` |  |
+| `TREE-002` | Reordering and nesting | published | done | `tests/qualification/publication/preview.test.ts` |  |
+| `TREE-003` | Shared with me | published | partial | `src/core/app/ui/SpaceTrees.tsx` | shared-with-me UI; no journey |
+| `TREE-004` | Filter the tree | published | partial | `src/core/app/ui/PageTree.tsx` | tree filter UI; no journey |
+| `TREE-005` | Create in place | published | partial | `src/core/app/ui/NavigationCreate.tsx` | create-in-place UI; no journey |
+| `BLOCK-001` | A body of blocks | published | done | `tests/qualification/interface/routed.browser.mjs` |  |
+| `BLOCK-002` | Inline text | published | done | `tests/e2e/editor/editable-composition.test.mjs` |  |
+| `BLOCK-003` | The insert menu | published | done | `tests/qualification/interface/formatting.test.ts` |  |
+| `BLOCK-004` | Markdown shortcuts | published | done | `tests/qualification/interface/content.mjs` |  |
+| `BLOCK-005` | Mentions | published | done | `tests/e2e/editor/rich-text-editing.test.tsx` |  |
+| `BLOCK-006` | Structured blocks | published | done | `tests/qualification/interface/blocks.mjs` |  |
+| `BLOCK-007` | Task items | published | done | `tests/flagship/content/repair.test.ts` |  |
+| `BLOCK-008` | Media blocks | published | partial | `tests/qualification/policies/safety-history.test.ts` | upload and link media ship; configured stock source missing |
+| `BLOCK-009` | Link cards | published | done | `tests/flagship/content/preview.test.ts` |  |
+| `BLOCK-010` | Content queries | published | done | `tests/qualification/interface/blocks.mjs` |  |
+| `LIFE-001` | Lifecycle states | published | done | `tests/qualification/interface/publication.mjs` |  |
+| `LIFE-002` | A draft is private | published | done | `tests/qualification/inquiry/lifecycle.test.ts` |  |
+| `LIFE-003` | Publish | published | done | `tests/qualification/interface/publication.mjs` |  |
+| `LIFE-004` | Scheduled publish | published | done | `tests/qualification/interface/publication.mjs` |  |
+| `LIFE-005` | Unpublished changes | published | done | `tests/qualification/interface/publication.mjs` |  |
+| `LIFE-006` | Lifecycle profile | published | done | `tests/qualification/policies/emitted.mjs` |  |
+| `LIFE-007` | Discarding a draft | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
+| `SHARE-001` | Grants | published | done | `tests/qualification/backend/emitted.mjs` |  |
+| `SHARE-002` | What the levels mean | published | done | `tests/qualification/backend/request-access.test.ts` |  |
+| `SHARE-003` | Inheritance | published | done | `tests/qualification/backend/boundaries.test.ts` |  |
+| `SHARE-004` | General access | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
+| `SHARE-005` | Access profile | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
+| `SHARE-006` | Sharing with a person who is not a member | published | done | `tests/qualification/backend/appearance-invitations.test.ts` |  |
+| `SHARE-007` | Access changes take effect at once | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
+| `SHARE-008` | Expiring grants | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
+| `WEB-001` | Anonymous access takes two acts | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
+| `WEB-002` | What a published page carries | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
+| `WEB-003` | The anonymous read view | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
+| `WEB-004` | Children are not published by inheritance | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
+| `WEB-005` | Indexing is off until it is chosen | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
+| `WEB-006` | Unpublish | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
+| `WEB-007` | Public-link profile | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
+| `REV-001` | What a revision is | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
+| `REV-002` | History | published | done | `tests/qualification/policies/lifecycle-versions.test.ts` |  |
+| `REV-003` | Restore | published | done | `tests/qualification/policies/lifecycle-versions.test.ts` |  |
+| `REV-004` | Compare | published | done | `tests/e2e/review/verification-flow.test.ts` |  |
+| `REV-005` | A citation resolves to its revision | published | done | `tests/e2e/review/verification-flow.test.ts` |  |
+| `REV-006` | Deleting a version | published | done | `tests/qualification/policies/lifecycle-versions.test.ts` |  |
+| `REV-007` | Version profile | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
+| `STAT-001` | The status vocabulary | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
+| `STAT-002` | A page's status | published | done | `tests/qualification/policies/container-links.test.ts` |  |
+| `STAT-003` | Verification | published | done | `tests/e2e/review/verification-flow.test.ts` |  |
+| `STAT-004` | Verification lapses | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
+| `STAT-005` | Status profile | published | done | `tests/qualification/policies/emitted.mjs` |  |
+| `COMM-001` | Two kinds of thread | published | done | `tests/e2e/editor/rich-text-editing.test.tsx` |  |
+| `COMM-002` | Editing and deletion | published | done | `tests/qualification/policies/comments-suggestions.test.ts` |  |
+| `COMM-003` | Mentions | published | done | `tests/qualification/interface/content.mjs` |  |
+| `COMM-004` | Anchors survive editing | published | done | `tests/qualification/interface/content.mjs` |  |
+| `COMM-005` | Reactions | published | done | `tests/qualification/interface/content.mjs` |  |
+| `COMM-006` | Discussions panel | published | done | `tests/qualification/interface/content.mjs` |  |
+| `COMM-007` | Resolve | published | done | `tests/qualification/policies/comments-suggestions.test.ts` |  |
+| `ARCH-001` | Archive | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
+| `ARCH-002` | What archived means | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
+| `ARCH-003` | Restore from archive | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
+| `ARCH-004` | Archive is not deletion | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
+| `ARCH-005` | Trash | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
+| `ARCH-006` | Permanent deletion | published | done | `tests/qualification/erasure-metadata/append-metadata.test.ts` |  |
+| `CONT-001` | What a container is | published | done | `tests/qualification/policies/container-links.test.ts` |  |
+| `CONT-002` | Creating a container | published | done | `tests/qualification/policies/container-links.test.ts` |  |
+| `CONT-003` | The container index | published | done | `tests/qualification/policies/container-links.test.ts` |  |
+| `CONT-004` | Container settings | published | done | `tests/qualification/policies/container-links.test.ts` |  |
+| `CONT-005` | Personal containers | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
+| `CONT-006` | Bulk actions | published | done | `tests/qualification/policies/container-links.test.ts` |  |
+| `CONT-007` | External-access switches | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
+| `CONT-008` | Container access profile | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
+| `CONT-009` | Container grants | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
+| `DB-001` | A database | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
+| `DB-002` | Field types and evaluation | published | done | `tests/e2e/databases/field-editing.test.tsx` |  |
+| `DB-003` | Views | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
+| `DB-004` | Layouts | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
+| `DB-005` | Filter and sort | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
+| `DB-006` | Group | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
+| `DB-007` | Calculations | published | done | `tests/qualification/policies/fields.test.ts` |  |
+| `DB-008` | Charts | published | done | `tests/qualification/policies/fields.test.ts` |  |
+| `DB-009` | Lock structure | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
+| `DB-010` | A record is a page | published | done | `tests/qualification/backend/records-templates.test.ts` |  |
+| `DB-011` | A view inside a page | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
+| `DB-012` | Record detail | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
+| `AUTO-001` | A rule | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
+| `AUTO-002` | A rule acts as its actor | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
+| `AUTO-003` | Run log | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
+| `AUTO-004` | Loops are bounded | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
+| `AUTO-005` | Automation profile | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
+| `SEARCH-001` | Global search | published | done | `tests/qualification/core/discovery-browser.mjs` |  |
+| `SEARCH-002` | Results | published | done | `tests/qualification/core/discovery.mjs` |  |
+| `SEARCH-003` | Filters | published | done | `tests/qualification/core/discovery.mjs` |  |
+| `SEARCH-004` | Freshness | published | done | `tests/qualification/core/discovery.mjs` |  |
+| `SEARCH-005` | What search never shows | published | done | `tests/qualification/core/discovery.mjs` |  |
+| `SEARCH-006` | Search in one container | published | done | `tests/qualification/core/discovery-browser.mjs` |  |
+| `SEARCH-007` | No results | published | done | `tests/qualification/core/discovery-browser.mjs` |  |
+| `SEARCH-008` | Search without AI | published | done | `tests/qualification/core/discovery.mjs` |  |
+| `SEARCH-009` | Default visibility | published | done | `tests/qualification/core/discovery.mjs` |  |
+| `NAV-001` | Home | published | done | `tests/qualification/backend/emitted.mjs` |  |
+| `NAV-002` | Recents | published | done | `tests/qualification/backend/sharing-navigation.test.ts` |  |
+| `NAV-003` | Favourites | published | done | `tests/qualification/backend/sharing-navigation.test.ts` |  |
+| `NAV-004` | One navigation | published | done | `tests/qualification/backend/boundaries.test.ts` |  |
+| `NAV-005` | Global create | published | partial | `src/core/app/ui/NavigationCreate.tsx` | global create UI; no journey |
+| `NAV-006` | The touch client edits | published | partial | `tests/qualification/interface/routed.browser.mjs` | responsive web journeys; native apps missing (MOBILE-001) |
+| `NOTIF-001` | Meaningful notifications | published | done | `tests/qualification/backend/emitted.mjs` |  |
+| `NOTIF-002` | Inbox | published | done | `tests/qualification/core/discovery.mjs` |  |
+| `NOTIF-003` | Chat notifications | published | partial | `src/core/features/notifications/slack.ts` | Slack destination code; no requirement-level journey |
+| `MAIL-001` | Outbound only, two kinds | published | done | `tests/flagship/core/mail.test.ts` |  |
+| `MAIL-002` | Delivery failure | published | done | `tests/flagship/core/mail.node.test.mts` |  |
+| `ACT-001` | Durable timeline | published | done | `tests/qualification/core/discovery.mjs` |  |
+| `ACT-002` | Coverage | published | done | `tests/qualification/core/audit-ai.test.ts` |  |
+| `ACT-003` | Retrieval | published | done | `tests/qualification/core/discovery.mjs` |  |
+| `ACT-004` | Context | published | done | `tests/qualification/core/discovery-browser.mjs` |  |
+| `ACT-005` | Retained explanation | published | done | `tests/qualification/core/discovery.mjs` |  |
+| `TMPL-001` | Gallery | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
+| `TMPL-002` | Preview | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
+| `TMPL-003` | Snapshot on use | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
+| `TMPL-004` | Custom templates | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
+| `TMPL-005` | Save a page as a template | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
+| `TMPL-006` | Where a template lives | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
+| `IMP-001` | Import jobs | published | done | `tests/e2e/imports/preview-undo.test.ts` |  |
+| `IMP-002` | Notion import | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
+| `IMP-003` | Confluence import | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
+| `IMP-004` | Import safety | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
+| `IMP-005` | Importing into a page | published | done | `tests/flagship/federation/federation.test.ts` |  |
+| `PORT-001` | Export contents | published | done | `tests/qualification/erasure-metadata/append-metadata.test.ts` |  |
+| `PORT-002` | Referential restore | published | done | `tests/qualification/erasure-metadata/append-metadata.test.ts` |  |
+| `PORT-003` | Visible jobs | published | done | `tests/qualification/portability-jobs/admission-audit.test.ts` |  |
+| `PORT-004` | Search rebuild | published | done | `tests/e2e/imports/preview-undo.test.ts` |  |
+| `PORT-005` | Access boundary | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
+| `PORT-006` | Atomic import | published | done | `tests/qualification/authority/atomic-recovery.test.ts` |  |
+| `PORT-007` | Exporting a page or a container | published | done | `tests/flagship/federation/federation.test.ts` |  |
+| `LINK-001` | Permanent URLs | published | done | `tests/qualification/policies/container-links.test.ts` |  |
+| `LINK-002` | Tombstones | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
+| `LINK-003` | References follow their target | published | done | `tests/qualification/backend/page-details.test.ts` |  |
+| `LINK-004` | Links respect access | published | done | `tests/qualification/backend/emitted.mjs` |  |
+| `AI-001` | Enablement | published | partial | `tests/qualification/inquiry/provider-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-002` | Run lifecycle | published | partial | `tests/qualification/inquiry/lifecycle.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-003` | Proposal or bounded delegation | published | partial | `src/core/features/ai/routes.ts` | flagship opt-in only; no journey |
+| `AI-004` | Answer provenance | published | partial | `tests/qualification/inquiry/lifecycle.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-005` | Acceptance and granted mutation | published | partial | `tests/qualification/inquiry/transport-parity.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-006` | Current inputs before use | published | partial | `tests/qualification/inquiry/lifecycle.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-007` | Untrusted content | published | partial | `tests/qualification/inquiry/provider-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-008` | Failure preserves confirmed work | published | partial | `tests/qualification/inquiry/provider-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-009` | Retry | published | partial | `tests/qualification/inquiry/lifecycle.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-010` | Usage record | published | partial | `tests/qualification/inquiry/provider-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-011` | No self-granted authority | published | partial | `src/core/features/ai/routes.ts` | flagship opt-in only; no journey |
+| `AI-012` | Durable budgets | published | partial | `tests/qualification/inquiry/lifecycle.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-013` | Requester and audience boundary | published | partial | `tests/qualification/inquiry/lifecycle.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-014` | Scoped agents | published | partial | `tests/qualification/inquiry/routing.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-015` | Workspace answers | published | partial | `tests/qualification/inquiry/inquiry-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-016` | Summaries | published | partial | `src/core/features/ai/routes.ts` | flagship opt-in only; no journey |
+| `AI-017` | Writing with AI | published | partial | `tests/qualification/inquiry/selection-agent.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `DEC-001` | A decision is a layer over a page | published | done | `tests/qualification/decisions/mechanics.test.ts` |  |
+| `DEC-002` | States | published | done | `tests/qualification/decisions/mechanics.test.ts` |  |
+| `DEC-003` | An accepted decision is immutable | published | done | `tests/qualification/decisions/mechanics.test.ts` |  |
+| `DEC-004` | Decision log | published | done | `tests/qualification/decisions/mechanics.test.ts` |  |
+| `DEC-005` | Review dates | published | done | `tests/qualification/decisions/mechanics.test.ts` |  |
+| `DEC-006` | A proposed decision is editable | published | done | `tests/qualification/decisions/mechanics.test.ts` |  |
+| `SUG-001` | Anchored suggestions | published | partial | `tests/qualification/policies/comments-suggestions.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SUG-002` | Resolve explicitly | published | partial | `tests/qualification/policies/comments-suggestions.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SOURCE-001` | Connector contract | published | partial | `tests/flagship/release-clauses/federation/connector-disclosure.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SOURCE-002` | Exact passages | published | partial | `tests/flagship/release-clauses/federation/exact-passages.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SOURCE-003` | Scoped claims and authority | published | partial | `tests/qualification/authority/decision-authority.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SOURCE-004` | Live observations | published | partial | `tests/qualification/authority/native-boundaries.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SOURCE-005` | Revocation and deletion | published | partial | `tests/qualification/authority/evaluation-boundaries.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SOURCE-006` | Credential lifecycle | published | partial | `tests/qualification/authority/disconnect.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SKILL-001` | Versioned procedure | published | partial | `tests/qualification/authority/skill-disclosure.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SKILL-002` | Evaluation and activation | published | partial | `tests/qualification/authority/evaluation-boundaries.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SKILL-003` | Version transitions | published | partial | `tests/qualification/authority/skill-disclosure.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `EFFECT-001` | Durable effects | published | partial | `tests/qualification/release-restore-authority/restored-effects.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `EFFECT-002` | Consent and product custody | published | partial | `tests/qualification/inquiry/inquiry-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `EFFECT-003` | Impact and maintenance | published | partial | `tests/qualification/inquiry/impact.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AGENT-001` | Semantic parity | published | partial | `tests/qualification/inquiry/selection-agent.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AGENT-002` | Portable owner interfaces | published | partial | `tests/flagship/release-clauses/portability/owner-views.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `INQ-001` | Open questions | published | partial | `tests/qualification/inquiry/inquiry-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `INQ-002` | Reproducible reasoning | published | partial | `tests/qualification/inquiry/inquiry-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `INQ-003` | Bounded planning | published | partial | `tests/qualification/inquiry/inquiry-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `INQ-004` | Routing and ambient discovery | published | partial | `tests/qualification/inquiry/ambient.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `INQ-005` | Economical sustained work | published | partial | `tests/qualification/authority/learned-provenance.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `TRIAL-001` | Predeclared comparison | published | partial | `tests/qualification/inquiry/trial-loop.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `TRIAL-002` | Exposure and safety | published | partial | `tests/qualification/inquiry/trial-loop.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `TRIAL-003` | Outcome classification | published | partial | `tests/qualification/inquiry/trial-loop.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `TRIAL-004` | Reusable learning | published | partial | `tests/qualification/inquiry/semantic-evaluation.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `FLAG-001` | Complete product gate | published | partial | `tests/flagship/release-clauses/portability/profile-retention.test.ts` | release gate; full flagship and provider evidence pending |
+| `FLAG-002` | Independent evidence | published | partial | `tests/flagship/release-clauses/portability/staged-recovery.test.ts` | release gate; full flagship and provider evidence pending |
+| `FLAG-003` | Value and held-out evaluation | published | partial | `tests/qualification/core/instrumentation.test.ts` | release gate; full flagship and provider evidence pending |
+| `FLAG-004` | Complete portable knowledge | published | partial | `tests/qualification/authority/recovery.test.ts` | release gate; full flagship and provider evidence pending |
+| `COLLAB-001` | Live co-editing by default | target | partial | `src/core/features/collaboration/durable-object.ts` | see the clause |
+| `COLLAB-002` | Presence, cursors and following | target | partial | `src/core/features/collaboration/service.ts` | see the clause |
+| `COLLAB-003` | Offline edits that merge | target | partial | `src/core/features/editor/ui/SaveStatus.tsx` | see the clause |
+| `COLLAB-004` | Long pages and heavy tables stay fast | target | missing | — | not implemented |
+| `COLLAB-005` | Attributed history from co-editing | target | partial | `src/core/features/versions/service.ts` | see the clause |
+| `PAGE-015` | Page lock | target | missing | `src/core/features/databases/service.ts` | not implemented |
+| `BLOCK-011` | Synced blocks | target | missing | — | not implemented |
+| `BLOCK-012` | Columns and page layouts | target | missing | `src/core/features/editor/validation.ts` | not implemented |
+| `BLOCK-013` | Equations and diagrams as code | target | missing | — | not implemented |
+| `BLOCK-014` | Tables that work like tables | target | partial | `src/core/features/editor/validation.ts` | see the clause |
+| `CONT-010` | Space blog and announcements | target | missing | — | not implemented |
+| `CONT-011` | Space home and company hub | target | partial | `src/core/features/containers/service.ts` | see the clause |
+| `WORK-016` | People directory and expertise | target | missing | — | not implemented |
+| `SEARCH-010` | Labels and advanced search | target | partial | `src/core/features/pages/service.ts` | see the clause |
+| `SEARCH-011` | Verified-first ranking and trust badges | target | partial | `src/core/features/page-status/state.ts` | see the clause |
+| `SEARCH-012` | Connected results in search | target | partial | `src/core/features/source-memory/service.ts` | see the clause |
+| `STAT-006` | Review requests and expert queues | target | partial | `src/core/features/page-status/review.ts` | see the clause |
+| `STAT-007` | Verification rules | target | missing | — | not implemented |
+| `CARD-001` | Knowledge cards and collections | target | partial | `src/core/features/containers/service.ts` | see the clause |
+| `CARD-002` | Browser extension | target | missing | — | not implemented |
+| `CARD-003` | Required reading and announcements | target | missing | — | not implemented |
+| `DB-013` | Database forms | target | missing | — | not implemented |
+| `DB-014` | Dashboards | target | partial | `src/core/features/databases/ui/workspace/DatabaseChart.tsx` | see the clause |
+| `DB-015` | Record templates and recurring records | target | partial | `src/core/features/automation/events.ts` | see the clause |
+| `DB-016` | AI autofill fields | target | missing | — | not implemented |
+| `NOTIF-004` | Reminders | target | missing | — | not implemented |
+| `NOTIF-005` | Email, push and digest delivery | target | missing | — | not implemented |
+| `AUTO-006` | Outbound automation actions | target | partial | `src/core/features/automation/actions.ts` | see the clause |
+| `AUTO-007` | Triggers from connected tools | target | missing | — | not implemented |
+| `AUTO-008` | Accountable follow-through | target | partial | `src/core/features/automation/jobs.ts` | see the clause |
+| `IMP-006` | Notion import with comments and live databases | target | partial | `src/core/features/imports/service.ts` | see the clause |
+| `IMP-007` | Confluence Cloud live migration | target | missing | — | not implemented |
+| `IMP-008` | Guru import | target | missing | — | not implemented |
+| `IMP-009` | Folder imports from Google Drive and SharePoint | target | partial | `src/core/features/imports/service.ts` | see the clause |
+| `PORT-008` | Exports carry comments | target | missing | `src/core/features/workspace-export/readable.ts` | not implemented |
+| `PORT-009` | Scheduled backups to the buyer's storage | target | partial | `docs/BACKUP.md` | see the clause |
+| `EMBED-001` | Live issue embeds from Vector and Jira | target | missing | — | not implemented |
+| `EMBED-002` | GitHub and GitLab embeds | target | missing | `src/core/features/connectors/github.ts` | not implemented |
+| `EMBED-003` | Design, video and document embeds | target | partial | `tests/flagship/content/preview.test.ts` | see the clause |
+| `EMBED-004` | Live file cards from Drive, SharePoint and Chest | target | missing | — | not implemented |
+| `CHAT-001` | Chat notifications to Slack, Microsoft Teams and Nook | target | partial | `src/core/features/notifications/slack.ts` | see the clause |
+| `CHAT-002` | Ask and unfurl in chat | target | missing | `src/core/features/connectors/slack.ts` | not implemented |
+| `CHAT-003` | Capture chat into pages | target | missing | — | not implemented |
+| `CONNECT-001` | Named connectors | target | partial | `src/core/features/connectors/slack.ts` | see the clause |
+| `CONNECT-002` | Source permissions are mirrored | target | partial | `src/core/features/connectors/authority.ts` | see the clause |
+| `CONNECT-003` | Connector health | target | partial | `src/core/features/connectors/service.ts` | see the clause |
+| `ANSWER-001` | Cited answers in the default product | target | partial | `src/core/features/ai/integration.ts` | see the clause |
+| `ANSWER-002` | Answers state their trust | target | partial | `tests/flagship/intelligence/authority.test.ts` | see the clause |
+| `ANSWER-003` | Answers never leak restricted knowledge | target | partial | `tests/qualification/authority/skill-disclosure.test.ts` | see the clause |
+| `ANSWER-004` | Feedback and unanswered questions | target | missing | — | not implemented |
+| `ANSWER-005` | Summaries and catch-up | target | partial | `src/core/features/ai/routes.ts` | see the clause |
+| `ANSWER-006` | Owner-chosen models and data controls | target | partial | `src/core/features/ai/integration.ts` | see the clause |
+| `API-001` | Public REST API | target | partial | `src/core/features/pages/routes.ts` | see the clause |
+| `API-002` | Webhooks | target | missing | — | not implemented |
+| `API-003` | MCP server | target | partial | `src/core/features/external-agent/routes.ts` | see the clause |
+| `API-004` | App and token administration | target | missing | — | not implemented |
+| `ADMIN-001` | SAML single sign-on | target | partial | `src/core/features/session/native/` | see the clause |
+| `ADMIN-002` | SCIM provisioning | target | missing | — | not implemented |
+| `ADMIN-003` | Guest management | target | partial | `src/core/features/workspace/invitations.ts` | see the clause |
+| `ADMIN-004` | Workspace analytics | target | partial | `src/core/features/analytics/` | see the clause |
+| `ADMIN-005` | Audit export and SIEM streaming | target | partial | `src/core/features/activity/service.ts` | see the clause |
+| `ADMIN-006` | Content governance | target | partial | `tests/qualification/policies/access-publication.test.ts` | see the clause |
+| `MOBILE-001` | Native iOS and Android apps | target | missing | `tests/qualification/interface/routed.browser.mjs` | not implemented |
+| `MOBILE-002` | Desktop app | target | missing | — | not implemented |
+| `MOBILE-003` | Offline pages | target | partial | `src/core/features/editor/ui/SaveStatus.tsx` | see the clause |
+| `MOBILE-004` | Push notifications | target | missing | — | not implemented |
+| `KEEP-001` | Contradiction watch | target | partial | `src/core/features/impact/routes.ts` | see the clause |
+| `KEEP-002` | Revision-specific fix proposals | target | partial | `src/core/features/suggestions/routes.ts` | see the clause |
+| `KEEP-003` | Close knowledge gaps as work | target | missing | — | not implemented |
+| `KEEP-004` | Duplicates and conflicts | target | partial | `src/core/features/claims/service.ts` | see the clause |
+| `KEEP-005` | Answers with current evidence and stated uncertainty | target | partial | `tests/flagship/intelligence/authority.test.ts` | see the clause |
+| `KEEP-006` | Checked runbooks | target | partial | `src/core/features/skills/routes.ts` | see the clause |
+| `KEEP-007` | Onboarding paths | target | missing | — | not implemented |
+| `KEEP-008` | Stale-knowledge sweeps | target | partial | `src/core/features/notifications/events.ts` | see the clause |
+| `KEEP-009` | Measured knowledge health | target | partial | `tests/qualification/core/quality.test.ts` | see the clause |
