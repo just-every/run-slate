@@ -27,7 +27,7 @@ export interface WorkspaceMember {
 }
 
 /**
- * `WORK-006` — an invitation is single-use and revocable, expires 24 hours
+ * `WORK-006` — an invitation is single-use and revocable, expires 7 days
  * after it was sent, and is retained rather than deleted once it has expired.
  * `MAIL-002` — a send that failed carries the provider's error.
  */

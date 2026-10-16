@@ -278,10 +278,10 @@
     },
     "WORK-013": {
       "change": "changed",
-      "summary": "Bind the existing native first-run wizard to /setup under the seed command contract.",
-      "was": "A new deployment runs a short wizard that names the workspace, creates the first container and its first page, and ends on an invitation step that can be skipped. It runs once, is never shown to a member who joins later, and creates nothing beyond those three records.",
-      "now": "A new deployment runs a short wizard that names the workspace, creates the first container and its first page, and ends on an invitation step that can be skipped. It runs once, is never shown to a member who joins later, and creates nothing beyond those three records. Its native owner wizard lives at `/setup`: unfinished owners are redirected there from operator app routes after sign-in; completed setup and later members proceed to `/app`. The same native session and owner authorization guard the route and completion API.",
-      "securityConsequences": "Native session validation remains independent for documents and server functions; only the original native setup owner can complete the wizard. No second owner ledger, identity migration or new public private-data surface."
+      "summary": "16 October 2026: managed owners open a ready default workspace.",
+      "was": "Every new deployment requires the naming wizard.",
+      "now": "RER bootstrap and signed owner claims atomically create the configured deployment workspace, General space and Welcome page. Owners use the declared login_hint sign-in without repeating the wizard. Renamed RER app-name transport and technical-field hiding require platform support.",
+      "securityConsequences": "Existing native single-use owner claim and mailbox proof remain required; existing workspaces cannot be replaced. Local first-run wizard remains available."
     },
     "BASE-ACCESS-001": {
       "change": "changed",
@@ -289,7 +289,11 @@
       "was": "Native email links (GET in v0.1.0, then POST confirmation over Slate's own token engine) created native sessions.",
       "now": "Base issues one-use, one-hour email links; GET previews and a same-origin POST consumes the proof and issues a native 30-day session in one D1 batch that rechecks the member's status, email and authority version. Links sent before this release show the request-new-link page. Sensitive operations need a ten-minute Base email step-up in the asking session. Amendment of 16 October 2026: native workspace ZIP export accepts a signed-in local owner without email proof only with LOCAL_DEVELOPMENT=true and the runtime-validated exact loopback origin. Hosted export and installation archive HTTP export still require Base email step-up; restore and other sensitive operations retain their existing requirements.",
       "date": "2026-10-16",
-      "affectedRequirements": ["BASE-ACCESS-001", "PORT-003", "PORT-005"],
+      "affectedRequirements": [
+        "BASE-ACCESS-001",
+        "PORT-003",
+        "PORT-005"
+      ],
       "securityConsequences": "The local ZIP export exception neither fabricates nor persists an email proof. Native session authentication, current owner authority, full workspace read coverage, origin checks and identity/ACL commit guards remain required; remote requests cannot enable local mode."
     },
     "WORK-015": {
@@ -309,6 +313,13 @@
       "summary": "Reviewed durable imports and complete canonical indexing; current authority and conflict-preserving recovery remain required.",
       "was": "An import is not Completed until search has been rebuilt over the imported records and they satisfy `SEARCH-001` to `SEARCH-006`.",
       "now": "An import is not Completed until every imported page and record has its canonical search projection, no imported page has a pending dirty generation, and the records satisfy `SEARCH-001` to `SEARCH-006`. Bounded index rebuilds retain an explicit, resumable Indexing state. Completion is fenced by indexed-ID and dirty-generation readback before any first user search can trigger a lazy refresh."
+    },
+    "WORK-006": {
+      "change": "changed",
+      "summary": "16 October 2026 sd-slate-r12: align Slate invitation expiry with rer 0.2.25.",
+      "was": "An invitation is single-use, can be revoked before it is used, and can no longer be accepted 24 hours after it was sent; an expired invitation is retained, not deleted. Requesting an invitation returns the same response whether or not the address already belongs to a member.",
+      "now": "An invitation is single-use, can be revoked before it is used, and can no longer be accepted 7 days after it was sent; an expired invitation is retained, not deleted. Requesting an invitation returns the same response whether or not the address already belongs to a member.",
+      "securityConsequences": "New invitation links remain usable for seven days unless accepted or revoked sooner. Existing stored expiry times, guest grant expiry, single-use acceptance, revocation and authorization checks are preserved. Sign-in link and session lifetimes are unchanged."
     }
   },
   "extensionPointChanges": [],

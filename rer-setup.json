@@ -9,11 +9,16 @@
     {
       "id": "email",
       "label": "Sign-in email",
-      "help": "Managed mail is included by RER. Free and Assisted hosting use your Resend or SendGrid account; local development uses the loopback outbox."
+      "help": "Managed mail is included by RER. Free and Assisted hosting use your Resend or SendGrid account; local development suppresses mail and uses the private owner entry."
     },
     {
       "id": "session",
       "label": "Native session"
+    },
+    {
+      "id": "technical",
+      "label": "Technical configuration",
+      "help": "Implementation settings fixed by the deployment. Product policies are managed inside Slate."
     }
   ],
   "fields": [
@@ -29,14 +34,14 @@
     {
       "name": "MAIL_PROVIDER",
       "label": "Email provider",
-      "help": "Managed hosting configures mail automatically. Free and Assisted hosting need a real delivery provider. The local outbox is only for this computer.",
+      "help": "Managed hosting configures mail automatically. Free and Assisted hosting need a real delivery provider. Local development suppresses mail.",
       "kind": "select",
       "required": true,
       "default": "resend",
       "options": [
         {
           "value": "development",
-          "label": "Local outbox"
+          "label": "Local development (mail suppressed)"
         },
         {
           "value": "rer",
@@ -148,10 +153,129 @@
       "default": "",
       "help": "Optional shared identity provider. Leave blank for native email links. An existing owner links it with a fresh email proof.",
       "runtimeEditable": false
+    },
+    {
+      "name": "SLATE_PROFILE",
+      "label": "Slate profile",
+      "kind": "select",
+      "default": "core-wiki",
+      "options": [
+        {
+          "value": "core-wiki",
+          "label": "Core wiki"
+        },
+        {
+          "value": "flagship",
+          "label": "Flagship development"
+        }
+      ],
+      "group": "technical",
+      "runtimeEditable": false
+    },
+    {
+      "name": "AI_ENABLED",
+      "label": "AI enabled",
+      "kind": "select",
+      "default": "false",
+      "options": [
+        {
+          "value": "false",
+          "label": "Disabled"
+        },
+        {
+          "value": "true",
+          "label": "Enabled"
+        }
+      ],
+      "group": "technical",
+      "runtimeEditable": false
+    },
+    {
+      "name": "AI_PROVIDER",
+      "label": "AI provider",
+      "kind": "select",
+      "default": "openai",
+      "options": [
+        {
+          "value": "openai",
+          "label": "OpenAI"
+        },
+        {
+          "value": "local-codex",
+          "label": "Local Codex development"
+        }
+      ],
+      "group": "technical",
+      "runtimeEditable": false
+    },
+    {
+      "name": "ALLOW_LOOPBACK_DELEGATION",
+      "label": "Allow loopback delegation",
+      "kind": "select",
+      "default": "false",
+      "options": [
+        {
+          "value": "false",
+          "label": "Disabled"
+        },
+        {
+          "value": "true",
+          "label": "Enabled"
+        }
+      ],
+      "group": "technical",
+      "runtimeEditable": false
+    },
+    {
+      "name": "SSO_ENABLED",
+      "label": "SSO enabled",
+      "kind": "select",
+      "default": "false",
+      "options": [
+        {
+          "value": "false",
+          "label": "Disabled"
+        },
+        {
+          "value": "true",
+          "label": "Enabled"
+        }
+      ],
+      "group": "technical",
+      "runtimeEditable": false
+    },
+    {
+      "name": "LINK_PREVIEWS_ENABLED",
+      "label": "Link previews",
+      "kind": "select",
+      "default": "true",
+      "options": [
+        {
+          "value": "true",
+          "label": "Enabled"
+        },
+        {
+          "value": "false",
+          "label": "Disabled"
+        }
+      ],
+      "runtimeEditable": true
     }
   ],
   "runtime": {
-    "additionalFields": false
+    "additionalFields": false,
+    "exclude": [
+      "SETUP_OWNER_EMAIL",
+      "MAIL_PROVIDER",
+      "MAIL_RELAY_URL",
+      "PUBLIC_PAGE_HOST",
+      "IDENTITY_PROVIDER",
+      "SLATE_PROFILE",
+      "AI_ENABLED",
+      "AI_PROVIDER",
+      "ALLOW_LOOPBACK_DELEGATION",
+      "SSO_ENABLED"
+    ]
   },
   "steps": [
     {

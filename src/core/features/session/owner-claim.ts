@@ -1,3 +1,4 @@
+import { ownerIdentity } from '../../../ext/config';
 // Base verifies the signed claim; Slate retains its sole native owner/session authority.
 import { verifyOwnerClaim, OwnerClaimError } from '../../../../modules/owner-claim/index.mjs';
 import type { AppBindings } from '../../app/types';
@@ -17,7 +18,7 @@ export async function ownerClaim(request: Request, env: AppBindings, config: Run
     const claim = await verifyOwnerClaim(input.token, { issuer: env.RER_OWNER_CLAIM_ISSUER, installationId: env.RER_OWNER_CLAIM_INSTALLATION_ID, publicKeys: JSON.parse(env.RER_OWNER_CLAIM_PUBLIC_KEYS), appOrigin: origin, expectedEmail: config.setupOwnerEmail! });
     // The empty-workspace CAS is the native one-use claim: existing installations
     // and concurrent/replayed claims cannot create or regain owner authority.
-    if (!await bootstrapOwner(env.DB, config, claim.email)) return Response.json({ error: 'claim_unavailable' }, { status: 409, headers });
+    if (!await bootstrapOwner(env.DB, config, claim.email, ownerIdentity.name)) return Response.json({ error: 'claim_unavailable' }, { status: 409, headers });
     const store = slateSessions(env.DB, config);
     const person = await store.member('lower(email)=lower(?)', claim.email);
     const session = person && await store.issue({ person, kind: 'native', now: Date.now(), returnTo: '/app', freshProof: true });

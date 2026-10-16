@@ -47,7 +47,7 @@ try {
     if (owner.email.toLowerCase() !== owner.archived.toLowerCase()) await activateOwner(proxy.env.DB, owner.email);
     // Search indexes are derived; authoritative rows and object bytes were restored atomically.
     const { prepareSearchRestoreStatements } = await import('../../src/core/features/search/restore-index.ts');
-    const names = ['pages', 'page_revisions', 'page_blocks', 'page_contributors', 'containers', 'knowledge_templates', 'comments', 'comment_threads'];
+    const names = ['pages', 'page_revisions', 'page_blocks', 'page_contributors', 'containers', 'knowledge_templates', 'comments', 'comment_threads', 'database_fields', 'database_records'];
     const tables = Object.fromEntries(await Promise.all(names.map(async name => [name, (await proxy.env.DB.prepare(`SELECT * FROM "${name}"`).all()).results])));
     await proxy.env.DB.batch([
       proxy.env.DB.prepare("INSERT OR REPLACE INTO search_dirty SELECT CASE WHEN page_kind='record' THEN 'record:' ELSE 'page:' END||id,workspace_id,'restore' FROM pages"),

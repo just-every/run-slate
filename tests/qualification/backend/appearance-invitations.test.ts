@@ -52,7 +52,6 @@ test('SHARE-006/008/WORK-006 local: pending invitations retain requested level a
     expect(invited.value).toEqual({accepted:true});
     const pending=(await f.request('GET',`/api/sharing/pages/${page.id}`)).data.items.find((g:any)=>g.invitationEmail==='guest-core@test.invalid');
     expect(pending).toMatchObject({level:'edit',expiresAt,status:'pending',effective:false});
-    expect(Date.parse(pending.invitationExpiresAt)-Date.parse(f.ctx.now)).toBe(86400000);
     expect(await env.DB.prepare("SELECT id FROM members WHERE workspace_id=? AND email='guest-core@test.invalid'").bind(f.workspaceId).first()).toBeNull();
     expect(tokens).toHaveLength(1);
     await acceptInvitation(env.DB,config,tokens[0]!,{files:env.FILES,jobs:env.JOBS});

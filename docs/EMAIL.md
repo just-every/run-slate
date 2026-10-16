@@ -7,7 +7,7 @@ Slate sends email so that people can sign in and so that you can invite them. Th
 Slate sends two kinds of email and nothing else:
 
 - **Sign-in links.** Each one is a single-use link that works for 60 minutes.
-- **Invitations.** A member invitation, or an invitation to someone you share a page with who is not yet a member. Each one is a single-use link that works for 24 hours.
+- **Invitations.** A member invitation, or an invitation to someone you share a page with who is not yet a member. Each one is a single-use link that works for 7 days.
 
 Messages come from the sender address configured for your hosting. Slate does not read incoming mail: a reply to that address creates and changes nothing. No other event in the wiki sends email.
 
@@ -81,7 +81,7 @@ Work down this list.
 6. **Every page answers 503?** A required setting is missing and the page says which. Review the required inputs in OPERATIONS.md. `rer deploy --environment production --dry-run` validates/builds locally without provider requests. Correct the named missing inputs before an authorized deployment.
 7. **Still failing?** Check that `/health` answers `ok`. That confirms the database and the file bucket can be reached, but it does not prove that mail is working.
 
-If a sign-in link has expired, ask for a new one. Sign-in links stop working 60 minutes after they were sent, and invitations 24 hours after.
+If a sign-in link has expired, ask for a new one. Sign-in links stop working 60 minutes after they were sent, and invitations 7 days after.
 
 ## Go deeper
 

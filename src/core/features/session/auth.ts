@@ -1,3 +1,4 @@
+import { ownerIdentity } from '../../../ext/config';
 import { createAuthHandler, createOperatorAuth, type AuthConfig } from '../../../../modules/operator-auth/index.mjs';
 import { devAdmitted } from '../../../../modules/operator-auth/dev-admission.mjs';
 import type { RuntimeConfig } from '../../platform/config/runtime';
@@ -58,7 +59,7 @@ export function slateSessions(db: D1Database, config: RuntimeConfig): SessionSto
 /** Base operator-auth composed over Slate's native accounts and proofs for one request. */
 export async function createSlateAuth(db: D1Database, config: RuntimeConfig, options: { waitUntil?: (promise: Promise<unknown>) => void; delivery?: SignInDelivery } = {}) {
   const clock = Date.now, store = slateSessions(db, config);
-  const accounts = createNativeAccounts(store, { clock, providerFingerprint: fingerprint(config), claimOwner: email => bootstrapOwner(db, config, email) });
+  const accounts = createNativeAccounts(store, { clock, providerFingerprint: fingerprint(config), claimOwner: email => bootstrapOwner(db, config, email, ownerIdentity.name) });
   const auth = createOperatorAuth({
     db, config: await baseConfig(config), accounts, proofs: createNativeProofs(store),
     mailSender: identityMailSender(db, config, options.delivery ?? {}), clientIp, clock,

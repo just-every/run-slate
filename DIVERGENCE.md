@@ -22,7 +22,7 @@ Where the planted shared documents (`AGENTS.md`, `BASELINE.md`, `AGENTS.consumer
 
 **Didn't fit.** "No user data is deleted automatically. Only sessions and rate-limit state expire." Invitations, sign-in links, and stored operation-key responses all expire in a normal product, and none of them is a session.
 
-**Did instead.** Wrote WORK-006 so an invitation "can no longer be accepted" after 24 hours and is retained rather than deleted, and SAVE-005 so an operation key is honoured for 24 hours. No baseline clause is superseded.
+**Did instead.** Wrote WORK-006 so an invitation "can no longer be accepted" after 7 days (amended 16 October 2026 to match rer 0.2.25) and is retained rather than deleted, and SAVE-005 so an operation key is honoured for 24 hours. No baseline clause is superseded.
 
 **For the shared docs.** Widen the clause to "sessions, single-use credentials, and rate-limit state expire", or say explicitly that expiry of a credential is not deletion of user data.
 

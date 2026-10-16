@@ -15,6 +15,7 @@ import { Route as SigninRouteImport } from './routes/signin'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppArchiveRouteImport } from './routes/app.archive'
 import { Route as AppContainersRouteImport } from './routes/app.containers'
+import { Route as AppExportRouteImport } from './routes/app.export'
 import { Route as AppInboxRouteImport } from './routes/app.inbox'
 import { Route as AppReviewRouteImport } from './routes/app.review'
 import { Route as AppSearchRouteImport } from './routes/app.search'
@@ -61,6 +62,11 @@ const AppArchiveRoute = AppArchiveRouteImport.update({
 const AppContainersRoute = AppContainersRouteImport.update({
   id: '/containers',
   path: '/containers',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppExportRoute = AppExportRouteImport.update({
+  id: '/export',
+  path: '/export',
   getParentRoute: () => AppRoute,
 } as any)
 const AppInboxRoute = AppInboxRouteImport.update({
@@ -158,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/signin': typeof SigninRoute
   '/app/archive': typeof AppArchiveRoute
   '/app/containers': typeof AppContainersRouteWithChildren
+  '/app/export': typeof AppExportRoute
   '/app/inbox': typeof AppInboxRoute
   '/app/review': typeof AppReviewRoute
   '/app/search': typeof AppSearchRoute
@@ -181,6 +188,7 @@ export interface FileRoutesByTo {
   '/setup': typeof SetupRoute
   '/signin': typeof SigninRoute
   '/app/archive': typeof AppArchiveRoute
+  '/app/export': typeof AppExportRoute
   '/app/inbox': typeof AppInboxRoute
   '/app/review': typeof AppReviewRoute
   '/app/search': typeof AppSearchRoute
@@ -207,6 +215,7 @@ export interface FileRoutesById {
   '/signin': typeof SigninRoute
   '/app/archive': typeof AppArchiveRoute
   '/app/containers': typeof AppContainersRouteWithChildren
+  '/app/export': typeof AppExportRoute
   '/app/inbox': typeof AppInboxRoute
   '/app/review': typeof AppReviewRoute
   '/app/search': typeof AppSearchRoute
@@ -234,6 +243,7 @@ export interface FileRouteTypes {
     | '/signin'
     | '/app/archive'
     | '/app/containers'
+    | '/app/export'
     | '/app/inbox'
     | '/app/review'
     | '/app/search'
@@ -257,6 +267,7 @@ export interface FileRouteTypes {
     | '/setup'
     | '/signin'
     | '/app/archive'
+    | '/app/export'
     | '/app/inbox'
     | '/app/review'
     | '/app/search'
@@ -282,6 +293,7 @@ export interface FileRouteTypes {
     | '/signin'
     | '/app/archive'
     | '/app/containers'
+    | '/app/export'
     | '/app/inbox'
     | '/app/review'
     | '/app/search'
@@ -352,6 +364,13 @@ declare module '@tanstack/react-router' {
       path: '/containers'
       fullPath: '/app/containers'
       preLoaderRoute: typeof AppContainersRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/export': {
+      id: '/app/export'
+      path: '/export'
+      fullPath: '/app/export'
+      preLoaderRoute: typeof AppExportRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/inbox': {
@@ -493,6 +512,7 @@ const AppContainersRouteWithChildren = AppContainersRoute._addFileChildren(
 interface AppRouteChildren {
   AppArchiveRoute: typeof AppArchiveRoute
   AppContainersRoute: typeof AppContainersRouteWithChildren
+  AppExportRoute: typeof AppExportRoute
   AppInboxRoute: typeof AppInboxRoute
   AppReviewRoute: typeof AppReviewRoute
   AppSearchRoute: typeof AppSearchRoute
@@ -512,6 +532,7 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppArchiveRoute: AppArchiveRoute,
   AppContainersRoute: AppContainersRouteWithChildren,
+  AppExportRoute: AppExportRoute,
   AppInboxRoute: AppInboxRoute,
   AppReviewRoute: AppReviewRoute,
   AppSearchRoute: AppSearchRoute,

@@ -15,6 +15,8 @@ import {
   stop,
 } from "./runtime-harness.mjs";
 
+import { managedFirstOpen } from './managed-first-open.mjs';
+import { randomUUID } from 'node:crypto';
 import { confirmationFlow } from './confirmation-flow.mjs';
 import { signInHintFlow } from './signin-hint.mjs';
 import { healthRequest } from '@runeditrun/rer/internal/modules/deploy-kit/health-request.mjs';
@@ -127,6 +129,21 @@ test("every request family refuses a deployment that is missing configuration", 
     // A session cookie does not buy past the configuration gate either.
     const withCookie = await fetch(`${baseUrl}/app`, { headers: { cookie: "slate_session=anything" }, redirect: "manual" });
     assert.equal(withCookie.status, 503);
+  } finally {
+    if (runtime) await stop(runtime.child);
+    await rm(persistPath, { recursive: true, force: true });
+  }
+});
+
+test("a claimed RER owner signs in to a ready default workspace", { timeout: 240000 }, async () => {
+  await requireBuild();
+  const persistPath = await mkdtemp(path.join(os.tmpdir(), "slate-first-open-"));
+  let runtime;
+  try {
+    await applyMigrations(persistPath);
+    const token = randomUUID(), email = process.env.SLATE_OWNER_EMAIL ?? 'owner@example.test';
+    runtime = await startEmittedWorker(persistPath, { ...localDevelopmentVars, SETUP_OWNER_EMAIL: email, SETUP_TOKEN: token });
+    await managedFirstOpen(runtime.baseUrl, token, email);
   } finally {
     if (runtime) await stop(runtime.child);
     await rm(persistPath, { recursive: true, force: true });

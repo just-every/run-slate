@@ -70,7 +70,7 @@ export function revokeInvitationRefusal({
     return "Only a workspace owner revokes an invitation.";
   }
   if (invitation.state === "expired") {
-    return "This invitation expired 24 hours after it was sent and can no longer be used. Slate keeps it on this list.";
+    return "This invitation expired 7 days after it was sent and can no longer be used. Slate keeps it on this list.";
   }
   if (invitation.state === "revoked") {
     return "This invitation is already revoked.";

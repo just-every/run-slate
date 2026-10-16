@@ -127,7 +127,7 @@ export function FirstRunWizard({
           {step === 3 ? (
             <section className="paper-body">
               <h1 className="paper-title">Invite people</h1>
-              <p className="paper-lede">Optional. One address per line. Invitations expire after 24 hours and can be used once.</p>
+              <p className="paper-lede">Optional. One address per line. Invitations expire after 7 days and can be used once.</p>
               <div className="paper-field">
                 <label htmlFor={`${fieldId}-invitations`}>Email addresses</label>
                 <textarea

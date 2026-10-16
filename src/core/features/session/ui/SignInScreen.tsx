@@ -80,7 +80,7 @@ export function SignInScreen({
               <p className="paper-sent">
                 <Mail aria-hidden="true" className="size-5" />
                 <span>
-                  A sign-in link is on its way to 
+                  A sign-in link is on its way to{" "}
                   <strong>{email}</strong>. It works once and
                   stops working an hour after it was created.
                 </span>

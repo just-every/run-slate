@@ -262,5 +262,12 @@
     "providers": [
       "rer"
     ]
+  },
+  "nativeExport": {
+    "path": "/app/export",
+    "covers": [
+      "DB",
+      "CONTENT_COLLABORATION"
+    ]
   }
 }

@@ -4,12 +4,14 @@ on:
     branches: [main]
     tags: ['v*']
   pull_request:
+  workflow_dispatch:
   schedule:
     - cron: '30 17 * * *'
 permissions:
   contents: read
 jobs:
   workers:
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     strategy:
@@ -56,6 +58,7 @@ jobs:
         env:
           SLATE_WORKERS_REPORTS: .artifacts/contract-shards
   verify:
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     strategy:
@@ -97,7 +100,7 @@ jobs:
           path: .artifacts/
           if-no-files-found: ignore
   local-journeys:
-    if: github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags/')
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     steps:
@@ -113,6 +116,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
       - run: pnpm test:installer && pnpm test:local-journey
       - if: failure()
         uses: actions/upload-artifact@v4

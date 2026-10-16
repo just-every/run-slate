@@ -9,6 +9,7 @@ import { scratch, waitFor, resources } from './runtime.mjs';
 import { saveFailure } from './diagnostics.mjs';
 import { readmeCommands, assertDistExcludesSecrets } from './readme.mjs';
 import { signIn, useDevKey } from './browser.mjs';
+import { mailEdge } from './mail-edge.mjs';
 import { assertOneOwner } from './owner.mjs';
 import { repo } from './runtime.mjs';
 import { sentinels, publicStatuses, setupStatuses } from './security.mjs';
@@ -116,13 +117,42 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
     await copy.run('/bin/sh', ['-c', fences[2][1]]); await copy.stop(dev); dev = undefined;
     // Default README browsing above remains core-wiki. This separate native
     // flagship session adds a real credential whose capability must not move.
-    await resources(); dev = copy.start('node', cli('dev'), copy.root, { SLATE_PROFILE: 'flagship' });
+    // Like a developer, explicitly configure the private profile. Wrangler's
+    // .dev.vars takes precedence over environment-only profile overrides.
+    const flagshipVars = (await readFile(file, 'utf8')).replace(/^SLATE_PROFILE=.*$/m, 'SLATE_PROFILE=flagship');
+    await writeFile(file, flagshipVars, { mode: 0o600 });
+    const mail = await mailEdge(copy);
+    await resources(); dev = copy.start('node', cli('dev'), copy.root, mail.env);
     await waitFor(() => { if (dev.exitCode !== null) throw Error('CLI server failed; private output withheld'); return dev.output.includes('"event":"ready"'); }, 'flagship ready');
     await signIn(browser, vars.APP_URL, email, 1440, async (page, member) => {
-      agent = await page.evaluate(async input => {
+      const input = { operationKey: 'case:003', subjectId: member.id, scope: { tools: ['read_evidence'], sourceIds: [createdPageId], audience: [member.id], grantIds: [] }, expiresAt: '2099-01-01T00:00:00.000Z' };
+      const mint = () => page.evaluate(async input => {
         const response = await fetch('/api/agent/credentials', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input) });
-        if (!response.ok) throw Error('Native credential issuance failed'); return response.json();
-      }, { operationKey: 'case:003', subjectId: member.id, scope: { tools: ['read_evidence'], sourceIds: [createdPageId], audience: [member.id], grantIds: [] }, expiresAt: '2099-01-01T00:00:00.000Z' });
+        return { status: response.status, body: await response.json() };
+      }, input);
+      // Request the email proof through the native public door. Dev admission
+      // does not manufacture the durable proof the credential commit requires.
+      const challenge = await page.evaluate(async () => {
+        const response = await fetch('/auth/step-up', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'credentials:mint', returnTo: '/app' }) });
+        return response.status;
+      });
+      assert.equal(challenge, 202, 'the dev session requests a real credential email proof');
+      const confirmation = await mail.confirmation(vars.APP_URL, email);
+      // Preview leaves the proof unused. Its native same-origin form POST
+      // confirms the challenge in the exact dev session that requested it.
+      try {
+        const preview = await page.goto(confirmation.href);
+        assert.equal(preview.status(), 200);
+        const [confirmed] = await Promise.all([
+          page.waitForResponse(response => response.request().method() === 'POST' && new URL(response.url()).pathname === '/auth/confirm'),
+          page.getByRole('button', { name: 'Confirm', exact: true }).click(),
+        ]);
+        assert.equal(confirmed.status(), 303);
+        await page.waitForURL(vars.APP_URL + '/app');
+      } catch { throw Error('Native email step-up confirmation failed; private link withheld'); }
+      const issued = await mint();
+      assert.equal(issued.status, 200, 'credential issuance succeeds after real email step-up');
+      agent = issued.body;
       assert.ok(agent.token, 'native credential issued');
     });
     await run('dev', ['--stop']); await copy.stop(dev); dev = undefined;
