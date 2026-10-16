@@ -6,6 +6,7 @@ import type { WorkspaceSnapshot } from "./workspaceSnapshot";
 import { useShellResource } from "./useShellResource";
 
 const WorkspaceContext = createContext<{
+  localDevelopment: boolean;
   member: AuthenticatedMember;
   workspace: Resource<WorkspaceView>;
   setup: Resource<WorkspaceSnapshot["setup"]>;
@@ -23,7 +24,7 @@ export function WorkspaceProvider({
   const setup = useShellResource("/api/workspace/first-run", snapshot.setup);
   const navigation = useShellResource("/api/navigation", snapshot.navigation);
   return (
-    <WorkspaceContext.Provider value={{ member, workspace, setup, navigation }}>
+    <WorkspaceContext.Provider value={{ member, workspace, setup, navigation, localDevelopment: snapshot.localDevelopment === true }}>
       {children}
     </WorkspaceContext.Provider>
   );

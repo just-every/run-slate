@@ -14,9 +14,13 @@ import { notificationStatements } from '../../../src/core/features/notifications
 import { connectChat } from '../../../src/core/features/notifications/chat-config';
 import { deliverChat,reconcileChat } from '../../../src/core/features/notifications/chat-delivery';
 import { ChatProviderError,type ChatNotifier } from '../../../src/core/features/notifications/slack';
+import { readRuntimeConfig } from '../../../src/core/platform/config/runtime';
+import { registerIntelligenceVisibility } from '../../../src/core/features/ai/integration';
 const app=new Hono<AppEnvironment>();
 app.onError((e,c)=>c.json({code:e instanceof ApiProblem?e.code:'INTERNAL',message:e.message},e instanceof ApiProblem?e.status:500));
-app.use('*',async(c,next)=>{const member=await createSessionService(c.env.DB,{sessionSecret:c.env.SESSION_SECRET!,identityEnabled:false}).authenticate(c.req.raw);if(!member)return c.json({code:'UNAUTHENTICATED'},401);c.set('member',member);await next();});
+// Local automation must also work with the production intelligence audience
+// resolvers installed; plain maintenance messages do not name an AI audience.
+app.use('*',async(c,next)=>{if(c.env.LOCAL_DEVELOPMENT==='true')registerIntelligenceVisibility();c.set('runtimeConfig',readRuntimeConfig(c.env,true));const member=await createSessionService(c.env.DB,{sessionSecret:c.env.SESSION_SECRET!,identityEnabled:false}).authenticate(c.req.raw);if(!member)return c.json({code:'UNAUTHENTICATED'},401);c.set('member',member);await next();});
 app.route('/api/search',createSearchRoutes());app.route('/api/navigation',createNavigationRoutes());app.route('/api/notifications',createNotificationsRoutes());app.route('/api/activity',createActivityRoutes());app.route('/api/analytics',createAnalyticsRoutes());
 app.post('/test/emit',async c=>{const ctx=featureContext(c);await ctx.db.batch(notificationStatements(ctx,await c.req.json()));return c.json({ok:true});});
 app.post('/test/drain',async c=>c.json(await processNotificationOutbox(featureContext(c))));

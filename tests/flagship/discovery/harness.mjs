@@ -7,13 +7,13 @@ const require=createRequire(import.meta.url);const dependencies=createRequire(re
 const {Miniflare,convertV4MiniflareOptions}=dependencies('miniflare');const {build}=dependencies('esbuild');
 export async function harness(options={}){
  const temp=await mkdtemp(path.join(tmpdir(),'slate-discovery-'));const outfile=path.join(temp,'worker.mjs');
- await build({entryPoints:['tests/flagship/discovery/worker.ts'],outfile,bundle:true,format:'esm',platform:'browser',target:'es2022'});
- const mf=new Miniflare(convertV4MiniflareOptions({workers:[{name:'discovery',modules:true,script:await readFile(outfile,'utf8'),compatibilityDate:'2026-09-08',compatibilityFlags:['nodejs_compat'],d1Databases:{DB:'discovery'},r2Buckets:['FILES'],queueProducers:{JOBS:'discovery-jobs'},bindings:{SESSION_SECRET:'synthetic-test-session-secret-with-at-least-32-characters',CONNECTOR_CREDENTIALS_KEY:'synthetic-test-credential-key-with-at-least-32-characters'}}]}));
+ await build({entryPoints:['tests/flagship/discovery/worker.ts'],outfile,bundle:true,format:'esm',platform:'browser',target:'es2022',external:['node:*','cloudflare:*']});
+ const mf=new Miniflare(convertV4MiniflareOptions({workers:[{name:'discovery',modules:true,script:await readFile(outfile,'utf8'),compatibilityDate:'2026-09-08',compatibilityFlags:['nodejs_compat'],d1Databases:{DB:'discovery'},r2Buckets:['FILES'],queueProducers:{JOBS:'discovery-jobs'},bindings:{APP_URL:options.localDevelopment?'http://localhost':'https://slate.example.test',LOCAL_DEVELOPMENT:options.localDevelopment?'true':'false',SETUP_OWNER_EMAIL:'owner@example.test',MAIL_PROVIDER:'resend',MAIL_FROM:'slate@example.test',MAIL_API_KEY:'test-only-no-mail-sent',SESSION_SECRET:'synthetic-test-session-secret-with-at-least-32-characters',CONNECTOR_CREDENTIALS_KEY:'synthetic-test-credential-key-with-at-least-32-characters'}}]}));
  let db;try{db=await mf.getD1Database('DB');}catch(error){await mf.dispose();throw error;}
  try{
  // SQLite complete statements preserve trigger bodies while D1 batch gives the real migration transaction.
  function split(sql){const out=[];let current='';for(const line of sql.split('\n')){const clean=line.replace(/--.*$/,'').trim();if(!clean)continue;current+=line+'\n';if(clean.endsWith(';')&&(!/^CREATE TRIGGER/i.test(current.trim())||/END;\s*$/.test(current))){out.push(current);current='';}}if(current.trim())throw Error('Incomplete migration SQL');return out;}
- for(const file of (await readdir('migrations/core')).filter(x=>/^000[12345]_/.test(x)).sort()){if(file.startsWith('0005'))await options.beforeDiscovery?.(db);const sql=await readFile(`migrations/core/${file}`,'utf8');for(const statement of split(sql))await db.prepare(statement).run();}
+ for(const file of (await readdir('migrations/core')).filter(x=>/^\d{4}_.*\.sql$/.test(x)).sort()){if(file.startsWith('0005'))await options.beforeDiscovery?.(db);const sql=await readFile(`migrations/core/${file}`,'utf8');for(const statement of split(sql))await db.prepare(statement).run();}
  const now=new Date().toISOString();
  await db.prepare("INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES('w','Discovery fixture','S',?,?,'wrev')").bind(now,now).run();
  for(const [id,role,kind] of [['owner','owner','member'],['reader','member','member'],['denied','member','member'],['guest','member','guest']]){

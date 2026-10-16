@@ -1,4 +1,5 @@
 import type { Action } from "./automationTypes";
+import { useWorkspace } from "../../../../app/ui/WorkspaceContext";
 import { useResource } from "../../../../client/useResource";
 import type { DatabaseDto } from "../../../../client/records";
 export function RuleActionsEditor({
@@ -101,6 +102,7 @@ function ActionFields({
   databases: { id: string; title: string }[];
   members: { id: string; displayName: string }[];
 }) {
+  const { localDevelopment } = useWorkspace();
   const fields = useResource<DatabaseDto>(
     action.type === "edit-fields" && sourceId
       ? `/api/databases/${sourceId}`
@@ -189,6 +191,15 @@ function ActionFields({
       ) : null}
       {action.type === "notify" ? (
         <>
+          {localDevelopment ? (
+            <p>
+              No email is sent on this computer. Selected people receive this
+              message in their Slate Inbox if they can still read the record.
+              Select yourself to try it locally, then open Inbox after the run
+              finishes. The owner signs in using the private RER_OPEN link from
+              rer dev; this action does not invite new people.
+            </p>
+          ) : null}
           <label>
             Message
             <textarea

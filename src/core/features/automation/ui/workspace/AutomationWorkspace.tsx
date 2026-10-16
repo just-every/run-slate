@@ -64,6 +64,7 @@ export function AutomationWorkspace({sourceId}:{sourceId?:string}={}) {
   );
 }
 function AutomationRunLog({ id }: { id: string }) {
+  const { localDevelopment } = useWorkspace();
   const resource = useResource<{
     items: {
       id: string;
@@ -75,17 +76,15 @@ function AutomationRunLog({ id }: { id: string }) {
       receipts?: { actionIndex: number; targetId: string; state: string }[];
     }[];
   }>(`/api/automation/${id}/runs`);
-  const active = resource.data?.items.some((run) =>
-    ["queued", "running"].includes(run.state),
-  );
   useEffect(() => {
-    if (!active) return;
+    // A new run may be enqueued after this log first opens.
     const timer = setInterval(resource.reload, 4000);
     return () => clearInterval(timer);
-  }, [active, resource.reload]);
+  }, [resource.reload]);
   return (
     <section>
       <h3>Run log</h3>
+      {localDevelopment ? <p>A confirmed Notify people action queues an in-app notification. No email is sent on this computer. Selected recipients can open their Slate Inbox after delivery; confirmation does not mean they have read it.</p> : null}
       <RequestState
         loading={resource.loading}
         error={resource.error}

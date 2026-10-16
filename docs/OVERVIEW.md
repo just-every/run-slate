@@ -31,10 +31,10 @@ cd slate
 rer dev
 ```
 
-You can also install rer with `npm install -g @runeditrun/rer`. In a fresh checkout, `rer dev` installs the pinned dependencies, prepares a placeholder local owner and prints a link that opens Slate signed in. Separate `rer install` and `rer setup` steps are optional; run `rer setup --owner-email you@example.test` first to choose your own owner email. No email is sent locally.
+You can also install rer with `npm install -g @runeditrun/rer`; this checkout runs its pinned rer 0.2.25. In a fresh checkout, `rer dev` installs the pinned dependencies, prepares a placeholder local owner and prints a link that opens Slate signed in. Separate `rer install` and `rer setup` steps are optional; run `rer setup --owner-email you@example.test` first to choose your own owner email. Setup prepares local settings and the owner, then exits with no app running; `rer dev` starts Slate. No email is sent locally.
 
 For an existing installation, follow [Update your existing wiki](INSTALL.md#update-your-existing-wiki): export first, then `git pull --ff-only` and `rer deploy` to the same environment. Rer installs the pinned dependencies as part of deployment.
 
 ## About the project
 
-The current version is 0.1.0. The [changelog on GitHub](../CHANGELOG.md) lists what it includes. The product requirements are in [CONTRACT.md](../CONTRACT.md). Slate is MIT licensed; the licence is in [LICENSE](../LICENSE).
+The current Slate version is 0.2.0. The [changelog on GitHub](../CHANGELOG.md) lists what it includes. The product requirements are in [CONTRACT.md](../CONTRACT.md). Slate is MIT licensed; the licence is in [LICENSE](../LICENSE).

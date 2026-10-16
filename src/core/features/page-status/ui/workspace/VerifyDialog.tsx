@@ -54,8 +54,8 @@ export function VerifyDialog({ pageId, statusKey, expectedRevisionId, attestRevi
       </p>
       {openedCurrent === false ? (
         <p className="verify-warning">
-          You have not opened the current version of this page yet, so Slate will
-          refuse this. Open the page, read it as it is now, then verify it.
+          The visit to this revision is not confirmed yet. Refresh the page,
+          review the current content, then verify it again.
         </p>
       ) : null}
       <fieldset className="verify-expiry">

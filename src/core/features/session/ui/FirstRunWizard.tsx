@@ -2,6 +2,7 @@ import { useEffect, useId, useState } from "react";
 import { PaperPage, PaperScene } from "./PaperPage";
 import { FirstRunProgress, type FirstRunStep } from "./FirstRunProgress";
 import { containerNoun, sentenceCase } from "./nouns";
+import { LocalInvitationNotice } from "../../settings/ui/workspace/LocalInvitationNotice";
 
 export interface FirstRunWizardProps {
   step: FirstRunStep;
@@ -24,6 +25,7 @@ export interface FirstRunWizardProps {
   submitting?: boolean;
   failure?: string | null;
   className?: string;
+  localDevelopment?: boolean;
 }
 
 /**
@@ -53,6 +55,7 @@ export function FirstRunWizard({
   submitting = false,
   failure,
   className,
+  localDevelopment = false,
 }: FirstRunWizardProps) {
   const fieldId = useId();
   // Controlled fields cannot accept input until their client handlers exist.
@@ -128,6 +131,7 @@ export function FirstRunWizard({
             <section className="paper-body">
               <h1 className="paper-title">Invite people</h1>
               <p className="paper-lede">Optional. One address per line. Invitations expire after 7 days and can be used once.</p>
+              {localDevelopment ? <LocalInvitationNotice /> : null}
               <div className="paper-field">
                 <label htmlFor={`${fieldId}-invitations`}>Email addresses</label>
                 <textarea
@@ -162,7 +166,9 @@ export function FirstRunWizard({
               <>
                 {hasInvitations ? (
                   <button className="paper-pill" disabled={!interactive || submitting} onClick={onFinish} type="button">
-                    {submitting ? "Sending the invitations…" : "Send the invitations and finish"}
+                    {localDevelopment
+                      ? submitting ? "Recording locally…" : "Record invitations locally and finish"
+                      : submitting ? "Sending the invitations…" : "Send the invitations and finish"}
                   </button>
                 ) : null}
                 <button className={`paper-pill${hasInvitations ? " paper-pill--quiet" : ""}`} disabled={!interactive || submitting} onClick={onSkipInvitations} type="button">

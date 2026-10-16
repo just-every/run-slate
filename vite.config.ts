@@ -55,7 +55,7 @@ export default defineConfig(async ({ command }) => {
       viteEnvironment: { name: "ssr" },
       configPath,
       persistState: { path: persistPath },
-      config: local ? { main: 'src/dev/server.ts', vars: { ...local, ...extra, ...(process.env.RER_DEMO === "1" ? { RER_DEMO: "1", RER_DEMO_EXPIRES: process.env.RER_DEMO_EXPIRES ?? "", SLATE_PROFILE: "flagship", AI_ENABLED: "false", AI_API_KEY: "", AI_LOCAL_URL: "", AI_LOCAL_TOKEN: "" } : {}) } } : undefined,
+      config: local ? { main: resolve('src/dev/server.ts'), vars: { ...local, ...extra, ...(process.env.RER_DEMO === "1" ? { RER_DEMO: "1", RER_DEMO_EXPIRES: process.env.RER_DEMO_EXPIRES ?? "", SLATE_PROFILE: "flagship", AI_ENABLED: "false", AI_API_KEY: "", AI_LOCAL_URL: "", AI_LOCAL_TOKEN: "" } : {}) } } : undefined,
     }),
     // /docs: the repository's Markdown rendered when Vite loads it (DOCS-001), never in the Worker or the browser.
     docsSite(),

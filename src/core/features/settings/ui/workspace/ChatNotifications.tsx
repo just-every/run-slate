@@ -114,7 +114,54 @@ export function ChatNotifications() {
           <p>No chat delivery is connected.</p>
         )}
       </RequestState>
-      {!flagship ? <p>Connecting a new chat service is unavailable in the core-wiki profile. Existing delivery settings remain available.</p> : null}
+      {!flagship ? (
+        <section aria-label="Slack setup requirements">
+          <h3>New Slack connections require development features.</h3>
+          <p>
+            This installation uses Slate’s supported wiki configuration. Slack
+            connection setup is an optional development feature and is disabled
+            here. Workspace settings cannot turn it on. Existing delivery
+            settings remain available below.
+          </p>
+          <p>
+            To evaluate Slack delivery, the person running Slate needs a
+            development instance with <code>SLATE_PROFILE=flagship</code> and a
+            restart after changing its server settings. They also need:
+          </p>
+          <ul>
+            <li>
+              A <a href="https://api.slack.com/apps" target="_blank" rel="noreferrer">Slack OAuth app</a>
+              {" "}and permission to authorize it in the Slack workspace.
+            </li>
+            <li>
+              <code>SLACK_CLIENT_ID</code> and <code>SLACK_CLIENT_SECRET</code>
+              {" "}from that app, so Slack can verify the consent request.
+            </li>
+            <li>
+              <code>APP_URL</code> set to the Slate address, with that address
+              followed by <code>/api/connectors/oauth/slack/callback</code>
+              {" "}registered as an OAuth redirect URL in Slack.
+            </li>
+            <li>
+              A private <code>CONNECTOR_CREDENTIALS_KEY</code> server secret to
+              encrypt the Slack credentials Slate stores.
+            </li>
+          </ul>
+          <p>
+            These are server settings; do not paste secrets into this page.
+            Enabling this development configuration does not make the Slack
+            integration part of the supported wiki release.
+          </p>
+        </section>
+      ) : (
+        <p>
+          Connect Slack and approve its consent screen, then return here and
+          choose the connected identity, a private channel and the events to
+          send. Save chat delivery to finish. The server needs a Slack OAuth app
+          configured with its client ID, client secret, redirect URL and an
+          encryption key before consent can start.
+        </p>
+      )}
       <button disabled={pending || !flagship} onClick={() => void connect()}>
         Connect Slack with consent
       </button>
@@ -183,7 +230,9 @@ export function ChatNotifications() {
           ) : null}
           <p className="muted">
             Only authorized private channels with known members are offered.
-            Delivery checks access again at send time.
+            Every channel member’s Slack email must match an active Slate member.
+            Join the channel with the connected Slack identity and add its members
+            to Slate before choosing it. Delivery checks access again at send time.
           </p>
           <fieldset>
             <legend>Events</legend>

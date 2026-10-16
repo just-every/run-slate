@@ -53,13 +53,13 @@ export async function availablePort() {
   return address.port;
 }
 
-export async function waitForReady(baseUrl, child, timeoutMs = 60000) {
+export async function waitForReady(baseUrl, child, timeoutMs = 60000, headers) {
   const deadline = Date.now() + timeoutMs;
   let failure;
   while (Date.now() < deadline) {
     if (child.exitCode !== null || child.signalCode !== null) throw new Error(`Runtime exited with ${child.exitCode ?? child.signalCode} before it became ready.`);
     try {
-      const response = await fetch(`${baseUrl}/health`);
+      const response = await fetch(`${baseUrl}/health`, { headers });
       if (response.status === 200 || response.status === 503) return;
     } catch (cause) {
       failure = cause;

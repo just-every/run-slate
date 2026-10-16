@@ -49,6 +49,25 @@ Restoring replaces an empty workspace with the one in the archive. Read the rule
 - **A restore is all or nothing.** Slate checks the whole archive, stages the files, then publishes everything in one step. If it fails, the deployment is left empty and you can try again.
 - **Size.** The archive can be up to 256 MiB, and can expand to at most 512 MiB.
 
+### On your computer
+
+Use a separate checkout at the same Git revision that made the backup. Keep your existing checkout and its data:
+
+```sh
+git clone https://github.com/just-every/run-slate.git slate-restore
+cd slate-restore
+git checkout <backup-source-revision>
+rer install
+rer setup --owner-email you@example.test
+rer dev
+```
+
+Replace `<backup-source-revision>` with the original checkout's `git rev-parse HEAD`, and `you@example.test` with the archived owner's email. Setup prepares the owner and stops its temporary server; `rer dev` starts the app and prints the private owner `RER_OPEN` link. Open that link, choose **Restore an existing workspace** before naming a workspace or creating its first space, upload the ZIP, and select **Restore workspace**. The untouched setup owner's default statuses and the scheduler's successful heartbeat do not make this destination nonempty. Real failed-job records remain protected.
+
+Restore signs everyone out. Use the private owner entry from `rer dev` again to open the restored workspace. No sign-in email is sent locally. If the destination already has content or customized settings, use another fresh checkout; do not reset your existing workspace to make room for the archive.
+
+### On a hosted installation
+
 To restore:
 
 1. Prepare a distinct empty deployment as described in [Install and deploy](INSTALL.md), with the archived owner's address as `SLATE_SETUP_OWNER_EMAIL` and the required private deployment inputs. Review `rer deploy --environment restore-preview --dry-run`, then run it without `--dry-run` when authorized. Choose an environment name distinct from your existing deployment and retain its `.rer/deploy` receipts.

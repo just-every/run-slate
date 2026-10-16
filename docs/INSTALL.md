@@ -13,7 +13,7 @@ cd slate
 rer dev
 ```
 
-You can also install rer with `npm install -g @runeditrun/rer`. In a fresh checkout `rer dev` alone installs the pinned dependencies and sets up a placeholder local owner; separate `rer install` and `rer setup` steps are optional. To use your own email instead, run `rer setup --owner-email owner@example.test` before `rer dev` (use your own address). When Slate is ready, open the printed `RER_OPEN` link to sign in as the local owner. Keep this link private. No email or outbox step is needed. On first use, name the workspace and create its first space and page at `/setup`. Private settings and local data survive restart; Slate creates no sample workspace. Setup reruns preserve your settings and owner. Stop dev with `rer dev --stop`. Use `rer preview` for a fixed production build.
+You can also install rer with `npm install -g @runeditrun/rer`; this checkout runs its pinned rer 0.2.25. In a fresh checkout `rer dev` alone installs the pinned dependencies and sets up a placeholder local owner; separate `rer install` and `rer setup` steps are optional. To use your own email instead, run `rer setup --owner-email owner@example.test` before `rer dev` (use your own address). Setup prepares local settings and the owner, then exits with no app running; `rer dev` starts Slate. When Slate is ready, open the printed `RER_OPEN` link to sign in as the local owner. Keep this link private. No email or outbox step is needed. On first use, name the workspace and create its first space and page at `/setup`. Private settings and local data survive restart; Slate creates no sample workspace. Setup reruns preserve your settings and owner. Stop dev with `rer dev --stop`. Use `rer preview` for a fixed production build.
 
 ## Run Edit Run hosting
 

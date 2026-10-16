@@ -20,13 +20,27 @@ test('Inbox and Today: durable duplicate-safe delivery, mandatory notices, watch
   await h.page('page','Operational page');
   const emit=async(id,event,recipientIds=['reader'])=>{const result=await h.request('/test/emit','owner',{id,event,pageId:'page',recipientIds,detail:{outcome:`Outcome ${id}`}});assert.equal(result.status,200,JSON.stringify(result.body));};
   await emit('maintenance-one','maintenance');await emit('maintenance-two','maintenance');await emit('mention-one','mention');await emit('decision-one','decision-required');await emit('lapse-one','verification-lapsed');await emit('failure-one','run-failed');await emit('contradiction-one','contradiction');
+  await emit('hosted-self','maintenance',['owner']);
   await h.request('/test/drain','owner',{});await h.request('/test/drain','owner',{});
+  assert.equal((await h.request('/api/notifications','owner')).body.items.some(item=>item.id.startsWith('hosted-self')),false);
   const today=(await h.request('/api/notifications/today')).body;assert.equal(today.outcomes.length,1);assert.equal(today.outcomes[0].count,2);assert.equal(today.decisions.length,1);assert.equal(today.contradictions.length,1);assert.equal(today.notices.length,3);assert.equal(today.unreadCount,7);
   const inbox=(await h.request('/api/notifications?limit=2')).body;assert.equal(inbox.items.length,2);await emit('new-notice','mention');await h.request('/test/drain','owner',{});const next=(await h.request(`/api/notifications?limit=2&cursor=${encodeURIComponent(inbox.nextCursor)}`)).body;assert.equal(next.items.some(i=>inbox.items.some(j=>j.id===i.id)),false);assert.equal(next.items.some(i=>i.id.startsWith('new-notice')),false);
   const open=await h.request('/api/notifications/actions','reader',{operationKey:'read-notice-operation',action:'read',id:inbox.items[0].id});assert.equal(open.status,200,JSON.stringify(open.body));assert.equal(open.body.value.href,'/app/pages/page');
   assert.equal((await h.request('/api/notifications/actions','reader',{operationKey:'read-all-operation',action:'read-all'})).status,200);assert.equal((await h.request('/api/notifications')).body.unreadCount,0);
   await emit('revoked-event','mention');await h.db.prepare("UPDATE container_grants SET revoked_at=? WHERE id='cg-reader'").bind(h.now).run();await h.request('/test/drain','owner',{});assert.equal((await h.request('/api/notifications')).body.unreadCount,0);assert.equal((await h.request('/api/notifications')).body.items.length,0);assert.equal((await h.db.prepare("SELECT count(*) AS n FROM notifications WHERE outbox_id='revoked-event'").first()).n,0);
  }finally{await h.close();}
+ const local=await harness({localDevelopment:true});try{
+  await local.page('local-page','Local automation target');
+  for(const [id,event] of [['local-self','maintenance'],['local-ordinary-self','mention']]){
+   const emitted=await local.request('/test/emit','owner',{id,event,pageId:'local-page',recipientIds:['owner'],detail:{outcome:'Review the owner and due date'}});
+   assert.equal(emitted.status,200,JSON.stringify(emitted.body));
+  }
+  assert.equal((await local.request('/test/drain','owner',{})).status,200);
+  assert.equal((await local.request('/test/drain','owner',{})).status,200);
+  const inbox=await local.request('/api/notifications','owner');
+  assert.equal(inbox.status,200);assert.equal(inbox.body.unreadCount,1);
+  assert.deepEqual(inbox.body.items.map(item=>({id:item.id,href:item.href,outcome:item.detail.outcome})),[{id:'local-self:owner',href:'/app/pages/local-page',outcome:'Review the owner and due date'}]);
+ }finally{await local.close();}
 });
 test('Analytics aggregate readable pages only and hide guest identities; activity filters and pagination retain ACL',async()=>{
  const h=await harness();try{

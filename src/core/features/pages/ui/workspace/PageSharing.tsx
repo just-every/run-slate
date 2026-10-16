@@ -1,3 +1,4 @@
+import { LocalInvitationNotice } from "../../../settings/ui/workspace/LocalInvitationNotice";
 import { AccessExpiry } from "../../../../app/ui/AccessExpiry";
 import { displayDate } from "../../../../app/ui/displayDate";
 import { useState } from "react";
@@ -30,7 +31,7 @@ interface Grant {
 }
 function accessLabel(level: string) { return ({view:"View",comment:"Comment",edit:"Edit",full:"Manage access"} as Record<string,string>)[level] ?? level; }
 export function PageSharing({ document }: { document: DocumentView }) {
-  const { workspace } = useWorkspace();
+  const { workspace, localDevelopment } = useWorkspace();
   const grants = useResource<{ items: Grant[]; inheritedItems?:Grant[]; effectiveItems?:Grant[];levels?:string[];container?:{id:string;name:string};restricted?:boolean }>(
     document.permissions.canShare
       ? `/api/sharing/pages/${document.page.id}`
@@ -192,7 +193,7 @@ export function PageSharing({ document }: { document: DocumentView }) {
               Share page
             </button>
           </form>
-          <details><summary>Invite by email</summary><form className="detail-form" onSubmit={async event=>{event.preventDefault();const data=new FormData(event.currentTarget);setPending(true);setError(undefined);try{await mutate("/api/invitations",{operationKey:operationKey(),email:String(data.get("email")),kind:"guest",pageId:document.page.id,level:String(data.get("level")),expiresAt:data.get("expires")?new Date(String(data.get("expires"))).toISOString():null});setInvited(true);grants.reload();}catch(error){setError(error);}finally{setPending(false);}}}><label>Email address<input name="email" type="email" required/></label><label>Invitation access<select name="level" defaultValue="view">{grants.data?.levels?.map(level=><option key={level} value={level}>{accessLabel(level)}</option>)}</select></label><details><summary>Set an access expiry</summary><label>Guest access expires<AccessExpiry name="expires"/></label></details><p>Sending creates a pending invitation. Access begins only when it is accepted; the invitation expires after 7 days.</p><button disabled={pending}>Send invitation</button>{invited?<p role="status">Invitation requested. Pending access is shown above.</p>:null}</form></details>
+          <details><summary>Invite by email</summary>{localDevelopment ? <LocalInvitationNotice /> : null}<form className="detail-form" onSubmit={async event=>{event.preventDefault();const data=new FormData(event.currentTarget);setPending(true);setError(undefined);try{await mutate("/api/invitations",{operationKey:operationKey(),email:String(data.get("email")),kind:"guest",pageId:document.page.id,level:String(data.get("level")),expiresAt:data.get("expires")?new Date(String(data.get("expires"))).toISOString():null});setInvited(true);grants.reload();}catch(error){setError(error);}finally{setPending(false);}}}><label>Email address<input name="email" type="email" required/></label><label>Invitation access<select name="level" defaultValue="view">{grants.data?.levels?.map(level=><option key={level} value={level}>{accessLabel(level)}</option>)}</select></label><details><summary>Set an access expiry</summary><label>Guest access expires<AccessExpiry name="expires"/></label></details><p>Sending creates a pending invitation. Access begins only when it is accepted; the invitation expires after 7 days.</p><button disabled={pending}>{localDevelopment ? "Record invitation locally" : "Send invitation"}</button>{invited?<p role="status">{localDevelopment ? "Invitation recorded locally. No email was sent; the recipient cannot sign in from this request. Send a new invitation from a hosted installation to give them access." : "Invitation requested. Pending access is shown above."}</p>:null}</form></details>
           <details className="advanced-access"><summary>Advanced access</summary>
           <p>{document.permissions.level === "full" ? "You can manage access to this page." : `You can ${accessLabel(document.permissions.level).toLowerCase()} ${document.permissions.level === "comment" ? "on " : ""}this page.`}</p><p>{grants.data?.restricted?'Only people invited directly can access this page.':'People with access to the parent page or space can also access this page.'}</p>
           <div className="action-row">

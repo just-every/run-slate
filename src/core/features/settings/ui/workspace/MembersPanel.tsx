@@ -1,4 +1,5 @@
 import { MailDeliveryPanel } from "./MailDeliveryPanel";
+import { LocalInvitationNotice } from "./LocalInvitationNotice";
 import { useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import { mutate, operationKey } from "../../../../client/transport";
@@ -7,7 +8,7 @@ import { RequestState } from "../../../../app/ui/RequestState";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import type { MemberView, GroupView } from "../../../../shared/api/workspace";
 export function MembersPanel() {
-  const { member } = useWorkspace();
+  const { member, localDevelopment } = useWorkspace();
   const members = useResource<{ items: MemberView[] }>("/api/members");
   const groups = useResource<{ items: GroupView[] }>("/api/groups");
   const [invite, setInvite] = useState(false);
@@ -18,11 +19,13 @@ export function MembersPanel() {
   return (
     <section className="settings-panel">
       <h2>Good work is shared.</h2>
+      {localDevelopment ? <LocalInvitationNotice /> : null}
       <button onClick={() => setInvite(true)}>Invite a member</button>
       {sent ? (
         <p role="status">
-          Invitation request accepted. Delivery follows the workspace’s mail
-          configuration.
+          {localDevelopment
+            ? "Invitation request accepted locally. No email was sent. The recipient cannot sign in from this request; send a new invitation from a hosted installation to give them access."
+            : "Invitation request accepted. Delivery follows the workspace’s mail configuration."}
         </p>
       ) : null}
       <RequestState
@@ -46,7 +49,7 @@ export function MembersPanel() {
           ))}
         </ul>
       </RequestState>
-      <MailDeliveryPanel/>
+      {localDevelopment ? null : <MailDeliveryPanel/>}
       <h3>Groups</h3>
       {owner ? (
         <button onClick={() => setGroup("new")}>Create group</button>
@@ -73,7 +76,7 @@ export function MembersPanel() {
       {invite ? (
         <ActionDialog
           title="Invite a member"
-          action="Send invitation"
+          action={localDevelopment ? "Record invitation locally" : "Send invitation"}
           onClose={() => setInvite(false)}
           onSubmit={async (data) => {
             await mutate("/api/invitations", {
@@ -84,6 +87,7 @@ export function MembersPanel() {
             setSent(true);
           }}
         >
+          {localDevelopment ? <LocalInvitationNotice /> : null}
           <label>
             Email
             <input type="email" name="email" required />

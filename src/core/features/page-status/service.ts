@@ -30,7 +30,7 @@ export async function setPageStatus(ctx: FeatureContext, id: string, input: {
                     throw new ApiProblem(409, 'EXACT_REVISION_REQUIRED', 'Someone changed this page after you opened it. Reload the page, read the current version, then verify it.');
                 const opened = await ctx.db.prepare('SELECT 1 FROM content_page_opens WHERE member_id=? AND page_id=? AND revision_id=?').bind(ctx.actor.id, id, input.attestRevisionId).first();
                 if (!opened)
-                    throw new ApiProblem(409, 'REVISION_NOT_OPENED', 'You have not opened the current version of this page. Open the page, read it as it is now, then verify it.');
+                    throw new ApiProblem(409, 'REVISION_NOT_OPENED', 'Slate could not confirm the visit to this revision. Refresh this page, review the current content, then verify it again.');
                 const expiresAt = verificationExpiry(input, ctx.now);
                 statements.push(ctx.db.prepare('INSERT INTO page_verifications (id,page_id,revision_id,status_key,owner_member_id,verified_by_member_id,expires_at,created_at) VALUES (?,?,?,?,?,?,?,?)').bind(createUlid(), id, p.working_revision_id, input.statusKey, ctx.actor.id, ctx.actor.id, expiresAt, ctx.now));
             }

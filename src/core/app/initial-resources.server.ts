@@ -54,7 +54,7 @@ export async function initialResources(ctx: FeatureContext, url: URL, recordVisi
       if(recordVisit) {
         const sessionId=crypto.randomUUID(), epoch=ctx.authorizationEpoch!;
         const opened=await openPage({...ctx},id,{operationKey:crypto.randomUUID(),revisionId:['edit','full'].includes(document.permissions.level)?document.workingRevisionId:document.publishedRevisionId??document.workingRevisionId},{document,authorizationEpoch:epoch,sessionId});
-        resources[`/api/pages/${id}/opened`]={sessionId,recent:{id:document.page.id,title:document.page.title,containerId:document.page.containerId,icon:document.properties.icon,openedAt:ctx.now,...Object.fromEntries(['publishAt','scheduleState','scheduleFailure'].filter(key=>key in document.page).map(key=>[key,(document.page as unknown as Record<string,unknown>)[key]]))}};
+        resources[`/api/pages/${id}/opened`]={sessionId,revisionId:opened.value.revisionId,recent:{id:document.page.id,title:document.page.title,containerId:document.page.containerId,icon:document.properties.icon,openedAt:ctx.now,...Object.fromEntries(['publishAt','scheduleState','scheduleFailure'].filter(key=>key in document.page).map(key=>[key,(document.page as unknown as Record<string,unknown>)[key]]))}};
         resources[`/api/collaboration/${id}?after=0`]=opened.collaboration;
       }
       return document;

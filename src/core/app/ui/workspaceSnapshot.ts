@@ -6,6 +6,7 @@ import type { navigation } from "../../features/navigation/service";
 /** Only authorized, serializable presentation data crosses the Start boundary. */
 export interface WorkspaceSnapshot {
   resourcePath?:string;
+  localDevelopment?: boolean;
   editorEnabled?: boolean;
   resources?: import("../../client/InitialResources").InitialResources;
   member: AuthenticatedMember;

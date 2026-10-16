@@ -7,6 +7,7 @@ import { owner, signIn } from './auth.mjs';
 import { localOwner } from './owner.mjs';
 import { build } from '../build.mjs';
 import { portability } from './portability.mjs';
+import { preparationLifecycle } from './setup-completion.mjs';
 import { relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../../', import.meta.url));
@@ -25,7 +26,7 @@ export const hooks = {
   migrate: context => { validateLocalSettings(context.vars); return migrationCommand({ ...process.env, ...(context.demo ? { RER_STATE_DIR: context.demo.state } : {}) }); },
   start: preview, owner, signIn, localOwner,
 };
-export const lifecycle = localInstaller(hooks);
+export const lifecycle = preparationLifecycle(localInstaller(hooks));
 export const commandAdapter = describeAdapter(lifecycle, {
   dev: developmentTarget, preview, verify: ['pnpm', ['run', 'verify:app']], deploy: deploy(lifecycle), portability,
   publicPages: ['/signin', '/docs', '/docs/install', '/docs/moving-in', '/docs/move-from-notion', '/docs/move-from-confluence', '/docs/trustworthy-handbook', '/docs/backup', '/docs/email-delivery', '/docs/cloudflare-footprint'],

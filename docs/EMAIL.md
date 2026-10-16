@@ -11,7 +11,7 @@ Slate sends two kinds of email and nothing else:
 
 Messages come from the sender address configured for your hosting. Slate does not read incoming mail: a reply to that address creates and changes nothing. No other event in the wiki sends email.
 
-A hosted owner's first sign-in uses an emailed link; Managed hosting supplies mail, while an owner-account deployment needs your provider settings. Local dev and demo suppress mail silently per rer 0.2.22; local sign-in uses the printed one-click RER_OPEN link.
+A hosted owner's first sign-in uses an emailed link; Managed hosting supplies mail, while an owner-account deployment needs your provider settings. Local dev and demo suppress mail; local sign-in uses the printed one-click RER_OPEN link. Local invitation and automation screens explain where access and in-app notifications are available.
 
 ## Choose a provider
 

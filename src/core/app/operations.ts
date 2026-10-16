@@ -52,10 +52,16 @@ export async function commitOperation<T>(ctx: FeatureContext, input: {
   }
   return result;
 }
-/** The asking session still holds a fresh step-up proof at the member's current authority version. */
+/** Repeat Base's accepted proof, including its gated local dev session, at commit. */
 export function freshProofGuard(ctx: FeatureContext): D1PreparedStatement {
   const proof = ctx.stepUp!;
-  return mutationGuard(ctx.db, "SELECT EXISTS(SELECT 1 FROM sessions s JOIN members m ON m.id=s.member_id WHERE s.id=? AND s.member_id=? AND m.status='active' AND s.revoked_at IS NULL AND s.proof_at>=? AND s.proof_version=COALESCE((SELECT version FROM member_authority WHERE member_id=m.id),1))", [proof.sessionId, ctx.actor.id, proof.since]);
+  const authority = 'COALESCE((SELECT version FROM member_authority WHERE member_id=m.id),1)';
+  const emailProof = `s.proof_at>=? AND s.proof_version=${authority}`;
+  const localDev = ctx.localDevelopment === true;
+  const accepted = localDev
+    ? `(s.kind='dev' AND s.expires_at>? AND s.authority_version=${authority}) OR (${emailProof})`
+    : emailProof;
+  return mutationGuard(ctx.db, `SELECT EXISTS(SELECT 1 FROM sessions s JOIN members m ON m.id=s.member_id WHERE s.id=? AND s.member_id=? AND m.status='active' AND s.revoked_at IS NULL AND (${accepted}))`, [proof.sessionId, ctx.actor.id, ...(localDev ? [ctx.now] : []), proof.since]);
 }
 /** Guard SELECT must return a boolean scalar. It executes inside the same atomic D1 batch as writes. */
 export function mutationGuard(db: D1Database, select: string, values: (string | number | null)[]): D1PreparedStatement {

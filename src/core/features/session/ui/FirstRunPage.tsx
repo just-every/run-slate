@@ -6,7 +6,9 @@ import { FirstRunWizard } from "./FirstRunWizard";
 import { PaperPage } from "./PaperPage";
 import { clearDraft, readDraft, writeDraft } from "./first-run-draft";
 import { mutate, operationKey, errorMessage } from "../../../client/transport";
+import { useWorkspace } from "../../../app/ui/WorkspaceContext";
 export function FirstRunPage({ owner }: { owner: string }) {
+  const { localDevelopment } = useWorkspace();
   const [restore, setRestore] = useState(false);
   // The step is mirrored into the address (`/setup?step=2`) and the typed answers kept in this tab's session, so a reload shows
   // the same step with the same answers. The address is only written, never navigated: the form keeps its own state.
@@ -104,6 +106,7 @@ export function FirstRunPage({ owner }: { owner: string }) {
     );
   return (
     <FirstRunWizard
+      localDevelopment={localDevelopment}
       step={step}
       workspaceName={workspaceName}
       onWorkspaceNameChange={setWorkspaceName}

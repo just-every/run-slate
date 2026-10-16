@@ -3,11 +3,11 @@ import path from 'node:path';
 import {launch} from '../qualification/local/process.mjs';
 
 /** Run the selected emitted artifact, intercepting only the paid mail transport. */
-export async function launchMailRuntime({root,configPath,persist,port,variables={},env}) {
+export async function launchMailRuntime({root,configPath,persist,port,variables={},env,scheduled=false}) {
   const varsPath=path.join(persist,'mail-vars.json');
   await mkdir(persist,{recursive:true});
   await writeFile(varsPath,JSON.stringify(variables),{mode:0o600});
-  return launch(process.execPath,[path.join(root,'tests/e2e/emitted-runtime.mjs'),configPath,persist,String(port),varsPath],{cwd:root,...(env?{env}:{})});
+  return launch(process.execPath,[path.join(root,'tests/e2e/emitted-runtime.mjs'),configPath,persist,String(port),varsPath,...(scheduled?['scheduled']:[])],{cwd:root,...(env?{env}:{})});
 }
 
 /** Emitted production Worker with a real D1 and only the relay network edge replaced. */

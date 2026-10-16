@@ -8,6 +8,7 @@ import { withSecondPerson } from './two-people-support.mjs';
 import { concurrentEditingJourney } from './two-people-editing.mjs';
 import { accessChangeJourney } from './two-people-access.mjs';
 import { historyJourney } from './two-people-history.mjs';
+import { databaseJourney } from './database-journey.mjs';
 
 for (const width of [1440, 390]) {
   test(`real core-wiki journeys at ${width}px`, { timeout: 300000 }, async t => {
@@ -27,6 +28,7 @@ for (const width of [1440, 390]) {
       await t.test('invite existing member, persisted grant and canonical copied link', () => shareJourney(state, pageId));
       await t.test('query, highlighted results and opening exact page', () => searchJourney(state, pageId));
       await settingsJourney(state, width);
+      await t.test('remove a field with impact confirmation and export current view CSV', () => databaseJourney(state));
     });
   });
   test(`two people edit at once, lose access mid-edit and restore history at ${width}px`, { timeout: 420000 }, async t => {

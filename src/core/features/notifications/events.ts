@@ -13,7 +13,11 @@ export function notificationStatements(ctx:FeatureContext,event:NotificationFact
  if(!event.id||!notificationEvents.includes(event.event)||(!event.pageId&&!event.containerId&&!(event.recipientIds?.length)))throw new ApiProblem(400,'INVALID_NOTIFICATION_EVENT','A scoped event and recipient or record are required.');
  if(!['comment','reply','published'].includes(event.event)&&!event.recipientIds?.length)return [];
  const governed=!!(event.detail?.runId||event.detail?.decisionId||event.detail?.inquiryId||event.detail?.experimentId);
- const extra=creationResolvers.get(event.event)?.('m',event)??{sql:governed?'0':'1',values:[]};
+ // Plain local automation messages have page-scoped recipients, rather than an
+ // intelligence run audience. Keep hosted resolver behavior unchanged.
+ const extra=ctx.localDevelopment&&event.event==='maintenance'&&!governed
+  ? {sql:'1',values:[]}
+  : creationResolvers.get(event.event)?.('m',event)??{sql:governed?'0':'1',values:[]};
  return [ctx.db.prepare(`WITH fact AS (SELECT ? AS workspace,? AS page,? AS container,? AS at,? AS detail), eligible AS (SELECT m.id FROM members m,fact f WHERE m.workspace_id=f.workspace AND m.status='active' AND (f.page IS NULL OR ${pageReadableSql('m','f.page','f.workspace','f.at')}) AND (f.container IS NULL OR ${containerReadableSql('m','f.container','f.workspace','f.at')}) AND NOT EXISTS(SELECT 1 FROM json_each(json_extract(f.detail,'$.sourcePageIds')) source WHERE NOT (${pageReadableSql('m','source.value','f.workspace','f.at')})) AND (${extra.sql}))
  INSERT OR IGNORE INTO notification_outbox(id,workspace_id,actor_member_id,event,page_id,container_id,comment_id,recipients_json,watched_recipients_json,detail_json,created_at)
  VALUES(?,?,?,?,?,?,?,(SELECT json_group_array(value) FROM (SELECT value FROM json_each(?) UNION SELECT author_member_id AS value FROM pages WHERE id=? AND ? IN ('comment','reply')) WHERE value IN (SELECT id FROM eligible)),(SELECT json_group_array(member_id) FROM page_watches WHERE page_id=? AND ? IN ('comment','reply','published') AND member_id IN (SELECT id FROM eligible)),?,?)`).bind(ctx.actor.workspaceId,event.pageId??null,event.containerId??null,ctx.now,JSON.stringify(event.detail??{}),...extra.values,event.id,ctx.actor.workspaceId,event.actorId===undefined?ctx.actor.id:event.actorId,event.event,event.pageId??null,event.containerId??null,event.commentId??null,JSON.stringify(event.recipientIds??[]),event.pageId??null,event.event,event.pageId??null,event.event,JSON.stringify(event.detail??{}),ctx.now)];

@@ -1,9 +1,9 @@
 import {launchMailRuntime} from '../e2e/mail-runtime.mjs';
 import {signInWithOutbox} from '../e2e/outbox-auth.mjs';
-import {testDevKey,devKeyHeaders} from '../e2e/dev-key.mjs';
+import {testDevKey,devKeyHeaders,sourceDevOrigins} from '../e2e/dev-key.mjs';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
-import {readFile,writeFile} from 'node:fs/promises';
+import {readFile,writeFile,rm} from 'node:fs/promises';
 import path from 'node:path';
 import {availablePort,waitForReady,sessionCookie} from '../e2e/runtime-harness.mjs';
 import {command,launch,stop,safeEnvironment} from '../qualification/local/process.mjs';
@@ -26,10 +26,22 @@ export async function runtime(directory){
   // Never surface Wrangler output: it may render the private test configuration.
   async function invoke(args){try{return await command('nice',['-n','15',process.execPath,cli,...args,'--local','--config',configPath,'--persist-to',persist],{cwd:directory,env});}catch{throw Error('Local portability storage command failed.');}}
   let worker;
-  async function close(){await stop(worker);worker=undefined;}
-  async function start(){worker=await launchMailRuntime({root,configPath,persist,port,variables:config.vars,env});try{await waitForReady(origin,worker.child);}catch{await close();throw Error('Local portability Worker did not become ready.');}}
+  const localSettings=path.join(root,'.artifacts',`portability-owner-${port}.vars`);
+  async function close(){await stop(worker);worker=undefined;sourceDevOrigins.delete(origin);await rm(localSettings,{force:true});}
+  async function start({localOwner=false}={}){
+    if(localOwner){
+      await writeFile(localSettings,Object.entries(config.vars).map(([key,value])=>`${key}=${JSON.stringify(value)}`).join('\n')+'\n',{mode:0o600});
+      worker=launch(process.execPath,[path.join(root,'node_modules/vite/bin/vite.js'),'--host','127.0.0.1','--port',String(port),'--strictPort'],{cwd:root,env:{...env,SLATE_LOCAL_SETTINGS_PATH:localSettings,SLATE_PERSIST_STATE_PATH:persist,SLATE_WRANGLER_CONFIG_PATH:configPath}});
+      sourceDevOrigins.add(origin);
+    }else worker=await launchMailRuntime({root,configPath,persist,port,variables:config.vars,env,scheduled:true});
+    try{await waitForReady(origin,worker.child,60000,localOwner?devKeyHeaders:undefined);}catch{
+      await writeFile(path.join(root,'.artifacts/portability-local-start.log'),worker.output(),{mode:0o600});
+      await close();throw Error('Local portability Worker did not become ready.');
+    }
+  }
   await invoke(['d1','migrations','apply','DB']);
-  return {origin,persist,async start(){await start();},close,
+  return {origin,persist,start,close,
+    async scheduled(){const response=await fetch(origin+'/cdn-cgi/local/scheduled?cron='+encodeURIComponent('* * * * *'));assert.equal(response.status,200,'The emitted Worker runs its real scheduled handler.');},
     async sql(sql){assert.equal(worker,undefined,'Stop the Worker before opening D1 from the fixture helper.');return JSON.parse(await invoke(['d1','execute','DB','--command',sql,'--json']));},
     async cli(action,file,cookie){let output;try{output=await command('nice',['-n','15',process.execPath,'src/core/features/portability/command.mjs',action==='export'?'backup':'restore',file],{cwd:root,env:{...env,SLATE_APP_URL:origin,SLATE_SESSION_COOKIE:cookie}});}catch(cause){const code=cause.message.match(/\"code\":\"([A-Z_]+)\"/)?.[1]??'COMMAND_FAILED';throw Error(`Native ZIP ${action} failed against the local deployment: ${code}.`);}const line=output.trim().split('\n').at(-1);const receipt=JSON.parse(line);assert.equal(receipt.state,'completed');return receipt;}};
 }

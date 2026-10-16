@@ -55,5 +55,5 @@ export const loadWorkspace = createServerFn({ method: "GET" }).inputValidator(wo
   }
   resources["/api/navigation"] = personalNavigation;
   resources["/api/navigation/configuration"] = personalNavigation.configuration;
-  return { resourcePath:url.pathname, resources, member, workspace, setup, navigation: personalNavigation, editorEnabled: Boolean(bindings.RER_MANAGEMENT_ORIGIN && bindings.RER_INSTALLATION_ID), profile: { profile: config.launchProfile ?? "core-wiki" } };
+  return { resourcePath:url.pathname, resources, member, workspace, setup, navigation: personalNavigation, localDevelopment: config.localDevelopment, editorEnabled: Boolean(bindings.RER_MANAGEMENT_ORIGIN && bindings.RER_INSTALLATION_ID), profile: { profile: config.launchProfile ?? "core-wiki" } };
 });

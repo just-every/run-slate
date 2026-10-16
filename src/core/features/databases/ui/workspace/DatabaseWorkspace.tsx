@@ -31,6 +31,8 @@ import { RequestState } from "../../../../app/ui/RequestState";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import { DatabaseChart } from "./DatabaseChart";
 import { FieldDialog } from "./FieldDialog";
+import { RemoveFieldDialog } from "./RemoveFieldDialog";
+import { ExportViewCsv } from "./ExportViewCsv";
 import { RecordLayouts } from "./RecordLayouts";
 import { ViewDialog } from "./ViewDialog";
 import { ReferenceValueDialog } from "./ReferenceValueDialog";
@@ -51,6 +53,7 @@ export function DatabaseWorkspace({ id }: { id: string }) {
     view ? `/api/databases/${id}/views/${view.id}` : null,
   );
   const [fieldEdit, setFieldEdit] = useState<FieldDto>();
+  const [fieldRemove, setFieldRemove] = useState<FieldDto>();
   const [mode, setMode] = useState<DatabaseMode>("records");
   const [dialog, setDialog] = useState<"new" | "view" | "delete-view" | null>(null);
   const [edit, setEdit] = useState<{ record: RecordDto; field: FieldDto }>();
@@ -173,6 +176,9 @@ export function DatabaseWorkspace({ id }: { id: string }) {
                       .catch(setError)
                   }
                 />
+                {mode === "records" && view ? (
+                  <ExportViewCsv databaseId={id} viewId={view.id} title={title} search={search} onError={setError} />
+                ) : null}
                 {canEdit ? (
                   <button className="tool tool-primary" type="button" onClick={() => setDialog("new")}>
                     New record
@@ -270,6 +276,10 @@ export function DatabaseWorkspace({ id }: { id: string }) {
           <FieldDialog
             field={fieldEdit}
             fields={fields}
+            onRemove={fields.some(field => field.id === fieldEdit.id) ? () => {
+              setFieldRemove(fieldEdit);
+              setFieldEdit(undefined);
+            } : undefined}
             onClose={() => setFieldEdit(undefined)}
             onSave={async (field) => {
               const {
@@ -285,6 +295,18 @@ export function DatabaseWorkspace({ id }: { id: string }) {
               await reload();
             }}
           />
+        ) : null}
+        {fieldRemove ? (
+          <RemoveFieldDialog field={fieldRemove} onClose={() => setFieldRemove(undefined)} onRemove={async () => {
+            const { evaluationState: _evaluationState, readOnly: _readOnly, ...field } = fieldRemove;
+            await mutate(`/api/databases/${id}/fields`, {
+              operationKey: operationKey(),
+              expectedRevisionId: resource.data!.database.revision_id,
+              field,
+              delete: true,
+            });
+            await reload();
+          }} />
         ) : null}
         {dialog === "view" && view ? (
           <ViewDialog

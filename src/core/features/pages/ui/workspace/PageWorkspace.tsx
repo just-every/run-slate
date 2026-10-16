@@ -94,7 +94,7 @@ function LoadedPage({
 }) {
   const {member}=useWorkspace();
   const initial=useContext(InitialResourcesContext);
-  const alreadyOpened=useRef(Boolean(initial[`/api/pages/${document.page.id}/opened`]));
+  const openedRevision=useRef<string | undefined>(initial[`/api/pages/${document.page.id}/opened`]?.revisionId);
   const navigate = useNavigate();
   const flagship = useFlagshipEnabled();
   const trail = usePageTrail(document, host?.trail);
@@ -180,25 +180,28 @@ function LoadedPage({
   }, [document.page.id, reload]);
 
   useEffect(() => {
-    if(alreadyOpened.current)return;
-    const open = async (current: DocumentView, again: boolean): Promise<void> => {
-      try {
-        await mutate(`/api/pages/${current.page.id}/open`, {
-          operationKey: operationKey(),
-          revisionId: current.permissions.canEdit
-            ? current.workingRevisionId
-            : (current.publishedRevisionId ?? current.workingRevisionId),
-        });
+    const revisionId = document.permissions.canEdit
+      ? document.workingRevisionId
+      : (document.publishedRevisionId ?? document.workingRevisionId);
+    if (openedRevision.current === revisionId) return;
+    let current = true;
+    // A loaded document can change without navigating. Record that exact read,
+    // never a save receipt that could also include unseen concurrent edits.
+    void mutate(`/api/pages/${document.page.id}/open`, {
+      operationKey: operationKey(),
+      revisionId,
+    }).then(() => {
+      if (current) {
+        openedRevision.current = revisionId;
         window.dispatchEvent(new Event("slate:page-opened"));
-      } catch (cause) {
-        // Someone else's change can land while this tab records its visit; record
-        // the visit once more against the page as it is now.
-        if (again && cause instanceof ApiError && cause.status === 409) return open(await contentApi.document(current.page.id), false);
-        throw cause;
       }
-    };
-    void open(document, true).catch(setError);
-  }, [document.page.id]);
+    }).catch(cause => {
+      if (!current) return;
+      if (cause instanceof ApiError && cause.status === 409) void reload();
+      else setError(cause);
+    });
+    return () => { current = false; };
+  }, [document.page.id, document.workingRevisionId, document.publishedRevisionId, document.permissions.canEdit, reload]);
   // SAVE-003: a title saved against a superseded page revision is refused; keeping
   // it is an explicit overwrite against the revision the server holds now.
   const [titleConflict,setTitleConflict]=useState(false);

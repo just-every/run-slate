@@ -4,6 +4,7 @@ import { mutate, operationKey, errorMessage } from "../../../client/transport";
 import { RequestState } from "../../../app/ui/RequestState";
 import { TopBar } from "../../../app/ui/header/TopBar";
 import { PageTitle } from "../../../app/ui/header/PageTitle";
+import { useWorkspace } from "../../../app/ui/WorkspaceContext";
 interface Notice {
   id: string;
   title: string | null;
@@ -11,8 +12,10 @@ interface Notice {
   href: string;
   createdAt: string;
   readAt: string | null;
+  detail?: { outcome?: string };
 }
 export function WorkspaceInbox() {
+  const { localDevelopment } = useWorkspace();
   const [audience, setAudience] = useState("");
   const [cursor, setCursor] = useState<string>();
   const resource = useResource<{
@@ -74,6 +77,7 @@ export function WorkspaceInbox() {
                     {!item.readAt ? " · Unread" : ""}
                   </span>
                   <h3>{item.title ?? "Workspace update"}</h3>
+                  {localDevelopment && item.detail?.outcome ? <p>{item.detail.outcome}</p> : null}
                   <time dateTime={item.createdAt}>{new Date(item.createdAt).toLocaleString()}</time>
                 </a>
               </li>

@@ -36,9 +36,20 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-005 — actual native ZIP backup/rest
     const [empty]=await target.sql('SELECT (SELECT COUNT(*) FROM workspaces) AS workspaces,(SELECT COUNT(*) FROM members) AS members,(SELECT COUNT(*) FROM containers) AS containers,(SELECT COUNT(*) FROM pages) AS pages,(SELECT COUNT(*) FROM files) AS files');
     assert.deepEqual(empty.results,[{workspaces:0,members:0,containers:0,pages:0,files:0}]);
     await target.start();const bootstrapCookie=await signIn(target);
+    // rer dev runs this handler while the newcomer is still on first-run setup.
+    await target.scheduled();
     await target.close();
     const [bootstrap]=await target.sql('SELECT (SELECT COUNT(*) FROM workspaces) AS workspaces,(SELECT COUNT(*) FROM members) AS members,(SELECT COUNT(*) FROM containers) AS containers,(SELECT COUNT(*) FROM pages) AS pages,(SELECT COUNT(*) FROM files) AS files,(SELECT COUNT(*) FROM status_entries) AS statuses');
     assert.deepEqual(bootstrap.results,[{workspaces:1,members:1,containers:0,pages:0,files:0,statuses:4}],'Native mailbox bootstrap leaves no product content; only its default vocabulary exists.');
+    const [heartbeat]=await target.sql("SELECT COUNT(*) AS count FROM core_job_failures WHERE state='succeeded'");
+    assert.equal(heartbeat.results[0].count,1,'Cron recorded its genuine empty-installation heartbeat.');
+    await target.sql("INSERT INTO core_job_failures VALUES('keep-failed-job','content',1,'failed','JOB_DISPATCH_FAILED','2026-10-16T00:00:00Z')");
+    await target.start();
+    await assert.rejects(target.cli('import',first,bootstrapCookie),/RESTORE_NOT_EMPTY/,'Actual job failures are preserved, not discarded with a successful heartbeat.');
+    await target.close();
+    const [failed]=await target.sql("SELECT COUNT(*) AS count FROM core_job_failures WHERE id='keep-failed-job' AND state='failed'");
+    assert.equal(failed.results[0].count,1);
+    await target.sql("DELETE FROM core_job_failures WHERE id='keep-failed-job'");
     await target.sql("UPDATE status_entries SET label='Customized target vocabulary' WHERE key='rough-draft'");
     await target.start();
     await assert.rejects(target.cli('import',first,bootstrapCookie),/RESTORE_NOT_EMPTY/,'Custom target vocabulary is product data, never disposable bootstrap.');
@@ -50,8 +61,16 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-005 — actual native ZIP backup/rest
     await target.start();
     const emptySearch=await(await api(target,bootstrapCookie,'/api/search?query=unmatched')).json();
     assert.equal(emptySearch.items.length,0,'A normal search before restore adds no product content.');
-    const imported=await target.cli('import',first,bootstrapCookie);assert.equal(imported.counts.pages,3);assert.equal(imported.counts.files,2);
-    assert.equal((await fetch(target.origin+'/api/session',{headers:{Cookie:bootstrapCookie}})).status,401,'Restore revokes the original target session.');
+    await target.close();await target.start({localOwner:true});
+    // The first-run page uses the real gated dev entry, not an emailed proof.
+    const localCookie=await signIn(target);
+    const form=new FormData();form.set('operationKey',randomUUID());form.set('file',new Blob([await readFile(first)],{type:'application/zip'}),'workspace.zip');
+    const staged=await fetch(target.origin+'/api/exports/jobs/restore',{method:'POST',headers:{Cookie:localCookie,Origin:target.origin},body:form});
+    const restoreJob=await staged.json();
+    assert.equal(staged.status,202,JSON.stringify(restoreJob));
+    const imported=await(await api(target,localCookie,`/api/exports/jobs/${restoreJob.id}/run`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})).json();
+    assert.equal(imported.state,'completed');assert.equal(imported.counts.pages,3);assert.equal(imported.counts.files,2);
+    assert.equal((await fetch(target.origin+'/api/session',{headers:{Cookie:bootstrapCookie,...devKeyHeaders}})).status,401,'Restore revokes the original target session.');
     await target.close();
     const [index]=await target.sql('SELECT (SELECT COUNT(DISTINCT page_id) FROM search_text WHERE page_id IS NOT NULL) AS indexed,(SELECT COUNT(*) FROM search_dirty) AS pending');
     assert.deepEqual(index.results,[{indexed:3,pending:0}],'Search is already rebuilt before a page or search request can repair it.');

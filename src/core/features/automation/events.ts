@@ -7,6 +7,7 @@ import {
   defaultAutomationLimits,
 } from "./jobs";
 import { automationAdapters } from "./adapters";
+import { readRuntimeConfig } from "../../platform/config/runtime";
 /** Drain committed content outbox; operation keys recover causal ancestry across restarts. */
 export async function runAutomationMaintenance(
   ctx: FeatureContext,
@@ -121,6 +122,7 @@ export async function scheduledAutomation(
   env: import("../../app/types").AppBindings,
   now = new Date().toISOString(),
 ) {
+  const localDevelopment = env.LOCAL_DEVELOPMENT === "true" && readRuntimeConfig(env, true).localDevelopment;
   const workspaces = await env.DB.prepare("SELECT id FROM workspaces").all<{
     id: string;
   }>();
@@ -137,6 +139,7 @@ export async function scheduledAutomation(
         jobs: env.JOBS,
         actor,
         now,
+        localDevelopment,
       });
   }
 }

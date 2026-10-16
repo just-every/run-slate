@@ -29,11 +29,13 @@ export function FieldDialog({
   field,
   fields,
   onSave,
+  onRemove,
   onClose,
 }: {
   field: FieldDto;
   fields: FieldDto[];
   onSave: (field: FieldDto) => Promise<void>;
+  onRemove?: () => void;
   onClose: () => void;
 }) {
   const [type, setType] = useState(field.type);
@@ -207,6 +209,11 @@ export function FieldDialog({
             </select>
           </label>
         </>
+      ) : null}
+      {onRemove ? (
+        <button type="button" className="tool" onClick={onRemove}>
+          Remove field
+        </button>
       ) : null}
     </ActionDialog>
   );

@@ -18,7 +18,10 @@ export async function processNotificationOutbox(ctx:FeatureContext,limit=100):Pr
  for(const row of rows.results){const recipients=new Map<string,'direct'|'watched'>((JSON.parse(row.recipients_json) as string[]).map(id=>[id,'direct']));
   for(const id of JSON.parse(row.watched_recipients_json) as string[])if(!recipients.has(id))recipients.set(id,'watched');
   const statements:D1PreparedStatement[]=[];
-  for(const [id,audience] of recipients){if(id===row.actor_member_id)continue;const recipient=await recipientContext(ctx,id);if(!recipient||!await eventReadable(recipient,row))continue;
+  // The local owner can exercise Notify people by explicitly selecting themselves.
+  // Ordinary self-generated events and all hosted delivery retain self suppression.
+  const localSelfRecipient=ctx.localDevelopment===true&&row.event==='maintenance'&&(JSON.parse(row.recipients_json) as string[]).includes(row.actor_member_id??'');
+  for(const [id,audience] of recipients){if(id===row.actor_member_id&&!localSelfRecipient)continue;const recipient=await recipientContext(ctx,id);if(!recipient||!await eventReadable(recipient,row))continue;
    statements.push(mutationGuard(ctx.db,'SELECT epoch=? FROM core_acl_epoch WHERE id=1',[recipient.authorizationEpoch!]),ctx.db.prepare('INSERT OR IGNORE INTO notifications(id,workspace_id,recipient_member_id,source_page_id,source_container_id,comment_id,event,detail_json,created_at,outbox_id,audience) VALUES(?,?,?,?,?,?,?,?,?,?,?)').bind(`${row.id}:${id}`,row.workspace_id,id,row.page_id,row.container_id,row.comment_id,row.event,row.detail_json,row.created_at,row.id,audience));
   }
   // Durable independent chat intent. Delivery performs the destination audience checks again.
