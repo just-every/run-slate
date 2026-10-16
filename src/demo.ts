@@ -2,7 +2,7 @@ import type { AppBindings } from './core/app/types';
 import { createMemberRepository } from './core/features/session/repository';
 import { slateSessions } from './core/features/session/auth';
 import { readRuntimeConfig, isLocalOrigin } from './core/platform/config/runtime';
-import { completeFirstRun } from './core/features/workspace/bootstrap';
+import { seedDemoWorkspace } from './demo/workspace';
 import { readPage, createPage } from './core/features/pages/service';
 import { createDatabase, saveField, createRecord } from './core/features/databases/service';
 import { saveView } from './core/features/databases/views';
@@ -24,7 +24,7 @@ export async function seedDemo(env: AppBindings, { ownerEmail, now }: { ownerEma
   const actor = person && await createMemberRepository(env.DB).getMember(person.id);
   if (!actor) throw new Error('Demo owner is unavailable');
   const ctx = { db: env.DB, files: env.FILES, jobs: env.JOBS, actor, now: now.toISOString() };
-  const first = await completeFirstRun(ctx, { operationKey: 'demo:first-run', workspaceName: 'Slate', containerName: 'Team handbook', pageTitle: 'Welcome to Northstar' });
+  const first = await seedDemoWorkspace(ctx);
   const containerId = first.value.containerId;
   const welcome = await readPage(ctx, first.value.pageId);
   await replaceBlocks(ctx, first.value.pageId, { operationKey: 'demo:welcome:body', expectedRevisionId: welcome.page.revisionId, blocks: [{ id: 'demo-welcome', blockType: 'paragraph', treePosition: '001', content: { text: [{ text: 'Welcome to Northstar Studio. Our handbook brings together the people, decisions and projects behind our work. Start with the team guide, explore the autumn launch plan, or open the project tracker to see what is moving this week.' }] } }] });

@@ -7479,7 +7479,7 @@
       "executable": false
     },
     "src/demo.ts": {
-      "sha256": "ca11d059b09f2fd64aca61c91bc9e06905cd258b21949c0100f83b8593e4aac2",
+      "sha256": "1b3363cf0a6318d84cd0b04fd217ca9a576cff1d89e6b387187ca6e217dc09d2",
       "executable": false
     },
     "src/demo/activity.ts": {
@@ -7500,6 +7500,10 @@
     },
     "src/demo/team.ts": {
       "sha256": "b3f3ccdf67ee8b3eb333c91e9fd54b72b381c4b5f4d68157e05552cc30331e20",
+      "executable": false
+    },
+    "src/demo/workspace.ts": {
+      "sha256": "06ae150944de227fbb1aed1dcb05ec22ceca5f418debc29f798c2f981ff51680",
       "executable": false
     },
     "src/dev/server.ts": {
