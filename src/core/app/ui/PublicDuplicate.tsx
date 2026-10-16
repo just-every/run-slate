@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { PageTransferDialog } from "../../features/pages/ui/workspace/PageTransferDialog";
+import { lazy, Suspense, useEffect, useState } from "react";
+const PageTransferDialog=lazy(()=>import("../../features/pages/ui/workspace/PageTransferDialog").then(module=>({default:module.PageTransferDialog})));
 export function PublicDuplicate() {
   const [source, setSource] = useState<{
     pageId: string;
@@ -15,7 +15,7 @@ export function PublicDuplicate() {
   }, []);
   if (!source) return null;
   return (
-    <PageTransferDialog
+    <Suspense fallback={null}><PageTransferDialog
       pageId={source.pageId}
       publicSource={{ host: source.host, slug: source.slug }}
       kind="duplicate"
@@ -24,6 +24,6 @@ export function PublicDuplicate() {
         history.replaceState(null, "", window.location.pathname);
       }}
       onDone={(id) => window.location.assign(`/app/pages/${id}`)}
-    />
+    /></Suspense>
   );
 }

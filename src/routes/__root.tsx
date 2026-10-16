@@ -1,17 +1,18 @@
 import "../editor-init";
 import {useEffect} from "react";
-import {useRouter} from "@tanstack/react-router";
+import {useRouter,useRouterState} from "@tanstack/react-router";
 import {setLiveEditsReady} from "../editor";
 import {editorLeaf} from "../editor-leaf";
 import type { ReactNode } from "react";
 import { HeadContent, Outlet, Scripts, createRootRoute } from "@tanstack/react-router";
 import { ExtensionSlotProvider } from "../core/app/ext-client";
 import appCss from "../core/app/styles.css?url";
+import {privateAppCss,privateFontCss,isWorkspacePath} from "../core/app/private-styles";
 import { fontLinks } from "../core/app/font-head";
 import { introCss, introGuardScript } from "../base/runtime/hydration/intro-guard";
 
 export const Route = createRootRoute({
-  head: () => ({
+  head: ({matches}) => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -21,7 +22,7 @@ export const Route = createRootRoute({
     ],
     // Slate's card mark, served from the deployment's own `public/` directory (regenerate the rasters with scripts/generate-icons.mjs).
     links: [
-      { rel: "stylesheet", href: appCss },
+      ...(matches.some(match=>isWorkspacePath(match.pathname)) ? [] : [{rel:"stylesheet",href:appCss}]),
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
       { rel: "shortcut icon", href: "/favicon.ico" },
@@ -56,11 +57,13 @@ function NotFound() {
 }
 
 function Document({ children }: Readonly<{ children: ReactNode }>) {
+  const privateDocument=useRouterState({select:state=>isWorkspacePath(state.location.pathname)});
   return (
     <html lang="en">
       <head>
-        {fontLinks.map(link => <link key={link.href} {...link} />)}
+        {privateDocument ? <style>{privateAppCss}</style> : fontLinks.map(link => <link key={link.href} {...link} />)}
         <HeadContent />
+        {privateDocument ? <style>{privateFontCss}</style> : null}
         <script dangerouslySetInnerHTML={{ __html: introGuardScript }} />
         <style>{introCss}</style>
       </head>

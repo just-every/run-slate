@@ -1,3 +1,4 @@
+import { publishingExposure } from "./exposure";
 import { publicHeader } from './header';
 import { publicQueries } from './queries';
 import { publicViewStatement } from '../analytics/public-views';
@@ -23,7 +24,7 @@ async function authorizePublic(c: import('hono').Context<AppEnvironment>, p: Rec
     }
 }
 export function createPublishingRoutes() {
-    return new Hono<AppEnvironment>().get('/:id',async c=>{const ctx=featureContext(c);await requirePageLevel(ctx,c.req.param('id'),'full');const exposure=await ctx.db.prepare('SELECT host,slug,indexable,theme,header_controls_json AS headerControls,duplicate_as_template AS duplicateAsTemplate,social_preview_json AS socialPreview,published_at AS publishedAt,revoked_at AS revokedAt FROM public_exposures WHERE page_id=?').bind(c.req.param('id')).first<Record<string,any>>();return c.json({exposure:exposure?{...exposure,indexable:!!exposure.indexable,duplicateAsTemplate:!!exposure.duplicateAsTemplate,headerControls:JSON.parse(exposure.headerControls),socialPreview:JSON.parse(exposure.socialPreview)}:null});}).post('/:id', async (c) => {
+    return new Hono<AppEnvironment>().get('/:id',async c=>{return c.json(await publishingExposure(featureContext(c),c.req.param('id')));}).post('/:id', async (c) => {
         const input = await c.req.json();
         const host = c.get('runtimeConfig')?.publicPageHost ?? new URL(c.req.url).host;
         if (input.host !== host)

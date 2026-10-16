@@ -9,7 +9,7 @@ export function applyAppearance(theme: Theme) {
         : "light"
       : theme;
 }
-export function useAppearance() {
+export function useAppearance(initial?: MemberView) {
   useEffect(() => {
     let active = true;
     let theme: Theme = "system";
@@ -19,7 +19,7 @@ export function useAppearance() {
       theme = (event as CustomEvent<Theme>).detail;
       update();
     };
-    request<MemberView>("/api/members/current")
+    (initial ? Promise.resolve(initial) : request<MemberView>("/api/members/current"))
       .then((member) => {
         if (active) {
           theme = member.theme;

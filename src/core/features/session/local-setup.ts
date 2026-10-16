@@ -4,7 +4,7 @@ import { isLocalCli } from '../../../../modules/operator-auth/local-cli.mjs';
 import type { RuntimeConfig } from '../../platform/config/runtime';
 import { slateSessions } from './auth';
 
-export const LOCAL_SETUP_PATH = '/auth/setup-complete';
+export { LOCAL_SETUP_PATH } from './paths';
 
 /** Acknowledge the existing native claim to rer setup; never create authority. */
 export async function completeNativeLocalSetup(request: Request, db: D1Database, config: RuntimeConfig, rawSessionSecret: string) {

@@ -4,8 +4,8 @@ import {displayDate} from '../../../../app/ui/displayDate';
 interface Verification {state:'current'|'changed'|'lapsed'|null;ownerDisplayName:string;expiresAt:string|null;revisionId:string;verifiedAt:string}
 /** STAT-003: the chip names the verifier and the expiry; its panel shows the revision. Not current never reads as verified. */
 export function PageStatusBadge({document}:{document:DocumentView}){
- const statuses=useResource<{items:{key:string;label:string;requiresVerification:boolean}[]}>('/api/status');
  const key=(document.properties as {statusKey?:string})?.statusKey;
+ const statuses=useResource<{items:{key:string;label:string;requiresVerification:boolean}[]}>(key?'/api/status':null);
  const status=statuses.data?.items.find(s=>s.key===key);
  const verificationOnly=document.policyProfile['page.status.v1']==='verification-only';
  const verification=document.verification as Verification|undefined;

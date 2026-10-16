@@ -7,34 +7,37 @@ import type { FeatureContext } from '../../app/feature-context';
 import { commitOperation, requestHash } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
 import { createUlid } from '../../shared/ulid';
-import { currentSubject, requirePageLevel, requireContainerLevel, resolveCurrentAccess } from '../sharing/current-access';
-import { pageRow, pageGuard, ref, revisionStatement, snapshot, contentEvent, revisionRow } from './repository';
+import { currentSubject, requirePageLevel, requireContainerLevel, resolveCurrentAccess, resolveCurrentAccessMany } from '../sharing/current-access';
+import { pageRow, pageGuard, ref, revisionStatement, snapshot, contentEvent } from './repository';
 import { createPage, readPage, destination, prepareCreatePage } from './service';
 import type { PageRow } from './types';
 import { validatePlacement, prepareOrder, treeTopologyGuard, destinationGuards, type MovePlacement } from './tree-order';
 export async function descendants(ctx: FeatureContext, id: string) { return (await ctx.db.prepare('WITH RECURSIVE tree(id) AS (SELECT id FROM pages WHERE id=? AND workspace_id=? UNION SELECT p.id FROM pages p JOIN tree t ON p.parent_page_id=t.id WHERE p.deleted_at IS NULL) SELECT p.* FROM pages p JOIN tree t ON t.id=p.id').bind(id, ctx.actor.workspaceId).all<PageRow>()).results; }
 export async function listPages(ctx: FeatureContext, containerId?: string) {
-    await currentSubject(ctx);
-    const profile=await contentPolicy(ctx);
-    const rows = (await ctx.db.prepare('SELECT * FROM pages WHERE workspace_id=? AND deleted_at IS NULL AND archived_at IS NULL AND trashed_at IS NULL AND (? IS NULL OR container_id=?) ORDER BY tree_position,id').bind(ctx.actor.workspaceId, containerId ?? null, containerId ?? null).all<PageRow>()).results;
-    const schedules=await authorScheduleProjections(ctx,rows.map(p=>p.id));
+    const subject = await currentSubject(ctx);
+    const [profile, result] = await Promise.all([
+        contentPolicy(ctx),
+        ctx.db.prepare('SELECT p.*,c.name AS containerLabel,r.id AS publishedRevision,r.properties_json AS publishedProperties FROM pages p LEFT JOIN containers c ON c.id=p.container_id LEFT JOIN page_revisions r ON r.page_id=p.id AND r.id=p.published_revision_id WHERE p.workspace_id=? AND p.deleted_at IS NULL AND p.archived_at IS NULL AND p.trashed_at IS NULL AND (? IS NULL OR p.container_id=?) ORDER BY p.tree_position,p.id')
+            .bind(ctx.actor.workspaceId, containerId ?? null, containerId ?? null).all<PageRow & {containerLabel:string|null;publishedRevision:string|null;publishedProperties:string|null}>()
+    ]);
+    const rows = result.results;
+    const candidates = rows.filter(p => !(profile['record.page-parity.v1'] === 'record-is-row' && p.page_kind === 'record'));
+    const [schedules, accesses] = await Promise.all([
+        authorScheduleProjections(ctx, rows.map(p => p.id)),
+        resolveCurrentAccessMany(ctx, candidates.map(p => p.id), { subject })
+    ]);
     const out = [];
-    for (const p of rows) {
-        if(profile['record.page-parity.v1']==='record-is-row'&&p.page_kind==='record')continue;
-        const access = await readableDecision(ctx, p.id);
-        if (!access.allowed)
-            continue;
+    for (const p of candidates) {
+        const access = accesses.get(p.id)?.decision;
+        if (!access?.allowed) continue;
         let title = p.title, icon = p.icon;
         if ((access.level === 'view' || access.level === 'comment') && p.published_revision_id && p.published_revision_id !== p.working_revision_id) {
-            const published = await revisionRow(ctx, p.id, p.published_revision_id);
-            const props = JSON.parse(published.properties_json);
+            if (!p.publishedRevision) throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
+            const props = JSON.parse(p.publishedProperties!);
             title = props.title;
             icon = props.icon;
         }
-        const container = await ctx.db.prepare('SELECT name FROM containers WHERE id=?').bind(p.container_id).first<{
-            name: string;
-        }>();
-        out.push({ ...ref(p), ...schedules.get(p.id), title, icon, parentPageId: p.parent_page_id, treePosition: p.tree_position, pageKind: p.page_kind, containerLabel: container?.name ?? '', permissions: { level: access.level!, canEdit: access.level === 'edit' || access.level === 'full' } });
+        out.push({ ...ref(p), ...schedules.get(p.id), title, icon, parentPageId: p.parent_page_id, treePosition: p.tree_position, pageKind: p.page_kind, containerLabel: p.containerLabel ?? '', permissions: { level: access.level!, canEdit: access.level === 'edit' || access.level === 'full' } });
     }
     return { items: out };
 }

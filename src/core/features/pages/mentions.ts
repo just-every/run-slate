@@ -21,6 +21,7 @@ export async function resolveMentions(ctx:FeatureContext,blocks:Pick<BlockView,'
         }
     }
     blocks.forEach(block=>collect(block.content));
+    if(!ids.size)return {};
     const access=await resolveCurrentAccessMany(ctx,[...ids],{includeTrashed:true,includeDeleted:true});
     const labels:Record<string,MentionResolution>={};
     for(const id of ids) {

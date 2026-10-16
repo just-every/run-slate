@@ -7,7 +7,7 @@ import type { AppEnvironment } from "../../app/types";
 import { ApiProblem } from "../../app/problems";
 import { error } from "../../shared/errors";
 import { sessionDigest } from "../../platform/auth/token";
-import { createSlateAuth, PROVIDER_CALLBACK, PROVIDER_START, slateSessions } from "./auth";
+import { createSlateAuth, slateSessions } from "./auth";
 import { acceptInvitation, previewInvitation } from "../workspace/invitations";
 import { invitationAcceptedPage, invitationPage } from "../workspace/invitation-page";
 import { bootstrapOwner } from "../workspace/bootstrap";
@@ -19,9 +19,8 @@ import { completeNativeLocalSetup, LOCAL_SETUP_PATH } from "./local-setup";
 
 const branding = { productName: "Slate", accentColor: "#1b1b18", signInPath: "/signin", theme: "/rer-theme.css" };
 const retiredLink = (method: string) => confirmationResponse({ branding, preview: null, token: "", method });
-/** Paths Base operator-auth owns on Slate's listener: owner claim, confirmation, step-up and the incumbent provider. */
-export const BASE_AUTH_PATHS = new Set(["/auth/bootstrap", "/auth/confirm", "/auth/step-up", PROVIDER_START, PROVIDER_CALLBACK]);
-export const SESSION_AUTH_PATHS = new Set([...BASE_AUTH_PATHS, LOCAL_SETUP_PATH, "/auth/owner-claim"]);
+import { BASE_AUTH_PATHS } from './paths';
+export { BASE_AUTH_PATHS, SESSION_AUTH_PATHS } from './paths';
 const invitationToken = z.string().min(20).max(512);
 const requestDigest = (secret: string, email: string, key: string) => sessionDigest(secret, `mail-request:${email.toLowerCase()}:${key}`);
 

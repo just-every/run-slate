@@ -1,6 +1,6 @@
 import type { FeatureContext } from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
-import { indexDocuments } from './index-documents';
+import { dirtyIndexDocuments } from './index-documents';
 import { searchTextRows } from './text-rows';
 
 export interface SearchRefreshBounds {maxBatches?:number;keyLimit?:number}
@@ -10,9 +10,8 @@ export async function refreshSearchIndex(ctx:FeatureContext,bounds:SearchRefresh
  let refreshed=0,batches=0;const encoder=new TextEncoder(),limit=Math.max(1,Math.min(100,bounds.keyLimit??100));
  const columns=['key','variant','workspace_id','kind','id','page_id','title','text','title_fold','text_fold','tokens','record_shared','document_json','container_id','status','lifecycle','archived_at','trashed_at','author_id','updated_at','contributors_json'];
  while(batches<(bounds.maxBatches??Infinity)) {
-  const dirty=(await ctx.db.prepare('SELECT key,generation FROM search_dirty WHERE workspace_id=? LIMIT ?').bind(ctx.actor.workspaceId,limit).all<{key:string;generation:string}>()).results;
+  const {dirty,rows,published,records}=await dirtyIndexDocuments(ctx,limit);
   if(!dirty.length)return refreshed;
-  const {rows,published,records}=await indexDocuments(ctx,dirty.map(d=>d.key));
   const byKey=new Map(rows.map(r=>[`${r.kind}:${r.id}`,r]));
   let markers:string[]=[],entries:string[]=[],bytes=6;
   for(const d of dirty){

@@ -5,7 +5,7 @@
     "scripts/delivery/slate-spec.mjs": "sha256:550e3a9360a8e06d6d8c5013ff9dd18174ae49127bc190b6b074467b037cad1e",
     "scripts/build-delivery-artifact.mjs": "sha256:b751656105bb968559c5f9f2808fbd5b7bce8758c6315fa6ee967c3ce505fd15",
     "scripts/delivery/base/packaging.json": "sha256:c5797d1098ddfe236394cf01baefd35a800d6d483762a571a37affd66bfea565",
-    "src/server.ts": "sha256:b358ff1fb52828e94d0d27171f143925fa7bef1c4328a9a8cb528321ca566e30",
+    "src/server.ts": "sha256:d24038f085d64282c2ff43175442aaa831c3d8b7e8d109ae724521ae0094b939",
     "src/core/features/workspace/bootstrap.ts": "sha256:5c2e85662faa536bfe88514bab723cc1c45c2444374ba8d9f7a6d71785a31dd2",
     "src/core/platform/config/runtime.ts": "sha256:4f9dcdf5cd808a5cb305443a6d616e73ae7d0381a81dd843e813e798da7a8714",
     "migrations/core/0001_knowledge_foundation.sql": "sha256:88bb09f3c90f4741bc686f333fd765ca838ff6e96969d5182b292df0c4816c39",

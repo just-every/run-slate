@@ -33,7 +33,7 @@ export function createPagesRoutes() {
     r.post('/:id/expansion', async (c) => c.json(await treeExpansion(featureContext(c), c.req.param('id'), await c.req.json())));
     r.get('/:id/details',async c=>c.json(await pageDetails(featureContext(c),c.req.param('id'),c.get('runtimeConfig')?.appUrl)));
     r.get('/:id', async (c) => c.json(await readPage(featureContext(c), c.req.param('id'))));
-    r.patch('/:id', async (c) => c.json(await updatePage(featureContext(c), c.req.param('id'), await validatedJson(c, updatePageSchema))));
+    r.patch('/:id', async (c) => { const ctx=featureContext(c),id=c.req.param('id'); const result=await updatePage(ctx,id,await validatedJson(c,updatePageSchema)); return c.json({...result,document:await readPage(ctx,id)}); });
     r.patch('/:id/blocks/:blockId', async (c) => c.json(await updateBlock(featureContext(c), c.req.param('id'), c.req.param('blockId'), await validatedJson(c, updateBlockSchema))));
     r.put('/:id/blocks', async (c) => c.json(await replaceBlocks(featureContext(c), c.req.param('id'), await validatedJson(c, replaceBlocksSchema))));
     r.post('/:id/publish-preview', async (c) => c.json(await previewPublication(featureContext(c), c.req.param('id'), await c.req.json())));

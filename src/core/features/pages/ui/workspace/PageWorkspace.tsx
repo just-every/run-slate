@@ -1,3 +1,4 @@
+import { InitialResourcesContext } from "../../../../client/InitialResources";
 import { useFlagshipEnabled } from "../../../../app/ui/LaunchProfile";
 import { useNavigate } from "@tanstack/react-router";
 import {PageReactions} from './ReactionControls';
@@ -10,7 +11,7 @@ import type {PageSelection} from "./selection";
 import { PageOutline } from "../PageOutline";
 import { richTextToPlain } from "../../../editor/ui/types";
 import { PagePresentation } from "./PagePresentation";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { validatePageRead } from "../../../../client/pageReadBoundary";
 import { ApiError, TransportError } from "../../../../client/transport";
 import { draftKeys } from "../../../../client/draftRecovery";
@@ -92,6 +93,8 @@ function LoadedPage({
   host?: PageHost;
 }) {
   const {member}=useWorkspace();
+  const initial=useContext(InitialResourcesContext);
+  const alreadyOpened=useRef(Boolean(initial[`/api/pages/${document.page.id}/opened`]));
   const navigate = useNavigate();
   const flagship = useFlagshipEnabled();
   const trail = usePageTrail(document, host?.trail);
@@ -149,7 +152,7 @@ function LoadedPage({
   },[detail]);
   const [error, setError] = useState<unknown>();
   const titleInput = useRef<HTMLTextAreaElement>(null);
-  useNewPageArrival(titleInput, document.permissions.canEdit, setError);
+  useNewPageArrival(titleInput, document.permissions.canEdit);
   const [titleSaving, setTitleSaving] = useState(false);
   const [titleSaved, setTitleSaved] = useState(false);
   const titleAttempt = useRef<{title:string; revision:string; key:string} | undefined>(recovered.current??undefined);
@@ -177,6 +180,7 @@ function LoadedPage({
   }, [document.page.id, reload]);
 
   useEffect(() => {
+    if(alreadyOpened.current)return;
     const open = async (current: DocumentView, again: boolean): Promise<void> => {
       try {
         await mutate(`/api/pages/${current.page.id}/open`, {
@@ -221,9 +225,9 @@ function LoadedPage({
     try {
       const attempt = titleAttempt.current?.title === title ? titleAttempt.current : {title, revision: editor.revision, key: operationKey()};
       titleAttempt.current = attempt;
-      const result = await mutate<{value:{revisionId:string}}>(`/api/pages/${document.page.id}`, {operationKey:attempt.key, expectedRevisionId:attempt.revision, properties:{title:attempt.title}}, "PATCH");
+      const result = await mutate<{value:{revisionId:string};document:DocumentView}>(`/api/pages/${document.page.id}`, {operationKey:attempt.key, expectedRevisionId:attempt.revision, properties:{title:attempt.title}}, "PATCH");
       editor.setRevision(result.value.revisionId);
-      await reload();
+      await read(async () => result.document);
       setSavedTitle(title);
       setTitleSaved(true);
       window.dispatchEvent(new Event("slate:navigation-changed"));

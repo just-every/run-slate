@@ -1,21 +1,7 @@
 import { withDemo } from "../modules/demo/index.mjs";
-import { seedDemo, demoOwner } from "./demo";
 import {editorHeaders} from "./core/app/editor-config";
-import { publicDocumentLimit } from "./core/app/http-security";
-import { consumeJobs, scheduledJobs } from "./core/app/background";
-import start from "@tanstack/react-start/server-entry";
-import { createApi, isHonoRequest } from "./core/app/hono";
-import { operatorDocumentGate } from "./core/app/operator-document-gate";
-import { configurationFailureResponse, runtimeConfigFor, assertStoredConfiguration } from "./core/app/runtime-gate";
 import type { AppBindings } from "./core/app/types";
-import { requireBindings } from "./core/platform/bindings.server";
 import { staticAssetResponse } from "./base/runtime/static-assets";
-import { lobbyResponse } from "./base/runtime/lobby";
-import { setupStateResponse } from "./base/runtime/setup-state";
-import { claimed, identity } from "./identity";
-import { slateDependencyResponse } from "./core/features/session/dependencies";
-
-const api = createApi();
 
 /**
  * One Worker. Base deploys it with `run_worker_first`, so the Worker receives
@@ -32,16 +18,18 @@ const api = createApi();
  * Native queue, cron and page collaboration exports delegate to their domain owners.
  */
 export default withDemo({
-  async queue(batch,bindings:AppBindings){ await consumeJobs(batch,bindings); },
-  async scheduled(_event,bindings:AppBindings){ await scheduledJobs(bindings); },
+  async queue(batch,bindings:AppBindings){ await (await import("./core/app/background")).consumeJobs(batch,bindings); },
+  async scheduled(_event,bindings:AppBindings){ await (await import("./core/app/background")).scheduledJobs(bindings); },
   async fetch(request, bindings: AppBindings, execution): Promise<Response> {
-    return editorHeaders(withDocumentNoTransform(await handleRequest(request, bindings, execution)), bindings);
+    return editorHeaders(withDocumentNoTransform(await handleRequest(request, bindings, execution), request), bindings);
   },
-} satisfies ExportedHandler<AppBindings>, { seed: seedDemo, owner: demoOwner });
+} satisfies ExportedHandler<AppBindings>, { seed: async (bindings: AppBindings, context: {ownerEmail:string;now:Date}) => (await import("./demo")).seedDemo(bindings, context), owner: async (bindings: AppBindings) => (await import("./demo")).demoOwner(bindings) });
 
-function withDocumentNoTransform(response: Response): Response {
+function withDocumentNoTransform(response: Response, request: Request): Response {
   if (!response.headers.get("content-type")?.toLowerCase().includes("text/html")) return response;
   const headers = new Headers(response.headers);
+  const path=new URL(request.url).pathname;
+  if(path==='/app'||path.startsWith('/app/')||path==='/setup')headers.set('cache-control','no-store');
   const directives = headers.get("cache-control");
   if (!directives?.split(",").some(directive => directive.trim().toLowerCase() === "no-transform")) {
     headers.set("cache-control", directives ? `${directives}, no-transform` : "no-transform");
@@ -66,35 +54,17 @@ async function developmentAsset(request: Request, bindings: AppBindings): Promis
 async function handleRequest(request: Request, bindings: AppBindings, execution: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     const asset = import.meta.env.DEV ? await developmentAsset(request, bindings) : await staticAssetResponse(request, bindings);
-    if (asset) return asset;
-    const checkedBindings = requireBindings(bindings);
-
-    if (isHonoRequest(url.pathname)) {
-      return api.fetch(request, checkedBindings, execution);
+    if (asset) {
+      // Vite's content-addressed files change URL when their bytes change.
+      // Documents and data keep their existing freshness rules.
+      if (/^\/assets\/[^/]+-[A-Za-z0-9_-]{8}\.(?:js|css)$/.test(url.pathname) && [200,304].includes(asset.status)) {
+        const headers=new Headers(asset.headers);
+        headers.set('Cache-Control','public, max-age=31536000, immutable');
+        return new Response(asset.body,{status:asset.status,statusText:asset.statusText,headers});
+      }
+      return asset;
     }
-
-    let runtimeConfig;
-    try {
-      runtimeConfig = runtimeConfigFor(checkedBindings, url.hostname);
-      await assertStoredConfiguration(checkedBindings);
-    } catch (cause) {
-      return configurationFailureResponse(cause);
-    }
-
-    const dependency = await slateDependencyResponse(request, checkedBindings.DB, runtimeConfig);
-    if (dependency) return dependency;
-
-    const limited=await publicDocumentLimit(request,checkedBindings.DB);
-    if(limited)return limited;
-    const installation = { DB: checkedBindings.DB, AUTH_ORIGIN: new URL(runtimeConfig.appUrl!).origin };
-    const state = await setupStateResponse(request, installation, claimed);
-    if (state) return state;
-    const lobby = await lobbyResponse(request, installation, identity, claimed);
-    if (lobby) return lobby;
-    const gate = await operatorDocumentGate(request, url, checkedBindings, runtimeConfig);
-    if (gate) return gate;
-
-    return start.fetch(request);
+    return (await import("./core/app/request-handler")).handleApplicationRequest(request, bindings, execution);
 }
 
 export { ContentCollaboration } from "./core/features/collaboration/durable-object";

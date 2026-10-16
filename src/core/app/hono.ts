@@ -8,7 +8,7 @@ import { ZodError } from "zod";
 import { Hono } from "hono";
 import { createSessionRoutes, createSessionService } from "../features/session";
 import { sessionOptions } from "../features/session/service";
-import { SESSION_AUTH_PATHS } from "../features/session/routes";
+import { SESSION_AUTH_PATHS } from "../features/session/paths";
 import { probeDependencies } from "../platform/health";
 import { RuntimeConfigurationError } from "../platform/config/runtime";
 import { error } from "../shared/errors";
@@ -16,19 +16,7 @@ import { mountFeatures } from "./mount-features";
 import { runtimeConfigFor, assertStoredConfiguration } from "./runtime-gate";
 import type { AppEnvironment } from "./types";
 
-/**
- * The HTTP families this Worker answers with Hono. `src/server.ts` consults it
- * before TanStack Start, so it must never claim `/_serverFn/`, a React document,
- * or a catch-all.
- */
-export function isHonoRequest(pathname: string): boolean {
-  return SESSION_AUTH_PATHS.has(pathname)
-    || pathname === "/health"
-    || pathname === "/api"
-    || pathname.startsWith("/api/")
-    || pathname === "/p"
-    || pathname.startsWith("/p/");
-}
+export { isHonoRequest } from "./hono-paths";
 
 /** `/api/` members that answer without a native session. Everything else does not. */
 const publicApiPaths = new Set(["/api/auth/capabilities", "/api/auth/logout", "/api/auth/magic", "/api/auth/magic/status", "/api/auth/magic/accept", "/api/auth/invitation/accept", "/api/auth/identity/callback"]);

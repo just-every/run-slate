@@ -2,21 +2,21 @@ import { labelPageMentions } from '../pages/mention-labels';
 import type { FeatureContext } from '../../app/feature-context';
 export interface SearchDocument { kind:string; id:string; pageId:string|null; containerId:string|null; title:string; text:string; status:string|null; lifecycle:string|null; archivedAt:string|null; trashedAt:string|null; authorId:string|null; updatedAt:string; revisionId:string; contributors:string[] }
 export interface RawSearchDocument extends Omit<SearchDocument,'contributors'> { contributors:string }
+export interface SearchDocumentSelection { sql:string; bindings:(string|number)[] }
 /** Canonical retained content for generation-guarded refresh and reader-specific records. */
-export function prepareDocuments(ctx:FeatureContext, keys?:string[]):D1PreparedStatement {
-  const selection=keys?JSON.stringify(keys):null;
+export function prepareDocuments(ctx:FeatureContext, keys?:string[]|SearchDocumentSelection):D1PreparedStatement {
+  const selection=Array.isArray(keys)?{sql:'SELECT value AS key FROM json_each(?)',bindings:[JSON.stringify(keys)]}:keys;
   // CROSS JOIN fixes the loop order: each requested key drives a primary-key
   // lookup, even when the workspace index appears cheaper to SQLite's planner.
-  const source=(table:string,alias:string,kinds:string[])=>keys?`(SELECT DISTINCT substr(value,instr(value,':')+1) AS id FROM json_each(?) WHERE ${kinds.map(k=>`value LIKE '${k}:%'`).join(' OR ')}) requested CROSS JOIN ${table} ${alias} ON ${alias}.id=requested.id`:`${table} ${alias}`;
-  const bindings=()=>keys?[selection,ctx.actor.workspaceId]:[ctx.actor.workspaceId];
-  return ctx.db.prepare(`SELECT CASE WHEN p.page_kind='record' THEN 'record' ELSE 'page' END AS kind,p.id,p.id AS pageId,p.container_id AS containerId,p.title,
+  const source=(table:string,alias:string,kinds:string[])=>selection?`(SELECT DISTINCT substr(key,instr(key,':')+1) AS id FROM requested WHERE ${kinds.map(k=>`key LIKE '${k}:%'`).join(' OR ')}) selected CROSS JOIN ${table} ${alias} ON ${alias}.id=selected.id`:`${table} ${alias}`;
+  return ctx.db.prepare(`${selection?`WITH requested AS MATERIALIZED (${selection.sql}) `:''}SELECT CASE WHEN p.page_kind='record' THEN 'record' ELSE 'page' END AS kind,p.id,p.id AS pageId,p.container_id AS containerId,p.title,
     json_object('blocks',json(COALESCE((SELECT json_group_array(json(content_json)) FROM page_blocks WHERE page_id=p.id),'[]')),'fields',json('{}')) AS text,
     CASE WHEN EXISTS(SELECT 1 FROM page_verifications v WHERE v.page_id=p.id AND v.id=(SELECT v2.id FROM page_verifications v2 WHERE v2.page_id=p.id ORDER BY v2.created_at DESC,v2.id DESC LIMIT 1) AND v.status_key=p.status_key AND (v.expires_at<=? OR v.revision_id<>p.working_revision_id)) THEN 'lapsed' ELSE p.status_key END AS status,p.lifecycle,p.archived_at AS archivedAt,p.trashed_at AS trashedAt,p.author_member_id AS authorId,p.updated_at AS updatedAt,p.revision_id AS revisionId,
     COALESCE((SELECT json_group_array(member_id) FROM page_contributors WHERE page_id=p.id),'[]') AS contributors
     FROM ${source('pages','p',['page','record'])} WHERE p.workspace_id=? AND p.deleted_at IS NULL
     UNION ALL SELECT 'container',c.id,NULL,c.id,c.name,c.description,NULL,NULL,c.archived_at,c.trashed_at,NULL,c.updated_at,c.revision_id,'[]' FROM ${source('containers','c',['container'])} WHERE c.workspace_id=?
     UNION ALL SELECT 'template',t.id,NULL,t.container_id,t.title,json_object('description',t.description,'snapshot',json(t.snapshot_json)),NULL,NULL,t.archived_at,NULL,NULL,t.updated_at,t.revision_id,'[]' FROM ${source('knowledge_templates','t',['template'])} WHERE t.workspace_id=? AND t.deleted_at IS NULL
-    UNION ALL SELECT 'comment-thread',t.id,t.page_id,p.container_id,p.title,COALESCE((SELECT json_group_array(json(body_json)) FROM comments WHERE thread_id=t.id AND deleted_at IS NULL),'[]'),p.status_key,p.lifecycle,p.archived_at,p.trashed_at,p.author_member_id,t.updated_at,t.revision_id,COALESCE((SELECT json_group_array(author_member_id) FROM comments WHERE thread_id=t.id AND deleted_at IS NULL),'[]') FROM ${source('comment_threads','t',['comment-thread'])} JOIN pages p ON p.id=t.page_id AND p.workspace_id=t.workspace_id WHERE t.workspace_id=? AND p.deleted_at IS NULL`).bind(ctx.now,...bindings(),...bindings(),...bindings(),...bindings());
+    UNION ALL SELECT 'comment-thread',t.id,t.page_id,p.container_id,p.title,COALESCE((SELECT json_group_array(json(body_json)) FROM comments WHERE thread_id=t.id AND deleted_at IS NULL),'[]'),p.status_key,p.lifecycle,p.archived_at,p.trashed_at,p.author_member_id,t.updated_at,t.revision_id,COALESCE((SELECT json_group_array(author_member_id) FROM comments WHERE thread_id=t.id AND deleted_at IS NULL),'[]') FROM ${source('comment_threads','t',['comment-thread'])} JOIN pages p ON p.id=t.page_id AND p.workspace_id=t.workspace_id WHERE t.workspace_id=? AND p.deleted_at IS NULL`).bind(...(selection?.bindings??[]),ctx.now,ctx.actor.workspaceId,ctx.actor.workspaceId,ctx.actor.workspaceId,ctx.actor.workspaceId);
 }
 export function readDocuments(rows:RawSearchDocument[]):SearchDocument[] {
   return rows.map(row=>({...row,text:retainedText(row.text),contributors:JSON.parse(row.contributors) as string[]}));

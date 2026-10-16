@@ -1,19 +1,16 @@
+import {collaborationReads,collaborationResult} from './reads';
 import type { FeatureContext } from '../../app/feature-context';
-import { requirePageLevel, resolveCurrentAccess } from '../sharing/current-access';
+import { requirePageLevel } from '../sharing/current-access';
 import { ApiProblem } from '../../app/problems';
 import { readPage } from '../pages/service';
 export async function collaborationSnapshot(ctx: FeatureContext, pageId: string, after = 0) {
-    await requirePageLevel(ctx, pageId, 'view');
     const document = await readPage(ctx, pageId);
-    const events = (await ctx.db.prepare('SELECT sequence,revision_id AS revisionId,kind FROM content_events WHERE page_id=? AND sequence>? ORDER BY sequence LIMIT 1000').bind(pageId, after).all()).results;
-    const presence = (await ctx.db.prepare('SELECT m.id,m.display_name AS displayName,m.initials,p.session_id AS sessionId,p.cursor_json AS cursorJson FROM content_presence p JOIN members m ON m.id=p.member_id WHERE p.page_id=? AND p.expires_at>? AND m.status=\'active\'').bind(pageId, ctx.now).all<{
-        id: string;
-        displayName: string;
-        initials: string;
-        sessionId: string;
-        cursorJson: string;
-    }>()).results;
-    return { document, events, presence: presence.map(({cursorJson,...person}) => ({...person,cursor: JSON.parse(cursorJson ?? 'null')})) };
+    return collaborationForDocument(ctx, document, after);
+}
+/** The document has already crossed readPage's current access boundary. */
+export async function collaborationForDocument(ctx:FeatureContext, document:Awaited<ReturnType<typeof readPage>>, after=0) {
+    const rows=await Promise.all(collaborationReads(ctx,document.page.id,after).map(query=>query.all()));
+    return collaborationResult(document,rows);
 }
 export async function updatePresence(ctx: FeatureContext, pageId: string, sessionId: string, cursor: unknown) {
     await requirePageLevel(ctx, pageId, 'view');

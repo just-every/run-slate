@@ -9,9 +9,12 @@ import { ApiProblem } from '../../app/problems';
 import { currentSubject, requireWorkspaceOwner } from '../sharing/current-access';
 import type { MemberView, Theme } from '../../shared/api/workspace';
 export async function currentMember(ctx:FeatureContext):Promise<MemberView> {
-  await currentSubject(ctx);
-  await ensurePersonalContainer(ctx);
-  return (await ctx.db.prepare('SELECT id,display_name AS displayName,email,role,member_kind AS memberKind,theme FROM members WHERE id=?').bind(ctx.actor.id).first<MemberView>())!;
+  const subject=await currentSubject(ctx);
+  const [member]=await Promise.all([
+    ctx.db.prepare('SELECT id,display_name AS displayName,email,role,member_kind AS memberKind,theme FROM members WHERE id=?').bind(ctx.actor.id).first<MemberView>(),
+    ensurePersonalContainer(ctx,subject)
+  ]);
+  return member!;
 }
 export async function listMembers(ctx:FeatureContext,kind:'member'|'guest') {
   const subject=await currentSubject(ctx); if(kind==='guest')await requireWorkspaceOwner(ctx); if(subject.isGuest) throw new ApiProblem(403,'FORBIDDEN','Guests cannot list workspace members.');

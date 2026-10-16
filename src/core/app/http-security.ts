@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { AppEnvironment } from './types';
 import { ApiProblem } from './problems';
-import { requestHash } from './operations';
+import { requestHash } from './request-hash';
 /** Browser cookies are accepted only from this deployment; absent Origin is allowed for native API callers. */
 export function assertRequestOrigin(c:Context<AppEnvironment>){
   if(['GET','HEAD','OPTIONS'].includes(c.req.method)&&c.req.header('upgrade')?.toLowerCase()!=='websocket')return;

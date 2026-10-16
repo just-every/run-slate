@@ -1,12 +1,13 @@
 import {compareTreePages} from './treePosition';
-import {TreeMoveDialog,type TreeDestination} from './TreeMoveDialog';
+import type {TreeDestination} from './TreeMoveDialog';
+const TreeMoveDialog=lazy(()=>import('./TreeMoveDialog').then(module=>({default:module.TreeMoveDialog})));
 import {ScheduledPublication} from './ScheduledPublication';
 import {StoredIcon} from "../../features/pages/ui/workspace/PageAppearance";
 import {useResource} from "../../client/useResource";
 import {mutate, operationKey, errorMessage} from "../../client/transport";
 import {useCreatePage} from "./useCreatePage";
 import {DEFAULT_PAGE_TITLE} from "./pageDestination";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { ArrowUpDown, ChevronRight, Database, FileText, Plus } from "lucide-react";
 import type { PageRef } from "../../shared/api/content";
 export type TreePage = PageRef & {
@@ -99,7 +100,7 @@ function TreeItem({
         <button className="iconbutton tree-action" aria-label={`Move ${page.title} in tree`} disabled={!canMove} onClick={()=>setMove({page})}><ArrowUpDown aria-hidden="true"/></button>
         <button className="iconbutton tree-action" aria-label={`Create child of ${page.title}`} disabled={!canMove} aria-busy={creation.pending||undefined} onClick={event=>{event.stopPropagation();void creation.create(async()=>({containerId:page.containerId,parentPageId:page.id,title:DEFAULT_PAGE_TITLE}));}}><Plus aria-hidden="true"/></button>
       </div>
-      {move?<TreeMoveDialog page={move.page} pages={pages} initial={move.destination} onClose={()=>setMove(null)}/>:null}
+      {move?<Suspense fallback={null}><TreeMoveDialog page={move.page} pages={pages} initial={move.destination} onClose={()=>setMove(null)}/></Suspense>:null}
       {creation.error ? <p role="alert">{errorMessage(creation.error)}</p> : null}
       {error ? <p role="alert">{errorMessage(error)}</p> : null}
       {expansion.error ? <p role="alert">{errorMessage(expansion.error)} <button onClick={() => void expansion.reload()}>Retry tree expansion</button></p> : null}

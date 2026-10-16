@@ -1,7 +1,6 @@
 import { devAdmitted } from "../../../../modules/operator-auth/dev-admission.mjs";
 import type { AuthenticatedMember } from "../../app/types";
 import type { RuntimeConfig } from "../../platform/config/runtime";
-import { createMemberRepository } from "./repository";
 import { sessionStore, type SlateSession } from "./native/store";
 
 export interface SessionOptions { sessionSecret: string; identityEnabled: boolean }
@@ -15,12 +14,10 @@ export const sessionOptions = (config: RuntimeConfig): SessionOptions => ({ sess
  */
 export function createSessionService(binding: D1Database, options: SessionOptions) {
   const store = sessionStore(binding, { secret: options.sessionSecret, secure: false, identityEnabled: options.identityEnabled, devAdmitted });
-  const members = createMemberRepository(binding);
   async function current(request: Request): Promise<{ member: AuthenticatedMember; session: SlateSession } | null> {
     const session = await store.read(request, Date.now());
     if (!session) return null;
-    const member = await members.getMember(session.operatorId);
-    return member ? { member, session } : null;
+    return { member: session.member, session };
   }
   return {
     current,

@@ -9,10 +9,8 @@ import { createNativeAccounts } from './native/accounts';
 import { createNativeProofs } from './native/proofs';
 import { sessionStore, type SessionStore } from './native/store';
 
-/** The configured incumbent provider's route id; its callback stays /api/auth/identity/callback. */
-export const PROVIDER_ID = 'identity';
-export const PROVIDER_START = `/auth/oidc/${PROVIDER_ID}/start`;
-export const PROVIDER_CALLBACK = '/api/auth/identity/callback';
+import { PROVIDER_ID, PROVIDER_CALLBACK } from './paths';
+export { PROVIDER_ID, PROVIDER_START, PROVIDER_CALLBACK } from './paths';
 export const clientIp = (request: Request) => request.headers.get('cf-connecting-ip') ?? 'local';
 
 function providerConfig(config: RuntimeConfig, origin: string) {

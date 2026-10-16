@@ -1,3 +1,4 @@
+import type { AuthenticatedMember } from "../../../app/types";
 import type { CompletedSession, Session } from '../../../../../modules/operator-auth/index.mjs';
 import type { NativePerson } from '../../../../../modules/operator-auth/accounts/native.mjs';
 import { createSessionCookie, readCookie, SESSION_COOKIE_NAME } from '../../../platform/auth/cookie';
@@ -8,7 +9,7 @@ import { createUlid } from '../../../shared/ulid';
 
 export type SlateRole = 'owner' | 'member';
 export type SlatePerson = NativePerson<SlateRole> & { memberKind: 'member' | 'guest' };
-export type SlateSession = Omit<Session<SlateRole>, 'operator'> & { operator: SlatePerson; hash: string };
+export type SlateSession = Omit<Session<SlateRole>, 'operator'> & { operator: SlatePerson; hash: string; member: AuthenticatedMember };
 
 /**
  * The installation's workspace, selected by the server and never by identity
@@ -87,15 +88,16 @@ export function sessionStore(db: D1Database, input: { secret: string; secure: bo
     async read(request, now) {
       const token = readCookie(request.headers, SESSION_COOKIE_NAME);
       if (!token) return null;
-      const row = await db.prepare(`SELECT s.id AS session_id,s.kind,s.created_at AS session_created_at,s.expires_at,s.issuer,s.subject,s.sid,s.token_digest,m.*,${version('m')} AS authority_version FROM sessions s JOIN members m ON m.id=s.member_id
+      const row = await db.prepare(`SELECT s.id AS session_id,s.kind,s.created_at AS session_created_at,s.expires_at,s.issuer,s.subject,s.sid,s.token_digest,m.*,w.name AS workspace_name,${version('m')} AS authority_version FROM sessions s JOIN members m ON m.id=s.member_id JOIN workspaces w ON w.id=m.workspace_id
         WHERE s.token_digest=? AND m.workspace_id=${TENANT} AND s.revoked_at IS NULL AND s.expires_at>? AND m.status='active'
           AND (s.kind IS NULL OR s.authority_version=${version('m')}) AND (s.kind IS NOT 'oidc' OR (${identityPolicy} AND ${PROVIDER_SESSION}))`)
         .bind(await sessionDigest(secret, token), iso(now), Number(identityEnabled), Number(identityEnabled), iso(now - LIFETIME.oidc))
-        .first<MemberRow & { session_id: string; kind: SlateSession['kind'] | null; session_created_at: string; expires_at: string; issuer: string | null; subject: string | null; sid: string | null; token_digest: string }>();
+        .first<MemberRow & { workspace_id: string; workspace_name: string; initials: string; session_id: string; kind: SlateSession['kind'] | null; session_created_at: string; expires_at: string; issuer: string | null; subject: string | null; sid: string | null; token_digest: string }>();
       if (!row) return null;
       // A dev session counts only on a request that passes the local key gate.
       if (row.kind === 'dev' && !await input.devAdmitted(request)) return null;
       return {
+        member: { id:row.id, workspaceId:row.workspace_id, workspaceName:row.workspace_name, email:row.email, displayName:row.display_name, initials:row.initials, role:row.role },
         hash: row.token_digest, id: row.session_id, kind: row.kind ?? 'native', operatorId: row.id, operator: personOf(row)!,
         createdAt: Date.parse(row.session_created_at), expiresAt: Date.parse(row.expires_at),
         ...(row.issuer ? { issuer: row.issuer, subject: row.subject ?? undefined, sid: row.sid ?? undefined } : {}),

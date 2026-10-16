@@ -1,3 +1,4 @@
+import { InitialResourcesProvider } from "../../client/InitialResources";
 import {EditorMount} from "./EditorMount";
 import { LaunchProfileProvider } from "./LaunchProfile";
 import {AccessRequestHandler} from "../../features/sharing/ui/AccessRequestHandler";
@@ -20,9 +21,10 @@ export function AppShell({
   children: ReactNode;
 }) {
   const { member } = snapshot;
-  useAppearance();
+  useAppearance(snapshot.resources?.["/api/members/current"] as import("../../shared/api/workspace").MemberView | undefined);
   const [shortcuts, setShortcuts] = useState(false);
   const [open, setOpen] = useState(false);
+  useEffect(()=>setOpen(false),[snapshot.resourcePath]);
   const navigationTrigger = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     const shortcut = (event: KeyboardEvent) => {
@@ -48,7 +50,7 @@ export function AppShell({
   return (
     <LaunchProfileProvider initial={snapshot.profile}><WorkspaceProvider snapshot={snapshot}>
       {snapshot.editorEnabled && member.role === 'owner' ? <EditorMount ownerId={member.id} /> : null}
-      <WorkspaceGate>
+      <InitialResourcesProvider key={snapshot.resourcePath} resources={snapshot.resources ?? {}}><WorkspaceGate>
         <div className="slate-app">
           <PublicDuplicate />
           {shortcuts ? (
@@ -85,7 +87,7 @@ export function AppShell({
             </main>
           </div>
         </div>
-      </WorkspaceGate>
+      </WorkspaceGate></InitialResourcesProvider>
     </WorkspaceProvider></LaunchProfileProvider>
   );
 }

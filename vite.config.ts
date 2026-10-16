@@ -28,6 +28,13 @@ export default defineConfig(async ({ command }) => {
     return value ? [[name, value]] : [];
   }));
   return {
+  environments: { client: { build: { rolldownOptions: { preserveEntrySignatures: false as const, output: { strictExecutionOrder: true, codeSplitting: { groups: [
+    // The main workspace's static graphs arrive in one download. Closed
+    // dialogs and specialist routes retain their dynamic boundaries.
+    { name:'workspace',test:(id:string)=>
+      id.includes('/node_modules/') && /\/(?:@radix-ui\/|@tanstack\/|(?:react|react-dom|scheduler|lucide-react|use-sync-external-store|seroval|clsx|class-variance-authority|tailwind-merge)\/)/.test(id)
+      || /\/src\/(?:ext\/index\.client|routes\/(?:__root|app(?:\.(?:index|search|pages\.\$pageId|containers(?:\.index)?|templates\.index|inbox|review|archive|settings))?)\.tsx(?:$|\?)|core\/(?:app\/ui\/(?!SetupShell|FirstRunShell|TreeMoveDialog)|client\/(?:useResource|transport|InitialResources)\.))/.test(id),includeDependenciesRecursively:true },
+  ] } } } } } },
   server: { watch: {
     // Native R2/D1 writes are runtime state, and must not reload an active import.
     ignored: (path: string) => {

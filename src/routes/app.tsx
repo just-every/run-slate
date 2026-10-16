@@ -10,8 +10,8 @@ import { loadWorkspace } from "../core/app/loaders";
  * preserves the requested operator path and query when it issues a redirect.
  */
 export const Route = createFileRoute("/app")({
-  beforeLoad: async () => {
-    const workspace = await loadWorkspace();
+  beforeLoad: async ({location,preload}) => {
+    const workspace = await loadWorkspace({data:{path:location.pathname+location.searchStr,visit:!preload}});
     if (workspace.setup.required && workspace.setup.canComplete) throw redirect({ to: "/setup" });
     return { workspace };
   },

@@ -1,4 +1,4 @@
-import { createSessionService } from "../features/session";
+import { createSessionService } from "../features/session/service";
 import { sessionOptions } from "../features/session/service";
 import { safeAppPath } from "../platform/auth/paths";
 import type { RuntimeConfig } from "../platform/config/runtime";

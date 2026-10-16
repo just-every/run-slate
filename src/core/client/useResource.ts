@@ -1,5 +1,6 @@
-import {useCallback,useEffect,useRef,useState} from 'react';
+import {useCallback,useContext,useEffect,useRef,useState} from 'react';
 import {request,TransportError} from './transport';
+import {InitialResourcesContext} from './InitialResources';
 
 type Read<T> = (signal: AbortSignal) => Promise<T>;
 export type Resource<T> = {
@@ -18,8 +19,13 @@ export type ResourcePolicy<T> = {
 
 /** Strict by default. Only explicitly authorized same-resource reads may retain data. */
 export function useResource<T>(path:string|null,policy:ResourcePolicy<T>={}):Resource<T>&{invalidate:()=>void}{
- const [state,setState]=useState<{path:string|null;data?:T;error?:unknown;loading:boolean}>({path,loading:Boolean(path)});
- const currentPath=useRef(path),sequence=useRef(0),active=useRef(false),controller=useRef<AbortController|null>(null);
+ const initial=useContext(InitialResourcesContext);
+ const seeded=useRef(Boolean(path && Object.hasOwn(initial,path)));
+ const [state,setState]=useState<{path:string|null;data?:T;error?:unknown;loading:boolean}>(()=>{
+  if(seeded.current){const data=initial[path!] as T;policy.validate?.(data);return {path,data,loading:false};}
+  return {path,loading:Boolean(path)};
+ });
+ const currentPath=useRef(path),sequence=useRef(0),active=useRef(true),controller=useRef<AbortController|null>(null);
  const currentPolicy=useRef(policy);currentPolicy.current=policy;
  currentPath.current=path;
  const invalidate=useCallback(()=>{
@@ -46,7 +52,8 @@ export function useResource<T>(path:string|null,policy:ResourcePolicy<T>={}):Res
  },[]);
  const reload=useCallback(()=>read(signal=>request<T>(currentPath.current!,{signal})),[read]);
  useEffect(()=>{
-  active.current=true;void reload();
+  active.current=true;
+  if(seeded.current)seeded.current=false;else void reload();
   return()=>{active.current=false;++sequence.current;controller.current?.abort();};
  },[path,reload]);
  return {...(state.path===path?state:{loading:Boolean(path)}),reload,read,invalidate};

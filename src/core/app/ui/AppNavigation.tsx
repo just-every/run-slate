@@ -17,13 +17,13 @@ import {
   X,
   ShieldCheck,
 } from "lucide-react";
-import { useEffect,useState } from "react";
+import { lazy, Suspense, useEffect,useState } from "react";
 import { NavigationCreate } from "./NavigationCreate";
 import { ExtensionSlot } from "../ext-client";
 import type { PageResult } from "../../shared/api/common";
 import { useResource } from "../../client/useResource";
 import { useWorkspace } from "./WorkspaceContext";
-import { CreateDatabaseDialog } from "../../features/databases/ui/workspace/CreateDatabaseDialog";
+const CreateDatabaseDialog=lazy(()=>import("../../features/databases/ui/workspace/CreateDatabaseDialog").then(module=>({default:module.CreateDatabaseDialog})));
 import { useCreatePage } from "./useCreatePage";
 import { useInferredSpace } from "./useInferredSpace";
 import { DEFAULT_PAGE_TITLE, type SpaceChoice } from "./pageDestination";
@@ -100,7 +100,7 @@ function MemberNavigation({ onNavigate }: { onNavigate?: () => void }) {
       <AccountMenu onNewDatabase={navigation.data?.isGuest ? undefined : () => setCreateDatabase(true)} />
       </div>
       {createDatabase ? (
-        <CreateDatabaseDialog onClose={() => setCreateDatabase(false)} />
+        <Suspense fallback={null}><CreateDatabaseDialog onClose={() => setCreateDatabase(false)} /></Suspense>
       ) : null}
       {creation.prompt}
     </aside>

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { request } from "../../client/transport";
 import type { Resource } from "../../client/useResource";
 
-/** Seed from this route's authenticated server read, then revalidate normally.
+/** Use this route's fresh authenticated read; reload explicitly after writes.
  * A failed read clears the data; an older response cannot replace a newer route.
  */
 export function useShellResource<T>(path: string, initial: T): Resource<T> {
@@ -36,7 +36,7 @@ export function useShellResource<T>(path: string, initial: T): Resource<T> {
   const reload = useCallback(() => read(signal => request<T>(source.current.path, { signal })), [read]);
   useEffect(() => {
     active.current = true;
-    void reload();
+    setState({ initial, data: initial, loading: false });
     return () => { active.current = false; ++sequence.current; controller.current?.abort(); };
   }, [path, initial, reload]);
   return { ...(state.initial === initial ? state : { data: initial, loading: false }), reload, read };

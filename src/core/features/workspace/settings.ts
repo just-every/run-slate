@@ -10,8 +10,8 @@ export async function workspacePolicies(ctx:FeatureContext):Promise<KnowledgePol
 }
 export async function readWorkspace(ctx:FeatureContext):Promise<WorkspaceView> {
   await currentSubject(ctx);
-  const row=await ctx.db.prepare('SELECT id,name,mark,description,revision_id AS revisionId,guest_access AS guestAccess,public_link_access AS publicLinkAccess,anonymous_access AS anonymousAccess FROM workspaces WHERE id=?').bind(ctx.actor.workspaceId).first<Omit<WorkspaceView,'policies'>>();
-  if(!row) throw new ApiProblem(404,'NOT_FOUND','Not found.'); return {...row,policies:await workspacePolicies(ctx)};
+  const [row,policies]=await Promise.all([ctx.db.prepare('SELECT id,name,mark,description,revision_id AS revisionId,guest_access AS guestAccess,public_link_access AS publicLinkAccess,anonymous_access AS anonymousAccess FROM workspaces WHERE id=?').bind(ctx.actor.workspaceId).first<Omit<WorkspaceView,'policies'>>(),workspacePolicies(ctx)]);
+  if(!row) throw new ApiProblem(404,'NOT_FOUND','Not found.'); return {...row,policies};
 }
 export async function updateWorkspace(ctx:FeatureContext,input:{operationKey:string;expectedRevisionId:string;name:string;mark:string;description:string;guestAccess:'allowed'|'forbidden';publicLinkAccess:'allowed'|'forbidden';anonymousAccess:'allowed'|'forbidden';policies:KnowledgePolicyProfile}) {
   const profile=resolveKnowledgePolicyProfile(input.policies);

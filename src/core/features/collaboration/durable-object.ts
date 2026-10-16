@@ -1,10 +1,6 @@
 import { readLaunchProfile } from "../../platform/config/launch-profile";
 import type { AppBindings } from '../../app/types';
 import type { FeatureContext } from '../../app/feature-context';
-import { createSessionService } from '../session/service';
-import { requirePageLevel } from '../sharing/current-access';
-import { updateBlock } from '../editor/service';
-import { collaborationSnapshot, updatePresence, refreshPresence } from './service';
 import { ApiProblem } from '../../app/problems';
 interface Attachment {
     cookie: string;
@@ -33,6 +29,7 @@ export class ContentCollaboration {
     private async context(a: Attachment): Promise<FeatureContext> {
         if (readLaunchProfile(this.env.SLATE_PROFILE) !== 'flagship')
             throw new ApiProblem(403, 'FEATURE_DISABLED', 'Live co-editing is unavailable in the core-wiki profile.');
+        const [{createSessionService},{requirePageLevel}] = await Promise.all([import('../session/service'),import('../sharing/current-access')]);
         const member = await createSessionService(this.env.DB, { sessionSecret: this.env.SESSION_SECRET!, identityEnabled: this.env.SSO_ENABLED === 'true' }).authenticate(new Headers({ cookie: a.cookie }));
         if (!member)
             throw new ApiProblem(401, 'UNAUTHENTICATED', 'Session ended.');
@@ -58,6 +55,7 @@ export class ContentCollaboration {
             this.state.acceptWebSocket(pair[1]);
             this.startAccessChecks();
             pair[1].serializeAttachment(a);
+            const {updatePresence}=await import('./service');
             await updatePresence(ctx, a.pageId, a.sessionId, null);
             await this.sendSnapshot(pair[1]);
             await this.state.storage.setAlarm(Date.now() + 2000);
@@ -71,6 +69,7 @@ export class ContentCollaboration {
         const a = socket.deserializeAttachment() as Attachment;
         try {
             const ctx = await this.context(a);
+            const {collaborationSnapshot,refreshPresence}=await import('./service');
             await refreshPresence(ctx, a.pageId, a.sessionId);
             const data = await collaborationSnapshot(ctx, a.pageId);
             socket.send(JSON.stringify({ type: 'snapshot', ...data }));
@@ -89,12 +88,14 @@ export class ContentCollaboration {
                 throw new ApiProblem(400, 'INVALID_MESSAGE', 'Invalid collaboration message.');
             const input = JSON.parse(message), ctx = await this.context(a);
             if (input.type === 'edit') {
+                const {updateBlock}=await import('../editor/service');
                 const result = await updateBlock(ctx, a.pageId, input.blockId, { operationKey: input.operationKey, expectedRevisionId: input.expectedRevisionId, content: input.content });
                 socket.send(JSON.stringify({ type: 'committed', ...result }));
                 for (const peer of this.state.getWebSockets())
                     await this.sendSnapshot(peer);
             }
             else if (input.type === 'presence') {
+                const {updatePresence}=await import('./service');
                 await updatePresence(ctx, a.pageId, a.sessionId, input.cursor);
                 for (const peer of this.state.getWebSockets())
                     await this.sendSnapshot(peer);

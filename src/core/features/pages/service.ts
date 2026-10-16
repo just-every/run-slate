@@ -15,17 +15,14 @@ import { pageRow, pageBlocks, properties, revisionStatement, pageGuard, writable
 import { validateBlockTree } from '../editor/validation';
 import { contentPolicy } from './policy';
 export async function destination(ctx: FeatureContext, containerId: string, parentId?: string | null) {
-    if (!parentId)
-        await requireContainerLevel(ctx, containerId, 'edit');
-    const container = await ctx.db.prepare('SELECT archived_at,trashed_at FROM containers WHERE id=?').bind(containerId).first<{
-        archived_at: string | null;
-        trashed_at: string | null;
-    }>();
+    const [,container] = await Promise.all([
+        parentId ? Promise.resolve() : requireContainerLevel(ctx, containerId, 'edit'),
+        ctx.db.prepare('SELECT archived_at,trashed_at FROM containers WHERE id=?').bind(containerId).first<{archived_at:string|null;trashed_at:string|null}>(),
+    ]);
     if (!container || container.archived_at || container.trashed_at)
         throw new ApiProblem(409, 'DESTINATION_UNAVAILABLE', 'Choose a live destination.');
     if (parentId) {
-        await requirePageLevel(ctx, parentId, 'edit');
-        const parent = await pageRow(ctx, parentId);
+        const [,parent] = await Promise.all([requirePageLevel(ctx, parentId, 'edit'),pageRow(ctx, parentId)]);
         writable(parent);
         if (parent.container_id !== containerId)
             throw new ApiProblem(400, 'INVALID_PARENT', 'Parent belongs to another container.');
@@ -34,6 +31,7 @@ export async function destination(ctx: FeatureContext, containerId: string, pare
 export async function readPage(ctx: FeatureContext, id: string): Promise<PageDocument & {
     mentions: Record<string,MentionResolution>;
     authorDisplayName: string;
+    ownerDisplayName: string | null;
     contributors: {
         id: string;
         displayName: string;
@@ -45,34 +43,34 @@ export async function readPage(ctx: FeatureContext, id: string): Promise<PageDoc
     updatedAt: string;
     authorMemberId: string;
 }> {
-    const access = await requirePageLevel(ctx, id, 'view');
-    const p = await pageRow(ctx, id);
+    const [access,p]=await Promise.all([requirePageLevel(ctx,id,'view'),pageRow(ctx,id)]);
     if (p.trashed_at)
         throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
     const canEdit = access.decision.level === 'edit' || access.decision.level === 'full';
-    // Render immutable content for the revision named in this response, even if another edit commits mid-read.
-    const delivered = await revisionRow(ctx, id, canEdit ? p.working_revision_id : p.published_revision_id ?? p.working_revision_id);
-    let blocks = JSON.parse(delivered.body_json), props: PageProperties = { ...JSON.parse(delivered.properties_json), statusKey: p.status_key };
-    if (!canEdit && p.published_revision_id && p.published_revision_id !== p.working_revision_id) {
-        const r = await revisionRow(ctx, id, p.published_revision_id);
-        blocks = JSON.parse(r.body_json);
-        props = JSON.parse(r.properties_json);
-    }
-    props = await filterRecordProperties(ctx, id, props);
-    const author = await ctx.db.prepare('SELECT display_name AS displayName FROM members WHERE id=?').bind(p.author_member_id).first<{
-        displayName: string;
-    }>();
-    const contributors = (await ctx.db.prepare('SELECT m.id,m.display_name AS displayName FROM page_contributors c JOIN members m ON m.id=c.member_id WHERE c.page_id=?').bind(id).all<{
-        id: string;
-        displayName: string;
-    }>()).results;
-    const schedule = canEdit ? await ctx.db.prepare('SELECT publish_at AS publishAt,state,failure FROM content_schedules WHERE page_id=?').bind(id).first() : null;
-    const v = await ctx.db.prepare("SELECT v.revision_id AS revisionId,v.status_key AS statusKey,v.owner_member_id AS ownerMemberId,v.expires_at AS expiresAt,v.created_at AS verifiedAt,m.display_name AS ownerDisplayName,m.status='active' AS ownerActive FROM page_verifications v LEFT JOIN members m ON m.id=v.owner_member_id WHERE v.page_id=? ORDER BY v.created_at DESC,v.id DESC LIMIT 1").bind(id).first<Record<string, any>>();
+    const [content, author, owner, contributors, schedule, v, projections, policyProfile] = await Promise.all([
+        (async () => {
+            // Render immutable content for the revision named in this response, even if another edit commits mid-read.
+            const delivered = await revisionRow(ctx, id, canEdit ? p.working_revision_id : p.published_revision_id ?? p.working_revision_id);
+            const blocks = JSON.parse(delivered.body_json);
+            const snapshotProperties: PageProperties = JSON.parse(delivered.properties_json);
+            const publishedOnly = !canEdit && p.published_revision_id && p.published_revision_id !== p.working_revision_id;
+            const [props, mentions] = await Promise.all([
+                filterRecordProperties(ctx, id, publishedOnly ? snapshotProperties : { ...snapshotProperties, statusKey: p.status_key }),
+                resolveMentions(ctx, blocks),
+            ]);
+            return { props, mentions, blocks: labelPageMentions(blocks, mention => mentions[mention]?.label ?? 'Unavailable page') };
+        })(),
+        ctx.db.prepare('SELECT display_name AS displayName FROM members WHERE id=?').bind(p.author_member_id).first<{ displayName: string }>(),
+        p.owner_member_id ? ctx.db.prepare('SELECT display_name AS displayName FROM members WHERE id=? AND workspace_id=?').bind(p.owner_member_id, ctx.actor.workspaceId).first<{ displayName: string }>() : Promise.resolve(null),
+        ctx.db.prepare('SELECT m.id,m.display_name AS displayName FROM page_contributors c JOIN members m ON m.id=c.member_id WHERE c.page_id=?').bind(id).all<{ id: string; displayName: string }>(),
+        canEdit ? ctx.db.prepare('SELECT publish_at AS publishAt,state,failure FROM content_schedules WHERE page_id=?').bind(id).first() : Promise.resolve(null),
+        ctx.db.prepare("SELECT v.revision_id AS revisionId,v.status_key AS statusKey,v.owner_member_id AS ownerMemberId,v.expires_at AS expiresAt,v.created_at AS verifiedAt,m.display_name AS ownerDisplayName,m.status='active' AS ownerActive FROM page_verifications v LEFT JOIN members m ON m.id=v.owner_member_id WHERE v.page_id=? ORDER BY v.created_at DESC,v.id DESC LIMIT 1").bind(id).first<Record<string, any>>(),
+        authorScheduleProjections(ctx, [id]),
+        contentPolicy(ctx),
+    ]);
+    const { props, mentions, blocks } = content;
     const verificationNow = v ? verificationState({ status_key: v.statusKey, revision_id: v.revisionId, expires_at: v.expiresAt }, p, ctx.now) : null;
-    const scheduledProjection=(await authorScheduleProjections(ctx,[id])).get(id);
-    const mentions = await resolveMentions(ctx, blocks);
-    blocks = labelPageMentions(blocks, mention => mentions[mention]?.label ?? 'Unavailable page');
-    return { authorDisplayName: author?.displayName ?? 'Former member', contributors, schedule, verification: v ? { ...v, ownerDisplayName: v.ownerDisplayName ?? 'Former member', ownerActive: !!v.ownerActive, state: verificationNow, lapsed: !!v.expiresAt && v.expiresAt <= ctx.now, current: verificationNow === 'current' } : undefined, mentions, page: { ...ref(p), ...scheduledProjection, title: props.title }, blocks, properties: props, parentPageId: p.parent_page_id, createdAt: p.created_at, updatedAt: p.updated_at, authorMemberId: p.author_member_id, workingRevisionId: p.working_revision_id, publishedRevisionId: p.published_revision_id, permissions: { level: access.decision.level!, canEdit: canEdit && !p.archived_at, canShare: access.decision.level === 'full' }, policyProfile: await contentPolicy(ctx) };
+    return { authorDisplayName: author?.displayName ?? 'Former member', ownerDisplayName: owner?.displayName ?? null, contributors: contributors.results, schedule, verification: v ? { ...v, ownerDisplayName: v.ownerDisplayName ?? 'Former member', ownerActive: !!v.ownerActive, state: verificationNow, lapsed: !!v.expiresAt && v.expiresAt <= ctx.now, current: verificationNow === 'current' } : undefined, mentions, page: { ...ref(p), ...projections.get(id), title: props.title }, blocks, properties: props, parentPageId: p.parent_page_id, createdAt: p.created_at, updatedAt: p.updated_at, authorMemberId: p.author_member_id, workingRevisionId: p.working_revision_id, publishedRevisionId: p.published_revision_id, permissions: { level: access.decision.level!, canEdit: canEdit && !p.archived_at, canShare: access.decision.level === 'full' }, policyProfile };
 }
 export async function createPage(ctx: FeatureContext, input: PageCreateInput) {
     return commitOperation(ctx, { operationKey: input.operationKey, action: 'pages.create', request: input, authorize: () => destination(ctx, input.containerId, input.parentPageId), prepare: async ({ revisionId }) => {
