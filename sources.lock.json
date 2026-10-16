@@ -871,7 +871,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "b89391fe472b3e17a7a7b7bc94c6d712f31a342d6a97987511f7c5c1ebba98dd",
+      "sha256": "46d73e97809355f4ebaa3f6845bacbc581bd3038775ea73a245eb2fc5525cec3",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -891,7 +891,7 @@
       "executable": false
     },
     "CHANGELOG.md": {
-      "sha256": "01ddc625708d589c8e6b6edcd336784abe58e5ff765d93ba099206b89dfe18c6",
+      "sha256": "b127d0de5e7c10f3551c74a3488db4920ac6dd3256ed0add5beb2e9aeee41931",
       "executable": false
     },
     "CLAUDE.md": {
@@ -931,7 +931,7 @@
       "executable": false
     },
     "DIVERGENCE.md": {
-      "sha256": "ca89c2813c5c67f3d9e421bb9deeed40963e744a2c89ab750d74dbc024275eb3",
+      "sha256": "8504f445f9220fa6128350941d843794a398a54f57b727d6c4245627c22a753d",
       "executable": false
     },
     "docs/BACKUP.md": {
@@ -983,11 +983,11 @@
       "executable": false
     },
     "docs/release/sendgrid-deployment.md": {
-      "sha256": "3a527a287e12b66080650fedef218e125aa24324234f1c77e46bd1822bbabd29",
+      "sha256": "e0dc546651f19becb8b37e9404a1a31372f962efa3ac416c84bdc6f956e6cc39",
       "executable": false
     },
     "docs/release/source-and-delivery.md": {
-      "sha256": "cd872a7189b5a3bc7d8d199395ebaf2a0b6d8895927916dddd0c8fca0d436d13",
+      "sha256": "cf047cf435c84f02e99bb05959813d4b16cf9b38faf8fb0e3054521f664db044",
       "executable": false
     },
     "docs/site.json": {
@@ -1015,7 +1015,7 @@
       "executable": false
     },
     "HANDOVER.md": {
-      "sha256": "04513aa709c9e9b6d97b0f31f0414a41b34e8c527aa9bbc3d59ad06c0a0bdcfb",
+      "sha256": "5186d500930432db0dde94c9e4ab89f16c921140ba3f6c47b95edb323b5c88b9",
       "executable": false
     },
     "LICENSE": {
@@ -3459,11 +3459,11 @@
       "executable": false
     },
     "rer-project.json": {
-      "sha256": "80fff497d498bbc0a88847c9844ef477b252aba24b06cc0b21ad419b34155f72",
+      "sha256": "4d38da2ce26f70ceeaf9a824f43acee1b42316a6801eef2029c0c739abc208af",
       "executable": false
     },
     "rer-setup.json": {
-      "sha256": "3e79ecace41d0280996b64363b2481684289eb8a59ee5798b6d980d0ddfb095f",
+      "sha256": "cef3407e6dfaa73e47694ed408ab46fc069b98dfdeda1635f602db49283e594a",
       "executable": false
     },
     "RUN-LOCALLY.md": {
@@ -6475,7 +6475,7 @@
       "executable": false
     },
     "src/core/features/portability/tables.ts": {
-      "sha256": "4f87af16a8b27ddef1471eef754d3a1cc10f6f9b4328fb7afea7827b7d528a69",
+      "sha256": "867aa2e0cc46535484f2afe9a94ca24843a8d7b2a52cbc437931764d569d2079",
       "executable": false
     },
     "src/core/features/publishing/delegated.ts": {
@@ -9527,7 +9527,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "88b2d1a87ee9274b3170b8f8b82c777eae1fca1274225dfabd772cf043b3bd47",
+      "sha256": "25665e13a94a7bbb1e49146e10e22c2a20348e97f4083aca9fa24bfc1c33874a",
       "executable": false
     },
     "tests/requirements/test-evidence.json": {

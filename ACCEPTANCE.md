@@ -74,8 +74,10 @@ roles, groups, scoped guests and the `slate_session` cookie are unchanged.
   proof check.
 - **Dev identity (SC-05).** The local-only entry `src/dev/server.ts` serves
   key-gated dev sessions for the claimed owner and real `editor` and `guest`
-  personas at `<as>@dev.localhost`. The outbox answers only with the checkout's
-  dev key. Archives exclude sessions and restore every non-owner member inactive.
+  personas at `<as>@dev.localhost`. The printed `RER_OPEN` link admits the
+  native local owner session through the checkout's dev-key gate. Local mail is
+  silently suppressed; no captured-mail page is served. Archives exclude sessions
+  and restore every non-owner member inactive.
 
 Slate has no domain rules, passwords or linked dependency providers, so Base's
 domain, password-revocation and dependency logout/fence paths have no Slate flow;

@@ -1,6 +1,6 @@
 # Slate handover
 
-Slate is a self-hosted `core-wiki` product with public identity `just-every/run-slate`. Use the README journey through `rer`: install, setup with owner email, then dev. Open the printed outbox and follow the newest one-use native sign-in link; no email is sent. `describe` lists commands, flags, pins and effects.
+Slate is a self-hosted `core-wiki` product with public identity `just-every/run-slate`. Use the README journey through `rer`: install, setup with owner email, then dev. Open the printed `RER_OPEN` link to enter the native, key-gated local owner session. Local mail is silently suppressed; the 15 October 2026 owner decision forbids captured-mail inbox/outbox pages, including in development. `describe` lists commands, flags, pins and effects.
 
 The owner decision dated 8 October 2026 preserves native magic-link/OIDC/session/role/group/guest auth and prior data. WORK-008, WORK-009, WORK-010, WORK-015 and BASE-ACCESS-001/002 remain binding. There is no Base owner ledger. The 7 October MAIL-002 decision holds uncertain SendGrid sends for provider review; receipts establish acceptance only.
 

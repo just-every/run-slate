@@ -4,7 +4,7 @@
   "groups": [
     {
       "id": "owner",
-      "label": "Native owner account"
+      "label": "Who owns it"
     },
     {
       "id": "email",
