@@ -955,7 +955,7 @@
       "executable": false
     },
     "docs/INSTALL.md": {
-      "sha256": "e88b680f2ffb670e4e012ba3a252a141be93b18d36b6687896b7e7f256b83575",
+      "sha256": "72bb29af72ae1345426a761f6f41cad55b7a6a4b96f98f902ddb5030dbc96549",
       "executable": false
     },
     "docs/MAIL-DELIVERY.md": {
@@ -971,7 +971,7 @@
       "executable": false
     },
     "docs/OVERVIEW.md": {
-      "sha256": "a7ae793b901a7ab4c7df81b25a8ff978b498a4b69956112f790e9b1532294ba7",
+      "sha256": "7041cea2427a8dc7b786c4099d7f6809ce8112a35098f0ecb9cd5f2dd9f89711",
       "executable": false
     },
     "docs/release/core-wiki-profile.md": {
@@ -3451,7 +3451,7 @@
       "executable": false
     },
     "README.md": {
-      "sha256": "7668a495f4e0657220cb449493269f748e64adef1135879086259aa71c354719",
+      "sha256": "be33a63deb1b5f051f08de4546e93f5d41bc507c0e9a313ecc130bbe85512a5f",
       "executable": false
     },
     "RELEASE.json": {
@@ -7783,7 +7783,7 @@
       "executable": false
     },
     "src/site/run.ts": {
-      "sha256": "62f19107700aecbfc4c5a0fbc4de451653d03680477499243384f7b95b1630f9",
+      "sha256": "7f7b02a34101f03e49a030b56736300240ba6267cef973093dd2028da76def8b",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {

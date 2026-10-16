@@ -37,14 +37,13 @@ Install Git and Node.js 22 or later to run rer. There is no Node or pnpm version
 
 ## Run it on your computer
 
-Clone the public source repository and enter the checkout:
+One line installs rer, clones the public source repository and starts Slate:
 
 ```sh
-git clone https://github.com/just-every/run-slate.git slate
-cd slate
+npx -y @runeditrun/rer dev just-every/run-slate
 ```
 
-Install rer once per computer (`npm install -g @runeditrun/rer`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins (0.2.25). In a fresh checkout `rer dev` alone installs the pinned dependencies, makes a placeholder local owner and starts Slate. To choose your own owner email, prepare it first:
+To start it again later, run `cd run-slate && rer dev`. From the checkout, rer runs the `@runeditrun/rer` version this checkout pins (0.2.25). In a fresh checkout `rer dev` alone installs the pinned dependencies, makes a placeholder local owner and starts Slate. To choose your own owner email, prepare it first:
 
 ```sh
 rer install
