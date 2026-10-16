@@ -1,6 +1,6 @@
 # Slate: develop knowledge the company does not yet have
 
-**Requirements and current scope.** Slate v0.1.0 defaults to the core-wiki profile. Federation, granted actions and sustained inquiry remain explicit flagship development functionality with full acceptance pending. [ACCEPTANCE.md](./ACCEPTANCE.md) governs all 220 current product clauses, 22 baseline obligations, eight policy profiles and six journeys. The requirements below remain binding; they do not establish provider, prospective-value or public-release acceptance. [HANDOVER.md](./HANDOVER.md) records current source behavior and verification limits.
+**Requirements and current scope.** Slate v0.2.0 defaults to the core-wiki profile. Federation, granted actions and sustained inquiry remain explicit flagship development functionality with full acceptance pending. [ACCEPTANCE.md](./ACCEPTANCE.md) governs all 220 current product clauses, 22 baseline obligations, eight policy profiles and six journeys. The requirements below remain binding; they do not establish provider, prospective-value or public-release acceptance. [HANDOVER.md](./HANDOVER.md) records current source behavior and verification limits.
 
 Slate should help a company discover what matters, work out what to do, test it and get better at doing it again. A dependable answer to an existing policy question is valuable. The larger opportunity is to develop an explanation or method that nobody in the company already has, then turn the expensive discovery into inexpensive, checked recurring work.
 

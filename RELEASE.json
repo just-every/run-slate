@@ -1,6 +1,6 @@
 {
-  "version": "0.1.0",
-  "date": "2026-10-06",
+  "version": "0.2.0",
+  "date": "2026-10-16",
   "contractChanges": {
     "BASE-ACCESS-002": {
       "change": "changed",
@@ -346,8 +346,20 @@
       "buyerSteps": "Additive identity-mail custody and retry migration; preserve prior data and applied history. See docs/MAIL-DELIVERY.md. Migration presence and local tests do not establish provider delivery, live cron, inbox or release acceptance; independent old-data recovery and deployment verification remain required."
     },
     {
+      "id": "0018_development_mail_outbox.sql",
+      "buyerSteps": "Apply additively. Local-development storage only; hosted deployments never write it, and current Slate sends no development mail. It remains so older local installations can read and erase what they saved, and is excluded from archives."
+    },
+    {
+      "id": "0019_installation_portability.sql",
+      "buyerSteps": "Apply additively. Records installation archive state for rer export and rer import; no existing rows change."
+    },
+    {
       "id": "0020_identity_adapter_preparation.sql",
       "buyerSteps": "Apply additively. Existing member IDs, groups, guests and live sessions remain. Previously issued email links stop working; request new links. The empty binding table is adapter preparation, not a configured provider migration."
+    },
+    {
+      "id": "0021_search_fts.sql",
+      "buyerSteps": "Apply additively. Adds derived full-text search columns and rows; canonical content is unchanged and authorization stays in the access checks. The derived index rebuilds from canonical content."
     },
     {
       "id": "0022_native_identity_authority.sql",
@@ -356,10 +368,43 @@
     {
       "id": "0023_identity_providers.sql",
       "buyerSteps": "Apply additively (Base identity/oidc storage, byte-exact). With SSO_ENABLED=true, set IDENTITY_AUTHORIZATION_ENDPOINT, IDENTITY_TOKEN_ENDPOINT, IDENTITY_JWKS_URI (the exact values the issuer's discovery document publishes) and a new IDENTITY_TRANSACTION_SECRET of at least 32 characters before deploying; optional IDENTITY_TOKEN_AUTH_METHOD is client_secret_post (default) or client_secret_basic. See docs/release/identity-preparation.md."
+    },
+    {
+      "id": "0024_reviewed_imports.sql",
+      "buyerSteps": "Apply additively. Adds reviewed-import columns and import-kit custody tables; earlier imports keep their rows."
+    },
+    {
+      "id": "0025_import_generation.sql",
+      "buyerSteps": "Apply additively. Adds an import generation counter with a zero default."
+    },
+    {
+      "id": "0026_verification_review.sql",
+      "buyerSteps": "Apply additively. Indexes only, for the verification review list and lapse notices (STAT-003/STAT-004)."
+    },
+    {
+      "id": "0027_mention_titles_reindex.sql",
+      "buyerSteps": "Apply additively. Rebuilds derived search rows so mentioned page titles are no longer indexed (LINK-004); no canonical row changes."
+    },
+    {
+      "id": "0028_import_reversal_fences.sql",
+      "buyerSteps": "Apply additively. Adds import reversal fences and indexes from the pinned import kit."
+    },
+    {
+      "id": "0029_import_retirement.sql",
+      "buyerSteps": "Apply additively. Adds append-only import retirement and erasure journals from the pinned import kit."
+    },
+    {
+      "id": "0030_native_dependencies.sql",
+      "buyerSteps": "Apply additively. Adds the shared dependency-protocol tables; accounts, sessions and ownership remain native."
+    },
+    {
+      "id": "0031_import_preparation_progress.sql",
+      "buyerSteps": "Apply additively. Adds the import preparation progress schemas required by the pinned rer 0.2.22+ import kit."
     }
   ],
-  "breaking": true,
-  "agentUpdateInstructions": "Slate 0.1.0 uses the default core-wiki scope in CONTRACT.md and ACCEPTANCE.md. Flagship is explicit development opt-in, not acceptance. Preserve all requirement IDs, baseline obligations, eight policy profiles, private drafts, current source/requester/audience rights, immutable decisions, grants, budgets and exact effect receipts. STAT-003/004 require a human to open the exact revision; automatic renewal is prohibited. Preserve applied migration history; verify forward transition and recovery before upgrading existing data. Source checks do not establish provider, deployment or complete flagship acceptance.",
+  "breaking": false,
+  "publicReleaseNotes": "Slate 0.2.0: Base sign-in over Slate's own accounts with login_hint prefill, RER Managed mail relay, built-in /docs, reviewed imports, installation backup and restore that keeps removed members removed, safer co-editing and the refined app design. Product screenshot: .github/assets/release/slate-0.2.0-page-1440.png",
+  "agentUpdateInstructions": "Slate 0.2.0 upgrades 0.1.0 in place. Back up first with rer export, pin @runeditrun/rer 0.2.23 as package.json does, then apply migrations 0018-0031 in order; all are additive and keep members, roles, groups, guests and live sessions. Sign-in moves to Base operator-auth over Slate's native accounts: email links sent before the upgrade show the request-new-link page, and existing sessions stay valid. Hosted mail needs MAIL_PROVIDER (sendgrid, resend or rer for RER Managed relay) and its matching credential; MAIL_PROVIDER=development runs only on a loopback LOCAL_DEVELOPMENT install and sends nothing. Installation archives name the current active owner and keep removed members removed; an archive taken while several people owned the workspace asks for rer setup --owner-email before rer import. Slate uses the default core-wiki scope in CONTRACT.md and ACCEPTANCE.md. Flagship is explicit development opt-in, not acceptance. Preserve all requirement IDs, baseline obligations, eight policy profiles, private drafts, current source/requester/audience rights, immutable decisions, grants, budgets and exact effect receipts. STAT-003/004 require a human to open the exact revision; automatic renewal is prohibited. Preserve applied migration history; verify forward transition and recovery before upgrading existing data. Source checks do not establish provider, deployment or complete flagship acceptance.",
   "launchProfile": {
     "default": "core-wiki",
     "binding": "SLATE_PROFILE",

@@ -1,6 +1,12 @@
 # Changelog
 
-## Unreleased — 9 October 2026
+## 0.2.0 — 16 October 2026
+
+Slate 0.2.0 is a minor release over 0.1.0. It signs in through Base operator-auth over Slate's own accounts, sends mail through RER's Managed relay without customer provider setup, serves its documentation at `/docs`, adds reviewed imports and installation backup and restore through `rer export` and `rer import`, and refines the signed-in app. The product screenshot for this release is `.github/assets/release/slate-0.2.0-page-1440.png`.
+
+**Upgrade from 0.1.0.** Back up with `rer export` first. Pin `@runeditrun/rer` 0.2.23, as `package.json` does, and apply migrations 0018 to 0031 in order; all are additive and keep members, roles, groups, guests and live sessions. Email links sent before the upgrade show the request-new-link page. Hosted mail needs `MAIL_PROVIDER` (`sendgrid`, `resend`, or `rer` for the Managed relay) and its credential; `MAIL_PROVIDER=development` runs only on a loopback local install and sends nothing.
+
+An installation archive names the workspace's current active owner, and a removed member stays removed through `rer import` and the web restore. Removing a member ends their setup-owner standing, and an archive taken while several people owned the workspace asks for `rer setup --owner-email <address>` before `rer import` restores it (PORT-005). The web restore refuses a signed-in owner who was removed from, or was a guest in, the archived workspace. A local install exports the workspace from Settings without an email confirmation; hosted exports still need one. Typing straight after choosing a person, page or date mention is kept. Markdown, Notion and Word imports keep more of their links, nesting and titles, and the import and export settings are styled. Enter in a page title moves into the body, database records nest beneath their database in the sidebar, and database view settings, Status choices, Name sorting and the standalone chart are fixed.
 
 Test credentials are explicitly synthetic so hosted source checks accept Slate-owned fixtures while preserving security assertions.
 

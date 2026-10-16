@@ -1,6 +1,6 @@
 # Slate flagship plan: operational memory and sustained inquiry
 
-**Requirements and current scope.** Slate v0.1.0 defaults to the core-wiki profile. Federation, granted actions and sustained inquiry remain explicit flagship development functionality with full acceptance pending. [ACCEPTANCE.md](./ACCEPTANCE.md) governs all 220 current product clauses, 22 baseline obligations, eight policy profiles and six journeys. The requirements below remain binding; they do not establish provider, prospective-value or public-release acceptance. [HANDOVER.md](./HANDOVER.md) records current source behavior and verification limits.
+**Requirements and current scope.** Slate v0.2.0 defaults to the core-wiki profile. Federation, granted actions and sustained inquiry remain explicit flagship development functionality with full acceptance pending. [ACCEPTANCE.md](./ACCEPTANCE.md) governs all 220 current product clauses, 22 baseline obligations, eight policy profiles and six journeys. The requirements below remain binding; they do not establish provider, prospective-value or public-release acceptance. [HANDOVER.md](./HANDOVER.md) records current source behavior and verification limits.
 
 ## The outcome Slate owns
 
