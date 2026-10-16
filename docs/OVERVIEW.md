@@ -22,16 +22,13 @@ Slate is a self-hosted team wiki. Pages, databases and search live in one open-s
 - [Email delivery](EMAIL.md) covers choosing Resend or SendGrid, what Slate sends, how failed sends are retried and what to check when mail does not arrive.
 - [Cloudflare footprint](CLOUDFLARE.md) shows what Slate uses on your Cloudflare account and a worked cost example.
 
-To look around locally, install Git and Node.js 22 or later, then run the commands below. There is no Node or pnpm version to choose: rer fetches the ones the checkout pins and installs its dependencies itself.
+To look around locally, install Git and Node.js 22 or later, then run the line below. There is no Node or pnpm version to choose: rer fetches the ones the checkout pins and installs its dependencies itself.
 
 ```sh
-curl -fsSL https://runeditrun.com/install.sh | sh
-git clone https://github.com/just-every/run-slate.git slate
-cd slate
-rer dev
+npx -y @runeditrun/rer dev just-every/run-slate
 ```
 
-You can also install rer with `npm install -g @runeditrun/rer`; this checkout runs its pinned rer 0.2.25. In a fresh checkout, `rer dev` installs the pinned dependencies, prepares a placeholder local owner and prints a link that opens Slate signed in. Separate `rer install` and `rer setup` steps are optional; run `rer setup --owner-email you@example.test` first to choose your own owner email. Setup prepares local settings and the owner, then exits with no app running; `rer dev` starts Slate. No email is sent locally.
+To start it again later, run `cd run-slate && rer dev`. This checkout runs its pinned rer 0.2.25. In a fresh checkout, `rer dev` installs the pinned dependencies, prepares a placeholder local owner and prints a link that opens Slate signed in. Separate `rer install` and `rer setup` steps are optional; run `rer setup --owner-email you@example.test` first to choose your own owner email. Setup prepares local settings and the owner, then exits with no app running; `rer dev` starts Slate. No email is sent locally.
 
 For an existing installation, follow [Update your existing wiki](INSTALL.md#update-your-existing-wiki): export first, then `git pull --ff-only` and `rer deploy` to the same environment. Rer installs the pinned dependencies as part of deployment.
 
