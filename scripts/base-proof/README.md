@@ -4,7 +4,7 @@
 Base commit in `objects.mjs` (`PINS`: `1ce15dd8cbb7c8cf2d83ebfde2b4a8a130ff9d74`,
 the source of `rer-v0.2.22`, and `b4b372b032b2ddd7fbf47efa1bf17e1d5235be98`,
 the source of `rer-v0.2.23` for `modules/mail`, and `ae0842a265e8ec7b42d1b2a7ca717926aabf63de`,
-the source of `rer-v0.2.25` for `modules/import-kit`), creates a temporary bare Git object repository whose HEAD is the newest
+the source of `rer-v0.2.25` for `modules/import-kit` and the deployment sign-in declaration reader), creates a temporary bare Git object repository whose HEAD is the newest
 pin, and runs the unchanged copied command:
 
 ```

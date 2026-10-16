@@ -251,7 +251,11 @@
   "surfaces": {
     "app": {
       "path": "/signin",
-      "originVariable": "APP_URL"
+      "originVariable": "APP_URL",
+      "signIn": {
+        "path": "/signin",
+        "loginHint": true
+      }
     }
   },
   "mail": {

@@ -2,7 +2,7 @@
   "schema": 1,
   "sourceRepository": "just-every/run-slate",
   "sourceFiles": {
-    "scripts/delivery/base/packaging.json": "sha256:c2e277ff9bfbc9f06539ba9427ee9e72a6f2c82baee193085987aadd6c985fec",
+    "scripts/delivery/base/packaging.json": "sha256:c5797d1098ddfe236394cf01baefd35a800d6d483762a571a37affd66bfea565",
     "src/server.ts": "sha256:b358ff1fb52828e94d0d27171f143925fa7bef1c4328a9a8cb528321ca566e30",
     "src/core/features/workspace/bootstrap.ts": "sha256:070dbb22a0bdcfd8d131168e390a1c4c61af03d20fdb09f878321d6be9ddf262",
     "src/core/platform/config/runtime.ts": "sha256:4f9dcdf5cd808a5cb305443a6d616e73ae7d0381a81dd843e813e798da7a8714",

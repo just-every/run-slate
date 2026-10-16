@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+RER’s Open app action now opens Slate’s sign-in page with the claimed owner’s email filled in. The generated deployment spec declares `/signin` and its `login_hint` support; opening the page does not send an email.
+
 ## 0.2.0 — 16 October 2026
 
 Slate 0.2.0 is a minor release over 0.1.0. It signs in through Base operator-auth over Slate's own accounts, sends mail through RER's Managed relay without customer provider setup, serves its documentation at `/docs`, adds reviewed imports and installation backup and restore through `rer export` and `rer import`, and refines the signed-in app. The product screenshot for this release is `.github/assets/release/slate-0.2.0-page-1440.png`.

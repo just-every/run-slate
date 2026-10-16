@@ -16,6 +16,7 @@ import {
 } from "./runtime-harness.mjs";
 
 import { confirmationFlow } from './confirmation-flow.mjs';
+import { signInHintFlow } from './signin-hint.mjs';
 import { healthRequest } from '@runeditrun/rer/internal/modules/deploy-kit/health-request.mjs';
 
 const clientAssets = path.join(root, "dist", "client", "assets");
@@ -145,6 +146,7 @@ test("the emitted Worker serves every declared surface and a real 404 everywhere
     const serverFunctionIds = await generatedServerFunctionIds();
 
     assert.equal((await fetch(`${baseUrl}/health`)).status, 200);
+    await signInHintFlow(baseUrl);
 
     // The local sample binding is loopback-only. The same Worker asked for a
     // non-loopback host is an unconfigured deployment, and every family must
