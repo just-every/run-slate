@@ -22,13 +22,13 @@ Slate is the owned company wiki and knowledge workspace a US small or mid-size t
 
 A buyer replacing an incumbent needs the whole job, so the target is the whole job:
 
-- **Write together.** Live co-editing with presence and cursors (`COLLAB-001` to `COLLAB-005`), rich blocks, tables, synced blocks, columns, equations and diagrams (`BLOCK-001` to `BLOCK-014`), comments, mentions, reminders, suggestions and page locks.
-- **Organise.** Spaces (containers) with page trees, labels, templates, blogs and a company hub, plus databases with relations, rollups, formulas, board/calendar/timeline views, forms and dashboards (`DB-001` to `DB-016`).
+- **Write together.** Live co-editing with presence and cursors (`COLLAB-001` to `COLLAB-005`), rich blocks, tables, synced blocks, columns, a table of contents, status labels, equations and diagrams including diagrams.net (`BLOCK-001` to `BLOCK-020`), comments, person and group mentions, assigned tasks with due dates, My tasks and task reports (`BLOCK-015`, `BLOCK-016`, `NAV-007`), reminders, suggestions and page locks.
+- **Organise.** Spaces (containers) with page trees, labels, starter and custom templates, blogs, a company hub, and watching of pages and whole containers with autowatch (`PAGE-016`, `CONT-012`), plus databases with relations, rollups, formulas, board/calendar/timeline views, forms and dashboards (`DB-001` to `DB-016`).
 - **Find and ask.** Ranked permission-aware search that prefers verified current pages, and cited AI answers in the product, in chat and over MCP that never use a page the asker cannot read (`SEARCH-*`, `ANSWER-*`, `AI-*`).
 - **Keep it true.** Owners, review dates, verification and lapse, expert review queues, verification rules, Guru-style knowledge cards, and agents that find contradicted or stale pages and propose exact fixes for a human to accept (`STAT-*`, `CARD-*`, `KEEP-*`).
 - **Connect.** Slack, Microsoft Teams and Nook; Jira and Vector; GitHub and GitLab; Google Drive, SharePoint/OneDrive and Chest; Figma, Miro, Lucid and Loom embeds; a public REST API, webhooks and an MCP endpoint (`CHAT-*`, `EMBED-*`, `CONNECT-*`, `API-*`).
-- **Administer.** Roles, groups, guests, SAML SSO, SCIM, audit export, content governance and workspace analytics (`WORK-*`, `ADMIN-*`).
-- **Move in and out.** Notion, Confluence, Guru, Google Docs, Word and SharePoint imports, and complete exports and restores (`IMP-*`, `PORT-*`).
+- **Administer.** Roles, groups, guests, SAML SSO, SCIM, audit export, content governance, workspace analytics and workspace notification defaults (`WORK-*`, `ADMIN-*`, `NOTIF-006`). Every one of these surfaces, and every AI, connector and MCP surface, ships in the default product and is switched on by an owner (`ADMIN-007`).
+- **Move in and out.** Notion, Confluence, Guru, Google Docs, Word and SharePoint imports, with Confluence macros, diagrams, tasks and space permissions mapped to named Slate equivalents (`IMP-010`, `IMP-011`), and complete exports, including Word, and restores (`IMP-*`, `PORT-*`).
 - **Anywhere.** The responsive web app, native iOS and Android apps, a desktop app, offline pages and push notifications (`NAV-006`, `MOBILE-*`).
 
 ### Neighbouring products stay separate
@@ -56,13 +56,14 @@ Cross-functional task and project management (Asana, monday.com, ClickUp) belong
 
 - **Published clauses** are the `- **ID — Title.**` bullets in the sections from [Public landing](#public-landing) to [Full flagship and sustained inquiry](#full-flagship-and-sustained-inquiry). Each is registered in `seed.json → capabilities`, `tests/e2e/contract-coverage.test.ts` and `tests/requirements/clause-inventory.json`, and is checked by `scripts/check-contract.mjs` and `scripts/verify.mjs`.
 - **Target clauses** are the `#### ID — Title.` headings in [Target clauses](#target-clauses) and [Push further](#push-further). They are binding product requirements that are not yet registered. A build round that starts one registers it in the same change: a `seed.json` capability, a planned `contract.todo` entry, and a clause-inventory entry with its unmet reason. It also turns the heading into a published bullet with the same ID. IDs never change.
-- **Status** (in [Status](#status) and after each target clause) is `done`, `partial` or `missing`, judged from the code and tests at commit `8956e45` (16 October 2026). `done` means the behaviour ships in the default `core-wiki` profile and a cited test or journey exercises it. `partial` means some of it ships, or it ships only under the explicit `SLATE_PROFILE=flagship` opt-in, or there is code with no requirement-level test. `missing` means there is no implementation. Status is a build-planning judgement, not acceptance. [ACCEPTANCE.md](ACCEPTANCE.md) still decides acceptance, and the clause inventory still records every published clause as unproven until it is independently verified.
+- **Status** (in [Status](#status) and after each target clause) is `done`, `partial` or `missing`, judged from the code and tests at commit `8956e45` (16 October 2026). `done` means the behaviour ships in the default `core-wiki` profile and a cited test or journey exercises it. `partial` means some of it ships, or it ships only under the explicit `SLATE_PROFILE=flagship` opt-in, or there is code with no requirement-level test. `missing` means there is no implementation. Status is a build-planning judgement, not acceptance.
+- **Acceptance runs in the default product.** Every target and push-further clause's acceptance runs with `SLATE_PROFILE` unset, with only the owner switches that clause names turned on (`ADMIN-007`). A journey that passes only under `SLATE_PROFILE=flagship` leaves the clause `partial`. [ACCEPTANCE.md](ACCEPTANCE.md) still decides acceptance, and the clause inventory still records every published clause as unproven until it is independently verified.
 
 ## Target amendment — 16 October 2026
 
 The owner directed on 16 October 2026 that every seed's contract describe a genuine competitor to its category's incumbents. This amendment records which published clauses the target changes. It removes no requirement and no assertion, and none of these clauses is renumbered.
 
-Affected IDs: `SAVE-006`, `PAGE-001`, `WORK-015`, `NAV-006`, `NOTIF-003`, `MAIL-001`, `FLAG-001`, the [Out of scope](#out-of-scope) list, and the core-wiki launch amendment's disabled-surface list. Their mirrors in `RELEASE.json`, `seed.json` and `tests/requirements` change when a build round implements the target clauses below. This document changes no code.
+Affected IDs: `SAVE-006`, `PAGE-001`, `PAGE-009`, `BLOCK-005`, `BLOCK-006`, `BLOCK-007`, `WORK-015`, `NAV-006`, `NOTIF-003`, `MAIL-001`, `IMP-003`, `PORT-007`, `FLAG-001`, the [Out of scope](#out-of-scope) list, and the core-wiki launch amendment's disabled-surface list. Their mirrors in `RELEASE.json`, `seed.json` and `tests/requirements` change when a build round implements the target clauses below. This document changes no code.
 
 Replacement behaviour:
 
@@ -71,8 +72,13 @@ Replacement behaviour:
 - **SAML SSO and SCIM provisioning** join the OIDC identity provider (`WORK-015` → `ADMIN-001`, `ADMIN-002`).
 - **Native apps join the responsive client.** Native iOS, Android and desktop apps with offline pages and push notifications are added (`NAV-006` → `MOBILE-001` to `MOBILE-004`).
 - **Chat delivery widens** from one Slack destination to several, across Slack, Microsoft Teams and Nook (`NOTIF-003` → `CHAT-001`).
-- **Members may opt in to notification email and digests** (`MAIL-001` → `NOTIF-005`). Sign-in and invitation mail stay the only mail Slate sends without that opt-in.
+- **Notification email and digests join sign-in and invitation mail** (`MAIL-001` → `NOTIF-005`, `NOTIF-006`). A workspace owner sets the default delivery for each event kind, and a member's own choice, including an unsubscribe, overrides it. A new workspace starts with Confluence's defaults (mentions and replies by immediate email, watched changes as a daily digest); a workspace upgraded from an earlier version sends only sign-in and invitation mail until an owner sets a default.
 - **Cited answers become part of the default product** once an owner configures a provider and turns AI on. The core-wiki profile then no longer hides them (`AI-001`, `AI-015` → `ANSWER-001`). Until a build round meets `ANSWER-003`, the core-wiki profile keeps refusing AI surfaces as it does today.
+- **Every target and push-further clause ships in the default product** (`ADMIN-007`). The core-wiki launch amendment's disabled-surface list no longer hides any surface that a target clause needs: Ask and AI writing and answers (`ANSWER-*`, `AI-016`, `AI-017`, `DB-016`), suggestions (`SUG-001`, `SUG-002`, used by `API-003` and `KEEP-002`), the external-agent and MCP surface (`API-003`), source connectors (`CONNECT-*`, `SEARCH-012`, `CHAT-002`, `EMBED-*`, `AUTO-007`), the runs, skills, claims and impact tracing that `KEEP-001` to `KEEP-009` use, live co-editing sockets (`COLLAB-*`), and the intelligence and connector jobs those clauses dispatch. Each surface is turned on by an owner action (an AI provider with AI on, a connected connector, a client grant), never by `SLATE_PROFILE`, and stays refused with `FEATURE_DISABLED` until its own safety acceptance passes. Each target clause's acceptance runs in the default profile; evidence produced under `SLATE_PROFILE=flagship` never satisfies a target clause. Inquiry, experiments, trials and production effects (`INQ-*`, `TRIAL-*`, `EFFECT-002`) stay the flagship extension.
+- **Tasks gain assignees, due dates, My tasks and task reports** (`BLOCK-007` → `BLOCK-015`, `BLOCK-016`, `NAV-007`). Task items stay blocks and still never appear in a database view.
+- **Watching widens** to whole containers and to pages a member creates or edits (`PAGE-009` → `PAGE-016`, `CONT-012`).
+- **Confluence imports map every common macro, diagram, task and space permission** to a named Slate equivalent (`IMP-003` → `IMP-010`, `IMP-011`). The body gains a table-of-contents block and status labels (`BLOCK-006` → `BLOCK-017`, `BLOCK-018`), and diagrams.net diagrams become native (`BLOCK-019`).
+- **Mentions reach groups** (`BLOCK-005` → `BLOCK-020`), and **page export adds Word** (`PORT-007` → `PORT-010`).
 - **FLAG-001 stays the gate for the full flagship.** The category target sits beside it: the target clauses are the product's requirements, while the inquiry and trial extensions stay flagship requirements.
 
 Security consequences:
@@ -82,6 +88,11 @@ Security consequences:
 - **SCIM bearer tokens and SAML signing certificates** are new secrets. They are covered by `BASE-SECRET-001`/`002` and are excluded from exports under `PORT-005`.
 - **Personal access tokens, OAuth apps, webhooks and MCP clients** each act as exactly one member and never widen that member's access (`API-001` to `API-004`).
 - **Offline copies on devices** are encrypted at rest by the operating system and erased on revocation or remote sign-out at the next connection (`MOBILE-003`). An offline copy is never a source for answers or exports.
+- **Default-profile AI, MCP, connectors and suggestions** keep every `AI-*`, `SOURCE-*`, `SUG-*` and `CONNECT-002` guarantee. Moving a surface into the default product relaxes none of them (`ADMIN-007`).
+- **Issue backlinks** write a Slate page's title and URL into Jira or Vector under the acting member's linked account (`EMBED-005`). A page in a `private` or `personal` container, a draft, or a page under a Confidential classification gets the neutral title "Slate page" instead, and opening a backlink still requires Slate access.
+- **Task assignments, group mentions and shares with a message** never notify a member who cannot read the page; the actor is asked to share the page or cancel (`BLOCK-015`, `BLOCK-020`, `SHARE-009`).
+- **Imported space permissions** become container grants only through reviewed principal mappings, never widen access when a source permission has no Slate level, and never publish anonymous access (`IMP-011`, `PORT-005`).
+- **The diagrams.net editor** is served from the deployment's own origin and sends diagram content to no third party (`BLOCK-019`).
 - **No existing protection is relaxed.** `LIFE-002`, `SEARCH-005`, `AI-011`, `AI-013`, `STAT-003`/`004` and the container vetoes in `WEB-001` stay absolute under every target clause.
 
 ## Core-wiki launch amendment — 6 October 2026
@@ -117,6 +128,8 @@ AI-017 remain requirements pending their full acceptance. Disabled capability is
 not satisfied capability. FLAG-002/003/004 and the six complete journeys remain
 the full flagship gate; no provider or prospective-value claim follows from a
 core-wiki release. See ACCEPTANCE.md for the distinct evidence requirements.
+
+Target (16 October 2026): the [Target amendment](#target-amendment--16-october-2026) narrows the disabled-surface list above. A surface that a target or push-further clause needs leaves the list when that clause's build round lands. It is then turned on by an owner switch in the default profile (`ADMIN-007`), not by `SLATE_PROFILE=flagship`, and until then it keeps refusing as described above. Inquiry, experiments, trials and production effects stay flagship-only.
 
 ## Shared identity with native accounts — owner decision, 10 October 2026
 
@@ -326,7 +339,7 @@ or the dev key in its output. No existing protection is relaxed.
 - **PAGE-006 — Icon and cover.** A page takes an icon from emoji, a supplied icon set or an upload, and a cover from a gallery, an upload or a link. Both are removable, both render in the tree and in search results where the surface has room, and neither is required.
 - **PAGE-007 — Details.** A page's details show its owner, creator, contributors, created and updated times, length, status (`STAT-002`), labels (`PAGE-001`), views (`PAGE-013`) and the pages that link to it. A member with `full` access can reassign the owner, which changes no grant and writes one activity entry.
 - **PAGE-008 — Favourite.** A member can favourite a page or a container and unfavourite it. Favourites are personal, are listed in the navigation (`NAV-003`), and are visible to no other member.
-- **PAGE-009 — Watch.** A member can watch a page, and watches it implicitly after commenting on it until they stop. A watched page delivers its comments, replies and published changes to that member's inbox (`NOTIF-001`). Watching is personal and a member's own action never notifies them.
+- **PAGE-009 — Watch.** A member can watch a page, and watches it implicitly after commenting on it until they stop. A watched page delivers its comments, replies and published changes to that member's inbox (`NOTIF-001`). Watching is personal and a member's own action never notifies them. Target (16 October 2026): `PAGE-016` also watches a page its creator or editor creates or edits, and `CONT-012` watches a whole container.
 - **PAGE-010 — Outline.** A page shows an outline built from its headings that reflects the current body within 2 seconds of an edit, and selecting an entry scrolls to that heading. A page with no headings shows no outline rather than an empty one.
 - **PAGE-011 — Present.** Present mode fills the screen, paginates the page by its top-level headings, and shows no navigation, comments or editing affordances. Leaving it returns to the same scroll position.
 - **PAGE-012 — Page display options.** Each page carries its own typeface from a fixed set, small-text and full-width toggles, and these are stored on the page and are the same for every reader. They change no stored content and survive export and import.
@@ -347,9 +360,9 @@ or the dev key in its output. No existing protection is relaxed.
 - **BLOCK-002 — Inline text.** Text in a block carries bold, italic, underline, strikethrough, inline code, colour, links, and mentions, and nothing else. It is stored in one format, rendered under `BASE-INPUT-002`, and round-trips unchanged through page export, workspace export and import.
 - **BLOCK-003 — The insert menu.** Typing `/` at the cursor opens an insert menu grouped by kind, filtered by what is typed, navigable and selectable by keyboard alone, and it inserts at the cursor without leaving the editor. Every block type this contract names is reachable from it, and on a touch client the same list is reachable from a labelled control above the keyboard.
 - **BLOCK-004 — Markdown shortcuts.** Typed Markdown converts as it is written — headings, lists, quotes, code fences, dividers, bold, italic and inline code — and each conversion is undone by one undo without losing the typed characters. The reference in `WORK-014` lists every shortcut the editor accepts.
-- **BLOCK-005 — Mentions.** Typing `@` offers people, pages and dates in one list. A person mention notifies them (`NOTIF-001`) and renders their name; a page mention renders the page's current title and follows renames and moves (`LINK-003`); a date mention renders in the reader's locale.
-- **BLOCK-006 — Structured blocks.** The body carries headings, bulleted, numbered and toggle lists, quotes, dividers, callout panels, expandable sections, tables with header rows, and code blocks with a language and copy action. Each survives export and import and each has a Markdown or import equivalent named in `IMP-002` and `IMP-003`.
-- **BLOCK-007 — Task items.** A checkable item in the body toggles for anyone with edit access, records who completed it and when, and is counted where the page shows a completion figure. It is a block, not a record in a database, and it never appears in a database view.
+- **BLOCK-005 — Mentions.** Typing `@` offers people, pages and dates in one list. A person mention notifies them (`NOTIF-001`) and renders their name; a page mention renders the page's current title and follows renames and moves (`LINK-003`); a date mention renders in the reader's locale. Target (16 October 2026): `BLOCK-020` adds group mentions.
+- **BLOCK-006 — Structured blocks.** The body carries headings, bulleted, numbered and toggle lists, quotes, dividers, callout panels, expandable sections, tables with header rows, and code blocks with a language and copy action. Each survives export and import and each has a Markdown or import equivalent named in `IMP-002` and `IMP-003`. Target (16 October 2026): a table-of-contents block (`BLOCK-017`), status labels (`BLOCK-018`) and diagrams.net diagrams (`BLOCK-019`) join them, and `IMP-010` names the Confluence macro each one replaces.
+- **BLOCK-007 — Task items.** A checkable item in the body toggles for anyone with edit access, records who completed it and when, and is counted where the page shows a completion figure. It is a block, not a record in a database, and it never appears in a database view. Target (16 October 2026): `BLOCK-015` adds an assignee and a due date, `NAV-007` a My tasks view and `BLOCK-016` task reports; a task item stays a block and still never appears in a database view.
 - **BLOCK-008 — Media blocks.** Images, video, audio and file attachments are inserted by upload, by link, or from a configured stock source, each with an optional caption and an alt text field, and stored under `BASE-INPUT-003`. This clause supersedes `BASE-INPUT-003` on disposition alone. A file requested for display — an image, video or audio block, a page icon or cover (`PAGE-006`), or either of those behind a published page (`WEB-003`) — is served inline with its declared content type; every other request for a stored file, including every file attachment and every direct request for a media file, is served with a download disposition. Both dispositions send the declared content type and `X-Content-Type-Options: nosniff`, and an SVG is sanitised under `BASE-INPUT-002` before it is served inline. Disposition changes nothing about access: a media file is readable only by a session that may read its page, or through that page's public link (`WEB-003`).
 - **BLOCK-009 — Link cards.** A pasted URL becomes a link card showing the target's title, description and icon, and can be switched between a plain link, an inline card and a block card without retyping it. Fetching a preview goes through `link.preview.v1` and issues a bodyless GET to public HTTPS origins only, sends no session, credential or member identity, rejects local, private, link-local and cloud-metadata addresses before the first request and before each redirect, and enforces the redirect, byte, time and media-type limits in `seed.json → limits`. A refused or failed fetch leaves the plain link and says so; the URL is stored exactly as pasted either way.
 - **BLOCK-010 — Content queries.** A body can hold a live list of pages defined by container, ancestor, type, status, contributor and date, ordered and limited by the author. It re-runs when the page is opened, shows when it last ran, shows each reader only the pages that reader may read, and never renders a draft (`LIFE-002`). A query whose source is deleted shows that, not an empty list.
@@ -524,7 +537,7 @@ Managed-mail amendment — 16 October 2026 (MAIL-001/002 and BASE-SECRET-002): M
 - **PORT-004 — Search rebuild.** An import is not Completed until every imported page and record has its canonical search projection, no imported page has a pending dirty generation, and the records satisfy `SEARCH-001` to `SEARCH-006`. Bounded index rebuilds retain an explicit, resumable Indexing state. Completion is fenced by indexed-ID and dirty-generation readback before any first user search can trigger a lazy refresh.
 - **PORT-005 — Access boundary.** An export excludes sessions, sign-in links, pending invitations, stored operation-key responses and provider secrets. An import activates only the member named by `SETUP_OWNER_EMAIL`; every other imported member is an inactive historical actor until invited, and no imported page is published to the anonymous web until a member publishes it.
 - **PORT-006 — Atomic import.** An import stages records and files outside the live namespace, validates the whole archive, and publishes it in one step. A failed import leaves the deployment empty and can be retried.
-- **PORT-007 — Exporting a page or a container.** A member can export one page, a page with its descendants, or a whole container as Markdown, HTML or PDF, with records as CSV, in one archive with its media. The export is readable without Slate, and re-importing it under `IMP-005` reproduces the tree.
+- **PORT-007 — Exporting a page or a container.** A member can export one page, a page with its descendants, or a whole container as Markdown, HTML or PDF, with records as CSV, in one archive with its media. The export is readable without Slate, and re-importing it under `IMP-005` reproduces the tree. Target (16 October 2026): `PORT-010` adds Word `.docx` export of a page.
 
 ## References and links
 
@@ -652,9 +665,9 @@ Edits made while a client is offline, whether a browser with a cached page (`SAV
 *Status:* partial. Offline detection and unsaved-draft recovery exist (`src/core/features/editor/ui/SaveStatus.tsx`, `tests/qualification/offline-refresh/transport.test.ts`); merging offline operations does not.
 
 #### COLLAB-004 — Long pages and heavy tables stay fast.
-A page with 2,000 blocks or a 50 × 500 table opens in under 1.5 seconds at p95 on a mid-range laptop and in under 3 seconds on a mid-range phone. With 20 co-editors, typing echoes locally in under 50ms and reaches the others in under 500ms. Table insert, delete, resize and sort complete in under 200ms. The limits are declared in `seed.json → limits`.
+A page with 2,000 blocks or a 50 × 500 table opens in under 1.5 seconds at p95 on the reference laptop profile (Chrome with Lighthouse's desktop throttling) and in under 3 seconds on the reference phone profile (Chrome with Lighthouse's mobile throttling: 4× CPU slowdown, 1.6 Mbps and 150ms round trips). With 20 co-editors, typing echoes locally in under 50ms and reaches the others in under 500ms. Table insert, delete, resize and sort complete in under 200ms. The limits are declared in `seed.json → limits`.
 
-*Acceptance:* a scripted load journey against a deployed Worker records p95 open time, keystroke echo and remote-arrival latency at the declared limits, and the run's raw timings are kept with the release evidence.
+*Acceptance:* a scripted load journey against a deployed Worker records keystroke echo and remote-arrival latency with 20 co-editors at the declared limits, and a browser journey under each reference profile records p95 open time for the 2,000-block page and the 50 × 500 table. The runs' raw timings are kept with the release evidence.
 
 *Status:* missing. No measured performance journey exists for these sizes.
 
@@ -700,6 +713,48 @@ Table blocks support header rows and columns, column widths, merged cells, cell 
 
 *Status:* partial. Table blocks with header rows ship (`src/core/features/editor/validation.ts`, `tests/qualification/interface/blocks.mjs`); merge, sort, paste fidelity and conversion do not.
 
+#### BLOCK-015 — Assigned tasks with due dates.
+A task item (`BLOCK-007`) can carry one assignee and a due date. Typing `@` inside a task assigns the member mentioned, and typing `//` or choosing from the date picker sets the due date, which renders in the reader's locale and shows as overdue once it passes. The assignee gets one inbox item when assigned (`NOTIF-001`), by email or push under their delivery settings (`NOTIF-005`, `NOTIF-006`), and one reminder on the due date (`NOTIF-004`). Reassigning notifies the new assignee once and the previous assignee not at all, and an assignee completing their own task notifies no one. Assigning a member who cannot read the page asks the assigner to share the page with them or cancel, and never notifies that member. Completion still records who and when. Tasks are read and changed through the API and MCP (`API-001`, `API-003`) under the same checks. A task item stays a block, and it still never appears in a database view.
+
+*Acceptance:* a browser journey at 1440 and 390 types a task, assigns it with `@` and sets a due date with `//`. The assignee gets exactly one inbox item and, after a Workers journey advances time, exactly one due-date reminder. Reassigning notifies only the new assignee. Assigning a member without access prompts the assigner to share and sends that member nothing. The task shows as overdue after its due date.
+
+*Status:* partial. Task items with server-owned completion attribution ship (`src/core/features/editor/tasks.ts`, `tests/flagship/content/repair.test.ts`); assignees and due dates do not.
+
+#### BLOCK-016 — Task reports.
+A body can hold a task report: a live list of tasks filtered by container, ancestor page, label, assignee (including "the current reader"), creator, due-date range and state, grouped by page, assignee or due date, and ordered and limited by the author. It follows `BLOCK-010`'s rules: it re-runs when the page is opened, shows when it last ran, shows each reader only the tasks on pages that reader can read, never renders a task on a draft (`LIFE-002`), and says so when its source container is deleted. A reader with edit access to a task's page can complete the task from the report. Confluence Task Report macros import as task reports (`IMP-010`).
+
+*Acceptance:* a browser journey embeds a report filtered to one container and one assignee over tasks on three pages. One reader sees all three tasks. A reader without access to one of the pages sees the other two, with no count, title or placeholder for the third. Completing a task from the report updates its page.
+
+*Status:* missing. Content queries over pages ship (`BLOCK-010`, `tests/qualification/interface/blocks.mjs`); there is no task source.
+
+#### BLOCK-017 — Table of contents block.
+A body can hold a table of contents built from its headings, placed anywhere in the page, with a chosen range of heading levels and a flat or nested style. Like `PAGE-010`'s side outline, it follows the current body within 2 seconds of an edit, and each entry links to its heading. It survives export as a linked list in Markdown, HTML, PDF and Word (`PORT-007`, `PORT-010`), and Confluence's Table of Contents macro imports as this block (`IMP-010`). It is separate from the side outline.
+
+*Acceptance:* a browser journey inserts a table of contents limited to heading levels 1 and 2, adds a heading and sees its entry within 2 seconds, follows an entry to its heading, and exports Markdown that contains the linked list. Importing a Confluence page with a Table of Contents macro produces the block.
+
+*Status:* missing. The side outline exists (`PAGE-010`, `src/core/features/pages/ui/PageOutline.tsx`); there is no table-of-contents block.
+
+#### BLOCK-018 — Status labels.
+An inline status label is a short coloured lozenge with text, in grey, blue, green, yellow, red or purple, inserted from the block menu or by typing `/status`. Screen readers and search read it as text. It survives export, as text with its colour name in Markdown and as a styled span in HTML, and Confluence's Status macro imports as this label with its colour (`IMP-010`). It is separate from a page's status (`STAT-*`).
+
+*Acceptance:* a browser journey inserts a green "Done" label and a red "Blocked" label, finds the page by searching for "Blocked", and exports and re-imports the page with both labels and colours intact. A Confluence page with Status macros imports with matching labels and colours.
+
+*Status:* missing.
+
+#### BLOCK-019 — Diagrams.net diagrams.
+A diagram block holds a diagrams.net (draw.io) diagram: its `.drawio` source and a rendered SVG preview. A member with edit access opens it in the diagrams.net editor (jgraph/drawio, Apache-2.0), which Slate serves from the deployment's own origin so that diagram content never reaches a third party. Saving writes a new revision of the block (`REV-001`). Readers, including the anonymous read view (`WEB-003`), see the preview sanitised under `BASE-INPUT-002`, and anyone who can read the page can download the source as a `.drawio` file. Confluence draw.io diagrams import as diagram blocks with their source and preview. Gliffy diagrams are converted to diagrams.net, with the original `.gliffy` file attached to the block (`IMP-010`). A diagram that cannot be converted keeps its preview image and its source attachment and is named in the loss report.
+
+*Acceptance:* a browser journey inserts a diagram, edits it in the editor while the request log shows no request leaving the deployment's origin, saves it, sees a new revision, and downloads the `.drawio` file. The published page shows the SVG and loads no third-party resource. Importing the `IMP-010` fixture's draw.io and Gliffy diagrams produces editable diagram blocks whose previews match their sources, with the original files attached.
+
+*Status:* missing.
+
+#### BLOCK-020 — Group mentions.
+A mention can name a group (`WORK-009`). It renders the group's name and notifies, once each, the members of that group who can read the page, never a member who cannot. Before the comment or edit is saved, the composer shows how many people will be notified. Owners can limit mentions of groups larger than the size in `seed.json → limits` to container administrators. Confluence team mentions import as group mentions where the team is mapped through `IMP-003`'s reviewed principal mapping, and as plain text otherwise.
+
+*Acceptance:* a Workers journey mentions a four-member group on a page one of its members cannot read and finds exactly three inbox items. A browser journey shows "3 people will be notified" before saving, and a member without permission who mentions a group above the size limit is refused with a reason.
+
+*Status:* partial. Person mentions notify (`BLOCK-005`, `tests/e2e/editor/rich-text-editing.test.tsx`); group mentions do not exist.
+
 ### Organising and finding
 
 #### CONT-010 — Space blog and announcements.
@@ -716,10 +771,45 @@ Each container has an editable home page that its index opens first. Workspace o
 
 *Status:* partial. A container index with names, descriptions and access ships (`src/core/features/containers/service.ts`, `tests/qualification/policies/container-links.test.ts`); there are no curated container homes or hub.
 
+#### CONT-012 — Watch a container.
+A member can watch a whole container. For each page in it the member can read, a watched container delivers page creation, edits, moves in or out, archiving or trashing, and comments and replies, as one inbox item each (`NOTIF-002`) or as one line each in a digest under `NOTIF-005`. Edits are coalesced into one item per page, per author, per editing session (`COLLAB-005`'s window). A page the member cannot read, and every draft (`LIFE-002`), produces nothing. A member who watches both a page and its container gets one item, not two. Blog posts (`CONT-010`) arrive the same way. Home shows a Following section with the same events for the member's watched pages and containers; it is personal, not a workspace-wide feed (`NAV-001`). A container's administrators can see its watchers.
+
+*Acceptance:* a Workers journey has a member watch a container. Another member then creates a page, edits it in two sessions, comments on it, and creates a restricted page the watcher cannot read. The watcher gets exactly four items (the creation, two edit sessions and the comment) and nothing for the restricted page, and a comment on a page they also watch directly arrives once. A variant with a daily digest preference finds the same four events as digest lines, and a browser journey sees them in Home's Following section.
+
+*Status:* missing. Page watches ship (`PAGE-009`, `src/core/features/navigation/service.ts`); container watches do not.
+
+#### PAGE-016 — Autowatch on create and edit.
+Creating a page, or saving an edit to it, watches it for that member, as commenting already does (`PAGE-009`), until they unwatch it. Unwatching stops autowatch for that page, so a later edit by the same member does not watch it again. A member can turn autowatch off for themselves, and `NOTIF-006` sets the workspace default. An implicit watch delivers the same events as an explicit one.
+
+*Acceptance:* a Workers journey has one member create a page and a second member edit another page, then a third member comments on both, and the creator and the editor each get exactly one notification. After the editor unwatches their page and edits it again, a further comment notifies them of nothing. A member with autowatch off creates a page and is not watching it.
+
+*Status:* partial. Implicit watching after a comment ships (`src/core/features/navigation/service.ts`, `src/core/features/comments/service.ts`); watching on create and edit does not.
+
 #### WORK-016 — People directory and expertise.
 Each member has a profile with their name, title, team, manager, time zone and the pages they own, verify and frequently edit. Expertise tags are derived from that work, and the member can edit or hide them. The directory is searchable, guests see only the people on pages shared with them, and expertise is used to route reviews and questions (`STAT-006`, `KEEP-003`).
 
 *Acceptance:* a browser journey that finds the expert for a topic from the directory, sees the pages they own and verify, hides a derived tag, and confirms a guest cannot list members beyond their shared pages.
+
+*Status:* missing.
+
+#### SHARE-009 — Share with a message.
+The share panel can send a page to members, groups or email addresses with an optional plain-text message no longer than the limit in `seed.json → limits`. A recipient who can already read the page gets one inbox item, and an email under their delivery settings (`NOTIF-005`, `NOTIF-006`), carrying the sender, the page title, the message and a link. A recipient without access is offered to the sender as a grant to add (`SHARE-001`, or a guest invitation under `SHARE-006`) and receives nothing until it is added. The message is never the page body, and it is kept in the sender's activity.
+
+*Acceptance:* a browser journey shares a page with a message to one member who can read it and one who cannot. The first gets one inbox item and one email with the message. The second is offered to the sender as a grant and receives nothing until it is added, then gets one item.
+
+*Status:* partial. Granting access notifies the grantee (`NOTIF-001`, `tests/qualification/backend/emitted.mjs`); there is no share-with-message action.
+
+#### TMPL-007 — Starter templates.
+Slate ships starter templates that work from the first sign-in: meeting notes (attendees, agenda and assigned tasks under `BLOCK-015`), retrospective, decision (`DEC-*`), how-to, troubleshooting, product requirements (with a task report and issue embeds), project plan, runbook (`KEEP-006`), onboarding page, team home (`CONT-011`) and policy page (with an owner and a review date). Each is a shipped template under `TMPL-004`: it can be duplicated into an editable copy and is never edited itself. Each is categorised in the gallery (`TMPL-001`) and previews under `TMPL-002`.
+
+*Acceptance:* a browser journey finds each named starter template in the gallery by category, previews it, creates a page from meeting notes and assigns a task in it, and duplicates the retrospective into an editable copy while the shipped template stays unchanged.
+
+*Status:* partial. Shipped templates are protected from editing and erasure (`src/core/features/templates/service.ts`, `src/core/features/templates/erasure.ts`); no starter set ships.
+
+#### NAV-007 — My tasks.
+Every member has a My tasks view, reachable from Home and the sidebar. It lists the tasks assigned to them and, in a second tab, the tasks they created, across every page they can read. It filters by open, completed and overdue, by container and by due-date range, sorts by due date (undated tasks last), page or container, and paginates stably while tasks change. Completing a task in the list completes it on its page under the page's edit check (`BLOCK-007`). A task leaves the list when its page becomes unreadable to the member, is a draft they cannot read (`LIFE-002`) or is in the trash. Guests see only tasks on pages shared with them.
+
+*Acceptance:* a browser journey assigns one member three tasks on two pages with different due dates. Their My tasks view, filtered to open and sorted by due date, lists exactly those three in that order. Completing one from the list marks it done on its page, and revoking the member's access to one page removes its task from the list on the next load.
 
 *Status:* missing.
 
@@ -761,9 +851,9 @@ Container owners configure nightly rules that flag or unverify, never verify. Ex
 *Status:* missing.
 
 #### CARD-001 — Knowledge cards and collections.
-A card is a short page kind of at most about 500 words with a question-style title, an owner, verification required by default, and placement in a collection (a container with card-friendly views). Cards render compactly in search, answers, chat (`CHAT-002`) and the browser extension (`CARD-002`). Guru cards import as cards (`IMP-008`).
+A card is a short page kind with a soft length limit (`seed.json → limits`, 500 words by default: past it the editor warns and suggests a page, and nothing is truncated), a question-style title, an owner, verification required by default, and placement in a collection (a container with card-friendly views). Cards render compactly in search, answers, chat (`CHAT-002`) and the browser extension (`CARD-002`). Guru cards import as cards (`IMP-008`).
 
-*Acceptance:* a browser journey creates a card and finds it as a compact result with its verification badge. A Guru import creates cards in collections that keep their owners and their verification intervals as imported metadata.
+*Acceptance:* a browser journey creates a card and finds it as a compact result with its verification badge, and a 600-word card shows the length warning and saves intact. A Guru import creates cards in collections that keep their owners and their verification intervals as imported metadata.
 
 *Status:* partial. Containers organise pages (`src/core/features/containers/service.ts`); there is no card kind or compact rendering.
 
@@ -784,9 +874,9 @@ An owner can send a page or card to a group as required reading. Each member get
 ### Structured knowledge
 
 #### DB-013 — Database forms.
-A database can publish a form whose questions map to its fields, with required fields, help text and simple conditional questions. A form is open to members, to named guests or, if the container allows public links (`CONT-007`), to an anonymous link with rate limits and a spam check. Each submission creates a record and can trigger automations (`AUTO-001`). Standalone survey and quiz products belong to [Pencil](https://github.com/just-every/run-pencil).
+A database can publish a form whose questions map to its fields, with required fields, help text and simple conditional questions. A form is open to members, to named guests or, if the container allows public links (`CONT-007`), to an anonymous link with rate limits and a spam check (a honeypot field, a per-address rate limit, and Cloudflare Turnstile when the owner configures it). Each submission creates a record and can trigger automations (`AUTO-001`). Standalone survey and quiz products belong to [Pencil](https://github.com/just-every/run-pencil).
 
-*Acceptance:* a browser journey publishes a form, submits it as a guest and anonymously, sees two records with mapped values, and sees an automation fire on each submission. Forbidding public links makes the anonymous form stop resolving at once.
+*Acceptance:* a browser journey publishes a form with a conditional question, submits it as a guest and anonymously, sees two records with mapped values, and sees an automation fire on each submission. The conditional question appears only when its condition is met, and a submission that fills the honeypot or exceeds the rate limit creates no record. Forbidding public links makes the anonymous form stop resolving at once.
 
 *Status:* missing.
 
@@ -814,18 +904,25 @@ A field can be an AI field (summary, extraction, classification or translation) 
 ### Notifications and follow-up
 
 #### NOTIF-004 — Reminders.
-A date mention (`BLOCK-005`) can carry a reminder at the date or at a chosen offset. A member can set a reminder on any page or task item (`BLOCK-007`). Reminders arrive in the inbox, and by email or push where the member opted in (`NOTIF-005`), at the member's local time, exactly once, and are rechecked against access at delivery.
+A date mention (`BLOCK-005`) can carry a reminder at the date or at a chosen offset. A member can set a reminder on any page or task item (`BLOCK-007`), and a task with a due date reminds its assignee on that date (`BLOCK-015`). Reminders arrive in the inbox, and by email or push where the member opted in (`NOTIF-005`), at the member's local time, exactly once, and are rechecked against access at delivery.
 
 *Acceptance:* a Workers journey sets reminders in two time zones, advances time, and finds exactly one inbox item each at the right local time. A reminder on a page whose access was revoked is not delivered.
 
 *Status:* missing.
 
 #### NOTIF-005 — Email, push and digest delivery.
-Each member chooses, per event kind, between in-app only, immediate email, a daily or weekly digest, and push on their devices (`MOBILE-004`). Email goes through `mail.sender.v1` from the configured sender and carries the event, the actor, the page title and a link, never a page body. Recipient access is rechecked at send, and an unsubscribe link changes that member's preference without sign-in. Digests coalesce watched changes, mentions, review requests and lapsed verifications.
+Each member chooses, per event kind, between in-app only, immediate email, a daily or weekly digest, and push on their devices (`MOBILE-004`), or keeps the workspace default for that kind (`NOTIF-006`). Email goes through `mail.sender.v1` from the configured sender and carries the event, the actor, the page title and a link, never a page body. Recipient access is rechecked at send, and an unsubscribe link changes that member's preference without sign-in. Digests coalesce watched page and container changes (`CONT-012`), mentions, task assignments and due tasks, review requests and lapsed verifications.
 
 *Acceptance:* a Workers journey with a mail provider fake at the network edge opts a member into a daily digest, generates eight events including one on a page the member later loses access to, and receives exactly one digest with seven items and no body text. The unsubscribe link changes the preference.
 
 *Status:* missing. `MAIL-001` currently limits mail to sign-in and invitations.
+
+#### NOTIF-006 — Workspace notification defaults.
+A workspace owner sets the default delivery for each event kind: mentions, comments and replies on watched or authored pages, task assignments and due tasks, review requests, access grants, shares with a message, watched changes, lapsed verifications and required reading. Each default is one of in-app only, immediate email, a daily or weekly digest, or push, and the owner also sets the default for autowatch (`PAGE-016`). A member who has not chosen for an event kind receives it exactly as the default says, and a change to the default reaches them from the next event. A member's own choice, including an unsubscribe, survives later changes to the default and is shown as theirs. A new workspace starts with Confluence's defaults: mentions, replies, task assignments, review requests and access grants by immediate email, watched changes as a daily digest, and autowatch on. A workspace upgraded from a version without this setting keeps in-app delivery only until an owner sets a default, and its owners are asked once. Every email keeps `NOTIF-005`'s rules: a title and a link only, access rechecked at send, and a one-click unsubscribe that works without signing in.
+
+*Acceptance:* a Workers journey with a mail provider fake at the network edge sets a default of immediate email for mentions and a daily digest for watched changes, invites a member who sets nothing, and finds one immediate email for a mention and one digest with the watched changes. A second member who unsubscribed from mention email before the default changed gets no mention email. Changing the default to in-app only stops the first member's mail from the next event. A new workspace's first mention produces an immediate email with no owner action, and no email contains a page body.
+
+*Status:* missing. Notification email does not exist (`MAIL-001`).
 
 #### AUTO-006 — Outbound automation actions.
 Rule actions (`AUTO-001`) can also:
@@ -833,7 +930,7 @@ Rule actions (`AUTO-001`) can also:
 - post to a Slack, Microsoft Teams or Nook channel;
 - call a signed webhook (`API-002`);
 - send an email from a member's own connected Gmail or Outlook mailbox under that member's OAuth grant, never from Slate's sender (`MAIL-001`);
-- create a Vector or Jira issue.
+- create a Vector or Jira issue, with a backlink to the page (`EMBED-005`).
 
 Each action acts as the rule's actor (`AUTO-002`), sends only titles, links and fields the actor can read, uses an operation key so retries never duplicate, and records its receipt in the run log (`AUTO-003`).
 
@@ -865,9 +962,9 @@ Slate imports Notion's HTML export, including page and block comments, which bec
 *Status:* partial. Notion Markdown and CSV import with preview, apply and undo ships (`src/core/features/imports/service.ts`, `tests/e2e/imports/real-exports.test.ts`, `tests/e2e/imports/preview-undo.test.ts`); HTML comments and API import do not.
 
 #### IMP-007 — Confluence Cloud live migration.
-Through the Confluence Cloud REST API (OAuth), Slate imports one or more spaces, including pages, blog posts, comments, attachments, labels, versions and restrictions, using `IMP-003`'s reviewed principal mapping. It can re-sync deltas until cutover. It produces a redirect map from every old Confluence URL to its Slate URL, which the buyer can serve, and a cutover report of what changed since the first pass.
+Through the Confluence Cloud REST API (OAuth), Slate imports one or more spaces, including pages, blog posts, comments, attachments, labels, versions, restrictions and space permissions (`IMP-011`), using `IMP-003`'s reviewed principal mapping. Macros, diagrams and tasks with their assignees and due dates map as `IMP-010` names. It can re-sync deltas until cutover. It produces a redirect map from every old Confluence URL to its Slate URL, which the buyer can serve, and a cutover report of what changed since the first pass.
 
-*Acceptance:* a Workers journey against a recorded Confluence Cloud API fixture imports a space, applies a delta and emits a redirect map in which every old page URL resolves to its imported page. A provider acceptance run repeats this against a real Confluence Cloud site.
+*Acceptance:* a Workers journey against a recorded Confluence Cloud API fixture imports a space, applies a delta and emits a redirect map in which every old page URL resolves to its imported page. The same fixture's macros, diagrams, tasks and space permissions arrive as `IMP-010` and `IMP-011` require. A provider acceptance run repeats this against a real Confluence Cloud site.
 
 *Status:* missing. Only file exports import (`IMP-003`).
 
@@ -885,6 +982,52 @@ A member can import a Google Drive folder or a SharePoint/OneDrive folder of Goo
 
 *Status:* partial. Single Word and Google Docs (`.docx` or zipped HTML) imports ship (`src/core/features/imports/service.ts`, `tests/e2e/imports/real-exports.test.ts`); folder imports through provider APIs do not.
 
+#### IMP-010 — Confluence macros, tasks and diagrams map to Slate blocks.
+The file import (`IMP-003`) and the API migration (`IMP-007`) map each Confluence macro to a named Slate equivalent, which is live wherever the Slate equivalent is live:
+
+| Confluence | Slate |
+| --- | --- |
+| Jira Issues (single issue or JQL table), Jira Smart Links | Live issue card or query table (`EMBED-001`) with a backlink on each issue (`EMBED-005`) |
+| Excerpt, Excerpt Include, Include Page | Synced block from the source page (`BLOCK-011`) |
+| Children Display, Content by Label, Page Tree, Recently Updated | Content query with the same scope, labels, depth and order (`BLOCK-010`) |
+| Table of Contents | Table-of-contents block (`BLOCK-017`) |
+| Page Properties, Page Properties Report | Pages that carry a Page Properties macro with the same label become records of one database for that label, keeping their bodies and tree positions (`DB-010`), with typed fields; the report becomes an embedded view with its columns and sort (`DB-011`) |
+| Task list, Task Report | Tasks with their assignee (through the reviewed principal mapping), due date and completion (`BLOCK-015`); task report with the same filters (`BLOCK-016`) |
+| Status | Status label with its colour (`BLOCK-018`) |
+| Info, Note, Warning, Tip, Panel | Callout with the matching tone (`BLOCK-006`) |
+| Expand | Expandable section (`BLOCK-006`) |
+| Code, Noformat | Code block with its language (`BLOCK-006`) |
+| Attachments, View File | A file block for each attachment, with a preview where the file type has one (`BLOCK-008`) |
+| Section and Column, page layouts | Columns (`BLOCK-012`) |
+| Anchor | A heading anchor that links resolve to |
+| User mention, team mention, Date | Person or group mention through the reviewed mapping (`BLOCK-005`, `BLOCK-020`); date mention |
+| Widget Connector and Smart Link embeds (YouTube, Loom, Figma, Google Docs and others) | Allowlisted embed (`EMBED-003`), otherwise a link card (`BLOCK-009`) |
+| draw.io, Gliffy | Diagram block with its source (`BLOCK-019`) |
+| LaTeX and Mermaid apps | Equation or Mermaid block (`BLOCK-013`) |
+| Whiteboards | Named in the loss report with a link to the original, plus its exported image as a file block when the export or API supplies one |
+| Confluence databases | Named in the loss report with a link to the original; the database's own CSV export imports as a database under `IMP-005` |
+| Roadmap Planner, Chart, Livesearch, gadgets and Marketplace macros not named above | Unsupported: the macro's body text is kept where it has one, and the loss report names the macro, the page and the count |
+
+The loss report lists only the unsupported rows and macros Slate does not recognise. A mapped macro whose target lies outside the import, such as an excerpt from a space not imported or a Jira site not connected, imports as its mapped block in its access-needed or "Connect to view" state and is listed as unresolved, never dropped.
+
+*Acceptance:* a real Confluence Cloud space, captured both as a file export produced by Confluence (`IMP-003`) and as a recorded API fixture (`IMP-007`), contains at least one of every mapped macro, a draw.io and a Gliffy diagram, a whiteboard and a Roadmap Planner. After each import a Workers journey checks every macro block by block against the fixture's expected map: the Jira macros render as live embeds under recorded Jira fixtures, the excerpt as a synced block, the children display as a content query, the table of contents as its block, Page Properties as records with a view, tasks with their assignee, due date and state, and the panels, expand, code and status labels as their blocks. Both diagrams render as diagram blocks with their sources. The loss report lists exactly the whiteboard and the Roadmap Planner.
+
+*Status:* partial. Panels, expand, code and task lists with their completion state map today, and every other macro is named in the loss report (`src/core/features/imports/confluence/storage.ts`, `tests/e2e/imports/real-exports.test.ts`).
+
+#### IMP-011 — Confluence space permissions become container grants.
+Both Confluence imports carry each space's permissions, not only its page restrictions. Where the source supplies them (the Confluence Cloud REST API's space permissions and space role assignments under `IMP-007`, and the `SpacePermission` objects in a Server or Data Center `entities.xml` under `IMP-003`), the Preview (`IMP-001`) lists every principal (user, group, team, all licensed users and anonymous) with its source role and the proposed Slate grant:
+
+- view only becomes `view`, view and comment becomes `comment`, add or edit pages (with or without delete) becomes `edit`, and space admin becomes `full` and a container administrator (`CONT-009`);
+- a group or team maps only through a reviewed source-ID mapping to a Slate group, and a user only to an existing active member, under `IMP-003`'s rules; all licensed users, or the default users group, maps to the container's general grant at that level, scoped to the container (`SHARE-005`);
+- anonymous access is reported and never published (`PORT-005`, `WEB-001`);
+- finer permissions with no Slate level (export, delete own, set restrictions) collapse to the nearest level that does not widen access, and each collapse is named.
+
+After Apply, the container's grants match the reviewed mapping, page restrictions still narrow access inside it as `IMP-003` requires, and a member covered by no mapped grant cannot open any imported page. A Confluence Cloud CSV export carries no space permissions, so it imports with the container closed to everyone except the importing member and the workspace owners until the reviewed grants are set, and the report says so.
+
+*Acceptance:* an `IMP-007` recorded fixture space grants view to group A and edit to group B, makes one user space admin, and has anonymous access on; an `entities.xml` fixture repeats the same permissions. After the reviewed mapping, the container's grants are group A `view`, group B `edit`, and the user `full` and container administrator. The anonymous access appears in the report and no page is published. A member in neither group cannot open any page, a member of group A can read but not edit, and a page restriction inside the space still narrows access.
+
+*Status:* missing. Page restrictions map through reviewed principal mappings (`IMP-003`, `tests/e2e/imports/real-exports.test.ts`); space permissions are not read.
+
 #### PORT-008 — Exports carry comments.
 Workspace, container and page exports in HTML include page and inline comment threads with their authors, times and resolved state, anchored to their blocks. Markdown exports carry the same threads in a sidecar JSON file, and re-importing a Slate export restores the threads.
 
@@ -899,10 +1042,17 @@ An owner can schedule a nightly or weekly complete export (`PORT-001`) to the bu
 
 *Status:* partial. Complete manual export and restore ship (`docs/BACKUP.md`, `tests/portability/roundtrip.test.mjs`); scheduling and external destinations do not.
 
+#### PORT-010 — Word export of a page.
+A member can export one page, or a page with its descendants, as a Word `.docx` file. It carries headings, lists, tasks, tables with merged cells, code, callouts, images with their alt text, equations, diagrams as images and links: links to other exported pages resolve inside the document, and other links point to their Slate URLs. Comments can be included as Word comments. The file carries only what the exporting member can read, and re-importing it under `IMP-005` reproduces its headings, tables and images.
+
+*Acceptance:* a Workers journey exports a seeded page containing every listed block kind as `.docx`, checks each element with a `.docx` parser, and re-imports the file under `IMP-005` with the same headings and tables. A member without access to one child page exports the parent with descendants, and the file omits that child.
+
+*Status:* missing. Markdown, HTML and PDF page exports ship (`PORT-007`, `src/core/features/workspace-export/readable.ts`); Word export does not.
+
 ### Integrations
 
 #### EMBED-001 — Live issue embeds from Vector and Jira.
-Pasting a [Vector](https://github.com/just-every/run-vector) or Jira issue URL, or a Vector or JQL query, renders a live card or table showing status, assignee, priority and sprint, refreshed on open and every 5 minutes. Each reader sees issue details only through their own linked account. A reader without a linked account sees "Connect to view", never the details Slate fetched for someone else. Selecting text offers "Create issue", which files the issue under the member's account and links it back to the page.
+Pasting a [Vector](https://github.com/just-every/run-vector) or Jira issue URL, or a Vector or JQL query, renders a live card or table showing status, assignee, priority and sprint, refreshed on open and every 5 minutes. Each reader sees issue details only through their own linked account. A reader without a linked account sees "Connect to view", never the details Slate fetched for someone else. Selecting text offers "Create issue", which files the issue under the member's account and links it in both directions: the page shows the issue, and the issue carries a backlink to the page (`EMBED-005`).
 
 *Acceptance:* a browser journey with recorded Jira and Vector API fixtures renders a card and a query table, refreshes a changed status, creates an issue from selected text with a backlink, and shows "Connect to view" to an unlinked member. Provider acceptance repeats this against a real Jira Cloud site.
 
@@ -926,6 +1076,13 @@ Allowlisted embeds render inline through oEmbed or provider iframes: Figma, Miro
 A file picker inserts Google Drive, SharePoint/OneDrive or [Chest](https://github.com/just-every/run-chest) files by reference. Each card shows the file's current title, owner, last modified time and type, and whether the reader can open it. Slate never copies the file unless the member chooses "attach a copy" (`BLOCK-008`).
 
 *Acceptance:* a browser journey with recorded provider fixtures inserts one file from each source, sees a renamed file's new title after refresh, and sees "request access" for a reader without access.
+
+*Status:* missing.
+
+#### EMBED-005 — Backlinks on Jira and Vector issues.
+When a page embeds, mentions or links a Jira or Vector issue (`EMBED-001`), or a member or a rule creates an issue from it (`EMBED-001`, `AUTO-006`), Slate writes exactly one link to the page on the issue, so the issue lists the Slate pages that reference it. In Jira Cloud this is a remote issue link (`POST /rest/api/3/issue/{key}/remotelink`) with a stable global ID for each page and issue, written under the acting member's linked account. In [Vector](https://github.com/just-every/run-vector) it is Vector's own page link. Embedding the same issue again on the same page writes nothing new. Renaming the page updates the link's title. Removing the page's last reference to the issue, or trashing or erasing the page, removes the link, and restoring the page writes it again. A page in a `private` or `personal` container, a draft (`LIFE-002`), or a page under a Confidential classification (`ADMIN-006`) gets a link titled "Slate page" with no page title, and opening any backlink still requires Slate access. A failed write is retried under its operation key and shown on the embed, never dropped silently.
+
+*Acceptance:* a Workers journey against recorded Jira Cloud and Vector API fixtures embeds one issue, mentions a second and creates a third from selected text, and finds exactly one remote link to the page URL on each issue. Embedding the first issue again writes no second link, renaming the page updates the link titles, removing the embed deletes its link, and a draft's link carries the neutral title. Provider acceptance repeats this against a real Jira Cloud site.
 
 *Status:* missing.
 
@@ -1049,9 +1206,9 @@ Owners see every personal access token, OAuth app, MCP client and webhook, with 
 *Status:* missing.
 
 #### ADMIN-001 — SAML single sign-on.
-Slate is a SAML 2.0 service provider for Okta, Microsoft Entra ID, Google Workspace, JumpCloud and [Auth](https://github.com/just-every/run-auth). It supports both SP- and IdP-initiated sign-in, signed assertions, a verified email domain and just-in-time creation of invited or allow-listed members. When an owner enforces SSO, members sign in only through the provider, guests keep magic links, and one designated owner keeps a magic-link break-glass path. The OIDC provider (`WORK-015`) stays available.
+Slate is a SAML 2.0 service provider for Okta, Microsoft Entra ID, Google Workspace, JumpCloud and [Auth](https://github.com/just-every/run-auth). It supports both SP- and IdP-initiated sign-in, signed assertions, an email domain verified by a DNS TXT record the owner publishes (rechecked daily; a failed check stops new just-in-time creation and notifies owners) and just-in-time creation of invited or allow-listed members. When an owner enforces SSO, members sign in only through the provider, guests keep magic links, and one designated owner keeps a magic-link break-glass path. The OIDC provider (`WORK-015`) stays available.
 
-*Acceptance:* a browser journey against a SAML test IdP signs in through SP and IdP flows, rejects an unsigned assertion and one with the wrong audience, enforces SSO for a member while a guest uses a magic link, and confirms break-glass access for the designated owner. Provider acceptance repeats this with real Okta and Entra tenants.
+*Acceptance:* a browser journey against a SAML test IdP verifies a domain through a TXT record served by a DNS fake at the network edge, refuses just-in-time creation for an unverified domain, signs in through SP and IdP flows, rejects an unsigned assertion and one with the wrong audience, enforces SSO for a member while a guest uses a magic link, and confirms break-glass access for the designated owner. Provider acceptance repeats this with real Okta and Entra tenants.
 
 *Status:* partial. An OIDC identity provider with pinned endpoints ships (`src/core/features/session/native/`, `tests/flagship/core/identity-upgrade.test.ts`); SAML does not.
 
@@ -1090,10 +1247,17 @@ Owners decide who may create containers, publish publicly, invite guests, export
 
 *Status:* partial. Container external-access switches ship (`CONT-007`, `tests/qualification/policies/access-publication.test.ts`); role-scoped governance and classification labels do not.
 
+#### ADMIN-007 — Every target surface ships in the default product.
+Every surface that a target or push-further clause describes is part of the default product, and an owner turns it on in workspace settings with nothing else needed. Ask, AI writing and AI fields turn on once a provider is configured and AI is on (`AI-001`, `ANSWER-006`). Suggestions and agent maintenance (`SUG-*`, `KEEP-*`) turn on with AI. Each connector turns on once it is connected (`CONNECT-001`), and chat ask and unfurl once the chat app is installed (`CHAT-002`). MCP and OAuth clients work once a member grants them (`API-003`, `API-004`), and live co-editing is on from the start (`COLLAB-001`). No target surface requires `SLATE_PROFILE=flagship`. Settings show each switch's state and who changed it when, and every change is recorded in activity. Turning a switch off refuses its surface with `FEATURE_DISABLED` from the next request and stops its scheduled jobs, and it erases nothing. A surface also stays refused until its clause's own safety acceptance has passed: `ANSWER-003` for answers, `CONNECT-002` for connected items and `COLLAB-001`'s revocation test for co-editing. `SLATE_PROFILE=flagship` remains only for the inquiry, experiment, trial and production-effect extension (`INQ-*`, `TRIAL-*`, `EFFECT-002`).
+
+*Acceptance:* a Workers journey in the default profile, with `SLATE_PROFILE` unset, first finds every target surface (Ask, AI writing, AI fields, suggestions, MCP, each connector, chat ask and agent jobs) refusing with `FEATURE_DISABLED`. It turns each owner switch on and finds its surface serving, then turns it off and finds it refusing again on the next request with its stored records intact. A release check fails any target-clause journey that sets `SLATE_PROFILE=flagship`.
+
+*Status:* partial. Surfaces are gated by the deployment profile rather than by owner switches (`src/core/platform/config/launch-profile.ts`, `tests/profile/profile.worker.test.ts`). AI and SSO have their own default-off switches, but the AI-backed, MCP, connector and suggestion surfaces also require `SLATE_PROFILE=flagship`.
+
 #### MOBILE-001 — Native iOS and Android apps.
 App Store and Google Play apps let a member sign in (magic link, OIDC or SAML), read, search, ask, edit pages and blocks, comment, use the inbox, verify, and take photos straight into pages. They support share-sheet capture into Slate, deep links that open slate URLs in the app, and an optional biometric lock. They use the same API as the web (`API-001`) and the same access rules.
 
-*Acceptance:* automated device-farm journeys on current iOS and Android sign in, edit and comment on a page, verify it, receive a mention push, and open a deep link. App Store and Play review builds are recorded with the release evidence.
+*Acceptance:* automated device-farm journeys on current iOS and Android sign in, edit and comment on a page, verify it, take a photo into a page through the device camera, lock and unlock the app with the platform biometric prompt, receive a mention push, and open a deep link. App Store and Play review builds are recorded with the release evidence.
 
 *Status:* missing. Only the responsive web client exists (`NAV-006`, `tests/qualification/interface/routed.browser.mjs`).
 
@@ -1228,7 +1392,7 @@ Agents keep the knowledge true, not just stored. Each clause names what the agen
 Slate is a US-first owned wiki. These are the jobs it deliberately does not do, and how a buyer gets each one done.
 
 - **Office documents, spreadsheets and slides.** Slate is not a full office suite. Google Workspace or Microsoft 365 files are embedded and linked (`EMBED-003`, `EMBED-004`) and kept in [Chest](https://github.com/just-every/run-chest), Drive or SharePoint, while Slate pages stay the place knowledge is written and co-edited.
-- **Whiteboards and diagramming suites.** Slate is not a whiteboard. Figma, Miro and Lucid boards are embedded (`EMBED-003`); diagrams as code are native (`BLOCK-013`).
+- **Whiteboards and diagramming suites.** Slate is not a whiteboard. Figma, Miro and Lucid boards are embedded (`EMBED-003`); diagrams as code (`BLOCK-013`) and diagrams.net diagrams (`BLOCK-019`) are native. Confluence whiteboards are named in the import report with a link to the original (`IMP-010`).
 - **Video recording.** Slate does not record video. Loom and YouTube recordings are embedded (`EMBED-003`).
 - **Issue tracking, sprints and project portfolios.** These belong to [Vector](https://github.com/just-every/run-vector) or Jira, embedded and connected (`EMBED-001`, `AUTO-007`). Databases can hold a light tracker. Cross-functional project management (Asana, monday.com) is a category no Run Edit Run product owns today.
 - **Chat.** Slack, Microsoft Teams and [Nook](https://github.com/just-every/run-nook) are connected (`CHAT-*`).
@@ -1259,7 +1423,7 @@ Some incumbent features are met another way:
 
 - native whiteboards by embeds (`EMBED-003`) and diagrams as code (`BLOCK-013`);
 - container calendars by database calendar views (`DB-004`);
-- meeting-note specializations by templates (`TMPL-*`);
+- meeting-note specializations by starter templates with assigned tasks (`TMPL-007`, `BLOCK-015`);
 - team profiles by the people directory (`WORK-016`).
 
 Contributed tree node kinds beyond pages, databases, cards and posts, and cross-container assignments, remain future extensions; existing page, comment and activity requirements are not waived. The target adds no new policy profile and preserves all eight profiles and every value unchanged. [Honest boundaries](#honest-boundaries) lists what Slate connects to instead of building.
@@ -1284,8 +1448,8 @@ Judged from the code and tests at commit `8956e45` (16 October 2026); see [How t
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 160 | 61 | 0 | 221 |
-| Target and push further | 0 | 43 | 32 | 75 |
-| All | 160 | 104 | 32 | 296 |
+| Target and push further | 0 | 50 | 42 | 92 |
+| All | 160 | 111 | 42 | 313 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1520,9 +1684,20 @@ Judged from the code and tests at commit `8956e45` (16 October 2026); see [How t
 | `BLOCK-012` | Columns and page layouts | target | missing | `src/core/features/editor/validation.ts` | not implemented |
 | `BLOCK-013` | Equations and diagrams as code | target | missing | — | not implemented |
 | `BLOCK-014` | Tables that work like tables | target | partial | `src/core/features/editor/validation.ts` | see the clause |
+| `BLOCK-015` | Assigned tasks with due dates | target | partial | `src/core/features/editor/tasks.ts` | see the clause |
+| `BLOCK-016` | Task reports | target | missing | — | not implemented |
+| `BLOCK-017` | Table of contents block | target | missing | — | not implemented |
+| `BLOCK-018` | Status labels | target | missing | — | not implemented |
+| `BLOCK-019` | Diagrams.net diagrams | target | missing | — | not implemented |
+| `BLOCK-020` | Group mentions | target | partial | `tests/e2e/editor/rich-text-editing.test.tsx` | see the clause |
 | `CONT-010` | Space blog and announcements | target | missing | — | not implemented |
 | `CONT-011` | Space home and company hub | target | partial | `src/core/features/containers/service.ts` | see the clause |
+| `CONT-012` | Watch a container | target | missing | — | not implemented |
+| `PAGE-016` | Autowatch on create and edit | target | partial | `src/core/features/navigation/service.ts` | see the clause |
 | `WORK-016` | People directory and expertise | target | missing | — | not implemented |
+| `SHARE-009` | Share with a message | target | partial | `tests/qualification/backend/emitted.mjs` | see the clause |
+| `TMPL-007` | Starter templates | target | partial | `src/core/features/templates/service.ts` | see the clause |
+| `NAV-007` | My tasks | target | missing | — | not implemented |
 | `SEARCH-010` | Labels and advanced search | target | partial | `src/core/features/pages/service.ts` | see the clause |
 | `SEARCH-011` | Verified-first ranking and trust badges | target | partial | `src/core/features/page-status/state.ts` | see the clause |
 | `SEARCH-012` | Connected results in search | target | partial | `src/core/features/source-memory/service.ts` | see the clause |
@@ -1537,6 +1712,7 @@ Judged from the code and tests at commit `8956e45` (16 October 2026); see [How t
 | `DB-016` | AI autofill fields | target | missing | — | not implemented |
 | `NOTIF-004` | Reminders | target | missing | — | not implemented |
 | `NOTIF-005` | Email, push and digest delivery | target | missing | — | not implemented |
+| `NOTIF-006` | Workspace notification defaults | target | missing | — | not implemented |
 | `AUTO-006` | Outbound automation actions | target | partial | `src/core/features/automation/actions.ts` | see the clause |
 | `AUTO-007` | Triggers from connected tools | target | missing | — | not implemented |
 | `AUTO-008` | Accountable follow-through | target | partial | `src/core/features/automation/jobs.ts` | see the clause |
@@ -1544,12 +1720,16 @@ Judged from the code and tests at commit `8956e45` (16 October 2026); see [How t
 | `IMP-007` | Confluence Cloud live migration | target | missing | — | not implemented |
 | `IMP-008` | Guru import | target | missing | — | not implemented |
 | `IMP-009` | Folder imports from Google Drive and SharePoint | target | partial | `src/core/features/imports/service.ts` | see the clause |
+| `IMP-010` | Confluence macros, tasks and diagrams map to Slate blocks | target | partial | `src/core/features/imports/confluence/storage.ts` | see the clause |
+| `IMP-011` | Confluence space permissions become container grants | target | missing | — | not implemented |
 | `PORT-008` | Exports carry comments | target | missing | `src/core/features/workspace-export/readable.ts` | not implemented |
 | `PORT-009` | Scheduled backups to the buyer's storage | target | partial | `docs/BACKUP.md` | see the clause |
+| `PORT-010` | Word export of a page | target | missing | — | not implemented |
 | `EMBED-001` | Live issue embeds from Vector and Jira | target | missing | — | not implemented |
 | `EMBED-002` | GitHub and GitLab embeds | target | missing | `src/core/features/connectors/github.ts` | not implemented |
 | `EMBED-003` | Design, video and document embeds | target | partial | `tests/flagship/content/preview.test.ts` | see the clause |
 | `EMBED-004` | Live file cards from Drive, SharePoint and Chest | target | missing | — | not implemented |
+| `EMBED-005` | Backlinks on Jira and Vector issues | target | missing | — | not implemented |
 | `CHAT-001` | Chat notifications to Slack, Microsoft Teams and Nook | target | partial | `src/core/features/notifications/slack.ts` | see the clause |
 | `CHAT-002` | Ask and unfurl in chat | target | missing | `src/core/features/connectors/slack.ts` | not implemented |
 | `CHAT-003` | Capture chat into pages | target | missing | — | not implemented |
@@ -1572,6 +1752,7 @@ Judged from the code and tests at commit `8956e45` (16 October 2026); see [How t
 | `ADMIN-004` | Workspace analytics | target | partial | `src/core/features/analytics/` | see the clause |
 | `ADMIN-005` | Audit export and SIEM streaming | target | partial | `src/core/features/activity/service.ts` | see the clause |
 | `ADMIN-006` | Content governance | target | partial | `tests/qualification/policies/access-publication.test.ts` | see the clause |
+| `ADMIN-007` | Every target surface ships in the default product | target | partial | `src/core/platform/config/launch-profile.ts` | see the clause |
 | `MOBILE-001` | Native iOS and Android apps | target | missing | `tests/qualification/interface/routed.browser.mjs` | not implemented |
 | `MOBILE-002` | Desktop app | target | missing | — | not implemented |
 | `MOBILE-003` | Offline pages | target | partial | `src/core/features/editor/ui/SaveStatus.tsx` | see the clause |
