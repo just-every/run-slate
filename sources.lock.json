@@ -891,7 +891,7 @@
       "executable": false
     },
     "CHANGELOG.md": {
-      "sha256": "1b4523a8c7a85489f4f9ebcce2ba47625a58ac0fe15b5f529866169c43f15daf",
+      "sha256": "6269654b48961a29e974d488fa2c764e750cfa8d387fcf96184321012e62cc32",
       "executable": false
     },
     "CLAUDE.md": {
@@ -3451,11 +3451,11 @@
       "executable": false
     },
     "README.md": {
-      "sha256": "9474c2634054d4c77d13cc45cdd36b6bd6d16a814dac31b5a7615a5d30a019a6",
+      "sha256": "7668a495f4e0657220cb449493269f748e64adef1135879086259aa71c354719",
       "executable": false
     },
     "RELEASE.json": {
-      "sha256": "d7b2c09012785934821f8a3905f30911bddf94b1ebdae9acf2e87ca6a8773255",
+      "sha256": "1f180585cc915527c7d246ac1b39f06c2a65e3a9ae07eb670dd17216a1c1664a",
       "executable": false
     },
     "rer-project.json": {

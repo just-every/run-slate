@@ -44,7 +44,7 @@ git clone https://github.com/just-every/run-slate.git slate
 cd slate
 ```
 
-Install rer once per computer (`npm install -g @runeditrun/rer`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins (0.2.23). In a fresh checkout `rer dev` alone installs the pinned dependencies, makes a placeholder local owner and starts Slate. To choose your own owner email, prepare it first:
+Install rer once per computer (`npm install -g @runeditrun/rer`, or `curl -fsSL https://runeditrun.com/install.sh | sh`); it runs the `@runeditrun/rer` version this checkout pins (0.2.25). In a fresh checkout `rer dev` alone installs the pinned dependencies, makes a placeholder local owner and starts Slate. To choose your own owner email, prepare it first:
 
 ```sh
 rer install
