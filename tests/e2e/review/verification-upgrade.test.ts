@@ -27,7 +27,8 @@ test('Existing verifications upgrade in place and the list and lapse notice trea
   const before = await retained();
 
   await applyD1Migrations(db, env.TEST_MIGRATIONS);
-  expect(await retained()).toEqual(before);
+  // Every prior value is kept; the only change is that 0032 gives each page its lock columns, unlocked.
+  expect(await retained()).toEqual({ ...before, pages: (before.pages as Record<string, unknown>[]).map(row => ({ ...row, locked_at: null, locked_by_member_id: null })) });
   const indexes = (await db.prepare("SELECT name FROM sqlite_master WHERE type='index' AND tbl_name='page_verifications'").all<{ name: string }>()).results.map(r => r.name);
   expect(indexes).toEqual(expect.arrayContaining(['page_verifications_page_latest', 'page_verifications_due']));
 

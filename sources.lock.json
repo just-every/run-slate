@@ -8504,7 +8504,7 @@
       "executable": false
     },
     "tests/e2e/review/verification-upgrade.test.ts": {
-      "sha256": "afe8c1a48dcf4a5770aff8a4320418052f711315c0b11cd2a706a7c67f5cefcd",
+      "sha256": "63b6b7c2df3cc72e2a0646b62bc7bb5fc53d8e13af9e46359afb40d2e864f3d4",
       "executable": false
     },
     "tests/e2e/runtime-config.test.js": {
@@ -8524,7 +8524,7 @@
       "executable": false
     },
     "tests/e2e/search/fts-upgrade.test.ts": {
-      "sha256": "e77dc5a9ab4e219dce413f1e01a5db29823a8de9b5898c2db8d0c741bbd813b4",
+      "sha256": "07df913af346c518518b4ebf97032976c1369efd74d308739c924c2df28895c3",
       "executable": false
     },
     "tests/e2e/search/route-fixture.ts": {

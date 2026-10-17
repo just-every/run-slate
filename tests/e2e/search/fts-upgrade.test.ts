@@ -34,7 +34,8 @@ test('Prior-data search upgrade backfills existing text, preserves pending work 
  const before=await retained();
  await applyD1Migrations(db,env.TEST_MIGRATIONS);
  const upgraded=await retained();
- expect({...upgraded,search_dirty:before.search_dirty}).toEqual(before);
+ // Prior values are kept; 0032 only adds each page's lock columns, unlocked.
+ expect({...upgraded,search_dirty:before.search_dirty}).toEqual({...before,pages:before.pages.map((row:any)=>({...row,locked_at:null,locked_by_member_id:null}))});
  expect(upgraded.search_dirty).toEqual(expect.arrayContaining(before.search_dirty));
  expect(upgraded.search_dirty.some((r:any)=>r.key==='page:nul')).toBe(true);
  // No route/refresh has run: these postings must come from the additive migration.
