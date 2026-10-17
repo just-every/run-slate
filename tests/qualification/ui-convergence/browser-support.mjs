@@ -10,7 +10,8 @@ import { accessible, insideViewport, withinViewport } from './browser-evidence.m
 export { accessible } from './browser-evidence.mjs';
 
 /** Test-only identity records replace mailbox possession, never successful API responses. */
-export async function withWorkspace(viewport, profile, run, overrides = {}) {
+/** `scheduled` exposes the Worker's own cron handler, which a journey fires in place of waiting for the clock. */
+export async function withWorkspace(viewport, profile, run, overrides = {}, { scheduled = false } = {}) {
   const scratchRoot = path.join(root, '.artifacts/ui-convergence');
   await mkdir(scratchRoot, { recursive: true });
   const state = await mkdtemp(path.join(scratchRoot, 'state-'));
@@ -32,7 +33,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}) {
     };
     let allocatedPorts;
     const startWorker = async () => {
-      const started = await startShellWorker(state, workerVars, allocatedPorts);
+      const started = await startShellWorker(state, workerVars, allocatedPorts, scheduled ? 'scheduled' : undefined);
       allocatedPorts = started.ports;
       return started;
     };
@@ -92,8 +93,22 @@ export async function withWorkspace(viewport, profile, run, overrides = {}) {
       if (failure) throw failure;
       return result.results[0];
     };
+    /** Stored clock state (a past reminder) written with the Worker stopped, as records() reads. */
+    const atRest = async statement => {
+      await page.waitForLoadState('networkidle');
+      await Promise.all([...captures]);
+      await stop(runtime.child);
+      runtime = undefined;
+      try { await executeD1(state, statement); }
+      finally { runtime = await startWorker(); }
+    };
+    const runScheduled = async () => {
+      assert.ok(scheduled, 'This workspace was started without the scheduled trigger.');
+      const response = await fetch(`${runtime.baseUrl}/cdn-cgi/local/scheduled`, { headers: { connection: 'close' } });
+      assert.equal(response.status, 200, await response.text());
+    };
     try {
-      await run({ page, context, origin: runtime.baseUrl, api, records, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}` });
+      await run({ page, context, origin: runtime.baseUrl, api, records, atRest, runScheduled, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}` });
     } catch (cause) {
       await accessible(page, `${profile} journey failure`).catch(() => {});
       await Promise.allSettled([...captures]);

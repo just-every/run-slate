@@ -4,7 +4,7 @@ import { availablePort, startEmittedWorker, root, stop, waitForReady } from '../
 import { emittedRuntimeConfig } from '../../e2e/emitted-runtime-config.mjs';
 
 /** Use OS-assigned ports by default; explicit parent allocations remain strict. */
-export async function startShellWorker(persistPath, vars, allocatedPorts) {
+export async function startShellWorker(persistPath, vars, allocatedPorts, triggerMode) {
   let ports = allocatedPorts;
   if (!ports && ['SHELL_APP_PORT', 'SHELL_INSPECTOR_PORT', 'SHELL_PORT_RANGE'].some(name => process.env[name] !== undefined)) {
     ports = qualificationPorts(
@@ -22,6 +22,6 @@ export async function startShellWorker(persistPath, vars, allocatedPorts) {
     await new Promise((resolve, reject) => { server.once('error', reject); server.listen(port, '127.0.0.1', resolve); });
     await new Promise((resolve, reject) => server.close(error => error ? reject(error) : resolve()));
   }));
-  const {baseUrl,child} = await startEmittedWorker(persistPath, vars, appPort);
+  const {baseUrl,child} = await startEmittedWorker(persistPath, vars, appPort, triggerMode);
   return { baseUrl, child, ports };
 }

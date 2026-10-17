@@ -942,7 +942,7 @@ A page owner or editor can request review from a named member or group, with a d
 
 *Acceptance:* a browser journey in which one member requests review, the reviewer sees the queue item, opens the revision and verifies it, and an overdue request reminds the reviewer and then the container owner exactly once each.
 
-*Status:* partial. Named member/group requests, assigned/requested queues, exact-open verification, atomic change comments, reassignment/cancellation, once-per-assignment reminders and 24-hour owner escalation, bulk human verification and paused restore dispatch ship (`src/core/features/page-status/requests.ts`, `tests/e2e/review/verification-flow.test.ts`, `tests/profile/profile.worker.test.ts`). Gap: overdue delivery has scheduled Workers evidence; the timed browser escalation acceptance remains unproven.
+*Status:* done. Named member/group requests, assigned/requested queues, exact-open verification, atomic change comments, reassignment/cancellation, once-per-assignment reminders and 24-hour owner escalation, bulk human verification and paused restore dispatch ship (`src/core/features/page-status/requests.ts`). Scheduled Workers evidence covers permissions, deduplication and reminder timing (`tests/e2e/review/verification-flow.test.ts`, `tests/e2e/review/review-access.test.ts`); a browser journey at 1440 and 390 has one member request review, the reviewer find it in their inbox and queue, open the revision and verify it, and the Worker's own cron remind the reviewer and then the container owner exactly once each (`tests/qualification/ui-convergence/review-request-journey.mjs`).
 
 #### STAT-007 — Verification rules.
 Container owners configure nightly rules that flag or unverify, never verify. Examples: unverify a page when a page or source it cites changes, flag pages with no owner, and flag verified pages unviewed for 180 days. Each run records what it changed and why in activity, notifies affected owners once in a coalesced notice, and can be previewed before it is turned on. No rule, automation or AI action renews verification (`STAT-004`).
@@ -1765,8 +1765,8 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 161 | 60 | 0 | 221 |
-| Target and push further | 3 | 57 | 45 | 105 |
-| All | 164 | 117 | 45 | 326 |
+| Target and push further | 4 | 56 | 45 | 105 |
+| All | 165 | 116 | 45 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2022,7 +2022,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `SEARCH-012` | Connected results in search | target | partial | `src/core/features/source-memory/service.ts` | see the clause |
 | `SEARCH-013` | Search inside attached files | target | missing | — | not implemented |
 | `SEARCH-014` | Old Confluence URLs find their Slate record | target | missing | — | not implemented |
-| `STAT-006` | Review requests and expert queues | target | partial | `src/core/features/page-status/requests.ts` | see the clause |
+| `STAT-006` | Review requests and expert queues | target | done | `tests/qualification/ui-convergence/review-request-journey.mjs` |  |
 | `STAT-007` | Verification rules | target | missing | — | not implemented |
 | `CARD-001` | Knowledge cards and collections | target | partial | `src/core/features/containers/service.ts` | see the clause |
 | `CARD-002` | Browser extension | target | missing | — | not implemented |

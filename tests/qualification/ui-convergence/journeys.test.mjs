@@ -9,6 +9,7 @@ import { concurrentEditingJourney } from './two-people-editing.mjs';
 import { accessChangeJourney } from './two-people-access.mjs';
 import { historyJourney } from './two-people-history.mjs';
 import { databaseJourney } from './database-journey.mjs';
+import { reviewRequestJourney } from './review-request-journey.mjs';
 
 for (const width of [1440, 390]) {
   test(`real core-wiki journeys at ${width}px`, { timeout: 300000 }, async t => {
@@ -40,6 +41,12 @@ for (const width of [1440, 390]) {
         await t.test('restore writes a new revision; citations resolve to theirs', () => historyJourney(state, people));
       });
     });
+  });
+  test(`named review request, reviewer queue, exact verify and overdue escalation at ${width}px`, { timeout: 240000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await withSecondPerson(state, width, people => reviewRequestJourney(state, people));
+    }, {}, { scheduled: true });
   });
   test(`flagship no-provider Ask retains a page-scoped draft at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'flagship', async state => {
