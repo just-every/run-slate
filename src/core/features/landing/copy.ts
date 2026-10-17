@@ -3,7 +3,7 @@
 // revisions, imports and roles. Nothing here may advertise the flagship-only surfaces (AI, runs, inquiries, connectors).
 export const copy = {
   skip: "Skip to the content",
-  nav: { docs: "Docs", source: "Source", signIn: "Sign in to workspace", signInShort: "Sign in" },
+  nav: { docs: "Docs", contract: "Contract", source: "Source", signIn: "Sign in to workspace", signInShort: "Sign in" },
   hero: {
     title: "One home for everything your team knows.",
     sub: "Pages, databases and search in one open-source wiki.",

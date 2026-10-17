@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ownerIdentity } from "../../../app/ext-client";
 import { DocsLink } from "../../docs/DocsLink";
 import { copy } from "../copy";
-import { creditUrl, docsHomeSlug, sourceUrl } from "../links";
+import { contractPath, creditUrl, docsHomeSlug, sourceUrl } from "../links";
 import { useRunSite } from "../site";
 import { Brand } from "./Brand";
 
@@ -21,6 +21,7 @@ export function SiteFooter() {
         </div>
         <nav aria-label="Footer navigation">
           <DocsLink slug={docsHomeSlug}>{copy.nav.docs}</DocsLink>
+          {site ? <a href={contractPath}>{copy.nav.contract}</a> : null}
           <a href={sourceUrl}>{copy.nav.source}</a>
           {site ? null : <Link to="/signin">{copy.nav.signInShort}</Link>}
         </nav>

@@ -15,6 +15,15 @@
   --rer-font-heading: Outfit, "Outfit Fallback", "Avenir Next", "Segoe UI", sans-serif;
   --rer-radius: 24px;
   --rer-logo: url("/slate-mark.svg");
+  --rer-done: #498055;
+  --rer-partial: #ddb04a;
+  --rer-missing: #c9473f;
+  --rer-done-ink: #3d6f47;
+  --rer-partial-ink: #85631a;
+  --rer-missing-ink: #a8362f;
+  --rer-on-done: #ffffff;
+  --rer-on-partial: #1b1b18;
+  --rer-on-missing: #ffffff;
 }
 @font-face {
   font-family: Outfit;

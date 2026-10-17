@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { contractPageHtml } from "../base/runtime/contract-page";
 import { runPageHtml, siteNotFoundHtml, type SiteBuild, type SiteContext } from "../base/runtime/run-site";
 import "../core/app/styles.css";
 import { fontLinks } from "../core/app/font-head";
@@ -21,7 +22,7 @@ const icons = ["favicon.svg", "favicon-32.png", "favicon.ico", "apple-touch-icon
  * page at `/run`; the docs at `/docs` and `/docs/<slug>`, rendered by the same components and docs module as an installed
  * Slate's docs routes; and the not-found page. Every page is static and links to no instance-only route.
  */
-export async function sitePages({ styles }: SiteContext): Promise<SiteBuild> {
+export async function sitePages({ styles, contract }: SiteContext): Promise<SiteBuild> {
   const document = (title: string, description: string, body: ReactElement) => "<!doctype html>" + renderToStaticMarkup(
     <html lang="en">
       <head>
@@ -50,9 +51,10 @@ export async function sitePages({ styles }: SiteContext): Promise<SiteBuild> {
   return {
     pages: [
       { path: "/", html: document(ownerIdentity.name, `${ownerIdentity.description} ${copy.hero.replaces}.`, <Landing />) },
-      { path: "/run", html: runPageHtml(identity, run) },
+      { path: "/run", html: runPageHtml(identity, run, contract) },
+      ...(contract ? [{ path: "/contract", html: contractPageHtml(identity, run, contract) }] : []),
       ...docs,
-      { path: "/404", html: siteNotFoundHtml(identity, run) },
+      { path: "/404", html: siteNotFoundHtml(identity, run, contract) },
     ],
     assets: ["rer-theme.css", "slate-mark.svg", "brand", "fonts", ...icons],
   };
