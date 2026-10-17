@@ -1,3 +1,4 @@
+import { watchedChangeStatements } from '../notifications/watched-changes';
 import type { FeatureContext } from '../../app/feature-context';
 import { ApiProblem } from '../../app/problems';
 import { mutationGuard } from '../../app/operations';
@@ -34,7 +35,9 @@ export function writable(page: PageRow) {
         throw new ApiProblem(409, 'PAGE_READ_ONLY', 'This page is archived or in trash.');
 }
 export async function revisionStatement(ctx: FeatureContext, pageId: string, id: string, s: RevisionSnapshot, origin = 'autosave', ordinal: number | null = null, label: string | null = null) { s = {...s, blocks: [...s.blocks].sort((a,b) => a.treePosition < b.treePosition ? -1 : a.treePosition > b.treePosition ? 1 : a.id < b.id ? -1 : a.id > b.id ? 1 : 0)}; const hash = await revisionContentHash({ body: s.blocks.map(b => ({ text: plainContent(b.content) })), properties: { title: s.properties.title, labels: s.properties.labels, ...Object.fromEntries(Object.entries(s.properties.databaseFields ?? {}).map(([k, v]) => [k, typeof v === 'object' ? JSON.stringify(v) : v])) } }); return ctx.db.prepare('INSERT INTO page_revisions (id,page_id,author_member_id,origin,content_hash,body_json,properties_json,status_key,ordinal,label,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?)').bind(id, pageId, ctx.actor.id, origin, hash, JSON.stringify(s.blocks), JSON.stringify(s.properties), s.properties.statusKey, ordinal, label, ctx.now); }
-export function contentEvent(ctx: FeatureContext, pageId: string, revisionId: string, kind: string, detail: unknown = {}) { return ctx.db.prepare('INSERT INTO content_events (page_id,revision_id,actor_member_id,kind,detail_json,created_at) VALUES (?,?,?,?,?,?)').bind(pageId, revisionId, ctx.actor.id, kind, JSON.stringify(detail), ctx.now); }
+export function contentEvent(ctx: FeatureContext, pageId: string, revisionId: string, kind: string, detail: unknown = {}, watchedContainerIds:string[] = []):D1PreparedStatement[] {
+ return [ctx.db.prepare('INSERT INTO content_events (page_id,revision_id,actor_member_id,kind,detail_json,created_at) VALUES (?,?,?,?,?,?)').bind(pageId, revisionId, ctx.actor.id, kind, JSON.stringify(detail), ctx.now),...watchedChangeStatements(ctx,pageId,kind,watchedContainerIds)];
+}
 export async function revisionRow(ctx: FeatureContext, pageId: string, id: string) {
     const row = await ctx.db.prepare('SELECT * FROM page_revisions WHERE id=? AND page_id=?').bind(id, pageId).first<RevisionRow>();
     if (!row)

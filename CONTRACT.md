@@ -831,14 +831,14 @@ A member can watch a whole container. For each page in it the member can read, a
 
 *Acceptance:* a Workers journey has a member watch a container. Another member then creates a page, edits it in two sessions, comments on it, and creates a restricted page the watcher cannot read. The watcher gets exactly four items (the creation, two edit sessions and the comment) and nothing for the restricted page, and a comment on a page they also watch directly arrives once. A variant with a daily digest preference finds the same four events as digest lines, and a browser journey sees them in Home's Following section.
 
-*Status:* missing. Page watches ship (`PAGE-009`, `src/core/features/navigation/service.ts`); container watches do not.
+*Status:* partial. Page watches ship (`PAGE-009`, `src/core/features/navigation/service.ts`); container watches do not.
 
 #### PAGE-016 — Autowatch on create and edit.
 Creating a page, or saving an edit to it, watches it for that member, as commenting already does (`PAGE-009`), until they unwatch it. Unwatching stops autowatch for that page, so a later edit by the same member does not watch it again. A member can turn autowatch off for themselves, and `NOTIF-006` sets the workspace default. An implicit watch delivers the same events as an explicit one.
 
 *Acceptance:* a Workers journey has one member create a page and a second member edit another page, then a third member comments on both, and the creator and the editor each get exactly one notification. After the editor unwatches their page and edits it again, a further comment notifies them of nothing. A member with autowatch off creates a page and is not watching it.
 
-*Status:* partial. Implicit watching after a comment ships (`src/core/features/navigation/service.ts`, `src/core/features/comments/service.ts`); watching on create and edit does not.
+*Status:* done. Implicit watching after a comment ships (`src/core/features/navigation/service.ts`, `src/core/features/comments/service.ts`); watching on create and edit does not.
 
 #### WORK-016 — People directory and expertise.
 Each member has a profile with their name, title, team, manager, time zone and the pages they own, verify and frequently edit. Expertise tags are derived from that work, and the member can edit or hide them. The directory is searchable, guests see only the people on pages shared with them, and expertise is used to route reviews and questions (`STAT-006`, `KEEP-003`).
@@ -1750,9 +1750,9 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 160 | 61 | 0 | 221 |
-| Target and push further | 2 | 53 | 50 | 105 |
-| All | 162 | 114 | 50 | 326 |
+| Published | 161 | 60 | 0 | 221 |
+| Target and push further | 3 | 53 | 49 | 105 |
+| All | 164 | 113 | 49 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1784,7 +1784,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `PAGE-006` | Icon and cover | published | done | `tests/qualification/backend/appearance-invitations.test.ts` |  |
 | `PAGE-007` | Details | published | done | `tests/qualification/backend/emitted.mjs` |  |
 | `PAGE-008` | Favourite | published | done | `tests/qualification/backend/sharing-navigation.test.ts` |  |
-| `PAGE-009` | Watch | published | partial | `src/core/features/comments/service.ts` | watch code; no journey |
+| `PAGE-009` | Watch | published | done | `tests/flagship/discovery/following.test.ts` |  |
 | `PAGE-010` | Outline | published | partial | `src/core/features/pages/ui/PageOutline.tsx` | outline UI; no journey |
 | `PAGE-011` | Present | published | partial | `src/core/features/pages/ui/workspace/PagePresentation.tsx` | present mode UI; no journey |
 | `PAGE-012` | Page display options | published | partial | `src/core/features/pages/ui/workspace/PageDisplay.tsx` | display options UI; no journey |
@@ -1997,8 +1997,8 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `BLOCK-022` | Attachment versions | target | missing | — | not implemented |
 | `CONT-010` | Space blog and announcements | target | missing | — | not implemented |
 | `CONT-011` | Space home and company hub | target | partial | `src/core/features/containers/service.ts` | see the clause |
-| `CONT-012` | Watch a container | target | missing | — | not implemented |
-| `PAGE-016` | Autowatch on create and edit | target | partial | `src/core/features/navigation/service.ts` | see the clause |
+| `CONT-012` | Watch a container | target | partial | `tests/flagship/discovery/following.test.ts` | Daily digest delivery under NOTIF-005 remains missing. In-app lifecycle notices, session coalescing, deduplication, administrator watchers and personal Following have Workers and 1440/390 browser evidence. |
+| `PAGE-016` | Autowatch on create and edit | target | done | `tests/flagship/discovery/following.test.ts` |  |
 | `WORK-016` | People directory and expertise | target | missing | — | not implemented |
 | `SHARE-009` | Share with a message | target | partial | `tests/qualification/backend/emitted.mjs` | see the clause |
 | `TMPL-007` | Starter templates | target | partial | `src/core/features/templates/service.ts` | see the clause |

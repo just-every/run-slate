@@ -1,3 +1,4 @@
+import {ContainerWatchers} from './ContainerWatch';
 import {useWorkspace} from "../../../../app/ui/WorkspaceContext";
 import { useRef, useState } from "react";
 import { mutate, operationKey } from "../../../../client/transport";
@@ -24,6 +25,7 @@ export function ContainerSettings({
   return (
     <section>
       <h4>Space settings</h4>
+      <ContainerWatchers id={container.id}/>
       <div className="action-row">
         <button className="secondary-button" onClick={() => start("details")}>Edit details</button>
         {container.visibility !== "personal" ? (

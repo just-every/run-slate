@@ -34,7 +34,7 @@ export async function setPageStatus(ctx: FeatureContext, id: string, input: {
                 const expiresAt = verificationExpiry(input, ctx.now);
                 statements.push(ctx.db.prepare('INSERT INTO page_verifications (id,page_id,revision_id,status_key,owner_member_id,verified_by_member_id,expires_at,created_at) VALUES (?,?,?,?,?,?,?,?)').bind(createUlid(), id, p.working_revision_id, input.statusKey, ctx.actor.id, ctx.actor.id, expiresAt, ctx.now));
             }
-            statements.push(ctx.db.prepare('UPDATE pages SET status_key=?,revision_id=?,updated_at=? WHERE id=?').bind(input.statusKey, revisionId, ctx.now, id), await revisionStatement(ctx, id, revisionId, s), contentEvent(ctx, id, revisionId, 'status'));
+            statements.push(ctx.db.prepare('UPDATE pages SET status_key=?,revision_id=?,updated_at=? WHERE id=?').bind(input.statusKey, revisionId, ctx.now, id), await revisionStatement(ctx, id, revisionId, s), ...contentEvent(ctx, id, revisionId, 'status'));
             return { statements, entity: { id, kind: 'page', revisionId }, value: { pageId: id, revisionId } };
         } });
 }

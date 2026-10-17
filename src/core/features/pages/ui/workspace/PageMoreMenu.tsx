@@ -109,7 +109,7 @@ export function PageMoreMenu({
 
   return (
     <>
-      <DropdownMenu onOpenChange={(open) => open && setPhone(window.matchMedia("(max-width: 700px)").matches)}>
+      <DropdownMenu onOpenChange={(open) => {if(open){setPhone(window.matchMedia("(max-width: 700px)").matches);void following.refresh();}}}>
         <DropdownMenuTrigger asChild>
           <button ref={trigger} className="tool" type="button" data-page-more>
             <Ellipsis aria-hidden="true" />

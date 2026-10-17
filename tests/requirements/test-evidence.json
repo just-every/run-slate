@@ -2239,6 +2239,29 @@
         "BASE-DATA-005"
       ],
       "reason": "Asserts POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/discovery/following.test.ts",
+      "testName": "container following delivers personal coalesced events once and rechecks lifecycle and access",
+      "kind": "supporting-regression",
+      "clauses": [
+        "PAGE-009",
+        "NOTIF-001",
+        "NOTIF-002",
+        "NAV-001",
+        "CONT-012"
+      ],
+      "reason": "Production API/native-session Workers journey proves in-app page/container watch events, durable editing-session coalescing, deduplication, Home Following data, draft/restricted suppression, moves, archive/trash, permission revocation and erasure. CONT-012 digest delivery and browser acceptance remain separate and unproven."
+    },
+    {
+      "file": "tests/flagship/discovery/following.test.ts",
+      "testName": "PAGE-016 — authoring watches respect durable unwatch, personal overrides and workspace defaults",
+      "kind": "supporting-regression",
+      "clauses": [
+        "PAGE-009",
+        "PAGE-016"
+      ],
+      "reason": "Production API/native-session Workers journey covers create/edit/comment autowatch, explicit stop persistence, self suppression, personal overrides and workspace defaults. Independent browser and full requirement acceptance remain unproven."
     }
   ]
 }

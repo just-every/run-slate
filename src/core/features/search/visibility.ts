@@ -28,7 +28,7 @@ export async function readableTarget(ctx:FeatureContext,kind:string,id:string):P
   // Unknown targets never inherit workspace readability. Their owning feature must supply an ACL resolver.
   return ['workspace','member','group','invitation','chat-connection'].includes(kind)&&permitted(()=>requireWorkspaceOwner(ctx));
 }
-export async function currentPageTitle(ctx:FeatureContext,id:string):Promise<string>{
- const access=await requirePageLevel(ctx,id,'view');const row=await ctx.db.prepare('SELECT p.title,p.working_revision_id,p.published_revision_id,r.properties_json FROM pages p LEFT JOIN page_revisions r ON r.id=p.published_revision_id AND r.deleted_at IS NULL WHERE p.id=?').bind(id).first<{title:string;working_revision_id:string;published_revision_id:string|null;properties_json:string|null}>();if(!row)throw new ApiProblem(404,'NOT_FOUND','Not found.');
+export async function currentPageTitle(ctx:FeatureContext,id:string,options:{includeTrashed?:boolean}={}):Promise<string>{
+ const access=await requirePageLevel(ctx,id,'view',options);const row=await ctx.db.prepare('SELECT p.title,p.working_revision_id,p.published_revision_id,r.properties_json FROM pages p LEFT JOIN page_revisions r ON r.id=p.published_revision_id AND r.deleted_at IS NULL WHERE p.id=?').bind(id).first<{title:string;working_revision_id:string;published_revision_id:string|null;properties_json:string|null}>();if(!row)throw new ApiProblem(404,'NOT_FOUND','Not found.');
  if(!['edit','full'].includes(access.decision.level!)&&row.published_revision_id&&row.published_revision_id!==row.working_revision_id){if(!row.properties_json)throw new ApiProblem(404,'NOT_FOUND','Not found.');return (JSON.parse(row.properties_json) as {title:string}).title;}return row.title;
 }

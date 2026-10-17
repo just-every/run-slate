@@ -74,7 +74,8 @@ export async function publicationMoveStatements(ctx: FeatureContext, location: A
     statements.push(ctx.db.prepare('UPDATE pages SET container_id=?,parent_page_id=CASE WHEN id=? THEN ? ELSE parent_page_id END,tree_position=CASE WHEN id=? THEN ? ELSE tree_position END,revision_id=?,updated_at=? WHERE id=?').bind(location.target.containerId, rootId, location.target.parentPageId, rootId, location.target.treePosition, rev, ctx.now, p.id));
     // Retained container-general grants follow their own page's new container, never widen to workspace.
     statements.push(ctx.db.prepare("UPDATE page_grants SET principal_id=?,updated_at=? WHERE page_id=? AND principal_kind='container'").bind(location.target.containerId, ctx.now, p.id));
-    if (p.id !== rootId) statements.push(await revisionStatement(ctx, p.id, rev, await snapshot(ctx, p)), contentEvent(ctx, p.id, rev, 'moved'));
+    if (p.id !== rootId) statements.push(await revisionStatement(ctx, p.id, rev, await snapshot(ctx, p)));
+    statements.push(...contentEvent(ctx, p.id, rev, 'moved', {}, [p.container_id]));
   }
   return statements;
 }

@@ -362,7 +362,12 @@
       "document": "CONTRACT.md",
       "status": "unproven",
       "unmetReason": "No complete semantic journey is registered for PAGE-009 — Watch. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "supportingTests": [
+        {
+          "file": "tests/flagship/discovery/following.test.ts",
+          "testName": "container following delivers personal coalesced events once and rechecks lifecycle and access"
+        }
+      ]
     },
     {
       "id": "PAGE-010",
@@ -1431,7 +1436,12 @@
       "document": "CONTRACT.md",
       "status": "unproven",
       "unmetReason": "No complete semantic journey is registered for NAV-001 — Home. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "supportingTests": [
+        {
+          "file": "tests/flagship/discovery/following.test.ts",
+          "testName": "container following delivers personal coalesced events once and rechecks lifecycle and access"
+        }
+      ]
     },
     {
       "id": "NAV-002",
@@ -1478,14 +1488,24 @@
       "document": "CONTRACT.md",
       "status": "unproven",
       "unmetReason": "No complete semantic journey is registered for NOTIF-001 — Meaningful notifications. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "supportingTests": [
+        {
+          "file": "tests/flagship/discovery/following.test.ts",
+          "testName": "container following delivers personal coalesced events once and rechecks lifecycle and access"
+        }
+      ]
     },
     {
       "id": "NOTIF-002",
       "document": "CONTRACT.md",
       "status": "unproven",
       "unmetReason": "No complete semantic journey is registered for NOTIF-002 — Inbox. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "supportingTests": [
+        {
+          "file": "tests/flagship/discovery/following.test.ts",
+          "testName": "container following delivers personal coalesced events once and rechecks lifecycle and access"
+        }
+      ]
     },
     {
       "id": "NOTIF-003",
@@ -3175,6 +3195,30 @@
       "status": "unproven",
       "unmetReason": "Public HTTP operator, permission, saved-query, trust and duplicate grouping journeys support implementation. Independent requirement acceptance remains unproven.",
       "supportingTests": []
+    },
+    {
+      "id": "PAGE-016",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Production Workers journeys support durable watches, preferences, lifecycle-aware delivery and personal Following. Independent browser and full requirement acceptance remain unproven; CONT-012 digest delivery remains missing.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/discovery/following.test.ts",
+          "testName": "PAGE-016 — authoring watches respect durable unwatch, personal overrides and workspace defaults"
+        }
+      ]
+    },
+    {
+      "id": "CONT-012",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Production Workers journeys support durable watches, preferences, lifecycle-aware delivery and personal Following. Independent browser and full requirement acceptance remain unproven; CONT-012 digest delivery remains missing.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/discovery/following.test.ts",
+          "testName": "container following delivers personal coalesced events once and rechecks lifecycle and access"
+        }
+      ]
     }
   ]
 }

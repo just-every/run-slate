@@ -15,7 +15,10 @@ import {fieldTypes,type Field,type Values} from '../databases/values';
 import type {NormalizedImport,ImportedBlock,ImportedPage} from './types';
 import {importBlocks} from './blocks';
 import {prepareImportGrants,prepareImportPrincipals} from './principals';
-export async function prepareImportPlan(ctx:FeatureContext,jobId:string,parsed:NormalizedImport,target?:{pageId:string;expectedRevisionId:string},mappings:PrincipalMapping[]=[],stageMedia=true){const parent=target?await readPage(ctx,target.pageId):null;const authorize=async()=>{if(parent){await destination(ctx,parent.page.containerId,parent.page.id);}else await authorizeContainerCreation(ctx);};await authorize();const ids=new CompactStringMap(mappings.map(m=>[`${m.kind}:${m.sourceId}`,m.targetId]));const prefix=(await requestHash(jobId)).slice(0,16);const idFor=(kind:string,id:string)=>{const key=`${kind}:${id}`;if(!ids.has(key))ids.set(key,`${prefix}:${kind}:${ids.size}`);return ids.get(key)!;};
+export async function prepareImportPlan(ctx:FeatureContext,jobId:string,parsed:NormalizedImport,target?:{pageId:string;expectedRevisionId:string},mappings:PrincipalMapping[]=[],stageMedia=true){
+ // Historical arrival preserves source authorship; it is not an interactive authoring session.
+ ctx={...ctx,contentOrigin:'historical-import'};
+ const parent=target?await readPage(ctx,target.pageId):null;const authorize=async()=>{if(parent){await destination(ctx,parent.page.containerId,parent.page.id);}else await authorizeContainerCreation(ctx);};await authorize();const ids=new CompactStringMap(mappings.map(m=>[`${m.kind}:${m.sourceId}`,m.targetId]));const prefix=(await requestHash(jobId)).slice(0,16);const idFor=(kind:string,id:string)=>{const key=`${kind}:${id}`;if(!ids.has(key))ids.set(key,`${prefix}:${kind}:${ids.size}`);return ids.get(key)!;};
  const mediaSources:{storageKey:string;contentType:string;sizeBytes:number;entry:import('./archive-r2').RetainedZipEntry}[]=[];
  const statements:D1PreparedStatement[]=[],pendingFiles:D1PreparedStatement[]=[],stagedKeys:string[]=[];const pageIds=new Set<string>();const counts={containers:0,pages:0,databases:0,records:0,files:0,versions:0};
  try{

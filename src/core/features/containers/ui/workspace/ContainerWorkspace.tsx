@@ -1,3 +1,4 @@
+import {ContainerWatch} from './ContainerWatch';
 import {ReadableExportDialog} from "../../../workspace-export/ui/ReadableExportDialog";
 import {useCreatePage} from "../../../../app/ui/useCreatePage";
 import {DEFAULT_PAGE_TITLE} from "../../../../app/ui/pageDestination";
@@ -191,7 +192,7 @@ function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
     >
       {resource.data ? (
         <section className="space-detail">
-          <h3>{resource.data.name}</h3><div className="space-actions"><FavouriteControl kind="container" id={id}/><button className="secondary-button" onClick={()=>setExporting(true)}>Export space</button></div>{exporting?<ReadableExportDialog id={id} container onClose={()=>setExporting(false)}/>:null}
+          <h3>{resource.data.name}</h3><div className="space-actions"><FavouriteControl kind="container" id={id}/><ContainerWatch id={id}/><button className="secondary-button" onClick={()=>setExporting(true)}>Export space</button></div>{exporting?<ReadableExportDialog id={id} container onClose={()=>setExporting(false)}/>:null}
           <nav className="tabs" aria-label="Space navigation">{['content','settings','templates','trash','bulk'].map(value=><button aria-pressed={tab===value} key={value} onClick={()=>setTab(value)}>{value[0].toUpperCase()+value.slice(1)}</button>)}</nav>
           <a href={`/app/search?containerId=${id}`}>Search this space</a>
           {tab==='templates'?<TemplatesWorkspace defaultContainerId={id} embedded/>:tab==='trash'?<WorkspaceArchive containerId={id} embedded/>:tab==='bulk'?<ContainerBulk pages={available} onSaved={pages.reload}/>:null}

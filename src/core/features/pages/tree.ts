@@ -112,7 +112,7 @@ export async function movePage(ctx: FeatureContext, id: string, input: MoveInput
                 // move. Preserve their immutable history and timestamps exactly.
                 if (p.id !== id && p.container_id === input.containerId) continue;
                 const rev = p.id === id ? revisionId : createUlid();
-                statements.push(pageGuard(ctx, p, p.revision_id), ctx.db.prepare('UPDATE pages SET container_id=?,parent_page_id=CASE WHEN id=? THEN ? ELSE parent_page_id END,tree_position=CASE WHEN id=? THEN ? ELSE tree_position END,revision_id=?,updated_at=? WHERE id=?').bind(input.containerId, id, input.parentPageId ?? null, id, order ? order.position : input.treePosition!, rev, ctx.now, p.id), await revisionStatement(ctx, p.id, rev, await snapshot(ctx, p)), contentEvent(ctx, p.id, rev, 'moved'));
+                statements.push(pageGuard(ctx, p, p.revision_id), ctx.db.prepare('UPDATE pages SET container_id=?,parent_page_id=CASE WHEN id=? THEN ? ELSE parent_page_id END,tree_position=CASE WHEN id=? THEN ? ELSE tree_position END,revision_id=?,updated_at=? WHERE id=?').bind(input.containerId, id, input.parentPageId ?? null, id, order ? order.position : input.treePosition!, rev, ctx.now, p.id), await revisionStatement(ctx, p.id, rev, await snapshot(ctx, p)), ...contentEvent(ctx, p.id, rev, 'moved', {}, [p.container_id]));
             }
             return { statements, entity: { id, kind: 'page', revisionId }, value: { pageId: id, revisionId } };
         } });

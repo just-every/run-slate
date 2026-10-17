@@ -56,7 +56,15 @@ export const knowledgePageWatches = sqliteTable("page_watches", {
   memberId: text("member_id").notNull(),
   pageId: text("page_id").notNull(),
   createdAt: text("created_at").notNull(),
-}, (table) => [uniqueIndex("page_watches_primary_idx").on(table.memberId, table.pageId)]);
+  enabled: integer("enabled", { mode: "boolean" }).notNull().default(true),
+}, (table) => [uniqueIndex("page_watches_primary_idx").on(table.memberId, table.pageId),index("page_watches_page_enabled").on(table.pageId,table.enabled,table.memberId)]);
+
+export const knowledgeContainerWatches = sqliteTable("container_watches", {
+  memberId: text("member_id").notNull(),containerId: text("container_id").notNull(),createdAt: text("created_at").notNull(),
+}, table => [primaryKey({ columns: [table.memberId,table.containerId] }),index("container_watches_container").on(table.containerId,table.memberId)]);
+export const knowledgeWatchEditSessions = sqliteTable("watch_edit_sessions", {
+  pageId: text("page_id").notNull(),actorMemberId: text("actor_member_id").notNull(),sessionId: text("session_id").notNull(),lastEditAt: text("last_edit_at").notNull(),
+}, table => [primaryKey({ columns: [table.pageId,table.actorMemberId] })]);
 
 export const knowledgeRecentPages = sqliteTable("recent_pages", {
   memberId: text("member_id").notNull(),

@@ -1,3 +1,4 @@
+import {WatchDefaults} from './WatchDefaults';
 import { useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import {
@@ -11,10 +12,12 @@ type Preferences = {
   collapsedContainers: string[];
   timezone: string;
   quietRoutine: boolean;
+  autowatch?: boolean|null;
 };
 export function PersonalPreferences() {
   const resource = useResource<{
     value: Preferences;
+    autowatchDefault: boolean;
     revisionId: string | null;
   }>("/api/navigation/preferences");
   return (
@@ -29,21 +32,25 @@ export function PersonalPreferences() {
           <PreferencesForm
             key={resource.data.revisionId}
             value={resource.data.value}
+            autowatchDefault={resource.data.autowatchDefault}
             revisionId={resource.data.revisionId}
             saved={resource.reload}
           />
         ) : null}
       </RequestState>
+      <WatchDefaults saved={resource.reload}/>
     </section>
   );
 }
 function PreferencesForm({
   value,
   revisionId,
+  autowatchDefault,
   saved,
 }: {
   value: Preferences;
   revisionId: string | null;
+  autowatchDefault: boolean;
   saved: () => void;
 }) {
   const [draft, setDraft] = useState(value);
@@ -76,6 +83,13 @@ function PreferencesForm({
         }
       }}
     >
+      <label>
+        Automatically watch pages I create, edit or comment on
+        <select value={draft.autowatch==null?'default':draft.autowatch?'on':'off'} onChange={event=>setDraft({...draft,autowatch:event.target.value==='default'?null:event.target.value==='on'})}>
+          <option value="default">Workspace default ({autowatchDefault?'on':'off'})</option>
+          <option value="on">On</option><option value="off">Off</option>
+        </select>
+      </label>
       <label>
         Timezone
         <input

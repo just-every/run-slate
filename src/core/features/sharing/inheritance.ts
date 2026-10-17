@@ -10,7 +10,7 @@ export function setPageInheritance(ctx:FeatureContext,pageId:string,input:{opera
     if(page.access_inheritance===inheritance)return {noChange:true,entity:{id:pageId,kind:'page',revisionId:page.revision_id},value:{pageId,revisionId:page.revision_id,restricted:input.restricted},statements:[pageGuard(ctx,page,input.expectedRevisionId)]};
     return {entity:{id:pageId,kind:'page',revisionId},value:{pageId,revisionId,restricted:input.restricted},statements:[
       pageGuard(ctx,page,input.expectedRevisionId),ctx.db.prepare('UPDATE pages SET access_inheritance=?,revision_id=?,updated_at=? WHERE id=?').bind(inheritance,revisionId,ctx.now,pageId),
-      await revisionStatement(ctx,pageId,revisionId,await snapshot(ctx,page)),contentEvent(ctx,pageId,revisionId,'access-inheritance',{restricted:input.restricted})
+      await revisionStatement(ctx,pageId,revisionId,await snapshot(ctx,page)),...contentEvent(ctx,pageId,revisionId,'access-inheritance',{restricted:input.restricted})
     ]};
   }});
 }

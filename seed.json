@@ -472,6 +472,14 @@
         "SEARCH-010",
         "SEARCH-011"
       ]
+    },
+    {
+      "id": "personal-following",
+      "description": "Durable page opt-outs, personal and workspace autowatch settings, container watches and permission-aware Home Following.",
+      "clauses": [
+        "PAGE-016",
+        "CONT-012"
+      ]
     }
   ],
   "nonGoals": [

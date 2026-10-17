@@ -49,7 +49,7 @@ export async function prepareArchivePage(ctx: FeatureContext, id: string, input:
         else {
             statements.push(ctx.db.prepare('INSERT INTO content_archive_locations VALUES (?,?,?,?,?,?,?,?,?) ON CONFLICT(page_id) DO NOTHING').bind(p.id, p.parent_page_id, p.container_id, p.tree_position, p.lifecycle, input.action, ctx.actor.id, input.reason ?? null, ctx.now), ctx.db.prepare(input.action === 'archive' ? "UPDATE pages SET archived_at=?,lifecycle='archived',updated_at=? WHERE id=?" : 'UPDATE pages SET trashed_at=?,updated_at=? WHERE id=?').bind(ctx.now, ctx.now, p.id));
         }
-        statements.push(contentEvent(ctx, p.id, p.revision_id, input.action));
+        statements.push(...contentEvent(ctx, p.id, p.revision_id, input.action, {}, [p.container_id]));
     }
     return { statements, entity: { id, kind: 'page', revisionId: root.revision_id }, value: { pageId: id, revisionId: root.revision_id, action: input.action } };
 }

@@ -8,7 +8,7 @@ import type { OutboxRow } from './events';
 export async function recipientContext(ctx:FeatureContext,memberId:string):Promise<FeatureContext|undefined>{const row=await ctx.db.prepare("SELECT m.id,m.workspace_id AS workspaceId,m.email,m.display_name AS displayName,m.role,w.name AS workspaceName FROM members m JOIN workspaces w ON w.id=m.workspace_id WHERE m.id=? AND m.workspace_id=? AND m.status='active'").bind(memberId,ctx.actor.workspaceId).first<Omit<AuthenticatedMember,'initials'>>();return row?{...ctx,actor:{...row,initials:row.displayName.slice(0,2)},authorizationEpoch:undefined}:undefined;}
 export async function eventReadable(ctx:FeatureContext,row:Pick<OutboxRow,'page_id'|'container_id'|'detail_json'>&Partial<Pick<OutboxRow,'event'>>):Promise<boolean>{
  await currentSubject(ctx);
- if(row.page_id&&!await permitted(()=>requirePageLevel(ctx,row.page_id!,row.event==='access-requested'?'full':'view')))return false;
+ if(row.page_id&&!await permitted(()=>requirePageLevel(ctx,row.page_id!,row.event==='access-requested'?'full':'view',{includeTrashed:row.event==='page-trashed'})))return false;
  if(row.container_id&&!await permitted(()=>requireContainerLevel(ctx,row.container_id!,'view')))return false;
  const detail=JSON.parse(row.detail_json) as NotificationDetail;if(!await permittedNotificationEvidence(ctx,row.event,detail))return false;for(const id of detail.sourcePageIds??[])if(!await permitted(()=>requirePageLevel(ctx,id,'view')))return false;
  return true;

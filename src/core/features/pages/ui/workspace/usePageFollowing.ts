@@ -9,6 +9,10 @@ export function usePageFollowing(pageId: string) {
   const [error, setError] = useState<unknown>();
   const favourite = resource.data?.favourites.some((item) => item.kind === "page" && item.id === pageId) ?? false;
   const watched = resource.data?.watches.includes(pageId) ?? false;
+  async function refresh() {
+    setPending(true);
+    try { await resource.reload(); } finally { setPending(false); }
+  }
   async function toggle(kind: "watch" | "favourite", enabled: boolean) {
     setPending(true);
     setError(undefined);
@@ -31,6 +35,7 @@ export function usePageFollowing(pageId: string) {
     watched,
     disabled: pending || !resource.data,
     error: error || resource.error ? errorMessage(error || resource.error) : null,
+    refresh,
     toggleFavourite: () => toggle("favourite", !favourite),
     toggleWatch: () => toggle("watch", !watched),
   };
