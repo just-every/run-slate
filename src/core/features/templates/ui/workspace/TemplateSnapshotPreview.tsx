@@ -3,10 +3,12 @@ import { editorBlocks } from "../../../../client/content";
 import { BlockView } from "../../../editor/ui/blocks/BlockView";
 import { galleries } from "../../../pages/ui/workspace/PageAppearance";
 import type { BlockView as StoredBlock } from "../../../../shared/api/content";
+import type { TemplateApplicationDefaults } from "../../application-defaults";
 export interface TemplatePreviewSnapshot {
   title: string;
   blocks: Omit<StoredBlock, "pageId" | "revisionId">[];
   children: TemplatePreviewSnapshot[];
+  applicationDefaults?: TemplateApplicationDefaults;
   coverUrl?: string;
   properties: {
     icon?: string | null;
@@ -16,6 +18,7 @@ export interface TemplatePreviewSnapshot {
     typeface?: string;
     smallText?: boolean;
     fullWidth?: boolean;
+    reviewDate?: string | null;
     databaseFields?: Record<string, unknown>;
   };
   fieldDefinitions?: { id: string; name: string }[];
@@ -77,6 +80,9 @@ export function TemplateSnapshotPreview({
       ) : null}
       <h3>{snapshot.title}</h3>
       {p.labels?.length ? <p>Labels: {p.labels.join(", ")}</p> : null}
+      {snapshot.applicationDefaults?.owner === 'applying-member' ? <p>Owner: You, when you create the page</p> : null}
+      {snapshot.applicationDefaults?.reviewDate === 'choose-date' ? <p>Review date: Choose when creating the page</p>
+        : p.reviewDate ? <p>Review date: <time dateTime={p.reviewDate}>{p.reviewDate}</time></p> : null}
       {p.databaseFields ? (
         <dl>
           {Object.entries(p.databaseFields).map(([id, value]) => (

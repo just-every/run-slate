@@ -21,10 +21,11 @@ export async function properties(ctx: FeatureContext, page: PageRow): Promise<Pa
     const prior = await ctx.db.prepare('SELECT properties_json FROM page_revisions WHERE id=? AND page_id=?').bind(page.working_revision_id, page.id).first<{
         properties_json: string;
     }>();
-    const cover = prior ? JSON.parse(prior.properties_json).cover : undefined;
+    const extra=prior?JSON.parse(prior.properties_json):{};
+    const cover=extra.cover;
     const databaseFields = prior ? JSON.parse(prior.properties_json).databaseFields : undefined;
     const byline = prior ? JSON.parse(prior.properties_json).byline : undefined;
-    return { ...(cover ? { cover } : {}), ...(databaseFields ? { databaseFields } : {}), ...(byline ? { byline } : {}), title: page.title, icon: page.icon, coverFileId: page.cover_file_id, ownerMemberId: page.owner_member_id, statusKey: page.status_key, labels: (await ctx.db.prepare('SELECT label FROM page_labels WHERE page_id=? ORDER BY label').bind(page.id).all<{
+    return { ...(extra.post?{post:extra.post}:{}),...(extra.reviewDate!==undefined?{reviewDate:extra.reviewDate}:{}), ...(cover ? { cover } : {}), ...(databaseFields ? { databaseFields } : {}), ...(byline ? { byline } : {}), title: page.title, icon: page.icon, coverFileId: page.cover_file_id, ownerMemberId: page.owner_member_id, statusKey: page.status_key, labels: (await ctx.db.prepare('SELECT label FROM page_labels WHERE page_id=? ORDER BY label').bind(page.id).all<{
             label: string;
         }>()).results.map(r => r.label), typeface: page.typeface, smallText: !!page.small_text, fullWidth: !!page.full_width };
 }

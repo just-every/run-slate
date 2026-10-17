@@ -1,3 +1,4 @@
+import {assertNoStarterTemplatesBeforeFirstRun} from '../../e2e/templates/starter-journey.mjs';
 import { testDevKey } from '../../e2e/dev-key.mjs';
 import assert from 'node:assert/strict';
 import { signInWithOutbox } from '../../e2e/outbox-auth.mjs';
@@ -120,7 +121,9 @@ export async function withWorkspace(viewport, profile, run, overrides = {}) {
   }
 }
 
-export async function setupWorkspace({ page, origin, api, records }) {
+export async function setupWorkspace(state) {
+  const {page,origin,api,records}=state;
+  await assertNoStarterTemplatesBeforeFirstRun(state);
   await page.goto(origin + '/app', { waitUntil: 'networkidle' });
   assert.deepEqual(await records(), { workspaces: 1, spaces: 0, pages: 0 }, 'The fixture supplies identity only before first run.');
   await expect(page.getByRole('heading', { name: 'Name this workspace', exact: true })).toBeVisible();

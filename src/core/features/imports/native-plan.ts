@@ -132,6 +132,10 @@ export async function compileNativePlan(ctx:FeatureContext, statements:CapturedS
     if(!root)throw new Error(`Native unit lacks its root: ${u.kind}`);
     if(u.kind==='page') {
       u.requires.push(`container:${root.values.container_id}`);
+      for(const revision of u.rows.filter(row=>row.table==='page_revisions')) {
+        const author=(JSON.parse(String(revision.values.properties_json)) as {post?:{authorMemberId?:string|null}}).post?.authorMemberId;
+        if(author&&!u.requires.includes(`member:${author}`))u.requires.push(`member:${author}`);
+      }
       if(root.values.parent_page_id)u.requires.push(`page:${root.values.parent_page_id}`);
       if(root.values.database_id)u.requires.push(`page:${databasePages.get(String(root.values.database_id))}`);
     }

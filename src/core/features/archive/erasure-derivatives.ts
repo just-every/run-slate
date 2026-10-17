@@ -1,10 +1,11 @@
+import {eraseHomeReferences} from '../homes/erasure';
 import type {FeatureContext} from '../../app/feature-context';
 /** Resolve identifiers before structured rows and comments are removed by the enclosing plan. */
 export async function prepareErasePageDerivatives(ctx:FeatureContext,pageIds:string[]){
  const ids=JSON.stringify(pageIds),db=ctx.db;
  const entities=(await db.prepare(`SELECT id FROM databases WHERE page_id IN (SELECT value FROM json_each(?)) UNION SELECT id FROM database_fields WHERE database_id IN (SELECT id FROM databases WHERE page_id IN (SELECT value FROM json_each(?))) UNION SELECT id FROM database_views WHERE database_id IN (SELECT id FROM databases WHERE page_id IN (SELECT value FROM json_each(?))) UNION SELECT id FROM comment_threads WHERE page_id IN (SELECT value FROM json_each(?)) UNION SELECT c.id FROM comments c JOIN comment_threads t ON t.id=c.thread_id WHERE t.page_id IN (SELECT value FROM json_each(?))`).bind(ids,ids,ids,ids,ids).all<{id:string}>()).results.map(r=>r.id);
  const all=JSON.stringify([...pageIds,...entities]);
- return [
+ return [...eraseHomeReferences(ctx,pageIds),
  db.prepare("DELETE FROM structured_revisions WHERE workspace_id=? AND entity_id IN (SELECT value FROM json_each(?))").bind(ctx.actor.workspaceId,all),
  db.prepare("UPDATE record_revisions SET content_json='{}',author_member_id=NULL WHERE entity_id IN (SELECT value FROM json_each(?))").bind(all),
  db.prepare("UPDATE core_entity_revisions SET content_json='{}',content_hash='',author_member_id=NULL WHERE workspace_id=? AND entity_id IN (SELECT value FROM json_each(?))").bind(ctx.actor.workspaceId,all),

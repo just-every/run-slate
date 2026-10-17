@@ -11,6 +11,8 @@ import { destination } from "../pages/service";
 import { labelForReader } from "../pages/mentions";
 import { createUlid } from "../../shared/ulid";
 import { revision } from "../databases/repository";
+import { ensureStarterTemplates } from "./starters/provision";
+import type { TemplateApplicationInput } from "./application-defaults";
 import {
   snapshotPage,
   currentSnapshot,
@@ -58,6 +60,8 @@ export async function listTemplates(
   await currentSubject(ctx);
   if (options.containerId)
     await requireContainerLevel(ctx, options.containerId, "view");
+  await ensureStarterTemplates(ctx);
+  const category = options.category?.trim() || null;
   const result = await ctx.db
     .prepare(
       "SELECT id,CASE WHEN snapshot_json='{}' THEN 'Deleted template' ELSE title END AS title,description,category,container_id AS containerId,revision_id AS revisionId,is_shipped AS isShipped,deleted_at AS deletedAt,CASE WHEN snapshot_json='{}' THEN 1 ELSE 0 END AS erasurePending FROM knowledge_templates WHERE workspace_id=? AND (snapshot_json!='{}' OR EXISTS(SELECT 1 FROM core_job_failures j WHERE j.id='erasure:template:'||knowledge_templates.id AND j.state!='recovered')) AND ((?='active' AND deleted_at IS NULL AND archived_at IS NULL) OR (?='archived' AND deleted_at IS NULL AND archived_at IS NOT NULL) OR (?='deleted' AND deleted_at IS NOT NULL)) AND (container_id IS NULL OR container_id=?) AND (? IS NULL OR category=?) AND (lower(title) LIKE ? ESCAPE '\\' OR lower(description) LIKE ? ESCAPE '\\') ORDER BY container_id IS NULL,title,id",
@@ -68,8 +72,8 @@ export async function listTemplates(
       options.state ?? "active",
       options.state ?? "active",
       options.containerId ?? null,
-      options.category ?? null,
-      options.category ?? null,
+      category,
+      category,
       ...Array(2).fill(
         "%" +
           (options.query ?? "").toLowerCase().replace(/[\\%_]/g, "\\$&") +
@@ -78,9 +82,13 @@ export async function listTemplates(
     )
     .all<{id:string;title:string;description:string;category:string;containerId:string|null;revisionId:string;isShipped:number;deletedAt:string|null;erasurePending:number}>();
   const applyDestinations = await templateDestinations(ctx);
+  const categories = await ctx.db.prepare(
+    "SELECT DISTINCT category FROM knowledge_templates WHERE workspace_id=? AND snapshot_json!='{}' AND category!='' AND (container_id IS NULL OR container_id=?) AND ((?='active' AND deleted_at IS NULL AND archived_at IS NULL) OR (?='archived' AND deleted_at IS NULL AND archived_at IS NOT NULL) OR (?='deleted' AND deleted_at IS NOT NULL)) ORDER BY category",
+  ).bind(ctx.actor.workspaceId, options.containerId || null, options.state ?? 'active', options.state ?? 'active', options.state ?? 'active').all<{category:string}>();
   const items = await Promise.all(result.results.map(async item=>({...item,permissions:await templatePermissions(ctx,{containerId:item.containerId,isShipped:!!item.isShipped,deleted:!!item.deletedAt},applyDestinations)})));
   return {
     items,
+    categories: categories.results.map(item => item.category),
     applyDestinations,
     emptyMessage: result.results.length
       ? null
@@ -269,7 +277,7 @@ export async function changeTemplate(
 export async function applyTemplate(
   ctx: FeatureContext,
   id: string,
-  input: {
+  input: TemplateApplicationInput & {
     operationKey: string;
     containerId: string;
     parentPageId?: string;
@@ -300,6 +308,7 @@ export async function applyTemplate(
           revisionId,
           0,
           staged,
+          input,
         );
         return {
           entity: { id: plan.pageId, kind: "page", revisionId },

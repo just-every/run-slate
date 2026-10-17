@@ -138,19 +138,24 @@ test("a page in a personal Confluence space carries no general grant, and an unk
 });
 
 test("Confluence content the tree would otherwise lose is imported or named: drafts, deleted rows, and second body rows", () => {
+  const originalDate='2019-02-03T10:00:00-05:00';
   const parsed = confluence(syntheticConfluenceCsvExport({
     tables: {
       content: [
-        contentHeader,
-        page({ contentid: "70", title: "Live" }),
-        page({ contentid: "71", title: "Never published", content_status: "draft" }),
-        page({ contentid: "72", title: "Binned", content_status: "deleted" }),
+        [...contentHeader,'creator','creationdate'],
+        [...page({ contentid: "70", title: "Live" }),'',''],
+        [...page({ contentid: "71", title: "Never published", content_status: "draft" }),'',''],
+        [...page({ contentid: "72", title: "Binned", content_status: "deleted" }),'',''],
+        [...page({contentid:'73',title:'Announcement',contenttype:'BLOGPOST'}),'original-author',originalDate],
+        [...page({contentid:'74',title:'Unpublished news',contenttype:'BLOGPOST',content_status:'draft'}),'original-author',originalDate],
       ],
+      user_mapping:[['user_key','username'],['original-author','Original author']],
       bodycontent: [
         ["bodycontentid", "body", "contentid", "bodytypeid"],
         ["1", "<p>Live body</p>", "70", "2"],
         ["2", '"{\\"plugin\\":true}"', "70", "1"],
         ["3", "<p>Draft body</p>", "71", "2"],
+        ['4','<p>Announcement body</p>','73','2'],
       ],
     },
   }));
@@ -164,6 +169,12 @@ test("Confluence content the tree would otherwise lose is imported or named: dra
   expect(parsed.pages.some((entry) => entry.title === "Binned")).toBe(false);
   expect(parsed.report.unmapped.some((entry) => entry.label.includes('status "deleted"'))).toBe(true);
   expect(parsed.report.unmapped.some((entry) => entry.label.includes("body type 1 is a plugin payload"))).toBe(true);
+  const post=parsed.pages.find(page=>page.sourceId==='confluence-page:73')!;
+  expect(post.post?.publishedAt).toBe(new Date(originalDate).toISOString());
+  expect(post.post?.authorSourceId).toBe(parsed.members.find(member=>member.displayName==='Original author')?.sourceId);
+  expect(shape(post.blocks)).toEqual([['paragraph',undefined,'Announcement body']]);
+  expect(parsed.pages.find(page=>page.sourceId==='confluence-page:74')?.lifecycle).toBe('draft');
+  expect(parsed.report.unmapped.some(entry=>entry.label.includes('blogpost has no Slate equivalent'))).toBe(false);
 });
 
 test("Confluence storage format loses no text: links in paragraphs, images in lists and headings, and macro prose", () => {

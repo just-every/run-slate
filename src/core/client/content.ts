@@ -4,6 +4,8 @@ import type { EditorBlock } from "../features/editor/ui/types";
 import { mutate, operationKey, request } from "./transport";
 
 export interface PageProperties {
+  reviewDate?: string|null;
+  post?: import('../features/posts/types').PostMetadata;
   title?: string;
   icon?: unknown;
   coverFileId?: string | null;
@@ -12,7 +14,7 @@ export interface PageProperties {
   smallText?: boolean;
   fullWidth?: boolean;
 }
-export type DocumentView = PageDocument & { properties?: PageProperties; parentPageId?: string | null };
+export type DocumentView = PageDocument & { post?:{memberId:string|null;displayName:string;publishedAt:string|null}; properties?: PageProperties; parentPageId?: string | null };
 export type ContentReceipt = {
   value: { pageId: string; revisionId: string; blockRevisionId?: string; previousRevisionId?: string };
   receipt: MutationReceipt;

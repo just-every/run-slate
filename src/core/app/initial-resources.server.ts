@@ -38,7 +38,7 @@ export async function initialResources(ctx: FeatureContext, url: URL, recordVisi
   } else if (url.pathname === '/app/containers' || url.pathname === '/app/containers/') {
     add('/api/containers?archived=false', () => listContainers(ctx, false));
   } else if (url.pathname === '/app/templates' || url.pathname === '/app/templates/') {
-    add('/api/templates?state=active&query=&category=&containerId=', () => listTemplates(ctx, { state: 'active', query: '', category: '', containerId: '' }));
+    add('/api/templates?state=active&query=', () => listTemplates(ctx, { state: 'active', query: '', category: '', containerId: '' }));
   } else if (url.pathname === '/app/inbox') {
     add('/api/notifications?audience=', () => notificationList(ctx, {}));
   } else if (url.pathname === '/app/review') {

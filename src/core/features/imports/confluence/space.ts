@@ -5,6 +5,7 @@ import { createImportReport, reportCreated, reportMissingArchiveFile, reportUnma
 import { importSafetyLimits } from "../safety";
 import type { ImportBlockKind, ImportParseOptions, ImportSourceFile, ImportedBlock, ImportedContainer, ImportedGrant, ImportedMedia, ImportedPage, ImportedRevision, NormalizedImport } from "../types";
 import { confluenceGrants, confluenceMembers } from "./grants";
+import {csvPost} from './posts';
 import { parseStorageFormat } from "./storage";
 import { readConfluenceExport, requireTable, tableRows, type ConfluenceTables } from "./tables";
 
@@ -17,9 +18,9 @@ import { readConfluenceExport, requireTable, tableRows, type ConfluenceTables } 
  */
 
 const storageBodyType = "2";
-const importedAsPage = new Set(["PAGE"]);
+const importedAsPage = new Set(["PAGE", "BLOGPOST"]);
 const importedAsEmptyPage = new Set(["FOLDER"]);
-const namedNotImported = new Set(["BLOGPOST", "WHITEBOARD", "DATABASE", "SLIDE", "EMBED", "COMMENT", "ATTACHMENT", "CUSTOM", "SPACEDESCRIPTION"]);
+const namedNotImported = new Set(["WHITEBOARD", "DATABASE", "SLIDE", "EMBED", "COMMENT", "ATTACHMENT", "CUSTOM", "SPACEDESCRIPTION"]);
 
 interface ContentRow extends Record<string, string> {
   contentid: string;
@@ -276,6 +277,7 @@ export function parseConfluenceCsvSpace(files: Map<string, Uint8Array>, source: 
       containerSourceId: containerOf(row),
       title: row.title,
       icon: icons.get(row.contentid),
+      post: row.contenttype === 'BLOGPOST' ? csvPost(row,members,report) : undefined,
       blocks,
       lifecycle: neverPublished ? "draft" : draft ? "live-with-unpublished-changes" : "live",
       labels: labelsByContent.get(row.contentid) ?? [],
@@ -291,12 +293,15 @@ export function parseConfluenceCsvSpace(files: Map<string, Uint8Array>, source: 
   // export writes is an absolute URL; an intra-space page URL resolves to the
   // imported page, an `ac:link` resolves by title, and an attachment reference
   // resolves to the imported file.
-  const pagesByTitle = new Map(pages.map((page) => [page.title, page.sourceId]));
+  const pagesByTitle = new Map(pages.filter(page=>!page.post).map((page) => [page.title, page.sourceId]));
+  const postsByTitle = new Map<string,string[]>();
+  for(const post of pages.filter(page=>page.post))postsByTitle.set(post.title,[...(postsByTitle.get(post.title)??[]),post.sourceId]);
   const fixUp = (blocks: ImportedBlock[], sourceId: string) => {
     walkBlocks(blocks, (block) => {
       for (const link of block.links) {
         if (link.kind === "page" && !link.targetSourceId) {
-          const target = pagesByTitle.get(link.href);
+          const posts=postsByTitle.get(link.href);
+          const target = link.sourceResourceKind==='post'?(posts?.length===1?posts[0]:undefined):pagesByTitle.get(link.href);
           if (target) link.targetSourceId = target;
           else { link.kind = "external"; note("Confluence page link names a page the export does not carry", sourceId, link.href); }
           continue;
@@ -307,7 +312,7 @@ export function parseConfluenceCsvSpace(files: Map<string, Uint8Array>, source: 
           else { link.kind = "external"; reportMissingArchiveFile(report, link.href, sourceId); }
           continue;
         }
-        const contentid = link.href.match(/\/pages\/(\d+)/)?.[1] ?? link.href.match(/[?&]pageId=(\d+)/i)?.[1];
+        const contentid = link.href.match(/\/pages\/(\d+)/)?.[1] ?? link.href.match(/\/blog\/\d{4}\/\d{1,2}\/\d{1,2}\/(\d+)/)?.[1] ?? link.href.match(/[?&]pageId=(\d+)/i)?.[1];
         const target = contentid ? pageIds.get(contentid) : undefined;
         if (target) { link.kind = "page"; link.targetSourceId = target; }
       }

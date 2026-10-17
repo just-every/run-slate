@@ -1,3 +1,5 @@
+import {createPostsRoutes} from '../features/posts/routes';
+import {createHomesRoutes} from '../features/homes/routes';
 import {createWorkItemsRoutes} from '../features/work-items/routes';
 import {createReminderRoutes} from '../features/reminders/routes';
 import { createInstallationExportRoutes } from '../features/portability/installation-routes';
@@ -64,6 +66,8 @@ export function mountFeatures(app: Hono<AppEnvironment>): Hono<AppEnvironment> {
   app.route("/api/sharing", createSharingRoutes());
   app.route("/api/databases", createDatabasesRoutes());
   app.route("/api/templates", createTemplatesRoutes());
+  app.route("/api/posts",createPostsRoutes());
+  app.route("/api/homes",createHomesRoutes());
   app.route("/api/automation", createAutomationRoutes());
   app.route("/api/comments", createCommentsRoutes());
   app.route("/api/status", createStatusRoutes());

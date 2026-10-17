@@ -44,6 +44,7 @@ function commitPublication(ctx: FeatureContext, id: string, input: PublicationIn
       }
       if (scheduled && Date.parse(input.publishAt!) <= Date.parse(ctx.now)) throw new ApiProblem(400, 'INVALID_SCHEDULE', 'Schedule must be in the future.');
       const s = await snapshot(ctx, p);
+      if(!scheduled&&s.properties.post?.origin==='native'&&s.properties.post.publishedAt===null)s.properties.post={...s.properties.post,publishedAt:ctx.now};
       if (input.publishAsMemberId) {
         const attribution = await ctx.db.prepare("SELECT display_name FROM members WHERE id=? AND workspace_id=? AND status='active'").bind(input.publishAsMemberId, ctx.actor.workspaceId).first<{display_name:string}>();
         if (!attribution) throw new ApiProblem(400, 'INVALID_ATTRIBUTION', 'Choose an active member.');

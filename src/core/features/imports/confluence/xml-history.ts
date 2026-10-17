@@ -5,7 +5,7 @@ import {nameMatches, property, propertyIds, type ConfluenceEntity} from './xml-e
 /** Page revisions are Page objects too. Resolve the exported identity graph
  * before producing any live page, parent, link or attachment owner. */
 export function xmlHistory(entities: ConfluenceEntity[], report: ImportReport) {
-  const candidates = entities.filter(entity => nameMatches(entity, 'Page') || nameMatches(entity, 'Folder'));
+  const candidates = entities.filter(entity => nameMatches(entity, 'Page') || nameMatches(entity, 'Folder') || nameMatches(entity, 'BlogPost'));
   const byId = new Map<string, ConfluenceEntity>();
   const duplicate = new Set<string>();
   for (const entity of candidates) {

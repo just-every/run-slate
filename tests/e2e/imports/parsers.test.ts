@@ -15,7 +15,14 @@ test("synthetic Notion archive preserves the page tree, page links, CSV fields, 
 });
 
 test("synthetic Confluence archive keeps unmapped restrictions closed and reports unsupported constructs", () => {
-  const parsed = parseImport("confluence-space", { name: "synthetic-confluence.zip", bytes: syntheticConfluenceArchive() });
+  // Genuine incumbent blog acceptance remains uncovered: the committed real export has no blogs.
+  const blogDate='2020-06-04T09:30:00+02:00';
+  const files=unzipSync(syntheticConfluenceArchive());
+  files['entities.xml']=strToU8(new TextDecoder().decode(files['entities.xml']).replace('<object class="BlogPost"><property name="id">blog-1</property></object>',
+    `<object class="ConfluenceUserImpl"><property name="id">writer-node</property><property name="key">writer-key</property><property name="displayName">Original writer</property></object>
+     <object class="BlogPost"><property name="id">blog-1</property><property name="spaceId">space-1</property><property name="title">News</property><property name="creationDate">${blogDate}</property><property name="creator"><object class="ConfluenceUserImpl"><id>writer-node</id></object></property><property name="body"><![CDATA[<p>Published news</p>]]></property></object>
+     <object class="BlogPost"><property name="id">blog-old</property><property name="originalVersion"><id>blog-1</id></property><property name="version">1</property><property name="title">Old news</property><property name="body"><![CDATA[<p>Earlier news</p>]]></property></object>`));
+  const parsed = parseImport("confluence-space", { name: "synthetic-confluence.zip", bytes: zipSync(files) });
   const overview = parsed.pages.find((page) => page.title === "Overview")!;
   const child = parsed.pages.find((page) => page.title === "Child")!;
   expect(overview.labels).toEqual(["team"]);
@@ -27,9 +34,14 @@ test("synthetic Confluence archive keeps unmapped restrictions closed and report
   expect(parsed.media[0]?.ownerPageSourceId).toBe(overview.sourceId);
   expect([...parsed.media[0]!.bytes]).toEqual([137, 80, 78, 71]);
   expect(parsed.pages.find((page) => page.title === "Legacy folder")?.blocks.length).toBe(0);
-  expect(parsed.report.unmapped.some((entry) => entry.label.includes("BlogPost"))).toBe(true);
+  const post=parsed.pages.find(page=>page.post)!;
+  expect(post.post?.publishedAt).toBe(new Date(blogDate).toISOString());
+  expect(post.post?.authorSourceId).toBe(parsed.members.find(member=>member.displayName==='Original writer')?.sourceId);
+  expect(post.blocks.map(block=>block.text)).toEqual(['Published news']);
+  expect(post.revisions.map(revision=>revision.blocks.map(block=>block.text))).toEqual([['Earlier news']]);
+  expect(parsed.pages.some(page=>page.title==='Old news')).toBe(false);
+  expect(parsed.report.unmapped.some((entry) => entry.label.includes("Unsupported Confluence BlogPost"))).toBe(false);
   // These added macros are synthetic parser evidence, separate from genuine IMP-010 acceptance.
-  const files = unzipSync(syntheticConfluenceArchive());
   const macros = '<ac:structured-macro ac:name="toc"><ac:parameter ac:name="maxLevel">2</ac:parameter></ac:structured-macro><p>Before <ac:structured-macro ac:name="status"><ac:parameter ac:name="title">Ready</ac:parameter><ac:parameter ac:name="colour">Blue</ac:parameter></ac:structured-macro> after.</p>';
   files['entities.xml'] = strToU8(new TextDecoder().decode(files['entities.xml']).replace('<h1>Overview</h1>', `<h1>Overview</h1>${macros}`));
   const mapped = parseImport('confluence-space', {name: 'synthetic-macros.zip', bytes: zipSync(files)}).pages.find(page => page.title === 'Overview')!;
@@ -67,7 +79,11 @@ test("generic EPUB, PDF, Markdown, HTML, text, and CSV import through their expl
     expect(paragraph.text).toBe('Before Done and Blocked after.');
     expect(paragraph.statuses?.map(status => [paragraph.text!.slice(status.textStart, status.textEnd), status.colour])).toEqual([['Done', 'green'], ['Blocked', 'red']]);
   }
-  const reportImport = parseImport('slate-readable', {name: 'reports.zip', bytes: zipSync({'slate-readable.json': strToU8(JSON.stringify({version: 1, pages: [{id: 'page-source', parentId: null, title: 'Reports', labels: [], blocks: [{id: 'report', blockType: 'task-report', content: {definition: {ancestorPageId: 'page-source', containerId: 'absent-container', assignee: {kind: 'member', memberId: 'absent-person'}, groupBy: 'page', orderBy: 'due', direction: 'asc', limit: 20}}, parentBlockId: null, treePosition: '0'}]}], media: [], report: []}))})});
+  const originalPost={origin:'native',publishedAt:new Date('2021-04-03T08:00:00Z').toISOString(),authorMemberId:'source-author'};
+  const reportImport = parseImport('slate-readable', {name: 'reports.zip', bytes: zipSync({'slate-readable.json': strToU8(JSON.stringify({version: 1, pages: [{id: 'page-source', parentId: null, title: 'Reports', labels: [], post:originalPost,postAuthorDisplayName:'Source writer', blocks: [{id: 'report', blockType: 'task-report', content: {definition: {ancestorPageId: 'page-source', containerId: 'absent-container', assignee: {kind: 'member', memberId: 'absent-person'}, groupBy: 'page', orderBy: 'due', direction: 'asc', limit: 20}}, parentBlockId: null, treePosition: '0'}]}], media: [], report: []}))})});
+  expect(reportImport.pages[0]?.post?.publishedAt).toBe(originalPost.publishedAt);
+  expect(reportImport.pages[0]?.post?.authorSourceId).toBe(originalPost.authorMemberId);
+  expect(reportImport.members.find(member=>member.sourceId===originalPost.authorMemberId)?.status).toBe('inactive-historical');
   const report = reportImport.pages[0]!.blocks[0]!;
   expect(report.canonicalReferences?.ancestorPageSourceId).toBe('page-source');
   const definition = (report.canonicalBlock!.content as {definition: {containerId: string; assignee: {memberId: string}}}).definition;

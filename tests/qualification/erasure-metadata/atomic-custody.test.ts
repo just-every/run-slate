@@ -4,6 +4,13 @@ import {fixture, reset, document} from '../authority/fixture';
 import {startImport, runImport, readImport} from '../../../src/core/features/imports/jobs';
 import {archivePage, permanentDeletePage} from '../../../src/core/features/archive/service';
 import {removeMember} from '../../../src/core/features/workspace/members';
+import {setContainerHome,setCompanyHub} from '../../../src/core/features/homes/configuration';
+import {createContainer} from '../../../src/core/features/containers/service';
+import {saveGrant} from '../../../src/core/features/sharing/grants';
+import {createPost} from '../../../src/core/features/posts/create';
+import {readPage} from '../../../src/core/features/pages/service';
+import {previewPublication} from '../../../src/core/features/lifecycle/publication-preview';
+import {publishPage} from '../../../src/core/features/lifecycle/service';
 import {storedText} from './helpers';
 
 beforeEach(reset);
@@ -20,6 +27,10 @@ test('Erasure ARCH-006 BASE-DATA-003: mapped and queued import metadata shares t
   const queuedName = `q11-queued-${crypto.randomUUID()}.txt`;
   const queued = await startImport(ctx, {operationKey: crypto.randomUUID(), format: 'text', source: {name: queuedName, bytes: new TextEncoder().encode('Queued private document')}, destination: {pageId: page.id, expectedRevisionId: revisionId!, mode: 'append'}});
   const queuedImport = await readImport(ctx, queued.id);
+  const containerId=await ctx.db.prepare('SELECT container_id FROM pages WHERE id=?').bind(page.id).first<string>('container_id');
+  await setContainerHome(ctx,containerId!,{operationKey:crypto.randomUUID(),expectedRevisionId:null,pageId:page.id});
+  await saveGrant(ctx,{operationKey:crypto.randomUUID(),targetKind:'page',targetId:page.id,principalKind:'workspace',principalId:ctx.actor.workspaceId,level:'view'});
+  await setCompanyHub(ctx,{operationKey:crypto.randomUUID(),expectedRevisionId:null,pageId:page.id,linkPageIds:[parent.id],keyPageIds:[]});
   await archivePage(ctx, page.id, {operationKey: crypto.randomUUID(), expectedRevisionId: revisionId!, action: 'trash'});
   const before = await storedText(ctx.db), input = {operationKey: crypto.randomUUID(), confirmedPageIds: [page.id]};
   // Fail a later canonical write in the REAL D1 transaction, after metadata redaction.
@@ -36,6 +47,8 @@ test('Erasure ARCH-006 BASE-DATA-003: mapped and queued import metadata shares t
   const after = await storedText(ctx.db);
   expect(after).not.toContain(name);
   expect(after).not.toContain(queuedName);
+  const homes=(await ctx.db.prepare("SELECT content_json FROM core_entity_revisions WHERE entity_kind IN ('container-home','company-hub')").all<{content_json:string}>()).results;
+  expect(homes.length).toBeGreaterThan(0);for(const home of homes)expect(home.content_json).not.toContain(page.id);
   for (const id of [mapped!.id, queued.id]) {
     const history = (await ctx.db.prepare("SELECT content_json,content_hash,author_member_id FROM core_entity_revisions WHERE entity_kind='import' AND entity_id=?").bind(id).all()).results;
     expect(history.length).toBeGreaterThan(0);
@@ -56,9 +69,20 @@ test('Erasure BASE-DATA-003: member erasure clears retained import custody witho
     return readImport(actor, job.id);
   }
   const erased = await stage(f.reader, erasedName), kept = await stage(f.owner, keptName);
+  const containerId=(await createContainer(ctx,{operationKey:crypto.randomUUID(),name:'Retained announcements',visibility:'open'})).value.id;
+  await saveGrant(ctx,{operationKey:crypto.randomUUID(),targetKind:'container',targetId:containerId,principalKind:'member',principalId:f.reader,level:'edit'});
+  const author=f.context(f.reader),postId=(await createPost(author,{operationKey:crypto.randomUUID(),containerId,title:'Published operational handover'})).value.pageId;
+  const draft=await readPage(author,postId),review=await previewPublication(author,postId,{expectedRevisionId:draft.page.revisionId});
+  await publishPage(author,postId,{operationKey:crypto.randomUUID(),expectedRevisionId:draft.page.revisionId,previewFingerprint:review.previewFingerprint});
+  const publication=(await readPage(ctx,postId)).properties.post!;
+  expect(publication.authorMemberId).toBe(f.reader);expect(publication.publishedAt).toBeTruthy();
   expect(await storedText(ctx.db)).toContain(erasedName);
   expect((await removeMember(ctx, {operationKey: crypto.randomUUID(), memberId: f.reader, erase: true})).value.erased).toBe(true);
   expect(await storedText(ctx.db)).not.toContain(erasedName);
+  const retained=(await readPage(ctx,postId)).properties.post!;
+  expect(retained.authorMemberId).toBeNull();expect(retained.publishedAt).toBe(publication.publishedAt);
+  const postHistory=(await ctx.db.prepare('SELECT properties_json FROM page_revisions WHERE page_id=?').bind(postId).all<{properties_json:string}>()).results;
+  for(const row of postHistory)expect(JSON.parse(row.properties_json).post.authorMemberId).toBeNull();
   expect(await storedText(ctx.db)).toContain(keptName);
   expect(await ctx.files.head(erased.archive_key)).toBeNull();
   expect(await ctx.files.head(kept.archive_key)).not.toBeNull();

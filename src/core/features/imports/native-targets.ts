@@ -148,6 +148,14 @@ async function preservedSnapshot(db:D1Database,destination:string,effects:D1Undo
     const current=await adapter.read(db,destination,expected.targetKind,expected.targetId)??null;
     observations.push({effectId:effect.provenance.id,current,entity:{table:rootTable(expected.targetKind),recordId:expected.targetId},guard:current?sql('EXISTS(SELECT 1 FROM import_native_targets WHERE import_id=? AND kind=? AND target_id=? AND revision=?)',destination,expected.targetKind,expected.targetId,current.revision):adapter.matches(null,destination,expected.targetKind,expected.targetId)});
     const queries:Relation[]=[];
+    if(unit.kind==='member') {
+      const posts=(await db.prepare("SELECT DISTINCT page_id FROM page_revisions WHERE json_extract(properties_json,'$.post.authorMemberId')=?").bind(unit.id).all<{page_id:string}>()).results;
+      for(const post of posts) {
+        const dependentEffectId=pageEffect(post.page_id),cause={table:'pages',recordId:post.page_id,field:'post.authorMemberId'};
+        if(dependentEffectId)dependencies.push({requiredEffectId:effect.provenance.id,dependentEffectId,order:false,cause,evidence:{reason:'Historical author of an imported post'}});
+        else if(await stays(post.page_id))dependencies.push({requiredEffectId:effect.provenance.id,cause,evidence:{reason:'Historical author of a kept post'}});
+      }
+    }
     if(unit.kind==='member'||unit.kind==='group')for(const table of ['page_grants','container_grants'])queries.push({table,column:'principal_id',target:unit.id});
     if(unit.kind==='container')queries.push({table:'pages',column:'container_id',target:unit.id});
     if(unit.kind==='page')queries.push(...pageRelations(unit));

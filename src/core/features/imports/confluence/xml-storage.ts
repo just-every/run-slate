@@ -7,7 +7,8 @@ import {xmlMediaReference} from './xml-media';
 import type {XmlPageResolver} from './xml-resource-context';
 
 const escape = (value: string) => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const supportedStorage = new Set(['ac:image', 'ac:link', 'ac:link-body', 'ac:plain-text-link-body', 'ac:structured-macro', 'ac:parameter', 'ac:plain-text-body', 'ac:rich-text-body', 'ac:layout', 'ac:layout-section', 'ac:layout-cell', 'ac:task-list', 'ac:task', 'ac:task-id', 'ac:task-status', 'ac:task-body', 'ac:placeholder', 'ac:inline-comment-marker', 'ri:attachment', 'ri:page', 'ri:url']);
+const supportedStorage = new Set(['ac:image', 'ac:link', 'ac:link-body', 'ac:plain-text-link-body', 'ac:structured-macro', 'ac:parameter', 'ac:plain-text-body', 'ac:rich-text-body', 'ac:layout', 'ac:layout-section', 'ac:layout-cell', 'ac:task-list', 'ac:task', 'ac:task-id', 'ac:task-status', 'ac:task-body', 'ac:placeholder', 'ac:inline-comment-marker', 'ri:attachment', 'ri:page', 'ri:blog-post', 'ri:url']);
+const pageResources=(node:MarkupNode)=>[...findElements(node,'ri:page'),...findElements(node,'ri:blog-post')];
 
 /** Resolve XML resources in their exported identity/space context before the
  * shared renderer turns storage markup into blocks. Unresolved resources keep
@@ -34,10 +35,10 @@ export function xmlStorageBlocks(body: string, sourceId: string, owner: string, 
     node.attrs.push({name, value});
   };
   const attachmentReference = (node: MarkupNode): {file?: ImportedMedia; reason?: string} => {
-    const attrs = attributesOf(node), pages = findElements(node, 'ri:page');
+    const attrs = attributesOf(node), pages = pageResources(node);
     if (pages.length > 1) return {reason: 'multiple attachment owner page references'};
     const page = pages[0];
-    const resolved: ReturnType<XmlPageResolver> = page ? resolvePage(attributesOf(page), owner) : {owner};
+    const resolved: ReturnType<XmlPageResolver> = page ? resolvePage(attributesOf(page), owner,elementName(page)==='ri:blog-post'?'post':undefined) : {owner};
     if (!resolved.owner) return {reason: `attachment owner: ${resolved.reason}`};
     const targetOwner = resolved.owner;
     const id = attrs['ri:content-id'], name = attrs['ri:filename'], version = attrs['ri:version-at-save'] ?? attrs['ri:version'];
@@ -63,9 +64,9 @@ export function xmlStorageBlocks(body: string, sourceId: string, owner: string, 
       return;
     }
     if (tag === 'ac:image' || tag === 'ac:link') {
-      const attachments = findElements(node, 'ri:attachment'), pages = findElements(node, 'ri:page');
+      const attachments = findElements(node, 'ri:attachment'), pages = pageResources(node);
       const attachment = attachments[0];
-      if (attachments.length > 1 || (attachment && pages.some(page => !findElements(attachment, 'ri:page').includes(page))) || (!attachment && pages.length > 1)) {
+      if (attachments.length > 1 || (attachment && pages.some(page => !pageResources(attachment).includes(page))) || (!attachment && pages.length > 1)) {
         const label = textOf(node).trim() || '(conflicting resource references)';
         const token = resource(label, attachment ? 'attachment' : 'page');
         const detail = JSON.stringify({pages: pages.map(attributesOf), attachments: attachments.map(attributesOf)});
@@ -81,12 +82,12 @@ export function xmlStorageBlocks(body: string, sourceId: string, owner: string, 
         if (!resolved.file) note('Confluence attachment reference has no unambiguous imported owner or version', JSON.stringify({attributes: attrs, pages: pages.map(attributesOf), reason: resolved.reason}));
         // The shared renderer searches ri:page first. This nested ri:page is
         // attachment ownership, already resolved above, not a page link.
-        const removeOwner = (node: MarkupNode) => { if ('childNodes' in node) { node.childNodes = node.childNodes.filter(child => elementName(child) !== 'ri:page'); childNodes(node).forEach(removeOwner); } };
+        const removeOwner = (node: MarkupNode) => { if ('childNodes' in node) { node.childNodes = node.childNodes.filter(child => !['ri:page','ri:blog-post'].includes(elementName(child)??'')); childNodes(node).forEach(removeOwner); } };
         removeOwner(attachment);
       } else if (tag === 'ac:link') {
-        const page = findElements(node, 'ri:page')[0];
+        const page = pageResources(node)[0];
         if (page) {
-          const attrs = attributesOf(page), resolved = resolvePage(attrs, owner);
+          const attrs = attributesOf(page), resolved = resolvePage(attrs, owner,elementName(page)==='ri:blog-post'?'post':undefined);
           const label = [attrs['ri:content-title'], attrs['ri:content-id']].find(value => value?.trim()) ?? '(missing identity)';
           setAttribute(page, 'ri:content-title', resource(label, 'page', resolved.owner));
           if (!resolved.owner) note('Confluence page reference has no unambiguous exported identity', JSON.stringify({attributes: attrs, reason: resolved.reason}));
@@ -110,7 +111,7 @@ export function xmlStorageBlocks(body: string, sourceId: string, owner: string, 
           if (block.kind === 'media' && reference.target) block.mediaSourceId = reference.target;
           continue;
         }
-        const pageId = link.href.match(/[?&]pageId=([^&#/]+)/i)?.[1] ?? link.href.match(/^page:(.+)$/i)?.[1];
+        const pageId = link.href.match(/[?&]pageId=([^&#/]+)/i)?.[1] ?? link.href.match(/\/(?:pages|blog\/\d{4}\/\d{1,2}\/\d{1,2})\/([^/#?]+)/)?.[1] ?? link.href.match(/^page:(.+)$/i)?.[1];
         const target = pageId ? aliases.get(pageId) : undefined;
         const attachment = xmlMediaReference(link.href, owner, media, aliases);
         if (target) { link.kind = 'page'; link.targetSourceId = target; }

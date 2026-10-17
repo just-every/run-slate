@@ -1,4 +1,5 @@
 import {xmlContent} from './xml-content';
+import {xmlPost} from './posts';
 import {entities, nameMatches, property, propertyId, propertyIds, type ConfluenceEntity} from './xml-entities';
 import {xmlHistory} from './xml-history';
 import {xmlMedia} from './xml-media';
@@ -65,6 +66,7 @@ export function parseConfluenceXmlSpace(files: Map<string, Uint8Array>, source: 
     if (invalidParent) reportUnmapped(report, 'Confluence parent reference could not resolve to a current page; access remains closed', sourceId, parents.map(id => `confluence-page:${id}`).join(', '));
     const page: ImportedPage = {
       sourceId, sourceIdentityKind: 'native', title,
+      post:nameMatches(entity,'BlogPost')?xmlPost(entity,allEntities,restrictions.members,report):undefined,
       parentSourceId: invalidParent ? undefined : parent,
       containerSourceId: `confluence-space:${propertyId(entity, 'spaceId', 'space') ?? spaces[0]!.id}`,
       blocks: isFolder ? [] : blocksFor(entity, sourceId, sourceId), lifecycle: pageLifecycle(entity),
@@ -77,7 +79,7 @@ export function parseConfluenceXmlSpace(files: Map<string, Uint8Array>, source: 
     reportCreated(report, 'page', title, sourceId); return page;
   });
   for (const page of pages) page.revisions.sort((a, b) => (a.ordinal ?? Number.MAX_SAFE_INTEGER) - (b.ordinal ?? Number.MAX_SAFE_INTEGER) || a.sourceId.localeCompare(b.sourceId));
-  for (const entity of allEntities) if (['Whiteboard', 'BlogPost', 'Calendar'].some(name => nameMatches(entity, name))) reportUnmapped(report, `Unsupported Confluence ${entity.className.split('.').at(-1)}`, `confluence:${entity.id}`);
+  for (const entity of allEntities) if (['Whiteboard', 'Calendar'].some(name => nameMatches(entity, name))) reportUnmapped(report, `Unsupported Confluence ${entity.className.split('.').at(-1)}`, `confluence:${entity.id}`);
   if (pages.some(page => page.restricted)) reportWarning(report, 'Restrictions remain closed unless explicitly mapped to existing workspace members or groups; the importing member retains recovery access');
   return {format: 'confluence-space', sourceName: source.name, containers, members: restrictions.members, pages, databases: [], records: [], media, report};
 }

@@ -5,6 +5,7 @@ import type {NormalizedImport} from './types';
 export interface PrincipalMapping {sourceId:string; kind:'member'|'group'; targetId:string}
 export function sourcePrincipals(parsed:NormalizedImport) {
   const people=new Map(parsed.members.map(p=>[p.sourceId,{sourceId:p.sourceId,kind:'member' as const,label:p.displayName}]));
+  for(const page of parsed.pages)if(page.post?.authorSourceId&&!people.has(page.post.authorSourceId))people.set(page.post.authorSourceId,{sourceId:page.post.authorSourceId,kind:'member',label:page.post.authorDisplayName??page.post.authorSourceId});
   const groups=new Map<string,{sourceId:string;kind:'group';label:string}>();
   for(const item of [...parsed.pages,...parsed.containers])for(const grant of item.grants){
     if(grant.general)continue;

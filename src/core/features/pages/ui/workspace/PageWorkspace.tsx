@@ -36,16 +36,17 @@ import type { Crumb } from "../../../../app/ui/header/TopBar";
 
 /** What a host adds around a page: its own location, extra More-menu items, and properties shown beneath the byline. */
 export interface PageHost {
+  embedded?:boolean;
   /** The crumbs before the page's own title; defaults to "Pages". */
   trail?: Crumb[];
   /** Extra items for the top bar's More menu, listed after Export page. */
   moreItems?: ReactNode;
   properties?: ReactNode;
 }
-export function PageWorkspace({ pageId, host }: { pageId: string; host?: PageHost }) {
+export function PageWorkspace({ pageId, host, embedded }: { pageId: string; host?: PageHost; embedded?:boolean }) {
   const {member, workspace}=useWorkspace();
   return <RequestState loading={workspace.loading} error={workspace.error} retry={workspace.reload}>
-    <PageBoundary key={`${member.workspaceId}:${member.id}:${workspace.data?.id ?? ''}:${pageId}`} pageId={pageId} host={host}/>
+    <PageBoundary key={`${member.workspaceId}:${member.id}:${workspace.data?.id ?? ''}:${pageId}`} pageId={pageId} host={embedded?{...host,embedded:true}:host}/>
   </RequestState>;
 }
 function PageBoundary({pageId,host}:{pageId:string;host?:PageHost}) {
@@ -246,7 +247,7 @@ function LoadedPage({
   }
   return (
     <>
-      <PageTopBar
+      {!host?.embedded?<PageTopBar
         trail={[...trail, { label: document.page.title || "Untitled", suffix: document.policyProfile["page.status.v1"] === "verification-only" ? <PageStatusBadge document={document}/> : null }]}
         flagship={flagship}
         detail={detail}
@@ -261,7 +262,7 @@ function LoadedPage({
           onPresent={() => {setPresent(true);setDetail(null);}}
           onOpenPanel={(kind, returnTo) => {setSelection(undefined);requestedReturn.current=returnTo;setDetail(kind);}}
         />}
-      />
+      />:null}
       {present ? (
         <PagePresentation
           title={title}
@@ -269,9 +270,9 @@ function LoadedPage({
           onClose={() => setPresent(false)}
         />
       ) : null}
-      <div className="content-frame">
+      <div className={host?.embedded?"min-w-0":"content-frame"}>
         <article
-          className={`main page-document ${document.properties?.smallText ? "page-small-text" : ""} ${document.properties?.fullWidth ? "page-full-width" : ""}`}
+          className={`${host?.embedded?"":"main "}page-document ${document.properties?.smallText ? "page-small-text" : ""} ${document.properties?.fullWidth ? "page-full-width" : ""}`}
           data-typeface={document.properties?.typeface ?? "default"}
         >
           {document.page.lifecycle === "draft" ? <p className="draft-label">Private draft</p> : null}

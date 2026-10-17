@@ -29,8 +29,11 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
   const containers = useResource<{ items: { id: string; name: string }[] }>(
     "/api/containers",
   );
-  const items = useResource<{ items: Template[] }>(
-    `/api/templates?state=${state}&query=${encodeURIComponent(query)}&category=${encodeURIComponent(category)}&containerId=${encodeURIComponent(container)}`,
+  const filters = new URLSearchParams({ state, query });
+  if (category) filters.set('category', category);
+  if (container) filters.set('containerId', container);
+  const items = useResource<{ items: Template[]; categories: string[] }>(
+    `/api/templates?${filters}`,
   );
   const [selected, setSelected] = useState<string | undefined>(templateId);
   const preview = useResource<Template>(
@@ -61,7 +64,7 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
               type="search"
             />
           </label>
-          <label>Category<input value={category} onChange={event=>setCategory(event.target.value)}/></label>
+          <label>Category<input list="template-categories" value={category} onChange={event=>setCategory(event.target.value)}/><datalist id="template-categories">{items.data?.categories?.map(value=><option key={value} value={value}/>)}</datalist></label>
           <label>
             Collection
             <select
@@ -143,6 +146,7 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
                 {
                   operationKey: operationKey(),
                   expectedRevisionId: preview.data!.revisionId,
+                  ...(form.get('reviewDate') ? { reviewDate: String(form.get('reviewDate')) } : {}),
                   containerId: preview.data!.applyDestinations![Number(form.get("destination"))].containerId,
                   parentPageId: preview.data!.applyDestinations![Number(form.get("destination"))].parentPageId ?? undefined,
                 },
@@ -159,6 +163,11 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
                 {preview.data.applyDestinations?.map((item,index)=><option key={`${item.containerId}:${item.parentPageId}`} value={index}>{item.label}</option>)}
               </select>
             </label>
+            {preview.data.snapshot?.applicationDefaults?.reviewDate === 'choose-date' ? <label>
+              Review date
+              <input name="reviewDate" type="date" required />
+            </label> : null}
+            {preview.data.snapshot?.applicationDefaults?.owner === 'applying-member' ? <p>You will own this page. You can change its owner in page properties after creating it.</p> : null}
             <p>
               This creates an editable copy. The original template stays
               unchanged.

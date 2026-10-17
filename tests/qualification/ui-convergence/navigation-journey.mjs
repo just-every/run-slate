@@ -1,7 +1,9 @@
+import {starterTemplatesJourney} from '../../e2e/templates/starter-journey.mjs';
 import { expect } from '@playwright/test';
 import { accessible, openNavigation } from './browser-support.mjs';
 
-export async function secondaryCreateDestinations({ page, origin }) {
+export async function secondaryCreateDestinations(state) {
+  const {page,origin}=state;
   await page.getByRole('button', { name: 'Create', exact: true }).click();
   await page.getByRole('menuitem', { name: 'Database', exact: true }).click();
   const database = page.getByRole('dialog', { name: 'Create a database', exact: true });
@@ -24,6 +26,7 @@ export async function secondaryCreateDestinations({ page, origin }) {
   await expect(page.locator('.topbar').getByText('Templates', { exact: true })).toBeVisible();
   await expect(page.getByRole('combobox', { name: 'Show', exact: true })).toBeVisible();
   await accessible(page, 'page from template destination');
+  await starterTemplatesJourney(state);
   await page.goto(origin + '/app', { waitUntil: 'networkidle' });
   await openNavigation(page);
 }

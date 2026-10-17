@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { validDate } from "../work-items/time";
 const id = z.string().min(1).max(160),
   key = z.string().min(8).max(160);
 export const saveInput = z.object({
@@ -23,4 +24,5 @@ export const applyInput = z.object({
   containerId: id,
   parentPageId: id.optional(),
   expectedRevisionId: id,
+  reviewDate: z.string().refine(validDate, 'Choose a valid review date.').optional(),
 });

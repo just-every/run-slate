@@ -1,3 +1,5 @@
+import {validatePageMetadata,validateNativePost} from './metadata';
+import {postByline} from '../posts/byline';
 import { taskEffects } from '../work-items/effects';
 import { authorScheduleProjections } from '../lifecycle/schedule-view';
 import { verificationState } from '../page-status/state';
@@ -72,9 +74,11 @@ export async function readPage(ctx: FeatureContext, id: string): Promise<PageDoc
     ]);
     const { props, mentions, blocks } = content;
     const verificationNow = v ? verificationState({ status_key: v.statusKey, revision_id: v.revisionId, expires_at: v.expiresAt }, p, ctx.now) : null;
-    return { lock: p.locked_at ? { lockedAt: p.locked_at, lockedByMemberId: locker ? p.locked_by_member_id : null, lockedByDisplayName: locker?.displayName ?? 'Former member' } : null, authorDisplayName: author?.displayName ?? 'Former member', ownerDisplayName: owner?.displayName ?? null, contributors: contributors.results, schedule, verification: v ? { ...v, ownerDisplayName: v.ownerDisplayName ?? 'Former member', ownerActive: !!v.ownerActive, state: verificationNow, lapsed: !!v.expiresAt && v.expiresAt <= ctx.now, current: verificationNow === 'current' } : undefined, mentions, page: { ...ref(p), ...projections.get(id), title: props.title }, blocks, properties: props, parentPageId: p.parent_page_id, createdAt: p.created_at, updatedAt: p.updated_at, authorMemberId: p.author_member_id, workingRevisionId: p.working_revision_id, publishedRevisionId: p.published_revision_id, permissions: { level: access.decision.level!, canEdit: canEdit && !p.archived_at && !p.locked_at, canUnlock: canEdit && !p.archived_at, canShare: access.decision.level === 'full' }, policyProfile };
+    const post=props.post?await postByline(ctx,props.post):undefined;
+    return { ...(post?{post}:{}),lock: p.locked_at ? { lockedAt: p.locked_at, lockedByMemberId: locker ? p.locked_by_member_id : null, lockedByDisplayName: locker?.displayName ?? 'Former member' } : null, authorDisplayName: author?.displayName ?? 'Former member', ownerDisplayName: owner?.displayName ?? null, contributors: contributors.results, schedule, verification: v ? { ...v, ownerDisplayName: v.ownerDisplayName ?? 'Former member', ownerActive: !!v.ownerActive, state: verificationNow, lapsed: !!v.expiresAt && v.expiresAt <= ctx.now, current: verificationNow === 'current' } : undefined, mentions, page: { ...ref(p), ...projections.get(id), title: props.title }, blocks, properties: props, parentPageId: p.parent_page_id, createdAt: p.created_at, updatedAt: p.updated_at, authorMemberId: p.author_member_id, workingRevisionId: p.working_revision_id, publishedRevisionId: p.published_revision_id, permissions: { level: access.decision.level!, canEdit: canEdit && !p.archived_at && !p.locked_at, canUnlock: canEdit && !p.archived_at, canShare: access.decision.level === 'full' }, policyProfile };
 }
 export async function createPage(ctx: FeatureContext, input: PageCreateInput) {
+    validateNativePost(input.properties,ctx.actor.id);
     return commitOperation(ctx, { operationKey: input.operationKey, action: 'pages.create', request: input, authorize: () => destination(ctx, input.containerId, input.parentPageId), prepare: async ({ revisionId }) => {
       if(input.properties)await validateUploadedAppearance(ctx,'',input.properties);
       return prepareCreatePage(ctx,input,revisionId);
@@ -89,6 +93,7 @@ export async function prepareCreatePage(ctx: FeatureContext, input: PageCreateIn
         throw new ApiProblem(400, 'INVALID_LIFECYCLE', 'New pages must be draft or live.');
     const p: PageProperties = { title: input.title, icon: null, coverFileId: null, ownerMemberId: ctx.actor.id, statusKey: null, labels: [], typeface: 'default', smallText: false, fullWidth: false, ...input.properties };
     validateProperties(p);
+    if(lifecycle==='live'&&p.post?.origin==='native'&&p.post.publishedAt===null)p.post={...p.post,publishedAt:ctx.now};
     if (p.statusKey) {
         const status = await ctx.db.prepare('SELECT requires_verification FROM status_entries WHERE workspace_id=? AND key=? AND retired_at IS NULL').bind(ctx.actor.workspaceId,p.statusKey).first<{requires_verification:number}>();
         if (!status) throw new ApiProblem(400, 'UNKNOWN_STATUS', 'Choose an active status.');
@@ -100,6 +105,7 @@ export async function prepareCreatePage(ctx: FeatureContext, input: PageCreateIn
     return { statements, entity: { id, kind: 'page', revisionId }, value: { pageId: id, revisionId } };
 }
 export function validateProperties(p: Partial<PageProperties>) {
+    validatePageMetadata(p);
     validateAppearance(p);
     if (p.title !== undefined && (typeof p.title !== 'string' || p.title.length > 1000))
         throw new ApiProblem(400, 'INVALID_TITLE', 'Title must be at most 1000 characters.');
@@ -109,6 +115,7 @@ export function validateProperties(p: Partial<PageProperties>) {
         throw new ApiProblem(400, 'INVALID_TYPEFACE', 'Unknown typeface.');
 }
 export async function updatePage(ctx: FeatureContext, id: string, input: PageUpdateInput) {
+    if(input.properties.post!==undefined)throw new ApiProblem(400,'POST_METADATA_SERVER_OWNED','Post authors and publication dates cannot be edited as page properties.');
     validateProperties(input.properties);
     return commitOperation(ctx, { operationKey: input.operationKey, action: 'pages.update', request: { id, ...input }, authorize: async () => { await requirePageLevel(ctx, id, input.properties.ownerMemberId !== undefined ? 'full' : 'edit'); }, prepare: async ({ revisionId }) => {
             const page = await pageRow(ctx, id);

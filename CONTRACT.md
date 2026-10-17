@@ -831,14 +831,14 @@ A container has a blog: dated posts with an author, a cover and comments that ap
 
 *Acceptance:* a browser journey in which one member publishes a post, a follower gets the notification and sees the post on Home, and importing a Confluence space with blog posts creates posts that keep their dates and authors.
 
-*Status:* missing. The Confluence importer reports blogs as unmapped (`IMP-003`).
+*Status:* partial. Native ordinary-page posts, publication dates and authors, covers, comments, ACL-filtered feeds and follower notifications ship (`src/core/features/posts/routes.ts`, `tests/profile/homes-posts-journey.ts`). Confluence CSV/XML blog metadata mapping has parser and import evidence (`tests/e2e/imports/parsers.test.ts`); native 1440/390 browser acceptance and a genuine Confluence blog fixture remain unproven.
 
 #### CONT-011 — Space home and company hub.
 Each container has an editable home page that its index opens first. Workspace owners curate a company hub: one page that every member sees from Home, made of chosen links, a news feed of announcement posts and verified key pages.
 
 *Acceptance:* a browser journey in which an owner builds a hub, a new member's first Home shows it, and the hub's links show each reader only pages that reader can read.
 
-*Status:* partial. A container index with names, descriptions and access ships (`src/core/features/containers/service.ts`, `tests/qualification/policies/container-links.test.ts`); there are no curated container homes or hub.
+*Status:* partial. Ordinary-page space homes, owner-curated workspace-readable company hubs, filtered chosen links, verified key pages and company news ship (`src/core/features/homes/routes.ts`, `tests/profile/homes-posts-journey.ts`). HTTP evidence includes a new member and private-link filtering; native browser acceptance at1440/390 remains unproven.
 
 #### CONT-012 — Watch a container.
 A member can watch a whole container. For each page in it the member can read, a watched container delivers page creation, edits, moves in or out, archiving or trashing, and comments and replies, as one inbox item each (`NOTIF-002`) or as one line each in a digest under `NOTIF-005`. Edits are coalesced into one item per page, per author, per editing session (`COLLAB-005`'s window). A page the member cannot read, and every draft (`LIFE-002`), produces nothing. A member who watches both a page and its container gets one item, not two. Blog posts (`CONT-010`) arrive the same way. Home shows a Following section with the same events for the member's watched pages and containers; it is personal, not a workspace-wide feed (`NAV-001`). A container's administrators can see its watchers.
@@ -873,7 +873,7 @@ Slate ships starter templates that work from the first sign-in: meeting notes (a
 
 *Acceptance:* a browser journey finds each named starter template in the gallery by category, previews it, creates a page from meeting notes and assigns a task in it, and duplicates the retrospective into an editable copy while the shipped template stays unchanged.
 
-*Status:* partial. Shipped templates are protected from editing and erasure (`src/core/features/templates/service.ts`, `src/core/features/templates/erasure.ts`); no starter set ships.
+*Status:* partial. Eleven protected, categorised starter scaffolds ship from first sign-in, with native task/report blocks and applying-member policy ownership and review dates (`src/core/features/templates/starters/catalog.ts`, `tests/e2e/templates/starter-journey.mjs`). Native browser execution at1440/390, authentic issue embeds and checked runbooks under KEEP-006 remain unproven.
 
 #### NAV-007 — My tasks.
 Every member has a My tasks view, reachable from Home and the sidebar. It lists the tasks assigned to them and, in a second tab, the tasks they created, across every page they can read. It filters by open, completed and overdue, by container and by due-date range, sorts by due date (undated tasks last), page or container, and paginates stably while tasks change. Completing a task in the list completes it on its page under the page's edit check (`BLOCK-007`). A task leaves the list when its page becomes unreadable to the member, is a draft they cannot read (`LIFE-002`) or is in the trash. Guests see only tasks on pages shared with them.
@@ -1765,8 +1765,8 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 161 | 60 | 0 | 221 |
-| Target and push further | 3 | 57 | 45 | 105 |
-| All | 164 | 117 | 45 | 326 |
+| Target and push further | 3 | 58 | 44 | 105 |
+| All | 164 | 118 | 44 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2009,13 +2009,13 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `BLOCK-020` | Group mentions | target | partial | `tests/e2e/editor/rich-text-editing.test.tsx` | see the clause |
 | `BLOCK-021` | Attachment previews | target | missing | — | not implemented |
 | `BLOCK-022` | Attachment versions | target | missing | — | not implemented |
-| `CONT-010` | Space blog and announcements | target | missing | — | not implemented |
-| `CONT-011` | Space home and company hub | target | partial | `src/core/features/containers/service.ts` | see the clause |
+| `CONT-010` | Space blog and announcements | target | partial | `tests/profile/homes-posts-journey.ts` | see the clause |
+| `CONT-011` | Space home and company hub | target | partial | `tests/profile/homes-posts-journey.ts` | see the clause |
 | `CONT-012` | Watch a container | target | partial | `tests/flagship/discovery/following.test.ts` | Daily digest delivery under NOTIF-005 remains missing. In-app lifecycle notices, session coalescing, deduplication, administrator watchers and personal Following have Workers and 1440/390 browser evidence. |
 | `PAGE-016` | Autowatch on create and edit | target | done | `tests/flagship/discovery/following.test.ts` |  |
 | `WORK-016` | People directory and expertise | target | missing | — | not implemented |
 | `SHARE-009` | Share with a message | target | partial | `tests/qualification/backend/emitted.mjs` | see the clause |
-| `TMPL-007` | Starter templates | target | partial | `src/core/features/templates/service.ts` | see the clause |
+| `TMPL-007` | Starter templates | target | partial | `src/core/features/templates/starters/catalog.ts` | see the clause |
 | `NAV-007` | My tasks | target | done | `tests/profile/work-items-journey.ts` |  |
 | `SEARCH-010` | Labels and advanced search | target | done | `tests/e2e/search/discovery-journey.ts` |  |
 | `SEARCH-011` | Verified-first ranking and trust badges | target | partial | `tests/e2e/search/discovery-journey.ts` | Search, internal cards and member content queries show revision-aware trust; ranking, similarity controls and sorting have Workers and 1440/390 browser evidence. Gap: answer trust and anonymous public card/query trust metadata remain missing. |

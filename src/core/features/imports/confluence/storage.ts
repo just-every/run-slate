@@ -206,7 +206,8 @@ export function parseStorageFormat(xhtml: string, sourceId: string): StorageResu
     }
 
     if (tag === "ac:link") {
-      const page = findElements(node, "ri:page")[0];
+      const blog = findElements(node, 'ri:blog-post')[0];
+      const page = findElements(node, "ri:page")[0] ?? blog;
       const attachment = findElements(node, "ri:attachment")[0];
       const body = findElements(node, "ac:link-body")[0] ?? findElements(node, "ac:plain-text-link-body")[0];
       const title = page ? attributesOf(page)["ri:content-title"] : attachment ? attributesOf(attachment)["ri:filename"] : undefined;
@@ -217,7 +218,7 @@ export function parseStorageFormat(xhtml: string, sourceId: string): StorageResu
         return;
       }
       const link = make("link", (body ? text(body) : "") || title);
-      link.links.push({ href: title, kind: page ? "page" : "attachment" });
+      link.links.push({ href: title, kind: page ? "page" : "attachment",...(blog?{sourceResourceKind:'post' as const}:{}) });
       into.push(link);
       return;
     }

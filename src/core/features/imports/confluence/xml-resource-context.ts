@@ -1,7 +1,7 @@
 import {nameMatches, property, propertyIds, type ConfluenceEntity} from './xml-entities';
 
 type Resolution = {owner: string; reason?: never} | {owner?: never; reason: string};
-export type XmlPageResolver = (attributes: Record<string, string>, sourceOwner: string) => Resolution;
+export type XmlPageResolver = (attributes: Record<string, string>, sourceOwner: string,resourceKind?:'post') => Resolution;
 
 /** Titles are meaningful only in an exported space. Index all identities before
  * rendering bodies, including unresolved history as an ambiguity, never as a
@@ -19,7 +19,9 @@ export function xmlResourceContext(entities: ConfluenceEntity[], aliases: Map<st
     const ids = propertyIds(entity, 'spaceId', 'space');
     return ids.length === 1 && spaceCounts.get(ids[0]!) === 1 ? ids[0] : undefined;
   };
-  const pages = entities.filter(entity => nameMatches(entity, 'Page') || nameMatches(entity, 'Folder'));
+  const pages = entities.filter(entity => nameMatches(entity, 'Page') || nameMatches(entity, 'Folder') || nameMatches(entity, 'BlogPost'));
+  const blogOwners=new Set(pages.filter(entity=>nameMatches(entity,'BlogPost')).flatMap(entity=>aliases.has(entity.id)?[aliases.get(entity.id)!]:[]));
+  const titleKey=(title:string,kind:'page'|'post')=>JSON.stringify([kind,title]);
   const ownerSpaces = new Map<string, string>();
   for (const page of pages) {
     const owner = aliases.get(page.id), space = exportedSpace(page);
@@ -37,10 +39,11 @@ export function xmlResourceContext(entities: ConfluenceEntity[], aliases: Map<st
     const title = property(page, 'title', 'name');
     if (!space || !title) continue;
     const byTitle = titles.get(space) ?? new Map<string, Set<string | undefined>>();
-    const owners = byTitle.get(title) ?? new Set<string | undefined>();
-    owners.add(owner); byTitle.set(title, owners); titles.set(space, byTitle);
+    const key=titleKey(title,nameMatches(page,'BlogPost')||!!owner&&blogOwners.has(owner)?'post':'page');
+    const owners = byTitle.get(key) ?? new Set<string | undefined>();
+    owners.add(owner); byTitle.set(key, owners); titles.set(space, byTitle);
   }
-  return (attributes, sourceOwner) => {
+  return (attributes, sourceOwner,resourceKind) => {
     const id = attributes['ri:content-id'], title = attributes['ri:content-title'], key = attributes['ri:space-key'];
     for (const name of ['ri:content-id', 'ri:content-title', 'ri:space-key']) {
       if (name in attributes && !attributes[name]?.trim()) return {reason: `empty ${name}`};
@@ -55,15 +58,16 @@ export function xmlResourceContext(entities: ConfluenceEntity[], aliases: Map<st
     if (id !== undefined) {
       const owner = aliases.get(id);
       if (!owner) return {reason: `content ID ${JSON.stringify(id)} has no unambiguous current owner`};
+      if(resourceKind==='post'&&!blogOwners.has(owner))return {reason:'blog resource names a wiki page'};
       const ownerSpace = ownerSpaces.get(owner);
       if (space && space !== ownerSpace) return {reason: 'content ID conflicts with the exported space key'};
-      if (title !== undefined && !titles.get(space ?? ownerSpace ?? '')?.get(title)?.has(owner)) return {reason: 'content ID conflicts with the title in its exported space'};
+      if (title !== undefined && !titles.get(space ?? ownerSpace ?? '')?.get(titleKey(title,blogOwners.has(owner)?'post':'page'))?.has(owner)) return {reason: 'content ID conflicts with the title in its exported space'};
       return {owner};
     }
     if (title === undefined) return {reason: 'page reference has neither a content ID nor a title'};
     space ??= ownerSpaces.get(sourceOwner);
     if (!space) return {reason: 'source page has no unambiguous exported space'};
-    const candidates = titles.get(space)?.get(title);
+    const candidates=titles.get(space)?.get(titleKey(title,resourceKind??'page'));
     if (!candidates?.size) return {reason: `title ${JSON.stringify(title)} is missing from exported space ${JSON.stringify(space)}`};
     const owner = [...candidates][0];
     if (candidates.size !== 1 || !owner) return {reason: `title ${JSON.stringify(title)} has no unique current owner in exported space ${JSON.stringify(space)}`};

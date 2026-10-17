@@ -54,6 +54,8 @@ export interface ImportedLink {
   textEnd?: number;
   targetSourceId?: string;
   kind: "external" | "page" | "database" | "attachment";
+  /** Distinguishes Confluence's dated blog resource from a same-title wiki page. */
+  sourceResourceKind?: 'post';
 }
 
 export interface ImportedBlock extends SourceIdentity {
@@ -108,12 +110,21 @@ export interface ImportedPublicExposure {
   indexable?: boolean;
 }
 
+/** Source authors are resolved only by reviewed source-ID mappings or inert historical members. */
+export interface ImportedPost {
+  publishedAt?: string;
+  authorSourceId?: string;
+  authorDisplayName?: string;
+}
+
 export interface ImportedPage extends SourceIdentity {
+  reviewDate?:string|null;
   parentSourceId?: string;
   containerSourceId: string;
   title: string;
   icon?: string;
   coverMediaSourceId?: string;
+  post?: ImportedPost;
   blocks: ImportedBlock[];
   lifecycle: PageLifecycle;
   labels: string[];

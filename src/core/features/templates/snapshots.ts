@@ -13,6 +13,7 @@ import { ApiProblem } from "../../app/problems";
 import { readPage, prepareCreatePage } from "../pages/service";
 import type { BlockInput, PageProperties } from "../pages/types";
 import { createUlid } from "../../shared/ulid";
+import { templateApplicationProperties, type TemplateApplicationDefaults, type TemplateApplicationInput } from "./application-defaults";
 export interface TemplateSnapshot {
   title: string;
   properties: Pick<
@@ -25,7 +26,8 @@ export interface TemplateSnapshot {
     | "typeface"
     | "smallText"
     | "fullWidth"
-  >;
+  > & Partial<Pick<PageProperties, "reviewDate">>;
+  applicationDefaults?: TemplateApplicationDefaults;
   blocks: BlockInput[];
   children: TemplateSnapshot[];
   assets?: TemplateAsset[];
@@ -60,6 +62,7 @@ export async function snapshotPage(
       typeface: p.properties.typeface,
       smallText: p.properties.smallText,
       fullWidth: p.properties.fullWidth,
+      ...(p.properties.reviewDate !== undefined ? { reviewDate: p.properties.reviewDate } : {}),
     },
     blocks: p.blocks.map((b) => ({
       id: b.id,
@@ -113,6 +116,7 @@ export async function prepareSnapshot(
   revisionId: string,
   depth = 0,
   staged: string[] = [],
+  application: TemplateApplicationInput = {},
 ): Promise<{
   pageId: string;
   statements: D1PreparedStatement[];
@@ -142,7 +146,7 @@ export async function prepareSnapshot(
       parentPageId,
       title: snapshot.title,
       properties: {
-        ...snapshot.properties,
+        ...templateApplicationProperties(snapshot.properties, snapshot.applicationDefaults, application, ctx.actor.id),
         icon: snapshot.properties.icon?.startsWith("file:")
           ? `file:${mappedAssetId(media.mapping,snapshot.properties.icon.slice(5))}` : snapshot.properties.icon,
         ...(snapshot.properties.databaseFields ? {databaseFields: Object.fromEntries(Object.entries(snapshot.properties.databaseFields).map(([key,value])=>[key,
@@ -175,6 +179,7 @@ export async function prepareSnapshot(
       createUlid(),
       depth + 1,
       staged,
+      application,
     );
     statements.push(...result.statements);
     pageIds.push(...result.pageIds);

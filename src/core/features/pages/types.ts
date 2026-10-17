@@ -1,3 +1,4 @@
+import type {PostMetadata} from '../posts/types';
 import type { PageCover } from './appearance';
 import type { BlockView } from '../../shared/api/content';
 import type { JsonValue } from '../../shared/api/common';
@@ -33,6 +34,8 @@ export interface PageRow {
     revision_id: string;
 }
 export interface PageProperties {
+    post?: PostMetadata;
+    reviewDate?: string | null;
     byline?: string;
     databaseFields?: Record<string, JsonValue>;
     title: string;

@@ -1,3 +1,5 @@
+import {retainPostIdentity} from '../pages/metadata';
+import {properties as pageProperties} from '../pages/repository';
 import {taskEffects} from '../work-items/effects';
 import { prepareRestoreRecordValues } from '../databases/content-plan';
 import type { FeatureContext } from '../../app/feature-context';
@@ -49,6 +51,7 @@ export async function prepareRestorePage(ctx: FeatureContext, id: string, expect
     const p = await pageRow(ctx, id);
     writable(p);
     const policy = await contentPolicy(ctx), live = policy['page.lifecycle.v1'] === 'always-live' && !['draft', 'scheduled'].includes(p.lifecycle);
+    props=retainPostIdentity(await pageProperties(ctx,p),props);
     const old = await pageBlocks(ctx.db,id);
     blocks = await Promise.all(validateBlockTree(blocks).map(async b => ({...b,pageId:id,parentBlockId:b.parentBlockId ?? null,revisionId,content:await normalizeTask(ctx,b,old.find(o=>o.id===b.id))})));
     const threads = (await ctx.db.prepare("SELECT id,block_id,anchor_json FROM comment_threads WHERE page_id=? AND kind='inline' AND anchor_json IS NOT NULL").bind(id).all<{id:string;block_id:string|null;anchor_json:string}>()).results;

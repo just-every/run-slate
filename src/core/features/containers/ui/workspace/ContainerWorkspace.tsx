@@ -1,20 +1,10 @@
-import {ContainerWatch} from './ContainerWatch';
-import {ReadableExportDialog} from "../../../workspace-export/ui/ReadableExportDialog";
-import {useCreatePage} from "../../../../app/ui/useCreatePage";
-import {DEFAULT_PAGE_TITLE} from "../../../../app/ui/pageDestination";
-import {FavouriteControl} from "../../../navigation/ui/workspace/FavouriteControl";
-import {ContainerBulk} from "./ContainerBulk";
-import {WorkspaceArchive} from "../../../archive/ui/WorkspaceArchive";
-import {TemplatesWorkspace} from "../../../templates/ui/workspace/TemplatesWorkspace";
+import { ContainerDetail } from "./ContainerDetail";
 import { useSearch } from "@tanstack/react-router";
 import { useEffect,useRef, useState } from "react";
 import { useResource } from "../../../../client/useResource";
-import { mutate, operationKey, errorMessage } from "../../../../client/transport";
+import { mutate, operationKey } from "../../../../client/transport";
 import { RequestState } from "../../../../app/ui/RequestState";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
-import { PageTree, type TreePage } from "../../../../app/ui/PageTree";
-import { AnalyticsPanel } from "../../../analytics/ui/workspace/AnalyticsPanel";
-import { ContainerSettings } from "./ContainerSettings";
 import { TopBar } from "../../../../app/ui/header/TopBar";
 import { PageTitle } from "../../../../app/ui/header/PageTitle";
 export type Container = {
@@ -97,7 +87,7 @@ export function ContainerWorkspace({containerId,embedded}:{containerId?:string;e
         </ul>
       </RequestState>
       {selected ? (
-        <ContainerDetail id={selected} updated={spaces.reload} />
+        <ContainerDetail key={selected} id={selected} updated={spaces.reload} />
       ) : null}
       {create ? (
         <ActionDialog
@@ -156,75 +146,5 @@ export function ContainerWorkspace({containerId,embedded}:{containerId?:string;e
         {panel}
       </section>
     </>
-  );
-}
-function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
-  const resource = useResource<Container>(`/api/containers/${id}`);
-  const pages = useResource<{ items: (TreePage&{labels?:string[]})[] }>(
-    `/api/pages?containerId=${id}`,
-  );
-  const [query, setQuery] = useState("");
-  const [label,setLabel]=useState('');
-  const creation = useCreatePage();
-  const [exporting,setExporting]=useState(false);
-  const [tab,setTab]=useState("content");
-  const available = pages.data?.items ?? [];
-  const matched = new Set(
-    available
-      .filter((page) => page.title.toLowerCase().includes(query.toLowerCase())&&(!label||page.labels?.some(value=>value.toLocaleLowerCase()===label.toLocaleLowerCase())))
-      .map((page) => page.id),
-  );
-  for (const page of available) {
-    if (!matched.has(page.id)) continue;
-    let parent = page.parentPageId;
-    const seen = new Set<string>();
-    while (parent && !seen.has(parent)) {
-      seen.add(parent);
-      matched.add(parent);
-      parent = available.find((item) => item.id === parent)?.parentPageId;
-    }
-  }
-  return (
-    <RequestState
-      loading={resource.loading}
-      error={resource.error}
-      retry={resource.reload}
-    >
-      {resource.data ? (
-        <section className="space-detail">
-          <h3>{resource.data.name}</h3><div className="space-actions"><FavouriteControl kind="container" id={id}/><ContainerWatch id={id}/><button className="secondary-button" onClick={()=>setExporting(true)}>Export space</button></div>{exporting?<ReadableExportDialog id={id} container onClose={()=>setExporting(false)}/>:null}
-          <nav className="tabs" aria-label="Space navigation">{['content','settings','templates','trash','bulk'].map(value=><button aria-pressed={tab===value} key={value} onClick={()=>setTab(value)}>{value[0].toUpperCase()+value.slice(1)}</button>)}</nav>
-          <a href={`/app/search?containerId=${id}`}>Search this space</a>
-          {tab==='templates'?<TemplatesWorkspace defaultContainerId={id} embedded/>:tab==='trash'?<WorkspaceArchive containerId={id} embedded/>:tab==='bulk'?<ContainerBulk pages={available} onSaved={pages.reload}/>:null}
-          {tab==='content'?<>
-          <p>{resource.data.description}</p>
-          <label>
-            Filter page titles
-            <input
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-            />
-          </label>
-          <label>Filter labels<input type="search" value={label} list={`space-labels-${id}`} onChange={event=>setLabel(event.target.value)}/></label>
-          <datalist id={`space-labels-${id}`}>{[...new Set(available.flatMap(page=>page.labels??[]))].sort().map(value=><option key={value} value={value}/>)}</datalist>
-          {query||label?<button className="secondary-button" onClick={()=>{setQuery("");setLabel('');}}>Clear page filter</button>:null}<PageTree pages={available.filter((page) => matched.has(page.id))} />
-          <button className="secondary-button" aria-busy={creation.pending||undefined} onClick={()=>void creation.create(async()=>({containerId:id,title:DEFAULT_PAGE_TITLE}))}>Create page in this space</button>
-          {creation.error?<p role="alert">{errorMessage(creation.error)}</p>:null}
-          </>:null}
-          {tab==='settings'?<ContainerSettings
-            container={resource.data}
-            onSaved={async () => {
-              await resource.reload();
-              updated();
-            }}
-          />:null}
-          <details>
-            <summary>Readership</summary>
-            <AnalyticsPanel containerId={id} />
-          </details>
-        </section>
-      ) : null}
-    </RequestState>
   );
 }
