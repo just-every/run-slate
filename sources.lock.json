@@ -7807,7 +7807,7 @@
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
-      "sha256": "aebd81631581c23b5150f85360a255d0c4608adef792aecbe15483f8cd219e9d",
+      "sha256": "6b30c603b976b3ff7cb159955f37cbb2497bd28d5063a13fcefeb78165f7f774",
       "executable": false
     },
     "tests/docs/docs-dev-sync.test.mjs": {
