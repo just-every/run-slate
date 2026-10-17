@@ -81,8 +81,8 @@
           "scripts/edition-authoring"
         ],
         "origin": {
-          "repository": "runeditrun/base",
-          "revision": "9ec15a63a410d209cd5a179749336bb61751e0f6",
+          "repository": "https://github.com/runeditrun/base.git",
+          "revision": "9eb83c85a9088c16ffe94a3af43e8a2e95acc377",
           "path": ".",
           "paths": [
             "edition-authoring/README.md",
@@ -115,8 +115,8 @@
           "migrations/core/0018_development_mail_outbox.sql"
         ],
         "origin": {
-          "repository": "runeditrun/base",
-          "revision": "9ec15a63a410d209cd5a179749336bb61751e0f6",
+          "repository": "https://github.com/runeditrun/base.git",
+          "revision": "9eb83c85a9088c16ffe94a3af43e8a2e95acc377",
           "path": ".",
           "paths": [
             "modules/mail/.gitignore",
@@ -139,6 +139,9 @@
             "modules/mail/src/adapters/messaging/jws.mjs",
             "modules/mail/src/adapters/messaging/request.mjs",
             "modules/mail/src/adapters/messaging/serialize.mjs",
+            "modules/mail/src/adapters/rer/contract.mjs",
+            "modules/mail/src/adapters/rer/index.mjs",
+            "modules/mail/src/adapters/rer/list-headers.mjs",
             "modules/mail/src/adapters/resend/README.md",
             "modules/mail/src/adapters/resend/index.mjs",
             "modules/mail/src/adapters/resend/response.mjs",
@@ -154,8 +157,7 @@
             "modules/mail/src/development/index.mjs",
             "modules/mail/src/development/outbox.mjs",
             "modules/mail/src/development/schema.sql",
-            "modules/mail/src/development/viewer-html.mjs",
-            "modules/mail/src/development/viewer.mjs",
+            "modules/mail/src/development/schema.sql",
             "modules/mail/src/doctor/README.md",
             "modules/mail/src/doctor/common.mjs",
             "modules/mail/src/doctor/dns.mjs",
@@ -206,8 +208,8 @@
           "scripts/delivery/base"
         ],
         "origin": {
-          "repository": "runeditrun/base",
-          "revision": "9ec15a63a410d209cd5a179749336bb61751e0f6",
+          "repository": "https://github.com/runeditrun/base.git",
+          "revision": "9eb83c85a9088c16ffe94a3af43e8a2e95acc377",
           "path": ".",
           "paths": [
             "modules/delivery-producer/artifact.mjs",
@@ -221,10 +223,13 @@
             "modules/delivery-producer/generators/project.mjs",
             "modules/delivery-producer/generators/validation.mjs",
             "modules/delivery-producer/migrations.mjs",
+            "modules/delivery-producer/native-export.mjs",
             "modules/delivery-producer/package.mjs",
             "modules/delivery-producer/paths.mjs",
             "modules/delivery-producer/payloads.mjs",
+            "modules/delivery-producer/sign-in.mjs",
             "modules/delivery-producer/spec.mjs",
+            "modules/delivery-producer/sql-statements.mjs",
             "schema/SETUP.schema.json",
             "schema/dependencies.mjs",
             "schema/json-schema.mjs",
@@ -265,6 +270,10 @@
             "originPath": "modules/delivery-producer/migrations.mjs"
           },
           {
+            "path": "scripts/delivery/base/native-export.mjs",
+            "originPath": "modules/delivery-producer/native-export.mjs"
+          },
+          {
             "path": "scripts/delivery/base/package.mjs",
             "originPath": "modules/delivery-producer/package.mjs"
           },
@@ -281,8 +290,16 @@
             "originPath": "schema"
           },
           {
+            "path": "scripts/delivery/base/sign-in.mjs",
+            "originPath": "modules/delivery-producer/sign-in.mjs"
+          },
+          {
             "path": "scripts/delivery/base/spec.mjs",
             "originPath": "modules/delivery-producer/spec.mjs"
+          },
+          {
+            "path": "scripts/delivery/base/sql-statements.mjs",
+            "originPath": "modules/delivery-producer/sql-statements.mjs"
           }
         ]
       }
@@ -296,8 +313,8 @@
           "src/editor"
         ],
         "origin": {
-          "repository": "runeditrun/base",
-          "revision": "9ec15a63a410d209cd5a179749336bb61751e0f6",
+          "repository": "https://github.com/runeditrun/base.git",
+          "revision": "9eb83c85a9088c16ffe94a3af43e8a2e95acc377",
           "path": ".",
           "paths": [
             "modules/editor/src/config.ts",
@@ -332,10 +349,13 @@
           "src/base"
         ],
         "origin": {
-          "repository": "runeditrun/base",
-          "revision": "8981bc2c4d9e61feca5787c83b4ed44056659dd9",
+          "repository": "https://github.com/runeditrun/base.git",
+          "revision": "9eb83c85a9088c16ffe94a3af43e8a2e95acc377",
           "path": ".",
           "paths": [
+            "foundation/runtime/contract-filter.ts",
+            "foundation/runtime/contract-page.ts",
+            "foundation/runtime/contract-style.ts",
             "foundation/runtime/deployment-health.ts",
             "foundation/runtime/dispatch.ts",
             "foundation/runtime/font-head.ts",
@@ -349,6 +369,8 @@
             "foundation/runtime/page-style.ts",
             "foundation/runtime/rejected-response.ts",
             "foundation/runtime/run-site.ts",
+            "foundation/runtime/seed-contract.d.mts",
+            "foundation/runtime/seed-contract.mjs",
             "foundation/runtime/setup-state.ts",
             "foundation/runtime/setup.ts",
             "foundation/runtime/static-assets.ts",
@@ -376,8 +398,8 @@
           "SEED-COMMAND-CONTRACT.md"
         ],
         "origin": {
-          "repository": "runeditrun/base",
-          "revision": "8981bc2c4d9e61feca5787c83b4ed44056659dd9",
+          "repository": "https://github.com/runeditrun/base.git",
+          "revision": "9eb83c85a9088c16ffe94a3af43e8a2e95acc377",
           "path": ".",
           "paths": [
             "export/RUN-LOCALLY.md",
@@ -422,7 +444,7 @@
         ],
         "origin": {
           "repository": "https://github.com/runeditrun/base.git",
-          "revision": "363da337fe618bfc62fa3b6b5fd3e7f2f67d5879",
+          "revision": "9eb83c85a9088c16ffe94a3af43e8a2e95acc377",
           "path": ".",
           "paths": [
             "modules/import-kit/CONTRACT.md",
@@ -458,10 +480,15 @@
             "modules/import-kit/src/d1/erasure-fragments.ts",
             "modules/import-kit/src/d1/erasure-index.ts",
             "modules/import-kit/src/d1/erasure-pages.ts",
+            "modules/import-kit/src/d1/erasure-progress-schema.ts",
+            "modules/import-kit/src/d1/erasure-progress.ts",
             "modules/import-kit/src/d1/erasure-related.ts",
             "modules/import-kit/src/d1/erasure-report.ts",
             "modules/import-kit/src/d1/erasure-schema.ts",
+            "modules/import-kit/src/d1/erasure-selection.ts",
             "modules/import-kit/src/d1/erasure-snapshot.ts",
+            "modules/import-kit/src/d1/erasure-stage.ts",
+            "modules/import-kit/src/d1/erasure-step.ts",
             "modules/import-kit/src/d1/erasure-values.ts",
             "modules/import-kit/src/d1/erasure-writes.ts",
             "modules/import-kit/src/d1/erasure.ts",
@@ -477,6 +504,7 @@
             "modules/import-kit/src/d1/native-staging-admission.ts",
             "modules/import-kit/src/d1/native-staging-context.ts",
             "modules/import-kit/src/d1/native-staging-lifecycle.ts",
+            "modules/import-kit/src/d1/native-staging-offset.ts",
             "modules/import-kit/src/d1/native-staging-publication.ts",
             "modules/import-kit/src/d1/native-staging-rows.ts",
             "modules/import-kit/src/d1/native-staging-schema.ts",
@@ -492,6 +520,12 @@
             "modules/import-kit/src/d1/preparation-reader.ts",
             "modules/import-kit/src/d1/preparation-schema.ts",
             "modules/import-kit/src/d1/preparation-state.ts",
+            "modules/import-kit/src/d1/preparation-step-combine.ts",
+            "modules/import-kit/src/d1/preparation-step-control.ts",
+            "modules/import-kit/src/d1/preparation-step-hash.ts",
+            "modules/import-kit/src/d1/preparation-step-pages.ts",
+            "modules/import-kit/src/d1/preparation-steps-schema.ts",
+            "modules/import-kit/src/d1/preparation-steps.ts",
             "modules/import-kit/src/d1/preparations.ts",
             "modules/import-kit/src/d1/preserved-reverse.ts",
             "modules/import-kit/src/d1/provenance-set.ts",
@@ -501,9 +535,12 @@
             "modules/import-kit/src/d1/read-fence.ts",
             "modules/import-kit/src/d1/read-results.ts",
             "modules/import-kit/src/d1/redacted-custody.ts",
+            "modules/import-kit/src/d1/redaction-step.ts",
             "modules/import-kit/src/d1/retained-values.ts",
+            "modules/import-kit/src/d1/retirement-bounded.ts",
             "modules/import-kit/src/d1/retirement-schema.ts",
             "modules/import-kit/src/d1/retirement-scope.ts",
+            "modules/import-kit/src/d1/retirement-steps.ts",
             "modules/import-kit/src/d1/retirement-tally.ts",
             "modules/import-kit/src/d1/retirement.ts",
             "modules/import-kit/src/d1/reversal-fence-schema.ts",
@@ -546,6 +583,17 @@
             "modules/import-kit/src/d1/undo-snapshot.ts",
             "modules/import-kit/src/d1/undo-state.ts",
             "modules/import-kit/src/d1/undo-types.ts",
+            "modules/import-kit/src/door/README.md",
+            "modules/import-kit/src/door/authority.ts",
+            "modules/import-kit/src/door/grants.ts",
+            "modules/import-kit/src/door/index.ts",
+            "modules/import-kit/src/door/inventory.ts",
+            "modules/import-kit/src/door/jobs.ts",
+            "modules/import-kit/src/door/planning.ts",
+            "modules/import-kit/src/door/schema.ts",
+            "modules/import-kit/src/door/store.ts",
+            "modules/import-kit/src/door/types.ts",
+            "modules/import-kit/src/door/uploads.ts",
             "modules/import-kit/src/engine/apply.ts",
             "modules/import-kit/src/engine/index.ts",
             "modules/import-kit/src/engine/reverse.ts",
@@ -563,6 +611,7 @@
             "modules/import-kit/src/provenance/identity.ts",
             "modules/import-kit/src/provenance/json-snapshot.ts",
             "modules/import-kit/src/provenance/numeric-credentials.ts",
+            "modules/import-kit/src/provenance/resumable-sha256.ts",
             "modules/import-kit/src/provenance/validate-json.ts",
             "modules/import-kit/src/readers/README.md",
             "modules/import-kit/src/readers/api-policy.ts",
@@ -613,8 +662,10 @@
             "modules/import-kit/tests/core/target-inventory.test.ts",
             "modules/import-kit/tests/d1-baseline.test.ts",
             "modules/import-kit/tests/d1-erasure-originals.test.ts",
+            "modules/import-kit/tests/d1-erasure-steps.test.ts",
             "modules/import-kit/tests/d1-integrity-undo.test.ts",
             "modules/import-kit/tests/d1-legacy-stream-origin.test.ts",
+            "modules/import-kit/tests/d1-mixed-script-transfer.test.ts",
             "modules/import-kit/tests/d1-normalized-worker.test.ts",
             "modules/import-kit/tests/d1-origin-depth.test.ts",
             "modules/import-kit/tests/d1-original-name-custody.test.ts",
@@ -649,6 +700,8 @@
             "modules/import-kit/tests/d1/erasure-originals.test.ts",
             "modules/import-kit/tests/d1/erasure-related.test.ts",
             "modules/import-kit/tests/d1/erasure-replay-budget.test.ts",
+            "modules/import-kit/tests/d1/erasure-step-fixture.ts",
+            "modules/import-kit/tests/d1/erasure-steps.test.ts",
             "modules/import-kit/tests/d1/erasure-transport.test.ts",
             "modules/import-kit/tests/d1/erasure.test.ts",
             "modules/import-kit/tests/d1/export-consistency.test.ts",
@@ -660,6 +713,7 @@
             "modules/import-kit/tests/d1/legacy-stream-origin-fixture.ts",
             "modules/import-kit/tests/d1/legacy-stream-origin.test.ts",
             "modules/import-kit/tests/d1/meter.ts",
+            "modules/import-kit/tests/d1/mixed-script-transfer.test.ts",
             "modules/import-kit/tests/d1/native-staging-evolution.test.ts",
             "modules/import-kit/tests/d1/native-staging-fences.test.ts",
             "modules/import-kit/tests/d1/native-staging-fixture.ts",
@@ -674,6 +728,7 @@
             "modules/import-kit/tests/d1/preparation-fixture.ts",
             "modules/import-kit/tests/d1/preparation-races.test.ts",
             "modules/import-kit/tests/d1/preparation-schema.test.ts",
+            "modules/import-kit/tests/d1/preparation-steps.test.ts",
             "modules/import-kit/tests/d1/preparations.test.ts",
             "modules/import-kit/tests/d1/preserved-graph.test.ts",
             "modules/import-kit/tests/d1/preserved-guard-budget.test.ts",
@@ -726,6 +781,8 @@
             "modules/import-kit/tests/dictionary-boundaries.test.ts",
             "modules/import-kit/tests/dictionary-canonical.test.ts",
             "modules/import-kit/tests/dictionary-json-strings.test.ts",
+            "modules/import-kit/tests/door.test.ts",
+            "modules/import-kit/tests/door/fixture.ts",
             "modules/import-kit/tests/fixture-layout.test.ts",
             "modules/import-kit/tests/fixtures/workspace-archive-v1/adapter.ts",
             "modules/import-kit/tests/fixtures/workspace-archive-v1/expected.json",

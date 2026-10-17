@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+The hosted demo at demo.run-slate.com moves from a container to rer's native Worker Loader host: each visitor gets their own isolate with SQLite facets for the database and collaboration rooms, files in their own storage, a durable job queue and the cron by alarm. Every vendored Base copy is refreshed together from `rer-v0.2.40`, and the Run demo workflow is Base's template; `deploy-demo.json` drops the retired container size.
+
 RER’s Open app action now opens Slate’s sign-in page with the claimed owner’s email filled in. The generated deployment spec declares `/signin` and its `login_hint` support; opening the page does not send an email.
 
 ## 0.2.0 — 16 October 2026

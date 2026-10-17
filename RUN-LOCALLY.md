@@ -1,8 +1,16 @@
 # Run it locally
 
-Install the `rer` command once using the [RER installer](https://runeditrun.com).
-After the script or `npx` install, activate it in the current shell with
-`export PATH="$HOME/.local/bin:$PATH"`. First-party commands fetch and verify
+Start a published seed in two lines. The [RER installer](https://runeditrun.com)
+(`curl -fsSL https://runeditrun.com/install.sh | sh`) installs `rer` in
+`~/.local/bin`, with its own Node when there is no Node 22 or later on PATH; it
+edits no shell profile, so run the `export PATH=…` line it prints when
+`~/.local/bin` is not on PATH. Then `rer dev <owner>/<repo>`, for example
+`rer dev just-every/run-inkwell`, clones the seed and starts it. To start it
+again later, run `cd <folder> && rer dev` (the folder is the repository name).
+With Node 22 or later already on PATH, `npx -y @runeditrun/rer dev <owner>/<repo>`
+does both in one line, and `npm install -g @runeditrun/rer` is another way to
+install `rer`. The installer's Node stays private to `rer`: it puts no `node`,
+`npm` or `npx` on PATH. First-party commands fetch and verify
 the exact pnpm version declared in `package.json` when it is missing, using
 `$HOME/.rer/pnpm`; no global pnpm installation or sudo is needed.
 First-party seeds pin the command implementation in either vendored mode or
@@ -85,6 +93,15 @@ uses the same automatic sign-in. Treat `RER_OPEN` as a credential; do not share 
 Until first-run completion is stored durably, app routes send the signed-in owner
 to `/setup`; signed-out visitors sign in and return there. Once complete,
 `/setup` opens the app or settings.
+
+Invite another person from the app's operator access screen, then choose
+**Sign in as <name>** beside that person. The same action appears at `/signin`;
+it accepts their current invitation and opens `/app` with their assigned role.
+After opening `RER_OPEN`, this browser can switch people without email. A fresh
+browser profile first opens `RER_OPEN` to receive this checkout's key cookie.
+`rer dev --as person@example.com` also selects an invited or active person.
+Local dev and demos silently suppress mail; there is no mail-reading step.
+Cancelled or expired invitations and inactive people cannot use these actions.
 
 The saved local port is used; a first setup saves the first free port from 8787. Explicit ports are decimal
 integers from 1 through 65535 and must be free; a busy requested port fails
@@ -296,3 +313,38 @@ addresses). `rer door restart` drains and restarts the door: checkouts that
 were starting finish starting, and open tabs reconnect. After a reboot or logout the door needs `rer door start` (or any
 `rer dev` in a checkout that uses it); `rer door stop` and `rer door disable`
 stop it and opt this computer out.
+
+## If hosted deployment stops
+
+Deploy and removal errors name the failing Cloudflare method and path (without
+credentials or query values), its error code and message when supplied, and the
+command that continues with the same environment. Keep `.rer/deploy/` private:
+it records ownership so a repeat reuses resources safely, and
+`.rer/deploy/<environment>.secrets.env` keeps the secrets rer generated for that
+environment (session and link secrets), so a redeploy keeps sessions and emailed
+links working. To deploy the environment from another checkout, copy that file
+there. Without it, `rer deploy` refuses to replace secrets the live Worker holds;
+`rer deploy --rotate-secret NAME` replaces one on purpose.
+
+`provider-incomplete-pagination` means Cloudflare advertised another list page
+but rer could not read a valid continuation, or returned a full page with no
+pagination information. A short list without `result_info`, a missing or empty
+terminal cursor, and a reached `total_pages` are complete. No resource is assumed
+absent from an incomplete list. Check the named call in Cloudflare, resolve the
+provider error or incomplete response, then rerun the printed command with the
+same account and environment. Do not delete the deployment record.
+
+`owner-claim-failed` means the hosted owner bootstrap did not confirm a claim.
+The app may already be deployed while sign-in remains unavailable. The error
+names the observed bootstrap POST, HTTP status and application error code when
+available; a seed hook that fails before an exchange can only report its hook
+cause. Correct that cause (for example, owner authorization or a supplied setup
+token that differs from the deployed token), then rerun the same deploy. Leave
+a stale supplied setup token unset so rer can issue a fresh token. A completed
+claim retires the one-time token; deploying again keeps an existing owner.
+
+`rer deploy --environment NAME --remove --yes` detaches the environment's queue
+consumers before deleting its queues, then confirms their absence in Cloudflare.
+It waits up to a minute for a deleted queue to disappear from the account list.
+If the provider still lists it, the error names the queue and the call; keep the
+record and rerun the printed removal command after resolving the cause.

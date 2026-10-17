@@ -11,6 +11,5 @@
     "SSO_ENABLED": "false",
     "IDENTITY_PROVIDER": "",
     "SLATE_PROFILE": "flagship"
-  },
-  "instanceType": "standard-2"
+  }
 }

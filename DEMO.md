@@ -6,15 +6,20 @@ handbook, linked pages, a project tracker, comments and members, through Slate's
 normal domain operations. The checkout's normal state is never written.
 
 The demo runtime and all other vendored Base modules are copied together from
-`rer-v0.2.22`; the CLI is pinned to `@runeditrun/rer` 0.2.22 in package mode.
+`rer-v0.2.40`; the CLI is pinned to `@runeditrun/rer` 0.2.40 in package mode.
 The marked navigation name reads **Slate Demo**, and document titles carry the
 Demo suffix. There is no demo bar or captured-mail outbox.
 
 Public reads run for real. External writes return success without sending;
 Base Mail silently suppresses demo invitations and sign-in mail. Model calls
 use `demoEffect` with a grounded, provider-shaped response. Production keeps
-the real providers. Every visitor gets separate data and collaboration rooms.
-The host controls expiry and destroys the visitor's container.
+the real providers.
+
+The hosted demo runs on rer's native Worker Loader host. Each visitor gets their
+own Loader isolate: `DB` and the `ContentCollaboration` rooms are SQLite facets,
+`FILES` objects are kept in the visitor's own Durable Object storage, `JOBS` is
+a durable queue and the every-minute cron runs by alarm. A copy ends after 60
+minutes or 15 idle minutes, or on sign-out, and its storage is erased.
 
 The Run demo workflow uses the `run-demo` environment. Dispatch `test_only` for
 the separate test host with published Turnstile test keys. Dispatch `remove`
