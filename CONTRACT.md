@@ -1987,7 +1987,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `BLOCK-012` | Columns and page layouts | target | missing | `src/core/features/editor/validation.ts` | not implemented |
 | `BLOCK-013` | Equations and diagrams as code | target | missing | — | not implemented |
 | `BLOCK-014` | Tables that work like tables | target | partial | `src/core/features/editor/validation.ts` | see the clause |
-| `BLOCK-015` | Assigned tasks with due dates | target | partial | `tests/profile/work-items-journey.ts; work/sd-cp-slate/shots/BLOCK-015/` | Email/push delivery and public MCP remain missing; default-profile HTTP and 1440/390 browser journeys cover assignment, sharing, due dates, reassignment and completion. |
+| `BLOCK-015` | Assigned tasks with due dates | target | partial | `tests/profile/work-items-journey.ts` | Email/push delivery and public MCP remain missing; default-profile HTTP and 1440/390 browser journeys cover assignment, sharing, due dates, reassignment and completion. |
 | `BLOCK-016` | Task reports | target | missing | — | not implemented |
 | `BLOCK-017` | Table of contents block | target | missing | — | not implemented |
 | `BLOCK-018` | Status labels | target | missing | — | not implemented |
@@ -2002,7 +2002,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `WORK-016` | People directory and expertise | target | missing | — | not implemented |
 | `SHARE-009` | Share with a message | target | partial | `tests/qualification/backend/emitted.mjs` | see the clause |
 | `TMPL-007` | Starter templates | target | partial | `src/core/features/templates/service.ts` | see the clause |
-| `NAV-007` | My tasks | target | done | `tests/profile/work-items-journey.ts; work/sd-cp-slate/shots/NAV-007/` |  |
+| `NAV-007` | My tasks | target | done | `tests/profile/work-items-journey.ts` |  |
 | `SEARCH-010` | Labels and advanced search | target | partial | `src/core/features/pages/service.ts` | see the clause |
 | `SEARCH-011` | Verified-first ranking and trust badges | target | partial | `src/core/features/page-status/state.ts` | see the clause |
 | `SEARCH-012` | Connected results in search | target | partial | `src/core/features/source-memory/service.ts` | see the clause |
@@ -2017,7 +2017,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `DB-014` | Dashboards | target | partial | `src/core/features/databases/ui/workspace/DatabaseChart.tsx` | see the clause |
 | `DB-015` | Record templates and recurring records | target | partial | `src/core/features/automation/events.ts` | see the clause |
 | `DB-016` | AI autofill fields | target | missing | — | not implemented |
-| `NOTIF-004` | Reminders | target | partial | `tests/profile/work-items-journey.ts; work/sd-cp-slate/shots/NOTIF-004/` | Email/push delivery remains missing; default-profile HTTP and scheduled dispatch cover time zones, offsets, concurrent-safe delivery and revoked access, with 1440/390 browser journeys for page, task and date-mention reminders. |
+| `NOTIF-004` | Reminders | target | partial | `tests/profile/work-items-journey.ts` | Email/push delivery remains missing; default-profile HTTP and scheduled dispatch cover time zones, offsets, concurrent-safe delivery and revoked access, with 1440/390 browser journeys for page, task and date-mention reminders. |
 | `NOTIF-005` | Email, push and digest delivery | target | missing | — | not implemented |
 | `NOTIF-006` | Workspace notification defaults | target | missing | — | not implemented |
 | `AUTO-006` | Outbound automation actions | target | partial | `src/core/features/automation/actions.ts` | see the clause |

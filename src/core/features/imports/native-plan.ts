@@ -6,7 +6,7 @@ import type {NativeRowTemplate} from './native-row-values';
 import {nativeRowCollections} from './native-row-collections';
 
 export type NativeValue = string | number | null;
-export interface NativeRow {table:string; values:Record<string,NativeValue>;derived?:boolean;before?:CapturedSql[]}
+export interface NativeRow {table:string; values:Record<string,NativeValue>;derived?:boolean;before?:CapturedSql[];after?:CapturedSql[]}
 export interface NativeScope {table:string; column:string; id:string; columns:string[]}
 export interface NativeUnit {kind:string; id:string; rows:NativeRow[]; scopes:NativeScope[]; requires:string[]}
 interface Column {name:string; dflt_value:string|null; pk:number; type:string}
@@ -49,7 +49,9 @@ function literal(input:string):NativeValue {
   throw new Error(`Unsupported native planner literal: ${value}`);
 }
 const tokens=(sql:string)=>sql.match(/'(?:[^']|'')*'|"[^"]*"|[^,]+/g)!.map(v=>v.trim());
-const relatedTables = ['page_blocks','page_revisions','page_labels','page_grants','page_contributors','database_records'];
+const relatedTables = ['page_blocks','page_revisions','page_labels','page_grants','page_contributors','database_records','task_origins'];
+const taskOriginInsert='INSERT OR IGNORE INTO task_origins(block_id,page_id,member_id,created_at) VALUES(?,?,?,?)';
+const taskReminderCancellation="UPDATE reminders SET cancelled_at=COALESCE(cancelled_at,?) WHERE page_id=? AND block_id=? AND kind='task-due' AND delivered_at IS NULL";
 
 /** Convert the finite INSERT vocabulary emitted by the genuine native planners
  * into complete row snapshots, including schema defaults. Unknown SQL is refused. */
@@ -63,12 +65,20 @@ export async function compileNativePlan(ctx:FeatureContext, statements:CapturedS
   const mappingStatements:CapturedSql[]=[];
   const mappingGuards=new Map<CapturedSql,CapturedSql[]>();
   const plannedPages=new Map<string,NativeRow>();
+  const taskOrigins=new Map<string,CapturedSql>();
   let pendingGuards:CapturedSql[]=[];
   for(let index=0;index<statements.length;index++) {
     const statement=statements[index]!;if(consume)delete statements[index];
     if(statement.sql.startsWith('INSERT INTO core_write_guards')){pendingGuards.push({sql:statement.sql,params:compactNativeValues(statement.params,true)});continue;}
     if(statement.sql.startsWith('UPDATE pages SET access_inheritance=')){metadata.push(statement);continue;}
-    const insert=statement.sql.match(/^INSERT INTO (\w+)\s*(?:\(([^)]+)\))?\s*VALUES\s*\((.*)\)$/s);
+    if(statement.sql===taskReminderCancellation){
+      const origin=taskOrigins.get(String(statement.params[2]));
+      if(!origin||statement.params.length!==3||origin.params[1]!==statement.params[1]||pendingGuards.length)throw new Error('Native task reminder cancellation lacks its origin.');
+      // Keep task side effects in the same atomic page effect, even when the
+      // cancellation is the last native write and has no following INSERT.
+      rowStore.appendAfter(origin,{sql:statement.sql,params:compactNativeValues(statement.params,true)});continue;
+    }
+    const insert=(statement.sql===taskOriginInsert?statement.sql.replace('INSERT OR IGNORE INTO','INSERT INTO'):statement.sql).match(/^INSERT INTO (\w+)\s*(?:\(([^)]+)\))?\s*VALUES\s*\((.*)\)$/s);
     if(!insert)throw new Error(`Unregistered native import statement: ${statement.sql.slice(0,80)}`);
     const table=insert[1]!, columns=await schema(table);
     let compiled=templates.get(statement.sql);
@@ -84,6 +94,7 @@ export async function compileNativePlan(ctx:FeatureContext, statements:CapturedS
     if(compiled.parameters!==statement.params.length)throw new Error('Native import unused bindings.');
     if(table==='federation_import_mappings'){if(pendingGuards.length)mappingGuards.set(statement,pendingGuards);pendingGuards=[];mappingStatements.push(statement);continue;}
     const row=rowStore.row(statement,pendingGuards);rows.push(row);if(table==='pages')plannedPages.set(String(row.values.id),row);pendingGuards=[];
+    if(table==='task_origins')taskOrigins.set(String(row.values.block_id),statement);
   }
   for(const {params:p} of metadata) {
     const page=plannedPages.get(String(p[9]));
