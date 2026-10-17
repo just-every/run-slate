@@ -36,6 +36,7 @@
   ],
   "originVar": "APP_URL",
   "vars": {
+    "APP_NAME": "",
     "SLATE_PROFILE": "core-wiki",
     "AI_ENABLED": "false",
     "SSO_ENABLED": "false",

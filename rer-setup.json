@@ -9,16 +9,17 @@
     {
       "id": "email",
       "label": "Sign-in email",
-      "help": "Managed mail is included by RER. Free and Assisted hosting use your Resend or SendGrid account; local development suppresses mail and uses the private owner entry."
+      "help": "Slate emails people a link to sign in. Managed hosting sends these for you. Free and Assisted hosting send them through your own Resend or SendGrid account. On your own computer no mail is sent and you sign in with one click."
     },
     {
       "id": "session",
-      "label": "Native session"
+      "label": "Sign-in security",
+      "help": "Random keys Slate creates for you. Nobody needs to type or keep them."
     },
     {
       "id": "technical",
-      "label": "Technical configuration",
-      "help": "Implementation settings fixed by the deployment. Product policies are managed inside Slate."
+      "label": "For developers",
+      "help": "Leave these as they are unless you are developing Slate itself. Everyday settings, such as who can see what, live inside Slate."
     }
   ],
   "fields": [
@@ -32,20 +33,30 @@
       "prefill": "account-email"
     },
     {
+      "name": "APP_NAME",
+      "label": "App name",
+      "help": "What sign-in and invitation email call this app, as the sender and in the subject. Leave blank to call it Slate.",
+      "kind": "text",
+      "required": false,
+      "default": "",
+      "group": "owner",
+      "runtimeEditable": true
+    },
+    {
       "name": "MAIL_PROVIDER",
-      "label": "Email provider",
-      "help": "Managed hosting configures mail automatically. Free and Assisted hosting need a real delivery provider. Local development suppresses mail.",
+      "label": "Who sends sign-in email",
+      "help": "Managed hosting chooses this for you. Free and Assisted hosting need a Resend or SendGrid account.",
       "kind": "select",
       "required": true,
       "default": "resend",
       "options": [
         {
           "value": "development",
-          "label": "Local development (mail suppressed)"
+          "label": "Nobody: on this computer only (for developers)"
         },
         {
           "value": "rer",
-          "label": "RER managed mail"
+          "label": "Run Edit Run (Managed hosting)"
         },
         {
           "value": "resend",
@@ -66,11 +77,12 @@
       "default": "auth@localhost.test",
       "required": true,
       "group": "email",
-      "runtimeEditable": true
+      "runtimeEditable": true,
+      "help": "The address sign-in email comes from. Your mail provider must allow sending from it."
     },
     {
       "name": "MAIL_RELAY_URL",
-      "label": "Managed mail relay URL",
+      "label": "Run Edit Run mail address",
       "kind": "url",
       "required": true,
       "when": {
@@ -78,7 +90,8 @@
         "equals": "rer"
       },
       "group": "email",
-      "runtimeEditable": false
+      "runtimeEditable": false,
+      "help": "Filled in by Managed hosting."
     },
     {
       "name": "MAIL_API_KEY",
@@ -94,8 +107,9 @@
             "field": "MAIL_PROVIDER",
             "equals": "rer"
           },
-          "label": "Managed mail credential",
-          "required": true
+          "label": "Run Edit Run mail key",
+          "required": true,
+          "help": "Filled in by Managed hosting. It lets this app send its own sign-in email and can be replaced at any time."
         },
         {
           "when": {
@@ -103,7 +117,8 @@
             "equals": "resend"
           },
           "label": "Resend API key",
-          "required": true
+          "required": true,
+          "help": "From your Resend account, with permission to send email."
         },
         {
           "when": {
@@ -111,25 +126,28 @@
             "equals": "sendgrid"
           },
           "label": "SendGrid API key",
-          "required": true
+          "required": true,
+          "help": "From your SendGrid account, with permission to send email."
         }
       ]
     },
     {
       "name": "APP_URL",
-      "label": "Application origin",
+      "label": "App web address",
       "kind": "url",
-      "runtimeEditable": false
+      "runtimeEditable": false,
+      "help": "Where people open Slate, such as https://wiki.example.com. Hosting fills this in."
     },
     {
       "name": "PUBLIC_PAGE_HOST",
-      "label": "Published-page host",
+      "label": "Web address for published pages",
       "kind": "text",
-      "runtimeEditable": false
+      "runtimeEditable": false,
+      "help": "Where pages you publish for anyone to read are served. Hosting fills this in."
     },
     {
       "name": "SESSION_SECRET",
-      "label": "Session secret",
+      "label": "Sign-in cookie key",
       "kind": "secret",
       "required": true,
       "ownerVisible": false,
@@ -138,7 +156,7 @@
     },
     {
       "name": "SETUP_TOKEN",
-      "label": "Owner setup token",
+      "label": "One-time owner setup key",
       "kind": "secret",
       "required": true,
       "ownerVisible": false,
@@ -147,52 +165,54 @@
     },
     {
       "name": "IDENTITY_PROVIDER",
-      "label": "Identity provider",
+      "label": "Company sign-in address",
       "kind": "url",
       "required": false,
       "default": "",
-      "help": "Optional shared identity provider. Leave blank for native email links. An existing owner links it with a fresh email proof.",
+      "help": "Optional. The web address of your company's sign-in service, so people can sign in with their work account. Leave blank to sign in with email links. The owner confirms it by email before it takes effect.",
       "runtimeEditable": false
     },
     {
       "name": "SLATE_PROFILE",
-      "label": "Slate profile",
+      "label": "Feature set",
       "kind": "select",
       "default": "core-wiki",
       "options": [
         {
           "value": "core-wiki",
-          "label": "Core wiki"
+          "label": "Team wiki"
         },
         {
           "value": "flagship",
-          "label": "Flagship development"
+          "label": "Team wiki plus features in development (for developers)"
         }
       ],
       "group": "technical",
-      "runtimeEditable": false
+      "runtimeEditable": false,
+      "help": "Team wiki is Slate. The other choice adds features still being built, for developers working on Slate; it gives nobody extra access."
     },
     {
       "name": "AI_ENABLED",
-      "label": "AI enabled",
+      "label": "AI assistant (for developers)",
       "kind": "select",
       "default": "false",
       "options": [
         {
           "value": "false",
-          "label": "Disabled"
+          "label": "Off"
         },
         {
           "value": "true",
-          "label": "Enabled"
+          "label": "On"
         }
       ],
       "group": "technical",
-      "runtimeEditable": false
+      "runtimeEditable": false,
+      "help": "Turns on Slate's AI features, which are still being built. Needs an AI service key. Keep it off for everyday use."
     },
     {
       "name": "AI_PROVIDER",
-      "label": "AI provider",
+      "label": "AI service (for developers)",
       "kind": "select",
       "default": "openai",
       "options": [
@@ -202,47 +222,50 @@
         },
         {
           "value": "local-codex",
-          "label": "Local Codex development"
+          "label": "Codex on this computer (for developers)"
         }
       ],
       "group": "technical",
-      "runtimeEditable": false
+      "runtimeEditable": false,
+      "help": "Which AI service the assistant uses when it is on."
     },
     {
       "name": "ALLOW_LOOPBACK_DELEGATION",
-      "label": "Allow loopback delegation",
+      "label": "Connect to apps on this computer (for developers)",
       "kind": "select",
       "default": "false",
       "options": [
         {
           "value": "false",
-          "label": "Disabled"
+          "label": "Off"
         },
         {
           "value": "true",
-          "label": "Enabled"
+          "label": "On"
         }
       ],
       "group": "technical",
-      "runtimeEditable": false
+      "runtimeEditable": false,
+      "help": "Lets Slate's connectors reach a Happy To Help or Orbit app running at localhost while you develop them. Keep it off on a hosted app."
     },
     {
       "name": "SSO_ENABLED",
-      "label": "SSO enabled",
+      "label": "Company sign-in (for developers)",
       "kind": "select",
       "default": "false",
       "options": [
         {
           "value": "false",
-          "label": "Disabled"
+          "label": "Off"
         },
         {
           "value": "true",
-          "label": "Enabled"
+          "label": "On"
         }
       ],
       "group": "technical",
-      "runtimeEditable": false
+      "runtimeEditable": false,
+      "help": "Turns on sign-in through a company identity service configured with extra deployment settings. Most teams use the Company sign-in address above instead."
     },
     {
       "name": "LINK_PREVIEWS_ENABLED",
@@ -252,14 +275,15 @@
       "options": [
         {
           "value": "true",
-          "label": "Enabled"
+          "label": "On"
         },
         {
           "value": "false",
-          "label": "Disabled"
+          "label": "Off"
         }
       ],
-      "runtimeEditable": true
+      "runtimeEditable": true,
+      "help": "When someone pastes a web link into a page, Slate fetches the page's title and summary to show a preview card."
     }
   ],
   "runtime": {

@@ -9,7 +9,7 @@ import {listIdentityMail,retryIdentityMail} from '../../../src/core/features/ses
 import {firstRunState,completeFirstRun} from '../../../src/core/features/workspace/bootstrap.ts';
 import type {FeatureContext} from '../../../src/core/app/feature-context.ts';
 import type {RuntimeConfig} from '../../../src/core/platform/config/runtime.ts';
-const config:RuntimeConfig={sessionSecret:'a-test-only-secret-of-at-least-32-characters',localDevelopment:false,mailProvider:'resend',mailApiKey:'test-only-provider-key',mailFrom:'Slate <mail@test.invalid>',appUrl:'https://slate.test.invalid'};
+const config:RuntimeConfig={sessionSecret:'a-test-only-secret-of-at-least-32-characters',localDevelopment:false,mailProvider:'resend',mailApiKey:'test-only-provider-key',appName:'Slate',mailFrom:'Slate <mail@test.invalid>',appUrl:'https://slate.test.invalid'};
 const now=new Date().toISOString();
 function fixture(){
  const sql=new DatabaseSync(':memory:',{enableDoubleQuotedStringLiterals:true});

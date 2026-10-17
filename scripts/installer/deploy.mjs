@@ -21,6 +21,8 @@ export const deploy = lifecycle => async context => {
   declaration.vars.IDENTITY_PROVIDER = identityProviderOrigin(process.env.SLATE_IDENTITY_PROVIDER);
   declaration.vars.MAIL_PROVIDER = provider; declaration.vars.MAIL_FROM = sender;
   declaration.vars.MAIL_RELAY_URL = relayUrl;
+  // The app's name in mail (sender name and subject); blank keeps Slate.
+  declaration.vars.APP_NAME = process.env.SLATE_APP_NAME?.trim() ?? '';
   const directory = await privateDirectory(context.root, ['.seed', 'installer']);
   const path = join(directory, 'owner-deploy.json');
   await writePrivateFile(path, JSON.stringify(declaration) + '\n');

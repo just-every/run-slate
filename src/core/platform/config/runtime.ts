@@ -1,4 +1,5 @@
 import { readLaunchProfile, type LaunchProfile } from "./launch-profile";
+import { ownerIdentity } from "../../../ext/config";
 
 export interface RuntimeBindings {
   RER_DEMO?: string;
@@ -8,6 +9,8 @@ export interface RuntimeBindings {
   RER_MANAGEMENT_ORIGIN?: string;
   RER_INSTALLATION_ID?: string;
   SLATE_PROFILE?: string;
+  /** The installation's display name; Managed hosting names the app this. */
+  APP_NAME?: string;
   APP_URL?: string;
   HAPPYTOHELP_DELEGATION_ORIGIN?: string;
   HAPPYTOHELP_DELEGATION_CLIENT_ID?: string;
@@ -65,6 +68,8 @@ export interface RuntimeConfig {
   /** One-time token for POST /auth/bootstrap; present only until the deployment claims its owner. */
   setupToken?: string;
   mailProvider?: "rer" | "resend" | "sendgrid" | "development";
+  /** The app's name in every mail: sender name and subject (APP_NAME, else the owner's configured name, Slate). */
+  appName: string;
   mailFrom?: string;
   mailApiKey?: string;
   mailRelayUrl?: string;
@@ -108,6 +113,13 @@ const requiredDeploymentVariables = [
 ] as const;
 const requiredAiVariables = ["AI_API_KEY", "AI_MODEL"] as const;
 const requiredIdentityVariables = ["IDENTITY_ISSUER_URL", "IDENTITY_CLIENT_ID", "IDENTITY_CLIENT_SECRET", "IDENTITY_AUTHORIZATION_ENDPOINT", "IDENTITY_TOKEN_ENDPOINT", "IDENTITY_JWKS_URI", "IDENTITY_TRANSACTION_SECRET"] as const;
+
+function readAppName(env: RuntimeBindings): string {
+  const name = env.APP_NAME?.trim();
+  if (!name) return ownerIdentity.name;
+  if (name.length > 100 || /[\u0000-\u001f<>"\\]/.test(name)) throw new RuntimeConfigurationError('APP_NAME must be at most 100 characters without quotes, angle brackets or line breaks.');
+  return name;
+}
 
 function missingDeploymentVariables(env: RuntimeBindings): string[] {
   return requiredDeploymentVariables.filter((name) => !(name === "MAIL_API_KEY" && env.MAIL_PROVIDER === "development") && !env[name]?.trim());
@@ -205,6 +217,7 @@ export function readRuntimeConfig(env: RuntimeBindings, isLoopback: boolean): Ru
     setupOwnerEmail: env.SETUP_OWNER_EMAIL,
     setupToken: env.SETUP_TOKEN?.trim() || undefined,
     mailProvider: mailProvider as RuntimeConfig["mailProvider"],
+    appName: readAppName(env),
     mailFrom: env.MAIL_FROM,
     mailApiKey: env.MAIL_API_KEY,
     mailRelayUrl: env.MAIL_RELAY_URL,

@@ -2241,6 +2241,15 @@
       "reason": "Asserts POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
+      "file": "tests/flagship/core/preview-owner-signin.test.ts",
+      "testName": "a preview owner grant signs the owner in once; reuse, expiry and a non-preview Worker are refused",
+      "kind": "supporting-regression",
+      "clauses": [
+        "BASE-ACCESS-001"
+      ],
+      "reason": "Local Worker journey: a grant written as RER's preview writer writes it signs the owner in once; reuse, expiry and a Worker without RER_PREVIEW_TOKEN are refused. Hosted preview evidence is recorded separately."
+    },
+    {
       "file": "tests/flagship/discovery/following.test.ts",
       "testName": "container following delivers personal coalesced events once and rechecks lifecycle and access",
       "kind": "supporting-regression",

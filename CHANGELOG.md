@@ -4,6 +4,14 @@
 
 The hosted demo at demo.run-slate.com moves from a container to rer's native Worker Loader host: each visitor gets their own isolate with SQLite facets for the database and collaboration rooms, files in their own storage, a durable job queue and the cron by alarm. Every vendored Base copy is refreshed together from `rer-v0.2.40`, and the Run demo workflow is Base's template; `deploy-demo.json` drops the retired container size.
 
+A Managed change preview that copied the live app's data now opens with the owner signed in: Slate accepts RER's single-use owner grant (Base's `oa_owner_signins` shape) at `/auth/owner-signin`, only on a preview Worker, once, within 15 minutes, for the active owner. Migration 0034 adds the grant table and a read-only `oa_operators` view of the workspace's members, which RER uses to find the owner.
+
+Sign-in and invitation mail name the app the same way in the sender name and the subject: the new optional `APP_NAME` setting (`SLATE_APP_NAME` for `rer deploy`), else Slate. Managed mail's relay names the sender from the installation itself.
+
+Setup labels and help read in plain words, and developer-only settings say "for developers"; values and behaviour are unchanged.
+
+The workers test config no longer starts miniflare's real queue consumer (`SLATE_TEST_QUEUE_CONSUMERS=1` opts in), so a job a test leaves on the local queue cannot hang the suite.
+
 RER’s Open app action now opens Slate’s sign-in page with the claimed owner’s email filled in. The generated deployment spec declares `/signin` and its `login_hint` support; opening the page does not send an email.
 
 ## 0.2.0 — 16 October 2026

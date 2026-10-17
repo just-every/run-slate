@@ -185,6 +185,20 @@ roles, groups, scoped guests and the `slate_session` cookie are unchanged.
   archive HTTP exports retain Base step-up. Current owner authorization, complete
   read coverage, origin checks and export identity/ACL commit guards still apply;
   the local exception neither issues nor stores an email proof.
+- **Managed preview owner entry (BASE-ACCESS-001), 17 October 2026.** A Managed
+  change preview that copied the live app's data opens with the owner signed in.
+  RER writes one grant into the preview's own D1 in the shape of Base's
+  `oa_owner_signins` (SHA-256 of the token only; 15-minute expiry) for the owner
+  it finds by email in `oa_operators`, a read-only view of the workspace's
+  `members` and `member_authority` (migration 0034; not a ledger, nothing writes
+  it). `/auth/owner-signin` exists only on a Worker holding `RER_PREVIEW_TOKEN`,
+  which RER gives preview Workers alone; elsewhere it answers 404. GET shows the
+  confirmation and writes nothing; its same-origin POST consumes the grant and
+  issues a native session in one D1 batch that rechecks the grant is unconsumed,
+  unexpired, at most 15 minutes out and names the active owner at its authority
+  version. A used, expired or other-member grant gets the invalid-link page.
+  The grant table is excluded from archives. Evidence:
+  `tests/flagship/core/preview-owner-signin.test.ts`.
 - **Dev identity (SC-05).** The local-only entry `src/dev/server.ts` serves
   key-gated dev sessions for the claimed owner and real `editor` and `guest`
   personas at `<as>@dev.localhost`. Local mail is suppressed; there is no local

@@ -7,7 +7,7 @@
     "scripts/delivery/base/packaging.json": "sha256:c5797d1098ddfe236394cf01baefd35a800d6d483762a571a37affd66bfea565",
     "src/server.ts": "sha256:d24038f085d64282c2ff43175442aaa831c3d8b7e8d109ae724521ae0094b939",
     "src/core/features/workspace/bootstrap.ts": "sha256:5c2e85662faa536bfe88514bab723cc1c45c2444374ba8d9f7a6d71785a31dd2",
-    "src/core/platform/config/runtime.ts": "sha256:4f9dcdf5cd808a5cb305443a6d616e73ae7d0381a81dd843e813e798da7a8714",
+    "src/core/platform/config/runtime.ts": "sha256:9b8538f7be58fae917433e68a2f2a62b6482862665480effe4a7f9e102bb2140",
     "migrations/core/0001_knowledge_foundation.sql": "sha256:88bb09f3c90f4741bc686f333fd765ca838ff6e96969d5182b292df0c4816c39",
     "migrations/core/0002_core_runtime.sql": "sha256:34e5c0c5c9a3f4bb7364e649054a87ec8fe614bd469417e6e7c3412ba1e47346",
     "migrations/core/0003_content_collaboration.sql": "sha256:534fe0d90d535c02a669c55591698b02520cd478c2bb3b87d74825154c71d1f7",
@@ -39,6 +39,7 @@
     "migrations/core/0030_native_dependencies.sql": "sha256:bb14fa7c0797f2aa3b04e08dfe8711615e9dbe9a4df9c0e3eed988dda8c5823b",
     "migrations/core/0031_import_preparation_progress.sql": "sha256:0df0299800a546a8da6c0a52585f987ba8d08a6fc10d2c826fa31da85f523d6a",
     "migrations/core/0032_work_items.sql": "sha256:fb24d70fa1e6bc2a2d6c0a60345b9e94290ccb4cc4b3736f0413a0a26face661",
-    "migrations/core/0033_following.sql": "sha256:91872d9cca2ede3387b1a66bb9712196a0a56e265fe19f4315d080b947f47c6c"
+    "migrations/core/0033_following.sql": "sha256:91872d9cca2ede3387b1a66bb9712196a0a56e265fe19f4315d080b947f47c6c",
+    "migrations/core/0034_preview_owner_signin.sql": "sha256:512644f038ca39e3855353739ceae3776e31f26db4a881382c5ff6db7cc9a019"
   }
 }

@@ -3,6 +3,7 @@ import { createAuthHandler, createOperatorAuth, type AuthConfig } from '../../..
 import { devAdmitted } from '../../../../modules/operator-auth/dev-admission.mjs';
 import type { RuntimeConfig } from '../../platform/config/runtime';
 import { sessionDigest } from '../../platform/auth/token';
+import { namedSender } from '../../platform/mail/sender';
 import { identityMailSender, type SignInDelivery } from './mail-sender';
 import { bootstrapOwner } from '../workspace/bootstrap';
 import { createNativeAccounts } from './native/accounts';
@@ -30,6 +31,9 @@ const fingerprint = (config: RuntimeConfig) => {
   return pin ? JSON.stringify([pin.issuer, pin.clientId, pin.authorizationEndpoint, pin.tokenEndpoint, pin.jwksUri, pin.tokenAuthMethod]) : 'disabled';
 };
 
+/** Base's pages and mail name the app as its mail sender does. */
+export const slateBranding = (config: Pick<RuntimeConfig, 'appName'>) => ({ productName: config.appName, accentColor: '#1b1b18', signInPath: '/signin', theme: '/rer-theme.css' });
+
 /**
  * Base keys email-token and rate digests with SESSION_SECRET; Slate derives that
  * key from its own session secret so any existing secret length keeps working.
@@ -37,10 +41,10 @@ const fingerprint = (config: RuntimeConfig) => {
 async function baseConfig(config: RuntimeConfig): Promise<AuthConfig> {
   const origin = new URL(config.appUrl!).origin;
   return {
-    origin, local: config.localDevelopment, OWNER_EMAIL: config.setupOwnerEmail!, MAIL_FROM: config.mailFrom,
+    origin, local: config.localDevelopment, OWNER_EMAIL: config.setupOwnerEmail!, MAIL_FROM: namedSender(config),
     ...(config.setupToken ? { SETUP_TOKEN: config.setupToken } : {}),
     SESSION_SECRET: await sessionDigest(config.sessionSecret, 'slate:operator-auth:v1'),
-    branding: { productName: 'Slate', accentColor: '#1b1b18', signInPath: '/signin', theme: '/rer-theme.css' },
+    branding: slateBranding(config),
     linkSeconds: 3600, dependencies: true,
     providers: providerConfig(config, origin),
     ...(config.identityProvider ? { OIDC_TRANSACTION_SECRET: config.identityProvider.transactionSecret } : {}),

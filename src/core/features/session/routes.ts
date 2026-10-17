@@ -4,10 +4,11 @@ import { z } from "zod";
 import { AuthError } from "../../../../modules/operator-auth/index.mjs";
 import { confirmationResponse } from "../../../../modules/operator-auth/identity/email-link/confirmation.mjs";
 import type { AppEnvironment } from "../../app/types";
+import type { RuntimeConfig } from "../../platform/config/runtime";
 import { ApiProblem } from "../../app/problems";
 import { error } from "../../shared/errors";
 import { sessionDigest } from "../../platform/auth/token";
-import { createSlateAuth, slateSessions } from "./auth";
+import { createSlateAuth, slateBranding, slateSessions } from "./auth";
 import { acceptInvitation, previewInvitation } from "../workspace/invitations";
 import { invitationAcceptedPage, invitationPage } from "../workspace/invitation-page";
 import { bootstrapOwner } from "../workspace/bootstrap";
@@ -16,9 +17,9 @@ import { signInCapabilities, storedSignInCapabilities } from "./capabilities";
 import { mailStatus } from "./mail-status";
 import type { MailRow } from "./mail-authority";
 import { completeNativeLocalSetup, LOCAL_SETUP_PATH } from "./local-setup";
+import { OWNER_SIGNIN_PATH, previewOwnerSignIn } from "./preview-owner-signin";
 
-const branding = { productName: "Slate", accentColor: "#1b1b18", signInPath: "/signin", theme: "/rer-theme.css" };
-const retiredLink = (method: string) => confirmationResponse({ branding, preview: null, token: "", method });
+const retiredLink = (config: RuntimeConfig, method: string) => confirmationResponse({ branding: slateBranding(config), preview: null, token: "", method });
 import { BASE_AUTH_PATHS } from './paths';
 export { BASE_AUTH_PATHS, SESSION_AUTH_PATHS } from './paths';
 const invitationToken = z.string().min(20).max(512);
@@ -37,6 +38,10 @@ export function createSessionRoutes() {
     .all("/auth/owner-claim", c => ownerClaim(c.req.raw, c.env, c.get("runtimeConfig")))
     .all(LOCAL_SETUP_PATH, async c => {
       try { return c.json(await completeNativeLocalSetup(c.req.raw, c.env.DB, c.get("runtimeConfig"), c.env.SESSION_SECRET!)); }
+      catch (cause) { authProblem(cause); }
+    })
+    .on(["GET", "HEAD", "POST"], OWNER_SIGNIN_PATH, async c => {
+      try { return await previewOwnerSignIn(c.req.raw, c.env, c.get("runtimeConfig"), slateBranding(c.get("runtimeConfig"))); }
       catch (cause) { authProblem(cause); }
     })
     .get("/api/auth/capabilities", async (context) => context.json(await storedSignInCapabilities(context.env.DB, context.get("runtimeConfig"))))
@@ -71,10 +76,10 @@ export function createSessionRoutes() {
       // With SSO off no provider owns the callback, and Base answers null for it.
       if (!response) return c.json(error("NOT_FOUND", "Not found."), 404);
       // A used, expired or foreign link submitted from the confirmation page gets the same page, not JSON.
-      if (c.req.path === "/auth/confirm" && c.req.method === "POST" && response.status === 400) return retiredLink("POST");
+      if (c.req.path === "/auth/confirm" && c.req.method === "POST" && response.status === 400) return retiredLink(c.get("runtimeConfig"), "POST");
       return response;
     })
-    .get("/api/auth/magic/accept", c => retiredLink(c.req.method))
+    .get("/api/auth/magic/accept", c => retiredLink(c.get("runtimeConfig"), c.req.method))
     // WORK-006: the link only shows a confirmation page; its same-origin POST accepts once and
     // the session is issued by the native session store Base's adapters use.
     .get("/api/auth/invitation/accept", async c => {

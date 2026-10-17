@@ -39,6 +39,11 @@ export function resolveVitestWranglerConfigPath(root: string, profile?: "core-wi
     assets: { ...config.assets, directory: path.resolve(root, "public") },
     d1_databases: config.d1_databases?.map((database: { migrations_dir?: string; [key: string]: unknown }) => ({ ...database, ...(database.migrations_dir ? { migrations_dir: path.resolve(root, database.migrations_dir) } : {}) })),
     vars: { ...config.vars, ...testVars, ...(profile ? { SLATE_PROFILE: profile } : {}) },
+    // Producers stay so code that enqueues still works; miniflare's real consumer
+    // does not start, because a job a test leaves on the queue is then delivered
+    // through the pool's module runner and can hang the run (gr-base-215).
+    // SLATE_TEST_QUEUE_CONSUMERS=1 opts a run in to the real consumer.
+    queues: process.env.SLATE_TEST_QUEUE_CONSUMERS === "1" ? config.queues : { ...config.queues, consumers: undefined },
   };
   mkdirSync(path.join(root, GENERATED_DIR), { recursive: true });
   writeFileSync(path.join(root, GENERATED_DIR, filename), JSON.stringify(generated, null, 2));

@@ -44,6 +44,7 @@ The real deployment declaration is [deploy.json](deploy.json); `scripts/installe
 | `SLATE_SETUP_OWNER_EMAIL` | First native owner mailbox. |
 | `SLATE_MAIL_PROVIDER` | Explicit `resend` or `sendgrid`; no provider default. |
 | `SLATE_MAIL_FROM` | Verified sender for that provider. |
+| `SLATE_APP_NAME` | Optional name the app's sign-in and invitation mail use as sender name and subject; blank keeps Slate. |
 | `SLATE_IDENTITY_PROVIDER` | Optional exact HTTPS origin of a linked identity provider; leave blank for native email sign-in. |
 | `SLATE_SESSION_SECRET` | Private secret; rer generates one on a first deploy. Preserve it across deployments to retain session and encrypted custody continuity. |
 | `SLATE_MAIL_API_KEY` | Private key belonging to the selected mail provider. |

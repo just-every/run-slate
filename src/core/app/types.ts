@@ -6,6 +6,8 @@ export type AppBindings = RuntimeBindings & Omit<SlateWorkerBindings, keyof Runt
   RER_DEPLOY_SOURCE?: string;
   RER_DEPLOY_FINGERPRINT?: string;
   RER_VERSION?: WorkerVersionMetadata;
+  /** Present only on a Managed preview Worker (RER's runtime wrapper gates it); enables the owner's preview entry. */
+  RER_PREVIEW_TOKEN?: string;
 };
 
 /** The person the baseline calls an operator. `knowledge/vocabulary.ts` names them a member. */
