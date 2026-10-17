@@ -948,7 +948,7 @@
       "executable": false
     },
     "CHANGELOG.md": {
-      "sha256": "d91bc93f11812c511c468f679e465517bc5256b0cfad093d3b445763b4c6ea05",
+      "sha256": "2ddf09567631ba4f2f7e885e8da933e5c07b199a4a66b4e52eac423dd45287ba",
       "executable": false
     },
     "CLAUDE.md": {
@@ -956,7 +956,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "151a6277531012909419d622f1a9728b7d2ed009795024073fb470ffa7f53906",
+      "sha256": "16045b7d2cab4a91ba9b60a5366df286ad9c63118f3ec90dfc4201eaa81072b6",
       "executable": false
     },
     "DEMO.md": {
@@ -4264,7 +4264,7 @@
       "executable": false
     },
     "src/core/app/types.ts": {
-      "sha256": "5a50d0a4eba8667d30c244abc8b0fa56bf6af2e33ecfe330e3a7059d8489155e",
+      "sha256": "aebd7058e1aba2b7cf8c50cb29855c9a748f12dc73fb651c705debc6e53a7552",
       "executable": false
     },
     "src/core/app/ui/AccessExpiry.tsx": {
@@ -7352,7 +7352,7 @@
       "executable": false
     },
     "src/core/features/session/preview-owner-signin.ts": {
-      "sha256": "ee9f0a1904b5149c0937e3c8314bd5bacb1dd9d27b0fae9f098a1a3b04230a35",
+      "sha256": "fd596f4a8244f42033045166ebb3e1828ce295624dac98c27419bd008b4969ad",
       "executable": false
     },
     "src/core/features/session/repository.ts": {
@@ -8708,7 +8708,7 @@
       "executable": false
     },
     "tests/flagship/core/preview-owner-signin.test.ts": {
-      "sha256": "067d2e11cf070a887198e86368201ab4b116089bbeeec1fd0c8d50f0b003308e",
+      "sha256": "23238a1c3c62281b29bd88b7e2d12f5795c280b0bbe9e6cc9a8647c1c7206169",
       "executable": false
     },
     "tests/flagship/core/security.test.ts": {
@@ -10224,7 +10224,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "4bb9f0aa2b003afc4d725b397ff60a30631f5c6647279ab31fa2e22344b11786",
+      "sha256": "2fe1dc633d47702600bec3b733a622f657140cbf5b84b9b925e538c3a3fdc9a3",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

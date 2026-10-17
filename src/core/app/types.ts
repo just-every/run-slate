@@ -6,10 +6,8 @@ export type AppBindings = RuntimeBindings & Omit<SlateWorkerBindings, keyof Runt
   RER_DEPLOY_SOURCE?: string;
   RER_DEPLOY_FINGERPRINT?: string;
   RER_VERSION?: WorkerVersionMetadata;
-  /** "true" only on a Managed preview Worker; enables the owner's preview entry (preview-owner-signin.ts). */
-  RER_PREVIEW?: string;
-  /** The preview secret earlier RER releases bind instead of RER_PREVIEW; read the same way. */
-  RER_PREVIEW_TOKEN?: string;
+  /** The declared owner sign-in path, bound by RER on a Managed preview's app Worker only; enables the owner's preview entry (preview-owner-signin.ts). */
+  RER_PREVIEW_OWNER_SIGNIN?: string;
 };
 
 /** The person the baseline calls an operator. `knowledge/vocabulary.ts` names them a member. */

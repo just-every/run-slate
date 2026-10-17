@@ -2247,7 +2247,7 @@
       "clauses": [
         "BASE-ACCESS-001"
       ],
-      "reason": "Local Worker journey: a grant written as RER's preview writer writes it signs the owner in once on a Worker marked RER_PREVIEW=true or holding RER_PREVIEW_TOKEN; reuse, expiry, a missing token and a non-preview Worker go to the sign-in page with no session. Hosted preview evidence is recorded separately."
+      "reason": "Local Worker journey: a grant written as RER's preview writer writes it signs the owner in once on a Worker bound RER_PREVIEW_OWNER_SIGNIN=/auth/owner-signin; reuse, expiry, a missing token and a non-preview Worker go to the sign-in page with no session. Hosted preview evidence is recorded separately."
     },
     {
       "file": "tests/flagship/discovery/following.test.ts",

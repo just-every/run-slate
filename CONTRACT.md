@@ -191,9 +191,10 @@ roles, groups, scoped guests and the `slate_session` cookie are unchanged.
   `oa_owner_signins` (SHA-256 of the token only; 15-minute expiry) for the owner
   it finds by email in `oa_operators`, a read-only view of the workspace's
   `members` and `member_authority` (migration 0034; not a ledger, nothing writes
-  it). `/auth/owner-signin` honours a grant only on a preview Worker, which RER
-  marks with the plain binding `RER_PREVIEW=true` (earlier releases: a
-  `RER_PREVIEW_TOKEN` secret, read the same way). GET shows the confirmation
+  it). `/auth/owner-signin` honours a grant only on a preview's app Worker,
+  which RER marks with the plain binding `RER_PREVIEW_OWNER_SIGNIN` set to that
+  declared path (amended 18 October 2026; it was `RER_PREVIEW_TOKEN`, which
+  never reaches app code). GET shows the confirmation
   and writes nothing; its same-origin POST consumes the grant and issues a
   native session in one D1 batch that rechecks the grant is unconsumed,
   unexpired, at most 15 minutes out and names the active owner at its authority

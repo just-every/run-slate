@@ -37,8 +37,8 @@ async function signInInstead(db: D1Database, token: unknown): Promise<Response> 
   return new Response(null, { status: 303, headers: { Location: `/signin?${search}`, 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' } });
 }
 
-/** RER marks a preview Worker with RER_PREVIEW=true (or, earlier, a RER_PREVIEW_TOKEN secret); a live Worker has neither. */
-const isPreviewWorker = (env: Pick<AppBindings, 'RER_PREVIEW' | 'RER_PREVIEW_TOKEN'>) => env.RER_PREVIEW === 'true' || Boolean(env.RER_PREVIEW_TOKEN);
+/** RER binds RER_PREVIEW_OWNER_SIGNIN, the declared owner sign-in path, on a preview's app Worker alone. */
+const isPreviewWorker = (env: Pick<AppBindings, 'RER_PREVIEW_OWNER_SIGNIN'>) => env.RER_PREVIEW_OWNER_SIGNIN === OWNER_SIGNIN_PATH;
 
 /**
  * The owner's entry into a Managed preview (Base's /auth/owner-signin, native):

@@ -4,8 +4,7 @@ import {resetDeployment} from '../../e2e/setup/reset-deployment';
 import {createApi} from '../../../src/core/app/hono';
 
 const setupToken='b'.repeat(64),origin='https://slate.test';
-const preview={...env,SETUP_TOKEN:setupToken,RER_PREVIEW:'true'} as typeof env;
-const tokenPreview={...env,SETUP_TOKEN:setupToken,RER_PREVIEW_TOKEN:'preview-worker-secret'} as typeof env;
+const preview={...env,SETUP_TOKEN:setupToken,RER_PREVIEW_OWNER_SIGNIN:'/auth/owner-signin'} as typeof env;
 const live={...env,SETUP_TOKEN:setupToken} as typeof env;
 const api=createApi();
 const hex=(bytes:ArrayBuffer)=>Array.from(new Uint8Array(bytes),byte=>byte.toString(16).padStart(2,'0')).join('');
@@ -54,9 +53,6 @@ test('a preview owner grant signs the owner in once; reuse, expiry and a non-pre
  // The production Worker is not a preview: the grant goes to sign-in and stays unused.
  const outside=await writeGrant('owner@slate.test');
  signInInstead(await open(outside,live),'owner@slate.test');signInInstead(await confirm(outside,live),'owner@slate.test');
- // An earlier RER release marks its previews with the RER_PREVIEW_TOKEN secret instead; the same grant works there.
- expect((await open(outside,tokenPreview)).status).toBe(200);
- expect((await confirm(outside,tokenPreview)).status).toBe(303);
- expect(await env.DB.prepare('SELECT count(*) n FROM oa_owner_signins WHERE consumed_at IS NOT NULL').first()).toEqual({n:2});
- expect(await env.DB.prepare("SELECT count(*) n FROM sessions s JOIN members m ON m.id=s.member_id WHERE m.role='owner'").first()).toEqual({n:3});
+ expect(await env.DB.prepare('SELECT count(*) n FROM oa_owner_signins WHERE consumed_at IS NOT NULL').first()).toEqual({n:1});
+ expect(await env.DB.prepare("SELECT count(*) n FROM sessions s JOIN members m ON m.id=s.member_id WHERE m.role='owner'").first()).toEqual({n:2});
 });
