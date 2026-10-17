@@ -3467,7 +3467,7 @@
       "executable": false
     },
     "RUN-LOCALLY.md": {
-      "sha256": "c7b1acf48237a8a27ab435abc2a687d1029c7a468c51ef683c801eb599fc3907",
+      "sha256": "3d4e1bf5a29e887dcde9173a10d8e8a8bc2e657771d109da7661f3e5730d2dde",
       "executable": false
     },
     "scripts/base-proof/objects.mjs": {

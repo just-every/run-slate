@@ -1,8 +1,6 @@
 # Run it locally
 
-Start it with one line, `npx -y @runeditrun/rer dev just-every/run-slate`
-(without Node: `curl -fsSL https://runeditrun.com/install.sh | sh -s -- dev just-every/run-slate`);
-to only set it up, run `npx -y @runeditrun/rer setup just-every/run-slate`.
+Install the `rer` command once using the [RER installer](https://runeditrun.com).
 After the script or `npx` install, activate it in the current shell with
 `export PATH="$HOME/.local/bin:$PATH"`. First-party commands fetch and verify
 the exact pnpm version declared in `package.json` when it is missing, using
