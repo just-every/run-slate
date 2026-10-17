@@ -2977,7 +2977,7 @@
           "testName": "durable imports and federation authorizes real Worker HTTP imports and export endpoints against current sessions"
         },
         {
-          "file": "tests/flagship/structured/structured.test.ts",
+          "file": "tests/flagship/structured/http.test.ts",
           "testName": "Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input"
         },
         {

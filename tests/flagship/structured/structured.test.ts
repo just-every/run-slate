@@ -453,60 +453,6 @@ test("empty database accepts numeric formula, recomputes changed fields, rejects
     }),
   ).rejects.toMatchObject({ code: "FORMULA_CYCLE" });
 });
-test("Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input", async () => {
-  const { SELF } = await import("cloudflare:test");
-  const { sessionFor } = await import("../../e2e/setup/fixtures");
-  const { ctx, containerId, reader } = await scenario();
-  const input = {
-    operationKey: "case:031",
-    containerId,
-    title: "HTTP database",
-  };
-  const send = (cookie?: string) =>
-    SELF.fetch("http://localhost/api/databases", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        origin: "http://localhost",
-        ...(cookie ? { cookie } : {}),
-      },
-      body: JSON.stringify(input),
-    });
-  expect((await send()).status).toBe(401);
-  expect(
-    (
-      await send(
-        await sessionFor(ctx.actor.id, { expiresAt: "2020-01-01T00:00:00Z" }),
-      )
-    ).status,
-  ).toBe(401);
-  expect(
-    (await send(await sessionFor(ctx.actor.id, { revokedAt: ctx.now }))).status,
-  ).toBe(401);
-  expect((await send(await sessionFor(reader.actor.id))).status).toBe(404);
-  const cookie = await sessionFor(ctx.actor.id),
-    response = await send(cookie);
-  expect(response.status).toBe(201);
-  const body = (await response.json()) as {
-    value: {
-      id: string;
-    };
-  };
-  const read = await SELF.fetch(
-    `http://localhost/api/databases/${body.value.id}`,
-    { headers: { cookie } },
-  );
-  expect(read.status).toBe(200);
-  expect(
-    (
-      (await read.json()) as {
-        database: {
-          id: string;
-        };
-      }
-    ).database.id,
-  ).toBe(body.value.id);
-});
 test("rollups filter related unreadable records before aggregate and reject stale references", async () => {
   const { ctx, containerId, reader } = await scenario();
   const db = await createDatabase(ctx, {

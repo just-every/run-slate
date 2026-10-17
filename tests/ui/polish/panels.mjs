@@ -12,6 +12,13 @@ export async function pagePanelsJourney({ page, origin, api, modelRequests }, pa
   const panel = page.locator('.right');
   const favourite = menu.getByRole('menuitem', { name: /^(Add to|Remove from) favourites$/ });
   const watch = menu.getByRole('menuitem', { name: /^(Watch this page|Stop watching)$/ });
+  // Creating and editing now autowatches this page (PAGE-016). Establish the
+  // explicit opt-out before exercising the existing watch/unwatch cycle.
+  await expect(watch).toHaveAccessibleName('Stop watching');
+  await expect.poll(async () => (await api('/api/navigation')).watches.includes(pageId)).toBe(true);
+  await watch.click();
+  await expect(watch).toBeEnabled(); await expect(watch).toHaveAccessibleName('Watch this page');
+  await expect.poll(async () => (await api('/api/navigation')).watches.includes(pageId)).toBe(false);
   await menuEntry(favourite, 'Page Favourite'); await menuEntry(watch, 'Page Watch'); await separated([favourite, watch], 'Favourite and Watch', { gap: 0 });
   await labelsDoNotOverlap(menu); await capture(page, 'more-menu', { fullPage: true });
   await expect(menu.getByRole('menuitem', { name: 'Add icon', exact: true })).toBeVisible();

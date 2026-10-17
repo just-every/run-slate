@@ -936,7 +936,7 @@
       "executable": false
     },
     "AGENTS.md": {
-      "sha256": "691ac9c1336e331225b58932c3aafecfc819a023be41304664621093c407a293",
+      "sha256": "910f3bb1a14b275fef3be88e8164266bcdca96f1ddc49d4a7778315c93cdd111",
       "executable": false
     },
     "base-copies.json": {
@@ -3532,11 +3532,11 @@
       "executable": false
     },
     "package.json": {
-      "sha256": "98227b7ae72861670475c083ef17839c2f2946adb6e832ced2b24d206ea7eecb",
+      "sha256": "c9f15e1b3df4298f9a584ca016c2adda83265eea7b355c37f0be36859302583a",
       "executable": false
     },
     "pnpm-lock.yaml": {
-      "sha256": "dc8b053892a0353d19095a206ad0a48fb380fec03ac1ff806ae02a5d41498644",
+      "sha256": "9f12dd79a3a69a55049fc9a91308c1c67bcf807148c35587eb9083c9ac36a204",
       "executable": false
     },
     "pnpm-workspace.yaml": {
@@ -4628,7 +4628,7 @@
       "executable": false
     },
     "src/core/features/automation/scope.ts": {
-      "sha256": "87be8b6e39102479e16cef36e33cdd5c9a12950ed669ffb0aa32194c49f2ab60",
+      "sha256": "110a11c878b7f83d5d0660266f0c3790ead437e2445cc95bbe2ee9fda766e133",
       "executable": false
     },
     "src/core/features/automation/service.ts": {
@@ -8859,6 +8859,10 @@
       "sha256": "1738229f739b9f063515f7d198c26b94c3c428581fbd5a893a43eb708265159f",
       "executable": false
     },
+    "tests/flagship/structured/http.test.ts": {
+      "sha256": "df36508147be377ac771b93ec1906cc9107001fa8c8ff5800518578a73f66c24",
+      "executable": false
+    },
     "tests/flagship/structured/migration.py": {
       "sha256": "0a0453980139a3e9a7b652349e6f2610ca6ec03d5f71082b877ed778c8f69144",
       "executable": false
@@ -8868,7 +8872,7 @@
       "executable": false
     },
     "tests/flagship/structured/structured.test.ts": {
-      "sha256": "eae266bbed308067cdbce6a4a0382c98873753f7bdfa4149a3d146292e19e764",
+      "sha256": "698c04fbe6d42ddffb4468b1dce8723577663f1748eb41e3d46b03d7dc68e115",
       "executable": false
     },
     "tests/flagship/structured/template-permissions.test.ts": {
@@ -9964,7 +9968,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "d4a27dc7e7a3182f1f9ad47664e1b194dd573be96ed0865322de10db20b3555a",
+      "sha256": "9847d0d038493be4db61b6882ece65a4c35997f47294d13cc69a75f9d2cfb483",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -9972,7 +9976,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "c8367cb5c43561e4908c49d13bbd8e38896d8ed702309a7233d610d3b33e91ec",
+      "sha256": "b46a11166ec13b53e25af40468ffc60564e843aaca0a397c9622dd2e7bba5ade",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
@@ -10060,7 +10064,7 @@
       "executable": false
     },
     "tests/ui/polish/panels.mjs": {
-      "sha256": "b90d4e9a608fe1a7aa220b16b348033b5c6881f26438038082975ecf85adf2b2",
+      "sha256": "fc0e14698d77a98ab8deca95f75a39842f1c1a19522155733279d1e30ae4f8e6",
       "executable": false
     },
     "tests/ui/polish/resource-readiness.mjs": {

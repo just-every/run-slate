@@ -55,7 +55,10 @@ export function scopedActionContext(ctx: FeatureContext, scope: Scope, action: R
   if (action.type === "create-record" && scope.scope === "container") guards.push(mutationGuard(ctx.db,"SELECT p.container_id=? FROM databases d JOIN pages p ON p.id=d.page_id WHERE d.id=?",[scope.container_id,action.databaseId]));
   if ((action.type === "create-page" || action.type === "move") && action.parentPageId) guards.push(mutationGuard(ctx.db,"SELECT container_id=? FROM pages WHERE id=? AND deleted_at IS NULL",[action.containerId,action.parentPageId]));
   const db = new Proxy(ctx.db,{get(target,key){
-    if (key === "batch") return (statements: D1PreparedStatement[])=>target.batch([...guards,...statements]);
+    if (key === "batch") return async (statements: D1PreparedStatement[]) => {
+      const results = await target.batch([...guards, ...statements]);
+      return results.slice(guards.length);
+    };
     const value=Reflect.get(target,key);return typeof value === "function" ? value.bind(target) : value;
   }});
   return {...ctx,db};

@@ -960,7 +960,7 @@
       "reason": "Asserts empty database accepts numeric formula, recomputes changed fields, rejects invalid types and cycles. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
-      "file": "tests/flagship/structured/structured.test.ts",
+      "file": "tests/flagship/structured/http.test.ts",
       "testName": "Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input",
       "kind": "supporting-regression",
       "clauses": [
