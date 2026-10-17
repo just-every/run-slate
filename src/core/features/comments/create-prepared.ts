@@ -1,3 +1,5 @@
+import {canonicalGroupLabels} from './group-labels';
+import { mentionEffects } from './group-mentions';
 import type {FeatureContext} from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
 import {createUlid} from '../../shared/ulid';
@@ -6,13 +8,13 @@ import {pageRow, lifecycleWritable, lifecyclePageGuard} from '../pages/repositor
 import {validateBlockContent} from '../editor/validation';
 import {notificationStatements} from '../notifications/events';
 import {implicitWatchStatement} from '../navigation/service';
-import {commentRevision, mentionIds} from './content';
+import {commentRevision} from './content';
 import type {CommentInput} from './service';
 
 /** Native comment writes prepared for composition into one guarded operation. */
 export async function prepareCreateComment(ctx: FeatureContext, pageId: string, input: Omit<CommentInput,'operationKey'>, {revisionId}:{revisionId:string}) {
     const normalized = validateBlockContent('paragraph', {text:input.body}) as {text:CommentInput['body']};
-    input = {...input,body:normalized.text};
+    input = {...input,body:await canonicalGroupLabels(ctx,normalized.text)};
     await requirePageLevel(ctx, pageId, 'comment');
     const page = await pageRow(ctx, pageId);
     lifecycleWritable(page);
@@ -38,6 +40,6 @@ export async function prepareCreateComment(ctx: FeatureContext, pageId: string, 
         if (!parent)
             throw new ApiProblem(400, 'INVALID_REPLY', 'Reply must target this thread.');
     }
-    statements.push(ctx.db.prepare('INSERT INTO comments (id,thread_id,parent_comment_id,author_member_id,body_json,created_at,updated_at,revision_id) VALUES (?,?,?,?,?,?,?,?)').bind(id, threadId, input.parentCommentId ?? null, ctx.actor.id, JSON.stringify(input.body), ctx.now, ctx.now, revisionId), ctx.db.prepare('UPDATE comment_threads SET revision_id=?,updated_at=? WHERE id=?').bind(revisionId, ctx.now, threadId), await commentRevision(ctx, threadId, revisionId, input.body), implicitWatchStatement(ctx, pageId), ...notificationStatements(ctx, { id: `${revisionId}:comment`, event: input.parentCommentId ? 'reply' : 'comment', pageId, commentId: id }), ...notificationStatements(ctx, { id: `${revisionId}:mentions`, event: 'mention', pageId, commentId: id, recipientIds: mentionIds(input.body) }));
+    statements.push(ctx.db.prepare('INSERT INTO comments (id,thread_id,parent_comment_id,author_member_id,body_json,created_at,updated_at,revision_id) VALUES (?,?,?,?,?,?,?,?)').bind(id, threadId, input.parentCommentId ?? null, ctx.actor.id, JSON.stringify(input.body), ctx.now, ctx.now, revisionId), ctx.db.prepare('UPDATE comment_threads SET revision_id=?,updated_at=? WHERE id=?').bind(revisionId, ctx.now, threadId), await commentRevision(ctx, threadId, revisionId, input.body), implicitWatchStatement(ctx, pageId), ...notificationStatements(ctx, { id: `${revisionId}:comment`, event: input.parentCommentId ? 'reply' : 'comment', pageId, commentId: id }), ...await mentionEffects(ctx,pageId,page.container_id,input.body,[],revisionId,id));
     return { statements, detail: {commentId:id,revisionId}, entity: { id: threadId, kind: 'comment-thread', revisionId }, value: { id, threadId, revisionId } };
 }

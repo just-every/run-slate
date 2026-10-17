@@ -3235,6 +3235,18 @@
           "testName": "CONT-010 — a Confluence Cloud blog post imports as a post with its date and author, and undo removes it"
         }
       ]
+    },
+    {
+      "id": "BLOCK-020",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Native group mention previews, bounds and reader-only delivery have targeted Workers and browser journeys; genuine Confluence team mention import needs an incumbent export showing its storage format.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/discovery/group-mentions.test.ts",
+          "testName": "BLOCK-020 — group mentions preview and notify only readers once, with owner-controlled administrator bounds"
+        }
+      ]
     }
   ]
 }

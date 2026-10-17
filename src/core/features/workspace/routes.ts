@@ -1,3 +1,4 @@
+import { mentionConfiguration, setMentionConfiguration } from '../comments/group-mentions';
 import { requireStepUp } from '../session/step-up';
 import { listIdentityMail,retryIdentityMail } from '../session/mail-status';
 import { requireWorkspaceOwner } from '../sharing/current-access';
@@ -21,6 +22,8 @@ export function createWorkspaceRoutes(){return new Hono<AppEnvironment>()
 .get('/api/workspace/jobs',async c=>{const ctx=featureContext(c);await requireWorkspaceOwner(ctx);return c.json({items:(await ctx.db.prepare('SELECT id,kind,attempts,state,error_code AS errorCode,updated_at AS updatedAt FROM core_job_failures ORDER BY updated_at DESC LIMIT 100').all()).results});})
 .get('/api/workspace/mail',async c=>c.json(await listIdentityMail(featureContext(c))))
 .post('/api/workspace/mail/:id/retry',async c=>c.json(await retryIdentityMail(featureContext(c),c.get('runtimeConfig'),c.req.param('id'))))
+.get('/api/workspace/mention-configuration',async c=>c.json(await mentionConfiguration(featureContext(c))))
+.put('/api/workspace/mention-configuration',async c=>c.json(await setMentionConfiguration(featureContext(c),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id.nullable(),restrictLargeGroups:z.boolean()}).strict()))))
 .get('/api/workspace',async c=>c.json(await readWorkspace(featureContext(c))))
 .put('/api/workspace',async c=>c.json(await updateWorkspace(featureContext(c),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id,name:z.string().trim().min(1).max(160),mark:z.string().max(2048),description:z.string().max(2000),guestAccess:toggle,publicLinkAccess:toggle,anonymousAccess:toggle,policies}).strict()))))
 .get('/api/members/current',async c=>c.json(await currentMember(featureContext(c))))

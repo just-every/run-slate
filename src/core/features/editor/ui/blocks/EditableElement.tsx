@@ -1,6 +1,7 @@
 import {StatusLabelDialog} from './StatusLabelDialog';
 import {typedInline} from "../typedFormatting";
 import {MentionPicker} from "./MentionPicker";
+import {useTaskPage} from './TaskPageContext';
 import {
   useLayoutEffect,
   useMemo,
@@ -33,11 +34,14 @@ export function EditableElement({
   className,
   multiline = true,
   inlineLabels = true,
+  mentionPageId,
+  previousMentions,
   as,
 }: EditableProps & { html: string }) {
   // A fresh object on an unrelated render would reset an in-progress IME edit.
   const markup = useMemo(() => ({ __html: html }), [html]);
   const root = useRef<HTMLElement>(null);
+  const taskPage=useTaskPage();
   const [mention,setMention] = useState<{start:number;before:RichText;after:RichText}|null>(null);
   const [statusIndex,setStatusIndex]=useState<number|null>(null);
   function editStatus(target:HTMLElement) {
@@ -94,7 +98,7 @@ export function EditableElement({
         onChange={onChange}
         canEdit={canEdit}
       />
-      {mention && canEdit ? <MentionPicker onClose={()=>{setMention(null);root.current?.focus();}} onQueryChange={query=>{
+      {mention && canEdit ? <MentionPicker pageId={mentionPageId??taskPage?.pageId} value={value} previous={previousMentions??[mention.before,mention.after]} onClose={()=>{setMention(null);root.current?.focus();}} onQueryChange={query=>{
         onChange([...mention.before,{text:'@'+query},...mention.after]);
       }} onSelect={span=>{
         pendingSelection.current={anchor:mention.start+span.text.length,focus:mention.start+span.text.length};onChange([...mention.before,span,...mention.after]);root.current?.focus();

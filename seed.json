@@ -115,7 +115,8 @@
         "BLOCK-007",
         "BLOCK-008",
         "BLOCK-009",
-        "BLOCK-010"
+        "BLOCK-010",
+        "BLOCK-020"
       ]
     },
     {
@@ -984,7 +985,8 @@
     ],
     "concurrentAiRuns": 5,
     "operatorApiRequestsPerMinute": 600,
-    "publicRequestsPerIpPerMinute": 120
+    "publicRequestsPerIpPerMinute": 120,
+    "groupMentionSize": 50
   },
   "accessibility": {
     "level": "WCAG 2.2 AA",

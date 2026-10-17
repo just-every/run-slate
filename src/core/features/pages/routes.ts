@@ -1,3 +1,4 @@
+import { mentionGroups, previewMentions } from '../comments/group-mentions';
 import { setPageLock } from './locks';
 import { pageDetails } from './details';
 import { pageLinkCard } from './link-card';
@@ -37,6 +38,8 @@ export function createPagesRoutes() {
     r.post('/:id/expansion', async (c) => c.json(await treeExpansion(featureContext(c), c.req.param('id'), await c.req.json())));
     r.get('/:id/details',async c=>c.json(await pageDetails(featureContext(c),c.req.param('id'),c.get('runtimeConfig')?.appUrl)));
     r.get('/:id/link-card',async c=>c.json(await pageLinkCard(featureContext(c),c.req.param('id'),c.req.query('revision'))));
+    r.get('/:id/mention-groups', async c => c.json(await mentionGroups(featureContext(c), c.req.param('id'))));
+    r.post('/:id/mention-preview', async c => c.json(await previewMentions(featureContext(c), c.req.param('id'), await c.req.json())));
     r.get('/:id', async (c) => c.json(await readPage(featureContext(c), c.req.param('id'))));
     r.patch('/:id', async (c) => { const ctx=featureContext(c),id=c.req.param('id'); const result=await updatePage(ctx,id,await validatedJson(c,updatePageSchema)); return c.json({...result,document:await readPage(ctx,id)}); });
     r.patch('/:id/blocks/:blockId', async (c) => c.json(await updateBlock(featureContext(c), c.req.param('id'), c.req.param('blockId'), await validatedJson(c, updateBlockSchema))));

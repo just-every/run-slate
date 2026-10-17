@@ -1,4 +1,5 @@
-import { notificationStatements } from '../notifications/events';
+import {canonicalGroupLabels} from './group-labels';
+import { mentionEffects } from './group-mentions';
 import type { FeatureContext } from '../../app/feature-context';
 import { commitOperation, mutationGuard } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
@@ -49,7 +50,7 @@ export async function editComment(ctx: FeatureContext, id: string, input: {
             await requirePageLevel(ctx, row.page_id, 'comment');
             if (row.author_member_id !== ctx.actor.id)
                 throw new ApiProblem(403, 'FORBIDDEN', 'Only the author can edit or delete their comment.');
-        }, prepare: async ({ revisionId }) => { const page=await pageRow(ctx,row.page_id); lifecycleWritable(page); return { statements: [lifecyclePageGuard(ctx,page), mutationGuard(ctx.db, 'SELECT revision_id=? FROM comments WHERE id=?', [input.expectedRevisionId, id]), ctx.db.prepare('UPDATE comments SET body_json=?,deleted_at=?,revision_id=?,updated_at=? WHERE id=?').bind(input.delete ? '[]' : JSON.stringify(input.body), input.delete ? ctx.now : null, revisionId, ctx.now, id), ctx.db.prepare('UPDATE comment_threads SET revision_id=?,updated_at=? WHERE id=?').bind(revisionId, ctx.now, row.thread_id), await commentRevision(ctx, row.thread_id, revisionId, { id, body: input.body ?? null, deleted: !!input.delete }), ...notificationStatements(ctx, { id: `${revisionId}:mentions`, event: 'mention', pageId: row.page_id, commentId: id, recipientIds: mentionIds(input.body).filter(id => !mentionIds(JSON.parse(row.body_json)).includes(id)) })], detail: {commentId:id,revisionId}, entity: { id: row.thread_id, kind: 'comment-thread', revisionId }, value: { id, revisionId } }; } });
+        }, prepare: async ({ revisionId }) => { const page=await pageRow(ctx,row.page_id); lifecycleWritable(page); const body=input.delete?[]:await canonicalGroupLabels(ctx,input.body); return { statements: [lifecyclePageGuard(ctx,page), mutationGuard(ctx.db, 'SELECT revision_id=? FROM comments WHERE id=?', [input.expectedRevisionId, id]), ctx.db.prepare('UPDATE comments SET body_json=?,deleted_at=?,revision_id=?,updated_at=? WHERE id=?').bind(input.delete ? '[]' : JSON.stringify(body), input.delete ? ctx.now : null, revisionId, ctx.now, id), ctx.db.prepare('UPDATE comment_threads SET revision_id=?,updated_at=? WHERE id=?').bind(revisionId, ctx.now, row.thread_id), await commentRevision(ctx, row.thread_id, revisionId, { id, body: body ?? null, deleted: !!input.delete }), ...await mentionEffects(ctx,row.page_id,page.container_id,body,JSON.parse(row.body_json),revisionId,id)], detail: {commentId:id,revisionId}, entity: { id: row.thread_id, kind: 'comment-thread', revisionId }, value: { id, revisionId } }; } });
 }
 export async function resolveThread(ctx: FeatureContext, id: string, input: {
     operationKey: string;

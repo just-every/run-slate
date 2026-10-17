@@ -27,7 +27,7 @@ export function KeyboardReference({ onClose }: { onClose: () => void }) {
         openShortcut="Ctrl / or ⌘ /"
         groups={[
           {id:"typed",title:"Typed formatting",kind:"typed",entries:[
-            {id:"insert",label:"Insert a block",keys:"/"},{id:"mention",label:"Mention a person, page or date",keys:"@"},
+            {id:"insert",label:"Insert a block",keys:"/"},{id:"mention",label:"Mention a person, group, page or date",keys:"@"},
             {id:"heading",label:"Headings (then space)",keys:"# / ## / ###"},{id:"bullet",label:"Bulleted list (then space)",keys:"- or *"},
             {id:"number",label:"Numbered list (then space)",keys:"1."},{id:"quote",label:"Quote (then space)",keys:"> or \""},
             {id:"task",label:"Task (then space)",keys:"[] or [ ]"},{id:"divider",label:"Divider",keys:"---"},{id:"codeblock",label:"Code block",keys:"```"},

@@ -1,7 +1,7 @@
+import {canonicalGroupLabels,labelGroups} from '../comments/group-labels';
+import { mentionEffects } from '../comments/group-mentions';
 import { taskEffects } from '../work-items/effects';
 import { normalizeTask } from './tasks';
-import { notificationStatements } from '../notifications/events';
-import { mentionIds } from '../comments/service';
 import type { FeatureContext } from '../../app/feature-context';
 import { commitOperation, mutationGuard, requestHash } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
@@ -15,7 +15,7 @@ import { validateBlockContent, validateBlockTree, plainContent } from './validat
 import { contentPolicy } from '../pages/policy';
 import { labelForReader, labelPageMentions } from '../pages/mentions';
 /** Equal once every page mention's label is dropped: a reader's copy carries labels chosen for them, never the stored title. */
-async function sameContent(a: JsonValue, b: JsonValue) { const bare = (value: JsonValue) => labelPageMentions(value, () => ''); return await requestHash(bare(a)) === await requestHash(bare(b)); }
+async function sameContent(a: JsonValue, b: JsonValue) { const bare = (value: JsonValue) => labelGroups(labelPageMentions(value, () => ''), () => ''); return await requestHash(bare(a)) === await requestHash(bare(b)); }
 function revisionUpdate(ctx: FeatureContext, id: string, revisionId: string, live: boolean) { return ctx.db.prepare("UPDATE pages SET working_revision_id=?,revision_id=?,published_revision_id=CASE WHEN ? THEN ? ELSE published_revision_id END,lifecycle=CASE WHEN ? THEN lifecycle WHEN lifecycle IN ('live','live-with-unpublished-changes') THEN 'live-with-unpublished-changes' ELSE lifecycle END,updated_at=? WHERE id=?").bind(revisionId, revisionId, +live, revisionId, +live, ctx.now, id); }
 export async function updateBlock(ctx: FeatureContext, pageId: string, blockId: string, input: BlockUpdateInput) {
     // Retry only snapshot contention from a different block. The submitted block CAS is never rebased.
@@ -29,14 +29,14 @@ export async function updateBlock(ctx: FeatureContext, pageId: string, blockId: 
                         throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
                     if (block.revisionId !== input.expectedRevisionId)
                         throw new ApiProblem(409, 'BLOCK_CONFLICT', 'This block changed. Keep your unsaved text and compare.', { blockId, currentRevisionId: block.revisionId, serverContent: await labelForReader(ctx, block.content) });
-                    let content = validateBlockContent(block.blockType, input.content);
+                    let content = await canonicalGroupLabels(ctx,validateBlockContent(block.blockType, input.content));
                     content = await normalizeTask(ctx, { ...block, content }, block);
                     if (await sameContent(content, block.content))
                         return { noChange: true, statements: [pageGuard(ctx, page, page.revision_id), mutationGuard(ctx.db, 'SELECT revision_id=? FROM page_blocks WHERE id=? AND page_id=?', [input.expectedRevisionId, blockId, pageId])], entity: { id: pageId, kind: 'page', revisionId: page.revision_id }, value: { pageId, revisionId: page.revision_id, blockRevisionId: block.revisionId, previousRevisionId: page.revision_id } };
                     const blockRevisionId = createUlid();
                     const next = blocks.map(b => b.id === blockId ? { ...b, content, revisionId: blockRevisionId } : b);
                     const policy = await contentPolicy(ctx), live = policy['page.lifecycle.v1'] === 'always-live' && !['draft', 'scheduled'].includes(page.lifecycle);
-                    return { statements: [pageGuard(ctx, page, page.revision_id), mutationGuard(ctx.db, 'SELECT revision_id=? FROM page_blocks WHERE id=? AND page_id=?', [input.expectedRevisionId, blockId, pageId]), ctx.db.prepare('UPDATE page_blocks SET content_json=?,revision_id=?,updated_at=? WHERE id=?').bind(JSON.stringify(content), blockRevisionId, ctx.now, blockId), revisionUpdate(ctx, pageId, revisionId, live), await revisionStatement(ctx, pageId, revisionId, { blocks: next, properties: await properties(ctx, page) }), ctx.db.prepare('INSERT OR IGNORE INTO page_contributors VALUES (?,?,?)').bind(pageId, ctx.actor.id, ctx.now), ...contentEvent(ctx, pageId, revisionId, 'block', { blockId, blockRevisionId }), ...anchorUpdates(ctx, pageId, next),...await taskEffects(ctx,pageId,next,blocks,revisionId),...notificationStatements(ctx,{id:`${revisionId}:mentions`,event:'mention',pageId,recipientIds:mentionIds(content).filter(id=>!mentionIds(block.content).includes(id)&&(block.blockType!=='task'||id!==(content as Record<string,any>).assigneeMemberId))})], entity: { id: pageId, kind: 'page', revisionId }, value: { pageId, revisionId, blockRevisionId, previousRevisionId: page.revision_id } };
+                    return { statements: [pageGuard(ctx, page, page.revision_id), mutationGuard(ctx.db, 'SELECT revision_id=? FROM page_blocks WHERE id=? AND page_id=?', [input.expectedRevisionId, blockId, pageId]), ctx.db.prepare('UPDATE page_blocks SET content_json=?,revision_id=?,updated_at=? WHERE id=?').bind(JSON.stringify(content), blockRevisionId, ctx.now, blockId), revisionUpdate(ctx, pageId, revisionId, live), await revisionStatement(ctx, pageId, revisionId, { blocks: next, properties: await properties(ctx, page) }), ctx.db.prepare('INSERT OR IGNORE INTO page_contributors VALUES (?,?,?)').bind(pageId, ctx.actor.id, ctx.now), ...contentEvent(ctx, pageId, revisionId, 'block', { blockId, blockRevisionId }), ...anchorUpdates(ctx, pageId, next),...await taskEffects(ctx,pageId,next,blocks,revisionId),...await mentionEffects(ctx,pageId,page.container_id,content,block.content,revisionId,undefined,block.blockType==='task'?[(content as Record<string,any>).assigneeMemberId]:[])], entity: { id: pageId, kind: 'page', revisionId }, value: { pageId, revisionId, blockRevisionId, previousRevisionId: page.revision_id } };
                 } });
         }
         catch (e) {
@@ -88,7 +88,7 @@ export async function prepareReplaceBlocks(ctx: FeatureContext, pageId: string, 
     blocks: BlockInput[];
     blockRevisions?: Record<string, string>;
 }, revisionId: string) {
-    const incoming = validateBlockTree(input.blocks);
+    const incoming = await canonicalGroupLabels(ctx,validateBlockTree(input.blocks));
     const page = await pageRow(ctx, pageId);
     writable(page);
     const old = await pageBlocks(ctx.db, pageId);
@@ -110,5 +110,5 @@ export async function prepareReplaceBlocks(ctx: FeatureContext, pageId: string, 
     }
     const removed = old.filter(b => !next.some(n => n.id === b.id));
     const policy = await contentPolicy(ctx), live = policy['page.lifecycle.v1'] === 'always-live' && !['draft', 'scheduled'].includes(page.lifecycle);
-    return { statements: [pageGuard(ctx, page, input.expectedRevisionId), ...removed.flatMap(b => [ctx.db.prepare('UPDATE comment_threads SET block_id=NULL,orphaned=1 WHERE block_id=?').bind(b.id), ctx.db.prepare('DELETE FROM page_blocks WHERE id=?').bind(b.id)]), ...saved.map(b => ctx.db.prepare('INSERT INTO page_blocks (id,page_id,parent_block_id,block_type,content_json,tree_position,revision_id,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET parent_block_id=excluded.parent_block_id,block_type=excluded.block_type,content_json=excluded.content_json,tree_position=excluded.tree_position,revision_id=excluded.revision_id,updated_at=excluded.updated_at').bind(b.id, pageId, b.parentBlockId, b.blockType, JSON.stringify(b.content), b.treePosition, b.revisionId, ctx.now, ctx.now)), revisionUpdate(ctx, pageId, revisionId, live), await revisionStatement(ctx, pageId, revisionId, { blocks: saved, properties: await properties(ctx, page) }), ...anchorUpdates(ctx, pageId, saved),...await taskEffects(ctx,pageId,saved,old,revisionId), ...contentEvent(ctx, pageId, revisionId, 'structure')], entity: { id: pageId, kind: 'page', revisionId }, value: { pageId, revisionId, blocks: next } };
+    return { statements: [pageGuard(ctx, page, input.expectedRevisionId), ...removed.flatMap(b => [ctx.db.prepare('UPDATE comment_threads SET block_id=NULL,orphaned=1 WHERE block_id=?').bind(b.id), ctx.db.prepare('DELETE FROM page_blocks WHERE id=?').bind(b.id)]), ...saved.map(b => ctx.db.prepare('INSERT INTO page_blocks (id,page_id,parent_block_id,block_type,content_json,tree_position,revision_id,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET parent_block_id=excluded.parent_block_id,block_type=excluded.block_type,content_json=excluded.content_json,tree_position=excluded.tree_position,revision_id=excluded.revision_id,updated_at=excluded.updated_at').bind(b.id, pageId, b.parentBlockId, b.blockType, JSON.stringify(b.content), b.treePosition, b.revisionId, ctx.now, ctx.now)), revisionUpdate(ctx, pageId, revisionId, live), await revisionStatement(ctx, pageId, revisionId, { blocks: saved, properties: await properties(ctx, page) }), ...anchorUpdates(ctx, pageId, saved),...await taskEffects(ctx,pageId,saved,old,revisionId), ...await mentionEffects(ctx,pageId,page.container_id,saved,old,revisionId), ...contentEvent(ctx, pageId, revisionId, 'structure')], entity: { id: pageId, kind: 'page', revisionId }, value: { pageId, revisionId, blocks: next } };
 }

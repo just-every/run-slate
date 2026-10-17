@@ -2293,6 +2293,15 @@
         "IMP-003"
       ],
       "reason": "Imports the committed Confluence Cloud export with one appended BLOGPOST row through preview, apply and undo: the post keeps its creation date and mapped author and undo removes it. No incumbent export with blog posts exists in the fixtures, so this is not genuine import acceptance."
+    },
+    {
+      "file": "tests/flagship/discovery/group-mentions.test.ts",
+      "testName": "BLOCK-020 — group mentions preview and notify only readers once, with owner-controlled administrator bounds",
+      "kind": "supporting-regression",
+      "clauses": [
+        "BLOCK-020"
+      ],
+      "reason": "Native HTTP journey covers reader-only deduplicated notifications, recipient preview, comments and block edits, forged create/update refusal for large groups, owner configuration and access revocation. Confluence team import remains unproven."
     }
   ]
 }

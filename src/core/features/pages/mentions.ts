@@ -1,3 +1,4 @@
+import {canonicalGroupLabels} from '../comments/group-labels';
 import type { FeatureContext } from '../../app/feature-context';
 import type { BlockView } from '../../shared/api/content';
 import type { JsonValue } from '../../shared/api/common';
@@ -45,7 +46,7 @@ export async function resolveMentions(ctx:FeatureContext,blocks:Pick<BlockView,'
 /** The given content with every page mention labelled for this reader. */
 export async function labelForReader<T>(ctx:FeatureContext,value:T):Promise<T> {
     const mentions=await resolveMentions(ctx,[{content:value as JsonValue}]);
-    return labelPageMentions(value,id=>mentions[id]?.label??'Unavailable page');
+    return canonicalGroupLabels(ctx,labelPageMentions(value,id=>mentions[id]?.label??'Unavailable page'));
 }
 /**
  * The given content labelled for everyone it is shown to at once, such as an

@@ -1,3 +1,4 @@
+import {GroupMentionSettings} from './GroupMentionSettings';
 import {NavigationSettings} from "./NavigationSettings";
 import { useState } from "react";
 import { useWorkspace } from "../../../../app/ui/WorkspaceContext";
@@ -85,7 +86,7 @@ export function WorkspacePreferences() {
       >
         {data ? (
           <>
-            {member.role === "owner"?<NavigationSettings/>:null}
+            {member.role === "owner"?<><NavigationSettings/><GroupMentionSettings/></>:null}
             <h3>{data.name}</h3>
             <p>{data.description || "No description yet."}</p>
             <dl className="settings-facts">

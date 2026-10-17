@@ -17,6 +17,7 @@ const colourClass: Record<InlineColour, string> = {
 
 const mentionPrefix: Record<NonNullable<InlineSpan["mention"]>["kind"], string> = {
   person: "@",
+  group: "@",
   page: "",
   date: "",
 };
@@ -28,7 +29,7 @@ function Mention({ span }: { span: InlineSpan }) {
     <span
       className={cn(
         "rounded-control px-1 py-0.5 text-[0.95em]",
-        mention.kind === "person" ? "bg-accent-soft text-accent" : "bg-sidebar-hover text-ink",
+        (mention.kind === "person" || mention.kind === "group") ? "bg-accent-soft text-accent" : "bg-sidebar-hover text-ink",
         mention.kind === "page" ? "underline decoration-line-strong underline-offset-2" : "",
       )}
       data-mention-kind={mention.kind}

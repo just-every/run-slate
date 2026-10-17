@@ -15,7 +15,7 @@ export type InlineMark =
 /** The stored highlight colours. Colour never carries meaning on its own. */
 export type InlineColour = "yellow" | "blue" | "green" | "red" | "purple";
 
-export type MentionKind = "person" | "page" | "date";
+export type MentionKind = "person" | "group" | "page" | "date";
 
 export type StatusColour = "grey" | "blue" | "green" | "yellow" | "red" | "purple";
 

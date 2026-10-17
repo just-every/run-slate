@@ -1,3 +1,4 @@
+import {useMentionPreview,MentionPreview} from '../../../editor/ui/blocks/MentionPreview';
 import { displayDate } from "../../../../app/ui/displayDate";
 import {ReactionControls} from './ReactionControls';
 import type {PageSelection} from "./selection";
@@ -51,6 +52,8 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
   const [sendFailed, setSendFailed] = useState(false);
   const [edit, setEdit] = useState<Comment>();
   useEffect(()=>{const params=new URLSearchParams(window.location.search);const thread=params.get("thread"),comment=params.get("comment");if(thread||comment)window.document.getElementById(`${thread?"thread":"comment"}-${thread??comment}`)?.scrollIntoView({block:"center"});},[resource.data]);
+  const mentionPreview=useMentionPreview(document.page.id,body);
+  const editMentionPreview=useMentionPreview(document.page.id,editBody,edit?.body??[]);
   const allowed = document.permissions.level !== "view";
   async function action(path: string, value: unknown, method = "POST") {
     setError(undefined);
@@ -193,10 +196,11 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
           <label>
             {reply ? "Reply to thread" : "New comment"}
             {selection && !reply ? <blockquote>{selection.quote}</blockquote>:null}
-            <Editable value={body} onChange={setBody} canEdit={!pending} label={reply?"Reply text":"Comment text"} placeholder="Write a comment; type @ to mention"/>
+            <Editable mentionPageId={document.page.id} previousMentions={[]} value={body} onChange={setBody} canEdit={!pending} label={reply?"Reply text":"Comment text"} placeholder="Write a comment; type @ to mention"/>
           </label>
+          <MentionPreview preview={mentionPreview}/>
           {error ? <p className="comment-error" role="alert">{errorMessage(error)}{sendFailed ? " Your draft is kept. Choose Send comment to retry." : null}</p> : null}
-          <button className="primary-button" type="submit" disabled={pending || !body.some(span=>span.text.trim())}>
+          <button className="primary-button" type="submit" disabled={pending || mentionPreview.loading || !!mentionPreview.error || !body.some(span=>span.text.trim())}>
             {pending ? "Sending…" : "Send comment"}
           </button>
           {reply ? (
@@ -215,6 +219,7 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
           action="Save comment"
           onClose={() => setEdit(undefined)}
           onSubmit={async (data) => {
+            if(editMentionPreview.loading || editMentionPreview.error)throw new Error("Wait for a successful recipient preview before saving.");
             await action(
               `/api/comments/${edit.id}`,
               {
@@ -228,8 +233,9 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
         >
           <label>
             Comment
-            <Editable value={editBody} onChange={setEditBody} canEdit label="Edit comment text" placeholder="Write a comment"/>
+            <Editable mentionPageId={document.page.id} previousMentions={edit.body} value={editBody} onChange={setEditBody} canEdit label="Edit comment text" placeholder="Write a comment"/>
           </label>
+          <MentionPreview preview={editMentionPreview}/>
         </ActionDialog>
       ) : null}
     </section>

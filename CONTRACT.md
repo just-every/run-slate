@@ -785,7 +785,7 @@ A mention can name a group (`WORK-009`). It renders the group's name and notifie
 
 *Acceptance:* a Workers journey mentions a four-member group on a page one of its members cannot read and finds exactly three inbox items. A browser journey shows "3 people will be notified" before saving, and a member without permission who mentions a group above the size limit is refused with a reason.
 
-*Status:* partial. Person mentions notify (`BLOCK-005`, `tests/e2e/editor/rich-text-editing.test.tsx`); group mentions do not exist.
+*Status:* partial. Native group mentions in comments and page edits preview the number of readers, deduplicate recipients, and notify only current readers. Owners can restrict groups above `seed.json → limits.groupMentionSize` to space administrators; server checks cover comments, block edits, structure replacement and page creation (`tests/flagship/discovery/group-mentions.test.ts`). The composer includes a reader count and an explicit confirmation before an autosaving edit inserts the group (`tests/qualification/ui-convergence/group-mentions-journey.mjs`). Gap: Confluence team-mention mapping is not implemented; a genuine export is needed to establish its storage representation.
 
 #### BLOCK-021 — Attachment previews.
 Every file attachment (`BLOCK-008`) of a supported preview type opens in an in-page viewer inside its file block and in a full-screen viewer. Both viewers offer page or sheet navigation, zoom, find-in-file and a download button. The supported preview types are:
@@ -2013,7 +2013,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `BLOCK-017` | Table of contents block | target | partial | `tests/profile/body-blocks-journey.ts` | Word export remains missing; genuine Confluence macro-fixture acceptance remains unproven. |
 | `BLOCK-018` | Status labels | target | partial | `tests/profile/body-blocks-journey.ts` | Confluence status colour in plain-string table cells is reported as loss; genuine incumbent macro-fixture acceptance remains unproven. |
 | `BLOCK-019` | Diagrams.net diagrams | target | missing | — | not implemented |
-| `BLOCK-020` | Group mentions | target | partial | `tests/e2e/editor/rich-text-editing.test.tsx` | see the clause |
+| `BLOCK-020` | Group mentions | target | partial | `tests/flagship/discovery/group-mentions.test.ts`, `tests/qualification/ui-convergence/group-mentions-journey.mjs` | Native mentions implemented; Confluence team import remains unproven. |
 | `BLOCK-021` | Attachment previews | target | missing | — | not implemented |
 | `BLOCK-022` | Attachment versions | target | missing | — | not implemented |
 | `CONT-010` | Space blog and announcements | target | partial | `tests/qualification/ui-convergence/blog-journey.mjs` | Native posts, permission-aware feeds, follower notices and Home are proven at 1440/390; Cloud blog import is proven only on a derived export, Server/DC XML blog posts remain unmapped, and email delivery waits on NOTIF-005. |

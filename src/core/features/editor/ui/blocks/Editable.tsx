@@ -20,6 +20,8 @@ export interface EditableProps {
   multiline?: boolean;
   /** Single-line string fields cannot retain inline metadata. */
   inlineLabels?: boolean;
+  mentionPageId?: string;
+  previousMentions?: unknown;
   as?: ElementType;
 }
 
