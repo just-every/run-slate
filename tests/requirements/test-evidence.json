@@ -2271,6 +2271,28 @@
         "PAGE-016"
       ],
       "reason": "Production API/native-session Workers journey covers create/edit/comment autowatch, explicit stop persistence, self suppression, personal overrides and workspace defaults. Independent browser and full requirement acceptance remain unproven."
+    },
+    {
+      "file": "tests/flagship/discovery/blog.test.ts",
+      "testName": "CONT-010 — a post is a dated page that reaches followers once and lists only for its readers",
+      "kind": "supporting-regression",
+      "clauses": [
+        "CONT-010",
+        "CONT-012",
+        "NOTIF-001",
+        "NOTIF-002"
+      ],
+      "reason": "Production API/native-session Workers journey proves posts are live pages with date, author, cover and body; one post-published notice per container follower instead of a page creation; space and Home feeds limited to current readers; viewers cannot post; drafts stay private until publication; erasure removes the blog entry. Browser acceptance is a separate node journey."
+    },
+    {
+      "file": "tests/e2e/imports/blog-posts.test.ts",
+      "testName": "CONT-010 — a Confluence Cloud blog post imports as a post with its date and author, and undo removes it",
+      "kind": "supporting-regression",
+      "clauses": [
+        "CONT-010",
+        "IMP-003"
+      ],
+      "reason": "Imports the committed Confluence Cloud export with one appended BLOGPOST row through preview, apply and undo: the post keeps its creation date and mapped author and undo removes it. No incumbent export with blog posts exists in the fixtures, so this is not genuine import acceptance."
     }
   ]
 }

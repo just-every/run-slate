@@ -3219,6 +3219,22 @@
           "testName": "container following delivers personal coalesced events once and rechecks lifecycle and access"
         }
       ]
+    },
+    {
+      "id": "CONT-010",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Native posts, permission-aware feeds, follower notices and Home are proven by Workers and 1440/390 browser journeys. Genuine incumbent Confluence blog import, Server/DC XML blog posts and NOTIF-005 email delivery remain unproven.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/discovery/blog.test.ts",
+          "testName": "CONT-010 — a post is a dated page that reaches followers once and lists only for its readers"
+        },
+        {
+          "file": "tests/e2e/imports/blog-posts.test.ts",
+          "testName": "CONT-010 — a Confluence Cloud blog post imports as a post with its date and author, and undo removes it"
+        }
+      ]
     }
   ]
 }

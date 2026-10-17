@@ -480,6 +480,13 @@
         "PAGE-016",
         "CONT-012"
       ]
+    },
+    {
+      "id": "space-blogs",
+      "description": "Dated, attributed space blog posts with permission-aware space and Home feeds, follower notices and Confluence Cloud blog import.",
+      "clauses": [
+        "CONT-010"
+      ]
     }
   ],
   "nonGoals": [
