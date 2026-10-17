@@ -1,0 +1,10 @@
+/* Reserve the banner above every document, including native centered auth pages. */
+html[data-slate-preview]{padding-top:26px;box-sizing:border-box}
+html[data-slate-preview] body{min-height:calc(100dvh - 26px);box-sizing:border-box}
+.slate-preview-banner{box-sizing:border-box;position:fixed;inset:0 0 auto;width:100%;margin:0;max-width:none;z-index:45;height:26px;display:flex;align-items:center;justify-content:center;background:#f9edca;color:#5c430d;border-bottom:1px solid #dfcc97;font:500 12px/1.2 system-ui,sans-serif;letter-spacing:.02em}
+html[data-slate-preview] .slate-app .app{min-height:calc(100vh - 26px)}
+html[data-slate-preview] .slate-app .sidebar{top:26px;height:calc(100dvh - 26px)}
+@media(max-width:700px){html[data-slate-preview] .slate-app .mobile-bar{top:26px}html[data-slate-preview] .slate-app .sidebar{top:87px;height:calc(100dvh - 87px)}html[data-slate-preview] .slate-app .navigation-backdrop{top:87px}}
+
+@media(min-width:1201px){html[data-slate-preview] .slate-app .right{top:26px;max-height:calc(100dvh - var(--topbar-height) - 26px)}}
+@media(max-width:1200px){html[data-slate-preview] .slate-app .right{top:90px;height:calc(100dvh - 106px);max-height:calc(100dvh - 106px)}}

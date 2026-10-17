@@ -1,4 +1,6 @@
 import "../editor-init";
+import { loadPreviewEnvironment } from "../core/app/installation-loader";
+import { PreviewBanner, previewStylesheet } from "../core/app/preview-banner";
 import {useEffect} from "react";
 import {useRouter,useRouterState} from "@tanstack/react-router";
 import {setLiveEditsReady} from "../editor";
@@ -12,6 +14,7 @@ import { fontLinks } from "../core/app/font-head";
 import { introCss, introGuardScript } from "../base/runtime/hydration/intro-guard";
 
 export const Route = createRootRoute({
+  loader: () => loadPreviewEnvironment(),
   head: ({matches}) => ({
     meta: [
       { charSet: "utf-8" },
@@ -57,17 +60,20 @@ function NotFound() {
 }
 
 function Document({ children }: Readonly<{ children: ReactNode }>) {
+  const preview = Route.useLoaderData();
   const privateDocument=useRouterState({select:state=>isWorkspacePath(state.location.pathname)});
   return (
-    <html lang="en">
+    <html lang="en" data-slate-preview={preview ? "" : undefined}>
       <head>
         {privateDocument ? <style>{privateAppCss}</style> : fontLinks.map(link => <link key={link.href} {...link} />)}
         <HeadContent />
+        {preview ? <link rel="stylesheet" href={previewStylesheet} /> : null}
         {privateDocument ? <style>{privateFontCss}</style> : null}
         <script dangerouslySetInnerHTML={{ __html: introGuardScript }} />
         <style>{introCss}</style>
       </head>
       <body>
+        {preview ? <PreviewBanner /> : null}
         {children}
         <Scripts />
       </body>

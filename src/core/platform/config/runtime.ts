@@ -1,7 +1,9 @@
+import { isPreviewWorker } from "./preview";
 import { readLaunchProfile, type LaunchProfile } from "./launch-profile";
 import { ownerIdentity } from "../../../ext/config";
 
 export interface RuntimeBindings {
+  RER_PREVIEW_OWNER_SIGNIN?: string;
   RER_DEMO?: string;
   RER_OWNER_CLAIM_ISSUER?: string;
   RER_OWNER_CLAIM_INSTALLATION_ID?: string;
@@ -57,6 +59,7 @@ export interface RuntimeBindings {
 }
 
 export interface RuntimeConfig {
+  preview?: boolean;
   demo?: boolean;
   /** Omitted by narrow adapter callers; deployment reads always resolve this. */
   launchProfile?: LaunchProfile;
@@ -210,6 +213,7 @@ export function readRuntimeConfig(env: RuntimeBindings, isLoopback: boolean): Ru
 
   return {
     launchProfile,
+    preview: isPreviewWorker(env),
     demo: env.RER_DEMO === "1",
     localDevelopment,
     sessionSecret: requireSessionSecret(env),

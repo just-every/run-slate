@@ -1,5 +1,6 @@
 import {env} from 'cloudflare:test';
-import {beforeEach,test,expect} from 'vitest';
+import {beforeEach,test,expect,vi} from 'vitest';
+import {handleApplicationRequest} from '../../../src/core/app/request-handler';
 import {resetDeployment} from '../../e2e/setup/reset-deployment';
 import {createApi} from '../../../src/core/app/hono';
 
@@ -55,4 +56,34 @@ test('a preview owner grant signs the owner in once; reuse, expiry and a non-pre
  signInInstead(await open(outside,live),'owner@slate.test');signInInstead(await confirm(outside,live),'owner@slate.test');
  expect(await env.DB.prepare('SELECT count(*) n FROM oa_owner_signins WHERE consumed_at IS NOT NULL').first()).toEqual({n:1});
  expect(await env.DB.prepare("SELECT count(*) n FROM sessions s JOIN members m ON m.id=s.member_id WHERE m.role='owner'").first()).toEqual({n:2});
+});
+
+
+test('preview sign-in mail and native confirmation identify the preview; live keeps its normal identity', async () => {
+ const messages: Array<{subject:string;text:string;html:string}> = [];
+ const provider = vi.spyOn(globalThis, 'fetch').mockImplementation(async (_url, init) => {
+  messages.push(JSON.parse(String(init!.body)));
+  return Response.json({id: crypto.randomUUID()});
+ });
+ try {
+  for (const isPreview of [false, true]) {
+   const bindings = {...live, MAIL_PROVIDER:'resend', MAIL_FROM:'auth@slate.test', MAIL_API_KEY:'test-only-provider-key',
+    ...(isPreview ? {RER_PREVIEW_OWNER_SIGNIN:'/auth/owner-signin'} : {})};
+   const request = new Request(`${origin}/api/auth/magic`, {method:'POST', headers:{origin, 'content-type':'application/json'},
+    body:JSON.stringify({email:'owner@slate.test', requestKey:crypto.randomUUID()})});
+   const execution = {waitUntil() {}} as unknown as ExecutionContext;
+   expect((await handleApplicationRequest(request, bindings, execution)).status).toBe(200);
+   const message = messages.at(-1)!;
+   for (const content of [message.subject, message.text, message.html]) {
+    expect(content.includes('(preview)')).toBe(isPreview);
+   }
+   const confirmationUrl = message.text.match(/https:\/\/[^\s]+/)![0]!;
+   const confirmation = await handleApplicationRequest(new Request(confirmationUrl), bindings, execution);
+   expect(confirmation.status).toBe(200);
+   const html = await confirmation.text();
+   expect(html.includes('aria-label="Preview environment"')).toBe(isPreview);
+   expect(html.includes('data-slate-preview')).toBe(isPreview);
+  }
+  expect(messages).toHaveLength(2);
+ } finally { provider.mockRestore(); }
 });

@@ -1,3 +1,4 @@
+import { isPreviewWorker } from "../../platform/config/preview";
 import { validToken } from '../../../../modules/operator-auth/crypto.mjs';
 import { requirePost } from '../../../../modules/operator-auth/http.mjs';
 import { confirmationResponse } from '../../../../modules/operator-auth/identity/email-link/confirmation.mjs';
@@ -36,9 +37,6 @@ async function signInInstead(db: D1Database, token: unknown): Promise<Response> 
   const search = new URLSearchParams({ owner_link: '1', ...(email ? { login_hint: email } : {}) });
   return new Response(null, { status: 303, headers: { Location: `/signin?${search}`, 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' } });
 }
-
-/** RER binds RER_PREVIEW_OWNER_SIGNIN, the declared owner sign-in path, on a preview's app Worker alone. */
-const isPreviewWorker = (env: Pick<AppBindings, 'RER_PREVIEW_OWNER_SIGNIN'>) => env.RER_PREVIEW_OWNER_SIGNIN === OWNER_SIGNIN_PATH;
 
 /**
  * The owner's entry into a Managed preview (Base's /auth/owner-signin, native):

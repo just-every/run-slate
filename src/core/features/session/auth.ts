@@ -32,7 +32,7 @@ const fingerprint = (config: RuntimeConfig) => {
 };
 
 /** Base's pages and mail name the app as its mail sender does. */
-export const slateBranding = (config: Pick<RuntimeConfig, 'appName'>) => ({ productName: config.appName, accentColor: '#1b1b18', signInPath: '/signin', theme: '/rer-theme.css' });
+export const slateBranding = (config: Pick<RuntimeConfig, 'appName' | 'preview'>) => ({ productName: config.preview ? `${config.appName} (preview)` : config.appName, accentColor: '#1b1b18', signInPath: '/signin', theme: '/rer-theme.css' });
 
 /**
  * Base keys email-token and rate digests with SESSION_SECRET; Slate derives that

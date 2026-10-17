@@ -1,3 +1,4 @@
+import { previewDocument } from "./preview-document";
 import type { AppBindings } from "./types";
 import { requireBindings } from "../platform/bindings.server";
 import { publicDocumentLimit } from "./http-security";
@@ -18,7 +19,7 @@ export async function handleApplicationRequest(request: Request, bindings: AppBi
 
     if (isHonoRequest(url.pathname)) {
       api ??= import("./hono").then(module => module.createApi());
-      return (await api).fetch(request, checkedBindings, execution);
+      return previewDocument(await (await api).fetch(request, checkedBindings, execution), checkedBindings);
     }
 
     let runtimeConfig;
@@ -38,7 +39,7 @@ export async function handleApplicationRequest(request: Request, bindings: AppBi
     const state = await setupStateResponse(request, installation, claimed);
     if (state) return state;
     const lobby = await lobbyResponse(request, installation, identity, claimed);
-    if (lobby) return managedLobby(lobby, runtimeConfig);
+    if (lobby) return previewDocument(await managedLobby(lobby, runtimeConfig), checkedBindings);
     const gate = await operatorDocumentGate(request, url, checkedBindings, runtimeConfig);
     if (gate) return gate;
 

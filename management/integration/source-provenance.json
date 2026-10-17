@@ -7,7 +7,7 @@
     "scripts/delivery/base/packaging.json": "sha256:caa3ee344a4c7719e4342d38a10ce72c41834f89f592fbe3817e9755c212403f",
     "src/server.ts": "sha256:d24038f085d64282c2ff43175442aaa831c3d8b7e8d109ae724521ae0094b939",
     "src/core/features/workspace/bootstrap.ts": "sha256:5c2e85662faa536bfe88514bab723cc1c45c2444374ba8d9f7a6d71785a31dd2",
-    "src/core/platform/config/runtime.ts": "sha256:9b8538f7be58fae917433e68a2f2a62b6482862665480effe4a7f9e102bb2140",
+    "src/core/platform/config/runtime.ts": "sha256:66c85a220812b41e59bafa816524d106c61fbc670ce9d0fb2cb1bf08e027bf57",
     "migrations/core/0001_knowledge_foundation.sql": "sha256:88bb09f3c90f4741bc686f333fd765ca838ff6e96969d5182b292df0c4816c39",
     "migrations/core/0002_core_runtime.sql": "sha256:34e5c0c5c9a3f4bb7364e649054a87ec8fe614bd469417e6e7c3412ba1e47346",
     "migrations/core/0003_content_collaboration.sql": "sha256:534fe0d90d535c02a669c55591698b02520cd478c2bb3b87d74825154c71d1f7",
