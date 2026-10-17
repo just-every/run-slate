@@ -3387,7 +3387,7 @@
       "executable": false
     },
     "OPERATIONS.md": {
-      "sha256": "0505da5a2500705cebfe457b0ed877b39a9cd08b3bf866dd81ccfe08367fbe0c",
+      "sha256": "73e226ee6e35f7a43082e36f470e45586e5993025a21d7524a850504852d9cf9",
       "executable": false
     },
     "package.json": {
@@ -3467,7 +3467,7 @@
       "executable": false
     },
     "RUN-LOCALLY.md": {
-      "sha256": "3d4e1bf5a29e887dcde9173a10d8e8a8bc2e657771d109da7661f3e5730d2dde",
+      "sha256": "c7b1acf48237a8a27ab435abc2a687d1029c7a468c51ef683c801eb599fc3907",
       "executable": false
     },
     "scripts/base-proof/objects.mjs": {
