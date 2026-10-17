@@ -940,7 +940,7 @@
       "executable": false
     },
     "base-copies.json": {
-      "sha256": "ae316ab36af53ff7340f2bc71166f64b6b96d0043c7cd3fbebbc60c3f9c882bd",
+      "sha256": "8e9bcae52378304865e3b078ea2176e10842af0be7a49e4c49bbe75d3fd531a5",
       "executable": false
     },
     "BASELINE.md": {
@@ -3612,7 +3612,7 @@
       "executable": false
     },
     "scripts/base-proof/pin-objects.json": {
-      "sha256": "9afe2a436b67480d6684bb29d236dd439539da9260434199892bc2ef0dee3cb9",
+      "sha256": "60a0f8097ac4f9fdffa92fa9a99d34dbf0ca7d001aa7bb88f5ac19292979b6be",
       "executable": false
     },
     "scripts/base-proof/README.md": {
@@ -3988,7 +3988,7 @@
       "executable": false
     },
     "src/base/runtime/contract-style.ts": {
-      "sha256": "41afdf1cb60983b340283b13e414102387eb2a4af022d730220050a4384d0753",
+      "sha256": "4325f4eeabac2bef722808576605d7b657858b918729097c3412393fc6e4941f",
       "executable": false
     },
     "src/base/runtime/deployment-health.ts": {
@@ -8020,7 +8020,7 @@
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
-      "sha256": "6b30c603b976b3ff7cb159955f37cbb2497bd28d5063a13fcefeb78165f7f774",
+      "sha256": "28baf20d9c7cd9aad6721d4507deb65a306b5c1c6969a2c86baf1f15df72c4d5",
       "executable": false
     },
     "tests/docs/docs-dev-sync.test.mjs": {
