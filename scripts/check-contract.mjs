@@ -13,15 +13,18 @@ export async function inspectContract(root = process.cwd()) {
     catch (error) { if (error.code === 'ENOENT') return undefined; throw error; }
   }
   /** Splits CONTRACT.md into `{ id, body }` in document order. */
-  function readClauses(markdown) {
+  function readClauses(markdown, registeredIds) {
     const clauses = [];
-    const pattern = /\*\*([A-Z]+-\d{3}) —/g;
+    // A target can be registered without rewriting the owner's contract text.
+    const pattern = /\*\*([A-Z]+-\d{3}) —|^#### ([A-Z]+-\d{3}) —/gm;
     let match;
     while ((match = pattern.exec(markdown))) {
-      const next = /\*\*[A-Z]+-\d{3} —/g;
+      const id = match[1] ?? match[2];
+      if (match[2] && !registeredIds.has(id)) continue;
+      const next = /\*\*[A-Z]+-\d{3} —|^#### [A-Z]+-\d{3} —/gm;
       next.lastIndex = match.index + match[0].length;
       const end = next.exec(markdown)?.index ?? markdown.length;
-      clauses.push({ id: match[1], body: markdown.slice(match.index, end) });
+      clauses.push({ id, body: markdown.slice(match.index, end) });
     }
     return clauses;
   }
@@ -49,10 +52,10 @@ export async function inspectContract(root = process.cwd()) {
   ]);
 
   const manifest = JSON.parse(manifestText);
-  const clauses = readClauses(contract);
+  const capabilityIds = new Set(manifest.capabilities.flatMap(({ clauses: mapped }) => mapped));
+  const clauses = readClauses(contract, capabilityIds);
   const contractIds = clauses.map(({ id }) => id);
   const baselineIds = [...baseline.matchAll(/\*\*(BASE-[A-Z]+-\d{3}) —/g)].map((match) => match[1]);
-  const capabilityIds = new Set(manifest.capabilities.flatMap(({ clauses: mapped }) => mapped));
   const contractPolicies = [...contract.matchAll(/Policy: `([^`]+)`/g)].map((match) => match[1]);
   const manifestPolicies = new Set(manifest.extensionPoints.policies);
   const policyDefinitions = readPolicyDefinitions(policySource);

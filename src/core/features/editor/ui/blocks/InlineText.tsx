@@ -32,6 +32,8 @@ function Mention({ span }: { span: InlineSpan }) {
         mention.kind === "page" ? "underline decoration-line-strong underline-offset-2" : "",
       )}
       data-mention-kind={mention.kind}
+      data-reminder-date={mention.kind==='date'?mention.id:undefined}
+      title={mention.kind==='date'?'Set a reminder for this date':undefined}
     >
       {mentionPrefix[mention.kind]}
       {mention.kind==='page' && mention.id && mention.available!==false ? <a href={`/app/pages/${encodeURIComponent(mention.id)}`}>{mention.label}</a>:mention.kind==='date' ? new Date(`${mention.id}T12:00:00`).toLocaleDateString() : mention.label}

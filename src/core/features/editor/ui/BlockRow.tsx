@@ -98,6 +98,7 @@ export function BlockRow({
     <div
       className="block-row group/row flex w-full justify-center gap-1"
       data-block-id={block.id}
+      id={`block-${block.id}`}
       data-selected={selected ? "true" : undefined}
       onDragOver={onDropHere ? (event) => event.preventDefault() : undefined}
       onDrop={

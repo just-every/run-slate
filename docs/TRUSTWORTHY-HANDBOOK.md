@@ -42,6 +42,16 @@ Each row has one **Review** action. For a page that changed, it opens the compar
 
 The list shows only pages you can read today. If your access to a page is removed, it disappears from your list and from the sidebar count on your next visit. Nothing in the list verifies pages for you, and there is no way to verify many pages at once.
 
+## Follow through on page tasks
+
+Insert a **To-do** block to turn a next step into a task. Type **@** in the task and pick a person, or use **Task assignee**. A person who cannot read the page receives nothing: share the page with them when prompted, or cancel. Assignment and reassignment each create one inbox notice for the new assignee.
+
+Type **//** at the end of a task or choose **Add due date** to set its date. Dates use your browser’s locale, and overdue open tasks are marked. The assignee receives one inbox reminder at 9 am on that date in the time zone saved in their personal preferences. Task notices currently use the inbox only.
+
+Open **My tasks** from Home or the sidebar. **Assigned to me** and **Created by me** work across pages you can read. Filter by state, space or due dates, and sort by due date, page or space. Complete a task here to complete it on its page; this needs edit access to that page.
+
+Choose **Remind me** on a task or in a page’s **More** menu to schedule a private inbox reminder. A date mention also opens the reminder picker when clicked. Set its time zone and an optional offset before the chosen time. **My tasks → Your reminders** lists your pending reminders and lets you cancel them. Delivery rechecks your access, so a reminder for a page you can no longer read is withheld.
+
 ## A weekly routine for a team lead
 
 1. Open **Needs review** and choose **Everyone**.

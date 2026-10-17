@@ -46,7 +46,7 @@
         "scripts/installer/local.mjs",
         "rer-setup.json"
       ],
-      "effects": "Starts one health-gated foreground Vite development instance with native outbox and retained local data; --stop tears it down."
+      "effects": "Starts one health-gated foreground Vite development instance with silently suppressed local mail and retained local data; --stop tears it down."
     },
     "build": {
       "argv": [
@@ -225,7 +225,7 @@
         "scripts/installer/local.mjs",
         "rer-setup.json"
       ],
-      "effects": "Builds changed production output and serves a fixed foreground Worker with native outbox and retained local data; --stop tears it down."
+      "effects": "Builds changed production output and serves a fixed foreground Worker with silently suppressed local mail and retained local data; --stop tears it down."
     },
     "reset": {
       "argv": [
@@ -250,18 +250,6 @@
         "rer-setup.json"
       ],
       "effects": "Runs Base release validation, scans and local clean-history export; never pushes or deploys."
-    },
-    "outbox": {
-      "argv": [
-        "rer",
-        "outbox"
-      ],
-      "inputs": [
-        "package.json",
-        "scripts/installer/local.mjs",
-        "rer-setup.json"
-      ],
-      "effects": "Prints the running local outbox URL; --owner-email requests an ordinary native sign-in message."
     },
     "doctor": {
       "argv": [

@@ -1,3 +1,4 @@
+import {workItemsJourney} from './work-items-journey';
 import {env} from 'cloudflare:test';
 import {beforeEach, it, expect} from 'vitest';
 import {createApi} from '../../src/core/app/hono';
@@ -12,7 +13,7 @@ async function workspace() {
   const {memberId} = await seedMember(workspaceId, {role:'owner', displayName:'Profile Owner', email:crypto.randomUUID()+'@test.invalid'});
   const {containerId} = await seedContainer(workspaceId, {ownerMemberId:memberId, visibility:'open'});
   await seedContainerGrant(containerId, {principalKind:'member',principalId:memberId,level:'full'});
-  return {containerId, cookie:await sessionFor(memberId)};
+  return {containerId,memberId,workspaceId, cookie:await sessionFor(memberId)};
 }
 it('FLAG-001 — default API refuses flagship entry points after native authentication; explicit opt-in retains routes', async () => {
   const {cookie} = await workspace(), api = createApi();
@@ -31,7 +32,7 @@ it('FLAG-001 — default API refuses flagship entry points after native authenti
   expect(await enabled.json()).toMatchObject({providerConfigured:false});
 });
 it('FLAG-001 — core wiki creates and revises genuine pages, searches them, and retains portability and publication endpoints', async () => {
-  const {cookie,containerId} = await workspace(), api=createApi();
+  const {cookie,containerId,memberId,workspaceId} = await workspace(), api=createApi();
   const request=(path:string,method='GET',body?:unknown)=>api.request('https://slate.example'+path,{method,headers:{cookie,...(body?{'content-type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})},env);
   const created=await request('/api/pages','POST',{operationKey:crypto.randomUUID(),containerId,title:'Profile journal'});
   expect(created.status).toBe(200);
@@ -70,6 +71,7 @@ it('FLAG-001 — core wiki creates and revises genuine pages, searches them, and
   const run=await request('/api/imports/'+imported.id+'/run','POST');
   expect(run.status).toBe(200);
   expect(await run.json()).toMatchObject({state:'completed'});
+  await workItemsJourney(api,containerId,memberId,workspaceId,cookie);
 });
 it('FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', async () => {
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {

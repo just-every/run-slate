@@ -3140,6 +3140,27 @@
       "status": "unproven",
       "unmetReason": "No complete semantic journey is registered for BASE-OPS-005 — Audit. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
+    },
+    {
+      "id": "BLOCK-015",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Default-profile public HTTP task/reminder support and browser journeys implement Assigned tasks with due dates. Independent requirement acceptance remains unproven; dependent email, push and public MCP delivery remain outside this round.",
+      "supportingTests": []
+    },
+    {
+      "id": "NAV-007",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Default-profile public HTTP task/reminder support and browser journeys implement My tasks. Independent requirement acceptance remains unproven; dependent email, push and public MCP delivery remain outside this round.",
+      "supportingTests": []
+    },
+    {
+      "id": "NOTIF-004",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Default-profile public HTTP task/reminder support and browser journeys implement Reminders. Independent requirement acceptance remains unproven; dependent email, push and public MCP delivery remain outside this round.",
+      "supportingTests": []
     }
   ]
 }

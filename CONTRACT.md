@@ -866,7 +866,7 @@ Every member has a My tasks view, reachable from Home and the sidebar. It lists 
 
 *Acceptance:* a browser journey assigns one member three tasks on two pages with different due dates. Their My tasks view, filtered to open and sorted by due date, lists exactly those three in that order. Completing one from the list marks it done on its page, and revoking the member's access to one page removes its task from the list on the next load.
 
-*Status:* missing.
+*Status:* done.
 
 #### SEARCH-010 — Labels and advanced search.
 Search and container views filter by label. Queries accept the operators `title:`, `label:`, `in:` (container), `by:` (contributor), `owner:`, `status:`, `verified:`, `before:`, `after:`, `type:` and quoted phrases, combined with `AND`, `OR` and `-`. A member can save a search, and a saved search can feed a content query (`BLOCK-010`). Operators never widen access (`SEARCH-005`).
@@ -997,7 +997,7 @@ A date mention (`BLOCK-005`) can carry a reminder at the date or at a chosen off
 
 *Acceptance:* a Workers journey sets reminders in two time zones, advances time, and finds exactly one inbox item each at the right local time. A reminder on a page whose access was revoked is not delivered.
 
-*Status:* missing.
+*Status:* partial.
 
 #### NOTIF-005 — Email, push and digest delivery.
 Each member chooses, per event kind, between in-app only, immediate email, a daily or weekly digest, push on their devices (`MOBILE-004`), and a chat direct message (`CHAT-004`), or keeps the workspace default for that kind (`NOTIF-006`). The inbox item is created whatever the choice. Email goes through `mail.sender.v1` from the configured sender and carries the event, the actor, the page title and a link, never a page body. Recipient access is rechecked at send, and an unsubscribe link changes that member's preference without sign-in. Digests coalesce watched page and container changes (`CONT-012`), mentions, task assignments and due tasks, review requests and lapsed verifications. A watched change carries a change summary: the counts of blocks added, changed and removed and of comments added since the member's last notice. When a workspace owner turns on "section names in notifications", the summary also names the headings the changed blocks sit under, for example "3 blocks changed in Rollout plan". It never carries block or comment text.
@@ -1751,8 +1751,8 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 160 | 61 | 0 | 221 |
-| Target and push further | 0 | 53 | 52 | 105 |
-| All | 160 | 114 | 52 | 326 |
+| Target and push further | 1 | 54 | 50 | 105 |
+| All | 161 | 115 | 50 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1987,7 +1987,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `BLOCK-012` | Columns and page layouts | target | missing | `src/core/features/editor/validation.ts` | not implemented |
 | `BLOCK-013` | Equations and diagrams as code | target | missing | — | not implemented |
 | `BLOCK-014` | Tables that work like tables | target | partial | `src/core/features/editor/validation.ts` | see the clause |
-| `BLOCK-015` | Assigned tasks with due dates | target | partial | `src/core/features/editor/tasks.ts` | see the clause |
+| `BLOCK-015` | Assigned tasks with due dates | target | partial | `tests/profile/work-items-journey.ts; work/sd-cp-slate/shots/BLOCK-015/` | Email/push delivery and public MCP remain missing; default-profile HTTP and 1440/390 browser journeys cover assignment, sharing, due dates, reassignment and completion. |
 | `BLOCK-016` | Task reports | target | missing | — | not implemented |
 | `BLOCK-017` | Table of contents block | target | missing | — | not implemented |
 | `BLOCK-018` | Status labels | target | missing | — | not implemented |
@@ -2002,7 +2002,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `WORK-016` | People directory and expertise | target | missing | — | not implemented |
 | `SHARE-009` | Share with a message | target | partial | `tests/qualification/backend/emitted.mjs` | see the clause |
 | `TMPL-007` | Starter templates | target | partial | `src/core/features/templates/service.ts` | see the clause |
-| `NAV-007` | My tasks | target | missing | — | not implemented |
+| `NAV-007` | My tasks | target | done | `tests/profile/work-items-journey.ts; work/sd-cp-slate/shots/NAV-007/` |  |
 | `SEARCH-010` | Labels and advanced search | target | partial | `src/core/features/pages/service.ts` | see the clause |
 | `SEARCH-011` | Verified-first ranking and trust badges | target | partial | `src/core/features/page-status/state.ts` | see the clause |
 | `SEARCH-012` | Connected results in search | target | partial | `src/core/features/source-memory/service.ts` | see the clause |
@@ -2017,7 +2017,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `DB-014` | Dashboards | target | partial | `src/core/features/databases/ui/workspace/DatabaseChart.tsx` | see the clause |
 | `DB-015` | Record templates and recurring records | target | partial | `src/core/features/automation/events.ts` | see the clause |
 | `DB-016` | AI autofill fields | target | missing | — | not implemented |
-| `NOTIF-004` | Reminders | target | missing | — | not implemented |
+| `NOTIF-004` | Reminders | target | partial | `tests/profile/work-items-journey.ts; work/sd-cp-slate/shots/NOTIF-004/` | Email/push delivery remains missing; default-profile HTTP and scheduled dispatch cover time zones, offsets, concurrent-safe delivery and revoked access, with 1440/390 browser journeys for page, task and date-mention reminders. |
 | `NOTIF-005` | Email, push and digest delivery | target | missing | — | not implemented |
 | `NOTIF-006` | Workspace notification defaults | target | missing | — | not implemented |
 | `AUTO-006` | Outbound automation actions | target | partial | `src/core/features/automation/actions.ts` | see the clause |

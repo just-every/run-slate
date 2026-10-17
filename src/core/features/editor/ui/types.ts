@@ -120,6 +120,9 @@ export interface TaskBlockData extends BlockBase {
   type: "task";
   text: RichText;
   done: boolean;
+  assigneeMemberId?: string | null;
+  dueDate?: string | null;
+  creatorMemberId?: string;
   /** `BLOCK-007` — who completed it and when. */
   completedBy?: { name: string };
   completedAtLabel?: string;

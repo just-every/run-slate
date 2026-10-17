@@ -20,6 +20,7 @@ import { Route as AppInboxRouteImport } from './routes/app.inbox'
 import { Route as AppReviewRouteImport } from './routes/app.review'
 import { Route as AppSearchRouteImport } from './routes/app.search'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppTasksRouteImport } from './routes/app.tasks'
 import { Route as DocsIndexRouteImport } from './routes/docs.index'
 import { Route as DocsSlugRouteImport } from './routes/docs.$slug'
 import { Route as AppContainersIndexRouteImport } from './routes/app.containers.index'
@@ -87,6 +88,11 @@ const AppSearchRoute = AppSearchRouteImport.update({
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTasksRoute = AppTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
   getParentRoute: () => AppRoute,
 } as any)
 const DocsIndexRoute = DocsIndexRouteImport.update({
@@ -169,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/app/review': typeof AppReviewRoute
   '/app/search': typeof AppSearchRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/tasks': typeof AppTasksRoute
   '/docs/$slug': typeof DocsSlugRoute
   '/app/': typeof AppIndexRoute
   '/docs/': typeof DocsIndexRoute
@@ -193,6 +200,7 @@ export interface FileRoutesByTo {
   '/app/review': typeof AppReviewRoute
   '/app/search': typeof AppSearchRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/tasks': typeof AppTasksRoute
   '/docs/$slug': typeof DocsSlugRoute
   '/app': typeof AppIndexRoute
   '/docs': typeof DocsIndexRoute
@@ -220,6 +228,7 @@ export interface FileRoutesById {
   '/app/review': typeof AppReviewRoute
   '/app/search': typeof AppSearchRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/tasks': typeof AppTasksRoute
   '/docs/$slug': typeof DocsSlugRoute
   '/app/': typeof AppIndexRoute
   '/docs/': typeof DocsIndexRoute
@@ -248,6 +257,7 @@ export interface FileRouteTypes {
     | '/app/review'
     | '/app/search'
     | '/app/settings'
+    | '/app/tasks'
     | '/docs/$slug'
     | '/app/'
     | '/docs/'
@@ -272,6 +282,7 @@ export interface FileRouteTypes {
     | '/app/review'
     | '/app/search'
     | '/app/settings'
+    | '/app/tasks'
     | '/docs/$slug'
     | '/app'
     | '/docs'
@@ -298,6 +309,7 @@ export interface FileRouteTypes {
     | '/app/review'
     | '/app/search'
     | '/app/settings'
+    | '/app/tasks'
     | '/docs/$slug'
     | '/app/'
     | '/docs/'
@@ -399,6 +411,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/app/settings'
       preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/tasks': {
+      id: '/app/tasks'
+      path: '/tasks'
+      fullPath: '/app/tasks'
+      preLoaderRoute: typeof AppTasksRouteImport
       parentRoute: typeof AppRoute
     }
     '/docs/': {
@@ -517,6 +536,7 @@ interface AppRouteChildren {
   AppReviewRoute: typeof AppReviewRoute
   AppSearchRoute: typeof AppSearchRoute
   AppSettingsRoute: typeof AppSettingsRoute
+  AppTasksRoute: typeof AppTasksRoute
   AppIndexRoute: typeof AppIndexRoute
   AppDecisionsDecisionIdRoute: typeof AppDecisionsDecisionIdRoute
   AppInquiriesInquiryIdRoute: typeof AppInquiriesInquiryIdRoute
@@ -537,6 +557,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppReviewRoute: AppReviewRoute,
   AppSearchRoute: AppSearchRoute,
   AppSettingsRoute: AppSettingsRoute,
+  AppTasksRoute: AppTasksRoute,
   AppIndexRoute: AppIndexRoute,
   AppDecisionsDecisionIdRoute: AppDecisionsDecisionIdRoute,
   AppInquiriesInquiryIdRoute: AppInquiriesInquiryIdRoute,

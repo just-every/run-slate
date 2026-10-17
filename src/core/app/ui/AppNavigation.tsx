@@ -16,6 +16,7 @@ import {
   LayoutTemplate,
   X,
   ShieldCheck,
+  ListTodo,
 } from "lucide-react";
 import { lazy, Suspense, useEffect,useState } from "react";
 import { NavigationCreate } from "./NavigationCreate";
@@ -31,7 +32,7 @@ import { SidebarHeader } from "./SidebarHeader";
 import { SpaceTrees, type NavigationDatabases } from "./SpaceTrees";
 import { AccountMenu } from "./AccountMenu";
 
-const destinationIcons: Record<string, typeof Search> = {"/app":CalendarDays,"/app/search":Search,"/app/inbox":Inbox,"/app/review":ShieldCheck,"/app/containers":Folder,"/app/templates":LayoutTemplate,"/app/archive":Archive,"/app/settings":Settings};
+const destinationIcons: Record<string, typeof Search> = {"/app":CalendarDays,"/app/search":Search,"/app/inbox":Inbox,"/app/tasks":ListTodo,"/app/review":ShieldCheck,"/app/containers":Folder,"/app/templates":LayoutTemplate,"/app/archive":Archive,"/app/settings":Settings};
 
 export function AppNavigation({ onNavigate }: { onNavigate?: () => void }) {
   const { member } = useWorkspace();

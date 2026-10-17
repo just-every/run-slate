@@ -1,4 +1,6 @@
 import {useContentQueries} from './useContentQueries';
+import {TaskPageProvider} from '../../../editor/ui/blocks/TaskPageContext';
+import {ReminderDialog} from '../../../editor/ui/blocks/ReminderDialog';
 import {ContentQueryDialog} from './ContentQueryDialog';
 import {usePageInsertion} from "./usePageInsertion";
 import {sliceRichText} from "../../../editor/ui/sliceRichText";
@@ -37,6 +39,7 @@ export function PageEditorBody({
   footer?: ReactNode;
 }) {
   const insertion = usePageInsertion(document.page.id, editor);
+  const [dateReminder,setDateReminder]=useState<{date:string;blockId?:string}|null>(null);
   const visibleBlocks = insertion.blocks;
   const liveQueries=useContentQueries(document.page.id,visibleBlocks);
   const [queryEditor,setQueryEditor]=useState<string|null>(null);
@@ -194,7 +197,8 @@ export function PageEditorBody({
     }
   }
   return (
-    <div ref={wrapper} data-page-editor tabIndex={-1}>
+    <TaskPageProvider pageId={document.page.id} canShare={document.permissions.canShare}><div ref={wrapper} data-page-editor tabIndex={-1} onClick={event=>{const target=(event.target as HTMLElement).closest<HTMLElement>('[data-reminder-date]');if(target?.dataset.reminderDate){setDateReminder({date:target.dataset.reminderDate,blockId:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId});}}}>
+      {dateReminder?<ReminderDialog pageId={document.page.id} {...dateReminder} onClose={()=>setDateReminder(null)}/>:null}
       {insert ? (
         <InsertMenu
           open
@@ -335,6 +339,6 @@ export function PageEditorBody({
           </button>
         </ActionDialog>
       ) : null}
-    </div>
+    </div></TaskPageProvider>
   );
 }

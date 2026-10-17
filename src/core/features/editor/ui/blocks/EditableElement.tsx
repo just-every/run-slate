@@ -103,7 +103,7 @@ export function EditableElement({
         onKeyDown={(event: React.KeyboardEvent<HTMLElement>) => {
           if(!canEdit || event.nativeEvent.isComposing) return;
           if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='z'&&inlineUndo.current){event.preventDefault();onChange(inlineUndo.current);inlineUndo.current=null;return;}
-          if(!event.metaKey&&!event.ctrlKey&&!event.altKey&&(event.key==='@' || (event.key==='/'&&event.currentTarget.closest('[data-page-editor]')))){
+          if(!event.metaKey&&!event.ctrlKey&&!event.altKey&&(event.key==='@' || (event.key==='/'&&event.currentTarget.closest('[data-page-editor]')&&!event.currentTarget.closest('[data-task-item]')))){
             const selected=readEditableSelection(event.currentTarget);if(!selected)return;
             event.preventDefault();
             if(event.key==='@'){

@@ -1,9 +1,9 @@
 import path from 'node:path';
 const key=(file,name)=>JSON.stringify([file,name]);
-export function requirementRecords(documents){return Object.entries(documents).flatMap(([document,text])=>{const matches=[...text.matchAll(/\*\*((?:BASE-)?[A-Z]+-\d{3}) —/g)];return matches.map((match,i)=>({id:match[1],document,requirement:text.slice(match.index,matches[i+1]?.index??text.length).trim()}));});}
+export function requirementRecords(documents,registeredClauseIds=[]){return Object.entries(documents).flatMap(([document,text])=>{const matches=[...text.matchAll(/\*\*((?:BASE-)?[A-Z]+-\d{3}) —|^#### ([A-Z]+-\d{3}) —/gm)].filter(match=>match[1]||registeredClauseIds.includes(match[2]));return matches.map((match,i)=>({id:match[1]??match[2],document,requirement:text.slice(match.index,matches[i+1]?.index??text.length).trim()}));});}
 /** Exact registration only. Supporting checks can never satisfy a clause. */
-export function validateEvidenceRegistry({root,report,registry,inventory,documents}){
- const errors=[],registered=new Map(),observed=new Set(),requirements=requirementRecords(documents),ids=new Set(requirements.map(x=>x.id)),records=new Map();
+export function validateEvidenceRegistry({root,report,registry,inventory,documents,registeredClauseIds=[]}){
+ const errors=[],registered=new Map(),observed=new Set(),requirements=requirementRecords(documents,registeredClauseIds),ids=new Set(requirements.map(x=>x.id)),records=new Map();
  for(const file of report.testResults??[])for(const assertion of file.assertionResults??[])observed.add(key(path.relative(root,file.name),assertion.fullName??assertion.title??''));
  if(registry.version!==1||inventory.version!==1)errors.push('Unsupported evidence metadata version');
  for(const entry of registry.entries??[]){const identity=key(entry.file,entry.testName);if(registered.has(identity))errors.push('Duplicate test entry: '+identity);if(!observed.has(identity))errors.push('Stale or unknown test entry: '+identity);if(entry.kind!=='supporting-regression'||!entry.reason?.trim()||!Array.isArray(entry.clauses))errors.push('Invalid supporting evidence: '+identity);for(const id of entry.clauses??[])if(!ids.has(id))errors.push('Unknown clause '+id);registered.set(identity,entry);}

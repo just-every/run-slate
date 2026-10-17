@@ -455,6 +455,15 @@
         "FLAG-003",
         "FLAG-004"
       ]
+    },
+    {
+      "id": "assigned-work",
+      "description": "Assigned page tasks, personal task lists and durable timezone-aware inbox reminders.",
+      "clauses": [
+        "BLOCK-015",
+        "NAV-007",
+        "NOTIF-004"
+      ]
     }
   ],
   "nonGoals": [

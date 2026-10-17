@@ -30,6 +30,7 @@ import type { DocumentView } from "../../../../client/content";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../../../../ui";
 import { PageActionDialogs, type PageDialog } from "./PageActionDialogs";
 import { usePageFollowing } from "./usePageFollowing";
+import { ReminderDialog } from '../../../editor/ui/blocks/ReminderDialog';
 
 /** A trailing mark on items that open a dialog or a panel; it is not part of the item's name. */
 const opens = <span aria-hidden="true">…</span>;
@@ -60,6 +61,7 @@ export function PageMoreMenu({
   onOpenPanel: (kind: string, returnTo: HTMLElement | null) => void;
 }) {
   const [dialog, setDialog] = useState<PageDialog | null>(null);
+  const [reminder,setReminder]=useState(false);
   // On a phone the top bar drops Ask, History and Details, so the menu carries them.
   const [phone, setPhone] = useState(false);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -134,6 +136,7 @@ export function PageMoreMenu({
           ) : null}
           {item(<Presentation aria-hidden="true" />, "Present this page", open(onPresent), false)}
           {item(<FileDown aria-hidden="true" />, "Export page", dialogItem("export"))}
+          {item(<Bell aria-hidden="true" />, "Remind me", open(()=>setReminder(true)))}
           {extraItems}
           <DropdownMenuItem disabled={following.disabled} onSelect={stayOpen(() => void following.toggleFavourite())}>
             <Star aria-hidden="true" fill={following.favourite ? "currentColor" : "none"} />
@@ -196,6 +199,7 @@ export function PageMoreMenu({
         reload={reload}
         onClose={() => setDialog(null)}
       />
+      {reminder?<ReminderDialog pageId={document.page.id} onClose={()=>setReminder(false)}/>:null}
     </>
   );
 }

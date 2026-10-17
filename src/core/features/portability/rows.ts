@@ -14,6 +14,7 @@ export function safeRow(table:string,row:DataRow,now=new Date().toISOString()):D
 
 /** Restore retains facts and definitions, while every route back to execution needs fresh authority. */
 const rules:Record<string,(row:DataRow,ownerEmail:string,now:string,keys:Map<string,string>)=>void>={
+ 'reminders':(row,_ownerEmail,now)=>{if(!row.delivered_at)row.cancelled_at=row.cancelled_at??now;},
  'workspaces':(row)=>{row.ai_enabled=0;},
  'intelligence_ambient_scopes':(row)=>{row.state='stopped';row.reason='Restored: fresh owner activation required.';},
  'intelligence_ambient_events':(row)=>{if(['prepared','running'].includes(String(row.state))){row.state='blocked';row.failure_reason='RESTORED_AUTHORITY_REQUIRED';}},

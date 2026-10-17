@@ -179,7 +179,7 @@ const suiteFailure = !report
     ? `The Workers contract suite exited ${suiteStatus}; its report cannot be trusted to be complete.`
     : undefined;
 
-const evidence = validateEvidenceRegistry({root, report: report ?? {}, registry: await readJsonIfPresent("tests/requirements/test-evidence.json") ?? {}, inventory: await readJsonIfPresent("tests/requirements/clause-inventory.json") ?? {}, documents: {"CONTRACT.md": contract, "BASELINE.md": baseline}});
+const evidence = validateEvidenceRegistry({root, report: report ?? {}, registry: await readJsonIfPresent("tests/requirements/test-evidence.json") ?? {}, inventory: await readJsonIfPresent("tests/requirements/clause-inventory.json") ?? {}, documents: {"CONTRACT.md": contract, "BASELINE.md": baseline}, registeredClauseIds:contractIds});
 const { tagged, untagged, harness, harnessTagged, parserRegressions, parserTagged } = report
   ? readTaggedResults(report, evidence)
   : { tagged: new Map(), untagged: [], harness: 0, harnessTagged: [], parserRegressions: 0, parserTagged: [] };

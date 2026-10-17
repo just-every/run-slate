@@ -1,0 +1,23 @@
+.task-metadata { display:flex; align-items:center; flex-wrap:wrap; gap:.35rem .75rem; font-size:.78rem; color:var(--slate-ink-muted); margin:.25rem 0; }
+.task-metadata select { max-width:13rem; padding:.15rem .4rem; font-size:inherit; }
+.task-metadata button { padding:.15rem .2rem; text-decoration:underline; text-underline-offset:3px; }
+.task-overdue { color:var(--slate-danger,#a13e2c); font-weight:600; }
+.task-date-picker { display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; font-size:.8rem; }
+.task-tabs { display:flex; gap:1.25rem; border-bottom:1px solid var(--slate-line); margin:1.5rem 0 1rem; }
+.task-tabs button { border:0; border-radius:0; padding:.65rem 0; color:var(--slate-ink-muted); }
+.task-tabs button[aria-selected=true] { border-bottom:2px solid currentColor; color:var(--slate-ink); }
+.task-filters { display:flex; flex-wrap:wrap; align-items:end; gap:.75rem; margin:1.2rem 0 1.5rem; }
+.task-filters label { display:flex; flex-direction:column; gap:.3rem; font-size:.75rem; color:var(--slate-ink-muted); flex:1 1 120px; min-width:0; }
+.task-filters input,.task-filters select { width:100%; min-width:0; }
+.task-list { margin:0; padding:0; list-style:none; }
+.task-list li { display:flex; gap:1rem; align-items:start; padding:1.2rem 0; border-bottom:1px solid var(--slate-line); }
+.task-list li>div { flex:1; min-width:0; overflow-wrap:anywhere; }
+.task-list li>input { margin-top:.35rem; flex:none; width:1rem; height:1rem; accent-color:var(--slate-ink); }
+.task-list li>div>a { font-size:1rem; font-weight:500; }
+.task-list p { font-size:.8rem; color:var(--slate-ink-muted); margin:.3rem 0 0; }
+.task-list time,.task-list li>span { font-size:.8rem; padding-top:.15rem; }
+.task-completed { text-decoration:line-through; color:var(--slate-ink-muted); }
+.reminder-list { list-style:none; padding:0; }
+.reminder-list li { display:flex; flex-wrap:wrap; justify-content:space-between; gap:.5rem; padding:.75rem 0; border-bottom:1px solid var(--slate-line); font-size:.85rem; }
+.home-tasks { margin:0 0 1.5rem; }
+@media(max-width:600px) { .task-filters { gap:.65rem; } .task-list li { flex-wrap:wrap; gap:.5rem .75rem; } .task-list li>div { flex-basis:calc(100% - 2rem); } .task-list time,.task-list li>span { margin-left:1.75rem; } }

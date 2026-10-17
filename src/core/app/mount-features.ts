@@ -1,3 +1,5 @@
+import {createWorkItemsRoutes} from '../features/work-items/routes';
+import {createReminderRoutes} from '../features/reminders/routes';
 import { createInstallationExportRoutes } from '../features/portability/installation-routes';
 import { mountLaunchProfile } from "./launch-profile";
 import {createClaimRoutes} from "../features/claims/routes";
@@ -54,6 +56,8 @@ export function mountFeatures(app: Hono<AppEnvironment>): Hono<AppEnvironment> {
   mountLaunchProfile(app);
   registerIntelligenceVisibility();
   app.route("/", createWorkspaceRoutes());
+  app.route("/api/tasks",createWorkItemsRoutes());
+  app.route("/api/reminders",createReminderRoutes());
   app.route("/api/pages", createPagesRoutes());
   app.route("/api/containers", createContainersRoutes());
   app.route("/api/revisions", createRevisionsRoutes());

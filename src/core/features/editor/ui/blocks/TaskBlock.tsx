@@ -1,6 +1,10 @@
 import { Checkbox, cn } from "../../../../ui";
 import { richTextToPlain, type BlockRenderProps, type TaskBlockData } from "../types";
 import { Editable } from "./Editable";
+import { useState } from 'react';
+import { sliceRichText } from '../sliceRichText';
+import { useTaskAssignment } from './TaskAssignment';
+import { ReminderDialog } from './ReminderDialog';
 
 /**
  * `BLOCK-007` — a checkable item in the body. Anyone with edit access may toggle
@@ -8,6 +12,13 @@ import { Editable } from "./Editable";
  */
 export function TaskBlock({ block, canEdit, onChange }: BlockRenderProps<TaskBlockData>) {
   const plain = richTextToPlain(block.text);
+  const {page,assign,prompt}=useTaskAssignment(block,onChange);
+  const [dateOpen,setDateOpen]=useState(false);
+  const [remind,setRemind]=useState(false);
+  const due=block.dueDate ? new Date(`${block.dueDate}T00:00:00`) : null;
+  const today=new Date();today.setHours(0,0,0,0);
+  const overdue=!block.done&&due&&due<today;
+  const assignee=page?.people.find(person=>person.id===block.assigneeMemberId);
   const completion =
     block.done && (block.completedBy || block.completedAtLabel)
       ? [block.completedBy ? `Completed by ${block.completedBy.name}` : "Completed", block.completedAtLabel]
@@ -16,7 +27,7 @@ export function TaskBlock({ block, canEdit, onChange }: BlockRenderProps<TaskBlo
       : null;
 
   return (
-    <div className="flex items-start gap-2 py-0.5">
+    <div className="flex items-start gap-2 py-0.5" data-task-item data-task-overdue={overdue||undefined}>
       <Checkbox
         aria-label={plain.length > 0 ? `Mark complete: ${plain}` : "Mark this to-do complete"}
         checked={block.done}
@@ -29,11 +40,27 @@ export function TaskBlock({ block, canEdit, onChange }: BlockRenderProps<TaskBlo
           canEdit={canEdit}
           className={cn("text-body leading-relaxed", block.done ? "text-ink-muted line-through" : "text-ink")}
           label="To-do item"
-          onChange={(text) => onChange({ ...block, text })}
+          onChange={(text) => {
+            const value=richTextToPlain(text);
+            if(value.endsWith('//')){onChange({...block,text:sliceRichText(text,0,value.length-2)});setDateOpen(true);return;}
+            const person=text.find(span=>span.mention?.kind==='person'&&!block.text.some(old=>old.mention?.kind==='person'&&old.mention.id===span.mention?.id));
+            if(person?.mention?.id){assign(person.mention.id,text);return;}
+            const date=text.find(span=>span.mention?.kind==='date'&&!block.text.some(old=>old.mention?.kind==='date'&&old.mention.id===span.mention?.id));
+            onChange({ ...block, text, ...(date?.mention?.id?{dueDate:date.mention.id}:{}) });
+          }}
           placeholder="To-do"
           value={block.text}
         />
+        <div className="task-metadata">
+          {canEdit&&page?<label><span className="sr-only">Task assignee</span><select aria-label="Task assignee" value={block.assigneeMemberId??''} onChange={event=>assign(event.target.value||null)}><option value="">Unassigned</option>{page.people.map(person=><option key={person.id} value={person.id}>{person.displayName}</option>)}</select></label>:assignee?<span>{assignee.displayName}</span>:null}
+          {due?<time dateTime={block.dueDate!} className={overdue?'task-overdue':undefined}>{overdue?'Overdue · ':''}{due.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</time>:null}
+          {canEdit?<button type="button" onClick={()=>setDateOpen(!dateOpen)}>{due?'Change due date':'Add due date'}</button>:null}
+          {page?<button type="button" onClick={()=>setRemind(true)}>Remind me</button>:null}
+        </div>
+        {dateOpen&&canEdit?<label className="task-date-picker">Due date<input autoFocus aria-label="Task due date" type="date" value={block.dueDate??''} onChange={event=>{onChange({...block,dueDate:event.target.value||null});setDateOpen(false);}}/><button type="button" onClick={()=>{onChange({...block,dueDate:null});setDateOpen(false);}}>Clear date</button><button type="button" onClick={()=>setDateOpen(false)}>Close date picker</button></label>:null}
         {completion ? <p className="text-tiny text-ink-faint">{completion}</p> : null}
+        {prompt}
+        {remind&&page?<ReminderDialog pageId={page.pageId} blockId={block.id} onClose={()=>setRemind(false)}/>:null}
       </div>
     </div>
   );

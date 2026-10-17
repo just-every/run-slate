@@ -8,7 +8,7 @@ export const navigationConfigurationSchema=z.object({
   destinations:z.array(z.object({id:z.string().regex(/^[a-z][a-z0-9:._-]{0,127}$/),label:z.string().trim().min(1).max(80),href:z.string().regex(/^\/app(?:\/[a-zA-Z0-9/_-]*)?$/),visible:z.boolean()}).strict()).max(100)
     .refine(items=>new Set(items.map(item=>item.id)).size===items.length,'Destination IDs must be unique.')
 }).strict();
-const defaults=[['home','Today','/app'],['search','Search','/app/search'],['inbox','Inbox','/app/inbox'],['review','Needs review','/app/review'],['containers','Spaces','/app/containers'],['templates','Templates','/app/templates'],['archive','Archive','/app/archive'],['settings','Settings','/app/settings']].map(([id,label,href])=>({id:id!,label:label!,href:href!,visible:true}));
+const defaults=[['home','Today','/app'],['search','Search','/app/search'],['inbox','Inbox','/app/inbox'],['tasks','My tasks','/app/tasks'],['review','Needs review','/app/review'],['containers','Spaces','/app/containers'],['templates','Templates','/app/templates'],['archive','Archive','/app/archive'],['settings','Settings','/app/settings']].map(([id,label,href])=>({id:id!,label:label!,href:href!,visible:true}));
 export async function navigationConfiguration(ctx:FeatureContext) {
   await currentSubject(ctx);
   const row=await configurationHistory<{destinations:typeof defaults}>(ctx,'navigation-configuration');
