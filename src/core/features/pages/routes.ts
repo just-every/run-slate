@@ -1,3 +1,4 @@
+import { setPageLock } from './locks';
 import { pageDetails } from './details';
 import { pageLinkCard } from './link-card';
 import { openPage } from './open';
@@ -40,6 +41,8 @@ export function createPagesRoutes() {
     r.patch('/:id', async (c) => { const ctx=featureContext(c),id=c.req.param('id'); const result=await updatePage(ctx,id,await validatedJson(c,updatePageSchema)); return c.json({...result,document:await readPage(ctx,id)}); });
     r.patch('/:id/blocks/:blockId', async (c) => c.json(await updateBlock(featureContext(c), c.req.param('id'), c.req.param('blockId'), await validatedJson(c, updateBlockSchema))));
     r.put('/:id/blocks', async (c) => c.json(await replaceBlocks(featureContext(c), c.req.param('id'), await validatedJson(c, replaceBlocksSchema))));
+    r.post('/:id/lock', async c => c.json(await setPageLock(featureContext(c), c.req.param('id'), await c.req.json(), true)));
+    r.post('/:id/unlock', async c => c.json(await setPageLock(featureContext(c), c.req.param('id'), await c.req.json(), false)));
     r.post('/:id/publish-preview', async (c) => c.json(await previewPublication(featureContext(c), c.req.param('id'), await c.req.json())));
     r.post('/:id/publish', async (c) => c.json(await publishPage(featureContext(c), c.req.param('id'), await c.req.json())));
     r.post('/:id/cancel-schedule', async (c) => c.json(await cancelSchedule(featureContext(c), c.req.param('id'), await c.req.json())));

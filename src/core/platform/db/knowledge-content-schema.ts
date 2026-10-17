@@ -69,6 +69,8 @@ export const knowledgePages = sqliteTable("pages", {
   typeface: text("typeface").notNull().default("default"),
   smallText: integer("small_text", { mode: "boolean" }).notNull().default(false),
   fullWidth: integer("full_width", { mode: "boolean" }).notNull().default(false),
+  lockedAt: text("locked_at"),
+  lockedByMemberId: text("locked_by_member_id"),
   archivedAt: text("archived_at"),
   trashedAt: text("trashed_at"),
   deletedAt: text("deleted_at"),

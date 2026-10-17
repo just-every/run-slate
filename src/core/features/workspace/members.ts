@@ -1,3 +1,4 @@
+import {removeMemberReviewAssignment} from '../archive/erasure-reviews';
 import {beginImportErasure} from '../imports/retire-custody';
 import {completeErasure} from '../archive/erasure-cleanup';
 import { prepareEraseMemberContent } from '../archive/erasure';
@@ -36,6 +37,7 @@ export async function removeMember(ctx:FeatureContext,input:{operationKey:string
     if(!target) throw new ApiProblem(404,'NOT_FOUND','Not found.');
     if(target.is_setup_owner&&input.memberId!==ctx.actor.id) throw new ApiProblem(403,'SETUP_OWNER','Only the setup owner can remove themselves.');
     const statements=[
+      removeMemberReviewAssignment(ctx,input.memberId),
       mutationGuard(ctx.db,"SELECT role!='owner' OR status!='active' OR (SELECT count(*) FROM members WHERE workspace_id=? AND role='owner' AND status='active')>1 FROM members WHERE id=?",[ctx.actor.workspaceId,input.memberId]),
       ctx.db.prepare("UPDATE members SET status='removed',is_setup_owner=0,updated_at=? WHERE id=?").bind(ctx.now,input.memberId),
       ctx.db.prepare('UPDATE sessions SET revoked_at=?,updated_at=? WHERE member_id=? AND revoked_at IS NULL').bind(ctx.now,ctx.now,input.memberId),

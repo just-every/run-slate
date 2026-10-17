@@ -6,7 +6,7 @@ import { commitOperation,mutationGuard } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
 import { createUlid } from '../../shared/ulid';
 import { requirePageLevel } from '../sharing/current-access';
-import { pageRow, writable } from '../pages/repository';
+import { pageRow, writable, pageGuard } from '../pages/repository';
 import { readPage } from '../pages/service';
 import { sanitizeSvg, fileDisposition } from './sanitize';
 export interface MediaInput {
@@ -16,7 +16,13 @@ export interface MediaInput {
     contentType: string;
     bytes: Uint8Array;
 }
-export async function prepareMedia(ctx: FeatureContext, input: MediaInput) { await requirePageLevel(ctx, input.pageId, 'edit'); writable(await pageRow(ctx, input.pageId)); return prepareImportedMedia(ctx, input); }
+export async function prepareMedia(ctx: FeatureContext, input: MediaInput) {
+    await requirePageLevel(ctx, input.pageId, 'edit');
+    const page = await pageRow(ctx, input.pageId); writable(page);
+    const media = await prepareImportedMedia(ctx, input);
+    media.statements.unshift(pageGuard(ctx, page, page.revision_id));
+    return media;
+}
 /** Import caller authorizes destination and includes the new page in the same transaction. */
 export async function prepareImportedMedia(ctx: FeatureContext, input: MediaInput | (Omit<MediaInput,'bytes'> & {source:{sizeBytes:number;open:()=>ReadableStream<Uint8Array>}}),stage=true) {
     const size='bytes' in input?input.bytes.byteLength:input.source.sizeBytes;

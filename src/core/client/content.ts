@@ -67,6 +67,8 @@ export function storedBlocks(blocks: EditorBlock[]) {
 }
 
 export const contentApi = {
+  lock: (id: string, expectedRevisionId: string, locked: boolean) =>
+    mutate<ContentReceipt>(`/api/pages/${encodeURIComponent(id)}/${locked ? "lock" : "unlock"}`, { operationKey: operationKey(), expectedRevisionId }),
   list: (containerId?: string) =>
     request<PageResult<PageRef>>(
       `/api/pages${containerId ? `?containerId=${encodeURIComponent(containerId)}` : ""}`,

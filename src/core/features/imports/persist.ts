@@ -1,3 +1,4 @@
+import {importCreationPlan} from './creation-plan';
 import type {PrincipalMapping} from "./principal-mapping";
 import {CompactStringMap} from './compact-string-map';
 import type {FeatureContext} from '../../app/feature-context';
@@ -6,7 +7,7 @@ import {safeUrl} from '../editor/validation';
 import {requestHash,mutationGuard} from '../../app/operations';
 import {createUlid} from '../../shared/ulid';
 import {prepareCreateContainer,authorizeContainerCreation} from '../containers/service';
-import {prepareCreatePage,destination,readPage} from '../pages/service';
+import {destination,readPage} from '../pages/service';
 import {prepareImportedPageMetadata} from '../pages/import-metadata';
 import {revisionStatement} from '../pages/repository';
 import {prepareImportedMedia} from '../media/service';
@@ -18,13 +19,14 @@ import {prepareImportGrants,prepareImportPrincipals} from './principals';
 export async function prepareImportPlan(ctx:FeatureContext,jobId:string,parsed:NormalizedImport,target?:{pageId:string;expectedRevisionId:string},mappings:PrincipalMapping[]=[],stageMedia=true){
  // Historical arrival preserves source authorship; it is not an interactive authoring session.
  ctx={...ctx,contentOrigin:'historical-import'};
+ const creation=importCreationPlan(),prepareCreatePage=creation.page;
  const parent=target?await readPage(ctx,target.pageId):null;const authorize=async()=>{if(parent){await destination(ctx,parent.page.containerId,parent.page.id);}else await authorizeContainerCreation(ctx);};await authorize();const ids=new CompactStringMap(mappings.map(m=>[`${m.kind}:${m.sourceId}`,m.targetId]));const prefix=(await requestHash(jobId)).slice(0,16);const idFor=(kind:string,id:string)=>{const key=`${kind}:${id}`;if(!ids.has(key))ids.set(key,`${prefix}:${kind}:${ids.size}`);return ids.get(key)!;};
  const mediaSources:{storageKey:string;contentType:string;sizeBytes:number;entry:import('./archive-r2').RetainedZipEntry}[]=[];
  const statements:D1PreparedStatement[]=[],pendingFiles:D1PreparedStatement[]=[],stagedKeys:string[]=[];const pageIds=new Set<string>();const counts={containers:0,pages:0,databases:0,records:0,files:0,versions:0};
  try{
  if(target)statements.push(mutationGuard(ctx.db,'SELECT revision_id=? AND deleted_at IS NULL FROM pages WHERE id=?',[target.expectedRevisionId,target.pageId]));
  for(const database of parsed.databases){if(database.pageSourceId)ids.set(`database-page:${database.sourceId}`,idFor('page',database.pageSourceId));ids.set(`page:${database.sourceId}`,idFor('database-page',database.sourceId));}
- statements.push(...prepareImportPrincipals(ctx,parsed,idFor,mappings));if(parent)for(const container of parsed.containers)ids.set(`container:${container.sourceId}`,parent.page.containerId);for(const container of parsed.containers){if(parent)continue;const id=idFor('container',container.sourceId);const plan=await prepareCreateContainer(ctx,{operationKey:jobId,id,name:container.name,key:null,visibility:'private'},createUlid());statements.push(...plan.statements,...prepareImportGrants(ctx,'container',id,id,container.grants,container.personal,idFor));counts.containers++;if(container.personal)parsed.report.warnings.push({kind:'container',sourceId:container.sourceId,label:container.name,detail:'Imported as a private container owned by the importing member; historical personal ownership does not activate source accounts.'});}
+ statements.push(...prepareImportPrincipals(ctx,parsed,idFor,mappings));if(parent)for(const container of parsed.containers)ids.set(`container:${container.sourceId}`,parent.page.containerId);for(const container of parsed.containers){if(parent)continue;const id=idFor('container',container.sourceId);const plan=await prepareCreateContainer(ctx,{operationKey:jobId,id,name:container.name,key:null,visibility:'private'},createUlid());statements.push(...plan.statements,...prepareImportGrants(ctx,'container',id,id,container.grants,container.personal,idFor));counts.containers++;creation.container(id);if(container.personal)parsed.report.warnings.push({kind:'container',sourceId:container.sourceId,label:container.name,detail:'Imported as a private container owned by the importing member; historical personal ownership does not activate source accounts.'});}
  function resolveLinks(blocks:ImportedBlock[],pageId:string){for(const block of blocks){for(const link of block.links){if(link.href.startsWith('#'))link.href=`/app/pages/${idFor('page',pageId)}${link.href}`;if(!link.targetSourceId&&!safeUrl(link.href)){parsed.report.unmapped.push({kind:'construct',sourceId:block.sourceId,label:link.href,detail:'Archive-relative target is not present as an imported record. Link text and original archive retained.'});}}resolveLinks(block.children,pageId);}}for(const page of parsed.pages)resolveLinks(page.blocks,page.sourceId);
  const ordered:ImportedPage[]=[];const remaining=new Map(parsed.pages.map(p=>[p.sourceId,p]));while(remaining.size){let moved=0;for(const [id,page]of remaining){if(!page.parentSourceId||!remaining.has(page.parentSourceId)){ordered.push(page);remaining.delete(id);moved++;}}if(!moved)throw new ApiProblem(400,'IMPORT_TREE_CYCLE','Archive page tree is cyclic.');}
  // XML media has an explicit content owner. Other formats retain reference inference.

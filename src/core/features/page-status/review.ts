@@ -3,6 +3,7 @@ import { ApiProblem } from '../../app/problems';
 import { currentSubject } from '../sharing/current-access';
 import { accessSql, pageAccessLevelSql } from '../search/access-sql';
 import { expiringBefore, latestVerificationSql } from './state';
+import { bulkReviewOwner, reviewRequestQueue } from './request-queue';
 
 /**
  * The "Needs review" list (STAT-003, STAT-004): pages the member may read today whose
@@ -89,13 +90,13 @@ export async function reviewQueue(ctx: FeatureContext, input: { filter?: string;
   }));
   const last = page.at(-1);
   const counts: ReviewCounts = { mine: row?.mine ?? 0, everyone: row?.everyone ?? 0, noVerifier: owner ? row?.no_verifier ?? 0 : null };
-  return { items, total: row?.total ?? 0, counts, filter, ...(rows.length > limit && last ? { nextCursor: encodeCursor({ rank: last.rank, due: last.due, id: last.id }) } : {}) };
+  return { items, total: row?.total ?? 0, counts, filter, canBulkVerify: await bulkReviewOwner(ctx), ...(rows.length > limit && last ? { nextCursor: encodeCursor({ rank: last.rank, due: last.due, id: last.id }) } : {}) };
 }
 
 /** The sidebar count: the member's own attestations that need review, and for owners the pages whose verifier left. */
 export async function reviewCount(ctx: FeatureContext) {
-  const { counts } = await reviewQueue(ctx, { filter: 'mine', limit: 1 });
-  return { count: counts.mine + (counts.noVerifier ?? 0) };
+  const [{ counts }, requests] = await Promise.all([reviewQueue(ctx, { filter: 'mine', limit: 1 }), reviewRequestQueue(ctx, { view: 'assigned', limit: 1 })]);
+  return { count: counts.mine + (counts.noVerifier ?? 0) + requests.counts.assigned };
 }
 
 /** "Review" opens the page at the compare view between the verified revision and now (REV-004). */

@@ -10,7 +10,9 @@ import { commitOperation } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
 import { createUlid } from '../../shared/ulid';
 import { requirePageLevel } from '../sharing/current-access';
-import { pageRow, pageGuard, contentEvent } from '../pages/repository';
+import { pageRow, pageLockGuard, unlocked, contentEvent } from '../pages/repository';
+import { treeTopologyGuard } from '../pages/tree-order';
+import { creationDestinationGuards } from '../pages/service';
 import { descendants } from '../pages/tree';
 import { destination } from '../pages/service';
 export async function archivePage(ctx: FeatureContext, id: string, input: {
@@ -32,9 +34,11 @@ export async function prepareArchivePage(ctx: FeatureContext, id: string, input:
     restoringContainer?: string;
 } = {}) {
     const pages = await descendants(ctx, id), root = pages.find(p => p.id === id)!;
-    const statements = [pageGuard(ctx, root, input.expectedRevisionId)];
+    const statements = [await treeTopologyGuard(ctx, id), pageLockGuard(ctx, root, input.expectedRevisionId)];
     for (const p of pages) {
         await requirePageLevel(ctx, p.id, 'edit', { includeTrashed: true });
+        unlocked(p);
+        if (p.id !== id) statements.push(pageLockGuard(ctx, p));
         if (input.action === 'restore') {
             const prior = await ctx.db.prepare('SELECT * FROM content_archive_locations WHERE page_id=?').bind(p.id).first<Record<string, any>>();
             if (!prior)
@@ -44,6 +48,7 @@ export async function prepareArchivePage(ctx: FeatureContext, id: string, input:
                 throw new ApiProblem(400, 'TREE_CYCLE', 'A page cannot be its own descendant.');
             if (options.restoringContainer !== containerId)
                 await destination(ctx, containerId, parentId && pages.some(q => q.id === parentId) ? null : parentId);
+            if (options.restoringContainer !== containerId) statements.push(...await creationDestinationGuards(ctx, containerId, parentId && pages.some(q => q.id === parentId) ? null : parentId));
             statements.push(ctx.db.prepare('UPDATE pages SET archived_at=NULL,trashed_at=NULL,lifecycle=?,container_id=?,parent_page_id=?,tree_position=?,updated_at=? WHERE id=?').bind(prior.prior_lifecycle, containerId, parentId, prior.prior_position, ctx.now, p.id), ctx.db.prepare('DELETE FROM content_archive_locations WHERE page_id=?').bind(p.id));
         }
         else {

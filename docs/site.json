@@ -228,6 +228,10 @@
     {
       "source": "DEMO.md",
       "reason": "Demo setup and isolation reference for maintainers."
+    },
+    {
+      "source": "docs/CLAIMS.md",
+      "reason": "Maintainer evidence and remaining gaps for current contract work"
     }
   ]
 }

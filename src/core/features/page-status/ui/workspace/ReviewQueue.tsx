@@ -5,9 +5,11 @@ import { TopBar } from "../../../../app/ui/header/TopBar";
 import { PageTitle } from "../../../../app/ui/header/PageTitle";
 import { displayDate } from "../../../../app/ui/displayDate";
 import type { ReviewCounts, ReviewFilter, ReviewItem } from "../../review";
+import { BulkVerifyDialog } from "./BulkVerifyDialog";
+import { RequestedReviewQueue } from "./RequestedReviewQueue";
 import { VerifyDialog } from "./VerifyDialog";
 
-interface ReviewResponse { items: ReviewItem[]; total: number; counts: ReviewCounts; nextCursor?: string }
+interface ReviewResponse { items: ReviewItem[]; total: number; counts: ReviewCounts; canBulkVerify: boolean; nextCursor?: string }
 
 const stateLabel: Record<ReviewItem["state"], string> = {
   lapsed: "Lapsed",
@@ -40,9 +42,11 @@ export function ReviewQueue() {
   const [cursors, setCursors] = useState<string[]>([]);
   const cursor = cursors.at(-1);
   const resource = useResource<ReviewResponse>(`/api/status/review?filter=${filter}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`);
+  const [selected, setSelected] = useState<string[]>([]);
+  const [bulk, setBulk] = useState<ReviewItem[]>();
   const [verifying, setVerifying] = useState<ReviewItem>();
   const counts = resource.data?.counts;
-  const choose = (next: ReviewFilter) => { setFilter(next); setCursors([]); };
+  const choose = (next: ReviewFilter) => { setFilter(next); setCursors([]); setSelected([]); };
   const tab = (value: ReviewFilter, label: string, count?: number | null) => (
     <button type="button" aria-pressed={filter === value} onClick={() => choose(value)}>
       {label}{count === undefined || count === null ? "" : ` (${count})`}
@@ -57,16 +61,20 @@ export function ReviewQueue() {
           Pages whose verification has lapsed, lapses within 14 days, or was made before the page last changed.
           Nothing here renews by itself: a person reviews the page and verifies it again.
         </p>
+        <RequestedReviewQueue/>
+        <h2>Verification health</h2>
         <div className="tabs" role="group" aria-label="Whose verifications">
           {tab("mine", "Mine", counts?.mine)}
           {tab("everyone", "Everyone", counts?.everyone)}
           {counts?.noVerifier !== null && counts?.noVerifier !== undefined ? tab("no-verifier", "No active verifier", counts.noVerifier) : null}
         </div>
+        {resource.data?.canBulkVerify ? <p><button type="button" disabled={!selected.length} onClick={() => setBulk(resource.data!.items.filter(i => selected.includes(i.pageId) && i.canVerify && i.openedCurrent))}>Verify selected opened revisions</button> Open each current revision before selecting it.</p> : null}
         <RequestState loading={resource.loading} error={resource.error} retry={resource.reload}>
           {resource.data?.items.length ? (
             <ul className="archive-list review-list">
               {resource.data.items.map((item) => (
                 <li key={item.pageId} data-state={item.state}>
+                  {resource.data?.canBulkVerify ? <label><input type="checkbox" aria-label={`Select ${item.title}`} disabled={!item.canVerify || !item.openedCurrent} checked={selected.includes(item.pageId)} onChange={e => setSelected(e.target.checked ? [...selected, item.pageId] : selected.filter(id => id !== item.pageId))}/>Select</label> : null}
                   <div>
                     <h2><a href={`/app/pages/${encodeURIComponent(item.pageId)}`}>{item.title}</a></h2>
                     <p className="review-facts">
@@ -92,6 +100,7 @@ export function ReviewQueue() {
             {resource.data?.nextCursor ? <button type="button" onClick={() => setCursors([...cursors, resource.data!.nextCursor!])}>Next page</button> : null}
           </div>
         </RequestState>
+        {bulk?.length ? <BulkVerifyDialog items={bulk} onClose={() => setBulk(undefined)} onSaved={async () => { setSelected([]); await resource.reload(); reviewChanged(); }}/> : null}
         {verifying ? (
           <VerifyDialog
             pageId={verifying.pageId}

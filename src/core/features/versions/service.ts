@@ -4,7 +4,7 @@ import type { FeatureContext } from '../../app/feature-context';
 import { commitOperation } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
 import { requirePageLevel } from '../sharing/current-access';
-import { pageRow, revisionRow, pageGuard } from '../pages/repository';
+import { pageRow, revisionRow, pageGuard, writable } from '../pages/repository';
 import { contentPolicy } from '../pages/policy';
 import { restorePageContent } from '../lifecycle/service';
 export async function revisionHistory(ctx: FeatureContext, pageId: string) {
@@ -41,6 +41,7 @@ export async function deleteRevision(ctx: FeatureContext, pageId: string, id: st
             if ((await contentPolicy(ctx))['page.version.v1'] !== 'labelled')
                 throw new ApiProblem(409, 'POLICY_RESTRICTED', 'Version deletion requires the labelled profile.');
             const p = await pageRow(ctx, pageId);
+            writable(p);
             if ([p.revision_id, p.working_revision_id, p.published_revision_id].includes(id))
                 throw new ApiProblem(409, 'CURRENT_REVISION', 'Current and published versions cannot be deleted.');
             await revisionRow(ctx, pageId, id);

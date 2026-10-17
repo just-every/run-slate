@@ -19,5 +19,7 @@ export async function moveSources(ctx: FeatureContext, id: string, input: MovePl
 
 /** Reject liveness changes within the very batch that writes receipts and history. */
 export function writableMoveGuard(ctx: FeatureContext, id: string, containerId: string) {
-    return mutationGuard(ctx.db, `SELECT EXISTS(SELECT 1 FROM pages WHERE id=? AND workspace_id=? AND deleted_at IS NULL AND archived_at IS NULL AND trashed_at IS NULL) AND NOT EXISTS(WITH RECURSIVE tree(id) AS (SELECT id FROM pages WHERE id=? AND workspace_id=? UNION SELECT p.id FROM pages p JOIN tree t ON p.parent_page_id=t.id WHERE p.deleted_at IS NULL) SELECT 1 FROM pages p JOIN tree t ON p.id=t.id WHERE (p.id=? OR p.container_id!=?) AND (p.deleted_at IS NOT NULL OR p.archived_at IS NOT NULL OR p.trashed_at IS NOT NULL))`, [id, ctx.actor.workspaceId, id, ctx.actor.workspaceId, id, containerId]);
+    const live = `SELECT EXISTS(SELECT 1 FROM pages WHERE id=? AND workspace_id=? AND deleted_at IS NULL AND archived_at IS NULL AND trashed_at IS NULL) AND NOT EXISTS(WITH RECURSIVE tree(id) AS (SELECT id FROM pages WHERE id=? AND workspace_id=? UNION SELECT p.id FROM pages p JOIN tree t ON p.parent_page_id=t.id WHERE p.deleted_at IS NULL) SELECT 1 FROM pages p JOIN tree t ON p.id=t.id WHERE (p.id=? OR p.container_id!=?) AND (p.deleted_at IS NOT NULL OR p.archived_at IS NOT NULL OR p.trashed_at IS NOT NULL))`;
+    const values = [id, ctx.actor.workspaceId, id, ctx.actor.workspaceId, id, containerId];
+    return mutationGuard(ctx.db, live.replace('p.trashed_at IS NOT NULL)', 'p.trashed_at IS NOT NULL OR p.locked_at IS NOT NULL)'), values, { select: live, values });
 }

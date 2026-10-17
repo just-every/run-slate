@@ -20,12 +20,13 @@ const today = () => { const now = new Date(); return `${now.getFullYear()}-${Str
  * or 90 days (counted by the server), a date, or none. The server refuses an unopened or
  * outdated revision; the dialog shows its reason.
  */
-export function VerifyDialog({ pageId, statusKey, expectedRevisionId, attestRevisionId, openedCurrent, onClose, onVerified }: {
+export function VerifyDialog({ pageId, statusKey, expectedRevisionId, attestRevisionId, openedCurrent, reviewRequest, onClose, onVerified }: {
   pageId: string;
   statusKey: string;
   expectedRevisionId: string;
   attestRevisionId: string;
   openedCurrent?: boolean;
+  reviewRequest?: { id: string; assignmentGeneration: number; expectedRevisionId: string };
   onClose: () => void;
   onVerified: () => void | Promise<void>;
 }) {
@@ -43,6 +44,7 @@ export function VerifyDialog({ pageId, statusKey, expectedRevisionId, attestRevi
           expectedRevisionId,
           statusKey,
           attestRevisionId,
+          ...(reviewRequest ? { reviewRequest } : {}),
           ...(choice === "date" ? { expiresAt: endOfDay(date) } : choice === "none" ? { expiresAt: null } : { expiresInDays: Number(choice) }),
         });
         await onVerified();

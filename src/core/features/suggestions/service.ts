@@ -3,7 +3,7 @@ import { commitOperation, mutationGuard } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
 import { createUlid } from '../../shared/ulid';
 import { requirePageLevel } from '../sharing/current-access';
-import { pageRow, pageGuard, snapshot } from '../pages/repository';
+import { pageRow, pageGuard, snapshot, writable } from '../pages/repository';
 import { validateBlockTree } from '../editor/validation';
 import type { BlockInput } from '../pages/types';
 import { prepareRestorePage } from '../lifecycle/service';
@@ -11,7 +11,7 @@ export async function suggestEdits(ctx: FeatureContext, pageId: string, input: {
     operationKey: string;
     expectedRevisionId: string;
     blocks: BlockInput[];
-}) { const blocks = validateBlockTree(input.blocks); return commitOperation(ctx, { operationKey: input.operationKey, action: 'suggestions.create', request: { pageId, ...input }, authorize: async () => { await requirePageLevel(ctx, pageId, 'comment'); }, prepare: async ({ revisionId }) => { const p = await pageRow(ctx, pageId), id = createUlid(); return { statements: [pageGuard(ctx, p, input.expectedRevisionId), ctx.db.prepare("INSERT INTO content_suggestions (id,page_id,revision_id,proposed_by_member_id,patch_json,state,created_at) VALUES (?,?,?,?,?,'pending',?)").bind(id, pageId, p.revision_id, ctx.actor.id, JSON.stringify(blocks), ctx.now)], entity: { id, kind: 'suggestion', revisionId }, value: { id, pageId, revisionId: p.revision_id, state: 'pending' } }; } }); }
+}) { const blocks = validateBlockTree(input.blocks); return commitOperation(ctx, { operationKey: input.operationKey, action: 'suggestions.create', request: { pageId, ...input }, authorize: async () => { await requirePageLevel(ctx, pageId, 'comment'); }, prepare: async ({ revisionId }) => { const p = await pageRow(ctx, pageId), id = createUlid(); writable(p); return { statements: [pageGuard(ctx, p, input.expectedRevisionId), ctx.db.prepare("INSERT INTO content_suggestions (id,page_id,revision_id,proposed_by_member_id,patch_json,state,created_at) VALUES (?,?,?,?,?,'pending',?)").bind(id, pageId, p.revision_id, ctx.actor.id, JSON.stringify(blocks), ctx.now)], entity: { id, kind: 'suggestion', revisionId }, value: { id, pageId, revisionId: p.revision_id, state: 'pending' } }; } }); }
 export async function decideSuggestion(ctx: FeatureContext, id: string, input: {
     operationKey: string;
     accept: boolean;
@@ -21,11 +21,11 @@ export async function decideSuggestion(ctx: FeatureContext, id: string, input: {
         throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
     return commitOperation(ctx, { operationKey: input.operationKey, action: 'suggestions.decide', request: { id, ...input }, authorize: async () => { await requirePageLevel(ctx, s.page_id, 'edit'); }, prepare: async ({ revisionId }) => {
             const p = await pageRow(ctx, s.page_id);
+            writable(p);
             if (s.state !== 'pending')
                 throw new ApiProblem(409, 'SUGGESTION_DECIDED', 'This suggestion is already decided.');
-            const statements = [mutationGuard(ctx.db, "SELECT state='pending' FROM content_suggestions WHERE id=?", [id])];
+            const statements = [pageGuard(ctx, p, input.accept ? s.revision_id : p.revision_id), mutationGuard(ctx.db, "SELECT state='pending' FROM content_suggestions WHERE id=?", [id])];
             if (input.accept) {
-                statements.push(pageGuard(ctx, p, s.revision_id));
                 const snap = await snapshot(ctx, p);
                 const plan = await prepareRestorePage(ctx, p.id, s.revision_id, revisionId, JSON.parse(s.patch_json).map((b: BlockInput) => ({ ...b, pageId: p.id, parentBlockId: b.parentBlockId ?? null, revisionId })), snap.properties, `suggestion:${id}`);
                 statements.push(...plan.statements);

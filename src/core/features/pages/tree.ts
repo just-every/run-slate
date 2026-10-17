@@ -43,7 +43,7 @@ export async function listPages(ctx: FeatureContext, containerId?: string, label
             visibleLabels=props.labels??[];
         }
         if(label&&!visibleLabels.some(value=>value.toLocaleLowerCase()===label.toLocaleLowerCase()))continue;
-        out.push({ ...ref(p), ...schedules.get(p.id), title, icon, labels:visibleLabels, parentPageId: p.parent_page_id, treePosition: p.tree_position, pageKind: p.page_kind, containerLabel: p.containerLabel ?? '', permissions: { level: access.level!, canEdit: access.level === 'edit' || access.level === 'full' } });
+        out.push({ ...ref(p), ...schedules.get(p.id), title, icon, labels:visibleLabels, parentPageId: p.parent_page_id, treePosition: p.tree_position, pageKind: p.page_kind, containerLabel: p.containerLabel ?? '', permissions: { level: access.level!, canEdit: !p.locked_at && (access.level === 'edit' || access.level === 'full'), canUnlock: access.level === 'edit' || access.level === 'full' } });
     }
     return { items: out };
 }
@@ -104,7 +104,7 @@ export async function movePage(ctx: FeatureContext, id: string, input: MoveInput
             if (!root) throw new ApiProblem(409, 'REVISION_CONFLICT', 'The record changed. Reload before saving.');
             const order = preview.order;
             if (order && order.hash !== input.orderPreviewHash) throw new ApiProblem(409, 'ORDER_PREVIEW_CHANGED', 'Review the current placement before moving.');
-            const statements = [topology, writableMoveGuard(ctx, id, input.containerId), preview.publicGuard, ...destinationGuards(ctx, input), pageGuard(ctx, root, input.expectedRevisionId), ...(order ? [order.guard] : [])];
+            const statements = [topology, writableMoveGuard(ctx, id, input.containerId), preview.publicGuard, ...await destinationGuards(ctx, input), pageGuard(ctx, root, input.expectedRevisionId), ...(order ? [order.guard] : [])];
             if ((order ? order.unchanged : root.tree_position === input.treePosition) && root.container_id === input.containerId && root.parent_page_id === (input.parentPageId ?? null)) return { statements, noChange: true, entity: { id, kind: 'page', revisionId: root.revision_id }, value: { pageId: id, revisionId: root.revision_id } };
             if (order) statements.push(...order.maintenance);
             for (const p of pages) {

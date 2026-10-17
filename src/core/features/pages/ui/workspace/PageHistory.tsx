@@ -104,7 +104,7 @@ export function PageHistory({
                 onChange={() => {}}
               />
             ))}
-            {labelled && document.permissions.canShare && selected !== document.workingRevisionId && selected !== document.publishedRevisionId ? <button onClick={()=>setDeleting(true)}>Delete this intermediate revision</button>:null}
+            {labelled && document.permissions.canEdit && document.permissions.canShare && selected !== document.workingRevisionId && selected !== document.publishedRevisionId ? <button onClick={()=>setDeleting(true)}>Delete this intermediate revision</button>:null}
             {document.permissions.canEdit ? (
               <button
                 className="primary-button"

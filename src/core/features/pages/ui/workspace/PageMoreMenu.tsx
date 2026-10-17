@@ -15,6 +15,8 @@ import {
   ImagePlus,
   Info,
   LayoutTemplate,
+  LockKeyhole,
+  LockKeyholeOpen,
   Palette,
   Presentation,
   Scale,
@@ -26,10 +28,11 @@ import {
   Undo2,
 } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import type { DocumentView } from "../../../../client/content";
+import { contentApi, type DocumentView } from "../../../../client/content";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../../../../ui";
 import { PageActionDialogs, type PageDialog } from "./PageActionDialogs";
 import { usePageFollowing } from "./usePageFollowing";
+import { errorMessage } from "../../../../client/transport";
 import { ReminderDialog } from '../../../editor/ui/blocks/ReminderDialog';
 
 /** A trailing mark on items that open a dialog or a panel; it is not part of the item's name. */
@@ -62,6 +65,18 @@ export function PageMoreMenu({
 }) {
   const [dialog, setDialog] = useState<PageDialog | null>(null);
   const [reminder,setReminder]=useState(false);
+  const [locking,setLocking]=useState(false);
+  const [lockError,setLockError]=useState<unknown>();
+  async function toggleLock() {
+    if (locking) return;
+    setLocking(true); setLockError(undefined);
+    try {
+      await contentApi.lock(document.page.id, revision, !document.lock);
+      await reload();
+      window.dispatchEvent(new Event("slate:navigation-changed"));
+    } catch (cause) { setLockError(cause); }
+    finally { setLocking(false); }
+  }
   // On a phone the top bar drops Ask, History and Details, so the menu carries them.
   const [phone, setPhone] = useState(false);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -148,6 +163,11 @@ export function PageMoreMenu({
           </DropdownMenuItem>
           {following.error ? <p className="page-more-note" role="alert">{following.error}</p> : null}
           <DropdownMenuSeparator />
+          {document.permissions.canUnlock ? <DropdownMenuItem disabled={locking || (!document.lock && unsaved)} onSelect={() => void toggleLock()}>
+            {document.lock ? <LockKeyholeOpen aria-hidden="true" /> : <LockKeyhole aria-hidden="true" />}
+            <span>{document.lock ? "Unlock page" : "Lock page"}</span>
+          </DropdownMenuItem> : null}
+          {document.permissions.canUnlock && !document.lock && unsaved ? <p className="page-more-note">Save or resolve your current edits before locking.</p> : null}
           {canEdit ? (
             <>
               {item(<SmilePlus aria-hidden="true" />, props?.icon ? "Change icon" : "Add icon", dialogItem("icon"))}
@@ -188,10 +208,11 @@ export function PageMoreMenu({
               </DropdownMenuItem>
             </>
           ) : (
-            <p className="page-more-note">You can read this page. Editing options require edit access.</p>
+            <p className="page-more-note">{document.lock ? "This page is locked. Unlock it to edit." : "You can read this page. Editing options require edit access."}</p>
           )}
         </DropdownMenuContent>
       </DropdownMenu>
+      {lockError ? <p role="alert">{errorMessage(lockError)}</p> : null}
       <PageActionDialogs
         dialog={dialog}
         document={document}

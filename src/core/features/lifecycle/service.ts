@@ -18,6 +18,7 @@ export async function cancelSchedule(ctx: FeatureContext, id: string, input: {
 }) {
     return commitOperation(ctx, { operationKey: input.operationKey, action: 'pages.schedule.cancel', request: { id, ...input }, authorize: async () => { await requirePageLevel(ctx, id, 'edit'); }, prepare: async ({ revisionId }) => {
             const p = await pageRow(ctx, id);
+            writable(p);
             if (p.lifecycle !== 'scheduled')
                 throw new ApiProblem(409, 'NOT_SCHEDULED', 'Page is not scheduled.');
             return { statements: [pageGuard(ctx, p, input.expectedRevisionId), ctx.db.prepare("UPDATE content_schedules SET state='cancelled',updated_at=? WHERE page_id=?").bind(ctx.now, id), ctx.db.prepare("UPDATE pages SET lifecycle='draft',published_revision_id=NULL,revision_id=?,updated_at=? WHERE id=?").bind(revisionId, ctx.now, id), await revisionStatement(ctx, id, revisionId, await snapshot(ctx, p)), ...contentEvent(ctx, id, revisionId, 'schedule-cancelled')], entity: { id, kind: 'page', revisionId }, value: { pageId: id, revisionId } };
@@ -29,6 +30,7 @@ export async function discardChanges(ctx: FeatureContext, id: string, input: {
 }) {
     await requirePageLevel(ctx, id, 'edit');
     const p = await pageRow(ctx, id);
+    writable(p);
     if (!p.published_revision_id)
         throw new ApiProblem(409, 'NO_PUBLISHED_REVISION', 'No published content exists.');
     const r = await revisionRow(ctx, id, p.published_revision_id);

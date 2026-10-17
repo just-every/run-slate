@@ -708,7 +708,7 @@ A member with `edit` access can lock a page against accidental edits. Locking is
 
 *Acceptance:* a browser journey in which one member locks a page, a second editor sees it read-only with the banner while comments still post, an API update and an automation action on that page refuse with `PAGE_LOCKED`, and unlocking restores editing. Activity shows both acts.
 
-*Status:* missing. Only database structure locks exist (`DB-009`, `src/core/features/databases/service.ts`).
+*Status:* partial. Native page locks, independent grants, open comments, editor/automation/import/AI write fences and lock/unlock activity ship (`src/core/features/pages/locks.ts`, `tests/profile/page-lock-journey.ts`). Staged imports fence locked existing destinations, but do not yet guarantee PAGE_LOCKED for a lock racing the serialized commit.
 
 #### BLOCK-011 — Synced blocks.
 A block can be made synced: its content is defined once and rendered live in many pages, as with Notion synced blocks and Confluence excerpt-include. Editing any copy edits all of them, and each copy names its source page. A reader sees a copy only if they can read the source, and otherwise sees `LINK-004`'s access-needed state. Deleting the source turns each copy into a static block that keeps its last content.
@@ -942,7 +942,7 @@ A page owner or editor can request review from a named member or group, with a d
 
 *Acceptance:* a browser journey in which one member requests review, the reviewer sees the queue item, opens the revision and verifies it, and an overdue request reminds the reviewer and then the container owner exactly once each.
 
-*Status:* partial. Review state and access checks exist (`src/core/features/page-status/review.ts`, `tests/e2e/review/review-access.test.ts`); there are no queues, due-date reminders or escalation.
+*Status:* partial. Named member/group requests, assigned/requested queues, exact-open verification, atomic change comments, reassignment/cancellation, once-per-assignment reminders and 24-hour owner escalation, bulk human verification and paused restore dispatch ship (`src/core/features/page-status/requests.ts`, `tests/e2e/review/verification-flow.test.ts`, `tests/profile/profile.worker.test.ts`). Gap: overdue delivery has scheduled Workers evidence; the timed browser escalation acceptance remains unproven.
 
 #### STAT-007 — Verification rules.
 Container owners configure nightly rules that flag or unverify, never verify. Examples: unverify a page when a page or source it cites changes, flag pages with no owner, and flag verified pages unviewed for 180 days. Each run records what it changed and why in activity, notifies affected owners once in a coalesced notice, and can be previewed before it is turned on. No rule, automation or AI action renews verification (`STAT-004`).
@@ -1765,8 +1765,8 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 161 | 60 | 0 | 221 |
-| Target and push further | 3 | 56 | 46 | 105 |
-| All | 164 | 116 | 46 | 326 |
+| Target and push further | 3 | 57 | 45 | 105 |
+| All | 164 | 117 | 45 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1996,7 +1996,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `COLLAB-003` | Offline edits that merge | target | partial | `src/core/features/editor/ui/SaveStatus.tsx` | see the clause |
 | `COLLAB-004` | Long pages and heavy tables stay fast | target | missing | — | not implemented |
 | `COLLAB-005` | Attributed history from co-editing | target | partial | `src/core/features/versions/service.ts` | see the clause |
-| `PAGE-015` | Page lock | target | missing | `src/core/features/databases/service.ts` | not implemented |
+| `PAGE-015` | Page lock | target | partial | `tests/profile/page-lock-journey.ts` | see the clause |
 | `BLOCK-011` | Synced blocks | target | missing | — | not implemented |
 | `BLOCK-012` | Columns and page layouts | target | missing | `src/core/features/editor/validation.ts` | not implemented |
 | `BLOCK-013` | Equations and diagrams as code | target | missing | — | not implemented |
@@ -2022,7 +2022,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `SEARCH-012` | Connected results in search | target | partial | `src/core/features/source-memory/service.ts` | see the clause |
 | `SEARCH-013` | Search inside attached files | target | missing | — | not implemented |
 | `SEARCH-014` | Old Confluence URLs find their Slate record | target | missing | — | not implemented |
-| `STAT-006` | Review requests and expert queues | target | partial | `src/core/features/page-status/review.ts` | see the clause |
+| `STAT-006` | Review requests and expert queues | target | partial | `src/core/features/page-status/requests.ts` | see the clause |
 | `STAT-007` | Verification rules | target | missing | — | not implemented |
 | `CARD-001` | Knowledge cards and collections | target | partial | `src/core/features/containers/service.ts` | see the clause |
 | `CARD-002` | Browser extension | target | missing | — | not implemented |

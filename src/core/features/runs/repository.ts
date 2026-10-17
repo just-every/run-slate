@@ -1,3 +1,4 @@
+import {pageRow,writable} from '../pages/repository';
 import {requireSkillRevisionDisclosure} from '../skills/disclosure';
 import {recheckBudget} from '../ai/budget';
 import {qualifiedRoute} from '../ai/route-evaluation';
@@ -29,6 +30,7 @@ export function requireFreshRunAuthority(run:RunRow){
 export async function reauthorizeRun(ctx:FeatureContext,run:RunRow,current=true){
  requireFreshRunAuthority(run);
  await currentSubject(ctx);await requirePageLevel(ctx,run.page_id,'view');
+ if(run.kind==='edit'||JSON.parse(run.input_json).selection)writable(await pageRow(ctx,run.page_id));
  const enabled=await ctx.db.prepare('SELECT ai_enabled FROM workspaces WHERE id=?').bind(ctx.actor.workspaceId).first<{ai_enabled:number}>();if(!enabled?.ai_enabled)throw new ApiProblem(403,'AI_DISABLED','AI has been disabled by the owner.');
  const policy=await ctx.db.prepare('SELECT policy_json FROM intelligence_model_policy WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{policy_json:string}>();const allowed=policy?JSON.parse(policy.policy_json).routes as {provider:string;model:string}[]:[];if(run.provider!=='deterministic'&&!allowed.some(r=>r.provider===run.provider&&r.model===run.model))throw new ApiProblem(403,'MODEL_ROUTE_REVOKED','The owner removed this provider/model route.');
  if(run.provider!=='deterministic'){const stored=JSON.parse(run.input_json);const route=policy?JSON.parse(policy.policy_json).routes.find((r:ModelRoute)=>r.provider===run.provider&&r.model===run.model&&r.evaluationId===stored.route?.evaluationId&&r.tasks.includes(run.kind)):null;if(!route||!await qualifiedRoute(ctx,route,run.kind))throw new ApiProblem(403,'MODEL_ROUTE_REVOKED','The measured route is no longer qualified.');if(current)await recheckBudget(ctx,run,route);if(current&&stored.selection)await requireWritingSelection(ctx,stored.selection);}

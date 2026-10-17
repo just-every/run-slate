@@ -1,4 +1,8 @@
-import {it,expect} from 'vitest';
+import {it,expect,beforeEach} from 'vitest';
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
+
+// HTTP sessions are scoped to one native installation, not earlier cases' workspaces.
+beforeEach(resetDeployment);
 import {createApi} from '../../../src/core/app/hono';
 import {sessionFor} from '../../e2e/setup/fixtures';
 import {treeFixture,rows,env,input,previewMove,movePage,beforeBatch,databaseState} from './fixture';
@@ -76,7 +80,7 @@ it('ARCH-002: ordering maintenance cannot renormalize archived siblings',async()
 for(const target of ['root','child'] as const)it(`ARCH-002 ARCH-003: actual HTTP ${target} archive rejects preview and stale confirmation without state changes`,async()=>{
  const f=await treeFixture(),api=createApi(),cookie=await sessionFor(f.memberId),placement={containerId:f.destination,atEnd:true};
  const post=(path:string,body:unknown)=>api.request('https://slate.example/api/'+path,{method:'POST',headers:{cookie,'content-type':'application/json'},body:JSON.stringify(body)},env);
- const preview=await post(`pages/${f.root}/move-preview`,placement);expect(preview.status).toBe(200);
+ const preview=await post(`pages/${f.root}/move-preview`,placement);expect(preview.status,await preview.clone().text()).toBe(200);
  const reviewed=await preview.json() as object;
  const archived=await post(`archive/${f[target]}`,{action:'archive',operationKey:crypto.randomUUID(),expectedRevisionId:(await env.DB.prepare('SELECT revision_id FROM pages WHERE id=?').bind(f[target]).first<any>()).revision_id});expect(archived.status).toBe(200);
  const before=await databaseState();expect((await post(`pages/${f.root}/move-preview`,placement)).status).toBe(409);

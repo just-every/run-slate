@@ -3,7 +3,7 @@ import type { FeatureContext } from '../../app/feature-context';
 import type { NotificationDetail } from './visibility';
 import { ApiProblem } from '../../app/problems';
 export const watchedEvents=['comment','reply','published','page-created','page-edited','page-moved','page-archived','page-trashed','page-restored'] as const;
-export const notificationEvents=['task-assigned','task-due','reminder','mention',...watchedEvents,'verification-lapsed','access-granted','access-requested','run-review','run-failed','decision-required','contradiction','experiment-result','maintenance'] as const;
+export const notificationEvents=['review-requested','review-overdue','review-escalated','task-assigned','task-due','reminder','mention',...watchedEvents,'verification-lapsed','access-granted','access-requested','run-review','run-failed','decision-required','contradiction','experiment-result','maintenance'] as const;
 export type NotificationEvent=typeof notificationEvents[number];
 export interface NotificationFact { id:string; event:NotificationEvent; pageId?:string; containerId?:string; commentId?:string; recipientIds?:string[]; actorId?:string|null; detail?:NotificationDetail }
 export type CreationEligibility=(memberSql:string,event:NotificationFact)=>{sql:string;values:(string|number|null)[]};
@@ -15,7 +15,7 @@ export function notificationStatements(ctx:FeatureContext,event:NotificationFact
  if(!event.id||!notificationEvents.includes(event.event)||(!event.pageId&&!event.containerId&&!(event.recipientIds?.length)))throw new ApiProblem(400,'INVALID_NOTIFICATION_EVENT','A scoped event and recipient or record are required.');
  const watched=(watchedEvents as readonly string[]).includes(event.event);
  if(!watched&&!event.recipientIds?.length)return [];
- const governed=!!(event.detail?.runId||event.detail?.decisionId||event.detail?.inquiryId||event.detail?.experimentId);
+ const governed=!!(event.detail?.reviewRequestId||event.detail?.runId||event.detail?.decisionId||event.detail?.inquiryId||event.detail?.experimentId);
  const extra=ctx.localDevelopment&&event.event==='maintenance'&&!governed
   ? {sql:'1',values:[]}
   : creationResolvers.get(event.event)?.('m',event)??{sql:governed?'0':'1',values:[]};

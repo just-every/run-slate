@@ -4,6 +4,7 @@ import { useResource } from "../../../../client/useResource";
 import { mutate, operationKey } from "../../../../client/transport";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import { RequestState } from "../../../../app/ui/RequestState";
+import { PageReviewRequests } from "./PageReviewRequests";
 import { VerifyDialog } from "./VerifyDialog";
 import { reviewChanged } from "./ReviewQueue";
 import { VerificationSummary, type VerificationView } from "./VerificationSummary";
@@ -94,6 +95,7 @@ export function PageStatusPanel({
           </>
         ) : null}
       </RequestState>
+      <PageReviewRequests pageId={pageId} pageRevisionId={revision} onSaved={async()=>{await verification.reload();await onSaved();}}/>
       {!verificationOnly && canEdit && member.role==='owner'?<button onClick={()=>setCustom(true)}>Create a custom status</button>:null}
       {custom?<ActionDialog title="Create custom page status" action="Create and set status" onClose={()=>setCustom(false)} onSubmit={async data=>{const statusKey=crypto.randomUUID();await mutate('/api/status',{operationKey:operationKey(),key:statusKey,label:String(data.get('label')),color:String(data.get('color')),requiresVerification:false});await mutate(`/api/status/page/${pageId}`,{operationKey:operationKey(),expectedRevisionId:revision,statusKey});await statuses.reload();await onSaved();}}><label>Custom status label<input name="label" maxLength={20} required/></label><label>Status colour<input name="color" type="color" defaultValue="#54735b"/></label></ActionDialog>:null}
       {again && verification.data?.verification ? (

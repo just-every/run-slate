@@ -6,7 +6,7 @@ import { filterRecordProperties } from '../databases/property-access';
 import { normalizeTask } from '../editor/tasks';
 import { resolveMentions, labelPageMentions, type MentionResolution } from './mentions';
 import type { FeatureContext } from '../../app/feature-context';
-import { commitOperation, requestHash } from '../../app/operations';
+import { commitOperation, requestHash, mutationGuard } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
 import { createUlid } from '../../shared/ulid';
 import { requirePageLevel, requireContainerLevel } from '../sharing/current-access';
@@ -48,7 +48,7 @@ export async function readPage(ctx: FeatureContext, id: string): Promise<PageDoc
     if (p.trashed_at)
         throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
     const canEdit = access.decision.level === 'edit' || access.decision.level === 'full';
-    const [content, author, owner, contributors, schedule, v, projections, policyProfile] = await Promise.all([
+    const [content, author, owner, contributors, schedule, v, projections, policyProfile, locker] = await Promise.all([
         (async () => {
             // Render immutable content for the revision named in this response, even if another edit commits mid-read.
             const delivered = await revisionRow(ctx, id, canEdit ? p.working_revision_id : p.published_revision_id ?? p.working_revision_id);
@@ -68,10 +68,11 @@ export async function readPage(ctx: FeatureContext, id: string): Promise<PageDoc
         ctx.db.prepare("SELECT v.revision_id AS revisionId,v.status_key AS statusKey,v.owner_member_id AS ownerMemberId,v.expires_at AS expiresAt,v.created_at AS verifiedAt,m.display_name AS ownerDisplayName,m.status='active' AS ownerActive FROM page_verifications v LEFT JOIN members m ON m.id=v.owner_member_id WHERE v.page_id=? ORDER BY v.created_at DESC,v.id DESC LIMIT 1").bind(id).first<Record<string, any>>(),
         authorScheduleProjections(ctx, [id]),
         contentPolicy(ctx),
+        p.locked_at && p.locked_by_member_id ? ctx.db.prepare("SELECT display_name AS displayName FROM members WHERE id=? AND workspace_id=? AND status='active'").bind(p.locked_by_member_id, ctx.actor.workspaceId).first<{displayName:string}>() : Promise.resolve(null),
     ]);
     const { props, mentions, blocks } = content;
     const verificationNow = v ? verificationState({ status_key: v.statusKey, revision_id: v.revisionId, expires_at: v.expiresAt }, p, ctx.now) : null;
-    return { authorDisplayName: author?.displayName ?? 'Former member', ownerDisplayName: owner?.displayName ?? null, contributors: contributors.results, schedule, verification: v ? { ...v, ownerDisplayName: v.ownerDisplayName ?? 'Former member', ownerActive: !!v.ownerActive, state: verificationNow, lapsed: !!v.expiresAt && v.expiresAt <= ctx.now, current: verificationNow === 'current' } : undefined, mentions, page: { ...ref(p), ...projections.get(id), title: props.title }, blocks, properties: props, parentPageId: p.parent_page_id, createdAt: p.created_at, updatedAt: p.updated_at, authorMemberId: p.author_member_id, workingRevisionId: p.working_revision_id, publishedRevisionId: p.published_revision_id, permissions: { level: access.decision.level!, canEdit: canEdit && !p.archived_at, canShare: access.decision.level === 'full' }, policyProfile };
+    return { lock: p.locked_at ? { lockedAt: p.locked_at, lockedByMemberId: locker ? p.locked_by_member_id : null, lockedByDisplayName: locker?.displayName ?? 'Former member' } : null, authorDisplayName: author?.displayName ?? 'Former member', ownerDisplayName: owner?.displayName ?? null, contributors: contributors.results, schedule, verification: v ? { ...v, ownerDisplayName: v.ownerDisplayName ?? 'Former member', ownerActive: !!v.ownerActive, state: verificationNow, lapsed: !!v.expiresAt && v.expiresAt <= ctx.now, current: verificationNow === 'current' } : undefined, mentions, page: { ...ref(p), ...projections.get(id), title: props.title }, blocks, properties: props, parentPageId: p.parent_page_id, createdAt: p.created_at, updatedAt: p.updated_at, authorMemberId: p.author_member_id, workingRevisionId: p.working_revision_id, publishedRevisionId: p.published_revision_id, permissions: { level: access.decision.level!, canEdit: canEdit && !p.archived_at && !p.locked_at, canUnlock: canEdit && !p.archived_at, canShare: access.decision.level === 'full' }, policyProfile };
 }
 export async function createPage(ctx: FeatureContext, input: PageCreateInput) {
     return commitOperation(ctx, { operationKey: input.operationKey, action: 'pages.create', request: input, authorize: () => destination(ctx, input.containerId, input.parentPageId), prepare: async ({ revisionId }) => {
@@ -79,7 +80,8 @@ export async function createPage(ctx: FeatureContext, input: PageCreateInput) {
       return prepareCreatePage(ctx,input,revisionId);
     } }); }
 /** Caller includes these statements in its own commitOperation after calling destination. */
-export async function prepareCreatePage(ctx: FeatureContext, input: PageCreateInput, revisionId: string) {
+export interface CreatedDestinations {containers:ReadonlySet<string>;pages:ReadonlySet<string>}
+export async function prepareCreatePage(ctx: FeatureContext, input: PageCreateInput, revisionId: string, created?:CreatedDestinations) {
     const id = input.id ?? createUlid();
     const policy = await contentPolicy(ctx);
     const lifecycle = input.lifecycle ?? (policy['page.lifecycle.v1'] === 'draft-then-publish' ? 'draft' : 'live');
@@ -93,7 +95,8 @@ export async function prepareCreatePage(ctx: FeatureContext, input: PageCreateIn
         if (status.requires_verification) throw new ApiProblem(400, 'STATUS_COMMAND_REQUIRED', 'Create the page, then open and verify its exact revision.');
     }
     const blocks = await Promise.all(validateBlockTree(input.blocks ?? []).map(async b => ({ ...b, content: await normalizeTask(ctx, b), parentBlockId: b.parentBlockId ?? null, pageId: id, revisionId: createUlid() })));
-    const statements = [ctx.db.prepare('INSERT INTO pages (id,workspace_id,container_id,parent_page_id,database_id,page_kind,title,icon,cover_file_id,author_member_id,owner_member_id,lifecycle,working_revision_id,published_revision_id,status_key,tree_position,typeface,small_text,full_width,created_at,updated_at,revision_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)').bind(id, ctx.actor.workspaceId, input.containerId, input.parentPageId ?? null, input.databaseId ?? null, input.pageKind ?? 'page', p.title, p.icon, p.coverFileId, ctx.actor.id, p.ownerMemberId, lifecycle, revisionId, lifecycle === 'live' ? revisionId : null, p.statusKey, input.treePosition ?? `${ctx.now}:${id}`, p.typeface, +p.smallText, +p.fullWidth, ctx.now, ctx.now, revisionId), ...blocks.map(b => ctx.db.prepare('INSERT INTO page_blocks (id,page_id,parent_block_id,block_type,content_json,tree_position,revision_id,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?)').bind(b.id, id, b.parentBlockId, b.blockType, JSON.stringify(b.content), b.treePosition, b.revisionId, ctx.now, ctx.now)), ...p.labels.map(label => ctx.db.prepare('INSERT INTO page_labels (page_id,label,created_at) VALUES (?,?,?)').bind(id, label, ctx.now)), await revisionStatement(ctx, id, revisionId, { blocks, properties: p }), ...contentEvent(ctx, id, revisionId, 'created'),...await taskEffects(ctx,id,blocks,[],revisionId,{containerId:input.containerId,parentPageId:input.parentPageId,lifecycle})];
+    const destinationChecks = await creationDestinationGuards(ctx, input.containerId, input.parentPageId,created);
+    const statements = [...destinationChecks, ctx.db.prepare('INSERT INTO pages (id,workspace_id,container_id,parent_page_id,database_id,page_kind,title,icon,cover_file_id,author_member_id,owner_member_id,lifecycle,working_revision_id,published_revision_id,status_key,tree_position,typeface,small_text,full_width,created_at,updated_at,revision_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)').bind(id, ctx.actor.workspaceId, input.containerId, input.parentPageId ?? null, input.databaseId ?? null, input.pageKind ?? 'page', p.title, p.icon, p.coverFileId, ctx.actor.id, p.ownerMemberId, lifecycle, revisionId, lifecycle === 'live' ? revisionId : null, p.statusKey, input.treePosition ?? `${ctx.now}:${id}`, p.typeface, +p.smallText, +p.fullWidth, ctx.now, ctx.now, revisionId), ...blocks.map(b => ctx.db.prepare('INSERT INTO page_blocks (id,page_id,parent_block_id,block_type,content_json,tree_position,revision_id,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?)').bind(b.id, id, b.parentBlockId, b.blockType, JSON.stringify(b.content), b.treePosition, b.revisionId, ctx.now, ctx.now)), ...p.labels.map(label => ctx.db.prepare('INSERT INTO page_labels (page_id,label,created_at) VALUES (?,?,?)').bind(id, label, ctx.now)), await revisionStatement(ctx, id, revisionId, { blocks, properties: p }), ...contentEvent(ctx, id, revisionId, 'created'),...await taskEffects(ctx,id,blocks,[],revisionId,{containerId:input.containerId,parentPageId:input.parentPageId,lifecycle})];
     return { statements, entity: { id, kind: 'page', revisionId }, value: { pageId: id, revisionId } };
 }
 export function validateProperties(p: Partial<PageProperties>) {
@@ -127,4 +130,20 @@ export async function updatePage(ctx: FeatureContext, id: string, input: PageUpd
             const blocks = await pageBlocks(ctx.db, id);
             return { statements: [pageGuard(ctx, page, input.expectedRevisionId), ctx.db.prepare('UPDATE pages SET title=?,icon=?,cover_file_id=?,owner_member_id=?,typeface=?,small_text=?,full_width=?,working_revision_id=?,revision_id=?,published_revision_id=CASE WHEN ? THEN ? ELSE published_revision_id END,lifecycle=CASE WHEN ? THEN lifecycle WHEN lifecycle IN (\'live\',\'live-with-unpublished-changes\') THEN \'live-with-unpublished-changes\' ELSE lifecycle END,updated_at=? WHERE id=?').bind(p.title, p.icon, p.coverFileId, p.ownerMemberId, p.typeface, +p.smallText, +p.fullWidth, revisionId, revisionId, +live, revisionId, +live, ctx.now, id), ctx.db.prepare('DELETE FROM page_labels WHERE page_id=?').bind(id), ...p.labels.map(label => ctx.db.prepare('INSERT INTO page_labels VALUES (?,?,?)').bind(id, label, ctx.now)), await revisionStatement(ctx, id, revisionId, { blocks, properties: p }), ...contentEvent(ctx, id, revisionId, 'properties')], entity: { id, kind: 'page', revisionId }, value: { pageId: id, revisionId } };
         } });
+}
+
+/** Prepared creation callers may create their parent/container earlier in the same atomic batch. */
+export async function creationDestinationGuards(ctx: FeatureContext, containerId: string, parentId?: string | null, created?:CreatedDestinations) {
+    const statements = created?.containers.has(containerId)?[]:[mutationGuard(ctx.db, 'SELECT archived_at IS NULL AND trashed_at IS NULL FROM containers WHERE id=? AND workspace_id=?', [containerId, ctx.actor.workspaceId])];
+    if (parentId&&!created?.pages.has(parentId)) {
+        const parent = await ctx.db.prepare('SELECT * FROM pages WHERE id=? AND workspace_id=? AND deleted_at IS NULL').bind(parentId, ctx.actor.workspaceId).first<import('./types').PageRow>();
+        if (parent) {
+            writable(parent);
+            if (parent.container_id !== containerId) throw new ApiProblem(400, 'INVALID_PARENT', 'Parent belongs to another container.');
+            statements.push(pageGuard(ctx, parent, parent.revision_id));
+        } else {
+            statements.push(mutationGuard(ctx.db, 'SELECT container_id=? AND locked_at IS NULL AND deleted_at IS NULL AND archived_at IS NULL AND trashed_at IS NULL FROM pages WHERE id=? AND workspace_id=?', [containerId, parentId, ctx.actor.workspaceId]));
+        }
+    }
+    return statements;
 }

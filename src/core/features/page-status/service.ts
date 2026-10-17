@@ -1,10 +1,13 @@
 import type { FeatureContext } from '../../app/feature-context';
-import { commitOperation } from '../../app/operations';
+import { commitOperation, mutationGuard } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
 import { createUlid } from '../../shared/ulid';
 import { requirePageLevel, requireWorkspaceOwner } from '../sharing/current-access';
 import { pageRow, pageGuard, snapshot, revisionStatement, contentEvent, writable } from '../pages/repository';
 import { verificationExpiry, verificationState } from './state';
+import { prepareVerifiedRequest } from './requests';
+import { bulkReviewOwner } from './request-queue';
+import { requestRow, requireAssignee } from './request-access';
 export async function setPageStatus(ctx: FeatureContext, id: string, input: {
     operationKey: string;
     expectedRevisionId: string;
@@ -13,8 +16,10 @@ export async function setPageStatus(ctx: FeatureContext, id: string, input: {
     /** STAT-003: 7, 30 or 90 days from the server's clock, or `expiresAt`, or neither for no expiry. */
     expiresInDays?: number | null;
     expiresAt?: string | null;
+    bulkReview?: boolean;
+    reviewRequest?: { id: string; assignmentGeneration: number; expectedRevisionId: string };
 }) {
-    return commitOperation(ctx, { operationKey: input.operationKey, action: 'pages.status', request: { id, ...input }, authorize: async () => { await requirePageLevel(ctx, id, 'edit'); }, prepare: async ({ revisionId }) => {
+    return commitOperation(ctx, { operationKey: input.operationKey, action: 'pages.status', request: { id, ...input }, authorize: async () => { await requirePageLevel(ctx, id, 'edit'); if (input.reviewRequest) { const request = await requestRow(ctx, input.reviewRequest.id); if (request.page_id !== id) throw new ApiProblem(404, 'NOT_FOUND', 'Not found.'); await requireAssignee(ctx, request, 'edit'); } if (input.bulkReview && !await bulkReviewOwner(ctx, id)) throw new ApiProblem(403, 'REVIEW_OWNER_REQUIRED', 'Bulk verification requires a workspace or container owner.'); }, prepare: async ({ revisionId }) => {
             const p = await pageRow(ctx, id);
             writable(p);
             const status = input.statusKey ? await ctx.db.prepare('SELECT * FROM status_entries WHERE workspace_id=? AND key=? AND retired_at IS NULL').bind(ctx.actor.workspaceId, input.statusKey).first<{
@@ -25,12 +30,15 @@ export async function setPageStatus(ctx: FeatureContext, id: string, input: {
             const s = await snapshot(ctx, p);
             s.properties.statusKey = input.statusKey;
             const statements = [pageGuard(ctx, p, input.expectedRevisionId)];
+            if ((input.reviewRequest || input.bulkReview) && !status?.requires_verification) throw new ApiProblem(400, 'VERIFICATION_STATUS_REQUIRED', 'Complete a review with a human verification status.');
             if (status?.requires_verification) {
                 if (input.attestRevisionId !== p.working_revision_id)
                     throw new ApiProblem(409, 'EXACT_REVISION_REQUIRED', 'Someone changed this page after you opened it. Reload the page, read the current version, then verify it.');
                 const opened = await ctx.db.prepare('SELECT 1 FROM content_page_opens WHERE member_id=? AND page_id=? AND revision_id=?').bind(ctx.actor.id, id, input.attestRevisionId).first();
                 if (!opened)
                     throw new ApiProblem(409, 'REVISION_NOT_OPENED', 'Slate could not confirm the visit to this revision. Refresh this page, review the current content, then verify it again.');
+                statements.push(mutationGuard(ctx.db, 'SELECT working_revision_id=? AND EXISTS(SELECT 1 FROM content_page_opens o WHERE o.member_id=? AND o.page_id=pages.id AND o.revision_id=?) FROM pages WHERE id=?', [input.attestRevisionId, ctx.actor.id, input.attestRevisionId, id]));
+                if (input.reviewRequest) statements.push(...await prepareVerifiedRequest(ctx, id, input.reviewRequest, revisionId));
                 const expiresAt = verificationExpiry(input, ctx.now);
                 statements.push(ctx.db.prepare('INSERT INTO page_verifications (id,page_id,revision_id,status_key,owner_member_id,verified_by_member_id,expires_at,created_at) VALUES (?,?,?,?,?,?,?,?)').bind(createUlid(), id, p.working_revision_id, input.statusKey, ctx.actor.id, ctx.actor.id, expiresAt, ctx.now));
             }

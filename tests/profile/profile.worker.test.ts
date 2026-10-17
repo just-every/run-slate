@@ -1,3 +1,4 @@
+import {pageLockJourney} from './page-lock-journey';
 import {bodyBlocksJourney} from './body-blocks-journey';
 import {workItemsJourney} from './work-items-journey';
 import {env} from 'cloudflare:test';
@@ -74,6 +75,7 @@ it('FLAG-001 — core wiki creates and revises genuine pages, searches them, and
   expect(await run.json()).toMatchObject({state:'completed'});
   await bodyBlocksJourney(api,containerId,cookie);
   await workItemsJourney(api,containerId,memberId,workspaceId,cookie);
+  await pageLockJourney(api,containerId,workspaceId,cookie);
 });
 it('FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', async () => {
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {

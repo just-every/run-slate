@@ -103,5 +103,52 @@ test('Needs review lists only pages each member may read now, by filter, with li
   expect(after.data.items.map((i: any) => i.title).sort()).toEqual(cases.filter(c => c.allowed.includes('reader') && c.allowed !== shared && needs(c)).map(c => c.marker).sort());
   expect((await request('reader', 'GET', '/api/status/review/count')).data).toEqual({ count: cases.filter(c => c.allowed.includes('reader') && c.allowed !== shared && c.verifier === 'reader' && needs(c)).length });
   expect((await request('reader', 'GET', '/api/status/review?cursor=not-a-cursor')).status).toBe(400);
+  // STAT-006: group assignment tracks current membership and never grants authority.
+  await page('request-access', {title: 'ReviewAssignmentAccessMarker', restricted: true});
+  await sql("UPDATE pages SET owner_member_id='reader' WHERE id='request-access'");
+  for (const [member, level] of [['owner', 'full'], ['reader', 'view'], ['guest', 'comment']]) await sql("INSERT INTO page_grants(id,page_id,principal_kind,principal_id,level,created_at,updated_at) VALUES(?,'request-access','member',?,?,?,?)", 'review-access-' + member, member, level, now, now);
+  await sql("INSERT INTO groups VALUES('review-team','w','Review team',?,?,'r')", now, now);
+  for (const member of ['reader', 'guest']) await sql("INSERT INTO group_members VALUES('review-team',?,?)", member, now);
+  let sequence = 0;
+  const requestOp = () => `request-access-${++sequence}`;
+  const groupInput = {operationKey: requestOp(), expectedRevisionId: 'op-request-access', assigneeKind: 'group', assigneeId: 'review-team', date: at(2).slice(0,10), time: '17:00', timezone: 'Australia/Brisbane', note: 'Review this page as a team.'};
+  // Its named owner may request with current view access, even without edit.
+  const groupReview = await request('reader', 'POST', '/api/status/requests/page/request-access', groupInput);
+  expect(groupReview.status).toBe(200);
+  const requestId = groupReview.data.value.id;
+  const assignedGuest = (await request('guest', 'GET', '/api/status/requests/queue?view=assigned')).data;
+  expect(assignedGuest.items.find((i: any) => i.id === requestId)).toMatchObject({assigneeKind: 'group', canVerify: false, canRequestChanges: true});
+  expect((await request('denied', 'GET', '/api/status/requests/queue?view=assigned')).text).not.toContain('ReviewAssignmentAccessMarker');
+  expect((await request('denied', 'GET', `/api/status/requests/${requestId}`)).status).toBe(404);
+  expect((await request('owner', 'POST', `/api/status/requests/${requestId}/changes`, {operationKey: requestOp(), expectedRevisionId: groupReview.data.value.revisionId, assignmentGeneration: 1, note: 'An unassigned editor cannot resolve this.'})).status).toBe(403);
+  const inaccessible = await request('reader', 'POST', '/api/status/requests/page/request-access', {...groupInput, operationKey: requestOp(), assigneeKind: 'member', assigneeId: 'denied'});
+  expect(inaccessible.status).toBe(400);
+  expect((await request('denied', 'GET', '/api/status/requests/queue?view=assigned')).data.items).toHaveLength(0);
+
+  await sql("DELETE FROM group_members WHERE group_id='review-team' AND member_id='guest'");
+  expect((await request('guest', 'GET', '/api/status/requests/queue?view=assigned')).data.items.map((i: any) => i.id)).not.toContain(requestId);
+  expect((await request('guest', 'GET', '/api/notifications')).data.items.filter((i: any) => i.detail.reviewRequestId === requestId)).toHaveLength(0);
+  expect((await request('guest', 'POST', `/api/status/requests/${requestId}/changes`, {operationKey: requestOp(), expectedRevisionId: groupReview.data.value.revisionId, assignmentGeneration: 1, note: 'A former group member cannot resolve this.'})).status).toBe(403);
+  const reassignInput = {...groupInput, operationKey: requestOp(), expectedRevisionId: groupReview.data.value.revisionId, assignmentGeneration: 1, assigneeKind: 'member', assigneeId: 'owner'};
+  const reassigned = await request('reader', 'POST', `/api/status/requests/${requestId}/reassign`, reassignInput);
+  expect(reassigned.status).toBe(200);
+  expect(reassigned.data.value.assignmentGeneration).toBe(2);
+  expect((await request('reader', 'GET', '/api/status/requests/queue?view=assigned')).data.items.map((i: any) => i.id)).not.toContain(requestId);
+  expect((await request('owner', 'GET', '/api/status/requests/queue?view=assigned')).data.items.map((i: any) => i.id)).toContain(requestId);
+  // Even an authorized reviewer cannot consume a previous assignment generation.
+  const renewed = await request('owner', 'POST', `/api/status/requests/${requestId}/reassign`, {...reassignInput, operationKey: requestOp(), expectedRevisionId: reassigned.data.value.revisionId, assignmentGeneration: 2});
+  expect(renewed.status).toBe(200);
+  const staleResolution = await request('owner', 'POST', `/api/status/requests/${requestId}/changes`, {operationKey: requestOp(), expectedRevisionId: reassigned.data.value.revisionId, assignmentGeneration: 2, note: 'Stale assignment must not create a comment.'});
+  expect(staleResolution.status).toBe(409);
+  expect((await request('owner', 'GET', '/api/comments/page/request-access')).text).not.toContain('Stale assignment must not create a comment.');
+  // A restore retains pending work and requires explicit reassignment to resume notices.
+  await sql('UPDATE review_requests SET dispatch_paused_at=? WHERE id=?', now, requestId);
+  expect((await request('owner', 'GET', `/api/status/requests/${requestId}`)).data.request.dispatchPausedAt).toBe(now);
+  const resumed = await request('owner', 'POST', `/api/status/requests/${requestId}/reassign`, {...reassignInput, operationKey: requestOp(), expectedRevisionId: renewed.data.value.revisionId, assignmentGeneration: 3});
+  expect(resumed.status).toBe(200);
+  expect((await request('owner', 'GET', `/api/status/requests/${requestId}`)).data.request).toMatchObject({state: 'pending', assignmentGeneration: 4, dispatchPausedAt: null});
+  // A page owner's title does not override a later loss of current read access.
+  await sql("UPDATE page_grants SET revoked_at=? WHERE id='review-access-reader'", now);
+  expect((await request('reader', 'POST', '/api/status/requests/page/request-access', {...groupInput, operationKey: requestOp()})).status).toBe(404);
   console.error('REVIEW_ACCESS_TABLE ' + JSON.stringify(table));
 }, 90_000);

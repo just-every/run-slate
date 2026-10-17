@@ -180,7 +180,7 @@ function LoadedPage({
   }, [document.page.id, reload]);
 
   useEffect(() => {
-    const revisionId = document.permissions.canEdit
+    const revisionId = ["edit", "full"].includes(document.permissions.level)
       ? document.workingRevisionId
       : (document.publishedRevisionId ?? document.workingRevisionId);
     if (openedRevision.current === revisionId) return;
@@ -201,7 +201,7 @@ function LoadedPage({
       else setError(cause);
     });
     return () => { current = false; };
-  }, [document.page.id, document.workingRevisionId, document.publishedRevisionId, document.permissions.canEdit, reload]);
+  }, [document.page.id, document.workingRevisionId, document.publishedRevisionId, document.permissions.level, reload]);
   // SAVE-003: a title saved against a superseded page revision is refused; keeping
   // it is an explicit overwrite against the revision the server holds now.
   const [titleConflict,setTitleConflict]=useState(false);
@@ -276,6 +276,7 @@ function LoadedPage({
         >
           {document.page.lifecycle === "draft" ? <p className="draft-label">Private draft</p> : null}
           <h1 className="sr-only">{title || "Untitled page"}</h1>
+          {document.lock ? <p role="status" className="request-notice" data-page-lock>Locked by {document.lock.lockedByDisplayName}. This page is read-only; comments stay open.</p> : null}
           <PublicPageBanner document={document} onManage={()=>setDetail("publication")}/>
           {(document as DocumentView&{schedule?:{state:string;publishAt:string;failure?:string}}).schedule?.state==='scheduled'?<p role="status">Scheduled for {new Date((document as DocumentView&{schedule:{publishAt:string}}).schedule.publishAt).toLocaleString()}</p>:null}
           {(document as DocumentView&{schedule?:{state:string;publishAt:string;failure?:string}}).schedule?.state==='failed'?<p role="alert">Scheduled publication needs attention: {(document as DocumentView&{schedule:{failure?:string}}).schedule.failure??'Open publication options to review and reschedule.'}</p>:null}
@@ -342,7 +343,7 @@ function LoadedPage({
               }
             />
           </details> : null}
-          {!document.permissions.canEdit?<><p role="status">This page is read-only with your current access.</p><UnsavedDraft keys={keys} reason="Your access to this page changed to view only before this text was saved."/></>:null}
+          {!document.permissions.canEdit?<>{!document.lock ? <p role="status">This page is read-only with your current access.</p> : null}<UnsavedDraft keys={keys} reason={document.lock ? "This page was locked before this text was saved." : "Your access to this page changed to view only before this text was saved."}/></>:null}
           <PageEditorBody
             editor={editor}
             document={document}

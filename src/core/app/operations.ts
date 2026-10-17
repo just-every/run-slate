@@ -6,6 +6,8 @@ import type { EntityRef, JsonValue, MutationReceipt } from '../shared/api/common
 import { createUlid } from '../shared/ulid';
 import { requestHash } from './request-hash';
 export { requestHash } from './request-hash';
+interface GuardCheck { select: string; values: (string | number | null)[]; recheck?: { select: string; values: (string | number | null)[]; pageId?: string } }
+const guardChecks = new WeakMap<D1PreparedStatement, GuardCheck>();
 export interface MutationPlan<T> { statements: D1PreparedStatement[]; entity: EntityRef; value: T; detail?: JsonValue; noChange?: boolean }
 /** Domain callers must include immutable revision writes and SQL CAS guards in statements. */
 export async function commitOperation<T>(ctx: FeatureContext, input: {
@@ -30,18 +32,22 @@ export async function commitOperation<T>(ctx: FeatureContext, input: {
   const receipt: MutationReceipt = {operationKey:input.operationKey,entity:plan.entity,revisionId:plan.entity.revisionId,activityId:plan.noChange?null:activityId,committedAt:ctx.now,...(plan.noChange?{unchanged:true as const}:{})};
   const result = {value:plan.value,receipt};
   const expires = new Date(Date.parse(ctx.now)+86400000).toISOString();
-  try {
-    await (input.commit ?? (statements=>ctx.db.batch(statements)))([
+  const statements = [
       ctx.db.prepare('INSERT INTO operation_receipts (id,workspace_id,actor_member_id,operation_key,request_hash,target_kind,target_id,response_status,response_json,created_at,expires_at) VALUES (?,?,?,?,?,?,?,200,?,?,?)').bind(createUlid(),ctx.actor.workspaceId,ctx.actor.id,input.operationKey,hash,plan.entity.kind,plan.entity.id,JSON.stringify(result),ctx.now,expires),
       ...(authorizationEpoch === undefined ? [] : [mutationGuard(ctx.db, 'SELECT epoch=? FROM core_acl_epoch WHERE id=1',[authorizationEpoch])]),
       mutationGuard(ctx.db, "SELECT status='active' FROM members WHERE id=? AND workspace_id=?", [ctx.actor.id,ctx.actor.workspaceId]),
       ...(ctx.stepUp ? [freshProofGuard(ctx)] : []),
       ...plan.statements,
       ...(plan.noChange?[]:[ctx.db.prepare('INSERT INTO activity_entries (id,workspace_id,actor_member_id,feature,action,target_kind,target_id,detail_json,operation_key,occurred_at) VALUES (?,?,?,?,?,?,?,?,?,?)').bind(activityId,ctx.actor.workspaceId,ctx.actor.id,input.action.split('.')[0],input.action,plan.entity.kind,plan.entity.id,JSON.stringify(plan.detail??{}),input.operationKey,ctx.now)]),
-    ]);
+    ];
+  try {
+    await (input.commit ?? (statements=>ctx.db.batch(statements)))(statements);
   } catch (cause) {
     const raced = await lookup(); if (raced) { await input.authorize(); if(input.action!=='pages.open')await refreshAfterCommit(ctx); return replay(raced); }
-    if (String(cause).includes('core_write_guards') || String(cause).includes('CHECK constraint')) throw new ApiProblem(409,'REVISION_CONFLICT','The record changed. Reload before saving.');
+    if (String(cause).includes('core_write_guards') || String(cause).includes('CHECK constraint')) {
+      if (await rejectedByPageLock(ctx, statements)) throw new ApiProblem(409,'PAGE_LOCKED','This page is locked. Unlock it before editing.');
+      throw new ApiProblem(409,'REVISION_CONFLICT','The record changed. Reload before saving.');
+    }
     if(String(cause).includes('UNIQUE constraint')) throw new ApiProblem(409,'ENTITY_CONFLICT','An existing record conflicts with this change.');
     throw cause;
   }
@@ -64,13 +70,31 @@ export function freshProofGuard(ctx: FeatureContext): D1PreparedStatement {
   return mutationGuard(ctx.db, `SELECT EXISTS(SELECT 1 FROM sessions s JOIN members m ON m.id=s.member_id WHERE s.id=? AND s.member_id=? AND m.status='active' AND s.revoked_at IS NULL AND (${accepted}))`, [proof.sessionId, ctx.actor.id, ...(localDev ? [ctx.now] : []), proof.since]);
 }
 /** Guard SELECT must return a boolean scalar. It executes inside the same atomic D1 batch as writes. */
-export function mutationGuard(db: D1Database, select: string, values: (string | number | null)[]): D1PreparedStatement {
+export function mutationGuard(db: D1Database, select: string, values: (string | number | null)[], recheck?: GuardCheck['recheck']): D1PreparedStatement {
   if (!/^SELECT\s/i.test(select)) throw new Error('Mutation guard requires a SELECT.');
-  return db.prepare(`INSERT INTO core_write_guards (id,accepted) VALUES (?, COALESCE((${select}),0))`).bind(createUlid(),...values);
+  const statement = db.prepare(`INSERT INTO core_write_guards (id,accepted) VALUES (?, COALESCE((${select}),0))`).bind(createUlid(),...values);
+  guardChecks.set(statement, {select, values, recheck});
+  return statement;
 }
 
 /** The receipt is already committed. Dirty rows retain failed work; the next read/replay drains them. */
 async function refreshAfterCommit(ctx:FeatureContext):Promise<void> {
   try { await refreshSearchIndex(ctx); }
   catch(error) { console.error('Search refresh pending; canonical mutation committed.',error); }
+}
+
+/** Do not relabel unrelated CAS/ACL failures, and never retry a rejected write. */
+async function rejectedByPageLock(ctx: FeatureContext, statements: D1PreparedStatement[]) {
+  let locked = false;
+  for (const statement of statements) {
+    const check = guardChecks.get(statement);
+    if (!check || await ctx.db.prepare(`SELECT COALESCE((${check.select}),0) AS accepted`).bind(...check.values).first<number>('accepted')) continue;
+    if (!check.recheck || !await ctx.db.prepare(`SELECT COALESCE((${check.recheck.select}),0) AS accepted`).bind(...check.recheck.values).first<number>('accepted')) return false;
+    if (check.recheck.pageId) {
+      const page = await ctx.db.prepare('SELECT locked_at FROM pages WHERE id=? AND workspace_id=? AND deleted_at IS NULL').bind(check.recheck.pageId,ctx.actor.workspaceId).first<{locked_at:string|null}>();
+      if (!page?.locked_at) return false;
+      locked = true;
+    }
+  }
+  return locked;
 }

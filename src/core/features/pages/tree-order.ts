@@ -1,9 +1,10 @@
 import type { FeatureContext } from '../../app/feature-context';
 import { mutationGuard, requestHash } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
+import { creationDestinationGuards } from './service';
 import { compareBinary } from './tree-position';
 import { requirePageLevel, resolveCurrentAccess } from '../sharing/current-access';
-import { pageRow, writable } from './repository';
+import { pageRow, writable, lifecycleWritable, lifecyclePageGuard, pageGuard } from './repository';
 
 export interface MovePlacement {
     containerId: string;
@@ -40,7 +41,7 @@ export async function prepareOrder(ctx: FeatureContext, id: string, input: MoveP
         // Do not distinguish inaccessible, missing, or wrong-location anchors.
         if (!rows.some(row => row.id === anchor)) throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
         await requirePageLevel(ctx, anchor, 'view');
-        writable(await pageRow(ctx, anchor));
+        lifecycleWritable(await pageRow(ctx, anchor));
     }
     const rest = rows.filter(row => row.id !== id);
     const index = anchor ? rest.findIndex(row => row.id === anchor) + (input.afterId ? 1 : 0) : rest.length;
@@ -48,7 +49,10 @@ export async function prepareOrder(ctx: FeatureContext, id: string, input: MoveP
     const unchanged = rows.length === desired.length && rows.every((row, i) => row.id === desired[i]);
     const captured = JSON.stringify(rows.map(row => [row.id, row.tree_position, row.revision_id, row.archived_at, row.trashed_at]));
     const snapshotSql = `SELECT json_group_array(json_array(id,tree_position,revision_id,archived_at,trashed_at)) FROM (${siblingsSql})`;
-    const guard = mutationGuard(ctx.db, `SELECT (${snapshotSql})=?`, [...values, captured]);
+    const guard = mutationGuard(ctx.db, `SELECT (${snapshotSql})=?`, [...values, captured], {
+        select: `SELECT COUNT(*)=? AND NOT EXISTS(SELECT 1 FROM (${siblingsSql}) p LEFT JOIN json_each(?) e ON json_extract(e.value,'$[0]')=p.id WHERE e.value IS NULL OR p.tree_position IS NOT json_extract(e.value,'$[1]') OR p.archived_at IS NOT json_extract(e.value,'$[3]') OR p.trashed_at IS NOT json_extract(e.value,'$[4]') OR (p.revision_id!=json_extract(e.value,'$[2]') AND NOT EXISTS(SELECT 1 FROM content_events event JOIN pages locked ON locked.id=event.page_id WHERE event.page_id=p.id AND locked.locked_at IS NOT NULL AND event.revision_id=p.revision_id AND event.kind='locked' AND json_extract(event.detail_json,'$.previousRevisionId')=json_extract(e.value,'$[2]')))) FROM (${siblingsSql})`,
+        values: [rows.length, ...values, captured, ...values],
+    });
     // The review describes only actor-readable selection state. Hidden cohort state
     // remains in the same-batch guard, so concurrent mutations cannot misplace a page.
     const readable: Sibling[] = [];
@@ -73,9 +77,13 @@ export async function prepareOrder(ctx: FeatureContext, id: string, input: MoveP
         else if (compareBinary(smallest, upper) < 0) position = smallest;
     }
     const maintenance: D1PreparedStatement[] = [];
+    if (anchor) maintenance.push(lifecyclePageGuard(ctx, await pageRow(ctx, anchor)));
     if (!unchanged && position === undefined) {
         // Renormalization is a write too: archived/trash siblings must stay intact.
-        for (const row of rest) writable(await pageRow(ctx, row.id));
+        for (const row of rest) {
+            const page = await pageRow(ctx, row.id); writable(page);
+            maintenance.push(pageGuard(ctx, page, row.revision_id));
+        }
         // Random sorted keys reveal no numeric ranks or gaps for hidden siblings.
         const keys = desired.map(() => token()).sort();
         const assignments = desired.map((pageId, i) => [pageId, keys[i]]);
@@ -92,10 +100,11 @@ export async function treeTopologyGuard(ctx: FeatureContext, id: string) {
     const sql = `WITH RECURSIVE tree(id) AS (SELECT id FROM pages WHERE id=? AND workspace_id=? UNION SELECT p.id FROM pages p JOIN tree t ON p.parent_page_id=t.id WHERE p.deleted_at IS NULL) SELECT json_group_array(json_array(id,container_id,parent_page_id,tree_position,revision_id,deleted_at,archived_at,trashed_at)) AS snapshot FROM (SELECT p.* FROM pages p JOIN tree t ON p.id=t.id ORDER BY p.id COLLATE BINARY)`;
     const values = [id, ctx.actor.workspaceId];
     const captured = await ctx.db.prepare(sql).bind(...values).first<string>('snapshot');
-    return mutationGuard(ctx.db, `SELECT (${sql})=?`, [...values, captured]);
+    return mutationGuard(ctx.db, `SELECT (${sql})=?`, [...values, captured], {
+        select: `WITH RECURSIVE tree(id) AS (SELECT id FROM pages WHERE id=? AND workspace_id=? UNION SELECT p.id FROM pages p JOIN tree t ON p.parent_page_id=t.id WHERE p.deleted_at IS NULL) SELECT COUNT(*)=json_array_length(?) AND NOT EXISTS(SELECT 1 FROM pages p JOIN tree t ON t.id=p.id LEFT JOIN json_each(?) e ON json_extract(e.value,'$[0]')=p.id WHERE e.value IS NULL OR p.container_id IS NOT json_extract(e.value,'$[1]') OR p.parent_page_id IS NOT json_extract(e.value,'$[2]') OR p.tree_position IS NOT json_extract(e.value,'$[3]') OR p.deleted_at IS NOT json_extract(e.value,'$[5]') OR p.archived_at IS NOT json_extract(e.value,'$[6]') OR p.trashed_at IS NOT json_extract(e.value,'$[7]') OR (p.revision_id!=json_extract(e.value,'$[4]') AND NOT EXISTS(SELECT 1 FROM content_events event WHERE event.page_id=p.id AND p.locked_at IS NOT NULL AND event.revision_id=p.revision_id AND event.kind='locked' AND json_extract(event.detail_json,'$.previousRevisionId')=json_extract(e.value,'$[4]')))) FROM tree`,
+        values: [...values, captured, captured],
+    });
 }
 export function destinationGuards(ctx: FeatureContext, input: MovePlacement) {
-    const statements = [mutationGuard(ctx.db, 'SELECT archived_at IS NULL AND trashed_at IS NULL FROM containers WHERE id=? AND workspace_id=?', [input.containerId, ctx.actor.workspaceId])];
-    if (input.parentPageId) statements.push(mutationGuard(ctx.db, 'SELECT deleted_at IS NULL AND archived_at IS NULL AND trashed_at IS NULL AND container_id=? FROM pages WHERE id=? AND workspace_id=?', [input.containerId, input.parentPageId, ctx.actor.workspaceId]));
-    return statements;
+    return creationDestinationGuards(ctx, input.containerId, input.parentPageId);
 }

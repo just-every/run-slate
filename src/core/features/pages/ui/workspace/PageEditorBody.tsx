@@ -51,6 +51,7 @@ export function PageEditorBody({
   const conversionFocus = useRef<{id:string;selection:EditableSelection|null}|null>(null);
   const wrapper = useRef<HTMLDivElement>(null);
   function changeKind(block:EditorBlock, removed=0) {
+    if (!document.permissions.canEdit) return;
     const root = [...(wrapper.current?.querySelectorAll<HTMLElement>('[data-block-id]')??[])].find(element=>element.dataset.blockId===block.id)?.querySelector<HTMLElement>('[data-slate-editable]');
     const selection = root ? readEditableSelection(root) : null;
     conversionFocus.current = {id:block.id,selection:selection ? {anchor:Math.max(0,selection.anchor-removed),focus:Math.max(0,selection.focus-removed)} : null};
@@ -68,6 +69,7 @@ export function PageEditorBody({
     const element = wrapper.current;
     if (!element) return;
     const insertAt = (event:Event) => {
+      if (!document.permissions.canEdit) return;
       const target=event.target as HTMLElement;
       const selection=window.getSelection();
       const caret=selection?.rangeCount ? selection.getRangeAt(0).cloneRange() : null;
@@ -79,6 +81,7 @@ export function PageEditorBody({
       setInsert({after:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId ?? null,range:detail,inlineLabels:detail.inlineLabels,onInlineInsert:detail.onInlineInsert,anchor});
     };
     const split = (event: Event) => {
+      if (!document.permissions.canEdit) return;
       const target = event.target as HTMLElement;
       const row = target.closest<HTMLElement>('[data-block-id]');
       if (target !== row?.querySelector('[data-slate-editable]')) return;
@@ -112,6 +115,7 @@ export function PageEditorBody({
       if(!block || !('text' in block) || !range)return;
       const start=Math.min(range.anchor,range.focus),end=Math.max(range.anchor,range.focus),anchorId=crypto.randomUUID();
       const value:PageSelection={blockId:block.id,blockRevisionId:document.blocks.find(b=>b.id===block.id)?.revisionId??'',revisionId:editor.workingRevisionId,anchorId,start,end,quote:richTextToPlain(block.text).slice(start,end)};
+      if(comment && !document.permissions.canEdit){onComment(value);return;}
       if(comment){setError(undefined);try{await editor.structure(editor.blocks.map(b=>b.id===block.id?{...block,text:formatSelection(block.text,start,end,span=>({...span,commentAnchorId:anchorId}))}:b));const fresh=await contentApi.document(document.page.id);value.revisionId=fresh.workingRevisionId;onComment(value);}catch(cause){setError(cause);}}
       else onAsk(value);
     };
@@ -138,6 +142,7 @@ export function PageEditorBody({
   const [selected, setSelected] = useState<string[]>([]);
 
   async function apply(next: EditorBlock[]) {
+    if (!document.permissions.canEdit) return false;
     setError(undefined);
     try {
       await editor.structure(next);

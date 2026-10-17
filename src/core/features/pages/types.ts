@@ -23,6 +23,8 @@ export interface PageRow {
     typeface: string;
     small_text: number;
     full_width: number;
+    locked_at: string | null;
+    locked_by_member_id: string | null;
     archived_at: string | null;
     trashed_at: string | null;
     deleted_at: string | null;

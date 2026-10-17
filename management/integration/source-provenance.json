@@ -38,6 +38,8 @@
     "migrations/core/0029_import_retirement.sql": "sha256:8fbb81317ee0667a26b88a7a9fa1a42c56eb254654468e6dd8b8c7d810be5693",
     "migrations/core/0030_native_dependencies.sql": "sha256:bb14fa7c0797f2aa3b04e08dfe8711615e9dbe9a4df9c0e3eed988dda8c5823b",
     "migrations/core/0031_import_preparation_progress.sql": "sha256:0df0299800a546a8da6c0a52585f987ba8d08a6fc10d2c826fa31da85f523d6a",
+    "migrations/core/0031_review_requests.sql": "sha256:d8b3db2956dc776e90a3f0414b88ae620f87838c4227c32441f59baa85c4a3a6",
+    "migrations/core/0032_page_locks.sql": "sha256:61634d055f70e5e731183c41d290cdac595a5138eb09f6fed4ad1acd0e2029ea",
     "migrations/core/0032_work_items.sql": "sha256:fb24d70fa1e6bc2a2d6c0a60345b9e94290ccb4cc4b3736f0413a0a26face661",
     "migrations/core/0033_following.sql": "sha256:91872d9cca2ede3387b1a66bb9712196a0a56e265fe19f4315d080b947f47c6c",
     "migrations/core/0034_preview_owner_signin.sql": "sha256:512644f038ca39e3855353739ceae3776e31f26db4a881382c5ff6db7cc9a019"
