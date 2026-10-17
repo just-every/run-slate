@@ -3471,15 +3471,15 @@
       "executable": false
     },
     "scripts/base-proof/objects.mjs": {
-      "sha256": "cf9b4efbecce816d3246d4f50454b8d04dda82f3ac5c2a15b1db502210e53a0c",
+      "sha256": "8d7c863903d3d23f82b7c7f9b3b3d2479605bfa4a746a908943a10f171207fd8",
       "executable": false
     },
     "scripts/base-proof/pin-objects.json": {
-      "sha256": "cdadfd1ef04a0631dcf5b7dc6291aedb475849dfad8f9808f97b5d4eff7698c0",
+      "sha256": "1caa63651088fa91e55b92eddb7d9f2a9aaa7e14188bb73e9e541932cefa0c40",
       "executable": false
     },
     "scripts/base-proof/README.md": {
-      "sha256": "5444104ef4add8b7b3fb651bf5ccbba35b8984f797025ddd25e2d9ebaab56d26",
+      "sha256": "4e36c72ed3c1bf9ce5f091a6bdbd677a8c567febdb0f68ac74de8248a37a5050",
       "executable": false
     },
     "scripts/base-proof/repository.mjs": {

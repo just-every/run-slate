@@ -89,7 +89,7 @@ test('updating both local bytes and the record cannot forge the upstream source'
 
 test('unchanged CLI rejects an unrecorded copy outside recorded directories', () => fixture(({edition, verify}) => {
   const copy = record.copies.find(entry => entry.path === 'src/base/runtime');
-  fs.copyFileSync(path.join(edition, 'src/base/runtime/lobby.ts'), path.join(edition, 'unrecorded.txt'));
+  fs.copyFileSync(path.join(edition, 'src/base/runtime/contract-page.ts'), path.join(edition, 'unrecorded.txt'));
   const {status, report} = verify();
   assert.equal(status, 1);
   assert.ok(report.unrecordedCopies.some(row => row.path === 'unrecorded.txt' && row.revision === copy.revision));
