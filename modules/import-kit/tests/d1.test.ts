@@ -7,6 +7,7 @@ import './d1/export-consistency.test.ts';
 import './d1/reuse-owner.test.ts';
 import './d1/create-budget.test.ts';
 import './d1/return-budget.test.ts';
+import './d1/request-limit.test.ts';
 import './d1/reused-inventory.test.ts';
 import './d1/reused-claim-validity.test.ts';
 import './d1/guard-depth.test.ts';

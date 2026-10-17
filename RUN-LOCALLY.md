@@ -120,7 +120,7 @@ Invite another person from the app's operator access screen, then choose
 it accepts their current invitation and opens `/app` with their assigned role.
 After opening `RER_OPEN`, this browser can switch people without email. A fresh
 browser profile first opens `RER_OPEN` to receive this checkout's key cookie.
-`rer dev --as person@example.com` also selects an invited or active person;
+`rer dev --as person@example.com` also selects an invited or active person, including one invited at a built-in persona's address (the persona name selects them too);
 for an email that is no one in the local database, it lists the people it takes.
 Local dev and demos silently suppress mail; there is no mail-reading step.
 Cancelled or expired invitations and inactive people cannot use these actions.
@@ -212,6 +212,7 @@ servers with the command that stops each; start with `RER_SERVER_LIMIT=N` to
 allow more. Machine load alone never refuses a start or holds heavy work; a
 fleet that wants a load guard sets `RER_SERVERS_LOAD_THRESHOLD=N` and
 `RER_JOBS_LOAD_THRESHOLD=N` (the 1-minute load) in its own environment.
+When `rer dev` or `rer setup` holds a step 20 minutes for that guard, it stops with `Not started: this computer is busy`, the measured load, the threshold and the next step (run the same command again, or raise `RER_JOBS_LOAD_THRESHOLD`); it is never reported as a failed migration.
 A start needs 15 GiB free on the checkout and temporary volumes;
 `RER_SERVERS_DISK_FLOOR_GIB=N` changes that floor. A CI runner on a small disk
 may set it lower (for example 4); people should not.

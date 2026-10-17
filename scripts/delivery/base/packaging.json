@@ -67,7 +67,8 @@
           "originVariable": "APP_URL",
           "signIn": {
             "path": "/signin",
-            "loginHint": true
+            "loginHint": true,
+            "ownerSignIn": "/auth/owner-signin"
           }
         }
       },
