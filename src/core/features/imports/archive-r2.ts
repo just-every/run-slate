@@ -6,22 +6,27 @@ import {importSafetyLimits} from './safety';
 import {ImportError} from './errors';
 
 export interface RetainedZipEntry {start:number;compressedBytes:number;expandedBytes:number;method:number}
-/** Range reads stay bound to the exact retained object's ETag. */
+/** Range reads stay bound to the exact retained object's ETag. One push of at
+ * most 4 KiB of deflate input expands to at most ~4 MiB before the declared-size
+ * check runs, and output leaves in 64-KiB chunks rather than one stream hop per
+ * inflate block, so staging media costs bytes, not chunk count. */
+const inflateInputBytes=4*1024,outputChunkBytes=64*1024;
 export function retainedZipBody(bucket:R2Bucket,key:string,etag:string,entry:RetainedZipEntry):ReadableStream<Uint8Array> {
-  let reader:ReadableStreamDefaultReader<Uint8Array>|undefined,input:Uint8Array=new Uint8Array(),position=0,received=0,written=0,ended=entry.compressedBytes===0,finished=false;
-  const pending:Uint8Array[]=[];
-  const output=(chunk:Uint8Array)=>{written+=chunk.length;if(written>entry.expandedBytes)throw new ImportError('IMPORT_ARCHIVE_LIMIT_EXCEEDED','The archive expands beyond the import safety limits.');if(chunk.length)pending.push(chunk);};
+  let reader:ReadableStreamDefaultReader<Uint8Array>|undefined,input:Uint8Array=new Uint8Array(),position=0,received=0,written=0,pendingBytes=0,ended=entry.compressedBytes===0,finished=false;
+  let pending:Uint8Array[]=[];
+  const output=(chunk:Uint8Array)=>{written+=chunk.length;if(written>entry.expandedBytes)throw new ImportError('IMPORT_ARCHIVE_LIMIT_EXCEEDED','The archive expands beyond the import safety limits.');if(chunk.length){pending.push(chunk);pendingBytes+=chunk.length;}};
+  const drain=()=>{const chunk=pending.length===1?pending[0]!:new Uint8Array(pendingBytes);if(pending.length>1){let offset=0;for(const part of pending){chunk.set(part,offset);offset+=part.length;}}pending=[];pendingBytes=0;return chunk;};
   const inflater=entry.method===8?new Inflate(output):undefined;
   return new ReadableStream<Uint8Array>({
     async pull(controller){try{
       if(!reader&&!ended){const object=await bucket.get(key,{range:{offset:entry.start,length:entry.compressedBytes},onlyIf:{etagMatches:etag}});if(!object||!('body' in object))throw new ImportError('IMPORT_ARCHIVE_INVALID','The retained archive changed.');reader=object.body.getReader();}
-      while(!pending.length&&!finished){
+      while(pendingBytes<outputChunkBytes&&!finished){
         if(position===input.length&&!ended){const next=await reader!.read();if(next.done)ended=true;else{input=next.value;position=0;received+=input.length;if(received>entry.compressedBytes)throw new ImportError('IMPORT_ARCHIVE_INVALID','The retained archive range has an invalid length.');}}
         if(ended){if(received!==entry.compressedBytes)throw new ImportError('IMPORT_ARCHIVE_INVALID','The retained archive range is incomplete.');if(inflater)inflater.push(new Uint8Array(),true);finished=true;}
-        else {const end=Math.min(position+(inflater?64:64*1024),input.length),chunk=input.subarray(position,end);if(inflater)inflater.push(chunk,false);else output(chunk.slice());position=end;}
+        else {const end=Math.min(position+(inflater?inflateInputBytes:outputChunkBytes),input.length),chunk=input.subarray(position,end);if(inflater)inflater.push(chunk,false);else output(chunk.slice());position=end;}
       }
-      if(pending.length)controller.enqueue(pending.shift()!);
-      if(finished&&!pending.length){if(written!==entry.expandedBytes)throw new ImportError('IMPORT_ARCHIVE_INVALID','The archive entry length does not match its directory.');controller.close();}
+      if(pendingBytes)controller.enqueue(drain());
+      if(finished){if(written!==entry.expandedBytes)throw new ImportError('IMPORT_ARCHIVE_INVALID','The archive entry length does not match its directory.');controller.close();}
     }catch(error){await reader?.cancel();controller.error(error instanceof ImportError?error:new ImportError('IMPORT_ARCHIVE_INVALID','The archive entry could not be decompressed.'));}},
     async cancel(){await reader?.cancel();},
   });
