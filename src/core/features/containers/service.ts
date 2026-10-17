@@ -4,6 +4,7 @@ import { commitOperation, mutationGuard, requestHash } from '../../app/operation
 import { ApiProblem } from '../../app/problems';
 import { createUlid } from '../../shared/ulid';
 import { currentSubject, requireContainerLevel, requireWorkspaceOwner } from '../sharing/current-access';
+import { prepareSpaceHome } from './create-home';
 export interface ContainerInput {
     operationKey: string;
     id?: string;
@@ -23,7 +24,7 @@ export async function authorizeContainerCreation(ctx: FeatureContext) {
     if (ctx.actor.role !== 'owner' && w?.member_container_creation !== 'allowed')
         throw new ApiProblem(403, 'FORBIDDEN', 'Container creation is limited to workspace owners.');
 }
-export async function prepareCreateContainer(ctx: FeatureContext, input: ContainerInput, revisionId: string) {
+export async function prepareCreateContainer(ctx: FeatureContext, input: ContainerInput, revisionId: string, homePageId?: string) {
     if (!input.name?.trim() || input.name.length > 200)
         throw new ApiProblem(400, 'INVALID_CONTAINER', 'Name is required and limited to 200 characters.');
     if (input.visibility && !['default', 'open', 'closed', 'private', 'personal'].includes(input.visibility))
@@ -34,10 +35,18 @@ export async function prepareCreateContainer(ctx: FeatureContext, input: Contain
     const statements = [ctx.db.prepare('INSERT INTO containers (id,workspace_id,key,icon,name,description,visibility,created_at,updated_at,revision_id) VALUES (?,?,?,?,?,?,?,?,?,?)').bind(id, ctx.actor.workspaceId, input.key ?? null, input.icon ?? null, input.name, input.description ?? '', visibility, ctx.now, ctx.now, revisionId), ctx.db.prepare('INSERT INTO container_owners VALUES (?,?,?)').bind(id, ctx.actor.id, ctx.now), ctx.db.prepare('INSERT INTO container_members VALUES (?,?,?)').bind(id, ctx.actor.id, ctx.now), ctx.db.prepare('INSERT INTO container_grants (id,container_id,principal_kind,principal_id,level,created_at,updated_at) VALUES (?,?,\'member\',?,\'full\',?,?)').bind(createUlid(), id, ctx.actor.id, ctx.now, ctx.now)];
     if (['default', 'open'].includes(visibility))
         statements.push(ctx.db.prepare("INSERT INTO container_grants (id,container_id,principal_kind,principal_id,level,created_at,updated_at) VALUES (?,?,'workspace',?,'edit',?,?)").bind(createUlid(), id, ctx.actor.workspaceId, ctx.now, ctx.now));
-    statements.push(await containerRevision(ctx, id, revisionId, input));
+    statements.push(await containerRevision(ctx, id, revisionId, {...input,...(homePageId ? {homePageId} : {})}));
     return { statements, entity: { id, kind: 'container', revisionId }, value: { id, name: input.name, revisionId } };
 }
-export async function createContainer(ctx: FeatureContext, input: ContainerInput) { return commitOperation(ctx, { operationKey: input.operationKey, action: 'containers.create', request: input, authorize: () => authorizeContainerCreation(ctx), prepare: ({ revisionId }) => prepareCreateContainer(ctx, input, revisionId) }); }
+export async function createContainer(ctx: FeatureContext, input: ContainerInput) {
+    return commitOperation(ctx, { operationKey:input.operationKey,action:'containers.create',request:input,authorize:() => authorizeContainerCreation(ctx),prepare:async ({revisionId}) => {
+        const homePageId=createUlid();
+        const plan=await prepareCreateContainer(ctx,input,revisionId,homePageId);
+        const home=await prepareSpaceHome(ctx,{id:plan.value.id,name:input.name,description:input.description},homePageId,true);
+        plan.statements.push(...home.statements,ctx.db.prepare('UPDATE containers SET home_page_id=? WHERE id=?').bind(homePageId,plan.value.id));
+        return {...plan,value:{...plan.value,homePageId}};
+    }});
+}
 export async function containerRevision(ctx: FeatureContext, id: string, revisionId: string, value: unknown) { return ctx.db.prepare('INSERT INTO record_revisions (id,workspace_id,entity_kind,entity_id,content_hash,content_json,author_member_id,created_at) VALUES (?,?,?,?,?,?,?,?)').bind(revisionId, ctx.actor.workspaceId, 'container', id, await requestHash(value), JSON.stringify(value), ctx.actor.id, ctx.now); }
 export { containerIndex as listContainers, readContainer } from './queries';
 export async function updateContainer(ctx: FeatureContext, id: string, input: {

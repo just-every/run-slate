@@ -1,4 +1,5 @@
 import {ContainerWatch} from './ContainerWatch';
+import {ContainerHome} from './ContainerHome';
 import {ContainerBlog} from '../../../blog/ui/ContainerBlog';
 import {ReadableExportDialog} from "../../../workspace-export/ui/ReadableExportDialog";
 import {useCreatePage} from "../../../../app/ui/useCreatePage";
@@ -148,6 +149,7 @@ export function ContainerWorkspace({containerId,embedded}:{containerId?:string;e
       ) : null}
     </section>
   );
+  if (containerId) return <><TopBar trail={[{label:'Spaces',href:'/app/containers'}]}/><section className="main"><ContainerDetail key={containerId} id={containerId} updated={spaces.reload}/></section></>;
   if (embedded) return panel;
   return (
     <>
@@ -168,7 +170,8 @@ function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
   const [label,setLabel]=useState('');
   const creation = useCreatePage();
   const [exporting,setExporting]=useState(false);
-  const [tab,setTab]=useState("content");
+  const [tab,setTab]=useState("home");
+  useEffect(()=>setTab('home'),[id]);
   const available = pages.data?.items ?? [];
   const matched = new Set(
     available
@@ -194,8 +197,9 @@ function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
       {resource.data ? (
         <section className="space-detail">
           <h3>{resource.data.name}</h3><div className="space-actions"><FavouriteControl kind="container" id={id}/><ContainerWatch id={id}/><button className="secondary-button" onClick={()=>setExporting(true)}>Export space</button></div>{exporting?<ReadableExportDialog id={id} container onClose={()=>setExporting(false)}/>:null}
-          <nav className="tabs" aria-label="Space navigation">{['content','blog','settings','templates','trash','bulk'].map(value=><button aria-pressed={tab===value} key={value} onClick={()=>setTab(value)}>{value[0].toUpperCase()+value.slice(1)}</button>)}</nav>
+          <nav className="tabs" aria-label="Space navigation">{['home','content','blog','settings','templates','trash','bulk'].map(value=><button aria-pressed={tab===value} key={value} onClick={()=>setTab(value)}>{value[0].toUpperCase()+value.slice(1)}</button>)}</nav>
           <a href={`/app/search?containerId=${id}`}>Search this space</a>
+          {tab==='home'?<ContainerHome key={id} containerId={id} name={resource.data.name} onSaved={()=>{void resource.reload();void pages.reload();updated();}}/>:null}
           {tab==='blog'?<ContainerBlog containerId={id}/>:null}
           {tab==='templates'?<TemplatesWorkspace defaultContainerId={id} embedded/>:tab==='trash'?<WorkspaceArchive containerId={id} embedded/>:tab==='bulk'?<ContainerBulk pages={available} onSaved={pages.reload}/>:null}
           {tab==='content'?<>

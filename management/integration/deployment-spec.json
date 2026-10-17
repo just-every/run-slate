@@ -230,6 +230,12 @@
       "name": "0035_blog_posts.sql",
       "sha256": "7bdb3f6ad89553a0b1bc9e30082c945fe8155e80c485a7fb0c1a3cea30ff7f10",
       "sql": "-- CONT-010. A post is a page with a dated, attributed place in its container's\n-- blog; every page clause still applies through pages(id). An imported post\n-- keeps its source date, and its source author's name when no member maps.\nCREATE TABLE blog_posts (\n page_id TEXT PRIMARY KEY NOT NULL REFERENCES pages(id),\n workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n posted_at TEXT NOT NULL,\n author_member_id TEXT REFERENCES members(id),\n author_name TEXT,\n created_at TEXT NOT NULL\n);\nCREATE INDEX blog_posts_feed ON blog_posts(workspace_id,posted_at,page_id);\n-- Imported posts are native import rows; writes advance the undo fence like page_labels.\nCREATE TRIGGER import_native_blog_posts_insert AFTER INSERT ON blog_posts BEGIN INSERT INTO import_native_epoch(id,revision,seal) VALUES(1,1,NULL) ON CONFLICT(id) DO UPDATE SET revision=revision+1,seal=NULL; END;\nCREATE TRIGGER import_native_blog_posts_update AFTER UPDATE ON blog_posts BEGIN INSERT INTO import_native_epoch(id,revision,seal) VALUES(1,1,NULL) ON CONFLICT(id) DO UPDATE SET revision=revision+1,seal=NULL; END;\nCREATE TRIGGER import_native_blog_posts_delete AFTER DELETE ON blog_posts BEGIN INSERT INTO import_native_epoch(id,revision,seal) VALUES(1,1,NULL) ON CONFLICT(id) DO UPDATE SET revision=revision+1,seal=NULL; END;\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0036_space_hub.sql",
+      "sha256": "2b6140ea970d50764e96d56814358c065c9a0a612a0e4ab722dce32d2ef0198c",
+      "sql": "-- CONT-011. Homes remain ordinary pages, with their existing revision history\n-- and access rules. Hub curation belongs to the workspace, not a new ledger.\nALTER TABLE containers ADD COLUMN home_page_id TEXT REFERENCES pages(id) ON DELETE SET NULL;\nALTER TABLE workspaces ADD COLUMN company_hub_json TEXT NOT NULL DEFAULT '{\"title\":\"Company hub\",\"description\":\"\",\"linkPageIds\":[],\"announcementPageIds\":[],\"keyPageIds\":[]}';\nALTER TABLE workspaces ADD COLUMN company_hub_revision_id TEXT;\n"
     }
   ],
   "compatibilityDate": "2026-09-08",

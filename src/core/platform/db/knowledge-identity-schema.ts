@@ -9,6 +9,8 @@ export const knowledgeWorkspaces = sqliteTable("workspaces", {
   publicLinkAccess: text("public_link_access").notNull().default("allowed"),
   anonymousAccess: text("anonymous_access").notNull().default("allowed"),
   memberContainerCreation: text("member_container_creation").notNull().default("allowed"),
+  companyHubJson: text("company_hub_json").notNull().default('{"title":"Company hub","description":"","linkPageIds":[],"announcementPageIds":[],"keyPageIds":[]}'),
+  companyHubRevisionId: text("company_hub_revision_id"),
   aiEnabled: integer("ai_enabled", { mode: "boolean" }).notNull().default(false),
   aiMonthlyBudgetMicros: integer("ai_monthly_budget_micros").notNull().default(0),
   createdAt: text("created_at").notNull(),

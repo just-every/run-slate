@@ -16,9 +16,9 @@ const decode = (cursor: string): [string, string] => {
  * Every row is a page the member can read now; drafts and archived or trashed posts never list.
  * The title and cover are the published revision's, which is what a reader opens.
  */
-export async function postFeed(ctx: FeatureContext, input: { containerId?: string; following?: boolean; cursor?: string }) {
+export async function postFeed(ctx: FeatureContext, input: { containerId?: string; following?: boolean; cursor?: string; pageIds?: readonly string[] }) {
  await currentSubject(ctx);
- if (!input.containerId && !input.following) throw new ApiProblem(400, 'INVALID_FEED', 'Choose a space or the spaces you follow.');
+ if (!input.containerId && !input.following && !input.pageIds) throw new ApiProblem(400, 'INVALID_FEED', 'Choose a space or the spaces you follow.');
  const [beforeAt, beforeId] = input.cursor ? decode(input.cursor) : [null, null], limit = 30;
  const rows = await ctx.db.prepare(`SELECT bp.id AS pageId,COALESCE(json_extract(r.properties_json,'$.title'),bp.title) AS title,bp.container_id AS containerId,bc.name AS containerName,
  b.posted_at AS postedAt,COALESCE(a.display_name,b.author_name,'Former member') AS authorName,json_extract(r.properties_json,'$.cover') AS cover,bp.cover_file_id AS coverFileId,
@@ -30,8 +30,9 @@ export async function postFeed(ctx: FeatureContext, input: { containerId?: strin
  AND (?3 IS NULL OR bp.container_id=?3)
  AND (?4=0 OR bp.container_id IN (SELECT container_id FROM container_watches WHERE member_id=m.id))
  AND (?5 IS NULL OR b.posted_at<?5 OR b.posted_at=?5 AND b.page_id<?6)
+ AND (?9 IS NULL OR bp.id IN (SELECT value FROM json_each(?9)))
  AND ${pageReadableSql('m', 'bp.id', 'm.workspace_id', '?7')}
- ORDER BY b.posted_at DESC,b.page_id DESC LIMIT ?8`).bind(ctx.actor.id, ctx.actor.workspaceId, input.containerId ?? null, +!!input.following, beforeAt, beforeId, ctx.now, limit + 1).all<PostView & { cover: string | null }>();
+ ORDER BY b.posted_at DESC,b.page_id DESC LIMIT ?8`).bind(ctx.actor.id, ctx.actor.workspaceId, input.containerId ?? null, +!!input.following, beforeAt, beforeId, ctx.now, limit + 1, input.pageIds ? JSON.stringify(input.pageIds) : null).all<PostView & { cover: string | null }>();
  const items = rows.results.slice(0, limit).map(row => ({ ...row, cover: row.cover ? JSON.parse(row.cover) : null }));
  const last = items.at(-1);
  return {

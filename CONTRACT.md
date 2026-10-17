@@ -845,7 +845,7 @@ Each container has an editable home page that its index opens first. Workspace o
 
 *Acceptance:* a browser journey in which an owner builds a hub, a new member's first Home shows it, and the hub's links show each reader only pages that reader can read.
 
-*Status:* partial. A container index with names, descriptions and access ships (`src/core/features/containers/service.ts`, `tests/qualification/policies/container-links.test.ts`); there are no curated container homes or hub.
+*Status:* done. New spaces open an ordinary editable home page first; administrators can choose an existing live page or create a home for an existing space (`src/core/features/containers/home.ts`, `src/core/features/containers/ui/workspace/ContainerHome.tsx`). Workspace owners curate Home’s shared company hub with ordered links, announcement posts and currently verified key pages. Each read filters current page access, lifecycle and verification; readers see published titles rather than unpublished edits (`src/core/features/hub/service.ts`, `src/core/features/hub/pages.ts`). Workers journeys cover authority, concurrent changes, unpublished content, access revocation and expired verification (`tests/flagship/discovery/space-hub.test.ts`). Browser journeys at 1440 and 390 edit and reload a space home, choose an existing home, curate the hub and open it as a new member whose first Home omits private pages (`tests/qualification/ui-convergence/hub-journey.mjs`).
 
 #### CONT-012 — Watch a container.
 A member can watch a whole container. For each page in it the member can read, a watched container delivers page creation, edits, moves in or out, archiving or trashing, and comments and replies, as one inbox item each (`NOTIF-002`) or as one line each in a digest under `NOTIF-005`. Edits are coalesced into one item per page, per author, per editing session (`COLLAB-005`'s window). A page the member cannot read, and every draft (`LIFE-002`), produces nothing. A member who watches both a page and its container gets one item, not two. Blog posts (`CONT-010`) arrive the same way. Home shows a Following section with the same events for the member's watched pages and containers; it is personal, not a workspace-wide feed (`NAV-001`). A container's administrators can see its watchers.
@@ -1772,8 +1772,8 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 161 | 60 | 0 | 221 |
-| Target and push further | 4 | 57 | 44 | 105 |
-| All | 165 | 117 | 44 | 326 |
+| Target and push further | 5 | 56 | 44 | 105 |
+| All | 166 | 116 | 44 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2017,7 +2017,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `BLOCK-021` | Attachment previews | target | missing | — | not implemented |
 | `BLOCK-022` | Attachment versions | target | missing | — | not implemented |
 | `CONT-010` | Space blog and announcements | target | partial | `tests/qualification/ui-convergence/blog-journey.mjs` | Native posts, permission-aware feeds, follower notices and Home are proven at 1440/390; Cloud blog import is proven only on a derived export, Server/DC XML blog posts remain unmapped, and email delivery waits on NOTIF-005. |
-| `CONT-011` | Space home and company hub | target | partial | `src/core/features/containers/service.ts` | see the clause |
+| `CONT-011` | Space home and company hub | target | done | `tests/flagship/discovery/space-hub.test.ts`, `tests/qualification/ui-convergence/hub-journey.mjs` | Editable homes and permission-aware curated hub proven at 1440 and 390. |
 | `CONT-012` | Watch a container | target | partial | `tests/flagship/discovery/following.test.ts` | Daily digest delivery under NOTIF-005 remains missing. In-app lifecycle notices, session coalescing, deduplication, administrator watchers and personal Following have Workers and 1440/390 browser evidence. |
 | `PAGE-016` | Autowatch on create and edit | target | done | `tests/flagship/discovery/following.test.ts` |  |
 | `WORK-016` | People directory and expertise | target | missing | — | not implemented |

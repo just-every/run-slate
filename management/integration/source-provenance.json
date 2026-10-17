@@ -43,6 +43,7 @@
     "migrations/core/0032_work_items.sql": "sha256:fb24d70fa1e6bc2a2d6c0a60345b9e94290ccb4cc4b3736f0413a0a26face661",
     "migrations/core/0033_following.sql": "sha256:91872d9cca2ede3387b1a66bb9712196a0a56e265fe19f4315d080b947f47c6c",
     "migrations/core/0034_preview_owner_signin.sql": "sha256:512644f038ca39e3855353739ceae3776e31f26db4a881382c5ff6db7cc9a019",
-    "migrations/core/0035_blog_posts.sql": "sha256:7bdb3f6ad89553a0b1bc9e30082c945fe8155e80c485a7fb0c1a3cea30ff7f10"
+    "migrations/core/0035_blog_posts.sql": "sha256:7bdb3f6ad89553a0b1bc9e30082c945fe8155e80c485a7fb0c1a3cea30ff7f10",
+    "migrations/core/0036_space_hub.sql": "sha256:2b6140ea970d50764e96d56814358c065c9a0a612a0e4ab722dce32d2ef0198c"
   }
 }

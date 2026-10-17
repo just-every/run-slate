@@ -7,6 +7,7 @@ export const knowledgeContainers = sqliteTable("containers", {
   icon: text("icon"),
   name: text("name").notNull(),
   description: text("description").notNull().default(""),
+  homePageId: text("home_page_id"),
   visibility: text("visibility").notNull().default("default"),
   guestAccess: text("guest_access").notNull().default("allowed"),
   publicLinkAccess: text("public_link_access").notNull().default("allowed"),

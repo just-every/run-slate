@@ -2302,6 +2302,24 @@
         "BLOCK-020"
       ],
       "reason": "Native HTTP journey covers reader-only deduplicated notifications, recipient preview, comments and block edits, forged create/update refusal for large groups, owner configuration and access revocation. Confluence team import remains unproven."
+    },
+    {
+      "file": "tests/flagship/discovery/space-hub.test.ts",
+      "testName": "CONT-011 — a space opens its editable home with normal page authority and revision conflicts",
+      "kind": "supporting-regression",
+      "clauses": [
+        "CONT-011"
+      ],
+      "reason": "Native HTTP journey covers space-home editing and owner hub curation with live reader permissions, revision conflicts, published snapshots and verification boundaries. Browser acceptance runs separately at 1440 and 390."
+    },
+    {
+      "file": "tests/flagship/discovery/space-hub.test.ts",
+      "testName": "CONT-011 — an owner curates a company hub for a new member, filtering private, unpublished and unverified content on every read",
+      "kind": "supporting-regression",
+      "clauses": [
+        "CONT-011"
+      ],
+      "reason": "Native HTTP journey covers space-home editing and owner hub curation with live reader permissions, revision conflicts, published snapshots and verification boundaries. Browser acceptance runs separately at 1440 and 390."
     }
   ]
 }

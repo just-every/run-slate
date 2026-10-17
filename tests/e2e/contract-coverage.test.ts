@@ -204,6 +204,7 @@ const plannedClauses: ReadonlyArray<readonly [string, string]> = [
   ['NAV-007', 'My tasks'],
   ['NOTIF-004', 'Reminders'],
   ['PAGE-016', 'Autowatch on create and edit'],
+  ['CONT-011', 'Space home and company hub'],
   ['CONT-012', 'Watch a container'],
   ['SEARCH-010', 'Labels and advanced search'],
   ['SEARCH-011', 'Verified-first ranking and trust badges'],

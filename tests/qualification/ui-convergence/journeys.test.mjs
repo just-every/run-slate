@@ -10,10 +10,17 @@ import { accessChangeJourney } from './two-people-access.mjs';
 import { historyJourney } from './two-people-history.mjs';
 import { databaseJourney } from './database-journey.mjs';
 import { reviewRequestJourney } from './review-request-journey.mjs';
+import { hubJourney } from './hub-journey.mjs';
 import { blogJourney } from './blog-journey.mjs';
 import { groupMentionJourney } from './group-mentions-journey.mjs';
 
 for (const width of [1440, 390]) {
+  test(`editable space home and curated company hub for a new member at ${width}px`, { timeout: 240000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await withSecondPerson(state, width, people => hubJourney(state, people));
+    });
+  });
   test(`group mentions preview readers and refuse oversized groups at ${width}px`, { timeout: 240000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
