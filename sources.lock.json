@@ -10304,7 +10304,7 @@
       "executable": false
     },
     "tests/release/materialize-artifact.mjs": {
-      "sha256": "5e34438c0553d32acf21b5182fb2dda7601bba29c9201423d022082c057c58de",
+      "sha256": "41ebf5451e9fa5a2a53f296e7323f0a94c9a43af8f9e120d364dc2c1a57c9e46",
       "executable": false
     },
     "tests/release/source.test.mjs": {
