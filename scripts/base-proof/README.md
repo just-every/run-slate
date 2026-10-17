@@ -1,9 +1,8 @@
 # Base verification without private repository credentials
 
 `pnpm verify-base` authenticates retained native Git objects against the approved
-Base commit in `objects.mjs` (`PINS`: `9eb83c85a9088c16ffe94a3af43e8a2e95acc377`,
-the source of `rer-v0.2.40`, for the recorded copies, and `48a25993963a4ce0c687afbe076c7d4676e93395`,
-the source of `rer-v0.2.44` for `src/base/runtime/contract-style.ts`), creates a temporary bare Git object repository whose HEAD is the newest
+Base commit in `objects.mjs` (`PINS`: `290d512b4024053171cf050022188081859f5026`,
+the source of `rer-v0.2.48`, for every recorded copy), creates a temporary bare Git object repository whose HEAD is the newest
 pin, and runs the unchanged copied command:
 
 ```

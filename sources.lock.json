@@ -3636,15 +3636,15 @@
       "executable": false
     },
     "scripts/base-proof/objects.mjs": {
-      "sha256": "d167d417928d00d0c4917b18da9cfbffef67cf134c81450ec2a6ea7a75e84788",
+      "sha256": "27c240a2cc6e44580c82c3bd584432318357668346d82e6776794428073fe151",
       "executable": false
     },
     "scripts/base-proof/pin-objects.json": {
-      "sha256": "3cc22de9cd4d423bc3f22cc919e73526714063fcb552f5aa892e6b962e695af2",
+      "sha256": "bb0c2227941a5347fe8c26100ffddace2aa3823fefad7a5bf39c8e8cc66d54e8",
       "executable": false
     },
     "scripts/base-proof/README.md": {
-      "sha256": "cc18e418feafea1c6a553d733e73deed6474313ef184c920130fbde653b29b76",
+      "sha256": "3045259d6cb0cde5c29dd80a92eb75e2649f69f3a3a672aba325da9a4d15ec0f",
       "executable": false
     },
     "scripts/base-proof/repository.mjs": {
