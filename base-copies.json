@@ -1555,6 +1555,17 @@
       }
     },
     {
+      "path": "src/base/runtime/contract-style.ts",
+      "originPath": "foundation/runtime/contract-style.ts",
+      "revision": "48a25993963a4ce0c687afbe076c7d4676e93395",
+      "files": {
+        "src/base/runtime/contract-style.ts": "4325f4eeabac2bef722808576605d7b657858b918729097c3412393fc6e4941f"
+      },
+      "modes": {
+        "src/base/runtime/contract-style.ts": "100644"
+      }
+    },
+    {
       "path": "src/base/runtime/deployment-health.ts",
       "originPath": "foundation/runtime/deployment-health.ts",
       "revision": "9eb83c85a9088c16ffe94a3af43e8a2e95acc377",

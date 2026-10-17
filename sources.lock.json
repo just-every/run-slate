@@ -940,7 +940,7 @@
       "executable": false
     },
     "base-copies.json": {
-      "sha256": "8e9bcae52378304865e3b078ea2176e10842af0be7a49e4c49bbe75d3fd531a5",
+      "sha256": "05314c6f1867706677d0ad15aa09ed1428b1d65e00f095d70e73fc77b84ef9e3",
       "executable": false
     },
     "BASELINE.md": {
@@ -3616,15 +3616,15 @@
       "executable": false
     },
     "scripts/base-proof/objects.mjs": {
-      "sha256": "a4bf4c028041ba65e9af76458172c30a8df84374a1733c80f526d142024c8e02",
+      "sha256": "d167d417928d00d0c4917b18da9cfbffef67cf134c81450ec2a6ea7a75e84788",
       "executable": false
     },
     "scripts/base-proof/pin-objects.json": {
-      "sha256": "60a0f8097ac4f9fdffa92fa9a99d34dbf0ca7d001aa7bb88f5ac19292979b6be",
+      "sha256": "3cc22de9cd4d423bc3f22cc919e73526714063fcb552f5aa892e6b962e695af2",
       "executable": false
     },
     "scripts/base-proof/README.md": {
-      "sha256": "faa62d6d05ea58e6c69e08c7fc7a8c60e0042ff6f7b2bc570544b18a4ae1975f",
+      "sha256": "cc18e418feafea1c6a553d733e73deed6474313ef184c920130fbde653b29b76",
       "executable": false
     },
     "scripts/base-proof/repository.mjs": {
