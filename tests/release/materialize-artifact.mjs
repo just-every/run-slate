@@ -33,6 +33,10 @@ export async function materializeArtifact(root, output) {
     await put(`migrations/${row.name}`, row.sql);
   }
   const spec = bundle.deploymentSpec;
+  // Producers stay so code that enqueues still works; the packaged consumer does not start, because
+  // a job a test leaves on the queue is then delivered and can hang the run (gr-base-215).
+  // SLATE_TEST_QUEUE_CONSUMERS=1 opts a run in to the real consumer.
+  const queueConsumers = process.env.SLATE_TEST_QUEUE_CONSUMERS === '1' ? spec.queueConsumers : [];
   // Local provider identities only; runtime code, assets and migrations came
   // exclusively from the packaged bytes, never a source or dist fallback.
   const config = {
@@ -43,7 +47,7 @@ export async function materializeArtifact(root, output) {
     rules: Object.entries({esm: 'ESModule', commonjs: 'CommonJS', text: 'Text', buffer: 'Data', 'compiled-wasm': 'CompiledWasm'}).flatMap(([type, rule]) => {const globs = bundle.modules.filter(row => row.type === type).map(row => row.name); return globs.length ? [{type: rule, globs}] : []; }),
     d1_databases: spec.resources.filter(r => r.kind === 'd1').map(r => ({binding: r.binding, database_name: 'delivery-test-db', database_id: '00000000-0000-0000-0000-000000000000', migrations_dir: resolve(output, 'migrations')})),
     r2_buckets: spec.resources.filter(r => r.kind === 'r2').map(r => ({binding: r.binding, bucket_name: 'delivery-test-files'})),
-    queues: {producers: spec.resources.filter(r => r.kind === 'queue').map(r => ({binding: r.binding, queue: 'delivery-test-jobs'})), consumers: spec.queueConsumers.map(r => ({queue: 'delivery-test-jobs', max_batch_size: r.maxBatchSize, max_batch_timeout: r.maxBatchTimeout, max_retries: r.maxRetries}))},
+    queues: {producers: spec.resources.filter(r => r.kind === 'queue').map(r => ({binding: r.binding, queue: 'delivery-test-jobs'})), consumers: queueConsumers.map(r => ({queue: 'delivery-test-jobs', max_batch_size: r.maxBatchSize, max_batch_timeout: r.maxBatchTimeout, max_retries: r.maxRetries}))},
     durable_objects: {bindings: spec.durableObjects.map(r => ({name: r.binding, class_name: r.className}))},
     migrations: spec.durableObjectMigrations.map(r => ({tag: r.tag, new_sqlite_classes: r.newSqliteClasses})),
     triggers: {crons: spec.schedules},
