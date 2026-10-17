@@ -8580,7 +8580,7 @@
       "executable": false
     },
     "tests/e2e/local-outbox.node.test.mts": {
-      "sha256": "72f3d8d22ded55e951fea1e7c46165d824535691edf7f0cd29bb479dc3bf1bbc",
+      "sha256": "17f57106dca4d29bb09b3e96c73a07a5c607450d6abb8569094bb05b1aea9caf",
       "executable": false
     },
     "tests/e2e/mail-runtime.d.mts": {
@@ -8712,7 +8712,7 @@
       "executable": false
     },
     "tests/flagship/content/http.test.ts": {
-      "sha256": "16ff667d220887eac01646f54df8741c573c279a1534984b685bd71f88aaccc1",
+      "sha256": "f6f0eb19554f695222d3945f75231681f2316f47726c0a0500604ecfc4070295",
       "executable": false
     },
     "tests/flagship/content/management.node.test.mts": {
@@ -10396,7 +10396,7 @@
       "executable": false
     },
     "tests/ui/polish/inventory.mjs": {
-      "sha256": "420bf4993ba2b5bd38994f18bd61cc92c9f98e17c0d73142768cdcce212785db",
+      "sha256": "e7c0af96b4a7b1253feb368baada72177036592de30e03f387ed1e8a7b71adc6",
       "executable": false
     },
     "tests/ui/polish/layout.mjs": {
@@ -10420,7 +10420,7 @@
       "executable": false
     },
     "tests/ui/polish/workspace.mjs": {
-      "sha256": "2f3a40469260c1f400aa3f6f5d2a9cf1f68c3c1ec2aab37141a58f26a46b4709",
+      "sha256": "cad2e2d13329df035808949f037da9a6bda9f38ca696edd4335cab33e53ac7f8",
       "executable": false
     },
     "tests/ui/README.md": {

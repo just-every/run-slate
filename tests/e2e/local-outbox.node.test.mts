@@ -86,7 +86,10 @@ test('existing local member signs in through mail after additive migration witho
   const fixture = localMailDatabase();
   try {
     fixture.sql.exec("INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES ('prior','My edited workspace','P','before','before','r'); INSERT INTO members(id,workspace_id,email,display_name,initials,role,is_setup_owner,created_at,updated_at) VALUES ('member','prior','existing@example.com','My name','ME','owner',1,'before','before'); INSERT INTO containers(id,workspace_id,name,visibility,created_at,updated_at,revision_id) VALUES ('container','prior','My documents','open','before','before','r');");
-    const snapshot = () => ['workspaces','members','containers'].map(table=>fixture.sql.prepare(`SELECT * FROM ${table}`).all());
+    const tables = ['workspaces','members','containers'];
+    // Additive migrations may introduce columns; every existing column and row must survive.
+    const columns = tables.map(table=>fixture.sql.prepare(`PRAGMA table_info(${table})`).all().map(column=>`"${column.name}"`).join(','));
+    const snapshot = () => tables.map((table,index)=>fixture.sql.prepare(`SELECT ${columns[index]} FROM ${table} ORDER BY id`).all());
     const before = snapshot(); fixture.migrate();
     const app = routes();
     assert.equal((await requestLink(app,fixture.db,'existing@example.com')).status,200);

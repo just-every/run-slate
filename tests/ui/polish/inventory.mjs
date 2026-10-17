@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 
 const captures = new Map();
 const common = [
-  'spaces-nav', 'space', ...['content','blog','settings','templates','trash','bulk'].map(tab => `space-${tab}`),
+  'spaces-nav', 'space', ...['home','content','blog','settings','templates','trash','bulk'].map(tab => `space-${tab}`),
   'settings', 'settings-portability', 'settings-portability-expanded', 'settings-preferences', 'settings-edit-rows',
   'nav-open', 'nav-create', 'nav-owner', ...['light','dark'].flatMap(theme => [`search-${theme}`, `search-${theme}-cleared`]),
   'addblock-viewport', 'editor-block-actions', 'editor-alignment', 'addblock-lower-edge', 'addblock-empty-caret',
