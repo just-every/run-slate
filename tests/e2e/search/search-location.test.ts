@@ -9,7 +9,7 @@ test('unsubmitted search stays distinct from an explicitly empty search', () => 
 });
 
 test('submitted search round-trips text and every available refinement', () => {
-  const refinements = {containerId:'space/1', contributorId:'member+2', status:'Needs review', updatedFrom:'2026-10-01', updatedTo:'2026-10-02', includeTrashed:true};
+  const refinements = {...emptyRefinements, label:'launch', sort:'views', containerId:'space/1', contributorId:'member+2', status:'Needs review', updatedFrom:'2026-10-01', updatedTo:'2026-10-02', includeTrashed:true};
   const query = 'R&D / escalation + owner?';
   const restored = searchLocation(`?${submittedSearch(query, 'page', true, refinements)}`);
   assert.deepEqual(restored, {query, submitted:query, kind:'page', archived:true, refinements});

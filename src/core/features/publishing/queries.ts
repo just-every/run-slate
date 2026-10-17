@@ -1,3 +1,4 @@
+import {publishedSearchMatch} from './query-search';
 import type { BlockView } from '../../shared/api/content';
 import { effectiveStatusSql, latestVerificationSql } from '../page-status/state';
 /**
@@ -10,16 +11,19 @@ export async function publicQueries(db: D1Database, exposure: Record<string, any
     if (block.blockType !== 'content-query')
         continue;
     const definition = (block.content as any).definition ?? {};
-    const rows = (await db.prepare(`SELECT p.id,p.parent_page_id,p.updated_at,r.properties_json,e.host,e.slug FROM pages p JOIN public_exposures e ON e.page_id=p.id JOIN page_revisions r ON r.id=p.published_revision_id JOIN containers c ON c.id=p.container_id JOIN workspaces w ON w.id=p.workspace_id WHERE p.workspace_id=? AND p.deleted_at IS NULL AND p.trashed_at IS NULL AND p.archived_at IS NULL AND p.lifecycle IN ('live','live-with-unpublished-changes') AND e.revoked_at IS NULL AND c.public_link_access='allowed' AND c.anonymous_access='allowed' AND w.public_link_access='allowed' AND w.anonymous_access='allowed' AND (? IS NULL OR p.container_id=?) AND (? IS NULL OR p.page_kind=?) AND (? IS NULL OR ${publicStatus}=?) ORDER BY p.updated_at DESC LIMIT 100`).bind(exposure.workspace_id, definition.container ?? null, definition.container ?? null, definition.pageType ?? null, definition.pageType ?? null, definition.status ?? null, now, now, definition.status ?? null).all<{
+    const rows = (await db.prepare(`SELECT p.id,p.parent_page_id,p.published_revision_id,r.created_at AS updated_at,r.properties_json,r.body_json,p.container_id,c.name AS container_name,c.key AS container_key,p.page_kind,e.host,e.slug FROM pages p JOIN public_exposures e ON e.page_id=p.id JOIN page_revisions r ON r.id=p.published_revision_id JOIN containers c ON c.id=p.container_id JOIN workspaces w ON w.id=p.workspace_id WHERE p.workspace_id=? AND p.deleted_at IS NULL AND p.trashed_at IS NULL AND p.archived_at IS NULL AND p.lifecycle IN ('live','live-with-unpublished-changes') AND e.revoked_at IS NULL AND c.public_link_access='allowed' AND c.anonymous_access='allowed' AND w.public_link_access='allowed' AND w.anonymous_access='allowed' AND (? IS NULL OR p.container_id=?) AND (? IS NULL OR p.page_kind=?) AND (? IS NULL OR ${publicStatus}=?) ORDER BY r.created_at DESC,p.id`).bind(exposure.workspace_id, definition.container ?? null, definition.container ?? null, definition.pageType ?? null, definition.pageType ?? null, definition.status ?? null, now, now, definition.status ?? null).all<{
         id: string;
         parent_page_id: string | null;
         updated_at: string;
         properties_json: string;
+        published_revision_id:string;body_json:string;container_id:string;container_name:string;container_key:string|null;page_kind:string;
         host: string;
         slug: string;
     }>()).results;
     const visible = [];
     for (const row of rows) {
+        if(definition.label&&!JSON.parse(row.properties_json).labels?.some((label:string)=>label.toLocaleLowerCase()===definition.label.toLocaleLowerCase()))continue;
+        if(definition.search&&!await publishedSearchMatch(db,row,definition.search,now))continue;
         if (definition.contributor && !await db.prepare('SELECT 1 FROM page_contributors WHERE page_id=? AND member_id=?').bind(row.id, definition.contributor).first())
             continue;
         if (definition.dateRange) {

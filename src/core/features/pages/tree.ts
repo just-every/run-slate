@@ -13,7 +13,8 @@ import { createPage, readPage, destination, prepareCreatePage } from './service'
 import type { PageRow } from './types';
 import { validatePlacement, prepareOrder, treeTopologyGuard, destinationGuards, type MovePlacement } from './tree-order';
 export async function descendants(ctx: FeatureContext, id: string) { return (await ctx.db.prepare('WITH RECURSIVE tree(id) AS (SELECT id FROM pages WHERE id=? AND workspace_id=? UNION SELECT p.id FROM pages p JOIN tree t ON p.parent_page_id=t.id WHERE p.deleted_at IS NULL) SELECT p.* FROM pages p JOIN tree t ON t.id=p.id').bind(id, ctx.actor.workspaceId).all<PageRow>()).results; }
-export async function listPages(ctx: FeatureContext, containerId?: string) {
+export async function listPages(ctx: FeatureContext, containerId?: string, label?:string) {
+    if(label&&label.length>80)throw new ApiProblem(400,'INVALID_LABEL','Use a label of at most 80 characters.');
     const subject = await currentSubject(ctx);
     const [profile, result] = await Promise.all([
         contentPolicy(ctx),
@@ -21,6 +22,9 @@ export async function listPages(ctx: FeatureContext, containerId?: string) {
             .bind(ctx.actor.workspaceId, containerId ?? null, containerId ?? null).all<PageRow & {containerLabel:string|null;publishedRevision:string|null;publishedProperties:string|null}>()
     ]);
     const rows = result.results;
+    const labels=new Map<string,string[]>();
+    const storedLabels=await ctx.db.prepare('SELECT l.page_id,l.label FROM page_labels l JOIN pages p ON p.id=l.page_id WHERE p.workspace_id=? AND (? IS NULL OR p.container_id=?) ORDER BY l.label').bind(ctx.actor.workspaceId,containerId??null,containerId??null).all<{page_id:string;label:string}>();
+    for(const row of storedLabels.results)labels.set(row.page_id,[...(labels.get(row.page_id)??[]),row.label]);
     const candidates = rows.filter(p => !(profile['record.page-parity.v1'] === 'record-is-row' && p.page_kind === 'record'));
     const [schedules, accesses] = await Promise.all([
         authorScheduleProjections(ctx, rows.map(p => p.id)),
@@ -30,14 +34,16 @@ export async function listPages(ctx: FeatureContext, containerId?: string) {
     for (const p of candidates) {
         const access = accesses.get(p.id)?.decision;
         if (!access?.allowed) continue;
-        let title = p.title, icon = p.icon;
+        let title = p.title, icon = p.icon, visibleLabels=labels.get(p.id)??[];
         if ((access.level === 'view' || access.level === 'comment') && p.published_revision_id && p.published_revision_id !== p.working_revision_id) {
             if (!p.publishedRevision) throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
             const props = JSON.parse(p.publishedProperties!);
             title = props.title;
             icon = props.icon;
+            visibleLabels=props.labels??[];
         }
-        out.push({ ...ref(p), ...schedules.get(p.id), title, icon, parentPageId: p.parent_page_id, treePosition: p.tree_position, pageKind: p.page_kind, containerLabel: p.containerLabel ?? '', permissions: { level: access.level!, canEdit: access.level === 'edit' || access.level === 'full' } });
+        if(label&&!visibleLabels.some(value=>value.toLocaleLowerCase()===label.toLocaleLowerCase()))continue;
+        out.push({ ...ref(p), ...schedules.get(p.id), title, icon, labels:visibleLabels, parentPageId: p.parent_page_id, treePosition: p.tree_position, pageKind: p.page_kind, containerLabel: p.containerLabel ?? '', permissions: { level: access.level!, canEdit: access.level === 'edit' || access.level === 'full' } });
     }
     return { items: out };
 }

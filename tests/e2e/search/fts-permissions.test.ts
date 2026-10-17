@@ -1,11 +1,13 @@
 import { env } from 'cloudflare:test';
 import { test,expect } from 'vitest';
 import { searchFixture } from './route-fixture';
+import {discoveryJourney} from './discovery-journey';
 
 test('Indexed search uses current native authority for literal matches, totals, facets and cursors',async()=>{
  const f=await searchFixture(env.DB),{sql,page,find,now}=f;
  type Document={id:string;title:string;body:string;container:string;status:string|null};
  type Row={actor:string;name:string;query:string;visible:Document[];filters?:Record<string,string>;total?:number;facetsFrom?:Document[]};
+ await discoveryJourney(f);
  const documents:Document[]=[];
  const seed=async(id:string,title:string,body:string,options:Parameters<typeof page>[2]={})=>{
   await page(id,body,{...options,title});
@@ -55,7 +57,7 @@ test('Indexed search uses current native authority for literal matches, totals, 
   cases.push({name:`trashed ${combination}`,document:trashed,allowed:includeTrashed?shared:[],filters});
  }
  const rows:Row[]=cases.flatMap(({name,document,allowed,filters})=>
-  actors.flatMap(actor=>[document.title,document.body].map(query=>({actor,name,query,filters,visible:allowed.includes(actor)?[document]:[]}))));
+  actors.flatMap(actor=>[document.title,document.body].map(query=>({actor,name,query:query===document.body?'"'+query+'"':query,filters,visible:allowed.includes(actor)?[document]:[]}))));
  // Combined matches prove exact totals and facet counts, including two statuses.
  for(const actor of actors)for(const query of ['TitleUnique','BodyUnique'])rows.push({actor,name:'combined matches',query,visible:shared.includes(actor)?[alpha,beta]:[]});
  const assertRow=async(row:Row)=>{

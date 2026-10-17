@@ -159,17 +159,18 @@ export function ContainerWorkspace({containerId,embedded}:{containerId?:string;e
 }
 function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
   const resource = useResource<Container>(`/api/containers/${id}`);
-  const pages = useResource<{ items: TreePage[] }>(
+  const pages = useResource<{ items: (TreePage&{labels?:string[]})[] }>(
     `/api/pages?containerId=${id}`,
   );
   const [query, setQuery] = useState("");
+  const [label,setLabel]=useState('');
   const creation = useCreatePage();
   const [exporting,setExporting]=useState(false);
   const [tab,setTab]=useState("content");
   const available = pages.data?.items ?? [];
   const matched = new Set(
     available
-      .filter((page) => page.title.toLowerCase().includes(query.toLowerCase()))
+      .filter((page) => page.title.toLowerCase().includes(query.toLowerCase())&&(!label||page.labels?.some(value=>value.toLocaleLowerCase()===label.toLocaleLowerCase())))
       .map((page) => page.id),
   );
   for (const page of available) {
@@ -204,7 +205,9 @@ function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
               onChange={(event) => setQuery(event.target.value)}
             />
           </label>
-          {query?<button className="secondary-button" onClick={()=>setQuery("")}>Clear page filter</button>:null}<PageTree pages={available.filter((page) => matched.has(page.id))} />
+          <label>Filter labels<input type="search" value={label} list={`space-labels-${id}`} onChange={event=>setLabel(event.target.value)}/></label>
+          <datalist id={`space-labels-${id}`}>{[...new Set(available.flatMap(page=>page.labels??[]))].sort().map(value=><option key={value} value={value}/>)}</datalist>
+          {query||label?<button className="secondary-button" onClick={()=>{setQuery("");setLabel('');}}>Clear page filter</button>:null}<PageTree pages={available.filter((page) => matched.has(page.id))} />
           <button className="secondary-button" aria-busy={creation.pending||undefined} onClick={()=>void creation.create(async()=>({containerId:id,title:DEFAULT_PAGE_TITLE}))}>Create page in this space</button>
           {creation.error?<p role="alert">{errorMessage(creation.error)}</p>:null}
           </>:null}

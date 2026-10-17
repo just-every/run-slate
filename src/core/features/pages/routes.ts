@@ -1,4 +1,5 @@
 import { pageDetails } from './details';
+import { pageLinkCard } from './link-card';
 import { openPage } from './open';
 import { pageOpenStatements } from '../analytics/service';
 import { validatedJson, createPageSchema, updatePageSchema, updateBlockSchema, replaceBlocksSchema } from './input';
@@ -26,12 +27,13 @@ export function createPagesRoutes() {
         const b = await c.req.json();
         return c.json(await previewLink(b.url, publicPreviewTransport));
     });
-    r.get('/', async (c) => c.json(await listPages(featureContext(c), c.req.query('containerId'))));
+    r.get('/', async (c) => c.json(await listPages(featureContext(c), c.req.query('containerId'),c.req.query('label'))));
     r.post('/', async (c) => c.json(await createPage(featureContext(c), await validatedJson(c, createPageSchema))));
     r.post('/:id/query', async (c) => c.json(await contentQuery(featureContext(c), c.req.param('id'), await c.req.json())));
     r.get('/:id/expansion', async (c) => c.json(await treeExpansion(featureContext(c), c.req.param('id'))));
     r.post('/:id/expansion', async (c) => c.json(await treeExpansion(featureContext(c), c.req.param('id'), await c.req.json())));
     r.get('/:id/details',async c=>c.json(await pageDetails(featureContext(c),c.req.param('id'),c.get('runtimeConfig')?.appUrl)));
+    r.get('/:id/link-card',async c=>c.json(await pageLinkCard(featureContext(c),c.req.param('id'),c.req.query('revision'))));
     r.get('/:id', async (c) => c.json(await readPage(featureContext(c), c.req.param('id'))));
     r.patch('/:id', async (c) => { const ctx=featureContext(c),id=c.req.param('id'); const result=await updatePage(ctx,id,await validatedJson(c,updatePageSchema)); return c.json({...result,document:await readPage(ctx,id)}); });
     r.patch('/:id/blocks/:blockId', async (c) => c.json(await updateBlock(featureContext(c), c.req.param('id'), c.req.param('blockId'), await validatedJson(c, updateBlockSchema))));

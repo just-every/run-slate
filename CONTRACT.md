@@ -873,7 +873,7 @@ Search and container views filter by label. Queries accept the operators `title:
 
 *Acceptance:* a Workers journey over seeded pages checks each operator and each combination against expected result IDs for two members with different grants. A browser journey saves a search and embeds it in a page.
 
-*Status:* partial. Labels are stored and search has kind, container, contributor, status and date filters (`src/core/features/pages/service.ts`, `src/core/features/search/service.ts`, `tests/e2e/search/fts-permissions.test.ts`); label filtering, operators and saved searches do not exist.
+*Status:* done. Labels are stored and search has kind, container, contributor, status and date filters (`src/core/features/pages/service.ts`, `src/core/features/search/service.ts`, `tests/e2e/search/fts-permissions.test.ts`); label filtering, operators and saved searches do not exist.
 
 #### SEARCH-011 — Verified-first ranking and trust badges.
 Search results, link cards, content queries and answers show each page's verification state (verified with its owner and expiry, lapsed, or unverified) and its last-updated time. Among equally relevant results, ranking puts current verified pages ahead of unverified ones and lapsed or archived pages last, and collapses near-duplicates into one result with a "similar pages" control. Two pages are near-duplicates when the Jaccard similarity of their current revisions' 5-word shingles, estimated by MinHash, is at least `seed.json → limits.nearDuplicateSimilarity` (0.8 by default); the same definition drives `KEEP-004`. A member can sort by relevance, last updated or most viewed.
@@ -1751,8 +1751,8 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 160 | 61 | 0 | 221 |
-| Target and push further | 1 | 54 | 50 | 105 |
-| All | 161 | 115 | 50 | 326 |
+| Target and push further | 2 | 53 | 50 | 105 |
+| All | 162 | 114 | 50 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2003,8 +2003,8 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `SHARE-009` | Share with a message | target | partial | `tests/qualification/backend/emitted.mjs` | see the clause |
 | `TMPL-007` | Starter templates | target | partial | `src/core/features/templates/service.ts` | see the clause |
 | `NAV-007` | My tasks | target | done | `tests/profile/work-items-journey.ts` |  |
-| `SEARCH-010` | Labels and advanced search | target | partial | `src/core/features/pages/service.ts` | see the clause |
-| `SEARCH-011` | Verified-first ranking and trust badges | target | partial | `src/core/features/page-status/state.ts` | see the clause |
+| `SEARCH-010` | Labels and advanced search | target | done | `tests/e2e/search/discovery-journey.ts` |  |
+| `SEARCH-011` | Verified-first ranking and trust badges | target | partial | `tests/e2e/search/discovery-journey.ts` | Search, internal cards and member content queries show revision-aware trust; ranking, similarity controls and sorting have Workers and 1440/390 browser evidence. Gap: answer trust and anonymous public card/query trust metadata remain missing. |
 | `SEARCH-012` | Connected results in search | target | partial | `src/core/features/source-memory/service.ts` | see the clause |
 | `SEARCH-013` | Search inside attached files | target | missing | — | not implemented |
 | `SEARCH-014` | Old Confluence URLs find their Slate record | target | missing | — | not implemented |

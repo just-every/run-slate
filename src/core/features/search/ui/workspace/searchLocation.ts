@@ -7,7 +7,7 @@ export function searchLocation(search:string){
   kind:params.get('kind')??'',archived:params.get('includeArchived')==='true',
   refinements:{...emptyRefinements,
    containerId:params.get('containerId')??'',contributorId:params.get('contributorId')??'',
-   status:params.get('status')??'',updatedFrom:params.get('updatedFrom')??'',updatedTo:params.get('updatedTo')??'',
+   status:params.get('status')??'',label:params.get('label')??'',sort:params.get('sort')??'',updatedFrom:params.get('updatedFrom')??'',updatedTo:params.get('updatedTo')??'',
    includeTrashed:params.get('includeTrashed')==='true'}};
 }
 

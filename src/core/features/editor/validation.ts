@@ -1,3 +1,4 @@
+import {contentQueryDefinitionSchema} from './query-definition';
 import { validDate } from '../work-items/time';
 import { contentLimits } from './limits';
 import { z } from 'zod';
@@ -23,7 +24,7 @@ const schemas: Record<string, z.ZodType> = {
     code: z.object({ language: z.string(), languages: z.array(z.string()).optional(), code: z.string() }), task: z.object({ text: rich, done: z.boolean(), assigneeMemberId: z.string().min(1).max(160).nullable().optional(), dueDate: z.string().refine(validDate).nullable().optional(), creatorMemberId: z.string().nullable().optional(), completedBy: z.unknown().optional(), completedAtLabel: z.string().optional(), completedByMemberId: z.string().nullable().optional(), completedAt: z.string().nullable().optional() }),
     media: z.object({ kind: z.enum(['image', 'video', 'audio', 'file']), source: z.object({ url: z.string().refine(safeUrl), name: z.string(), fileId: z.string().optional(), sizeLabel: z.string().optional(), contentType: z.string().optional() }).nullable(), caption: z.string(), alt: z.string() }),
     'link-card': z.object({ url: z.string().refine(safeUrl), display: z.enum(['plain', 'inline', 'card']), previewState: z.enum(['ready', 'loading', 'refused', 'failed']), preview: z.object({ title: z.string(), description: z.string().optional(), siteName: z.string().optional(), iconLabel: z.string().optional() }).optional(), previewMessage: z.string().optional() }),
-    'content-query': z.object({ definition: z.object({ container: z.string().optional(), ancestor: z.string().optional(), pageType: z.string().optional(), status: z.string().optional(), contributor: z.string().optional(), dateRange: z.string().optional(), orderBy: z.string().optional(), limit: z.number().int().min(1).max(100).optional() }) }),
+    'content-query': z.object({definition:contentQueryDefinitionSchema}),
 };
 export function validateBlockContent(type: string, content: JsonValue): JsonValue {
     const schema = schemas[type];

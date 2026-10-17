@@ -1,3 +1,5 @@
+import type {EmbeddedSearchQuery} from '../../../shared/knowledge/search-definition';
+import type {PageTrust} from '../../search/trust-types';
 /**
  * The typed shape of a page body (`BLOCK-001`). These are view types only: the
  * editor components render what they are handed and report every change back
@@ -167,6 +169,9 @@ export interface LinkCardBlockData extends BlockBase {
 }
 
 export interface ContentQueryDefinition {
+  search?: EmbeddedSearchQuery;
+  searchName?: string;
+  label?: string;
   container?: string;
   ancestor?: string;
   pageType?: string;
@@ -183,6 +188,7 @@ export interface ContentQueryResult {
   typeLabel: string;
   containerLabel: string;
   description?: string;
+  trust?: PageTrust;
 }
 
 export interface ContentQueryBlockData extends BlockBase {

@@ -10,6 +10,7 @@ import {
 } from "../../../../ui";
 import { knowledgeNoun } from "../../../../shared/knowledge/vocabulary";
 import type { BlockRenderProps, ContentQueryBlockData, ContentQueryDefinition } from "../types";
+import {TrustBadge} from '../../../search/ui/TrustBadge';
 
 function capitalise(word: string): string {
   return word.charAt(0).toUpperCase() + word.slice(1);
@@ -17,6 +18,8 @@ function capitalise(word: string): string {
 
 export function describeQuery(definition: ContentQueryDefinition): string {
   const parts = [
+    definition.search ? `saved search ${definition.searchName??definition.search.query}` : null,
+    definition.label ? `label ${definition.label}` : null,
     definition.container ? `in ${knowledgeNoun("container")} ${definition.container}` : null,
     definition.ancestor ? `under ${definition.ancestor}` : null,
     definition.pageType ? `type ${definition.pageType}` : null,
@@ -62,7 +65,7 @@ export function ContentQueryBlock({ block, canEdit, actions }: BlockRenderProps<
         </p>
       ) : (
         <div className="overflow-x-auto">
-          <Table>
+          <Table className="min-w-[40rem]">
             <TableHeader>
               <TableRow>
                 <TableHead scope="col">Type</TableHead>
@@ -80,7 +83,7 @@ export function ContentQueryBlock({ block, canEdit, actions }: BlockRenderProps<
                       {result.typeLabel}
                     </span>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="min-w-64">
                     <button
                       className="text-left text-accent underline-offset-2 hover:underline"
                       onClick={() => actions?.onOpenQueryResult?.(result.id)}
@@ -88,6 +91,7 @@ export function ContentQueryBlock({ block, canEdit, actions }: BlockRenderProps<
                     >
                       {result.title}
                     </button>
+                    {result.trust?<TrustBadge trust={result.trust}/>:null}
                   </TableCell>
                   <TableCell className="text-ink-muted">{result.containerLabel}</TableCell>
                   <TableCell className="max-w-80 truncate text-ink-muted">{result.description}</TableCell>

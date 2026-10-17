@@ -202,6 +202,8 @@ const plannedClauses: ReadonlyArray<readonly [string, string]> = [
   ['BLOCK-015', 'Assigned tasks with due dates'],
   ['NAV-007', 'My tasks'],
   ['NOTIF-004', 'Reminders'],
+  ['SEARCH-010', 'Labels and advanced search'],
+  ['SEARCH-011', 'Verified-first ranking and trust badges'],
 ];
 
 for (const [id, name] of plannedClauses) contract.todo(id, name);

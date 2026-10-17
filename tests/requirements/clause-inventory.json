@@ -3161,6 +3161,20 @@
       "status": "unproven",
       "unmetReason": "Default-profile public HTTP task/reminder support and browser journeys implement Reminders. Independent requirement acceptance remains unproven; dependent email, push and public MCP delivery remain outside this round.",
       "supportingTests": []
+    },
+    {
+      "id": "SEARCH-010",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Public HTTP operator, permission, saved-query, trust and duplicate grouping journeys support implementation. Independent requirement acceptance remains unproven.",
+      "supportingTests": []
+    },
+    {
+      "id": "SEARCH-011",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Public HTTP operator, permission, saved-query, trust and duplicate grouping journeys support implementation. Independent requirement acceptance remains unproven.",
+      "supportingTests": []
     }
   ]
 }

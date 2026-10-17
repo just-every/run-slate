@@ -1,5 +1,7 @@
+import {RequestState} from '../../../../app/ui/RequestState';
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import { useResource } from "../../../../client/useResource";
+import type {EmbeddedSearchQuery} from '../../../../shared/knowledge/search-definition';
 import type {
   ContentQueryBlockData,
   ContentQueryDefinition,
@@ -24,7 +26,8 @@ export function ContentQueryDialog({
     ),
     statuses = useResource<{ items: { key: string; label: string }[] }>(
       "/api/status",
-    );
+    ),
+    saved=useResource<{items:{id:string;name:string;query:EmbeddedSearchQuery}[]}>('/api/search/saved');
   return (
     <ActionDialog
       title="Edit content query"
@@ -32,6 +35,16 @@ export function ContentQueryDialog({
       onClose={onClose}
       onSubmit={async (data) => {
         const definition: ContentQueryDefinition = {};
+        const savedId=String(data.get('savedSearch')??'');
+        if(savedId==='embedded') {
+          definition.search=block.definition.search;
+          definition.searchName=block.definition.searchName;
+        } else if(savedId) {
+          const choice=saved.data?.items.find(item=>item.id===savedId);
+          if(!choice)throw new Error('This saved search is unavailable. Choose it again.');
+          definition.search=choice.query;
+          definition.searchName=choice.name;
+        }
         for (const key of [
           "container",
           "ancestor",
@@ -39,6 +52,7 @@ export function ContentQueryDialog({
           "status",
           "contributor",
           "orderBy",
+          "label",
         ] as const) {
           const value = String(data.get(key) ?? "");
           if (value) definition[key] = value;
@@ -54,6 +68,13 @@ export function ContentQueryDialog({
         await onSave(definition);
       }}
     >
+      <RequestState loading={saved.loading} error={saved.error} retry={saved.reload}><label>Saved search<select aria-label="Saved search" name="savedSearch" defaultValue={block.definition.search?'embedded':''}>
+        <option value="">Use the filters below</option>
+        {block.definition.search?<option value="embedded">{block.definition.searchName??'Embedded search'} (current criteria)</option>:null}
+        {saved.data?.items.map(item=><option key={item.id} value={item.id}>{item.name}</option>)}
+      </select></label></RequestState>
+      <p>This embeds a copy of the search criteria. Each reader sees only pages they can read.</p>
+      <label>Label<input name="label" defaultValue={block.definition.label??''}/></label>
       <label>
         Space
         <select
@@ -147,8 +168,9 @@ export function ContentQueryDialog({
         <select
           aria-label="Order"
           name="orderBy"
-          defaultValue={block.definition.orderBy ?? "updated"}
+          defaultValue={block.definition.orderBy ?? "search"}
         >
+          <option value="search">Saved search order, or recently updated</option>
           <option value="updated">Recently updated</option>
           <option value="title">Title</option>
         </select>

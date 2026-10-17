@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type {PageTrust} from "../../../search/trust-types";
 import { request, ApiError, errorMessage } from "../../../../client/transport";
 import type {
   EditorBlock,
@@ -34,7 +35,7 @@ export function useContentQueries(pageId: string, blocks: EditorBlock[]) {
               items: { id: string; containerLabel: string; pageKind: string }[];
             }>("/api/pages");
             const response = await request<{
-              items: { id: string; title: string; containerId: string }[];
+              items: { id: string; title: string; containerId: string; trust?:PageTrust }[];
               ranAt: string;
             }>(`/api/pages/${pageId}/query`, {
               method: "POST",
@@ -48,6 +49,7 @@ export function useContentQueries(pageId: string, blocks: EditorBlock[]) {
                   results: response.items.map((item) => ({
                     id: item.id,
                     title: item.title,
+                    trust: item.trust,
                     typeLabel:
                       labels.items.find((page) => page.id === item.id)
                         ?.pageKind === "record"

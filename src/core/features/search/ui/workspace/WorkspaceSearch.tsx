@@ -1,5 +1,4 @@
-import {HighlightedText} from "./SearchHighlight";
-import {formatSearchSnippet} from "./formatSearchSnippet";
+import {SearchResults,type SearchResultView} from "./SearchResults";
 import {TopBar} from "../../../../app/ui/header/TopBar";
 import {PageTitle} from "../../../../app/ui/header/PageTitle";
 import {RetainedSearchAnswer} from "./RetainedSearchAnswer";
@@ -8,26 +7,16 @@ import {useInferredSpace} from "../../../../app/ui/useInferredSpace";
 import {DEFAULT_PAGE_TITLE,type SpaceChoice} from "../../../../app/ui/pageDestination";
 import {SearchRefinements,emptyRefinements} from "./SearchRefinements";
 import {SavedSearches} from "./SavedSearches";
+import {SaveSearchDialog} from "./SaveSearchDialog";
 import { useEffect, useRef, useState } from "react";
 import {searchLocation,submittedSearch} from "./searchLocation";
 import { useResource } from "../../../../client/useResource";
 import { RequestState } from "../../../../app/ui/RequestState";
 import {
-  mutate,
-  operationKey,
   errorMessage,
 } from "../../../../client/transport";
-interface Result {
-  id: string;
-  title: string;
-  snippet: string;
-  kind: string;
-  href: string;
-  highlights:string[];
-  updatedAt: string;
-}
 interface Results {
-  items: Result[];
+  items: SearchResultView[];
   total: number;
   nextCursor?: string;
   facets: { kind: Record<string, number> };
@@ -38,6 +27,7 @@ export function WorkspaceSearch() {
   const queryInput=useRef<HTMLInputElement>(null);
   const [refinements,setRefinements]=useState(initial.refinements);
   const [savedVersion,setSavedVersion]=useState(0);
+  const [saving,setSaving]=useState(false);
   const extra=new URLSearchParams(Object.entries(refinements).filter(([,value])=>value!==""&&value!==false).map(([key,value])=>[key,String(value)])).toString();
   const creation=useCreatePage();
   const spaces=useResource<{items:SpaceChoice[]}>("/api/containers");
@@ -93,6 +83,7 @@ export function WorkspaceSearch() {
             Search
           </button>
         </form>
+        <details className="search-language-help"><summary>Search tips</summary><p>Use a quoted phrase or combine terms with AND, OR and a minus sign to exclude a term.</p><p><code>label:launch AND verified:current</code></p><p>Fields: title, label, in (space), by (contributor), owner, status, verified, before, after and type. Use a colon after the field, such as <code>title:"release checklist"</code>.</p></details>
         <RequestState
           loading={resource.loading}
           error={resource.error}
@@ -108,19 +99,7 @@ export function WorkspaceSearch() {
               {resource.data.items.length === 0 ? (
                 <section className="search-empty"><p>No matches for “{submitted}”.</p><p>Filters: {[kind,archived?"Including archive":"",...Object.entries(refinements).filter(([,value])=>value!==""&&value!==false).map(([key,value])=>`${key}: ${value}`)].filter(Boolean).join(" · ") || "None"}</p>{kind || archived || Object.values(refinements).some(value => value !== "" && value !== false) ? <button className="secondary-button" onClick={()=>{setKind("");setArchived(false);setRefinements(emptyRefinements);setCursor(undefined);}}>Clear all filters</button> : null}<button className="primary-button" aria-busy={creation.pending||undefined} onClick={()=>{const title=submitted||DEFAULT_PAGE_TITLE;void creation.create(async()=>({containerId:(await destination.resolve())?.id??null,title}));}}>Create a page titled “{submitted}”</button></section>
               ) : (
-                <ul className="search-results">
-                  {resource.data.items.map((result) => (
-                    <li key={`${result.kind}:${result.id}`}>
-                      <a href={`${result.href}${result.href.includes("?")?"&":"?"}${new URLSearchParams(result.highlights.map(term=>["highlight",term])).toString()}`}>
-                        <span className="eyebrow">
-                          {({page:"Page",record:"Record",container:"Space",template:"Template","comment-thread":"Comment"} as Record<string,string>)[result.kind] ?? result.kind}
-                        </span>
-                        <h2>{result.kind === "comment-thread" ? "Comment on " : ""}<HighlightedText text={result.title} terms={result.highlights}/></h2>
-                        <p><HighlightedText text={formatSearchSnippet(result.snippet)} terms={result.highlights}/></p>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                <SearchResults items={resource.data.items}/>
               )}
               {resource.data.nextCursor ? (
                 <button
@@ -133,18 +112,7 @@ export function WorkspaceSearch() {
               <button
                 type="button"
                 className="secondary-button"
-                onClick={() => {
-                  void mutate("/api/search/saved", {
-                    operationKey: operationKey(),
-                    name: submitted || "All accessible content",
-                    query: {
-                      ...Object.fromEntries(Object.entries(refinements).filter(([,value])=>value!=="")),
-                      query: submitted,
-                      ...(kind ? { kind } : {}),
-                      includeArchived: archived,
-                    },
-                  }).then(()=>setSavedVersion(value=>value+1)).catch(setError);
-                }}
+                onClick={() => setSaving(true)}
               >
                 Save this search
               </button>
@@ -194,6 +162,7 @@ export function WorkspaceSearch() {
         <SearchRefinements disabled={!ready} value={refinements} activeCount={Number(Boolean(kind))+Number(archived)} onChange={value=>{setRefinements(value);setCursor(undefined);}} />
         <SavedSearches version={savedVersion} onChoose={value=>{setQuery(value.query??"");setSubmitted(value.query??"");setKind(value.kind??"");setArchived(value.includeArchived??false);setRefinements({...emptyRefinements,...value});setCursor(undefined);}}/>
         </details>
+        {saving?<SaveSearchDialog query={{...Object.fromEntries(Object.entries(refinements).filter(([,value])=>value!=="")),query:submitted??"",...(kind?{kind}:{}),includeArchived:archived}} onClose={()=>setSaving(false)} onSaved={()=>setSavedVersion(value=>value+1)}/>:null}
         {creation.prompt}
         {creation.error ? <p role="alert">{errorMessage(creation.error)}</p> : null}
         {error ? <p role="alert">{errorMessage(error)}</p> : null}
