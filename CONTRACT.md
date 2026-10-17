@@ -191,12 +191,18 @@ roles, groups, scoped guests and the `slate_session` cookie are unchanged.
   `oa_owner_signins` (SHA-256 of the token only; 15-minute expiry) for the owner
   it finds by email in `oa_operators`, a read-only view of the workspace's
   `members` and `member_authority` (migration 0034; not a ledger, nothing writes
-  it). `/auth/owner-signin` exists only on a Worker holding `RER_PREVIEW_TOKEN`,
-  which RER gives preview Workers alone; elsewhere it answers 404. GET shows the
-  confirmation and writes nothing; its same-origin POST consumes the grant and
-  issues a native session in one D1 batch that rechecks the grant is unconsumed,
+  it). `/auth/owner-signin` honours a grant only on a preview Worker, which RER
+  marks with the plain binding `RER_PREVIEW=true` (earlier releases: a
+  `RER_PREVIEW_TOKEN` secret, read the same way). GET shows the confirmation
+  and writes nothing; its same-origin POST consumes the grant and issues a
+  native session in one D1 batch that rechecks the grant is unconsumed,
   unexpired, at most 15 minutes out and names the active owner at its authority
-  version. A used, expired or other-member grant gets the invalid-link page.
+  version. Amended 18 October 2026: a grant that cannot be used (missing,
+  malformed, used, expired, another member's, or opened on a Worker that is not
+  a preview) is answered with a 303 to `/signin?owner_link=1`, never an error
+  body; it issues no session and leaves the grant as it was. The redirect adds
+  `login_hint` with the grant's member email only when the token matches a
+  stored grant, so a visitor without one learns no address.
   The grant table is excluded from archives. Evidence:
   `tests/flagship/core/preview-owner-signin.test.ts`.
 - **Dev identity (SC-05).** The local-only entry `src/dev/server.ts` serves

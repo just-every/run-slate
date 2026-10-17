@@ -20,26 +20,49 @@ const LIVE = `g.token_hash=? AND g.consumed_at IS NULL AND g.expires_at>? AND g.
 const live = async (token: string, now: number) => [await ownerSigninDigest(token), now, now + OWNER_SIGNIN_SECONDS * 1000] as const;
 
 /**
+ * A grant's owner email whatever its state, so a token holder whose grant cannot
+ * be used is sent to sign-in with their address filled in. Without a token
+ * nothing is looked up: an anonymous visitor never learns the owner's address.
+ */
+async function grantEmail(db: D1Database, token: unknown): Promise<string | undefined> {
+  if (typeof token !== 'string' || !validToken(token)) return undefined;
+  const row = await db.prepare('SELECT m.email FROM oa_owner_signins g JOIN members m ON m.id=g.operator_id WHERE g.token_hash=?').bind(await ownerSigninDigest(token)).first<{ email: string }>();
+  return row?.email;
+}
+
+/** Slate's sign-in page, saying the owner link no longer works and prefilled with the grant's email when known. */
+async function signInInstead(db: D1Database, token: unknown): Promise<Response> {
+  const email = await grantEmail(db, token);
+  const search = new URLSearchParams({ owner_link: '1', ...(email ? { login_hint: email } : {}) });
+  return new Response(null, { status: 303, headers: { Location: `/signin?${search}`, 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' } });
+}
+
+/** RER marks a preview Worker with RER_PREVIEW=true (or, earlier, a RER_PREVIEW_TOKEN secret); a live Worker has neither. */
+const isPreviewWorker = (env: Pick<AppBindings, 'RER_PREVIEW' | 'RER_PREVIEW_TOKEN'>) => env.RER_PREVIEW === 'true' || Boolean(env.RER_PREVIEW_TOKEN);
+
+/**
  * The owner's entry into a Managed preview (Base's /auth/owner-signin, native):
  * RER writes one single-use grant into the preview's own database and opens
  * this path with its token. GET shows the confirmation and writes nothing; its
  * POST consumes the grant and issues the owner's native session in one batch.
- * Only a preview Worker holds RER_PREVIEW_TOKEN; anywhere else the path does not exist.
+ * Only a preview Worker honours a grant. A grant that cannot be used (missing,
+ * used, expired, another member's, or opened on a Worker that is not a preview)
+ * sends the person to Slate's sign-in page instead, never to an error body.
  */
 export async function previewOwnerSignIn(request: Request, env: AppBindings, config: RuntimeConfig, branding: { productName: string; accentColor: string; signInPath: string; theme: string }): Promise<Response> {
-  if (!env.RER_PREVIEW_TOKEN) return Response.json({ error: 'not_found' }, { status: 404 });
-  const db = env.DB, invalid = () => confirmationResponse({ branding, preview: null, token: '', method: request.method });
+  const db = env.DB;
   if (request.method === 'GET' || request.method === 'HEAD') {
     const token = new URL(request.url).searchParams.get('token');
-    if (!validToken(token)) return invalid();
+    if (!isPreviewWorker(env) || !validToken(token)) return signInInstead(db, token);
     const now = Date.now();
     const grant = await db.prepare(`SELECT g.expires_at AS expiresAt FROM oa_owner_signins g JOIN members m ON m.id=g.operator_id WHERE ${LIVE}`).bind(...await live(token, now)).first<{ expiresAt: number }>();
-    const preview = grant ? { kind: 'owner' as const, expiresInMinutes: Math.max(1, Math.ceil((grant.expiresAt - now) / 60000)) } : null;
-    return confirmationResponse({ branding, preview, token: grant ? token : '', method: request.method, action: OWNER_SIGNIN_PATH });
+    if (!grant) return signInInstead(db, token);
+    return confirmationResponse({ branding, preview: { kind: 'owner', expiresInMinutes: Math.max(1, Math.ceil((grant.expiresAt - now) / 60000)) }, token, method: request.method, action: OWNER_SIGNIN_PATH });
   }
   requirePost(request, { origin: new URL(config.appUrl!).origin, local: config.localDevelopment });
   const token = (await request.formData()).get('token');
-  if (typeof token !== 'string' || !validToken(token)) return invalid();
+  const invalid = () => signInInstead(db, token);
+  if (!isPreviewWorker(env) || typeof token !== 'string' || !validToken(token)) return invalid();
   const now = Date.now(), args = await live(token, now);
   const owner = await db.prepare(`SELECT m.id FROM oa_owner_signins g JOIN members m ON m.id=g.operator_id WHERE ${LIVE}`).bind(...args).first<{ id: string }>();
   const store = slateSessions(db, config), person = owner && await store.member('id=?', owner.id);

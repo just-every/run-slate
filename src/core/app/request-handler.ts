@@ -5,6 +5,7 @@ import { isHonoRequest } from "./hono-paths";
 import { operatorDocumentGate } from "./operator-document-gate";
 import { configurationFailureResponse, runtimeConfigFor, assertStoredConfiguration } from "./runtime-gate";
 import { lobbyResponse } from "../../base/runtime/lobby";
+import { managedLobby } from "./managed-lobby";
 import { setupStateResponse } from "../../base/runtime/setup-state";
 import { claimed, identity } from "../../identity";
 import { slateDependencyResponse } from "../features/session/dependencies";
@@ -37,7 +38,7 @@ export async function handleApplicationRequest(request: Request, bindings: AppBi
     const state = await setupStateResponse(request, installation, claimed);
     if (state) return state;
     const lobby = await lobbyResponse(request, installation, identity, claimed);
-    if (lobby) return lobby;
+    if (lobby) return managedLobby(lobby, runtimeConfig);
     const gate = await operatorDocumentGate(request, url, checkedBindings, runtimeConfig);
     if (gate) return gate;
 

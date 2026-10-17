@@ -102,15 +102,17 @@ export async function accessChangeJourney(state, people, width) {
     await bob.page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
     for (const [where, check] of Object.entries(bobSees)) assert.ok(await check(), `Before the change Bob finds the page in ${where}.`);
     if (width === 1440) await expect(bob.page.locator(`aside.sidebar a[href="/app/pages/${pageId}"]`).first()).toBeVisible();
-    const unsent = ` Unsent ${name} ${tag}`, typed = [];
+    const unsent = ` Unsent ${name} ${tag}`;
     await caretAtEnd(bob.page, first);
+    // A key sent as the editor turns read-only never reaches it, so Bob's text is
+    // what his editor took in, not every key the test sent.
+    await bob.page.evaluate(() => { window.slateTyped = ''; document.addEventListener('input', event => { if (event.target instanceof HTMLElement && event.target.isContentEditable) window.slateTyped += event.data ?? ''; }, true); });
     // Bob keeps writing, never pausing long enough to save, until his editor stops taking text.
     let stop = false;
     const typing = (async () => {
       for (const key of unsent.repeat(4)) {
         if (stop || !(await editable(bob.page, first).count())) break;
         await bob.page.keyboard.type(key);
-        typed.push(key);
         await bob.page.waitForTimeout(200);
       }
     })();
@@ -132,9 +134,11 @@ export async function accessChangeJourney(state, people, width) {
     }
     stop = true;
     await typing;
+    const kept = (await bob.page.evaluate(() => window.slateTyped)).trim();
+    assert.ok(kept && unsent.repeat(4).trim().startsWith(kept), `${name}: Bob's editor took in the start of what he typed.`);
     // Bob's unsaved text stays his: shown to him as an unsaved draft, nowhere in the workspace.
     const draft = bob.page.getByRole('region', { name: 'Your unsaved text' });
-    await expect(draft).toContainText(typed.join('').trim());
+    await expect(draft).toContainText(kept);
     await expect(draft).toContainText('It was not saved to the workspace');
     const server = await ok(alice.context, origin, 'GET', `/api/pages/${pageId}`);
     assert.ok(!JSON.stringify(server.blocks).includes(`Unsent ${name}`), `${name}: the unsaved text is not on the page.`);
@@ -143,7 +147,7 @@ export async function accessChangeJourney(state, people, width) {
     await accessible(bob.page, `${name} access change keeps draft`);
     await draft.getByRole('button', { name: 'Copy text', exact: true }).click();
     await expect(draft.getByRole('status')).toHaveText('Copied');
-    assert.ok((await bob.page.evaluate(() => navigator.clipboard.readText())).includes(typed.join('').trim()), `${name}: Bob can copy his unsaved text.`);
+    assert.ok((await bob.page.evaluate(() => navigator.clipboard.readText())).includes(kept), `${name}: Bob can copy his unsaved text.`);
     await draft.getByRole('button', { name: 'Discard', exact: true }).click();
     await expect(draft).toHaveCount(0);
     if (expectState === 'closed') {

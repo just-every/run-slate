@@ -21,6 +21,7 @@ export function SignInScreen({
   onUseAnotherAddress,
   submitting = false,
   deliveryError,
+  lede = "Use your email address to get a one-time sign-in link.",
   identityProviders = [],
   className,
 }: {
@@ -32,6 +33,8 @@ export function SignInScreen({
   submitting?: boolean;
   /** `MAIL-002` — the provider's own error, shown verbatim. */
   deliveryError?: string | null;
+  /** The request state's one sentence; a refused preview owner link says why the person is here. */
+  lede?: string;
   /** `WORK-015` — each configured, enabled provider keeps its own sign-in. */
   identityProviders?: SignInIdentityProvider[];
   className?: string;
@@ -59,7 +62,7 @@ export function SignInScreen({
             {state === "sent" ? "Check your email" : "Sign in"}
           </h1>
 
-          {state === "request" ? <p className="paper-lede">Use your email address to get a one-time sign-in link.</p> : null}
+          {state === "request" ? <p className="paper-lede">{lede}</p> : null}
 
           {state === "link-expired" ? (
             <p className="paper-lede">

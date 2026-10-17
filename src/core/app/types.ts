@@ -6,7 +6,9 @@ export type AppBindings = RuntimeBindings & Omit<SlateWorkerBindings, keyof Runt
   RER_DEPLOY_SOURCE?: string;
   RER_DEPLOY_FINGERPRINT?: string;
   RER_VERSION?: WorkerVersionMetadata;
-  /** Present only on a Managed preview Worker (RER's runtime wrapper gates it); enables the owner's preview entry. */
+  /** "true" only on a Managed preview Worker; enables the owner's preview entry (preview-owner-signin.ts). */
+  RER_PREVIEW?: string;
+  /** The preview secret earlier RER releases bind instead of RER_PREVIEW; read the same way. */
   RER_PREVIEW_TOKEN?: string;
 };
 

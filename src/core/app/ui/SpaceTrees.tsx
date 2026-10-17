@@ -55,7 +55,7 @@ export function SpaceTrees({
                   toggle(id);
                 }}
               >
-                {container ? `Space · ${container.name}` : `Shared with me · ${pages.data?.items.find((page) => page.containerId === id)?.containerLabel ?? "Unavailable space"}`}
+                {container ? container.name : `Shared with me · ${pages.data?.items.find((page) => page.containerId === id)?.containerLabel ?? "Unavailable space"}`}
               </summary>
               <PageTree pages={treePages.filter((page) => page.containerId === id)} activePath={pathname} />
             </details>

@@ -2242,12 +2242,12 @@
     },
     {
       "file": "tests/flagship/core/preview-owner-signin.test.ts",
-      "testName": "a preview owner grant signs the owner in once; reuse, expiry and a non-preview Worker are refused",
+      "testName": "a preview owner grant signs the owner in once; reuse, expiry and a non-preview Worker fall back to sign-in",
       "kind": "supporting-regression",
       "clauses": [
         "BASE-ACCESS-001"
       ],
-      "reason": "Local Worker journey: a grant written as RER's preview writer writes it signs the owner in once; reuse, expiry and a Worker without RER_PREVIEW_TOKEN are refused. Hosted preview evidence is recorded separately."
+      "reason": "Local Worker journey: a grant written as RER's preview writer writes it signs the owner in once on a Worker marked RER_PREVIEW=true or holding RER_PREVIEW_TOKEN; reuse, expiry, a missing token and a non-preview Worker go to the sign-in page with no session. Hosted preview evidence is recorded separately."
     },
     {
       "file": "tests/flagship/discovery/following.test.ts",

@@ -265,7 +265,7 @@
       ],
       "group": "technical",
       "runtimeEditable": false,
-      "help": "Turns on sign-in through a company identity service configured with extra deployment settings. Most teams use the Company sign-in address above instead."
+      "help": "Turns on sign-in through a company identity service configured with extra deployment settings."
     },
     {
       "name": "LINK_PREVIEWS_ENABLED",

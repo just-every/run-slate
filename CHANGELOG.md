@@ -6,6 +6,8 @@ The hosted demo at demo.run-slate.com moves from a container to rer's native Wor
 
 A Managed change preview that copied the live app's data now opens with the owner signed in: Slate accepts RER's single-use owner grant (Base's `oa_owner_signins` shape) at `/auth/owner-signin`, only on a preview Worker, once, within 15 minutes, for the active owner. Migration 0034 adds the grant table and a read-only `oa_operators` view of the workspace's members, which RER uses to find the owner.
 
+An owner link that cannot be used (missing, used, expired, or opened where the app is not a preview) now lands on Slate's sign-in page, saying the link no longer works and with the owner's email filled in when the link names one, instead of an error body. Slate recognises a preview by RER's plain `RER_PREVIEW=true` binding as well as the earlier `RER_PREVIEW_TOKEN` secret. On Managed hosting the front page no longer tells the customer to run `rer signin`. The sidebar names each space by its name alone ("General", not "Space · General"), and the developer-only Company sign-in setting no longer points to an address field that setup does not show.
+
 Sign-in and invitation mail name the app the same way in the sender name and the subject: the new optional `APP_NAME` setting (`SLATE_APP_NAME` for `rer deploy`), else Slate. Managed mail's relay names the sender from the installation itself.
 
 Setup labels and help read in plain words, and developer-only settings say "for developers"; values and behaviour are unchanged.

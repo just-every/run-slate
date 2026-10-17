@@ -7,7 +7,7 @@ import { PaperPage, PaperScene } from "./PaperPage";
 import type { SignInCapabilities } from '../capabilities';
 
 /** Public capabilities are request-specific first-response content. */
-export function SignInPage({ capabilities, requested = false, loginHint }: { loginHint?: string; next: string; capabilities: SignInCapabilities; requested?: boolean }) {
+export function SignInPage({ capabilities, requested = false, loginHint, ownerLinkRefused = false }: { loginHint?: string; next: string; capabilities: SignInCapabilities; requested?: boolean; ownerLinkRefused?: boolean }) {
   const [failure, setFailure] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [email, setEmail] = useState(() => {
@@ -73,6 +73,7 @@ export function SignInPage({ capabilities, requested = false, loginHint }: { log
                   : "request"
         }
         deliveryError={failure}
+        lede={ownerLinkRefused ? "That owner sign-in link no longer works. Get a new sign-in link by email instead." : undefined}
         submitting={submitting}
         onUseAnotherAddress={() => {
           setDelivery(null);
