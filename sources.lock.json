@@ -9332,7 +9332,7 @@
       "executable": false
     },
     "tests/profile/work-items-journey.ts": {
-      "sha256": "684a9da0be4c69d06926d212b9053e29799e130b483dc368d72fe9970e7265a0",
+      "sha256": "18893c01ab1424ffbd80dc831a37f7e745f5bc08b31e710e72e320a861ac74d6",
       "executable": false
     },
     "tests/qualification/authority/atomic-recovery.test.ts": {
