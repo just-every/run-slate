@@ -2250,6 +2250,15 @@
       "reason": "Local Worker journey: a grant written as RER's preview writer writes it signs the owner in once on a Worker bound RER_PREVIEW_OWNER_SIGNIN=/auth/owner-signin; reuse, expiry, a missing token and a non-preview Worker go to the sign-in page with no session. Hosted preview evidence is recorded separately."
     },
     {
+      "file": "tests/flagship/core/preview-owner-signin.test.ts",
+      "testName": "preview sign-in mail and native confirmation identify the preview; live keeps its normal identity",
+      "kind": "supporting-regression",
+      "clauses": [
+        "BASE-ACCESS-001"
+      ],
+      "reason": "Local Worker journey: on a Worker bound RER_PREVIEW_OWNER_SIGNIN the sign-in mail subject, text and html and the native confirmation page name the app as a preview and carry the preview banner; a live Worker's mail and page carry neither. Hosted preview evidence is recorded separately."
+    },
+    {
       "file": "tests/flagship/discovery/following.test.ts",
       "testName": "container following delivers personal coalesced events once and rechecks lifecycle and access",
       "kind": "supporting-regression",
