@@ -49,7 +49,7 @@ function literal(input:string):NativeValue {
   throw new Error(`Unsupported native planner literal: ${value}`);
 }
 const tokens=(sql:string)=>sql.match(/'(?:[^']|'')*'|"[^"]*"|[^,]+/g)!.map(v=>v.trim());
-const relatedTables = ['page_blocks','page_revisions','page_labels','page_grants','page_contributors','database_records','task_origins'];
+const relatedTables = ['page_blocks','page_revisions','page_labels','blog_posts','page_grants','page_contributors','database_records','task_origins'];
 const taskOriginInsert='INSERT OR IGNORE INTO task_origins(block_id,page_id,member_id,created_at) VALUES(?,?,?,?)';
 const taskReminderCancellation="UPDATE reminders SET cancelled_at=COALESCE(cancelled_at,?) WHERE page_id=? AND block_id=? AND kind='task-due' AND delivered_at IS NULL";
 

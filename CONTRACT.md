@@ -831,7 +831,7 @@ A container has a blog: dated posts with an author, a cover and comments that ap
 
 *Acceptance:* a browser journey in which one member publishes a post, a follower gets the notification and sees the post on Home, and importing a Confluence space with blog posts creates posts that keep their dates and authors.
 
-*Status:* missing. The Confluence importer reports blogs as unmapped (`IMP-003`).
+*Status:* partial. A container's Blog tab publishes posts as live pages with a date, author, optional cover, body and comments (`src/core/features/blog/service.ts`); its feed and Home's Posts section list only posts the reader can read now, never drafts (`src/core/features/blog/feed.ts`); container followers get one `post-published` item, in the inbox and Following, instead of a page creation, and a draft post notifies only when published. Workers evidence covers permissions, follower delivery, drafts and erasure (`tests/flagship/discovery/blog.test.ts`); a browser journey at 1440 and 390 has one member watch a space, another publish a post, and the follower get the notification, see the post on Home and open it (`tests/qualification/ui-convergence/blog-journey.mjs`). Confluence Cloud `BLOGPOST` rows import as posts with their creation date and mapped author, and undo removes them (`tests/e2e/imports/blog-posts.test.ts`). Gap: that import evidence appends one blog post row to the committed Cloud export, because no incumbent-produced export with blog posts is in the fixtures; Server/DC `entities.xml` blog posts are still reported as unmapped; post notices are in-app only until `NOTIF-005` email delivery exists.
 
 #### CONT-011 — Space home and company hub.
 Each container has an editable home page that its index opens first. Workspace owners curate a company hub: one page that every member sees from Home, made of chosen links, a news feed of announcement posts and verified key pages.
@@ -1765,8 +1765,8 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 161 | 60 | 0 | 221 |
-| Target and push further | 4 | 56 | 45 | 105 |
-| All | 165 | 116 | 45 | 326 |
+| Target and push further | 4 | 57 | 44 | 105 |
+| All | 165 | 117 | 44 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2009,7 +2009,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `BLOCK-020` | Group mentions | target | partial | `tests/e2e/editor/rich-text-editing.test.tsx` | see the clause |
 | `BLOCK-021` | Attachment previews | target | missing | — | not implemented |
 | `BLOCK-022` | Attachment versions | target | missing | — | not implemented |
-| `CONT-010` | Space blog and announcements | target | missing | — | not implemented |
+| `CONT-010` | Space blog and announcements | target | partial | `tests/qualification/ui-convergence/blog-journey.mjs` | Native posts, permission-aware feeds, follower notices and Home are proven at 1440/390; Cloud blog import is proven only on a derived export, Server/DC XML blog posts remain unmapped, and email delivery waits on NOTIF-005. |
 | `CONT-011` | Space home and company hub | target | partial | `src/core/features/containers/service.ts` | see the clause |
 | `CONT-012` | Watch a container | target | partial | `tests/flagship/discovery/following.test.ts` | Daily digest delivery under NOTIF-005 remains missing. In-app lifecycle notices, session coalescing, deduplication, administrator watchers and personal Following have Workers and 1440/390 browser evidence. |
 | `PAGE-016` | Autowatch on create and edit | target | done | `tests/flagship/discovery/following.test.ts` |  |

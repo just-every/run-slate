@@ -2,7 +2,7 @@ import {pageReadableSql,containerReadableSql} from './creation-access';
 import type { FeatureContext } from '../../app/feature-context';
 import type { NotificationDetail } from './visibility';
 import { ApiProblem } from '../../app/problems';
-export const watchedEvents=['comment','reply','published','page-created','page-edited','page-moved','page-archived','page-trashed','page-restored'] as const;
+export const watchedEvents=['comment','reply','published','page-created','page-edited','page-moved','page-archived','page-trashed','page-restored','post-published'] as const;
 export const notificationEvents=['review-requested','review-overdue','review-escalated','task-assigned','task-due','reminder','mention',...watchedEvents,'verification-lapsed','access-granted','access-requested','run-review','run-failed','decision-required','contradiction','experiment-result','maintenance'] as const;
 export type NotificationEvent=typeof notificationEvents[number];
 export interface NotificationFact { id:string; event:NotificationEvent; pageId?:string; containerId?:string; commentId?:string; recipientIds?:string[]; actorId?:string|null; detail?:NotificationDetail }
@@ -37,6 +37,6 @@ export function notificationStatements(ctx:FeatureContext,event:NotificationFact
  .bind(ctx.actor.workspaceId,event.pageId??null,event.containerId??null,ctx.now,JSON.stringify(event.detail??{}),...extra.values,
  event.pageId??null,event.pageId??null,JSON.stringify(options.containerIds??[]),...idValues,
  ctx.actor.workspaceId,event.actorId===undefined?ctx.actor.id:event.actorId,event.event,event.pageId??null,event.containerId??null,event.commentId??null,
- JSON.stringify(event.recipientIds??[]),event.pageId??null,event.event,+watched,event.pageId??null,JSON.stringify(event.detail??{}),ctx.now,+(event.event.startsWith('page-')),event.pageId??null)];
+ JSON.stringify(event.recipientIds??[]),event.pageId??null,event.event,+watched,event.pageId??null,JSON.stringify(event.detail??{}),ctx.now,+(event.event.startsWith('page-')||event.event==='post-published'),event.pageId??null)];
 }
 export interface OutboxRow {id:string;workspace_id:string;actor_member_id:string|null;event:NotificationEvent;page_id:string|null;container_id:string|null;comment_id:string|null;recipients_json:string;watched_recipients_json:string;detail_json:string;created_at:string}

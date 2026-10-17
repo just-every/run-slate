@@ -1,0 +1,7 @@
+.post-list { list-style:none; margin:1rem 0 0; padding:0; display:grid; gap:1rem; }
+.post-list article { border-top:1px solid var(--slate-line); padding-top:1rem; min-width:0; }
+.post-list h3 { font:22px/1.3 Georgia,serif; margin:.5rem 0 .25rem; overflow-wrap:anywhere; }
+.post-cover { display:block; width:100%; height:72px; border-radius:6px; object-fit:cover; }
+.post-byline,.post-comments { font-size:.8rem; color:var(--slate-ink-muted); margin:.15rem 0; overflow-wrap:anywhere; }
+.home-posts { margin:1.5rem 0; }
+.space-blog { margin:1rem 0; }

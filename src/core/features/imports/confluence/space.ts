@@ -4,7 +4,10 @@ import { archiveMediaType } from "../archive";
 import { createImportReport, reportCreated, reportMissingArchiveFile, reportUnmapped, reportWarning } from "../report";
 import { importSafetyLimits } from "../safety";
 import type { ImportBlockKind, ImportParseOptions, ImportSourceFile, ImportedBlock, ImportedContainer, ImportedGrant, ImportedMedia, ImportedPage, ImportedRevision, NormalizedImport } from "../types";
-import { confluenceGrants, confluenceMembers } from "./grants";
+import { confluenceGrants, confluenceMembers, memberSourceId } from "./grants";
+
+/** Confluence writes server-local timestamps without a zone; exports are produced in UTC. */
+const confluenceInstant = (value: string | undefined) => { const instant = new Date(`${(value ?? "").trim().replace(" ", "T")}Z`); return Number.isNaN(instant.getTime()) ? undefined : instant.toISOString(); };
 import { parseStorageFormat } from "./storage";
 import { readConfluenceExport, requireTable, tableRows, type ConfluenceTables } from "./tables";
 
@@ -17,9 +20,9 @@ import { readConfluenceExport, requireTable, tableRows, type ConfluenceTables } 
  */
 
 const storageBodyType = "2";
-const importedAsPage = new Set(["PAGE"]);
+const importedAsPage = new Set(["PAGE", "BLOGPOST"]);
 const importedAsEmptyPage = new Set(["FOLDER"]);
-const namedNotImported = new Set(["BLOGPOST", "WHITEBOARD", "DATABASE", "SLIDE", "EMBED", "COMMENT", "ATTACHMENT", "CUSTOM", "SPACEDESCRIPTION"]);
+const namedNotImported = new Set(["WHITEBOARD", "DATABASE", "SLIDE", "EMBED", "COMMENT", "ATTACHMENT", "CUSTOM", "SPACEDESCRIPTION"]);
 
 interface ContentRow extends Record<string, string> {
   contentid: string;
@@ -268,6 +271,8 @@ export function parseConfluenceCsvSpace(files: Map<string, Uint8Array>, source: 
       return false;
     });
 
+    const postedAt = row.contenttype === "BLOGPOST" ? confluenceInstant(row.creationdate) : undefined;
+    if (row.contenttype === "BLOGPOST" && !postedAt) note("Confluence blog post has no readable creation date, so it was imported as a page", sourceId, row.title);
     reportCreated(report, "page", row.title, sourceId);
     return {
       sourceId,
@@ -284,6 +289,7 @@ export function parseConfluenceCsvSpace(files: Map<string, Uint8Array>, source: 
       restricted: tableRows(tables, "content_permissions").some(permission => permission.content_id === row.contentid) || tableRows(tables, "content_perm_set").some(permission => (permission.content_id ?? permission.contentid) === row.contentid),
       grants,
       revisions,
+      ...(postedAt ? { post: { postedAt, ...(row.creator ? { authorSourceId: memberSourceId(row.creator) } : {}) } } : {}),
     };
   });
 

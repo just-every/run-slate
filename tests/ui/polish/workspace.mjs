@@ -31,9 +31,9 @@ export async function spacesJourney({ page }) {
   await expect(other).toBeVisible();
   assert.notDeepEqual(selected, await other.evaluate(el => ({ background:getComputedStyle(el).backgroundColor, border:getComputedStyle(el).borderColor })), 'Selected card visibly differs from a neighboring unselected card');
   const tabs = page.getByRole('navigation', { name: 'Space navigation', exact: true });
-  const names = ['Content', 'Settings', 'Templates', 'Trash', 'Bulk'];
+  const names = ['Content', 'Blog', 'Settings', 'Templates', 'Trash', 'Bulk'];
   const buttons = names.map(name => tabs.getByRole('button', { name, exact: true }));
-  await expect(tabs.getByRole('button')).toHaveCount(5);
+  await expect(tabs.getByRole('button')).toHaveCount(names.length);
   for (let i = 0; i < buttons.length; i++) await control(buttons[i], names[i]);
   await separated(buttons, 'Space tabs');
   const favourite = spaces.getByRole('button', { name: /^(Add to|Remove from) favourites$/ });
@@ -41,7 +41,7 @@ export async function spacesJourney({ page }) {
   await control(favourite, 'Space Favourite'); await control(exporting, 'Export space'); await separated([favourite, exporting], 'Space actions');
   await capture(page, 'space', { fullPage: true });
   // Every tab changes the selected state and exposes its real application pane.
-  const panes = [spaces.getByLabel('Filter page titles', { exact: true }), spaces.getByRole('heading', { name: 'Space settings', exact: true }), spaces.getByRole('combobox', { name: 'Show', exact: true }), spaces.getByText('Archived pages retain their history. Permanently deleting trash is irreversible.', { exact: true }), spaces.getByRole('heading', { name: 'Bulk tools', exact: true })];
+  const panes = [spaces.getByLabel('Filter page titles', { exact: true }), spaces.getByRole('region', { name: 'Blog', exact: true }), spaces.getByRole('heading', { name: 'Space settings', exact: true }), spaces.getByRole('combobox', { name: 'Show', exact: true }), spaces.getByText('Archived pages retain their history. Permanently deleting trash is irreversible.', { exact: true }), spaces.getByRole('heading', { name: 'Bulk tools', exact: true })];
   for (let i = 0; i < names.length; i++) {
     if (names[i] === 'Templates') {
       const collectionRequest = page.waitForRequest(request => {

@@ -125,6 +125,8 @@ export interface ImportedPage extends SourceIdentity {
   grants: ImportedGrant[];
   revisions: ImportedRevision[];
   publicExposure?: ImportedPublicExposure;
+  /** CONT-010: a source blog post keeps its original date and author. */
+  post?: { postedAt: string; authorSourceId?: string };
 }
 
 export interface ImportedField extends SourceIdentity {

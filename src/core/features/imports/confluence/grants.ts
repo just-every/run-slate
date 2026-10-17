@@ -25,7 +25,7 @@ export interface ConfluenceGrants {
   members: ImportedMember[];
 }
 
-function memberSourceId(principal: string): string {
+export function memberSourceId(principal: string): string {
   return `confluence-member:${principal}`;
 }
 

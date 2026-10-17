@@ -36,6 +36,7 @@ import { createDatabasesRoutes } from "../features/databases/routes";
 import { createWorkspaceRoutes } from "../features/workspace/routes";
 import { createPagesRoutes } from "../features/pages/routes";
 import { createContainersRoutes } from "../features/containers/routes";
+import { createBlogRoutes } from "../features/blog/routes";
 import { createRevisionsRoutes } from "../features/versions/routes";
 import { createSharingRoutes } from "../features/sharing/routes";
 import type { Hono } from "hono";
@@ -60,6 +61,7 @@ export function mountFeatures(app: Hono<AppEnvironment>): Hono<AppEnvironment> {
   app.route("/api/reminders",createReminderRoutes());
   app.route("/api/pages", createPagesRoutes());
   app.route("/api/containers", createContainersRoutes());
+  app.route("/api/blog", createBlogRoutes());
   app.route("/api/revisions", createRevisionsRoutes());
   app.route("/api/sharing", createSharingRoutes());
   app.route("/api/databases", createDatabasesRoutes());
