@@ -64,7 +64,7 @@ function withMarks(span: InlineSpan, node: ReactNode): ReactNode {
 function Span({ span }: { span: InlineSpan }) {
   if (span.mention) return <Mention span={span} />;
 
-  let node: ReactNode = withMarks(span, span.text);
+  let node: ReactNode = withMarks(span,span.status?<span className={cn("inline-block rounded-full border border-line px-2 py-0.5 text-[0.85em] font-medium leading-tight",span.status.colour==='grey'?'bg-sidebar-hover text-ink':colourClass[span.status.colour])}>{span.text}</span>:span.text);
 
   if (span.link) {
     node = (
@@ -90,12 +90,12 @@ function Span({ span }: { span: InlineSpan }) {
   return <>{node}</>;
 }
 
-export function InlineText({ value }: { value: RichText }) {
+export function InlineText({ value,canEdit=false }: { value: RichText;canEdit?:boolean }) {
   return (
     <>
       {value.map((span, index) =>
         span.text.length === 0 && !span.mention ? null : (
-          <span key={index} data-inline-span={index} data-slate-mention-length={span.mention ? span.text.length : undefined} contentEditable={span.mention ? false : undefined}>
+          <span key={index} data-inline-span={index} data-slate-atomic-length={span.mention || span.status ? span.text.length : undefined} contentEditable={span.mention || span.status ? false : undefined} style={span.status?{border:0,padding:0,background:"transparent",font:"inherit"}:undefined} data-slate-status={span.status?"":undefined} data-status-colour={span.status?.colour} role={span.status&&canEdit?"button":undefined} tabIndex={span.status&&canEdit?0:undefined} aria-label={span.status&&canEdit?`Edit status label: ${span.text}`:undefined}>
             <Span span={span} />
           </span>
         ),

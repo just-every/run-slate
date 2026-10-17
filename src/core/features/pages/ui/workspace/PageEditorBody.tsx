@@ -1,3 +1,6 @@
+import {DocumentHeadings} from '../../../editor/ui/blocks/DocumentHeadings';
+import {StatusLabelDialog} from '../../../editor/ui/blocks/StatusLabelDialog';
+import {insertStatusLabel} from '../../../editor/ui/insertStatusLabel';
 import {useContentQueries} from './useContentQueries';
 import {TaskPageProvider} from '../../../editor/ui/blocks/TaskPageContext';
 import {ReminderDialog} from '../../../editor/ui/blocks/ReminderDialog';
@@ -16,7 +19,7 @@ import { BlockView } from "../../../editor/ui/blocks/BlockView";
 import { InsertMenu } from "../../../editor/ui/InsertMenu";
 import { newBlock } from "../../../editor/ui/newBlock";
 import type { InsertKind } from "../../../editor/ui/blockCatalog";
-import type { BlockMove, EditorBlock } from "../../../editor/ui/types";
+import type { BlockMove, EditorBlock, InlineSpan } from "../../../editor/ui/types";
 import type { usePageEditor } from "../../../../client/usePageEditor";
 import type { DocumentView } from "../../../../client/content";
 import { contentApi, editorBlocks } from "../../../../client/content";
@@ -72,7 +75,8 @@ export function PageEditorBody({
       // Empty editables can have a 0×0 Range at the viewport origin. Keep
       // real line carets (zero width, positive height) anchored to the Range.
       const anchor=caret && caretRect && (caretRect.width>0 || caretRect.height>0) ? caret : target;
-      setInsert({after:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId ?? null,range:(event as CustomEvent<{anchor:number;focus:number}>).detail,anchor});
+      const detail=(event as CustomEvent<{anchor:number;focus:number;inlineLabels?:boolean;onInlineInsert?:(span:InlineSpan)=>void}>).detail;
+      setInsert({after:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId ?? null,range:detail,inlineLabels:detail.inlineLabels,onInlineInsert:detail.onInlineInsert,anchor});
     };
     const split = (event: Event) => {
       const target = event.target as HTMLElement;
@@ -122,7 +126,8 @@ export function PageEditorBody({
       element.removeEventListener("slate-ask-selection", ask);
     };
   }, [onAsk, onComment,editor, insertion, visibleBlocks]);
-  const [insert, setInsert] = useState<{ after: string | null; range?:{anchor:number;focus:number}; anchor: HTMLElement | Range } | null>(null);
+  const [insert, setInsert] = useState<{ after: string | null; range?:{anchor:number;focus:number}; inlineLabels?:boolean; onInlineInsert?:(span:InlineSpan)=>void; anchor: HTMLElement | Range } | null>(null);
+  const [statusInsert,setStatusInsert]=useState<typeof insert>(null);
   const [query, setQuery] = useState("");
   const [error, setError] = useState<unknown>();
   const [conflict, setConflict] = useState<{
@@ -143,6 +148,7 @@ export function PageEditorBody({
     }
   }
   function add(kind: InsertKind) {
+    if(kind==='status'){if(insert?.inlineLabels===false)setError(new Error('This field accepts plain text. Add a text block to insert a status label.'));else setStatusInsert(insert);setInsert(null);setQuery('');return;}
     const existing = editor.blocks.length || insertion.pending ? visibleBlocks : [];
     const index = insert?.after
       ? existing.findIndex((block) => block.id === insert.after) + 1
@@ -197,7 +203,7 @@ export function PageEditorBody({
     }
   }
   return (
-    <TaskPageProvider pageId={document.page.id} canShare={document.permissions.canShare}><div ref={wrapper} data-page-editor tabIndex={-1} onClick={event=>{const target=(event.target as HTMLElement).closest<HTMLElement>('[data-reminder-date]');if(target?.dataset.reminderDate){setDateReminder({date:target.dataset.reminderDate,blockId:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId});}}}>
+    <TaskPageProvider pageId={document.page.id} canShare={document.permissions.canShare}><DocumentHeadings blocks={visibleBlocks}><div ref={wrapper} data-page-editor tabIndex={-1} onClick={event=>{const target=(event.target as HTMLElement).closest<HTMLElement>('[data-reminder-date]');if(target?.dataset.reminderDate){setDateReminder({date:target.dataset.reminderDate,blockId:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId});}}}>
       {dateReminder?<ReminderDialog pageId={document.page.id} {...dateReminder} onClose={()=>setDateReminder(null)}/>:null}
       {insert ? (
         <InsertMenu
@@ -209,6 +215,11 @@ export function PageEditorBody({
           onClose={() => setInsert(null)}
         />
       ) : null}
+      {statusInsert?<StatusLabelDialog onClose={()=>setStatusInsert(null)} onSave={(text,colour)=>{
+        if(statusInsert.onInlineInsert){setStatusInsert(null);statusInsert.onInlineInsert({text,status:{colour}});return;}
+        const result=insertStatusLabel(visibleBlocks,statusInsert.after,statusInsert.range,{text,status:{colour}});
+        conversionFocus.current={id:result.blockId,selection:result.selection};setStatusInsert(null);insertion.insert(result.blocks);
+      }}/>:null}
       {editedQuery?.type==='content-query'?<ContentQueryDialog block={editedQuery} onClose={()=>setQueryEditor(null)} onSave={async definition=>{await editor.structure(editor.blocks.map(block=>block.id===editedQuery.id?{...editedQuery,definition,results:[],lastRanLabel:"Not run yet"}:block));}}/>:null}
       {error ? <p role="alert">{errorMessage(error)}</p> : null}
       {insertion.error ? <p role="alert">{insertion.error} <button onClick={() => void insertion.retry()}>Try saving inserted blocks again</button></p> : null}
@@ -339,6 +350,6 @@ export function PageEditorBody({
           </button>
         </ActionDialog>
       ) : null}
-    </div></TaskPageProvider>
+    </div></DocumentHeadings></TaskPageProvider>
   );
 }

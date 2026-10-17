@@ -8,6 +8,12 @@ export function newBlock(
 ): EditorBlock {
   const text = [{ text: "" }];
   switch (kind) {
+    case "status":
+      throw new Error("Status labels are inserted inline.");
+    case "table-of-contents":
+      return {id,type:"table-of-contents",minLevel:1,maxLevel:2,style:"nested"};
+    case "task-report":
+      return {id,type:"task-report",definition:{groupBy:"page",orderBy:"due",direction:"asc",limit:20}};
     case "text":
       return { id, type: "paragraph", text };
     case "heading-1":

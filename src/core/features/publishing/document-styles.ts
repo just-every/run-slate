@@ -1,6 +1,9 @@
+import {statusLabelStyles} from './block-styles';
 /** The anonymous reader uses Slate's paper, sage palette and reading geometry. */
 export const publicDocumentStyles = `
 :root{color-scheme:light;--canvas:#f9faf8;--paper:#fdfefd;--ink:#2d3a37;--strong:#15221e;--muted:#4d5955;--line:#e0e5e1;--accent:#46694d;--wash:#e6eee4}
+${statusLabelStyles}
+.table-of-contents{border:1px solid var(--line);border-radius:6px;padding:12px 18px;margin:24px 0}.table-of-contents ul{padding-left:22px;margin:0}.table-of-contents>ul{padding-left:18px}.page-body h1[id],.page-body h2[id],.page-body h3[id]{scroll-margin-top:24px}
 [data-theme=dark]{color-scheme:dark;--canvas:#090e0d;--paper:#0d1411;--ink:#f1f2ee;--strong:#fbfcf8;--muted:#b7c0b9;--line:#29332d;--accent:#a8c49e;--wash:#17231b}
 *{box-sizing:border-box}body{margin:0;background:var(--canvas);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
 a{color:var(--accent);text-underline-offset:3px}a:hover{text-decoration-thickness:2px}button,input{font:inherit}button,a,input,summary{-webkit-tap-highlight-color:transparent}

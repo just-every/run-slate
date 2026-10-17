@@ -1,6 +1,8 @@
 import { attributesOf, childNodes, elementName, expandSelfClosingTags, findElements, parseMarkupFragment, textOf, type MarkupNode } from "../markup";
 import { safeImportLink } from "../url";
 import type { ImportedBlock } from "../types";
+import { inlineMarkup } from "../inline-markup";
+import { confluenceStatus, confluenceToc, isStatusMacro, macroParameters } from "./inline-macros";
 
 /**
  * Confluence storage format: XHTML plus `ac:`/`ri:` elements. Layouts are
@@ -45,7 +47,10 @@ function text(node: MarkupNode): string {
 
 /** Text this element owns, excluding the nested constructs that become blocks. */
 function ownText(node: MarkupNode, exclude: Set<string>): string {
-  return collapse(textOf(node, (name) => skipInline(name) || exclude.has(name)));
+  return inlineMarkup(node, {status: confluenceStatus, skip: child => {
+    const name = elementName(child);
+    return !!name && (skipInline(name) || exclude.has(name) && !isStatusMacro(child));
+  }}).text;
 }
 
 /** Descendants of `node` that are not inside a nested `stopAt` element. */
@@ -90,13 +95,23 @@ export function parseStorageFormat(xhtml: string, sourceId: string): StorageResu
   const make = (kind: ImportedBlock["kind"], value?: string): ImportedBlock =>
     ({ sourceId: `${sourceId}#block-${index++}`, sourceIdentityKind: "path-derived", kind, text: value || undefined, links: [], children: [] });
 
-  const externalLinks = (node: MarkupNode, block: ImportedBlock, stopAt: string[]) => {
-    for (const anchor of findOwnElements(node, "a", stopAt)) {
-      const link = safeImportLink(attributesOf(anchor).href ?? "");
-      if (link) block.links.push({ ...link, kind: "external" });
-      else note("Confluence link has an unsafe href", attributesOf(anchor).href);
+  const withInline = (block: ImportedBlock, node: MarkupNode) => {
+    const inline = inlineMarkup(node, {status: confluenceStatus, skip: child => {
+      const name = elementName(child);
+      return !!name && (skipInline(name) || nestedBlockTags.includes(name) && !isStatusMacro(child));
+    }});
+    block.text = inline.text || undefined;
+    block.links = inline.links.map(link => ({...link, kind: 'external'}));
+    if (inline.statuses.length) block.statuses = inline.statuses;
+    for (const macro of findElements(node, 'ac:structured-macro').filter(isStatusMacro)) {
+      if (!confluenceStatus(macro)?.colour) note('Confluence status has an unsupported colour; its text was kept', macroParameters(macro).colour);
     }
+    for (const anchor of findOwnElements(node, 'a', nestedBlockTags)) {
+      if (!safeImportLink(attributesOf(anchor).href ?? '')) note('Confluence link has an unsafe href', attributesOf(anchor).href);
+    }
+    return block;
   };
+  const nested = (node: MarkupNode) => childNodes(node).filter(child => nestedBlockTags.includes(elementName(child) ?? '') && !isStatusMacro(child));
 
   const noteInlineMarkers = (node: MarkupNode) => {
     for (const placeholder of findElements(node, "ac:placeholder")) {
@@ -121,6 +136,23 @@ export function parseStorageFormat(xhtml: string, sourceId: string): StorageResu
       const name = attributesOf(node)["ac:name"] ?? "";
       const body = findOwnElements(node, "ac:rich-text-body", ["ac:structured-macro"])[0];
       const parameters = findOwnElements(node, "ac:parameter", ["ac:structured-macro"]);
+      if (name === 'toc') {
+        const values = macroParameters(node), toc = make('table-of-contents');
+        toc.tableOfContents = confluenceToc(values);
+        for (const key of ['minLevel', 'maxLevel']) if (values[key] && (!/^\d+$/.test(values[key]!) || Number(values[key]) < 1 || Number(values[key]) > 3)) note('Confluence table of contents heading range exceeds Slate heading levels 1–3', `${key}=${values[key]}`);
+        if (values.minLevel && values.maxLevel && Number(values.minLevel) > Number(values.maxLevel)) note('Confluence table of contents heading range is reversed', `${values.minLevel}–${values.maxLevel}`);
+        for (const key of ['include', 'exclude']) if (values[key]) note('Confluence table of contents text filter has no Slate equivalent', `${key}=${values[key]}`);
+        into.push(toc);
+        return;
+      }
+      if (name === 'status') {
+        const status = confluenceStatus(node), values = macroParameters(node);
+        const label = make('paragraph', status?.text ?? values.title);
+        if (status?.colour) label.statuses = [{textStart: 0, textEnd: status.text.length, colour: status.colour}];
+        else note('Confluence status has an unsupported colour; its text was kept', values.colour);
+        if (label.text) into.push(label);
+        return;
+      }
       if (calloutMacros.has(name)) {
         const callout = make("callout", name);
         if (body) childNodes(body).forEach((child) => visit(child, callout.children));
@@ -133,7 +165,7 @@ export function parseStorageFormat(xhtml: string, sourceId: string): StorageResu
         into.push(expandable);
         return;
       }
-      if (name === "code") {
+      if (name === "code" || name === "noformat") {
         // Code is verbatim: indentation and blank lines are the content.
         const plain = findOwnElements(node, "ac:plain-text-body", ["ac:structured-macro"])[0];
         const code = make("code", textOf(plain ?? node).replace(/^\n+|\s+$/g, ""));
@@ -154,9 +186,8 @@ export function parseStorageFormat(xhtml: string, sourceId: string): StorageResu
     if (tag === "ac:task-list") { childNodes(node).forEach((child) => visit(child, into)); return; }
     if (tag === "ac:task") {
       const body = findOwnElements(node, "ac:task-body", ["ac:task"])[0];
-      const task = make("task", text(body ?? node));
+      const task = withInline(make("task"), body ?? node);
       task.checked = text(findOwnElements(node, "ac:task-status", ["ac:task"])[0] ?? node).toLowerCase() === "complete";
-      if (body) externalLinks(body, task, []);
       into.push(task);
       return;
     }
@@ -200,31 +231,28 @@ export function parseStorageFormat(xhtml: string, sourceId: string): StorageResu
 
     if (/^h[1-6]$/.test(tag)) {
       const value = ownText(node, new Set(nestedBlockTags));
-      const heading = make("heading", value);
+      const heading = withInline(make("heading", value), node);
       heading.level = Number(tag.slice(1));
-      externalLinks(node, heading, nestedBlockTags);
       noteInlineMarkers(node);
       if (heading.text) into.push(heading);
       // A heading can carry an inline image or macro; it must not vanish.
-      childNodes(node).filter((child) => nestedBlockTags.includes(elementName(child) ?? "")).forEach((child) => visit(child, into));
+      nested(node).forEach((child) => visit(child, into));
       return;
     }
     if (tag === "p") {
       const value = ownText(node, new Set(nestedBlockTags));
-      const paragraph = make("paragraph", value);
-      externalLinks(node, paragraph, nestedBlockTags);
+      const paragraph = withInline(make("paragraph", value), node);
       noteInlineMarkers(node);
       if (value) into.push(paragraph);
-      childNodes(node).filter((child) => nestedBlockTags.includes(elementName(child) ?? "")).forEach((child) => visit(child, into));
+      nested(node).forEach((child) => visit(child, into));
       return;
     }
     if (listTags.has(tag)) {
       for (const item of childNodes(node).filter((child) => elementName(child) === "li")) {
         // A nested list's text belongs to its own items, not to this one.
-        const entry = make(tag === "ul" ? "bulleted-list" : "numbered-list", ownText(item, new Set(nestedBlockTags)));
-        externalLinks(item, entry, nestedBlockTags);
+        const entry = withInline(make(tag === "ul" ? "bulleted-list" : "numbered-list"), item);
         noteInlineMarkers(item);
-        childNodes(item).filter((child) => nestedBlockTags.includes(elementName(child) ?? "")).forEach((child) => visit(child, entry.children));
+        nested(item).forEach((child) => visit(child, entry.children));
         if (entry.text || entry.children.length) into.push(entry);
       }
       return;
@@ -241,11 +269,15 @@ export function parseStorageFormat(xhtml: string, sourceId: string): StorageResu
         note("Confluence table carries no text; its cell contents were imported as blocks", `${rows.length} rows`);
       }
       for (const cell of findOwnElements(node, "td", ["table"]).concat(findOwnElements(node, "th", ["table"]))) {
-        childNodes(cell).filter((child) => nestedBlockTags.includes(elementName(child) ?? "")).forEach((child) => visit(child, into));
+        for (const macro of findOwnElements(cell, 'ac:structured-macro', ['table']).filter(isStatusMacro)) {
+          const status = confluenceStatus(macro);
+          note('Confluence status colour in a table cell has no rich-text cell equivalent; its text was kept', `${status?.text ?? ''} (${macroParameters(macro).colour ?? 'grey'})`);
+        }
+        nested(cell).forEach((child) => visit(child, into));
       }
       return;
     }
-    if (tag === "blockquote") { const quote = make("quote", text(node)); if (quote.text) into.push(quote); return; }
+    if (tag === "blockquote") { const quote = withInline(make("quote"), node); if (quote.text) into.push(quote); return; }
     if (tag === "hr") { into.push(make("divider")); return; }
     if (tag === "pre") { into.push(make("code", textOf(node).replace(/^\n+|\s+$/g, ""))); return; }
     if (tag === "a") {

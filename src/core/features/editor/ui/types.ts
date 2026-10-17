@@ -1,3 +1,5 @@
+import type {TableOfContentsSettings} from '../table-of-contents';
+import type {TaskReportDefinition} from '../../work-items/report-definition';
 import type {EmbeddedSearchQuery} from '../../../shared/knowledge/search-definition';
 import type {PageTrust} from '../../search/trust-types';
 /**
@@ -15,8 +17,11 @@ export type InlineColour = "yellow" | "blue" | "green" | "red" | "purple";
 
 export type MentionKind = "person" | "page" | "date";
 
+export type StatusColour = "grey" | "blue" | "green" | "yellow" | "red" | "purple";
+
 export interface InlineSpan {
   text: string;
+  status?: {colour:StatusColour};
   marks?: InlineMark[];
   colour?: InlineColour;
   link?: { href: string };
@@ -201,6 +206,9 @@ export interface ContentQueryBlockData extends BlockBase {
   sourceMissing?: { message: string };
 }
 
+export interface TableOfContentsBlockData extends BlockBase, TableOfContentsSettings { type: "table-of-contents" }
+export interface TaskReportBlockData extends BlockBase { type: "task-report"; definition:TaskReportDefinition }
+
 export type EditorBlock =
   | ParagraphBlockData
   | HeadingBlockData
@@ -214,7 +222,9 @@ export type EditorBlock =
   | TaskBlockData
   | MediaBlockData
   | LinkCardBlockData
-  | ContentQueryBlockData;
+  | ContentQueryBlockData
+  | TableOfContentsBlockData
+  | TaskReportBlockData;
 
 export type EditorBlockType = EditorBlock["type"];
 

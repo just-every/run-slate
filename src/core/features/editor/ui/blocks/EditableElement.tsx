@@ -1,3 +1,4 @@
+import {StatusLabelDialog} from './StatusLabelDialog';
 import {typedInline} from "../typedFormatting";
 import {MentionPicker} from "./MentionPicker";
 import {
@@ -31,13 +32,23 @@ export function EditableElement({
   label,
   className,
   multiline = true,
+  inlineLabels = true,
   as,
 }: EditableProps & { html: string }) {
   // A fresh object on an unrelated render would reset an in-progress IME edit.
   const markup = useMemo(() => ({ __html: html }), [html]);
   const root = useRef<HTMLElement>(null);
   const [mention,setMention] = useState<{start:number;before:RichText;after:RichText}|null>(null);
+  const [statusIndex,setStatusIndex]=useState<number|null>(null);
+  function editStatus(target:HTMLElement) {
+    const element=target.closest<HTMLElement>('[data-slate-status]');
+    if(!canEdit || !element || !root.current?.contains(element))return false;
+    const index=Number(element.dataset.inlineSpan);
+    if(!value[index]?.status)return false;
+    setStatusIndex(index);return true;
+  }
   const inlineUndo = useRef<typeof value | null>(null);
+  const pendingFocus = useRef(false);
   const pendingSelection = useRef<EditableSelection | null>(null);
   const publish = (element: HTMLElement) => {
     pendingSelection.current = readEditableSelection(element);
@@ -51,6 +62,7 @@ export function EditableElement({
     const element = root.current;
     if (!element) return;
     if (mention && (!canEdit || value.length === 0)) setMention(null);
+    if(pendingFocus.current){pendingFocus.current=false;element.focus();}
     if (pendingSelection.current)
       restoreEditableSelection(element, pendingSelection.current);
     pendingSelection.current = null;
@@ -87,6 +99,11 @@ export function EditableElement({
       }} onSelect={span=>{
         pendingSelection.current={anchor:mention.start+span.text.length,focus:mention.start+span.text.length};onChange([...mention.before,span,...mention.after]);root.current?.focus();
       }}/> : null}
+      {statusIndex!==null && value[statusIndex]?.status?<StatusLabelDialog text={value[statusIndex].text} colour={value[statusIndex].status.colour} onClose={()=>setStatusIndex(null)} onSave={(text,colour)=>{
+        const next=value.map((span,index)=>index===statusIndex?{...span,text,status:{colour}}:span);
+        const offset=next.slice(0,statusIndex+1).reduce((sum,span)=>sum+span.text.length,0);
+        pendingSelection.current={anchor:offset,focus:offset};pendingFocus.current=true;setStatusIndex(null);onChange(next);
+      }}/>:null}
       <Tag
         ref={root}
         aria-label={label}
@@ -100,8 +117,10 @@ export function EditableElement({
         dangerouslySetInnerHTML={markup}
         data-placeholder={placeholder}
         data-slate-editable=""
+        onClick={(event:React.MouseEvent<HTMLElement>)=>{if(editStatus(event.target as HTMLElement))event.preventDefault();}}
         onKeyDown={(event: React.KeyboardEvent<HTMLElement>) => {
           if(!canEdit || event.nativeEvent.isComposing) return;
+          if((event.key==='Enter'||event.key===' ') && editStatus(event.target as HTMLElement)){event.preventDefault();return;}
           if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='z'&&inlineUndo.current){event.preventDefault();onChange(inlineUndo.current);inlineUndo.current=null;return;}
           if(!event.metaKey&&!event.ctrlKey&&!event.altKey&&(event.key==='@' || (event.key==='/'&&event.currentTarget.closest('[data-page-editor]')&&!event.currentTarget.closest('[data-task-item]')))){
             const selected=readEditableSelection(event.currentTarget);if(!selected)return;
@@ -112,7 +131,11 @@ export function EditableElement({
               onChange([...before,{text:'@'},...after]);
               setMention({start,before,after});
             }
-            else event.currentTarget.dispatchEvent(new CustomEvent('slate-insert-at-cursor',{bubbles:true,detail:selected}));
+            else event.currentTarget.dispatchEvent(new CustomEvent('slate-insert-at-cursor',{bubbles:true,detail:{...selected,inlineLabels,onInlineInsert:inlineLabels?(span:RichText[number])=>{
+              const start=Math.min(selected.anchor,selected.focus),end=Math.max(selected.anchor,selected.focus);
+              pendingSelection.current={anchor:start+span.text.length+1,focus:start+span.text.length+1};pendingFocus.current=true;
+              onChange([...sliceRichText(value,0,start),span,{text:' '},...sliceRichText(value,end)]);
+            }:undefined}}));
           }
         }}
         onInput={(event: FormEvent<HTMLElement>) => {

@@ -1,4 +1,5 @@
 import { expect, test } from "vitest";
+import { strToU8, unzipSync, zipSync } from "fflate";
 import { parseImport } from "../../../src/core/features/imports/index";
 import { syntheticConfluenceArchive, syntheticDocx, syntheticEpub, syntheticNotionArchive, syntheticPdf } from "./fixtures/synthetic";
 
@@ -27,6 +28,14 @@ test("synthetic Confluence archive keeps unmapped restrictions closed and report
   expect([...parsed.media[0]!.bytes]).toEqual([137, 80, 78, 71]);
   expect(parsed.pages.find((page) => page.title === "Legacy folder")?.blocks.length).toBe(0);
   expect(parsed.report.unmapped.some((entry) => entry.label.includes("BlogPost"))).toBe(true);
+  // These added macros are synthetic parser evidence, separate from genuine IMP-010 acceptance.
+  const files = unzipSync(syntheticConfluenceArchive());
+  const macros = '<ac:structured-macro ac:name="toc"><ac:parameter ac:name="maxLevel">2</ac:parameter></ac:structured-macro><p>Before <ac:structured-macro ac:name="status"><ac:parameter ac:name="title">Ready</ac:parameter><ac:parameter ac:name="colour">Blue</ac:parameter></ac:structured-macro> after.</p>';
+  files['entities.xml'] = strToU8(new TextDecoder().decode(files['entities.xml']).replace('<h1>Overview</h1>', `<h1>Overview</h1>${macros}`));
+  const mapped = parseImport('confluence-space', {name: 'synthetic-macros.zip', bytes: zipSync(files)}).pages.find(page => page.title === 'Overview')!;
+  expect(mapped.blocks.find(block => block.kind === 'table-of-contents')?.tableOfContents).toEqual({minLevel: 1, maxLevel: 2, style: 'nested'});
+  const labelled = mapped.blocks.find(block => block.text === 'Before Ready after.')!;
+  expect(labelled.statuses?.map(status => [labelled.text!.slice(status.textStart, status.textEnd), status.colour])).toEqual([['Ready', 'blue']]);
 });
 
 test("synthetic DOCX and Google DOCX imports preserve ordered headings, tables, and embedded archive media", () => {
@@ -46,4 +55,23 @@ test("generic EPUB, PDF, Markdown, HTML, text, and CSV import through their expl
   expect(parseImport("html", { name: "note.html", bytes: new TextEncoder().encode("<script>x</script><p>Safe</p>") }).report.unmapped.length).toBe(1);
   expect(parseImport("text", { name: "note.txt", bytes: new TextEncoder().encode("One\n\nTwo") }).pages[0]?.blocks.length).toBe(2);
   expect(parseImport("csv", { name: "rows.csv", bytes: new TextEncoder().encode("Name,Count\nWidget,2\n") }).records.length).toBe(1);
+  for (const format of ['markdown', 'html'] as const) {
+    const body = format === 'markdown'
+      ? '# Portable\n\n<!-- slate:table-of-contents {"minLevel":1,"maxLevel":2,"style":"nested"} -->\n- [Section](#block-section)\n<!-- /slate:table-of-contents -->\n\n<a id="block-section"></a>\n## Section\n\nBefore [Done]{status:green} and [Blocked]{status:red} after.'
+      : '<h1>Portable</h1><nav data-slate-table-of-contents=\'{"minLevel":1,"maxLevel":2,"style":"nested"}\'><ul><li><a href="#block-section">Section</a></li></ul></nav><h2 id="block-section">Section</h2><p>Before <span data-slate-status="green">Done</span> and <span data-slate-status="red">Blocked</span> after.</p>';
+    const parsed = parseImport(format, {name: `extracted.${format === 'markdown' ? 'md' : 'html'}`, bytes: new TextEncoder().encode(body)});
+    const blocks = parsed.pages[0]!.blocks;
+    expect(blocks.find(block => block.kind === 'table-of-contents')?.tableOfContents).toEqual({minLevel: 1, maxLevel: 2, style: 'nested'});
+    expect(blocks.filter(block => block.kind === 'heading').map(block => block.text)).toEqual(['Portable', 'Section']);
+    const paragraph = blocks.find(block => block.kind === 'paragraph')!;
+    expect(paragraph.text).toBe('Before Done and Blocked after.');
+    expect(paragraph.statuses?.map(status => [paragraph.text!.slice(status.textStart, status.textEnd), status.colour])).toEqual([['Done', 'green'], ['Blocked', 'red']]);
+  }
+  const reportImport = parseImport('slate-readable', {name: 'reports.zip', bytes: zipSync({'slate-readable.json': strToU8(JSON.stringify({version: 1, pages: [{id: 'page-source', parentId: null, title: 'Reports', labels: [], blocks: [{id: 'report', blockType: 'task-report', content: {definition: {ancestorPageId: 'page-source', containerId: 'absent-container', assignee: {kind: 'member', memberId: 'absent-person'}, groupBy: 'page', orderBy: 'due', direction: 'asc', limit: 20}}, parentBlockId: null, treePosition: '0'}]}], media: [], report: []}))})});
+  const report = reportImport.pages[0]!.blocks[0]!;
+  expect(report.canonicalReferences?.ancestorPageSourceId).toBe('page-source');
+  const definition = (report.canonicalBlock!.content as {definition: {containerId: string; assignee: {memberId: string}}}).definition;
+  expect(definition.containerId.startsWith('unavailable:')).toBe(true);
+  expect(definition.assignee.memberId.startsWith('unavailable:')).toBe(true);
+  expect(reportImport.report.warnings.filter(warning => warning.sourceId === report.sourceId)).toHaveLength(2);
 });

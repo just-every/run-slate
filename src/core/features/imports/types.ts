@@ -27,6 +27,7 @@ export type ImportBlockKind =
   | "table"
   | "code"
   | "task"
+  | "table-of-contents"
   | "media"
   | "link";
 
@@ -57,15 +58,26 @@ export interface ImportedLink {
 
 export interface ImportedBlock extends SourceIdentity {
   canonicalBlock?: {id:string;blockType:string;content:import("../../shared/api/common").JsonValue;parentBlockId:string|null;treePosition:string};
+  /** Only references whose source record is actually present may acquire a destination ID. */
+  canonicalReferences?: {ancestorPageSourceId?: string};
   kind: ImportBlockKind;
   text?: string;
   level?: number;
   language?: string;
   checked?: boolean;
+  tableOfContents?: import("../editor/table-of-contents").TableOfContentsSettings;
+  statuses?: ImportedStatus[];
   rows?: string[][];
   mediaSourceId?: string;
   links: ImportedLink[];
   children: ImportedBlock[];
+}
+
+export type ImportedStatusColour = "grey" | "blue" | "green" | "yellow" | "red" | "purple";
+export interface ImportedStatus {
+  textStart: number;
+  textEnd: number;
+  colour: ImportedStatusColour;
 }
 
 export interface ImportedGrant {

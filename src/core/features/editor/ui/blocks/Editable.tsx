@@ -18,13 +18,15 @@ export interface EditableProps {
   label: string;
   className?: string;
   multiline?: boolean;
+  /** Single-line string fields cannot retain inline metadata. */
+  inlineLabels?: boolean;
   as?: ElementType;
 }
 
 export function Editable(props: EditableProps) {
   // Serialize outside the hooked input component: nested server rendering must
   // finish before React enters that component's hook dispatcher.
-  const html = renderToStaticMarkup(<InlineText value={props.value} />) +
+  const html = renderToStaticMarkup(<InlineText value={props.value} canEdit={props.canEdit} />) +
     (richTextToPlain(props.value).endsWith("\n") ? '<br data-slate-caret-placeholder="">' : "");
   return <EditableElement {...props} html={html} />;
 }
@@ -44,6 +46,7 @@ export function EditableLine({
       className={className}
       label={label}
       multiline={false}
+      inlineLabels={false}
       onChange={(next) => onTextChange(richTextToPlain(next))}
       placeholder={placeholder}
       value={value.length > 0 ? [{ text: value }] : []}

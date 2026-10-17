@@ -4,18 +4,22 @@ import { html } from './html';
 export { html } from './html';
 import type { BlockView } from '../../shared/api/content';
 import { safeUrl } from '../editor/validation';
+import { headingAnchor, tocEntries, type TableOfContentsSettings } from '../editor/table-of-contents';
+import { renderTocList } from './toc-render';
 function rich(value: any, links: Record<string, string>): string { if (!Array.isArray(value))
     return html(value ?? ''); return value.map(span => { let text = (span.mention?.kind === 'person' ? '@' : '') + html(span.mention?.label ?? span.text ?? '').replace(/\r?\n/g, '<br>'); for (const mark of span.marks ?? []) {
     const tag = ({ bold: 'strong', italic: 'em', underline: 'u', strikethrough: 's', code: 'code' } as Record<string, string>)[mark];
     if (tag)
         text = `<${tag}>${text}</${tag}>`;
-} if (span.colour && ['yellow', 'blue', 'green', 'red', 'purple'].includes(span.colour))
+} if (span.status && ['grey', 'blue', 'green', 'yellow', 'red', 'purple'].includes(span.status.colour))
+    text = `<span class="status-label" data-slate-status="${span.status.colour}">${text}</span>`; if (span.colour && ['yellow', 'blue', 'green', 'red', 'purple'].includes(span.colour))
     text = `<mark class="${span.colour}">${text}</mark>`; let href = span.link?.href; if (span.mention?.kind === 'page')
     href = links[span.mention.id]; if (typeof href === 'string' && href.startsWith('/app/'))
     href = Object.entries(links).find(([id]) => href.includes(id))?.[1]; if (href && (safeUrl(href) || href.startsWith('/p/')))
     text = `<a${span.mention ? ' class="mention"' : ''} href="${html(href)}" rel="noopener noreferrer">${text}</a>`; else if (span.mention) text = `<span class="mention">${text}</span>`; return text; }).join(''); }
-function renderBlock(b: BlockView, slug: string, links: Record<string, string>) { const c = b.content as Record<string, any>, id = html(b.id), text = rich(c.text, links); switch (b.blockType) {
-    case 'heading': return `<h${c.level} id="${id}">${text}</h${c.level}>`;
+function renderBlock(b: BlockView, slug: string, links: Record<string, string>, blocks: BlockView[]) { const c = b.content as Record<string, any>, id = html(b.id), text = rich(c.text, links); switch (b.blockType) {
+    case 'heading': return `<h${c.level} id="${html(headingAnchor(b.id))}">${text}</h${c.level}>`;
+    case 'table-of-contents': return `<nav id="${id}" class="table-of-contents" aria-label="Table of contents">${renderTocList(tocEntries(blocks, c as TableOfContentsSettings))}</nav>`;
     case 'divider': return '<hr>';
     case 'code': return `<pre id="${id}"><code>${html(c.code)}</code></pre>`;
     case 'quote': return `<blockquote id="${id}">${text}${c.attribution ? `<cite>${html(c.attribution)}</cite>` : ''}</blockquote>`;
@@ -37,6 +41,7 @@ function renderBlock(b: BlockView, slug: string, links: Record<string, string>) 
         const url = c.url.startsWith('/app/') ? Object.entries(links).find(([id]) => c.url.includes(id))?.[1] : c.url;
         return url && (safeUrl(url) || url.startsWith('/p/')) ? `<p><a href="${html(url)}" rel="noopener noreferrer">${html(c.preview?.title ?? c.url)}</a></p>` : `<p>${html(c.preview?.title ?? c.url)}</p>`;
     }
+    case 'task-report': return `<aside id="${id}">Sign in to view this task report.</aside>`;
     case 'content-query': return `<ul>${(c.results ?? []).map((r: any) => `<li><a href="${html(r.url)}">${html(r.title)}</a></li>`).join('')}</ul>`;
     default: return `<p id="${id}">${text}</p>`;
 } }
@@ -50,7 +55,7 @@ export function renderPublicDocument(exposure: Record<string, any>, links: Recor
         byParent.set(parent, rows);
     }
     function tree(parent: string | null): string {
-        return (byParent.get(parent) ?? []).map(block => `${renderBlock(block, exposure.slug, links)}${byParent.has(block.id) ? `<section class="nested">${tree(block.id)}</section>` : ''}`).join('');
+        return (byParent.get(parent) ?? []).map(block => `${renderBlock(block, exposure.slug, links, blocks)}${byParent.has(block.id) ? `<section class="nested">${tree(block.id)}</section>` : ''}`).join('');
     }
     const media = (id: string) => `/p/${encodeURIComponent(exposure.slug)}/media/${encodeURIComponent(id)}`;
     const cover = properties.coverFileId ? `<img class="page-cover" src="${media(properties.coverFileId)}" alt="">` : '';

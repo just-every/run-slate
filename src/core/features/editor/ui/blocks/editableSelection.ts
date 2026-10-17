@@ -11,14 +11,14 @@ export function readEditableSelection(root: HTMLElement): EditableSelection | nu
       if (found) return;
       if (node.nodeType === Node.ELEMENT_NODE && node !== root) {
         const element = node as HTMLElement;
-        const mentionLength = element.getAttribute("data-slate-mention-length");
-        if (mentionLength !== null) {
-          // A mention is one immutable run. Its rendered prefix and status are
+        const atomicLength = element.getAttribute("data-slate-atomic-length");
+        if (atomicLength !== null) {
+          // Mentions and status labels are immutable runs. Their decoration is
           // presentation, while slicing and formatting use its stored text.
           if (element.contains(target)) {
-            total += position > 0 ? Number(mentionLength) : 0;
+            total += position > 0 ? Number(atomicLength) : 0;
             found = true;
-          } else total += Number(mentionLength);
+          } else total += Number(atomicLength);
           return;
         }
         if ((element.tagName === "DIV" || element.tagName === "P") && element.previousSibling) total++;
@@ -48,9 +48,9 @@ export function restoreEditableSelection(root: HTMLElement, value: EditableSelec
       if (point) return;
       if (node.nodeType === Node.ELEMENT_NODE && node !== root) {
         const element = node as HTMLElement;
-        const mentionLength = element.getAttribute("data-slate-mention-length");
-        if (mentionLength !== null) {
-          const length = Number(mentionLength);
+        const atomicLength = element.getAttribute("data-slate-atomic-length");
+        if (atomicLength !== null) {
+          const length = Number(atomicLength);
           // Never put a caret inside contenteditable=false: Chromium accepts
           // focus there but drops subsequent typing.
           if (offset <= length) point = boundary(node, offset > 0);

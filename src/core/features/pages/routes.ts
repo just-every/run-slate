@@ -6,6 +6,7 @@ import { validatedJson, createPageSchema, updatePageSchema, updateBlockSchema, r
 import { bulkPages } from './bulk';
 import { ApiProblem } from '../../app/problems';
 import { contentQuery, treeExpansion } from './queries';
+import { taskReport } from '../work-items/report-query';
 import { previewLink, publicPreviewTransport } from '../editor/link-preview';
 import { Hono } from 'hono';
 import type { AppEnvironment } from '../../app/types';
@@ -30,6 +31,7 @@ export function createPagesRoutes() {
     r.get('/', async (c) => c.json(await listPages(featureContext(c), c.req.query('containerId'),c.req.query('label'))));
     r.post('/', async (c) => c.json(await createPage(featureContext(c), await validatedJson(c, createPageSchema))));
     r.post('/:id/query', async (c) => c.json(await contentQuery(featureContext(c), c.req.param('id'), await c.req.json())));
+    r.post('/:id/task-report', async (c) => c.json(await taskReport(featureContext(c), c.req.param('id'), await c.req.json())));
     r.get('/:id/expansion', async (c) => c.json(await treeExpansion(featureContext(c), c.req.param('id'))));
     r.post('/:id/expansion', async (c) => c.json(await treeExpansion(featureContext(c), c.req.param('id'), await c.req.json())));
     r.get('/:id/details',async c=>c.json(await pageDetails(featureContext(c),c.req.param('id'),c.get('runtimeConfig')?.appUrl)));

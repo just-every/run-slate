@@ -1,25 +1,31 @@
-import type { ImportedBlock, ImportedLink } from "./types";
+import type { ImportedBlock, ImportedLink, ImportedStatus } from "./types";
 import { safeImportLink } from "./url";
+import { parseTableOfContentsSettings } from "./portable-blocks";
 
 const marker = /^\s*(#{1,6})\s+(.+)$/;
 const bullet = /^\s*[-*+]\s+(.+)$/;
 const ordered = /^\s*\d+[.)]\s+(.+)$/;
 const task = /^\s*[-*+]\s+\[([ xX])\]\s+(.+)$/;
 
-function inlineMarkdown(source: string): { text: string; links: ImportedLink[] } {
-  const links: ImportedLink[] = [];
+function inlineMarkdown(source: string): { text: string; links: ImportedLink[]; statuses: ImportedStatus[] } {
+  const links: ImportedLink[] = [], statuses: ImportedStatus[] = [];
   let text = "", cursor = 0;
-  for (const match of source.matchAll(/(!?)\[([^\]]*)\]\(([^()\n]*(?:\([^()\n]*\)[^()\n]*)*)\)/g)) {
+  const tokens = /(!?)\[((?:\\.|[^\[\]\\]|\[(?:\\.|[^\[\]\\])*\]\{status:(?:grey|blue|green|yellow|red|purple)\})*)\](?:\{status:(grey|blue|green|yellow|red|purple)\}|\(([^()\n]*(?:\([^()\n]*\)[^()\n]*)*)\))/g;
+  for (const match of source.matchAll(tokens)) {
     text += stripFormatting(source.slice(cursor, match.index));
-    const label = stripFormatting(match[2]!);
+    const label = match[3] ? {text: stripFormatting(match[2]!), statuses: []} : inlineMarkdown(match[2]!);
     const textStart = text.length;
-    text += label;
-    const link = safeImportLink(match[3]!);
-    if (link) links.push({ ...link, textStart, textEnd: text.length });
+    text += label.text;
+    if (match[3]) statuses.push({textStart, textEnd: text.length, colour: match[3] as ImportedStatus["colour"]});
+    else {
+      statuses.push(...label.statuses.map(status => ({...status, textStart: status.textStart + textStart, textEnd: status.textEnd + textStart})));
+      const link = safeImportLink(match[4]!);
+      if (link) links.push({ ...link, textStart, textEnd: text.length });
+    }
     cursor = match.index! + match[0].length;
   }
   text += stripFormatting(source.slice(cursor));
-  return { text, links };
+  return { text, links, statuses };
 }
 
 function block(sourceId: string, index: number, kind: ImportedBlock["kind"], text?: string): ImportedBlock {
@@ -30,12 +36,13 @@ function block(sourceId: string, index: number, kind: ImportedBlock["kind"], tex
     kind,
     text: inline.text,
     links: inline.links,
+    ...("statuses" in inline && inline.statuses.length ? {statuses: inline.statuses} : {}),
     children: [],
   };
 }
 
 function stripFormatting(value: string): string {
-  return value.replace(/[*_`~]/g, "");
+  return value.replace(/\\([\\[\]*_`~<>])|([*_`~])/g, (_match, escaped: string | undefined) => escaped ?? "");
 }
 
 function tableRows(lines: string[]): string[][] {
@@ -50,6 +57,20 @@ export function markdownBlocks(markdown: string, sourceId: string): ImportedBloc
   for (let cursor = 0; cursor < lines.length; cursor += 1) {
     const line = lines[cursor]!;
     if (!line.trim()) continue;
+
+    const toc = line.match(/^<!-- slate:table-of-contents (.+) -->$/);
+    if (toc) {
+      const settings = parseTableOfContentsSettings(toc[1]!);
+      const end = lines.indexOf("<!-- /slate:table-of-contents -->", cursor + 1);
+      if (settings && end >= 0) {
+        const next = block(sourceId, index++, "table-of-contents");
+        next.tableOfContents = settings;
+        blocks.push(next);
+        cursor = end;
+        continue;
+      }
+    }
+    if (/^<a id="block-[^"\n]*"><\/a>$/.test(line.trim())) continue;
 
     if (/^```/.test(line.trim())) {
       const language = line.trim().slice(3).trim();

@@ -1,3 +1,4 @@
+import {taskReportDefinitionSchema} from '../work-items/report-definition';
 import {contentQueryDefinitionSchema} from './query-definition';
 import { validDate } from '../work-items/time';
 import { contentLimits } from './limits';
@@ -14,7 +15,7 @@ export const safeUrl = (value: string) => {
         return value.startsWith('/app/') || value.startsWith('/api/media/');
     }
 };
-const span = z.object({ text: z.string(), marks: z.array(z.enum(['bold', 'italic', 'underline', 'strikethrough', 'code'])).optional(), colour: z.enum(['yellow', 'blue', 'green', 'red', 'purple']).optional(), link: z.object({ href: z.string().refine(safeUrl) }).optional(), mention: z.object({ kind: z.enum(['person', 'page', 'date']), label: z.string().optional(), id: z.string().optional() }).optional(), commentAnchorId: z.string().optional() }).strict().transform(value => value.mention ? {...value, mention: {...value.mention, label: value.mention.label ?? value.text}} : value);
+const span = z.object({ text: z.string(), status: z.object({colour:z.enum(['grey','blue','green','yellow','red','purple'])}).strict().optional(), marks: z.array(z.enum(['bold', 'italic', 'underline', 'strikethrough', 'code'])).optional(), colour: z.enum(['yellow', 'blue', 'green', 'red', 'purple']).optional(), link: z.object({ href: z.string().refine(safeUrl) }).optional(), mention: z.object({ kind: z.enum(['person', 'page', 'date']), label: z.string().optional(), id: z.string().optional() }).optional(), commentAnchorId: z.string().optional() }).strict().refine(value=>!value.status || (value.text.trim().length>0 && value.text.length<=80),'Status labels need 1 to 80 characters.').transform(value => value.mention ? {...value, mention: {...value.mention, label: value.mention.label ?? value.text}} : value);
 const rich = z.array(span);
 const schemas: Record<string, z.ZodType> = {
     paragraph: z.object({ text: rich }), heading: z.object({ text: rich, level: z.number().int().min(1).max(3), number: z.string().optional() }),
@@ -25,6 +26,8 @@ const schemas: Record<string, z.ZodType> = {
     media: z.object({ kind: z.enum(['image', 'video', 'audio', 'file']), source: z.object({ url: z.string().refine(safeUrl), name: z.string(), fileId: z.string().optional(), sizeLabel: z.string().optional(), contentType: z.string().optional() }).nullable(), caption: z.string(), alt: z.string() }),
     'link-card': z.object({ url: z.string().refine(safeUrl), display: z.enum(['plain', 'inline', 'card']), previewState: z.enum(['ready', 'loading', 'refused', 'failed']), preview: z.object({ title: z.string(), description: z.string().optional(), siteName: z.string().optional(), iconLabel: z.string().optional() }).optional(), previewMessage: z.string().optional() }),
     'content-query': z.object({definition:contentQueryDefinitionSchema}),
+    'table-of-contents': z.object({minLevel:z.number().int().min(1).max(3),maxLevel:z.number().int().min(1).max(3),style:z.enum(['flat','nested'])}).refine(value=>value.minLevel<=value.maxLevel),
+    'task-report':z.object({definition:taskReportDefinitionSchema}),
 };
 export function validateBlockContent(type: string, content: JsonValue): JsonValue {
     const schema = schemas[type];

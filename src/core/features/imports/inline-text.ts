@@ -1,7 +1,7 @@
-import type { ImportedBlock, ImportedLink } from "./types";
+import type { ImportedBlock, ImportedLink, ImportedStatusColour } from "./types";
 import { safeUrl } from "../editor/validation";
 
-type Span = { text: string; link?: { href: string } };
+type Span = { text: string; link?: { href: string }; status?: { colour: ImportedStatusColour } };
 type IdFor = (kind: string, id: string) => string;
 
 export function importedHref(link: ImportedLink | undefined, idFor: IdFor): string | undefined {
@@ -12,24 +12,24 @@ export function importedHref(link: ImportedLink | undefined, idFor: IdFor): stri
     : `/app/pages/${idFor("page", link.targetSourceId)}`;
 }
 
-/** Markdown labels carry exact ranges so surrounding prose stays unlinked. */
+/** Ranges let a status label and a link coexist without styling surrounding prose. */
 export function importedText(block: ImportedBlock, idFor: IdFor): Span[] {
   const text = block.text ?? "";
-  const ranged = block.links.filter(link => link.textStart !== undefined && link.textEnd !== undefined);
-  if (!ranged.length) {
-    const href = importedHref(block.links[0], idFor);
-    return [{ text, ...(href && safeUrl(href) ? { link: { href } } : {}) }];
-  }
+  const valid = (range: {textStart?: number; textEnd?: number}) =>
+    range.textStart !== undefined && range.textEnd !== undefined && range.textStart >= 0 &&
+    range.textEnd > range.textStart && range.textEnd <= text.length;
+  const ranged = block.links.filter(valid);
+  const links = ranged.length ? ranged : block.links.slice(0, 1).map(link => ({...link, textStart: 0, textEnd: text.length}));
+  const statuses = (block.statuses ?? []).filter(valid);
+  const boundaries = [...new Set([0, text.length, ...links.flatMap(link => [link.textStart!, link.textEnd!]), ...statuses.flatMap(status => [status.textStart, status.textEnd])])].sort((a, b) => a - b);
   const spans: Span[] = [];
-  let cursor = 0;
-  for (const link of ranged) {
-    const start = link.textStart!, end = link.textEnd!;
-    if (start < cursor || end < start || end > text.length) continue;
-    if (start > cursor) spans.push({ text: text.slice(cursor, start) });
+  for (let i = 0; i + 1 < boundaries.length; i++) {
+    const start = boundaries[i]!, end = boundaries[i + 1]!;
+    if (end <= start) continue;
+    const link = links.find(link => link.textStart! <= start && link.textEnd! >= end);
     const href = importedHref(link, idFor);
-    spans.push({ text: text.slice(start, end), ...(href && safeUrl(href) ? { link: { href } } : {}) });
-    cursor = end;
+    const status = statuses.find(status => status.textStart <= start && status.textEnd >= end);
+    spans.push({text: text.slice(start, end), ...(href && safeUrl(href) ? {link: {href}} : {}), ...(status ? {status: {colour: status.colour}} : {})});
   }
-  if (cursor < text.length) spans.push({ text: text.slice(cursor) });
-  return spans.length ? spans : [{ text }];
+  return spans.length ? spans : [{text}];
 }

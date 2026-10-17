@@ -43,6 +43,8 @@ export function describeBlock(block: EditorBlock): string {
       return `${block.kind} block`;
     case "link-card":
       return "link card";
+    case "table-of-contents": return "table of contents";
+    case "task-report": return "task report";
     case "content-query":
       return "content query";
   }
@@ -96,7 +98,7 @@ export function BlockRow({
 
   return (
     <div
-      className="block-row group/row flex w-full justify-center gap-1"
+      className="block-row scroll-mt-24 group/row flex w-full justify-center gap-1"
       data-block-id={block.id}
       id={`block-${block.id}`}
       data-selected={selected ? "true" : undefined}

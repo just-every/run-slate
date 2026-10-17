@@ -45,7 +45,10 @@ export type InsertKind =
   | "audio"
   | "file"
   | "link-card"
-  | "content-query";
+  | "content-query"
+  | "table-of-contents"
+  | "task-report"
+  | "status";
 
 export interface InsertEntry {
   kind: InsertKind;
@@ -89,6 +92,9 @@ const media: InsertEntry[] = [
 ];
 
 const advanced: InsertEntry[] = [
+  {kind:"table-of-contents",name:"Table of contents",icon:ListTree,description:"Links to headings in this page"},
+  {kind:"task-report",name:"Task report",icon:ListTodo,description:"Live tasks the current reader can access"},
+  {kind:"status",name:"Status label",shortcut:"/status",icon:Info,description:"An inline label with text and colour"},
   { kind: "content-query", name: "Content query", icon: ListTree, description: "A live list of pages" },
 ];
 

@@ -736,21 +736,21 @@ A body can hold a task report: a live list of tasks filtered by container, ances
 
 *Acceptance:* a browser journey embeds a report filtered to one container and one assignee over tasks on three pages. One reader sees all three tasks. A reader without access to one of the pages sees the other two, with no count, title or placeholder for the third. Completing a task from the report updates its page.
 
-*Status:* missing. Content queries over pages ship (`BLOCK-010`, `tests/qualification/interface/blocks.mjs`); there is no task source.
+*Status:* partial. The native core-wiki flow is exercised through HTTP (`tests/profile/work-items-journey.ts`). Confluence Task Report mapping and anonymous public queries remain missing; readable archives keep unresolved external scope identities unavailable.
 
 #### BLOCK-017 — Table of contents block.
 A body can hold a table of contents built from its headings, placed anywhere in the page, with a chosen range of heading levels and a flat or nested style. Like `PAGE-010`'s side outline, it follows the current body within 2 seconds of an edit, and each entry links to its heading. It survives export as a linked list in Markdown, HTML, PDF and Word (`PORT-007`, `PORT-010`), and Confluence's Table of Contents macro imports as this block (`IMP-010`). It is separate from the side outline.
 
 *Acceptance:* a browser journey inserts a table of contents limited to heading levels 1 and 2, adds a heading and sees its entry within 2 seconds, follows an entry to its heading, and exports Markdown that contains the linked list. Importing a Confluence page with a Table of Contents macro produces the block.
 
-*Status:* missing. The side outline exists (`PAGE-010`, `src/core/features/pages/ui/PageOutline.tsx`); there is no table-of-contents block.
+*Status:* partial. The native core-wiki flow is exercised through HTTP (`tests/profile/body-blocks-journey.ts`). Word export remains missing; genuine Confluence macro-fixture acceptance remains unproven.
 
 #### BLOCK-018 — Status labels.
 An inline status label is a short coloured lozenge with text, in grey, blue, green, yellow, red or purple, inserted from the block menu or by typing `/status`. Screen readers and search read it as text. It survives export, as text with its colour name in Markdown and as a styled span in HTML, and Confluence's Status macro imports as this label with its colour (`IMP-010`). It is separate from a page's status (`STAT-*`).
 
 *Acceptance:* a browser journey inserts a green "Done" label and a red "Blocked" label, finds the page by searching for "Blocked", and exports and re-imports the page with both labels and colours intact. A Confluence page with Status macros imports with matching labels and colours.
 
-*Status:* missing.
+*Status:* partial. The native core-wiki flow is exercised through HTTP (`tests/profile/body-blocks-journey.ts`). Confluence status colour in plain-string table cells is reported as loss; genuine incumbent macro-fixture acceptance remains unproven.
 
 #### BLOCK-019 — Diagrams.net diagrams.
 A diagram block holds a diagrams.net (draw.io) diagram: its `.drawio` source and a rendered SVG preview. A member with edit access opens it in the diagrams.net editor (jgraph/drawio, Apache-2.0), which Slate serves from the deployment's own origin so that diagram content never reaches a third party. Saving writes a new revision of the block (`REV-001`). Readers, including the anonymous read view (`WEB-003`), see the preview sanitised under `BASE-INPUT-002`, and anyone who can read the page can download the source as a `.drawio` file. Confluence draw.io diagrams import as diagram blocks with their source and preview. Gliffy diagrams are converted to diagrams.net, with the original `.gliffy` file attached to the block (`IMP-010`). A diagram that cannot be converted keeps its preview image and its source attachment and is named in the loss report.
@@ -1751,8 +1751,8 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 161 | 60 | 0 | 221 |
-| Target and push further | 3 | 53 | 49 | 105 |
-| All | 164 | 113 | 49 | 326 |
+| Target and push further | 3 | 56 | 46 | 105 |
+| All | 164 | 116 | 46 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1988,9 +1988,9 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `BLOCK-013` | Equations and diagrams as code | target | missing | — | not implemented |
 | `BLOCK-014` | Tables that work like tables | target | partial | `src/core/features/editor/validation.ts` | see the clause |
 | `BLOCK-015` | Assigned tasks with due dates | target | partial | `tests/profile/work-items-journey.ts` | Email/push delivery and public MCP remain missing; default-profile HTTP and 1440/390 browser journeys cover assignment, sharing, due dates, reassignment and completion. |
-| `BLOCK-016` | Task reports | target | missing | — | not implemented |
-| `BLOCK-017` | Table of contents block | target | missing | — | not implemented |
-| `BLOCK-018` | Status labels | target | missing | — | not implemented |
+| `BLOCK-016` | Task reports | target | partial | `tests/profile/work-items-journey.ts` | Confluence Task Report mapping and anonymous public queries remain missing; readable archives keep unresolved external scope identities unavailable. |
+| `BLOCK-017` | Table of contents block | target | partial | `tests/profile/body-blocks-journey.ts` | Word export remains missing; genuine Confluence macro-fixture acceptance remains unproven. |
+| `BLOCK-018` | Status labels | target | partial | `tests/profile/body-blocks-journey.ts` | Confluence status colour in plain-string table cells is reported as loss; genuine incumbent macro-fixture acceptance remains unproven. |
 | `BLOCK-019` | Diagrams.net diagrams | target | missing | — | not implemented |
 | `BLOCK-020` | Group mentions | target | partial | `tests/e2e/editor/rich-text-editing.test.tsx` | see the clause |
 | `BLOCK-021` | Attachment previews | target | missing | — | not implemented |

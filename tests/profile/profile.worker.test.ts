@@ -1,3 +1,4 @@
+import {bodyBlocksJourney} from './body-blocks-journey';
 import {workItemsJourney} from './work-items-journey';
 import {env} from 'cloudflare:test';
 import {beforeEach, it, expect} from 'vitest';
@@ -71,6 +72,7 @@ it('FLAG-001 — core wiki creates and revises genuine pages, searches them, and
   const run=await request('/api/imports/'+imported.id+'/run','POST');
   expect(run.status).toBe(200);
   expect(await run.json()).toMatchObject({state:'completed'});
+  await bodyBlocksJourney(api,containerId,cookie);
   await workItemsJourney(api,containerId,memberId,workspaceId,cookie);
 });
 it('FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', async () => {

@@ -2,6 +2,8 @@ import { attributesOf as attributes, childNodes as children, elementName, parseM
 import { reportUnmapped, reportWarning } from "./report";
 import { safeImportLink } from "./url";
 import type { ImportedBlock, ImportReport } from "./types";
+import { inlineMarkup } from "./inline-markup";
+import { parseTableOfContentsSettings } from "./portable-blocks";
 
 type HtmlNode = MarkupNode;
 type MediaResolver = (source: string) => string | undefined;
@@ -36,6 +38,13 @@ export function htmlBlocks(html: string, sourceId: string, report: ImportReport,
     blocks.push(next);
     return next;
   };
+  const inline = (kind: ImportedBlock["kind"], node: HtmlNode) => {
+    const content = inlineMarkup(node, {skip: child => blockedTags.has(elementName(child) ?? '') || ['ul', 'ol', 'table', 'pre', 'blockquote', 'img', 'nav'].includes(elementName(child) ?? '')});
+    const next = append(kind, content.text);
+    next.links = content.links;
+    if (content.statuses.length) next.statuses = content.statuses;
+    return next;
+  };
 
   const visit = (node: HtmlNode) => {
     const tag = elementName(node);
@@ -48,6 +57,10 @@ export function htmlBlocks(html: string, sourceId: string, report: ImportReport,
       return;
     }
     const attrs = attributes(node);
+    if (tag === 'nav' && attrs['data-slate-table-of-contents']) {
+      const settings = parseTableOfContentsSettings(attrs['data-slate-table-of-contents']);
+      if (settings) { const next = append('table-of-contents'); next.tableOfContents = settings; return; }
+    }
     if (tag === "img") {
       const source = attrs.src;
       if (!source) return;
@@ -67,27 +80,26 @@ export function htmlBlocks(html: string, sourceId: string, report: ImportReport,
       return;
     }
     if (/^h[1-6]$/.test(tag)) {
-      const next = append("heading", text(node));
+      const next = inline("heading", node);
       next.level = Number(tag.slice(1));
       return;
     }
     if (tag === "p" || tag === "div" || tag === "section" || tag === "article") {
-      const value = text(node).trim();
-      if (value) {
-        const next = append("paragraph", value);
-        children(node).filter((child) => elementName(child) === "a").forEach((anchor) => {
-          const link = safeImportLink(attributes(anchor).href ?? "");
-          if (link) next.links.push(link);
-        });
-      }
+      if (tag !== 'p' && children(node).some(child => ['p', 'div', 'section', 'article', 'h1', 'h2', 'h3', 'nav'].includes(elementName(child) ?? ''))) { children(node).forEach(visit); return; }
+      if (text(node).trim()) inline("paragraph", node);
       children(node).filter((child) => ["ul", "ol", "table", "pre", "blockquote", "img"].includes(elementName(child) ?? "")).forEach(visit);
       return;
     }
     if (tag === "ul" || tag === "ol") {
-      children(node).filter((child) => elementName(child) === "li").forEach((item) => append(tag === "ul" ? "bulleted-list" : "numbered-list", text(item)));
+      children(node).filter((child) => elementName(child) === "li").forEach((item) => {
+        inline(tag === "ul" ? "bulleted-list" : "numbered-list", item);
+        children(item).filter(child => ['ul', 'ol'].includes(elementName(child) ?? '')).forEach(visit);
+      });
       return;
     }
-    if (tag === "blockquote") { append("quote", text(node)); return; }
+    if (tag === "blockquote") { inline("quote", node); return; }
+    if (tag === "aside") { inline("callout", node); return; }
+    if (tag === "span" && attrs['data-slate-status']) { inline("paragraph", node); return; }
     if (tag === "hr") { append("divider"); return; }
     if (tag === "pre") {
       const next = append("code", text(node));

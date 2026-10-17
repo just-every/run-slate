@@ -174,6 +174,8 @@ test("Confluence storage format loses no text: links in paragraphs, images in li
     '<ac:structured-macro ac:name="details"><ac:rich-text-body><p>Prose inside an unmapped macro</p></ac:rich-text-body></ac:structured-macro>',
     '<ac:structured-macro ac:name="code"><ac:parameter ac:name="language">python</ac:parameter><ac:plain-text-body>def f():\n    return 1</ac:plain-text-body></ac:structured-macro>',
     '<table><tbody><tr><td><p>Outer cell</p><table><tbody><tr><td><p>Nested cell</p></td></tr></tbody></table></td></tr></tbody></table>',
+    '<ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">1</ac:parameter><ac:parameter ac:name="maxLevel">2</ac:parameter><ac:parameter ac:name="type">flat</ac:parameter></ac:structured-macro>',
+    '<p>Before <ac:structured-macro ac:name="status"><ac:parameter ac:name="title">Done</ac:parameter><ac:parameter ac:name="colour">Green</ac:parameter></ac:structured-macro> and <ac:structured-macro ac:name="status"><ac:parameter ac:name="title">Blocked</ac:parameter><ac:parameter ac:name="colour">Red</ac:parameter></ac:structured-macro> after.</p>',
   ].join("");
   const parsed = confluence(syntheticConfluenceCsvExport({
     tables: {
@@ -210,6 +212,11 @@ test("Confluence storage format loses no text: links in paragraphs, images in li
   // A nested table is its own block; its rows are not hoisted into the outer.
   const tables = blocks.filter((block) => block.kind === "table");
   expect(tables.map((table) => table.rows)).toEqual([[["Outer cell"]], [["Nested cell"]]]);
+  // Synthetic mechanics only: the genuine export does not establish IMP-010 for these macros.
+  expect(blocks.find(block => block.kind === 'table-of-contents')?.tableOfContents).toEqual({minLevel: 1, maxLevel: 2, style: 'flat'});
+  const statusParagraph = blocks.find(block => block.text === 'Before Done and Blocked after.')!;
+  expect(statusParagraph.statuses?.map(status => [statusParagraph.text!.slice(status.textStart, status.textEnd), status.colour])).toEqual([['Done', 'green'], ['Blocked', 'red']]);
+  expect(parsed.report.unmapped.some(entry => /macro "(?:toc|status)" has no Slate equivalent/.test(entry.label))).toBe(false);
 });
 
 // ---------------------------------------------------------------- notion ----
