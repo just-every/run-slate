@@ -11,9 +11,9 @@
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 169 | 52 | 0 | 221 |
+| Published | 170 | 51 | 0 | 221 |
 | Target and push further | 6 | 55 | 44 | 105 |
-| All | 175 | 107 | 44 | 326 |
+| All | 176 | 106 | 44 | 326 |
 
 ### Published: Workspace, editing and pages
 
@@ -51,7 +51,7 @@
 | `PAGE-010` Outline | Outline reflects headings within 2 seconds and scrolls to the chosen heading; no headings shows no outline | done | `tests/qualification/ui-convergence/outline-journey.mjs` (typing, long labels, scrolling, reload and no-heading state at 1440/390) |
 | `PAGE-011` Present | Present mode paginates by top-level headings without chrome and returns to the same scroll position | partial | `src/core/features/pages/ui/workspace/PagePresentation.tsx` (present mode UI; no journey) |
 | `PAGE-012` Page display options | Typeface, small text and full width are stored per page, identical for every reader and kept through export and import | done | `tests/e2e/pages/display-options.test.ts`, `tests/qualification/ui-convergence/page-display-journey.mjs` (shared display, unchanged content, readable round trips, complete workspace restore and 1440/390 editor/reader journeys) |
-| `PAGE-013` Analytics | Views and unique viewers over time per page and container, own views labelled, never exposing an unreadable viewer | partial | `src/core/features/analytics/` (analytics code; no requirement-level journey) |
+| `PAGE-013` Analytics | Views and unique viewers over time per page and container, own views labelled, never exposing an unreadable viewer | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` (page/space time series, author views, inclusive dates, read access and identity boundaries at 1440/390) |
 | `PAGE-014` Reactions | Page reactions show who reacted, notify no one and are not counted in analytics | done | `tests/e2e/pages/reactions.test.ts`, `tests/qualification/ui-convergence/reactions-journey.mjs` (named page/comment reactions, add/remove, persistence, access and unchanged notice/view counts at 1440/390) |
 | `TREE-001` A nested tree in a container | Unlimited-depth tree per container with per-member expansion and exactly one parent per page | done | `tests/qualification/tree-correction/regression.test.ts` |
 | `TREE-002` Reordering and nesting | Drag reorder and re-parent store one explicit order for every member, unchanged by edits or renames | done | `tests/qualification/publication/preview.test.ts` |

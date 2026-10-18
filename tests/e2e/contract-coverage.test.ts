@@ -37,7 +37,6 @@ const plannedClauses: ReadonlyArray<readonly [string, string]> = [
   ['PAGE-009', 'Watch'],
   ['PAGE-010', 'Outline'],
   ['PAGE-011', 'Present'],
-  ['PAGE-013', 'Analytics'],
   ['PAGE-015', 'Page lock'],
   ['TREE-001', 'A nested tree in a container'],
   ['TREE-002', 'Reordering and nesting'],

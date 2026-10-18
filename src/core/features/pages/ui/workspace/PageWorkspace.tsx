@@ -120,7 +120,7 @@ function LoadedPage({
     }
     // A panel updates the current page URL without restoring an earlier page
     // scroll position after its own focus has already settled.
-    void navigate({ href: `${url.pathname}${url.search}${url.hash}`, replace: true, resetScroll: false, hashScrollIntoView: false }).catch(setError);
+    void navigate({ href: `${url.pathname}${url.search}${url.hash}`, state: previous => ({ ...previous, slatePanelNavigation: true }), replace: true, resetScroll: false, hashScrollIntoView: false }).catch(setError);
   }
   useEffect(() => {
     const close = (event: KeyboardEvent) => { if (event.key === "Escape" && !event.defaultPrevented && !window.document.querySelector("dialog[open], [role=dialog]")) setDetail(null); };
