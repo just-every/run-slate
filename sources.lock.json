@@ -4124,7 +4124,7 @@
       "executable": false
     },
     "src/core/app/editor-config.ts": {
-      "sha256": "42486d19a6bc05aea3cb7cb53a590ebbe85be24badad9a722332c81e7ed5e97a",
+      "sha256": "e894df0868065c78674f6a3c3d94758cd6b950c9a2b8517b8a1ae715200c7a9a",
       "executable": false
     },
     "src/core/app/ext-client.tsx": {

@@ -11,6 +11,6 @@ export function editorHeaders(response: Response, bindings: AppBindings): Respon
   const headers = new Headers(response.headers);
   const origin = config?.managementOrigin;
   // Additional CSP preserves any existing script/nonces and other policy.
-  headers.append('Content-Security-Policy', `base-uri 'self'; object-src 'none'; frame-src 'self' ${embedFrameSources}${origin ? ' ' + origin : ''}; frame-ancestors 'self'${origin ? ' ' + origin : ''}`);
+  headers.append('Content-Security-Policy', `base-uri 'self'; object-src 'none'; frame-src 'self'${origin ? ' ' + origin : ''} ${embedFrameSources}; frame-ancestors 'self'${origin ? ' ' + origin : ''}`);
   return new Response(response.body, {status: response.status, statusText: response.statusText, headers});
 }
