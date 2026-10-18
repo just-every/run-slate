@@ -1768,15 +1768,15 @@ favour of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `a9cd232634832267224d121335c3e5694989e9bd` (18 October 2026).
+Judged from the code and cited tests in this revision (18 October 2026).
 
 See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 169 | 52 | 0 | 221 |
+| Published | 170 | 51 | 0 | 221 |
 | Target and push further | 6 | 55 | 44 | 105 |
-| All | 175 | 107 | 44 | 326 |
+| All | 176 | 106 | 44 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1812,7 +1812,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `PAGE-010` | Outline | published | done | `tests/qualification/ui-convergence/outline-journey.mjs` | Current heading text, navigation, persistence and no-heading state proven at 1440 and 390; long labels wrap. |
 | `PAGE-011` | Present | published | partial | `src/core/features/pages/ui/workspace/PagePresentation.tsx` | present mode UI; no journey |
 | `PAGE-012` | Page display options | published | done | `tests/e2e/pages/display-options.test.ts`, `tests/qualification/ui-convergence/page-display-journey.mjs` | Shared typeface, small text and full width; unchanged body; Markdown/HTML/PDF readable round trips and complete workspace restore; editor/reader browser journeys at 1440/390. |
-| `PAGE-013` | Analytics | published | partial | `src/core/features/analytics/` | analytics code; no requirement-level journey |
+| `PAGE-013` | Analytics | published | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` | Page/space daily totals and uniques, named permitted readers/contributors, labelled author views, inclusive date filtering, draft/private-page exclusions and guest identity boundaries; 1440/390 reader journeys. |
 | `PAGE-014` | Reactions | published | done | `tests/e2e/pages/reactions.test.ts`, `tests/qualification/ui-convergence/reactions-journey.mjs` | Page/comment add and removal, named reactors, read-only readers, persistence, access refusal and unchanged notification/view counts at 1440/390. |
 | `TREE-001` | A nested tree in a container | published | done | `tests/qualification/tree-correction/regression.test.ts` |  |
 | `TREE-002` | Reordering and nesting | published | done | `tests/qualification/publication/preview.test.ts` |  |

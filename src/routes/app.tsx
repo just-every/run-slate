@@ -11,7 +11,8 @@ import { loadWorkspace } from "../core/app/loaders";
  */
 export const Route = createFileRoute("/app")({
   beforeLoad: async ({location,preload}) => {
-    const workspace = await loadWorkspace({data:{path:location.pathname+location.searchStr,visit:!preload}});
+    const panelNavigation = "slatePanelNavigation" in location.state && location.state.slatePanelNavigation === true;
+    const workspace = await loadWorkspace({data:{path:location.pathname+location.searchStr,visit:!preload && !panelNavigation}});
     if (workspace.setup.required && workspace.setup.canComplete) throw redirect({ to: "/setup" });
     return { workspace };
   },

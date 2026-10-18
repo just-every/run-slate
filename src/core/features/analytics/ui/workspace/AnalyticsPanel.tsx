@@ -34,7 +34,7 @@ export function AnalyticsPanel({
     `/api/analytics?${pageId ? `pageId=${encodeURIComponent(pageId)}` : `containerId=${encodeURIComponent(containerId ?? "")}`}${range}`,
   );
   return (
-    <section>
+    <section className="analytics-panel" aria-label={pageId ? "Page readership" : "Space readership"}>
       <h3>Readership</h3>
       <form
         className="detail-form"
@@ -44,7 +44,7 @@ export function AnalyticsPanel({
           const query = new URLSearchParams();
           for (const key of ["from", "to"]) {
             const value = String(data.get(key) || "");
-            if (value) query.set(key, new Date(value).toISOString());
+            if (value) query.set(key, `${value}T${key === "to" ? "23:59:59.999" : "00:00:00.000"}Z`);
           }
           setRange(`&${query}`);
         }}
@@ -59,6 +59,8 @@ export function AnalyticsPanel({
         </label>
         <button>Apply dates</button>
       </form>
+      <p className="muted">Dates use UTC and include the whole Until day.</p>
+      <div className="analytics-controls">
       <label>
         <input
           type="checkbox"
@@ -77,6 +79,7 @@ export function AnalyticsPanel({
           <option value="uniqueViewers">Unique signed-in viewers</option>
         </select>
       </label>
+      </div>
       <RequestState
         loading={resource.loading}
         error={resource.error}
@@ -94,6 +97,7 @@ export function AnalyticsPanel({
               {metric === "views" ? "views" : "unique signed-in viewers"} ·{" "}
               {resource.data.anonymousViews} anonymous views
             </p>
+            <p>Author views: {resource.data.ownPageViews} ({own ? "included" : "excluded"}).</p>
             {metric === "uniqueViewers" && !own ? (
               <p className="muted">
                 Unique viewers include authors; this data cannot distinguish
@@ -116,6 +120,7 @@ export function AnalyticsPanel({
                       {metric === "views"
                         ? day.views - (own ? 0 : day.ownPageViews)
                         : day.uniqueViewers}
+                      {metric === "views" ? <span className="muted"> · {day.ownPageViews} by authors{own ? "" : " (excluded)"}</span> : null}
                     </td>
                   </tr>
                 ))}
@@ -126,7 +131,7 @@ export function AnalyticsPanel({
               {resource.data.viewers.map((person) => (
                 <li key={person.id}>
                   {person.displayName} ·{" "}
-                  {person.views - (own ? 0 : person.ownPageViews)} views
+                  {person.views - (own ? 0 : person.ownPageViews)} views{person.ownPageViews ? ` · ${person.ownPageViews} on their own pages${own ? "" : " (excluded)"}` : ""}
                 </li>
               ))}
             </ul>

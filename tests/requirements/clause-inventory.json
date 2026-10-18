@@ -394,14 +394,14 @@
       "id": "PAGE-013",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PAGE-013 \u2014 Analytics. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "Local Worker page/container aggregates, date normalization, reader identity/access boundaries and 1440/390 emitted-browser readership journeys are registered. Independent release acceptance remains unproven.",
       "supportingTests": []
     },
     {
       "id": "PAGE-014",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PAGE-014 \u2014 Reactions. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "Local Worker and 1440/390 emitted-browser page/comment reaction add, remove, attribution, access and unchanged notification/view-count journeys are registered. Independent release acceptance remains unproven.",
       "supportingTests": []
     },
     {
