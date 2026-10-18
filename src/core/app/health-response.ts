@@ -6,7 +6,8 @@ import { assertStoredConfiguration, runtimeConfigFor } from "./runtime-gate";
 import type { AppBindings } from "./types";
 
 const refreshInterval = 30_000;
-const maximumAge = 60_000;
+// Leave room for the managed monitor's minute-spaced requests and jitter.
+const maximumAge = 120_000;
 const probeTimeout = 5_000;
 
 interface HealthState {
@@ -64,7 +65,7 @@ function refresh(state: HealthState, bindings: AppBindings): Promise<void> {
 /**
  * No storage or outbound calls are awaited here. Cold isolates return 503 until
  * their first background probe succeeds. Active probes refresh every 30 s;
- * failures/timeouts clear success, and evidence older than 60 s is never trusted.
+ * failures/timeouts clear success, and evidence older than two minutes is never trusted.
  * Thus the next health read after that bound fails even if a refresh is stuck.
  */
 export function healthResponse(request: Request, bindings: AppBindings, execution: Pick<ExecutionContext, "waitUntil">): Response {

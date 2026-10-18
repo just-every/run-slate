@@ -4140,7 +4140,7 @@
       "executable": false
     },
     "src/core/app/health-response.ts": {
-      "sha256": "e23038608faa046ea161b58cdb4b1dbc4aa006f1ec9de7bbef68fb5b72768354",
+      "sha256": "24268e9fafefc3182e07f08a02fd82e78cf50b1228650af7343d4b951d436550",
       "executable": false
     },
     "src/core/app/hono-paths.ts": {
@@ -8740,7 +8740,7 @@
       "executable": false
     },
     "tests/e2e/workspace/health.test.ts": {
-      "sha256": "f118cb640559a843f4c4674bc6d6707ce9853fc2022a35b5b7a949c80ca9319e",
+      "sha256": "2548db3d3d865dd497a33acf5e9fc118ac221363e1f6093bacb0181ad0ceeb57",
       "executable": false
     },
     "tests/fixtures/aurora/members.json": {

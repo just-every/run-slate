@@ -64,8 +64,15 @@ contract("BASE-OPS-001", "health reports ready when the database answers", async
     }
     expect(calls).toBe(observed);
 
+    // A minute-spaced monitor with scheduling jitter must keep a healthy answer
+    // while its next background check runs.
+    clock.mockReturnValue(started + 65_000);
+    const nextMonitor = await request();
+    expect(nextMonitor.response.status).toBe(200);
+    await nextMonitor.done();
+
     mode = "failed";
-    clock.mockReturnValue(started + 31_000);
+    clock.mockReturnValue(started + 96_000);
     const refreshing = await request();
     expect(refreshing.response.status).toBe(200);
     await refreshing.done();
@@ -74,17 +81,17 @@ contract("BASE-OPS-001", "health reports ready when the database answers", async
     expect(await failed.response.json()).toMatchObject({ code: "DEPENDENCY_UNAVAILABLE" });
 
     mode = "ready";
-    clock.mockReturnValue(started + 62_000);
+    clock.mockReturnValue(started + 127_000);
     const recovering = await request();
     expect(recovering.response.status).toBe(503);
     await recovering.done();
     expect((await request()).response.status).toBe(200);
 
     mode = "hung";
-    clock.mockReturnValue(started + 93_000);
+    clock.mockReturnValue(started + 158_000);
     const hanging = await request();
     expect(hanging.response.status).toBe(200);
-    clock.mockReturnValue(started + 123_000);
+    clock.mockReturnValue(started + 248_000);
     expect((await request()).response.status).toBe(503);
     await hanging.done();
     // Completing a timed-out probe cannot resurrect its old success.
