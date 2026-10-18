@@ -5444,7 +5444,7 @@
       "executable": false
     },
     "src/core/features/editor/limits.ts": {
-      "sha256": "501f9c0b31dd4211294959d30e6f49275384cabb4e5669df69ddf143f74f5f60",
+      "sha256": "060fa1f5510f6a37bae2ad0d4ad5b460917b9ce7096c8c837a8178379176d714",
       "executable": false
     },
     "src/core/features/editor/link-preview.ts": {

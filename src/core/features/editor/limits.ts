@@ -1,2 +1,2 @@
-import seed from '../../../../seed.json';
-export const contentLimits = seed.limits;
+import {limits} from '../../../../seed.json';
+export const contentLimits = limits;
