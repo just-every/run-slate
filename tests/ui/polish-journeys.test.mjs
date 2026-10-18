@@ -5,6 +5,7 @@ import { spacesJourney, settingsJourney, navigationAndSearch } from './polish/wo
 import { sharedHeaderJourney } from './polish/header.mjs';
 import { editorJourney } from './polish/editor.mjs';
 import { editorFocusJourney } from './polish/editor-focus.mjs';
+import { insertionRecoveryJourney } from './polish/insertion-recovery.mjs';
 import { mentionTypingJourney } from './polish/mentions.mjs';
 import { assertCaptureInventory } from './polish/inventory.mjs';
 import { pagePanelsJourney, commentsFailureJourney } from './polish/panels.mjs';
@@ -13,6 +14,14 @@ import { pagePanelsJourney, commentsFailureJourney } from './polish/panels.mjs';
 // reads/writes use the emitted Worker, real API, real browser and persisted D1.
 // Offline mode blocks transport; focus barriers forward genuine Worker responses.
 for (const width of [1440, 390]) {
+  test(`insertion recovery preserves later saved content at ${width}px`, { timeout: 180000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      const page = (await state.api('/api/pages')).items.find(page => page.title === 'Welcome');
+      assert.ok(page);
+      await insertionRecoveryJourney(state, page.containerId);
+    });
+  });
   test(`visible Slate polish and genuine failure/retry at ${width}px`, { timeout: 420000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'flagship', async state => {
       await setupWorkspace(state);

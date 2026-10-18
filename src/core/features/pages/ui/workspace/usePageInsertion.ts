@@ -4,19 +4,7 @@ import type { usePageEditor } from "../../../../client/usePageEditor";
 import { errorMessage } from "../../../../client/transport";
 import { newBlock } from "../../../editor/ui/newBlock";
 import type { EditorBlock } from "../../../editor/ui/types";
-
-function ordered(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(ordered);
-  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).sort(([a], [b]) => a.localeCompare(b)).map(([key, item]) => [key, ordered(item)]));
-  return value;
-}
-
-function sameBlock(a: EditorBlock, b: EditorBlock | undefined) {
-  if (!b || a.id !== b.id || a.type !== b.type || (a.indent ?? 0) !== (b.indent ?? 0)) return false;
-  const {id: _a, type: _at, indent: _ai, ...left} = a;
-  const {id: _b, type: _bt, indent: _bi, ...right} = b;
-  return JSON.stringify(ordered(left)) === JSON.stringify(ordered(right));
-}
+import { recoverInsertion, sameBlock } from "./insertionRecovery";
 
 /** Keep the editable mounted while its creation and the latest typing commit. */
 export function usePageInsertion(pageId: string, editor: ReturnType<typeof usePageEditor>) {
@@ -30,7 +18,7 @@ export function usePageInsertion(pageId: string, editor: ReturnType<typeof usePa
       const parsed = stored ? JSON.parse(stored) : legacy ? [JSON.parse(legacy)] : null;
       const recovered = Array.isArray(parsed) ? {blocks: parsed as EditorBlock[]} : parsed as {blocks: EditorBlock[]; expected?: Record<string, string>} | null;
       // A response can be interrupted after the server committed the creation.
-      if (recovered && recovered.blocks.length === editor.blocks.length && recovered.blocks.every((block, index) => sameBlock(block, editor.blocks[index]))) {
+      if (recovered && !recoverInsertion(recovered.blocks, editor.blocks, recovered.expected, editor.blockRevisions()).pending) {
         sessionStorage.removeItem(key);
         sessionStorage.removeItem(legacyKey);
         return null;
@@ -42,10 +30,19 @@ export function usePageInsertion(pageId: string, editor: ReturnType<typeof usePa
   const [draft, setDraft] = useState<EditorBlock[] | null>(recovered?.blocks ?? null);
   const [error, setError] = useState<string | undefined>(draft ? "Unsaved inserted blocks were recovered on this device. Try saving them again." : undefined);
   const current = useRef(draft), busy = useRef(false), alive = useRef(true);
+  const recovering = useRef(Boolean(recovered));
   const latestEditor = useRef(editor); latestEditor.current = editor;
   const expected = useRef<Record<string, string> | undefined>(recovered?.expected);
   const baseline = useRef(editor.readBlocks());
   const [empty] = useState(() => newBlock("text", `first-${pageId}`));
+  const recovery = recovering.current && draft ? recoverInsertion(draft, editor.blocks, expected.current, editor.blockRevisions()) : null;
+  useEffect(() => {
+    if (recovery && !recovery.pending && !busy.current) {
+      remember(null);
+      recovering.current = false;
+      setError(undefined);
+    }
+  }, [draft, editor.blocks]);
   useEffect(() => {
     alive.current = true;
     latestEditor.current.setFirstBlockDirty(Boolean(current.current));
@@ -73,6 +70,15 @@ export function usePageInsertion(pageId: string, editor: ReturnType<typeof usePa
     try {
       // Enter may follow the last keystroke before its debounce or receipt.
       await latestEditor.current.flush();
+      if (recovering.current) {
+        const recovered = recoverInsertion(current.current!, latestEditor.current.readBlocks(), expected.current, latestEditor.current.blockRevisions());
+        if (recovered.conflicts.length) throw new Error("Recovered blocks conflict with saved changes. Copy your recovered content or use the saved blocks.");
+        if (!recovered.pending) { remember(null); recovering.current = false; return; }
+        remember(recovered.blocks);
+        // Only adopted saved content receives fresh revisions. Conflicting
+        // recovered content above can never be retried against a newer version.
+        expected.current = latestEditor.current.blockRevisions();
+      }
       if (!error) {
         const saved = latestEditor.current.readBlocks();
         remember(current.current!.map(block => sameBlock(block, baseline.current.find(item => item.id === block.id)) ? saved.find(item => item.id === block.id) ?? block : block));
@@ -100,11 +106,14 @@ export function usePageInsertion(pageId: string, editor: ReturnType<typeof usePa
           latestEditor.current.change(block.id, block, expected.current?.[block.id]);
       }
       remember(null);
+      recovering.current = false;
     } catch (cause) {
+      recovering.current = true;
       if (alive.current) setError(errorMessage(cause));
     } finally { busy.current = false; }
   }
   function insert(blocks: EditorBlock[]) {
+    if (recovery?.conflicts.length) return;
     if (!current.current) {
       expected.current = latestEditor.current.blockRevisions();
       baseline.current = latestEditor.current.readBlocks();
@@ -118,11 +127,13 @@ export function usePageInsertion(pageId: string, editor: ReturnType<typeof usePa
     else latestEditor.current.change(id, block);
   }
   return {
-    blocks: draft ?? (editor.blocks.length ? editor.blocks : [empty]),
+    blocks: recovery ? (recovery.blocks.length ? recovery.blocks : [empty]) : draft ?? (editor.blocks.length ? editor.blocks : [empty]),
     pending: draft !== null,
+    conflicts: recovery?.conflicts ?? [],
     error,
     insert,
     change,
     retry: save,
+    discard() { remember(null); recovering.current = false; setError(undefined); },
   };
 }

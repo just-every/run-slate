@@ -227,7 +227,11 @@ export function PageEditorBody({
       }}/>:null}
       {editedQuery?.type==='content-query'?<ContentQueryDialog block={editedQuery} onClose={()=>setQueryEditor(null)} onSave={async definition=>{await editor.structure(editor.blocks.map(block=>block.id===editedQuery.id?{...editedQuery,definition,results:[],lastRanLabel:"Not run yet"}:block));}}/>:null}
       {error ? <p role="alert">{errorMessage(error)}</p> : null}
-      {insertion.error ? <p role="alert">{insertion.error} <button onClick={() => void insertion.retry()}>Try saving inserted blocks again</button></p> : null}
+      {insertion.conflicts.length ? <section aria-label="Recovered block conflict">
+        <p role="alert">Recovered blocks conflict with saved changes. The page shows the saved content. Copy any recovered content you need before using the saved blocks.</p>
+        <details><summary>Your recovered blocks</summary>{insertion.conflicts.map(block => <BlockView key={block.id} block={block} canEdit={false} onChange={() => {}}/>)}</details>
+        <button onClick={insertion.discard}>Use saved blocks</button>
+      </section> : insertion.error ? <p role="alert">{insertion.error} <button onClick={() => void insertion.retry()}>Try saving inserted blocks again</button></p> : null}
       {insertion.pending ? <p className="editor-save-status" role="status">{insertion.error ? "Unsaved inserted blocks" : "Saving…"}</p> : editor.structureState?<p className="editor-save-status" role="status">{editor.structureState==="saving"?"Saving…":"Saved"}</p>:null}
       <BlockEditor
         emptyBlockId={!editor.blocks.length ? visibleBlocks[0]?.id : undefined}
@@ -236,7 +240,7 @@ export function PageEditorBody({
           const hydrate=(value:unknown):unknown=>Array.isArray(value)?value.map(hydrate):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([key,item])=>[key,key==='mention'&&item&&typeof item==='object'&&'id'in item&&mentions?.[String(item.id)]?{...item,...mentions[String(item.id)]}:hydrate(item)])):value;
           return hydrate(block) as EditorBlock;
         })}
-        canEdit={document.permissions.canEdit && (insertion.pending || editor.structureState!=="saving")}
+        canEdit={document.permissions.canEdit && !insertion.conflicts.length && (insertion.pending || editor.structureState!=="saving")}
         saveState={editor.saveState}
         selectedBlockIds={selected}
         onSelectionChange={setSelected}
@@ -295,7 +299,7 @@ export function PageEditorBody({
         placeholder="Write something, or press / for blocks"
       />
       <div className="page-footer">
-        {document.permissions.canEdit ? <div className="editor-actions"><button type="button" onClick={(event) => setInsert({ after: null, anchor: event.currentTarget })}>＋ Add block</button></div> : null}
+        {document.permissions.canEdit && !insertion.conflicts.length ? <div className="editor-actions"><button type="button" onClick={(event) => setInsert({ after: null, anchor: event.currentTarget })}>＋ Add block</button></div> : null}
         {footer}
       </div>
       {media && editor.blocks.some((block) => block.id === media.id) ? (

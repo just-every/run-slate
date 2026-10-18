@@ -6915,6 +6915,10 @@
       "sha256": "5e0f83f6580d0b0f05f9261ac40a50691a4f5e127c9644f04113f02119a5acf0",
       "executable": false
     },
+    "src/core/features/pages/ui/workspace/insertionRecovery.ts": {
+      "sha256": "097c049609b14f84498bb5f3e586d9b38a4bc3e7dd917a8889eab01559bed30e",
+      "executable": false
+    },
     "src/core/features/pages/ui/workspace/PageActionDialogs.tsx": {
       "sha256": "2f4a7f7fa8aab436753a746467a11f936e9eb71876849f1d328213f7cde7c3cb",
       "executable": false
@@ -6944,7 +6948,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageEditorBody.tsx": {
-      "sha256": "30f0024423c43a64110bcd4a60bfc30ef5e0be8a2e1747d30f1092836e795e63",
+      "sha256": "f4ca657d0eccd85d39947903dde73e171d1e17045080edcabb24ffd8a9ed7703",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
@@ -7032,7 +7036,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/usePageInsertion.ts": {
-      "sha256": "eb8da528fc269ea5baa98bf65915e5b480fc340a4b52fd79856661632573479b",
+      "sha256": "d3eccca9efb17c080f51d4e9651812207d4473113f438dbcbafb9eaebaac1551",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/usePageTrail.ts": {
@@ -10584,7 +10588,7 @@
       "executable": false
     },
     "tests/ui/polish-journeys.test.mjs": {
-      "sha256": "8d5e384159b6af9173697c6a7886459712569b54d1a313974c27b247d8b0b7e2",
+      "sha256": "2d0b4c56ad3a6f501330229195119c808731bb66379f9d4b61b6b884ba844fe3",
       "executable": false
     },
     "tests/ui/polish/capture-camera.mjs": {
@@ -10613,6 +10617,10 @@
     },
     "tests/ui/polish/header.mjs": {
       "sha256": "5fc0dd7a7b19e3acc6059501534a845dcab71773f6588d2794df7aaf03ab9138",
+      "executable": false
+    },
+    "tests/ui/polish/insertion-recovery.mjs": {
+      "sha256": "c98244fa6edca3f158d5f6b302cfbe883b151f598bd6d97daa49980dc80af3f2",
       "executable": false
     },
     "tests/ui/polish/inventory.mjs": {
