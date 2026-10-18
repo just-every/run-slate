@@ -1,3 +1,4 @@
+import { seedIcons } from "@runeditrun/rer/seed-icons";
 import { demoSockets } from "./modules/demo/vite.mjs";
 import { existsSync } from "node:fs";
 import { isAbsolute, relative, resolve, sep } from "node:path";
@@ -48,6 +49,7 @@ export default defineConfig(async ({ command }) => {
     deny: ["**/.rer/**", "**/.seed/**", "**/exports/**", "**/*.rer", "**/.env*", "**/.dev.vars*", "**/.git/**"],
   } },
   plugins: [
+    seedIcons(),
     demoSockets(),
     ...(missingSettings ? [{ name: 'slate-local-settings', configureServer() { throw missingSettings; } }] : []),
     cloudflare({
