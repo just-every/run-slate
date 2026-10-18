@@ -1,3 +1,4 @@
+import { personDisplayName, personInitials } from '../../shared/person-identity';
 import { and, eq } from "drizzle-orm";
 import { createDatabase } from "../../platform/db/client";
 import { knowledgeMembers, knowledgeWorkspaces } from "../../platform/db/knowledge-schema";
@@ -23,7 +24,7 @@ export function createMemberRepository(binding: D1Database) {
         .innerJoin(knowledgeWorkspaces, eq(knowledgeMembers.workspaceId, knowledgeWorkspaces.id))
         .where(and(eq(knowledgeMembers.id, memberId), eq(knowledgeMembers.status, "active")))
         .limit(1);
-      return (row as AuthenticatedMember | undefined) ?? null;
+      return row ? { ...row, displayName: personDisplayName(row.displayName, row.email), initials: personInitials(row.displayName, row.email) } as AuthenticatedMember : null;
     },
   };
 }

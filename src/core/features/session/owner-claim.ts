@@ -14,11 +14,11 @@ export async function ownerClaim(request: Request, env: AppBindings, config: Run
   if (request.method !== 'POST' || url.origin !== origin || request.headers.get('origin') !== origin || url.search) return Response.json({ error: 'invalid_request' }, { status: 403, headers });
   try {
     const input = request.headers.get('content-type')?.includes('application/json') ? await request.json() as Record<string, unknown> : Object.fromEntries(await request.formData());
-    if (typeof input.token !== 'string' || Object.keys(input).some(key => !['token', 'returnTo', 'displayName'].includes(key))) return Response.json({ error: 'invalid_input' }, { status: 400, headers });
+    if (typeof input.token !== 'string' || (input.displayName !== undefined && (typeof input.displayName !== 'string' || input.displayName.length > 160)) || Object.keys(input).some(key => !['token', 'returnTo', 'displayName'].includes(key))) return Response.json({ error: 'invalid_input' }, { status: 400, headers });
     const claim = await verifyOwnerClaim(input.token, { issuer: env.RER_OWNER_CLAIM_ISSUER, installationId: env.RER_OWNER_CLAIM_INSTALLATION_ID, publicKeys: JSON.parse(env.RER_OWNER_CLAIM_PUBLIC_KEYS), appOrigin: origin, expectedEmail: config.setupOwnerEmail! });
     // The empty-workspace CAS is the native one-use claim: existing installations
     // and concurrent/replayed claims cannot create or regain owner authority.
-    if (!await bootstrapOwner(env.DB, config, claim.email, ownerIdentity.name)) return Response.json({ error: 'claim_unavailable' }, { status: 409, headers });
+    if (!await bootstrapOwner(env.DB, config, claim.email, ownerIdentity.name, input.displayName as string | undefined)) return Response.json({ error: 'claim_unavailable' }, { status: 409, headers });
     const store = slateSessions(env.DB, config);
     const person = await store.member('lower(email)=lower(?)', claim.email);
     const session = person && await store.issue({ person, kind: 'native', now: Date.now(), returnTo: '/app', freshProof: true });

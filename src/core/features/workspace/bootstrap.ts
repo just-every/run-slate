@@ -1,3 +1,4 @@
+import { personDisplayName, personInitials } from '../../shared/person-identity';
 import { firstRunRecords } from './first-run-records';
 import { defaultStatusStatements } from '../page-status/defaults';
 import type { RuntimeConfig } from '../../platform/config/runtime';
@@ -6,12 +7,12 @@ import { createUlid } from '../../shared/ulid';
 import { commitOperation, mutationGuard } from '../../app/operations';
 import { requireWorkspaceOwner, currentSubject } from '../sharing/current-access';
 /** Configuration identifies the sole initial mailbox. The mailbox still must prove possession. */
-export async function bootstrapOwner(db:D1Database,config:RuntimeConfig,email:string,workspaceName?:string):Promise<boolean>{
+export async function bootstrapOwner(db:D1Database,config:RuntimeConfig,email:string,workspaceName?:string,displayName?:string):Promise<boolean>{
   if(email.toLowerCase()!==config.setupOwnerEmail?.toLowerCase())return false;
   if(await db.prepare('SELECT id FROM workspaces LIMIT 1').first())return false;
   const workspaceId=createUlid(),memberId=createUlid(),now=new Date().toISOString();
   const initial = workspaceName ? await firstRunRecords({db, actor:{id:memberId,workspaceId}, now}, {containerName:'General',pageTitle:'Welcome'}, createUlid()) : null;
-  try{await db.batch([mutationGuard(db,'SELECT count(*)=0 FROM workspaces',[]),db.prepare("INSERT INTO workspaces (id,name,mark,created_at,updated_at,revision_id,first_run_completed_at) VALUES (?,?,'',?,?,?,?)").bind(workspaceId,workspaceName??'My workspace',now,now,createUlid(),workspaceName?now:null),db.prepare("INSERT INTO members (id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES (?,?,?,?,'OW','owner','member','active',1,?,?)").bind(memberId,workspaceId,email.toLowerCase(),email.split('@')[0],now,now),...defaultStatusStatements(db,workspaceId,now),...(initial?.statements??[])]);return true;}catch(cause){if(!await db.prepare('SELECT id FROM workspaces LIMIT 1').first())throw cause;return false;}
+  try{await db.batch([mutationGuard(db,'SELECT count(*)=0 FROM workspaces',[]),db.prepare("INSERT INTO workspaces (id,name,mark,created_at,updated_at,revision_id,first_run_completed_at) VALUES (?,?,'',?,?,?,?)").bind(workspaceId,workspaceName??'My workspace',now,now,createUlid(),workspaceName?now:null),db.prepare("INSERT INTO members (id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES (?,?,?,?,?,'owner','member','active',1,?,?)").bind(memberId,workspaceId,email.toLowerCase(),personDisplayName(displayName,email),personInitials(displayName,email),now,now),...defaultStatusStatements(db,workspaceId,now),...(initial?.statements??[])]);return true;}catch(cause){if(!await db.prepare('SELECT id FROM workspaces LIMIT 1').first())throw cause;return false;}
 }
 export async function firstRunState(ctx:FeatureContext){
  await currentSubject(ctx);

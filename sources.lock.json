@@ -1144,7 +1144,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "817badf201aaa5a4233824526191728445452e6ce8173041352ffc4e317f25ff",
+      "sha256": "29114ca5aa409be5474ebe3d0ad5a3a3bbc4a44a3793a6ec471ecb09b7cbe58b",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -4312,7 +4312,7 @@
       "executable": false
     },
     "src/core/app/ui/AccountMenu.tsx": {
-      "sha256": "8e4c042cdc91ef333f621f496bac855feb6e02138b016072adcdb3600fc51c83",
+      "sha256": "0b69a26169b9f68dab11e7ab619142997c98a98097e424d2931fa200acfa29c2",
       "executable": false
     },
     "src/core/app/ui/ActionDialog.tsx": {
@@ -4804,7 +4804,7 @@
       "executable": false
     },
     "src/core/features/collaboration/reads.ts": {
-      "sha256": "7d5a74908028caf8a2ad5593f40d0997576bf6ad063510d855f8fccabd80b5b2",
+      "sha256": "50f24b049a81fa96eab5679db54d340b317c37d1ba15fe44e3e4051c27129c09",
       "executable": false
     },
     "src/core/features/collaboration/routes.ts": {
@@ -5104,7 +5104,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/fields/PersonField.tsx": {
-      "sha256": "d012ebf14f84d9fcb3bc6f6264653ba9f5971fc243f28fe938020d1dc7903978",
+      "sha256": "61b77e2336530accc93576b5711dab5b0035c79b0979b2ce5d2f6457564e673a",
       "executable": false
     },
     "src/core/features/databases/ui/fields/props.ts": {
@@ -6912,7 +6912,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageReadMetadata.tsx": {
-      "sha256": "b961ce3a69167d002abfa083bb40db24ffe77483b884d445ffb73f1feede8f16",
+      "sha256": "8e6bfd62f5f3cb2ad380c23f9f92673dee8328ed1a16aa393cabe63b82951810",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageSharing.tsx": {
@@ -7376,7 +7376,7 @@
       "executable": false
     },
     "src/core/features/session/auth.ts": {
-      "sha256": "de6bd9bfe3ea091d3d2b25e022464c9313dc30bb5e730e613c17c99a504fcf17",
+      "sha256": "b91fd78837db41bb2880bc358a0489b034f7f2de989d7148eba4108b225bb69e",
       "executable": false
     },
     "src/core/features/session/base-identity.d.ts": {
@@ -7432,7 +7432,7 @@
       "executable": false
     },
     "src/core/features/session/native/accounts.ts": {
-      "sha256": "f8e4e9c1bc28e1ae53de053aa0e22363cbf2c741eca11ec2539078bad7872b95",
+      "sha256": "4e32be59a8be62d89a4fa9bdde1467596eba121d4024abf6dd2d5eede6ea0461",
       "executable": false
     },
     "src/core/features/session/native/dependencies.ts": {
@@ -7444,11 +7444,11 @@
       "executable": false
     },
     "src/core/features/session/native/store.ts": {
-      "sha256": "0e1283320a0cba71818a8d0de08c51fcdd719bb476fae76654c97d27dc7417ae",
+      "sha256": "a56a2d225c693c58e822ea4ab4f64849203be6c406f76c129a7507cdebc25635",
       "executable": false
     },
     "src/core/features/session/owner-claim.ts": {
-      "sha256": "75c32beced677d80ef57e424e314d2973cc85a05dd389a799c11c5b00d24b1b0",
+      "sha256": "b7b0d05b8f56380bc7181e15c5314bae55fc82f8bfb19a34fb4c69077b45aae5",
       "executable": false
     },
     "src/core/features/session/paths.ts": {
@@ -7460,7 +7460,7 @@
       "executable": false
     },
     "src/core/features/session/repository.ts": {
-      "sha256": "8f696524a1bff2d19ece4e8ba7e051e059b172d607b37c137c828b1fb2f0a5b8",
+      "sha256": "a873ec80b266be8322e530103eb11d46730c6eda6c1d92f1c4f7c111f52ef1a4",
       "executable": false
     },
     "src/core/features/session/routes.ts": {
@@ -7944,7 +7944,7 @@
       "executable": false
     },
     "src/core/features/workspace/bootstrap.ts": {
-      "sha256": "5c2e85662faa536bfe88514bab723cc1c45c2444374ba8d9f7a6d71785a31dd2",
+      "sha256": "22001510bdb939df3e34a7b58840caf20ec7ec0bc953bdf51bf6f8ac206dc5ec",
       "executable": false
     },
     "src/core/features/workspace/configuration-history.ts": {
@@ -8131,12 +8131,16 @@
       "sha256": "4e323f4e83876a1849a5c84cd125fbed765df0c87a09366c63172f1fee75c49b",
       "executable": false
     },
+    "src/core/shared/person-identity.ts": {
+      "sha256": "987918e286f64c06738250dd9b6a0981e6d19175695d9ac8b16a3bc61d0da7ff",
+      "executable": false
+    },
     "src/core/shared/ulid.ts": {
       "sha256": "ec3880eb0a42ae5cea28a2e6ff7aeba81b669226db1f862c76e1d88cef802c50",
       "executable": false
     },
     "src/core/ui/avatar.tsx": {
-      "sha256": "0156ac946322e65707c6ba215353b76f11b422816b644f182e94c17593df2791",
+      "sha256": "fda0712c7316cdbf842b04176fa7947ec33035d682254e4d79bded299314148a",
       "executable": false
     },
     "src/core/ui/badge.tsx": {
@@ -8832,7 +8836,7 @@
       "executable": false
     },
     "tests/flagship/core/owner-bootstrap.test.ts": {
-      "sha256": "4f98f38e7a579a3ecb3fa83ce9048576360ff3cbc74da2ac0d5b5df4f7ed759b",
+      "sha256": "b291136d28f96848c72615e3d4b7276db8fe0afd8998f18cad63d990571643c6",
       "executable": false
     },
     "tests/flagship/core/preview-owner-signin.test.ts": {
