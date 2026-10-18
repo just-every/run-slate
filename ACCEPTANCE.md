@@ -11,9 +11,9 @@
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 166 | 55 | 0 | 221 |
+| Published | 167 | 54 | 0 | 221 |
 | Target and push further | 6 | 55 | 44 | 105 |
-| All | 172 | 110 | 44 | 326 |
+| All | 173 | 109 | 44 | 326 |
 
 ### Published: Workspace, editing and pages
 
@@ -57,7 +57,7 @@
 | `TREE-002` Reordering and nesting | Drag reorder and re-parent store one explicit order for every member, unchanged by edits or renames | done | `tests/qualification/publication/preview.test.ts` |
 | `TREE-003` Shared with me | Pages granted individually in non-member containers are listed with their container and vanish when the grant is removed | done | `tests/e2e/navigation/shared-navigation.test.ts`, `tests/qualification/ui-convergence/shared-navigation-journey.mjs` (current grants, membership, privacy and first-load revocation at 1440/390) |
 | `TREE-004` Filter the tree | Tree filter narrows within 200ms, keeps ancestors and clears without changing expansion | done | `tests/e2e/navigation/tree-filter.test.ts`, `tests/qualification/ui-convergence/tree-filter-journey.mjs` (Per-space title matching retains readable ancestors within 200ms; one clear restores member expansion, with access and 1440/390 browser coverage.) |
-| `TREE-005` Create in place | Create at the foot of a tree, from a node and from global create, each naming the destination first | partial | `src/core/app/ui/NavigationCreate.tsx` (create-in-place UI; no journey) |
+| `TREE-005` Create in place | Create at the foot of a tree, from a node and from global create, each naming the destination first | done | `tests/e2e/navigation/create-in-place.test.ts`, `tests/qualification/ui-convergence/create-in-place-journey.mjs` (named destinations, exact placement, persistence and read-only access at 1440/390) |
 | `BLOCK-001` A body of blocks | Blocks reorder, nest, multi-select, duplicate and delete with identifiers surviving edits, moves and export | done | `tests/qualification/interface/routed.browser.mjs` |
 | `BLOCK-002` Inline text | Inline marks render under `BASE-INPUT-002` and round-trip unchanged through page export, workspace export and import | done | `tests/e2e/editor/editable-composition.test.mjs` |
 | `BLOCK-003` The insert menu | `/` menu filters, works by keyboard only, inserts at the cursor and reaches every block type; touch control above the keyboard at 390 | done | `tests/qualification/interface/formatting.test.ts` |

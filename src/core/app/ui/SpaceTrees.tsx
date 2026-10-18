@@ -1,3 +1,4 @@
+import { TreeCreatePage } from "./TreeCreatePage";
 import { useLocation } from "@tanstack/react-router";
 import type { TreePage } from "./PageTree";
 import { FilteredPageTree } from "./FilteredPageTree";
@@ -7,7 +8,7 @@ import type { Resource } from "../../client/useResource";
 import type { PageResult } from "../../shared/api/common";
 import type { WorkspaceSnapshot } from "./workspaceSnapshot";
 
-type Named = { items: { id: string; name: string }[] };
+type Named = { items: { id: string; name: string; permissions?: { canCreatePages?: boolean } }[] };
 export type NavigationDatabases = { items: { id: string; title: string; pageId: string; containerId: string }[] };
 
 /** The Pages section: one disclosure row per space, with its pages and databases beneath. */
@@ -36,6 +37,7 @@ export function SpaceTrees({
   const sharedSpaceIds = new Set(sharedPages.map(page => page.containerId));
   const spaceIds = new Set([
     ...regularPages.map(page => page.containerId),
+    ...(containers.data?.items.filter(space => space.permissions?.canCreatePages).map(space => space.id) ?? []),
     ...(databases.data?.items.filter(database => !sharedIds.has(database.pageId)).map(database => database.containerId) ?? []),
   ]);
   function toggle(id: string) {
@@ -49,10 +51,12 @@ export function SpaceTrees({
   }
   function spaceTree(id: string, shared: boolean) {
     const groupPages = (shared ? sharedPages : regularPages).filter(page => page.containerId === id);
+    const space = containers.data?.items.find(item => item.id === id);
     const name = groupPages[0]?.containerLabel ?? containers.data?.items.find(item => item.id === id)?.name ?? '';
     return <details key={`${shared ? 'shared' : 'space'}:${id}`} className="space-group" open={!preferences?.value.collapsedContainers.includes(id)}>
       <summary onClick={event => { event.preventDefault(); toggle(id); }}>{name}</summary>
       <FilteredPageTree pages={groupPages} spaceName={shared ? `Shared with me · ${name}` : name} activePath={pathname} />
+      {!shared && space?.permissions?.canCreatePages ? <TreeCreatePage containerId={id} name={name} /> : null}
     </details>;
   }
   return (

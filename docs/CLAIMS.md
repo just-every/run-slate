@@ -19,4 +19,6 @@ Status describes implementation progress, not full acceptance. CONTRACT.md is th
 
 | PAGE-010 | done | Heading edits appear within two seconds; entries navigate to their headings, survive reload and disappear with the last heading. Long labels wrap. `tests/qualification/ui-convergence/outline-journey.mjs` at 1440/390. | None. |
 
+| TREE-005 | done | Named tree-footer, child and global creation preserve exact placement and persist after reload; read-only readers get no writable destination. `tests/e2e/navigation/create-in-place.test.ts`, `tests/qualification/ui-convergence/create-in-place-journey.mjs` at 1440/390. | None. |
+
 No hosted mail delivery or unrun browser acceptance is claimed here.

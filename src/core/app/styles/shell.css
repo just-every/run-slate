@@ -120,3 +120,6 @@
 }
 .slate-app button.navlink { width: 100%; border: 0; background-color: var(--slate-sidebar); text-align: left; }
 .slate-app button.navlink:hover, .slate-app button.navlink:focus-visible { background-color: var(--slate-sidebar-hover); }
+
+.slate-app .tree-create-page { width: 100%; min-height: 36px; text-align: start; color: var(--slate-ink-muted); }
+.slate-app .tree-create-page span { white-space: normal; overflow-wrap: anywhere; }

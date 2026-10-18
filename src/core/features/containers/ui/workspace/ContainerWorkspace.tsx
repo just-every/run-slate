@@ -2,8 +2,7 @@ import {ContainerWatch} from './ContainerWatch';
 import {ContainerHome} from './ContainerHome';
 import {ContainerBlog} from '../../../blog/ui/ContainerBlog';
 import {ReadableExportDialog} from "../../../workspace-export/ui/ReadableExportDialog";
-import {useCreatePage} from "../../../../app/ui/useCreatePage";
-import {DEFAULT_PAGE_TITLE} from "../../../../app/ui/pageDestination";
+import { TreeCreatePage } from "../../../../app/ui/TreeCreatePage";
 import {FavouriteControl} from "../../../navigation/ui/workspace/FavouriteControl";
 import {ContainerBulk} from "./ContainerBulk";
 import {WorkspaceArchive} from "../../../archive/ui/WorkspaceArchive";
@@ -32,7 +31,7 @@ export type Container = {
   anonymousAccess: string;
   archivedAt: string | null;
   memberCount: number;
-  permissions: { canManage: boolean };
+  permissions: { canManage: boolean; canCreatePages: boolean };
 };
 function visibilityLabel(value: string) { return ({default:"Workspace access",open:"Open to the team",closed:"Members only",private:"Private",personal:"Personal"} as Record<string,string>)[value] ?? value; }
 /** `embedded` shows only the spaces panel inside Settings, which supplies the top bar and title. */
@@ -168,7 +167,6 @@ function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
   );
   const [query, setQuery] = useState("");
   const [label,setLabel]=useState('');
-  const creation = useCreatePage();
   const [exporting,setExporting]=useState(false);
   const [tab,setTab]=useState("home");
   useEffect(()=>setTab('home'),[id]);
@@ -215,8 +213,7 @@ function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
           <label>Filter labels<input type="search" value={label} list={`space-labels-${id}`} onChange={event=>setLabel(event.target.value)}/></label>
           <datalist id={`space-labels-${id}`}>{[...new Set(available.flatMap(page=>page.labels??[]))].sort().map(value=><option key={value} value={value}/>)}</datalist>
           {query||label?<button className="secondary-button" onClick={()=>{setQuery("");setLabel('');}}>Clear page filter</button>:null}<PageTree pages={available.filter((page) => matched.has(page.id))} />
-          <button className="secondary-button" aria-busy={creation.pending||undefined} onClick={()=>void creation.create(async()=>({containerId:id,title:DEFAULT_PAGE_TITLE}))}>Create page in this space</button>
-          {creation.error?<p role="alert">{errorMessage(creation.error)}</p>:null}
+          {resource.data.permissions.canCreatePages ? <TreeCreatePage containerId={id} name={resource.data.name} /> : null}
           </>:null}
           {tab==='settings'?<ContainerSettings
             container={resource.data}

@@ -1,0 +1,65 @@
+import assert from 'node:assert/strict';
+import { expect } from '@playwright/test';
+import { openNavigation } from './browser-support.mjs';
+import { accessible } from './browser-evidence.mjs';
+import { randomUUID } from 'node:crypto';
+import { ok } from './two-people-support.mjs';
+
+export async function createInPlaceJourney({ page, context, origin, api, switchIdentity }) {
+  const width = page.viewportSize().width;
+  const space = (await api('/api/containers')).items.find(item => item.name === 'Handbook');
+  const pagesBefore = (await api('/api/pages')).items;
+  const welcome = pagesBefore.find(item => item.title === 'Welcome');
+  const shot = label => page.screenshot({ path: `.artifacts/ui-convergence/create-in-place-${width}-${label}.png`, fullPage: false });
+  async function created(title, parentPageId = null) {
+    const input = page.getByRole('textbox', { name: 'Page title', exact: true });
+    await expect(input).toHaveValue('Untitled');
+    const id = new URL(page.url()).pathname.split('/').at(-1);
+    const document = await api(`/api/pages/${id}`);
+    assert.equal(document.page.containerId, space.id);
+    assert.equal(document.parentPageId, parentPageId);
+    await input.fill(title);
+    await input.press('Tab');
+    await expect.poll(async () => (await api(`/api/pages/${id}`)).page.title).toBe(title);
+    await shot(title.replaceAll(' ', '-'));
+    return id;
+  }
+  await openNavigation(page);
+  const tree = page.getByRole('navigation', { name: 'Pages', exact: true });
+  await expect(tree.getByRole('button', { name: 'Create page in Handbook', exact: true })).toBeVisible();
+  await accessible(page, 'tree creation destination');
+  await shot('tree-footer');
+  await tree.getByRole('button', { name: 'Create page in Handbook', exact: true }).click();
+  const root = await created('Engineering handbook');
+  await openNavigation(page);
+  await tree.getByRole('link', { name: 'Engineering handbook', exact: true }).hover();
+  await tree.getByRole('button', { name: 'Create child of Engineering handbook', exact: true }).click();
+  const child = await created('Incident response', root);
+  await openNavigation(page);
+  await page.getByRole('button', { name: 'Create', exact: true }).click();
+  const globalPage = page.getByRole('menuitem', { name: 'Page', exact: true });
+  await expect(globalPage).toHaveAccessibleDescription('in Handbook');
+  await shot('global-destination');
+  await globalPage.click();
+  const global = await created('Release checklist');
+  await page.goto(`${origin}/app/containers/${space.id}`, { waitUntil: 'networkidle' });
+  await page.getByRole('button', { name: 'Content', exact: true }).click();
+  const footer = page.locator('.space-detail').getByRole('button', { name: 'Create page in Handbook', exact: true });
+  await footer.scrollIntoViewIfNeeded();
+  await shot('content-footer');
+  await footer.click();
+  const content = await created('Support escalation');
+  const treeAfter = (await api('/api/pages')).items;
+  assert.equal(treeAfter.length, pagesBefore.length + 4);
+  for (const id of [root, child, global, content]) assert.equal(treeAfter.filter(item => item.id === id).length, 1);
+  await page.reload({ waitUntil: 'networkidle' });
+  await expect(page.getByRole('textbox', { name: 'Page title', exact: true })).toHaveValue('Support escalation');
+  await ok(context, origin, 'POST', '/api/sharing', { operationKey: randomUUID(), targetKind: 'container', targetId: space.id, principalKind: 'member', principalId: 'browser-reader', level: 'view' });
+  await switchIdentity('reader');
+  await page.goto(`${origin}/app/pages/${welcome.id}`, { waitUntil: 'networkidle' });
+  await openNavigation(page);
+  await expect(tree.getByRole('button', { name: 'Create page in Handbook', exact: true })).toHaveCount(0);
+  await tree.getByRole('link', { name: 'Welcome', exact: true }).hover();
+  await expect(tree.getByRole('button', { name: 'Create child of Welcome', exact: true })).toBeDisabled();
+  await shot('reader');
+}

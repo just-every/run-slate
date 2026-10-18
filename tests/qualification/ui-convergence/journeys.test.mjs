@@ -1,3 +1,4 @@
+import { createInPlaceJourney } from './create-in-place-journey.mjs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { expect } from '@playwright/test';
@@ -21,6 +22,12 @@ import { outlineJourney } from './outline-journey.mjs';
 import { groupMentionJourney } from './group-mentions-journey.mjs';
 
 for (const width of [1440, 390]) {
+  test(`create in place names root and child destinations at ${width}px`, { timeout: 180000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await createInPlaceJourney(state);
+    });
+  });
   test(`page locks protect content while editors comment and unlock at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);

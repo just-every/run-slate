@@ -1774,9 +1774,9 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 166 | 55 | 0 | 221 |
+| Published | 167 | 54 | 0 | 221 |
 | Target and push further | 6 | 55 | 44 | 105 |
-| All | 172 | 110 | 44 | 326 |
+| All | 173 | 109 | 44 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1818,7 +1818,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `TREE-002` | Reordering and nesting | published | done | `tests/qualification/publication/preview.test.ts` |  |
 | `TREE-003` | Shared with me | published | done | `tests/e2e/navigation/shared-navigation.test.ts`, `tests/qualification/ui-convergence/shared-navigation-journey.mjs` | Individual grants in non-member spaces have a named Shared with me section, independent of container discovery and broader access; revoked/expired grants remove the entry on the next load. Workers and 1440/390 browser journeys cover private neighbours, opening and revocation. |
 | `TREE-004` | Filter the tree | published | done | `tests/e2e/navigation/tree-filter.test.ts`, `tests/qualification/ui-convergence/tree-filter-journey.mjs` | Per-space title matching retains readable ancestors within 200ms; one clear restores member expansion, with access and 1440/390 browser coverage. |
-| `TREE-005` | Create in place | published | partial | `src/core/app/ui/NavigationCreate.tsx` | create-in-place UI; no journey |
+| `TREE-005` | Create in place | published | done | `tests/e2e/navigation/create-in-place.test.ts`, `tests/qualification/ui-convergence/create-in-place-journey.mjs` | Named tree-footer, child and global destinations, exact placement, persistence and read-only access checks at 1440/390. |
 | `BLOCK-001` | A body of blocks | published | done | `tests/qualification/interface/routed.browser.mjs` |  |
 | `BLOCK-002` | Inline text | published | done | `tests/e2e/editor/editable-composition.test.mjs` |  |
 | `BLOCK-003` | The insert menu | published | done | `tests/qualification/interface/formatting.test.ts` |  |
