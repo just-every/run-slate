@@ -1,3 +1,5 @@
+import {blockAnchor,commentsHtml} from './comments';
+import type {CommentArchive} from './comment-archive';
 import { displayStyle, type PageDisplay } from './display';
 import type { BlockView } from '../../shared/api/content';
 import { plainContent } from '../editor/validation';
@@ -26,6 +28,6 @@ function htmlBlock(block: BlockView, blocks: BlockView[]): string {
   }
 }
 
-export function htmlDocument(title: string, blocks: BlockView[], display: PageDisplay): string {
-  return `<!doctype html><html><head><meta charset="utf-8"><title>${html(title)}</title><style>body{${displayStyle(display)};margin:40px auto;padding:0 24px}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:8px}pre{white-space:pre-wrap}nav ul{padding-left:24px}${statusLabelStyles}</style></head><body><h1>${html(title)}</h1>${blocks.map(block => htmlBlock(block, blocks)).join('\n')}</body></html>`;
+export function htmlDocument(title: string, blocks: BlockView[], display: PageDisplay, comments?: CommentArchive): string {
+  return `<!doctype html><html><head><meta charset="utf-8"><title>${html(title)}</title><style>body{${displayStyle(display)};margin:40px auto;padding:0 24px}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:8px}pre{white-space:pre-wrap}nav ul{padding-left:24px}${statusLabelStyles}</style></head><body><h1>${html(title)}</h1>${blocks.map(block => `<div id="${html(blockAnchor(block.id))}">${htmlBlock(block, blocks)}</div>`).join('\n')}${comments?commentsHtml(comments):''}</body></html>`;
 }

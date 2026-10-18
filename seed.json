@@ -22,7 +22,7 @@
       "edition": null
     }
   ],
-  "description": "Slate keeps your team’s knowledge organized, searchable, and easy to share.",
+  "description": "Slate keeps your team\u2019s knowledge organized, searchable, and easy to share.",
   "scope": "One business, one workspace; complete inherited knowledge workspace plus all six journeys, full flagship and sustained inquiry. Requirements are not acceptance evidence.",
   "capabilities": [
     {
@@ -489,6 +489,13 @@
       "description": "Dated, attributed space blog posts with permission-aware space and Home feeds, follower notices and Confluence Cloud blog import.",
       "clauses": [
         "CONT-010"
+      ]
+    },
+    {
+      "id": "readable-discussions",
+      "description": "Readable workspace, container and page archives preserve authored discussions, reply relationships, resolved states and inline anchors through re-import.",
+      "clauses": [
+        "PORT-008"
       ]
     }
   ],

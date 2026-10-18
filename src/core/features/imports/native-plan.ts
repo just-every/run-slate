@@ -107,6 +107,7 @@ export async function compileNativePlan(ctx:FeatureContext, statements:CapturedS
   }
   // Native publication triggers create this immutable visibility ledger.
   for(const page of rows.filter(row=>row.table==='pages'))if(page.values.published_revision_id&&['live','live-with-unpublished-changes','archived'].includes(String(page.values.lifecycle)))rows.push({table:'content_published_revisions',values:{page_id:page.values.id!,revision_id:page.values.published_revision_id},derived:true});
+  const threadPages=new Map(rows.filter(r=>r.table==='comment_threads').map(r=>[String(r.values.id),String(r.values.page_id)]));
   const databasePages=new Map(rows.filter(r=>r.table==='databases').map(r=>[String(r.values.id),String(r.values.page_id)]));
   const units=new Map<string,NativeUnit>(), owners=new Map<string,string>();
   const unit=(kind:string,id:string)=>{const key=`${kind}:${id}`;if(!units.has(key))units.set(key,{kind,id,rows:rowStore.collection(),scopes:[],requires:[]});return units.get(key)!;};
@@ -116,6 +117,7 @@ export async function compileNativePlan(ctx:FeatureContext, statements:CapturedS
     else if(row.table==='files'){kind='media';id=String(v.id);}
     else if(row.table==='containers'||row.table.startsWith('container_')){kind='container';id=String(v.container_id??v.id);}
     else if(row.table==='members'||row.table==='groups'){kind=row.table==='members'?'member':'group';id=String(v.id);}
+    else if(row.table==='comments'){kind='page';id=threadPages.get(String(v.thread_id))!;}
     else if(row.table==='record_revisions'||row.table==='structured_revisions'){
       kind=v.entity_kind==='container'?'container':'page';id=String(databasePages.get(String(v.entity_id))??v.entity_id);
     }else {kind='page';id=String(v.page_id??databasePages.get(String(v.database_id)));}
@@ -136,6 +138,7 @@ export async function compileNativePlan(ctx:FeatureContext, statements:CapturedS
       if(root.values.database_id)u.requires.push(`page:${databasePages.get(String(root.values.database_id))}`);
     }
     if(u.kind==='media')u.requires.push(`page:${root.values.page_id}`);
+    for(const row of u.rows)for(const key of ['author_member_id','resolved_by_member_id'])if(row.values[key])u.requires.push(`member:${row.values[key]}`);
     const scopes=new Map<string,{table:string;column:string;id:string}>();
     const add=(table:string,column:string,id:string)=>scopes.set(`${table}:${column}:${id}`,{table,column,id});
     for(const row of u.rows) {
@@ -143,6 +146,7 @@ export async function compileNativePlan(ctx:FeatureContext, statements:CapturedS
       if(table==='pages'||table==='containers'||table==='members'||table==='groups'||table==='files')add(table,'id',u.id);
       else if((table==='record_revisions'||table==='structured_revisions'))add(table,'entity_id',String(v.entity_id));
       else if(table==='federation_import_mappings')add(table,'id',String(v.id));
+      else if(v.thread_id)add(table,'thread_id',String(v.thread_id));
       else if(v.page_id)add(table,'page_id',String(v.page_id));
       else if(v.container_id)add(table,'container_id',String(v.container_id));
       else if(v.database_id)add(table,'database_id',String(v.database_id));

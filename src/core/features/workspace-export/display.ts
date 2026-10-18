@@ -3,7 +3,9 @@ import type { PageProperties } from '../pages/types';
 export type PageDisplay = Pick<PageProperties, 'typeface' | 'smallText' | 'fullWidth'>;
 
 export function pageDisplay(properties: PageProperties): PageDisplay {
-  return { typeface: properties.typeface, smallText: properties.smallText, fullWidth: properties.fullWidth };
+  // Early first-run revisions contain only the title. Omitted display fields
+  // mean the schema defaults, just as they do in the page reader.
+  return { typeface: properties.typeface ?? 'default', smallText: properties.smallText ?? false, fullWidth: properties.fullWidth ?? false };
 }
 
 /** Only the three stored typefaces choose CSS; no imported text becomes a style. */

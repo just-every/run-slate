@@ -1,3 +1,4 @@
+import { ReadableExportDialog } from '../../../workspace-export/ui/ReadableExportDialog';
 import {WorkspaceTransferJobs} from './WorkspaceTransferJobs';
 import { useEffect,useState,useRef } from "react";
 import {
@@ -20,9 +21,11 @@ const formats = [
   ["csv", "CSV"],
   ["pdf", "PDF"],
   ["epub", "EPUB"],
+  ["slate-readable", "Slate readable archive"],
 ];
 export function PortabilityPanel() {
   const { member } = useWorkspace();
+  const [exporting, setExporting] = useState(false);
   const [job, setJob] = useState<Job>();
   const [jobs,setJobs]=useState<Job[]>([]);
   const mounted=useRef(true);
@@ -59,6 +62,12 @@ export function PortabilityPanel() {
         Import a document or archive. Slate keeps the original and reports
         anything it could not map.
       </p>
+      <section className="readable-export-panel">
+      <h3>Readable workspace export</h3>
+      <p>Download the pages you can read with their discussions, or bring a Slate readable archive back through the import form.</p>
+      <button type="button" className="secondary-button" onClick={() => setExporting(true)}>Export readable workspace</button>
+      {exporting ? <ReadableExportDialog id={member.workspaceId} workspace onClose={() => setExporting(false)} /> : null}
+      </section>
       <form
         onSubmit={(e) => {
           e.preventDefault();

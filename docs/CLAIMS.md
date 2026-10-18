@@ -30,3 +30,5 @@ Status describes implementation progress, not full acceptance. CONTRACT.md is th
 No hosted mail delivery or unrun browser acceptance is claimed here.
 
 | PAGE-011 | done | Full-screen read-only presentation split by top-level headings; long slides retain controls, previous/next and keyboard navigation, no-heading/empty pages and exact scroll/focus return. `tests/e2e/pages/presentation.test.ts` and `tests/qualification/ui-convergence/presentation-journey.mjs` at 1440/390. | None. |
+
+| PORT-008 | done | Readable page, subtree, space and workspace exports preserve page/inline threads with authors, times, replies, resolved states, tombstones and block anchors. HTML renders discussions with block links; Markdown includes JSON sidecars. Fresh imports retain historical authors and remap anchors without notifications. `tests/e2e/imports/readable-comments.test.ts`; 1440/390 export/read/re-import journeys in `tests/qualification/ui-convergence/export-comments-journey.mjs`. | None. |

@@ -1245,7 +1245,7 @@ Workspace, container and page exports in HTML include page and inline comment th
 
 *Acceptance:* a round trip of export to HTML and Markdown and re-import into a fresh deployment restores every thread on the same block with the same authors and resolved states.
 
-*Status:* missing. Readable HTML, Markdown and CSV exports ship without comments (`src/core/features/workspace-export/readable.ts`).
+*Status:* done. Readable workspace, container, page and subtree archives carry authored page and inline discussions, replies, original times, resolution and tombstones. HTML links threads to their blocks; Markdown includes comment JSON sidecars. Re-import remaps block anchors and historical authors without notifications (`tests/e2e/imports/readable-comments.test.ts`). Product journeys export, read and re-import HTML and Markdown at 1440 and 390 (`tests/qualification/ui-convergence/export-comments-journey.mjs`).
 
 #### PORT-009 — Scheduled backups to the buyer's storage.
 An owner can schedule a nightly or weekly complete export (`PORT-001`) to the buyer's own S3-compatible bucket, Cloudflare R2 or [Chest](https://github.com/just-every/run-chest), with a retention count, failure notices to owners, and a restore drill that restores the latest backup into an empty deployment (`PORT-002`).
@@ -1772,15 +1772,15 @@ favour of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `f78e55cc7581c4455bf5a94bf59927dfc25376f8` (18 October 2026).
+Judged from the code and cited tests in this revision (19 October 2026).
 
 See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 171 | 50 | 0 | 221 |
-| Target and push further | 6 | 55 | 44 | 105 |
-| All | 177 | 105 | 44 | 326 |
+| Target and push further | 7 | 55 | 43 | 105 |
+| All | 178 | 105 | 43 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2060,7 +2060,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `IMP-012` | Confluence personal spaces become personal containers | target | partial | `src/core/features/imports/confluence/space.ts` | see the clause |
 | `IMP-013` | Old Confluence links resolve in Slate | target | partial | `src/core/platform/db/knowledge-operations-schema.ts` | see the clause |
 | `IMP-014` | Links between spaces imported in separate passes | target | missing | — | not implemented |
-| `PORT-008` | Exports carry comments | target | missing | `src/core/features/workspace-export/readable.ts` | not implemented |
+| `PORT-008` | Exports carry comments | target | done | `tests/e2e/imports/readable-comments.test.ts`, `tests/qualification/ui-convergence/export-comments-journey.mjs` | HTML threads with block links and Markdown sidecars; page/container/workspace round trips retain authors, times, replies, resolution, tombstones and anchors without notifications; first-run and repeated exports, access and tamper checks; 1440/390 product journeys. |
 | `PORT-009` | Scheduled backups to the buyer's storage | target | partial | `docs/BACKUP.md` | see the clause |
 | `PORT-010` | Word export of a page | target | missing | — | not implemented |
 | `EMBED-001` | Live issue embeds from Vector and Jira | target | missing | — | not implemented |

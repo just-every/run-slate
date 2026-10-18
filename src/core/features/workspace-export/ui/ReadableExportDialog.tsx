@@ -2,10 +2,12 @@ import { ActionDialog } from "../../../app/ui/ActionDialog";
 export function ReadableExportDialog({
   id,
   container = false,
+  workspace = false,
   onClose,
 }: {
   id: string;
   container?: boolean;
+  workspace?: boolean;
   onClose: () => void;
 }) {
   return (
@@ -44,13 +46,13 @@ export function ReadableExportDialog({
       }}
     >
       <p>
-        The archive includes only content you may currently read. Workspace
+        The archive includes only content you may currently read, with comment authors, times, replies and resolved states. Markdown includes comment JSON sidecars; HTML shows threads beside their block links. Workspace
         backups and restoration are available in Settings.
       </p>
       <label>
         Content
         <select aria-label="Content" name="scope">
-          {container ? (
+          {workspace ? <option value="workspace">Readable workspace pages</option> : container ? (
             <option value="container">This space</option>
           ) : (
             <>

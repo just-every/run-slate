@@ -3279,6 +3279,13 @@
           "testName": "PAGE-015 \u2014 staged import classifies a racing lock without masking an intervening edit (true)"
         }
       ]
+    },
+    {
+      "id": "PORT-008",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Readable archive Worker and browser journeys exercise comment round trips. Independent release verification remains pending.",
+      "supportingTests": []
     }
   ]
 }

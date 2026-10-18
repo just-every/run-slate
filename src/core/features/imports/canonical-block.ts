@@ -10,7 +10,7 @@ export function canonicalContent(block: ImportedBlock, idFor: (kind: string, id:
       return value;
     }
     if (Array.isArray(value)) return value.map(rewrite);
-    if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, key === 'fileId' && typeof item === 'string' ? idFor('file', item) : rewrite(item)]));
+    if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, key === 'commentAnchorId' && typeof item === 'string' ? idFor('comment-anchor', item) : key === 'fileId' && typeof item === 'string' ? idFor('file', item) : rewrite(item)]));
     return value;
   };
   const content = rewrite(block.canonicalBlock!.content);
