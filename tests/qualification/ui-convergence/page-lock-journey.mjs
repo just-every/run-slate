@@ -1,0 +1,53 @@
+import assert from 'node:assert/strict';
+import { randomUUID } from 'node:crypto';
+import { expect } from '@playwright/test';
+import { accessible } from './browser-evidence.mjs';
+import { call, grant, ok, restrictedPage } from './two-people-support.mjs';
+
+/** Two editors use native locking and comments against the emitted Worker. */
+export async function pageLockBrowserJourney(state, people) {
+  const { origin, api } = state;
+  const { alice, bob } = people;
+  const { pageId } = await restrictedPage(state, 'Production rollback procedure', ['Confirm the incident commander before rolling back the release.']);
+  await grant(alice.context, origin, pageId, bob.id, 'edit');
+  const grants = await api(`/api/sharing/pages/${pageId}`);
+  await alice.page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
+  await bob.page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
+  await expect(bob.page.getByRole('textbox', { name: 'Paragraph', exact: true })).toBeEditable();
+  await alice.page.getByRole('button', { name: 'More', exact: true }).click();
+  await alice.page.getByRole('menuitem', { name: 'Lock page', exact: true }).click();
+  await expect(alice.page.locator('[data-page-lock]')).toContainText('Locked by Alex Owner');
+  await bob.page.reload({ waitUntil: 'networkidle' });
+  await expect(bob.page.locator('[data-page-lock]')).toContainText('Locked by Alex Owner');
+  await expect(bob.page.getByRole('textbox', { name: 'Page title', exact: true })).not.toBeEditable();
+  await expect(bob.page.locator('[data-page-editor] [contenteditable="true"]')).toHaveCount(0);
+  await expect(bob.page.getByRole('button', { name: /Add block/ })).toHaveCount(0);
+  await accessible(bob.page, 'locked page remains readable');
+  await people.shot('bob', 'locked-page');
+  const current = await api(`/api/pages/${pageId}`);
+  const refused = await call(bob.context, origin, 'PATCH', `/api/pages/${pageId}`, { operationKey: randomUUID(), expectedRevisionId: current.page.revisionId, properties: { title: 'Accidental overwrite' } });
+  assert.equal(refused.status, 409);
+  assert.equal(refused.body.code, 'PAGE_LOCKED');
+  assert.deepEqual(await api(`/api/sharing/pages/${pageId}`), grants, 'Locking changes no grant.');
+  await bob.page.getByRole('button', { name: 'Comments', exact: true }).click();
+  await bob.page.getByRole('textbox', { name: 'Comment text', exact: true }).fill('The rollback steps are reviewed. Please keep this procedure locked.');
+  await bob.page.getByRole('button', { name: 'Send comment', exact: true }).click();
+  await expect(bob.page.getByRole('textbox', { name: 'Comment text', exact: true })).toHaveText('');
+  await expect(bob.page.locator('.right')).toContainText('The rollback steps are reviewed.');
+  await people.shot('bob', 'locked-page-comment');
+  await bob.page.getByRole('button', { name: 'Close details ×', exact: true }).click();
+  await bob.page.getByRole('button', { name: 'More', exact: true }).click();
+  await bob.page.getByRole('menuitem', { name: 'Unlock page', exact: true }).click();
+  await expect(bob.page.locator('[data-page-lock]')).toHaveCount(0);
+  const paragraph = bob.page.getByRole('textbox', { name: 'Paragraph', exact: true });
+  await expect(paragraph).toBeEditable();
+  await paragraph.fill('Confirm the incident commander and the last healthy release before rolling back.');
+  await expect.poll(async () => JSON.stringify((await api(`/api/pages/${pageId}`)).blocks)).toContain('last healthy release');
+  await bob.page.reload({ waitUntil: 'networkidle' });
+  await expect(paragraph).toContainText('last healthy release');
+  await accessible(bob.page, 'unlocked page edits persist');
+  await people.shot('bob', 'unlocked-page-edited');
+  const activity = await ok(alice.context, origin, 'GET', `/api/activity?pageId=${pageId}`);
+  assert.ok(activity.items.some(item => item.action === 'pages.lock'));
+  assert.ok(activity.items.some(item => item.action === 'pages.unlock'));
+}

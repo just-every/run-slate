@@ -1,3 +1,4 @@
+import {classifyImportLockRace} from './lock-race';
 import {d1RequestContext,type D1ImportContext,type D1Sql} from '../../../../modules/import-kit/src/d1/index.ts';
 import {reserveReturn} from '../../../../modules/import-kit/src/d1/budget.ts';
 import type {ImportRequestContext} from './request-context';
@@ -35,7 +36,9 @@ export async function kitContext(ctx:ImportRequestContext,job:ImportBinding):Pro
       else {parts.push("EXISTS(SELECT 1 FROM members m JOIN workspaces w ON w.id=m.workspace_id WHERE m.id=? AND (m.role='owner' OR w.member_container_creation='allowed'))");params.push(ctx.actor.id);}
       parts.push("NOT EXISTS(SELECT 1 FROM json_each(?) x WHERE (json_extract(x.value,'$.kind')='member' AND NOT EXISTS(SELECT 1 FROM members m WHERE m.id=json_extract(x.value,'$.targetId') AND m.workspace_id=? AND m.status='active')) OR (json_extract(x.value,'$.kind')='group' AND NOT EXISTS(SELECT 1 FROM groups g WHERE g.id=json_extract(x.value,'$.targetId') AND g.workspace_id=?)))");params.push(JSON.stringify(mappings),ctx.actor.workspaceId,ctx.actor.workspaceId);
 
-      return {sql:parts.map(p=>`(${p})`).join(' AND '),params};
+      const predicate={sql:parts.map(p=>`(${p})`).join(' AND '),params};
+      if(job.destination_page_id)ctx.rejectedImportBatch=(error,statements)=>classifyImportLockRace(ctx,job,predicate,statements,error);
+      return predicate;
     }},
   }),ctx.sqlMetrics.statements+SLATE_REQUEST_TAIL);
 }

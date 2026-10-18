@@ -12,8 +12,8 @@
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 166 | 55 | 0 | 221 |
-| Target and push further | 5 | 56 | 44 | 105 |
-| All | 171 | 111 | 44 | 326 |
+| Target and push further | 6 | 55 | 44 | 105 |
+| All | 172 | 110 | 44 | 326 |
 
 ### Published: Workspace, editing and pages
 
@@ -270,7 +270,7 @@
 | `COLLAB-003` Offline edits that merge | a browser journey takes one client offline, edits three blocks while a second client edits one of them and deletes another, then reconnects. The merged page keeps both edits to the shared block, offers the deleted block for restore, and shows four attributed operations in history. | partial | `src/core/features/editor/ui/SaveStatus.tsx` |
 | `COLLAB-004` Long pages and heavy tables stay fast | a scripted load journey against a deployed Worker records keystroke echo and remote-arrival latency with 20 co-editors at the declared limits, and a browser journey under each reference profile records p95 open time for the 2,000-block page and the 50 × 500 table. The runs' raw timings are kept with the release evidence. | missing | — |
 | `COLLAB-005` Attributed history from co-editing | after a two-author session, history lists one revision naming both authors, compare attributes each changed block to its author, and restoring the previous revision brings back the earlier text for both authors. | partial | `src/core/features/versions/service.ts` |
-| `PAGE-015` Page lock | a browser journey in which one member locks a page, a second editor sees it read-only with the banner while comments still post, an API update and an automation action on that page refuse with `PAGE_LOCKED`, and unlocking restores editing. Activity shows both acts. | partial | `tests/profile/page-lock-journey.ts` (native locks ship; a lock racing a staged import commit is not yet guaranteed to return PAGE_LOCKED) |
+| `PAGE-015` Page lock | a browser journey in which one member locks a page, a second editor sees it read-only with the banner while comments still post, an API update and an automation action on that page refuse with `PAGE_LOCKED`, and unlocking restores editing. Activity shows both acts. | done | `tests/profile/page-lock-journey.ts`, `tests/e2e/imports/page-lock.test.ts`, `tests/qualification/ui-convergence/page-lock-journey.mjs` (precise staged-import lock races, open comments and second-editor unlock at 1440/390) |
 | `BLOCK-011` Synced blocks | a browser journey that syncs a block into two pages, edits one copy and sees the change in the other within 5 seconds. A member without access to the source sees the access-needed state, and deleting the source leaves static copies. | missing | — |
 | `BLOCK-012` Columns and page layouts | a browser journey creates a three-column section at 1440 and sees it stack at 390. Importing a Notion export with columns and a Confluence page with a two-column layout reproduces both. | missing | `src/core/features/editor/validation.ts` |
 | `BLOCK-013` Equations and diagrams as code | a browser journey that inserts an equation and a Mermaid flowchart, sees both render offline, exports Markdown that contains the source, and re-imports it unchanged. | missing | — |

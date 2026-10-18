@@ -718,7 +718,7 @@ A member with `edit` access can lock a page against accidental edits. Locking is
 
 *Acceptance:* a browser journey in which one member locks a page, a second editor sees it read-only with the banner while comments still post, an API update and an automation action on that page refuse with `PAGE_LOCKED`, and unlocking restores editing. Activity shows both acts.
 
-*Status:* partial. Native page locks, independent grants, open comments, editor/automation/import/AI write fences and lock/unlock activity ship (`src/core/features/pages/locks.ts`, `tests/profile/page-lock-journey.ts`). Staged imports fence locked existing destinations, but do not yet guarantee PAGE_LOCKED for a lock racing the serialized commit.
+*Status:* done. Native page locks, independent grants, open comments, editor/automation/import/AI write fences and lock/unlock activity ship (`src/core/features/pages/locks.ts`, `tests/profile/page-lock-journey.ts`). Staged-import races report PAGE_LOCKED without masking an intervening edit (`tests/e2e/imports/page-lock.test.ts`); two-editor browser journeys prove locking, read-only content, unchanged grants, comments and unlocking at 1440 and 390 (`tests/qualification/ui-convergence/page-lock-journey.mjs`).
 
 #### BLOCK-011 — Synced blocks.
 A block can be made synced: its content is defined once and rendered live in many pages, as with Notion synced blocks and Confluence excerpt-include. Editing any copy edits all of them, and each copy names its source page. A reader sees a copy only if they can read the source, and otherwise sees `LINK-004`'s access-needed state. Deleting the source turns each copy into a static block that keeps its last content.
@@ -1768,15 +1768,15 @@ favour of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `f313e9ee772b9e9089e8ff0463db373bb95be47b` (18 October 2026).
+Status updated 18 October 2026 from the implementation and cited journeys below.
 
 See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 166 | 55 | 0 | 221 |
-| Target and push further | 5 | 56 | 44 | 105 |
-| All | 171 | 111 | 44 | 326 |
+| Target and push further | 6 | 55 | 44 | 105 |
+| All | 172 | 110 | 44 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2006,7 +2006,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `COLLAB-003` | Offline edits that merge | target | partial | `src/core/features/editor/ui/SaveStatus.tsx` | see the clause |
 | `COLLAB-004` | Long pages and heavy tables stay fast | target | missing | — | not implemented |
 | `COLLAB-005` | Attributed history from co-editing | target | partial | `src/core/features/versions/service.ts` | see the clause |
-| `PAGE-015` | Page lock | target | partial | `tests/profile/page-lock-journey.ts` | see the clause |
+| `PAGE-015` | Page lock | target | done | `tests/profile/page-lock-journey.ts`, `tests/e2e/imports/page-lock.test.ts`, `tests/qualification/ui-convergence/page-lock-journey.mjs` | Native edit, automation and import fences, precise staged-import lock races, unchanged grants, open comments and second-editor unlock proven through Workers and 1440/390 browser journeys. |
 | `BLOCK-011` | Synced blocks | target | missing | — | not implemented |
 | `BLOCK-012` | Columns and page layouts | target | missing | `src/core/features/editor/validation.ts` | not implemented |
 | `BLOCK-013` | Equations and diagrams as code | target | missing | — | not implemented |

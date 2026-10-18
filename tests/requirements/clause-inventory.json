@@ -3263,6 +3263,22 @@
           "testName": "CONT-011 \u2014 an owner curates a company hub for a new member, filtering private, unpublished and unverified content on every read"
         }
       ]
+    },
+    {
+      "id": "PAGE-015",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Default-profile native lock rules, import-race classification and desktop/phone browser journeys provide implementation evidence. Independent complete requirement acceptance remains pending.",
+      "supportingTests": [
+        {
+          "file": "tests/e2e/imports/page-lock.test.ts",
+          "testName": "PAGE-015 \u2014 staged import classifies a racing lock without masking an intervening edit (false)"
+        },
+        {
+          "file": "tests/e2e/imports/page-lock.test.ts",
+          "testName": "PAGE-015 \u2014 staged import classifies a racing lock without masking an intervening edit (true)"
+        }
+      ]
     }
   ]
 }

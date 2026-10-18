@@ -2329,6 +2329,24 @@
         "CONT-011"
       ],
       "reason": "Native HTTP journey covers space-home editing and owner hub curation with live reader permissions, revision conflicts, published snapshots and verification boundaries. Browser acceptance runs separately at 1440 and 390."
+    },
+    {
+      "file": "tests/e2e/imports/page-lock.test.ts",
+      "testName": "PAGE-015 — staged import classifies a racing lock without masking an intervening edit (false)",
+      "kind": "supporting-regression",
+      "clauses": [
+        "PAGE-015"
+      ],
+      "reason": "Default-profile HTTP staged-import race with a genuine Notion export. A direct lock returns PAGE_LOCKED without publishing children, while an intervening edit retains its original failure. This supports lock enforcement; complete browser, automation and independent acceptance remain separate."
+    },
+    {
+      "file": "tests/e2e/imports/page-lock.test.ts",
+      "testName": "PAGE-015 — staged import classifies a racing lock without masking an intervening edit (true)",
+      "kind": "supporting-regression",
+      "clauses": [
+        "PAGE-015"
+      ],
+      "reason": "Default-profile HTTP staged-import race with a genuine Notion export. A direct lock returns PAGE_LOCKED without publishing children, while an intervening edit retains its original failure. This supports lock enforcement; complete browser, automation and independent acceptance remain separate."
     }
   ]
 }
