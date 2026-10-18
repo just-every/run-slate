@@ -1,3 +1,4 @@
+import { personInitials } from '../../shared/person-identity';
 import { Archive, ChevronRight, Database, LayoutTemplate, Settings } from "lucide-react";
 import { useState } from "react";
 import { useWorkspace } from "./WorkspaceContext";
@@ -30,7 +31,7 @@ export function AccountMenu({ onNewDatabase }: { onNewDatabase?: () => void }) {
       ) : null}
       <button className="workrow" type="button" aria-expanded={open} onClick={() => setOpen(!open)}>
         <span data-testid="member-initials" className="member-initials">
-          {member.initials}
+          {personInitials(member.displayName, member.email)}
         </span>
         <span data-testid="member-name">{member.displayName}</span>
         <ChevronRight aria-hidden="true" className="workrow-chevron" />

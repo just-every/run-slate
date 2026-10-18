@@ -1,10 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage, cn } from "../../../../ui";
 import type { RecordPerson } from "../types";
 import type { FieldRendererProps } from "./props";
-
-function initial(name: string): string {
-  return name.trim().slice(0, 1).toUpperCase();
-}
+import { personInitials } from "../../../../shared/person-identity";
 
 /** One person: their picture when the value carries one, their initial when not. */
 export function PersonChip({ person, className }: { person: RecordPerson; className?: string }) {
@@ -12,7 +9,7 @@ export function PersonChip({ person, className }: { person: RecordPerson; classN
     <span className={cn("inline-flex min-w-0 items-center gap-1.5", className)}>
       <Avatar className="size-5">
         {person.imageUrl ? <AvatarImage alt="" src={person.imageUrl} /> : null}
-        <AvatarFallback>{initial(person.name)}</AvatarFallback>
+        <AvatarFallback>{personInitials(person.name)}</AvatarFallback>
       </Avatar>
       <span className="truncate">{person.name}</span>
     </span>

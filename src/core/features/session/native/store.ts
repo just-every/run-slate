@@ -1,3 +1,4 @@
+import { personDisplayName, personInitials } from '../../../shared/person-identity';
 import type { AuthenticatedMember } from "../../../app/types";
 import type { CompletedSession, Session } from '../../../../../modules/operator-auth/index.mjs';
 import type { NativePerson } from '../../../../../modules/operator-auth/accounts/native.mjs';
@@ -34,7 +35,7 @@ export function personOf(row: MemberRow | null): SlatePerson | null {
   const active = row.status === 'active';
   return {
     id: row.id, email: row.email.toLowerCase(), role: row.role, status: active ? 'active' : 'inactive',
-    owner: active && row.role === 'owner', version: row.authority_version, displayName: row.display_name,
+    owner: active && row.role === 'owner', version: row.authority_version, displayName: personDisplayName(row.display_name, row.email),
     createdAt: Date.parse(row.created_at), memberKind: row.member_kind,
   };
 }
@@ -97,7 +98,7 @@ export function sessionStore(db: D1Database, input: { secret: string; secure: bo
       // A dev session counts only on a request that passes the local key gate.
       if (row.kind === 'dev' && !await input.devAdmitted(request)) return null;
       return {
-        member: { id:row.id, workspaceId:row.workspace_id, workspaceName:row.workspace_name, email:row.email, displayName:row.display_name, initials:row.initials, role:row.role },
+        member: { id:row.id, workspaceId:row.workspace_id, workspaceName:row.workspace_name, email:row.email, displayName:personDisplayName(row.display_name,row.email), initials:personInitials(row.display_name,row.email), role:row.role },
         hash: row.token_digest, id: row.session_id, kind: row.kind ?? 'native', operatorId: row.id, operator: personOf(row)!,
         createdAt: Date.parse(row.session_created_at), expiresAt: Date.parse(row.expires_at),
         ...(row.issuer ? { issuer: row.issuer, subject: row.subject ?? undefined, sid: row.sid ?? undefined } : {}),

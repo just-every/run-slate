@@ -1,6 +1,7 @@
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 import type { ComponentProps } from "react";
 import { cn } from "./cn";
+import { personInitials } from "../shared/person-identity";
 
 export function Avatar({ className, ...props }: ComponentProps<typeof AvatarPrimitive.Root>) {
   return (
@@ -29,7 +30,7 @@ export function AvatarStack({
   people,
   className,
 }: {
-  people: ReadonlyArray<{ id: string; name: string; imageUrl?: string | null }>;
+  people: ReadonlyArray<{ id: string; name: string; email?: string | null; imageUrl?: string | null }>;
   className?: string;
 }) {
   if (people.length === 0) return null;
@@ -38,7 +39,7 @@ export function AvatarStack({
       {people.map((person) => (
         <Avatar className="size-6 ring-2 ring-canvas" key={person.id} title={person.name}>
           {person.imageUrl ? <AvatarImage alt="" src={person.imageUrl} /> : null}
-          <AvatarFallback>{person.name.slice(0, 1).toUpperCase()}</AvatarFallback>
+          <AvatarFallback>{personInitials(person.name, person.email)}</AvatarFallback>
         </Avatar>
       ))}
     </div>
