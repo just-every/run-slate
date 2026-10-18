@@ -1,6 +1,6 @@
 {
-  "version": "0.2.0",
-  "date": "2026-10-16",
+  "version": "0.2.1",
+  "date": "2026-10-18",
   "contractChanges": {
     "BASE-ACCESS-002": {
       "change": "changed",
@@ -403,8 +403,8 @@
     }
   ],
   "breaking": false,
-  "publicReleaseNotes": "Slate 0.2.0: Base sign-in over Slate's own accounts with login_hint prefill, RER Managed mail relay, built-in /docs, reviewed imports, installation backup and restore that keeps removed members removed, safer co-editing and the refined app design. Product screenshot: .github/assets/release/slate-0.2.0-page-1440.png",
-  "agentUpdateInstructions": "Slate 0.2.0 upgrades 0.1.0 in place. Back up first with rer export, pin @runeditrun/rer 0.2.25 as package.json does, then apply migrations 0018-0031 in order; all are additive and keep members, roles, groups, guests and live sessions. Sign-in moves to Base operator-auth over Slate's native accounts: email links sent before the upgrade show the request-new-link page, and existing sessions stay valid. Hosted mail needs MAIL_PROVIDER (sendgrid, resend or rer for RER Managed relay) and its matching credential; MAIL_PROVIDER=development runs only on a loopback LOCAL_DEVELOPMENT install and sends nothing. Installation archives name the current active owner and keep removed members removed; an archive taken while several people owned the workspace asks for rer setup --owner-email before rer import. Slate uses the default core-wiki scope in CONTRACT.md and ACCEPTANCE.md. Flagship is explicit development opt-in, not acceptance. Preserve all requirement IDs, baseline obligations, eight policy profiles, private drafts, current source/requester/audience rights, immutable decisions, grants, budgets and exact effect receipts. STAT-003/004 require a human to open the exact revision; automatic renewal is prohibited. Preserve applied migration history; verify forward transition and recovery before upgrading existing data. Source checks do not establish provider, deployment or complete flagship acceptance.",
+  "publicReleaseNotes": "Slate 0.2.1 changes only the catalogue description, which is now: A wiki for your team's pages. Description only; no product change. The application, contract, migrations and configuration are identical to 0.2.0.",
+  "agentUpdateInstructions": "From 0.2.0: description only; no product change. Update the checkout to v0.2.1; no migration, configuration, data or redeploy step is needed. From an earlier version, first follow the upgrade to 0.2.0 (RELEASE.json at tag v0.2.0).",
   "launchProfile": {
     "default": "core-wiki",
     "binding": "SLATE_PROFILE",

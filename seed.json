@@ -1,7 +1,7 @@
 {
   "id": "slate",
   "name": "Slate",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "maturity": "Core-wiki first-release candidate. Advanced flagship systems remain outside the first public release acceptance.",
   "category": "knowledge",
   "spine": {
@@ -22,7 +22,7 @@
       "edition": null
     }
   ],
-  "description": "A self-hosted core wiki for pages, containers, collaborative editing, comments, search, sharing, imports, and portable backup and restore.",
+  "description": "A wiki for your team's pages.",
   "scope": "One business, one workspace; complete inherited knowledge workspace plus all six journeys, full flagship and sustained inquiry. Requirements are not acceptance evidence.",
   "capabilities": [
     {

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1 — 18 October 2026
+
+Description only; no product change. The catalogue description is now "A wiki for your team's pages.", the same sentence as main. The application, contract, migrations and configuration are identical to 0.2.0, so upgrading from 0.2.0 needs no migration, configuration or data step.
+
 ## 0.2.0 — 16 October 2026
 
 Slate 0.2.0 is a minor release over 0.1.0. It signs in through Base operator-auth over Slate's own accounts, sends mail through RER's Managed relay without customer provider setup, serves its documentation at `/docs`, adds reviewed imports and installation backup and restore through `rer export` and `rer import`, and refines the signed-in app. The product screenshot for this release is `.github/assets/release/slate-0.2.0-page-1440.png`.
