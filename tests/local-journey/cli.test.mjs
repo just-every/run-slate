@@ -26,8 +26,22 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
     const source = join(copy.directory, 'source');
     await copy.run('git', ['clone', '--quiet', '--bare', copy.root, source]); await rm(copy.root, { recursive: true });
     const config = join(copy.directory, 'gitconfig');
-    await writeFile(config, `[url "${source}"]\n\tinsteadOf = https://github.com/just-every/run-slate.git\n`, { mode: 0o600 });
-    await copy.run('/bin/sh', ['-c', fences[0].join('\n')], copy.directory, { GIT_CONFIG_GLOBAL: config, GIT_CONFIG_NOSYSTEM: '1' });
+    await writeFile(config, `[url "${source}"]\n\tinsteadOf = https://github.com/just-every/run-slate\n`, { mode: 0o600 });
+    await resources();
+    // rer 0.2.51 drops --foreground at its fresh-install hand-off. Give the
+    // documented one-line start a terminal, as a person running it would have.
+    const firstStart = `${fences[0].join('\n')} --foreground --idle-timeout 5`;
+    const terminal = process.platform === 'darwin'
+      ? ['-q', '/dev/null', '/bin/sh', '-c', firstStart]
+      : ['-q', '-e', '-c', firstStart, '/dev/null'];
+    // macOS script requires a file for stdin rather than Node's pipe socket.
+    dev = copy.start('script', terminal, copy.directory, { GIT_CONFIG_GLOBAL: config, GIT_CONFIG_NOSYSTEM: '1' }, 'ignore');
+    await waitFor(() => { if (dev.exitCode !== null) throw Error('README start failed; private output withheld'); return dev.output.includes('RER_OPEN '); }, 'one-line README signed-in start');
+    assert.equal(await dev.done, 0, 'one-line start exits after its own idle shutdown');
+    await copy.stop(dev); dev = undefined;
+    // The one-line start creates a placeholder owner. The explicit-owner
+    // preparation below starts empty, as it does in a fresh checkout.
+    await run('reset', ['--yes']);
     await copy.run('/bin/sh', ['-c', fences[1][0]]);
     await run('check', ['--profile', 'first-party']);
     const setup = copy.start('/bin/sh', ['-c', fences[1][1]]);
@@ -43,12 +57,12 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
     await waitFor(() => { if (dev.exitCode !== null) throw Error('CLI dev failed; private output withheld'); return dev.output.includes('RER_READY ' + vars.APP_URL); }, 'CLI ready');
     // Each dev start opens signed in through dev identity; restarts send no sign-in mail.
     for (let restart = 1; restart <= 3; restart++) {
-      await run('dev', ['--stop']); await copy.stop(dev);
+      await copy.stop(dev);
       await resources(); dev = copy.start('/bin/sh', ['-c', devCommand]);
       await waitFor(() => { if (dev.exitCode !== null) throw Error(`CLI dev restart ${restart} failed; private output withheld`); return dev.output.includes('RER_OPEN ' + vars.APP_URL + '/__dev/key#rer-dev='); }, `dev restart ${restart} signed-in open`);
     }
     await publicStatuses(vars.APP_URL, copy.root, 'dev');
-    browser = await chromium.launch({ headless: true });
+    browser = await chromium.launch({ headless: true, args: ['--use-mock-keychain', '--password-store=basic'] });
     // Dev identity: RER_OPEN signs the browser in as the claimed owner with a real
     // key-gated dev session; the private enter route selects real local personas.
     const open = [...dev.output.matchAll(/RER_OPEN (\S+)/g)].at(-1)[1];
@@ -113,8 +127,9 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
     }
     await run('dev'); // A compatible second invocation reuses the registered instance.
     const refusal = copy.start('node', cli('reset', ['--yes'])); assert.equal(await refusal.done, 4); await copy.stop(refusal);
-    await copy.run('/bin/sh', ['-c', fences[2][0]]);
-    await copy.run('/bin/sh', ['-c', fences[2][1]]); await copy.stop(dev); dev = undefined;
+    // Ctrl-C the foreground process we own before the README checks.
+    await copy.stop(dev); dev = undefined;
+    await copy.run('/bin/sh', ['-c', fences[2][1]]);
     // Default README browsing above remains core-wiki. This separate native
     // flagship session adds a real credential whose capability must not move.
     // Like a developer, explicitly configure the private profile. Wrangler's
@@ -122,7 +137,7 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
     const flagshipVars = (await readFile(file, 'utf8')).replace(/^SLATE_PROFILE=.*$/m, 'SLATE_PROFILE=flagship');
     await writeFile(file, flagshipVars, { mode: 0o600 });
     const mail = await mailEdge(copy);
-    await resources(); dev = copy.start('node', cli('dev'), copy.root, mail.env);
+    await resources(); dev = copy.start('node', cli('dev', ['--foreground']), copy.root, mail.env);
     await waitFor(() => { if (dev.exitCode !== null) throw Error('CLI server failed; private output withheld'); return dev.output.includes('"event":"ready"'); }, 'flagship ready');
     await signIn(browser, vars.APP_URL, email, 1440, async (page, member) => {
       const input = { operationKey: 'case:003', subjectId: member.id, scope: { tools: ['read_evidence'], sourceIds: [createdPageId], audience: [member.id], grantIds: [] }, expiresAt: '2099-01-01T00:00:00.000Z' };
@@ -155,7 +170,7 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
       agent = issued.body;
       assert.ok(agent.token, 'native credential issued');
     });
-    await run('dev', ['--stop']); await copy.stop(dev); dev = undefined;
+    await copy.stop(dev); dev = undefined;
     await assertOneOwner(copy.run);
     const before = await copy.run('git', ['status', '--porcelain', '--untracked-files=no']); assert.equal(before, '');
     await mkdir(join(copy.root, 'exports'), { recursive: true }); await run('export', ['--output', 'exports/installation.rer']);
@@ -200,7 +215,7 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
     await restore('setup', ['--owner-email', email]);
     await assertOneOwner((command, args) => copy.run(command, args, target));
     const targetOrigin = parseEnv((await readFile(join(target, '.dev.vars'))).toString()).APP_URL, targetKey = await devKeyOf(target); useDevKey(targetKey);
-    await resources(); dev = copy.start('node', cli('dev'), target, { SLATE_PROFILE: 'flagship' });
+    await resources(); dev = copy.start('node', cli('dev', ['--foreground']), target, { SLATE_PROFILE: 'flagship' });
     await waitFor(() => { if (dev.exitCode !== null) throw Error('CLI server failed; private output withheld'); return dev.output.includes('"event":"ready"'); }, 'restored ready');
     assert.equal((await fetch(targetOrigin + '/api/agent/tools', { headers: { Authorization: 'Bearer ' + agent.token } })).status, 401, 'former agent capability cannot authenticate after restore');
     for (const width of [1440, 390]) {
@@ -216,15 +231,15 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
         await page.screenshot({ path: join(screenshots, `cli-restored-${width}.png`), fullPage: true });
       });
     }
-    await restore('dev', ['--stop']); await copy.stop(dev); dev = undefined;
+    await copy.stop(dev); dev = undefined;
     assert.equal(await copy.run('git', ['status', '--porcelain', '--untracked-files=no'], target), '');
     await run('setup', ['--owner-email', email]); await assertOneOwner(copy.run);
     await run('build');
-    await resources(); dev = copy.start('node', cli('preview')); await waitFor(() => { if (dev.exitCode !== null) throw Error('CLI server failed; private output withheld'); return dev.output.includes('"event":"ready"'); }, 'preview ready');
+    await resources(); dev = copy.start('node', cli('preview', ['--foreground'])); await waitFor(() => { if (dev.exitCode !== null) throw Error('CLI server failed; private output withheld'); return dev.output.includes('"event":"ready"'); }, 'preview ready');
     const previewOrigin = JSON.parse(dev.output.split('\n').find(line => line.includes('"event":"ready"'))).url;
     await publicStatuses(previewOrigin, copy.root, 'preview');
     const reuse = await run('preview'); assert.ok(JSON.parse(reuse.trim().split('\n').at(-1)).reused);
-    await run('preview', ['--stop']); await copy.stop(dev); dev = undefined;
+    await copy.stop(dev); dev = undefined;
     await run('reset', ['--yes']); await run('setup', ['--owner-email', email]);
     const inventory = await copy.run('pnpm', ['exec', 'wrangler', 'd1', 'execute', 'DB', '--local', '--config', 'wrangler.jsonc', '--command', 'SELECT count(*) AS pages FROM pages', '--json']);
     assert.equal(JSON.parse(inventory)[0].results[0].pages, 0);

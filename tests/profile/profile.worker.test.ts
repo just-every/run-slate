@@ -2,13 +2,17 @@ import {pageLockJourney} from './page-lock-journey';
 import {bodyBlocksJourney} from './body-blocks-journey';
 import {workItemsJourney} from './work-items-journey';
 import {env} from 'cloudflare:test';
-import {beforeEach, it, expect} from 'vitest';
+import {afterEach, beforeEach, it, expect, vi} from 'vitest';
 import {createApi} from '../../src/core/app/hono';
 import {consumeJobs} from '../../src/core/app/background';
 import {seedWorkspace,seedMember,seedContainer,seedContainerGrant,sessionFor} from '../e2e/setup/fixtures';
 import {resetDeployment} from '../e2e/setup/reset-deployment';
 
-beforeEach(resetDeployment);
+beforeEach(async () => {
+  vi.setSystemTime(new Date('2026-10-18T12:00:00.000Z'));
+  await resetDeployment();
+});
+afterEach(() => vi.useRealTimers());
 
 async function workspace() {
   const {workspaceId} = await seedWorkspace();
@@ -75,6 +79,8 @@ it('FLAG-001 — core wiki creates and revises genuine pages, searches them, and
   expect(await run.json()).toMatchObject({state:'completed'});
   await bodyBlocksJourney(api,containerId,cookie);
   await workItemsJourney(api,containerId,memberId,workspaceId,cookie);
+  // The next journey's activity must follow the task/report setup above.
+  vi.setSystemTime(new Date(Date.now() + 60_000));
   await pageLockJourney(api,containerId,workspaceId,cookie);
 });
 it('FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', async () => {

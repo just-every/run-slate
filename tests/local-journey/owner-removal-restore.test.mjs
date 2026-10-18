@@ -64,7 +64,7 @@ test('a restore never brings a removed setup owner back', { timeout: 30 * 60_000
     const mail = await api.outbox();
     assert.equal((await api.call(null, 'POST', '/api/auth/magic', { email: original, requestKey: crypto.randomUUID() })).status, 200);
     assert.deepEqual(await api.outbox(), mail, 'the removed owner gets no sign-in mail');
-    browser = await chromium.launch({ headless: true });
+    browser = await chromium.launch({ headless: true, args: ['--use-mock-keychain', '--password-store=basic'] });
     for (const width of [1440, 390]) {
       const context = await browser.newContext({ viewport: { width, height: 900 } });
       try {

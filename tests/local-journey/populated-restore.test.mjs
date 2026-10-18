@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createHash } from 'node:crypto';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { parseEnv } from 'node:util';
 import { scratch, waitFor, resources, repo } from './runtime.mjs';
@@ -179,7 +179,9 @@ test('a populated installation comes back on fresh authority under a different o
     // An additive migration exists only in this disposable installation. A
     // same-schema replay alone cannot satisfy this actual changed-schema case.
     await run('reset', ['--yes']);
-    const additive = join(copy.root, 'migrations/core/0031_journey_archive_default.sql');
+    const migrations = join(copy.root, 'migrations/core');
+    const nextMigration = Math.max(...(await readdir(migrations)).filter(name => /^\d+_.*\.sql$/.test(name)).map(name => Number(name.split('_')[0]))) + 1;
+    const additive = join(migrations, `${String(nextMigration).padStart(4, '0')}_journey_archive_default.sql`);
     await writeFile(additive, "ALTER TABLE pages ADD COLUMN journey_restore_label TEXT NOT NULL DEFAULT 'preserved';\n");
     await run('import', ['--input', 'exports/populated.rer', '--yes']);
     await run('export', ['--output', 'exports/after-additive.rer']);

@@ -24,20 +24,21 @@ export async function resources() {
 export async function scratch() {
   await resources();
   const directory = await mkdtemp(join(repo, '../.slate-journey-'));
-  const root = join(directory, 'slate');
+  const root = join(directory, 'run-slate');
   await cp(repo, root, { recursive: true, filter: p => p !== join(repo, 'exports') && !excluded.has(basename(p)) && !basename(p).startsWith('.env') && !basename(p).startsWith('.dev.vars') && !basename(p).startsWith('.slate-journey-') });
   await mkdir(join(directory, 'tmp'), { mode: 0o700 });
+  await mkdir(join(directory, 'home'), { mode: 0o700 });
   const providerGuard = await denyProviderCommands(directory);
   // A person's `rer` (npm install -g @runeditrun/rer): the pinned package's own launcher, which installs and runs the checkout's pin.
   const bin = join(directory, 'rer-bin');
   await mkdir(bin);
   await writeFile(join(bin, 'rer'), `#!/bin/sh\nexec node ${JSON.stringify(join(repo, 'node_modules/@runeditrun/rer/global/rer.mjs'))} "$@"\n`, { mode: 0o755 });
-  const env = { PATH: `${bin}:${providerGuard.PATH}`, HOME: process.env.HOME, CI: 'true', TMPDIR: join(directory, 'tmp'), WRANGLER_SEND_METRICS: 'false', WRANGLER_LOG_PATH: join(directory, 'tmp/wrangler.log'), RER_SERVERS_DIR: join(directory, 'servers'), RER_JOBS_DIR: join(directory, 'queue'), npm_config_child_concurrency: '1', npm_config_network_concurrency: '2',
+  const env = { PATH: `${bin}:${providerGuard.PATH}`, HOME: join(directory, 'home'), CI: 'true', TMPDIR: join(directory, 'tmp'), WRANGLER_SEND_METRICS: 'false', WRANGLER_LOG_PATH: join(directory, 'tmp/wrangler.log'), RER_SERVERS_DIR: join(directory, 'servers'), RER_JOBS_DIR: join(directory, 'queue'), npm_config_child_concurrency: '1', npm_config_network_concurrency: '2',
     // The caller's own queue limits (RER_JOBS_*), for a host where they differ from the defaults.
     ...Object.fromEntries(Object.entries(process.env).filter(([name]) => name.startsWith('RER_JOBS_') && name !== 'RER_JOBS_DIR')) };
   const children = new Set();
-  function start(command, args, cwd = root, extra = {}) {
-    const child = spawn('nice', ['-n', '15', command, ...args], { cwd, env: { ...env, RER_SERVER_JOURNEY: '1', ...extra }, detached: true, stdio: ['pipe', 'pipe', 'pipe'] });
+  function start(command, args, cwd = root, extra = {}, stdin = 'pipe') {
+    const child = spawn('nice', ['-n', '15', command, ...args], { cwd, env: { ...env, RER_SERVER_JOURNEY: '1', ...extra }, detached: true, stdio: [stdin, 'pipe', 'pipe'] });
     children.add(child);
     child.output = '';
     for (const stream of [child.stdout, child.stderr]) stream.on('data', data => { child.output += data; });

@@ -9256,7 +9256,7 @@
       "executable": false
     },
     "tests/local-journey/cli.test.mjs": {
-      "sha256": "900b0341c48bd2f55c2b570907bc33b82eee2b4fdf6933e17edd4314b858f5fd",
+      "sha256": "1a0f68314a7b77fa9e562e987e8476c35f99e45171d4d7e2e21f694c6a2b9341",
       "executable": false
     },
     "tests/local-journey/diagnostics.mjs": {
@@ -9272,7 +9272,7 @@
       "executable": false
     },
     "tests/local-journey/owner-removal-restore.test.mjs": {
-      "sha256": "c7a020cfb5f6f7c75bfb0359579c6d881193ff827ff524c7e9d9e021a6b3d6b2",
+      "sha256": "b8d012dd6fe28420ea8af25b90e40f0a53579f9426a2ddc331f4f544f9cf3cbb",
       "executable": false
     },
     "tests/local-journey/owner.mjs": {
@@ -9280,7 +9280,7 @@
       "executable": false
     },
     "tests/local-journey/populated-restore.test.mjs": {
-      "sha256": "26857240b7c168a40c0a75884d23d2d89b5306d90757c7e2ff699ef8884ec0bc",
+      "sha256": "6e563527a673639463fa6c9f443626997904fa52afaaf371f99230e4b008fbcf",
       "executable": false
     },
     "tests/local-journey/populated.mjs": {
@@ -9296,7 +9296,7 @@
       "executable": false
     },
     "tests/local-journey/runtime.mjs": {
-      "sha256": "2acfafc75aaf7e14e4a5374c55db5dede4fff629de42ec665a0b5578a996bd5e",
+      "sha256": "08b1d47d9ede775f3a21ef06af0d2a43c934799262121eb6ec77f21a4f413c86",
       "executable": false
     },
     "tests/local-journey/security.mjs": {
@@ -9344,7 +9344,7 @@
       "executable": false
     },
     "tests/profile/profile.worker.test.ts": {
-      "sha256": "41bbb141b9b0d36f3eaf49a6acffb2ba29243b2389564566cbb7739887d86574",
+      "sha256": "365916d9c2c0d93413910bdf89feede7151b0403b1b80764df58d202d5bf96ff",
       "executable": false
     },
     "tests/profile/vitest.config.ts": {
