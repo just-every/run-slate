@@ -1774,9 +1774,9 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 167 | 54 | 0 | 221 |
+| Published | 168 | 53 | 0 | 221 |
 | Target and push further | 6 | 55 | 44 | 105 |
-| All | 173 | 109 | 44 | 326 |
+| All | 174 | 108 | 44 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1811,7 +1811,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `PAGE-009` | Watch | published | done | `tests/flagship/discovery/following.test.ts` |  |
 | `PAGE-010` | Outline | published | done | `tests/qualification/ui-convergence/outline-journey.mjs` | Current heading text, navigation, persistence and no-heading state proven at 1440 and 390; long labels wrap. |
 | `PAGE-011` | Present | published | partial | `src/core/features/pages/ui/workspace/PagePresentation.tsx` | present mode UI; no journey |
-| `PAGE-012` | Page display options | published | partial | `src/core/features/pages/ui/workspace/PageDisplay.tsx` | display options UI; no journey |
+| `PAGE-012` | Page display options | published | done | `tests/e2e/pages/display-options.test.ts`, `tests/qualification/ui-convergence/page-display-journey.mjs` | Shared typeface, small text and full width; unchanged body; Markdown/HTML/PDF readable round trips and complete workspace restore; editor/reader browser journeys at 1440/390. |
 | `PAGE-013` | Analytics | published | partial | `src/core/features/analytics/` | analytics code; no requirement-level journey |
 | `PAGE-014` | Reactions | published | partial | `src/core/features/pages/ui/workspace/ReactionControls.tsx` | page reactions UI; no journey |
 | `TREE-001` | A nested tree in a container | published | done | `tests/qualification/tree-correction/regression.test.ts` |  |

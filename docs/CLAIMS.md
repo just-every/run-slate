@@ -21,4 +21,6 @@ Status describes implementation progress, not full acceptance. CONTRACT.md is th
 
 | TREE-005 | done | Named tree-footer, child and global creation preserve exact placement and persist after reload; read-only readers get no writable destination. `tests/e2e/navigation/create-in-place.test.ts`, `tests/qualification/ui-convergence/create-in-place-journey.mjs` at 1440/390. | None. |
 
+| PAGE-012 | done | Shared typeface, small text and full width persist without changing blocks. Markdown, HTML and PDF readable archives re-import with those settings; complete workspace export restores them. `tests/e2e/pages/display-options.test.ts` and 1440/390 editor/reader, exported HTML and re-import journeys in `tests/qualification/ui-convergence/page-display-journey.mjs`. | None. |
+
 No hosted mail delivery or unrun browser acceptance is claimed here.

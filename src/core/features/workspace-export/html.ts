@@ -1,3 +1,4 @@
+import { displayStyle, type PageDisplay } from './display';
 import type { BlockView } from '../../shared/api/content';
 import { plainContent } from '../editor/validation';
 import { headingAnchor, tocEntries, type TableOfContentsSettings } from '../editor/table-of-contents';
@@ -25,6 +26,6 @@ function htmlBlock(block: BlockView, blocks: BlockView[]): string {
   }
 }
 
-export function htmlDocument(title: string, blocks: BlockView[]): string {
-  return `<!doctype html><html><head><meta charset="utf-8"><title>${html(title)}</title><style>body{max-width:780px;margin:40px auto;padding:0 24px;font:16px/1.6 system-ui,sans-serif}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:8px}pre{white-space:pre-wrap}nav ul{padding-left:24px}${statusLabelStyles}</style></head><body><h1>${html(title)}</h1>${blocks.map(block => htmlBlock(block, blocks)).join('\n')}</body></html>`;
+export function htmlDocument(title: string, blocks: BlockView[], display: PageDisplay): string {
+  return `<!doctype html><html><head><meta charset="utf-8"><title>${html(title)}</title><style>body{${displayStyle(display)};margin:40px auto;padding:0 24px}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:8px}pre{white-space:pre-wrap}nav ul{padding-left:24px}${statusLabelStyles}</style></head><body><h1>${html(title)}</h1>${blocks.map(block => htmlBlock(block, blocks)).join('\n')}</body></html>`;
 }

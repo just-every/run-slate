@@ -11,9 +11,9 @@
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 167 | 54 | 0 | 221 |
+| Published | 168 | 53 | 0 | 221 |
 | Target and push further | 6 | 55 | 44 | 105 |
-| All | 173 | 109 | 44 | 326 |
+| All | 174 | 108 | 44 | 326 |
 
 ### Published: Workspace, editing and pages
 
@@ -50,7 +50,7 @@
 | `PAGE-009` Watch | Watching delivers comments, replies and publishes to the watcher's inbox and never notifies the actor | done | `tests/flagship/discovery/following.test.ts` |
 | `PAGE-010` Outline | Outline reflects headings within 2 seconds and scrolls to the chosen heading; no headings shows no outline | done | `tests/qualification/ui-convergence/outline-journey.mjs` (typing, long labels, scrolling, reload and no-heading state at 1440/390) |
 | `PAGE-011` Present | Present mode paginates by top-level headings without chrome and returns to the same scroll position | partial | `src/core/features/pages/ui/workspace/PagePresentation.tsx` (present mode UI; no journey) |
-| `PAGE-012` Page display options | Typeface, small text and full width are stored per page, identical for every reader and kept through export and import | partial | `src/core/features/pages/ui/workspace/PageDisplay.tsx` (display options UI; no journey) |
+| `PAGE-012` Page display options | Typeface, small text and full width are stored per page, identical for every reader and kept through export and import | done | `tests/e2e/pages/display-options.test.ts`, `tests/qualification/ui-convergence/page-display-journey.mjs` (shared display, unchanged content, readable round trips, complete workspace restore and 1440/390 editor/reader journeys) |
 | `PAGE-013` Analytics | Views and unique viewers over time per page and container, own views labelled, never exposing an unreadable viewer | partial | `src/core/features/analytics/` (analytics code; no requirement-level journey) |
 | `PAGE-014` Reactions | Page reactions show who reacted, notify no one and are not counted in analytics | partial | `src/core/features/pages/ui/workspace/ReactionControls.tsx` (page reactions UI; no journey) |
 | `TREE-001` A nested tree in a container | Unlimited-depth tree per container with per-member expansion and exactly one parent per page | done | `tests/qualification/tree-correction/regression.test.ts` |
