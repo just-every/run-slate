@@ -3286,6 +3286,13 @@
       "status": "unproven",
       "unmetReason": "Readable archive Worker and browser journeys exercise comment round trips. Independent release verification remains pending.",
       "supportingTests": []
+    },
+    {
+      "id": "EMBED-003",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Allowlisted iframe routes and click gates have local supporting journeys; provider refusal detection and live provider acceptance remain unproven.",
+      "supportingTests": []
     }
   ]
 }

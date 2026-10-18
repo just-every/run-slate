@@ -1,3 +1,4 @@
+import {embedDocument} from '../editor/embeds/document';
 import { publishingExposure } from "./exposure";
 import { publicHeader } from './header';
 import { publicQueries } from './queries';
@@ -33,7 +34,13 @@ export function createPublishingRoutes() {
     });
 }
 export function createPublicPagesRoutes() {
-    return new Hono<AppEnvironment>().get('/:slug/media/:id', async (c) => {
+    return new Hono<AppEnvironment>().get('/:slug/embeds/:blockId',async c=>{
+      const p=await publicPage(c.env.DB,new URL(c.req.url).host,c.req.param('slug'));
+      await authorizePublic(c,p);
+      const block=JSON.parse(p.body_json).find((b:any)=>b.id===c.req.param('blockId') && b.blockType==='link-card');
+      if(!block)throw new ApiProblem(404,'NOT_FOUND','Not found.');
+      return embedDocument(block.content);
+    }).get('/:slug/media/:id', async (c) => {
         const p = await publicPage(c.env.DB, new URL(c.req.url).host, c.req.param('slug'));
         await authorizePublic(c, p);
         const f = await c.env.DB.prepare('SELECT * FROM files WHERE id=? AND page_id=? AND deleted_at IS NULL').bind(c.req.param('id'), p.page_id).first<Record<string, any>>();

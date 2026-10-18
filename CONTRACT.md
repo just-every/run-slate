@@ -1282,7 +1282,7 @@ Allowlisted embeds render inline through oEmbed or provider iframes: Figma, Miro
 
 *Acceptance:* a browser journey embeds one item per provider using recorded fixtures, checks the sandbox and CSP attributes, and confirms that a published page loads no third-party request before a click.
 
-*Status:* partial. Safe link cards ship (`BLOCK-009`, `tests/flagship/content/preview.test.ts`); provider iframe embeds do not.
+*Status:* partial. Allowlisted Figma, Miro, Lucid, Loom, YouTube, Vimeo, Google Docs/Sheets/Slides and Microsoft 365 links offer click-to-load embedded frames with a per-provider CSP and sandbox. Published pages contact no provider before interaction; original links remain available. HTTP access and publication-revocation checks and 1440/390 browser journeys use provider-edge fixtures (`tests/e2e/editor/provider-embeds.test.ts`, `tests/qualification/ui-convergence/provider-embeds-journey.mjs`). Automatic detection of cross-origin provider refusals and automatic link-card fallback remain missing; live provider acceptance is unproven.
 
 #### EMBED-004 — Live file cards from Drive, SharePoint and Chest.
 A file picker inserts Google Drive, SharePoint/OneDrive or [Chest](https://github.com/just-every/run-chest) files by reference. Each card shows the file's current title, owner, last modified time and type, and whether the reader can open it. Slate never copies the file unless the member chooses "attach a copy" (`BLOCK-008`).
@@ -2065,7 +2065,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `PORT-010` | Word export of a page | target | missing | — | not implemented |
 | `EMBED-001` | Live issue embeds from Vector and Jira | target | missing | — | not implemented |
 | `EMBED-002` | GitHub and GitLab embeds | target | missing | `src/core/features/connectors/github.ts` | not implemented |
-| `EMBED-003` | Design, video and document embeds | target | partial | `tests/flagship/content/preview.test.ts` | see the clause |
+| `EMBED-003` | Design, video and document embeds | target | partial | `tests/e2e/editor/provider-embeds.test.ts`, `tests/qualification/ui-convergence/provider-embeds-journey.mjs` | Click-to-load provider frames, per-provider CSP/sandbox, public interaction gate and access/revocation proven with fixtures at 1440/390. Automatic refusal detection and link-card fallback remain missing; live providers unproven. |
 | `EMBED-004` | Live file cards from Drive, SharePoint and Chest | target | missing | — | not implemented |
 | `EMBED-005` | Backlinks on Jira and Vector issues | target | missing | — | not implemented |
 | `EMBED-006` | Jira links to migrated Confluence pages are re-pointed at cutover | target | missing | — | not implemented |

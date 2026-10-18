@@ -1,0 +1,2 @@
+export const embedActivationScript = "document.addEventListener('submit',function(event){var form=event.target;if(!(form instanceof HTMLFormElement)||!form.hasAttribute('data-slate-embed'))return;var frame=document.getElementsByName(form.target)[0];if(frame instanceof HTMLIFrameElement)frame.hidden=false;});";
+export const embedActivationHash = "sha256-nW8TbbFA8Z5NJZH7PYLc93PCIGwSPePfb/mcQNlJWOU=";

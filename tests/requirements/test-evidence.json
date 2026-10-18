@@ -2347,6 +2347,15 @@
         "PAGE-015"
       ],
       "reason": "Default-profile HTTP staged-import race with a genuine Notion export. A direct lock returns PAGE_LOCKED without publishing children, while an intervening edit retains its original failure. This supports lock enforcement; complete browser, automation and independent acceptance remain separate."
+    },
+    {
+      "file": "tests/e2e/editor/provider-embeds.test.ts",
+      "testName": "EMBED-003 — allowlisted embeds use isolated provider frames, authorized documents and published click gates",
+      "kind": "supporting-regression",
+      "clauses": [
+        "EMBED-003"
+      ],
+      "reason": "Default-profile HTTP route, access and public click boundary support; real provider rendering and refusal remain separate."
     }
   ]
 }

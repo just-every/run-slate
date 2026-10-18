@@ -154,7 +154,7 @@ export interface MediaBlockData extends BlockBase {
   alt: string;
 }
 
-export type LinkCardDisplay = "plain" | "inline" | "card";
+export type LinkCardDisplay = "plain" | "inline" | "card" | "embed";
 export type LinkPreviewState = "ready" | "loading" | "refused" | "failed";
 
 export interface LinkCardBlockData extends BlockBase {

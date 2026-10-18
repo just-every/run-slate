@@ -497,6 +497,13 @@
       "clauses": [
         "PORT-008"
       ]
+    },
+    {
+      "id": "provider-embeds",
+      "clauses": [
+        "EMBED-003"
+      ],
+      "description": "Click-to-load allowlisted design, video and document embeds in isolated provider frames."
     }
   ],
   "nonGoals": [

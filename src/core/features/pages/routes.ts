@@ -1,3 +1,4 @@
+import {embedDocument} from '../editor/embeds/document';
 import { mentionGroups, previewMentions } from '../comments/group-mentions';
 import { setPageLock } from './locks';
 import { pageDetails } from './details';
@@ -40,6 +41,12 @@ export function createPagesRoutes() {
     r.get('/:id/link-card',async c=>c.json(await pageLinkCard(featureContext(c),c.req.param('id'),c.req.query('revision'))));
     r.get('/:id/mention-groups', async c => c.json(await mentionGroups(featureContext(c), c.req.param('id'))));
     r.post('/:id/mention-preview', async c => c.json(await previewMentions(featureContext(c), c.req.param('id'), await c.req.json())));
+    r.get('/:id/embeds/:blockId', async c => {
+      const document=await readPage(featureContext(c),c.req.param('id'));
+      const block=document.blocks.find(b=>b.id===c.req.param('blockId') && b.blockType==='link-card');
+      if(!block)throw new ApiProblem(404,'NOT_FOUND','Not found.');
+      return embedDocument(block.content);
+    });
     r.get('/:id', async (c) => c.json(await readPage(featureContext(c), c.req.param('id'))));
     r.patch('/:id', async (c) => { const ctx=featureContext(c),id=c.req.param('id'); const result=await updatePage(ctx,id,await validatedJson(c,updatePageSchema)); return c.json({...result,document:await readPage(ctx,id)}); });
     r.patch('/:id/blocks/:blockId', async (c) => c.json(await updateBlock(featureContext(c), c.req.param('id'), c.req.param('blockId'), await validatedJson(c, updateBlockSchema))));

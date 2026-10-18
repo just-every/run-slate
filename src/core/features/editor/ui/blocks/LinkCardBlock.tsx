@@ -1,3 +1,6 @@
+import {useState} from 'react';
+import {providerEmbed} from '../../embeds/providers';
+import {useTaskPage} from './TaskPageContext';
 import { ExternalLink, Link as LinkIcon, TriangleAlert } from "lucide-react";
 import { Button, cn } from "../../../../ui";
 import type { BlockRenderProps, LinkCardBlockData, LinkCardDisplay } from "../types";
@@ -21,8 +24,8 @@ function PlainLink({ url }: { url: string }) {
 
 function DisplaySwitch({ block, onChange }: { block: LinkCardBlockData; onChange: (next: LinkCardBlockData) => void }) {
   return (
-    <div aria-label="How this link is shown" className="flex items-center gap-1" role="group">
-      {displayOptions.map((option) => (
+    <div aria-label="How this link is shown" className="flex flex-wrap items-center gap-1" role="group">
+      {[...displayOptions,...(providerEmbed(block.url)?[{value:'embed' as const,label:'Embed'}]:[])].map((option) => (
         <Button
           aria-pressed={block.display === option.value}
           className={cn(block.display === option.value ? "bg-sidebar-hover text-ink" : "")}
@@ -45,6 +48,15 @@ function DisplaySwitch({ block, onChange }: { block: LinkCardBlockData; onChange
  */
 export function LinkCardBlock({ block, canEdit, onChange, actions }: BlockRenderProps<LinkCardBlockData>) {
   const page=usePageLinkCard(block.url);
+  const parent=useTaskPage();
+  const [loaded,setLoaded]=useState<string|null>(null);
+  const embed=block.display==='embed'?providerEmbed(block.url):null;
+  if(embed && parent)return <div className="my-2 flex flex-col gap-2">
+    <a href={block.url} target="_blank" rel="noreferrer" className="break-all text-accent underline">{block.preview?.title??embed.provider}</a>
+    {loaded===block.url?<><iframe title={`${embed.provider} embed`} src={`/api/pages/${encodeURIComponent(parent.pageId)}/embeds/${encodeURIComponent(block.id)}`} sandbox={embed.sandbox} referrerPolicy="no-referrer" allow="fullscreen" className="w-full rounded-card border border-line" style={{height:420}}/><Button onClick={()=>setLoaded(null)} variant="secondary">Show link instead</Button></>:<Button onClick={()=>setLoaded(block.url)} variant="secondary">Load {embed.provider} embed</Button>}
+    <p className="text-small text-ink-muted">Loading connects to {embed.provider}. If unavailable, open the original link above.</p>
+    {canEdit?<DisplaySwitch block={block} onChange={onChange}/>:null}
+  </div>;
   if(page.internal)return <div className="my-2 flex flex-col gap-2">
     {page.checking?<p role="status">Checking page access…</p>:<RequestState loading={page.resource.loading} error={page.resource.error} retry={page.resource.reload}>
       {page.resource.data?<>

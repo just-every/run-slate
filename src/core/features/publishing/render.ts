@@ -1,3 +1,4 @@
+import {providerEmbed} from '../editor/embeds/providers';
 import { socialMetadata, renderPublicHeader } from './header-render';
 import { publicDocumentShell } from './document-shell';
 import { html } from './html';
@@ -38,6 +39,11 @@ function renderBlock(b: BlockView, slug: string, links: Record<string, string>, 
         return c.kind === 'image' ? `<figure><img src="${url}" alt="${html(c.alt)}"><figcaption>${html(c.caption)}</figcaption></figure>` : c.kind === 'audio' ? `<audio controls src="${url}"></audio>` : c.kind === 'video' ? `<video controls src="${url}"></video>` : `<a href="${base}">${html(c.source.name)}</a>`;
     }
     case 'link-card': {
+        const embed=c.display==='embed'?providerEmbed(c.url):null;
+        if(embed) {
+          const name=`embed-${id}`,route=`/p/${encodeURIComponent(slug)}/embeds/${encodeURIComponent(b.id)}`;
+          return `<section id="${id}"><p><a href="${html(c.url)}" rel="noreferrer">${html(c.preview?.title??embed.provider)}</a></p><form data-slate-embed action="${route}" target="${name}" method="get"><button type="submit" class="public-action">Load ${html(embed.provider)} embed</button><p>This connects to ${html(embed.provider)}. If unavailable, open the original link above.</p></form><iframe hidden name="${name}" title="${html(embed.provider)} embed" sandbox="${embed.sandbox}" referrerpolicy="no-referrer" allow="fullscreen" style="width:100%;height:420px;border:0"></iframe></section>`;
+        }
         const url = c.url.startsWith('/app/') ? Object.entries(links).find(([id]) => c.url.includes(id))?.[1] : c.url;
         return url && (safeUrl(url) || url.startsWith('/p/')) ? `<p><a href="${html(url)}" rel="noopener noreferrer">${html(c.preview?.title ?? c.url)}</a></p>` : `<p>${html(c.preview?.title ?? c.url)}</p>`;
     }

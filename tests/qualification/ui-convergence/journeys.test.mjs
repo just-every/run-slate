@@ -1,3 +1,4 @@
+import {providerEmbedsJourney} from './provider-embeds-journey.mjs';
 import { exportCommentsJourney } from './export-comments-journey.mjs';
 import { presentationJourney } from './presentation-journey.mjs';
 import { analyticsJourney } from './analytics-journey.mjs';
@@ -27,6 +28,9 @@ import { outlineJourney } from './outline-journey.mjs';
 import { groupMentionJourney } from './group-mentions-journey.mjs';
 
 for (const width of [1440, 390]) {
+  test(`provider embeds load only on interaction in editor and published pages at ${width}px`, {timeout:240000}, async()=>{
+    await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{await setupWorkspace(state);await providerEmbedsJourney(state);});
+  });
   test(`readable exports retain discussions through HTML and Markdown re-import at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
