@@ -3,6 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, stat, writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
+import { createInstallerModel, readSetupManifestBytes } from '@runeditrun/rer/setup-manifest';
 import { prepareSettings } from '@runeditrun/rer/adapter-settings';
 import { withoutLocalVariables } from '@runeditrun/rer/local/build';
 import { localOperation } from '@runeditrun/rer/local/operation';
@@ -13,9 +14,18 @@ const store = { step: async () => {}, addSecrets: () => {} };
 test('explicit settings path is read and preserved, with no secret generated per load', async t => {
   const { root } = await fixture(t); await mkdir(join(root, 'private'));
   const env = { SLATE_LOCAL_SETTINGS_PATH: join(root, 'private/local.vars') };
-  const context = { root, manifest, input: { SETUP_OWNER_EMAIL: 'owner@example.test' }, store };
+  const developerInput = { SLATE_PROFILE: 'flagship', AI_ENABLED: 'true', AI_PROVIDER: 'local-codex', ALLOW_LOOPBACK_DELEGATION: 'true', SSO_ENABLED: 'true' };
+  const schema = await readFile(new URL(import.meta.resolve('@runeditrun/rer/setup-schema')));
+  const localManifest = readSetupManifestBytes(Buffer.from(JSON.stringify(manifest)), schema);
+  const model = createInstallerModel(localManifest);
+  for (const [name, value] of Object.entries(developerInput)) {
+    assert.equal(model.fieldVisible(name, developerInput), true, `${name} remains available in local setup`);
+    assert.equal(model.fieldDefinition(name, developerInput).valid(value), true);
+  }
+  const context = { root, manifest: localManifest, input: { SETUP_OWNER_EMAIL: 'owner@example.test', ...developerInput }, store };
   await prepareSettings(context, { secrets: settingsFor(env) });
   const first = await readFile(env.SLATE_LOCAL_SETTINGS_PATH);
+  for (const [name, value] of Object.entries(developerInput)) assert.equal(context.vars[name], value);
   assert.deepEqual(await loadLocalSettings(root, env), context.vars);
   assert.deepEqual(await loadLocalSettings(root, env), context.vars);
   assert.deepEqual(await readFile(env.SLATE_LOCAL_SETTINGS_PATH), first);

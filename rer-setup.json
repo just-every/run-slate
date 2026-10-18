@@ -19,7 +19,8 @@
     {
       "id": "technical",
       "label": "For developers",
-      "help": "Leave these as they are unless you are developing Slate itself. Everyday settings, such as who can see what, live inside Slate."
+      "help": "Leave these as they are unless you are developing Slate itself. Everyday settings, such as who can see what, live inside Slate.",
+      "audience": "developer"
     }
   ],
   "fields": [
@@ -189,7 +190,8 @@
       ],
       "group": "technical",
       "runtimeEditable": false,
-      "help": "Team wiki is Slate. The other choice adds features still being built, for developers working on Slate; it gives nobody extra access."
+      "help": "Team wiki is Slate. The other choice adds features still being built, for developers working on Slate; it gives nobody extra access.",
+      "audience": "developer"
     },
     {
       "name": "AI_ENABLED",
@@ -208,7 +210,8 @@
       ],
       "group": "technical",
       "runtimeEditable": false,
-      "help": "Turns on Slate's AI features, which are still being built. Needs an AI service key. Keep it off for everyday use."
+      "help": "Turns on Slate's AI features, which are still being built. Needs an AI service key. Keep it off for everyday use.",
+      "audience": "developer"
     },
     {
       "name": "AI_PROVIDER",
@@ -227,7 +230,8 @@
       ],
       "group": "technical",
       "runtimeEditable": false,
-      "help": "Which AI service the assistant uses when it is on."
+      "help": "Which AI service the assistant uses when it is on.",
+      "audience": "developer"
     },
     {
       "name": "ALLOW_LOOPBACK_DELEGATION",
@@ -246,7 +250,8 @@
       ],
       "group": "technical",
       "runtimeEditable": false,
-      "help": "Lets Slate's connectors reach a Happy To Help or Orbit app running at localhost while you develop them. Keep it off on a hosted app."
+      "help": "Lets Slate's connectors reach a Happy To Help or Orbit app running at localhost while you develop them. Keep it off on a hosted app.",
+      "audience": "developer"
     },
     {
       "name": "SSO_ENABLED",
@@ -265,7 +270,8 @@
       ],
       "group": "technical",
       "runtimeEditable": false,
-      "help": "Turns on sign-in through a company identity service configured with extra deployment settings."
+      "help": "Turns on sign-in through a company identity service configured with extra deployment settings.",
+      "audience": "developer"
     },
     {
       "name": "LINK_PREVIEWS_ENABLED",
