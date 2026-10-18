@@ -56,7 +56,7 @@ Cross-functional task and project management (Asana, monday.com, ClickUp) belong
 
 - **Published clauses** are the `- **ID — Title.**` bullets in the sections from [Public landing](#public-landing) to [Full flagship and sustained inquiry](#full-flagship-and-sustained-inquiry). Each is registered in `seed.json → capabilities`, `tests/e2e/contract-coverage.test.ts` and `tests/requirements/clause-inventory.json`, and is checked by `scripts/check-contract.mjs` and `scripts/verify.mjs`.
 - **Target clauses** are the `#### ID — Title.` headings in [Target clauses](#target-clauses) and [Push further](#push-further). They are binding product requirements that are not yet registered. A build round that starts one registers it in the same change: a `seed.json` capability, a planned `contract.todo` entry, and a clause-inventory entry with its unmet reason. It also turns the heading into a published bullet with the same ID. IDs never change.
-- **Status** (in [Status](#status) and after each target clause) is `done`, `partial` or `missing`, judged from the code and tests at commit `8956e45` (16 October 2026). `done` means the behaviour ships in the default `core-wiki` profile and a cited test or journey exercises it. `partial` means some of it ships, or it ships only under the explicit `SLATE_PROFILE=flagship` opt-in, or there is code with no requirement-level test. `missing` means there is no implementation. Status is a build-planning judgement, not acceptance.
+- **Status** (in [Status](#status) and after each target clause) is `done`, `partial` or `missing`, judged from the current code and cited tests in this revision. `done` means the behaviour ships in the default `core-wiki` profile and a cited test or journey exercises it. `partial` means some of it ships, or it ships only under the explicit `SLATE_PROFILE=flagship` opt-in, or there is code with no requirement-level test. `missing` means there is no implementation. Status is a build-planning judgement, not acceptance.
 - **Acceptance runs in the default product.** Every target and push-further clause's acceptance runs with `SLATE_PROFILE` unset, with only the owner switches that clause names turned on (`ADMIN-007`). A journey that passes only under `SLATE_PROFILE=flagship` leaves the clause `partial`. [ACCEPTANCE.md](ACCEPTANCE.md) still decides acceptance, and the clause inventory still records every published clause as unproven until it is independently verified.
 
 ## Target amendment — 16 October 2026
@@ -753,7 +753,7 @@ A task item (`BLOCK-007`) can carry one assignee and a due date. Typing `@` insi
 
 *Acceptance:* a browser journey at 1440 and 390 types a task, assigns it with `@` and sets a due date with `//`. The assignee gets exactly one inbox item and, after a Workers journey advances time, exactly one due-date reminder. Reassigning notifies only the new assignee. Assigning a member without access prompts the assigner to share and sends that member nothing. The task shows as overdue after its due date.
 
-*Status:* partial. Task items with server-owned completion attribution ship (`src/core/features/editor/tasks.ts`, `tests/flagship/content/repair.test.ts`); assignees and due dates do not.
+*Status:* partial. Native tasks support assignment, access-aware sharing prompts, due dates, reassignment, completion attribution and exactly-once in-app assignment and due-date notices (`src/core/features/editor/tasks.ts`, `tests/profile/work-items-journey.ts`). Default-profile HTTP journeys exercise these flows. Email/push delivery and public MCP remain missing.
 
 #### BLOCK-016 — Task reports.
 A body can hold a task report: a live list of tasks filtered by container, ancestor page, label, assignee (including "the current reader"), creator, due-date range and state, grouped by page, assignee or due date, and ordered and limited by the author. It follows `BLOCK-010`'s rules: it re-runs when the page is opened, shows when it last ran, shows each reader only the tasks on pages that reader can read, never renders a task on a draft (`LIFE-002`), and says so when its source container is deleted. A reader with edit access to a task's page can complete the task from the report. Confluence Task Report macros import as task reports (`IMP-010`).
@@ -855,14 +855,14 @@ A member can watch a whole container. For each page in it the member can read, a
 
 *Acceptance:* a Workers journey has a member watch a container. Another member then creates a page, edits it in two sessions, comments on it, and creates a restricted page the watcher cannot read. The watcher gets exactly four items (the creation, two edit sessions and the comment) and nothing for the restricted page, and a comment on a page they also watch directly arrives once. A variant with a daily digest preference finds the same four events as digest lines, and a browser journey sees them in Home's Following section.
 
-*Status:* partial. Page watches ship (`PAGE-009`, `src/core/features/navigation/service.ts`); container watches do not.
+*Status:* partial. Container watches deliver access-checked in-app lifecycle notices, coalesce edits by session and deduplicate events also covered by a page watch. Administrators can inspect watchers, and members see their own Following feed (`src/core/features/navigation/watches.ts`, `src/core/features/notifications/following.ts`, `tests/flagship/discovery/following.test.ts`). Daily digest delivery under `NOTIF-005` remains missing.
 
 #### PAGE-016 — Autowatch on create and edit.
 Creating a page, or saving an edit to it, watches it for that member, as commenting already does (`PAGE-009`), until they unwatch it. Unwatching stops autowatch for that page, so a later edit by the same member does not watch it again. A member can turn autowatch off for themselves, and `NOTIF-006` sets the workspace default. An implicit watch delivers the same events as an explicit one.
 
 *Acceptance:* a Workers journey has one member create a page and a second member edit another page, then a third member comments on both, and the creator and the editor each get exactly one notification. After the editor unwatches their page and edits it again, a further comment notifies them of nothing. A member with autowatch off creates a page and is not watching it.
 
-*Status:* done. Implicit watching after a comment ships (`src/core/features/navigation/service.ts`, `src/core/features/comments/service.ts`); watching on create and edit does not.
+*Status:* done. Creating, editing or commenting on a page implicitly watches it; an explicit unwatch survives later edits. Member preferences override the owner-configured workspace autowatch default (`src/core/features/navigation/watches.ts`, `src/core/features/navigation/preferences.ts`, `src/core/features/navigation/watch-configuration.ts`). Workers journeys cover create/edit autowatch, opt-outs and access-checked delivery (`tests/flagship/discovery/following.test.ts`).
 
 #### WORK-016 — People directory and expertise.
 Each member has a profile with their name, title, team, manager, time zone and the pages they own, verify and frequently edit. Expertise tags are derived from that work, and the member can edit or hide them. The directory is searchable, guests see only the people on pages shared with them, and expertise is used to route reviews and questions (`STAT-006`, `KEEP-003`).
@@ -897,14 +897,14 @@ Search and container views filter by label. Queries accept the operators `title:
 
 *Acceptance:* a Workers journey over seeded pages checks each operator and each combination against expected result IDs for two members with different grants. A browser journey saves a search and embeds it in a page.
 
-*Status:* done. Labels are stored and search has kind, container, contributor, status and date filters (`src/core/features/pages/service.ts`, `src/core/features/search/service.ts`, `tests/e2e/search/fts-permissions.test.ts`); label filtering, operators and saved searches do not exist.
+*Status:* done. Label filters in search and container views, every named query operator with boolean combinations and quoted phrases, saved searches and saved-search content queries ship with current-access checks (`src/core/features/search/service.ts`, `tests/e2e/search/discovery-journey.ts`). The HTTP journey saves a search and uses its criteria in a page content query.
 
 #### SEARCH-011 — Verified-first ranking and trust badges.
 Search results, link cards, content queries and answers show each page's verification state (verified with its owner and expiry, lapsed, or unverified) and its last-updated time. Among equally relevant results, ranking puts current verified pages ahead of unverified ones and lapsed or archived pages last, and collapses near-duplicates into one result with a "similar pages" control. Two pages are near-duplicates when the Jaccard similarity of their current revisions' 5-word shingles, estimated by MinHash, is at least `seed.json → limits.nearDuplicateSimilarity` (0.8 by default); the same definition drives `KEEP-004`. A member can sort by relevance, last updated or most viewed.
 
 *Acceptance:* a Workers journey over a seeded corpus of a verified, a lapsed and an unverified page with equal text matches asserts their order and badges. A seeded pair at a measured similarity of 0.85 collapses into one result and a pair at 0.7 does not; lowering the limit to 0.65 collapses the second pair too. A browser journey sees the badges and the collapsed near-duplicates.
 
-*Status:* partial. Status and verification state exist and search ranks by relevance (`src/core/features/page-status/state.ts`, `src/core/features/search/service.ts`); verification-aware ranking, badges in results and duplicate collapse do not.
+*Status:* partial. Search, internal link cards and member content queries show revision-aware verification state and update times. Search prefers current verified pages among equally relevant results, collapses near-duplicates with a similar-pages control and offers relevance, update-time and view-count sorting (`tests/e2e/search/discovery-journey.ts`). Answer trust and anonymous public card/query trust metadata remain missing.
 
 #### SEARCH-012 — Connected results in search.
 When connectors are attached (`CONNECT-001`), one search covers Slate content and connected items, which are labelled with their source and opened in their source. Each connected result is shown only if the asking member's mapped identity can read it in the source now (`CONNECT-002`). Connected results never change Slate result ranking for members without that source.
@@ -1021,7 +1021,7 @@ A date mention (`BLOCK-005`) can carry a reminder at the date or at a chosen off
 
 *Acceptance:* a Workers journey sets reminders in two time zones, advances time, and finds exactly one inbox item each at the right local time. A reminder on a page whose access was revoked is not delivered.
 
-*Status:* partial.
+*Status:* partial. Native page, task and date-mention reminders support local time zones and offsets, exactly-once in-app dispatch and access checks at delivery. Default-profile HTTP and scheduled dispatch exercise timing and revoked access (`tests/profile/work-items-journey.ts`). Email/push delivery remains missing.
 
 #### NOTIF-005 — Email, push and digest delivery.
 Each member chooses, per event kind, between in-app only, immediate email, a daily or weekly digest, push on their devices (`MOBILE-004`), and a chat direct message (`CHAT-004`), or keeps the workspace default for that kind (`NOTIF-006`). The inbox item is created whatever the choice. Email goes through `mail.sender.v1` from the configured sender and carries the event, the actor, the page title and a link, never a page body. Recipient access is rechecked at send, and an unsubscribe link changes that member's preference without sign-in. Digests coalesce watched page and container changes (`CONT-012`), mentions, task assignments and due tasks, review requests and lapsed verifications. A watched change carries a change summary: the counts of blocks added, changed and removed and of comments added since the member's last notice. When a workspace owner turns on "section names in notifications", the summary also names the headings the changed blocks sit under, for example "3 blocks changed in Rollout plan". It never carries block or comment text.
@@ -1155,7 +1155,7 @@ The loss report lists only the unsupported rows and macros Slate does not recogn
 
 *Acceptance:* a real Confluence Cloud space, captured both as a file export produced by Confluence (`IMP-003`) and as a recorded API fixture (`IMP-007`), contains at least one of every mapped macro, a draw.io and a Gliffy diagram, a whiteboard and a Roadmap Planner. After each import a Workers journey checks every macro block by block against the fixture's expected map: the Jira macros render as live embeds under recorded Jira fixtures, the Jira Chart as a chart of the same type, the View File macros as file blocks that preview (`BLOCK-021`), the excerpt as a synced block, the children display as a content query, the table of contents as its block, Page Properties as records with a view, tasks with their assignee, due date and state, and the panels, expand, code and status labels as their blocks. Both diagrams render as diagram blocks with their sources. The loss report lists exactly the whiteboard and the Roadmap Planner.
 
-*Status:* partial. Panels, expand, code and task lists with their completion state map today, and every other macro is named in the loss report (`src/core/features/imports/confluence/storage.ts`, `tests/e2e/imports/real-exports.test.ts`).
+*Status:* partial. Panels, expand, code and task completion map, and the storage parser also maps table-of-contents macros and supported status labels (`src/core/features/imports/confluence/storage.ts`, `tests/e2e/imports/real-exports.test.ts`, `tests/profile/body-blocks-journey.ts`). Unsupported status colours and rich status colours in plain-string table cells are reported as loss. The remaining mapped macro targets, task assignee/due-date mapping and genuine incumbent macro-fixture acceptance remain unproven.
 
 #### IMP-011 — Confluence space permissions become container grants.
 Both Confluence imports carry each space's permissions, not only its page restrictions. Where the source supplies them (the Confluence Cloud REST API's space permissions and space role assignments under `IMP-007`, and the `SpacePermission` objects in a Server or Data Center `entities.xml` under `IMP-003`), the Preview (`IMP-001`) lists every principal (user, group, team, all licensed users and anonymous) with its source role and the proposed Slate grant:
@@ -1768,7 +1768,7 @@ favour of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `8956e458707a343e3d3b145d5664a7b28e28028f` (16 October 2026).
+Judged from the code and tests at commit `f313e9ee772b9e9089e8ff0463db373bb95be47b` (18 October 2026).
 
 See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance.
 
