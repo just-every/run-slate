@@ -12,7 +12,6 @@ import type { AppBindings } from "../../../src/core/app/types";
  */
 
 contract("BASE-OPS-001", "health reports ready when the database answers", async () => {
-  await expect.poll(async () => (await SELF.fetch("https://slate.test/health")).status).toBe(200);
   const response = await SELF.fetch("https://slate.test/health");
 
   expect(response.status).toBe(200);
@@ -25,7 +24,7 @@ contract("BASE-OPS-001", "health reports ready when the database answers", async
   });
 
   // Drive the public Worker with real D1/Queue bindings and a controllable R2
-  // network edge: pending, healthy, failed, recovered, then a hung dependency.
+  // network edge: startup readiness, healthy, failed, recovered, then a hung dependency.
   const started = Date.now();
   const clock = vi.spyOn(Date, "now").mockReturnValue(started);
   let calls = 0;
@@ -46,14 +45,14 @@ contract("BASE-OPS-001", "health reports ready when the database answers", async
     } } as R2Bucket,
     ASSETS: new Proxy(env.ASSETS, { get() { throw new Error("Health must bypass assets."); } }),
   } as AppBindings;
-  const request = async () => {
+  const request = async (selected = bindings) => {
     const context = createExecutionContext();
-    const response = await worker.fetch!(new Request("https://slate.test/health") as Request<unknown, IncomingRequestCfProperties>, bindings, context);
+    const response = await worker.fetch!(new Request("https://slate.test/health") as Request<unknown, IncomingRequestCfProperties>, selected, context);
     return { response, done: () => waitOnExecutionContext(context) };
   };
   try {
     const cold = await request();
-    expect(cold.response.status).toBe(503);
+    expect(cold.response.status).toBe(200);
     await cold.done();
     const observed = calls;
     for (let i = 0; i < 3; i++) {
@@ -101,6 +100,16 @@ contract("BASE-OPS-001", "health reports ready when the database answers", async
     expect(late.response.status).toBe(503);
     await late.done();
     expect((await request()).response.status).toBe(503);
+
+    const startupBindings = { ...bindings, DB: observe(env.DB) };
+    mode = "hung";
+    clock.mockReturnValue(started + 300_000);
+    const startup = await request(startupBindings);
+    expect(startup.response.status).toBe(200);
+    clock.mockReturnValue(started + 306_000);
+    expect((await request(startupBindings)).response.status).toBe(503);
+    await startup.done();
+    release();
   } finally {
     release();
     clock.mockRestore();

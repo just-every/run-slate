@@ -14,7 +14,7 @@ interface HealthState {
   files: R2Bucket;
   jobs: Queue;
   connectorKey: string | undefined;
-  checkedAt: number;
+  expiresAt: number;
   attemptedAt: number;
   checks?: DependencyHealth;
   configurationFailure?: RuntimeConfigurationError;
@@ -30,7 +30,10 @@ function stateFor(bindings: AppBindings): HealthState {
   let state = states.get(bindings.DB);
   if (!state || state.files !== bindings.FILES || state.jobs !== bindings.JOBS || state.connectorKey !== bindings.CONNECTOR_CREDENTIALS_KEY) {
     state = { files: bindings.FILES, jobs: bindings.JOBS, connectorKey: bindings.CONNECTOR_CREDENTIALS_KEY,
-      checkedAt: -Infinity, attemptedAt: -Infinity, rateWindow: -1, addresses: new Map() };
+      // Startup readiness comes from present native bindings. It must be
+      // confirmed by the first probe within five seconds, even if that hangs.
+      checks: { database: { status: "reachable" }, files: { status: "reachable" } },
+      expiresAt: Date.now() + probeTimeout, attemptedAt: -Infinity, rateWindow: -1, addresses: new Map() };
     states.set(bindings.DB, state);
   }
   return state;
@@ -51,7 +54,7 @@ function refresh(state: HealthState, bindings: AppBindings): Promise<void> {
       ]);
       state.checks = checks;
       state.configurationFailure = undefined;
-      state.checkedAt = Date.now();
+      state.expiresAt = Date.now() + maximumAge;
     } catch (cause) {
       state.checks = undefined;
       state.configurationFailure = cause instanceof RuntimeConfigurationError ? cause : undefined;
@@ -63,8 +66,8 @@ function refresh(state: HealthState, bindings: AppBindings): Promise<void> {
 }
 
 /**
- * No storage or outbound calls are awaited here. Cold isolates return 503 until
- * their first background probe succeeds. Active probes refresh every 30 s;
+ * No storage or outbound calls are awaited here. Startup binding readiness has
+ * five seconds to be confirmed by a probe. Active probes refresh every 30 s;
  * failures/timeouts clear success, and evidence older than two minutes is never trusted.
  * Thus the next health read after that bound fails even if a refresh is stuck.
  */
@@ -98,7 +101,7 @@ export function healthResponse(request: Request, bindings: AppBindings, executio
   if (state.configurationFailure) {
     return Response.json(error("CONFIGURATION_INVALID", state.configurationFailure.message), { status: 503, headers });
   }
-  if (!state.checks || now - state.checkedAt >= maximumAge) {
+  if (!state.checks || now >= state.expiresAt) {
     return Response.json(error("DEPENDENCY_UNAVAILABLE", "A Slate dependency is unavailable."), { status: 503, headers });
   }
   return Response.json({ status: "ok", checks: state.checks, ...deploymentHealth(bindings) }, { headers });

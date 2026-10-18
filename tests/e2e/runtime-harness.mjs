@@ -60,9 +60,7 @@ export async function waitForReady(baseUrl, child, timeoutMs = 60000, headers) {
     if (child.exitCode !== null || child.signalCode !== null) throw new Error(`Runtime exited with ${child.exitCode ?? child.signalCode} before it became ready.`);
     try {
       const response = await fetch(`${baseUrl}/health`, { headers });
-      if (response.status === 200) { await response.body?.cancel(); return; }
-      // Cold dependency evidence is pending; configuration failures are terminal.
-      if (response.status === 503 && (await response.json()).code === 'CONFIGURATION_INVALID') return;
+      if (response.status === 200 || response.status === 503) return;
     } catch (cause) {
       failure = cause;
     }

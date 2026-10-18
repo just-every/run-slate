@@ -4140,7 +4140,7 @@
       "executable": false
     },
     "src/core/app/health-response.ts": {
-      "sha256": "24268e9fafefc3182e07f08a02fd82e78cf50b1228650af7343d4b951d436550",
+      "sha256": "ad3c1e58e384c1ce040ff63b86a7e0d544d815d101d9842bb91c0d764099f27d",
       "executable": false
     },
     "src/core/app/hono-paths.ts": {
@@ -8528,7 +8528,7 @@
       "executable": false
     },
     "tests/e2e/foundation-runtime.test.mjs": {
-      "sha256": "5c55543e8142d3e2a9fb5a58bf3639c85318ccb3c8881056a48180c5f7fc3fde",
+      "sha256": "156e667226f9d8d798d02283e1635ed8f5628a1d53072248d4a5d6a665eb0dbb",
       "executable": false
     },
     "tests/e2e/helpers/local-mail-database.ts": {
@@ -8676,7 +8676,7 @@
       "executable": false
     },
     "tests/e2e/runtime-harness.mjs": {
-      "sha256": "7aeef66e7b952e037db3b852b6eafe9423a0f4156cb52a2aff4084b298294bbd",
+      "sha256": "32656836b2914aa9feec55bae5042f67365f31649dd982b17085eea05701363e",
       "executable": false
     },
     "tests/e2e/saving/failed-writes.test.ts": {
@@ -8740,7 +8740,7 @@
       "executable": false
     },
     "tests/e2e/workspace/health.test.ts": {
-      "sha256": "2548db3d3d865dd497a33acf5e9fc118ac221363e1f6093bacb0181ad0ceeb57",
+      "sha256": "82295c6db78f3314ab8c2b539edcd8e6a1ad16c56bf7ffcc297eba667f1eefef",
       "executable": false
     },
     "tests/fixtures/aurora/members.json": {
@@ -9624,7 +9624,7 @@
       "executable": false
     },
     "tests/qualification/data/independence.test.ts": {
-      "sha256": "15d0993248276b511bcd5b7b5ea725991ab3e9a879526583ca433f32b286f27c",
+      "sha256": "7106fbb9ff527b14979b2bd87e3896f6f03659e4b180f9e89849035f65a9adcb",
       "executable": false
     },
     "tests/qualification/data/intelligence-erasure.test.ts": {
