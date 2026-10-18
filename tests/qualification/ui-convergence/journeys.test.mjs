@@ -5,7 +5,7 @@ import { reactionsJourney } from './reactions-journey.mjs';
 import { pageDisplayJourney } from './page-display-journey.mjs';
 import { createInPlaceJourney } from './create-in-place-journey.mjs';
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import { journeyTest as test } from './journey-shard.mjs';
 import { expect } from '@playwright/test';
 import { setupWorkspace, withWorkspace } from './browser-support.mjs';
 import { commentJourney, searchJourney, settingsJourney, shareJourney, writeJourney } from './core-journeys.mjs';

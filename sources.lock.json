@@ -916,7 +916,7 @@
       "executable": false
     },
     ".github/workflows/verify.yml": {
-      "sha256": "adea079c66e3ad7f38006ed52e8f5013467b775c5331d0efca01664b2edb5427",
+      "sha256": "ae095e70a30e2ac9debd4ab03b3e74c81c7d85cccf948ecdc2bb059f4eab3263",
       "executable": false
     },
     ".gitignore": {
@@ -10375,8 +10375,12 @@
       "sha256": "8766cc4ff9b0cac341f79944bec3e37018dd796e5faa93c6dec213851ed97d74",
       "executable": false
     },
+    "tests/qualification/ui-convergence/journey-shard.mjs": {
+      "sha256": "68740aeef4eda602b8624756d34bf9d7558afbf232344553ab47adad8468ec72",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "0d7d05a120e367ccc9c6e952af6817692fefbd14296d9852bd010181713a8966",
+      "sha256": "ae4ca621fc3870e79a4c15df8ce613ee672831f2be096e31e40f55f75ba84e3b",
       "executable": false
     },
     "tests/qualification/ui-convergence/navigation-journey.mjs": {

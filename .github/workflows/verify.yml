@@ -75,12 +75,16 @@ jobs:
             command: pnpm build && pnpm test:delivery-artifact && pnpm test:release-regressions
           - suite: ui-polish-desktop
             command: pnpm build && node --test --test-concurrency=1 --test-name-pattern=1440 tests/ui/polish-journeys.test.mjs
-          - suite: ui-content-desktop
-            command: pnpm build && node --test --test-concurrency=1 --test-name-pattern=1440 tests/qualification/ui-convergence/journeys.test.mjs
+          - suite: ui-content-desktop-1
+            command: pnpm build && SLATE_UI_SHARD=1/2 node --test --test-concurrency=1 --test-name-pattern=1440 tests/qualification/ui-convergence/journeys.test.mjs
+          - suite: ui-content-desktop-2
+            command: pnpm build && SLATE_UI_SHARD=2/2 node --test --test-concurrency=1 --test-name-pattern=1440 tests/qualification/ui-convergence/journeys.test.mjs
           - suite: ui-polish-mobile
             command: pnpm build && node --test --test-concurrency=1 --test-name-pattern=390 tests/ui/polish-journeys.test.mjs
-          - suite: ui-content-mobile
-            command: pnpm build && node --test --test-concurrency=1 --test-name-pattern=390 tests/qualification/ui-convergence/journeys.test.mjs
+          - suite: ui-content-mobile-1
+            command: pnpm build && SLATE_UI_SHARD=1/2 node --test --test-concurrency=1 --test-name-pattern=390 tests/qualification/ui-convergence/journeys.test.mjs
+          - suite: ui-content-mobile-2
+            command: pnpm build && SLATE_UI_SHARD=2/2 node --test --test-concurrency=1 --test-name-pattern=390 tests/qualification/ui-convergence/journeys.test.mjs
           - suite: ui-state
             command: pnpm build && pnpm test:ui:reachability && pnpm test:ui:state
     name: verify (${{ matrix.suite }})
