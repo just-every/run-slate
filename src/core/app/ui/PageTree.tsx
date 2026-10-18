@@ -16,6 +16,7 @@ export type TreePage = PageRef & {
   treePosition?: string|null;
   icon?: string | null;
   containerLabel?: string;
+  sharedWithMe?: boolean;
   permissions?: { level: string; canEdit: boolean };
 };
 export function PageTree({

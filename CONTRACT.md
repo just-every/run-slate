@@ -1774,9 +1774,9 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 164 | 57 | 0 | 221 |
+| Published | 165 | 56 | 0 | 221 |
 | Target and push further | 5 | 56 | 44 | 105 |
-| All | 169 | 113 | 44 | 326 |
+| All | 170 | 112 | 44 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1816,7 +1816,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `PAGE-014` | Reactions | published | partial | `src/core/features/pages/ui/workspace/ReactionControls.tsx` | page reactions UI; no journey |
 | `TREE-001` | A nested tree in a container | published | done | `tests/qualification/tree-correction/regression.test.ts` |  |
 | `TREE-002` | Reordering and nesting | published | done | `tests/qualification/publication/preview.test.ts` |  |
-| `TREE-003` | Shared with me | published | partial | `src/core/app/ui/SpaceTrees.tsx` | shared-with-me UI; no journey |
+| `TREE-003` | Shared with me | published | done | `tests/e2e/navigation/shared-navigation.test.ts`, `tests/qualification/ui-convergence/shared-navigation-journey.mjs` | Individual grants in non-member spaces have a named Shared with me section, independent of container discovery and broader access; revoked/expired grants remove the entry on the next load. Workers and 1440/390 browser journeys cover private neighbours, opening and revocation. |
 | `TREE-004` | Filter the tree | published | done | `tests/e2e/navigation/tree-filter.test.ts`, `tests/qualification/ui-convergence/tree-filter-journey.mjs` | Per-space title matching retains readable ancestors within 200ms; one clear restores member expansion, with access and 1440/390 browser coverage. |
 | `TREE-005` | Create in place | published | partial | `src/core/app/ui/NavigationCreate.tsx` | create-in-place UI; no journey |
 | `BLOCK-001` | A body of blocks | published | done | `tests/qualification/interface/routed.browser.mjs` |  |

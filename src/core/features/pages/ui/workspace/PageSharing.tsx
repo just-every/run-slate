@@ -64,6 +64,7 @@ export function PageSharing({ document }: { document: DocumentView }) {
         revoke: value.revoke,
       });
       grants.reload();
+      window.dispatchEvent(new Event('slate:navigation-changed'));
     } catch (cause) {
       setError(cause);
     } finally {
@@ -197,7 +198,7 @@ export function PageSharing({ document }: { document: DocumentView }) {
           <details className="advanced-access"><summary>Advanced access</summary>
           <p>{document.permissions.level === "full" ? "You can manage access to this page." : `You can ${accessLabel(document.permissions.level).toLowerCase()} ${document.permissions.level === "comment" ? "on " : ""}this page.`}</p><p>{grants.data?.restricted?'Only people invited directly can access this page.':'People with access to the parent page or space can also access this page.'}</p>
           <div className="action-row">
-          <button disabled={pending} onClick={async()=>{setPending(true);setError(undefined);try{await mutate(`/api/sharing/pages/${document.page.id}/inheritance`,{operationKey:operationKey(),expectedRevisionId:document.page.revisionId,restricted:!grants.data?.restricted},'PUT');grants.reload();window.dispatchEvent(new CustomEvent('slate:page-mutated',{detail:{pageId:document.page.id}}));}catch(error){setError(error);}finally{setPending(false);}}}>{grants.data?.restricted?'Restore inherited access':'Restrict inherited access'}</button>
+          <button disabled={pending} onClick={async()=>{setPending(true);setError(undefined);try{await mutate(`/api/sharing/pages/${document.page.id}/inheritance`,{operationKey:operationKey(),expectedRevisionId:document.page.revisionId,restricted:!grants.data?.restricted},'PUT');grants.reload();window.dispatchEvent(new Event('slate:navigation-changed'));window.dispatchEvent(new CustomEvent('slate:page-mutated',{detail:{pageId:document.page.id}}));}catch(error){setError(error);}finally{setPending(false);}}}>{grants.data?.restricted?'Restore inherited access':'Restrict inherited access'}</button>
           {document.page.lifecycle !== "draft" &&
           document.page.lifecycle !== "scheduled" &&
           workspace.data ? (

@@ -15,4 +15,6 @@ Status describes implementation progress, not full acceptance. CONTRACT.md is th
 
 | NAV-005 | done | Global Create on every configured operator destination; page, database, space and template creation with named destinations, writable database choices, categorized templates visible with no category filter, and server authorization. `tests/e2e/navigation/global-create.test.ts`, `tests/qualification/ui-convergence/global-create-journey.mjs` at 1440/390. | None. |
 
+| TREE-003 | done | Named Shared with me navigation for individual page grants in non-member spaces; current membership, expiry and revocation, unreadable-neighbour exclusion, exact page opening and first-load removal. `tests/e2e/navigation/shared-navigation.test.ts`, `tests/qualification/ui-convergence/shared-navigation-journey.mjs` at 1440/390. | None. |
+
 No hosted mail delivery or unrun browser acceptance is claimed here.

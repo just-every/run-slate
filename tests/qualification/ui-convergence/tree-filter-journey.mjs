@@ -72,11 +72,13 @@ export async function treeFilterJourney(state) {
   await switchIdentity('reader');
   await page.goto(origin + '/app', { waitUntil: 'networkidle' });
   await openNavigation(page);
-  await filter.fill('rota');
-  await expect(link('Shared rota contacts')).toBeVisible();
-  await expect(link('Confidential rota planning')).toHaveCount(0);
+  const sharedSection = pages.getByRole('region', { name: 'Shared with me', exact: true });
+  const sharedLink = title => sharedSection.getByRole('link', { name: title, exact: true });
+  await sharedSection.getByRole('textbox', { name: 'Filter pages in Shared with me · Handbook', exact: true }).fill('rota');
+  await expect(sharedLink('Shared rota contacts')).toBeVisible();
+  await expect(pages.getByRole('link', { name: 'Confidential rota planning', exact: true })).toHaveCount(0);
   await accessible(page, 'tree filter reveals no unreadable ancestor');
-  await link('Shared rota contacts').click();
+  await sharedLink('Shared rota contacts').click();
   await expect(page.getByRole('textbox', { name: 'Page title', exact: true })).toHaveValue('Shared rota contacts');
   if (page.viewportSize().width === 390) await expect(page.getByRole('button', { name: 'Open navigation', exact: true })).toBeVisible();
 }

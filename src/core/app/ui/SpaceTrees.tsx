@@ -30,9 +30,13 @@ export function SpaceTrees({
   const preferences = navigation.data?.preferences;
   const databasePages = new Map(databases.data?.items.map((database) => [database.pageId, database.id]));
   const treePages = pages.data?.items.map((page) => ({ ...page, databaseId: databasePages.get(page.id) })) ?? [];
+  const sharedPages = treePages.filter(page => page.sharedWithMe);
+  const regularPages = treePages.filter(page => !page.sharedWithMe);
+  const sharedIds = new Set(sharedPages.map(page => page.id));
+  const sharedSpaceIds = new Set(sharedPages.map(page => page.containerId));
   const spaceIds = new Set([
-    ...(pages.data?.items.map((page) => page.containerId) ?? []),
-    ...(databases.data?.items.map((database) => database.containerId) ?? []),
+    ...regularPages.map(page => page.containerId),
+    ...(databases.data?.items.filter(database => !sharedIds.has(database.pageId)).map(database => database.containerId) ?? []),
   ]);
   function toggle(id: string) {
     if (!preferences) return;
@@ -43,25 +47,22 @@ export function SpaceTrees({
       value: { ...preferences.value, collapsedContainers: collapsed.includes(id) ? collapsed.filter((value) => value !== id) : [...collapsed, id] },
     }, "PUT").then(navigation.reload).catch(onError);
   }
+  function spaceTree(id: string, shared: boolean) {
+    const groupPages = (shared ? sharedPages : regularPages).filter(page => page.containerId === id);
+    const name = groupPages[0]?.containerLabel ?? containers.data?.items.find(item => item.id === id)?.name ?? '';
+    return <details key={`${shared ? 'shared' : 'space'}:${id}`} className="space-group" open={!preferences?.value.collapsedContainers.includes(id)}>
+      <summary onClick={event => { event.preventDefault(); toggle(id); }}>{name}</summary>
+      <FilteredPageTree pages={groupPages} spaceName={shared ? `Shared with me · ${name}` : name} activePath={pathname} />
+    </details>;
+  }
   return (
     <nav className="page-links" aria-label="Pages" onClick={event => { if ((event.target as HTMLElement).closest("a[href]")) onNavigate?.(); }}>
       <RequestState loading={pages.loading || databases.loading} error={pages.error ?? databases.error} retry={async () => { await Promise.all([pages.reload(), databases.reload()]); }}>
-        {[...spaceIds].map((id) => {
-          const container = containers.data?.items.find((item) => item.id === id);
-          return (
-            <details key={id} className="space-group" open={!preferences?.value.collapsedContainers.includes(id)}>
-              <summary
-                onClick={(event) => {
-                  event.preventDefault();
-                  toggle(id);
-                }}
-              >
-                {container ? container.name : `Shared with me · ${pages.data?.items.find((page) => page.containerId === id)?.containerLabel ?? "Unavailable space"}`}
-              </summary>
-              <FilteredPageTree pages={treePages.filter((page) => page.containerId === id)} spaceName={container?.name ?? pages.data?.items.find(page => page.containerId === id)?.containerLabel ?? "Shared pages"} activePath={pathname} />
-            </details>
-          );
-        })}
+        {[...spaceIds].map(id => spaceTree(id, false))}
+        {sharedPages.length ? <section aria-label="Shared with me">
+          <h2 className="sidebar-label">Shared with me</h2>
+          {[...sharedSpaceIds].map(id => spaceTree(id, true))}
+        </section> : null}
         {pages.data?.items.length === 0 && databases.data?.items.length === 0 ? <p className="empty-tree">Your first page starts here.</p> : null}
       </RequestState>
     </nav>

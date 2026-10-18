@@ -2,6 +2,7 @@ import { moveSources, writableMoveGuard } from './tree-writable';
 import { publicMoveChanges } from './tree-access';
 import { authorScheduleProjections } from '../lifecycle/schedule-view';
 import { contentPolicy } from './policy';
+import { isPrivateLifecycle } from '../sharing/access';
 import { publicPage } from '../publishing/service';
 import type { FeatureContext } from '../../app/feature-context';
 import { commitOperation, requestHash } from '../../app/operations';
@@ -32,8 +33,16 @@ export async function listPages(ctx: FeatureContext, containerId?: string, label
     ]);
     const out = [];
     for (const p of candidates) {
-        const access = accesses.get(p.id)?.decision;
-        if (!access?.allowed) continue;
+        const resolution = accesses.get(p.id);
+        if (!resolution?.decision.allowed) continue;
+        const access = resolution.decision;
+        // Sharing provenance is independent of the strongest effective grant.
+        // Removing an individual invitation removes this entry even if a broader
+        // grant still permits the page in the ordinary space tree.
+        const grants = [...resolution.context.page.grants, ...(!isPrivateLifecycle(p.lifecycle) ? resolution.context.inheritedGrants : [])];
+        const sharedWithMe = !subject.containerIds.includes(p.container_id) && grants.some(grant =>
+            grant.principalKind === 'member' && grant.principalId === subject.memberId &&
+            !grant.revokedAt && (!grant.expiresAt || grant.expiresAt > ctx.now));
         let title = p.title, icon = p.icon, visibleLabels=labels.get(p.id)??[];
         if ((access.level === 'view' || access.level === 'comment') && p.published_revision_id && p.published_revision_id !== p.working_revision_id) {
             if (!p.publishedRevision) throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
@@ -43,7 +52,7 @@ export async function listPages(ctx: FeatureContext, containerId?: string, label
             visibleLabels=props.labels??[];
         }
         if(label&&!visibleLabels.some(value=>value.toLocaleLowerCase()===label.toLocaleLowerCase()))continue;
-        out.push({ ...ref(p), ...schedules.get(p.id), title, icon, labels:visibleLabels, parentPageId: p.parent_page_id, treePosition: p.tree_position, pageKind: p.page_kind, containerLabel: p.containerLabel ?? '', permissions: { level: access.level!, canEdit: !p.locked_at && (access.level === 'edit' || access.level === 'full'), canUnlock: access.level === 'edit' || access.level === 'full' } });
+        out.push({ ...ref(p), ...schedules.get(p.id), title, icon, labels:visibleLabels, parentPageId: p.parent_page_id, treePosition: p.tree_position, pageKind: p.page_kind, containerLabel: p.containerLabel ?? '', sharedWithMe, permissions: { level: access.level!, canEdit: !p.locked_at && (access.level === 'edit' || access.level === 'full'), canUnlock: access.level === 'edit' || access.level === 'full' } });
     }
     return { items: out };
 }
