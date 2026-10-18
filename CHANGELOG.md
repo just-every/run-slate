@@ -8,6 +8,8 @@ A Managed change preview that copied the live app's data now opens with the owne
 
 An owner link that cannot be used (missing, used, expired, or opened where the app is not a preview) now lands on Slate's sign-in page, saying the link no longer works and with the owner's email filled in when the link names one, instead of an error body. Slate recognises a preview by RER's `RER_PREVIEW_OWNER_SIGNIN` binding (the declared owner sign-in path) instead of `RER_PREVIEW_TOKEN`, which RER keeps on the preview gateway. On Managed hosting the front page no longer tells the customer to run `rer signin`. The sidebar names each space by its name alone ("General", not "Space · General"), and the developer-only Company sign-in setting no longer points to an address field that setup does not show.
 
+A Managed preview no longer adds a "Personal" space when its owner signs in: it shows exactly the spaces it copied from the live app. Live still creates each member's personal space on first use.
+
 Sign-in and invitation mail name the app the same way in the sender name and the subject: the new optional `APP_NAME` setting (`SLATE_APP_NAME` for `rer deploy`), else Slate. Managed mail's relay names the sender from the installation itself.
 
 Setup labels and help read in plain words, and developer-only settings say "for developers"; values and behaviour are unchanged.

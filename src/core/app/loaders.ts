@@ -36,7 +36,7 @@ export const loadWorkspace = createServerFn({ method: "GET" }).inputValidator(wo
     import("../features/workspace/bootstrap"),
     import("../features/navigation/service"),
   ]);
-  const context = { db: batchRequestReads(bindings.DB), files: bindings.FILES, jobs: bindings.JOBS, actor: member, now: new Date().toISOString() };
+  const context = { db: batchRequestReads(bindings.DB), files: bindings.FILES, jobs: bindings.JOBS, actor: member, now: new Date().toISOString(), preview: config.preview };
   const { initialResources } = await import("./initial-resources.server");
   const requestUrl=getRequestUrl();
   const url=data.path ? new URL(data.path,requestUrl.origin) : requestUrl;

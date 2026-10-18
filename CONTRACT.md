@@ -204,7 +204,10 @@ roles, groups, scoped guests and the `slate_session` cookie are unchanged.
   body; it issues no session and leaves the grant as it was. The redirect adds
   `login_hint` with the grant's member email only when the token matches a
   stored grant, so a visitor without one learns no address.
-  The grant table is excluded from archives. Evidence:
+  Amended 18 October 2026: a preview shows exactly the data it copied. Where live
+  would create the signing-in member's personal container on first use
+  (`CONT-005`), a preview creates none, so its spaces equal the live app's
+  until the agent's own edit changes them. The grant table is excluded from archives. Evidence:
   `tests/flagship/core/preview-owner-signin.test.ts`.
 - **Dev identity (SC-05).** The local-only entry `src/dev/server.ts` serves
   key-gated dev sessions for the claimed owner and real `editor` and `guest`

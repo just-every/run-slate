@@ -8,7 +8,8 @@ export function personalContainerStatements(db:D1Database,input:{workspaceId:str
 }
 export async function ensurePersonalContainer(ctx:FeatureContext, freshSubject?:MemberSubject) {
   const subject=freshSubject??await currentSubject(ctx);
-  if(subject.isGuest)return;
+  // A preview shows exactly the data it copied from live: signing in adds no space of its own.
+  if(subject.isGuest||ctx.preview)return;
   const key=`personal:${ctx.actor.id}`;
   const state=await ctx.db.prepare('SELECT EXISTS(SELECT 1 FROM containers WHERE workspace_id=?) AS hasContainers,EXISTS(SELECT 1 FROM containers WHERE workspace_id=? AND key=?) AS hasPersonal')
     .bind(ctx.actor.workspaceId,ctx.actor.workspaceId,key).first<{hasContainers:number;hasPersonal:number}>();

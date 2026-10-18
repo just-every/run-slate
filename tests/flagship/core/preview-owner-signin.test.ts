@@ -42,6 +42,13 @@ test('a preview owner grant signs the owner in once; reuse, expiry and a non-pre
  const cookie=signedIn.headers.get('set-cookie')!.split(';',1)[0]!;
  const session=await api.request(`${origin}/api/session`,{headers:{cookie}},preview);
  expect(session.status).toBe(200);expect(await session.json()).toMatchObject({member:{email:'owner@slate.test',role:'owner'}});
+ // The preview shows the copied spaces only: opening the app as the owner creates none; live still gives the owner theirs.
+ const spaces=()=>env.DB.prepare('SELECT count(*) n FROM containers').first<{n:number}>();
+ const before=await spaces();
+ expect((await api.request(`${origin}/api/members/current`,{headers:{cookie}},preview)).status).toBe(200);
+ expect(await spaces()).toEqual(before);
+ expect((await api.request(`${origin}/api/members/current`,{headers:{cookie}},live)).status).toBe(200);
+ expect((await spaces())!.n).toBe(before!.n+1);
  // Used once: the same link goes to sign-in with the owner's email, and a second confirm issues nothing.
  signInInstead(await open(token),'owner@slate.test');
  signInInstead(await confirm(token),'owner@slate.test');
