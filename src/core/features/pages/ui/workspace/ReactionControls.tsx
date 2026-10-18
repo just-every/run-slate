@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useWorkspace } from "../../../../app/ui/WorkspaceContext";
 import { useResource } from "../../../../client/useResource";
+import { RequestState } from "../../../../app/ui/RequestState";
 import {
   mutate,
   operationKey,
@@ -56,6 +57,7 @@ export function ReactionControls({
           </select>
         </label>
         <button
+          type="button"
           aria-label={
             emoji === "👍" ? "React with thumbs up" : `React with ${emoji}`
           }
@@ -90,13 +92,17 @@ export function PageReactions({ pageId }: { pageId: string }) {
   const resource = useResource<{ reactions: Reaction[] }>(
     `/api/comments/page/${pageId}`,
   );
-  return resource.data ? (
+  return (
     <section aria-label="Page reactions">
+      <RequestState loading={resource.loading} error={resource.error} retry={resource.reload}>
+      {resource.data ? (
       <ReactionControls
         pageId={pageId}
         reactions={resource.data.reactions}
         onChanged={resource.reload}
       />
+      ) : null}
+      </RequestState>
     </section>
-  ) : null;
+  );
 }

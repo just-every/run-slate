@@ -1774,9 +1774,9 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 168 | 53 | 0 | 221 |
+| Published | 169 | 52 | 0 | 221 |
 | Target and push further | 6 | 55 | 44 | 105 |
-| All | 174 | 108 | 44 | 326 |
+| All | 175 | 107 | 44 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1813,7 +1813,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `PAGE-011` | Present | published | partial | `src/core/features/pages/ui/workspace/PagePresentation.tsx` | present mode UI; no journey |
 | `PAGE-012` | Page display options | published | done | `tests/e2e/pages/display-options.test.ts`, `tests/qualification/ui-convergence/page-display-journey.mjs` | Shared typeface, small text and full width; unchanged body; Markdown/HTML/PDF readable round trips and complete workspace restore; editor/reader browser journeys at 1440/390. |
 | `PAGE-013` | Analytics | published | partial | `src/core/features/analytics/` | analytics code; no requirement-level journey |
-| `PAGE-014` | Reactions | published | partial | `src/core/features/pages/ui/workspace/ReactionControls.tsx` | page reactions UI; no journey |
+| `PAGE-014` | Reactions | published | done | `tests/e2e/pages/reactions.test.ts`, `tests/qualification/ui-convergence/reactions-journey.mjs` | Page/comment add and removal, named reactors, read-only readers, persistence, access refusal and unchanged notification/view counts at 1440/390. |
 | `TREE-001` | A nested tree in a container | published | done | `tests/qualification/tree-correction/regression.test.ts` |  |
 | `TREE-002` | Reordering and nesting | published | done | `tests/qualification/publication/preview.test.ts` |  |
 | `TREE-003` | Shared with me | published | done | `tests/e2e/navigation/shared-navigation.test.ts`, `tests/qualification/ui-convergence/shared-navigation-journey.mjs` | Individual grants in non-member spaces have a named Shared with me section, independent of container discovery and broader access; revoked/expired grants remove the entry on the next load. Workers and 1440/390 browser journeys cover private neighbours, opening and revocation. |

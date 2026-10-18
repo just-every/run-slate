@@ -1,3 +1,4 @@
+import { reactionsJourney } from './reactions-journey.mjs';
 import { pageDisplayJourney } from './page-display-journey.mjs';
 import { createInPlaceJourney } from './create-in-place-journey.mjs';
 import assert from 'node:assert/strict';
@@ -23,6 +24,12 @@ import { outlineJourney } from './outline-journey.mjs';
 import { groupMentionJourney } from './group-mentions-journey.mjs';
 
 for (const width of [1440, 390]) {
+  test(`page and comment reactions identify people without notifications or views at ${width}px`, { timeout: 180000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await withSecondPerson(state, width, people => reactionsJourney(state, people));
+    });
+  });
   test(`page display settings are shared and survive export and import at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);

@@ -23,4 +23,6 @@ Status describes implementation progress, not full acceptance. CONTRACT.md is th
 
 | PAGE-012 | done | Shared typeface, small text and full width persist without changing blocks. Markdown, HTML and PDF readable archives re-import with those settings; complete workspace export restores them. `tests/e2e/pages/display-options.test.ts` and 1440/390 editor/reader, exported HTML and re-import journeys in `tests/qualification/ui-convergence/page-display-journey.mjs`. | None. |
 
+| PAGE-014 | done | Page and comment reactions identify the member, add and remove independently and persist; read-only readers can react, denied readers cannot; reactions create no notifications or analytics views. `tests/e2e/pages/reactions.test.ts`, `tests/qualification/ui-convergence/reactions-journey.mjs` at 1440/390. | None. |
+
 No hosted mail delivery or unrun browser acceptance is claimed here.
