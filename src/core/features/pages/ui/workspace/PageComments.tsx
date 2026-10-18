@@ -200,7 +200,8 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
           </label>
           <MentionPreview preview={mentionPreview}/>
           {error ? <p className="comment-error" role="alert">{errorMessage(error)}{sendFailed ? " Your draft is kept. Choose Send comment to retry." : null}</p> : null}
-          <button className="primary-button" type="submit" disabled={pending || mentionPreview.loading || !!mentionPreview.error || !body.some(span=>span.text.trim())}>
+          {/* The initial thread read moves this form when its loading notice disappears. */}
+          <button className="primary-button" type="submit" disabled={resource.loading || pending || mentionPreview.loading || !!mentionPreview.error || !body.some(span=>span.text.trim())}>
             {pending ? "Sending…" : "Send comment"}
           </button>
           {reply ? (

@@ -6876,7 +6876,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageComments.tsx": {
-      "sha256": "438ffc4fc87db5838a92c8a8fda6a809981f8be95f577a6d37ae079b3028ba18",
+      "sha256": "d4b834d52569eef961368d9b62af238bb0fbb24ace8137423928c35129ab6823",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageDetails.tsx": {
