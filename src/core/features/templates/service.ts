@@ -68,8 +68,8 @@ export async function listTemplates(
       options.state ?? "active",
       options.state ?? "active",
       options.containerId ?? null,
-      options.category ?? null,
-      options.category ?? null,
+      options.category?.trim() || null,
+      options.category?.trim() || null,
       ...Array(2).fill(
         "%" +
           (options.query ?? "").toLowerCase().replace(/[\\%_]/g, "\\$&") +

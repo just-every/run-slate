@@ -1774,9 +1774,9 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 163 | 58 | 0 | 221 |
+| Published | 164 | 57 | 0 | 221 |
 | Target and push further | 5 | 56 | 44 | 105 |
-| All | 168 | 114 | 44 | 326 |
+| All | 169 | 113 | 44 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1915,7 +1915,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `NAV-002` | Recents | published | done | `tests/qualification/backend/sharing-navigation.test.ts` |  |
 | `NAV-003` | Favourites | published | done | `tests/qualification/backend/sharing-navigation.test.ts` |  |
 | `NAV-004` | One navigation | published | done | `tests/qualification/backend/boundaries.test.ts` |  |
-| `NAV-005` | Global create | published | partial | `src/core/app/ui/NavigationCreate.tsx` | global create UI; no journey |
+| `NAV-005` | Global create | published | done | `tests/e2e/navigation/global-create.test.ts`, `tests/qualification/ui-convergence/global-create-journey.mjs` | Global creation is reachable on every configured operator destination; page, database, space and template flows name their destination before creation at 1440/390. Database choices include writable spaces only. |
 | `NAV-006` | The touch client edits | published | partial | `tests/qualification/interface/routed.browser.mjs` | responsive web journeys; native apps missing (MOBILE-001) |
 | `NOTIF-001` | Meaningful notifications | published | done | `tests/qualification/backend/emitted.mjs` |  |
 | `NOTIF-002` | Inbox | published | done | `tests/qualification/core/discovery.mjs` |  |

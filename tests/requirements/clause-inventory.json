@@ -1473,7 +1473,7 @@
       "id": "NAV-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for NAV-005 \u2014 Global create. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "Local Worker destination/authorization and 1440/390 emitted-browser creation journeys are registered. Independent release acceptance remains unproven.",
       "supportingTests": []
     },
     {

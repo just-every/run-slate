@@ -1,11 +1,13 @@
-import {useRef} from "react";
+import {useId, useRef} from "react";
 import { useResource } from "../../../../client/useResource";
 import { mutate, operationKey } from "../../../../client/transport";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import { RequestState } from "../../../../app/ui/RequestState";
+import type { SpaceChoice } from "../../../../app/ui/pageDestination";
 export function CreateDatabaseDialog({ onClose }: { onClose: () => void }) {
+  const spaceId = useId();
   const attempt=useRef<{signature:string;key:string;viewKey:string;viewId:string;created?:{id:string;revisionId:string}}|null>(null);
-  const containers = useResource<{ items: { id: string; name: string }[] }>(
+  const containers = useResource<{ items: SpaceChoice[] }>(
     "/api/containers",
   );
   return (
@@ -56,20 +58,21 @@ export function CreateDatabaseDialog({ onClose }: { onClose: () => void }) {
         error={containers.error}
         retry={containers.reload}
       >
-        <label>
-          Space
-          <select name="containerId" required defaultValue="">
+        <div>
+          <label htmlFor={spaceId}>Space</label>
+          <select id={spaceId} name="containerId" required defaultValue="">
             <option value="" disabled>
               Choose a space
             </option>
-            {containers.data?.items.map((item) => (
+            {containers.data?.items.filter(item => item.permissions?.canCreatePages === true).map((item) => (
               <option key={item.id} value={item.id}>
                 {item.name}
               </option>
             ))}
           </select>
-        </label>
+        </div>
       </RequestState>
+      {containers.data && !containers.data.items.some(item => item.permissions?.canCreatePages === true) ? <p role="status">You need edit access to a space before creating a database.</p> : null}
       <p>
         Records can be organized into tables, boards, lists, galleries,
         calendars and timelines.

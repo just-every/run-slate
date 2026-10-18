@@ -144,7 +144,7 @@ export async function prepareSnapshot(
       properties: {
         ...snapshot.properties,
         icon: snapshot.properties.icon?.startsWith("file:")
-          ? `file:${mappedAssetId(media.mapping,snapshot.properties.icon.slice(5))}` : snapshot.properties.icon,
+          ? `file:${mappedAssetId(media.mapping,snapshot.properties.icon.slice(5))}` : snapshot.properties.icon ?? null,
         ...(snapshot.properties.databaseFields ? {databaseFields: Object.fromEntries(Object.entries(snapshot.properties.databaseFields).map(([key,value])=>[key,
           snapshot.fileFieldIds?.includes(key) && Array.isArray(value) ? value.map(id=>typeof id === "string" ? mappedAssetId(media.mapping,id) : id) : value
         ]))} : {}),

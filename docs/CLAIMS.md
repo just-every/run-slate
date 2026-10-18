@@ -13,4 +13,6 @@ Status describes implementation progress, not full acceptance. CONTRACT.md is th
 | TREE-004 | done | Per-space title filters, readable ancestors, matching within 200ms and one-action clear without changing saved expansion; mobile drawer remains open for filtering and closes on navigation. Worker access/expansion checks and 1440/390 browser journeys: `tests/e2e/navigation/tree-filter.test.ts`, `tests/qualification/ui-convergence/tree-filter-journey.mjs`. | None. |
 | PAGE-015 | partial | Native lock banner, read-only second editor, open comments, refused API and automation writes, unlock/edit and activity; `tests/profile/page-lock-journey.ts`. | A lock racing a staged import commit is fenced but does not yet guarantee the PAGE_LOCKED error. |
 
+| NAV-005 | done | Global Create on every configured operator destination; page, database, space and template creation with named destinations, writable database choices, categorized templates visible with no category filter, and server authorization. `tests/e2e/navigation/global-create.test.ts`, `tests/qualification/ui-convergence/global-create-journey.mjs` at 1440/390. | None. |
+
 No hosted mail delivery or unrun browser acceptance is claimed here.

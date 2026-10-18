@@ -14,9 +14,20 @@ import { hubJourney } from './hub-journey.mjs';
 import { blogJourney } from './blog-journey.mjs';
 import { treeFilterJourney } from './tree-filter-journey.mjs';
 import { failedSaveJourney } from './failed-save-journey.mjs';
+import { globalCreateJourney } from './global-create-journey.mjs';
 import { groupMentionJourney } from './group-mentions-journey.mjs';
 
 for (const width of [1440, 390]) {
+  test(`global create names destinations for every content kind at ${width}px`, { timeout: 240000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await globalCreateJourney(state).catch(async cause => {
+        await state.page.screenshot({ path: `.artifacts/ui-convergence/global-create-${width}-failure.png`, fullPage: true });
+        console.error(cause);
+        throw cause;
+      });
+    });
+  });
   test(`space tree title filtering preserves ancestors, access and expansion at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);

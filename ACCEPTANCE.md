@@ -163,7 +163,7 @@
 | `NAV-002` Recents | Recents are per member, newest first, grouped by day | done | `tests/qualification/backend/sharing-navigation.test.ts` |
 | `NAV-003` Favourites | Favourites are listed, reorderable and removed in one action | done | `tests/qualification/backend/sharing-navigation.test.ts` |
 | `NAV-004` One navigation | One sidebar whose order comes from configuration and the navigation slot, unchanged by policy values | done | `tests/qualification/backend/boundaries.test.ts` |
-| `NAV-005` Global create | One create action on every operator screen names the destination before creating a page, database, container or template page | partial | `src/core/app/ui/NavigationCreate.tsx` (global create UI; no journey) |
+| `NAV-005` Global create | One create action on every operator screen names the destination before creating a page, database, container or template page | done | `tests/e2e/navigation/global-create.test.ts`, `tests/qualification/ui-convergence/global-create-journey.mjs` (default-profile Worker rules and 1440/390 browser creation journeys) |
 | `NAV-006` The touch client edits | At 390 on touch, every operator surface edits, comments, publishes, shares and uses every database layout | partial | `tests/qualification/interface/routed.browser.mjs` (responsive web journeys; native apps missing (MOBILE-001)) |
 | `NOTIF-001` Meaningful notifications | Each listed event notifies its recipient once, rechecks access, never notifies the actor and never discloses unreadable records | done | `tests/qualification/backend/emitted.mjs` |
 | `NOTIF-002` Inbox | Inbox groups by period with unread count and two views; opening marks read and opens the referenced comment | done | `tests/qualification/core/discovery.mjs` |
