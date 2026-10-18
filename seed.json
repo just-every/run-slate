@@ -635,6 +635,18 @@
         "mail.sender.v1"
       ],
       "requiredWhen": "MAIL_PROVIDER=sendgrid"
+    },
+    {
+      "id": "provider-iframe-embeds",
+      "required": false,
+      "requiredWhen": "A reader chooses Load for an allowlisted Figma, Miro, Lucid, Loom, YouTube, Vimeo, Google Docs/Sheets/Slides or Microsoft 365 embed",
+      "why": "The provider serves its interactive document or video in its own sandboxed frame after the reader explicitly requests it. Slate cannot serve the provider application itself.",
+      "data": [
+        "The provider resource URL and identifier",
+        "The reader IP address, browser request headers and provider-owned cookies permitted by the browser, only after interaction",
+        "No Slate page body, Slate session cookie or referrer is sent to the provider"
+      ],
+      "adapters": []
     }
   ],
   "env": [

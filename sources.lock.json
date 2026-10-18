@@ -4016,7 +4016,7 @@
       "executable": false
     },
     "seed.json": {
-      "sha256": "8c88adefcc694dc3eb91efaabeac55b2a133182ed8b4d5adc9722dd7e74c748c",
+      "sha256": "8156e667c1d7bcf787138c174ec2c05f2e57da0719bcb5680760512d1b2dc5f3",
       "executable": false
     },
     "src/base/runtime/contract-filter.ts": {
