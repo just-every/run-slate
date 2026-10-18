@@ -11,6 +11,7 @@ export function PagePresentation({
   onClose: () => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const article = useRef<HTMLElement>(null);
   const [index, setIndex] = useState(0);
   const slides: EditorBlock[][] = [[]];
   for (const block of blocks) {
@@ -24,14 +25,21 @@ export function PagePresentation({
     slides.at(-1)!.push(block);
   }
   useEffect(() => {
-    const previous = document.activeElement;
+    const previous = document.querySelector<HTMLElement>('[data-page-more]');
     const scroll={x:window.scrollX,y:window.scrollY};
+    const overflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = 'hidden';
     dialog.current?.showModal();
     return () => {
+      document.documentElement.style.overflow = overflow;
       if (previous instanceof HTMLElement) previous.focus({preventScroll:true});
       window.scrollTo({left:scroll.x,top:scroll.y,behavior:"instant"});
     };
   }, []);
+  useEffect(() => {
+    article.current?.scrollTo({ top: 0, left: 0 });
+    article.current?.focus({ preventScroll: true });
+  }, [index]);
   return (
     <dialog
       ref={dialog}
@@ -55,22 +63,23 @@ export function PagePresentation({
       <button className="presentation-close" onClick={onClose}>
         Exit presentation
       </button>
-      <article>
+      <article ref={article} tabIndex={0} aria-label={`Slide ${index + 1} of ${slides.length}`}>
         <p className="eyebrow">{title}</p>
         {slides[index].map((block) => (
+          <div key={block.id} style={{ marginInlineStart: `${(block.indent ?? 0) * 20}px` }}>
           <BlockView
-            key={block.id}
             block={block}
             canEdit={false}
             onChange={() => {}}
           />
+          </div>
         ))}
       </article>
       <footer>
         <button disabled={index === 0} onClick={() => setIndex(index - 1)}>
           Previous
         </button>
-        <span>
+        <span role="status" aria-live="polite" aria-atomic="true">
           {index + 1} / {slides.length}
         </span>
         <button

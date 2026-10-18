@@ -28,3 +28,5 @@ Status describes implementation progress, not full acceptance. CONTRACT.md is th
 | PAGE-013 | done | Page and space daily views and unique viewers, permitted reader/contributor identities, explicit author-view counts and inclusive UTC date filters; panel navigation adds no visit. Draft/private-page exclusions, guest identity boundaries and revoked access are exercised by `tests/e2e/pages/analytics.test.ts`; `tests/qualification/ui-convergence/analytics-journey.mjs` covers reader and space surfaces at 1440/390. | None. |
 
 No hosted mail delivery or unrun browser acceptance is claimed here.
+
+| PAGE-011 | done | Full-screen read-only presentation split by top-level headings; long slides retain controls, previous/next and keyboard navigation, no-heading/empty pages and exact scroll/focus return. `tests/e2e/pages/presentation.test.ts` and `tests/qualification/ui-convergence/presentation-journey.mjs` at 1440/390. | None. |

@@ -11,9 +11,9 @@
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 170 | 51 | 0 | 221 |
+| Published | 171 | 50 | 0 | 221 |
 | Target and push further | 6 | 55 | 44 | 105 |
-| All | 176 | 106 | 44 | 326 |
+| All | 177 | 105 | 44 | 326 |
 
 ### Published: Workspace, editing and pages
 
@@ -49,7 +49,7 @@
 | `PAGE-008` Favourite | Favourites are listed in navigation for their member only | done | `tests/qualification/backend/sharing-navigation.test.ts` |
 | `PAGE-009` Watch | Watching delivers comments, replies and publishes to the watcher's inbox and never notifies the actor | done | `tests/flagship/discovery/following.test.ts` |
 | `PAGE-010` Outline | Outline reflects headings within 2 seconds and scrolls to the chosen heading; no headings shows no outline | done | `tests/qualification/ui-convergence/outline-journey.mjs` (typing, long labels, scrolling, reload and no-heading state at 1440/390) |
-| `PAGE-011` Present | Present mode paginates by top-level headings without chrome and returns to the same scroll position | partial | `src/core/features/pages/ui/workspace/PagePresentation.tsx` (present mode UI; no journey) |
+| `PAGE-011` Present | Present mode paginates by top-level headings without chrome and returns to the same scroll position | done | `tests/e2e/pages/presentation.test.ts`, `tests/qualification/ui-convergence/presentation-journey.mjs` (long slides, keyboard/touch, no-heading and empty pages, exact return at 1440/390) |
 | `PAGE-012` Page display options | Typeface, small text and full width are stored per page, identical for every reader and kept through export and import | done | `tests/e2e/pages/display-options.test.ts`, `tests/qualification/ui-convergence/page-display-journey.mjs` (shared display, unchanged content, readable round trips, complete workspace restore and 1440/390 editor/reader journeys) |
 | `PAGE-013` Analytics | Views and unique viewers over time per page and container, own views labelled, never exposing an unreadable viewer | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` (page/space time series, author views, inclusive dates, read access and identity boundaries at 1440/390) |
 | `PAGE-014` Reactions | Page reactions show who reacted, notify no one and are not counted in analytics | done | `tests/e2e/pages/reactions.test.ts`, `tests/qualification/ui-convergence/reactions-journey.mjs` (named page/comment reactions, add/remove, persistence, access and unchanged notice/view counts at 1440/390) |

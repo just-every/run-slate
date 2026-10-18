@@ -8,10 +8,13 @@
 .slate-app .page-outline > summary::-webkit-details-marker { display: none; }
 .slate-app .page-outline > summary::before { content: ""; width: 0; height: 0; border-block: 4px solid transparent; border-left: 6px solid currentColor; transition: transform 120ms ease; }
 .slate-app .page-outline[open] > summary::before { transform: rotate(90deg); }
-.page-presentation { width: 100vw; height: 100dvh; max-width: none; max-height: none; border: 0; padding: 10vh max(24px, calc((100vw - 950px) / 2)); background: var(--slate-bg); color: var(--slate-ink); }
-.page-presentation article { max-height: 75dvh; overflow: auto; }
-.page-presentation footer { display: flex; justify-content: space-between; gap: 24px; margin-top: 36px; }
-.presentation-close { position: absolute; top: 22px; right: 24px; }
+.page-presentation { box-sizing: border-box; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; border: 0; padding: 24px max(24px, calc((100vw - 950px) / 2)); background: var(--slate-surface); color: var(--slate-ink); overflow: hidden; }
+.page-presentation[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 24px; }
+.page-presentation article { min-height: 0; overflow: auto; overflow-wrap: anywhere; overscroll-behavior: contain; padding-inline-end: 8px; }
+.page-presentation footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.page-presentation button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--slate-line); border-radius: 6px; }
+.page-presentation button:disabled { opacity: .45; }
+.presentation-close { justify-self: end; }
 @media print { .sidebar,.topbar,.mobile-bar,.right,.editor-actions,.page-outline { display: none !important; } .slate-app .app,.slate-app .content-frame { display: block; } .slate-app .main { width: 100%; padding: 0; } }
 
 /* Existing review language, with long native record identifiers kept readable. */

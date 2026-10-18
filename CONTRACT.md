@@ -1778,9 +1778,9 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 170 | 51 | 0 | 221 |
+| Published | 171 | 50 | 0 | 221 |
 | Target and push further | 6 | 55 | 44 | 105 |
-| All | 176 | 106 | 44 | 326 |
+| All | 177 | 105 | 44 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1814,7 +1814,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `PAGE-008` | Favourite | published | done | `tests/qualification/backend/sharing-navigation.test.ts` |  |
 | `PAGE-009` | Watch | published | done | `tests/flagship/discovery/following.test.ts` |  |
 | `PAGE-010` | Outline | published | done | `tests/qualification/ui-convergence/outline-journey.mjs` | Current heading text, navigation, persistence and no-heading state proven at 1440 and 390; long labels wrap. |
-| `PAGE-011` | Present | published | partial | `src/core/features/pages/ui/workspace/PagePresentation.tsx` | present mode UI; no journey |
+| `PAGE-011` | Present | published | done | `tests/e2e/pages/presentation.test.ts`, `tests/qualification/ui-convergence/presentation-journey.mjs` | Read-only full-screen slides split at top-level headings; long slides keep controls visible, keyboard/touch navigation and exact scroll/focus return at 1440/390. |
 | `PAGE-012` | Page display options | published | done | `tests/e2e/pages/display-options.test.ts`, `tests/qualification/ui-convergence/page-display-journey.mjs` | Shared typeface, small text and full width; unchanged body; Markdown/HTML/PDF readable round trips and complete workspace restore; editor/reader browser journeys at 1440/390. |
 | `PAGE-013` | Analytics | published | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` | Page/space daily totals and uniques, named permitted readers/contributors, labelled author views, inclusive date filtering, draft/private-page exclusions and guest identity boundaries; 1440/390 reader journeys. |
 | `PAGE-014` | Reactions | published | done | `tests/e2e/pages/reactions.test.ts`, `tests/qualification/ui-convergence/reactions-journey.mjs` | Page/comment add and removal, named reactors, read-only readers, persistence, access refusal and unchanged notification/view counts at 1440/390. |
