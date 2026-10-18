@@ -31,17 +31,22 @@ export const loadWorkspace = createServerFn({ method: "GET" }).inputValidator(wo
   if (!member) throw redirect({ to: "/signin", search: { next: "/app" } });
   // Use the same authorized services as the API. Nothing private is read before
   // the current request's native session has been checked above.
-  const [{ readWorkspace }, { firstRunState }, { navigation }] = await Promise.all([
+  const [{ readWorkspace }, { firstRunState }, { navigation }, { currentMember }] = await Promise.all([
     import("../features/workspace/settings"),
     import("../features/workspace/bootstrap"),
     import("../features/navigation/service"),
+    import("../features/workspace/members"),
   ]);
   const context = { db: batchRequestReads(bindings.DB), files: bindings.FILES, jobs: bindings.JOBS, actor: member, now: new Date().toISOString(), preview: config.preview };
+  // Live may create the member's personal space on first use. Finish that
+  // before reading either space list, so the screen matches the data a preview
+  // will copy. Preview membership reads preserve the copied spaces unchanged.
+  const current = await currentMember(context);
   const { initialResources } = await import("./initial-resources.server");
   const requestUrl=getRequestUrl();
   const url=data.path ? new URL(data.path,requestUrl.origin) : requestUrl;
   const recordVisit=(data.visit??true) && /^\/app\/pages\/[^/]+$/.test(url.pathname) && ![getRequestHeader('sec-purpose'),getRequestHeader('purpose')].some(value=>value?.includes('prefetch'));
-  const resourcesRead=initialResources(context,url,recordVisit);
+  const resourcesRead=initialResources(context,url,current,recordVisit);
   const [workspace, setup, personalNavigation, resources] = await Promise.all([
     readWorkspace(context), firstRunState(context), navigation(context), resourcesRead,
   ]);

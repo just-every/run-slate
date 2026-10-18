@@ -6,7 +6,8 @@ import { readPage } from '../features/pages/service';
 import { openPage } from '../features/pages/open';
 import { listDatabases } from '../features/databases/discovery';
 import { listContainers } from '../features/containers/service';
-import { currentMember, listMembers } from '../features/workspace/members';
+import { listMembers } from '../features/workspace/members';
+import type { MemberView } from '../shared/api/workspace';
 import { reviewCount, reviewQueue } from '../features/page-status/review';
 import { listTemplates } from '../features/templates/service';
 import { savedSearches } from '../features/search/saved';
@@ -17,8 +18,8 @@ import { publishingExposure } from '../features/publishing/exposure';
 import { statusEntries } from '../features/page-status/entries';
 
 /** Same authorized reads as the API, in parallel, scoped to one document. */
-export async function initialResources(ctx: FeatureContext, url: URL, recordVisit=false): Promise<InitialResources> {
-  const resources: InitialResources = {};
+export async function initialResources(ctx: FeatureContext, url: URL, member: MemberView, recordVisit=false): Promise<InitialResources> {
+  const resources: InitialResources = { '/api/members/current': member };
   const reads: Promise<void>[] = [];
   const add = (path: string, read: () => Promise<unknown>) => {
     reads.push(read().then(value => { resources[path] = value; }).catch(cause => {
@@ -30,7 +31,6 @@ export async function initialResources(ctx: FeatureContext, url: URL, recordVisi
   add('/api/databases', () => listDatabases(ctx));
   add('/api/containers', () => listContainers(ctx));
   add('/api/status/review/count', () => reviewCount(ctx));
-  add('/api/members/current', () => currentMember(ctx));
   if (url.pathname === '/app/search') {
     add('/api/members', () => listMembers(ctx, 'member'));
     add('/api/status', () => statusEntries(ctx));
