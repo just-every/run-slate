@@ -22,7 +22,6 @@ const plannedClauses: ReadonlyArray<readonly [string, string]> = [
   ['WORK-014', 'Shortcut reference'],
   ['WORK-015', 'Identity provider'],
   ['SAVE-001', 'Durable save state'],
-  ['SAVE-002', 'Failed writes'],
   ['SAVE-003', 'Revision conflicts'],
   ['SAVE-004', 'Network loss'],
   ['SAVE-005', 'Operation keys'],

@@ -1774,9 +1774,9 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 161 | 60 | 0 | 221 |
+| Published | 162 | 59 | 0 | 221 |
 | Target and push further | 5 | 56 | 44 | 105 |
-| All | 166 | 116 | 44 | 326 |
+| All | 167 | 115 | 44 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1795,7 +1795,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `WORK-014` | Shortcut reference | published | done | `tests/qualification/core/shell.mjs` |  |
 | `WORK-015` | Identity provider | published | done | `tests/qualification/core/identity.mjs` |  |
 | `SAVE-001` | Durable save state | published | done | `tests/qualification/interface/routed.browser.mjs` |  |
-| `SAVE-002` | Failed writes | published | partial | `src/core/features/editor/ui/SaveStatus.tsx` | failed-write state in UI stories only |
+| `SAVE-002` | Failed writes | published | done | `tests/e2e/saving/failed-writes.test.ts`, `tests/qualification/ui-convergence/failed-save-journey.mjs` | Real validation refusals retain unsent titles, name the failure and require explicit retry; corrected retries persist at 1440 and 390. Existing body transport-loss journey retains and retries unsent blocks. |
 | `SAVE-003` | Revision conflicts | published | done | `tests/qualification/policies/comments-suggestions.test.ts` |  |
 | `SAVE-004` | Network loss | published | done | `tests/qualification/offline-refresh/transport.test.ts` |  |
 | `SAVE-005` | Operation keys | published | done | `tests/qualification/backend/request-access.test.ts` |  |

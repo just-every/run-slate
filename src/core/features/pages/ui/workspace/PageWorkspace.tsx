@@ -5,6 +5,7 @@ import {PageReactions} from './ReactionControls';
 import {PublicPageBanner} from './PublicPageBanner';
 import { PageStatusBadge } from "./PageStatusBadge";
 import { PageReadMetadata } from "./PageReadMetadata";
+import { SaveStatus } from "../../../editor/ui/SaveStatus";
 import {PageAppearance} from "./PageAppearance";
 import {useWorkspace} from "../../../../app/ui/WorkspaceContext";
 import type {PageSelection} from "./selection";
@@ -155,6 +156,7 @@ function LoadedPage({
   useNewPageArrival(titleInput, document.permissions.canEdit);
   const [titleSaving, setTitleSaving] = useState(false);
   const [titleSaved, setTitleSaved] = useState(false);
+  const [titleFailure, setTitleFailure] = useState<string>();
   const titleAttempt = useRef<{title:string; revision:string; key:string} | undefined>(recovered.current??undefined);
   useEffect(()=>{setDetailState(new URLSearchParams(window.location.search).get("detail") ?? (new URLSearchParams(window.location.search).has("thread")||new URLSearchParams(window.location.search).has("comment")?"comments":null));},[]);
   // A title committed elsewhere replaces the shown title unless this tab is editing it.
@@ -224,6 +226,7 @@ function LoadedPage({
     if (!document.permissions.canEdit || title === savedTitle || titleSaving) return;
     setTitleSaving(true);
     setTitleSaved(false);
+    setTitleFailure(undefined);
     setError(undefined);
     try {
       const attempt = titleAttempt.current?.title === title ? titleAttempt.current : {title, revision: editor.revision, key: operationKey()};
@@ -238,8 +241,10 @@ function LoadedPage({
       titleAttempt.current = undefined;
       setTitleConflict(false);
     } catch (cause) {
-      setError(cause);
-      setTitleConflict(cause instanceof ApiError && cause.status===409);
+      const conflict = cause instanceof ApiError && cause.status === 409;
+      if (conflict) setError(cause);
+      else setTitleFailure(errorMessage(cause));
+      setTitleConflict(conflict);
     } finally {
       setTitleSaving(false);
     }
@@ -296,16 +301,17 @@ function LoadedPage({
               event.target.style.height = "auto";
               event.target.style.height = `${event.target.scrollHeight}px`;
             }}
-            onBlur={() => void saveTitle()}
+            onBlur={() => { if (!titleFailure) void saveTitle(); }}
             onKeyDown={(event) => {
               if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {
                 event.preventDefault();
-                void saveTitle();
+                if (!titleFailure) void saveTitle();
                 event.currentTarget.closest('article')?.querySelector<HTMLElement>('[data-page-editor] [data-slate-editable]')?.focus();
               }
             }}
           />
-          <PageReadMetadata document={document} saveState={titleSaving ? "Saving title…" : titleSaved && !editor.hasUnsavedChanges ? "Saved" : title !== savedTitle ? "Unsaved title" : undefined} />
+          <PageReadMetadata document={document} saveState={titleSaving ? "Saving title…" : titleFailure ? undefined : titleSaved && !editor.hasUnsavedChanges ? "Saved" : title !== savedTitle ? "Unsaved title" : undefined} />
+          {titleFailure ? <SaveStatus state="failed" failureMessage={titleFailure} onRetry={() => void saveTitle()} /> : null}
           {host?.properties}
           {collaboration.presence.length > 1 ? (
             <p className="muted">

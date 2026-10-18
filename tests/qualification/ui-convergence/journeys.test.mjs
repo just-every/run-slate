@@ -12,9 +12,16 @@ import { databaseJourney } from './database-journey.mjs';
 import { reviewRequestJourney } from './review-request-journey.mjs';
 import { hubJourney } from './hub-journey.mjs';
 import { blogJourney } from './blog-journey.mjs';
+import { failedSaveJourney } from './failed-save-journey.mjs';
 import { groupMentionJourney } from './group-mentions-journey.mjs';
 
 for (const width of [1440, 390]) {
+  test(`rejected writes retain drafts and require explicit retry at ${width}px`, { timeout: 180000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await failedSaveJourney(state);
+    });
+  });
   test(`editable space home and curated company hub for a new member at ${width}px`, { timeout: 240000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
