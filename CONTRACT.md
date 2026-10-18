@@ -1768,7 +1768,7 @@ favour of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Status updated 18 October 2026 from the implementation and cited journeys below.
+Judged from the code and tests at commit `a9cd232634832267224d121335c3e5694989e9bd` (18 October 2026).
 
 See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance.
 
