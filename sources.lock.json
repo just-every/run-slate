@@ -928,7 +928,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "4092855df3e138f0eac69e90fb17834c001be7f8f66b59fa3b2ec912b73ed655",
+      "sha256": "c91336d80c0ebf00debb3688ff7951ce0292e930d3a76092307bf7cd737df6e8",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -956,7 +956,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "a883fe7167dc926386968a98762a6bb49ef2e6fa5268321171a7cd2653023c98",
+      "sha256": "9c247d542db49acdd15b53fb04a0ec678215fca9cbe52c9829e0c2c3c53e0559",
       "executable": false
     },
     "DEMO.md": {
@@ -996,7 +996,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "d2ce4ba5d4d20291dce209072d7877e4486e4cff763e7310e77a8a262f55bb3d",
+      "sha256": "2416528f4d6b245fe1a281a663c5a80e8e914eac56da68489ef3d85a0aa11da5",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -6840,7 +6840,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/PageOutline.tsx": {
-      "sha256": "6b621dd316543d7225fb43ffd189a3183f850e4f8676d93fdeb3880511d9fe36",
+      "sha256": "cfd73f9f4026a2bdfd69635bb8370c9b3d6cb02ca8065c676a878c2f7886b668",
       "executable": false
     },
     "src/core/features/pages/ui/types.ts": {
@@ -10304,11 +10304,15 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "e7890447f26368598ee6aff07af5cd67cf333404690ad236b73a5313e27872e8",
+      "sha256": "0f008d174da20b07ad48994bf34359a0af19c9b37e1a967dc5bd007ae1493a83",
       "executable": false
     },
     "tests/qualification/ui-convergence/navigation-journey.mjs": {
       "sha256": "61abdaad3adc5a1b2824615b63e751207ed768f875adb6dd995365e2cccef4b3",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/outline-journey.mjs": {
+      "sha256": "c3275767430cd9cb239ea3d3215c3a9e525b273adf723720bdb795010de64632",
       "executable": false
     },
     "tests/qualification/ui-convergence/reachability.test.mjs": {

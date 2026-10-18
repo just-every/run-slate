@@ -17,4 +17,6 @@ Status describes implementation progress, not full acceptance. CONTRACT.md is th
 
 | TREE-003 | done | Named Shared with me navigation for individual page grants in non-member spaces; current membership, expiry and revocation, unreadable-neighbour exclusion, exact page opening and first-load removal. `tests/e2e/navigation/shared-navigation.test.ts`, `tests/qualification/ui-convergence/shared-navigation-journey.mjs` at 1440/390. | None. |
 
+| PAGE-010 | done | Heading edits appear within two seconds; entries navigate to their headings, survive reload and disappear with the last heading. Long labels wrap. `tests/qualification/ui-convergence/outline-journey.mjs` at 1440/390. | None. |
+
 No hosted mail delivery or unrun browser acceptance is claimed here.

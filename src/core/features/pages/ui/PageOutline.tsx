@@ -44,7 +44,7 @@ export function PageOutline({
               <button
                 aria-current={active ? "location" : undefined}
                 className={cn(
-                  "block w-full truncate rounded-control py-1 pr-2 text-left text-ui transition-colors",
+                  "block w-full break-words rounded-control py-1 pr-2 text-left text-ui transition-colors",
                   indentClass[heading.level],
                   weightClass[heading.level],
                   active ? "bg-sidebar-hover text-ink" : "text-ink-muted hover:bg-sidebar-hover hover:text-ink",

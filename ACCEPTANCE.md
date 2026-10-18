@@ -11,9 +11,9 @@
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 165 | 56 | 0 | 221 |
+| Published | 166 | 55 | 0 | 221 |
 | Target and push further | 5 | 56 | 44 | 105 |
-| All | 170 | 112 | 44 | 326 |
+| All | 171 | 111 | 44 | 326 |
 
 ### Published: Workspace, editing and pages
 
@@ -48,7 +48,7 @@
 | `PAGE-007` Details | Details show owner, creator, contributors, times, status, labels, views and backlinks; reassigning the owner changes no grant | done | `tests/qualification/backend/emitted.mjs` |
 | `PAGE-008` Favourite | Favourites are listed in navigation for their member only | done | `tests/qualification/backend/sharing-navigation.test.ts` |
 | `PAGE-009` Watch | Watching delivers comments, replies and publishes to the watcher's inbox and never notifies the actor | done | `tests/flagship/discovery/following.test.ts` |
-| `PAGE-010` Outline | Outline reflects headings within 2 seconds and scrolls to the chosen heading; no headings shows no outline | partial | `src/core/features/pages/ui/PageOutline.tsx` (outline UI; no journey) |
+| `PAGE-010` Outline | Outline reflects headings within 2 seconds and scrolls to the chosen heading; no headings shows no outline | done | `tests/qualification/ui-convergence/outline-journey.mjs` (typing, long labels, scrolling, reload and no-heading state at 1440/390) |
 | `PAGE-011` Present | Present mode paginates by top-level headings without chrome and returns to the same scroll position | partial | `src/core/features/pages/ui/workspace/PagePresentation.tsx` (present mode UI; no journey) |
 | `PAGE-012` Page display options | Typeface, small text and full width are stored per page, identical for every reader and kept through export and import | partial | `src/core/features/pages/ui/workspace/PageDisplay.tsx` (display options UI; no journey) |
 | `PAGE-013` Analytics | Views and unique viewers over time per page and container, own views labelled, never exposing an unreadable viewer | partial | `src/core/features/analytics/` (analytics code; no requirement-level journey) |

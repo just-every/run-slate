@@ -1774,9 +1774,9 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 165 | 56 | 0 | 221 |
+| Published | 166 | 55 | 0 | 221 |
 | Target and push further | 5 | 56 | 44 | 105 |
-| All | 170 | 112 | 44 | 326 |
+| All | 171 | 111 | 44 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1809,7 +1809,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `PAGE-007` | Details | published | done | `tests/qualification/backend/emitted.mjs` |  |
 | `PAGE-008` | Favourite | published | done | `tests/qualification/backend/sharing-navigation.test.ts` |  |
 | `PAGE-009` | Watch | published | done | `tests/flagship/discovery/following.test.ts` |  |
-| `PAGE-010` | Outline | published | partial | `src/core/features/pages/ui/PageOutline.tsx` | outline UI; no journey |
+| `PAGE-010` | Outline | published | done | `tests/qualification/ui-convergence/outline-journey.mjs` | Current heading text, navigation, persistence and no-heading state proven at 1440 and 390; long labels wrap. |
 | `PAGE-011` | Present | published | partial | `src/core/features/pages/ui/workspace/PagePresentation.tsx` | present mode UI; no journey |
 | `PAGE-012` | Page display options | published | partial | `src/core/features/pages/ui/workspace/PageDisplay.tsx` | display options UI; no journey |
 | `PAGE-013` | Analytics | published | partial | `src/core/features/analytics/` | analytics code; no requirement-level journey |
