@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { expect } from '@playwright/test';
+import { expect, request } from '@playwright/test';
 import { root } from '../../e2e/runtime-harness.mjs';
 
 /**
@@ -52,13 +52,19 @@ export async function withSecondPerson(state, width, run) {
 
 /** A mutation through the person's own session, as the browser would send it. */
 export async function call(context, origin, method, route, data) {
-  // A fresh connection per call: a reused idle socket that the local proxy closes
-  // at that moment fails with "socket hang up" before the Worker sees the request.
-  const response = await context.request.fetch(origin + route, { method, headers: { origin, 'content-type': 'application/json', connection: 'close' }, data: data === undefined ? undefined : JSON.stringify(data) });
-  const text = await response.text();
-  let body;
-  try { body = text ? JSON.parse(text) : undefined; } catch { body = text; }
-  return { status: response.status(), body };
+  // Connection: close still lets Playwright select an already pooled socket.
+  // Own and dispose the transport for each call, retaining the person's current
+  // authentication without carrying idle connections across browser actions.
+  const transport = await request.newContext({ storageState: await context.storageState() });
+  try {
+    const response = await transport.fetch(origin + route, { method, headers: { origin, 'content-type': 'application/json' }, data: data === undefined ? undefined : JSON.stringify(data), maxRetries: 0 });
+    const text = await response.text();
+    let body;
+    try { body = text ? JSON.parse(text) : undefined; } catch { body = text; }
+    return { status: response.status(), body };
+  } finally {
+    await transport.dispose();
+  }
 }
 
 export async function ok(context, origin, method, route, data) {
