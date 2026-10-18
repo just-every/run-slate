@@ -12,8 +12,8 @@
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 171 | 50 | 0 | 221 |
-| Target and push further | 7 | 55 | 43 | 105 |
-| All | 178 | 105 | 43 | 326 |
+| Target and push further | 8 | 54 | 43 | 105 |
+| All | 179 | 104 | 43 | 326 |
 
 ### Published: Workspace, editing and pages
 
@@ -274,7 +274,7 @@
 | `BLOCK-011` Synced blocks | a browser journey that syncs a block into two pages, edits one copy and sees the change in the other within 5 seconds. A member without access to the source sees the access-needed state, and deleting the source leaves static copies. | missing | — |
 | `BLOCK-012` Columns and page layouts | a browser journey creates a three-column section at 1440 and sees it stack at 390. Importing a Notion export with columns and a Confluence page with a two-column layout reproduces both. | missing | `src/core/features/editor/validation.ts` |
 | `BLOCK-013` Equations and diagrams as code | a browser journey that inserts an equation and a Mermaid flowchart, sees both render offline, exports Markdown that contains the source, and re-imports it unchanged. | missing | — |
-| `BLOCK-014` Tables that work like tables | a browser journey that pastes a 10 × 20 range copied from a spreadsheet and keeps its shape, merges cells, sorts by a column, converts the table to a database and back, and finds the cells identical. | partial | `src/core/features/editor/validation.ts` |
+| `BLOCK-014` Tables that work like tables | a browser journey that pastes a 10 × 20 range copied from a spreadsheet and keeps its shape, merges cells, sorts by a column, converts the table to a database and back, and finds the cells identical. | done | `tests/e2e/editor/tables.test.ts`, `tests/qualification/ui-convergence/tables-journey.mjs` (native table controls, quoted spreadsheet paste, atomic database edits and round trips; 1440/390) |
 | `BLOCK-015` Assigned tasks with due dates | a browser journey at 1440 and 390 types a task, assigns it with `@` and sets a due date with `//`. The assignee gets exactly one inbox item and, after a Workers journey advances time, exactly one due-date reminder. Reassigning notifies only the new assignee. Assigning a member without access prompts the assigner to share and sends that member nothing. The task shows as overdue after its due date. | partial | `tests/profile/work-items-journey.ts` (Email/push delivery and public MCP remain missing; default-profile HTTP and 1440/390 browser journeys cover assignment, sharing, due dates, reassignment and completion.) |
 | `BLOCK-016` Task reports | a browser journey embeds a report filtered to one container and one assignee over tasks on three pages. One reader sees all three tasks. A reader without access to one of the pages sees the other two, with no count, title or placeholder for the third. Completing a task from the report updates its page. | partial | `tests/profile/work-items-journey.ts` (Confluence Task Report mapping and anonymous public queries remain missing; readable archives keep unresolved external scope identities unavailable.) |
 | `BLOCK-017` Table of contents block | a browser journey inserts a table of contents limited to heading levels 1 and 2, adds a heading and sees its entry within 2 seconds, follows an entry to its heading, and exports Markdown that contains the linked list. Importing a Confluence page with a Table of Contents macro produces the block. | partial | `tests/profile/body-blocks-journey.ts` (Word export remains missing; genuine Confluence macro-fixture acceptance remains unproven.) |

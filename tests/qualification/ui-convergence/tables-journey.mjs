@@ -1,0 +1,78 @@
+import assert from 'node:assert/strict';
+import {randomUUID} from 'node:crypto';
+import {expect} from '@playwright/test';
+import {ok} from './two-people-support.mjs';
+
+export async function tablesJourney({page,context,origin,api}) {
+  const space=(await api('/api/containers')).items.find(s=>s.name==='Handbook'),blockId=randomUUID();
+  const {value:{pageId}}=await ok(context,origin,'POST','/api/pages',{operationKey:randomUUID(),containerId:space.id,title:'Launch readiness',blocks:[{id:blockId,blockType:'table',content:{caption:'Release handover',columns:['',''],rows:[{id:randomUUID(),cells:['','']}]},treePosition:'a'}]});
+  await page.goto(`${origin}/app/pages/${pageId}`,{waitUntil:'networkidle'});
+  const block=page.locator(`[data-block-id="${blockId}"]`);
+  const cells=[['Workstream','Owner',...Array.from({length:18},(_,i)=>`Checkpoint ${i+1}`)],...Array.from({length:9},(_,r)=>[`Workstream ${r+1}`,r%2?'Morgan':'Alex',...Array.from({length:18},(_,c)=>`Ready ${r+1}.${c+1}`)])];
+  cells[1][2]='Approval "ready"\nHold until Monday';
+  const quote=value=>/["\t\r\n]/.test(value)?'"'+value.replaceAll('"','""')+'"':value;
+  await page.evaluate(text=>navigator.clipboard.writeText(text),cells.map(row=>row.map(quote).join('\t')).join('\r\n'));
+  await block.getByRole('textbox',{name:'Column 1 heading',exact:true}).click();
+  await page.keyboard.press('ControlOrMeta+V');
+  await expect(block.locator('thead th')).toHaveCount(20);
+  await expect(block.locator('tbody tr')).toHaveCount(9);
+  await expect.poll(async()=> (await api(`/api/pages/${pageId}`)).blocks[0].content.rows.map(row=>row.cells)).toEqual(cells.slice(1));
+  await block.locator('summary').filter({hasText:'Table tools'}).click();
+  await block.getByLabel('Cell colour',{exact:true}).selectOption('green');
+  await block.getByLabel('Column width',{exact:true}).fill('240');
+  await block.getByLabel('Header column',{exact:true}).check();
+  await block.getByRole('button',{name:'Merge cells',exact:true}).click();
+  await expect(block.locator('tbody tr').first().locator('[colspan="2"]')).toHaveCount(1);
+  await block.getByLabel('Table column',{exact:true}).selectOption('19');
+  await block.getByRole('button',{name:'Sort descending',exact:true}).click();
+  await expect.poll(async()=>{const d=await api(`/api/pages/${pageId}`);return d.blocks[0].content.rows[0].cells[0];}).toBe('Workstream 9');
+  const before=(await api(`/api/pages/${pageId}`)).blocks[0].content;
+  assert.equal(before.rows.length,9);assert.equal(before.columns.length,20);
+  // All four structure actions also work from the keyboard and preserve cell data.
+  const last=block.getByRole('textbox',{name:'Row 1, Workstream',exact:true});
+  await last.click();await page.keyboard.press('Alt+Shift+ArrowDown');
+  await expect(block.locator('tbody tr')).toHaveCount(10);
+  await page.keyboard.press('Alt+Shift+ArrowDown');
+  await expect(block.locator('tbody tr')).toHaveCount(11);
+  for(let i=0;i<2;i++){await block.getByRole('textbox',{name:'Row 2, Workstream',exact:true}).click();await page.keyboard.press('Alt+Shift+ArrowUp');}
+  await expect(block.locator('tbody tr')).toHaveCount(9);
+  await block.getByRole('textbox',{name:'Row 1, Workstream',exact:true}).click();
+  await page.keyboard.press('Alt+Shift+ArrowRight');
+  await expect(block.locator('thead th')).toHaveCount(21);
+  await block.getByRole('textbox',{name:'Row 1, column 2',exact:true}).click();
+  await page.keyboard.press('Alt+Shift+ArrowLeft');
+  await expect(block.locator('thead th')).toHaveCount(20);
+  // Reapply the merge after structure editing, retaining every underlying cell.
+  await block.getByLabel('Table row',{exact:true}).selectOption('0');
+  await block.getByLabel('Table column',{exact:true}).selectOption('0');
+  await block.getByRole('button',{name:'Merge cells',exact:true}).click();
+  await expect.poll(async()=> (await api(`/api/pages/${pageId}`)).blocks[0].content.merges?.[0]?.rowId).toBe(before.rows[0].id);
+  const committed=(await api(`/api/pages/${pageId}`)).blocks[0].content;
+  await page.screenshot({path:`.artifacts/ui-convergence/tables-${page.viewportSize().width}-editing.png`});
+  await block.getByRole('button',{name:'Convert to database',exact:true}).click();
+  await expect(page).toHaveURL(/\/app\/databases\//);
+  await expect(page.getByRole('button',{name:'Convert back to table',exact:true})).toBeVisible();
+  const input=page.getByRole('textbox',{name:'Workstream',exact:true}).first();
+  const old=await input.inputValue(),updated='Launch lead updated';
+  await input.fill(updated);
+  const databaseId=new URL(page.url()).pathname.split('/').pop();
+  const database=await api(`/api/databases/${databaseId}`),view=database.views[0],field=database.fields.find(f=>f.name==='Workstream');
+  await expect.poll(async()=> (await api(`/api/databases/${databaseId}/views/${view.id}`)).records.some(r=>r.values[field.id]===updated)).toBe(true);
+  await page.screenshot({path:`.artifacts/ui-convergence/tables-${page.viewportSize().width}-database.png`});
+  await page.getByRole('button',{name:'Convert back to table',exact:true}).click();
+  await expect(page).toHaveURL(`${origin}/app/pages/${pageId}`);
+  const restored=(await api(`/api/pages/${pageId}`)).blocks[0].content;
+  assert.deepEqual(restored,{...committed,rows:committed.rows.map(row=>({...row,cells:row.cells.map((value,i)=>i===0&&value===old?updated:value)}))});
+  await page.screenshot({path:`.artifacts/ui-convergence/tables-${page.viewportSize().width}-restored.png`});
+  await page.keyboard.press('ControlOrMeta+/');
+  const reference=page.getByRole('dialog',{name:'Keyboard shortcuts'});
+  await expect(reference).toContainText('Add a column after this cell');
+  await reference.getByLabel('Search shortcuts').fill('row');
+  await page.screenshot({path:`.artifacts/ui-convergence/tables-${page.viewportSize().width}-shortcuts.png`});
+  await page.getByRole('button',{name:'Close shortcuts'}).click();
+  const document=await api(`/api/pages/${pageId}`);
+  await ok(context,origin,'POST',`/api/publishing/${pageId}`,{operationKey:randomUUID(),expectedRevisionId:document.page.revisionId,host:new URL(origin).host,slug:'release-readiness'});
+  await page.goto(origin+'/p/release-readiness',{waitUntil:'networkidle'});
+  await expect(page.locator('td[colspan="2"],th[colspan="2"]')).toHaveCount(1);
+  await page.screenshot({path:`.artifacts/ui-convergence/tables-${page.viewportSize().width}-published.png`});
+}

@@ -1,3 +1,4 @@
+import type {TableContent} from '../tables/model';
 import type {TableOfContentsSettings} from '../table-of-contents';
 import type {TaskReportDefinition} from '../../work-items/report-definition';
 import type {EmbeddedSearchQuery} from '../../../shared/knowledge/search-definition';
@@ -108,7 +109,7 @@ export interface TableRowData {
   cells: string[];
 }
 
-export interface TableBlockData extends BlockBase {
+export interface TableBlockData extends BlockBase, TableContent {
   type: "table";
   caption?: string;
   columns: string[];
@@ -265,6 +266,7 @@ export type ConflictChoice = "compare" | "reload" | "overwrite";
 /* ---------- shared renderer props ---------- */
 
 export interface BlockActions {
+  onConvertTable?: (blockId:string) => void;
   onCopyCode?: (blockId: string) => void;
   onChooseFile?: (blockId: string) => void;
   onAddFileLink?: (blockId: string) => void;

@@ -56,6 +56,7 @@ export function KeyboardReference({ onClose }: { onClose: () => void }) {
               },
             ],
           },
+          {id:'tables',title:'Table cells',kind:'keyboard',entries:[{id:'table-add-row',label:'Add a row after this cell',keys:'Alt Shift ↓'},{id:'table-remove-row',label:'Remove this row',keys:'Alt Shift ↑'},{id:'table-add-column',label:'Add a column after this cell',keys:'Alt Shift →'},{id:'table-remove-column',label:'Remove this column',keys:'Alt Shift ←'}]},
           {
             id: "format",
             title: "Text selection",

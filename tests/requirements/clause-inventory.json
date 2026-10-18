@@ -3293,6 +3293,13 @@
       "status": "unproven",
       "unmetReason": "Allowlisted iframe routes and click gates have local supporting journeys; provider refusal detection and live provider acceptance remain unproven.",
       "supportingTests": []
+    },
+    {
+      "id": "BLOCK-014",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Native table editing and database round-trip journeys provide implementation evidence; independent release acceptance remains pending.",
+      "supportingTests": []
     }
   ]
 }

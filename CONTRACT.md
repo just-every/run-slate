@@ -750,7 +750,7 @@ Table blocks support header rows and columns, column widths, merged cells, cell 
 
 *Acceptance:* a browser journey that pastes a 10 × 20 range copied from a spreadsheet and keeps its shape, merges cells, sorts by a column, converts the table to a database and back, and finds the cells identical.
 
-*Status:* partial. Table blocks with header rows ship (`src/core/features/editor/validation.ts`, `tests/qualification/interface/blocks.mjs`); merge, sort, paste fidelity and conversion do not.
+*Status:* done. Native tables have header rows and columns, stored widths, cell colours, non-destructive rectangular merges, stable sorting of merged row groups, keyboard row/column operations and quoted spreadsheet paste. Atomic conversion creates editable database records; converting back reads current values and preserves formatting, refusing stale, invalid or inaccessible inputs (`tests/e2e/editor/tables.test.ts`). Browser journeys paste a 10 × 20 range, merge and sort, edit the real database, convert back and publish at 1440 and 390 (`tests/qualification/ui-convergence/tables-journey.mjs`).
 
 #### BLOCK-015 — Assigned tasks with due dates.
 A task item (`BLOCK-007`) can carry one assignee and a due date. Typing `@` inside a task assigns the member mentioned, and typing `//` or choosing from the date picker sets the due date, which renders in the reader's locale and shows as overdue once it passes. The assignee gets one inbox item when assigned (`NOTIF-001`), by email or push under their delivery settings (`NOTIF-005`, `NOTIF-006`), and one reminder on the due date (`NOTIF-004`). Reassigning notifies the new assignee once and the previous assignee not at all, and an assignee completing their own task notifies no one. Assigning a member who cannot read the page asks the assigner to share the page with them or cancel, and never notifies that member. Completion still records who and when. Tasks are read and changed through the API and MCP (`API-001`, `API-003`) under the same checks. A task item stays a block, and it still never appears in a database view.
@@ -1772,15 +1772,15 @@ favour of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `5a10c934b5c450c2e1a95f9cce17e725769122b0` (19 October 2026).
+Judged from the code and tests in this revision (19 October 2026).
 
 See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 171 | 50 | 0 | 221 |
-| Target and push further | 7 | 55 | 43 | 105 |
-| All | 178 | 105 | 43 | 326 |
+| Target and push further | 8 | 54 | 43 | 105 |
+| All | 179 | 104 | 43 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2014,7 +2014,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `BLOCK-011` | Synced blocks | target | missing | — | not implemented |
 | `BLOCK-012` | Columns and page layouts | target | missing | `src/core/features/editor/validation.ts` | not implemented |
 | `BLOCK-013` | Equations and diagrams as code | target | missing | — | not implemented |
-| `BLOCK-014` | Tables that work like tables | target | partial | `src/core/features/editor/validation.ts` | see the clause |
+| `BLOCK-014` | Tables that work like tables | target | done | `tests/e2e/editor/tables.test.ts`, `tests/qualification/ui-convergence/tables-journey.mjs` | Header rows/columns, widths, colours, rectangular merges, merged-row sorting, keyboard structure edits, quoted 10 × 20 paste and atomic editable database round trips; editor, database, shortcuts and published views at 1440/390. |
 | `BLOCK-015` | Assigned tasks with due dates | target | partial | `tests/profile/work-items-journey.ts` | Email/push delivery and public MCP remain missing; default-profile HTTP and 1440/390 browser journeys cover assignment, sharing, due dates, reassignment and completion. |
 | `BLOCK-016` | Task reports | target | partial | `tests/profile/work-items-journey.ts` | Confluence Task Report mapping and anonymous public queries remain missing; readable archives keep unresolved external scope identities unavailable. |
 | `BLOCK-017` | Table of contents block | target | partial | `tests/profile/body-blocks-journey.ts` | Word export remains missing; genuine Confluence macro-fixture acceptance remains unproven. |

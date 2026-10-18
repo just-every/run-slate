@@ -1,0 +1,51 @@
+import {env} from 'cloudflare:test';
+import {beforeEach,expect} from 'vitest';
+import {createApi} from '../../../src/core/app/hono';
+import {contract} from '../contract';
+import {resetDeployment} from '../setup/reset-deployment';
+import {seedWorkspace,seedMember,seedContainer,seedContainerGrant,sessionFor} from '../setup/fixtures';
+
+beforeEach(resetDeployment);
+contract('BLOCK-014','tables preserve every cell and formatting through real editable databases, with atomic access and revision checks',async()=>{
+  const {workspaceId}=await seedWorkspace();
+  const {memberId:owner}=await seedMember(workspaceId,{role:'owner',email:'owner@slate.test',displayName:'Alex Owner',isSetupOwner:true});
+  const {memberId:reader}=await seedMember(workspaceId,{role:'member',email:'reader@slate.test',displayName:'Morgan Reader'});
+  const {containerId}=await seedContainer(workspaceId,{ownerMemberId:owner,visibility:'private'});
+  await seedContainerGrant(containerId,{principalKind:'member',principalId:owner,level:'full'});
+  await seedContainerGrant(containerId,{principalKind:'member',principalId:reader,level:'view'});
+  const cookies={owner:await sessionFor(owner),reader:await sessionFor(reader)},api=createApi();
+  const req=(method:string,path:string,body?:unknown,actor:keyof typeof cookies='owner')=>api.request('https://slate.test/api'+path,{method,headers:{cookie:cookies[actor],origin:'https://slate.test','content-type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)},{...env,SLATE_PROFILE:undefined});
+  const json=async(method:string,path:string,body?:unknown,actor:keyof typeof cookies='owner')=>{const r=await req(method,path,body,actor),data=await r.json<any>();expect(r.status,JSON.stringify(data)).toBe(200);return data;};
+  const rows=Array.from({length:10},(_,r)=>({id:crypto.randomUUID(),cells:Array.from({length:20},(_,c)=>`Workstream ${r+1}, checkpoint ${c+1}${r===0&&c===0?'\nOwner: Alex':''}`)}));
+  const table={caption:'Release readiness',columns:Array.from({length:20},(_,i)=>`Checkpoint ${i+1}`),rows,headerColumn:true,widths:Array.from({length:20},()=>220),colours:{[`${rows[0]!.id}:0`]:'green'},merges:[{rowId:rows[0]!.id,column:0,rowSpan:2,colSpan:2}]};
+  const blockId=crypto.randomUUID();
+  const {value:{pageId}}=await json('POST','/pages',{operationKey:crypto.randomUUID(),containerId,title:'Launch readiness',blocks:[{id:blockId,blockType:'table',content:table,treePosition:'a'}]});
+  let document=await json('GET',`/pages/${pageId}`);
+  const input={operationKey:crypto.randomUUID(),pageId,blockId,expectedRevisionId:document.page.revisionId};
+  expect((await req('POST','/databases/from-table',input,'reader')).status).toBe(404);
+  expect((await req('POST','/databases/from-table',{...input,operationKey:crypto.randomUUID(),expectedRevisionId:'stale'})).status).toBe(409);
+  expect(await env.DB.prepare('SELECT COUNT(*) AS n FROM databases').first<number>('n')).toBe(0);
+  const converted=await json('POST','/databases/from-table',input),id=converted.value.databaseId;
+  expect((await json('POST','/databases/from-table',input)).value.databaseId).toBe(id);
+  const database=await json('GET',`/databases/${id}`),view=database.views[0];
+  const query=await json('GET',`/databases/${id}/views/${view.id}`);
+  expect(query.records).toHaveLength(10);
+  const field=database.fields.find((f:any)=>f.name==='Checkpoint 1');
+  const first=query.records.find((r:any)=>r.values[field.id]===rows[0]!.cells[0]);
+  const changed='Launch lead updated after conversion';
+  await json('PATCH',`/databases/${id}/records/${first.pageId}`,{operationKey:crypto.randomUUID(),expectedRevisionId:first.revisionId,values:{[field.id]:changed}});
+  const restore={operationKey:crypto.randomUUID(),expectedRevisionId:database.database.revision_id,viewId:view.id,expectedViewRevisionId:view.revisionId};
+  expect((await req('POST',`/databases/${id}/to-table`,restore,'reader')).status).toBe(404);
+  await json('POST',`/databases/${id}/to-table`,restore);
+  document=await json('GET',`/pages/${pageId}`);
+  const restored=document.blocks[0].content;
+  expect(restored).toEqual({...table,rows:rows.map((row,i)=>i?row:{...row,cells:row.cells.map((cell,c)=>c?cell:changed)})});
+  expect((await json('GET',`/databases/${id}/views/${view.id}`)).records).toHaveLength(10);
+  // Bad geometry is refused before mutation, keeping the committed value.
+  const invalid={...restored,merges:[...restored.merges,{rowId:rows[0]!.id,column:0,rowSpan:1,colSpan:1}]};
+  expect((await req('PATCH',`/pages/${pageId}/blocks/${blockId}`,{operationKey:crypto.randomUUID(),expectedRevisionId:document.blocks[0].revisionId,content:invalid})).status).toBe(400);
+  expect((await json('GET',`/pages/${pageId}`)).blocks[0].content).toEqual(restored);
+  // A reader cannot obtain concealed original cells through shared view formatting.
+  expect(view.display.tableOrigin).not.toHaveProperty('rows');
+  expect(view.display.tableOrigin).not.toHaveProperty('merges');
+});

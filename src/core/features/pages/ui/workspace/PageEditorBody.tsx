@@ -23,7 +23,7 @@ import type { BlockMove, EditorBlock, InlineSpan } from "../../../editor/ui/type
 import type { usePageEditor } from "../../../../client/usePageEditor";
 import type { DocumentView } from "../../../../client/content";
 import { contentApi, editorBlocks } from "../../../../client/content";
-import { errorMessage } from "../../../../client/transport";
+import { mutate,operationKey,errorMessage } from "../../../../client/transport";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import { useInsertedBlockFocus } from "./useInsertedBlockFocus";
 
@@ -241,6 +241,7 @@ export function PageEditorBody({
         selectedBlockIds={selected}
         onSelectionChange={setSelected}
         actions={{
+          onConvertTable: id=>{void (async()=>{await editor.flush();const fresh=await contentApi.document(document.page.id);const converted=await mutate<{value:{databaseId:string}}>('/api/databases/from-table',{operationKey:operationKey(),pageId:document.page.id,blockId:id,expectedRevisionId:fresh.page.revisionId});window.location.assign(`/app/databases/${converted.value.databaseId}`);})().catch(setError);},
           onChooseFile: (id) => setMedia({ id, mode: "upload" }),
           onAddFileLink: (id) => setMedia({ id, mode: "link" }),
           onDownloadFile: (id) => {

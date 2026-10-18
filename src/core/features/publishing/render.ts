@@ -1,3 +1,5 @@
+import {renderTable} from '../editor/tables/render';
+import type {TableContent} from '../editor/tables/model';
 import {providerEmbed} from '../editor/embeds/providers';
 import { socialMetadata, renderPublicHeader } from './header-render';
 import { publicDocumentShell } from './document-shell';
@@ -31,7 +33,7 @@ function renderBlock(b: BlockView, slug: string, links: Record<string, string>, 
         const tag = c.variant === 'numbered' ? 'ol' : 'ul';
         return `<${tag} id="${id}">${(c.items ?? []).map((item: any) => `<li>${c.variant === 'toggle' ? `<details><summary>${rich(item.text, links)}</summary>${rich(item.detail, links)}</details>` : rich(item.text, links)}</li>`).join('')}</${tag}>`;
     }
-    case 'table': return `<div class="table-scroll"><table id="${id}"><caption>${html(c.caption)}</caption><thead><tr>${(c.columns ?? []).map((v: string) => `<th>${html(v)}</th>`).join('')}</tr></thead><tbody>${(c.rows ?? []).map((r: any) => `<tr>${r.cells.map((v: string) => `<td>${html(v)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    case 'table': return renderTable(c as TableContent, b.id);
     case 'media': {
         if (!c.source?.fileId)
             return `<p>${html(c.caption || c.source?.name || '')}</p>`;

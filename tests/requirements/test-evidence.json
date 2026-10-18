@@ -2356,6 +2356,15 @@
         "EMBED-003"
       ],
       "reason": "Default-profile HTTP route, access and public click boundary support; real provider rendering and refusal remain separate."
+    },
+    {
+      "file": "tests/e2e/editor/tables.test.ts",
+      "testName": "BLOCK-014 — tables preserve every cell and formatting through real editable databases, with atomic access and revision checks",
+      "kind": "supporting-regression",
+      "clauses": [
+        "BLOCK-014"
+      ],
+      "reason": "Default-profile HTTP conversion and edited-value round trip, atomic rejection and current authorization. Browser paste and table controls are separate supporting evidence."
     }
   ]
 }

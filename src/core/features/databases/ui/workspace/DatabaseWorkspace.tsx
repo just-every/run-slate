@@ -140,6 +140,7 @@ export function DatabaseWorkspace({ id }: { id: string }) {
         >
           {resource.data ? (
             <>
+              {canEdit && view?.display.tableOrigin ? <button className="secondary-button" onClick={()=>{void mutate<{value:{pageId:string}}>(`/api/databases/${id}/to-table`,{operationKey:operationKey(),expectedRevisionId:resource.data!.database.revision_id,viewId:view.id,expectedViewRevisionId:view.revisionId}).then(result=>window.location.assign(`/app/pages/${result.value.pageId}`)).catch(setError);}}>Convert back to table</button>:null}
               <DatabaseToolbar
                 views={resource.data.views}
                 activeViewId={view?.id}

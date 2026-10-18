@@ -1,3 +1,5 @@
+import {renderTable} from '../editor/tables/render';
+import type {TableContent} from '../editor/tables/model';
 import {blockAnchor,commentsHtml} from './comments';
 import type {CommentArchive} from './comment-archive';
 import { displayStyle, type PageDisplay } from './display';
@@ -20,7 +22,7 @@ function htmlBlock(block: BlockView, blocks: BlockView[]): string {
     case 'callout': return `<aside>${text}</aside>`;
     case 'task': return `<p>${c.done ? '☑' : '☐'} ${text}</p>`;
     case 'list': { const tag = c.variant === 'numbered' ? 'ol' : 'ul'; return `<${tag}>${(c.items ?? []).map((item: any) => `<li>${htmlText(item.text)}</li>`).join('')}</${tag}>`; }
-    case 'table': return `<table><thead><tr>${(c.columns ?? []).map((cell: string) => `<th>${html(cell)}</th>`).join('')}</tr></thead><tbody>${(c.rows ?? []).map((row: any) => `<tr>${row.cells.map((cell: string) => `<td>${html(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+    case 'table': return renderTable(c as TableContent, block.id);
     case 'media': return c.source?.fileId ? `<a href="../media/${html(c.source.fileId)}">${html(c.source.name ?? 'Attachment')}</a>` : `<p>${html(plainContent(block.content))}</p>`;
     case 'link-card': return `<p>${htmlText([{text: c.url ?? '', link: {href: c.url ?? ''}}])}</p>`;
     case 'expandable': return `<details><summary>${html(c.summary ?? '')}</summary><p>${htmlText(c.content)}</p></details>`;

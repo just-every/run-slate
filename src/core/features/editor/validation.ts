@@ -1,3 +1,4 @@
+import {tableSchema} from './tables/schema';
 import {taskReportDefinitionSchema} from '../work-items/report-definition';
 import {contentQueryDefinitionSchema} from './query-definition';
 import { validDate } from '../work-items/time';
@@ -21,7 +22,7 @@ const schemas: Record<string, z.ZodType> = {
     paragraph: z.object({ text: rich }), heading: z.object({ text: rich, level: z.number().int().min(1).max(3), number: z.string().optional() }),
     list: z.object({ variant: z.enum(['bulleted', 'numbered', 'toggle']), start: z.number().int().optional(), items: z.array(z.object({ id: z.string(), text: rich, open: z.boolean().optional(), detail: rich.optional() })) }),
     quote: z.object({ text: rich, attribution: z.string().optional() }), divider: z.object({}), callout: z.object({ text: rich, tone: z.enum(['neutral', 'accent', 'good', 'warn', 'danger']), icon: z.string().optional() }),
-    expandable: z.object({ summary: z.string(), open: z.boolean(), content: rich }), table: z.object({ caption: z.string().optional(), columns: z.array(z.string()), rows: z.array(z.object({ id: z.string(), cells: z.array(z.string()) })) }),
+    expandable: z.object({ summary: z.string(), open: z.boolean(), content: rich }), table: tableSchema,
     code: z.object({ language: z.string(), languages: z.array(z.string()).optional(), code: z.string() }), task: z.object({ text: rich, done: z.boolean(), assigneeMemberId: z.string().min(1).max(160).nullable().optional(), dueDate: z.string().refine(validDate).nullable().optional(), creatorMemberId: z.string().nullable().optional(), completedBy: z.unknown().optional(), completedAtLabel: z.string().optional(), completedByMemberId: z.string().nullable().optional(), completedAt: z.string().nullable().optional() }),
     media: z.object({ kind: z.enum(['image', 'video', 'audio', 'file']), source: z.object({ url: z.string().refine(safeUrl), name: z.string(), fileId: z.string().optional(), sizeLabel: z.string().optional(), contentType: z.string().optional() }).nullable(), caption: z.string(), alt: z.string() }),
     'link-card': z.object({ url: z.string().refine(safeUrl), display: z.enum(['plain', 'inline', 'card', 'embed']), previewState: z.enum(['ready', 'loading', 'refused', 'failed']), preview: z.object({ title: z.string(), description: z.string().optional(), siteName: z.string().optional(), iconLabel: z.string().optional() }).optional(), previewMessage: z.string().optional() }),

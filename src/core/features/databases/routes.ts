@@ -1,3 +1,5 @@
+import {z} from 'zod';
+import {convertTable,restoreTable} from './table-conversion';
 import {
   listDatabases,
   resolveReferences,
@@ -26,6 +28,8 @@ import { openRecord, updateRecord } from "./records";
 import { database, fields, requireRecordDatabase } from "./repository";
 export function createDatabasesRoutes() {
   const r = new Hono<AppEnvironment>();
+  r.post('/from-table',async c=>c.json(await convertTable(featureContext(c),parseInput(z.object({operationKey:z.string().min(8),pageId:z.string(),blockId:z.string(),expectedRevisionId:z.string()}).strict(),await c.req.json()))));
+  r.post('/:id/to-table',async c=>c.json(await restoreTable(featureContext(c),c.req.param('id'),parseInput(z.object({operationKey:z.string().min(8),expectedRevisionId:z.string(),viewId:z.string(),expectedViewRevisionId:z.string()}).strict(),await c.req.json()))));
   r.get("/", async (c) =>
     c.json(await listDatabases(featureContext(c), c.req.query("containerId"))),
   );

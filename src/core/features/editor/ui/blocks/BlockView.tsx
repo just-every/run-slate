@@ -47,7 +47,7 @@ export function BlockView({ block, canEdit, onChange, actions, placeholder, text
     case "expandable":
       return <ExpandableBlock block={block} canEdit={canEdit} onChange={onChange} />;
     case "table":
-      return <TableBlock block={block} canEdit={canEdit} onChange={onChange} />;
+      return <TableBlock block={block} canEdit={canEdit} onChange={onChange} actions={actions} />;
     case "code":
       return <CodeBlock actions={actions} block={block} canEdit={canEdit} onChange={onChange} />;
     case "task":
