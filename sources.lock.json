@@ -956,7 +956,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "53b2a1aedf61029a6acfab12ceb059a844c7513666c502b79e0de7b73ac5e75d",
+      "sha256": "00741b1f0981e38d3b8800834a7c3adac622c0730dd3026bf58d1ead8f0e539d",
       "executable": false
     },
     "DEMO.md": {
@@ -4280,7 +4280,7 @@
       "executable": false
     },
     "src/core/app/styles/panels.css": {
-      "sha256": "940bdce8797bd37478b937173f769829f5ed21ca63245dd335c35cb9fb76b98c",
+      "sha256": "a4de65f7d52cc584ead4aca74c348a04cc394c460110de887754ef205cf2ff0c",
       "executable": false
     },
     "src/core/app/styles/popover.css": {
@@ -7572,7 +7572,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/SettingsWorkspace.tsx": {
-      "sha256": "3dbbe92e87ad4ac562cd1377e50c393d53574b1b1c583edfdd888911b8b3c87c",
+      "sha256": "b5b9ee0e1678cda68b80c26acc70dbae73080e67a3d5a9559a0c72a4d4138787",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/TransferCounts.tsx": {

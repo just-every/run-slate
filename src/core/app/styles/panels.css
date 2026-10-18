@@ -93,3 +93,7 @@
 .slate-app .review-facts { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin: 4px 0; }
 .slate-app .review-facts .page-status-chip { margin-inline: 0; }
 .slate-app .nav-count { margin-left: auto; min-width: 20px; padding: 0 6px; border-radius: 10px; background: var(--slate-accent-soft); color: var(--slate-accent); font-size: 12px; font-weight: 600; text-align: center; }
+
+/* Long import reviews keep their section navigation available. */
+.slate-app .settings-section-navigation[data-portability="true"] { position: sticky; top: 0; z-index: 25; background: var(--slate-canvas); }
+@media (max-width: 700px) { .slate-app .settings-section-navigation[data-portability="true"] { top: 61px; } }

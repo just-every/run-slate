@@ -42,6 +42,7 @@ export function SettingsWorkspace() {
       </TopBar>
       <section className="main settings-workspace">
         <PageTitle>Settings</PageTitle>
+        <div className="settings-section-navigation" data-portability={section === "portability"}>
         <nav ref={tabs} className="tabs tabs-rule settings-tabs" aria-label="Settings sections">
           {sections.filter(([id]) => flagship || id !== "connections").map(([id, label]) => (
             <Link
@@ -59,6 +60,7 @@ export function SettingsWorkspace() {
           <button type="button" className="secondary-button" aria-label="Previous settings sections" disabled={!scrollReady} onClick={() => tabs.current?.scrollBy({ left: -260, behavior: "smooth" })}>←</button>
           <span>Scroll for more sections</span>
           <button type="button" className="secondary-button" aria-label="More settings sections" disabled={!scrollReady} onClick={() => tabs.current?.scrollBy({ left: 260, behavior: "smooth" })}>→</button>
+        </div>
         </div>
         {section === "chat" ? (
           <ChatNotifications />
