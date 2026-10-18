@@ -2,6 +2,7 @@ import { withDemo } from "../modules/demo/index.mjs";
 import {editorHeaders} from "./core/app/editor-config";
 import type { AppBindings } from "./core/app/types";
 import { staticAssetResponse } from "./base/runtime/static-assets";
+import { healthResponse } from "./core/app/health-response";
 
 /**
  * One Worker. Base deploys it with `run_worker_first`, so the Worker receives
@@ -53,6 +54,10 @@ async function developmentAsset(request: Request, bindings: AppBindings): Promis
 
 async function handleRequest(request: Request, bindings: AppBindings, execution: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+    if (url.pathname === "/health" && (request.method === "GET" || request.method === "HEAD")) {
+      const response = healthResponse(request, bindings, execution);
+      return request.method === "HEAD" ? new Response(null, response) : response;
+    }
     const asset = import.meta.env.DEV ? await developmentAsset(request, bindings) : await staticAssetResponse(request, bindings);
     if (asset) {
       // Vite's content-addressed files change URL when their bytes change.
