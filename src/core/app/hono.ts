@@ -1,4 +1,4 @@
-import { deploymentHealth } from "../../base/runtime/deployment-health";
+import { healthResponse } from "./health-response";
 import {editorConfig} from "./editor-config";
 import { assertRequestOrigin, enforceRateLimit } from "./http-security";
 import { ApiProblem } from "./problems";
@@ -9,7 +9,6 @@ import { Hono } from "hono";
 import { createSessionRoutes, createSessionService } from "../features/session";
 import { sessionOptions } from "../features/session/service";
 import { SESSION_AUTH_PATHS } from "../features/session/paths";
-import { probeDependencies } from "../platform/health";
 import { RuntimeConfigurationError } from "../platform/config/runtime";
 import { error } from "../shared/errors";
 import { mountFeatures } from "./mount-features";
@@ -56,18 +55,7 @@ export function createApi() {
       await next();
     })
     .use('/p/*',async(context,next)=>{const member=await createSessionService(context.env.DB,sessionOptions(context.get('runtimeConfig'))).authenticate(context.req.raw);if(member)context.set('member',member);await next();})
-    .get("/health", async (context) => {
-      try {
-        await assertStoredConfiguration(context.env);
-        await enforceRateLimit(context,'health',120);
-        const checks = await probeDependencies({ database: context.env.DB, files: context.env.FILES, jobs: context.env.JOBS });
-        // Base's deploy-identity check reads `ok` and `deployment` after every upload.
-        return context.json({ status: "ok", checks, ...deploymentHealth(context.env) });
-      } catch (cause) {
-        if(cause instanceof ApiProblem||cause instanceof RuntimeConfigurationError)throw cause;
-        return context.json(error("DEPENDENCY_UNAVAILABLE", "A Slate dependency is unavailable."), 503);
-      }
-    })
+    .get("/health", (context) => healthResponse(context.req.raw, context.env, context.executionCtx))
     .route("/", createSessionRoutes())
 ;
 

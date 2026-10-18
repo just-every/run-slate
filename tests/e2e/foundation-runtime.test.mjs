@@ -25,7 +25,7 @@ test("the development Worker serves the Start documents and the Hono families", 
     runtime = await startViteRuntime(persistPath);
     const { baseUrl } = runtime;
 
-    // Hono: health reports only the dependencies it actually round-tripped,
+    // Health reports the dependencies its background probe actually round-tripped,
     // and a null deployment identity outside a Base deploy.
     const health = await fetch(`${baseUrl}/health`);
     assert.equal(health.status, 200);
