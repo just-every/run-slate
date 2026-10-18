@@ -43,6 +43,24 @@
   color: var(--slate-ink);
 }
 .slate-app :where(select, input:not([type="checkbox"], [type="radio"], [type="hidden"], [type="range"], [type="file"])) { min-height: 36px; padding-inline: 10px; }
+/* Every single-choice select draws its chevron 14 px in from the border; multiple and size>1 lists keep their native look
+   (Base #247 foundation/runtime/select-style.ts). The ink is the seed's muted ink, so it follows dark mode. */
+.slate-app select:not([multiple], [size]:not([size="1"])) {
+  --rer-select-ink: var(--slate-ink-muted);
+  -webkit-appearance: none;
+  appearance: none;
+  padding-inline-end: 40px;
+  line-height: calc(round(down, 1.25em, 1px) + 2px); /* the native select's text line, so the control height is unchanged */
+  text-overflow: ellipsis;
+  background-image:
+    linear-gradient(to top right, transparent calc(50% - 1.1px), var(--rer-select-ink) calc(50% - 0.55px), var(--rer-select-ink) calc(50% + 0.55px), transparent calc(50% + 1.1px)),
+    linear-gradient(to top left, transparent calc(50% - 1.1px), var(--rer-select-ink) calc(50% - 0.55px), var(--rer-select-ink) calc(50% + 0.55px), transparent calc(50% + 1.1px));
+  background-repeat: no-repeat;
+  background-position: right 20px center, right 14px center;
+  background-size: 6px 6px;
+}
+.slate-app select:not([multiple], [size]:not([size="1"])):focus-visible { --rer-select-ink: var(--slate-ink); }
+.slate-app select:not([multiple], [size]:not([size="1"])):disabled { --rer-select-ink: color-mix(in srgb, var(--slate-ink-muted) 55%, transparent); }
 /* A switch keeps its 32px touch target and draws a 22px track inside it. */
 .slate-app button[role="switch"] {
   width: 48px;
