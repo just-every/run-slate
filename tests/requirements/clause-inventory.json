@@ -434,7 +434,7 @@
       "id": "TREE-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for TREE-004 \u2014 Filter the tree. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "Local Worker access/expansion and 1440/390 emitted-browser title-filter journeys are registered. Independent release acceptance remains unproven.",
       "supportingTests": []
     },
     {

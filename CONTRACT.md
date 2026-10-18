@@ -1774,9 +1774,9 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 162 | 59 | 0 | 221 |
+| Published | 163 | 58 | 0 | 221 |
 | Target and push further | 5 | 56 | 44 | 105 |
-| All | 167 | 115 | 44 | 326 |
+| All | 168 | 114 | 44 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1817,7 +1817,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `TREE-001` | A nested tree in a container | published | done | `tests/qualification/tree-correction/regression.test.ts` |  |
 | `TREE-002` | Reordering and nesting | published | done | `tests/qualification/publication/preview.test.ts` |  |
 | `TREE-003` | Shared with me | published | partial | `src/core/app/ui/SpaceTrees.tsx` | shared-with-me UI; no journey |
-| `TREE-004` | Filter the tree | published | partial | `src/core/app/ui/PageTree.tsx` | tree filter UI; no journey |
+| `TREE-004` | Filter the tree | published | done | `tests/e2e/navigation/tree-filter.test.ts`, `tests/qualification/ui-convergence/tree-filter-journey.mjs` | Per-space title matching retains readable ancestors within 200ms; one clear restores member expansion, with access and 1440/390 browser coverage. |
 | `TREE-005` | Create in place | published | partial | `src/core/app/ui/NavigationCreate.tsx` | create-in-place UI; no journey |
 | `BLOCK-001` | A body of blocks | published | done | `tests/qualification/interface/routed.browser.mjs` |  |
 | `BLOCK-002` | Inline text | published | done | `tests/e2e/editor/editable-composition.test.mjs` |  |

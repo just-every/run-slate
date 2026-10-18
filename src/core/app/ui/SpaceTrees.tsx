@@ -1,5 +1,6 @@
 import { useLocation } from "@tanstack/react-router";
-import { PageTree, type TreePage } from "./PageTree";
+import type { TreePage } from "./PageTree";
+import { FilteredPageTree } from "./FilteredPageTree";
 import { RequestState } from "./RequestState";
 import { mutate, operationKey } from "../../client/transport";
 import type { Resource } from "../../client/useResource";
@@ -43,7 +44,7 @@ export function SpaceTrees({
     }, "PUT").then(navigation.reload).catch(onError);
   }
   return (
-    <nav className="page-links" aria-label="Pages" onClick={onNavigate}>
+    <nav className="page-links" aria-label="Pages" onClick={event => { if ((event.target as HTMLElement).closest("a[href]")) onNavigate?.(); }}>
       <RequestState loading={pages.loading || databases.loading} error={pages.error ?? databases.error} retry={async () => { await Promise.all([pages.reload(), databases.reload()]); }}>
         {[...spaceIds].map((id) => {
           const container = containers.data?.items.find((item) => item.id === id);
@@ -57,7 +58,7 @@ export function SpaceTrees({
               >
                 {container ? container.name : `Shared with me · ${pages.data?.items.find((page) => page.containerId === id)?.containerLabel ?? "Unavailable space"}`}
               </summary>
-              <PageTree pages={treePages.filter((page) => page.containerId === id)} activePath={pathname} />
+              <FilteredPageTree pages={treePages.filter((page) => page.containerId === id)} spaceName={container?.name ?? pages.data?.items.find(page => page.containerId === id)?.containerLabel ?? "Shared pages"} activePath={pathname} />
             </details>
           );
         })}

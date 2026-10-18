@@ -61,6 +61,12 @@
 .slate-app .space-group:not([open]) > summary::before { transform: rotate(-90deg); }
 .slate-app .space-group > summary:hover, .slate-app .space-group > summary:focus-visible { background-color: var(--slate-sidebar-hover); }
 
+.slate-app .tree-filter { display: flex; align-items: center; gap: 6px; margin: 4px 4px 8px 24px; padding-left: 8px; border: 1px solid var(--slate-line); border-radius: 6px; background: var(--slate-sidebar); }
+.slate-app .tree-filter > svg { flex: none; width: 14px; height: 14px; color: var(--slate-ink-muted); }
+.slate-app .tree-filter input { flex: 1; min-width: 0; width: 100%; height: 32px; padding: 4px 0; border: 0; background: transparent; color: var(--slate-ink); font: inherit; font-size: 13px; }
+.slate-app .tree-filter button { display: grid; place-items: center; flex: none; width: 32px; height: 32px; padding: 6px; border: 0; border-radius: 6px; background: transparent; color: var(--slate-ink-muted); }
+.slate-app .tree-filter button svg { width: 16px; height: 16px; }
+.slate-app .tree-filter button:hover { background: var(--slate-sidebar-hover); }
 .slate-app .page-tree { margin: 0; padding: 0; list-style: none; }
 .slate-app .page-tree .page-tree { margin-left: 20px; }
 .slate-app .tree-row { display: flex; align-items: center; gap: 0; min-width: 0; min-height: var(--row-height); }

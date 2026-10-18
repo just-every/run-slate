@@ -956,7 +956,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "04881b64a16d7abcdab4bd45bdb138fba2b5cf1fa83ab89ff155d891524814ae",
+      "sha256": "eb54f5932bbab30254c6b6821f95037c507fd64198dd851f8abf92766df3476b",
       "executable": false
     },
     "DEMO.md": {
@@ -996,7 +996,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "df1787fa63de9d9a9f1210b796ce47ccfe5f1f5fd1fdc99c53fa568e7d162c6d",
+      "sha256": "19685abb97ae6a41953d8dc1593736a43817bbceacec50689fcf19729410dd0e",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -4284,7 +4284,7 @@
       "executable": false
     },
     "src/core/app/styles/shell.css": {
-      "sha256": "0eddf01b3d198ddc3b2558a14c1052985b4192ab2aba3483dd135cbc852f897c",
+      "sha256": "282977293b561d5c01425fbf28b47a5cde5bd4ca678d33391a0dfab1dcbad2c4",
       "executable": false
     },
     "src/core/app/styles/theme.css": {
@@ -4331,6 +4331,10 @@
       "sha256": "164a6b213342ae249f127057af9d05fdf4c52cdeabec607a2f2fdb490c63d746",
       "executable": false
     },
+    "src/core/app/ui/FilteredPageTree.tsx": {
+      "sha256": "1ec2243152bf02ad2d7c74fbfe5a7b55eed19ff8001e633159b38438bae48a53",
+      "executable": false
+    },
     "src/core/app/ui/FirstRunShell.tsx": {
       "sha256": "37d024cd12374c3d72ed956859a3c89b6e34051f874b5e8315af040be6d75c1f",
       "executable": false
@@ -4372,7 +4376,7 @@
       "executable": false
     },
     "src/core/app/ui/PageTree.tsx": {
-      "sha256": "1466356bf24d6a4bf41c52813b9abc381e0ebc988ab779bac3051f9999cda00b",
+      "sha256": "b9ce822a461a1ab5300011417ab89daebf8bd3252b4b754b8dd9065e26b5453c",
       "executable": false
     },
     "src/core/app/ui/PublicDuplicate.tsx": {
@@ -4396,7 +4400,11 @@
       "executable": false
     },
     "src/core/app/ui/SpaceTrees.tsx": {
-      "sha256": "f34134e04e4edca40ad1b29eef5f99414df01ff0b8853b2759cca91f1c94e9bf",
+      "sha256": "96890c41d34b668208d0c3aac2a0db125ae00d492fe5634b0772438b03f311d7",
+      "executable": false
+    },
+    "src/core/app/ui/treeFilter.ts": {
+      "sha256": "50563655355cea60e1cab5106b980fbe45113e753ff62930932ecc79e82591d1",
       "executable": false
     },
     "src/core/app/ui/TreeMoveDialog.tsx": {
@@ -8468,7 +8476,7 @@
       "executable": false
     },
     "tests/e2e/contract-coverage.test.ts": {
-      "sha256": "7f69bb9ec9bbcc8f7f630c5b716cf8f8eec7a3acacebf392747bb2c3c3b900ad",
+      "sha256": "1fc58019840043d10e85ace8ad1652b7c2e479b386a8630e6479de87980851bc",
       "executable": false
     },
     "tests/e2e/contract.d.ts": {
@@ -8613,6 +8621,10 @@
     },
     "tests/e2e/managed-first-open.mjs": {
       "sha256": "213fd3711db62c257cf5c7779af06d581d132c60e20155da04edacca88a0e27c",
+      "executable": false
+    },
+    "tests/e2e/navigation/tree-filter.test.ts": {
+      "sha256": "584abe3557218b079c08f646d7eb6cbdc83f52367cb399569feeed2a2ec58450",
       "executable": false
     },
     "tests/e2e/outbox-auth.mjs": {
@@ -10272,7 +10284,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "f8369559544906c43ff4cc772fe9fd65c3354b147d6c1c3c3588bba52f08ebaf",
+      "sha256": "4c53053e0a34b0ea3c93562f3af69c7150bda5c00f5998a7f2f503fa97f57d3c",
       "executable": false
     },
     "tests/qualification/ui-convergence/navigation-journey.mjs": {
@@ -10293,6 +10305,10 @@
     },
     "tests/qualification/ui-convergence/sharing-journey.mjs": {
       "sha256": "e69a4fafd7067637f7f34c10d0dd7c3571d5cc6b8fbcbb132574e5201fcb992b",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/tree-filter-journey.mjs": {
+      "sha256": "8e8bed254de8b87b200c0e50e08c7097f035c36e063c71bcb4ac2d1d9aa0046d",
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-access.mjs": {
@@ -10340,7 +10356,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "c000beddc7a37d564b890ca09d5317cb690f4e674d64f9528c68e9a471dea2d9",
+      "sha256": "61f533ea8d3e19b81885e8ad74638321c88ac801a5e320f0f6c4666c97e602f0",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {

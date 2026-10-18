@@ -23,12 +23,15 @@ export function PageTree({
   parentId = null,
   ancestors = [],
   activePath,
+  visibleIds,
 }: {
   pages: TreePage[];
   parentId?: string | null;
   ancestors?: string[];
   /** The path being viewed, so the row for the open page is marked as current. */
   activePath?: string;
+  /** A temporary title filter never changes persisted expansion. */
+  visibleIds?: Set<string>;
 }) {
   const ids = new Set(pages.map((page) => page.id));
   const children = pages
@@ -41,7 +44,7 @@ export function PageTree({
   return (
     <ul className="page-tree">
       {children
-        .filter((page) => !ancestors.includes(page.id))
+        .filter((page) => !ancestors.includes(page.id) && (!visibleIds || visibleIds.has(page.id)))
         .map((page) => (
           <TreeItem
             key={page.id}
@@ -49,6 +52,7 @@ export function PageTree({
             pages={pages}
             ancestors={ancestors}
             activePath={activePath}
+            visibleIds={visibleIds}
           />
         ))}
     </ul>
@@ -59,15 +63,18 @@ function TreeItem({
   pages,
   ancestors,
   activePath,
+  visibleIds,
 }: {
   page: TreePage;
   pages: TreePage[];
   ancestors: string[];
   activePath?: string;
+  /** A temporary title filter never changes persisted expansion. */
+  visibleIds?: Set<string>;
 }) {
-  const hasChildren = pages.some((item) => item.parentPageId === page.id);
+  const hasChildren = pages.some((item) => item.parentPageId === page.id && (!visibleIds || visibleIds.has(item.id)));
   const expansion = useResource<{expanded:boolean}>(hasChildren ? `/api/pages/${page.id}/expansion` : null);
-  const open = expansion.data?.expanded ?? false;
+  const open = visibleIds !== undefined || (expansion.data?.expanded ?? false);
   const [move,setMove]=useState<{page:TreePage;destination?:TreeDestination}|null>(null);
   const creation = useCreatePage();
   const [error,setError] = useState<unknown>();
@@ -80,7 +87,7 @@ function TreeItem({
             className="iconbutton"
             aria-label={`${open ? "Collapse" : "Expand"} ${page.title}`}
             aria-expanded={open}
-            disabled={expansion.loading || expansion.error !== undefined}
+            disabled={visibleIds !== undefined || expansion.loading || expansion.error !== undefined}
             onClick={(event) => {
               event.stopPropagation();
               void mutate(`/api/pages/${page.id}/expansion`, {operationKey:operationKey(),expanded:!open}).then(expansion.reload).catch(setError);
@@ -110,6 +117,7 @@ function TreeItem({
           parentId={page.id}
           ancestors={[...ancestors, page.id]}
           activePath={activePath}
+          visibleIds={visibleIds}
         />
       ) : null}
     </li>
