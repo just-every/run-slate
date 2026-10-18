@@ -8,6 +8,7 @@ import {readPage} from '../../../src/core/features/pages/service';
 const log=()=> (env as unknown as {DATA_PROOF_LOG:Fetcher}).DATA_PROOF_LOG;
 test('BASE-DATA-005 ordinary local operation remains usable while all author, marketplace and external HTTP is denied',async()=>{
  await log().fetch('https://boundary.invalid',{method:'DELETE'});
+ await expect.poll(async()=>(await SELF.fetch('http://localhost:8787/health')).status).toBe(200);
  const health=await SELF.fetch('http://localhost:8787/health');expect(health.status).toBe(200);
  const {ctx,page}=await fixture();await seedContainerGrant(page.containerId,{principalKind:'member',principalId:ctx.actor.id,level:'full'});
  const created=await createPage(ctx,{operationKey:'data-offline-create',containerId:page.containerId,title:'Offline independence canary'});

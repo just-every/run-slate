@@ -1144,7 +1144,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "1e54b3ea5c7e2fba71d96bf592635c6273a17a8a5c1044fd19e83f64ddd9c75f",
+      "sha256": "817badf201aaa5a4233824526191728445452e6ce8173041352ffc4e317f25ff",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -4139,12 +4139,16 @@
       "sha256": "41b91659bb8a25428b7c599f400492556a736b033036bde797748d4115a39dbf",
       "executable": false
     },
+    "src/core/app/health-response.ts": {
+      "sha256": "e23038608faa046ea161b58cdb4b1dbc4aa006f1ec9de7bbef68fb5b72768354",
+      "executable": false
+    },
     "src/core/app/hono-paths.ts": {
       "sha256": "c8eec8bb4f11ed5a55bd352696b2e812c908820a7a33a27c8554521e3dbeedc9",
       "executable": false
     },
     "src/core/app/hono.ts": {
-      "sha256": "eb148ee0626b571ffa1388566b66f77dba0b4b1b570e5fb36ff03bb36cfd1397",
+      "sha256": "917447b721f29d09bf61fe1a9e43b5fc39cb0afd940b494458dc0e60530275c2",
       "executable": false
     },
     "src/core/app/http-security.ts": {
@@ -8044,7 +8048,7 @@
       "executable": false
     },
     "src/core/platform/health/dependencies.ts": {
-      "sha256": "14b1eeb13094f7b57ecfc4500e333d68be48edbf4e378194920a183f7d9df23e",
+      "sha256": "efe9892537306779fd992e931ddaeee8f1ea84bb5317ff41e165921c376539a6",
       "executable": false
     },
     "src/core/platform/health/index.ts": {
@@ -8440,7 +8444,7 @@
       "executable": false
     },
     "src/server.ts": {
-      "sha256": "d24038f085d64282c2ff43175442aaa831c3d8b7e8d109ae724521ae0094b939",
+      "sha256": "025ea8a8ae4d457bb96718b34abd59b6ba739664454e97bd570e720c76471a64",
       "executable": false
     },
     "src/site/pages.tsx": {
@@ -8524,7 +8528,7 @@
       "executable": false
     },
     "tests/e2e/foundation-runtime.test.mjs": {
-      "sha256": "156e667226f9d8d798d02283e1635ed8f5628a1d53072248d4a5d6a665eb0dbb",
+      "sha256": "5c55543e8142d3e2a9fb5a58bf3639c85318ccb3c8881056a48180c5f7fc3fde",
       "executable": false
     },
     "tests/e2e/helpers/local-mail-database.ts": {
@@ -8668,7 +8672,7 @@
       "executable": false
     },
     "tests/e2e/runtime-harness.mjs": {
-      "sha256": "32656836b2914aa9feec55bae5042f67365f31649dd982b17085eea05701363e",
+      "sha256": "7aeef66e7b952e037db3b852b6eafe9423a0f4156cb52a2aff4084b298294bbd",
       "executable": false
     },
     "tests/e2e/saving/failed-writes.test.ts": {
@@ -8732,7 +8736,7 @@
       "executable": false
     },
     "tests/e2e/workspace/health.test.ts": {
-      "sha256": "b8e91715603a13f43bccbe645d6b920228312d9a413cb9e63727cbc4d08f0e56",
+      "sha256": "f118cb640559a843f4c4674bc6d6707ce9853fc2022a35b5b7a949c80ca9319e",
       "executable": false
     },
     "tests/fixtures/aurora/members.json": {
@@ -9616,7 +9620,7 @@
       "executable": false
     },
     "tests/qualification/data/independence.test.ts": {
-      "sha256": "7106fbb9ff527b14979b2bd87e3896f6f03659e4b180f9e89849035f65a9adcb",
+      "sha256": "15d0993248276b511bcd5b7b5ea725991ab3e9a879526583ca433f32b286f27c",
       "executable": false
     },
     "tests/qualification/data/intelligence-erasure.test.ts": {
