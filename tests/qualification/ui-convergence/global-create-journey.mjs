@@ -72,7 +72,12 @@ export async function globalCreateJourney(state) {
   await container.getByLabel('Description', { exact: true }).fill('Shared customer support playbooks');
   await accessible(page, 'global create space');
   await shot('space');
+  const createdSpace = page.waitForResponse(response => response.request().method() === 'POST' && new URL(response.url()).pathname === '/api/containers');
   await container.getByRole('button', { name: 'Create space', exact: true }).click();
+  const created = await createdSpace;
+  assert.equal(created.status(), 200, await created.text());
+  await expect(container).not.toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Customer success', exact: true })).toBeVisible();
   await expect.poll(async () => (await api('/api/containers')).items.some(item => item.name === 'Customer success')).toBe(true);
   await shot('space-created');
   await state.switchIdentity('reader');

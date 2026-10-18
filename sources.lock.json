@@ -956,7 +956,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "3273e76fda278a25ba664e11fa2ba9bdce61c04edeb139c2d61423a16f7f9835",
+      "sha256": "2add9d33035a16461a06ee4366541acf637fe7fe8e87d225a87edbde308cdf9a",
       "executable": false
     },
     "DEMO.md": {
@@ -5856,7 +5856,7 @@
       "executable": false
     },
     "src/core/features/imports/blocks.ts": {
-      "sha256": "ff4ef0c8bfcc7e61903523e0aab20e92ce73aba2f3a9a9393d6451b7f08590d7",
+      "sha256": "cee7c281df04f0af44ce107c494dc575ca729901ca069540a26ce9bc5bc45def",
       "executable": false
     },
     "src/core/features/imports/cancel-preparation.ts": {
@@ -6161,6 +6161,10 @@
     },
     "src/core/features/imports/storage-inventory.ts": {
       "sha256": "9789434b782a2ee4b97ab61cef720215cd5bd137399905ac8f5d2d54f4eacba6",
+      "executable": false
+    },
+    "src/core/features/imports/table-content.ts": {
+      "sha256": "af264ac05af3a76c85e72fff6d3b1109b0337f8c3736c2f0d1ac1bbddc7711ca",
       "executable": false
     },
     "src/core/features/imports/types.ts": {
@@ -10408,7 +10412,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/global-create-journey.mjs": {
-      "sha256": "7cbc5f3ba560022d2646cc829bb235888bc93f3523b1948640b7d283027b95b2",
+      "sha256": "03eea4c368c3db06bef849fa0e71018b45485988ff35a63891ac6a8c7ee1dbde",
       "executable": false
     },
     "tests/qualification/ui-convergence/group-mentions-journey.mjs": {
