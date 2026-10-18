@@ -506,7 +506,14 @@ responsive editing and every inherited product requirement.
    semantics, never live provider behavior.
 2. **Data and owner portability:** genuine Notion/Confluence/Word/Google Docs
    exports, explicit unsupported-construct reports, persistent import rollback,
-   search rebuild, complete export/restore including source/claim/skill/run/
+   search rebuild, the stopped-local `BASE-DATA-001` round trip with
+   `rer export --output exports/installation.rer` and
+   `rer import --input exports/installation.rer --yes` into an empty destination,
+   then re-export and compare contents. Hosted recovery separately saves and
+   restores the deployed D1 database and FILES R2 objects, or exercises Slate’s
+   authenticated workspace ZIP backup and empty-workspace restore as documented
+   in [OPERATIONS.md](OPERATIONS.md#hosted-backups); a local archive alone is no
+   hosted-backup evidence. Require complete export/restore including source/claim/skill/run/
    inquiry/effect/interface lineage, inactive restored actors and unpublished
    public links. Verify existing 0001 data forward through additive migrations
    without rewriting applied history; verify recovery and customized-owner code.
