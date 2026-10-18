@@ -22,7 +22,7 @@ Shared baseline requirements defined in Base. Editions ship their own copy and b
 
 ## Data ownership
 
-- **BASE-DATA-001 — Export and import.** `node scripts/rer.mjs export` produces every record and attachment; `node scripts/rer.mjs import` restores it into an empty deployment; export, import, export yields an archive with equivalent contents.
+- **BASE-DATA-001 — Export and import.** `rer export --output exports/installation.rer` produces every record and attachment from a stopped local installation; `rer import --input exports/installation.rer --yes` restores it into an empty, stopped local installation; export, import, export yields an archive with equivalent contents.
 - **BASE-DATA-002 — Retention.** No user data is deleted automatically. Only sessions and rate-limit state expire.
 - **BASE-DATA-003 — Erasure.** Every entity that holds personal data can be deleted by an operator. Deletion cascades to dependent records and attachments within 5 minutes and is confirmed when complete. Audit entries are kept with the reference anonymised.
 - **BASE-DATA-004 — Outbound flows.** User data leaves the deployment only through externals declared in `seed.json → externals`. No other outbound request carries user data.
