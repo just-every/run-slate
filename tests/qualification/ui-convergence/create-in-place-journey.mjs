@@ -8,8 +8,6 @@ import { ok } from './two-people-support.mjs';
 export async function createInPlaceJourney({ page, context, origin, api, switchIdentity }) {
   const width = page.viewportSize().width;
   const space = (await api('/api/containers')).items.find(item => item.name === 'Handbook');
-  const pagesBefore = (await api('/api/pages')).items;
-  const welcome = pagesBefore.find(item => item.title === 'Welcome');
   const shot = label => page.screenshot({ path: `.artifacts/ui-convergence/create-in-place-${width}-${label}.png`, fullPage: false });
   async function created(title, parentPageId = null) {
     const input = page.getByRole('textbox', { name: 'Page title', exact: true });
@@ -24,11 +22,20 @@ export async function createInPlaceJourney({ page, context, origin, api, switchI
     await shot(title.replaceAll(' ', '-'));
     return id;
   }
+  const longName = 'Engineering operations and incident response';
+  await ok(context, origin, 'POST', '/api/containers', { operationKey: randomUUID(), name: longName, visibility: 'private' });
+  const pagesBefore = (await api('/api/pages')).items;
+  const welcome = pagesBefore.find(item => item.title === 'Welcome');
+  await page.reload({ waitUntil: 'networkidle' });
   await openNavigation(page);
   const tree = page.getByRole('navigation', { name: 'Pages', exact: true });
   await expect(tree.getByRole('button', { name: 'Create page in Handbook', exact: true })).toBeVisible();
   await accessible(page, 'tree creation destination');
   await shot('tree-footer');
+  const longFooter = tree.getByRole('button', { name: `Create page in ${longName}`, exact: true });
+  await longFooter.scrollIntoViewIfNeeded();
+  assert.ok(await longFooter.locator('span').evaluate(element => element.scrollWidth <= element.clientWidth && getComputedStyle(element).whiteSpace === 'normal'), 'The whole destination wraps instead of being truncated.');
+  await shot('long-destination');
   await tree.getByRole('button', { name: 'Create page in Handbook', exact: true }).click();
   const root = await created('Engineering handbook');
   await openNavigation(page);
