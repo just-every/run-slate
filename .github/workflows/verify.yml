@@ -10,6 +10,38 @@ on:
 permissions:
   contents: read
 jobs:
+  app:
+    if: github.event_name != 'workflow_dispatch'
+    name: verify (app)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.12.4
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22.20.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: node scripts/sync-project-setup.mjs --check && pnpm verify
+      # Contract acceptance consumes the same verified build while Workers run.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verified-app-build
+          path: dist/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 1
+      - name: Retain failures
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failures-app
+          path: .artifacts/
+          if-no-files-found: ignore
   workers:
     if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-24.04
@@ -35,7 +67,7 @@ jobs:
           name: contract-${{ matrix.shard }}
           path: .artifacts/contract-${{ matrix.shard }}.json
   contract:
-    needs: workers
+    needs: [workers, app]
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -51,10 +83,14 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium
       - uses: actions/download-artifact@v4
         with:
+          name: verified-app-build
+          path: dist/
+      - uses: actions/download-artifact@v4
+        with:
           pattern: contract-*
           path: .artifacts/contract-shards
           merge-multiple: true
-      - run: pnpm build && node scripts/verify.mjs
+      - run: node scripts/verify.mjs
         env:
           SLATE_WORKERS_REPORTS: .artifacts/contract-shards
   verify:
@@ -65,8 +101,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - suite: app
-            command: node scripts/sync-project-setup.mjs --check && pnpm verify
           - suite: core
             command: pnpm build && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts
           - suite: tooling
@@ -76,15 +110,19 @@ jobs:
           - suite: ui-polish-desktop
             command: pnpm build && node --test --test-concurrency=1 --test-name-pattern=1440 tests/ui/polish-journeys.test.mjs
           - suite: ui-content-desktop-1
-            command: pnpm build && SLATE_UI_SHARD=1/2 node --test --test-concurrency=1 --test-name-pattern=1440 tests/qualification/ui-convergence/journeys.test.mjs
+            command: pnpm build && SLATE_UI_SHARD=1/3 node --test --test-concurrency=1 --test-name-pattern=1440 tests/qualification/ui-convergence/journeys.test.mjs
           - suite: ui-content-desktop-2
-            command: pnpm build && SLATE_UI_SHARD=2/2 node --test --test-concurrency=1 --test-name-pattern=1440 tests/qualification/ui-convergence/journeys.test.mjs
+            command: pnpm build && SLATE_UI_SHARD=2/3 node --test --test-concurrency=1 --test-name-pattern=1440 tests/qualification/ui-convergence/journeys.test.mjs
+          - suite: ui-content-desktop-3
+            command: pnpm build && SLATE_UI_SHARD=3/3 node --test --test-concurrency=1 --test-name-pattern=1440 tests/qualification/ui-convergence/journeys.test.mjs
           - suite: ui-polish-mobile
             command: pnpm build && node --test --test-concurrency=1 --test-name-pattern=390 tests/ui/polish-journeys.test.mjs
           - suite: ui-content-mobile-1
-            command: pnpm build && SLATE_UI_SHARD=1/2 node --test --test-concurrency=1 --test-name-pattern=390 tests/qualification/ui-convergence/journeys.test.mjs
+            command: pnpm build && SLATE_UI_SHARD=1/3 node --test --test-concurrency=1 --test-name-pattern=390 tests/qualification/ui-convergence/journeys.test.mjs
           - suite: ui-content-mobile-2
-            command: pnpm build && SLATE_UI_SHARD=2/2 node --test --test-concurrency=1 --test-name-pattern=390 tests/qualification/ui-convergence/journeys.test.mjs
+            command: pnpm build && SLATE_UI_SHARD=2/3 node --test --test-concurrency=1 --test-name-pattern=390 tests/qualification/ui-convergence/journeys.test.mjs
+          - suite: ui-content-mobile-3
+            command: pnpm build && SLATE_UI_SHARD=3/3 node --test --test-concurrency=1 --test-name-pattern=390 tests/qualification/ui-convergence/journeys.test.mjs
           - suite: ui-state
             command: pnpm build && pnpm test:ui:reachability && pnpm test:ui:state
     name: verify (${{ matrix.suite }})
