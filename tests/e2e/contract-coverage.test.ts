@@ -193,6 +193,7 @@ const plannedClauses: ReadonlyArray<readonly [string, string]> = [
   ['DEC-006', 'A proposed decision is editable'],
   ['BLOCK-020', 'Group mentions'],
   ['BLOCK-015', 'Assigned tasks with due dates'],
+  ['BLOCK-016', 'Task reports'],
   ['NAV-007', 'My tasks'],
   ['NOTIF-004', 'Reminders'],
   ['BLOCK-014', 'Tables that work like tables'],

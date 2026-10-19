@@ -26,12 +26,12 @@ export async function searchFixture(db:D1Database) {
  };
  const app=createApi();
  const mutate=async(path:string,body:unknown,method='POST')=>{
-  const response=await app.fetch(new Request('http://localhost:8787/api'+path,{method,headers:{cookie:cookies.owner!,'content-type':'application/json'},body:JSON.stringify(body)}),{...env,DB:db} as AppBindings);
+  const response=await app.fetch(new Request('http://localhost:8787/api'+path,{method,headers:{cookie:cookies.owner!,'content-type':'application/json'},body:JSON.stringify(body)}),{...env,DB:db,SLATE_PROFILE:undefined} as AppBindings);
   return {status:response.status,data:await response.json() as any};
  };
  const find=async(query:string,actor='reader',extra:Record<string,string>={})=>{
   const headers:Record<string,string>=actor==='anonymous'?{}:{cookie:cookies[actor]!};
-  const response=await app.fetch(new Request('http://localhost:8787/api/search?'+new URLSearchParams({q:query,...extra}),{headers}),{...env,DB:db} as AppBindings);
+  const response=await app.fetch(new Request('http://localhost:8787/api/search?'+new URLSearchParams({q:query,...extra}),{headers}),{...env,DB:db,SLATE_PROFILE:undefined} as AppBindings);
   return {status:response.status,data:await response.json() as any};
  };
  return {db,now,sql,page,find,mutate,cookies};

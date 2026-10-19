@@ -466,9 +466,10 @@
     },
     {
       "id": "assigned-work",
-      "description": "Assigned page tasks, personal task lists and durable timezone-aware inbox reminders.",
+      "description": "Assigned page tasks, per-reader task reports, personal task lists and durable timezone-aware inbox reminders.",
       "clauses": [
         "BLOCK-015",
+        "BLOCK-016",
         "NAV-007",
         "NOTIF-004"
       ]

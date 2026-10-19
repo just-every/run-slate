@@ -3169,10 +3169,17 @@
       "supportingTests": []
     },
     {
+      "id": "BLOCK-016",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "A tagged default-profile 1440/390 browser journey and the public HTTP task journey exercise per-reader task reports, completion and the published sign-in notice; Confluence Task Report import belongs to IMP-010. Independent requirement acceptance remains unproven.",
+      "supportingTests": []
+    },
+    {
       "id": "NAV-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Default-profile public HTTP task/reminder support and browser journeys implement My tasks. Independent requirement acceptance remains unproven; dependent email, push and public MCP delivery remain outside this round.",
+      "unmetReason": "A tagged default-profile 1440/390 browser journey and the public HTTP task journey exercise My tasks; independent requirement acceptance remains unproven.",
       "supportingTests": []
     },
     {
@@ -3193,7 +3200,7 @@
       "id": "SEARCH-011",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Public HTTP operator, permission, saved-query, trust and duplicate grouping journeys support implementation. Independent requirement acceptance remains unproven.",
+      "unmetReason": "A tagged default-profile 1440/390 browser journey and the public HTTP search journey exercise verified-first ranking, trust badges, near-duplicate collapse and title-only anonymous views; answer trust belongs to ANSWER-002. Independent requirement acceptance remains unproven.",
       "supportingTests": []
     },
     {

@@ -28,6 +28,9 @@ import { starterTemplatesJourney } from './starter-templates-journey.mjs';
 import { pageLockBrowserJourney } from './page-lock-journey.mjs';
 import { outlineJourney } from './outline-journey.mjs';
 import { groupMentionJourney } from './group-mentions-journey.mjs';
+import { taskReportJourney } from './task-report-journey.mjs';
+import { myTasksJourney } from './my-tasks-journey.mjs';
+import { trustRankingJourney } from './trust-ranking-journey.mjs';
 
 for (const width of [1440, 390]) {
   test(`spreadsheet tables merge, sort and round-trip through edited database records at ${width}px`, {timeout:240000}, async()=>{
@@ -107,6 +110,24 @@ for (const width of [1440, 390]) {
         await state.page.screenshot({ path: `.artifacts/ui-convergence/starter-templates-${width}-failure.png`, fullPage: true });
         throw cause;
       });
+    });
+  });
+  test(`BLOCK-016 — a task report shows each reader only the tasks they can read, completes one on its page and stays a sign-in notice when published at ${width}px`, { timeout: 240000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await withSecondPerson(state, width, people => taskReportJourney(state, people));
+    });
+  });
+  test(`NAV-007 — My tasks lists assigned open tasks by due date, completes on the page and drops a revoked page at ${width}px`, { timeout: 240000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await withSecondPerson(state, width, people => myTasksJourney(state, people));
+    });
+  });
+  test(`SEARCH-011 — verified, unverified and lapsed pages rank in order with badges, near-duplicates collapse and published views carry no trust at ${width}px`, { timeout: 240000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await trustRankingJourney(state);
     });
   });
   test(`space tree title filtering preserves ancestors, access and expansion at ${width}px`, { timeout: 180000 }, async () => {

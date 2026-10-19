@@ -8,7 +8,7 @@ import seed from '../../../seed.json';
 export async function discoveryJourney(f:Awaited<ReturnType<typeof searchFixture>>) {
  const {sql,page,find,now}=f,api=createApi();
  const request=async(path:string,actor='owner',body?:unknown)=>{
-  const r=await api.fetch(new Request('http://localhost:8787/api'+path,{method:body?'POST':'GET',headers:{cookie:f.cookies[actor]!,'content-type':'application/json'},...(body?{body:JSON.stringify(body)}:{})}),env);
+  const r=await api.fetch(new Request('http://localhost:8787/api'+path,{method:body?'POST':'GET',headers:{cookie:f.cookies[actor]!,'content-type':'application/json'},...(body?{body:JSON.stringify(body)}:{})}),{...env,SLATE_PROFILE:undefined});
   return {status:r.status,data:await r.json<any>()};
  };
  const corpus=[
