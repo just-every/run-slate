@@ -2,11 +2,11 @@ import { Search } from "lucide-react";
 import type { ReactNode } from "react";
 import type { ViewDto } from "../../../../client/records";
 
-/** What the database screen shows: the records of the current view, that view's chart, or the database's automations. */
-export type DatabaseMode = "records" | "chart" | "automations";
+/** What the database screen shows: the records of the current view, that view's chart, the database's record templates, or its automations. */
+export type DatabaseMode = "records" | "chart" | "templates" | "automations";
 
 /**
- * The one toolbar above the records. Left: one view switcher of compact toggle buttons (the saved views, Chart, Automations), of
+ * The one toolbar above the records. Left: one view switcher of compact toggle buttons (the saved views, Chart, Templates, Automations), of
  * which exactly one is pressed at a time. Right: a compact "Find in this view" field, the two option menus and the one primary
  * action, New record.
  */
@@ -24,7 +24,7 @@ export function DatabaseToolbar({
   activeViewId?: string;
   onSelectView: (id: string) => void;
   mode: DatabaseMode;
-  /** Chart and Automations toggle: pressing the one already shown returns to the records. */
+  /** Chart, Templates and Automations toggle: pressing the one already shown returns to the records. */
   onMode: (mode: DatabaseMode) => void;
   search: string;
   onSearch: (value: string) => void;
@@ -42,6 +42,9 @@ export function DatabaseToolbar({
         <span className="tabs-divider" aria-hidden="true" />
         <button type="button" aria-pressed={mode === "chart"} onClick={() => onMode(mode === "chart" ? "records" : "chart")}>
           Chart
+        </button>
+        <button type="button" aria-pressed={mode === "templates"} onClick={() => onMode(mode === "templates" ? "records" : "templates")}>
+          Templates
         </button>
         <button type="button" aria-pressed={mode === "automations"} onClick={() => onMode(mode === "automations" ? "records" : "automations")}>
           Automations

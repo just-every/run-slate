@@ -3314,6 +3314,13 @@
       "status": "unproven",
       "unmetReason": "Tagged default-profile Workers and owner browser journeys exercise the reports and exports; independent release acceptance is separate.",
       "supportingTests": []
+    },
+    {
+      "id": "DB-015",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "A tagged default-profile Workers journey exercises record templates, schedules, restarts and the access pause; independent release acceptance is separate.",
+      "supportingTests": []
     }
   ]
 }

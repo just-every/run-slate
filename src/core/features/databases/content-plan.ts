@@ -56,6 +56,12 @@ export async function prepareDeleteStructuredPages(
           )
           .bind(ctx.now, db.id),
         ctx.db
+          .prepare("DELETE FROM database_record_occurrences WHERE template_id IN (SELECT id FROM database_record_templates WHERE database_id=?)")
+          .bind(db.id),
+        ctx.db
+          .prepare("DELETE FROM database_record_templates WHERE database_id=?")
+          .bind(db.id),
+        ctx.db
           .prepare("DELETE FROM database_records WHERE database_id=?")
           .bind(db.id),
         ctx.db

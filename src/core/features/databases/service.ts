@@ -317,54 +317,67 @@ export async function createRecord(
     authorize: async () => {
       await database(ctx, id, "edit");
     },
-    prepare: async ({ revisionId }) => {
-      const db = await database(ctx, id, "edit"),
-        page = await readPage(ctx, db.page_id);
-      await destination(ctx, page.page.containerId, db.page_id);
-      const values = await validateValues(ctx, id, input.values);
-      const p = await prepareCreatePage(
-        ctx,
-        {
-          operationKey: input.operationKey,
-          title: input.title,
-          containerId: page.page.containerId,
-          parentPageId: db.page_id,
-          pageKind: "record",
-          databaseId: id,
-          properties: {
-            databaseFields: values as Record<
-              string,
-              import("../../shared/api/common").JsonValue
-            >,
-          },
-        },
-        revisionId,
-      );
-      return {
-        entity: p.entity,
-        value: { ...p.value, values },
-        statements: [
-          mutationGuard(
-            ctx.db,
-            "SELECT revision_id=? FROM databases WHERE id=?",
-            [db.revision_id, id],
-          ),
-          ...p.statements,
-          ctx.db
-            .prepare(
-              "INSERT INTO database_records (page_id,database_id,field_values_json,created_at,updated_at,revision_id) VALUES (?,?,?,?,?,?)",
-            )
-            .bind(
-              p.value.pageId,
-              id,
-              JSON.stringify(values),
-              ctx.now,
-              ctx.now,
-              revisionId,
-            ),
-          revision(ctx, revisionId, "record", p.value.pageId, values),
-        ],
-      };
-    },
+    prepare: ({ revisionId }) => prepareRecord(ctx, id, input, revisionId),
   });
+}
+/** One new record page with validated field values and an optional body, under the database's edit check. */
+export async function prepareRecord(
+  ctx: FeatureContext,
+  id: string,
+  input: {
+    operationKey: string;
+    title: string;
+    values: Values;
+    blocks?: import("../pages/types").BlockInput[];
+  },
+  revisionId: string,
+) {
+  const db = await database(ctx, id, "edit"),
+    page = await readPage(ctx, db.page_id);
+  await destination(ctx, page.page.containerId, db.page_id);
+  const values = await validateValues(ctx, id, input.values);
+  const p = await prepareCreatePage(
+    ctx,
+    {
+      operationKey: input.operationKey,
+      title: input.title,
+      containerId: page.page.containerId,
+      parentPageId: db.page_id,
+      pageKind: "record",
+      databaseId: id,
+      blocks: input.blocks,
+      properties: {
+        databaseFields: values as Record<
+          string,
+          import("../../shared/api/common").JsonValue
+        >,
+      },
+    },
+    revisionId,
+  );
+  return {
+    entity: p.entity,
+    value: { ...p.value, values },
+    statements: [
+      mutationGuard(
+        ctx.db,
+        "SELECT revision_id=? FROM databases WHERE id=?",
+        [db.revision_id, id],
+      ),
+      ...p.statements,
+      ctx.db
+        .prepare(
+          "INSERT INTO database_records (page_id,database_id,field_values_json,created_at,updated_at,revision_id) VALUES (?,?,?,?,?,?)",
+        )
+        .bind(
+          p.value.pageId,
+          id,
+          JSON.stringify(values),
+          ctx.now,
+          ctx.now,
+          revisionId,
+        ),
+      revision(ctx, revisionId, "record", p.value.pageId, values),
+    ],
+  };
 }

@@ -8,6 +8,7 @@ import {
 } from "./jobs";
 import { automationAdapters } from "./adapters";
 import { readRuntimeConfig } from "../../platform/config/runtime";
+import { runRecurringRecords } from "../databases/recurring-records";
 /** Drain committed content outbox; operation keys recover causal ancestry across restarts. */
 export async function runAutomationMaintenance(
   ctx: FeatureContext,
@@ -117,6 +118,7 @@ export async function runAutomationMaintenance(
       .run();
   }
   await runAutomationSchedule(ctx, automationAdapters, limits);
+  await runRecurringRecords(ctx);
 }
 export async function scheduledAutomation(
   env: import("../../app/types").AppBindings,

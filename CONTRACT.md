@@ -1009,7 +1009,7 @@ A database has record templates (default fields and a body), and a template can 
 
 *Acceptance:* a Workers journey advances a scheduled trigger across two occurrences and a restart and finds exactly two records. Revoking the creator's access pauses the schedule with its reason shown.
 
-*Status:* partial. Scheduled automation triggers and page templates exist (`src/core/features/automation/events.ts`, `src/core/features/templates/service.ts`, `tests/qualification/policies/automation-templates.test.ts`); record templates and recurring templates do not.
+*Status:* done. Record templates ship in the default profile on each database's Templates tab: database viewers see them, editors create, edit, delete and use them, and a record made from one gets the template's field values and its body with fresh block identities. A schedule repeats daily, weekly on chosen days, monthly or yearly at a wall-clock time in its creator's personal time zone (the navigation preference, captured when the schedule is saved; UTC when unset). A monthly or yearly day past a shorter month's end runs on that month's last day, and a time skipped by a daylight-saving change runs one hour later that day. Each occurrence's record commits in one batch with that occurrence's row, so a repeated or restarted pass never creates a second record; occurrences missed while the runner was down are created on its next pass. A schedule acts as the member who last saved it. When that member is no longer active or can no longer add records to the database, the next due occurrence pauses the schedule, creates nothing, and shows the reason on the Templates tab; saving it again resumes it as the saver from that moment, without catching up paused occurrences. `tests/e2e/databases/record-templates.test.ts` exercises templates, all four frequencies, two occurrences across a restart, and the pause and its reason.
 
 #### DB-016 — AI autofill fields.
 A field can be an AI field (summary, extraction, classification or translation) computed from the record's own content. It re-runs when its inputs change, cites the record revision it read, is labeled AI-generated, counts against AI budgets (`AI-012`), and never reads records the field's owner cannot read. A member can override a value, and an override is kept until it is cleared.
@@ -1779,8 +1779,8 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 171 | 50 | 0 | 221 |
-| Target and push further | 10 | 52 | 43 | 105 |
-| All | 181 | 102 | 43 | 326 |
+| Target and push further | 11 | 51 | 43 | 105 |
+| All | 182 | 101 | 43 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2043,7 +2043,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `CARD-003` | Required reading and announcements | target | missing | — | not implemented |
 | `DB-013` | Database forms | target | missing | — | not implemented |
 | `DB-014` | Dashboards | target | partial | `src/core/features/databases/ui/workspace/DatabaseChart.tsx` | see the clause |
-| `DB-015` | Record templates and recurring records | target | partial | `src/core/features/automation/events.ts` | see the clause |
+| `DB-015` | Record templates and recurring records | target | done | `tests/e2e/databases/record-templates.test.ts` |  |
 | `DB-016` | AI autofill fields | target | missing | — | not implemented |
 | `NOTIF-004` | Reminders | target | partial | `tests/profile/work-items-journey.ts` | Email/push delivery remains missing; default-profile HTTP and scheduled dispatch cover time zones, offsets, concurrent-safe delivery and revoked access, with 1440/390 browser journeys for page, task and date-mention reminders. |
 | `NOTIF-005` | Email, push and digest delivery | target | missing | — | not implemented |

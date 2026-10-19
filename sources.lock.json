@@ -928,7 +928,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "6aee051e642dca98aa79f5f503ecdde1374d18d858ad99cbad955b7980c77320",
+      "sha256": "93ab819b15ceca2efe161731df58750dbc6b9e571b075f7d0fc53fe418b7e6e9",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -956,7 +956,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "bd1a03c20c0595020c64b4b6fe072bea4b6ceb9c27ac138880cdb6720160ff6c",
+      "sha256": "41ac8602bb8b4b54dcded3917096e7db21dcf3c5989c723f2925b343f1127e1a",
       "executable": false
     },
     "DEMO.md": {
@@ -996,7 +996,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "e2ad9122828126d663ac5ae3b35668f6bfb31c54311818e7e6bc817d89696ad2",
+      "sha256": "eb792faf1672ad60c14a5268b3112cfbf7292d9581940cfe626c02ff4177bfa5",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -1120,7 +1120,7 @@
       "executable": false
     },
     "management/integration/deployment-spec.json": {
-      "sha256": "7f98f56c4a5f404966942ee2e570939acac890935408c6f35183047365d26360",
+      "sha256": "2b9d3652a39ed62f1cbdfccae9dbdb6f75f71d8f7071c7352c6e5a8c181499e9",
       "executable": false
     },
     "management/integration/index.d.mts": {
@@ -1144,7 +1144,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "dcb05afa173050c92ea695a4bf37a27122ec85a53119d756ac7754a25eb09952",
+      "sha256": "59c96c9beb7cf3d2c3cce9f1eed53cc3bce49190a00d43f595c1e8994af58125",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -1313,6 +1313,10 @@
     },
     "migrations/core/0041_analytics_reports.sql": {
       "sha256": "583df37b7ca6c6c8ad72e8db45cb823042238055dc8c708467f3c9ebf0a90d8b",
+      "executable": false
+    },
+    "migrations/core/0042_record_templates.sql": {
+      "sha256": "b6a70547c2791a3f6639427b759846e5c459616721f6e3372723f1afd82b45e0",
       "executable": false
     },
     "modules/d1-transport/index.d.mts": {
@@ -4100,7 +4104,7 @@
       "executable": false
     },
     "seed.json": {
-      "sha256": "e68ce58e45b9d3a3d07f475ce42445dc3113b20b511a8a9a28c389e1c53fb610",
+      "sha256": "918ff414bb51cf712a5d0d7a4d593fdbd430251fbaeed5f11ec551b4d9a6b0d2",
       "executable": false
     },
     "src/base/runtime/contract-filter.ts": {
@@ -4752,7 +4756,7 @@
       "executable": false
     },
     "src/core/features/archive/erasure-derivatives.ts": {
-      "sha256": "5613346aeb3d593aa4d0d6b05e12d0344034663921301c61fe6a5389a154e3ce",
+      "sha256": "0b0986d972c99b983415780dba8c38af6e1280755aa22d06c7a736034be1942f",
       "executable": false
     },
     "src/core/features/archive/erasure-imports.ts": {
@@ -4820,7 +4824,7 @@
       "executable": false
     },
     "src/core/features/automation/events.ts": {
-      "sha256": "029ad0b4cae4036a1dafb76bd77afa2da816b68128e1c78fcd62147cd04486a5",
+      "sha256": "4cc6e5f109e6d967dce02e2de0cf3f3e74abab3205f765a51a17167e7140aad5",
       "executable": false
     },
     "src/core/features/automation/jobs.ts": {
@@ -5128,7 +5132,7 @@
       "executable": false
     },
     "src/core/features/databases/content-plan.ts": {
-      "sha256": "c4da73535d600ca44c2a6d368fcda45c94c6eb5e700a0b1eb75ccd1a3dd29520",
+      "sha256": "a2c469deacd7508674fa590e8187019cdf7eca2edcb3170d6f8421dd7400d535",
       "executable": false
     },
     "src/core/features/databases/dependencies.ts": {
@@ -5155,8 +5159,20 @@
       "sha256": "f9b0a8357710f7ea61235181a75e7e852b15a46cff89796daa0a013abe297887",
       "executable": false
     },
+    "src/core/features/databases/record-templates.ts": {
+      "sha256": "d17ec0ef277c0dda994ff7d55198c71d3b5ef4f2b1f8a64c323dac4ef15650c3",
+      "executable": false
+    },
     "src/core/features/databases/records.ts": {
       "sha256": "aa066fa0f8ab4dd8c417821e91672de55d256e638eb96c9ced67d8b34833694d",
+      "executable": false
+    },
+    "src/core/features/databases/recurrence.ts": {
+      "sha256": "ee1b0a5e27a1bf7b260e6ebacff6f8bb7c820a5f8fe8f597ba61c320c35ca848",
+      "executable": false
+    },
+    "src/core/features/databases/recurring-records.ts": {
+      "sha256": "b2eba0a0d618db52699180938231e8828c8b16119a7f754eb3dcdae4ce1dbe7b",
       "executable": false
     },
     "src/core/features/databases/repository.ts": {
@@ -5164,11 +5180,11 @@
       "executable": false
     },
     "src/core/features/databases/routes.ts": {
-      "sha256": "7a0bf018a9a7240435a6f2a9311a661fb17490f6265852ecdad6dc7de19eaddd",
+      "sha256": "9a8f4d30a9492fd22483a6522c3432a546caf8bb126d7dd5090dd2be1b7afc55",
       "executable": false
     },
     "src/core/features/databases/service.ts": {
-      "sha256": "56f4f95cab39a14aa41b9b20b96064d076c348eeaa6015c4cbe9a38935d12082",
+      "sha256": "a11da981de13312e6c18b3e54ebced09a54677e18332bceec4a88909f151fb14",
       "executable": false
     },
     "src/core/features/databases/STRUCTURED-HANDOVER.md": {
@@ -5316,11 +5332,11 @@
       "executable": false
     },
     "src/core/features/databases/ui/workspace/DatabaseToolbar.tsx": {
-      "sha256": "1991aaae0929ea3a36d64964d7686e06ae79d3028df88803948c7a20ff0472bb",
+      "sha256": "da22c7f4495fab4fcbad09e025d5a0037eb52777587ece1a5cf3120a85fba810",
       "executable": false
     },
     "src/core/features/databases/ui/workspace/DatabaseWorkspace.tsx": {
-      "sha256": "ce244175d357d6046c8c3cf822efde03fc7b422894348ca76086a54db36f738f",
+      "sha256": "024f006b1c13a1000d39f5b44c240de7d1301dcc366ffc59c2d54c3be5704822",
       "executable": false
     },
     "src/core/features/databases/ui/workspace/ExportViewCsv.tsx": {
@@ -5355,6 +5371,10 @@
       "sha256": "010bc4eb796161e971c59076362ddaf2ba0bb61febff09af4ad5cd8f927ca7f8",
       "executable": false
     },
+    "src/core/features/databases/ui/workspace/RecordTemplates.tsx": {
+      "sha256": "d8022d30a635c48a28367bc50f1d06a894f4a8d99272413ce7ffa7d5eae18a27",
+      "executable": false
+    },
     "src/core/features/databases/ui/workspace/RecordValueDialog.tsx": {
       "sha256": "7f3324d56b587ab229cebb7943f974b6847b75be83a908acaf98494fd99ca130",
       "executable": false
@@ -5380,7 +5400,7 @@
       "executable": false
     },
     "src/core/features/databases/validation.ts": {
-      "sha256": "3c2c8706fcba591a96c4f752c88550efe7dd978cac51ae5e41256a51e433d71a",
+      "sha256": "4b17c1f39b7d497ba1cf2a180129da7b3c2037ee8e5eac5e54317f134dca5ff7",
       "executable": false
     },
     "src/core/features/databases/values.ts": {
@@ -7240,7 +7260,7 @@
       "executable": false
     },
     "src/core/features/portability/tables.ts": {
-      "sha256": "812d6e80334ed68875c0ebfc0d4f98032d0050ae4cc40a48105c3ab6a937fdff",
+      "sha256": "e377310c1e76e778069a7edc861e41154ed78fbcd3ebeb937c501fbeca254ba3",
       "executable": false
     },
     "src/core/features/publishing/block-styles.ts": {
@@ -8701,6 +8721,10 @@
     },
     "tests/e2e/databases/field-editing.test.tsx": {
       "sha256": "f5f750b05be2c0568b6ddccf29d427cb9b79525b009acb4fc6ae0a3d9af255e0",
+      "executable": false
+    },
+    "tests/e2e/databases/record-templates.test.ts": {
+      "sha256": "1680e7183a5875bd3d74118ffaa68b07d1ebef930aed38a4404581ef26bef47f",
       "executable": false
     },
     "tests/e2e/dev-key.mjs": {
@@ -10668,7 +10692,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "c7128fcef1bc3e4e25603f3ac5592170ae3dd8ab32d747c4b7dba6b5b232bc50",
+      "sha256": "9449ae6ca7ab30619407d768e3da3e3c29385b5a1c17a116c18590c1458009b1",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {

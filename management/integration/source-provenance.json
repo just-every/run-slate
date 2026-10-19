@@ -49,6 +49,7 @@
     "migrations/core/0038_import_door.sql": "sha256:2dc5eee7d872feb98e80f86dd74ac60ab227ab2b1bb49122774c31ad675d249e",
     "migrations/core/0039_import_door_native_targets.sql": "sha256:b09a6ce761d2992c8314f6ea85742866e565b7e4229bc5dfeeb4e3fb603daa09",
     "migrations/core/0040_guest_policy.sql": "sha256:8cc7748743993c4b4c57b89bf65a6cc7ce99d9e39649ecfde1a9a8f5e1b9de33",
-    "migrations/core/0041_analytics_reports.sql": "sha256:583df37b7ca6c6c8ad72e8db45cb823042238055dc8c708467f3c9ebf0a90d8b"
+    "migrations/core/0041_analytics_reports.sql": "sha256:583df37b7ca6c6c8ad72e8db45cb823042238055dc8c708467f3c9ebf0a90d8b",
+    "migrations/core/0042_record_templates.sql": "sha256:b6a70547c2791a3f6639427b759846e5c459616721f6e3372723f1afd82b45e0"
   }
 }

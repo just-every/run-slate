@@ -266,6 +266,12 @@
       "name": "0041_analytics_reports.sql",
       "sha256": "583df37b7ca6c6c8ad72e8db45cb823042238055dc8c708467f3c9ebf0a90d8b",
       "sql": "-- ADMIN-004: daily aggregate only. No member, session or reading identity is retained.\n-- Empty container_scope denotes a workspace-wide search; these rows are owner-only.\nCREATE TABLE analytics_no_result_searches (\n  workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n  container_scope TEXT NOT NULL,\n  query TEXT NOT NULL,\n  day TEXT NOT NULL,\n  searches INTEGER NOT NULL DEFAULT 1 CHECK(searches > 0),\n  PRIMARY KEY(workspace_id, container_scope, query, day)\n);\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0042_record_templates.sql",
+      "sha256": "b6a70547c2791a3f6639427b759846e5c459616721f6e3372723f1afd82b45e0",
+      "sql": "-- DB-015: record templates (default field values and a body) and their optional calendar schedule.\n-- timezone is the schedule creator's personal time zone when the schedule was saved.\nCREATE TABLE database_record_templates (\n  id TEXT PRIMARY KEY NOT NULL,\n  workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n  database_id TEXT NOT NULL REFERENCES databases(id),\n  name TEXT NOT NULL,\n  record_title TEXT NOT NULL,\n  values_json TEXT NOT NULL DEFAULT '{}' CHECK (json_valid(values_json)),\n  blocks_json TEXT NOT NULL DEFAULT '[]' CHECK (json_valid(blocks_json)),\n  recurrence_json TEXT CHECK (recurrence_json IS NULL OR json_valid(recurrence_json)),\n  timezone TEXT,\n  next_occurrence_at TEXT,\n  creator_member_id TEXT NOT NULL REFERENCES members(id),\n  paused_at TEXT,\n  paused_reason TEXT,\n  created_at TEXT NOT NULL,\n  updated_at TEXT NOT NULL,\n  revision_id TEXT NOT NULL\n);\nCREATE INDEX database_record_templates_database ON database_record_templates(database_id, name);\nCREATE INDEX database_record_templates_due ON database_record_templates(workspace_id, next_occurrence_at) WHERE recurrence_json IS NOT NULL AND paused_at IS NULL;\n-- One row per schedule occurrence, written in the same batch as its record: an occurrence can never create a second record.\nCREATE TABLE database_record_occurrences (\n  template_id TEXT NOT NULL REFERENCES database_record_templates(id),\n  occurrence_at TEXT NOT NULL,\n  record_page_id TEXT NOT NULL,\n  created_at TEXT NOT NULL,\n  PRIMARY KEY (template_id, occurrence_at)\n);\n"
     }
   ],
   "compatibilityDate": "2026-09-08",

@@ -32,6 +32,24 @@ export const recordCreateInput = z.object({
   title: z.string().max(1000),
   values,
 });
+export const recordTemplateInput = z.object({
+  operationKey: key,
+  id: id.optional(),
+  expectedRevisionId: id.optional(),
+  name: z.string().min(1).max(200),
+  title: z.string().max(1000),
+  values,
+  blocks: z.array(z.object({ id, blockType: z.string().min(1).max(80), content: z.unknown(), parentBlockId: id.nullable().optional(), treePosition: z.string().min(1).max(160) })).max(500),
+  recurrence: z.object({
+    frequency: z.enum(["daily", "weekly", "monthly", "yearly"]),
+    time: z.string(),
+    weekdays: z.array(z.number().int()).max(7).optional(),
+    dayOfMonth: z.number().int().optional(),
+    month: z.number().int().optional(),
+  }).nullable(),
+});
+export const templateDeleteInput = z.object({ operationKey: key, expectedRevisionId: id });
+export const templateUseInput = z.object({ operationKey: key });
 export const recordUpdateInput = z.object({
   operationKey: key,
   expectedRevisionId: id,

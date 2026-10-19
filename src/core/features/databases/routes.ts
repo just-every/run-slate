@@ -13,7 +13,11 @@ import {
   fieldInput,
   recordCreateInput,
   recordUpdateInput,
+  recordTemplateInput,
+  templateDeleteInput,
+  templateUseInput,
 } from "./validation";
+import { createFromTemplate, deleteRecordTemplate, listRecordTemplates, saveRecordTemplate } from "./record-templates";
 import { Hono } from "hono";
 import type { AppEnvironment } from "../../app/types";
 import { featureContext } from "../../app/feature-context";
@@ -131,6 +135,16 @@ export function createDatabasesRoutes() {
       ),
       201,
     ),
+  );
+  r.get("/:id/templates", async (c) => c.json(await listRecordTemplates(featureContext(c), c.req.param("id"))));
+  r.post("/:id/templates", async (c) =>
+    c.json(await saveRecordTemplate(featureContext(c), c.req.param("id"), parseInput(recordTemplateInput, await c.req.json()) as import("./record-templates").RecordTemplateInput), 201),
+  );
+  r.post("/:id/templates/:templateId/delete", async (c) =>
+    c.json(await deleteRecordTemplate(featureContext(c), c.req.param("id"), c.req.param("templateId"), parseInput(templateDeleteInput, await c.req.json()))),
+  );
+  r.post("/:id/templates/:templateId/records", async (c) =>
+    c.json(await createFromTemplate(featureContext(c), c.req.param("id"), c.req.param("templateId"), parseInput(templateUseInput, await c.req.json())), 201),
   );
   r.get("/:id/records/:pageId", async (c) => {
     const ctx = featureContext(c);

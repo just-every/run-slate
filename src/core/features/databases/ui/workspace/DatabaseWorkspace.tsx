@@ -2,6 +2,7 @@ import {ViewCriteria} from "./ViewCriteria";
 import {FavouriteControl} from "../../../navigation/ui/workspace/FavouriteControl";
 import {RecordPeek} from "./RecordPeek";
 import {AutomationWorkspace} from "../../../automation/ui/workspace/AutomationWorkspace";
+import {RecordTemplates} from "./RecordTemplates";
 import {DatabaseToolbar, type DatabaseMode} from "./DatabaseToolbar";
 import {FieldsMenu, ViewMenu} from "./DatabaseMenus";
 import {IconLink} from "../../../../app/ui/header/IconAction";
@@ -186,7 +187,7 @@ export function DatabaseWorkspace({ id }: { id: string }) {
                   </button>
                 ) : null}
               </DatabaseToolbar>
-              {mode === "automations" ? <AutomationWorkspace sourceId={id}/> : <>
+              {mode === "automations" ? <AutomationWorkspace sourceId={id}/> : mode === "templates" ? <RecordTemplates databaseId={id} fields={fields} canEdit={canEdit} onCreated={query.reload}/> : <>
               {view?<ViewCriteria view={view} fields={fields} canClear={canEdit&&!locked} onClear={()=>void saveView({...view,filters:[]}).catch(setError)}/>:null}
               {locked ? (
                 <p className="muted">
