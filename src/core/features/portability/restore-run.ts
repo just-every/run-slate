@@ -14,7 +14,7 @@ export async function runWorkspaceRestore(ctx:FeatureContext,job:PortabilityJob)
  if(!source)throw new ApiProblem(409,'MISSING_RESTORE_SOURCE','The staged archive is unavailable.');
  const bytes=new Uint8Array(await source.arrayBuffer());
  if(await requestHash({kind:'restore',archive:await byteHash(bytes)})!==job.request_hash)throw new ApiProblem(409,'STAGED_ARCHIVE_CHANGED','The staged archive no longer matches the admitted request.');
- const {owner,manifest,entries,columns,restoredOwner}=await prepareRestore(ctx,bytes);
+ const {owner,manifest,entries,columns,carried,restoredOwner}=await prepareRestore(ctx,bytes);
  const keys=new Map<string,string>(),importKeys=retainedImportObjectKeys(manifest.tables);
  const importTriggers=await importRestoreTriggers(ctx.db);
  for(const blob of manifest.blobs){const key=importKeys.has(blob.key)?blob.key:`federation/restore/${job.planned_restore_id}/${blob.entry}`;await putTracked(ctx,job,key,entries[blob.entry]!,()=>requireEmptyRestoreTarget(ctx));keys.set(blob.key,key);}
@@ -31,7 +31,8 @@ export async function runWorkspaceRestore(ctx:FeatureContext,job:PortabilityJob)
  const removed=new Set(manifest.tables.members?.filter(member=>member.status==='removed').map(member=>member.id));
  for(const name of Object.keys(manifest.tables))for(const original of manifest.tables[name]!){
   if(removed.has(memberAccess[name]?.(original) as string))continue;
-  const row=restoredRow(name,original,owner.email,now,keys),names=columns[name]!;
+  // Columns an earlier archive lacks are left to their declared defaults.
+  const row=restoredRow(name,original,owner.email,now,keys),names=columns[name]!.filter(column=>carried[name]!.includes(column)||Object.hasOwn(row,column));
   statements.push(ctx.db.prepare(`INSERT ${name==='content_published_revisions'?'OR IGNORE ':name==='import_native_epoch'?'OR REPLACE ':''}INTO "${name}" (${names.map(n=>`"${n}"`).join(',')}) VALUES (${names.map(()=>'?').join(',')})`).bind(...names.map(n=>row[n]??null)));
  }
  statements.push(...importTriggers.after,...checkpointWrites);

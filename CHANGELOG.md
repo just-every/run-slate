@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+A backup made by the previous version now restores. Settings' workspace restore admits an archive from an earlier Slate when later migrations only added tables or columns: tables it lacks stay empty and columns it lacks take their declared default; a table or column that was dropped or renamed, or an archive from a newer Slate, is still refused. `rer import` replays the target's applied migrations with each file's SHA-256, and Slate pins `@runeditrun/rer` 0.2.68, whose restore places an archive by Platform's `rer_migrations` ledger; every vendored Base copy is refreshed to `rer-v0.2.68`.
+
 The hosted demo at demo.run-slate.com moves from a container to rer's native Worker Loader host: each visitor gets their own isolate with SQLite facets for the database and collaboration rooms, files in their own storage, a durable job queue and the cron by alarm. Every vendored Base copy is refreshed together from `rer-v0.2.40`, and the Run demo workflow is Base's template; `deploy-demo.json` drops the retired container size.
 
 A Managed change preview that copied the live app's data now opens with the owner signed in: Slate accepts RER's single-use owner grant (Base's `oa_owner_signins` shape) at `/auth/owner-signin`, only on a preview Worker, once, within 15 minutes, for the active owner. Migration 0034 adds the grant table and a read-only `oa_operators` view of the workspace's members, which RER uses to find the owner.

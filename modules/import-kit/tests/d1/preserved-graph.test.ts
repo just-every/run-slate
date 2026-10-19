@@ -97,7 +97,7 @@ for (const race of ['same-revision', 'incoming', 'second-undo']) test(`preserved
   assert.equal(r.native().prepare('SELECT COUNT(*) AS n FROM ik_d1_reversal_reports').get()!.n, race === 'second-undo' ? 2 : 0);
   if (race !== 'second-undo') assert.equal(r.native().prepare('SELECT COUNT(*) AS n FROM ik_provenance WHERE reversed=0').get()!.n, 2);
 });
-test('edited successor keeps predecessor historical while independent successor effects reverse', async t => {
+test('edited successor keeps the owner edit and releases its predecessor, which then undoes fully, while independent successor effects reverse', async t => {
   const { r, job: first } = await setup(t, 1), predecessor = r.native().prepare('SELECT * FROM ik_provenance').get()!;
   const prior = await sqliteTargets.read(r.db(), 'workspace', 'record', '0');
   const source = sqliteSource(2, 'new export'); source.records.forEach(rec => { rec.namespace = 'second'; });
@@ -107,10 +107,18 @@ test('edited successor keeps predecessor historical while independent successor 
   await applyD1ImportBatches(second.id, ctx);
   r.native().prepare("UPDATE native_records SET value_json=? WHERE id='0'").run(canonicalJson({ id: '0', label: 'successor edit' }));
   await undoD1Import(second.id, ctx);
-  const historical = r.native().prepare('SELECT * FROM ik_d1_history WHERE id=?').get(predecessor.id)!;
-  for (const key of Object.keys(predecessor)) assert.equal(historical[key], predecessor[key]);
+  // The kept edit can never restore the predecessor: it returns to its own job's
+  // provenance as reversed, in the undo's own batch, and leaves no history.
+  assert.equal(r.native().prepare('SELECT COUNT(*) AS n FROM ik_d1_history').get()!.n, 0);
+  const released = r.native().prepare('SELECT * FROM ik_provenance WHERE id=?').get(predecessor.id)!;
+  for (const key of Object.keys(predecessor)) if (!['reversed', 'record_json'].includes(key)) assert.equal(released[key], predecessor[key]);
+  assert.equal(released.reversed, 1);
+  assert.equal(released.record_json, canonicalJson({ ...JSON.parse(predecessor.record_json as string), reversed: true }));
   assert.equal(r.native().prepare('SELECT COUNT(*) AS n FROM native_records').get()!.n, 1);
-  await assert.rejects(undoD1Import(first.id, r.context()), /IMPORT_SUPERSEDED/);
+  assert.equal((await undoD1Import(first.id, r.context())).state, 'undone');
+  const report = await readD1ImportUndoReport(first.id, r.context());
+  assert.deepEqual(report.dispositions.map(d => [d.targetId, d.disposition, d.reason]), [['0', 'retained', 'superseded']]);
+  assert.equal(r.native().prepare("SELECT value_json FROM native_records WHERE id='0'").get()!.value_json, canonicalJson({ id: '0', label: 'successor edit' }));
 });
 test('removed predecessor history is an integrity error even when successor is edited', async t => {
   const { r } = await setup(t, 1);

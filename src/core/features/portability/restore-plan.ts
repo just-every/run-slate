@@ -2,7 +2,7 @@ import {nativeRestoreCheckpoint} from './checkpoint';
 import type {FeatureContext} from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
 import {requireWorkspaceOwner} from '../sharing/current-access';
-import {decodeArchive,schema} from './archive';
+import {decodeArchive,schema,type WorkspaceArchive} from './archive';
 import {portableTables} from './tables';
 import {validateBlockContent} from '../editor/validation';
 import {emptyBootstrapStatusSelect} from './bootstrap-status';
@@ -23,6 +23,28 @@ export async function requireEmptyRestoreTarget(ctx:FeatureContext){
  const empty=await ctx.db.batch<{empty:number}>(emptyTargetSelects.map(sql=>ctx.db.prepare(sql)));
  if(empty.some(result=>!result.results[0]?.empty))throw new ApiProblem(409,'RESTORE_NOT_EMPTY','Restore requires a deployment with no containers or product records.');
 }
+const schemaMismatch=(what:'tables'|'columns')=>new ApiProblem(409,'ARCHIVE_SCHEMA_MISMATCH',`Archive ${what} do not match the installed schema.`);
+// An archive from an earlier Slate restores into today's schema when later
+// migrations only added to it: every archived table and column still exists,
+// tables it lacks stay empty, and columns it lacks take their declared default
+// or NULL. A dropped or renamed table or column, a newer archive, or an added
+// NOT NULL column without a default under archived rows is refused.
+// Returns, per archived table, the installed columns the archive carries.
+async function forwardColumns(db:D1Database,columns:Record<string,string[]>,manifest:WorkspaceArchive){
+ const names=Object.keys(manifest.tables);
+ if(JSON.stringify([...names].sort())!==JSON.stringify(Object.keys(manifest.columns).sort())||names.some(name=>!portableTables.includes(name as never)||!columns[name]))throw schemaMismatch('tables');
+ const carried:Record<string,string[]>={};
+ for(const name of names){
+  const archived=manifest.columns[name]!,installed=columns[name]!;
+  if(!Array.isArray(archived)||new Set(archived).size!==archived.length||archived.some(column=>!installed.includes(column)))throw schemaMismatch('columns');
+  if(archived.length<installed.length&&manifest.tables[name]!.length){
+   const info=(await db.prepare(`PRAGMA table_info("${name}")`).all<{name:string;notnull:number;dflt_value:string|null}>()).results;
+   if(info.some(column=>!archived.includes(column.name)&&column.notnull&&column.dflt_value===null))throw schemaMismatch('columns');
+  }
+  carried[name]=installed.filter(column=>archived.includes(column));
+ }
+ return carried;
+}
 export async function prepareRestore(ctx:FeatureContext,bytes:Uint8Array){
  await requireWorkspaceOwner(ctx);
  const owner=await ctx.db.prepare('SELECT email,is_setup_owner FROM members WHERE id=?').bind(ctx.actor.id).first<{email:string;is_setup_owner:number}>();
@@ -31,11 +53,10 @@ export async function prepareRestore(ctx:FeatureContext,bytes:Uint8Array){
  const checkpoint=await nativeRestoreCheckpoint(ctx.db,manifest.checkpoint);
  const fence=await ctx.db.prepare(checkpoint.select).bind(...checkpoint.values).first<Record<string,number>>();
  if(!fence||Object.values(fence)[0]!==1)throw new ApiProblem(409,'ERASURE_CHECKPOINT','This archive predates a retained redaction checkpoint.');
- if(JSON.stringify(Object.keys(columns).sort())!==JSON.stringify(Object.keys(manifest.tables).sort()))throw new ApiProblem(409,'ARCHIVE_SCHEMA_MISMATCH','Archive tables do not match the installed schema.');
+ const carried=await forwardColumns(ctx.db,columns,manifest);
  for(const name of Object.keys(manifest.tables)){
-  if(!portableTables.includes(name as never)||JSON.stringify(columns[name])!==JSON.stringify(manifest.columns[name]))throw new ApiProblem(409,'ARCHIVE_SCHEMA_MISMATCH','Archive columns do not match the installed schema.');
   for(const row of manifest.tables[name]!){
-   if(Object.keys(row).some(k=>!columns[name]!.includes(k))||Object.values(row).some(v=>v!==null&&typeof v!=='string'&&typeof v!=='number'))throw new ApiProblem(400,'INVALID_ARCHIVE_ROW','Archive record is invalid.');
+   if(Object.keys(row).some(k=>!carried[name]!.includes(k))||Object.values(row).some(v=>v!==null&&typeof v!=='string'&&typeof v!=='number'))throw new ApiProblem(400,'INVALID_ARCHIVE_ROW','Archive record is invalid.');
    try{
     if(name==='page_blocks')validateBlockContent(String(row.block_type),JSON.parse(String(row.content_json)));
     if(name==='page_revisions'){
@@ -50,5 +71,5 @@ export async function prepareRestore(ctx:FeatureContext,bytes:Uint8Array){
  if(owners?.length!==1)throw new ApiProblem(409,'RESTORE_OWNER_MISSING','Archive must contain the authenticated setup owner email.');
  if(owners[0]!.status==='removed'||owners[0]!.member_kind!=='member')throw new ApiProblem(409,'RESTORE_OWNER_REMOVED','You were removed from, or were a guest in, the archived workspace. Restore as a full member who was not removed.');
  await requireEmptyRestoreTarget(ctx);
- return {owner,manifest,entries,columns,restoredOwner:owners[0]!};
+ return {owner,manifest,entries,columns,carried,restoredOwner:owners[0]!};
 }

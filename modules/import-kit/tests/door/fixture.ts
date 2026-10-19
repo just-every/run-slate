@@ -91,8 +91,9 @@ export async function door(t: TestContext, mode: 'grant' | 'operator' = 'grant')
     const response=await fetch(origin+(state.via==='operator'?'/api/operator/import/':'/api/rer/import/')+action,{method:'POST',headers:{'Content-Type':'application/json',...state.headers,...(state.via==='operator'?{Origin:origin,Cookie:'test-owner-session'}:{Authorization:'Bearer '+(signed ?? await token(action,overrides))})},body:JSON.stringify(body)});
     return {status:response.status,body:await response.json() as any};
   }
-  async function upload(records:unknown[],overrides:Partial<DoorGrant>={}) {
-    const bytes=Buffer.from(JSON.stringify(records)),totalChunks=Math.ceil(bytes.length/65_536),hash=sha256(bytes);
+  /** Records upload as one JSON array; a Buffer uploads as given. */
+  async function upload(records:unknown[]|Buffer,overrides:Partial<DoorGrant>={}) {
+    const bytes=Buffer.isBuffer(records)?records:Buffer.from(JSON.stringify(records)),totalChunks=Math.ceil(bytes.length/65_536),hash=sha256(bytes);
     let uploadId:string|undefined;
     // Reverse chunk order proves resumable, out-of-order admission.
     for(let index=totalChunks-1;index>=0;index--) {
@@ -104,7 +105,7 @@ export async function door(t: TestContext, mode: 'grant' | 'operator' = 'grant')
     }
     return uploadId!;
   }
-  async function plan(records:unknown[],extra:Record<string,unknown>={},overrides:Partial<DoorGrant>={}) {
+  async function plan(records:unknown[]|Buffer,extra:Record<string,unknown>={},overrides:Partial<DoorGrant>={}) {
     const uploadId=await upload(records),result=await call('plan',{uploadId,...extra},overrides);
     return result;
   }
