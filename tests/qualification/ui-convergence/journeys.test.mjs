@@ -26,6 +26,7 @@ import { sharedNavigationJourney } from './shared-navigation-journey.mjs';
 import { globalCreateJourney } from './global-create-journey.mjs';
 import { starterTemplatesJourney } from './starter-templates-journey.mjs';
 import { taskAssignmentJourney } from './task-assignment-journey.mjs';
+import { recordTemplatesJourney } from './record-templates-journey.mjs';
 import { pageLockBrowserJourney } from './page-lock-journey.mjs';
 import { outlineJourney } from './outline-journey.mjs';
 import { groupMentionJourney } from './group-mentions-journey.mjs';
@@ -111,6 +112,12 @@ for (const width of [1440, 390]) {
         await state.page.screenshot({ path: `.artifacts/ui-convergence/starter-templates-${width}-failure.png`, fullPage: true });
         throw cause;
       });
+    });
+  });
+  test(`DB-015 — a database's Templates tab says a schedule runs as its last saver, and a re-save hands it over at ${width}px`, { timeout: 240000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await withSecondPerson(state, width, people => recordTemplatesJourney(state, people));
     });
   });
   test(`BLOCK-016 — a task report shows each reader only the tasks they can read, completes one on its page and stays a sign-in notice when published at ${width}px`, { timeout: 240000 }, async () => {

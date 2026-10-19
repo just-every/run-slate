@@ -12,7 +12,7 @@ const zone = 'Australia/Sydney';
 const local = (iso: string) => Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: zone, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', weekday: 'short', hourCycle: 'h23' }).formatToParts(new Date(iso)).map(p => [p.type, p.value]));
 const later = (iso: string, minutes: number) => new Date(Date.parse(iso) + minutes * 60000).toISOString();
 
-contract('DB-015', 'record templates fill fields and a body; a weekly schedule in the creator\'s time zone creates exactly one record per occurrence across restarts and pauses with its reason when the creator loses access', async () => {
+contract('DB-015', 'record templates fill fields and a body; a weekly schedule in its last saver\'s time zone creates exactly one record per occurrence across restarts, runs as its last saver and pauses with its reason when that saver loses access', async () => {
   const { workspaceId } = await seedWorkspace();
   const people: Record<string, { id: string; cookie: string }> = {};
   for (const name of ['owner', 'editor']) {
@@ -30,7 +30,7 @@ contract('DB-015', 'record templates fill fields and a body; a weekly schedule i
     return value;
   };
   const op = () => crypto.randomUUID();
-  // The schedule's creator works in Sydney; the schedule takes their personal time zone.
+  // The schedule's last saver works in Sydney; the schedule takes their personal time zone.
   await call('PUT', '/navigation/preferences', 'editor', { operationKey: op(), expectedRevisionId: null, value: { sidebarCollapsed: false, collapsedContainers: [], timezone: zone, quietRoutine: true } });
   const db = await call('POST', '/databases', 'editor', { operationKey: op(), containerId, title: 'Team syncs' });
   await call('POST', `/databases/${db.value.id}/fields`, 'editor', { operationKey: op(), expectedRevisionId: db.value.revisionId, field: { id: 'points', name: 'Points', type: 'number', config: {}, position: 0 } });
@@ -83,16 +83,16 @@ contract('DB-015', 'record templates fill fields and a body; a weekly schedule i
   expect(local(nextOccurrence({ frequency: 'monthly', dayOfMonth: 31, time: '07:30' }, zone, '2026-11-01T00:00:00.000Z'))).toMatchObject({ month: '11', day: '30', hour: '07' });
   expect(local(nextOccurrence({ frequency: 'yearly', month: 2, dayOfMonth: 29, time: '07:30' }, zone, '2027-01-01T00:00:00.000Z'))).toMatchObject({ year: '2027', month: '02', day: '28' });
 
-  // The owner revokes the creator's access: the next occurrence pauses the schedule with its reason and creates nothing.
+  // The owner revokes the last saver's access: the next occurrence pauses the schedule with its reason and creates nothing.
   await call('POST', '/sharing', 'owner', { operationKey: op(), targetKind: 'container', targetId: containerId, id: grantId, principalKind: 'member', principalId: people.editor.id, level: 'edit', revoke: true });
   const third: string = (await call('GET', `/databases/${db.value.id}/templates`, 'owner')).items[0].nextOccurrenceAt;
   await scheduledAutomation(env, third);
   await scheduledAutomation(env, later(third, 60 * 24 * 7));
   expect(await scheduled()).toBe(2);
   const paused = (await call('GET', `/databases/${db.value.id}/templates`, 'owner')).items[0];
-  expect(paused).toMatchObject({ pausedAt: third, nextOccurrenceAt: null, creator: { id: people.editor.id } });
+  expect(paused).toMatchObject({ pausedAt: third, nextOccurrenceAt: null, lastSaver: { id: people.editor.id, name: 'editor Person' }, creator: { id: people.editor.id } });
   expect(paused.pausedReason).toBe('Paused: editor Person can no longer add records to this database. Save the schedule again to resume it as yourself.');
   // Saving it again resumes it as the saver, from now.
   const resumed = await call('POST', `/databases/${db.value.id}/templates`, 'owner', { operationKey: op(), id: paused.id, expectedRevisionId: paused.revisionId, name: paused.name, title: paused.title, values: paused.values, blocks: body, recurrence: paused.recurrence });
-  expect((await call('GET', `/databases/${db.value.id}/templates`, 'owner')).items[0]).toMatchObject({ pausedAt: null, pausedReason: null, creator: { id: people.owner.id }, nextOccurrenceAt: resumed.value.nextOccurrenceAt });
+  expect((await call('GET', `/databases/${db.value.id}/templates`, 'owner')).items[0]).toMatchObject({ pausedAt: null, pausedReason: null, lastSaver: { id: people.owner.id, name: 'owner Person' }, nextOccurrenceAt: resumed.value.nextOccurrenceAt });
 });

@@ -21,8 +21,8 @@ export interface RecordTemplateRow {
   recurrence_json: string | null;
   timezone: string | null;
   next_occurrence_at: string | null;
-  creator_member_id: string;
-  creator_name: string | null;
+  creator_member_id: string; // the member who last saved the template: the schedule runs as them
+  last_saver_name: string | null;
   paused_at: string | null;
   paused_reason: string | null;
   revision_id: string;
@@ -37,22 +37,27 @@ export interface RecordTemplateInput {
   blocks: BlockInput[];
   recurrence: Recurrence | null;
 }
-const view = (r: RecordTemplateRow) => ({
-  id: r.id,
-  databaseId: r.database_id,
-  name: r.name,
-  title: r.record_title,
-  values: JSON.parse(r.values_json) as Values,
-  blocks: JSON.parse(r.blocks_json) as BlockInput[],
-  recurrence: r.recurrence_json ? (JSON.parse(r.recurrence_json) as Recurrence) : null,
-  timezone: r.timezone,
-  nextOccurrenceAt: r.paused_at ? null : r.next_occurrence_at,
-  creator: { id: r.creator_member_id, name: r.creator_name },
-  pausedAt: r.paused_at,
-  pausedReason: r.paused_reason,
-  revisionId: r.revision_id,
-});
-const SELECT = "SELECT t.*,m.display_name AS creator_name FROM database_record_templates t LEFT JOIN members m ON m.id=t.creator_member_id";
+const view = (r: RecordTemplateRow) => {
+  const lastSaver = { id: r.creator_member_id, name: r.last_saver_name };
+  return {
+    id: r.id,
+    databaseId: r.database_id,
+    name: r.name,
+    title: r.record_title,
+    values: JSON.parse(r.values_json) as Values,
+    blocks: JSON.parse(r.blocks_json) as BlockInput[],
+    recurrence: r.recurrence_json ? (JSON.parse(r.recurrence_json) as Recurrence) : null,
+    timezone: r.timezone,
+    nextOccurrenceAt: r.paused_at ? null : r.next_occurrence_at,
+    lastSaver,
+    /** Deprecated alias of lastSaver, kept for clients written before the rename: the member is the last saver, not the original creator. */
+    creator: lastSaver,
+    pausedAt: r.paused_at,
+    pausedReason: r.paused_reason,
+    revisionId: r.revision_id,
+  };
+};
+const SELECT = "SELECT t.*,m.display_name AS last_saver_name FROM database_record_templates t LEFT JOIN members m ON m.id=t.creator_member_id";
 export async function templateRow(ctx: FeatureContext, databaseId: string, id: string) {
   const row = await ctx.db.prepare(`${SELECT} WHERE t.id=? AND t.database_id=? AND t.workspace_id=?`).bind(id, databaseId, ctx.actor.workspaceId).first<RecordTemplateRow>();
   if (!row) throw new ApiProblem(404, "NOT_FOUND", "Not found.");
@@ -63,13 +68,13 @@ export async function listRecordTemplates(ctx: FeatureContext, databaseId: strin
   const rows = await ctx.db.prepare(`${SELECT} WHERE t.database_id=? AND t.workspace_id=? ORDER BY t.name,t.id`).bind(databaseId, ctx.actor.workspaceId).all<RecordTemplateRow>();
   return { items: rows.results.map(view) };
 }
-/** The schedule runs in its creator's personal time zone (navigation preferences), captured when the schedule is saved. */
+/** The schedule runs in its last saver's personal time zone (navigation preferences), captured when the schedule is saved. */
 export async function memberTimezone(ctx: FeatureContext, memberId: string) {
   const row = await ctx.db.prepare("SELECT value_json FROM discovery_preferences WHERE member_id=?").bind(memberId).first<{ value_json: string }>();
   const zone = row ? (JSON.parse(row.value_json) as { timezone?: string }).timezone : undefined;
   return zone && validTimezone(zone) ? zone : "UTC";
 }
-/** Saving a template makes the saver its creator, the identity its schedule acts as; saving resumes a paused schedule from now. */
+/** Saving a template makes the saver its last saver, the identity its schedule acts as; saving resumes a paused schedule from now. */
 export async function saveRecordTemplate(ctx: FeatureContext, databaseId: string, input: RecordTemplateInput) {
   if (!input.name.trim()) throw new ApiProblem(400, "INVALID_TEMPLATE", "Name the template.");
   const recurrence = input.recurrence ? validateRecurrence(input.recurrence) : null;

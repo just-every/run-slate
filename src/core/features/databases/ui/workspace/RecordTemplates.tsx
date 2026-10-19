@@ -8,7 +8,7 @@ import type { FieldDto } from "../../../../client/records";
 type Recurrence = { frequency: "daily" | "weekly" | "monthly" | "yearly"; time: string; weekdays?: number[]; dayOfMonth?: number; month?: number };
 interface TemplateDto {
   id: string; name: string; title: string; values: Record<string, unknown>; blocks: { id: string; blockType: string; content: unknown; treePosition: string }[];
-  recurrence: Recurrence | null; timezone: string | null; nextOccurrenceAt: string | null; creator: { id: string; name: string | null };
+  recurrence: Recurrence | null; timezone: string | null; nextOccurrenceAt: string | null; lastSaver: { id: string; name: string | null };
   pausedAt: string | null; pausedReason: string | null; revisionId: string;
 }
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -60,7 +60,7 @@ export function RecordTemplates({ databaseId, fields, canEdit, onCreated }: { da
   return (
     <section className="record-templates" aria-label="Record templates">
       <div className="db-actions">
-        <p className="muted">A template sets a new record's fields and body. A schedule creates a record at its time in its creator's time zone.</p>
+        <p className="muted">A template sets a new record's fields and body. A schedule creates a record at its time in the time zone of the member who last saved it.</p>
         {canEdit ? <button className="tool tool-primary" type="button" onClick={() => open("new")}>New template</button> : null}
       </div>
       {error ? <p role="alert">{errorMessage(error)}</p> : null}
@@ -72,7 +72,7 @@ export function RecordTemplates({ databaseId, fields, canEdit, onCreated }: { da
             <li key={t.id} className="card">
               <h3>{t.name}</h3>
               <p>{schedule(t)}</p>
-              {t.pausedReason ? <p role="status" className="warning">{t.pausedReason}</p> : t.nextOccurrenceAt ? <p className="muted">Next record {new Date(t.nextOccurrenceAt).toLocaleString(undefined, { timeZone: t.timezone ?? undefined, dateStyle: "medium", timeStyle: "short" })}, created as {t.creator.name ?? "its creator"}</p> : null}
+              {t.pausedReason ? <p role="status" className="warning">{t.pausedReason}</p> : t.nextOccurrenceAt ? <p className="muted">Next record {new Date(t.nextOccurrenceAt).toLocaleString(undefined, { timeZone: t.timezone ?? undefined, dateStyle: "medium", timeStyle: "short" })}, runs as {t.lastSaver.name ?? "its last saver"}</p> : null}
               {canEdit ? (
                 <div className="db-actions">
                   <button className="tool" type="button" onClick={() => void mutate<{ value: { pageId: string } }>(`/api/databases/${databaseId}/templates/${t.id}/records`, { operationKey: operationKey() }).then(async () => { setNotice(`Created “${t.title}” from ${t.name}.`); await onCreated(); }).catch(setError)}>Use template</button>

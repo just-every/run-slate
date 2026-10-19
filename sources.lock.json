@@ -928,7 +928,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "f3d8c587eeba3cf030a170821f232e333b8c1cef5d28eb34e81944f37901df64",
+      "sha256": "1ec91992a882f9f913b2776875fffda12eb0a1f9f8141af3e34a89befbd817db",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -956,7 +956,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "bce90e2fb79c45d670d2da8ed58f76aa0179ab5f4d0a08454b992569c3c84712",
+      "sha256": "0e07ea06520b237df130ea5af2814901849d9aa4343cea334a622084113eed02",
       "executable": false
     },
     "DEMO.md": {
@@ -996,7 +996,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "cab6eb5e0eb0b154f5e48bf5b346500b795262ba66b318f640777c551083df9e",
+      "sha256": "8406f68e3953a9fa5c10f7a8bce5b4b5731ec183144a9749077657972e9d86e5",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -1120,7 +1120,7 @@
       "executable": false
     },
     "management/integration/deployment-spec.json": {
-      "sha256": "2b9d3652a39ed62f1cbdfccae9dbdb6f75f71d8f7071c7352c6e5a8c181499e9",
+      "sha256": "684986cffd7858a14b5add4e3159fd0b47f2e83aa9f879f5152649ba3a675f4e",
       "executable": false
     },
     "management/integration/index.d.mts": {
@@ -1144,7 +1144,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "59c96c9beb7cf3d2c3cce9f1eed53cc3bce49190a00d43f595c1e8994af58125",
+      "sha256": "b07dde64811137859b5748147844157ce11f84fbf6d6c1a9af2c29ca0932bb0f",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -1316,7 +1316,7 @@
       "executable": false
     },
     "migrations/core/0042_record_templates.sql": {
-      "sha256": "b6a70547c2791a3f6639427b759846e5c459616721f6e3372723f1afd82b45e0",
+      "sha256": "2e3e85de4bd4cc82d8963248e382c23c633f1f0adce2ebc4798451021e5a3a8d",
       "executable": false
     },
     "modules/d1-transport/index.d.mts": {
@@ -5160,7 +5160,7 @@
       "executable": false
     },
     "src/core/features/databases/record-templates.ts": {
-      "sha256": "d17ec0ef277c0dda994ff7d55198c71d3b5ef4f2b1f8a64c323dac4ef15650c3",
+      "sha256": "ca8bdab92944e672086856a9205892aa16602cfab669507c63c72283ed798147",
       "executable": false
     },
     "src/core/features/databases/records.ts": {
@@ -5172,7 +5172,7 @@
       "executable": false
     },
     "src/core/features/databases/recurring-records.ts": {
-      "sha256": "b2eba0a0d618db52699180938231e8828c8b16119a7f754eb3dcdae4ce1dbe7b",
+      "sha256": "69282b978ac008701666c5a6344158076b372adbbed763110dff3c855be425fc",
       "executable": false
     },
     "src/core/features/databases/repository.ts": {
@@ -5372,7 +5372,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/workspace/RecordTemplates.tsx": {
-      "sha256": "d8022d30a635c48a28367bc50f1d06a894f4a8d99272413ce7ffa7d5eae18a27",
+      "sha256": "05e8ea9aac12a734b780fb0ef2b31128998af26a8f0e97e284ab5a71030da761",
       "executable": false
     },
     "src/core/features/databases/ui/workspace/RecordValueDialog.tsx": {
@@ -8728,7 +8728,7 @@
       "executable": false
     },
     "tests/e2e/databases/record-templates.test.ts": {
-      "sha256": "1680e7183a5875bd3d74118ffaa68b07d1ebef930aed38a4404581ef26bef47f",
+      "sha256": "237990181595deec1694637821051cd9c25e264f1307bf214c4b7a11ecfbc2cb",
       "executable": false
     },
     "tests/e2e/dev-key.mjs": {
@@ -10596,7 +10596,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "f71bfe64da23680059e57528634a2a168e110367f9578f444f709c552b08f48d",
+      "sha256": "42b649ab3f16e02ebdf391a1d148f44aee73712b06947e9f349a643db533f69e",
       "executable": false
     },
     "tests/qualification/ui-convergence/my-tasks-journey.mjs": {
@@ -10637,6 +10637,10 @@
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
       "sha256": "86396c77fa27c01aab94034961ee438c15effd3c77db050c361e0b4ecf340a0f",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/record-templates-journey.mjs": {
+      "sha256": "fd723018aaac1bc8ceb1623fbdc34a74caf6d58a0df1e752a9ca1d9d64bd79ff",
       "executable": false
     },
     "tests/qualification/ui-convergence/review-request-journey.mjs": {

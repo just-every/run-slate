@@ -1,5 +1,6 @@
 -- DB-015: record templates (default field values and a body) and their optional calendar schedule.
--- timezone is the schedule creator's personal time zone when the schedule was saved.
+-- timezone is the personal time zone of the member who last saved the schedule, captured when it was saved.
+-- creator_member_id names that last saver (a re-save replaces it): the member the schedule runs as.
 CREATE TABLE database_record_templates (
   id TEXT PRIMARY KEY NOT NULL,
   workspace_id TEXT NOT NULL REFERENCES workspaces(id),
