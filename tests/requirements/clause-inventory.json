@@ -3321,6 +3321,13 @@
       "status": "unproven",
       "unmetReason": "A tagged default-profile Workers journey exercises record templates, schedules, restarts and the access pause; independent release acceptance is separate.",
       "supportingTests": []
+    },
+    {
+      "id": "TMPL-007",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Tagged default-profile Workers and desktop/mobile browser journeys exercise the starter gallery, creation and duplication; independent release acceptance is separate.",
+      "supportingTests": []
     }
   ]
 }

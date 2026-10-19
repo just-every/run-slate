@@ -887,7 +887,7 @@ Slate ships starter templates that work from the first sign-in: meeting notes (a
 
 *Acceptance:* a browser journey finds each named starter template in the gallery by category, previews it, creates a page from meeting notes and assigns a task in it, and duplicates the retrospective into an editable copy while the shipped template stays unchanged.
 
-*Status:* partial. Shipped templates are protected from editing and erasure (`src/core/features/templates/service.ts`, `src/core/features/templates/erasure.ts`); no starter set ships.
+*Status:* done. Every workspace has the eleven starters as shipped workspace templates (`src/core/features/templates/starters.ts`) from the first template read after its first sign-in, under the categories Meetings (meeting notes, retrospective), Decisions, Documentation (how-to, troubleshooting), Planning (product requirements, project plan), Operations (runbook), Teams (onboarding page, team home) and Policies (policy page). Meeting notes carry attendees, an agenda and unassigned action-item tasks that the page's editors assign with owners and due dates under `BLOCK-015`. Product requirements carry a task report of open tasks and an Issues section where each pasted issue link becomes an embedded card (`EMBED-003`); live tracker issue cards are `EMBED-001`. The policy page names its owner and a review date, and the page's owner is the member who creates it. A starter never changes in a workspace except when a Slate release changes the starter set, which updates the shipped copies on the next template read; duplicates are independent editable templates. `tests/e2e/pages/starter-templates.test.ts` and `tests/qualification/ui-convergence/starter-templates-journey.mjs` (1440 and 390) exercise the gallery, previews, creation, task assignment and duplication.
 
 #### NAV-007 — My tasks.
 Every member has a My tasks view, reachable from Home and the sidebar. It lists the tasks assigned to them and, in a second tab, the tasks they created, across every page they can read. It filters by open, completed and overdue, by container and by due-date range, sorts by due date (undated tasks last), page or container, and paginates stably while tasks change. Completing a task in the list completes it on its page under the page's edit check (`BLOCK-007`). A task leaves the list when its page becomes unreadable to the member, is a draft they cannot read (`LIFE-002`) or is in the trash. Guests see only tasks on pages shared with them.
@@ -1779,8 +1779,8 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 171 | 50 | 0 | 221 |
-| Target and push further | 11 | 51 | 43 | 105 |
-| All | 182 | 101 | 43 | 326 |
+| Target and push further | 12 | 50 | 43 | 105 |
+| All | 183 | 100 | 43 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2029,7 +2029,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `PAGE-016` | Autowatch on create and edit | target | done | `tests/flagship/discovery/following.test.ts` |  |
 | `WORK-016` | People directory and expertise | target | missing | — | not implemented |
 | `SHARE-009` | Share with a message | target | partial | `tests/qualification/backend/emitted.mjs` | see the clause |
-| `TMPL-007` | Starter templates | target | partial | `src/core/features/templates/service.ts` | see the clause |
+| `TMPL-007` | Starter templates | target | done | `tests/e2e/pages/starter-templates.test.ts`, `tests/qualification/ui-convergence/starter-templates-journey.mjs` |  |
 | `NAV-007` | My tasks | target | done | `tests/profile/work-items-journey.ts` |  |
 | `SEARCH-010` | Labels and advanced search | target | done | `tests/e2e/search/discovery-journey.ts` |  |
 | `SEARCH-011` | Verified-first ranking and trust badges | target | partial | `tests/e2e/search/discovery-journey.ts` | Search, internal cards and member content queries show revision-aware trust; ranking, similarity controls and sorting have Workers and 1440/390 browser evidence. Gap: answer trust and anonymous public card/query trust metadata remain missing. |

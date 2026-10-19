@@ -11,6 +11,7 @@ import { destination } from "../pages/service";
 import { labelForReader } from "../pages/mentions";
 import { createUlid } from "../../shared/ulid";
 import { revision } from "../databases/repository";
+import { ensureStarterTemplates } from "./starters";
 import {
   snapshotPage,
   currentSnapshot,
@@ -31,6 +32,7 @@ interface TemplateRow {
 }
 async function template(ctx: FeatureContext, id: string, edit = false) {
   await currentSubject(ctx);
+  await ensureStarterTemplates(ctx);
   const t = await ctx.db
     .prepare("SELECT * FROM knowledge_templates WHERE id=? AND workspace_id=?")
     .bind(id, ctx.actor.workspaceId)
@@ -56,6 +58,7 @@ export async function listTemplates(
   } = {},
 ) {
   await currentSubject(ctx);
+  await ensureStarterTemplates(ctx);
   if (options.containerId)
     await requireContainerLevel(ctx, options.containerId, "view");
   const result = await ctx.db
