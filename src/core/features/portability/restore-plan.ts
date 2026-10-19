@@ -9,14 +9,16 @@ import {emptyBootstrapStatusSelect} from './bootstrap-status';
 import {emptyBootstrapJobsSelect} from './bootstrap-jobs';
 // Native bootstrap creates identity, policy, an untouched default vocabulary
 // and a successful scheduler heartbeat before a newcomer creates content.
-// Every other product row (including any customized vocabulary) blocks restore.
-const productTables=portableTables.filter(name=>!['workspaces','members','workspace_policies','status_entries','core_job_failures','import_native_epoch'].includes(name));
+// Empty searches can also leave operational statistics before any content exists.
+// They are replaced atomically with bootstrap custody on an authorized restore.
+// Every authored product row (including customized vocabulary) blocks restore.
+const productTables=portableTables.filter(name=>!['workspaces','members','workspace_policies','status_entries','core_job_failures','import_native_epoch','analytics_no_result_searches'].includes(name));
 // Keep each statement below D1's expression-depth and compound-select limits.
 export const emptyTargetSelects=[emptyBootstrapStatusSelect,emptyBootstrapJobsSelect,...Array.from({length:Math.ceil(productTables.length/24)},(_,i)=>`SELECT ${productTables.slice(i*24,(i+1)*24).map(name=>`NOT EXISTS(SELECT 1 FROM "${name}")`).join(' AND ')} AS empty`)];
 // A setup bootstrap's authentication custody, response caches and untouched
 // vocabulary: discarded when a restore replaces the workspace. These rows can
 // reference the disposable owner/workspace even before product data exists.
-export const bootstrapCustodyTables=['auth_identity_audit','auth_identity_logout','rer_dependency_pending','rer_dependency_codes','rer_dependency_keys','rer_dependency_link','rer_dependency_installation','mail_deliveries','auth_proofs','auth_limits','member_identity_bindings','sessions','magic_links','invitations','identity_states','rer_mail_development_outbox','operation_receipts','discovery_snapshots','status_entries','core_job_failures','member_authority','members','workspace_policies','workspaces'];
+export const bootstrapCustodyTables=['analytics_no_result_searches','auth_identity_audit','auth_identity_logout','rer_dependency_pending','rer_dependency_codes','rer_dependency_keys','rer_dependency_link','rer_dependency_installation','mail_deliveries','auth_proofs','auth_limits','member_identity_bindings','sessions','magic_links','invitations','identity_states','rer_mail_development_outbox','operation_receipts','discovery_snapshots','status_entries','core_job_failures','member_authority','members','workspace_policies','workspaces'];
 export async function requireEmptyRestoreTarget(ctx:FeatureContext){
  const empty=await ctx.db.batch<{empty:number}>(emptyTargetSelects.map(sql=>ctx.db.prepare(sql)));
  if(empty.some(result=>!result.results[0]?.empty))throw new ApiProblem(409,'RESTORE_NOT_EMPTY','Restore requires a deployment with no containers or product records.');

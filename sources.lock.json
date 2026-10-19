@@ -956,7 +956,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "8274df381b9b56639d41fc180c312dbb5acc0f909b357bb6789997e04debce31",
+      "sha256": "bd1a03c20c0595020c64b4b6fe072bea4b6ceb9c27ac138880cdb6720160ff6c",
       "executable": false
     },
     "DEMO.md": {
@@ -7220,7 +7220,7 @@
       "executable": false
     },
     "src/core/features/portability/restore-plan.ts": {
-      "sha256": "3a8a4c6b2a4c1ef4976be625e3a310df0925549479c0329378ec53870078dddd",
+      "sha256": "e7aaab7058d18792ad6f4eefac4fd556eae8dac91d9e90be740f91c9f2452908",
       "executable": false
     },
     "src/core/features/portability/restore-run.ts": {

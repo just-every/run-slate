@@ -1772,7 +1772,7 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the current code and the implementation evidence cited in each row (19 October 2026).
+Judged from the code and tests at commit `3b61e396f1aa834d05031799eb9b84ac18ba0982` (19 October 2026).
 
 See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance.
 
