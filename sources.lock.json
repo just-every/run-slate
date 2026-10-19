@@ -928,7 +928,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "c55f59d2d4035e12f1d4d95b748743fc54a90378347de74be5feb16122d64b4a",
+      "sha256": "1adb738025dcc0ac74876c036e8c99bfd50dae4e83769651816bea05aaaa90f3",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -956,7 +956,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "2c875ce89b38ea969d20a951a593d419005441109c1e2f364964f1bf0cc94043",
+      "sha256": "f786d7e68166d25050d44e891062d88fce0795bbbfb1988a7625a850a2952392",
       "executable": false
     },
     "DEMO.md": {
@@ -996,7 +996,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "6a0f6d7074122a0622b56d332e6a343d14e7cff56c3dd69d5a1b130d33521ee0",
+      "sha256": "7441c981eb79d1babc963f76859e0387ee021b4f9c87973d66eeb1747e96ce23",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -9648,7 +9648,7 @@
       "executable": false
     },
     "tests/profile/profile.worker.test.ts": {
-      "sha256": "365916d9c2c0d93413910bdf89feede7151b0403b1b80764df58d202d5bf96ff",
+      "sha256": "e463931169753c5cd4e0f43f1dfb9986866b4e51a57fb63755f1deac4e599002",
       "executable": false
     },
     "tests/profile/vitest.config.ts": {
@@ -9656,7 +9656,7 @@
       "executable": false
     },
     "tests/profile/work-items-journey.ts": {
-      "sha256": "18893c01ab1424ffbd80dc831a37f7e745f5bc08b31e710e72e320a861ac74d6",
+      "sha256": "179368e07ffdbdd2d45c3898a1683663ceb343a6bbd5fd9f564f84486816886f",
       "executable": false
     },
     "tests/qualification/authority/atomic-recovery.test.ts": {
@@ -10716,7 +10716,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "2260163d1ddc6bae9db7e5cb14e64729776bd20466d2c55a55b6a277cf8c03e8",
+      "sha256": "40e6eb5385d61f3ee1e1b7bff25280625e3dde4d6ee3fde3e033fd1dc37f8f71",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {

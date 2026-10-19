@@ -6,16 +6,21 @@ import {createUlid} from '../../src/core/shared/ulid';
 import {dispatchDueReminders} from '../../src/core/features/reminders/delivery';
 import {processNotificationOutbox} from '../../src/core/features/notifications/outbox';
 import type {FeatureContext} from '../../src/core/app/feature-context';
-/** Extend the existing default-profile public journey without increasing the test count. */
-export async function workItemsJourney(api:ReturnType<typeof createApi>,containerId:string,ownerId:string,workspaceId:string,ownerCookie:string){
+/** Two members beside the owner, and the owner's HTTP helpers, for the task, reminder and report journeys. */
+export async function workItems(api:ReturnType<typeof createApi>,containerId:string,ownerId:string,workspaceId:string,ownerCookie:string){
  const reader=(await seedMember(workspaceId,{role:'member',displayName:'Task reader',email:`${createUlid()}@tasks.test`})).memberId,other=(await seedMember(workspaceId,{role:'member',displayName:'Task other',email:`${createUlid()}@tasks.test`})).memberId;
  const cookies:{[key:string]:string}={[ownerId]:ownerCookie,[reader]:await sessionFor(reader),[other]:await sessionFor(other)};
  const request=async(method:string,path:string,body?:unknown,actor=ownerId)=>{const r=await api.request(`https://slate.example${path}`,{method,headers:{cookie:cookies[actor]!,'content-type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)},env);return {status:r.status,data:await r.json<any>()};};
  const create=async(title:string,options:{containerId?:string;parentPageId?:string;properties?:{labels:string[]}}={})=>{const r=await request('POST','/api/pages',{operationKey:createUlid(),containerId,title,...options});expect(r.status,JSON.stringify(r.data)).toBe(200);return r.data.value as {pageId:string;revisionId:string};};
  const share=async(pageId:string,memberId:string,revoke=false,id?:string,level='edit')=>{const r=await request('POST','/api/sharing',{operationKey:createUlid(),targetKind:'page',targetId:pageId,principalKind:'member',principalId:memberId,level,revoke,...(id?{id}:{})});expect(r.status,JSON.stringify(r.data)).toBe(200);return r.data.value.id as string;};
- const p=await create('Actions'),q=await create('More actions'),taskId=createUlid();
  // Keep the local morning and its offset future even when the UTC date is nearly over.
  const reference=Date.now(),due=new Date(reference+2*86400000).toISOString().slice(0,10),later=new Date(reference+3*86400000).toISOString().slice(0,10);
+ return {ownerId,workspaceId,reader,other,request,create,share,due,later};
+}
+type WorkItems=Awaited<ReturnType<typeof workItems>>;
+/** BLOCK-015: assignment, the share prompt, due dates, reassignment, completion attribution and My tasks. */
+export async function tasksJourney({ownerId,reader,other,request,create,share,due,later}:WorkItems){
+ const p=await create('Actions'),q=await create('More actions'),taskId=createUlid();
  const task={id:taskId,blockType:'task',treePosition:'1',content:{text:[{text:'Ship it '},{text:'Task reader',mention:{kind:'person',id:reader}}],done:false,assigneeMemberId:reader,dueDate:due,creatorMemberId:other}};
  const denied=await request('PUT',`/api/pages/${p.pageId}/blocks`,{operationKey:createUlid(),expectedRevisionId:p.revisionId,blocks:[task]});expect(denied.status).toBe(409);expect(denied.data.code).toBe('TASK_ASSIGNEE_ACCESS_NEEDED');
  const people=await request('GET',`/api/tasks/${p.pageId}/assignees`);expect(people.data.items.find((m:any)=>m.id===reader).canRead).toBe(false);
@@ -33,22 +38,34 @@ export async function workItemsJourney(api:ReturnType<typeof createApi>,containe
  page=await request('GET',`/api/pages/${p.pageId}`);expect(page.data.blocks[0].content).toMatchObject({done:true,completedByMemberId:reader});
  const block=page.data.blocks[1],reassign=await request('PATCH',`/api/pages/${p.pageId}/blocks/${block.id}`,{operationKey:createUlid(),expectedRevisionId:block.revisionId,content:{...block.content,assigneeMemberId:other}});expect(reassign.status).toBe(200);
  inbox=await request('GET','/api/notifications',undefined,reader);expect(inbox.data.items.filter((x:any)=>x.event==='task-assigned')).toHaveLength(3);expect((await request('GET','/api/notifications',undefined,other)).data.items.filter((x:any)=>x.event==='task-assigned')).toHaveLength(1);
+ return {p,q,taskId,third,grant};
+}
+/** NOTIF-004: page, task and date-mention reminders in their members' time zones, delivered once and rechecked against access. */
+export async function remindersJourney({ownerId,workspaceId,reader,other,request,create,share,due,later}:WorkItems,{p,q,taskId,third,grant}:Awaited<ReturnType<typeof tasksJourney>>){
  // Give the open third task a due date, then prove the same automatic due reminder runs once.
  let thirdPage=await request('GET',`/api/pages/${q.pageId}`);const thirdBlock=thirdPage.data.blocks[0];expect((await request('PATCH',`/api/pages/${q.pageId}/blocks/${third.id}`,{operationKey:createUlid(),expectedRevisionId:thirdBlock.revisionId,content:{...thirdBlock.content,dueDate:due}})).status).toBe(200);
  const explicit=await request('POST','/api/reminders',{operationKey:createUlid(),pageId:p.pageId,blockId:taskId,date:due,time:'09:00',timezone:'Australia/Brisbane',offsetMinutes:60});expect(explicit.status,JSON.stringify(explicit.data)).toBe(200);expect(explicit.data.value.dueAt).toBe(new Date(Date.parse(`${due}T09:00:00+10:00`)-3600000).toISOString());
  const second=await request('POST','/api/reminders',{operationKey:createUlid(),pageId:q.pageId,date:due,time:'09:00',timezone:'Pacific/Honolulu'},reader);expect(second.status).toBe(200);expect(second.data.value.dueAt).toBe(`${due}T19:00:00.000Z`);
  const revoked=await request('POST','/api/reminders',{operationKey:createUlid(),pageId:p.pageId,date:due,time:'09:00',timezone:'Pacific/Honolulu'},reader);expect(revoked.status).toBe(200);
+ // A date mention carries its own reminder, here a day before the mentioned date in a third time zone.
+ const notes=await create('Launch date notes'),mentionBlock=createUlid();
+ expect((await request('PUT',`/api/pages/${notes.pageId}/blocks`,{operationKey:createUlid(),expectedRevisionId:notes.revisionId,blocks:[{id:mentionBlock,blockType:'paragraph',treePosition:'1',content:{text:[{text:'Launch on '},{text:due,mention:{kind:'date',id:due,label:due}}]}}]})).status).toBe(200);
+ await share(notes.pageId,other,false,undefined,'view');
+ const dated=await request('POST','/api/reminders',{operationKey:createUlid(),pageId:notes.pageId,blockId:mentionBlock,date:due,time:'09:00',timezone:'Asia/Kolkata',offsetMinutes:1440},other);expect(dated.status,JSON.stringify(dated.data)).toBe(200);expect(dated.data.value.dueAt).toBe(new Date(Date.parse(`${due}T09:00:00+05:30`)-86400000).toISOString());
  await share(p.pageId,reader,true,grant);expect((await request('GET','/api/tasks',undefined,reader)).data.items.map((t:any)=>t.pageId)).toEqual([q.pageId]);
  const actor={id:ownerId,workspaceId,workspaceName:'Aurora',displayName:'Profile owner',email:'owner@test.invalid',initials:'PO',role:'owner' as const},ctx:FeatureContext={db:env.DB,files:env.FILES,jobs:env.JOBS,actor,now:`${due}T00:00:00.000Z`};
  await dispatchDueReminders(ctx);await processNotificationOutbox(ctx);
  expect(await env.DB.prepare("SELECT COUNT(*) AS n FROM notifications WHERE event='reminder' AND recipient_member_id=?").bind(ownerId).first<number>('n')).toBe(1);
+ expect(await env.DB.prepare("SELECT COUNT(*) AS n FROM notifications WHERE event='reminder' AND recipient_member_id=?").bind(other).first<number>('n')).toBe(1);
  const late={...ctx,now:`${due}T23:59:00.000Z`};await Promise.all([dispatchDueReminders(late),dispatchDueReminders(late)]);await processNotificationOutbox(late);
  expect(await env.DB.prepare("SELECT COUNT(*) AS n FROM notifications WHERE event='task-due' AND recipient_member_id=?").bind(reader).first<number>('n')).toBe(1);
  expect(await env.DB.prepare("SELECT COUNT(*) AS n FROM notifications WHERE event='reminder' AND recipient_member_id=?").bind(reader).first<number>('n')).toBe(1);
+ expect(await env.DB.prepare("SELECT COUNT(*) AS n FROM notifications WHERE event='reminder' AND recipient_member_id=?").bind(other).first<number>('n')).toBe(1);
  const personal=await request('GET','/api/reminders');expect(personal.data.items.find((r:any)=>r.id===explicit.data.value.id).deliveredAt).not.toBeNull();
  const cancel=await request('POST','/api/reminders',{operationKey:createUlid(),pageId:q.pageId,date:later,time:'12:00',timezone:'UTC'});expect(cancel.status).toBe(200);expect((await request('DELETE',`/api/reminders/${cancel.data.value.id}`,{operationKey:createUlid()})).status).toBe(200);
-
- // BLOCK-016: a saved body report executes independently for each reader, including page-only grants.
+}
+/** BLOCK-016: a saved body report executes independently for each reader, including page-only grants. */
+export async function taskReportsJourney({ownerId,reader,other,request,create,share,due,later}:WorkItems){
  const space=await request('POST','/api/containers',{operationKey:createUlid(),name:'Report sources',visibility:'private'});
  expect(space.status,JSON.stringify(space.data)).toBe(200);
  const sourceContainer=space.data.value.id as string,root=await create('Report project',{containerId:sourceContainer});

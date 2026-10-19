@@ -1025,19 +1025,19 @@ A date mention (`BLOCK-005`) can carry a reminder at the date or at a chosen off
 
 *Acceptance:* a Workers journey sets reminders in two time zones, advances time, and finds exactly one inbox item each at the right local time. A reminder on a page whose access was revoked is not delivered.
 
-*Status:* partial. Native page, task and date-mention reminders support local time zones and offsets, exactly-once in-app dispatch and access checks at delivery. Default-profile HTTP and scheduled dispatch exercise timing and revoked access (`tests/profile/work-items-journey.ts`). Email/push delivery remains missing.
+*Status:* done. Page, task and date-mention reminders fire at the date or a chosen offset in the member's own time zone, deliver one inbox item each exactly once across concurrent dispatch, and are rechecked against access at delivery; a task with a due date reminds its assignee on that date (`src/core/features/reminders/`). `NOTIF-004 — …` in `tests/profile/profile.worker.test.ts` (default profile, `tests/profile/work-items-journey.ts`) sets reminders in Brisbane, Honolulu and Kolkata, advances the dispatch clock, finds exactly one inbox item each at the right local time, and finds none for a page whose access was revoked. Delivery beyond the inbox is inherited: `NOTIF-005` and `NOTIF-006` (email and digest), `MOBILE-004` (push) and `CHAT-004` (chat direct message) each carry reminders under these local-time, exactly-once and access-at-delivery rules in their own text and acceptance, and ship them with their channel.
 
 #### NOTIF-005 — Email, push and digest delivery.
-Each member chooses, per event kind, between in-app only, immediate email, a daily or weekly digest, push on their devices (`MOBILE-004`), and a chat direct message (`CHAT-004`), or keeps the workspace default for that kind (`NOTIF-006`). The inbox item is created whatever the choice. Email goes through `mail.sender.v1` from the configured sender and carries the event, the actor, the page title and a link, never a page body. Recipient access is rechecked at send, and an unsubscribe link changes that member's preference without sign-in. Digests coalesce watched page and container changes (`CONT-012`), mentions, task assignments and due tasks, review requests and lapsed verifications. A watched change carries a change summary: the counts of blocks added, changed and removed and of comments added since the member's last notice. When a workspace owner turns on "section names in notifications", the summary also names the headings the changed blocks sit under, for example "3 blocks changed in Rollout plan". It never carries block or comment text.
+Each member chooses, per event kind, between in-app only, immediate email, a daily or weekly digest, push on their devices (`MOBILE-004`), and a chat direct message (`CHAT-004`), or keeps the workspace default for that kind (`NOTIF-006`). The inbox item is created whatever the choice. Email goes through `mail.sender.v1` from the configured sender and carries the event, the actor, the page title and a link, never a page body. Recipient access is rechecked at send, and an unsubscribe link changes that member's preference without sign-in. Reminders and due tasks (`NOTIF-004`, `BLOCK-015`) sent by email or in a digest keep `NOTIF-004`'s rules: each arrives at the member's local time, exactly once however many sends race or retry, and only while the member can still read its page. Digests coalesce watched page and container changes (`CONT-012`), mentions, task assignments and due tasks, review requests and lapsed verifications. A watched change carries a change summary: the counts of blocks added, changed and removed and of comments added since the member's last notice. When a workspace owner turns on "section names in notifications", the summary also names the headings the changed blocks sit under, for example "3 blocks changed in Rollout plan". It never carries block or comment text.
 
-*Acceptance:* a Workers journey with a mail provider fake at the network edge opts a member into a daily digest, generates eight events including one on a page the member later loses access to, and receives exactly one digest with seven items and no body text. The unsubscribe link changes the preference. An edit that changes 3 blocks under the heading "Rollout plan" appears as "3 blocks changed" with the owner switch off and "3 blocks changed in Rollout plan" with it on, and no text from those blocks appears in either email.
+*Acceptance:* a Workers journey with a mail provider fake at the network edge opts a member into a daily digest, generates eight events including one on a page the member later loses access to, and receives exactly one digest with seven items and no body text. The unsubscribe link changes the preference. An edit that changes 3 blocks under the heading "Rollout plan" appears as "3 blocks changed" with the owner switch off and "3 blocks changed in Rollout plan" with it on, and no text from those blocks appears in either email. A reminder set for 09:00 in the member's time zone with immediate email produces exactly one email at that local time after two concurrent sends, and a reminder on a page the member lost access to produces none.
 
 *Status:* missing. `MAIL-001` currently limits mail to sign-in and invitations.
 
 #### NOTIF-006 — Workspace notification defaults.
-A workspace owner sets the default delivery for each event kind: mentions, comments and replies on watched or authored pages, task assignments and due tasks, review requests, access grants, shares with a message, watched changes, lapsed verifications and required reading. Each default is one of in-app only, immediate email, a daily or weekly digest, push, or a chat direct message (`CHAT-004`), and the owner also sets the default for autowatch (`PAGE-016`). A member who has not chosen for an event kind receives it exactly as the default says, and a change to the default reaches them from the next event. A member's own choice, including an unsubscribe, survives later changes to the default and is shown as theirs. A new workspace starts with Confluence's defaults: mentions, replies, task assignments, review requests and access grants by immediate email, watched changes as a daily digest, and autowatch on. A workspace upgraded from a version without this setting keeps in-app delivery only until an owner sets a default, and its owners are asked once. Every email keeps `NOTIF-005`'s rules: a title and a link only, access rechecked at send, and a one-click unsubscribe that works without signing in.
+A workspace owner sets the default delivery for each event kind: mentions, comments and replies on watched or authored pages, task assignments and due tasks, reminders (`NOTIF-004`, under its local-time, exactly-once and access-at-delivery rules), review requests, access grants, shares with a message, watched changes, lapsed verifications and required reading. Each default is one of in-app only, immediate email, a daily or weekly digest, push, or a chat direct message (`CHAT-004`), and the owner also sets the default for autowatch (`PAGE-016`). A member who has not chosen for an event kind receives it exactly as the default says, and a change to the default reaches them from the next event. A member's own choice, including an unsubscribe, survives later changes to the default and is shown as theirs. A new workspace starts with Confluence's defaults: mentions, replies, task assignments, review requests and access grants by immediate email, watched changes as a daily digest, and autowatch on. A workspace upgraded from a version without this setting keeps in-app delivery only until an owner sets a default, and its owners are asked once. Every email keeps `NOTIF-005`'s rules: a title and a link only, access rechecked at send, and a one-click unsubscribe that works without signing in.
 
-*Acceptance:* a Workers journey with a mail provider fake at the network edge sets a default of immediate email for mentions and a daily digest for watched changes, invites a member who sets nothing, and finds one immediate email for a mention and one digest with the watched changes. A second member who unsubscribed from mention email before the default changed gets no mention email. Changing the default to in-app only stops the first member's mail from the next event. A new workspace's first mention produces an immediate email with no owner action, and no email contains a page body.
+*Acceptance:* a Workers journey with a mail provider fake at the network edge sets a default of immediate email for mentions and a daily digest for watched changes, invites a member who sets nothing, and finds one immediate email for a mention and one digest with the watched changes. A second member who unsubscribed from mention email before the default changed gets no mention email. Changing the default to in-app only stops the first member's mail from the next event. A new workspace's first mention produces an immediate email with no owner action, a member who set nothing for reminders receives a due reminder once, at their local time, by the default's delivery, and no email contains a page body.
 
 *Status:* missing. Notification email does not exist (`MAIL-001`).
 
@@ -1376,6 +1376,7 @@ A member who has linked their Slack, Microsoft Teams or Nook identity (`CHAT-002
 - mentions, including group mentions (`BLOCK-020`);
 - replies, and comments on watched or authored pages;
 - task assignments and due tasks (`BLOCK-015`);
+- reminders (`NOTIF-004`), at the member's local time and once each;
 - shares, shares with a message (`SHARE-009`) and access grants;
 - review requests (`STAT-006`) and lapsed verifications;
 - watched page and container changes (`CONT-012`);
@@ -1394,6 +1395,7 @@ A daily or weekly digest can also arrive as one direct message.
 - links a member's Slack identity and sets mentions and task assignments to chat;
 - finds that one mention and one assignment each produce exactly one direct message, carrying the actor, the page title and a link and no body;
 - finds that an event on a page the member lost access to before send produces nothing;
+- finds that a reminder set to chat arrives as exactly one direct message at the member's local time, and none when the member lost access to its page before it was due;
 - finds that "Mark as read" in the message clears the inbox item;
 - finds that unlinking stops direct messages from the next event;
 - has an owner set chat as the workspace default for mentions (`NOTIF-006`), and finds that a member who chose nothing receives a direct message;
@@ -1588,9 +1590,9 @@ A member marks pages or containers as available offline on a device. Those pages
 *Status:* partial. Browser-side offline detection and draft recovery exist (`src/core/features/editor/ui/SaveStatus.tsx`, `tests/qualification/offline-refresh/transport.test.ts`); chosen offline pages do not.
 
 #### MOBILE-004 — Push notifications.
-Mentions, replies, review requests, reminders and lapsed verifications can be pushed to a member's devices through APNs and FCM according to `NOTIF-005` preferences. A push payload carries the event and the page title only, and access is rechecked at send.
+Mentions, replies, review requests, reminders and lapsed verifications can be pushed to a member's devices through APNs and FCM according to `NOTIF-005` preferences. A push payload carries the event and the page title only, and access is rechecked at send. A reminder push keeps `NOTIF-004`'s rules: it arrives at the member's local time and exactly once per reminder, even when a send is retried.
 
-*Acceptance:* a Workers journey with APNs and FCM fakes at the network edge sends exactly one push per eligible event, none for a page whose access was revoked before send, and payloads with no body text.
+*Acceptance:* a Workers journey with APNs and FCM fakes at the network edge sends exactly one push per eligible event, none for a page whose access was revoked before send, and payloads with no body text. Reminders set in two time zones push once each at their members' local times, and a retried send does not push a reminder twice.
 
 *Status:* missing.
 
@@ -1779,8 +1781,8 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 171 | 50 | 0 | 221 |
-| Target and push further | 14 | 48 | 43 | 105 |
-| All | 185 | 98 | 43 | 326 |
+| Target and push further | 15 | 47 | 43 | 105 |
+| All | 186 | 97 | 43 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2045,7 +2047,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `DB-014` | Dashboards | target | partial | `src/core/features/databases/ui/workspace/DatabaseChart.tsx` | see the clause |
 | `DB-015` | Record templates and recurring records | target | done | `tests/e2e/databases/record-templates.test.ts` |  |
 | `DB-016` | AI autofill fields | target | missing | — | not implemented |
-| `NOTIF-004` | Reminders | target | partial | `tests/profile/work-items-journey.ts` | Email/push delivery remains missing; default-profile HTTP and scheduled dispatch cover time zones, offsets, concurrent-safe delivery and revoked access, with 1440/390 browser journeys for page, task and date-mention reminders. |
+| `NOTIF-004` | Reminders | target | done | `tests/profile/profile.worker.test.ts`, `tests/profile/work-items-journey.ts` |  |
 | `NOTIF-005` | Email, push and digest delivery | target | missing | — | not implemented |
 | `NOTIF-006` | Workspace notification defaults | target | missing | — | not implemented |
 | `AUTO-006` | Outbound automation actions | target | partial | `src/core/features/automation/actions.ts` | see the clause |

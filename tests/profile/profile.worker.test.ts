@@ -1,6 +1,6 @@
 import {pageLockJourney} from './page-lock-journey';
 import {bodyBlocksJourney} from './body-blocks-journey';
-import {workItemsJourney} from './work-items-journey';
+import {workItems,tasksJourney,remindersJourney,taskReportsJourney} from './work-items-journey';
 import {env} from 'cloudflare:test';
 import {afterEach, beforeEach, it, expect, vi} from 'vitest';
 import {createApi} from '../../src/core/app/hono';
@@ -78,10 +78,19 @@ it('FLAG-001 — core wiki creates and revises genuine pages, searches them, and
   expect(run.status).toBe(200);
   expect(await run.json()).toMatchObject({state:'completed'});
   await bodyBlocksJourney(api,containerId,cookie);
-  await workItemsJourney(api,containerId,memberId,workspaceId,cookie);
-  // The next journey's activity must follow the task/report setup above.
-  vi.setSystemTime(new Date(Date.now() + 60_000));
   await pageLockJourney(api,containerId,workspaceId,cookie);
+});
+it('BLOCK-015 — a task assigned to a member without access prompts a share, notifies its assignee once, reassigns without notifying the previous assignee and records completion', async () => {
+  const {cookie,containerId,memberId,workspaceId} = await workspace();
+  await tasksJourney(await workItems(createApi(),containerId,memberId,workspaceId,cookie));
+});
+it('NOTIF-004 — page, task and date-mention reminders arrive once at local time in three time zones and not after access is revoked', async () => {
+  const {cookie,containerId,memberId,workspaceId} = await workspace(), items = await workItems(createApi(),containerId,memberId,workspaceId,cookie);
+  await remindersJourney(items, await tasksJourney(items));
+});
+it('BLOCK-016 — a task report shows each reader only the tasks they can read and completes a task on its page', async () => {
+  const {cookie,containerId,memberId,workspaceId} = await workspace();
+  await taskReportsJourney(await workItems(createApi(),containerId,memberId,workspaceId,cookie));
 });
 it('FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', async () => {
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {
