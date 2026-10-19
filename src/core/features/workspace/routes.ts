@@ -4,6 +4,8 @@ import { listIdentityMail,retryIdentityMail } from '../session/mail-status';
 import { requireWorkspaceOwner } from '../sharing/current-access';
 import { completeFirstRun,firstRunState } from './bootstrap';
 import { invite, revokeInvitation } from './invitations';
+import { guestPolicy, saveGuestPolicy } from './guest-policy';
+import { listGuests, revokeGuests, setGuestExpiry } from './guests';
 import { Hono } from 'hono';
 import { z } from 'zod';
 import type { AppEnvironment } from '../../app/types';
@@ -14,6 +16,7 @@ import { currentMember, listMembers, removeMember, setTheme, setMemberRole } fro
 import { listGroups, saveGroup } from './groups';
 const op=z.string().min(8).max(160); const id=z.string().min(1).max(128);
 const toggle=z.enum(['allowed','forbidden']);
+const domain=z.string().trim().toLowerCase().regex(/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/).max(253);
 const policies=z.object({'page.lifecycle.v1':z.enum(['always-live','draft-then-publish']),'page.access.v1':z.enum(['workspace-general','container-general']),'page.public-access.v1':z.enum(['site','link']),'page.version.v1':z.enum(['autosnapshot','labelled']),'page.status.v1':z.enum(['verification-only','open-vocabulary']),'record.page-parity.v1':z.enum(['record-is-page','record-is-row']),'automation.scope.v1':z.enum(['source','container','site']),'container.access.v1':z.enum(['class-led','grant-led'])}).strict();
 export async function parseBody<T>(request:{json:()=>Promise<unknown>},schema:z.ZodType<T>):Promise<T>{const parsed=schema.safeParse(await request.json().catch(()=>null));if(!parsed.success)throw new ApiProblem(400,'INVALID_REQUEST','The request is invalid.');return parsed.data;}
 export function createWorkspaceRoutes(){return new Hono<AppEnvironment>()
@@ -30,7 +33,11 @@ export function createWorkspaceRoutes(){return new Hono<AppEnvironment>()
 .put('/api/members/current/theme',async c=>c.json(await setTheme(featureContext(c),await parseBody(c.req,z.object({operationKey:op,theme:z.enum(['light','dark','system'])}).strict()))))
 .get('/api/members',async c=>c.json(await listMembers(featureContext(c),'member')))
 .put('/api/members/:id/role',async c=>{const input=await parseBody(c.req,z.object({operationKey:op,expectedRole:z.enum(['owner','member']),role:z.enum(['owner','member'])}).strict());await requireWorkspaceOwner(featureContext(c));await requireStepUp(c,'owner:transfer');return c.json(await setMemberRole(featureContext(c),{...input,memberId:c.req.param('id')}));})
-.get('/api/guests',async c=>c.json(await listMembers(featureContext(c),'guest')))
+.get('/api/guests',async c=>c.json(await listGuests(featureContext(c))))
+.put('/api/guests/:id/expiry',async c=>c.json(await setGuestExpiry(featureContext(c),{...await parseBody(c.req,z.object({operationKey:op,expiresAt:z.string().datetime().nullable()}).strict()),memberId:c.req.param('id')})))
+.get('/api/guests/policy',async c=>c.json(await guestPolicy(featureContext(c))))
+.put('/api/guests/policy',async c=>c.json(await saveGuestPolicy(featureContext(c),await parseBody(c.req,z.object({operationKey:op,defaultExpiryDays:z.number().int().min(1).max(3650).nullable(),allowedDomains:z.array(domain).max(100),deniedDomains:z.array(domain).max(100)}).strict()))))
+.post('/api/guests/revoke',async c=>c.json(await revokeGuests(featureContext(c),await parseBody(c.req,z.object({operationKey:op.max(150),memberIds:z.array(id).min(1).max(100)}).strict()))))
 .post('/api/members/remove',async c=>{const input=await parseBody(c.req,z.object({operationKey:op,memberId:id,erase:z.boolean().optional()}).strict());const ctx=featureContext(c),target=await c.env.DB.prepare("SELECT role,is_setup_owner FROM members WHERE id=? AND status='active'").bind(input.memberId).first<{role:string;is_setup_owner:number}>();if(input.erase||target?.role==='owner'){
   // Refuse what can never succeed before emailing a step-up confirmation; the service checks both again.
   if(input.memberId!==ctx.actor.id){await requireWorkspaceOwner(ctx);if(target?.is_setup_owner)throw new ApiProblem(403,'SETUP_OWNER','Only the setup owner can remove themselves.');}

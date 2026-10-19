@@ -1,12 +1,14 @@
 import { env } from 'cloudflare:test';
 import { test, expect, vi } from 'vitest';
 import { scenario, key, rows } from './helpers';
+import { createApi } from '../../../src/core/app/hono';
+import { sessionFor } from '../../e2e/setup/fixtures';
 import { createPage, readPage } from '../../../src/core/features/pages/service';
 import { invite, acceptInvitation } from '../../../src/core/features/workspace/invitations';
 import { saveGrant, listGrants } from '../../../src/core/features/sharing/grants';
 import { readRuntimeConfig } from '../../../src/core/platform/config/runtime';
 import { createMemberRepository } from '../../../src/core/features/session/repository';
-test('SHARE-006 SHARE-001 SHARE-007: pending guest invitation grants no access, local provider double captures exact acceptance token, revoke invalidates pending grant', async () => {
+test('ADMIN-003 — HTTP guest policy, default expiry and bulk revocation; SHARE-006 SHARE-001 SHARE-007: pending guest invitation grants no access, local provider double captures exact acceptance token, revoke invalidates pending grant', async () => {
     const { owner, containerId } = await scenario();
     const page = await createPage(owner, { operationKey: key('page'), containerId, title: 'Guest invitation' });
     const config = { ...readRuntimeConfig(env, false), appUrl: 'https://qualification.invalid', mailFrom: 'test@qualification.invalid', mailApiKey: 'TEST-ONLY-PROVIDER-DOUBLE' };
@@ -31,6 +33,54 @@ test('SHARE-006 SHARE-001 SHARE-007: pending guest invitation grants no access, 
         const actor = await createMemberRepository(env.DB).getMember(accepted.id as string);
         expect((await readPage({ ...owner, actor: actor! }, page.value.pageId)).page.title).toBe('Guest invitation');
         await expect(acceptInvitation(env.DB, config, token, { files: env.FILES, jobs: env.JOBS })).rejects.toMatchObject({ code: 'LINK_INVALID' });
+        const api=createApi(),cookie=await sessionFor(owner.actor.id);
+        const request=(path:string,method='GET',body?:unknown,session=cookie)=>api.request('https://qualification.invalid/api'+path,{method,headers:{cookie:session,origin:'https://qualification.invalid','content-type':'application/json'},body:body?JSON.stringify(body):undefined},{...env,SLATE_PROFILE:undefined,APP_URL:'https://qualification.invalid'});
+        const json=async(path:string,method='GET',body?:unknown)=>{const response=await request(path,method,body);const value=await response.json<any>();expect(response.status,JSON.stringify(value)).toBe(200);return value;};
+        await json('/guests/policy','PUT',{operationKey:key('guest-policy'),defaultExpiryDays:14,allowedDomains:['qualification.invalid','blocked.invalid'],deniedDomains:['blocked.invalid']});
+        expect((await request('/invitations','POST',{operationKey:key('denied'),kind:'guest',email:'someone@blocked.invalid',pageId:page.value.pageId})).status).toBe(403);
+        expect((await request('/invitations','POST',{operationKey:key('not-allowed'),kind:'guest',email:'someone@other.invalid',pageId:page.value.pageId})).status).toBe(403);
+        const guestIds:string[]=[accepted.id as string];
+        for(const name of ['partner-one','partner-two']){
+          const before=requests.length;
+          await json('/invitations','POST',{operationKey:key('default-expiry'),kind:'guest',email:`${name}@qualification.invalid`,pageId:page.value.pageId});
+          const invitation=(await rows('SELECT i.*,g.expires_at AS grant_expiry FROM invitations i JOIN page_grants g ON g.id=i.page_grant_id WHERE i.email=?',`${name}@qualification.invalid`))[0];
+          expect(Date.parse(invitation.grant_expiry as string)-Date.now()).toBeGreaterThan(13*86400000);
+          const acceptedToken=requests[before].match(/https:\/\/qualification\.invalid\/api\/auth\/invitation\/accept\?token=([A-Za-z0-9_-]+)/)![1];
+          const result=await acceptInvitation(env.DB,config,acceptedToken,{files:env.FILES,jobs:env.JOBS});guestIds.push(result.memberId);
+        }
+        const guestCookies=await Promise.all(guestIds.map(id=>sessionFor(id)));
+        const list=await json('/guests');
+        for(const id of guestIds)expect(list.items.find((guest:any)=>guest.id===id)).toMatchObject({invitedBy:'Owner',access:expect.arrayContaining([expect.objectContaining({title:'Guest invitation'})]),lastActiveAt:expect.any(String)});
+        expect(list.items.find((guest:any)=>guest.id===guestIds[0]).expiresAt).toBeNull();
+        expect(Date.parse(list.items.find((guest:any)=>guest.id===guestIds[1]).expiresAt)-Date.now()).toBeGreaterThan(13*86400000);
+        const ownerExpiry=new Date(Date.now()+3*86400000).toISOString();
+        await json(`/guests/${guestIds[0]}/expiry`,'PUT',{operationKey:key('legacy-expiry'),expiresAt:ownerExpiry});
+        expect((await json('/guests')).items.find((guest:any)=>guest.id===guestIds[0]).expiresAt).toBe(ownerExpiry);
+        expect((await request('/guests','GET',undefined,guestCookies[0])).status).toBe(403);
+        expect((await request('/guests/policy','PUT',{operationKey:key('forbidden-policy'),defaultExpiryDays:null,allowedDomains:[],deniedDomains:[]},guestCookies[0])).status).toBe(403);
+        const revocation={operationKey:key('bulk-revoke'),memberIds:guestIds.slice(0,2)};
+        await json('/guests/revoke','POST',revocation);await json('/guests/revoke','POST',revocation);
+        for(const session of guestCookies.slice(0,2))expect((await request(`/pages/${page.value.pageId}`,'GET',undefined,session)).status).toBe(401);
+        expect((await request(`/pages/${page.value.pageId}`,'GET',undefined,guestCookies[2])).status).toBe(200);
+        expect((await json('/guests')).items.filter((guest:any)=>guestIds.includes(guest.id))).toHaveLength(1);
+        await env.DB.prepare('UPDATE page_grants SET expires_at=? WHERE principal_id=?').bind('2000-01-01T00:00:00.000Z',guestIds[2]).run();
+        expect((await request(`/pages/${page.value.pageId}`,'GET',undefined,guestCookies[2])).status).toBe(404);
+        // Expiry must also fence the author's draft exception and an otherwise live grant.
+        const authored=await createPage(owner,{operationKey:key('guest-author'),containerId,title:'Guest authored draft'});
+        await env.DB.prepare("UPDATE pages SET author_member_id=?,lifecycle='draft' WHERE id=?").bind(guestIds[2],authored.value.pageId).run();
+        await env.DB.prepare('UPDATE page_grants SET expires_at=NULL WHERE principal_id=?').bind(guestIds[2]).run();
+        expect((await request(`/pages/${authored.value.pageId}`,'GET',undefined,guestCookies[2])).status).toBe(200);
+        await env.DB.prepare('UPDATE members SET guest_expires_at=? WHERE id=?').bind('2000-01-01T00:00:00.000Z',guestIds[2]).run();
+        expect((await request(`/pages/${authored.value.pageId}`,'GET',undefined,guestCookies[2])).status).toBe(401);
+        expect((await request(`/pages/${page.value.pageId}`,'GET',undefined,guestCookies[2])).status).toBe(401);
+        expect((await json('/guests')).items.find((guest:any)=>guest.id===guestIds[2]).access).toEqual([]);
+        const invitationStart=requests.length;
+        await json('/invitations','POST',{operationKey:key('policy-changed'),kind:'guest',email:'waiting@qualification.invalid',pageId:page.value.pageId});
+        const waitingToken=requests[invitationStart].match(/https:\/\/qualification\.invalid\/api\/auth\/invitation\/accept\?token=([A-Za-z0-9_-]+)/)![1];
+        await json('/guests/policy','PUT',{operationKey:key('deny-after-invite'),defaultExpiryDays:14,allowedDomains:[],deniedDomains:['qualification.invalid']});
+        await expect(acceptInvitation(env.DB,config,waitingToken,{files:env.FILES,jobs:env.JOBS})).rejects.toMatchObject({code:'GUEST_DOMAIN_DENIED'});
+
+
     }
     finally {
         provider.mockRestore();

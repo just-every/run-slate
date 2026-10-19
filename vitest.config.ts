@@ -56,6 +56,8 @@ export default defineConfig({
     // Product deadline assertions and explicit per-test budgets remain unchanged.
     testTimeout: 30_000,
     include: ["tests/e2e/**/*.test.ts", "tests/flagship/**/*.test.ts",
+      // Guest policy acceptance shares the existing invitation journey.
+      "tests/qualification/policies/invitations.test.ts",
       // Exact existing supporting suites registered by tests/requirements/test-evidence.json.
       "tests/qualification/authority/atomic-recovery.test.ts",
       "tests/qualification/authority/disconnect.test.ts",

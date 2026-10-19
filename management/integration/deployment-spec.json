@@ -254,6 +254,12 @@
       "name": "0039_import_door_native_targets.sql",
       "sha256": "b09a6ce761d2992c8314f6ea85742866e565b7e4229bc5dfeeb4e3fb603daa09",
       "sql": "CREATE TABLE import_door_native_targets (destination TEXT NOT NULL, kind TEXT NOT NULL, target_id TEXT NOT NULL, value_json TEXT NOT NULL, revision TEXT NOT NULL, PRIMARY KEY(destination,kind,target_id));\nCREATE TRIGGER import_door_native_insert AFTER INSERT ON import_door_native_targets BEGIN UPDATE import_native_epoch SET revision=revision+1 WHERE id=1; END;\nCREATE TRIGGER import_door_native_update AFTER UPDATE ON import_door_native_targets BEGIN UPDATE import_native_epoch SET revision=revision+1 WHERE id=1; END;\nCREATE TRIGGER import_door_native_delete AFTER DELETE ON import_door_native_targets BEGIN UPDATE import_native_epoch SET revision=revision+1 WHERE id=1; END;\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0040_guest_policy.sql",
+      "sha256": "8cc7748743993c4b4c57b89bf65a6cc7ce99d9e39649ecfde1a9a8f5e1b9de33",
+      "sql": "ALTER TABLE workspaces ADD COLUMN guest_default_expiry_days INTEGER CHECK (guest_default_expiry_days BETWEEN 1 AND 3650);\nALTER TABLE workspaces ADD COLUMN guest_allowed_domains TEXT NOT NULL DEFAULT '[]' CHECK (json_valid(guest_allowed_domains));\nALTER TABLE workspaces ADD COLUMN guest_denied_domains TEXT NOT NULL DEFAULT '[]' CHECK (json_valid(guest_denied_domains));\nALTER TABLE members ADD COLUMN guest_expires_at TEXT;\nALTER TABLE invitations ADD COLUMN guest_expires_at TEXT;\nCREATE TRIGGER guest_policy_authority AFTER UPDATE OF guest_default_expiry_days,guest_allowed_domains,guest_denied_domains ON workspaces\nBEGIN UPDATE core_acl_epoch SET epoch=epoch+1 WHERE id=1; END;\nCREATE TRIGGER guest_expiry_authority AFTER UPDATE OF guest_expires_at ON members\nBEGIN UPDATE core_acl_epoch SET epoch=epoch+1 WHERE id=1; END;\n"
     }
   ],
   "compatibilityDate": "2026-09-08",

@@ -9,7 +9,7 @@
   --row-inset: 10px;
   --row-height: 36px;
 }
-.slate-app .app { display: grid; grid-template-columns: var(--rail-width) minmax(0, 1fr); min-height: 100vh; }
+.slate-app .app { display: grid; grid-template-columns: var(--rail-width) minmax(0, 1fr); min-height: 100vh; background: linear-gradient(to right, var(--slate-sidebar) var(--rail-width), var(--slate-surface) var(--rail-width)); }
 .slate-app .sidebar {
   position: sticky;
   top: 0;
@@ -96,7 +96,7 @@
 .slate-app .member-initials { display: grid; flex: none; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--slate-accent); color: var(--slate-accent-ink); font-size: 11px; font-weight: 600; }
 
 /* Collapsed: a 72px rail holding the mark and the button that opens it again. */
-.slate-app .app:has(.sidebar[data-collapsed="true"]) { grid-template-columns: 72px minmax(0, 1fr); }
+.slate-app .app:has(.sidebar[data-collapsed="true"]) { grid-template-columns: 72px minmax(0, 1fr); background: linear-gradient(to right, var(--slate-sidebar) 72px, var(--slate-surface) 72px); }
 .slate-app .sidebar[data-collapsed="true"] { padding-inline: 20px; }
 .slate-app .sidebar[data-collapsed="true"] .sidebar-header { flex-direction: column; gap: 14px; padding-left: 0; }
 .slate-app .sidebar[data-collapsed="true"] .sidebar-content { display: none; }
@@ -107,7 +107,7 @@
   .slate-app { --rail-width: 260px; }
 }
 @media (max-width: 700px) {
-  .slate-app .app, .slate-app .app:has(.sidebar[data-collapsed="true"]) { display: block; }
+  .slate-app .app, .slate-app .app:has(.sidebar[data-collapsed="true"]) { display: block; background: var(--slate-surface); }
   .slate-app .mobile-bar { display: flex; position: sticky; top: 0; z-index: 30; align-items: center; gap: 15px; padding: 10px 16px; background: var(--slate-sidebar); border-bottom: 1px solid var(--slate-line); }
   .slate-app .mobile-bar button { width: 40px; height: 40px; }
   .slate-app .sidebar { display: none; position: fixed; top: 61px; left: 0; z-index: 40; width: min(320px, 90vw); height: calc(100dvh - 61px); padding: 14px var(--rail-inset) 0; box-shadow: var(--slate-shadow-popover); }

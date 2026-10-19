@@ -1,5 +1,6 @@
 import { MailDeliveryPanel } from "./MailDeliveryPanel";
 import { LocalInvitationNotice } from "./LocalInvitationNotice";
+import { GuestsPanel } from './GuestsPanel';
 import { useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import { mutate, operationKey } from "../../../../client/transport";
@@ -49,6 +50,7 @@ export function MembersPanel() {
           ))}
         </ul>
       </RequestState>
+      {owner ? <GuestsPanel localDevelopment={localDevelopment}/> : null}
       {localDevelopment ? null : <MailDeliveryPanel/>}
       <h3>Groups</h3>
       {owner ? (

@@ -20,14 +20,14 @@ export function currentSubject(ctx:FeatureContext):Promise<MemberSubject> {
 }
 async function readCurrentSubject(ctx:FeatureContext):Promise<MemberSubject> {
   // One statement gives status, epoch and both membership sets the same read boundary.
-  const row=await ctx.db.prepare(`SELECT m.status,m.member_kind,(SELECT epoch FROM core_acl_epoch WHERE id=1) AS epoch,
+  const row=await ctx.db.prepare(`SELECT m.status,m.member_kind,m.guest_expires_at AS guestExpiresAt,(SELECT epoch FROM core_acl_epoch WHERE id=1) AS epoch,
     (SELECT json_group_array(id) FROM (SELECT gm.group_id AS id FROM group_members gm JOIN groups g ON g.id=gm.group_id WHERE gm.member_id=m.id AND g.workspace_id=m.workspace_id)) AS groups,
     (SELECT json_group_array(id) FROM (
       SELECT cm.container_id AS id FROM container_members cm JOIN containers c ON c.id=cm.container_id WHERE cm.member_id=m.id AND c.workspace_id=m.workspace_id
       UNION SELECT co.container_id AS id FROM container_owners co JOIN containers c ON c.id=co.container_id WHERE co.member_id=m.id AND c.workspace_id=m.workspace_id
     )) AS containers FROM members m WHERE m.id=? AND m.workspace_id=?`)
-    .bind(ctx.actor.id,ctx.actor.workspaceId).first<{status:MemberSubject['status'];member_kind:string;epoch:number;groups:string;containers:string}>();
-  if(!row||row.status!=='active')throw new ApiProblem(401,'UNAUTHENTICATED','An active membership is required.');
+    .bind(ctx.actor.id,ctx.actor.workspaceId).first<{status:MemberSubject['status'];member_kind:string;guestExpiresAt:string|null;epoch:number;groups:string;containers:string}>();
+  if(!row||row.status!=='active'||row.member_kind==='guest'&&row.guestExpiresAt!==null&&row.guestExpiresAt<=ctx.now)throw new ApiProblem(401,'UNAUTHENTICATED','An active, unexpired membership is required.');
   ctx.authorizationEpoch??=row.epoch;
   return {memberId:ctx.actor.id,workspaceId:ctx.actor.workspaceId,status:row.status,isGuest:row.member_kind==='guest',groupIds:JSON.parse(row.groups),containerIds:JSON.parse(row.containers)};
 }

@@ -12,8 +12,8 @@
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 171 | 50 | 0 | 221 |
-| Target and push further | 8 | 54 | 43 | 105 |
-| All | 179 | 104 | 43 | 326 |
+| Target and push further | 9 | 53 | 43 | 105 |
+| All | 180 | 103 | 43 | 326 |
 
 ### Published: Workspace, editing and pages
 
@@ -351,7 +351,7 @@
 | `API-005` Zapier, Make and Crank apps | the Zapier Platform CLI's validation and the app's integration tests run against a test deployment. Each trigger fires once from a real event through a REST hook, and each action creates its record as the connecting member. A page the member cannot read fires no trigger. Revoking the app returns 401 on the next action. Make's app validation and the Crank connector's tests run the same journey. The published listings are recorded with the release evidence. | missing | — |
 | `ADMIN-001` SAML single sign-on | a browser journey against a SAML test IdP verifies a domain through a TXT record served by a DNS fake at the network edge, refuses just-in-time creation for an unverified domain, signs in through SP and IdP flows, rejects an unsigned assertion and one with the wrong audience, enforces SSO for a member while a guest uses a magic link, and confirms break-glass access for the designated owner. Provider acceptance repeats this with real Okta and Entra tenants. | partial | `src/core/features/session/native/` |
 | `ADMIN-002` SCIM provisioning | a SCIM compliance run (Okta's SCIM test suite shape) creates, updates, pushes groups to and deactivates users, and asserts the resulting members, groups, revoked sessions and activity entries. | missing | — |
-| `ADMIN-003` Guest management | a browser journey lists three guests with their access, bulk-revokes two (their open sessions end under `SHARE-007`), and rejects an invite to a denied domain. | partial | `src/core/features/workspace/invitations.ts` |
+| `ADMIN-003` Guest management | a browser journey lists three guests with their access, bulk-revokes two (their open sessions end under `SHARE-007`), and rejects an invite to a denied domain. | done | `tests/qualification/policies/invitations.test.ts`, `tests/qualification/ui-convergence/guest-console-journey.mjs` |
 | `ADMIN-004` Workspace analytics | a Workers journey over a seeded workspace asserts each report's rows, the CSV export, and that a container owner sees only their own container's figures. | partial | `src/core/features/analytics/` |
 | `ADMIN-005` Audit export and SIEM streaming | a Workers journey produces each audited action kind, exports it and finds every action with its actor, time and target, and streams it to a test receiver with valid signatures and no gaps after a receiver outage. | partial | `src/core/features/activity/service.ts` |
 | `ADMIN-006` Content governance | a browser journey restricts public publishing to owners, labels a container Confidential, and confirms that a member's publish attempt, an AI request over a confidential page and an export by a non-permitted member are each refused with a reason. | partial | `tests/qualification/policies/access-publication.test.ts` |

@@ -43,8 +43,9 @@ export async function removeMember(ctx:FeatureContext,input:{operationKey:string
       ctx.db.prepare('UPDATE sessions SET revoked_at=?,updated_at=? WHERE member_id=? AND revoked_at IS NULL').bind(ctx.now,ctx.now,input.memberId),
       ctx.db.prepare('UPDATE invitations SET revoked_at=? WHERE workspace_id=? AND email=? AND accepted_by_member_id IS NULL').bind(ctx.now,ctx.actor.workspaceId,target.email),
       ctx.db.prepare("UPDATE mail_deliveries SET payload_ciphertext=NULL,next_attempt_at=NULL,lease_until=NULL,state=CASE WHEN state='sent' THEN state ELSE 'failed' END,delivery_phase=CASE WHEN state='sent' THEN delivery_phase ELSE 'cancelled' END,updated_at=? WHERE workspace_id=? AND (member_id=? OR requested_by_member_id=? OR lower(target_email)=lower(?))").bind(ctx.now,ctx.actor.workspaceId,input.memberId,input.memberId,target.email),
-      ctx.db.prepare("DELETE FROM page_grants WHERE principal_kind='member' AND principal_id=?").bind(input.memberId),
-      ctx.db.prepare("DELETE FROM container_grants WHERE principal_kind='member' AND principal_id=?").bind(input.memberId),
+      // Keep referenced invitation/link grants as revoked history.
+      ctx.db.prepare("UPDATE page_grants SET revoked_at=?,updated_at=? WHERE principal_kind='member' AND principal_id=?").bind(ctx.now,ctx.now,input.memberId),
+      ctx.db.prepare("UPDATE container_grants SET revoked_at=?,updated_at=? WHERE principal_kind='member' AND principal_id=?").bind(ctx.now,ctx.now,input.memberId),
       ctx.db.prepare("UPDATE pages SET lifecycle='archived',archived_at=?,updated_at=?,revision_id=? WHERE container_id IN (SELECT c.id FROM containers c JOIN container_owners o ON o.container_id=c.id WHERE c.visibility='personal' AND o.member_id=?)").bind(ctx.now,ctx.now,revisionId,input.memberId),
       ctx.db.prepare("UPDATE containers SET archived_at=?,updated_at=?,revision_id=? WHERE visibility='personal' AND id IN (SELECT container_id FROM container_owners WHERE member_id=?)").bind(ctx.now,ctx.now,revisionId,input.memberId),
       ctx.db.prepare('UPDATE pages SET owner_member_id=NULL,updated_at=? WHERE owner_member_id=?').bind(ctx.now,input.memberId),

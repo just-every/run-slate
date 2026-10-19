@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {guestConsoleJourney} from './guest-console-journey.mjs';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-support.mjs';
 import { compactPage } from './browser-evidence.mjs';
@@ -51,7 +52,8 @@ export async function searchJourney({ page, origin, journeyTitle, searchTerm }, 
   await accessible(page, 'search no match');
 }
 
-export async function settingsJourney({ page, origin }, width) {
+export async function settingsJourney(state, width) {
+  const {page,origin}=state;
   await page.goto(origin + '/app/settings', { waitUntil: 'networkidle' });
   const tabs = page.getByRole('navigation', { name: 'Settings sections' });
   await expect(tabs).toBeVisible();
@@ -80,4 +82,5 @@ export async function settingsJourney({ page, origin }, width) {
   await expect(page.locator('.spaces-workspace').getByRole('heading', { name: 'Spaces', exact: true })).toBeVisible();
   await expect(page.locator('body')).not.toContainText(/\bContainers?\b/);
   await accessible(page, 'space settings');
+  await guestConsoleJourney(state);
 }

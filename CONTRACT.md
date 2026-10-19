@@ -1536,7 +1536,7 @@ Owners list every guest with what they can access, who invited them, when they w
 
 *Acceptance:* a browser journey lists three guests with their access, bulk-revokes two (their open sessions end under `SHARE-007`), and rejects an invite to a denied domain.
 
-*Status:* partial. Guest invitations and page- and container-scoped guest grants ship (`src/core/features/workspace/invitations.ts`, `tests/qualification/policies/invitations.test.ts`); there is no guest console, domain list or default expiry.
+*Status:* done. Owners have a guest console, exact email-domain allow/deny lists (deny wins), a default expiry and bulk revocation. Newly accepted invitations carry a guest-wide deadline from their invite expiry or the owner default; existing guests keep no guest-wide deadline until an owner sets one. The console shows that deadline separately from each page grant's expiry, and owners can change or clear it. Guest-wide expiry fences all access, including authored drafts; individual grant deadlines remain. Domains are checked when inviting and accepting. HTTP and 1440/390 browser proof: `tests/qualification/policies/invitations.test.ts`, `tests/qualification/ui-convergence/guest-console-journey.mjs`.
 
 #### ADMIN-004 — Workspace analytics.
 Owners and container owners get reports on views and unique viewers (`PAGE-013`), stale pages (unedited and unverified for a chosen period), pages without an owner, lapsed verifications by owner, most-viewed unverified pages, searches with no results, and container growth. Reports export as CSV. They never show an individual's reading history beyond what `PAGE-013` already shows on a page.
@@ -1779,8 +1779,8 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 171 | 50 | 0 | 221 |
-| Target and push further | 8 | 54 | 43 | 105 |
-| All | 179 | 104 | 43 | 326 |
+| Target and push further | 9 | 53 | 43 | 105 |
+| All | 180 | 103 | 43 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2091,7 +2091,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `API-005` | Zapier, Make and Crank apps | target | missing | — | not implemented |
 | `ADMIN-001` | SAML single sign-on | target | partial | `src/core/features/session/native/` | see the clause |
 | `ADMIN-002` | SCIM provisioning | target | missing | — | not implemented |
-| `ADMIN-003` | Guest management | target | partial | `src/core/features/workspace/invitations.ts` | see the clause |
+| `ADMIN-003` | Guest management | target | done | `tests/qualification/policies/invitations.test.ts`, `tests/qualification/ui-convergence/guest-console-journey.mjs` |  |
 | `ADMIN-004` | Workspace analytics | target | partial | `src/core/features/analytics/` | see the clause |
 | `ADMIN-005` | Audit export and SIEM streaming | target | partial | `src/core/features/activity/service.ts` | see the clause |
 | `ADMIN-006` | Content governance | target | partial | `tests/qualification/policies/access-publication.test.ts` | see the clause |

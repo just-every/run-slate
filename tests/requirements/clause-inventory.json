@@ -3300,6 +3300,13 @@
       "status": "unproven",
       "unmetReason": "Native table editing and database round-trip journeys provide implementation evidence; independent release acceptance remains pending.",
       "supportingTests": []
+    },
+    {
+      "id": "ADMIN-003",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Guest policy and revocation have a tagged Workers journey and a desktop/mobile browser journey; independent release acceptance is separate.",
+      "supportingTests": []
     }
   ]
 }
