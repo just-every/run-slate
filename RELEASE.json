@@ -1,6 +1,7 @@
 {
-  "version": "0.2.0",
-  "date": "2026-10-16",
+  "version": "0.3.0",
+  "previousVersion": "0.2.0",
+  "date": "2026-10-20",
   "contractChanges": {
     "BASE-ACCESS-002": {
       "change": "changed",
@@ -411,11 +412,63 @@
     {
       "id": "0031_import_preparation_progress.sql",
       "buyerSteps": "Apply additively. Adds the import preparation progress schemas required by the pinned rer 0.2.22+ import kit."
+    },
+    {
+      "id": "0031_review_requests.sql",
+      "buyerSteps": "Apply additively. Adds accountable review requests with their history and delivery records; existing pages are unchanged."
+    },
+    {
+      "id": "0032_page_locks.sql",
+      "buyerSteps": "Apply additively. Adds nullable page lock columns; every existing page starts unlocked."
+    },
+    {
+      "id": "0032_work_items.sql",
+      "buyerSteps": "Apply additively. Adds task origins and durable reminders, recording the origin of task blocks that already exist; no existing row changes."
+    },
+    {
+      "id": "0033_following.sql",
+      "buyerSteps": "Apply additively. Adds page-watch enablement (default on, so existing watches stay active), carries a member's latest earlier stop-watching choice forward as a disabled watch, and adds space watches and watch edit sessions."
+    },
+    {
+      "id": "0034_preview_owner_signin.sql",
+      "buyerSteps": "Apply additively. Adds the single-use preview owner grant table and a read-only oa_operators view of the workspace's members."
+    },
+    {
+      "id": "0035_blog_posts.sql",
+      "buyerSteps": "Apply additively. Adds space blog posts and their import epoch triggers."
+    },
+    {
+      "id": "0036_space_hub.sql",
+      "buyerSteps": "Apply additively. Adds optional space home pages and the company hub; existing workspaces take the default hub."
+    },
+    {
+      "id": "0037_import_custody_replace.sql",
+      "buyerSteps": "Apply additively. Adds the import kit's custody replacement triggers; no stored row changes."
+    },
+    {
+      "id": "0038_import_door.sql",
+      "buyerSteps": "Apply additively. Adds the shared Base import door's tables (vendored; the door is not mounted in this release)."
+    },
+    {
+      "id": "0039_import_door_native_targets.sql",
+      "buyerSteps": "Apply additively. Adds the import door native target ledger and its epoch triggers."
+    },
+    {
+      "id": "0040_guest_policy.sql",
+      "buyerSteps": "Apply additively. Adds guest expiry and domain policy columns (no expiry and no domain limits by default) and their audit triggers."
+    },
+    {
+      "id": "0041_analytics_reports.sql",
+      "buyerSteps": "Apply additively. Adds the no-result search counters for workspace analytics."
+    },
+    {
+      "id": "0042_record_templates.sql",
+      "buyerSteps": "Apply additively. Adds database record templates and recurring record occurrences."
     }
   ],
   "breaking": false,
-  "publicReleaseNotes": "Slate 0.2.0: Base sign-in over Slate's own accounts with login_hint prefill, RER Managed mail relay, built-in /docs, reviewed imports, installation backup and restore that keeps removed members removed, safer co-editing and the refined app design. Product screenshot: .github/assets/release/slate-0.2.0-page-1440.png",
-  "agentUpdateInstructions": "Slate 0.2.0 upgrades 0.1.0 in place. Back up first with rer export, pin @runeditrun/rer 0.2.25 as package.json does, then apply migrations 0018-0031 in order; all are additive and keep members, roles, groups, guests and live sessions. Sign-in moves to Base operator-auth over Slate's native accounts: email links sent before the upgrade show the request-new-link page, and existing sessions stay valid. Hosted mail needs MAIL_PROVIDER (sendgrid, resend or rer for RER Managed relay) and its matching credential; MAIL_PROVIDER=development runs only on a loopback LOCAL_DEVELOPMENT install and sends nothing. Installation archives name the current active owner and keep removed members removed; an archive taken while several people owned the workspace asks for rer setup --owner-email before rer import. Slate uses the default core-wiki scope in CONTRACT.md and ACCEPTANCE.md. Flagship is explicit development opt-in, not acceptance. Preserve all requirement IDs, baseline obligations, eight policy profiles, private drafts, current source/requester/audience rights, immutable decisions, grants, budgets and exact effect receipts. STAT-003/004 require a human to open the exact revision; automatic renewal is prohibited. Preserve applied migration history; verify forward transition and recovery before upgrading existing data. Source checks do not establish provider, deployment or complete flagship acceptance.",
+  "publicReleaseNotes": "Slate 0.3.0: a backup made by the previous version now restores; assigned tasks with reminders, page and space following, review requests and page locks, space blogs and homes with a company hub, guest expiry and domain rules, workspace analytics, record templates and recurring records, on rer 0.2.71. Product screenshot: .github/assets/release/slate-0.3.0-page-1440.png",
+  "agentUpdateInstructions": "Slate 0.3.0 upgrades 0.2.0 in place. Back up first with rer export, pin @runeditrun/rer 0.2.71 as package.json does, then apply migrations 0031-0042 in order; all are additive and keep members, roles, groups, guests, pages and live sessions. A backup made by 0.2.0 restores into 0.3.0 through rer import and Settings' workspace restore: tables it predates stay empty and columns it predates take their declared default; a dropped or renamed table or column, or an archive from a newer Slate, is refused. The import door is vendored from Base and not mounted. Slate uses the default core-wiki scope in CONTRACT.md and ACCEPTANCE.md. Flagship is explicit development opt-in, not acceptance. Preserve all requirement IDs, baseline obligations, eight policy profiles, private drafts, current source/requester/audience rights, immutable decisions, grants, budgets and exact effect receipts. STAT-003/004 require a human to open the exact revision; automatic renewal is prohibited. Preserve applied migration history; verify forward transition and recovery before upgrading existing data. Source checks do not establish provider, deployment or complete flagship acceptance.",
   "launchProfile": {
     "default": "core-wiki",
     "binding": "SLATE_PROFILE",
