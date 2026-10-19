@@ -53,12 +53,14 @@ export async function bootstrapReplacement(db, policy, owner) {
       const sql = statements.map(statement => queries.get(statement));
       const nativeDeletes = sql.filter(query => replaceable.some(name => query === deletion(name)));
       if (!nativeDeletes.length) return db.batch(statements);
-      // These are the pinned Base finalizer's actual prepared statements. A
-      // changed/partial commit cannot delete bootstrap under this integration.
+      // These are the pinned Base finalizer's actual prepared statements inside
+      // its import-lease fence: the bound lease guard first, the finalizer's own
+      // guard cleanup, then the fence's. A changed/partial commit cannot delete
+      // bootstrap under this integration.
       if (nativeDeletes.length !== replaceable.length || !replaceable.every(name => nativeDeletes.includes(deletion(name))) ||
-          sql[0] !== 'PRAGMA defer_foreign_keys=ON' ||
+          sql[0] !== undefined || sql[1] !== 'PRAGMA defer_foreign_keys=ON' ||
           !sql.includes('UPDATE rer_portability_state SET import_job=NULL,applying=0 WHERE id=1') ||
-          sql.at(-1) !== 'DELETE FROM rer_portability_guard') throw incompatible();
+          sql.at(-2) !== 'DELETE FROM rer_portability_guard' || sql.at(-1) !== 'DELETE FROM rer_portability_guard') throw incompatible();
       const firstDelete = sql.findIndex(query => (policy.replaceableTables ?? []).concat(replaceable).some(name => query === deletion(name)));
       const added = nativeCommit();
       const original = statements.map(statement => deletes.get(statement) ?? statement);
