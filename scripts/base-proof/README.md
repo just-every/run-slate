@@ -1,17 +1,19 @@
 # Base verification without private repository credentials
 
 `pnpm verify-base` authenticates retained native Git objects against the approved
-Base commit in `objects.mjs` (`PINS`: `b70dbba0f53353eb6f3cdd2713f3cca0712b341b`,
-the source of `rer-v0.2.63`, for every recorded copy), creates a temporary bare Git object repository whose HEAD is the newest
-pin, and runs the unchanged copied command:
+Base commits in `objects.mjs` (`PINS`: `b70dbba0f53353eb6f3cdd2713f3cca0712b341b`,
+the source of `rer-v0.2.63`, for retained copies; `9cc96a468c2bc5dfbd59d7521eeaee71c9c676ae`
+for `modules/import-kit/src`, `modules/import-kit/schema` and
+`modules/d1-transport`), creates a temporary bare Git object repository whose HEAD
+is the newest pin, and runs the unchanged copied command:
 
 ```
 node scripts/edition-authoring/cli.mjs verify-base --base <temporary-repository>
 ```
 
 The wrapper has no network or credential path. A missing or invalid proof fails.
-The temporary repository is removed when verification completes. All copied Base
-files and `base-copies.json` remain unchanged.
+The temporary repository is removed when verification completes. Verification
+leaves copied Base files and `base-copies.json` unchanged.
 
 `pin-objects.json` contains zlib-compressed native objects, each indexed by its
 native SHA-1 identity. The reader checks the hash of the complete Git object

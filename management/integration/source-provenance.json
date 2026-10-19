@@ -44,6 +44,9 @@
     "migrations/core/0033_following.sql": "sha256:91872d9cca2ede3387b1a66bb9712196a0a56e265fe19f4315d080b947f47c6c",
     "migrations/core/0034_preview_owner_signin.sql": "sha256:512644f038ca39e3855353739ceae3776e31f26db4a881382c5ff6db7cc9a019",
     "migrations/core/0035_blog_posts.sql": "sha256:7bdb3f6ad89553a0b1bc9e30082c945fe8155e80c485a7fb0c1a3cea30ff7f10",
-    "migrations/core/0036_space_hub.sql": "sha256:2b6140ea970d50764e96d56814358c065c9a0a612a0e4ab722dce32d2ef0198c"
+    "migrations/core/0036_space_hub.sql": "sha256:2b6140ea970d50764e96d56814358c065c9a0a612a0e4ab722dce32d2ef0198c",
+    "migrations/core/0037_import_custody_replace.sql": "sha256:5ecda8428a8afed7e4c02e67e5999f2a9224c55522c2a02797161b9d78f78794",
+    "migrations/core/0038_import_door.sql": "sha256:2dc5eee7d872feb98e80f86dd74ac60ab227ab2b1bb49122774c31ad675d249e",
+    "migrations/core/0039_import_door_native_targets.sql": "sha256:b09a6ce761d2992c8314f6ea85742866e565b7e4229bc5dfeeb4e3fb603daa09"
   }
 }
