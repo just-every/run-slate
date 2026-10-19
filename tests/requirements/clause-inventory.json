@@ -3179,7 +3179,7 @@
       "id": "NOTIF-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Default-profile public HTTP task/reminder support and browser journeys implement Reminders. Independent requirement acceptance remains unproven; dependent email, push and public MCP delivery remain outside this round.",
+      "unmetReason": "A tagged default-profile Workers journey exercises page, task and date-mention reminders in three time zones, exactly-once dispatch and revoked access; email, push and chat delivery belong to NOTIF-005/006, MOBILE-004 and CHAT-004; independent release acceptance is separate.",
       "supportingTests": []
     },
     {
