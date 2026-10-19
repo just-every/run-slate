@@ -20,6 +20,7 @@ import { databaseJourney } from './database-journey.mjs';
 import { reviewRequestJourney } from './review-request-journey.mjs';
 import { hubJourney } from './hub-journey.mjs';
 import { blogJourney } from './blog-journey.mjs';
+import { followingJourney } from './following-journey.mjs';
 import { treeFilterJourney } from './tree-filter-journey.mjs';
 import { failedSaveJourney } from './failed-save-journey.mjs';
 import { sharedNavigationJourney } from './shared-navigation-journey.mjs';
@@ -114,6 +115,12 @@ for (const width of [1440, 390]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await withSecondPerson(state, width, people => taskAssignmentJourney(state, people));
+    });
+  });
+  test(`CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at ${width}px`, { timeout: 240000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await withSecondPerson(state, width, people => followingJourney(state, people));
     });
   });
   test(`space tree title filtering preserves ancestors, access and expansion at ${width}px`, { timeout: 180000 }, async () => {

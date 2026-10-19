@@ -41,8 +41,9 @@ test('PAGE-016 — authoring watches respect durable unwatch, personal overrides
  expect((await f.ok(f.editor,'GET','/api/navigation')).watches).toContain(overridden);
 });
 
-test('container following delivers personal coalesced events once and rechecks lifecycle and access',async()=>{
- const f=await followingFixture();await f.watchContainer(f.editor,f.containerId,true);
+test('CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access',async()=>{
+ const f=await followingFixture({defaultProfile:true});await f.watchContainer(f.editor,f.containerId,true);
+ expect((await f.ok(f.owner,'GET','/api/profile'))).toEqual({profile:'core-wiki'});
  expect((await f.ok(f.owner,'GET',`/api/navigation/container-watches/${f.containerId}`)).items.map((m:any)=>m.id)).toEqual([f.editor]);
  expect((await f.request(f.commenter,'GET',`/api/navigation/container-watches/${f.containerId}`)).status).toBe(403);
  const created=await f.create('Followed page'),pageId=created.value.pageId;
@@ -54,13 +55,17 @@ test('container following delivers personal coalesced events once and rechecks l
  expect((await f.inbox(f.editor)).map(n=>n.event).sort()).toEqual(expected);
  expect((await f.ok(f.editor,'GET','/api/navigation/following')).items.map((n:any)=>n.event).sort()).toEqual(expected);
  expect((await f.ok(f.commenter,'GET','/api/navigation/following')).items).toEqual([]);
+ // A blog post in the watched container arrives the same way: one item, not also a created page (CONT-010).
+ const post=(await f.ok(f.owner,'POST',`/api/blog/containers/${f.containerId}/posts`,{operationKey:f.key(),title:'Container news',body:'Shipped.'})).value.pageId;
+ expect((await f.inbox(f.editor)).filter(n=>n.pageId===post).map(n=>n.event)).toEqual(['post-published']);
+ expect((await f.ok(f.editor,'GET','/api/navigation/following')).items.filter((n:any)=>n.pageId===post).map((n:any)=>n.event)).toEqual(['post-published']);
  const parent=await seedPage(f.containerId,{title:'Restricted parent',authorMemberId:f.owner,accessInheritance:'restricted'});
  await seedPageGrant(parent.pageId,{principalKind:'member',principalId:f.owner,level:'full'});
  await f.create('Unseen restricted page',f.owner,{parentPageId:parent.pageId});
  await env.DB.prepare('INSERT INTO workspace_policies VALUES(?,?,?)').bind(f.workspaceId,JSON.stringify({'page.lifecycle.v1':'draft-then-publish'}),new Date().toISOString()).run();
  const draft=(await f.create('Unseen draft')).value.pageId;
  await seedPageGrant(draft,{principalKind:'member',principalId:f.editor,level:'edit'});await f.watch(f.editor,draft,true);await f.edit(draft,'Still a draft');
- expect((await f.inbox(f.editor)).map(n=>n.event).sort()).toEqual(expected);
+ expect((await f.inbox(f.editor)).map(n=>n.event).sort()).toEqual([...expected,'post-published'].sort());
  expect((await env.DB.prepare("SELECT id FROM notification_outbox WHERE page_id=? AND event IN ('page-created','page-edited')").bind(draft).all()).results).toEqual([]);
  // Both the previous and the destination container are watched; the move remains one event.
  const target=(await f.ok(f.owner,'POST','/api/containers',{operationKey:f.key(),name:'Another space'})).value.id;
