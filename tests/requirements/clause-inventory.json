@@ -3165,7 +3165,7 @@
       "id": "BLOCK-015",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Default-profile public HTTP task/reminder support and browser journeys implement Assigned tasks with due dates. Independent requirement acceptance remains unproven; dependent email, push and public MCP delivery remain outside this round.",
+      "unmetReason": "A tagged default-profile Workers journey and desktop/mobile browser journeys exercise assignment with @, due dates with //, the share prompt, notices, reassignment, completion and the overdue state; email, push, chat, API and MCP delivery belong to NOTIF-005/006, MOBILE-004, CHAT-004, API-001 and API-003; independent release acceptance is separate.",
       "supportingTests": []
     },
     {

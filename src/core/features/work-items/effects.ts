@@ -1,6 +1,6 @@
 import type {FeatureContext} from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
-import {mutationGuard} from '../../app/operations';
+import {mutationGuard,requestHash} from '../../app/operations';
 import type {BlockInput} from '../pages/types';
 import {requirePageLevel,requireContainerLevel} from '../sharing/current-access';
 import {recipientContext} from '../notifications/outbox';
@@ -9,6 +9,14 @@ import {pageReadableSql} from '../notifications/creation-access';
 import {preferences} from '../navigation/preferences';
 import {scheduleAt} from './time';
 type TaskBlock=Pick<BlockInput,'id'|'blockType'|'content'>;
+/** BLOCK-015: the assignee completing their own task, with nothing else changed, notifies no one. */
+export async function ownTaskCompletion(ctx:FeatureContext,next:Pick<TaskBlock,'blockType'|'content'>,prior:Pick<TaskBlock,'blockType'|'content'>){
+ if(next.blockType!=='task'||prior.blockType!=='task')return false;
+ const after=next.content as Record<string,unknown>,before=prior.content as Record<string,unknown>;
+ if(after.assigneeMemberId!==ctx.actor.id||after.done!==true||before.done===true)return false;
+ const rest=({done:_done,completedByMemberId:_by,completedAt:_at,...content}:Record<string,unknown>)=>requestHash(content);
+ return await rest(after)===await rest(before);
+}
 export async function taskEffects(ctx:FeatureContext,pageId:string,next:TaskBlock[],prior:TaskBlock[],revisionId:string,creation?:{containerId:string;parentPageId?:string|null;lifecycle:string}){
  const statements:D1PreparedStatement[]=[];
  for(const block of next.filter(b=>b.blockType==='task')){

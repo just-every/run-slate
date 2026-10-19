@@ -32,7 +32,11 @@ export async function tasksJourney({ownerId,reader,other,request,create,share,du
  const third={...task,id:createUlid(),content:{...task.content,text:[{text:'No date'}],dueDate:null}};expect((await request('PUT',`/api/pages/${q.pageId}/blocks`,{operationKey:createUlid(),expectedRevisionId:q.revisionId,blocks:[third]})).status).toBe(200);
  const list=await request('GET','/api/tasks?state=open&sort=due',undefined,reader);expect(list.data.items.map((t:any)=>t.blockId)).toEqual([taskId,write.blocks[1]!.id,third.id]);expect((await request('GET','/api/tasks?tab=created')).data.items).toHaveLength(3);
  const first=await request('GET','/api/tasks?state=open&sort=due&limit=1',undefined,reader);expect(first.data.items[0].blockId).toBe(taskId);
+ // The assignee completing their own task notifies no one, including the creator watching the page.
+ const notified=async()=>Promise.all([ownerId,reader,other].map(async member=>(await request('GET','/api/notifications',undefined,member)).data.items.map((x:any)=>x.id)));
+ const beforeCompletion=await notified();
  const complete=await request('PATCH',`/api/tasks/${p.pageId}/${taskId}`,{operationKey:createUlid(),expectedRevisionId:first.data.items[0].blockRevisionId,done:true},reader);expect(complete.status,JSON.stringify(complete.data)).toBe(200);
+ expect(await notified()).toEqual(beforeCompletion);
  expect((await request('PATCH',`/api/tasks/${p.pageId}/${taskId}`,{operationKey:createUlid(),expectedRevisionId:first.data.items[0].blockRevisionId,done:false},reader)).status).toBe(409);
  const next=await request('GET',`/api/tasks?state=open&sort=due&limit=1&cursor=${encodeURIComponent(first.data.nextCursor)}`,undefined,reader);expect(next.data.items[0].blockId).toBe(write.blocks[1]!.id);
  page=await request('GET',`/api/pages/${p.pageId}`);expect(page.data.blocks[0].content).toMatchObject({done:true,completedByMemberId:reader});

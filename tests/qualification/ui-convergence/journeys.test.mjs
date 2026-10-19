@@ -25,6 +25,7 @@ import { failedSaveJourney } from './failed-save-journey.mjs';
 import { sharedNavigationJourney } from './shared-navigation-journey.mjs';
 import { globalCreateJourney } from './global-create-journey.mjs';
 import { starterTemplatesJourney } from './starter-templates-journey.mjs';
+import { taskAssignmentJourney } from './task-assignment-journey.mjs';
 import { pageLockBrowserJourney } from './page-lock-journey.mjs';
 import { outlineJourney } from './outline-journey.mjs';
 import { groupMentionJourney } from './group-mentions-journey.mjs';
@@ -107,6 +108,12 @@ for (const width of [1440, 390]) {
         await state.page.screenshot({ path: `.artifacts/ui-convergence/starter-templates-${width}-failure.png`, fullPage: true });
         throw cause;
       });
+    });
+  });
+  test(`BLOCK-015 a typed task is assigned with @, dated with //, notifies once and shows overdue at ${width}px`, { timeout: 240000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await withSecondPerson(state, width, people => taskAssignmentJourney(state, people));
     });
   });
   test(`space tree title filtering preserves ancestors, access and expansion at ${width}px`, { timeout: 180000 }, async () => {
