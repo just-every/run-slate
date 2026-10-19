@@ -2260,16 +2260,17 @@
     },
     {
       "file": "tests/flagship/discovery/following.test.ts",
-      "testName": "container following delivers personal coalesced events once and rechecks lifecycle and access",
+      "testName": "CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access",
       "kind": "supporting-regression",
       "clauses": [
         "PAGE-009",
         "NOTIF-001",
         "NOTIF-002",
         "NAV-001",
-        "CONT-012"
+        "CONT-012",
+        "CONT-010"
       ],
-      "reason": "Production API/native-session Workers journey proves in-app page/container watch events, durable editing-session coalescing, deduplication, Home Following data, draft/restricted suppression, moves, archive/trash, permission revocation and erasure. CONT-012 digest delivery and browser acceptance remain separate and unproven."
+      "reason": "Default-profile (SLATE_PROFILE unset) API/native-session Workers journey proves in-app container and page watch events, durable editing-session coalescing, deduplication, a blog post as one post-published item, Home Following data, draft/restricted suppression, moves, archive/trash, permission revocation and erasure. Digest delivery belongs to NOTIF-005."
     },
     {
       "file": "tests/flagship/discovery/following.test.ts",

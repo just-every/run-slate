@@ -3219,11 +3219,11 @@
       "id": "CONT-012",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Production Workers journeys support durable watches, preferences, lifecycle-aware delivery and personal Following. Independent browser and full requirement acceptance remain unproven; CONT-012 digest delivery remains missing.",
+      "unmetReason": "A tagged default-profile Workers journey and desktop/mobile browser journeys exercise container watches, session coalescing, deduplication, posts, restricted and draft suppression and Home's Following section; digest delivery belongs to NOTIF-005; independent release acceptance is separate.",
       "supportingTests": [
         {
           "file": "tests/flagship/discovery/following.test.ts",
-          "testName": "container following delivers personal coalesced events once and rechecks lifecycle and access"
+          "testName": "CONT-012 \u2014 a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access"
         }
       ]
     },

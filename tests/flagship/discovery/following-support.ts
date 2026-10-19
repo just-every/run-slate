@@ -2,8 +2,9 @@ import {env} from 'cloudflare:test';
 import {expect} from 'vitest';
 import {createApi} from '../../../src/core/app/hono';
 import {seedWorkspace,seedMember,seedContainer,seedContainerGrant,sessionFor} from '../../e2e/setup/fixtures';
-export async function followingFixture() {
- const api=createApi(),origin='https://slate.test';
+/** `defaultProfile` sends every request with `SLATE_PROFILE` unset, as a target clause's evidence requires; this pool otherwise runs as flagship. */
+export async function followingFixture({defaultProfile=false}:{defaultProfile?:boolean}={}) {
+ const api=createApi(),origin='https://slate.test',runtime=defaultProfile?{...env,SLATE_PROFILE:undefined}:env;
  const {workspaceId}=await seedWorkspace();
  const members=await Promise.all(['owner','editor','commenter'].map(async(name,index)=>({name,...await seedMember(workspaceId,{role:index?'member':'owner',email:`${name}-${workspaceId}@example.test`,displayName:name})})));
  const [owner,editor,commenter]=members;
@@ -11,7 +12,7 @@ export async function followingFixture() {
  const {containerId}=await seedContainer(workspaceId,{ownerMemberId:owner!.memberId,visibility:'closed'});
  const grants=await Promise.all(members.map(m=>seedContainerGrant(containerId,{principalKind:'member',principalId:m.memberId,level:m.name==='owner'?'full':'edit'})));
  async function request(actor:string,method:string,path:string,body?:unknown) {
-  const response=await api.request(origin+path,{method,headers:{cookie:cookies.get(actor)!,'content-type':'application/json',origin},body:body===undefined?undefined:JSON.stringify(body)},env);
+  const response=await api.request(origin+path,{method,headers:{cookie:cookies.get(actor)!,'content-type':'application/json',origin},body:body===undefined?undefined:JSON.stringify(body)},runtime);
   return {status:response.status,body:await response.json<any>()};
  }
  async function ok(actor:string,method:string,path:string,body?:unknown) {
