@@ -1,6 +1,6 @@
 import {canonicalGroupLabels,labelGroups} from '../comments/group-labels';
 import { mentionEffects } from '../comments/group-mentions';
-import { taskEffects } from '../work-items/effects';
+import { taskEffects, ownTaskCompletion } from '../work-items/effects';
 import { normalizeTask } from './tasks';
 import type { FeatureContext } from '../../app/feature-context';
 import { commitOperation, mutationGuard, requestHash } from '../../app/operations';
@@ -36,7 +36,7 @@ export async function updateBlock(ctx: FeatureContext, pageId: string, blockId: 
                     const blockRevisionId = createUlid();
                     const next = blocks.map(b => b.id === blockId ? { ...b, content, revisionId: blockRevisionId } : b);
                     const policy = await contentPolicy(ctx), live = policy['page.lifecycle.v1'] === 'always-live' && !['draft', 'scheduled'].includes(page.lifecycle);
-                    return { statements: [pageGuard(ctx, page, page.revision_id), mutationGuard(ctx.db, 'SELECT revision_id=? FROM page_blocks WHERE id=? AND page_id=?', [input.expectedRevisionId, blockId, pageId]), ctx.db.prepare('UPDATE page_blocks SET content_json=?,revision_id=?,updated_at=? WHERE id=?').bind(JSON.stringify(content), blockRevisionId, ctx.now, blockId), revisionUpdate(ctx, pageId, revisionId, live), await revisionStatement(ctx, pageId, revisionId, { blocks: next, properties: await properties(ctx, page) }), ctx.db.prepare('INSERT OR IGNORE INTO page_contributors VALUES (?,?,?)').bind(pageId, ctx.actor.id, ctx.now), ...contentEvent(ctx, pageId, revisionId, 'block', { blockId, blockRevisionId }), ...anchorUpdates(ctx, pageId, next),...await taskEffects(ctx,pageId,next,blocks,revisionId),...await mentionEffects(ctx,pageId,page.container_id,content,block.content,revisionId,undefined,block.blockType==='task'?[(content as Record<string,any>).assigneeMemberId]:[])], entity: { id: pageId, kind: 'page', revisionId }, value: { pageId, revisionId, blockRevisionId, previousRevisionId: page.revision_id } };
+                    return { statements: [pageGuard(ctx, page, page.revision_id), mutationGuard(ctx.db, 'SELECT revision_id=? FROM page_blocks WHERE id=? AND page_id=?', [input.expectedRevisionId, blockId, pageId]), ctx.db.prepare('UPDATE page_blocks SET content_json=?,revision_id=?,updated_at=? WHERE id=?').bind(JSON.stringify(content), blockRevisionId, ctx.now, blockId), revisionUpdate(ctx, pageId, revisionId, live), await revisionStatement(ctx, pageId, revisionId, { blocks: next, properties: await properties(ctx, page) }), ctx.db.prepare('INSERT OR IGNORE INTO page_contributors VALUES (?,?,?)').bind(pageId, ctx.actor.id, ctx.now), ...contentEvent(ctx, pageId, revisionId, 'block', { blockId, blockRevisionId }, [], 'block', !await ownTaskCompletion(ctx, { ...block, content }, block)), ...anchorUpdates(ctx, pageId, next),...await taskEffects(ctx,pageId,next,blocks,revisionId),...await mentionEffects(ctx,pageId,page.container_id,content,block.content,revisionId,undefined,block.blockType==='task'?[(content as Record<string,any>).assigneeMemberId]:[])], entity: { id: pageId, kind: 'page', revisionId }, value: { pageId, revisionId, blockRevisionId, previousRevisionId: page.revision_id } };
                 } });
         }
         catch (e) {
