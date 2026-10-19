@@ -2555,6 +2555,10 @@
       "sha256": "a5e246c67dbfdbb0102c41893c43920fe224fb56fe9aadb40f072350e0115cba",
       "executable": false
     },
+    "modules/import-kit/tests/d1/people-fixture.ts": {
+      "sha256": "891b15024ddc67cffc9a147fa0a311109aa018b6ee6ce53fcb61a999b2a95386",
+      "executable": false
+    },
     "modules/import-kit/tests/d1/plan-cap-boundaries.test.ts": {
       "sha256": "e2fdf8caf978b59ef81a907d0131ec0c0a6e1a4dc2985543ce9428e6df0617b7",
       "executable": false
