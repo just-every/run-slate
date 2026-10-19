@@ -84,7 +84,11 @@ function commitPublication(ctx: FeatureContext, id: string, input: PublicationIn
         const choices: ScheduledChoices = { destination: input.destination, generalAccess: input.generalAccess, publishAsMemberId: input.publishAsMemberId, ...retained, ...(reviewed?{review:releaseReview(reviewed)}:{}) };
         statements.push(ctx.db.prepare("INSERT INTO content_schedules(page_id,publish_at,actor_member_id,expected_revision_id,operation_key,label,state,publication_json,created_at,updated_at) VALUES(?,?,?,?,?,?,'scheduled',?,?,?) ON CONFLICT(page_id) DO UPDATE SET publish_at=excluded.publish_at,actor_member_id=excluded.actor_member_id,expected_revision_id=excluded.expected_revision_id,operation_key=excluded.operation_key,label=excluded.label,state='scheduled',publication_json=excluded.publication_json,failure=NULL,updated_at=excluded.updated_at").bind(id, input.publishAt!, ctx.actor.id, revisionId, input.operationKey, input.label ?? null, JSON.stringify(choices), ctx.now, ctx.now));
       } else {
-        statements.push(ctx.db.prepare("UPDATE content_schedules SET state='published',failure=NULL,updated_at=? WHERE page_id=? AND state IN ('scheduled','failed')").bind(ctx.now, id), ...notificationStatements(ctx, { id: `${revisionId}:published`, event: 'published', pageId: id }));
+        // CONT-012: container watchers hear of a page once, when publication first makes it readable, and a
+        // draft post arrives as its post (CONT-010). Re-publishing a live page reaches its page watchers only (PAGE-009).
+        const first = ['draft', 'scheduled'].includes(p.lifecycle);
+        const post = first && !!await ctx.db.prepare('SELECT 1 FROM blog_posts WHERE page_id=?').bind(id).first();
+        statements.push(ctx.db.prepare("UPDATE content_schedules SET state='published',failure=NULL,updated_at=? WHERE page_id=? AND state IN ('scheduled','failed')").bind(ctx.now, id), ...notificationStatements(ctx, { id: `${revisionId}:published`, event: post ? 'post-published' : 'published', pageId: id }, { containerWatchers: first }));
       }
       return { statements, entity: { id, kind: 'page', revisionId }, value: { pageId: id, revisionId, scheduled } };
     },

@@ -34,7 +34,7 @@ test('CONT-010 — a post is a dated page that reaches followers once and lists 
  const viewer=await feed(f.commenter,`containerId=${f.containerId}`);expect(viewer.items).toHaveLength(2);expect(viewer.canPost).toBe(false);
  expect((await post({title:'Viewer post'},f.commenter)).status).toBe(404);
  expect((await post({title:'  '})).status).toBe(400);
- // Under draft-then-publish a post is private until published, then followers hear of the publication.
+ // Under draft-then-publish a post is private until published, then followers hear of it once, as a post.
  await env.DB.prepare('INSERT INTO workspace_policies VALUES(?,?,?)').bind(f.workspaceId,JSON.stringify({'page.lifecycle.v1':'draft-then-publish'}),new Date().toISOString()).run();
  const draft=(await post({title:'Draft announcement'})).body.value.pageId;
  expect((await feed(f.owner,`containerId=${f.containerId}`)).items.map((p:any)=>p.pageId)).not.toContain(draft);
@@ -42,7 +42,7 @@ test('CONT-010 — a post is a dated page that reaches followers once and lists 
  const draftDoc=await f.ok(f.owner,'GET',`/api/pages/${draft}`);
  await f.ok(f.owner,'POST',`/api/pages/${draft}/publish`,{operationKey:f.key(),expectedRevisionId:draftDoc.page.revisionId});
  expect((await feed(f.editor,'following=1')).items[0].pageId).toBe(draft);
- expect((await f.inbox(f.editor)).filter(n=>n.pageId===draft).map(n=>n.event)).toEqual(['published']);
+ expect((await f.inbox(f.editor)).filter(n=>n.pageId===draft).map(n=>n.event)).toEqual(['post-published']);
  // Erasing a post removes its blog entry with the page.
  const row=await env.DB.prepare('SELECT revision_id FROM pages WHERE id=?').bind(second).first<{revision_id:string}>();
  await f.ok(f.owner,'POST',`/api/archive/${second}`,{operationKey:f.key(),expectedRevisionId:row!.revision_id,action:'trash'});

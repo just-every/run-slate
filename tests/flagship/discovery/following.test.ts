@@ -67,6 +67,17 @@ test('CONT-012 — a watched container delivers creation, two edit sessions and 
  await seedPageGrant(draft,{principalKind:'member',principalId:f.editor,level:'edit'});await f.watch(f.editor,draft,true);await f.edit(draft,'Still a draft');
  expect((await f.inbox(f.editor)).map(n=>n.event).sort()).toEqual([...expected,'post-published'].sort());
  expect((await env.DB.prepare("SELECT id FROM notification_outbox WHERE page_id=? AND event IN ('page-created','page-edited')").bind(draft).all()).results).toEqual([]);
+ // A post created by API as a draft arrives once, as a post, when published: nothing at creation or for draft edits,
+ // nothing more for re-publishing it, and a later edit is one editing session (CONT-010).
+ const draftPost=(await f.ok(f.owner,'POST',`/api/blog/containers/${f.containerId}/posts`,{operationKey:f.key(),title:'Draft news',body:'Soon.'})).value.pageId;
+ await f.edit(draftPost,'Draft news, revised');
+ const postEvents=async()=>(await f.inbox(f.editor)).filter(n=>n.pageId===draftPost).map(n=>n.event).sort();
+ const publish=async()=>{const doc=await f.ok(f.owner,'GET',`/api/pages/${draftPost}`);await f.ok(f.owner,'POST',`/api/pages/${draftPost}/publish`,{operationKey:f.key(),expectedRevisionId:doc.page.revisionId});};
+ expect(await postEvents()).toEqual([]);
+ await publish();expect(await postEvents()).toEqual(['post-published']);
+ await publish();await f.edit(draftPost,'Live news');await publish();
+ expect(await postEvents()).toEqual(['page-edited','post-published']);
+ expect((await f.ok(f.editor,'GET','/api/navigation/following')).items.filter((n:any)=>n.pageId===draftPost).map((n:any)=>n.event).sort()).toEqual(['page-edited','post-published']);
  // Both the previous and the destination container are watched; the move remains one event.
  const target=(await f.ok(f.owner,'POST','/api/containers',{operationKey:f.key(),name:'Another space'})).value.id;
  await f.watch(f.editor,pageId,false);

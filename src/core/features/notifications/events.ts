@@ -10,8 +10,9 @@ export type CreationEligibility=(memberSql:string,event:NotificationFact)=>{sql:
 const creationResolvers=new Map<NotificationEvent,CreationEligibility>();
 export function registerNotificationCreationEligibility(event:NotificationEvent,resolver:CreationEligibility){creationResolvers.set(event,resolver);}
 /** Statements execute after the origin's writes, so atomic grants are visible at creation.
- * Extra container IDs select former-container watchers after a move; they are never payload. */
-export function notificationStatements(ctx:FeatureContext,event:NotificationFact,options:{containerIds?:string[];editingSession?:boolean}={}):D1PreparedStatement[] {
+ * Extra container IDs select former-container watchers after a move; they are never payload.
+ * `containerWatchers` false reaches page watchers only (a live page's re-publication, `CONT-012`). */
+export function notificationStatements(ctx:FeatureContext,event:NotificationFact,options:{containerIds?:string[];editingSession?:boolean;containerWatchers?:boolean}={}):D1PreparedStatement[] {
  if(!event.id||!notificationEvents.includes(event.event)||(!event.pageId&&!event.containerId&&!(event.recipientIds?.length)))throw new ApiProblem(400,'INVALID_NOTIFICATION_EVENT','A scoped event and recipient or record are required.');
  const watched=(watchedEvents as readonly string[]).includes(event.event);
  if(!watched&&!event.recipientIds?.length)return [];
@@ -27,7 +28,7 @@ export function notificationStatements(ctx:FeatureContext,event:NotificationFact
  AND (f.page IS NULL OR ${pageRead}) AND (f.container IS NULL OR ${containerReadableSql('m','f.container','f.workspace','f.at')})
  AND NOT EXISTS(SELECT 1 FROM json_each(json_extract(f.detail,'$.sourcePageIds')) source WHERE NOT (${pageReadableSql('m','source.value','f.workspace','f.at')})) AND (${extra.sql})),
  watched AS MATERIALIZED (SELECT member_id FROM page_watches WHERE page_id=? AND enabled=1
- UNION SELECT member_id FROM container_watches WHERE container_id IN (SELECT container_id FROM pages WHERE id=? UNION SELECT value FROM json_each(?)))
+ UNION SELECT member_id FROM container_watches WHERE ?=1 AND container_id IN (SELECT container_id FROM pages WHERE id=? UNION SELECT value FROM json_each(?)))
  INSERT OR IGNORE INTO notification_outbox(id,workspace_id,actor_member_id,event,page_id,container_id,comment_id,recipients_json,watched_recipients_json,detail_json,created_at)
  SELECT ${id},?,?,?,?,?,?,
  (SELECT json_group_array(value) FROM (SELECT value FROM json_each(?) UNION SELECT author_member_id FROM pages WHERE id=? AND ? IN ('comment','reply')) WHERE value IN (SELECT id FROM eligible)),
@@ -35,7 +36,7 @@ export function notificationStatements(ctx:FeatureContext,event:NotificationFact
  AND EXISTS(SELECT 1 FROM pages p LEFT JOIN content_archive_locations a ON a.page_id=p.id WHERE p.id=? AND COALESCE(a.prior_lifecycle,p.lifecycle) NOT IN ('draft','scheduled'))),?,?
  WHERE ?=0 OR EXISTS(SELECT 1 FROM pages p LEFT JOIN content_archive_locations a ON a.page_id=p.id WHERE p.id=? AND COALESCE(a.prior_lifecycle,p.lifecycle) NOT IN ('draft','scheduled'))`)
  .bind(ctx.actor.workspaceId,event.pageId??null,event.containerId??null,ctx.now,JSON.stringify(event.detail??{}),...extra.values,
- event.pageId??null,event.pageId??null,JSON.stringify(options.containerIds??[]),...idValues,
+ event.pageId??null,+(options.containerWatchers??true),event.pageId??null,JSON.stringify(options.containerIds??[]),...idValues,
  ctx.actor.workspaceId,event.actorId===undefined?ctx.actor.id:event.actorId,event.event,event.pageId??null,event.containerId??null,event.commentId??null,
  JSON.stringify(event.recipientIds??[]),event.pageId??null,event.event,+watched,event.pageId??null,JSON.stringify(event.detail??{}),ctx.now,+(event.event.startsWith('page-')||event.event==='post-published'),event.pageId??null)];
 }
