@@ -952,7 +952,7 @@
       "executable": false
     },
     "CHANGELOG.md": {
-      "sha256": "0526fe71a0e102af2d6821faa4fa5c9f99bbce93c01619b5025111343dbda1d8",
+      "sha256": "b2d516deadcd0541995c98559a829a67ab2d0f2d6f3b1e68bffb77e11ff0800c",
       "executable": false
     },
     "CLAUDE.md": {
@@ -1124,7 +1124,7 @@
       "executable": false
     },
     "management/integration/deployment-spec.json": {
-      "sha256": "684986cffd7858a14b5add4e3159fd0b47f2e83aa9f879f5152649ba3a675f4e",
+      "sha256": "8cbc08444db388c6aa954843a943a587586f74ae93532e6faeca14db9d09c7aa",
       "executable": false
     },
     "management/integration/index.d.mts": {
@@ -1148,7 +1148,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "b07dde64811137859b5748147844157ce11f84fbf6d6c1a9af2c29ca0932bb0f",
+      "sha256": "f67d2c8a34360bf0bc1ca45c977cb4cda923106ea14a37d2da302f4891921c19",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -1321,6 +1321,10 @@
     },
     "migrations/core/0042_record_templates.sql": {
       "sha256": "2e3e85de4bd4cc82d8963248e382c23c633f1f0adce2ebc4798451021e5a3a8d",
+      "executable": false
+    },
+    "migrations/core/0043_portability_import_leases.sql": {
+      "sha256": "312347110f67c8cf8c54f307b9dd41cf0d09ebc585304c391ec99d7b4a2a0623",
       "executable": false
     },
     "modules/d1-transport/index.d.mts": {
@@ -3784,7 +3788,7 @@
       "executable": false
     },
     "RELEASE.json": {
-      "sha256": "bb9b837fec55356d4a3a61968ee61b06d0393a01703e0c513570cc7081e680c2",
+      "sha256": "eb42f2d1682bce97f146b04d4ed9ec5de6915a9ebb3b289da0e2514ca2ef2ba1",
       "executable": false
     },
     "rer-project.json": {

@@ -464,11 +464,15 @@
     {
       "id": "0042_record_templates.sql",
       "buyerSteps": "Apply additively. Adds database record templates and recurring record occurrences."
+    },
+    {
+      "id": "0043_portability_import_leases.sql",
+      "buyerSteps": "Apply additively. Installs rer's private import-lease bookkeeping table (CREATE TABLE IF NOT EXISTS, so an installation where rer already created it is unchanged); it never enters an archive."
     }
   ],
   "breaking": false,
   "publicReleaseNotes": "Slate 0.3.0: a backup made by the previous version now restores; assigned tasks with reminders, page and space following, review requests and page locks, space blogs and homes with a company hub, guest expiry and domain rules, workspace analytics, record templates and recurring records, on rer 0.2.71. Product screenshot: .github/assets/release/slate-0.3.0-page-1440.png",
-  "agentUpdateInstructions": "Slate 0.3.0 upgrades 0.2.0 in place. Back up first with rer export, pin @runeditrun/rer 0.2.71 as package.json does, then apply migrations 0031-0042 in order; all are additive and keep members, roles, groups, guests, pages and live sessions. A backup made by 0.2.0 restores into 0.3.0 through rer import and Settings' workspace restore: tables it predates stay empty and columns it predates take their declared default; a dropped or renamed table or column, or an archive from a newer Slate, is refused. The import door is vendored from Base and not mounted. Slate uses the default core-wiki scope in CONTRACT.md and ACCEPTANCE.md. Flagship is explicit development opt-in, not acceptance. Preserve all requirement IDs, baseline obligations, eight policy profiles, private drafts, current source/requester/audience rights, immutable decisions, grants, budgets and exact effect receipts. STAT-003/004 require a human to open the exact revision; automatic renewal is prohibited. Preserve applied migration history; verify forward transition and recovery before upgrading existing data. Source checks do not establish provider, deployment or complete flagship acceptance.",
+  "agentUpdateInstructions": "Slate 0.3.0 upgrades 0.2.0 in place. Back up first with rer export, pin @runeditrun/rer 0.2.71 as package.json does, then apply migrations 0031-0043 in order; all are additive and keep members, roles, groups, guests, pages and live sessions. A backup made by 0.2.0 restores into 0.3.0 through rer import and Settings' workspace restore: tables it predates stay empty and columns it predates take their declared default; a dropped or renamed table or column, or an archive from a newer Slate, is refused. The import door is vendored from Base and not mounted. Slate uses the default core-wiki scope in CONTRACT.md and ACCEPTANCE.md. Flagship is explicit development opt-in, not acceptance. Preserve all requirement IDs, baseline obligations, eight policy profiles, private drafts, current source/requester/audience rights, immutable decisions, grants, budgets and exact effect receipts. STAT-003/004 require a human to open the exact revision; automatic renewal is prohibited. Preserve applied migration history; verify forward transition and recovery before upgrading existing data. Source checks do not establish provider, deployment or complete flagship acceptance.",
   "launchProfile": {
     "default": "core-wiki",
     "binding": "SLATE_PROFILE",

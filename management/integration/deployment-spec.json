@@ -272,6 +272,12 @@
       "name": "0042_record_templates.sql",
       "sha256": "2e3e85de4bd4cc82d8963248e382c23c633f1f0adce2ebc4798451021e5a3a8d",
       "sql": "-- DB-015: record templates (default field values and a body) and their optional calendar schedule.\n-- timezone is the personal time zone of the member who last saved the schedule, captured when it was saved.\n-- creator_member_id names that last saver (a re-save replaces it): the member the schedule runs as.\nCREATE TABLE database_record_templates (\n  id TEXT PRIMARY KEY NOT NULL,\n  workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n  database_id TEXT NOT NULL REFERENCES databases(id),\n  name TEXT NOT NULL,\n  record_title TEXT NOT NULL,\n  values_json TEXT NOT NULL DEFAULT '{}' CHECK (json_valid(values_json)),\n  blocks_json TEXT NOT NULL DEFAULT '[]' CHECK (json_valid(blocks_json)),\n  recurrence_json TEXT CHECK (recurrence_json IS NULL OR json_valid(recurrence_json)),\n  timezone TEXT,\n  next_occurrence_at TEXT,\n  creator_member_id TEXT NOT NULL REFERENCES members(id),\n  paused_at TEXT,\n  paused_reason TEXT,\n  created_at TEXT NOT NULL,\n  updated_at TEXT NOT NULL,\n  revision_id TEXT NOT NULL\n);\nCREATE INDEX database_record_templates_database ON database_record_templates(database_id, name);\nCREATE INDEX database_record_templates_due ON database_record_templates(workspace_id, next_occurrence_at) WHERE recurrence_json IS NOT NULL AND paused_at IS NULL;\n-- One row per schedule occurrence, written in the same batch as its record: an occurrence can never create a second record.\nCREATE TABLE database_record_occurrences (\n  template_id TEXT NOT NULL REFERENCES database_record_templates(id),\n  occurrence_at TEXT NOT NULL,\n  record_page_id TEXT NOT NULL,\n  created_at TEXT NOT NULL,\n  PRIMARY KEY (template_id, occurrence_at)\n);\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0043_portability_import_leases.sql",
+      "sha256": "312347110f67c8cf8c54f307b9dd41cf0d09ebc585304c391ec99d7b4a2a0623",
+      "sql": "-- rer 0.2.69+ fences every import with a renewable lease. Base creates this\n-- private bookkeeping table on first use; installing it here keeps that DDL out\n-- of erasure and transfer requests. Exact Base definition (import-lease.mjs).\nCREATE TABLE IF NOT EXISTS rer_portability_import_leases (\n    job TEXT PRIMARY KEY REFERENCES rer_portability_jobs(id) ON DELETE CASCADE,\n    expires_at INTEGER NOT NULL, holder TEXT\n  );\n"
     }
   ],
   "compatibilityDate": "2026-09-08",
