@@ -4,7 +4,8 @@ import { planD1Import, createD1ImportJob, resumeD1Import, undoD1Import, readD1Pe
 import type { D1Database } from '../../src/d1/index.ts';
 import { runtime, source, mapping, targets } from './fixtures.ts';
 import { meter } from './meter.ts';
-import { personTargets, peopleSource, peopleMapping } from '../../../../default-seed/src/core/features/people/imports.server.ts';
+import { personTargets, peopleMapping } from '../../../../default-seed/src/core/features/people/imports.server.ts';
+import { peopleSource } from './people-fixture.ts';
 
 function normalized(large = false) {
   const bundle = source(3);

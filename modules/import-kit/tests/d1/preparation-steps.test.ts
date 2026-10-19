@@ -4,7 +4,8 @@ import { fullScale } from './scale-size.ts';
 import { runtime } from './fixtures.ts';
 import { planD1ImportStream, prepareD1ImportSteps, publishD1ImportPreparation, resumeD1ImportStream, cancelD1ImportStaging } from '../../src/d1/index.ts';
 import type { ImportPreparationStep } from '../../src/d1/index.ts';
-import { personTargets, peopleSource, peopleMapping } from '../../../../default-seed/src/core/features/people/imports.server.ts';
+import { personTargets, peopleMapping } from '../../../../default-seed/src/core/features/people/imports.server.ts';
+import { peopleSource } from './people-fixture.ts';
 
 const rows = fullScale ? 100_000 : 12_345;
 

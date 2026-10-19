@@ -76,12 +76,16 @@ export async function door(t: TestContext, mode: 'grant' | 'operator' = 'grant')
     state.claimInstallationId = claimInstallationId; state.via = 'grant';
   }
 
-  async function token(action:DoorAction,overrides:Partial<DoorGrant>={},privateKey=keys.privateKey) {
-    const now=Math.floor(Date.now()/1000);
-    const payload:DoorGrant={v:1,iss:options.claim.issuer,aud:origin,installationId:state.claimInstallationId,email:options.claim.expectedEmail,jti:randomUUID(),iat:now,exp:now+300,action,namespace:'knowledge',maxBytes:2_000_000,maxChunks:32,maxRecords:1000,...overrides};
+  /** RER's signer at the network edge: any payload, ES256 under the test key ring. */
+  async function sign(payload:Record<string,unknown>,privateKey=keys.privateKey) {
     const header=Buffer.from(JSON.stringify({alg:'ES256',typ:'rer-import-grant+jwt',kid:'test'})).toString('base64url'),body=Buffer.from(JSON.stringify(payload)).toString('base64url');
     const signature=await crypto.subtle.sign({name:'ECDSA',hash:'SHA-256'},privateKey,new TextEncoder().encode(header+'.'+body));
     return header+'.'+body+'.'+Buffer.from(signature).toString('base64url');
+  }
+  async function token(action:DoorAction,overrides:Partial<DoorGrant>={},privateKey=keys.privateKey) {
+    const now=Math.floor(Date.now()/1000);
+    const payload:DoorGrant={v:1,iss:options.claim.issuer,aud:origin,installationId:state.claimInstallationId,email:options.claim.expectedEmail,jti:randomUUID(),iat:now,exp:now+300,action,namespace:'knowledge',maxBytes:2_000_000,maxChunks:32,maxRecords:1000,...overrides};
+    return sign(payload as unknown as Record<string,unknown>,privateKey);
   }
   async function call(action:DoorAction,body:unknown,overrides:Partial<DoorGrant>={},signed?:string) {
     const response=await fetch(origin+(state.via==='operator'?'/api/operator/import/':'/api/rer/import/')+action,{method:'POST',headers:{'Content-Type':'application/json',...state.headers,...(state.via==='operator'?{Origin:origin,Cookie:'test-owner-session'}:{Authorization:'Bearer '+(signed ?? await token(action,overrides))})},body:JSON.stringify(body)});
@@ -114,7 +118,7 @@ export async function door(t: TestContext, mode: 'grant' | 'operator' = 'grant')
     do {result=await call('undo',{planId});assert.equal(result.status,200,JSON.stringify(result.body));} while(!['undone','rolled_back'].includes(result.body.job.state));
     return result;
   }
-  return {origin,runtime,db,options,requests,ownerPredicate,approval,call,token,upload,plan,apply,undo,state,operator,addGrants,
+  return {origin,runtime,db,options,requests,ownerPredicate,approval,call,sign,token,upload,plan,apply,undo,state,operator,addGrants,
     mount:(...next:Handler[])=>{handlers=next;},
     enable:()=>writeImportDoorSettings(db,options.claim.installationId,{enabled:true},ownerPredicate)};
 }
