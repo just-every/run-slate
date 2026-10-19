@@ -12,8 +12,8 @@
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 171 | 50 | 0 | 221 |
-| Target and push further | 11 | 51 | 43 | 105 |
-| All | 182 | 101 | 43 | 326 |
+| Target and push further | 12 | 50 | 43 | 105 |
+| All | 183 | 100 | 43 | 326 |
 
 ### Published: Workspace, editing and pages
 
@@ -289,7 +289,7 @@
 | `PAGE-016` Autowatch on create and edit | a Workers journey has one member create a page and a second member edit another page, then a third member comments on both, and the creator and the editor each get exactly one notification. After the editor unwatches their page and edits it again, a further comment notifies them of nothing. A member with autowatch off creates a page and is not watching it. | done | `tests/flagship/discovery/following.test.ts` |
 | `WORK-016` People directory and expertise | a browser journey that finds the expert for a topic from the directory, sees the pages they own and verify, hides a derived tag, and confirms a guest cannot list members beyond their shared pages. | missing | — |
 | `SHARE-009` Share with a message | a browser journey shares a page with a message to one member who can read it and one who cannot. The first gets one inbox item and one email with the message. The second is offered to the sender as a grant and receives nothing until it is added, then gets one item. | partial | `tests/qualification/backend/emitted.mjs` |
-| `TMPL-007` Starter templates | a browser journey finds each named starter template in the gallery by category, previews it, creates a page from meeting notes and assigns a task in it, and duplicates the retrospective into an editable copy while the shipped template stays unchanged. | partial | `src/core/features/templates/service.ts` |
+| `TMPL-007` Starter templates | a browser journey finds each named starter template in the gallery by category, previews it, creates a page from meeting notes and assigns a task in it, and duplicates the retrospective into an editable copy while the shipped template stays unchanged. | done | `tests/e2e/pages/starter-templates.test.ts`, `tests/qualification/ui-convergence/starter-templates-journey.mjs` |
 | `NAV-007` My tasks | a browser journey assigns one member three tasks on two pages with different due dates. Their My tasks view, filtered to open and sorted by due date, lists exactly those three in that order. Completing one from the list marks it done on its page, and revoking the member's access to one page removes its task from the list on the next load. | done | `tests/profile/work-items-journey.ts` |
 | `SEARCH-010` Labels and advanced search | a Workers journey over seeded pages checks each operator and each combination against expected result IDs for two members with different grants. A browser journey saves a search and embeds it in a page. | done | `tests/e2e/search/discovery-journey.ts` |
 | `SEARCH-011` Verified-first ranking and trust badges | a Workers journey over a seeded corpus of a verified, a lapsed and an unverified page with equal text matches asserts their order and badges. A seeded pair at a measured similarity of 0.85 collapses into one result and a pair at 0.7 does not; lowering the limit to 0.65 collapses the second pair too. A browser journey sees the badges and the collapsed near-duplicates. | partial | `tests/e2e/search/discovery-journey.ts` (Search, internal cards and member content queries show revision-aware trust; ranking, similarity controls and sorting have Workers and 1440/390 browser evidence. Gap: answer trust and anonymous public card/query trust metadata remain missing.) |
