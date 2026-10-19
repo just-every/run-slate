@@ -1543,7 +1543,7 @@ Owners and container owners get reports on views and unique viewers (`PAGE-013`)
 
 *Acceptance:* a Workers journey over a seeded workspace asserts each report's rows, the CSV export, and that a container owner sees only their own container's figures.
 
-*Status:* partial. Page and container view analytics exist (`src/core/features/analytics/`); the admin reports do not.
+*Status:* done. All seven aggregate reports and CSV exports ship in the default profile, scoped to current readable pages in owned containers. Dates use UTC; stale means neither edited nor verified during the chosen period, measured at Until or now. Growth counts retained published pages, including archived pages. Search counters contain no member identity; container owners see only explicitly container-scoped searches. `tests/e2e/pages/analytics.test.ts` and `tests/qualification/ui-convergence/analytics-journey.mjs` exercise reports, CSV, permissions and the 1440/390 owner view.
 
 #### ADMIN-005 — Audit export and SIEM streaming.
 Owners filter the workspace audit trail (`ACT-*`, including sign-ins, permission and sharing changes, exports, token use and admin settings) and export it as CSV or JSON. They can stream it to Splunk, Datadog or Microsoft Sentinel through a signed webhook (`API-002`), with a retention setting no shorter than one year.
@@ -1772,15 +1772,15 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `761e3e8d087ab4af2d25c635455991c2d8518750` (19 October 2026).
+Judged from the current code and the implementation evidence cited in each row (19 October 2026).
 
 See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 171 | 50 | 0 | 221 |
-| Target and push further | 9 | 53 | 43 | 105 |
-| All | 180 | 103 | 43 | 326 |
+| Target and push further | 10 | 52 | 43 | 105 |
+| All | 181 | 102 | 43 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2092,7 +2092,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `ADMIN-001` | SAML single sign-on | target | partial | `src/core/features/session/native/` | see the clause |
 | `ADMIN-002` | SCIM provisioning | target | missing | — | not implemented |
 | `ADMIN-003` | Guest management | target | done | `tests/qualification/policies/invitations.test.ts`, `tests/qualification/ui-convergence/guest-console-journey.mjs` |  |
-| `ADMIN-004` | Workspace analytics | target | partial | `src/core/features/analytics/` | see the clause |
+| `ADMIN-004` | Workspace analytics | target | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` |  |
 | `ADMIN-005` | Audit export and SIEM streaming | target | partial | `src/core/features/activity/service.ts` | see the clause |
 | `ADMIN-006` | Content governance | target | partial | `tests/qualification/policies/access-publication.test.ts` | see the clause |
 | `ADMIN-007` | Every target surface ships in the default product | target | partial | `src/core/platform/config/launch-profile.ts` | see the clause |

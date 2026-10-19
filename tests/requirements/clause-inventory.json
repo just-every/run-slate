@@ -3307,6 +3307,13 @@
       "status": "unproven",
       "unmetReason": "Guest policy and revocation have a tagged Workers journey and a desktop/mobile browser journey; independent release acceptance is separate.",
       "supportingTests": []
+    },
+    {
+      "id": "ADMIN-004",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Tagged default-profile Workers and owner browser journeys exercise the reports and exports; independent release acceptance is separate.",
+      "supportingTests": []
     }
   ]
 }

@@ -260,6 +260,12 @@
       "name": "0040_guest_policy.sql",
       "sha256": "8cc7748743993c4b4c57b89bf65a6cc7ce99d9e39649ecfde1a9a8f5e1b9de33",
       "sql": "ALTER TABLE workspaces ADD COLUMN guest_default_expiry_days INTEGER CHECK (guest_default_expiry_days BETWEEN 1 AND 3650);\nALTER TABLE workspaces ADD COLUMN guest_allowed_domains TEXT NOT NULL DEFAULT '[]' CHECK (json_valid(guest_allowed_domains));\nALTER TABLE workspaces ADD COLUMN guest_denied_domains TEXT NOT NULL DEFAULT '[]' CHECK (json_valid(guest_denied_domains));\nALTER TABLE members ADD COLUMN guest_expires_at TEXT;\nALTER TABLE invitations ADD COLUMN guest_expires_at TEXT;\nCREATE TRIGGER guest_policy_authority AFTER UPDATE OF guest_default_expiry_days,guest_allowed_domains,guest_denied_domains ON workspaces\nBEGIN UPDATE core_acl_epoch SET epoch=epoch+1 WHERE id=1; END;\nCREATE TRIGGER guest_expiry_authority AFTER UPDATE OF guest_expires_at ON members\nBEGIN UPDATE core_acl_epoch SET epoch=epoch+1 WHERE id=1; END;\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0041_analytics_reports.sql",
+      "sha256": "583df37b7ca6c6c8ad72e8db45cb823042238055dc8c708467f3c9ebf0a90d8b",
+      "sql": "-- ADMIN-004: daily aggregate only. No member, session or reading identity is retained.\n-- Empty container_scope denotes a workspace-wide search; these rows are owner-only.\nCREATE TABLE analytics_no_result_searches (\n  workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n  container_scope TEXT NOT NULL,\n  query TEXT NOT NULL,\n  day TEXT NOT NULL,\n  searches INTEGER NOT NULL DEFAULT 1 CHECK(searches > 0),\n  PRIMARY KEY(workspace_id, container_scope, query, day)\n);\n"
     }
   ],
   "compatibilityDate": "2026-09-08",

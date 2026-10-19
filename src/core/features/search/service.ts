@@ -1,3 +1,4 @@
+import { recordNoResultSearch } from '../analytics/no-result-searches';
 import type { FeatureContext } from '../../app/feature-context';
 import { ApiProblem } from '../../app/problems';
 import { requestHash } from '../../app/operations';
@@ -38,6 +39,7 @@ export async function search(ctx: FeatureContext, raw: SearchInput) {
   }
   const groups = snapshotGroups(snapshot, rows), remaining = groups.filter(group => group.position >= (cursor?.offset ?? 0));
   const selected = remaining.slice(0, input.limit!);
+  if (!cursor && !groups.length) await recordNoResultSearch(ctx, input.query, input.containerId);
   // The last live ACL query covers every disclosed similar-page member, not
   // merely the representative whose snippet is displayed.
   const documents = await selectedSearchDocuments(ctx, query, selected.flatMap(group => group.rows));

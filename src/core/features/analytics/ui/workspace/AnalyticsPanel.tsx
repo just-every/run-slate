@@ -1,3 +1,4 @@
+import { AnalyticsReports } from "./AnalyticsReports";
 import { useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import { RequestState } from "../../../../app/ui/RequestState";
@@ -148,6 +149,7 @@ export function AnalyticsPanel({
           </>
         ) : null}
       </RequestState>
+      {!pageId && containerId ? <AnalyticsReports containerId={containerId} /> : null}
     </section>
   );
 }
