@@ -47,13 +47,15 @@ row.report_json=JSON.stringify({...JSON.parse(String(row.report_json)),recovery:
  'files':(row,_ownerEmail,_now,keys)=>{if(keys.has(String(row.storage_key)))row.storage_key=keys.get(String(row.storage_key))!;},
 };
 /**
- * Rows that give a member access. Removing a member deletes theirs
- * (workspace/members.ts), so an archive holding one for a removed member was
- * changed after export; restore leaves it out.
+ * Rows that give a member access. Removing a member deletes their memberships
+ * and revokes their grants, keeping the revoked grants as history
+ * (workspace/members.ts), so an archive holding a live one for a removed member
+ * was changed after export; restore leaves it out. A revoked grant gives no
+ * access and comes back as the history it is.
  */
 export const memberAccess:Record<string,(row:DataRow)=>unknown>={
- page_grants:row=>row.principal_kind==='member'?row.principal_id:null,
- container_grants:row=>row.principal_kind==='member'?row.principal_id:null,
+ page_grants:row=>row.principal_kind==='member'&&!row.revoked_at?row.principal_id:null,
+ container_grants:row=>row.principal_kind==='member'&&!row.revoked_at?row.principal_id:null,
  group_members:row=>row.member_id,
  container_members:row=>row.member_id,
 };

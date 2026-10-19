@@ -103,7 +103,8 @@ test('a populated installation comes back on fresh authority under a different o
     assert.ok((await sql('SELECT revoked_at FROM public_exposures')).every(row => row.revoked_at), 'the doctored public link is revoked on import');
     assert.deepEqual(await sql("SELECT token_hash,scope_json,revoked_at IS NOT NULL AS revoked FROM intelligence_agent_credentials"), [{ token_hash: 'erased:' + credentialId, scope_json: '{}', revoked: 1 }], 'the doctored credential is erased as export erases it');
     assert.deepEqual(await sql(`SELECT status FROM members WHERE id='${dave.member.id}'`), [{ status: 'removed' }], 'a removed member stays removed');
-    assert.deepEqual(await sql(`SELECT id FROM page_grants WHERE principal_id='${dave.member.id}'`), [], "the removed member's doctored grant is left out");
+    // Removal revoked Dave's own grants and keeps them as history; only the doctored live one is new.
+    assert.deepEqual(await sql(`SELECT id FROM page_grants WHERE principal_id='${dave.member.id}' AND revoked_at IS NULL`), [], "the removed member's doctored grant is left out");
     assert.equal(doctored.warnings?.length, 1, 'and the import says so');
     // Agent credentials work only in the flagship profile, so prove the credential there.
     await start({ SLATE_PROFILE: 'flagship' });
