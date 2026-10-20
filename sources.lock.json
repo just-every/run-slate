@@ -5804,7 +5804,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/EditableElement.tsx": {
-      "sha256": "6bf250b1c1210c8954f4a72735a375ee8e7505133d2384896678d078d3dcea5c",
+      "sha256": "cd1fe69f7cee37f3f79ffaa18ace7e9e7c945ad7375d49c0e0f572c595168d16",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/editableSelection.ts": {
@@ -10767,6 +10767,10 @@
       "sha256": "d2a174ecee938c28d16a46b831e5b11e23e11663f02e0126b5e4cb055ef75d33",
       "executable": false
     },
+    "tests/qualification/ui-convergence/first-words-journey.mjs": {
+      "sha256": "477a3a97df3890b49fbd65abc505cfe93885bbf4fa7a0903fae01b8f6b5300d5",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/following-journey.mjs": {
       "sha256": "c6cace83d5379c0f00701e1203310e5794152b83bbc289416a8fa5634414638f",
       "executable": false
@@ -10792,7 +10796,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "77b86201adacb45967dc59b13899cfc32eece667eb3686ceee5cbcd2f86fae68",
+      "sha256": "3e69f183b1b7c21378d7b6d74d0c3fbdfc66b1a1a76a73e48139229590001aa7",
       "executable": false
     },
     "tests/qualification/ui-convergence/my-tasks-journey.mjs": {
@@ -10892,7 +10896,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {
-      "sha256": "ddd0593cbda209b8c4598c56a6c6f4cbbcb9c241b5bfc1984eb990927e4fcdd9",
+      "sha256": "4766f4cc0b921ecf0d5148aa87659e63fda374320d1c1f7e8ffb41e6f36c6b81",
       "executable": false
     },
     "tests/release/delivery-runtime.mjs": {

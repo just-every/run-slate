@@ -186,7 +186,7 @@ for (const width of [1440, 390]) {
       await expect(state.page.getByRole('menu').getByRole('menuitem', { name: 'Ask', exact: true })).toHaveCount(0);
       await state.page.keyboard.press('Escape');
       let pageId;
-      await t.test('create, write, committed save, failed save and explicit retry', async () => { pageId = await writeJourney(state, width); });
+      await t.test('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving', async () => { pageId = await writeJourney(state, width); });
       assert.ok(pageId, 'Writing must complete before dependent journeys.');
       await t.test('anchored comment, reset composer, reply and resolve', () => commentJourney(state, pageId));
       await t.test('invite existing member, persisted grant and canonical copied link', () => shareJourney(state, pageId));

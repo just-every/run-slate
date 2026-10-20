@@ -13,7 +13,7 @@ import {
 import { EditableToolbar } from "./EditableToolbar";
 import { cn } from "../../../../ui";
 import type { EditableProps } from "./Editable";
-import type {RichText} from '../types';
+import {richTextToPlain, type RichText} from '../types';
 import {sliceRichText} from '../sliceRichText';
 import { readRichText } from "./readRichText";
 import {
@@ -89,6 +89,12 @@ export function EditableElement({
     element.addEventListener("beforeinput", beforeInput);
     return () => element.removeEventListener("beforeinput", beforeInput);
   });
+  // The server-rendered editable accepts typing before React attaches. Words typed
+  // then are in the DOM but not in state, so they would never be saved.
+  useLayoutEffect(() => {
+    const element = root.current;
+    if (element && canEdit && richTextToPlain(readRichText(element, value)) !== richTextToPlain(value)) publish(element);
+  }, []);
   const Tag = (as ?? "div") as ElementType;
   return (
     <>
