@@ -960,7 +960,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "270c7f1296df5e980e18d670bb6fda77ad80241f717785c87ac8e7203dfeaa16",
+      "sha256": "a569ddeab1977b36a96049ebfa13a1b9eb351bde55908bf56c0ae993129888c7",
       "executable": false
     },
     "DEMO.md": {
@@ -1065,6 +1065,54 @@
     },
     "edition.json": {
       "sha256": "0d4cac919c752d0042cb3c8875c10123307be6312687dce799b0ae9290c51bd9",
+      "executable": false
+    },
+    "evidence/port010/export-comments-1440-word-comments-dialog.png": {
+      "sha256": "61c70c8b7701fd65439eb37a2584a4251189f23a5c6213b56505f36225d856a5",
+      "executable": false
+    },
+    "evidence/port010/export-comments-1440-word-comments-downloaded.png": {
+      "sha256": "a3fdcce61eb3b9fe44b50a5d50ec99c9242cee209ac874559969f6fc1d385f07",
+      "executable": false
+    },
+    "evidence/port010/export-comments-1440-word-descendants-dialog.png": {
+      "sha256": "db1b2e6195b1f1c762fe89ff40e4c59d4aa0bae835c3d6b926886d9741c6f973",
+      "executable": false
+    },
+    "evidence/port010/export-comments-1440-word-descendants-downloaded.png": {
+      "sha256": "b24380b53d0817b173a31656dcd3d5198c98337ac95d2537eb61b3d588a14c86",
+      "executable": false
+    },
+    "evidence/port010/export-comments-1440-word-without-comments-dialog.png": {
+      "sha256": "3ff3ba79706a618bde964ebbd71f965e059abe09e3d708b87a85255236983bca",
+      "executable": false
+    },
+    "evidence/port010/export-comments-1440-word-without-comments-downloaded.png": {
+      "sha256": "d498945a233f943704c0ec4448ffa12dcee87308ee7052ef5f8fbac581f66b28",
+      "executable": false
+    },
+    "evidence/port010/export-comments-390-word-comments-dialog.png": {
+      "sha256": "8dd5015ffff3d6a7b56f3b095596f4949762937fe405201a9925cc6a842f4504",
+      "executable": false
+    },
+    "evidence/port010/export-comments-390-word-comments-downloaded.png": {
+      "sha256": "82320e370a5d338c9b23ff45f1ccc238f472b5ee105534bdbcf73f08a9e06b0a",
+      "executable": false
+    },
+    "evidence/port010/export-comments-390-word-descendants-dialog.png": {
+      "sha256": "ee6eba5f656eea342b218a6a877437d2408b041a4ac7a7e2782f6c5cd85f87a7",
+      "executable": false
+    },
+    "evidence/port010/export-comments-390-word-descendants-downloaded.png": {
+      "sha256": "82320e370a5d338c9b23ff45f1ccc238f472b5ee105534bdbcf73f08a9e06b0a",
+      "executable": false
+    },
+    "evidence/port010/export-comments-390-word-without-comments-dialog.png": {
+      "sha256": "7b6c439077b9cdc4c5958c5feb0bbd7c239c81fd6b42a912c02b1e9d235d6b0b",
+      "executable": false
+    },
+    "evidence/port010/export-comments-390-word-without-comments-downloaded.png": {
+      "sha256": "82320e370a5d338c9b23ff45f1ccc238f472b5ee105534bdbcf73f08a9e06b0a",
       "executable": false
     },
     "FLAGSHIP-DELIVERY.md": {
