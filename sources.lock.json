@@ -903,6 +903,10 @@
       "sha256": "08e017c50cb32ee93adfa3b70c5954dc1e76516e40045f68d9b97ddf9bacefbc",
       "executable": false
     },
+    ".github/assets/release/slate-0.4.0-page-1440.png": {
+      "sha256": "a24c2d2fa8f49570cfd9db65001b444a42fb3bd2aef3d652b81b39fafe63f6e2",
+      "executable": false
+    },
     ".github/workflows/deploy.yml": {
       "sha256": "43ebd67d713bf5dcc1a4c3bdee66aabd2b08a2d214235054fdcc38211326015f",
       "executable": false
@@ -952,7 +956,7 @@
       "executable": false
     },
     "CHANGELOG.md": {
-      "sha256": "e61510cd861629f5d52979ec5112bf5b44c94e5fa4c71265f136de710bc5246d",
+      "sha256": "07bf302b389c19c61f961c1b88e0ff295a80a6f3480f2d4e31cf19d705f54e09",
       "executable": false
     },
     "CLAUDE.md": {
@@ -3820,7 +3824,7 @@
       "executable": false
     },
     "package.json": {
-      "sha256": "15144c8d3e38d401134e376348db382a87d2f39744b90aa11c428203d2c9bf1d",
+      "sha256": "5ecf370aebe7db4ccb8e447aca60c82d648e169dd36811ac77d1d1daffcc859b",
       "executable": false
     },
     "pnpm-lock.yaml": {
@@ -3888,7 +3892,7 @@
       "executable": false
     },
     "RELEASE.json": {
-      "sha256": "fed48824aa07094fd72058845e20fa350a8e8ec31e069bb3e0e99b05b94e1414",
+      "sha256": "5434becdbb3ea2eefe9166f7cf39e63bd74f520bdffa3e29a5549f64646a85b5",
       "executable": false
     },
     "rer-project.json": {
@@ -4272,7 +4276,7 @@
       "executable": false
     },
     "seed.json": {
-      "sha256": "dbbda9e098f706a589a83046924dd167db9c888a0d82b17a92795f4946e1930f",
+      "sha256": "ca4b5646a38d81b67285825e70c3b4cc1bf06b4b221962e73413b41c8eacc913",
       "executable": false
     },
     "src/base/runtime/contract-filter.ts": {

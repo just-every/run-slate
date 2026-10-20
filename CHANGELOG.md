@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.4.0 — 21 October 2026
+
+Slate 0.4.0 is a minor release over 0.3.0. It adds Word export and nightly verification rules, and keeps the first words typed into a new page. The product screenshot for this release is `.github/assets/release/slate-0.4.0-page-1440.png`.
+
+**Upgrade from 0.3.0.** Back up with `rer export` first. Keep `@runeditrun/rer` pinned at 0.2.73, as `package.json` does. Apply migration 0044 (verification rules); it is additive, so every member, role, group, guest, page, comment and live session is kept as it is. A backup made by 0.3.0 restores into 0.4.0 through `rer import` or Settings' workspace restore.
+
+**Word export (PORT-010).** A page, or a page with everything beneath it, exports from the page's Export as one Word `.docx` file. The file has headings, lists, tasks with their assignee and due date, tables with merged cells, code, callouts, images with their alt text, and links. Links to other exported pages jump inside the document. Comments can be included as Word comments with their authors, times, replies and resolved state. The file holds only what the person exporting can read, and access is checked again before it is returned. Re-importing the file with Word import brings back its headings, merged tables and images with their alt text.
+
+**Verification rules (STAT-007).** Each space has three nightly rules, all off until its owner turns one on: unverify a page when a page or source it cites changes, flag pages with no owner, and flag verified pages nobody has viewed for a set number of days. A rule can be previewed before it is turned on. Each run records what it changed and why in activity and sends affected owners one combined notice. No rule ever verifies a page. Migration 0044 adds the rules, their run receipts and page flags.
+
+**First words on a new page are kept.** Words typed into a new page before its scripts finished loading appeared in the editor but were never saved, so they were gone after a reload, most often on a slow connection or phone. The editor now picks up text already typed when it starts and saves it like any other keystroke.
+
+**Listing summary.** Slate's catalogue summary now reads "One home for everything your team knows: pages, databases and search.", from the homepage's lead.
+
+**Known issues.**
+- Word export covers a page or a page with its descendants. Workspace and space exports stay HTML or Markdown archives.
+- Equations and diagram blocks are not part of Slate yet, so Word export has nothing to carry for them (`BLOCK-013`, `BLOCK-019`).
+- A first `rer deploy` of a new environment claims the hosted owner and then exits 1 with `POST /auth/signout returned HTTP 404`: rer 0.2.73 signs out its unused claim session at `/auth/signout`, and Slate signs out at `/api/auth/logout`. The app is live and the owner is claimed; run `rer deploy --environment <name> --unset-secret SETUP_TOKEN`, as the message says, to remove the one-time setup token.
+- Hosted mail through SendGrid has no provider duplicate suppression, so a refused send waits for the owner's retry instead of retrying itself (MAIL-002).
+- Slate's flagship systems (AI, runs, inquiries, connectors) remain a development opt-in outside this release's acceptance.
+
 ## 0.3.0 — 20 October 2026
 
 Slate 0.3.0 is a minor release over 0.2.0. It adds assigned page tasks with due dates and inbox reminders, page and space following, accountable review requests and page locks, space blogs, editable space homes and a permission-aware company hub, owner guest management with expiry and domain rules, workspace analytics with CSV reports, record templates and recurring records, a starter template set, search operators and click-to-load embeds. The product screenshot for this release is `.github/assets/release/slate-0.3.0-page-1440.png`.
