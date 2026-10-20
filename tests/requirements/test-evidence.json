@@ -839,6 +839,15 @@
       "reason": "Asserts durable imports and federation appends an import to an existing page atomically and preserves preexisting blocks on stale revisions. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
+      "file": "tests/flagship/federation/oauth-return.test.ts",
+      "testName": "connecting Slack from local dev returns the owner signed in with Slack connected",
+      "kind": "supporting-regression",
+      "clauses": [
+        "SOURCE-001"
+      ],
+      "reason": "Asserts a Slack connection started from local rer dev completes when Slack sends the browser back cross-site: the owner stays signed in, the connection is stored, and a forged, missing or reused state is refused. Its supporting scope is limited to the listed requirement; it does not establish its full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
       "file": "tests/flagship/structured/automation-repairs.test.ts",
       "testName": "AUTO-002 source/container admission rejects out-of-scope destinations; site definitions and activity are private",
       "kind": "supporting-regression",
