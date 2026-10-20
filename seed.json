@@ -178,13 +178,14 @@
     },
     {
       "id": "status-and-verification",
-      "description": "A workspace status vocabulary, one status per page, verification by someone who opened the revision, honest lapse, and an open-vocabulary or verification-only profile.",
+      "description": "A workspace status vocabulary, one status per page, verification by someone who opened the revision, honest lapse, an open-vocabulary or verification-only profile, and nightly container verification rules that flag or unverify, never verify.",
       "clauses": [
         "STAT-001",
         "STAT-002",
         "STAT-003",
         "STAT-004",
-        "STAT-005"
+        "STAT-005",
+        "STAT-007"
       ]
     },
     {

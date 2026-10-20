@@ -961,9 +961,25 @@ A page owner or editor can request review from a named member or group, with a d
 #### STAT-007 — Verification rules.
 Container owners configure nightly rules that flag or unverify, never verify. Examples: unverify a page when a page or source it cites changes, flag pages with no owner, and flag verified pages unviewed for 180 days. Each run records what it changed and why in activity, notifies affected owners once in a coalesced notice, and can be previewed before it is turned on. No rule, automation or AI action renews verification (`STAT-004`).
 
-*Acceptance:* a Workers journey runs a rule over seeded pages and asserts exactly the expected unverifications, flags, activity entries and one coalesced notice per owner. An attempted rule action of "verify" is rejected.
+What the rules mean (each container has the three rules, all off by default):
 
-*Status:* missing.
+- **Who configures.** A container's owners, through the same authorization as the container's settings; a workspace owner owns every non-personal container (`WORK-008`). Anyone else is refused.
+- **Actions.** A rule's action is `unverify` or `flag` and is fixed by its kind: `cited-changed` unverifies, `no-owner` and `unviewed` flag. Any other action, "verify" first of all, is refused with a 400 problem before anything is stored.
+- **Unverify** ends the page's latest verification as lapsed: the run moves that verification's expiry to the run time (never later, so it never extends one), and the one shared definition of current, changed and lapsed (`STAT-003`, `STAT-004`) then reads it lapsed in the page, the review list, search, content queries, AI answers, exports and publishing. It writes no verification row and sets no status; the original verification (verifier, revision, time) stays in history and its previous expiry is kept in the activity entry. In the same batch it marks the `STAT-004` lapse notice sent, so the owner gets the run's one notice and no second lapse notice.
+- **Cites.** A page cites another page when its body links to or mentions that page, by the same link scan as the page's backlinks. `cited-changed` fires when a cited page (not deleted or trashed) has a working revision created after the citing page's latest verification, and that verification still reads current.
+- **No owner.** The page's owner is unset or names a member who is no longer active. It applies to every live page of the container, verified or not.
+- **Unviewed.** No page view in the last N days (180 by default, 1 to 3650) while the page's verification reads current.
+- **A flag** is a marker on the page's status panel and in the container's rules panel. It is not verification and does not change search ranking or any trust badge. It is removed when its condition clears; the page's owner or a container owner can dismiss it, and a dismissed flag stays dismissed while its condition holds.
+- **Nightly, exactly once.** The run is part of the Worker's own schedule in every profile. Each rule runs once per UTC night, with a durable receipt per rule and night; concurrent cron or queue invocations and a restart produce one run's effects. A rule turned on runs from the next night, never the night it is turned on.
+- **Recorded.** Each changed page (unverified, or newly flagged) gets one activity entry with the system as actor, naming the rule and why (the cited pages, the missing owner, the days unviewed) and never page text; it shows only to members who can read the page.
+- **One notice.** Each affected owner (the page's owner while an active member, else the container's owners) gets exactly one `verification-rules` inbox item per run, with counts and page titles only for pages that recipient can read.
+- **Preview** runs the same selection and writes nothing; pages the previewer cannot read are counted, not named. The rules panel offers it before a rule is turned on and for a rule already on.
+
+"A source it cites" has no block kind in the default product: connected sources are flagship-only. Every existing capability (a cited page) conforms now, and the obligation is inherited: when `SOURCE-003` (scoped claims) and `SOURCE-004` (live observations) ship, a change to a source that a page cites unverifies that page through this same `cited-changed` rule.
+
+*Acceptance:* a Workers journey runs a rule over seeded pages and asserts exactly the expected unverifications, flags, activity entries and one coalesced notice per owner. An attempted rule action of "verify" is rejected. `SOURCE-003` and `SOURCE-004` each extend this journey with a cited source that changes.
+
+*Status:* done. Per-container rules, preview, the nightly exactly-once run, lapse by expiry under the one shared verification definition, flags, system activity entries and the coalesced `verification-rules` notice ship in the default profile (`src/core/features/page-status/rules/`, migration `0044_verification_rules.sql`). A core-wiki Workers journey on a store written before 0044 seeds verified pages that cite an edited and an unchanged page, have no owner or an inactive owner, were last viewed 181 and 179 days ago, a second container whose rules are off, a restricted page one owner cannot read and a non-owner, and asserts the exact unverification, flags, activity entries and one notice per owner, a second run and the lapse job changing nothing, a preview writing nothing, lapsed reads in the status route and search, no added verification row, and refusal of "verify" and of the non-owner (`tests/e2e/review/verification-rules.test.ts`). A browser journey at 1440 and 390 previews a rule in the space's Verification rules panel, turns it on, sees nothing run that night, and sees the flag after the next night (`tests/qualification/ui-convergence/review-request-journey.mjs`). Connected-source citations are inherited by `SOURCE-003` and `SOURCE-004`.
 
 #### CARD-001 — Knowledge cards and collections.
 A card is a short page kind with a soft length limit (`seed.json → limits`, 500 words by default: past it the editor warns and suggests a page, and nothing is truncated), a question-style title, an owner, verification required by default, and placement in a collection (a container with card-friendly views). Cards render compactly in search, answers, chat (`CHAT-002`) and the browser extension (`CARD-002`). Guru cards import as cards (`IMP-008`).
@@ -1067,7 +1083,7 @@ Every background action is a durable job with an accountable owner, a due condit
 
 *Acceptance:* a Workers journey kills a job mid-run and finds it resumed once with no duplicate effect. A forced failure appears on the owner's Home, and stopping a queued job cancels its pending sends.
 
-*Status:* partial. Automation run logs with failure states and repeated-failure disable exist (`src/core/features/automation/jobs.ts`, `tests/qualification/policies/automation-templates.test.ts`); the guarantee does not yet span every job kind.
+*Status:* partial. Automation run logs with failure states and repeated-failure disable exist (`src/core/features/automation/jobs.ts`, `tests/qualification/policies/automation-templates.test.ts`). Verification rules are covered: each rule runs as a durable nightly job with a receipt per rule and night, its effects recorded in activity, and repeated or concurrent runs adding nothing (`STAT-007`, `tests/e2e/review/verification-rules.test.ts`). The guarantee does not yet span every job kind.
 
 ### Moving in and out
 
@@ -1777,15 +1793,15 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `f0067a12fade9fb4bc3f20bdb96d4cc8b92300ef` (20 October 2026).
+Judged from the code and tests at commit `5e7ecb620fe74f2c2e352f40838aefc0d659dc48` (21 October 2026).
 
 See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 171 | 50 | 0 | 221 |
-| Target and push further | 18 | 45 | 42 | 105 |
-| All | 189 | 95 | 42 | 326 |
+| Target and push further | 19 | 45 | 41 | 105 |
+| All | 190 | 95 | 41 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2042,7 +2058,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `SEARCH-013` | Search inside attached files | target | missing | — | not implemented |
 | `SEARCH-014` | Old Confluence URLs find their Slate record | target | missing | — | not implemented |
 | `STAT-006` | Review requests and expert queues | target | done | `tests/qualification/ui-convergence/review-request-journey.mjs` |  |
-| `STAT-007` | Verification rules | target | missing | — | not implemented |
+| `STAT-007` | Verification rules | target | done | `tests/e2e/review/verification-rules.test.ts`, `tests/qualification/ui-convergence/review-request-journey.mjs` |  |
 | `CARD-001` | Knowledge cards and collections | target | partial | `src/core/features/containers/service.ts` | see the clause |
 | `CARD-002` | Browser extension | target | missing | — | not implemented |
 | `CARD-003` | Required reading and announcements | target | missing | — | not implemented |

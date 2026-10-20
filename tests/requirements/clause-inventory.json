@@ -3342,6 +3342,13 @@
       "status": "unproven",
       "unmetReason": "A tagged default-profile Workers journey in tests/e2e/imports/word-export.test.ts and 1440/390 browser journeys exercise Word export, optional comments, access filtering, safe OOXML and merged-table/image-alt re-import. Equations and diagram images are inherited by BLOCK-013 and BLOCK-019 and their own acceptance. Independent release acceptance remains separate.",
       "supportingTests": []
+    },
+    {
+      "id": "STAT-007",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "A tagged default-profile Workers journey in tests/e2e/review/verification-rules.test.ts and 1440/390 browser journeys exercise rule configuration, preview, the nightly exactly-once run, unverification as lapse, flags, activity and the coalesced owner notice. Cited connected sources are inherited by SOURCE-003 and SOURCE-004. Independent release acceptance remains separate.",
+      "supportingTests": []
     }
   ]
 }
