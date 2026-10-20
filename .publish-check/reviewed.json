@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "findings": [
+    {
+      "rule": "hygiene.email",
+      "path": ".github/assets/release/slate-0.3.0-page-1440.png",
+      "blob": "5b8d66f6391b95ca3b0f83ee4fad21721f256389",
+      "reason": "False positive in compressed pixels of the published 0.3.0 screenshot. The 12-byte pattern at byte offset 35800 lies wholly inside an IDAT chunk. This PNG has no text metadata chunks, and visual inspection shows no email address. Preserve the exact published image; this disposition applies only to this rule, path and blob.",
+      "reviewer": "Codex sd-slate-rel4-finish release writer",
+      "date": "2026-10-20"
+    }
+  ]
+}
