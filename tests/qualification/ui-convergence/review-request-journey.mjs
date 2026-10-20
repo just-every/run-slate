@@ -93,4 +93,46 @@ export async function reviewRequestJourney(state, people) {
   await expect(requested.locator('li').filter({ hasText: 'Overdue: confirm the escalation contacts.' })).toContainText(/Reviewer reminded .*Container owners reminded/);
   await accessible(alice.page, 'requested review queue after escalation');
   await people.shot('alice', 'owner escalation');
+  await verificationRulesPanel(state, people, space);
+}
+
+/** STAT-007: the space owner previews a verification rule, turns it on, and it first runs the next night. */
+async function verificationRulesPanel(state, people, space) {
+  const { alice } = people;
+  const origin = state.origin;
+  const created = await ok(alice.context, origin, 'POST', '/api/pages', { operationKey: randomUUID(), containerId: space.id, title: 'Unowned checklist' });
+  await ok(alice.context, origin, 'PATCH', `/api/pages/${created.value.pageId}`, { operationKey: randomUUID(), expectedRevisionId: created.receipt.revisionId, properties: { ownerMemberId: null } });
+  const openRules = async () => {
+    await alice.page.goto(`${origin}/app/containers/${space.id}`, { waitUntil: 'networkidle' });
+    await alice.page.getByRole('navigation', { name: 'Space navigation' }).getByRole('button', { name: 'Settings', exact: true }).click();
+    const panel = alice.page.getByRole('region', { name: 'Verification rules' });
+    await expect(panel.locator('li[data-rule="no-owner"]')).toBeVisible();
+    return panel;
+  };
+  let panel = await openRules();
+  const rule = panel.locator('li[data-rule="no-owner"]');
+  await expect(rule).toContainText('Off · would flag');
+  await rule.getByRole('button', { name: 'Preview', exact: true }).click();
+  const preview = rule.getByRole('status', { name: 'Preview: Flag pages with no owner' });
+  await expect(preview.getByRole('link', { name: 'Unowned checklist' })).toBeVisible();
+  await expect(preview).toContainText('Preview only: nothing was changed.');
+  await expect(panel.getByText('No flagged pages.')).toBeVisible();
+  await accessible(alice.page, 'verification rules preview');
+  await people.shot('alice', 'verification rules preview');
+  await rule.getByRole('button', { name: 'Turn on', exact: true }).click();
+  await expect(rule).toContainText(/On since .* · Flags/);
+  await state.runScheduled();
+  panel = await openRules();
+  await expect(panel.getByText('No flagged pages.'), 'A rule turned on tonight first runs the next night.').toBeVisible();
+  await people.shot('alice', 'verification rule on');
+  // The next night: the stored switch-on time moves back rather than the test sleeping.
+  await state.atRest(`UPDATE verification_rules SET enabled_at='${new Date(Date.now() - 86400000).toISOString()}'`);
+  await state.runScheduled();
+  await state.runScheduled();
+  panel = await openRules();
+  const flagged = panel.getByRole('listitem').filter({ hasText: 'Unowned checklist' });
+  await expect(flagged).toContainText('The page has no owner.');
+  await accessible(alice.page, 'verification rules flagged');
+  await people.shot('alice', 'verification rule flagged');
+  assert.equal((await notices(alice, origin, 'verification-rules')).length, 1, 'One coalesced notice for the space owner.');
 }

@@ -5,7 +5,8 @@ import { pageRow,revisionRow } from './repository';
 import { plainContent } from '../editor/validation';
 import { labelForReader } from './mentions';
 
-function linksTo(value:unknown,pageId:string,appOrigin?:string):boolean {
+/** True when a page body links to or mentions `pageId`; the one scan for "cites" (STAT-007). */
+export function linksTo(value:unknown,pageId:string,appOrigin?:string):boolean {
   if(Array.isArray(value))return value.some(item=>linksTo(item,pageId,appOrigin));
   if(!value||typeof value!=='object')return false;
   const object=value as Record<string,any>;

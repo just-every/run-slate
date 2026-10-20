@@ -1,7 +1,7 @@
 import type { FeatureContext } from '../../app/feature-context';
 import type { NotificationEvent } from './events';
 export interface NotificationContext extends FeatureContext {sourceSecret?:string}
-export interface NotificationDetail {reviewRequestId?:string;assignmentGeneration?:number;reviewStage?:'assigned'|'reviewer'|'owner';blockId?:string;reminderId?:string;requesterMemberId?:string;runId?:string;decisionId?:string;inquiryId?:string;experimentId?:string;outcome?:string;sourcePageIds?:string[]}
+export interface NotificationDetail {reviewRequestId?:string;assignmentGeneration?:number;reviewStage?:'assigned'|'reviewer'|'owner';blockId?:string;reminderId?:string;requesterMemberId?:string;runId?:string;decisionId?:string;inquiryId?:string;experimentId?:string;outcome?:string;sourcePageIds?:string[];verificationRules?:{containerId:string;night:string;unverified:number;flagged:number;pages:{id:string;title:string;change:'unverified'|'flagged';rule:string}[]}}
 export type NotificationVisibility=(ctx:NotificationContext,detail:NotificationDetail)=>Promise<boolean>;
 const resolvers=new Map<NotificationEvent,NotificationVisibility>();
 export function registerNotificationVisibility(event:NotificationEvent,resolver:NotificationVisibility){resolvers.set(event,resolver);}

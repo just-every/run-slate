@@ -9,6 +9,7 @@ export function erasePageReviews(ctx:FeatureContext,pageId:string):D1PreparedSta
   ctx.db.prepare(`DELETE FROM review_request_deliveries WHERE request_id IN (${requests})`).bind(pageId),
   ctx.db.prepare(`DELETE FROM review_request_history WHERE request_id IN (${requests})`).bind(pageId),
   ctx.db.prepare('DELETE FROM review_requests WHERE page_id=?').bind(pageId),
+  ctx.db.prepare('DELETE FROM verification_rule_flags WHERE page_id=?').bind(pageId),
  ];
 }
 

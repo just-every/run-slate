@@ -8,6 +8,7 @@ import type { AppBindings } from './types';
 import { consumeIntelligenceJob,scheduleIntelligence } from '../features/runs/worker';
 import { handleDiscoveryJob,scheduledDiscovery } from '../features/notifications/jobs';
 import { runContentJobs } from '../features/lifecycle/jobs';
+import { runVerificationRules } from '../features/page-status/rules/run';
 /** Native retries retain one visible failure row; unrecognised jobs never become success. */
 export async function consumeJobs(batch:MessageBatch<unknown>,env:AppBindings){
   for(const message of batch.messages){
@@ -29,6 +30,8 @@ export async function scheduledJobs(env:AppBindings){
   const flagship = readLaunchProfile(env.SLATE_PROFILE) === 'flagship';
   const tasks: [string, () => Promise<unknown>][] = [
     ['content', () => runContentJobs(env)],
+    // STAT-007: nightly verification rules, in every profile.
+    ['verification-rules', () => runVerificationRules(env)],
     ['discovery', () => scheduledDiscovery(env)],
     ['automation', () => scheduledAutomation(env)],
     // A cron event comes from the runtime itself, not a remote request; the loopback

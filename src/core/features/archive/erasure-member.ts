@@ -15,6 +15,8 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  add('DELETE FROM intelligence_interruptions WHERE recipient_id=?',memberId);
  add("UPDATE intelligence_reviews SET actor_id='erased',detail_json='{}' WHERE actor_id=?",memberId);
  add('DELETE FROM decision_reviews WHERE reviewed_by_member_id=?',memberId);
+ add('UPDATE verification_rules SET updated_by_member_id=NULL WHERE updated_by_member_id=?',memberId);
+ add('UPDATE verification_rule_flags SET dismissed_by_member_id=NULL WHERE dismissed_by_member_id=?',memberId);
  add('UPDATE knowledge_decisions SET owner_member_id=NULL,removed_by_member_id=NULL WHERE owner_member_id=? OR removed_by_member_id=?',memberId,memberId);
  add('DELETE FROM page_views WHERE viewer_member_id=?',memberId);
  add('DELETE FROM notifications WHERE recipient_member_id=?',memberId);

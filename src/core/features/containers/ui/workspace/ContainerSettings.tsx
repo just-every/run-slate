@@ -5,6 +5,7 @@ import { mutate, operationKey } from "../../../../client/transport";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import type { Container } from "./ContainerWorkspace";
 import { ContainerSharing } from "./ContainerSharing";
+import { VerificationRulesPanel } from "../../../page-status/rules/ui/VerificationRulesPanel";
 export function ContainerSettings({
   container,
   onSaved,
@@ -44,6 +45,7 @@ export function ContainerSettings({
       {container.visibility !== "personal" ? (
         classLed ? <details className="space-access-details"><summary>Manage access</summary><ContainerSharing id={container.id}/></details>:<ContainerSharing id={container.id}/>
       ) : null}
+      <VerificationRulesPanel containerId={container.id} />
       {action ? (
         <ActionDialog
           title={

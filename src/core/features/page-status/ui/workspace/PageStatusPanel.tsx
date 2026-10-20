@@ -5,6 +5,7 @@ import { mutate, operationKey } from "../../../../client/transport";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import { RequestState } from "../../../../app/ui/RequestState";
 import { PageReviewRequests } from "./PageReviewRequests";
+import { PageRuleFlags } from "../../rules/ui/PageRuleFlags";
 import { VerifyDialog } from "./VerifyDialog";
 import { reviewChanged } from "./ReviewQueue";
 import { VerificationSummary, type VerificationView } from "./VerificationSummary";
@@ -61,6 +62,7 @@ export function PageStatusPanel({
         ) : (
           <p>No human verification recorded.</p>
         )}
+        <PageRuleFlags pageId={pageId} />
         {canEdit && verification.data?.verification?.state && verification.data.verification.state !== "current" ? (
           <button type="button" className="secondary-button" onClick={() => setAgain(true)}>Verify again</button>
         ) : null}

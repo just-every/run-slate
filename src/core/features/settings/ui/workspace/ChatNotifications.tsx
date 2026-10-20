@@ -242,6 +242,7 @@ export function ChatNotifications() {
               "reply",
               "published",
               "verification-lapsed",
+              "verification-rules",
               "access-granted",
               "run-review",
               "run-failed",

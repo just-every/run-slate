@@ -17,6 +17,7 @@ export type NotificationKind =
   | "page-published"
   | "page-republished"
   | "verification-lapsed"
+  | "verification-rules"
   | "access-granted"
   | "ai-review"
   | "ai-failed";
@@ -28,6 +29,7 @@ export const notificationKinds = [
   "page-published",
   "page-republished",
   "verification-lapsed",
+  "verification-rules",
   "access-granted",
   "ai-review",
   "ai-failed",
@@ -56,6 +58,11 @@ export const notificationKindCopy: Record<NotificationKind, NotificationKindCopy
     label: "Lapsed verifications",
     event: "let a verification you own lapse on",
     systemEvent: "A verification you own has lapsed on",
+  },
+  "verification-rules": {
+    label: "Verification rules",
+    event: "ran verification rules that changed pages you own in",
+    systemEvent: "Verification rules changed pages you own in",
   },
   "access-granted": {
     label: "Access granted",

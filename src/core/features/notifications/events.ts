@@ -3,7 +3,7 @@ import type { FeatureContext } from '../../app/feature-context';
 import type { NotificationDetail } from './visibility';
 import { ApiProblem } from '../../app/problems';
 export const watchedEvents=['comment','reply','published','page-created','page-edited','page-moved','page-archived','page-trashed','page-restored','post-published'] as const;
-export const notificationEvents=['review-requested','review-overdue','review-escalated','task-assigned','task-due','reminder','mention',...watchedEvents,'verification-lapsed','access-granted','access-requested','run-review','run-failed','decision-required','contradiction','experiment-result','maintenance'] as const;
+export const notificationEvents=['review-requested','review-overdue','review-escalated','task-assigned','task-due','reminder','mention',...watchedEvents,'verification-lapsed','verification-rules','access-granted','access-requested','run-review','run-failed','decision-required','contradiction','experiment-result','maintenance'] as const;
 export type NotificationEvent=typeof notificationEvents[number];
 export interface NotificationFact { id:string; event:NotificationEvent; pageId?:string; containerId?:string; commentId?:string; recipientIds?:string[]; actorId?:string|null; detail?:NotificationDetail }
 export type CreationEligibility=(memberSql:string,event:NotificationFact)=>{sql:string;values:(string|number|null)[]};
