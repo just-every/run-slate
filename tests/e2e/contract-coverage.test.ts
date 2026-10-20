@@ -164,6 +164,7 @@ const plannedClauses: ReadonlyArray<readonly [string, string]> = [
   ['PORT-005', 'Access boundary'],
   ['PORT-006', 'Atomic import'],
   ['PORT-007', 'Exporting a page or a container'],
+  // PORT-010 has a default-profile journey in imports/word-export.test.ts.
   ['LINK-001', 'Permanent URLs'],
   ['LINK-002', 'Tombstones'],
   ['LINK-003', 'References follow their target'],

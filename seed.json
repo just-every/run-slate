@@ -331,7 +331,7 @@
     },
     {
       "id": "portability",
-      "description": "A complete workspace export, referential restore, visible jobs, rebuilt search, an access boundary on import, atomic import, and page and container export.",
+      "description": "A complete workspace export, referential restore, visible jobs, rebuilt search, an access boundary on import, atomic import, page and container archives, and reader-authorized Word page/descendant export with optional comments and merged-table/image-alt re-import.",
       "clauses": [
         "PORT-001",
         "PORT-002",
@@ -339,7 +339,8 @@
         "PORT-004",
         "PORT-005",
         "PORT-006",
-        "PORT-007"
+        "PORT-007",
+        "PORT-010"
       ]
     },
     {

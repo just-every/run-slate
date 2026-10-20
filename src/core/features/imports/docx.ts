@@ -1,50 +1,10 @@
-import { XMLParser } from "fast-xml-parser";
 import { archiveMediaType, readZipArchive, requireArchiveText } from "./archive";
 import { ImportError } from "./errors";
+import { attributes, childEntries, orderedText, orderedXml, valueFor, type OrderedNode } from "./docx-xml";
+import { docxTable } from "./docx-tables";
 import { createImportReport, reportCreated, reportMissingArchiveFile, reportUnmapped } from "./report";
 import { asArray, parseXml, type XmlObject, xmlAttribute } from "./xml";
 import type { ImportFormat, ImportParseOptions, ImportSourceFile, ImportedBlock, ImportedMedia, NormalizedImport } from "./types";
-
-type OrderedNode = Record<string, unknown>;
-
-function orderedXml(text: string, sourceName: string): OrderedNode[] {
-  try {
-    const parsed = new XMLParser({ attributeNamePrefix: "@_", ignoreAttributes: false, removeNSPrefix: true, preserveOrder: true, textNodeName: "#text", trimValues: false }).parse(text);
-    if (!Array.isArray(parsed)) throw new Error("not an ordered document");
-    return parsed as OrderedNode[];
-  } catch {
-    throw new ImportError("IMPORT_FORMAT_INVALID", `${sourceName} is not well-formed XML.`);
-  }
-}
-
-function childEntries(node: unknown, tag: string): OrderedNode[] {
-  if (!Array.isArray(node)) return [];
-  return node.flatMap((entry) => {
-    if (!entry || typeof entry !== "object" || !(tag in entry)) return [];
-    const value = (entry as OrderedNode)[tag];
-    return Array.isArray(value) ? [entry as OrderedNode] : [];
-  });
-}
-
-function valueFor(entry: OrderedNode, tag: string): unknown[] {
-  const value = entry[tag];
-  return Array.isArray(value) ? value : [];
-}
-
-function attributes(nodes: unknown[] | OrderedNode): Record<string, string> {
-  const candidates = Array.isArray(nodes) ? nodes : [nodes];
-  const attrs = candidates.find((node) => node && typeof node === "object" && ":@" in node) as OrderedNode | undefined;
-  const raw = attrs?.[":@"];
-  return raw && typeof raw === "object" ? Object.fromEntries(Object.entries(raw as Record<string, unknown>).filter(([, value]) => typeof value === "string").map(([key, value]) => [key.replace(/^@_/, ""), value as string])) : {};
-}
-
-function orderedText(value: unknown): string {
-  if (Array.isArray(value)) return value.map(orderedText).join("");
-  if (!value || typeof value !== "object") return "";
-  const node = value as OrderedNode;
-  if (typeof node["#text"] === "string") return node["#text"] as string;
-  return Object.entries(node).filter(([key]) => key !== "@_").map(([, child]) => orderedText(child)).join("");
-}
 
 function styleForParagraph(paragraph: OrderedNode): string | undefined {
   const properties = childEntries(valueFor(paragraph, "p"), "pPr")[0];
@@ -135,12 +95,22 @@ function relationshipTargets(xml: string): Map<string, string> {
   }));
 }
 
-function embeddedRelationshipIds(value: unknown): string[] {
-  if (Array.isArray(value)) return value.flatMap(embeddedRelationshipIds);
+function descendants(value: unknown, tag: string): OrderedNode[] {
+  if (Array.isArray(value)) return value.flatMap(child => descendants(child, tag));
   if (!value || typeof value !== "object") return [];
   const node = value as OrderedNode;
-  const own = "blip" in node ? attributes(node).embed : undefined;
-  return [own, ...Object.entries(node).filter(([key]) => key !== "@_").flatMap(([, child]) => embeddedRelationshipIds(child))].filter((id): id is string => Boolean(id));
+  return [...(tag in node ? [node] : []), ...Object.entries(node).filter(([key]) => key !== ":@").flatMap(([, child]) => descendants(child, tag))];
+}
+
+function embeddedImages(value: unknown): { relationshipId: string; altText: string }[] {
+  return descendants(value, "drawing").flatMap(drawing => {
+    const descriptions = descendants(valueFor(drawing, "drawing"), "docPr");
+    const altText = descriptions.length ? attributes(descriptions[0]!).descr ?? "" : "";
+    return descendants(valueFor(drawing, "drawing"), "blip").flatMap(blip => {
+      const relationshipId = attributes(blip).embed;
+      return relationshipId ? [{ relationshipId, altText }] : [];
+    });
+  });
 }
 
 function makeBlock(sourceId: string, index: number, kind: ImportedBlock["kind"], text?: string): ImportedBlock {
@@ -202,15 +172,33 @@ export function parseDocx(source: ImportSourceFile, format: Extract<ImportFormat
         if (list) block.level = list.level + 1;
         blocks.push(block);
       }
-      for (const relationshipId of embeddedRelationshipIds(valueFor(node, "p"))) {
+      for (const { relationshipId, altText } of embeddedImages(valueFor(node, "p"))) {
         const mediaSourceId = addRelationshipMedia(relationshipId);
-        if (mediaSourceId) { const block = makeBlock(id, blockIndex++, "media"); block.mediaSourceId = mediaSourceId; blocks.push(block); }
+        if (mediaSourceId) {
+          const block = makeBlock(id, blockIndex++, "media");
+          block.mediaSourceId = mediaSourceId;
+          const file = media.find(file => file.sourceId === mediaSourceId)!;
+          file.altText ??= altText;
+          // Descriptions belong to a drawing occurrence, even when several
+          // drawings share one relationship and one stored media file.
+          block.canonicalBlock = {
+            id: block.sourceId, blockType: "media", parentBlockId: null, treePosition: String(blockIndex - 1).padStart(8, "0"),
+            content: { kind: file.mediaType.startsWith("image/") ? "image" : file.mediaType.startsWith("video/") ? "video" : file.mediaType.startsWith("audio/") ? "audio" : "file", source: { url: `/api/media/${mediaSourceId}`, name: file.name, fileId: mediaSourceId, contentType: file.mediaType }, caption: "", alt: altText },
+          };
+          blocks.push(block);
+        }
       }
       continue;
     }
     if ("tbl" in node) {
-      const rows = childEntries(valueFor(node, "tbl"), "tr").map((row) => childEntries(valueFor(row, "tr"), "tc").map((cell) => orderedText(valueFor(cell, "tc")).trim()));
-      if (rows.length) { const block = makeBlock(id, blockIndex++, "table"); block.rows = rows; blocks.push(block); }
+      const block = makeBlock(id, blockIndex, "table");
+      const table = docxTable(node, block.sourceId);
+      if (table.rows.length) {
+        block.rows = table.rows;
+        if (table.content) block.canonicalBlock = { id: block.sourceId, blockType: "table", content: table.content, parentBlockId: null, treePosition: String(blockIndex).padStart(8, "0") };
+        blockIndex++;
+        blocks.push(block);
+      }
     }
   }
   const title = blocks.find(block => block.kind === "heading" && block.level === 1)?.text || titleFor(source);

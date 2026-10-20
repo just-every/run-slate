@@ -3335,6 +3335,13 @@
       "status": "unproven",
       "unmetReason": "Tagged default-profile Workers and desktop/mobile browser journeys exercise the starter gallery, creation and duplication; independent release acceptance is separate.",
       "supportingTests": []
+    },
+    {
+      "id": "PORT-010",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "A tagged default-profile Workers journey in tests/e2e/imports/word-export.test.ts and 1440/390 browser journeys exercise Word export, optional comments, access filtering, safe OOXML and merged-table/image-alt re-import. Equations and diagram images are inherited by BLOCK-013 and BLOCK-019 and their own acceptance. Independent release acceptance remains separate.",
+      "supportingTests": []
     }
   ]
 }

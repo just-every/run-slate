@@ -24,6 +24,7 @@ export function ReadableExportDialog({
             scope: String(data.get("scope")),
             id,
             format: String(data.get("format")),
+            includeComments: data.has("includeComments"),
           }),
         });
         if (!response.ok) {
@@ -37,17 +38,24 @@ export function ReadableExportDialog({
               `Export failed (${response.status}).`,
           );
         }
+        const filename = response.headers
+          .get("Content-Disposition")
+          ?.match(/filename="([^"]+)"/)?.[1];
+        if (!filename) throw new Error("The export has no download filename.");
         const url = URL.createObjectURL(await response.blob()),
           link = document.createElement("a");
         link.href = url;
-        link.download = "slate-readable-export.zip";
+        link.download = filename;
         link.click();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
       }}
     >
       <p>
-        The archive includes only content you may currently read, with comment authors, times, replies and resolved states. Markdown includes comment JSON sidecars; HTML shows threads beside their block links. Workspace
-        backups and restoration are available in Settings.
+        The export includes only content you may currently read. Included comments
+        retain comment authors, times, replies and resolved states. Markdown includes
+        comment JSON sidecars; HTML shows threads beside their block links.
+        {!container && !workspace ? " Word downloads one .docx file, with included discussions as Word comments." : null}
+        {" "}Workspace backups and restoration are available in Settings.
       </p>
       <label>
         Content
@@ -68,7 +76,11 @@ export function ReadableExportDialog({
           <option value="markdown">Markdown</option>
           <option value="html">HTML</option>
           <option value="pdf">PDF</option>
+          {!container && !workspace ? <option value="docx">Word (.docx)</option> : null}
         </select>
+      </label>
+      <label>
+        <input type="checkbox" name="includeComments" defaultChecked /> Include comments
       </label>
     </ActionDialog>
   );

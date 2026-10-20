@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { unzipSync } from 'fflate';
+import { XMLParser } from 'fast-xml-parser';
 import { expect } from '@playwright/test';
 import { grant, ok } from './two-people-support.mjs';
 import { openPageAction } from './browser-support.mjs';
@@ -19,22 +20,35 @@ export async function exportCommentsJourney(state, people) {
   await ok(context, origin, 'POST', `/api/comments/page/${pageId}`, { operationKey: randomUUID(), body: [{ text: 'Keep this timeline with the incident report.' }] });
   const discussion = await api(`/api/comments/page/${pageId}`);
   await ok(context, origin, 'POST', `/api/comments/thread/${first.threadId}/resolve`, { operationKey: randomUUID(), expectedRevisionId: discussion.threads.find(t => t.id === first.threadId).revision_id, resolved: true });
-  async function download(format, label) {
+  async function openExport() {
+    await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
+    await page.getByRole('button', { name: 'More', exact: true }).click();
+    await page.getByRole('menuitem', { name: 'Export page', exact: true }).click();
+  }
+  async function download(format, label, { scope = 'page', includeComments = true } = {}) {
     const dialog = page.getByRole('dialog', { name: 'Export readable content', exact: true });
     await dialog.getByLabel('Format', { exact: true }).selectOption(format);
+    if (scope !== 'page') await dialog.getByLabel('Content', { exact: true }).selectOption(scope);
+    const comments = dialog.getByRole('checkbox', { name: 'Include comments', exact: true });
+    await expect(comments).toBeChecked();
+    await comments.setChecked(includeComments);
     await expect(dialog).toContainText('comment authors');
     await page.screenshot({ path: `.artifacts/ui-convergence/export-comments-${width}-${label}-dialog.png` });
     const pending = page.waitForEvent('download');
+    const response = page.waitForResponse(result => new URL(result.url()).pathname === '/api/exports/readable' && result.request().method() === 'POST');
     await dialog.getByRole('button', { name: 'Download export', exact: true }).click();
+    const exported = await response;
+    assert.equal(exported.status(), 200);
+    assert.equal(exported.request().postDataJSON().includeComments, includeComments);
+    assert.equal(exported.headers()['content-type'], format === 'docx' ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'application/zip');
     const file = await pending;
+    assert.match(file.suggestedFilename(), format === 'docx' ? /\.docx$/ : /\.zip$/);
     const bytes = await readFile(await file.path());
     await expect(dialog).toHaveCount(0);
     return bytes;
   }
   for (const format of ['html', 'markdown']) {
-    await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
-    await page.getByRole('button', { name: 'More', exact: true }).click();
-    await page.getByRole('menuitem', { name: 'Export page', exact: true }).click();
+    await openExport();
     const bytes = await download(format, format);
     const entries = unzipSync(bytes), manifest = JSON.parse(new TextDecoder().decode(entries['slate-readable.json']));
     const archived = manifest.pages.find(p => p.id === pageId).comments;
@@ -74,12 +88,55 @@ export async function exportCommentsJourney(state, people) {
     assert.deepEqual(restored.comments.map(c => [c.authorDisplayName, c.createdAt, c.body]), discussion.comments.map(c => [c.authorDisplayName, c.createdAt, c.body]));
     await page.screenshot({ path: `.artifacts/ui-convergence/export-comments-${width}-${format}-restored.png`, fullPage: true });
   }
+  await ok(context, origin, 'POST', '/api/pages', { operationKey: randomUUID(), containerId: space.id, parentPageId: pageId, title: 'Recovery follow-up', blocks: [{ id: randomUUID(), blockType: 'paragraph', content: { text: [{ text: 'Review the incident after the next shift.' }] }, treePosition: 'a' }] });
+  const xml = new XMLParser({ ignoreAttributes: false, removeNSPrefix: true });
+  for (const [scope, includeComments, label] of [
+    ['page', true, 'word-comments'],
+    ['page', false, 'word-without-comments'],
+    ['descendants', true, 'word-descendants'],
+  ]) {
+    await openExport();
+    const bytes = await download('docx', label, { scope, includeComments });
+    const entries = unzipSync(bytes);
+    assert.ok(entries['[Content_Types].xml']);
+    assert.equal(entries['slate-readable.json'], undefined, 'Word is a single document rather than a readable archive.');
+    const document = xml.parse(new TextDecoder().decode(entries['word/document.xml']));
+    assert.ok(document.document.body);
+    const body = JSON.stringify(document.document.body);
+    assert.match(body, /Customer incident handover/);
+    assert.match(body, /Confirm the recovery owner/);
+    if (scope === 'descendants') {
+      assert.match(body, /Recovery follow-up/);
+      assert.match(body, /Review the incident after the next shift\./);
+    } else assert.doesNotMatch(body, /Recovery follow-up|Review the incident after the next shift\./);
+    if (includeComments) {
+      assert.ok(entries['word/comments.xml']);
+      const parsed = xml.parse(new TextDecoder().decode(entries['word/comments.xml'])).comments.comment;
+      const comments = Array.isArray(parsed) ? parsed : [parsed];
+      for (const comment of discussion.comments) {
+        const exported = comments.find(item => item['@_author'] === comment.authorDisplayName && JSON.stringify(item).includes(comment.body[0].text));
+        assert.ok(exported, `Word retains the comment by ${comment.authorDisplayName}.`);
+        assert.equal(new Date(exported['@_date']).getTime(), new Date(comment.createdAt).getTime());
+      }
+      assert.match(body, /commentRangeStart/);
+      assert.match(body, /commentReference/);
+    } else {
+      assert.equal(entries['word/comments.xml'], undefined);
+      assert.doesNotMatch(body, /commentRangeStart|commentReference|Who will coordinate|Keep this timeline/);
+    }
+    await openPageAction(page, 'Comments');
+    await expect(page.locator('.comment-thread')).toHaveCount(2);
+    await expect(page.locator('.right')).toContainText('Resolved');
+    await expect(page.locator('.right')).toContainText('Who will coordinate the next customer update?');
+    await page.screenshot({ path: `.artifacts/ui-convergence/export-comments-${width}-${label}-downloaded.png`, fullPage: true });
+  }
   await page.goto(`${origin}/app/settings?section=portability`, { waitUntil: 'networkidle' });
   for (const item of (await api('/api/pages')).items) {
     const response = await context.request.post(origin + '/api/exports/readable', { headers: { origin }, data: { scope: 'page', id: item.id, format: 'html' } });
     assert.equal(response.status(), 200, `Export ${item.title}: ${response.status() === 200 ? '' : await response.text()}`);
   }
   await page.getByRole('button', { name: 'Export readable workspace', exact: true }).click();
+  await expect(page.getByRole('dialog').getByLabel('Format', { exact: true }).locator('option[value="docx"]')).toHaveCount(0);
   const workspace = await download('html', 'workspace');
   assert.ok(JSON.parse(new TextDecoder().decode(unzipSync(workspace)['slate-readable.json'])).pages.length >= 4);
 }

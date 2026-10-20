@@ -50,7 +50,7 @@ Slate is one product. Where the market sells a neighboring product separately, S
 | Product feedback boards | [Penny](https://github.com/just-every/run-penny) (or Canny) | Not rebuilt; pages link to feedback items |
 | Compliance automation | [Evidence](https://github.com/just-every/run-evidence) (or Vanta) | Policy pages with owners and review dates that Evidence reads |
 
-Cross-functional task and project management (Asana, monday.com, ClickUp) belongs to no sibling. Slate's databases can hold a lightweight tracker, but Slate does not become a project-management product.
+Cross-functional task and project management (Asana, monday.com, ClickUp) stays outside Slate; [Pegboard](https://github.com/just-every/run-pegboard) is the RunEditRun sibling in that category. Slate's databases can hold a lightweight tracker, but Slate does not become a project-management product. Payroll and monitoring/observability also stay outside Slate; [Envelope](https://github.com/just-every/run-envelope) and [Porthole](https://github.com/just-every/run-porthole) are the respective RunEditRun siblings.
 
 ### How to read this contract
 
@@ -576,7 +576,7 @@ Managed-mail amendment — 16 October 2026 (MAIL-001/002 and BASE-SECRET-002): M
 - **PORT-004 — Search rebuild.** An import is not Completed until every imported page and record has its canonical search projection, no imported page has a pending dirty generation, and the records satisfy `SEARCH-001` to `SEARCH-006`. Bounded index rebuilds retain an explicit, resumable Indexing state. Completion is fenced by indexed-ID and dirty-generation readback before any first user search can trigger a lazy refresh.
 - **PORT-005 — Access boundary.** An export excludes sessions, sign-in links, pending invitations, stored operation-key responses and provider secrets. An import activates only the member named by `SETUP_OWNER_EMAIL`; every other imported member is an inactive historical actor until invited, and no imported page is published to the anonymous web until a member publishes it.
 - **PORT-006 — Atomic import.** An import stages records and files outside the live namespace, validates the whole archive, and publishes it in one step. A failed import leaves the deployment empty and can be retried.
-- **PORT-007 — Exporting a page or a container.** A member can export one page, a page with its descendants, or a whole container as Markdown, HTML or PDF, with records as CSV, in one archive with its media. The export is readable without Slate, and re-importing it under `IMP-005` reproduces the tree. Target (16 October 2026): `PORT-010` adds Word `.docx` export of a page.
+- **PORT-007 — Exporting a page or a container.** A member can export one page, a page with its descendants, or a whole container as Markdown, HTML or PDF, with records as CSV, in one archive with its media. The export is readable without Slate, and re-importing it under `IMP-005` reproduces the tree. `PORT-010` adds Word `.docx` export of a page or a page with its descendants.
 
 ## References and links
 
@@ -739,9 +739,9 @@ A page body can hold 2 to 5 side-by-side columns that blocks can be dragged into
 *Status:* missing. The editor supports single-column blocks only (`src/core/features/editor/validation.ts`).
 
 #### BLOCK-013 — Equations and diagrams as code.
-Inline and block LaTeX equations render with KaTeX, and Mermaid diagram blocks render as SVG. Both are rendered without network access, are sanitized under `BASE-INPUT-002`, are kept as source in Markdown export, and are imported from Notion equation blocks and Confluence code macros.
+Inline and block LaTeX equations render with KaTeX, and Mermaid diagram blocks render as SVG. Both are rendered without network access, are sanitized under `BASE-INPUT-002`, are kept as source in Markdown export, and are imported from Notion equation blocks and Confluence code macros. This clause inherits `PORT-010`'s Word obligations when these blocks ship: equations export as OMML or images, and Mermaid diagrams export as images, under the same reader and media access checks.
 
-*Acceptance:* a browser journey that inserts an equation and a Mermaid flowchart, sees both render offline, exports Markdown that contains the source, and re-imports it unchanged.
+*Acceptance:* a browser journey that inserts an equation and a Mermaid flowchart, sees both render offline, exports Markdown that contains the source, and re-imports it unchanged. It also exports Word under `PORT-010` and parses the document to verify the equation as OMML or an image and the Mermaid diagram as an image, with no external media relationship.
 
 *Status:* missing.
 
@@ -771,7 +771,7 @@ A body can hold a table of contents built from its headings, placed anywhere in 
 
 *Acceptance:* a browser journey inserts a table of contents limited to heading levels 1 and 2, adds a heading and sees its entry within 2 seconds, follows an entry to its heading, and exports Markdown that contains the linked list. Importing a Confluence page with a Table of Contents macro produces the block.
 
-*Status:* partial. The native core-wiki flow is exercised through HTTP (`tests/profile/body-blocks-journey.ts`). Word export remains missing; genuine Confluence macro-fixture acceptance remains unproven.
+*Status:* partial. The native core-wiki flow is exercised through HTTP (`tests/profile/body-blocks-journey.ts`). Genuine Confluence macro-fixture acceptance remains unproven.
 
 #### BLOCK-018 — Status labels.
 An inline status label is a short colored lozenge with text, in gray, blue, green, yellow, red or purple, inserted from the block menu or by typing `/status`. Screen readers and search read it as text. It survives export, as text with its color name in Markdown and as a styled span in HTML, and Confluence's Status macro imports as this label with its color (`IMP-010`). It is separate from a page's status (`STAT-*`).
@@ -781,9 +781,9 @@ An inline status label is a short colored lozenge with text, in gray, blue, gree
 *Status:* partial. The native core-wiki flow is exercised through HTTP (`tests/profile/body-blocks-journey.ts`). Confluence status color in plain-string table cells is reported as loss; genuine incumbent macro-fixture acceptance remains unproven.
 
 #### BLOCK-019 — Diagrams.net diagrams.
-A diagram block holds a diagrams.net (draw.io) diagram: its `.drawio` source and a rendered SVG preview. A member with edit access opens it in the diagrams.net editor (jgraph/drawio, Apache-2.0), which Slate serves from the deployment's own origin so that diagram content never reaches a third party. Saving writes a new revision of the block (`REV-001`). Readers, including the anonymous read view (`WEB-003`), see the preview sanitized under `BASE-INPUT-002`, and anyone who can read the page can download the source as a `.drawio` file. Confluence draw.io diagrams import as diagram blocks with their source and preview. Gliffy diagrams are converted to diagrams.net, with the original `.gliffy` file attached to the block (`IMP-010`). A diagram that cannot be converted keeps its preview image and its source attachment and is named in the loss report.
+A diagram block holds a diagrams.net (draw.io) diagram: its `.drawio` source and a rendered SVG preview. A member with edit access opens it in the diagrams.net editor (jgraph/drawio, Apache-2.0), which Slate serves from the deployment's own origin so that diagram content never reaches a third party. Saving writes a new revision of the block (`REV-001`). Readers, including the anonymous read view (`WEB-003`), see the preview sanitized under `BASE-INPUT-002`, and anyone who can read the page can download the source as a `.drawio` file. Confluence draw.io diagrams import as diagram blocks with their source and preview. Gliffy diagrams are converted to diagrams.net, with the original `.gliffy` file attached to the block (`IMP-010`). A diagram that cannot be converted keeps its preview image and its source attachment and is named in the loss report. This clause inherits `PORT-010`'s Word obligation when diagram blocks ship: the readable preview exports as an embedded image under the same reader and media access checks.
 
-*Acceptance:* a browser journey inserts a diagram, edits it in the editor while the request log shows no request leaving the deployment's origin, saves it, sees a new revision, and downloads the `.drawio` file. The published page shows the SVG and loads no third-party resource. Importing the `IMP-010` fixture's draw.io and Gliffy diagrams produces editable diagram blocks whose previews match their sources, with the original files attached.
+*Acceptance:* a browser journey inserts a diagram, edits it in the editor while the request log shows no request leaving the deployment's origin, saves it, sees a new revision, and downloads the `.drawio` file. The published page shows the SVG and loads no third-party resource. Importing the `IMP-010` fixture's draw.io and Gliffy diagrams produces editable diagram blocks whose previews match their sources, with the original files attached. Exporting Word under `PORT-010` embeds each readable preview as an image, with no external media relationship.
 
 *Status:* missing.
 
@@ -1255,11 +1255,13 @@ An owner can schedule a nightly or weekly complete export (`PORT-001`) to the bu
 *Status:* partial. Complete manual export and restore ship (`docs/BACKUP.md`, `tests/portability/roundtrip.test.mjs`); scheduling and external destinations do not.
 
 #### PORT-010 — Word export of a page.
-A member can export one page, or a page with its descendants, as a Word `.docx` file. It carries headings, lists, tasks, tables with merged cells, code, callouts, images with their alt text, equations, diagrams as images and links: links to other exported pages resolve inside the document, and other links point to their Slate URLs. Comments can be included as Word comments. The file carries only what the exporting member can read, and re-importing it under `IMP-005` reproduces its headings, tables and images.
+A member can export one page, or a page with its descendants, as one Word `.docx` file. It carries headings, bulleted, numbered and toggle lists, tasks with their checked state, assignee and due date, tables with horizontal and vertical merged cells, code, callouts, images with their alt text, equations, diagrams as images and links: links to other exported pages resolve inside the document, and other links point to their Slate URLs. A table of contents (`BLOCK-017`) exports as a linked list. Comments can be included as Word comments, retaining authors, times, replies and resolved state under `PORT-008`'s authorization rules. The file carries only what the exporting member can read: an unreadable descendant contributes no content, title, count or placeholder. Access is rechecked before the export is returned. Re-importing under `IMP-005` reproduces headings, tables including merged cells, and images with their alt text.
 
-*Acceptance:* a Workers journey exports a seeded page containing every listed block kind as `.docx`, checks each element with a `.docx` parser, and re-imports the file under `IMP-005` with the same headings and tables. A member without access to one child page exports the parent with descendants, and the file omits that child.
+Every string is XML-escaped. The document contains no macros and no external relationships except hyperlinks to Slate URLs; image bytes come only from files the exporting member can read. The not-yet-implemented equation and diagram blocks inherit these Word obligations in their own clauses and acceptance: `BLOCK-013` carries equations as OMML or images and Mermaid diagrams as images; `BLOCK-019` carries diagrams.net previews as images. Their absence does not invent an export representation or establish those clauses as implemented.
 
-*Status:* missing. Markdown, HTML and PDF page exports ship (`PORT-007`, `src/core/features/workspace-export/readable.ts`); Word export does not.
+*Acceptance:* a default-profile Workers journey exports a seeded page containing every implemented block kind listed above as `.docx`, parses the document, comments and relationships, and checks formatting, merged cells, task metadata, image alt text, linked contents, internal page anchors and optional comments. It verifies escaped XML, no macros and no external relationships except hyperlinks to Slate URLs, then re-imports under `IMP-005` with the same headings, merged tables and images with alt text. A member without access to one child exports the parent with descendants, and the file names nothing from that child; inaccessible media is never embedded and a concurrent access change prevents a stale export. `BLOCK-013` and `BLOCK-019` add their inherited equation and diagram checks when those blocks ship. A browser journey at 1440 and 390 selects Word, includes or excludes comments, downloads the file and verifies the comments choice.
+
+*Status:* done. Word page and descendant export, optional attributed comments, reader-filtered content and media, safe OOXML and merged-table/image-alt re-import ship in the default profile (`src/core/features/workspace-export/readable.ts`, `tests/e2e/imports/word-export.test.ts`). `tests/qualification/ui-convergence/export-comments-journey.mjs` exercises Word downloads and comments choices at 1440 and 390. Equations and diagram images remain the explicitly inherited obligations of `BLOCK-013` and `BLOCK-019`, whose statuses stay missing.
 
 ### Integrations
 
@@ -1725,7 +1727,7 @@ Slate is a US-first owned wiki. These are the jobs it deliberately does not do, 
 - **Office documents, spreadsheets and slides.** Slate is not a full office suite. Attached Office, OpenDocument and PDF files preview, keep versions and are searchable in Slate (`BLOCK-021`, `BLOCK-022`, `SEARCH-013`), but they are edited in their own applications. Google Workspace or Microsoft 365 files are embedded and linked (`EMBED-003`, `EMBED-004`) and kept in [Chest](https://github.com/just-every/run-chest), Drive or SharePoint, while Slate pages stay the place knowledge is written and co-edited.
 - **Whiteboards and diagramming suites.** Slate is not a whiteboard. Figma, Miro and Lucid boards are embedded (`EMBED-003`); diagrams as code (`BLOCK-013`) and diagrams.net diagrams (`BLOCK-019`) are native. Confluence whiteboards are named in the import report with a link to the original (`IMP-010`).
 - **Video recording.** Slate does not record video. Loom and YouTube recordings are embedded (`EMBED-003`).
-- **Issue tracking, sprints and project portfolios.** These belong to [Vector](https://github.com/just-every/run-vector) or Jira, embedded and connected (`EMBED-001`, `AUTO-007`). Databases can hold a light tracker. Cross-functional project management (Asana, monday.com) is a category no Run Edit Run product owns today.
+- **Issue tracking, sprints and project portfolios.** These belong to [Vector](https://github.com/just-every/run-vector) or Jira, embedded and connected (`EMBED-001`, `AUTO-007`). Databases can hold a light tracker. Cross-functional project management (Asana, monday.com) stays outside Slate; [Pegboard](https://github.com/just-every/run-pegboard) is the RunEditRun sibling in that category.
 - **Chat.** Slack, Microsoft Teams and [Nook](https://github.com/just-every/run-nook) are connected (`CHAT-*`).
 - **Large relational databases and internal apps.** These belong to [Cradle](https://github.com/just-every/run-cradle). Slate databases stay within `seed.json → limits`, and beyond them the buyer links a Cradle base.
 - **Formal training and compliance certifications.** These belong to [Beam](https://github.com/just-every/run-beam) and [Evidence](https://github.com/just-every/run-evidence). Slate provides reading paths and acknowledgments (`KEEP-007`, `CARD-003`).
@@ -1775,15 +1777,15 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `3b61e396f1aa834d05031799eb9b84ac18ba0982` (19 October 2026).
+Judged from the code and tests at commit `716cfdc50ee0ce59684d638a371579e99d31cafb` (20 October 2026).
 
 See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 171 | 50 | 0 | 221 |
-| Target and push further | 17 | 45 | 43 | 105 |
-| All | 188 | 95 | 43 | 326 |
+| Target and push further | 18 | 45 | 42 | 105 |
+| All | 189 | 95 | 42 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2020,7 +2022,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `BLOCK-014` | Tables that work like tables | target | done | `tests/e2e/editor/tables.test.ts`, `tests/qualification/ui-convergence/tables-journey.mjs` | Header rows/columns, widths, colors, rectangular merges, merged-row sorting, keyboard structure edits, quoted 10 × 20 paste and atomic editable database round trips; editor, database, shortcuts and published views at 1440/390. |
 | `BLOCK-015` | Assigned tasks with due dates | target | done | `tests/profile/profile.worker.test.ts`, `tests/qualification/ui-convergence/task-assignment-journey.mjs` |  |
 | `BLOCK-016` | Task reports | target | done | `tests/profile/work-items-journey.ts`, `tests/qualification/ui-convergence/task-report-journey.mjs` |  |
-| `BLOCK-017` | Table of contents block | target | partial | `tests/profile/body-blocks-journey.ts` | Word export remains missing; genuine Confluence macro-fixture acceptance remains unproven. |
+| `BLOCK-017` | Table of contents block | target | partial | `tests/profile/body-blocks-journey.ts` | Genuine Confluence macro-fixture acceptance remains unproven. |
 | `BLOCK-018` | Status labels | target | partial | `tests/profile/body-blocks-journey.ts` | Confluence status color in plain-string table cells is reported as loss; genuine incumbent macro-fixture acceptance remains unproven. |
 | `BLOCK-019` | Diagrams.net diagrams | target | missing | — | not implemented |
 | `BLOCK-020` | Group mentions | target | partial | `tests/flagship/discovery/group-mentions.test.ts`, `tests/qualification/ui-convergence/group-mentions-journey.mjs` | Native mentions implemented; Confluence team import remains unproven. |
@@ -2065,7 +2067,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `IMP-014` | Links between spaces imported in separate passes | target | missing | — | not implemented |
 | `PORT-008` | Exports carry comments | target | done | `tests/e2e/imports/readable-comments.test.ts`, `tests/qualification/ui-convergence/export-comments-journey.mjs` | HTML threads with block links and Markdown sidecars; page/container/workspace round trips retain authors, times, replies, resolution, tombstones and anchors without notifications; first-run and repeated exports, access and tamper checks; 1440/390 product journeys. |
 | `PORT-009` | Scheduled backups to the buyer's storage | target | partial | `docs/BACKUP.md` | see the clause |
-| `PORT-010` | Word export of a page | target | missing | — | not implemented |
+| `PORT-010` | Word export of a page | target | done | `tests/e2e/imports/word-export.test.ts`, `tests/qualification/ui-convergence/export-comments-journey.mjs` | Equations and diagram images are inherited by `BLOCK-013` and `BLOCK-019`. |
 | `EMBED-001` | Live issue embeds from Vector and Jira | target | missing | — | not implemented |
 | `EMBED-002` | GitHub and GitLab embeds | target | missing | `src/core/features/connectors/github.ts` | not implemented |
 | `EMBED-003` | Design, video and document embeds | target | partial | `tests/e2e/editor/provider-embeds.test.ts`, `tests/qualification/ui-convergence/provider-embeds-journey.mjs` | Click-to-load provider frames, per-provider CSP/sandbox, public interaction gate and access/revocation proven with fixtures at 1440/390. Automatic refusal detection and link-card fallback remain missing; live providers unproven. |

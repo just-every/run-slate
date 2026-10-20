@@ -1,0 +1,102 @@
+import {env} from 'cloudflare:test';
+import {beforeEach,expect,vi} from 'vitest';
+import {unzipSync} from 'fflate';
+import {XMLParser,XMLValidator} from 'fast-xml-parser';
+import {createApi} from '../../../src/core/app/hono';
+import {contract} from '../contract';
+import {resetDeployment} from '../setup/reset-deployment';
+import {seedWorkspace,seedMember,seedContainerGrant,sessionFor} from '../setup/fixtures';
+import {imageBytes,imageAlt,table,wordBlocks} from './word-export-fixture';
+
+beforeEach(async()=>{vi.restoreAllMocks();await resetDeployment();});
+contract('PORT-010','PORT-010 Word export carries every block kind, omits a child the member cannot read and re-imports with the same headings, merged tables and image alt',async()=>{
+ const api=createApi(),nativeEnv={...env,SLATE_PROFILE:undefined};let cookie='';
+ const request=(method:string,path:string,body?:unknown)=>api.request('https://slate.test/api'+path,{method,headers:{cookie,origin:'https://slate.test',...(body instanceof FormData?{}:{'content-type':'application/json'})},body:body===undefined?undefined:body instanceof FormData?body:JSON.stringify(body)},nativeEnv);
+ const json=async(method:string,path:string,body?:unknown)=>{const response=await request(method,path,body),data=await response.json<any>();expect(response.status,JSON.stringify(data)).toBe(200);return data;};
+ const {workspaceId}=await seedWorkspace();
+ const {memberId:owner}=await seedMember(workspaceId,{role:'owner',email:'word-owner@slate.test',displayName:'Alex <Owner> & Co',isSetupOwner:true});
+ const {memberId:reader}=await seedMember(workspaceId,{role:'member',email:'word-reader@slate.test',displayName:'Morgan Reader'});
+ cookie=await sessionFor(owner,{freshProof:true});const ownerCookie=cookie,readerCookie=await sessionFor(reader);
+ const first=(await json('POST','/workspace/first-run',{operationKey:crypto.randomUUID(),workspaceName:'Operations',containerName:'Handbook',pageTitle:'Welcome'})).value;
+ for(const principalId of [owner,reader])await seedContainerGrant(first.containerId,{principalKind:'member',principalId,level:principalId===owner?'full':'view'});
+ const create=async(title:string,parentPageId?:string)=>{const result=await json('POST','/pages',{operationKey:crypto.randomUUID(),containerId:first.containerId,title,parentPageId});return result.value.pageId as string;};
+ const parent=await create('Customer recovery handbook'),child=await create('Public recovery follow-up',parent),hidden=await create('CONFIDENTIAL child not exported',parent),other=await create('Reference elsewhere');
+ const childDoc=await json('GET',`/pages/${hidden}`);
+ await json('PUT',`/sharing/pages/${hidden}/inheritance`,{operationKey:crypto.randomUUID(),expectedRevisionId:childDoc.page.revisionId,restricted:true});
+ const mediaForm=new FormData();mediaForm.set('operationKey',crypto.randomUUID());mediaForm.set('pageId',parent);mediaForm.set('file',new File([new Uint8Array(imageBytes)],'recovery.png',{type:'image/png'}));
+ const media=(await json('POST','/media',mediaForm)).value;
+ const privateForm=new FormData();privateForm.set('operationKey',crypto.randomUUID());privateForm.set('pageId',hidden);privateForm.set('file',new File([new Uint8Array(imageBytes)],'PRIVATE_MEDIA_DO_NOT_EXPORT.png',{type:'image/png'}));
+ const privateImage=(await json('POST','/media',privateForm)).value;
+ const hiddenCurrent=await json('GET',`/pages/${hidden}`);
+ await json('PUT',`/pages/${hidden}/blocks`,{operationKey:crypto.randomUUID(),expectedRevisionId:hiddenCurrent.page.revisionId,blocks:[{id:crypto.randomUUID(),blockType:'media',treePosition:'a',content:{kind:'image',source:{url:privateImage.url,name:privateImage.name,fileId:privateImage.id,contentType:'image/png'},caption:'PRIVATE_MEDIA_DO_NOT_EXPORT',alt:'PRIVATE_MEDIA_DO_NOT_EXPORT'}}]});
+ const blocks=wordBlocks(media,reader,child,other),heading=blocks.find(block=>block.blockType==='heading')!;
+ const current=await json('GET',`/pages/${parent}`);
+ await json('PUT',`/pages/${parent}/blocks`,{operationKey:crypto.randomUUID(),expectedRevisionId:current.page.revisionId,blocks});
+ const source=await json('GET',`/pages/${parent}`);
+ const comment=(await json('POST',`/comments/page/${parent}`,{operationKey:crypto.randomUUID(),kind:'inline',blockId:heading.id,anchor:{anchorId:'word-anchor',quote:'Recovery <guide>'},anchorRevisionId:source.workingRevisionId,body:[{text:'Review <this> & confirm'}]})).value;
+ // Replies use the same authorized public endpoint as the on-page discussion.
+ await json('POST',`/comments/page/${parent}`,{operationKey:crypto.randomUUID(),threadId:comment.threadId,parentCommentId:comment.id,body:[{text:'Confirmed by the recovery team'}]});
+ const discussion=await json('GET',`/comments/page/${parent}`);
+ await json('POST',`/comments/thread/${comment.threadId}/resolve`,{operationKey:crypto.randomUUID(),expectedRevisionId:discussion.threads[0].revision_id,resolved:true});
+ const parser=new XMLParser({ignoreAttributes:false,removeNSPrefix:true,parseTagValue:false,trimValues:false});
+ const decode=(bytes:Uint8Array)=>{
+  const entries=unzipSync(bytes),text=(path:string)=>new TextDecoder().decode(entries[path]);
+  for(const [path,part]of Object.entries(entries))if(path.endsWith('.xml')||path.endsWith('.rels'))expect(XMLValidator.validate(new TextDecoder().decode(part)),path).toBe(true);
+  expect(Object.keys(entries).some(path=>/vba|macro|slate-readable\.json/i.test(path))).toBe(false);
+  return {entries,text,document:parser.parse(text('word/document.xml')).document.body};
+ };
+ const exportFile=async(scope:string,includeComments=true)=>{
+  const response=await request('POST','/exports/readable',{scope,id:parent,format:'docx',includeComments});
+  expect(response.status,response.status!==200?await response.text():'').toBe(200);
+  expect(response.headers.get('content-type')).toBe('application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+  expect(response.headers.get('content-disposition')).toMatch(/\.docx"$/);
+  const bytes=new Uint8Array(await response.arrayBuffer());return {bytes,...decode(bytes)};
+ };
+ const textNodes=(value:any):string=>Array.isArray(value)?value.map(textNodes).join(''):value&&typeof value==='object'?Object.entries(value).filter(([key])=>!key.startsWith('@_')).map(([key,item])=>key==='#text'?String(item):textNodes(item)).join(''):typeof value==='string'?value:'';
+ const single=await exportFile('page'),document=single.text('word/document.xml'),body=textNodes(single.document);
+ for(const block of blocks.filter(b=>b.blockType==='heading'))expect(body).toContain((block.content as any).text[0].text);
+ for(const fragment of ['bulleted item','numbered item','toggle item','Toggle detail & next step','☑ ','Morgan Reader','2026-11-03','Callout <take care> & confirm','Customer context','Detailed plan','All recovery details','confirm("recovery")'])expect(body).toContain(fragment);
+ expect(document).toContain('&lt;script&gt;');expect(document).not.toContain('<script>');
+ expect(single.document.tbl).toBeDefined();expect(document).toContain('w:gridSpan w:val="2"');expect(document).toContain('w:vMerge w:val="restart"');expect(document).toContain('<w:vMerge/>');
+ expect(document).toContain(`descr="Recovery chart &lt;image&gt; &amp; &quot;owner&quot;"`);
+ expect(Object.keys(single.entries).filter(path=>path.startsWith('word/media/'))).toHaveLength(1);
+ expect(single.entries['word/media/image1.png']).toEqual(imageBytes);
+ const numbering=parser.parse(single.text('word/numbering.xml')).numbering;
+ expect(JSON.stringify(numbering)).toContain('decimal');expect(JSON.stringify(numbering)).toContain('bullet');
+ const comments=parser.parse(single.text('word/comments.xml')).comments.comment;
+ expect(comments).toHaveLength(2);expect(comments.every((item:any)=>item['@_author']==='Alex <Owner> & Co')).toBe(true);
+ for(const item of discussion.comments)expect(comments.some((out:any)=>out['@_date']===item.createdAt&&JSON.stringify(out).includes(item.body[0].text))).toBe(true);
+ const extended=parser.parse(single.text('word/commentsExtended.xml')).commentsEx.commentEx;
+ expect(extended.every((item:any)=>item['@_done']==='1')).toBe(true);expect(extended[1]['@_paraIdParent']).toBe(extended[0]['@_paraId']);
+ const checkRelations=(output:ReturnType<typeof decode>)=>{
+  for(const path of Object.keys(output.entries).filter(path=>path.endsWith('.rels'))){const parsed=parser.parse(output.text(path)).Relationships.Relationship;for(const relation of Array.isArray(parsed)?parsed:[parsed])if(relation['@_TargetMode']==='External'){expect(relation['@_Type']).toMatch(/\/hyperlink$/);expect(relation['@_Target']).toMatch(/^https:\/\/slate\.test\/(app\/|api\/media\/)/);}}
+ };
+ checkRelations(single);
+ const pageRelations=single.text('word/_rels/document.xml.rels');expect(pageRelations).toContain(`/app/pages/${child}`);expect(pageRelations).toContain(`/app/pages/${other}`);
+ const without=await exportFile('page',false);expect(without.entries['word/comments.xml']).toBeUndefined();expect(without.text('word/document.xml')).not.toContain('commentReference');
+ cookie=readerCookie;
+ expect((await request('GET',`/pages/${hidden}`)).status).toBe(404);
+ const descendants=await exportFile('descendants');checkRelations(descendants);
+ const allParts=Object.values(descendants.entries).map(part=>new TextDecoder().decode(part)).join('\n');
+ expect(allParts).toContain('Public recovery follow-up');expect(allParts).not.toContain('CONFIDENTIAL');expect(allParts).not.toContain(hidden);expect(allParts).not.toContain('PRIVATE_MEDIA_DO_NOT_EXPORT');expect(allParts).not.toContain(privateImage.id);expect(Object.keys(descendants.entries).filter(path=>path.startsWith('word/media/'))).toHaveLength(1);
+ const descendantXml=descendants.text('word/document.xml');expect(descendantXml).toContain('w:anchor=');expect(descendants.text('word/_rels/document.xml.rels')).not.toContain(`/app/pages/${child}`);
+ const bookmarkNames=[...descendantXml.matchAll(/<w:bookmarkStart[^>]*w:name="([^"]+)"/g)].map(match=>match[1]);
+ for(const anchor of descendantXml.matchAll(/<w:hyperlink w:anchor="([^"]+)"/g))expect(bookmarkNames).toContain(anchor[1]);
+ // Revoke on the media read boundary: no assembled Word bytes escape the epoch fence.
+ cookie=ownerCookie;const get=env.FILES.get.bind(env.FILES);let raced=false;
+ const spy=vi.spyOn(env.FILES,'get').mockImplementation((async(...args:Parameters<R2Bucket['get']>)=>{const value=await get(...args);if(!raced){raced=true;await env.DB.prepare('UPDATE core_acl_epoch SET epoch=epoch+1 WHERE id=1').run();}return value;}) as R2Bucket['get']);
+ const denied=await request('POST','/exports/readable',{scope:'page',id:parent,format:'docx'});spy.mockRestore();expect(raced).toBe(true);expect(denied.status).toBe(403);expect((await denied.json<any>()).code).toBe('EXPORT_ACCESS_CHANGED');
+ expect((await request('POST','/exports/readable',{scope:'container',id:first.containerId,format:'docx'})).status).toBe(400);
+ const before=new Set((await json('GET','/pages')).items.map((page:any)=>page.id));
+ const form=new FormData();form.set('operationKey',crypto.randomUUID());form.set('format','docx');form.set('file',new File([new Uint8Array(single.bytes)],'recovery.docx'));
+ const imported=await json('POST','/imports',form);expect((await json('POST',`/imports/${imported.id}/run`,{})).state).toBe('completed');
+ const copy=(await json('GET','/pages')).items.find((page:any)=>!before.has(page.id));expect(copy).toBeDefined();
+ const restored=await json('GET',`/pages/${copy.id}`);
+ const headings=(items:any[])=>items.filter(b=>b.blockType==='heading').map(b=>b.content);
+ expect(headings(restored.blocks)).toEqual(headings(source.blocks));
+ const restoredTable=restored.blocks.find((b:any)=>b.blockType==='table').content;
+ expect(restoredTable.columns).toEqual(table.columns);expect(restoredTable.rows.map((row:any)=>row.cells)).toEqual(table.rows.map(row=>row.cells));
+ expect(restoredTable.merges.map((merge:any)=>({...merge,rowId:restoredTable.rows.findIndex((row:any)=>row.id===merge.rowId)}))).toEqual(table.merges.map(merge=>({...merge,rowId:table.rows.findIndex(row=>row.id===merge.rowId)})));
+ const restoredImages=restored.blocks.filter((b:any)=>b.blockType==='media');expect(restoredImages.map((b:any)=>b.content.alt)).toEqual([imageAlt,'Same image, distinct alt']);
+ for(const image of restoredImages){const response=await request('GET',image.content.source.url.replace('/api',''));expect(response.status).toBe(200);expect(new Uint8Array(await response.arrayBuffer())).toEqual(imageBytes);}
+});
