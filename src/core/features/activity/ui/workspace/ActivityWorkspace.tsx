@@ -100,7 +100,7 @@ export function ActivityWorkspace() {
           {resource.data?.items.map((item) => (
             <li key={item.id}>
               <div>
-                <strong>{item.actor?.displayName ?? "Former member"}</strong> ·{" "}
+                <strong>{item.actor?.displayName ?? (item.action.startsWith("verification-rules.") ? "Verification rules" : "Former member")}</strong> ·{" "}
                 {item.action.replace(/[._-]/g, " ")}
                 <p>
                   <time dateTime={item.occurredAt}>
