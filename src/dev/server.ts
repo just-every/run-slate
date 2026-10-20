@@ -85,7 +85,7 @@ export default {
       return path === "/auth/dev/enter" || path === "/__dev/personas" ? devNotFound() : worker.fetch(request, env, execution);
     }
     const gate = devGate({ key: env.RER_DEV_KEY, origin: env.APP_URL!, local: env.LOCAL_DEVELOPMENT === "true" });
-    registerDevAdmission(gate ? (r: Request) => gate.admits(r) : null);
+    registerDevAdmission(gate ? (r: Request) => gate.admitsSession(r) : null);
     if (path === "/auth/dev/enter" || path === "/__dev/personas") {
       if (!gate || env.RER_DEV_IDENTITY === "off" || !await gate.admits(request)) return devNotFound();
       return path === "/__dev/personas" ? Response.json(identity(env).list(), { headers }) : enter(request, env, gate);

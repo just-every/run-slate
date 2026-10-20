@@ -229,7 +229,10 @@ export interface DevGateInput { key: string | undefined; origin: string; local: 
 export interface DevGate {
   /** `rer_dev_gate_<port>`: one gate cookie per local origin. */
   readonly cookieName: string;
+  /** Gated surfaces: the key header, or the cookie on a request not marked `Sec-Fetch-Site: cross-site`. */
   admits(request: Request): Promise<boolean>;
+  /** Dev session admission: the key header or the cookie, including a top-level GET from another site. */
+  admitsSession(request: Request): Promise<boolean>;
   setCookie(): Promise<string>;
   /** Handles GET/POST /__dev/key; null for every other path. */
   exchange(request: Request, branding?: AuthBranding): Promise<Response | null>;

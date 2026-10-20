@@ -316,6 +316,40 @@ never the concurrency fence. Erasure integrations must delete both new chunk
 tables along with existing job custody. These tables retain audit data through
 undo and rollback.
 
+### Large plans: staged creation and revision fences
+
+A stored plan larger than `LARGE_PLAN_BYTES` (4 MiB) is never sent whole in one
+request. Without a transport policy (`maxBatchBytes` omitted, as the import door
+runs), `createD1ImportJob` stages it: the plan's chunks go into the existing
+private staging tables (`d1StagingSchema`) in batches of at most
+`STAGED_BATCH_BYTES` (4 MiB) on the wire, behind the hash-only privacy index
+that erasure and retirement already reach. Every batch asserts current
+authority, the stage's binding and its exact revision before and after. One
+small final transaction then publishes the job: it copies the staged chunks and
+index inside D1, copies each original from those chunks by position (a
+canonical plan holds it literally, so its bytes travel once), compares every
+copy with its staged source there, checks tombstones and releases the creation
+capture. Only identities, positions and metadata cross the transport. A partly
+staged creation is never a job: the next call resumes from the rows already
+staged (verified by reading them back), or discards a generation that no longer
+matches, and `cancelD1ImportStaging`, erasure and retirement remove it. Every
+remaining batch is admitted against the request budget before the first write.
+`preflightD1ImportJob` sizes the same staged requests.
+
+After creation, an unbounded load of a large plan reads its
+`ik_d1_custody_revisions` revision before any chunk, then verifies the chunks
+against the envelope digest and fingerprint as before. Its guards fence that
+revision and the exact `plan_json` envelope instead of resending every chunk:
+every chunk insert, update or delete and every `plan_json` update advances the
+revision, so the guard holds exactly when the verified chunks are unchanged.
+Originals keep their position comparisons. Smaller plans, and every bounded
+(`maxBatchBytes`) path, keep exact byte guards. Original chunk and plan chunk
+reads are paged.
+
+Creation retains a normalized plan with the target adapter's `planCodec`, as
+streams and erasure re-retention do. A plan holding original bytes (an
+available artifact or an attachment) stays canonical, so its originals are
+copied from and compared by position with its chunks.
 
 ## Erasing normalized personal records
 
@@ -621,8 +655,10 @@ that same parent; new operations still honor source and target tombstones.
 Large child pages use digest-checked compressed encoding inside the existing exact
 chunk manifests. The manifest and every compressed byte remain publication
 preconditions. Compression does not replace snapshot fencing or source identity.
-Existing eager create retains its pure admission and one atomic original-custody
-publication; private normalized stream staging is a separate operation.
+Eager create keeps its pure admission and one atomic original-custody
+publication; a large plan stages that publication's input first (see "Large
+plans: staged creation and revision fences"). Private normalized stream staging
+is a separate operation.
 
 
 A native adapter may provide a versioned `planCodec` with pure `encode(plan)` and
@@ -675,7 +711,11 @@ evaluates current authority inside the initial and final atomic transactions.
 The returned `D1CreatePreflight` contains `mutationStatements`,
 `totalExecutions`, `maxSqlBytes`, `maxBoundBytes` and `maxParameters`. It uses the
 production serialization, chunking and guard packing, reserving initial authority,
-operation-key lookup, job return and chunked-plan return reads. The 36-byte
+operation-key lookup, job return and chunked-plan return reads. For a large
+plan without a transport policy it admits every staged batch, the publication
+and the prior-generation lookup instead, assuming nothing is staged yet. Pass
+the adapter's `planCodec` (or a full context) so it sizes the codec-retained
+plan production creates. The 36-byte
 placeholder UUID has exactly the encoded size of the production-generated UUID.
 Invalid plans/bindings and `IMPORT_D1_REQUEST_LIMIT`,
 `IMPORT_D1_STATEMENT_LIMIT`, `IMPORT_D1_VALUE_LIMIT` throw before any product
@@ -838,8 +878,10 @@ against that protected snapshot and every original byte against its exact plan
 positions. Only after all guards pass does the engine release and delete the
 snapshot, in the same D1 batch. A malformed plan/original INSERT trigger therefore
 rolls back job, originals and snapshots together. No staging survives successful
-creation, and no custody crosses transactions. This avoids a second full plan
+creation, and no public custody crosses transactions. This avoids a second full plan
 copy in D1's serialized batch request while retaining exact byte comparisons.
+A large plan's chunks reach that transaction from private staging instead of
+its own request; the same guards then compare them inside D1.
 
 ## Bounded private stream custody
 

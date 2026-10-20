@@ -502,11 +502,17 @@ local reverse proxy makes remote requests look local (forwarded requests carry
 a loopback URL and Host, and `CF-Connecting-IP` is whatever the caller sent), so
 the gate is the key, not the network. `devGate({key, origin, local})` returns
 null unless the key is present and the origin is an explicit loopback origin in
-local mode. `admits(request)` accepts the `rer_dev_gate_<port>` cookie (an HMAC of the
+local mode. `admitsSession(request)` accepts the `rer_dev_gate_<port>` cookie (an HMAC of the
 key, so a reset key refuses old cookies) or the key in `x-rer-dev-key` (the rer
-CLI and test harnesses). `exchange(request, branding)` serves `GET /__dev/key` and trades
+CLI and test harnesses); the dev layer registers it as the dev session check.
+`admits(request)`, which guards dev sign-in, personas and the one-click sign-in
+page, accepts the same but refuses a cookie-only request marked
+`Sec-Fetch-Site: cross-site`. `exchange(request, branding)` serves `GET /__dev/key` and trades
 the key from the URL fragment, through a same-origin POST, for a host-only
-`HttpOnly; SameSite=Strict; Path=/` cookie. Given the seed's `branding`
+`HttpOnly; SameSite=Lax; Path=/` cookie. Lax matches the session cookie: a
+browser sends it on the top-level GET an OAuth provider redirects back to the
+app, so a local dev session survives a connector's callback as a deployed
+session does, while cross-site POSTs and subresource requests carry neither. Given the seed's `branding`
 (`productName`, optional `mark` and `theme`), the page between `rer dev` and the
 app shows the explicit mark, or the `--rer-logo` its theme declares, as an
 `<img>` with the product name as its alt text. With neither mark declaration,

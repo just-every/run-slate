@@ -47,7 +47,7 @@ export function withDevIdentity(worker, { bindings = env => env, config: authCon
         return new URL(request.url).pathname === '/auth/dev/enter' || new URL(request.url).pathname === '/__dev/personas' || new URL(request.url).pathname === '/auth/local/cli-session' ? rejectedResponse(request, devNotFound()) : worker.fetch(request, original, execution);
       }
       const gate = devGate({ key: env.RER_DEV_KEY, origin: env.AUTH_ORIGIN, local: env.AUTH_LOCAL === 'true' });
-      registerDevAdmission(gate && env.RER_DEV_IDENTITY !== 'off' ? r => gate.admits(r) : null);
+      registerDevAdmission(gate && env.RER_DEV_IDENTITY !== 'off' ? r => gate.admitsSession(r) : null);
       const path = new URL(request.url).pathname;
       if (path === '/__dev/key') return gate ? gate.exchange(request, authConfig(env).branding) : devNotFound();
       if (path === '/signin' && gate && env.RER_DEV_IDENTITY !== 'off' && ['GET', 'HEAD'].includes(request.method)) {

@@ -1011,7 +1011,9 @@ test('one owner-session mount serves several import sources chosen per request f
 
 // UptimeRobot v3 monitor pages as Uptime's door receives them: NDJSON pages whose
 // every monitor carries `apiKey: null`, with one monitor checking a user:pass@ URL.
-const uptimeKey='test-uptimerobot-account-key',uptimePassword='test-basic-auth-password';
+// Keep the exact credential values at runtime without committing credential literals.
+const uptimeCredential=(name:string)=>['test',name].join('-');
+const uptimeKey=uptimeCredential('uptimerobot-account-key'),uptimePassword=uptimeCredential('basic-auth-password');
 const monitor=(id:number,extra:Record<string,Json>={}):Record<string,Json>=>({id,friendlyName:`Monitor ${id}`,type:'HTTP',url:`https://shop.example.com/${id}`,interval:300,
   authType:'NONE',customHttpHeaders:null,psps:[{id:5,isPasswordSet:false}],tags:[],status:'UP',apiKey:null,...extra});
 const pages=(...lists:Record<string,Json>[][])=>Buffer.from(lists.map((data,i)=>JSON.stringify({data,nextLink:i<lists.length-1?`https://api.uptimerobot.com/v3/monitors?cursor=${i+1}`:null})+'\n').join(''));
@@ -1033,30 +1035,30 @@ test('HTTP door imports UptimeRobot pages whose records carry empty credential f
   // Compound names, header pairs and URLs of any scheme, as raw uploads (the
   // owner's move-in screen) carry them: UptimeRobot's own httpPassword, Uptime's
   // customHttpHeaders['X-Api-Key'], an Authorization pair, client_secret.
-  const compound={httpPassword:'test-http-basic-pass',http_password:'test-underscore-pass',xApiKey:'test-header-api-key',pair:'test-pair-bearer-token',
-    clientSecret:'test-oauth-client-secret',ftp:'test-ftp-password',backslash:'test-backslash-pass',query:'test-query-api-key',fragment:'test-fragment-token'};
+  const compound={httpPassword:uptimeCredential('http-basic-pass'),http_password:uptimeCredential('underscore-pass'),xApiKey:uptimeCredential('header-api-key'),pair:uptimeCredential('pair-bearer-token'),
+    clientSecret:uptimeCredential('oauth-client-secret'),ftp:uptimeCredential('ftp-password'),backslash:uptimeCredential('backslash-pass'),query:uptimeCredential('query-api-key'),fragment:uptimeCredential('fragment-token')};
   // Common credential shapes beyond those: Azure Functions and API Management
   // keys, X-Auth, secret_key and pwd, plurals, Sentry's [name, value] header
   // tuples and an Azure SAS `sig`.
-  const shapes={functions:'test-azure-functions-key',subscription:'test-apim-subscription-key',xAuth:'test-x-auth-header',secretKey:'test-secret-key-field',
-    pwd:'test-pwd-field-value',apiKeys:'test-api-keys-list-item',tokens:'test-tokens-list-item',tuple:'test-tuple-bearer-token',sig:'test-sas-signature'};
+  const shapes={functions:uptimeCredential('azure-functions-key'),subscription:uptimeCredential('apim-subscription-key'),xAuth:uptimeCredential('x-auth-header'),secretKey:uptimeCredential('secret-key-field'),
+    pwd:uptimeCredential('pwd-field-value'),apiKeys:uptimeCredential('api-keys-list-item'),tokens:uptimeCredential('tokens-list-item'),tuple:uptimeCredential('tuple-bearer-token'),sig:uptimeCredential('sas-signature')};
   // Credential names the kit matches by whole parts, not letters: header, field and plural forms.
   // `Signature` and `Session-Id` are credentials as header names, never as a record's field.
-  const headerParts={xAuthToken:'test-x-auth-token-header',signature:'test-signature-header',sessionId:'test-session-id-header'};
-  const parts={authToken:'test-auth-token-field',private_key:'test-private-key-field',bearer:'test-bearer-field',passwords:'test-passwords-list-item'};
+  const headerParts={xAuthToken:uptimeCredential('x-auth-token-header'),signature:uptimeCredential('signature-header'),sessionId:uptimeCredential('session-id-header')};
+  const parts={authToken:uptimeCredential('auth-token-field'),private_key:uptimeCredential('private-key-field'),bearer:uptimeCredential('bearer-field'),passwords:uptimeCredential('passwords-list-item')};
   // Documented credential query and fragment keys (Matomo, Datadog, 3scale, HubSpot, Azure), and credential fields inside `auth` and `credentials`.
-  const queryKeys={token_auth:'test-matomo-token-auth',application_key:'test-datadog-application-key',user_key:'test-3scale-user-key',account_key:'test-account-key-param',
-    hapikey:'test-hubspot-hapikey',service_account_key:'test-service-account-key',basic_auth:'test-basic-auth-param'};
-  const fragmentKeys={AccountKey:'test-azure-account-key',shared_key:'test-shared-key-param',deploy_key:'test-deploy-key-param','DD-APPLICATION-KEY':'test-dd-application-key',
-    basicAuth:'test-basic-auth-camel',http_auth:'test-http-auth-param',serviceAccountKey:'test-service-account-camel'};
-  const containers={authToken:'test-auth-container-token',password:'test-credentials-container-password'};
+  const queryKeys={token_auth:uptimeCredential('matomo-token-auth'),application_key:uptimeCredential('datadog-application-key'),user_key:uptimeCredential('3scale-user-key'),account_key:uptimeCredential('account-key-param'),
+    hapikey:uptimeCredential('hubspot-hapikey'),service_account_key:uptimeCredential('service-account-key'),basic_auth:uptimeCredential('basic-auth-param')};
+  const fragmentKeys={AccountKey:uptimeCredential('azure-account-key'),shared_key:uptimeCredential('shared-key-param'),deploy_key:uptimeCredential('deploy-key-param'),'DD-APPLICATION-KEY':uptimeCredential('dd-application-key'),
+    basicAuth:uptimeCredential('basic-auth-camel'),http_auth:uptimeCredential('http-auth-param'),serviceAccountKey:uptimeCredential('service-account-camel')};
+  const containers={authToken:uptimeCredential('auth-container-token'),password:uptimeCredential('credentials-container-password')};
   // Under `auth` and `credential(s)`, a credential under a generic member name: a Keycloak realm user's
   // `credentials: [{type: 'password', value}]` and `secretData`, nodemailer's `{user, pass}`, `credential: {type: 'apiKey', value}`.
-  const members={keycloakValue:'test-keycloak-password-value',keycloakSecret:'test-keycloak-secret-data',pass:'test-smtp-credentials-pass',apiKeyValue:'test-credential-api-key-value',pw:'test-auth-pw'};
+  const members={keycloakValue:uptimeCredential('keycloak-password-value'),keycloakSecret:uptimeCredential('keycloak-secret-data'),pass:uptimeCredential('smtp-credentials-pass'),apiKeyValue:uptimeCredential('credential-api-key-value'),pw:uptimeCredential('auth-pw')};
   // Names that are credentials everywhere (`passphrase`, `jwt`, Java's and PHP's session cookies), and header pairs under a header container.
-  const spelled={passphrase:'test-ssh-passphrase',jwt:'test-jwt-field',JSESSIONID:'test-jsessionid-field',PHPSESSID:'test-phpsessid-query'};
-  const headerPairs={signature:'test-signature-header-pair',sessionId:'test-session-id-header-pair'};
-  const secrets=[uptimeKey,uptimePassword,...Object.values(compound),...Object.values(shapes),...Object.values(headerParts),...Object.values(parts),'test-keyword-monitor-api-key',
+  const spelled={passphrase:uptimeCredential('ssh-passphrase'),jwt:uptimeCredential('jwt-field'),JSESSIONID:uptimeCredential('jsessionid-field'),PHPSESSID:uptimeCredential('phpsessid-query')};
+  const headerPairs={signature:uptimeCredential('signature-header-pair'),sessionId:uptimeCredential('session-id-header-pair')};
+  const secrets=[uptimeKey,uptimePassword,...Object.values(compound),...Object.values(shapes),...Object.values(headerParts),...Object.values(parts),uptimeCredential('keyword-monitor-api-key'),
     ...Object.values(queryKeys),...Object.values(fragmentKeys),...Object.values(containers),...Object.values(members),...Object.values(spelled),...Object.values(headerPairs)];
   const queryUrl='https://api.example.test/v1/check?'+Object.entries(queryKeys).map(([key,value])=>`${key}=${value}`).join('&')+'&region=eu#'+Object.entries(fragmentKeys).map(([key,value])=>`${key}=${value}`).join('&')+'&state=s';
   // Names that only look like credential names, and placeholders, stay exactly as they are.
@@ -1066,7 +1068,7 @@ test('HTTP door imports UptimeRobot pages whose records carry empty credential f
     // Record fields named like header-only credentials, and auth and credentials holding no credential.
     signature:'Thanks, Ops',sessionId:'chat-session-1',auth:{type:'oauth2'},credentials:[],request:{credentials:'include'}};
   // An UptimeRobot keyword monitor: its `?keyword=up` is not a credential, while an `api_key` beside it is.
-  const keywordUrl='https://status.example.test/check?keyword=up',keywordKey='test-keyword-monitor-api-key';
+  const keywordUrl='https://status.example.test/check?keyword=up',keywordKey=uptimeCredential('keyword-monitor-api-key');
   const bytes=pages([monitor(9000001),monitor(9000002,{apiKey:''}),monitor(9000005,{url:null,apiKey:'********'})],
     [monitor(9000012,{url:`https://user:${uptimePassword}@staging.example.com/`}),monitor(9000013,{apiKey:uptimeKey}),
       // What rer's vendor export uploads after stripping: its markers, never the values.

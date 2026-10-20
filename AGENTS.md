@@ -2,7 +2,7 @@
 
 ## Run it locally
 
-Use Node.js 22.20.0 and pnpm 10.12.4, with `rer` installed (`npm install -g @runeditrun/rer`; the checkout pins its own `@runeditrun/rer` 0.2.71 in package mode, so change the pin with `pnpm add -D -E @runeditrun/rer@X` then `rer install`). From the checkout root:
+Use Node.js 22.20.0 and pnpm 10.12.4, with `rer` installed (`npm install -g @runeditrun/rer`; the checkout pins its own `@runeditrun/rer` 0.2.73 in package mode, so change the pin with `pnpm add -D -E @runeditrun/rer@X` then `rer install`). From the checkout root:
 
 ```sh
 rer install
@@ -29,7 +29,7 @@ Keep production behavior real: no mock application code, semantic fallbacks, hid
 
 One Cloudflare Worker serves Hono APIs and TanStack Start documents. Hono owns `/auth/confirm`, `/health`, `/api`, `/api/*` and `/p/*`; the native anonymous `/app` preflight precedes Start. Server functions revalidate sessions independently. Keep secrets and server dependencies out of browser bundles, enforce authorization server-side, and use durable storage for authoritative state.
 
-The owner decision of 10 October 2026 narrows Slate's exemption to own accounts, sessions and roles. Base operator-auth (byte-exact copies at rer-v0.2.71) signs people in through the native accounts and proof adapters in src/core/features/session/native over Slate's members, sessions and member_identity_bindings; never add Base account or session tables or a second owner ledger. Preserve WORK-008, WORK-009 and WORK-010; WORK-015's incumbent provider uses Base's pinned legacy-rs256 configuration. New sensitive operations call requireStepUp (src/core/features/session/step-up.ts). Dev identity lives only in the local entry src/dev/server.ts. See CONTRACT.md.
+The owner decision of 10 October 2026 narrows Slate's exemption to own accounts, sessions and roles. Base operator-auth (byte-exact copies at rer-v0.2.73) signs people in through the native accounts and proof adapters in src/core/features/session/native over Slate's members, sessions and member_identity_bindings; never add Base account or session tables or a second owner ledger. Preserve WORK-008, WORK-009 and WORK-010; WORK-015's incumbent provider uses Base's pinned legacy-rs256 configuration. New sensitive operations call requireStepUp (src/core/features/session/step-up.ts). Dev identity lives only in the local entry src/dev/server.ts. See CONTRACT.md.
 
 The maintained stack is TypeScript, React, TanStack Start/Router, Hono, Tailwind and Drizzle on D1, with R2 files and Queues jobs. Feature routers mount in src/core/app/mount-features.ts; documents live in src/routes; session-checked loaders are in src/core/app/loaders.ts. Changes to the pinned rendering split require emitted-Worker access checks, not a successful bundle alone. The request ownership table and emitted-artifact checks define the rendering acceptance boundary.
 
