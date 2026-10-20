@@ -1793,7 +1793,7 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `5e7ecb620fe74f2c2e352f40838aefc0d659dc48` (21 October 2026).
+Judged from the code and tests at commit `c5747b1eb78b20d8bbcbfaa1abf21f27dd748912` (21 October 2026).
 
 See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance.
 

@@ -960,7 +960,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "a11779db24ce47ef6e6029485954108e6893eace7647a11337fd44b060a2aea2",
+      "sha256": "ec5a4d210e2a7c0dc2578793ce03c6f6d83daae72900347b25e14f5f02854047",
       "executable": false
     },
     "DEMO.md": {
@@ -4784,7 +4784,7 @@
       "executable": false
     },
     "src/core/features/activity/ui/workspace/ActivityWorkspace.tsx": {
-      "sha256": "eb4bc2e2b5392f8ade61adf09898c7fe8504f23b2a8d451a572436301d8183f3",
+      "sha256": "a53a1d54511ab51831bb439a55b213e98c74701d592e00c80fba9e1d3e600c56",
       "executable": false
     },
     "src/core/features/ai/allowance.ts": {
