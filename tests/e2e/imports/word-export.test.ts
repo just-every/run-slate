@@ -21,6 +21,7 @@ contract('PORT-010','PORT-010 Word export carries every block kind, omits a chil
  for(const principalId of [owner,reader])await seedContainerGrant(first.containerId,{principalKind:'member',principalId,level:principalId===owner?'full':'view'});
  const create=async(title:string,parentPageId?:string)=>{const result=await json('POST','/pages',{operationKey:crypto.randomUUID(),containerId:first.containerId,title,parentPageId});return result.value.pageId as string;};
  const parent=await create('Customer recovery handbook'),child=await create('Public recovery follow-up',parent),hidden=await create('CONFIDENTIAL child not exported',parent),other=await create('Reference elsewhere');
+ await json('POST','/sharing',{operationKey:crypto.randomUUID(),targetKind:'page',targetId:hidden,principalKind:'member',principalId:owner,level:'full'});
  const childDoc=await json('GET',`/pages/${hidden}`);
  await json('PUT',`/sharing/pages/${hidden}/inheritance`,{operationKey:crypto.randomUUID(),expectedRevisionId:childDoc.page.revisionId,restricted:true});
  const mediaForm=new FormData();mediaForm.set('operationKey',crypto.randomUUID());mediaForm.set('pageId',parent);mediaForm.set('file',new File([new Uint8Array(imageBytes)],'recovery.png',{type:'image/png'}));

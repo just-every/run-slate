@@ -8988,7 +8988,7 @@
       "executable": false
     },
     "tests/e2e/imports/word-export.test.ts": {
-      "sha256": "80db6975169f1e66c226c1dafbf133396f28fc52845840740ee73378ff748da7",
+      "sha256": "a0c1b26c4edde507eb7f311b38f7936f33cdd4d30f6bd442b664ceb40d8ef813",
       "executable": false
     },
     "tests/e2e/knowledge-model.test.mjs": {
