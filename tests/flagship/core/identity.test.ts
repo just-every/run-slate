@@ -1,4 +1,4 @@
-import {env} from 'cloudflare:test';import {test,expect,vi} from 'vitest';
+import {SELF,env} from 'cloudflare:test';import {test,expect,vi} from 'vitest';
 import {seedWorkspace,seedMember,sessionFor} from '../../e2e/setup/fixtures';
 import {createApi} from '../../../src/core/app/hono';
 import {createOpaqueToken,sessionDigest} from '../../../src/core/platform/auth/token';
@@ -8,7 +8,35 @@ import {readRuntimeConfig} from '../../../src/core/platform/config/runtime';
 import {encryptSecret,decryptSecret} from '../../../src/core/platform/secrets/custody';
 const config=readRuntimeConfig(env,false);
 async function identity(){const {workspaceId}=await seedWorkspace();const email=`${workspaceId}@test.invalid`;const {memberId}=await seedMember(workspaceId,{role:'owner',email,displayName:'Owner'});return {workspaceId,email,memberId};}
-test('BASE-ACCESS-002 private HTTP denies missing expired and revoked sessions without data',async()=>{const who=await identity();const api=createApi();const cookies=[undefined,await sessionFor(who.memberId,{expiresAt:'2000-01-01T00:00:00.000Z'}),await sessionFor(who.memberId,{revokedAt:new Date().toISOString()})];for(const cookie of cookies){const response=await api.request('/api/workspace',{headers:cookie?{cookie}:{}},env);expect(response.status).toBe(401);expect(await response.json()).toEqual({code:'UNAUTHENTICATED',message:'A valid session is required.'});}const cookie=await sessionFor(who.memberId);const response=await api.request('/api/workspace',{headers:{cookie}},env);expect(response.status).toBe(200);expect((await response.json() as {id:string}).id).toBe(who.workspaceId);});
+test('BASE-ACCESS-002 private HTTP denies missing expired and revoked sessions without data',async()=>{
+ const who=await identity();const api=createApi();
+ const cookies=[undefined,await sessionFor(who.memberId,{expiresAt:'2000-01-01T00:00:00.000Z'}),await sessionFor(who.memberId,{revokedAt:new Date().toISOString()})];
+ for(const cookie of cookies){const response=await api.request('/api/workspace',{headers:cookie?{cookie}:{}},env);expect(response.status).toBe(401);expect(await response.json()).toEqual({code:'UNAUTHENTICATED',message:'A valid session is required.'});}
+ const cookie=await sessionFor(who.memberId);const response=await api.request('/api/workspace',{headers:{cookie}},env);expect(response.status).toBe(200);expect((await response.json() as {id:string}).id).toBe(who.workspaceId);
+
+ // The deploy hook retires its owner-claim session through the root alias.
+ // Exercise the real Worker dispatcher, with exactly the hook's JSON headers/body.
+ const origin='https://slate.test';
+ const session=(cookie:string)=>SELF.fetch(origin+'/api/session',{headers:{cookie}});
+ const signOut=(path:string,cookie?:string,requestOrigin=origin)=>SELF.fetch(origin+path,{
+  method:'POST',redirect:'manual',headers:{Origin:requestOrigin,'Content-Type':'application/json',...(cookie?{Cookie:cookie}:{})},body:'{}',
+ });
+ for(const path of ['/auth/signout','/api/auth/logout']){
+  const anonymous=await signOut(path);expect(anonymous.status).toBe(204);
+  const active=await sessionFor(who.memberId,{freshProof:true});
+  expect((await session(active)).status).toBe(200);
+  const denied=await signOut(path,active,'https://attacker.invalid');
+  expect(denied.status).toBe(403);expect(denied.headers.get('set-cookie')).toBeNull();
+  expect((await session(active)).status).toBe(200);
+  const retired=await signOut(path,active);
+  expect(retired.status).toBe(204);expect(retired.redirected).toBe(false);expect(await retired.text()).toBe('');
+  const cleared=retired.headers.get('set-cookie')??'';
+  expect(cleared).toMatch(/^slate_session=;/);expect(cleared).toContain('Max-Age=0');expect(cleared).toContain('Path=/');
+  expect((await session(active)).status).toBe(401);
+  const revoked=await signOut(path,active);expect(revoked.status).toBe(204);expect(revoked.headers.get('set-cookie')).toBe(cleared);
+  expect(anonymous.headers.get('set-cookie')).toBe(cleared);
+ }
+});
 test('WORK-006 invitation concurrent replay creates exactly one active member',async()=>{const who=await identity(),token=createOpaqueToken(),email=`invited-${who.workspaceId}@test.invalid`,now=new Date().toISOString();await env.DB.prepare("INSERT INTO invitations (id,workspace_id,email,kind,token_digest,invited_by_member_id,expires_at,created_at) VALUES (?,?,?,'member',?,?,?,?)").bind(createUlid(),who.workspaceId,email,await sessionDigest(config.sessionSecret,token),who.memberId,'2099-01-01T00:00:00.000Z',now).run();const outcomes=await Promise.allSettled([acceptInvitation(env.DB,config,token),acceptInvitation(env.DB,config,token)]);expect(outcomes.filter(o=>o.status==='fulfilled')).toHaveLength(1);expect((await env.DB.prepare('SELECT count(*) AS n FROM members WHERE email=?').bind(email).first<{n:number}>())!.n).toBe(1);});
 test('BASE-SECRET-001 credential ciphertext is identity bound and failure reveals no plaintext',async()=>{const secret='synthetic-a-strong-owned-key-with-more-than-32-characters',plain='private-provider-token';const value=await encryptSecret(secret,plain,'workspace:connector:a');expect(value).not.toContain(plain);expect(await decryptSecret(secret,value,'workspace:connector:a')).toBe(plain);await expect(decryptSecret(secret,value,'workspace:connector:b')).rejects.toMatchObject({code:'CREDENTIAL_UNAVAILABLE'});});
 test('cross-origin cookie mutations are denied before writes',async()=>{const who=await identity();const response=await createApi().request('http://localhost:8787/api/members/current/theme',{method:'PUT',headers:{cookie:await sessionFor(who.memberId),'content-type':'application/json',origin:'https://attacker.invalid'},body:JSON.stringify({operationKey:'case:001',theme:'dark'})},env);expect(response.status).toBe(403);expect((await env.DB.prepare('SELECT theme FROM members WHERE id=?').bind(who.memberId).first<{theme:string}>())!.theme).toBe('system');});

@@ -534,7 +534,7 @@ or the dev key in its output. No existing protection is relaxed.
 
 - **NOTIF-001 — Meaningful notifications.** A member is notified in the app when they are mentioned, when someone comments or replies on a page they watch or authored, when a page they watch is published or republished, when a verification they own lapses (`STAT-004`), when they are granted access to a page or container, and when an AI run they started needs review or failed. Deliver these notices when the triggering event occurs; overdue decision notices go to the decision owner under `DEC-005`. Route an unresolved policy/authority choice to its named owner when the choice blocks action, an actionable paused or failed run to its run owner when it pauses or fails, and a consequential experiment result to its accountable owner when the result is recorded and ready for action. Coalesce related granted maintenance into one concise Today outcome with inspectable changes; routine standing-authorized success and unchanged checks stay quiet and require no fresh approval. Never coalesce away direct mentions, access changes, lapsed human attestations, meaningful failures or required decisions. Own direct actions never notify their actor; delegated events retain the named recipient rules. Recheck recipient access and the authorized output audience at creation, delivery and read; never notify about unreadable records or disclose sources beyond their authorized audience. Preserve `NOTIF-002` inbox behavior, `NOTIF-003` optional link-only chat delivery and `MAIL-001` limited email use.
 - **NOTIF-002 — Inbox.** Notifications are listed newest first, grouped by period, with an unread count and separate views for those addressed to the member and those from watched pages. Opening one marks it read and opens the referenced record at the referenced comment; a member can mark all read and archive read notifications.
-- **NOTIF-003 — Chat notifications.** A workspace owner can connect one chat destination through `chat.notifier.v1` and choose which events reach it. A message carries the event, the actor, the page title and a link, never the page body, and the link still requires access. The connection shows its last delivery and its last failure, retries only transient transport failures, and stops sending the moment it is disconnected; its credential is encrypted with `CONNECTOR_CREDENTIALS_KEY`, returned by no API response, and destroyed on disconnect. A deployment with a chat destination connected and that variable missing fails at startup naming it (`BASE-SECRET-002`) rather than running with the connection off. An expired or revoked authorization marks the connection as needing attention, offers a reconnect action, and stops sending without deleting the connection, its event selection or its delivery history. Target (16 October 2026): `CHAT-001` extends this to any number of Slack, Microsoft Teams and Nook destinations with the same guarantees.
+- **NOTIF-003 — Chat notifications.** A workspace owner can connect one chat destination through `chat.notifier.v1` and choose which events reach it. A message carries the event, the actor, the page title and a link, never the page body, and the link still requires access. The connection shows its last delivery and its last failure, retries only transient transport failures, and stops sending the moment it is disconnected; its credential is encrypted with `CONNECTOR_CREDENTIALS_KEY`, returned by no API response, and destroyed on disconnect. A deployment with a chat destination connected and that variable missing fails at startup naming it (`BASE-SECRET-002`) rather than running with the connection off. An expired or revoked authorization marks the connection as needing attention, offers a reconnect action, and stops sending without deleting the connection, its event selection or its delivery history. In the default core-wiki profile, the owner supplies a Slack bot token for one private, unshared channel; every channel member’s email must map to an active Slate member, and every member must be able to read each event’s page before it is sent. OAuth source-identity consent remains the separate flagship `CONNECT-001` path. Target (16 October 2026): `CHAT-001` extends this to any number of Slack, Microsoft Teams and Nook destinations with the same guarantees.
 
 ## Mail
 
@@ -1363,7 +1363,7 @@ Slate ships an Atlassian Forge app that gives Jira what Confluence's own integra
 *Status:* missing.
 
 #### CHAT-001 — Chat notifications to Slack, Microsoft Teams and Nook.
-Workspace and container owners connect any number of channels in Slack, Microsoft Teams or [Nook](https://github.com/just-every/run-nook), each with its own event selection: published or updated pages, new comments, blog posts, review requests and lapsed verifications in the container. `NOTIF-003`'s guarantees apply to every destination: link-only messages, access-checked links, encrypted credentials, delivery and failure state, transient-only retry, and stopping on disconnect.
+Workspace and container owners connect any number of channels in Slack, Microsoft Teams or [Nook](https://github.com/just-every/run-nook), each with its own event selection: published or updated pages, new comments, blog posts, review requests and lapsed verifications in the container. `NOTIF-003`'s guarantees apply to every destination: link-only messages, access-checked links, encrypted credentials returned by no API and destroyed on disconnect, startup refusal naming `CONNECTOR_CREDENTIALS_KEY` when a stored destination lacks it, delivery and failure state, transient-only retry, and stopping on disconnect. Expired or revoked authorization needs attention and offers reconnect while retaining the destination, event selection and delivery history.
 
 *Acceptance:* a Workers journey with provider fakes at the network edge connects one channel per provider, fires each event kind and finds exactly one link-only message per destination. Disconnecting one destination stops only that destination. Provider acceptance repeats this with real Slack and Teams workspaces.
 
@@ -1793,15 +1793,15 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `c5747b1eb78b20d8bbcbfaa1abf21f27dd748912` (21 October 2026).
+Judged from the code and tests at commit `635df53b1d055f31998b7a5dd448ce467dab07d2` (21 October 2026).
 
-See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance.
+See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes this candidate’s default-profile Workers and 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 171 | 50 | 0 | 221 |
+| Published | 172 | 49 | 0 | 221 |
 | Target and push further | 19 | 45 | 41 | 105 |
-| All | 190 | 95 | 41 | 326 |
+| All | 191 | 94 | 41 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1944,7 +1944,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `NAV-006` | The touch client edits | published | partial | `tests/qualification/interface/routed.browser.mjs` | responsive web journeys; native apps missing (MOBILE-001) |
 | `NOTIF-001` | Meaningful notifications | published | done | `tests/qualification/backend/emitted.mjs` |  |
 | `NOTIF-002` | Inbox | published | done | `tests/qualification/core/discovery.mjs` |  |
-| `NOTIF-003` | Chat notifications | published | partial | `src/core/features/notifications/slack.ts` | Slack destination code; no requirement-level journey |
+| `NOTIF-003` | Chat notifications | published | done | `tests/e2e/notifications/chat.test.ts`; `tests/qualification/ui-convergence/chat-journey.mjs` (1440/390) | Provider acceptance remains open as stated above. |
 | `MAIL-001` | Outbound only, two kinds | published | done | `tests/flagship/core/mail.test.ts` |  |
 | `MAIL-002` | Delivery failure | published | done | `tests/flagship/core/mail.node.test.mts` |  |
 | `ACT-001` | Durable timeline | published | done | `tests/qualification/core/discovery.mjs` |  |

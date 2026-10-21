@@ -2,6 +2,7 @@ import { createRequire } from 'node:module';
 import { readFile, realpath, mkdir, writeFile, appendFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { productionModules } from '@runeditrun/rer/production-modules';
+import { slackEdge } from '../helpers/slack-edge.mjs';
 
 // Use the same Wrangler conversion and module loader as Base productionRuntime,
 // with the qualification's isolated configuration, bindings and persistence.
@@ -21,6 +22,8 @@ const worker = { ...workerOptions, name: config.name,
   ...await productionModules(selected.main, modulesRules, miniflare),
   bindings: { ...workerOptions.bindings, ...vars, ...mail },
   outboundService: async request => {
+    const slack = await slackEdge(request, persistPath, miniflare.Response);
+    if (slack) return slack;
     if (request.url === 'https://api.resend.com/emails') {
       const message = await request.json();
       await appendFile(mailbox, JSON.stringify(message) + '\n');

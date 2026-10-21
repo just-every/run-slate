@@ -37,7 +37,7 @@ export function createApi() {
       if(path.startsWith('/api/auth/')||SESSION_AUTH_PATHS.has(path)) await enforceRateLimit(context,'auth',120);
       else if(path.startsWith('/p/')) await enforceRateLimit(context,'public-page',120);
       await next();
-      if(!['GET','HEAD','OPTIONS'].includes(context.req.method)&&context.res.ok&&(path==='/api/auth/logout'||/^\/api\/(sharing|groups|members|workspace)(?:\/|$)/.test(path))) await invalidateContentRooms(context.env);
+      if(!['GET','HEAD','OPTIONS'].includes(context.req.method)&&context.res.ok&&(path==='/api/auth/logout'||path==='/auth/signout'||/^\/api\/(sharing|groups|members|workspace)(?:\/|$)/.test(path))) await invalidateContentRooms(context.env);
     })
     // BASE-ACCESS-002: a protected API namespace authenticates before route
     // matching, so an anonymous unknown member keeps the native 401 and only a

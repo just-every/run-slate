@@ -1,0 +1,130 @@
+import { env, createExecutionContext, waitOnExecutionContext } from 'cloudflare:test';
+import { beforeEach, expect, vi } from 'vitest';
+import { contract } from '../contract';
+import { resetDeployment } from '../setup/reset-deployment';
+import { seedWorkspace, seedMember, seedContainer, seedContainerGrant, sessionFor } from '../setup/fixtures';
+import { createApi } from '../../../src/core/app/hono';
+import worker from '../../../src/server';
+import type { AppBindings } from '../../../src/core/app/types';
+import { handleApplicationRequest } from '../../../src/core/app/request-handler';
+import { healthResponse } from '../../../src/core/app/health-response';
+import { assertStoredConfiguration } from '../../../src/core/app/runtime-gate';
+import { decryptSecret } from '../../../src/core/platform/secrets/custody';
+import { chatScope } from '../../../src/core/features/notifications/chat-config';
+import { slackNetwork } from '../helpers/slack-network';
+
+beforeEach(resetDeployment);
+contract('NOTIF-003', 'Chat destination sends link-only messages, shows last delivery and failure, retries only transient failures, marks revoked authorization as needing attention and stops on disconnect', async () => {
+  const { workspaceId } = await seedWorkspace();
+  const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner@chat.test', displayName: 'Alex Owner' })).memberId;
+  const reader = (await seedMember(workspaceId, { role: 'member', email: 'reader@chat.test', displayName: 'Morgan Reader' })).memberId;
+  const containerId = (await seedContainer(workspaceId, { ownerMemberId: owner, visibility: 'private' })).containerId;
+  for (const [principalId, level] of [[owner, 'full'], [reader, 'comment']] as const) await seedContainerGrant(containerId, { principalKind: 'member', principalId, level });
+  const cookies = { owner: await sessionFor(owner), reader: await sessionFor(reader) };
+  const token = 'test-only-chat-credential', credentialKey = crypto.randomUUID(), origin = 'https://slate.test';
+  const bindings: AppBindings = { ...env, SLATE_PROFILE: undefined, CONNECTOR_CREDENTIALS_KEY: credentialKey, APP_URL: origin };
+  const app = createApi(), key = () => crypto.randomUUID();
+  const raw = (method: string, path: string, body?: unknown, actor: keyof typeof cookies = 'owner', runtime = bindings) => app.request(origin + path, { method, headers: { cookie: cookies[actor], origin, ...(body === undefined ? {} : { 'content-type': 'application/json' }) }, body: body === undefined ? undefined : JSON.stringify(body) }, runtime);
+  const api = async (method: string, path: string, body?: unknown, actor: keyof typeof cookies = 'owner') => {
+    const response = await raw(method, path, body, actor), text = await response.text();
+    expect(text).not.toContain(token); expect(text).not.toContain('credential_ciphertext');
+    expect(response.status, text).toBe(200); return JSON.parse(text);
+  };
+  const selected = ['comment', 'mention', 'published'];
+  const edge = slackNetwork('reader@chat.test', token);
+  const connection = async () => (await api('GET', '/api/notifications/chat')).connection;
+  const history = async () => (await api('GET', '/api/notifications/chat/deliveries')).items;
+  const connect = async () => api('POST', '/api/notifications/chat', { operationKey: key(), channel: 'GCHAT', token, events: selected, expectedRevisionId: (await connection())?.revisionId });
+  const drain = async () => {
+    const ack = vi.fn(), retry = vi.fn();
+    await worker.queue!({ queue: 'test-discovery', metadata: { metrics: { backlogCount: 1, backlogBytes: 0 } }, messages: [{ id: key(), body: { type: 'discovery.deliver' }, timestamp: new Date(), attempts: 1, ack, retry }], ackAll: vi.fn(), retryAll: vi.fn() } as MessageBatch<unknown>, bindings);
+    expect(retry).not.toHaveBeenCalled(); expect(ack).toHaveBeenCalledOnce();
+  };
+  try {
+    expect((await api('GET', '/api/profile')).profile).toBe('core-wiki');
+    expect((await raw('POST', '/api/notifications/chat', { operationKey: key(), channel: 'GCHAT', token, events: selected }, 'reader')).status).toBe(403);
+    const pageId = (await api('POST', '/api/pages', { operationKey: key(), containerId, title: 'Incident handover' })).value.pageId;
+    const document = await api('GET', `/api/pages/${pageId}`);
+    await api('PUT', `/api/pages/${pageId}/blocks`, { operationKey: key(), expectedRevisionId: document.page.revisionId, blocks: [{ id: key(), blockType: 'paragraph', treePosition: 'a', content: { text: [{ text: 'BODY MUST NEVER REACH SLACK' }] } }] });
+    await drain(); // Events before connecting are not replayed.
+    await connect();
+    const first = await connection();
+    const ciphertext = await env.DB.prepare('SELECT credential_ciphertext FROM chat_connections WHERE id=?').bind(first.id).first<string>('credential_ciphertext');
+    expect(ciphertext).not.toContain(token);
+    expect(await decryptSecret(credentialKey, ciphertext!, chatScope(workspaceId, first.id))).toBe(token);
+    const comment = async (extra: Record<string, unknown> = {}) => (await api('POST', `/api/comments/page/${pageId}`, { operationKey: key(), body: [{ text: 'COMMENT BODY PRIVATE' }], ...extra })).value;
+    const discussion = await comment({ body: [{ text: 'Mention ', mention: { kind: 'person', id: reader, label: 'Morgan Reader' } }] });
+    const current = await api('GET', `/api/pages/${pageId}`);
+    await api('POST', `/api/pages/${pageId}/publish`, { operationKey: key(), expectedRevisionId: current.page.revisionId });
+    await drain(); await drain();
+    expect(edge.messages).toHaveLength(selected.length);
+    for (const event of selected) {
+      const messages = edge.messages.filter(m => m.text.startsWith(`${event} ·`));
+      expect(messages).toHaveLength(1);
+      expect(messages[0]!.text).toContain('Alex Owner'); expect(messages[0]!.text).toContain('Incident handover');
+      expect(messages[0]!.text).toContain(`${origin}/app/pages/${pageId}`);
+    }
+    expect(JSON.stringify(edge.messages)).not.toMatch(/BODY MUST|COMMENT BODY/);
+    await comment({ threadId: discussion.threadId, parentCommentId: discussion.id }); await drain();
+    expect(edge.messages).toHaveLength(3); // reply was not selected.
+    const delivered = await connection(); expect(delivered.lastDeliveredAt).toBeTruthy();
+    expect((await history()).filter((d: any) => d.state === 'delivered')).toHaveLength(3);
+    // A queued event loses access before delivery, including at the last membership check.
+    await comment();
+    await env.DB.prepare('UPDATE container_grants SET revoked_at=? WHERE container_id=? AND principal_id=?').bind(new Date().toISOString(), containerId, reader).run();
+    await drain(); expect(edge.messages).toHaveLength(3);
+    expect((await raw('GET', `/api/pages/${pageId}`, undefined, 'reader')).status).toBe(404);
+    expect((await app.request(origin + `/api/pages/${pageId}`, {}, bindings)).status).toBe(401);
+    const execution = createExecutionContext();
+    const linked = await handleApplicationRequest(new Request(origin + `/app/pages/${pageId}`), bindings, execution);
+    expect(linked.status).toBe(302); expect(linked.headers.get('location')).toContain('/signin');
+    await waitOnExecutionContext(execution);
+    await env.DB.prepare('UPDATE container_grants SET revoked_at=NULL WHERE container_id=? AND principal_id=?').bind(containerId, reader).run();
+    // Explicit rate limiting is safe to retry; a permanent rejection is not.
+    await comment(); edge.fail('transient'); await drain();
+    const failed = await connection(); expect(failed.lastFailureReason).toBe('rate_limited'); expect(failed.lastFailedAt).toBeTruthy();
+    expect(failed.lastDeliveredAt).toBe(delivered.lastDeliveredAt);
+    expect((await history()).filter((d: any) => d.state === 'pending')).toHaveLength(1);
+    vi.useFakeTimers({ toFake: ['Date'] }); vi.setSystemTime(Date.now() + 61_000);
+    await drain(); await drain(); expect(edge.messages).toHaveLength(4);
+    await comment(); edge.fail('permanent'); await drain();
+    const attempted = edge.attempts.filter(m => m === 'chat.postMessage').length;
+    vi.setSystemTime(Date.now() + 61_000); await drain();
+    expect(edge.attempts.filter(m => m === 'chat.postMessage')).toHaveLength(attempted);
+    expect((await connection()).lastFailureReason).toBe('channel_not_found');
+    expect((await history()).some((d: any) => d.failure === 'channel_not_found' && d.attempts === 1)).toBe(true);
+    for (const mode of ['revoked', 'expired'] as const) {
+      edge.fail(undefined); await connect(); const priorHistory = await history();
+      await comment(); edge.fail(mode); await drain();
+      const attention = await connection();
+      expect(attention.id).toBe(first.id); expect(attention.state).toBe('needs-attention');
+      expect(attention.needsAttentionReason).toBe(mode === 'revoked' ? 'token_revoked' : 'token_expired');
+      expect(JSON.parse(attention.eventsJson)).toEqual(selected); expect(attention.lastDeliveredAt).toBeTruthy();
+      expect((await history()).length).toBeGreaterThanOrEqual(priorHistory.length);
+      const calls = edge.attempts.length; await comment(); await drain(); expect(edge.attempts).toHaveLength(calls);
+    }
+    edge.fail(undefined); await connect();
+    const resumed = await connection(); expect(resumed.id).toBe(first.id); expect(resumed.state).toBe('connected');
+    expect(JSON.parse(resumed.eventsJson)).toEqual(selected); expect(resumed.lastFailureReason).toBe('token_expired');
+    // Restart/startup configuration validation refuses the same connected store by name.
+    const missingKey = { ...bindings, CONNECTOR_CREDENTIALS_KEY: undefined };
+    await expect(assertStoredConfiguration(missingKey)).rejects.toThrow('CONNECTOR_CREDENTIALS_KEY');
+    const unavailable = await raw('GET', '/api/notifications/chat', undefined, 'owner', missingKey);
+    expect(unavailable.status).toBe(503); expect(await unavailable.text()).toContain('CONNECTOR_CREDENTIALS_KEY');
+    const startup = createExecutionContext();
+    const documentFailure = await handleApplicationRequest(new Request(origin + '/app/settings'), missingKey, startup);
+    expect(documentFailure.status).toBe(503); expect(await documentFailure.text()).toContain('CONNECTOR_CREDENTIALS_KEY');
+    healthResponse(new Request(origin + '/health'), missingKey, startup);
+    await waitOnExecutionContext(startup);
+    const health = healthResponse(new Request(origin + '/health'), missingKey, createExecutionContext());
+    expect(health.status).toBe(503); expect(await health.text()).toContain('CONNECTOR_CREDENTIALS_KEY');
+    // Disconnect during membership lookup wins before the transport dispatch claim.
+    await comment();
+    edge.duringAudience(async () => { await api('DELETE', `/api/notifications/chat/${first.id}`, { operationKey: key(), expectedRevisionId: resumed.revisionId }); });
+    const sends = edge.messages.length; await drain(); await comment(); await drain(); expect(edge.messages).toHaveLength(sends);
+    expect((await connection()).state).toBe('disconnected');
+    expect(await env.DB.prepare('SELECT credential_ciphertext FROM chat_connections WHERE id=?').bind(first.id).first('credential_ciphertext')).toBeNull();
+    expect((await history()).length).toBeGreaterThanOrEqual(3);
+    await expect(assertStoredConfiguration(missingKey)).resolves.toBeUndefined();
+  } finally { edge.restore(); vi.useRealTimers(); }
+});

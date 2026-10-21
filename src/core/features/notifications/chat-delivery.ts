@@ -1,13 +1,13 @@
+import { chatMessage } from './chat-message';
 import {chatCredential,type ChatCredentialRow} from './chat-credential';
 import type { FeatureContext } from '../../app/feature-context';
 import { ApiProblem } from '../../app/problems';
 import { requireWorkspaceOwner } from '../sharing/current-access';
 import { permitted } from '../search/visibility';
 import { requestHash } from '../../app/operations';
-import { decryptSecret } from '../../platform/secrets/custody';
 import { eventReadable,recipientContext } from './outbox';
 import type { OutboxRow } from './events';
-import { chatScope,mappedAudience,type ChatConfig } from './chat-config';
+import { mappedAudience,type ChatConfig } from './chat-config';
 import { ChatProviderError,slackNotifier } from './slack';
 interface Delivery {id:string;connection_id:string;outbox_id:string;state:string;attempts:number;first_attempt_at:string|null;created_at:string}
 interface Connection extends ChatCredentialRow {id:string;destination:string;credential_ciphertext:string|null;state:string;revision_id:string;connected_by_member_id:string;events_json:string}
@@ -20,7 +20,7 @@ export async function deliverChat(ctx:FeatureContext,config:ChatConfig):Promise<
   const connection=await ctx.db.prepare('SELECT * FROM chat_connections WHERE id=?').bind(row.connection_id).first<Connection>();
   let event=await ctx.db.prepare('SELECT * FROM notification_outbox WHERE id=?').bind(row.outbox_id).first<OutboxRow>();
   if(!connection||connection.state!=='connected'||(!connection.credential_ciphertext&&!connection.source_connection_id)||!event||!(JSON.parse(connection.events_json) as string[]).includes(event.event)){await stop(ctx,row,'connection_unavailable');continue;}
-  const owner=await recipientContext(ctx,connection.connected_by_member_id);if(!owner||!await permitted(()=>requireWorkspaceOwner(owner))){await stop(ctx,row,'connection_owner_authority_revoked');await ctx.db.prepare("UPDATE chat_connections SET state='needs-attention',needs_attention_reason='connection_owner_authority_revoked' WHERE id=?").bind(connection.id).run();continue;}
+  const owner=await recipientContext(ctx,connection.connected_by_member_id);if(!owner||!await permitted(()=>requireWorkspaceOwner(owner))){await stop(ctx,row,'connection_owner_authority_revoked');await ctx.db.prepare("UPDATE chat_connections SET state='needs-attention',needs_attention_reason='connection_owner_authority_revoked',last_failed_at=?,last_failure_reason='connection_owner_authority_revoked' WHERE id=?").bind(ctx.now,connection.id).run();continue;}
   let dispatched=false;
   try{
    const token=await chatCredential(owner,connection,config.credentialKey!);const adapter=config.adapter??slackNotifier();const channel=connection.destination.replace(/^slack:/,'');
@@ -29,10 +29,8 @@ export async function deliverChat(ctx:FeatureContext,config:ChatConfig):Promise<
    const events=event.event==='maintenance'?(await ctx.db.prepare("SELECT * FROM notification_outbox WHERE workspace_id=? AND event='maintenance' AND substr(created_at,1,10)=? ORDER BY created_at,id").bind(ctx.actor.workspaceId,event.created_at.slice(0,10)).all<OutboxRow>()).results:[event];
    let deliverable:OutboxRow[]=[];for(const candidate of events){let readable=true;for(const id of ids){const reader=await recipientContext(ctx,id);if(!reader||!await eventReadable(reader,candidate)){readable=false;break;}}if(readable)deliverable.push(candidate);}
    if(!deliverable.length){await stop(ctx,row,'audience_access_revoked');continue;}event=deliverable[0];let denied=false;
-   const actor=await ctx.db.prepare("SELECT display_name FROM members WHERE id=? AND workspace_id=? AND status='active'").bind(event.actor_member_id,event.workspace_id).first<{display_name:string}>();
-   const title=event.page_id?(await ctx.db.prepare("SELECT CASE WHEN p.published_revision_id<>p.working_revision_id THEN json_extract(r.properties_json,'$.title') ELSE p.title END AS title FROM pages p LEFT JOIN page_revisions r ON r.id=p.published_revision_id WHERE p.id=? AND p.deleted_at IS NULL").bind(event.page_id).first<{title:string}>())?.title:event.container_id?(await ctx.db.prepare('SELECT name AS title FROM containers WHERE id=?').bind(event.container_id).first<{title:string}>())?.title:undefined;
    if(!config.appUrl)throw new ApiProblem(503,'APP_URL_REQUIRED','APP_URL is required for chat notification links.');
-   const url=new URL(event.page_id?`/app/pages/${event.page_id}`:event.container_id?`/app/containers/${event.container_id}`:'/app',config.appUrl);if(event.comment_id)url.searchParams.set('comment',event.comment_id);
+   const text=await chatMessage(ctx,deliverable,config.appUrl);
    // Last atomic claim checks connection revision and all current ACL changes. A disconnect/revoke wins before dispatch.
    const epoch=await ctx.db.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first<{epoch:number}>();
    // Recheck after provider membership request and title reads, immediately before claim.
@@ -42,7 +40,6 @@ export async function deliverChat(ctx:FeatureContext,config:ChatConfig):Promise<
    const sourceCondition=connection.source_connection_id?" AND EXISTS(SELECT 1 FROM federation_connections WHERE id=? AND revision_id=? AND state='connected' AND credential_ciphertext IS NOT NULL AND member_id=?)":'';
    const claim=await ctx.db.prepare("UPDATE chat_deliveries SET state='dispatching',attempts=attempts+1,first_attempt_at=COALESCE(first_attempt_at,?) WHERE id=? AND state='pending' AND EXISTS(SELECT 1 FROM chat_connections WHERE id=? AND state='connected' AND revision_id=?) AND EXISTS(SELECT 1 FROM members WHERE id=? AND workspace_id=? AND role='owner' AND member_kind='member' AND status='active') AND EXISTS(SELECT 1 FROM core_acl_epoch WHERE id=1 AND epoch=?)"+sourceCondition).bind(ctx.now,row.id,connection.id,connection.revision_id,connection.connected_by_member_id,ctx.actor.workspaceId,epoch!.epoch,...(connection.source_connection_id?[connection.source_connection_id,connection.source_connection_revision_id!,connection.connected_by_member_id]:[])).run();if(!claim.meta.changes)continue;
    dispatched=true;
-   const text=event.event==='maintenance'?`maintenance · Slate · ${deliverable.length} completed ${deliverable.length===1?'outcome':'outcomes'} · ${new URL('/app',config.appUrl).href}`:[event.event,actor?.display_name??'Slate',title??'',url.href].filter(Boolean).join(' · ');
    const receipt=await adapter.send(token,channel,text,key);
    await ctx.db.batch([ctx.db.prepare("UPDATE chat_deliveries SET state='delivered',delivered_at=?,provider_receipt=?,failure=NULL WHERE id=? AND state='dispatching'").bind(ctx.now,receipt,row.id),ctx.db.prepare('UPDATE chat_connections SET last_delivered_at=?,last_delivery_event=?,updated_at=? WHERE id=?').bind(ctx.now,event.event,ctx.now,connection.id)]);processed++;
   }catch(error){

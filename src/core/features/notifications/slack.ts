@@ -7,7 +7,7 @@ export interface ChatNotifier {channels?(token:string):Promise<{id:string;name:s
 /** chat.notifier.v1: Slack Web API, restricted private channel, verified destination membership, link-only payload. */
 export function slackNotifier(fetcher:typeof fetch=fetch):ChatNotifier {
  async function call(token:string,method:string,body:Record<string,unknown>,writing=false):Promise<Record<string,unknown>> {
-  let response:Response;try{response=await fetcher(`https://slack.com/api/${method}`,{method:'POST',headers:{authorization:`Bearer ${token}`,'content-type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(15000),redirect:'manual'});}catch{throw new ChatProviderError('transport_failure',!writing,writing);}
+  let response:Response;try{response=await fetcher(`https://slack.com/api/${method}${writing?'':'?'+new URLSearchParams(Object.entries(body).map(([key,value])=>[key,String(value)]))}`,{method:writing?'POST':'GET',headers:{authorization:`Bearer ${token}`,...(writing?{'content-type':'application/json'}:{})},...(writing?{body:JSON.stringify(body)}:{}),signal:AbortSignal.timeout(15000),redirect:'manual'});}catch{throw new ChatProviderError('transport_failure',!writing,writing);}
   if(response.status===429)throw new ChatProviderError('rate_limited',true);
   if(response.status>=500)throw new ChatProviderError('provider_unavailable',!writing,writing);
   if(!response.ok)throw new ChatProviderError(`provider_http_${response.status}`,false,false,response.status===401||response.status===403);

@@ -34,6 +34,7 @@ import { groupMentionJourney } from './group-mentions-journey.mjs';
 import { taskReportJourney } from './task-report-journey.mjs';
 import { myTasksJourney } from './my-tasks-journey.mjs';
 import { trustRankingJourney } from './trust-ranking-journey.mjs';
+import { chatJourney } from './chat-journey.mjs';
 
 for (const width of [1440, 390]) {
   test(`spreadsheet tables merge, sort and round-trip through edited database records at ${width}px`, {timeout:240000}, async()=>{
@@ -192,8 +193,9 @@ for (const width of [1440, 390]) {
       await t.test('invite existing member, persisted grant and canonical copied link', () => shareJourney(state, pageId));
       await t.test('query, highlighted results and opening exact page', () => searchJourney(state, pageId));
       await settingsJourney(state, width);
+      await chatJourney(state, width);
       await t.test('remove a field with impact confirmation and export current view CSV', () => databaseJourney(state));
-    });
+    }, {}, { scheduled: true, slack: true });
   });
   test(`two people edit at once, lose access mid-edit and restore history at ${width}px`, { timeout: 420000 }, async t => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {

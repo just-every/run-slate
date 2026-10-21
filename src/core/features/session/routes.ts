@@ -104,7 +104,7 @@ export function createSessionRoutes() {
       c.header("Set-Cookie", completed.cookie);
       return c.redirect(completed.returnTo, 303);
     })
-    .post("/api/auth/logout", async c => {
+    .on("POST", ["/api/auth/logout", "/auth/signout"], async c => {
       const { auth } = await createSlateAuth(c.env.DB, c.get("runtimeConfig"));
       try { c.header("Set-Cookie", (await auth.signOut(c.req.raw)).cookie); }
       catch (cause) { authProblem(cause); }

@@ -7,17 +7,19 @@ import { chromium, expect } from '@playwright/test';
 import { applyMigrations, executeD1, root, stop, testSessionSecret } from '../../e2e/runtime-harness.mjs';
 import { startShellWorker } from '../release-shell/runtime.mjs';
 import { accessible, insideViewport, withinViewport } from './browser-evidence.mjs';
+import { initializeSlackEdge, setSlackFailure, readSlackMessages } from '../../helpers/slack-edge.mjs';
 export { accessible } from './browser-evidence.mjs';
 
 /** Test-only identity records replace mailbox possession, never successful API responses. */
 /** `scheduled` exposes the Worker's own cron handler, which a journey fires in place of waiting for the clock. */
-export async function withWorkspace(viewport, profile, run, overrides = {}, { scheduled = false } = {}) {
+export async function withWorkspace(viewport, profile, run, overrides = {}, { scheduled = false, slack = false } = {}) {
   const scratchRoot = path.join(root, '.artifacts/ui-convergence');
   await mkdir(scratchRoot, { recursive: true });
   const state = await mkdtemp(path.join(scratchRoot, 'state-'));
   const network = [], consoleErrors = [], modelRequests = [], captures = new Set();
   let runtime, browser;
   try {
+    if (slack) await initializeSlackEdge(state);
     await applyMigrations(state);
     const now = new Date().toISOString();
     await executeD1(state, `INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES('browser-workspace','Harbor operations','','${now}','${now}','initial');
@@ -29,6 +31,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       SETUP_OWNER_EMAIL: 'owner@test.invalid', MAIL_PROVIDER: 'development', MAIL_FROM: 'owner@test.invalid', RER_DEV_KEY: testDevKey,
       MAIL_API_KEY: 'TEST-ONLY-NOT-A-PROVIDER-CREDENTIAL', AI_ENABLED: 'false',
       AI_API_KEY: '', AI_PROVIDER: '', AI_LOCAL_URL: '', AI_LOCAL_TOKEN: '',
+      ...(slack ? { CONNECTOR_CREDENTIALS_KEY: 'TEST-ONLY-SLACK-ENCRYPTION-KEY-32-CHARACTERS' } : {}),
       SLATE_PROFILE: profile, ...overrides,
     };
     let allocatedPorts;
@@ -108,7 +111,8 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       assert.equal(response.status, 200, await response.text());
     };
     try {
-      await run({ page, context, origin: runtime.baseUrl, api, records, atRest, runScheduled, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}` });
+      await run({ page, context, origin: runtime.baseUrl, api, records, atRest, runScheduled, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}`,
+        ...(slack ? { setSlackFailure: failure => setSlackFailure(state, failure), readSlackMessages: () => readSlackMessages(state) } : {}) });
     } catch (cause) {
       await accessible(page, `${profile} journey failure`).catch(() => {});
       await Promise.allSettled([...captures]);

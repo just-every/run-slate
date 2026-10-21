@@ -138,7 +138,6 @@ const plannedClauses: ReadonlyArray<readonly [string, string]> = [
   ['NAV-006', 'The touch client edits'],
   ['NOTIF-001', 'What notifies'],
   ['NOTIF-002', 'Inbox'],
-  ['NOTIF-003', 'Chat notifications'],
   ['MAIL-001', 'Outbound only, two kinds'],
   ['MAIL-002', 'Delivery failure'],
   ['ACT-001', 'Durable timeline'],
