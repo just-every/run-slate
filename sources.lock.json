@@ -940,7 +940,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "2327ac325ea20e343684a715f192c967d2fe6ab94b9f9941db7ea3f0e09b7589",
+      "sha256": "681373613a3d4098002926423d5cde29e5c10a850fca25b8605ef671824cbdeb",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -968,7 +968,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "25ce78f67ef5962682af99bde4c2af725d6aac0b858758f73e6a59b83355db32",
+      "sha256": "da155951b929bf4d82c09177aa38714375642e5eef903d47b15e975253200207",
       "executable": false
     },
     "DEMO.md": {
@@ -1008,7 +1008,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "10ab1f20a34dd045fc23756771cbe8803297a34bb85d17f498816d3e141033e5",
+      "sha256": "a48b803123bf4d0af82a43fefc994a457fbb86337d7a4c06a7f1df1045c5d62f",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -6924,7 +6924,7 @@
       "executable": false
     },
     "src/core/features/notifications/chat-config.ts": {
-      "sha256": "91f18b1bef6b059d88746ee0740487c2d8412d3f232deb4a82eb5ddef58eeb63",
+      "sha256": "602c7fc917af21ddd75684380d8ad022660381c591ee81fe874fe355e4f85ae2",
       "executable": false
     },
     "src/core/features/notifications/chat-consent.ts": {
@@ -9056,7 +9056,7 @@
       "executable": false
     },
     "tests/e2e/helpers/slack-network.ts": {
-      "sha256": "4fde48344455f486963f4a2e38c6983da95517412820faa5f29f16e31912312d",
+      "sha256": "d0f5e4f9c8b8dc5ac53bb54cd9c188cb961d05732ced32bc81c3537f8a5d89a3",
       "executable": false
     },
     "tests/e2e/imports/archive-safety.test.ts": {
@@ -9180,7 +9180,7 @@
       "executable": false
     },
     "tests/e2e/notifications/chat.test.ts": {
-      "sha256": "57e58517eaab4d5154c456de6330ad1bc7ccba3c72f74baaa1589993f9d9e9ef",
+      "sha256": "f64fb05e3a0be8df08f37b47ab522779593f574b43b3c98a0422b4466ff8a189",
       "executable": false
     },
     "tests/e2e/outbox-auth.mjs": {
@@ -9836,7 +9836,7 @@
       "executable": false
     },
     "tests/helpers/slack-edge.mjs": {
-      "sha256": "a33f87969f84369247815377cc7930f427c13dbeb01d4863e88f6f7bc0376c52",
+      "sha256": "192592e7a79b8a320390a37731e2feedb6e3d7db5edc35325868c1e26f886d2b",
       "executable": false
     },
     "tests/installer/helpers.mjs": {
@@ -10848,7 +10848,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
-      "sha256": "cbd92b12b40b02afe8726d2c16b07c61d887044e61f19b90f709d3b426cc5f79",
+      "sha256": "7a0337073fbf37cb879c37ae1fbe09b19664665d65f5ed0fbc466edb7ca4b228",
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
@@ -11116,7 +11116,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "d658acbb377c9fdcc0c6c0c9c066f30ebb9084a7ac57bf71b06010ff1af03a02",
+      "sha256": "f42741e9758ce60a39b327be498c8586d87751d93d18c849d49b1b698588f5eb",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {

@@ -11,13 +11,14 @@ import { healthResponse } from '../../../src/core/app/health-response';
 import { assertStoredConfiguration } from '../../../src/core/app/runtime-gate';
 import { decryptSecret } from '../../../src/core/platform/secrets/custody';
 import { chatScope } from '../../../src/core/features/notifications/chat-config';
-import { slackNetwork } from '../helpers/slack-network';
+import { slackNetwork, type SlackAudienceFixture } from '../helpers/slack-network';
 
 beforeEach(resetDeployment);
 contract('NOTIF-003', 'Chat destination sends link-only messages, shows last delivery and failure, retries only transient failures, marks revoked authorization as needing attention and stops on disconnect', async () => {
   const { workspaceId } = await seedWorkspace();
   const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner@chat.test', displayName: 'Alex Owner' })).memberId;
   const reader = (await seedMember(workspaceId, { role: 'member', email: 'reader@chat.test', displayName: 'Morgan Reader' })).memberId;
+  await seedMember(workspaceId, { role: 'member', email: 'removed@chat.test', displayName: 'Former Reader', status: 'removed' });
   const containerId = (await seedContainer(workspaceId, { ownerMemberId: owner, visibility: 'private' })).containerId;
   for (const [principalId, level] of [[owner, 'full'], [reader, 'comment']] as const) await seedContainerGrant(containerId, { principalKind: 'member', principalId, level });
   const cookies = { owner: await sessionFor(owner), reader: await sessionFor(reader) };
@@ -35,6 +36,15 @@ contract('NOTIF-003', 'Chat destination sends link-only messages, shows last del
   const connection = async () => (await api('GET', '/api/notifications/chat')).connection;
   const history = async () => (await api('GET', '/api/notifications/chat/deliveries')).items;
   const connect = async () => api('POST', '/api/notifications/chat', { operationKey: key(), channel: 'GCHAT', token, events: selected, expectedRevisionId: (await connection())?.revisionId });
+  const refusals: { name: string; audience: SlackAudienceFixture; reason: string; status: number }[] = [
+    { name: 'public channel', audience: { channel: { is_private: false } }, reason: 'private_unshared_channel_required', status: 422 },
+    { name: 'externally shared channel', audience: { channel: { is_ext_shared: true } }, reason: 'private_unshared_channel_required', status: 422 },
+    { name: 'organization-shared channel', audience: { channel: { is_org_shared: true } }, reason: 'private_unshared_channel_required', status: 422 },
+    { name: 'another bot', audience: { users: { READER: { profile: { email: 'reader@chat.test' } }, OTHERBOT: { is_bot: true, profile: { email: 'reader@chat.test' } } } }, reason: 'unverifiable_audience', status: 422 },
+    { name: 'hidden email', audience: { users: { READER: { profile: {} } } }, reason: 'unverifiable_audience', status: 422 },
+    { name: 'unmapped email', audience: { users: { READER: { profile: { email: 'unknown@chat.test' } } } }, reason: 'CHAT_AUDIENCE_UNMAPPED', status: 409 },
+    { name: 'inactive Slate member', audience: { users: { READER: { profile: { email: 'removed@chat.test' } } } }, reason: 'CHAT_AUDIENCE_UNMAPPED', status: 409 },
+  ];
   const drain = async () => {
     const ack = vi.fn(), retry = vi.fn();
     await worker.queue!({ queue: 'test-discovery', metadata: { metrics: { backlogCount: 1, backlogBytes: 0 } }, messages: [{ id: key(), body: { type: 'discovery.deliver' }, timestamp: new Date(), attempts: 1, ack, retry }], ackAll: vi.fn(), retryAll: vi.fn() } as MessageBatch<unknown>, bindings);
@@ -43,6 +53,21 @@ contract('NOTIF-003', 'Chat destination sends link-only messages, shows last del
   try {
     expect((await api('GET', '/api/profile')).profile).toBe('core-wiki');
     expect((await raw('POST', '/api/notifications/chat', { operationKey: key(), channel: 'GCHAT', token, events: selected }, 'reader')).status).toBe(403);
+    for (const refusal of refusals) {
+      edge.setAudience(refusal.audience);
+      const response = await raw('POST', '/api/notifications/chat', { operationKey: key(), channel: 'GCHAT', token, events: selected });
+      expect(response.status, refusal.name).toBe(refusal.status);
+      const problem = await response.json<any>();
+      expect(problem.code).toBe(refusal.status === 422 ? 'CHAT_DESTINATION_REFUSED' : refusal.reason);
+      if (refusal.status === 422) { expect(problem.details.reason).toBe(refusal.reason); expect(problem.message).toBeTruthy(); }
+      expect(JSON.stringify(problem)).not.toContain(token);
+      expect(await connection(), refusal.name).toBeNull();
+      expect(await env.DB.prepare('SELECT COUNT(*) AS count FROM chat_connections').first<number>('count'), refusal.name).toBe(0);
+      expect(await env.DB.prepare("SELECT COUNT(*) AS count FROM discovery_revisions WHERE entity_kind='chat-connection'").first<number>('count'), refusal.name).toBe(0);
+    }
+    // The sending bot is excluded; a deactivated person needs neither a visible email nor a Slate account.
+    const validAudience = { users: { READER: { profile: { email: 'reader@chat.test' } }, DEACTIVATED: { deleted: true } } };
+    edge.setAudience(validAudience);
     const pageId = (await api('POST', '/api/pages', { operationKey: key(), containerId, title: 'Incident handover' })).value.pageId;
     const document = await api('GET', `/api/pages/${pageId}`);
     await api('PUT', `/api/pages/${pageId}/blocks`, { operationKey: key(), expectedRevisionId: document.page.revisionId, blocks: [{ id: key(), blockType: 'paragraph', treePosition: 'a', content: { text: [{ text: 'BODY MUST NEVER REACH SLACK' }] } }] });
@@ -53,6 +78,18 @@ contract('NOTIF-003', 'Chat destination sends link-only messages, shows last del
     expect(ciphertext).not.toContain(token);
     expect(await decryptSecret(credentialKey, ciphertext!, chatScope(workspaceId, first.id))).toBe(token);
     const comment = async (extra: Record<string, unknown> = {}) => (await api('POST', `/api/comments/page/${pageId}`, { operationKey: key(), body: [{ text: 'COMMENT BODY PRIVATE' }], ...extra })).value;
+    for (const refusal of refusals) {
+      edge.setAudience(refusal.audience);
+      const priorHistory = await history(), sends = edge.attempts.filter(method => method === 'chat.postMessage').length;
+      await comment(); await drain(); await drain();
+      expect(edge.messages, refusal.name).toHaveLength(0);
+      expect(edge.attempts.filter(method => method === 'chat.postMessage'), refusal.name).toHaveLength(sends);
+      expect((await connection()).lastFailureReason, refusal.name).toBe(refusal.reason);
+      const added = (await history()).filter((item: any) => !priorHistory.some((prior: any) => prior.id === item.id));
+      expect(added, refusal.name).toHaveLength(1);
+      expect(added[0]).toMatchObject({ state: 'failed', failure: refusal.reason, attempts: 1 });
+    }
+    edge.setAudience(validAudience);
     const discussion = await comment({ body: [{ text: 'Mention ', mention: { kind: 'person', id: reader, label: 'Morgan Reader' } }] });
     const current = await api('GET', `/api/pages/${pageId}`);
     await api('POST', `/api/pages/${pageId}/publish`, { operationKey: key(), expectedRevisionId: current.page.revisionId });

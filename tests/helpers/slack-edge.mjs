@@ -4,7 +4,7 @@ import path from 'node:path';
 const control = directory => path.join(directory, 'slack-edge.json');
 const messages = directory => path.join(directory, 'slack-messages.jsonl');
 export async function setSlackFailure(directory, failure = 'ok') {
-  if (!['ok', 'rate_limited', 'channel_not_found', 'token_revoked'].includes(failure)) throw new Error('Unknown Slack edge failure');
+  if (!['ok', 'rate_limited', 'channel_not_found', 'token_revoked', 'public_channel'].includes(failure)) throw new Error('Unknown Slack edge failure');
   await writeFile(control(directory) + '.new', JSON.stringify({ failure }));
   await rename(control(directory) + '.new', control(directory));
 }
@@ -26,7 +26,7 @@ export async function slackEdge(request, directory, ResponseClass) {
   const reply = (body, status = 200) => new ResponseClass(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
   switch (method) {
     case 'auth.test': return reply({ ok: true, team_id: 'TTEST', user_id: 'BTEST', bot_id: 'BTEST' });
-    case 'conversations.info': return reply({ ok: true, channel: { id: 'GTEST', is_private: true, is_ext_shared: false, is_org_shared: false } });
+    case 'conversations.info': return reply({ ok: true, channel: { id: 'GTEST', is_private: failure !== 'public_channel', is_ext_shared: false, is_org_shared: false } });
     case 'conversations.members': return reply({ ok: true, members: ['BTEST', 'UREADER'] });
     case 'users.info': return reply({ ok: true, user: { id: 'UREADER', is_bot: false, profile: { email: 'reader@test.invalid' } } });
     case 'chat.postMessage': {
