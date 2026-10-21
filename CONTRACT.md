@@ -1795,24 +1795,24 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `dd2809f6b8db489284a95b886201ffc2484a86a1` (21 October 2026).
+Judged from the code and tests at commit `2af71e8e85b570cc6c71e499a0d723f761c94987` (21 October 2026).
 
 See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 172 | 49 | 0 | 221 |
+| Published | 146 | 75 | 0 | 221 |
 | Target and push further | 19 | 45 | 41 | 105 |
-| All | 191 | 94 | 41 | 326 |
+| All | 165 | 120 | 41 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
-| `HOME-001` | Public landing | published | done | `tests/e2e/landing-styles.test.mjs` |  |
+| `HOME-001` | Public landing | published | partial | `tests/e2e/landing-styles.test.mjs` | The Lobby omits the deployment name from its visible line and reads the local owner email for login_hint instead of revealing claim state alone. |
 | `DOCS-001` | Public documentation | published | done | `tests/e2e/docs.test.ts` |  |
 | `WORK-001` | One workspace | published | done | `tests/qualification/backend/workspace-lifecycle.test.ts` |  |
 | `WORK-003` | Member management | published | done | `tests/qualification/backend/workspace-lifecycle.test.ts` |  |
 | `WORK-006` | Invitations | published | done | `tests/e2e/local-outbox.node.test.mts` |  |
-| `WORK-007` | Removal | published | done | `tests/qualification/core/identity.mjs` |  |
+| `WORK-007` | Removal | published | partial | `src/core/features/workspace/members.ts`, `tests/local-journey/populated-restore.test.mjs` | Removal ships, including retained-grant restore fences; the cited immediate-removal journeys still require deleted grant rows although removal now revokes them. |
 | `WORK-008` | Roles | published | done | `tests/qualification/core/identity.mjs` |  |
 | `WORK-009` | Groups | published | done | `tests/qualification/core/identity.mjs` |  |
 | `WORK-010` | Guests | published | done | `tests/qualification/core/identity.mjs` |  |
@@ -1854,7 +1854,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `BLOCK-006` | Structured blocks | published | done | `tests/qualification/interface/blocks.mjs` |  |
 | `BLOCK-007` | Task items | published | done | `tests/flagship/content/repair.test.ts` |  |
 | `BLOCK-008` | Media blocks | published | partial | `tests/qualification/policies/safety-history.test.ts` | upload and link media ship; configured stock source missing |
-| `BLOCK-009` | Link cards | published | done | `tests/flagship/content/preview.test.ts` |  |
+| `BLOCK-009` | Link cards | published | partial | `tests/flagship/content/preview.test.ts` | Safe title/description previews and display modes ship; target-site icon extraction and display are missing. |
 | `BLOCK-010` | Content queries | published | done | `tests/qualification/interface/blocks.mjs` |  |
 | `LIFE-001` | Lifecycle states | published | done | `tests/qualification/interface/publication.mjs` |  |
 | `LIFE-002` | A draft is private | published | done | `tests/qualification/inquiry/lifecycle.test.ts` |  |
@@ -1879,30 +1879,30 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `WEB-006` | Unpublish | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
 | `WEB-007` | Public-link profile | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
 | `REV-001` | What a revision is | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
-| `REV-002` | History | published | done | `tests/qualification/policies/lifecycle-versions.test.ts` |  |
+| `REV-002` | History | published | partial | `tests/qualification/policies/lifecycle-versions.test.ts` | Page/record and decision histories ship; container, template and comment revision histories have no readable surface. |
 | `REV-003` | Restore | published | done | `tests/qualification/policies/lifecycle-versions.test.ts` |  |
-| `REV-004` | Compare | published | done | `tests/e2e/review/verification-flow.test.ts` |  |
+| `REV-004` | Compare | published | partial | `tests/e2e/review/verification-flow.test.ts` | Content and order comparisons ship; type-only and parent-only block changes are reported unchanged. |
 | `REV-005` | A citation resolves to its revision | published | done | `tests/e2e/review/verification-flow.test.ts` |  |
 | `REV-006` | Deleting a version | published | done | `tests/qualification/policies/lifecycle-versions.test.ts` |  |
 | `REV-007` | Version profile | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
-| `STAT-001` | The status vocabulary | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
+| `STAT-001` | The status vocabulary | published | partial | `tests/qualification/policies/status-archive.test.ts` | Vocabulary maintenance and retirement ship; retiring a status offers no bulk replacement action. |
 | `STAT-002` | A page's status | published | done | `tests/qualification/policies/container-links.test.ts` |  |
 | `STAT-003` | Verification | published | done | `tests/e2e/review/verification-flow.test.ts` |  |
 | `STAT-004` | Verification lapses | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
-| `STAT-005` | Status profile | published | done | `tests/qualification/policies/emitted.mjs` |  |
+| `STAT-005` | Status profile | published | partial | `tests/qualification/policies/emitted.mjs` | Policy storage and filtered controls ship; the title-hover control and specified author/status/reading-time byline are incomplete. |
 | `COMM-001` | Two kinds of thread | published | done | `tests/e2e/editor/rich-text-editing.test.tsx` |  |
 | `COMM-002` | Editing and deletion | published | done | `tests/qualification/policies/comments-suggestions.test.ts` |  |
 | `COMM-003` | Mentions | published | done | `tests/qualification/interface/content.mjs` |  |
 | `COMM-004` | Anchors survive editing | published | done | `tests/qualification/interface/content.mjs` |  |
 | `COMM-005` | Reactions | published | done | `tests/qualification/interface/content.mjs` |  |
-| `COMM-006` | Discussions panel | published | done | `tests/qualification/interface/content.mjs` |  |
+| `COMM-006` | Discussions panel | published | partial | `tests/qualification/interface/content.mjs` | Thread status filtering and resolve-all ship; kind and person filters are missing. |
 | `COMM-007` | Resolve | published | done | `tests/qualification/policies/comments-suggestions.test.ts` |  |
 | `ARCH-001` | Archive | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
 | `ARCH-002` | What archived means | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
-| `ARCH-003` | Restore from archive | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
+| `ARCH-003` | Restore from archive | published | partial | `tests/qualification/policies/status-archive.test.ts` | Prior-location restore ships; the restore interface offers no replacement destination when the prior parent is unavailable. |
 | `ARCH-004` | Archive is not deletion | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
-| `ARCH-005` | Trash | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
-| `ARCH-006` | Permanent deletion | published | done | `tests/qualification/erasure-metadata/append-metadata.test.ts` |  |
+| `ARCH-005` | Trash | published | partial | `tests/qualification/policies/status-archive.test.ts` | Trash listing and restore ship; search, record filters, deleting-member and prior-location presentation are missing. |
+| `ARCH-006` | Permanent deletion | published | partial | `tests/qualification/erasure-metadata/append-metadata.test.ts` | Confirmed leaf deletion and backend cascades ship; the interface cannot confirm descendants or empty the trash. |
 | `CONT-001` | What a container is | published | done | `tests/qualification/policies/container-links.test.ts` |  |
 | `CONT-002` | Creating a container | published | done | `tests/qualification/policies/container-links.test.ts` |  |
 | `CONT-003` | The container index | published | done | `tests/qualification/policies/container-links.test.ts` |  |
@@ -1910,19 +1910,19 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `CONT-005` | Personal containers | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
 | `CONT-006` | Bulk actions | published | done | `tests/qualification/policies/container-links.test.ts` |  |
 | `CONT-007` | External-access switches | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
-| `CONT-008` | Container access profile | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
+| `CONT-008` | Container access profile | published | partial | `tests/qualification/policies/access-publication.test.ts` | Access-profile shells and switches ship; the guest tab filters for a nonexistent guest principal kind and omits member-backed guest grants. |
 | `CONT-009` | Container grants | published | done | `tests/qualification/policies/access-publication.test.ts` |  |
 | `DB-001` | A database | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
 | `DB-002` | Field types and evaluation | published | done | `tests/e2e/databases/field-editing.test.tsx` |  |
 | `DB-003` | Views | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
-| `DB-004` | Layouts | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
-| `DB-005` | Filter and sort | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
+| `DB-004` | Layouts | published | partial | `tests/qualification/policies/structured-views.test.ts` | Layouts ship; view creation offers existing fields only and fails when a required group/date field is missing. |
+| `DB-005` | Filter and sort | published | partial | `tests/qualification/policies/structured-views.test.ts` | Filtering and backend multi-sort ship; the view editor keeps only one sort and the clear action leaves sorts in force. |
 | `DB-006` | Group | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
-| `DB-007` | Calculations | published | done | `tests/qualification/policies/fields.test.ts` |  |
-| `DB-008` | Charts | published | done | `tests/qualification/policies/fields.test.ts` |  |
+| `DB-007` | Calculations | published | partial | `tests/qualification/policies/structured-views.test.ts` | Calculations update after local edits; another session changes no displayed calculation until a reload, so the two-second refresh is missing. |
+| `DB-008` | Charts | published | partial | `tests/qualification/policies/structured-views.test.ts` | Authorized chart aggregation ships; page embedding and a named source view in the chart are missing. |
 | `DB-009` | Lock structure | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
 | `DB-010` | A record is a page | published | done | `tests/qualification/backend/records-templates.test.ts` |  |
-| `DB-011` | A view inside a page | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
+| `DB-011` | A view inside a page | published | partial | `tests/qualification/policies/structured-views.test.ts` | Backend embedded-query parameters ship; an embedded database-view block, page renderer and live refresh are missing. |
 | `DB-012` | Record detail | published | done | `tests/qualification/policies/structured-views.test.ts` |  |
 | `AUTO-001` | A rule | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
 | `AUTO-002` | A rule acts as its actor | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
@@ -1945,14 +1945,14 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `NAV-005` | Global create | published | done | `tests/e2e/navigation/global-create.test.ts`, `tests/qualification/ui-convergence/global-create-journey.mjs` | Global creation is reachable on every configured operator destination; page, database, space and template flows name their destination before creation at 1440/390. Database choices include writable spaces only. |
 | `NAV-006` | The touch client edits | published | partial | `tests/qualification/interface/routed.browser.mjs` | responsive web journeys; native apps missing (MOBILE-001) |
 | `NOTIF-001` | Meaningful notifications | published | done | `tests/qualification/backend/emitted.mjs` |  |
-| `NOTIF-002` | Inbox | published | done | `tests/qualification/core/discovery.mjs` |  |
+| `NOTIF-002` | Inbox | published | partial | `tests/qualification/core/discovery.mjs` | Inbox actions and audience views ship; notifications render as a flat list without period groups. |
 | `NOTIF-003` | Chat notifications | published | done | `tests/e2e/notifications/chat.test.ts`; `tests/qualification/ui-convergence/chat-journey.mjs` (1440/390) | Provider acceptance remains open as stated above. |
 | `MAIL-001` | Outbound only, two kinds | published | done | `tests/flagship/core/mail.test.ts` |  |
-| `MAIL-002` | Delivery failure | published | done | `tests/flagship/core/mail.node.test.mts` |  |
+| `MAIL-002` | Delivery failure | published | partial | `tests/flagship/core/mail.node.test.mts` | Invitation retries and uncertainty holds ship; sign-in mail makes one attempt and records uncertain sends as failed without durable retry or hold. |
 | `ACT-001` | Durable timeline | published | done | `tests/qualification/core/discovery.mjs` |  |
 | `ACT-002` | Coverage | published | done | `tests/qualification/core/audit-ai.test.ts` |  |
 | `ACT-003` | Retrieval | published | done | `tests/qualification/core/discovery.mjs` |  |
-| `ACT-004` | Context | published | done | `tests/qualification/core/discovery-browser.mjs` |  |
+| `ACT-004` | Context | published | partial | `tests/qualification/core/discovery-browser.mjs` | Page/comment/revision activity links ship; non-page records have no open action and referenced grant context is incomplete. |
 | `ACT-005` | Retained explanation | published | done | `tests/qualification/core/discovery.mjs` |  |
 | `TMPL-001` | Gallery | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
 | `TMPL-002` | Preview | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
@@ -1962,9 +1962,9 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `TMPL-006` | Where a template lives | published | done | `tests/qualification/policies/automation-templates.test.ts` |  |
 | `IMP-001` | Import jobs | published | done | `tests/e2e/imports/preview-undo.test.ts` |  |
 | `IMP-002` | Notion import | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
-| `IMP-003` | Confluence import | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
+| `IMP-003` | Confluence import | published | partial | `tests/e2e/imports/real-exports.test.ts` | Confluence tree, versions and reviewed restrictions import; current status is lost unless an active non-verification destination key already matches. |
 | `IMP-004` | Import safety | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
-| `IMP-005` | Importing into a page | published | done | `tests/flagship/federation/federation.test.ts` |  |
+| `IMP-005` | Importing into a page | published | partial | `tests/flagship/federation/federation.test.ts` | Document admission and native append ship; PDF import emits paragraphs only and does not reconstruct headings or tables. |
 | `PORT-001` | Export contents | published | done | `tests/qualification/erasure-metadata/append-metadata.test.ts` |  |
 | `PORT-002` | Referential restore | published | done | `tests/qualification/erasure-metadata/append-metadata.test.ts` |  |
 | `PORT-003` | Visible jobs | published | done | `tests/qualification/portability-jobs/admission-audit.test.ts` |  |
@@ -1973,9 +1973,9 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `PORT-006` | Atomic import | published | done | `tests/qualification/authority/atomic-recovery.test.ts` |  |
 | `PORT-007` | Exporting a page or a container | published | done | `tests/flagship/federation/federation.test.ts` |  |
 | `LINK-001` | Permanent URLs | published | done | `tests/qualification/policies/container-links.test.ts` |  |
-| `LINK-002` | Tombstones | published | done | `tests/qualification/policies/status-archive.test.ts` |  |
-| `LINK-003` | References follow their target | published | done | `tests/qualification/backend/page-details.test.ts` |  |
-| `LINK-004` | Links respect access | published | done | `tests/qualification/backend/emitted.mjs` |  |
+| `LINK-002` | Tombstones | published | partial | `tests/qualification/policies/status-archive.test.ts` | Deleted mentions and intermediate revisions have tombstones; direct deleted page/template URLs still return errors without the required kind and deletion time. |
+| `LINK-003` | References follow their target | published | partial | `tests/qualification/backend/page-details.test.ts` | Page mentions follow current titles and lifecycle; ordinary internal inline links retain submitted labels. |
+| `LINK-004` | Links respect access | published | partial | `tests/qualification/backend/emitted.mjs` | Page mentions enforce access-needed states; ordinary internal inline links retain stored text and offer no access-request control. |
 | `AI-001` | Enablement | published | partial | `tests/qualification/inquiry/provider-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `AI-002` | Run lifecycle | published | partial | `tests/qualification/inquiry/lifecycle.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `AI-003` | Proposal or bounded delegation | published | partial | `src/core/features/ai/routes.ts` | flagship opt-in only; no journey |
@@ -1997,7 +1997,7 @@ See [How to read this contract](#how-to-read-this-contract) for what each status
 | `DEC-002` | States | published | done | `tests/qualification/decisions/mechanics.test.ts` |  |
 | `DEC-003` | An accepted decision is immutable | published | done | `tests/qualification/decisions/mechanics.test.ts` |  |
 | `DEC-004` | Decision log | published | done | `tests/qualification/decisions/mechanics.test.ts` |  |
-| `DEC-005` | Review dates | published | done | `tests/qualification/decisions/mechanics.test.ts` |  |
+| `DEC-005` | Review dates | published | partial | `tests/qualification/decisions/mechanics.test.ts` | Overdue state and completed reviews ship; overdue-decision notifications are scheduled only in flagship, not the default profile. |
 | `DEC-006` | A proposed decision is editable | published | done | `tests/qualification/decisions/mechanics.test.ts` |  |
 | `SUG-001` | Anchored suggestions | published | partial | `tests/qualification/policies/comments-suggestions.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SUG-002` | Resolve explicitly | published | partial | `tests/qualification/policies/comments-suggestions.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
