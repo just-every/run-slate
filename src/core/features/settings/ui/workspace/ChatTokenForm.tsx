@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { errorMessage, mutate, operationKey } from "../../../../client/transport";
 import { ChatAudienceHelp, ChatEventFields, selectedChatEvents, type ChatConnection } from "./ChatNotificationFields";
 
@@ -9,6 +9,7 @@ export function ChatTokenForm({ connection, containers, workspaceOwner, onSaved,
   onSaved: () => Promise<void>;
   onCancel?: () => void;
 }) {
+  const formId = useId();
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<unknown>();
   const key = useRef(operationKey());
@@ -44,17 +45,15 @@ export function ChatTokenForm({ connection, containers, workspaceOwner, onSaved,
         }
       }}>
       <h3>{connection ? "Update delivery" : "Connect a channel"}</h3>
-      <label>Provider
-        <select value={provider} disabled={pending || !!connection} onChange={event => setProvider(event.target.value as "slack" | "teams")}>
+      <label htmlFor={`${formId}-provider`}>Provider</label>
+        <select id={`${formId}-provider`} value={provider} disabled={pending || !!connection} onChange={event => setProvider(event.target.value as "slack" | "teams")}>
           <option value="slack">Slack</option><option value="teams">Microsoft Teams</option>
         </select>
-      </label>
-      <label>Events from
-        <select name="containerId" defaultValue={connection?.containerId ?? (workspaceOwner ? "" : containers[0]?.id)} disabled={pending || !!connection}>
+      <label htmlFor={`${formId}-container`}>Events from</label>
+        <select id={`${formId}-container`} name="containerId" defaultValue={connection?.containerId ?? (workspaceOwner ? "" : containers[0]?.id)} disabled={pending || !!connection}>
           {workspaceOwner ? <option value="">Whole workspace</option> : null}
           {containers.map(container => <option key={container.id} value={container.id}>{container.name}</option>)}
         </select>
-      </label>
       {provider === "slack" ? <><ChatAudienceHelp />
       <details>
         <summary>Prepare your Slack app</summary>

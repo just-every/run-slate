@@ -7976,7 +7976,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/ChatTokenForm.tsx": {
-      "sha256": "88dcc76615921906897703becad761af5c6e6782d7cf21bbe5249a3b6786c132",
+      "sha256": "1b403b1863fc1c2e59e1bdfd70181051d1f5e64415ffa964db051780b96dbf72",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/GroupMentionSettings.tsx": {
