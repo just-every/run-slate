@@ -137,9 +137,11 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
   expect((await raw('POST','/api/notifications/chat/destinations',{...sourceInput,provider:'teams'})).status).toBe(400);
   edge.audiences.set(tokens[3]!,{channel:{is_private:false}});expect((await raw('POST','/api/notifications/chat/destinations',sourceInput)).status).toBe(422);
   edge.audiences.delete(tokens[3]!);const sourceDestination=(await api('POST','/api/notifications/chat/destinations',{...sourceInput,operationKey:key()})).value.id;
+  expect((await api('GET','/api/notifications/chat')).connection.id).toBe(first);
   await comment();await drain();expect(edge.messages.some(m=>m.token===tokens[3])).toBe(true);
   edge.audiences.set(tokens[3]!,{channel:{is_org_shared:true}});const sourceSends=edge.messages.filter(m=>m.token===tokens[3]).length;await comment();await drain();expect(edge.messages.filter(m=>m.token===tokens[3])).toHaveLength(sourceSends);edge.audiences.delete(tokens[3]!);
   await disconnect(sourceDestination);
+  expect(await env.DB.prepare('SELECT credential_ciphertext FROM chat_connections WHERE id=?').bind(sourceDestination).first('credential_ciphertext')).toBeNull();
   // Workspace export retains destination records/history while omitting every credential value.
   const exported=await api('POST','/api/exports/workspace',{operationKey:key()});
   const download=await raw('GET',`/api/exports/${exported.id}/download`);expect(download.status).toBe(200);
@@ -180,6 +182,9 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
   edge.duringAudience(()=>disconnect(teams));await drain();await comment();await drain();expect(edge.messages).toHaveLength(beforeDisconnect);
   expect(await env.DB.prepare('SELECT credential_ciphertext FROM chat_connections WHERE id=?').bind(teams).first('credential_ciphertext')).toBeNull();
   await expect(assertStoredConfiguration(missing)).resolves.toBeUndefined();
+  expect(await env.DB.prepare('SELECT count(*) AS n FROM chat_connections,json_each(audience_member_ids_json) WHERE value=?').bind(reader).first<number>('n')).toBeGreaterThan(0);
+  await api('POST','/api/members/remove',{operationKey:key(),memberId:reader,erase:true});
+  expect(await env.DB.prepare('SELECT count(*) AS n FROM chat_connections,json_each(audience_member_ids_json) WHERE value=?').bind(reader).first<number>('n')).toBe(0);
   console.log('PASS CHAT-001 per-destination selection, access, retry, authorization, custody, erasure and disconnect');
  }finally{edge.restore();vi.useRealTimers();}
 });

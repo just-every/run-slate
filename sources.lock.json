@@ -6936,7 +6936,7 @@
       "executable": false
     },
     "src/core/features/notifications/chat-config.ts": {
-      "sha256": "ef3d9ed249bc8db156ee77e76a743af89ee58a604941727e8d600549bf15f0d1",
+      "sha256": "bfd25cf7ebc4da8ed7745981a192aa76a3f980a90eacd4d25a46c0786926f2b3",
       "executable": false
     },
     "src/core/features/notifications/chat-consent.ts": {
@@ -9208,7 +9208,7 @@
       "executable": false
     },
     "tests/e2e/notifications/destinations.test.ts": {
-      "sha256": "bbf21097c8a574d9b340651d9cc27c4d6b0d779532ff9b62509e66a8a0f4efe9",
+      "sha256": "a13f60853b9948cd12b7645bdf242415bd0d5c67fb6f11b103226ee87b8a97c1",
       "executable": false
     },
     "tests/e2e/outbox-auth.mjs": {
