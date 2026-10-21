@@ -1,6 +1,8 @@
 import type { FeatureContext } from '../../app/feature-context';
 /** Content erasure composes this batch: delivery receipts survive, never retained source payload. */
 export function discoveryPurgePageStatements(ctx:FeatureContext,pageId:string):D1PreparedStatement[]{return [
+ ctx.db.prepare("UPDATE chat_messages SET state='withdraw' WHERE state<>'restricted' AND id IN (SELECT message_id FROM chat_message_sources WHERE page_id=?)").bind(pageId),
+ ctx.db.prepare('UPDATE chat_message_sources SET page_id=NULL,actor_member_id=NULL WHERE page_id=?').bind(pageId),
  ctx.db.prepare('DELETE FROM reminders WHERE page_id=?').bind(pageId),
  ctx.db.prepare('DELETE FROM task_origins WHERE page_id=?').bind(pageId),
  ctx.db.prepare("UPDATE chat_deliveries SET state='cancelled',failure='source_erased' WHERE outbox_id IN (SELECT id FROM notification_outbox WHERE page_id=?) AND state='pending'").bind(pageId),

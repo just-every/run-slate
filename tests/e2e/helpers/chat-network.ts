@@ -4,10 +4,11 @@ import type { SlackAudienceFixture } from './slack-network';
 /** Slack and Graph HTTP edges only: all application/storage/authorization code runs unchanged. */
 export function chatNetwork(tokens:string[],email:string) {
  const original=globalThis.fetch;
- const messages:{token:string;provider:string;channel:string;text:string;key:string}[]=[];
+ const messages:{token:string;provider:string;channel:string;text:string;key:string;receipt:string;thread?:string}[]=[];
  const attempts:{token:string;key:string;status:number}[]=[];
  const failures=new Map<string,string>();
  const audiences=new Map<string,SlackAudienceFixture>();
+ const teamsRooms=new Map<string,Record<string,unknown>>();
  const teamsMembers=new Map<string,unknown[]>();
  let duringAudience:(()=>Promise<void>)|undefined;
  globalThis.fetch=async(input,init)=>{
@@ -17,25 +18,30 @@ export function chatNetwork(tokens:string[],email:string) {
   expect(tokens).toContain(token);
   const failure=failures.get(token),teams=url.hostname==='graph.microsoft.com';
   if(failure==='revoked'||failure==='expired')return teams?new Response('',{status:401}):Response.json({ok:false,error:failure==='revoked'?'token_revoked':'token_expired'});
-  const writing=request.method==='POST',body=writing?await request.json<any>():Object.fromEntries(url.searchParams);
+  const editing=request.method==='PATCH'||url.pathname.endsWith('/chat.update');
+  const writing=request.method==='POST'||request.method==='PATCH',body=writing?await request.json<any>():Object.fromEntries(url.searchParams);
+  if(editing){const receipt=teams?decodeURIComponent(url.pathname.split('/').at(-1)!):body.ts;const message=messages.find(m=>m.token===token&&m.receipt===receipt);expect(message).toBeTruthy();message!.text=teams?body.body.content:body.text;return Response.json(teams?{}:{ok:true});}
   if(writing){
    const key=teams?request.headers.get('client-request-id')!:body.client_msg_id;
    expect(key).toMatch(/^[a-f0-9-]{36}$/);
    const status=failure==='transient'?429:failure==='permanent'?404:failure==='uncertain'?503:200;
    attempts.push({token,key,status});
-   if(status!==200){if(failure==='transient')failures.delete(token);return teams?new Response('',{status}):status===404?Response.json({ok:false,error:'channel_not_found'}):new Response('',{status});}
+   if(status!==200){if(failure==='transient')failures.delete(token);return teams?new Response('',{status}):status===404?Response.json({ok:false,error:'channel_not_found'}):new Response('',{status,headers:{'retry-after':'120'}});}
    const text=teams?body.body.content:body.text;
    if(teams){expect(Object.keys(body)).toEqual(['body']);expect(body.body.contentType).toBe('text');}
    else {expect(body.unfurl_links).toBe(false);expect(body.unfurl_media).toBe(false);expect(body.mrkdwn).toBe(false);}
-   messages.push({token,provider:teams?'teams':'slack',channel:teams?decodeURIComponent(url.pathname.split('/channels/')[1]!.split('/')[0]!):body.channel,text,key});
+   messages.push({token,provider:teams?'teams':'slack',channel:teams?decodeURIComponent(url.pathname.split('/channels/')[1]!.split('/')[0]!):body.channel,text,key,receipt:String(messages.length+1),thread:teams?(url.pathname.endsWith('/replies')?url.pathname.split('/').at(-2):undefined):body.thread_ts});
    return Response.json(teams?{id:String(messages.length)}:{ok:true,ts:String(messages.length)});
   }
   if(teams){
+   if(url.pathname==='/v1.0/organization')return Response.json({value:[{id:'synthetic-slate-tenant'}]});
+   if(url.pathname.includes('/users/'))return Response.json({id:'synthetic-slate-reader',mail:email,userType:'Member',accountEnabled:true,externalUserState:null});
+   if(url.pathname.endsWith('/installedApps'))return Response.json({value:[]});
    if(url.pathname.endsWith('/members')||url.pathname.endsWith('/allMembers')){
     const callback=duringAudience;duringAudience=undefined;await callback?.();
-    return Response.json({value:teamsMembers.get(token)??[{'@odata.type':'#microsoft.graph.aadUserConversationMember',email}]});
+    return Response.json({value:teamsMembers.get(token)??[{'@odata.type':'#microsoft.graph.aadUserConversationMember',email,userId:'synthetic-slate-reader',tenantId:'synthetic-slate-tenant',roles:[]}]});
    }
-   return Response.json({membershipType:'private'});
+   return Response.json({membershipType:'private',visibility:'private',...teamsRooms.get(token)});
   }
   const fixture=audiences.get(token)??{};
   switch(url.pathname.split('/').at(-1)){
@@ -51,5 +57,5 @@ export function chatNetwork(tokens:string[],email:string) {
    default:throw Error('Unexpected synthetic Slack request');
   }
  };
- return {messages,attempts,failures,audiences,teamsMembers,duringAudience:(callback:()=>Promise<void>)=>{duringAudience=callback;},restore:()=>{globalThis.fetch=original;}};
+ return {messages,attempts,failures,audiences,teamsMembers,teamsRooms,duringAudience:(callback:()=>Promise<void>)=>{duringAudience=callback;},restore:()=>{globalThis.fetch=original;}};
 }

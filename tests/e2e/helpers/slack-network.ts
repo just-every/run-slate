@@ -19,7 +19,7 @@ export function slackNetwork(email: string, token: string) {
     expect(request.headers.get('authorization')).toBe(`Bearer ${token}`);
     const method = url.pathname.replace('/api/', '');
     attempts.push(method);
-    const writing = method === 'chat.postMessage';
+    const writing = method === 'chat.postMessage' || method === 'chat.update';
     expect(request.method).toBe(writing ? 'POST' : 'GET');
     if (writing) expect(request.headers.get('content-type')).toBe('application/json');
     const body = writing ? await request.json<any>() : Object.fromEntries(url.searchParams);
@@ -31,6 +31,7 @@ export function slackNetwork(email: string, token: string) {
       return Response.json({ ok: true, members: ['BOT', ...Object.keys(audience.users ?? { READER: {} })] });
     }
     if (method === 'users.info') return Response.json({ ok: true, user: audience.users ? audience.users[String(body.user)] : { profile: { email } } });
+    if(method==='chat.update'){const sent=messages[Number(body.ts)-1];expect(sent).toBeTruthy();sent!.text=body.text;return Response.json({ok:true});}
     if (writing) {
       if (failure === 'transient') { failure = undefined; return new Response('', { status: 429 }); }
       if (failure === 'permanent') return Response.json({ ok: false, error: 'channel_not_found' });

@@ -26,7 +26,7 @@ export async function processNotificationOutbox(ctx:FeatureContext,limit=100):Pr
   }
   // Durable independent chat intent. Delivery performs the destination audience checks again.
   const connections=await ctx.db.prepare("SELECT id,events_json FROM chat_connections WHERE workspace_id=? AND state='connected' AND (container_id IS NULL OR container_id=COALESCE(?,(SELECT container_id FROM pages WHERE id=?)))").bind(row.workspace_id,row.container_id,row.page_id).all<{id:string;events_json:string}>();
-  for(const connection of connections.results)if((JSON.parse(connection.events_json) as string[]).includes(row.event))statements.push(ctx.db.prepare("INSERT OR IGNORE INTO chat_deliveries(id,connection_id,outbox_id,state,created_at) VALUES(?,?,?,'pending',?)").bind(row.event==='maintenance'?`${connection.id}:routine:${row.created_at.slice(0,10)}`:`${connection.id}:${row.id}`,connection.id,row.id,ctx.now));
+  for(const connection of connections.results)if((JSON.parse(connection.events_json) as string[]).includes(row.event))statements.push(ctx.db.prepare("INSERT OR IGNORE INTO chat_deliveries(id,connection_id,outbox_id,state,created_at) VALUES(?,?,?,'pending',?)").bind(row.event==='maintenance'?`${connection.id}:routine:${row.created_at.slice(0,10)}`:`${connection.id}:${row.id}`,connection.id,row.id,row.created_at));
   statements.push(ctx.db.prepare('UPDATE notification_outbox SET processed_at=? WHERE id=? AND processed_at IS NULL').bind(ctx.now,row.id));await ctx.db.batch(statements);processed++;
  }
  return {processed};

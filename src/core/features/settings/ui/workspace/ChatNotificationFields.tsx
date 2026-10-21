@@ -1,7 +1,8 @@
 export interface ChatConnection {
   id: string;
   destination: string;
-  provider: "slack" | "teams";
+  provider: "slack" | "teams" | "nook";
+  deliveryMode: "immediate" | "daily";
   containerId: string | null;
   targetLabel: string;
   state: string;

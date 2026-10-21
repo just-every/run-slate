@@ -36,6 +36,7 @@ export async function slackEdge(request, directory, ResponseClass) {
       if (failure === 'rate_limited') return reply({ ok: false, error: failure }, 429);
       return reply(failure === 'ok' ? { ok: true, ts: String(Date.now() / 1000) } : { ok: false, error: failure });
     }
+    case 'chat.update': return reply({ok:true});
     case 'conversations.history': return reply({ ok: true, messages: [] });
     default: throw new Error(`Unexpected Slack edge method: ${method}`);
   }
@@ -56,11 +57,16 @@ export async function teamsEdge(request,directory,ResponseClass) {
  const failure=controlValue.teamsFailure??'ok';
  const reply=(value,status=200)=>new ResponseClass(JSON.stringify(value),{status,headers:{'content-type':'application/json'}});
  if(failure==='token_revoked')return reply({},401);
+ if(request.method==='PATCH')return reply({});
  if(request.method==='POST'){
   const message=await request.json();
   await appendFile(path.join(directory,'teams-messages.jsonl'),JSON.stringify({...message,key:request.headers.get('client-request-id'),accepted:failure==='ok'})+'\n');
   return failure==='rate_limited'?reply({},429):reply({id:String(Date.now())});
  }
- if(new URL(request.url).pathname.endsWith('/members'))return reply({value:[{'@odata.type':'#microsoft.graph.aadUserConversationMember',email:'reader@test.invalid'}]});
- return reply({membershipType:'private'});
+ const pathname=new URL(request.url).pathname;
+ if(pathname==='/v1.0/organization')return reply({value:[{id:'synthetic-slate-tenant'}]});
+ if(pathname.includes('/users/'))return reply({id:'synthetic-slate-reader',mail:'reader@test.invalid',userType:'Member',accountEnabled:true,externalUserState:null});
+ if(pathname.endsWith('/installedApps'))return reply({value:[]});
+ if(pathname.endsWith('/members'))return reply({value:[{'@odata.type':'#microsoft.graph.aadUserConversationMember',email:'reader@test.invalid',userId:'synthetic-slate-reader',tenantId:'synthetic-slate-tenant',roles:[]}]});
+ return reply({membershipType:'private',visibility:'private'});
 }

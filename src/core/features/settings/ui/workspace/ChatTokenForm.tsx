@@ -26,6 +26,7 @@ export function ChatTokenForm({ connection, containers, workspaceOwner, onSaved,
         try {
           await mutate(connection ? `/api/notifications/chat/destinations/${connection.id}` : "/api/notifications/chat/destinations", {
             provider,
+            deliveryMode: String(data.get("deliveryMode")),
             containerId: connection?.containerId ?? (String(data.get("containerId") ?? "") || null),
             operationKey: key.current,
             expectedRevisionId: connection?.revisionId,
@@ -87,7 +88,7 @@ export function ChatTokenForm({ connection, containers, workspaceOwner, onSaved,
       </p>
       </> : <>
         <p>Use a delegated Microsoft Graph access token with ChannelMessage.Send, Channel.ReadBasic.All,
-          ChannelMember.Read.All and TeamMember.Read.All permissions. Every exposed channel member’s
+          ChannelMember.Read.All and TeamMember.Read.All permissions. Use a private channel or private team with no guests, external members or other bots. Slate also needs Organization.Read.All, User.Read.All and TeamsAppInstallation.ReadForTeam.All to verify the complete audience. Every channel member’s
           email must match an active Slate member with access to the linked page.</p>
         <label>Teams team/channel IDs
           <input name="channel" required autoComplete="off" spellCheck={false} disabled={pending}
@@ -99,6 +100,11 @@ export function ChatTokenForm({ connection, containers, workspaceOwner, onSaved,
         </label>
         <p className="muted">Tokens are encrypted and never displayed. Reconnect with a fresh delegated token when authorization expires.</p>
       </>}
+      <label htmlFor={`${formId}-mode`}>Delivery schedule</label>
+      <select id={`${formId}-mode`} name="deliveryMode" defaultValue={connection?.deliveryMode ?? "immediate"} disabled={pending}>
+        <option value="immediate">Immediate</option><option value="daily">Daily digest</option>
+      </select>
+      <p className="muted">Immediate updates wait until the minute closes to combine busy bursts. Daily digests arrive after midnight UTC.</p>
       <ChatEventFields selected={selectedChatEvents(connection)} disabled={pending} />
       <button disabled={pending}>{pending ? "Saving…" : "Save chat delivery"}</button>
       {onCancel ? <button type="button" disabled={pending} onClick={onCancel}>Cancel</button> : null}

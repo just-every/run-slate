@@ -9,7 +9,11 @@ import { ok } from './two-people-support.mjs';
 
 /** NOTIF-003: owner token setup, actual comment events and production cron, Slack HTTP edge only. */
 export async function chatJourney(state, width = state.page.viewportSize().width) {
-  const { page, context, origin, runScheduled, atRest, setSlackFailure, readSlackMessages } = state;
+  const { page, context, origin, atRest, setSlackFailure, readSlackMessages } = state;
+  const runScheduled=async()=>{
+    await atRest("UPDATE notification_outbox SET created_at=strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 minutes') WHERE processed_at IS NULL");
+    await state.runScheduled();
+  };
   const api = (method, route, data) => ok(context, origin, method, route, data);
   const evidence = path.join(root, '.artifacts/ui-convergence/chat');
   await mkdir(evidence, { recursive: true });
@@ -84,6 +88,7 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await setSlackFailure('ok'); await runScheduled();
   assert.equal(await count(), 4, 'Retry waits for its scheduled time.');
   await atRest("UPDATE chat_deliveries SET next_attempt_at='2000-01-01T00:00:00.000Z' WHERE state='pending'");
+  await atRest("UPDATE chat_connections SET retry_after=NULL");
   await runScheduled(); assert.equal(await count(), 5);
   assert.equal((await history()).filter(item => item.state === 'delivered').length, 4);
   await open(); await expect(status).toContainText('Last delivered:');
@@ -165,6 +170,20 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await open();await shot('independent-disconnect');
   await teams.getByRole('button',{name:'Disconnect delivery',exact:true}).click();
   await expect(teams.getByRole('status')).toHaveText('Disconnected');
+  await teams.getByRole('button',{name:'Reconnect',exact:true}).click();
+  await page.getByLabel('Delivery schedule',{exact:true}).selectOption('daily');
+  await page.getByLabel('Microsoft Graph access token',{exact:true}).fill('synthetic-slate-102');
+  await page.getByRole('button',{name:'Save chat delivery',exact:true}).click();
+  await open();await expect(teams).toContainText('Daily digest');
+  const digestBefore=(await state.readTeamsMessages()).length;
+  await publish();await runScheduled();assert.equal((await state.readTeamsMessages()).length,digestBefore);
+  await atRest("UPDATE chat_deliveries SET created_at='2000-01-01T00:00:00.000Z' WHERE state='pending'");
+  await runScheduled();assert.equal((await state.readTeamsMessages()).length,digestBefore+1);
+  await open();await shot('daily-digest');
+  await teams.getByRole('button',{name:'Edit delivery',exact:true}).click();
+  await expect(page.getByLabel('Delivery schedule',{exact:true})).toHaveValue('daily');
+  await page.getByRole('button',{name:'Cancel',exact:true}).click();
+  await teams.getByRole('button',{name:'Disconnect delivery',exact:true}).click();
   await shot('all-disconnected');
 
 }

@@ -28,6 +28,8 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  add("UPDATE content_archive_locations SET reason=NULL WHERE actor_member_id=?",memberId);
  add("UPDATE content_schedules SET label=NULL,failure=NULL,publication_json=NULL,state='cancelled' WHERE actor_member_id=?",memberId);
  add('DELETE FROM content_suggestions WHERE proposed_by_member_id=?',memberId);
+ add("UPDATE chat_messages SET state='withdraw' WHERE state<>'restricted' AND id IN (SELECT message_id FROM chat_message_sources WHERE actor_member_id=?)",memberId);
+ add('UPDATE chat_message_sources SET actor_member_id=NULL WHERE actor_member_id=?',memberId);
  add("UPDATE notification_outbox SET detail_json='{}',recipients_json='[]',watched_recipients_json='[]',actor_member_id=NULL,processed_at=COALESCE(processed_at,?) WHERE actor_member_id=?",now,memberId);
  add("UPDATE chat_connections SET destination='',target_label='',credential_ciphertext=NULL,source_connection_id=NULL,source_connection_revision_id=NULL,state='disconnected',disconnected_at=?,needs_attention_reason=NULL,last_failure_reason=NULL,audience_member_ids_json='[]' WHERE connected_by_member_id=?",now,memberId);
  add("UPDATE chat_deliveries SET state='cancelled',failure=NULL,provider_receipt=NULL WHERE connection_id IN (SELECT id FROM chat_connections WHERE connected_by_member_id=?)",memberId);

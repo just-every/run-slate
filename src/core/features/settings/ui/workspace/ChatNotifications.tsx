@@ -43,6 +43,7 @@ export function ChatNotifications() {
             {connection.state !== "disconnected" && connection.needsAttentionReason ? (
               <p role="alert">{connection.needsAttentionReason}</p>
             ) : null}
+            <p>Delivery: {connection.deliveryMode === "daily" ? "Daily digest" : "Immediate"}.</p>
             <p>Selected events: {selectedChatEvents(connection).map((event) => event.replaceAll("-", " ")).join(", ") || "None"}.</p>
             <p>{connection.lastDeliveredAt ? <>
               Last delivered: <time dateTime={connection.lastDeliveredAt}>{new Date(connection.lastDeliveredAt).toLocaleString()}</time>
