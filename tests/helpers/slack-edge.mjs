@@ -5,11 +5,12 @@ const control = directory => path.join(directory, 'slack-edge.json');
 const messages = directory => path.join(directory, 'slack-messages.jsonl');
 export async function setSlackFailure(directory, failure = 'ok') {
   if (!['ok', 'rate_limited', 'channel_not_found', 'token_revoked', 'public_channel'].includes(failure)) throw new Error('Unknown Slack edge failure');
-  await writeFile(control(directory) + '.new', JSON.stringify({ failure }));
+  await writeFile(control(directory) + '.new', JSON.stringify({ ...JSON.parse(await readFile(control(directory), 'utf8').catch(() => '{}')), failure }));
   await rename(control(directory) + '.new', control(directory));
 }
 export async function initializeSlackEdge(directory) {
   await writeFile(messages(directory), '');
+  await writeFile(path.join(directory,'teams-messages.jsonl'), '');
   await setSlackFailure(directory);
 }
 export async function readSlackMessages(directory) {
@@ -38,4 +39,28 @@ export async function slackEdge(request, directory, ResponseClass) {
     case 'conversations.history': return reply({ ok: true, messages: [] });
     default: throw new Error(`Unexpected Slack edge method: ${method}`);
   }
+}
+
+export async function setTeamsFailure(directory, failure='ok') {
+ const file=control(directory);
+ await writeFile(file+'.new',JSON.stringify({...JSON.parse(await readFile(file,'utf8')),teamsFailure:failure}));
+ await rename(file+'.new',file);
+}
+export async function readTeamsMessages(directory) {
+ return (await readFile(path.join(directory,'teams-messages.jsonl'),'utf8')).split('\n').filter(Boolean).map(line=>JSON.parse(line));
+}
+/** Graph HTTP fake for the existing chat settings journey only. */
+export async function teamsEdge(request,directory,ResponseClass) {
+ if(new URL(request.url).origin!=='https://graph.microsoft.com')return null;
+ let controlValue;try{controlValue=JSON.parse(await readFile(control(directory),'utf8'));}catch(cause){if(cause.code==='ENOENT')return null;throw cause;}
+ const failure=controlValue.teamsFailure??'ok';
+ const reply=(value,status=200)=>new ResponseClass(JSON.stringify(value),{status,headers:{'content-type':'application/json'}});
+ if(failure==='token_revoked')return reply({},401);
+ if(request.method==='POST'){
+  const message=await request.json();
+  await appendFile(path.join(directory,'teams-messages.jsonl'),JSON.stringify({...message,key:request.headers.get('client-request-id'),accepted:failure==='ok'})+'\n');
+  return failure==='rate_limited'?reply({},429):reply({id:String(Date.now())});
+ }
+ if(new URL(request.url).pathname.endsWith('/members'))return reply({value:[{'@odata.type':'#microsoft.graph.aadUserConversationMember',email:'reader@test.invalid'}]});
+ return reply({membershipType:'private'});
 }

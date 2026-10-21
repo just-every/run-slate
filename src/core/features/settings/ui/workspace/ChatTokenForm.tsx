@@ -2,14 +2,17 @@ import { useRef, useState } from "react";
 import { errorMessage, mutate, operationKey } from "../../../../client/transport";
 import { ChatAudienceHelp, ChatEventFields, selectedChatEvents, type ChatConnection } from "./ChatNotificationFields";
 
-export function ChatTokenForm({ connection, onSaved, onCancel }: {
+export function ChatTokenForm({ connection, containers, workspaceOwner, onSaved, onCancel }: {
   connection: ChatConnection | null;
+  containers: {id:string;name:string}[];
+  workspaceOwner: boolean;
   onSaved: () => Promise<void>;
   onCancel?: () => void;
 }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<unknown>();
   const key = useRef(operationKey());
+  const [provider, setProvider] = useState(connection?.provider ?? "slack");
   return (
     <form className="detail-form" style={{ minWidth: 0 }}
       onChange={() => { key.current = operationKey(); }}
@@ -20,13 +23,15 @@ export function ChatTokenForm({ connection, onSaved, onCancel }: {
         setPending(true);
         setError(undefined);
         try {
-          await mutate("/api/notifications/chat", {
+          await mutate(connection ? `/api/notifications/chat/destinations/${connection.id}` : "/api/notifications/chat/destinations", {
+            provider,
+            containerId: connection?.containerId ?? (String(data.get("containerId") ?? "") || null),
             operationKey: key.current,
             expectedRevisionId: connection?.revisionId,
             channel: String(data.get("channel")).trim(),
             token: String(data.get("token")).trim(),
             events: data.getAll("events").map(String),
-          });
+          }, connection ? "PUT" : "POST");
           const token = form.elements.namedItem("token") as HTMLInputElement;
           token.value = "";
           data.delete("token");
@@ -38,8 +43,19 @@ export function ChatTokenForm({ connection, onSaved, onCancel }: {
           setPending(false);
         }
       }}>
-      <h3>{connection ? "Update Slack delivery" : "Connect a private Slack channel"}</h3>
-      <ChatAudienceHelp />
+      <h3>{connection ? "Update delivery" : "Connect a channel"}</h3>
+      <label>Provider
+        <select value={provider} disabled={pending || !!connection} onChange={event => setProvider(event.target.value as "slack" | "teams")}>
+          <option value="slack">Slack</option><option value="teams">Microsoft Teams</option>
+        </select>
+      </label>
+      <label>Events from
+        <select name="containerId" defaultValue={connection?.containerId ?? (workspaceOwner ? "" : containers[0]?.id)} disabled={pending || !!connection}>
+          {workspaceOwner ? <option value="">Whole workspace</option> : null}
+          {containers.map(container => <option key={container.id} value={container.id}>{container.name}</option>)}
+        </select>
+      </label>
+      {provider === "slack" ? <><ChatAudienceHelp />
       <details>
         <summary>Prepare your Slack app</summary>
         <p>
@@ -70,6 +86,20 @@ export function ChatTokenForm({ connection, onSaved, onCancel }: {
         settings. A fresh token is required when reconnecting. Saved tokens are
         encrypted and never shown here.
       </p>
+      </> : <>
+        <p>Use a delegated Microsoft Graph access token with ChannelMessage.Send, Channel.ReadBasic.All,
+          ChannelMember.Read.All and TeamMember.Read.All permissions. Every exposed channel member’s
+          email must match an active Slate member with access to the linked page.</p>
+        <label>Teams team/channel IDs
+          <input name="channel" required autoComplete="off" spellCheck={false} disabled={pending}
+            defaultValue={connection?.destination.replace(/^teams:/, "") ?? ""} />
+        </label>
+        <p className="muted">Enter the team ID and channel ID separated by a slash.</p>
+        <label>Microsoft Graph access token
+          <input name="token" type="password" required autoComplete="new-password" spellCheck={false} disabled={pending} />
+        </label>
+        <p className="muted">Tokens are encrypted and never displayed. Reconnect with a fresh delegated token when authorization expires.</p>
+      </>}
       <ChatEventFields selected={selectedChatEvents(connection)} disabled={pending} />
       <button disabled={pending}>{pending ? "Saving…" : "Save chat delivery"}</button>
       {onCancel ? <button type="button" disabled={pending} onClick={onCancel}>Cancel</button> : null}

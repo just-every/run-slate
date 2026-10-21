@@ -2,39 +2,38 @@ import { useState } from "react";
 import { useFlagshipEnabled } from "../../../../app/ui/LaunchProfile";
 import { useResource } from "../../../../client/useResource";
 import { mutate, operationKey, errorMessage } from "../../../../client/transport";
-import { useWorkspace } from "../../../../app/ui/WorkspaceContext";
 import { RequestState } from "../../../../app/ui/RequestState";
 import { selectedChatEvents, type ChatConnection } from "./ChatNotificationFields";
 import { ChatTokenForm } from "./ChatTokenForm";
 import { ChatOAuthForm } from "./ChatOAuthForm";
 
 export function ChatNotifications() {
-  const { member } = useWorkspace();
-  const allowed = member.role === "owner";
   const flagship = useFlagshipEnabled();
-  const current = useResource<{ connection: ChatConnection | null }>(
-    allowed ? "/api/notifications/chat" : null,
+  const current = useResource<{ items: ChatConnection[]; containers: {id:string;name:string}[]; workspaceOwner:boolean }>(
+    "/api/notifications/chat/destinations",
   );
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<unknown>();
   const [notice, setNotice] = useState("");
-  const connection = current.data?.connection ?? null;
+  const connections = current.data?.items ?? [];
+  const selected = connections.find(item => item.id === editing) ?? null;
+  const showForm = editing !== null || connections.length === 0;
   async function saved() {
-    setEditing(false);
+    setEditing(null);
     setError(undefined);
-    setNotice("Slack delivery saved.");
+    setNotice("Chat delivery saved.");
     await current.reload();
   }
-  if (!allowed) return <p>A workspace owner manages delivery to chat.</p>;
+
   return (
     <section className="settings-panel" style={{ minWidth: 0, overflowWrap: "anywhere" }}>
-      <h2>Send updates to Slack.</h2>
-      <p>Choose one private Slack channel and the events to send.</p>
+      <h2>Send updates to chat.</h2>
+      <p>Connect Slack or Microsoft Teams channels. Choose the scope and events for each destination.</p>
       {notice ? <p role="status">{notice}</p> : null}
       <RequestState loading={current.loading} error={current.error} retry={current.reload}>
-        {connection ? (
-          <section aria-label="Slack delivery status">
+        {connections.length ? connections.map(connection => (
+          <section key={connection.id} aria-label={`${connection.provider === "teams" ? "Teams" : "Slack"} delivery status: ${connection.targetLabel}`}>
             <h3>{connection.targetLabel}</h3>
             <p role="status">
               {connection.state === "connected" ? "Connected" :
@@ -52,13 +51,13 @@ export function ChatNotifications() {
               Last failed: <time dateTime={connection.lastFailedAt}>{new Date(connection.lastFailedAt).toLocaleString()}</time>
               {connection.lastFailureReason ? ` — ${connection.lastFailureReason}` : null}
             </> : "No delivery failure recorded."}</p>
-            {!editing ? (
-              <button disabled={pending} onClick={() => { setEditing(true); setNotice(""); }}>
+            {editing !== connection.id ? (
+              <button disabled={pending} onClick={() => { setEditing(connection.id); setNotice(""); }}>
                 {connection.state === "connected" ? "Edit delivery" : "Reconnect"}
               </button>
             ) : null}
             {connection.state !== "disconnected" ? (
-              <button disabled={pending || editing} onClick={async () => {
+              <button disabled={pending || editing === connection.id} onClick={async () => {
                 setPending(true);
                 setError(undefined);
                 setNotice("");
@@ -66,8 +65,8 @@ export function ChatNotifications() {
                   await mutate(`/api/notifications/chat/${connection.id}`, {
                     operationKey: operationKey(), expectedRevisionId: connection.revisionId,
                   }, "DELETE");
-                  setEditing(false);
-                  setNotice("Slack delivery disconnected.");
+                  setEditing(null);
+                  setNotice("Chat delivery disconnected.");
                   await current.reload();
                 } catch (cause) {
                   setError(cause);
@@ -77,14 +76,16 @@ export function ChatNotifications() {
               }}>{pending ? "Disconnecting…" : "Disconnect delivery"}</button>
             ) : null}
           </section>
-        ) : <p>No chat delivery is connected.</p>}
-        {current.data && (!connection || editing) ? (
-          <ChatTokenForm key={connection?.revisionId ?? "new"} connection={connection}
-            onSaved={saved} onCancel={connection ? () => setEditing(false) : undefined} />
-        ) : null}
-        {current.data && flagship ? (
-          <ChatOAuthForm key={connection?.revisionId ?? "new"} connection={connection} onSaved={saved} />
-        ) : null}
+        )) : <p>No chat delivery is connected.</p>}
+        {current.data && (current.data.workspaceOwner || current.data.containers.length > 0) ? <>
+          {!showForm ? <button onClick={() => {setEditing("new");setNotice("");}}>Add destination</button> : null}
+          {showForm ? <ChatTokenForm key={selected?.revisionId ?? "new"} connection={selected}
+            containers={current.data.containers} workspaceOwner={current.data.workspaceOwner}
+            onSaved={saved} onCancel={connections.length ? () => setEditing(null) : undefined} /> : null}
+          {showForm && flagship && current.data.workspaceOwner && (!selected || selected.provider === "slack") ? (
+            <ChatOAuthForm key={selected?.revisionId ?? "new"} connection={selected} onSaved={saved} />
+          ) : null}
+        </> : current.data ? <p>A workspace owner or container owner manages delivery to chat.</p> : null}
       </RequestState>
       {error ? <p role="alert">{errorMessage(error)}</p> : null}
     </section>

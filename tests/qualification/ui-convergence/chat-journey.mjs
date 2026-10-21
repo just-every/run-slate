@@ -19,9 +19,9 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   };
   const open = async () => {
     await page.goto(`${origin}/app/settings?section=chat`, { waitUntil: 'networkidle' });
-    await expect(page.getByRole('heading', { name: 'Send updates to Slack.', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Send updates to chat.', exact: true })).toBeVisible();
   };
-  const status = page.getByRole('region', { name: 'Slack delivery status', exact: true });
+  const status = page.getByRole('region', { name: 'Slack delivery status: TTEST/GTEST', exact: true });
   const save = async () => {
     await page.getByLabel('Slack bot token', { exact: true }).fill('TEST-ONLY-SLACK-BOT-TOKEN');
     await page.getByRole('button', { name: 'Save chat delivery', exact: true }).click();
@@ -115,4 +115,56 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await shot('disconnected');
   await comment(); await runScheduled();
   assert.equal(await count(), stoppedCount, 'Disconnect stops all further messages.');
+  // CHAT-001 extends this same panel and journey: destination lists and independent selections.
+  const add = () => page.getByRole('button', { name: 'Add destination', exact: true }).click();
+  await add();
+  await page.getByLabel('Private channel ID', { exact: true }).fill('GSLATE2');
+  await page.getByLabel('Slack bot token', { exact: true }).fill('synthetic-slate-101');
+  await page.getByLabel('Events from', { exact: true }).selectOption(space.id);
+  await page.getByRole('checkbox', {name:'comment',exact:true}).check();
+  await page.getByRole('button',{name:'Save chat delivery',exact:true}).click();
+  const second = page.getByRole('region',{name:'Slack delivery status: TTEST/GSLATE2',exact:true});
+  await expect(second.getByRole('status')).toHaveText('Connected');
+  await add();
+  await page.getByLabel('Provider',{exact:true}).selectOption('teams');
+  await page.getByLabel('Teams team/channel IDs',{exact:true}).fill('synthetic-slate-5/synthetic-slate-6');
+  await page.getByLabel('Microsoft Graph access token',{exact:true}).fill('synthetic-slate-102');
+  await page.getByRole('checkbox',{name:'published',exact:true}).check();
+  await page.getByRole('button',{name:'Save chat delivery',exact:true}).click();
+  const teams = page.getByRole('region',{name:'Teams delivery status: synthetic-slate-5/synthetic-slate-6',exact:true});
+  await expect(teams.getByRole('status')).toHaveText('Connected');
+  await shot('multiple-destinations');
+  const publish=async()=>{const document=await api('GET',`/api/pages/${pageId}`);await api('POST',`/api/pages/${pageId}/publish`,{operationKey:randomUUID(),expectedRevisionId:document.page.revisionId});};
+  const slackBefore=await count();
+  await comment();await runScheduled();
+  assert.equal(await count(),slackBefore+1);assert.equal((await state.readTeamsMessages()).length,0);
+  await publish();await runScheduled();
+  assert.equal(await count(),slackBefore+1);assert.equal((await state.readTeamsMessages()).length,1);
+  for(const message of await state.readTeamsMessages()){
+    assert.equal(message.body.contentType,'text');assert.equal(message.body.content.includes(body),false);
+    assert.ok(message.body.content.includes(`/app/pages/${pageId}`));assert.ok(message.key);
+  }
+  await open();await expect(second).toContainText('Last delivered:');await expect(teams).toContainText('Last delivered:');
+  await shot('independent-selections');
+  await state.setTeamsFailure('token_revoked');await publish();await runScheduled();
+  const beforeOther=await count();await comment();await runScheduled();assert.equal(await count(),beforeOther+1);
+  await open();await expect(teams.getByRole('status')).toHaveText('Needs attention');await expect(second.getByRole('status')).toHaveText('Connected');
+  await shot('isolated-authorization-failure');
+  await teams.getByRole('button',{name:'Reconnect',exact:true}).click();
+  await expect(page.getByRole('checkbox',{name:'published',exact:true})).toBeChecked();
+  await expect(page.getByLabel('Microsoft Graph access token',{exact:true})).toHaveValue('');
+  await shot('teams-reconnect');
+  await state.setTeamsFailure('ok');
+  await page.getByLabel('Microsoft Graph access token',{exact:true}).fill('synthetic-slate-102');
+  await page.getByRole('button',{name:'Save chat delivery',exact:true}).click();
+  await expect(teams.getByRole('status')).toHaveText('Connected');
+  await second.getByRole('button',{name:'Disconnect delivery',exact:true}).click();
+  await expect(second.getByRole('status')).toHaveText('Disconnected');
+  const stoppedSlack=await count(),teamsBefore=(await state.readTeamsMessages()).length;
+  await comment();await publish();await runScheduled();assert.equal(await count(),stoppedSlack);assert.equal((await state.readTeamsMessages()).length,teamsBefore+1);
+  await open();await shot('independent-disconnect');
+  await teams.getByRole('button',{name:'Disconnect delivery',exact:true}).click();
+  await expect(teams.getByRole('status')).toHaveText('Disconnected');
+  await shot('all-disconnected');
+
 }

@@ -29,7 +29,7 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  add("UPDATE content_schedules SET label=NULL,failure=NULL,publication_json=NULL,state='cancelled' WHERE actor_member_id=?",memberId);
  add('DELETE FROM content_suggestions WHERE proposed_by_member_id=?',memberId);
  add("UPDATE notification_outbox SET detail_json='{}',recipients_json='[]',watched_recipients_json='[]',actor_member_id=NULL,processed_at=COALESCE(processed_at,?) WHERE actor_member_id=?",now,memberId);
- add("UPDATE chat_connections SET destination='',target_label='',credential_ciphertext=NULL,state='disconnected',disconnected_at=?,needs_attention_reason=NULL,last_failure_reason=NULL,audience_member_ids_json='[]' WHERE connected_by_member_id=?",now,memberId);
+ add("UPDATE chat_connections SET destination='',target_label='',credential_ciphertext=NULL,source_connection_id=NULL,source_connection_revision_id=NULL,state='disconnected',disconnected_at=?,needs_attention_reason=NULL,last_failure_reason=NULL,audience_member_ids_json='[]' WHERE connected_by_member_id=?",now,memberId);
  add("UPDATE chat_deliveries SET state='cancelled',failure=NULL,provider_receipt=NULL WHERE connection_id IN (SELECT id FROM chat_connections WHERE connected_by_member_id=?)",memberId);
  add("UPDATE intelligence_agent_credentials SET token_hash='erased:'||id,scope_json='{}',revoked_at=COALESCE(revoked_at,?) WHERE owner_id=? OR subject_id=?",now,memberId,memberId);
  add("UPDATE intelligence_model_policy SET policy_json='{}' WHERE owner_id=?",memberId);
@@ -41,5 +41,6 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  add("UPDATE federation_connections SET account_id='erased:'||id,credential_ciphertext=NULL,config_json='{}',state='revoked',refresh_claim=NULL,updated_at=? WHERE workspace_id=? AND member_id=?",now,w,memberId);
  add("INSERT INTO content_media_cleanup SELECT archive_key,? FROM federation_imports WHERE workspace_id=? AND actor_id=? AND state!='deleted' ON CONFLICT DO NOTHING",now,w,memberId);
  add("UPDATE federation_imports SET filename='Erased original archive',report_json='{}',counts_json='{}',state='deleted',updated_at=? WHERE workspace_id=? AND actor_id=?",now,w,memberId);
+ add("UPDATE chat_connections SET audience_member_ids_json=COALESCE((SELECT json_group_array(value) FROM json_each(chat_connections.audience_member_ids_json) WHERE value<>?),'[]') WHERE workspace_id=?",memberId,w);
  return statements;
 }

@@ -37,6 +37,11 @@
           "slug": "backup",
           "source": "docs/BACKUP.md",
           "label": "Backup and restore"
+        },
+        {
+          "slug": "chat-notifications",
+          "source": "docs/CHAT-NOTIFICATIONS.md",
+          "label": "Chat notifications"
         }
       ]
     },

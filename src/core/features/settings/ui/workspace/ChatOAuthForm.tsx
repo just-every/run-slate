@@ -46,14 +46,15 @@ export function ChatOAuthForm({ connection, onSaved }: {
             setPending(true);
             setError(undefined);
             try {
-              await mutate("/api/notifications/chat", {
+              await mutate(connection ? `/api/notifications/chat/destinations/${connection.id}` : "/api/notifications/chat/destinations", {
+                containerId: connection?.containerId ?? null,
                 operationKey: key.current,
                 expectedRevisionId: connection?.revisionId,
                 connectionId: identity,
                 connectionRevisionId: channels.data?.revisionId,
                 channel: String(data.get("channel")),
                 events: data.getAll("events").map(String),
-              });
+              }, connection ? "PUT" : "POST");
               key.current = operationKey();
               await onSaved();
             } catch (cause) {

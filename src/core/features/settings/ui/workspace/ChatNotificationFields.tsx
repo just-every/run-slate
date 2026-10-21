@@ -1,6 +1,8 @@
 export interface ChatConnection {
   id: string;
   destination: string;
+  provider: "slack" | "teams";
+  containerId: string | null;
   targetLabel: string;
   state: string;
   needsAttentionReason: string | null;
@@ -14,7 +16,7 @@ export interface ChatConnection {
 }
 
 const events = [
-  "mention", "comment", "reply", "published", "verification-lapsed",
+  "mention", "comment", "reply", "published", "page-edited", "post-published", "review-requested", "verification-lapsed",
   "verification-rules", "access-granted", "run-review", "run-failed",
   "decision-required", "contradiction", "experiment-result", "maintenance",
 ];

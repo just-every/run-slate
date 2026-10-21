@@ -292,7 +292,8 @@
       "clauses": [
         "NOTIF-001",
         "NOTIF-002",
-        "NOTIF-003"
+        "NOTIF-003",
+        "CHAT-001"
       ]
     },
     {
@@ -593,7 +594,7 @@
     {
       "id": "chat-notification-destination",
       "required": false,
-      "requiredWhen": "a workspace owner connects a chat destination",
+      "requiredWhen": "a workspace or container owner connects a chat destination",
       "why": "Delivering a notification into the buyer's chat tool requires that tool's own API; nothing owned can post into it.",
       "data": [
         "The event name and the actor's display name",

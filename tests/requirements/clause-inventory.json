@@ -3349,6 +3349,13 @@
       "status": "unproven",
       "unmetReason": "A tagged default-profile Workers journey in tests/e2e/review/verification-rules.test.ts and 1440/390 browser journeys exercise rule configuration, preview, the nightly exactly-once run, unverification as lapse, flags, activity and the coalesced owner notice. Cited connected sources are inherited by SOURCE-003 and SOURCE-004. Independent release acceptance remains separate.",
       "supportingTests": []
+    },
+    {
+      "id": "CHAT-001",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "The default-profile Workers journey \"CHAT-001 \u2014 Owners connect several chat destinations, each with its own event selection, and every destination sends one link-only message, fails and disconnects on its own\" in tests/e2e/notifications/destinations.test.ts covers Slack and Teams public configuration, all six event kinds, per-destination selection and isolation, ownership/access, channel refusals, transient-only retries and held uncertain writes, revoked/expired reconnect, credential custody, export omission, erasure and a populated v0.4.0 upgrade through migration 0045. The existing chatJourney in tests/qualification/ui-convergence/chat-journey.mjs covers the extended panel at 1440 and 390. CHAT-001 inherits NOTIF-003 guarantees for every destination. Gap: Nook destination (Nook publishes no inbound notification door). Real Slack and Teams provider acceptance remains open; a fake is not a live receipt.",
+      "supportingTests": []
     }
   ]
 }

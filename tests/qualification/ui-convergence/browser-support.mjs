@@ -7,7 +7,7 @@ import { chromium, expect } from '@playwright/test';
 import { applyMigrations, executeD1, root, stop, testSessionSecret } from '../../e2e/runtime-harness.mjs';
 import { startShellWorker } from '../release-shell/runtime.mjs';
 import { accessible, insideViewport, withinViewport } from './browser-evidence.mjs';
-import { initializeSlackEdge, setSlackFailure, readSlackMessages } from '../../helpers/slack-edge.mjs';
+import { initializeSlackEdge, setSlackFailure, readSlackMessages, setTeamsFailure, readTeamsMessages } from '../../helpers/slack-edge.mjs';
 export { accessible } from './browser-evidence.mjs';
 
 /** Test-only identity records replace mailbox possession, never successful API responses. */
@@ -112,7 +112,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
     };
     try {
       await run({ page, context, origin: runtime.baseUrl, api, records, atRest, runScheduled, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}`,
-        ...(slack ? { setSlackFailure: failure => setSlackFailure(state, failure), readSlackMessages: () => readSlackMessages(state) } : {}) });
+        ...(slack ? { setSlackFailure: failure => setSlackFailure(state, failure), readSlackMessages: () => readSlackMessages(state), setTeamsFailure: failure => setTeamsFailure(state, failure), readTeamsMessages: () => readTeamsMessages(state) } : {}) });
     } catch (cause) {
       await accessible(page, `${profile} journey failure`).catch(() => {});
       await Promise.allSettled([...captures]);
