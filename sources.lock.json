@@ -968,7 +968,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "da155951b929bf4d82c09177aa38714375642e5eef903d47b15e975253200207",
+      "sha256": "5ca1eb2ec517b35dabc7037b14389d7c09b594488f400ce87129d0c3e7ca25a1",
       "executable": false
     },
     "DEMO.md": {
@@ -10867,12 +10867,20 @@
       "sha256": "9c50af03238fa2f996c425a546c5815c2faf43c7b5cda1aa45dc8ab780692c7f",
       "executable": false
     },
+    "tests/qualification/ui-convergence/evidence/chat-1440-channel-blocked.png": {
+      "sha256": "bd0c2a620b0245229cda5cf77c803206f8537ffbb196ab7c6639ac790cef77d8",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/evidence/chat-1440-connected.png": {
       "sha256": "a99964be99bfda2b24ce5eae8e0da212e230854460e4d20bde7e6b08b9575308",
       "executable": false
     },
     "tests/qualification/ui-convergence/evidence/chat-1440-delivered.png": {
       "sha256": "b8921023391d063da02eb110b183111c1f37d5a55b1333656b3776803f7dd3bd",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/evidence/chat-1440-destination-refused.png": {
+      "sha256": "992c28a2da9db75fee5b81eb9bb1f4c590b37400e5d69ece6bfa7875947314b4",
       "executable": false
     },
     "tests/qualification/ui-convergence/evidence/chat-1440-disconnected.png": {
@@ -10907,12 +10915,20 @@
       "sha256": "3ca74d5a72905414708ab99a9d68bd6f0279caef88e9914e9effe13841595076",
       "executable": false
     },
+    "tests/qualification/ui-convergence/evidence/chat-390-channel-blocked.png": {
+      "sha256": "4939f5a90b132ee17f29d30e36b375d666f34f1c92ab44dca24af65cbf66b6b8",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/evidence/chat-390-connected.png": {
       "sha256": "ca4159a4841fca06039d959a46ce4e80bf1d81dbb43e858d7a4dc41e08a34d9a",
       "executable": false
     },
     "tests/qualification/ui-convergence/evidence/chat-390-delivered.png": {
       "sha256": "6350aec3cce69416dd8efa80b29bdc088b4132e327759139b4bab17095154c2c",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/evidence/chat-390-destination-refused.png": {
+      "sha256": "093be7a7257fa2fea2db061fbaa34229eecdcce924e10241bf5f94c089743dd4",
       "executable": false
     },
     "tests/qualification/ui-convergence/evidence/chat-390-disconnected.png": {
