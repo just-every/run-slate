@@ -364,7 +364,8 @@ contract('CHAT-001','Readable grouped events survive an unreadable or purged lea
 });
 
 contract('CHAT-001','Withdrawal uses each original channel roster in either receipt ordering',async()=>{
- for(const reverse of [false,true])for(const provider of ['slack','teams','nook']){
+ for(const ordering of ['old-first','new-first','no-old'])for(const provider of ['slack','teams','nook']){
+  const reverse=ordering==='new-first',control=ordering==='no-old';
   const h=await repairJourney();
   try{
    const i=['slack','teams','nook'].indexOf(provider),token=h.tokens[i]!,a=h.channels[i]!,b=provider==='slack'?'GSLATE9':provider==='teams'?'synthetic-slate-team/synthetic-slate-channel9':'synthetic-slate-channel3';
@@ -372,7 +373,7 @@ contract('CHAT-001','Withdrawal uses each original channel roster in either rece
    h.edge.rosters.set(token+':'+a,[h.ownerEmail]);h.edge.rosters.set(nextToken+':'+b,[h.readerEmail]);
    if(provider==='nook'&&reverse)await h.connect(provider,nextToken,b);
    const id=await h.connect(provider,token,a),page=await h.page('synthetic-slate-channel-title');
-   const order=reverse?[b,a]:[a,b];
+   const order=control?[b]:reverse?[b,a]:[a,b];
    let nookB:string|undefined;
    if(provider==='nook'&&!reverse)nookB=await h.connect(provider,nextToken,b);
    for(const channel of order){
@@ -380,13 +381,13 @@ contract('CHAT-001','Withdrawal uses each original channel roster in either rece
     await h.comment(page);await h.sweep();
    }
    const visible=h.edge.messages.filter(m=>m.channel===a.split('/').at(-1)||m.channel===a),restricted=h.edge.messages.filter(m=>m.channel===b.split('/').at(-1)||m.channel===b);
-   expect(visible.length).toBeGreaterThan(0);expect(restricted.length).toBeGreaterThan(0);
+   if(!control||provider==='nook')expect(visible.length).toBeGreaterThan(0);else expect(visible).toHaveLength(0);expect(restricted.length).toBeGreaterThan(0);
    // Revoke the reader's container grant through the public sharing door.
    const grants=await h.api('GET','/api/sharing/containers/'+h.open);
    const grant=grants.items.find((g:any)=>g.principalId===h.reader);
    expect(grant).toBeTruthy();await h.api('POST','/api/sharing',{operationKey:h.key(),id:grant.id,targetKind:'container',targetId:h.open,principalKind:'member',principalId:h.reader,level:'edit',revoke:true});
    await h.sweep();await h.sweep();
-   console.log('ROSTER WITNESS',JSON.stringify({provider,reverse,retained:visible.filter(m=>m.text.includes('synthetic-slate-channel-title')).length,restricted:restricted.filter(m=>m.text==='Restricted Slate page').length}));
+   console.log('ROSTER WITNESS',JSON.stringify({provider,ordering,retained:visible.filter(m=>m.text.includes('synthetic-slate-channel-title')).length,restricted:restricted.filter(m=>m.text==='Restricted Slate page').length}));
    for(const m of visible)expect.soft(m.text,provider+' retained').toContain('synthetic-slate-channel-title');
    for(const m of restricted)expect.soft(m.text,provider+' withdrawn').toBe('Restricted Slate page');
    expect(h.nookCalls.every(c=>c.allowed)).toBe(true);

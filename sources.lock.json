@@ -9220,7 +9220,7 @@
       "executable": false
     },
     "tests/e2e/notifications/destinations.test.ts": {
-      "sha256": "1d0137afb0952379ad5c92693536c5ec4f0fa92e63cc8adcdddedecb4065e942",
+      "sha256": "f6f62d58b2d3c3a8d9983a8837f82d407628d7d87e9169eeb828d7fd588f2ea0",
       "executable": false
     },
     "tests/e2e/outbox-auth.mjs": {
