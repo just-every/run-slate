@@ -940,7 +940,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "385f5ab4984cf5bd0bb454b0d372bfa904c2b0cb7820d92514ca4644f2608599",
+      "sha256": "e6cf550a1116f18809e285ae85ea850e2a397793bb1c7a663b40c569ce7b1cca",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -968,7 +968,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "b0cb546025c79a3d39b09ee1c7319be2944f0696627cf243425bd61e233ab392",
+      "sha256": "44123d40d933879e4e5b14d4c75acb1adcaf89a0635785e428427bb3f0d53755",
       "executable": false
     },
     "DEMO.md": {
@@ -1012,7 +1012,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "7da491124bb25b95d879b0f9cdaf3b7779cf1b43d62b4b54eea33253dfc5d9ba",
+      "sha256": "2096a981e42f4c382298b53c87685df896a59df97d4fe55c01905dc8265e1724",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -4676,7 +4676,7 @@
       "executable": false
     },
     "src/core/app/types.ts": {
-      "sha256": "9000924fce88712cdfdd02cdce578a8d76ebaf80af6bbd038e85951368b4dcc2",
+      "sha256": "6c6781431036211aef1f30eaf97a36a688e4a36c56217be79f4e40abd8bd7f3c",
       "executable": false
     },
     "src/core/app/ui/AccessExpiry.tsx": {
@@ -7108,11 +7108,15 @@
       "executable": false
     },
     "src/core/features/notifications/jobs.ts": {
-      "sha256": "4e4765a8aa60b64f1bbee00e3beede9b6a918c4d46680dc1e55f1e167951a8bb",
+      "sha256": "5ccec1e21a9e0788e377ea4d792c11e2b6d02e976f180d65088a40d76c31a04e",
+      "executable": false
+    },
+    "src/core/features/notifications/nook-http.ts": {
+      "sha256": "5680212e9ba7a2f17c513f36f98a6724eb205a931d0d9bfeb0cf504a54d45031",
       "executable": false
     },
     "src/core/features/notifications/nook.ts": {
-      "sha256": "f6134bdcf068ff33cf324c0fd469f42053d3438bbb67f2d0a597a046eab94e16",
+      "sha256": "e45466be160d41bd4999b2d63ba5b3c94c46a110b401f4330c4c76b8b8339153",
       "executable": false
     },
     "src/core/features/notifications/outbox.ts": {
@@ -7124,7 +7128,7 @@
       "executable": false
     },
     "src/core/features/notifications/routes.ts": {
-      "sha256": "ccda5fd220c2f73ec60dfabf2141886943a38207e604e11b9900f64356f9d81e",
+      "sha256": "f8d1ca85d7337041d10edd7bc5351b1eeebdca19a287237a8fcb28fb2a917aed",
       "executable": false
     },
     "src/core/features/notifications/service.ts": {
@@ -9372,7 +9376,11 @@
       "executable": false
     },
     "tests/e2e/notifications/destinations.test.ts": {
-      "sha256": "087e661760851bf86af97482903f0c6b806eddd78b67cf27199ee5e83af96469",
+      "sha256": "32e3847011147bb2d02a396c324ecd3a4d5829558f62d9004712b473c1a2badf",
+      "executable": false
+    },
+    "tests/e2e/notifications/nook-http-journey.ts": {
+      "sha256": "59e78ae81a713f412811b36fa9b9f5e8473b76733395cab0e2e7b7e8824f2dfa",
       "executable": false
     },
     "tests/e2e/outbox-auth.mjs": {
