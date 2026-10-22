@@ -743,13 +743,13 @@
     },
     {
       "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "A support guardrail atomically stops prepared work while retaining confirmed receipts",
+      "testName": "guardrail stops and conclusions cancel prepared trial work while preserving confirmed exposure",
       "kind": "supporting-regression",
       "clauses": [
         "TRIAL-002",
         "EFFECT-003"
       ],
-      "reason": "Asserts A support guardrail atomically stops prepared work while retaining confirmed receipts. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts guardrail stops and conclusions cancel prepared trial work while preserving confirmed exposure. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
@@ -779,16 +779,6 @@
         "EFFECT-003"
       ],
       "reason": "Asserts A stop after trial admission invalidates the atomic dispatch guard and preserves uncertain history. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "Conclusion closes remaining prepared trial work without erasing prior confirmed exposure",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-002",
-        "EFFECT-003"
-      ],
-      "reason": "Asserts terminal trial cancellation of remaining prepared work while retaining confirmed exposure. Controlled local mechanics do not prove prospective exposure or full trial acceptance."
     },
     {
       "file": "tests/flagship/intelligence/reservation-prerequisites.test.ts",
@@ -1462,7 +1452,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-      "testName": "INQ-004 — scheduled exact route revocation blocks dispatch and never substitutes a model",
+      "testName": "INQ-004 — revoked or expired scheduled route qualification blocks dispatch without model substitution",
       "kind": "supporting-regression",
       "clauses": [
         "INQ-004"
@@ -1490,15 +1480,6 @@
     {
       "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
       "testName": "INQ-004 — deterministic low-score audits and frontier shadow retain exact missed-event lineage",
-      "kind": "supporting-regression",
-      "clauses": [
-        "INQ-004"
-      ],
-      "reason": "Native scheduled qualification/freshness, source revocation, invalid protocol and deterministic missed-event lineage mechanics under synthetic test provider receipts only. Real model measured fit, semantic discovery usefulness and empirical missed-event recall remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-      "testName": "INQ-004 — expiration after scheduling refuses both direct frontier and queued semantic work",
       "kind": "supporting-regression",
       "clauses": [
         "INQ-004"
@@ -1570,7 +1551,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-      "testName": "TRIAL-003 — persisted benefit conclusion uses collected fields and independently checked precision",
+      "testName": "TRIAL-003 — persisted conclusions use collected fields and independently checked precision",
       "kind": "supporting-regression",
       "clauses": [
         "TRIAL-003"
@@ -1579,61 +1560,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-      "testName": "TRIAL-003 — persisted null conclusion uses collected fields and independently checked precision",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-003"
-      ],
-      "reason": "Persisted synthetic record measurements and independent two-per-arm numerical oracle only. No real customer exposure, causal efficacy, external measurement quality or prospective empirical conclusion is established."
-    },
-    {
-      "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-      "testName": "TRIAL-003 — persisted adverse conclusion uses collected fields and independently checked precision",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-003"
-      ],
-      "reason": "Persisted synthetic record measurements and independent two-per-arm numerical oracle only. No real customer exposure, causal efficacy, external measurement quality or prospective empirical conclusion is established."
-    },
-    {
-      "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-      "testName": "TRIAL-003 — persisted inconclusive conclusion uses collected fields and independently checked precision",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-003"
-      ],
-      "reason": "Persisted synthetic record measurements and independent two-per-arm numerical oracle only. No real customer exposure, causal efficacy, external measurement quality or prospective empirical conclusion is established."
-    },
-    {
-      "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-      "testName": "TRIAL-003 — persisted meaningful boundary conclusion uses collected fields and independently checked precision",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-003"
-      ],
-      "reason": "Persisted synthetic record measurements and independent two-per-arm numerical oracle only. No real customer exposure, causal efficacy, external measurement quality or prospective empirical conclusion is established."
-    },
-    {
-      "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-      "testName": "TRIAL-003 — missing exposure remains inconclusive despite the caller repeating the declared hash",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-003"
-      ],
-      "reason": "Persisted synthetic record measurements and independent two-per-arm numerical oracle only. No real customer exposure, causal efficacy, external measurement quality or prospective empirical conclusion is established."
-    },
-    {
-      "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-      "testName": "TRIAL-003 — empty measurements remains inconclusive despite the caller repeating the declared hash",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-003"
-      ],
-      "reason": "Persisted synthetic record measurements and independent two-per-arm numerical oracle only. No real customer exposure, causal efficacy, external measurement quality or prospective empirical conclusion is established."
-    },
-    {
-      "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-      "testName": "TRIAL-003 — changed instrumentation remains inconclusive despite the caller repeating the declared hash",
+      "testName": "TRIAL-003 — missing exposure, empty measurements and changed instrumentation remain inconclusive despite the declared hash",
       "kind": "supporting-regression",
       "clauses": [
         "TRIAL-003"

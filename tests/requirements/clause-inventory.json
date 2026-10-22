@@ -2451,15 +2451,11 @@
         },
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "A support guardrail atomically stops prepared work while retaining confirmed receipts"
+          "testName": "guardrail stops and conclusions cancel prepared trial work while preserving confirmed exposure"
         },
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
           "testName": "A stop after trial admission invalidates the atomic dispatch guard and preserves uncertain history"
-        },
-        {
-          "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "Conclusion closes remaining prepared trial work without erasing prior confirmed exposure"
         },
         {
           "file": "tests/flagship/release-clauses/authority/impact-scope.test.ts",
@@ -2575,7 +2571,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 \u2014 scheduled exact route revocation blocks dispatch and never substitutes a model"
+          "testName": "INQ-004 \u2014 revoked or expired scheduled route qualification blocks dispatch without model substitution"
         },
         {
           "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
@@ -2588,10 +2584,6 @@
         {
           "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
           "testName": "INQ-004 \u2014 deterministic low-score audits and frontier shadow retain exact missed-event lineage"
-        },
-        {
-          "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 \u2014 expiration after scheduling refuses both direct frontier and queued semantic work"
         },
         {
           "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
@@ -2647,7 +2639,7 @@
         },
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "A support guardrail atomically stops prepared work while retaining confirmed receipts"
+          "testName": "guardrail stops and conclusions cancel prepared trial work while preserving confirmed exposure"
         },
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
@@ -2656,10 +2648,6 @@
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
           "testName": "A stop after trial admission invalidates the atomic dispatch guard and preserves uncertain history"
-        },
-        {
-          "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "Conclusion closes remaining prepared trial work without erasing prior confirmed exposure"
         },
         {
           "file": "tests/flagship/release-clauses/trials/exposure-safety.test.ts",
@@ -2687,35 +2675,11 @@
         },
         {
           "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 \u2014 persisted benefit conclusion uses collected fields and independently checked precision"
+          "testName": "TRIAL-003 \u2014 persisted conclusions use collected fields and independently checked precision"
         },
         {
           "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 \u2014 persisted null conclusion uses collected fields and independently checked precision"
-        },
-        {
-          "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 \u2014 persisted adverse conclusion uses collected fields and independently checked precision"
-        },
-        {
-          "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 \u2014 persisted inconclusive conclusion uses collected fields and independently checked precision"
-        },
-        {
-          "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 \u2014 persisted meaningful boundary conclusion uses collected fields and independently checked precision"
-        },
-        {
-          "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 \u2014 missing exposure remains inconclusive despite the caller repeating the declared hash"
-        },
-        {
-          "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 \u2014 empty measurements remains inconclusive despite the caller repeating the declared hash"
-        },
-        {
-          "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 \u2014 changed instrumentation remains inconclusive despite the caller repeating the declared hash"
+          "testName": "TRIAL-003 \u2014 missing exposure, empty measurements and changed instrumentation remain inconclusive despite the declared hash"
         }
       ]
     },

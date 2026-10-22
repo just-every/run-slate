@@ -1,3 +1,4 @@
+import {resetDeployment} from '../../../e2e/setup/reset-deployment';
 import { test, expect, afterEach, vi } from "vitest";
 import { env } from "cloudflare:test";
 import {
@@ -59,7 +60,11 @@ async function noDiscovery(workspaceId: string) {
       .first<number>("n"),
   ).toBe(0);
 }
-test("INQ-004 — scheduled exact route revocation blocks dispatch and never substitutes a model", async () => {
+test('INQ-004 — revoked or expired scheduled route qualification blocks dispatch without model substitution',async()=>{
+ // Revocation and expiry invalidate the exact scheduled route before any provider dispatch.
+ for(const run of [
+  // Original case: INQ-004 — scheduled exact route revocation blocks dispatch and never substitutes a model
+  async()=>{
   const f = await setup();
   expect((await chooseRoute(f.context(), "routing", true)).route.role).toBe(
     "frontier",
@@ -101,6 +106,43 @@ test("INQ-004 — scheduled exact route revocation blocks dispatch and never sub
       .first<number>("n"),
   ).toBe(0);
   await noDiscovery(f.workspaceId);
+
+  },
+  // Original case: INQ-004 — expiration after scheduling refuses both direct frontier and queued semantic work
+  async()=>{
+  const f = await setup();
+  for (const route of f.routes.filter((r) => r.tasks.includes("routing")))
+    await env.DB.prepare(
+      "UPDATE intelligence_route_evaluations SET expires_at=? WHERE id=?",
+    )
+      .bind("2000-01-01T00:00:00.000Z", route.evaluationId)
+      .run();
+  await expect(chooseRoute(f.context(), "routing", true)).rejects.toMatchObject(
+    { code: "MODEL_ROUTE_UNQUALIFIED" },
+  );
+  const calls = transport({ ...answer, ambientAssessment: assessment });
+  for (const event of f.view.events)
+    await consumeIntelligenceJob(binding(), {
+      kind: "intelligence.run",
+      workspaceId: f.workspaceId,
+      runId: event.run_id,
+    });
+  expect(calls()).toBe(0);
+  await scheduleAmbient(binding());
+  const view = await ambientView(f.context(), f.scopeId);
+  expect(
+    view.events.every(
+      (e) => e.state === "failed" && e.failure_reason === "MODEL_ROUTE_REVOKED",
+    ),
+  ).toBe(true);
+  console.info("U5_NATIVE_INQ004_EXPIRY", JSON.stringify(view));
+  await noDiscovery(f.workspaceId);
+
+  }
+ ]){
+  await resetDeployment();
+  try{await run();}finally{vi.unstubAllGlobals();}
+  }
 });
 test("INQ-004 — source access lost during metered assessment refuses publication and later disclosure", async () => {
   const f = await setup(true),
@@ -265,35 +307,7 @@ test("INQ-004 — deterministic low-score audits and frontier shadow retain exac
   expect((await ambientView(f.context(), f.scopeId)).events).toHaveLength(4);
 });
 
-test("INQ-004 — expiration after scheduling refuses both direct frontier and queued semantic work", async () => {
-  const f = await setup();
-  for (const route of f.routes.filter((r) => r.tasks.includes("routing")))
-    await env.DB.prepare(
-      "UPDATE intelligence_route_evaluations SET expires_at=? WHERE id=?",
-    )
-      .bind("2000-01-01T00:00:00.000Z", route.evaluationId)
-      .run();
-  await expect(chooseRoute(f.context(), "routing", true)).rejects.toMatchObject(
-    { code: "MODEL_ROUTE_UNQUALIFIED" },
-  );
-  const calls = transport({ ...answer, ambientAssessment: assessment });
-  for (const event of f.view.events)
-    await consumeIntelligenceJob(binding(), {
-      kind: "intelligence.run",
-      workspaceId: f.workspaceId,
-      runId: event.run_id,
-    });
-  expect(calls()).toBe(0);
-  await scheduleAmbient(binding());
-  const view = await ambientView(f.context(), f.scopeId);
-  expect(
-    view.events.every(
-      (e) => e.state === "failed" && e.failure_reason === "MODEL_ROUTE_REVOKED",
-    ),
-  ).toBe(true);
-  console.info("U5_NATIVE_INQ004_EXPIRY", JSON.stringify(view));
-  await noDiscovery(f.workspaceId);
-});
+
 test("INQ-004 — audience source revocation before consumption prevents any semantic dispatch", async () => {
   const f = await setup(true);
   await revokeReader(f);

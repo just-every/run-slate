@@ -1,4 +1,5 @@
-import {test,expect,afterEach,vi,beforeEach} from 'vitest';
+import {resetDeployment} from '../../../e2e/setup/reset-deployment';
+import {test,expect,afterEach,vi} from 'vitest';
 import {env} from 'cloudflare:test';
 import {nativeTrial,effects} from './native-trial';
 import {executeTrial} from '../../../../src/core/features/experiments/execution';
@@ -12,13 +13,19 @@ afterEach(()=>{vi.useRealTimers();vi.unstubAllGlobals();});
 function oracle(values:number[]) {const [a,b,c,d]=values as [number,number,number,number];const effect=(c+d-a-b)/2,halfWidth=12.706*Math.hypot(a-b,c-d)/2;return {effect,halfWidth,lower:effect-halfWidth,upper:effect+halfWidth};}
 const cases:[string,number[]][]=[['benefit',[1,1.04,8,8.04]],['null',[8,8.04,8,8.04]],['adverse',[12,12.04,8,8.04]],['inconclusive',[1,20,1,20]],['meaningful boundary',[6,6,8,8]]];
 let f:Awaited<ReturnType<typeof nativeTrial>>, active:Awaited<ReturnType<Awaited<ReturnType<typeof nativeTrial>>['approve']>>;
-beforeEach(async({task})=>{
+async function setupCase(task:{name:string}){
   const values=cases.find(([label])=>task.name.includes(`persisted ${label} conclusion`))?.[1]??[1,1,8,8];
   f=await nativeTrial(values);active=await f.approve();f.advance(f.plan.measurement!.observeAfter);
   if(task.name.includes('missing exposure'))f.wire.hooks.send=async(_,index)=>{if(index===1)throw new TypeError('Response lost');};
   if(!task.name.includes('empty measurements')){await executeTrial(f.context(),f.trialId);await collectMeasurements(f.context(),f.trialId);}
-});
-for(const [label,values] of cases)test(`TRIAL-003 — persisted ${label} conclusion uses collected fields and independently checked precision`,async()=>{
+
+}
+test('TRIAL-003 — persisted conclusions use collected fields and independently checked precision',async()=>{
+ // Each measured cohort must satisfy the same independent precision oracle.
+ for(const [label,values] of cases){
+  await resetDeployment();
+  try{
+   await setupCase({name:`TRIAL-003 — persisted ${label} conclusion uses collected fields and independently checked precision`});
   const input={id:f.trialId,operationKey:'u6-outcome',expectedRevisionId:active.value.revisionId,instrumentationRevision:f.plan.instrumentationRevision};
   await expect(concludeTrial(f.context(),input)).rejects.toMatchObject({code:'WINDOW_OPEN'});
   await collectMeasurements(f.context(),f.trialId);
@@ -33,13 +40,24 @@ for(const [label,values] of cases)test(`TRIAL-003 — persisted ${label} conclus
   expect(JSON.parse((await env.DB.prepare('SELECT outcome_json FROM intelligence_experiments WHERE id=?').bind(f.trialId).first<string>('outcome_json'))!)).toEqual(outcome);
   expect((await concludeTrial(f.context(),{...input,instrumentationRevision:'caller-cannot-bless-measurements'})).value).toEqual(result.value);
   expect(f.wire.sends).toHaveLength(2);
+
+  }finally{vi.useRealTimers();vi.unstubAllGlobals();}
+ }
 });
 
-for(const mode of ['missing exposure','empty measurements','changed instrumentation'] as const)test(`TRIAL-003 — ${mode} remains inconclusive despite the caller repeating the declared hash`,async()=>{
+test('TRIAL-003 — missing exposure, empty measurements and changed instrumentation remain inconclusive despite the declared hash',async()=>{
+ // Every incomplete or invalid measurement provenance must remain inconclusive.
+ for(const mode of ['missing exposure','empty measurements','changed instrumentation'] as const){
+  await resetDeployment();
+  try{
+   await setupCase({name:`TRIAL-003 — ${mode} remains inconclusive despite the caller repeating the declared hash`});
   const observations=await env.DB.prepare('SELECT count(*) n FROM intelligence_observations WHERE experiment_id=?').bind(f.trialId).first<number>('n');expect(observations).toBe(mode==='empty measurements'?0:mode==='missing exposure'?3:4);
   if(mode==='changed instrumentation'){await saveField(f.context(),f.dbId,{operationKey:'alter-measurement-definition',expectedRevisionId:f.fieldRevision,field:{id:f.valueField,name:'Different duration definition',type:'number',config:{},position:0}});await expect(collectMeasurements(f.context(),f.trialId)).rejects.toMatchObject({code:'INSTRUMENTATION_CHANGED'});}
   f.advance(f.plan.endsAt);const result=await concludeTrial(f.context(),{id:f.trialId,operationKey:'u6-incomplete-conclude',expectedRevisionId:active.value.revisionId,instrumentationRevision:f.plan.instrumentationRevision});
   expect(result.value.outcome.classification).toBe('inconclusive');expect(result.value.outcome.disconfirms).toBe(false);expect(result.value.outcome.instrumentation.state).toBe(mode==='changed instrumentation'?'changed':'unchanged');
   if(mode==='missing exposure')expect((await effects(f.trialId)).map(e=>e.state)).toEqual(['confirmed','uncertain']);
   expect(f.wire.sends).toHaveLength(mode==='empty measurements'?0:2);
+
+  }finally{vi.useRealTimers();vi.unstubAllGlobals();}
+ }
 });
