@@ -9768,7 +9768,7 @@
       "executable": false
     },
     "tests/e2e/notifications/destinations.test.ts": {
-      "sha256": "c21c96baf0ddd51daf0a4887e3b9b12919f291b821ceff5aca25e0dfd380b37c",
+      "sha256": "e4d62199cd15a63a522d6d28cc831288baa6beea93de2fde20952ee458d30e27",
       "executable": false
     },
     "tests/e2e/notifications/nook-http-journey.ts": {

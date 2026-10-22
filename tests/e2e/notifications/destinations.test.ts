@@ -247,7 +247,8 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
    const rows=(await env.DB.prepare(`SELECT * FROM ${table}`).all<any>()).results;
    // Copy only columns that existed in this historical schema; the later migration adds session protocol custody.
    const priorColumns=new Set((await prior.prepare(`PRAGMA table_info(${table})`).all<{name:string}>()).results.map(column=>column.name));
-   for(const row of rows){const columns=Object.keys(row).filter(column=>priorColumns.has(column));await prior.prepare(`INSERT ${table==='content_published_revisions'?'OR IGNORE ':''}INTO ${table}(${columns.join(',')}) VALUES(${columns.map(()=>'?').join(',')})`).bind(...columns.map(column=>row[column])).run();}
+   const inserts=rows.map(row=>{const columns=Object.keys(row).filter(column=>priorColumns.has(column));return prior.prepare(`INSERT ${table==='content_published_revisions'?'OR IGNORE ':''}INTO ${table}(${columns.join(',')}) VALUES(${columns.map(()=>'?').join(',')})`).bind(...columns.map(column=>row[column]));});
+   if(inserts.length)await prior.batch(inserts);
   }
   const old=await env.DB.prepare('SELECT * FROM chat_connections WHERE id=?').bind(first).first<any>();delete old.provider;delete old.container_id;delete old.notifier_provider;delete old.delivery_mode;delete old.retry_after;
   const columns=Object.keys(old);await prior.prepare(`INSERT INTO chat_connections(${columns.join(',')}) VALUES(${columns.map(()=>'?').join(',')})`).bind(...Object.values(old)).run();
