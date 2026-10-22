@@ -374,7 +374,7 @@ contract('CHAT-001','Readable grouped events survive an unreadable or purged lea
    const attempts=h.edge.attempts.length;
    await h.sweep(scenario==='C3');await h.sweep(scenario==='C3');
    if(scenario==='uncertain'){expect(h.edge.attempts).toHaveLength(attempts);expect(h.edge.messages).toHaveLength(0);expect(await env.DB.prepare("SELECT count(*) AS n FROM chat_deliveries WHERE state='uncertain'").first<number>('n')).toBe(18);continue;}
-   if(scenario==='retry')for(const token of h.tokens.slice(0,3)){const calls=h.edge.attempts.filter(a=>a.token===token);expect(calls).toHaveLength(2);expect(calls[1]!.key).toBe(calls[0]!.key);}
+   if(['retry','C6'].includes(scenario))for(const token of h.tokens.slice(0,3)){const calls=h.edge.attempts.filter(a=>a.token===token);expect(calls).toHaveLength(2);expect(calls[1]!.key).toBe(calls[0]!.key);}
    const pending=await env.DB.prepare("SELECT count(*) AS n FROM chat_deliveries WHERE state='pending'").first<number>('n');
    console.log('GROUP WITNESS',JSON.stringify({scenario,messages:['slack','teams','nook'].map(p=>h.edge.messages.filter(m=>m.provider===p).length),pending}));
    expect.soft(h.edge.messages,scenario).toHaveLength(scenario==='five'?15:3);expect.soft(pending,scenario).toBe(0);

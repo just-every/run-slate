@@ -1008,7 +1008,7 @@
       "executable": false
     },
     "docs/CHAT-NOTIFICATIONS.md": {
-      "sha256": "88141b7c9a638ade4e68dad10b2d68c963ff3699286ec315c6bc67b4d951237e",
+      "sha256": "3df75994c6766a848d360ca7e63c807c975e19b23eb68ad9b94a1410327ba2e6",
       "executable": false
     },
     "docs/CLAIMS.md": {
@@ -6952,7 +6952,7 @@
       "executable": false
     },
     "src/core/features/notifications/chat-delivery.ts": {
-      "sha256": "6282944b7fac26ad27e8be389ab2896bad22f295b69ceb514cc528b872345496",
+      "sha256": "8db638656aafa336714349b9af28f8f24e2468790fd115f58fd330b24b2c1f19",
       "executable": false
     },
     "src/core/features/notifications/chat-message.ts": {
@@ -7988,7 +7988,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/ChatTokenForm.tsx": {
-      "sha256": "fabd5fad61cf69dc2218508b8d0fc484f10d8cbb5500f73ced574b58c8f6a599",
+      "sha256": "2d82002805bda8d77f9a9fe56728a08e58337fdf757cbf5c638ec6a98866d9a6",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/GroupMentionSettings.tsx": {
@@ -9220,7 +9220,7 @@
       "executable": false
     },
     "tests/e2e/notifications/destinations.test.ts": {
-      "sha256": "f5d640e72b8c6acbb872150e85dfb7eae8dca3a8d98e73fa966dfd1fb47f2d17",
+      "sha256": "5622230aba435b74af895f068f8261eecd2ce5907072e32686748183c38a11dc",
       "executable": false
     },
     "tests/e2e/outbox-auth.mjs": {
@@ -10888,7 +10888,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
-      "sha256": "cec86f60da26fce9cc04d309fd385b965abc50771103936388ff8ace66eea656",
+      "sha256": "ef6311557db57f91f9194c4b9c88472abe7242a42793d211751bd9a37a105fc7",
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
