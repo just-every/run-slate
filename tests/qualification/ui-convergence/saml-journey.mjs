@@ -29,8 +29,6 @@ export async function samlJourney(state) {
   await installSamlIdp(authContext);
   const auth = await authContext.newPage();
   auth.on('pageerror', cause => browserErrors.push(String(cause)));
-  auth.on('requestfailed', request => console.error('SAML navigation failure', JSON.stringify({origin:new URL(request.url()).origin,path:new URL(request.url()).pathname,error:request.failure()})));
-  auth.on('response', response => { if (new URL(response.url()).pathname==='/auth/saml/start') {const location=response.headers().location;console.log('SAML start response',JSON.stringify({status:response.status(),destination:location?new URL(location).origin+new URL(location).pathname:null}));} });
   auth.on('console', message => { if (message.type() === 'error') consoleErrors.push({text:message.text(), path:new URL(auth.url()).pathname}); });
   const shot = async (view, label, focus) => {
     if (focus) await focus.scrollIntoViewIfNeeded();
@@ -71,12 +69,11 @@ export async function samlJourney(state) {
       await auth.goto(origin + '/signin', { waitUntil: 'networkidle' });
       await auth.getByRole('button', { name: 'Continue with SAML', exact: true }).click();
     } else await auth.goto(samlFixture.ssoUrl, { waitUntil: 'networkidle' });
-    try { await expect(auth.getByRole('heading', { name: 'Identity verified by the test IdP', exact: true })).toBeVisible(); }
-    catch (cause) { console.error('SAML start refused', JSON.stringify({label, path:new URL(auth.url()).pathname, body:(await auth.locator('body').innerText()).slice(0,1000)})); throw cause; }
+    await expect(auth.getByRole('heading', { name: 'Identity verified by the test IdP', exact: true })).toBeVisible();
     const pending = auth.waitForResponse(response => new URL(response.url()).pathname === '/auth/saml/acs' && response.request().method() === 'POST');
     await auth.getByRole('button', { name: 'Continue to Slate', exact: true }).click();
     const response = await pending;
-    assert.equal(response.status(), expected, await response.text());
+    assert.equal(response.status(), expected, response.status() === expected ? undefined : await response.text());
     if (expected === 303) {
       await auth.waitForURL(url => url.origin === origin && url.pathname === '/app');
       const current = await session();
@@ -163,9 +160,12 @@ export async function samlJourney(state) {
     assert.ok(edge.some(item => item.kind === 'idp' && item.initiated === 'sp' && item.requestId));
     assert.ok(edge.some(item => item.kind === 'idp' && item.initiated === 'idp' && item.requestId === null));
     assert.deepEqual(browserErrors, [], 'SAML journeys must not raise uncaught browser errors');
+    // Chromium reports deliberate refused document responses as resource errors.
+    // Their exact HTTP statuses and absence of a session are asserted above; all
+    // other console errors, including script failures, still fail this journey.
+    assert.deepEqual(consoleErrors.filter(item => !(item.path === '/auth/saml/acs' && /^Failed to load resource:.*status of (400|503) /.test(item.text)) && !(item.path === '/auth/confirm' && /^Failed to load resource:.*status of 403 /.test(item.text))), [], 'No unexpected SAML console errors');
     state.assertNoConsoleErrors();
   } finally {
-    if (consoleErrors.length) console.log('SAML browser console', JSON.stringify(consoleErrors));
     await authContext.close();
   }
 }
