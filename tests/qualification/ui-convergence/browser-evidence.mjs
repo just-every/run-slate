@@ -6,7 +6,7 @@ import { expect } from '@playwright/test';
 import { root } from '../../e2e/runtime-harness.mjs';
 
 let ordinal = 0;
-export async function accessible(page, state) {
+export async function accessible(page, state, { fullPage = true } = {}) {
   await page.waitForLoadState('networkidle');
   const geometry = await page.evaluate(() => ({
     viewport: { width: innerWidth, height: innerHeight }, documentWidth: document.documentElement.scrollWidth,
@@ -19,7 +19,7 @@ export async function accessible(page, state) {
   const name = `${String(++ordinal).padStart(3, '0')}-${geometry.viewport.width}-${state.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`;
   const artifact = JSON.parse(await readFile(path.join(root, '.cache/slate/build-source.json'), 'utf8'));
   await writeFile(path.join(evidence, `${name}.json`), JSON.stringify({ state, url: page.url(), artifact, geometry, axe: results }, null, 2));
-  await page.screenshot({ path: path.join(evidence, `${name}.png`), fullPage: true });
+  await page.screenshot({ path: path.join(evidence, `${name}.png`), fullPage });
   assert.ok(geometry.documentWidth <= geometry.viewport.width, `${state}: horizontal overflow`);
   assert.deepEqual(results.violations.filter(item => ['serious', 'critical'].includes(item.impact))
     .map(item => ({ id: item.id, nodes: item.nodes.map(node => node.target) })), [], `${state}: accessibility`);

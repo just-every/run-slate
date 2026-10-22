@@ -22,9 +22,9 @@ export async function folderJourney(state) {
   const open = () => page.goto(`${origin}/app/settings?section=portability`, { waitUntil: 'networkidle' });
   const shot = async (provider, label, focus) => {
     await focus.scrollIntoViewIfNeeded();
-    await accessible(page, `folder import ${provider} ${label}`);
+    await accessible(page, `folder import ${provider} ${label}`, { fullPage: false });
     assertNoConsoleErrors();
-    await page.screenshot({ path: path.join(evidence, `folders-${width}-${provider}-${label}.png`), fullPage: true });
+    await page.screenshot({ path: path.join(evidence, `folders-${width}-${provider}-${label}.png`), fullPage: false });
   };
   const responseAfter = async (route, method, work) => {
     const pending = page.waitForResponse(response => new URL(response.url()).pathname === base + route && response.request().method() === method);
