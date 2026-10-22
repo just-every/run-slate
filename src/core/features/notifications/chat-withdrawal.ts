@@ -8,7 +8,7 @@ import {ChatProviderError} from './slack';
 /** No titles, bodies or email snapshots live in this durable receipt ledger. */
 export async function withdrawChat(ctx:FeatureContext,config:ChatConfig,pendingOnly=false){
  const audienceCache=new Map<string,Promise<string[]>>(),readableCache=new Map<string,Promise<boolean>>();
- const rows=await ctx.db.prepare(`SELECT m.*,c.destination,c.credential_ciphertext,c.source_connection_id,
+ const rows=await ctx.db.prepare(`SELECT m.*,c.credential_ciphertext,c.source_connection_id,
  c.source_connection_revision_id,COALESCE(c.notifier_provider,c.provider) AS provider,c.connected_by_member_id
  FROM chat_messages m JOIN chat_connections c ON c.id=m.connection_id
  WHERE c.workspace_id=? AND c.state='connected' AND m.state IN ('sent','withdraw') AND (?=0 OR m.state='withdraw') AND m.provider_receipt IS NOT NULL

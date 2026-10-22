@@ -59,9 +59,9 @@ export async function deliverChat(ctx:FeatureContext,config:ChatConfig):Promise<
    const selected=new Set(deliverable.map(item=>item.id));
    grouped=grouped.filter(item=>selected.has(item.outbox_id)||event!.event==='maintenance');
    const pageIds=[...new Set(deliverable.map(item=>item.page_id).filter(Boolean))];
-   const firstThread=pageIds.length===1?await ctx.db.prepare("SELECT m.provider_receipt FROM chat_messages m JOIN chat_message_sources s ON s.message_id=m.id WHERE m.connection_id=? AND s.page_id=? AND m.state='sent' AND m.thread_receipt IS NULL AND m.created_at>=? ORDER BY m.created_at,m.id LIMIT 1").bind(connection.id,pageIds[0],new Date(Date.parse(ctx.now)-86400000).toISOString()).first<string>('provider_receipt'):null;
+   const firstThread=pageIds.length===1?await ctx.db.prepare("SELECT m.provider_receipt FROM chat_messages m JOIN chat_message_sources s ON s.message_id=m.id WHERE m.connection_id=? AND m.destination=? AND s.page_id=? AND m.state='sent' AND m.thread_receipt IS NULL AND m.created_at>=? ORDER BY m.created_at,m.id LIMIT 1").bind(connection.id,connection.destination,pageIds[0],new Date(Date.parse(ctx.now)-86400000).toISOString()).first<string>('provider_receipt'):null;
    await ctx.db.batch([
-    ctx.db.prepare("INSERT OR IGNORE INTO chat_messages(id,connection_id,thread_receipt,state,created_at) VALUES(?,?,?,'prepared',?)").bind(messageId,connection.id,firstThread,ctx.now),
+    ctx.db.prepare("INSERT OR IGNORE INTO chat_messages(id,connection_id,destination,thread_receipt,state,created_at) VALUES(?,?,?,?,'prepared',?)").bind(messageId,connection.id,connection.destination,firstThread,ctx.now),
     ...grouped.map(item=>ctx.db.prepare("UPDATE chat_deliveries SET message_id=? WHERE id=? AND state='pending'").bind(messageId,item.id)),
     ...deliverable.map(item=>ctx.db.prepare('INSERT OR IGNORE INTO chat_message_sources(message_id,outbox_id,page_id,actor_member_id) VALUES(?,?,?,?)').bind(messageId,item.id,item.page_id,item.actor_member_id)),
    ]);

@@ -21,7 +21,7 @@ export function chatNetwork(tokens:string[],email:string) {
   if(failure==='revoked'||failure==='expired')return teams?new Response('',{status:401}):Response.json({ok:false,error:failure==='revoked'?'token_revoked':'token_expired'});
   const editing=request.method==='PATCH'||url.pathname.endsWith('/chat.update');
   const writing=request.method==='POST'||request.method==='PATCH',body=writing?await request.json<any>():Object.fromEntries(url.searchParams);
-  if(editing){const receipt=teams?decodeURIComponent(url.pathname.split('/').at(-1)!):body.ts;const message=messages.find(m=>m.token===token&&m.receipt===receipt);expect(message).toBeTruthy();message!.text=teams?body.body.content:body.text;return Response.json(teams?{}:{ok:true});}
+  if(editing){const receipt=teams?decodeURIComponent(url.pathname.split('/').at(-1)!):body.ts;const channel=teams?decodeURIComponent(url.pathname.split('/channels/')[1]!.split('/')[0]!):body.channel;const message=messages.find(m=>m.token===token&&m.receipt===receipt&&m.channel===channel);expect(message).toBeTruthy();message!.text=teams?body.body.content:body.text;return Response.json(teams?{}:{ok:true});}
   if(writing){
    const key=teams?request.headers.get('client-request-id')!:body.client_msg_id;
    expect(key).toMatch(/^[a-f0-9-]{36}$/);

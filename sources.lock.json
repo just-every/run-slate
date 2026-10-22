@@ -1208,7 +1208,7 @@
       "executable": false
     },
     "management/integration/deployment-spec.json": {
-      "sha256": "8d3f500d470055ef838a86f0087d274b7b12b8e6c36c950889514d021097acf9",
+      "sha256": "5041dc88bbccac81465238d26070719b130967ea77ff7afc6239d333837c527b",
       "executable": false
     },
     "management/integration/index.d.mts": {
@@ -1232,7 +1232,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "8cb3e648cebfac134488f5c1a543b5feb738f4ced1d5b263413be30c813ef4fb",
+      "sha256": "4785108eb7783712abca2e81e431c681260d9f33f38f81d2fd6e78483aa6dc9a",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -1420,7 +1420,7 @@
       "executable": false
     },
     "migrations/core/0046_chat_delivery_policy.sql": {
-      "sha256": "020541a5135580a17ba770557fb9e16d6f7d9a1ab6bb07563a8169aa9e469c26",
+      "sha256": "b23b6a31ed8d7f824a14f83cab27d1d1b35c12b0778531588c2636cccca663bf",
       "executable": false
     },
     "modules/d1-transport/index.d.mts": {
@@ -3836,7 +3836,7 @@
       "executable": false
     },
     "OPERATIONS.md": {
-      "sha256": "b1d1612c3de9a97cf65ef287f8875be9e008e3d7d8378e2c044ea96cc28981dc",
+      "sha256": "3298377927988cc34ad50e6dd580e0c139f7fd33057117eafe7a1c6c0a411f43",
       "executable": false
     },
     "package.json": {
@@ -6940,7 +6940,7 @@
       "executable": false
     },
     "src/core/features/notifications/chat-config.ts": {
-      "sha256": "e1f3279faa89a7d1b462d3d8d2f0ddc4eec8a05ecf1bdfe350308c12d82a7d37",
+      "sha256": "f02f7bddc6dcd583fd6205b151175aaa25ca52e83d8e4ae2d8c2d196bacf5949",
       "executable": false
     },
     "src/core/features/notifications/chat-consent.ts": {
@@ -6952,7 +6952,7 @@
       "executable": false
     },
     "src/core/features/notifications/chat-delivery.ts": {
-      "sha256": "e118b1cb243d75d2cfb72ee3df7c55274349f4369ff25c85e38482f35f30d5f5",
+      "sha256": "2d5ad5b27c39d0c19f171d198e44f3785aeb9a04ac0ab775b0fad8d1089df366",
       "executable": false
     },
     "src/core/features/notifications/chat-message.ts": {
@@ -6964,7 +6964,7 @@
       "executable": false
     },
     "src/core/features/notifications/chat-withdrawal.ts": {
-      "sha256": "f8e1c22c91ae34fe50ea5a47c6379a32b5b2abe809519b4a7fc14e2dc42cde7f",
+      "sha256": "972c8c1e5684e17271d8fc28e4cdb57f990551beef5b096097297045f4a36469",
       "executable": false
     },
     "src/core/features/notifications/commands.ts": {
@@ -9080,7 +9080,7 @@
       "executable": false
     },
     "tests/e2e/helpers/chat-network.ts": {
-      "sha256": "bb9f729a41856000025b6d660b9d29cd33d44df9956ce7645d8a3b325d4ef3ce",
+      "sha256": "2a5ae2109e17131e12f5f3572859c5c9b95d8d532d3c040110bf3c61f5d605be",
       "executable": false
     },
     "tests/e2e/helpers/local-mail-database.ts": {
@@ -9220,7 +9220,7 @@
       "executable": false
     },
     "tests/e2e/notifications/destinations.test.ts": {
-      "sha256": "da81fd8250519397a35d736592e3d95dc39f3c359216742ce32381e0d7b6478b",
+      "sha256": "e0f6bb4fab6b093429622461afcb25196e06384e6560e106717146506a88d6fd",
       "executable": false
     },
     "tests/e2e/outbox-auth.mjs": {

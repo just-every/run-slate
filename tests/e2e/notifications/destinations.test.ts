@@ -164,6 +164,8 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
   edge.audiences.delete(tokens[1]!);
   edge.teamsMembers.set(tokens[2]!,[{'@odata.type':'#microsoft.graph.aadUserConversationMember'}]);
   const beforeTeams=edge.messages.filter(m=>m.token===tokens[2]).length;await comment();await drain();expect(edge.messages.filter(m=>m.token===tokens[2])).toHaveLength(beforeTeams);edge.teamsMembers.delete(tokens[2]!);
+  const beforeChannelChange=await destination(first);
+  await api('PUT',`/api/notifications/chat/destinations/${first}`,{operationKey:key(),provider:'slack',channel:'GSLATE9',token:tokens[0],events,expectedRevisionId:beforeChannelChange.revisionId});
   const beforeDenied=edge.messages.length;
   await comment();await env.DB.prepare('UPDATE container_grants SET revoked_at=? WHERE container_id=? AND principal_id=?').bind(new Date().toISOString(),containerId,reader).run();
   await drain();expect(edge.messages).toHaveLength(beforeDenied);
@@ -256,6 +258,7 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
   await applyD1Migrations(prior,env.TEST_MIGRATIONS);
   expect(await prior.prepare('SELECT * FROM chat_connections WHERE id=?').bind(teams).first()).toEqual({...c7a,notifier_provider:null,delivery_mode:'immediate',retry_after:null});
   expect(await prior.prepare('SELECT provider_receipt FROM chat_messages WHERE id=?').bind(delivered.id).first('provider_receipt')).toBe(delivered.provider_receipt);
+  expect(await prior.prepare('SELECT destination FROM chat_messages WHERE id=?').bind(delivered.id).first('destination')).toBe('slack:'+JSON.parse(delivered.provider_receipt).channel);
   expect(await prior.prepare('SELECT * FROM chat_connections WHERE id=?').bind(first).first()).toEqual({...old,provider:'slack',container_id:null,notifier_provider:null,delivery_mode:'immediate',retry_after:null});
   expect(await prior.prepare('SELECT * FROM chat_deliveries WHERE id=?').bind(delivered.id).first()).toEqual({...delivered,message_id:delivered.id});
   const upgraded={...bindings,DB:prior};
