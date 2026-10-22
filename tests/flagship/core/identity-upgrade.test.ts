@@ -10,6 +10,7 @@ import { readRuntimeConfig } from '../../../src/core/platform/config/runtime';
 import { captureMail } from '../../e2e/helpers/mail-edge';
 import { priorIdentityFixture } from './identity-prior-fixture';
 import { providerEdge } from './identity-provider-fixture';
+import { ownerSigninDigest } from '../../../modules/operator-auth/owner-signin-grant.mjs';
 
 type Fixture = Awaited<ReturnType<typeof priorIdentityFixture>>;
 const project = (rows: unknown[], like: unknown[]) => {
@@ -175,14 +176,49 @@ contract('ADMIN-001', 'signed SP and IdP SAML, DNS-gated invited or allow-listed
     const oidcBindings={...bindings,SSO_ENABLED:'true',RER_DEV_KEY:'test-only-oidc-key'.padEnd(43,'k'),IDENTITY_ISSUER_URL:oidcIssuer,IDENTITY_CLIENT_ID:'saml-neighbour',IDENTITY_CLIENT_SECRET:'test-only-neighbour-secret',IDENTITY_AUTHORIZATION_ENDPOINT:oidcIssuer+'/authorize',IDENTITY_TOKEN_ENDPOINT:oidcIssuer+'/token',IDENTITY_JWKS_URI:oidcIssuer+'/keys',IDENTITY_TRANSACTION_SECRET:'test-only-neighbour-transaction-secret32+'};
     const oidcFixture={api,origin,bindings:oidcBindings} as Fixture;
     const oidc=await providerEdge(oidcFixture);let oidcCookie:string;
-    try{const callback=await (await oidc.signIn({subject:'saml-neighbour-member',email:'saml-member@example.org'})).complete();expect(callback.status).toBe(303);oidcCookie=cookieOf(callback);}finally{oidc.restore();}
+    let designatedOwnerOidcCookie:string;
+    try{
+      const callback=await (await oidc.signIn({subject:'saml-neighbour-member',email:'saml-member@example.org'})).complete();expect(callback.status).toBe(303);oidcCookie=cookieOf(callback);
+      const ownerCallback=await (await oidc.signIn({subject:'synthetic-slate-701',email:'saml-owner@example.org'})).complete();
+      expect(ownerCallback.status).toBe(303);designatedOwnerOidcCookie=cookieOf(ownerCallback);
+    }finally{oidc.restore();}
     expect((await api.request(origin+'/api/session',{headers:{host:new URL(origin).host,cookie:oidcCookie!}},oidcBindings)).status).toBe(200);
+    expect((await api.request(origin+'/api/session',{headers:{host:new URL(origin).host,cookie:designatedOwnerOidcCookie!}},oidcBindings)).status).toBe(200);
+    const previewBindings={...bindings,RER_PREVIEW_OWNER_SIGNIN:'/auth/owner-signin'};
+    const previewGrant=async()=>{
+      const token=createOpaqueToken(),now=Date.now();
+      await db.prepare('INSERT INTO oa_owner_signins(id,token_hash,operator_id,operator_version,created_at,expires_at) SELECT ?,?,m.id,COALESCE((SELECT version FROM member_authority WHERE member_id=m.id),1),?,? FROM members m WHERE m.id=?')
+        .bind(crypto.randomUUID(),await ownerSigninDigest(token),now,now+900_000,owner.memberId).run();
+      return token;
+    };
+    const confirmPreview=(token:string)=>api.request(origin+'/auth/owner-signin',{method:'POST',headers:{host:new URL(origin).host,origin,'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({token})},previewBindings);
+    const previewBefore=await confirmPreview(await previewGrant());expect(previewBefore.status).toBe(303);expect(previewBefore.headers.getSetCookie().some(value=>value.startsWith('slate_session='))).toBe(true);
     const nativeInviteResponse=await call('/api/invitations','POST',{operationKey:'saml-native-invite-'+crypto.randomUUID(),email:'saml-native-invite@example.org',kind:'member'},staleOwner);
     expect(nativeInviteResponse.status).toBe(200);const nativeInvitation=mail.latestLink('saml-native-invite@example.org');
     expect((await call('/api/auth/saml','PUT',{...settings,certificate:undefined,enforced:true},staleOwner)).status).toBe(200);
     expect((await api.request(origin+'/api/session',{headers:{host:new URL(origin).host,cookie:oidcCookie!}},oidcBindings)).status).toBe(401);
+    expect.soft((await api.request(origin+'/api/session',{headers:{host:new URL(origin).host,cookie:designatedOwnerOidcCookie!}},oidcBindings)).status,'The designated owner exception applies to mailbox sign-in, not an existing OIDC session').toBe(401);
     const enforcedOidc=await providerEdge(oidcFixture);
     try{const callback=await (await enforcedOidc.signIn({subject:'saml-neighbour-owner',email:'saml-other-owner@example.org'})).complete();expect(callback.status).toBe(400);expect(callback.headers.getSetCookie().some(value=>value.startsWith('slate_session='))).toBe(false);expect(await db.prepare('SELECT member_id FROM member_identity_bindings WHERE issuer=? AND subject=?').bind(oidcIssuer,'saml-neighbour-owner').first()).toBeNull();}finally{enforcedOidc.restore();}
+    const enforcedMemberOidc=await providerEdge(oidcFixture);
+    try{
+      for(const identity of [
+        {subject:'synthetic-slate-703',email:'saml-member@example.org'},
+        {subject:'synthetic-slate-701',email:'saml-owner@example.org'},
+        {subject:'synthetic-slate-702',email:'saml-owner@example.org'},
+      ]){
+        const sessionsBefore=(await db.prepare("SELECT count(*) AS n FROM sessions WHERE kind='oidc'").first<{n:number}>())!.n;
+        const callback=await (await enforcedMemberOidc.signIn(identity)).complete();
+        expect.soft(callback.status,identity.email+' must use SAML even when OIDC verifies its mailbox').toBe(400);
+        expect.soft(callback.headers.getSetCookie().some(value=>value.startsWith('slate_session='))).toBe(false);
+        expect.soft((await db.prepare("SELECT count(*) AS n FROM sessions WHERE kind='oidc'").first<{n:number}>())!.n).toBe(sessionsBefore);
+        if(identity.subject!=='synthetic-slate-701')expect.soft(await db.prepare('SELECT member_id FROM member_identity_bindings WHERE issuer=? AND subject=?').bind(oidcIssuer,identity.subject).first()).toBeNull();
+      }
+    }finally{enforcedMemberOidc.restore();}
+    const heldPreviewGrant=await previewGrant(),previewAfter=await confirmPreview(heldPreviewGrant);
+    expect.soft(previewAfter.headers.getSetCookie().some(value=>value.startsWith('slate_session=')),'A Managed preview grant is not the designated owner mailbox break-glass').toBe(false);
+    expect.soft(previewAfter.headers.get('location')).toContain('/signin');
+    expect.soft((await db.prepare('SELECT consumed_at FROM oa_owner_signins WHERE token_hash=?').bind(await ownerSigninDigest(heldPreviewGrant)).first<{consumed_at:number|null}>())?.consumed_at).toBeNull();
     expect((await call('/api/session','GET',undefined,memberCookie)).status).toBe(401);
     expect((await call('/api/session','GET',undefined,otherCookie)).status).toBe(401);
     expect((await call('/api/session','GET',undefined,guestCookie)).status).toBe(200);

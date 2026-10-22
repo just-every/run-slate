@@ -8,6 +8,7 @@ import type { AppBindings } from '../../app/types';
 import type { RuntimeConfig } from '../../platform/config/runtime';
 import { slateSessions } from './auth';
 import { TENANT, version } from './native/store';
+import { nativeSamlPolicy } from './saml/policy';
 
 export { OWNER_SIGNIN_PATH };
 
@@ -67,7 +68,9 @@ export async function previewOwnerSignIn(request: Request, env: AppBindings, con
   if (!person) return invalid();
   // One transaction: the grant is still live for this owner, is consumed, and
   // the session is issued; a reused, expired or raced grant issues nothing.
+  // A deployment grant is not the mailbox break-glass proof SAML permits.
   const completed = await store.issue({ person, kind: 'native', now, returnTo: '/app', freshProof: true, statements: [
+    mutationGuard(db, `SELECT ${nativeSamlPolicy('m', false)} FROM members m WHERE m.id=?`, [person.id]),
     mutationGuard(db, `SELECT EXISTS(SELECT 1 FROM oa_owner_signins g JOIN members m ON m.id=g.operator_id WHERE ${LIVE} AND m.id=?)`, [...args, person.id]),
     db.prepare('UPDATE oa_owner_signins SET consumed_at=? WHERE token_hash=? AND consumed_at IS NULL').bind(now, args[0]),
   ] });

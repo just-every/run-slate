@@ -114,7 +114,7 @@ export function sessionStore(db: D1Database, input: { secret: string; secure: bo
         await db.batch([
           ...statements,
           guard(db, personFence(person)),
-          ...(!saml ? [mutationGuard(db, `SELECT ${nativeSamlPolicy('m')} FROM members m WHERE m.id=?`, [person.id])] : []),
+          ...(!saml ? [mutationGuard(db, `SELECT ${nativeSamlPolicy('m', kind === 'native')} FROM members m WHERE m.id=?`, [person.id])] : []),
           ...(saml ? [mutationGuard(db, `SELECT enabled=1 AND generation=? FROM saml_provider_config WHERE workspace_id=${TENANT}`, [saml.generation])] : []),
           db.prepare(`INSERT INTO sessions (id,member_id,token_digest,created_at,updated_at,expires_at,kind,authority_version,issuer,subject,sid,provider_id,provider_linked_at,provider_generation,proof_at,proof_version,auth_protocol,saml_generation)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).bind(id, person.id, await sessionDigest(secret, token), createdAt, createdAt, expiresAt, kind, person.version,
