@@ -79,8 +79,9 @@ export async function samlJourney(state) {
       await auth.waitForURL(url => url.origin === origin && url.pathname === '/app');
       const current = await session();
       assert.equal(current.status(), 200);
-      assert.equal((await current.json()).member.email, email);
-      await expect(auth.getByTestId('member-email')).toHaveText(email);
+      const identity = (await current.json()).member;
+      assert.equal(identity.email, email);
+      await expect(auth.getByTestId('member-name')).toHaveText(identity.displayName);
     } else await noSession(label);
     await shot(auth, label);
   };
