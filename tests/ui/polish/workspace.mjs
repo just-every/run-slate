@@ -110,7 +110,7 @@ async function settingsTab(page, tabs, name, width) {
 export async function settingsJourney({ page, origin }, width) {
   await page.goto(origin + '/app/settings?section=appearance', { waitUntil: 'domcontentloaded' });
   const tabs = page.getByRole('navigation', { name: 'Settings sections', exact: true });
-  const names = ['Workspace', 'People', 'Appearance', 'Preferences', 'Activity', 'Automations', 'Statuses', 'Spaces', 'Chat notifications', 'Connections', 'Import & export'];
+  const names = ['Workspace', 'People', 'SAML single sign-on', 'Appearance', 'Preferences', 'Activity', 'Automations', 'Statuses', 'Spaces', 'Chat notifications', 'Connections', 'Import & export'];
   await expect(tabs.getByRole('link')).toHaveCount(names.length);
   const appearance = tabs.getByRole('link', { name: 'Appearance', exact: true });
   await expect(appearance).toHaveAttribute('aria-current', 'page');
