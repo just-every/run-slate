@@ -6268,7 +6268,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/FileCardBlock.tsx": {
-      "sha256": "af271605724e63ec6925b57087a81b3597c432d36f8626503e3a469acf1b5390",
+      "sha256": "41104419664b2f219508dbf917a1517b322cc03e3e81d4c78251a994f95382a7",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/HeadingBlock.tsx": {
@@ -6348,7 +6348,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TaskPageContext.tsx": {
-      "sha256": "8118c8591c3f42452312ebe966be7f7961b7f52ea4cb468fe1ddcf0fefffc476",
+      "sha256": "9b3076668413aca66e68b5563ac14b6f641afc764992d745cbda77d73789b88a",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TaskReportBlock.tsx": {
@@ -7784,7 +7784,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/ConnectedFilePicker.tsx": {
-      "sha256": "1bce82de7b7c9be92b6badad548d0640a2f959e5576c176ca1a4d730447a0f1f",
+      "sha256": "d969f55316afcf30378b41d4059d9274c2963b4a1415719563cebdd95d56fcaf",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/ContentQueryDialog.tsx": {
@@ -7828,7 +7828,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageEditorBody.tsx": {
-      "sha256": "a2961f179bb50d6be70fdf4abff8f233401a953de51634597de5bf329c51c204",
+      "sha256": "f069355430d85c1f1734674de77aa10d7e03b479ac6a3d629bfdecf041e82978",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
