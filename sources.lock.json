@@ -940,7 +940,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "c7abbe0904c33e7f8cd41767c2806ec360fc49b467c410b6b725ecb0777180aa",
+      "sha256": "8cf1b918179a613f78bac2af3660ded4305100b49ed3fbc7d1a9efcea40af7b6",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -968,7 +968,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "755d1f754245f88bd2b0b4a398d34e95a12c5dbd1a74fc7b5afe005f258fb6ce",
+      "sha256": "7551baf61f7005ea042c5b5430fd16cb35d39d3c6b0411ab01467aa80a5e5232",
       "executable": false
     },
     "DEMO.md": {
@@ -1012,7 +1012,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "dcad5f7d7691b5fe955f059c0e488283153aa9d20b4d5a33878cbc113fe14906",
+      "sha256": "3ce191c5be663f3d81eeaec8b4f5bbeb6eb3754b67bda6dcf785de3feeda2eaf",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -1237,6 +1237,134 @@
     },
     "evidence/provider-folders/folders-390-sharepoint-preview-private-access.png": {
       "sha256": "19f6cf320e1bef2dbac1a484c69f4c3fd6d7fe07b62685a82384b8c5dec85f68",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-configured-pending-domain.png": {
+      "sha256": "671b7b7f93f9c488d69d79b507660a02832242e505ce6636f1bc904d56af099b",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-designated-owner-break-glass.png": {
+      "sha256": "881c13589be5e5bea4b68031ddc7d67bb6be31ebb4a7a327f44cf40a18b92b1a",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-domain-verified.png": {
+      "sha256": "aaab448977827bcae7f88b08fb22dfd2b1afcafcbb348205ab00ef4ad36115e4",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-enforced-member-sso.png": {
+      "sha256": "8c2f6e2a1371027f6556ccd1201a33169f6fd5e1612a3f0935a0bd46fdf1d1c7",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-guest-email-sign-in.png": {
+      "sha256": "b5cfa848dbf2dfedaa5d578a8e57752ad99524cddcf990f017d8b20096d37b2e",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-identity-provider-settings.png": {
+      "sha256": "59cf2e6ee525f883fa097c36e2c019595ea2e81b378fc4f58033e4bc53cc2262",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-idp-initiated-member.png": {
+      "sha256": "a952a24eaca4edecf9bbe53544a0f4f5c486c1e1d0d114b5ea82ea0f748eb98f",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-member-email-refused.png": {
+      "sha256": "2f86497edb31672fe8f9b229fa6f6cc21bfe2044efd7f4c182be49f0f6b07158",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-other-owner-email-refused.png": {
+      "sha256": "2f86497edb31672fe8f9b229fa6f6cc21bfe2044efd7f4c182be49f0f6b07158",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-saml-required.png": {
+      "sha256": "85c6c0b38f878070bf3ee2e1e0fedffcdf7fcc26defeabd75fc8d8b220353a36",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-sign-in-methods.png": {
+      "sha256": "63db1f7e3a1df38733992d9d8ee60802942c5133c68a7c56b170ba62a68ade22",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-sp-initiated-member.png": {
+      "sha256": "a952a24eaca4edecf9bbe53544a0f4f5c486c1e1d0d114b5ea82ea0f748eb98f",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-unsigned-refused.png": {
+      "sha256": "1de6a61f40183e8554decb847f06789ed7c1eb535e65d714a2c5e23b664c6054",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-unverified-domain-refused.png": {
+      "sha256": "43dcbc429259a0c71b8a630f9977f476ac2a68ffaacd84fa0a683113345687f5",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-wrong-audience-refused.png": {
+      "sha256": "1de6a61f40183e8554decb847f06789ed7c1eb535e65d714a2c5e23b664c6054",
+      "executable": false
+    },
+    "evidence/saml/saml-1440-wrong-signature-refused.png": {
+      "sha256": "1de6a61f40183e8554decb847f06789ed7c1eb535e65d714a2c5e23b664c6054",
+      "executable": false
+    },
+    "evidence/saml/saml-390-configured-pending-domain.png": {
+      "sha256": "b139b8a8ec010c4ef4c4f9ae756572d103d518be26cca64d3255633c99e0177a",
+      "executable": false
+    },
+    "evidence/saml/saml-390-designated-owner-break-glass.png": {
+      "sha256": "e505e27bcf3428ed3461b04ea5c27bb264d5bd9c2058721542d644539b175d2e",
+      "executable": false
+    },
+    "evidence/saml/saml-390-domain-verified.png": {
+      "sha256": "e28ad6cba5507260a8d3b07d964608eb1e351ec58c79346ab23904654323b2d1",
+      "executable": false
+    },
+    "evidence/saml/saml-390-enforced-member-sso.png": {
+      "sha256": "d5759a77981a84aff489fc2c02c66ad2bc0090c43f57fa8687fb575afe8b36bc",
+      "executable": false
+    },
+    "evidence/saml/saml-390-guest-email-sign-in.png": {
+      "sha256": "5de79331b2f0655d9eb7f23b9f9ed413f06436bd41e385bb9f321be4db83050b",
+      "executable": false
+    },
+    "evidence/saml/saml-390-identity-provider-settings.png": {
+      "sha256": "4286202cc8f407da7740a8fe42fc6e2d4bd792becaaf1b33d41fbc239322beed",
+      "executable": false
+    },
+    "evidence/saml/saml-390-idp-initiated-member.png": {
+      "sha256": "d5759a77981a84aff489fc2c02c66ad2bc0090c43f57fa8687fb575afe8b36bc",
+      "executable": false
+    },
+    "evidence/saml/saml-390-member-email-refused.png": {
+      "sha256": "82aa4dac034682eb943b452ce4a43bc522c7bb25c32f73e0d36e0b8021447b02",
+      "executable": false
+    },
+    "evidence/saml/saml-390-other-owner-email-refused.png": {
+      "sha256": "82aa4dac034682eb943b452ce4a43bc522c7bb25c32f73e0d36e0b8021447b02",
+      "executable": false
+    },
+    "evidence/saml/saml-390-saml-required.png": {
+      "sha256": "61d2d21edbb9a0db6417a1b1799e90ff19c20981672f62c6fb8e9d483610c8f2",
+      "executable": false
+    },
+    "evidence/saml/saml-390-sign-in-methods.png": {
+      "sha256": "1e3a42591c33c7e668d4ab7cb7a02f618ef5b3704471dd53a02518b229504ab5",
+      "executable": false
+    },
+    "evidence/saml/saml-390-sp-initiated-member.png": {
+      "sha256": "d5759a77981a84aff489fc2c02c66ad2bc0090c43f57fa8687fb575afe8b36bc",
+      "executable": false
+    },
+    "evidence/saml/saml-390-unsigned-refused.png": {
+      "sha256": "584cfc4587f108871853c6003cdeac47730330094bf85de1f94ba4e13cd442c8",
+      "executable": false
+    },
+    "evidence/saml/saml-390-unverified-domain-refused.png": {
+      "sha256": "1636bbf096c1571bb2627492d5dc59b2965ac0929116272e5fcdf29b950b6b8b",
+      "executable": false
+    },
+    "evidence/saml/saml-390-wrong-audience-refused.png": {
+      "sha256": "584cfc4587f108871853c6003cdeac47730330094bf85de1f94ba4e13cd442c8",
+      "executable": false
+    },
+    "evidence/saml/saml-390-wrong-signature-refused.png": {
+      "sha256": "584cfc4587f108871853c6003cdeac47730330094bf85de1f94ba4e13cd442c8",
       "executable": false
     },
     "evidence/scheduled-backups/backups-1440-connection-passed.png": {
@@ -8320,7 +8448,7 @@
       "executable": false
     },
     "src/core/features/session/ui/SignInPage.tsx": {
-      "sha256": "b8caf337b7aec74c1fd5868cf48cf135bd0803618f8be770d1795e84e87604dd",
+      "sha256": "8cac14da9d32fe679c7b49b6ddf37557d4fd666f3fe2611d221fba79c514c0cb",
       "executable": false
     },
     "src/core/features/session/ui/SignInScreen.tsx": {
@@ -10312,7 +10440,7 @@
       "executable": false
     },
     "tests/helpers/saml-edge.mjs": {
-      "sha256": "c2de9a8e31cf0d6c250bd2b69280c7d27f3040e8f70ebccbc3cd15a351f7caf7",
+      "sha256": "7b45076b50ce8efabc64ea767a19a4795b36fca1d95d7d5ac86110cb0059232d",
       "executable": false
     },
     "tests/helpers/slack-edge.mjs": {
@@ -11328,7 +11456,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/browser-support.mjs": {
-      "sha256": "b89a591a6b5ff1cc1c4011743fe421110b09dc95d5e76ed84023e44cf3c226a2",
+      "sha256": "6e5c931eb3f830122b029a69ee09d091b6c602029ece9344aca6c48344bafec7",
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
@@ -11544,7 +11672,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/saml-journey.mjs": {
-      "sha256": "d667fd7b32d57b5ede38429210cf285c66feba6a5afd9dede700bc505a97c0a8",
+      "sha256": "e52baa1877910c650770b30c3e4bbfe7e22bdd70668c1efee46229e4e66778a5",
       "executable": false
     },
     "tests/qualification/ui-convergence/shared-navigation-journey.mjs": {
