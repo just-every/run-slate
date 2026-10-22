@@ -5,8 +5,10 @@ export type AppBindings = RuntimeBindings & Omit<SlateWorkerBindings, keyof Runt
   /** Base deploy-kit's deployment identity, which `/health` reports back. */
   RER_DEPLOY_SOURCE?: string;
   RER_DEPLOY_FINGERPRINT?: string;
-  /** NOOK-080 capability binding; unavailable until the provider supplies its door. */
+  /** Optional in-process NOOK-080 capability binding. */
   NOOK_NOTIFIER?: import("../features/notifications/nook").NookNotificationDoor;
+  /** Origin of the owner-deployed Nook NOOK-080 HTTP door. */
+  NOOK_NOTIFICATION_ORIGIN?: string;
   RER_VERSION?: WorkerVersionMetadata;
 };
 

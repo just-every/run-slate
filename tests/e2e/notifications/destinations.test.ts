@@ -1,3 +1,4 @@
+import {landedNookHttpJourney} from './nook-http-journey';
 import {env,applyD1Migrations,createExecutionContext,waitOnExecutionContext} from 'cloudflare:test';
 import {beforeEach,expect,vi} from 'vitest';
 import {contract} from '../contract';
@@ -443,4 +444,5 @@ contract('CHAT-001','Nook channel changes are refused before custody changes whi
   expect(h.edge.messages.filter(m=>m.provider==='slack'&&m.text.includes('synthetic-slate-independent'))).toHaveLength(1);
   expect(h.nookCalls.every(c=>c.allowed)).toBe(true);
  }finally{h.edge.restore();}
+ await landedNookHttpJourney(await repairJourney());
 });

@@ -1,7 +1,6 @@
 import {ChatProviderError,retryAfter,type ChatNotifier} from './slack';
 
-/** Capability boundary required from NOOK-080. This is not a claimed Nook HTTP API.
- * The deployment supplies its channel-scoped door when NOOK-080 ships. */
+/** Normalized notification capability, including the landed NOOK-080 HTTP adapter. */
 export interface NookAudienceFacts {
  channel:string;private:boolean;shared:boolean;archived:boolean;revoked:boolean;
  rosterComplete:boolean;membershipManagedByMembers:boolean;appId:string;
@@ -19,7 +18,7 @@ export function nookNotifier(door?:NookNotificationDoor):ChatNotifier {
  async function call<T>(request:()=>Promise<Response>,writing=false):Promise<T>{
   let response:Response;try{response=await request();}catch(error){if(error instanceof ChatProviderError)throw error;throw new ChatProviderError('transport_failure',!writing,writing);}
   if(response.status===429)throw new ChatProviderError('rate_limited',true,false,false,retryAfter(response));
-  if(response.status===401||response.status===403)throw new ChatProviderError('authorization_revoked',false,false,true);
+  if(response.status===401||response.status===403||response.status===404)throw new ChatProviderError('authorization_revoked',false,false,true);
   if(response.status>=500)throw new ChatProviderError('provider_unavailable',!writing,writing);
   if(!response.ok)throw new ChatProviderError(`provider_http_${response.status}`);
   if(response.status===204)return undefined as T;
