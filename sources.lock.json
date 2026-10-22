@@ -968,7 +968,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "4813ec7b52735436c90dbf657273e7591b44c9f57787b81058c0dfc34e17ff21",
+      "sha256": "2fe1dd80f16761bb6a0efbc747164a871750c7b1cfc2521c99199ca2c07cdba8",
       "executable": false
     },
     "DEMO.md": {
@@ -1008,11 +1008,11 @@
       "executable": false
     },
     "docs/CHAT-NOTIFICATIONS.md": {
-      "sha256": "bed77e2aa54485bf3f02c86a25df1ffa206ad81cf2db14cf9a14a917daf95744",
+      "sha256": "e23b02447fd80d741347f01dea84fd5f8b37aadb871e8f95b836b1008cf57210",
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "981e65f89d59a227fa427942990253fac41185cb49434f1534221e048e5c0eb1",
+      "sha256": "7e97cd02af7bc94d184bb03583af4bc93183e5449def36e52026e91dd2b3e0a8",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
