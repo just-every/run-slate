@@ -302,7 +302,7 @@ async function repairJourney() {
  await seedContainerGrant(open,{principalKind:'member',principalId:reader,level:'edit'});
  const cookie=await sessionFor(owner,{freshProof:true}),origin='https://slate.test';
  const tokens=['synthetic-slate-201','synthetic-slate-202','synthetic-slate-203','synthetic-slate-204','synthetic-slate-205'];
- const edge=chatNetwork(tokens,readerEmail),bindings:AppBindings={...env,APP_URL:origin,CONNECTOR_CREDENTIALS_KEY:key()};
+ const edge=chatNetwork(tokens,readerEmail),bindings:AppBindings={...env,SLATE_PROFILE:undefined,APP_URL:origin,CONNECTOR_CREDENTIALS_KEY:key()};
  const channels=['GSLATE1','synthetic-slate-team/synthetic-slate-channel','synthetic-slate-channel1'];
  const nookScopes=new Map([[tokens[2]!,channels[2]!],[tokens[3]!,'synthetic-slate-channel3'],[tokens[4]!,channels[2]!]]);
  const nookCalls:{channel:string;allowed:boolean;operation:string}[]=[];
