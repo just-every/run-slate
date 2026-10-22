@@ -82,7 +82,7 @@ export function FolderImports() {
             <fieldset disabled={!!pending} style={{ minWidth: 0, padding: 0, border: 0 }}>
               <legend>Choose a source folder</legend>
               <label>Connected account<select name="connection" aria-label="Connected account" required>{usable.map(connection => <option key={connection.id} value={connection.id}>{folderProviders[connection.provider]} · {connection.label}{connection.driveId ? ` · ${connection.driveId}` : ''}</option>)}</select></label>
-              <label>Folder ID<input name="folderId" required spellCheck={false} maxLength={200} /><small>Use the folder ID from Google Drive, SharePoint or OneDrive.</small></label>
+              <label>Folder ID<input aria-label="Folder ID" name="folderId" required spellCheck={false} maxLength={200} /><small>Use the folder ID from Google Drive, SharePoint or OneDrive.</small></label>
               <label>Import below<select name="destination" aria-label="Import below" required defaultValue=""><option value="" disabled>Choose a destination page</option>{destinations.data.items.map(item => <option key={item.id} value={item.id}>{item.title}</option>)}</select></label>
               <p className="muted">The destination must be a page you can edit. New pages remain private to you.</p>
               <button type="submit" className="secondary-button">Preview folder</button>

@@ -46,7 +46,7 @@ export function FolderProviderSettings({ owner, policies, connections, disabled,
           </select></label>
           <label>Delegated access token<input name="token" type="password" autoComplete="new-password" spellCheck={false} required aria-describedby={credentialHelp} /></label>
           <p id={credentialHelp} className="muted">Use a delegated token for the provider account matching your Slate email. The credential field clears when you submit. Imported files cannot exceed this account’s access.</p>
-          {(available.includes(provider) ? provider : available[0]) === 'sharepoint' ? <label>Drive ID<input name="driveId" required spellCheck={false} /><small>The SharePoint document library or OneDrive drive containing your folder.</small></label> : null}
+          {(available.includes(provider) ? provider : available[0]) === 'sharepoint' ? <label>Drive ID<input aria-label="Drive ID" name="driveId" required spellCheck={false} /><small>The SharePoint document library or OneDrive drive containing your folder.</small></label> : null}
           <button type="submit" className="secondary-button">Connect account</button>
         </fieldset>
       </form>

@@ -55,6 +55,7 @@
     "migrations/core/0044_verification_rules.sql": "sha256:99aaa096863958a80f93d12e78dbadd039feb2d1de570335a5f4155bedcbdde0",
     "migrations/core/0045_chat_destinations.sql": "sha256:c750d83e09d532cd2edb121b312ec3b8c81b92abaa774457407e73044cf00946",
     "migrations/core/0046_chat_delivery_policy.sql": "sha256:b23b6a31ed8d7f824a14f83cab27d1d1b35c12b0778531588c2636cccca663bf",
-    "migrations/core/0047_scheduled_backups.sql": "sha256:3e35571a055d1d92a7a1a22c4ceb6fe47d33ae746c3f2334e216cd2d44200d4d"
+    "migrations/core/0047_scheduled_backups.sql": "sha256:3e35571a055d1d92a7a1a22c4ceb6fe47d33ae746c3f2334e216cd2d44200d4d",
+    "migrations/core/0048_provider_folder_imports.sql": "sha256:39c7a4ae5736752663deb223063c6799d7c72bb52c4edf79a7eedb1d45e80982"
   }
 }

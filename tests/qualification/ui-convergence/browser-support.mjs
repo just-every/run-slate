@@ -94,10 +94,12 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       await context.addCookies([{ name: 'slate_session', value: identity === 'reader' ? readerToken : token, url: runtime.baseUrl }]);
     };
     const records = async () => {
-      // The emitted Worker and Wrangler CLI must not own persisted SQLite together.
-      // These explicit read-only checkpoints interrupt the Worker after UI requests finish.
+      // Unmount the page before the deliberate Worker restart so background
+      // presence/session requests cannot race the fixture's stopped listener.
       await page.waitForLoadState('networkidle');
       await Promise.all([...captures]);
+      const checkpointUrl = page.url();
+      await page.goto('about:blank');
       await stop(runtime.child);
       runtime = undefined;
       let result, failure;
@@ -112,6 +114,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
         failure = failure ? new AggregateError([failure, cause], 'Persisted count checkpoint and Worker restart failed') : cause;
       }
       if (failure) throw failure;
+      await page.goto(checkpointUrl, { waitUntil: 'networkidle' });
       return result.results[0];
     };
     /** Stored clock state (a past reminder) written with the Worker stopped, as records() reads. */

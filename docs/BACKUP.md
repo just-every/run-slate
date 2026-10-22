@@ -104,4 +104,4 @@ Each destination shows its last success and current safe failure. Each failed ru
 
 **Run restore drill** verifies the latest stored backup and shows a report, download and instructions. That report confirms archive validation; it does not claim a restore has run. Start a separate empty Slate deployment, sign in as its setup owner using an archived full member's email, restore the downloaded ZIP from Import & export, then sign in again and open the restored pages and their internal links. The source workspace must never be used as the restore target. Re-enter provider credentials after restoration.
 
-Cloudflare R2 and other S3-compatible live-bucket acceptance has not been run for this build. [Chest](https://github.com/just-every/run-chest) can join the same destination contract when it publishes an intake; it is not currently selectable.
+Cloudflare R2 and other S3-compatible live-bucket acceptance has not been run for this build. Chest can join the same destination contract when it publishes an intake; it is not currently selectable.
