@@ -1,3 +1,4 @@
+import {createProviderFolderRoutes} from './provider-folders/routes';
 import {startStreamImport} from './upload-stream';
 import {readReportSection,retainedImportReport} from './report-store';
 import {mappingCandidates} from './principal-mapping';
@@ -25,6 +26,7 @@ const mappings=z.array(z.object({sourceId:z.string().min(1),kind:z.enum(['member
 export function createImportRoutes(){
  registerActivityResolver('import',async(ctx,id)=>{try{await readImport(ctx,id);return true;}catch{return false;}});
  const r=new Hono<AppEnvironment>();
+ r.route('/provider-folders',createProviderFolderRoutes());
  r.post('/stream',async c=>{
   let metadata:unknown;try{metadata=JSON.parse(decodeURIComponent(c.req.header('X-Import-Metadata')??''));}catch{throw new ApiProblem(400,'IMPORT_METADATA_INVALID','The upload metadata is invalid.');}
   const input=z.object({operationKey:z.string().min(1),format:formats,name:z.string().min(1).max(1024),mediaType:z.string().optional(),sizeBytes:z.number().int().nonnegative(),destination:z.object({pageId:z.string(),expectedRevisionId:z.string(),mode:z.enum(['append','children'])}).optional()}).parse(metadata);

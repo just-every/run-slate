@@ -1,3 +1,5 @@
+import {providerFolderJourney} from './provider-folder-journey';
+import {contract} from '../contract';
 import { beforeAll, expect, test } from "vitest";
 import { env } from "cloudflare:test";
 import { readZipArchive } from "../../../src/core/features/imports/archive";
@@ -304,7 +306,7 @@ test("the real Confluence Cloud space export becomes pages, versions, restrictio
   expect(parsed.report.unmapped.filter((entry) => entry.label === "Confluence placeholder text dropped").map((entry) => entry.detail).sort()).toEqual(["Insert your LinkedIn URL here", "Insert your Medium profile here", "Insert your Twitter handle here", "Insert your email here"]);
 });
 
-test("the real Google Docs .docx download imports as paragraphs, and the package proves its producer", () => {
+test("the real Google Docs .docx download imports as paragraphs, and the package proves its producer", async () => {
   const files = readZipArchive(fixture("google-docs-download.docx"));
   const paths = [...files.keys()].sort();
   const text = (path: string) => new TextDecoder().decode(files.get(path)!);
@@ -340,3 +342,5 @@ test("the real Google Docs .docx download imports as paragraphs, and the package
   expect(parsed.media.length).toBe(0);
   expect(parsed.report.unmapped).toEqual([]);
 });
+
+contract('IMP-009','Member folder imports preserve a nested twelve-document tree, resolving links and actor-only access with a per-file omission report',providerFolderJourney);

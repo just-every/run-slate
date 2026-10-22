@@ -1,6 +1,6 @@
 # Moving in
 
-Slate reads the files you export from Notion, Confluence and Google Docs, and ordinary Word, Markdown, HTML, text, CSV, PDF and EPUB files. It never connects to those services: everything it needs comes from the file you give it. Keep your current wiki running while you check the result.
+Slate reads the files you export from Notion, Confluence and Google Docs, and ordinary Word, Markdown, HTML, text, CSV, PDF and EPUB files. File imports use only the file you give them. You can also connect your own Google Drive or SharePoint account to preview and import a folder. Keep your current wiki running while you check the result.
 
 ## Before you import
 
@@ -24,7 +24,7 @@ Open **Settings**, then **Import & export**. The **Format** list offers these:
 | HTML | An `.html` file | One container with one page. Unsafe elements are removed and reported. |
 | Plain text | A `.txt` file | One page, with a paragraph for each run of text between blank lines. |
 | CSV | A `.csv` file whose first row names the columns | One container with a database in it, and one record for each row. |
-| PDF | A `.pdf` file | One page of text. Slate reads the text in the PDF and reports anything about the layout that it could not carry over. |
+| PDF | A `.pdf` file | One page with supported tagged headings, tables, images and links. Slate reports unsupported PDF structure. |
 | EPUB | An `.epub` file | One container named after the book, with a page for each chapter, in reading order. |
 
 A document import names the container and page after the file, minus its extension.
@@ -60,7 +60,7 @@ For the step-by-step moves, see [Move from Notion](MOVE-FROM-NOTION.md) and [Mov
 - **New containers start private.** You own them, and other people can open them only once you share them, apart from any named access the export carried over.
 - **Imported pages are live inside Slate**, except that a draft in the source stays a draft. None of them is published to the web. A member has to publish a page before anyone outside can see it.
 - **People in an export do not get accounts.** Users and groups named in a Confluence export become inactive historical members and groups, so their restrictions are kept. Nobody can sign in as them until you invite a real person.
-- **Safe by design.** Slate cleans imported markup and files the same way it cleans anything you paste, and it fetches nothing from the network. A link to a file that is not in the archive stays a link, and is listed under **What did not cross**.
+- **Safe by design.** Slate cleans imported markup and files the same way it cleans anything you paste, and a file import fetches nothing from the network. Folder imports read only through your connected provider account. A link to a file that is not in the archive stays a link, and is listed under **What did not cross**.
 - **Search is ready when the import is.** An import is not Completed until the imported pages can be found by search.
 
 ## A tidy way to move
@@ -71,3 +71,13 @@ For the step-by-step moves, see [Move from Notion](MOVE-FROM-NOTION.md) and [Mov
 4. Invite your team when you are happy, as in [Install and deploy](INSTALL.md).
 
 Going the other way, you can export one page, a page with its children or a whole container as Markdown, HTML or PDF from the **Export page** and **Export space** actions. To keep a copy of everything, see [Backup and restore](BACKUP.md).
+
+## Import a provider folder
+
+In **Settings → Import & export → Folder imports**, a workspace owner first enables Google Drive or SharePoint / OneDrive. Connect your own account using a delegated access token for the same email you use in Slate. SharePoint also needs the document library or OneDrive drive ID. Tokens are stored encrypted and the credential field clears when you submit. Disconnecting destroys the saved token.
+
+Choose the connected account, folder ID and an existing page you can edit, then select **Preview folder**. Review the tree, private-access summary and **Not imported** list. The preview creates no pages. Select **Import reviewed folder** to create the tree beneath that page. If the source changes, create a fresh preview.
+
+Imported pages and images are private to you, even when the destination page is shared. Source sharing permissions are not copied. Google Docs and Word files become blocks; supported tagged PDFs preserve headings, tables, images and links. A file whose structure cannot be preserved is listed as not imported. Unreadable folders are not explored. Every imported document links back to its original, and links between imported documents point to their Slate pages. The retained report names omitted files and survives reload. Provider folder imports keep the source backlink rather than a downloadable copy of the original document.
+
+Real Google Drive and SharePoint acceptance, Google console redirect setup and consent remain unproven.

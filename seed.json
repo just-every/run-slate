@@ -520,6 +520,13 @@
       "clauses": [
         "PORT-009"
       ]
+    },
+    {
+      "id": "provider-folder-imports",
+      "description": "Member-delegated Google Drive and SharePoint folder previews and private page-tree imports with resolving document links and retained per-file omission reports. Real provider acceptance remains pending.",
+      "clauses": [
+        "IMP-009"
+      ]
     }
   ],
   "nonGoals": [

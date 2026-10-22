@@ -1,3 +1,4 @@
+import {docxLinks} from './provider-folders/docx-links';
 import { archiveMediaType, readZipArchive, requireArchiveText } from "./archive";
 import { ImportError } from "./errors";
 import { attributes, childEntries, orderedText, orderedXml, valueFor, type OrderedNode } from "./docx-xml";
@@ -168,6 +169,7 @@ export function parseDocx(source: ImportSourceFile, format: Extract<ImportFormat
         }
         const kind = heading ? "heading" : list ? (format && orderedFormats.has(format) ? "numbered-list" : "bulleted-list") : "paragraph";
         const block = makeBlock(id, blockIndex++, kind, value);
+        block.links = docxLinks(valueFor(node, "p"), relationships);
         if (heading) block.level = Number(heading[1]);
         if (list) block.level = list.level + 1;
         blocks.push(block);
@@ -198,6 +200,11 @@ export function parseDocx(source: ImportSourceFile, format: Extract<ImportFormat
         if (table.content) block.canonicalBlock = { id: block.sourceId, blockType: "table", content: table.content, parentBlockId: null, treePosition: String(blockIndex).padStart(8, "0") };
         blockIndex++;
         blocks.push(block);
+        const tableLinks=docxLinks(valueFor(node,"tbl"),relationships);
+        if(tableLinks.length){
+          reportUnmapped(report,"Word table hyperlinks are retained as link blocks after the table",id);
+          for(const link of tableLinks){const linked=makeBlock(id,blockIndex++,"link",link.href);linked.links=[{href:link.href,kind:link.kind}];blocks.push(linked);}
+        }
       }
     }
   }

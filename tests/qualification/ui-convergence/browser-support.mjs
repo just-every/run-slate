@@ -9,11 +9,12 @@ import { startShellWorker } from '../release-shell/runtime.mjs';
 import { accessible, insideViewport, withinViewport } from './browser-evidence.mjs';
 import { initializeSlackEdge, setSlackFailure, readSlackMessages, setTeamsFailure, readTeamsMessages } from '../../helpers/slack-edge.mjs';
 import { initializeS3Edge, setS3Failure, readS3Requests, readS3Objects } from '../../helpers/s3-edge.mjs';
+import { initializeFolderEdge, readFolderRequests } from '../../helpers/folder-edge.mjs';
 export { accessible } from './browser-evidence.mjs';
 
 /** Test-only identity records replace mailbox possession, never successful API responses. */
 /** `scheduled` exposes the Worker's own cron handler, which a journey fires in place of waiting for the clock. */
-export async function withWorkspace(viewport, profile, run, overrides = {}, { scheduled = false, slack = false, backups = false } = {}) {
+export async function withWorkspace(viewport, profile, run, overrides = {}, { scheduled = false, slack = false, backups = false, folders = false } = {}) {
   const scratchRoot = path.join(root, '.artifacts/ui-convergence');
   await mkdir(scratchRoot, { recursive: true });
   const state = await mkdtemp(path.join(scratchRoot, 'state-'));
@@ -22,6 +23,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
   try {
     if (slack) await initializeSlackEdge(state);
     if (backups) await initializeS3Edge(state);
+    if (folders) await initializeFolderEdge(state);
     await applyMigrations(state);
     const now = new Date().toISOString();
     await executeD1(state, `INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES('browser-workspace','Harbor operations','','${now}','${now}','initial');
@@ -34,7 +36,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       MAIL_API_KEY: 'TEST-ONLY-NOT-A-PROVIDER-CREDENTIAL', AI_ENABLED: 'false',
       AI_API_KEY: '', AI_PROVIDER: '', AI_LOCAL_URL: '', AI_LOCAL_TOKEN: '',
       ...(slack ? { CONNECTOR_CREDENTIALS_KEY: 'TEST-ONLY-SLACK-ENCRYPTION-KEY-32-CHARACTERS' } : {}),
-      ...(backups ? { CONNECTOR_CREDENTIALS_KEY: 'synthetic-slate-100000000000000000000000003' } : {}),
+      ...(backups || folders ? { CONNECTOR_CREDENTIALS_KEY: 'synthetic-slate-100000000000000000000000003' } : {}),
       SLATE_PROFILE: profile, ...overrides,
     };
     let allocatedPorts;
@@ -65,6 +67,11 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
         const submitted = JSON.parse(requestBody);
         delete submitted.accessKeyId;
         delete submitted.secretAccessKey;
+        requestBody = JSON.stringify(submitted);
+      }
+      if (new URL(response.url()).pathname === '/api/imports/provider-folders/connections' && request.method() === 'POST' && requestBody) {
+        const submitted = JSON.parse(requestBody);
+        delete submitted.token;
         requestBody = JSON.stringify(submitted);
       }
       const pending = response.text().then(body => network.push({ url: response.url(), method: request.method(), requestBody, status: response.status(), responseBody: body }))
@@ -137,6 +144,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       await run({ page, context, origin: runtime.baseUrl, api, records, atRest, fixtureSql, runScheduled, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}`,
         assertNoConsoleErrors: () => assert.deepEqual(consoleErrors, [], 'The browser must have no console errors or uncaught page errors.'),
         ...(backups ? { setS3Failure: failure => setS3Failure(state, failure), readS3Requests: () => readS3Requests(state), readS3Objects: () => readS3Objects(state) } : {}),
+        ...(folders ? { readFolderRequests: () => readFolderRequests(state) } : {}),
         ...(slack ? { setSlackFailure: failure => setSlackFailure(state, failure), readSlackMessages: () => readSlackMessages(state), setTeamsFailure: failure => setTeamsFailure(state, failure), readTeamsMessages: () => readTeamsMessages(state) } : {}) });
     } catch (cause) {
       await accessible(page, `${profile} journey failure`).catch(() => {});

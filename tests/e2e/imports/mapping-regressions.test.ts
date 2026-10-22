@@ -302,7 +302,9 @@ test("a Notion CSV column of comma-separated values is a multi-select, and its o
 
 // ------------------------------------------------------------------ docx ----
 
-test("Word numbering decides bullet from ordinal, and w:numId=0 is not a list at all", () => {
+test("Word numbering and absent numbering preserve the intended paragraph, heading and list shapes",async()=>{
+ // Independent fixtures exercise the same behaviour through both paths.
+ for(const scenario of [async()=>{
   const numbering = [
     '<w:abstractNum w:abstractNumId="10"><w:lvl w:ilvl="0"><w:numFmt w:val="bullet"/></w:lvl><w:lvl w:ilvl="1"><w:numFmt w:val="bullet"/></w:lvl></w:abstractNum>',
     '<w:abstractNum w:abstractNumId="20"><w:lvl w:ilvl="0"><w:numFmt w:val="decimal"/></w:lvl></w:abstractNum>',
@@ -340,16 +342,18 @@ test("Word numbering decides bullet from ordinal, and w:numId=0 is not a list at
     ["paragraph", undefined, "Plain"],
   ]);
   expect(parsed.report.unmapped.some((entry) => entry.label.startsWith("Word numbering definition is missing") && entry.detail?.includes("numId 4"))).toBe(true);
-});
-
-test("a Word document with no numbering part still imports its paragraphs and headings", () => {
+},
+async()=>{
   const parsed = parseImport("docx", {
     name: "plain.docx",
     bytes: syntheticDocxWith({ body: [docxHeading("Heading one", 1), docxParagraph("Body")].join("") }),
   });
   expect(shape(parsed.pages[0]!.blocks)).toEqual([["heading", 1, "Heading one"], ["paragraph", undefined, "Body"]]);
   expect(parsed.report.unmapped).toEqual([]);
+}])await scenario();
 });
+
+
 
 
 

@@ -1,6 +1,7 @@
 import { ReadableExportDialog } from '../../../workspace-export/ui/ReadableExportDialog';
 import {WorkspaceTransferJobs} from './WorkspaceTransferJobs';
 import { ScheduledBackups } from './ScheduledBackups';
+import { FolderImports } from './FolderImports';
 import { useEffect,useState,useRef } from "react";
 import {
   request,
@@ -110,6 +111,7 @@ export function PortabilityPanel() {
         let next=await mutate<Job>(`/api/imports/${job.id}/${verb}`,body??{});setJob(next);
         while(mounted.current&&['preparing','running','indexing','undoing'].includes(next.state)) {next=await mutate<Job>(`/api/imports/${job.id}/resume`,{});setJob(next);}
       })}/> : null}
+      <FolderImports />
       {member.role === "owner" ? <WorkspaceTransferJobs/> : null}
       {member.role === "owner" ? <ScheduledBackups /> : null}
     </section>

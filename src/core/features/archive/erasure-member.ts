@@ -11,6 +11,10 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  const add=(sql:string,...v:(string|null)[])=>statements.push(db.prepare(sql).bind(...v));
  for(const table of ['reminders','page_favourites','container_favourites','page_watches','container_watches','recent_pages','content_page_opens','content_tree_expansion','content_presence','reactions','discovery_preferences','discovery_revisions','saved_searches','discovery_snapshots','federation_oauth_states'])add(`DELETE FROM ${table} WHERE member_id=?`,memberId);
  add("UPDATE backup_destinations SET created_by_member_id=NULL,name='Removed owner backup',endpoint='',bucket='',prefix='',credential_ciphertext=NULL,state='removed',drill_report_json=NULL WHERE created_by_member_id=?",memberId);
+ add("DELETE FROM federation_import_mappings WHERE import_job_id IN (SELECT id FROM provider_folder_runs WHERE workspace_id=? AND actor_id=?)",w,memberId);
+ add("DELETE FROM provider_folder_runs WHERE workspace_id=? AND actor_id=?",w,memberId);
+ add("DELETE FROM provider_folder_connections WHERE workspace_id=? AND member_id=?",w,memberId);
+ add("UPDATE provider_folder_policies SET updated_by_member_id=NULL WHERE workspace_id=? AND updated_by_member_id=?",w,memberId);
  add('DELETE FROM watch_edit_sessions WHERE actor_member_id=?',memberId);
  add('UPDATE task_origins SET member_id=NULL WHERE member_id=?',memberId);
  add('DELETE FROM intelligence_interruptions WHERE recipient_id=?',memberId);

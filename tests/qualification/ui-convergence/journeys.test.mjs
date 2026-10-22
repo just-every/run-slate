@@ -1,3 +1,4 @@
+import { folderJourney } from './folder-journey.mjs';
 import {tablesJourney} from './tables-journey.mjs';
 import {providerEmbedsJourney} from './provider-embeds-journey.mjs';
 import { exportCommentsJourney } from './export-comments-journey.mjs';
@@ -55,7 +56,8 @@ for (const width of [1440, 390]) {
       await setupWorkspace(state);
       await withSecondPerson(state, width, people => exportCommentsJourney(state, people));
       await backupsJourney(state);
-    }, {}, { backups: true });
+      await folderJourney(state);
+    }, {}, { backups: true, folders: true });
   });
   test(`page and space readership show people, author views and inclusive dates at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
