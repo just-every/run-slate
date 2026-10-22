@@ -9,9 +9,9 @@ import { ok } from './two-people-support.mjs';
 
 /** NOTIF-003: owner token setup, actual comment events and production cron, Slack HTTP edge only. */
 export async function chatJourney(state, width = state.page.viewportSize().width) {
-  const { page, context, origin, atRest, setSlackFailure, readSlackMessages } = state;
+  const { page, context, origin, fixtureSql, setSlackFailure, readSlackMessages } = state;
   const runScheduled=async()=>{
-    await atRest("UPDATE notification_outbox SET created_at=date('now')||'T00:00:00.000Z' WHERE processed_at IS NULL; UPDATE chat_deliveries SET created_at=date('now')||'T00:00:00.000Z' WHERE state='pending' AND message_id IS NULL AND substr(created_at,1,10)=date('now')");
+    await fixtureSql(["UPDATE notification_outbox SET created_at=date('now')||'T00:00:00.000Z' WHERE processed_at IS NULL", "UPDATE chat_deliveries SET created_at=date('now')||'T00:00:00.000Z' WHERE state='pending' AND message_id IS NULL AND substr(created_at,1,10)=date('now')"]);
     await state.runScheduled();
   };
   const api = (method, route, data) => ok(context, origin, method, route, data);
@@ -87,8 +87,8 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await shot('transient-failure');
   await setSlackFailure('ok'); await runScheduled();
   assert.equal(await count(), 4, 'Retry waits for its scheduled time.');
-  await atRest("UPDATE chat_deliveries SET next_attempt_at='2000-01-01T00:00:00.000Z' WHERE state='pending'");
-  await atRest("UPDATE chat_connections SET retry_after=NULL");
+  await fixtureSql(["UPDATE chat_deliveries SET next_attempt_at='2000-01-01T00:00:00.000Z' WHERE state='pending'"]);
+  await fixtureSql(["UPDATE chat_connections SET retry_after=NULL"]);
   await runScheduled(); assert.equal(await count(), 5);
   assert.equal((await history()).filter(item => item.state === 'delivered').length, 4);
   await open(); await expect(status).toContainText('Last delivered:');
@@ -177,7 +177,7 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await open();await expect(teams).toContainText('Daily digest');
   const digestBefore=(await state.readTeamsMessages()).length;
   await publish();await runScheduled();assert.equal((await state.readTeamsMessages()).length,digestBefore);
-  await atRest("UPDATE chat_deliveries SET created_at='2000-01-01T00:00:00.000Z' WHERE state='pending'");
+  await fixtureSql(["UPDATE chat_deliveries SET created_at='2000-01-01T00:00:00.000Z' WHERE state='pending'"]);
   await runScheduled();assert.equal((await state.readTeamsMessages()).length,digestBefore+1);
   await open();await shot('daily-digest');
   await teams.getByRole('button',{name:'Edit delivery',exact:true}).click();

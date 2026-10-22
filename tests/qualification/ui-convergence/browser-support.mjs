@@ -105,13 +105,25 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       try { await executeD1(state, statement); }
       finally { runtime = await startWorker(); }
     };
+    const fixtureSql = async statements => {
+      assert.ok(scheduled && runtime.child.connected, 'Clock fixtures require the scheduled test process IPC channel.');
+      const child=runtime.child,id=crypto.randomUUID();
+      await new Promise((resolve,reject)=>{
+        const timer=setTimeout(()=>finish(new Error('Native D1 fixture write timed out')),10000);
+        const finish=error=>{clearTimeout(timer);child.off('message',receive);child.off('exit',exited);error?reject(error):resolve();};
+        const receive=message=>{if(message?.type==='fixture.sql.result'&&message.id===id)finish(message.error?new Error(message.error):undefined);};
+        const exited=()=>finish(new Error('Fixture process exited'));
+        child.on('message',receive);child.once('exit',exited);
+        child.send({type:'fixture.sql',id,statements},error=>{if(error)finish(error);});
+      });
+    };
     const runScheduled = async () => {
       assert.ok(scheduled, 'This workspace was started without the scheduled trigger.');
       const response = await fetch(`${runtime.baseUrl}/cdn-cgi/local/scheduled`, { headers: { connection: 'close' } });
       assert.equal(response.status, 200, await response.text());
     };
     try {
-      await run({ page, context, origin: runtime.baseUrl, api, records, atRest, runScheduled, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}`,
+      await run({ page, context, origin: runtime.baseUrl, api, records, atRest, fixtureSql, runScheduled, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}`,
         ...(slack ? { setSlackFailure: failure => setSlackFailure(state, failure), readSlackMessages: () => readSlackMessages(state), setTeamsFailure: failure => setTeamsFailure(state, failure), readTeamsMessages: () => readTeamsMessages(state) } : {}) });
     } catch (cause) {
       await accessible(page, `${profile} journey failure`).catch(() => {});

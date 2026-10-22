@@ -42,3 +42,17 @@ process.once('SIGTERM', () => void stop());
 process.once('SIGINT', () => void stop());
 try { await runtime.ready; }
 catch (cause) { await stop(); throw cause; }
+
+// Parent-only clock fixtures use the running native D1 binding, avoiding CLI/Worker
+// persistence contention. No application route or application response is replaced.
+if (triggerMode === 'scheduled' && process.send) process.on('message', async message => {
+  if (message?.type !== 'fixture.sql' || typeof message.id !== 'string'
+      || !Array.isArray(message.statements) || !message.statements.every(sql => typeof sql === 'string')) return;
+  try {
+    const db = await runtime.getD1Database('DB');
+    await db.batch(message.statements.map(sql => db.prepare(sql)));
+    if (process.connected) process.send({type:'fixture.sql.result',id:message.id});
+  } catch {
+    if (process.connected) process.send({type:'fixture.sql.result',id:message.id,error:'Native D1 fixture write failed'});
+  }
+});

@@ -2,8 +2,8 @@ import {spawn} from 'node:child_process';
 import {writeFile} from 'node:fs/promises';
 export const delay=ms=>new Promise(r=>{const timer=setTimeout(r,ms);timer.unref();});
 export function safeEnvironment(){return {...Object.fromEntries(['PATH','HOME','TMPDIR','SystemRoot','PLAYWRIGHT_BROWSERS_PATH','NODE_OPTIONS','XDG_CONFIG_HOME','XDG_CACHE_HOME','BROWSER'].filter(k=>process.env[k]).map(k=>[k,process.env[k]])),CI:'1',WRANGLER_SEND_METRICS:'false',CLOUDFLARE_LOAD_DEV_VARS_FROM_DOT_ENV:'false',PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD:'1'};}
-export function launch(command,args,{cwd,env=safeEnvironment()}={}){
- const child=spawn(command,args,{cwd,env,stdio:['ignore','pipe','pipe'],detached:true});let output='';
+export function launch(command,args,{cwd,env=safeEnvironment(),stdio=['ignore','pipe','pipe']}={}){
+ const child=spawn(command,args,{cwd,env,stdio,detached:true});let output='';
  child.stdout.on('data',x=>output+=x);child.stderr.on('data',x=>output+=x);
  const ended=new Promise(resolve=>{child.once('error',error=>resolve({error}));child.once('close',(code,signal)=>resolve({code,signal}));});
  return {child,ended,output:()=>output};

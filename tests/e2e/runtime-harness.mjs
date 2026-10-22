@@ -130,7 +130,7 @@ export async function startEmittedWorker(persistPath, vars = {}, allocatedPort, 
   const baseUrl = `http://127.0.0.1:${port}`;
   const varsPath = path.join(persistPath, 'runtime-config', 'vars.json');
   await writeFile(varsPath, JSON.stringify({ ...vars, ...(vars.LOCAL_DEVELOPMENT === "true" ? { APP_URL: baseUrl } : {}) }), { mode: 0o600 });
-  const child = launchRuntime("node", ["tests/e2e/emitted-runtime.mjs", config, persistPath, String(port), varsPath, ...(triggerMode ? [triggerMode] : [])], { cwd: root });
+  const child = launchRuntime("node", ["tests/e2e/emitted-runtime.mjs", config, persistPath, String(port), varsPath, ...(triggerMode ? [triggerMode] : [])], { cwd: root, ...(triggerMode === "scheduled" ? { stdio: ["ignore", "pipe", "pipe", "ipc"] } : {}) });
   try { await waitForReady(baseUrl, child); } catch (error) { await stop(child); throw error; }
   return { baseUrl, child };
 }
