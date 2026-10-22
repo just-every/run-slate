@@ -12,8 +12,9 @@ async function fixture() {
   const {memberId} = await seedMember(workspaceId, {email: `${workspaceId}@test.invalid`, role: 'owner', displayName: 'Owner', isSetupOwner: true});
   return {db: env.DB, files: env.FILES, jobs: env.JOBS, actor: {id: memberId, workspaceId, workspaceName: 'Workspace', email: `${workspaceId}@test.invalid`, displayName: 'Owner', initials: 'O', role: 'owner'}, now: new Date().toISOString()} as FeatureContext;
 }
+test('MAIL-002 BASE-ACCESS-001 SendGrid outcomes and expired leases retain durable attempts without blind resend',async()=>{
 for (const outcome of ['receipt', 'no-receipt', 'transport', 'server-error'] as const) {
-  test(`MAIL-002 BASE-ACCESS-001 Base Mail SendGrid ${outcome} retains durable attempt without blind resend`, async () => {
+  {
     const ctx = await fixture();
     const provider = vi.spyOn(globalThis, 'fetch').mockImplementation(async () => {
       if (outcome === 'transport') throw Error('private provider detail');
@@ -44,9 +45,9 @@ for (const outcome of ['receipt', 'no-receipt', 'transport', 'server-error'] as 
       }
       expect(provider).toHaveBeenCalledTimes(1);
     } finally {provider.mockRestore();}
-  });
+  }
 }
-test('MAIL-002 SendGrid expired dispatch lease holds uncertain even without a persisted provider response', async () => {
+{
   const ctx = await fixture();
   const provider = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(null, {status: 202}));
   try {
@@ -57,4 +58,5 @@ test('MAIL-002 SendGrid expired dispatch lease holds uncertain even without a pe
     expect(provider).toHaveBeenCalledTimes(1);
     expect((await listIdentityMail(ctx)).items[0]).toMatchObject({state: 'uncertain', canRetry: false});
   } finally {provider.mockRestore();}
+}
 });

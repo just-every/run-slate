@@ -210,12 +210,12 @@
     },
     {
       "file": "tests/flagship/content/repair.test.ts",
-      "testName": "retains presence cursor/session on snapshot refresh and delivers it to peers",
+      "testName": "presence snapshots and native sockets retain and deliver shared cursors across refreshes",
       "kind": "supporting-regression",
       "clauses": [
         "SAVE-006"
       ],
-      "reason": "Asserts retains presence cursor/session on snapshot refresh and delivers it to peers. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts retains presence cursor/session on snapshot refresh and delivers it to peers. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts native sockets deliver and retain shared cursors across refreshes. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/content/repair.test.ts",
@@ -235,15 +235,6 @@
         "LIFE-002"
       ],
       "reason": "Asserts anonymous media rejects draft attachment but allows exact published attachment. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/repair.test.ts",
-      "testName": "native sockets deliver and retain shared cursors across refreshes",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SAVE-006"
-      ],
-      "reason": "Asserts native sockets deliver and retain shared cursors across refreshes. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/content/repair.test.ts",
@@ -360,12 +351,12 @@
     },
     {
       "file": "tests/flagship/core/identity.test.ts",
-      "testName": "cross-origin cookie mutations are denied before writes",
+      "testName": "cross-origin cookie mutations and WebSocket handshakes are denied before authorization or writes",
       "kind": "supporting-regression",
       "clauses": [
         "BASE-ACCESS-002"
       ],
-      "reason": "Asserts cross-origin cookie mutations are denied before writes. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts cross-origin cookie mutations are denied before writes. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WebSocket cross-origin handshake is rejected before collaboration authorization. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/core/identity.test.ts",
@@ -376,15 +367,6 @@
         "BASE-SECRET-001"
       ],
       "reason": "Asserts AI local configuration requires real bridge credentials and is refused on hosted runtime. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
-      "testName": "WebSocket cross-origin handshake is rejected before collaboration authorization",
-      "kind": "supporting-regression",
-      "clauses": [
-        "BASE-ACCESS-002"
-      ],
-      "reason": "Asserts WebSocket cross-origin handshake is rejected before collaboration authorization. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/core/identity.test.ts",
@@ -1140,21 +1122,12 @@
     },
     {
       "file": "tests/flagship/structured/typed-repairs.test.ts",
-      "testName": "DB-002 formula output types constrain rollups, charts and later dependency edits",
+      "testName": "DB-002 formula output types protect local and cross-database numeric rollup dependencies",
       "kind": "supporting-regression",
       "clauses": [
         "DB-002"
       ],
-      "reason": "Asserts DB-002 formula output types constrain rollups, charts and later dependency edits. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/typed-repairs.test.ts",
-      "testName": "DB-002 a target formula edit cannot invalidate another empty database's numeric rollup",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts DB-002 a target formula edit cannot invalidate another empty database's numeric rollup. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts DB-002 formula output types constrain rollups, charts and later dependency edits. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts DB-002 a target formula edit cannot invalidate another empty database's numeric rollup. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/values.test.ts",
@@ -1250,22 +1223,13 @@
     },
     {
       "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "Unverifiable instrumentation stays inconclusive despite caller repeating the declared hash",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-003"
-      ],
-      "reason": "Asserts Unverifiable instrumentation stays inconclusive despite caller repeating the declared hash. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "Changed actual measurement fields cannot be blessed by resubmitting the old instrumentation hash",
+      "testName": "Unverifiable or changed measurements stay inconclusive despite the caller repeating the declared instrumentation hash",
       "kind": "supporting-regression",
       "clauses": [
         "TRIAL-003",
         "TRIAL-004"
       ],
-      "reason": "Asserts Changed actual measurement fields cannot be blessed by resubmitting the old instrumentation hash. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts Unverifiable instrumentation stays inconclusive despite caller repeating the declared hash. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Changed actual measurement fields cannot be blessed by resubmitting the old instrumentation hash. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
@@ -1746,24 +1710,14 @@
     },
     {
       "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "FLAG-004 PORT-005 EFFECT-001 — actual archive restore forbids effect replay with 403 and preserves exact readable history",
+      "testName": "FLAG-004 PORT-005 EFFECT-001 — restored authority fences replay and reconciliation even after diagnostic clearing while preserving exact history",
       "kind": "supporting-regression",
       "clauses": [
         "FLAG-004",
         "PORT-005",
         "EFFECT-001"
       ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "FLAG-004 EFFECT-001 — durable restore marker still forbids dispatch and reconciliation after the diagnostic is cleared",
-      "kind": "supporting-regression",
-      "clauses": [
-        "FLAG-004",
-        "EFFECT-001"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
+      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance. Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
     },
     {
       "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
@@ -1961,70 +1915,22 @@
     },
     {
       "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-      "testName": "FLAG-003 — candidate comparison retains failed and successful attempt timing and cost status",
+      "testName": "FLAG-003 — both comparison arms retain failed and successful attempt timing and cost status",
       "kind": "supporting-regression",
       "clauses": [
         "FLAG-003"
       ],
-      "reason": "Controlled native worker transport records two 503 attempts and one valid response for the candidate run; reloaded D1 generation stages and budget rows preserve each time, outcome, known or bounded-uncertain cost, tokens, retry, receipt, and final settlement. Owner attention, expert quality, and useful-value measurements remain null/unclaimed."
-    },
-    {
-      "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-      "testName": "FLAG-003 — generic comparison retains failed and successful attempt timing and cost status",
-      "kind": "supporting-regression",
-      "clauses": [
-        "FLAG-003"
-      ],
-      "reason": "Controlled native worker transport records two 503 attempts and one valid response for the generic run; reloaded D1 generation stages and budget rows preserve each time, outcome, known or bounded-uncertain cost, tokens, retry, receipt, and final settlement. Owner attention, expert quality, and useful-value measurements remain null/unclaimed."
+      "reason": "Controlled native worker transport records two 503 attempts and one valid response for the candidate run; reloaded D1 generation stages and budget rows preserve each time, outcome, known or bounded-uncertain cost, tokens, retry, receipt, and final settlement. Owner attention, expert quality, and useful-value measurements remain null/unclaimed. Controlled native worker transport records two 503 attempts and one valid response for the generic run; reloaded D1 generation stages and budget rows preserve each time, outcome, known or bounded-uncertain cost, tokens, retry, receipt, and final settlement. Owner attention, expert quality, and useful-value measurements remain null/unclaimed."
     },
     {
       "file": "tests/flagship/core/sendgrid-mail.test.ts",
-      "testName": "MAIL-002 BASE-ACCESS-001 Base Mail SendGrid receipt retains durable attempt without blind resend",
+      "testName": "MAIL-002 BASE-ACCESS-001 SendGrid outcomes and expired leases retain durable attempts without blind resend",
       "kind": "supporting-regression",
       "clauses": [
         "MAIL-002",
         "BASE-ACCESS-001"
       ],
-      "reason": "Controlled local Worker regression; no provider or full clause acceptance claim."
-    },
-    {
-      "file": "tests/flagship/core/sendgrid-mail.test.ts",
-      "testName": "MAIL-002 BASE-ACCESS-001 Base Mail SendGrid no-receipt retains durable attempt without blind resend",
-      "kind": "supporting-regression",
-      "clauses": [
-        "MAIL-002",
-        "BASE-ACCESS-001"
-      ],
-      "reason": "Controlled local Worker regression; no provider or full clause acceptance claim."
-    },
-    {
-      "file": "tests/flagship/core/sendgrid-mail.test.ts",
-      "testName": "MAIL-002 BASE-ACCESS-001 Base Mail SendGrid transport retains durable attempt without blind resend",
-      "kind": "supporting-regression",
-      "clauses": [
-        "MAIL-002",
-        "BASE-ACCESS-001"
-      ],
-      "reason": "Controlled local Worker regression; no provider or full clause acceptance claim."
-    },
-    {
-      "file": "tests/flagship/core/sendgrid-mail.test.ts",
-      "testName": "MAIL-002 BASE-ACCESS-001 Base Mail SendGrid server-error retains durable attempt without blind resend",
-      "kind": "supporting-regression",
-      "clauses": [
-        "MAIL-002",
-        "BASE-ACCESS-001"
-      ],
-      "reason": "Controlled local Worker regression; no provider or full clause acceptance claim."
-    },
-    {
-      "file": "tests/flagship/core/sendgrid-mail.test.ts",
-      "testName": "MAIL-002 SendGrid expired dispatch lease holds uncertain even without a persisted provider response",
-      "kind": "supporting-regression",
-      "clauses": [
-        "MAIL-002"
-      ],
-      "reason": "Controlled local Worker regression; no provider or full clause acceptance claim."
+      "reason": "Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim."
     },
     {
       "file": "tests/flagship/intelligence/reservation-prerequisites.test.ts",

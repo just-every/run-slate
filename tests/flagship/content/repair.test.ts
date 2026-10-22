@@ -63,8 +63,20 @@ it('normalizes creation and structural task attribution and preserves existing c
  const write=await f.request('PUT',`/api/pages/${p.pageId}/blocks`,{operationKey:createUlid(),expectedRevisionId:p.revisionId,blocks:[task]});expect(write.status).toBe(200);read=await f.request('GET',`/api/pages/${p.pageId}`);expect(read.data.blocks[0].content.completedAt).toBe(time);
  const undone=await f.request('PUT',`/api/pages/${p.pageId}/blocks`,{operationKey:createUlid(),expectedRevisionId:write.data.value.revisionId,blocks:[{...task,content:{...task.content,done:false}}]});expect(undone.status).toBe(200);expect((await f.request('GET',`/api/pages/${p.pageId}`)).data.blocks[0].content.completedByMemberId).toBeNull();
 });
-it('retains presence cursor/session on snapshot refresh and delivers it to peers',async()=>{
+it("presence snapshots and native sockets retain and deliver shared cursors across refreshes",async()=>{
+ // Independent fixtures exercise the same behaviour through both paths.
+ for(const scenario of [async()=>{
  const f=await fixture(),p=await page(f),cursor={blockId:'block',offset:7};await updatePresence(f.ctx,p.pageId,'session-one',cursor);await refreshPresence(f.ctx,p.pageId,'session-one');const snapshot=await collaborationSnapshot({...f.ctx,actor:{...f.ctx.actor,id:f.b}},p.pageId);expect(snapshot.presence).toContainEqual(expect.objectContaining({id:f.a,sessionId:'session-one',cursor}));
+},
+async()=>{
+ const f=await fixture(),p=await page(f);const {sessionFor}=await import('../../e2e/setup/fixtures');const rooms=(env as unknown as {CONTENT_COLLABORATION:DurableObjectNamespace}).CONTENT_COLLABORATION;const room=rooms.get(rooms.idFromName(p.pageId));const sockets:WebSocket[]=[];
+ const connect=async(actor:string)=>{const r=await room.fetch(`https://local.test/socket?pageId=${p.pageId}`,{headers:{Upgrade:'websocket',cookie:await sessionFor(actor)}});expect(r.status).toBe(101);const socket=r.webSocket!;socket.accept();sockets.push(socket);return socket;};
+ try{const a=await connect(f.a),b=await connect(f.b),cursor={blockId:'shared-block',offset:9};
+ const seen=()=>new Promise<any>((resolve,reject)=>{const timeout=setTimeout(()=>{b.removeEventListener('message',listen);reject(new Error('Cursor was not delivered'));},3500);const listen=(event:MessageEvent)=>{const m=JSON.parse(String(event.data));if(m.type==='snapshot'&&m.presence.some((p:any)=>p.id===f.a&&p.cursor?.offset===9)){clearTimeout(timeout);b.removeEventListener('message',listen);resolve(m);}};b.addEventListener('message',listen);});
+ let delivered=seen();a.send(JSON.stringify({type:'presence',cursor}));expect((await delivered).presence).toContainEqual(expect.objectContaining({id:f.a,cursor}));
+ delivered=seen();b.send(JSON.stringify({type:'refresh'}));expect((await delivered).presence).toContainEqual(expect.objectContaining({id:f.a,cursor}));
+ }finally{for(const socket of sockets)socket.close();}
+}])await scenario();
 });
 it('restores unchanged anchored text and orphans only anchors absent from the restored body',async()=>{
  const f=await fixture(),b=paragraph(),p=await page(f,[b]);const thread=await f.request('POST',`/api/comments/page/${p.pageId}`,{operationKey:createUlid(),kind:'inline',blockId:b.id,anchorRevisionId:p.revisionId,anchor:{anchorId:createUlid(),quote:'unchanged'},body:[{text:'Review'}]});expect(thread.status,JSON.stringify(thread.data)).toBe(200);
@@ -79,15 +91,7 @@ it('anonymous media rejects draft attachment but allows exact published attachme
  expect((await f.app.request(`https://local.test/p/repair-${p.pageId}/media/${hidden.id}`,{},env)).status).toBe(404);
  const allowed=await f.app.request(`https://local.test/p/repair-${p.pageId}/media/${visible.id}`,{},env);expect(allowed.status).toBe(200);expect(await allowed.text()).toBe('secret bytes');
 });
-it('native sockets deliver and retain shared cursors across refreshes',async()=>{
- const f=await fixture(),p=await page(f);const {sessionFor}=await import('../../e2e/setup/fixtures');const rooms=(env as unknown as {CONTENT_COLLABORATION:DurableObjectNamespace}).CONTENT_COLLABORATION;const room=rooms.get(rooms.idFromName(p.pageId));const sockets:WebSocket[]=[];
- const connect=async(actor:string)=>{const r=await room.fetch(`https://local.test/socket?pageId=${p.pageId}`,{headers:{Upgrade:'websocket',cookie:await sessionFor(actor)}});expect(r.status).toBe(101);const socket=r.webSocket!;socket.accept();sockets.push(socket);return socket;};
- try{const a=await connect(f.a),b=await connect(f.b),cursor={blockId:'shared-block',offset:9};
- const seen=()=>new Promise<any>((resolve,reject)=>{const timeout=setTimeout(()=>{b.removeEventListener('message',listen);reject(new Error('Cursor was not delivered'));},3500);const listen=(event:MessageEvent)=>{const m=JSON.parse(String(event.data));if(m.type==='snapshot'&&m.presence.some((p:any)=>p.id===f.a&&p.cursor?.offset===9)){clearTimeout(timeout);b.removeEventListener('message',listen);resolve(m);}};b.addEventListener('message',listen);});
- let delivered=seen();a.send(JSON.stringify({type:'presence',cursor}));expect((await delivered).presence).toContainEqual(expect.objectContaining({id:f.a,cursor}));
- delivered=seen();b.send(JSON.stringify({type:'refresh'}));expect((await delivered).presence).toContainEqual(expect.objectContaining({id:f.a,cursor}));
- }finally{for(const socket of sockets)socket.close();}
-});
+
 it('container metadata and archived listing expose stored policies and preserve personal privacy',async()=>{
  const f=await fixture();await env.DB.prepare("UPDATE containers SET guest_access='forbidden',anonymous_access='forbidden' WHERE id=?").bind(f.containerId).run();
  const metadata=await f.request('GET',`/api/containers/${f.containerId}`);expect(metadata.status).toBe(200);expect(metadata.data).toMatchObject({id:f.containerId,guestAccess:'forbidden',publicLinkAccess:'allowed',anonymousAccess:'forbidden',permissions:{canManage:true},archivedAt:null});

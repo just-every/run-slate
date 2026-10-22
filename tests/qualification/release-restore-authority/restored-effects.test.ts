@@ -13,7 +13,9 @@ import {controlRun} from '../../../src/core/features/runs/service';
 beforeEach(reset);
 afterEach(()=>vi.unstubAllGlobals());
 
-test('FLAG-004 PORT-005 EFFECT-001 — actual archive restore forbids effect replay with 403 and preserves exact readable history',async()=>{
+test("FLAG-004 PORT-005 EFFECT-001 — restored authority fences replay and reconciliation even after diagnostic clearing while preserving exact history",async()=>{
+ // Independent fixtures exercise the same behaviour through both paths.
+ for(const scenario of [async()=>{
  const f=await restoredFixture();
  const run=await requireRun(f.context(),f.runId),effect=await requireEffect(f.context(),f.effectId);
  expect(run).toMatchObject({status:'paused',failure_reason:'RESTORED_AUTHORITY_REQUIRED'});
@@ -33,9 +35,8 @@ test('FLAG-004 PORT-005 EFFECT-001 — actual archive restore forbids effect rep
  expect(await durableState()).toEqual(before);
  expect(f.calls()).toBe(calls);expect(f.sends()).toBe(1);
  expect((await requireEffect(f.context(),f.effectId)).receipt_json).toBe(f.confirmed.receipt_json);
-});
-
-test('FLAG-004 EFFECT-001 — durable restore marker still forbids dispatch and reconciliation after the diagnostic is cleared',async()=>{
+},
+async()=>{
  const f=await restoredFixture();
  await env.DB.prepare('UPDATE intelligence_runs SET failure_reason=NULL WHERE id=?').bind(f.runId).run();
  // Model a restored in-flight write: reconciliation must not reacquire authority.
@@ -50,7 +51,10 @@ test('FLAG-004 EFFECT-001 — durable restore marker still forbids dispatch and 
  await expect(reauthorizeRun(f.context(),run)).rejects.toMatchObject({status:409,code:'RESTORED_AUTHORITY_REQUIRED'});
  await expect(controlRun(f.context(),{id:f.runId,operationKey:crypto.randomUUID(),expectedRevisionId:run.revision_id,action:'resume'})).rejects.toMatchObject({status:409,code:'RESTORED_AUTHORITY_REQUIRED'});
  expect(await durableState()).toEqual(before);
+}])await scenario();
 });
+
+
 
 test('EFFECT-001 — a normal current grant permits one dispatch and receipt replay sends nothing',async()=>{
  const f=await effectFixture();

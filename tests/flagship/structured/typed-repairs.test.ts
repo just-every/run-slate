@@ -27,7 +27,9 @@ test("DB-002 dates compare instants consistently in filters and views",async()=>
  await saveView(ctx,db.id,{operationKey:"dates-save-view",expectedRevisionId:db.revisionId,view:{id:"dates-view",name:"Earlier",layout:"table",filters:[{field:"when",op:"lt",value:later}],sorts:[{field:"when",direction:"asc"}],groups:[],calculations:{},display:{},position:0}});
  expect((await queryView(ctx,db.id,"dates-view")).records.map(r=>r.title)).toEqual(["Early"]);
 });
-test("DB-002 formula output types constrain rollups, charts and later dependency edits",async()=>{
+test("DB-002 formula output types protect local and cross-database numeric rollup dependencies",async()=>{
+ // Independent fixtures exercise the same behaviour through both paths.
+ for(const scenario of [async()=>{
  const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"types",[field("label","select",{options:["A"]}),field("result","formula",{expression:{literal:3}})]);
  let saved=await saveField(ctx,db.id,{operationKey:"types-relation",expectedRevisionId:db.revisionId,field:field("rel","relation",{databaseId:db.id})});
  saved=await saveField(ctx,db.id,{operationKey:"types-rollup",expectedRevisionId:saved.receipt.revisionId,field:field("total","rollup",{relationField:"rel",targetField:"result",calculation:"sum"})});
@@ -37,11 +39,13 @@ test("DB-002 formula output types constrain rollups, charts and later dependency
  const text=await databaseWith(ctx,containerId,"text",[field("group","select",{options:["A"]}),field("text","formula",{expression:{literal:"text"}})]);
  await saveView(ctx,text.id,{operationKey:"types-text-view",expectedRevisionId:text.revisionId,view:{id:"text-view",name:"Text",layout:"table",filters:[],sorts:[],groups:[],calculations:{},display:{},position:0}});
  await expect(chart(ctx,text.id,"text-view","group","text","sum")).rejects.toMatchObject({code:"INVALID_CHART"});
-});
-
-test("DB-002 a target formula edit cannot invalidate another empty database's numeric rollup",async()=>{
+},
+async()=>{
  const {ctx,containerId}=await setup();const source=await databaseWith(ctx,containerId,"cross-type-source",[field("cross-formula","formula",{expression:{literal:5}})]);
  const consumer=await databaseWith(ctx,containerId,"cross-type-consumer",[field("cross-relation","relation",{databaseId:source.id}),field("cross-total","rollup",{relationField:"cross-relation",targetField:"cross-formula",calculation:"sum"})]);
  await expect(saveField(ctx,source.id,{operationKey:"cross-type-change",expectedRevisionId:source.revisionId,field:field("cross-formula","formula",{expression:{literal:"invalid numeric dependency"}})})).rejects.toMatchObject({code:"ROLLUP_TYPE"});
  expect(consumer.id).toBeTruthy();
+}])await scenario();
 });
+
+

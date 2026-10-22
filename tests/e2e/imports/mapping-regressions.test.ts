@@ -119,7 +119,9 @@ test("several space-wide Confluence restrictions collapse into the one general g
   expect(parsed.report.unmapped.some((entry) => entry.label.includes("more than one space-wide restriction"))).toBe(true);
 });
 
-test("a page in a personal Confluence space carries no general grant, and an unknown restriction type invents none", () => {
+test("Confluence restrictions never invent general grants for personal spaces or unknown permission and principal types",async()=>{
+ // Independent fixtures exercise the same behaviour through both paths.
+ for(const scenario of [async()=>{
   const parsed = confluence(syntheticConfluenceCsvExport({
     tables: {
       spaces: [["spaceid", "spacename", "spacekey", "spacetype", "spacestatus"], ["1", "ada", "~ada", "personal", "CURRENT"]],
@@ -135,6 +137,18 @@ test("a page in a personal Confluence space carries no general grant, and an unk
   expect(parsed.pages[0]!.grants).toEqual([]);
   expect(parsed.report.unmapped.some((entry) => entry.label.includes("personal space carries no general grant"))).toBe(true);
   expect(parsed.report.unmapped.some((entry) => entry.label.includes('"SOMETHING_ELSE" has no Slate grant level'))).toBe(true);
+},
+async()=>{
+  const parsed = confluence(syntheticConfluenceCsvExport({ tables: {
+    content: [contentHeader, page({ contentid: "99", title: "Unknown principal" })],
+    content_permissions: [
+      ["groupname", "permission_id", "permission_type", "content_id", "principal_type", "principal_id"],
+      ["", "1", "VIEW", "99", "", ""],
+    ],
+  } }));
+  expect(parsed.pages[0]!.grants).toEqual([]);
+  expect(parsed.report.unmapped.some((entry) => entry.label.includes("restriction principal type"))).toBe(true);
+}])await scenario();
 });
 
 test("Confluence content the tree would otherwise lose is imported or named: drafts, deleted rows, and second body rows", () => {
@@ -338,17 +352,7 @@ test("a Word document with no numbering part still imports its paragraphs and he
 });
 
 
-test("a Confluence restriction without a principal type does not invent a general grant", () => {
-  const parsed = confluence(syntheticConfluenceCsvExport({ tables: {
-    content: [contentHeader, page({ contentid: "99", title: "Unknown principal" })],
-    content_permissions: [
-      ["groupname", "permission_id", "permission_type", "content_id", "principal_type", "principal_id"],
-      ["", "1", "VIEW", "99", "", ""],
-    ],
-  } }));
-  expect(parsed.pages[0]!.grants).toEqual([]);
-  expect(parsed.report.unmapped.some((entry) => entry.label.includes("restriction principal type"))).toBe(true);
-});
+
 
 
 test("duplicate Notion database titles do not assign record bodies by archive order", () => {

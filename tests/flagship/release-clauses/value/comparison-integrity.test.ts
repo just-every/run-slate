@@ -149,10 +149,6 @@ test('FLAG-003 — current source grant revocation blocks both prepared runs bef
   }
 });
 
-test('FLAG-003 — candidate comparison retains failed and successful attempt timing and cost status', async () => {
-  await assertBoundedAttemptAccounting('candidate');
-});
-
-test('FLAG-003 — generic comparison retains failed and successful attempt timing and cost status', async () => {
-  await assertBoundedAttemptAccounting('generic');
+test('FLAG-003 — both comparison arms retain failed and successful attempt timing and cost status',async()=>{
+ for(const arm of ['candidate','generic'] as const)await assertBoundedAttemptAccounting(arm);
 });
