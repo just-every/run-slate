@@ -14,7 +14,7 @@ async function bootstrap(h,statuses){
   if(!statuses)h.sql.exec('DELETE FROM status_entries');
 }
 
-const cases=[
+const identityCases=[
   ['second member',h=>h.sql.exec(`INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,created_at,updated_at)
     SELECT 'extra',id,'extra@example.invalid','Extra','EX','member','member','active',created_at,updated_at FROM workspaces`)],
   ['guest',h=>h.sql.exec(`INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,created_at,updated_at)
@@ -31,6 +31,9 @@ const cases=[
     // A previously inconsistent identity must fail closed as well.
     h.sql.exec("PRAGMA foreign_keys=OFF; UPDATE members SET workspace_id='missing-workspace'; PRAGMA foreign_keys=ON");
   }],
+];
+
+const retainedDataCases=[
   ['identity binding',h=>h.sql.exec(`INSERT INTO member_identity_bindings(issuer,subject,member_id,created_at)
     SELECT 'https://provider.example.org','retained-subject',id,created_at FROM members LIMIT 1`)],
   ['product records',h=>h.sql.exec(`INSERT INTO groups(id,workspace_id,name,created_at,updated_at,revision_id)
@@ -54,8 +57,8 @@ async function assertRejectedWithoutDeletion(h){
   assert.deepEqual(h.snapshot(),before,'Failed in-transaction guards roll back all writes and preserve every table.');
 }
 
-for(const mode of ['empty','legacy zero-status bootstrap','native four-status bootstrap']){
-  test(`restore accepts ${mode} in preflight and every transactional selector`,async()=>{
+test('restore accepts empty and pristine legacy or native bootstrap targets in preflight and every transactional selector',async()=>{
+  for(const mode of ['empty','legacy zero-status bootstrap','native four-status bootstrap']){
     const h=restoreDatabase();
     try{
       if(mode!=='empty')await bootstrap(h,mode==='native four-status bootstrap');
@@ -66,31 +69,46 @@ for(const mode of ['empty','legacy zero-status bootstrap','native four-status bo
       await h.db.batch(emptyTargetSelects.map(query=>mutationGuard(h.db,query,[])));
       assert.deepEqual(h.snapshot(),before,'Successful emptiness checks have no data side effects.');
     }finally{h.close();}
-  });
-}
+  }
+});
 
-for(const statuses of [false,true])for(const [name,alter] of cases){
-  test(`restore preserves ${name} with ${statuses?4:0} bootstrap statuses`,async()=>{
+test('restore preserves every target without exactly one active setup owner in its sole workspace with either bootstrap vocabulary',async()=>{
+  for(const statuses of [false,true])for(const [name,alter] of identityCases){
     const h=restoreDatabase();
     try{await bootstrap(h,statuses);alter(h);await assertRejectedWithoutDeletion(h);}
     finally{h.close();}
+  }
+});
+
+for(const [name,alter] of retainedDataCases){
+  test(`restore preserves ${name} with either bootstrap vocabulary`,async()=>{
+    for(const statuses of [false,true]){
+      const h=restoreDatabase();
+      try{await bootstrap(h,statuses);alter(h);await assertRejectedWithoutDeletion(h);}
+      finally{h.close();}
+    }
   });
 }
 
-for(const [name,query] of [
-  ['custom label',"UPDATE status_entries SET label='Owner vocabulary' WHERE key='rough-draft'"],
-  ['custom color',"UPDATE status_entries SET color='#123456' WHERE key='rough-draft'"],
-  ['custom verification',"UPDATE status_entries SET requires_verification=1 WHERE key='rough-draft'"],
-  ['custom key',"UPDATE status_entries SET key='custom' WHERE key='rough-draft'"],
-  ['retired entry',"UPDATE status_entries SET retired_at='2026-10-09T00:00:00Z' WHERE key='rough-draft'"],
-  ['changed timestamp',"UPDATE status_entries SET updated_at='2000-01-01T00:00:00Z' WHERE key='rough-draft'"],
-  ['non-bootstrap creation',"UPDATE status_entries SET created_at='2000-01-01T00:00:00Z',updated_at='2000-01-01T00:00:00Z'"],
-  ['partial vocabulary',"DELETE FROM status_entries WHERE key='rough-draft'"],
-  ['completed first run',"UPDATE workspaces SET first_run_completed_at=created_at"],
-]){
-  test(`restore preserves ${name}`,async()=>{
+test('restore preserves every customized or incomplete bootstrap status vocabulary',async()=>{
+  for(const [name,query] of [
+    ['custom label',"UPDATE status_entries SET label='Owner vocabulary' WHERE key='rough-draft'"],
+    ['custom color',"UPDATE status_entries SET color='#123456' WHERE key='rough-draft'"],
+    ['custom verification',"UPDATE status_entries SET requires_verification=1 WHERE key='rough-draft'"],
+    ['custom key',"UPDATE status_entries SET key='custom' WHERE key='rough-draft'"],
+    ['retired entry',"UPDATE status_entries SET retired_at='2026-10-09T00:00:00Z' WHERE key='rough-draft'"],
+    ['changed timestamp',"UPDATE status_entries SET updated_at='2000-01-01T00:00:00Z' WHERE key='rough-draft'"],
+    ['non-bootstrap creation',"UPDATE status_entries SET created_at='2000-01-01T00:00:00Z',updated_at='2000-01-01T00:00:00Z'"],
+    ['partial vocabulary',"DELETE FROM status_entries WHERE key='rough-draft'"],
+  ]){
     const h=restoreDatabase();
     try{await bootstrap(h,true);h.sql.exec(query);await assertRejectedWithoutDeletion(h);}
     finally{h.close();}
-  });
-}
+  }
+});
+
+test('restore preserves completed first run',async()=>{
+  const h=restoreDatabase();
+  try{await bootstrap(h,true);h.sql.exec("UPDATE workspaces SET first_run_completed_at=created_at");await assertRejectedWithoutDeletion(h);}
+  finally{h.close();}
+});
