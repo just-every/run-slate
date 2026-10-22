@@ -6952,7 +6952,7 @@
       "executable": false
     },
     "src/core/features/notifications/chat-delivery.ts": {
-      "sha256": "4cf6c2d703cc1f93c1efa007606a071cb4b865f456105abb6e88fb99f2a789af",
+      "sha256": "61c4f9339383c94d5e00bb34abc2680cf3f6638bc451230a34cbed8af910fe01",
       "executable": false
     },
     "src/core/features/notifications/chat-message.ts": {
@@ -9220,7 +9220,7 @@
       "executable": false
     },
     "tests/e2e/notifications/destinations.test.ts": {
-      "sha256": "867e9d4f510e831320e5fdb57452d6b26add8f731a7d3e3d6abaa3ee4d5d39ca",
+      "sha256": "087e661760851bf86af97482903f0c6b806eddd78b67cf27199ee5e83af96469",
       "executable": false
     },
     "tests/e2e/outbox-auth.mjs": {
