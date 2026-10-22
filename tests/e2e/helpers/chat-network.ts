@@ -8,6 +8,8 @@ export function chatNetwork(tokens:string[],email:string) {
  const attempts:{token:string;key:string;status:number}[]=[];
  const failures=new Map<string,string>();
  const audiences=new Map<string,SlackAudienceFixture>();
+ const rosters=new Map<string,string[]>(),users=new Map<string,string>();
+ const audienceCalls:{token:string;channel:string}[]=[];
  const teamsApps=new Map<string,unknown[]>();
  const teamsRooms=new Map<string,Record<string,unknown>>();
  const teamsMembers=new Map<string,unknown[]>();
@@ -36,10 +38,12 @@ export function chatNetwork(tokens:string[],email:string) {
   }
   if(teams){
    if(url.pathname==='/v1.0/organization')return Response.json({value:[{id:'synthetic-slate-tenant'}]});
-   if(url.pathname.includes('/users/'))return Response.json({id:'synthetic-slate-reader',mail:email,userType:'Member',accountEnabled:true,externalUserState:null});
+   if(url.pathname.includes('/users/')){const id=decodeURIComponent(url.pathname.split('/users/')[1]!);return Response.json({id,mail:users.get(id)??email,userType:'Member',accountEnabled:true,externalUserState:null});}
    if(url.pathname.endsWith('/installedApps'))return Response.json({value:teamsApps.get(token)??[]});
    if(url.pathname.endsWith('/members')||url.pathname.endsWith('/allMembers')){
     const callback=duringAudience;duringAudience=undefined;await callback?.();
+    const channel=decodeURIComponent(url.pathname.split('/teams/')[1]!.split('/')[0]!)+'/'+decodeURIComponent(url.pathname.split('/channels/')[1]?.split('/')[0]??'');audienceCalls.push({token,channel});
+    const roster=rosters.get(token+':'+channel);if(roster)return Response.json({value:roster.map(mail=>{const id='synthetic-slate-user-'+mail;users.set(id,mail);return {'@odata.type':'#microsoft.graph.aadUserConversationMember',email:mail,userId:id,tenantId:'synthetic-slate-tenant',roles:[]};})});
     return Response.json({value:teamsMembers.get(token)??[{'@odata.type':'#microsoft.graph.aadUserConversationMember',email,userId:'synthetic-slate-reader',tenantId:'synthetic-slate-tenant',roles:[]}]});
    }
    return Response.json({membershipType:'private',visibility:'private',...teamsRooms.get(token)});
@@ -51,12 +55,13 @@ export function chatNetwork(tokens:string[],email:string) {
    case 'conversations.list':return Response.json({ok:true,channels:[{id:'GSLATE4',name:'synthetic-slate-4',is_member:true,is_private:true}],response_metadata:{}},{headers:{'x-oauth-scopes':'chat:write,groups:read,groups:history,users:read,users:read.email'}});
    case 'conversations.members':{
     const callback=duringAudience;duringAudience=undefined;await callback?.();
+    const channel=String(body.channel);audienceCalls.push({token,channel});const roster=rosters.get(token+':'+channel);if(roster)return Response.json({ok:true,members:['SENDER',...roster.map(mail=>{const id='synthetic-slate-user-'+mail;users.set(id,mail);return id;})]});
     return Response.json({ok:true,members:['SENDER',...Object.keys(fixture.users??{READER:{}})]});
    }
-   case 'users.info':return Response.json({ok:true,user:fixture.users?fixture.users[String(body.user)]:{profile:{email}}});
+   case 'users.info':return Response.json({ok:true,user:users.has(String(body.user))?{profile:{email:users.get(String(body.user))}}:fixture.users?fixture.users[String(body.user)]:{profile:{email}}});
    case 'conversations.history':return Response.json({ok:true,messages:[]});
    default:throw Error('Unexpected synthetic Slack request');
   }
  };
- return {messages,attempts,failures,audiences,teamsMembers,teamsRooms,teamsApps,duringAudience:(callback:()=>Promise<void>)=>{duringAudience=callback;},restore:()=>{globalThis.fetch=original;}};
+ return {messages,attempts,failures,audiences,rosters,audienceCalls,teamsMembers,teamsRooms,teamsApps,duringAudience:(callback:()=>Promise<void>)=>{duringAudience=callback;},restore:()=>{globalThis.fetch=original;}};
 }
