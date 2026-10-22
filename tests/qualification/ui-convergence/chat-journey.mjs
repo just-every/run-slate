@@ -132,8 +132,9 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await expect(second.getByRole('status')).toHaveText('Connected');
   await add();
   await page.getByLabel('Provider',{exact:true}).selectOption('teams');
-  for(const scope of ['ChannelMessage.ReadWrite','Team.ReadBasic.All','TeamsAppInstallation.ReadForTeam'])await expect(page.locator('form').filter({has:page.getByLabel('Teams team/channel IDs',{exact:true})})).toContainText(scope);
+  for(const scope of ['ChannelMessage.Send','ChannelMessage.ReadWrite','Channel.ReadBasic.All','Team.ReadBasic.All','ChannelMember.Read.All','TeamMember.Read.All','User.Read,','User.Read.All','TeamsAppInstallation.ReadForTeam'])await expect(page.locator('form').filter({has:page.getByLabel('Teams team/channel IDs',{exact:true})})).toContainText(scope);
   await expect(page.locator('form').filter({has:page.getByLabel('Teams team/channel IDs',{exact:true})})).not.toContainText('TeamsAppInstallation.ReadForTeam.All');
+  await expect(page.locator('form').filter({has:page.getByLabel('Teams team/channel IDs',{exact:true})})).not.toContainText('Organization.Read.All');
   await page.getByLabel('Teams team/channel IDs',{exact:true}).focus();await page.keyboard.press('Tab');await expect(page.getByLabel('Microsoft Graph access token',{exact:true})).toBeFocused();
   await shot('teams-permission-help');
   await page.getByLabel('Teams team/channel IDs',{exact:true}).fill('synthetic-slate-5/synthetic-slate-6');

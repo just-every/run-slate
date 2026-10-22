@@ -93,7 +93,7 @@ export function ChatTokenForm({ connection, containers, workspaceOwner, onSaved,
         <label>Nook channel token<input name="token" type="password" required autoComplete="new-password" disabled={pending} /></label>
       </> : <>
         <p>Use a delegated Microsoft Graph access token with ChannelMessage.Send, ChannelMessage.ReadWrite, Channel.ReadBasic.All, Team.ReadBasic.All,
-          ChannelMember.Read.All and TeamMember.Read.All permissions. Use a private channel or private team with no guests, external members or other bots. Slate also needs Organization.Read.All, User.Read.All and TeamsAppInstallation.ReadForTeam to verify the complete audience. Every channel member’s
+          ChannelMember.Read.All and TeamMember.Read.All permissions. Use a private channel or private team with no guests, external members or other bots. Slate also needs User.Read, User.Read.All and TeamsAppInstallation.ReadForTeam to verify the complete audience. Every channel member’s
           email must match an active Slate member with access to the linked page.</p>
         <label>Teams team/channel IDs
           <input name="channel" required autoComplete="off" spellCheck={false} disabled={pending}
