@@ -1,7 +1,7 @@
 import {z} from 'zod';
 import type {FeatureContext} from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
-import {commitOperation} from '../../app/operations';
+import {commitOperation,mutationGuard} from '../../app/operations';
 import {requireWorkspaceOwner} from '../sharing/current-access';
 import {encryptSecret,decryptSecret} from '../../platform/secrets/custody';
 import {createUlid} from '../../shared/ulid';
@@ -18,6 +18,17 @@ export async function addDestination(ctx:FeatureContext,key:string,input:z.infer
  return {destination:destinationView(await requireDestination(ctx,result.value.id))};
 }
 export async function removeDestination(ctx:FeatureContext,id:string,operationKey:string){await requireDestination(ctx,id);await commitOperation(ctx,{operationKey,action:'backup.remove',request:{id},authorize:()=>requireWorkspaceOwner(ctx),prepare:async()=>({statements:[ctx.db.prepare("UPDATE backup_destinations SET credential_ciphertext=NULL,state='removed',updated_at=?,drill_report_json=NULL WHERE id=? AND workspace_id=?").bind(ctx.now,id,ctx.actor.workspaceId)],entity:{id,kind:'backup-destination',revisionId:ctx.now},value:{removed:true}})});return {removed:true};}
+/** Replace expired or incorrect credentials without discarding the schedule or its history. */
+export async function replaceDestinationCredentials(ctx:FeatureContext,id:string,key:string,input:{operationKey:string;accessKeyId:string;secretAccessKey:string}){
+ const row=await requireDestination(ctx,id);
+ if(!key||key.length<32)throw new ApiProblem(503,'CREDENTIAL_UNAVAILABLE','CONNECTOR_CREDENTIALS_KEY is required.');
+ const cipher=await encryptSecret(key,JSON.stringify({accessKeyId:input.accessKeyId,secretAccessKey:input.secretAccessKey}),scope(row));
+ await commitOperation(ctx,{operationKey:input.operationKey,action:'backup.credentials',request:{id,...input},authorize:async()=>{await requireDestination(ctx,id);},prepare:async()=>({
+  statements:[mutationGuard(ctx.db,"SELECT state='connected' AND credential_ciphertext=? FROM backup_destinations WHERE id=? AND workspace_id=?",[row.credential_ciphertext,id,ctx.actor.workspaceId]),ctx.db.prepare('UPDATE backup_destinations SET credential_ciphertext=?,updated_at=? WHERE id=?').bind(cipher,ctx.now,id)],
+  entity:{id,kind:'backup-destination',revisionId:ctx.now},value:{updated:true},
+ })});
+ return {destination:destinationView(await requireDestination(ctx,id))};
+}
 export async function transport(ctx:FeatureContext,row:BackupDestinationRow,key:string,extra?:()=>Promise<void>){
  if(!row.credential_ciphertext)throw new ApiProblem(409,'BACKUP_DISCONNECTED','Reconnect the backup destination.');
  const credentials=JSON.parse(await decryptSecret(key,row.credential_ciphertext,scope(row))) as {accessKeyId:string;secretAccessKey:string};

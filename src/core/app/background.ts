@@ -28,12 +28,12 @@ export async function consumeJobs(batch:MessageBatch<unknown>,env:AppBindings){
     }
   }
 }
-export async function scheduledJobs(env:AppBindings){
+export async function scheduledJobs(env:AppBindings,now=new Date().toISOString()){
   const flagship = readLaunchProfile(env.SLATE_PROFILE) === 'flagship';
   const tasks: [string, () => Promise<unknown>][] = [
     ['saml-domains', () => recheckSamlDomains(env.DB)],
     ['content', () => runContentJobs(env)],
-    ['backups', () => scheduledBackups(env)],
+    ['backups', () => scheduledBackups(env,now)],
     // STAT-007: nightly verification rules, in every profile.
     ['verification-rules', () => runVerificationRules(env)],
     ['discovery', () => scheduledDiscovery(env)],

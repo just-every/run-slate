@@ -940,7 +940,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "61b874bd7b629f83aa55c1f12d6aa306e1d5bbf1308243638c2f82ad14465081",
+      "sha256": "3c8fbd07cb7904d83266a55949a669fbb61240d01491995a3150889c9f2e4718",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -968,7 +968,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "88c42eca396ef55adbd4e04b39fde61fd9367ce82d90d212a2e8f2ee40f21886",
+      "sha256": "216a486f1f2145dfb4fbde4297c05de32dcb9ce3bdc41781b93069253e89afb4",
       "executable": false
     },
     "DEMO.md": {
@@ -1004,7 +1004,7 @@
       "executable": false
     },
     "docs/BACKUP.md": {
-      "sha256": "64782326e5129f5e920622723f3fcc84b48b2158e3a251e35604b287068383eb",
+      "sha256": "b49251dc0a82a2923ca52e63bb632dc84ecb7a26fb366fe2a4a07e0ba9905e09",
       "executable": false
     },
     "docs/CHAT-NOTIFICATIONS.md": {
@@ -1012,7 +1012,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "117a3e72135d94ce55a1fd32b4c9494a1d48ffb0d328c5f3e32179503a213069",
+      "sha256": "a150c5a9cbbfb95f3d39818ac014e53a0799160d22c7c830fd160581f1a8810b",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -4756,7 +4756,7 @@
       "executable": false
     },
     "src/core/app/background.ts": {
-      "sha256": "9f0f6fcbdc524deefa13fe898419a500515c5b8aa194a2e8ec647c0a431fbb66",
+      "sha256": "ec94052edfc30e987914d655c69a5c09771b9d846053483649c4c43404e23095",
       "executable": false
     },
     "src/core/app/editor-config.ts": {
@@ -5420,7 +5420,7 @@
       "executable": false
     },
     "src/core/features/backups/configuration.ts": {
-      "sha256": "574192d8a50d3aa50f4632bbef464c79ac21e1964dcb5f8909c63483ef953f76",
+      "sha256": "8ef34191d22ce89a78fadaf6343f67fceb31879d5571a7b27e8be9e56d70e802",
       "executable": false
     },
     "src/core/features/backups/drill.ts": {
@@ -5428,7 +5428,7 @@
       "executable": false
     },
     "src/core/features/backups/routes.ts": {
-      "sha256": "ceaee081da4fc78bf8bb0689bb2b74817b916b742094d230a8d31437b5a42009",
+      "sha256": "2ad54955b9f92665b381164c7318794886adf4803e5c6aabc162c49bf930c73b",
       "executable": false
     },
     "src/core/features/backups/run.ts": {
@@ -9732,7 +9732,7 @@
       "executable": false
     },
     "tests/e2e/imports/scheduled-backup-journey.ts": {
-      "sha256": "31938f9ba0b04a2d70610af1eba69ccfdbd0e3da8743e3ea4414434079e5481d",
+      "sha256": "e33c6148e94dc3a69f707f335ac81cfb9d25a98e11eec0ec3e91b4c5d88ff844",
       "executable": false
     },
     "tests/e2e/imports/undo-cross-references.test.ts": {
