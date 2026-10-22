@@ -227,7 +227,9 @@ test("reader filtering precedes summaries and unauthorized reader cannot mutate"
     }),
   ).rejects.toMatchObject({ status: 404 });
 });
-test("typed formula cycles reject and arithmetic evaluates without executable code", () => {
+test("numeric formulas evaluate and recompute while invalid types and cycles reject before and after records exist", async () => {
+  // Original variant: typed formula cycles reject and arithmetic evaluates without executable code
+  await (async () => {
   const f = (id: string, expression: unknown) => ({
     id,
     name: id,
@@ -244,138 +246,11 @@ test("typed formula cycles reject and arithmetic evaluates without executable co
       {},
     ).sum,
   ).toBe(7);
-});
-test("template snapshots retain prescribed children independently and application replays", async () => {
-  const { ctx, containerId } = await scenario();
-  const source = await createPage(ctx, {
-    operationKey: "case:014",
-    containerId,
-    title: "Root",
-  });
-  await createPage(ctx, {
-    operationKey: "case:015",
-    containerId,
-    parentPageId: source.value.pageId,
-    title: "Child",
-  });
-  const template = await saveTemplate(ctx, {
-    operationKey: "case:016",
-    sourcePageId: source.value.pageId,
-    includeChildren: true,
-    containerId: null,
-    title: "Starter",
-    description: "A starter",
-    category: "Work",
-  });
-  const input = {
-    operationKey: "case:017",
-    containerId,
-    expectedRevisionId: template.receipt.revisionId,
-  };
-  const first = await applyTemplate(ctx, template.value.id, input);
-  expect(first.value.pageIds).toHaveLength(2);
-  expect(await applyTemplate(ctx, template.value.id, input)).toEqual(first);
-  await changeTemplate(ctx, template.value.id, {
-    operationKey: "case:018",
-    expectedRevisionId: template.receipt.revisionId,
-    action: "archive",
-  });
-  expect((await readPage(ctx, first.value.pageId)).page.title).toBe("Root");
-});
-test("rule action executes once with durable receipts and revoked actor loses execution", async () => {
-  const { ctx, containerId } = await scenario();
-  const db = await createDatabase(ctx, {
-    operationKey: "case:019",
-    containerId,
-    title: "Work",
-  });
-  const record = await createRecord(ctx, db.value.id, {
-    operationKey: "case:020",
-    title: "Task",
-    values: {},
-  });
-  const rule = await saveRule(ctx, {
-    operationKey: "case:021",
-    name: "Comment",
-    scope: "source",
-    sourceDatabaseId: db.value.id,
-    trigger: { event: "record-created" },
-    conditions: [],
-    actions: [{ type: "comment", body: "Tracked" }],
-  });
-  const event = {
-    key: "event-1",
-    event: "record-created",
-    pageId: record.value.pageId,
-    databaseId: db.value.id,
-    containerId,
-  };
-  const queued = await enqueueAutomationEvent(ctx, event);
-  expect(queued.jobIds).toHaveLength(1);
-  const execution = await processAutomationJob(ctx, queued.jobIds[0], adapters);
-  const log = await env.DB.prepare(
-    "SELECT detail_json FROM automation_runs WHERE id=?",
-  )
-    .bind(execution!.runId)
-    .first();
-  expect(execution?.state, JSON.stringify(log)).toBe("success");
-  await processAutomationJob(ctx, queued.jobIds[0], adapters);
-  expect(
-    (
-      await env.DB.prepare(
-        "SELECT COUNT(*) AS n FROM comments c JOIN comment_threads t ON t.id=c.thread_id WHERE t.page_id=?",
-      )
-        .bind(record.value.pageId)
-        .first<{
-          n: number;
-        }>()
-    )?.n,
-  ).toBe(1);
-  expect((await enqueueAutomationEvent(ctx, event)).jobIds).toHaveLength(0);
-  const next = await enqueueAutomationEvent(ctx, { ...event, key: "event-2" });
-  await env.DB.prepare("UPDATE members SET status='removed' WHERE id=?")
-    .bind(ctx.actor.id)
-    .run();
-  expect(
-    (await processAutomationJob(ctx, next.jobIds[0], adapters))?.state,
-  ).toBe("failure");
-  expect(
-    (await env.DB.prepare(
-      "SELECT COUNT(*) AS n FROM automation_action_receipts WHERE state='confirmed'",
-    ).first<{
-      n: number;
-    }>())!.n,
-  ).toBeGreaterThanOrEqual(1);
-});
-test("record body persists across both parity profiles", async () => {
-  const { ctx, containerId } = await scenario();
-  const db = await createDatabase(ctx, {
-    operationKey: "case:022",
-    containerId,
-    title: "Work",
-  });
-  const record = await createRecord(ctx, db.value.id, {
-    operationKey: "case:023",
-    title: "Task",
-    values: {},
-  });
-  expect((await openRecord(ctx, record.value.pageId)).parity).toBe(
-    "record-is-page",
-  );
-  await env.DB.prepare(
-    "INSERT INTO workspace_policies (workspace_id,profile_json,updated_at) VALUES (?,?,?)",
-  )
-    .bind(
-      ctx.actor.workspaceId,
-      JSON.stringify({ "record.page-parity.v1": "record-is-row" }),
-      ctx.now,
-    )
-    .run();
-  const result = await openRecord(ctx, record.value.pageId);
-  expect(result.presentation.body).toBe(false);
-  expect(result.page.page.id).toBe(record.value.pageId);
-});
-test("empty database accepts numeric formula, recomputes changed fields, rejects invalid types and cycles", async () => {
+
+  })();
+  await resetDeployment();
+  // Original variant: empty database accepts numeric formula, recomputes changed fields, rejects invalid types and cycles
+  await (async () => {
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
     operationKey: "case:024",
@@ -452,8 +327,222 @@ test("empty database accepts numeric formula, recomputes changed fields, rejects
       },
     }),
   ).rejects.toMatchObject({ code: "FORMULA_CYCLE" });
+
+  })();
 });
-test("rollups filter related unreadable records before aggregate and reject stale references", async () => {
+test("template snapshots retain prescribed children independently and application replays", async () => {
+  const { ctx, containerId } = await scenario();
+  const source = await createPage(ctx, {
+    operationKey: "case:014",
+    containerId,
+    title: "Root",
+  });
+  await createPage(ctx, {
+    operationKey: "case:015",
+    containerId,
+    parentPageId: source.value.pageId,
+    title: "Child",
+  });
+  const template = await saveTemplate(ctx, {
+    operationKey: "case:016",
+    sourcePageId: source.value.pageId,
+    includeChildren: true,
+    containerId: null,
+    title: "Starter",
+    description: "A starter",
+    category: "Work",
+  });
+  const input = {
+    operationKey: "case:017",
+    containerId,
+    expectedRevisionId: template.receipt.revisionId,
+  };
+  const first = await applyTemplate(ctx, template.value.id, input);
+  expect(first.value.pageIds).toHaveLength(2);
+  expect(await applyTemplate(ctx, template.value.id, input)).toEqual(first);
+  await changeTemplate(ctx, template.value.id, {
+    operationKey: "case:018",
+    expectedRevisionId: template.receipt.revisionId,
+    action: "archive",
+  });
+  expect((await readPage(ctx, first.value.pageId)).page.title).toBe("Root");
+});
+test("rule execution retains exactly-once receipts and refuses effects when authority is lost before or during a run", async () => {
+  // Original variant: rule action executes once with durable receipts and revoked actor loses execution
+  await (async () => {
+  const { ctx, containerId } = await scenario();
+  const db = await createDatabase(ctx, {
+    operationKey: "case:019",
+    containerId,
+    title: "Work",
+  });
+  const record = await createRecord(ctx, db.value.id, {
+    operationKey: "case:020",
+    title: "Task",
+    values: {},
+  });
+  const rule = await saveRule(ctx, {
+    operationKey: "case:021",
+    name: "Comment",
+    scope: "source",
+    sourceDatabaseId: db.value.id,
+    trigger: { event: "record-created" },
+    conditions: [],
+    actions: [{ type: "comment", body: "Tracked" }],
+  });
+  const event = {
+    key: "event-1",
+    event: "record-created",
+    pageId: record.value.pageId,
+    databaseId: db.value.id,
+    containerId,
+  };
+  const queued = await enqueueAutomationEvent(ctx, event);
+  expect(queued.jobIds).toHaveLength(1);
+  const execution = await processAutomationJob(ctx, queued.jobIds[0], adapters);
+  const log = await env.DB.prepare(
+    "SELECT detail_json FROM automation_runs WHERE id=?",
+  )
+    .bind(execution!.runId)
+    .first();
+  expect(execution?.state, JSON.stringify(log)).toBe("success");
+  await processAutomationJob(ctx, queued.jobIds[0], adapters);
+  expect(
+    (
+      await env.DB.prepare(
+        "SELECT COUNT(*) AS n FROM comments c JOIN comment_threads t ON t.id=c.thread_id WHERE t.page_id=?",
+      )
+        .bind(record.value.pageId)
+        .first<{
+          n: number;
+        }>()
+    )?.n,
+  ).toBe(1);
+  expect((await enqueueAutomationEvent(ctx, event)).jobIds).toHaveLength(0);
+  const next = await enqueueAutomationEvent(ctx, { ...event, key: "event-2" });
+  await env.DB.prepare("UPDATE members SET status='removed' WHERE id=?")
+    .bind(ctx.actor.id)
+    .run();
+  expect(
+    (await processAutomationJob(ctx, next.jobIds[0], adapters))?.state,
+  ).toBe("failure");
+  expect(
+    (await env.DB.prepare(
+      "SELECT COUNT(*) AS n FROM automation_action_receipts WHERE state='confirmed'",
+    ).first<{
+      n: number;
+    }>())!.n,
+  ).toBeGreaterThanOrEqual(1);
+
+  })();
+  await resetDeployment();
+  // Original variant: rule permission loss skips unauthorized later effects and retains confirmed receipt
+  await (async () => {
+  const { sendNotification } =
+    await import("../../../src/core/features/notifications/commands");
+  const { ctx, containerId, reader } = await scenario();
+  const db = await createDatabase(ctx, {
+    operationKey: "case:056",
+    containerId,
+    title: "Work",
+  });
+  const record = await createRecord(ctx, db.value.id, {
+    operationKey: "case:057",
+    title: "Task",
+    values: {},
+  });
+  await saveRule(ctx, {
+    operationKey: "case:058",
+    name: "Notify then comment",
+    scope: "source",
+    sourceDatabaseId: db.value.id,
+    trigger: { event: "record-created" },
+    conditions: [],
+    actions: [
+      {
+        type: "notify",
+        recipientMemberIds: [ctx.actor.id],
+        message: "Started",
+      },
+      { type: "comment", body: "Must be blocked" },
+    ],
+  });
+  const jobs = await enqueueAutomationEvent(ctx, {
+    key: "loss-event",
+    event: "record-created",
+    pageId: record.value.pageId,
+    databaseId: db.value.id,
+    containerId,
+  });
+  const result = await processAutomationJob(ctx, jobs.jobIds[0], {
+    ...adapters,
+    notify: async (c, input) => {
+      const response = await sendNotification(c, {
+        operationKey: input.operationKey,
+        pageId: input.sourcePageId,
+        recipientIds: input.recipientMemberIds,
+        outcome: input.message,
+      });
+      await env.DB.prepare(
+        "UPDATE pages SET lifecycle='draft',author_member_id=?,access_inheritance='restricted' WHERE id=?",
+      )
+        .bind(reader.actor.id, record.value.pageId)
+        .run();
+      return response;
+    },
+  });
+  expect(result?.state).toBe("success");
+  const receipts = await env.DB.prepare(
+    "SELECT state FROM automation_action_receipts WHERE run_id=? ORDER BY action_index",
+  )
+    .bind(result!.runId)
+    .all<{ state: string }>();
+  expect(receipts.results.map((r) => r.state)).toEqual([
+    "confirmed",
+    "skipped",
+  ]);
+  expect(
+    (await env.DB.prepare(
+      "SELECT count(*) AS n FROM comment_threads WHERE page_id=?",
+    )
+      .bind(record.value.pageId)
+      .first<{ n: number }>())!.n,
+  ).toBe(0);
+
+  })();
+});
+test("record body persists across both parity profiles", async () => {
+  const { ctx, containerId } = await scenario();
+  const db = await createDatabase(ctx, {
+    operationKey: "case:022",
+    containerId,
+    title: "Work",
+  });
+  const record = await createRecord(ctx, db.value.id, {
+    operationKey: "case:023",
+    title: "Task",
+    values: {},
+  });
+  expect((await openRecord(ctx, record.value.pageId)).parity).toBe(
+    "record-is-page",
+  );
+  await env.DB.prepare(
+    "INSERT INTO workspace_policies (workspace_id,profile_json,updated_at) VALUES (?,?,?)",
+  )
+    .bind(
+      ctx.actor.workspaceId,
+      JSON.stringify({ "record.page-parity.v1": "record-is-row" }),
+      ctx.now,
+    )
+    .run();
+  const result = await openRecord(ctx, record.value.pageId);
+  expect(result.presentation.body).toBe(false);
+  expect(result.page.page.id).toBe(record.value.pageId);
+});
+
+test("rollup writes reject stale references and cycles while reads preserve current authority and prior records", async () => {
+  // Original variant: rollups filter related unreadable records before aggregate and reject stale references
+  await (async () => {
   const { ctx, containerId, reader } = await scenario();
   const db = await createDatabase(ctx, {
     operationKey: "case:032",
@@ -523,64 +612,11 @@ test("rollups filter related unreadable records before aggregate and reject stal
   expect(filtered.values.sum).toBe(0);
   expect(filtered.page.properties.databaseFields?.rel).toEqual([]);
   expect(JSON.stringify(filtered)).not.toContain(secret.value.pageId);
-});
-test("all automation scopes persist; schedules deduplicate and chains throttle with a log", async () => {
-  const { ctx, containerId } = await scenario();
-  const db = await createDatabase(ctx, {
-    operationKey: "case:038",
-    containerId,
-    title: "Work",
-  });
-  for (const scope of ["source", "container", "site"] as const) {
-    const result = await saveRule(ctx, {
-      operationKey: `scope-create-${scope}`,
-      name: scope,
-      scope,
-      sourceDatabaseId: scope === "source" ? db.value.id : undefined,
-      containerId: scope === "container" ? containerId : undefined,
-      trigger: { event: "created" },
-      conditions: [],
-      actions: [],
-    });
-    const e = {
-      key: `chain-${scope}`,
-      event: "created",
-      databaseId: db.value.id,
-      containerId,
-      chainRuleIds: [result.value.id],
-    };
-    await enqueueAutomationEvent(ctx, e);
-    const logs = await env.DB.prepare(
-      "SELECT state FROM automation_runs WHERE rule_id=? AND state='throttled'",
-    )
-      .bind(result.value.id)
-      .all();
-    expect(logs.results).toHaveLength(1);
-  }
-  const { runAutomationSchedule } =
-    await import("../../../src/core/features/automation/jobs");
-  const scheduled = await saveRule(ctx, {
-    operationKey: "case:039",
-    name: "Schedule",
-    scope: "site",
-    trigger: {
-      event: "schedule",
-      intervalMinutes: 60,
-      startsAt: "2026-01-01T00:00:00Z",
-    },
-    conditions: [],
-    actions: [{ type: "create-page", containerId, title: "Scheduled work" }],
-  });
-  await runAutomationSchedule(ctx, adapters);
-  await runAutomationSchedule(ctx, adapters);
-  const runs = await env.DB.prepare(
-    "SELECT state FROM automation_runs WHERE rule_id=? AND state='success'",
-  )
-    .bind(scheduled.value.id)
-    .all();
-  expect(runs.results).toHaveLength(1);
-});
-test("rollup cycle writes reject while prior records remain readable", async () => {
+
+  })();
+  await resetDeployment();
+  // Original variant: rollup cycle writes reject while prior records remain readable
+  await (async () => {
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
     operationKey: "case:040",
@@ -657,58 +693,71 @@ test("rollup cycle writes reject while prior records remain readable", async () 
     },
   })).rejects.toMatchObject({code:"COMPUTED_CYCLE"});
   expect((await openRecord(ctx, a.value.pageId)).values["cycle-roll"]).toBe(0);
+
+  })();
 });
-test("all eight policy alternatives preserve structured data and template exclusions", async () => {
+test("automation schedules and content events deduplicate effects and durably log chain and self-trigger throttling", async () => {
+  // Original variant: all automation scopes persist; schedules deduplicate and chains throttle with a log
+  await (async () => {
   const { ctx, containerId } = await scenario();
-  const alternatives = {
-    "page.lifecycle.v1": "draft-then-publish",
-    "page.access.v1": "container-general",
-    "page.public-access.v1": "link",
-    "page.version.v1": "labelled",
-    "page.status.v1": "open-vocabulary",
-    "record.page-parity.v1": "record-is-row",
-    "automation.scope.v1": "site",
-    "container.access.v1": "grant-led",
-  };
-  await env.DB.prepare(
-    "INSERT INTO workspace_policies (workspace_id,profile_json,updated_at) VALUES (?,?,?)",
-  )
-    .bind(ctx.actor.workspaceId, JSON.stringify(alternatives), ctx.now)
-    .run();
   const db = await createDatabase(ctx, {
-    operationKey: "case:048",
+    operationKey: "case:038",
     containerId,
-    title: "Policy data",
+    title: "Work",
   });
-  const record = await createRecord(ctx, db.value.id, {
-    operationKey: "case:049",
-    title: "Private",
-    values: {},
+  for (const scope of ["source", "container", "site"] as const) {
+    const result = await saveRule(ctx, {
+      operationKey: `scope-create-${scope}`,
+      name: scope,
+      scope,
+      sourceDatabaseId: scope === "source" ? db.value.id : undefined,
+      containerId: scope === "container" ? containerId : undefined,
+      trigger: { event: "created" },
+      conditions: [],
+      actions: [],
+    });
+    const e = {
+      key: `chain-${scope}`,
+      event: "created",
+      databaseId: db.value.id,
+      containerId,
+      chainRuleIds: [result.value.id],
+    };
+    await enqueueAutomationEvent(ctx, e);
+    const logs = await env.DB.prepare(
+      "SELECT state FROM automation_runs WHERE rule_id=? AND state='throttled'",
+    )
+      .bind(result.value.id)
+      .all();
+    expect(logs.results).toHaveLength(1);
+  }
+  const { runAutomationSchedule } =
+    await import("../../../src/core/features/automation/jobs");
+  const scheduled = await saveRule(ctx, {
+    operationKey: "case:039",
+    name: "Schedule",
+    scope: "site",
+    trigger: {
+      event: "schedule",
+      intervalMinutes: 60,
+      startsAt: "2026-01-01T00:00:00Z",
+    },
+    conditions: [],
+    actions: [{ type: "create-page", containerId, title: "Scheduled work" }],
   });
-  const opened = await openRecord(ctx, record.value.pageId);
-  expect(opened.page.policyProfile).toEqual(alternatives);
-  expect(opened.page.page.lifecycle).toBe("draft");
-  const tmpl = await saveTemplate(ctx, {
-    operationKey: "case:050",
-    sourcePageId: record.value.pageId,
-    includeChildren: false,
-    containerId: null,
-    title: "Copy",
-    description: "",
-    category: "Work",
-  });
-  const stored = await env.DB.prepare(
-    "SELECT snapshot_json FROM knowledge_templates WHERE id=?",
+  await runAutomationSchedule(ctx, adapters);
+  await runAutomationSchedule(ctx, adapters);
+  const runs = await env.DB.prepare(
+    "SELECT state FROM automation_runs WHERE rule_id=? AND state='success'",
   )
-    .bind(tmpl.value.id)
-    .first<{ snapshot_json: string }>();
-  const snapshot = JSON.parse(stored!.snapshot_json);
-  expect(snapshot.properties.statusKey).toBeUndefined();
-  expect(snapshot.grants).toBeUndefined();
-  expect(snapshot.revisions).toBeUndefined();
-  expect(snapshot.publicExposure).toBeUndefined();
-});
-test("committed content events drain durably and self-triggering field rules are throttled", async () => {
+    .bind(scheduled.value.id)
+    .all();
+  expect(runs.results).toHaveLength(1);
+
+  })();
+  await resetDeployment();
+  // Original variant: committed content events drain durably and self-triggering field rules are throttled
+  await (async () => {
   const { runAutomationMaintenance } =
     await import("../../../src/core/features/automation/events");
   const { ctx, containerId } = await scenario();
@@ -767,79 +816,62 @@ test("committed content events drain durably and self-triggering field rules are
       .bind(rule.value.id)
       .first<{ n: number }>())!.n,
   ).toBe(3);
+
+  })();
 });
-test("rule permission loss skips unauthorized later effects and retains confirmed receipt", async () => {
-  const { sendNotification } =
-    await import("../../../src/core/features/notifications/commands");
-  const { ctx, containerId, reader } = await scenario();
+
+test("all eight policy alternatives preserve structured data and template exclusions", async () => {
+  const { ctx, containerId } = await scenario();
+  const alternatives = {
+    "page.lifecycle.v1": "draft-then-publish",
+    "page.access.v1": "container-general",
+    "page.public-access.v1": "link",
+    "page.version.v1": "labelled",
+    "page.status.v1": "open-vocabulary",
+    "record.page-parity.v1": "record-is-row",
+    "automation.scope.v1": "site",
+    "container.access.v1": "grant-led",
+  };
+  await env.DB.prepare(
+    "INSERT INTO workspace_policies (workspace_id,profile_json,updated_at) VALUES (?,?,?)",
+  )
+    .bind(ctx.actor.workspaceId, JSON.stringify(alternatives), ctx.now)
+    .run();
   const db = await createDatabase(ctx, {
-    operationKey: "case:056",
+    operationKey: "case:048",
     containerId,
-    title: "Work",
+    title: "Policy data",
   });
   const record = await createRecord(ctx, db.value.id, {
-    operationKey: "case:057",
-    title: "Task",
+    operationKey: "case:049",
+    title: "Private",
     values: {},
   });
-  await saveRule(ctx, {
-    operationKey: "case:058",
-    name: "Notify then comment",
-    scope: "source",
-    sourceDatabaseId: db.value.id,
-    trigger: { event: "record-created" },
-    conditions: [],
-    actions: [
-      {
-        type: "notify",
-        recipientMemberIds: [ctx.actor.id],
-        message: "Started",
-      },
-      { type: "comment", body: "Must be blocked" },
-    ],
+  const opened = await openRecord(ctx, record.value.pageId);
+  expect(opened.page.policyProfile).toEqual(alternatives);
+  expect(opened.page.page.lifecycle).toBe("draft");
+  const tmpl = await saveTemplate(ctx, {
+    operationKey: "case:050",
+    sourcePageId: record.value.pageId,
+    includeChildren: false,
+    containerId: null,
+    title: "Copy",
+    description: "",
+    category: "Work",
   });
-  const jobs = await enqueueAutomationEvent(ctx, {
-    key: "loss-event",
-    event: "record-created",
-    pageId: record.value.pageId,
-    databaseId: db.value.id,
-    containerId,
-  });
-  const result = await processAutomationJob(ctx, jobs.jobIds[0], {
-    ...adapters,
-    notify: async (c, input) => {
-      const response = await sendNotification(c, {
-        operationKey: input.operationKey,
-        pageId: input.sourcePageId,
-        recipientIds: input.recipientMemberIds,
-        outcome: input.message,
-      });
-      await env.DB.prepare(
-        "UPDATE pages SET lifecycle='draft',author_member_id=?,access_inheritance='restricted' WHERE id=?",
-      )
-        .bind(reader.actor.id, record.value.pageId)
-        .run();
-      return response;
-    },
-  });
-  expect(result?.state).toBe("success");
-  const receipts = await env.DB.prepare(
-    "SELECT state FROM automation_action_receipts WHERE run_id=? ORDER BY action_index",
+  const stored = await env.DB.prepare(
+    "SELECT snapshot_json FROM knowledge_templates WHERE id=?",
   )
-    .bind(result!.runId)
-    .all<{ state: string }>();
-  expect(receipts.results.map((r) => r.state)).toEqual([
-    "confirmed",
-    "skipped",
-  ]);
-  expect(
-    (await env.DB.prepare(
-      "SELECT count(*) AS n FROM comment_threads WHERE page_id=?",
-    )
-      .bind(record.value.pageId)
-      .first<{ n: number }>())!.n,
-  ).toBe(0);
+    .bind(tmpl.value.id)
+    .first<{ snapshot_json: string }>();
+  const snapshot = JSON.parse(stored!.snapshot_json);
+  expect(snapshot.properties.statusKey).toBeUndefined();
+  expect(snapshot.grants).toBeUndefined();
+  expect(snapshot.revisions).toBeUndefined();
+  expect(snapshot.publicExposure).toBeUndefined();
 });
+
+
 test("draft profile record readers never see unpublished field values", async () => {
   const { publishPage } =
     await import("../../../src/core/features/lifecycle/service");

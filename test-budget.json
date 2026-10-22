@@ -2,9 +2,19 @@
   "defaultCap": 200,
   "registrations": 817,
   "scope": "All seed-owned registrations under tests/, including node:test, Vitest, contract wrappers, browser and qualification journeys; vendored modules are excluded.",
-  "reason": "The former 253 figure counted supporting-regression registry entries only, including generated runtime names. Static AST inventory finds 825 seed registrations before this trim and 817 after eight same-behaviour merges, with all 5944 assertion expressions retained. The supporting registry falls from 253 runtime identities to 243 (237 to 230 static registrations). Independent acceptance, migration/restore, authorization/refusal, custody/privacy, provider-edge, browser, installer and release-source behaviours remain distinct; combining unrelated behaviours would violate the counting rule. No assertion was dropped. This measured budget is submitted to ct under G3 outcome B; the default cap remains 200.",
+  "reason": "The former 253 figure counted supporting-regression registry identities, not all seed registrations. The corrected static AST inventory includes eight nested node:test context registrations: 833 seed registrations before the trim. Same-behaviour matrices reduce that inventory while every one of the original 5944 assertion expressions remains. New backup, provider-folder and SAML journeys are offset by further same-behaviour merges; the final measured total is 817. Independent acceptance, migration/restore, authorization/refusal, custody/privacy, provider-edge, browser, installer and release-source behaviours remain distinct. This measured budget is submitted to ct under G3 outcome B; the default cap remains 200 and no assertion was removed.",
   "dropCandidates": [
-    {"file": "tests/flagship/intelligence/native-transport.test.ts", "registration": "Native timestamps preserve valid ISO instants and normalize bounded Unix milliseconds", "uniqueAssertion": "Rejects invalid native timestamp values and normalizes bounded milliseconds", "reason": "Parser-level detail rather than a complete public-door user flow; no assertion removed pending ct."},
-    {"file": "tests/flagship/intelligence/reservation-prerequisites.test.ts", "registration": "AI-012 budget fixture admits one real conservative reservation but cannot fit two", "uniqueAssertion": "Checks the fixture's two conservative estimates cannot both fit", "reason": "Fixture prerequisite rather than product acceptance; no assertion removed pending ct."}
+    {
+      "file": "tests/flagship/intelligence/native-transport.test.ts",
+      "registration": "Native timestamps preserve valid ISO instants and normalize bounded Unix milliseconds",
+      "uniqueAssertion": "Rejects invalid native timestamp values and normalizes bounded milliseconds",
+      "reason": "Parser-level detail rather than a complete public-door user flow; no assertion removed pending ct."
+    },
+    {
+      "file": "tests/flagship/intelligence/reservation-prerequisites.test.ts",
+      "registration": "AI-012 budget fixture admits one real conservative reservation but cannot fit two",
+      "uniqueAssertion": "Checks the fixture's two conservative estimates cannot both fit",
+      "reason": "Fixture prerequisite rather than product acceptance; no assertion removed pending ct."
+    }
   ]
 }

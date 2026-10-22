@@ -40,7 +40,9 @@ test("queue dispatcher reports only accepted jobs and validates message envelope
   await assert.rejects(() => dispatcher.dispatch({ type: "Import Parse", payload: {} }), /Job types/);
 });
 
-test("dependency health reports only dependencies a request can observe", async () => {
+test("dependency health probes observable dependencies and propagates an unreachable dependency", async () => {
+  // Original variant: dependency health reports only dependencies a request can observe
+  await (async () => {
   let databaseProbed = false;
   let filesProbed = false;
   const health = await probeDependencies({
@@ -53,14 +55,19 @@ test("dependency health reports only dependencies a request can observe", async 
     database: { status: "reachable" },
     files: { status: "reachable" },
   });
-});
 
-test("dependency health surfaces an unreachable dependency instead of reporting it", async () => {
+  })();
+  // Original variant: dependency health surfaces an unreachable dependency instead of reporting it
+  await (async () => {
   await assert.rejects(() => probeDependencies({
     database: { prepare: () => ({ first: async () => ({ ready: 1 }) }) } as unknown as D1Database,
     files: { head: async () => { throw new Error("bucket unavailable"); } } as unknown as R2Bucket,
   }), /bucket unavailable/);
+
+  })();
 });
+
+
 
 test("Resend adapter sends a real provider-shaped request and surfaces provider failures", async () => {
   const requests: Request[] = [];

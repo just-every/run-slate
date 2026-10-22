@@ -710,7 +710,7 @@
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rollups filter related unreadable records before aggregate and reject stale references"
+          "testName": "rollup writes reject stale references and cycles while reads preserve current authority and prior records"
         }
       ]
     },
@@ -1107,19 +1107,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "typed formula cycles reject and arithmetic evaluates without executable code"
+          "testName": "numeric formulas evaluate and recompute while invalid types and cycles reject before and after records exist"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "empty database accepts numeric formula, recomputes changed fields, rejects invalid types and cycles"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rollups filter related unreadable records before aggregate and reject stale references"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rollup cycle writes reject while prior records remain readable"
+          "testName": "rollup writes reject stale references and cycles while reads preserve current authority and prior records"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -1283,23 +1275,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/automation-repairs.test.ts",
-          "testName": "AUTO-002 source/container admission rejects out-of-scope destinations; site definitions and activity are private"
-        },
-        {
-          "file": "tests/flagship/structured/automation-repairs.test.ts",
-          "testName": "AUTO-002 current container movement blocks an admitted action"
-        },
-        {
-          "file": "tests/flagship/structured/automation-repairs.test.ts",
-          "testName": "AUTO-002 branch targets and prepared resumed actions recheck current container scope"
+          "testName": "AUTO-002 admission, movement, branch and resumed actions enforce current container scope and private definitions"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rule action executes once with durable receipts and revoked actor loses execution"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rule permission loss skips unauthorized later effects and retains confirmed receipt"
+          "testName": "rule execution retains exactly-once receipts and refuses effects when authority is lost before or during a run"
         }
       ]
     },
@@ -1311,19 +1291,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/automation-repairs.test.ts",
-          "testName": "AUTO-003 durable recovery reconciles commit-before-confirm and completes ordered actions exactly once"
-        },
-        {
-          "file": "tests/flagship/structured/automation-repairs.test.ts",
-          "testName": "AUTO-003 transient failure before commit resumes admitted conditions after an earlier field edit"
+          "testName": "AUTO-003 durable recovery before and after commit retains admitted conditions and completes ordered effects exactly once"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rule action executes once with durable receipts and revoked actor loses execution"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rule permission loss skips unauthorized later effects and retains confirmed receipt"
+          "testName": "rule execution retains exactly-once receipts and refuses effects when authority is lost before or during a run"
         }
       ]
     },
@@ -1335,11 +1307,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "all automation scopes persist; schedules deduplicate and chains throttle with a log"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "committed content events drain durably and self-triggering field rules are throttled"
+          "testName": "automation schedules and content events deduplicate effects and durably log chain and self-trigger throttling"
         }
       ]
     },
@@ -1351,7 +1319,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "all automation scopes persist; schedules deduplicate and chains throttle with a log"
+          "testName": "automation schedules and content events deduplicate effects and durably log chain and self-trigger throttling"
         }
       ]
     },

@@ -1,3 +1,4 @@
+import { resetDeployment } from "../../e2e/setup/reset-deployment";
 import { env } from "cloudflare:test";
 import { test,expect } from "vitest";
 import { setup,databaseWith,field } from "./repair-fixture";
@@ -11,7 +12,9 @@ import { registerAutomationActivity } from "../../../src/core/features/automatio
 import { activity } from "../../../src/core/features/activity/service";
 import type { AutomationAdapters } from "../../../src/core/features/automation/actions";
 const adapters:AutomationAdapters={archive:(ctx,id,input)=>archivePage(ctx,id,{...input,action:"archive"}),notify:async()=>{throw Error("Unused notification adapter");}};
-test("AUTO-002 source/container admission rejects out-of-scope destinations; site definitions and activity are private",async()=>{
+test("AUTO-002 admission, movement, branch and resumed actions enforce current container scope and private definitions", async () => {
+  // Original variant: AUTO-002 source/container admission rejects out-of-scope destinations; site definitions and activity are private
+  await (async () => {
  const {ctx,reader,containerId}=await setup();const a=await databaseWith(ctx,containerId,"scope-a",[]);
  const {containerId:other}=await seedContainer(ctx.actor.workspaceId,{ownerMemberId:ctx.actor.id,visibility:"default"});
  await seedContainerGrant(other,{principalKind:"member",principalId:ctx.actor.id,level:"full"});
@@ -35,8 +38,11 @@ test("AUTO-002 source/container admission rejects out-of-scope destinations; sit
  await env.DB.prepare("DELETE FROM container_grants WHERE container_id=?").bind(other).run();
  await env.DB.prepare("DELETE FROM container_owners WHERE container_id=?").bind(other).run();
  expect((await listRules(ctx)).items.map(r=>r.id)).not.toContain(site.value.id);
-});
-test("AUTO-002 current container movement blocks an admitted action",async()=>{
+
+  })();
+  await resetDeployment();
+  // Original variant: AUTO-002 current container movement blocks an admitted action
+  await (async () => {
  const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"moved",[]);
  const record=await createRecord(ctx,db.id,{operationKey:"moved-create-record",title:"Unchanged",values:{}});
  await saveRule(ctx,{operationKey:"moved-save-rule",name:"Scoped",scope:"container",containerId,trigger:{event:"record-created"},conditions:[],actions:[{type:"comment",body:"Should not appear"}]});
@@ -45,34 +51,11 @@ test("AUTO-002 current container movement blocks an admitted action",async()=>{
  await env.DB.prepare("UPDATE pages SET container_id=?,parent_page_id=NULL WHERE id=?").bind(other,record.value.pageId).run();
  await processAutomationJob(ctx,queued.jobIds[0],adapters);
  const count=await env.DB.prepare("SELECT COUNT(*) AS n FROM comments c JOIN comment_threads t ON t.id=c.thread_id WHERE t.page_id=?").bind(record.value.pageId).first<{n:number}>();expect(count?.n).toBe(0);
-});
-function confirmationFailure(db:D1Database) {
- let failed=false;
- function wrap(statement:D1PreparedStatement,sql:string):D1PreparedStatement {
-  return new Proxy(statement,{get(target,key){if(key==="bind")return (...args:unknown[])=>wrap(target.bind(...args),sql);if(key==="run")return async()=>{if(!failed&&sql.includes("SET state='confirmed'")){failed=true;throw Error("Injected transient confirmation failure");}return target.run();};const value=Reflect.get(target,key);return typeof value==="function"?value.bind(target):value;}});
- }
- return new Proxy(db,{get(target,key){if(key==="prepare")return(sql:string)=>wrap(target.prepare(sql),sql);const value=Reflect.get(target,key);return typeof value==="function"?value.bind(target):value;}});
-}
-test("AUTO-003 durable recovery reconciles commit-before-confirm and completes ordered actions exactly once",async()=>{
- const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"retry",[]);
- await saveRule(ctx,{operationKey:"retry-rule-save",name:"Retry",scope:"source",sourceDatabaseId:db.id,trigger:{event:"schedule",startsAt:ctx.now,intervalMinutes:60},conditions:[],actions:[{type:"create-record",databaseId:db.id,title:"One",values:{}},{type:"create-record",databaseId:db.id,title:"Two",values:{}}]});
- const fault={...ctx,db:confirmationFailure(ctx.db)};await runAutomationSchedule(fault,adapters);
- let records=await env.DB.prepare("SELECT page_id FROM database_records WHERE database_id=?").bind(db.id).all();expect(records.results).toHaveLength(1);
- await runAutomationSchedule({...ctx,now:new Date(Date.parse(ctx.now)+120000).toISOString()},adapters);
- records=await env.DB.prepare("SELECT page_id FROM database_records WHERE database_id=?").bind(db.id).all();expect(records.results).toHaveLength(2);
- const job=await env.DB.prepare("SELECT state,cursor FROM automation_jobs WHERE rule_id IN (SELECT id FROM automation_rules WHERE workspace_id=?)").bind(ctx.actor.workspaceId).first<{state:string;cursor:number}>();expect(job).toMatchObject({state:"success",cursor:2});
- const receipts=await env.DB.prepare("SELECT state FROM automation_action_receipts WHERE run_id IN (SELECT id FROM automation_runs WHERE workspace_id=?)").bind(ctx.actor.workspaceId).all();expect(receipts.results).toEqual([{state:"confirmed"},{state:"confirmed"}]);
-});
-test("AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions",async()=>{
- const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"schedule-target",[field("n","number"),field("date","date")]);
- const record=await createRecord(ctx,db.id,{operationKey:"schedule-target-record",title:"Target",values:{n:1,date:"2026-09-27T00:30:00+10:00"}});
- await saveRule(ctx,{operationKey:"schedule-target-rule",name:"Daily",scope:"source",sourceDatabaseId:db.id,trigger:{event:"schedule",startsAt:ctx.now,intervalMinutes:60},conditions:[{field:"date",op:"lt",value:"2026-09-26T15:00:00Z"}],actions:[{type:"edit-fields",values:{n:2}},{type:"comment",body:"Scheduled comment"},{type:"archive"}]});
- await runAutomationSchedule(ctx,adapters);
- const page=await readPage(ctx,record.value.pageId);expect(page.page.lifecycle).toBe("archived");
- const row=await env.DB.prepare("SELECT field_values_json FROM database_records WHERE page_id=?").bind(record.value.pageId).first<{field_values_json:string}>();expect(JSON.parse(row!.field_values_json).n).toBe(2);
- const comments=await env.DB.prepare("SELECT COUNT(*) AS n FROM comments c JOIN comment_threads t ON t.id=c.thread_id WHERE t.page_id=?").bind(record.value.pageId).first<{n:number}>();expect(comments?.n).toBe(1);
-});
-test("AUTO-002 branch targets and prepared resumed actions recheck current container scope",async()=>{
+
+  })();
+  await resetDeployment();
+  // Original variant: AUTO-002 branch targets and prepared resumed actions recheck current container scope
+  await (async () => {
  const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"branch",[]);
  const {containerId:other}=await seedContainer(ctx.actor.workspaceId,{ownerMemberId:ctx.actor.id,visibility:"default"});
  await seedContainerGrant(other,{principalKind:"member",principalId:ctx.actor.id,level:"full"});
@@ -95,8 +78,33 @@ test("AUTO-002 branch targets and prepared resumed actions recheck current conta
  await processAutomationJob(ctx,admitted.jobIds[0],adapters);
  expect((await env.DB.prepare("SELECT COUNT(*) AS n FROM comment_threads WHERE page_id=?").bind(target.value.pageId).first<{n:number}>())?.n).toBe(0);
  expect(rule.value.id).toBeTruthy();
+
+  })();
 });
-test("AUTO-003 transient failure before commit resumes admitted conditions after an earlier field edit",async()=>{
+
+function confirmationFailure(db:D1Database) {
+ let failed=false;
+ function wrap(statement:D1PreparedStatement,sql:string):D1PreparedStatement {
+  return new Proxy(statement,{get(target,key){if(key==="bind")return (...args:unknown[])=>wrap(target.bind(...args),sql);if(key==="run")return async()=>{if(!failed&&sql.includes("SET state='confirmed'")){failed=true;throw Error("Injected transient confirmation failure");}return target.run();};const value=Reflect.get(target,key);return typeof value==="function"?value.bind(target):value;}});
+ }
+ return new Proxy(db,{get(target,key){if(key==="prepare")return(sql:string)=>wrap(target.prepare(sql),sql);const value=Reflect.get(target,key);return typeof value==="function"?value.bind(target):value;}});
+}
+test("AUTO-003 durable recovery before and after commit retains admitted conditions and completes ordered effects exactly once", async () => {
+  // Original variant: AUTO-003 durable recovery reconciles commit-before-confirm and completes ordered actions exactly once
+  await (async () => {
+ const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"retry",[]);
+ await saveRule(ctx,{operationKey:"retry-rule-save",name:"Retry",scope:"source",sourceDatabaseId:db.id,trigger:{event:"schedule",startsAt:ctx.now,intervalMinutes:60},conditions:[],actions:[{type:"create-record",databaseId:db.id,title:"One",values:{}},{type:"create-record",databaseId:db.id,title:"Two",values:{}}]});
+ const fault={...ctx,db:confirmationFailure(ctx.db)};await runAutomationSchedule(fault,adapters);
+ let records=await env.DB.prepare("SELECT page_id FROM database_records WHERE database_id=?").bind(db.id).all();expect(records.results).toHaveLength(1);
+ await runAutomationSchedule({...ctx,now:new Date(Date.parse(ctx.now)+120000).toISOString()},adapters);
+ records=await env.DB.prepare("SELECT page_id FROM database_records WHERE database_id=?").bind(db.id).all();expect(records.results).toHaveLength(2);
+ const job=await env.DB.prepare("SELECT state,cursor FROM automation_jobs WHERE rule_id IN (SELECT id FROM automation_rules WHERE workspace_id=?)").bind(ctx.actor.workspaceId).first<{state:string;cursor:number}>();expect(job).toMatchObject({state:"success",cursor:2});
+ const receipts=await env.DB.prepare("SELECT state FROM automation_action_receipts WHERE run_id IN (SELECT id FROM automation_runs WHERE workspace_id=?)").bind(ctx.actor.workspaceId).all();expect(receipts.results).toEqual([{state:"confirmed"},{state:"confirmed"}]);
+
+  })();
+  await resetDeployment();
+  // Original variant: AUTO-003 transient failure before commit resumes admitted conditions after an earlier field edit
+  await (async () => {
  const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"precommit",[field("pre-n","number")]);
  const record=await createRecord(ctx,db.id,{operationKey:"precommit-record",title:"Retry target",values:{"pre-n":1}});
  await saveRule(ctx,{operationKey:"precommit-rule",name:"Retry",scope:"source",sourceDatabaseId:db.id,trigger:{event:"schedule",startsAt:ctx.now,intervalMinutes:60},conditions:[{field:"pre-n",op:"eq",value:1}],actions:[{type:"edit-fields",values:{"pre-n":2}},{type:"archive"}]});
@@ -107,4 +115,15 @@ test("AUTO-003 transient failure before commit resumes admitted conditions after
  expect((await readPage(ctx,record.value.pageId)).page.lifecycle).toBe("archived");
  // The semantic activity rows are the actual committed-effect count.
  const count=await env.DB.prepare("SELECT COUNT(*) AS n FROM activity_entries WHERE target_id=? AND action='databases.record.update'").bind(record.value.pageId).first<{n:number}>();expect(count?.n).toBe(1);
+
+  })();
+});
+test("AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions",async()=>{
+ const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"schedule-target",[field("n","number"),field("date","date")]);
+ const record=await createRecord(ctx,db.id,{operationKey:"schedule-target-record",title:"Target",values:{n:1,date:"2026-09-27T00:30:00+10:00"}});
+ await saveRule(ctx,{operationKey:"schedule-target-rule",name:"Daily",scope:"source",sourceDatabaseId:db.id,trigger:{event:"schedule",startsAt:ctx.now,intervalMinutes:60},conditions:[{field:"date",op:"lt",value:"2026-09-26T15:00:00Z"}],actions:[{type:"edit-fields",values:{n:2}},{type:"comment",body:"Scheduled comment"},{type:"archive"}]});
+ await runAutomationSchedule(ctx,adapters);
+ const page=await readPage(ctx,record.value.pageId);expect(page.page.lifecycle).toBe("archived");
+ const row=await env.DB.prepare("SELECT field_values_json FROM database_records WHERE page_id=?").bind(record.value.pageId).first<{field_values_json:string}>();expect(JSON.parse(row!.field_values_json).n).toBe(2);
+ const comments=await env.DB.prepare("SELECT COUNT(*) AS n FROM comments c JOIN comment_threads t ON t.id=c.thread_id WHERE t.page_id=?").bind(record.value.pageId).first<{n:number}>();expect(comments?.n).toBe(1);
 });

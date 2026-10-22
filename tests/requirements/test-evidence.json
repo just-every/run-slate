@@ -823,57 +823,12 @@
     },
     {
       "file": "tests/flagship/structured/automation-repairs.test.ts",
-      "testName": "AUTO-002 source/container admission rejects out-of-scope destinations; site definitions and activity are private",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-002"
-      ],
-      "reason": "Asserts AUTO-002 source/container admission rejects out-of-scope destinations; site definitions and activity are private. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/automation-repairs.test.ts",
-      "testName": "AUTO-002 current container movement blocks an admitted action",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-002"
-      ],
-      "reason": "Asserts AUTO-002 current container movement blocks an admitted action. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/automation-repairs.test.ts",
-      "testName": "AUTO-003 durable recovery reconciles commit-before-confirm and completes ordered actions exactly once",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-003"
-      ],
-      "reason": "Asserts AUTO-003 durable recovery reconciles commit-before-confirm and completes ordered actions exactly once. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/automation-repairs.test.ts",
       "testName": "AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions",
       "kind": "supporting-regression",
       "clauses": [
         "AUTO-001"
       ],
       "reason": "Asserts AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/automation-repairs.test.ts",
-      "testName": "AUTO-002 branch targets and prepared resumed actions recheck current container scope",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-002"
-      ],
-      "reason": "Asserts AUTO-002 branch targets and prepared resumed actions recheck current container scope. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/automation-repairs.test.ts",
-      "testName": "AUTO-003 transient failure before commit resumes admitted conditions after an earlier field edit",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-003"
-      ],
-      "reason": "Asserts AUTO-003 transient failure before commit resumes admitted conditions after an earlier field edit. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/structured.test.ts",
@@ -898,15 +853,6 @@
     },
     {
       "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "typed formula cycles reject and arithmetic evaluates without executable code",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts typed formula cycles reject and arithmetic evaluates without executable code. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
       "testName": "template snapshots retain prescribed children independently and application replays",
       "kind": "supporting-regression",
       "clauses": [
@@ -916,31 +862,12 @@
     },
     {
       "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "rule action executes once with durable receipts and revoked actor loses execution",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-002",
-        "AUTO-003"
-      ],
-      "reason": "Asserts rule action executes once with durable receipts and revoked actor loses execution. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
       "testName": "record body persists across both parity profiles",
       "kind": "supporting-regression",
       "clauses": [
         "DB-010"
       ],
       "reason": "Asserts record body persists across both parity profiles. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "empty database accepts numeric formula, recomputes changed fields, rejects invalid types and cycles",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts empty database accepts numeric formula, recomputes changed fields, rejects invalid types and cycles. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/http.test.ts",
@@ -953,35 +880,6 @@
     },
     {
       "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "rollups filter related unreadable records before aggregate and reject stale references",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002",
-        "SHARE-007"
-      ],
-      "reason": "Asserts rollups filter related unreadable records before aggregate and reject stale references. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "all automation scopes persist; schedules deduplicate and chains throttle with a log",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-005",
-        "AUTO-004"
-      ],
-      "reason": "Asserts all automation scopes persist; schedules deduplicate and chains throttle with a log. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "rollup cycle writes reject while prior records remain readable",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts rollup cycle writes reject while prior records remain readable. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
       "testName": "all eight policy alternatives preserve structured data and template exclusions",
       "kind": "supporting-regression",
       "clauses": [
@@ -989,25 +887,6 @@
         "TMPL-003"
       ],
       "reason": "Checks preserved structured records and template exclusions while switching each policy alternative. This is supporting superset-data evidence only, not every behavior or UI of all eight policy clauses."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "committed content events drain durably and self-triggering field rules are throttled",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-004"
-      ],
-      "reason": "Asserts committed content events drain durably and self-triggering field rules are throttled. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "rule permission loss skips unauthorized later effects and retains confirmed receipt",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-002",
-        "AUTO-003"
-      ],
-      "reason": "Asserts rule permission loss skips unauthorized later effects and retains confirmed receipt. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/structured.test.ts",
@@ -2303,6 +2182,63 @@
         "NOTIF-003"
       ],
       "reason": "Public notification configuration, event and queue doors with provider-edge fakes only. Proves this named repair flow; does not establish live-provider or admin-install acceptance or change clause status."
+    },
+    {
+      "file": "tests/flagship/structured/automation-repairs.test.ts",
+      "testName": "AUTO-002 admission, movement, branch and resumed actions enforce current container scope and private definitions",
+      "kind": "supporting-regression",
+      "clauses": [
+        "AUTO-002"
+      ],
+      "reason": "Asserts AUTO-002 source/container admission rejects out-of-scope destinations; site definitions and activity are private. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-002 current container movement blocks an admitted action. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-002 branch targets and prepared resumed actions recheck current container scope. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/structured/automation-repairs.test.ts",
+      "testName": "AUTO-003 durable recovery before and after commit retains admitted conditions and completes ordered effects exactly once",
+      "kind": "supporting-regression",
+      "clauses": [
+        "AUTO-003"
+      ],
+      "reason": "Asserts AUTO-003 durable recovery reconciles commit-before-confirm and completes ordered actions exactly once. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-003 transient failure before commit resumes admitted conditions after an earlier field edit. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/structured/structured.test.ts",
+      "testName": "numeric formulas evaluate and recompute while invalid types and cycles reject before and after records exist",
+      "kind": "supporting-regression",
+      "clauses": [
+        "DB-002"
+      ],
+      "reason": "Asserts typed formula cycles reject and arithmetic evaluates without executable code. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts empty database accepts numeric formula, recomputes changed fields, rejects invalid types and cycles. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/structured/structured.test.ts",
+      "testName": "rule execution retains exactly-once receipts and refuses effects when authority is lost before or during a run",
+      "kind": "supporting-regression",
+      "clauses": [
+        "AUTO-002",
+        "AUTO-003"
+      ],
+      "reason": "Asserts rule action executes once with durable receipts and revoked actor loses execution. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts rule permission loss skips unauthorized later effects and retains confirmed receipt. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/structured/structured.test.ts",
+      "testName": "rollup writes reject stale references and cycles while reads preserve current authority and prior records",
+      "kind": "supporting-regression",
+      "clauses": [
+        "DB-002",
+        "SHARE-007"
+      ],
+      "reason": "Asserts rollups filter related unreadable records before aggregate and reject stale references. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts rollup cycle writes reject while prior records remain readable. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/structured/structured.test.ts",
+      "testName": "automation schedules and content events deduplicate effects and durably log chain and self-trigger throttling",
+      "kind": "supporting-regression",
+      "clauses": [
+        "AUTO-005",
+        "AUTO-004"
+      ],
+      "reason": "Asserts all automation scopes persist; schedules deduplicate and chains throttle with a log. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts committed content events drain durably and self-triggering field rules are throttled. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     }
   ]
 }

@@ -3,7 +3,9 @@ import test from "node:test";
 import { readRuntimeConfig, RuntimeConfigurationError } from "../../src/core/platform/config/runtime.ts";
 const local = {LOCAL_DEVELOPMENT:'true', APP_URL:'http://127.0.0.1:4312',SETUP_OWNER_EMAIL:'owner@example.com',SESSION_SECRET:'synthetic-local-development-secret',MAIL_PROVIDER:'development',MAIL_FROM:'auth@localhost.test'};
 
-test("local development requires an explicit flag and exact loopback configured origin and request", () => {
+test("local development admission requires an explicit flag, exact loopback origins and a session secret", async () => {
+  // Original variant: local development requires an explicit flag and exact loopback configured origin and request
+  await (async () => {
   const config = readRuntimeConfig(local, true);
   assert.equal(config.localDevelopment, true);
   assert.equal(config.sessionSecret, "synthetic-local-development-secret");
@@ -12,11 +14,16 @@ test("local development requires an explicit flag and exact loopback configured 
   for (const APP_URL of ['https://hosted.example.com','http://127.0.0.1:4312/path','http://127.0.0.1:4312/','http://user@127.0.0.1:4312','http://127.0.0.1:4312?x=1']) assert.throws(() => readRuntimeConfig({...local,APP_URL},true), /LOCAL_DEVELOPMENT/);
   assert.throws(() => readRuntimeConfig(local, false), /LOCAL_DEVELOPMENT/);
   assert.throws(() => readRuntimeConfig({...local, LOCAL_DEVELOPMENT:undefined}, true), /MAIL_PROVIDER/);
+
+  })();
+  // Original variant: a session secret is required in local development too
+  await (async () => {
+  assert.throws(() => readRuntimeConfig({...local,SESSION_SECRET:undefined}, true), cause => cause instanceof RuntimeConfigurationError && cause.message.includes("SESSION_SECRET"));
+
+  })();
 });
 
-test("a session secret is required in local development too", () => {
-  assert.throws(() => readRuntimeConfig({...local,SESSION_SECRET:undefined}, true), cause => cause instanceof RuntimeConfigurationError && cause.message.includes("SESSION_SECRET"));
-});
+
 
 test("deployment mode names every missing required variable", () => {
   assert.throws(() => readRuntimeConfig({}, false), cause => cause instanceof RuntimeConfigurationError && ['APP_URL','SETUP_OWNER_EMAIL','SESSION_SECRET','MAIL_PROVIDER','MAIL_FROM','MAIL_API_KEY'].every(name => cause.message.includes(name)));
