@@ -7784,7 +7784,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/ConnectedFilePicker.tsx": {
-      "sha256": "d969f55316afcf30378b41d4059d9274c2963b4a1415719563cebdd95d56fcaf",
+      "sha256": "dfc8baf0b1ca024c0f7c44b758619f18b78c6af252cf699180aa5860ab233b24",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/ContentQueryDialog.tsx": {
