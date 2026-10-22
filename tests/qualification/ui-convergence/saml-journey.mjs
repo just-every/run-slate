@@ -69,7 +69,8 @@ export async function samlJourney(state) {
       await auth.goto(origin + '/signin', { waitUntil: 'networkidle' });
       await auth.getByRole('button', { name: 'Continue with SAML', exact: true }).click();
     } else await auth.goto(samlFixture.ssoUrl, { waitUntil: 'networkidle' });
-    await expect(auth.getByRole('heading', { name: 'Identity verified by the test IdP', exact: true })).toBeVisible();
+    try { await expect(auth.getByRole('heading', { name: 'Identity verified by the test IdP', exact: true })).toBeVisible(); }
+    catch (cause) { console.error('SAML start refused', JSON.stringify({label, path:new URL(auth.url()).pathname, body:(await auth.locator('body').innerText()).slice(0,1000)})); throw cause; }
     const pending = auth.waitForResponse(response => new URL(response.url()).pathname === '/auth/saml/acs' && response.request().method() === 'POST');
     await auth.getByRole('button', { name: 'Continue to Slate', exact: true }).click();
     const response = await pending;

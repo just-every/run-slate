@@ -5,7 +5,7 @@
       "id": "HOME-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only what the installed Lobby answers and what the run site's landing renders and the resources its source may load for HOME-001 — Public landing. Full requirement-level browser, cookie, accessibility and profile evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only what the installed Lobby answers and what the run site's landing renders and the resources its source may load for HOME-001 \u2014 Public landing. Full requirement-level browser, cookie, accessibility and profile evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/e2e/landing.test.ts",
@@ -29,7 +29,7 @@
       "id": "DOCS-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only what the documentation routes render and what the docs build checks for DOCS-001 — Public documentation. Full requirement-level browser, cookie, accessibility and emitted-artifact evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only what the documentation routes render and what the docs build checks for DOCS-001 \u2014 Public documentation. Full requirement-level browser, cookie, accessibility and emitted-artifact evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/e2e/docs.test.ts",
@@ -49,14 +49,14 @@
       "id": "WORK-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WORK-001 — One workspace. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for WORK-001 \u2014 One workspace. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "WORK-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-003 — Member management. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-003 \u2014 Member management. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
@@ -68,7 +68,7 @@
       "id": "WORK-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-006 — Invitations. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-006 \u2014 Invitations. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/identity.test.ts",
@@ -92,7 +92,7 @@
       "id": "WORK-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-007 — Removal. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-007 \u2014 Removal. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
@@ -108,7 +108,7 @@
       "id": "WORK-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WORK-008 — Roles. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for WORK-008 \u2014 Roles. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/identity-upgrade.test.ts",
@@ -120,7 +120,7 @@
       "id": "WORK-009",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WORK-009 — Groups. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for WORK-009 \u2014 Groups. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/identity-upgrade.test.ts",
@@ -132,7 +132,7 @@
       "id": "WORK-010",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-010 — Guests. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-010 \u2014 Guests. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/access.test.ts",
@@ -152,7 +152,7 @@
       "id": "WORK-011",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-011 — Workspace settings. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-011 \u2014 Workspace settings. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
@@ -164,7 +164,7 @@
       "id": "WORK-012",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WORK-012 — Theme. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for WORK-012 \u2014 Theme. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
@@ -183,14 +183,14 @@
       "id": "WORK-014",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WORK-014 — Shortcut reference. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for WORK-014 \u2014 Shortcut reference. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "WORK-015",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-015 — Identity provider. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-015 \u2014 Identity provider. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/identity-upgrade.test.ts",
@@ -202,7 +202,7 @@
       "id": "SAVE-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SAVE-001 — Durable save state. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SAVE-001 \u2014 Durable save state. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
@@ -216,7 +216,7 @@
       "id": "SAVE-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SAVE-003 — Revision conflicts. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SAVE-003 \u2014 Revision conflicts. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -244,14 +244,14 @@
       "id": "SAVE-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SAVE-004 — Network loss. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SAVE-004 \u2014 Network loss. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "SAVE-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SAVE-005 — Operation keys. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SAVE-005 \u2014 Operation keys. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -271,7 +271,7 @@
       "id": "SAVE-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SAVE-006 — Concurrent editing and optional co-editing. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SAVE-006 \u2014 Concurrent editing and optional co-editing. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -291,28 +291,28 @@
       "id": "PAGE-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PAGE-001 — What a page is. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for PAGE-001 \u2014 What a page is. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "PAGE-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PAGE-002 — Creation. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for PAGE-002 \u2014 Creation. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "PAGE-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PAGE-003 — Identity survives everything. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for PAGE-003 \u2014 Identity survives everything. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "PAGE-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PAGE-004 — Move. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PAGE-004 \u2014 Move. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -324,7 +324,7 @@
       "id": "PAGE-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PAGE-005 — Duplicate. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PAGE-005 \u2014 Duplicate. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -336,32 +336,32 @@
       "id": "PAGE-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PAGE-006 — Icon and cover. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for PAGE-006 \u2014 Icon and cover. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "PAGE-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PAGE-007 — Details. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for PAGE-007 \u2014 Details. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "PAGE-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PAGE-008 — Favourite. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for PAGE-008 \u2014 Favourite. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "PAGE-009",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PAGE-009 — Watch. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for PAGE-009 \u2014 Watch. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": [
         {
           "file": "tests/flagship/discovery/following.test.ts",
-          "testName": "CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access"
+          "testName": "CONT-012 \u2014 a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access"
         }
       ]
     },
@@ -369,21 +369,21 @@
       "id": "PAGE-010",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PAGE-010 — Outline. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for PAGE-010 \u2014 Outline. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "PAGE-011",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PAGE-011 — Present. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for PAGE-011 \u2014 Present. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "PAGE-012",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PAGE-012 — Page display options. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for PAGE-012 \u2014 Page display options. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
@@ -404,7 +404,7 @@
       "id": "TREE-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of TREE-001 — A nested tree in a container. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of TREE-001 \u2014 A nested tree in a container. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
@@ -416,7 +416,7 @@
       "id": "TREE-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for TREE-002 — Reordering and nesting. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for TREE-002 \u2014 Reordering and nesting. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
@@ -437,14 +437,14 @@
       "id": "TREE-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for TREE-005 — Create in place. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for TREE-005 \u2014 Create in place. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BLOCK-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BLOCK-001 — A body of blocks. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BLOCK-001 \u2014 A body of blocks. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -456,42 +456,42 @@
       "id": "BLOCK-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BLOCK-002 — Inline text. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BLOCK-002 \u2014 Inline text. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BLOCK-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BLOCK-003 — The insert menu. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BLOCK-003 \u2014 The insert menu. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BLOCK-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BLOCK-004 — Markdown shortcuts. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BLOCK-004 \u2014 Markdown shortcuts. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BLOCK-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BLOCK-005 — Mentions. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BLOCK-005 \u2014 Mentions. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BLOCK-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BLOCK-006 — Structured blocks. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BLOCK-006 \u2014 Structured blocks. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BLOCK-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BLOCK-007 — Task items. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BLOCK-007 \u2014 Task items. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
@@ -503,7 +503,7 @@
       "id": "BLOCK-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BLOCK-008 — Media blocks. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BLOCK-008 \u2014 Media blocks. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -519,7 +519,7 @@
       "id": "BLOCK-009",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BLOCK-009 — Link cards. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BLOCK-009 \u2014 Link cards. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/preview.test.ts",
@@ -531,21 +531,21 @@
       "id": "BLOCK-010",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BLOCK-010 — Content queries. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BLOCK-010 \u2014 Content queries. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "LIFE-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for LIFE-001 — Lifecycle states. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for LIFE-001 \u2014 Lifecycle states. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "LIFE-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LIFE-002 — A draft is private. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LIFE-002 \u2014 A draft is private. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -585,14 +585,14 @@
       "id": "LIFE-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for LIFE-003 — Publish. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for LIFE-003 \u2014 Publish. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "LIFE-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LIFE-004 — Scheduled publish. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LIFE-004 \u2014 Scheduled publish. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -604,7 +604,7 @@
       "id": "LIFE-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LIFE-005 — Unpublished changes. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LIFE-005 \u2014 Unpublished changes. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -620,14 +620,14 @@
       "id": "LIFE-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for LIFE-006 — Lifecycle profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for LIFE-006 \u2014 Lifecycle profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "LIFE-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LIFE-007 — Discarding a draft. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LIFE-007 \u2014 Discarding a draft. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
@@ -639,14 +639,14 @@
       "id": "SHARE-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SHARE-001 — Grants. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SHARE-001 \u2014 Grants. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "SHARE-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SHARE-002 — What the levels mean. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SHARE-002 \u2014 What the levels mean. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -658,35 +658,35 @@
       "id": "SHARE-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SHARE-003 — Inheritance. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SHARE-003 \u2014 Inheritance. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "SHARE-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SHARE-004 — General access. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SHARE-004 \u2014 General access. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "SHARE-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SHARE-005 — Access profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SHARE-005 \u2014 Access profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "SHARE-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SHARE-006 — Sharing with a person who is not a member. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SHARE-006 \u2014 Sharing with a person who is not a member. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "SHARE-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SHARE-007 — Access changes take effect at once. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SHARE-007 \u2014 Access changes take effect at once. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -718,21 +718,21 @@
       "id": "SHARE-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SHARE-008 — Expiring grants. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SHARE-008 \u2014 Expiring grants. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "WEB-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WEB-001 — Anonymous access takes two acts. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for WEB-001 \u2014 Anonymous access takes two acts. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "WEB-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WEB-002 — What a published page carries. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WEB-002 \u2014 What a published page carries. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
@@ -744,42 +744,42 @@
       "id": "WEB-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WEB-003 — The anonymous read view. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for WEB-003 \u2014 The anonymous read view. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "WEB-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WEB-004 — Children are not published by inheritance. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for WEB-004 \u2014 Children are not published by inheritance. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "WEB-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WEB-005 — Indexing is off until it is chosen. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for WEB-005 \u2014 Indexing is off until it is chosen. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "WEB-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WEB-006 — Unpublish. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for WEB-006 \u2014 Unpublish. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "WEB-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WEB-007 — Public-link profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for WEB-007 \u2014 Public-link profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "REV-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of REV-001 — What a revision is. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of REV-001 \u2014 What a revision is. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -791,35 +791,35 @@
       "id": "REV-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for REV-002 — History. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for REV-002 \u2014 History. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "REV-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for REV-003 — Restore. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for REV-003 \u2014 Restore. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "REV-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for REV-004 — Compare. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for REV-004 \u2014 Compare. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "REV-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for REV-005 — A citation resolves to its revision. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for REV-005 \u2014 A citation resolves to its revision. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "REV-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of REV-006 — Deleting a version. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of REV-006 \u2014 Deleting a version. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -831,28 +831,28 @@
       "id": "REV-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for REV-007 — Version profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for REV-007 \u2014 Version profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "STAT-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for STAT-001 — The status vocabulary. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for STAT-001 \u2014 The status vocabulary. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "STAT-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for STAT-002 — A page's status. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for STAT-002 \u2014 A page's status. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "STAT-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of STAT-003 — Verification. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of STAT-003 \u2014 Verification. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -872,28 +872,28 @@
       "id": "STAT-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for STAT-004 — Verification lapses. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for STAT-004 \u2014 Verification lapses. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "STAT-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for STAT-005 — Status profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for STAT-005 \u2014 Status profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "COMM-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for COMM-001 — Two kinds of thread. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for COMM-001 \u2014 Two kinds of thread. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "COMM-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of COMM-002 — Editing and deletion. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of COMM-002 \u2014 Editing and deletion. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -905,14 +905,14 @@
       "id": "COMM-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for COMM-003 — Mentions. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for COMM-003 \u2014 Mentions. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "COMM-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of COMM-004 — Anchors survive editing. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of COMM-004 \u2014 Anchors survive editing. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
@@ -924,42 +924,42 @@
       "id": "COMM-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for COMM-005 — Reactions. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for COMM-005 \u2014 Reactions. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "COMM-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for COMM-006 — Discussions panel. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for COMM-006 \u2014 Discussions panel. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "COMM-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for COMM-007 — Resolve. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for COMM-007 \u2014 Resolve. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "ARCH-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for ARCH-001 — Archive. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for ARCH-001 \u2014 Archive. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "ARCH-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for ARCH-002 — What archived means. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for ARCH-002 \u2014 What archived means. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "ARCH-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of ARCH-003 — Restore from archive. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of ARCH-003 \u2014 Restore from archive. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -979,14 +979,14 @@
       "id": "ARCH-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for ARCH-004 — Archive is not deletion. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for ARCH-004 \u2014 Archive is not deletion. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "ARCH-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of ARCH-005 — Trash. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of ARCH-005 \u2014 Trash. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -998,7 +998,7 @@
       "id": "ARCH-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of ARCH-006 — Permanent deletion. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of ARCH-006 \u2014 Permanent deletion. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -1010,28 +1010,28 @@
       "id": "CONT-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for CONT-001 — What a container is. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for CONT-001 \u2014 What a container is. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "CONT-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for CONT-002 — Creating a container. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for CONT-002 \u2014 Creating a container. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "CONT-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for CONT-003 — The container index. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for CONT-003 \u2014 The container index. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "CONT-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of CONT-004 — Container settings. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of CONT-004 \u2014 Container settings. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
@@ -1043,7 +1043,7 @@
       "id": "CONT-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of CONT-005 — Personal containers. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of CONT-005 \u2014 Personal containers. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
@@ -1063,14 +1063,14 @@
       "id": "CONT-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for CONT-006 — Bulk actions. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for CONT-006 \u2014 Bulk actions. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "CONT-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of CONT-007 — External-access switches. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of CONT-007 \u2014 External-access switches. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -1082,28 +1082,28 @@
       "id": "CONT-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for CONT-008 — Container access profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for CONT-008 \u2014 Container access profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "CONT-009",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for CONT-009 — Container grants. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for CONT-009 \u2014 Container grants. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "DB-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DB-001 — A database. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for DB-001 \u2014 A database. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "DB-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-002 — Field types and evaluation. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-002 \u2014 Field types and evaluation. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -1155,7 +1155,7 @@
       "id": "DB-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-003 — Views. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-003 \u2014 Views. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -1167,7 +1167,7 @@
       "id": "DB-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-004 — Layouts. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-004 \u2014 Layouts. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -1179,21 +1179,21 @@
       "id": "DB-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DB-005 — Filter and sort. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for DB-005 \u2014 Filter and sort. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "DB-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DB-006 — Group. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for DB-006 \u2014 Group. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "DB-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-007 — Calculations. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-007 \u2014 Calculations. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -1205,14 +1205,14 @@
       "id": "DB-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DB-008 — Charts. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for DB-008 \u2014 Charts. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "DB-009",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-009 — Lock structure. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-009 \u2014 Lock structure. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -1224,7 +1224,7 @@
       "id": "DB-010",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-010 — A record is a page. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-010 \u2014 A record is a page. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -1240,7 +1240,7 @@
       "id": "DB-011",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-011 — A view inside a page. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-011 \u2014 A view inside a page. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -1252,14 +1252,14 @@
       "id": "DB-012",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DB-012 — Record detail. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for DB-012 \u2014 Record detail. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "AUTO-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AUTO-001 — A rule. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AUTO-001 \u2014 A rule. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/automation-repairs.test.ts",
@@ -1271,7 +1271,7 @@
       "id": "AUTO-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AUTO-002 — A rule acts as its actor. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AUTO-002 \u2014 A rule acts as its actor. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/automation-repairs.test.ts",
@@ -1287,7 +1287,7 @@
       "id": "AUTO-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AUTO-003 — Run log. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AUTO-003 \u2014 Run log. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/automation-repairs.test.ts",
@@ -1303,7 +1303,7 @@
       "id": "AUTO-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AUTO-004 — Loops are bounded. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AUTO-004 \u2014 Loops are bounded. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -1315,7 +1315,7 @@
       "id": "AUTO-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AUTO-005 — Automation profile. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AUTO-005 \u2014 Automation profile. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -1327,35 +1327,35 @@
       "id": "SEARCH-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SEARCH-001 — Global search. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SEARCH-001 \u2014 Global search. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "SEARCH-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SEARCH-002 — Results. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SEARCH-002 \u2014 Results. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "SEARCH-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SEARCH-003 — Filters. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SEARCH-003 \u2014 Filters. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "SEARCH-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SEARCH-004 — Freshness. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SEARCH-004 \u2014 Freshness. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "SEARCH-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SEARCH-005 — What search never shows. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SEARCH-005 \u2014 What search never shows. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
@@ -1367,39 +1367,39 @@
       "id": "SEARCH-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SEARCH-006 — Search in one container. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SEARCH-006 \u2014 Search in one container. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "SEARCH-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SEARCH-007 — No results. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SEARCH-007 \u2014 No results. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "SEARCH-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SEARCH-008 — Search without AI. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SEARCH-008 \u2014 Search without AI. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "SEARCH-009",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SEARCH-009 — Default visibility. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SEARCH-009 \u2014 Default visibility. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "NAV-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for NAV-001 — Home. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for NAV-001 \u2014 Home. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": [
         {
           "file": "tests/flagship/discovery/following.test.ts",
-          "testName": "CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access"
+          "testName": "CONT-012 \u2014 a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access"
         }
       ]
     },
@@ -1407,21 +1407,21 @@
       "id": "NAV-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for NAV-002 — Recents. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for NAV-002 \u2014 Recents. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "NAV-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for NAV-003 — Favourites. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for NAV-003 \u2014 Favourites. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "NAV-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of NAV-004 — One navigation. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of NAV-004 \u2014 One navigation. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -1440,18 +1440,18 @@
       "id": "NAV-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for NAV-006 — The touch client edits. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for NAV-006 \u2014 The touch client edits. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "NOTIF-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for NOTIF-001 — Meaningful notifications. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for NOTIF-001 \u2014 Meaningful notifications. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": [
         {
           "file": "tests/flagship/discovery/following.test.ts",
-          "testName": "CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access"
+          "testName": "CONT-012 \u2014 a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access"
         }
       ]
     },
@@ -1459,11 +1459,11 @@
       "id": "NOTIF-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for NOTIF-002 — Inbox. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for NOTIF-002 \u2014 Inbox. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": [
         {
           "file": "tests/flagship/discovery/following.test.ts",
-          "testName": "CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access"
+          "testName": "CONT-012 \u2014 a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access"
         }
       ]
     },
@@ -1475,15 +1475,15 @@
       "supportingTests": [
         {
           "file": "tests/e2e/notifications/destinations.test.ts",
-          "testName": "CHAT-001 — Readable grouped events survive an unreadable or purged leader without duplicate delivery"
+          "testName": "CHAT-001 \u2014 Readable grouped events survive an unreadable or purged leader without duplicate delivery"
         },
         {
           "file": "tests/e2e/notifications/destinations.test.ts",
-          "testName": "CHAT-001 — Withdrawal uses each original channel roster in either receipt ordering"
+          "testName": "CHAT-001 \u2014 Withdrawal uses each original channel roster in either receipt ordering"
         },
         {
           "file": "tests/e2e/notifications/destinations.test.ts",
-          "testName": "CHAT-001 — Nook channel changes are refused before custody changes while rotation and independent destinations work"
+          "testName": "CHAT-001 \u2014 Nook channel changes are refused before custody changes while rotation and independent destinations work"
         }
       ]
     },
@@ -1491,7 +1491,7 @@
       "id": "MAIL-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for MAIL-001 — Outbound only, two kinds. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for MAIL-001 \u2014 Outbound only, two kinds. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
@@ -1526,7 +1526,7 @@
       "id": "ACT-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of ACT-001 — Durable timeline. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of ACT-001 \u2014 Durable timeline. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
@@ -1538,21 +1538,21 @@
       "id": "ACT-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for ACT-002 — Coverage. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for ACT-002 \u2014 Coverage. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "ACT-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for ACT-003 — Retrieval. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for ACT-003 \u2014 Retrieval. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "ACT-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of ACT-004 — Context. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of ACT-004 \u2014 Context. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
@@ -1564,28 +1564,28 @@
       "id": "ACT-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for ACT-005 — Retained explanation. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for ACT-005 \u2014 Retained explanation. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "TMPL-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for TMPL-001 — Gallery. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for TMPL-001 \u2014 Gallery. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "TMPL-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for TMPL-002 — Preview. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for TMPL-002 \u2014 Preview. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "TMPL-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of TMPL-003 — Snapshot on use. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of TMPL-003 \u2014 Snapshot on use. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -1617,14 +1617,14 @@
       "id": "TMPL-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for TMPL-004 — Custom templates. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for TMPL-004 \u2014 Custom templates. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "TMPL-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of TMPL-005 — Save a page as a template. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of TMPL-005 \u2014 Save a page as a template. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/template-permissions.test.ts",
@@ -1636,14 +1636,14 @@
       "id": "TMPL-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for TMPL-006 — Where a template lives. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for TMPL-006 \u2014 Where a template lives. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "IMP-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of IMP-001 — Import jobs. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of IMP-001 \u2014 Import jobs. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -1683,7 +1683,7 @@
       "id": "IMP-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of IMP-002 — Notion import. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of IMP-002 \u2014 Notion import. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -1699,7 +1699,7 @@
       "id": "IMP-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of IMP-003 — Confluence import. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of IMP-003 \u2014 Confluence import. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -1727,11 +1727,11 @@
       "id": "IMP-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for IMP-004 — Import safety. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for IMP-004 \u2014 Import safety. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": [
         {
           "file": "tests/qualification/authority/import-safety.test.ts",
-          "testName": "IMP-004 — persistent HTML import never fetches missing remote attachments and sanitizes executable markup"
+          "testName": "IMP-004 \u2014 persistent HTML import never fetches missing remote attachments and sanitizes executable markup"
         }
       ]
     },
@@ -1739,7 +1739,7 @@
       "id": "IMP-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of IMP-005 — Importing into a page. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of IMP-005 \u2014 Importing into a page. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -1751,7 +1751,7 @@
       "id": "PORT-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PORT-001 — Export contents. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PORT-001 \u2014 Export contents. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -1759,7 +1759,7 @@
         },
         {
           "file": "tests/qualification/authority/recovery.test.ts",
-          "testName": "FLAG-004 — real D1 and R2 archive restore retains evaluated history while all executable authority stays inactive"
+          "testName": "FLAG-004 \u2014 real D1 and R2 archive restore retains evaluated history while all executable authority stays inactive"
         }
       ]
     },
@@ -1767,7 +1767,7 @@
       "id": "PORT-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PORT-002 — Referential restore. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PORT-002 \u2014 Referential restore. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -1775,7 +1775,7 @@
         },
         {
           "file": "tests/qualification/authority/recovery.test.ts",
-          "testName": "FLAG-004 — real D1 and R2 archive restore retains evaluated history while all executable authority stays inactive"
+          "testName": "FLAG-004 \u2014 real D1 and R2 archive restore retains evaluated history while all executable authority stays inactive"
         }
       ]
     },
@@ -1783,7 +1783,7 @@
       "id": "PORT-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PORT-003 — Visible jobs. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for PORT-003 \u2014 Visible jobs. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
@@ -1818,15 +1818,15 @@
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "FLAG-004 PORT-005 EFFECT-001 — restored authority fences replay and reconciliation even after diagnostic clearing while preserving exact history"
+          "testName": "FLAG-004 PORT-005 EFFECT-001 \u2014 restored authority fences replay and reconciliation even after diagnostic clearing while preserving exact history"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "PORT-005 — missing actor is rejected before restored history or effect authority is disclosed"
+          "testName": "PORT-005 \u2014 missing actor is rejected before restored history or effect authority is disclosed"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "PORT-005 — revoked actor is rejected before restored history or effect authority is disclosed"
+          "testName": "PORT-005 \u2014 revoked actor is rejected before restored history or effect authority is disclosed"
         },
         {
           "file": "tests/qualification/release-integration-repairs/branch-portability.test.ts",
@@ -1838,7 +1838,7 @@
       "id": "PORT-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PORT-006 — Atomic import. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PORT-006 \u2014 Atomic import. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -1850,7 +1850,7 @@
         },
         {
           "file": "tests/qualification/authority/atomic-recovery.test.ts",
-          "testName": "PORT-006 — a late D1 restore failure rolls back prior records and staged R2 originals, then the exact archive retries successfully"
+          "testName": "PORT-006 \u2014 a late D1 restore failure rolls back prior records and staged R2 originals, then the exact archive retries successfully"
         }
       ]
     },
@@ -1858,7 +1858,7 @@
       "id": "PORT-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PORT-007 — Exporting a page or a container. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PORT-007 \u2014 Exporting a page or a container. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -1870,14 +1870,14 @@
       "id": "LINK-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for LINK-001 — Permanent URLs. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for LINK-001 \u2014 Permanent URLs. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "LINK-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LINK-002 — Tombstones. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LINK-002 \u2014 Tombstones. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -1889,21 +1889,21 @@
       "id": "LINK-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for LINK-003 — References follow their target. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for LINK-003 \u2014 References follow their target. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "LINK-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for LINK-004 — Links respect access. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for LINK-004 \u2014 Links respect access. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "AI-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-001 — Enablement. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-001 \u2014 Enablement. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/identity.test.ts",
@@ -1915,7 +1915,7 @@
       "id": "AI-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-002 — Run lifecycle. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-002 \u2014 Run lifecycle. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
@@ -1939,14 +1939,14 @@
       "id": "AI-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for AI-003 — Proposal or bounded delegation. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for AI-003 \u2014 Proposal or bounded delegation. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "AI-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-004 — Answer provenance. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-004 \u2014 Answer provenance. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
@@ -1958,7 +1958,7 @@
       "id": "AI-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-005 — Acceptance and granted mutation. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-005 \u2014 Acceptance and granted mutation. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -1974,15 +1974,15 @@
       "supportingTests": [
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "AI-006 — non-restored paused run retains the existing stopped-run conflict"
+          "testName": "AI-006 \u2014 non-restored paused run retains the existing stopped-run conflict"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "AI-006 — non-restored cancelled run retains the existing stopped-run conflict"
+          "testName": "AI-006 \u2014 non-restored cancelled run retains the existing stopped-run conflict"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "AI-006 — non-restored completed run retains the existing stopped-run conflict"
+          "testName": "AI-006 \u2014 non-restored completed run retains the existing stopped-run conflict"
         }
       ]
     },
@@ -1990,14 +1990,14 @@
       "id": "AI-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for AI-007 — Untrusted content. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for AI-007 \u2014 Untrusted content. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "AI-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-008 — Failure preserves confirmed work. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-008 \u2014 Failure preserves confirmed work. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
@@ -2009,7 +2009,7 @@
       "id": "AI-009",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-009 — Retry. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-009 \u2014 Retry. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
@@ -2025,21 +2025,21 @@
       "id": "AI-010",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for AI-010 — Usage record. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for AI-010 \u2014 Usage record. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "AI-011",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for AI-011 — No self-granted authority. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for AI-011 \u2014 No self-granted authority. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "AI-012",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-012 — Durable budgets. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-012 \u2014 Durable budgets. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
@@ -2067,7 +2067,7 @@
       "id": "AI-013",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-013 — Requester and audience boundary. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-013 \u2014 Requester and audience boundary. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
@@ -2083,27 +2083,27 @@
         },
         {
           "file": "tests/qualification/authority/learned-provenance.test.ts",
-          "testName": "INQ-005 — learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse"
+          "testName": "INQ-005 \u2014 learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 — revoking an older definition source denies the all-version HTTP read without revealing instructions"
+          "testName": "SKILL-001 \u2014 revoking an older definition source denies the all-version HTTP read without revealing instructions"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-003 — exact continuation authority cannot disclose revoked dependencies outside the run subset"
+          "testName": "SKILL-003 \u2014 exact continuation authority cannot disclose revoked dependencies outside the run subset"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-002 — held-out evaluation admission rechecks full draft definition beyond frozen case refs"
+          "testName": "SKILL-002 \u2014 held-out evaluation admission rechecks full draft definition beyond frozen case refs"
         },
         {
           "file": "tests/qualification/authority/snapshot.test.ts",
-          "testName": "SKILL-001 — portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
+          "testName": "SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 — a readable host and source cannot widen the exact method audience"
+          "testName": "SKILL-001 \u2014 a readable host and source cannot widen the exact method audience"
         }
       ]
     },
@@ -2111,7 +2111,7 @@
       "id": "AI-014",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-014 — Scoped agents. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AI-014 \u2014 Scoped agents. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
@@ -2123,42 +2123,42 @@
       "id": "AI-015",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for AI-015 — Workspace answers. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for AI-015 \u2014 Workspace answers. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "AI-016",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for AI-016 — Summaries. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for AI-016 \u2014 Summaries. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "AI-017",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for AI-017 — Writing with AI. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for AI-017 \u2014 Writing with AI. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "DEC-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DEC-001 — A decision is a layer over a page. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for DEC-001 \u2014 A decision is a layer over a page. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "DEC-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DEC-002 — States. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for DEC-002 \u2014 States. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "DEC-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DEC-003 — An accepted decision is immutable. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DEC-003 \u2014 An accepted decision is immutable. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
@@ -2170,21 +2170,21 @@
       "id": "DEC-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DEC-004 — Decision log. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for DEC-004 \u2014 Decision log. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "DEC-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DEC-005 — Review dates. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for DEC-005 \u2014 Review dates. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "DEC-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DEC-006 — A proposed decision is editable. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for DEC-006 \u2014 A proposed decision is editable. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
@@ -2195,7 +2195,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/suggestions/anchors.test.ts",
-          "testName": "SUG-001 — a proposal stays on its published revision and current access controls its read"
+          "testName": "SUG-001 \u2014 a proposal stays on its published revision and current access controls its read"
         }
       ]
     },
@@ -2207,7 +2207,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/suggestions/resolution.test.ts",
-          "testName": "SUG-002 — native acceptance is atomic and replayable; rejection history survives an empty migrated restore"
+          "testName": "SUG-002 \u2014 native acceptance is atomic and replayable; rejection history survives an empty migrated restore"
         }
       ]
     },
@@ -2227,7 +2227,7 @@
         },
         {
           "file": "tests/flagship/release-clauses/federation/connector-disclosure.test.ts",
-          "testName": "SOURCE-001 — connector list binds current native identity and explicitly reports unavailable authority after identity failure"
+          "testName": "SOURCE-001 \u2014 connector list binds current native identity and explicitly reports unavailable authority after identity failure"
         }
       ]
     },
@@ -2255,11 +2255,11 @@
         },
         {
           "file": "tests/flagship/release-clauses/federation/exact-passages.test.ts",
-          "testName": "SOURCE-002 — an exact passage remains revision-pinned across refresh failure and becomes content-free when its current authority is lost"
+          "testName": "SOURCE-002 \u2014 an exact passage remains revision-pinned across refresh failure and becomes content-free when its current authority is lost"
         },
         {
           "file": "tests/flagship/release-clauses/federation/exact-passages.test.ts",
-          "testName": "SOURCE-002 — current connection authority is rechecked after the final provider read and disconnected passages disclose only a tombstone"
+          "testName": "SOURCE-002 \u2014 current connection authority is rechecked after the final provider read and disconnected passages disclose only a tombstone"
         }
       ]
     },
@@ -2275,7 +2275,7 @@
         },
         {
           "file": "tests/qualification/authority/decision-authority.test.ts",
-          "testName": "SOURCE-003 — claims keep accepted authority through review, withdraw it when nested citations change or layer is removed, and preserve exact history through restore"
+          "testName": "SOURCE-003 \u2014 claims keep accepted authority through review, withdraw it when nested citations change or layer is removed, and preserve exact history through restore"
         }
       ]
     },
@@ -2291,7 +2291,7 @@
         },
         {
           "file": "tests/qualification/authority/native-boundaries.test.ts",
-          "testName": "SOURCE-004 — typed native article receipt binds exact publication audience and rejects invalid observation time without dispatch"
+          "testName": "SOURCE-004 \u2014 typed native article receipt binds exact publication audience and rejects invalid observation time without dispatch"
         }
       ]
     },
@@ -2299,35 +2299,35 @@
       "id": "SOURCE-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SOURCE-005 — Revocation and deletion. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SOURCE-005 \u2014 Revocation and deletion. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": [
         {
           "file": "tests/qualification/authority/learned-provenance.test.ts",
-          "testName": "INQ-005 — learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse"
+          "testName": "INQ-005 \u2014 learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 — revoking an older definition source denies the all-version HTTP read without revealing instructions"
+          "testName": "SKILL-001 \u2014 revoking an older definition source denies the all-version HTTP read without revealing instructions"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-003 — exact continuation authority cannot disclose revoked dependencies outside the run subset"
+          "testName": "SKILL-003 \u2014 exact continuation authority cannot disclose revoked dependencies outside the run subset"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-002 — held-out evaluation admission rechecks full draft definition beyond frozen case refs"
+          "testName": "SKILL-002 \u2014 held-out evaluation admission rechecks full draft definition beyond frozen case refs"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SOURCE-005 — complete archive refuses retained skill prose when its source authority has been erased"
+          "testName": "SOURCE-005 \u2014 complete archive refuses retained skill prose when its source authority has been erased"
         },
         {
           "file": "tests/qualification/authority/snapshot.test.ts",
-          "testName": "SKILL-001 — portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
+          "testName": "SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 — a readable host and source cannot widen the exact method audience"
+          "testName": "SKILL-001 \u2014 a readable host and source cannot widen the exact method audience"
         }
       ]
     },
@@ -2339,11 +2339,11 @@
       "supportingTests": [
         {
           "file": "tests/qualification/authority/disconnect.test.ts",
-          "testName": "SOURCE-006 — disconnect atomically stops queued work, withdraws activation and grant authority, and reconnect preserves suspension"
+          "testName": "SOURCE-006 \u2014 disconnect atomically stops queued work, withdraws activation and grant authority, and reconnect preserves suspension"
         },
         {
           "file": "tests/qualification/authority/native-boundaries.test.ts",
-          "testName": "SOURCE-006 — native OAuth refuses a redirect without replaying or forwarding the personal authorization code"
+          "testName": "SOURCE-006 \u2014 native OAuth refuses a redirect without replaying or forwarding the personal authorization code"
         }
       ]
     },
@@ -2351,7 +2351,7 @@
       "id": "SKILL-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SKILL-001 — Versioned procedure. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SKILL-001 \u2014 Versioned procedure. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/skills.test.ts",
@@ -2363,15 +2363,15 @@
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 — revoking an older definition source denies the all-version HTTP read without revealing instructions"
+          "testName": "SKILL-001 \u2014 revoking an older definition source denies the all-version HTTP read without revealing instructions"
         },
         {
           "file": "tests/qualification/authority/snapshot.test.ts",
-          "testName": "SKILL-001 — portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
+          "testName": "SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 — a readable host and source cannot widen the exact method audience"
+          "testName": "SKILL-001 \u2014 a readable host and source cannot widen the exact method audience"
         }
       ]
     },
@@ -2379,7 +2379,7 @@
       "id": "SKILL-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SKILL-002 — Evaluation and activation. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SKILL-002 \u2014 Evaluation and activation. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/skills.test.ts",
@@ -2391,7 +2391,7 @@
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-002 — held-out evaluation admission rechecks full draft definition beyond frozen case refs"
+          "testName": "SKILL-002 \u2014 held-out evaluation admission rechecks full draft definition beyond frozen case refs"
         }
       ]
     },
@@ -2399,11 +2399,11 @@
       "id": "SKILL-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SKILL-003 — Version transitions. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for SKILL-003 \u2014 Version transitions. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": [
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-003 — exact continuation authority cannot disclose revoked dependencies outside the run subset"
+          "testName": "SKILL-003 \u2014 exact continuation authority cannot disclose revoked dependencies outside the run subset"
         }
       ]
     },
@@ -2427,23 +2427,23 @@
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "FLAG-004 PORT-005 EFFECT-001 — restored authority fences replay and reconciliation even after diagnostic clearing while preserving exact history"
+          "testName": "FLAG-004 PORT-005 EFFECT-001 \u2014 restored authority fences replay and reconciliation even after diagnostic clearing while preserving exact history"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "EFFECT-001 — a normal current grant permits one dispatch and receipt replay sends nothing"
+          "testName": "EFFECT-001 \u2014 a normal current grant permits one dispatch and receipt replay sends nothing"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "EFFECT-001 — revoked grants still deny ordinary non-restored effects without mutations"
+          "testName": "EFFECT-001 \u2014 revoked grants still deny ordinary non-restored effects without mutations"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "FLAG-004 EFFECT-001 — a live grant cannot override the durable-marker restore fence"
+          "testName": "FLAG-004 EFFECT-001 \u2014 a live grant cannot override the durable-marker restore fence"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "FLAG-004 EFFECT-001 — a live grant cannot override the legacy-reason restore fence"
+          "testName": "FLAG-004 EFFECT-001 \u2014 a live grant cannot override the legacy-reason restore fence"
         }
       ]
     },
@@ -2455,11 +2455,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/authority/inquiry-custody.test.ts",
-          "testName": "EFFECT-002 — admitted inquiry and credentialed MCP refuse operational consent and unsupported product sends"
+          "testName": "EFFECT-002 \u2014 admitted inquiry and credentialed MCP refuse operational consent and unsupported product sends"
         },
         {
           "file": "tests/flagship/release-clauses/authority/inquiry-custody.test.ts",
-          "testName": "EFFECT-002 — article publication requires its own current audience and exact grant"
+          "testName": "EFFECT-002 \u2014 article publication requires its own current audience and exact grant"
         }
       ]
     },
@@ -2495,11 +2495,11 @@
         },
         {
           "file": "tests/flagship/release-clauses/authority/impact-scope.test.ts",
-          "testName": "EFFECT-003 — scoped rehearsal hides a currently inaccessible dependency and records one read-only impact on replay"
+          "testName": "EFFECT-003 \u2014 scoped rehearsal hides a currently inaccessible dependency and records one read-only impact on replay"
         },
         {
           "file": "tests/flagship/release-clauses/authority/impact-scope.test.ts",
-          "testName": "EFFECT-003 — evaluated pinned maintenance waits for a current exact grant and applies one attributable repair"
+          "testName": "EFFECT-003 \u2014 evaluated pinned maintenance waits for a current exact grant and applies one attributable repair"
         }
       ]
     },
@@ -2511,15 +2511,15 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
-          "testName": "AGENT-001 — exact credential scope gates REST and MCP control replay and current revocation"
+          "testName": "AGENT-001 \u2014 exact credential scope gates REST and MCP control replay and current revocation"
         },
         {
           "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
-          "testName": "AGENT-001 — a valid credential loses status and mutation disclosure when the source audience loses access"
+          "testName": "AGENT-001 \u2014 a valid credential loses status and mutation disclosure when the source audience loses access"
         },
         {
           "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
-          "testName": "AGENT-001 — revoking the exact effect grant fences an admitted procedure despite a current credential"
+          "testName": "AGENT-001 \u2014 revoking the exact effect grant fences an admitted procedure despite a current credential"
         }
       ]
     },
@@ -2531,15 +2531,15 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-          "testName": "AGENT-002 — an owner-defined page view does not expose its private skill to a page-only member"
+          "testName": "AGENT-002 \u2014 an owner-defined page view does not expose its private skill to a page-only member"
         },
         {
           "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-          "testName": "AGENT-002 — a fresh setup owner reads restored inquiry, analysis, decision and trial views with exact lineage"
+          "testName": "AGENT-002 \u2014 a fresh setup owner reads restored inquiry, analysis, decision and trial views with exact lineage"
         },
         {
           "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-          "testName": "AGENT-002 — restored page history, comments, skill definition and imported original remain available to the fresh owner"
+          "testName": "AGENT-002 \u2014 restored page history, comments, skill definition and imported original remain available to the fresh owner"
         }
       ]
     },
@@ -2555,7 +2555,7 @@
         },
         {
           "file": "tests/flagship/release-clauses/inquiry/durable-branches.test.ts",
-          "testName": "INQ-001 — partially admitted rival branches retain interim findings, unavailable reasons and replayed durable stop"
+          "testName": "INQ-001 \u2014 partially admitted rival branches retain interim findings, unavailable reasons and replayed durable stop"
         },
         {
           "file": "tests/qualification/release-integration-repairs/branch-portability.test.ts",
@@ -2583,7 +2583,7 @@
         },
         {
           "file": "tests/flagship/release-clauses/inquiry/replay-analysis.test.ts",
-          "testName": "INQ-002 — durable numerical replay separates observation, assumption, deduction and refused business authority"
+          "testName": "INQ-002 \u2014 durable numerical replay separates observation, assumption, deduction and refused business authority"
         }
       ]
     },
@@ -2595,7 +2595,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/inquiry/bounded-allocation.test.ts",
-          "testName": "INQ-003 — persisted allocations expose exhaustive optimum, capacity sensitivity and invalid input atomicity"
+          "testName": "INQ-003 \u2014 persisted allocations expose exhaustive optimum, capacity sensitivity and invalid input atomicity"
         }
       ]
     },
@@ -2607,27 +2607,27 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 — scheduled exact route revocation blocks dispatch and never substitutes a model"
+          "testName": "INQ-004 \u2014 scheduled exact route revocation blocks dispatch and never substitutes a model"
         },
         {
           "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 — source access lost during metered assessment refuses publication and later disclosure"
+          "testName": "INQ-004 \u2014 source access lost during metered assessment refuses publication and later disclosure"
         },
         {
           "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 — invalid semantic output is metered once and makes no fallback or guessed question"
+          "testName": "INQ-004 \u2014 invalid semantic output is metered once and makes no fallback or guessed question"
         },
         {
           "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 — deterministic low-score audits and frontier shadow retain exact missed-event lineage"
+          "testName": "INQ-004 \u2014 deterministic low-score audits and frontier shadow retain exact missed-event lineage"
         },
         {
           "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 — expiration after scheduling refuses both direct frontier and queued semantic work"
+          "testName": "INQ-004 \u2014 expiration after scheduling refuses both direct frontier and queued semantic work"
         },
         {
           "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 — audience source revocation before consumption prevents any semantic dispatch"
+          "testName": "INQ-004 \u2014 audience source revocation before consumption prevents any semantic dispatch"
         }
       ]
     },
@@ -2635,11 +2635,11 @@
       "id": "INQ-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for INQ-005 — Economical sustained work. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for INQ-005 \u2014 Economical sustained work. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": [
         {
           "file": "tests/qualification/authority/learned-provenance.test.ts",
-          "testName": "INQ-005 — learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse"
+          "testName": "INQ-005 \u2014 learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse"
         },
         {
           "file": "tests/flagship/intelligence/reservation-prerequisites.test.ts",
@@ -2659,11 +2659,11 @@
         },
         {
           "file": "tests/flagship/release-clauses/trials/predeclaration.test.ts",
-          "testName": "TRIAL-001 — immutable predeclaration rejects changed replay and unappointed or stale approval"
+          "testName": "TRIAL-001 \u2014 immutable predeclaration rejects changed replay and unappointed or stale approval"
         },
         {
           "file": "tests/flagship/release-clauses/trials/predeclaration.test.ts",
-          "testName": "TRIAL-001 — exact approved plan grants only its declared treatment targets and content"
+          "testName": "TRIAL-001 \u2014 exact approved plan grants only its declared treatment targets and content"
         }
       ]
     },
@@ -2695,11 +2695,11 @@
         },
         {
           "file": "tests/flagship/release-clauses/trials/exposure-safety.test.ts",
-          "testName": "TRIAL-002 — guardrail during provider uncertainty cancels unsent work and preserves confirmed and uncertain truth"
+          "testName": "TRIAL-002 \u2014 guardrail during provider uncertainty cancels unsent work and preserves confirmed and uncertain truth"
         },
         {
           "file": "tests/flagship/release-clauses/trials/exposure-safety.test.ts",
-          "testName": "TRIAL-002 — grant revoked after trial admission invalidates the D1 dispatch claim without a provider send"
+          "testName": "TRIAL-002 \u2014 grant revoked after trial admission invalidates the D1 dispatch claim without a provider send"
         }
       ]
     },
@@ -2719,35 +2719,35 @@
         },
         {
           "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 — persisted benefit conclusion uses collected fields and independently checked precision"
+          "testName": "TRIAL-003 \u2014 persisted benefit conclusion uses collected fields and independently checked precision"
         },
         {
           "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 — persisted null conclusion uses collected fields and independently checked precision"
+          "testName": "TRIAL-003 \u2014 persisted null conclusion uses collected fields and independently checked precision"
         },
         {
           "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 — persisted adverse conclusion uses collected fields and independently checked precision"
+          "testName": "TRIAL-003 \u2014 persisted adverse conclusion uses collected fields and independently checked precision"
         },
         {
           "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 — persisted inconclusive conclusion uses collected fields and independently checked precision"
+          "testName": "TRIAL-003 \u2014 persisted inconclusive conclusion uses collected fields and independently checked precision"
         },
         {
           "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 — persisted meaningful boundary conclusion uses collected fields and independently checked precision"
+          "testName": "TRIAL-003 \u2014 persisted meaningful boundary conclusion uses collected fields and independently checked precision"
         },
         {
           "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 — missing exposure remains inconclusive despite the caller repeating the declared hash"
+          "testName": "TRIAL-003 \u2014 missing exposure remains inconclusive despite the caller repeating the declared hash"
         },
         {
           "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 — empty measurements remains inconclusive despite the caller repeating the declared hash"
+          "testName": "TRIAL-003 \u2014 empty measurements remains inconclusive despite the caller repeating the declared hash"
         },
         {
           "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
-          "testName": "TRIAL-003 — changed instrumentation remains inconclusive despite the caller repeating the declared hash"
+          "testName": "TRIAL-003 \u2014 changed instrumentation remains inconclusive despite the caller repeating the declared hash"
         }
       ]
     },
@@ -2767,7 +2767,7 @@
         },
         {
           "file": "tests/flagship/release-clauses/trials/learning-provenance.test.ts",
-          "testName": "TRIAL-004 — native restore retains learned forecast and falsification while stale sources and old grants cannot activate it"
+          "testName": "TRIAL-004 \u2014 native restore retains learned forecast and falsification while stale sources and old grants cannot activate it"
         }
       ]
     },
@@ -2779,11 +2779,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/portability/profile-retention.test.ts",
-          "testName": "FLAG-001 — default and empty core profiles block flagship operations without provider effects while preserving page read, edit, export and historical rows"
+          "testName": "FLAG-001 \u2014 default and empty core profiles block flagship operations without provider effects while preserving page read, edit, export and historical rows"
         },
         {
           "file": "tests/flagship/release-clauses/portability/profile-retention.test.ts",
-          "testName": "FLAG-001 — core-profile restore retains and exports flagship history while restored execution authority remains disabled"
+          "testName": "FLAG-001 \u2014 core-profile restore retains and exports flagship history while restored execution authority remains disabled"
         }
       ]
     },
@@ -2799,15 +2799,15 @@
         },
         {
           "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-          "testName": "FLAG-002 — staged restore refuses a target that gains a product row and leaves all canonical rows and R2 originals unchanged"
+          "testName": "FLAG-002 \u2014 staged restore refuses a target that gains a product row and leaves all canonical rows and R2 originals unchanged"
         },
         {
           "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-          "testName": "FLAG-002 — restore rechecks current setup-owner authority inside the canonical D1 commit after archive admission"
+          "testName": "FLAG-002 \u2014 restore rechecks current setup-owner authority inside the canonical D1 commit after archive admission"
         },
         {
           "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-          "testName": "FLAG-002 — a second empty target restores the complete archive, imported originals, foreign keys and fresh owner authority"
+          "testName": "FLAG-002 \u2014 a second empty target restores the complete archive, imported originals, foreign keys and fresh owner authority"
         }
       ]
     },
@@ -2819,15 +2819,15 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-          "testName": "FLAG-003 — frozen comparison pins equal source, question, audience and model limits before policy and index drift"
+          "testName": "FLAG-003 \u2014 frozen comparison pins equal source, question, audience and model limits before policy and index drift"
         },
         {
           "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-          "testName": "FLAG-003 — current source grant revocation blocks both prepared runs before disclosure"
+          "testName": "FLAG-003 \u2014 current source grant revocation blocks both prepared runs before disclosure"
         },
         {
           "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-          "testName": "FLAG-003 — both comparison arms retain failed and successful attempt timing and cost status"
+          "testName": "FLAG-003 \u2014 both comparison arms retain failed and successful attempt timing and cost status"
         }
       ]
     },
@@ -2839,19 +2839,19 @@
       "supportingTests": [
         {
           "file": "tests/qualification/authority/recovery.test.ts",
-          "testName": "FLAG-004 — real D1 and R2 archive restore retains evaluated history while all executable authority stays inactive"
+          "testName": "FLAG-004 \u2014 real D1 and R2 archive restore retains evaluated history while all executable authority stays inactive"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "FLAG-004 PORT-005 EFFECT-001 — restored authority fences replay and reconciliation even after diagnostic clearing while preserving exact history"
+          "testName": "FLAG-004 PORT-005 EFFECT-001 \u2014 restored authority fences replay and reconciliation even after diagnostic clearing while preserving exact history"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "FLAG-004 EFFECT-001 — a live grant cannot override the durable-marker restore fence"
+          "testName": "FLAG-004 EFFECT-001 \u2014 a live grant cannot override the durable-marker restore fence"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "FLAG-004 EFFECT-001 — a live grant cannot override the legacy-reason restore fence"
+          "testName": "FLAG-004 EFFECT-001 \u2014 a live grant cannot override the legacy-reason restore fence"
         },
         {
           "file": "tests/qualification/release-integration-repairs/branch-portability.test.ts",
@@ -2863,7 +2863,7 @@
       "id": "BASE-ACCESS-001",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BASE-ACCESS-001 — Sign-in. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BASE-ACCESS-001 \u2014 Sign-in. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/sendgrid-mail.test.ts",
@@ -2879,7 +2879,7 @@
       "id": "BASE-ACCESS-002",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BASE-ACCESS-002 — Sessions. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BASE-ACCESS-002 \u2014 Sessions. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -2915,42 +2915,42 @@
       "id": "BASE-ACCESS-003",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-ACCESS-003 — Public endpoints. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-ACCESS-003 \u2014 Public endpoints. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-ACCESS-004",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-ACCESS-004 — Server-side authorisation. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-ACCESS-004 \u2014 Server-side authorisation. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-INPUT-001",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-INPUT-001 — Validation. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-INPUT-001 \u2014 Validation. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-INPUT-002",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-INPUT-002 — HTML. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-INPUT-002 \u2014 HTML. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-INPUT-003",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-INPUT-003 — Uploads. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-INPUT-003 \u2014 Uploads. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-SECRET-001",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BASE-SECRET-001 — No leakage. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BASE-SECRET-001 \u2014 No leakage. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/identity.test.ts",
@@ -2966,14 +2966,14 @@
       "id": "BASE-SECRET-002",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-SECRET-002 — Startup. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-SECRET-002 \u2014 Startup. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-DATA-001",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BASE-DATA-001 — Export and import. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BASE-DATA-001 \u2014 Export and import. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -2981,11 +2981,11 @@
         },
         {
           "file": "tests/qualification/authority/recovery.test.ts",
-          "testName": "FLAG-004 — real D1 and R2 archive restore retains evaluated history while all executable authority stays inactive"
+          "testName": "FLAG-004 \u2014 real D1 and R2 archive restore retains evaluated history while all executable authority stays inactive"
         },
         {
           "file": "tests/qualification/authority/atomic-recovery.test.ts",
-          "testName": "PORT-006 — a late D1 restore failure rolls back prior records and staged R2 originals, then the exact archive retries successfully"
+          "testName": "PORT-006 \u2014 a late D1 restore failure rolls back prior records and staged R2 originals, then the exact archive retries successfully"
         }
       ]
     },
@@ -2993,14 +2993,14 @@
       "id": "BASE-DATA-002",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-DATA-002 — Retention. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-DATA-002 \u2014 Retention. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-DATA-003",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BASE-DATA-003 — Erasure. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BASE-DATA-003 \u2014 Erasure. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/erasure.test.ts",
@@ -3020,70 +3020,70 @@
       "id": "BASE-DATA-004",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-DATA-004 — Outbound flows. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-DATA-004 \u2014 Outbound flows. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-DATA-005",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-DATA-005 — Independence. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-DATA-005 \u2014 Independence. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-PUBLIC-001",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-PUBLIC-001 — Privacy. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-PUBLIC-001 \u2014 Privacy. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-PUBLIC-002",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-PUBLIC-002 — Origins. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-PUBLIC-002 \u2014 Origins. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-PUBLIC-003",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-PUBLIC-003 — Accessibility. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-PUBLIC-003 \u2014 Accessibility. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-OPS-001",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-OPS-001 — Health. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-OPS-001 \u2014 Health. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-OPS-002",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-OPS-002 — Migrations. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-OPS-002 \u2014 Migrations. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-OPS-003",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-OPS-003 — Idempotency. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-OPS-003 \u2014 Idempotency. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-OPS-004",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-OPS-004 — Failure is visible. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-OPS-004 \u2014 Failure is visible. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
       "id": "BASE-OPS-005",
       "document": "BASELINE.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BASE-OPS-005 — Audit. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "No complete semantic journey is registered for BASE-OPS-005 \u2014 Audit. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
       "supportingTests": []
     },
     {
@@ -3136,7 +3136,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/discovery/following.test.ts",
-          "testName": "PAGE-016 — authoring watches respect durable unwatch, personal overrides and workspace defaults"
+          "testName": "PAGE-016 \u2014 authoring watches respect durable unwatch, personal overrides and workspace defaults"
         }
       ]
     },
@@ -3148,7 +3148,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/discovery/following.test.ts",
-          "testName": "CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access"
+          "testName": "CONT-012 \u2014 a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access"
         }
       ]
     },
@@ -3160,11 +3160,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/discovery/blog.test.ts",
-          "testName": "CONT-010 — a post is a dated page that reaches followers once and lists only for its readers"
+          "testName": "CONT-010 \u2014 a post is a dated page that reaches followers once and lists only for its readers"
         },
         {
           "file": "tests/e2e/imports/blog-posts.test.ts",
-          "testName": "CONT-010 — a Confluence Cloud blog post imports as a post with its date and author, and undo removes it"
+          "testName": "CONT-010 \u2014 a Confluence Cloud blog post imports as a post with its date and author, and undo removes it"
         }
       ]
     },
@@ -3176,7 +3176,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/discovery/group-mentions.test.ts",
-          "testName": "BLOCK-020 — group mentions preview and notify only readers once, with owner-controlled administrator bounds"
+          "testName": "BLOCK-020 \u2014 group mentions preview and notify only readers once, with owner-controlled administrator bounds"
         }
       ]
     },
@@ -3188,11 +3188,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/discovery/space-hub.test.ts",
-          "testName": "CONT-011 — a space opens its editable home with normal page authority and revision conflicts"
+          "testName": "CONT-011 \u2014 a space opens its editable home with normal page authority and revision conflicts"
         },
         {
           "file": "tests/flagship/discovery/space-hub.test.ts",
-          "testName": "CONT-011 — an owner curates a company hub for a new member, filtering private, unpublished and unverified content on every read"
+          "testName": "CONT-011 \u2014 an owner curates a company hub for a new member, filtering private, unpublished and unverified content on every read"
         }
       ]
     },
@@ -3204,11 +3204,11 @@
       "supportingTests": [
         {
           "file": "tests/e2e/imports/page-lock.test.ts",
-          "testName": "PAGE-015 — staged import classifies a racing lock without masking an intervening edit (false)"
+          "testName": "PAGE-015 \u2014 staged import classifies a racing lock without masking an intervening edit (false)"
         },
         {
           "file": "tests/e2e/imports/page-lock.test.ts",
-          "testName": "PAGE-015 — staged import classifies a racing lock without masking an intervening edit (true)"
+          "testName": "PAGE-015 \u2014 staged import classifies a racing lock without masking an intervening edit (true)"
         }
       ]
     },
@@ -3283,17 +3283,38 @@
       "supportingTests": [
         {
           "file": "tests/e2e/notifications/destinations.test.ts",
-          "testName": "CHAT-001 — Readable grouped events survive an unreadable or purged leader without duplicate delivery"
+          "testName": "CHAT-001 \u2014 Readable grouped events survive an unreadable or purged leader without duplicate delivery"
         },
         {
           "file": "tests/e2e/notifications/destinations.test.ts",
-          "testName": "CHAT-001 — Withdrawal uses each original channel roster in either receipt ordering"
+          "testName": "CHAT-001 \u2014 Withdrawal uses each original channel roster in either receipt ordering"
         },
         {
           "file": "tests/e2e/notifications/destinations.test.ts",
-          "testName": "CHAT-001 — Nook channel changes are refused before custody changes while rotation and independent destinations work"
+          "testName": "CHAT-001 \u2014 Nook channel changes are refused before custody changes while rotation and independent destinations work"
         }
       ]
+    },
+    {
+      "id": "PORT-009",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Registered Workers and desktop/mobile network-edge journeys provide implementation evidence. The clause retains its explicitly named live-provider acceptance gap.",
+      "supportingTests": []
+    },
+    {
+      "id": "IMP-009",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Registered Workers and desktop/mobile network-edge journeys provide implementation evidence. The clause retains its explicitly named live-provider acceptance gap.",
+      "supportingTests": []
+    },
+    {
+      "id": "ADMIN-001",
+      "document": "CONTRACT.md",
+      "status": "unproven",
+      "unmetReason": "Registered Workers and desktop/mobile network-edge journeys provide implementation evidence. The clause retains its explicitly named live-provider acceptance gap.",
+      "supportingTests": []
     }
   ]
 }

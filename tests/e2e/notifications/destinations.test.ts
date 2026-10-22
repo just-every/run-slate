@@ -245,7 +245,9 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
   await applyD1Migrations(prior,env.TEST_MIGRATIONS.filter(m=>m.name<'0045_chat_destinations.sql'));
   for(const table of ['workspaces','members','member_authority','containers','container_owners','container_grants','sessions','pages','page_revisions','page_blocks','content_published_revisions','notification_outbox']){
    const rows=(await env.DB.prepare(`SELECT * FROM ${table}`).all<any>()).results;
-   for(const row of rows){const columns=Object.keys(row);await prior.prepare(`INSERT ${table==='content_published_revisions'?'OR IGNORE ':''}INTO ${table}(${columns.join(',')}) VALUES(${columns.map(()=>'?').join(',')})`).bind(...Object.values(row)).run();}
+   // Copy only columns that existed in this historical schema; the later migration adds session protocol custody.
+   const priorColumns=new Set((await prior.prepare(`PRAGMA table_info(${table})`).all<{name:string}>()).results.map(column=>column.name));
+   for(const row of rows){const columns=Object.keys(row).filter(column=>priorColumns.has(column));await prior.prepare(`INSERT ${table==='content_published_revisions'?'OR IGNORE ':''}INTO ${table}(${columns.join(',')}) VALUES(${columns.map(()=>'?').join(',')})`).bind(...columns.map(column=>row[column])).run();}
   }
   const old=await env.DB.prepare('SELECT * FROM chat_connections WHERE id=?').bind(first).first<any>();delete old.provider;delete old.container_id;delete old.notifier_provider;delete old.delivery_mode;delete old.retry_after;
   const columns=Object.keys(old);await prior.prepare(`INSERT INTO chat_connections(${columns.join(',')}) VALUES(${columns.map(()=>'?').join(',')})`).bind(...Object.values(old)).run();

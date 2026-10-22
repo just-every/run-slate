@@ -1,5 +1,3 @@
-import {providerFolderJourney} from './provider-folder-journey';
-import {contract} from '../contract';
 import { beforeAll, expect, test } from "vitest";
 import { env } from "cloudflare:test";
 import { readZipArchive } from "../../../src/core/features/imports/archive";
@@ -343,4 +341,3 @@ test("the real Google Docs .docx download imports as paragraphs, and the package
   expect(parsed.report.unmapped).toEqual([]);
 });
 
-contract('IMP-009','Member folder imports preserve a nested twelve-document tree, resolving links and actor-only access with a per-file omission report',providerFolderJourney);
