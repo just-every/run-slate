@@ -8991,6 +8991,10 @@
       "sha256": "7f7b02a34101f03e49a030b56736300240ba6267cef973093dd2028da76def8b",
       "executable": false
     },
+    "test-budget.json": {
+      "sha256": "697c6bbe82f2e22333832bf351f37adcfdb7a8c78c8617a4183cb3fdd42b50a3",
+      "executable": false
+    },
     "tests/base-proof/provenance.test.mjs": {
       "sha256": "28baf20d9c7cd9aad6721d4507deb65a306b5c1c6969a2c86baf1f15df72c4d5",
       "executable": false
@@ -9132,7 +9136,7 @@
       "executable": false
     },
     "tests/e2e/imports/mapping-regressions.test.ts": {
-      "sha256": "3db75a9530a09ada2f45da9b31664e6d46754a622dbae5d199aa66c6eeafaa2f",
+      "sha256": "898d011733ccb2a6666154dc8d734b130c3fb657e0ee3465c6b4765e1dd94108",
       "executable": false
     },
     "tests/e2e/imports/page-lock.test.ts": {
@@ -9392,7 +9396,7 @@
       "executable": false
     },
     "tests/flagship/content/repair.test.ts": {
-      "sha256": "f6f8b1d8aa5504b2595e4fd27fa4b6bc9f7318cb2fd3209bc425c0cd9ae3c0a7",
+      "sha256": "d974bd9234c3728d1e5cf23255265f1df3d2642e06daa3ace8ca7862f4c272c0",
       "executable": false
     },
     "tests/flagship/content/sqlite-harness.mts": {
@@ -9428,7 +9432,7 @@
       "executable": false
     },
     "tests/flagship/core/identity.test.ts": {
-      "sha256": "5e0370e6ecf09394947561dea3d5c54e500c30207ef90dee5d869924c60ecb4f",
+      "sha256": "21f85423fcf9b5ae19cfcc93cae86f24e52fea5690be876125bd2ee64d0a38ec",
       "executable": false
     },
     "tests/flagship/core/mail.node.test.mts": {
@@ -9452,7 +9456,7 @@
       "executable": false
     },
     "tests/flagship/core/sendgrid-mail.test.ts": {
-      "sha256": "4508d8ae7897c8365567355fdeda3026dfd6a9a7b5a8977b2310925f3db74b3a",
+      "sha256": "e0432e6a382671a2866f1463cb624d7e5d9610976a45c0df61e6389e4b6b4d37",
       "executable": false
     },
     "tests/flagship/cross/candidates.mjs": {
@@ -9684,7 +9688,7 @@
       "executable": false
     },
     "tests/flagship/intelligence/trial-boundaries.test.ts": {
-      "sha256": "f57cf5836447b1e4adec7f93bb3541c9f88177d4bc8a21cb37eb2a32b1c8fa15",
+      "sha256": "df854c989b05811cea0f3dd986feb9a6736a1c69438765b69b214255dfce4de0",
       "executable": false
     },
     "tests/flagship/intelligence/trial-fixture.ts": {
@@ -9832,7 +9836,7 @@
       "executable": false
     },
     "tests/flagship/release-clauses/value/comparison-integrity.test.ts": {
-      "sha256": "aac37a6bcb7ba024f963c4892c70cb09ffcd926074befce561bc032062b96dbc",
+      "sha256": "3181e58840c0d0bdf116d5410ae756eecbf2993d102164b6a743f92e2b7bcfb6",
       "executable": false
     },
     "tests/flagship/structured/automation-repairs.test.ts": {
@@ -9864,7 +9868,7 @@
       "executable": false
     },
     "tests/flagship/structured/typed-repairs.test.ts": {
-      "sha256": "4ae51a6b44e04c007dfc41eadb7247618bf5207c3cdab6f868b86503fd01dae3",
+      "sha256": "d37614a2fb2a4298a484bf4fc9fc6af7cc3409ec4e0e6429401caa7fc9747cb6",
       "executable": false
     },
     "tests/flagship/structured/values.test.ts": {
@@ -10724,7 +10728,7 @@
       "executable": false
     },
     "tests/qualification/release-restore-authority/restored-effects.test.ts": {
-      "sha256": "3408668d270f3159b0b8f8ba3a45d4ef46f1fbd963dcf8bab95469e4dec20e6e",
+      "sha256": "214ea70d4f04a3704121a5c6943863c066be7ed352ca1ba1cc0be5b5a0564c45",
       "executable": false
     },
     "tests/qualification/release-restore-authority/successor.test.ts": {
@@ -11172,7 +11176,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "996f611c23c4cd5fc96c414a5febb3290a4e3a170f684f78452d30570c701b91",
+      "sha256": "925e8955c4ea306c3e3fbabdd7603473e616d3c6ff889042a6502364a8be69a8",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -11180,7 +11184,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "178561cd08536081c163e9be49e18c417730815ff0686ade7c7fd3cba5691ad7",
+      "sha256": "d78e75106802b9ff65983730f2f7dfa2693012c8ea396164b556eb8cc2815c3f",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
