@@ -24,7 +24,7 @@ export async function withdrawChat(ctx:FeatureContext,config:ChatConfig,pendingO
    if(!restricted){
     const sources=(await ctx.db.prepare('SELECT page_id,actor_member_id FROM chat_message_sources WHERE message_id=?').bind(row.id).all<{page_id:string|null;actor_member_id:string|null}>()).results;
     let ids:string[]=[];
-    try{let audience=audienceCache.get(row.connection_id);if(!audience){audience=adapter.audience(token,channel).then(facts=>mappedAudience(ctx,facts.emails));audienceCache.set(row.connection_id,audience);}ids=await audience;}catch(error){if(error instanceof ChatProviderError&&(error.transient||error.auth))throw error;restricted=true;}
+    try{const audienceKey=JSON.stringify([row.connection_id,row.provider,row.destination]);let audience=audienceCache.get(audienceKey);if(!audience){audience=adapter.audience(token,channel).then(facts=>mappedAudience(ctx,facts.emails));audienceCache.set(audienceKey,audience);}ids=await audience;}catch(error){if(error instanceof ChatProviderError&&(error.transient||error.auth))throw error;restricted=true;}
     for(const source of sources){
      if(source.actor_member_id&&!await recipientContext(ctx,source.actor_member_id)){restricted=true;break;}
      if(source.page_id){

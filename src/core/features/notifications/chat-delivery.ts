@@ -15,13 +15,25 @@ import { ChatProviderError } from './slack';
 interface Delivery {id:string;connection_id:string;outbox_id:string;state:string;attempts:number;first_attempt_at:string|null;created_at:string;message_id:string|null;next_attempt_at:string|null}
 interface Connection extends ChatCredentialRow {id:string;provider:ChatProvider;container_id:string|null;destination:string;credential_ciphertext:string|null;state:string;revision_id:string;connected_by_member_id:string;events_json:string;delivery_mode:'immediate'|'daily';retry_after:string|null}
 async function stop(ctx:FeatureContext,row:Delivery,reason:string,state='cancelled'){await ctx.db.prepare('UPDATE chat_deliveries SET state=?,failure=? WHERE id=? OR (? IS NOT NULL AND message_id=?)').bind(state,reason,row.id,row.message_id,row.message_id).run();}
+/** Rebuild only groups known not to have been accepted. A dispatch/uncertain member
+ * fences the entire group, including pending followers after a worker interruption.
+ * Retry clocks and attempt history live on deliveries and survive regrouping. */
+async function reclaimUnsentGroups(ctx:FeatureContext){
+ const safe="SELECT m.id FROM chat_messages m JOIN chat_connections c ON c.id=m.connection_id WHERE c.workspace_id=? AND m.provider_receipt IS NULL AND m.state IN ('prepared','withdraw') AND NOT EXISTS(SELECT 1 FROM chat_deliveries d WHERE d.message_id=m.id AND d.state IN ('dispatching','uncertain','delivered'))";
+ await ctx.db.batch([
+  ctx.db.prepare(`UPDATE chat_deliveries SET message_id=NULL WHERE message_id IN (${safe})`).bind(ctx.actor.workspaceId),
+  ctx.db.prepare(`DELETE FROM chat_message_sources WHERE message_id IN (${safe})`).bind(ctx.actor.workspaceId),
+  ctx.db.prepare(`DELETE FROM chat_messages WHERE id IN (${safe})`).bind(ctx.actor.workspaceId),
+ ]);
+}
 export async function deliverChat(ctx:FeatureContext,config:ChatConfig):Promise<{processed:number}> {
  const connected=await ctx.db.prepare("SELECT 1 FROM chat_connections WHERE workspace_id=? AND state='connected'").bind(ctx.actor.workspaceId).first();
  if(connected&&!config.credentialKey)throw new ApiProblem(503,'CREDENTIAL_KEY_REQUIRED','CONNECTOR_CREDENTIALS_KEY is required for the connected chat destination.');
+ await reclaimUnsentGroups(ctx);
  await withdrawChat(ctx,config);
  const deliveries=await ctx.db.prepare("SELECT d.* FROM chat_deliveries d JOIN chat_connections c ON c.id=d.connection_id JOIN notification_outbox e ON e.id=d.outbox_id WHERE c.workspace_id=? AND d.state='pending' AND (d.next_attempt_at IS NULL OR d.next_attempt_at<=?) AND (e.event<>'maintenance' OR substr(e.created_at,1,10)<substr(?,1,10)) ORDER BY d.created_at,d.id LIMIT 100").bind(ctx.actor.workspaceId,ctx.now,ctx.now).all<Delivery>();let processed=0;
  for(const snapshot of deliveries.results){
-  const row=await ctx.db.prepare('SELECT * FROM chat_deliveries WHERE id=?').bind(snapshot.id).first<Delivery>();
+  let row=await ctx.db.prepare('SELECT * FROM chat_deliveries WHERE id=?').bind(snapshot.id).first<Delivery>();
   if(!row||row.state!=='pending'||row.message_id&&row.message_id!==row.id)continue;
   const connection=await ctx.db.prepare('SELECT *,COALESCE(notifier_provider,provider) AS provider FROM chat_connections WHERE id=?').bind(row.connection_id).first<Connection>();
   let event=await ctx.db.prepare('SELECT * FROM notification_outbox WHERE id=?').bind(row.outbox_id).first<OutboxRow>();
@@ -34,7 +46,7 @@ export async function deliverChat(ctx:FeatureContext,config:ChatConfig):Promise<
   let grouped=[row];
   if(row.message_id)grouped=(await ctx.db.prepare("SELECT * FROM chat_deliveries WHERE message_id=? AND state='pending' ORDER BY created_at,id").bind(row.message_id).all<Delivery>()).results;
   else {
-   const candidates=(await ctx.db.prepare("SELECT * FROM chat_deliveries WHERE connection_id=? AND state='pending' AND message_id IS NULL AND substr(created_at,1,?)=? ORDER BY created_at,id").bind(connection.id,connection.delivery_mode==='daily'?10:16,row.created_at.slice(0,connection.delivery_mode==='daily'?10:16)).all<Delivery>()).results;
+   const candidates=(await ctx.db.prepare("SELECT * FROM chat_deliveries WHERE connection_id=? AND state='pending' AND message_id IS NULL AND (next_attempt_at IS NULL OR next_attempt_at<=?) AND substr(created_at,1,?)=? ORDER BY created_at,id").bind(connection.id,ctx.now,connection.delivery_mode==='daily'?10:16,row.created_at.slice(0,connection.delivery_mode==='daily'?10:16)).all<Delivery>()).results;
    if(connection.delivery_mode==='daily'||candidates.length>5)grouped=candidates;
   }
   let dispatched=false;
@@ -54,19 +66,25 @@ export async function deliverChat(ctx:FeatureContext,config:ChatConfig):Promise<
    // Recheck after provider membership request and title reads, immediately before claim.
    for(const candidate of deliverable)for(const id of ids){const reader=await recipientContext(ctx,id);if(!reader||!await eventReadable(reader,candidate)){denied=true;break;}}
    if(denied){await stop(ctx,row,'audience_access_revoked');continue;}
+   const selected=new Set(deliverable.map(item=>item.id));
+   const excluded=grouped.filter(item=>!selected.has(item.outbox_id)&&event!.event!=='maintenance');
+   grouped=grouped.filter(item=>selected.has(item.outbox_id)||event!.event==='maintenance');
+   // The claim must belong to a selected delivery, not an unreadable first event.
+   row=grouped[0]!;
    const messageId=row.message_id??row.id;
    const hash=await requestHash(messageId);const key=`${hash.slice(0,8)}-${hash.slice(8,12)}-4${hash.slice(13,16)}-a${hash.slice(17,20)}-${hash.slice(20,32)}`;
-   const selected=new Set(deliverable.map(item=>item.id));
-   grouped=grouped.filter(item=>selected.has(item.outbox_id)||event!.event==='maintenance');
    const pageIds=[...new Set(deliverable.map(item=>item.page_id).filter(Boolean))];
    const firstThread=pageIds.length===1?await ctx.db.prepare("SELECT m.provider_receipt FROM chat_messages m JOIN chat_message_sources s ON s.message_id=m.id WHERE m.connection_id=? AND m.destination=? AND s.page_id=? AND m.state='sent' AND m.thread_receipt IS NULL AND m.created_at>=? ORDER BY m.created_at,m.id LIMIT 1").bind(connection.id,connection.destination,pageIds[0],new Date(Date.parse(ctx.now)-86400000).toISOString()).first<string>('provider_receipt'):null;
-   await ctx.db.batch([
+   const preparation=[
+    ...excluded.map(item=>ctx.db.prepare("UPDATE chat_deliveries SET state='cancelled',failure='audience_access_revoked' WHERE id=? AND state='pending' AND message_id IS NULL").bind(item.id)),
     ctx.db.prepare("INSERT OR IGNORE INTO chat_messages(id,connection_id,destination,thread_receipt,state,created_at) VALUES(?,?,?,?,'prepared',?)").bind(messageId,connection.id,connection.destination,firstThread,ctx.now),
-    ...grouped.map(item=>ctx.db.prepare("UPDATE chat_deliveries SET message_id=? WHERE id=? AND state='pending'").bind(messageId,item.id)),
+    ...grouped.map(item=>ctx.db.prepare("UPDATE chat_deliveries SET message_id=? WHERE id=? AND state='pending' AND (message_id IS NULL OR message_id=?) AND EXISTS(SELECT 1 FROM chat_messages WHERE id=? AND state='prepared' AND provider_receipt IS NULL)").bind(messageId,item.id,messageId,messageId)),
     ...deliverable.map(item=>ctx.db.prepare('INSERT OR IGNORE INTO chat_message_sources(message_id,outbox_id,page_id,actor_member_id) VALUES(?,?,?,?)').bind(messageId,item.id,item.page_id,item.actor_member_id)),
-   ]);
+   ];
    const sourceCondition=connection.source_connection_id?" AND EXISTS(SELECT 1 FROM federation_connections WHERE id=? AND revision_id=? AND state='connected' AND credential_ciphertext IS NOT NULL AND member_id=?)":'';
-   const claim=await ctx.db.prepare("UPDATE chat_deliveries SET state='dispatching',attempts=attempts+1,first_attempt_at=COALESCE(first_attempt_at,?) WHERE id=? AND state='pending' AND EXISTS(SELECT 1 FROM chat_messages WHERE id=chat_deliveries.message_id AND state='prepared') AND EXISTS(SELECT 1 FROM chat_connections WHERE id=? AND state='connected' AND revision_id=?) AND EXISTS(SELECT 1 FROM members m WHERE m.id=? AND m.workspace_id=? AND m.member_kind='member' AND m.status='active' AND "+chatOwnerSql+") AND (? IS NULL OR ?=COALESCE((SELECT container_id FROM pages WHERE id=?),?)) AND EXISTS(SELECT 1 FROM core_acl_epoch WHERE id=1 AND epoch=?)"+sourceCondition).bind(ctx.now,row.id,connection.id,connection.revision_id,connection.connected_by_member_id,ctx.actor.workspaceId,connection.container_id,connection.container_id,connection.container_id,connection.container_id,event.page_id,event.container_id,epoch!.epoch,...(connection.source_connection_id?[connection.source_connection_id,connection.source_connection_revision_id!,connection.connected_by_member_id]:[])).run();if(!claim.meta.changes)continue;
+   const claimStatement=ctx.db.prepare("UPDATE chat_deliveries SET state='dispatching',attempts=attempts+1,first_attempt_at=COALESCE(first_attempt_at,?) WHERE id=? AND state='pending' AND message_id=? AND (SELECT count(*) FROM chat_deliveries members WHERE members.id IN (SELECT value FROM json_each(?)) AND members.message_id=? AND members.state='pending')=? AND NOT EXISTS(SELECT 1 FROM chat_deliveries held WHERE held.message_id=? AND held.state IN ('dispatching','uncertain','delivered')) AND EXISTS(SELECT 1 FROM chat_messages WHERE id=chat_deliveries.message_id AND state='prepared') AND EXISTS(SELECT 1 FROM chat_connections WHERE id=? AND state='connected' AND revision_id=?) AND EXISTS(SELECT 1 FROM members m WHERE m.id=? AND m.workspace_id=? AND m.member_kind='member' AND m.status='active' AND "+chatOwnerSql+") AND (? IS NULL OR ?=COALESCE((SELECT container_id FROM pages WHERE id=?),?)) AND EXISTS(SELECT 1 FROM core_acl_epoch WHERE id=1 AND epoch=?)"+sourceCondition).bind(ctx.now,row.id,messageId,JSON.stringify(grouped.map(item=>item.id)),messageId,grouped.length,messageId,connection.id,connection.revision_id,connection.connected_by_member_id,ctx.actor.workspaceId,connection.container_id,connection.container_id,connection.container_id,connection.container_id,event.page_id,event.container_id,epoch!.epoch,...(connection.source_connection_id?[connection.source_connection_id,connection.source_connection_revision_id!,connection.connected_by_member_id]:[]));
+   // Preparation and claim are one transaction: a sweep cannot reclaim between them.
+   const claimed=await ctx.db.batch([...preparation,claimStatement]);if(!claimed.at(-1)!.meta.changes)continue;
    dispatched=true;
    const thread=await ctx.db.prepare('SELECT thread_receipt FROM chat_messages WHERE id=?').bind(messageId).first<string>('thread_receipt');
    const receipt=await adapter.send(token,channel,text,key,thread??undefined);
@@ -83,6 +101,7 @@ export async function deliverChat(ctx:FeatureContext,config:ChatConfig):Promise<
  }
  // A worker lost after dispatch must never blindly repeat an external write.
  await ctx.db.prepare("UPDATE chat_deliveries SET state='uncertain',failure='dispatch_interrupted' WHERE state='dispatching' AND first_attempt_at<? AND connection_id IN (SELECT id FROM chat_connections WHERE workspace_id=?)").bind(new Date(Date.parse(ctx.now)-60000).toISOString(),ctx.actor.workspaceId).run();
+ await reclaimUnsentGroups(ctx);
  await withdrawChat(ctx,config,true);
  return {processed};
 }

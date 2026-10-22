@@ -88,11 +88,12 @@ export function ChatTokenForm({ connection, containers, workspaceOwner, onSaved,
       </p>
       </> : provider === "nook" ? <>
         <p>Ask a Nook owner or administrator to approve Slate for a private channel. Use the channel token shown once during approval.</p>
+        {connection ? <p>A Nook destination stays bound to its approved channel. Add a new destination for another channel; keep this one connected to withdraw earlier messages.</p> : null}
         <label>Nook channel ID<input name="channel" required autoComplete="off" disabled={pending} defaultValue={connection?.destination.replace(/^nook:/, "") ?? ""} /></label>
         <label>Nook channel token<input name="token" type="password" required autoComplete="new-password" disabled={pending} /></label>
       </> : <>
-        <p>Use a delegated Microsoft Graph access token with ChannelMessage.Send, Channel.ReadBasic.All,
-          ChannelMember.Read.All and TeamMember.Read.All permissions. Use a private channel or private team with no guests, external members or other bots. Slate also needs Organization.Read.All, User.Read.All and TeamsAppInstallation.ReadForTeam.All to verify the complete audience. Every channel member’s
+        <p>Use a delegated Microsoft Graph access token with ChannelMessage.Send, ChannelMessage.ReadWrite, Channel.ReadBasic.All, Team.ReadBasic.All,
+          ChannelMember.Read.All and TeamMember.Read.All permissions. Use a private channel or private team with no guests, external members or other bots. Slate also needs Organization.Read.All, User.Read.All and TeamsAppInstallation.ReadForTeam to verify the complete audience. Every channel member’s
           email must match an active Slate member with access to the linked page.</p>
         <label>Teams team/channel IDs
           <input name="channel" required autoComplete="off" spellCheck={false} disabled={pending}
@@ -102,7 +103,7 @@ export function ChatTokenForm({ connection, containers, workspaceOwner, onSaved,
         <label>Microsoft Graph access token
           <input name="token" type="password" required autoComplete="new-password" spellCheck={false} disabled={pending} />
         </label>
-        <p className="muted">Tokens are encrypted and never displayed. Reconnect with a fresh delegated token when authorization expires.</p>
+        <p className="muted">Tokens are encrypted and never displayed. Reconnect with a fresh delegated token for the same posting user so Slate can edit earlier messages. App-package installation with resource-specific consent remains pending.</p>
       </>}
       <label htmlFor={`${formId}-mode`}>Delivery schedule</label>
       <select id={`${formId}-mode`} name="deliveryMode" defaultValue={connection?.deliveryMode ?? "immediate"} disabled={pending}>

@@ -23,7 +23,7 @@ export async function chatDestinations(ctx:FeatureContext){
  return {items,containers,workspaceOwner};
 }
 export async function managedChat(ctx:FeatureContext,id:string){
- const row=await ctx.db.prepare('SELECT id,COALESCE(notifier_provider,provider) AS provider,delivery_mode,container_id,revision_id FROM chat_connections WHERE id=? AND workspace_id=?').bind(id,ctx.actor.workspaceId).first<{id:string;provider:ChatProvider;delivery_mode:string;container_id:string|null;revision_id:string}>();
+ const row=await ctx.db.prepare('SELECT id,COALESCE(notifier_provider,provider) AS provider,destination,delivery_mode,container_id,revision_id FROM chat_connections WHERE id=? AND workspace_id=?').bind(id,ctx.actor.workspaceId).first<{id:string;provider:ChatProvider;destination:string;delivery_mode:string;container_id:string|null;revision_id:string}>();
  if(!row)throw new ApiProblem(404,'NOT_FOUND','Not found.');
  await requireChatOwner(ctx,row.container_id);return row;
 }
@@ -37,9 +37,10 @@ export async function connectChat(ctx:FeatureContext,config:ChatConfig,input:{op
  if(input.deliveryMode!==undefined&&!['immediate','daily'].includes(input.deliveryMode))throw new ApiProblem(400,'INVALID_CHAT_CONFIGURATION','Choose immediate or daily delivery.');
  const tokenHash=await requestHash(input.token);const request={...input,token:tokenHash};
  return commitOperation(ctx,{operationKey:input.operationKey,action:'chat.connect',request,authorize:()=>requireChatOwner(ctx,containerId),prepare:async({revisionId})=>{
-  const existing=input.id?await managedChat(ctx,input.id):config.multiple?null:await ctx.db.prepare("SELECT id,revision_id,provider,container_id,delivery_mode FROM chat_connections WHERE workspace_id=? AND COALESCE(notifier_provider,provider)='slack' AND container_id IS NULL AND disconnected_at IS NULL ORDER BY created_at,id LIMIT 1").bind(ctx.actor.workspaceId).first<{id:string;revision_id:string;provider:ChatProvider;container_id:string|null;delivery_mode:string}>();
+  const existing=input.id?await managedChat(ctx,input.id):config.multiple?null:await ctx.db.prepare("SELECT id,revision_id,provider,destination,container_id,delivery_mode FROM chat_connections WHERE workspace_id=? AND COALESCE(notifier_provider,provider)='slack' AND container_id IS NULL AND disconnected_at IS NULL ORDER BY created_at,id LIMIT 1").bind(ctx.actor.workspaceId).first<{id:string;revision_id:string;provider:ChatProvider;destination:string;container_id:string|null;delivery_mode:string}>();
   const id=existing?.id??createUlid();
   if(existing&&(existing.revision_id!==input.expectedRevisionId||existing.provider!==provider||existing.container_id!==containerId))throw new ApiProblem(409,'REVISION_CONFLICT','Reload the destination; its provider and scope stay fixed.');
+  if(existing&&provider==='nook'&&existing.destination!==`nook:${input.channel}`)throw new ApiProblem(409,'CHAT_CHANNEL_FIXED','A Nook destination stays bound to its approved channel. Add a new destination for another channel; keep this one connected to withdraw its earlier messages.');
   let audience;try{audience=await(config.adapter??chatNotifier(provider,config.nookDoor)).audience(input.token,input.channel);}catch(error){if(error instanceof ChatProviderError){
    if(error.code==='nook_080_door_unavailable')throw new ApiProblem(503,'CHAT_PROVIDER_UNAVAILABLE','This installation has no Nook notification service. Ask the workspace owner to configure it.');
    const refusal:Record<string,string>={private_unshared_channel_required:`Choose a private ${provider==='teams'?'Teams':provider==='nook'?'Nook':'Slack'} channel that is not shared with another workspace or organization.`,unverifiable_audience:'Make every channel member’s email visible and remove unsupported identities before connecting.',empty_audience:'Add a person whose email matches an active workspace member.'};
