@@ -31,7 +31,7 @@ export async function fileCard(ctx:FeatureContext,pageId:string,blockId:string):
   const metadata=await providerFileMetadata(reference,token);
   await recheck(ctx,row);
   if(JSON.stringify(await readReference())!==JSON.stringify(reference))throw new ApiProblem(409,'FILE_REFERENCE_CHANGED','The file reference changed. Refresh the page.');
-  return {state:'readable',metadata};
+  return {state:'readable',reference,metadata};
  }catch(error){
   if(error instanceof ApiProblem&&error.status===403)return {state:'request-access',connect:false};
   if(error instanceof ApiProblem&&error.code==='SOURCE_DELETED')return {state:'unavailable'};

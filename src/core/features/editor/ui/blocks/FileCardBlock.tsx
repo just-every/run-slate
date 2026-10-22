@@ -14,7 +14,7 @@ export function FileCardBlock({block}:{block:FileCardBlockData}){
   if(!page)return;
   const abort=new AbortController();
   request<FileCardState>(`/api/pages/${encodeURIComponent(page.pageId)}/file-cards/${encodeURIComponent(block.id)}`,{signal:abort.signal})
-   .then(setValue).catch(()=>{if(!abort.signal.aborted)setValue({state:'failed'});});
+   .then(value=>{const expected={provider:block.provider,fileId:block.fileId,url:block.url};setValue(value.state==='readable'&&JSON.stringify(value.reference)!==JSON.stringify(expected)?{state:'failed'}:value);}).catch(()=>{if(!abort.signal.aborted)setValue({state:'failed'});});
   return ()=>abort.abort();
  },[page?.pageId,block.id,block.provider,block.fileId,block.url,refresh]);
  return <section aria-label={`${fileProviderLabels[block.provider]} file card`} className="my-2 min-w-0 rounded-card border border-line bg-surface p-3">
