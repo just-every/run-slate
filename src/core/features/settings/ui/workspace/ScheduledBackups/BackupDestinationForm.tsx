@@ -60,7 +60,7 @@ export function BackupDestinationForm({ disabled, onSaved }: {
         <fieldset disabled={disabled || pending} style={{ minWidth: 0, padding: 0, border: 0 }}>
           <legend>Destination and schedule</legend>
           <label>Destination name<input name="name" required /></label>
-          <label>Provider<select name="kind" defaultValue="s3">
+          <label>Provider<select aria-label="Provider" name="kind" defaultValue="s3">
             <option value="s3">S3-compatible</option><option value="r2">Cloudflare R2</option>
           </select></label>
           <label>Endpoint<input name="endpoint" type="url" required placeholder="https://storage.example.com" spellCheck={false} /></label>
@@ -70,11 +70,11 @@ export function BackupDestinationForm({ disabled, onSaved }: {
           <label>Access key ID<input name="accessKeyId" type="password" autoComplete="new-password" required spellCheck={false} aria-describedby={helpId} /></label>
           <label>Secret access key<input name="secretAccessKey" type="password" autoComplete="new-password" required spellCheck={false} aria-describedby={helpId} /></label>
           <p className="muted" id={helpId}>Credentials are submitted only when you save. Both credential fields clear after a successful save.</p>
-          <label>Frequency<select name="schedule" value={frequency} onChange={event => setFrequency(event.target.value)}>
+          <label>Frequency<select aria-label="Frequency" name="schedule" value={frequency} onChange={event => setFrequency(event.target.value)}>
             <option value="nightly">Nightly</option><option value="weekly">Weekly</option>
           </select></label>
           <label>UTC time<input name="time" type="time" required /></label>
-          {frequency === "weekly" ? <label>Weekly day<select name="weekday" defaultValue="0">
+          {frequency === "weekly" ? <label>Weekly day<select aria-label="Weekly day" name="weekday" defaultValue="0">
             {weekdays.map((day, index) => <option key={day} value={index}>{day}</option>)}
           </select></label> : null}
           <label>Retention count<input name="retention" type="number" min="1" step="1" required /></label>
