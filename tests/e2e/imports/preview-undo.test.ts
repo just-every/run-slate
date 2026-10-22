@@ -5,11 +5,14 @@ import {parseImport,type ImportFormat} from '../../../src/core/features/imports'
 import {seedWorkspace,seedMember,sessionFor} from '../setup/fixtures';
 import {resetDatabase} from '../setup/reset-database';
 
-beforeEach(async()=>{vi.restoreAllMocks();await resetDatabase(env.DB);await env.DB.exec('DROP TABLE IF EXISTS _rer_deploy_migrations');});
-it.each([
- ['notion-workspace','notion-workspace-export.zip'],
- ['confluence-space','confluence-space-export.zip'],
-])('reviews, applies and reverses real %s content without losing native edits',async(format,name)=>{
+const resetCase=async()=>{vi.restoreAllMocks();await resetDatabase(env.DB);await env.DB.exec('DROP TABLE IF EXISTS _rer_deploy_migrations');};
+beforeEach(resetCase);
+it('reviews, applies and reverses real Notion and Confluence content without losing native edits',async()=>{
+ for(const [index,[format,name]] of ([
+  ['notion-workspace','notion-workspace-export.zip'],
+  ['confluence-space','confluence-space-export.zip'],
+ ] as const).entries()){
+  if(index>0)await resetCase();
  const {workspaceId}=await seedWorkspace();
  const owner=await seedMember(workspaceId,{email:'owner@import.test',displayName:'Import owner',role:'owner',isSetupOwner:true});
  const mapped=await seedMember(workspaceId,{email:'mapped@import.test',displayName:'Mapped member',role:'member'});
@@ -81,9 +84,12 @@ it.each([
  expect(await env.DB.prepare('SELECT id FROM pages WHERE id=?').bind(independent!.id).first('id')).toBeNull();
  expect((await app.request(`https://slate.example/api/pages/${independent!.id}`,{headers:{Cookie:cookie}},env)).status).toBe(404);
  expect(await env.DB.prepare('SELECT COUNT(*) AS n FROM pages WHERE workspace_id=?').bind(workspaceId).first<number>('n')).toBeLessThan(pages.length);
+ }
 },120_000);
 
-it.each(['historical','shared across imports'] as const)('erases an imported person (%s) through confirmed native removal, atomically retires custody and keeps unrelated Undo',async(mode)=>{
+it('erases historical and shared imported people through confirmed native removal, atomically retires custody and keeps unrelated Undo',async()=>{
+ for(const [index,mode] of (['historical','shared across imports'] as const).entries()){
+  if(index>0)await resetCase();
  const {captureMail}=await import('../helpers/mail-edge');
  const mail=captureMail();
  const {createPortability}=await import('@runeditrun/rer/modules/portability');
@@ -187,4 +193,5 @@ it.each(['historical','shared across imports'] as const)('erases an imported per
  expect((await env.DB.prepare('SELECT * FROM _rer_deploy_migrations').all()).results).toEqual(ledgerBefore);
  await env.DB.exec('DROP TABLE _rer_deploy_migrations');
  expect((await env.DB.prepare('PRAGMA foreign_key_check').all()).results).toEqual([]);
+ }
 },180_000);

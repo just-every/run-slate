@@ -1659,11 +1659,7 @@
         },
         {
           "file": "tests/e2e/imports/preview-undo.test.ts",
-          "testName": "reviews, applies and reverses real notion-workspace content without losing native edits"
-        },
-        {
-          "file": "tests/e2e/imports/preview-undo.test.ts",
-          "testName": "reviews, applies and reverses real confluence-space content without losing native edits"
+          "testName": "reviews, applies and reverses real Notion and Confluence content without losing native edits"
         },
         {
           "file": "tests/e2e/imports/undo-cross-references.test.ts",
@@ -1671,11 +1667,7 @@
         },
         {
           "file": "tests/e2e/imports/preview-undo.test.ts",
-          "testName": "erases an imported person (historical) through confirmed native removal, atomically retires custody and keeps unrelated Undo"
-        },
-        {
-          "file": "tests/e2e/imports/preview-undo.test.ts",
-          "testName": "erases an imported person (shared across imports) through confirmed native removal, atomically retires custody and keeps unrelated Undo"
+          "testName": "erases historical and shared imported people through confirmed native removal, atomically retires custody and keeps unrelated Undo"
         }
       ]
     },
@@ -1691,7 +1683,7 @@
         },
         {
           "file": "tests/e2e/imports/preview-undo.test.ts",
-          "testName": "reviews, applies and reverses real notion-workspace content without losing native edits"
+          "testName": "reviews, applies and reverses real Notion and Confluence content without losing native edits"
         }
       ]
     },
@@ -1715,7 +1707,7 @@
         },
         {
           "file": "tests/e2e/imports/preview-undo.test.ts",
-          "testName": "reviews, applies and reverses real confluence-space content without losing native edits"
+          "testName": "reviews, applies and reverses real Notion and Confluence content without losing native edits"
         },
         {
           "file": "tests/e2e/imports/undo-cross-references.test.ts",
@@ -1794,11 +1786,7 @@
       "supportingTests": [
         {
           "file": "tests/e2e/imports/preview-undo.test.ts",
-          "testName": "reviews, applies and reverses real notion-workspace content without losing native edits"
-        },
-        {
-          "file": "tests/e2e/imports/preview-undo.test.ts",
-          "testName": "reviews, applies and reverses real confluence-space content without losing native edits"
+          "testName": "reviews, applies and reverses real Notion and Confluence content without losing native edits"
         }
       ]
     },
@@ -3008,11 +2996,7 @@
         },
         {
           "file": "tests/e2e/imports/preview-undo.test.ts",
-          "testName": "erases an imported person (historical) through confirmed native removal, atomically retires custody and keeps unrelated Undo"
-        },
-        {
-          "file": "tests/e2e/imports/preview-undo.test.ts",
-          "testName": "erases an imported person (shared across imports) through confirmed native removal, atomically retires custody and keeps unrelated Undo"
+          "testName": "erases historical and shared imported people through confirmed native removal, atomically retires custody and keeps unrelated Undo"
         }
       ]
     },
@@ -3204,11 +3188,7 @@
       "supportingTests": [
         {
           "file": "tests/e2e/imports/page-lock.test.ts",
-          "testName": "PAGE-015 \u2014 staged import classifies a racing lock without masking an intervening edit (false)"
-        },
-        {
-          "file": "tests/e2e/imports/page-lock.test.ts",
-          "testName": "PAGE-015 \u2014 staged import classifies a racing lock without masking an intervening edit (true)"
+          "testName": "PAGE-015 \u2014 staged import classifies a racing lock without masking an intervening edit"
         }
       ]
     },

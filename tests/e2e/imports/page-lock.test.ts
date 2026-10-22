@@ -4,8 +4,11 @@ import {createApi} from '../../../src/core/app/hono';
 import {seedWorkspace,seedMember,seedContainer,seedContainerGrant,sessionFor} from '../setup/fixtures';
 import {resetDatabase} from '../setup/reset-database';
 
-beforeEach(async()=>{vi.restoreAllMocks();await resetDatabase(env.DB);});
-it.each([false,true])('PAGE-015 — staged import classifies a racing lock without masking an intervening edit (%s)',async(interveningEdit)=>{
+const resetCase=async()=>{vi.restoreAllMocks();await resetDatabase(env.DB);};
+beforeEach(resetCase);
+it('PAGE-015 — staged import classifies a racing lock without masking an intervening edit',async()=>{
+ for(const [index,interveningEdit] of [false,true].entries()){
+  if(index>0)await resetCase();
  const {workspaceId}=await seedWorkspace();
  const owner=await seedMember(workspaceId,{email:'lock@import.test',displayName:'Import owner',role:'owner',isSetupOwner:true});
  const {containerId}=await seedContainer(workspaceId,{visibility:'private',ownerMemberId:owner.memberId});
@@ -45,4 +48,5 @@ it.each([false,true])('PAGE-015 — staged import classifies a racing lock witho
  const after=await ok('/pages/'+pageId);
  expect(after.lock).not.toBeNull();
  expect((await env.DB.prepare('SELECT count(*) n FROM pages WHERE parent_page_id=? AND deleted_at IS NULL').bind(pageId).first<number>('n'))).toBe(0);
+ }
 },60_000);

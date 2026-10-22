@@ -235,7 +235,8 @@ test("Confluence storage format loses no text: links in paragraphs, images in li
 
 // ---------------------------------------------------------------- notion ----
 
-test("Notion pages with the same title in one directory keep separate identities and links resolve by path", () => {
+test("duplicate Notion titles resolve links and record bodies only by unambiguous source identity", () => {
+  for (const scenario of [() => {
   const parsed = notion({
     "Root aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.md": "# Root\n\n[first](Root/Untitled 11111111111111111111111111111111.md)\n\n[second](Root/Untitled 22222222222222222222222222222222.md)",
     "Root/Untitled 11111111111111111111111111111111.md": "# Untitled\n\ntype: first",
@@ -246,6 +247,17 @@ test("Notion pages with the same title in one directory keep separate identities
   const second = parsed.pages.find((entry) => entry.properties.type === "second")!;
   expect(first.sourceId).not.toBe(second.sourceId);
   expect(root.blocks.flatMap((block) => block.links).map((link) => link.targetSourceId)).toEqual([first.sourceId, second.sourceId]);
+  }, () => {
+  const parsed = notion({
+    "Tasks aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.csv": "Name,Status\nSame,One\nSame,Two\n",
+    "Tasks/Same bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.md": "# Same\n\nFirst body",
+    "Tasks/Same cccccccccccccccccccccccccccccccc.md": "# Same\n\nSecond body",
+  });
+  expect(parsed.records).toHaveLength(2);
+  expect(parsed.records.every((record) => !record.pageSourceId)).toBe(true);
+  expect(parsed.pages).toHaveLength(2);
+  expect(parsed.report.unmapped.filter((entry) => entry.label.includes("ambiguous exported record pages"))).toHaveLength(2);
+  }]) scenario();
 });
 
 test("a Notion archive file with an unusual extension is imported as media, never reported absent", () => {
@@ -351,22 +363,4 @@ async()=>{
   expect(shape(parsed.pages[0]!.blocks)).toEqual([["heading", 1, "Heading one"], ["paragraph", undefined, "Body"]]);
   expect(parsed.report.unmapped).toEqual([]);
 }])await scenario();
-});
-
-
-
-
-
-
-
-test("duplicate Notion database titles do not assign record bodies by archive order", () => {
-  const parsed = notion({
-    "Tasks aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.csv": "Name,Status\nSame,One\nSame,Two\n",
-    "Tasks/Same bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.md": "# Same\n\nFirst body",
-    "Tasks/Same cccccccccccccccccccccccccccccccc.md": "# Same\n\nSecond body",
-  });
-  expect(parsed.records).toHaveLength(2);
-  expect(parsed.records.every((record) => !record.pageSourceId)).toBe(true);
-  expect(parsed.pages).toHaveLength(2);
-  expect(parsed.report.unmapped.filter((entry) => entry.label.includes("ambiguous exported record pages"))).toHaveLength(2);
 });

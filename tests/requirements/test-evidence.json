@@ -1924,25 +1924,54 @@
     },
     {
       "file": "tests/e2e/imports/preview-undo.test.ts",
-      "testName": "reviews, applies and reverses real notion-workspace content without losing native edits",
+      "testName": "reviews, applies and reverses real Notion and Confluence content without losing native edits",
       "kind": "supporting-regression",
       "clauses": [
         "IMP-001",
         "IMP-002",
-        "PORT-004"
+        "PORT-004",
+        "IMP-003"
       ],
       "reason": "Through actual Worker HTTP routes, the committed small anonymised export is previewed without target writes, explicitly applied and resumed, indexed before Completed, downloaded exactly and undone while preserving a native edit and reporting its conflict. This supports the listed flows only; it does not establish generated scale, hosted capacity, all UI states or complete product acceptance."
     },
     {
-      "file": "tests/e2e/imports/preview-undo.test.ts",
-      "testName": "reviews, applies and reverses real confluence-space content without losing native edits",
+      "file": "tests/e2e/imports/undo-cross-references.test.ts",
+      "testName": "Undo removes unedited and merely shared imported pages and keeps an edited page with every page and file it needs",
       "kind": "supporting-regression",
       "clauses": [
         "IMP-001",
-        "IMP-003",
-        "PORT-004"
+        "IMP-003"
       ],
-      "reason": "Through actual Worker HTTP routes, the committed small anonymised export is previewed without target writes, explicitly applied and resumed, indexed before Completed, downloaded exactly and undone while preserving a native edit and reporting its conflict. This supports the listed flows only; it does not establish generated scale, hosted capacity, all UI states or complete product acceptance."
+      "reason": "Through actual Worker HTTP routes, the generated server-dc-entities scale archive (3,000 pages whose first three link each other's attachments across stream children) is imported, one page is edited and the import is undone: unedited cross-linked pages and files are removed, and only the edited page and what it needs are kept and labelled. This supports Undo only; it does not establish hosted capacity or complete product acceptance."
+    },
+    {
+      "file": "tests/e2e/imports/preview-undo.test.ts",
+      "testName": "erases historical and shared imported people through confirmed native removal, atomically retires custody and keeps unrelated Undo",
+      "kind": "supporting-regression",
+      "clauses": [
+        "IMP-001",
+        "BASE-DATA-003"
+      ],
+      "reason": "Through local Worker HTTP routes in the historical case, checks step-up refusal with unchanged custody followed by confirmation, atomic last-owner refusal with unchanged selected import, erasure and portability state and retained snapshots, and confirmed native person removal. Checks affected import-custody retirement, identity scrubbing in selected import and erasure stores, removal of affected imports’ non-media storage objects, retired import resume refusal, erasure of retained portability snapshot tables with export download refusal, preservation of another member and existing native pages and blocks, and unrelated import Undo preserving its native edit. These support the specific import and erasure mechanics only; full IMP-001 and BASE-DATA-003 acceptance remains unproven."
+    },
+    {
+      "file": "tests/e2e/imports/blog-posts.test.ts",
+      "testName": "CONT-010 — a Confluence Cloud blog post imports as a post with its date and author, and undo removes it",
+      "kind": "supporting-regression",
+      "clauses": [
+        "CONT-010",
+        "IMP-003"
+      ],
+      "reason": "Imports the committed Confluence Cloud export with one appended BLOGPOST row through preview, apply and undo: the post keeps its creation date and mapped author and undo removes it. No incumbent export with blog posts exists in the fixtures, so this is not genuine import acceptance."
+    },
+    {
+      "file": "tests/e2e/imports/page-lock.test.ts",
+      "testName": "PAGE-015 — staged import classifies a racing lock without masking an intervening edit",
+      "kind": "supporting-regression",
+      "clauses": [
+        "PAGE-015"
+      ],
+      "reason": "Default-profile HTTP staged-import race with a genuine Notion export. A direct lock returns PAGE_LOCKED without publishing children, while an intervening edit retains its original failure. This supports lock enforcement; complete browser, automation and independent acceptance remain separate."
     },
     {
       "file": "tests/e2e/review/review-access.test.ts",
@@ -1977,16 +2006,6 @@
       "reason": "Local D1 prior-data upgrade through migration 0026: current, lapsed and notified, lapsed and due, changed-since and departed-verifier rows are unchanged, the review list and page reads show each state, and two lapse-job runs notify only the due row once without stalling on the departed verifier. Real CLI export/import of an upgraded store is separate evidence."
     },
     {
-      "file": "tests/e2e/imports/undo-cross-references.test.ts",
-      "testName": "Undo removes unedited and merely shared imported pages and keeps an edited page with every page and file it needs",
-      "kind": "supporting-regression",
-      "clauses": [
-        "IMP-001",
-        "IMP-003"
-      ],
-      "reason": "Through actual Worker HTTP routes, the generated server-dc-entities scale archive (3,000 pages whose first three link each other's attachments across stream children) is imported, one page is edited and the import is undone: unedited cross-linked pages and files are removed, and only the edited page and what it needs are kept and labelled. This supports Undo only; it does not establish hosted capacity or complete product acceptance."
-    },
-    {
       "file": "tests/flagship/content/structure-save-labels.test.ts",
       "testName": "a structure save never reports a conflict for a block whose only difference is a mention label",
       "kind": "supporting-regression",
@@ -1996,26 +2015,6 @@
         "LINK-004"
       ],
       "reason": "Asserts that a reader whose mention labels differ from the stored titles saves another block through the structure route without a false BLOCK_CONFLICT, and that no reader's label is written back over the stored title. Its supporting scope is limited to the listed requirements; it does not establish the editor UI, every profile or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/e2e/imports/preview-undo.test.ts",
-      "testName": "erases an imported person (historical) through confirmed native removal, atomically retires custody and keeps unrelated Undo",
-      "kind": "supporting-regression",
-      "clauses": [
-        "IMP-001",
-        "BASE-DATA-003"
-      ],
-      "reason": "Through local Worker HTTP routes in the historical case, checks step-up refusal with unchanged custody followed by confirmation, atomic last-owner refusal with unchanged selected import, erasure and portability state and retained snapshots, and confirmed native person removal. Checks affected import-custody retirement, identity scrubbing in selected import and erasure stores, removal of affected imports’ non-media storage objects, retired import resume refusal, erasure of retained portability snapshot tables with export download refusal, preservation of another member and existing native pages and blocks, and unrelated import Undo preserving its native edit. These support the specific import and erasure mechanics only; full IMP-001 and BASE-DATA-003 acceptance remains unproven."
-    },
-    {
-      "file": "tests/e2e/imports/preview-undo.test.ts",
-      "testName": "erases an imported person (shared across imports) through confirmed native removal, atomically retires custody and keeps unrelated Undo",
-      "kind": "supporting-regression",
-      "clauses": [
-        "IMP-001",
-        "BASE-DATA-003"
-      ],
-      "reason": "Through local Worker HTTP routes in the shared across imports case, checks step-up refusal with unchanged custody followed by confirmation, atomic last-owner refusal with unchanged selected import, erasure and portability state and retained snapshots, and confirmed native person removal. Checks affected import-custody retirement, identity scrubbing in selected import and erasure stores, removal of affected imports’ non-media storage objects, retired import resume refusal, erasure of retained portability snapshot tables with export download refusal, preservation of another member and existing native pages and blocks, and unrelated import Undo preserving its native edit. These support the specific import and erasure mechanics only; full IMP-001 and BASE-DATA-003 acceptance remains unproven."
     },
     {
       "file": "tests/flagship/core/owner-bootstrap.test.ts",
@@ -2081,16 +2080,6 @@
       "reason": "Production API/native-session Workers journey proves posts are live pages with date, author, cover and body; one post-published notice per container follower instead of a page creation; space and Home feeds limited to current readers; viewers cannot post; drafts stay private until publication; erasure removes the blog entry. Browser acceptance is a separate node journey."
     },
     {
-      "file": "tests/e2e/imports/blog-posts.test.ts",
-      "testName": "CONT-010 — a Confluence Cloud blog post imports as a post with its date and author, and undo removes it",
-      "kind": "supporting-regression",
-      "clauses": [
-        "CONT-010",
-        "IMP-003"
-      ],
-      "reason": "Imports the committed Confluence Cloud export with one appended BLOGPOST row through preview, apply and undo: the post keeps its creation date and mapped author and undo removes it. No incumbent export with blog posts exists in the fixtures, so this is not genuine import acceptance."
-    },
-    {
       "file": "tests/flagship/discovery/group-mentions.test.ts",
       "testName": "BLOCK-020 — group mentions preview and notify only readers once, with owner-controlled administrator bounds",
       "kind": "supporting-regression",
@@ -2116,24 +2105,6 @@
         "CONT-011"
       ],
       "reason": "Native HTTP journey covers space-home editing and owner hub curation with live reader permissions, revision conflicts, published snapshots and verification boundaries. Browser acceptance runs separately at 1440 and 390."
-    },
-    {
-      "file": "tests/e2e/imports/page-lock.test.ts",
-      "testName": "PAGE-015 — staged import classifies a racing lock without masking an intervening edit (false)",
-      "kind": "supporting-regression",
-      "clauses": [
-        "PAGE-015"
-      ],
-      "reason": "Default-profile HTTP staged-import race with a genuine Notion export. A direct lock returns PAGE_LOCKED without publishing children, while an intervening edit retains its original failure. This supports lock enforcement; complete browser, automation and independent acceptance remain separate."
-    },
-    {
-      "file": "tests/e2e/imports/page-lock.test.ts",
-      "testName": "PAGE-015 — staged import classifies a racing lock without masking an intervening edit (true)",
-      "kind": "supporting-regression",
-      "clauses": [
-        "PAGE-015"
-      ],
-      "reason": "Default-profile HTTP staged-import race with a genuine Notion export. A direct lock returns PAGE_LOCKED without publishing children, while an intervening edit retains its original failure. This supports lock enforcement; complete browser, automation and independent acceptance remain separate."
     },
     {
       "file": "tests/e2e/editor/provider-embeds.test.ts",
