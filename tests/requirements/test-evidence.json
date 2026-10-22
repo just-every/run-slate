@@ -2375,6 +2375,36 @@
         "BLOCK-014"
       ],
       "reason": "Default-profile HTTP conversion and edited-value round trip, atomic rejection and current authorization. Browser paste and table controls are separate supporting evidence."
+    },
+    {
+      "file": "tests/e2e/notifications/destinations.test.ts",
+      "testName": "CHAT-001 — Readable grouped events survive an unreadable or purged leader without duplicate delivery",
+      "kind": "supporting-regression",
+      "clauses": [
+        "CHAT-001",
+        "NOTIF-003"
+      ],
+      "reason": "Public notification configuration, event and queue doors with provider-edge fakes only. Proves this named repair flow; does not establish live-provider or admin-install acceptance or change clause status."
+    },
+    {
+      "file": "tests/e2e/notifications/destinations.test.ts",
+      "testName": "CHAT-001 — Withdrawal uses each original channel roster in either receipt ordering",
+      "kind": "supporting-regression",
+      "clauses": [
+        "CHAT-001",
+        "NOTIF-003"
+      ],
+      "reason": "Public notification configuration, event and queue doors with provider-edge fakes only. Proves this named repair flow; does not establish live-provider or admin-install acceptance or change clause status."
+    },
+    {
+      "file": "tests/e2e/notifications/destinations.test.ts",
+      "testName": "CHAT-001 — Nook channel changes are refused before custody changes while rotation and independent destinations work",
+      "kind": "supporting-regression",
+      "clauses": [
+        "CHAT-001",
+        "NOTIF-003"
+      ],
+      "reason": "Public notification configuration, event and queue doors with provider-edge fakes only. Proves this named repair flow; does not establish live-provider or admin-install acceptance or change clause status."
     }
   ]
 }

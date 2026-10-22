@@ -334,26 +334,30 @@ async function repairJourney() {
 }
 
 contract('CHAT-001','Readable grouped events survive an unreadable or purged leader without duplicate delivery',async()=>{
- for(const scenario of ['C2','C2b','C3','C6']){
+ for(const scenario of ['C2','C2b','C3','C6','retry','uncertain','five','six']){
   const h=await repairJourney();
   try{
    const ids=[];for(const [i,provider] of ['slack','teams','nook'].entries())ids.push(await h.connect(provider,h.tokens[i]!,h.channels[i]!,scenario==='C3'?'daily':'immediate'));
    const denied=await h.page('synthetic-slate-forbidden',scenario==='C6'?h.open:h.closed),readable=await h.page('synthetic-slate-readable');
-   if(scenario!=='C2b')await h.comment(denied);
-   for(let i=0;i<6;i++)await h.comment(readable);
+   if(['C2','C3','C6'].includes(scenario))await h.comment(denied);
+   const count=scenario==='five'?5:6;
+   for(let i=0;i<count;i++)await h.comment(readable);
    if(scenario==='C2b')await h.comment(denied);
-   if(scenario==='C6')for(const token of h.tokens.slice(0,3))h.edge.failures.set(token,'transient');
+   if(['C6','retry','uncertain'].includes(scenario))for(const token of h.tokens.slice(0,3))h.edge.failures.set(token,scenario==='uncertain'?'uncertain':'transient');
    await h.sweep(scenario==='C3');
-   if(scenario==='C6'){
+   if(['C6','retry'].includes(scenario)){
     expect(h.edge.messages).toHaveLength(0);expect(h.edge.attempts.filter(a=>a.status===429)).toHaveLength(3);
-    await h.purge(denied);const calls=h.edge.attempts.length;await h.sweep();expect(h.edge.attempts).toHaveLength(calls);
+    if(scenario==='C6')await h.purge(denied);const calls=h.edge.attempts.length;await h.sweep();expect(h.edge.attempts).toHaveLength(calls);
     await env.DB.prepare("UPDATE chat_deliveries SET next_attempt_at='2000-01-01T00:00:00.000Z' WHERE state='pending'").run();await env.DB.prepare('UPDATE chat_connections SET retry_after=NULL').run();
    }
+   const attempts=h.edge.attempts.length;
    await h.sweep(scenario==='C3');await h.sweep(scenario==='C3');
+   if(scenario==='uncertain'){expect(h.edge.attempts).toHaveLength(attempts);expect(h.edge.messages).toHaveLength(0);expect(await env.DB.prepare("SELECT count(*) AS n FROM chat_deliveries WHERE state='uncertain'").first<number>('n')).toBe(18);continue;}
+   if(scenario==='retry')for(const token of h.tokens.slice(0,3)){const calls=h.edge.attempts.filter(a=>a.token===token);expect(calls).toHaveLength(2);expect(calls[1]!.key).toBe(calls[0]!.key);}
    const pending=await env.DB.prepare("SELECT count(*) AS n FROM chat_deliveries WHERE state='pending'").first<number>('n');
    console.log('GROUP WITNESS',JSON.stringify({scenario,messages:['slack','teams','nook'].map(p=>h.edge.messages.filter(m=>m.provider===p).length),pending}));
-   expect.soft(h.edge.messages,scenario).toHaveLength(3);expect.soft(pending,scenario).toBe(0);
-   for(const m of h.edge.messages){expect(m.text).not.toContain('synthetic-slate-forbidden');expect(m.text).not.toContain('synthetic-slate-private-body');expect(m.text.split('\n')).toHaveLength(6);}
+   expect.soft(h.edge.messages,scenario).toHaveLength(scenario==='five'?15:3);expect.soft(pending,scenario).toBe(0);
+   for(const m of h.edge.messages){expect(m.text).not.toContain('synthetic-slate-forbidden');expect(m.text).not.toContain('synthetic-slate-private-body');expect(m.text.split('\n')).toHaveLength(scenario==='five'?1:6);}
    expect.soft(await env.DB.prepare("SELECT count(*) AS n FROM chat_messages WHERE provider_receipt IS NULL AND state IN ('prepared','withdraw')").first<number>('n'),scenario+' ghost group').toBe(0);
   }finally{h.edge.restore();}
  }
@@ -366,10 +370,11 @@ contract('CHAT-001','Withdrawal uses each original channel roster in either rece
    const i=['slack','teams','nook'].indexOf(provider),token=h.tokens[i]!,a=h.channels[i]!,b=provider==='slack'?'GSLATE9':provider==='teams'?'synthetic-slate-team/synthetic-slate-channel9':'synthetic-slate-channel3';
    const nextToken=provider==='nook'?h.tokens[3]!:token;
    h.edge.rosters.set(token+':'+a,[h.ownerEmail]);h.edge.rosters.set(nextToken+':'+b,[h.readerEmail]);
+   if(provider==='nook'&&reverse)await h.connect(provider,nextToken,b);
    const id=await h.connect(provider,token,a),page=await h.page('synthetic-slate-channel-title');
    const order=reverse?[b,a]:[a,b];
    let nookB:string|undefined;
-   if(provider==='nook')nookB=await h.connect(provider,nextToken,b);
+   if(provider==='nook'&&!reverse)nookB=await h.connect(provider,nextToken,b);
    for(const channel of order){
     if(provider!=='nook')expect((await h.update(id,token,channel)).status).toBe(200);
     await h.comment(page);await h.sweep();
@@ -393,18 +398,22 @@ contract('CHAT-001','Nook channel changes are refused before custody changes whi
  const h=await repairJourney();
  try{
   const id=await h.connect('nook',h.tokens[2]!,h.channels[2]!),page=await h.page('synthetic-slate-old-title');
-  await h.comment(page);await h.sweep();const old=h.edge.messages[0]!;
+  const unrelated=await h.connect('slack',h.tokens[0]!,h.channels[0]!);
+  await h.comment(page);await h.sweep();const old=h.edge.messages.find(m=>m.provider==='nook')!;
+  await h.purge(page);
+  expect(await env.DB.prepare("SELECT count(*) AS n FROM chat_messages WHERE connection_id=? AND state='withdraw'").bind(id).first<number>('n')).toBe(1);
   const before=await env.DB.prepare('SELECT * FROM chat_connections WHERE id=?').bind(id).first();const calls=h.nookCalls.length;
   const refused=await h.update(id,h.tokens[3]!,'synthetic-slate-channel3');
   console.log('NOOK WITNESS',JSON.stringify({status:refused.status,providerCalls:h.nookCalls.length-calls}));
   expect.soft(refused.status).toBe(409);expect.soft(h.nookCalls.length).toBe(calls);expect.soft(await env.DB.prepare('SELECT * FROM chat_connections WHERE id=?').bind(id).first()).toEqual(before);
-  // Continue on the original configuration even in the failing-before run.
-  if(refused.status===200)expect((await h.update(id,h.tokens[2]!,h.channels[2]!)).status).toBe(200);
+  expect(await refused.text()).toContain('CHAT_CHANNEL_FIXED');
   expect((await h.update(id,h.tokens[4]!,h.channels[2]!,'daily')).status).toBe(200);
   const newId=await h.connect('nook',h.tokens[3]!,'synthetic-slate-channel3');
-  await h.purge(page);await h.sweep();expect(old.text).toBe('Restricted Slate page');
+  await h.sweep();expect(old.text).toBe('Restricted Slate page');
   expect((await h.destination(id)).deliveryMode).toBe('daily');expect((await h.destination(newId)).state).toBe('connected');
   const newPage=await h.page('synthetic-slate-independent');await h.comment(newPage);await h.sweep();expect(h.edge.messages.filter(m=>m.channel==='synthetic-slate-channel3'&&m.text.includes('synthetic-slate-independent'))).toHaveLength(1);
+  expect((await h.destination(unrelated)).state).toBe('connected');
+  expect(h.edge.messages.filter(m=>m.provider==='slack'&&m.text.includes('synthetic-slate-independent'))).toHaveLength(1);
   expect(h.nookCalls.every(c=>c.allowed)).toBe(true);
  }finally{h.edge.restore();}
 });

@@ -1512,7 +1512,20 @@
       "document": "CONTRACT.md",
       "status": "unproven",
       "unmetReason": "A tagged default-profile Workers journey in tests/e2e/notifications/chat.test.ts and 1440/390 settings journeys in tests/qualification/ui-convergence/chat-journey.mjs exercise owner bot-token setup, refusal before storage and no-send after connection for public, externally shared and organization-shared channels, another bot, hidden email, and an email matching no active member (unknown or removed), ignoring deactivated Slack accounts, selected link-only events, access denial, encrypted credential custody, no token in API responses, delivery/failure state, transient-only retry, revoked/expired attention, reconnect preserving selection/history, immediate disconnect and credential destruction, and missing-key startup refusal. CHAT-001 inherits the general guarantees for every destination and the Slack channel and audience rules for every Slack destination however authorized. Independent provider acceptance remains open: the held Slack channel is public; a private unshared channel with the bot invited and every person mapped to an active member is required. No live delivery is claimed.",
-      "supportingTests": []
+      "supportingTests": [
+        {
+          "file": "tests/e2e/notifications/destinations.test.ts",
+          "testName": "CHAT-001 \u2014 Readable grouped events survive an unreadable or purged leader without duplicate delivery"
+        },
+        {
+          "file": "tests/e2e/notifications/destinations.test.ts",
+          "testName": "CHAT-001 \u2014 Withdrawal uses each original channel roster in either receipt ordering"
+        },
+        {
+          "file": "tests/e2e/notifications/destinations.test.ts",
+          "testName": "CHAT-001 \u2014 Nook channel changes are refused before custody changes while rotation and independent destinations work"
+        }
+      ]
     },
     {
       "id": "MAIL-001",
@@ -3355,7 +3368,20 @@
       "document": "CONTRACT.md",
       "status": "unproven",
       "unmetReason": "The existing Workers journey extends c7a with Teams/Nook refusals, coalescing, threading, rate-limit retry, daily digest and withdrawal checks. Migration 0046 retains prior destinations and receipts. Nook destination: Slate's adapter targets `NOOK-080` (target, missing); Nook live acceptance waits for `NOOK-080` done. Nook's capability binding has no deployed provider transport or approved HTTP API. Slack workspace-admin OAuth installation and Teams Entra-admin app-package consent with resource-specific permissions remain open; the shipped Teams path uses a delegated token, and refuses destinations unless Graph can enumerate the complete private roster, tenant, user and installed-bot facts. Graph directory mail does not independently prove mailbox verification. Withdrawal cannot edit remote messages after disconnect, revoked authorization or connection-owner erasure destroys the credential; those receipts retain unresolved withdrawal state. Live Slack acceptance needs a private unshared channel; live Teams acceptance needs a licensed Teams user. No live-provider acceptance is claimed.",
-      "supportingTests": []
+      "supportingTests": [
+        {
+          "file": "tests/e2e/notifications/destinations.test.ts",
+          "testName": "CHAT-001 \u2014 Readable grouped events survive an unreadable or purged leader without duplicate delivery"
+        },
+        {
+          "file": "tests/e2e/notifications/destinations.test.ts",
+          "testName": "CHAT-001 \u2014 Withdrawal uses each original channel roster in either receipt ordering"
+        },
+        {
+          "file": "tests/e2e/notifications/destinations.test.ts",
+          "testName": "CHAT-001 \u2014 Nook channel changes are refused before custody changes while rotation and independent destinations work"
+        }
+      ]
     }
   ]
 }

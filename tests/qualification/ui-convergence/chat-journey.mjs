@@ -15,7 +15,7 @@ export async function chatJourney(state, width = state.page.viewportSize().width
     await state.runScheduled();
   };
   const api = (method, route, data) => ok(context, origin, method, route, data);
-  const evidence = path.join(root, '.artifacts/ui-convergence/chat');
+  const evidence = process.env.SLATE_CHAT_EVIDENCE_DIR ?? path.join(root, '.artifacts/ui-convergence/chat');
   await mkdir(evidence, { recursive: true });
   const shot = async label => {
     await accessible(page, `chat ${label}`);
@@ -132,6 +132,10 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await expect(second.getByRole('status')).toHaveText('Connected');
   await add();
   await page.getByLabel('Provider',{exact:true}).selectOption('teams');
+  for(const scope of ['ChannelMessage.ReadWrite','Team.ReadBasic.All','TeamsAppInstallation.ReadForTeam'])await expect(page.locator('form').filter({has:page.getByLabel('Teams team/channel IDs',{exact:true})})).toContainText(scope);
+  await expect(page.locator('form').filter({has:page.getByLabel('Teams team/channel IDs',{exact:true})})).not.toContainText('TeamsAppInstallation.ReadForTeam.All');
+  await page.getByLabel('Teams team/channel IDs',{exact:true}).focus();await page.keyboard.press('Tab');await expect(page.getByLabel('Microsoft Graph access token',{exact:true})).toBeFocused();
+  await shot('teams-permission-help');
   await page.getByLabel('Teams team/channel IDs',{exact:true}).fill('synthetic-slate-5/synthetic-slate-6');
   await page.getByLabel('Microsoft Graph access token',{exact:true}).fill('synthetic-slate-102');
   await page.getByRole('checkbox',{name:'published',exact:true}).check();
@@ -192,6 +196,23 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await page.getByRole('button',{name:'Save chat delivery',exact:true}).click();
   await expect(page.getByRole('alert')).toContainText('no Nook notification service');
   await shot('nook-unavailable');
+  await page.getByRole('button',{name:'Cancel',exact:true}).click();
+  // A restored Nook destination has no credential. Its channel remains fixed
+  // before provider lookup, so even an installation without a Nook door refuses retargeting.
+  await fixtureSql([`INSERT INTO chat_connections(id,workspace_id,destination,target_label,events_json,state,connected_by_member_id,connected_at,created_at,updated_at,audience_member_ids_json,revision_id,provider,notifier_provider,delivery_mode)
+    VALUES('synthetic-slate-restored','browser-workspace','nook:synthetic-slate-channel1','synthetic-slate-channel1','["comment"]','disconnected','browser-owner',datetime('now'),datetime('now'),datetime('now'),'[]','synthetic-slate-restored-revision','slack','nook','immediate')`]);
+  await open();
+  const restored=page.getByRole('region',{name:'Nook delivery status: synthetic-slate-channel1',exact:true});
+  await restored.getByRole('button',{name:'Reconnect',exact:true}).click();
+  await expect(page.getByText('A Nook destination stays bound to its approved channel.',{exact:false})).toBeVisible();
+  await page.getByLabel('Nook channel ID',{exact:true}).fill('synthetic-slate-channel3');
+  await page.keyboard.press('Tab');await expect(page.getByLabel('Nook channel token',{exact:true})).toBeFocused();
+  await page.keyboard.type('synthetic-slate-103');
+  await page.getByRole('button',{name:'Save chat delivery',exact:true}).click();
+  await expect(page.getByRole('alert')).toContainText('Add a new destination for another channel');
+  await expect(page.getByLabel('Nook channel ID',{exact:true})).toHaveValue('synthetic-slate-channel3');
+  assert.equal((await api('GET','/api/notifications/chat/destinations')).items.find(item=>item.id==='synthetic-slate-restored').destination,'nook:synthetic-slate-channel1');
+  await shot('nook-channel-change-refused');
   await page.getByRole('button',{name:'Cancel',exact:true}).click();
 
 }
