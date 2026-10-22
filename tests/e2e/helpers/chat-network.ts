@@ -13,7 +13,7 @@ export function chatNetwork(tokens:string[],email:string) {
  const teamsApps=new Map<string,unknown[]>();
  const teamsRooms=new Map<string,Record<string,unknown>>();
  const teamsMembers=new Map<string,unknown[]>();
- let duringAudience:(()=>Promise<void>)|undefined;
+ let duringAudience:(()=>Promise<void>)|undefined,duringPost:(()=>Promise<void>)|undefined;
  globalThis.fetch=async(input,init)=>{
   const request=new Request(input,init),url=new URL(request.url);
   if(!['https://slack.com','https://graph.microsoft.com'].includes(url.origin))return original(input,init);
@@ -25,6 +25,7 @@ export function chatNetwork(tokens:string[],email:string) {
   const writing=request.method==='POST'||request.method==='PATCH',body=writing?await request.json<any>():Object.fromEntries(url.searchParams);
   if(editing){const receipt=teams?decodeURIComponent(url.pathname.split('/').at(-1)!):body.ts;const channel=teams?decodeURIComponent(url.pathname.split('/channels/')[1]!.split('/')[0]!):body.channel;const message=messages.find(m=>m.token===token&&m.receipt===receipt&&m.channel===channel);expect(message).toBeTruthy();message!.text=teams?body.body.content:body.text;return Response.json(teams?{}:{ok:true});}
   if(writing){
+   const callback=duringPost;duringPost=undefined;await callback?.();
    const key=teams?request.headers.get('client-request-id')!:body.client_msg_id;
    expect(key).toMatch(/^[a-f0-9-]{36}$/);
    const status=failure==='transient'?429:failure==='permanent'?404:failure==='uncertain'?503:200;
@@ -63,5 +64,5 @@ export function chatNetwork(tokens:string[],email:string) {
    default:throw Error('Unexpected synthetic Slack request');
   }
  };
- return {messages,attempts,failures,audiences,rosters,audienceCalls,teamsMembers,teamsRooms,teamsApps,duringAudience:(callback:()=>Promise<void>)=>{duringAudience=callback;},restore:()=>{globalThis.fetch=original;}};
+ return {messages,attempts,failures,audiences,rosters,audienceCalls,duringPost:(callback:()=>Promise<void>)=>{duringPost=callback;},teamsMembers,teamsRooms,teamsApps,duringAudience:(callback:()=>Promise<void>)=>{duringAudience=callback;},restore:()=>{globalThis.fetch=original;}};
 }

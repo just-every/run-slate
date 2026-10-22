@@ -334,7 +334,7 @@ async function repairJourney() {
 }
 
 contract('CHAT-001','Readable grouped events survive an unreadable or purged leader without duplicate delivery',async()=>{
- for(const scenario of ['C2','C2b','C3','C6','retry','uncertain','five','six']){
+ for(const scenario of ['C2','C2b','C3','C6','retry','uncertain','five','six','concurrent']){
   const h=await repairJourney();
   try{
    const ids=[];for(const [i,provider] of ['slack','teams','nook'].entries())ids.push(await h.connect(provider,h.tokens[i]!,h.channels[i]!,scenario==='C3'?'daily':'immediate'));
@@ -343,6 +343,27 @@ contract('CHAT-001','Readable grouped events survive an unreadable or purged lea
    const count=scenario==='five'?5:6;
    for(let i=0;i<count;i++)await h.comment(readable);
    if(scenario==='C2b')await h.comment(denied);
+   if(scenario==='concurrent'){
+    const gate=()=>{let resolve!:()=>void;const promise=new Promise<void>(done=>{resolve=done;});return {promise,resolve};};
+    const firstAudience=gate(),secondAudience=gate(),firstMayContinue=gate(),secondMayContinue=gate(),posting=gate(),finishPost=gate();
+    h.edge.duringAudience(async()=>{firstAudience.resolve();await firstMayContinue.promise;});
+    const first=h.sweep();await firstAudience.promise;
+    await h.comment(readable);
+    h.edge.duringAudience(async()=>{secondAudience.resolve();await secondMayContinue.promise;});
+    const second=h.sweep();await secondAudience.promise;
+    h.edge.duringPost(async()=>{posting.resolve();await finishPost.promise;});
+    try{
+     firstMayContinue.resolve();await posting.promise;secondMayContinue.resolve();await second;
+    }finally{firstMayContinue.resolve();secondMayContinue.resolve();finishPost.resolve();await Promise.all([first,second]);}
+    await h.sweep();
+    for(const provider of ['slack','teams','nook']){
+     const lines=h.edge.messages.filter(m=>m.provider===provider).flatMap(m=>m.text.split('\n'));
+     expect(lines,provider+' concurrent events').toHaveLength(7);expect(new Set(lines).size).toBe(7);
+    }
+    expect(await env.DB.prepare("SELECT count(*) AS n FROM chat_deliveries WHERE state='pending'").first<number>('n')).toBe(0);
+    continue;
+   }
+
    if(['C6','retry','uncertain'].includes(scenario))for(const token of h.tokens.slice(0,3))h.edge.failures.set(token,scenario==='uncertain'?'uncertain':'transient');
    await h.sweep(scenario==='C3');
    if(['C6','retry'].includes(scenario)){
