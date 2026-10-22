@@ -1316,7 +1316,7 @@ Drive and SharePoint references use the inserting member's own provider connecti
 
 *Acceptance:* a browser journey with recorded provider fixtures inserts one file from each source, sees a renamed file's new title after refresh, and sees "request access" for a reader without access.
 
-*Status:* missing.
+*Status:* partial. Recorded provider fixtures prove Drive and SharePoint picker insertion, refreshed titles, per-reader access refusal, unavailable files and disconnect without removing references through the real Worker and existing editor journey at 1440 and 390. Gap: Chest source has no published metadata door. Real Google Drive and SharePoint acceptance NOT RUN: recorded provider fixtures only; no real provider call or consent was used. The conservative per-reader metadata default above is adopted pending ct’s ruling.
 
 #### EMBED-005 — Backlinks on Jira and Vector issues.
 When a page embeds, mentions or links a Jira or Vector issue (`EMBED-001`), or a member or a rule creates an issue from it (`EMBED-001`, `AUTO-006`), Slate writes exactly one link to the page on the issue, so the issue lists the Slate pages that reference it. In Jira Cloud this is a remote issue link (`POST /rest/api/3/issue/{key}/remotelink`) with a stable global ID for each page and issue, written under the acting member's linked account. In [Vector](https://github.com/just-every/run-vector) it is Vector's own page link. Embedding the same issue again on the same page writes nothing new. Renaming the page updates the link's title. Removing the page's last reference to the issue, or trashing or erasing the page, removes the link, and restoring the page writes it again. A page in a `private` or `personal` container, a draft (`LIFE-002`), or a page under a Confidential classification (`ADMIN-006`) gets a link titled "Slate page" with no page title, and opening any backlink still requires Slate access. A failed write is retried under its operation key and shown on the embed, never dropped silently. Links that people add to the page from the Jira or Vector side are listed on the page (`EMBED-007`), and the links Jira already holds to Confluence pages that Slate migrated are re-pointed at cutover (`EMBED-006`).
@@ -1806,15 +1806,15 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `354b398c8bd7cab96db39b26b710cf76be49df90` (23 October 2026).
+Judged from the code and tests at commit `bc810c8544d388315b266cd861f2fd5a8b4bba0b` (23 October 2026).
 
 Live-provider evidence remains explicitly open. See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 172 | 49 | 0 | 221 |
-| Target and push further | 19 | 45 | 41 | 105 |
-| All | 191 | 94 | 41 | 326 |
+| Target and push further | 19 | 46 | 40 | 105 |
+| All | 191 | 95 | 40 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2100,7 +2100,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `EMBED-001` | Live issue embeds from Vector and Jira | target | missing | — | not implemented |
 | `EMBED-002` | GitHub and GitLab embeds | target | missing | `src/core/features/connectors/github.ts` | not implemented |
 | `EMBED-003` | Design, video and document embeds | target | partial | `tests/e2e/editor/provider-embeds.test.ts`, `tests/qualification/ui-convergence/provider-embeds-journey.mjs` | Click-to-load provider frames, per-provider CSP/sandbox, public interaction gate and access/revocation proven with fixtures at 1440/390. Automatic refusal detection and link-card fallback remain missing; live providers unproven. |
-| `EMBED-004` | Live file cards from Drive, SharePoint and Chest | target | missing | — | not implemented |
+| `EMBED-004` | Live file cards from Drive, SharePoint and Chest | target | partial | `tests/e2e/editor/provider-embeds.test.ts` — EMBED-003 registration with [EMBED-004], `fileCardsHttpJourney`; `tests/qualification/ui-convergence/provider-embeds-journey.mjs` — `fileCardsJourney` at 1440 and 390 (`evidence/file-cards/`), Verify Workers and UI content jobs | Chest source has no published metadata door. Real Google Drive and SharePoint acceptance NOT RUN: recorded provider fixtures only; no real provider call or consent was used. Conservative default: no metadata unless the reader’s own provider authority can open the file; request access and connect path otherwise, pending ct ruling. |
 | `EMBED-005` | Backlinks on Jira and Vector issues | target | missing | — | not implemented |
 | `EMBED-006` | Jira links to migrated Confluence pages are re-pointed at cutover | target | missing | — | not implemented |
 | `EMBED-007` | Issues that link here | target | missing | — | not implemented |
