@@ -10,7 +10,10 @@ import {freezeCases} from '../../../src/core/features/skills/cases';
 
 afterEach(()=>vi.unstubAllGlobals());
 const provider={apiKey:'test-only'};
-test.each(['literal','missing','empty'])('SKILL-002 legacy %s prepared case refuses every path and preserves history',async(kind)=>{
+test('SKILL-002 legacy literal, missing and empty prepared cases refuse every path and preserve history',async()=>{
+ for(const kind of ['literal','missing','empty']){
+ try {
+
  const f=await fixture(),draft=await f.refine(`legacy-${kind}-draft`);
  const input={operationKey:`legacy-${kind}-prepared`,revisionId:draft.value.revisionId,expectedOutcome:'The source is available.'};
  const prepared=await prepareEvaluation(f.context(),f.original.value.id,input,provider),row=await evaluationStatus(f.context(),prepared.id);
@@ -39,6 +42,8 @@ test.each(['literal','missing','empty'])('SKILL-002 legacy %s prepared case refu
  expect(await snapshot()).toBe(before);
  expect(await env.DB.prepare('SELECT count(*) n FROM intelligence_runs').first<number>('n')).toBe(count);
  expect(await env.DB.prepare('SELECT current_revision_id FROM intelligence_skills WHERE id=?').bind(f.original.value.id).first<string>('current_revision_id')).toBe(f.original.value.revisionId);
+ } finally { vi.unstubAllGlobals(); }
+ }
 },60000);
 
 test('SKILL-002 completed and activated replay requalifies assessment without changing old receipts',async()=>{

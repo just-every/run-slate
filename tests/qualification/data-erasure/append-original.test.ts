@@ -7,7 +7,12 @@ import {exportWorkspace} from '../../../src/core/features/portability/service';
 import {decodeArchive} from '../../../src/core/features/portability/archive';
 import {portableTables} from '../../../src/core/features/portability/tables';
 beforeEach(reset);
-test.each([false,true])('append originals follow historical destination custody and cleanup is truthful (storage failure=%s)',async(failCleanup)=>{
+test('append originals follow historical destination custody and cleanup is truthful with or without storage failure',async()=>{
+ let firstCase=true;
+ for(const failCleanup of [false,true]){
+ if(!firstCase)await reset();
+ firstCase=false;
+
  const f=await fixture(),ctx=f.context(),page=await document(f,'Original retained page'),copy=await document(f,'Original retained page');
  const appended=[];
  for(let n=0;n<2;n++){
@@ -41,4 +46,5 @@ test.each([false,true])('append originals follow historical destination custody 
  for(const job of appended)expect(manifest.blobs.map(b=>b.key)).not.toContain(job.archive_key);
  expect(Object.values(entries).map(v=>new TextDecoder().decode(v)).join('')).not.toContain('Private appended payload');
  expect((await env.DB.prepare('SELECT * FROM content_media_cleanup').all()).results).toEqual([]);
+ }
 });

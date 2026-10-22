@@ -1,3 +1,4 @@
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
 import { test, expect } from 'vitest';
 import { fixture, state, env, key } from './fixture';
 import { seedContainerGrant, seedPageGrant } from '../../e2e/setup/fixtures';
@@ -5,7 +6,12 @@ import { previewPublication } from '../../../src/core/features/lifecycle/publica
 import { publishPage } from '../../../src/core/features/lifecycle/publication';
 import { runContentJobs } from '../../../src/core/features/lifecycle/jobs';
 
-for (const level of ['view', 'edit'] as const) test(`Relocation SHARE-002 destination ${level} access widening requires full authority on every affected descendant`, async () => {
+test('Relocation SHARE-002 destination view or edit access widening requires full authority on every affected descendant', async () => {
+ let firstCase=true;
+ for (const level of ['view', 'edit'] as const){
+ if(!firstCase)await resetDeployment();
+ firstCase=false;
+
   const f = await fixture();
   await seedContainerGrant(f.target, { principalKind: 'member', principalId: f.outsider.actor.id, level });
   // A restricted child does not inherit a later full grant on its root.
@@ -27,6 +33,7 @@ for (const level of ['view', 'edit'] as const) test(`Relocation SHARE-002 destin
   for (const page of preview.audience) expect(page.readers.find(r => r.memberId === f.outsider.actor.id)).toMatchObject({ before: null, after: level });
   const response = await f.request('/publish', { ...f.input, previewFingerprint: preview.previewFingerprint });
   expect(response.status, await response.clone().text()).toBe(200);
+ }
 });
 
 test('Relocation SHARE-002 explicit access-setting changes still require full authority even when the member audience is unchanged', async () => {
@@ -48,7 +55,12 @@ test('Relocation SHARE-002 retargeted container-general grants cannot disclose a
   expect(await state()).toEqual(before);
 });
 
-for (const field of ['anonymous_access', 'public_link_access']) test(`Relocation WEB-001 ${field} widening preserves full-publication authority`, async () => {
+test('Relocation WEB-001 anonymous and public-link widening preserves full-publication authority', async () => {
+ let firstCase=true;
+ for (const field of ['anonymous_access', 'public_link_access']){
+ if(!firstCase)await resetDeployment();
+ firstCase=false;
+
   const f = await fixture();
   await env.DB.prepare(`UPDATE containers SET ${field}='forbidden' WHERE id=?`).bind(f.containerId).run();
   await env.DB.prepare('INSERT INTO public_exposures(id,page_id,host,slug,published_at) VALUES(?,?,?,?,?)').bind(crypto.randomUUID(), f.child.value.pageId, 'q9.test.invalid', key('q9-public'), f.owner.now).run();
@@ -59,6 +71,7 @@ for (const field of ['anonymous_access', 'public_link_access']) test(`Relocation
   const preview = await f.preview();
   expect(preview.publicAccess?.some(change => change.pageId === f.child.value.pageId && change.before === null && change.after === 'view')).toBe(true);
   expect((await f.request('/publish', { ...f.input, previewFingerprint: preview.previewFingerprint })).status).toBe(200);
+ }
 });
 
 test('Relocation LIFE-003 scheduled same-audience relocation preserves reviewed release and edit-only descendant authority', async () => {

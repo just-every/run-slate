@@ -72,7 +72,13 @@ test('EFFECT-001 — revoked grants still deny ordinary non-restored effects wit
  expect(await durableState()).toEqual(before);expect(f.sends()).toBe(0);
 });
 
-test.each(['missing','revoked'] as const)('PORT-005 — %s actor is rejected before restored history or effect authority is disclosed',async mode=>{
+test('PORT-005 — missing and revoked actors are rejected before restored history or effect authority is disclosed',async()=>{
+ let firstCase=true;
+ for(const mode of ['missing','revoked'] as const){
+ if(!firstCase)await reset();
+ firstCase=false;
+ try {
+
  const f=await restoredFixture();
  const actor=mode==='missing'?crypto.randomUUID():f.owner;
  if(mode==='revoked')await env.DB.prepare("UPDATE members SET status='removed' WHERE id=?").bind(actor).run();
@@ -80,21 +86,39 @@ test.each(['missing','revoked'] as const)('PORT-005 — %s actor is rejected bef
  await expect(dispatchEffect(f.context(actor),f.effectId)).rejects.toMatchObject({status:401,code:'UNAUTHENTICATED'});
  await expect(requireEffect(f.context(actor),f.effectId)).rejects.toMatchObject({status:401,code:'UNAUTHENTICATED'});
  expect(await durableState()).toEqual(before);expect(f.calls()).toBe(calls);
+ } finally { vi.unstubAllGlobals(); }
+ }
 });
 
-test.each(['durable-marker','legacy-reason'] as const)('FLAG-004 EFFECT-001 — a live grant cannot override the %s restore fence',async fence=>{
+test('FLAG-004 EFFECT-001 — a live grant cannot override either durable-marker or legacy-reason restore fence',async()=>{
+ let firstCase=true;
+ for(const fence of ['durable-marker','legacy-reason'] as const){
+ if(!firstCase)await reset();
+ firstCase=false;
+ try {
+
  const f=await effectFixture();
  if(fence==='durable-marker')await env.DB.prepare("UPDATE intelligence_runs SET input_json=json_set(input_json,'$.recoveryPausedAt',?) WHERE id=?").bind(f.ctx.now,f.runId).run();
  else await env.DB.prepare("UPDATE intelligence_runs SET failure_reason='RESTORED_AUTHORITY_REQUIRED' WHERE id=?").bind(f.runId).run();
  const before=await durableState(),calls=f.calls();
  await expect(dispatchEffect(f.ctx,f.effectId)).rejects.toMatchObject({status:403,code:'RESTORED_AUTHORITY_REQUIRED'});
  expect(await durableState()).toEqual(before);expect(f.calls()).toBe(calls);expect(f.sends()).toBe(0);
+ } finally { vi.unstubAllGlobals(); }
+ }
 });
 
-test.each(['paused','cancelled','completed'] as const)('AI-006 — non-restored %s run retains the existing stopped-run conflict',async status=>{
+test('AI-006 — non-restored paused, cancelled and completed runs retain the existing stopped-run conflict',async()=>{
+ let firstCase=true;
+ for(const status of ['paused','cancelled','completed'] as const){
+ if(!firstCase)await reset();
+ firstCase=false;
+ try {
+
  const f=await effectFixture();
  await env.DB.prepare('UPDATE intelligence_runs SET status=? WHERE id=?').bind(status,f.runId).run();
  const before=await durableState(),calls=f.calls();
  await expect(dispatchEffect(f.ctx,f.effectId)).rejects.toMatchObject({status:409,code:'RUN_STOPPED'});
  expect(await durableState()).toEqual(before);expect(f.calls()).toBe(calls);expect(f.sends()).toBe(0);
+ } finally { vi.unstubAllGlobals(); }
+ }
 });

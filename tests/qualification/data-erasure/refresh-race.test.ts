@@ -5,7 +5,9 @@ import {connect} from '../../../src/core/features/connectors/service';
 import {addSource,refreshSource,forgetSource} from '../../../src/core/features/source-memory/service';
 const secret='01234567890123456789012345678901';
 afterEach(()=>vi.unstubAllGlobals());
-for(const boundary of ['provider-read','passage-batch'] as const)test(`forget wins refresh at ${boundary} without resurrected canonical bytes`,async()=>{
+test('forget wins refresh at provider-read and passage-batch without resurrected canonical bytes',async()=>{
+ for(const boundary of ['provider-read','passage-batch'] as const){
+ try {
  const f=await fixture();let armed=false,forgot=false,sourceId='',revisionId='';
  const forget=async()=>{if(forgot)return;forgot=true;await forgetSource({...f.ctx},{id:sourceId,operationKey:'race-forget',expectedRevisionId:revisionId});};
  vi.stubGlobal('fetch',async(url:string)=>{
@@ -19,6 +21,8 @@ for(const boundary of ['provider-read','passage-batch'] as const)test(`forget wi
  for(const [table,where] of [['federation_sources','id=?'],['federation_revisions','source_id=?'],['federation_passages','revision_id IN (SELECT id FROM federation_revisions WHERE source_id=?)']])expect(JSON.stringify((await env.DB.prepare(`SELECT * FROM ${table} WHERE ${where}`).bind(sourceId).all()).results)).not.toContain(canary);
  expect(await env.DB.prepare('SELECT state,published_revision_id,refresh_id FROM federation_sources WHERE id=?').bind(sourceId).first()).toEqual({state:'deleted',published_revision_id:null,refresh_id:null});
  expect(await env.DB.prepare('SELECT count(*) n FROM federation_passages WHERE revision_id IN (SELECT id FROM federation_revisions WHERE source_id=?)').bind(sourceId).first()).toEqual({n:0});
+ } finally { vi.unstubAllGlobals(); }
+ }
 });
 
 test('failed staging is discarded while the previous published revision remains exact',async()=>{

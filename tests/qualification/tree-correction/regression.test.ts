@@ -52,11 +52,13 @@ it('REV-001 TREE-002: same-parent reorder preserves every descendant byte and no
  expect(await bystanders([root,child.pageId,grandchild.pageId])).toEqual(allBefore);
 });
 
-for(const timing of ['after-preview','before-batch'])it(`TREE-002: anchor revision invalidates review ${timing}`,async()=>{
+it('TREE-002: anchor revision invalidates review after preview and before batch',async()=>{
+ for(const timing of ['after-preview','before-batch']){
  const f=await fixture(),[root,anchor]=await ids(f.containerId),request=await input(f.ctx,root,{containerId:f.containerId,afterId:anchor});let prior:unknown;
  const change=async()=>{await env.DB.prepare('UPDATE pages SET revision_id=? WHERE id=?').bind(crypto.randomUUID(),anchor).run();prior=await databaseState();};
  const ctx=timing==='before-batch'?beforeBatch(f.ctx,change):f.ctx;if(timing==='after-preview')await change();
  await expect(movePage(ctx,root,request)).rejects.toMatchObject({status:409});expect(await databaseState()).toEqual(prior);
+ }
 });
 
 it('TREE-002 SHARE-002: hidden-only changes do not perturb the external reviewed selection',async()=>{
@@ -141,7 +143,8 @@ it('WEB-001 SHARE-002: moving an existing exposure across anonymous vetoes also 
  await movePage(f.ctx,root,reviewed);expect(await ids(dest.containerId)).toEqual([root]);
 });
 
-for(const timing of ['after-preview','before-batch'])it(`SHARE-002: full authority is rechecked ${timing} against exact reviewed disclosure`,async()=>{
+it('SHARE-002: full authority is rechecked after preview and before batch against exact reviewed disclosure',async()=>{
+ for(const timing of ['after-preview','before-batch']){
  const f=await fixture(),root=f.pages[0].pageId;
  await seedMember(f.workspaceId,{role:'member',email:crypto.randomUUID()+'@test.invalid',displayName:'New audience'});
  await seedPageGrant(root,{principalKind:'member',principalId:f.memberId,level:'full'});
@@ -151,9 +154,11 @@ for(const timing of ['after-preview','before-batch'])it(`SHARE-002: full authori
  const revoke=async()=>{await env.DB.prepare('UPDATE page_grants SET revoked_at=? WHERE page_id=?').bind(f.ctx.now,root).run();prior=await databaseState();};
  const ctx=timing==='before-batch'?beforeBatch(f.ctx,revoke):f.ctx;if(timing==='after-preview')await revoke();
  await expect(movePage(ctx,root,request)).rejects.toMatchObject({status:timing==='before-batch'?409:404});expect(await databaseState()).toEqual(prior);
+ }
 });
 
-for(const linkAccess of ['allowed','forbidden'])it(`WEB-001 SHARE-002: signed-in public links changing from ${linkAccess} require full while anonymous is forbidden`,async()=>{
+it('WEB-001 SHARE-002: signed-in public links changing in either direction require full while anonymous is forbidden',async()=>{
+ for(const linkAccess of ['allowed','forbidden']){
  const f=await fixture(),root=f.pages[0].pageId;
  await env.DB.batch([await revisionStatement(f.ctx,root,f.pages[0].workingRevisionId,await snapshot(f.ctx,await pageRow(f.ctx,root)))]);
  await env.DB.prepare('UPDATE pages SET published_revision_id=working_revision_id WHERE id=?').bind(root).run();
@@ -169,4 +174,5 @@ for(const linkAccess of ['allowed','forbidden'])it(`WEB-001 SHARE-002: signed-in
  const reviewed=await input(f.ctx,root,placement);
  expect(reviewed.changes).toEqual([{pageId:root,memberId:null,audience:'public-link',before:linkAccess==='allowed'?'view':null,after:next==='allowed'?'view':null}]);
  await movePage(f.ctx,root,reviewed);expect(await ids(dest.containerId)).toEqual([root]);
+ }
 });

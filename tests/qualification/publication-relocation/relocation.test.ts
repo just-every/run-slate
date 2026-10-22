@@ -1,8 +1,14 @@
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
 import { test, expect } from 'vitest';
 import { fixture, state, env } from './fixture';
 import { pageRow } from '../../../src/core/features/pages/repository';
 
-for (const crossContainer of [false, true]) test(`Relocation PAGE-004 LIFE-003 SAVE-005 edit-only same-audience ${crossContainer ? 'cross-container' : 'reparent'} publication confirms once through native API`, async () => {
+test('Relocation PAGE-004 LIFE-003 SAVE-005 edit-only same-audience reparent and cross-container publication confirms once through native API', async () => {
+ let firstCase=true;
+ for (const crossContainer of [false, true]){
+ if(!firstCase)await resetDeployment();
+ firstCase=false;
+
   const f = await fixture(crossContainer);
   expect((await (await f.request('')).json() as any).permissions).toMatchObject({ level: 'edit', canShare: false });
   const prior = await state(), review = await f.preview();
@@ -27,6 +33,7 @@ for (const crossContainer of [false, true]) test(`Relocation PAGE-004 LIFE-003 S
   expect(conflict.status).toBe(409); expect(await state()).toEqual(after);
   expect((await (await f.request('')).json() as any).permissions).toMatchObject({ level: 'edit', canShare: false });
   expect((await env.DB.prepare("SELECT COUNT(*) AS n FROM page_revisions WHERE page_id=? AND origin='publish'").bind(f.root.value.pageId).first<{ n: number }>())!.n).toBe(1);
+ }
 });
 
 test('Relocation LIFE-002 LIFE-003 edit-only explicitly shared draft relocates and publishes to its unchanged audience', async () => {

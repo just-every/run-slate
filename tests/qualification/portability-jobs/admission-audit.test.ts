@@ -19,10 +19,16 @@ test('ACT-002 PORT-003 failed audit insertion rolls back export admission, recei
  const f=await fixture();await env.DB.prepare("CREATE TRIGGER qualification_export_audit_abort BEFORE INSERT ON activity_entries WHEN NEW.action='exports.workspace' BEGIN SELECT RAISE(ABORT,'labelled audit persistence failure'); END").run();
  try{await expect(stage(f.context(),'export','export-audit-rollback')).rejects.toThrow();expect(await env.DB.prepare('SELECT COUNT(*) n FROM portability_jobs').first<number>('n')).toBe(0);expect(await env.DB.prepare('SELECT COUNT(*) n FROM federation_exports').first<number>('n')).toBe(0);expect(await env.DB.prepare('SELECT COUNT(*) n FROM core_entity_revisions').first<number>('n')).toBe(0);}finally{await env.DB.prepare('DROP TRIGGER qualification_export_audit_abort').run();}
 });
-test.each(['identity','acl'] as const)('ACT-002 PORT-003 %s changed at admission rolls back receipt, export, revision and audit',async(change)=>{
+test('ACT-002 PORT-003 identity or acl changed at admission rolls back receipt, export, revision and audit',async()=>{
+ let firstCase=true;
+ for(const change of ['identity','acl'] as const){
+ if(!firstCase)await reset();
+ firstCase=false;
+
  const f=await fixture(),ctx=f.context();let altered=false;
  // Labelled race injection, using real D1 mutation immediately before the real admission batch.
  const db=new Proxy(ctx.db,{get(database,property){if(property==='batch')return async(statements:D1PreparedStatement[])=>{if(!altered){altered=true;await (change==='identity'?database.prepare("UPDATE members SET status='historical' WHERE id=?").bind(f.owner):database.prepare('UPDATE core_acl_epoch SET epoch=epoch+1 WHERE id=1')).run();}return database.batch(statements);};const value=Reflect.get(database,property);return typeof value==='function'?value.bind(database):value;}});
  await expect(stage({...ctx,db},'export','export-atomic-'+change)).rejects.toThrow();
  for(const table of ['portability_jobs','federation_exports','core_entity_revisions','activity_entries'])expect(await env.DB.prepare(`SELECT COUNT(*) n FROM ${table}`).first<number>('n')).toBe(0);
+ }
 });

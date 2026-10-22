@@ -1247,6 +1247,111 @@
       "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance."
     },
     {
+      "file": "tests/qualification/authority/decision-authority.test.ts",
+      "testName": "SOURCE-003 — claims keep accepted authority through review, withdraw it when nested citations change or layer is removed, and preserve exact history through restore",
+      "kind": "supporting-regression",
+      "clauses": [
+        "SOURCE-003"
+      ],
+      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
+    },
+    {
+      "file": "tests/qualification/authority/native-boundaries.test.ts",
+      "testName": "SOURCE-006 — native OAuth refuses a redirect without replaying or forwarding the personal authorization code",
+      "kind": "supporting-regression",
+      "clauses": [
+        "SOURCE-006"
+      ],
+      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
+    },
+    {
+      "file": "tests/qualification/authority/native-boundaries.test.ts",
+      "testName": "SOURCE-004 — typed native article receipt binds exact publication audience and rejects invalid observation time without dispatch",
+      "kind": "supporting-regression",
+      "clauses": [
+        "SOURCE-004"
+      ],
+      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
+    },
+    {
+      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
+      "testName": "FLAG-004 PORT-005 EFFECT-001 — restored authority fences replay and reconciliation even after diagnostic clearing while preserving exact history",
+      "kind": "supporting-regression",
+      "clauses": [
+        "FLAG-004",
+        "PORT-005",
+        "EFFECT-001"
+      ],
+      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance. Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
+    },
+    {
+      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
+      "testName": "EFFECT-001 — a normal current grant permits one dispatch and receipt replay sends nothing",
+      "kind": "supporting-regression",
+      "clauses": [
+        "EFFECT-001"
+      ],
+      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
+    },
+    {
+      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
+      "testName": "EFFECT-001 — revoked grants still deny ordinary non-restored effects without mutations",
+      "kind": "supporting-regression",
+      "clauses": [
+        "EFFECT-001"
+      ],
+      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
+    },
+    {
+      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
+      "testName": "PORT-005 — missing and revoked actors are rejected before restored history or effect authority is disclosed",
+      "kind": "supporting-regression",
+      "clauses": [
+        "PORT-005"
+      ],
+      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
+    },
+    {
+      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
+      "testName": "FLAG-004 EFFECT-001 — a live grant cannot override either durable-marker or legacy-reason restore fence",
+      "kind": "supporting-regression",
+      "clauses": [
+        "FLAG-004",
+        "EFFECT-001"
+      ],
+      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
+    },
+    {
+      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
+      "testName": "AI-006 — non-restored paused, cancelled and completed runs retain the existing stopped-run conflict",
+      "kind": "supporting-regression",
+      "clauses": [
+        "AI-006"
+      ],
+      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
+    },
+    {
+      "file": "tests/qualification/release-integration-repairs/branch-portability.test.ts",
+      "testName": "Unavailable branch admission survives stop, export, fresh restore and re-export without inventing a run",
+      "kind": "supporting-regression",
+      "clauses": [
+        "INQ-001",
+        "FLAG-004",
+        "PORT-005"
+      ],
+      "reason": "Native denied branch reason and parent-run lineage survive stop, restore and re-export. Synthetic protocol records do not establish useful inquiry quality, real providers or complete portable knowledge."
+    },
+    {
+      "file": "tests/qualification/release-integration-repairs/branch-migration.test.ts",
+      "testName": "Forward branch admission migration preserves native prior inquiry findings and leaves unknown history unknown",
+      "kind": "supporting-regression",
+      "clauses": [
+        "INQ-001",
+        "FLAG-002"
+      ],
+      "reason": "Native original-schema inquiry and finding records survive the additive branch admission migration with no fabricated historical outcome. This locally created prior database is not the sealed prior-store acceptance input."
+    },
+    {
       "file": "tests/flagship/release-clauses/suggestions/anchors.test.ts",
       "testName": "SUG-001 — a proposal stays on its published revision and current access controls its read",
       "kind": "supporting-regression",
@@ -1551,148 +1656,6 @@
         "TRIAL-001"
       ],
       "reason": "Controlled local D1 predeclaration, replay, exact grant and effect-scope mechanics only. Full trial UI, defensible randomization, genuine provider effects and prospective customer protocol remain unproven."
-    },
-    {
-      "file": "tests/qualification/authority/decision-authority.test.ts",
-      "testName": "SOURCE-003 — claims keep accepted authority through review, withdraw it when nested citations change or layer is removed, and preserve exact history through restore",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SOURCE-003"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/authority/native-boundaries.test.ts",
-      "testName": "SOURCE-006 — native OAuth refuses a redirect without replaying or forwarding the personal authorization code",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SOURCE-006"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/authority/native-boundaries.test.ts",
-      "testName": "SOURCE-004 — typed native article receipt binds exact publication audience and rejects invalid observation time without dispatch",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SOURCE-004"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "FLAG-004 PORT-005 EFFECT-001 — restored authority fences replay and reconciliation even after diagnostic clearing while preserving exact history",
-      "kind": "supporting-regression",
-      "clauses": [
-        "FLAG-004",
-        "PORT-005",
-        "EFFECT-001"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance. Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "EFFECT-001 — a normal current grant permits one dispatch and receipt replay sends nothing",
-      "kind": "supporting-regression",
-      "clauses": [
-        "EFFECT-001"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "EFFECT-001 — revoked grants still deny ordinary non-restored effects without mutations",
-      "kind": "supporting-regression",
-      "clauses": [
-        "EFFECT-001"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "PORT-005 — missing actor is rejected before restored history or effect authority is disclosed",
-      "kind": "supporting-regression",
-      "clauses": [
-        "PORT-005"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "PORT-005 — revoked actor is rejected before restored history or effect authority is disclosed",
-      "kind": "supporting-regression",
-      "clauses": [
-        "PORT-005"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "FLAG-004 EFFECT-001 — a live grant cannot override the durable-marker restore fence",
-      "kind": "supporting-regression",
-      "clauses": [
-        "FLAG-004",
-        "EFFECT-001"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "FLAG-004 EFFECT-001 — a live grant cannot override the legacy-reason restore fence",
-      "kind": "supporting-regression",
-      "clauses": [
-        "FLAG-004",
-        "EFFECT-001"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "AI-006 — non-restored paused run retains the existing stopped-run conflict",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AI-006"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "AI-006 — non-restored cancelled run retains the existing stopped-run conflict",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AI-006"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "AI-006 — non-restored completed run retains the existing stopped-run conflict",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AI-006"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/release-integration-repairs/branch-portability.test.ts",
-      "testName": "Unavailable branch admission survives stop, export, fresh restore and re-export without inventing a run",
-      "kind": "supporting-regression",
-      "clauses": [
-        "INQ-001",
-        "FLAG-004",
-        "PORT-005"
-      ],
-      "reason": "Native denied branch reason and parent-run lineage survive stop, restore and re-export. Synthetic protocol records do not establish useful inquiry quality, real providers or complete portable knowledge."
-    },
-    {
-      "file": "tests/qualification/release-integration-repairs/branch-migration.test.ts",
-      "testName": "Forward branch admission migration preserves native prior inquiry findings and leaves unknown history unknown",
-      "kind": "supporting-regression",
-      "clauses": [
-        "INQ-001",
-        "FLAG-002"
-      ],
-      "reason": "Native original-schema inquiry and finding records survive the additive branch admission migration with no fabricated historical outcome. This locally created prior database is not the sealed prior-store acceptance input."
     },
     {
       "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",

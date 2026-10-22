@@ -7,7 +7,11 @@ import {archivePage,permanentDeletePage} from '../../../src/core/features/archiv
 beforeEach(reset);
 
 // Controlled retained snapshots exercise historical storage forms, not provider output.
-test.each(['stage','legacy-revision','evaluation','execution','legacy-ref-array'] as const)('nested semantic lineage in %s erases derivatives while equal prose survives',async(store)=>{
+test('nested semantic lineage in every retained store erases derivatives while equal prose survives',async()=>{
+ let firstCase=true;
+ for(const store of ['stage','legacy-revision','evaluation','execution','legacy-ref-array'] as const){
+ if(!firstCase)await reset();
+ firstCase=false;
  const f=await fixture(),host=await seedPage(f.page.containerId,{title:'Independent host',authorMemberId:f.owner}),now=f.ctx.now;
  await insert('page_revisions',{id:f.page.workingRevisionId,page_id:f.page.pageId,origin:'autosave',content_hash:'controlled',body_json:'[]',properties_json:'{}',created_at:now});
  for(const linked of [true,false]){
@@ -37,4 +41,5 @@ test.each(['stage','legacy-revision','evaluation','execution','legacy-ref-array'
   expect(await env.DB.prepare("SELECT question FROM knowledge_decisions WHERE id='semantic-decision-prose'").first()).toEqual({question:'Retained decision'});
  }
  expect(await env.DB.prepare('SELECT title,deleted_at FROM pages WHERE id=?').bind(host.pageId).first()).toEqual({title:'Independent host',deleted_at:null});
+ }
 });

@@ -8,7 +8,12 @@ import {freshRestore, nativeExport, storedText} from './helpers';
 
 beforeEach(reset);
 
-test.each([false, true])('Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: append filename erasure survives fresh restore/re-export (cleanup failure=%s)', async (cleanupFailure) => {
+test('Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: append filename erasure survives fresh restore/re-export with or without cleanup failure', async () => {
+ let firstCase=true;
+ for (const cleanupFailure of [false, true]){
+ if(!firstCase)await reset();
+ firstCase=false;
+
   const f = await fixture(), ctx = f.context();
   const erasedName = `q11-private-${crypto.randomUUID()}.txt`;
   const keptName = `q11-retained-${crypto.randomUUID()}.txt`;
@@ -59,4 +64,5 @@ test.each([false, true])('Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: appe
   expect(reexported.text).not.toContain(erasedName);
   expect(reexported.text).toContain(keptName);
   expect((await restored.db.prepare('PRAGMA foreign_key_check').all()).results).toEqual([]);
+ }
 });

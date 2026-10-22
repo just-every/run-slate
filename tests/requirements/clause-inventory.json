@@ -1810,11 +1810,7 @@
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "PORT-005 \u2014 missing actor is rejected before restored history or effect authority is disclosed"
-        },
-        {
-          "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "PORT-005 \u2014 revoked actor is rejected before restored history or effect authority is disclosed"
+          "testName": "PORT-005 \u2014 missing and revoked actors are rejected before restored history or effect authority is disclosed"
         },
         {
           "file": "tests/qualification/release-integration-repairs/branch-portability.test.ts",
@@ -1962,15 +1958,7 @@
       "supportingTests": [
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "AI-006 \u2014 non-restored paused run retains the existing stopped-run conflict"
-        },
-        {
-          "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "AI-006 \u2014 non-restored cancelled run retains the existing stopped-run conflict"
-        },
-        {
-          "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "AI-006 \u2014 non-restored completed run retains the existing stopped-run conflict"
+          "testName": "AI-006 \u2014 non-restored paused, cancelled and completed runs retain the existing stopped-run conflict"
         }
       ]
     },
@@ -2427,11 +2415,7 @@
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "FLAG-004 EFFECT-001 \u2014 a live grant cannot override the durable-marker restore fence"
-        },
-        {
-          "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "FLAG-004 EFFECT-001 \u2014 a live grant cannot override the legacy-reason restore fence"
+          "testName": "FLAG-004 EFFECT-001 \u2014 a live grant cannot override either durable-marker or legacy-reason restore fence"
         }
       ]
     },
@@ -2835,11 +2819,7 @@
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "FLAG-004 EFFECT-001 \u2014 a live grant cannot override the durable-marker restore fence"
-        },
-        {
-          "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "FLAG-004 EFFECT-001 \u2014 a live grant cannot override the legacy-reason restore fence"
+          "testName": "FLAG-004 EFFECT-001 \u2014 a live grant cannot override either durable-marker or legacy-reason restore fence"
         },
         {
           "file": "tests/qualification/release-integration-repairs/branch-portability.test.ts",

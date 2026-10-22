@@ -1,9 +1,15 @@
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
 import { test, expect } from 'vitest';
 import { fixture, state, env, key } from './fixture';
 import { createPage, updatePage } from '../../../src/core/features/pages/service';
 import { seedContainerGrant } from '../../e2e/setup/fixtures';
 
-for (const change of ['root', 'child', 'new-descendant', 'destination-reader'] as const) test(`Relocation SAVE-003 LIFE-003 stale ${change} preview refuses without partial writes`, async () => {
+test('Relocation SAVE-003 LIFE-003 stale subtree or destination preview refuses without partial writes', async () => {
+ let firstCase=true;
+ for (const change of ['root', 'child', 'new-descendant', 'destination-reader'] as const){
+ if(!firstCase)await resetDeployment();
+ firstCase=false;
+
   const f = await fixture(), review = await f.preview();
   const input = { ...f.input, previewFingerprint: review.previewFingerprint };
   if (change === 'root' || change === 'child') {
@@ -23,18 +29,30 @@ for (const change of ['root', 'child', 'new-descendant', 'destination-reader'] a
   expect(response.status).toBe(change === 'destination-reader' ? 404 : 409);
   if (change !== 'destination-reader') expect(await response.json()).toMatchObject({ code: 'PUBLICATION_PREVIEW_CHANGED' });
   expect(await state()).toEqual(before);
+ }
 });
 
-for (const timing of ['before-confirm', 'after-commit']) test(`Relocation SHARE-007 SAVE-005 destination revocation ${timing} blocks confirmation or replay`, async () => {
+test('Relocation SHARE-007 SAVE-005 destination revocation blocks confirmation or replay at either boundary', async () => {
+ let firstCase=true;
+ for (const timing of ['before-confirm', 'after-commit']){
+ if(!firstCase)await resetDeployment();
+ firstCase=false;
+
   const f = await fixture(), review = await f.preview();
   const input = { ...f.input, previewFingerprint: review.previewFingerprint };
   if (timing === 'after-commit') expect((await f.request('/publish', input)).status).toBe(200);
   await env.DB.prepare('UPDATE container_grants SET revoked_at=? WHERE id=?').bind(f.owner.now, f.destinationGrantId).run();
   const before = await state(), response = await f.request('/publish', input);
   expect(response.status).toBe(404); expect(await state()).toEqual(before);
+ }
 });
 
-for (const race of ['destination-acl', 'child-revision', 'new-child', 'public-exposure']) test(`Relocation ACT-001 concurrent ${race} race rolls back receipt, publication and subtree writes`, async () => {
+test('Relocation ACT-001 concurrent subtree or destination race rolls back receipt, publication and subtree writes', async () => {
+ let firstCase=true;
+ for (const race of ['destination-acl', 'child-revision', 'new-child', 'public-exposure']){
+ if(!firstCase)await resetDeployment();
+ firstCase=false;
+
   const f = await fixture(), review = await f.preview();
   // A real D1 trigger injects the conflict after receipt insertion, inside the
   // actual atomic batch. No repository/DB adapter or application path is mocked.
@@ -52,4 +70,5 @@ for (const race of ['destination-acl', 'child-revision', 'new-child', 'public-ex
     expect(response.status).toBe(409); expect(await response.json()).toMatchObject({ code: 'REVISION_CONFLICT' });
     expect(await state()).toEqual(before);
   } finally { await env.DB.exec('DROP TRIGGER q9_publication_race;'); }
+ }
 });

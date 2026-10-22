@@ -7,7 +7,11 @@ import {createApi} from '../../../src/core/app/hono';
 import {sessionFor} from '../../e2e/setup/fixtures';
 import {treeFixture,rows,env,input,previewMove,movePage,beforeBatch,databaseState} from './fixture';
 
-for(const target of ['root','child'] as const)for(const timing of ['before-preview','after-preview','before-batch'] as const)it(`ARCH-002 ARCH-003: actual ${target} archive ${timing} refuses cross-container tree writes atomically`,async()=>{
+it('ARCH-002 ARCH-003: actual root and child archive refuses cross-container tree writes atomically at every boundary',async()=>{
+ let firstCase=true;
+ for(const target of ['root','child'] as const)for(const timing of ['before-preview','after-preview','before-batch'] as const){
+ if(!firstCase)await resetDeployment();
+ firstCase=false;
  const f=await treeFixture(),placement={containerId:f.destination,atEnd:true as const};
  const request=await input(f.ctx,f.root,placement),beforeRows=await rows([f.root,f.child]);let winner:unknown;
  const archive=async()=>{await f.archive(f[target]);winner=await databaseState();};
@@ -17,12 +21,18 @@ for(const target of ['root','child'] as const)for(const timing of ['before-previ
  expect(await databaseState()).toEqual(winner);
  const after=await rows([f.root,f.child]);
  for(let i=0;i<after.length;i++){expect(after[i].revisions).toEqual(beforeRows[i].revisions);expect(after[i].page).toMatchObject({container_id:f.containerId,revision_id:(beforeRows[i].page as any).revision_id});expect(after[i].events.filter((e:any)=>e.kind==='moved')).toEqual([]);}
+ }
 });
 
-for(const target of ['root','child'] as const)it(`ARCH-002: same-container root reorder with archived ${target} obeys write scope`,async()=>{
+it('ARCH-002: same-container root reorder with archived root or child obeys write scope',async()=>{
+ let firstCase=true;
+ for(const target of ['root','child'] as const){
+ if(!firstCase)await resetDeployment();
+ firstCase=false;
  const f=await treeFixture();await f.archive(f[target]);const prior=await rows([f.child]),placement={containerId:f.containerId,atEnd:true as const};
  if(target==='root'){const state=await databaseState();await expect(previewMove(f.ctx,f.root,placement)).rejects.toMatchObject({code:'PAGE_READ_ONLY'});expect(await databaseState()).toEqual(state);}
  else {await movePage(f.ctx,f.root,await input(f.ctx,f.root,placement));expect(await rows([f.child])).toEqual(prior);}
+ }
 });
 
 it('ARCH-002 TREE-002: archived descendant remains byte-identical through same-container reparent and no-op',async()=>{
@@ -53,22 +63,37 @@ it('ARCH-003 TREE-002: restored subtree supports unchanged-audience edit-only cr
  await movePage(f.ctx,f.root,request);for(const row of await rows([f.root,f.child]))expect(row.page).toMatchObject({container_id:f.destination,archived_at:null});
 });
 
-for(const target of ['root','child'] as const)for(const timing of ['after-preview','before-batch'] as const)it(`ARCH-003: actual ${target} trash ${timing} preserves concurrent winner`,async()=>{
+it('ARCH-003: actual root and child trash preserves concurrent winner at every boundary',async()=>{
+ let firstCase=true;
+ for(const target of ['root','child'] as const)for(const timing of ['after-preview','before-batch'] as const){
+ if(!firstCase)await resetDeployment();
+ firstCase=false;
  const f=await treeFixture(),request=await input(f.ctx,f.root,{containerId:f.destination,atEnd:true});let winner:unknown;
  const trash=async()=>{await f.archive(f[target],'trash');winner=await databaseState();};
  if(timing==='after-preview')await trash();
  await expect(movePage(timing==='before-batch'?beforeBatch(f.ctx,trash):f.ctx,f.root,request)).rejects.toMatchObject({status:timing==='before-batch'?409:404});expect(await databaseState()).toEqual(winner);
+ }
 });
 
-for(const target of ['root','child'] as const)it(`TREE-002 ARCH-003: ${target} deletion before batch cannot be overwritten`,async()=>{
+it('TREE-002 ARCH-003: root and child deletion before batch cannot be overwritten',async()=>{
+ let firstCase=true;
+ for(const target of ['root','child'] as const){
+ if(!firstCase)await resetDeployment();
+ firstCase=false;
  const f=await treeFixture(),request=await input(f.ctx,f.root,{containerId:f.destination,atEnd:true});let winner:unknown;
  const ctx=beforeBatch(f.ctx,async()=>{await env.DB.prepare('UPDATE pages SET deleted_at=? WHERE id=?').bind(f.ctx.now,f[target]).run();winner=await databaseState();});
  await expect(movePage(ctx,f.root,request)).rejects.toMatchObject({code:'REVISION_CONFLICT'});expect(await databaseState()).toEqual(winner);
+ }
 });
 
-for(const lifecycle of ['draft','scheduled','live-with-unpublished-changes'])it(`ARCH-002 TREE-002: writable ${lifecycle} follows existing liveness semantics`,async()=>{
+it('ARCH-002 TREE-002: every writable lifecycle follows existing liveness semantics',async()=>{
+ let firstCase=true;
+ for(const lifecycle of ['draft','scheduled','live-with-unpublished-changes']){
+ if(!firstCase)await resetDeployment();
+ firstCase=false;
  const f=await treeFixture();await env.DB.prepare('UPDATE pages SET lifecycle=? WHERE id IN (?,?)').bind(lifecycle,f.root,f.child).run();
  await movePage(f.ctx,f.root,await input(f.ctx,f.root,{containerId:f.destination,atEnd:true}));for(const row of await rows([f.root,f.child]))expect(row.page).toMatchObject({container_id:f.destination,lifecycle});
+ }
 });
 
 it('ARCH-002: ordering maintenance cannot renormalize archived siblings',async()=>{
@@ -77,7 +102,11 @@ it('ARCH-002: ordering maintenance cannot renormalize archived siblings',async()
  const before=await databaseState();await expect(previewMove(f.ctx,f.root,{containerId:f.containerId,beforeId:anchor})).rejects.toMatchObject({code:'PAGE_READ_ONLY'});expect(await databaseState()).toEqual(before);
 });
 
-for(const target of ['root','child'] as const)it(`ARCH-002 ARCH-003: actual HTTP ${target} archive rejects preview and stale confirmation without state changes`,async()=>{
+it('ARCH-002 ARCH-003: actual HTTP root and child archive rejects preview and stale confirmation without state changes',async()=>{
+ let firstCase=true;
+ for(const target of ['root','child'] as const){
+ if(!firstCase)await resetDeployment();
+ firstCase=false;
  const f=await treeFixture(),api=createApi(),cookie=await sessionFor(f.memberId),placement={containerId:f.destination,atEnd:true};
  const post=(path:string,body:unknown)=>api.request('https://slate.example/api/'+path,{method:'POST',headers:{cookie,'content-type':'application/json'},body:JSON.stringify(body)},env);
  const preview=await post(`pages/${f.root}/move-preview`,placement);expect(preview.status,await preview.clone().text()).toBe(200);
@@ -89,6 +118,7 @@ for(const target of ['root','child'] as const)it(`ARCH-002 ARCH-003: actual HTTP
  // HTTP admission counts each attempted write, including refused requests.
  expect(after.request_limits).not.toEqual(before.request_limits);
  delete before.request_limits;delete after.request_limits;expect(after).toEqual(before);
+ }
 });
 
 it('ARCH-002 TREE-002: ordinary placement leaves an archived sibling untouched',async()=>{

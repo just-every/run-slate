@@ -7,7 +7,8 @@ import {getDecision,decisionHistory} from '../../../src/core/features/decisions/
 import {removeMember} from '../../../src/core/features/workspace/members';
 
 async function erase(f:Awaited<ReturnType<typeof fixture>>){await archivePage(f.ctx,f.page.pageId,{operationKey:'closure-trash',expectedRevisionId:f.page.revisionId,action:'trash'});await permanentDeletePage(f.ctx,f.page.pageId,{operationKey:'closure-erase',confirmedPageIds:[f.page.pageId]});}
-test.each(['revision','citation'] as const)('decision cited through %s on unrelated host loses personal content and authority',async(store)=>{
+test('decision cited through revision or citation on unrelated host loses personal content and authority',async()=>{
+ for(const store of ['revision','citation'] as const){
  const f=await fixture(),host=await seedPage(f.page.containerId,{title:'Independent host',authorMemberId:f.owner});
  await seedPageGrant(host.pageId,{principalKind:'member',principalId:f.owner,level:'full'});
  const decisionId=`cited-decision-${store}`,revisionId=`cited-revision-${store}`;
@@ -25,6 +26,7 @@ test.each(['revision','citation'] as const)('decision cited through %s on unrela
  expect(await env.DB.prepare('SELECT content_json FROM record_revisions WHERE entity_id=?').bind(decisionId).first()).toEqual({content_json:'{}'});
  expect(JSON.stringify(await decisionHistory(f.ctx,decision.value.id))).not.toContain(canary);
  expect(await env.DB.prepare('SELECT title,deleted_at FROM pages WHERE id=?').bind(host.pageId).first()).toEqual({title:'Independent host',deleted_at:null});
+ }
 });
 
 test('fixed-point erasure follows nested skill cycles, diamonds, revisions and downstream runs while independent copies survive',async()=>{
