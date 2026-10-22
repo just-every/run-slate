@@ -67,6 +67,7 @@ export async function samlJourney(state) {
     await setSamlAssertion({ email, variant });
     if (initiated === 'sp') {
       await auth.goto(origin + '/signin', { waitUntil: 'networkidle' });
+      if (label === 'unsigned-refused') await shot(auth, 'sign-in-methods');
       await auth.getByRole('button', { name: 'Continue with SAML', exact: true }).click();
     } else await auth.goto(samlFixture.ssoUrl, { waitUntil: 'networkidle' });
     await expect(auth.getByRole('heading', { name: 'Identity verified by the test IdP', exact: true })).toBeVisible();
@@ -97,6 +98,7 @@ export async function samlJourney(state) {
     await page.getByLabel('Emergency access owner', { exact: true }).selectOption('browser-owner');
     await page.getByLabel('Enable SAML', { exact: true }).check();
     await save();
+    await shot(page, 'identity-provider-settings', page.getByLabel('Identity provider issuer', { exact: true }));
     await expect(page.getByLabel('Require SAML for members', { exact: true })).toBeDisabled();
     await shot(page, 'configured-pending-domain', page.getByRole('heading', { name: 'Domain verification', exact: true }));
     await samlSignIn({ email: jitEmail, initiated: 'idp', expected: 503, label: 'unverified-domain-refused' });
