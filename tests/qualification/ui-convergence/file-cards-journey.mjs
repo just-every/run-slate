@@ -22,7 +22,7 @@ export async function fileCardsJourney(state){
   const connection=(await ok(context,origin,'POST','/api/imports/provider-folders/connections',{operationKey:randomUUID(),provider,token:fixture.token,...(provider==='sharepoint'?{driveId:fixture.driveId}:{})})).value;
   connections.push(connection);
   await page.goto(`${origin}/app/pages/${pageId}`,{waitUntil:'networkidle'});
-  await page.getByRole('button',{name:'Add block',exact:true}).click();
+  await page.getByRole('button',{name:/Add block/}).click();
   await page.getByRole('option',{name:'Connected file',exact:true}).click();
   const picker=page.getByRole('dialog',{name:'Insert connected file',exact:true});
   await picker.getByLabel('Connected account',{exact:true}).selectOption(connection.id);
@@ -65,5 +65,5 @@ export async function fileCardsJourney(state){
  for(const connection of connections)await ok(context,origin,'DELETE',`/api/imports/provider-folders/connections/${connection.id}`,{operationKey:randomUUID(),expectedRevisionId:connection.revisionId});
  await page.reload({waitUntil:'networkidle'});await expect(page.getByRole('link',{name:'Request access',exact:true})).toHaveCount(2);await expect(page.getByRole('link',{name:'Connect your account',exact:true})).toHaveCount(2);await shot('disconnected');
  assert.deepEqual((await api(`/api/pages/${pageId}`)).blocks.filter(block=>block.blockType==='file-card').map(block=>block.content),references.map(block=>block.content));
- await page.getByRole('button',{name:'Add block',exact:true}).click();await page.getByRole('option',{name:'Connected file',exact:true}).click();await expect(page.getByRole('dialog',{name:'Insert connected file'}).getByRole('link',{name:'Connect your account',exact:true})).toBeVisible();await shot('empty-picker');await page.getByRole('dialog',{name:'Insert connected file'}).getByRole('button',{name:'Cancel',exact:true}).click();
+ await page.getByRole('button',{name:/Add block/}).click();await page.getByRole('option',{name:'Connected file',exact:true}).click();await expect(page.getByRole('dialog',{name:'Insert connected file'}).getByRole('link',{name:'Connect your account',exact:true})).toBeVisible();await shot('empty-picker');await page.getByRole('dialog',{name:'Insert connected file'}).getByRole('button',{name:'Cancel',exact:true}).click();
 }
