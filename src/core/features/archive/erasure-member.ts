@@ -15,6 +15,9 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  add("DELETE FROM provider_folder_runs WHERE workspace_id=? AND actor_id=?",w,memberId);
  add("DELETE FROM provider_folder_connections WHERE workspace_id=? AND member_id=?",w,memberId);
  add("UPDATE provider_folder_policies SET updated_by_member_id=NULL WHERE workspace_id=? AND updated_by_member_id=?",w,memberId);
+ add('UPDATE saml_provider_config SET updated_by_member_id=NULL WHERE updated_by_member_id=?',memberId);
+ add("UPDATE saml_provider_config SET break_glass_owner_id=NULL WHERE break_glass_owner_id=? AND enforced=0",memberId);
+ add("UPDATE saml_provider_config SET allowed_emails_json=COALESCE((SELECT json_group_array(value) FROM json_each(saml_provider_config.allowed_emails_json) WHERE lower(value)!=(SELECT lower(email) FROM members WHERE id=?)),'[]') WHERE workspace_id=?",memberId,w);
  add('DELETE FROM watch_edit_sessions WHERE actor_member_id=?',memberId);
  add('UPDATE task_origins SET member_id=NULL WHERE member_id=?',memberId);
  add('DELETE FROM intelligence_interruptions WHERE recipient_id=?',memberId);

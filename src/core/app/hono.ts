@@ -18,7 +18,7 @@ import type { AppEnvironment } from "./types";
 export { isHonoRequest } from "./hono-paths";
 
 /** `/api/` members that answer without a native session. Everything else does not. */
-const publicApiPaths = new Set(["/api/auth/capabilities", "/api/auth/logout", "/api/auth/magic", "/api/auth/magic/status", "/api/auth/magic/accept", "/api/auth/invitation/accept", "/api/auth/identity/callback"]);
+const publicApiPaths = new Set(["/api/auth/saml/public", "/api/auth/capabilities", "/api/auth/logout", "/api/auth/magic", "/api/auth/magic/status", "/api/auth/magic/accept", "/api/auth/invitation/accept", "/api/auth/identity/callback"]);
 
 export function createApi() {
   const app = new Hono<AppEnvironment>()
@@ -70,6 +70,7 @@ export function createApi() {
   app.notFound((context) => context.json(error("NOT_FOUND", "Not found."), 404));
 
   app.onError((cause, context) => {
+    if (String(cause).includes('SAML_BREAK_GLASS_OWNER_REQUIRED')) return context.json(error('SAML_BREAK_GLASS_OWNER_REQUIRED','Choose another emergency access owner in SAML settings before removing or changing this owner.'),409);
     if (cause instanceof ZodError) return context.json(error("INVALID_REQUEST","The request is invalid."),400);
     if (cause instanceof ApiProblem) return context.json({code:cause.code,message:cause.message,...(cause.details===undefined?{}:{details:cause.details})},cause.status);
     if (cause instanceof RuntimeConfigurationError) {

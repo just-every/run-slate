@@ -1,3 +1,5 @@
+import { nativeSamlPolicy } from './saml/policy';
+import { createSamlRoutes } from './saml/routes';
 import { ownerClaim } from "./owner-claim";
 import { Hono } from "hono";
 import { z } from "zod";
@@ -35,6 +37,7 @@ function authProblem(cause: unknown, failure?: string): never {
 
 export function createSessionRoutes() {
   return new Hono<AppEnvironment>()
+    .route("/", createSamlRoutes())
     .all("/auth/owner-claim", c => ownerClaim(c.req.raw, c.env, c.get("runtimeConfig")))
     .all(LOCAL_SETUP_PATH, async c => {
       try { return c.json(await completeNativeLocalSetup(c.req.raw, c.env.DB, c.get("runtimeConfig"), c.env.SESSION_SECRET!)); }
@@ -100,7 +103,11 @@ export function createSessionRoutes() {
       }
       const store = slateSessions(c.env.DB, config), person = await store.member("id=?", accepted.memberId);
       const completed = person && await store.issue({ person, kind: "native", now: Date.now(), returnTo: "/app", freshProof: true });
-      if (!completed) return invitationAcceptedPage("POST");
+      if (!completed) {
+        const providerRequired = person && await c.env.DB.prepare(`SELECT 1 FROM members m WHERE m.id=? AND m.status='active' AND NOT(${nativeSamlPolicy('m')})`).bind(person.id).first();
+        if (providerRequired) return c.redirect('/auth/saml/start', 303);
+        return invitationAcceptedPage("POST");
+      }
       c.header("Set-Cookie", completed.cookie);
       return c.redirect(completed.returnTo, 303);
     })

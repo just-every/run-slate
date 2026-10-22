@@ -119,7 +119,7 @@ export function SignInPage({ capabilities, requested = false, loginHint, ownerLi
           {capabilities.identityProviders.length ? (
             <div className="paper-actions">
               {capabilities.identityProviders.map((provider) => (
-                <form action={provider.start} method="post" key={provider.start}>
+                <form action={provider.start} method={provider.method ?? 'post'} key={provider.start}>
                   <button className="paper-pill" type="submit">
                     Continue with {provider.name}
                   </button>

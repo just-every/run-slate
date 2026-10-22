@@ -1,3 +1,8 @@
+import { contract } from '../../e2e/contract';
+import { createApi } from '../../../src/core/app/hono';
+import { seedWorkspace, seedMember, sessionFor } from '../../e2e/setup/fixtures';
+import { samlProviderEdge } from './saml-provider-fixture';
+import { recheckSamlDomains } from '../../../src/core/features/session/saml/domain';
 import { env, applyD1Migrations } from 'cloudflare:test';
 import { test, expect } from 'vitest';
 import { createOpaqueToken, sessionDigest } from '../../../src/core/platform/auth/token';
@@ -110,3 +115,114 @@ test('published v0.1.0 members, groups, guests and live sessions keep identity, 
   expect(await (await web.get('/api/session', cookies.owner)).json()).toMatchObject({ member: { id: owner.memberId } });
 });
 
+
+contract('ADMIN-001', 'signed SP and IdP SAML, DNS-gated invited or allow-listed JIT, enforced member SSO and one owner mailbox escape', async () => {
+  const workspaceId=(await env.DB.prepare('SELECT id FROM workspaces ORDER BY created_at,id LIMIT 1').first<{id:string}>())?.id??(await seedWorkspace()).workspaceId;
+  const owner=await seedMember(workspaceId,{role:'owner',email:'saml-owner@example.org',displayName:'SAML owner',isSetupOwner:true});
+  const member=await seedMember(workspaceId,{role:'member',email:'saml-member@example.org',displayName:'SAML member'});
+  const otherOwner=await seedMember(workspaceId,{role:'owner',email:'saml-other-owner@example.org',displayName:'Other owner'});
+  const guest=await seedMember(workspaceId,{role:'member',email:'saml-guest@outside.example',displayName:'SAML guest',isGuest:true});
+  const origin='https://slate-saml.example.org',db=env.DB,api=createApi();
+  const bindings={...env,APP_URL:origin,LOCAL_DEVELOPMENT:'false',MAIL_PROVIDER:'resend',MAIL_FROM:'Slate <mail@example.org>',MAIL_API_KEY:'test-only-mail-key',SETUP_OWNER_EMAIL:'saml-owner@example.org'};
+  const mail=captureMail(),edge=await samlProviderEdge();
+  const call=(path:string,method='GET',body?:unknown,cookie?:string)=>api.request(origin+path,{method,headers:{host:new URL(origin).host,origin,'content-type':'application/json',...(cookie?{cookie}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})},bindings);
+  const confirm=(token:string,cookie?:string)=>api.request(origin+'/auth/confirm',{method:'POST',headers:{host:new URL(origin).host,origin,'content-type':'application/x-www-form-urlencoded',...(cookie?{cookie}:{})},body:new URLSearchParams({token})},bindings);
+  const magic=async(email:string)=>{expect((await call('/api/auth/magic','POST',{email})).status).toBe(200);return mail.latestLink(email).searchParams.get('token')!;};
+  const acs=(xml:string,relay?:string,cookie?:string)=>api.request(origin+'/auth/saml/acs',{method:'POST',headers:{host:new URL(origin).host,origin:edge.ssoUrl,'sec-fetch-site':'cross-site','content-type':'application/x-www-form-urlencoded',...(cookie?{cookie}:{})},body:new URLSearchParams({SAMLResponse:Buffer.from(xml).toString('base64'),...(relay?{RelayState:relay}:{})})},bindings);
+  try{
+    const staleOwner=await sessionFor(owner.memberId),memberCookie=await sessionFor(member.memberId),otherCookie=await sessionFor(otherOwner.memberId),guestCookie=await sessionFor(guest.memberId);
+    const beforeMember=await magic('saml-member@example.org'),beforeOther=await magic('saml-other-owner@example.org');
+    const settings={idpEntityId:edge.issuer,ssoUrl:edge.ssoUrl,certificate:edge.certificate,emailDomain:'example.org',allowedEmails:['saml-jit@example.org','saml-after-dns-failure@example.org'],enabled:true,enforced:false,breakGlassOwnerId:owner.memberId};
+    expect((await call('/api/auth/saml')).status).toBe(401);
+    expect((await call('/api/auth/saml','GET',undefined,memberCookie)).status).toBe(403);
+    expect((await call('/api/auth/saml','PUT',settings,staleOwner)).status).toBe(403);
+    expect((await confirm(mail.latestLink('saml-owner@example.org').searchParams.get('token')!,staleOwner)).status).toBe(303);
+    const saved=await call('/api/auth/saml','PUT',settings,staleOwner);expect(saved.status,await saved.clone().text()).toBe(200);
+    const view=await saved.json() as {txtName:string;txtValue:string;config:{certificateConfigured:boolean;domainStatus:string}};
+    expect(view.config.certificateConfigured).toBe(true);expect(JSON.stringify(view)).not.toContain('BEGIN CERTIFICATE');
+    const newProof=()=>edge.assertion({origin,email:'saml-jit@example.org'});
+    expect((await acs(newProof())).status).toBe(503);
+    expect(await db.prepare('SELECT id FROM members WHERE email=?').bind('saml-jit@example.org').first()).toBeNull();
+    edge.dns(view.txtName,view.txtValue);
+    const verifiedDomain=await call('/api/auth/saml/verify-domain','POST',{},staleOwner);expect(verifiedDomain.status).toBe(200);
+    expect(edge.observed,await verifiedDomain.text()).toHaveLength(1);
+    const metadata=await call('/auth/saml/metadata');expect(metadata.status).toBe(200);expect(await metadata.text()).toContain(origin+'/auth/saml/acs');
+    for(const input of [{variant:'unsigned'},{variant:'wrong-signature'},{audience:'https://wrong-audience.example.org'},{recipient:'https://wrong-recipient.example.org/acs'},{expiresAt:Date.now()-1}]){
+      const refused=await acs(edge.assertion({origin,email:'saml-jit@example.org',...input}));expect(refused.status).toBe(400);expect(refused.headers.get('set-cookie')).toBeNull();
+    }
+    expect((await acs('<!DOCTYPE samlp:Response [<!ENTITY x SYSTEM "https://external.invalid">]>'+newProof())).status).toBe(400);
+    const wrapped=newProof();expect((await acs(wrapped.replace('</samlp:Response>',wrapped.match(/<saml:Assertion[\s\S]*<\/saml:Assertion>/)![0]+'</samlp:Response>'))).status).toBe(400);
+    const alternate=await samlProviderEdge();
+    try{expect((await acs(alternate.assertion({origin,email:'saml-jit@example.org'}))).status).toBe(400);}finally{alternate.restore();}
+    const started=await call('/auth/saml/start');expect(started.status).toBe(303);
+    expect(started.headers.get('set-cookie')?.startsWith('__Host-')).toBe(true);
+    expect(started.headers.get('set-cookie')).toContain('SameSite=None');expect(started.headers.get('set-cookie')).toContain('; Secure');expect(started.headers.get('set-cookie')).toContain('; HttpOnly');
+    const request=edge.requestId(started),correlated=edge.assertion({origin,email:'saml-jit@example.org',requestId:request.id});
+    expect((await acs(correlated,request.relay)).status).toBe(400);
+    expect((await acs(correlated,undefined,request.cookie)).status).toBe(400);
+    const admitted=await acs(correlated,request.relay,request.cookie);expect(admitted.status).toBe(303);
+    const samlCookie=cookieOf(admitted);
+    expect(await (await call('/api/session','GET',undefined,samlCookie)).json()).toMatchObject({member:{email:'saml-jit@example.org'}});
+    expect((await acs(correlated,request.relay,request.cookie)).status).toBe(400);
+    const idp=await acs(newProof());expect(idp.status).toBe(303);expect((await acs(newProof(),'invented-state')).status).toBe(400);
+    const outsider=await acs(edge.assertion({origin,email:'not-allowed@example.org'}));expect(outsider.status).toBe(403);
+    const inviteResponse=await call('/api/invitations','POST',{operationKey:'saml-invite-'+crypto.randomUUID(),email:'saml-invited@example.org',kind:'member'},staleOwner);
+    expect(inviteResponse.status).toBe(200);
+    expect((await acs(edge.assertion({origin,email:'saml-invited@example.org'}))).status).toBe(303);
+    // The incumbent OIDC provider still works beside unenforced SAML; its
+    // existing session and a fresh callback cannot bypass SAML enforcement.
+    const oidcIssuer='https://oidc-beside-saml.example.org';
+    const oidcBindings={...bindings,SSO_ENABLED:'true',RER_DEV_KEY:'test-only-oidc-key'.padEnd(43,'k'),IDENTITY_ISSUER_URL:oidcIssuer,IDENTITY_CLIENT_ID:'saml-neighbour',IDENTITY_CLIENT_SECRET:'test-only-neighbour-secret',IDENTITY_AUTHORIZATION_ENDPOINT:oidcIssuer+'/authorize',IDENTITY_TOKEN_ENDPOINT:oidcIssuer+'/token',IDENTITY_JWKS_URI:oidcIssuer+'/keys',IDENTITY_TRANSACTION_SECRET:'test-only-neighbour-transaction-secret32+'};
+    const oidcFixture={api,origin,bindings:oidcBindings} as Fixture;
+    const oidc=await providerEdge(oidcFixture);let oidcCookie:string;
+    try{const callback=await (await oidc.signIn({subject:'saml-neighbour-member',email:'saml-member@example.org'})).complete();expect(callback.status).toBe(303);oidcCookie=cookieOf(callback);}finally{oidc.restore();}
+    expect((await api.request(origin+'/api/session',{headers:{host:new URL(origin).host,cookie:oidcCookie!}},oidcBindings)).status).toBe(200);
+    const nativeInviteResponse=await call('/api/invitations','POST',{operationKey:'saml-native-invite-'+crypto.randomUUID(),email:'saml-native-invite@example.org',kind:'member'},staleOwner);
+    expect(nativeInviteResponse.status).toBe(200);const nativeInvitation=mail.latestLink('saml-native-invite@example.org');
+    expect((await call('/api/auth/saml','PUT',{...settings,certificate:undefined,enforced:true},staleOwner)).status).toBe(200);
+    expect((await api.request(origin+'/api/session',{headers:{host:new URL(origin).host,cookie:oidcCookie!}},oidcBindings)).status).toBe(401);
+    const enforcedOidc=await providerEdge(oidcFixture);
+    try{const callback=await (await enforcedOidc.signIn({subject:'saml-neighbour-owner',email:'saml-other-owner@example.org'})).complete();expect(callback.status).toBe(400);expect(callback.headers.getSetCookie().some(value=>value.startsWith('slate_session='))).toBe(false);expect(await db.prepare('SELECT member_id FROM member_identity_bindings WHERE issuer=? AND subject=?').bind(oidcIssuer,'saml-neighbour-owner').first()).toBeNull();}finally{enforcedOidc.restore();}
+    expect((await call('/api/session','GET',undefined,memberCookie)).status).toBe(401);
+    expect((await call('/api/session','GET',undefined,otherCookie)).status).toBe(401);
+    expect((await call('/api/session','GET',undefined,guestCookie)).status).toBe(200);
+    expect((await call('/api/session','GET',undefined,staleOwner)).status).toBe(200);
+    expect((await call('/api/session','GET',undefined,samlCookie)).status).toBe(401); // Config generation ended old provider sessions.
+    expect((await confirm(beforeMember)).status).toBe(403);expect((await confirm(beforeOther)).status).toBe(400);
+    expect((await db.prepare("SELECT used_at FROM auth_proofs WHERE member_id=? AND kind='magic'").bind(member.memberId).first())?.used_at).toBeNull();
+    const count=(await db.prepare("SELECT count(*) AS n FROM auth_proofs WHERE kind='magic'").first<{n:number}>())!.n;
+    expect((await call('/api/auth/magic','POST',{email:'saml-member@example.org'})).status).toBe(200);
+    expect((await call('/api/auth/magic','POST',{email:'saml-other-owner@example.org'})).status).toBe(200);
+    expect((await db.prepare("SELECT count(*) AS n FROM auth_proofs WHERE kind='magic'").first<{n:number}>())!.n).toBe(count);
+    for(const email of ['saml-owner@example.org','saml-guest@outside.example'])expect((await confirm(await magic(email))).status).toBe(303);
+    const nativeInvite=await api.request(nativeInvitation.toString(),{method:'POST',headers:{host:new URL(origin).host,origin,'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({token:nativeInvitation.searchParams.get('token')!})},bindings);
+    expect(nativeInvite.headers.get('set-cookie')).toBeNull();expect(nativeInvite.status).toBe(303);expect(nativeInvite.headers.get('location')).toBe('/auth/saml/start');
+    const nativeInvitePerson=await db.prepare('SELECT id FROM members WHERE email=?').bind('saml-native-invite@example.org').first<{id:string}>();
+    expect(nativeInvitePerson).not.toBeNull();expect(await db.prepare('SELECT id FROM sessions WHERE member_id=?').bind(nativeInvitePerson!.id).first()).toBeNull();
+    const memberSaml=await acs(edge.assertion({origin,email:'saml-member@example.org'}));expect(memberSaml.status).toBe(303);
+    // Step-up remains an email proof of the asking SAML session, not a new email session.
+    const memberSamlCookie=cookieOf(memberSaml);
+    expect((await call('/auth/step-up','POST',{action:'export',returnTo:'/app'},memberSamlCookie)).status).toBe(202);
+    expect((await confirm(mail.latestLink('saml-member@example.org').searchParams.get('token')!,memberSamlCookie)).status).toBe(303);
+    expect((await call('/api/session','GET',undefined,memberSamlCookie)).status).toBe(200);
+    edge.unpublish();
+    await db.prepare('UPDATE saml_provider_config SET domain_checked_at=?').bind(Date.now()-86_400_001).run();
+    expect((await acs(edge.assertion({origin,email:'saml-after-dns-failure@example.org'}))).status).toBe(503);
+    await recheckSamlDomains(db);
+    expect(edge.observed).toHaveLength(2);
+    expect(await db.prepare('SELECT domain_status,domain_checked_at FROM saml_provider_config').first()).toMatchObject({domain_status:'failed',domain_checked_at:expect.any(Number)});
+    const notice=await call('/api/notifications','GET',undefined,staleOwner);expect(notice.status).toBe(200);expect(JSON.stringify(await notice.json())).toContain('SAML domain verification failed');
+    expect((await acs(edge.assertion({origin,email:'saml-after-dns-failure@example.org'}))).status).toBe(503);
+    expect((await acs(edge.assertion({origin,email:'saml-member@example.org'}))).status).toBe(303);
+    const breakGlassChange=await call(`/api/members/${owner.memberId}/role`,'PUT',{operationKey:'saml-break-glass-change-'+crypto.randomUUID(),expectedRole:'owner',role:'member'},staleOwner);
+    expect(breakGlassChange.status).toBe(409);expect(await breakGlassChange.json()).toMatchObject({code:'SAML_BREAK_GLASS_OWNER_REQUIRED'});
+    expect(await db.prepare('SELECT role,status FROM members WHERE id=?').bind(owner.memberId).first()).toEqual({role:'owner',status:'active'});
+    const jit=await db.prepare('SELECT id FROM members WHERE email=?').bind('saml-jit@example.org').first<{id:string}>();
+    const erased=await call('/api/members/remove','POST',{operationKey:'saml-jit-erasure-'+crypto.randomUUID(),memberId:jit!.id,erase:true},staleOwner);
+    expect(erased.status,await erased.clone().text()).toBe(200);
+    const erasedConfig=await call('/api/auth/saml','GET',undefined,staleOwner);
+    expect(JSON.stringify(await erasedConfig.json())).not.toContain('saml-jit@example.org');
+    expect(await db.prepare('SELECT member_id FROM member_identity_bindings WHERE member_id=?').bind(jit!.id).first()).toBeNull();
+    expect((await db.prepare('PRAGMA foreign_key_check').all()).results).toEqual([]);
+  }finally{edge.restore();mail.restore();}
+});

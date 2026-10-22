@@ -71,3 +71,13 @@ rer deploy --environment production --remove --yes
 ```
 
 Rer reads back that none of them is still listed. A bucket that still holds files stays until it is empty; run the command again to finish. Resources rer did not create are never touched.
+
+## SAML single sign-on
+
+A workspace owner can open **Settings → SAML SSO** and enter the identity provider’s entity ID, sign-in URL and public signing certificate. Copy Slate’s entity ID, assertion-consumer URL and metadata URL into the provider. Slate sends unsigned sign-in requests and requires signed assertions. Real Okta, Microsoft Entra and other provider acceptance has not been run for this build.
+
+Choose the email domain and publish the TXT record shown under **Domain verification**. Select **Check domain**. Keep the record in DNS: Slate checks it daily. An unsuccessful check stops new just-in-time account creation and places a notice in each owner’s inbox; existing members can still use SAML.
+
+New members must have a valid invitation or an exact email address in the allowlist, within the verified domain. A signed assertion alone grants no membership. Before selecting **Require SAML for members**, choose one active owner for the email break-glass path. Full members, including other owners, then use SAML. Guests keep email links, and only the designated owner keeps an owner email path. Previously issued member email links and sessions cannot bypass enforcement. Reassign that owner before removing them.
+
+OIDC remains available while SAML enforcement is off. Saving SAML settings ends existing SAML sessions so people sign in under the current configuration. Backups exclude provider trust and pending sign-in authority; configure and verify SAML again after a restore.

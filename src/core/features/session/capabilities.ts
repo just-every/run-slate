@@ -1,8 +1,10 @@
+import { readSamlConfig } from './saml/storage';
 import type { RuntimeConfig } from '../../platform/config/runtime';
 
 export interface SignInIdentityProvider {
   name: string;
-  start: '/auth/oidc/identity/start' | '/auth/oidc/auth/start';
+  start: '/auth/oidc/identity/start' | '/auth/oidc/auth/start' | '/auth/saml/start';
+  method?: 'get' | 'post';
 }
 
 export interface SignInCapabilities {
@@ -28,10 +30,13 @@ export function signInCapabilities(config: RuntimeConfig): SignInCapabilities {
 export async function storedSignInCapabilities(db: D1Database, config: RuntimeConfig): Promise<SignInCapabilities> {
   const capabilities = signInCapabilities(config);
   const policy = await db.prepare('SELECT COALESCE(idp_sign_in,?) AS enabled FROM auth_identity_policy WHERE id=1').bind(Number(!!config.identityProvider)).first<{ enabled: number }>();
-  if (!policy?.enabled) return { ...capabilities, identityProvider: false, identityProviders: [] };
+  const saml = await readSamlConfig(db);
+  const samlProviders: SignInIdentityProvider[] = saml?.enabled ? [{ name: 'SAML', start: '/auth/saml/start', method: 'get' }] : [];
+  if (!policy?.enabled) return { ...capabilities, identityProvider: samlProviders.length > 0, identityProviders: samlProviders, identityProviderStart: samlProviders[0]?.start };
   const linked = await db.prepare("SELECT 1 FROM rer_dependency_link l JOIN oa_identity_providers p ON p.provider_id='auth' AND p.issuer=l.issuer AND p.client_id=l.client_id AND p.status='linked' WHERE l.interface='oidc-provider@1' AND l.needs_relink=0").first();
   const identityProviders: SignInIdentityProvider[] = [
     ...capabilities.identityProviders,
+    ...samlProviders,
     ...(linked ? [{ name: 'Auth', start: '/auth/oidc/auth/start' as const }] : []),
   ];
   return {

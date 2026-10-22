@@ -10,17 +10,19 @@ import { accessible, insideViewport, withinViewport } from './browser-evidence.m
 import { initializeSlackEdge, setSlackFailure, readSlackMessages, setTeamsFailure, readTeamsMessages } from '../../helpers/slack-edge.mjs';
 import { initializeS3Edge, setS3Failure, readS3Requests, readS3Objects } from '../../helpers/s3-edge.mjs';
 import { initializeFolderEdge, readFolderRequests } from '../../helpers/folder-edge.mjs';
+import { initializeSamlEdge, installSamlIdp, setSamlDns, setSamlAssertion, readSamlRequests } from '../../helpers/saml-edge.mjs';
 export { accessible } from './browser-evidence.mjs';
 
 /** Test-only identity records replace mailbox possession, never successful API responses. */
 /** `scheduled` exposes the Worker's own cron handler, which a journey fires in place of waiting for the clock. */
-export async function withWorkspace(viewport, profile, run, overrides = {}, { scheduled = false, slack = false, backups = false, folders = false } = {}) {
+export async function withWorkspace(viewport, profile, run, overrides = {}, { scheduled = false, slack = false, backups = false, folders = false, saml = false } = {}) {
   const scratchRoot = path.join(root, '.artifacts/ui-convergence');
   await mkdir(scratchRoot, { recursive: true });
   const state = await mkdtemp(path.join(scratchRoot, 'state-'));
   const network = [], consoleErrors = [], modelRequests = [], captures = new Set();
   let runtime, browser;
   try {
+    const samlFixture = saml ? await initializeSamlEdge(state) : undefined;
     if (slack) await initializeSlackEdge(state);
     if (backups) await initializeS3Edge(state);
     if (folders) await initializeFolderEdge(state);
@@ -53,6 +55,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
     const rasterArgs = ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--disable-gpu-rasterization', '--disable-lcd-text', '--font-render-hinting=none', '--force-color-profile=srgb', '--num-raster-threads=1', '--disable-partial-raster', '--disable-skia-runtime-opts'];
     browser = await chromium.launch({ headless: true, args: ['--use-mock-keychain', '--password-store=basic', ...rasterArgs] });
     const context = await browser.newContext({ viewport, permissions: ['clipboard-read', 'clipboard-write'], locale: 'en-US' });
+    if (saml) await installSamlIdp(context, state, runtime.baseUrl);
     await context.addCookies([{ name: 'slate_session', value: token, url: runtime.baseUrl }]);
     const page = await context.newPage();
     context.on('request', request => {
@@ -148,6 +151,8 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
         assertNoConsoleErrors: () => assert.deepEqual(consoleErrors, [], 'The browser must have no console errors or uncaught page errors.'),
         ...(backups ? { setS3Failure: failure => setS3Failure(state, failure), readS3Requests: () => readS3Requests(state), readS3Objects: () => readS3Objects(state) } : {}),
         ...(folders ? { readFolderRequests: () => readFolderRequests(state) } : {}),
+        ...(saml ? { samlFixture, installSamlIdp: nextContext => installSamlIdp(nextContext, state, runtime.baseUrl),
+          setSamlDns: value => setSamlDns(state, value), setSamlAssertion: value => setSamlAssertion(state, value), readSamlRequests: () => readSamlRequests(state) } : {}),
         ...(slack ? { setSlackFailure: failure => setSlackFailure(state, failure), readSlackMessages: () => readSlackMessages(state), setTeamsFailure: failure => setTeamsFailure(state, failure), readTeamsMessages: () => readTeamsMessages(state) } : {}) });
     } catch (cause) {
       await accessible(page, `${profile} journey failure`).catch(() => {});

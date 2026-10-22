@@ -5,6 +5,7 @@ import { productionModules } from '@runeditrun/rer/production-modules';
 import { slackEdge, teamsEdge } from '../helpers/slack-edge.mjs';
 import { s3Edge } from '../helpers/s3-edge.mjs';
 import { folderEdge } from '../helpers/folder-edge.mjs';
+import { samlEdge } from '../helpers/saml-edge.mjs';
 
 // Use the same Wrangler conversion and module loader as Base productionRuntime,
 // with the qualification's isolated configuration, bindings and persistence.
@@ -24,6 +25,8 @@ const worker = { ...workerOptions, name: config.name,
   ...await productionModules(selected.main, modulesRules, miniflare),
   bindings: { ...workerOptions.bindings, ...vars, ...mail },
   outboundService: async request => {
+    const saml = await samlEdge(request, persistPath, miniflare.Response);
+    if (saml) return saml;
     const folder = await folderEdge(request, persistPath, miniflare.Response);
     if (folder) return folder;
     const s3 = await s3Edge(request, persistPath, miniflare.Response);

@@ -1,3 +1,4 @@
+import { nativeSamlPolicy } from '../saml/policy';
 import type { NativeProofPersistence } from '../../../../../modules/operator-auth/identity/email-link/index.mjs';
 import { mutationGuard } from '../../../app/operations';
 import { actorFence, guard, personFence, TENANT, version, type SessionStore, type SlatePerson, type SlateRole } from './store';
@@ -26,8 +27,8 @@ export function createNativeProofs(store: SessionStore): NativeProofPersistence<
       const person = await store.member('id=?', record.operatorId);
       if (!person || person.status !== 'active' || person.version !== record.expectedVersion) return false;
       const fence = personFence(person);
-      return inserted(await db.prepare(`INSERT INTO auth_proofs (id,hash,kind,member_id,authority_version,email,return_to,created_at,expires_at) SELECT ?,?,'magic',?,?,?,?,?,? WHERE ${fence.sql}`)
-        .bind(record.id, record.hash, person.id, person.version, person.email, record.returnTo, record.now, record.expiresAt, ...fence.args).run());
+      return inserted(await db.prepare(`INSERT INTO auth_proofs (id,hash,kind,member_id,authority_version,email,return_to,created_at,expires_at) SELECT ?,?,'magic',?,?,?,?,?,? WHERE ${fence.sql} AND EXISTS(SELECT 1 FROM members m WHERE m.id=? AND ${nativeSamlPolicy('m')})`)
+        .bind(record.id, record.hash, person.id, person.version, person.email, record.returnTo, record.now, record.expiresAt, ...fence.args, person.id).run());
     },
     async preview(digest, now) {
       const row = await live(digest, now, 'magic');

@@ -21,7 +21,7 @@ export function SignInScreen({
   onUseAnotherAddress,
   submitting = false,
   deliveryError,
-  lede = "Use your email address to get a one-time sign-in link.",
+  lede,
   identityProviders = [],
   className,
 }: {
@@ -40,6 +40,7 @@ export function SignInScreen({
   className?: string;
 }) {
   const fieldId = useId();
+  const samlAvailable = identityProviders.some(provider => provider.start === '/auth/saml/start');
   const showsForm =
     state === "request" ||
     state === "link-expired" ||
@@ -62,7 +63,7 @@ export function SignInScreen({
             {state === "sent" ? "Check your email" : "Sign in"}
           </h1>
 
-          {state === "request" ? <p className="paper-lede">{lede}</p> : null}
+          {state === "request" ? <p className="paper-lede">{lede ?? (samlAvailable ? 'Use your workspace sign-in method, or request an email sign-in link.' : 'Use your email address to get a one-time sign-in link.')}</p> : null}
 
           {state === "link-expired" ? (
             <p className="paper-lede">
@@ -142,7 +143,7 @@ export function SignInScreen({
           {identityProviders.length ? (
             <div className="paper-actions">
               {identityProviders.map((provider) => (
-                <form action={provider.start} method="post" key={provider.start}>
+                <form action={provider.start} method={provider.method ?? 'post'} key={provider.start}>
                   <button className="paper-pill paper-pill--quiet" type="submit">
                     Continue with {provider.name}
                   </button>
@@ -153,8 +154,9 @@ export function SignInScreen({
 
 
           <p className="paper-note">
-            Slate stores no password, so there is nothing to reset. Access to your
-            mailbox is what signs you in.
+            {samlAvailable
+              ? 'If your workspace requires SAML, members sign in through the identity provider. Email sign-in remains available for guests and emergency access.'
+              : 'Slate stores no password, so there is nothing to reset. Access to your mailbox is what signs you in.'}
           </p>
         </div>
         <PaperScene />

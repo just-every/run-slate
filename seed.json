@@ -527,6 +527,13 @@
       "clauses": [
         "IMP-009"
       ]
+    },
+    {
+      "id": "saml-single-sign-on",
+      "description": "Owner-configured signed SAML SP and IdP sign-in, DNS-verified invited or allow-listed admission, enforced member SSO, guest email access and one designated owner break-glass path. Real provider acceptance remains pending.",
+      "clauses": [
+        "ADMIN-001"
+      ]
     }
   ],
   "nonGoals": [

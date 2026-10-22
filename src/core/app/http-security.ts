@@ -5,6 +5,9 @@ import { requestHash } from './request-hash';
 /** Browser cookies are accepted only from this deployment; absent Origin is allowed for native API callers. */
 export function assertRequestOrigin(c:Context<AppEnvironment>){
   if(['GET','HEAD','OPTIONS'].includes(c.req.method)&&c.req.header('upgrade')?.toLowerCase()!=='websocket')return;
+  // SAML's signed assertion and correlated request/replay checks authorize this
+  // one cross-origin POST; every other auth mutation keeps the origin fence.
+  if(c.req.method==='POST' && new URL(c.req.url).pathname==='/auth/saml/acs')return;
   const origin=c.req.header('origin'),expected=new URL(c.req.url).origin;
   if(origin&&origin!==expected)throw new ApiProblem(403,'ORIGIN_DENIED','This request origin is not allowed.');
   const site=c.req.header('sec-fetch-site');

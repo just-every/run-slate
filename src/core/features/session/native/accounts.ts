@@ -1,3 +1,4 @@
+import { nativeSamlPolicy } from '../saml/policy';
 import type { NativeAccountsAdapter } from '../../../../../modules/operator-auth/accounts/native.mjs';
 import { clearSessionCookie } from '../../../platform/auth/cookie';
 import { mutationGuard } from '../../../app/operations';
@@ -45,8 +46,12 @@ export function createNativeAccounts(store: SessionStore, input: { clock: () => 
       if (input.providerFingerprint !== null) await db.prepare('UPDATE auth_identity_policy SET generation=generation+1,fingerprint=? WHERE id=1 AND fingerprint IS NOT ?').bind(input.providerFingerprint, input.providerFingerprint).run();
       return (await db.prepare('SELECT generation FROM auth_identity_policy WHERE id=1').first<{ generation: number }>())!.generation;
     },
-    // Slate has no domain rules: every member may use email or the configured provider.
-    async requiredProvider() { return null; },
+    // Base's email admission names the provider; native proof/issue guards also
+    // enforce it for owners and for links issued before enforcement.
+    async requiredProvider(email) {
+      const required = await db.prepare(`SELECT 1 FROM members m WHERE m.workspace_id=${TENANT} AND lower(m.email)=lower(?) AND NOT(${nativeSamlPolicy('m')})`).bind(email).first();
+      return required ? 'saml' : null;
+    },
     async currentBoundSubject({ personId, issuer }) {
       const rows = (await db.prepare('SELECT subject FROM member_identity_bindings WHERE issuer=? AND member_id=?').bind(issuer, personId).all<{ subject: string }>()).results;
       return rows.length === 1 ? rows[0]!.subject : null;

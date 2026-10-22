@@ -1,3 +1,4 @@
+import { samlJourney } from './saml-journey.mjs';
 import { folderJourney } from './folder-journey.mjs';
 import {tablesJourney} from './tables-journey.mjs';
 import {providerEmbedsJourney} from './provider-embeds-journey.mjs';
@@ -229,4 +230,11 @@ for (const width of [1440, 390]) {
       await askDraftJourney(state);
     });
   });
+  test(`SAML sign-in verifies the domain and signatures while preserving guest and designated-owner access at ${width}px`, { timeout: 180000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await samlJourney(state);
+    }, {}, { scheduled: true, saml: true });
+  });
+
 }

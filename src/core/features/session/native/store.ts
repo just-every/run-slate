@@ -1,3 +1,4 @@
+import { nativeSamlPolicy, sessionSamlPolicy, samlSessionValid } from '../saml/policy';
 import { personDisplayName, personInitials } from '../../../shared/person-identity';
 import type { AuthenticatedMember } from "../../../app/types";
 import type { CompletedSession, Session } from '../../../../../modules/operator-auth/index.mjs';
@@ -10,7 +11,7 @@ import { createUlid } from '../../../shared/ulid';
 
 export type SlateRole = 'owner' | 'member';
 export type SlatePerson = NativePerson<SlateRole> & { memberKind: 'member' | 'guest' };
-export type SlateSession = Omit<Session<SlateRole>, 'operator'> & { operator: SlatePerson; hash: string; member: AuthenticatedMember };
+export type SlateSession = Omit<Session<SlateRole>, 'operator'> & { operator: SlatePerson; hash: string; member: AuthenticatedMember; authProtocol: 'saml' | null };
 
 /**
  * The installation's workspace, selected by the server and never by identity
@@ -57,7 +58,7 @@ const PROVIDER_SESSION = `(s.created_at>? AND s.provider_generation=(SELECT gene
  */
 export function actorFence(actor: { id: string; operator: { id: string; version: number } }, now: number, identityEnabled: boolean) {
   return {
-    sql: `EXISTS(SELECT 1 FROM sessions s JOIN members m ON m.id=s.member_id WHERE s.id=? AND m.id=? AND m.workspace_id=${TENANT} AND ${version('m')}=? AND m.status='active' AND s.revoked_at IS NULL AND s.expires_at>? AND (s.kind IS NULL OR s.authority_version=${version('m')}) AND (s.kind IS NOT 'oidc' OR (${identityPolicy} AND ${PROVIDER_SESSION})))`,
+    sql: `EXISTS(SELECT 1 FROM sessions s JOIN members m ON m.id=s.member_id WHERE s.id=? AND m.id=? AND m.workspace_id=${TENANT} AND ${version('m')}=? AND m.status='active' AND s.revoked_at IS NULL AND s.expires_at>? AND (s.kind IS NULL OR s.authority_version=${version('m')}) AND ${sessionSamlPolicy('s','m')} AND ${samlSessionValid('s','m')} AND (s.kind IS NOT 'oidc' OR (${identityPolicy} AND ${PROVIDER_SESSION})))`,
     args: [actor.id, actor.operator.id, actor.operator.version, iso(now), Number(identityEnabled), Number(identityEnabled), iso(now - LIFETIME.oidc)],
   };
 }
@@ -71,7 +72,7 @@ export interface SessionStore {
   readonly identityEnabled: boolean;
   member(sql: string, ...args: (string | number)[]): Promise<SlatePerson | null>;
   read(request: Request, now: number): Promise<SlateSession | null>;
-  issue(input: { person: SlatePerson; kind: 'native' | 'oidc' | 'dev'; now: number; returnTo?: string; statements?: D1PreparedStatement[]; principal?: ProviderPrincipal; freshProof?: boolean }): Promise<CompletedSession<SlateRole> | null>;
+  issue(input: { person: SlatePerson; kind: 'native' | 'oidc' | 'dev'; now: number; returnTo?: string; statements?: D1PreparedStatement[]; principal?: ProviderPrincipal; freshProof?: boolean; saml?: { generation: number } }): Promise<CompletedSession<SlateRole> | null>;
   revokeToken(request: Request, now: number): Promise<void>;
   cookie(token: string, expiresAt: string): string;
 }
@@ -89,34 +90,39 @@ export function sessionStore(db: D1Database, input: { secret: string; secure: bo
     async read(request, now) {
       const token = readCookie(request.headers, SESSION_COOKIE_NAME);
       if (!token) return null;
-      const row = await db.prepare(`SELECT s.id AS session_id,s.kind,s.created_at AS session_created_at,s.expires_at,s.issuer,s.subject,s.sid,s.token_digest,m.*,w.name AS workspace_name,${version('m')} AS authority_version FROM sessions s JOIN members m ON m.id=s.member_id JOIN workspaces w ON w.id=m.workspace_id
+      const row = await db.prepare(`SELECT s.id AS session_id,s.kind,s.auth_protocol,s.created_at AS session_created_at,s.expires_at,s.issuer,s.subject,s.sid,s.token_digest,m.*,w.name AS workspace_name,${version('m')} AS authority_version FROM sessions s JOIN members m ON m.id=s.member_id JOIN workspaces w ON w.id=m.workspace_id
         WHERE s.token_digest=? AND m.workspace_id=${TENANT} AND s.revoked_at IS NULL AND s.expires_at>? AND m.status='active'
-          AND (s.kind IS NULL OR s.authority_version=${version('m')}) AND (s.kind IS NOT 'oidc' OR (${identityPolicy} AND ${PROVIDER_SESSION}))`)
+          AND (s.kind IS NULL OR s.authority_version=${version('m')}) AND ${sessionSamlPolicy('s','m')} AND ${samlSessionValid('s','m')} AND (s.kind IS NOT 'oidc' OR (${identityPolicy} AND ${PROVIDER_SESSION}))`)
         .bind(await sessionDigest(secret, token), iso(now), Number(identityEnabled), Number(identityEnabled), iso(now - LIFETIME.oidc))
-        .first<MemberRow & { workspace_id: string; workspace_name: string; initials: string; session_id: string; kind: SlateSession['kind'] | null; session_created_at: string; expires_at: string; issuer: string | null; subject: string | null; sid: string | null; token_digest: string }>();
+        .first<MemberRow & { workspace_id: string; workspace_name: string; initials: string; session_id: string; kind: SlateSession['kind'] | null; auth_protocol: 'saml' | null; session_created_at: string; expires_at: string; issuer: string | null; subject: string | null; sid: string | null; token_digest: string }>();
       if (!row) return null;
       // A dev session counts only on a request that passes the local key gate.
       if (row.kind === 'dev' && !await input.devAdmitted(request)) return null;
       return {
         member: { id:row.id, workspaceId:row.workspace_id, workspaceName:row.workspace_name, email:row.email, displayName:personDisplayName(row.display_name,row.email), initials:personInitials(row.display_name,row.email), role:row.role },
-        hash: row.token_digest, id: row.session_id, kind: row.kind ?? 'native', operatorId: row.id, operator: personOf(row)!,
+        authProtocol: row.auth_protocol, hash: row.token_digest, id: row.session_id, kind: row.kind ?? 'native', operatorId: row.id, operator: personOf(row)!,
         createdAt: Date.parse(row.session_created_at), expiresAt: Date.parse(row.expires_at),
         ...(row.issuer ? { issuer: row.issuer, subject: row.subject ?? undefined, sid: row.sid ?? undefined } : {}),
       };
     },
-    async issue({ person, kind, now, returnTo, statements = [], principal, freshProof = false }) {
-      const id = createUlid(), token = createOpaqueToken(), createdAt = iso(now), expiresAt = iso(now + LIFETIME[kind]);
+    // SAML is a native-adapter session with an explicit protocol marker. Base's
+    // oidc kind belongs only to its OIDC policy toggle. The SAML marker keeps
+    // its own provider generation, binding, enforcement and 24-hour lifetime.
+    async issue({ person, kind, now, returnTo, statements = [], principal, freshProof = false, saml }) {
+      const id = createUlid(), token = createOpaqueToken(), createdAt = iso(now), expiresAt = iso(now + (saml ? LIFETIME.oidc : LIFETIME[kind]));
       try {
         await db.batch([
-          guard(db, personFence(person)),
           ...statements,
-          db.prepare(`INSERT INTO sessions (id,member_id,token_digest,created_at,updated_at,expires_at,kind,authority_version,issuer,subject,sid,provider_id,provider_linked_at,provider_generation,proof_at,proof_version)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).bind(id, person.id, await sessionDigest(secret, token), createdAt, createdAt, expiresAt, kind, person.version,
+          guard(db, personFence(person)),
+          ...(!saml ? [mutationGuard(db, `SELECT ${nativeSamlPolicy('m')} FROM members m WHERE m.id=?`, [person.id])] : []),
+          ...(saml ? [mutationGuard(db, `SELECT enabled=1 AND generation=? FROM saml_provider_config WHERE workspace_id=${TENANT}`, [saml.generation])] : []),
+          db.prepare(`INSERT INTO sessions (id,member_id,token_digest,created_at,updated_at,expires_at,kind,authority_version,issuer,subject,sid,provider_id,provider_linked_at,provider_generation,proof_at,proof_version,auth_protocol,saml_generation)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).bind(id, person.id, await sessionDigest(secret, token), createdAt, createdAt, expiresAt, kind, person.version,
             principal?.issuer ?? null, principal?.subject ?? null, principal?.sid ?? null, principal?.providerPin?.id ?? null, principal?.providerPin?.linkedAt ?? null,
-            principal?.providerGeneration ?? null, freshProof ? now : null, freshProof ? person.version : null),
+            principal?.providerGeneration ?? null, freshProof ? now : null, freshProof ? person.version : null, saml ? 'saml' : null, saml?.generation ?? null),
         ]);
       } catch (cause) {
-        if (String(cause).includes('core_write_guards') || String(cause).includes('CHECK constraint')) return null;
+        if (String(cause).includes('core_write_guards') || String(cause).includes('CHECK constraint') || String(cause).includes('UNIQUE constraint')) return null;
         throw cause;
       }
       return { session: { id, kind, createdAt: now, expiresAt: Date.parse(expiresAt) }, operator: person, cookie: cookie(token, expiresAt), returnTo: safeAppPath(returnTo) };

@@ -1,3 +1,4 @@
+import { recheckSamlDomains } from '../features/session/saml/domain';
 import {scheduledBackups} from '../features/backups/scheduled';
 import { readLaunchProfile, isFlagshipJob } from "../platform/config/launch-profile";
 import { ApiProblem } from "./problems";
@@ -30,6 +31,7 @@ export async function consumeJobs(batch:MessageBatch<unknown>,env:AppBindings){
 export async function scheduledJobs(env:AppBindings){
   const flagship = readLaunchProfile(env.SLATE_PROFILE) === 'flagship';
   const tasks: [string, () => Promise<unknown>][] = [
+    ['saml-domains', () => recheckSamlDomains(env.DB)],
     ['content', () => runContentJobs(env)],
     ['backups', () => scheduledBackups(env)],
     // STAT-007: nightly verification rules, in every profile.

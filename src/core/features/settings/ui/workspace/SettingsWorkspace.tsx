@@ -11,12 +11,14 @@ import { WorkspacePreferences } from "./WorkspacePreferences";
 import { AppearancePanel } from "./AppearancePanel";
 import { PortabilityPanel } from "./PortabilityPanel";
 import { MembersPanel } from "./MembersPanel";
+import { SamlSettings } from "./SamlSettings";
 import { TopBar } from "../../../../app/ui/header/TopBar";
 import { PageTitle } from "../../../../app/ui/header/PageTitle";
 import { Link, useSearch } from "@tanstack/react-router";
 const sections = [
   ["workspace", "Workspace"],
   ["members", "People"],
+  ["saml", "SAML single sign-on"],
   ["appearance", "Appearance"],
   ["preferences", "Preferences"],
   ["activity", "Activity"],
@@ -76,6 +78,8 @@ export function SettingsWorkspace() {
           <PersonalPreferences />
         ) : section === "members" ? (
           <MembersPanel />
+        ) : section === "saml" ? (
+          <SamlSettings />
         ) : section === "appearance" ? (
           <AppearancePanel />
         ) : section === "connections" ? (
