@@ -49,7 +49,11 @@ export async function samlJourney(state) {
     return response.json();
   };
   const settings = () => page.goto(origin + '/app/settings?section=saml', { waitUntil: 'networkidle' });
-  const save = () => mutation('/api/auth/saml', 'PUT', () => page.getByRole('button', { name: 'Save SAML settings', exact: true }).click());
+  const save = async () => {
+    const result = await mutation('/api/auth/saml', 'PUT', () => page.getByRole('button', { name: 'Save SAML settings', exact: true }).click());
+    await expect(page.getByText('SAML settings saved.', { exact: true })).toBeVisible();
+    return result;
+  };
   const requestMagic = async email => {
     const before = await inbox(origin);
     const response = await fetch(origin + '/api/auth/magic', { method: 'POST', headers: { origin, 'content-type': 'application/json' }, body: JSON.stringify({ email, requestKey: randomUUID() }) });
