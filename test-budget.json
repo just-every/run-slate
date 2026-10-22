@@ -1,20 +1,14 @@
 {
   "defaultCap": 200,
-  "registrations": 817,
-  "scope": "All seed-owned registrations under tests/, including node:test, Vitest, contract wrappers, browser and qualification journeys; vendored modules are excluded.",
-  "reason": "The former 253 figure counted supporting-regression registry identities, not all seed registrations. The corrected static AST inventory includes eight nested node:test context registrations: 833 seed registrations before the trim. Same-behaviour matrices reduce that inventory while every one of the original 5944 assertion expressions remains. New backup, provider-folder and SAML journeys are offset by further same-behaviour merges; the final measured total is 817. Independent acceptance, migration/restore, authorization/refusal, custody/privacy, provider-edge, browser, installer and release-source behaviours remain distinct. This measured budget is submitted to ct under G3 outcome B; the default cap remains 200 and no assertion was removed.",
+  "registrations": 1043,
+  "scope": "Expanded TypeScript-AST inventory of every seed-owned test/it, contract and journeyTest registration under tests/, including nested t.test and every generated for-of/test.each case, including existing planned-clause todos; describe groups and generic wrapper implementation sites are excluded. Vendored modules are excluded. The legacy call-site-only convention is reported separately.",
+  "reason": "326 clauses, the largest seed. The corrected expanded inventory is 1177 before consolidation and 1043 afterward (134 fewer registrations); the legacy 802 call sites omitted generated cases, including 195 planned-clause todo registrations. Every original assertion expression remains. Independent access/refusal, custody/privacy/erasure, concurrency/CAS/idempotency, native identity, migration/restore, import-format fidelity, provider delivery, browser, installer and release-source behaviours remain distinct. Browser widths retain separate shard registrations and unchanged timeouts. The 250 target is not met: this is the measured frozen inventory, not an approved increased budget. Default cap remains 200; G3 and the freeze continue.",
   "dropCandidates": [
     {
       "file": "tests/flagship/intelligence/native-transport.test.ts",
       "registration": "Native timestamps preserve valid ISO instants and normalize bounded Unix milliseconds",
       "uniqueAssertion": "Rejects invalid native timestamp values and normalizes bounded milliseconds",
-      "reason": "Parser-level detail rather than a complete public-door user flow; no assertion removed pending ct."
-    },
-    {
-      "file": "tests/flagship/intelligence/reservation-prerequisites.test.ts",
-      "registration": "AI-012 budget fixture admits one real conservative reservation but cannot fit two",
-      "uniqueAssertion": "Checks the fixture's two conservative estimates cannot both fit",
-      "reason": "Fixture prerequisite rather than product acceptance; no assertion removed pending ct."
+      "reason": "Kept: no other registration asserts the exact valid ISO/bounded-millisecond normalization and invalid native timestamp refusal matrix. No assertion removed."
     }
   ]
 }
