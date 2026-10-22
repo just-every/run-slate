@@ -1004,7 +1004,7 @@
       "executable": false
     },
     "docs/BACKUP.md": {
-      "sha256": "791a351dcdf6cf4f9e14ef20322d08eead248eced99dbe8e71bac9a3abdca707",
+      "sha256": "b2754a43274b0fdae9466185822597aa27eabc63a248b9f109d648709cc0a355",
       "executable": false
     },
     "docs/CHAT-NOTIFICATIONS.md": {
@@ -1125,6 +1125,86 @@
     },
     "evidence/port010/export-comments-390-word-without-comments-downloaded.png": {
       "sha256": "82320e370a5d338c9b23ff45f1ccc238f472b5ee105534bdbcf73f08a9e06b0a",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-1440-connection-passed.png": {
+      "sha256": "82825afabf95e26b2c2f4a5bd7d2397c34eb60d6cd27cc3c17404e4627938747",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-1440-destination-form.png": {
+      "sha256": "47dc758fc097187767c9dbcb9665d72adef0bd7570b41ec99386f257cd0cd7d0",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-1440-failure-cleared.png": {
+      "sha256": "cea742eaea4777026a65caf7c3b9c187c296dbf7c2fbb12a2288f7698967a8c2",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-1440-failure-visible.png": {
+      "sha256": "0f5f7823692b340ee664b0b311d85c11f8e947a98151362694cceba68f537071",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-1440-persisted-drill.png": {
+      "sha256": "90299118fb1382aeb8950010c3ba75035e025561bae4b7e9bd8bb68e41946261",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-1440-removed.png": {
+      "sha256": "633491cc4b752a21df8f4a39fb8207df40238d92cad378e42c87a4d6d90f3a66",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-1440-restore-drill.png": {
+      "sha256": "3fe03552392f5b9850839ecc3fe7a126e4f12955e692bf2aa467fe6152b4e6a2",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-1440-saved.png": {
+      "sha256": "46356110be2b3c4f9616511c73af784a3c15f8d514c3a489df611ff182111822",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-1440-successful-backup.png": {
+      "sha256": "432c7a7835a0fafc254006ce0a20064b6a97238e865c49efbce062da24bb1a74",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-1440-weekly-schedule.png": {
+      "sha256": "d9946e503eae1e33e916aa1d507dcbd652ba94b6af3236bc06c8180ed61c1ce5",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-390-connection-passed.png": {
+      "sha256": "e0597dd41dfd3726e0ce6404bcd069d510a9438e84b268548714370a8ca26c5d",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-390-destination-form.png": {
+      "sha256": "d851dffa5aa14ad9ff5f9068e17abc384d5589fbe89c37b6d2c80c02ad16b84e",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-390-failure-cleared.png": {
+      "sha256": "8f1ae3e9d6bed87e5236b8d5263ab79e4100d178d2acb749e8941cdfda26c959",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-390-failure-visible.png": {
+      "sha256": "81d871500aa5964587337fb610c053e260c0b3b21b78e74ca26a49ff66f05063",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-390-persisted-drill.png": {
+      "sha256": "1769b4bf26961372aa88e75a32c0a3a6edde73abd5a0b6358738583ab25b196a",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-390-removed.png": {
+      "sha256": "849bbe10ddc0a602e64c8bf31383369c4df2b83b4666ef26c9b1f87578c00724",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-390-restore-drill.png": {
+      "sha256": "f027ec3a76070f665487dde59457f80aaf707f1fb912c3dbbdcab88872b89d50",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-390-saved.png": {
+      "sha256": "373abe853d8b11a4f4321d7ec6a76626c5f97a99e57b4c9af3426a65b7d6ec03",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-390-successful-backup.png": {
+      "sha256": "1e287e6498ae4e99c5feb7ffd1012c80075610247e77b3d62409bbeb6d472d3f",
+      "executable": false
+    },
+    "evidence/scheduled-backups/backups-390-weekly-schedule.png": {
+      "sha256": "db62db144b3d56096ccd24464f8060c839e4f2839e144c873ecb6d24bb50b05d",
       "executable": false
     },
     "evidence/stat007/verification-rules-1440-flagged.png": {
@@ -8076,7 +8156,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/ScheduledBackups.tsx": {
-      "sha256": "57b02e0c097d3ecec49ef903ba5ce4988916706deb6981c7c3364e6c70fdf5f7",
+      "sha256": "4262a6fadcf5b6950fe50e9d811ff4723e9ea71d8a5b6323e066bdbcb751c062",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/ScheduledBackups/BackupDestinationCard.tsx": {
@@ -8084,7 +8164,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/ScheduledBackups/BackupDestinationForm.tsx": {
-      "sha256": "b442345439b2ed8c078b6a54c41da4db0e6aa71323b081897ecf1f84b56032c9",
+      "sha256": "aed9426ed6c1c94ed8b2d2d263f4e6705cedfaffbd3398b6c405aa5f51d16050",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/SettingsWorkspace.tsx": {
@@ -9052,7 +9132,7 @@
       "executable": false
     },
     "test-budget.json": {
-      "sha256": "697c6bbe82f2e22333832bf351f37adcfdb7a8c78c8617a4183cb3fdd42b50a3",
+      "sha256": "af277af1da728fc1355e80d85ce6e8bf56c938015124ac04db5bc9a9afadb0f4",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
