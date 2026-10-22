@@ -25,7 +25,9 @@ jobs:
           node-version: 22.20.0
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
+      # Ubuntu 24.04 already carries browser runtime libraries. Avoid apt refresh
+      # stalls and install only the pinned headless shell used by these journeys.
+      - run: pnpm exec playwright install --only-shell chromium
       - run: node scripts/sync-project-setup.mjs --check && pnpm verify
       # Contract acceptance consumes the same verified build while Workers run.
       - uses: actions/upload-artifact@v4
@@ -80,7 +82,9 @@ jobs:
           node-version: 22.20.0
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
+      # Ubuntu 24.04 already carries browser runtime libraries. Avoid apt refresh
+      # stalls and install only the pinned headless shell used by these journeys.
+      - run: pnpm exec playwright install --only-shell chromium
       - uses: actions/download-artifact@v4
         with:
           name: verified-app-build
@@ -136,7 +140,9 @@ jobs:
           node-version: 22.20.0
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
+      # Ubuntu 24.04 already carries browser runtime libraries. Avoid apt refresh
+      # stalls and install only the pinned headless shell used by these journeys.
+      - run: pnpm exec playwright install --only-shell chromium
       - run: ${{ matrix.command }}
       - name: Retain failures
         if: failure()
@@ -161,7 +167,9 @@ jobs:
           node-version: 22.20.0
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
+      # Ubuntu 24.04 already carries browser runtime libraries. Avoid apt refresh
+      # stalls and install only the pinned headless shell used by these journeys.
+      - run: pnpm exec playwright install --only-shell chromium
       - run: pnpm build
       - run: pnpm test:installer && pnpm test:local-journey
       - if: failure()
