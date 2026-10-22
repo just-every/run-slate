@@ -11640,7 +11640,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/file-cards-journey.mjs": {
-      "sha256": "c437cf0152ff372eae020f4d72b3bfbc78bc240cae90d81d65734e42d3cbff81",
+      "sha256": "1802fc938366e2c0dae20a7fda91879c35b6c23c8df55081f3be431a539c8585",
       "executable": false
     },
     "tests/qualification/ui-convergence/first-words-journey.mjs": {
