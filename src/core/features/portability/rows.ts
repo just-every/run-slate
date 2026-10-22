@@ -7,6 +7,8 @@ export function safeRow(table:string,row:DataRow,now=new Date().toISOString()):D
   out.input_json=JSON.stringify({...JSON.parse(String(out.input_json)),archiveAgentCredentialId:out.agent_credential_id});
   out.agent_credential_id=null;
  }
+ if(table==='backup_destinations'){out.state='disconnected';out.credential_ciphertext=null;}
+ if(table==='backup_runs'&&out.state==='running'){out.state='failed';out.error_code='RESTORED_AUTHORITY_REQUIRED';out.archive_key=null;}
  if(table==='chat_connections'){out.state='disconnected';out.disconnected_at=out.disconnected_at??now;}
  if(table==='federation_connections')out.state='needs-attention';
  return out;

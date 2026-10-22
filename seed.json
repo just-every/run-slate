@@ -513,6 +513,13 @@
         "EMBED-003"
       ],
       "description": "Click-to-load allowlisted design, video and document embeds in isolated provider frames."
+    },
+    {
+      "id": "scheduled-backups",
+      "description": "Owner-configured nightly or weekly S3-compatible/R2 backups with verified retention, encrypted destination credentials, in-app failures and empty-deployment restore drill instructions. Real bucket acceptance remains pending.",
+      "clauses": [
+        "PORT-009"
+      ]
     }
   ],
   "nonGoals": [

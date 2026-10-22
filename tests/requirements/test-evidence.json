@@ -736,13 +736,15 @@
     },
     {
       "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation exports complete tables without credentials and detects corruption before restore",
+      "testName": "durable imports and federation complete credential-free archives refuse corruption and restore retained records and originals into an empty deployment",
       "kind": "supporting-regression",
       "clauses": [
         "BASE-DATA-001",
-        "PORT-001"
+        "PORT-001",
+        "PORT-002",
+        "PORT-005"
       ],
-      "reason": "Asserts durable imports and federation exports complete tables without credentials and detects corruption before restore. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts durable imports and federation exports complete tables without credentials and detects corruption before restore. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts durable imports and federation restores retained ids and original files to an empty deployment, excludes sessions and disables public delivery. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/federation/federation.test.ts",
@@ -752,16 +754,6 @@
         "IMP-003"
       ],
       "reason": "Asserts durable imports and federation imports a publisher-produced Microsoft Word fixture with retained provenance. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation restores retained ids and original files to an empty deployment, excludes sessions and disables public delivery",
-      "kind": "supporting-regression",
-      "clauses": [
-        "PORT-002",
-        "PORT-005"
-      ],
-      "reason": "Asserts durable imports and federation restores retained ids and original files to an empty deployment, excludes sessions and disables public delivery. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/federation/federation.test.ts",

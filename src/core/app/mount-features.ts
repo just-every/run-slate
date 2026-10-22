@@ -1,3 +1,4 @@
+import {createBackupRoutes} from '../features/backups/routes';
 import {createWorkItemsRoutes} from '../features/work-items/routes';
 import {createReminderRoutes} from '../features/reminders/routes';
 import { createInstallationExportRoutes } from '../features/portability/installation-routes';
@@ -85,6 +86,7 @@ export function mountFeatures(app: Hono<AppEnvironment>): Hono<AppEnvironment> {
   app.route("/api/connectors", createConnectorRoutes());
   app.route("/api/sources", createSourceRoutes());
   app.route("/api/imports", createImportRoutes());
+  app.route("/api/backups",createBackupRoutes());
   app.route("/api/exports", createExportRoutes());
   app.route("/api/portability", createInstallationExportRoutes());
   app.route("/api/ai", createAiRoutes());

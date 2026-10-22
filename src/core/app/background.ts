@@ -1,3 +1,4 @@
+import {scheduledBackups} from '../features/backups/scheduled';
 import { readLaunchProfile, isFlagshipJob } from "../platform/config/launch-profile";
 import { ApiProblem } from "./problems";
 import { scheduleIdentityMail } from '../features/session/mail';
@@ -30,6 +31,7 @@ export async function scheduledJobs(env:AppBindings){
   const flagship = readLaunchProfile(env.SLATE_PROFILE) === 'flagship';
   const tasks: [string, () => Promise<unknown>][] = [
     ['content', () => runContentJobs(env)],
+    ['backups', () => scheduledBackups(env)],
     // STAT-007: nightly verification rules, in every profile.
     ['verification-rules', () => runVerificationRules(env)],
     ['discovery', () => scheduledDiscovery(env)],

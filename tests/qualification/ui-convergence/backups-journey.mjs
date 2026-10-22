@@ -1,0 +1,156 @@
+import assert from 'node:assert/strict';
+import { mkdir, readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { unzipSync } from 'fflate';
+import { expect } from '@playwright/test';
+import { s3Fixture } from '../../helpers/s3-edge.mjs';
+import { root } from '../../e2e/runtime-harness.mjs';
+import { accessible } from './browser-evidence.mjs';
+
+/** Real settings, routes, archive creation and signed transport; only the external S3 service is synthetic. */
+export async function backupsJourney(state) {
+  const { page, origin, api, setS3Failure, readS3Requests, readS3Objects, assertNoConsoleErrors } = state;
+  const width = page.viewportSize().width;
+  const evidence = process.env.SLATE_BACKUPS_EVIDENCE_DIR ?? path.join(root, 'evidence/scheduled-backups');
+  await mkdir(evidence, { recursive: true });
+  const name = 'Harbor recovery vault';
+  const panel = page.getByRole('region', { name: 'Scheduled backups', exact: true });
+  const card = page.getByRole('region', { name: `Backup destination ${name}`, exact: true });
+  const open = () => page.goto(`${origin}/app/settings?section=portability`, { waitUntil: 'networkidle' });
+  const shot = async (label, focus = card.getByRole('heading', { name, exact: true })) => {
+    await focus.scrollIntoViewIfNeeded();
+    await accessible(page, `scheduled backups ${label}`);
+    assertNoConsoleErrors();
+    await page.screenshot({ path: path.join(evidence, `backups-${width}-${label}.png`), fullPage: true });
+  };
+  const omission = value => {
+    const text = JSON.stringify(value);
+    for (const credential of [s3Fixture.accessKeyId, s3Fixture.secretAccessKey]) assert.ok(!text.includes(credential), 'Backup receipts must omit submitted credentials');
+    assert.doesNotMatch(text, /credential_ciphertext|secretAccessKey|accessKeyId/);
+  };
+  let destinationId;
+  const act = async (button, action, method = 'POST') => {
+    const route = `/api/backups/${destinationId}${action ? `/${action}` : ''}`;
+    const pending = page.waitForResponse(response => new URL(response.url()).pathname === route && response.request().method() === method);
+    await card.getByRole('button', { name: button, exact: true }).click();
+    const response = await pending;
+    assert.equal(response.status(), 200, await response.text());
+    const result = await response.json();
+    omission(result);
+    return result;
+  };
+
+  await open();
+  await expect(panel).toContainText('No backup destinations configured.');
+  assert.deepEqual((await api('/api/backups')).destinations, []);
+  await panel.getByText('Add a backup destination', { exact: true }).click();
+  const form = panel.locator('form');
+  await form.getByLabel('Destination name', { exact: true }).fill(name);
+  await form.getByLabel('Provider', { exact: true }).selectOption('s3');
+  await form.getByLabel('Endpoint', { exact: true }).fill(s3Fixture.endpoint);
+  await form.getByLabel('Region', { exact: true }).fill(s3Fixture.region);
+  await form.getByLabel('Bucket', { exact: true }).fill(s3Fixture.bucket);
+  await form.getByLabel('Key prefix', { exact: true }).fill('harbor/recovery');
+  await form.getByLabel('Frequency', { exact: true }).selectOption('weekly');
+  await form.getByLabel('Weekly day', { exact: true }).selectOption('3');
+  await form.getByLabel('UTC time', { exact: true }).fill('05:30');
+  await form.getByLabel('Retention count', { exact: true }).fill('1');
+  // Capture the filled schedule before entering even synthetic credentials.
+  await shot('destination-form', form.getByLabel('Destination name', { exact: true }));
+  await shot('weekly-schedule', form.getByLabel('Frequency', { exact: true }));
+  await form.getByLabel('Access key ID', { exact: true }).fill(s3Fixture.accessKeyId);
+  await form.getByLabel('Secret access key', { exact: true }).fill(s3Fixture.secretAccessKey);
+  const saveResponse = page.waitForResponse(response => new URL(response.url()).pathname === '/api/backups' && response.request().method() === 'POST');
+  await form.getByRole('button', { name: 'Save backup schedule', exact: true }).click();
+  const saved = await saveResponse;
+  assert.equal(saved.status(), 200, await saved.text());
+  const configured = await saved.json();
+  omission(configured);
+  destinationId = configured.destination.id;
+  await expect(card).toBeVisible();
+  await expect(form.getByLabel('Access key ID', { exact: true })).toHaveValue('');
+  await expect(form.getByLabel('Secret access key', { exact: true })).toHaveValue('');
+  await open();
+  await expect(card).toContainText('Weekly on Wednesday at 05:30 UTC');
+  await expect(card).toContainText('1 successful backups');
+  const listed = await api('/api/backups');
+  omission(listed);
+  assert.equal(listed.destinations[0].id, destinationId, 'The saved destination survives a new settings request');
+  await shot('saved');
+
+  assert.equal((await act('Test connection', 'test')).ok, true);
+  await expect(panel.getByRole('status')).toHaveText(`Connection test passed for ${name}.`);
+  assert.ok((await readS3Requests()).some(request => request.method === 'HEAD' && request.key === '' && request.signatureVerified));
+  await shot('connection-passed');
+
+  const firstRun = await act('Run now', 'run');
+  assert.equal(firstRun.run.state, 'succeeded');
+  assert.ok(firstRun.destination.lastSuccess);
+  await expect(panel.getByRole('status')).toHaveText(`Backup for ${name}: succeeded.`);
+  const firstObjects = await readS3Objects();
+  const firstKey = Object.keys(firstObjects).find(key => key.startsWith('harbor/recovery/'));
+  assert.ok(firstKey?.endsWith('.zip'), 'The actual archive is stored under the configured prefix');
+  const firstArchive = unzipSync(firstObjects[firstKey]);
+  assert.ok(firstArchive['manifest.json'] && firstArchive['integrity.json']);
+  const manifest = JSON.parse(new TextDecoder().decode(firstArchive['manifest.json']));
+  assert.ok(manifest.tables.pages.some(row => row.title === 'Customer incident handover'), 'The backup contains the real document created by the preceding import/export journey');
+  for (const credential of [s3Fixture.accessKeyId, s3Fixture.secretAccessKey]) assert.ok(!JSON.stringify(manifest).includes(credential), 'The archive must omit backup credentials');
+  await shot('successful-backup');
+
+  await setS3Failure('forbidden');
+  const failed = await act('Run now', 'run');
+  assert.equal(failed.run.state, 'failed');
+  assert.equal(failed.run.errorCode, 'BACKUP_DESTINATION_FORBIDDEN');
+  assert.ok(failed.destination.lastFailure);
+  assert.equal(failed.destination.lastSuccess, firstRun.destination.lastSuccess, 'A failed backup retains its last successful receipt');
+  await open();
+  await expect(card).toContainText('BACKUP_DESTINATION_FORBIDDEN');
+  await shot('failure-visible');
+  await setS3Failure('ok');
+  const recovered = await act('Run now', 'run');
+  assert.equal(recovered.run.state, 'succeeded');
+  assert.equal(recovered.destination.lastFailure, null);
+  assert.equal(recovered.destination.lastFailureCode, null);
+  await expect(panel.getByRole('status')).toHaveText(`Backup for ${name}: succeeded.`);
+  await open();
+  await expect(card).not.toContainText('BACKUP_DESTINATION_FORBIDDEN');
+  await expect(card.locator('dl > div').filter({ hasText: 'Last failed backup' })).toContainText('None recorded');
+  const retained = await readS3Objects();
+  assert.deepEqual(retained[s3Fixture.unrelatedKey], firstObjects[s3Fixture.unrelatedKey], 'Retention preserves another workspace\'s exact bytes');
+  const retainedKeys = Object.keys(retained).filter(key => key.startsWith('harbor/recovery/'));
+  assert.equal(retainedKeys.length, 1);
+  assert.notEqual(retainedKeys[0], firstKey);
+  assert.deepEqual((await readS3Requests()).filter(request => request.method === 'DELETE').map(request => request.key), [firstKey], 'Retention deletes only the older verified backup key');
+  await shot('failure-cleared');
+
+  const drill = await act('Run restore drill', 'drill');
+  assert.equal(drill.report.state, 'archive-verified');
+  assert.match(drill.report.message, /separate empty deployment is pending/i);
+  const report = card.getByRole('region', { name: `Restore drill report for ${name}`, exact: true });
+  await expect(report).toContainText('archive-verified');
+  await expect(report).toContainText('does not confirm a completed restore');
+  await expect(report).toContainText('Never restore over the source workspace');
+  await shot('restore-drill', report.getByRole('heading'));
+  const pendingDownload = page.waitForEvent('download');
+  await report.getByRole('link', { name: 'Download restore drill archive', exact: true }).click();
+  const download = await pendingDownload;
+  assert.match(download.suggestedFilename(), /\.zip$/);
+  assert.equal(await download.failure(), null);
+  assert.deepEqual(await readFile(await download.path()), retained[retainedKeys[0]], 'The download is the exact verified archive stored at the S3 boundary');
+  const sourcePages = (await api('/api/pages')).items;
+  assert.ok(sourcePages.some(item => item.title === 'Customer incident handover'), 'A source drill never replaces the source workspace');
+  await open();
+  await expect(report).toContainText('separate empty deployment is pending');
+  await shot('persisted-drill', report.getByRole('heading'));
+
+  assert.equal((await act('Remove', '', 'DELETE')).removed, true);
+  await expect(card).toHaveCount(0);
+  await expect(panel).toContainText('No backup destinations configured.');
+  await open();
+  assert.deepEqual((await api('/api/backups')).destinations, []);
+  const requests = await readS3Requests();
+  assert.ok(requests.every(request => request.signatureVerified), 'All storage requests use valid production SigV4 signatures');
+  assert.ok(requests.some(request => request.failure === 'forbidden'), 'The failed run reached the actual outbound network boundary');
+  assert.deepEqual(await readS3Objects(), retained, 'Removing a destination leaves external backup objects untouched');
+  await shot('removed', panel.getByRole('heading', { name: 'Scheduled backups', exact: true }));
+}

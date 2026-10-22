@@ -1,0 +1,40 @@
+CREATE TABLE backup_destinations (
+ id TEXT PRIMARY KEY NOT NULL,
+ workspace_id TEXT NOT NULL REFERENCES workspaces(id),
+ created_by_member_id TEXT REFERENCES members(id),
+ name TEXT NOT NULL,
+ kind TEXT NOT NULL CHECK(kind IN ('s3','r2')),
+ endpoint TEXT NOT NULL,
+ region TEXT NOT NULL,
+ bucket TEXT NOT NULL,
+ prefix TEXT NOT NULL,
+ credential_ciphertext TEXT,
+ schedule TEXT NOT NULL CHECK(schedule IN ('nightly','weekly')),
+ utc_time TEXT NOT NULL,
+ weekday INTEGER NOT NULL,
+ retention INTEGER NOT NULL CHECK(retention BETWEEN 1 AND 365),
+ state TEXT NOT NULL DEFAULT 'connected' CHECK(state IN ('connected','disconnected','removed')),
+ last_success TEXT,
+ last_failure TEXT,
+ last_failure_code TEXT,
+ drill_report_json TEXT,
+ created_at TEXT NOT NULL,
+ updated_at TEXT NOT NULL
+);
+CREATE TABLE backup_runs (
+ id TEXT PRIMARY KEY NOT NULL,
+ destination_id TEXT NOT NULL REFERENCES backup_destinations(id) ON DELETE CASCADE,
+ period TEXT NOT NULL,
+ state TEXT NOT NULL CHECK(state IN ('running','succeeded','failed')),
+ object_key TEXT NOT NULL,
+ archive_key TEXT,
+ size_bytes INTEGER,
+ sha256 TEXT,
+ error_code TEXT,
+ verified_at TEXT,
+ deleted_at TEXT,
+ started_at TEXT NOT NULL,
+ finished_at TEXT,
+ UNIQUE(destination_id,period)
+);
+CREATE INDEX backup_runs_destination_time ON backup_runs(destination_id,started_at);

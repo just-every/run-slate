@@ -1,0 +1,49 @@
+import {env} from 'cloudflare:test';
+import {expect,vi} from 'vitest';
+import {seedWorkspace,seedMember,seedContainer,seedPage,sessionFor} from '../setup/fixtures';
+import {resetDeployment} from '../setup/reset-deployment';
+import {createApi} from '../../../src/core/app/hono';
+import worker from '../../../src/server';
+import type {AppBindings} from '../../../src/core/app/types';
+import {decodeArchive} from '../../../src/core/features/portability/archive';
+import {decryptSecret} from '../../../src/core/platform/secrets/custody';
+import {s3Network} from '../helpers/s3-network';
+export async function scheduledBackupJourney(){
+ await resetDeployment();vi.useFakeTimers({toFake:['Date']});const start=Date.parse('2026-10-23T01:00:00.000Z');vi.setSystemTime(start);
+ const secret='synthetic-slate-100',access='synthetic-slate-101',custody='synthetic-slate-102-synthetic-slate-103',origin='https://slate.test',key=()=>crypto.randomUUID();
+ const edge=s3Network(access,secret),logs=[vi.spyOn(console,'log').mockImplementation(()=>{}),vi.spyOn(console,'warn').mockImplementation(()=>{}),vi.spyOn(console,'error').mockImplementation(()=>{})];
+ const {workspaceId}=await seedWorkspace(),owner=(await seedMember(workspaceId,{email:'synthetic-slate-1@example.test',displayName:'Alex Owner',role:'owner',isSetupOwner:true})).memberId;
+ const other=(await seedMember(workspaceId,{email:'synthetic-slate-2@example.test',displayName:'Taylor Owner',role:'owner'})).memberId,reader=(await seedMember(workspaceId,{email:'synthetic-slate-3@example.test',displayName:'Morgan Reader',role:'member'})).memberId;
+ const bindings:AppBindings={...env,APP_URL:origin,SLATE_PROFILE:undefined,CONNECTOR_CREDENTIALS_KEY:custody},app=createApi();let cookie=await sessionFor(owner,{freshProof:true});const readerCookie=await sessionFor(reader,{freshProof:true});
+ const raw=(method:string,path:string,body?:unknown,session=cookie)=>app.request(origin+path,{method,headers:{cookie:session,origin,...(body===undefined?{}:{'content-type':'application/json'})},body:body===undefined?undefined:JSON.stringify(body)},bindings);
+ const api=async(method:string,path:string,body?:unknown)=>{const r=await raw(method,path,body),text=await r.text();expect(text).not.toContain(secret);expect(text).not.toContain(access);expect(text).not.toContain('credential_ciphertext');expect(r.status,text).toBe(200);return JSON.parse(text);};
+ const scheduled=async()=>{await worker.scheduled!({scheduledTime:Date.now(),cron:'* * * * *'} as ScheduledController,bindings);};
+ try{
+  const containerId=(await api('POST','/api/containers',{operationKey:key(),name:'Harbor handover'})).value.id;
+  const a=(await api('POST','/api/pages',{operationKey:key(),containerId,title:'Harbor operations'})).value.pageId,b=(await api('POST','/api/pages',{operationKey:key(),containerId,title:'Escalation guide'})).value.pageId;
+  const opened=await api('GET',`/api/pages/${a}`);await api('PUT',`/api/pages/${a}/blocks`,{operationKey:key(),expectedRevisionId:opened.page.revisionId,blocks:[{id:key(),blockType:'paragraph',treePosition:'1',content:{text:[{text:'Open escalation guide',link:{href:`/app/pages/${b}`}}]}}]});
+  const input={operationKey:key(),name:'Harbor recovery',kind:'r2',endpoint:'https://synthetic-slate-1.example.test',region:'auto',bucket:'synthetic-slate-4',prefix:'harbor',accessKeyId:access,secretAccessKey:secret,schedule:'nightly',time:'02:00',weekday:0,retention:1};
+  expect((await raw('POST','/api/backups',input,readerCookie)).status).toBe(403);
+  expect((await raw('GET','/api/backups',undefined,readerCookie)).status).toBe(403);
+  const id=(await api('POST','/api/backups',input)).destination.id,cipher=await env.DB.prepare('SELECT credential_ciphertext FROM backup_destinations WHERE id=?').bind(id).first<string>('credential_ciphertext');expect(cipher).not.toContain(secret);expect(cipher).not.toContain(access);expect(JSON.parse(await decryptSecret(custody,cipher!,`backup:${workspaceId}:${id}`))).toEqual({accessKeyId:access,secretAccessKey:secret});
+  await api('POST',`/api/backups/${id}/test`,{operationKey:key()});edge.objects.set('harbor/buyer-keeps-this.txt',new Uint8Array([1,2,3]));
+  // Force multipart without expanding the registration count or buffering a whole archive in production.
+  const bytes=new Uint8Array(6*1024*1024);for(let at=0;at<bytes.length;at+=65536)crypto.getRandomValues(bytes.subarray(at,at+65536));
+  const form=new FormData();form.set('operationKey',key());form.set('pageId',a);form.set('file',new File([bytes],'synthetic-slate-5.txt',{type:'text/plain'}));const uploaded=await app.request(origin+'/api/media',{method:'POST',headers:{cookie,origin},body:form},bindings);expect(uploaded.status,await uploaded.clone().text()).toBe(200);
+  vi.setSystemTime(start+2*3600000);await Promise.all([scheduled(),scheduled()]);expect(edge.objects.size).toBe(2);expect(edge.parts).toBeGreaterThan(1);expect(await env.DB.prepare("SELECT count(*) n FROM backup_runs WHERE state='succeeded'").first<number>('n')).toBe(1);
+  const first=[...edge.objects.keys()].find(k=>k.endsWith('.zip'))!;const firstBytes=edge.objects.get(first)!;const decoded=await decodeArchive(firstBytes);expect(JSON.stringify(decoded.manifest)).not.toContain(secret);expect(JSON.stringify(decoded.manifest)).not.toContain(access);expect(JSON.stringify(decoded.manifest)).not.toContain(cipher!);expect(decoded.manifest.tables.sessions).toBeUndefined();expect(decoded.manifest.tables.pages!.map(p=>p.id)).toContain(a);expect(decoded.manifest.tables.pages!.map(p=>p.id)).toContain(b);
+  vi.setSystemTime(start+86400000+2*3600000);await scheduled();expect(edge.objects.has(first)).toBe(false);expect(edge.objects.has('harbor/buyer-keeps-this.txt')).toBe(true);expect(edge.deleted).toEqual([first]);
+  edge.setFailure(true);vi.setSystemTime(start+2*86400000+2*3600000);await Promise.all([scheduled(),scheduled()]);expect(await env.DB.prepare("SELECT count(*) n FROM notifications WHERE event='backup-failed'").first<number>('n')).toBe(2);expect((await env.DB.prepare('SELECT last_failure_code FROM backup_destinations WHERE id=?').bind(id).first<any>()).last_failure_code).toBe('BACKUP_DESTINATION_FORBIDDEN');expect(edge.objects.size).toBe(2);
+  for(const member of [owner,other]){const noticeResponse=await raw('GET','/api/notifications',undefined,await sessionFor(member,{freshProof:true}));expect(noticeResponse.status).toBe(200);const notices=(await noticeResponse.json<any>()).items.filter((item:any)=>item.event==='backup-failed');expect(notices).toHaveLength(1);expect(notices[0].href).toBe('/app/settings?section=portability');expect(notices[0].detail.backupFailure.code).toBe('BACKUP_DESTINATION_FORBIDDEN');}
+  edge.setFailure(false);vi.setSystemTime(start+3*86400000+2*3600000);await scheduled();expect((await env.DB.prepare('SELECT last_failure,last_success FROM backup_destinations WHERE id=?').bind(id).first<any>())).toMatchObject({last_failure:null,last_success:new Date().toISOString()});
+  // The owner session has a fresh proof again after advancing several days.
+  cookie=await sessionFor(owner,{freshProof:true});
+  const personal=(await seedContainer(workspaceId,{ownerMemberId:other,visibility:'personal'})).containerId;await seedPage(personal,{authorMemberId:other,title:'synthetic-slate-6'});const beforeKeys=[...edge.objects.keys()];const refused=await api('POST',`/api/backups/${id}/run`,{operationKey:key()});expect(refused.run).toMatchObject({state:'failed',errorCode:'EXPORT_SCOPE_INCOMPLETE'});expect([...edge.objects.keys()]).toEqual(beforeKeys);
+  const drill=await api('POST',`/api/backups/${id}/drill`,{operationKey:key()});expect(drill.report.state).toBe('archive-verified');const response=await raw('GET',drill.downloadPath);expect(response.status).toBe(200);const latest=new Uint8Array(await response.arrayBuffer());expect(await decodeArchive(latest)).toBeTruthy();
+  await api('DELETE',`/api/backups/${id}`,{operationKey:key()});expect(await env.DB.prepare('SELECT credential_ciphertext FROM backup_destinations WHERE id=?').bind(id).first<string>('credential_ciphertext')).toBeNull();const objectCount=edge.objects.size;await scheduled();expect(edge.objects.size).toBe(objectCount);
+  for(const log of logs)for(const omitted of [secret,access,cipher!])expect(JSON.stringify(log.mock.calls)).not.toContain(omitted);
+  // Empty deployment: use the same public restore route as an owner, then sign in afresh.
+  await resetDeployment();const target=(await seedWorkspace()).workspaceId,targetOwner=(await seedMember(target,{email:'synthetic-slate-1@example.test',displayName:'Alex Owner',role:'owner',isSetupOwner:true})).memberId;cookie=await sessionFor(targetOwner,{freshProof:true});
+  const restore=new FormData();restore.set('file',new File([latest],'synthetic-slate-7.zip'));const restored=await app.request(origin+'/api/exports/restore',{method:'POST',headers:{cookie,origin},body:restore},bindings);expect(restored.status,await restored.clone().text()).toBe(200);expect((await restored.json<any>()).state).toBe('completed');cookie=await sessionFor(owner,{freshProof:true});const restoredPage=await api('GET',`/api/pages/${a}`),restoredLink=await api('GET',`/api/pages/${b}`);expect(restoredPage.page.id).toBe(a);expect(restoredLink.page.id).toBe(b);expect(restoredPage.blocks[0].content.text[0].link.href).toBe(`/app/pages/${b}`);expect(await env.DB.prepare('SELECT credential_ciphertext FROM backup_destinations WHERE id=?').bind(id).first<string>('credential_ciphertext')).toBeNull();
+ }finally{edge.restore();for(const log of logs)log.mockRestore();vi.useRealTimers();}
+}

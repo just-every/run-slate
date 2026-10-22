@@ -1,6 +1,7 @@
 import {tablesJourney} from './tables-journey.mjs';
 import {providerEmbedsJourney} from './provider-embeds-journey.mjs';
 import { exportCommentsJourney } from './export-comments-journey.mjs';
+import { backupsJourney } from './backups-journey.mjs';
 import { presentationJourney } from './presentation-journey.mjs';
 import { analyticsJourney } from './analytics-journey.mjs';
 import { reactionsJourney } from './reactions-journey.mjs';
@@ -43,17 +44,18 @@ for (const width of [1440, 390]) {
   test(`provider embeds load only on interaction in editor and published pages at ${width}px`, {timeout:240000}, async()=>{
     await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{await setupWorkspace(state);await providerEmbedsJourney(state);});
   });
-  test(`readable exports retain discussions through HTML and Markdown re-import at ${width}px`, { timeout: 180000 }, async () => {
-    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
-      await setupWorkspace(state);
-      await withSecondPerson(state, width, people => exportCommentsJourney(state, people));
-    });
-  });
   test(`presentation paginates read-only slides and restores the page at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await presentationJourney(state);
     });
+  });
+  test(`readable exports retain discussions through HTML and Markdown re-import at ${width}px`, { timeout: 240000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await withSecondPerson(state, width, people => exportCommentsJourney(state, people));
+      await backupsJourney(state);
+    }, {}, { backups: true });
   });
   test(`page and space readership show people, author views and inclusive dates at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {

@@ -1,0 +1,20 @@
+import {Hono} from 'hono';
+import {z} from 'zod';
+import type {AppEnvironment} from '../../app/types';
+import {featureContext} from '../../app/feature-context';
+import {requireStepUp} from '../session/step-up';
+import {listDestinations,requireDestination,destinationView,runView} from './store';
+import {destinationInput,addDestination,removeDestination,transport} from './configuration';
+import {runBackup} from './run';
+import {prepareDrill,downloadLatest} from './drill';
+const action=z.object({operationKey:z.string().regex(/^[A-Za-z0-9_.:-]{8,160}$/)}).strict();
+export function createBackupRoutes(){const routes=new Hono<AppEnvironment>();
+ routes.get('/',async c=>c.json(await listDestinations(featureContext(c))));
+ routes.post('/',async c=>{await requireStepUp(c,'credentials:mint');return c.json(await addDestination(featureContext(c),c.env.CONNECTOR_CREDENTIALS_KEY??'',destinationInput.parse(await c.req.json())));});
+ routes.delete('/:id',async c=>{await requireStepUp(c,'delete');const input=action.parse(await c.req.json());return c.json(await removeDestination(featureContext(c),c.req.param('id'),input.operationKey));});
+ routes.post('/:id/test',async c=>{await requireStepUp(c,'credentials:mint');action.parse(await c.req.json());const ctx=featureContext(c),row=await requireDestination(ctx,c.req.param('id'));await(await transport(ctx,row,c.env.CONNECTOR_CREDENTIALS_KEY??'')).test();return c.json({ok:true});});
+ routes.post('/:id/run',async c=>{await requireStepUp(c,'export');const input=action.parse(await c.req.json()),ctx=featureContext(c),row=await requireDestination(ctx,c.req.param('id'));const run=await runBackup(ctx,row,`manual:${input.operationKey}`,c.env.CONNECTOR_CREDENTIALS_KEY??'');return c.json({run:runView(run),destination:destinationView(await requireDestination(ctx,row.id))});});
+ routes.post('/:id/drill',async c=>{await requireStepUp(c,'export');action.parse(await c.req.json());return c.json(await prepareDrill(featureContext(c),c.req.param('id'),c.env.CONNECTOR_CREDENTIALS_KEY??''));});
+ routes.get('/:id/latest',async c=>{await requireStepUp(c,'export');return downloadLatest(featureContext(c),c.req.param('id'),c.env.CONNECTOR_CREDENTIALS_KEY??'');});
+ return routes;
+}

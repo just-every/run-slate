@@ -1787,7 +1787,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation exports complete tables without credentials and detects corruption before restore"
+          "testName": "durable imports and federation complete credential-free archives refuse corruption and restore retained records and originals into an empty deployment"
         },
         {
           "file": "tests/qualification/authority/recovery.test.ts",
@@ -1803,7 +1803,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation restores retained ids and original files to an empty deployment, excludes sessions and disables public delivery"
+          "testName": "durable imports and federation complete credential-free archives refuse corruption and restore retained records and originals into an empty deployment"
         },
         {
           "file": "tests/qualification/authority/recovery.test.ts",
@@ -1842,7 +1842,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation restores retained ids and original files to an empty deployment, excludes sessions and disables public delivery"
+          "testName": "durable imports and federation complete credential-free archives refuse corruption and restore retained records and originals into an empty deployment"
         },
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -3009,7 +3009,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation exports complete tables without credentials and detects corruption before restore"
+          "testName": "durable imports and federation complete credential-free archives refuse corruption and restore retained records and originals into an empty deployment"
         },
         {
           "file": "tests/qualification/authority/recovery.test.ts",

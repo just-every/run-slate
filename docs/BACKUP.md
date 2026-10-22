@@ -91,3 +91,17 @@ Restore into a separate, empty deployment first and check permissions, attachmen
 ## Copy out a page or a container
 
 To share a copy of just one part of the wiki, use **Export page** on a page, or **Export space** on a container. Choose Markdown, HTML or PDF, and whether to include child pages. You get one zip with the content and its media, readable without Slate, and it contains only what you are allowed to read. This is separate from a backup and is not a way to restore a workspace.
+
+## Scheduled backups
+
+A workspace owner can open **Settings → Import & export → Scheduled backups** and add an S3-compatible bucket or Cloudflare R2. Enter the endpoint, region, bucket, prefix and access credentials, then choose nightly or weekly, a UTC time and how many successful backups to retain. Saving enables that schedule. **Test connection** checks bucket access; **Run now** starts a backup immediately.
+
+Only owners can configure, test, run or remove destinations, with a recent sign-in confirmation. Slate encrypts credentials and never returns them from the API or includes them in an archive. Removing a destination destroys its stored credentials and stops later runs; it leaves your bucket objects in your custody. Restored destinations are disconnected until an owner enters credentials again.
+
+A run makes the same complete workspace ZIP as manual export. It streams bounded parts, verifies the uploaded object's size and SHA-256 by reading it back, and only then removes older objects that this destination's own successful run receipts name. Other bucket objects are untouched. An incomplete export scope fails before any external object is written. One durable receipt per destination and period prevents concurrent or restarted schedulers from writing another object for that period. An interrupted run is recorded as failed and needs a later period or an explicit new run.
+
+Each destination shows its last success and current safe failure. Each failed run gives every active owner one in-app notice; a later successful run clears the current failure while retaining run history. Email failure delivery is not available yet.
+
+**Run restore drill** verifies the latest stored backup and shows a report, download and instructions. That report confirms archive validation; it does not claim a restore has run. Start a separate empty Slate deployment, sign in as its setup owner using an archived full member's email, restore the downloaded ZIP from Import & export, then sign in again and open the restored pages and their internal links. The source workspace must never be used as the restore target. Re-enter provider credentials after restoration.
+
+Cloudflare R2 and other S3-compatible live-bucket acceptance has not been run for this build. [Chest](https://github.com/just-every/run-chest) can join the same destination contract when it publishes an intake; it is not currently selectable.

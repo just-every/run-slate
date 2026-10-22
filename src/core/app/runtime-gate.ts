@@ -24,6 +24,6 @@ export function configurationFailureResponse(cause: unknown): Response {
 /** Stored integrations cannot silently lose their decryption key on restart. */
 export async function assertStoredConfiguration(bindings:AppBindings):Promise<void> {
   if(bindings.CONNECTOR_CREDENTIALS_KEY?.trim().length && bindings.CONNECTOR_CREDENTIALS_KEY.trim().length>=32)return;
-  const connected=await bindings.DB.prepare("SELECT 1 AS present FROM chat_connections WHERE state IN ('connected','needs-attention') UNION ALL SELECT 1 AS present FROM federation_connections WHERE state IN ('connected','needs-attention') LIMIT 1").first();
+  const connected=await bindings.DB.prepare("SELECT 1 AS present FROM chat_connections WHERE state IN ('connected','needs-attention') UNION ALL SELECT 1 AS present FROM backup_destinations WHERE state='connected' UNION ALL SELECT 1 AS present FROM federation_connections WHERE state IN ('connected','needs-attention') LIMIT 1").first();
   if(connected)throw new RuntimeConfigurationError('CONNECTOR_CREDENTIALS_KEY must contain at least 32 characters while stored connections exist.');
 }
