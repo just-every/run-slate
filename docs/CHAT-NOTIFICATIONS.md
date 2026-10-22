@@ -38,4 +38,4 @@ Migration 0045 extends the existing registered `chat_connections` table and remo
 
 Slack and Teams are covered by tests that replace only the provider's network boundary. These are not real-provider receipts. Live Slack acceptance still needs a private, unshared test channel with the bot invited and all people mapped to active Slate members. Live Teams acceptance still needs a licensed Teams user in the held tenant. Neither live leg was run for this change.
 
-Nook destinations connect through Slate's adapter for `NOOK-080` (target, missing in Nook). A deployment without the approved `NOOK_NOTIFIER` binding refuses Nook at connect. No Nook live acceptance is claimed.
+Nook destinations connect through Slate's adapter for Nook's notification-token door (target, missing in Nook). A deployment without the approved `NOOK_NOTIFIER` binding refuses Nook at connect. No Nook live acceptance is claimed.
