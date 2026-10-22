@@ -2032,10 +2032,6 @@
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
           "testName": "Read-only grounded answer completes without a human review and releases unused budget"
-        },
-        {
-          "file": "tests/flagship/intelligence/reservation-prerequisites.test.ts",
-          "testName": "AI-012 budget fixture admits one real conservative reservation but cannot fit two"
         }
       ]
     },

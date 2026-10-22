@@ -695,6 +695,119 @@
       "reason": "Asserts Evaluation cases freeze source cutoff; a future timestamp cannot bless future context. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
+      "file": "tests/flagship/intelligence/learned-method.test.ts",
+      "testName": "Retained trial learning prepares one inactive draft with failed hypotheses, forecast and evaluation boundary",
+      "kind": "supporting-regression",
+      "clauses": [
+        "TRIAL-004"
+      ],
+      "reason": "Asserts Retained trial learning prepares one inactive draft with failed hypotheses, forecast and evaluation boundary. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/intelligence/native-transport.test.ts",
+      "testName": "Native transport refuses redirected token and credential requests without following a location",
+      "kind": "supporting-regression",
+      "clauses": [
+        "SOURCE-002"
+      ],
+      "reason": "Asserts Native transport refuses redirected token and credential requests without following a location. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/intelligence/native-transport.test.ts",
+      "testName": "Native timestamps preserve valid ISO instants and normalize bounded Unix milliseconds",
+      "kind": "supporting-regression",
+      "clauses": [
+        "SOURCE-004"
+      ],
+      "reason": "Asserts Native timestamps preserve valid ISO instants and normalize bounded Unix milliseconds. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/intelligence/claims.test.ts",
+      "testName": "Scoped claims preserve exact passages and unknown scope; only an exact accepted decision supplies a named approver",
+      "kind": "supporting-regression",
+      "clauses": [
+        "SOURCE-003"
+      ],
+      "reason": "Asserts Scoped claims preserve exact passages and unknown scope; only an exact accepted decision supplies a named approver. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
+      "testName": "Trial-only source revocation fences standalone and nested plan and outcome disclosure",
+      "kind": "supporting-regression",
+      "clauses": [
+        "AI-013",
+        "TRIAL-001"
+      ],
+      "reason": "Asserts Trial-only source revocation fences standalone and nested plan and outcome disclosure. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
+      "testName": "Treatment observations reject unrelated and out-of-window receipts and count exact trial exposure once",
+      "kind": "supporting-regression",
+      "clauses": [
+        "TRIAL-002"
+      ],
+      "reason": "Asserts Treatment observations reject unrelated and out-of-window receipts and count exact trial exposure once. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
+      "testName": "A support guardrail atomically stops prepared work while retaining confirmed receipts",
+      "kind": "supporting-regression",
+      "clauses": [
+        "TRIAL-002",
+        "EFFECT-003"
+      ],
+      "reason": "Asserts A support guardrail atomically stops prepared work while retaining confirmed receipts. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
+      "testName": "Unverifiable or changed measurements stay inconclusive despite the caller repeating the declared instrumentation hash",
+      "kind": "supporting-regression",
+      "clauses": [
+        "TRIAL-003",
+        "TRIAL-004"
+      ],
+      "reason": "Asserts Unverifiable instrumentation stays inconclusive despite caller repeating the declared hash. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Changed actual measurement fields cannot be blessed by resubmitting the old instrumentation hash. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
+      "testName": "Direct dispatch rejects stopped and expired trial boundaries even if its procedure still runs",
+      "kind": "supporting-regression",
+      "clauses": [
+        "TRIAL-002"
+      ],
+      "reason": "Asserts Direct dispatch rejects stopped and expired trial boundaries even if its procedure still runs. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
+      "testName": "A stop after trial admission invalidates the atomic dispatch guard and preserves uncertain history",
+      "kind": "supporting-regression",
+      "clauses": [
+        "TRIAL-002",
+        "EFFECT-003"
+      ],
+      "reason": "Asserts A stop after trial admission invalidates the atomic dispatch guard and preserves uncertain history. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
+      "testName": "Conclusion closes remaining prepared trial work without erasing prior confirmed exposure",
+      "kind": "supporting-regression",
+      "clauses": [
+        "TRIAL-002",
+        "EFFECT-003"
+      ],
+      "reason": "Asserts terminal trial cancellation of remaining prepared work while retaining confirmed exposure. Controlled local mechanics do not prove prospective exposure or full trial acceptance."
+    },
+    {
+      "file": "tests/flagship/intelligence/reservation-prerequisites.test.ts",
+      "testName": "INQ-005 identical concurrent authorized intents retain one run and one reservation",
+      "kind": "supporting-regression",
+      "clauses": [
+        "INQ-005"
+      ],
+      "reason": "Controlled local Worker regression; no provider or full clause acceptance claim."
+    },
+    {
       "file": "tests/flagship/federation/federation.test.ts",
       "testName": "durable imports and federation persists a real Google Docs export, retains original, searchable canonical content, and replays without duplicate pages",
       "kind": "supporting-regression",
@@ -1026,110 +1139,6 @@
         "DB-002"
       ],
       "reason": "Asserts formula validation catches absent references and typed operand mismatches before rows exist. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/learned-method.test.ts",
-      "testName": "Retained trial learning prepares one inactive draft with failed hypotheses, forecast and evaluation boundary",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-004"
-      ],
-      "reason": "Asserts Retained trial learning prepares one inactive draft with failed hypotheses, forecast and evaluation boundary. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/native-transport.test.ts",
-      "testName": "Native transport refuses redirected token and credential requests without following a location",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SOURCE-002"
-      ],
-      "reason": "Asserts Native transport refuses redirected token and credential requests without following a location. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/native-transport.test.ts",
-      "testName": "Native timestamps preserve valid ISO instants and normalize bounded Unix milliseconds",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SOURCE-004"
-      ],
-      "reason": "Asserts Native timestamps preserve valid ISO instants and normalize bounded Unix milliseconds. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/claims.test.ts",
-      "testName": "Scoped claims preserve exact passages and unknown scope; only an exact accepted decision supplies a named approver",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SOURCE-003"
-      ],
-      "reason": "Asserts Scoped claims preserve exact passages and unknown scope; only an exact accepted decision supplies a named approver. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "Trial-only source revocation fences standalone and nested plan and outcome disclosure",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AI-013",
-        "TRIAL-001"
-      ],
-      "reason": "Asserts Trial-only source revocation fences standalone and nested plan and outcome disclosure. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "Treatment observations reject unrelated and out-of-window receipts and count exact trial exposure once",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-002"
-      ],
-      "reason": "Asserts Treatment observations reject unrelated and out-of-window receipts and count exact trial exposure once. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "A support guardrail atomically stops prepared work while retaining confirmed receipts",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-002",
-        "EFFECT-003"
-      ],
-      "reason": "Asserts A support guardrail atomically stops prepared work while retaining confirmed receipts. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "Unverifiable or changed measurements stay inconclusive despite the caller repeating the declared instrumentation hash",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-003",
-        "TRIAL-004"
-      ],
-      "reason": "Asserts Unverifiable instrumentation stays inconclusive despite caller repeating the declared hash. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Changed actual measurement fields cannot be blessed by resubmitting the old instrumentation hash. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "Direct dispatch rejects stopped and expired trial boundaries even if its procedure still runs",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-002"
-      ],
-      "reason": "Asserts Direct dispatch rejects stopped and expired trial boundaries even if its procedure still runs. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "A stop after trial admission invalidates the atomic dispatch guard and preserves uncertain history",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-002",
-        "EFFECT-003"
-      ],
-      "reason": "Asserts A stop after trial admission invalidates the atomic dispatch guard and preserves uncertain history. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "Conclusion closes remaining prepared trial work without erasing prior confirmed exposure",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-002",
-        "EFFECT-003"
-      ],
-      "reason": "Asserts terminal trial cancellation of remaining prepared work while retaining confirmed exposure. Controlled local mechanics do not prove prospective exposure or full trial acceptance."
     },
     {
       "file": "tests/qualification/authority/atomic-recovery.test.ts",
@@ -1765,24 +1774,6 @@
         "BASE-ACCESS-001"
       ],
       "reason": "Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim."
-    },
-    {
-      "file": "tests/flagship/intelligence/reservation-prerequisites.test.ts",
-      "testName": "AI-012 budget fixture admits one real conservative reservation but cannot fit two",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AI-012"
-      ],
-      "reason": "Controlled local Worker regression; no provider or full clause acceptance claim."
-    },
-    {
-      "file": "tests/flagship/intelligence/reservation-prerequisites.test.ts",
-      "testName": "INQ-005 identical concurrent authorized intents retain one run and one reservation",
-      "kind": "supporting-regression",
-      "clauses": [
-        "INQ-005"
-      ],
-      "reason": "Controlled local Worker regression; no provider or full clause acceptance claim."
     },
     {
       "file": "tests/e2e/landing.test.ts",
