@@ -79,6 +79,7 @@ export async function landedNookHttpJourney(h:any){
   expect(messages.size).toBe(heldCount);
   expect((await h.api('GET',`/api/notifications/chat/destinations/${id}/deliveries`)).items.find((item:any)=>item.id===held.id)).toMatchObject({state:'uncertain',acknowledgedAt:resolution.value.acknowledgedAt});
   expect(await env.DB.prepare('SELECT count(*) n FROM chat_messages WHERE id=(SELECT message_id FROM chat_deliveries WHERE id=?)').bind(held.id).first('n')).toBe(1);
+  expect(await env.DB.prepare('SELECT state,provider_receipt FROM chat_messages WHERE id=(SELECT message_id FROM chat_deliveries WHERE id=?)').bind(held.id).first()).toEqual({state:'withdraw',provider_receipt:null});
   revoked=true;const size=messages.size;const next=await h.page('synthetic-slate-after-revoke');await h.comment(next);await h.sweep();await h.sweep();
   expect(messages.size).toBe(size);expect((await h.destination(id)).state).toBe('needs-attention');
   expect(calls.every(c=>!c.path.includes('find'))).toBe(true);
