@@ -6952,7 +6952,7 @@
       "executable": false
     },
     "src/core/features/notifications/chat-delivery.ts": {
-      "sha256": "a250ae145ac7f218adff51bfcb744ad09a57cfa1ccefdd1e865fe4431bdfc4ab",
+      "sha256": "6282944b7fac26ad27e8be389ab2896bad22f295b69ceb514cc528b872345496",
       "executable": false
     },
     "src/core/features/notifications/chat-message.ts": {
@@ -9080,7 +9080,7 @@
       "executable": false
     },
     "tests/e2e/helpers/chat-network.ts": {
-      "sha256": "c37f495db4d3a5876419ada05c71156cffecf96018eab48df76567b593db3fe0",
+      "sha256": "6cb8636918756f7b4aa8a0223ce164a8e5f5f18b9f5f1e6c44d051d126a952d1",
       "executable": false
     },
     "tests/e2e/helpers/local-mail-database.ts": {
@@ -9220,7 +9220,7 @@
       "executable": false
     },
     "tests/e2e/notifications/destinations.test.ts": {
-      "sha256": "f6f62d58b2d3c3a8d9983a8837f82d407628d7d87e9169eeb828d7fd588f2ea0",
+      "sha256": "f5d640e72b8c6acbb872150e85dfb7eae8dca3a8d98e73fa966dfd1fb47f2d17",
       "executable": false
     },
     "tests/e2e/outbox-auth.mjs": {

@@ -403,10 +403,11 @@ contract('CHAT-001','Withdrawal uses each original channel roster in either rece
    }
    const visible=h.edge.messages.filter(m=>m.channel===a.split('/').at(-1)||m.channel===a),restricted=h.edge.messages.filter(m=>m.channel===b.split('/').at(-1)||m.channel===b);
    if(!control||provider==='nook')expect(visible.length).toBeGreaterThan(0);else expect(visible).toHaveLength(0);expect(restricted.length).toBeGreaterThan(0);
-   // Revoke the reader's container grant through the public sharing door.
-   const grants=await h.api('GET','/api/sharing/containers/'+h.open);
-   const grant=grants.items.find((g:any)=>g.principalId===h.reader);
-   expect(grant).toBeTruthy();await h.api('POST','/api/sharing',{operationKey:h.key(),id:grant.id,targetKind:'container',targetId:h.open,principalKind:'member',principalId:h.reader,level:'edit',revoke:true});
+   // Moving the page changes the two channels' effective audiences differently.
+   const placement={containerId:h.closed,parentPageId:null,treePosition:'z'};
+   const preview=await h.api('POST','/api/pages/'+page+'/move-preview',placement);
+   const document=await h.api('GET','/api/pages/'+page);
+   await h.api('POST','/api/pages/'+page+'/move',{...placement,operationKey:h.key(),expectedRevisionId:document.page.revisionId,accessPreviewHash:preview.accessPreviewHash});
    await h.sweep();await h.sweep();
    console.log('ROSTER WITNESS',JSON.stringify({provider,ordering,retained:visible.filter(m=>m.text.includes('synthetic-slate-channel-title')).length,restricted:restricted.filter(m=>m.text==='Restricted Slate page').length}));
    for(const m of visible)expect.soft(m.text,provider+' retained').toContain('synthetic-slate-channel-title');
