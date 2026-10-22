@@ -47,8 +47,8 @@ export function ChatTokenForm({ connection, containers, workspaceOwner, onSaved,
       }}>
       <h3>{connection ? "Update delivery" : "Connect a channel"}</h3>
       <label htmlFor={`${formId}-provider`}>Provider</label>
-        <select id={`${formId}-provider`} value={provider} disabled={pending || !!connection} onChange={event => setProvider(event.target.value as "slack" | "teams")}>
-          <option value="slack">Slack</option><option value="teams">Microsoft Teams</option>
+        <select id={`${formId}-provider`} value={provider} disabled={pending || !!connection} onChange={event => setProvider(event.target.value as "slack" | "teams" | "nook")}>
+          <option value="slack">Slack</option><option value="teams">Microsoft Teams</option><option value="nook">Nook</option>
         </select>
       <label htmlFor={`${formId}-container`}>Events from</label>
         <select id={`${formId}-container`} name="containerId" defaultValue={connection?.containerId ?? (workspaceOwner ? "" : containers[0]?.id)} disabled={pending || !!connection}>
@@ -86,6 +86,10 @@ export function ChatTokenForm({ connection, containers, workspaceOwner, onSaved,
         settings. A fresh token is required when reconnecting. Saved tokens are
         encrypted and never shown here.
       </p>
+      </> : provider === "nook" ? <>
+        <p>Ask a Nook owner or administrator to approve Slate for a private channel. Use the channel token shown once during approval.</p>
+        <label>Nook channel ID<input name="channel" required autoComplete="off" disabled={pending} defaultValue={connection?.destination.replace(/^nook:/, "") ?? ""} /></label>
+        <label>Nook channel token<input name="token" type="password" required autoComplete="new-password" disabled={pending} /></label>
       </> : <>
         <p>Use a delegated Microsoft Graph access token with ChannelMessage.Send, Channel.ReadBasic.All,
           ChannelMember.Read.All and TeamMember.Read.All permissions. Use a private channel or private team with no guests, external members or other bots. Slate also needs Organization.Read.All, User.Read.All and TeamsAppInstallation.ReadForTeam.All to verify the complete audience. Every channel member’s

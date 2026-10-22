@@ -1,4 +1,3 @@
-import {ChatProviderError} from '../../../src/core/features/notifications/slack';
 import {env,applyD1Migrations,createExecutionContext,waitOnExecutionContext} from 'cloudflare:test';
 import {beforeEach,expect,vi} from 'vitest';
 import {contract} from '../contract';
@@ -16,6 +15,8 @@ import {decodeArchive} from '../../../src/core/features/portability/archive';
 import {chatNetwork} from '../helpers/chat-network';
 import type {SlackAudienceFixture} from '../helpers/slack-network';
 
+// This single journey now covers four destinations, upgrades and destructive withdrawal.
+vi.setConfig({testTimeout:60000});
 beforeEach(resetDeployment);
 contract('CHAT-001','Owners connect several chat destinations, each with its own event selection, and every destination sends one link-only message, fails and disconnects on its own',async()=>{
  const {workspaceId}=await seedWorkspace();
@@ -34,17 +35,17 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
  let nookFacts={channel:'synthetic-slate-channel',private:true,shared:false,archived:false,revoked:false,rosterComplete:true,membershipManagedByMembers:true,appId:'synthetic-slate-app',members:[{...nookMember}]};
  // NOOK-080 is a capability edge, with no invented public Nook HTTP endpoint.
  bindings.NOOK_NOTIFIER={
-  async audience(token,channel){expect(token).toBe(tokens[4]);expect(channel).toBe(nookFacts.channel);const f=edge.failures.get(token);if(f==='revoked'||f==='expired')throw new ChatProviderError('authorization_revoked',false,false,true);return structuredClone(nookFacts);},
+  async audience(token,channel){expect(token).toBe(tokens[4]);expect(channel).toBe(nookFacts.channel);const f=edge.failures.get(token);if(f==='revoked'||f==='expired')return new Response('',{status:401});return Response.json(nookFacts);},
   async post(token,input){
    expect(input.channel).toBe(nookFacts.channel);const f=edge.failures.get(token),status=f==='transient'?429:f==='permanent'?404:f==='uncertain'?503:200;
    edge.attempts.push({token,key:input.clientKey,status});
-   if(status===429){edge.failures.delete(token);throw new ChatProviderError('rate_limited',true,false,false,120000);}
-   if(status!==200)throw new ChatProviderError('provider_rejected',false,status===503);
-   const prior=edge.messages.find(m=>m.token===token&&m.key===input.clientKey);if(prior)return prior.receipt;
-   const receipt=String(edge.messages.length+1);edge.messages.push({token,provider:'nook',channel:input.channel,text:input.text,key:input.clientKey,receipt,thread:input.thread});return receipt;
+   if(status===429){edge.failures.delete(token);return new Response('',{status:429,headers:{'Retry-After':'120'}});}
+   if(status!==200)return new Response('',{status});
+   const prior=edge.messages.find(m=>m.token===token&&m.key===input.clientKey);if(prior)return Response.json({receipt:prior.receipt});
+   const receipt=String(edge.messages.length+1);edge.messages.push({token,provider:'nook',channel:input.channel,text:input.text,key:input.clientKey,receipt,thread:input.thread});return Response.json({receipt});
   },
-  async editOwn(token,input){const message=edge.messages.find(m=>m.token===token&&m.channel===input.channel&&m.receipt===input.receipt);expect(message).toBeTruthy();message!.text=input.text;},
-  async find(){return null;},
+  async editOwn(token,input){const message=edge.messages.find(m=>m.token===token&&m.channel===input.channel&&m.receipt===input.receipt);expect(message).toBeTruthy();message!.text=input.text;return new Response(null,{status:204});},
+  async find(){return Response.json({receipt:null});},
  };
  const raw=(method:string,path:string,body?:unknown,actor:keyof typeof cookies='owner',runtime=bindings)=>app.request(origin+path,{method,headers:{cookie:cookies[actor],origin,...(body===undefined?{}:{'content-type':'application/json'})},body:body===undefined?undefined:JSON.stringify(body)},runtime);
  const api=async(method:string,path:string,body?:unknown,actor:keyof typeof cookies='owner',runtime=bindings)=>{
@@ -56,6 +57,7 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
  const destination=async(id:string)=>(await list()).find(item=>item.id===id);
  const history=async(id:string)=>(await api('GET',`/api/notifications/chat/destinations/${id}/deliveries`)).items;
  const drain=async(runtime=bindings)=>{
+  await runtime.DB.prepare("UPDATE chat_deliveries SET created_at=? WHERE state='pending' AND message_id IS NULL AND created_at>=?").bind(new Date(Date.now()-120000).toISOString(),new Date().toISOString().slice(0,10)).run();
   await runtime.DB.prepare("UPDATE notification_outbox SET created_at=? WHERE processed_at IS NULL").bind(new Date(Date.now()-120000).toISOString()).run();
   const ack=vi.fn(),retry=vi.fn();
   await worker.queue!({queue:'synthetic-slate-1',metadata:{metrics:{backlogCount:1,backlogBytes:0}},messages:[{id:key(),body:{type:'discovery.deliver'},timestamp:new Date(),attempts:1,ack,retry}],ackAll:vi.fn(),retryAll:vi.fn()} as MessageBatch<unknown>,runtime);
@@ -87,7 +89,7 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
   edge.audiences.set(tokens[1]!,{users:{READER:{profile:{email:'synthetic-slate-2@example.test'}},DEACTIVATED:{deleted:true}}});
   const second=(await connect(tokens[1]!,'slack','GSLATE2',['comment'],containerId,'manager')).value.id;
   // Invalid provider facts are refused before credential persistence.
-  for(const change of [{guest:true},{external:true},{bot:true}]){
+  for(const change of [{guest:true},{external:true},{bot:true},{verified:false}]){
    nookFacts.members=[{...nookMember,...change}];
    expect((await raw('POST','/api/notifications/chat/destinations',{operationKey:key(),provider:'nook',channel:nookFacts.channel,token:tokens[4],events})).status).toBe(422);
   }
@@ -100,6 +102,8 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
   ]){edge.teamsMembers.set(tokens[2]!,[member]);expect((await raw('POST','/api/notifications/chat/destinations',{operationKey:key(),provider:'teams',channel:'synthetic-slate-5/synthetic-slate-6',token:tokens[2],events})).status).toBe(422);}
   edge.teamsMembers.delete(tokens[2]!);edge.teamsRooms.set(tokens[2]!,{membershipType:'shared'});
   expect((await raw('POST','/api/notifications/chat/destinations',{operationKey:key(),provider:'teams',channel:'synthetic-slate-5/synthetic-slate-6',token:tokens[2],events})).status).toBe(422);edge.teamsRooms.delete(tokens[2]!);
+  edge.teamsApps.set(tokens[2]!,[{teamsAppDefinition:{bot:{id:'synthetic-other-bot'}}}]);
+  expect((await raw('POST','/api/notifications/chat/destinations',{operationKey:key(),provider:'teams',channel:'synthetic-slate-5/synthetic-slate-6',token:tokens[2],events})).status).toBe(422);edge.teamsApps.delete(tokens[2]!);
   const teams=(await connect(tokens[2]!,'teams','synthetic-slate-5/synthetic-slate-6')).value.id;
   expect((await list('manager')).map(item=>item.id)).toEqual([second]);expect(await list('reader')).toEqual([]);
   expect((await raw('DELETE',`/api/notifications/chat/${teams}`,{operationKey:key(),expectedRevisionId:(await destination(teams)).revisionId},'manager')).status).toBe(403);
@@ -129,12 +133,16 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
    expect((await history(ids[i]!)).filter((item:any)=>item.state==='delivered')).toHaveLength(i===1?1:events.length);
   }
   // One completed minute with twenty events produces one message per destination, retaining every event.
+  const roots=new Map(activeTokens.map(token=>[token,edge.messages.find(m=>m.token===token&&m.text.includes(`/app/pages/${pageId}`))!.receipt]));
   const burstStart=edge.messages.length;
   for(let i=0;i<20;i++)await comment();await drain();
   const burst=edge.messages.slice(burstStart);expect(burst).toHaveLength(ids.length);
-  for(const message of burst){expect(message.text.split('\n')).toHaveLength(20);expect(message.thread).toBeTruthy();}
+  for(const message of burst){expect(message.text.split('\n')).toHaveLength(20);expect(message.thread).toBe(roots.get(message.token));}
   const afterBurst=edge.messages.length;await comment();await drain();expect(edge.messages).toHaveLength(afterBurst+ids.length);
-  for(const message of edge.messages.slice(afterBurst))expect(message.thread).toBeTruthy();
+  for(const message of edge.messages.slice(afterBurst))expect(message.thread).toBe(roots.get(message.token));
+  await env.DB.prepare("UPDATE chat_messages SET created_at=? WHERE thread_receipt IS NULL").bind(new Date(Date.now()-25*3600000).toISOString()).run();
+  const expiredThreadStart=edge.messages.length;await comment();await drain();
+  for(const message of edge.messages.slice(expiredThreadStart))expect(message.thread).toBeUndefined();
   for(const [i,id] of ids.entries())await reconnect(id,activeTokens[i]!,i===1?'manager':'owner','daily');
   const digestStart=edge.messages.length;await comment();await comment();await drain();expect(edge.messages).toHaveLength(digestStart);
   await env.DB.prepare("UPDATE chat_deliveries SET created_at='2000-01-01T00:00:00.000Z' WHERE state='pending'").run();
@@ -142,6 +150,11 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
   for(const message of edge.messages.slice(digestStart))expect(message.text.split('\n')).toHaveLength(2);
   for(const [i,id] of ids.entries())await reconnect(id,activeTokens[i]!,i===1?'manager':'owner');
   console.log('PASS CHAT-001 Teams/Nook audience refusal, twenty-event coalescing, 24-hour threading and per-destination daily digest');
+  for(const change of [{guest:true},{external:true},{bot:true},{verified:false}]){
+   nookFacts.members=[{...nookMember,...change}];const prior=edge.messages.filter(m=>m.token===tokens[4]).length;
+   await comment();await drain();expect(edge.messages.filter(m=>m.token===tokens[4])).toHaveLength(prior);
+  }
+  nookFacts.members=[{...nookMember}];
   // Every audience, including the second Slack destination, fails closed before a send.
   for(const audience of refusals){
    edge.audiences.set(tokens[1]!,audience);const before=edge.messages.filter(m=>m.token===tokens[1]).length;
@@ -194,12 +207,36 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
   edge.audiences.set(tokens[3]!,{channel:{is_org_shared:true}});const sourceSends=edge.messages.filter(m=>m.token===tokens[3]).length;await comment();await drain();expect(edge.messages.filter(m=>m.token===tokens[3])).toHaveLength(sourceSends);edge.audiences.delete(tokens[3]!);
   await disconnect(sourceDestination);
   expect(await env.DB.prepare('SELECT credential_ciphertext FROM chat_connections WHERE id=?').bind(sourceDestination).first('credential_ciphertext')).toBeNull();
+  // Deletion withdraws every message about the page, preserving opaque receipts only.
+  const doomed=(await api('POST','/api/pages',{operationKey:key(),containerId,title:'synthetic-slate-doomed'})).value.pageId;
+  await api('POST',`/api/comments/page/${doomed}`,{operationKey:key(),body:[{text:'synthetic-slate-deletion-body'}]});await drain();
+  const doomedMessages=edge.messages.filter(m=>m.text.includes(`/app/pages/${doomed}`));expect(doomedMessages.length).toBeGreaterThan(0);
+  const doomedDocument=await api('GET',`/api/pages/${doomed}`);
+  await api('POST',`/api/archive/${doomed}`,{operationKey:key(),expectedRevisionId:doomedDocument.page.revisionId,action:'trash'});
+  await api('POST',`/api/archive/${doomed}/permanent-delete`,{operationKey:key(),confirmedPageIds:[doomed]});await drain();
+  for(const message of doomedMessages)expect(message.text).toBe('Restricted Slate page');
+  expect(await env.DB.prepare('SELECT count(*) AS n FROM chat_message_sources WHERE page_id=?').bind(doomed).first<number>('n')).toBe(0);
+  // Erase a separate actor while channel members and destination owners stay active.
+  const erased=(await seedMember(workspaceId,{role:'member',email:'synthetic-slate-erase@example.test',displayName:'synthetic-slate-erase'})).memberId;
+  await seedContainerGrant(containerId,{principalKind:'member',principalId:erased,level:'edit'});
+  const erasedCookie=await sessionFor(erased);
+  const actorReply=await app.request(origin+`/api/comments/page/${pageId}`,{method:'POST',headers:{cookie:erasedCookie,origin,'content-type':'application/json'},body:JSON.stringify({operationKey:key(),body:[{text:'synthetic-slate-actor-body'}]})},bindings);expect(actorReply.status).toBe(200);
+  const actorStart=edge.messages.length;await drain();const actorMessages=edge.messages.slice(actorStart);expect(actorMessages.length).toBeGreaterThan(0);
+  const queuedErasure=await app.request(origin+`/api/comments/page/${pageId}`,{method:'POST',headers:{cookie:erasedCookie,origin,'content-type':'application/json'},body:JSON.stringify({operationKey:key(),body:[{text:'synthetic-slate-pending-erasure'}]})},bindings);expect(queuedErasure.status).toBe(200);
+  const beforeErasure=edge.messages.length;
+  await api('POST','/api/members/remove',{operationKey:key(),memberId:erased,erase:true});await drain();expect(edge.messages).toHaveLength(beforeErasure);
+  for(const message of actorMessages)expect(message.text).toBe('Restricted Slate page');
+  expect(await env.DB.prepare('SELECT count(*) AS n FROM chat_message_sources WHERE actor_member_id=?').bind(erased).first<number>('n')).toBe(0);
+  console.log('PASS CHAT-001 withdrawal after page deletion, audience narrowing and actor erasure; durable receipts omit erased references');
   // Workspace export retains destination records/history while omitting every credential value.
   const exported=await api('POST','/api/exports/workspace',{operationKey:key()});
   const download=await raw('GET',`/api/exports/${exported.id}/download`);expect(download.status).toBe(200);
   const archive=await decodeArchive(new Uint8Array(await download.arrayBuffer()));
   for(const row of archive.manifest.tables.chat_connections!){expect(row.credential_ciphertext).toBeNull();expect(row.state).toBe('disconnected');}
   for(const token of tokens)expect(JSON.stringify(archive.manifest)).not.toContain(token);
+  expect(archive.manifest.tables.chat_messages!.length).toBeGreaterThan(0);
+  expect(JSON.stringify(archive.manifest.tables.chat_message_sources)).not.toContain(erased);
+  for(const row of archive.manifest.tables.chat_messages!)expect(row).not.toHaveProperty('text');
   // A populated v0.4.0-shaped store upgrades additively, keeping its original ID, scope, ciphertext and delivered history.
   const prior=(env as unknown as {PRIOR_DB:D1Database}).PRIOR_DB;
   await applyD1Migrations(prior,env.TEST_MIGRATIONS.filter(m=>m.name<'0045_chat_destinations.sql'));
@@ -212,7 +249,13 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
   const delivered=await env.DB.prepare("SELECT * FROM chat_deliveries WHERE connection_id=? AND state='delivered' LIMIT 1").bind(first).first<any>();
   delete delivered.message_id;
   const dc=Object.keys(delivered);await prior.prepare(`INSERT INTO chat_deliveries(${dc.join(',')}) VALUES(${dc.map(()=>'?').join(',')})`).bind(...Object.values(delivered)).run();
+  await applyD1Migrations(prior,env.TEST_MIGRATIONS.filter(m=>m.name<'0046_chat_delivery_policy.sql'));
+  const c7a=await env.DB.prepare('SELECT * FROM chat_connections WHERE id=?').bind(teams).first<any>();
+  delete c7a.notifier_provider;delete c7a.delivery_mode;delete c7a.retry_after;
+  const tc=Object.keys(c7a);await prior.prepare(`INSERT INTO chat_connections(${tc.join(',')}) VALUES(${tc.map(()=>'?').join(',')})`).bind(...Object.values(c7a)).run();
   await applyD1Migrations(prior,env.TEST_MIGRATIONS);
+  expect(await prior.prepare('SELECT * FROM chat_connections WHERE id=?').bind(teams).first()).toEqual({...c7a,notifier_provider:null,delivery_mode:'immediate',retry_after:null});
+  expect(await prior.prepare('SELECT provider_receipt FROM chat_messages WHERE id=?').bind(delivered.id).first('provider_receipt')).toBe(delivered.provider_receipt);
   expect(await prior.prepare('SELECT * FROM chat_connections WHERE id=?').bind(first).first()).toEqual({...old,provider:'slack',container_id:null,notifier_provider:null,delivery_mode:'immediate',retry_after:null});
   expect(await prior.prepare('SELECT * FROM chat_deliveries WHERE id=?').bind(delivered.id).first()).toEqual({...delivered,message_id:delivered.id});
   const upgraded={...bindings,DB:prior};
@@ -220,7 +263,7 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
   const upgradedSends=edge.messages.filter(m=>m.token===tokens[0]).length;
   await api('POST',`/api/comments/page/${pageId}`,{operationKey:key(),body:[{text:'synthetic-slate-upgrade-body'}]},'owner',upgraded);await drain(upgraded);
   expect(edge.messages.filter(m=>m.token===tokens[0])).toHaveLength(upgradedSends+1);
-  console.log('PASS CHAT-001 populated v0.4.0 upgrade through 0046, public legacy route and delivery; export credentials omitted');
+  console.log('PASS CHAT-001 populated v0.4.0 upgrade through 0046, and populated c7a upgrade, public legacy route and delivery; export credentials omitted');
   // Erasing the container owner removes that destination's credential and audience references.
   await api('POST','/api/members/remove',{operationKey:key(),memberId:manager,erase:true});
   expect(await env.DB.prepare('SELECT credential_ciphertext,state FROM chat_connections WHERE id=?').bind(second).first()).toEqual({credential_ciphertext:null,state:'disconnected'});

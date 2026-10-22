@@ -41,7 +41,8 @@ export async function connectChat(ctx:FeatureContext,config:ChatConfig,input:{op
   const id=existing?.id??createUlid();
   if(existing&&(existing.revision_id!==input.expectedRevisionId||existing.provider!==provider||existing.container_id!==containerId))throw new ApiProblem(409,'REVISION_CONFLICT','Reload the destination; its provider and scope stay fixed.');
   let audience;try{audience=await(config.adapter??chatNotifier(provider,config.nookDoor)).audience(input.token,input.channel);}catch(error){if(error instanceof ChatProviderError){
-   const refusal:Record<string,string>={private_unshared_channel_required:'Choose a private Slack channel that is not shared with another workspace or organization.',unverifiable_audience:'Make every channel member’s email visible and remove unsupported identities before connecting.',empty_audience:'Add a person whose email matches an active workspace member.'};
+   if(error.code==='nook_080_door_unavailable')throw new ApiProblem(503,'CHAT_PROVIDER_UNAVAILABLE','This installation has no Nook notification service. Ask the workspace owner to configure it.');
+   const refusal:Record<string,string>={private_unshared_channel_required:`Choose a private ${provider==='teams'?'Teams':provider==='nook'?'Nook':'Slack'} channel that is not shared with another workspace or organization.`,unverifiable_audience:'Make every channel member’s email visible and remove unsupported identities before connecting.',empty_audience:'Add a person whose email matches an active workspace member.'};
    if(refusal[error.code])throw new ApiProblem(422,'CHAT_DESTINATION_REFUSED',refusal[error.code],{reason:error.code});
    throw new ApiProblem(503,'CHAT_PROVIDER_UNAVAILABLE',`The provider could not authorize this destination: ${error.code}.`);
   }throw error;}

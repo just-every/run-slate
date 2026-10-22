@@ -25,7 +25,7 @@ test('[NOTIF-001][COMM-003] creation snapshot rejects later access, allows atomi
  }finally{await h.close();}});
 test('[NOTIF-002] last claim rejects owner demotion during audience request and reconcile updates health without resending',async()=>{const h=await harness();try{
  await h.page('p','Page');const ctx=context(h);await connectChat(ctx,config,{operationKey:'connect-race',channel:'GTEST',token:'secret',events:['mention']});
- await h.db.batch(notificationStatements(ctx,{id:'race',event:'mention',pageId:'p',recipientIds:['reader']}));await h.request('/test/drain','owner',{});let sends=0;
+ await h.db.batch(notificationStatements(ctx,{id:'race',event:'mention',pageId:'p',recipientIds:['reader']}));await h.request('/test/drain','owner',{});await h.db.prepare("UPDATE chat_deliveries SET created_at='2000-01-01T00:00:00.000Z' WHERE state='pending'").run();let sends=0;
  await deliverChat(ctx,{...config,adapter:{...adapter,audience:async()=>{await h.db.prepare("UPDATE members SET role='member' WHERE id='owner'").run();return adapter.audience();},send:async()=>{sends++;return 'bad'}}});assert.equal(sends,0);
  await h.db.prepare("UPDATE members SET role='owner' WHERE id='owner'").run();await h.db.prepare("UPDATE chat_deliveries SET state='uncertain'").run();
  await reconcileChat(ctx,{...config,adapter:{...adapter,findReceipt:async()=> 'confirmed'}});let c=await h.db.prepare('SELECT last_delivered_at,last_delivery_event FROM chat_connections').first();assert.equal(c.last_delivery_event,'mention');assert.ok(c.last_delivered_at);

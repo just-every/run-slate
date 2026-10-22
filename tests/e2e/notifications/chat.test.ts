@@ -46,6 +46,7 @@ contract('NOTIF-003', 'Chat destination sends link-only messages, shows last del
     { name: 'inactive Slate member', audience: { users: { READER: { profile: { email: 'removed@chat.test' } } } }, reason: 'CHAT_AUDIENCE_UNMAPPED', status: 409 },
   ];
   const drain = async () => {
+  await env.DB.prepare("UPDATE chat_deliveries SET created_at=? WHERE state='pending' AND message_id IS NULL AND created_at>=?").bind(new Date(Date.now()-120000).toISOString(),new Date().toISOString().slice(0,10)).run();
   await env.DB.prepare("UPDATE notification_outbox SET created_at=? WHERE processed_at IS NULL").bind(new Date(Date.now()-120000).toISOString()).run();
     const ack = vi.fn(), retry = vi.fn();
     await worker.queue!({ queue: 'test-discovery', metadata: { metrics: { backlogCount: 1, backlogBytes: 0 } }, messages: [{ id: key(), body: { type: 'discovery.deliver' }, timestamp: new Date(), attempts: 1, ack, retry }], ackAll: vi.fn(), retryAll: vi.fn() } as MessageBatch<unknown>, bindings);

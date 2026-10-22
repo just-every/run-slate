@@ -11,7 +11,7 @@ import { ok } from './two-people-support.mjs';
 export async function chatJourney(state, width = state.page.viewportSize().width) {
   const { page, context, origin, atRest, setSlackFailure, readSlackMessages } = state;
   const runScheduled=async()=>{
-    await atRest("UPDATE notification_outbox SET created_at=strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 minutes') WHERE processed_at IS NULL");
+    await atRest("UPDATE notification_outbox SET created_at=date('now')||'T00:00:00.000Z' WHERE processed_at IS NULL; UPDATE chat_deliveries SET created_at=date('now')||'T00:00:00.000Z' WHERE state='pending' AND message_id IS NULL AND substr(created_at,1,10)=date('now')");
     await state.runScheduled();
   };
   const api = (method, route, data) => ok(context, origin, method, route, data);
@@ -185,5 +185,13 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await page.getByRole('button',{name:'Cancel',exact:true}).click();
   await teams.getByRole('button',{name:'Disconnect delivery',exact:true}).click();
   await shot('all-disconnected');
+  await add();await page.getByLabel('Provider',{exact:true}).selectOption('nook');
+  await page.getByLabel('Nook channel ID',{exact:true}).fill('synthetic-slate-channel');
+  await page.getByLabel('Nook channel token',{exact:true}).fill('synthetic-slate-103');
+  await page.getByLabel('Delivery schedule',{exact:true}).selectOption('daily');
+  await page.getByRole('button',{name:'Save chat delivery',exact:true}).click();
+  await expect(page.getByRole('alert')).toContainText('no Nook notification service');
+  await shot('nook-unavailable');
+  await page.getByRole('button',{name:'Cancel',exact:true}).click();
 
 }

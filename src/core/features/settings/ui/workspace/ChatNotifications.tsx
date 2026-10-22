@@ -29,11 +29,11 @@ export function ChatNotifications() {
   return (
     <section className="settings-panel" style={{ minWidth: 0, overflowWrap: "anywhere" }}>
       <h2>Send updates to chat.</h2>
-      <p>Connect Slack or Microsoft Teams channels. Choose the scope and events for each destination.</p>
+      <p>Connect Slack, Microsoft Teams or Nook channels. Choose the scope and events for each destination.</p>
       {notice ? <p role="status">{notice}</p> : null}
       <RequestState loading={current.loading} error={current.error} retry={current.reload}>
         {connections.length ? connections.map(connection => (
-          <section key={connection.id} aria-label={`${connection.provider === "teams" ? "Teams" : "Slack"} delivery status: ${connection.targetLabel}`}>
+          <section key={connection.id} aria-label={`${connection.provider === "teams" ? "Teams" : connection.provider === "nook" ? "Nook" : "Slack"} delivery status: ${connection.targetLabel}`}>
             <h3>{connection.targetLabel}</h3>
             <p role="status">
               {connection.state === "connected" ? "Connected" :
