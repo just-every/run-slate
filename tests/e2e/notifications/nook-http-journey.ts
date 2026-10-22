@@ -66,6 +66,19 @@ export async function landedNookHttpJourney(h:any){
   await adapter.edit(token,channel,receipt,'synthetic-slate-edit');await expect(adapter.edit(token,channel,receipt,'synthetic-slate-stale')).rejects.toMatchObject({code:'provider_http_409'});
   const parsed=JSON.parse(receipt);messages.get(parsed.id)!.author='synthetic-slate-other-approval';await expect(adapter.edit(token,channel,JSON.stringify({...parsed,version:2}),'synthetic-slate-foreign')).rejects.toMatchObject({auth:true});
   uncertain=true;await expect(adapter.send(token,channel,'synthetic-slate-uncertain','synthetic-slate-5')).rejects.toMatchObject({uncertain:true});uncertain=false;
+  // Actual landed HTTP door: lost acceptance response is held through acknowledgment, purge and reconnect.
+  const heldPage=await h.page('synthetic-slate-held-nook');uncertain=true;await h.comment(heldPage);await h.sweep();uncertain=false;
+  const heldCount=messages.size,heldHistory=(await h.api('GET',`/api/notifications/chat/destinations/${id}/deliveries`)).items;
+  const held=heldHistory.find((item:any)=>item.state==='uncertain'&&!item.acknowledgedAt);expect(held).toBeTruthy();
+  expect((await h.destination(id)).heldCount).toBe(1);
+  const acknowledge=`/api/notifications/chat/destinations/${id}/deliveries/${held.id}/acknowledge`;
+  const resolution=await h.api('POST',acknowledge,{operationKey:h.key(),expectedRevisionId:(await h.destination(id)).revisionId});
+  expect(resolution.value).toMatchObject({state:'uncertain'});expect(resolution.value.acknowledgedAt).toBeTruthy();
+  expect((await h.destination(id)).heldCount).toBe(0);
+  await h.purge(heldPage);await h.sweep();await h.update(id,token,channel);await h.sweep();
+  expect(messages.size).toBe(heldCount);
+  expect((await h.api('GET',`/api/notifications/chat/destinations/${id}/deliveries`)).items.find((item:any)=>item.id===held.id)).toMatchObject({state:'uncertain',acknowledgedAt:resolution.value.acknowledgedAt});
+  expect(await env.DB.prepare('SELECT count(*) n FROM chat_messages WHERE id=(SELECT message_id FROM chat_deliveries WHERE id=?)').bind(held.id).first('n')).toBe(1);
   revoked=true;const size=messages.size;const next=await h.page('synthetic-slate-after-revoke');await h.comment(next);await h.sweep();await h.sweep();
   expect(messages.size).toBe(size);expect((await h.destination(id)).state).toBe('needs-attention');
   expect(calls.every(c=>!c.path.includes('find'))).toBe(true);

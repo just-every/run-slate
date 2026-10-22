@@ -111,7 +111,7 @@ export async function deliverChat(ctx:FeatureContext,config:ChatConfig):Promise<
  await withdrawChat(ctx,config,true);
  return {processed};
 }
-export async function chatDeliveryHistory(ctx:FeatureContext,id?:string){if(id)await managedChat(ctx,id);else await requireChatOwner(ctx);return ctx.db.prepare('SELECT d.connection_id AS destinationId,d.id,d.state,d.attempts,d.delivered_at AS deliveredAt,d.failure,d.created_at AS createdAt FROM chat_deliveries d JOIN chat_connections c ON c.id=d.connection_id WHERE c.workspace_id=? AND (? IS NULL OR c.id=?) ORDER BY d.created_at DESC LIMIT 100').bind(ctx.actor.workspaceId,id??null,id??null).all();}
+export async function chatDeliveryHistory(ctx:FeatureContext,id?:string,held=false){if(id)await managedChat(ctx,id);else await requireChatOwner(ctx);return ctx.db.prepare(`SELECT d.connection_id AS destinationId,d.id,d.state,d.attempts,d.delivered_at AS deliveredAt,d.failure,d.acknowledged_at AS acknowledgedAt,d.created_at AS createdAt FROM chat_deliveries d JOIN chat_connections c ON c.id=d.connection_id WHERE c.workspace_id=? AND (? IS NULL OR c.id=?) AND (?=0 OR (d.state='uncertain' AND d.acknowledged_at IS NULL)) ORDER BY d.created_at DESC LIMIT 100`).bind(ctx.actor.workspaceId,id??null,id??null,+held).all();}
 
 /** Read-back only: ambiguous writes are never resubmitted even when history has no matching receipt. */
 export async function reconcileChat(ctx:FeatureContext,config:ChatConfig):Promise<{reconciled:number}>{

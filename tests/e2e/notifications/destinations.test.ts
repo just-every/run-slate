@@ -187,7 +187,22 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
    await env.DB.prepare("UPDATE chat_connections SET retry_after=NULL WHERE id=?").bind(ids[i]).run();
    await drain();await drain();expect(edge.attempts.filter(a=>a.token===token).at(-1)!.key).toBe(failed.key);
    expect(edge.messages.filter(m=>m.token===token&&m.key===failed.key)).toHaveLength(1);
-   for(const failure of ['permanent','uncertain']){edge.failures.set(token,failure);await comment();await drain();const n=edge.attempts.length;await drain();expect(edge.attempts).toHaveLength(n);edge.failures.delete(token);}
+   for(const failure of ['permanent','uncertain']){if(failure==='uncertain')await reconnect(ids[i]!,token,i===1?'manager':'owner');edge.failures.set(token,failure);await comment();await drain();const n=edge.attempts.length;await drain();expect(edge.attempts).toHaveLength(n);edge.failures.delete(token);
+    if(failure==='uncertain'){
+     expect((await destination(ids[i]!)).heldCount).toBeGreaterThan(0);
+     const held=(await history(ids[i]!)).find((item:any)=>item.state==='uncertain'&&!item.acknowledgedAt);
+     expect(held).toBeTruthy();
+     const route=`/api/notifications/chat/destinations/${ids[i]}/deliveries/${held.id}/acknowledge`,input={operationKey:key(),expectedRevisionId:(await destination(ids[i]!)).revisionId};
+     expect((await raw('POST',route,input,'reader')).status).toBe(403);
+     if(i!==1)expect((await raw('POST',route,input,'manager')).status).toBe(403);
+     const resolved=await api('POST',route,input,i===1?'manager':'owner');
+     expect(resolved.value.state).toBe('uncertain');expect(resolved.value.acknowledgedAt).toBeTruthy();
+     expect(await api('POST',route,input,i===1?'manager':'owner')).toEqual(resolved);
+     expect((await history(ids[i]!)).find((item:any)=>item.id===held.id)).toMatchObject({state:'uncertain',acknowledgedAt:resolved.value.acknowledgedAt});
+     expect((await destination(ids[i]!)).heldCount).toBe(0);
+     await drain();expect(edge.attempts).toHaveLength(n);
+    }
+   }
    for(const failure of ['revoked','expired']){
     const selection=(await destination(ids[i]!)).eventsJson,previous=(await history(ids[i]!)).length;
     edge.failures.set(token,failure);await comment();await drain();
@@ -254,7 +269,7 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
   const columns=Object.keys(old);await prior.prepare(`INSERT INTO chat_connections(${columns.join(',')}) VALUES(${columns.map(()=>'?').join(',')})`).bind(...Object.values(old)).run();
   const delivered=await env.DB.prepare("SELECT * FROM chat_deliveries WHERE connection_id=? AND state='delivered' LIMIT 1").bind(first).first<any>();
   delete delivered.message_id;
-  const dc=Object.keys(delivered);await prior.prepare(`INSERT INTO chat_deliveries(${dc.join(',')}) VALUES(${dc.map(()=>'?').join(',')})`).bind(...Object.values(delivered)).run();
+  const dc=Object.keys(delivered).filter(column=>column!=='acknowledged_at');await prior.prepare(`INSERT INTO chat_deliveries(${dc.join(',')}) VALUES(${dc.map(()=>'?').join(',')})`).bind(...dc.map(column=>delivered[column])).run();
   await applyD1Migrations(prior,env.TEST_MIGRATIONS.filter(m=>m.name<'0046_chat_delivery_policy.sql'));
   const c7a=await env.DB.prepare('SELECT * FROM chat_connections WHERE id=?').bind(teams).first<any>();
   delete c7a.notifier_provider;delete c7a.delivery_mode;delete c7a.retry_after;

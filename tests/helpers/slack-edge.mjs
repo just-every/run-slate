@@ -60,8 +60,8 @@ export async function teamsEdge(request,directory,ResponseClass) {
  if(request.method==='PATCH')return reply({});
  if(request.method==='POST'){
   const message=await request.json();
-  await appendFile(path.join(directory,'teams-messages.jsonl'),JSON.stringify({...message,key:request.headers.get('client-request-id'),accepted:failure==='ok'})+'\n');
-  return failure==='rate_limited'?reply({},429):reply({id:String(Date.now())});
+  await appendFile(path.join(directory,'teams-messages.jsonl'),JSON.stringify({...message,key:request.headers.get('client-request-id'),accepted:failure==='ok'||failure==='uncertain'})+'\n');
+  return failure==='rate_limited'?reply({},429):failure==='uncertain'?reply({},503):reply({id:String(Date.now())});
  }
  const pathname=new URL(request.url).pathname;
  if(pathname==='/v1.0/organization')return reply({value:[{id:'synthetic-slate-tenant'}]});

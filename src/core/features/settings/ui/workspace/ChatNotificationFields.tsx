@@ -6,6 +6,7 @@ export interface ChatConnection {
   containerId: string | null;
   targetLabel: string;
   state: string;
+  heldCount: number;
   needsAttentionReason: string | null;
   revisionId: string;
   connectionId: string | null;

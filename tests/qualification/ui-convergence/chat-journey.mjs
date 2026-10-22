@@ -156,6 +156,25 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   }
   await open();await expect(second).toContainText('Last delivered:');await expect(teams).toContainText('Last delivered:');
   await shot('independent-selections');
+  // CHAT-001: an accepted write with a lost response stays visible and is acknowledged, never re-sent.
+  const beforeHeld=(await state.readTeamsMessages()).length;
+  await state.setTeamsFailure('uncertain');await publish();await runScheduled();
+  assert.equal((await state.readTeamsMessages()).length,beforeHeld+1);
+  const held=(await history()).find(item=>item.state==='uncertain'&&!item.acknowledgedAt);
+  assert.ok(held);
+  await open();await expect(teams.getByRole('status')).toHaveText('Needs attention');
+  await teams.getByRole('button',{name:'Resolve held sends',exact:true}).click();
+  await expect(teams).toContainText('It does not confirm delivery or resend');
+  await shot('held-send');
+  await teams.getByRole('button',{name:'Acknowledge without resending',exact:true}).click();
+  await expect(teams.getByRole('status')).toHaveText('Connected');
+  const acknowledged=(await history()).find(item=>item.id===held.id);
+  assert.equal(acknowledged.state,'uncertain');assert.ok(acknowledged.acknowledgedAt);
+  await state.setTeamsFailure('ok');await runScheduled();await runScheduled();
+  assert.equal((await state.readTeamsMessages()).length,beforeHeld+1,'Acknowledgment cannot send a second post.');
+  await open();await expect(teams.getByRole('button',{name:'Resolve held sends',exact:true})).toHaveCount(0);
+  await shot('held-send-acknowledged');
+
   await state.setTeamsFailure('token_revoked');await publish();await runScheduled();
   const beforeOther=await count();await comment();await runScheduled();assert.equal(await count(),beforeOther+1);
   await open();await expect(teams.getByRole('status')).toHaveText('Needs attention');await expect(second.getByRole('status')).toHaveText('Connected');

@@ -6,6 +6,7 @@ import { RequestState } from "../../../../app/ui/RequestState";
 import { selectedChatEvents, type ChatConnection } from "./ChatNotificationFields";
 import { ChatTokenForm } from "./ChatTokenForm";
 import { ChatOAuthForm } from "./ChatOAuthForm";
+import { HeldChatDelivery } from "./HeldChatDelivery";
 
 export function ChatNotifications() {
   const flagship = useFlagshipEnabled();
@@ -36,13 +37,14 @@ export function ChatNotifications() {
           <section key={connection.id} aria-label={`${connection.provider === "teams" ? "Teams" : connection.provider === "nook" ? "Nook" : "Slack"} delivery status: ${connection.targetLabel}`}>
             <h3>{connection.targetLabel}</h3>
             <p role="status">
-              {connection.state === "connected" ? "Connected" :
+              {connection.heldCount > 0 ? "Needs attention" : connection.state === "connected" ? "Connected" :
                 connection.state === "disconnected" ? "Disconnected" :
                   connection.state === "needs-attention" ? "Needs attention" : connection.state}
             </p>
             {connection.state !== "disconnected" && connection.needsAttentionReason ? (
               <p role="alert">{connection.needsAttentionReason}</p>
             ) : null}
+            {connection.heldCount > 0 ? <HeldChatDelivery connection={connection} onResolved={current.reload} /> : null}
             <p>Delivery: {connection.deliveryMode === "daily" ? "Daily digest" : "Immediate"}.</p>
             <p>Selected events: {selectedChatEvents(connection).map((event) => event.replaceAll("-", " ")).join(", ") || "None"}.</p>
             <p>{connection.lastDeliveredAt ? <>
