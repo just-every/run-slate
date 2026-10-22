@@ -198,6 +198,7 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await page.getByLabel('Delivery schedule',{exact:true}).selectOption('daily');
   await page.getByLabel('Microsoft Graph access token',{exact:true}).fill('synthetic-slate-102');
   await page.getByRole('button',{name:'Save chat delivery',exact:true}).click();
+  await expect(teams.getByRole('status')).toHaveText('Connected');
   await open();await expect(teams).toContainText('Daily digest');
   const digestBefore=(await state.readTeamsMessages()).length;
   await publish();await runScheduled();assert.equal((await state.readTeamsMessages()).length,digestBefore);
