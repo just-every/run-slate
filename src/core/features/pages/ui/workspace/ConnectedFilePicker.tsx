@@ -21,7 +21,7 @@ export function ConnectedFilePicker({onPick,onClose}:{onPick:(reference:FileRefe
  }}>
   <p>The file stays with its provider. Each reader uses their own connected account.</p>
   {connections?.length?<>
-   <label>Connected account<select value={connection} onChange={event=>{setConnection(event.target.value);setItems([]);setSelected('');setFolder('root');}} required><option value="">Choose an account</option>{connections.map(item=><option key={item.fileId} value={item.fileId}>{fileProviderLabels[item.provider]} · {item.label}</option>)}</select></label>
+   <label>Connected account<select value={connection} onChange={event=>{setConnection(event.target.value);setItems([]);setSelected('');setFolder('root');}} required><option value="">Choose an account</option>{connections.map(item=><option key={item.id} value={item.id}>{fileProviderLabels[item.provider]} · {item.label}</option>)}</select></label>
    <label>Folder ID<input value={folder} onChange={event=>setFolder(event.target.value)} required/></label>
    <button type="button" disabled={!connection||busy} onClick={()=>void browse()}>{busy?'Loading files…':'Browse files'}</button>
    <div className="verify-expiry grid max-h-64 min-w-0 gap-2 overflow-y-auto" aria-label="Provider files">

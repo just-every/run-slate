@@ -48,7 +48,7 @@ export async function fileCardsHttpJourney(){
    await api('PUT',`/api/pages/${pageId}/blocks`,{operationKey:key(),expectedRevisionId:doc.page.revisionId,blocks:[{id:blockId,blockType:'file-card',treePosition:'1',content:reference}]});
    expect((await raw('POST','/api/pages',{operationKey:key(),containerId:space,title:'Untrusted reference',blocks:[{id:key(),blockType:'file-card',treePosition:'1',content:{...reference,url:'https://synthetic-slate-1.example.test/file'}}]})).status).toBe(400);
    const route=`/api/pages/${pageId}/file-cards/${blockId}`;
-   expect(await api('GET',route)).toEqual({state:'readable',metadata:{title,owner:'Alex Owner',modifiedAt:'2026-10-21T10:00:00.000Z',type:'application/pdf'}});
+   expect(await api('GET',route)).toEqual({state:'readable',reference,metadata:{title,owner:'Alex Owner',modifiedAt:'2026-10-21T10:00:00.000Z',type:'application/pdf'}});
    title='Recovery notes revised';expect((await api('GET',route)).metadata.title).toBe(title);
    cookie=readerCookie;expect(await api('GET',route)).toEqual({state:'request-access',connect:true});
    await api('POST','/api/imports/provider-folders/connections',{operationKey:key(),provider,token:tokens[1],...(provider==='sharepoint'?{driveId:'synthetic-slate-733'}:{})});

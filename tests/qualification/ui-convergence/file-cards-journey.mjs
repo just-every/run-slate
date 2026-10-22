@@ -35,10 +35,10 @@ export async function fileCardsJourney(state){
   await expect(card.getByRole('link',{name:source.name,exact:true})).toBeVisible();
   await expect(card).toContainText('Alex Owner');await expect(card.locator('time')).toHaveAttribute('datetime','2026-10-20T09:30:00.000Z');await expect(card).toContainText(source.mimeType);await expect(card).toContainText('You can open this file.');
   await shot(provider+'-readable');
-  const renamed='Recovery notes revised '+(provider==='google-drive'?'Drive':'SharePoint');
+  const renamed='Recovery <handover> notes revised '+(provider==='google-drive'?'Drive':'SharePoint');
   await setFileCardFixture({renamed:{[source.id]:renamed}});
   await card.getByRole('button',{name:'Refresh file',exact:true}).click();
-  await expect(card.getByRole('link',{name:renamed,exact:true})).toBeVisible();await expect(card).not.toContainText(source.name);await shot(provider+'-renamed');
+  await expect(card.getByRole('link',{name:renamed,exact:true})).toBeVisible();await expect(card).not.toContainText(source.name);await expect(card.locator('handover')).toHaveCount(0);await shot(provider+'-renamed');
  }
  const stored=await api(`/api/pages/${pageId}`),references=stored.blocks.filter(block=>block.blockType==='file-card');
  assert.equal(references.length,2);

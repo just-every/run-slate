@@ -6160,11 +6160,11 @@
       "executable": false
     },
     "src/core/features/editor/file-cards/reference.ts": {
-      "sha256": "db68f5512477655b640ab1f3ec2dcfc6bc130e434ab2631c86b7acf1e1c9524d",
+      "sha256": "4f5cbf5cf695deb6360c1cc1afcef4560ee35cdda07b194ea15c5eb1b268f2c6",
       "executable": false
     },
     "src/core/features/editor/file-cards/service.ts": {
-      "sha256": "39a78050c4628118166637b015609c38fa24ed4f8913e9fa91a1ffa02c3c9219",
+      "sha256": "e1ebe09d1d8b5c9f6290fe333a7928cd75d9448b5c9d110a4562d0f9f2f27777",
       "executable": false
     },
     "src/core/features/editor/limits.ts": {
@@ -6268,7 +6268,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/FileCardBlock.tsx": {
-      "sha256": "2812c35cf1348f3e648fb83280b3e6fdb472b0d74d75c76e9b3c6c81ed2f32f2",
+      "sha256": "af271605724e63ec6925b57087a81b3597c432d36f8626503e3a469acf1b5390",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/HeadingBlock.tsx": {
@@ -7784,7 +7784,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/ConnectedFilePicker.tsx": {
-      "sha256": "a6dd47919453c2d5c3a9b4cc558b6a10173475bb30df4b3474fcb249c04781bc",
+      "sha256": "1bce82de7b7c9be92b6badad548d0640a2f959e5576c176ca1a4d730447a0f1f",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/ContentQueryDialog.tsx": {
@@ -9628,7 +9628,7 @@
       "executable": false
     },
     "tests/e2e/editor/file-cards-journey.ts": {
-      "sha256": "ad465dca7483ec59aa2c4ce5de494f032c36456935a617f929b51f60e15123ab",
+      "sha256": "1a8098d81229d20c1631e5608ef6ebea30cbb743cd5e63c8daf4b488c8bea349",
       "executable": false
     },
     "tests/e2e/editor/fixtures/editable.tsx": {
@@ -11640,7 +11640,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/file-cards-journey.mjs": {
-      "sha256": "f4f704ca8c2b89547f7dfdda3105f4313cc9928a0dcc788cb8ff9a8369dfbaba",
+      "sha256": "c437cf0152ff372eae020f4d72b3bfbc78bc240cae90d81d65734e42d3cbff81",
       "executable": false
     },
     "tests/qualification/ui-convergence/first-words-journey.mjs": {

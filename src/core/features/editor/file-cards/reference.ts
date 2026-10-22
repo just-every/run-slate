@@ -13,4 +13,4 @@ export const fileReferenceSchema=z.object({provider:z.enum(fileProviders),fileId
 });
 export type FileReference=z.infer<typeof fileReferenceSchema>;
 export interface FileMetadata {title:string;owner:string;modifiedAt:string;type:string}
-export type FileCardState={state:'readable';metadata:FileMetadata}|{state:'request-access';connect:boolean}|{state:'unavailable'|'failed'};
+export type FileCardState={state:'readable';reference:FileReference;metadata:FileMetadata}|{state:'request-access';connect:boolean}|{state:'unavailable'|'failed'};
