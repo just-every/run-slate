@@ -44,6 +44,7 @@ export type InsertKind =
   | "video"
   | "audio"
   | "file"
+  | "file-card"
   | "link-card"
   | "content-query"
   | "table-of-contents"
@@ -84,6 +85,7 @@ const basic: InsertEntry[] = [
 ];
 
 const media: InsertEntry[] = [
+  {kind:"file-card",name:"Connected file",icon:Paperclip,description:"Reference a file in Drive or SharePoint"},
   { kind: "image", name: "Image", icon: Image, description: "Upload or link an image" },
   { kind: "video", name: "Video", icon: Video, description: "Upload or link a video" },
   { kind: "audio", name: "Audio", icon: AudioLines, description: "Upload or link audio" },

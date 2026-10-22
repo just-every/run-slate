@@ -41,6 +41,7 @@ export function describeBlock(block: EditorBlock): string {
       return `${block.language} code block`;
     case "media":
       return `${block.kind} block`;
+    case "file-card": return "connected file";
     case "link-card":
       return "link card";
     case "table-of-contents": return "table of contents";

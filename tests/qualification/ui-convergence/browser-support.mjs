@@ -9,7 +9,7 @@ import { startShellWorker } from '../release-shell/runtime.mjs';
 import { accessible, insideViewport, withinViewport } from './browser-evidence.mjs';
 import { initializeSlackEdge, setSlackFailure, readSlackMessages, setTeamsFailure, readTeamsMessages } from '../../helpers/slack-edge.mjs';
 import { initializeS3Edge, setS3Failure, readS3Requests, readS3Objects } from '../../helpers/s3-edge.mjs';
-import { initializeFolderEdge, readFolderRequests } from '../../helpers/folder-edge.mjs';
+import { initializeFolderEdge, readFolderRequests, setFileCardFixture } from '../../helpers/folder-edge.mjs';
 import { initializeSamlEdge, installSamlIdp, closeSamlIdp, setSamlDns, setSamlAssertion, readSamlRequests } from '../../helpers/saml-edge.mjs';
 export { accessible } from './browser-evidence.mjs';
 
@@ -156,7 +156,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       await run({ page, context, origin: runtime.baseUrl, api, records, atRest, fixtureSql, runScheduled, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}`,
         assertNoConsoleErrors: () => assert.deepEqual(consoleErrors, [], 'The browser must have no console errors or uncaught page errors.'),
         ...(backups ? { setS3Failure: failure => setS3Failure(state, failure), readS3Requests: () => readS3Requests(state), readS3Objects: () => readS3Objects(state) } : {}),
-        ...(folders ? { readFolderRequests: () => readFolderRequests(state) } : {}),
+        ...(folders ? { setFileCardFixture:changes=>setFileCardFixture(state,changes), readFolderRequests: () => readFolderRequests(state) } : {}),
         ...(saml ? { samlFixture, installSamlIdp: nextContext => installSamlIdp(nextContext, state, runtime.baseUrl),
           setSamlDns: value => setSamlDns(state, value), setSamlAssertion: value => setSamlAssertion(state, value), readSamlRequests: () => readSamlRequests(state) } : {}),
         ...(slack ? { setSlackFailure: failure => setSlackFailure(state, failure), readSlackMessages: () => readSlackMessages(state), setTeamsFailure: failure => setTeamsFailure(state, failure), readTeamsMessages: () => readTeamsMessages(state) } : {}) });

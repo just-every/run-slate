@@ -1311,6 +1311,9 @@ Allowlisted embeds render inline through oEmbed or provider iframes: Figma, Miro
 #### EMBED-004 — Live file cards from Drive, SharePoint and Chest.
 A file picker inserts Google Drive, SharePoint/OneDrive or [Chest](https://github.com/just-every/run-chest) files by reference. Each card shows the file's current title, owner, last modified time and type, and whether the reader can open it. Slate never copies the file unless the member chooses "attach a copy" (`BLOCK-008`).
 
+
+Drive and SharePoint references use the inserting member's own provider connection. Metadata is resolved afresh with each reader's own provider authority: when it cannot open the file, the card exposes no title, owner, type or time, only the provider, request-access action and provider link; an unconnected reader also sees the existing connect path. This conservative default grants no provider permission. Deleted files show unavailable without retained metadata. Disconnect destroys the member token and retains page references. A reference stores and exports only provider, file ID and stable link; existing page revisions, archive/restore and erasure carry it without file bytes, tokens or cached metadata. Public pages and readable exports show the provider link without fetching metadata. [Chest](https://github.com/just-every/run-chest), the RunEditRun file-storage product, remains a named source gap while it publishes no metadata door.
+
 *Acceptance:* a browser journey with recorded provider fixtures inserts one file from each source, sees a renamed file's new title after refresh, and sees "request access" for a reader without access.
 
 *Status:* missing.

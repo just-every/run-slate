@@ -1,9 +1,11 @@
+import {fileCardsJourney} from './file-cards-journey.mjs';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
 import {ok} from './two-people-support.mjs';
 
-export async function providerEmbedsJourney({page,context,origin,api}) {
+export async function providerEmbedsJourney(state) {
+  const {page,context,origin,api}=state;
   const space=(await api('/api/containers')).items.find(s=>s.name==='Handbook');
   const providers=[['Figma','https://www.figma.com/design/Abc123/Plan'],['Miro','https://miro.com/app/board/uXjTest=/'],['Lucid','https://lucid.app/documents/embedded/abcd-1234'],['Loom','https://www.loom.com/share/abcd1234'],['YouTube','https://www.youtube.com/watch?v=dQw4w9WgXcQ'],['Vimeo','https://vimeo.com/12345678'],['Google Docs','https://docs.google.com/document/d/abc123/edit'],['Google Sheets','https://docs.google.com/spreadsheets/d/def123/edit'],['Google Slides','https://docs.google.com/presentation/d/ghi123/edit'],['Microsoft 365','https://onedrive.live.com/embed?resid=123']];
   const loaded=[];
@@ -47,4 +49,5 @@ export async function providerEmbedsJourney({page,context,origin,api}) {
     assert.equal(external.length,1);
     await publicPage.screenshot({path:`.artifacts/ui-convergence/embeds-${page.viewportSize().width}-public-loaded.png`});
   } finally {await publicContext.close();}
+  await fileCardsJourney(state);
 }

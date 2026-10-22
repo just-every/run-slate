@@ -24,6 +24,7 @@ function htmlBlock(block: BlockView, blocks: BlockView[]): string {
     case 'list': { const tag = c.variant === 'numbered' ? 'ol' : 'ul'; return `<${tag}>${(c.items ?? []).map((item: any) => `<li>${htmlText(item.text)}</li>`).join('')}</${tag}>`; }
     case 'table': return renderTable(c as TableContent, block.id);
     case 'media': return c.source?.fileId ? `<a href="../media/${html(c.source.fileId)}">${html(c.source.name ?? 'Attachment')}</a>` : `<p>${html(plainContent(block.content))}</p>`;
+    case 'file-card': return `<p>${htmlText([{text: c.provider + ' file', link: {href: c.url}}])}</p>`;
     case 'link-card': return `<p>${htmlText([{text: c.url ?? '', link: {href: c.url ?? ''}}])}</p>`;
     case 'expandable': return `<details><summary>${html(c.summary ?? '')}</summary><p>${htmlText(c.content)}</p></details>`;
     default: return `<p>${text || html(plainContent(block.content))}</p>`;
