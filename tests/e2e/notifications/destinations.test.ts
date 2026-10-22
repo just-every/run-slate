@@ -300,6 +300,7 @@ async function repairJourney() {
  const open=(await seedContainer(workspaceId,{ownerMemberId:owner,visibility:'private'})).containerId;
  const closed=(await seedContainer(workspaceId,{ownerMemberId:owner,visibility:'private'})).containerId;
  await seedContainerGrant(open,{principalKind:'member',principalId:reader,level:'edit'});
+ for(const containerId of [open,closed])await seedContainerGrant(containerId,{principalKind:'member',principalId:owner,level:'full'});
  const cookie=await sessionFor(owner,{freshProof:true}),origin='https://slate.test';
  const tokens=['synthetic-slate-201','synthetic-slate-202','synthetic-slate-203','synthetic-slate-204','synthetic-slate-205'];
  const edge=chatNetwork(tokens,readerEmail),bindings:AppBindings={...env,SLATE_PROFILE:undefined,APP_URL:origin,CONNECTOR_CREDENTIALS_KEY:key()};
