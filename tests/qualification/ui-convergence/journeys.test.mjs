@@ -43,8 +43,8 @@ for (const width of [1440, 390]) {
   test(`spreadsheet tables merge, sort and round-trip through edited database records at ${width}px`, {timeout:240000}, async()=>{
     await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{await setupWorkspace(state);await tablesJourney(state);});
   });
-  test(`provider embeds load only on interaction in editor and published pages at ${width}px`, {timeout:240000}, async()=>{
-    await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{await setupWorkspace(state);await providerEmbedsJourney(state);});
+  test(`provider embeds load only on interaction and [EMBED-004] files respect reader access at ${width}px`, {timeout:240000}, async()=>{
+    await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{await setupWorkspace(state);await providerEmbedsJourney(state);}, {}, {folders:true});
   });
   test(`presentation paginates read-only slides and restores the page at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {

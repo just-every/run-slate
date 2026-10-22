@@ -1,3 +1,4 @@
+import {fileCard} from '../editor/file-cards/service';
 import {embedDocument} from '../editor/embeds/document';
 import { mentionGroups, previewMentions } from '../comments/group-mentions';
 import { setPageLock } from './locks';
@@ -41,6 +42,7 @@ export function createPagesRoutes() {
     r.get('/:id/link-card',async c=>c.json(await pageLinkCard(featureContext(c),c.req.param('id'),c.req.query('revision'))));
     r.get('/:id/mention-groups', async c => c.json(await mentionGroups(featureContext(c), c.req.param('id'))));
     r.post('/:id/mention-preview', async c => c.json(await previewMentions(featureContext(c), c.req.param('id'), await c.req.json())));
+    r.get('/:id/file-cards/:blockId',async c=>{c.header('Cache-Control','private, no-store');return c.json(await fileCard(featureContext(c),c.req.param('id'),c.req.param('blockId')));});
     r.get('/:id/embeds/:blockId', async c => {
       const document=await readPage(featureContext(c),c.req.param('id'));
       const block=document.blocks.find(b=>b.id===c.req.param('blockId') && b.blockType==='link-card');

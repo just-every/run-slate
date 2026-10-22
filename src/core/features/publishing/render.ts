@@ -40,6 +40,7 @@ function renderBlock(b: BlockView, slug: string, links: Record<string, string>, 
         const base = `/p/${encodeURIComponent(slug)}/media/${encodeURIComponent(c.source.fileId)}`, url = `${base}?display=${encodeURIComponent(b.id)}`;
         return c.kind === 'image' ? `<figure><img src="${url}" alt="${html(c.alt)}"><figcaption>${html(c.caption)}</figcaption></figure>` : c.kind === 'audio' ? `<audio controls src="${url}"></audio>` : c.kind === 'video' ? `<video controls src="${url}"></video>` : `<a href="${base}">${html(c.source.name)}</a>`;
     }
+    case 'file-card': return `<p id="${id}"><a href="${html(c.url)}" rel="noopener noreferrer">${html(c.provider)} file</a></p>`;
     case 'link-card': {
         const embed=c.display==='embed'?providerEmbed(c.url):null;
         if(embed) {

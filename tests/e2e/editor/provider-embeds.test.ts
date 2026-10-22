@@ -1,3 +1,4 @@
+import {fileCardsHttpJourney} from './file-cards-journey';
 import {env} from 'cloudflare:test';
 import {beforeEach,expect} from 'vitest';
 import {createApi} from '../../../src/core/app/hono';
@@ -6,7 +7,7 @@ import {resetDeployment} from '../setup/reset-deployment';
 import {seedWorkspace,seedMember,seedContainer,seedContainerGrant,sessionFor} from '../setup/fixtures';
 
 beforeEach(resetDeployment);
-contract('EMBED-003','allowlisted embeds use isolated provider frames, authorized documents and published click gates',async()=>{
+contract('EMBED-003','allowlisted embeds use isolated provider frames, authorized documents and published click gates [EMBED-004] with reader-authorized file references',async()=>{
   const {workspaceId}=await seedWorkspace();
   const {memberId}=await seedMember(workspaceId,{role:'owner',email:'owner@slate.test',displayName:'Alex Owner',isSetupOwner:true});
   const {memberId:other}=await seedMember(workspaceId,{role:'member',email:'other@slate.test',displayName:'Other Member'});
@@ -48,4 +49,5 @@ contract('EMBED-003','allowlisted embeds use isolated provider frames, authorize
   const badId=(await bad.json<any>()).value.pageId;
   const badDoc=await (await req(`/api/pages/${badId}`)).json<any>();
   expect((await req(`/api/pages/${badId}/embeds/${badDoc.blocks[0].id}`)).status).toBe(404);
+  await fileCardsHttpJourney();
 });

@@ -1,3 +1,4 @@
+import {FileCardBlock} from './FileCardBlock';
 import {TableOfContentsBlock} from './TableOfContentsBlock';
 import {TaskReportBlock} from './TaskReportBlock';
 import type { BlockActions, EditorBlock } from "../types";
@@ -28,6 +29,7 @@ export interface BlockViewProps {
 /** One block, rendered by its type. Every renderer is props-in, callbacks-out. */
 export function BlockView({ block, canEdit, onChange, actions, placeholder, textLabel }: BlockViewProps) {
   switch (block.type) {
+    case "file-card": return <FileCardBlock block={block}/>;
     case "table-of-contents": return <TableOfContentsBlock block={block} canEdit={canEdit} onChange={onChange}/>;
     case "task-report": return <TaskReportBlock block={block} canEdit={canEdit} onChange={onChange}/>;
     case "paragraph":

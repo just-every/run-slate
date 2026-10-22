@@ -14,6 +14,7 @@ export function pdfContent(blocks: BlockView[]): PdfLine[] {
       case 'code': text = String(c.code ?? ''); break;
       case 'expandable': text = `${c.summary ?? ''}\n${pdfText(c.content)}`; break;
       case 'media': if (c.source?.fileId) text = `${c.source.name ?? 'Attachment'} (../media/${c.source.fileId})`; break;
+      case 'file-card': text = `${c.provider} file (${c.url})`; break;
       case 'link-card': text = String(c.url ?? ''); break;
       case 'task': text = `[${c.done ? 'x' : ' '}] ${text}`; break;
       case 'quote': text = `> ${text}`; break;

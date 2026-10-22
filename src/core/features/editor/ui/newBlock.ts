@@ -8,6 +8,8 @@ export function newBlock(
 ): EditorBlock {
   const text = [{ text: "" }];
   switch (kind) {
+    case "file-card":
+      throw new Error("Connected files are inserted through the picker.");
     case "status":
       throw new Error("Status labels are inserted inline.");
     case "table-of-contents":

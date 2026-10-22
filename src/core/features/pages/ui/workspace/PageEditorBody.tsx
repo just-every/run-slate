@@ -1,3 +1,4 @@
+import {ConnectedFilePicker} from './ConnectedFilePicker';
 import {DocumentHeadings} from '../../../editor/ui/blocks/DocumentHeadings';
 import {StatusLabelDialog} from '../../../editor/ui/blocks/StatusLabelDialog';
 import {insertStatusLabel} from '../../../editor/ui/insertStatusLabel';
@@ -131,6 +132,7 @@ export function PageEditorBody({
     };
   }, [onAsk, onComment,editor, insertion, visibleBlocks]);
   const [insert, setInsert] = useState<{ after: string | null; range?:{anchor:number;focus:number}; inlineLabels?:boolean; onInlineInsert?:(span:InlineSpan)=>void; anchor: HTMLElement | Range } | null>(null);
+  const [fileInsert,setFileInsert]=useState<{after:string|null}|null>(null);
   const [statusInsert,setStatusInsert]=useState<typeof insert>(null);
   const [query, setQuery] = useState("");
   const [error, setError] = useState<unknown>();
@@ -153,6 +155,7 @@ export function PageEditorBody({
     }
   }
   function add(kind: InsertKind) {
+    if(kind==='file-card'){setFileInsert({after:insert?.after??null});setInsert(null);setQuery('');return;}
     if(kind==='status'){if(insert?.inlineLabels===false)setError(new Error('This field accepts plain text. Add a text block to insert a status label.'));else setStatusInsert(insert);setInsert(null);setQuery('');return;}
     const existing = editor.blocks.length || insertion.pending ? visibleBlocks : [];
     const index = insert?.after
@@ -220,6 +223,10 @@ export function PageEditorBody({
           onClose={() => setInsert(null)}
         />
       ) : null}
+      {fileInsert?<ConnectedFilePicker onClose={()=>setFileInsert(null)} onPick={reference=>{
+        const next=[...visibleBlocks],index=fileInsert.after?next.findIndex(block=>block.id===fileInsert.after)+1:next.length;
+        const block:EditorBlock={id:crypto.randomUUID(),type:'file-card',...reference};next.splice(index,0,block);insertion.insert(next);setFileInsert(null);
+      }}/>:null}
       {statusInsert?<StatusLabelDialog onClose={()=>setStatusInsert(null)} onSave={(text,colour)=>{
         if(statusInsert.onInlineInsert){setStatusInsert(null);statusInsert.onInlineInsert({text,status:{colour}});return;}
         const result=insertStatusLabel(visibleBlocks,statusInsert.after,statusInsert.range,{text,status:{colour}});
