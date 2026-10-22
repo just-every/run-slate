@@ -924,7 +924,7 @@
       "executable": false
     },
     ".github/workflows/verify.yml": {
-      "sha256": "19979cdef99e0438d36406009c96df87fa47eaccb736ff8d6c83f77b6bfc5805",
+      "sha256": "951225e90a61a2b76afe732ee89cdba4b5368f4481f801dfafde5429ce0f605c",
       "executable": false
     },
     ".gitignore": {
@@ -1004,7 +1004,7 @@
       "executable": false
     },
     "docs/BACKUP.md": {
-      "sha256": "b2754a43274b0fdae9466185822597aa27eabc63a248b9f109d648709cc0a355",
+      "sha256": "64782326e5129f5e920622723f3fcc84b48b2158e3a251e35604b287068383eb",
       "executable": false
     },
     "docs/CHAT-NOTIFICATIONS.md": {
@@ -1125,6 +1125,118 @@
     },
     "evidence/port010/export-comments-390-word-without-comments-downloaded.png": {
       "sha256": "82320e370a5d338c9b23ff45f1ccc238f472b5ee105534bdbcf73f08a9e06b0a",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-1440-google-drive-completed-report.png": {
+      "sha256": "d0959d103600dee4d598724e0897331d2361d15f7bfa4ce71c8243fb2cede099",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-1440-google-drive-connected.png": {
+      "sha256": "9fdefa22aed21ac4a35c93da832871ed57d35277bd1b21a4424c451794f6ac80",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-1440-google-drive-imported-document.png": {
+      "sha256": "664b54247618a402e4ade8313e886e6fb6aee95693bec83444a0e354c0ee7bb6",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-1440-google-drive-imported-tree.png": {
+      "sha256": "ff4395f2c112cef64f56206f34bc369d88cff58f900dec29c9138fa8333c3e0f",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-1440-google-drive-persisted-omissions.png": {
+      "sha256": "2863120645402b6ed05b606f0900bc8e0ac25947429f14622bfe3493a8a2aa42",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-1440-google-drive-preview-omissions.png": {
+      "sha256": "2e5693d30f8c7e83533ac041bfb27ec60e4c8c5a0622c0b00b095e36a23946e1",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-1440-google-drive-preview-private-access.png": {
+      "sha256": "9330e399a805406b88289814aeff5c95feffe993395ff9c0de7b8daa12eab72f",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-1440-sharepoint-completed-report.png": {
+      "sha256": "1eb5bc8b84f91646184c656e92a6bd2ed1722c36b48904285c1c45a42f89b092",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-1440-sharepoint-connected.png": {
+      "sha256": "02184fae049d664fdf90fbaf2e7645bdbab0cf2186f1f98910a31f8630fb3a37",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-1440-sharepoint-imported-document.png": {
+      "sha256": "ced56adc19c24fc4b09828bdd02b620bae4f9c9bff8dc17fa89641f1301d5667",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-1440-sharepoint-imported-tree.png": {
+      "sha256": "ba094bb51b176580457e066349ab41f5506c80f5894a97a0de4ad28904c2c0d6",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-1440-sharepoint-persisted-omissions.png": {
+      "sha256": "3e02e4f76e6ed7c912994a6883a86844832ea5e17a478d96cde3f7299720fff4",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-1440-sharepoint-preview-omissions.png": {
+      "sha256": "3e02e4f76e6ed7c912994a6883a86844832ea5e17a478d96cde3f7299720fff4",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-1440-sharepoint-preview-private-access.png": {
+      "sha256": "1ce3a3c7ffb74c13a2cc094d2c5a7bb011285660ef355ba04e6b467d2c7e0ea2",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-390-google-drive-completed-report.png": {
+      "sha256": "e0290490e279e8d98685753b49c3301e00b68982a3310dbb5478a973fed0538d",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-390-google-drive-connected.png": {
+      "sha256": "251b23f69913279b73c9259252b17793994b62c1fb42aa812b220312e0298c5a",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-390-google-drive-imported-document.png": {
+      "sha256": "e69ff8676eacd0c0044e3266df09dc33a57fe383d1071c678a9407dfe6b74515",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-390-google-drive-imported-tree.png": {
+      "sha256": "27919ba7ff48417bb4b2dbff72b1358621c1ad43cbb330f0f73756df1609e41f",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-390-google-drive-persisted-omissions.png": {
+      "sha256": "31253106e95f63810ad9c45106fba262d374b7a23bdfbef5cb1815e35d006527",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-390-google-drive-preview-omissions.png": {
+      "sha256": "31253106e95f63810ad9c45106fba262d374b7a23bdfbef5cb1815e35d006527",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-390-google-drive-preview-private-access.png": {
+      "sha256": "cce4893285fa0e5b66253c4b1b068efd8c0d0aef867913da57102e553a26205b",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-390-sharepoint-completed-report.png": {
+      "sha256": "92b582d7db13a814bd998b4d8ead33a47f595d78aa3c94c9a977662f69d21b8f",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-390-sharepoint-connected.png": {
+      "sha256": "43320da3d93bd0c4e362f36ed5401f9ccae7bfb85ec0c64b63649b0966b96002",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-390-sharepoint-imported-document.png": {
+      "sha256": "e69ff8676eacd0c0044e3266df09dc33a57fe383d1071c678a9407dfe6b74515",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-390-sharepoint-imported-tree.png": {
+      "sha256": "27919ba7ff48417bb4b2dbff72b1358621c1ad43cbb330f0f73756df1609e41f",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-390-sharepoint-persisted-omissions.png": {
+      "sha256": "dbd9acbe4f6a7117297414e88568f9c1f2f4dc0f5b0f034ccb0f38d08d2a0e5b",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-390-sharepoint-preview-omissions.png": {
+      "sha256": "dbd9acbe4f6a7117297414e88568f9c1f2f4dc0f5b0f034ccb0f38d08d2a0e5b",
+      "executable": false
+    },
+    "evidence/provider-folders/folders-390-sharepoint-preview-private-access.png": {
+      "sha256": "19f6cf320e1bef2dbac1a484c69f4c3fd6d7fe07b62685a82384b8c5dec85f68",
       "executable": false
     },
     "evidence/scheduled-backups/backups-1440-connection-passed.png": {
@@ -8200,7 +8312,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/FolderImports.tsx": {
-      "sha256": "e993615b89e1364adcdfda53c6d8634d4f22c20e4704edec549a5c1abfdcb29c",
+      "sha256": "356bc6195fa6008d80e820731462011e9e6dba9aec9ba60e1feb7e81c745c40a",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/FolderImportTypes.tsx": {
@@ -8208,7 +8320,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/FolderProviderSettings.tsx": {
-      "sha256": "6b928af6af374e3ef0f421fffd9c708e1cc6e13adbe6625a681dd0ce8f1d595a",
+      "sha256": "3e36015c40141c7547679265459e9967b69da62829a604bb0e5d86b85c4e500a",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/GroupMentionSettings.tsx": {
@@ -11148,11 +11260,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/browser-evidence.mjs": {
-      "sha256": "3714ab5d4fb0f0aa624f4150783f2c4e62f7a90ffc22ae391262d744c28088de",
+      "sha256": "7b8b303783df2c36a512ef13a6e5aec8d4266f002b19a720d79788529f4c3769",
       "executable": false
     },
     "tests/qualification/ui-convergence/browser-support.mjs": {
-      "sha256": "8c030bf8d562ddfdd977ccae27b5aa1fc8726862907a2c2ba26210c218056a2c",
+      "sha256": "9c3d54cd19c7a8b6e8eeade8caefe3a30b62cabb777090ce1ea438ed977ed9aa",
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
@@ -11288,7 +11400,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/folder-journey.mjs": {
-      "sha256": "34ab0c4a46ffe63738a46961fba2d2207bb8a2b63f41ec3f55d84746b794a3c5",
+      "sha256": "5c5a5327113291c301099c872ee02ff351a1075b8f7cba5ff95200dabfa2516b",
       "executable": false
     },
     "tests/qualification/ui-convergence/following-journey.mjs": {
