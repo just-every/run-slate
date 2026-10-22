@@ -326,6 +326,7 @@ async function repairJourney() {
   // Move only event clocks; application outbox, claims and delivery execute unchanged.
   const at=day?'2000-01-01T00:00:00.000Z':new Date(Date.now()-120000).toISOString();
   await env.DB.prepare('UPDATE notification_outbox SET created_at=? WHERE processed_at IS NULL').bind(at).run();
+  await env.DB.prepare("UPDATE chat_deliveries SET created_at=? WHERE state='pending' AND message_id IS NULL").bind(at).run();
   const ack=vi.fn(),retry=vi.fn();await worker.queue!({queue:'synthetic-slate-1',metadata:{metrics:{backlogCount:1,backlogBytes:0}},messages:[{id:key(),body:{type:'discovery.deliver'},timestamp:new Date(),attempts:1,ack,retry}],ackAll:vi.fn(),retryAll:vi.fn()} as MessageBatch<unknown>,bindings);expect(retry).not.toHaveBeenCalled();expect(ack).toHaveBeenCalledOnce();
  };
  const purge=async(id:string)=>{const doc=await api('GET','/api/pages/'+id);await api('POST','/api/archive/'+id,{operationKey:key(),expectedRevisionId:doc.page.revisionId,action:'trash'});await api('POST','/api/archive/'+id+'/permanent-delete',{operationKey:key(),confirmedPageIds:[id]});};
