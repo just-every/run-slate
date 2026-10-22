@@ -1,4 +1,8 @@
-import { test, expect } from 'vitest';
+import { test, expect, beforeEach } from 'vitest';
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
+
+// Every policy case owns one installation, including variants inside a matrix.
+beforeEach(resetDeployment);
 import { scenario, key, profile } from './helpers';
 import { createPage, readPage } from '../../../src/core/features/pages/service';
 import { listPages } from '../../../src/core/features/pages/tree';
@@ -9,8 +13,9 @@ import { resolveEvidence } from '../../../src/core/features/ai/evidence';
 import { saveGrant, listGrants } from '../../../src/core/features/sharing/grants';
 import { sharingConfiguration, setSharingConfiguration } from '../../../src/core/features/sharing/configuration';
 import { createComment } from '../../../src/core/features/comments/service';
-for (const lifecycle of ['always-live', 'draft-then-publish'] as const)
-    test(`LIFE-002 SHARE-007: ${lifecycle} explicitly retained private draft cannot enter other actor search/tree/query/inbox/AI`, async () => {
+test("LIFE-002 SHARE-007: explicitly retained private draft cannot enter other actor search/tree/query/inbox/AI under either lifecycle profile", async () => {
+    for (const lifecycle of ['always-live', 'draft-then-publish'] as const) {
+        await resetDeployment();
         const { owner, reader, outsider, containerId } = await scenario();
         await profile(owner, { 'page.lifecycle.v1': lifecycle });
         const p = await createPage(owner, { operationKey: key('draft'), containerId, title: 'Unshared quasar secret', lifecycle: 'draft' });
@@ -28,7 +33,8 @@ for (const lifecycle of ['always-live', 'draft-then-publish'] as const)
         await saveGrant(owner, { operationKey: key('revoke'), targetKind: 'page', targetId: p.value.pageId, id: grant.value.id, principalKind: 'member', principalId: reader.actor.id, level: 'view', revoke: true });
         expect((await listPages(reader)).items.map(p => p.id)).not.toContain(p.value.pageId);
         expect((await notificationList(reader)).items.map(n => n.pageId)).not.toContain(p.value.pageId);
-    });
+    }
+});
 test('LIFE-002: a draft is excluded from AI grounding even for its author', async () => { const { owner, containerId } = await scenario(); const p = await createPage(owner, { operationKey: key('draft'), containerId, title: 'Author draft', lifecycle: 'draft' }); await expect(resolveEvidence(owner, [{ kind: 'page', sourceId: p.value.pageId, revisionId: p.receipt.revisionId }], [])).rejects.toMatchObject({ status: 404 }); });
 test('SHARE-001 SHARE-003 SHARE-005 SHARE-008: inherited provenance, retained expired rows and configured levels are independent of profile', async () => {
     const { owner, reader, containerId } = await scenario();

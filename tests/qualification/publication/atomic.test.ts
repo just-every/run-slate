@@ -9,7 +9,8 @@ import { setSharingConfiguration } from '../../../src/core/features/sharing/conf
 import { requirePageLevel } from '../../../src/core/features/sharing/current-access';
 import { pageRow } from '../../../src/core/features/pages/repository';
 
-for (const access of ['workspace-general', 'container-general'] as const) test(`LIFE-003 SHARE-004/005 atomic location and ${access}, named grants, ordinal and replay`, async () => {
+test('LIFE-003 SHARE-004/005 atomic location and both general access profiles, named grants, ordinal and replay', async () => {
+ for (const access of ['workspace-general', 'container-general'] as const){
  const {owner,reader,containerId}=await scenario();
  await profile(owner,{'page.lifecycle.v1':'draft-then-publish','page.access.v1':access,'page.version.v1':'labelled'});
  const target=(await seedContainer(owner.actor.workspaceId,{ownerMemberId:owner.actor.id,visibility:'private'})).containerId;
@@ -30,6 +31,7 @@ for (const access of ['workspace-general', 'container-general'] as const) test(`
  expect(await rows("SELECT origin,ordinal,label FROM page_revisions WHERE page_id=? AND origin='publish'",p.value.pageId)).toEqual([{origin:'publish',ordinal:1,label:'Reviewed'}]);
  expect((await readPage(reader,p.value.pageId)).properties.byline).toBe('Reader');
  expect(await rows("SELECT action FROM activity_entries WHERE operation_key=?",input.operationKey)).toEqual([{action:'pages.publish'}]);
+ }
 });
 
 test('LIFE-003 restricted publication stops inherited open-container access without losing named grants',async()=>{

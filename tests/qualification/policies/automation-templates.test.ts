@@ -1,4 +1,8 @@
-import { test, expect } from 'vitest';
+import { test, expect, beforeEach } from 'vitest';
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
+
+// Every policy case owns one installation, including variants inside a matrix.
+beforeEach(resetDeployment);
 import { scenario, profile, key, rows, textBlock } from './helpers';
 import { createDatabase, createRecord } from '../../../src/core/features/databases/service';
 import { saveRule } from '../../../src/core/features/automation/service';
@@ -8,8 +12,9 @@ import { createPage, readPage, updatePage } from '../../../src/core/features/pag
 import { createComment, listComments } from '../../../src/core/features/comments/service';
 import { saveTemplate, applyTemplate, changeTemplate, previewTemplate, listTemplates } from '../../../src/core/features/templates/service';
 import { saveGrant } from '../../../src/core/features/sharing/grants';
-for (const scope of ['source', 'container', 'site'] as const)
-    test(`AUTO-001 AUTO-002 AUTO-003 AUTO-004 AUTO-005: ${scope} acts once at current authority and retains scope/history through all profiles`, async () => {
+test("AUTO-001 AUTO-002 AUTO-003 AUTO-004 AUTO-005: all automation scopes act once at current authority and retain scope/history through all profiles", async () => {
+    for (const scope of ['source', 'container', 'site'] as const) {
+        await resetDeployment();
         const { owner, containerId } = await scenario();
         await profile(owner, { 'automation.scope.v1': scope });
         const db = await createDatabase(owner, { operationKey: key('database'), containerId, title: 'Rules' });
@@ -38,7 +43,8 @@ for (const scope of ['source', 'container', 'site'] as const)
         await owner.db.prepare("UPDATE members SET status='removed' WHERE id=?").bind(owner.actor.id).run();
         expect((await processAutomationJob(owner, pending.jobIds[0], adapters))?.state).toBe('failure');
         expect((await rows('SELECT * FROM comments c JOIN comment_threads t ON t.id=c.thread_id WHERE t.page_id=?', p.value.pageId))).toHaveLength(1);
-    });
+    }
+});
 test('TMPL-001 TMPL-002 TMPL-003 TMPL-004 TMPL-005 TMPL-006 REV-001: snapshot excludes live discussions/grants and survives source/template edits, scope changes, archive/restore/delete', async () => {
     const { owner, reader, containerId } = await scenario();
     const source = await createPage(owner, { operationKey: key('source'), containerId, title: 'Template root', blocks: [textBlock(key('block'), 'Exact authored content')], properties: { icon: '📘', labels: ['authored'] } });

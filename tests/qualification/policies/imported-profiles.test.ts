@@ -1,6 +1,10 @@
 import {applyReviewedSpace} from '../../e2e/imports/reviewed-space';
 import { env } from 'cloudflare:test';
-import { test, expect } from 'vitest';
+import { test, expect, beforeEach } from 'vitest';
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
+
+// Every policy case owns one installation, including variants inside a matrix.
+beforeEach(resetDeployment);
 import { scenario, profile, key, rows } from './helpers';
 import { startImport, runImport } from '../../../src/core/features/imports/jobs';
 import { readPage } from '../../../src/core/features/pages/service';
@@ -8,8 +12,9 @@ import { saveGrant } from '../../../src/core/features/sharing/grants';
 import { readWorkspace } from '../../../src/core/features/workspace/settings';
 const defaults = { 'page.lifecycle.v1': 'always-live', 'page.access.v1': 'workspace-general', 'page.public-access.v1': 'site', 'page.version.v1': 'autosnapshot', 'page.status.v1': 'verification-only', 'container.access.v1': 'class-led', 'record.page-parity.v1': 'record-is-page', 'automation.scope.v1': 'source' } as const;
 const alternatives = { 'page.lifecycle.v1': 'draft-then-publish', 'page.access.v1': 'container-general', 'page.public-access.v1': 'link', 'page.version.v1': 'labelled', 'page.status.v1': 'open-vocabulary', 'container.access.v1': 'grant-led', 'record.page-parity.v1': 'record-is-row', 'automation.scope.v1': 'container' } as const;
-for (const [format, name] of [['notion-workspace', 'notion-workspace-export.zip'], ['confluence-space', 'confluence-space-export.zip'], ['google-docx', 'google-docs-download.docx'], ['docx', 'word-government-impact-assessment.docx']] as const)
-    test(`LIFE-006 SHARE-005 WEB-007 REV-007 STAT-005 CONT-008 DB-010 AUTO-005: genuine ${format} stored superset is byte-identical across all 17 policy values`, async () => {
+test("LIFE-006 SHARE-005 WEB-007 REV-007 STAT-005 CONT-008 DB-010 AUTO-005: genuine imports in all four formats retain byte-identical stored superset across all 17 policy values", async () => {
+    for (const [format, name] of [['notion-workspace', 'notion-workspace-export.zip'], ['confluence-space', 'confluence-space-export.zip'], ['google-docx', 'google-docs-download.docx'], ['docx', 'word-government-impact-assessment.docx']] as const) {
+        await resetDeployment();
         const { owner, reader } = await scenario();
         const bytes = new Uint8Array(await (await (env as typeof env & {
             TEST_IMPORT_FIXTURES: Fetcher;
@@ -46,4 +51,5 @@ for (const [format, name] of [['notion-workspace', 'notion-workspace-export.zip'
         expect(await (await owner.files.get(result.archive_key))!.arrayBuffer()).toEqual(bytes.buffer);
         expect((await runImport(owner, job.id)).state).toBe('completed');
         expect(await snapshot()).toEqual(before);
-    });
+    }
+});

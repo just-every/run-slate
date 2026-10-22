@@ -2,7 +2,8 @@ import {describe,it,expect} from 'vitest';
 import {fixture,ids,input,beforeBatch,databaseState,env,seedPage,movePage,seedPageGrant} from './fixture';
 
 describe('TREE-002 same-batch membership, authority and topology guards',()=>{
- for(const mutation of ['insert','key','location','delete','subtree-insert','subtree-edge','destination-archive','revoke','inactive','revision'] as const)it(`rolls back all tables when ${mutation} races preparation`,async()=>{
+ it('rolls back all tables when membership, authority or topology mutations race preparation',async()=>{
+  for(const mutation of ['insert','key','location','delete','subtree-insert','subtree-edge','destination-archive','revoke','inactive','revision'] as const){
   const f=await fixture([null,null,'z']),[a,b,root]=await ids(f.containerId);
   const child=await seedPage(f.containerId,{title:'Child',authorMemberId:f.memberId,parentPageId:root});
   const request=await input(f.ctx,root,{containerId:f.containerId,beforeId:a});
@@ -22,6 +23,7 @@ describe('TREE-002 same-batch membership, authority and topology guards',()=>{
   });
   await expect(movePage(raced,root,request)).rejects.toMatchObject({code:'REVISION_CONFLICT'});
   expect(before).toBeDefined();expect(await databaseState()).toEqual(before);
+  }
  });
  it('rejects stale root revision and access preview without receipts or partial maintenance',async()=>{
   const f=await fixture([null,'','z']),order=await ids(f.containerId),id=order[2];const request=await input(f.ctx,id,{containerId:f.containerId,beforeId:order[0]});const before=await databaseState();

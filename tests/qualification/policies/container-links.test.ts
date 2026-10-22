@@ -1,4 +1,8 @@
-import { test, expect } from 'vitest';
+import { test, expect, beforeEach } from 'vitest';
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
+
+// Every policy case owns one installation, including variants inside a matrix.
+beforeEach(resetDeployment);
 import { scenario, key, rows, textBlock, profile } from './helpers';
 import { createContainer, readContainer, listContainers, updateContainer } from '../../../src/core/features/containers/service';
 import { createPage, readPage, updatePage } from '../../../src/core/features/pages/service';
@@ -6,8 +10,9 @@ import { saveGrant } from '../../../src/core/features/sharing/grants';
 import { bulkPages } from '../../../src/core/features/pages/bulk';
 import { archivePage } from '../../../src/core/features/archive/service';
 import { setStatusEntry } from '../../../src/core/features/page-status/service';
-for (const access of ['class-led', 'grant-led'] as const)
-    test(`CONT-001 CONT-002 CONT-003 CONT-004 CONT-006 CONT-008 CONT-009: ${access} actual container creation/settings/index authority and partial bulk failure`, async () => {
+test("CONT-001 CONT-002 CONT-003 CONT-004 CONT-006 CONT-008 CONT-009: actual container creation/settings/index authority and partial bulk failure across both container-access profiles", async () => {
+    for (const access of ['class-led', 'grant-led'] as const) {
+        await resetDeployment();
         const { owner, reader, guest, containerId } = await scenario();
         await profile(owner, { 'container.access.v1': access });
         const c = await createContainer(owner, { operationKey: key('container'), name: 'Research', description: 'Explicit purpose', icon: '🔬', key: 'SCI', visibility: 'private' });
@@ -27,7 +32,8 @@ for (const access of ['class-led', 'grant-led'] as const)
         expect((await readPage(owner, edited.value.pageId)).page.lifecycle).toBe('archived');
         expect((await readPage(owner, secret.value.pageId)).page.lifecycle).toBe('live');
         expect(await rows("SELECT actor_member_id,action FROM activity_entries WHERE target_id=? AND action='archive.archive'", edited.value.pageId)).toEqual([{ actor_member_id: reader.actor.id, action: 'archive.archive' }]);
-    });
+    }
+});
 test('LINK-003 LINK-004: page mention follows rename and exposes archived state without disclosing restricted title', async () => {
     const { owner, reader, containerId } = await scenario();
     const target = await createPage(owner, { operationKey: key('target'), containerId, title: 'Original title' });

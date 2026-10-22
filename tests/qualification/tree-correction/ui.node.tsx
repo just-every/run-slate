@@ -5,11 +5,13 @@ import {renderToStaticMarkup} from 'react-dom/server';
 import {PageTree,type TreePage} from '../../../src/core/app/ui/PageTree';
 import {TreeMoveDialog} from '../../../src/core/app/ui/TreeMoveDialog';
 const base:TreePage={id:'source',title:'Source',containerId:'space',revisionId:'revision',lifecycle:'live',permissions:{level:'edit',canEdit:true}};
-for(const level of ['view','comment','edit','full',undefined])test(`SHARE-002: rendered tree move/drag authority for ${level??'unknown'}`,()=>{
+test('SHARE-002: rendered tree move/drag authority follows every current permission level',()=>{
+ for(const level of ['view','comment','edit','full',undefined]){
  const canEdit=level==='edit'||level==='full';const page={...base,permissions:level?{level,canEdit}:undefined};
  const html=renderToStaticMarkup(<PageTree pages={[page]}/>);
  assert.match(html,new RegExp(`draggable="${canEdit}"`));
  const move=html.match(/<button[^>]*aria-label="Move Source in tree"[^>]*>/)?.[0];assert.ok(move);assert.equal(move.includes('disabled'),!canEdit);
+ }
 });
 test('TREE-002: tree and accessible picker share BINARY ordering across supplementary characters',()=>{
  const pages=[{...base,id:'supplementary',title:'Supplementary',treePosition:'\u{10000}'},{...base,id:'bmp',title:'BMP',treePosition:'\uE000'}];

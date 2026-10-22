@@ -1,5 +1,9 @@
 import { env, SELF } from 'cloudflare:test';
-import { test, expect } from 'vitest';
+import { test, expect, beforeEach } from 'vitest';
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
+
+// Every policy case owns one installation, including variants inside a matrix.
+beforeEach(resetDeployment);
 import { scenario, profile, key, rows } from './helpers';
 import { seedGroup, seedContainer, seedContainerGrant, sessionFor } from '../../e2e/setup/fixtures';
 import { createPage, readPage, updatePage } from '../../../src/core/features/pages/service';
@@ -7,8 +11,9 @@ import { saveGrant } from '../../../src/core/features/sharing/grants';
 import { createComment } from '../../../src/core/features/comments/service';
 import { publishPublicPage } from '../../../src/core/features/publishing/service';
 import { setContainerAccess } from '../../../src/core/features/sharing/container-settings';
-for (const access of ['workspace-general', 'container-general'] as const)
-    test(`LIFE-002 SHARE-001 SHARE-002 SHARE-004 SHARE-005 SHARE-007 SHARE-008 CONT-005: ${access} never widens private drafts, personal or expired grants`, async () => {
+test("LIFE-002 SHARE-001 SHARE-002 SHARE-004 SHARE-005 SHARE-007 SHARE-008 CONT-005: neither access profile widens private drafts, personal or expired grants", async () => {
+    for (const access of ['workspace-general', 'container-general'] as const) {
+        await resetDeployment();
         const { owner, reader, outsider, containerId } = await scenario();
         await profile(owner, { 'page.access.v1': access });
         const p = await createPage(owner, { operationKey: key('draft'), containerId, title: 'Private draft', lifecycle: 'draft' }), id = p.value.pageId;
@@ -41,7 +46,8 @@ for (const access of ['workspace-general', 'container-general'] as const)
         const pp = await createPage(owner, { operationKey: key('personal'), containerId: personal.containerId, title: 'Personal' });
         await expect(saveGrant(owner, { operationKey: key('personal-share'), targetKind: 'page', targetId: pp.value.pageId, principalKind: 'member', principalId: reader.actor.id, level: 'view' })).rejects.toMatchObject({ code: 'PERSONAL_PRIVATE' });
         await expect(readPage(outsider, pp.value.pageId)).rejects.toMatchObject({ status: 404 });
-    });
+    }
+});
 test('SHARE-003 SHARE-005 SHARE-007 CONT-009: inherited group membership is live and switching general profile rewrites no grant', async () => {
     const { owner, reader, containerId } = await scenario();
     const { groupId } = await seedGroup(owner.actor.workspaceId, { name: 'Reviewers', memberIds: [reader.actor.id] });
@@ -58,8 +64,9 @@ test('SHARE-003 SHARE-005 SHARE-007 CONT-009: inherited group membership is live
     await expect(readPage(reader, root.value.pageId)).rejects.toMatchObject({ status: 404 });
     await expect(readPage(reader, child.value.pageId)).rejects.toMatchObject({ status: 404 });
 });
-for (const publicProfile of ['site', 'link'] as const)
-    test(`WEB-001 WEB-002 WEB-003 WEB-004 WEB-005 WEB-006 WEB-007 CONT-007 CONT-008: ${publicProfile} HTTP publication, independent vetoes and stored superset`, async () => {
+test("WEB-001 WEB-002 WEB-003 WEB-004 WEB-005 WEB-006 WEB-007 CONT-007 CONT-008: HTTP publication, independent vetoes and stored superset across both public-access profiles", async () => {
+    for (const publicProfile of ['site', 'link'] as const) {
+        await resetDeployment();
         const { owner, guest, containerId } = await scenario();
         await profile(owner, { 'page.public-access.v1': publicProfile });
         const page = await createPage(owner, { operationKey: key('public'), containerId, title: 'Public safe title' }), id = page.value.pageId;
@@ -99,9 +106,11 @@ for (const publicProfile of ['site', 'link'] as const)
         await expect(publishPublicPage(owner, second.value.pageId, { ...input, operationKey: key('collision'), expectedRevisionId: second.receipt.revisionId })).rejects.toMatchObject({ code: 'SLUG_RESERVED' });
         await publishPublicPage(owner, id, { ...input, operationKey: key('republish') });
         expect((await SELF.fetch(`http://localhost/p/${input.slug}`)).status).toBe(200);
-    });
-for (const principalKind of ['workspace', 'container'] as const)
-    test(`SHARE-001 SHARE-004 SHARE-005: ${principalKind} live general principal is never broadened by either access profile`, async () => {
+    }
+});
+test("SHARE-001 SHARE-004 SHARE-005: live workspace and container general principals are never broadened by either access profile", async () => {
+    for (const principalKind of ['workspace', 'container'] as const) {
+        await resetDeployment();
         const { owner, reader, outsider, containerId } = await scenario();
         const p = await createPage(owner, { operationKey: key('page'), containerId, title: 'General principal' });
         await owner.db.prepare('INSERT INTO container_members(container_id,member_id,created_at) VALUES(?,?,?)').bind(containerId, reader.actor.id, owner.now).run();
@@ -118,4 +127,5 @@ for (const principalKind of ['workspace', 'container'] as const)
         }
         await saveGrant(owner, { operationKey: key('replace-general'), targetKind: 'page', targetId: p.value.pageId, principalKind: principalKind === 'workspace' ? 'container' : 'workspace', principalId: principalKind === 'workspace' ? containerId : owner.actor.workspaceId, level: 'view' });
         expect(await rows("SELECT id FROM page_grants WHERE page_id=? AND principal_kind IN ('workspace','container')", p.value.pageId)).toHaveLength(1);
-    });
+    }
+});

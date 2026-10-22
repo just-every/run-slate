@@ -1,13 +1,18 @@
 import { env } from 'cloudflare:test';
-import { test, expect } from 'vitest';
+import { test, expect, beforeEach } from 'vitest';
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
+
+// Every policy case owns one installation, including variants inside a matrix.
+beforeEach(resetDeployment);
 import { scenario, profile, key, rows } from './helpers';
 import { createPage, readPage, updatePage } from '../../../src/core/features/pages/service';
 import { publishPage, cancelSchedule, discardChanges } from '../../../src/core/features/lifecycle/service';
 import { runContentJobs } from '../../../src/core/features/lifecycle/jobs';
 import { saveGrant } from '../../../src/core/features/sharing/grants';
 import { revisionHistory, readRevision, restorePageRevision, deleteRevision } from '../../../src/core/features/versions/service';
-for (const lifecycle of ['always-live', 'draft-then-publish'] as const)
-    test(`LIFE-001 LIFE-003 LIFE-005 LIFE-006 REV-001 REV-002 REV-007: ${lifecycle} paired with labelled preserves snapshots and reader visibility`, async () => {
+test("LIFE-001 LIFE-003 LIFE-005 LIFE-006 REV-001 REV-002 REV-007: labelled snapshots and reader visibility across both lifecycle profiles", async () => {
+    for (const lifecycle of ['always-live', 'draft-then-publish'] as const) {
+        await resetDeployment();
         const { owner, reader, containerId } = await scenario();
         await profile(owner, { 'page.lifecycle.v1': lifecycle, 'page.version.v1': 'labelled' });
         const created = await createPage(owner, { operationKey: key('create'), containerId, title: 'Prior title' }), id = created.value.pageId;
@@ -31,7 +36,8 @@ for (const lifecycle of ['always-live', 'draft-then-publish'] as const)
             expect((await readPage(owner, id)).page.title).toBe('Prior title');
             expect((await revisionHistory(owner, id)).length).toBe(before.length + 1);
         }
-    });
+    }
+});
 test('LIFE-004 LIFE-001: schedule cancellation, due publication, failure retention and replay use real D1 jobs', async () => {
     const { owner, containerId } = await scenario();
     await profile(owner, { 'page.lifecycle.v1': 'draft-then-publish' });

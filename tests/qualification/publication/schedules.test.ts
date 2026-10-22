@@ -10,7 +10,8 @@ import {runContentJobs} from '../../../src/core/features/lifecycle/jobs';
 import type {PublicationSchedule} from '../../../src/core/features/lifecycle/publication-input';
 import {saveGrant} from '../../../src/core/features/sharing/grants';
 
-for(const general of ['workspace','container'] as const)test(`LIFE-004 durable ${general} schedule stages privately and fires once with saved choices`,async()=>{
+test('LIFE-004 durable workspace and container schedules stage privately and fire once with saved choices',async()=>{
+ for(const general of ['workspace','container'] as const){
  const {owner,reader,containerId}=await scenario();await profile(owner,{'page.lifecycle.v1':'draft-then-publish','page.version.v1':'labelled','page.access.v1':general==='workspace'?'workspace-general':'container-general'});
  const target=(await seedContainer(owner.actor.workspaceId,{ownerMemberId:owner.actor.id,visibility:'private'})).containerId;
  await seedContainerGrant(target,{principalKind:'member',principalId:owner.actor.id,level:'full'});
@@ -32,6 +33,7 @@ for(const general of ['workspace','container'] as const)test(`LIFE-004 durable $
  await runContentJobs(env,due);
  expect((await readPage(owner,p.value.pageId)).publishedRevisionId).toBe(result.publishedRevisionId);
  expect(staged.receipt.revisionId).not.toBe(result.publishedRevisionId);
+ }
 });
 
 test('LIFE-004 cancellation wins against a stale loaded job, stays draft and never publishes',async()=>{

@@ -1,4 +1,8 @@
-import { test, expect } from 'vitest';
+import { test, expect, beforeEach } from 'vitest';
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
+
+// Every policy case owns one installation, including variants inside a matrix.
+beforeEach(resetDeployment);
 import { scenario, profile, key, rows, textBlock } from './helpers';
 import { createDatabase, saveField, createRecord, setStructureLock } from '../../../src/core/features/databases/service';
 import { saveView, queryView, chart, listViews, type View } from '../../../src/core/features/databases/views';
@@ -47,8 +51,9 @@ test('DB-003 DB-004 DB-005 DB-006 DB-007 DB-008 DB-009 DB-011: layouts and aggre
     await updateRecord(owner, records[0].value.pageId, { operationKey: key('locked-record'), expectedRevisionId: records[0].receipt.revisionId, values: { score: 4 } });
     expect((await queryView(reader, db.value.id, 'calc')).calculations.score).toBe(100);
 });
-for (const parity of ['record-is-page', 'record-is-row'] as const)
-    test(`DB-001 DB-010 DB-012 REV-002: ${parity} retains body, comments and immutable field revisions on profile round trip`, async () => {
+test("DB-001 DB-010 DB-012 REV-002: both record parity profiles retain body, comments and immutable field revisions on profile round trip", async () => {
+    for (const parity of ['record-is-page', 'record-is-row'] as const) {
+        await resetDeployment();
         const { owner, containerId } = await scenario();
         const db = await createDatabase(owner, { operationKey: key('db'), containerId, title: 'Records' });
         const record = await createRecord(owner, db.value.id, { operationKey: key('record'), title: 'Rich record', values: {} });
@@ -66,7 +71,8 @@ for (const parity of ['record-is-page', 'record-is-row'] as const)
             expect(await rows('SELECT * FROM page_revisions WHERE page_id=? ORDER BY id', id)).toEqual(before);
             expect((await revisionHistory(owner, id)).some(r => r.id === body.receipt.revisionId)).toBe(true);
         }
-    });
+    }
+});
 test('DB-003 DB-004 DB-005 DB-009: edit, duplicate and delete views preserve records; missing grouping/date fields give actionable errors', async () => {
     const { owner, containerId } = await scenario();
     const db = await createDatabase(owner, { operationKey: key('database'), containerId, title: 'View lifecycle' });

@@ -1,5 +1,9 @@
 import { env, SELF } from 'cloudflare:test';
-import { test, expect } from 'vitest';
+import { test, expect, beforeEach } from 'vitest';
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
+
+// Every policy case owns one installation, including variants inside a matrix.
+beforeEach(resetDeployment);
 import { scenario, key, rows, textBlock, profile } from './helpers';
 import { createPage, readPage } from '../../../src/core/features/pages/service';
 import { replaceBlocks } from '../../../src/core/features/editor/service';
@@ -8,8 +12,9 @@ import { contentLimits } from '../../../src/core/features/editor/limits';
 import { compareRevisions } from '../../../src/core/features/versions/compare';
 import { saveGrant } from '../../../src/core/features/sharing/grants';
 import { sessionFor } from '../../e2e/setup/fixtures';
-for (const versions of ['autosnapshot', 'labelled'] as const)
-    test(`REV-001 REV-004 REV-007: ${versions} immutable diff categorizes added removed changed blocks and NFC content hash`, async () => {
+test("REV-001 REV-004 REV-007: immutable diff categorizes added removed changed blocks and NFC content hash across both version profiles", async () => {
+    for (const versions of ['autosnapshot', 'labelled'] as const) {
+        await resetDeployment();
         const { owner, containerId } = await scenario();
         await profile(owner, { 'page.version.v1': versions });
         const a = textBlock(key('a'), 'café'), b = { ...textBlock(key('b'), 'Removed'), treePosition: '2' };
@@ -21,7 +26,8 @@ for (const versions of ['autosnapshot', 'labelled'] as const)
         const revision = (await rows('SELECT content_hash FROM page_revisions WHERE id=?', p.receipt.revisionId))[0];
         const expected = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode('café Removed Hash'))), b => b.toString(16).padStart(2, '0')).join('');
         expect(revision.content_hash).toBe(expected);
-    });
+    }
+});
 test('BASE-INPUT-001 BASE-INPUT-002 BASE-INPUT-003 BLOCK-008: actual HTTP rejects malformed write, real R2 type/size/sanitization and current access govern delivery', async () => {
     const { owner, reader, containerId } = await scenario();
     const p = await createPage(owner, { operationKey: key('page'), containerId, title: 'Safe files' });

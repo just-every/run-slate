@@ -1,5 +1,9 @@
 import { env } from 'cloudflare:test';
-import { test, expect } from 'vitest';
+import { test, expect, beforeEach } from 'vitest';
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
+
+// Every policy case owns one installation, including variants inside a matrix.
+beforeEach(resetDeployment);
 import { scenario, profile, key, rows, textBlock } from './helpers';
 import { createPage, readPage, updatePage } from '../../../src/core/features/pages/service';
 import { openPage } from '../../../src/core/features/pages/open';
@@ -14,8 +18,9 @@ import { createComment, listComments } from '../../../src/core/features/comments
 import { revisionHistory, readRevision } from '../../../src/core/features/versions/service';
 import { resolveMentions } from '../../../src/core/features/pages/mentions';
 import { uploadMedia } from '../../../src/core/features/media/service';
-for (const status of ['verification-only', 'open-vocabulary'] as const)
-    test(`STAT-001 STAT-002 STAT-003 STAT-004 STAT-005: ${status} exact-open verification, stale/lapsed semantics and vocabulary persistence`, async () => {
+test("STAT-001 STAT-002 STAT-003 STAT-004 STAT-005: exact-open verification, stale/lapsed semantics and vocabulary persistence across both status profiles", async () => {
+    for (const status of ['verification-only', 'open-vocabulary'] as const) {
+        await resetDeployment();
         const { owner, containerId } = await scenario();
         await env.DB.batch(defaultStatusStatements(env.DB, owner.actor.workspaceId, owner.now));
         await profile(owner, { 'page.status.v1': status });
@@ -44,7 +49,8 @@ for (const status of ['verification-only', 'open-vocabulary'] as const)
         expect(notices).toHaveLength(1);
         await setStatusEntry(owner, { operationKey: key('retire'), key: 'verified', label: 'Verified', color: '#228855', requiresVerification: true, retire: true });
         expect((await readPage(owner, id)).properties.statusKey).toBe('verified');
-    });
+    }
+});
 test('ARCH-001 ARCH-002 ARCH-003 ARCH-004 ARCH-005 ARCH-006 LIFE-007 REV-005 LINK-002: archive/trash/restore preserves descendants and history, confirmed erase removes content and R2', async () => {
     const { owner, containerId } = await scenario();
     const p = await createPage(owner, { operationKey: key('root'), containerId, title: 'Root secret', blocks: [textBlock(key('block'), 'Erasure secret')] }), id = p.value.pageId;
