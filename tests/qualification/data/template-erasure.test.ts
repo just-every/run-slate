@@ -1,9 +1,14 @@
+beforeEach(resetDeployment);
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
 import {env} from 'cloudflare:test';
-import {test,expect} from 'vitest';
+import {test,expect,beforeEach} from 'vitest';
 import {permanentlyEraseTemplate} from '../../../src/core/features/templates/erasure';
 import {changeTemplate,listTemplates} from '../../../src/core/features/templates/service';
 import {fixture,insert,canary} from './fixture';
-test('BASE-DATA-003 template erasure preserves soft restore and shared assets, and pending cleanup survives reload without personal text',async()=>{
+test("BASE-DATA-003 permanent template erasure clears personal snapshots and completes asset cleanup truthfully",async()=>{
+ for(const run of [
+  // Original case: BASE-DATA-003 template erasure preserves soft restore and shared assets, and pending cleanup survives reload without personal text
+  async()=>{
  const {ctx,workspaceId,page}=await fixture(),now=ctx.now,key='template-assets/data-erasure-unique',shared='template-assets/data-erasure-shared';await env.FILES.put(key,canary);await env.FILES.put(shared,canary);
  const snapshot={title:canary,properties:{},blocks:[],children:[],assets:[{fileId:'fixture-file',storageKey:key,name:canary,contentType:'text/plain'},{fileId:'shared-file',storageKey:shared,name:canary,contentType:'text/plain'}]};
  const seed=(id:string,value:unknown)=>insert('knowledge_templates',{id,workspace_id:workspaceId,title:canary,description:canary,category:canary,snapshot_json:JSON.stringify(value),created_at:now,updated_at:now,revision_id:id+'-revision'});
@@ -20,6 +25,21 @@ test('BASE-DATA-003 template erasure preserves soft restore and shared assets, a
  expect(await env.FILES.get(key)).toBeNull();expect(await env.FILES.get(shared)).not.toBeNull();expect((await listTemplates(ctx,{state:'deleted'})).items.some(t=>t.id===pending.id)).toBe(false);
  expect(await env.DB.prepare('SELECT title FROM pages WHERE id=?').bind(page.pageId).first()).toEqual({title:canary});
  expect(await env.DB.prepare("SELECT count(*) n FROM activity_entries WHERE target_id=? AND action='templates.permanent-delete'").bind(pending.id).first()).toEqual({n:1});
+
+  },
+  // Original case: BASE-DATA-003 explicit permanent template erasure clears personal snapshot content
+  async()=>{
+ const {ctx,workspaceId}=await fixture(),now=ctx.now;
+ await insert('knowledge_templates',{id:'erase-template',workspace_id:workspaceId,title:canary,description:canary,category:canary,snapshot_json:JSON.stringify({title:canary,properties:{},blocks:[],children:[]}),created_at:now,updated_at:now,revision_id:'erase-template-revision'});
+ const soft=await changeTemplate(ctx,'erase-template',{operationKey:'erase-template-operation',expectedRevisionId:'erase-template-revision',action:'delete'});
+ await permanentlyEraseTemplate(ctx,'erase-template',{operationKey:'erase-template-permanent',expectedRevisionId:soft.receipt.revisionId,confirmed:true});
+ expect(JSON.stringify(await env.DB.prepare('SELECT title,description,category,snapshot_json FROM knowledge_templates WHERE id=?').bind('erase-template').first())).not.toContain(canary);
+
+  }
+ ]){
+  await resetDeployment();
+  await run();
+ }
 });
 test('BASE-DATA-003 template permanent erasure rejects shipped templates, stale revision and unauthorized callers',async()=>{
  const {ctx,workspaceId,subject,page}=await fixture(),now=ctx.now,snapshot=JSON.stringify({title:canary,properties:{},blocks:[],children:[]});

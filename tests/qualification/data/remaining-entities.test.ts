@@ -1,7 +1,7 @@
+beforeEach(resetDeployment);
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
 import {env} from 'cloudflare:test';
-import {test,expect} from 'vitest';
-import {permanentlyEraseTemplate} from '../../../src/core/features/templates/erasure';
-import {changeTemplate} from '../../../src/core/features/templates/service';
+import {test,expect,beforeEach} from 'vitest';
 import {forgetSource} from '../../../src/core/features/source-memory/service';
 import {fixture,insert,canary} from './fixture';
 test('BASE-DATA-003 explicit source erasure clears personal source identity and retained ACL',async()=>{
@@ -12,11 +12,4 @@ test('BASE-DATA-003 explicit source erasure clears personal source identity and 
  await forgetSource(ctx,{id:'forget-source',operationKey:'forget-source-operation',expectedRevisionId:'forget-source-revision'});
  expect(JSON.stringify(await env.DB.prepare('SELECT remote_id FROM federation_sources WHERE id=?').bind('forget-source').first())).not.toContain(canary);
  expect(JSON.stringify(await env.DB.prepare('SELECT remote_revision,acl_json FROM federation_revisions WHERE source_id=?').bind('forget-source').all())).not.toContain(canary);
-});
-test('BASE-DATA-003 explicit permanent template erasure clears personal snapshot content',async()=>{
- const {ctx,workspaceId}=await fixture(),now=ctx.now;
- await insert('knowledge_templates',{id:'erase-template',workspace_id:workspaceId,title:canary,description:canary,category:canary,snapshot_json:JSON.stringify({title:canary,properties:{},blocks:[],children:[]}),created_at:now,updated_at:now,revision_id:'erase-template-revision'});
- const soft=await changeTemplate(ctx,'erase-template',{operationKey:'erase-template-operation',expectedRevisionId:'erase-template-revision',action:'delete'});
- await permanentlyEraseTemplate(ctx,'erase-template',{operationKey:'erase-template-permanent',expectedRevisionId:soft.receipt.revisionId,confirmed:true});
- expect(JSON.stringify(await env.DB.prepare('SELECT title,description,category,snapshot_json FROM knowledge_templates WHERE id=?').bind('erase-template').first())).not.toContain(canary);
 });

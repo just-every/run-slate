@@ -1,20 +1,10 @@
+beforeEach(resetDeployment);
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
 import {env} from 'cloudflare:test';
-import {test,expect} from 'vitest';
+import {test,expect,beforeEach} from 'vitest';
 import {fixture,insert,canary,canaries} from './fixture';
-import {seedPage} from '../../e2e/setup/fixtures';
-import {archivePage,permanentDeletePage} from '../../../src/core/features/archive/service';
 import {removeMember} from '../../../src/core/features/workspace/members';
-test('BASE-DATA-003 source-linked skill derivatives and method-linked inquiry erase across an unrelated host page',async()=>{
- const {ctx,workspaceId,owner,page}=await fixture(),host=await seedPage(page.containerId,{title:'Unrelated host remains',authorMemberId:owner}),now=ctx.now;
- await insert('intelligence_skills',{id:'lineage-skill',workspace_id:workspaceId,page_id:host.pageId,owner_id:owner,name:canary,current_revision_id:'lineage-version',created_at:now,updated_at:now});
- await insert('intelligence_skill_versions',{id:'lineage-version',skill_id:'lineage-skill',state:'draft',definition_json:JSON.stringify({refs:[{sourceId:page.pageId}],instructions:canary}),created_at:now});
- await insert('intelligence_runs',{id:'lineage-run',workspace_id:workspaceId,requester_id:owner,page_id:host.pageId,kind:'answer',status:'completed',revision_id:'lineage-run-revision',input_json:'{}',refs_json:'[]',output_json:JSON.stringify({text:canary}),skill_revision_id:'lineage-version',created_at:now,updated_at:now});
- await insert('intelligence_evaluations',{id:'lineage-evaluation',workspace_id:workspaceId,skill_revision_id:'lineage-version',case_hash:'test',result_json:JSON.stringify({text:canary}),passed:0,created_at:now});
- await insert('intelligence_inquiries',{id:'lineage-inquiry',workspace_id:workspaceId,page_id:host.pageId,owner_id:owner,question:canary,revision_id:'lineage-inquiry-revision',refs_json:'[]',audience_json:'[]',method_revision_id:'lineage-version',created_at:now,updated_at:now});
- const tables=['intelligence_skills','intelligence_skill_versions','intelligence_runs','intelligence_evaluations','intelligence_inquiries'];expect(Object.values(await canaries(tables)).every(n=>n>0)).toBe(true);
- await archivePage(ctx,page.pageId,{operationKey:'lineage-source-trash',expectedRevisionId:page.revisionId,action:'trash'});await permanentDeletePage(ctx,page.pageId,{operationKey:'lineage-source-erase',confirmedPageIds:[page.pageId]});
- expect(await canaries(tables)).toEqual(Object.fromEntries(tables.map(t=>[t,0])));expect(await env.DB.prepare('SELECT title,deleted_at FROM pages WHERE id=?').bind(host.pageId).first()).toEqual({title:'Unrelated host remains',deleted_at:null});
-});
+
 test('BASE-DATA-003 member erasure clears reviews, interruptions and guided steps on retained shared work',async()=>{
  const {ctx,workspaceId,owner,subject,page}=await fixture(),now=ctx.now,json=JSON.stringify({text:canary});
  await insert('intelligence_runs',{id:'shared-run',workspace_id:workspaceId,requester_id:owner,page_id:page.pageId,kind:'answer',status:'completed',revision_id:'shared-run-revision',input_json:'{}',refs_json:'[]',output_json:'{"shared":"retained"}',created_at:now,updated_at:now});

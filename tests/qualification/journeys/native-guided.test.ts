@@ -1,4 +1,6 @@
-import {test,expect,vi,afterEach} from 'vitest';
+beforeEach(resetDeployment);
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
+import {test,expect,vi,afterEach,beforeEach} from 'vitest';
 import {env} from 'cloudflare:test';
 import {trialFixture} from '../inquiry/trial-fixture';
 import {answer,providerResponse} from '../inquiry/fixture';
@@ -9,7 +11,11 @@ import {prepareProcedure} from '../../../src/core/features/skills/preparation';
 import {addSource,refreshSource} from '../../../src/core/features/source-memory/service';
 import type {AppBindings} from '../../../src/core/app/types';
 afterEach(()=>vi.unstubAllGlobals());
-for(const expectedState of ['open','completed','cancelled'] as const)test('Journey 5 read-only native typed owning state '+expectedState,async()=>{
+test('Journey 5 read-only native typed owning states complete and replay exact receipts',async()=>{
+ for(const expectedState of ['open','completed','cancelled'] as const){
+  await resetDeployment();
+  try {
+
  const f=await trialFixture([8,8,8,8]);
  const nativeFetch=globalThis.fetch;
  const connectionId=(await env.DB.prepare('SELECT id FROM federation_connections WHERE workspace_id=?').bind(f.workspaceId).first<string>('id'))!;
@@ -31,4 +37,6 @@ for(const expectedState of ['open','completed','cancelled'] as const)test('Journ
  const verified=await verifyGuidedStep(f.context(),{operationKey:'journey-native-verify',taskId:prepared.guidedTaskId,stepId:stored.steps[0]!.id});
  expect(verified.value.state).toBe('completed');expect(verified.value.receipt).toMatchObject({provider:'orbit',recordState:{schema:'crm.handoff-state/1',kind:'crm.handoff',state:expectedState}});
  const replay=await verifyGuidedStep(f.context(),{operationKey:'journey-native-verify',taskId:prepared.guidedTaskId,stepId:stored.steps[0]!.id});expect(replay.value.receipt).toEqual(verified.value.receipt);
+  } finally { vi.unstubAllGlobals(); }
+ }
 },30000);

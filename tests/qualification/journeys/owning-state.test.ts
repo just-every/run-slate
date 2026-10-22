@@ -1,18 +1,32 @@
-import {test,expect,vi,afterEach} from 'vitest';
+beforeEach(resetDeployment);
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
+import {test,expect,vi,afterEach,beforeEach} from 'vitest';
 import {env} from 'cloudflare:test';
 import {owningFixture} from './owning-state-fixture';
 import {createGuidedTask} from '../../../src/core/features/skills/guided';
 import {scheduleGuidedTasks} from '../../../src/core/features/skills/guided-scheduler';
 import type {AppBindings} from '../../../src/core/app/types';
 afterEach(()=>vi.unstubAllGlobals());
-test('prose-only legacy native evidence stays readable but cannot confirm automatic state',async()=>{const f=await owningFixture();f.control.typed=false;await expect(f.verify()).rejects.toMatchObject({code:'OWNING_STATE_UNAVAILABLE'});expect((await f.state())!.state).toBe('pending');});
-test('exact mismatch, missing typed state, malformed provider, stale/future timestamps and wrong canonical origin remain pending',async()=>{
+test("legacy prose and invalid typed owning evidence cannot confirm automatic state",async()=>{
+ for(const run of [
+  // Original case: prose-only legacy native evidence stays readable but cannot confirm automatic state
+  async()=>{const f=await owningFixture();f.control.typed=false;await expect(f.verify()).rejects.toMatchObject({code:'OWNING_STATE_UNAVAILABLE'});expect((await f.state())!.state).toBe('pending');
+  },
+  // Original case: exact mismatch, missing typed state, malformed provider, stale/future timestamps and wrong canonical origin remain pending
+  async()=>{
  const f=await owningFixture();f.control.state='cancelled';await expect(f.verify()).rejects.toMatchObject({code:'OWNING_STATE_UNCONFIRMED'});f.control.state='open';
  for(const alter of [(v:any)=>{delete v.recordState;},(v:any)=>{v.recordState={schema:'other',kind:'crm.handoff',state:'open'};},(v:any)=>{v.target='opportunities/other/handoffs/a';},(v:any)=>{if(v.canonicalUrl)v.canonicalUrl='https://evil.test/a';}]){f.control.alter=alter;await expect(f.verify()).rejects.toHaveProperty('code');expect((await f.state())!.receipt_json).toBeNull();}
  f.control.alter=undefined;
  for(const offset of [-61000,6000]){f.control.observedAt=()=>new Date(Date.now()+offset).toISOString();await expect(f.verify()).rejects.toMatchObject({code:'OWNING_STATE_STALE'});}
  expect((await f.state())!.state).toBe('pending');
+
+  }
+ ]){
+  await resetDeployment();
+  try{await run();}finally{vi.unstubAllGlobals();}
+ }
 });
+
 test('procedure creation refuses an arbitrary connection or remote target outside its exact issued procedure',async()=>{
  const f=await owningFixture(),steps=f.task.steps.map(s=>({instruction:s.instruction,refs:JSON.parse(s.source_refs_json),verification:{...JSON.parse(s.verification_json),remoteId:'opportunities/o/handoffs/b'}}));
  await expect(createGuidedTask(f.context(),{operationKey:'arbitrary-guided-target',runId:f.runId,steps})).rejects.toMatchObject({code:'INVALID_GUIDED_GROUNDING'});

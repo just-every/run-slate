@@ -1,4 +1,6 @@
-import {test,expect} from 'vitest';
+beforeEach(resetDeployment);
+import {resetDeployment} from '../../e2e/setup/reset-deployment';
+import {test,expect,beforeEach} from 'vitest';
 import {fixture,env,createUlid} from '../backend/fixture';
 import {saveDecision,acceptDecision,getDecision} from '../../../src/core/features/decisions/service';
 import {createSkill,transitionSkill} from '../../../src/core/features/skills/service';
@@ -15,26 +17,39 @@ async function closure(){
  const skillRef:EvidenceInput={kind:'skill',sourceId:skill.value.id,revisionId:skill.value.revisionId};const outer=await saveDecision(f.ctx,{...input,operationKey:key(),pageId:outerPage.id,citations:[skillRef]});const outerAccepted=await acceptDecision(f.ctx,{id:outer.value.id,operationKey:key(),expectedRevisionId:outer.value.revisionId});const outerRef:EvidenceInput={kind:'decision',sourceId:outer.value.id,revisionId:outerAccepted.value.revisionId};
  return {...f,source,decisionPage,skillPage,outerPage,decisionRef,skillRef,outerRef,grants,readerContext:{...f.ctx,actor:{...f.ctx.actor,id:f.readerId,role:'member' as const}}};
 }
-test('Nested page→decision→skill→decision currentness propagates truthfully without rewriting any retained content',async()=>{
+test("Changed, archived and private backing pages retain historical closure but cannot be current evidence",async()=>{
+ for(const run of [
+  // Original case: Nested page→decision→skill→decision currentness propagates truthfully without rewriting any retained content
+  async()=>{
  const f=await closure();const original=await resolveEvidence(f.ctx,[f.outerRef],[f.ownerId],{current:true});expect(original[0].current).toBe(true);
  const change=await f.request('PATCH',`/api/pages/${f.source.id}`,{operationKey:key(),expectedRevisionId:f.source.revisionId,properties:{title:'Changed nested source'}});expect(change.status).toBe(200);
  for(const ref of [f.decisionRef,f.skillRef,f.outerRef]){const historical=await resolveEvidence(f.ctx,[ref],[f.ownerId]);expect(historical[0].current).toBe(false);await expect(resolveEvidence(f.ctx,[ref],[f.ownerId],{current:true})).rejects.toMatchObject({code:'STALE_EVIDENCE'});}
  expect((await resolveEvidence(f.ctx,[f.outerRef],[f.ownerId]))[0].text).toBe(original[0].text);expect((await getDecision(f.ctx,f.outerRef.sourceId)).citationsCurrent).toBe(false);expect((await resolveEvidence(f.readerContext,[f.outerRef],[f.readerId]))[0].current).toBe(false);
+
+  },
+  // Original case: Archived backing pages retain authorized decision/skill history but cannot be current evidence
+  async()=>{
+ const f=await closure();
+ for(const [page,ref] of [[f.decisionPage,f.decisionRef],[f.skillPage,f.skillRef]] as const){const archive=await f.request('POST',`/api/archive/${page.id}`,{operationKey:key(),expectedRevisionId:page.revisionId,action:'archive'});expect(archive.status).toBe(200);const historical=await resolveEvidence(f.ctx,[ref],[f.ownerId]);expect(historical[0].current).toBe(false);expect(historical[0].text.length).toBeGreaterThan(0);await expect(resolveEvidence(f.ctx,[ref],[f.ownerId],{current:true})).rejects.toMatchObject({code:'STALE_EVIDENCE'});}
+ expect((await resolveEvidence(f.ctx,[f.outerRef],[f.ownerId]))[0].current).toBe(false);
+
+  },
+  // Original case: Retained private-draft backing pages are historical for their authorized author, never current grounding
+  async()=>{
+ const f=await closure();
+ // Imported/restored private lifecycle fixture; this does not claim a native unpublish operation.
+ await env.DB.prepare("UPDATE pages SET lifecycle='draft',published_revision_id=NULL WHERE id IN (?,?)").bind(f.decisionPage.id,f.skillPage.id).run();
+ for(const ref of [f.decisionRef,f.skillRef,f.outerRef]){expect((await resolveEvidence(f.ctx,[ref],[f.ownerId]))[0].current).toBe(false);await expect(resolveEvidence(f.ctx,[ref],[f.ownerId],{current:true})).rejects.toMatchObject({code:'STALE_EVIDENCE'});}
+
+  }
+ ]){
+  await resetDeployment();
+  await run();
+ }
 });
 test('Revoking a nested source grant denies retained closure reads for reader and claimed audience without leaking outer content',async()=>{
  const f=await closure();expect((await resolveEvidence(f.readerContext,[f.outerRef],[f.readerId]))[0].current).toBe(true);
  const revoke=await f.request('POST','/api/sharing',{operationKey:key(),id:f.grants.get(f.source.id),targetKind:'page',targetId:f.source.id,principalKind:'member',principalId:f.readerId,level:'view',revoke:true});expect(revoke.status).toBe(200);
  for(const ref of [f.decisionRef,f.skillRef,f.outerRef]){await expect(resolveEvidence(f.readerContext,[ref],[f.readerId])).rejects.toMatchObject({status:404});await expect(resolveEvidence(f.ctx,[ref],[f.readerId],{current:true})).rejects.toMatchObject({status:404});}
  expect((await f.request('GET',`/api/decisions/${f.outerRef.sourceId}`,undefined,f.readerId)).status).toBe(404);expect((await resolveEvidence(f.ctx,[f.outerRef],[f.ownerId],{current:true}))[0].current).toBe(true);
-});
-test('Archived backing pages retain authorized decision/skill history but cannot be current evidence',async()=>{
- const f=await closure();
- for(const [page,ref] of [[f.decisionPage,f.decisionRef],[f.skillPage,f.skillRef]] as const){const archive=await f.request('POST',`/api/archive/${page.id}`,{operationKey:key(),expectedRevisionId:page.revisionId,action:'archive'});expect(archive.status).toBe(200);const historical=await resolveEvidence(f.ctx,[ref],[f.ownerId]);expect(historical[0].current).toBe(false);expect(historical[0].text.length).toBeGreaterThan(0);await expect(resolveEvidence(f.ctx,[ref],[f.ownerId],{current:true})).rejects.toMatchObject({code:'STALE_EVIDENCE'});}
- expect((await resolveEvidence(f.ctx,[f.outerRef],[f.ownerId]))[0].current).toBe(false);
-});
-test('Retained private-draft backing pages are historical for their authorized author, never current grounding',async()=>{
- const f=await closure();
- // Imported/restored private lifecycle fixture; this does not claim a native unpublish operation.
- await env.DB.prepare("UPDATE pages SET lifecycle='draft',published_revision_id=NULL WHERE id IN (?,?)").bind(f.decisionPage.id,f.skillPage.id).run();
- for(const ref of [f.decisionRef,f.skillRef,f.outerRef]){expect((await resolveEvidence(f.ctx,[ref],[f.ownerId]))[0].current).toBe(false);await expect(resolveEvidence(f.ctx,[ref],[f.ownerId],{current:true})).rejects.toMatchObject({code:'STALE_EVIDENCE'});}
 });
