@@ -17,7 +17,7 @@ import { search } from '../../src/core/features/search/service';
 const settings = {LOCAL_DEVELOPMENT:'true', APP_URL:'http://127.0.0.1:4312',SETUP_OWNER_EMAIL:'owner@example.com',SESSION_SECRET:'test-only-local-secret',MAIL_PROVIDER:'resend',MAIL_API_KEY:'test-only-mail-key',MAIL_FROM:'auth@localhost.test',RER_DEV_KEY:'test-only-local-dev-key'.padEnd(43,'k')};
 let captured: {to:string[];text:string}[] = [];
 const realFetch = globalThis.fetch;
-beforeEach(() => {
+function installMailCapture() {
   captured = [];
   globalThis.fetch = async (input, init) => {
     const request = new Request(input, init);
@@ -25,8 +25,10 @@ beforeEach(() => {
     captured.push(await request.json() as {to:string[];text:string});
     return Response.json({id:crypto.randomUUID()});
   };
-});
-afterEach(() => { globalThis.fetch = realFetch; });
+}
+function restoreMailCapture() { globalThis.fetch = realFetch; }
+beforeEach(installMailCapture);
+afterEach(restoreMailCapture);
 const config = () => readRuntimeConfig(settings, true);
 const unusedRequest = (url = `${settings.APP_URL}/__dev/outbox`, headers: Record<string,string> = {host:'127.0.0.1:4312','x-rer-dev-key':settings.RER_DEV_KEY}) => new Request(url, {headers});
 const sessions = (db: D1Database) => createSessionService(db,{sessionSecret:settings.SESSION_SECRET,identityEnabled:false});
@@ -178,7 +180,9 @@ test('native local member invitation delivers once, accepts into a native sessio
   });
 });
 
-for (const target of ['page','container'] as const) test(`native local ${target} guest invitation accepts only its named scope and retains guest restrictions`, async () => {
+test('native local page and container guest invitations accept only their named scope and retain guest restrictions', async () => {
+  for (const [index,target] of (['page','container'] as const).entries()) {
+    if(index>0){restoreMailCapture();installMailCapture();}
   await withLocalOwner(async (fixture,owner) => {
     const setup = (await completeFirstRun(owner,{operationKey:crypto.randomUUID(),workspaceName:'Local workspace',containerName:'Named container',pageTitle:'Named page'})).value;
     // A second resource with a workspace grant is visible to members, never to scoped guests.
@@ -215,6 +219,7 @@ for (const target of ['page','container'] as const) test(`native local ${target}
     assert.deepEqual(invitationCounts(fixture),before);
     await assert.rejects(acceptInvitation(fixture.db,config(),token,owner),{code:'LINK_INVALID'});
   },true);
+  }
 });
 
 test('native local invitations preserve scope validation, guest veto and revocation before acceptance', async () => {

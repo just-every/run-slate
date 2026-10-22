@@ -76,8 +76,8 @@ function assertSyntheticWordIdentities(parts) {
     Array.from({length: 6}, (_, index) => `Example Member ${index + 1}`), 'synthetic shared-member display values');
 }
 
-for (const archive of policy.archives) {
-  test(`public fixture policy: ${archive.path}`, () => {
+test('public fixture policy preserves every reviewed archive', () => {
+  for (const archive of policy.archives) {
     const bytes = readFileSync(archive.path);
     assert.equal(digest(bytes), archive.sha256, 'reviewed public archive bytes');
     const actual = entries(bytes);
@@ -109,5 +109,5 @@ for (const archive of policy.archives) {
         if (entry.name.endsWith('.csv.gz')) assert.notEqual(entry.content.readUInt16BE(0), 0x1f8b, 'exporter plain CSV remains plain');
       }
     }
-  });
-}
+  }
+});
