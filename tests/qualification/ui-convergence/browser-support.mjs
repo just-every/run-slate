@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { signInWithOutbox } from '../../e2e/outbox-auth.mjs';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { chromium, expect } from '@playwright/test';
+import { chromium, expect, request } from '@playwright/test';
 import { applyMigrations, executeD1, root, stop, testSessionSecret } from '../../e2e/runtime-harness.mjs';
 import { startShellWorker } from '../release-shell/runtime.mjs';
 import { accessible, insideViewport, withinViewport } from './browser-evidence.mjs';
@@ -85,12 +85,18 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
     page.on('console', message => { if (message.type() === 'error') consoleErrors.push({ url: page.url(), message: message.text() }); });
     page.on('pageerror', cause => consoleErrors.push({ url: page.url(), message: String(cause) }));
     const api = async (route, options = {}) => {
-      // A fresh connection per call, as in two-people-support's call().
-      const response = await context.request.get(runtime.baseUrl + route, { ...options, headers: { ...options.headers, connection: 'close' } });
-      assert.equal(response.status(), 200, await response.text());
-      const value = await response.json();
-      network.push({ url: runtime.baseUrl + route, method: 'GET', status: response.status(), responseBody: value });
-      return value;
+      // Own the transport as call() does: Connection: close alone can still
+      // select a pooled socket that the local proxy has already closed.
+      const transport = await request.newContext({ storageState: await context.storageState() });
+      try {
+        const response = await transport.get(runtime.baseUrl + route, { ...options, maxRetries: 0 });
+        assert.equal(response.status(), 200, await response.text());
+        const value = await response.json();
+        network.push({ url: runtime.baseUrl + route, method: 'GET', status: response.status(), responseBody: value });
+        return value;
+      } finally {
+        await transport.dispose();
+      }
     };
     const switchIdentity = async identity => {
       await context.clearCookies();
