@@ -125,21 +125,13 @@
     },
     {
       "file": "tests/flagship/content/http.test.ts",
-      "testName": "revoking a direct grant closes an idle real socket before the revocation request completes",
+      "testName": "idle sockets close within five seconds after direct-grant revocation or session expiry",
       "kind": "supporting-regression",
       "clauses": [
-        "SHARE-007"
-      ],
-      "reason": "Asserts revoking a direct grant closes an idle real socket before the revocation request completes. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "an idle socket closes within five seconds when its session expires without a mutation request",
-      "kind": "supporting-regression",
-      "clauses": [
+        "SHARE-007",
         "BASE-ACCESS-002"
       ],
-      "reason": "Asserts an idle socket closes within five seconds when its session expires without a mutation request. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts idle sockets close within five seconds after direct-grant revocation or session expiry. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/content/http.test.ts",

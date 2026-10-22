@@ -694,7 +694,7 @@
         },
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "revoking a direct grant closes an idle real socket before the revocation request completes"
+          "testName": "idle sockets close within five seconds after direct-grant revocation or session expiry"
         },
         {
           "file": "tests/flagship/core/access.test.ts",
@@ -2851,7 +2851,7 @@
         },
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "an idle socket closes within five seconds when its session expires without a mutation request"
+          "testName": "idle sockets close within five seconds after direct-grant revocation or session expiry"
         },
         {
           "file": "tests/flagship/core/identity.test.ts",

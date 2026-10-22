@@ -66,7 +66,10 @@ test('WORK-006 revocation cancels exactly one invitation and expired leases rech
 test('WORK-013 completion marker survives an empty tree and later members never receive wizard',async()=>{
  const f=fixture();try{assert.deepEqual(await firstRunState(f.ctx),{required:true,canComplete:true});assert.deepEqual(await firstRunState({...f.ctx,actor:{...f.ctx.actor,id:'b',role:'member'}}),{required:false,canComplete:false});await completeFirstRun(f.ctx,{operationKey:crypto.randomUUID(),workspaceName:'Named',containerName:'First',pageTitle:'Welcome'});assert.deepEqual(await firstRunState(f.ctx),{required:false,canComplete:false});assert.equal(f.sql.prepare('SELECT count(*) n FROM containers').get()!.n,1);assert.equal(f.sql.prepare('SELECT count(*) n FROM pages').get()!.n,1);assert.ok(f.sql.prepare('SELECT first_run_completed_at FROM workspaces').get()!.first_run_completed_at);}finally{f.close();}
 });
-test('WORK-006 guest retry after restart re-resolves resource grants and refuses stale authority',async()=>{
+test('WORK-006 MAIL-002 revoked guest grants and invitations fence recovered or racing delivery attempts',async()=>{
+ for(const run of [
+  // Original case: WORK-006 guest retry after restart re-resolves resource grants and refuses stale authority
+  async()=>{
  const f=fixture();let calls=0;const restore=provider(async()=>{calls++;return new Response('down',{status:503});});
  try{f.sql.exec("INSERT INTO containers(id,workspace_id,name,visibility,guest_access,created_at,updated_at,revision_id) VALUES ('c','w','Shared','open','allowed','n','n','r'); INSERT INTO container_grants(id,container_id,principal_kind,principal_id,level,created_at,updated_at) VALUES ('g','c','member','a','full','n','n');");
   await invite(f.ctx,config,{...input(),kind:'guest',containerId:'c'});assert.equal(calls,1);
@@ -74,17 +77,23 @@ test('WORK-006 guest retry after restart re-resolves resource grants and refuses
   f.sql.prepare("UPDATE mail_deliveries SET delivery_phase='sending',cycle_attempt=2,attempt_count=2,lease_until=?,next_attempt_at=NULL").run(after(60000));
   f.sql.exec("UPDATE container_grants SET revoked_at='revoked' WHERE id='g'");await scheduleIdentityMail(f.db,config,undefined,after(60000));assert.equal(calls,1);assert.equal(row(f).delivery_phase,'cancelled');assert.equal(row(f).payload_ciphertext,null);
  }finally{restore();f.close();}
+
+  },
+  // Original case: MAIL-002 invitation revocation racing an attempt claim fences the provider send
+  async()=>{
+ const f=fixture();let calls=0;const restore=provider(async()=>{calls++;return new Response('down',{status:503});});
+ try{await invite(f.ctx,config,input());let race=true;f.setFault(q=>{if(race&&q.startsWith('INSERT INTO core_write_guards')){race=false;f.sql.exec("UPDATE invitations SET revoked_at='revoked'");}return false;});await scheduleIdentityMail(f.db,config,undefined,after(150000));assert.equal(calls,1);assert.equal(row(f).attempt_count,1);
+ }finally{restore();f.close();}
+
+  }
+ ]){await run();}
 });
 test('MAIL-002 expired provider retention never replays an uncertain message',async()=>{
  const f=fixture();let calls=0;const restore=provider(async()=>{calls++;throw new Error('network response lost');});
  try{await invite(f.ctx,config,input());const id=row(f).id;await scheduleIdentityMail(f.db,config,undefined,after(23*3600000));assert.equal(calls,1);assert.equal(row(f).delivery_phase,'failed');assert.equal(row(f).payload_ciphertext,null);assert.equal((await listIdentityMail({...f.ctx,now:after(23*3600000)})).items[0].canRetry,false);await assert.rejects(retryIdentityMail({...f.ctx,now:after(23*3600000)},config,id),{code:'MAIL_NOT_RECOVERABLE'});assert.equal(calls,1);
  }finally{restore();f.close();}
 });
-test('MAIL-002 invitation revocation racing an attempt claim fences the provider send',async()=>{
- const f=fixture();let calls=0;const restore=provider(async()=>{calls++;return new Response('down',{status:503});});
- try{await invite(f.ctx,config,input());let race=true;f.setFault(q=>{if(race&&q.startsWith('INSERT INTO core_write_guards')){race=false;f.sql.exec("UPDATE invitations SET revoked_at='revoked'");}return false;});await scheduleIdentityMail(f.db,config,undefined,after(150000));assert.equal(calls,1);assert.equal(row(f).attempt_count,1);
- }finally{restore();f.close();}
-});
+
 test('0008 forward migration preserves prior delivery history and records old populated onboarding',()=>{
  const sql=new DatabaseSync(':memory:',{enableDoubleQuotedStringLiterals:true});try{
   for(const name of readdirSync('migrations/core').filter(n=>n.endsWith('.sql')&&n<'0008').sort())sql.exec(readFileSync(`migrations/core/${name}`,'utf8'));
