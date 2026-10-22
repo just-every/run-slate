@@ -51,7 +51,7 @@ async()=>{
  await expect(reauthorizeRun(f.context(),run)).rejects.toMatchObject({status:409,code:'RESTORED_AUTHORITY_REQUIRED'});
  await expect(controlRun(f.context(),{id:f.runId,operationKey:crypto.randomUUID(),expectedRevisionId:run.revision_id,action:'resume'})).rejects.toMatchObject({status:409,code:'RESTORED_AUTHORITY_REQUIRED'});
  expect(await durableState()).toEqual(before);
-}])await scenario();
+}]){await reset();await scenario();}
 });
 
 

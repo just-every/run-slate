@@ -76,7 +76,7 @@ async()=>{
  let delivered=seen();a.send(JSON.stringify({type:'presence',cursor}));expect((await delivered).presence).toContainEqual(expect.objectContaining({id:f.a,cursor}));
  delivered=seen();b.send(JSON.stringify({type:'refresh'}));expect((await delivered).presence).toContainEqual(expect.objectContaining({id:f.a,cursor}));
  }finally{for(const socket of sockets)socket.close();}
-}])await scenario();
+}]){await resetDeployment();await scenario();}
 });
 it('restores unchanged anchored text and orphans only anchors absent from the restored body',async()=>{
  const f=await fixture(),b=paragraph(),p=await page(f,[b]);const thread=await f.request('POST',`/api/comments/page/${p.pageId}`,{operationKey:createUlid(),kind:'inline',blockId:b.id,anchorRevisionId:p.revisionId,anchor:{anchorId:createUlid(),quote:'unchanged'},body:[{text:'Review'}]});expect(thread.status,JSON.stringify(thread.data)).toBe(200);
