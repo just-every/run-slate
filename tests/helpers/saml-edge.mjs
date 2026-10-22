@@ -5,6 +5,8 @@ import { appendFile, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { promisify } from 'node:util';
 import { inflateRawSync } from 'node:zlib';
+import { createServer } from 'node:http';
+const idpServers = new Map();
 
 const execute = promisify(execFile);
 const marker = directory => path.join(directory, 'saml-edge.json');
@@ -21,8 +23,14 @@ export async function initializeSamlEdge(directory) {
     '-days', '2', '-subj', '/CN=synthetic-slate-601.invalid']);
   const pem = await readFile(certificate, 'utf8');
   assert.equal(new X509Certificate(pem).publicKey.asymmetricKeyType, 'rsa');
+  // A real loopback HTTP edge also receives redirects; browser routing only intercepts the first request in a redirect chain.
+  const server = createServer((request, response) => {
+    serveSamlIdp(directory, new URL(request.url, 'http://127.0.0.1')).then(html => { response.writeHead(200, {'content-type':'text/html; charset=utf-8'}); response.end(html); }).catch(cause => { response.writeHead(500, {'content-type':'text/plain'}); response.end('The synthetic identity provider could not complete its response.'); console.error(cause); });
+  });
+  await new Promise((resolve,reject) => { server.once('error',reject); server.listen(0,'127.0.0.1',resolve); });
+  idpServers.set(directory,server);
   const fixture = { certificate: pem, idpEntityId: 'https://synthetic-slate-601.invalid/entity',
-    ssoUrl: 'http://127.0.0.1:43219/synthetic-slate-601/sso', emailDomain: 'synthetic-slate-602.invalid' };
+    ssoUrl: `http://127.0.0.1:${server.address().port}/synthetic-slate-601/sso`, emailDomain: 'synthetic-slate-602.invalid' };
   await writeFile(marker(directory), JSON.stringify({ fixture, dns: { published: false }, assertion: { email: 'synthetic-slate-603@synthetic-slate-602.invalid', variant: 'valid' } }));
   await writeFile(requests(directory), '');
   return fixture;
@@ -63,14 +71,18 @@ export async function samlResponse(directory, { origin, email, requestId, varian
 }
 
 /** The browser crosses an IdP HTTP boundary and POSTs the actual signed XML to Slate. */
-export async function installSamlIdp(context, directory, origin) {
-  assert.notEqual(origin, 'http://127.0.0.1:43219', 'The test IdP must be a different HTTP origin from Slate');
-  // HTTP loopback is the native development exception. Different ports are
-  // different origins but the same site, preserving the real Lax flow cookie.
-  await context.route('http://127.0.0.1:43219/synthetic-slate-601/**', async route => {
-    const url = new URL(route.request().url());
+export async function installSamlIdp(_context, directory, origin) {
+  const state = JSON.parse(await readFile(marker(directory), 'utf8'));
+  assert.notEqual(new URL(state.fixture.ssoUrl).origin, origin, 'The test IdP is a different origin');
+  await writeFile(marker(directory), JSON.stringify({...state,origin}));
+}
+export async function closeSamlIdp(directory) {
+  const server=idpServers.get(directory);if(!server)return;idpServers.delete(directory);
+  await new Promise((resolve,reject)=>server.close(cause=>cause?reject(cause):resolve()));
+}
+async function serveSamlIdp(directory,url) {
+  const { assertion, origin } = JSON.parse(await readFile(marker(directory), 'utf8'));
     assert.equal(url.pathname, '/synthetic-slate-601/sso');
-    assert.equal(route.request().method(), 'GET');
     let requestId;
     if (url.searchParams.has('SAMLRequest')) {
       const xml = inflateRawSync(Buffer.from(url.searchParams.get('SAMLRequest'), 'base64')).toString('utf8');
@@ -80,13 +92,11 @@ export async function installSamlIdp(context, directory, origin) {
       assert.ok(xml.includes(origin + '/auth/saml/acs'), 'The SP names its real ACS');
       assert.ok(xml.includes(origin + '/auth/saml/metadata'), 'The SP names its real issuer');
     }
-    const { assertion } = JSON.parse(await readFile(marker(directory), 'utf8'));
     const xml = await samlResponse(directory, { origin, requestId, ...assertion });
     await appendFile(requests(directory), JSON.stringify({ kind: 'idp', initiated: requestId ? 'sp' : 'idp', requestId: requestId ?? null, email: assertion.email, variant: assertion.variant }) + '\n');
     const relay = url.searchParams.get('RelayState');
     const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Synthetic SAML identity provider</title></head><body><main><h1>Identity verified by the test IdP</h1><form method="post" action="${escape(origin + '/auth/saml/acs')}"><input type="hidden" name="SAMLResponse" value="${Buffer.from(xml).toString('base64')}">${relay ? `<input type="hidden" name="RelayState" value="${escape(relay)}">` : ''}<button type="submit">Continue to Slate</button></form></main></body></html>`;
-    await route.fulfill({ status: 200, contentType: 'text/html', body: html });
-  });
+    return html;
 }
 
 /** Only DNS-over-HTTPS is substituted; owner verification and scheduling run unchanged. */

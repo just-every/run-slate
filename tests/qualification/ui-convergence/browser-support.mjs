@@ -10,7 +10,7 @@ import { accessible, insideViewport, withinViewport } from './browser-evidence.m
 import { initializeSlackEdge, setSlackFailure, readSlackMessages, setTeamsFailure, readTeamsMessages } from '../../helpers/slack-edge.mjs';
 import { initializeS3Edge, setS3Failure, readS3Requests, readS3Objects } from '../../helpers/s3-edge.mjs';
 import { initializeFolderEdge, readFolderRequests } from '../../helpers/folder-edge.mjs';
-import { initializeSamlEdge, installSamlIdp, setSamlDns, setSamlAssertion, readSamlRequests } from '../../helpers/saml-edge.mjs';
+import { initializeSamlEdge, installSamlIdp, closeSamlIdp, setSamlDns, setSamlAssertion, readSamlRequests } from '../../helpers/saml-edge.mjs';
 export { accessible } from './browser-evidence.mjs';
 
 /** Test-only identity records replace mailbox possession, never successful API responses. */
@@ -174,7 +174,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       try { await browser?.close(); }
       finally {
         try { if (runtime) await stop(runtime.child); }
-        finally { await rm(state, { recursive: true, force: true }); }
+        finally { await closeSamlIdp(state); await rm(state, { recursive: true, force: true }); }
       }
     }
   }
