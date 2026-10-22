@@ -51,17 +51,18 @@ export function ScheduledBackups() {
     setError(undefined);
     if (!actionKeys.current.has(key)) actionKeys.current.set(key, operationKey());
     const body = { operationKey: actionKeys.current.get(key)! };
+    let completedNotice = "";
     try {
       if (action === "test") {
         await mutate<{ ok: true }>(`${path}/test`, body);
-        setNotice(`Connection test passed for ${destination.name}.`);
+        completedNotice = `Connection test passed for ${destination.name}.`;
       } else if (action === "run") {
         const result = await mutate<{ run: { state: string; errorCode?: string }; destination: BackupDestination }>(`${path}/run`, body);
-        setNotice(`Backup for ${destination.name}: ${result.run.state}${result.run.errorCode ? ` (${result.run.errorCode})` : ""}.`);
+        completedNotice = `Backup for ${destination.name}: ${result.run.state}${result.run.errorCode ? ` (${result.run.errorCode})` : ""}.`;
       } else if (action === "drill") {
         const result = await mutate<BackupDrill>(`${path}/drill`, body);
         setDrills(previous => ({ ...previous, [destination.id]: result }));
-        setNotice(`Restore validation report ready for ${destination.name}.`);
+        completedNotice = `Restore validation report ready for ${destination.name}.`;
       } else {
         await mutate<{ removed: true }>(path, body, "DELETE");
         setDrills(previous => {
@@ -69,10 +70,11 @@ export function ScheduledBackups() {
           delete next[destination.id];
           return next;
         });
-        setNotice(`Backup destination ${destination.name} removed.`);
+        completedNotice = `Backup destination ${destination.name} removed.`;
       }
       actionKeys.current.delete(key);
       await destinations.reload();
+      setNotice(completedNotice);
     } catch (cause) {
       setError(cause);
     } finally {
@@ -86,8 +88,8 @@ export function ScheduledBackups() {
       <h3>Scheduled backups</h3>
       <p>Send workspace archives to your own S3-compatible bucket or Cloudflare R2. Saving a destination enables its schedule; no destination is configured automatically.</p>
       <BackupDestinationForm disabled={!!pending} onSaved={async destination => {
-        setNotice(`Backup schedule saved for ${destination.name}.`);
         await destinations.reload();
+        setNotice(`Backup schedule saved for ${destination.name}.`);
       }} />
       {pending ? <p role="status">{pending} Completion has not been confirmed.</p> : null}
       {notice ? <p role="status">{notice}</p> : null}
