@@ -89,7 +89,7 @@ export function SignInPage({ capabilities, requested = false, loginHint, ownerLi
             method: "POST",
             body: { email, requestKey: requestKey.current },
           })
-            .then(() => setDelivery("queued"))
+            .then(() => setDelivery(capabilities.identityProviders.some(provider => provider.start === "/auth/saml/start") ? "unconfirmed" : "queued"))
             .catch((cause: unknown) =>
               setFailure(
                 cause instanceof Error
