@@ -54,11 +54,11 @@ export async function fileCardsJourney(state){
  }
  await page.reload({waitUntil:'networkidle'});
  for(const card of await page.getByRole('region',{name:/file card$/}).all()){
-  await expect(card.getByRole('link',{name:'Request access',exact:true})).toBeVisible();await expect(card.getByRole('link',{name:'Connect your account',exact:true})).toHaveCount(0);await expect(card.locator('time')).toHaveCount(0);await expect(card).not.toContainText('Alex Owner');await expect(card).not.toContainText('Recovery notes revised');
+  await expect(card.getByRole('link',{name:'Request access',exact:true})).toBeVisible();await expect(card.getByRole('link',{name:'Connect your account',exact:true})).toHaveCount(0);await expect(card.locator('time')).toHaveCount(0);await expect(card).not.toContainText('Alex Owner');await expect(card).not.toContainText('Recovery <handover> notes revised');
  }
  await shot('reader-denied');
  await switchIdentity('owner');await setFileCardFixture({deleted:[folderFixture('google-drive').documents[0].id,folderFixture('sharepoint').documents[0].id]});
- await page.reload({waitUntil:'networkidle'});await expect(page.getByText('File unavailable.',{exact:true})).toHaveCount(2);await expect(page.getByRole('region',{name:/file card$/}).first()).not.toContainText('Recovery notes revised');await shot('deleted');
+ await page.reload({waitUntil:'networkidle'});await expect(page.getByText('File unavailable.',{exact:true})).toHaveCount(2);await expect(page.getByRole('region',{name:/file card$/}).first()).not.toContainText('Recovery <handover> notes revised');await shot('deleted');
  await setFileCardFixture({deleted:[],failed:[folderFixture('google-drive').documents[0].id,folderFixture('sharepoint').documents[0].id]});
  await page.reload({waitUntil:'networkidle'});await expect(page.getByText('File access could not be checked.',{exact:true})).toHaveCount(2);await expect(page.getByRole('region',{name:/file card$/}).first().locator('time')).toHaveCount(0);await shot('provider-failed');
  await setFileCardFixture({failed:[]});
