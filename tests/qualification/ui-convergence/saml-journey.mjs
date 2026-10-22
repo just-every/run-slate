@@ -130,7 +130,8 @@ export async function samlJourney(state) {
 
     await page.getByLabel('Require SAML for members', { exact: true }).check();
     await save();
-    await expect(page.getByText('Members must use SAML.', { exact: false })).toBeVisible();
+    await settings();
+    await expect(page.getByLabel('Require SAML for members', { exact: true })).toBeChecked();
     await shot(page, 'saml-required', page.getByLabel('Require SAML for members', { exact: true }));
     // Previously issued native proofs are fenced at consumption, too.
     for (const [email, link] of [[memberEmail, oldMemberLink], [otherOwnerEmail, oldOtherOwnerLink]]) {
