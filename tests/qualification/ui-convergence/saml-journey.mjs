@@ -24,7 +24,7 @@ export async function samlJourney(state) {
     `INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('synthetic-slate-606','browser-workspace','${otherOwnerEmail}','Casey Owner','CO','owner','member','active',0,'${now}','${now}')`,
     `INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('synthetic-slate-607','browser-workspace','${guestEmail}','Taylor Guest','TG','member','guest','active',0,'${now}','${now}')`,
   ]);
-  const browserErrors = [], consoleErrors = [];
+  const browserErrors = [], consoleErrors = [], refusedDocuments = [];
   const authContext = await context.browser().newContext({ viewport: page.viewportSize(), locale: 'en-US' });
   await installSamlIdp(authContext);
   const auth = await authContext.newPage();
@@ -86,7 +86,7 @@ export async function samlJourney(state) {
       const identity = (await current.json()).member;
       assert.equal(identity.email, email);
       await expect(auth.getByTestId('member-name')).toHaveText(identity.displayName);
-    } else await noSession(label);
+    } else { refusedDocuments.push({path:'/auth/saml/acs',status:expected}); await noSession(label); }
     await shot(auth, label);
   };
 
@@ -137,7 +137,8 @@ export async function samlJourney(state) {
     for (const [email, link] of [[memberEmail, oldMemberLink], [otherOwnerEmail, oldOtherOwnerLink]]) {
       await anonymous();
       const response = await confirm(link);
-      assert.ok(response.status() >= 400, `${email}: an old email proof must be refused after enforcement`);
+      assert.ok([400,403].includes(response.status()), `${email}: an old email proof must be refused after enforcement`);
+      refusedDocuments.push({path:'/auth/confirm',status:response.status()});
       await noSession('Pre-enforcement email link');
     }
     for (const email of [memberEmail, otherOwnerEmail]) {
@@ -171,7 +172,13 @@ export async function samlJourney(state) {
     // Chromium reports deliberate refused document responses as resource errors.
     // Their exact HTTP statuses and absence of a session are asserted above; all
     // other console errors, including script failures, still fail this journey.
-    assert.deepEqual(consoleErrors.filter(item => !(item.path === '/auth/saml/acs' && /^Failed to load resource:.*status of (400|503) /.test(item.text)) && !(item.path === '/auth/confirm' && /^Failed to load resource:.*status of 403 /.test(item.text))), [], 'No unexpected SAML console errors');
+    const remainingRefusals = [...refusedDocuments], unexpectedConsole = [];
+    for (const item of consoleErrors) {
+      const status = /^Failed to load resource: the server responded with a status of (\d+) /.exec(item.text)?.[1];
+      const index = remainingRefusals.findIndex(refusal => refusal.path === item.path && refusal.status === Number(status));
+      if (index < 0) unexpectedConsole.push(item); else remainingRefusals.splice(index,1);
+    }
+    assert.deepEqual(unexpectedConsole, [], 'Only individually asserted refused documents may produce resource-status messages');
     state.assertNoConsoleErrors();
   } finally {
     await authContext.close();
