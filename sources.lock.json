@@ -968,7 +968,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "2bce01ecd9fd1dac778aa2e26de5230b613110e8505bf8a544e149bf037651ac",
+      "sha256": "88c42eca396ef55adbd4e04b39fde61fd9367ce82d90d212a2e8f2ee40f21886",
       "executable": false
     },
     "DEMO.md": {
@@ -11488,7 +11488,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
-      "sha256": "a7404ea8acf2bfc1aafb1d358d377e1a81c1a0bcda1c87ef7bd1b43b088e3603",
+      "sha256": "0757528f70addbaaa1074cfe84887dcac4d6393068a99a98e9458c348c0614e4",
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
