@@ -29,6 +29,8 @@ export async function samlJourney(state) {
   await installSamlIdp(authContext);
   const auth = await authContext.newPage();
   auth.on('pageerror', cause => browserErrors.push(String(cause)));
+  auth.on('requestfailed', request => console.error('SAML navigation failure', JSON.stringify({origin:new URL(request.url()).origin,path:new URL(request.url()).pathname,error:request.failure()})));
+  auth.on('response', response => { if (new URL(response.url()).pathname==='/auth/saml/start') {const location=response.headers().location;console.log('SAML start response',JSON.stringify({status:response.status(),destination:location?new URL(location).origin+new URL(location).pathname:null}));} });
   auth.on('console', message => { if (message.type() === 'error') consoleErrors.push({text:message.text(), path:new URL(auth.url()).pathname}); });
   const shot = async (view, label, focus) => {
     if (focus) await focus.scrollIntoViewIfNeeded();
