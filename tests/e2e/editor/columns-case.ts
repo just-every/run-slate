@@ -2,7 +2,7 @@ import {expect} from 'vitest';
 import {zipSync,strToU8,unzipSync} from 'fflate';
 
 /** Layout validation, format preservation and source imports through HTTP doors. */
-export async function columnsCase(request:(method:string,path:string,body?:unknown,actor?:'owner'|'reader')=>Promise<Response>,containerId:string){
+export async function columnsCase(request:(method:string,path:string,body?:unknown,actor?:'owner'|'reader')=>Response|Promise<Response>,containerId:string){
  const json=async(method:string,path:string,body?:unknown)=>{const response=await request(method,path,body),data=await response.json<any>();expect(response.status,JSON.stringify(data)).toBe(200);return data;};
  const section=crypto.randomUUID(),columns=Array.from({length:3},()=>crypto.randomUUID());
  const blocks=[{id:section,blockType:'columns',content:{count:3},treePosition:'0'},...columns.flatMap((id,index)=>[
