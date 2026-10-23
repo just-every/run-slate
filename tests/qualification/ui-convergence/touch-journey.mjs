@@ -23,6 +23,8 @@ export async function beginTouchJourney(state,width) {
     await context.addCookies([{name:'slate_session',value:state.readerCookie.split('=')[1],url:state.origin}]);
     const page=await context.newPage();
     page.on('pageerror',cause=>errors.push(String(cause)));
+    page.on('response',response=>{if(response.status()>=400)errors.push(`${new URL(response.url()).pathname}: ${response.status()}`);});
+    page.on('requestfailed',request=>errors.push(`${new URL(request.url()).pathname}: ${request.failure()?.errorText}`));
     page.on('console',message=>{if(message.type()==='error')errors.push(message.text());});
     const api=async route=>{
       const response=await context.request.get(state.origin+route,{maxRetries:0});

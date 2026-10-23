@@ -42,7 +42,7 @@ export function PageSharing({ document }: { document: DocumentView }) {
   );
   const guests = useResource<{items:MemberView[]}>(document.permissions.canShare && member.role === "owner" ? "/api/guests" : null);
   const groups = useResource<{ items: GroupView[] }>(
-    document.permissions.canShare ? "/api/groups" : null,
+    document.permissions.canShare && member.role === "owner" ? "/api/groups" : null,
   );
   const [error, setError] = useState<unknown>();
   const [pending, setPending] = useState(false);

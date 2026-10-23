@@ -7992,7 +7992,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageSharing.tsx": {
-      "sha256": "de5dfe1e79f4a2a104b6c4f587c10b8a923d2e26b814f9461870f1bba151b316",
+      "sha256": "53ce254d5670a7b6faba3300b0bc694ecd872f1c5f8a8fe2078e19c8e6f0e04a",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageStatusBadge.tsx": {
@@ -11904,7 +11904,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-journey.mjs": {
-      "sha256": "64d5d477d42c57521b3bca9c0ff0b5c92114c1e5da8807abfa1cae0aa81aed77",
+      "sha256": "3c7d88d249240ed833d4f8549d82b12e0128da7fff28cef9097279d577096bb7",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page.mjs": {
