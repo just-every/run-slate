@@ -62,6 +62,12 @@ export async function columnsJourney(state,width,touch){
  const input=targetPage.locator('.slate-column').first().getByRole('textbox',{name:'Paragraph',exact:true});
  await type(targetPage,input,'Response owner confirmed by touch.');
  await expect.poll(async()=>JSON.stringify((await touch.api(`/api/pages/${id}`)).blocks)).toContain('Response owner confirmed by touch.');
+ const outside=document.blocks.find(b=>b.blockType==='paragraph'&&b.id!==source.id);
+ await touchIntoColumn(targetPage,handle,targetPage.locator(`[data-block-id="${outside.id}"]`));
+ await expect.poll(async()=>(await touch.api(`/api/pages/${id}`)).blocks.find(b=>b.id===source.id).parentBlockId).toBe(null);
+ await touchIntoColumn(targetPage,handle,targetPage.locator('.slate-column').first());
+ await expect.poll(async()=>(await touch.api(`/api/pages/${id}`)).blocks.find(b=>b.id===source.id).parentBlockId).toBe(await targetPage.locator('.slate-column').first().getAttribute('data-column-id'));
+
  await checkpoint(targetPage,'columns insert drag and edit');
  await targetPage.screenshot({path:`.artifacts/ui-convergence/columns-${width}-touch.png`,fullPage:true});
  console.log(`BLOCK-012 columns insert, desktop drag and touch layout passed at ${width}px`);
