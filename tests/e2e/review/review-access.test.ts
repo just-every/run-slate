@@ -151,6 +151,6 @@ test('Needs review and the people directory expose only readable work, with live
   // A page owner's title does not override a later loss of current read access.
   await sql("UPDATE page_grants SET revoked_at=? WHERE id='review-access-reader'", now);
   expect((await request('reader', 'POST', '/api/status/requests/page/request-access', {...groupInput, operationKey: requestOp()})).status).toBe(404);
-  await peopleCase();
+  await peopleCase(f);
   console.error('REVIEW_ACCESS_TABLE ' + JSON.stringify(table));
 }, 90_000);
