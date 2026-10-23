@@ -1812,7 +1812,7 @@
       "executable": false
     },
     "management/integration/deployment-spec.json": {
-      "sha256": "274fc0b5a5f4815899301b055777d26052313288f877a619e5918451d2af35cb",
+      "sha256": "9ca0f32fdbb25b46ad20c0be54dde667a68ec7251935b049a1b3e244d95be45b",
       "executable": false
     },
     "management/integration/index.d.mts": {
@@ -1836,7 +1836,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "be0a078bfc8ab3cc078a9f431bb5b928c71bb801a7690ebac6041741d99387d3",
+      "sha256": "89b2aa00705f4e43ab8b9c435e611dd177ee67516139fbfd85f457394f1dd3c6",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -9364,7 +9364,7 @@
       "executable": false
     },
     "src/core/features/workspace/directory.ts": {
-      "sha256": "f33e84c5e9cf28cb31ff7ceba0e8a497786904368181e3431cef647bba10b780",
+      "sha256": "d3981108baf47389f465e869d3d44b2ee83a4c33f5fe806c5fd5ea65d9073eb5",
       "executable": false
     },
     "src/core/features/workspace/first-run-records.ts": {
@@ -9408,7 +9408,7 @@
       "executable": false
     },
     "src/core/features/workspace/routes.ts": {
-      "sha256": "b5266b02078ba7ee85ae31fd7556828577b3d4c83c41b3be41349889516cff46",
+      "sha256": "8ccba49e60b953840e3cc097a4b2ac54d11c62944aab262a9dd0e607e5f23733",
       "executable": false
     },
     "src/core/features/workspace/settings.ts": {
@@ -10200,7 +10200,7 @@
       "executable": false
     },
     "tests/e2e/review/people-case.ts": {
-      "sha256": "732defed69a871bc634a6ad06293e108c9017eaa6a423181d6ab827fdb7e0883",
+      "sha256": "ca1ed929a980c5781b0e1fda5efd1828dab3ac18c5742b5969ded47be85c9f3d",
       "executable": false
     },
     "tests/e2e/review/review-access.test.ts": {
@@ -12040,7 +12040,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/people-journey.mjs": {
-      "sha256": "ffecfa67f369ab5d87d500e07a47679cff4787f464a20ac3d21bcfba88680064",
+      "sha256": "7d611d8512b32d29091215d4ea9d2c71afe3872c42492bb7e034ed552564449a",
       "executable": false
     },
     "tests/qualification/ui-convergence/presentation-journey.mjs": {
