@@ -12036,7 +12036,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-database.mjs": {
-      "sha256": "3a1c4d800a3a43d0d8ecb8bcf001e9f43cb99ea58dd272dd889a61c3a3f66a43",
+      "sha256": "26b9a772bf7b3b0d4e53c1ecab1ff013201a20eade8d65e98ccdb22790835cd7",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-journey.mjs": {
