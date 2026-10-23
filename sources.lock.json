@@ -7076,7 +7076,7 @@
       "executable": false
     },
     "src/core/features/imports/native-targets.ts": {
-      "sha256": "e2dd2ad48cad966fe8c9ecdfd0f528b235e9d43d0ec6de0b90bd843727a9efe6",
+      "sha256": "bfe73969ded0e6e3dfedaa772ce2b8a2ce11a0fb03d6cc4cb740beafb6b25ae9",
       "executable": false
     },
     "src/core/features/imports/native-writes.ts": {
