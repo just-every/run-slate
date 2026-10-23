@@ -1,3 +1,5 @@
+import {directory} from '../workspace/directory';
+import {readPage} from '../pages/service';
 import type { FeatureContext } from '../../app/feature-context';
 import { ApiProblem } from '../../app/problems';
 import { currentSubject, requirePageLevel } from '../sharing/current-access';
@@ -71,5 +73,7 @@ export async function reviewTargets(ctx: FeatureContext, pageId: string) {
  await requirePageLevel(ctx, pageId, 'view');
  const members = await ctx.db.prepare(`SELECT m.id,m.display_name AS name FROM members m WHERE m.workspace_id=?1 AND m.status='active' AND ${pageReadableSql('m', '?2', '?1', '?3')} ORDER BY m.display_name,m.id`).bind(ctx.actor.workspaceId, pageId, ctx.now).all<{id: string; name: string}>();
  const groups = await ctx.db.prepare(`SELECT g.id,g.name FROM groups g WHERE g.workspace_id=?1 AND EXISTS(SELECT 1 FROM group_members gm WHERE gm.group_id=g.id AND gm.member_id IN (SELECT value FROM json_each(?2))) ORDER BY g.name,g.id`).bind(ctx.actor.workspaceId, JSON.stringify(members.results.map(m => m.id))).all<{id: string; name: string}>();
- return { items: [...members.results.map(m => ({ ...m, kind: 'member' as const })), ...groups.results.map(g => ({ ...g, kind: 'group' as const }))] as ReviewTarget[] };
+ const topic=((await readPage(ctx,pageId)).properties.labels??[]).map(label=>label.toLocaleLowerCase());
+ const experts=(await directory(ctx,{pageId})).items;
+ return { items: [...members.results.map(m => ({ ...m, expertise:experts.find(p=>p.id===m.id)?.tags.map(t=>t.tag).filter(tag=>topic.includes(tag.toLocaleLowerCase()))??[], kind: 'member' as const })), ...groups.results.map(g => ({ ...g, kind: 'group' as const }))] as ReviewTarget[] };
 }
