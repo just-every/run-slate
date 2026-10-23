@@ -1,6 +1,6 @@
 import type { FeatureContext } from '../../app/feature-context';
 import { activityPageId } from '../activity/context';
-import { activity } from '../activity/service';
+import { auditRecord } from '../activity/service';
 import { currentPageTitle, permitted } from '../search/visibility';
 import { requireWorkspaceOwner } from '../sharing/current-access';
 import type { Subscription } from './store';
@@ -23,7 +23,7 @@ export async function matchesSubscription(ctx: FeatureContext, subscription: Sub
 export async function payloadFor(ctx: FeatureContext, subscription: Subscription, event: EventRecord) {
   await requireWorkspaceOwner(ctx);
   if (subscription.mode === 'audit') {
-    const found = (await activity(ctx, { from: event.occurred_at, to: event.occurred_at, limit: 100 })).items.find(item => item.id === event.event_id);
+    const found = await auditRecord(ctx,event.event_id);
     if (!found) return null;
     return { id: event.event_id, type: 'audit', occurredAt: found.occurredAt, actor: found.actor, action: found.action, target: found.target };
   }

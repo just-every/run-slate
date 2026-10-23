@@ -22,6 +22,7 @@ export async function tokenCustody(f: Awaited<ReturnType<typeof apiFixture>>, se
   const download = await f.api.request(`https://slate.test/api/exports/${exported.id}/download`, { headers: { cookie: f.cookies[f.owner]! } }, {...env,SLATE_PROFILE:undefined});
   expect(download.status).toBe(200);
   const bytes = new Uint8Array(await download.arrayBuffer()), { manifest } = await decodeArchive(bytes);
+  const settings=manifest.tables.audit_settings??[];
   expect(manifest.tables.public_api_tokens!.length).toBeGreaterThan(0);
   expect(manifest.tables.public_api_tokens!.every(row => row.token_hash === null)).toBe(true);
   for(const value of [secret,...otherSecrets])expect(JSON.stringify(manifest).includes(value)).toBe(false);
@@ -31,6 +32,7 @@ export async function tokenCustody(f: Awaited<ReturnType<typeof apiFixture>>, se
   const form = new FormData(); form.set('file', new File([bytes], 'synthetic-slate-archive.zip', { type: 'application/zip' }));
   const restored = await f.api.request('https://slate.test/api/exports/restore', { method: 'POST', headers: { cookie: `slate_session=${session}` }, body: form }, { ...env, DB: prior, SLATE_PROFILE:undefined });
   expect(restored.status, JSON.stringify(await restored.json())).toBe(200);
+  expect((await prior.prepare('SELECT * FROM audit_settings').all()).results).toEqual(settings);
   const restoredTokens = (await prior.prepare('SELECT token_hash,revoked_at FROM public_api_tokens').all()).results;
   expect(restoredTokens.length).toBeGreaterThan(0);
   expect((await prior.prepare('SELECT credential_ciphertext,state FROM webhook_subscriptions').all()).results.every(row=>row.credential_ciphertext===null&&row.state==='disabled')).toBe(true);

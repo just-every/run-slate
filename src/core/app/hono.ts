@@ -1,3 +1,4 @@
+import { createAuditRoutes } from '../features/activity/audit-routes';
 import { createWebhookRoutes } from '../features/webhooks/routes';
 import { createPublicApiRoutes, createTokenAdministrationRoutes, publicError } from '../features/public-api/routes';
 import { healthResponse } from "./health-response";
@@ -62,6 +63,7 @@ export function createApi() {
     .route("/", createSessionRoutes())
     .route("/api/developer/tokens", createTokenAdministrationRoutes())
     .route("/api/developer/webhooks", createWebhookRoutes())
+    .route("/api/activity", createAuditRoutes())
 ;
 
   app.get('/api/editor/config', context => {

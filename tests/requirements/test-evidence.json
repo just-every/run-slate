@@ -2106,6 +2106,13 @@
         "NOTIF-004"
       ],
       "reason": "Exercises owner-managed outbound event delivery, current native source access, signatures, durable retry and replay, owner reminders, credential portability and erasure. OAuth subscribers, resolved-address pinning and real receiver acceptance remain unproven."
+    },
+    {
+      "file": "tests/qualification/core/audit-content.test.ts",
+      "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor/time",
+      "kind": "supporting-regression",
+      "clauses": ["ACT-002", "BASE-OPS-005"],
+      "reason": "Preserves the existing content audit assertions and extends them through native HTTP sign-in, sharing, token use, owner metadata exports, retention and signed ordered audit recovery. Real vendor receivers and resolved-address pinning remain unproven."
     }
   ]
 }

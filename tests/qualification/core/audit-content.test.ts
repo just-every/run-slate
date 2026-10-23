@@ -1,3 +1,4 @@
+import {auditExportProof} from './audit-export-proof';
 import {test,expect} from 'vitest';
 import {auditFixture,env,createUlid} from './audit-support';
 test('ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor/time',async()=>{
@@ -28,4 +29,5 @@ test('ACT-002 BASE-OPS-005 audit content, publication, archive and version mutat
  await f.mutation('version restores','pages.restore','POST',`/api/revisions/${p.id}/${initial}/restore`,{expectedRevisionId:await f.revision(p.id)});
  await f.mutation('version deletions','versions.delete','DELETE',`/api/revisions/${p.id}/${initial}`,{});
 }
+await auditExportProof(f);
 });

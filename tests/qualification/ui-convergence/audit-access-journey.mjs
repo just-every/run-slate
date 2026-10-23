@@ -1,0 +1,50 @@
+import assert from 'node:assert/strict';
+import { randomUUID } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+import { expect } from '@playwright/test';
+import { accessible } from './browser-evidence.mjs';
+import { ok } from './two-people-support.mjs';
+export async function auditAccessJourney(state) {
+  const { page, context, origin, api, runScheduled, setWebhookFailure, fixtureSql } = state;
+  const panel = page.getByRole('region', { name: 'Audit access', exact: true });
+  await expect(panel.getByRole('heading', { name: 'Audit history', exact: true })).toBeVisible();
+  await panel.getByLabel('Audit retention (days)', { exact: true }).fill('400');
+  await panel.getByRole('button', { name: 'Save audit retention', exact: true }).click();
+  await expect(panel.getByRole('status')).toHaveText('Audit retention saved.');
+  await accessible(page, 'audit-access-retention');
+  for (const format of ['json', 'csv']) {
+    await panel.getByLabel('Export format', { exact: true }).selectOption(format);
+    const downloaded = page.waitForEvent('download');
+    await panel.getByRole('button', { name: 'Download audit export', exact: true }).click();
+    const download = await downloaded, text = await readFile(await download.path(), 'utf8');
+    assert.ok(text.includes('api-token.revoke'));
+    if (format === 'json') assert.ok(JSON.parse(text).every(row => row.id && row.occurredAt && row.action && row.target));
+    await expect(panel.getByRole('status')).toHaveText('Audit export downloaded.');
+  }
+  await accessible(page, 'audit-access-exported');
+  await panel.getByLabel('Audit stream name', { exact: true }).fill('Workspace audit delivery');
+  await panel.getByLabel('Audit destination URL', { exact: true }).fill('https://synthetic-slate-1.example.com/audit');
+  await panel.getByRole('button', { name: 'Add audit stream', exact: true }).click();
+  await expect(panel.getByRole('status')).toHaveText('Audit stream added.');
+  assert.ok((await panel.getByRole('region', { name: 'Audit signing secret', exact: true }).getByLabel('Audit signing secret', { exact: true }).inputValue()).length > 0);
+  await panel.getByRole('button', { name: 'Copy audit signing secret', exact: true }).click();
+  await expect(panel.getByRole('status')).toHaveText('Audit signing secret copied.');
+  await panel.getByRole('button', { name: 'I saved the audit signing secret', exact: true }).click();
+  const streams = page.getByRole('region', { name: 'Webhooks', exact: true }), stream = (await api('/api/developer/webhooks')).items.find(row => row.name === 'Workspace audit delivery');
+  await expect(streams.getByRole('article', { name: 'Webhook Workspace audit delivery', exact: true })).toContainText('Ordered delivery');
+  await accessible(page, 'audit-access-stream-created');
+  const space = (await api('/api/containers')).items.find(c => c.name === 'Handbook');
+  await setWebhookFailure(true);
+  await ok(context, origin, 'POST', '/api/pages', { operationKey: randomUUID(), containerId: space.id, title: 'Audit stream outage' });
+  await runScheduled();
+  await streams.getByRole('button', { name: 'View deliveries for Workspace audit delivery', exact: true }).click();
+  const history = streams.getByRole('region', { name: 'Webhook deliveries', exact: true });
+  await expect(history).toContainText('receiver-failed');
+  await accessible(page, 'audit-access-stream-outage');
+  await setWebhookFailure(false);
+  await fixtureSql([`UPDATE webhook_deliveries SET next_attempt_at='${new Date(Date.now() - 1000).toISOString()}' WHERE subscription_id='${stream.id}' AND state='pending'`]);
+  await runScheduled(); await history.getByRole('button', { name: 'Refresh deliveries', exact: true }).click();
+  await expect(history).toContainText('sent');
+  assert.ok((await api(`/api/developer/webhooks/${stream.id}/deliveries`)).items.every(row => row.state === 'sent'));
+  await accessible(page, 'audit-access-stream-resumed');
+}
