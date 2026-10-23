@@ -1,3 +1,4 @@
+import {CardNotice} from './CardNotice';
 import {ConnectedFilePicker} from './ConnectedFilePicker';
 import {DocumentHeadings} from '../../../editor/ui/blocks/DocumentHeadings';
 import {StatusLabelDialog} from '../../../editor/ui/blocks/StatusLabelDialog';
@@ -212,6 +213,7 @@ export function PageEditorBody({
   }
   return (
     <TaskPageProvider pageId={document.page.id} revisionId={insertion.pending?'':editor.workingRevisionId} canShare={document.permissions.canShare}><DocumentHeadings blocks={visibleBlocks}><div ref={wrapper} data-page-editor tabIndex={-1} onClick={event=>{const target=(event.target as HTMLElement).closest<HTMLElement>('[data-reminder-date]');if(target?.dataset.reminderDate){setDateReminder({date:target.dataset.reminderDate,blockId:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId});}}}>
+      {document.page.pageKind==='card'?<CardNotice blocks={visibleBlocks}/>:null}
       {dateReminder?<ReminderDialog pageId={document.page.id} {...dateReminder} onClose={()=>setDateReminder(null)}/>:null}
       {insert ? (
         <InsertMenu

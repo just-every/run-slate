@@ -1,3 +1,4 @@
+import {requireGovernance} from '../workspace/governance';
 import {requireImportPublication} from '../imports/publication';
 import type { FeatureContext } from '../../app/feature-context';
 import { commitOperation, mutationGuard, requestHash } from '../../app/operations';
@@ -15,6 +16,7 @@ export interface ContainerInput {
     visibility?: 'default' | 'open' | 'closed' | 'private' | 'personal';
 }
 export async function authorizeContainerCreation(ctx: FeatureContext) {
+    await requireGovernance(ctx,'createContainers');
     const s = await currentSubject(ctx);
     if (s.isGuest)
         throw new ApiProblem(403, 'FORBIDDEN', 'Guests cannot create containers.');

@@ -1,3 +1,4 @@
+import {readGovernance,saveGovernance,governanceSchema,readClassification,saveClassification} from './governance';
 import { mentionConfiguration, setMentionConfiguration } from '../comments/group-mentions';
 import { requireStepUp } from '../session/step-up';
 import { listIdentityMail,retryIdentityMail } from '../session/mail-status';
@@ -27,6 +28,10 @@ export function createWorkspaceRoutes(){return new Hono<AppEnvironment>()
 .post('/api/workspace/mail/:id/retry',async c=>c.json(await retryIdentityMail(featureContext(c),c.get('runtimeConfig'),c.req.param('id'))))
 .get('/api/workspace/mention-configuration',async c=>c.json(await mentionConfiguration(featureContext(c))))
 .put('/api/workspace/mention-configuration',async c=>c.json(await setMentionConfiguration(featureContext(c),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id.nullable(),restrictLargeGroups:z.boolean()}).strict()))))
+.get('/api/workspace/governance',async c=>c.json(await readGovernance(featureContext(c))))
+.put('/api/workspace/governance',async c=>{await requireWorkspaceOwner(featureContext(c));await requireStepUp(c,'owner:transfer');return c.json(await saveGovernance(featureContext(c),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id.nullable(),rules:governanceSchema}).strict())));})
+.get('/api/containers/:id/classification',async c=>c.json(await readClassification(featureContext(c),c.req.param('id'))))
+.put('/api/containers/:id/classification',async c=>{await requireWorkspaceOwner(featureContext(c));await requireStepUp(c,'owner:transfer');return c.json(await saveClassification(featureContext(c),c.req.param('id'),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id.nullable(),label:z.enum(['none','Confidential']),allowAi:z.boolean().optional()}).strict())));})
 .get('/api/workspace',async c=>c.json(await readWorkspace(featureContext(c))))
 .put('/api/workspace',async c=>c.json(await updateWorkspace(featureContext(c),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id,name:z.string().trim().min(1).max(160),mark:z.string().max(2048),description:z.string().max(2000),guestAccess:toggle,publicLinkAccess:toggle,anonymousAccess:toggle,policies}).strict()))))
 .get('/api/members/current',async c=>c.json(await currentMember(featureContext(c))))
@@ -42,7 +47,7 @@ export function createWorkspaceRoutes(){return new Hono<AppEnvironment>()
   // Refuse what can never succeed before emailing a step-up confirmation; the service checks both again.
   if(input.memberId!==ctx.actor.id){await requireWorkspaceOwner(ctx);if(target?.is_setup_owner)throw new ApiProblem(403,'SETUP_OWNER','Only the setup owner can remove themselves.');}
   await requireStepUp(c,input.erase?'delete':'owner:transfer');}return c.json(await removeMember(featureContext(c),input));})
-.post('/api/invitations',async c=>c.json(await invite(featureContext(c),c.get('runtimeConfig'),await parseBody(c.req,z.object({operationKey:op,email:z.string().email().max(254),kind:z.enum(['member','guest']),pageId:id.optional(),containerId:id.optional(),level:z.enum(['full','edit','comment','view']).optional(),expiresAt:z.string().datetime().nullable().optional()}).strict()))))
+.post('/api/invitations',async c=>c.json(await invite(featureContext(c),c.get('runtimeConfig'),await parseBody(c.req,z.object({operationKey:op,email:z.string().email().max(254),kind:z.enum(['member','guest']),shareId:id.optional(),pageId:id.optional(),containerId:id.optional(),level:z.enum(['full','edit','comment','view']).optional(),expiresAt:z.string().datetime().nullable().optional()}).strict()))))
 .post('/api/invitations/revoke',async c=>c.json(await revokeInvitation(featureContext(c),await parseBody(c.req,z.object({operationKey:op,id}).strict()))))
 .get('/api/groups',async c=>c.json(await listGroups(featureContext(c))))
 .post('/api/groups',async c=>c.json(await saveGroup(featureContext(c),await parseBody(c.req,z.object({operationKey:op,id:id.optional(),expectedRevisionId:id.optional(),name:z.string().trim().min(1).max(160),memberIds:z.array(id).max(1000),remove:z.boolean().optional()}).strict()))));}

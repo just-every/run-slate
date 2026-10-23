@@ -882,7 +882,7 @@ The share panel can send a page to members, groups or email addresses with an op
 
 *Acceptance:* a browser journey shares a page with a message to one member who can read it and one who cannot. The first gets one inbox item and one email with the message. The second is offered to the sender as a grant and receives nothing until it is added, then gets one item.
 
-*Status:* partial. Granting access notifies the grantee (`NOTIF-001`, `tests/qualification/backend/emitted.mjs`); there is no share-with-message action.
+*Status:* partial. The share panel sends bounded plain-text messages to deduplicated member, group and email recipients. Readable recipients receive one access-rechecked inbox item with sender, title, message and link. Others receive nothing until an explicit view grant, or guest invitation acceptance; accompanying grants do not create a second inbox notice. The sender alone sees the message in Activity. Evidence: `tests/qualification/policies/invitations.test.ts` with `tests/qualification/policies/share-message-case.ts`; `tests/qualification/ui-convergence/share-message-journey.mjs` in the existing sharing launch (1440/390). Gap: Share-message email and delivery settings remain unbuilt with NOTIF-005/006: the existing grant event has no transactional-mail path, so this change adds none. Guest acceptance uses the existing invitation email without disclosing the message before access. Default adopted: inbox-only share messages and PARTIAL; no clause text changed. Native archive restoration of pending share intentions is not independently proven.
 
 #### TMPL-007 — Starter templates.
 Slate ships starter templates that work from the first sign-in: meeting notes (attendees, agenda and assigned tasks under `BLOCK-015`), retrospective, decision (`DEC-*`), how-to, troubleshooting, product requirements (with a task report and issue embeds), project plan, runbook (`KEEP-006`), onboarding page, team home (`CONT-011`) and policy page (with an owner and a review date). Each is a shipped template under `TMPL-004`: it can be duplicated into an editable copy and is never edited itself. Each is categorized in the gallery (`TMPL-001`) and previews under `TMPL-002`.
@@ -988,7 +988,7 @@ A card is a short page kind with a soft length limit (`seed.json → limits`, 50
 
 *Acceptance:* a browser journey creates a card and finds it as a compact result with its verification badge, and a 600-word card shows the length warning and saves intact. A Guru import creates cards in collections that keep their owners and their verification intervals as imported metadata.
 
-*Status:* partial. Containers organize pages (`src/core/features/containers/service.ts`); there is no card kind or compact rendering.
+*Status:* partial. Knowledge cards retain complete bodies, creator ownership, required verification metadata and the existing unverified state; a question-style title hint, configurable soft word limit, collection flag and compact access-filtered search result with a verification badge ship. Copy and readable export/re-import keep card identity and all 600 words. Evidence: `tests/e2e/pages/display-options.test.ts` (cardCase in `tests/e2e/pages/card-case.ts`); `tests/qualification/ui-convergence/card-journey.mjs` in the existing write journey (1440/390). Gap: Answers, chat and browser-extension rendering remain carried by ANSWER-001, CHAT-002 and CARD-002; Guru import with imported owners and verification intervals remains carried by IMP-008. Native archive restore, revision-history restoration of card identity, and readable collection-flag preservation are not independently proven here. Default adopted: PARTIAL, with no clause text changed.
 
 #### CARD-002 — Browser extension.
 A Chrome and Edge extension signs in as the member and searches and asks Slate from any tab. On sites the owner allowlists, such as Salesforce, Zendesk, HappyToHelp, Orbit and GitHub, it suggests cards relevant to the open record. It reads page text only after the member opens the extension on that tab, sends only the query and the record title, and shows only what the member can read.
@@ -1013,14 +1013,14 @@ A database can publish a form whose questions map to its fields, with required f
 
 *Acceptance:* a browser journey publishes a form with a conditional question, submits it as a guest and anonymously, sees two records with mapped values, and sees an automation fire on each submission. The conditional question appears only when its condition is met, and a submission that fills the honeypot or exceeds the rate limit creates no record. Forbidding public links makes the anonymous form stop resolving at once.
 
-*Status:* missing.
+*Status:* partial. Database editors publish field-mapped forms for members, named guests and optionally anonymous links. Required answers, help and one-level conditions are validated on the server; hidden answers are refused. A durable submission receipt commits with one native record, and record-created automations act once. Honeypot and fixed per-address limits use one generic refusal; address keys are deployment-salted and expire. Current public-link and anonymous vetoes are checked on every anonymous read and write. Migration `0051_database_forms.sql` registers definitions and submission facts for complete native export/restore and page/member erasure. Evidence: `tests/qualification/policies/structured-views.test.ts` with `tests/qualification/policies/form-case.ts`; `tests/qualification/ui-convergence/forms-journey.mjs` in the existing database launch (1440/390). Gap: Cloudflare Turnstile when the owner configures it is not built; no sealed-secret or outbound verifier is introduced. File, person, relation and computed field questions are excluded. Named-guest selection in the UI follows the existing owner-only guest directory. Readable archive remapping of form definitions is not built; complete native archives retain definitions and submission facts, restoring unpublished. Default adopted: PARTIAL, fixed honeypot/address limits, explicit audiences and no anonymous submitter identity.
 
 #### DB-014 — Dashboards.
 A page can hold a dashboard: several charts (`DB-008`) and views (`DB-011`) arranged in a grid, with dashboard-wide filters such as a date range or a person that apply to every tile. Each tile computes over the reader's authorized records only (`DB-002`).
 
 *Acceptance:* a browser journey builds a dashboard of three charts and a view, applies a date filter that changes every tile, and confirms a member with fewer grants sees lower counts and no restricted values.
 
-*Status:* partial. Charts over a view exist (`src/core/features/databases/ui/workspace/DatabaseChart.tsx`, `tests/qualification/policies/structured-views.test.ts`); multi-tile dashboards with shared filters do not.
+*Status:* partial. The editor inserts a dashboard block with chart and view tiles in a responsive grid. Shared date and person filters bind explicitly to each tile; every tile uses the current reader-scoped view evaluation before grouping or counting. Unreadable databases show access needed. Definitions use ordinary block saving, copying and revision snapshots; computed results are never saved. `tests/qualification/policies/structured-views.test.ts` (layouts and authorized records, including the authenticated HTTP dashboard case) and `tests/qualification/ui-convergence/dashboard-journey.mjs` (three charts and a view, shared date filter and restricted reader at 1440 and 390) cover the working door. Gap: readable export/import does not yet remap dashboard database, view, field and person references or preserve source views; native archive restore and revision restore have not been driven for this block. Dashboard views currently render a compact linked record list rather than each saved layout.
 
 #### DB-015 — Record templates and recurring records.
 A database has record templates (default fields and a body), and a template can repeat on a schedule (daily, weekly on given days, monthly or yearly), creating a record at the set time in the time zone of the member who last saved it. A schedule runs as the template's last saver (a re-save hands it to that saver, and the Templates tab shows who it runs as), exactly once per occurrence, even after restarts, and pauses with a visible reason if that saver loses access.
@@ -1085,7 +1085,7 @@ Every background action is a durable job with an accountable owner, a due condit
 
 *Acceptance:* a Workers journey kills a job mid-run and finds it resumed once with no duplicate effect. A forced failure appears on the owner's Home, and stopping a queued job cancels its pending sends.
 
-*Status:* partial. Automation run logs with failure states and repeated-failure disable exist (`src/core/features/automation/jobs.ts`, `tests/qualification/policies/automation-templates.test.ts`). Verification rules are covered: each rule runs as a durable nightly job with a receipt per rule and night, its effects recorded in activity, and repeated or concurrent runs adding nothing (`STAT-007`, `tests/e2e/review/verification-rules.test.ts`). The guarantee does not yet span every job kind.
+*Status:* partial. Reminders now retain accountable member, due condition, attempt progress and safe failure state, appear on Home without a search, and offer owner-only Retry and Stop. The existing atomic reminder/outbox checkpoint resumes once and Stop fences notification materialization. Existing reminder storage exports, restores stopped and erases with its member. Evidence: `src/core/features/reminders/delivery.ts`, `tests/profile/work-items-journey.ts`, `tests/profile/reminder-upgrade-case.ts`, `tests/qualification/ui-convergence/reminder-follow-through-journey.mjs`. Gap: A real mid-run process kill is not driven; the interruption case resumes a durable started row. The universal guarantee is not proved for automation rules and recurring records, publication schedules, review escalations, backups, identity mail, domain rechecks, notification/chat delivery, cleanup, connector syncs or agent work. Verification rules retain their existing nightly receipts. Default adopted: PARTIAL; retry reuses the original reminder/revision identity, Stop cancels unprocessed inbox intent and pending chat delivery, and already committed effects remain.
 
 ### Moving in and out
 
@@ -1591,7 +1591,7 @@ Owners decide who may create containers, publish publicly, invite guests, export
 
 *Acceptance:* a browser journey restricts public publishing to owners, labels a container Confidential, and confirms that a member's publish attempt, an AI request over a confidential page and an export by a non-permitted member are each refused with a reason.
 
-*Status:* partial. Container external-access switches ship (`CONT-007`, `tests/qualification/policies/access-publication.test.ts`); role-scoped governance and classification labels do not.
+*Status:* partial. Owners set role thresholds for creating containers, public publishing, guest invitations, content export and AI; existing grants remain required. Confidential plus none is the conservative label set. A Confidential label immediately stops existing public links and denies AI by default, and only a workspace owner can change the label or lift its defaults. Changes persist old/new values and actor/time in activity. Existing permissions remain unchanged until governance is configured; thereafter guests do not meet any role threshold. The Admin threshold admits only owners until a workspace Admin role exists. `tests/qualification/policies/access-publication.test.ts` (authenticated governance case) covers role refusals, guest invitations, readable and CSV export, owner-only changes, immediate link closure, activity, the flagship AI refusal and policy retention with erased actor attribution. `tests/qualification/ui-convergence/governance-journey.mjs` covers owner settings, classification and publish/export refusals at 1440 and 390. Gap: owner-defined labels are not built; the AI sentence is proven only at the flagship HTTP door while the default AI surface remains gated by ADMIN-007; there is no workspace Admin role; archive restore of governance history has not been driven. No governance change sends mail.
 
 #### ADMIN-007 — Every target surface ships in the default product.
 Every surface that a target or push-further clause describes is part of the default product, and an owner turns it on in workspace settings with nothing else needed. Ask, AI writing and AI fields turn on once a provider is configured and AI is on (`AI-001`, `ANSWER-006`). Suggestions and agent maintenance (`SUG-*`, `KEEP-*`) turn on with AI. Each connector turns on once it is connected (`CONNECT-001`), and chat ask and unfurl once the chat app is installed (`CHAT-002`). MCP and OAuth clients work once a member grants them (`API-003`, `API-004`), and live co-editing is on from the start (`COLLAB-001`). No target surface requires `SLATE_PROFILE=flagship`. Settings show each switch's state and who changed it when, and every change is recorded in activity. Turning a switch off refuses its surface with `FEATURE_DISABLED` from the next request and stops its scheduled jobs, and it erases nothing. A surface also stays refused until its clause's own safety acceptance has passed: `ANSWER-003` for answers, `CONNECT-002` for connected items and `COLLAB-001`'s revocation test for co-editing. `SLATE_PROFILE=flagship` remains only for the inquiry, experiment, trial and production-effect extension (`INQ-*`, `TRIAL-*`, `EFFECT-002`).
@@ -1806,15 +1806,15 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `817111f206b62f1efb822194e6c841bfdbfdebe7` (23 October 2026).
+Judged from the code and tests at commit `2fa88df620a4141fda4c075948cdee8f4e4a98b2` (23 October 2026).
 
 Live-provider evidence remains explicitly open. See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 172 | 49 | 0 | 221 |
-| Target and push further | 19 | 46 | 40 | 105 |
-| All | 191 | 95 | 40 | 326 |
+| Target and push further | 19 | 47 | 39 | 105 |
+| All | 191 | 96 | 39 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2062,7 +2062,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `CONT-012` | Watch a container | target | done | `tests/flagship/discovery/following.test.ts`, `tests/qualification/ui-convergence/following-journey.mjs` |  |
 | `PAGE-016` | Autowatch on create and edit | target | done | `tests/flagship/discovery/following.test.ts` |  |
 | `WORK-016` | People directory and expertise | target | missing | — | not implemented |
-| `SHARE-009` | Share with a message | target | partial | `tests/qualification/backend/emitted.mjs` | see the clause |
+| `SHARE-009` | Share with a message | target | partial | `tests/qualification/policies/invitations.test.ts` with `tests/qualification/policies/share-message-case.ts`; `tests/qualification/ui-convergence/share-message-journey.mjs` in the existing sharing launch (1440/390) | Share-message email and delivery settings remain unbuilt with NOTIF-005/006: the existing grant event has no transactional-mail path, so this change adds none. Guest acceptance uses the existing invitation email without disclosing the message before access. Default adopted: inbox-only share messages and PARTIAL; no clause text changed. Native archive restoration of pending share intentions is not independently proven. |
 | `TMPL-007` | Starter templates | target | done | `tests/e2e/pages/starter-templates.test.ts`, `tests/qualification/ui-convergence/starter-templates-journey.mjs` |  |
 | `NAV-007` | My tasks | target | done | `tests/profile/work-items-journey.ts`, `tests/qualification/ui-convergence/my-tasks-journey.mjs` |  |
 | `SEARCH-010` | Labels and advanced search | target | done | `tests/e2e/search/discovery-journey.ts` |  |
@@ -2072,11 +2072,11 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `SEARCH-014` | Old Confluence URLs find their Slate record | target | missing | — | not implemented |
 | `STAT-006` | Review requests and expert queues | target | done | `tests/qualification/ui-convergence/review-request-journey.mjs` |  |
 | `STAT-007` | Verification rules | target | done | `tests/e2e/review/verification-rules.test.ts`, `tests/qualification/ui-convergence/review-request-journey.mjs` |  |
-| `CARD-001` | Knowledge cards and collections | target | partial | `src/core/features/containers/service.ts` | see the clause |
+| `CARD-001` | Knowledge cards and collections | target | partial | `tests/e2e/pages/display-options.test.ts` (cardCase in `tests/e2e/pages/card-case.ts`); `tests/qualification/ui-convergence/card-journey.mjs` in the existing write journey (1440/390) | Answers, chat and browser-extension rendering remain carried by ANSWER-001, CHAT-002 and CARD-002; Guru import with imported owners and verification intervals remains carried by IMP-008. Native archive restore, revision-history restoration of card identity, and readable collection-flag preservation are not independently proven here. Default adopted: PARTIAL, with no clause text changed. |
 | `CARD-002` | Browser extension | target | missing | — | not implemented |
 | `CARD-003` | Required reading and announcements | target | missing | — | not implemented |
-| `DB-013` | Database forms | target | missing | — | not implemented |
-| `DB-014` | Dashboards | target | partial | `src/core/features/databases/ui/workspace/DatabaseChart.tsx` | see the clause |
+| `DB-013` | Database forms | target | partial | `tests/qualification/policies/structured-views.test.ts` with `tests/qualification/policies/form-case.ts`; `tests/qualification/ui-convergence/forms-journey.mjs` in the existing database launch (1440/390) | Cloudflare Turnstile when the owner configures it is not built; no sealed-secret or outbound verifier is introduced. File, person, relation and computed field questions are excluded. Named-guest selection in the UI follows the existing owner-only guest directory. Readable archive remapping of form definitions is not built; complete native archives retain definitions and submission facts, restoring unpublished. Default adopted: PARTIAL, fixed honeypot/address limits, explicit audiences and no anonymous submitter identity. |
+| `DB-014` | Dashboards | target | partial | `tests/qualification/policies/structured-views.test.ts`; `tests/qualification/ui-convergence/dashboard-journey.mjs` | Readable reference remapping/source views, native archive and revision restore proof, and saved view layouts remain open; see the clause. |
 | `DB-015` | Record templates and recurring records | target | done | `tests/e2e/databases/record-templates.test.ts` |  |
 | `DB-016` | AI autofill fields | target | missing | — | not implemented |
 | `NOTIF-004` | Reminders | target | done | `tests/profile/profile.worker.test.ts`, `tests/profile/work-items-journey.ts` |  |
@@ -2084,7 +2084,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `NOTIF-006` | Workspace notification defaults | target | missing | — | not implemented |
 | `AUTO-006` | Outbound automation actions | target | partial | `src/core/features/automation/actions.ts` | see the clause |
 | `AUTO-007` | Triggers from connected tools | target | missing | — | not implemented |
-| `AUTO-008` | Accountable follow-through | target | partial | `src/core/features/automation/jobs.ts` | see the clause |
+| `AUTO-008` | Accountable follow-through | target | partial | `src/core/features/reminders/delivery.ts`, `tests/profile/work-items-journey.ts`, `tests/profile/reminder-upgrade-case.ts`, `tests/qualification/ui-convergence/reminder-follow-through-journey.mjs` | A real mid-run process kill is not driven; the interruption case resumes a durable started row. The universal guarantee is not proved for automation rules and recurring records, publication schedules, review escalations, backups, identity mail, domain rechecks, notification/chat delivery, cleanup, connector syncs or agent work. Verification rules retain their existing nightly receipts. Default adopted: PARTIAL; retry reuses the original reminder/revision identity, Stop cancels unprocessed inbox intent and pending chat delivery, and already committed effects remain. |
 | `IMP-006` | Notion import with comments and live databases | target | partial | `src/core/features/imports/service.ts` | see the clause |
 | `IMP-007` | Confluence Cloud live migration | target | missing | — | not implemented |
 | `IMP-008` | Guru import | target | missing | — | not implemented |
@@ -2128,7 +2128,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `ADMIN-003` | Guest management | target | done | `tests/qualification/policies/invitations.test.ts`, `tests/qualification/ui-convergence/guest-console-journey.mjs` |  |
 | `ADMIN-004` | Workspace analytics | target | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` |  |
 | `ADMIN-005` | Audit export and SIEM streaming | target | partial | `src/core/features/activity/service.ts` | see the clause |
-| `ADMIN-006` | Content governance | target | partial | `tests/qualification/policies/access-publication.test.ts` | see the clause |
+| `ADMIN-006` | Content governance | target | partial | `tests/qualification/policies/access-publication.test.ts`; `tests/qualification/ui-convergence/governance-journey.mjs` | Confidential plus none; Admin admits owners only; AI proof at flagship HTTP only; archive restore proof open. |
 | `ADMIN-007` | Every target surface ships in the default product | target | partial | `src/core/platform/config/launch-profile.ts` | see the clause |
 | `MOBILE-001` | Native iOS and Android apps | target | missing | `tests/qualification/interface/routed.browser.mjs` | not implemented |
 | `MOBILE-002` | Desktop app | target | missing | — | not implemented |

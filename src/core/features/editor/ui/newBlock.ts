@@ -14,6 +14,8 @@ export function newBlock(
       throw new Error("Status labels are inserted inline.");
     case "table-of-contents":
       return {id,type:"table-of-contents",minLevel:1,maxLevel:2,style:"nested"};
+    case "dashboard":
+      return {id,type:"dashboard",definition:{tiles:[],filters:{}}};
     case "task-report":
       return {id,type:"task-report",definition:{groupBy:"page",orderBy:"due",direction:"asc",limit:20}};
     case "text":

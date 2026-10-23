@@ -291,6 +291,7 @@ function LoadedPage({
             rows={1}
             className="page-title page-title-input"
             aria-label="Page title"
+            placeholder={document.page.pageKind==='card'?'What question does this card answer?':undefined}
             readOnly={!document.permissions.canEdit}
             value={title}
             onChange={(event) => {

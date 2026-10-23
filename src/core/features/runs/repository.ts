@@ -1,3 +1,4 @@
+import {requireGovernance} from '../workspace/governance';
 import {pageRow,writable} from '../pages/repository';
 import {requireSkillRevisionDisclosure} from '../skills/disclosure';
 import {recheckBudget} from '../ai/budget';
@@ -29,6 +30,7 @@ export function requireFreshRunAuthority(run:RunRow){
 }
 export async function reauthorizeRun(ctx:FeatureContext,run:RunRow,current=true){
  requireFreshRunAuthority(run);
+ await requireGovernance(ctx,'useAi',run.page_id);
  await currentSubject(ctx);await requirePageLevel(ctx,run.page_id,'view');
  if(run.kind==='edit'||JSON.parse(run.input_json).selection)writable(await pageRow(ctx,run.page_id));
  const enabled=await ctx.db.prepare('SELECT ai_enabled FROM workspaces WHERE id=?').bind(ctx.actor.workspaceId).first<{ai_enabled:number}>();if(!enabled?.ai_enabled)throw new ApiProblem(403,'AI_DISABLED','AI has been disabled by the owner.');

@@ -1,3 +1,4 @@
+import {requireGovernance} from '../workspace/governance';
 import type { FeatureContext } from '../../app/feature-context';
 import { ApiProblem } from '../../app/problems';
 import {readRevision} from '../versions/service';
@@ -20,6 +21,7 @@ export async function resolveEvidence(ctx:FeatureContext,refs:EvidenceInput[],au
    const row=ref.kind==='decision'?await ctx.db.prepare("SELECT d.*,r.content_json AS content,r.created_at AS observed_at,d.state,r.id AS current_id,p.lifecycle AS page_lifecycle,p.trashed_at AS page_trashed_at,p.deleted_at AS page_deleted_at FROM knowledge_decisions d JOIN pages p ON p.id=d.page_id JOIN intelligence_revisions r ON r.entity_id=d.id AND r.entity_kind='decision-acceptance' WHERE d.id=? AND d.workspace_id=? AND r.id=?").bind(ref.sourceId,ctx.actor.workspaceId,ref.revisionId).first<{page_id:string;content:string;observed_at:string;state:string;current_id:string;removed_at?:string|null;accepted_revision_id?:string|null;page_lifecycle:string;page_trashed_at:string|null;page_deleted_at:string|null}>():await ctx.db.prepare("SELECT s.page_id,v.definition_json AS content,v.created_at AS observed_at,v.state,s.current_revision_id AS current_id,p.lifecycle AS page_lifecycle,p.trashed_at AS page_trashed_at,p.deleted_at AS page_deleted_at FROM intelligence_skills s JOIN pages p ON p.id=s.page_id JOIN intelligence_skill_versions v ON v.skill_id=s.id WHERE s.id=? AND s.workspace_id=? AND v.id=?").bind(ref.sourceId,ctx.actor.workspaceId,ref.revisionId).first<{page_id:string;content:string;observed_at:string;state:string;current_id:string;removed_at?:string|null;accepted_revision_id?:string|null;page_lifecycle:string;page_trashed_at:string|null;page_deleted_at:string|null}>();
    if(!row||(options.cutoff&&row.observed_at>options.cutoff))throw new ApiProblem(404,'EVIDENCE_UNAVAILABLE','The exact evidence revision is unavailable.');
    for(const reader of readers)await requirePageLevel(reader===ctx.actor.id?ctx:await audienceContext(ctx,reader),row.page_id,'view');
+   await requireGovernance(ctx,'useAi',row.page_id);
    const content=JSON.parse(row.content);if(ref.kind==='skill'&&(!Array.isArray(content.audience)||readers.some(reader=>!content.audience.includes(reader))))throw new ApiProblem(404,'EVIDENCE_UNAVAILABLE','The method is not available for this audience.');const nested=ref.kind==='decision'?content.citations:content.refs;
    if(!Array.isArray(nested))throw new ApiProblem(404,'EVIDENCE_UNAVAILABLE','The exact evidence revision is unavailable.');
    const nestedPackets=await resolveEvidence(ctx,nested,readers,{...options,depth:(options.depth??0)+1});
@@ -34,6 +36,7 @@ export async function resolveEvidence(ctx:FeatureContext,refs:EvidenceInput[],au
    if(source.state!=='available'||(options.cutoff&&source.observedAt>options.cutoff))throw new ApiProblem(404,'EVIDENCE_UNAVAILABLE','The exact evidence revision is unavailable.');
    result.push({id:`E${index+1}`,ref,text:source.text,current:source.freshness==='current',observedAt:source.observedAt,authorityState:source.authorityState});continue;
   }
+  await requireGovernance(ctx,'useAi',ref.sourceId);
   const readerContexts=await Promise.all(readers.map(reader=>reader===ctx.actor.id?ctx:audienceContext(ctx,reader)));
   for(const reader of readerContexts){const exact=await readRevision(reader,ref.sourceId,ref.revisionId);if('deleted'in exact&&exact.deleted)throw new ApiProblem(404,'EVIDENCE_UNAVAILABLE','The exact evidence revision is unavailable.');}
   const row=await ctx.db.prepare("SELECT r.body_json,r.properties_json,r.created_at,p.working_revision_id,p.lifecycle,p.trashed_at FROM page_revisions r JOIN pages p ON p.id=r.page_id WHERE r.id=? AND r.page_id=? AND r.deleted_at IS NULL AND p.deleted_at IS NULL AND p.workspace_id=?").bind(ref.revisionId,ref.sourceId,ctx.actor.workspaceId).first<{body_json:string;properties_json:string;created_at:string;working_revision_id:string;lifecycle:string;trashed_at:string|null}>();

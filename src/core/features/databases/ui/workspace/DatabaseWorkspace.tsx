@@ -1,3 +1,4 @@
+import {DatabaseForms} from './DatabaseForms';
 import {ViewCriteria} from "./ViewCriteria";
 import {FavouriteControl} from "../../../navigation/ui/workspace/FavouriteControl";
 import {RecordPeek} from "./RecordPeek";
@@ -187,7 +188,7 @@ export function DatabaseWorkspace({ id }: { id: string }) {
                   </button>
                 ) : null}
               </DatabaseToolbar>
-              {mode === "automations" ? <AutomationWorkspace sourceId={id}/> : mode === "templates" ? <RecordTemplates databaseId={id} fields={fields} canEdit={canEdit} onCreated={query.reload}/> : <>
+              {mode === "forms" ? <DatabaseForms databaseId={id} title={title} fields={fields} canEdit={canEdit}/> : mode === "automations" ? <AutomationWorkspace sourceId={id}/> : mode === "templates" ? <RecordTemplates databaseId={id} fields={fields} canEdit={canEdit} onCreated={query.reload}/> : <>
               {view?<ViewCriteria view={view} fields={fields} canClear={canEdit&&!locked} onClear={()=>void saveView({...view,filters:[]}).catch(setError)}/>:null}
               {locked ? (
                 <p className="muted">

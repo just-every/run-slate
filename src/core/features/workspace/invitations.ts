@@ -1,3 +1,6 @@
+import {invitationShare,invitationShareRevision,acceptedShareStatements} from '../sharing/message-invitations';
+import {dispatchCommittedNotifications} from '../notifications/dispatch';
+import {requireGovernance} from './governance';
 import type { AccessLevel } from '../../shared/knowledge/model';
 import { requireConfiguredLevel } from '../sharing/configuration';
 import { createMemberRepository } from '../session/repository';
@@ -12,22 +15,26 @@ import { ApiProblem } from '../../app/problems';
 import { deliverIdentityMail } from '../session/mail';
 import { admitIdentityMail, requireMailConfig } from '../session/mail-admission';
 import { requireGuestDomain } from './guest-policy';
-type InvitationInput={operationKey:string;email:string;kind:'member'|'guest';pageId?:string;containerId?:string;level?:AccessLevel;expiresAt?:string|null};
+type InvitationInput={operationKey:string;email:string;kind:'member'|'guest';pageId?:string;containerId?:string;level?:AccessLevel;expiresAt?:string|null;shareId?:string};
 /** Admit the invitation and encrypted delivery together, before transport. */
 export async function prepareInvitation(ctx:FeatureContext,config:RuntimeConfig,input:InvitationInput) {
   if(input.kind==='member'&&(input.level!==undefined||input.expiresAt!==undefined))throw new ApiProblem(400,'INVALID_INVITATION_SCOPE','Resource permissions apply only to guest invitations.');
   if(input.expiresAt!==undefined&&input.expiresAt!==null&&(!Number.isFinite(Date.parse(input.expiresAt))||input.expiresAt<=ctx.now))throw new ApiProblem(400,'INVALID_GRANT_EXPIRY','Choose a future grant expiry.');
   if((input.pageId&&input.containerId)||(input.kind==='member'&&(input.pageId||input.containerId)))throw new ApiProblem(400,'INVALID_INVITATION_SCOPE','A guest invitation names exactly one page or container; member invitations do not confer resource grants.');
+  if(input.shareId&&(!input.pageId||input.kind!=='guest'))throw new ApiProblem(400,'INVALID_INVITATION_SCOPE','A shared message requires a page guest invitation.');
   requireMailConfig(config);
   const token=createOpaqueToken();
   const result=await commitOperation(ctx,{operationKey:input.operationKey,action:'member.invite',request:input,authorize:async()=>{
+    if(input.shareId)await invitationShare(ctx,input.shareId,input.pageId!,input.email);
     const subject=await currentSubject(ctx);if(subject.isGuest)throw new ApiProblem(403,'FORBIDDEN','Guests cannot invite people.');
-    if(input.kind==='guest') { await requireConfiguredLevel(ctx,input.level??'view'); if(input.pageId) { const access=await requirePageLevel(ctx,input.pageId,'full'); if(access.context.container.externalAccess.guests==='forbidden')throw new ApiProblem(403,'GUESTS_FORBIDDEN','Guests are forbidden here.'); } else if(input.containerId) { await requireContainerLevel(ctx,input.containerId,'full'); const veto=await ctx.db.prepare('SELECT c.visibility,c.guest_access,w.guest_access AS site_guests FROM containers c JOIN workspaces w ON w.id=c.workspace_id WHERE c.id=?').bind(input.containerId).first<{visibility:string;guest_access:string;site_guests:string}>();if(!veto||veto.visibility==='personal'||veto.guest_access==='forbidden'||veto.site_guests==='forbidden')throw new ApiProblem(403,'GUESTS_FORBIDDEN','Guests are forbidden here.'); } else throw new ApiProblem(400,'TARGET_REQUIRED','A guest requires a page or container.'); }
+    if(input.kind==='guest') { await requireGovernance(ctx,'inviteGuests',input.pageId); await requireConfiguredLevel(ctx,input.level??'view'); if(input.pageId) { const access=await requirePageLevel(ctx,input.pageId,'full'); if(access.context.container.externalAccess.guests==='forbidden')throw new ApiProblem(403,'GUESTS_FORBIDDEN','Guests are forbidden here.'); } else if(input.containerId) { await requireContainerLevel(ctx,input.containerId,'full'); const veto=await ctx.db.prepare('SELECT c.visibility,c.guest_access,w.guest_access AS site_guests FROM containers c JOIN workspaces w ON w.id=c.workspace_id WHERE c.id=?').bind(input.containerId).first<{visibility:string;guest_access:string;site_guests:string}>();if(!veto||veto.visibility==='personal'||veto.guest_access==='forbidden'||veto.site_guests==='forbidden')throw new ApiProblem(403,'GUESTS_FORBIDDEN','Guests are forbidden here.'); } else throw new ApiProblem(400,'TARGET_REQUIRED','A guest requires a page or container.'); }
   },prepare:async({revisionId})=>{
     const policy=input.kind==='guest'?await requireGuestDomain(ctx.db,ctx.actor.workspaceId,input.email):null;
     const grantExpiry=input.expiresAt==null&&policy?.defaultExpiryDays?new Date(Date.parse(ctx.now)+policy.defaultExpiryDays*86400000).toISOString():input.expiresAt??null;
     const id=createUlid(),grantId=input.kind==='guest'?createUlid():null; const existing=await ctx.db.prepare("SELECT id FROM members WHERE workspace_id=? AND lower(email)=lower(?) AND status='active'").bind(ctx.actor.workspaceId,input.email.toLowerCase()).first();
+    if(existing&&input.shareId)throw new ApiProblem(409,'RECIPIENT_CHANGED','This address is now a member. Select them and share again.');
     const statements:D1PreparedStatement[]=[];
+    if(input.shareId)statements.push(await invitationShareRevision(ctx,revisionId,id,input.shareId,input.pageId!));
     if(!existing) { if(grantId){const table=input.pageId?'page_grants':'container_grants',key=input.pageId?'page_id':'container_id';statements.push(ctx.db.prepare(`INSERT INTO ${table} (id,${key},principal_kind,principal_id,level,expires_at,created_at,updated_at) VALUES (?,?,'member',?,?,?,?,?)`).bind(grantId,input.pageId??input.containerId!,`invitation:${id}`,input.level??'view',grantExpiry,ctx.now,ctx.now));} statements.push(ctx.db.prepare('INSERT INTO invitations (id,workspace_id,email,kind,container_id,page_id,container_grant_id,page_grant_id,token_digest,invited_by_member_id,expires_at,created_at,guest_expires_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)').bind(id,ctx.actor.workspaceId,input.email.toLowerCase(),input.kind,input.containerId??null,input.pageId??null,input.containerId?grantId:null,input.pageId?grantId:null,await sessionDigest(config.sessionSecret,token),ctx.actor.id,new Date(Date.parse(ctx.now)+7*86400000).toISOString(),ctx.now,grantExpiry)); const url=new URL('/api/auth/invitation/accept',config.appUrl);url.searchParams.set('token',token);const delivery=await admitIdentityMail(ctx.db,config,{workspaceId:ctx.actor.workspaceId,email:input.email.toLowerCase(),kind:'invitation',invitationId:id,url:url.toString(),operationKey:input.operationKey,requestedByMemberId:ctx.actor.id},ctx.now);statements.push(delivery.statement); }
     return {entity:{id:ctx.actor.workspaceId,kind:'invitation',revisionId},value:{accepted:true},statements};
   }});
@@ -49,8 +56,8 @@ export async function acceptInvitation(db:D1Database,config:RuntimeConfig,token:
   const now=new Date().toISOString();
   const row=await db.prepare('SELECT * FROM invitations WHERE token_digest=? AND revoked_at IS NULL AND accepted_by_member_id IS NULL AND expires_at>?').bind(await sessionDigest(config.sessionSecret,token),now).first<{id:string;workspace_id:string;email:string;kind:string;invited_by_member_id:string;page_id:string|null;container_id:string|null;page_grant_id:string|null;container_grant_id:string|null;guest_expires_at:string|null}>();
   if(!row)throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or expired.');
-  let accessEpoch:number|undefined,guestExpiry:string|null=null;
-  if(row.kind==='guest'){if(!resources)throw new ApiProblem(503,'INVITATION_UNAVAILABLE','Guest invitation validation requires the application runtime.');const inviter=await createMemberRepository(db).getMember(row.invited_by_member_id);if(!inviter)throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or expired.');const accessCtx:FeatureContext={db,files:resources.files,jobs:resources.jobs,actor:inviter,now};if(row.page_id)await requirePageLevel(accessCtx,row.page_id,'full');else if(row.container_id)await requireContainerLevel(accessCtx,row.container_id,'full');else throw new ApiProblem(400,'LINK_INVALID','This invitation has no target.');const policy=await requireGuestDomain(db,row.workspace_id,row.email);const grant=await db.prepare(`SELECT expires_at AS expiresAt FROM ${row.page_id?'page_grants':'container_grants'} WHERE id=?`).bind(row.page_grant_id??row.container_grant_id).first<{expiresAt:string|null}>();guestExpiry=row.guest_expires_at??grant?.expiresAt??(policy.defaultExpiryDays?new Date(Date.parse(now)+policy.defaultExpiryDays*86400000).toISOString():null);accessEpoch=accessCtx.authorizationEpoch;}
+  let accessEpoch:number|undefined,guestExpiry:string|null=null,accessCtx:FeatureContext|undefined;
+  if(row.kind==='guest'){if(!resources)throw new ApiProblem(503,'INVITATION_UNAVAILABLE','Guest invitation validation requires the application runtime.');const inviter=await createMemberRepository(db).getMember(row.invited_by_member_id);if(!inviter)throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or expired.');accessCtx={db,files:resources.files,jobs:resources.jobs,actor:inviter,now};await requireGovernance(accessCtx,'inviteGuests',row.page_id??undefined);if(row.page_id)await requirePageLevel(accessCtx,row.page_id,'full');else if(row.container_id)await requireContainerLevel(accessCtx,row.container_id,'full');else throw new ApiProblem(400,'LINK_INVALID','This invitation has no target.');const policy=await requireGuestDomain(db,row.workspace_id,row.email);const grant=await db.prepare(`SELECT expires_at AS expiresAt FROM ${row.page_id?'page_grants':'container_grants'} WHERE id=?`).bind(row.page_grant_id??row.container_grant_id).first<{expiresAt:string|null}>();guestExpiry=row.guest_expires_at??grant?.expiresAt??(policy.defaultExpiryDays?new Date(Date.parse(now)+policy.defaultExpiryDays*86400000).toISOString():null);accessEpoch=accessCtx.authorizationEpoch;}
   const former=await db.prepare('SELECT id,status FROM members WHERE workspace_id=? AND lower(email)=lower(?)').bind(row.workspace_id,row.email).first<{id:string;status:string}>();
   // A removed member, or a restored historical actor (PORT-005), returns under the same id.
   if(former&&!['removed','historical'].includes(former.status))throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or already used.');
@@ -69,7 +76,9 @@ export async function acceptInvitation(db:D1Database,config:RuntimeConfig,token:
     statements.unshift(mutationGuard(db,`SELECT revoked_at IS NULL AND (expires_at IS NULL OR expires_at>?) AND principal_id=? AND ${key}=? FROM ${table} WHERE id=?`,[now,`invitation:${row.id}`,row.page_id??row.container_id,grantId]));
     statements.push(db.prepare(`UPDATE ${table} SET principal_id=?,updated_at=? WHERE id=?`).bind(id,now,grantId));
   }
+  if(accessCtx&&row.page_id)statements.push(...await acceptedShareStatements(accessCtx,row.id,row.page_id,id));
   try { await db.batch(statements); } catch {throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or already used.');}
+  if(accessCtx)await dispatchCommittedNotifications(accessCtx);
   return {memberId:id};
 }
 export async function revokeInvitation(ctx:FeatureContext,input:{operationKey:string;id:string}) {

@@ -21,7 +21,7 @@ export function ExportViewCsv({ databaseId, viewId, title, search, onError }: {
     setPending(true);
     try {
       const data = await request<QueryDto & { fields: FieldDto[]; view: ViewDto }>(
-        `/api/databases/${databaseId}/views/${viewId}`,
+        `/api/databases/${databaseId}/views/${viewId}/export`,
       );
       const visible = data.view.display.visibleFieldIds;
       const fields = data.fields.filter(field => !Array.isArray(visible) || visible.includes(field.id));

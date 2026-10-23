@@ -1,3 +1,4 @@
+import {requireGovernance} from '../workspace/governance';
 import {pageRow,writable,pageGuard} from '../pages/repository';
 import {interruptAttempt} from './attempts';
 import {equivalenceKey,reusableRun,bindEquivalence} from './coalescing';
@@ -20,6 +21,7 @@ export async function startRun(ctx:FeatureContext,raw:AskInput,config:{demo?:boo
  const priorReceipt=await ctx.db.prepare('SELECT r.* FROM operation_receipts o JOIN intelligence_runs r ON r.id=o.target_id WHERE o.workspace_id=? AND o.actor_member_id=? AND o.operation_key=?').bind(ctx.actor.workspaceId,ctx.actor.id,raw.operationKey).first<import('../ai/contracts').RunRow>();if(priorReceipt)requireFreshRunAuthority(priorReceipt);
  if(evaluationCaseSetId){const restored=await ctx.db.prepare("SELECT json_extract(execution_json,'$.recoveryPausedAt') AS marker FROM intelligence_evaluation_cases WHERE id=? AND workspace_id=?").bind(evaluationCaseSetId,ctx.actor.workspaceId).first<{marker:string|null}>();if(restored?.marker)throw new ApiProblem(409,'RESTORED_AUTHORITY_REQUIRED','Prepare a fresh evaluation after restoring this workflow.');}
  const input=requestSchema.parse(raw);
+ await requireGovernance(ctx,'useAi',input.pageId);
  if(input.kind==='edit'||input.selection){await requirePageLevel(ctx,input.pageId,'view');writable(await pageRow(ctx,input.pageId));}
  const audience=[...new Set(input.audience??[ctx.actor.id])].sort();input.audience=audience;
  if(input.selection){if(input.selection.pageId!==input.pageId||!input.refs.some(r=>r.kind==='page'&&r.sourceId===input.pageId&&r.revisionId===input.selection!.revisionId))throw new ApiProblem(400,'SELECTION_SCOPE','Pin the selected page revision in the request evidence.');await requireWritingSelection(ctx,input.selection);}
