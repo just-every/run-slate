@@ -1598,7 +1598,7 @@ Every surface that a target or push-further clause describes is part of the defa
 
 *Acceptance:* a Workers journey in the default profile, with `SLATE_PROFILE` unset, first finds every target surface (Ask, AI writing, AI fields, suggestions, MCP, each connector, chat ask and agent jobs) refusing with `FEATURE_DISABLED`. It turns each owner switch on and finds its surface serving, then turns it off and finds it refusing again on the next request with its stored records intact. A release check fails any target-clause journey that sets `SLATE_PROFILE=flagship`.
 
-*Status:* partial. Surfaces are gated by the deployment profile rather than by owner switches (`src/core/platform/config/launch-profile.ts`, `tests/profile/profile.worker.test.ts`). AI and SSO have their own default-off switches, but the AI-backed, MCP, connector and suggestion surfaces also require `SLATE_PROFILE=flagship`.
+*Status:* partial. Owner-only Features settings persist default-off choices, actor and time, record activity, and gate requests from fresh stored state (`src/core/features/feature-switches/`, `tests/profile/profile.worker.test.ts` — "default API refuses entry points until owner switches and safety prerequisites permit them"). MCP transport switches on and refuses the next request after switch-off with credentials retained; upgrade, native archive restore and actor erasure preserve switch custody. `tests/qualification/ui-convergence/ask-journey.mjs` — "featureSettingsJourney" covers Features at 1440/390. Ask and connected items remain refused with visible safety acceptance pending, including when an archive carries an enabled choice. Suggestions and agent maintenance therefore remain unavailable. Default intelligence scheduling and page Ask activation await the safety release; live co-editing, MCP/OAuth grants, chat ask/unfurl, individual connector installation flows and the target-journey profile release check remain unproven. Flagship behavior is retained.
 
 #### MOBILE-001 — Native iOS and Android apps.
 App Store and Google Play apps let a member sign in (magic link, OIDC or SAML), read, search, ask, edit pages and blocks, comment, use the inbox, verify, and take photos straight into pages. They support share-sheet capture into Slate, deep links that open slate URLs in the app, and an optional biometric lock. They use the same API as the web (`API-001`) and the same access rules.
@@ -1806,7 +1806,7 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `f40e577a5ad18e84ca066f4275580d10fc1991f5` (23 October 2026).
+Judged from the code and tests at commit `f9615a2e82fb2e6505b3a150e28f1f3f3d4103e5` (23 October 2026).
 
 Live-provider evidence remains explicitly open. See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
@@ -2129,7 +2129,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `ADMIN-004` | Workspace analytics | target | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` |  |
 | `ADMIN-005` | Audit export and SIEM streaming | target | partial | `src/core/features/activity/service.ts` | see the clause |
 | `ADMIN-006` | Content governance | target | partial | `tests/qualification/policies/access-publication.test.ts` | see the clause |
-| `ADMIN-007` | Every target surface ships in the default product | target | partial | `src/core/platform/config/launch-profile.ts` | see the clause |
+| `ADMIN-007` | Every target surface ships in the default product | target | partial | `tests/profile/profile.worker.test.ts` — "default API refuses entry points until owner switches and safety prerequisites permit them" and "old queued flagship work records failure and retries without dispatch or acknowledgement" (Verify core); `tests/qualification/ui-convergence/ask-journey.mjs` — "featureSettingsJourney" (1440/390, Verify ui-content) | Adopted default: owner-only, default-off, activity-attributed switches; Ask and connected items remain refused pending ANSWER-003 and CONNECT-002 safety acceptance. Suggestions and agents inherit Ask. Default intelligence scheduling and page Ask activation await that release. Live co-editing, MCP/OAuth grants, chat ask/unfurl, per-connector installation and the target-journey profile release check remain unproven. |
 | `MOBILE-001` | Native iOS and Android apps | target | missing | `tests/qualification/interface/routed.browser.mjs` | not implemented |
 | `MOBILE-002` | Desktop app | target | missing | — | not implemented |
 | `MOBILE-003` | Offline pages | target | partial | `src/core/features/editor/ui/SaveStatus.tsx` | see the clause |

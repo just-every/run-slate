@@ -2,6 +2,55 @@ import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { accessible, closeDetails, openNavigation, openPageAction } from './browser-support.mjs';
 
+// Default-profile Features steps share the existing core-workspace launch.
+export async function featureSettingsJourney(state) {
+  const {page, origin, context, api} = state;
+  const returnTo = page.url();
+  await page.goto(origin + '/app/settings?section=workspace', {waitUntil: 'networkidle'});
+  const panel = page.getByRole('region', {name: 'Features', exact: true});
+  await expect(panel.getByRole('heading', {name: 'Features', exact: true})).toBeVisible();
+  const switches = (await api('/api/workspace/features')).items;
+  assert.ok(switches.every(item => !item.enabled && !item.effective));
+  for (const item of switches) {
+    const row = panel.getByRole('region', {name: item.label, exact: true});
+    const control = row.getByRole('button', {name: `Turn on ${item.label}`, exact: true});
+    if (item.available) await expect(control).toBeEnabled(); else await expect(control).toBeDisabled();
+    for (const reason of item.prerequisites) await expect(row.getByText(reason, {exact: true})).toBeVisible();
+  }
+  await expect(panel.getByText('Safety acceptance pending for answers.', {exact: true})).toBeVisible();
+  await expect(panel.getByText('Safety acceptance pending for connected items.', {exact: true})).toBeVisible();
+  await accessible(page, 'Features default off and safety holds');
+  const mcp = panel.getByRole('region', {name: 'MCP', exact: true});
+  await mcp.getByRole('button', {name: 'Turn on MCP', exact: true}).click();
+  const confirmation = page.getByRole('dialog', {name: 'Turn on MCP', exact: true});
+  await expect(confirmation.getByRole('button', {name: 'Close dialog', exact: true})).toHaveAttribute('data-tooltip', 'Close dialog');
+  await accessible(page, 'Features confirmation');
+  await confirmation.getByRole('button', {name: 'Turn on', exact: true}).click();
+  await expect(confirmation).toHaveCount(0);
+  await expect(mcp.getByRole('button', {name: 'Turn off MCP', exact: true})).toBeEnabled();
+  await expect(mcp.getByRole('link', {name: 'Available client tools', exact: true})).toBeVisible();
+  const tools = await context.request.get(origin + '/api/agent/tools');
+  assert.equal(tools.status(), 200);
+  assert.ok((await tools.json()).tools.length > 0);
+  await expect(mcp.getByText(/Alex Owner/)).toBeVisible();
+  await accessible(page, 'Features MCP on with owner and time');
+  await page.reload({waitUntil: 'networkidle'});
+  await expect(mcp.getByRole('button', {name: 'Turn off MCP', exact: true})).toBeEnabled();
+  await mcp.getByRole('button', {name: 'Turn off MCP', exact: true}).click();
+  await page.getByRole('dialog', {name: 'Turn off MCP', exact: true}).getByRole('button', {name: 'Turn off', exact: true}).click();
+  await expect(mcp.getByRole('button', {name: 'Turn on MCP', exact: true})).toBeEnabled();
+  await expect(mcp.getByRole('link', {name: 'Available client tools', exact: true})).toHaveCount(0);
+  const refused = await context.request.get(origin + '/api/agent/tools');
+  assert.equal(refused.status(), 403);
+  assert.equal((await refused.json()).code, 'FEATURE_DISABLED');
+  const activity = await api('/api/activity?action=workspace.feature-switch');
+  assert.equal(activity.items.length, 2);
+  assert.ok(activity.items.every(item => item.actor.displayName === 'Alex Owner' && item.occurredAt));
+  await accessible(page, 'Features MCP off keeps history');
+  state.assertNoConsoleErrors();
+  await page.goto(returnTo, {waitUntil: 'networkidle'});
+}
+
 export async function askDraftJourney(state) {
   const { page, origin, api, switchIdentity } = state;
   await openPageAction(page, 'Ask');

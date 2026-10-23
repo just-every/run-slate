@@ -1,3 +1,4 @@
+import {FeatureSettings} from './FeatureSettings';
 import { useFlagshipEnabled } from "../../../../app/ui/LaunchProfile";
 import { ChatNotifications } from "./ChatNotifications";
 import { ContainerWorkspace } from "../../../containers/ui/workspace/ContainerWorkspace";
@@ -89,6 +90,7 @@ export function SettingsWorkspace() {
         ) : (
           <WorkspacePreferences />
         )}
+        {section === "workspace" ? <FeatureSettings/> : null}
       </section>
     </>
   );

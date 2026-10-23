@@ -1,6 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { useFlagshipEnabled } from "./LaunchProfile";
-import { isFlagshipPath } from "../../platform/config/launch-profile";
+import { useSurfaceAccess } from "./LaunchProfile";
 import {ScheduledPublication} from './ScheduledPublication';
 import {mutate,operationKey,errorMessage} from "../../client/transport";
 import { type TreePage } from "./PageTree";
@@ -41,7 +40,7 @@ export function AppNavigation({ onNavigate }: { onNavigate?: () => void }) {
 
 function MemberNavigation({ onNavigate }: { onNavigate?: () => void }) {
   const { member, workspace, navigation } = useWorkspace();
-  const flagship = useFlagshipEnabled();
+  const surfaceAvailable = useSurfaceAccess();
   const pages = useResource<PageResult<TreePage>>("/api/pages");
   const databases = useResource<NavigationDatabases>(
     "/api/databases",
@@ -81,7 +80,7 @@ function MemberNavigation({ onNavigate }: { onNavigate?: () => void }) {
         aria-label="Workspace navigation"
         onClick={onNavigate}
       >
-        {navigation.data?.configuration?.destinations.filter(item=>item.visible && (flagship || !isFlagshipPath(item.href))).map(item=><Link key={item.id} className="navlink" to={item.href} activeOptions={{ exact: item.href === "/app" }} activeProps={{ className: "" }}>{(() => { const Icon = destinationIcons[item.href] ?? Compass; return <Icon aria-hidden="true"/>; })()}<span>{item.label}</span>{item.href==='/app/search'?<span className="shortcut">⌘ K</span>:null}{item.href==='/app/review'&&review.data?.count?<span className="nav-count"><span aria-hidden="true">{review.data.count}</span><span className="sr-only">{`, ${review.data.count} ${review.data.count===1?'page needs':'pages need'} your review`}</span></span>:null}</Link>)}
+        {navigation.data?.configuration?.destinations.filter(item=>item.visible && surfaceAvailable(item.href)).map(item=><Link key={item.id} className="navlink" to={item.href} activeOptions={{ exact: item.href === "/app" }} activeProps={{ className: "" }}>{(() => { const Icon = destinationIcons[item.href] ?? Compass; return <Icon aria-hidden="true"/>; })()}<span>{item.label}</span>{item.href==='/app/search'?<span className="shortcut">⌘ K</span>:null}{item.href==='/app/review'&&review.data?.count?<span className="nav-count"><span aria-hidden="true">{review.data.count}</span><span className="sr-only">{`, ${review.data.count} ${review.data.count===1?'page needs':'pages need'} your review`}</span></span>:null}</Link>)}
       </nav>
       {navigation.data?.favourites.length ? (
         <nav className="favourites" aria-label="Favourites">

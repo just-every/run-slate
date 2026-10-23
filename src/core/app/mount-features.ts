@@ -1,4 +1,5 @@
 import {createBackupRoutes} from '../features/backups/routes';
+import {createFeatureSwitchRoutes} from '../features/feature-switches/routes';
 import {createWorkItemsRoutes} from '../features/work-items/routes';
 import {createReminderRoutes} from '../features/reminders/routes';
 import { createInstallationExportRoutes } from '../features/portability/installation-routes';
@@ -57,6 +58,7 @@ import type { AppEnvironment } from "./types";
  */
 export function mountFeatures(app: Hono<AppEnvironment>): Hono<AppEnvironment> {
   mountLaunchProfile(app);
+  app.route('/api/workspace/features', createFeatureSwitchRoutes());
   registerIntelligenceVisibility();
   app.route("/", createWorkspaceRoutes());
   app.route("/api/tasks",createWorkItemsRoutes());

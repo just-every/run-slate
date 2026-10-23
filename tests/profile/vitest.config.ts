@@ -8,7 +8,7 @@ const migrations = await readD1Migrations(path.join(process.cwd(), 'migrations/c
 export default defineConfig({
   server: {port: Number(process.env.SLATE_TEST_PORT ?? 55500), strictPort: true},
   plugins: [cloudflareTest({
-    miniflare: {port: Number(process.env.SLATE_TEST_PORT ?? 55500) + 1, inspectorPort: Number(process.env.SLATE_TEST_PORT ?? 55500) + 2, bindings: {TEST_MIGRATIONS: migrations}},
+    miniflare: {port: Number(process.env.SLATE_TEST_PORT ?? 55500) + 1, inspectorPort: Number(process.env.SLATE_TEST_PORT ?? 55500) + 2, bindings: {TEST_MIGRATIONS: migrations}, d1Databases: {FEATURE_PRIOR_DB: 'feature-switch-prior'}},
     wrangler: {configPath: resolveVitestWranglerConfigPath(process.cwd())},
   }), tanstackStart({prerender: {enabled: false}}), react()],
   test: {include: ['tests/profile/*.worker.test.ts'], setupFiles: ['tests/e2e/setup/apply-migrations.ts'], expect: {requireAssertions: true}, testTimeout: 60000},
