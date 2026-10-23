@@ -907,6 +907,10 @@
       "sha256": "a24c2d2fa8f49570cfd9db65001b444a42fb3bd2aef3d652b81b39fafe63f6e2",
       "executable": false
     },
+    ".github/scripts/install-browsers.sh": {
+      "sha256": "869ac942fcb13571cc5b2b763bd9b6571c677c93f8036d989c8825d3f2c52e72",
+      "executable": false
+    },
     ".github/workflows/deploy.yml": {
       "sha256": "43ebd67d713bf5dcc1a4c3bdee66aabd2b08a2d214235054fdcc38211326015f",
       "executable": false
@@ -968,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "3eb1c3c25dcb13f2e85eb1e852cc19ff9033457a7baa1dae0413743ac3853a14",
+      "sha256": "84ee62e07623c3c889dab788a3253dcf6867a87ce688bd9949ea089e2fa9fee0",
       "executable": false
     },
     "DEMO.md": {
@@ -1048,7 +1052,7 @@
       "executable": false
     },
     "docs/OVERVIEW.md": {
-      "sha256": "5552bcb4b5edeb3e7d1e03b7aa261d408c43e58504c0173730852e24650ac776",
+      "sha256": "8ef50d3752307c5d0e331d3599aa6fe937f6826f682131233717083d7699ba72",
       "executable": false
     },
     "docs/release/core-wiki-profile.md": {
