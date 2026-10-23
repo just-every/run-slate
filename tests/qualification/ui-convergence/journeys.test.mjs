@@ -1,3 +1,6 @@
+import {beginTouchJourney} from './touch-journey.mjs';
+import {touchCommentJourney,touchPublishShareJourney} from './touch-page.mjs';
+import {touchDatabaseJourney} from './touch-database.mjs';
 import { samlJourney } from './saml-journey.mjs';
 import { folderJourney } from './folder-journey.mjs';
 import {tablesJourney} from './tables-journey.mjs';
@@ -181,7 +184,7 @@ for (const width of [1440, 390]) {
       await withSecondPerson(state, width, people => groupMentionJourney(state, people));
     });
   });
-  test(`real core-wiki journeys at ${width}px`, { timeout: 300000 }, async t => {
+  test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: 300000 }, async t => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       const refused = await state.context.request.get(state.origin + '/api/ai/availability');
@@ -191,15 +194,17 @@ for (const width of [1440, 390]) {
       await state.page.getByRole('button', { name: 'More', exact: true }).click();
       await expect(state.page.getByRole('menu').getByRole('menuitem', { name: 'Ask', exact: true })).toHaveCount(0);
       await state.page.keyboard.press('Escape');
-      let pageId;
-      await t.test('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving', async () => { pageId = await writeJourney(state, width); });
-      assert.ok(pageId, 'Writing must complete before dependent journeys.');
-      await t.test('anchored comment, reset composer, reply and resolve', () => commentJourney(state, pageId));
-      await t.test('invite existing member, persisted grant and canonical copied link', () => shareJourney(state, pageId));
+      let pageId,touch;
+      try {
+      await t.test('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving', async () => { pageId = await writeJourney(state, width); touch=await beginTouchJourney(state,width); });
+      assert.ok(pageId && touch, 'Owner and touch-member writing must complete before dependent journeys.');
+      await t.test('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await touchCommentJourney(touch,touch.pageId);});
+      await t.test('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touchPublishShareJourney(touch,touch.pageId);});
       await t.test('query, highlighted results and opening exact page', () => searchJourney(state, pageId));
       await settingsJourney(state, width);
       await chatJourney(state, width);
-      await t.test('remove a field with impact confirmation and export current view CSV', () => databaseJourney(state));
+      await t.test('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts', async () => {await databaseJourney(state);await touchDatabaseJourney(touch,touch.containerId);});
+      } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
   });
   test(`two people edit at once, lose access mid-edit and restore history at ${width}px`, { timeout: 420000 }, async t => {
