@@ -11,7 +11,7 @@ import { permitted } from '../search/visibility';
 import { authenticateToken } from './authentication';
 import { operations, openApi } from './definitions';
 import { executeOperation } from './handlers';
-import { mintToken, revokeToken, tokenAdministration } from './tokens';
+import { mintToken, revokeToken, tokenAdministration, requireTokenMember } from './tokens';
 
 export function publicError(c: Context<AppEnvironment>, cause: unknown) {
   const known = cause instanceof ApiProblem, invalid = cause instanceof ZodError || cause instanceof SyntaxError;
@@ -40,6 +40,6 @@ export function createTokenAdministrationRoutes() {
   registerActivityResolver('api-token', async (ctx, id) => await permitted(() => requireWorkspaceOwner(ctx)) || !!await ctx.db.prepare('SELECT id FROM public_api_tokens WHERE id=? AND workspace_id=? AND member_id=?').bind(id, ctx.actor.workspaceId, ctx.actor.id).first());
   return new Hono<AppEnvironment>()
     .get('/', async c => c.json(await tokenAdministration(featureContext(c))))
-    .post('/', async c => { await requireStepUp(c, 'credentials:mint'); return c.json(await mintToken(featureContext(c), await c.req.json())); })
-    .post('/:id/revoke', async c => { await requireStepUp(c, 'credentials:mint'); return c.json(await revokeToken(featureContext(c), c.req.param('id'), (await c.req.json()).operationKey)); });
+    .post('/', async c => { await requireTokenMember(featureContext(c)); await requireStepUp(c, 'credentials:mint'); return c.json(await mintToken(featureContext(c), await c.req.json())); })
+    .post('/:id/revoke', async c => { await requireTokenMember(featureContext(c)); await requireStepUp(c, 'credentials:mint'); return c.json(await revokeToken(featureContext(c), c.req.param('id'), (await c.req.json()).operationKey)); });
 }

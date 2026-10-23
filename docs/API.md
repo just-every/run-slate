@@ -19,3 +19,15 @@ Supply an `operationKey` on every write. Retrying the same request with the same
 Lists accept `limit` up to 100 and return an opaque `nextCursor`. Send that cursor with the same query to continue. Each token permits 120 requests per minute. A rate refusal returns HTTP 429 and a `Retry-After` header in seconds.
 
 Errors have the same shape throughout the versioned API: `error` contains `code`, `message` and `requestId`. Keep the request identifier when reporting a problem. Token grants, use summaries, expiry refusals and revocations appear in Activity.
+
+## Webhooks
+
+Workspace owners can add a webhook in Developer access. Choose a space, event kinds and a public HTTPS destination on port 443. Save the signing secret once, just as you save a personal token. It is stored encrypted and is never included in an archive.
+
+The outbound flow sends your destination the stable event identifier, event kind, action and time, plus record identifiers and titles only while the acting owner can read the record. It sends no page bodies or comment text. The DNS service receives the destination hostname to check public addresses before registration and before each delivery. URL credentials, fragments, local or reserved names and private addresses are refused. Redirects are refused, and each exchange has a ten-second bound. Resolved addresses are checked without address pinning.
+
+The `Slate-Signature` header is `t=<unix-seconds>,v1=<hex-signature>`. Verify the HMAC-SHA256 signature over the timestamp, a dot and the exact request body using your saved secret. Check the timestamp against your receiver’s clock. `Slate-Event-Id` identifies the event, `Slate-Delivery-Id` identifies its delivery and `Slate-Attempt` identifies the attempt. Use the stable event identifier to deduplicate retries.
+
+Failures retry at one minute, five minutes, thirty minutes, two hours, six hours, twelve hours and twenty-four hours from the first attempt. Exhausting the retry window disables the destination and creates an owner inbox reminder. View deliveries to inspect status, duration and up to 512 bytes of each response. Logs are retained for 30 days and excluded from archives. The panel shows the failure reason. Re-enable the destination and replay a delivery after fixing the receiver; a replay uses a fresh timestamp and signature with the same event identifier.
+
+Removing the acting owner disables their destinations. Erasing them removes their subscriptions and logs. Restored subscriptions stay disabled without credentials; create a fresh destination after restoring.

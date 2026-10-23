@@ -1,3 +1,4 @@
+import { webhookAccessJourney } from './webhook-access-journey.mjs';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { expect, request } from '@playwright/test';
@@ -58,5 +59,6 @@ export async function developerAccessJourney(state, people) {
     await page.screenshot({ path: `.artifacts/ui-convergence/developer-access-${width}-activity.png`, fullPage: true });
     await page.goto(`${origin}/app/settings?section=developer`, { waitUntil: 'networkidle' });
     await expect(page.getByRole('region', { name: 'Developer access', exact: true })).toContainText('State: Revoked');
+    await webhookAccessJourney(state);
   } finally { await transport.dispose(); }
 }

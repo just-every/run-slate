@@ -1,3 +1,4 @@
+import { webhookEdge } from '../helpers/webhook-edge.mjs';
 import { createRequire } from 'node:module';
 import { readFile, realpath, mkdir, writeFile, appendFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -25,6 +26,8 @@ const worker = { ...workerOptions, name: config.name,
   ...await productionModules(selected.main, modulesRules, miniflare),
   bindings: { ...workerOptions.bindings, ...vars, ...mail },
   outboundService: async request => {
+    const webhook = await webhookEdge(request,persistPath,miniflare.Response);
+    if(webhook)return webhook;
     const saml = await samlEdge(request, persistPath, miniflare.Response);
     if (saml) return saml;
     const folder = await folderEdge(request, persistPath, miniflare.Response);

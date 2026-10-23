@@ -1,3 +1,4 @@
+import { WebhookAccess } from './WebhookAccess';
 import { useState } from 'react';
 import { useResource } from '../../../../client/useResource';
 import { mutate, operationKey, errorMessage } from '../../../../client/transport';
@@ -59,7 +60,7 @@ export function DeveloperAccess() {
             <button type="submit" className="primary" disabled={!resource.data.containers.length}>{pending ? 'Creating…' : 'Create token'}</button>
           </fieldset>
         </form>
-        <h3>Webhooks</h3><p>No webhook destinations are available yet.</p>
+        <WebhookAccess containers={resource.data.containers} canManage={resource.data.owner} />
         <h3>Applications</h3><p>Application authorization and remote clients are not available yet.</p>
       </> : null}
     </RequestState>

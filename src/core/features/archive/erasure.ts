@@ -1,3 +1,4 @@
+import {webhookPageErasure} from '../webhooks/erasure';
 import {erasePageReviews,eraseMemberReviews} from './erasure-reviews';
 import {prepareErasePageDerivatives} from './erasure-derivatives';
 import {prepareEraseImportMetadata} from './erasure-imports';
@@ -10,7 +11,7 @@ import { prepareEraseIntelligence } from './erasure-intelligence';
 import { discoveryPurgePageStatements } from '../notifications/purge';
 /** Only authorized deletion orchestrators call this planner; it returns no private content. */
 export async function prepareErasePages(ctx: FeatureContext, pageIds: string[]) {
-    const statements: D1PreparedStatement[] = [...await prepareEraseImportMetadata(ctx,pageIds),...await prepareErasePageDerivatives(ctx,pageIds),...(pageIds.length ? prepareInvalidateExports(ctx, pageIds) : []),...await prepareDeleteStructuredPages(ctx, pageIds), ...prepareEraseLegacy(ctx,pageIds),...await prepareEraseIntelligence(ctx, pageIds)];
+    const statements: D1PreparedStatement[] = [...webhookPageErasure(ctx,pageIds),...await prepareEraseImportMetadata(ctx,pageIds),...await prepareErasePageDerivatives(ctx,pageIds),...(pageIds.length ? prepareInvalidateExports(ctx, pageIds) : []),...await prepareDeleteStructuredPages(ctx, pageIds), ...prepareEraseLegacy(ctx,pageIds),...await prepareEraseIntelligence(ctx, pageIds)];
     for (const pageId of pageIds) {
         statements.push(...erasePageReviews(ctx,pageId));
         statements.push(ctx.db.prepare('DELETE FROM content_archive_locations WHERE page_id=?').bind(pageId),ctx.db.prepare('DELETE FROM content_schedules WHERE page_id=?').bind(pageId),ctx.db.prepare('DELETE FROM content_presence WHERE page_id=?').bind(pageId),ctx.db.prepare('DELETE FROM discovery_snapshots WHERE workspace_id=?').bind(ctx.actor.workspaceId));
