@@ -53,7 +53,7 @@ test('COMM-001 COMM-002 COMM-003 COMM-004 COMM-005 COMM-007 REV-001 REV-005: mar
     await replaceBlocks(owner, id, { operationKey: key('delete-anchor'), expectedRevisionId: replacement.receipt.revisionId, blocks: [] });
     const thread = (await listComments(reader, id)).threads[0];
     expect(thread).toMatchObject({ orphaned: 1, anchor_revision_id: p.receipt.revisionId });
-    expect((await readRevision(reader, id, p.receipt.revisionId)).blocks[0].id).toBe(block.id);
+    expect((await readRevision(reader, id, p.receipt.revisionId)).blocks![0]!.id).toBe(block.id);
     const resolved = await resolveThread(reader, c.value.threadId, { operationKey: key('resolve'), expectedRevisionId: thread.revision_id as string, resolved: true });
     expect((await listComments(reader, id)).threads[0].state).toBe('resolved');
     await resolveThread(reader, c.value.threadId, { operationKey: key('reopen'), expectedRevisionId: resolved.receipt.revisionId, resolved: false });

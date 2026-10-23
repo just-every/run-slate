@@ -320,6 +320,12 @@
       "name": "0050_chat_held_acknowledgment.sql",
       "sha256": "f328f36e4216432eab1dc729f6f321e2f83344ba4630b9c390cc40c1f3d356a1",
       "sql": "-- Acknowledging an uncertain send never changes its dispatch fence or receipt.\nALTER TABLE chat_deliveries ADD COLUMN acknowledged_at TEXT;\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0053_member_profiles.sql",
+      "sha256": "0b3a60c26182b8c8f6a79cbcaa20bd27ed4c448d9d796636c4a416146a0215c9",
+      "sql": "-- Optional profile fields and deliberate expertise visibility choices; existing members need no backfill.\nCREATE TABLE member_profiles (\n member_id TEXT PRIMARY KEY NOT NULL REFERENCES members(id),\n workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n title TEXT NOT NULL DEFAULT '', team TEXT NOT NULL DEFAULT '',\n manager_member_id TEXT REFERENCES members(id), timezone TEXT NOT NULL DEFAULT 'UTC',\n revision_id TEXT NOT NULL, updated_at TEXT NOT NULL\n);\nCREATE INDEX member_profiles_workspace ON member_profiles(workspace_id);\nCREATE TABLE member_expertise_overrides (\n member_id TEXT NOT NULL REFERENCES members(id), tag_key TEXT NOT NULL,\n label TEXT NOT NULL, custom INTEGER NOT NULL CHECK(custom IN (0,1)), hidden INTEGER NOT NULL CHECK(hidden IN (0,1)),\n PRIMARY KEY(member_id,tag_key)\n);\n"
     }
   ],
   "compatibilityDate": "2026-09-08",

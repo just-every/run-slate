@@ -22,4 +22,4 @@ export interface ReviewRequestItem {
  dispatchPausedAt: string | null; commentId: string | null; resolvedAt: string | null;
 }
 export interface ReviewRequestQueue { items: ReviewRequestItem[]; total: number; nextCursor?: string; counts: { assigned: number; requested: number }; canBulkVerify: boolean }
-export interface ReviewTarget { kind: ReviewAssigneeKind; id: string; name: string }
+export interface ReviewTarget { expertise?:string[]; kind: ReviewAssigneeKind; id: string; name: string }
