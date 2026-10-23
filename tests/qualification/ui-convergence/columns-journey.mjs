@@ -3,7 +3,20 @@ import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
 import {ok} from './two-people-support.mjs';
 import {accessible} from './browser-evidence.mjs';
-import {tap,type,checkpoint,touchReorder} from './touch-controls.mjs';
+import {tap,type,checkpoint} from './touch-controls.mjs';
+
+async function touchIntoColumn(page,handle,target){
+ await handle.scrollIntoViewIfNeeded();await target.scrollIntoViewIfNeeded();
+ const from=await handle.boundingBox(),to=await target.boundingBox();
+ assert.ok(from&&to);
+ const cdp=await page.context().newCDPSession(page);
+ try{
+  const start={x:from.x+from.width/2,y:from.y+from.height/2},end={x:to.x+to.width/2,y:to.y+to.height/2};
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[start]});
+  for(let step=1;step<=8;step++)await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:start.x+(end.x-start.x)*step/8,y:start.y+(end.y-start.y)*step/8}]});
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+ }finally{await cdp.detach();}
+}
 
 export async function columnsJourney(state,width,touch){
  const {page,context,origin,api}=state;
@@ -42,9 +55,9 @@ export async function columnsJourney(state,width,touch){
  await targetPage.getByRole('combobox',{name:'Number of columns',exact:true}).selectOption('3');
  await expect(targetPage.locator('.slate-column')).toHaveCount(3);
  await expect.poll(async()=>(await touch.api(`/api/pages/${id}`)).blocks.find(b=>b.blockType==='columns').content.count).toBe(3);
- const document=await touch.api(`/api/pages/${id}`),source=document.blocks.find(b=>b.blockType==='paragraph');
+ const document=await touch.api(`/api/pages/${id}`),source=document.blocks.find(b=>b.blockType==='paragraph'&&JSON.stringify(b.content).includes('Confirm the response owner.'));
  const handle=targetPage.locator(`[data-block-id="${source.id}"]`).getByRole('button',{name:/Block actions for/});
- await touchReorder(targetPage,handle,targetPage.locator('.slate-column').first());
+ await touchIntoColumn(targetPage,handle,targetPage.locator('.slate-column').first());
  await expect.poll(async()=>(await touch.api(`/api/pages/${id}`)).blocks.find(b=>b.id===source.id).parentBlockId).toBe(await targetPage.locator('.slate-column').first().getAttribute('data-column-id'));
  const input=targetPage.locator('.slate-column').first().getByRole('textbox',{name:'Paragraph',exact:true});
  await type(targetPage,input,'Response owner confirmed by touch.');
