@@ -50,7 +50,7 @@ export async function touchDatabaseToolsJourney(state,touch){
  await expect(record).toBeHidden();
  await state.runScheduled();
  await tap(rule.getByRole('button',{name:'Run log',exact:true}));
- await expect(page.locator('.automation-run-log')).toContainText('completed');
+ await expect(page.getByRole('heading',{name:'Run log',exact:true}).locator('..')).toContainText('success');
  const created=(await api(`${base}/views/${view.id}`)).records.find(item=>item.title==='Touch automation intake');
  assert.ok(created);
  const comments=await api(`/api/comments/page/${created.pageId}`);
