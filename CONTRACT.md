@@ -1529,7 +1529,7 @@ Owners see every personal access token, OAuth app, MCP client and webhook, with 
 
 *Acceptance:* a browser journey creates a token and an OAuth app, sees both with last use after an API call, revokes each and gets 401 on the next request, and finds the activity entries.
 
-*Status:* missing.
+*Status:* partial. Developer access in workspace settings lets Owners list every personal token and Members list their own, with member, scopes, creation, expiry, minute-coarsened last use and state. Secrets are returned once; create and revoke require fresh session proof; revocation is checked on the next request. Grants, use summaries, expiry refusals and revocations are activity entries. `tests/e2e/public-api/contract.test.ts` exercises visibility and immediate revocation; `tests/qualification/ui-convergence/developer-access-journey.mjs`, inside the existing readership journey at 1440 and 390, creates Owner/Member tokens, copies the once-issued secret, observes last use, revokes as Owner, sees 401 and activity, and checks layout/accessibility. OAuth apps and MCP clients are not built; the panel states their absence. Webhook administration is not built yet. Default ADOPTED: PARTIAL with clause text unchanged; the requested carve awaits ct.
 
 #### API-005 — Zapier, Make and Crank apps.
 Slate publishes an app in the Zapier app directory and one in Make's app directory, and ships a [Crank](https://github.com/just-every/run-crank) connector. Each one connects to the buyer's own deployment by URL through `API-001`'s OAuth app flow and acts as the connecting member.
@@ -1813,8 +1813,8 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 172 | 49 | 0 | 221 |
-| Target and push further | 19 | 46 | 40 | 105 |
-| All | 191 | 95 | 40 | 326 |
+| Target and push further | 19 | 47 | 39 | 105 |
+| All | 191 | 96 | 39 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2121,7 +2121,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `API-001` | Public REST API | target | partial | `tests/e2e/public-api/contract.test.ts` — personal API tokens run the published HTTP contract with member parity, task effects and immediate authority loss | OAuth applications; databases, records, comments, search, members, groups, files and URL resolution. Conservative token custody defaults in the clause Status await ct; no Admin role exists. |
 | `API-002` | Webhooks | target | missing | — | not implemented |
 | `API-003` | MCP server | target | partial | `src/core/features/external-agent/routes.ts` | see the clause |
-| `API-004` | App and token administration | target | missing | — | not implemented |
+| `API-004` | App and token administration | target | partial | `tests/e2e/public-api/contract.test.ts`; `tests/qualification/ui-convergence/developer-access-journey.mjs` — developerAccessJourney, existing readership journey at 1440/390 | OAuth applications, MCP clients and webhook administration. Default ADOPTED: PARTIAL; carve awaits ct. |
 | `API-005` | Zapier, Make and Crank apps | target | missing | — | not implemented |
 | `ADMIN-001` | SAML single sign-on | target | partial | `tests/flagship/core/identity-upgrade.test.ts` — "ADMIN-001 — signed SP and IdP SAML, DNS-gated invited or allow-listed JIT, enforced member SSO and one owner mailbox escape" (Verify Slate: workers); `tests/qualification/ui-convergence/saml-journey.mjs` — "samlJourney", loaded by "SAML sign-in verifies the domain and signatures while preserving guest and designated-owner access" (Verify Slate: ui-content-desktop-2 and ui-content-mobile-1, 1440/390) | Real Okta and Microsoft Entra ID SAML provider acceptance is NOT RUN. Google Workspace, JumpCloud and Auth SAML provider acceptance is also NOT RUN. Pre-enforcement Managed preview owner sessions lack provenance distinguishing them from mailbox sessions; that prior-session case is not proven. WORK-015 currently implements sign-in through an external OIDC provider; Slate exposes no OIDC identity-provider token-issuance door, so the identity-provider-function sentence remains unproven. |
 | `ADMIN-002` | SCIM provisioning | target | missing | — | not implemented |
