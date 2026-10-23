@@ -13,7 +13,12 @@ export async function syncedCase(request:(method:string,path:string,body?:unknow
  const two=await json('GET',`/pages/${copies[1]}`);expect(two.blocks[0].synced.text).toEqual([{text:changed}]);expect(JSON.stringify(two.blocks[0].content)).not.toContain(changed);
  expect((await request('PATCH',`/pages/${copies[0]}/synced/${block.id}`,{...edit,operationKey:key()})).status).toBe(409);
  const grant=async(targetId:string,level:string,id?:string,revoke=false)=>(await json('POST','/sharing',{operationKey:key(),targetKind:'page',targetId,principalKind:'member',principalId:readerId,level,...(id?{id}:{}),revoke})).value.id;
- const copyGrant=await grant(copies[0],'edit'),sourceGrant=await grant(source,'view');
+ const copyGrant=await grant(copies[0],'edit'),sourceGrant=await grant(source,'edit');
+ one=await json('GET',`/pages/${copies[0]}`,undefined,'reader');block=one.blocks[0];
+ const readerEdit={operationKey:key(),expectedCopyRevisionId:block.revisionId,expectedSourceRevisionId:block.synced.sourceRevisionId,text:[{text:changed}]};
+ const receipt=await json('PATCH',`/pages/${copies[0]}/synced/${block.id}`,readerEdit,'reader');expect(receipt.value).not.toHaveProperty('blocks');expect(JSON.stringify(receipt)).not.toContain(changed);
+ await grant(source,'view',sourceGrant);
+ expect((await request('PATCH',`/pages/${copies[0]}/synced/${block.id}`,readerEdit,'reader')).status).toBe(404);
  one=await json('GET',`/pages/${copies[0]}`,undefined,'reader');block=one.blocks[0];expect(block.synced.canEdit).toBe(false);
  expect((await request('PATCH',`/pages/${copies[0]}/synced/${block.id}`,{...edit,operationKey:key(),expectedSourceRevisionId:block.synced.sourceRevisionId},'reader')).status).toBe(404);
  await grant(source,'view',sourceGrant,true);
