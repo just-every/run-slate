@@ -145,7 +145,7 @@ export async function compileNativePlan(ctx:FeatureContext, statements:CapturedS
       const v=row.values, table=row.table;
       if(table==='pages'||table==='containers'||table==='members'||table==='groups'||table==='files')add(table,'id',u.id);
       else if((table==='record_revisions'||table==='structured_revisions'))add(table,'entity_id',String(v.entity_id));
-      else if(table==='federation_import_mappings')add(table,'import_id',String(v.import_id));
+      else if(table==='federation_import_mappings')add(table,'import_job_id',String(v.import_job_id));
       else if(v.thread_id)add(table,'thread_id',String(v.thread_id));
       else if(v.page_id)add(table,'page_id',String(v.page_id));
       else if(v.container_id)add(table,'container_id',String(v.container_id));

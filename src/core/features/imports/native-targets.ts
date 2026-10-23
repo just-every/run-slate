@@ -20,7 +20,7 @@ function scopeQuery(unit:NativeUnit,scope:NativeScope,job:NativeImportBinding):D
   }).join(',');
   // Mapping ownership is aggregated per imported unit; older retained ID
   // scopes continue to use their original exact identity comparison.
-  const owned=grantTables.has(scope.table)||(scope.table==='federation_import_mappings'&&scope.column==='import_id');
+  const owned=grantTables.has(scope.table)||(scope.table==='federation_import_mappings'&&scope.column==='import_job_id');
   return sql(`SELECT COALESCE(json_group_array(json(value)),'[]') FROM (SELECT json_object(${columns}) AS value FROM ${identifier(scope.table)} WHERE ${identifier(scope.column)}=?${owned?' AND id IN (SELECT value FROM json_each(?))':''} ORDER BY value COLLATE BINARY)`,scope.id,...owned?[ownedGrants(unit,scope.table)]:[]);
 }
 function projection(unit:NativeUnit,job:NativeImportBinding):D1Sql {

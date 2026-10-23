@@ -7092,7 +7092,7 @@
       "executable": false
     },
     "src/core/features/imports/native-plan.ts": {
-      "sha256": "335b03ec7037dd0f651e2ce489ffc1e1d2ef70a163661865887c3b692e8d8ca0",
+      "sha256": "db3d3e952a30cd101861d4f847af6a1487e1370ecfb7d14d27e7e18fff6e01b8",
       "executable": false
     },
     "src/core/features/imports/native-row-collections.ts": {
@@ -7112,7 +7112,7 @@
       "executable": false
     },
     "src/core/features/imports/native-targets.ts": {
-      "sha256": "ff43e1505856e527a8a48ccdcdd1fff2686b281f08fbaa5fb766426e1512eb2e",
+      "sha256": "c143ca1a80d06b25adf9f96b864a014d138e6b999c698d27ea407604f48d582d",
       "executable": false
     },
     "src/core/features/imports/notion/fields.ts": {
