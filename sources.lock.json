@@ -944,7 +944,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "85315fccf829544fe11ef0cd2227cc5301a6d4ffeb25a04d19df0442e4edf8e1",
+      "sha256": "9c4061b84291f8450f28b6527c75e1b2200d3704c9740d4c0d006a300b768dd9",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "f64643c6d1c8f003ccc928f41acc01ffd5be7e544d813430e0706bad94d12eba",
+      "sha256": "5f3d13df95d5f46d74a280ffbab50642013568ae1405ecaf428d68e832fdd10d",
       "executable": false
     },
     "DEMO.md": {
@@ -1020,7 +1020,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "a70b24529c7163b49d3fe26c4b7e857eff75f71af398b3bb3809b1ec70ccfe8d",
+      "sha256": "c72809607f879e8ee5ef3eedbc49f6a3bc18d6aa34a5c285138502bd9d06d115",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
