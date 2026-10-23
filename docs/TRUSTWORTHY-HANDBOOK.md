@@ -74,3 +74,7 @@ A short expiry suits pages that change often, such as on-call rotas or prices. 9
 Choose **Columns** from the block menu for a section with two to five columns. Drag an ordinary block by its handle into a column, or choose **Add to column** to write there. Columns stack in reading order on phones; the same labeled controls and handles work by touch. A section cannot contain another column section. Reducing the column count moves its content into the last remaining column.
 
 HTML exports preserve columns; Markdown uses HTML layout annotations and the readable archive retains the block tree for re-import. Notion HTML column exports and Confluence storage layouts map to columns. Word and PDF currently flow column content in reading order.
+
+A paragraph without child blocks can be made synced from its block actions. Copy its synced block link, then insert a **Synced block** on another page. Each copy names its source. Save an edit in a copy to update the source; open copies refresh within a few seconds. Editing requires edit access to both pages, and readers need access to the source.
+
+A trashed source shows an access-needed message. Permanent deletion turns its copies into ordinary paragraphs that retain the last published text and source name. Publish outstanding source changes first, and remove copies whose readers cannot read the source before deleting. Readable exports and duplicates contain ordinary paragraphs with the source named.
