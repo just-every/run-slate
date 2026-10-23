@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "3c0019d2102b58b2127695fe249c4a6d0c23fc9a288343f3b95f104494f13195",
+      "sha256": "2154ddabc74e4b95e3de7f5d31acb979e421937ef4895e827326d9ec6c8fd20c",
       "executable": false
     },
     "DEMO.md": {
@@ -1816,7 +1816,7 @@
       "executable": false
     },
     "management/integration/deployment-spec.json": {
-      "sha256": "b3a465dcc97eb7e270d6680a556c5c5336368e06876e2740aae3ecee10557b7f",
+      "sha256": "793b23ce488f3770d81367e20d27aa04eb8ff60bf94352eb8e8c8ee3196fe1c3",
       "executable": false
     },
     "management/integration/index.d.mts": {
@@ -1840,7 +1840,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "234d0eea4af702effa8c07f82f894bd125531220364e6fc6fac1828659b11730",
+      "sha256": "2809c724ad5dfab7be7e0732521535247bee7bb321e3bad06e83a7553d5aa505",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -2047,19 +2047,19 @@
       "sha256": "f328f36e4216432eab1dc729f6f321e2f83344ba4630b9c390cc40c1f3d356a1",
       "executable": false
     },
-    "migrations/core/0054_public_api_tokens.sql": {
+    "migrations/core/0055_public_api_tokens.sql": {
       "sha256": "9e3e8c1311f8253ca1ae1f7c5ef34c75f225bce62dd61a5a54f81f2ab1c7ca66",
       "executable": false
     },
-    "migrations/core/0055_webhook_subscriptions.sql": {
+    "migrations/core/0056_webhook_subscriptions.sql": {
       "sha256": "fdbf117819a48a2dba9b1fbfa90d08562f6527c3bf8e96c89d671b7a2ad8ee5f",
       "executable": false
     },
-    "migrations/core/0056_audit_stream.sql": {
+    "migrations/core/0057_audit_stream.sql": {
       "sha256": "0d2c6c0ce09d647c2bdfe6b4f7c4bc828dc38735141c01ede5a2e39c49b0201f",
       "executable": false
     },
-    "migrations/core/0057_scim_directory.sql": {
+    "migrations/core/0058_scim_directory.sql": {
       "sha256": "4575fde9650217cb358c7df14dc098ecb3a1f471db6f8c0e7a2fc82d0ea90084",
       "executable": false
     },
