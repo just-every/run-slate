@@ -7,7 +7,9 @@ import {readSkill,requireSkillRevisionDisclosure} from '../../../src/core/featur
 import {listPageSkills} from '../../../src/core/features/skills/listing';
 import {requireActiveSkill} from '../../../src/core/features/skills/admission';
 import {transitionSkill} from '../../../src/core/features/skills/service';
-import {seedPageGrant} from '../../e2e/setup/fixtures';
+import {seedPageGrant,sessionFor} from '../../e2e/setup/fixtures';
+import {updatePage} from '../../../src/core/features/pages/service';
+import {archivePage} from '../../../src/core/features/archive/service';
 beforeEach(reset);
 test('INQ-005 — learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse',async()=>{
  const f=await fixture(),host=await document(f,'Method host'),inquirySource=await document(f,'Private inquiry question'),observation=await document(f,'Private observation'),analysis=await document(f,'Private analysis'),finding=await document(f,'Private finding'),measurement=await document(f,'Private measurement');
@@ -31,4 +33,21 @@ test('INQ-005 — learned definitions retain inquiry, observation, analysis, fin
   await expect(requireActiveSkill(f.context(f.reader),versionId,[host.ref],[f.reader],1)).rejects.toMatchObject({status:404});
   await seedPageGrant(source.id,{principalKind:'member',principalId:f.reader,level:'view'});
  }
+});
+test('inquiry and archive page references show a reader the published title, not an unpublished rename',async()=>{
+ const {SELF}=await import('cloudflare:test');
+ const f=await fixture(),host=await document(f,'Published inquiry host'),source=await document(f,'Inquiry evidence'),ctx=f.context();
+ const inquiry=await createInquiry(ctx,{operationKey:'published-title-inquiry',pageId:host.id,question:'Why did the handover slip?',refs:[source.ref],audience:[f.owner,f.reader],hypotheses:[{statement:'Staffing changed',disconfirmation:'Same staffing'},{statement:'Tooling changed',disconfirmation:'Same tooling'}]});
+ await env.DB.prepare('INSERT INTO workspace_policies VALUES (?,?,?)').bind(f.workspaceId,JSON.stringify({'page.lifecycle.v1':'draft-then-publish'}),ctx.now).run();
+ await updatePage(ctx,host.id,{operationKey:'unpublished-rename',expectedRevisionId:host.ref.revisionId,properties:{title:'Confidential restructuring plan'}});
+ const cookie=await sessionFor(f.reader),read=async(path:string)=>{const response=await SELF.fetch(`http://localhost/api${path}`,{headers:{cookie}}),text=await response.text();expect(response.status,text).toBe(200);return text;};
+ expect(JSON.parse(await read(`/pages/${host.id}`)).page.title).toBe('Published inquiry host');
+ const inquiryText=await read(`/inquiries/${inquiry.value.id}`);
+ expect(JSON.parse(inquiryText).pageRef.title).toBe('Published inquiry host');
+ expect(inquiryText).not.toContain('Confidential restructuring plan');
+ const current=await env.DB.prepare('SELECT revision_id FROM pages WHERE id=?').bind(host.id).first<string>('revision_id');
+ await archivePage(ctx,host.id,{operationKey:'archive-renamed-host',expectedRevisionId:current!,action:'archive'});
+ const archiveText=await read('/archive');
+ expect(JSON.parse(archiveText).items.find((item:{id:string})=>item.id===host.id)?.title).toBe('Published inquiry host');
+ expect(archiveText).not.toContain('Confidential restructuring plan');
 });
