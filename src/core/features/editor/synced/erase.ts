@@ -33,8 +33,10 @@ export async function detachSyncedSources(ctx:FeatureContext,pageIds:string[]){
   const visible=(id:string)=>{const decision=access.get(id)?.decision;return !!decision&&can(decision,'view');};
   for(const row of audienceRefs){const source=row.sourcePageId;if(visible(row.page_id)&&!visible(source))throw new ApiProblem(409,'SYNCED_COPY_AUDIENCE','Some copies have readers without source access. Remove those copies or narrow their sharing before permanently deleting the source.');}
  }
- const isPublic=async(id:string)=>!!await ctx.db.prepare("SELECT 1 FROM public_exposures e JOIN pages p ON p.id=e.page_id JOIN containers c ON c.id=p.container_id JOIN workspaces w ON w.id=p.workspace_id WHERE e.page_id=? AND e.revoked_at IS NULL AND p.published_revision_id IS NOT NULL AND c.public_link_access='allowed' AND c.anonymous_access='allowed' AND w.public_link_access='allowed' AND w.anonymous_access='allowed'").bind(id).first();
- for(const row of audienceRefs){const source=row.sourcePageId;if(await isPublic(row.page_id)&&!await isPublic(source))throw new ApiProblem(409,'SYNCED_COPY_AUDIENCE','Remove publicly exposed copies before deleting a private synced source.');}
+ const publicSql="EXISTS(SELECT 1 FROM public_exposures e JOIN pages p ON p.id=e.page_id JOIN containers c ON c.id=p.container_id JOIN workspaces w ON w.id=p.workspace_id WHERE e.page_id=? AND e.revoked_at IS NULL AND p.published_revision_id IS NOT NULL AND c.public_link_access='allowed' AND c.anonymous_access='allowed' AND w.public_link_access='allowed' AND w.anonymous_access='allowed')";
+ const exposureStates=new Map<string,boolean>();
+ for(const id of [...new Set([...sourceIds,...destinations])]){const value=!!(await ctx.db.prepare('SELECT '+publicSql+' AS value').bind(id).first<{value:number}>())?.value;exposureStates.set(id,value);statements.push(mutationGuard(ctx.db,'SELECT ('+publicSql+')=?',[id,+value]));}
+ for(const row of audienceRefs)if(exposureStates.get(row.page_id)&&!exposureStates.get(row.sourcePageId))throw new ApiProblem(409,'SYNCED_COPY_AUDIENCE','Remove publicly exposed copies before deleting a private synced source.');
  const convert=(block:BlockView):BlockView=>{
   if(block.blockType!=='synced-reference'||!gone.has((block.content as any).sourcePageId))return block;
   const c=block.content as {sourcePageId:string;sourceBlockId:string},source=sources.get(`${c.sourcePageId}:${c.sourceBlockId}`);
