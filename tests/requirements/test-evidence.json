@@ -2095,6 +2095,17 @@
         "WORK-007"
       ],
       "reason": "Exercises the versioned personal-token HTTP operations, schemas, current native access, operation replay, token custody and task effects. OAuth and the remaining resource families are unbuilt; this does not establish complete public API acceptance."
+    },
+    {
+      "file": "tests/e2e/webhooks/deliveries.test.ts",
+      "testName": "owner webhook subscriptions sign current readable events, persist backoff, replay and disable once without following refused destinations",
+      "kind": "supporting-regression",
+      "clauses": [
+        "SHARE-002",
+        "ACT-002",
+        "NOTIF-004"
+      ],
+      "reason": "Exercises owner-managed outbound event delivery, current native source access, signatures, durable retry and replay, owner reminders, credential portability and erasure. OAuth subscribers, resolved-address pinning and real receiver acceptance remain unproven."
     }
   ]
 }

@@ -1,3 +1,4 @@
+import { createWebhookRoutes } from '../features/webhooks/routes';
 import { createPublicApiRoutes, createTokenAdministrationRoutes, publicError } from '../features/public-api/routes';
 import { healthResponse } from "./health-response";
 import {editorConfig} from "./editor-config";
@@ -60,6 +61,7 @@ export function createApi() {
     .get("/health", (context) => healthResponse(context.req.raw, context.env, context.executionCtx))
     .route("/", createSessionRoutes())
     .route("/api/developer/tokens", createTokenAdministrationRoutes())
+    .route("/api/developer/webhooks", createWebhookRoutes())
 ;
 
   app.get('/api/editor/config', context => {
