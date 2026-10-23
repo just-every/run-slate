@@ -69,6 +69,7 @@ export function wordBlock(block:BlockView, blocks:BlockView[], context:WordConte
       if(c.kind==='image'&&c.source?.fileId&&!image){body='';break;}
       body=p(image ?? wordLink(context,`/app/pages/${context.pageId}#block-${block.id}`,run(c.source?.name ?? c.caption ?? ''),block.id))+(c.caption?p(run(c.caption)):'');break;
     }
+    case 'file-card': body=p(wordLink(context,c.url,run(c.provider + ' file'),block.id));break;
     case 'link-card': body=p(wordLink(context,c.url,run(c.preview?.title ?? c.url),block.id));break;
     default: body=p(run(plainContent(block.content)));
   }

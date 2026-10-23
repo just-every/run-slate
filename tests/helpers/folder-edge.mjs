@@ -32,7 +32,7 @@ export function folderFixture(provider) {
   const items = [root, operations, handover, denied, unsupported, ...documents].map(item => ({ ...item,
     url: google && item.folder ? `https://drive.google.com/drive/folders/${item.id}` : url(item.id), version: 'synthetic-slate-401' }));
   return { provider, token: google ? 'synthetic-slate-201' : 'synthetic-slate-202', driveId: 'synthetic-slate-203',
-    root: items[0], operations: items[1], handover: items[2], denied: items[3], unsupported: items[4], documents: items.slice(5), items };
+    readerToken:google?'synthetic-slate-601':'synthetic-slate-602', root: items[0], operations: items[1], handover: items[2], denied: items[3], unsupported: items[4], documents: items.slice(5), items };
 }
 
 /** Small but genuine OOXML: heading, table, embedded PNG and provider cross-links. */
@@ -65,16 +65,21 @@ const payloads = new Map(fixtures.flatMap(fixture => fixture.documents.map((item
     : documentBytes(item, fixture.documents[(index + 1) % 12], fixture.denied)])));
 
 export async function initializeFolderEdge(directory) {
-  await writeFile(marker(directory), JSON.stringify({ enabled: true }));
+  await writeFile(marker(directory), JSON.stringify({ enabled: true, renamed: {}, deleted: [] }));
   await writeFile(requests(directory), '');
+}
+export async function setFileCardFixture(directory,changes) {
+  const current=JSON.parse(await readFile(marker(directory),'utf8'));
+  await writeFile(marker(directory)+'.new',JSON.stringify({...current,...changes}));
+  const {rename}=await import('node:fs/promises');await rename(marker(directory)+'.new',marker(directory));
 }
 export async function readFolderRequests(directory) {
   return (await readFile(requests(directory), 'utf8')).split('\n').filter(Boolean).map(line => JSON.parse(line));
 }
 function providerItem(item, google) {
   if (google) return { id: item.id, name: item.name, webViewLink: item.url, mimeType: item.folder ? folder : item.mimeType,
-    version: item.version, capabilities: { canDownload: item.readable, canListChildren: item.readable } };
-  return { id: item.id, name: item.name, webUrl: item.url, eTag: item.version, ...(item.folder ? { folder: {} } : { file: { mimeType: item.mimeType }, size: payloads.get(item.id)?.length ?? 1 }) };
+    modifiedTime:'2026-10-20T09:30:00.000Z', owners:[{displayName:'Alex Owner'}], version: item.version, capabilities: { canDownload: item.readable, canListChildren: item.readable } };
+  return { id: item.id, name: item.name, webUrl: item.url, lastModifiedDateTime:'2026-10-20T09:30:00.000Z', shared:{owner:{user:{displayName:'Alex Owner'}}}, eTag: item.version, ...(item.folder ? { folder: {} } : { file: { mimeType: item.mimeType }, size: payloads.get(item.id)?.length ?? 1 }) };
 }
 
 /** Only Google Drive and Microsoft Graph HTTP responses are recorded; Slate's APIs and importers run unchanged. */
@@ -83,31 +88,35 @@ export async function folderEdge(request, directory, ResponseClass) {
   const graph = url.origin === 'https://graph.microsoft.com' && (url.pathname === '/v1.0/me' || url.pathname.startsWith('/v1.0/drives/synthetic-slate-203/'));
   const download = url.origin === 'https://synthetic-slate-204.sharepoint.com' && url.pathname.startsWith('/downloads/');
   if (!google && !graph && !download) return null;
-  try { await readFile(marker(directory)); } catch (cause) { if (cause.code === 'ENOENT') return null; throw cause; }
+  let control;try { control=JSON.parse(await readFile(marker(directory),'utf8')); } catch (cause) { if (cause.code === 'ENOENT') return null; throw cause; }
   assert.equal(request.method, 'GET', 'Folder imports must only read the provider');
   const fixture = fixtures.find(item => item.provider === (google ? 'google-drive' : 'sharepoint'));
-  assert.equal(request.headers.get('authorization'), download ? null : `Bearer ${fixture.token}`, 'Delegated credentials must stay at their provider boundary');
+  const reader=request.headers.get('authorization')===`Bearer ${fixture.readerToken}`;
+  assert.ok(download?request.headers.get('authorization')===null:[fixture.token,fixture.readerToken].some(token=>request.headers.get('authorization')===`Bearer ${token}`),'Delegated credentials must stay at their provider boundary');
   // No credentials, signed download URLs or headers are recorded in the receipt.
   await appendFile(requests(directory), JSON.stringify({ provider: fixture.provider, method: request.method, pathname: url.pathname,
     page: url.searchParams.get('pageToken') ?? url.searchParams.get('$skiptoken'), media: url.searchParams.get('alt') === 'media' }) + '\n');
   const json = value => new ResponseClass(JSON.stringify(value), { headers: { 'content-type': 'application/json' } });
-  if (google && url.pathname === '/oauth2/v3/userinfo') return json({ sub: 'synthetic-slate-205', email: 'owner@test.invalid', email_verified: true });
-  if (graph && url.pathname === '/v1.0/me') return json({ id: 'synthetic-slate-206', displayName: 'Alex Owner', mail: 'owner@test.invalid', userPrincipalName: 'owner@test.invalid' });
+  if (google && url.pathname === '/oauth2/v3/userinfo') return json({ sub: reader?'synthetic-slate-605':'synthetic-slate-205', email: reader?'reader@test.invalid':'owner@test.invalid', email_verified: true });
+  if (graph && url.pathname === '/v1.0/me') return json({ id: reader?'synthetic-slate-606':'synthetic-slate-206', displayName:reader?'Morgan Reader':'Alex Owner', mail:reader?'reader@test.invalid':'owner@test.invalid', userPrincipalName:reader?'reader@test.invalid':'owner@test.invalid' });
   const itemId = download ? url.pathname.split('/').at(-1) : google ? url.pathname.match(/^\/drive\/v3\/files\/([^/]+)/)?.[1] : url.pathname.match(/\/items\/([^/]+)/)?.[1];
   const list = google ? url.pathname === '/drive/v3/files' : url.pathname.endsWith('/children');
   if (list) {
     const parentId = google ? /^'([^']+)' in parents and trashed = false$/.exec(url.searchParams.get('q') ?? '')?.[1] : itemId;
-    const parent = fixture.items.find(item => item.id === parentId);
+    const parent = fixture.items.find(item => item.id === (parentId==='root'||url.pathname.endsWith('/root/children')?fixture.root.id:parentId));
     assert.ok(parent?.folder, 'The provider may enumerate only recorded folders');
-    if (parent.denied) return new ResponseClass(null, { status: 403 });
-    const children = fixture.items.filter(item => item.parent === parentId), page = url.searchParams.get(google ? 'pageToken' : '$skiptoken');
+    if (reader||parent.denied) return new ResponseClass(null, { status: 403 });
+    const children = fixture.items.filter(item => item.parent === parent.id&&!control.deleted?.includes(item.id)), page = url.searchParams.get(google ? 'pageToken' : '$skiptoken');
     assert.ok(page === null || page === 'synthetic-slate-207');
     const paged = children.length > 4, selected = paged ? page ? children.slice(4) : children.slice(0, 4) : children;
-    return google ? json({ files: selected.map(item => providerItem(item, true)), ...(paged && !page ? { nextPageToken: 'synthetic-slate-207' } : {}) })
-      : json({ value: selected.map(item => providerItem(item, false)), ...(paged && !page ? { '@odata.nextLink': `${url.origin}${url.pathname}?$skiptoken=synthetic-slate-207` } : {}) });
+    return google ? json({ files: selected.map(item => providerItem({...item,name:control.renamed?.[item.id]??item.name}, true)), ...(paged && !page ? { nextPageToken: 'synthetic-slate-207' } : {}) })
+      : json({ value: selected.map(item => providerItem({...item,name:control.renamed?.[item.id]??item.name}, false)), ...(paged && !page ? { '@odata.nextLink': `${url.origin}${url.pathname}?$skiptoken=synthetic-slate-207` } : {}) });
   }
   const item = fixture.items.find(item => item.id === itemId);
   assert.ok(item, `Unexpected recorded provider item: ${url.pathname}`);
+  if(control.failed?.includes(item.id))return new ResponseClass(null,{status:502});
+  if(control.deleted?.includes(item.id))return new ResponseClass(null,{status:404});
+  if(reader&&!item.folder)return new ResponseClass(null,{status:403});
   if (item.denied && graph) return new ResponseClass(null, { status: 403 });
   if (download || url.pathname.endsWith('/export') || url.searchParams.get('alt') === 'media' || url.pathname.endsWith('/content')) {
     assert.ok(!item.folder && item.id !== fixture.unsupported.id, 'Unsupported and unreadable sources must never be downloaded');
@@ -115,5 +124,5 @@ export async function folderEdge(request, directory, ResponseClass) {
     const bytes = payloads.get(item.id);
     return new ResponseClass(bytes, { headers: { 'content-type': item.mimeType === 'application/pdf' ? 'application/pdf' : word, 'content-length': String(bytes.length) } });
   }
-  return json(providerItem(item, google));
+  return json(providerItem({...item,name:control.renamed?.[item.id]??item.name}, google));
 }

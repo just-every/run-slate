@@ -1,3 +1,4 @@
+import type {FileReference} from '../file-cards/reference';
 import type {TableContent} from '../tables/model';
 import type {TableOfContentsSettings} from '../table-of-contents';
 import type {TaskReportDefinition} from '../../work-items/report-definition';
@@ -155,6 +156,8 @@ export interface MediaBlockData extends BlockBase {
   alt: string;
 }
 
+export interface FileCardBlockData extends BlockBase, FileReference {type:"file-card"}
+
 export type LinkCardDisplay = "plain" | "inline" | "card" | "embed";
 export type LinkPreviewState = "ready" | "loading" | "refused" | "failed";
 
@@ -222,6 +225,7 @@ export type EditorBlock =
   | CodeBlockData
   | TaskBlockData
   | MediaBlockData
+  | FileCardBlockData
   | LinkCardBlockData
   | ContentQueryBlockData
   | TableOfContentsBlockData

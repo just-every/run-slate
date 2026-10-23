@@ -14,6 +14,7 @@ export function markdownBlock(block: BlockView, blocks: BlockView[]): string {
     case 'task': return `- [${c.done ? 'x' : ' '}] ${text}`;
     case 'list': return (c.items ?? []).map((item: any, index: number) => `${c.variant === 'numbered' ? `${index + 1}.` : '-'} ${markdownText(item.text)}`).join('\n');
     case 'media': return c.source?.fileId ? `[${escapeMarkdown(c.source.name ?? 'Attachment')}](../media/${c.source.fileId})` : plainContent(block.content);
+    case 'file-card': return `[${escapeMarkdown(c.provider)} file](${c.url})`;
     case 'link-card': return `[${c.url ?? ''}](${c.url ?? ''})`;
     case 'expandable': return `${escapeMarkdown(c.summary ?? '')}\n\n${markdownText(c.content)}`;
     default: return text || plainContent(block.content);

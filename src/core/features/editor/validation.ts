@@ -1,3 +1,4 @@
+import {fileReferenceSchema} from './file-cards/reference';
 import {tableSchema} from './tables/schema';
 import {taskReportDefinitionSchema} from '../work-items/report-definition';
 import {contentQueryDefinitionSchema} from './query-definition';
@@ -19,6 +20,7 @@ export const safeUrl = (value: string) => {
 const span = z.object({ text: z.string(), status: z.object({colour:z.enum(['grey','blue','green','yellow','red','purple'])}).strict().optional(), marks: z.array(z.enum(['bold', 'italic', 'underline', 'strikethrough', 'code'])).optional(), colour: z.enum(['yellow', 'blue', 'green', 'red', 'purple']).optional(), link: z.object({ href: z.string().refine(safeUrl) }).optional(), mention: z.object({ kind: z.enum(['person', 'group', 'page', 'date']), label: z.string().optional(), id: z.string().optional() }).optional(), commentAnchorId: z.string().optional() }).strict().refine(value=>value.mention?.kind!=='group'||!!value.mention.id,'A group mention requires its group ID.').refine(value=>!value.status || (value.text.trim().length>0 && value.text.length<=80),'Status labels need 1 to 80 characters.').transform(value => value.mention ? {...value, mention: {...value.mention, label: value.mention.label ?? value.text}} : value);
 const rich = z.array(span);
 const schemas: Record<string, z.ZodType> = {
+    'file-card':fileReferenceSchema,
     paragraph: z.object({ text: rich }), heading: z.object({ text: rich, level: z.number().int().min(1).max(3), number: z.string().optional() }),
     list: z.object({ variant: z.enum(['bulleted', 'numbered', 'toggle']), start: z.number().int().optional(), items: z.array(z.object({ id: z.string(), text: rich, open: z.boolean().optional(), detail: rich.optional() })) }),
     quote: z.object({ text: rich, attribution: z.string().optional() }), divider: z.object({}), callout: z.object({ text: rich, tone: z.enum(['neutral', 'accent', 'good', 'warn', 'danger']), icon: z.string().optional() }),
