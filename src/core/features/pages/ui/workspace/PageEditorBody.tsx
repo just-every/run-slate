@@ -133,6 +133,7 @@ export function PageEditorBody({
     };
   }, [onAsk, onComment,editor, insertion, visibleBlocks]);
   const [insert, setInsert] = useState<{ after: string | null; range?:{anchor:number;focus:number}; inlineLabels?:boolean; onInlineInsert?:(span:InlineSpan)=>void; anchor: HTMLElement | Range } | null>(null);
+  const [syncedInsert,setSyncedInsert]=useState<{after:string|null}|null>(null);
   const [fileInsert,setFileInsert]=useState<{after:string|null}|null>(null);
   const [statusInsert,setStatusInsert]=useState<typeof insert>(null);
   const [query, setQuery] = useState("");
@@ -156,6 +157,7 @@ export function PageEditorBody({
     }
   }
   function add(kind: InsertKind) {
+    if(kind==='synced-reference'){setSyncedInsert({after:insert?.after??null});setInsert(null);setQuery('');return;}
     if(kind==='file-card'){setFileInsert({after:insert?.after??null});setInsert(null);setQuery('');return;}
     if(kind==='status'){if(insert?.inlineLabels===false)setError(new Error('This field accepts plain text. Add a text block to insert a status label.'));else setStatusInsert(insert);setInsert(null);setQuery('');return;}
     const existing = editor.blocks.length || insertion.pending ? visibleBlocks : [];
@@ -235,6 +237,14 @@ export function PageEditorBody({
           onClose={() => setInsert(null)}
         />
       ) : null}
+      {syncedInsert?<ActionDialog title="Insert synced block" action="Insert synced copy" onClose={()=>setSyncedInsert(null)} onSubmit={async data=>{
+        const url=new URL(String(data.get('source'))),match=/^\/app\/pages\/([^/]+)$/.exec(url.pathname),hash=/^#synced-block=(.+)$/.exec(url.hash);
+        if(url.origin!==location.origin||!match||!hash)throw new Error('Paste a synced block link from this workspace.');
+        const response=await fetch(`/api/pages/${encodeURIComponent(match[1])}/synced/${encodeURIComponent(hash[1])}`);if(!response.ok)throw new Error('The synced source is unavailable or needs access.');
+        const next=[...visibleBlocks],index=syncedInsert.after?next.findIndex(b=>b.id===syncedInsert.after)+1:next.length,previous=next[index-1];
+        next.splice(index,0,{id:crypto.randomUUID(),type:'synced-reference',sourcePageId:match[1],sourceBlockId:hash[1],layoutParentId:previous?.type==='column'?previous.id:previous?.layoutParentId});
+        await editor.structure(next);editor.receive(await contentApi.document(document.page.id));
+      }}><label>Source block link<input type="url" name="source" required autoFocus/></label><p>Each reader needs access to the source. Editing a copy requires edit access to its source.</p></ActionDialog>:null}
       {fileInsert?<ConnectedFilePicker onClose={()=>setFileInsert(null)} onPick={reference=>{
         const next=[...visibleBlocks],index=fileInsert.after?next.findIndex(block=>block.id===fileInsert.after)+1:next.length;
         const block:EditorBlock={id:crypto.randomUUID(),type:'file-card',...reference};next.splice(index,0,block);insertion.insert(next);setFileInsert(null);
@@ -265,6 +275,8 @@ export function PageEditorBody({
         onSelectionChange={setSelected}
         actions={{
           layoutBusy: insertion.pending || editor.structureState === "saving",
+          onMakeSynced:id=>{void apply(editor.blocks.map(b=>b.id===id&&b.type==='paragraph'?{...b,type:'synced-source' as const}:b));},
+          onSyncedSaved:async()=>{editor.receive(await contentApi.document(document.page.id));},
           onConvertTable: id=>{void (async()=>{await editor.flush();const fresh=await contentApi.document(document.page.id);const converted=await mutate<{value:{databaseId:string}}>('/api/databases/from-table',{operationKey:operationKey(),pageId:document.page.id,blockId:id,expectedRevisionId:fresh.page.revisionId});window.location.assign(`/app/databases/${converted.value.databaseId}`);})().catch(setError);},
           onChooseFile: (id) => setMedia({ id, mode: "upload" }),
           onAddFileLink: (id) => setMedia({ id, mode: "link" }),

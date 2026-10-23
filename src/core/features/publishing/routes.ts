@@ -1,3 +1,4 @@
+import {projectPublicSynced} from '../editor/synced/read';
 import {embedDocument} from '../editor/embeds/document';
 import { publishingExposure } from "./exposure";
 import { publicHeader } from './header';
@@ -52,7 +53,7 @@ export function createPublicPagesRoutes() {
         const display = c.req.query('display'), inline = !!display && blocks.some((b: any) => b.id === display && b.blockType === 'media' && b.content.kind !== 'file' && (b.content.source?.fileId === f.id || b.content.source?.url === `/api/media/${f.id}`));
         return mediaResponse(c.env.FILES, f, inline);
     }).get('/*', async (c) => { try { const p = await publicPage(c.env.DB, new URL(c.req.url).host, decodeURIComponent(new URL(c.req.url).pathname.slice(3))); await authorizePublic(c, p); if (!c.get('member'))
-        await publicViewStatement(c.env.DB, { viewId: createUlid(), pageId: p.page_id, host: new URL(c.req.url).host, slug: p.slug, now: new Date().toISOString() }).run(); const { links, titles } = await publicTargets(c.env.DB, p), shown = await publicHeader(c.env.DB, await publicQueries(c.env.DB, p), c.req.query('q')??'');
+        await publicViewStatement(c.env.DB, { viewId: createUlid(), pageId: p.page_id, host: new URL(c.req.url).host, slug: p.slug, now: new Date().toISOString() }).run(); p.body_json=JSON.stringify(await projectPublicSynced(c.env.DB,p,JSON.parse(p.body_json))); const { links, titles } = await publicTargets(c.env.DB, p), shown = await publicHeader(c.env.DB, await publicQueries(c.env.DB, p), c.req.query('q')??'');
         // LINK-004: an anonymous reader sees the title of a mentioned page only when that page is public too.
         return c.html(renderPublicDocument({ ...shown, body_json: JSON.stringify(labelPageMentions(JSON.parse((shown as Record<string, any>).body_json), id => titles[id] ?? 'Restricted page')) }, links), 200, { 'X-Robots-Tag': p.indexable ? 'index,follow' : 'noindex,nofollow', ...publicDocumentHeaders });
         } catch (cause) {

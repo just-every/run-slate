@@ -20,6 +20,8 @@ export const safeUrl = (value: string) => {
 const span = z.object({ text: z.string(), status: z.object({colour:z.enum(['grey','blue','green','yellow','red','purple'])}).strict().optional(), marks: z.array(z.enum(['bold', 'italic', 'underline', 'strikethrough', 'code'])).optional(), colour: z.enum(['yellow', 'blue', 'green', 'red', 'purple']).optional(), link: z.object({ href: z.string().refine(safeUrl) }).optional(), mention: z.object({ kind: z.enum(['person', 'group', 'page', 'date']), label: z.string().optional(), id: z.string().optional() }).optional(), commentAnchorId: z.string().optional() }).strict().refine(value=>value.mention?.kind!=='group'||!!value.mention.id,'A group mention requires its group ID.').refine(value=>!value.status || (value.text.trim().length>0 && value.text.length<=80),'Status labels need 1 to 80 characters.').transform(value => value.mention ? {...value, mention: {...value.mention, label: value.mention.label ?? value.text}} : value);
 const rich = z.array(span);
 const schemas: Record<string, z.ZodType> = {
+    'synced-source': z.object({text:rich}).strict(),
+    'synced-reference': z.object({sourcePageId:z.string().min(1).max(160),sourceBlockId:z.string().min(1).max(160)}).strict(),
     columns: z.object({count:z.number().int().min(2).max(5)}).strict(),
     column: z.object({}).strict(),
     'file-card':fileReferenceSchema,
@@ -50,6 +52,7 @@ export function validateBlockTree(blocks: BlockInput[]): BlockInput[] {
     if (map.size !== blocks.length)
         throw new ApiProblem(400, 'DUPLICATE_BLOCK', 'Block IDs must be unique.');
     for (const b of blocks) {
+        if(['synced-source','synced-reference'].includes(b.blockType)&&blocks.some(child=>child.parentBlockId===b.id))throw new ApiProblem(400,'INVALID_SYNCED_SOURCE','Synced paragraphs cannot contain child blocks.');
         const parent = b.parentBlockId ? map.get(b.parentBlockId) : undefined;
         if (b.blockType === 'column' && parent?.blockType !== 'columns')
             throw new ApiProblem(400, 'INVALID_COLUMNS', 'A column must belong to a columns section.');

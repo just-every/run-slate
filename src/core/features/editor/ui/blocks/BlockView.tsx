@@ -1,3 +1,4 @@
+import {SyncedBlock} from './SyncedBlock';
 import {FileCardBlock} from './FileCardBlock';
 import {TableOfContentsBlock} from './TableOfContentsBlock';
 import {TaskReportBlock} from './TaskReportBlock';
@@ -29,6 +30,7 @@ export interface BlockViewProps {
 /** One block, rendered by its type. Every renderer is props-in, callbacks-out. */
 export function BlockView({ block, canEdit, onChange, actions, placeholder, textLabel }: BlockViewProps) {
   switch (block.type) {
+    case "synced-source": case "synced-reference": return <SyncedBlock block={block} canEdit={canEdit} onChange={onChange} actions={actions}/>;
     case "columns": return canEdit ? <label className="text-ui text-ink-muted">Columns <select aria-label="Number of columns" disabled={actions?.layoutBusy} value={block.count} onChange={event=>onChange({...block,count:Number(event.target.value)})}>{[2,3,4,5].map(count=><option key={count} value={count}>{count}</option>)}</select></label> : null;
     case "column": return null;
     case "file-card": return <FileCardBlock block={block}/>;
