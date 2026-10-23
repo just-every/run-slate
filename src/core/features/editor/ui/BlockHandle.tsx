@@ -64,6 +64,10 @@ export function BlockHandle({
             className="touch-none data-[dragging=true]:bg-accent-soft"
             data-dragging={dragging || undefined}
             {...touch}
+            // A mouse down must remain a native drag start. The menu opens on
+            // the completed click; keyboard and touch retain their own forms.
+            onPointerDownCapture={event=>{if(event.pointerType==='mouse')event.stopPropagation();}}
+            onClick={()=>setOpen(true)}
             draggable
             onDragEnd={onDragEnd}
             onDragStart={onDragStart}
