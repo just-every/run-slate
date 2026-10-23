@@ -23,11 +23,11 @@ export async function developerAccessJourney(state, people) {
       await panel.getByLabel('Token name', { exact: true }).fill(name);
       await panel.getByLabel('Access to Handbook', { exact: true }).selectOption('write');
       await panel.getByRole('button', { name: 'Create token', exact: true }).click();
-      await expect(panel.getByRole('status')).toHaveText('Token created.');
+      await expect(panel.getByLabel('Token secret', { exact: true })).toBeVisible();
       const secret = await panel.getByLabel('Token secret', { exact: true }).inputValue();
       assert.ok(secret.length > 0);
       await panel.getByRole('button', { name: 'Copy token', exact: true }).click();
-      await expect(panel.getByRole('button', { name: 'Copied', exact: true })).toBeVisible();
+      await expect.poll(async () => (await view.evaluate(() => navigator.clipboard.readText())) === secret).toBe(true);
       // Hide the live credential before capturing any evidence.
       await panel.getByRole('button', { name: 'I saved my token', exact: true }).click();
       await expect(panel.getByLabel('Token secret', { exact: true })).toHaveCount(0);
