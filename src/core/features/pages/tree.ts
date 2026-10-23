@@ -1,3 +1,4 @@
+import {materializeSynced,projectPublicSynced} from '../editor/synced/read';
 import { moveSources, writableMoveGuard } from './tree-writable';
 import { publicMoveChanges } from './tree-access';
 import { authorScheduleProjections } from '../lifecycle/schedule-view';
@@ -153,7 +154,7 @@ export async function duplicatePage(ctx: FeatureContext, id: string, input: {
                     if (!input.publicSource)
                         await requirePageLevel(ctx, p.id, 'view');
                     const exposure = input.publicSource ? await publicPage(ctx.db, input.publicSource.host, input.publicSource.slug) : null;
-                    const document = exposure ? { blocks: JSON.parse(exposure.body_json) as import('../../shared/api/content').BlockView[], properties: JSON.parse(exposure.properties_json) as import('./types').PageProperties } : await readPage(ctx, p.id), s = { blocks: document.blocks, properties: document.properties }, bid = new Map(s.blocks.map(b => [b.id, createUlid()]));
+                    const document = exposure ? { blocks: JSON.parse(exposure.body_json) as import('../../shared/api/content').BlockView[], properties: JSON.parse(exposure.properties_json) as import('./types').PageProperties } : await readPage(ctx, p.id), s = { blocks: materializeSynced(exposure?await projectPublicSynced(ctx.db,exposure,document.blocks):document.blocks,document.properties.title), properties: document.properties }, bid = new Map(s.blocks.map(b => [b.id, createUlid()]));
                     const files = (await ctx.db.prepare('SELECT * FROM files WHERE page_id=? AND deleted_at IS NULL').bind(p.id).all<Record<string, any>>()).results;
                     const fileIds = new Map<string, string>();
                     const fileStatements: D1PreparedStatement[] = [];

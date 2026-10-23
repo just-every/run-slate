@@ -1,4 +1,5 @@
 import {
+  Columns3,
   AudioLines,
   ChevronsDownUp,
   Code,
@@ -26,6 +27,8 @@ import {
  * (`BLOCK-003`), each with the Markdown shortcut that writes it (`BLOCK-004`).
  */
 export type InsertKind =
+  | "synced-reference"
+  | "columns"
   | "text"
   | "heading-1"
   | "heading-2"
@@ -94,6 +97,8 @@ const media: InsertEntry[] = [
 ];
 
 const advanced: InsertEntry[] = [
+  {kind:"synced-reference",name:"Synced block",icon:Link,description:"A live copy of a synced paragraph"},
+  {kind:"columns",name:"Columns",icon:Columns3,description:"Two to five columns, stacked on phones"},
   {kind:"table-of-contents",name:"Table of contents",icon:ListTree,description:"Links to headings in this page"},
   {kind:"task-report",name:"Task report",icon:ListTodo,description:"Live tasks the current reader can access"},
   {kind:"status",name:"Status label",shortcut:"/status",icon:Info,description:"An inline label with text and colour"},
