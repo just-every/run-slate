@@ -6596,7 +6596,7 @@
       "executable": false
     },
     "src/core/features/editor/synced/erase.ts": {
-      "sha256": "bb9cd0790870d137b1f790bd42530e660a0a964cccc8bbe3e511ba0cc719ce6a",
+      "sha256": "ee0180cb30d0fdf3f8fb71a63dc7fcc2856901a1c391bd696fe28ca6b7cbc984",
       "executable": false
     },
     "src/core/features/editor/synced/guards.ts": {
@@ -10236,7 +10236,7 @@
       "executable": false
     },
     "tests/e2e/editor/synced-case.ts": {
-      "sha256": "852a5792c5cdf4c4455cacdf8e74f56c26c8e8094f5b458f155148c393751105",
+      "sha256": "0206c7ec6ec9e1ad5a7644dc80a90b526e20fb3cf0470cd015b350dd17ffe20b",
       "executable": false
     },
     "tests/e2e/editor/tables.test.ts": {
