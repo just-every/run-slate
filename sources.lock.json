@@ -12136,7 +12136,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/columns-journey.mjs": {
-      "sha256": "bdee8d64364a964465450970840a00608a808fc50147c6cadd64cd74d426a1fb",
+      "sha256": "0235cfac1284bf1e75f18def0c0d65873e0576791ad7857ac607e7b65a6c7f9c",
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {

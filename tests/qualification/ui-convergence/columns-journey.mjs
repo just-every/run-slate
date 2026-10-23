@@ -60,6 +60,7 @@ export async function columnsJourney(state,width,touch){
  await touchIntoColumn(targetPage,handle,targetPage.locator('.slate-column').first());
  await expect.poll(async()=>(await touch.api(`/api/pages/${id}`)).blocks.find(b=>b.id===source.id).parentBlockId).toBe(await targetPage.locator('.slate-column').first().getAttribute('data-column-id'));
  const input=targetPage.locator('.slate-column').first().getByRole('textbox',{name:'Paragraph',exact:true});
+ await expect(input).toBeEditable();
  await type(targetPage,input,'Response owner confirmed by touch.');
  await expect.poll(async()=>JSON.stringify((await touch.api(`/api/pages/${id}`)).blocks)).toContain('Response owner confirmed by touch.');
  const outside=document.blocks.find(b=>b.blockType==='paragraph'&&b.id!==source.id);
