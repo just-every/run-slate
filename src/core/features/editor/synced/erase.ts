@@ -52,7 +52,7 @@ export async function detachSyncedSources(ctx:FeatureContext,pageIds:string[]){
   const revisionId=createUlid();
   statements.push(mutationGuard(ctx.db,'SELECT revision_id=? AND working_revision_id=? AND published_revision_id IS ? FROM pages WHERE id=?',[p.revision_id,p.working_revision_id,p.published_revision_id,id]));
   for(const b of old.filter(b=>b.blockType==='synced-reference'&&gone.has((b.content as any).sourcePageId))){const next=blocks.find(n=>n.id===b.id)!;statements.push(mutationGuard(ctx.db,'SELECT revision_id=? AND content_json=? FROM page_blocks WHERE id=?',[b.revisionId,JSON.stringify(b.content),b.id]),ctx.db.prepare('UPDATE page_blocks SET block_type=?,content_json=?,revision_id=?,updated_at=? WHERE id=?').bind(next.blockType,JSON.stringify(next.content),next.revisionId,ctx.now,b.id));}
-  statements.push(await revisionStatement(ctx,id,revisionId,{blocks,properties:await properties(ctx,p)},'synced-source-deleted'),ctx.db.prepare('UPDATE pages SET working_revision_id=?,revision_id=?,published_revision_id=CASE WHEN published_revision_id=working_revision_id THEN ? ELSE published_revision_id END,updated_at=? WHERE id=?').bind(revisionId,revisionId,revisionId,ctx.now,id),...contentEvent(ctx,id,revisionId,'synced-source-deleted'));
+  statements.push(await revisionStatement(ctx,id,revisionId,{blocks,properties:await properties(ctx,p)}),ctx.db.prepare('UPDATE pages SET working_revision_id=?,revision_id=?,published_revision_id=CASE WHEN published_revision_id=working_revision_id THEN ? ELSE published_revision_id END,updated_at=? WHERE id=?').bind(revisionId,revisionId,revisionId,ctx.now,id),...contentEvent(ctx,id,revisionId,'synced-source-deleted'));
  }
  return statements;
 }

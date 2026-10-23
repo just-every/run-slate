@@ -15,7 +15,7 @@ export async function syncedJourney(state,width){
  try{
   const page=await owner.newPage();await page.goto(`${origin}/app/pages/${source}`,{waitUntil:'networkidle'});
   const handle=page.locator(`[data-block-id="${sourceBlock}"]`).getByRole('button',{name:/Block actions for/});await expect(handle).toHaveAttribute('data-tooltip','Block actions');await tap(handle);await tap(page.getByRole('menuitem',{name:'Make synced',exact:true}));
-  await expect(page.getByRole('button',{name:'Copy synced block link',exact:true})).toBeVisible();await tap(page.getByRole('button',{name:'Copy synced block link',exact:true}));
+  await expect(page.getByRole('button',{name:'Copy synced block link',exact:true})).toBeVisible();await expect.poll(async()=>(await api(`/api/pages/${source}`)).blocks.find(b=>b.id===sourceBlock)?.blockType).toBe('synced-source');await tap(page.getByRole('button',{name:'Copy synced block link',exact:true}));
   const link=await page.evaluate(()=>navigator.clipboard.readText());assert.equal(link,`${origin}/app/pages/${source}#synced-block=${sourceBlock}`);
   await checkpoint(page,'synced source made');
   for(const id of copies){await page.goto(`${origin}/app/pages/${id}`,{waitUntil:'networkidle'});await tap(page.getByRole('button',{name:/Add block/}));await tap(page.getByRole('option',{name:'Synced block',exact:true}));const dialog=page.getByRole('dialog',{name:'Insert synced block',exact:true});await type(page,dialog.getByRole('textbox',{name:'Source block link',exact:true}),link);await tap(dialog.getByRole('button',{name:'Insert synced copy',exact:true}));await expect(dialog).toBeHidden();await expect(page.locator('[aria-label="Synced copy"]')).toContainText(initial);}
