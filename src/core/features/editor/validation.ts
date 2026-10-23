@@ -20,6 +20,10 @@ export const safeUrl = (value: string) => {
 const span = z.object({ text: z.string(), status: z.object({colour:z.enum(['grey','blue','green','yellow','red','purple'])}).strict().optional(), marks: z.array(z.enum(['bold', 'italic', 'underline', 'strikethrough', 'code'])).optional(), colour: z.enum(['yellow', 'blue', 'green', 'red', 'purple']).optional(), link: z.object({ href: z.string().refine(safeUrl) }).optional(), mention: z.object({ kind: z.enum(['person', 'group', 'page', 'date']), label: z.string().optional(), id: z.string().optional() }).optional(), commentAnchorId: z.string().optional() }).strict().refine(value=>value.mention?.kind!=='group'||!!value.mention.id,'A group mention requires its group ID.').refine(value=>!value.status || (value.text.trim().length>0 && value.text.length<=80),'Status labels need 1 to 80 characters.').transform(value => value.mention ? {...value, mention: {...value.mention, label: value.mention.label ?? value.text}} : value);
 const rich = z.array(span);
 const schemas: Record<string, z.ZodType> = {
+    'synced-source': z.object({text:rich}).strict(),
+    'synced-reference': z.object({sourcePageId:z.string().min(1).max(160),sourceBlockId:z.string().min(1).max(160)}).strict(),
+    columns: z.object({count:z.number().int().min(2).max(5)}).strict(),
+    column: z.object({}).strict(),
     'file-card':fileReferenceSchema,
     paragraph: z.object({ text: rich }), heading: z.object({ text: rich, level: z.number().int().min(1).max(3), number: z.string().optional() }),
     list: z.object({ variant: z.enum(['bulleted', 'numbered', 'toggle']), start: z.number().int().optional(), items: z.array(z.object({ id: z.string(), text: rich, open: z.boolean().optional(), detail: rich.optional() })) }),
@@ -47,6 +51,29 @@ export function validateBlockTree(blocks: BlockInput[]): BlockInput[] {
     const map = new Map(blocks.map(b => [b.id, b]));
     if (map.size !== blocks.length)
         throw new ApiProblem(400, 'DUPLICATE_BLOCK', 'Block IDs must be unique.');
+    for (const b of blocks) {
+        if(['synced-source','synced-reference'].includes(b.blockType)&&blocks.some(child=>child.parentBlockId===b.id))throw new ApiProblem(400,'INVALID_SYNCED_SOURCE','Synced paragraphs cannot contain child blocks.');
+        const parent = b.parentBlockId ? map.get(b.parentBlockId) : undefined;
+        if (b.blockType === 'column' && parent?.blockType !== 'columns')
+            throw new ApiProblem(400, 'INVALID_COLUMNS', 'A column must belong to a columns section.');
+        if (parent?.blockType === 'columns' && b.blockType !== 'column')
+            throw new ApiProblem(400, 'INVALID_COLUMNS', 'Place blocks inside a column.');
+        if (b.blockType === 'columns') {
+            validateBlockContent(b.blockType, b.content);
+            const children = blocks.filter(child => child.parentBlockId === b.id);
+            if (children.length !== (b.content as {count:number}).count || children.some(child=>child.blockType !== 'column'))
+                throw new ApiProblem(400, 'INVALID_COLUMNS', 'A columns section needs 2 to 5 matching columns.');
+            let ancestor = parent;
+            const ancestors=new Set<string>([b.id]);
+            while (ancestor) {
+                if(ancestors.has(ancestor.id))throw new ApiProblem(400,"INVALID_BLOCK_TREE","Block parent is cyclic.");
+                ancestors.add(ancestor.id);
+                if (ancestor.blockType === 'columns' || ancestor.blockType === 'column')
+                    throw new ApiProblem(400, 'INVALID_COLUMNS', 'Columns cannot be nested inside a column.');
+                ancestor = ancestor.parentBlockId ? map.get(ancestor.parentBlockId) : undefined;
+            }
+        }
+    }
     return blocks.map(b => {
         if (!b.id || !b.treePosition || b.id.length > 160)
             throw new ApiProblem(400, 'INVALID_BLOCK', 'Block ID and order are required.');

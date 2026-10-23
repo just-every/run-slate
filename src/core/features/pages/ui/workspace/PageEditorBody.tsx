@@ -56,7 +56,7 @@ export function PageEditorBody({
     const root = [...(wrapper.current?.querySelectorAll<HTMLElement>('[data-block-id]')??[])].find(element=>element.dataset.blockId===block.id)?.querySelector<HTMLElement>('[data-slate-editable]');
     const selection = root ? readEditableSelection(root) : null;
     conversionFocus.current = {id:block.id,selection:selection ? {anchor:Math.max(0,selection.anchor-removed),focus:Math.max(0,selection.focus-removed)} : null};
-    insertion.change(block.id,block);
+    insertion.change(block.id,{...block,layoutParentId:visibleBlocks.find(item=>item.id===block.id)?.layoutParentId});
   }
   useLayoutEffect(()=>{
     const intent = conversionFocus.current;
@@ -100,6 +100,7 @@ export function PageEditorBody({
       if (!('text' in inserted)) return;
       inserted.text = sliceRichText(block.text, end);
       inserted.indent = block.indent;
+      inserted.layoutParentId = block.layoutParentId;
       const next = [...visibleBlocks], index = next.findIndex(item => item.id === id);
       next.splice(index, 1, {...block, text: sliceRichText(block.text, 0, start)}, inserted);
       insertion.insert(next);
@@ -132,6 +133,7 @@ export function PageEditorBody({
     };
   }, [onAsk, onComment,editor, insertion, visibleBlocks]);
   const [insert, setInsert] = useState<{ after: string | null; range?:{anchor:number;focus:number}; inlineLabels?:boolean; onInlineInsert?:(span:InlineSpan)=>void; anchor: HTMLElement | Range } | null>(null);
+  const [syncedInsert,setSyncedInsert]=useState<{after:string|null}|null>(null);
   const [fileInsert,setFileInsert]=useState<{after:string|null}|null>(null);
   const [statusInsert,setStatusInsert]=useState<typeof insert>(null);
   const [query, setQuery] = useState("");
@@ -155,6 +157,7 @@ export function PageEditorBody({
     }
   }
   function add(kind: InsertKind) {
+    if(kind==='synced-reference'){setSyncedInsert({after:insert?.after??null});setInsert(null);setQuery('');return;}
     if(kind==='file-card'){setFileInsert({after:insert?.after??null});setInsert(null);setQuery('');return;}
     if(kind==='status'){if(insert?.inlineLabels===false)setError(new Error('This field accepts plain text. Add a text block to insert a status label.'));else setStatusInsert(insert);setInsert(null);setQuery('');return;}
     const existing = editor.blocks.length || insertion.pending ? visibleBlocks : [];
@@ -164,11 +167,17 @@ export function PageEditorBody({
     const next = [...existing];
     const block=next[index-1];
     const inserted=newBlock(kind);
+    if(kind!=="columns") inserted.layoutParentId=block?.type==="column"?block.id:block?.layoutParentId;
+    if(kind==="columns" && (block?.type==="column" || block?.layoutParentId)){setError(new Error("Columns cannot be nested inside a column."));return;}
     if(insert?.range && block?.type==='paragraph'){
       const start=Math.min(insert.range.anchor,insert.range.focus),end=Math.max(insert.range.anchor,insert.range.focus);
       const before=sliceRichText(block.text,0,start),after=sliceRichText(block.text,end);
       next.splice(index-1,1,...(before.length?[{...block,text:before}]:[]),inserted,...(after.length?[{id:crypto.randomUUID(),type:'paragraph' as const,text:after}]:[]));
     }else next.splice(index, 0, inserted);
+    if(inserted.type==="columns"){
+      const at=next.indexOf(inserted);
+      next.splice(at+1,0,...Array.from({length:inserted.count},()=>({id:crypto.randomUUID(),type:"column" as const,layoutParentId:inserted.id})));
+    }
     setInsert(null);
     setQuery("");
     insertion.insert(next);
@@ -178,7 +187,10 @@ export function PageEditorBody({
     const next = [...editor.blocks];
     const index = next.findIndex((block) => block.id === id);
     if (index < 0) return;
-    if (movement.kind === "indent" || movement.kind === "outdent")
+    if (movement.kind === "into-column") {
+      if(next[index].type==="columns" || next[index].type==="column")return;
+      next[index]={...next[index],layoutParentId:movement.columnId,indent:0};
+    } else if (movement.kind === "indent" || movement.kind === "outdent")
       next[index] = {
         ...next[index],
         indent: Math.max(
@@ -187,7 +199,9 @@ export function PageEditorBody({
         ),
       };
     else {
-      const [block] = next.splice(index, 1);
+      const [original] = next.splice(index, 1);
+      const targetBlock=movement.kind!=="step"?next.find(item=>item.id===movement.blockId):undefined;
+      const block={...original,layoutParentId:targetBlock?.layoutParentId};
       const target =
         movement.kind === "step"
           ? index + (movement.direction === "up" ? -1 : 1)
@@ -223,6 +237,14 @@ export function PageEditorBody({
           onClose={() => setInsert(null)}
         />
       ) : null}
+      {syncedInsert?<ActionDialog title="Insert synced block" action="Insert synced copy" onClose={()=>setSyncedInsert(null)} onSubmit={async data=>{
+        const url=new URL(String(data.get('source'))),match=/^\/app\/pages\/([^/]+)$/.exec(url.pathname),hash=/^#synced-block=(.+)$/.exec(url.hash);
+        if(url.origin!==location.origin||!match||!hash)throw new Error('Paste a synced block link from this workspace.');
+        const response=await fetch(`/api/pages/${encodeURIComponent(match[1])}/synced/${encodeURIComponent(hash[1])}`);if(!response.ok)throw new Error('The synced source is unavailable or needs access.');
+        const next=[...visibleBlocks],index=syncedInsert.after?next.findIndex(b=>b.id===syncedInsert.after)+1:next.length,previous=next[index-1];
+        next.splice(index,0,{id:crypto.randomUUID(),type:'synced-reference',sourcePageId:match[1],sourceBlockId:hash[1],layoutParentId:previous?.type==='column'?previous.id:previous?.layoutParentId});
+        await editor.structure(next);editor.receive(await contentApi.document(document.page.id));
+      }}><label>Source block link<input type="url" name="source" required autoFocus/></label><p>Each reader needs access to the source. Editing a copy requires edit access to its source.</p></ActionDialog>:null}
       {fileInsert?<ConnectedFilePicker onClose={()=>setFileInsert(null)} onPick={reference=>{
         const next=[...visibleBlocks],index=fileInsert.after?next.findIndex(block=>block.id===fileInsert.after)+1:next.length;
         const block:EditorBlock={id:crypto.randomUUID(),type:'file-card',...reference};next.splice(index,0,block);insertion.insert(next);setFileInsert(null);
@@ -252,6 +274,8 @@ export function PageEditorBody({
         selectedBlockIds={selected}
         onSelectionChange={setSelected}
         actions={{
+          onMakeSynced:id=>{void apply(editor.blocks.map(b=>b.id===id&&b.type==='paragraph'?{...b,type:'synced-source' as const}:b));},
+          onSyncedSaved:async()=>{editor.receive(await contentApi.document(document.page.id));},
           onConvertTable: id=>{void (async()=>{await editor.flush();const fresh=await contentApi.document(document.page.id);const converted=await mutate<{value:{databaseId:string}}>('/api/databases/from-table',{operationKey:operationKey(),pageId:document.page.id,blockId:id,expectedRevisionId:fresh.page.revisionId});window.location.assign(`/app/databases/${converted.value.databaseId}`);})().catch(setError);},
           onChooseFile: (id) => setMedia({ id, mode: "upload" }),
           onAddFileLink: (id) => setMedia({ id, mode: "link" }),
@@ -272,6 +296,16 @@ export function PageEditorBody({
         onChange={(id,rendered)=>{
           const clean=(value:unknown):unknown=>Array.isArray(value)?value.map(clean):value&&typeof value==="object"?Object.fromEntries(Object.entries(value).map(([key,item])=>[key,key==="mention"&&item&&typeof item==="object"?Object.fromEntries(Object.entries(item).filter(([field])=>field!=="state"&&field!=="available"&&field!=="deletedAt")):clean(item)])):value;
           const next=clean(rendered) as EditorBlock;
+          if(next.type==="columns"){
+            const columns=editor.blocks.filter(block=>block.layoutParentId===id && block.type==="column");
+            const removed=new Set(columns.slice(next.count).map(block=>block.id));
+            const kept=columns.slice(0,next.count);
+            const last=kept.at(-1)!;
+            const changed=editor.blocks.filter(block=>!removed.has(block.id)).map(block=>block.id===id?next:removed.has(block.layoutParentId??"")?{...block,layoutParentId:last.id}:block);
+            const added=Array.from({length:Math.max(0,next.count-columns.length)},()=>({id:crypto.randomUUID(),type:"column" as const,layoutParentId:id}));
+            changed.push(...added);
+            void apply(changed);return;
+          }
           const conversion=typedBlock(next);
           if(conversion){
             const removed=next.type==='paragraph' ? richTextToPlain(next.text).length-('text' in conversion ? richTextToPlain(conversion.text).length : 0) : 0;
@@ -281,16 +315,21 @@ export function PageEditorBody({
         }}
         onInsert={(after, anchor) => setInsert({ after, anchor })}
         onDelete={(id) =>
-          void apply(editor.blocks.filter((block) => block.id !== id))
+          void apply(editor.blocks.filter((block) => block.id !== id && block.layoutParentId !== id && !editor.blocks.some(parent=>parent.id===block.layoutParentId && parent.layoutParentId===id)))
         }
         onMove={move}
         onDuplicate={(id) => {
           const at = editor.blocks.findIndex((block) => block.id === id);
           const next = [...editor.blocks];
-          next.splice(at + 1, 0, {
-            ...structuredClone(editor.blocks[at]),
-            id: crypto.randomUUID(),
-          });
+          const source=editor.blocks[at];
+          const children=source.type==="columns"?editor.blocks.filter(block=>block.layoutParentId===id || editor.blocks.some(parent=>parent.id===block.layoutParentId && parent.layoutParentId===id)):[];
+          const ids=new Map([source,...children].map(block=>[block.id,crypto.randomUUID()]));
+          next.splice(at+1,0,...[source,...children].map(block=>{
+            const base={id:ids.get(block.id)!,indent:block.indent,layoutParentId:ids.get(block.layoutParentId??"")??block.layoutParentId};
+            if(block.type==='synced-source')return {...base,type:'paragraph' as const,text:[...block.text,{text:`\nSource: ${document.page.title}`}]};
+            if(block.type==='synced-reference')return {...base,type:'paragraph' as const,text:block.synced?.state==='ready'?[...(block.synced.text as import('../../../editor/ui/types').RichText),{text:`\nSource: ${block.synced.sourceTitle}`}]:[{text:'Access needed'}]};
+            return {...structuredClone(block),...base};
+          }));
           void apply(next);
         }}
         onRetrySave={(id) => {

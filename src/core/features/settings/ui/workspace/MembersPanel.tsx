@@ -1,3 +1,4 @@
+import {PeopleDirectory} from './PeopleDirectory';
 import { MailDeliveryPanel } from "./MailDeliveryPanel";
 import { LocalInvitationNotice } from "./LocalInvitationNotice";
 import { GuestsPanel } from './GuestsPanel';
@@ -10,16 +11,19 @@ import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import type { MemberView, GroupView } from "../../../../shared/api/workspace";
 export function MembersPanel() {
   const { member, localDevelopment } = useWorkspace();
+  const owner = member.role === "owner";
   const members = useResource<{ items: MemberView[] }>("/api/members");
-  const groups = useResource<{ items: GroupView[] }>("/api/groups");
+  const groups = useResource<{ items: GroupView[] }>(owner?"/api/groups":null);
+  const [directory,setDirectory]=useState(false);
   const [invite, setInvite] = useState(false);
   const [sent, setSent] = useState(false);
   const [remove, setRemove] = useState<MemberView>();
   const [group, setGroup] = useState<GroupView | "new">();
-  const owner = member.role === "owner";
   return (
     <section className="settings-panel">
       <h2>Good work is shared.</h2>
+      <button type="button" onClick={()=>setDirectory(!directory)}>{directory?"Close people directory":"Browse people and expertise"}</button>
+      {directory?<PeopleDirectory/>:null}
       {localDevelopment ? <LocalInvitationNotice /> : null}
       <button onClick={() => setInvite(true)}>Invite a member</button>
       {sent ? (
@@ -51,7 +55,7 @@ export function MembersPanel() {
         </ul>
       </RequestState>
       {owner ? <GuestsPanel localDevelopment={localDevelopment}/> : null}
-      {localDevelopment ? null : <MailDeliveryPanel/>}
+      {localDevelopment||!owner ? null : <MailDeliveryPanel/>}
       <h3>Groups</h3>
       {owner ? (
         <button onClick={() => setGroup("new")}>Create group</button>

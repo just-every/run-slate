@@ -1,3 +1,4 @@
+import {layoutStyles} from '../editor/layout';
 import {renderTable} from '../editor/tables/render';
 import type {TableContent} from '../editor/tables/model';
 import {providerEmbed} from '../editor/embeds/providers';
@@ -21,6 +22,8 @@ function rich(value: any, links: Record<string, string>): string { if (!Array.is
     href = Object.entries(links).find(([id]) => href.includes(id))?.[1]; if (href && (safeUrl(href) || href.startsWith('/p/')))
     text = `<a${span.mention ? ' class="mention"' : ''} href="${html(href)}" rel="noopener noreferrer">${text}</a>`; else if (span.mention) text = `<span class="mention">${text}</span>`; return text; }).join(''); }
 function renderBlock(b: BlockView, slug: string, links: Record<string, string>, blocks: BlockView[]) { const c = b.content as Record<string, any>, id = html(b.id), text = rich(c.text, links); switch (b.blockType) {
+    case 'synced-source': return `<section id="${id}"><p>Synced source</p><p>${text}</p></section>`;
+    case 'synced-reference': return b.synced?.state==='ready'?`<section id="${id}"><p>Source: ${html(b.synced.sourceTitle)}</p><p>${rich(b.synced.text,links)}</p></section>`:`<aside id="${id}">Access needed</aside>`;
     case 'heading': return `<h${c.level} id="${html(headingAnchor(b.id))}">${text}</h${c.level}>`;
     case 'table-of-contents': return `<nav id="${id}" class="table-of-contents" aria-label="Table of contents">${renderTocList(tocEntries(blocks, c as TableOfContentsSettings))}</nav>`;
     case 'divider': return '<hr>';
@@ -64,7 +67,7 @@ export function renderPublicDocument(exposure: Record<string, any>, links: Recor
         byParent.set(parent, rows);
     }
     function tree(parent: string | null): string {
-        return (byParent.get(parent) ?? []).map(block => `${renderBlock(block, exposure.slug, links, blocks)}${byParent.has(block.id) ? `<section class="nested">${tree(block.id)}</section>` : ''}`).join('');
+        return (byParent.get(parent) ?? []).map(block => block.blockType==='columns' ? `<section class="slate-columns" style="--column-count:${Number((block.content as {count:number}).count)}">${tree(block.id)}</section>` : block.blockType==='column' ? `<div class="slate-column">${tree(block.id)}</div>` : `${renderBlock(block, exposure.slug, links, blocks)}${byParent.has(block.id) ? `<section class="nested">${tree(block.id)}</section>` : ''}`).join('');
     }
     const media = (id: string) => `/p/${encodeURIComponent(exposure.slug)}/media/${encodeURIComponent(id)}`;
     const cover = properties.coverFileId ? `<img class="page-cover" src="${media(properties.coverFileId)}" alt="">` : '';
@@ -76,6 +79,6 @@ export function renderPublicDocument(exposure: Record<string, any>, links: Recor
         metadata: socialMetadata(exposure, properties.title),
         header: renderPublicHeader(exposure),
         fullWidth: !!properties.fullWidth,
-        content: `<article class="public-document" data-typeface="${html(properties.typeface)}" data-small-text="${!!properties.smallText}">${cover}${icon}<h1 class="page-title">${html(properties.title)}</h1>${properties.byline ? `<p class="page-byline">${html(properties.byline)}</p>` : ''}<div class="page-body">${tree(null)}</div></article>`,
+        content: `<style>${layoutStyles}</style><article class="public-document" data-typeface="${html(properties.typeface)}" data-small-text="${!!properties.smallText}">${cover}${icon}<h1 class="page-title">${html(properties.title)}</h1>${properties.byline ? `<p class="page-byline">${html(properties.byline)}</p>` : ''}<div class="page-body">${tree(null)}</div></article>`,
     });
 }

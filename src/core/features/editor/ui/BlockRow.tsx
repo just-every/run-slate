@@ -22,6 +22,10 @@ const indentClass: Record<number, string> = {
 
 export function describeBlock(block: EditorBlock): string {
   switch (block.type) {
+    case "synced-source": return "synced source";
+    case "synced-reference": return "synced copy";
+    case "columns": return "columns section";
+    case "column": return "column";
     case "paragraph":
     case "quote":
     case "callout":
@@ -110,6 +114,7 @@ export function BlockRow({
         onDropHere
           ? (event) => {
               event.preventDefault();
+              event.stopPropagation();
               onDropHere();
             }
           : undefined
@@ -119,6 +124,7 @@ export function BlockRow({
         blockLabel={label}
         canEdit={canEdit}
         onDelete={onDelete}
+        onMakeSynced={block.type==='paragraph'&&actions?.onMakeSynced?()=>actions.onMakeSynced?.(block.id):undefined}
         onDragEnd={onDragEnd}
         onDragStart={onDragStart}
         onTouchDrop={onTouchDrop}

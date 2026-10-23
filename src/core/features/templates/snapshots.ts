@@ -1,3 +1,4 @@
+import {materializeSynced} from '../editor/synced/read';
 import { recordValues } from "../databases/evaluation";
 import type { Field } from "../databases/values";
 import { fields } from "../databases/repository";
@@ -46,7 +47,7 @@ export async function snapshotPage(
       "TEMPLATE_LIMIT",
       "Template tree exceeds allowed depth.",
     );
-  const p = await readPage(ctx, id);
+  const p = await readPage(ctx, id);p.blocks=materializeSynced(p.blocks,p.page.title);
   const snapshot: TemplateSnapshot = {
     title: p.page.title,
     properties: {
