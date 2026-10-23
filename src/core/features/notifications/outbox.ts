@@ -17,7 +17,9 @@ export async function processNotificationOutbox(ctx:FeatureContext,limit=100):Pr
  const rows=await ctx.db.prepare('SELECT * FROM notification_outbox WHERE workspace_id=? AND processed_at IS NULL ORDER BY created_at,id LIMIT ?').bind(ctx.actor.workspaceId,limit).all<OutboxRow>();let processed=0;
  for(const row of rows.results){const recipients=new Map<string,'direct'|'watched'>((JSON.parse(row.recipients_json) as string[]).map(id=>[id,'direct']));
   for(const id of JSON.parse(row.watched_recipients_json) as string[])if(!recipients.has(id))recipients.set(id,'watched');
-  const statements:D1PreparedStatement[]=[];
+  const reminderId=(JSON.parse(row.detail_json) as {reminderId?:string}).reminderId;
+  if(reminderId&&!await ctx.db.prepare("SELECT 1 FROM reminders WHERE id=? AND cancelled_at IS NULL AND 'reminder:'||id||':'||revision_id=?").bind(reminderId,row.id).first()){await ctx.db.prepare('UPDATE notification_outbox SET processed_at=? WHERE id=?').bind(ctx.now,row.id).run();continue;}
+  const statements:D1PreparedStatement[]=reminderId?[mutationGuard(ctx.db,"SELECT cancelled_at IS NULL AND 'reminder:'||id||':'||revision_id=? FROM reminders WHERE id=?",[row.id,reminderId])]:[];
   // The local owner can exercise Notify people by explicitly selecting themselves.
   // Ordinary self-generated events and all hosted delivery retain self suppression.
   const localSelfRecipient=ctx.localDevelopment===true&&row.event==='maintenance'&&(JSON.parse(row.recipients_json) as string[]).includes(row.actor_member_id??'');

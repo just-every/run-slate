@@ -21,7 +21,7 @@ export function safeRow(table:string,row:DataRow,now=new Date().toISOString()):D
 const rules:Record<string,(row:DataRow,ownerEmail:string,now:string,keys:Map<string,string>)=>void>={
  'database_forms':(row)=>{row.published=0;row.publisher_member_id=null;},
  'review_requests':(row,_ownerEmail,now)=>{if(row.state==='pending')row.dispatch_paused_at=row.dispatch_paused_at??now;},
- 'reminders':(row,_ownerEmail,now)=>{if(!row.delivered_at)row.cancelled_at=row.cancelled_at??now;},
+ 'reminders':(row,_ownerEmail,now)=>{row.attempt_started_at=null;if(!row.delivered_at)row.cancelled_at=row.cancelled_at??now;},
  'workspaces':(row)=>{row.ai_enabled=0;},
  'intelligence_ambient_scopes':(row)=>{row.state='stopped';row.reason='Restored: fresh owner activation required.';},
  'intelligence_ambient_events':(row)=>{if(['prepared','running'].includes(String(row.state))){row.state='blocked';row.failure_reason='RESTORED_AUTHORITY_REQUIRED';}},

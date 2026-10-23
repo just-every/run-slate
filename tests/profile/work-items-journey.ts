@@ -1,3 +1,4 @@
+import {reminderUpgradeCase} from './reminder-upgrade-case';
 import {env} from 'cloudflare:test';
 import {expect} from 'vitest';
 import type {createApi} from '../../src/core/app/hono';
@@ -67,6 +68,26 @@ export async function remindersJourney({ownerId,workspaceId,reader,other,request
  expect(await env.DB.prepare("SELECT COUNT(*) AS n FROM notifications WHERE event='reminder' AND recipient_member_id=?").bind(other).first<number>('n')).toBe(1);
  const personal=await request('GET','/api/reminders');expect(personal.data.items.find((r:any)=>r.id===explicit.data.value.id).deliveredAt).not.toBeNull();
  const cancel=await request('POST','/api/reminders',{operationKey:createUlid(),pageId:q.pageId,date:later,time:'12:00',timezone:'UTC'});expect(cancel.status).toBe(200);expect((await request('DELETE',`/api/reminders/${cancel.data.value.id}`,{operationKey:createUlid()})).status).toBe(200);
+ // Accountable reminders: a durable started row survives interruption; failures stay visible until retried or stopped.
+ const interrupted=await request('POST','/api/reminders',{operationKey:createUlid(),pageId:q.pageId,date:later,time:'12:00',timezone:'UTC'});
+ const failed=await request('POST','/api/reminders',{operationKey:createUlid(),pageId:q.pageId,date:later,time:'12:00',timezone:'UTC'});
+ const stopped=await request('POST','/api/reminders',{operationKey:createUlid(),pageId:q.pageId,date:later,time:'12:00',timezone:'UTC'});
+ for(const item of [interrupted,failed,stopped])expect(item.status).toBe(200);
+ await env.DB.prepare('UPDATE reminders SET attempt_started_at=? WHERE id=?').bind(`${due}T00:00:00.000Z`,interrupted.data.value.id).run();
+ await env.DB.exec(`CREATE TRIGGER reminder_delivery_fault BEFORE INSERT ON notification_outbox WHEN json_extract(NEW.detail_json,'$.reminderId')='${failed.data.value.id}' BEGIN SELECT RAISE(FAIL,'synthetic delivery storage fault'); END`);
+ const future={...ctx,now:`${later}T23:59:00.000Z`};await dispatchDueReminders(future);
+ await env.DB.exec('DROP TRIGGER reminder_delivery_fault');
+ const jobs=await request('GET','/api/reminders/jobs');expect(jobs.data.items.find((r:any)=>r.id===failed.data.value.id)).toMatchObject({state:'failed',failure:'DELIVERY_FAILED'});
+ expect((await request('GET','/api/reminders/jobs',undefined,other)).data.items.some((r:any)=>r.id===failed.data.value.id)).toBe(false);
+ expect((await request('POST',`/api/reminders/${failed.data.value.id}/retry`,{operationKey:createUlid(),expectedRevisionId:failed.data.value.revisionId},other)).status).toBe(404);
+ expect((await request('DELETE',`/api/reminders/${stopped.data.value.id}`,{operationKey:createUlid()})).status).toBe(200);
+ expect((await request('POST',`/api/reminders/${failed.data.value.id}/retry`,{operationKey:createUlid(),expectedRevisionId:failed.data.value.revisionId})).status).toBe(200);
+ await Promise.all([dispatchDueReminders(future),dispatchDueReminders(future)]);await processNotificationOutbox(future);await processNotificationOutbox(future);
+ for(const item of [interrupted,failed])expect(await env.DB.prepare("SELECT count(*) AS n FROM notifications WHERE json_extract(detail_json,'$.reminderId')=?").bind(item.data.value.id).first<number>('n')).toBe(1);
+ expect(await env.DB.prepare("SELECT count(*) AS n FROM notifications WHERE json_extract(detail_json,'$.reminderId')=?").bind(stopped.data.value.id).first<number>('n')).toBe(0);
+ expect((await request('GET','/api/reminders/jobs')).data.items.find((r:any)=>r.id===stopped.data.value.id).state).toBe('stopped');
+ await reminderUpgradeCase();
+
 }
 /** BLOCK-016: a saved body report executes independently for each reader, including page-only grants. */
 export async function taskReportsJourney({ownerId,reader,other,request,create,share,due,later}:WorkItems){
