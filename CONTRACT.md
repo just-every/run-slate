@@ -1584,7 +1584,7 @@ Owners filter the workspace audit trail (`ACT-*`, including sign-ins, permission
 
 *Acceptance:* a Workers journey produces each audited action kind, exports it and finds every action with its actor, time and target, and streams it to a test receiver with valid signatures and no gaps after a receiver outage.
 
-*Status:* partial. A durable activity timeline with audit coverage ships (`src/core/features/activity/service.ts`, `tests/qualification/core/audit-content.test.ts`); export of admin actions and streaming do not.
+*Status:* **partial** — Owners export a bounded, filtered metadata-only audit trail as CSV or JSON, with formula neutralization and an audited export. Native sign-ins, permission/sharing, token use and admin settings are covered. Server-enforced retention is at least 365 days. Ordered signed audit destinations persist an outage backlog and resume by stable event ID. The stream inherits API-002’s adopted destination rule and address-pinning Gap; real vendor receiver acceptance remains open.
 
 #### ADMIN-006 — Content governance.
 Owners decide who may create containers, publish publicly, invite guests, export and use AI. A container may carry a classification label, such as Confidential, that by default forbids public links and AI for its pages, and only a workspace owner can lift those defaults. Every governance change is recorded in activity.
@@ -2127,7 +2127,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `ADMIN-002` | SCIM provisioning | target | missing | — | not implemented |
 | `ADMIN-003` | Guest management | target | done | `tests/qualification/policies/invitations.test.ts`, `tests/qualification/ui-convergence/guest-console-journey.mjs` |  |
 | `ADMIN-004` | Workspace analytics | target | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` |  |
-| `ADMIN-005` | Audit export and SIEM streaming | target | partial | `src/core/features/activity/service.ts` | see the clause |
+| `ADMIN-005` | Audit export and SIEM streaming | target | partial | `tests/qualification/core/audit-content.test.ts` — auditExportProof: audited action families, filtered CSV/JSON, neutralized formulas, retention floor, signed ordered outage recovery; `tests/qualification/ui-convergence/audit-access-journey.mjs` (1440/390) | Signed generic webhooks inherit API-002’s unresolved address pinning and adopted destination rule; real vendor receivers and vendor-specific formats are not claimed. |
 | `ADMIN-006` | Content governance | target | partial | `tests/qualification/policies/access-publication.test.ts` | see the clause |
 | `ADMIN-007` | Every target surface ships in the default product | target | partial | `src/core/platform/config/launch-profile.ts` | see the clause |
 | `MOBILE-001` | Native iOS and Android apps | target | missing | `tests/qualification/interface/routed.browser.mjs` | not implemented |

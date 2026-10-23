@@ -11,9 +11,10 @@ import { validateDestination } from './destination';
 import { managedSubscription, secretScope } from './store';
 export const eventKinds = ['page', 'record', 'comment', 'status', 'verification', 'member'] as const;
 export const subscriptionInput = z.object({ operationKey: z.string().min(8).max(160), name: z.string().trim().min(1).max(80), containerId: z.string().min(1), destination: z.string().url().max(2048), events: z.array(z.enum(eventKinds)).min(1).max(6) }).strict();
+export const auditSubscriptionInput=subscriptionInput.omit({containerId:true,events:true});
 export async function subscribe(ctx: FeatureContext, raw: unknown, mode: 'events' | 'audit' = 'events') {
-  const input = subscriptionInput.parse(raw);
-  await requireWorkspaceOwner(ctx); await requireContainerLevel(ctx, input.containerId, 'view');
+  const input = mode==='events'?subscriptionInput.parse(raw):{...auditSubscriptionInput.parse(raw),containerId:null,events:[]};
+  await requireWorkspaceOwner(ctx); if(input.containerId)await requireContainerLevel(ctx, input.containerId, 'view');
   if((await ctx.db.prepare("SELECT count(*) AS n FROM webhook_subscriptions WHERE state!='removed'").first<number>('n'))!>=limits.limits.webhookSubscriptionsPerDeployment)throw new ApiProblem(409,'WEBHOOK_LIMIT','Remove an unused destination before adding another.');
   await validateDestination(input.destination);
   if (!ctx.sourceSecret) throw new ApiProblem(503, 'CREDENTIAL_UNAVAILABLE', 'A credential sealing key must be configured before adding a destination.');

@@ -107,6 +107,7 @@ test('owner webhook subscriptions sign current readable events, persist backoff,
     await f.ok('/api/members/remove','POST',{operationKey:createUlid(),memberId:f.other,erase:true});
     expect(await env.DB.prepare('SELECT count(*) AS n FROM webhook_subscriptions WHERE id=?').bind(erased.value.id).first<number>('n')).toBe(0);
     expect(await env.DB.prepare('SELECT count(*) AS n FROM webhook_deliveries WHERE subscription_id=?').bind(erased.value.id).first<number>('n')).toBe(0);
+    await f.ok('/api/activity/settings','PUT',{operationKey:createUlid(),retentionDays:400});
     const archiveToken=await f.mint();await tokenCustody(f,archiveToken.secret,[created.secret]);
     await env.DB.prepare("UPDATE members SET role='member' WHERE id=?").bind(f.owner).run();
     expect((await env.DB.prepare('SELECT state FROM webhook_subscriptions WHERE id=?').bind(id).first<{ state: string }>())!.state).toBe('disabled');

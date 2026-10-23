@@ -1047,6 +1047,8 @@
     "publicApiPageSize": 100,
     "webhookSubscriptionsPerDeployment": 20,
     "webhookLogRetentionDays": 30,
+    "auditExportRangeDays": 31,
+    "auditExportRows": 10000,
     "publicRequestsPerIpPerMinute": 120,
     "groupMentionSize": 50,
     "tableColumns": 50,

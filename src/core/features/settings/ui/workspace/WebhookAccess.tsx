@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useResource } from '../../../../client/useResource';
 import { mutate, operationKey, errorMessage } from '../../../../client/transport';
 import { RequestState } from '../../../../app/ui/RequestState';
 import { ActionDialog } from '../../../../app/ui/ActionDialog';
-interface Destination { id: string; name: string; memberId: string; memberName: string; containerId: string; destination: string; events: string[]; state: string; createdAt: string; lastUsedAt: string | null; disabledReason: string | null }
+interface Destination { id: string; name: string; memberId: string; memberName: string; containerId: string | null; mode: string; destination: string; events: string[]; state: string; createdAt: string; lastUsedAt: string | null; disabledReason: string | null }
 interface Delivery { id: string; eventId: string; state: string; replayCount: number; nextAttemptAt: string | null; attempts: { attempt: number; status: number | null; durationMs: number; response: string; outcome: string; startedAt: string }[] }
 export function WebhookAccess({ containers, canManage }: { containers: { id: string; name: string }[]; canManage: boolean }) {
   const resource = useResource<{ items: Destination[] }>('/api/developer/webhooks');
+  useEffect(() => { const reload = () => { void resource.reload(); }; window.addEventListener('slate:webhook-created', reload); return () => window.removeEventListener('slate:webhook-created', reload); }, [resource.reload]);
   const [selected, setSelected] = useState<string | null>(null), [secret, setSecret] = useState(''), [remove, setRemove] = useState<Destination>();
   const [pending, setPending] = useState(false), [error, setError] = useState<unknown>(), [notice, setNotice] = useState('');
   const logs = useResource<{ items: Delivery[] }>(selected ? `/api/developer/webhooks/${selected}/deliveries` : null);
@@ -22,7 +23,7 @@ export function WebhookAccess({ containers, canManage }: { containers: { id: str
     <RequestState loading={resource.loading} error={resource.error} retry={resource.reload}>
       {resource.data?.items.length ? <ul>{resource.data.items.map(destination => <li key={destination.id}><article aria-label={`Webhook ${destination.name}`}>
         <h4>{destination.name}</h4><p>{destination.destination}</p><p>Member: {destination.memberName}</p>
-        <p>Space: {containers.find(c => c.id === destination.containerId)?.name ?? destination.containerId}</p><p>Events: {destination.events.join(', ')}</p>
+        {destination.mode === 'audit' ? <p>Workspace audit stream · Ordered delivery</p> : <><p>Space: {containers.find(c => c.id === destination.containerId)?.name ?? destination.containerId}</p><p>Events: {destination.events.join(', ')}</p></>}
         <p>Created: {new Date(destination.createdAt).toLocaleString()}</p><p>Last use: {destination.lastUsedAt ? new Date(destination.lastUsedAt).toLocaleString() : 'Never'}</p>
         <p>State: {destination.state}</p>{destination.disabledReason ? <p role="status">{destination.disabledReason}</p> : null}
         {canManage ? <button type="button" onClick={() => setSelected(destination.id)}>View deliveries for {destination.name}</button> : null}

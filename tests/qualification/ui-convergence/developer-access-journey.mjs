@@ -1,3 +1,4 @@
+import { auditAccessJourney } from './audit-access-journey.mjs';
 import { webhookAccessJourney } from './webhook-access-journey.mjs';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
@@ -60,5 +61,6 @@ export async function developerAccessJourney(state, people) {
     await page.goto(`${origin}/app/settings?section=developer`, { waitUntil: 'networkidle' });
     await expect(page.getByRole('region', { name: 'Developer access', exact: true })).toContainText('State: Revoked');
     await webhookAccessJourney(state);
+    await auditAccessJourney(state);
   } finally { await transport.dispose(); }
 }

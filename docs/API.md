@@ -28,6 +28,14 @@ The outbound flow sends your destination the stable event identifier, event kind
 
 The `Slate-Signature` header is `t=<unix-seconds>,v1=<hex-signature>`. Verify the HMAC-SHA256 signature over the timestamp, a dot and the exact request body using your saved secret. Check the timestamp against your receiver’s clock. `Slate-Event-Id` identifies the event, `Slate-Delivery-Id` identifies its delivery and `Slate-Attempt` identifies the attempt. Use the stable event identifier to deduplicate retries.
 
-Failures retry at one minute, five minutes, thirty minutes, two hours, six hours, twelve hours and twenty-four hours from the first attempt. Exhausting the retry window disables the destination and creates an owner inbox reminder. View deliveries to inspect status, duration and up to 512 bytes of each response. Logs are retained for 30 days and excluded from archives. The panel shows the failure reason. Re-enable the destination and replay a delivery after fixing the receiver; a replay uses a fresh timestamp and signature with the same event identifier.
+Failures retry at one minute, five minutes, thirty minutes, two hours, six hours, twelve hours and twenty-four hours from the first attempt. Exhausting the retry window disables the destination and creates an owner inbox reminder. View deliveries to inspect status, duration and up to 512 bytes of each response. Completed delivery logs are retained for 30 days and excluded from archives. Failed audit deliveries remain available until replayed or removed. The panel shows the failure reason. Re-enable the destination and replay a delivery after fixing the receiver; a replay uses a fresh timestamp and signature with the same event identifier.
 
 Removing the acting owner disables their destinations. Erasing them removes their subscriptions and logs. Restored subscriptions stay disabled without credentials; create a fresh destination after restoring.
+
+## Audit history
+
+Owners can download audit history from Developer access as CSV or JSON. Filter by member, action, target and UTC dates. Each export covers at most 31 days and 10,000 entries; narrow the filters if the range is too large. Rows contain the stable entry ID, member, UTC time, action and target identifiers. Page bodies, comment text and credentials are excluded. CSV formula prefixes are neutralized. The export itself appears in Activity.
+
+Audit retention defaults to 365 days and cannot be set below one year. Waiting deliveries keep their history until delivery finishes.
+
+Add an audit stream to send new entries through a signed webhook using the destination checks and signature format above. The stream resumes with the oldest waiting entry after an outage. It delivers at least once; discard duplicates using the stable event identifier. A failed entry blocks later entries until you re-enable and replay it. Only actions visible to the acting owner are sent. Stream destinations and their delivery controls appear with your other webhooks. These are generic signed JSON deliveries; no receiver-specific format is provided.

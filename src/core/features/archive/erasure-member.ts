@@ -9,6 +9,7 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  const sourceIds=(await db.prepare('SELECT s.id FROM federation_sources s JOIN federation_connections c ON c.id=s.connection_id WHERE c.workspace_id=? AND c.member_id=?').bind(w,memberId).all<{id:string}>()).results.map(r=>r.id);
  const statements=[...await prepareEraseImportMetadata(ctx,[],memberId),...prepareEraseLegacy(ctx,sourceIds,memberId),...prepareInvalidateExports(ctx),...await prepareEraseIntelligence(ctx,sourceIds,memberId)];
  const add=(sql:string,...v:(string|null)[])=>statements.push(db.prepare(sql).bind(...v));
+ add('UPDATE audit_settings SET updated_by_member_id=NULL WHERE updated_by_member_id=?',memberId);
  add('DELETE FROM webhook_subscriptions WHERE member_id=?',memberId);
  add('DELETE FROM public_api_tokens WHERE member_id=?',memberId);
  for(const table of ['reminders','page_favourites','container_favourites','page_watches','container_watches','recent_pages','content_page_opens','content_tree_expansion','content_presence','reactions','discovery_preferences','discovery_revisions','saved_searches','discovery_snapshots','federation_oauth_states'])add(`DELETE FROM ${table} WHERE member_id=?`,memberId);
