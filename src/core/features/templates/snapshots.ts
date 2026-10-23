@@ -17,6 +17,7 @@ export interface TemplateSnapshot {
   title: string;
   properties: Pick<
     PageProperties,
+    | "card"
     | "icon"
     | "coverFileId"
     | "cover"
@@ -50,6 +51,7 @@ export async function snapshotPage(
   const snapshot: TemplateSnapshot = {
     title: p.page.title,
     properties: {
+      ...(p.properties.card?{card:structuredClone(p.properties.card)}:{}),
       icon: p.properties.icon,
       coverFileId: p.properties.coverFileId,
       ...(p.properties.cover !== undefined ? {cover:structuredClone(p.properties.cover)} : {}),
@@ -141,6 +143,7 @@ export async function prepareSnapshot(
       containerId,
       parentPageId,
       title: snapshot.title,
+      ...(snapshot.properties.card?{pageKind:"card" as const}:{}),
       properties: {
         ...snapshot.properties,
         icon: snapshot.properties.icon?.startsWith("file:")

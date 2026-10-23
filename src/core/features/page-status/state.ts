@@ -12,6 +12,7 @@ export type VerificationState = 'current' | 'changed' | 'lapsed';
 
 /** The review list shows verifications that lapse within this many days. */
 export const expiringWithinDays = 14;
+export const defaultVerificationDays = 90;
 export const expiryPresets = [7, 30, 90] as const;
 const day = 86_400_000;
 

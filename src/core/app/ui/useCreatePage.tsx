@@ -4,6 +4,7 @@ import { NEW_PAGE_PARAM } from "./pageDestination";
 import { NewSpacePrompt } from "./NewSpacePrompt";
 
 export interface NewPage {
+  pageKind?:"card";
   /** Null when the member has no space that accepts pages; a space name is then asked for. */
   containerId: string | null;
   title: string;
@@ -37,7 +38,7 @@ export function useCreatePage(): {
     return () => window.removeEventListener("pageshow", restored);
   }, []);
   const submit = useCallback(async (page: NewPage & { containerId: string }) => {
-    const payload = { containerId: page.containerId, title: page.title, ...(page.parentPageId ? { parentPageId: page.parentPageId } : {}) };
+    const payload = { ...(page.pageKind?{pageKind:page.pageKind}:{}), containerId: page.containerId, title: page.title, ...(page.parentPageId ? { parentPageId: page.parentPageId } : {}) };
     const signature = JSON.stringify(payload);
     if (attempt.current?.signature !== signature) attempt.current = { signature, key: operationKey() };
     const result = await mutate<{ value: { pageId: string } }>("/api/pages", { ...payload, operationKey: attempt.current.key });
@@ -52,7 +53,7 @@ export function useCreatePage(): {
     try {
       const page = await resolve();
       if (page.containerId === null) {
-        setNeedsSpace({ title: page.title, parentPageId: page.parentPageId });
+        setNeedsSpace({ pageKind:page.pageKind,title: page.title, parentPageId: page.parentPageId });
         inFlight.current = false;
         setPending(false);
         return;

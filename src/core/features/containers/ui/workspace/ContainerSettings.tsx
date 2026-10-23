@@ -1,3 +1,4 @@
+import {CollectionSettings} from './CollectionSettings';
 import {ClassificationSettings} from './ClassificationSettings';
 import {ContainerWatchers} from './ContainerWatch';
 import {useWorkspace} from "../../../../app/ui/WorkspaceContext";
@@ -28,6 +29,7 @@ export function ContainerSettings({
     <section>
       <h4>Space settings</h4>
       <ContainerWatchers id={container.id}/>
+      <CollectionSettings id={container.id} onSaved={onSaved}/>
       <ClassificationSettings id={container.id} onSaved={onSaved}/>
       <div className="action-row">
         <button className="secondary-button" onClick={() => start("details")}>Edit details</button>

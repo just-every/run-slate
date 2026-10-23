@@ -48,7 +48,7 @@ export async function searchQuery(ctx: FeatureContext, subject: MemberSubject, i
  WHERE t.scope=${recordProjection} AND t.workspace_id=${workspace} AND rc.workspace_id=${workspace} AND t.generation=${recordGeneration} ${fts ? `AND search_record_fts MATCH ${fts}` : ''} AND (${possible})
  AND rc.epoch=(SELECT epoch FROM search_record_epoch WHERE id=1) AND rc.acl=(SELECT epoch FROM core_acl_epoch WHERE id=1) AND (rc.expires_at IS NULL OR rc.expires_at>${nowParameter}) AND rc.as_of<=${nowParameter}
  ),${aclSql}, permissions AS (
- SELECT t.*,p.published_revision_id,p.working_revision_id,p.status_key AS page_status,p.owner_member_id,p.updated_at AS page_updated,
+ SELECT t.*,p.page_kind,p.published_revision_id,p.working_revision_id,p.status_key AS page_status,p.owner_member_id,p.updated_at AS page_updated,
  pv.id AS verification_id,pv.status_key AS verified_status,pv.revision_id AS verified_revision,pv.owner_member_id AS verification_owner,pv.expires_at AS verification_expiry,
  ${pageAccessLevelSql} AS access_level,c.id AS live_container,c.owned,c.visibility,s.guest,s.workspace,s.now,cl.level AS container_level
  FROM candidates t LEFT JOIN pages p ON p.id=t.page_id LEFT JOIN page_levels pl ON pl.id=t.page_id LEFT JOIN page_grants_live g ON g.page_id=t.page_id LEFT JOIN containers_live c ON c.id=t.container_id LEFT JOIN container_levels cl ON cl.id=c.id LEFT JOIN content_archive_locations l ON l.page_id=p.id
@@ -74,7 +74,7 @@ export async function searchQuery(ctx: FeatureContext, subject: MemberSubject, i
  CASE WHEN v.verification_id IS NOT NULL AND v.verified_status IS v.projected_status THEN v.verification_owner ELSE v.owner_id END AS trust_owner_id
  FROM projections v
  ), visible AS MATERIALIZED (
- SELECT v.key,v.variant,v.id,v.page_id,v.kind,v.document_json,v.current_status AS status,v.container_id AS containerId,${score} AS score,v.selected_updated_at AS updatedAt,
+ SELECT v.key,v.variant,v.id,v.page_id,v.kind,CASE WHEN json_extract((SELECT properties_json FROM page_revisions cr WHERE cr.id=CASE WHEN v.access_level<3 AND v.published_revision_id IS NOT NULL AND v.published_revision_id<>v.working_revision_id THEN v.published_revision_id ELSE v.working_revision_id END),'$.card.verificationRequired')=1 THEN 'card' ELSE v.page_kind END AS pageKind,v.document_json,v.current_status AS status,v.container_id AS containerId,${score} AS score,v.selected_updated_at AS updatedAt,
  v.trust_owner_id AS ownerId,m.display_name AS ownerName,v.trust_state AS trustState,CASE WHEN v.verified_status IS v.projected_status THEN v.verification_expiry END AS expiresAt,v.trust_updated_at AS trustUpdatedAt,
  CASE WHEN v.archived_at IS NOT NULL OR v.lifecycle='archived' OR v.trust_state='lapsed' THEN 2 WHEN v.trust_state='verified' THEN 0 ELSE 1 END AS trustRank,
  ${input.sort === 'views' ? '(SELECT COUNT(*) FROM page_views WHERE page_id=v.page_id)' : '0'} AS views

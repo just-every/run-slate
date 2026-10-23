@@ -1,3 +1,4 @@
+import {cardCase} from './card-case';
 import { env } from 'cloudflare:test';
 import { beforeEach, expect } from 'vitest';
 import { unzipSync } from 'fflate';
@@ -87,4 +88,5 @@ contract('PAGE-012', 'page display is shared, content preserving and retained by
     expect(document.properties).toMatchObject(original.display);
     expect(document.blocks[0].content).toEqual(original.content);
   }
+  await cardCase();
 });

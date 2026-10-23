@@ -1,3 +1,4 @@
+import {cardJourney} from './card-journey.mjs';
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { accessible, openNavigation } from './browser-support.mjs';
@@ -133,5 +134,7 @@ export async function writeJourney(state, width) {
   await accessible(page, 'two blocks saved in order');
   await firstWordsJourney(state);
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
+  // CARD-001 card steps, separate from the writing touch journey.
+  await cardJourney(state);
   return pageId;
 }

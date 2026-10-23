@@ -20,7 +20,7 @@ function ordering(input: SearchInput) {
 export async function visibleSearchRows(ctx: FeatureContext, query: Query, input: SearchInput): Promise<VisibleSearchRow[]> {
   const doc = documentSql('v');
   const selected = await ctx.db.prepare(query.sql + ` SELECT (SELECT json_group_array(json_object(
-    'key',key,'variant',variant,'id',id,'pageId',page_id,'kind',kind,'status',status,'containerId',containerId,'score',score,'updatedAt',updatedAt,
+    'key',key,'variant',variant,'id',id,'pageId',page_id,'kind',kind,'pageKind',pageKind,'status',status,'containerId',containerId,'score',score,'updatedAt',updatedAt,
     'ownerId',ownerId,'ownerName',ownerName,'trustState',trustState,'expiresAt',expiresAt,'trustUpdatedAt',trustUpdatedAt,
     'title',json_extract(${doc},'$.title'),'revisionId',json_extract(${doc},'$.revisionId'),
     'minHash',json_extract(${doc},'$._minHash'),
