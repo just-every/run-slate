@@ -1,3 +1,4 @@
+import {touchOperatorJourney} from './touch-operator-journey.mjs';
 import {columnsJourney} from './columns-journey.mjs';
 import {beginTouchJourney} from './touch-journey.mjs';
 import {touchCommentJourney,touchPublishShareJourney} from './touch-page.mjs';
@@ -202,7 +203,7 @@ for (const width of [1440, 390]) {
         assert.ok(touch, 'Touch-member writing must complete before its dependent journeys.');
         await t.test('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await touchCommentJourney(touch,touch.pageId);});
         await t.test('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touchPublishShareJourney(touch,touch.pageId);});
-        await t.test('query, highlighted results and opening exact page', () => searchJourney(state, pageId));
+        await t.test('query, highlighted results and opening exact page; touch Search, Inbox, My tasks and review queues', async () => {await searchJourney(state, pageId);await touchOperatorJourney(state,touch);});
         await settingsJourney(state, width);
         // Finish earlier page notifications before connecting the chat journey destinations.
         await state.runScheduled();
