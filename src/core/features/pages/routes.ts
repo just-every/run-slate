@@ -1,3 +1,5 @@
+import {editSyncedCopy} from '../editor/synced/write';
+import {syncedSource} from '../editor/synced/read';
 import {fileCard} from '../editor/file-cards/service';
 import {embedDocument} from '../editor/embeds/document';
 import { mentionGroups, previewMentions } from '../comments/group-mentions';
@@ -49,6 +51,8 @@ export function createPagesRoutes() {
       if(!block)throw new ApiProblem(404,'NOT_FOUND','Not found.');
       return embedDocument(block.content);
     });
+    r.get('/:id/synced/:blockId',async c=>c.json((await syncedSource(featureContext(c),c.req.param('id'),c.req.param('blockId'))).resolution));
+    r.patch('/:id/synced/:blockId',async c=>c.json(await editSyncedCopy(featureContext(c),c.req.param('id'),c.req.param('blockId'),await c.req.json())));
     r.get('/:id', async (c) => c.json(await readPage(featureContext(c), c.req.param('id'))));
     r.patch('/:id', async (c) => { const ctx=featureContext(c),id=c.req.param('id'); const result=await updatePage(ctx,id,await validatedJson(c,updatePageSchema)); return c.json({...result,document:await readPage(ctx,id)}); });
     r.patch('/:id/blocks/:blockId', async (c) => c.json(await updateBlock(featureContext(c), c.req.param('id'), c.req.param('blockId'), await validatedJson(c, updateBlockSchema))));

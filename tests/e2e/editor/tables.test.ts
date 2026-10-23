@@ -1,3 +1,4 @@
+import {syncedCase} from './synced-case';
 import {columnsCase} from './columns-case';
 import {env} from 'cloudflare:test';
 import {beforeEach,expect} from 'vitest';
@@ -7,14 +8,14 @@ import {resetDeployment} from '../setup/reset-deployment';
 import {seedWorkspace,seedMember,seedContainer,seedContainerGrant,sessionFor} from '../setup/fixtures';
 
 beforeEach(resetDeployment);
-contract('BLOCK-014','tables and columns preserve structured content through editing, validation, exports and incumbent imports',async()=>{
+contract('BLOCK-014','tables, columns and synced paragraphs preserve structured content through editing, validation, exports and access',async()=>{
   const {workspaceId}=await seedWorkspace();
   const {memberId:owner}=await seedMember(workspaceId,{role:'owner',email:'owner@slate.test',displayName:'Alex Owner',isSetupOwner:true});
   const {memberId:reader}=await seedMember(workspaceId,{role:'member',email:'reader@slate.test',displayName:'Morgan Reader'});
   const {containerId}=await seedContainer(workspaceId,{ownerMemberId:owner,visibility:'private'});
   await seedContainerGrant(containerId,{principalKind:'member',principalId:owner,level:'full'});
   await seedContainerGrant(containerId,{principalKind:'member',principalId:reader,level:'view'});
-  const cookies={owner:await sessionFor(owner),reader:await sessionFor(reader),public:''},api=createApi();
+  const cookies={owner:await sessionFor(owner,{freshProof:true}),reader:await sessionFor(reader),public:''},api=createApi();
   const req=(method:string,path:string,body?:unknown,actor:keyof typeof cookies='owner')=>api.request('https://slate.test'+(path.startsWith('/p/')?'':'/api')+path,{method,headers:{cookie:cookies[actor],origin:'https://slate.test',...(body instanceof FormData?{}:{'content-type':'application/json'})},body:body===undefined?undefined:body instanceof FormData?body:JSON.stringify(body)},{...env,SLATE_PROFILE:undefined,PUBLIC_PAGE_HOST:'slate.test'});
   const json=async(method:string,path:string,body?:unknown,actor:keyof typeof cookies='owner')=>{const r=await req(method,path,body,actor),data=await r.json<any>();expect(r.status,JSON.stringify(data)).toBe(200);return data;};
   const rows=Array.from({length:10},(_,r)=>({id:crypto.randomUUID(),cells:Array.from({length:20},(_,c)=>`Workstream ${r+1}, checkpoint ${c+1}${r===0&&c===0?'\nOwner: Alex':''}`)}));
@@ -50,4 +51,5 @@ contract('BLOCK-014','tables and columns preserve structured content through edi
   expect(view.display.tableOrigin).not.toHaveProperty('rows');
   expect(view.display.tableOrigin).not.toHaveProperty('merges');
   await columnsCase(req,containerId,owner);
+  await syncedCase(req,reader);
 });
