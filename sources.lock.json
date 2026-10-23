@@ -944,7 +944,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "dc1b45f1e2f97b492f15d44ff4211cb5293800ee4f16f667f856da13a451f967",
+      "sha256": "e50b1ab1a1609618172f3b523cfcbb51a355446203479e2ad0dc21a56900e4d0",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "9dc027dc64072fa403697726837beb7e9c14c41957298082d34d71025462a6a0",
+      "sha256": "d79487c0330503dacf86d8b23b3dd9a130780430ecb66bb775bc7413aa6e0799",
       "executable": false
     },
     "DEMO.md": {
@@ -1016,7 +1016,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "238ed1524cdd3c98c52a889ec91e1c287f93c2097828c231a2301ea08bd1a739",
+      "sha256": "55895870a714eb22e6f3bbe27c410e2bf96991cc371d533176f5676f39d861f2",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -1097,6 +1097,30 @@
     },
     "evidence/chat-held/chat-390-held-send.png": {
       "sha256": "85c241e2293d315fa5ec740f96607749375495699f773df852fe512f3a1ced5c",
+      "executable": false
+    },
+    "evidence/chat-notifications/chat-1440-nook-door-docs.png": {
+      "sha256": "92089ed16754d2b95d3f950996a470341cec5e4503416441c50412f1adff7aab",
+      "executable": false
+    },
+    "evidence/chat-notifications/chat-1440-nook-edit-docs.png": {
+      "sha256": "41bd549d62e73eebb6fe6aec9133b7dec5eba167bd902725878dc151f6c4097e",
+      "executable": false
+    },
+    "evidence/chat-notifications/chat-1440-nook-thread-receipt-docs.png": {
+      "sha256": "bfb9a8ee6d402f0d35e8e1281435a094bb89e02a4e0737346ea9ad9f7773fb8d",
+      "executable": false
+    },
+    "evidence/chat-notifications/chat-390-nook-door-docs.png": {
+      "sha256": "f78be926fe3fdecc7687e8e0246203c7d647942b18539c2561ab2ae45ee2acbf",
+      "executable": false
+    },
+    "evidence/chat-notifications/chat-390-nook-edit-docs.png": {
+      "sha256": "1a4c7af7c0c0b15f8a4f78e1bef8030402271c99a4cdcf424ce7851a83196908",
+      "executable": false
+    },
+    "evidence/chat-notifications/chat-390-nook-thread-receipt-docs.png": {
+      "sha256": "8a3ec3fd0fa47b2167bf6045df3cb93b258cd59f92a4c566419029a5fb6c9cd8",
       "executable": false
     },
     "evidence/file-cards/files-1440-deleted.png": {
