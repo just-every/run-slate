@@ -28,7 +28,7 @@ test('Existing verifications and member profiles upgrade in place without losing
 
   await applyD1Migrations(db, env.TEST_MIGRATIONS);
   // Every prior value is kept; the only change is that 0032 gives each page its lock columns, unlocked.
-  expect(await retained()).toEqual({ ...before, pages: (before.pages as Record<string, unknown>[]).map(row => ({ ...row, locked_at: null, locked_by_member_id: null })) });
+  expect(await retained()).toEqual({ ...before, members: (before.members as Record<string,unknown>[]).map(row=>({...row,guest_expires_at:null})), pages: (before.pages as Record<string, unknown>[]).map(row => ({ ...row, locked_at: null, locked_by_member_id: null })) });
   const indexes = (await db.prepare("SELECT name FROM sqlite_master WHERE type='index' AND tbl_name='page_verifications'").all<{ name: string }>()).results.map(r => r.name);
   expect(indexes).toEqual(expect.arrayContaining(['page_verifications_page_latest', 'page_verifications_due']));
 
