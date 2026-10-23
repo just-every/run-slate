@@ -1,3 +1,4 @@
+import {IconAction} from "./header/IconAction";
 import {
   useEffect,
   useRef,
@@ -69,14 +70,14 @@ export function ActionDialog({
       <form onSubmit={submit}>
         <header>
           <h2>{title}</h2>
-          <button
-            aria-label="Close dialog"
+          <IconAction
+            label="Close dialog"
             type="button"
             disabled={pending}
             onClick={onClose}
           >
             ×
-          </button>
+          </IconAction>
         </header>
         <fieldset disabled={pending}>{children}</fieldset>
         {error ? <p role="alert">{errorMessage(error)}</p> : null}

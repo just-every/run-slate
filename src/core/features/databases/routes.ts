@@ -1,3 +1,4 @@
+import {readDatabaseForm,saveDatabaseForm,formSettingsSchema} from './forms/settings';
 import {requireGovernance} from '../workspace/governance';
 import {z} from 'zod';
 import {convertTable,restoreTable} from './table-conversion';
@@ -33,6 +34,8 @@ import { openRecord, updateRecord } from "./records";
 import { database, fields, requireRecordDatabase } from "./repository";
 export function createDatabasesRoutes() {
   const r = new Hono<AppEnvironment>();
+  r.get('/:id/form',async c=>c.json(await readDatabaseForm(featureContext(c),c.req.param('id'))));
+  r.put('/:id/form',async c=>c.json(await saveDatabaseForm(featureContext(c),c.req.param('id'),parseInput(formSettingsSchema,await c.req.json()))));
   r.post('/from-table',async c=>c.json(await convertTable(featureContext(c),parseInput(z.object({operationKey:z.string().min(8),pageId:z.string(),blockId:z.string(),expectedRevisionId:z.string()}).strict(),await c.req.json()))));
   r.post('/:id/to-table',async c=>c.json(await restoreTable(featureContext(c),c.req.param('id'),parseInput(z.object({operationKey:z.string().min(8),expectedRevisionId:z.string(),viewId:z.string(),expectedViewRevisionId:z.string()}).strict(),await c.req.json()))));
   r.get("/", async (c) =>

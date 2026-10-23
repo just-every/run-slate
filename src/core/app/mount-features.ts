@@ -1,3 +1,4 @@
+import {createPublicFormRoutes} from '../features/databases/forms/routes';
 import {createBackupRoutes} from '../features/backups/routes';
 import {createWorkItemsRoutes} from '../features/work-items/routes';
 import {createReminderRoutes} from '../features/reminders/routes';
@@ -75,6 +76,7 @@ export function mountFeatures(app: Hono<AppEnvironment>): Hono<AppEnvironment> {
   app.route("/api/archive", createArchiveRoutes());
   app.route("/api/media", createMediaRoutes());
   app.route("/api/publishing", createPublishingRoutes());
+  app.route("/p/forms",createPublicFormRoutes());
   app.route("/p", createPublicPagesRoutes());
   app.route("/api/search", createSearchRoutes());
   app.route("/api/navigation", createNavigationRoutes());
