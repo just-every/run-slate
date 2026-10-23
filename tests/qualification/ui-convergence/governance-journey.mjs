@@ -1,0 +1,56 @@
+import assert from 'node:assert/strict';
+import {randomUUID} from 'node:crypto';
+import {expect} from '@playwright/test';
+import {accessible} from './browser-evidence.mjs';
+export async function governanceJourney(state){
+ const {page,context,origin,api,switchIdentity}=state;
+ const mutate=async(path,data)=>{const r=await context.request.post(origin+path,{data:{operationKey:randomUUID(),...data}});assert.ok(r.ok(),await r.text());return(await r.json()).value;};
+ const space=await mutate('/api/containers',{name:'Governed operations',visibility:'private'});
+ await mutate('/api/sharing',{targetKind:'container',targetId:space.id,principalKind:'member',principalId:'browser-reader',level:'full'});
+ const document=await mutate('/api/pages',{containerId:space.id,title:'Governed procedure'});
+ await mutate(`/api/publishing/${document.pageId}`,{expectedRevisionId:document.revisionId,host:new URL(origin).host,slug:'governed-procedure'});
+ assert.equal((await context.request.get(origin+'/p/governed-procedure')).status(),200);
+ const previous=await api('/api/workspace/governance');
+ await page.goto(origin+'/app/settings?section=workspace',{waitUntil:'networkidle'});
+ await page.getByRole('button',{name:'Edit content governance',exact:true}).click();
+ const governance=page.getByRole('dialog',{name:'Content governance',exact:true});
+ for(const label of ['Create spaces','Publish publicly','Invite guests','Export content','Use assistance'])await governance.getByRole('combobox',{name:label,exact:true}).selectOption('owner');
+ await governance.getByRole('button',{name:'Save governance',exact:true}).click();
+ await expect(governance).toBeHidden();
+ await expect.poll(async()=>(await api('/api/workspace/governance')).rules.publishPublicly).toBe('owner');
+ await accessible(page,'content governance restricted to owners');
+ await page.goto(`${origin}/app/containers/${space.id}`,{waitUntil:'networkidle'});
+ await page.getByRole('navigation',{name:'Space navigation',exact:true}).getByRole('button',{name:'Settings',exact:true}).click();
+ await page.getByRole('button',{name:'Change classification',exact:true}).click();
+ const classification=page.getByRole('dialog',{name:'Space classification',exact:true});
+ await classification.getByRole('combobox',{name:'Classification',exact:true}).selectOption('Confidential');
+ await classification.getByRole('button',{name:'Save classification',exact:true}).click();
+ await expect(classification).toBeHidden();
+ await expect(page.getByRole('region',{name:'Space classification',exact:true})).toContainText('Confidential');
+ assert.equal((await context.request.get(origin+'/p/governed-procedure')).status(),404);
+ await accessible(page,'confidential space classification');
+ await switchIdentity('reader');
+ await page.goto(`${origin}/app/pages/${document.pageId}`,{waitUntil:'networkidle'});
+ await page.getByRole('button',{name:'More',exact:true}).click();
+ await page.getByRole('menuitem',{name:'Public access',exact:true}).click();
+ await page.getByRole('button',{name:'Edit public settings',exact:true}).click();
+ const publishing=page.getByRole('dialog',{name:'Public page settings',exact:true});
+ await publishing.getByRole('button',{name:'Save public page',exact:true}).click();
+ await expect(publishing.getByRole('alert')).toContainText('governance');
+ await accessible(page,'member public publishing refused by governance');
+ await publishing.getByRole('button',{name:'Cancel',exact:true}).click();
+ // Close the details panel before opening another page action.
+ await page.goto(`${origin}/app/pages/${document.pageId}`,{waitUntil:'networkidle'});
+ await page.getByRole('button',{name:'More',exact:true}).click();
+ await page.getByRole('menuitem',{name:'Export page',exact:true}).click();
+ const exporting=page.getByRole('dialog',{name:'Export readable content',exact:true});
+ await exporting.getByRole('button',{name:'Download export',exact:true}).click();
+ await expect(exporting.getByRole('alert')).toContainText('governance');
+ await accessible(page,'member export refused by governance');
+ await exporting.getByRole('button',{name:'Cancel',exact:true}).click();
+ await switchIdentity('owner');
+ // Keep the surrounding sharing launch's other feature steps on their original policy.
+ const current=await api('/api/workspace/governance');
+ const restored=await context.request.put(origin+'/api/workspace/governance',{data:{operationKey:randomUUID(),expectedRevisionId:current.revisionId,rules:previous.rules}});
+ assert.ok(restored.ok(),await restored.text());
+}

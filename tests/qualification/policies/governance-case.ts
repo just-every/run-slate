@@ -1,0 +1,52 @@
+import {env} from 'cloudflare:test';
+import {expect} from 'vitest';
+import {createApi} from '../../../src/core/app/hono';
+import {sessionFor,seedContainerGrant,seedMember} from '../../e2e/setup/fixtures';
+import type {FeatureContext} from '../../../src/core/app/feature-context';
+export async function governanceCase(owner:FeatureContext,member:FeatureContext,containerId:string){
+ const api=createApi(),cookies={owner:await sessionFor(owner.actor.id,{freshProof:true}),member:await sessionFor(member.actor.id,{freshProof:true})};
+ const request=async(method:string,path:string,body?:unknown,who:'owner'|'member'='owner')=>api.request('https://slate.test/api'+path,{method,headers:{cookie:cookies[who],origin:'https://slate.test','content-type':'application/json'},body:body?JSON.stringify(body):undefined},{...env,SLATE_PROFILE:undefined,PUBLIC_PAGE_HOST:'slate.test'});
+ const call=async(method:string,path:string,body?:unknown,who:'owner'|'member'='owner')=>{const r=await request(method,path,body,who),v=await r.json<any>();expect(r.status,JSON.stringify(v)).toBeLessThan(300);return v;};
+ const refused=async(method:string,path:string,body:unknown,who:'owner'|'member'='member')=>{const r=await request(method,path,body,who);expect(r.status).toBe(403);const v=await r.json<any>();expect(v.message??v.error?.message??JSON.stringify(v)).toMatch(/governance|owner|Confidential/i);};
+ const op=()=>crypto.randomUUID();
+ await seedContainerGrant(containerId,{principalKind:'member',principalId:member.actor.id,level:'full'});
+ const page=(await call('POST','/pages',{operationKey:op(),containerId,title:'Governed handbook'})).value;
+ const exposure={operationKey:op(),expectedRevisionId:page.revisionId,host:'slate.test',slug:'governed-handbook'};
+ await call('POST',`/publishing/${page.pageId}`,exposure);
+ expect((await api.request('https://slate.test/p/governed-handbook',{},{...env,PUBLIC_PAGE_HOST:'slate.test'})).status).toBe(200);
+ const initial=await call('GET','/workspace/governance');
+ const rules={createContainers:'owner',publishPublicly:'owner',inviteGuests:'owner',export:'owner',useAi:'owner'};
+ const change=await call('PUT','/workspace/governance',{operationKey:op(),expectedRevisionId:initial.revisionId,rules});
+ await refused('PUT','/workspace/governance',{operationKey:op(),expectedRevisionId:change.value.revisionId,rules});
+ await refused('POST',`/publishing/${page.pageId}`,{...exposure,operationKey:op()});
+ await refused('POST','/exports/readable',{scope:'page',id:page.pageId,format:'markdown'});
+ const database=(await call('POST','/databases',{operationKey:op(),containerId,title:'Governed records'})).value;
+ const view={id:op(),name:'Overview',layout:'table',filters:[],sorts:[],groups:[],calculations:{},display:{},position:0};
+ await call('POST',`/databases/${database.id}/views`,{operationKey:op(),expectedRevisionId:database.revisionId,view});
+ await refused('GET',`/databases/${database.id}/views/${view.id}/export`,undefined);
+ await refused('POST','/containers',{operationKey:op(),name:'Denied member space'});
+ await refused('POST','/invitations',{operationKey:op(),kind:'guest',pageId:page.pageId,email:'synthetic-slate-guest@example.test'});
+ const label=await call('PUT',`/containers/${containerId}/classification`,{operationKey:op(),expectedRevisionId:null,label:'Confidential'});
+ expect((await api.request('https://slate.test/p/governed-handbook',{},{...env,PUBLIC_PAGE_HOST:'slate.test'})).status).toBe(404);
+ await refused('POST',`/publishing/${page.pageId}`,{...exposure,operationKey:op()},'owner');
+ await refused('PUT',`/containers/${containerId}/classification`,{operationKey:op(),expectedRevisionId:label.value.revisionId,label:'none'});
+ const container=await call('GET',`/containers/${containerId}`);
+ await refused('POST','/sharing/container-settings',{operationKey:op(),id:containerId,expectedRevisionId:container.container?.revisionId??container.revisionId,visibility:'private',guestAccess:'allowed',publicLinkAccess:'allowed',anonymousAccess:'allowed'});
+ const events=await call('GET','/activity');
+ expect(events.items.some((event:any)=>event.action==='workspace.governance'&&event.actor.id===owner.actor.id)).toBe(true);
+ expect(events.items.some((event:any)=>event.action==='container.classification')).toBe(true);
+ const details=(await owner.db.prepare("SELECT detail_json FROM activity_entries WHERE action='workspace.governance'").all<{detail_json:string}>()).results.map(row=>JSON.parse(row.detail_json));
+ expect(details).toContainEqual({before:initial.rules,after:rules});
+ // The actual flagship request is refused before any provider configuration or call.
+ const ai=await api.request('https://slate.test/api/ai/ask',{method:'POST',headers:{cookie:cookies.owner,origin:'https://slate.test','content-type':'application/json'},body:JSON.stringify({operationKey:op(),pageId:page.pageId,kind:'answer',question:'Summarize the handbook',refs:[{kind:'page',sourceId:page.pageId,revisionId:page.revisionId}],maxOutputTokens:500})},{...env,SLATE_PROFILE:'flagship'});
+ expect(ai.status).toBe(403);
+ expect(await ai.text()).toContain('GOVERNANCE_CONFIDENTIAL');
+ const successor=await seedMember(owner.actor.workspaceId,{role:'owner',email:'synthetic-slate-successor@example.test',displayName:'Successor'});
+ const successorCookie=await sessionFor(successor.memberId,{freshProof:true});
+ const erase=await api.request('https://slate.test/api/members/remove',{method:'POST',headers:{cookie:successorCookie,origin:'https://slate.test','content-type':'application/json'},body:JSON.stringify({operationKey:op(),memberId:owner.actor.id,erase:true})},env);
+ expect(erase.status,await erase.text()).toBe(200);
+ const retained=await api.request('https://slate.test/api/workspace/governance',{headers:{cookie:successorCookie}},env);
+ expect((await retained.json<any>()).rules).toEqual(rules);
+ expect((await api.request('https://slate.test/p/governed-handbook',{},{...env,PUBLIC_PAGE_HOST:'slate.test'})).status).toBe(404);
+
+}

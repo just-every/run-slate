@@ -68,3 +68,5 @@ A short expiry suits pages that change often, such as on-call rotas or prices. 9
 - It has no language model or other automation that reads, summarises or verifies your pages.
 - It sends lapse notices to the in-app **Inbox** only, not by email.
 - It does not import verification history from another product.
+
+Workspace owners can set content governance in Workspace settings to limit creating spaces, public publishing, guest invitations and content export. In a space’s settings, an owner can apply Confidential: existing public links stop immediately, and only a workspace owner can lift that default. Changing a label never grants access or reopens a link. Governance changes appear in Activity.

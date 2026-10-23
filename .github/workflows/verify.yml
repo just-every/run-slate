@@ -104,7 +104,7 @@ jobs:
       matrix:
         include:
           - suite: database-policy
-            command: pnpm exec vitest run --config tests/qualification/policies/vitest.config.ts tests/qualification/policies/structured-views.test.ts
+            command: pnpm exec vitest run --config tests/qualification/policies/vitest.config.ts tests/qualification/policies/structured-views.test.ts tests/qualification/policies/access-publication.test.ts
           - suite: core
             command: pnpm build && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts
           - suite: tooling

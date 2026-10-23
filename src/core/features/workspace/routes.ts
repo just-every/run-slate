@@ -1,3 +1,4 @@
+import {readGovernance,saveGovernance,governanceSchema,readClassification,saveClassification} from './governance';
 import { mentionConfiguration, setMentionConfiguration } from '../comments/group-mentions';
 import { requireStepUp } from '../session/step-up';
 import { listIdentityMail,retryIdentityMail } from '../session/mail-status';
@@ -27,6 +28,10 @@ export function createWorkspaceRoutes(){return new Hono<AppEnvironment>()
 .post('/api/workspace/mail/:id/retry',async c=>c.json(await retryIdentityMail(featureContext(c),c.get('runtimeConfig'),c.req.param('id'))))
 .get('/api/workspace/mention-configuration',async c=>c.json(await mentionConfiguration(featureContext(c))))
 .put('/api/workspace/mention-configuration',async c=>c.json(await setMentionConfiguration(featureContext(c),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id.nullable(),restrictLargeGroups:z.boolean()}).strict()))))
+.get('/api/workspace/governance',async c=>c.json(await readGovernance(featureContext(c))))
+.put('/api/workspace/governance',async c=>{await requireWorkspaceOwner(featureContext(c));await requireStepUp(c,'owner:transfer');return c.json(await saveGovernance(featureContext(c),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id.nullable(),rules:governanceSchema}).strict())));})
+.get('/api/containers/:id/classification',async c=>c.json(await readClassification(featureContext(c),c.req.param('id'))))
+.put('/api/containers/:id/classification',async c=>{await requireWorkspaceOwner(featureContext(c));await requireStepUp(c,'owner:transfer');return c.json(await saveClassification(featureContext(c),c.req.param('id'),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id.nullable(),label:z.enum(['none','Confidential']),allowAi:z.boolean().optional()}).strict())));})
 .get('/api/workspace',async c=>c.json(await readWorkspace(featureContext(c))))
 .put('/api/workspace',async c=>c.json(await updateWorkspace(featureContext(c),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id,name:z.string().trim().min(1).max(160),mark:z.string().max(2048),description:z.string().max(2000),guestAccess:toggle,publicLinkAccess:toggle,anonymousAccess:toggle,policies}).strict()))))
 .get('/api/members/current',async c=>c.json(await currentMember(featureContext(c))))
