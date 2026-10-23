@@ -57,7 +57,8 @@ export async function acceptInvitation(db:D1Database,config:RuntimeConfig,token:
   const personal=former?.status==='historical'&&!!await db.prepare("SELECT 1 FROM containers WHERE workspace_id=? AND key=? AND archived_at IS NULL").bind(row.workspace_id,`personal:${former.id}`).first();
   const id=former?.id??createUlid();
   const statements=[mutationGuard(db,'SELECT accepted_by_member_id IS NULL AND revoked_at IS NULL AND expires_at>? FROM invitations WHERE id=?',[now,row.id]),former?db.prepare("UPDATE members SET status='active',role='member',member_kind=?,is_setup_owner=0,updated_at=?,guest_expires_at=? WHERE id=?").bind(row.kind,now,guestExpiry,id):db.prepare("INSERT INTO members (id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at,guest_expires_at) VALUES (?,?,?,?,?,'member',?,'active',0,?,?,?)").bind(id,row.workspace_id,row.email,row.email.split('@')[0],row.email.slice(0,2).toUpperCase(),row.kind,now,now,guestExpiry),db.prepare('UPDATE invitations SET accepted_by_member_id=? WHERE id=?').bind(id,row.id)];
-  statements.unshift(mutationGuard(db,"SELECT status='active' FROM members WHERE id=?",[row.invited_by_member_id]));
+  // Only a current full member of this workspace can stand behind a delivered invitation.
+  statements.unshift(mutationGuard(db,"SELECT status='active' AND member_kind='member' AND workspace_id=? FROM members WHERE id=?",[row.workspace_id,row.invited_by_member_id]));
   if(accessEpoch!==undefined)statements.unshift(mutationGuard(db,'SELECT epoch=? FROM core_acl_epoch WHERE id=1',[accessEpoch]));
   if(former)statements.unshift(mutationGuard(db,"SELECT status=? FROM members WHERE id=?",[former.status,id]));
   if(row.kind==='member'&&former)statements.push(db.prepare("UPDATE containers SET key='archived:'||id WHERE workspace_id=? AND key=? AND archived_at IS NOT NULL").bind(row.workspace_id,`personal:${id}`));

@@ -8,6 +8,7 @@ import { invite, acceptInvitation } from '../../../src/core/features/workspace/i
 import { saveGrant, listGrants } from '../../../src/core/features/sharing/grants';
 import { readRuntimeConfig } from '../../../src/core/platform/config/runtime';
 import { createMemberRepository } from '../../../src/core/features/session/repository';
+import { removeMember } from '../../../src/core/features/workspace/members';
 test('ADMIN-003 — HTTP guest policy, default expiry and bulk revocation; SHARE-006 SHARE-001 SHARE-007: pending guest invitation grants no access, local provider double captures exact acceptance token, revoke invalidates pending grant', async () => {
     const { owner, containerId } = await scenario();
     const page = await createPage(owner, { operationKey: key('page'), containerId, title: 'Guest invitation' });
@@ -85,4 +86,25 @@ test('ADMIN-003 — HTTP guest policy, default expiry and bulk revocation; SHARE
     finally {
         provider.mockRestore();
     }
+});
+test('a member invitation stops admitting once its inviter is no longer a full member', async () => {
+    const { owner, reader, containerId } = await scenario();
+    const page = await createPage(owner, { operationKey: key('return-page'), containerId, title: 'Guest return page' });
+    const config = { ...readRuntimeConfig(env, false), mailFrom: 'test@qualification.invalid', mailApiKey: 'synthetic-slate-301' };
+    const mails: string[] = [];
+    const provider = vi.spyOn(globalThis, 'fetch').mockImplementation(async (_url, init) => { mails.push(String(init?.body)); return Response.json({ id: 'synthetic-slate-302' }); });
+    const token = () => mails.at(-1)!.match(/\/api\/auth\/invitation\/accept\?token=([A-Za-z0-9_-]+)/)![1]!;
+    try {
+        await invite(reader, config, { operationKey: key('member-invite'), email: 'latecomer@qualification.invalid', kind: 'member' });
+        const delivered = token();
+        await removeMember(owner, { operationKey: key('remove-inviter'), memberId: reader.actor.id });
+        const [{ email }] = await rows('SELECT email FROM members WHERE id=?', reader.actor.id);
+        await invite(owner, config, { operationKey: key('guest-return'), email: String(email), kind: 'guest', pageId: page.value.pageId });
+        await acceptInvitation(env.DB, config, token(), { files: env.FILES, jobs: env.JOBS });
+        expect(await rows('SELECT status,member_kind FROM members WHERE id=?', reader.actor.id)).toEqual([{ status: 'active', member_kind: 'guest' }]);
+        const origin = new URL(config.appUrl!).origin;
+        const response = await createApi().request(origin + '/api/auth/invitation/accept', { method: 'POST', headers: { origin, 'content-type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ token: delivered }) }, env);
+        expect(response.headers.get('set-cookie')).toBeNull();
+        expect(await rows("SELECT id FROM members WHERE email='latecomer@qualification.invalid'")).toEqual([]);
+    } finally { provider.mockRestore(); }
 });

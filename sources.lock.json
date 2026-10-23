@@ -8692,7 +8692,7 @@
       "executable": false
     },
     "src/core/features/session/saml/admission.ts": {
-      "sha256": "7dd76776aede550fd855be572c0f2066676b067e11492266f13cb6f1234bdda2",
+      "sha256": "24ae37c2f3f9a26bf899cd8117fee59c78ad11c3fe749b8faed3d164915ba998",
       "executable": false
     },
     "src/core/features/session/saml/domain.ts": {
@@ -9344,7 +9344,7 @@
       "executable": false
     },
     "src/core/features/workspace/invitations.ts": {
-      "sha256": "3d438f7f4bbb6dc561af13d30d717a4c315012f52b71aa53fadd753d32cbc7d3",
+      "sha256": "4f60276d13de4fdeebb99770a6b6e3f727faee6bee5546e5d292a8120144c44d",
       "executable": false
     },
     "src/core/features/workspace/members.ts": {
@@ -11440,7 +11440,7 @@
       "executable": false
     },
     "tests/qualification/policies/invitations.test.ts": {
-      "sha256": "65e1f29a7778d50de8582858c0268c970169dfd0c2741c7d020fec5fc5a43a5a",
+      "sha256": "c3cc5f74e7ee9655487913b69d3a01adfc636e133990ca6ae3996ed72962b6ca",
       "executable": false
     },
     "tests/qualification/policies/lifecycle-versions.test.ts": {
