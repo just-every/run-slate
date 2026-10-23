@@ -1,10 +1,12 @@
+import {createApi} from '../../../src/core/app/hono';
 import {expect} from 'vitest';
 import type {reviewFixture} from './fixture';
 import {seedMember,sessionFor} from '../setup/fixtures';
 import {env} from 'cloudflare:test';
 export async function peopleCase(base:Awaited<ReturnType<typeof reviewFixture>>){
  const key=()=>crypto.randomUUID();base.cookies.owner=await sessionFor('owner',{freshProof:true});
- const request=(method:string,path:string,body?:unknown,actor='owner')=>base.request(actor,method,path,body);
+ const api=createApi(),origin=new URL(String(env.APP_URL)).origin;
+ const request=async(method:string,path:string,body?:unknown,actor='owner')=>{const response=await api.request(origin+path,{method,headers:{cookie:base.cookies[actor]??'','content-type':'application/json',origin},body:body===undefined?undefined:JSON.stringify(body)},env);return {status:response.status,data:await response.json<any>()};};
  const container=await request('POST','/api/containers',{operationKey:key(),name:'Incident practice',visibility:'private'});expect(container.status,JSON.stringify(container.data)).toBe(200);
  const f={request,ownerId:'owner',readerId:'reader',workspaceId:'w',cookies:base.cookies,page:async(title:string)=>{const r=await request('POST','/api/pages',{operationKey:key(),containerId:container.data.value.id,title});expect(r.status,JSON.stringify(r.data)).toBe(200);return {id:r.data.value.pageId,revisionId:r.data.value.revisionId};}};
  const json=async(method:string,path:string,body?:unknown,actor=f.ownerId)=>{const r=await f.request(method,path,body,actor);expect(r.status,JSON.stringify(r.data)).toBe(200);return r.data;};
