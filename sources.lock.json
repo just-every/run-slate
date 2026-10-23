@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "c58ce7abe1659403de6edae5a9ca73158d0e2064c95e86edee96448d216ff6d0",
+      "sha256": "94a8e8917ebd35767e582ac459d785e91dca920541dffbd26df9a7a4750be0bc",
       "executable": false
     },
     "DEMO.md": {
@@ -1909,6 +1909,10 @@
     },
     "migrations/core/0051_database_forms.sql": {
       "sha256": "530642b8bf56d69fe0a76d717c313e185147e9fd2c9d9236ee6b807a5635d79f",
+      "executable": false
+    },
+    "migrations/core/0052_reminder_follow_through.sql": {
+      "sha256": "cabd9889e4f5644dd62a5fba5f0529a472f6708a14e84327816423720e0ee7cd",
       "executable": false
     },
     "modules/d1-transport/index.d.mts": {
@@ -8299,12 +8303,20 @@
       "sha256": "af63ee1d16af27a182093a49056294e946659f9a3700feb21ed9e859cd9408f8",
       "executable": false
     },
+    "src/core/features/reminders/follow-through.ts": {
+      "sha256": "e1fb31bb3f8ab5a67daf7d181fc45c0860d6171bd98adc74cc0c6e6f75f862f8",
+      "executable": false
+    },
     "src/core/features/reminders/routes.ts": {
       "sha256": "32ca8ceccf4b031e83619253977769172e5933746d5d36c0d4621db40a21b63a",
       "executable": false
     },
     "src/core/features/reminders/service.ts": {
       "sha256": "0274afae60db1e408610b1b1973ed4c42483e277635f0615be478f01014b27fd",
+      "executable": false
+    },
+    "src/core/features/reminders/ui/ReminderJobs.tsx": {
+      "sha256": "e22f1c310c4290a3fd02893eb6548541b28ec46a544f8e795ef76f61cc0f7ce3",
       "executable": false
     },
     "src/core/features/runs/acceptance.ts": {
@@ -10855,6 +10867,10 @@
       "sha256": "e463931169753c5cd4e0f43f1dfb9986866b4e51a57fb63755f1deac4e599002",
       "executable": false
     },
+    "tests/profile/reminder-upgrade-case.ts": {
+      "sha256": "6374cc8f1f16db5753eb943ae36bf7a9c111d0f4f55a346980066df4bf8b1820",
+      "executable": false
+    },
     "tests/profile/vitest.config.ts": {
       "sha256": "6044d7669f8ed7fcf99783ceb86bc953ccff6f3bf4bb652874ca187967ee86fd",
       "executable": false
@@ -11997,6 +12013,10 @@
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
       "sha256": "fd723018aaac1bc8ceb1623fbdc34a74caf6d58a0df1e752a9ca1d9d64bd79ff",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/reminder-follow-through-journey.mjs": {
+      "sha256": "1aa0e0396b3e07e38229d57c3a5bbb4d2c2f74fb7f189f601a85b40e728c7171",
       "executable": false
     },
     "tests/qualification/ui-convergence/review-request-journey.mjs": {

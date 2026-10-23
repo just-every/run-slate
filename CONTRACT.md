@@ -1085,7 +1085,7 @@ Every background action is a durable job with an accountable owner, a due condit
 
 *Acceptance:* a Workers journey kills a job mid-run and finds it resumed once with no duplicate effect. A forced failure appears on the owner's Home, and stopping a queued job cancels its pending sends.
 
-*Status:* partial. Automation run logs with failure states and repeated-failure disable exist (`src/core/features/automation/jobs.ts`, `tests/qualification/policies/automation-templates.test.ts`). Verification rules are covered: each rule runs as a durable nightly job with a receipt per rule and night, its effects recorded in activity, and repeated or concurrent runs adding nothing (`STAT-007`, `tests/e2e/review/verification-rules.test.ts`). The guarantee does not yet span every job kind.
+*Status:* partial. Reminders now retain accountable member, due condition, attempt progress and safe failure state, appear on Home without a search, and offer owner-only Retry and Stop. The existing atomic reminder/outbox checkpoint resumes once and Stop fences notification materialization. Existing reminder storage exports, restores stopped and erases with its member. Evidence: `src/core/features/reminders/delivery.ts`, `tests/profile/work-items-journey.ts`, `tests/profile/reminder-upgrade-case.ts`, `tests/qualification/ui-convergence/reminder-follow-through-journey.mjs`. Gap: A real mid-run process kill is not driven; the interruption case resumes a durable started row. The universal guarantee is not proved for automation rules and recurring records, publication schedules, review escalations, backups, identity mail, domain rechecks, notification/chat delivery, cleanup, connector syncs or agent work. Verification rules retain their existing nightly receipts. Default adopted: PARTIAL; retry reuses the original reminder/revision identity, Stop cancels unprocessed inbox intent and pending chat delivery, and already committed effects remain.
 
 ### Moving in and out
 
@@ -1806,7 +1806,7 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `a5610ee5a9dc9f851d835e90d243230820473441` (23 October 2026).
+Judged from the code and tests at commit `2fa88df620a4141fda4c075948cdee8f4e4a98b2` (23 October 2026).
 
 Live-provider evidence remains explicitly open. See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
@@ -2084,7 +2084,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `NOTIF-006` | Workspace notification defaults | target | missing | — | not implemented |
 | `AUTO-006` | Outbound automation actions | target | partial | `src/core/features/automation/actions.ts` | see the clause |
 | `AUTO-007` | Triggers from connected tools | target | missing | — | not implemented |
-| `AUTO-008` | Accountable follow-through | target | partial | `src/core/features/automation/jobs.ts` | see the clause |
+| `AUTO-008` | Accountable follow-through | target | partial | `src/core/features/reminders/delivery.ts`, `tests/profile/work-items-journey.ts`, `tests/profile/reminder-upgrade-case.ts`, `tests/qualification/ui-convergence/reminder-follow-through-journey.mjs` | A real mid-run process kill is not driven; the interruption case resumes a durable started row. The universal guarantee is not proved for automation rules and recurring records, publication schedules, review escalations, backups, identity mail, domain rechecks, notification/chat delivery, cleanup, connector syncs or agent work. Verification rules retain their existing nightly receipts. Default adopted: PARTIAL; retry reuses the original reminder/revision identity, Stop cancels unprocessed inbox intent and pending chat delivery, and already committed effects remain. |
 | `IMP-006` | Notion import with comments and live databases | target | partial | `src/core/features/imports/service.ts` | see the clause |
 | `IMP-007` | Confluence Cloud live migration | target | missing | — | not implemented |
 | `IMP-008` | Guru import | target | missing | — | not implemented |
