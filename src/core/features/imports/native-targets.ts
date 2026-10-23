@@ -2,6 +2,7 @@ import {derivedPageReferences,derivedContainerReferences,nativeReferenceCatalog,
 import type {D1TargetAdapter,D1Database,D1Sql,TargetRow,D1UndoEffect,D1UndoSnapshot,Json} from '../../../../modules/import-kit/src/d1/index.ts';
 import {expectedNativeScope,type NativeUnit,type NativeScope} from './native-plan';
 import {nativeWrites,nativeIdentifier as identifier} from './native-writes';
+import {nativePlanCodec} from './native-plan-codec';
 
 const sql=(sql:string,...params:unknown[]):D1Sql=>({sql,params});
 export interface NativeImportBinding {id:string; created_at:string; native_published:number}
@@ -59,6 +60,7 @@ export function nativeTargets(job:NativeImportBinding,writes:()=>number):D1Targe
     return {destination,targetKind:kind,targetId:id,value,revision:saved.revision};
   };
   const adapter:D1TargetAdapter={
+    planCodec:nativePlanCodec,
     async read(db,destination,kind,id) {
       const key=`${kind}\u0000${id}`,cached=reads.get(key);
       if(cached?.writes===writes())return structuredClone(await cached.row);
