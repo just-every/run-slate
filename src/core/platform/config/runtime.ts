@@ -55,6 +55,7 @@ export interface RuntimeBindings {
   CONNECTOR_CREDENTIALS_KEY?: string;
   RER_DEV_KEY?: string;
   RER_DEV_IDENTITY?: string;
+  RER_DEV_ORIGIN?: string;
   LOCAL_DEVELOPMENT?: string;
 }
 

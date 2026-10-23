@@ -20,7 +20,9 @@ export default defineConfig(async ({ command }) => {
   // guard reads the served folders even right after `rer reset`.
   let missingSettings: unknown;
   const local = command === 'serve' ? await loadLocalSettings(process.cwd()).catch(error => { missingSettings = error; return undefined; }) : undefined;
-  if (local && process.env.RER_DEV_ORIGIN) local.APP_URL = process.env.RER_DEV_ORIGIN;
+  // Wrangler reloads .dev.vars after config.vars; keep the selected origin in
+  // its own binding so the runtime can apply it after saved settings load.
+  if (local && process.env.RER_DEV_ORIGIN) Object.assign(local, { RER_DEV_ORIGIN: process.env.RER_DEV_ORIGIN });
   // Only `vite dev` receives the checkout's dev key and loads the local-only dev identity entry.
   if (local && process.env.RER_DEV_KEY) Object.assign(local, { RER_DEV_KEY: process.env.RER_DEV_KEY, RER_DEV_IDENTITY: process.env.RER_DEV_IDENTITY ?? 'on' });
   const optionalBindings = ['RER_MANAGEMENT_ORIGIN','RER_INSTALLATION_ID','HAPPYTOHELP_DELEGATION_ORIGIN','HAPPYTOHELP_DELEGATION_CLIENT_ID','HAPPYTOHELP_DELEGATION_ACCOUNT_ID','ORBIT_DELEGATION_ORIGIN','ORBIT_DELEGATION_CLIENT_ID','ORBIT_DELEGATION_ACCOUNT_ID','ALLOW_LOOPBACK_DELEGATION','GOOGLE_CLIENT_ID','GOOGLE_CLIENT_SECRET','SLACK_CLIENT_ID','SLACK_CLIENT_SECRET','GITHUB_CLIENT_ID','GITHUB_CLIENT_SECRET','AI_ENABLED','AI_PROVIDER','AI_API_KEY','AI_MODEL','AI_LOCAL_URL','AI_LOCAL_TOKEN','CONNECTOR_CREDENTIALS_KEY','SLATE_PROFILE'];

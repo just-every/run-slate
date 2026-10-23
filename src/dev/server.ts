@@ -8,6 +8,7 @@ import { decorateLabel } from "../../modules/demo/label.mjs";
 import { isLoopbackHostname } from "../core/platform/auth/paths";
 import { clearSessionCookie } from "../core/platform/auth/cookie";
 import { readRuntimeConfig } from "../core/platform/config/runtime";
+import { requireBindings } from "../core/platform/bindings.server";
 import { slateSessions } from "../core/features/session/auth";
 import { TENANT } from "../core/features/session/native/store";
 import { safeAppPath } from "../core/platform/auth/paths";
@@ -76,7 +77,10 @@ async function enter(request: Request, env: AppBindings, gate: NonNullable<Retur
 
 export default {
   ...worker,
+  async queue(batch, env: AppBindings) { await worker.queue(batch, requireBindings(env)); },
+  async scheduled(event, env: AppBindings) { await worker.scheduled(event, requireBindings(env)); },
   async fetch(request, env: AppBindings, execution): Promise<Response> {
+    env = requireBindings(env);
     const path = new URL(request.url).pathname;
     if (managedInstallation(env)) {
       // Never admit a dev credential beside a managed installation.
