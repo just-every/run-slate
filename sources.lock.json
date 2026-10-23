@@ -6456,7 +6456,7 @@
       "executable": false
     },
     "src/core/features/editor/synced/erase.ts": {
-      "sha256": "ee0180cb30d0fdf3f8fb71a63dc7fcc2856901a1c391bd696fe28ca6b7cbc984",
+      "sha256": "7e5ce9fa3a86a23b2019624c3e52d16ed324dbfb1b6a893095051344698d8fdf",
       "executable": false
     },
     "src/core/features/editor/synced/guards.ts": {
@@ -6468,7 +6468,7 @@
       "executable": false
     },
     "src/core/features/editor/synced/write.ts": {
-      "sha256": "dd684530bc2888dcac5211e45c2e8daf534fe8e0730a621d41fd16afe5f7e7bf",
+      "sha256": "bafa85e5a78d0ed8791985e4a8870f10756ad9b14aa48393b97b93e51604e0a4",
       "executable": false
     },
     "src/core/features/editor/table-of-contents.ts": {
@@ -9956,7 +9956,7 @@
       "executable": false
     },
     "tests/e2e/editor/synced-case.ts": {
-      "sha256": "0206c7ec6ec9e1ad5a7644dc80a90b526e20fb3cf0470cd015b350dd17ffe20b",
+      "sha256": "23671997c1b2518e9c93a79cffbc7b9614bee3b08b632a5ab7ca2251964ec634",
       "executable": false
     },
     "tests/e2e/editor/tables.test.ts": {
@@ -12064,7 +12064,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-journey.mjs": {
-      "sha256": "82ddee6afebf1b400b5a507dea552e2aa8a009702743e53d195d91570f16d400",
+      "sha256": "b1796eda71c342828f67b1c5b43d6065c9c48de7084bd40b91fa381ece07e388",
       "executable": false
     },
     "tests/qualification/ui-convergence/tables-journey.mjs": {
