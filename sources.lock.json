@@ -1100,99 +1100,107 @@
       "executable": false
     },
     "evidence/file-cards/files-1440-deleted.png": {
-      "sha256": "019c3f959b8a879c9fa96d4b08db4607f2871f62056ced07acda8013e6f4d138",
+      "sha256": "7a89f3571c1f2b84de15ded2b24d9ddcc880ed38b206fc99df8f1d1665ecc23f",
       "executable": false
     },
     "evidence/file-cards/files-1440-disconnected.png": {
-      "sha256": "8389560f8089079b1cc63075c0d28a819d154e6871c74124713fb38ee692b8c5",
+      "sha256": "f564e2b4593b99eca7025f57482b2913e32538690d6ac347397d5a1fb99e2d3f",
+      "executable": false
+    },
+    "evidence/file-cards/files-1440-docs.png": {
+      "sha256": "189ad6588cfb0144e6f1ce809441784361828ec2d68d6614babe0372553db209",
       "executable": false
     },
     "evidence/file-cards/files-1440-empty-picker.png": {
-      "sha256": "f5bb0edc3e13da4c8003e390fe4acfdf86ebaeca68fabf4e2341d010934e2f34",
+      "sha256": "afc5ffca30adbc4e5b3bf06f4d8f197cac7c2f73437b054dc08600ace5cc3bc6",
       "executable": false
     },
     "evidence/file-cards/files-1440-google-drive-picker.png": {
-      "sha256": "7c657d19808461f5195a27d10a940853773e428300f3fb3549f3d855d89a5013",
+      "sha256": "d2152ca95fe2e1e2631e0fb6ee09fb6cdb1d22cc1e5e5bfdbf3292d1725d9513",
       "executable": false
     },
     "evidence/file-cards/files-1440-google-drive-readable.png": {
-      "sha256": "118e347cc00e8730e11c9cf2a420c379645d6fdd55e2cfee98f1a5e3a82d01f0",
+      "sha256": "b6b494cb69a161cb069327f2947899230f25f1b2d35136a21bc0bab6f86c0e4c",
       "executable": false
     },
     "evidence/file-cards/files-1440-google-drive-renamed.png": {
-      "sha256": "deb232dd194520418ae4baca2dd1d7f61ef17ff66408d8b0d4adce4011ec6cf2",
+      "sha256": "4a99f9759a6931af3538f6e9e7080d25bcf158dac1ef27c1b60fd55a1c257b36",
       "executable": false
     },
     "evidence/file-cards/files-1440-no-connection.png": {
-      "sha256": "729178fe6095e65b08356abd37c3db37c6dd57dca962aa39b3b57b28be1da586",
+      "sha256": "935ebe150f2da2083284e77a7da6860bcc2386a8c9775b11b5f831dbb2ac5877",
       "executable": false
     },
     "evidence/file-cards/files-1440-provider-failed.png": {
-      "sha256": "230dc3dd8ea3d21efcfcd953e2f687d3e5e5023dc7921d99b66f1852260dfc7c",
+      "sha256": "79ccc86803505fd281b57dda663182ecdaaf33c862032c774561de61fa7895da",
       "executable": false
     },
     "evidence/file-cards/files-1440-reader-denied.png": {
-      "sha256": "c5c4464775d793c0cef53ffbd40f0a2097203916c5875d7cffb1264c90acd2ec",
+      "sha256": "61b5868f1c7e83021fb1e6fe565ab32a16a063fdd2ec9bce528da0eb73a2bec4",
       "executable": false
     },
     "evidence/file-cards/files-1440-sharepoint-picker.png": {
-      "sha256": "70020bdc9277704c8bf98ee7938c4fd99047b10267085951481bc37eba9fa5b5",
+      "sha256": "00db1b8d4f5478d076f276b151b052c620ddb5a57b7da5cb3c6a1be699a6f109",
       "executable": false
     },
     "evidence/file-cards/files-1440-sharepoint-readable.png": {
-      "sha256": "62b79ada3e3153bdba81cbe437d29d90c2dc1865ac859475550e40d1691a7c07",
+      "sha256": "d78d14d109580e881bcdc8afa56622f8a8920ae7c3bb508b68df2af492a169ec",
       "executable": false
     },
     "evidence/file-cards/files-1440-sharepoint-renamed.png": {
-      "sha256": "2cbd674a095c0cfe24b869183dec948ea412d03ac1d88dbefa6e0ad33cd6888d",
+      "sha256": "077d5386a98b45c7b4b9c7877679ead02eab0de04acb51de6349bd2424d91762",
       "executable": false
     },
     "evidence/file-cards/files-390-deleted.png": {
-      "sha256": "00d9a20e4860dfd4968e334d83a39b633f86e59405583d7d0224f74b402e8a81",
+      "sha256": "6050ce013bcd50a51d248ba8375f4a883a50432f6745207aef04b82b26f73b38",
       "executable": false
     },
     "evidence/file-cards/files-390-disconnected.png": {
-      "sha256": "7c33da27cc867e94640f71a66e19c449311d6cc87e03f2c5555e4accc9899acf",
+      "sha256": "eeeca3f7b6fa7549278b0e885bfac04cb30613a7ef02b0350eccca2dc205beef",
+      "executable": false
+    },
+    "evidence/file-cards/files-390-docs.png": {
+      "sha256": "f8c6b461ca50976419a27c00d78ada92dbcde27506449c0cc051d2ad79c4e730",
       "executable": false
     },
     "evidence/file-cards/files-390-empty-picker.png": {
-      "sha256": "87a416bd4473d13cd563e1e43d8451404ae7da3d745244f9768cc4f4d0327d7f",
+      "sha256": "f38db436860ee1923c1e80ee07dad901465e0f2018077b3f06e42de6bfd4a03c",
       "executable": false
     },
     "evidence/file-cards/files-390-google-drive-picker.png": {
-      "sha256": "269887d814915a23bb421413b19a07b72d984b0ba909809b2ba55b20fc46d3e6",
+      "sha256": "be1cfe58d508f5ffe9db61e75da163ab597059bb2ac1bf6c8ae185601d3018cd",
       "executable": false
     },
     "evidence/file-cards/files-390-google-drive-readable.png": {
-      "sha256": "7911e89754dd58a9716111bfa824e81a8a0d8ca85906e4419ffb66c55405fbdb",
+      "sha256": "13ff9e025a0b1875c0b7e4fb431113878fd98f79c80c5e46f7cb1f63955c566a",
       "executable": false
     },
     "evidence/file-cards/files-390-google-drive-renamed.png": {
-      "sha256": "908798cdb620a754f0e05238d65c1586e2896e5b09db9dc0f00a58c6c7c0f303",
+      "sha256": "e16e4d74310b8feeaec833ff3a43300b13e15a544b7dc56a80118c74b4643cd9",
       "executable": false
     },
     "evidence/file-cards/files-390-no-connection.png": {
-      "sha256": "d442b10beef05a69262cd7542fdfe283c55f69e254aa75a1f8d4d0864482981c",
+      "sha256": "dc59048272f761aaaab780b18df2b4c845f137c47982c090b46b58ae851e0d97",
       "executable": false
     },
     "evidence/file-cards/files-390-provider-failed.png": {
-      "sha256": "0762899af7d3746d0ec972a13208129d32bd1dffae8be57ac3221e7e32da795f",
+      "sha256": "b625e2b7d5806a617bd802b315e20ca45ad478af4b7b014474bf34baa572a89c",
       "executable": false
     },
     "evidence/file-cards/files-390-reader-denied.png": {
-      "sha256": "ab1df0011dbe9bfa917d6aad613a65805de234b9cfa5f0a1debf7a5788d01ba5",
+      "sha256": "d878422bfaee89c45e6245ef0388c8420197f0fd7e0f130d57ca6a0b855f928f",
       "executable": false
     },
     "evidence/file-cards/files-390-sharepoint-picker.png": {
-      "sha256": "f7157b08e10b5303f409fb7b719dc2cff21c94565eda6d8aebe78ed028e48cac",
+      "sha256": "966e8393ff4d285e256e0b5ca1d1233aa3db7c56fc6abb8f611e1948edb19fa6",
       "executable": false
     },
     "evidence/file-cards/files-390-sharepoint-readable.png": {
-      "sha256": "f75f0dca4ae3f64b24c3472025832fa24b50dfc66ff35368e09957b418aa7205",
+      "sha256": "afdf4c5a8b889e0a94b337b3d4c29a11c641a04b819743d3cd4ccc1fe504878e",
       "executable": false
     },
     "evidence/file-cards/files-390-sharepoint-renamed.png": {
-      "sha256": "2e63c06d8aa9cbb02edf9ed932fa5c4015a7cd1cf60005a4de6eeb8b7b040ea1",
+      "sha256": "e8339ef617348d9c30d9a6ac7a96742b262a88b6dc12902ec6ebb4244f15df8b",
       "executable": false
     },
     "evidence/port010/export-comments-1440-word-comments-dialog.png": {
