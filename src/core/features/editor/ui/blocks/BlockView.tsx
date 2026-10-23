@@ -29,7 +29,7 @@ export interface BlockViewProps {
 /** One block, rendered by its type. Every renderer is props-in, callbacks-out. */
 export function BlockView({ block, canEdit, onChange, actions, placeholder, textLabel }: BlockViewProps) {
   switch (block.type) {
-    case "columns": return canEdit ? <label className="text-ui text-ink-muted">Columns <select aria-label="Number of columns" value={block.count} onChange={event=>onChange({...block,count:Number(event.target.value)})}>{[2,3,4,5].map(count=><option key={count} value={count}>{count}</option>)}</select></label> : null;
+    case "columns": return canEdit ? <label className="text-ui text-ink-muted">Columns <select aria-label="Number of columns" disabled={actions?.layoutBusy} value={block.count} onChange={event=>onChange({...block,count:Number(event.target.value)})}>{[2,3,4,5].map(count=><option key={count} value={count}>{count}</option>)}</select></label> : null;
     case "column": return null;
     case "file-card": return <FileCardBlock block={block}/>;
     case "table-of-contents": return <TableOfContentsBlock block={block} canEdit={canEdit} onChange={onChange}/>;

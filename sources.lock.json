@@ -5424,7 +5424,7 @@
       "executable": false
     },
     "src/core/client/usePageEditor.ts": {
-      "sha256": "98c21a379a56433e967355eba8c5b1da17fffcbd3f1460454dc947531dbf222c",
+      "sha256": "2d9d63b591fd7bdb64d4ffbbc0a0fa958323859a60352decb0c8630ed2db3a22",
       "executable": false
     },
     "src/core/client/useRecordReferences.ts": {
@@ -6524,15 +6524,15 @@
       "executable": false
     },
     "src/core/features/editor/ui/BlockHandle.tsx": {
-      "sha256": "807f832020d0e4a7e6bdb5df52b06869a362c7a85342232bb64a96d95e98d70a",
+      "sha256": "c2a6b57b5ac0c647dab79367dce11bb25ed01a455f3a75aea6867cb22001914f",
       "executable": false
     },
     "src/core/features/editor/ui/BlockRow.tsx": {
-      "sha256": "7be88e7cb17e9ce1a1b9755ee91ee39760c0898d26ad4efb40d0befc662b2a6e",
+      "sha256": "ccc9aee9b7add2192ab0969e6513fe1df73ec654f5164c6857296138aa428668",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/BlockView.tsx": {
-      "sha256": "c92a3cdaba35e078980f962fbd976b6a8b2c8ad737c210dea994a1661c4f73c3",
+      "sha256": "3fba1e438e52bab88af48d7607978eaa80dbc22640b821d814c838b313767c55",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/CalloutBlock.tsx": {
@@ -6708,7 +6708,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/types.ts": {
-      "sha256": "00bf853b79ea6fd2f9de14f9aec4ad8f3aef0e9c64beff28934c7aa6f542f11f",
+      "sha256": "ca86ba5717b1886e939a274cde12c45a58893f97cb2aa99edbd895d93fbbca1b",
       "executable": false
     },
     "src/core/features/editor/ui/useTouchBlockDrag.ts": {
@@ -7112,7 +7112,7 @@
       "executable": false
     },
     "src/core/features/imports/native-targets.ts": {
-      "sha256": "c8b3c2dd188e2ad6d75f4942e9442415c158710f5b5d7e64089eabcfcf4a64c6",
+      "sha256": "1b15f341f6ee165d3b7175f93690d6b99ce7cb143f1a07d495e9046f267d134b",
       "executable": false
     },
     "src/core/features/imports/notion/fields.ts": {
@@ -8148,7 +8148,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageEditorBody.tsx": {
-      "sha256": "60de5bef146e8de3318757d813957136752fba803a2c3e831d5e2d1d0c683e0f",
+      "sha256": "53c35651601ea0480283e823668355cdd8a93d0fccc9feb68168d2071615da50",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {

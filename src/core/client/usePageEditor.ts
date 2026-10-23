@@ -339,16 +339,7 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
     }
     invalidateRead();
     const fresh = await structureRead("after");
-    const loaded = editorBlocks(fresh.blocks);
-    current.current = loaded;
-    setBlocks(loaded);
-    synced.current = fresh.page.revisionId;
-    updateRevision(fresh.page.revisionId);
-    setWorkingRevisionId(fresh.workingRevisionId);
-    revisions.current = new Map(
-      fresh.blocks.map((block) => [block.id, block.revisionId]),
-    );
-    blockTypes.current = new Map(fresh.blocks.map(block => [block.id, block.blockType]));
+    adopt(fresh);
     setStructureState("saved");
     return committed.value.blocks;
     } catch(error) {setStructureState(null);throw error;} finally {structureBusy.current=false;}

@@ -121,6 +121,7 @@ export function BlockRow({
       <BlockHandle
         blockLabel={label}
         canEdit={canEdit}
+        disabled={actions?.layoutBusy}
         onDelete={onDelete}
         onDragEnd={onDragEnd}
         onDragStart={onDragStart}
