@@ -278,6 +278,7 @@ export type ConflictChoice = "compare" | "reload" | "overwrite";
 /* ---------- shared renderer props ---------- */
 
 export interface BlockActions {
+  layoutBusy?: boolean;
   onConvertTable?: (blockId:string) => void;
   onCopyCode?: (blockId: string) => void;
   onChooseFile?: (blockId: string) => void;

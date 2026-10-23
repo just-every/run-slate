@@ -264,6 +264,7 @@ export function PageEditorBody({
         selectedBlockIds={selected}
         onSelectionChange={setSelected}
         actions={{
+          layoutBusy: insertion.pending || editor.structureState === "saving",
           onConvertTable: id=>{void (async()=>{await editor.flush();const fresh=await contentApi.document(document.page.id);const converted=await mutate<{value:{databaseId:string}}>('/api/databases/from-table',{operationKey:operationKey(),pageId:document.page.id,blockId:id,expectedRevisionId:fresh.page.revisionId});window.location.assign(`/app/databases/${converted.value.databaseId}`);})().catch(setError);},
           onChooseFile: (id) => setMedia({ id, mode: "upload" }),
           onAddFileLink: (id) => setMedia({ id, mode: "link" }),
