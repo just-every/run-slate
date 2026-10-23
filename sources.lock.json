@@ -1080,7 +1080,7 @@
       "executable": false
     },
     "docs/TRUSTWORTHY-HANDBOOK.md": {
-      "sha256": "dce5fd67176e6d79d285db6eca641d3077b8251fad32a969723fa8e625c62171",
+      "sha256": "d2a0356607a405c4abbe14a4af83a87dc479f5eb7412d556efe74dee7b42db86",
       "executable": false
     },
     "edition.json": {
@@ -6492,11 +6492,11 @@
       "executable": false
     },
     "src/core/features/editor/synced/guards.ts": {
-      "sha256": "d18d0f9d754bc3a834dd46d9d7e38dcf12158ebce30a733794cf70d5fc64f9e5",
+      "sha256": "6198b128ef7649914187770e0818ddf228f049f82a20072f3771022367894fcf",
       "executable": false
     },
     "src/core/features/editor/synced/read.ts": {
-      "sha256": "ccab5d96af4b8bfb1e696b1a0ae2b6cb97fa6e97fa6a382e0f0d4176de1c5ada",
+      "sha256": "1a79ed237e06a1e32b79d0a5cf400d22f707b906992ad14fc793b3e137fb6eb1",
       "executable": false
     },
     "src/core/features/editor/synced/write.ts": {
@@ -8104,7 +8104,7 @@
       "executable": false
     },
     "src/core/features/pages/tree.ts": {
-      "sha256": "be0138adff75944d49f1782d6badcecdbd75b2acc31e801dbb8f2168bdd6364d",
+      "sha256": "e03f110154f38f4a7c2c76e56fb47e3667324fa4c99d91cb5f6f80d325a4094d",
       "executable": false
     },
     "src/core/features/pages/types.ts": {
@@ -8172,7 +8172,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageEditorBody.tsx": {
-      "sha256": "099683895f5f1432ead8bdc8c3c5273c780a14d9b9f9991a0fb59b1abcf16f11",
+      "sha256": "5d9b971882c9712bd2f3fbbdb5a93c5c42ce020a364d4df0c1bf8b4e3ec91ca9",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
@@ -9268,7 +9268,7 @@
       "executable": false
     },
     "src/core/features/templates/snapshots.ts": {
-      "sha256": "3acb4ba0bef21852afc439c40fc20212d8c5736efc6d9eb8731b9f1ca150e612",
+      "sha256": "7ce477cb6a637349a7094ddddee427a44701b827986f3bc4e3b80aad14bdaf7d",
       "executable": false
     },
     "src/core/features/templates/starters.ts": {
@@ -9452,7 +9452,7 @@
       "executable": false
     },
     "src/core/features/workspace-export/docx.ts": {
-      "sha256": "3b825335d30259cd1d5fa28505cb647e33f536a85a2e1becbc6977e3711e958a",
+      "sha256": "d85c3b210d2b49a76b5716005b14f955868ae320d5dae1c28b79073465c6e9cd",
       "executable": false
     },
     "src/core/features/workspace-export/html.ts": {
@@ -9476,7 +9476,7 @@
       "executable": false
     },
     "src/core/features/workspace-export/readable-archive.ts": {
-      "sha256": "ace9055105b0b6b3689d20e27b4c4b037c18b923226bf68b927758dde0fb8039",
+      "sha256": "4435166c9f00845a4db769953827db660840ff4ab9d3f83aef01444f398aa29d",
       "executable": false
     },
     "src/core/features/workspace-export/readable.ts": {
