@@ -9,6 +9,9 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  const sourceIds=(await db.prepare('SELECT s.id FROM federation_sources s JOIN federation_connections c ON c.id=s.connection_id WHERE c.workspace_id=? AND c.member_id=?').bind(w,memberId).all<{id:string}>()).results.map(r=>r.id);
  const statements=[...await prepareEraseImportMetadata(ctx,[],memberId),...prepareEraseLegacy(ctx,sourceIds,memberId),...prepareInvalidateExports(ctx),...await prepareEraseIntelligence(ctx,sourceIds,memberId)];
  const add=(sql:string,...v:(string|null)[])=>statements.push(db.prepare(sql).bind(...v));
+ add("UPDATE database_form_submissions SET submitter_member_id=NULL,submitter_kind='former-member',request_hash='' WHERE submitter_member_id=?",memberId);
+ add("UPDATE database_forms SET published=0,publisher_member_id=NULL,title='Deleted form',definition_json='{}' WHERE publisher_member_id=?",memberId);
+ add("UPDATE database_forms SET definition_json=json_set(definition_json,'$.guestIds',json(COALESCE((SELECT json_group_array(value) FROM json_each(database_forms.definition_json,'$.guestIds') WHERE value<>?),'[]'))) WHERE workspace_id=? AND json_valid(definition_json)",memberId,w);
  for(const table of ['reminders','page_favourites','container_favourites','page_watches','container_watches','recent_pages','content_page_opens','content_tree_expansion','content_presence','reactions','discovery_preferences','discovery_revisions','saved_searches','discovery_snapshots','federation_oauth_states'])add(`DELETE FROM ${table} WHERE member_id=?`,memberId);
  add("UPDATE backup_destinations SET created_by_member_id=NULL,name='Removed owner backup',endpoint='',bucket='',prefix='',credential_ciphertext=NULL,state='removed',drill_report_json=NULL WHERE created_by_member_id=?",memberId);
  add("DELETE FROM federation_import_mappings WHERE import_job_id IN (SELECT id FROM provider_folder_runs WHERE workspace_id=? AND actor_id=?)",w,memberId);
@@ -30,7 +33,7 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  add('DELETE FROM notifications WHERE recipient_member_id=?',memberId);
  add("UPDATE comments SET body_json='[]',author_member_id=NULL,deleted_at=? WHERE author_member_id=?",now,memberId);
  add("UPDATE record_revisions SET content_json='{}',author_member_id=NULL WHERE author_member_id=?",memberId);
- add("UPDATE core_entity_revisions SET content_json='{}',content_hash='',author_member_id=NULL WHERE (entity_kind='member' AND entity_id=?) OR author_member_id=?",memberId,memberId);
+ add("UPDATE core_entity_revisions SET content_json=CASE WHEN entity_kind IN ('content-governance','container-classification') THEN content_json ELSE '{}' END,content_hash=CASE WHEN entity_kind IN ('content-governance','container-classification') THEN content_hash ELSE '' END,author_member_id=NULL WHERE (entity_kind='member' AND entity_id=?) OR author_member_id=?",memberId,memberId);
  add("UPDATE activity_entries SET detail_json='{}',actor_member_id=NULL WHERE actor_member_id=? OR (target_kind='member' AND target_id=?)",memberId,memberId);
  add("UPDATE operation_receipts SET response_json='{\"value\":{\"erased\":true}}' WHERE actor_member_id=?",memberId);
  add("UPDATE content_archive_locations SET reason=NULL WHERE actor_member_id=?",memberId);
@@ -39,6 +42,7 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  add("UPDATE chat_messages SET state='withdraw' WHERE state<>'restricted' AND id IN (SELECT message_id FROM chat_message_sources WHERE actor_member_id=?)",memberId);
  add('UPDATE chat_message_sources SET actor_member_id=NULL WHERE actor_member_id=?',memberId);
  add("UPDATE chat_deliveries SET state='cancelled',failure='actor_erased' WHERE state='pending' AND outbox_id IN (SELECT id FROM notification_outbox WHERE actor_member_id=?)",memberId);
+ add("UPDATE notifications SET detail_json='{}' WHERE outbox_id IN (SELECT id FROM notification_outbox WHERE actor_member_id=?)",memberId);
  add("UPDATE notification_outbox SET detail_json='{}',recipients_json='[]',watched_recipients_json='[]',actor_member_id=NULL,processed_at=COALESCE(processed_at,?) WHERE actor_member_id=?",now,memberId);
  add("UPDATE chat_connections SET destination='',target_label='',credential_ciphertext=NULL,source_connection_id=NULL,source_connection_revision_id=NULL,state='disconnected',disconnected_at=?,needs_attention_reason=NULL,last_failure_reason=NULL,audience_member_ids_json='[]' WHERE connected_by_member_id=?",now,memberId);
  add("UPDATE chat_deliveries SET state='cancelled',failure=NULL,provider_receipt=NULL WHERE connection_id IN (SELECT id FROM chat_connections WHERE connected_by_member_id=?)",memberId);

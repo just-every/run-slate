@@ -33,6 +33,7 @@ export interface PageRow {
     revision_id: string;
 }
 export interface PageProperties {
+    card?: {verificationRequired:true;verificationIntervalDays:number};
     byline?: string;
     databaseFields?: Record<string, JsonValue>;
     title: string;
@@ -56,7 +57,7 @@ export interface PageCreateInput {
     containerId: string;
     parentPageId?: string | null;
     title: string;
-    pageKind?: 'page' | 'record' | 'database';
+    pageKind?: 'page' | 'record' | 'database' | 'card';
     databaseId?: string | null;
     lifecycle?: PageLifecycle;
     blocks?: BlockInput[];

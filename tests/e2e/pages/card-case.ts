@@ -1,0 +1,36 @@
+import {env} from 'cloudflare:test';
+import {expect} from 'vitest';
+import {unzipSync} from 'fflate';
+import {createApi} from '../../../src/core/app/hono';
+import {resetDeployment} from '../setup/reset-deployment';
+import {seedWorkspace,seedMember,seedContainer,seedContainerGrant,sessionFor} from '../setup/fixtures';
+export async function cardCase(){
+ await resetDeployment();
+ const {workspaceId}=await seedWorkspace(),owner=await seedMember(workspaceId,{role:'owner',email:'synthetic-slate-owner@example.test',displayName:'Card owner',isSetupOwner:true}),reader=await seedMember(workspaceId,{role:'member',email:'synthetic-slate-reader@example.test',displayName:'Reader'});
+ const {containerId}=await seedContainer(workspaceId,{ownerMemberId:owner.memberId,visibility:'private'});
+ await seedContainerGrant(containerId,{principalKind:'member',principalId:owner.memberId,level:'full'});
+ const cookies={owner:await sessionFor(owner.memberId,{freshProof:true}),reader:await sessionFor(reader.memberId)},api=createApi();
+ const request=async(method:string,path:string,body?:unknown,who:'owner'|'reader'='owner')=>api.request('https://slate.test/api'+path,{method,headers:{cookie:cookies[who],origin:'https://slate.test',...(body instanceof FormData?{}:{'content-type':'application/json'})},body:body===undefined?undefined:body instanceof FormData?body:JSON.stringify(body)},{...env,SLATE_PROFILE:undefined});
+ const call=async(method:string,path:string,body?:unknown,who:'owner'|'reader'='owner')=>{const r=await request(method,path,body,who),v=await r.json<any>();expect(r.status,JSON.stringify(v)).toBe(200);return v;};
+ const op=()=>crypto.randomUUID(),text=Array.from({length:600},()=> 'handover').join(' '),blockId=op();
+ const c=await call('GET',`/containers/${containerId}`);
+ await call('PUT',`/containers/${containerId}/collection`,{operationKey:op(),expectedRevisionId:c.revisionId,isCollection:true});
+ expect((await call('GET',`/containers/${containerId}/collection`)).isCollection).toBe(true);
+ const created=(await call('POST','/pages',{operationKey:op(),containerId,title:'How does CardUnique handover work?',pageKind:'card',blocks:[{id:blockId,blockType:'paragraph',treePosition:'1',content:{text:[{text}]}}]})).value;
+ let doc=await call('GET',`/pages/${created.pageId}`);
+ expect(doc.page.pageKind).toBe('card');expect(doc.properties.ownerMemberId).toBe(owner.memberId);expect(doc.properties.card.verificationRequired).toBe(true);expect(doc.card.overLimit).toBe(true);expect(doc.blocks[0].content.text[0].text).toBe(text);
+ const search=await call('GET','/search?query=CardUnique');
+ const hit=search.items.find((item:any)=>item.id===created.pageId);
+ expect(hit).toMatchObject({pageKind:'card',trust:{state:'unverified'}});
+ expect((await call('GET','/search?query=CardUnique',undefined,'reader')).items).toEqual([]);
+ const copy=(await call('POST',`/pages/${created.pageId}/duplicate`,{operationKey:op(),containerId})).value;
+ expect((await call('GET',`/pages/${copy.pageId}`)).page.pageKind).toBe('card');
+ const archive=await request('POST','/exports/readable',{scope:'page',id:created.pageId,format:'markdown'});
+ expect(archive.status).toBe(200);const bytes=new Uint8Array(await archive.arrayBuffer()),manifest=JSON.parse(new TextDecoder().decode(unzipSync(bytes)['slate-readable.json']));
+ expect(manifest.pages[0].pageKind).toBe('card');expect(manifest.pages[0].blocks[0].content.text[0].text).toBe(text);
+ const form=new FormData();form.set('file',new File([bytes],'cards.zip'));form.set('format','slate-readable');form.set('operationKey',op());
+ const beforeImport=new Set((await call('GET','/pages')).items.map((item:any)=>item.id));
+ const upload=await call('POST','/imports',form);expect((await call('POST',`/imports/${upload.id}/run`,{})).state).toBe('completed');
+ const imported=(await call('GET','/pages')).items.filter((item:any)=>!beforeImport.has(item.id));
+ expect(imported).toHaveLength(1);doc=await call('GET',`/pages/${imported[0].id}`);expect(doc.page.pageKind).toBe('card');expect(doc.blocks[0].content.text[0].text).toBe(text);
+}

@@ -109,6 +109,7 @@ export interface ImportedPublicExposure {
 }
 
 export interface ImportedPage extends SourceIdentity {
+  pageKind?: "page"|"card";
   comments?: import("../workspace-export/comment-archive").CommentArchive;
   /** Shared page reading options retained by Slate readable archives. */
   display?: { typeface: "default" | "serif" | "mono"; smallText: boolean; fullWidth: boolean };

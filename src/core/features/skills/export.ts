@@ -1,3 +1,4 @@
+import {requireGovernance} from '../workspace/governance';
 import {zipSync,strToU8} from 'fflate';
 import type {FeatureContext} from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
@@ -5,6 +6,7 @@ import {resolveEvidence} from '../ai/evidence';
 import {requireSkillRevisionDisclosure,readSkill} from './disclosure';
 /** A labelled immutable handoff, without live authority or implicit synchronization. */
 export async function exportSkillSnapshot(ctx:FeatureContext,revisionId:string){
+ await requireGovernance(ctx,'export');
  const definition=await requireSkillRevisionDisclosure(ctx,revisionId),packets=await resolveEvidence(ctx,definition.refs,[ctx.actor.id]);
  const row=await ctx.db.prepare('SELECT s.id,s.name,s.owner_id,v.state,v.created_at FROM intelligence_skills s JOIN intelligence_skill_versions v ON v.skill_id=s.id WHERE v.id=? AND s.workspace_id=?').bind(revisionId,ctx.actor.workspaceId).first<{id:string;name:string;owner_id:string;state:string;created_at:string}>();
  if(!row)throw new ApiProblem(404,'NOT_FOUND','Not found.');

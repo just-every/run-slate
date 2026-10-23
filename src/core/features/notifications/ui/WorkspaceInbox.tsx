@@ -12,7 +12,8 @@ interface Notice {
   href: string;
   createdAt: string;
   readAt: string | null;
-  detail?: { outcome?: string; verificationRules?: { unverified: number; flagged: number; pages: { id: string; title: string; change: string }[] } };
+  sender?:{id:string;displayName:string};
+  detail?: { share?:{message:string}; outcome?: string; verificationRules?: { unverified: number; flagged: number; pages: { id: string; title: string; change: string }[] } };
 }
 /** STAT-007: one coalesced notice per owner and run, counts and titles only. */
 function rulesSummary(rules: { unverified: number; flagged: number }) {
@@ -82,6 +83,7 @@ export function WorkspaceInbox() {
                     {!item.readAt ? " · Unread" : ""}
                   </span>
                   <h3>{item.title ?? (item.detail?.verificationRules ? rulesSummary(item.detail.verificationRules) : "Workspace update")}</h3>
+                  {item.detail?.share ? <><p>From {item.sender?.displayName??"Former member"}</p><p style={{whiteSpace:"pre-wrap"}}>{item.detail.share.message}</p></> : null}
                   {item.detail?.verificationRules ? <p>{item.detail.verificationRules.pages.map(page => `${page.title} (${page.change})`).join(", ")}</p> : null}
                   {localDevelopment && item.detail?.outcome ? <p>{item.detail.outcome}</p> : null}
                   <time dateTime={item.createdAt}>{new Date(item.createdAt).toLocaleString()}</time>

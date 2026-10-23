@@ -8,6 +8,7 @@ type Activity = {
   target: { kind: string; id: string };
   occurredAt: string;
   deleted: boolean;
+  message?:string;
   context: { pageId?:string;threadId?:string;grantId?:string;commentId?: string; revisionId?: string };
   automationRunId?: string;
   aiRunId?: string;
@@ -120,6 +121,7 @@ export function ActivityWorkspace() {
                     </>
                   ) : null}
                 </p>
+                {item.message!==undefined?<p style={{whiteSpace:"pre-wrap"}}>{item.message}</p>:null}
                 {item.automationRunId ? (
                   <p className="muted">From a recorded automation</p>
                 ) : item.aiRunId ? (

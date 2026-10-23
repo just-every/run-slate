@@ -8,10 +8,11 @@ import { ApiProblem } from '../../app/problems';
 import { currentSubject,requirePageLevel,requireContainerAdministration } from './current-access';
 import { createUlid } from '../../shared/ulid';
 import type { AccessLevel,GrantPrincipalKind } from '../../shared/knowledge/model';
-export async function saveGrant(ctx:FeatureContext,input:{operationKey:string;targetKind:'page'|'container';targetId:string;id?:string;principalKind:GrantPrincipalKind;principalId:string;level:AccessLevel;expiresAt?:string|null;revoke?:boolean}){
-  return commitOperation(ctx,{operationKey:input.operationKey,action:'sharing.grant',request:input,authorize:async()=>{if(input.targetKind==='page')await requirePageLevel(ctx,input.targetId,'full');else await requireContainerAdministration(ctx,input.targetId);},prepare:async({revisionId})=>{
+export type GrantInput={operationKey:string;targetKind:'page'|'container';targetId:string;id?:string;principalKind:GrantPrincipalKind;principalId:string;level:AccessLevel;expiresAt?:string|null;revoke?:boolean};
+export async function authorizeGrant(ctx:FeatureContext,input:GrantInput){if(input.targetKind==='page')await requirePageLevel(ctx,input.targetId,'full');else await requireContainerAdministration(ctx,input.targetId);}
+export async function prepareGrant(ctx:FeatureContext,input:GrantInput,revisionId:string,notify=true,createdId?:string){
     if(!input.revoke)await requireConfiguredLevel(ctx,input.level);
-    const id=input.id??createUlid(),table=input.targetKind==='page'?'page_grants':'container_grants',key=input.targetKind==='page'?'page_id':'container_id';
+    const id=input.id??createdId??createUlid(),table=input.targetKind==='page'?'page_grants':'container_grants',key=input.targetKind==='page'?'page_id':'container_id';
     const container=await ctx.db.prepare(input.targetKind==='page'?'SELECT c.* FROM containers c JOIN pages p ON p.container_id=c.id WHERE p.id=?':'SELECT * FROM containers WHERE id=?').bind(input.targetId).first<{id:string;visibility:string;guest_access:string}>();
     if(!container||container.visibility==='personal')throw new ApiProblem(403,'PERSONAL_PRIVATE','A personal container cannot be shared.');
     if(input.targetKind==='page'){const page=await ctx.db.prepare('SELECT lifecycle FROM pages WHERE id=?').bind(input.targetId).first<{lifecycle:string}>();if(!input.revoke&&(page?.lifecycle==='draft'||page?.lifecycle==='scheduled')&&(input.principalKind==='workspace'||input.principalKind==='container'))throw new ApiProblem(403,'DRAFT_PRIVATE','Drafts cannot have general grants.');}
@@ -32,9 +33,11 @@ export async function saveGrant(ctx:FeatureContext,input:{operationKey:string;ta
       statements.push(ctx.db.prepare(`INSERT INTO ${table} (id,${key},principal_kind,principal_id,level,expires_at,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET principal_kind=excluded.principal_kind,principal_id=excluded.principal_id,level=excluded.level,expires_at=excluded.expires_at,revoked_at=NULL,updated_at=excluded.updated_at`).bind(id,input.targetId,input.principalKind,input.principalId,input.level,input.expiresAt??null,ctx.now,ctx.now));
     }
     if(pending&&input.revoke)statements.push(ctx.db.prepare('UPDATE invitations SET revoked_at=? WHERE id=?').bind(ctx.now,pending.id),ctx.db.prepare("UPDATE mail_deliveries SET payload_ciphertext=NULL,next_attempt_at=NULL,lease_until=NULL,state=CASE WHEN state='sent' THEN state ELSE 'failed' END,delivery_phase=CASE WHEN state='sent' THEN delivery_phase ELSE 'cancelled' END,updated_at=? WHERE invitation_id=?").bind(ctx.now,pending.id));
-    if(!input.revoke) { const recipientIds=await grantRecipients(ctx,input.principalKind,input.principalId); if(recipientIds.length)statements.push(...notificationStatements(ctx,{id:createUlid(),event:'access-granted',...(input.targetKind==='page'?{pageId:input.targetId}:{containerId:input.targetId}),recipientIds})); }
+    if(!input.revoke && notify) { const recipientIds=await grantRecipients(ctx,input.principalKind,input.principalId); if(recipientIds.length)statements.push(...notificationStatements(ctx,{id:createUlid(),event:'access-granted',...(input.targetKind==='page'?{pageId:input.targetId}:{containerId:input.targetId}),recipientIds})); }
     statements.push(await identityRevision(ctx,revisionId,`${input.targetKind}-grant`,id,{targetId:input.targetId,principalKind:input.principalKind,principalId:input.principalId,level:input.level,expiresAt:input.expiresAt??null,revoked:!!input.revoke}));
     return {entity:{id:input.targetId,kind:input.targetKind,revisionId},value:{id,revoked:!!input.revoke},statements};
-  }});
+}
+export async function saveGrant(ctx:FeatureContext,input:GrantInput){
+ return commitOperation(ctx,{operationKey:input.operationKey,action:'sharing.grant',request:input,authorize:()=>authorizeGrant(ctx,input),prepare:({revisionId})=>prepareGrant(ctx,input,revisionId)});
 }
 export { listGrants } from './listing';

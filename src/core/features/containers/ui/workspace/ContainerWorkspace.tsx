@@ -1,3 +1,4 @@
+import {CollectionActions} from './CollectionActions';
 import {ContainerWatch} from './ContainerWatch';
 import {ContainerHome} from './ContainerHome';
 import {ContainerBlog} from '../../../blog/ui/ContainerBlog';
@@ -195,6 +196,7 @@ function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
       {resource.data ? (
         <section className="space-detail">
           <h3>{resource.data.name}</h3><div className="space-actions"><FavouriteControl kind="container" id={id}/><ContainerWatch id={id}/><button className="secondary-button" onClick={()=>setExporting(true)}>Export space</button></div>{exporting?<ReadableExportDialog id={id} container onClose={()=>setExporting(false)}/>:null}
+          <CollectionActions key={resource.data.revisionId} id={id} canCreate={resource.data.permissions.canCreatePages}/>
           <nav className="tabs" aria-label="Space navigation">{['home','content','blog','settings','templates','trash','bulk'].map(value=><button aria-pressed={tab===value} key={value} onClick={()=>setTab(value)}>{value[0].toUpperCase()+value.slice(1)}</button>)}</nav>
           <a href={`/app/search?containerId=${id}`}>Search this space</a>
           {tab==='home'?<ContainerHome key={id} containerId={id} name={resource.data.name} onSaved={()=>{void resource.reload();void pages.reload();updated();}}/>:null}

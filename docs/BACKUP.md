@@ -9,6 +9,8 @@ A Slate backup is one zip file that holds your whole workspace. You can make one
 - Comments, notifications, automations and the activity log.
 - Every uploaded file in its original form, and the original files of imports that have not been deleted.
 
+Pages can hold a Dashboard block with charts and linked record lists. Add tiles from the editor, choose a database and saved view for each, and bind date or person fields to use shared filters. Results always reflect the current reader’s access. The saved block holds its configuration, while results are fetched when the page opens. Readable exports do not yet reconnect dashboard sources after import.
+
 Slate checks the archive's checksums before it restores anything.
 
 A backup leaves some things out on purpose: sign-in sessions, sign-in links, pending invitations, saved responses to repeated requests, and every provider key and secret. Keep `SLATE_SESSION_SECRET` and your email provider's key somewhere safe yourself, because they cannot come back from a backup.
@@ -105,3 +107,5 @@ Each destination shows its last success and current safe failure. Each failed ru
 **Run restore drill** verifies the latest stored backup and shows a report, download and instructions. That report confirms archive validation; it does not claim a restore has run. Start a separate empty Slate deployment, sign in as its setup owner using an archived full member's email, restore the downloaded ZIP from Import & export, then sign in again and open the restored pages and their internal links. The source workspace must never be used as the restore target. Re-enter provider credentials after restoration.
 
 A local held-key Cloudflare R2 run exercised connection, multipart upload/readback, retention, failure notices and recovery, scope refusal, empty-target restore and removal. Its test objects and buckets were removed. The committed provider receipt is still pending, so this build claims no live-provider acceptance; no other S3-compatible provider was used. Chest can join the same destination contract when it publishes an intake; it is not currently selectable.
+
+A database’s **Forms** tab configures an intake form with mapped questions, help text, required answers and one level of conditional questions. Publish it for members, selected existing guests or an anonymous link. Anonymous links stop when the space forbids public links. Anonymous responses retain no submitter identity; named responses retain who submitted. Complete workspace backups retain forms and submission facts, and restored forms stay unpublished until an editor publishes them again.

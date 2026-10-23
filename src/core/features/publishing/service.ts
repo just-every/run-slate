@@ -1,3 +1,4 @@
+import {requireGovernance} from '../workspace/governance';
 import { supportedHeaderControls } from './header';
 import type { FeatureContext } from '../../app/feature-context';
 import { commitOperation } from '../../app/operations';
@@ -29,6 +30,7 @@ export async function publishPublicPage(ctx: FeatureContext, id: string, input: 
     return commitOperation(ctx, { operationKey: input.operationKey, action: input.revoke ? 'publishing.revoke' : 'publishing.publish', request: { id, ...input }, authorize: async () => {
             const a = await requirePageLevel(ctx, id, 'full');
             if (!input.revoke) {
+                await requireGovernance(ctx,'publishPublicly',id);
                 try {
                     assertCanPublishPublicPage(a.context);
                 }
@@ -51,6 +53,7 @@ export async function preparePublicExposure(ctx: FeatureContext, id: string, inp
         throw new ApiProblem(400,'INVALID_SOCIAL_PREVIEW','Social preview supports a title and description of at most 1000 characters.');
     if (!/^[a-zA-Z0-9][a-zA-Z0-9/_-]{0,199}$/.test(input.slug) || input.slug.includes("..") || !/^[a-zA-Z0-9.-]+(?::\d+)?$/.test(input.host))
         throw new ApiProblem(400, "INVALID_PUBLIC_ADDRESS", "Choose a valid host and slug.");
+    if (!input.revoke) await requireGovernance(ctx,'publishPublicly',id);
     const p = await pageRow(ctx, id);
     if (p.archived_at || p.trashed_at || (!input.revoke && !p.published_revision_id))
         throw new ApiProblem(409, 'NOT_PUBLISHABLE', 'Publish a live revision first.');
