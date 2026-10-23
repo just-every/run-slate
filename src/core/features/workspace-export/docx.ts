@@ -19,7 +19,7 @@ export async function renderDocx(ctx:FeatureContext, ids:ReadonlySet<string>, ex
   const bookmarks=new Map<string,{id:number;name:string}>();
   const anchor=(id:string)=>{const n=bookmarks.size+1;bookmarks.set(id,{id:n,name:`slate_${n}`});};
   for(const id of ids) {
-    const page=await readPage(ctx,id);page.blocks=materializeSynced(page.blocks);
+    const page=await readPage(ctx,id);page.blocks=materializeSynced(page.blocks,page.page.title);
     pages.push(page);anchor(id);page.blocks.forEach(block=>anchor(block.id));
     if(includeComments)comments.add(id,await exportComments(ctx,id,page.blocks,['edit','full'].includes(page.permissions.level)));
   }
