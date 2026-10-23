@@ -1,9 +1,12 @@
 import {expect} from 'vitest';
-import {fixture} from '../../qualification/backend/fixture';
+import type {reviewFixture} from './fixture';
 import {seedMember,sessionFor} from '../setup/fixtures';
 import {env} from 'cloudflare:test';
-export async function peopleCase(){
- const f=await fixture(),key=()=>crypto.randomUUID();
+export async function peopleCase(base:Awaited<ReturnType<typeof reviewFixture>>){
+ const key=()=>crypto.randomUUID();base.cookies.owner=await sessionFor('owner',{freshProof:true});
+ const request=(method:string,path:string,body?:unknown,actor='owner')=>base.request(actor,method,path,body);
+ const container=await request('POST','/api/containers',{operationKey:key(),name:'Incident practice',visibility:'private'});expect(container.status,JSON.stringify(container.data)).toBe(200);
+ const f={request,ownerId:'owner',readerId:'reader',workspaceId:'w',cookies:base.cookies,page:async(title:string)=>{const r=await request('POST','/api/pages',{operationKey:key(),containerId:container.data.value.id,title});expect(r.status,JSON.stringify(r.data)).toBe(200);return {id:r.data.value.pageId,revisionId:r.data.value.revisionId};}};
  const json=async(method:string,path:string,body?:unknown,actor=f.ownerId)=>{const r=await f.request(method,path,body,actor);expect(r.status,JSON.stringify(r.data)).toBe(200);return r.data;};
  const shared=await f.page('Incident response guide'),secret=await f.page('Acquisition planning');
  for(const [page,labels] of [[shared,['Incident response']],[secret,['Acquisition secret']]] as const)await json('PATCH',`/api/pages/${page.id}`,{operationKey:key(),expectedRevisionId:page.revisionId,properties:{labels}});
@@ -11,7 +14,7 @@ export async function peopleCase(){
  const document=await json('GET',`/api/pages/${shared.id}`);await json('POST',`/api/pages/${shared.id}/open`,{operationKey:key(),revisionId:document.workingRevisionId});await json('POST',`/api/status/page/${shared.id}`,{operationKey:key(),expectedRevisionId:document.page.revisionId,statusKey:'verified',attestRevisionId:document.workingRevisionId,expiresAt:null});
  let profile=await json('GET',`/api/people/${f.ownerId}`);expect(profile.pages.owned.map((p:any)=>p.id)).toContain(shared.id);expect(profile.pages.verified.map((p:any)=>p.id)).toContain(shared.id);expect(profile.pages.frequent.map((p:any)=>p.id)).toContain(shared.id);
  await json('PUT',`/api/people/${f.ownerId}`,{operationKey:key(),expectedRevisionId:profile.revisionId,title:'Incident lead',timezone:'Australia/Brisbane',team:'Operations',managerId:f.readerId});
- for(const q of ['Core owner','Incident lead','Operations','Incident response'])expect((await json('GET','/api/people?q='+encodeURIComponent(q),undefined,f.readerId)).items.map((p:any)=>p.id)).toContain(f.ownerId);
+ for(const q of ['owner','Incident lead','Operations','Incident response'])expect((await json('GET','/api/people?q='+encodeURIComponent(q),undefined,f.readerId)).items.map((p:any)=>p.id)).toContain(f.ownerId);
  const visible=await json('GET',`/api/people/${f.ownerId}`,undefined,f.readerId);expect(JSON.stringify(visible)).not.toContain(secret.id);expect(JSON.stringify(visible)).not.toContain('Acquisition');
  expect((await f.request('PUT',`/api/people/${f.readerId}`,{operationKey:key(),expectedRevisionId:null,team:'Forged team'},f.readerId)).status).toBe(403);
  expect((await f.request('PUT',`/api/people/${f.readerId}`,{operationKey:key(),expectedRevisionId:null,title:'Owner-written title'})).status).toBe(403);
