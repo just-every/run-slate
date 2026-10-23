@@ -1,3 +1,4 @@
+import {touchDatabaseToolsJourney} from './touch-database-tools-journey.mjs';
 import {touchManagementJourney} from './touch-management-journey.mjs';
 import {touchPageToolsJourney} from './touch-page-tools-journey.mjs';
 import {touchOperatorJourney} from './touch-operator-journey.mjs';
@@ -212,7 +213,7 @@ for (const width of [1440, 390]) {
         // Finish earlier page notifications before connecting the chat journey destinations.
         await state.runScheduled();
         await chatJourney(state, width);
-        await t.test('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts', async () => {await databaseJourney(state);await touchDatabaseJourney(touch,touch.containerId);});
+        await t.test('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts and uses charts, templates and automations', async () => {await databaseJourney(state);await touchDatabaseJourney(touch,touch.containerId);await touchDatabaseToolsJourney(state,touch);});
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
   });
