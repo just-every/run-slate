@@ -1,3 +1,5 @@
+import { pruneAudit } from '../features/activity/audit-settings';
+import { scheduleWebhooks } from '../features/webhooks/worker';
 import { recheckSamlDomains } from '../features/session/saml/domain';
 import {scheduledBackups} from '../features/backups/scheduled';
 import { readLaunchProfile, isFlagshipJob } from "../platform/config/launch-profile";
@@ -31,6 +33,8 @@ export async function consumeJobs(batch:MessageBatch<unknown>,env:AppBindings){
 export async function scheduledJobs(env:AppBindings,now=new Date().toISOString()){
   const flagship = readLaunchProfile(env.SLATE_PROFILE) === 'flagship';
   const tasks: [string, () => Promise<unknown>][] = [
+    ['audit-retention', () => pruneAudit(env,now)],
+    ['webhooks', () => scheduleWebhooks(env,now)],
     ['saml-domains', () => recheckSamlDomains(env.DB)],
     ['content', () => runContentJobs(env)],
     ['backups', () => scheduledBackups(env,now)],

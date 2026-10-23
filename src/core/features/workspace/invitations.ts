@@ -1,3 +1,4 @@
+import {scimInvitationAcceptancePlan} from '../scim/invitation-acceptance';
 import type { AccessLevel } from '../../shared/knowledge/model';
 import { requireConfiguredLevel } from '../sharing/configuration';
 import { createMemberRepository } from '../session/repository';
@@ -68,6 +69,12 @@ export async function acceptInvitation(db:D1Database,config:RuntimeConfig,token:
     const table=row.page_id?'page_grants':'container_grants',key=row.page_id?'page_id':'container_id',grantId=row.page_grant_id??row.container_grant_id;
     statements.unshift(mutationGuard(db,`SELECT revoked_at IS NULL AND (expires_at IS NULL OR expires_at>?) AND principal_id=? AND ${key}=? FROM ${table} WHERE id=?`,[now,`invitation:${row.id}`,row.page_id??row.container_id,grantId]));
     statements.push(db.prepare(`UPDATE ${table} SET principal_id=?,updated_at=? WHERE id=?`).bind(id,now,grantId));
+  }
+  if(await db.prepare("SELECT id FROM scim_resources WHERE invitation_id=? AND state='pending'").bind(row.id).first()){
+    if(!resources)throw new ApiProblem(503,'INVITATION_UNAVAILABLE','Directory invitation validation requires the application runtime.');
+    const inviter=await createMemberRepository(db).getMember(row.invited_by_member_id);if(!inviter)throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or expired.');
+    const plan=await scimInvitationAcceptancePlan({db,files:resources.files,jobs:resources.jobs,actor:inviter,now},row.id,id);
+    statements.unshift(...plan.before);statements.push(...plan.after);
   }
   try { await db.batch(statements); } catch {throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or already used.');}
   return {memberId:id};

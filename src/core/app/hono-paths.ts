@@ -7,6 +7,7 @@ import { SESSION_AUTH_PATHS } from "../features/session/paths";
  */
 export function isHonoRequest(pathname: string): boolean {
   return SESSION_AUTH_PATHS.has(pathname)
+    || pathname === "/scim" || pathname.startsWith("/scim/")
     || pathname === "/health"
     || pathname === "/api"
     || pathname.startsWith("/api/")

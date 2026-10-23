@@ -1,3 +1,4 @@
+import { initializeWebhookEdge, setWebhookFailure } from '../../helpers/webhook-edge.mjs';
 import { testDevKey } from '../../e2e/dev-key.mjs';
 import assert from 'node:assert/strict';
 import { signInWithOutbox } from '../../e2e/outbox-auth.mjs';
@@ -15,7 +16,7 @@ export { accessible } from './browser-evidence.mjs';
 
 /** Test-only identity records replace mailbox possession, never successful API responses. */
 /** `scheduled` exposes the Worker's own cron handler, which a journey fires in place of waiting for the clock. */
-export async function withWorkspace(viewport, profile, run, overrides = {}, { scheduled = false, slack = false, backups = false, folders = false, saml = false } = {}) {
+export async function withWorkspace(viewport, profile, run, overrides = {}, { scheduled = false, slack = false, backups = false, folders = false, saml = false, webhooks = false } = {}) {
   const scratchRoot = path.join(root, '.artifacts/ui-convergence');
   await mkdir(scratchRoot, { recursive: true });
   const state = await mkdtemp(path.join(scratchRoot, 'state-'));
@@ -24,6 +25,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
   try {
     const samlFixture = saml ? await initializeSamlEdge(state) : undefined;
     if (slack) await initializeSlackEdge(state);
+    if(webhooks)await initializeWebhookEdge(state);
     if (backups) await initializeS3Edge(state);
     if (folders) await initializeFolderEdge(state);
     await applyMigrations(state);
@@ -38,7 +40,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       MAIL_API_KEY: 'TEST-ONLY-NOT-A-PROVIDER-CREDENTIAL', AI_ENABLED: 'false',
       AI_API_KEY: '', AI_PROVIDER: '', AI_LOCAL_URL: '', AI_LOCAL_TOKEN: '',
       ...(slack ? { CONNECTOR_CREDENTIALS_KEY: 'TEST-ONLY-SLACK-ENCRYPTION-KEY-32-CHARACTERS' } : {}),
-      ...(backups || folders ? { CONNECTOR_CREDENTIALS_KEY: 'synthetic-slate-100000000000000000000000003' } : {}),
+      ...(backups || folders || webhooks ? { CONNECTOR_CREDENTIALS_KEY: 'synthetic-slate-100000000000000000000000003' } : {}),
       SLATE_PROFILE: profile, ...overrides,
     };
     let allocatedPorts;
@@ -77,7 +79,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
         delete submitted.token;
         requestBody = JSON.stringify(submitted);
       }
-      const pending = response.text().then(body => network.push({ url: response.url(), method: request.method(), requestBody, status: response.status(), responseBody: body }))
+      const pending = response.text().then(body => { if(new URL(response.url()).pathname.match(/^\/api\/(developer\/(tokens|webhooks|scim(?:\/[^/]+\/rotate)?)|activity\/streams)$/) && request.method() === 'POST' && response.ok()){const value=JSON.parse(body);delete value.secret;body=JSON.stringify(value);} network.push({ url: response.url(), method: request.method(), requestBody, status: response.status(), responseBody: body }); })
         .catch(cause => network.push({ url: response.url(), error: String(cause) }));
       captures.add(pending); pending.finally(() => captures.delete(pending));
     });
@@ -155,12 +157,16 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
     try {
       await run({ page, context, origin: runtime.baseUrl, api, records, atRest, fixtureSql, runScheduled, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}`,
         assertNoConsoleErrors: () => assert.deepEqual(consoleErrors, [], 'The browser must have no console errors or uncaught page errors.'),
+        ...(webhooks ? {setWebhookFailure:failure=>setWebhookFailure(state,failure)} : {}),
         ...(backups ? { setS3Failure: failure => setS3Failure(state, failure), readS3Requests: () => readS3Requests(state), readS3Objects: () => readS3Objects(state) } : {}),
         ...(folders ? { setFileCardFixture:changes=>setFileCardFixture(state,changes), readFolderRequests: () => readFolderRequests(state) } : {}),
         ...(saml ? { samlFixture, installSamlIdp: nextContext => installSamlIdp(nextContext, state, runtime.baseUrl),
           setSamlDns: value => setSamlDns(state, value), setSamlAssertion: value => setSamlAssertion(state, value), readSamlRequests: () => readSamlRequests(state) } : {}),
         ...(slack ? { setSlackFailure: failure => setSlackFailure(state, failure), readSlackMessages: () => readSlackMessages(state), setTeamsFailure: failure => setTeamsFailure(state, failure), readTeamsMessages: () => readTeamsMessages(state) } : {}) });
     } catch (cause) {
+      // Locator diagnostics can include a once-issued password value; preserve the failure without the credential.
+      const credentials = (await Promise.all(browser.contexts().flatMap(view => view.pages()).map(view => view.locator('input[type=password][readonly]').evaluateAll(inputs => inputs.map(input => input.value)).catch(() => [])))).flat().filter(Boolean);
+      for (const secret of credentials) { if (cause instanceof Error) { cause.message = cause.message.replaceAll(secret, '[credential redacted]'); if (cause.stack) cause.stack = cause.stack.replaceAll(secret, '[credential redacted]'); } }
       await accessible(page, `${profile} journey failure`).catch(() => {});
       await Promise.allSettled([...captures]);
       // A label that never changed looks the same whether the click did nothing or the server rejected it; say which.

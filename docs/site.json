@@ -42,6 +42,11 @@
           "slug": "chat-notifications",
           "source": "docs/CHAT-NOTIFICATIONS.md",
           "label": "Chat notifications"
+        },
+        {
+          "slug": "api",
+          "source": "docs/API.md",
+          "label": "Personal API access"
         }
       ]
     },

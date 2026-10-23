@@ -1508,14 +1508,14 @@ A versioned `/api/v1` covers pages, blocks, databases, records, comments, search
 
 *Acceptance:* a contract suite generated from the OpenAPI document runs every operation over HTTP with a token for each of two members, asserting the schemas and that every access difference matches the UI's. Expired, revoked and under-scoped tokens are refused. The suite assigns, dates, reassigns and completes a task and finds the same refusals, notifications and completion record as the UI.
 
-*Status:* partial. The app uses internal JSON routes under `/api` (`src/core/features/pages/routes.ts`); there are no tokens, versioning or published specification.
+*Status:* partial. Hashed, once-issued personal tokens and bearer-only `/api/v1` page, block and task operations share the UI services, current access checks and operation receipts. Route declarations generate the served OpenAPI document; opaque pagination, per-token rate limits and stable errors ship. `tests/e2e/public-api/contract.test.ts` — "personal API tokens run the published HTTP contract with member parity, task effects and immediate authority loss" exercises every declared operation with two members, UI refusals, token expiry/revocation/scope, task notices and attribution, populated upgrade, native archive/restore and removal/erasure. OAuth 2.0 applications, databases, records, comments, search, members, groups, files and URL resolution are not built in the versioned API. Conservative custody defaults adopted pending ct: full Members and Owners only (the product has no Admin role), no guest tokens, container read/write scopes bounded by current rights, 90-day default/one-year maximum, no token administration, export, publication or erasure authority through the versioned API, hashes excluded from archives and restored credentials revoked.
 
 #### API-002 — Webhooks.
 Owners and OAuth apps subscribe to page, record, comment, status, verification and member events by container. Deliveries are HMAC-signed with a timestamp, retried with backoff for 24 hours, logged with their responses, replayable, and disabled with a notice after repeated failure. Payloads carry IDs and titles only when the subscription's acting member can read the record.
 
 *Acceptance:* a Workers journey subscribes a test endpoint, produces events, verifies the signatures, forces failures and sees the backoff and the disable notice, replays one delivery, and confirms that a record the subscriber cannot read produces no payload.
 
-*Status:* missing.
+*Status:* partial. Owners register container event destinations for page, record, comment, status, verification and member activity. The existing public-address and DNS checks guard HTTPS port 443 destinations on registration and every attempt; redirects are refused and exchanges bounded to ten seconds. Secrets are shown once and sealed with native credential custody. A durable sequence, unique enqueue and leased deliveries retain stable event IDs, HMAC timestamp signatures, bounded response logs, 24-hour backoff, owner inbox reminders on disablement, re-enable and replay. Delivery rechecks the acting owner and current page access and withholds unreadable events. Metadata exports without credentials; restores disable subscriptions; member removal disables them and erasure deletes subscriptions/logs. `tests/e2e/webhooks/deliveries.test.ts` — "owner webhook subscriptions sign current readable events, persist backoff, replay and disable once without following refused destinations" proves these through native HTTP and the scheduled job with a receiver edge fake. `tests/qualification/ui-convergence/webhook-access-journey.mjs` exercises the existing settings panel at 1440 and 390. Default ADOPTED: the sibling-seed outbound rule; no address-pinned resolved-address guarantee or real receiver acceptance. OAuth application subscribers are not built.
 
 #### API-003 — MCP server.
 A remote MCP endpoint (Streamable HTTP with OAuth 2.1) exposes search, fetch page with citations, list and query databases, ask (`ANSWER-001`), comment, and create or update a page. Claude, ChatGPT, Cursor and other MCP clients can use it. Every tool acts as the signed-in member. Write tools create suggestions (`SUG-001`) unless the member has granted direct writes to that client for named containers (`AI-011`), and page text returned to the client is marked as untrusted content. Tools read a member's tasks and change their assignee, due date and completion (`BLOCK-015`) under the same checks and notifications as the UI.
@@ -1529,7 +1529,7 @@ Owners see every personal access token, OAuth app, MCP client and webhook, with 
 
 *Acceptance:* a browser journey creates a token and an OAuth app, sees both with last use after an API call, revokes each and gets 401 on the next request, and finds the activity entries.
 
-*Status:* missing.
+*Status:* partial. Developer access in workspace settings lets Owners list every personal token and Members list their own, with member, scopes, creation, expiry, minute-coarsened last use and state. Secrets are returned once; create and revoke require fresh session proof; revocation is checked on the next request. Grants, use summaries, expiry refusals and revocations are activity entries. `tests/e2e/public-api/contract.test.ts` exercises visibility and immediate revocation; `tests/qualification/ui-convergence/developer-access-journey.mjs`, inside the existing readership journey at 1440 and 390, creates Owner/Member tokens, copies the once-issued secret, observes last use, revokes as Owner, sees 401 and activity, and checks layout/accessibility. OAuth apps and MCP clients are not built; the panel states their absence. Webhook metadata, owner replay/re-enable and removal share the Developer access panel; full Members can see and remove destinations they own. Default ADOPTED: PARTIAL with clause text unchanged; the requested carve awaits ct.
 
 #### API-005 — Zapier, Make and Crank apps.
 Slate publishes an app in the Zapier app directory and one in Make's app directory, and ships a [Crank](https://github.com/just-every/run-crank) connector. Each one connects to the buyer's own deployment by URL through `API-001`'s OAuth app flow and acts as the connecting member.
@@ -1563,7 +1563,7 @@ A SCIM 2.0 endpoint provisions users and groups from Okta, Entra ID, JumpCloud a
 
 *Acceptance:* a SCIM compliance run (Okta's SCIM test suite shape) creates, updates, pushes groups to and deactivates users, and asserts the resulting members, groups, revoked sessions and activity entries.
 
-*Status:* missing.
+*Status:* **partial** — A dedicated hashed owner credential authenticates the SCIM users/groups endpoint. Native invitations, Member identity changes, group writes and removal provide provisioning and immediate session/token revocation. Credentials rotate and revoke on the next request; activity identifies the directory credential. Default ADOPTED: Member only, name/email/groups only, protected Owners and guests, and the configured member capacity estimate enforced for SCIM admission. Provider acceptance is not run, and native invitations outside SCIM do not yet share this capacity guard.
 
 #### ADMIN-003 — Guest management.
 Owners list every guest with what they can access, who invited them, when they were last active, and their expiry. They can set a default guest expiry, keep allow and deny lists of email domains, and revoke guests in bulk. A guest's access never outlives their expiry (`SHARE-008`).
@@ -1584,7 +1584,7 @@ Owners filter the workspace audit trail (`ACT-*`, including sign-ins, permission
 
 *Acceptance:* a Workers journey produces each audited action kind, exports it and finds every action with its actor, time and target, and streams it to a test receiver with valid signatures and no gaps after a receiver outage.
 
-*Status:* partial. A durable activity timeline with audit coverage ships (`src/core/features/activity/service.ts`, `tests/qualification/core/audit-content.test.ts`); export of admin actions and streaming do not.
+*Status:* **partial** — Owners export a bounded, filtered metadata-only audit trail as CSV or JSON, with formula neutralization and an audited export. Native sign-ins, permission/sharing, token use and admin settings are covered. Server-enforced retention is at least 365 days. Ordered signed audit destinations persist an outage backlog and resume by stable event ID. The stream inherits API-002’s adopted destination rule and address-pinning Gap; real vendor receiver acceptance remains open.
 
 #### ADMIN-006 — Content governance.
 Owners decide who may create containers, publish publicly, invite guests, export and use AI. A container may carry a classification label, such as Confidential, that by default forbids public links and AI for its pages, and only a workspace owner can lift those defaults. Every governance change is recorded in activity.
@@ -1806,15 +1806,15 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `f40e577a5ad18e84ca066f4275580d10fc1991f5` (23 October 2026).
+Judged from the code and tests at commit `0794e963b8357325a726db55b6ba2d5c4634fd2d` (23 October 2026).
 
 Live-provider evidence remains explicitly open. See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 172 | 49 | 0 | 221 |
-| Target and push further | 19 | 46 | 40 | 105 |
-| All | 191 | 95 | 40 | 326 |
+| Target and push further | 19 | 49 | 37 | 105 |
+| All | 191 | 98 | 37 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2118,16 +2118,16 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `ANSWER-004` | Feedback and unanswered questions | target | missing | — | not implemented |
 | `ANSWER-005` | Summaries and catch-up | target | partial | `src/core/features/ai/routes.ts` | see the clause |
 | `ANSWER-006` | Owner-chosen models and data controls | target | partial | `src/core/features/ai/integration.ts` | see the clause |
-| `API-001` | Public REST API | target | partial | `src/core/features/pages/routes.ts` | see the clause |
-| `API-002` | Webhooks | target | missing | — | not implemented |
+| `API-001` | Public REST API | target | partial | `tests/e2e/public-api/contract.test.ts` — personal API tokens run the published HTTP contract with member parity, task effects and immediate authority loss | OAuth applications; databases, records, comments, search, members, groups, files and URL resolution. Conservative token custody defaults in the clause Status await ct; no Admin role exists. |
+| `API-002` | Webhooks | target | partial | `tests/e2e/webhooks/deliveries.test.ts` — owner webhook subscriptions sign current readable events, persist backoff, replay and disable once without following refused destinations; `tests/qualification/ui-convergence/webhook-access-journey.mjs` — webhookAccessJourney (1440/390) | OAuth application subscribers and address-pinned resolved-address egress. Default ADOPTED: owner-entered public HTTPS 443, no redirects, ten-second exchanges; ct confirmation and real receiver acceptance pending. |
 | `API-003` | MCP server | target | partial | `src/core/features/external-agent/routes.ts` | see the clause |
-| `API-004` | App and token administration | target | missing | — | not implemented |
+| `API-004` | App and token administration | target | partial | `tests/e2e/public-api/contract.test.ts`; `tests/qualification/ui-convergence/developer-access-journey.mjs` — developerAccessJourney, existing readership journey at 1440/390 | OAuth applications and MCP clients. Default ADOPTED: PARTIAL; carve awaits ct. |
 | `API-005` | Zapier, Make and Crank apps | target | missing | — | not implemented |
 | `ADMIN-001` | SAML single sign-on | target | partial | `tests/flagship/core/identity-upgrade.test.ts` — "ADMIN-001 — signed SP and IdP SAML, DNS-gated invited or allow-listed JIT, enforced member SSO and one owner mailbox escape" (Verify Slate: workers); `tests/qualification/ui-convergence/saml-journey.mjs` — "samlJourney", loaded by "SAML sign-in verifies the domain and signatures while preserving guest and designated-owner access" (Verify Slate: ui-content-desktop-2 and ui-content-mobile-1, 1440/390) | Real Okta and Microsoft Entra ID SAML provider acceptance is NOT RUN. Google Workspace, JumpCloud and Auth SAML provider acceptance is also NOT RUN. Pre-enforcement Managed preview owner sessions lack provenance distinguishing them from mailbox sessions; that prior-session case is not proven. WORK-015 currently implements sign-in through an external OIDC provider; Slate exposes no OIDC identity-provider token-issuance door, so the identity-provider-function sentence remains unproven. |
-| `ADMIN-002` | SCIM provisioning | target | missing | — | not implemented |
+| `ADMIN-002` | SCIM provisioning | target | partial | `tests/e2e/scim/contract.test.ts` — SCIM RFC7643/7644 HTTP sequence uses native invitations, Members, groups and revocation authority; populated upgrade, revoked restore and erasure; `tests/qualification/ui-convergence/scim-access-journey.mjs` (1440/390) | Real Okta, Entra ID, JumpCloud and Auth acceptance is not run. Default ADOPTED: Member role and name/email/groups only, Owner/guest/break-glass protection, hashed owner credentials; scoped admission cap applies to SCIM, while native invitation admission has no shared capacity guard. |
 | `ADMIN-003` | Guest management | target | done | `tests/qualification/policies/invitations.test.ts`, `tests/qualification/ui-convergence/guest-console-journey.mjs` |  |
 | `ADMIN-004` | Workspace analytics | target | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` |  |
-| `ADMIN-005` | Audit export and SIEM streaming | target | partial | `src/core/features/activity/service.ts` | see the clause |
+| `ADMIN-005` | Audit export and SIEM streaming | target | partial | `tests/qualification/core/audit-content.test.ts` — auditExportProof: audited action families, filtered CSV/JSON, neutralized formulas, retention floor, signed ordered outage recovery; `tests/qualification/ui-convergence/audit-access-journey.mjs` (1440/390) | Signed generic webhooks inherit API-002’s unresolved address pinning and adopted destination rule; real vendor receivers and vendor-specific formats are not claimed. |
 | `ADMIN-006` | Content governance | target | partial | `tests/qualification/policies/access-publication.test.ts` | see the clause |
 | `ADMIN-007` | Every target surface ships in the default product | target | partial | `src/core/platform/config/launch-profile.ts` | see the clause |
 | `MOBILE-001` | Native iOS and Android apps | target | missing | `tests/qualification/interface/routed.browser.mjs` | not implemented |

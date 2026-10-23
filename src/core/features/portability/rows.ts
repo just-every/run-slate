@@ -19,6 +19,10 @@ export function safeRow(table:string,row:DataRow,now=new Date().toISOString()):D
 
 /** Restore retains facts and definitions, while every route back to execution needs fresh authority. */
 const rules:Record<string,(row:DataRow,ownerEmail:string,now:string,keys:Map<string,string>)=>void>={
+ 'scim_credentials':(row,_ownerEmail,now)=>{row.token_hash=null;row.revoked_at=row.revoked_at??now;},
+ 'scim_resources':(row)=>{row.invitation_id=null;if(row.resource_type==='User'&&row.state!=='deleted')row.state='inactive';},
+ 'webhook_subscriptions':(row,_ownerEmail,now)=>{row.credential_ciphertext=null;row.state='disabled';row.disabled_at=now;row.disabled_reason='Restored: create a fresh destination.';},
+ 'public_api_tokens':(row,_ownerEmail,now)=>{row.token_hash=null;row.revoked_at=row.revoked_at??now;},
  'review_requests':(row,_ownerEmail,now)=>{if(row.state==='pending')row.dispatch_paused_at=row.dispatch_paused_at??now;},
  'reminders':(row,_ownerEmail,now)=>{if(!row.delivered_at)row.cancelled_at=row.cancelled_at??now;},
  'workspaces':(row)=>{row.ai_enabled=0;},

@@ -2083,6 +2083,43 @@
         "AUTO-004"
       ],
       "reason": "Asserts all automation scopes persist; schedules deduplicate and chains throttle with a log. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts committed content events drain durably and self-triggering field rules are throttled. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/e2e/public-api/contract.test.ts",
+      "testName": "personal API tokens run the published HTTP contract with member parity, task effects and immediate authority loss",
+      "kind": "supporting-regression",
+      "clauses": [
+        "SHARE-002",
+        "SAVE-005",
+        "BLOCK-015",
+        "WORK-007"
+      ],
+      "reason": "Exercises the versioned personal-token HTTP operations, schemas, current native access, operation replay, token custody and task effects. OAuth and the remaining resource families are unbuilt; this does not establish complete public API acceptance."
+    },
+    {
+      "file": "tests/e2e/webhooks/deliveries.test.ts",
+      "testName": "owner webhook subscriptions sign current readable events, persist backoff, replay and disable once without following refused destinations",
+      "kind": "supporting-regression",
+      "clauses": [
+        "SHARE-002",
+        "ACT-002",
+        "NOTIF-004"
+      ],
+      "reason": "Exercises owner-managed outbound event delivery, current native source access, signatures, durable retry and replay, owner reminders, credential portability and erasure. OAuth subscribers, resolved-address pinning and real receiver acceptance remain unproven."
+    },
+    {
+      "file": "tests/qualification/core/audit-content.test.ts",
+      "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor/time",
+      "kind": "supporting-regression",
+      "clauses": ["ACT-002", "BASE-OPS-005"],
+      "reason": "Preserves the existing content audit assertions and extends them through native HTTP sign-in, sharing, token use, owner metadata exports, retention and signed ordered audit recovery. Real vendor receivers and resolved-address pinning remain unproven."
+    },
+    {
+      "file": "tests/e2e/scim/contract.test.ts",
+      "testName": "SCIM RFC7643/7644 HTTP sequence uses native invitations, Members, groups and revocation authority",
+      "kind": "supporting-regression",
+      "clauses": ["WORK-007", "WORK-009", "ACT-002"],
+      "reason": "Exercises the SCIM HTTP protocol through native invitation, Member identity, group and removal services, including credential custody and current authority. Real directory-provider acceptance and native invitation capacity outside SCIM remain unproven."
     }
   ]
 }
