@@ -240,7 +240,7 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   console.log('Chat docs dimensions',await page.evaluate(()=>({width:innerWidth,height:document.documentElement.scrollHeight})));
   await page.getByRole('heading',{name:'Provider acceptance and Nook',exact:true}).scrollIntoViewIfNeeded();
   await shot('nook-door-docs',{fullPage:false});
-  await page.getByText('The documented NOOK-089 extension',{exact:false}).scrollIntoViewIfNeeded();
+  await page.getByText("Nook's thread extension",{exact:false}).scrollIntoViewIfNeeded();
   await shot('nook-thread-receipt-docs',{fullPage:false});
   await page.getByText('A replacement approval for the same exact app name and channel',{exact:false}).scrollIntoViewIfNeeded();
   await shot('nook-edit-docs',{fullPage:false});
