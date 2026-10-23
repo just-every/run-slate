@@ -1,3 +1,4 @@
+import {shareMessageCase} from './share-message-case';
 import { env } from 'cloudflare:test';
 import { test, expect, vi } from 'vitest';
 import { scenario, key, rows } from './helpers';
@@ -85,4 +86,6 @@ test('ADMIN-003 — HTTP guest policy, default expiry and bulk revocation; SHARE
     finally {
         provider.mockRestore();
     }
+    await shareMessageCase();
+
 });

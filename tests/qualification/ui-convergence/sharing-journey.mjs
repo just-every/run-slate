@@ -1,3 +1,4 @@
+import {shareMessageJourney} from './share-message-journey.mjs';
 import {governanceJourney} from './governance-journey.mjs';
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
@@ -87,5 +88,7 @@ export async function shareJourney(state, pageId) {
   assert.ok((await api(`/api/sharing/pages/${pageId}`)).items.find(item => item.principalId === 'browser-reader').revokedAt, 'Opening Activity leaves the removed page grant revoked.');
   // ADMIN-006 governance steps, separate from the sharing touch journey.
   await governanceJourney(state);
+  // SHARE-009 message steps, separate from the sharing touch journey.
+  await shareMessageJourney(state);
 
 }

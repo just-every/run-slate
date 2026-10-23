@@ -7,7 +7,7 @@ import {requireChatOwner} from './chat-authority';
 import {chatNotifier,type ChatProvider} from './chat-provider';
 import { encryptSecret } from '../../platform/secrets/custody';
 import { createUlid } from '../../shared/ulid';
-import { notificationEvents,type NotificationEvent } from './events';
+import { chatNotificationEvents,type NotificationEvent } from './events';
 import { ChatProviderError,type ChatNotifier } from './slack';
 export const chatScope=(workspaceId:string,id:string,provider:ChatProvider='slack')=>`${workspaceId}:chat.notifier.v1:${provider}:${id}`;
 export interface ChatConfig {nookDoor?:import('./nook').NookNotificationDoor;credentialKey?:string;appUrl?:string;adapter?:ChatNotifier;sourceConnection?:ConnectionRow;multiple?:boolean}
@@ -33,7 +33,7 @@ export async function connectChat(ctx:FeatureContext,config:ChatConfig,input:{op
  if(!config.multiple&&(provider!=='slack'||containerId!==null))throw new ApiProblem(400,'INVALID_CHAT_CONFIGURATION','Use the destinations door for additional providers and containers.');
  await requireChatOwner(ctx,containerId);if(!config.credentialKey)throw new ApiProblem(503,'CREDENTIAL_KEY_REQUIRED','CONNECTOR_CREDENTIALS_KEY is required.');
  const validChannel=provider==='nook'?/^[a-zA-Z0-9_-]{1,160}$/:provider==='slack'?/^[CG][A-Z0-9]+$/:/^[a-zA-Z0-9._:@-]{1,200}\/[a-zA-Z0-9._:@-]{1,200}$/;
- if(typeof input.channel!=='string'||!validChannel.test(input.channel)||typeof input.token!=='string'||!input.token||!Array.isArray(input.events)||input.events.some(e=>!notificationEvents.includes(e)))throw new ApiProblem(400,'INVALID_CHAT_CONFIGURATION','Supply a channel, credential and supported events.');
+ if(typeof input.channel!=='string'||!validChannel.test(input.channel)||typeof input.token!=='string'||!input.token||!Array.isArray(input.events)||input.events.some(e=>!chatNotificationEvents.some(event=>event===e)))throw new ApiProblem(400,'INVALID_CHAT_CONFIGURATION','Supply a channel, credential and supported events.');
  if(input.deliveryMode!==undefined&&!['immediate','daily'].includes(input.deliveryMode))throw new ApiProblem(400,'INVALID_CHAT_CONFIGURATION','Choose immediate or daily delivery.');
  const tokenHash=await requestHash(input.token);const request={...input,token:tokenHash};
  return commitOperation(ctx,{operationKey:input.operationKey,action:'chat.connect',request,authorize:()=>requireChatOwner(ctx,containerId),prepare:async({revisionId})=>{

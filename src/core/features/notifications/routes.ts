@@ -1,7 +1,7 @@
 import {configuredNookDoor} from './nook-http';
 import {z} from 'zod';
 import {parseBody} from '../workspace/routes';
-import {notificationEvents} from './events';
+import {chatNotificationEvents} from './events';
 import {requireStepUp} from '../session/step-up';
 import {requireChatOwner} from './chat-authority';
 import {chatIdentities,chatChannels,connectAuthorizedChat} from './chat-consent';
@@ -17,7 +17,7 @@ import { chatConnection,chatDestinations,connectChat,disconnectChat } from './ch
 import { chatDeliveryHistory } from './chat-delivery';
 import {managedChat} from './chat-config';
 import {acknowledgeHeldChat} from './chat-resolution';
-const destinationInput=z.object({operationKey:z.string().min(8).max(160),expectedRevisionId:z.string().min(1).optional(),provider:z.enum(['slack','teams','nook']).optional(),deliveryMode:z.enum(['immediate','daily']).optional(),containerId:z.string().min(1).max(160).nullable().optional(),channel:z.string().min(1).max(401),token:z.string().min(1).max(10000).optional(),events:z.array(z.enum(notificationEvents)).max(notificationEvents.length),connectionId:z.string().min(1).optional(),connectionRevisionId:z.string().min(1).optional()}).strict().refine(input=>!!input.token||((input.provider??'slack')==='slack'&&!!input.connectionId&&!!input.connectionRevisionId),'Supply a provider credential or connected Slack identity.');
+const destinationInput=z.object({operationKey:z.string().min(8).max(160),expectedRevisionId:z.string().min(1).optional(),provider:z.enum(['slack','teams','nook']).optional(),deliveryMode:z.enum(['immediate','daily']).optional(),containerId:z.string().min(1).max(160).nullable().optional(),channel:z.string().min(1).max(401),token:z.string().min(1).max(10000).optional(),events:z.array(z.enum(chatNotificationEvents)).max(chatNotificationEvents.length),connectionId:z.string().min(1).optional(),connectionRevisionId:z.string().min(1).optional()}).strict().refine(input=>!!input.token||((input.provider??'slack')==='slack'&&!!input.connectionId&&!!input.connectionRevisionId),'Supply a provider credential or connected Slack identity.');
 export function createNotificationsRoutes(){const app=new Hono<AppEnvironment>();app.use('*',personalJson);
 app.get('/chat/destinations',async c=>c.json(await chatDestinations(notificationContext(c))));
 const saveDestination=async(c:Context<AppEnvironment>,id?:string)=>{const input={...await parseBody(c.req,destinationInput),...(id?{id}:{})};await requireChatOwner(notificationContext(c),input.containerId??null);await requireStepUp(c,'credentials:mint');const config={nookDoor:configuredNookDoor(c.env),credentialKey:c.env.CONNECTOR_CREDENTIALS_KEY,appUrl:c.env.APP_URL,multiple:true};return c.json(await (typeof input.token==='string'?connectChat(notificationContext(c),config,{...input,token:input.token}):connectAuthorizedChat(notificationContext(c),config,{...input,connectionId:input.connectionId??'',connectionRevisionId:input.connectionRevisionId??''})));};
