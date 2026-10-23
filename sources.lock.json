@@ -944,7 +944,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "726f57d55753eb504843de4a9ca35c9c56dfcf7762e44763d2611404bc75d8ce",
+      "sha256": "dc1b45f1e2f97b492f15d44ff4211cb5293800ee4f16f667f856da13a451f967",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "84ee62e07623c3c889dab788a3253dcf6867a87ce688bd9949ea089e2fa9fee0",
+      "sha256": "f5939bc07552cb3900f74c843148d93f81c0bca9f3ad0a1e2396b3e7767ff94b",
       "executable": false
     },
     "DEMO.md": {
@@ -1012,11 +1012,11 @@
       "executable": false
     },
     "docs/CHAT-NOTIFICATIONS.md": {
-      "sha256": "c580cffb5be1e528df14a8b30206e7a18b05fa36376e93c59ddc8016b3d888be",
+      "sha256": "30a70dee7b841430899bd7d21b5d951e8ef73a8f9fa8589adb773a10768f994a",
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "2a0e7f29b5e0f967bf1c80f1d217824ffc5171cb60e0f53183761feefa8409a2",
+      "sha256": "238ed1524cdd3c98c52a889ec91e1c287f93c2097828c231a2301ea08bd1a739",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -7576,7 +7576,7 @@
       "executable": false
     },
     "src/core/features/notifications/nook-http.ts": {
-      "sha256": "5680212e9ba7a2f17c513f36f98a6724eb205a931d0d9bfeb0cf504a54d45031",
+      "sha256": "88b522fb4cb09baad4dbc538dbf6d7765cdbd8471d23c60e4be2f5653da74b5d",
       "executable": false
     },
     "src/core/features/notifications/nook.ts": {
@@ -9783,6 +9783,10 @@
       "sha256": "0884eab35ba3a735237dcdd3decbb358c9283f4fe01c7048687eb062dea29d66",
       "executable": false
     },
+    "tests/e2e/helpers/nook-http-network.ts": {
+      "sha256": "ba31232aa61b260619f3de0578fab7259a996175f7b725d2843deb522f39ba99",
+      "executable": false
+    },
     "tests/e2e/helpers/s3-network.ts": {
       "sha256": "98cc7016cf23955fea0893716efd4bff4ea22392a4d3bb200a834c4ebff0d26d",
       "executable": false
@@ -9928,11 +9932,11 @@
       "executable": false
     },
     "tests/e2e/notifications/destinations.test.ts": {
-      "sha256": "993bad05cbd8e93e752354ac5ae1a3b24ebc915bc118e4472be9405ca8b7e740",
+      "sha256": "99bde9f85be7062b4b331581f33d621351a44f4712b1cac9f73a8ad9547f2c0a",
       "executable": false
     },
     "tests/e2e/notifications/nook-http-journey.ts": {
-      "sha256": "dcd174d6bb2dd01ad4a983a7c1658e4f342657865840bb031883fa5446253db1",
+      "sha256": "f8b52f7ba22a2e65f94d92ff450fc99c0c9f0915d658fcd4a3e0bd7f06c0815b",
       "executable": false
     },
     "tests/e2e/outbox-auth.mjs": {
@@ -11620,7 +11624,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
-      "sha256": "0757528f70addbaaa1074cfe84887dcac4d6393068a99a98e9458c348c0614e4",
+      "sha256": "15cb4a9ed1be07cac0ffb24f05884eeec193fdf4d17e0b0f1b05858193751cc6",
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {

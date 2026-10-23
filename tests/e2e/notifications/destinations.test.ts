@@ -334,13 +334,15 @@ async function repairJourney() {
   async find(token,{channel,clientKey}){if(!allowed(token,channel,'find'))return new Response(null,{status:403});return Response.json({receipt:edge.messages.find(m=>m.channel===channel&&m.key===clientKey)?.receipt??null});},
  };
  const app=createApi();
- const raw=(method:string,path:string,body?:unknown)=>app.request(origin+path,{method,headers:{cookie,origin,'content-type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)},bindings);
+ const raw=(method:string,path:string,body?:unknown,auth=cookie)=>app.request(origin+path,{method,headers:{cookie:auth,origin,'content-type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)},bindings);
  const api=async(method:string,path:string,body?:unknown)=>{const r=await raw(method,path,body),text=await r.text();expect(r.status,text).toBe(200);for(const token of tokens)expect(text).not.toContain(token);return JSON.parse(text);};
  const destination=async(id:string)=>(await api('GET','/api/notifications/chat/destinations')).items.find((c:any)=>c.id===id);
  const connect=async(provider:string,token:string,channel:string,deliveryMode='immediate')=>(await api('POST','/api/notifications/chat/destinations',{operationKey:key(),provider,token,channel,events:['comment'],deliveryMode})).value.id as string;
  const update=async(id:string,token:string,channel:string,deliveryMode='immediate')=>raw('PUT','/api/notifications/chat/destinations/'+id,{operationKey:key(),provider:(await destination(id)).provider,expectedRevisionId:(await destination(id)).revisionId,token,channel,events:['comment'],deliveryMode});
  const page=async(title:string,containerId=open)=>(await api('POST','/api/pages',{operationKey:key(),containerId,title})).value.pageId as string;
  const comment=(id:string)=>api('POST','/api/comments/page/'+id,{operationKey:key(),body:[{text:'synthetic-slate-private-body'}]});
+ const readerCookie=await sessionFor(reader);
+ const commentByReader=async(id:string)=>{const response=await raw('POST','/api/comments/page/'+id,{operationKey:key(),body:[{text:'synthetic-slate-private-body'}]},readerCookie);expect(response.status,await response.clone().text()).toBe(200);};
  const sweep=async(day=false)=>{
   // Move only event clocks; application outbox, claims and delivery execute unchanged.
   const at=day?'2000-01-01T00:00:00.000Z':new Date(Date.now()-120000).toISOString();
@@ -349,7 +351,7 @@ async function repairJourney() {
   const ack=vi.fn(),retry=vi.fn();await worker.queue!({queue:'synthetic-slate-1',metadata:{metrics:{backlogCount:1,backlogBytes:0}},messages:[{id:key(),body:{type:'discovery.deliver'},timestamp:new Date(),attempts:1,ack,retry}],ackAll:vi.fn(),retryAll:vi.fn()} as MessageBatch<unknown>,bindings);expect(retry).not.toHaveBeenCalled();expect(ack).toHaveBeenCalledOnce();
  };
  const purge=async(id:string)=>{const doc=await api('GET','/api/pages/'+id);await api('POST','/api/archive/'+id,{operationKey:key(),expectedRevisionId:doc.page.revisionId,action:'trash'});await api('POST','/api/archive/'+id+'/permanent-delete',{operationKey:key(),confirmedPageIds:[id]});};
- return {edge,bindings,tokens,channels,nookCalls,ownerEmail,readerEmail,owner,reader,open,closed,key,raw,api,destination,connect,update,page,comment,sweep,purge};
+ return {edge,bindings,tokens,channels,nookCalls,ownerEmail,readerEmail,owner,reader,open,closed,key,raw,api,destination,connect,update,page,comment,commentByReader,sweep,purge};
 }
 
 contract('CHAT-001','Readable grouped events survive an unreadable or purged leader without duplicate delivery',async()=>{

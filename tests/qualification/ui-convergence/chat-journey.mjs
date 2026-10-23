@@ -236,4 +236,7 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await shot('nook-channel-change-refused');
   await page.getByRole('button',{name:'Cancel',exact:true}).click();
 
+  await page.goto(origin+'/docs/chat-notifications',{waitUntil:'networkidle'});
+  await shot('nook-door-docs');
+
 }

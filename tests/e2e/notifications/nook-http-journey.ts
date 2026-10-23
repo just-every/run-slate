@@ -1,47 +1,22 @@
 import {env} from 'cloudflare:test';
-import {expect,vi} from 'vitest';
+import {expect} from 'vitest';
 import {nookHttpDoor} from '../../../src/core/features/notifications/nook-http';
 import {nookNotifier} from '../../../src/core/features/notifications/nook';
+import {nookHttpNetwork} from '../helpers/nook-http-network';
 
-/** Recorded NOOK-080 HTTP shapes from Nook main c527acae, exercised through Slate's routes. */
+/** Recorded NOOK-080/089 wire shapes from Nook main 7dd6d142, through Slate's routes and queue. */
 export async function landedNookHttpJourney(h:any){
  h.edge.restore();
- const token=h.tokens[2],channel=h.channels[2],origin='https://nook.synthetic-slate.test';
- const human={id:'synthetic-slate-1',name:'synthetic-slate-1',verifiedEmail:h.readerEmail,emailVerified:true,guest:false,bot:false};
- let facts:any={channel,private:true,archived:false,sharing:{state:'local',federationAvailable:false},members:[human]};
- let revoked=false,rateLimited=false,uncertain=false;
- const messages=new Map<string,{id:string;body:string;version:number;key:string;author:string}>();
- const calls:{path:string;method:string}[]=[];
- const fetcher=vi.spyOn(globalThis,'fetch').mockImplementation(async(input:any,init?:RequestInit)=>{
-  const request=new Request(input,init),url=new URL(request.url);expect(url.origin).toBe(origin);
-  const path=url.pathname,method=request.method;calls.push({path,method});
-  expect(request.redirect).toBe('manual');expect(request.headers.get('authorization')).toBe(`Bearer ${token}`);
-  if(revoked||!path.startsWith('/api/notification-destinations/'+channel+'/'))return Response.json({error:'Destination unavailable'},{status:404});
-  if(path.endsWith('/audience'))return Response.json(facts);
-  const body=await request.json() as any;
-  if(method==='POST'){
-   expect(Object.keys(body)).toEqual(['body']);expect(body.body).not.toContain('synthetic-slate-private-body');
-   const key=request.headers.get('Idempotency-Key')!;expect(key).toMatch(/^[A-Za-z0-9._:-]{1,64}$/);
-   if(rateLimited){rateLimited=false;return new Response(null,{status:429,headers:{'Retry-After':'2'}});}
-   const prior=[...messages.values()].find(m=>m.key===key);
-   if(prior)return prior.body===body.body?Response.json({...prior,conversation:channel}):new Response(null,{status:409});
-   const message={id:'synthetic-slate-'+(messages.size+10),body:body.body,version:1,key,author:'synthetic-slate-approval'};messages.set(message.id,message);
-   return uncertain?new Response(null,{status:503}):Response.json({...message,conversation:channel});
-  }
-  expect(method).toBe('PATCH');expect(Object.keys(body).sort()).toEqual(['body','version']);
-  const message=messages.get(decodeURIComponent(path.split('/').at(-1)!));
-  if(!message||message.author!=='synthetic-slate-approval')return new Response(null,{status:404});
-  if(message.version!==body.version)return new Response(null,{status:409});
-  message.body=body.body;message.version++;return Response.json({...message,conversation:channel});
- });
+ const token=h.tokens[2],replacement=h.tokens[4],channel=h.channels[2],origin='https://nook.synthetic-slate.test';
+ const edge=nookHttpNetwork(origin,channel,token,replacement,h.readerEmail),{messages,calls,human}=edge;
+ const posts=()=>calls.filter(call=>call.method==='POST').length;
  try{
-  // Before normalization the same raw provider audience is refused, with no credential stored.
-  h.bindings.NOOK_NOTIFIER={...h.bindings.NOOK_NOTIFIER,audience:async()=>Response.json(facts)};
+  // Raw wire facts are not normalized capability facts and must refuse before custody.
+  h.bindings.NOOK_NOTIFIER={...h.bindings.NOOK_NOTIFIER,audience:async()=>Response.json(edge.facts)};
   expect((await h.raw('POST','/api/notifications/chat/destinations',{operationKey:h.key(),provider:'nook',channel,token,events:['comment']})).status).toBe(422);
   expect(await env.DB.prepare("SELECT count(*) n FROM chat_connections WHERE COALESCE(notifier_provider,provider)='nook'").first('n')).toBe(0);
   h.bindings.NOOK_NOTIFIER=undefined;h.bindings.NOOK_NOTIFICATION_ORIGIN=origin;
-  // Unknown guest, mailbox verification, sharing and bot facts all refuse at the public connection door.
-  const good=facts;
+  const good=edge.facts;
   for(const bad of [
    {...good,sharing:{state:'unknown',federationAvailable:false}},
    {...good,sharing:{state:'shared',federationAvailable:false}},
@@ -49,39 +24,67 @@ export async function landedNookHttpJourney(h:any){
    {...good,members:[{...human,emailVerified:'unknown'}]},
    {...good,members:[{...human,verifiedEmail:null}]},
    {...good,members:[human,{id:'synthetic-slate-other-bot',bot:true,guest:false,emailVerified:true,verifiedEmail:h.readerEmail}]},
-  ]){
-   facts=bad;expect((await h.raw('POST','/api/notifications/chat/destinations',{operationKey:h.key(),provider:'nook',channel,token,events:['comment']})).status).toBe(422);
-  }
-  facts=good;const id=await h.connect('nook',token,channel);
+  ]){edge.facts=bad;expect((await h.raw('POST','/api/notifications/chat/destinations',{operationKey:h.key(),provider:'nook',channel,token,events:['comment']})).status).toBe(422);}
+  edge.facts=good;const id=await h.connect('nook',token,channel);
   const page=await h.page('synthetic-slate-landed-nook');await h.comment(page);await h.sweep();expect(messages.size).toBe(1);
-  const message=[...messages.values()][0]!;expect(message.body).toContain('synthetic-slate-landed-nook');
-  await h.purge(page);await h.sweep();expect(message.body).toBe('Restricted Slate page');expect(message.version).toBe(2);
-  const adapter=nookNotifier(nookHttpDoor(origin));const before=calls.length;
-  await expect(adapter.send(token,channel,'synthetic-slate-1','synthetic-slate-2','synthetic-slate-parent')).rejects.toMatchObject({code:'nook_threads_unavailable'});
-  expect(calls.length).toBe(before);expect(await adapter.findReceipt(token,channel,'synthetic-slate-2',new Date().toISOString())).toBeNull();expect(calls.length).toBe(before);
+  const root=[...messages.values()][0]!;expect(root.body).toContain('synthetic-slate-landed-nook');
+  await h.comment(page);await h.sweep();expect([...messages.values()].at(-1)!.thread).toBe(root.id);
+  await env.DB.prepare("UPDATE chat_messages SET created_at=? WHERE connection_id=? AND thread_receipt IS NULL").bind(new Date(Date.now()-25*3600000).toISOString(),id).run();
+  await h.comment(page);await h.sweep();expect([...messages.values()].at(-1)!.thread).toBeUndefined();
+  const adapter=nookNotifier(nookHttpDoor(origin));
   await expect(adapter.audience(token,'synthetic-slate-channel-other')).rejects.toMatchObject({auth:true});
-  rateLimited=true;await expect(adapter.send(token,channel,'synthetic-slate-rate','synthetic-slate-3')).rejects.toMatchObject({transient:true,retryAfterMs:2000});
-  const receipt=await adapter.send(token,channel,'synthetic-slate-replay','synthetic-slate-4');expect(await adapter.send(token,channel,'synthetic-slate-replay','synthetic-slate-4')).toBe(receipt);
+  edge.rateLimited=true;await expect(adapter.send(token,channel,'synthetic-slate-rate','synthetic-slate-3')).rejects.toMatchObject({transient:true,retryAfterMs:2000});
+  const receipt=await adapter.send(token,channel,'synthetic-slate-replay','synthetic-slate-4'),count=messages.size;
+  expect(await adapter.send(token,channel,'synthetic-slate-replay','synthetic-slate-4')).toBe(receipt);expect(messages.size).toBe(count);
+  expect(await adapter.findReceipt(token,channel,'synthetic-slate-4',new Date().toISOString())).toBe(receipt);
   await expect(adapter.send(token,channel,'synthetic-slate-changed','synthetic-slate-4')).rejects.toMatchObject({code:'provider_http_409'});
+  await expect(adapter.send(token,channel,'synthetic-slate-replay','synthetic-slate-4',JSON.stringify({channel,id:root.id,version:1}))).rejects.toMatchObject({code:'provider_http_409'});
+  await expect(adapter.send(token,channel,'synthetic-slate-missing','synthetic-slate-6',JSON.stringify({channel,id:'synthetic-slate-missing',version:1}))).rejects.toMatchObject({code:'provider_http_400'});
+  expect(await adapter.findReceipt(token,channel,'synthetic-slate-never',new Date().toISOString())).toBeNull();
+  edge.tombstones.add('Slate:'+channel+':synthetic-slate-erased');expect(await adapter.findReceipt(token,channel,'synthetic-slate-erased',new Date().toISOString())).toBeNull();
+  edge.malformedReceipt=true;await expect(adapter.findReceipt(token,channel,'synthetic-slate-4',new Date().toISOString())).rejects.toMatchObject({code:'invalid_provider_response'});edge.malformedReceipt=false;
+  expect(await adapter.findReceipt('synthetic-slate-206',channel,'synthetic-slate-4',new Date().toISOString())).toBeNull();
+  expect(await adapter.findReceipt('synthetic-slate-207','synthetic-slate-other-channel','synthetic-slate-4',new Date().toISOString())).toBeNull();expect(messages.size).toBe(count);
   await adapter.edit(token,channel,receipt,'synthetic-slate-edit');await expect(adapter.edit(token,channel,receipt,'synthetic-slate-stale')).rejects.toMatchObject({code:'provider_http_409'});
-  const parsed=JSON.parse(receipt);messages.get(parsed.id)!.author='synthetic-slate-other-approval';await expect(adapter.edit(token,channel,JSON.stringify({...parsed,version:2}),'synthetic-slate-foreign')).rejects.toMatchObject({auth:true});
-  uncertain=true;await expect(adapter.send(token,channel,'synthetic-slate-uncertain','synthetic-slate-5')).rejects.toMatchObject({uncertain:true});uncertain=false;
-  // Actual landed HTTP door: lost acceptance response is held through acknowledgment, purge and reconnect.
-  const heldPage=await h.page('synthetic-slate-held-nook');uncertain=true;await h.comment(heldPage);await h.sweep();uncertain=false;
-  const heldCount=messages.size,heldHistory=(await h.api('GET',`/api/notifications/chat/destinations/${id}/deliveries`)).items;
-  const held=heldHistory.find((item:any)=>item.state==='uncertain'&&!item.acknowledgedAt);expect(held).toBeTruthy();
-  expect((await h.destination(id)).heldCount).toBe(1);
-  const acknowledge=`/api/notifications/chat/destinations/${id}/deliveries/${held.id}/acknowledge`;
-  const resolution=await h.api('POST',acknowledge,{operationKey:h.key(),expectedRevisionId:(await h.destination(id)).revisionId});
-  expect(resolution.value).toMatchObject({state:'uncertain'});expect(resolution.value.acknowledgedAt).toBeTruthy();
+  expect(await adapter.send(token,channel,'synthetic-slate-replay','synthetic-slate-4')).toBe(receipt);
+  await expect(adapter.edit('synthetic-slate-206',channel,receipt,'synthetic-slate-foreign')).rejects.toMatchObject({auth:true});
+  const parsed=JSON.parse(receipt);await expect(adapter.edit('synthetic-slate-207','synthetic-slate-other-channel',JSON.stringify({...parsed,channel:'synthetic-slate-other-channel'}),'synthetic-slate-foreign')).rejects.toMatchObject({auth:true});
+  await expect(adapter.edit(token,channel,JSON.stringify({...parsed,channel:'synthetic-slate-other-channel'}),'synthetic-slate-wrong-channel')).rejects.toMatchObject({code:'invalid_nook_receipt'});
+  await h.purge(page);await h.sweep();
+  for(const message of [...messages.values()].filter(message=>message.id===root.id||message.thread===root.id||message.body.includes('synthetic-slate-landed-nook'))){expect(message.body).toBe('Restricted Slate page');expect(message.version).toBe(2);}
+
+  // A lost acceptance response stays held while lookup is unavailable, then resolves read-only.
+  const heldPage=await h.page('synthetic-slate-held-nook');edge.uncertain=true;edge.lookupFailed=true;await h.comment(heldPage);await h.sweep();edge.uncertain=false;
+  const history=(await h.api('GET',`/api/notifications/chat/destinations/${id}/deliveries`)).items;
+  const held=history.find((item:any)=>item.state==='uncertain'&&!item.acknowledgedAt);expect(held).toBeTruthy();expect((await h.destination(id)).heldCount).toBe(1);
+  const acceptedCount=messages.size,postCount=posts();edge.lookupFailed=false;await h.sweep();await h.sweep();
+  expect(messages.size).toBe(acceptedCount);expect(posts()).toBe(postCount);expect((await h.destination(id)).heldCount).toBe(0);
+  expect((await h.api('GET',`/api/notifications/chat/destinations/${id}/deliveries`)).items.find((item:any)=>item.id===held.id)).toMatchObject({state:'delivered',acknowledgedAt:null});
+  const accepted=[...messages.values()].find(message=>message.body.includes('synthetic-slate-held-nook'))!;
+  const acceptedReceipt=JSON.stringify({channel,...accepted.receipt});
+  edge.revoked.add(token);expect((await h.update(id,replacement,channel)).status).toBe(200);
+  expect(await adapter.findReceipt(replacement,channel,[...edge.intents.entries()].find(([,message])=>message.id===accepted.id)![0].slice(('Slate:'+channel+':').length),new Date().toISOString())).toBe(acceptedReceipt);
+  await h.purge(heldPage);await h.sweep();expect(accepted.body).toBe('Restricted Slate page');expect(accepted.author).toBe('synthetic-slate-301');expect(accepted.version).toBe(2);
+  await expect(adapter.findReceipt(token,channel,'synthetic-slate-4',new Date().toISOString())).rejects.toMatchObject({auth:true});
+
+  const narrowed=await h.page('synthetic-slate-narrowed');await h.comment(narrowed);await h.sweep();
+  const narrowedPost=[...messages.values()].find(message=>message.body.includes('synthetic-slate-narrowed'))!;
+  const placement={containerId:h.closed,parentPageId:null,treePosition:'z'},preview=await h.api('POST',`/api/pages/${narrowed}/move-preview`,placement),document=await h.api('GET',`/api/pages/${narrowed}`);
+  await h.api('POST',`/api/pages/${narrowed}/move`,{...placement,operationKey:h.key(),expectedRevisionId:document.page.revisionId,accessPreviewHash:preview.accessPreviewHash});await h.sweep();expect(narrowedPost.body).toBe('Restricted Slate page');
+  // Keep the remote audience unchanged and authorized; this withdrawal is actor erasure.
+  edge.facts={...good,members:[{...human,verifiedEmail:h.ownerEmail}]};
+  const erased=await h.page('synthetic-slate-actor-erased');await h.commentByReader(erased);await h.sweep();
+  const erasedPost=[...messages.values()].find(message=>message.body.includes('synthetic-slate-actor-erased'))!;
+  await h.api('POST','/api/members/remove',{operationKey:h.key(),memberId:h.reader,erase:true});await h.sweep();expect(erasedPost.body).toBe('Restricted Slate page');
+
+  // A door which still cannot answer preserves the owner acknowledgment and unresolved withdrawal.
+  const unresolvedPage=await h.page('synthetic-slate-unresolved');edge.uncertain=true;edge.lookupFailed=true;await h.comment(unresolvedPage);await h.sweep();edge.uncertain=false;
+  const unresolved=(await h.api('GET',`/api/notifications/chat/destinations/${id}/deliveries`)).items.find((item:any)=>item.state==='uncertain');expect(unresolved).toBeTruthy();
+  const resolution=await h.api('POST',`/api/notifications/chat/destinations/${id}/deliveries/${unresolved.id}/acknowledge`,{operationKey:h.key(),expectedRevisionId:(await h.destination(id)).revisionId});expect(resolution.value).toMatchObject({state:'uncertain'});expect(resolution.value.acknowledgedAt).toBeTruthy();
+  const unresolvedCount=messages.size,unresolvedPosts=posts();await h.purge(unresolvedPage);await h.sweep();expect(messages.size).toBe(unresolvedCount);expect(posts()).toBe(unresolvedPosts);
+  expect(await env.DB.prepare('SELECT state,provider_receipt FROM chat_messages WHERE id=(SELECT message_id FROM chat_deliveries WHERE id=?)').bind(unresolved.id).first()).toEqual({state:'withdraw',provider_receipt:null});
   expect((await h.destination(id)).heldCount).toBe(0);
-  await h.purge(heldPage);await h.sweep();await h.update(id,token,channel);await h.sweep();
-  expect(messages.size).toBe(heldCount);
-  expect((await h.api('GET',`/api/notifications/chat/destinations/${id}/deliveries`)).items.find((item:any)=>item.id===held.id)).toMatchObject({state:'uncertain',acknowledgedAt:resolution.value.acknowledgedAt});
-  expect(await env.DB.prepare('SELECT count(*) n FROM chat_messages WHERE id=(SELECT message_id FROM chat_deliveries WHERE id=?)').bind(held.id).first('n')).toBe(1);
-  expect(await env.DB.prepare('SELECT state,provider_receipt FROM chat_messages WHERE id=(SELECT message_id FROM chat_deliveries WHERE id=?)').bind(held.id).first()).toEqual({state:'withdraw',provider_receipt:null});
-  revoked=true;const size=messages.size;const next=await h.page('synthetic-slate-after-revoke');await h.comment(next);await h.sweep();await h.sweep();
-  expect(messages.size).toBe(size);expect((await h.destination(id)).state).toBe('needs-attention');
-  expect(calls.every(c=>!c.path.includes('find'))).toBe(true);
- }finally{fetcher.mockRestore();}
+  edge.revoked.add(replacement);const next=await h.page('synthetic-slate-after-revoke');await h.comment(next);await h.sweep();expect(messages.size).toBe(unresolvedCount);expect((await h.destination(id)).state).toBe('needs-attention');
+  console.log('PASS CHAT-001 nook-http-journey: NOOK-089 threads, same-key receipts without repost, replacement-approval deletion/narrowing/erasure edits and held uncertainty');
+ }finally{edge.restore();}
 }
