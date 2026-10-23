@@ -8,7 +8,7 @@ import type { AppBindings } from '../../../src/core/app/types';
 // notified, changed since, a verifier who left) upgrades in place: its rows are untouched,
 // the review list shows each correctly, and the lapse job notifies exactly the one that
 // was still due without being held up by the verifier who left.
-test('Existing verifications upgrade in place and the list and lapse notice treat each correctly', async () => {
+test('Existing verifications and member profiles upgrade in place without losing populated work or lapse notices', async () => {
   const db = (env as unknown as { PRIOR_DB: D1Database }).PRIOR_DB;
   await applyD1Migrations(db, env.TEST_MIGRATIONS.filter(m => m.name < '0026_verification_review.sql'));
   const f = await reviewFixture(db), { page, verify, request, sql, at, now } = f;
@@ -23,7 +23,7 @@ test('Existing verifications upgrade in place and the list and lapse notice trea
   // The prior lapse job had already notified this one: its stamp and its notice exist.
   await sql("UPDATE page_verifications SET lapsed_notified_at=? WHERE id='v-prior-lapsed-notified'", at(-1));
   await sql("INSERT INTO notification_outbox(id,workspace_id,actor_member_id,event,page_id,recipients_json,watched_recipients_json,detail_json,created_at) VALUES('verification:v-prior-lapsed-notified:lapsed','w',NULL,'verification-lapsed','prior-lapsed-notified','[\"owner\"]','[]','{}',?)", at(-1));
-  const retained = async () => Object.fromEntries(await Promise.all(['page_verifications', 'pages', 'page_revisions', 'notification_outbox'].map(async table => [table, (await db.prepare(`SELECT * FROM ${table} ORDER BY 1`).all()).results])));
+  const retained = async () => Object.fromEntries(await Promise.all(['page_verifications', 'pages', 'page_revisions', 'notification_outbox', 'members'].map(async table => [table, (await db.prepare(`SELECT * FROM ${table} ORDER BY 1`).all()).results])));
   const before = await retained();
 
   await applyD1Migrations(db, env.TEST_MIGRATIONS);
@@ -37,6 +37,9 @@ test('Existing verifications upgrade in place and the list and lapse notice trea
   expect(await listed('mine')).toEqual({ 'prior-lapsed-notified': 'lapsed', 'prior-lapsed-due': 'lapsed', 'prior-changed': 'changed' });
   expect(await listed('no-verifier')).toEqual({ 'prior-verifier-left': 'lapsed' });
   for (const [id, , state] of cases) expect((await request('owner', 'GET', `/api/pages/${id}`)).data.verification.state, id).toBe(state);
+
+  const profile=await request('owner','GET','/api/people/owner');expect(profile.status).toBe(200);expect(profile.data).toMatchObject({title:'',timezone:'UTC',revisionId:null,hiddenTags:[]});
+  const saved=await request('owner','PUT','/api/people/owner',{operationKey:'upgraded-profile-save',expectedRevisionId:null,title:'Incident lead',timezone:'UTC',tags:[{tag:'Incident response',hidden:true,custom:false}]});expect(saved.status,JSON.stringify(saved.data)).toBe(200);expect((await request('owner','GET','/api/people/owner')).data.hiddenTags).toEqual([{tag:'Incident response',custom:false}]);expect((await db.prepare('PRAGMA foreign_key_check').all()).results).toEqual([]);
 
   // Twice: only the due row is notified, once; the verifier who left gets nothing and blocks nothing.
   const bindings = { ...env, DB: db } as AppBindings;

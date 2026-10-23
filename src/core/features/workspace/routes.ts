@@ -1,3 +1,5 @@
+import {directory,memberProfile} from './directory';
+import {saveProfile,profileInput} from './profile';
 import { mentionConfiguration, setMentionConfiguration } from '../comments/group-mentions';
 import { requireStepUp } from '../session/step-up';
 import { listIdentityMail,retryIdentityMail } from '../session/mail-status';
@@ -29,6 +31,10 @@ export function createWorkspaceRoutes(){return new Hono<AppEnvironment>()
 .put('/api/workspace/mention-configuration',async c=>c.json(await setMentionConfiguration(featureContext(c),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id.nullable(),restrictLargeGroups:z.boolean()}).strict()))))
 .get('/api/workspace',async c=>c.json(await readWorkspace(featureContext(c))))
 .put('/api/workspace',async c=>c.json(await updateWorkspace(featureContext(c),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id,name:z.string().trim().min(1).max(160),mark:z.string().max(2048),description:z.string().max(2000),guestAccess:toggle,publicLinkAccess:toggle,anonymousAccess:toggle,policies}).strict()))))
+.get('/api/people',async c=>c.json(await directory(featureContext(c),{q:c.req.query('q')})))
+.get('/api/people/:id',async c=>c.json(await memberProfile(featureContext(c),c.req.param('id'),c.req.query('pageId'))))
+.put('/api/people/:id',async c=>c.json(await saveProfile(featureContext(c),c.req.param('id'),await parseBody(c.req,profileInput))))
+.get('/api/pages/:pageId/people',async c=>c.json(await directory(featureContext(c),{pageId:c.req.param('pageId')})))
 .get('/api/members/current',async c=>c.json(await currentMember(featureContext(c))))
 .put('/api/members/current/theme',async c=>c.json(await setTheme(featureContext(c),await parseBody(c.req,z.object({operationKey:op,theme:z.enum(['light','dark','system'])}).strict()))))
 .get('/api/members',async c=>c.json(await listMembers(featureContext(c),'member')))
