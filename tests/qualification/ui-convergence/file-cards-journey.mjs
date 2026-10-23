@@ -66,4 +66,5 @@ export async function fileCardsJourney(state){
  await page.reload({waitUntil:'networkidle'});await expect(page.getByRole('link',{name:'Request access',exact:true})).toHaveCount(2);await expect(page.getByRole('link',{name:'Connect to view',exact:true})).toHaveCount(2);await shot('disconnected');
  assert.deepEqual((await api(`/api/pages/${pageId}`)).blocks.filter(block=>block.blockType==='file-card').map(block=>block.content),references.map(block=>block.content));
  await page.getByRole('button',{name:/Add block/}).click();await page.getByRole('option',{name:'Connected file',exact:true}).click();await expect(page.getByRole('dialog',{name:'Insert connected file'}).getByRole('link',{name:'Connect your account',exact:true})).toBeVisible();await shot('empty-picker');await page.getByRole('dialog',{name:'Insert connected file'}).getByRole('button',{name:'Cancel',exact:true}).click();
+ await page.goto(origin+'/docs',{waitUntil:'networkidle'});await shot('docs');
 }
