@@ -940,7 +940,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "d11f13ce765220b0ce21252157403d1a0c617a39267bf80b7e5042d34be29d56",
+      "sha256": "726f57d55753eb504843de4a9ca35c9c56dfcf7762e44763d2611404bc75d8ce",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -968,7 +968,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "81b72ca3b01838cd5f1eb54f08926a8cde7d1173e8ef6e815956b1d82f299ebc",
+      "sha256": "0ee9f7e1ce12a15b186ebf0468433b84c1753de34f3f998c9acc83fd67e25c5f",
       "executable": false
     },
     "DEMO.md": {
@@ -9724,7 +9724,7 @@
       "executable": false
     },
     "tests/e2e/editor/file-cards-journey.ts": {
-      "sha256": "1a8098d81229d20c1631e5608ef6ebea30cbb743cd5e63c8daf4b488c8bea349",
+      "sha256": "cc5cccee6cc8946044e4c5afaf8457a66c815d81113ef3aefb12bbd43cb35754",
       "executable": false
     },
     "tests/e2e/editor/fixtures/editable.tsx": {

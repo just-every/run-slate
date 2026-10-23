@@ -12,15 +12,16 @@ export async function fileCardsHttpJourney(){
  const reader=(await seedMember(workspaceId,{email:'synthetic-slate-2@example.test',displayName:'Morgan Reader',role:'member'})).memberId;
  const bindings={...env,SLATE_PROFILE:undefined,CONNECTOR_CREDENTIALS_KEY:'synthetic-slate-100000000000000000000000009'},app=createApi(),key=()=>crypto.randomUUID();
  const ownerCookie=await sessionFor(owner,{freshProof:true}),readerCookie=await sessionFor(reader,{freshProof:true});let cookie=ownerCookie;
- const tokens=['synthetic-slate-701','synthetic-slate-702'];let title='Recovery notes',deleted=false,held:Promise<void>|undefined,arrived:(()=>void)|undefined;const requests:string[]=[];
+ const tokens=['synthetic-slate-701','synthetic-slate-702'];let title='Recovery notes',deleted=false,identityChanged=false,aclFailed=false,held:Promise<void>|undefined,arrived:(()=>void)|undefined;const requests:string[]=[];
  const edge=vi.spyOn(globalThis,'fetch').mockImplementation(async(input,init)=>{
   const request=new Request(input,init),url=new URL(request.url),isReader=request.headers.get('authorization')===`Bearer ${tokens[1]}`;
   expect(['https://www.googleapis.com','https://graph.microsoft.com'].includes(url.origin)).toBe(true);
   expect(tokens.some(token=>request.headers.get('authorization')===`Bearer ${token}`)).toBe(true);
   requests.push(url.pathname);const json=(value:unknown)=>Response.json(value);
-  if(url.pathname==='/oauth2/v3/userinfo')return json({sub:isReader?'synthetic-slate-712':'synthetic-slate-711',email:isReader?'synthetic-slate-2@example.test':'synthetic-slate-1@example.test',email_verified:true});
-  if(url.pathname==='/v1.0/me')return json({id:isReader?'synthetic-slate-722':'synthetic-slate-721',mail:isReader?'synthetic-slate-2@example.test':'synthetic-slate-1@example.test',userPrincipalName:isReader?'synthetic-slate-2@example.test':'synthetic-slate-1@example.test'});
+  if(url.pathname==='/oauth2/v3/userinfo')return json({sub:identityChanged?'synthetic-slate-799':isReader?'synthetic-slate-712':'synthetic-slate-711',email:isReader?'synthetic-slate-2@example.test':'synthetic-slate-1@example.test',email_verified:true});
+  if(url.pathname==='/v1.0/me')return json({id:identityChanged?'synthetic-slate-799':isReader?'synthetic-slate-722':'synthetic-slate-721',mail:isReader?'synthetic-slate-2@example.test':'synthetic-slate-1@example.test',userPrincipalName:isReader?'synthetic-slate-2@example.test':'synthetic-slate-1@example.test'});
   if(isReader)return new Response(null,{status:403});
+  if(aclFailed)return new Response(null,{status:500});
   if(deleted)return new Response(null,{status:404});
   if(held){arrived?.();await held;}
   const google={id:'synthetic-slate-731',name:title,mimeType:'application/pdf',modifiedTime:'2026-10-21T10:00:00.000Z',owners:[{displayName:'Alex Owner'}]};
@@ -50,6 +51,8 @@ export async function fileCardsHttpJourney(){
    const route=`/api/pages/${pageId}/file-cards/${blockId}`;
    expect(await api('GET',route)).toEqual({state:'readable',reference,metadata:{title,owner:'Alex Owner',modifiedAt:'2026-10-21T10:00:00.000Z',type:'application/pdf'}});
    title='Recovery notes revised';expect((await api('GET',route)).metadata.title).toBe(title);
+   identityChanged=true;expect(await api('GET',route)).toEqual({state:'request-access',connect:false});identityChanged=false;
+   aclFailed=true;expect(await api('GET',route)).toEqual({state:'failed'});aclFailed=false;
    cookie=readerCookie;expect(await api('GET',route)).toEqual({state:'request-access',connect:true});
    await api('POST','/api/imports/provider-folders/connections',{operationKey:key(),provider,token:tokens[1],...(provider==='sharepoint'?{driveId:'synthetic-slate-733'}:{})});
    expect(await api('GET',route)).toEqual({state:'request-access',connect:false});
