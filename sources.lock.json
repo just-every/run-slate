@@ -12312,7 +12312,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page-tools-journey.mjs": {
-      "sha256": "229a3a1cdcdd6c819ec180364aef8c6cecf05bfd339473b7e29842dabbd31a65",
+      "sha256": "6ee52cb153f89365f5f66344900963bd39b5661b9c2f82efe49e7cdaa39b0f5e",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page.mjs": {

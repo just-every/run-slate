@@ -52,7 +52,7 @@ export async function touchPageToolsJourney(touch){
  await type(page,labels.getByRole('textbox',{name:'Labels, separated by commas',exact:true}),'response, duty');
  await tap(labels.getByRole('button',{name:'Save details',exact:true}));
  await expect(labels).toBeHidden();
- await expect.poll(async()=>(await api(`/api/pages/${pageId}`)).properties.labels).toEqual(['duty','response']);
+ await expect.poll(async()=>(await api(`/api/pages/${pageId}`)).properties.labels).toEqual(['response','duty']);
  await checkpoint(page,'page details edited');
  if(await close.isVisible())await tap(close);
  await more(page,'Export page');
