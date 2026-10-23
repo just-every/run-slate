@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "ebd059b4d784d411df411cac87df0fafddc81d6226e5999f82183a40257f3375",
+      "sha256": "49ba5b2e30feaf4ab013f6fead519021eb9638b7f989c9c183a8d762c5a906b0",
       "executable": false
     },
     "DEMO.md": {
@@ -1012,7 +1012,7 @@
       "executable": false
     },
     "docs/CHAT-NOTIFICATIONS.md": {
-      "sha256": "30a70dee7b841430899bd7d21b5d951e8ef73a8f9fa8589adb773a10768f994a",
+      "sha256": "eef6eddceb78759a126ed82bcf9c9dc00e5f233b0dc9d8a230dc32bbf9c958d1",
       "executable": false
     },
     "docs/CLAIMS.md": {
@@ -1036,7 +1036,7 @@
       "executable": false
     },
     "docs/INSTALL.md": {
-      "sha256": "8dfbc185fd4bb586f318ac9aa7ed68971618646b3fff21ca858a6c6033427c5f",
+      "sha256": "f2335ba03bc3ce11cc520eba86b8139b93e1749a510e891e2ea562e0f4058aad",
       "executable": false
     },
     "docs/MAIL-DELIVERY.md": {
@@ -1052,7 +1052,7 @@
       "executable": false
     },
     "docs/OVERVIEW.md": {
-      "sha256": "8ef50d3752307c5d0e331d3599aa6fe937f6826f682131233717083d7699ba72",
+      "sha256": "1c3bf9861201b1e0f90f695587747eae6b65c885cbed85ac4b6735a3d38d3b95",
       "executable": false
     },
     "docs/release/core-wiki-profile.md": {
@@ -4320,7 +4320,7 @@
       "executable": false
     },
     "OPERATIONS.md": {
-      "sha256": "3298377927988cc34ad50e6dd580e0c139f7fd33057117eafe7a1c6c0a411f43",
+      "sha256": "bd13826741d9da8e5f47e6fd9553abdf1b10ed2dcc502a5ceda884a934add425",
       "executable": false
     },
     "package.json": {
@@ -4388,7 +4388,7 @@
       "executable": false
     },
     "README.md": {
-      "sha256": "d0836d5cedce0fa3c51fb20325d488b45f98f1c9e2f5793eb43078a7a43eb52c",
+      "sha256": "73fe334ff982a01d99f6b44b15e752ee2bc3a8d098c9923cc3f766c280843163",
       "executable": false
     },
     "RELEASE.json": {
@@ -11648,7 +11648,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
-      "sha256": "b24b6d500cef8612c69184b98c458d2a590aed773c616abacce74e3c864be819",
+      "sha256": "7b2c46488f9cfe8277fa20f91c4ca960f1a2a4dac7d6902a45cc9c8ce8164b8e",
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
