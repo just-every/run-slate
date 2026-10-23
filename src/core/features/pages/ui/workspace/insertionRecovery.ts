@@ -8,8 +8,8 @@ function ordered(value: unknown): unknown {
 
 export function sameBlock(a: EditorBlock, b: EditorBlock | undefined) {
   if (!b || a.id !== b.id || a.type !== b.type || (a.indent ?? 0) !== (b.indent ?? 0)) return false;
-  const {id: _a, type: _at, indent: _ai, ...left} = a;
-  const {id: _b, type: _bt, indent: _bi, ...right} = b;
+  const {id: _a, type: _at, indent: _ai, synced: _as, copyRevisionId: _ar, ...left} = a;
+  const {id: _b, type: _bt, indent: _bi, synced: _bs, copyRevisionId: _br, ...right} = b;
   return JSON.stringify(ordered(left)) === JSON.stringify(ordered(right));
 }
 
