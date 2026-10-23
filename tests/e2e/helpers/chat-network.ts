@@ -59,7 +59,7 @@ export function chatNetwork(tokens:string[],email:string) {
     const channel=String(body.channel);audienceCalls.push({token,channel});const roster=rosters.get(token+':'+channel);if(roster)return Response.json({ok:true,members:['SENDER',...roster.map(mail=>{const id='synthetic-slate-user-'+mail;users.set(id,mail);return id;})]});
     return Response.json({ok:true,members:['SENDER',...Object.keys(fixture.users??{READER:{}})]});
    }
-   case 'users.info':return Response.json({ok:true,user:users.has(String(body.user))?{profile:{email:users.get(String(body.user))}}:fixture.users?fixture.users[String(body.user)]:{profile:{email}}});
+   case 'users.info':return Response.json({ok:true,user:users.has(String(body.user))?{profile:{email:users.get(String(body.user))}}:fixture.users?.[String(body.user)]??(body.user==='SENDER'?{is_bot:true}:fixture.users?undefined:{profile:{email}})});
    case 'conversations.history':return Response.json({ok:true,messages:[]});
    default:throw Error('Unexpected synthetic Slack request');
   }

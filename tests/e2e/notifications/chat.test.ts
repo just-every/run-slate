@@ -187,3 +187,36 @@ test('the single-destination chat door stores a credential only after a fresh em
     expect(await env.DB.prepare('SELECT COUNT(*) AS count FROM chat_connections').first<number>('count')).toBe(1);
   } finally { mail.restore(); edge.restore(); }
 });
+test('a person whose own Slack token posts to a channel stays in that channel audience', async () => {
+  const { workspaceId } = await seedWorkspace();
+  const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner@chat.test', displayName: 'Alex Owner' })).memberId;
+  const reader = (await seedMember(workspaceId, { role: 'member', email: 'reader@chat.test', displayName: 'Morgan Reader' })).memberId;
+  const shared = (await seedContainer(workspaceId, { ownerMemberId: owner, visibility: 'private' })).containerId;
+  const readerOnly = (await seedContainer(workspaceId, { ownerMemberId: reader, visibility: 'private' })).containerId;
+  for (const [containerId, principalId] of [[shared, owner], [shared, reader], [readerOnly, reader]] as const) await seedContainerGrant(containerId, { principalKind: 'member', principalId, level: 'full' });
+  const cookies = { owner: await sessionFor(owner, { freshProof: true }), reader: await sessionFor(reader) };
+  const token = 'synthetic-slate-202', origin = 'https://slate.test', key = () => crypto.randomUUID();
+  const bindings: AppBindings = { ...env, SLATE_PROFILE: undefined, CONNECTOR_CREDENTIALS_KEY: crypto.randomUUID(), APP_URL: origin };
+  const app = createApi(), edge = slackNetwork('reader@chat.test', token);
+  const raw = (method: string, path: string, body?: unknown, actor: keyof typeof cookies = 'owner') => app.request(origin + path, { method, headers: { cookie: cookies[actor], origin, ...(body === undefined ? {} : { 'content-type': 'application/json' }) }, body: body === undefined ? undefined : JSON.stringify(body) }, bindings);
+  const api = async (method: string, path: string, body?: unknown, actor: keyof typeof cookies = 'owner') => { const response = await raw(method, path, body, actor), text = await response.text(); expect(response.status, text).toBe(200); return JSON.parse(text); };
+  const drain = async () => {
+    await env.DB.prepare("UPDATE chat_deliveries SET created_at=? WHERE state='pending' AND message_id IS NULL").bind(new Date(Date.now() - 120000).toISOString()).run();
+    await env.DB.prepare("UPDATE notification_outbox SET created_at=? WHERE processed_at IS NULL").bind(new Date(Date.now() - 120000).toISOString()).run();
+    const ack = vi.fn(), retry = vi.fn();
+    await worker.queue!({ queue: 'test-discovery', metadata: { metrics: { backlogCount: 1, backlogBytes: 0 } }, messages: [{ id: key(), body: { type: 'discovery.deliver' }, timestamp: new Date(), attempts: 1, ack, retry }], ackAll: vi.fn(), retryAll: vi.fn() } as MessageBatch<unknown>, bindings);
+    expect(retry).not.toHaveBeenCalled();
+  };
+  try {
+    // The connecting credential is the owner's own Slack identity, not a bot.
+    edge.setAudience({ users: { BOT: { profile: { email: 'owner@chat.test' } }, READER: { profile: { email: 'reader@chat.test' } } } });
+    await api('POST', '/api/notifications/chat', { operationKey: key(), channel: 'GCHAT', token, events: ['comment'] });
+    const visible = (await api('POST', '/api/pages', { operationKey: key(), containerId: shared, title: 'Shared incident review' }, 'reader')).value.pageId;
+    const hidden = (await api('POST', '/api/pages', { operationKey: key(), containerId: readerOnly, title: 'Reader-only acquisition plan' }, 'reader')).value.pageId;
+    expect((await raw('GET', `/api/pages/${hidden}`)).status).toBe(404);
+    for (const pageId of [hidden, visible]) await api('POST', `/api/comments/page/${pageId}`, { operationKey: key(), body: [{ text: 'synthetic-slate-comment' }] }, 'reader');
+    await drain(); await drain();
+    expect(edge.messages.map(message => message.text).join('\n')).toContain('Shared incident review');
+    expect(JSON.stringify(edge.messages)).not.toContain('Reader-only acquisition plan');
+  } finally { edge.restore(); }
+});

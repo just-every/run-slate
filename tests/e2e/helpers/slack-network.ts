@@ -30,7 +30,8 @@ export function slackNetwork(email: string, token: string) {
       await beforeAudience?.(); beforeAudience = undefined;
       return Response.json({ ok: true, members: ['BOT', ...Object.keys(audience.users ?? { READER: {} })] });
     }
-    if (method === 'users.info') return Response.json({ ok: true, user: audience.users ? audience.users[String(body.user)] : { profile: { email } } });
+    // The token's own identity is the sending bot unless a fixture makes it a person.
+    if (method === 'users.info') return Response.json({ ok: true, user: audience.users?.[String(body.user)] ?? (body.user === 'BOT' ? { is_bot: true } : audience.users ? undefined : { profile: { email } }) });
     if(method==='chat.update'){const sent=messages[Number(body.ts)-1];expect(sent).toBeTruthy();sent!.text=body.text;return Response.json({ok:true});}
     if (writing) {
       if (failure === 'transient') { failure = undefined; return new Response('', { status: 429 }); }

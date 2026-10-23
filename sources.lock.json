@@ -7764,7 +7764,7 @@
       "executable": false
     },
     "src/core/features/notifications/slack.ts": {
-      "sha256": "d7c026d06de737dd14b438ca6aeb8f8b9afa51945f92398d3f0c5f59ff3759b9",
+      "sha256": "12eeff056bedd0e21dc7607d75dd89c43902c86f9b627589c9785d1ebb1d272d",
       "executable": false
     },
     "src/core/features/notifications/teams.ts": {
@@ -9936,7 +9936,7 @@
       "executable": false
     },
     "tests/e2e/helpers/chat-network.ts": {
-      "sha256": "6cb8636918756f7b4aa8a0223ce164a8e5f5f18b9f5f1e6c44d051d126a952d1",
+      "sha256": "2fe9baacf16b61277fb520968ae7087b5e43532b140fecc8106c40949647984c",
       "executable": false
     },
     "tests/e2e/helpers/local-mail-database.ts": {
@@ -9956,7 +9956,7 @@
       "executable": false
     },
     "tests/e2e/helpers/slack-network.ts": {
-      "sha256": "d3bc0350c47b3e106adb1f307449c1d9b34b4670a3ceae58cc5c03489614ddf2",
+      "sha256": "b6cfecc1a7c5008a2bdaffddf1b75c93b94638ad6eb063656a2dd7e0f39ce91a",
       "executable": false
     },
     "tests/e2e/imports/archive-safety.test.ts": {
@@ -10092,7 +10092,7 @@
       "executable": false
     },
     "tests/e2e/notifications/chat.test.ts": {
-      "sha256": "9a4063644974d6f2d5b390067e33f953637dc535c5f4a7c482aab803fa39e483",
+      "sha256": "97cfcc0d8d41363ee8304e2d859a01834909dde1e61dd7d16c73ad6a28128c1c",
       "executable": false
     },
     "tests/e2e/notifications/destinations.test.ts": {
@@ -10772,7 +10772,7 @@
       "executable": false
     },
     "tests/helpers/slack-edge.mjs": {
-      "sha256": "7809003b60fcbd9aee39159823f5d11dfafbc8523ea7c676ae1f50ceb157e011",
+      "sha256": "9c8196c062f6070fca7e84acb178694f5de81d7c44e65c13ff12ac4f03a5e227",
       "executable": false
     },
     "tests/installer/helpers.mjs": {

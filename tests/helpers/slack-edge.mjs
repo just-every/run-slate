@@ -29,7 +29,7 @@ export async function slackEdge(request, directory, ResponseClass) {
     case 'auth.test': return reply({ ok: true, team_id: 'TTEST', user_id: 'BTEST', bot_id: 'BTEST' });
     case 'conversations.info': return reply({ ok: true, channel: { id: 'GTEST', is_private: failure !== 'public_channel', is_ext_shared: false, is_org_shared: false } });
     case 'conversations.members': return reply({ ok: true, members: ['BTEST', 'UREADER'] });
-    case 'users.info': return reply({ ok: true, user: { id: 'UREADER', is_bot: false, profile: { email: 'reader@test.invalid' } } });
+    case 'users.info': return reply({ ok: true, user: new URL(request.url).searchParams.get('user') === 'BTEST' ? { id: 'BTEST', is_bot: true } : { id: 'UREADER', is_bot: false, profile: { email: 'reader@test.invalid' } } });
     case 'chat.postMessage': {
       const message = await request.json();
       await appendFile(messages(directory), JSON.stringify({ ...message, accepted: failure === 'ok', failure }) + '\n');
