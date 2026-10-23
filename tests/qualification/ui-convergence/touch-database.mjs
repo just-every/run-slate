@@ -39,7 +39,15 @@ export async function touchDatabaseJourney({page,context,origin,api},containerId
     await checkpoint(page,`${layout} record edited`);
     console.log(`NAV-006 touch ${layout} layout record edit persisted`);
     const preview=page.getByRole('dialog',{name:'Record preview',exact:true});
-    if(await preview.isVisible()) await tap(preview.getByRole('button',{name:'Close preview',exact:true}));
+    if(await preview.isVisible()) {
+      // Closing the preview unmounts its page and cancels an active poll. Finish
+      // that real collaboration read before leaving, including its body.
+      const collaboration=await page.waitForResponse(response=>response.request().method()==='GET'
+        &&new URL(response.url()).pathname===`/api/collaboration/${record.pageId}`);
+      assert.equal(collaboration.status(),200);
+      assert.equal(await collaboration.finished(),null,'The record collaboration read completes before closing its preview.');
+      await tap(preview.getByRole('button',{name:'Close preview',exact:true}));
+    }
   }
   assert.equal((await api(base+'/records/'+record.pageId)).values[fields[0].id],'Edited from timeline');
 }
