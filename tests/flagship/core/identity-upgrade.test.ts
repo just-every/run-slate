@@ -130,6 +130,9 @@ contract('ADMIN-001', 'signed SP and IdP SAML, DNS-gated invited or allow-listed
   const confirm=(token:string,cookie?:string)=>api.request(origin+'/auth/confirm',{method:'POST',headers:{host:new URL(origin).host,origin,'content-type':'application/x-www-form-urlencoded',...(cookie?{cookie}:{})},body:new URLSearchParams({token})},bindings);
   const magic=async(email:string)=>{expect((await call('/api/auth/magic','POST',{email})).status).toBe(200);return mail.latestLink(email).searchParams.get('token')!;};
   const acs=(xml:string,relay?:string,cookie?:string)=>api.request(origin+'/auth/saml/acs',{method:'POST',headers:{host:new URL(origin).host,origin:edge.ssoUrl,'sec-fetch-site':'cross-site','content-type':'application/x-www-form-urlencoded',...(cookie?{cookie}:{})},body:new URLSearchParams({SAMLResponse:Buffer.from(xml).toString('base64'),...(relay?{RelayState:relay}:{})})},bindings);
+  // An unsolicited response is completed only from Slate's own confirmation page, in the browser that received it.
+  const confirmation=async(shown:Response)=>{const page=await shown.text(),field=(name:string)=>page.match(new RegExp(`name="${name}" value="([^"]+)"`))![1]!;return {page,flow:shown.headers.getSetCookie().find(value=>value.startsWith('__Host-slate_saml_flow='))!.split(';')[0]!,body:new URLSearchParams({SAMLResponse:field('SAMLResponse'),confirmation:field('confirmation')})};};
+  const confirmIdp=async(xml:string)=>{const shown=await acs(xml);if(shown.status!==200)return shown;const {flow,body}=await confirmation(shown);return api.request(origin+'/auth/saml/acs',{method:'POST',headers:{host:new URL(origin).host,origin,'content-type':'application/x-www-form-urlencoded',cookie:flow},body},bindings);};
   try{
     const staleOwner=await sessionFor(owner.memberId),memberCookie=await sessionFor(member.memberId),otherCookie=await sessionFor(otherOwner.memberId),guestCookie=await sessionFor(guest.memberId);
     const beforeMember=await magic('saml-member@example.org'),beforeOther=await magic('saml-other-owner@example.org');
@@ -165,11 +168,16 @@ contract('ADMIN-001', 'signed SP and IdP SAML, DNS-gated invited or allow-listed
     const samlCookie=cookieOf(admitted);
     expect(await (await call('/api/session','GET',undefined,samlCookie)).json()).toMatchObject({member:{email:'saml-jit@example.org'}});
     expect((await acs(correlated,request.relay,request.cookie)).status).toBe(400);
-    const idp=await acs(newProof());expect(idp.status).toBe(303);expect((await acs(newProof(),'invented-state')).status).toBe(400);
+    // An unsolicited response names the account but never replaces this browser's session by itself.
+    const shown=await acs(newProof(),undefined,samlCookie);expect(shown.status).toBe(200);expect(shown.headers.getSetCookie().some(value=>value.startsWith('slate_session='))).toBe(false);
+    const pending=await confirmation(shown);expect(pending.page).toContain('saml-jit@example.org');
+    const forged=await api.request(origin+'/auth/saml/acs',{method:'POST',headers:{host:new URL(origin).host,origin:edge.ssoUrl,'sec-fetch-site':'cross-site','content-type':'application/x-www-form-urlencoded',cookie:pending.flow},body:pending.body},bindings);expect(forged.status).toBe(400);expect(forged.headers.getSetCookie().some(value=>value.startsWith('slate_session='))).toBe(false);
+    expect((await api.request(origin+'/auth/saml/acs',{method:'POST',headers:{host:new URL(origin).host,origin,'content-type':'application/x-www-form-urlencoded'},body:pending.body},bindings)).status).toBe(400);
+    const idp=await api.request(origin+'/auth/saml/acs',{method:'POST',headers:{host:new URL(origin).host,origin,'content-type':'application/x-www-form-urlencoded',cookie:pending.flow},body:pending.body},bindings);expect(idp.status).toBe(303);expect((await acs(newProof(),'invented-state')).status).toBe(400);
     const outsider=await acs(edge.assertion({origin,email:'not-allowed@example.org'}));expect(outsider.status).toBe(403);
     const inviteResponse=await call('/api/invitations','POST',{operationKey:'saml-invite-'+crypto.randomUUID(),email:'saml-invited@example.org',kind:'member'},staleOwner);
     expect(inviteResponse.status).toBe(200);
-    expect((await acs(edge.assertion({origin,email:'saml-invited@example.org'}))).status).toBe(303);
+    expect((await confirmIdp(edge.assertion({origin,email:'saml-invited@example.org'}))).status).toBe(303);
     // The incumbent OIDC provider still works beside unenforced SAML; its
     // existing session and a fresh callback cannot bypass SAML enforcement.
     const oidcIssuer='https://oidc-beside-saml.example.org';
@@ -235,7 +243,7 @@ contract('ADMIN-001', 'signed SP and IdP SAML, DNS-gated invited or allow-listed
     expect(nativeInvite.headers.get('set-cookie')).toBeNull();expect(nativeInvite.status).toBe(303);expect(nativeInvite.headers.get('location')).toBe('/auth/saml/start');
     const nativeInvitePerson=await db.prepare('SELECT id FROM members WHERE email=?').bind('saml-native-invite@example.org').first<{id:string}>();
     expect(nativeInvitePerson).not.toBeNull();expect(await db.prepare('SELECT id FROM sessions WHERE member_id=?').bind(nativeInvitePerson!.id).first()).toBeNull();
-    const memberSaml=await acs(edge.assertion({origin,email:'saml-member@example.org'}));expect(memberSaml.status).toBe(303);
+    const memberSaml=await confirmIdp(edge.assertion({origin,email:'saml-member@example.org'}));expect(memberSaml.status).toBe(303);
     // Step-up remains an email proof of the asking SAML session, not a new email session.
     const memberSamlCookie=cookieOf(memberSaml);
     expect((await call('/auth/step-up','POST',{action:'export',returnTo:'/app'},memberSamlCookie)).status).toBe(202);
@@ -249,7 +257,7 @@ contract('ADMIN-001', 'signed SP and IdP SAML, DNS-gated invited or allow-listed
     expect(await db.prepare('SELECT domain_status,domain_checked_at FROM saml_provider_config').first()).toMatchObject({domain_status:'failed',domain_checked_at:expect.any(Number)});
     const notice=await call('/api/notifications','GET',undefined,staleOwner);expect(notice.status).toBe(200);expect(JSON.stringify(await notice.json())).toContain('SAML domain verification failed');
     expect((await acs(edge.assertion({origin,email:'saml-after-dns-failure@example.org'}))).status).toBe(503);
-    expect((await acs(edge.assertion({origin,email:'saml-member@example.org'}))).status).toBe(303);
+    expect((await confirmIdp(edge.assertion({origin,email:'saml-member@example.org'}))).status).toBe(303);
     const breakGlassChange=await call(`/api/members/${owner.memberId}/role`,'PUT',{operationKey:'saml-break-glass-change-'+crypto.randomUUID(),expectedRole:'owner',role:'member'},staleOwner);
     expect(breakGlassChange.status).toBe(409);expect(await breakGlassChange.json()).toMatchObject({code:'SAML_BREAK_GLASS_OWNER_REQUIRED'});
     expect(await db.prepare('SELECT role,status FROM members WHERE id=?').bind(owner.memberId).first()).toEqual({role:'owner',status:'active'});

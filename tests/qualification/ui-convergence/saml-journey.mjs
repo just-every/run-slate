@@ -75,9 +75,19 @@ export async function samlJourney(state) {
       await auth.getByRole('button', { name: 'Continue with SAML', exact: true }).click();
     } else await auth.goto(samlFixture.ssoUrl, { waitUntil: 'networkidle' });
     await expect(auth.getByRole('heading', { name: 'Identity verified by the test IdP', exact: true })).toBeVisible();
-    const pending = auth.waitForResponse(response => new URL(response.url()).pathname === '/auth/saml/acs' && response.request().method() === 'POST');
+    const acs = () => auth.waitForResponse(response => new URL(response.url()).pathname === '/auth/saml/acs' && response.request().method() === 'POST');
+    const pending = acs();
     await auth.getByRole('button', { name: 'Continue to Slate', exact: true }).click();
-    const response = await pending;
+    let response = await pending;
+    if (initiated === 'idp' && response.status() === 200) {
+      // An unsolicited response names the account on Slate's own page; only its same-origin confirmation signs in.
+      await expect(auth.getByRole('heading', { name: 'Confirm SAML sign-in', exact: true })).toBeVisible();
+      await expect(auth.getByText(email, { exact: true })).toBeVisible();
+      assert.equal((await session()).status(), 401, 'An unconfirmed IdP response must not sign the browser in');
+      const confirmed = acs();
+      await auth.getByRole('button', { name: 'Sign in to Slate', exact: true }).click();
+      response = await confirmed;
+    }
     assert.equal(response.status(), expected, response.status() === expected ? undefined : await response.text());
     if (expected === 303) {
       await auth.waitForURL(url => url.origin === origin && url.pathname === '/app');
