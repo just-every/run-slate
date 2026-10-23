@@ -30,7 +30,7 @@ function tableRows(node: HtmlNode): string[][] {
 
 export function htmlBlocks(html: string, sourceId: string, report: ImportReport, resolveMedia?: MediaResolver): ImportedBlock[] {
   const fragment = parseMarkupFragment(html);
-  const blocks: ImportedBlock[] = [];
+  let blocks: ImportedBlock[] = [];
   let index = 0;
 
   const append = (kind: ImportedBlock["kind"], value?: string) => {
@@ -57,6 +57,15 @@ export function htmlBlocks(html: string, sourceId: string, report: ImportReport,
       return;
     }
     const attrs = attributes(node);
+    if(attrs['data-slate-columns'] || (attrs.class??'').split(/\s+/).includes('column-list')){
+      const cells=children(node).filter(child=>attributes(child)['data-slate-column'] || (attributes(child).class??'').split(/\s+/).includes('column'));
+      if(cells.length>=2 && cells.length<=5){
+        const section=append('columns');
+        for(const cell of cells){const column=block(sourceId,index++,'column');section.children.push(column);const outer=blocks;blocks=column.children;children(cell).forEach(visit);blocks=outer;}
+        return;
+      }
+      reportUnmapped(report,'Column layout needs 2 to 5 columns',sourceId);
+    }
     if (tag === 'nav' && attrs['data-slate-table-of-contents']) {
       const settings = parseTableOfContentsSettings(attrs['data-slate-table-of-contents']);
       if (settings) { const next = append('table-of-contents'); next.tableOfContents = settings; return; }

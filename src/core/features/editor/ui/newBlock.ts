@@ -8,6 +8,7 @@ export function newBlock(
 ): EditorBlock {
   const text = [{ text: "" }];
   switch (kind) {
+    case "columns": return {id,type:"columns",count:3};
     case "file-card":
       throw new Error("Connected files are inserted through the picker.");
     case "status":

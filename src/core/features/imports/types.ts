@@ -15,6 +15,8 @@ export type ImportFormat =
 export type SourceIdentityKind = "native" | "path-derived";
 
 export type ImportBlockKind =
+  | "columns"
+  | "column"
   | "paragraph"
   | "heading"
   | "bulleted-list"

@@ -1,3 +1,4 @@
+import {ReadOnlyBlocks} from '../../../editor/ui/ReadOnlyBlocks';
 import { useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import { mutate, operationKey } from "../../../../client/transport";
@@ -96,14 +97,7 @@ export function PageHistory({
                 A newer revision exists. This is the exact selected version.
               </p>
             ) : null}
-            {editorBlocks(snapshot.data.blocks).map((block) => (
-              <RenderBlock
-                key={block.id}
-                block={block}
-                canEdit={false}
-                onChange={() => {}}
-              />
-            ))}
+            <ReadOnlyBlocks blocks={editorBlocks(snapshot.data.blocks)}/>
             {labelled && document.permissions.canEdit && document.permissions.canShare && selected !== document.workingRevisionId && selected !== document.publishedRevisionId ? <button onClick={()=>setDeleting(true)}>Delete this intermediate revision</button>:null}
             {document.permissions.canEdit ? (
               <button

@@ -1,3 +1,4 @@
+import {layoutStyles} from '../editor/layout';
 import {renderTable} from '../editor/tables/render';
 import type {TableContent} from '../editor/tables/model';
 import {providerEmbed} from '../editor/embeds/providers';
@@ -64,7 +65,7 @@ export function renderPublicDocument(exposure: Record<string, any>, links: Recor
         byParent.set(parent, rows);
     }
     function tree(parent: string | null): string {
-        return (byParent.get(parent) ?? []).map(block => `${renderBlock(block, exposure.slug, links, blocks)}${byParent.has(block.id) ? `<section class="nested">${tree(block.id)}</section>` : ''}`).join('');
+        return (byParent.get(parent) ?? []).map(block => block.blockType==='columns' ? `<section class="slate-columns" style="--column-count:${Number((block.content as {count:number}).count)}">${tree(block.id)}</section>` : block.blockType==='column' ? `<div class="slate-column">${tree(block.id)}</div>` : `${renderBlock(block, exposure.slug, links, blocks)}${byParent.has(block.id) ? `<section class="nested">${tree(block.id)}</section>` : ''}`).join('');
     }
     const media = (id: string) => `/p/${encodeURIComponent(exposure.slug)}/media/${encodeURIComponent(id)}`;
     const cover = properties.coverFileId ? `<img class="page-cover" src="${media(properties.coverFileId)}" alt="">` : '';
@@ -76,6 +77,6 @@ export function renderPublicDocument(exposure: Record<string, any>, links: Recor
         metadata: socialMetadata(exposure, properties.title),
         header: renderPublicHeader(exposure),
         fullWidth: !!properties.fullWidth,
-        content: `<article class="public-document" data-typeface="${html(properties.typeface)}" data-small-text="${!!properties.smallText}">${cover}${icon}<h1 class="page-title">${html(properties.title)}</h1>${properties.byline ? `<p class="page-byline">${html(properties.byline)}</p>` : ''}<div class="page-body">${tree(null)}</div></article>`,
+        content: `<style>${layoutStyles}</style><article class="public-document" data-typeface="${html(properties.typeface)}" data-small-text="${!!properties.smallText}">${cover}${icon}<h1 class="page-title">${html(properties.title)}</h1>${properties.byline ? `<p class="page-byline">${html(properties.byline)}</p>` : ''}<div class="page-body">${tree(null)}</div></article>`,
     });
 }
