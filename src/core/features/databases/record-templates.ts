@@ -4,6 +4,7 @@ import { ApiProblem } from "../../app/problems";
 import { createUlid } from "../../shared/ulid";
 import { validateBlockTree } from "../editor/validation";
 import type { BlockInput } from "../pages/types";
+import { labelForReader } from "../pages/mentions";
 import { validTimezone } from "../work-items/time";
 import { database, revision } from "./repository";
 import { nextOccurrence, validateRecurrence, type Recurrence } from "./recurrence";
@@ -66,7 +67,8 @@ export async function templateRow(ctx: FeatureContext, databaseId: string, id: s
 export async function listRecordTemplates(ctx: FeatureContext, databaseId: string) {
   await database(ctx, databaseId, "view");
   const rows = await ctx.db.prepare(`${SELECT} WHERE t.database_id=? AND t.workspace_id=? ORDER BY t.name,t.id`).bind(databaseId, ctx.actor.workspaceId).all<RecordTemplateRow>();
-  return { items: rows.results.map(view) };
+  // A template keeps the mention labels its saver saw; each reader sees their own.
+  return { items: await Promise.all(rows.results.map(async (row) => { const item = view(row); return { ...item, blocks: await labelForReader(ctx, item.blocks) }; })) };
 }
 /** The schedule runs in its last saver's personal time zone (navigation preferences), captured when the schedule is saved. */
 export async function memberTimezone(ctx: FeatureContext, memberId: string) {

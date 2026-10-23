@@ -1,5 +1,5 @@
 import { env } from 'cloudflare:test';
-import { beforeEach, expect } from 'vitest';
+import { beforeEach, expect, test } from 'vitest';
 import { createApi } from '../../../src/core/app/hono';
 import { scheduledAutomation } from '../../../src/core/features/automation/events';
 import { nextOccurrence } from '../../../src/core/features/databases/recurrence';
@@ -95,4 +95,28 @@ contract('DB-015', 'record templates fill fields and a body; a weekly schedule i
   // Saving it again resumes it as the saver, from now.
   const resumed = await call('POST', `/databases/${db.value.id}/templates`, 'owner', { operationKey: op(), id: paused.id, expectedRevisionId: paused.revisionId, name: paused.name, title: paused.title, values: paused.values, blocks: body, recurrence: paused.recurrence });
   expect((await call('GET', `/databases/${db.value.id}/templates`, 'owner')).items[0]).toMatchObject({ pausedAt: null, pausedReason: null, lastSaver: { id: people.owner.id, name: 'owner Person' }, nextOccurrenceAt: resumed.value.nextOccurrenceAt });
+});
+test('record templates show each database viewer only the page mention titles they can open', async () => {
+  const { workspaceId } = await seedWorkspace();
+  const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner@slate.test', displayName: 'Owner Person', isSetupOwner: true })).memberId;
+  const viewer = (await seedMember(workspaceId, { role: 'member', email: 'viewer@slate.test', displayName: 'Viewer Person' })).memberId;
+  const shared = (await seedContainer(workspaceId, { ownerMemberId: owner, visibility: 'private' })).containerId;
+  const restricted = (await seedContainer(workspaceId, { ownerMemberId: owner, visibility: 'private' })).containerId;
+  for (const containerId of [shared, restricted]) await seedContainerGrant(containerId, { principalKind: 'member', principalId: owner, level: 'full' });
+  await seedContainerGrant(shared, { principalKind: 'member', principalId: viewer, level: 'view' });
+  const cookies: Record<string, string> = { owner: await sessionFor(owner), viewer: await sessionFor(viewer) }, api = createApi(), op = () => crypto.randomUUID();
+  const call = async (method: string, path: string, who: string, body?: unknown) => {
+    const response = await api.request('https://slate.test/api' + path, { method, headers: { cookie: cookies[who]!, origin: 'https://slate.test', 'content-type': 'application/json' }, body: body ? JSON.stringify(body) : undefined }, { ...env, SLATE_PROFILE: undefined });
+    const text = await response.text();
+    expect(response.status, text).toBeLessThan(300);
+    return { value: JSON.parse(text), text };
+  };
+  const memo = (await call('POST', '/pages', 'owner', { operationKey: op(), containerId: restricted, title: 'Restricted merger memo' })).value.value.pageId;
+  const db = (await call('POST', '/databases', 'owner', { operationKey: op(), containerId: shared, title: 'Deal tracker' })).value.value.id;
+  const blocks = [{ id: 'brief', blockType: 'paragraph', treePosition: '1', content: { text: [{ text: 'Background: ' }, { text: 'Restricted merger memo', mention: { kind: 'page', id: memo, label: 'Restricted merger memo' } }] } }];
+  await call('POST', `/databases/${db}/templates`, 'owner', { operationKey: op(), name: 'Deal intake', title: 'New deal', values: {}, blocks, recurrence: null });
+  expect((await call('GET', `/databases/${db}/templates`, 'owner')).text).toContain('Restricted merger memo');
+  const listed = await call('GET', `/databases/${db}/templates`, 'viewer');
+  expect(listed.value.items.map((item: { name: string }) => item.name)).toEqual(['Deal intake']);
+  expect(listed.text).not.toContain('Restricted merger memo');
 });

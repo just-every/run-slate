@@ -6004,7 +6004,7 @@
       "executable": false
     },
     "src/core/features/databases/record-templates.ts": {
-      "sha256": "ca8bdab92944e672086856a9205892aa16602cfab669507c63c72283ed798147",
+      "sha256": "1dd5615bc7d27ac0a8600e10f1c0d27b13b917798d2ad69dd06b6eeaa91f9491",
       "executable": false
     },
     "src/core/features/databases/records.ts": {
@@ -9884,7 +9884,7 @@
       "executable": false
     },
     "tests/e2e/databases/record-templates.test.ts": {
-      "sha256": "237990181595deec1694637821051cd9c25e264f1307bf214c4b7a11ecfbc2cb",
+      "sha256": "05ce03c56c52a446dd206bb174289c3336527d5574902764b88ab09decc3f203",
       "executable": false
     },
     "tests/e2e/dev-key.mjs": {
