@@ -17,7 +17,7 @@ export async function touchPageToolsJourney(touch){
  await ok(context,origin,'PUT',`/api/pages/${pageId}/blocks`,{operationKey:randomUUID(),expectedRevisionId:initial.page.revisionId,blocks:[
   {id:section,blockType:'columns',content:{count:3},treePosition:'0'},
   ...columns.map((id,index)=>({id,blockType:'column',content:{},parentBlockId:section,treePosition:`1${index}`})),
-  ...initial.blocks.map((block,index)=>({...block,parentBlockId:columns[index%3],content:block.id===sourceId?{text:[{text:'Response owner confirmed by touch.'}]}:block.content,treePosition:`2${index}`})),
+  ...initial.blocks.map((block,index)=>({id:block.id,blockType:block.blockType,parentBlockId:columns[index%3],content:block.id===sourceId?{text:[{text:'Response owner confirmed by touch.'}]}:block.content,treePosition:`2${index}`})),
  ]});
  await page.goto(`${origin}/app/pages/${pageId}`,{waitUntil:'networkidle'});
  const before=await api(`/api/pages/${pageId}`);
