@@ -1984,8 +1984,7 @@
       "testName": "EMBED-003 — allowlisted embeds use isolated provider frames, authorized documents and published click gates [EMBED-004] with reader-authorized file references",
       "kind": "supporting-regression",
       "clauses": [
-        "EMBED-003",
-        "EMBED-004"
+        "EMBED-003"
       ],
       "reason": "Default-profile HTTP route, access and public click boundary support, plus reader-authorized Drive and SharePoint file references with recorded provider fixtures. Real provider acceptance and Chest remain open."
     },
