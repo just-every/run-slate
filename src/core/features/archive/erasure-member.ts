@@ -30,7 +30,7 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  add('DELETE FROM notifications WHERE recipient_member_id=?',memberId);
  add("UPDATE comments SET body_json='[]',author_member_id=NULL,deleted_at=? WHERE author_member_id=?",now,memberId);
  add("UPDATE record_revisions SET content_json='{}',author_member_id=NULL WHERE author_member_id=?",memberId);
- add("UPDATE core_entity_revisions SET content_json='{}',content_hash='',author_member_id=NULL WHERE (entity_kind='member' AND entity_id=?) OR author_member_id=?",memberId,memberId);
+ add("UPDATE core_entity_revisions SET content_json=CASE WHEN entity_kind IN ('content-governance','container-classification') THEN content_json ELSE '{}' END,content_hash=CASE WHEN entity_kind IN ('content-governance','container-classification') THEN content_hash ELSE '' END,author_member_id=NULL WHERE (entity_kind='member' AND entity_id=?) OR author_member_id=?",memberId,memberId);
  add("UPDATE activity_entries SET detail_json='{}',actor_member_id=NULL WHERE actor_member_id=? OR (target_kind='member' AND target_id=?)",memberId,memberId);
  add("UPDATE operation_receipts SET response_json='{\"value\":{\"erased\":true}}' WHERE actor_member_id=?",memberId);
  add("UPDATE content_archive_locations SET reason=NULL WHERE actor_member_id=?",memberId);

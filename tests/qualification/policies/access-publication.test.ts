@@ -1,3 +1,4 @@
+import {governanceCase} from './governance-case';
 import { env, SELF } from 'cloudflare:test';
 import { test, expect, beforeEach } from 'vitest';
 import {resetDeployment} from '../../e2e/setup/reset-deployment';
@@ -11,7 +12,7 @@ import { saveGrant } from '../../../src/core/features/sharing/grants';
 import { createComment } from '../../../src/core/features/comments/service';
 import { publishPublicPage } from '../../../src/core/features/publishing/service';
 import { setContainerAccess } from '../../../src/core/features/sharing/container-settings';
-test("LIFE-002 SHARE-001 SHARE-002 SHARE-004 SHARE-005 SHARE-007 SHARE-008 CONT-005: neither access profile widens private drafts, personal or expired grants", async () => {
+test("LIFE-002 SHARE-001 SHARE-002 SHARE-004 SHARE-005 SHARE-007 SHARE-008 CONT-005 ADMIN-006: neither access profile widens private drafts, personal or expired grants", async () => {
     for (const access of ['workspace-general', 'container-general'] as const) {
         await resetDeployment();
         const { owner, reader, outsider, containerId } = await scenario();
@@ -47,6 +48,9 @@ test("LIFE-002 SHARE-001 SHARE-002 SHARE-004 SHARE-005 SHARE-007 SHARE-008 CONT-
         await expect(saveGrant(owner, { operationKey: key('personal-share'), targetKind: 'page', targetId: pp.value.pageId, principalKind: 'member', principalId: reader.actor.id, level: 'view' })).rejects.toMatchObject({ code: 'PERSONAL_PRIVATE' });
         await expect(readPage(outsider, pp.value.pageId)).rejects.toMatchObject({ status: 404 });
     }
+    await resetDeployment();
+    const governed=await scenario();
+    await governanceCase(governed.owner,governed.reader,governed.containerId);
 });
 test('SHARE-003 SHARE-005 SHARE-007 CONT-009: inherited group membership is live and switching general profile rewrites no grant', async () => {
     const { owner, reader, containerId } = await scenario();

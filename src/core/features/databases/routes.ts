@@ -1,3 +1,4 @@
+import {requireGovernance} from '../workspace/governance';
 import {z} from 'zod';
 import {convertTable,restoreTable} from './table-conversion';
 import {
@@ -95,6 +96,7 @@ export function createDatabasesRoutes() {
       ),
     ),
   );
+  r.get('/:id/views/:viewId/export',async c=>{const ctx=featureContext(c);await requireGovernance(ctx,'export');c.header('Cache-Control','private, no-store');return c.json(await queryView(ctx,c.req.param('id'),c.req.param('viewId')));});
   r.get("/:id/views/:viewId", async (c) =>
     c.json(
       await queryView(
