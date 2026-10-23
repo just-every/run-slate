@@ -203,7 +203,9 @@ for (const width of [1440, 390]) {
         await t.test('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touchPublishShareJourney(touch,touch.pageId);});
         await t.test('query, highlighted results and opening exact page', () => searchJourney(state, pageId));
         await settingsJourney(state, width);
-        await chatJourney(state, width);
+        // Finish earlier page notifications before connecting the chat journey destinations.
+      await state.runScheduled();
+      await chatJourney(state, width);
         await t.test('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts', async () => {await databaseJourney(state);await touchDatabaseJourney(touch,touch.containerId);});
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
