@@ -11,7 +11,7 @@ export interface NativeImportBinding {id:string; created_at:string; native_publi
 // rest with the page or container. A pending invitation still keeps it
 // (invitations.page_id, invitations.container_id).
 const grantTables=new Set(['container_grants','page_grants']);
-const ownedGrants=(unit:NativeUnit,table:string)=>JSON.stringify(unit.rows.filter(row=>row.table===table).map(row=>row.values.id));
+const ownedScopeIds=(unit:NativeUnit,table:string)=>JSON.stringify(unit.rows.filter(row=>row.table===table).map(row=>row.values.id));
 function scopeQuery(unit:NativeUnit,scope:NativeScope,job:NativeImportBinding):D1Sql {
   const columns=scope.columns.map(column=>{
     let expression=identifier(column);
@@ -21,7 +21,7 @@ function scopeQuery(unit:NativeUnit,scope:NativeScope,job:NativeImportBinding):D
   // Mapping ownership is aggregated per imported unit; older retained ID
   // scopes continue to use their original exact identity comparison.
   const owned=grantTables.has(scope.table)||(scope.table==='federation_import_mappings'&&scope.column==='import_job_id');
-  return sql(`SELECT COALESCE(json_group_array(json(value)),'[]') FROM (SELECT json_object(${columns}) AS value FROM ${identifier(scope.table)} WHERE ${identifier(scope.column)}=?${owned?' AND id IN (SELECT value FROM json_each(?))':''} ORDER BY value COLLATE BINARY)`,scope.id,...owned?[ownedGrants(unit,scope.table)]:[]);
+  return sql(`SELECT COALESCE(json_group_array(json(value)),'[]') FROM (SELECT json_object(${columns}) AS value FROM ${identifier(scope.table)} WHERE ${identifier(scope.column)}=?${owned?' AND id IN (SELECT value FROM json_each(?))':''} ORDER BY value COLLATE BINARY)`,scope.id,...owned?[ownedScopeIds(unit,scope.table)]:[]);
 }
 function projection(unit:NativeUnit,job:NativeImportBinding):D1Sql {
   const queries=unit.scopes.map(scope=>scopeQuery(unit,scope,job));
