@@ -39,3 +39,13 @@ Owners can download audit history from Developer access as CSV or JSON. Filter b
 Audit retention defaults to 365 days and cannot be set below one year. Waiting deliveries keep their history until delivery finishes.
 
 Add an audit stream to send new entries through a signed webhook using the destination checks and signature format above. The stream resumes with the oldest waiting entry after an outage. It delivers at least once; discard duplicates using the stable event identifier. A failed entry blocks later entries until you re-enable and replay it. Only actions visible to the acting owner are sent. Stream destinations and their delivery controls appear with your other webhooks. These are generic signed JSON deliveries; no receiver-specific format is provided.
+
+## Directory provisioning
+
+Owners can create a directory credential in Developer access and connect a SCIM client to `/scim/v2`. Save the secret when it appears; Slate stores only its hash. The credential works only for directory provisioning. Rotate it to replace the secret immediately, or revoke it to stop the next request. Its current owner must remain an active workspace owner. Restored credentials are revoked.
+
+The endpoint supports discovery, users, groups, pagination and user-name equality filters. Creation sends a native Member invitation. New and reactivated people remain inactive until they accept it. Updates can change name, email and group membership. Deactivation or deletion removes the Member’s access and immediately revokes sessions and personal tokens.
+
+Only the Member role is provisioned. Owners and guests are protected. Role, title, manager and enterprise attributes do not change authority or profile fields; responses report ignored attributes. Group membership requires accepted, active Members. Existing guest domain rules and the deployment’s configured member capacity estimate apply to directory admission. Directory actions identify their credential in Activity.
+
+This endpoint provides the standard HTTP protocol. External directory-provider compatibility has not been validated.

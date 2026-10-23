@@ -62,3 +62,15 @@ export async function removeMember(ctx:FeatureContext,input:{operationKey:string
 export async function setMemberRole(ctx:FeatureContext,input:{operationKey:string;memberId:string;expectedRole:'owner'|'member';role:'owner'|'member'}) {
  return commitOperation(ctx,{operationKey:input.operationKey,action:'member.role',request:input,authorize:()=>requireWorkspaceOwner(ctx),prepare:async({revisionId})=>({entity:{id:input.memberId,kind:'member',revisionId},value:{id:input.memberId,role:input.role},statements:[mutationGuard(ctx.db,"SELECT role=? AND status='active' AND member_kind='member' AND workspace_id=? FROM members WHERE id=?",[input.expectedRole,ctx.actor.workspaceId,input.memberId]),...(input.role==='member'?[mutationGuard(ctx.db,"SELECT role!='owner' OR (SELECT count(*) FROM members WHERE workspace_id=? AND role='owner' AND status='active')>1 FROM members WHERE id=?",[ctx.actor.workspaceId,input.memberId])]:[]),ctx.db.prepare('UPDATE members SET role=?,updated_at=? WHERE id=?').bind(input.role,ctx.now,input.memberId),await identityRevision(ctx,revisionId,'member',input.memberId,{role:input.role})]})});
 }
+
+/** Reusable native identity preparation, including Member-only commit guards and revision custody. */
+export async function memberIdentityUpdateStatements(ctx:FeatureContext,revisionId:string,input:{memberId:string;email:string;displayName:string}) {
+  const {personInitials}=await import('../../shared/person-identity');
+  const email=input.email.trim().toLowerCase(),displayName=input.displayName.trim();
+  if(!email||email.length>254||!/^\S+@\S+\.\S+$/.test(email)||!displayName||displayName.length>200)throw new ApiProblem(400,'INVALID_MEMBER_IDENTITY','Supply a valid email and personal name.');
+  return [mutationGuard(ctx.db,"SELECT role='member' AND member_kind='member' AND workspace_id=? FROM members WHERE id=?",[ctx.actor.workspaceId,input.memberId]),ctx.db.prepare('UPDATE sessions SET revoked_at=COALESCE(revoked_at,?),updated_at=? WHERE member_id=? AND (SELECT lower(email) FROM members WHERE id=?)!=?').bind(ctx.now,ctx.now,input.memberId,input.memberId,email),ctx.db.prepare('UPDATE members SET email=?,display_name=?,initials=?,updated_at=? WHERE id=?').bind(email,displayName,personInitials(displayName,email),ctx.now,input.memberId),await identityRevision(ctx,revisionId,'member',input.memberId,{email,displayName})];
+}
+/** Owner-managed Member identity changes use the native revision and session boundary. */
+export async function updateMemberIdentity(ctx:FeatureContext,input:{operationKey:string;memberId:string;email:string;displayName:string}) {
+  return commitOperation(ctx,{operationKey:input.operationKey,action:'member.identity',request:input,authorize:()=>requireWorkspaceOwner(ctx),prepare:async({revisionId})=>({entity:{id:input.memberId,kind:'member',revisionId},value:{id:input.memberId,email:input.email,displayName:input.displayName},statements:await memberIdentityUpdateStatements(ctx,revisionId,input)})});
+}

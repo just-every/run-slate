@@ -1,3 +1,4 @@
+import { scimAccessJourney } from './scim-access-journey.mjs';
 import { auditAccessJourney } from './audit-access-journey.mjs';
 import { webhookAccessJourney } from './webhook-access-journey.mjs';
 import assert from 'node:assert/strict';
@@ -62,5 +63,6 @@ export async function developerAccessJourney(state, people) {
     await expect(page.getByRole('region', { name: 'Developer access', exact: true })).toContainText('State: Revoked');
     await webhookAccessJourney(state);
     await auditAccessJourney(state);
+    await scimAccessJourney(state);
   } finally { await transport.dispose(); }
 }

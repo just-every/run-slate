@@ -1563,7 +1563,7 @@ A SCIM 2.0 endpoint provisions users and groups from Okta, Entra ID, JumpCloud a
 
 *Acceptance:* a SCIM compliance run (Okta's SCIM test suite shape) creates, updates, pushes groups to and deactivates users, and asserts the resulting members, groups, revoked sessions and activity entries.
 
-*Status:* missing.
+*Status:* **partial** — A dedicated hashed owner credential authenticates the SCIM users/groups endpoint. Native invitations, Member identity changes, group writes and removal provide provisioning and immediate session/token revocation. Credentials rotate and revoke on the next request; activity identifies the directory credential. Default ADOPTED: Member only, name/email/groups only, protected Owners and guests, and the configured member capacity estimate enforced for SCIM admission. Provider acceptance is not run, and native invitations outside SCIM do not yet share this capacity guard.
 
 #### ADMIN-003 — Guest management.
 Owners list every guest with what they can access, who invited them, when they were last active, and their expiry. They can set a default guest expiry, keep allow and deny lists of email domains, and revoke guests in bulk. A guest's access never outlives their expiry (`SHARE-008`).
@@ -1813,8 +1813,8 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 172 | 49 | 0 | 221 |
-| Target and push further | 19 | 48 | 38 | 105 |
-| All | 191 | 97 | 38 | 326 |
+| Target and push further | 19 | 49 | 37 | 105 |
+| All | 191 | 98 | 37 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2124,7 +2124,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `API-004` | App and token administration | target | partial | `tests/e2e/public-api/contract.test.ts`; `tests/qualification/ui-convergence/developer-access-journey.mjs` — developerAccessJourney, existing readership journey at 1440/390 | OAuth applications and MCP clients. Default ADOPTED: PARTIAL; carve awaits ct. |
 | `API-005` | Zapier, Make and Crank apps | target | missing | — | not implemented |
 | `ADMIN-001` | SAML single sign-on | target | partial | `tests/flagship/core/identity-upgrade.test.ts` — "ADMIN-001 — signed SP and IdP SAML, DNS-gated invited or allow-listed JIT, enforced member SSO and one owner mailbox escape" (Verify Slate: workers); `tests/qualification/ui-convergence/saml-journey.mjs` — "samlJourney", loaded by "SAML sign-in verifies the domain and signatures while preserving guest and designated-owner access" (Verify Slate: ui-content-desktop-2 and ui-content-mobile-1, 1440/390) | Real Okta and Microsoft Entra ID SAML provider acceptance is NOT RUN. Google Workspace, JumpCloud and Auth SAML provider acceptance is also NOT RUN. Pre-enforcement Managed preview owner sessions lack provenance distinguishing them from mailbox sessions; that prior-session case is not proven. WORK-015 currently implements sign-in through an external OIDC provider; Slate exposes no OIDC identity-provider token-issuance door, so the identity-provider-function sentence remains unproven. |
-| `ADMIN-002` | SCIM provisioning | target | missing | — | not implemented |
+| `ADMIN-002` | SCIM provisioning | target | partial | `tests/e2e/scim/contract.test.ts` — SCIM RFC7643/7644 HTTP sequence uses native invitations, Members, groups and revocation authority; populated upgrade, revoked restore and erasure; `tests/qualification/ui-convergence/scim-access-journey.mjs` (1440/390) | Real Okta, Entra ID, JumpCloud and Auth acceptance is not run. Default ADOPTED: Member role and name/email/groups only, Owner/guest/break-glass protection, hashed owner credentials; scoped admission cap applies to SCIM, while native invitation admission has no shared capacity guard. |
 | `ADMIN-003` | Guest management | target | done | `tests/qualification/policies/invitations.test.ts`, `tests/qualification/ui-convergence/guest-console-journey.mjs` |  |
 | `ADMIN-004` | Workspace analytics | target | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` |  |
 | `ADMIN-005` | Audit export and SIEM streaming | target | partial | `tests/qualification/core/audit-content.test.ts` — auditExportProof: audited action families, filtered CSV/JSON, neutralized formulas, retention floor, signed ordered outage recovery; `tests/qualification/ui-convergence/audit-access-journey.mjs` (1440/390) | Signed generic webhooks inherit API-002’s unresolved address pinning and adopted destination rule; real vendor receivers and vendor-specific formats are not claimed. |
