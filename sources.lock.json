@@ -7091,6 +7091,10 @@
       "sha256": "dfd6ab4522aa04ca7f59d020c6d44f7d55b707561242e2829351bd37a4654771",
       "executable": false
     },
+    "src/core/features/imports/native-plan-codec.ts": {
+      "sha256": "daed4d75c4887c102e6f18c1231c400f1996639b6bb5bc01809c9faaefb46507",
+      "executable": false
+    },
     "src/core/features/imports/native-plan.ts": {
       "sha256": "db3d3e952a30cd101861d4f847af6a1487e1370ecfb7d14d27e7e18fff6e01b8",
       "executable": false
@@ -7108,11 +7112,11 @@
       "executable": false
     },
     "src/core/features/imports/native-stream-size.ts": {
-      "sha256": "ab03017c539bab1755807dd2505935dd78a500c6aad2ee78b2cc62c1fa3365cc",
+      "sha256": "4068b7d4a9929a0873ebf027ba38f98b384cc5a75e90df97c8ac087522b637dd",
       "executable": false
     },
     "src/core/features/imports/native-targets.ts": {
-      "sha256": "bfe73969ded0e6e3dfedaa772ce2b8a2ce11a0fb03d6cc4cb740beafb6b25ae9",
+      "sha256": "cb7a39459ff7ec30e8d836d770ff22df83bf4cdcd8d54037dc8491e33a401a8c",
       "executable": false
     },
     "src/core/features/imports/native-writes.ts": {
