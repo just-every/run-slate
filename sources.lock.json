@@ -1836,7 +1836,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "be0a078bfc8ab3cc078a9f431bb5b928c71bb801a7690ebac6041741d99387d3",
+      "sha256": "cac7d35f9c1ec4319ceb11dba53575d8059f38c1fd726f8e091927ea2e8a4aa7",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -9384,7 +9384,7 @@
       "executable": false
     },
     "src/core/platform/bindings.server.ts": {
-      "sha256": "9c013116eee43f73038877322650b6b5116f62f69d11c65826e059f291263a3b",
+      "sha256": "0944bc2dc7bf7e79734ef7d1e8dd50b57ab5ac3ded8ef9807bef9327deb5768c",
       "executable": false
     },
     "src/core/platform/blobs/index.ts": {
@@ -9404,7 +9404,7 @@
       "executable": false
     },
     "src/core/platform/config/runtime.ts": {
-      "sha256": "66c85a220812b41e59bafa816524d106c61fbc670ce9d0fb2cb1bf08e027bf57",
+      "sha256": "d5f68939b73f00bb85c64faa2b408381b26cd0714612fe046e19484fa9e986cd",
       "executable": false
     },
     "src/core/platform/db/client.ts": {
@@ -9640,7 +9640,7 @@
       "executable": false
     },
     "src/dev/server.ts": {
-      "sha256": "b3fe86c4eacaf89195824b21e78f6cb9415738af3c941f7da7f2c92a46896c27",
+      "sha256": "6ad4db37b2f05ece91780d4eb7f13b55d7a7c4f80352676b6c5124b6be2c7ee9",
       "executable": false
     },
     "src/editor-init.ts": {
@@ -12268,7 +12268,7 @@
       "executable": false
     },
     "vite.config.ts": {
-      "sha256": "17b37f10a2d76e2861ae36d83e7ca03b7f9c6c3c535fd320491b39e4c1169068",
+      "sha256": "a5591133c4093384cbc10b5a096901d1ff370c2081a38f33bb476a47d135861a",
       "executable": false
     },
     "vite.site.config.ts": {

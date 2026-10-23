@@ -12,6 +12,9 @@ export function requestBindings(): AppBindings {
 }
 
 export function requireBindings(bindings: AppBindings): AppBindings {
+  if (bindings?.RER_DEV_ORIGIN && bindings.LOCAL_DEVELOPMENT === "true") {
+    bindings = { ...bindings, APP_URL: bindings.RER_DEV_ORIGIN };
+  }
   const missing = requiredBindings.filter((name) => !bindings?.[name]);
   if (missing.length) {
     throw new Error(`Missing Worker bindings: ${missing.join(", ")}.`);
