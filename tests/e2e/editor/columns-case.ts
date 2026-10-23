@@ -55,12 +55,12 @@ export async function columnsCase(request:(method:string,path:string,body?:unkno
  await importFile('confluence-space','synthetic-slate-2.zip',zipSync({
   'spaces.csv':strToU8(csv([['spaceid','spacename','spacekey'],['1','Incident response','IR']])),
   'content.csv':strToU8(csv([['contentid','contenttype','title','version','prevver','content_status','spaceid','parentid','child_position'],['1','PAGE','Confluence response','1','','current','1','','0']])),
-  'bodycontent.csv':strToU8(csv([['bodycontentid','contentid','body','bodytype'],['1','1',layout,'2']])),
+  'bodycontent.csv':strToU8(csv([['bodycontentid','contentid','body','bodytypeid'],['1','1',layout,'2']])),
  }));
  const pages=(await json('GET','/pages')).items;
  const docs=await Promise.all(pages.map((page:any)=>json('GET',`/pages/${page.id}`)));
  for(const [text,count] of [['Notion incident plan',3],['Confluence incident plan',2]] as const){
-  const imported=docs.find(d=>JSON.stringify(d.blocks).includes(text));expect(imported).toBeDefined();
+  const imported=docs.find(d=>JSON.stringify(d.blocks).includes(text));expect(imported,text).toBeDefined();
   const group=imported.blocks.find((b:any)=>b.blockType==='columns');expect(group.content.count).toBe(count);
   expect(imported.blocks.filter((b:any)=>b.parentBlockId===group.id&&b.blockType==='column')).toHaveLength(count);
  }
