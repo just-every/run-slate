@@ -8,7 +8,7 @@ export async function touchManagementJourney(state,touch){
  const {page,origin,api,containerId}=touch;
  await page.goto(`${origin}/app/containers/${containerId}`,{waitUntil:'networkidle'});
  const navigation=page.getByRole('navigation',{name:'Space navigation',exact:true});
- await tap(navigation.getByRole('link',{name:'Settings',exact:true}));
+ await tap(navigation.getByRole('button',{name:'Settings',exact:true}));
  await tap(page.getByRole('button',{name:'Edit details',exact:true}));
  const details=page.getByRole('dialog',{name:'Space details',exact:true});
  await type(page,details.getByRole('textbox',{name:'Description',exact:true}),'Response guides maintained by the duty team.');
