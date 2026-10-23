@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "2154ddabc74e4b95e3de7f5d31acb979e421937ef4895e827326d9ec6c8fd20c",
+      "sha256": "f64643c6d1c8f003ccc928f41acc01ffd5be7e544d813430e0706bad94d12eba",
       "executable": false
     },
     "DEMO.md": {
@@ -11992,7 +11992,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/audit-access-journey.mjs": {
-      "sha256": "da3ff5e15f696f9eae921da7b418917422f8edca1db847213866652528645fdb",
+      "sha256": "f066a1085c8c9e5351097dafba8a09fee9ed40aa5e5864073fc871b259d64450",
       "executable": false
     },
     "tests/qualification/ui-convergence/backups-journey.mjs": {
@@ -12032,7 +12032,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/developer-access-journey.mjs": {
-      "sha256": "995b9f49af5975609b26f363c2fd1509eb9d5e39860d6514519eac2b862193c6",
+      "sha256": "79d2626b424679dc294dddc2bb38114c3df560dfcb4a85aeabc4dd684f4debab",
       "executable": false
     },
     "tests/qualification/ui-convergence/evidence/chat-1440-channel-blocked.png": {
@@ -12236,7 +12236,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/scim-access-journey.mjs": {
-      "sha256": "f329ac120f63f10d6a3941615d0964f673d3a35ca805a60c6dfcb58984e3526c",
+      "sha256": "fb19a23ef8a6c8bf64f8d12570aa6b723fedd06af1e674f5f6d8ea3bef2c0bf4",
       "executable": false
     },
     "tests/qualification/ui-convergence/shared-navigation-journey.mjs": {
@@ -12304,7 +12304,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/webhook-access-journey.mjs": {
-      "sha256": "bde53a8386bdbfe67e410c0647555affe169b8d2f59862b4ebb604cba6300b59",
+      "sha256": "cd8f4131a346cdaba29bdd9877d6dd9ae2e230b9697a81c0e1c7c267fdceb17e",
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {
