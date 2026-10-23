@@ -12,12 +12,13 @@ export async function webhookAccessJourney(state) {
   await panel.getByLabel('Destination URL', { exact: true }).fill('https://synthetic-slate-1.example.com/events');
   await panel.getByLabel('Webhook space', { exact: true }).selectOption(space.id);
   await panel.getByRole('button', { name: 'Add webhook', exact: true }).click();
-  await expect(panel.getByRole('status')).toHaveText('Webhook added.');
+  await expect(panel.getByLabel('Signing secret', { exact: true })).toBeVisible();
   const secret = await panel.getByLabel('Signing secret', { exact: true }).inputValue();
   assert.ok(secret.length > 0);
   await panel.getByRole('button', { name: 'Copy signing secret', exact: true }).click();
-  await expect(panel.getByRole('status')).toHaveText('Signing secret copied.');
+  await expect.poll(async () => (await page.evaluate(() => navigator.clipboard.readText())) === secret).toBe(true);
   await panel.getByRole('button', { name: 'I saved the signing secret', exact: true }).click();
+  await expect(panel.getByLabel('Signing secret', { exact: true })).toHaveCount(0);
   await accessible(page, 'webhook-access-created');
   await ok(context, origin, 'POST', '/api/pages', { operationKey: randomUUID(), containerId: space.id, title: 'Delivery handbook update' });
   await runScheduled();

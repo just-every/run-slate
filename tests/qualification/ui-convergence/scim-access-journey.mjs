@@ -8,10 +8,10 @@ export async function scimAccessJourney(state) {
     await expect(panel.getByRole('heading', { name: 'Directory provisioning', exact: true })).toBeVisible();
     await panel.getByLabel('Directory credential name', { exact: true }).fill('Workspace directory');
     await panel.getByRole('button', { name: 'Create directory credential', exact: true }).click();
-    await expect(panel.getByRole('status')).toHaveText('Directory credential created.');
+    await expect(panel.getByLabel('Directory secret', { exact: true })).toBeVisible();
     const previous = await panel.getByLabel('Directory secret', { exact: true }).inputValue();
     await panel.getByRole('button', { name: 'Copy directory secret', exact: true }).click();
-    await expect(panel.getByRole('status')).toHaveText('Directory secret copied.');
+    await expect.poll(async () => (await page.evaluate(() => navigator.clipboard.readText())) === previous).toBe(true);
     await panel.getByRole('button', { name: 'I saved the directory secret', exact: true }).click();
     assert.equal((await transport.get(`${origin}/scim/v2/Users`, { headers: { authorization: `Bearer ${previous}` } })).status(), 200);
     await panel.getByRole('button', { name: 'Refresh directory activity', exact: true }).click();

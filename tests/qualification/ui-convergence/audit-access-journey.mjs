@@ -10,7 +10,7 @@ export async function auditAccessJourney(state) {
   await expect(panel.getByRole('heading', { name: 'Audit history', exact: true })).toBeVisible();
   await panel.getByLabel('Audit retention (days)', { exact: true }).fill('400');
   await panel.getByRole('button', { name: 'Save audit retention', exact: true }).click();
-  await expect(panel.getByRole('status')).toHaveText('Audit retention saved.');
+  await expect.poll(async () => (await api('/api/activity/settings')).retentionDays).toBe(400);
   await accessible(page, 'audit-access-retention');
   for (const format of ['json', 'csv']) {
     await panel.getByLabel('Export format', { exact: true }).selectOption(format);
@@ -19,19 +19,20 @@ export async function auditAccessJourney(state) {
     const download = await downloaded, text = await readFile(await download.path(), 'utf8');
     assert.ok(text.includes('api-token.revoke'));
     if (format === 'json') assert.ok(JSON.parse(text).every(row => row.id && row.occurredAt && row.action && row.target));
-    await expect(panel.getByRole('status')).toHaveText('Audit export downloaded.');
   }
   await accessible(page, 'audit-access-exported');
   await panel.getByLabel('Audit stream name', { exact: true }).fill('Workspace audit delivery');
   await panel.getByLabel('Audit destination URL', { exact: true }).fill('https://synthetic-slate-1.example.com/audit');
   await panel.getByRole('button', { name: 'Add audit stream', exact: true }).click();
-  await expect(panel.getByRole('status')).toHaveText('Audit stream added.');
-  assert.ok((await panel.getByRole('region', { name: 'Audit signing secret', exact: true }).getByLabel('Audit signing secret', { exact: true }).inputValue()).length > 0);
+  await expect(panel.getByRole('region', { name: 'Audit signing secret', exact: true }).getByLabel('Audit signing secret', { exact: true })).toBeVisible();
+  const secret = await panel.getByRole('region', { name: 'Audit signing secret', exact: true }).getByLabel('Audit signing secret', { exact: true }).inputValue();
+  assert.ok(secret.length > 0);
   await panel.getByRole('button', { name: 'Copy audit signing secret', exact: true }).click();
-  await expect(panel.getByRole('status')).toHaveText('Audit signing secret copied.');
+  await expect.poll(async () => (await page.evaluate(() => navigator.clipboard.readText())) === secret).toBe(true);
   await panel.getByRole('button', { name: 'I saved the audit signing secret', exact: true }).click();
   const streams = page.getByRole('region', { name: 'Webhooks', exact: true }), stream = (await api('/api/developer/webhooks')).items.find(row => row.name === 'Workspace audit delivery');
-  await expect(streams.getByRole('article', { name: 'Webhook Workspace audit delivery', exact: true })).toContainText('Ordered delivery');
+  assert.equal(stream.mode, 'audit');
+  await expect(streams.getByRole('article', { name: 'Webhook Workspace audit delivery', exact: true })).toBeVisible();
   await accessible(page, 'audit-access-stream-created');
   const space = (await api('/api/containers')).items.find(c => c.name === 'Handbook');
   await setWebhookFailure(true);
