@@ -32,9 +32,14 @@ test('owner webhook subscriptions sign current readable events, persist backoff,
     expect((await request('', 'POST', input, f.member)).status).toBe(403);
     const created = await ok('', 'POST', input), id = created.value.id;
     expect(!!created.secret).toBe(true);
+    const replayedGrant=await ok('','POST',input);expect(replayedGrant.value).toEqual(created.value);expect(replayedGrant).not.toHaveProperty('secret');
     expect((await ok('','GET',undefined,f.member)).items).toEqual([]);
     const list = await ok(''); expect(JSON.stringify(list).includes(created.secret)).toBe(false); expect(JSON.stringify(list).includes('credential_ciphertext')).toBe(false);
     const page = await f.ok('/api/pages', 'POST', { operationKey: createUlid(), containerId: f.containerId, title: 'synthetic-slate-readable' });
+    const exchangesBeforeMissingKey=edge.mock.calls.length;
+    await expect(scheduleWebhooks({...bindings,CONNECTOR_CREDENTIALS_KEY:undefined})).rejects.toMatchObject({code:'CREDENTIAL_UNAVAILABLE'});
+    expect(edge.mock.calls.length).toBe(exchangesBeforeMissingKey);
+    expect(receiver).toHaveLength(0);
     await Promise.all([scheduleWebhooks(bindings), scheduleWebhooks(bindings)]);
     expect(receiver).toHaveLength(1);
     const sent = receiver[0]!, [timestamp, signature] = sent.headers.get('slate-signature')!.split(',');

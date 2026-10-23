@@ -1,3 +1,4 @@
+import { ApiProblem } from '../../app/problems';
 import limits from '../../../../seed.json';
 import type { AppBindings } from '../../app/types';
 import type { FeatureContext } from '../../app/feature-context';
@@ -17,6 +18,8 @@ async function disable(ctx: FeatureContext, subscription: Subscription) {
   await processNotificationOutbox(ctx);
 }
 export async function deliverPending(ctx: FeatureContext, subscription: Subscription) {
+  const key=ctx.sourceSecret;
+  if(!key)throw new ApiProblem(503,'CREDENTIAL_UNAVAILABLE','Configure the credential sealing key before delivering webhooks.');
   const due = await ctx.db.prepare("SELECT * FROM webhook_deliveries WHERE subscription_id=? AND state='pending' AND next_attempt_at<=? AND (lease_until IS NULL OR lease_until<?) ORDER BY event_sequence LIMIT 20").bind(subscription.id, ctx.now, ctx.now).all<Delivery>();
   for (const candidate of due.results) {
     // Audit destinations wait for the oldest event; a failed event blocks later ones.
@@ -27,7 +30,7 @@ export async function deliverPending(ctx: FeatureContext, subscription: Subscrip
     const started=Date.now();
     let result = { status: null as number | null, durationMs: 0, response: '', outcome: 'withheld' };
     try {
-      result = await signedExchange(subscription, delivery, ctx.sourceSecret ?? '', async () => {
+      result = await signedExchange(subscription, delivery, key, async () => {
         const current = await ctx.db.prepare('SELECT * FROM webhook_subscriptions WHERE id=?').bind(subscription.id).first<Subscription>();
         await requireWorkspaceOwner(ctx);
         const event = await eventRecord(ctx, delivery.event_id);
