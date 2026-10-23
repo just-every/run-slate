@@ -1,3 +1,4 @@
+import type {DashboardDefinition} from '../../databases/dashboard-definition';
 import type {FileReference} from '../file-cards/reference';
 import type {TableContent} from '../tables/model';
 import type {TableOfContentsSettings} from '../table-of-contents';
@@ -213,6 +214,8 @@ export interface ContentQueryBlockData extends BlockBase {
 export interface TableOfContentsBlockData extends BlockBase, TableOfContentsSettings { type: "table-of-contents" }
 export interface TaskReportBlockData extends BlockBase { type: "task-report"; definition:TaskReportDefinition }
 
+export interface DashboardBlockData extends BlockBase { type: "dashboard"; definition: DashboardDefinition }
+
 export type EditorBlock =
   | ParagraphBlockData
   | HeadingBlockData
@@ -229,7 +232,8 @@ export type EditorBlock =
   | LinkCardBlockData
   | ContentQueryBlockData
   | TableOfContentsBlockData
-  | TaskReportBlockData;
+  | TaskReportBlockData
+  | DashboardBlockData;
 
 export type EditorBlockType = EditorBlock["type"];
 

@@ -1,3 +1,4 @@
+import {queryDashboard} from '../databases/dashboard';
 import {fileCard} from '../editor/file-cards/service';
 import {embedDocument} from '../editor/embeds/document';
 import { mentionGroups, previewMentions } from '../comments/group-mentions';
@@ -35,6 +36,7 @@ export function createPagesRoutes() {
     r.get('/', async (c) => c.json(await listPages(featureContext(c), c.req.query('containerId'),c.req.query('label'))));
     r.post('/', async (c) => c.json(await createPage(featureContext(c), await validatedJson(c, createPageSchema))));
     r.post('/:id/query', async (c) => c.json(await contentQuery(featureContext(c), c.req.param('id'), await c.req.json())));
+    r.post('/:id/dashboard', async c => { c.header('Cache-Control', 'private, no-store'); return c.json(await queryDashboard(featureContext(c), c.req.param('id'), await c.req.json())); });
     r.post('/:id/task-report', async (c) => c.json(await taskReport(featureContext(c), c.req.param('id'), await c.req.json())));
     r.get('/:id/expansion', async (c) => c.json(await treeExpansion(featureContext(c), c.req.param('id'))));
     r.post('/:id/expansion', async (c) => c.json(await treeExpansion(featureContext(c), c.req.param('id'), await c.req.json())));
