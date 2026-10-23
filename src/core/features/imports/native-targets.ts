@@ -1,8 +1,8 @@
 import {derivedPageReferences,derivedContainerReferences,nativeReferenceCatalog,nativeIncomingChecks,incomingDependencies,shareNotice,type IncomingCheck} from './native-dependencies';
 import type {D1TargetAdapter,D1Database,D1Sql,TargetRow,D1UndoEffect,D1UndoSnapshot,Json} from '../../../../modules/import-kit/src/d1/index.ts';
 import {expectedNativeScope,type NativeUnit,type NativeScope} from './native-plan';
+import {nativeWrites,nativeIdentifier as identifier} from './native-writes';
 
-const identifier=(name:string)=>{if(!/^[a-z][a-z0-9_]*$/.test(name))throw new Error('Invalid native import identifier.');return `"${name}"`;};
 const sql=(sql:string,...params:unknown[]):D1Sql=>({sql,params});
 export interface NativeImportBinding {id:string; created_at:string; native_published:number}
 
@@ -69,17 +69,7 @@ export function nativeTargets(job:NativeImportBinding,writes:()=>number):D1Targe
       return sql(`EXISTS(SELECT 1 FROM import_native_targets WHERE import_id=? AND kind=? AND target_id=? AND value_json=? AND revision=?) AND json_array(${queries.map(q=>`((${q.sql}) || '')`).join(',')})=?`,destination,kind,id,JSON.stringify(value),row.revision,...queries.flatMap(q=>q.params??[]),JSON.stringify(observed));
     },
     write(row) {
-      const unit=valueUnit(row),statements:D1Sql[]=[];
-      for(const native of unit.rows) {
-        if(native.derived)continue;
-        for(const guard of native.before??[])statements.push(sql(guard.sql,...guard.params));
-        const values={...native.values};
-        if(!job.native_published&&native.table==='pages')values.deleted_at=job.created_at;
-        if(!job.native_published&&native.table==='containers')values.trashed_at=job.created_at;
-        const columns=Object.keys(values);
-        statements.push(sql(`INSERT INTO ${identifier(native.table)} (${columns.map(identifier).join(',')}) VALUES (${columns.map(()=>'?').join(',')})`,...columns.map(c=>values[c])));
-        for(const effect of native.after??[])statements.push(sql(effect.sql,...effect.params));
-      }
+      const unit=valueUnit(row),statements=nativeWrites(unit.rows,job.native_published?undefined:job.created_at);
       statements.push(sql('INSERT INTO import_native_targets(import_id,kind,target_id,value_json,revision) VALUES (?,?,?,?,?)',row.destination,row.targetKind,row.targetId,JSON.stringify(row.value),row.revision));
       return statements;
     },
