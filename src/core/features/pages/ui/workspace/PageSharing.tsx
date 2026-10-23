@@ -31,7 +31,7 @@ interface Grant {
 }
 function accessLabel(level: string) { return ({view:"View",comment:"Comment",edit:"Edit",full:"Manage access"} as Record<string,string>)[level] ?? level; }
 export function PageSharing({ document }: { document: DocumentView }) {
-  const { workspace, localDevelopment } = useWorkspace();
+  const { workspace, localDevelopment, member } = useWorkspace();
   const grants = useResource<{ items: Grant[]; inheritedItems?:Grant[]; effectiveItems?:Grant[];levels?:string[];container?:{id:string;name:string};restricted?:boolean }>(
     document.permissions.canShare
       ? `/api/sharing/pages/${document.page.id}`
@@ -40,7 +40,7 @@ export function PageSharing({ document }: { document: DocumentView }) {
   const members = useResource<{ items: MemberView[] }>(
     document.permissions.canShare ? "/api/members" : null,
   );
-  const guests = useResource<{items:MemberView[]}>(document.permissions.canShare ? "/api/guests" : null);
+  const guests = useResource<{items:MemberView[]}>(document.permissions.canShare && member.role === "owner" ? "/api/guests" : null);
   const groups = useResource<{ items: GroupView[] }>(
     document.permissions.canShare ? "/api/groups" : null,
   );

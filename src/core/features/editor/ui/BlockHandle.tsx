@@ -48,7 +48,7 @@ export function BlockHandle({
     <div className="block-gutter flex w-12 shrink-0 items-start justify-end gap-0.5 pt-0.5 opacity-0 transition-opacity group-focus-within/row:opacity-100 group-hover/row:opacity-100 has-[[data-state=open]]:opacity-100">
       <Button
         aria-label={`Insert a block after ${blockLabel}`}
-        data-tooltip="Insert block"
+        data-tooltip="Insert block" data-tooltip-align="end"
         onClick={(event) => onInsert(event.currentTarget)}
         size="iconSm"
         variant="ghost"
@@ -60,7 +60,7 @@ export function BlockHandle({
         <DropdownMenuTrigger asChild>
           <Button
             aria-label={`Block actions for ${blockLabel}`}
-            data-tooltip="Block actions"
+            data-tooltip="Block actions" data-tooltip-align="end"
             className="touch-none data-[dragging=true]:bg-accent-soft"
             data-dragging={dragging || undefined}
             {...touch}

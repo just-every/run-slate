@@ -53,7 +53,7 @@ export function RecordCard({
             <DropdownMenu>
               <DropdownMenuTrigger
                 aria-label={`Move ${record.title} to another group`}
-                data-tooltip="Move group"
+                data-tooltip="Move group" data-tooltip-align="end"
                 className="shrink-0 rounded-control p-1 text-ink-faint transition-colors hover:bg-sidebar-hover hover:text-ink"
               >
                 <MoveRight aria-hidden="true" className="size-3.5" />

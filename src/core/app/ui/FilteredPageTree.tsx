@@ -13,7 +13,7 @@ export function FilteredPageTree({ pages, spaceName, activePath }: { pages: Tree
       <Search aria-hidden="true" />
       <input ref={input} type="text" aria-label={`Filter pages in ${spaceName}`} placeholder="Filter pages" value={query}
         onChange={event => setQuery(event.target.value)} onKeyDown={event => { if (event.key === 'Escape' && query) { event.preventDefault(); event.stopPropagation(); clear(); } }} />
-      {query ? <button type="button" aria-label={`Clear page filter in ${spaceName}`} onClick={clear}><X aria-hidden="true" /></button> : null}
+      {query ? <button type="button" aria-label={`Clear page filter in ${spaceName}`} data-tooltip="Clear filter" data-tooltip-align="end" onClick={clear}><X aria-hidden="true" /></button> : null}
     </div>
     {visibleIds?.size === 0 ? <p className="empty-tree" role="status">No page titles match.</p> : <PageTree pages={pages} activePath={activePath} visibleIds={visibleIds} />}
   </>;

@@ -87,6 +87,7 @@ function TreeItem({
           <button
             className="iconbutton"
             aria-label={`${open ? "Collapse" : "Expand"} ${page.title}`}
+            data-tooltip={open ? "Collapse page" : "Expand page"} data-tooltip-align="right"
             aria-expanded={open}
             disabled={visibleIds !== undefined || expansion.loading || expansion.error !== undefined}
             onClick={(event) => {
@@ -105,8 +106,8 @@ function TreeItem({
           {page.icon ? <StoredIcon icon={page.icon}/> : page.databaseId ? <Database aria-hidden="true" /> : <FileText aria-hidden="true" />}
           <span>{page.title || "Untitled"}<ScheduledPublication page={page}/></span>
         </a>
-        <button className="iconbutton tree-action" aria-label={`Move ${page.title} in tree`} disabled={!canMove} onClick={()=>setMove({page})}><ArrowUpDown aria-hidden="true"/></button>
-        <button className="iconbutton tree-action" aria-label={`Create child of ${page.title}`} disabled={!canMove} aria-busy={creation.pending||undefined} onClick={event=>{event.stopPropagation();void creation.create(async()=>({containerId:page.containerId,parentPageId:page.id,title:DEFAULT_PAGE_TITLE}));}}><Plus aria-hidden="true"/></button>
+        <button className="iconbutton tree-action" aria-label={`Move ${page.title} in tree`} data-tooltip="Move page" data-tooltip-align="end" disabled={!canMove} onClick={()=>setMove({page})}><ArrowUpDown aria-hidden="true"/></button>
+        <button className="iconbutton tree-action" aria-label={`Create child of ${page.title}`} data-tooltip="Add child" data-tooltip-align="end" disabled={!canMove} aria-busy={creation.pending||undefined} onClick={event=>{event.stopPropagation();void creation.create(async()=>({containerId:page.containerId,parentPageId:page.id,title:DEFAULT_PAGE_TITLE}));}}><Plus aria-hidden="true"/></button>
       </div>
       {move?<Suspense fallback={null}><TreeMoveDialog page={move.page} pages={pages} initial={move.destination} onClose={()=>setMove(null)}/></Suspense>:null}
       {creation.error ? <p role="alert">{errorMessage(creation.error)}</p> : null}

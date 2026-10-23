@@ -5088,7 +5088,7 @@
       "executable": false
     },
     "src/core/app/ui/ActionDialog.tsx": {
-      "sha256": "4ac215c3711e35158ef4052ba60d6467b23574fa90995bfa6406662473863811",
+      "sha256": "2f1044955cfcb0feee90f8c018c5f3edbf51306e287ee26ab1870074b9975b2a",
       "executable": false
     },
     "src/core/app/ui/AppNavigation.tsx": {
@@ -5108,7 +5108,7 @@
       "executable": false
     },
     "src/core/app/ui/FilteredPageTree.tsx": {
-      "sha256": "1ec2243152bf02ad2d7c74fbfe5a7b55eed19ff8001e633159b38438bae48a53",
+      "sha256": "b428a2067ffbc06712e83dcef02e50c5cdc799ebf8124feb7eaaec82a0c5c009",
       "executable": false
     },
     "src/core/app/ui/FirstRunShell.tsx": {
@@ -5152,7 +5152,7 @@
       "executable": false
     },
     "src/core/app/ui/PageTree.tsx": {
-      "sha256": "789067d49cabfc00c5e6e3b39e54fceab6e59dc89aa076bca5863fd16129ae37",
+      "sha256": "b65990990801659f6c780af5b9e6f86e315cb9d38f0805cdae2b2bce11cc1ab6",
       "executable": false
     },
     "src/core/app/ui/PublicDuplicate.tsx": {
@@ -5996,7 +5996,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/views/CalendarView.tsx": {
-      "sha256": "323db82f2500eb40a314eee9ff8e17a82048fddcf0fa1823bc61c5a6b5710bb4",
+      "sha256": "567fcce2dee23be8112d116450a0e1608fb0858a54dc5fef6527117da68bd7d7",
       "executable": false
     },
     "src/core/features/databases/ui/views/GalleryView.tsx": {
@@ -6008,7 +6008,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/views/RecordCard.tsx": {
-      "sha256": "5bc43eb9a5894d0abe037d2b080ed676fc6bcfd00281f155813c150e51d4ca6c",
+      "sha256": "507ef7df38d221f62a17297ec3a8618865819acb7628d8b8b6d180ef1206bb53",
       "executable": false
     },
     "src/core/features/databases/ui/views/shared.ts": {
@@ -6348,7 +6348,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/BlockHandle.tsx": {
-      "sha256": "d4e5d04411f99311ac70fa12175b2d7207bccfd1fced822882bda64c7e09c778",
+      "sha256": "5c12d0325ac6a126ea0a671116a645b413c06070af9157f5edece1ee22157526",
       "executable": false
     },
     "src/core/features/editor/ui/BlockRow.tsx": {
@@ -7992,7 +7992,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageSharing.tsx": {
-      "sha256": "5316a559de83d58c6733cc92ba1a224528f838fc455ef7b7c02ca435ea4fa3c1",
+      "sha256": "de5dfe1e79f4a2a104b6c4f587c10b8a923d2e26b814f9461870f1bba151b316",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageStatusBadge.tsx": {
@@ -11816,7 +11816,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "b842300c605fc813410d1c46a9bcda8397259678e363a0f3ddd2689a7c10aed5",
+      "sha256": "b9bbdfa51e7d5b442af04ade0cf829d701cb691865747dc7b31caba2094e0e87",
       "executable": false
     },
     "tests/qualification/ui-convergence/my-tasks-journey.mjs": {
@@ -11908,7 +11908,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page.mjs": {
-      "sha256": "38ff9601481860504865cdfd67aa40c4cc97adf4ea464ffef8149a2702ccd38d",
+      "sha256": "92bb28013f94415caca7a8194e897e39e48eb733d38d202c99bb701a147b5b1d",
       "executable": false
     },
     "tests/qualification/ui-convergence/tree-filter-journey.mjs": {

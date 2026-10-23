@@ -39,7 +39,7 @@ export async function touchWriteJourney({page,origin,api,containerName}) {
 
 export async function touchCommentJourney({page,origin,api},id) {
   await page.goto(`${origin}/app/pages/${id}`,{waitUntil:'networkidle'});
-  await tap(page.getByRole('button',{name:'Comment',exact:true}));
+  await tap(page.getByRole('button',{name:'Comments',exact:true}));
   await type(page,page.getByRole('textbox',{name:'Comment text',exact:true}),'Response ownership confirmed.');
   await reachable(page.getByRole('button',{name:'Send comment',exact:true}));
   await tap(page.getByRole('button',{name:'Send comment',exact:true}));

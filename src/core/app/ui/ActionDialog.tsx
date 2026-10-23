@@ -71,6 +71,7 @@ export function ActionDialog({
           <h2>{title}</h2>
           <button
             aria-label="Close dialog"
+            data-tooltip="Close dialog" data-tooltip-align="end"
             type="button"
             disabled={pending}
             onClick={onClose}
