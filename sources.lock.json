@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "6a8e4dff54d3a2a3ac7df411f2f5d08d9249266f4f53fef8eb440e0a0aec0a2d",
+      "sha256": "0529fa047bb5a60f8529c8e05cf1f25040acc821844fcd49025a2c8c3aca93c1",
       "executable": false
     },
     "DEMO.md": {
@@ -7077,6 +7077,10 @@
     },
     "src/core/features/imports/native-targets.ts": {
       "sha256": "e2dd2ad48cad966fe8c9ecdfd0f528b235e9d43d0ec6de0b90bd843727a9efe6",
+      "executable": false
+    },
+    "src/core/features/imports/native-writes.ts": {
+      "sha256": "03ed7f6712fc393164c2b3cd1f8e672620822b210cdf08e0761fc8b049d5a725",
       "executable": false
     },
     "src/core/features/imports/notion/fields.ts": {
