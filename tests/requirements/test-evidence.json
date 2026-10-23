@@ -1993,9 +1993,7 @@
       "testName": "BLOCK-014 — tables, columns and synced paragraphs preserve structured content through editing, validation, exports and access",
       "kind": "supporting-regression",
       "clauses": [
-        "BLOCK-014",
-        "BLOCK-012",
-        "BLOCK-011"
+        "BLOCK-014"
       ],
       "reason": "Structured tables remain covered; the same HTTP case also proves column bounds, round trips, incumbent layout imports and reader-safe page operations. Side-by-side PDF and Word layout remain open."
     },

@@ -294,7 +294,7 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
         "Someone else added or removed blocks on this page. Nothing was changed; the page now shows their blocks, so try again.",
       );
     }
-    const content = ({ id: _id, indent: _indent, ...rest }: EditorBlock) => JSON.stringify(rest);
+    const content = ({ id: _id, indent: _indent, synced: _synced, copyRevisionId: _copyRevision, ...rest }: EditorBlock) => JSON.stringify(rest);
     const known = new Map(revisions.current);
     const rebased = next.map((block) => {
       const before = local.get(block.id), theirs = saved.get(block.id);
