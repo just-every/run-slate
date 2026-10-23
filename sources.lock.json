@@ -8240,7 +8240,7 @@
       "executable": false
     },
     "src/core/features/portability/bootstrap-audit.ts": {
-      "sha256": "9813347c62bb20b5f2922a2d76eb7a5fca69c0f493055411905a2ceb7023349d",
+      "sha256": "2f29c9abd2fd2c38340fe9cf021b7d876661467b3d4a52602b2f7cbe35e7af31",
       "executable": false
     },
     "src/core/features/portability/bootstrap-jobs.ts": {
@@ -11060,7 +11060,7 @@
       "executable": false
     },
     "tests/portability/equivalence.mjs": {
-      "sha256": "92e9343eecb1c4736adb2ce8ad3b427cfd1dacd4c03fe1428021d319d93a4827",
+      "sha256": "1c95984c1fb5241987e3f9eaaeed534542cb3f74cf4f3b71bd013e3b356d7abe",
       "executable": false
     },
     "tests/portability/fixture.mjs": {
@@ -11076,7 +11076,7 @@
       "executable": false
     },
     "tests/portability/roundtrip.test.mjs": {
-      "sha256": "2299c57a368dfd39a878902140b04663f1e2f77ee801f6a2f127a1fd80cad1c4",
+      "sha256": "a794f32b6de95e0e247204b9a0f27adac420116ff2d7208a44247611b7087dc0",
       "executable": false
     },
     "tests/portability/runtime.mjs": {

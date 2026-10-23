@@ -6,7 +6,8 @@ export function unpack(bytes){const entries=unzipSync(bytes);return {manifest:JS
 const stable=row=>JSON.stringify(Object.fromEntries(Object.entries(row).sort(([a],[b])=>a.localeCompare(b))));
 
 /** Every table and retained field is compared; recovery changes are checked explicitly. */
-export function equivalent(before,after,ownerEmail,newExportId){
+export function equivalent(before,after,ownerEmail,newExportId,bootstrapAuditRows){
+  assert.equal(bootstrapAuditRows.length,1,'Fresh owner sign-in adds exactly one bootstrap audit row.');
   const a=before.manifest,b=after.manifest;
   assert.equal(a.version,1);assert.equal(b.version,a.version);
   assert.match(a.createdAt,/^\d{4}-\d{2}-\d{2}T/);assert.match(b.createdAt,/^\d{4}-\d{2}-\d{2}T/);
@@ -46,6 +47,15 @@ export function equivalent(before,after,ownerEmail,newExportId){
       }
       const index=actual.findIndex(row=>stable(row)===stable(expected));assert.notEqual(index,-1,`Every retained field survives ${table}/${original.id??stable(original)}.`);
       actual.splice(index,1);compared++;
+    }
+    if(table==='activity_entries'){
+      // The restored owner must sign in again; match the exact live-session
+      // bootstrap row selected by the same predicate as restore admission.
+      for(const bootstrap of bootstrapAuditRows){
+        const index=actual.findIndex(row=>stable(row)===stable(bootstrap));
+        assert.notEqual(index,-1,'Fresh owner sign-in audit survives unchanged.');
+        actual.splice(index,1);
+      }
     }
     if(['federation_exports','activity_entries','core_entity_revisions'].includes(table)){
       assert.equal(actual.length,1,`Only this command's new export adds one ${table} row.`);
