@@ -30,7 +30,9 @@ export async function touchManagementJourney(state,touch){
  await tap(use.getByRole('button',{name:'Create page',exact:true}));
  await expect(page.getByRole('textbox',{name:'Page title',exact:true})).toHaveValue('Meeting notes');
  const templatePage=new URL(page.url()).pathname.split('/').at(-1);
- assert.ok((await api(`/api/pages/${templatePage}`)).blocks.some(block=>block.blockType==='task'));
+ const templateDocument=await api(`/api/pages/${templatePage}`);
+ assert.ok(templateDocument.blocks.some(block=>block.blockType==='task'));
+ const templateLifecycle=templateDocument.page.lifecycle;
  await checkpoint(page,'template used by touch');
  // Archive this real template copy, then restore it through the archive surface.
  await tap(page.getByRole('button',{name:'More',exact:true}));
@@ -45,7 +47,7 @@ export async function touchManagementJourney(state,touch){
  await checkpoint(page,'archive populated');
  await tap(row.getByRole('button',{name:'Restore',exact:true}));
  await expect(row).toHaveCount(0);
- assert.equal((await api(`/api/pages/${templatePage}`)).page.lifecycle,'live');
+ assert.equal((await api(`/api/pages/${templatePage}`)).page.lifecycle,templateLifecycle);
  await checkpoint(page,'archive restored');
 
  const ownerContext=await state.context.browser().newContext({viewport:page.viewportSize(),hasTouch:true,isMobile:page.viewportSize().width===390,storageState:await state.context.storageState(),locale:'en-US'});
