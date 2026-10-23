@@ -58,6 +58,10 @@
     "migrations/core/0047_scheduled_backups.sql": "sha256:3e35571a055d1d92a7a1a22c4ceb6fe47d33ae746c3f2334e216cd2d44200d4d",
     "migrations/core/0048_provider_folder_imports.sql": "sha256:39c7a4ae5736752663deb223063c6799d7c72bb52c4edf79a7eedb1d45e80982",
     "migrations/core/0049_saml_single_sign_on.sql": "sha256:8ea441f72de8ad37b833824c21cc5d802027e41dfcb71583e9972d666d2f552b",
-    "migrations/core/0050_chat_held_acknowledgment.sql": "sha256:f328f36e4216432eab1dc729f6f321e2f83344ba4630b9c390cc40c1f3d356a1"
+    "migrations/core/0050_chat_held_acknowledgment.sql": "sha256:f328f36e4216432eab1dc729f6f321e2f83344ba4630b9c390cc40c1f3d356a1",
+    "migrations/core/0054_public_api_tokens.sql": "sha256:9e3e8c1311f8253ca1ae1f7c5ef34c75f225bce62dd61a5a54f81f2ab1c7ca66",
+    "migrations/core/0055_webhook_subscriptions.sql": "sha256:fdbf117819a48a2dba9b1fbfa90d08562f6527c3bf8e96c89d671b7a2ad8ee5f",
+    "migrations/core/0056_audit_stream.sql": "sha256:0d2c6c0ce09d647c2bdfe6b4f7c4bc828dc38735141c01ede5a2e39c49b0201f",
+    "migrations/core/0057_scim_directory.sql": "sha256:4575fde9650217cb358c7df14dc098ecb3a1f471db6f8c0e7a2fc82d0ea90084"
   }
 }
