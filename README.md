@@ -43,7 +43,7 @@ One line installs rer, clones the public source repository and starts Slate:
 npx -y @runeditrun/rer dev just-every/run-slate
 ```
 
-To start it again later, run `cd run-slate && rer dev`. From the checkout, rer runs the `@runeditrun/rer` version this checkout pins (0.2.25). In a fresh checkout `rer dev` alone installs the pinned dependencies, makes a placeholder local owner and starts Slate. To choose your own owner email, prepare it first:
+To start it again later, run `cd run-slate && rer dev`. From the checkout, rer runs the `@runeditrun/rer` version pinned in `package.json`. In a fresh checkout `rer dev` alone installs the pinned dependencies, makes a placeholder local owner and starts Slate. To choose your own owner email, prepare it first:
 
 ```sh
 rer install
