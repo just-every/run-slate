@@ -8,14 +8,15 @@ import {resetDeployment} from '../../e2e/setup/reset-deployment';
 import {createApi} from '../../../src/core/app/hono';
 import {scheduledAutomation} from '../../../src/core/features/automation/events';
 export async function formCase(){
- await reset();await applyD1Migrations(env.DB,env.TEST_MIGRATIONS.slice(0,-1));
+ const formMigration=env.TEST_MIGRATIONS.findIndex(m=>m.name.includes('database_forms'));
+ await reset();await applyD1Migrations(env.DB,env.TEST_MIGRATIONS.slice(0,formMigration));
  const {owner,guest,reader,containerId}=await scenario();
  const api=createApi(),cookies={owner:await sessionFor(owner.actor.id,{freshProof:true}),guest:await sessionFor(guest.actor.id),reader:await sessionFor(reader.actor.id)},runtime={...env,SLATE_PROFILE:undefined};
  const op=()=>crypto.randomUUID();
  const request=(method:string,path:string,body?:unknown,who:'owner'|'guest'|'reader'|'anonymous'='owner',address='192.0.2.21')=>api.request('https://slate.test'+path,{method,headers:{...(who==='anonymous'?{}:{cookie:cookies[who]}),origin:'https://slate.test','cf-connecting-ip':address,...(body instanceof FormData?{}:{'content-type':'application/json'})},body:body===undefined?undefined:body instanceof FormData?body:JSON.stringify(body)},runtime);
  const call=async(method:string,path:string,body?:unknown,who:'owner'|'guest'|'reader'|'anonymous'='owner')=>{const response=await request(method,path,body,who),value=await response.json<any>();expect(response.status,JSON.stringify(value)).toBeLessThan(300);return value;};
  const legacy=(await call('POST','/api/pages',{operationKey:op(),containerId,title:'Procedure retained across the forms upgrade'})).value;
- await applyD1Migrations(env.DB,env.TEST_MIGRATIONS.slice(-1));
+ await applyD1Migrations(env.DB,env.TEST_MIGRATIONS.slice(formMigration));
  expect((await call('GET',`/api/pages/${legacy.pageId}`)).page.title).toBe('Procedure retained across the forms upgrade');
  const db=(await call('POST','/api/databases',{operationKey:op(),containerId,title:'Support requests'})).value;
  for(const [index,field] of [{id:'needs-detail',name:'Needs detail',type:'select',config:{options:['Yes','No']}},{id:'detail',name:'Detail',type:'text',config:{}}].entries()){
@@ -51,6 +52,7 @@ export async function formCase(){
  // Full native custody retains definitions and facts, and restore stops public
  // execution until an editor explicitly publishes with fresh authority.
  const ownerEmail=(await env.DB.prepare('SELECT email FROM members WHERE id=?').bind(owner.actor.id).first<{email:string}>())!.email;
+ const reminder=(await call('POST','/api/reminders',{operationKey:op(),pageId:legacy.pageId,date:'2027-01-01',time:'12:00',timezone:'UTC'})).value;
  const exported=await call('POST','/api/exports/workspace',{operationKey:op()});
  const bytes=new Uint8Array(await(await request('GET',`/api/exports/${exported.id}/download`)).arrayBuffer()),manifest=JSON.parse(new TextDecoder().decode(unzipSync(bytes)['manifest.json']));
  expect(JSON.parse(manifest.tables.database_forms[0].definition_json)).toEqual(definition);expect(manifest.tables.database_form_submissions).toHaveLength(2);
@@ -68,4 +70,5 @@ export async function formCase(){
  cookies.owner=await sessionFor(owner.actor.id,{freshProof:true});
  const restored=(await call('GET',`/api/databases/${db.id}/form`)).item;expect(restored.definition).toEqual(definition);expect(restored.published).toBe(false);expect((await request('GET',saved.href,undefined,'anonymous')).status).toBe(404);
  expect((await env.DB.prepare('SELECT COUNT(*) n FROM database_form_submissions').first<{n:number}>())!.n).toBe(2);expect((await env.DB.prepare('PRAGMA foreign_key_check').all()).results).toEqual([]);
+ const restoredReminder=(await call('GET','/api/reminders/jobs')).items.find((r:any)=>r.id===reminder.id);expect(restoredReminder).toMatchObject({state:'stopped',dueAt:reminder.dueAt,startedAt:null});
 }

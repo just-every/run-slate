@@ -59,6 +59,7 @@
     "migrations/core/0048_provider_folder_imports.sql": "sha256:39c7a4ae5736752663deb223063c6799d7c72bb52c4edf79a7eedb1d45e80982",
     "migrations/core/0049_saml_single_sign_on.sql": "sha256:8ea441f72de8ad37b833824c21cc5d802027e41dfcb71583e9972d666d2f552b",
     "migrations/core/0050_chat_held_acknowledgment.sql": "sha256:f328f36e4216432eab1dc729f6f321e2f83344ba4630b9c390cc40c1f3d356a1",
-    "migrations/core/0051_database_forms.sql": "sha256:530642b8bf56d69fe0a76d717c313e185147e9fd2c9d9236ee6b807a5635d79f"
+    "migrations/core/0051_database_forms.sql": "sha256:530642b8bf56d69fe0a76d717c313e185147e9fd2c9d9236ee6b807a5635d79f",
+    "migrations/core/0052_reminder_follow_through.sql": "sha256:cabd9889e4f5644dd62a5fba5f0529a472f6708a14e84327816423720e0ee7cd"
   }
 }
