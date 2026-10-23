@@ -22,6 +22,8 @@ function rich(value: any, links: Record<string, string>): string { if (!Array.is
     href = Object.entries(links).find(([id]) => href.includes(id))?.[1]; if (href && (safeUrl(href) || href.startsWith('/p/')))
     text = `<a${span.mention ? ' class="mention"' : ''} href="${html(href)}" rel="noopener noreferrer">${text}</a>`; else if (span.mention) text = `<span class="mention">${text}</span>`; return text; }).join(''); }
 function renderBlock(b: BlockView, slug: string, links: Record<string, string>, blocks: BlockView[]) { const c = b.content as Record<string, any>, id = html(b.id), text = rich(c.text, links); switch (b.blockType) {
+    case 'synced-source': return `<section id="${id}"><p>Synced source</p><p>${text}</p></section>`;
+    case 'synced-reference': return b.synced?.state==='ready'?`<section id="${id}"><p>Source: ${html(b.synced.sourceTitle)}</p><p>${rich(b.synced.text,links)}</p></section>`:`<aside id="${id}">Access needed</aside>`;
     case 'heading': return `<h${c.level} id="${html(headingAnchor(b.id))}">${text}</h${c.level}>`;
     case 'table-of-contents': return `<nav id="${id}" class="table-of-contents" aria-label="Table of contents">${renderTocList(tocEntries(blocks, c as TableOfContentsSettings))}</nav>`;
     case 'divider': return '<hr>';

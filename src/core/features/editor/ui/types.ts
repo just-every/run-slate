@@ -1,3 +1,4 @@
+import type {SyncedResolution} from '../../../shared/api/content';
 import type {FileReference} from '../file-cards/reference';
 import type {TableContent} from '../tables/model';
 import type {TableOfContentsSettings} from '../table-of-contents';
@@ -51,6 +52,8 @@ interface BlockBase {
   indent?: number;
   /** Structural parent for a layout; ordinary indentation stays relative to it. */
   layoutParentId?: string;
+  synced?: SyncedResolution;
+  copyRevisionId?: string;
 }
 
 export interface ParagraphBlockData extends BlockBase {
@@ -218,7 +221,12 @@ export interface TaskReportBlockData extends BlockBase { type: "task-report"; de
 export interface ColumnsBlockData extends BlockBase {type:"columns";count:number}
 export interface ColumnBlockData extends BlockBase {type:"column"}
 
+export interface SyncedSourceBlockData extends BlockBase {type:"synced-source";text:RichText}
+export interface SyncedReferenceBlockData extends BlockBase {type:"synced-reference";sourcePageId:string;sourceBlockId:string}
+
 export type EditorBlock =
+  | SyncedSourceBlockData
+  | SyncedReferenceBlockData
   | ColumnsBlockData
   | ColumnBlockData
   | ParagraphBlockData
@@ -279,6 +287,8 @@ export type ConflictChoice = "compare" | "reload" | "overwrite";
 
 export interface BlockActions {
   layoutBusy?: boolean;
+  onMakeSynced?: (blockId:string)=>void;
+  onSyncedSaved?: ()=>Promise<void>;
   onConvertTable?: (blockId:string) => void;
   onCopyCode?: (blockId: string) => void;
   onChooseFile?: (blockId: string) => void;
