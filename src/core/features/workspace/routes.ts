@@ -1,4 +1,4 @@
-import {directory,memberProfile} from './directory';
+import {directory,memberProfile,peopleOnPage} from './directory';
 import {saveProfile,profileInput} from './profile';
 import { mentionConfiguration, setMentionConfiguration } from '../comments/group-mentions';
 import { requireStepUp } from '../session/step-up';
@@ -34,7 +34,7 @@ export function createWorkspaceRoutes(){return new Hono<AppEnvironment>()
 .get('/api/people',async c=>c.json(await directory(featureContext(c),{q:c.req.query('q')})))
 .get('/api/people/:id',async c=>c.json(await memberProfile(featureContext(c),c.req.param('id'),c.req.query('pageId'))))
 .put('/api/people/:id',async c=>c.json(await saveProfile(featureContext(c),c.req.param('id'),await parseBody(c.req,profileInput))))
-.get('/api/pages/:pageId/people',async c=>c.json(await directory(featureContext(c),{pageId:c.req.param('pageId')})))
+.get('/api/pages/:pageId/people',async c=>c.json(await peopleOnPage(featureContext(c),c.req.param('pageId'))))
 .get('/api/members/current',async c=>c.json(await currentMember(featureContext(c))))
 .put('/api/members/current/theme',async c=>c.json(await setTheme(featureContext(c),await parseBody(c.req,z.object({operationKey:op,theme:z.enum(['light','dark','system'])}).strict()))))
 .get('/api/members',async c=>c.json(await listMembers(featureContext(c),'member')))
