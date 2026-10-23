@@ -1,3 +1,4 @@
+import {formsJourney} from './forms-journey.mjs';
 import {dashboardJourney} from './dashboard-journey.mjs';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
@@ -86,5 +87,8 @@ export async function databaseJourney(state) {
   assert.equal((await api(base + '/records/' + record.pageId)).values[keep.id], note);
   // DB-014 dashboard steps, separate from the database touch journey.
   await dashboardJourney(state);
+
+  // DB-013 form steps, separate from the database touch journey.
+  await formsJourney(state);
 
 }

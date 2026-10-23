@@ -43,6 +43,7 @@ export async function prepareDeleteStructuredPages(
         id: string;
       }>();
     statements.push(
+      ctx.db.prepare("UPDATE database_form_submissions SET record_id=NULL,request_hash='' WHERE record_id=?").bind(pageId),
       ctx.db.prepare("DELETE FROM structured_page_fields WHERE page_id=?").bind(pageId),
       ctx.db
         .prepare("DELETE FROM database_records WHERE page_id=?")
@@ -50,6 +51,8 @@ export async function prepareDeleteStructuredPages(
     );
     for (const db of databases.results) {
       statements.push(
+        ctx.db.prepare('DELETE FROM database_form_submissions WHERE form_id IN (SELECT id FROM database_forms WHERE database_id=?)').bind(db.id),
+        ctx.db.prepare('DELETE FROM database_forms WHERE database_id=?').bind(db.id),
         ctx.db
           .prepare(
             "UPDATE automation_rules SET source_database_id=NULL,disabled_at=?,disabled_reason='Source database permanently deleted' WHERE source_database_id=?",

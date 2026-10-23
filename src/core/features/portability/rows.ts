@@ -19,6 +19,7 @@ export function safeRow(table:string,row:DataRow,now=new Date().toISOString()):D
 
 /** Restore retains facts and definitions, while every route back to execution needs fresh authority. */
 const rules:Record<string,(row:DataRow,ownerEmail:string,now:string,keys:Map<string,string>)=>void>={
+ 'database_forms':(row)=>{row.published=0;row.publisher_member_id=null;},
  'review_requests':(row,_ownerEmail,now)=>{if(row.state==='pending')row.dispatch_paused_at=row.dispatch_paused_at??now;},
  'reminders':(row,_ownerEmail,now)=>{if(!row.delivered_at)row.cancelled_at=row.cancelled_at??now;},
  'workspaces':(row)=>{row.ai_enabled=0;},

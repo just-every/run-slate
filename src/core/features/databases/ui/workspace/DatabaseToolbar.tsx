@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import type { ViewDto } from "../../../../client/records";
 
 /** What the database screen shows: the records of the current view, that view's chart, the database's record templates, or its automations. */
-export type DatabaseMode = "records" | "chart" | "templates" | "automations";
+export type DatabaseMode = "records" | "chart" | "templates" | "automations" | "forms";
 
 /**
  * The one toolbar above the records. Left: one view switcher of compact toggle buttons (the saved views, Chart, Templates, Automations), of
@@ -46,6 +46,7 @@ export function DatabaseToolbar({
         <button type="button" aria-pressed={mode === "templates"} onClick={() => onMode(mode === "templates" ? "records" : "templates")}>
           Templates
         </button>
+        <button type="button" aria-pressed={mode === "forms"} onClick={() => onMode(mode === "forms" ? "records" : "forms")}>Forms</button>
         <button type="button" aria-pressed={mode === "automations"} onClick={() => onMode(mode === "automations" ? "records" : "automations")}>
           Automations
         </button>
