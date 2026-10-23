@@ -1020,7 +1020,7 @@ A page can hold a dashboard: several charts (`DB-008`) and views (`DB-011`) arra
 
 *Acceptance:* a browser journey builds a dashboard of three charts and a view, applies a date filter that changes every tile, and confirms a member with fewer grants sees lower counts and no restricted values.
 
-*Status:* partial. Charts over a view exist (`src/core/features/databases/ui/workspace/DatabaseChart.tsx`, `tests/qualification/policies/structured-views.test.ts`); multi-tile dashboards with shared filters do not.
+*Status:* partial. The editor inserts a dashboard block with chart and view tiles in a responsive grid. Shared date and person filters bind explicitly to each tile; every tile uses the current reader-scoped view evaluation before grouping or counting. Unreadable databases show access needed. Definitions use ordinary block saving, copying and revision snapshots; computed results are never saved. `tests/qualification/policies/structured-views.test.ts` (layouts and authorized records, including the authenticated HTTP dashboard case) and `tests/qualification/ui-convergence/dashboard-journey.mjs` (three charts and a view, shared date filter and restricted reader at 1440 and 390) cover the working door. Gap: readable export/import does not yet remap dashboard database, view, field and person references or preserve source views; native archive restore and revision restore have not been driven for this block. Dashboard views currently render a compact linked record list rather than each saved layout.
 
 #### DB-015 — Record templates and recurring records.
 A database has record templates (default fields and a body), and a template can repeat on a schedule (daily, weekly on given days, monthly or yearly), creating a record at the set time in the time zone of the member who last saved it. A schedule runs as the template's last saver (a re-save hands it to that saver, and the Templates tab shows who it runs as), exactly once per occurrence, even after restarts, and pauses with a visible reason if that saver loses access.
@@ -1806,7 +1806,7 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `817111f206b62f1efb822194e6c841bfdbfdebe7` (23 October 2026).
+Judged from the code and tests at commit `26a959d3fbaebf25ced409b970308d03793b223c` (23 October 2026).
 
 Live-provider evidence remains explicitly open. See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
@@ -2076,7 +2076,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `CARD-002` | Browser extension | target | missing | — | not implemented |
 | `CARD-003` | Required reading and announcements | target | missing | — | not implemented |
 | `DB-013` | Database forms | target | missing | — | not implemented |
-| `DB-014` | Dashboards | target | partial | `src/core/features/databases/ui/workspace/DatabaseChart.tsx` | see the clause |
+| `DB-014` | Dashboards | target | partial | `tests/qualification/policies/structured-views.test.ts`; `tests/qualification/ui-convergence/dashboard-journey.mjs` | Readable reference remapping/source views, native archive and revision restore proof, and saved view layouts remain open; see the clause. |
 | `DB-015` | Record templates and recurring records | target | done | `tests/e2e/databases/record-templates.test.ts` |  |
 | `DB-016` | AI autofill fields | target | missing | — | not implemented |
 | `NOTIF-004` | Reminders | target | done | `tests/profile/profile.worker.test.ts`, `tests/profile/work-items-journey.ts` |  |
