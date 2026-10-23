@@ -1,7 +1,8 @@
 import type { FeatureContext } from "../../app/feature-context";
 import { ApiProblem } from "../../app/problems";
-import { currentSubject, requirePageLevel } from "../sharing/current-access";
+import { currentSubject } from "../sharing/current-access";
 import { readPage } from "../pages/service";
+import { fileVisibility } from "../media/service";
 import { database, fields } from "./repository";
 export async function listDatabases(ctx: FeatureContext, containerId?: string) {
   await currentSubject(ctx);
@@ -87,6 +88,8 @@ export async function resolveReferences(
       if (!(e instanceof ApiProblem) || e.status !== 404) throw e;
     }
   }
+  // File metadata follows the media door: a reader learns only of files they could open.
+  const pages = new Map<string, ReturnType<typeof fileVisibility>>();
   for (const id of new Set(input.fileIds ?? [])) {
     const file = await ctx.db
       .prepare(
@@ -101,7 +104,8 @@ export async function resolveReferences(
       }>();
     if (!file?.page_id) continue;
     try {
-      await requirePageLevel(ctx, file.page_id, "view");
+      if (!pages.has(file.page_id)) pages.set(file.page_id, fileVisibility(ctx, file.page_id));
+      if (!(await (await pages.get(file.page_id)!).allows(id))) continue;
       items.push({
         id,
         label: file.original_name,

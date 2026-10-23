@@ -112,3 +112,30 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
     ).database.id,
   ).toBe(body.value.id);
 });
+
+test("database file references list only attachments the reader could open", async () => {
+  const { SELF } = await import("cloudflare:test");
+  const { sessionFor } = await import("../../e2e/setup/fixtures");
+  const { createPage } = await import("../../../src/core/features/pages/service");
+  const { uploadMedia } = await import("../../../src/core/features/media/service");
+  const { ctx, containerId, reader } = await scenario();
+  await seedContainerGrant(containerId, { principalKind: "member", principalId: reader.actor.id, level: "view" });
+  const owner = await sessionFor(ctx.actor.id), viewer = await sessionFor(reader.actor.id);
+  const call = async (method: string, path: string, cookie: string, body?: unknown) => {
+    const response = await SELF.fetch(`http://localhost/api${path}`, { method, headers: { cookie, origin: "http://localhost", ...(body ? { "content-type": "application/json" } : {}) }, ...(body ? { body: JSON.stringify(body) } : {}) });
+    const text = await response.text();
+    return { status: response.status, text, data: text ? JSON.parse(text) : null };
+  };
+  const db = (await call("POST", "/databases", owner, { operationKey: "case:file-references-db", containerId, title: "Vendor files" })).data.value;
+  expect((await call("POST", `/databases/${db.id}/fields`, owner, { operationKey: "case:file-references-field", expectedRevisionId: db.revisionId, field: { id: "attachment", name: "Attachment", type: "file", config: {}, position: 0 } })).status).toBeLessThan(300);
+  const page = await createPage(ctx, { operationKey: "case:file-references-page", containerId, title: "Vendor notes" });
+  const hidden = await uploadMedia(ctx, { operationKey: "case:file-references-upload", pageId: page.value.pageId, name: "unreleased-pricing.txt", contentType: "text/plain", bytes: new TextEncoder().encode("synthetic-slate-unreleased") });
+  expect((await call("GET", `/media/${hidden.value.id}`, viewer)).status).toBe(404);
+  const options = await call("GET", `/databases/${db.id}/references/attachment`, viewer);
+  expect(options.status, options.text).toBe(200);
+  expect(options.text).not.toContain("unreleased-pricing.txt");
+  const resolved = await call("POST", "/databases/references", viewer, { fileIds: [hidden.value.id] });
+  expect(resolved.status, resolved.text).toBe(200);
+  expect(resolved.text).not.toContain("unreleased-pricing.txt");
+  expect((await call("GET", `/databases/${db.id}/references/attachment`, owner)).text).toContain("unreleased-pricing.txt");
+});

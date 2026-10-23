@@ -5984,7 +5984,7 @@
       "executable": false
     },
     "src/core/features/databases/discovery.ts": {
-      "sha256": "2b480205c46dfe4f29d37aee60cdc431f66db4d86a59df77abd76d3d3bb2903e",
+      "sha256": "a9239bce2463ffa7d419ae791b8ed12b83e538166d5e17b84afeb5b563ee0802",
       "executable": false
     },
     "src/core/features/databases/evaluation.ts": {
@@ -7604,7 +7604,7 @@
       "executable": false
     },
     "src/core/features/media/service.ts": {
-      "sha256": "e3e1f32c1efde81c692fcf59c8c5962187dc2dab174b76d1996a65693ead09cf",
+      "sha256": "c6bb696af6edc3cd9a551710adf3a917a77810352d0b9c47ce2055b5cd63bef2",
       "executable": false
     },
     "src/core/features/navigation/configuration.ts": {
@@ -10724,7 +10724,7 @@
       "executable": false
     },
     "tests/flagship/structured/http.test.ts": {
-      "sha256": "df36508147be377ac771b93ec1906cc9107001fa8c8ff5800518578a73f66c24",
+      "sha256": "b51c5f6979d5b2d1383810b1d78b662a29e21f9ba34faa36d4937fc7e1ea448b",
       "executable": false
     },
     "tests/flagship/structured/migration.py": {

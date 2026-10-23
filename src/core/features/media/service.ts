@@ -50,16 +50,19 @@ export async function uploadMedia(ctx: FeatureContext, input: MediaInput) {
         throw e;
     }
 }
+/** Editors may open any file on a page; view and comment readers only the files the page they can see shows them. */
+export async function fileVisibility(ctx: FeatureContext, pageId: string) {
+    const access = await requirePageLevel(ctx, pageId, 'view');
+    const visible = await readPage(ctx, pageId), limited = access.decision.level === 'view' || access.decision.level === 'comment';
+    return { visible, allows: async (id: string) => !limited || visible.properties.coverFileId === id || visible.properties.icon === `file:${id}` || bodyReferencesFile(visible.blocks, id) || await propertyReferencesFile(ctx, pageId, visible.properties, id) };
+}
 export async function serveMedia(ctx: FeatureContext, id: string, display?: string) {
     const f = await ctx.db.prepare('SELECT * FROM files WHERE id=? AND workspace_id=? AND deleted_at IS NULL').bind(id, ctx.actor.workspaceId).first<Record<string, any>>();
     if (!f?.page_id)
         throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
-    const access = await requirePageLevel(ctx, f.page_id, 'view');
-    const visible = await readPage(ctx, f.page_id);
-    if (access.decision.level === 'view' || access.decision.level === 'comment') {
-        if (visible.properties.coverFileId !== id && visible.properties.icon !== `file:${id}` && !bodyReferencesFile(visible.blocks,id) && !await propertyReferencesFile(ctx,f.page_id,visible.properties,id))
-            throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
-    }
+    const files = await fileVisibility(ctx, f.page_id), visible = files.visible;
+    if (!await files.allows(id))
+        throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
     const p = await pageRow(ctx, f.page_id);
     if (p.trashed_at)
         throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
