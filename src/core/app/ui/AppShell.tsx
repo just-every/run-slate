@@ -71,6 +71,7 @@ export function AppShell({
               ref={navigationTrigger}
               type="button"
               aria-label={open ? "Close navigation" : "Open navigation"}
+              data-tooltip={open ? "Close navigation" : "Open navigation"} data-tooltip-align="right"
               aria-expanded={open}
               onClick={() => setOpen(!open)}
             >

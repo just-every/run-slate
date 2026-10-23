@@ -5092,11 +5092,11 @@
       "executable": false
     },
     "src/core/app/ui/AppNavigation.tsx": {
-      "sha256": "3fabf1c27ced1cc0c71f275a2032ffb96f5068820fb6ab25f6c522e398638977",
+      "sha256": "1301ae47bd4538b7f92b66c354fcc8c4a79b7a522c3777d58f16d6da7a61b5ab",
       "executable": false
     },
     "src/core/app/ui/AppShell.tsx": {
-      "sha256": "18e9d7e1e47c214fb33ed7109a0fc05b05b326a7838a912c1c49f1619b212db3",
+      "sha256": "b341e3ddd9140f706d9d6e644a03110037ed9a43c5d49709c9986b4bca2d2519",
       "executable": false
     },
     "src/core/app/ui/displayDate.ts": {
