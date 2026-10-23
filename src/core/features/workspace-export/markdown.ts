@@ -1,3 +1,4 @@
+import {layoutRoots} from '../editor/layout';
 import {htmlBlock} from './html';
 import type { BlockView } from '../../shared/api/content';
 import { plainContent } from '../editor/validation';
@@ -24,4 +25,4 @@ export function markdownBlock(block: BlockView, blocks: BlockView[]): string {
   }
 }
 
-export const markdownDocument = (title: string, blocks: BlockView[]) => `# ${escapeMarkdown(title)}\n\n${blocks.filter(block=>!blocks.some(parent=>(parent.blockType==='columns'||parent.blockType==='column') && parent.id===block.parentBlockId)).map(block => markdownBlock(block, blocks)).join('\n\n')}\n`;
+export const markdownDocument = (title: string, blocks: BlockView[]) => `# ${escapeMarkdown(title)}\n\n${layoutRoots(blocks).map(block => markdownBlock(block, blocks)).join('\n\n')}\n`;
