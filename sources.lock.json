@@ -12204,7 +12204,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "7bed383c92407b04cecbcd173943aeab145e5b566abe703e08535357fdc9d341",
+      "sha256": "f0bfb120f370b104fa23865175624e971a4a58802066200fa25ee9eb38b81f1c",
       "executable": false
     },
     "tests/qualification/ui-convergence/my-tasks-journey.mjs": {
@@ -12299,8 +12299,16 @@
       "sha256": "3c7d88d249240ed833d4f8549d82b12e0128da7fff28cef9097279d577096bb7",
       "executable": false
     },
+    "tests/qualification/ui-convergence/touch-management-journey.mjs": {
+      "sha256": "00c0973816d42d6d859c13350f2aa00d03724f74d1ff1c38c9dae47d835f878b",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/touch-operator-journey.mjs": {
       "sha256": "21520038fa5d1fad3fe2b4a8eb6d707c07e3a45621a9af1144fe0d3499813f92",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/touch-page-tools-journey.mjs": {
+      "sha256": "697ecdab8a9caa4a649ce94d7adb51e6f78a9881c0944f4360251da81b4ed793",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page.mjs": {
