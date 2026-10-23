@@ -47,7 +47,7 @@ export async function snapshotPage(
       "TEMPLATE_LIMIT",
       "Template tree exceeds allowed depth.",
     );
-  const p = await readPage(ctx, id);p.blocks=materializeSynced(p.blocks);
+  const p = await readPage(ctx, id);p.blocks=materializeSynced(p.blocks,p.page.title);
   const snapshot: TemplateSnapshot = {
     title: p.page.title,
     properties: {

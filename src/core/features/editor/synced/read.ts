@@ -43,9 +43,9 @@ export async function projectPublicSynced(db:D1Database,exposure:Record<string,a
  }));
 }
 /** Readable copies are independent paragraphs, with no source identifiers or retained sync permission. */
-export function materializeSynced(blocks:BlockView[]):BlockView[]{return blocks.map(block=>{
+export function materializeSynced(blocks:BlockView[],sourceTitle?:string):BlockView[]{return blocks.map(block=>{
  const {synced,...plain}=block;
- if(block.blockType==='synced-source')return {...plain,blockType:'paragraph'};
+ if(block.blockType==='synced-source')return {...plain,blockType:'paragraph',content:sourceTitle?{text:[...((block.content as any).text),{text:`\nSource: ${sourceTitle}`}]}:block.content};
  if(block.blockType!=='synced-reference')return plain;
  const text=synced?.state==='ready'?[...(synced.text??[]),{text:`\nSource: ${synced.sourceTitle}`}]:[{text:'Access needed'}];
  return {...plain,blockType:'paragraph',content:{text} as BlockView['content']};

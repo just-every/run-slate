@@ -324,7 +324,12 @@ export function PageEditorBody({
           const source=editor.blocks[at];
           const children=source.type==="columns"?editor.blocks.filter(block=>block.layoutParentId===id || editor.blocks.some(parent=>parent.id===block.layoutParentId && parent.layoutParentId===id)):[];
           const ids=new Map([source,...children].map(block=>[block.id,crypto.randomUUID()]));
-          next.splice(at+1,0,...[source,...children].map(block=>({...structuredClone(block),id:ids.get(block.id)!,layoutParentId:ids.get(block.layoutParentId??"")??block.layoutParentId})));
+          next.splice(at+1,0,...[source,...children].map(block=>{
+            const base={id:ids.get(block.id)!,indent:block.indent,layoutParentId:ids.get(block.layoutParentId??"")??block.layoutParentId};
+            if(block.type==='synced-source')return {...base,type:'paragraph' as const,text:[...block.text,{text:`\nSource: ${document.page.title}`}]};
+            if(block.type==='synced-reference')return {...base,type:'paragraph' as const,text:block.synced?.state==='ready'?[...(block.synced.text as import('../../../editor/ui/types').RichText),{text:`\nSource: ${block.synced.sourceTitle}`}]:[{text:'Access needed'}]};
+            return {...structuredClone(block),...base};
+          }));
           void apply(next);
         }}
         onRetrySave={(id) => {
