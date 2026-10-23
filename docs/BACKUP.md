@@ -9,6 +9,8 @@ A Slate backup is one zip file that holds your whole workspace. You can make one
 - Comments, notifications, automations and the activity log.
 - Every uploaded file in its original form, and the original files of imports that have not been deleted.
 
+Pages can hold a Dashboard block with charts and linked record lists. Add tiles from the editor, choose a database and saved view for each, and bind date or person fields to use shared filters. Results always reflect the current reader’s access. The saved block holds its configuration, while results are fetched when the page opens. Readable exports do not yet reconnect dashboard sources after import.
+
 Slate checks the archive's checksums before it restores anything.
 
 A backup leaves some things out on purpose: sign-in sessions, sign-in links, pending invitations, saved responses to repeated requests, and every provider key and secret. Keep `SLATE_SESSION_SECRET` and your email provider's key somewhere safe yourself, because they cannot come back from a backup.

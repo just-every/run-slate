@@ -50,6 +50,7 @@ function renderBlock(b: BlockView, slug: string, links: Record<string, string>, 
         const url = c.url.startsWith('/app/') ? Object.entries(links).find(([id]) => c.url.includes(id))?.[1] : c.url;
         return url && (safeUrl(url) || url.startsWith('/p/')) ? `<p><a href="${html(url)}" rel="noopener noreferrer">${html(c.preview?.title ?? c.url)}</a></p>` : `<p>${html(c.preview?.title ?? c.url)}</p>`;
     }
+    case 'dashboard': return `<aside id="${id}">Sign in to view this dashboard.</aside>`;
     case 'task-report': return `<aside id="${id}">Sign in to view this task report.</aside>`;
     case 'content-query': return `<ul>${(c.results ?? []).map((r: any) => `<li><a href="${html(r.url)}">${html(r.title)}</a></li>`).join('')}</ul>`;
     default: return `<p id="${id}">${text}</p>`;

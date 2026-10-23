@@ -334,8 +334,9 @@ export async function chart(
   group: string,
   numeric?: string,
   calculation = "count",
+  embedded?: Parameters<typeof queryView>[3],
 ) {
-  const result = await queryView(ctx, id, viewId);
+  const result = await queryView(ctx, id, viewId, embedded);
   if (
     !result.fields.some((f) => f.id === group) ||
     (numeric &&

@@ -1,3 +1,4 @@
+import {dashboardCase} from './dashboard-case';
 import { test, expect, beforeEach } from 'vitest';
 import {resetDeployment} from '../../e2e/setup/reset-deployment';
 
@@ -12,7 +13,7 @@ import { replaceBlocks } from '../../../src/core/features/editor/service';
 import { listComments, createComment } from '../../../src/core/features/comments/service';
 import { revisionHistory } from '../../../src/core/features/versions/service';
 const view = (id: string): View => ({ id, name: id, layout: 'table', filters: [], sorts: [], groups: [], calculations: {}, display: {}, position: 0 });
-test('DB-003 DB-004 DB-005 DB-006 DB-007 DB-008 DB-009 DB-011: layouts and aggregate/filter/group/chart boundaries change only views and use reader authorized records', async () => {
+test('DB-003 DB-004 DB-005 DB-006 DB-007 DB-008 DB-009 DB-011 DB-014: layouts and aggregate/filter/group/chart boundaries change only views and use reader authorized records', async () => {
     const { owner, reader, containerId } = await scenario();
     const db = await createDatabase(owner, { operationKey: key('db'), containerId, title: 'Read scope' });
     let revision = db.receipt.revisionId;
@@ -50,6 +51,7 @@ test('DB-003 DB-004 DB-005 DB-006 DB-007 DB-008 DB-009 DB-011: layouts and aggre
     await expect(saveView(owner, db.value.id, { operationKey: key('locked-view'), expectedRevisionId: locked.receipt.revisionId, view: view('denied') })).rejects.toMatchObject({ code: 'STRUCTURE_LOCKED' });
     await updateRecord(owner, records[0].value.pageId, { operationKey: key('locked-record'), expectedRevisionId: records[0].receipt.revisionId, values: { score: 4 } });
     expect((await queryView(reader, db.value.id, 'calc')).calculations.score).toBe(100);
+    await dashboardCase(owner, reader, containerId);
 });
 test("DB-001 DB-010 DB-012 REV-002: both record parity profiles retain body, comments and immutable field revisions on profile round trip", async () => {
     for (const parity of ['record-is-page', 'record-is-row'] as const) {

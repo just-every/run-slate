@@ -48,6 +48,7 @@ export type InsertKind =
   | "link-card"
   | "content-query"
   | "table-of-contents"
+  | "dashboard"
   | "task-report"
   | "status";
 
@@ -94,6 +95,7 @@ const media: InsertEntry[] = [
 ];
 
 const advanced: InsertEntry[] = [
+  {kind:"dashboard",name:"Dashboard",icon:Table,description:"Charts and views with shared date and person filters"},
   {kind:"table-of-contents",name:"Table of contents",icon:ListTree,description:"Links to headings in this page"},
   {kind:"task-report",name:"Task report",icon:ListTodo,description:"Live tasks the current reader can access"},
   {kind:"status",name:"Status label",shortcut:"/status",icon:Info,description:"An inline label with text and colour"},
