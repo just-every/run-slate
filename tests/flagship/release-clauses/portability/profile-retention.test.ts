@@ -30,6 +30,7 @@ beforeAll(async()=>{imported=await makeImport(workspace);},10000);
 beforeAll(async()=>{
   source={...workspace,pages,...inquiryRecords,...decision,...skillTrial,connectionId,...imported};
   migrations=await migrationNames();
+  const profileCookie=await setupOwnerCookie(source);const profile=await apiRequest(`/api/people/${source.ownerId}`,profileCookie,'core-wiki');expect(profile.status).toBe(200);const beforeProfile=await profile.json<any>();const saved=await apiRequest(`/api/people/${source.ownerId}`,profileCookie,'core-wiki',{method:'PUT',headers:{'content-type':'application/json'},body:JSON.stringify({operationKey:randomOperationKey('directory-archive'),expectedRevisionId:beforeProfile.revisionId,title:'Response coordinator',timezone:'Australia/Brisbane',tags:[{tag:'Private restore choice',hidden:true,custom:true}]})});expect(saved.status,await saved.text()).toBe(200);
   sourceArchive=await exportNativeArchive(source);
 },10000);
 afterAll(async()=>{await resetNative();},10000);
@@ -117,6 +118,7 @@ test('FLAG-001 — core-profile restore retains and exports flagship history whi
   const restored=await runRestoreThroughApi(staged.cookie,staged.body.id,'');
   expect(restored.response.status).toBe(200);
   expect(restored.body.state).toBe('completed');
+  const restoredProfile=await apiRequest(`/api/people/${source.ownerId}`,await setupOwnerCookie(source),'core-wiki');expect(restoredProfile.status).toBe(200);expect(await restoredProfile.json<any>()).toMatchObject({title:'Response coordinator',timezone:'Australia/Brisbane',hiddenTags:[{tag:'Private restore choice',custom:true}]});
   expect(await migrationNames()).toEqual(migrations);
   const counts=await tableCounts();
   const afterD1=await portableSnapshot();

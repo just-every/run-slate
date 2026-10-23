@@ -1,10 +1,11 @@
+import {peopleCase} from './people-case';
 import { env } from 'cloudflare:test';
 import { test, expect } from 'vitest';
 import { reviewFixture } from './fixture';
 
 // The "Needs review" list is access control: every subject sees exactly the rows of the
 // pages it may read today, and nothing of the others — no row, title, state or count.
-test('Needs review lists only pages each member may read now, by filter, with live access on every request and cursor page', async () => {
+test('Needs review and the people directory expose only readable work, with live access, expertise choices and explicit review routing', async () => {
   const f = await reviewFixture(env.DB), { sql, now, page, verify, request, at } = f;
   type Case = { id: string; marker: string; allowed: string[]; verifier: string; state: 'lapsed' | 'changed' | 'expiring' | 'current' };
   const cases: Case[] = [];
@@ -150,5 +151,6 @@ test('Needs review lists only pages each member may read now, by filter, with li
   // A page owner's title does not override a later loss of current read access.
   await sql("UPDATE page_grants SET revoked_at=? WHERE id='review-access-reader'", now);
   expect((await request('reader', 'POST', '/api/status/requests/page/request-access', {...groupInput, operationKey: requestOp()})).status).toBe(404);
+  await peopleCase();
   console.error('REVIEW_ACCESS_TABLE ' + JSON.stringify(table));
 }, 90_000);
