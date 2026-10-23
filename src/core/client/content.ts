@@ -46,6 +46,8 @@ export function editorBlocks(blocks: BlockView[]): EditorBlock[] {
       type: block.blockType,
       indent,
       layoutParentId,
+      synced:block.synced,
+      copyRevisionId:block.revisionId,
     } as EditorBlock;
   });
 }
@@ -53,7 +55,7 @@ export function editorBlocks(blocks: BlockView[]): EditorBlock[] {
 export function storedBlocks(blocks: EditorBlock[]) {
   const ancestors: string[] = [];
   return blocks.map((block, index) => {
-    const { id, type: blockType, indent = 0, layoutParentId, ...content } = block;
+    const { id, type: blockType, indent = 0, layoutParentId, synced:_synced, copyRevisionId:_copyRevisionId, ...content } = block;
     const depth = Math.min(indent, ancestors.length);
     const parentBlockId = depth > 0 ? ancestors[depth - 1] : layoutParentId ?? null;
     ancestors.length = depth;
@@ -100,7 +102,7 @@ export const contentApi = {
     expectedRevisionId: string,
     key: string,
   ) => {
-    const { id, type: _type, indent: _indent, layoutParentId: _layoutParentId, ...content } = block;
+    const { id, type: _type, indent: _indent, layoutParentId: _layoutParentId, synced:_synced, copyRevisionId:_copyRevisionId, ...content } = block;
     return mutate<ContentReceipt>(
       `/api/pages/${encodeURIComponent(pageId)}/blocks/${encodeURIComponent(id)}`,
       { operationKey: key, expectedRevisionId, content },

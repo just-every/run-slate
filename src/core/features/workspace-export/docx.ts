@@ -1,3 +1,4 @@
+import {materializeSynced} from '../editor/synced/read';
 import {layoutOrder} from '../editor/layout';
 import { strToU8, zipSync } from 'fflate';
 import type { FeatureContext } from '../../app/feature-context';
@@ -18,7 +19,7 @@ export async function renderDocx(ctx:FeatureContext, ids:ReadonlySet<string>, ex
   const bookmarks=new Map<string,{id:number;name:string}>();
   const anchor=(id:string)=>{const n=bookmarks.size+1;bookmarks.set(id,{id:n,name:`slate_${n}`});};
   for(const id of ids) {
-    const page=await readPage(ctx,id);
+    const page=await readPage(ctx,id);page.blocks=materializeSynced(page.blocks);
     pages.push(page);anchor(id);page.blocks.forEach(block=>anchor(block.id));
     if(includeComments)comments.add(id,await exportComments(ctx,id,page.blocks,['edit','full'].includes(page.permissions.level)));
   }
