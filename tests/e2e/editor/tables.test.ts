@@ -1,3 +1,4 @@
+import {columnsCase} from './columns-case';
 import {env} from 'cloudflare:test';
 import {beforeEach,expect} from 'vitest';
 import {createApi} from '../../../src/core/app/hono';
@@ -6,7 +7,7 @@ import {resetDeployment} from '../setup/reset-deployment';
 import {seedWorkspace,seedMember,seedContainer,seedContainerGrant,sessionFor} from '../setup/fixtures';
 
 beforeEach(resetDeployment);
-contract('BLOCK-014','tables preserve every cell and formatting through real editable databases, with atomic access and revision checks',async()=>{
+contract('BLOCK-014','tables and columns preserve structured content through editing, validation, exports and incumbent imports',async()=>{
   const {workspaceId}=await seedWorkspace();
   const {memberId:owner}=await seedMember(workspaceId,{role:'owner',email:'owner@slate.test',displayName:'Alex Owner',isSetupOwner:true});
   const {memberId:reader}=await seedMember(workspaceId,{role:'member',email:'reader@slate.test',displayName:'Morgan Reader'});
@@ -14,7 +15,7 @@ contract('BLOCK-014','tables preserve every cell and formatting through real edi
   await seedContainerGrant(containerId,{principalKind:'member',principalId:owner,level:'full'});
   await seedContainerGrant(containerId,{principalKind:'member',principalId:reader,level:'view'});
   const cookies={owner:await sessionFor(owner),reader:await sessionFor(reader)},api=createApi();
-  const req=(method:string,path:string,body?:unknown,actor:keyof typeof cookies='owner')=>api.request('https://slate.test/api'+path,{method,headers:{cookie:cookies[actor],origin:'https://slate.test','content-type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)},{...env,SLATE_PROFILE:undefined});
+  const req=(method:string,path:string,body?:unknown,actor:keyof typeof cookies='owner')=>api.request('https://slate.test/api'+path,{method,headers:{cookie:cookies[actor],origin:'https://slate.test',...(body instanceof FormData?{}:{'content-type':'application/json'})},body:body===undefined?undefined:body instanceof FormData?body:JSON.stringify(body)},{...env,SLATE_PROFILE:undefined});
   const json=async(method:string,path:string,body?:unknown,actor:keyof typeof cookies='owner')=>{const r=await req(method,path,body,actor),data=await r.json<any>();expect(r.status,JSON.stringify(data)).toBe(200);return data;};
   const rows=Array.from({length:10},(_,r)=>({id:crypto.randomUUID(),cells:Array.from({length:20},(_,c)=>`Workstream ${r+1}, checkpoint ${c+1}${r===0&&c===0?'\nOwner: Alex':''}`)}));
   const table={caption:'Release readiness',columns:Array.from({length:20},(_,i)=>`Checkpoint ${i+1}`),rows,headerColumn:true,widths:Array.from({length:20},()=>220),colours:{[`${rows[0]!.id}:0`]:'green'},merges:[{rowId:rows[0]!.id,column:0,rowSpan:2,colSpan:2}]};
@@ -48,4 +49,5 @@ contract('BLOCK-014','tables preserve every cell and formatting through real edi
   // A reader cannot obtain concealed original cells through shared view formatting.
   expect(view.display.tableOrigin).not.toHaveProperty('rows');
   expect(view.display.tableOrigin).not.toHaveProperty('merges');
+  await columnsCase(req,containerId);
 });

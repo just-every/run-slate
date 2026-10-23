@@ -1990,7 +1990,7 @@
     },
     {
       "file": "tests/e2e/editor/tables.test.ts",
-      "testName": "BLOCK-014 \u2014 tables preserve every cell and formatting through real editable databases, with atomic access and revision checks",
+      "testName": "BLOCK-014 — tables and columns preserve structured content through editing, validation, exports and incumbent imports",
       "kind": "supporting-regression",
       "clauses": [
         "BLOCK-014"
