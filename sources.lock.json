@@ -9716,7 +9716,7 @@
       "executable": false
     },
     "tests/e2e/docs.test.ts": {
-      "sha256": "657ee7077887328b4fa0c2a6ee57611f3a7a199a6fa82ee498ded8850f4c1cf5",
+      "sha256": "10e160a710e424eda6afab285252249bac9b32f839cf2860521ec6a8a7f6763f",
       "executable": false
     },
     "tests/e2e/editor/editable-composition.test.mjs": {
