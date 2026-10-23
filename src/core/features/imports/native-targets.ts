@@ -4,6 +4,14 @@ import {expectedNativeScope,type NativeUnit,type NativeScope} from './native-pla
 
 const identifier=(name:string)=>{if(!/^[a-z][a-z0-9_]*$/.test(name))throw new Error('Invalid native import identifier.');return `"${name}"`;};
 const sql=(sql:string,...params:unknown[]):D1Sql=>({sql,params});
+/** A layout can own many mapping rows. Keep the complete snapshot comparison
+ * in one statement without spending one D1 bind parameter per owned scope. */
+function scopeBindings(query:D1Sql):D1Sql {
+  let index=0;
+  const statement=query.sql.replaceAll('?',()=>`json_extract(?1,'$[${index++}]')`);
+  if(index!==(query.params?.length??0))throw new Error('Invalid native scope bindings.');
+  return sql(statement,JSON.stringify(query.params??[]));
+}
 export interface NativeImportBinding {id:string; created_at:string; native_published:number}
 
 // A member's share of an imported page or container is access to it, not an
@@ -23,7 +31,7 @@ function scopeQuery(unit:NativeUnit,scope:NativeScope,job:NativeImportBinding):D
 }
 function projection(unit:NativeUnit,job:NativeImportBinding):D1Sql {
   const queries=unit.scopes.map(scope=>scopeQuery(unit,scope,job));
-  return sql(`SELECT ${queries.map((q,i)=>`(${q.sql}) AS s${i}`).join(',')}`,...queries.flatMap(q=>q.params??[]));
+  return scopeBindings(sql(`SELECT ${queries.map((q,i)=>`(${q.sql}) AS s${i}`).join(',')}`,...queries.flatMap(q=>q.params??[])));
 }
 function expectedProjection(unit:NativeUnit){return unit.scopes.map(s=>expectedNativeScope(unit,s));}
 function valueUnit(row:TargetRow):NativeUnit {return (row.value as unknown as {unit:NativeUnit}).unit;}
@@ -64,7 +72,7 @@ export function nativeTargets(job:NativeImportBinding,writes:()=>number):D1Targe
       // One aggregate comparison avoids SQLite's expression-depth limit and
       // binds each scope identity once. Concatenation removes JSON subtypes so
       // both sides contain the exact serialized per-table snapshots.
-      return sql(`EXISTS(SELECT 1 FROM import_native_targets WHERE import_id=? AND kind=? AND target_id=? AND value_json=? AND revision=?) AND json_array(${queries.map(q=>`((${q.sql}) || '')`).join(',')})=?`,destination,kind,id,JSON.stringify(value),row.revision,...queries.flatMap(q=>q.params??[]),JSON.stringify(observed));
+      return scopeBindings(sql(`EXISTS(SELECT 1 FROM import_native_targets WHERE import_id=? AND kind=? AND target_id=? AND value_json=? AND revision=?) AND json_array(${queries.map(q=>`((${q.sql}) || '')`).join(',')})=?`,destination,kind,id,JSON.stringify(value),row.revision,...queries.flatMap(q=>q.params??[]),JSON.stringify(observed)));
     },
     write(row) {
       const unit=valueUnit(row),statements:D1Sql[]=[];
