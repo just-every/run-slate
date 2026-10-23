@@ -6,7 +6,12 @@ import {expect} from '@playwright/test';
 import {ok} from './two-people-support.mjs';
 import {tap,type,checkpoint} from './touch-controls.mjs';
 
-const more=async(page,name)=>{await tap(page.getByRole('button',{name:'More',exact:true}));await tap(page.getByRole('menuitem',{name,exact:true}));};
+const more=async(page,name)=>{
+ if(['History','Details'].includes(name)&&page.viewportSize().width>700){
+  const button=page.getByRole('button',{name,exact:true});
+  await expect(button).toHaveAttribute('data-tooltip',name);await tap(button);
+ }else{await tap(page.getByRole('button',{name:'More',exact:true}));await tap(page.getByRole('menuitem',{name,exact:true}));}
+};
 
 export async function touchPageToolsJourney(touch){
  const {page,context,origin,api,pageId}=touch;
