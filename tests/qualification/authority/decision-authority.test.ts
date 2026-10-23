@@ -5,6 +5,7 @@ import {retainStatementClaim,readClaim,reviseClaim} from '../../../src/core/feat
 import {saveDecision,acceptDecision,reviewDecision,removeDecision} from '../../../src/core/features/decisions/service';
 import {updatePage} from '../../../src/core/features/pages/service';
 import {exportWorkspace,restoreWorkspace} from '../../../src/core/features/portability/service';
+import {sessionFor} from '../../e2e/setup/fixtures';
 
 beforeEach(reset);
 test('SOURCE-003 — claims keep accepted authority through review, withdraw it when nested citations change or layer is removed, and preserve exact history through restore',async()=>{
@@ -31,4 +32,19 @@ test('SOURCE-003 — claims keep accepted authority through review, withdraw it 
  expect(await env.DB.prepare('SELECT * FROM knowledge_decisions WHERE id=?').bind(decision.value.id).first()).toEqual(prior);
  expect((await readClaim(f.context(),revised.value.revisionId)).authorityCurrent).toBe(false);
  expect((await env.DB.prepare('PRAGMA foreign_key_check').all()).results).toEqual([]);
+});
+test('an earlier decision revision is read without the current prose its reader can no longer cite',async()=>{
+ const {SELF}=await import('cloudflare:test');
+ const f=await fixture(),host=await document(f,'Decision host page'),open=await document(f,'Open vendor comparison'),later=await document(f,'Later negotiation notes'),ctx=f.context();
+ const draft={pageId:host.id,options:['Vendor A','Vendor B'],ownerId:f.owner,decidedAt:null,reviewAt:null};
+ const first=await saveDecision(ctx,{...draft,operationKey:'decision-open-draft',question:'Which vendor do we shortlist?',outcome:'Vendor A',rationale:'Lower published price.',citations:[open.ref]});
+ const second=await saveDecision(ctx,{...draft,operationKey:'decision-later-draft',id:first.value.id,expectedRevisionId:first.value.revisionId,question:'Do we accept the confidential counter-offer?',outcome:'Accept the counter-offer',rationale:'Negotiated discount stays confidential.',citations:[later.ref]});
+ expect(second.value.revisionId).not.toBe(first.value.revisionId);
+ await env.DB.prepare('DELETE FROM page_grants WHERE id=?').bind(later.grantId).run();
+ const cookie=await sessionFor(f.reader),read=(query='')=>SELF.fetch(`http://localhost/api/decisions/${first.value.id}${query}`,{headers:{cookie}});
+ expect((await read()).status).toBe(404);
+ const earlier=await read(`?revision=${first.value.revisionId}`),text=await earlier.text();
+ expect(earlier.status,text).toBe(200);
+ expect(JSON.parse(text)).toMatchObject({question:'Which vendor do we shortlist?',content:{outcome:'Vendor A'}});
+ expect(text).not.toMatch(/counter-offer|confidential/i);
 });
