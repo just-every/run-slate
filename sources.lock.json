@@ -12064,7 +12064,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/columns-journey.mjs": {
-      "sha256": "5bb96a4e0c7e8c9a0addaefeb4fca387652d59b5ecf66eacab32e81c9558c582",
+      "sha256": "c5dc3846ae06b4f8900322fa11941e9df793702a0a80a8f90c37b3f05132716c",
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
