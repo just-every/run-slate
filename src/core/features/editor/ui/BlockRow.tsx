@@ -71,6 +71,7 @@ export interface BlockRowProps {
   onDragStart?: () => void;
   onDragEnd?: () => void;
   onDropHere?: () => void;
+  onTouchDrop?: (targetId: string) => void;
 }
 
 /** One row of the body: the gutter, the block, and the block's own save state. */
@@ -93,6 +94,7 @@ export function BlockRow({
   onDragStart,
   onDragEnd,
   onDropHere,
+  onTouchDrop,
 }: BlockRowProps) {
   const label = describeBlock(block);
   const status = saveState?.status ?? "idle";
@@ -119,6 +121,7 @@ export function BlockRow({
         onDelete={onDelete}
         onDragEnd={onDragEnd}
         onDragStart={onDragStart}
+        onTouchDrop={onTouchDrop}
         onDuplicate={onDuplicate}
         onInsert={onInsert}
         onMove={onMove}

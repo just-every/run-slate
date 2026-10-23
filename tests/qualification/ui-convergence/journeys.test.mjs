@@ -196,14 +196,15 @@ for (const width of [1440, 390]) {
       await state.page.keyboard.press('Escape');
       let pageId,touch;
       try {
-      await t.test('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving', async () => { pageId = await writeJourney(state, width); touch=await beginTouchJourney(state,width); });
-      assert.ok(pageId && touch, 'Owner and touch-member writing must complete before dependent journeys.');
-      await t.test('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await touchCommentJourney(touch,touch.pageId);});
-      await t.test('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touchPublishShareJourney(touch,touch.pageId);});
-      await t.test('query, highlighted results and opening exact page', () => searchJourney(state, pageId));
-      await settingsJourney(state, width);
-      await chatJourney(state, width);
-      await t.test('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts', async () => {await databaseJourney(state);await touchDatabaseJourney(touch,touch.containerId);});
+        await t.test('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks', async () => { pageId = await writeJourney(state, width); touch=await beginTouchJourney(state,width); });
+        assert.ok(pageId, 'Writing must complete before dependent journeys.');
+        assert.ok(touch, 'Touch-member writing must complete before its dependent journeys.');
+        await t.test('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await touchCommentJourney(touch,touch.pageId);});
+        await t.test('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touchPublishShareJourney(touch,touch.pageId);});
+        await t.test('query, highlighted results and opening exact page', () => searchJourney(state, pageId));
+        await settingsJourney(state, width);
+        await chatJourney(state, width);
+        await t.test('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts', async () => {await databaseJourney(state);await touchDatabaseJourney(touch,touch.containerId);});
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
   });

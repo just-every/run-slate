@@ -5020,7 +5020,7 @@
       "executable": false
     },
     "src/core/app/styles/header.css": {
-      "sha256": "8bb3c478b522413fc16ee17aa41a14db42376a115b92fca67c53570e8ab41d2c",
+      "sha256": "c1479ec26e09b4efc8912fca2cca0afa911a6a8abf35094330ac4289ac42ae80",
       "executable": false
     },
     "src/core/app/styles/hub.css": {
@@ -5044,7 +5044,7 @@
       "executable": false
     },
     "src/core/app/styles/page.css": {
-      "sha256": "551213ee202efe64a803bad12da8fc8f70a139ff792f3a84053ba834058f8939",
+      "sha256": "6a3a3be0f8834ddca4c53421ac9b7246dd5e96db61664430052614b1d5fa832c",
       "executable": false
     },
     "src/core/app/styles/panels.css": {
@@ -5996,7 +5996,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/views/CalendarView.tsx": {
-      "sha256": "3e1f7681fb48a923ebf12759672419d9786587436d629c770b0bdec8b7a198be",
+      "sha256": "323db82f2500eb40a314eee9ff8e17a82048fddcf0fa1823bc61c5a6b5710bb4",
       "executable": false
     },
     "src/core/features/databases/ui/views/GalleryView.tsx": {
@@ -6008,7 +6008,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/views/RecordCard.tsx": {
-      "sha256": "8c23469fa18b6a17d2a4d381736bb1b300fdfca7fe2ebe733872e07c0bb8e300",
+      "sha256": "5bc43eb9a5894d0abe037d2b080ed676fc6bcfd00281f155813c150e51d4ca6c",
       "executable": false
     },
     "src/core/features/databases/ui/views/shared.ts": {
@@ -6344,15 +6344,15 @@
       "executable": false
     },
     "src/core/features/editor/ui/BlockEditor.tsx": {
-      "sha256": "df61e1796e28ebc9b16375ad1673f23b0feba35250381d956d88d62aa48494ff",
+      "sha256": "e152e386cd4ed6e8a18ca8089caaff16f609e9ba3837e67262be11629858ba36",
       "executable": false
     },
     "src/core/features/editor/ui/BlockHandle.tsx": {
-      "sha256": "617659f913c46aa8fb6e1c7fd9102527af02a75e5a953f23a0991dc338ca1c50",
+      "sha256": "d4e5d04411f99311ac70fa12175b2d7207bccfd1fced822882bda64c7e09c778",
       "executable": false
     },
     "src/core/features/editor/ui/BlockRow.tsx": {
-      "sha256": "c8c984a1dd62327d165651aa70ab02f08a7eb7494c6d51cb342b277bf2c445cf",
+      "sha256": "c58dcc9a2af578029f0df4833bdb2b23f6b9df8c692e44f8eb3ddde722be201c",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/BlockView.tsx": {
@@ -6496,7 +6496,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/InlineToolbar.tsx": {
-      "sha256": "4fe0b602ae992acb061c09b819f480468a48974fc6cffb820401c234d9a278b6",
+      "sha256": "d62ddfef84b3f37163019aab38a4238423734b5f48449bec663d561e4370f971",
       "executable": false
     },
     "src/core/features/editor/ui/InsertMenu.tsx": {
@@ -11812,7 +11812,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "6983a242f5c04e17ba1398e6d439489554682c90925f822693d38770542c7663",
+      "sha256": "260047ec41c313a204fe6595a99c710d5b699b0e5ed739e96ab11368a40843ee",
       "executable": false
     },
     "tests/qualification/ui-convergence/my-tasks-journey.mjs": {
@@ -11889,6 +11889,22 @@
     },
     "tests/qualification/ui-convergence/task-report-journey.mjs": {
       "sha256": "b0ee39ec453ddacfb5d458184d819693d2de7373524da20aa7bbcf6e56192fe1",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/touch-controls.mjs": {
+      "sha256": "b39cddbcb0a0a8cbe658182981ad6367ba16ec2bf6ca3ce150258ec9cbfcc119",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/touch-database.mjs": {
+      "sha256": "3a1c4d800a3a43d0d8ecb8bcf001e9f43cb99ea58dd272dd889a61c3a3f66a43",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/touch-journey.mjs": {
+      "sha256": "d4ce205b95919161f2f242c95faed692679b2fb2a7b4d37689d62e9fa067002e",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/touch-page.mjs": {
+      "sha256": "115b3a0411d131e33397f9bb21e5f77a710267727affaf35e56f9ce9c16c4243",
       "executable": false
     },
     "tests/qualification/ui-convergence/tree-filter-journey.mjs": {

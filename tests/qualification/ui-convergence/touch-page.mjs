@@ -33,6 +33,7 @@ export async function touchWriteJourney({page,origin,api}) {
   await page.reload({waitUntil:'networkidle'});
   await expect(page.getByRole('textbox',{name:'Paragraph',exact:true}).first()).toHaveText('Notify the duty team.');
   await checkpoint(page,'touch drag persists block order');
+  console.log('NAV-006 touch create, type, insert and drag persisted');
 
   return id;
 }
@@ -47,6 +48,7 @@ export async function touchCommentJourney({page,origin,api},id) {
   await tap(page.getByRole('button',{name:'Resolve',exact:true}));
   await expect.poll(async()=>(await api(`/api/comments/page/${id}`)).threads[0].state).toBe('resolved');
   await checkpoint(page,'comment resolved');
+  console.log('NAV-006 touch comment and resolve persisted');
   await tap(page.getByRole('button',{name:'Close details ×',exact:true}));
 
 }
@@ -73,5 +75,6 @@ export async function touchPublishShareJourney({page,origin,api},id) {
   await tap(page.getByRole('button',{name:'Share page',exact:true}));
   await expect.poll(async()=>(await api(`/api/sharing/pages/${id}`)).items.some(g=>g.principalId==='browser-owner'&&!g.revokedAt)).toBe(true);
   await checkpoint(page,'published and shared page');
+  console.log('NAV-006 touch workspace publication and sharing persisted');
   return id;
 }

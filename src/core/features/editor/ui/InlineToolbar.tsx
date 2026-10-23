@@ -64,6 +64,7 @@ export function InlineToolbar({
       {marks.map(({ mark, label, icon: Icon }) => (
         <Toggle
           aria-label={label}
+          data-tooltip={label}
           disabled={!canEdit}
           key={mark}
           onPressedChange={() => onToggleMark(mark)}
@@ -75,7 +76,7 @@ export function InlineToolbar({
 
       <Popover>
         <PopoverTrigger asChild>
-          <Button aria-label="Text colour" disabled={!canEdit} size="icon" variant="ghost">
+          <Button aria-label="Text colour" data-tooltip="Text colour" disabled={!canEdit} size="icon" variant="ghost">
             <Palette aria-hidden="true" className="size-4" />
           </Button>
         </PopoverTrigger>
@@ -109,7 +110,7 @@ export function InlineToolbar({
         </PopoverContent>
       </Popover>
 
-      <Button aria-label="Add a link" disabled={!canEdit} onClick={onLink} size="icon" variant="ghost">
+      <Button aria-label="Add a link" data-tooltip="Add link" disabled={!canEdit} onClick={onLink} size="icon" variant="ghost">
         <Link2 aria-hidden="true" className="size-4" />
       </Button>
 

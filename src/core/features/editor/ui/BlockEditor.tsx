@@ -90,13 +90,13 @@ export function BlockEditor({
     onSelectionChange(blocks.slice(start, end + 1).map((block) => block.id));
   };
 
-  const dropOn = (targetId: string) => {
-    if (!draggingId || draggingId === targetId) return;
-    const from = blocks.findIndex((block) => block.id === draggingId);
+  const dropOn = (sourceId: string | null, targetId: string) => {
+    if (!sourceId || sourceId === targetId) return;
+    const from = blocks.findIndex((block) => block.id === sourceId);
     const to = blocks.findIndex((block) => block.id === targetId);
     setDraggingId(null);
     if (from < 0 || to < 0) return;
-    onMove(draggingId, from < to ? { kind: "after", blockId: targetId } : { kind: "before", blockId: targetId });
+    onMove(sourceId, from < to ? { kind: "after", blockId: targetId } : { kind: "before", blockId: targetId });
   };
 
   const frame = (children: ReactNode) => (
@@ -159,7 +159,8 @@ export function BlockEditor({
           onDelete={() => onDelete(block.id)}
           onDragEnd={() => setDraggingId(null)}
           onDragStart={() => setDraggingId(block.id)}
-          onDropHere={() => dropOn(block.id)}
+          onDropHere={() => dropOn(draggingId, block.id)}
+          onTouchDrop={(targetId) => dropOn(block.id, targetId)}
           onDuplicate={() => onDuplicate(block.id)}
           onInsert={(anchor) => onInsert(block.id, anchor)}
           onMove={(move) => onMove(block.id, move)}

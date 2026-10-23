@@ -37,6 +37,7 @@ export async function touchDatabaseJourney({page,context,origin,api},containerId
     await expect(dialog).not.toBeVisible();
     await expect.poll(async()=>(await api(base+'/records/'+record.pageId)).values[fields[0].id]).toBe(`Edited from ${layout}`);
     await checkpoint(page,`${layout} record edited`);
+    console.log(`NAV-006 touch ${layout} layout record edit persisted`);
     const preview=page.getByRole('dialog',{name:'Record preview',exact:true});
     if(await preview.isVisible()) await tap(preview.getByRole('button',{name:'Close preview',exact:true}));
   }

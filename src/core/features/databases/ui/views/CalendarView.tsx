@@ -38,13 +38,13 @@ export function CalendarView({
         <h3 className="text-ui font-medium text-ink">{monthLabel}</h3>
         <div className="flex items-center gap-1">
           <span className="mr-1 text-tiny text-ink-muted">Dated by {dateFieldName}</span>
-          <Button aria-label="Previous month" onClick={onPreviousMonth} size="iconSm" variant="ghost">
+          <Button aria-label="Previous month" data-tooltip="Previous month" onClick={onPreviousMonth} size="iconSm" variant="ghost">
             <ChevronLeft aria-hidden="true" className="size-4" />
           </Button>
           <Button onClick={onToday} size="sm" variant="ghost">
             Today
           </Button>
-          <Button aria-label="Next month" onClick={onNextMonth} size="iconSm" variant="ghost">
+          <Button aria-label="Next month" data-tooltip="Next month" onClick={onNextMonth} size="iconSm" variant="ghost">
             <ChevronRight aria-hidden="true" className="size-4" />
           </Button>
         </div>
