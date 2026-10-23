@@ -6436,7 +6436,7 @@
       "executable": false
     },
     "src/core/features/editor/layout.ts": {
-      "sha256": "fa19e43fa4ba9eb9e25832b5e6f07a530b9e2a5e48c2c0bb1c88bcdf5ae8ec14",
+      "sha256": "79d4be0fe430ac3a6ea64d887995f59afa1255e740253a58c1325dbe59505fb8",
       "executable": false
     },
     "src/core/features/editor/limits.ts": {
@@ -9264,7 +9264,7 @@
       "executable": false
     },
     "src/core/features/workspace-export/html.ts": {
-      "sha256": "a09660976084e697e0d5980a269eed474d058b1fca09d3e76607f7029d21ecfe",
+      "sha256": "309f1a50b8d27303cd0bc5a275dcc47930d744abd6b87afc9d28ecfca1e3de1b",
       "executable": false
     },
     "src/core/features/workspace-export/jobs-routes.ts": {
@@ -9272,7 +9272,7 @@
       "executable": false
     },
     "src/core/features/workspace-export/markdown.ts": {
-      "sha256": "71c8a1206b38f78ad4b030b3bdd90227265bf274347fda18ed776c705f7cf0a6",
+      "sha256": "c97efdea303dcfae4e2f29043f9d43b36166fcb8902887fa586303c7ca409bf1",
       "executable": false
     },
     "src/core/features/workspace-export/pdf-content.ts": {
@@ -11808,7 +11808,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/columns-journey.mjs": {
-      "sha256": "f5ae2128cbfa31043b7df12d5a4c4606739db441d46af966ad870902a4388b5d",
+      "sha256": "fae5197782a9e9fdf698e2a0e97e9cef59e42c8f20bd113740867edb0d550cbb",
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
