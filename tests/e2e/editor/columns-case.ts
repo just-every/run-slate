@@ -40,9 +40,9 @@ export async function columnsCase(request:(method:string,path:string,body?:unkno
   const bytes=await archive(format),entries=unzipSync(bytes),rendered=new TextDecoder().decode(entries[`pages/${pageId}.${format==='html'?'html':'md'}`]);
   expect(rendered).toContain('data-slate-columns="3"');
   for(const text of ['Plan the response','Assign the lead','Confirm completion'])expect(rendered).toContain(text);
-  await importFile('slate-readable',`synthetic-slate-${format}.zip`,bytes);
+  await importFile('slate-readable',`synthetic-slate-${format==='html'?3:4}.zip`,bytes);
   // Standalone documents retain layout annotations, in addition to canonical archives.
-  await importFile(format,`synthetic-slate-${format}.${format==='html'?'html':'md'}`,strToU8(rendered));
+  await importFile(format,`synthetic-slate-${format==='html'?5:6}.${format==='html'?'html':'md'}`,strToU8(rendered));
  }
  const word=await request('POST','/exports/readable',{scope:'page',id:pageId,format:'docx',includeComments:false});expect(word.status).toBe(200);
  const documentXml=new TextDecoder().decode(unzipSync(new Uint8Array(await word.arrayBuffer()))['word/document.xml']);
@@ -79,9 +79,9 @@ export async function columnsCase(request:(method:string,path:string,body?:unkno
  await json('POST',`/revisions/${pageId}/${retainedRevision}/restore`,{operationKey:crypto.randomUUID(),expectedRevisionId:current.page.revisionId});
  current=await json('GET',`/pages/${pageId}`);
  expect(current.blocks.map((b:any)=>[b.id,b.parentBlockId,b.blockType,b.content])).toEqual(doc.blocks.map((b:any)=>[b.id,b.parentBlockId,b.blockType,b.content]));
- const published=await json('POST',`/publishing/${pageId}`,{operationKey:crypto.randomUUID(),expectedRevisionId:current.page.revisionId,host:'slate.test',slug:'synthetic-slate-columns'});
+ const published=await json('POST',`/publishing/${pageId}`,{operationKey:crypto.randomUUID(),expectedRevisionId:current.page.revisionId,host:'slate.test',slug:'synthetic-slate-7'});
  expect(published).toBeDefined();
- const publicResponse=await request('GET','/p/synthetic-slate-columns',undefined,'public');expect(publicResponse.status).toBe(200);
+ const publicResponse=await request('GET','/p/synthetic-slate-7',undefined,'public');expect(publicResponse.status).toBe(200);
  const markup=await publicResponse.text();expect(markup).toContain('class="slate-columns"');
  for(const text of ['Plan the response','Assign the lead','Confirm completion'])expect(markup).toContain(text);
  await json('POST','/sharing',{operationKey:crypto.randomUUID(),targetKind:'page',targetId:pageId,principalKind:'member',principalId:ownerId,level:'full'});

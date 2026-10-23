@@ -10180,7 +10180,7 @@
       "executable": false
     },
     "tests/e2e/editor/columns-case.ts": {
-      "sha256": "75672a2b38129c8fe8073acda306f04a8f85b1bbac6d97a4a7778770a28209b1",
+      "sha256": "7067ffd4ba32571ca8971f1046537fcf10078128b2fbda4b872f15dfbd1bc4ce",
       "executable": false
     },
     "tests/e2e/editor/editable-composition.test.mjs": {
