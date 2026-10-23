@@ -944,7 +944,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "0c93bd355183a9a65120727adda326c372f54374f616971c161928a440defb49",
+      "sha256": "8e86cd30a569d6ccd805bd808d40652a525295eced3db719ab4798fe695e3a18",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "1c183bc07bca9e4ed94b0680896529471beb9b637ddede037e6502b543660bfc",
+      "sha256": "4c7337ccaad3d50c2efec13ee4a4af4a4a3afc6ac8a3bc4c5ecc7914b2fba5b9",
       "executable": false
     },
     "DEMO.md": {
@@ -1016,7 +1016,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "b67c6b5f7d4c1a625bf4d4dd14cdbe9476b8b0ae1bfa8252b7953be943dbcb10",
+      "sha256": "9f2755d091d2611650789efc57b54bbe61a8f69b8908bdcffbea9175e622dab5",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -1905,6 +1905,10 @@
     },
     "migrations/core/0050_chat_held_acknowledgment.sql": {
       "sha256": "f328f36e4216432eab1dc729f6f321e2f83344ba4630b9c390cc40c1f3d356a1",
+      "executable": false
+    },
+    "migrations/core/0051_database_forms.sql": {
+      "sha256": "530642b8bf56d69fe0a76d717c313e185147e9fd2c9d9236ee6b807a5635d79f",
       "executable": false
     },
     "modules/d1-transport/index.d.mts": {
@@ -5879,6 +5883,34 @@
       "sha256": "c062179e6eaadddbc803a143994df69a421a8eddb33f5cbad6c63dcd0b5c5c52",
       "executable": false
     },
+    "src/core/features/databases/forms/access.ts": {
+      "sha256": "6f3c22620c0b740859f2d8630873ac423e71446dd1daa2cb3ad9c55e017c92d6",
+      "executable": false
+    },
+    "src/core/features/databases/forms/client.ts": {
+      "sha256": "bdc13d19a715269759ba62818683ec488b50ac46c23cdad904de1fd7d0a1340a",
+      "executable": false
+    },
+    "src/core/features/databases/forms/definition.ts": {
+      "sha256": "e47d01960559772617ca258bb3054324bab56fa7cdcead8047ba690534dd7f85",
+      "executable": false
+    },
+    "src/core/features/databases/forms/render.ts": {
+      "sha256": "e1e7e9da25f6f441dc66220e9eec05a55fbcf69f45d35e3d75b878e2080480ca",
+      "executable": false
+    },
+    "src/core/features/databases/forms/routes.ts": {
+      "sha256": "ddcba2c2283f4c8e756dbd7a55bfa26f660965d5d7d166478cd46bb59691b70e",
+      "executable": false
+    },
+    "src/core/features/databases/forms/settings.ts": {
+      "sha256": "832299f5bdf3162cf6f2804a6714dacae652d3a4fefc2eceb56d27d479e7bfb1",
+      "executable": false
+    },
+    "src/core/features/databases/forms/submissions.ts": {
+      "sha256": "84bc3835d8bad655dbc829f9f9d2ffef020c8b208d072cff7438554f7322c585",
+      "executable": false
+    },
     "src/core/features/databases/formulas.ts": {
       "sha256": "7f10d0d3116b97822df87594e96b533a29e72f6b12fb613cd4570a938cb40f2f",
       "executable": false
@@ -6059,6 +6091,10 @@
       "sha256": "dc6fb1734fd3a2cd852b4bdc288c287d53abca31d2076b722a3c04f038bec623",
       "executable": false
     },
+    "src/core/features/databases/ui/workspace/DatabaseForms.tsx": {
+      "sha256": "79d5bbb2d0ce47fe03bc1d1cc4bc507b41cf275a0baa2a30c3b762539c4d0732",
+      "executable": false
+    },
     "src/core/features/databases/ui/workspace/DatabaseMenus.tsx": {
       "sha256": "2532edf41676ca53e15f4842f5c10dc8271fdf10ba7047531d08b3fbe53c192d",
       "executable": false
@@ -6081,6 +6117,10 @@
     },
     "src/core/features/databases/ui/workspace/FilterBuilder.tsx": {
       "sha256": "a13d7f0c809c7890b533553294389daeeff5f2ece223ec1b72201443b136ddb1",
+      "executable": false
+    },
+    "src/core/features/databases/ui/workspace/FormQuestion.tsx": {
+      "sha256": "350ec5f075f098497b9f997afd6c0ca157f3be2bf33f2c03027c4a2c8dea6361",
       "executable": false
     },
     "src/core/features/databases/ui/workspace/FormulaBuilder.tsx": {
@@ -11363,6 +11403,10 @@
       "sha256": "37eb88c7612fc696125157e9894ee2d61218b2e5e6b543682884fb25a86f7407",
       "executable": false
     },
+    "tests/qualification/policies/form-case.ts": {
+      "sha256": "5ec08ab8ee79b16ac86c5a9ee0afe8a4e31dfcfe3a39b5c013e0ecd10fdcc609",
+      "executable": false
+    },
     "tests/qualification/policies/governance-case.ts": {
       "sha256": "d0c220c3cda8e3f745f911e3940f0962905e785decd392fb42af5e945ac5426f",
       "executable": false
@@ -11877,6 +11921,10 @@
     },
     "tests/qualification/ui-convergence/following-journey.mjs": {
       "sha256": "c6cace83d5379c0f00701e1203310e5794152b83bbc289416a8fa5634414638f",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/forms-journey.mjs": {
+      "sha256": "c64e4ec2e848bf637243c1647547703635d69f4960f007dfc302b0d15938405d",
       "executable": false
     },
     "tests/qualification/ui-convergence/global-create-journey.mjs": {

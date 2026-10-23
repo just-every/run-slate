@@ -1013,7 +1013,7 @@ A database can publish a form whose questions map to its fields, with required f
 
 *Acceptance:* a browser journey publishes a form with a conditional question, submits it as a guest and anonymously, sees two records with mapped values, and sees an automation fire on each submission. The conditional question appears only when its condition is met, and a submission that fills the honeypot or exceeds the rate limit creates no record. Forbidding public links makes the anonymous form stop resolving at once.
 
-*Status:* missing.
+*Status:* partial. Database editors publish field-mapped forms for members, named guests and optionally anonymous links. Required answers, help and one-level conditions are validated on the server; hidden answers are refused. A durable submission receipt commits with one native record, and record-created automations act once. Honeypot and fixed per-address limits use one generic refusal; address keys are deployment-salted and expire. Current public-link and anonymous vetoes are checked on every anonymous read and write. Migration `0051_database_forms.sql` registers definitions and submission facts for complete native export/restore and page/member erasure. Evidence: `tests/qualification/policies/structured-views.test.ts` with `tests/qualification/policies/form-case.ts`; `tests/qualification/ui-convergence/forms-journey.mjs` in the existing database launch (1440/390). Gap: Cloudflare Turnstile when the owner configures it is not built; no sealed-secret or outbound verifier is introduced. File, person, relation and computed field questions are excluded. Named-guest selection in the UI follows the existing owner-only guest directory. Readable archive remapping of form definitions is not built; complete native archives retain definitions and submission facts, restoring unpublished. Default adopted: PARTIAL, fixed honeypot/address limits, explicit audiences and no anonymous submitter identity.
 
 #### DB-014 — Dashboards.
 A page can hold a dashboard: several charts (`DB-008`) and views (`DB-011`) arranged in a grid, with dashboard-wide filters such as a date range or a person that apply to every tile. Each tile computes over the reader's authorized records only (`DB-002`).
@@ -1806,15 +1806,15 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `aca498ebd14381c2d1451fc69c94f215f2b3daa1` (23 October 2026).
+Judged from the code and tests at commit `a5610ee5a9dc9f851d835e90d243230820473441` (23 October 2026).
 
 Live-provider evidence remains explicitly open. See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 172 | 49 | 0 | 221 |
-| Target and push further | 19 | 46 | 40 | 105 |
-| All | 191 | 95 | 40 | 326 |
+| Target and push further | 19 | 47 | 39 | 105 |
+| All | 191 | 96 | 39 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -2075,7 +2075,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `CARD-001` | Knowledge cards and collections | target | partial | `tests/e2e/pages/display-options.test.ts` (cardCase in `tests/e2e/pages/card-case.ts`); `tests/qualification/ui-convergence/card-journey.mjs` in the existing write journey (1440/390) | Answers, chat and browser-extension rendering remain carried by ANSWER-001, CHAT-002 and CARD-002; Guru import with imported owners and verification intervals remains carried by IMP-008. Native archive restore, revision-history restoration of card identity, and readable collection-flag preservation are not independently proven here. Default adopted: PARTIAL, with no clause text changed. |
 | `CARD-002` | Browser extension | target | missing | — | not implemented |
 | `CARD-003` | Required reading and announcements | target | missing | — | not implemented |
-| `DB-013` | Database forms | target | missing | — | not implemented |
+| `DB-013` | Database forms | target | partial | `tests/qualification/policies/structured-views.test.ts` with `tests/qualification/policies/form-case.ts`; `tests/qualification/ui-convergence/forms-journey.mjs` in the existing database launch (1440/390) | Cloudflare Turnstile when the owner configures it is not built; no sealed-secret or outbound verifier is introduced. File, person, relation and computed field questions are excluded. Named-guest selection in the UI follows the existing owner-only guest directory. Readable archive remapping of form definitions is not built; complete native archives retain definitions and submission facts, restoring unpublished. Default adopted: PARTIAL, fixed honeypot/address limits, explicit audiences and no anonymous submitter identity. |
 | `DB-014` | Dashboards | target | partial | `tests/qualification/policies/structured-views.test.ts`; `tests/qualification/ui-convergence/dashboard-journey.mjs` | Readable reference remapping/source views, native archive and revision restore proof, and saved view layouts remain open; see the clause. |
 | `DB-015` | Record templates and recurring records | target | done | `tests/e2e/databases/record-templates.test.ts` |  |
 | `DB-016` | AI autofill fields | target | missing | — | not implemented |
