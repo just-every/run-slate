@@ -46,7 +46,10 @@ export async function webhookAccessJourney(state) {
   await panel.getByRole('button', { name: 'Re-enable Handbook delivery', exact: true }).click();
   await expect(panel.getByRole('article', { name: 'Webhook Handbook delivery', exact: true })).toContainText('State: enabled');
   await panel.getByRole('button', { name: 'View deliveries for Handbook delivery', exact: true }).click();
+  const replayResponse = page.waitForResponse(response => response.request().method() === 'POST'
+    && new URL(response.url()).pathname === `/api/developer/webhooks/${subscription.id}/deliveries/${retry.id}/replay`);
   await history.getByRole('button', { name: `Replay event ${retry.eventId}`, exact: true }).click();
+  assert.equal((await replayResponse).status(), 200);
   await runScheduled();
   await history.getByRole('button', { name: 'Refresh deliveries', exact: true }).click();
   await expect(history).toContainText('Replayed');
