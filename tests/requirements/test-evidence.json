@@ -2083,6 +2083,107 @@
         "AUTO-004"
       ],
       "reason": "Asserts all automation scopes persist; schedules deduplicate and chains throttle with a log. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts committed content events drain durably and self-triggering field rules are throttled. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/qualification/authority/snapshot.test.ts",
+      "testName": "skill snapshot export carries only the attachments its exact source revisions show the reader",
+      "kind": "supporting-regression",
+      "clauses": [
+        "SKILL-001",
+        "BLOCK-008"
+      ],
+      "reason": "Asserts skill snapshot export carries only the attachments its exact source revisions show the reader. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/e2e/notifications/chat.test.ts",
+      "testName": "the single-destination chat door stores a credential only after a fresh email confirmation",
+      "kind": "supporting-regression",
+      "clauses": [
+        "NOTIF-003",
+        "CHAT-001"
+      ],
+      "reason": "Asserts the single-destination chat door stores a credential only after a fresh email confirmation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/qualification/authority/decision-authority.test.ts",
+      "testName": "an earlier decision revision is read without the current prose its reader can no longer cite",
+      "kind": "supporting-regression",
+      "clauses": [
+        "DEC-004",
+        "DEC-006"
+      ],
+      "reason": "Asserts an earlier decision revision is read without the current prose its reader can no longer cite. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/qualification/policies/invitations.test.ts",
+      "testName": "a member invitation stops admitting once its inviter is no longer a full member",
+      "kind": "supporting-regression",
+      "clauses": [
+        "WORK-006",
+        "WORK-010"
+      ],
+      "reason": "Asserts a member invitation stops admitting once its inviter is no longer a full member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/e2e/notifications/chat.test.ts",
+      "testName": "a person whose own Slack token posts to a channel stays in that channel audience",
+      "kind": "supporting-regression",
+      "clauses": [
+        "NOTIF-003",
+        "CHAT-001"
+      ],
+      "reason": "Asserts a person whose own Slack token posts to a channel stays in that channel audience. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/e2e/databases/record-templates.test.ts",
+      "testName": "record templates show each database viewer only the page mention titles they can open",
+      "kind": "supporting-regression",
+      "clauses": [
+        "DB-015",
+        "BLOCK-005"
+      ],
+      "reason": "Asserts record templates show each database viewer only the page mention titles they can open. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/content/http.test.ts",
+      "testName": "duplicating a page with attachments respects the deployment attachment storage limit",
+      "kind": "supporting-regression",
+      "clauses": [
+        "PAGE-005",
+        "BLOCK-008"
+      ],
+      "reason": "Asserts duplicating a page with attachments respects the deployment attachment storage limit. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/qualification/authority/learned-provenance.test.ts",
+      "testName": "inquiry and archive page references show a reader the published title, not an unpublished rename",
+      "kind": "supporting-regression",
+      "clauses": [
+        "LIFE-005",
+        "ARCH-002"
+      ],
+      "reason": "Asserts inquiry and archive page references show a reader the published title, not an unpublished rename. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/structured/http.test.ts",
+      "testName": "database file references list only attachments the reader could open",
+      "kind": "supporting-regression",
+      "clauses": [
+        "DB-002",
+        "BLOCK-008"
+      ],
+      "reason": "Asserts database file references list only attachments the reader could open. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/flagship/content/http.test.ts",
+      "testName": "restoring an archived page somewhere else needs the authority to change who can read it",
+      "kind": "supporting-regression",
+      "clauses": [
+        "ARCH-003",
+        "PAGE-004",
+        "SHARE-003"
+      ],
+      "reason": "Asserts restoring an archived page somewhere else needs the authority to change who can read it. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     }
   ]
 }
