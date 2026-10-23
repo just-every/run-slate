@@ -8032,7 +8032,7 @@
       "executable": false
     },
     "src/core/features/pages/tree.ts": {
-      "sha256": "bc0c4484ab1bc4f956d81f5364e2e1b46d2bac21cfc0f8fa2f68381c013782f9",
+      "sha256": "4e4b80eb499c89b33d0abd79fa715d6a97b1a6ac443421e8bf8314f7aadf0973",
       "executable": false
     },
     "src/core/features/pages/types.ts": {
@@ -10248,7 +10248,7 @@
       "executable": false
     },
     "tests/flagship/content/http.test.ts": {
-      "sha256": "8bf19a05f9e908917a4da79e5bc710463278f7c170a6c79014d3c398b04403fa",
+      "sha256": "e0a1f6b3102d9401feb79450ad5d510ca62b8141020419677c7437e5d3b8aa50",
       "executable": false
     },
     "tests/flagship/content/management.node.test.mts": {

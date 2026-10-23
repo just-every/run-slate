@@ -5,7 +5,8 @@ import { contentPolicy } from './policy';
 import { isPrivateLifecycle } from '../sharing/access';
 import { publicPage } from '../publishing/service';
 import type { FeatureContext } from '../../app/feature-context';
-import { commitOperation, requestHash } from '../../app/operations';
+import { commitOperation, mutationGuard, requestHash } from '../../app/operations';
+import { contentLimits } from '../editor/limits';
 import { ApiProblem } from '../../app/problems';
 import { createUlid } from '../../shared/ulid';
 import { currentSubject, requirePageLevel, requireContainerLevel, resolveCurrentAccess, resolveCurrentAccessMany } from '../sharing/current-access';
@@ -149,6 +150,9 @@ export async function duplicatePage(ctx: FeatureContext, id: string, input: {
                 await requirePageLevel(ctx, id, 'view'); await destination(ctx, input.containerId, input.parentPageId); }, prepare: async ({ revisionId }) => {
                 const source = input.includeChildren ? await descendants(ctx, id) : [await pageRow(ctx, id)], ids = new Map(source.map(p => [p.id, createUlid()]));
                 const statements: D1PreparedStatement[] = [];
+                // Copied attachments count against the same deployment storage limit as uploads.
+                const used = (await ctx.db.prepare('SELECT COALESCE(SUM(size_bytes),0) AS bytes FROM files WHERE deleted_at IS NULL').first<{ bytes: number }>())?.bytes ?? 0;
+                let copied = 0;
                 for (const p of source) {
                     if (!input.publicSource)
                         await requirePageLevel(ctx, p.id, 'view');
@@ -158,6 +162,9 @@ export async function duplicatePage(ctx: FeatureContext, id: string, input: {
                     const fileIds = new Map<string, string>();
                     const fileStatements: D1PreparedStatement[] = [];
                     for (const file of files.filter(file => s.properties.coverFileId === file.id || s.properties.icon === `file:${file.id}` || s.blocks.some(b => JSON.stringify(b.content).includes(file.id)))) {
+                        copied += file.size_bytes;
+                        if (used + copied > contentLimits.attachmentStorageBytesPerDeployment)
+                            throw new ApiProblem(429, 'STORAGE_LIMIT', 'Attachment storage is full.');
                         const newId = createUlid(), key = `pages/${ctx.actor.workspaceId}/${ids.get(p.id)!}/${newId}`, blob = await ctx.files.get(file.storage_key);
                         if (!blob)
                             throw new ApiProblem(409, 'MISSING_ATTACHMENT', 'A source attachment is unavailable.');
@@ -176,6 +183,8 @@ export async function duplicatePage(ctx: FeatureContext, id: string, input: {
                     const plan = await prepareCreatePage(ctx, { operationKey: input.operationKey, id: ids.get(p.id)!, containerId: input.containerId, parentPageId: p.id === id ? input.parentPageId : ids.get(p.parent_page_id!) ?? null, title: s.properties.title, properties: { ...s.properties, statusKey: null, ownerMemberId: ctx.actor.id, icon: s.properties.icon?.startsWith('file:') ? `file:${fileIds.get(s.properties.icon.slice(5))}` : s.properties.icon, coverFileId: s.properties.coverFileId ? fileIds.get(s.properties.coverFileId) ?? null : null }, blocks: s.blocks.map(b => ({ ...b, content: remap(b.content), id: bid.get(b.id)!, parentBlockId: b.parentBlockId ? bid.get(b.parentBlockId) : null })) }, p.id === id ? revisionId : createUlid());
                     statements.push(...plan.statements, ...fileStatements);
                 }
+                if (copied)
+                    statements.unshift(mutationGuard(ctx.db, 'SELECT COALESCE(SUM(size_bytes),0)+?<=? FROM files WHERE deleted_at IS NULL', [copied, contentLimits.attachmentStorageBytesPerDeployment]));
                 const pageId = ids.get(id)!;
                 return { statements, entity: { id: pageId, kind: 'page', revisionId }, value: { pageId, revisionId } };
             } });
