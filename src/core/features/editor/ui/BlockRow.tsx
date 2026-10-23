@@ -22,6 +22,8 @@ const indentClass: Record<number, string> = {
 
 export function describeBlock(block: EditorBlock): string {
   switch (block.type) {
+    case "columns": return "columns section";
+    case "column": return "column";
     case "paragraph":
     case "quote":
     case "callout":
@@ -110,6 +112,7 @@ export function BlockRow({
         onDropHere
           ? (event) => {
               event.preventDefault();
+              event.stopPropagation();
               onDropHere();
             }
           : undefined
@@ -118,6 +121,7 @@ export function BlockRow({
       <BlockHandle
         blockLabel={label}
         canEdit={canEdit}
+        disabled={actions?.layoutBusy}
         onDelete={onDelete}
         onDragEnd={onDragEnd}
         onDragStart={onDragStart}

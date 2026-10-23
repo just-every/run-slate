@@ -1990,12 +1990,13 @@
     },
     {
       "file": "tests/e2e/editor/tables.test.ts",
-      "testName": "BLOCK-014 — tables preserve every cell and formatting through real editable databases, with atomic access and revision checks",
+      "testName": "BLOCK-014 — tables and columns preserve structured content through editing, validation, exports and incumbent imports",
       "kind": "supporting-regression",
       "clauses": [
-        "BLOCK-014"
+        "BLOCK-014",
+        "BLOCK-012"
       ],
-      "reason": "Default-profile HTTP conversion and edited-value round trip, atomic rejection and current authorization. Browser paste and table controls are separate supporting evidence."
+      "reason": "Structured tables remain covered; the same HTTP case also proves column bounds, round trips, incumbent layout imports and reader-safe page operations. Side-by-side PDF and Word layout remain open."
     },
     {
       "file": "tests/e2e/notifications/destinations.test.ts",
