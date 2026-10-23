@@ -29,7 +29,7 @@ export function ContainerSharing({ id }: { id: string }) {
     "/api/members",
   );
   const groups = useResource<{ items: { id: string; name: string }[] }>(
-    "/api/groups",
+    member.role === "owner" ? "/api/groups" : null,
   );
   const [editing, setEditing] = useState<Grant | "new" | null>(null);
   const key = useRef("");
