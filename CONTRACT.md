@@ -988,7 +988,7 @@ A card is a short page kind with a soft length limit (`seed.json → limits`, 50
 
 *Acceptance:* a browser journey creates a card and finds it as a compact result with its verification badge, and a 600-word card shows the length warning and saves intact. A Guru import creates cards in collections that keep their owners and their verification intervals as imported metadata.
 
-*Status:* partial. Containers organize pages (`src/core/features/containers/service.ts`); there is no card kind or compact rendering.
+*Status:* partial. Knowledge cards retain complete bodies, creator ownership, required verification metadata and the existing unverified state; a question-style title hint, configurable soft word limit, collection flag and compact access-filtered search result with a verification badge ship. Copy and readable export/re-import keep card identity and all 600 words. Evidence: `tests/e2e/pages/display-options.test.ts` (cardCase in `tests/e2e/pages/card-case.ts`); `tests/qualification/ui-convergence/card-journey.mjs` in the existing write journey (1440/390). Gap: Answers, chat and browser-extension rendering remain carried by ANSWER-001, CHAT-002 and CARD-002; Guru import with imported owners and verification intervals remains carried by IMP-008. Native archive restore, revision-history restoration of card identity, and readable collection-flag preservation are not independently proven here. Default adopted: PARTIAL, with no clause text changed.
 
 #### CARD-002 — Browser extension.
 A Chrome and Edge extension signs in as the member and searches and asks Slate from any tab. On sites the owner allowlists, such as Salesforce, Zendesk, HappyToHelp, Orbit and GitHub, it suggests cards relevant to the open record. It reads page text only after the member opens the extension on that tab, sends only the query and the record title, and shows only what the member can read.
@@ -1806,7 +1806,7 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `ca85dd536abff4e97d452e855db17864470d1a68` (23 October 2026).
+Judged from the code and tests at commit `d3c9bc0707cf51e3f35d8c17716d0218e0e66cd1` (23 October 2026).
 
 Live-provider evidence remains explicitly open. See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
@@ -2072,7 +2072,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `SEARCH-014` | Old Confluence URLs find their Slate record | target | missing | — | not implemented |
 | `STAT-006` | Review requests and expert queues | target | done | `tests/qualification/ui-convergence/review-request-journey.mjs` |  |
 | `STAT-007` | Verification rules | target | done | `tests/e2e/review/verification-rules.test.ts`, `tests/qualification/ui-convergence/review-request-journey.mjs` |  |
-| `CARD-001` | Knowledge cards and collections | target | partial | `src/core/features/containers/service.ts` | see the clause |
+| `CARD-001` | Knowledge cards and collections | target | partial | `tests/e2e/pages/display-options.test.ts` (cardCase in `tests/e2e/pages/card-case.ts`); `tests/qualification/ui-convergence/card-journey.mjs` in the existing write journey (1440/390) | Answers, chat and browser-extension rendering remain carried by ANSWER-001, CHAT-002 and CARD-002; Guru import with imported owners and verification intervals remains carried by IMP-008. Native archive restore, revision-history restoration of card identity, and readable collection-flag preservation are not independently proven here. Default adopted: PARTIAL, with no clause text changed. |
 | `CARD-002` | Browser extension | target | missing | — | not implemented |
 | `CARD-003` | Required reading and announcements | target | missing | — | not implemented |
 | `DB-013` | Database forms | target | missing | — | not implemented |
