@@ -1,5 +1,6 @@
 /** Deployment scope is separate from the eight stored content policies. */
 export type LaunchProfile = "core-wiki" | "flagship";
+import type {FeatureKey} from '../../features/feature-switches/catalog';
 
 export function readLaunchProfile(value?: string): LaunchProfile {
   const profile = value?.trim() || "core-wiki";
@@ -26,4 +27,20 @@ export function isFlagshipPath(pathname: string): boolean {
 export function isFlagshipJob(job: unknown): boolean {
   if (!job || typeof job !== "object" || !("kind" in job)) return false;
   return typeof job.kind === "string" && (job.kind.startsWith("intelligence.") || job.kind.startsWith("federation."));
+}
+
+/** One map governs API, document navigation and queue admission. Null stays extension-only. */
+export function switchForPath(pathname: string): FeatureKey | null {
+  const path = decodeURIComponent(pathname);
+  if (/^\/app\/runs(?:\/|$)/.test(path)) return 'ask';
+  const family = /^\/api\/([^/]+)(?:\/|$)/.exec(path)?.[1];
+  const map: Record<string, FeatureKey> = {ai: 'ask', runs: 'ask', suggestions: 'suggestions', skills: 'agents', claims: 'agents', impact: 'agents', connectors: 'connectors', sources: 'connectors', agent: 'mcp'};
+  return family ? map[family] ?? null : null;
+}
+
+export function switchForJob(job: unknown): FeatureKey | null {
+  if (!job || typeof job !== 'object' || !('kind' in job) || typeof job.kind !== 'string') return null;
+  if (job.kind.startsWith('federation.')) return 'agents';
+  if (['intelligence.run', 'intelligence.finalize'].includes(job.kind)) return 'ask';
+  return null;
 }

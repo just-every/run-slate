@@ -1,6 +1,7 @@
 import { recheckSamlDomains } from '../features/session/saml/domain';
 import {scheduledBackups} from '../features/backups/scheduled';
 import { readLaunchProfile, isFlagshipJob } from "../platform/config/launch-profile";
+import {jobEnabled} from '../features/feature-switches/gate';
 import { ApiProblem } from "./problems";
 import { scheduleIdentityMail } from '../features/session/mail';
 import { readRuntimeConfig } from '../platform/config/runtime';
@@ -15,8 +16,8 @@ import { runVerificationRules } from '../features/page-status/rules/run';
 export async function consumeJobs(batch:MessageBatch<unknown>,env:AppBindings){
   for(const message of batch.messages){
     try {
-      if (readLaunchProfile(env.SLATE_PROFILE) === 'core-wiki' && isFlagshipJob(message.body)) {
-        throw new ApiProblem(403, 'FEATURE_DISABLED', 'This job requires the flagship profile.');
+      if (isFlagshipJob(message.body) && !await jobEnabled(env, message.body)) {
+        throw new ApiProblem(403, 'FEATURE_DISABLED', 'This job is unavailable.');
       }
       const handled=(!!message.body&&typeof message.body==='object'&&'kind' in message.body&&message.body.kind==='core.health')||await consumeIntelligenceJob(env,message.body)||await handleDiscoveryJob(env,message.body)||await handleAutomationJob(env,message.body)||await consumeFederationJob(env,message.body);
       if(!handled)throw new Error('UNSUPPORTED_JOB');

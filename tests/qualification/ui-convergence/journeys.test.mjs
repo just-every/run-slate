@@ -17,7 +17,7 @@ import { journeyTest as test } from './journey-shard.mjs';
 import { expect } from '@playwright/test';
 import { setupWorkspace, withWorkspace } from './browser-support.mjs';
 import { commentJourney, searchJourney, settingsJourney, shareJourney, writeJourney } from './core-journeys.mjs';
-import { askDraftJourney } from './ask-journey.mjs';
+import { askDraftJourney, featureSettingsJourney } from './ask-journey.mjs';
 import { withSecondPerson } from './two-people-support.mjs';
 import { concurrentEditingJourney } from './two-people-editing.mjs';
 import { accessChangeJourney } from './two-people-access.mjs';
@@ -194,6 +194,7 @@ for (const width of [1440, 390]) {
       await state.page.getByRole('button', { name: 'More', exact: true }).click();
       await expect(state.page.getByRole('menu').getByRole('menuitem', { name: 'Ask', exact: true })).toHaveCount(0);
       await state.page.keyboard.press('Escape');
+      await featureSettingsJourney(state);
       let pageId,touch;
       try {
         await t.test('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks', async () => { pageId = await writeJourney(state, width); touch=await beginTouchJourney(state,width); });
@@ -208,7 +209,7 @@ for (const width of [1440, 390]) {
         await chatJourney(state, width);
         await t.test('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts', async () => {await databaseJourney(state);await touchDatabaseJourney(touch,touch.containerId);});
       } finally {await touch?.close();}
-    }, {}, { scheduled: true, slack: true });
+    }, {SLATE_PROFILE: undefined}, { scheduled: true, slack: true });
   });
   test(`two people edit at once, lose access mid-edit and restore history at ${width}px`, { timeout: 420000 }, async t => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {

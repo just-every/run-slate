@@ -1,10 +1,12 @@
 import {pageLockJourney} from './page-lock-journey';
+import {featureSwitchJourney} from './feature-switch-journey';
+import {featureSwitchUpgrade, featureSwitchCustody} from './feature-switch-storage';
 import {bodyBlocksJourney} from './body-blocks-journey';
 import {workItems,tasksJourney,remindersJourney,taskReportsJourney} from './work-items-journey';
 import {env} from 'cloudflare:test';
 import {afterEach, beforeEach, it, expect, vi} from 'vitest';
 import {createApi} from '../../src/core/app/hono';
-import {consumeJobs} from '../../src/core/app/background';
+import {consumeJobs, scheduledJobs} from '../../src/core/app/background';
 import {seedWorkspace,seedMember,seedContainer,seedContainerGrant,sessionFor} from '../e2e/setup/fixtures';
 import {resetDeployment} from '../e2e/setup/reset-deployment';
 
@@ -21,8 +23,9 @@ async function workspace() {
   await seedContainerGrant(containerId, {principalKind:'member',principalId:memberId,level:'full'});
   return {containerId,memberId,workspaceId, cookie:await sessionFor(memberId)};
 }
-it('FLAG-001 — default API refuses flagship entry points after native authentication; explicit opt-in retains routes', async () => {
-  const {cookie} = await workspace(), api = createApi();
+it('FLAG-001 — default API refuses entry points until owner switches and safety prerequisites permit them; explicit opt-in retains routes', async () => {
+  await featureSwitchUpgrade();
+  const f = await workspace(), {cookie} = f, api = createApi();
   for (const family of ['ai','runs','inquiries','experiments','skills','effects','impact','agent','claims','sources','connectors','suggestions','decisions/from-run/old-run']) {
     for (const method of ['GET','POST']) {
       const response = await api.request('https://slate.example/api/'+family, {method,headers:{cookie}}, env);
@@ -32,10 +35,12 @@ it('FLAG-001 — default API refuses flagship entry points after native authenti
   }
   const anon = await api.request('https://slate.example/api/runs', {}, env);
   expect(anon.status).toBe(401);
-  expect(await (await api.request('https://slate.example/api/profile',{headers:{cookie}},env)).json()).toEqual({profile:'core-wiki'});
+  expect(await (await api.request('https://slate.example/api/profile',{headers:{cookie}},env)).json()).toEqual({profile:'core-wiki',features:{ask:false,suggestions:false,agents:false,connectors:false,mcp:false,'chat-ask':false}});
   const enabled = await api.request('https://slate.example/api/ai/availability',{headers:{cookie}},{...env,SLATE_PROFILE:'flagship'});
   expect(enabled.status).toBe(200);
   expect(await enabled.json()).toMatchObject({providerConfigured:false});
+  await featureSwitchJourney(api, f);
+  await featureSwitchCustody(api, f);
 });
 it('FLAG-001 — core wiki creates and revises genuine pages, searches them, and retains portability and publication endpoints', async () => {
   const {cookie,containerId,memberId,workspaceId} = await workspace(), api=createApi();
@@ -93,11 +98,16 @@ it('BLOCK-016 — a task report shows each reader only the tasks they can read a
   await taskReportsJourney(await workItems(createApi(),containerId,memberId,workspaceId,cookie));
 });
 it('FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', async () => {
+  const f = await workspace(), runId = crypto.randomUUID(), now = new Date().toISOString();
+  await env.DB.prepare("INSERT INTO intelligence_runs(id,workspace_id,requester_id,kind,status,revision_id,input_json,created_at,updated_at) VALUES(?,?,?,'answer','queued',?,'{}',?,?)").bind(runId,f.workspaceId,f.memberId,crypto.randomUUID(),now,now).run();
+  const retained = await env.DB.prepare('SELECT * FROM intelligence_runs WHERE id=?').bind(runId).first();
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {
     const id=crypto.randomUUID();let acknowledged=false,retried=false;
-    const message={id,body:{kind,runId:crypto.randomUUID()},attempts:1,timestamp:new Date(),ack(){acknowledged=true;},retry(){retried=true;}};
+    const message={id,body:{kind,runId,workspaceId:f.workspaceId},attempts:1,timestamp:new Date(),ack(){acknowledged=true;},retry(){retried=true;}};
     await consumeJobs({messages:[message],queue:'profile-test',metadata:{metrics:{backlogCount:1,backlogBytes:0}},ackAll(){throw Error('unexpected batch ack');},retryAll(){throw Error('unexpected batch retry');}},env);
     expect(acknowledged).toBe(false);expect(retried).toBe(true);
     expect(await env.DB.prepare('SELECT state,error_code FROM core_job_failures WHERE id=?').bind(id).first()).toEqual({state:'failed',error_code:'FEATURE_DISABLED'});
   }
+  await scheduledJobs(env);
+  expect(await env.DB.prepare('SELECT * FROM intelligence_runs WHERE id=?').bind(runId).first()).toEqual(retained);
 });

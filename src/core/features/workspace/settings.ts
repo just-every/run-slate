@@ -29,5 +29,5 @@ export async function updateWorkspace(ctx:FeatureContext,input:{operationKey:str
 /** Called only in an owner-authorized operation; statements join its atomic policy/allowance batch. */
 export async function prepareAiEnableStatements(ctx:FeatureContext,enabled:boolean):Promise<D1PreparedStatement[]> {
  await requireWorkspaceOwner(ctx);
- return [ctx.db.prepare('UPDATE workspaces SET ai_enabled=?,updated_at=? WHERE id=?').bind(+enabled,ctx.now,ctx.actor.workspaceId)];
+ return [ctx.db.prepare('UPDATE workspaces SET ai_enabled=?,updated_at=? WHERE id=?').bind(+enabled,ctx.now,ctx.actor.workspaceId),ctx.db.prepare("INSERT INTO workspace_feature_switches (workspace_id,switch_key,enabled,changed_by_member_id,changed_at) VALUES (?,'ai',?,?,?) ON CONFLICT(workspace_id,switch_key) DO UPDATE SET enabled=excluded.enabled,changed_by_member_id=excluded.changed_by_member_id,changed_at=excluded.changed_at").bind(ctx.actor.workspaceId,+enabled,ctx.actor.id,ctx.now)];
 }
