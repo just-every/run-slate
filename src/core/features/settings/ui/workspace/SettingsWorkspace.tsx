@@ -1,3 +1,4 @@
+import { DeveloperAccess } from './DeveloperAccess';
 import { useFlagshipEnabled } from "../../../../app/ui/LaunchProfile";
 import { ChatNotifications } from "./ChatNotifications";
 import { ContainerWorkspace } from "../../../containers/ui/workspace/ContainerWorkspace";
@@ -19,6 +20,7 @@ const sections = [
   ["workspace", "Workspace"],
   ["members", "People"],
   ["saml", "SAML single sign-on"],
+  ["developer", "Developer access"],
   ["appearance", "Appearance"],
   ["preferences", "Preferences"],
   ["activity", "Activity"],
@@ -64,7 +66,7 @@ export function SettingsWorkspace() {
           <button type="button" className="secondary-button" aria-label="More settings sections" disabled={!scrollReady} onClick={() => tabs.current?.scrollBy({ left: 260, behavior: "smooth" })}>→</button>
         </div>
         </div>
-        {section === "chat" ? (
+        {section === "developer" ? <DeveloperAccess /> : section === "chat" ? (
           <ChatNotifications />
         ) : section === "spaces" ? (
           <ContainerWorkspace embedded />

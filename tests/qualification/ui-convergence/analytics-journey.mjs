@@ -1,3 +1,4 @@
+import { developerAccessJourney } from './developer-access-journey.mjs';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import { expect } from '@playwright/test';
@@ -94,4 +95,5 @@ export async function analyticsJourney(state, people) {
   await expect(reports.getByRole('combobox', { name: 'Report scope' })).toHaveValue('');
   await expect(reports.getByRole('table')).toContainText(`absent-analytics-${width}`);
   assert.ok(await reports.evaluate(node => node.clientWidth <= document.documentElement.clientWidth), 'Reports fit the desktop and mobile viewport.');
+  await developerAccessJourney(state, people);
 }
