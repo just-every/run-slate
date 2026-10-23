@@ -46,7 +46,7 @@ export async function fileCardsJourney(state){
  for(const provider of ['google-drive','sharepoint'])assert.ok(!JSON.stringify(stored).includes(folderFixture(provider).token));
  await switchIdentity('reader');await page.goto(`${origin}/app/pages/${pageId}`,{waitUntil:'networkidle'});
  for(const card of await page.getByRole('region',{name:/file card$/}).all()){
-  await expect(card.getByRole('link',{name:'Request access',exact:true})).toBeVisible();await expect(card.getByRole('link',{name:'Connect your account',exact:true})).toBeVisible();await expect(card).not.toContainText('Alex Owner');
+  await expect(card.getByRole('link',{name:'Request access',exact:true})).toBeVisible();await expect(card.getByRole('link',{name:'Connect to view',exact:true})).toBeVisible();await expect(card).not.toContainText('Alex Owner');
  }
  await shot('no-connection');
  for(const provider of ['google-drive','sharepoint']){
@@ -54,7 +54,7 @@ export async function fileCardsJourney(state){
  }
  await page.reload({waitUntil:'networkidle'});
  for(const card of await page.getByRole('region',{name:/file card$/}).all()){
-  await expect(card.getByRole('link',{name:'Request access',exact:true})).toBeVisible();await expect(card.getByRole('link',{name:'Connect your account',exact:true})).toHaveCount(0);await expect(card.locator('time')).toHaveCount(0);await expect(card).not.toContainText('Alex Owner');await expect(card).not.toContainText('Recovery <handover> notes revised');
+  await expect(card.getByRole('link',{name:'Request access',exact:true})).toBeVisible();await expect(card.getByRole('link',{name:'Connect to view',exact:true})).toHaveCount(0);await expect(card.locator('time')).toHaveCount(0);await expect(card).not.toContainText('Alex Owner');await expect(card).not.toContainText('Recovery <handover> notes revised');
  }
  await shot('reader-denied');
  await switchIdentity('owner');await setFileCardFixture({deleted:[folderFixture('google-drive').documents[0].id,folderFixture('sharepoint').documents[0].id]});
@@ -63,7 +63,7 @@ export async function fileCardsJourney(state){
  await page.reload({waitUntil:'networkidle'});await expect(page.getByText('File access could not be checked.',{exact:true})).toHaveCount(2);await expect(page.getByRole('region',{name:/file card$/}).first().locator('time')).toHaveCount(0);await shot('provider-failed');
  await setFileCardFixture({failed:[]});
  for(const connection of connections)await ok(context,origin,'DELETE',`/api/imports/provider-folders/connections/${connection.id}`,{operationKey:randomUUID(),expectedRevisionId:connection.revisionId});
- await page.reload({waitUntil:'networkidle'});await expect(page.getByRole('link',{name:'Request access',exact:true})).toHaveCount(2);await expect(page.getByRole('link',{name:'Connect your account',exact:true})).toHaveCount(2);await shot('disconnected');
+ await page.reload({waitUntil:'networkidle'});await expect(page.getByRole('link',{name:'Request access',exact:true})).toHaveCount(2);await expect(page.getByRole('link',{name:'Connect to view',exact:true})).toHaveCount(2);await shot('disconnected');
  assert.deepEqual((await api(`/api/pages/${pageId}`)).blocks.filter(block=>block.blockType==='file-card').map(block=>block.content),references.map(block=>block.content));
  await page.getByRole('button',{name:/Add block/}).click();await page.getByRole('option',{name:'Connected file',exact:true}).click();await expect(page.getByRole('dialog',{name:'Insert connected file'}).getByRole('link',{name:'Connect your account',exact:true})).toBeVisible();await shot('empty-picker');await page.getByRole('dialog',{name:'Insert connected file'}).getByRole('button',{name:'Cancel',exact:true}).click();
 }
