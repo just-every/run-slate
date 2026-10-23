@@ -1508,7 +1508,7 @@ A versioned `/api/v1` covers pages, blocks, databases, records, comments, search
 
 *Acceptance:* a contract suite generated from the OpenAPI document runs every operation over HTTP with a token for each of two members, asserting the schemas and that every access difference matches the UI's. Expired, revoked and under-scoped tokens are refused. The suite assigns, dates, reassigns and completes a task and finds the same refusals, notifications and completion record as the UI.
 
-*Status:* partial. The app uses internal JSON routes under `/api` (`src/core/features/pages/routes.ts`); there are no tokens, versioning or published specification.
+*Status:* partial. Hashed, once-issued personal tokens and bearer-only `/api/v1` page, block and task operations share the UI services, current access checks and operation receipts. Route declarations generate the served OpenAPI document; opaque pagination, per-token rate limits and stable errors ship. `tests/e2e/public-api/contract.test.ts` — "personal API tokens run the published HTTP contract with member parity, task effects and immediate authority loss" exercises every declared operation with two members, UI refusals, token expiry/revocation/scope, task notices and attribution, populated upgrade, native archive/restore and removal/erasure. OAuth 2.0 applications, databases, records, comments, search, members, groups, files and URL resolution are not built in the versioned API. Conservative custody defaults adopted pending ct: full Members and Owners only (the product has no Admin role), no guest tokens, container read/write scopes bounded by current rights, 90-day default/one-year maximum, no token administration, export, publication or erasure authority through the versioned API, hashes excluded from archives and restored credentials revoked.
 
 #### API-002 — Webhooks.
 Owners and OAuth apps subscribe to page, record, comment, status, verification and member events by container. Deliveries are HMAC-signed with a timestamp, retried with backoff for 24 hours, logged with their responses, replayable, and disabled with a notice after repeated failure. Payloads carry IDs and titles only when the subscription's acting member can read the record.
@@ -2118,7 +2118,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `ANSWER-004` | Feedback and unanswered questions | target | missing | — | not implemented |
 | `ANSWER-005` | Summaries and catch-up | target | partial | `src/core/features/ai/routes.ts` | see the clause |
 | `ANSWER-006` | Owner-chosen models and data controls | target | partial | `src/core/features/ai/integration.ts` | see the clause |
-| `API-001` | Public REST API | target | partial | `src/core/features/pages/routes.ts` | see the clause |
+| `API-001` | Public REST API | target | partial | `tests/e2e/public-api/contract.test.ts` — personal API tokens run the published HTTP contract with member parity, task effects and immediate authority loss | OAuth applications; databases, records, comments, search, members, groups, files and URL resolution. Conservative token custody defaults in the clause Status await ct; no Admin role exists. |
 | `API-002` | Webhooks | target | missing | — | not implemented |
 | `API-003` | MCP server | target | partial | `src/core/features/external-agent/routes.ts` | see the clause |
 | `API-004` | App and token administration | target | missing | — | not implemented |
