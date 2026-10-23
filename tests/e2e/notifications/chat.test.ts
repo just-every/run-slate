@@ -1,5 +1,5 @@
 import { env, createExecutionContext, waitOnExecutionContext } from 'cloudflare:test';
-import { beforeEach, expect, vi } from 'vitest';
+import { beforeEach, expect, test, vi } from 'vitest';
 import { contract } from '../contract';
 import { resetDeployment } from '../setup/reset-deployment';
 import { seedWorkspace, seedMember, seedContainer, seedContainerGrant, sessionFor } from '../setup/fixtures';
@@ -12,6 +12,7 @@ import { assertStoredConfiguration } from '../../../src/core/app/runtime-gate';
 import { decryptSecret } from '../../../src/core/platform/secrets/custody';
 import { chatScope } from '../../../src/core/features/notifications/chat-config';
 import { slackNetwork, type SlackAudienceFixture } from '../helpers/slack-network';
+import { captureMail } from '../helpers/mail-edge';
 
 beforeEach(resetDeployment);
 contract('NOTIF-003', 'Chat destination sends link-only messages, shows last delivery and failure, retries only transient failures, marks revoked authorization as needing attention and stops on disconnect', async () => {
@@ -21,7 +22,7 @@ contract('NOTIF-003', 'Chat destination sends link-only messages, shows last del
   await seedMember(workspaceId, { role: 'member', email: 'removed@chat.test', displayName: 'Former Reader', status: 'removed' });
   const containerId = (await seedContainer(workspaceId, { ownerMemberId: owner, visibility: 'private' })).containerId;
   for (const [principalId, level] of [[owner, 'full'], [reader, 'comment']] as const) await seedContainerGrant(containerId, { principalKind: 'member', principalId, level });
-  const cookies = { owner: await sessionFor(owner), reader: await sessionFor(reader) };
+  const cookies = { owner: await sessionFor(owner, { freshProof: true }), reader: await sessionFor(reader) };
   const token = 'test-only-chat-credential', credentialKey = crypto.randomUUID(), origin = 'https://slate.test';
   const bindings: AppBindings = { ...env, SLATE_PROFILE: undefined, CONNECTOR_CREDENTIALS_KEY: credentialKey, APP_URL: origin };
   const app = createApi(), key = () => crypto.randomUUID();
@@ -166,4 +167,23 @@ contract('NOTIF-003', 'Chat destination sends link-only messages, shows last del
     expect((await history()).length).toBeGreaterThanOrEqual(3);
     await expect(assertStoredConfiguration(missingKey)).resolves.toBeUndefined();
   } finally { edge.restore(); vi.useRealTimers(); }
+});
+test('the single-destination chat door stores a credential only after a fresh email confirmation', async () => {
+  const { workspaceId } = await seedWorkspace();
+  const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner@chat.test', displayName: 'Alex Owner' })).memberId;
+  await seedMember(workspaceId, { role: 'member', email: 'reader@chat.test', displayName: 'Morgan Reader' });
+  const token = 'synthetic-slate-201', origin = 'https://slate.test';
+  const bindings: AppBindings = { ...env, SLATE_PROFILE: undefined, CONNECTOR_CREDENTIALS_KEY: crypto.randomUUID(), APP_URL: origin };
+  const app = createApi(), edge = slackNetwork('reader@chat.test', token), mail = captureMail();
+  const connect = async (cookie: string) => app.request(origin + '/api/notifications/chat', { method: 'POST', headers: { cookie, origin, 'content-type': 'application/json' }, body: JSON.stringify({ operationKey: crypto.randomUUID(), channel: 'GCHAT', token, events: ['comment'] }) }, bindings);
+  try {
+    const unconfirmed = await connect(await sessionFor(owner));
+    expect(unconfirmed.status).toBe(403);
+    expect(await unconfirmed.json()).toMatchObject({ code: 'STEP_UP_REQUIRED' });
+    expect(await env.DB.prepare('SELECT COUNT(*) AS count FROM chat_connections').first<number>('count')).toBe(0);
+    expect(edge.attempts).toEqual([]);
+    const confirmed = await connect(await sessionFor(owner, { freshProof: true }));
+    expect(confirmed.status, await confirmed.clone().text()).toBe(200);
+    expect(await env.DB.prepare('SELECT COUNT(*) AS count FROM chat_connections').first<number>('count')).toBe(1);
+  } finally { mail.restore(); edge.restore(); }
 });

@@ -7756,7 +7756,7 @@
       "executable": false
     },
     "src/core/features/notifications/routes.ts": {
-      "sha256": "915d15c4e03b4431fb882ff7281e1eef92c52b8532e4dfd5e8af52bd779c3ce3",
+      "sha256": "e8d029979ad23c4af6d3426a0a3ec6092c6d0b2961d20ab3697dac7d5da1eecb",
       "executable": false
     },
     "src/core/features/notifications/service.ts": {
@@ -10092,7 +10092,7 @@
       "executable": false
     },
     "tests/e2e/notifications/chat.test.ts": {
-      "sha256": "42078be394779ed8f878b8936ff6b0dd50a4d185a9740576f45e36381bb383fd",
+      "sha256": "9a4063644974d6f2d5b390067e33f953637dc535c5f4a7c482aab803fa39e483",
       "executable": false
     },
     "tests/e2e/notifications/destinations.test.ts": {

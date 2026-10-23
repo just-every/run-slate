@@ -32,6 +32,8 @@ app.post('/chat/destinations/:id/deliveries/:deliveryId/acknowledge',async c=>{
 });
 app.get('/',async c=>{const q=c.req.query();return c.json(await notificationList(notificationContext(c),{cursor:q.cursor,limit:q.limit?Number(q.limit):undefined,audience:q.audience==='direct'?'direct':q.audience==='watched'?'watched':undefined,archived:q.archived==='true'}));});app.get('/today',async c=>c.json(await today(notificationContext(c))));app.post('/actions',async c=>c.json(await notificationAction(notificationContext(c),await c.req.json())));app.get('/chat',async c=>c.json({connection:await chatConnection(notificationContext(c))}));app.post('/chat',async c=>{
  const input=await c.req.json();
+ // The same stored credential as the destinations door, so the same fresh proof; the commit context follows it.
+ await requireChatOwner(notificationContext(c));await requireStepUp(c,'credentials:mint');
  const config={nookDoor:configuredNookDoor(c.env),credentialKey:c.env.CONNECTOR_CREDENTIALS_KEY,appUrl:c.env.APP_URL};
  // NOTIF-003: an owner can install one bot destination in the default wiki.
  // OAuth source identities remain the separate flagship CONNECT-001 path.
