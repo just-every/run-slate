@@ -1625,9 +1625,10 @@
       "file": "tests/flagship/release-clauses/portability/profile-retention.test.ts",
       "testName": "FLAG-001 \u2014 core-profile restore retains and exports flagship history while restored execution authority remains disabled",
       "clauses": [
-        "FLAG-001"
+        "FLAG-001",
+        "WORK-016"
       ],
-      "reason": "Uses native export/restore and actual records to check history remains exportable after core-profile restore while trial execution is stopped and provider authority is cleared. It does not establish complete flagship acceptance.",
+      "reason": "Uses native export/restore and actual records to check history remains exportable after core-profile restore while trial execution is stopped and provider authority is cleared. It does not establish complete flagship acceptance. Populated member profile fields and a hidden expertise override survive the same archive restore.",
       "kind": "supporting-regression"
     },
     {
@@ -1848,14 +1849,15 @@
     },
     {
       "file": "tests/e2e/review/review-access.test.ts",
-      "testName": "Needs review lists only pages each member may read now, by filter, with live access on every request and cursor page",
+      "testName": "Needs review and the people directory expose only readable work, with live access, expertise choices and explicit review routing",
       "kind": "supporting-regression",
       "clauses": [
         "STAT-003",
         "STAT-004",
-        "SEARCH-001"
+        "SEARCH-001",
+        "WORK-016"
       ],
-      "reason": "Local native review-list route over the search fixture's members: owner, reader, guest, page-only guest, denied, expired and revoked grants, inactive and removed members and anonymous; drafts, personal containers, a restricted child, archived, trashed and cleared-status pages; totals, titles, states, filter counts, sidebar count, a cursor taken before a revocation and no space name for page-only guests. Supporting regression evidence, not full UI acceptance."
+      "reason": "Local native review-list route over the search fixture's members: owner, reader, guest, page-only guest, denied, expired and revoked grants, inactive and removed members and anonymous; drafts, personal containers, a restricted child, archived, trashed and cleared-status pages; totals, titles, states, filter counts, sidebar count, a cursor taken before a revocation and no space name for page-only guests. Supporting regression evidence, not full UI acceptance. Also proves the per-reader directory, profile and expertise flow through the existing native routes."
     },
     {
       "file": "tests/e2e/review/verification-flow.test.ts",
@@ -1870,13 +1872,14 @@
     },
     {
       "file": "tests/e2e/review/verification-upgrade.test.ts",
-      "testName": "Existing verifications upgrade in place and the list and lapse notice treat each correctly",
+      "testName": "Existing verifications and member profiles upgrade in place without losing populated work or lapse notices",
       "kind": "supporting-regression",
       "clauses": [
         "STAT-004",
-        "NOTIF-001"
+        "NOTIF-001",
+        "WORK-016"
       ],
-      "reason": "Local D1 prior-data upgrade through migration 0026: current, lapsed and notified, lapsed and due, changed-since and departed-verifier rows are unchanged, the review list and page reads show each state, and two lapse-job runs notify only the due row once without stalling on the departed verifier. Real CLI export/import of an upgraded store is separate evidence."
+      "reason": "Local D1 prior-data upgrade through migration 0026: current, lapsed and notified, lapsed and due, changed-since and departed-verifier rows are unchanged, the review list and page reads show each state, and two lapse-job runs notify only the due row once without stalling on the departed verifier. Real CLI export/import of an upgraded store is separate evidence. Also proves the per-reader directory, profile and expertise flow through the existing native routes."
     },
     {
       "file": "tests/flagship/content/structure-save-labels.test.ts",
@@ -1990,7 +1993,7 @@
     },
     {
       "file": "tests/e2e/editor/tables.test.ts",
-      "testName": "BLOCK-014 — tables, columns and synced paragraphs preserve structured content through editing, validation, exports and access",
+      "testName": "BLOCK-014 \u2014 tables, columns and synced paragraphs preserve structured content through editing, validation, exports and access",
       "kind": "supporting-regression",
       "clauses": [
         "BLOCK-014"
