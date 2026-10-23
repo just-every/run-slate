@@ -8980,7 +8980,7 @@
       "executable": false
     },
     "src/core/features/skills/export.ts": {
-      "sha256": "9cc65ca78cc5b7c96cd8abef59a34371831cbc39e4367b986e3b80029459fcda",
+      "sha256": "638be03db1b460e303c6cb4e67aadb2501cad3f7618f6a84209b8691643fd6dd",
       "executable": false
     },
     "src/core/features/skills/guided-definition.ts": {
@@ -10940,7 +10940,7 @@
       "executable": false
     },
     "tests/qualification/authority/snapshot.test.ts": {
-      "sha256": "ba2dc3e32aea080c5670bc99516384597ee708d3383241046def50fa54abc0fe",
+      "sha256": "0a900a88999dce5c3e9c4a5b990c0bbd8002a31cac658efcf0c63a409aa29ded",
       "executable": false
     },
     "tests/qualification/authority/verifier-boundary.test.mjs": {
