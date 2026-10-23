@@ -17,9 +17,9 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   const api = (method, route, data) => ok(context, origin, method, route, data);
   const evidence = process.env.SLATE_CHAT_EVIDENCE_DIR ?? path.join(root, '.artifacts/ui-convergence/chat');
   await mkdir(evidence, { recursive: true });
-  const shot = async label => {
-    await accessible(page, `chat ${label}`);
-    await page.screenshot({ path: path.join(evidence, `chat-${width}-${label}.png`), fullPage: true });
+  const shot = async (label, {fullPage=true}={}) => {
+    await accessible(page, `chat ${label}`, {fullPage});
+    await page.screenshot({ path: path.join(evidence, `chat-${width}-${label}.png`), fullPage });
   };
   const open = async () => {
     await page.goto(`${origin}/app/settings?section=chat`, { waitUntil: 'networkidle' });
@@ -237,6 +237,12 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await page.getByRole('button',{name:'Cancel',exact:true}).click();
 
   await page.goto(origin+'/docs/chat-notifications',{waitUntil:'networkidle'});
-  await shot('nook-door-docs');
+  console.log('Chat docs dimensions',await page.evaluate(()=>({width:innerWidth,height:document.documentElement.scrollHeight})));
+  await page.getByRole('heading',{name:'Provider acceptance and Nook',exact:true}).scrollIntoViewIfNeeded();
+  await shot('nook-door-docs',{fullPage:false});
+  await page.getByText('The documented NOOK-089 extension',{exact:false}).scrollIntoViewIfNeeded();
+  await shot('nook-thread-receipt-docs',{fullPage:false});
+  await page.getByText('A replacement approval for the same exact app name and channel',{exact:false}).scrollIntoViewIfNeeded();
+  await shot('nook-edit-docs',{fullPage:false});
 
 }
