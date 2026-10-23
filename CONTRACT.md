@@ -1806,15 +1806,15 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `0794e963b8357325a726db55b6ba2d5c4634fd2d` (23 October 2026).
+Judged from the code and tests at commit `fe6a27feeb1f16d8abf3e65fd94640e74fb66c63` (23 October 2026).
 
 Live-provider evidence remains explicitly open. See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 172 | 49 | 0 | 221 |
-| Target and push further | 19 | 49 | 37 | 105 |
-| All | 191 | 98 | 37 | 326 |
+| Target and push further | 19 | 51 | 35 | 105 |
+| All | 191 | 100 | 35 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |

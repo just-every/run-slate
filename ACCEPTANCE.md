@@ -12,8 +12,8 @@
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 172 | 49 | 0 | 221 |
-| Target and push further | 19 | 49 | 37 | 105 |
-| All | 191 | 98 | 37 | 326 |
+| Target and push further | 19 | 51 | 35 | 105 |
+| All | 191 | 100 | 35 | 326 |
 
 ### Published: Workspace, editing and pages
 
