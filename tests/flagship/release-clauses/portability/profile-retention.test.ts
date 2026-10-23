@@ -114,7 +114,7 @@ test('FLAG-001 — core-profile restore retains and exports flagship history whi
   expect(staged.response.status).toBe(202);
   expect(staged.body.state).toBe('queued');
   const beforeR2=await r2Snapshot();
-  const restored=await runRestoreThroughApi(target,staged.body.id,'');
+  const restored=await runRestoreThroughApi(staged.cookie,staged.body.id,'');
   expect(restored.response.status).toBe(200);
   expect(restored.body.state).toBe('completed');
   expect(await migrationNames()).toEqual(migrations);

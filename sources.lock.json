@@ -10864,19 +10864,19 @@
       "executable": false
     },
     "tests/flagship/release-clauses/portability/owner-views.test.ts": {
-      "sha256": "fe828a90c2a9a6f8fba93e6c2aecde39a8723b2c9dbcf65d53fc952e0ad80d7b",
+      "sha256": "bd4105825d2ecabd5b79b8980a0d37f07386f56e30d747b8eec499603e272573",
       "executable": false
     },
     "tests/flagship/release-clauses/portability/profile-retention.test.ts": {
-      "sha256": "e053e9767405fdb2075146b865f49e31b24bf4cb4ba9481ab543d9650c4f171f",
+      "sha256": "757da917689bb14356aaa7c646db57768131e07466f47af404b04dd80ab3ec7e",
       "executable": false
     },
     "tests/flagship/release-clauses/portability/staged-recovery.test.ts": {
-      "sha256": "fc416ac350ec1c4ffac45343e3c610977babef558df6930b4f5b7b7c1bf8a461",
+      "sha256": "2400be857f60babc47354770d5654580274098758c91db6f13a4f7fedbb7e23d",
       "executable": false
     },
     "tests/flagship/release-clauses/portability/support.ts": {
-      "sha256": "d0be4f38a387f4e7cbfa0595f2edf207c2dffbaae0e609fec0f0dec78e1e33a4",
+      "sha256": "1c14d1dee3846308d0f9bfdc18a0c2588d59c4b52f98f4b75f8c072caa079f58",
       "executable": false
     },
     "tests/flagship/release-clauses/suggestions/anchors.test.ts": {

@@ -233,12 +233,14 @@ export async function stageRestoreThroughApi(h:WorkspaceHarness,bytes:Uint8Array
   const form=new FormData();
   form.set('operationKey',op('portable-restore'));
   form.set('file',new File([bytes as Uint8Array<ArrayBuffer>],'workspace.zip',{type:'application/zip'}));
-  const response=await apiRequest('/api/exports/jobs/restore',await setupOwnerCookie(h),profile,{method:'POST',body:form});
-  return {response,body:await response.json() as {id:string;state:string;report:{code?:string};restoreId?:string;counts:Record<string,number>}};
+  const cookie=await setupOwnerCookie(h);
+  const response=await apiRequest('/api/exports/jobs/restore',cookie,profile,{method:'POST',body:form});
+  return {cookie,response,body:await response.json() as {id:string;state:string;report:{code?:string};restoreId?:string;counts:Record<string,number>}};
 }
 
-export async function runRestoreThroughApi(h:WorkspaceHarness,id:string,profile:'core-wiki'|'flagship'|''|undefined='flagship'){
-  const response=await apiRequest(`/api/exports/jobs/${id}/run`,await setupOwnerCookie(h),profile,{method:'POST'});
+// Staging and running are one authenticated journey, not two sign-ins.
+export async function runRestoreThroughApi(cookie:string,id:string,profile:'core-wiki'|'flagship'|''|undefined='flagship'){
+  const response=await apiRequest(`/api/exports/jobs/${id}/run`,cookie,profile,{method:'POST'});
   return {response,body:await response.json() as {id:string;state:string;report:{code?:string};restoreId?:string;counts:Record<string,number>;reconnect?:string[]}};
 }
 

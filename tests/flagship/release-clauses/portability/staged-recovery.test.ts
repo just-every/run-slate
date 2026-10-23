@@ -43,7 +43,7 @@ test('FLAG-002 — staged restore refuses a target that gains a product row and 
   expect(beforeObjects.map(object=>object.key)).toEqual([`federation/staging/${staged.body.id}/source.zip`]);
   const lateGroupId='release-late-target-group';
   await env.DB.prepare(`CREATE TRIGGER release_portability_add_group_after_admission AFTER UPDATE OF cleanup_json ON portability_jobs WHEN NEW.id='${staged.body.id}' AND OLD.cleanup_json='[]' AND NEW.cleanup_json<>'[]' BEGIN INSERT INTO groups(id,workspace_id,name,created_at,updated_at,revision_id) VALUES('${lateGroupId}','${empty.workspaceId}','Added after restore admission','2026-10-06T00:00:00.000Z','2026-10-06T00:00:00.000Z','release-late-target-revision'); END`).run();
-  const refused=await runRestoreThroughApi(empty,staged.body.id);
+  const refused=await runRestoreThroughApi(staged.cookie,staged.body.id);
   expect(refused.response.status).toBe(200);
   expect(refused.body.state).toBe('failed');
   expect(refused.body.report.code).toBe('RESTORE_NOT_EMPTY');
@@ -89,7 +89,7 @@ test('FLAG-002 — restore rechecks current setup-owner authority inside the can
     const value=Reflect.get(bucket,property);return typeof value==='function'?value.bind(bucket):value;
   }});
   const response=await createApi().request(`https://slate.example/api/exports/jobs/${staged.body.id}/run`,{
-    method:'POST',headers:{cookie:await sessionFor(empty.ownerId,{freshProof:true}),origin:'https://slate.example'},
+    method:'POST',headers:{cookie:staged.cookie,origin:'https://slate.example'},
   },{...apiBindings('flagship'),FILES:files} as never);
   const refused={response,body:await response.json() as Awaited<ReturnType<typeof runRestoreThroughApi>>['body']};
   expect(refused.response.status).toBe(200);
@@ -121,7 +121,7 @@ test('FLAG-002 — a second empty target restores the complete archive, imported
   const clean=await target(),beforeD1=await portableSnapshot(),staged=await stageRestoreThroughApi(clean,sourceArchive.bytes);
   expect(staged.response.status).toBe(202);
   expect(staged.body.state).toBe('queued');
-  const beforeR2=await r2Snapshot(),restored=await runRestoreThroughApi(clean,staged.body.id);
+  const beforeR2=await r2Snapshot(),restored=await runRestoreThroughApi(staged.cookie,staged.body.id);
   expect(restored.response.status).toBe(200);
   expect(restored.body.state).toBe('completed');
   expect(await migrationNames()).toEqual(migrations);
