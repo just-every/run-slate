@@ -8,6 +8,46 @@
       "reason": "False positive in compressed pixels of the published 0.3.0 screenshot. The 12-byte pattern at byte offset 35800 lies wholly inside an IDAT chunk. This PNG has no text metadata chunks, and visual inspection shows no email address. Preserve the exact published image; this disposition applies only to this rule, path and blob.",
       "reviewer": "Codex sd-slate-rel4-finish release writer",
       "date": "2026-10-20"
+    },
+    {
+      "rule": "hygiene.local-path",
+      "path": "src/core/features/scim/routes.ts",
+      "blob": "e76e700100c850791e44a05a4bf83f27801a1961",
+      "reason": "False positive: SCIM 2.0 (RFC 7644) Users resource routes. Lines 24, 26, 27 and 28 register the Hono pattern for the Users collection followed by an :id route parameter (get, put, patch and delete) relative to the SCIM base. The matched segment is a route parameter, not a home-directory user name; the file contains no filesystem path.",
+      "reviewer": "Claude sd-slate-land-c20 lander",
+      "date": "2026-10-23"
+    },
+    {
+      "rule": "hygiene.local-path",
+      "path": "tests/e2e/scim/custody.ts",
+      "blob": "c4deaccfff12fbadbae7ab0d309ecc6011794025",
+      "reason": "False positive: SCIM 2.0 (RFC 7644) Users resource request paths built as template literals from synthetic fixture ids (lines 20, 21, 25 and 26). The matched segment is an interpolated SCIM resource id, not a home-directory user name; the file contains no filesystem path.",
+      "reviewer": "Claude sd-slate-land-c20 lander",
+      "date": "2026-10-23"
+    },
+    {
+      "rule": "hygiene.local-path",
+      "path": "tests/e2e/scim/lifecycle.ts",
+      "blob": "4cbda48a0c992bbad5751eb0448b978a1151935e",
+      "reason": "False positive: SCIM 2.0 (RFC 7644) Users resource request paths built as template literals from synthetic fixture ids (lines 28, 31, 32 and 36). The matched segment is an interpolated SCIM resource id, not a home-directory user name; the file contains no filesystem path.",
+      "reviewer": "Claude sd-slate-land-c20 lander",
+      "date": "2026-10-23"
+    },
+    {
+      "rule": "hygiene.local-path",
+      "path": "tests/e2e/scim/security.ts",
+      "blob": "8256a56ec1cbece90e2086396c1dc962d6921a0d",
+      "reason": "False positive: SCIM 2.0 (RFC 7644) Users resource request paths built as template literals from synthetic fixture ids (lines 27 and 28). The matched segment is an interpolated SCIM resource id, not a home-directory user name; the file contains no filesystem path.",
+      "reviewer": "Claude sd-slate-land-c20 lander",
+      "date": "2026-10-23"
+    },
+    {
+      "rule": "hygiene.local-path",
+      "path": "tests/e2e/scim/users.ts",
+      "blob": "8c594a7f1e9af41be80bdaa6033a7b18545ab77e",
+      "reason": "False positive: SCIM 2.0 (RFC 7644) Users resource request paths built as template literals from synthetic fixture ids (lines 12). The matched segment is an interpolated SCIM resource id, not a home-directory user name; the file contains no filesystem path.",
+      "reviewer": "Claude sd-slate-land-c20 lander",
+      "date": "2026-10-23"
     }
   ]
 }
