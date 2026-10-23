@@ -9,7 +9,9 @@ export const PATCH='urn:ietf:params:scim:api:messages:2.0:PatchOp';
 export async function scimFixture() {
   const f=await apiFixture(),mail=captureMail();
   const mintCredential=()=>f.ok('/api/developer/scim','POST',{operationKey:createUlid(),name:'Synthetic directory'});
-  let credential=await mintCredential();
+  const initial={operationKey:createUlid(),name:'Synthetic directory'};
+  let credential=await f.ok('/api/developer/scim','POST',initial);
+  const replayed=await f.ok('/api/developer/scim','POST',initial);expect(replayed.value).toEqual(credential.value);expect(replayed).not.toHaveProperty('secret');
   const request=async(path:string,method='GET',body?:unknown,token:string|undefined=credential.secret,key?:string)=>{
     const response=await f.api.request('https://slate.test/scim/v2'+path,{method,headers:{'content-type':'application/scim+json',...(token?{authorization:`Bearer ${token}`} : {}),...(key?{'idempotency-key':key}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})},{...env,SLATE_PROFILE:undefined});
     return {status:response.status,headers:response.headers,data:response.status===204?null:await response.json<any>()};
