@@ -2,7 +2,7 @@ import {expect} from 'vitest';
 import {zipSync,strToU8,unzipSync} from 'fflate';
 
 /** Layout validation, format preservation and source imports through HTTP doors. */
-export async function columnsCase(request:(method:string,path:string,body?:unknown,actor?:'owner'|'reader')=>Response|Promise<Response>,containerId:string){
+export async function columnsCase(request:(method:string,path:string,body?:unknown,actor?:'owner'|'reader'|'public')=>Response|Promise<Response>,containerId:string,ownerId:string){
  const json=async(method:string,path:string,body?:unknown)=>{const response=await request(method,path,body),data=await response.json<any>();expect(response.status,JSON.stringify(data)).toBe(200);return data;};
  const section=crypto.randomUUID(),columns=Array.from({length:3},()=>crypto.randomUUID());
  const blocks=[{id:section,blockType:'columns',content:{count:3},treePosition:'0'},...columns.flatMap((id,index)=>[
@@ -65,4 +65,29 @@ export async function columnsCase(request:(method:string,path:string,body?:unkno
   expect(imported.blocks.filter((b:any)=>b.parentBlockId===group.id&&b.blockType==='column')).toHaveLength(count);
  }
  expect(docs.filter(d=>d.blocks.some((b:any)=>b.blockType==='columns'&&b.content.count===3))).toHaveLength(6);
+ const copied=await json('POST',`/pages/${pageId}/duplicate`,{operationKey:crypto.randomUUID(),containerId});
+ const copy=await json('GET',`/pages/${copied.value.pageId}`);
+ expect(copy.blocks.filter((b:any)=>b.blockType==='column')).toHaveLength(3);
+ const ownIds=new Set(copy.blocks.map((b:any)=>b.id));
+ expect(copy.blocks.every((b:any)=>!b.parentBlockId||ownIds.has(b.parentBlockId))).toBe(true);
+ let current=await json('GET',`/pages/${pageId}`);const retainedRevision=current.workingRevisionId;
+ const leaf=current.blocks.find((b:any)=>b.blockType==='paragraph');
+ const thread=await json('POST',`/comments/page/${pageId}`,{operationKey:crypto.randomUUID(),kind:'inline',blockId:leaf.id,anchor:{anchorId:crypto.randomUUID(),quote:leaf.content.text[0].text},anchorRevisionId:retainedRevision,body:[{text:'Response lead confirmed.'}]});
+ expect((await json('GET',`/comments/page/${pageId}`)).comments.some((comment:any)=>comment.id===thread.value.id)).toBe(true);
+ await json('PATCH',`/pages/${pageId}/blocks/${leaf.id}`,{operationKey:crypto.randomUUID(),expectedRevisionId:leaf.revisionId,content:{text:[{text:'A later response draft'}]}});
+ current=await json('GET',`/pages/${pageId}`);
+ await json('POST',`/revisions/${pageId}/${retainedRevision}/restore`,{operationKey:crypto.randomUUID(),expectedRevisionId:current.page.revisionId});
+ current=await json('GET',`/pages/${pageId}`);
+ expect(current.blocks.map((b:any)=>[b.id,b.parentBlockId,b.blockType,b.content])).toEqual(doc.blocks.map((b:any)=>[b.id,b.parentBlockId,b.blockType,b.content]));
+ const published=await json('POST',`/publishing/${pageId}`,{operationKey:crypto.randomUUID(),expectedRevisionId:current.page.revisionId,host:'slate.test',slug:'synthetic-slate-columns'});
+ expect(published).toBeDefined();
+ const publicResponse=await request('GET','/p/synthetic-slate-columns',undefined,'public');expect(publicResponse.status).toBe(200);
+ const markup=await publicResponse.text();expect(markup).toContain('class="slate-columns"');
+ for(const text of ['Plan the response','Assign the lead','Confirm completion'])expect(markup).toContain(text);
+ await json('POST','/sharing',{operationKey:crypto.randomUUID(),targetKind:'page',targetId:pageId,principalKind:'member',principalId:ownerId,level:'full'});
+ current=await json('GET',`/pages/${pageId}`);
+ await json('PUT',`/sharing/pages/${pageId}/inheritance`,{operationKey:crypto.randomUUID(),expectedRevisionId:current.page.revisionId,restricted:true});
+ const denied=await request('GET',`/pages/${pageId}`,undefined,'reader');expect(denied.status).toBe(404);expect(await denied.text()).not.toContain('Plan the response');
+ const search=await request('GET','/search?q='+encodeURIComponent('Plan the response'),undefined,'reader');expect(search.status).toBe(200);expect(JSON.stringify(await search.json())).not.toContain(pageId);
+
 }
