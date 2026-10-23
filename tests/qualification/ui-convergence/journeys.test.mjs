@@ -1,3 +1,5 @@
+import {touchManagementJourney} from './touch-management-journey.mjs';
+import {touchPageToolsJourney} from './touch-page-tools-journey.mjs';
 import {touchOperatorJourney} from './touch-operator-journey.mjs';
 import {columnsJourney} from './columns-journey.mjs';
 import {beginTouchJourney} from './touch-journey.mjs';
@@ -51,10 +53,11 @@ for (const width of [1440, 390]) {
   test(`provider embeds load only on interaction and [EMBED-004] files respect reader access at ${width}px`, {timeout:240000}, async()=>{
     await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{await setupWorkspace(state);await providerEmbedsJourney(state);}, {}, {folders:true});
   });
-  test(`presentation paginates read-only slides and restores the page at ${width}px`, { timeout: 180000 }, async () => {
+  test(`presentation paginates read-only slides; touch history, details and exports work at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await presentationJourney(state);
+      const touch=await beginTouchJourney(state,width);try{await touchPageToolsJourney(touch);}finally{await touch.close();}
     });
   });
   test(`readable exports retain discussions through HTML and Markdown re-import at ${width}px`, { timeout: 180000 }, async () => {
@@ -117,13 +120,14 @@ for (const width of [1440, 390]) {
       });
     });
   });
-  test(`TMPL-007 starter templates are found by category, preview, assign a task and duplicate at ${width}px`, { timeout: 240000 }, async () => {
+  test(`TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at ${width}px`, { timeout: 240000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await starterTemplatesJourney(state).catch(async cause => {
         await state.page.screenshot({ path: `.artifacts/ui-convergence/starter-templates-${width}-failure.png`, fullPage: true });
         throw cause;
       });
+      const touch=await beginTouchJourney(state,width);try{await touchManagementJourney(state,touch);}finally{await touch.close();}
     });
   });
   test(`DB-015 — a database's Templates tab says a schedule runs as its last saver, and a re-save hands it over at ${width}px`, { timeout: 240000 }, async () => {
