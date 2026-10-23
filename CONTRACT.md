@@ -1806,7 +1806,7 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `817111f206b62f1efb822194e6c841bfdbfdebe7` (23 October 2026).
+Judged from the code and tests at commit `f40e577a5ad18e84ca066f4275580d10fc1991f5` (23 October 2026).
 
 Live-provider evidence remains explicitly open. See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
@@ -1954,7 +1954,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `NAV-003` | Favorites | published | done | `tests/qualification/backend/sharing-navigation.test.ts` |  |
 | `NAV-004` | One navigation | published | done | `tests/qualification/backend/boundaries.test.ts` |  |
 | `NAV-005` | Global create | published | done | `tests/e2e/navigation/global-create.test.ts`, `tests/qualification/ui-convergence/global-create-journey.mjs` | Global creation is reachable on every configured operator destination; page, database, space and template flows name their destination before creation at 1440/390. Database choices include writable spaces only. |
-| `NAV-006` | The touch client edits | published | partial | `tests/qualification/interface/routed.browser.mjs` | responsive web journeys; native apps missing (MOBILE-001) |
+| `NAV-006` | The touch client edits | published | partial | `tests/qualification/ui-convergence/touch-page.mjs` — `touchWriteJourney` (member create/type, labeled insertion and touch drag), `touchCommentJourney` (comment/resolve), `touchPublishShareJourney` (workspace publish/share); `tests/qualification/ui-convergence/touch-database.mjs` — `touchDatabaseJourney` (table, board, list, gallery, calendar and timeline record edits); existing `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px/390px". Touch controls assert visual-viewport reachability, no overflow and no serious/critical accessibility findings; the member context refuses browser errors and failed requests. | Touch-only operation remains unproven for Search, Inbox, My tasks, review queues, space management, Templates, Archive and workspace settings; page history, details, export and presentation; database charts, templates and automations; and editing block types beyond text. Native applications belong to MOBILE-001 through MOBILE-004 and are not a gap in this responsive-web clause. |
 | `NOTIF-001` | Meaningful notifications | published | done | `tests/qualification/backend/emitted.mjs` |  |
 | `NOTIF-002` | Inbox | published | done | `tests/qualification/core/discovery.mjs` |  |
 | `NOTIF-003` | Chat notifications | published | done | `tests/e2e/notifications/chat.test.ts`; `tests/qualification/ui-convergence/chat-journey.mjs` (1440/390) | Provider acceptance remains open as stated above. |
