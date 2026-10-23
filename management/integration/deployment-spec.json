@@ -320,6 +320,12 @@
       "name": "0050_chat_held_acknowledgment.sql",
       "sha256": "f328f36e4216432eab1dc729f6f321e2f83344ba4630b9c390cc40c1f3d356a1",
       "sql": "-- Acknowledging an uncertain send never changes its dispatch fence or receipt.\nALTER TABLE chat_deliveries ADD COLUMN acknowledged_at TEXT;\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0054_feature_switches.sql",
+      "sha256": "0f2c3968f744988832938ade054fb41c243b2a191e1f4b85cecfbd4ee6c5638d",
+      "sql": "-- Missing overrides resolve to off; existing deployments retain every record.\nCREATE TABLE workspace_feature_switches (\n  workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n  switch_key TEXT NOT NULL CHECK (switch_key IN ('ai','ask','suggestions','agents','connectors','mcp','chat-ask')),\n  enabled INTEGER NOT NULL CHECK (enabled IN (0,1)),\n  changed_by_member_id TEXT REFERENCES members(id),\n  changed_at TEXT NOT NULL,\n  PRIMARY KEY (workspace_id, switch_key)\n);\n"
     }
   ],
   "compatibilityDate": "2026-09-08",
