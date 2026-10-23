@@ -882,7 +882,7 @@ The share panel can send a page to members, groups or email addresses with an op
 
 *Acceptance:* a browser journey shares a page with a message to one member who can read it and one who cannot. The first gets one inbox item and one email with the message. The second is offered to the sender as a grant and receives nothing until it is added, then gets one item.
 
-*Status:* partial. Granting access notifies the grantee (`NOTIF-001`, `tests/qualification/backend/emitted.mjs`); there is no share-with-message action.
+*Status:* partial. The share panel sends bounded plain-text messages to deduplicated member, group and email recipients. Readable recipients receive one access-rechecked inbox item with sender, title, message and link. Others receive nothing until an explicit view grant, or guest invitation acceptance; accompanying grants do not create a second inbox notice. The sender alone sees the message in Activity. Evidence: `tests/qualification/policies/invitations.test.ts` with `tests/qualification/policies/share-message-case.ts`; `tests/qualification/ui-convergence/share-message-journey.mjs` in the existing sharing launch (1440/390). Gap: Share-message email and delivery settings remain unbuilt with NOTIF-005/006: the existing grant event has no transactional-mail path, so this change adds none. Guest acceptance uses the existing invitation email without disclosing the message before access. Default adopted: inbox-only share messages and PARTIAL; no clause text changed. Native archive restoration of pending share intentions is not independently proven.
 
 #### TMPL-007 — Starter templates.
 Slate ships starter templates that work from the first sign-in: meeting notes (attendees, agenda and assigned tasks under `BLOCK-015`), retrospective, decision (`DEC-*`), how-to, troubleshooting, product requirements (with a task report and issue embeds), project plan, runbook (`KEEP-006`), onboarding page, team home (`CONT-011`) and policy page (with an owner and a review date). Each is a shipped template under `TMPL-004`: it can be duplicated into an editable copy and is never edited itself. Each is categorized in the gallery (`TMPL-001`) and previews under `TMPL-002`.
@@ -1806,7 +1806,7 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `d3c9bc0707cf51e3f35d8c17716d0218e0e66cd1` (23 October 2026).
+Judged from the code and tests at commit `aca498ebd14381c2d1451fc69c94f215f2b3daa1` (23 October 2026).
 
 Live-provider evidence remains explicitly open. See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
@@ -2062,7 +2062,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `CONT-012` | Watch a container | target | done | `tests/flagship/discovery/following.test.ts`, `tests/qualification/ui-convergence/following-journey.mjs` |  |
 | `PAGE-016` | Autowatch on create and edit | target | done | `tests/flagship/discovery/following.test.ts` |  |
 | `WORK-016` | People directory and expertise | target | missing | — | not implemented |
-| `SHARE-009` | Share with a message | target | partial | `tests/qualification/backend/emitted.mjs` | see the clause |
+| `SHARE-009` | Share with a message | target | partial | `tests/qualification/policies/invitations.test.ts` with `tests/qualification/policies/share-message-case.ts`; `tests/qualification/ui-convergence/share-message-journey.mjs` in the existing sharing launch (1440/390) | Share-message email and delivery settings remain unbuilt with NOTIF-005/006: the existing grant event has no transactional-mail path, so this change adds none. Guest acceptance uses the existing invitation email without disclosing the message before access. Default adopted: inbox-only share messages and PARTIAL; no clause text changed. Native archive restoration of pending share intentions is not independently proven. |
 | `TMPL-007` | Starter templates | target | done | `tests/e2e/pages/starter-templates.test.ts`, `tests/qualification/ui-convergence/starter-templates-journey.mjs` |  |
 | `NAV-007` | My tasks | target | done | `tests/profile/work-items-journey.ts`, `tests/qualification/ui-convergence/my-tasks-journey.mjs` |  |
 | `SEARCH-010` | Labels and advanced search | target | done | `tests/e2e/search/discovery-journey.ts` |  |
