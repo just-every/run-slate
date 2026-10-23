@@ -6520,7 +6520,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/BlockHandle.tsx": {
-      "sha256": "5c12d0325ac6a126ea0a671116a645b413c06070af9157f5edece1ee22157526",
+      "sha256": "807f832020d0e4a7e6bdb5df52b06869a362c7a85342232bb64a96d95e98d70a",
       "executable": false
     },
     "src/core/features/editor/ui/BlockRow.tsx": {
