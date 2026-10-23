@@ -75,25 +75,8 @@ async function prepareMovePreview(ctx: FeatureContext, id: string, input: MovePl
     if (input.parentPageId && pages.some(p => p.id === input.parentPageId))
         throw new ApiProblem(400, 'TREE_CYCLE', 'A page cannot be its own descendant.');
     const locationOverrides = Object.fromEntries(pages.map(p => [p.id, { containerId: input.containerId, parentPageId: p.id === id ? input.parentPageId ?? null : p.parent_page_id }]));
-    const members = (await ctx.db.prepare("SELECT id,email,display_name,initials,role FROM members WHERE workspace_id=? AND status='active'").bind(ctx.actor.workspaceId).all<{
-        id: string;
-        email: string;
-        display_name: string;
-        initials: string;
-        role: 'owner' | 'member';
-    }>()).results;
     const exposure = await publicMoveChanges(ctx, pages, input.containerId);
-    const changes: { pageId: string; memberId: string | null; audience?: 'public-link'; before: string | null; after: string | null }[] = [...exposure.changes];
-    for (const member of members) {
-        const actor = { ...ctx.actor, id: member.id, email: member.email, displayName: member.display_name, initials: member.initials, role: member.role };
-        const mctx = { ...ctx, actor };
-        for (const p of pages) {
-            const before = await readableDecision(mctx, p.id);
-            const after = await readableDecision(mctx, p.id, { locationOverrides });
-            if (before.level !== after.level)
-                changes.push({ pageId: p.id, memberId: member.id, before: before.level, after: after.level });
-        }
-    }
+    const changes: { pageId: string; memberId: string | null; audience?: 'public-link'; before: string | null; after: string | null }[] = [...exposure.changes, ...await relocationAudienceChanges(ctx, pages, locationOverrides)];
     // Moving is an edit only while effective access stays unchanged. Inheritance
     // changes require the authority to share every affected page, including children.
     for (const pageId of new Set(changes.map(change => change.pageId)))
@@ -196,6 +179,28 @@ export async function duplicatePage(ctx: FeatureContext, id: string, input: {
                 await ctx.files.delete(key);
         }
     }
+}
+/** Every active member whose effective access to these pages differs once they sit at the overridden locations. */
+export async function relocationAudienceChanges(ctx: FeatureContext, pages: PageRow[], locationOverrides: Record<string, { containerId: string; parentPageId: string | null }>, options: { includeTrashed?: boolean } = {}) {
+    const members = (await ctx.db.prepare("SELECT id,email,display_name,initials,role FROM members WHERE workspace_id=? AND status='active'").bind(ctx.actor.workspaceId).all<{
+        id: string;
+        email: string;
+        display_name: string;
+        initials: string;
+        role: 'owner' | 'member';
+    }>()).results;
+    const changes: { pageId: string; memberId: string; before: string | null; after: string | null }[] = [];
+    for (const member of members) {
+        const actor = { ...ctx.actor, id: member.id, email: member.email, displayName: member.display_name, initials: member.initials, role: member.role };
+        const mctx = { ...ctx, actor };
+        for (const p of pages) {
+            const before = await readableDecision(mctx, p.id, options);
+            const after = await readableDecision(mctx, p.id, { ...options, locationOverrides });
+            if (before.level !== after.level)
+                changes.push({ pageId: p.id, memberId: member.id, before: before.level, after: after.level });
+        }
+    }
+    return changes;
 }
 async function readableDecision(ctx: FeatureContext, id: string, options?: Parameters<typeof resolveCurrentAccess>[2]) {
     try {

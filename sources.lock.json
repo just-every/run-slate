@@ -5608,7 +5608,7 @@
       "executable": false
     },
     "src/core/features/archive/service.ts": {
-      "sha256": "3ffe27ceeb22f6d4eddb4a9d8ed5e415fa89870e54354d1e828cfba69367f3e4",
+      "sha256": "58b7a06918f24ba0c7ce97bdbe7c671149d46326e42e091c02fe191b524630f3",
       "executable": false
     },
     "src/core/features/archive/ui/types.ts": {
@@ -8032,7 +8032,7 @@
       "executable": false
     },
     "src/core/features/pages/tree.ts": {
-      "sha256": "4e4b80eb499c89b33d0abd79fa715d6a97b1a6ac443421e8bf8314f7aadf0973",
+      "sha256": "b01fc1874382e0f878a1956ae94ceae14aba8123a754ae4f7fa95fb1314ec123",
       "executable": false
     },
     "src/core/features/pages/types.ts": {
@@ -10248,7 +10248,7 @@
       "executable": false
     },
     "tests/flagship/content/http.test.ts": {
-      "sha256": "e0a1f6b3102d9401feb79450ad5d510ca62b8141020419677c7437e5d3b8aa50",
+      "sha256": "3ea248235c717fc7365e5b1e1e9f24e993d69f9a387e90ff416af91f610908b4",
       "executable": false
     },
     "tests/flagship/content/management.node.test.mts": {

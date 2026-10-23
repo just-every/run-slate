@@ -16,7 +16,7 @@ import { createPublishingRoutes,createPublicPagesRoutes } from '../../../src/cor
 import { createArchiveRoutes } from '../../../src/core/features/archive/routes';
 import { createUlid } from '../../../src/core/shared/ulid';
 import { createApi } from '../../../src/core/app/hono';
-import { sessionFor } from '../../e2e/setup/fixtures';
+import { sessionFor, seedWorkspace, seedMember, seedContainer, seedContainerGrant } from '../../e2e/setup/fixtures';
 import { contentLimits } from '../../../src/core/features/editor/limits';
 const now=new Date().toISOString();
 beforeEach(resetDeployment);
@@ -58,4 +58,17 @@ it('duplicating a page with attachments respects the deployment attachment stora
  expect((await upload('another.txt')).status).toBe(429);const before=await env.DB.prepare('SELECT count(*) AS n FROM files').first<number>('n');
  const duplicated=await f.request('POST',`/api/pages/${pageId}/duplicate`,{operationKey:createUlid(),containerId:f.containerId});expect(duplicated.status,JSON.stringify(duplicated.data)).toBe(429);expect(duplicated.data.code).toBe('STORAGE_LIMIT');expect(await env.DB.prepare('SELECT count(*) AS n FROM files').first<number>('n')).toBe(before);
  expect((await env.FILES.list({prefix:`pages/${f.w}/`})).objects).toHaveLength(1);
+});
+it('restoring an archived page somewhere else needs the authority to change who can read it',async()=>{const {SELF}=await import('cloudflare:test');const {workspaceId}=await seedWorkspace();
+ const [owner,editor,colleague]=await Promise.all(['owner','editor','colleague'].map(async name=>(await seedMember(workspaceId,{role:name==='owner'?'owner':'member',email:`${name}@restore.test`,displayName:name})).memberId));
+ const closed=(await seedContainer(workspaceId,{ownerMemberId:owner!,visibility:'private'})).containerId,open=(await seedContainer(workspaceId,{ownerMemberId:owner!,visibility:'private'})).containerId;
+ for(const [containerId,principalId,level] of [[closed,owner,'full'],[closed,editor,'edit'],[open,owner,'full'],[open,editor,'edit'],[open,colleague,'view']] as const)await seedContainerGrant(containerId,{principalKind:'member',principalId:principalId!,level});
+ const cookies:Record<string,string>={owner:await sessionFor(owner!),editor:await sessionFor(editor!),colleague:await sessionFor(colleague!)};
+ const call=async(method:string,path:string,who:string,body?:unknown)=>{const r=await SELF.fetch(`http://localhost/api${path}`,{method,headers:{cookie:cookies[who]!,origin:'http://localhost',...(body?{'content-type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});const text=await r.text();return {status:r.status,text,data:text?JSON.parse(text):null};};
+ const pageId=(await call('POST','/pages','owner',{operationKey:createUlid(),containerId:closed,title:'Closed salary review'})).data.value.pageId,revision=async()=>(await env.DB.prepare('SELECT revision_id FROM pages WHERE id=?').bind(pageId).first<string>('revision_id'))!;
+ expect((await call('POST',`/archive/${pageId}`,'editor',{operationKey:createUlid(),expectedRevisionId:await revision(),action:'archive'})).status).toBe(200);
+ const relocated=await call('POST',`/archive/${pageId}`,'editor',{operationKey:createUlid(),expectedRevisionId:await revision(),action:'restore',containerId:open});expect(relocated.status,relocated.text).toBe(404);expect(await env.DB.prepare('SELECT archived_at FROM pages WHERE id=?').bind(pageId).first<string>('archived_at')).not.toBeNull();
+ expect((await call('GET',`/pages/${pageId}`,'colleague')).status).toBe(404);
+ const shared=await call('POST',`/archive/${pageId}`,'owner',{operationKey:createUlid(),expectedRevisionId:await revision(),action:'restore',containerId:open});expect(shared.status,shared.text).toBe(200);
+ expect((await call('GET',`/pages/${pageId}`,'colleague')).status).toBe(200);
 });

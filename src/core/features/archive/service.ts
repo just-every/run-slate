@@ -13,7 +13,8 @@ import { requirePageLevel } from '../sharing/current-access';
 import { pageRow, pageLockGuard, unlocked, contentEvent } from '../pages/repository';
 import { treeTopologyGuard } from '../pages/tree-order';
 import { creationDestinationGuards } from '../pages/service';
-import { descendants } from '../pages/tree';
+import { descendants, relocationAudienceChanges } from '../pages/tree';
+import { publicMoveChanges } from '../pages/tree-access';
 import { destination } from '../pages/service';
 export async function archivePage(ctx: FeatureContext, id: string, input: {
     operationKey: string;
@@ -35,6 +36,18 @@ export async function prepareArchivePage(ctx: FeatureContext, id: string, input:
 } = {}) {
     const pages = await descendants(ctx, id), root = pages.find(p => p.id === id)!;
     const statements = [await treeTopologyGuard(ctx, id), pageLockGuard(ctx, root, input.expectedRevisionId)];
+    if (input.action === 'restore' && (input.containerId !== undefined || input.parentPageId !== undefined)) {
+        // Restoring somewhere else is a move: changing who can read requires sharing authority over every affected page.
+        const overrides: Record<string, { containerId: string; parentPageId: string | null }> = {};
+        for (const p of pages) {
+            const prior = await ctx.db.prepare('SELECT prior_container_id,prior_parent_id FROM content_archive_locations WHERE page_id=?').bind(p.id).first<{ prior_container_id: string; prior_parent_id: string | null }>();
+            if (prior) overrides[p.id] = { containerId: input.containerId ?? prior.prior_container_id, parentPageId: p.id === id && input.parentPageId !== undefined ? input.parentPageId : prior.prior_parent_id };
+        }
+        const exposure = input.containerId === undefined ? null : await publicMoveChanges(ctx, pages, input.containerId);
+        for (const pageId of new Set([...exposure?.changes ?? [], ...await relocationAudienceChanges(ctx, pages, overrides, { includeTrashed: true })].map(change => change.pageId)))
+            await requirePageLevel(ctx, pageId, 'full', { includeTrashed: true });
+        if (exposure) statements.push(exposure.guard);
+    }
     for (const p of pages) {
         await requirePageLevel(ctx, p.id, 'edit', { includeTrashed: true });
         unlocked(p);
