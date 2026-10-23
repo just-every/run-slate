@@ -3,7 +3,7 @@ import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
 import {ok} from './two-people-support.mjs';
 import {accessible} from './browser-evidence.mjs';
-import {tap,type,checkpoint} from './touch-controls.mjs';
+import {tap,checkpoint} from './touch-controls.mjs';
 
 async function touchIntoColumn(page,handle,target){
  await handle.scrollIntoViewIfNeeded();await target.scrollIntoViewIfNeeded();
@@ -12,9 +12,7 @@ async function touchIntoColumn(page,handle,target){
  const cdp=await page.context().newCDPSession(page);
  try{
   const start={x:from.x+from.width/2,y:from.y+from.height/2},end={x:to.x+to.width/2,y:to.y+to.height/2};
-  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[start]});
-  for(let step=1;step<=8;step++)await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:start.x+(end.x-start.x)*step/8,y:start.y+(end.y-start.y)*step/8}]});
-  await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+  await cdp.send('Input.synthesizeScrollGesture',{x:start.x,y:start.y,xDistance:start.x-end.x,yDistance:start.y-end.y,gestureSourceType:'touch',preventFling:true,speed:600});
   await expect(handle).not.toHaveAttribute('data-dragging','true');
  }finally{await cdp.detach();}
 }
@@ -62,7 +60,9 @@ export async function columnsJourney(state,width,touch){
  await expect.poll(async()=>(await touch.api(`/api/pages/${id}`)).blocks.find(b=>b.id===source.id).parentBlockId).toBe(await targetPage.locator('.slate-column').first().getAttribute('data-column-id'));
  const input=targetPage.locator('.slate-column').first().getByRole('textbox',{name:'Paragraph',exact:true});
  await expect(input).toBeEditable();
- await type(targetPage,input,'Response owner confirmed by touch.');
+ await tap(input);await expect(input).toBeFocused();
+ await targetPage.keyboard.press('ControlOrMeta+A');
+ await targetPage.keyboard.type('Response owner confirmed by touch.');
  await expect.poll(async()=>JSON.stringify((await touch.api(`/api/pages/${id}`)).blocks)).toContain('Response owner confirmed by touch.');
  const outside=document.blocks.find(b=>b.blockType==='paragraph'&&b.id!==source.id);
  await touchIntoColumn(targetPage,handle,targetPage.locator(`[data-block-id="${outside.id}"]`));
