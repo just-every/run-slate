@@ -1,3 +1,4 @@
+import {columnsJourney} from './columns-journey.mjs';
 import {beginTouchJourney} from './touch-journey.mjs';
 import {touchCommentJourney,touchPublishShareJourney} from './touch-page.mjs';
 import {touchDatabaseJourney} from './touch-database.mjs';
@@ -196,7 +197,7 @@ for (const width of [1440, 390]) {
       await state.page.keyboard.press('Escape');
       let pageId,touch;
       try {
-        await t.test('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks', async () => { pageId = await writeJourney(state, width); touch=await beginTouchJourney(state,width); });
+        await t.test('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks', async () => { pageId = await writeJourney(state, width); touch=await beginTouchJourney(state,width);await columnsJourney(state,width,touch); });
         assert.ok(pageId, 'Writing must complete before dependent journeys.');
         assert.ok(touch, 'Touch-member writing must complete before its dependent journeys.');
         await t.test('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await touchCommentJourney(touch,touch.pageId);});

@@ -1,3 +1,5 @@
+import {htmlBlocks} from './html';
+import {createImportReport} from './report';
 import type { ImportedBlock, ImportedLink, ImportedStatus } from "./types";
 import { safeImportLink } from "./url";
 import { parseTableOfContentsSettings } from "./portable-blocks";
@@ -56,6 +58,10 @@ export function markdownBlocks(markdown: string, sourceId: string): ImportedBloc
 
   for (let cursor = 0; cursor < lines.length; cursor += 1) {
     const line = lines[cursor]!;
+    if(line.trim()==='<!-- slate:columns -->'){
+      const end=lines.indexOf('<!-- /slate:columns -->',cursor+1);
+      if(end!==-1){blocks.push(...htmlBlocks(lines.slice(cursor+1,end).join('\n'),`${sourceId}#layout-${index++}`,createImportReport()));cursor=end;continue;}
+    }
     if (!line.trim()) continue;
 
     const toc = line.match(/^<!-- slate:table-of-contents (.+) -->$/);

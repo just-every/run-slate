@@ -68,3 +68,9 @@ A short expiry suits pages that change often, such as on-call rotas or prices. 9
 - It has no language model or other automation that reads, summarises or verifies your pages.
 - It sends lapse notices to the in-app **Inbox** only, not by email.
 - It does not import verification history from another product.
+
+## Columns
+
+Choose **Columns** from the block menu for a section with two to five columns. Drag an ordinary block by its handle into a column, or choose **Add to column** to write there. Columns stack in reading order on phones; the same labeled controls and handles work by touch. A section cannot contain another column section. Reducing the column count moves its content into the last remaining column.
+
+HTML exports preserve columns; Markdown uses HTML layout annotations and the readable archive retains the block tree for re-import. Notion HTML column exports and Confluence storage layouts map to columns. Word and PDF currently flow column content in reading order.

@@ -300,7 +300,7 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
       const before = local.get(block.id), theirs = saved.get(block.id);
       if (!before || !theirs || content(before) !== content(block)) return block;
       known.set(block.id, fresh.blocks.find((item) => item.id === block.id)!.revisionId);
-      return { ...theirs, indent: block.indent };
+      return { ...theirs, indent: block.indent, layoutParentId: block.layoutParentId };
     });
     return { next: rebased, revision: fresh.page.revisionId, known };
   }

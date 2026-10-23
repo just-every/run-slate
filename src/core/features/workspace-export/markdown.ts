@@ -1,3 +1,4 @@
+import {htmlBlock} from './html';
 import type { BlockView } from '../../shared/api/content';
 import { plainContent } from '../editor/validation';
 import { headingAnchor, tocEntries, type TableOfContentsSettings } from '../editor/table-of-contents';
@@ -6,6 +7,8 @@ import { escapeMarkdown, markdownText } from './rich-text';
 export function markdownBlock(block: BlockView, blocks: BlockView[]): string {
   const c = block.content as Record<string, any>, text = markdownText(c.text);
   switch (block.blockType) {
+    case 'columns': return `<!-- slate:columns -->\n${htmlBlock(block,blocks)}\n<!-- /slate:columns -->`;
+    case 'column': return '';
     case 'table-of-contents': return `<!-- slate:table-of-contents ${JSON.stringify(c)} -->\n${tocEntries(blocks, c as TableOfContentsSettings).map(entry => `${'  '.repeat(entry.depth)}- [${escapeMarkdown(entry.text)}](${entry.href})`).join('\n')}\n<!-- /slate:table-of-contents -->`;
     case 'heading': return `<a id="${headingAnchor(block.id).replaceAll('&', '&amp;').replaceAll('"', '&quot;')}"></a>\n${'#'.repeat(Number(c.level ?? 1))} ${text}`;
     case 'code': return `\`\`\`${c.language ?? ''}\n${c.code ?? ''}\n\`\`\``;
@@ -21,4 +24,4 @@ export function markdownBlock(block: BlockView, blocks: BlockView[]): string {
   }
 }
 
-export const markdownDocument = (title: string, blocks: BlockView[]) => `# ${escapeMarkdown(title)}\n\n${blocks.map(block => markdownBlock(block, blocks)).join('\n\n')}\n`;
+export const markdownDocument = (title: string, blocks: BlockView[]) => `# ${escapeMarkdown(title)}\n\n${blocks.filter(block=>!blocks.some(parent=>(parent.blockType==='columns'||parent.blockType==='column') && parent.id===block.parentBlockId)).map(block => markdownBlock(block, blocks)).join('\n\n')}\n`;

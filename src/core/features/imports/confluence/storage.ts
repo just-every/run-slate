@@ -126,6 +126,10 @@ export function parseStorageFormat(xhtml: string, sourceId: string): StorageResu
     const tag = elementName(node);
     if (!tag) return;
 
+    if(tag==='ac:layout-section'){
+      const cells=childNodes(node).filter(child=>elementName(child)==='ac:layout-cell');
+      if(cells.length>=2 && cells.length<=5){const section=make('columns');for(const cell of cells){const column=make('column');childNodes(cell).forEach(child=>visit(child,column.children));section.children.push(column);}into.push(section);return;}
+    }
     if (layoutElements.has(tag)) {
       if (tag === "ac:layout-section") note("Confluence layout section flattened", attributesOf(node)["ac:type"]);
       childNodes(node).forEach((child) => visit(child, into));

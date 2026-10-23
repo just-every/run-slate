@@ -1,5 +1,5 @@
+import {ReadOnlyBlocks} from '../../../editor/ui/ReadOnlyBlocks';
 import { useEffect, useRef, useState } from "react";
-import { BlockView } from "../../../editor/ui/blocks/BlockView";
 import type { EditorBlock } from "../../../editor/ui/types";
 export function PagePresentation({
   title,
@@ -18,7 +18,7 @@ export function PagePresentation({
     if (
       block.type === "heading" &&
       block.level === 1 &&
-      !block.indent &&
+      !block.indent && !block.layoutParentId &&
       slides.at(-1)!.length
     )
       slides.push([]);
@@ -65,15 +65,7 @@ export function PagePresentation({
       </button>
       <article ref={article} tabIndex={0} aria-label={`Slide ${index + 1} of ${slides.length}`}>
         <p className="eyebrow">{title}</p>
-        {slides[index].map((block) => (
-          <div key={block.id} style={{ marginInlineStart: `${(block.indent ?? 0) * 20}px` }}>
-          <BlockView
-            block={block}
-            canEdit={false}
-            onChange={() => {}}
-          />
-          </div>
-        ))}
+        <ReadOnlyBlocks blocks={slides[index]}/>
       </article>
       <footer>
         <button disabled={index === 0} onClick={() => setIndex(index - 1)}>

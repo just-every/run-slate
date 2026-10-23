@@ -1,3 +1,4 @@
+import {htmlBlocks} from '../html';
 import {archiveMediaSource} from '../archive-stream';
 import { archiveMediaType, readZipArchive, requireArchiveText } from "../archive";
 import { parseCsv, validateCsvTable } from "../csv";
@@ -48,8 +49,8 @@ export function parseNotionWorkspace(source: ImportSourceFile, options?: ImportP
   return parseNotionFiles(readZipArchive(source.bytes,options?.limits),source,options);
 }
 export function parseNotionFiles(files:Map<string,Uint8Array>,source:Pick<ImportSourceFile,'name'>,options?:ImportParseOptions):NormalizedImport {
-  const markdownPaths = [...files.keys()].filter((path) => /\.md$/i.test(path)).sort();
-  if (!markdownPaths.length) throw new ImportError("IMPORT_FORMAT_INVALID", "The Notion archive has no Markdown pages.");
+  const markdownPaths = [...files.keys()].filter((path) => /\.(?:md|html?)$/i.test(path)).sort();
+  if (!markdownPaths.length) throw new ImportError("IMPORT_FORMAT_INVALID", "The Notion archive has no Markdown or HTML pages.");
   const csvPaths = [...files.keys()].filter((path) => /\.csv$/i.test(path)).sort();
 
   const report = createImportReport();
@@ -60,7 +61,7 @@ export function parseNotionFiles(files:Map<string,Uint8Array>,source:Pick<Import
   const mediaBySourceId = new Map<string, ImportedMedia>();
   const mediaByPath = new Map<string, string>();
   for (const path of [...files.keys()].sort()) {
-    if (/\.(?:md|csv)$/i.test(path)) continue;
+    if (/\.(?:md|html?|csv)$/i.test(path)) continue;
     const sourceId = `notion-file:${path}`;
     mediaByPath.set(path, sourceId);
     mediaBySourceId.set(sourceId, {
@@ -76,7 +77,7 @@ export function parseNotionFiles(files:Map<string,Uint8Array>,source:Pick<Import
 
   const pages: NotionPage[] = markdownPaths.map((path) => {
     const identity = identityFor(path, "notion-page");
-    const document = parseNotionMarkdown(requireArchiveText(files, path), identity.sourceId);
+    const document = /\.html?$/i.test(path) ? {blocks:htmlBlocks(requireArchiveText(files,path),identity.sourceId,report,href=>mediaByPath.get(resolveArchiveHref(path,href)??'')),properties:{},unmapped:[]} : parseNotionMarkdown(requireArchiveText(files, path), identity.sourceId);
     const title = titleFor(path);
     return {
       path,
@@ -228,6 +229,7 @@ export function parseNotionFiles(files:Map<string,Uint8Array>,source:Pick<Import
         reportMissingArchiveFile(report, target, entry.page.sourceId);
       }
       if (block.kind !== "media") return;
+      if(block.mediaSourceId){referencedMedia.add(block.mediaSourceId);return;}
       const attachment = block.links.find((link) => link.kind === "attachment" && link.targetSourceId);
       if (attachment) {
         block.mediaSourceId = attachment.targetSourceId;

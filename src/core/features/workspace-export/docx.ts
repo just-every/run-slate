@@ -1,3 +1,4 @@
+import {layoutOrder} from '../editor/layout';
 import { strToU8, zipSync } from 'fflate';
 import type { FeatureContext } from '../../app/feature-context';
 import type { BlockView } from '../../shared/api/content';
@@ -46,7 +47,7 @@ export async function renderDocx(ctx:FeatureContext, ids:ReadonlySet<string>, ex
         return `<w:hyperlink r:id="${id}">${content}</w:hyperlink>`;
       },
     };
-    return paragraph(comments.mark(page.page.id,bookmark(context,page.page.id,run(page.page.title))),`<w:pStyle w:val="Title"/>${index?'<w:pageBreakBefore/>':''}`)+page.blocks.map(block=>wordBlock(block,page.blocks,context)).join('');
+    return paragraph(comments.mark(page.page.id,bookmark(context,page.page.id,run(page.page.title))),`<w:pStyle w:val="Title"/>${index?'<w:pageBreakBefore/>':''}`)+layoutOrder(page.blocks).filter(block=>!['columns','column'].includes(block.blockType)).map(block=>wordBlock(block,page.blocks,context)).join('');
   }).join('');
   const entries:Record<string,Uint8Array>={};
   const put=(path:string,text:string)=>{entries[path]=strToU8(text);};
