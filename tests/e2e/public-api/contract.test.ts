@@ -10,6 +10,9 @@ import { tokenCustody } from './custody';
 test('personal API tokens run the published HTTP contract with member parity, task effects and immediate authority loss', async () => {
   const f = await apiFixture(), ownerToken = await f.mint(), memberToken = await f.mint(f.member), readToken = await f.mint(f.owner, 'read');
   const own = { token: ownerToken.secret }, denied = { token: memberToken.secret };
+  const onceInput={operationKey:createUlid(),name:'synthetic-slate-once',scopes:[{containerId:f.containerId,level:'read'}]};
+  const once=await f.ok('/api/developer/tokens','POST',onceInput),replayed=await f.ok('/api/developer/tokens','POST',onceInput);
+  expect(replayed.value).toEqual(once.value);expect(replayed).not.toHaveProperty('secret');
   const doc = await f.ok('/api/v1/openapi.json', 'GET', undefined, {});
   const declared = Object.entries(doc.paths).flatMap(([path, methods]: any) => Object.entries(methods).map(([method, operation]: any) => ({ path, method, operation })));
   expect(declared.map(d => d.operation.operationId).sort()).toEqual(operations.map(o => o.id).sort());
