@@ -731,14 +731,14 @@ A block can be made synced: its content is defined once and rendered live in man
 
 *Acceptance:* a browser journey that syncs a block into two pages, edits one copy and sees the change in the other within 5 seconds. A member without access to the source sees the access-needed state, and deleting the source leaves static copies.
 
-*Status:* missing.
+*Status:* partial. Synced paragraphs resolve live through their source with server-side per-reader access, source-only edit authority, static readable exports and guarded permanent-deletion detachment (`src/core/features/editor/synced/`, `tests/e2e/editor/synced-case.ts`). Other block kinds and the explicit default boundaries remain in the Gap.
 
 #### BLOCK-012 — Columns and page layouts.
 A page body can hold 2 to 5 side-by-side columns that blocks can be dragged into. Columns stack in order at phone width. Page export (`PORT-007`) and the Notion and Confluence imports (`IMP-002`, `IMP-003`) preserve the column layout.
 
 *Acceptance:* a browser journey creates a three-column section at 1440 and sees it stack at 390. Importing a Notion export with columns and a Confluence page with a two-column layout reproduces both.
 
-*Status:* missing. The editor supports single-column blocks only (`src/core/features/editor/validation.ts`).
+*Status:* partial. Columns contain two to five side-by-side columns and stack in reading order at phone width. Native and touch drag, validation, HTML/Markdown round trips and synthetic Notion HTML/Confluence storage imports are covered by the Status evidence. One level only; PDF and Word flow content in order rather than side by side.
 
 #### BLOCK-013 — Equations and diagrams as code.
 Inline and block LaTeX equations render with KaTeX, and Mermaid diagram blocks render as SVG. Both are rendered without network access, are sanitized under `BASE-INPUT-002`, are kept as source in Markdown export, and are imported from Notion equation blocks and Confluence code macros. This clause inherits `PORT-010`'s Word obligations when these blocks ship: equations export as OMML or images, and Mermaid diagrams export as images, under the same reader and media access checks.
@@ -1806,15 +1806,15 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `f40e577a5ad18e84ca066f4275580d10fc1991f5` (23 October 2026).
+Judged from the code and tests at commit `4f7fc598f893c472f98e19c96d3e8f6867eb602f` (23 October 2026).
 
 Live-provider evidence remains explicitly open. See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 172 | 49 | 0 | 221 |
-| Target and push further | 19 | 46 | 40 | 105 |
-| All | 191 | 95 | 40 | 326 |
+| Target and push further | 19 | 48 | 38 | 105 |
+| All | 191 | 97 | 38 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1954,7 +1954,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `NAV-003` | Favorites | published | done | `tests/qualification/backend/sharing-navigation.test.ts` |  |
 | `NAV-004` | One navigation | published | done | `tests/qualification/backend/boundaries.test.ts` |  |
 | `NAV-005` | Global create | published | done | `tests/e2e/navigation/global-create.test.ts`, `tests/qualification/ui-convergence/global-create-journey.mjs` | Global creation is reachable on every configured operator destination; page, database, space and template flows name their destination before creation at 1440/390. Database choices include writable spaces only. |
-| `NAV-006` | The touch client edits | published | partial | `tests/qualification/ui-convergence/touch-page.mjs` — "touchWriteJourney" (member create/type, labeled insertion and touch drag), "touchCommentJourney" (comment/resolve), "touchPublishShareJourney" (workspace publish/share); `tests/qualification/ui-convergence/touch-database.mjs` — "touchDatabaseJourney" (table, board, list, gallery, calendar and timeline record edits); existing `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px/390px". Touch controls assert visual-viewport reachability, no overflow and no serious/critical accessibility findings; the member context refuses browser errors and failed requests. | Touch-only operation remains unproven for Search, Inbox, My tasks, review queues, space management, Templates, Archive and workspace settings; page history, details, export and presentation; database charts, templates and automations; and editing block types beyond text. |
+| `NAV-006` | The touch client edits | published | partial | `tests/qualification/ui-convergence/touch-page.mjs` — "touchWriteJourney", "touchCommentJourney" and "touchPublishShareJourney"; `tests/qualification/ui-convergence/touch-database.mjs` — "touchDatabaseJourney"; `tests/qualification/ui-convergence/columns-journey.mjs` — "columnsJourney"; `tests/qualification/ui-convergence/touch-operator-journey.mjs` — "touchOperatorJourney" (Search, Inbox, My tasks and requested/health review queues); `tests/qualification/ui-convergence/touch-management-journey.mjs` — "touchManagementJourney" (space settings, Templates, Archive, owner workspace settings); `tests/qualification/ui-convergence/touch-page-tools-journey.mjs` — "touchPageToolsJourney" (history/restore, labels, readable export and presentation); `tests/qualification/ui-convergence/touch-database-tools-journey.mjs` — "touchDatabaseToolsJourney" (charts, record templates, automations and run log). Existing core-wiki/touch-member, presentation and starter-template launches in `tests/qualification/ui-convergence/journeys.test.mjs` drive touch contexts at 1440px/390px; controls assert visual-viewport reachability, no overflow, no serious/critical accessibility finding, no browser error and no failed request. `tests/qualification/ui-convergence/synced-journey.mjs` — "syncedJourney" adds touch paragraph conversion, synced-copy insertion/editing and permanent deletion at both widths in the existing review-request launch. | Touch-only editing remains unproven for block types beyond text, columns and synced paragraphs. |
 | `NOTIF-001` | Meaningful notifications | published | done | `tests/qualification/backend/emitted.mjs` |  |
 | `NOTIF-002` | Inbox | published | done | `tests/qualification/core/discovery.mjs` |  |
 | `NOTIF-003` | Chat notifications | published | done | `tests/e2e/notifications/chat.test.ts`; `tests/qualification/ui-convergence/chat-journey.mjs` (1440/390) | Provider acceptance remains open as stated above. |
@@ -2045,8 +2045,8 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `COLLAB-004` | Long pages and heavy tables stay fast | target | missing | — | not implemented |
 | `COLLAB-005` | Attributed history from co-editing | target | partial | `src/core/features/versions/service.ts` | see the clause |
 | `PAGE-015` | Page lock | target | done | `tests/profile/page-lock-journey.ts`, `tests/e2e/imports/page-lock.test.ts`, `tests/qualification/ui-convergence/page-lock-journey.mjs` | Native edit, automation and import fences, precise staged-import lock races, unchanged grants, open comments and second-editor unlock proven through Workers and 1440/390 browser journeys. |
-| `BLOCK-011` | Synced blocks | target | missing | — | not implemented |
-| `BLOCK-012` | Columns and page layouts | target | missing | `src/core/features/editor/validation.ts` | not implemented |
+| `BLOCK-011` | Synced blocks | target | partial | `tests/e2e/editor/tables.test.ts` — "BLOCK-014 — tables, columns and synced paragraphs preserve structured content through editing, validation, exports and access" calls `tests/e2e/editor/synced-case.ts` (two copies, source edits, stale writes, source edit permission and receipt replay, reader/public/history redaction, static export/re-import and duplication, trash, audience-safe atomic permanent deletion and retained revisions); `tests/qualification/ui-convergence/synced-journey.mjs` — "syncedJourney" in the existing review-request launch at 1440px/390px (make synced, insert two copies, touch edit, other visible copy within five seconds, access-needed state and permanent deletion to static copies; no overflow, serious/critical accessibility finding, browser error or failed request). | Paragraphs only; other block kinds and incumbent synced-block import round trips are not implemented. Copy editing requires edit access to both pages; otherwise the reason is shown. Published copies require a source readable by the same anonymous audience. Trash shows access needed; permanent deletion atomically materializes retained copies only when the source is published and no copy has a broader reader or public audience. Removing a source block with retained references is refused. Export and duplication produce static paragraphs with source names; re-import stays static. |
+| `BLOCK-012` | Columns and page layouts | target | partial | `tests/e2e/editor/tables.test.ts` — "BLOCK-014 — tables, columns and synced paragraphs preserve structured content through editing, validation, exports and access" calls `tests/e2e/editor/columns-case.ts` (2–5 columns, refused nesting, HTML/Markdown round trips, Notion HTML and Confluence storage layouts, ordered Word content, copies, comments, revisions, public rendering and reader access); `tests/qualification/ui-convergence/columns-journey.mjs` — "columnsJourney" in the existing core-wiki/touch-member launch at 1440px/390px (three columns, native and touch drag into and out of columns, count changes, phone stacking, persistence, overflow and accessibility). | One level only: nested columns are refused. PDF and Word exports flow column content in reading order rather than preserving side-by-side layout. |
 | `BLOCK-013` | Equations and diagrams as code | target | missing | — | not implemented |
 | `BLOCK-014` | Tables that work like tables | target | done | `tests/e2e/editor/tables.test.ts`, `tests/qualification/ui-convergence/tables-journey.mjs` | Header rows/columns, widths, colors, rectangular merges, merged-row sorting, keyboard structure edits, quoted 10 × 20 paste and atomic editable database round trips; editor, database, shortcuts and published views at 1440/390. |
 | `BLOCK-015` | Assigned tasks with due dates | target | done | `tests/profile/profile.worker.test.ts`, `tests/qualification/ui-convergence/task-assignment-journey.mjs` |  |

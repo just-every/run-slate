@@ -19,6 +19,7 @@ export interface BlockHandleProps {
   onMove: (move: BlockMove) => void;
   onDuplicate: () => void;
   onDelete: () => void;
+  onMakeSynced?: () => void;
   onDragStart?: () => void;
   onDragEnd?: () => void;
   onTouchDrop?: (targetId: string) => void;
@@ -36,6 +37,7 @@ export function BlockHandle({
   onMove,
   onDuplicate,
   onDelete,
+  onMakeSynced,
   onDragStart,
   onDragEnd,
   onTouchDrop,
@@ -64,6 +66,10 @@ export function BlockHandle({
             className="touch-none data-[dragging=true]:bg-accent-soft"
             data-dragging={dragging || undefined}
             {...touch}
+            // A mouse down must remain a native drag start. The menu opens on
+            // the completed click; keyboard and touch retain their own forms.
+            onPointerDownCapture={event=>{if(event.pointerType==='mouse')event.stopPropagation();}}
+            onClick={()=>setOpen(true)}
             draggable
             onDragEnd={onDragEnd}
             onDragStart={onDragStart}
@@ -90,6 +96,7 @@ export function BlockHandle({
             <ChevronsLeft aria-hidden="true" className="size-3.5" />
             Outdent
           </DropdownMenuItem>
+          {onMakeSynced?<DropdownMenuItem onSelect={onMakeSynced}>Make synced</DropdownMenuItem>:null}
           <DropdownMenuSeparator />
           <DropdownMenuItem onSelect={onDuplicate}>
             <Copy aria-hidden="true" className="size-3.5" />

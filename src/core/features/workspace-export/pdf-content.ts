@@ -1,3 +1,4 @@
+import {layoutOrder} from '../editor/layout';
 import type { BlockView } from '../../shared/api/content';
 import { plainContent } from '../editor/validation';
 import { headingAnchor, tocEntries, type TableOfContentsSettings } from '../editor/table-of-contents';
@@ -5,7 +6,7 @@ import { pdfText } from './rich-text';
 
 export interface PdfLine {text: string; anchor?: string; href?: string; depth?: number}
 export function pdfContent(blocks: BlockView[]): PdfLine[] {
-  return blocks.flatMap((block): PdfLine[] => {
+  return layoutOrder(blocks).filter(block=>!['columns','column'].includes(block.blockType)).flatMap((block): PdfLine[] => {
     const c = block.content as Record<string, any>;
     if (block.blockType === 'table-of-contents') return [...tocEntries(blocks, c as TableOfContentsSettings).map(entry => ({text: `• ${entry.text}`, href: entry.href, depth: entry.depth})), {text: ''}];
     if (block.blockType === 'list') return [...(c.items ?? []).map((item: any, index: number) => ({text: `${c.variant === 'numbered' ? `${index + 1}.` : '•'} ${pdfText(item.text)}`})), {text: ''}];
