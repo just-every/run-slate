@@ -79,7 +79,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
         delete submitted.token;
         requestBody = JSON.stringify(submitted);
       }
-      const pending = response.text().then(body => { if(new URL(response.url()).pathname.match(/^\/api\/(developer\/(tokens|webhooks|scim(?:\/rotate)?)|activity\/streams)$/) && request.method() === 'POST' && response.ok()){const value=JSON.parse(body);delete value.secret;body=JSON.stringify(value);} network.push({ url: response.url(), method: request.method(), requestBody, status: response.status(), responseBody: body }); })
+      const pending = response.text().then(body => { if(new URL(response.url()).pathname.match(/^\/api\/(developer\/(tokens|webhooks|scim(?:\/[^/]+\/rotate)?)|activity\/streams)$/) && request.method() === 'POST' && response.ok()){const value=JSON.parse(body);delete value.secret;body=JSON.stringify(value);} network.push({ url: response.url(), method: request.method(), requestBody, status: response.status(), responseBody: body }); })
         .catch(cause => network.push({ url: response.url(), error: String(cause) }));
       captures.add(pending); pending.finally(() => captures.delete(pending));
     });

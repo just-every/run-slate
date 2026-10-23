@@ -26,7 +26,7 @@ export function WebhookAccess({ containers, canManage }: { containers: { id: str
         {destination.mode === 'audit' ? <p>Workspace audit stream · Ordered delivery</p> : <><p>Space: {containers.find(c => c.id === destination.containerId)?.name ?? destination.containerId}</p><p>Events: {destination.events.join(', ')}</p></>}
         <p>Created: {new Date(destination.createdAt).toLocaleString()}</p><p>Last use: {destination.lastUsedAt ? new Date(destination.lastUsedAt).toLocaleString() : 'Never'}</p>
         <p>State: {destination.state}</p>{destination.disabledReason ? <p role="status">{destination.disabledReason}</p> : null}
-        {canManage ? <button type="button" onClick={() => setSelected(destination.id)}>View deliveries for {destination.name}</button> : null}
+        {canManage ? <button type="button" onClick={() => { setSelected(destination.id); void resource.reload(); }}>View deliveries for {destination.name}</button> : null}
         {canManage && destination.state === 'disabled' ? <button type="button" disabled={pending} onClick={() => { void action(`/api/developer/webhooks/${destination.id}/enable`); }}>Re-enable {destination.name}</button> : null}
         {destination.state !== 'removed' ? <button type="button" disabled={pending} onClick={() => setRemove(destination)}>Remove {destination.name}</button> : null}
       </article></li>)}</ul> : <p>No webhook destinations have been added.</p>}

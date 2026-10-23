@@ -20,7 +20,7 @@ export async function activity(ctx:FeatureContext,input:ActivityInput={}){
  for(const row of rows.results){
   const pageId=contexts.get(row.id);const {allowed,detail}=await activityVisibility(ctx,row,pageId,pageId?!!retained.get(pageId)?.decision.allowed:undefined);if(!allowed)continue;
   const page=await ctx.db.prepare('SELECT container_id,deleted_at FROM pages WHERE id=? AND workspace_id=?').bind(pageId??'',ctx.actor.workspaceId).first<{container_id:string;deleted_at:string|null}>();if(input.containerId&&row.target_id!==input.containerId&&page?.container_id!==input.containerId)continue;
-  let actor:null|{id:string;displayName:string}=null;if(row.actor_member_id&&!page?.deleted_at){const a=await ctx.db.prepare("SELECT id,display_name AS displayName FROM members WHERE id=? AND workspace_id=? AND (member_kind='member' OR id=?)").bind(row.actor_member_id,ctx.actor.workspaceId,ctx.actor.id).first<{id:string;displayName:string}>();actor=a;}
+  let actor:null|{id:string;displayName:string}=null;if(row.actor_member_id&&!page?.deleted_at){const a=await ctx.db.prepare("SELECT id,display_name AS displayName FROM members WHERE id=? AND workspace_id=? AND (member_kind='member' OR id=?)").bind(row.actor_member_id,ctx.actor.workspaceId,ctx.actor.id).first<{id:string;displayName:string}>();actor=a?{...a,displayName:activityActorLabel(row)??a.displayName}:null;}
   items.push({id:row.id,actor,feature:row.feature,action:row.action,target:{kind:row.target_kind,id:row.target_id},occurredAt:row.occurred_at,operationKey:row.operation_key,automationRunId:row.automation_run_id,aiRunId:row.ai_run_id,deleted:!!page?.deleted_at,context:page?.deleted_at?{}:{pageId,commentId:detail.commentId??(row.target_kind==='comment'?row.target_id:undefined),threadId:row.target_kind==='comment-thread'?row.target_id:undefined,revisionId:detail.revisionId??(row.target_kind==='revision'?row.target_id:undefined),grantId:detail.grantId},explanation:page?.deleted_at?'The underlying page was erased; only this activity record remains.':undefined});if(items.length>limit)break;
  }
  const hasMore=items.length>limit;if(hasMore)items.pop();const last=items.at(-1);return {items,nextCursor:hasMore&&last?encodeCursor({at:last.occurredAt,id:last.id,ceiling:cursor.ceiling}):undefined};
@@ -43,5 +43,7 @@ export async function auditRecord(ctx:FeatureContext,id:string){
  if(!(await activityVisibility(ctx,row,pageId)).allowed)return null;
  const deleted=pageId?!!(await ctx.db.prepare('SELECT deleted_at FROM pages WHERE id=?').bind(pageId).first<{deleted_at:string|null}>())?.deleted_at:false;
  const actor=row.actor_member_id&&!deleted?await ctx.db.prepare("SELECT id,display_name AS displayName FROM members WHERE id=? AND workspace_id=? AND (member_kind='member' OR id=?)").bind(row.actor_member_id,ctx.actor.workspaceId,ctx.actor.id).first<{id:string;displayName:string}>():null;
- return {id:row.id,actor,occurredAt:new Date(row.occurred_at).toISOString(),action:row.action,target:{kind:row.target_kind,id:row.target_id}};
+ return {id:row.id,actor:actor?{...actor,displayName:activityActorLabel(row)??actor.displayName}:null,occurredAt:new Date(row.occurred_at).toISOString(),action:row.action,target:{kind:row.target_kind,id:row.target_id}};
 }
+
+function activityActorLabel(row:Row):string|undefined {const detail=JSON.parse(row.detail_json) as {scimCredential?:{name?:unknown}};return typeof detail.scimCredential?.name==='string'?`SCIM: ${detail.scimCredential.name}`:undefined;}

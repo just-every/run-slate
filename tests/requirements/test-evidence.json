@@ -2113,6 +2113,13 @@
       "kind": "supporting-regression",
       "clauses": ["ACT-002", "BASE-OPS-005"],
       "reason": "Preserves the existing content audit assertions and extends them through native HTTP sign-in, sharing, token use, owner metadata exports, retention and signed ordered audit recovery. Real vendor receivers and resolved-address pinning remain unproven."
+    },
+    {
+      "file": "tests/e2e/scim/contract.test.ts",
+      "testName": "SCIM RFC7643/7644 HTTP sequence uses native invitations, Members, groups and revocation authority",
+      "kind": "supporting-regression",
+      "clauses": ["WORK-007", "WORK-009", "ACT-002"],
+      "reason": "Exercises the SCIM HTTP protocol through native invitation, Member identity, group and removal services, including credential custody and current authority. Real directory-provider acceptance and native invitation capacity outside SCIM remain unproven."
     }
   ]
 }

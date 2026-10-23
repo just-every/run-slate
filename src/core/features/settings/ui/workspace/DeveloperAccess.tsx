@@ -1,3 +1,4 @@
+import { ScimAccess } from './ScimAccess';
 import { AuditAccess } from './AuditAccess';
 import { WebhookAccess } from './WebhookAccess';
 import { useState } from 'react';
@@ -63,6 +64,7 @@ export function DeveloperAccess() {
         </form>
         {resource.data.owner ? <AuditAccess onStreamCreated={() => window.dispatchEvent(new Event('slate:webhook-created'))} /> : null}
         <WebhookAccess containers={resource.data.containers} canManage={resource.data.owner} />
+        {resource.data.owner ? <ScimAccess /> : null}
         <h3>Applications</h3><p>Application authorization and remote clients are not available yet.</p>
       </> : null}
     </RequestState>

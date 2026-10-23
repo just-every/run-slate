@@ -1,0 +1,40 @@
+import { env } from 'cloudflare:test';
+import { expect } from 'vitest';
+import { createUlid } from '../../../src/core/shared/ulid';
+import { sessionFor } from '../setup/fixtures';
+import { patch, type scimFixture } from './support';
+export async function lifecycleJourney(f:Awaited<ReturnType<typeof scimFixture>>,person:{id:string;path:string;email:string;memberId:string}) {
+  await f.ok('/api/sharing','POST',{operationKey:createUlid(),targetKind:'container',targetId:f.containerId,principalKind:'member',principalId:person.memberId,level:'edit'});
+  f.cookies[person.memberId]=await sessionFor(person.memberId,{freshProof:true});
+  const deviceCookie=await sessionFor(person.memberId,{freshProof:true}),pat=await f.mint(person.memberId);
+  const native=async(cookie:string)=>f.api.request('https://slate.test/api/members/current',{headers:{cookie}},{...env,SLATE_PROFILE:undefined});
+  expect((await native(deviceCookie)).status).toBe(200);
+  const deactivationStarted=performance.now();
+  const disabled=await f.scim(person.path,'PATCH',patch({op:'replace',path:'active',value:false}));expect(disabled.active).toBe(false);expect(performance.now()-deactivationStarted).toBeLessThan(60000);
+  expect((await native(deviceCookie)).status).toBe(401);
+  expect((await native(f.cookies[person.memberId]!)).status).toBe(401);
+  expect((await f.api.request('https://slate.test/api/v1/pages',{headers:{authorization:`Bearer ${pat.secret}`}},{...env,SLATE_PROFILE:undefined})).status).toBe(401);
+  expect(await env.DB.prepare('SELECT count(*) AS n FROM public_api_tokens WHERE member_id=? AND revoked_at IS NULL').bind(person.memberId).first<number>('n')).toBe(0);
+  const reactivated=await f.scim(person.path,'PATCH',patch({op:'replace',path:'active',value:true}));expect(reactivated.active).toBe(false);
+  expect(await env.DB.prepare('SELECT status FROM members WHERE id=?').bind(person.memberId).first<string>('status')).toBe('removed');
+  const accepted=await f.accept(person.email);expect(accepted.memberId).toBe(person.memberId);expect((await f.scim(person.path)).active).toBe(true);
+  expect((await native(deviceCookie)).status).toBe(401);
+  await f.scim(person.path,'DELETE',undefined,204);
+  expect((await f.request(person.path)).status).toBe(404);
+  expect((await native(accepted.cookie)).status).toBe(401);
+  // Pending edits cancel the old single-use invitation and issue a native replacement.
+  const pending=await f.scim('/Users','POST',{schemas:['urn:ietf:params:scim:schemas:core:2.0:User'],userName:'synthetic-slate-7@example.test'},201);
+  const previous=f.mail.latestLink('synthetic-slate-7@example.test');
+  await f.scim(`/Users/${pending.id}`,'PATCH',patch({op:'replace',path:'userName',value:'synthetic-slate-8@example.test'}));
+  const old=await f.api.request(previous.toString(),{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({token:previous.searchParams.get('token')!})},{...env,SLATE_PROFILE:undefined});
+  expect(old.status).toBe(400);
+  await f.scim(`/Users/${pending.id}`,'DELETE',undefined,204);
+  expect((await f.request(`/Users/${pending.id}`)).status).toBe(404);
+  const nativeMember=await env.DB.prepare('SELECT id FROM members WHERE workspace_id=? AND email=?').bind(f.workspaceId,'synthetic-slate-8@example.test').first();expect(nativeMember).toBeNull();
+  const inactive=await f.scim('/Users','POST',{schemas:['urn:ietf:params:scim:schemas:core:2.0:User'],userName:'synthetic-slate-9@example.test',active:false},201);
+  expect(inactive.active).toBe(false);
+  await f.scim(`/Users/${inactive.id}`,'DELETE',undefined,204);
+  const audit=await env.DB.prepare("SELECT detail_json FROM activity_entries WHERE workspace_id=? AND action IN ('member.invite','member.identity','member.remove','group.save','group.delete')").bind(f.workspaceId).all<{detail_json:string}>();
+  expect(audit.results.some(row=>JSON.parse(row.detail_json).actorLabel?.startsWith('SCIM:'))).toBe(true);
+  expect(JSON.stringify(audit.results).includes(f.credential.secret)).toBe(false);
+}
