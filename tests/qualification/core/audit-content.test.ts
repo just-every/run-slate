@@ -1,16 +1,18 @@
 import {test,expect} from 'vitest';
 import {auditFixture,env,createUlid} from './audit-support';
-test('ACT-002 BASE-OPS-005 audit page creation, body, property and move mutations once with actor/time',async()=>{
+test('ACT-002 BASE-OPS-005 audit content mutations and publication once with actor/time',async()=>{
+{
  const f=await auditFixture();const p=await f.mutation('page creation','pages.create','POST','/api/pages',{containerId:f.containerId,title:'Audit original'}),id=p.value.pageId;
  await f.mutation('body changes','pages.blocks.replace','PUT',`/api/pages/${id}/blocks`,{expectedRevisionId:await f.revision(id),blocks:[{id:createUlid(),blockType:'paragraph',treePosition:'1',content:{text:[{text:'Audit body'}]}}]});
  await f.mutation('property changes','pages.update','PATCH',`/api/pages/${id}`,{expectedRevisionId:await f.revision(id),properties:{title:'Audit changed'}});
  const destination=await f.request('POST','/api/containers',{operationKey:createUlid(),name:'Audit destination',visibility:'private'});expect(destination.status).toBe(200);
  const preview=await f.request('POST',`/api/pages/${id}/move-preview`,{containerId:destination.data.value.id});expect(preview.status).toBe(200);
  await f.mutation('page moves','pages.move','POST',`/api/pages/${id}/move`,{expectedRevisionId:await f.revision(id),containerId:destination.data.value.id,treePosition:"1",accessPreviewHash:preview.data.accessPreviewHash});
-});
-test('ACT-002 BASE-OPS-005 audit workspace publication with actor/time',async()=>{
+}
+{
  const f=await auditFixture();await f.profile({'page.lifecycle.v1':'draft-then-publish'});const p=await f.page('Publication audit');
  await f.mutation('publish','pages.publish','POST',`/api/pages/${p.id}/publish`,{expectedRevisionId:await f.revision(p.id)});
+}
 });
 test('ACT-002 BASE-OPS-005 audit archive, restore, trash and permanent erasure retains anonymized audit',async()=>{
  const f=await auditFixture(),p=await f.page('Erase audit');

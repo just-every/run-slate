@@ -1,3 +1,4 @@
+import { createPublicApiRoutes, createTokenAdministrationRoutes, publicError } from '../features/public-api/routes';
 import { healthResponse } from "./health-response";
 import {editorConfig} from "./editor-config";
 import { assertRequestOrigin, enforceRateLimit } from "./http-security";
@@ -39,6 +40,7 @@ export function createApi() {
       await next();
       if(!['GET','HEAD','OPTIONS'].includes(context.req.method)&&context.res.ok&&(path==='/api/auth/logout'||path==='/auth/signout'||/^\/api\/(sharing|groups|members|workspace)(?:\/|$)/.test(path))) await invalidateContentRooms(context.env);
     })
+    .route("/api/v1", createPublicApiRoutes())
     // BASE-ACCESS-002: a protected API namespace authenticates before route
     // matching, so an anonymous unknown member keeps the native 401 and only a
     // valid session reaches the Hono 404.
@@ -57,6 +59,7 @@ export function createApi() {
     .use('/p/*',async(context,next)=>{const member=await createSessionService(context.env.DB,sessionOptions(context.get('runtimeConfig'))).authenticate(context.req.raw);if(member)context.set('member',member);await next();})
     .get("/health", (context) => healthResponse(context.req.raw, context.env, context.executionCtx))
     .route("/", createSessionRoutes())
+    .route("/api/developer/tokens", createTokenAdministrationRoutes())
 ;
 
   app.get('/api/editor/config', context => {
@@ -70,6 +73,7 @@ export function createApi() {
   app.notFound((context) => context.json(error("NOT_FOUND", "Not found."), 404));
 
   app.onError((cause, context) => {
+    if(new URL(context.req.url).pathname.startsWith("/api/v1"))return publicError(context,cause);
     if (String(cause).includes('SAML_BREAK_GLASS_OWNER_REQUIRED')) return context.json(error('SAML_BREAK_GLASS_OWNER_REQUIRED','Choose another emergency access owner in SAML settings before removing or changing this owner.'),409);
     if (cause instanceof ZodError) return context.json(error("INVALID_REQUEST","The request is invalid."),400);
     if (cause instanceof ApiProblem) return context.json({code:cause.code,message:cause.message,...(cause.details===undefined?{}:{details:cause.details})},cause.status);

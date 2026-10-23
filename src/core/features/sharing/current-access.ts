@@ -56,6 +56,7 @@ export async function requireContainerAdministration(ctx:FeatureContext,containe
   }
 }
 export async function requireContainerLevel(ctx:FeatureContext,containerId:string,level:AccessLevel):Promise<void> {
+  if(ctx.containerScopeIds&&!ctx.containerScopeIds.includes(containerId))throw new ApiProblem(404,'NOT_FOUND','Not found.');
   const [subject,row,available]=await Promise.all([
     currentSubject(ctx),
     ctx.db.prepare(`SELECT c.visibility,c.guest_access,w.guest_access AS workspace_guests,EXISTS(SELECT 1 FROM container_owners WHERE container_id=c.id AND member_id=?) AS owned FROM containers c JOIN workspaces w ON w.id=c.workspace_id WHERE c.id=? AND c.workspace_id=? AND ${publishedImportContainerSql('c.id')}`).bind(ctx.actor.id,containerId,ctx.actor.workspaceId).first<{visibility:string;guest_access:string;workspace_guests:string;owned:number}>(),

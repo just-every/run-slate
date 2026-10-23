@@ -2083,6 +2083,18 @@
         "AUTO-004"
       ],
       "reason": "Asserts all automation scopes persist; schedules deduplicate and chains throttle with a log. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts committed content events drain durably and self-triggering field rules are throttled. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+    },
+    {
+      "file": "tests/e2e/public-api/contract.test.ts",
+      "testName": "personal API tokens run the published HTTP contract with member parity, task effects and immediate authority loss",
+      "kind": "supporting-regression",
+      "clauses": [
+        "SHARE-002",
+        "SAVE-005",
+        "BLOCK-015",
+        "WORK-007"
+      ],
+      "reason": "Exercises the versioned personal-token HTTP operations, schemas, current native access, operation replay, token custody and task effects. OAuth and the remaining resource families are unbuilt; this does not establish complete public API acceptance."
     }
   ]
 }

@@ -53,7 +53,7 @@ export async function resolveCurrentAccessMany(ctx:FeatureContext,pageIds:string
   else if(row.kind==='container'){const container=JSON.parse(row.data) as Container;containers.set(container.id,container);}
   else{const grant=JSON.parse(row.data) as Grant,grants=row.kind==='page-grant'?pg:cg,list=grants.get(grant.targetId)??[];list.push(grant);grants.set(grant.targetId,list);}
  }
- for(const id of pageIds){const p=byId.get(id);if(!p||p.trashed_at&&!options.includeTrashed)continue;const c=containers.get(p.container_id);if(!c||c.trashed_at&&!options.includeTrashed||c.visibility==='personal'&&!c.owned)continue;
+ for(const id of pageIds){const p=byId.get(id);if(!p||p.trashed_at&&!options.includeTrashed||ctx.containerScopeIds&&!ctx.containerScopeIds.includes(p.container_id))continue;const c=containers.get(p.container_id);if(!c||c.trashed_at&&!options.includeTrashed||c.visibility==='personal'&&!c.owned)continue;
   const eligible=(g:KnowledgeGrant)=>!((subject.isGuest||c.visibility==='personal')&&(g.principalKind==='workspace'||g.principalKind==='container'));
   const inherited:KnowledgeGrant[]=[];let blocked=p.access_inheritance==='restricted',parent=p.parent_page_id;const seen=new Set([id]);let valid=true;
   while(parent&&!blocked){if(seen.has(parent))throw new ApiProblem(409,'TREE_CYCLE','The page tree contains a cycle.');seen.add(parent);const ancestor=byId.get(parent);if(!ancestor||ancestor.container_id!==p.container_id){valid=false;break;}inherited.push(...(pg.get(parent)??[]));blocked=ancestor.access_inheritance==='restricted';parent=ancestor.parent_page_id;}

@@ -1043,6 +1043,8 @@
     ],
     "concurrentAiRuns": 5,
     "operatorApiRequestsPerMinute": 600,
+    "publicApiRequestsPerTokenPerMinute": 120,
+    "publicApiPageSize": 100,
     "publicRequestsPerIpPerMinute": 120,
     "groupMentionSize": 50,
     "tableColumns": 50,
