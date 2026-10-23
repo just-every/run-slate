@@ -4,6 +4,7 @@ import type { EditorBlock } from "../features/editor/ui/types";
 import { mutate, operationKey, request } from "./transport";
 
 export interface PageProperties {
+  card?:{verificationRequired:true;verificationIntervalDays:number};
   title?: string;
   icon?: unknown;
   coverFileId?: string | null;

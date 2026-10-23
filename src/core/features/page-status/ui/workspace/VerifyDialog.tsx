@@ -1,3 +1,4 @@
+import {defaultVerificationDays} from '../../state';
 import { useState } from "react";
 import { mutate, operationKey } from "../../../../client/transport";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
@@ -30,7 +31,7 @@ export function VerifyDialog({ pageId, statusKey, expectedRevisionId, attestRevi
   onClose: () => void;
   onVerified: () => void | Promise<void>;
 }) {
-  const [choice, setChoice] = useState<VerificationExpiryChoice>("90");
+  const [choice, setChoice] = useState<VerificationExpiryChoice>(String(defaultVerificationDays) as VerificationExpiryChoice);
   return (
     <ActionDialog
       title="Verify this exact revision"

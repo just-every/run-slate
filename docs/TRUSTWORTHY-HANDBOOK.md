@@ -70,3 +70,5 @@ A short expiry suits pages that change often, such as on-call rotas or prices. 9
 - It does not import verification history from another product.
 
 Workspace owners can set content governance in Workspace settings to limit creating spaces, public publishing, guest invitations and content export. In a space’s settings, an owner can apply Confidential: existing public links stop immediately, and only a workspace owner can lift that default. Changing a label never grants access or reopens a link. Governance changes appear in Activity.
+
+Choose **Create → Knowledge card** for a short question and answer. Cards keep an owner and start unverified; use the page’s status controls to verify the exact revision. Above 500 words, the editor suggests a longer page and saves all the text. A space’s settings can mark it as a knowledge collection, using its existing Content list. Search shows cards with a compact answer excerpt and their verification badge, within each reader’s access.

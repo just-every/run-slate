@@ -5,7 +5,7 @@ import { Database, FileText, FolderPlus, LayoutTemplate, Plus } from "lucide-rea
  * `pageDestination` names the space Page creates in before the click: a space name, null when a
  * space must be named first, or undefined while the spaces are still loading.
  */
-export function NavigationCreate({ onPage, onDatabase, pageDestination, pending = false }: { onPage: () => void; onDatabase: () => void; pageDestination?: string | null; pending?: boolean }) {
+export function NavigationCreate({ onPage, onCard, onDatabase, pageDestination, pending = false }: { onPage: () => void; onCard: () => void; onDatabase: () => void; pageDestination?: string | null; pending?: boolean }) {
   const [open, setOpen] = useState(false);
   const hint = useId();
   const trigger = useRef<HTMLButtonElement>(null);
@@ -43,6 +43,7 @@ export function NavigationCreate({ onPage, onDatabase, pageDestination, pending 
       <button role="menuitem" aria-label="Page" aria-describedby={pageDestination === undefined ? undefined : hint} disabled={pending} onClick={() => { close(); onPage(); }}><FileText aria-hidden="true" />Page{pageDestination === undefined ? null : <span id={hint} className="create-menu-hint">{pageDestination === null ? "in a new space" : `in ${pageDestination}`}</span>}</button>
       <button role="menuitem" onClick={() => { close(); onDatabase(); }}><Database aria-hidden="true" />Database</button>
       <a role="menuitem" href="/app/containers?create=true"><FolderPlus aria-hidden="true" />Space</a>
+      <button role="menuitem" disabled={pending} onClick={()=>{close();onCard();}}><FileText aria-hidden="true"/>Knowledge card</button>
       <a role="menuitem" href="/app/templates"><LayoutTemplate aria-hidden="true" />Page from template</a>
     </nav> : null}
   </div>;

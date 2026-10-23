@@ -92,7 +92,7 @@ function MemberNavigation({ onNavigate }: { onNavigate?: () => void }) {
             ))}
         </nav>
       ) : null}
-      {!navigation.data?.isGuest ? <NavigationCreate pageDestination={destination.space === undefined ? undefined : destination.space?.name ?? null} pending={creation.pending} onPage={() => void creation.create(async () => ({ containerId: (await destination.resolve())?.id ?? null, title: DEFAULT_PAGE_TITLE }))} onDatabase={() => setCreateDatabase(true)} /> : null}
+      {!navigation.data?.isGuest ? <NavigationCreate pageDestination={destination.space === undefined ? undefined : destination.space?.name ?? null} pending={creation.pending} onPage={() => void creation.create(async () => ({ containerId: (await destination.resolve())?.id ?? null, title: DEFAULT_PAGE_TITLE }))} onCard={()=>void creation.create(async()=>({containerId:(await destination.resolve())?.id??null,title:"Untitled card",pageKind:"card"}))} onDatabase={() => setCreateDatabase(true)} /> : null}
       {creation.error ? <p role="alert">{errorMessage(creation.error)}</p>:null}
       {error ? <p role="alert">{errorMessage(error)}</p>:null}
       <p className="sidebar-label pagesbar">Pages</p>
