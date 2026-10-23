@@ -6527,6 +6527,10 @@
       "sha256": "55837d95cef43515092e79431e49866539275adf8ef7e1a1ffeb20989b67a0c9",
       "executable": false
     },
+    "src/core/features/editor/ui/useTouchBlockDrag.ts": {
+      "sha256": "37d0bfd2777457f6f0f044124291207292cb554fde700c62a5760082988a74bb",
+      "executable": false
+    },
     "src/core/features/editor/validation.ts": {
       "sha256": "a9abb54ba2c554326034813777e30b3044304126cd0c7b72e0b64e78823eaaef",
       "executable": false
@@ -11900,11 +11904,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-journey.mjs": {
-      "sha256": "d4ce205b95919161f2f242c95faed692679b2fb2a7b4d37689d62e9fa067002e",
+      "sha256": "64d5d477d42c57521b3bca9c0ff0b5c92114c1e5da8807abfa1cae0aa81aed77",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page.mjs": {
-      "sha256": "115b3a0411d131e33397f9bb21e5f77a710267727affaf35e56f9ce9c16c4243",
+      "sha256": "38ff9601481860504865cdfd67aa40c4cc97adf4ea464ffef8149a2702ccd38d",
       "executable": false
     },
     "tests/qualification/ui-convergence/tree-filter-journey.mjs": {

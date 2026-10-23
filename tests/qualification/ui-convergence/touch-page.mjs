@@ -2,12 +2,11 @@ import assert from 'node:assert/strict';
 import {expect} from '@playwright/test';
 import {tap,type,reachable,checkpoint,touchReorder} from './touch-controls.mjs';
 
-export async function touchWriteJourney({page,origin,api}) {
+export async function touchWriteJourney({page,origin,api,containerName}) {
   await page.goto(origin+'/app',{waitUntil:'networkidle'});
   const navigation=page.getByRole('button',{name:'Open navigation',exact:true});
   if(await navigation.isVisible()) await tap(navigation);
-  await tap(page.getByRole('button',{name:'Create',exact:true}));
-  await tap(page.getByRole('menu',{name:'Create content'}).getByRole('menuitem',{name:'Page',exact:true}));
+  await tap(page.getByRole('button',{name:`Create page in ${containerName}`,exact:true}));
   await page.waitForURL(url=>url.pathname.startsWith('/app/pages/'));
   const id=new URL(page.url()).pathname.split('/').at(-1);
   await type(page,page.getByRole('textbox',{name:'Page title',exact:true}),'Field response guide');

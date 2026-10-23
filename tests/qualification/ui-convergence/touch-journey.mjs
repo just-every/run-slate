@@ -14,11 +14,6 @@ export async function beginTouchJourney(state,width) {
       name,mark,description,guestAccess,publicLinkAccess,anonymousAccess,policies:profile,
     });
   }
-  const container=(await state.api('/api/containers')).items.find(item=>item.name==='Handbook');
-  await ok(state.context,state.origin,'POST','/api/sharing',{
-    operationKey:randomUUID(),targetKind:'container',targetId:container.id,
-    principalKind:'member',principalId:'browser-reader',level:'full',
-  });
   const context=await state.context.browser().newContext({
     viewport:{width,height:width===390?844:1000},hasTouch:true,isMobile:width===390,locale:'en-US',
   });
@@ -34,7 +29,8 @@ export async function beginTouchJourney(state,width) {
       assert.equal(response.status(),200,await response.text());return response.json();
     };
     assert.equal((await api('/api/members/current')).role,'member');
-    const touch={page,context,origin:state.origin,api,containerId:container.id};
+    const container=(await ok(context,state.origin,'POST','/api/containers',{operationKey:randomUUID(),name:'Response operations',visibility:'private'})).value;
+    const touch={page,context,origin:state.origin,api,containerId:container.id,containerName:container.name};
     touch.pageId=await touchWriteJourney(touch);
     touch.close=async()=>{try{assert.deepEqual(errors,[],'Touch surfaces have no browser errors or hydration mismatch.');}finally{await context.close();}};
     return touch;
