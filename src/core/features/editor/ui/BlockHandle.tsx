@@ -20,6 +20,7 @@ export interface BlockHandleProps {
   onMove: (move: BlockMove) => void;
   onDuplicate: () => void;
   onDelete: () => void;
+  onMakeSynced?: () => void;
   onDragStart?: () => void;
   onDragEnd?: () => void;
   onTouchDrop?: (targetId: string) => void;
@@ -38,6 +39,7 @@ export function BlockHandle({
   onMove,
   onDuplicate,
   onDelete,
+  onMakeSynced,
   onDragStart,
   onDragEnd,
   onTouchDrop,
@@ -98,6 +100,7 @@ export function BlockHandle({
             <ChevronsLeft aria-hidden="true" className="size-3.5" />
             Outdent
           </DropdownMenuItem>
+          {onMakeSynced?<DropdownMenuItem onSelect={onMakeSynced}>Make synced</DropdownMenuItem>:null}
           <DropdownMenuSeparator />
           <DropdownMenuItem onSelect={onDuplicate}>
             <Copy aria-hidden="true" className="size-3.5" />
