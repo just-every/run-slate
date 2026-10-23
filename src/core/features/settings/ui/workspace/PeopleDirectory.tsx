@@ -15,7 +15,7 @@ export function PeopleDirectory({pageId}:{pageId?:string}){
 function PersonProfile({person:p,people,onSaved}:{person:Person;people:Person[];onSaved:()=>Promise<boolean>}){
  const {member}=useWorkspace(),own=p.id===member.id,owner=member.role==='owner', [edit,setEdit]=useState(false);
  return <section aria-label={`${p.name} profile`}><h3>{p.name}</h3><dl><dt>Title</dt><dd>{p.title||'Not set'}</dd><dt>Team</dt><dd>{p.team||'Not set'}</dd><dt>Manager</dt><dd>{p.managerName||'Not set'}</dd><dt>Time zone</dt><dd>{p.timezone}</dd></dl>
- <h4>Expertise</h4><ul>{p.tags.map(t=><li key={t.tag}>{t.tag}{t.derived?' · from page labels':''}</li>)}</ul>
+ <h4>Expertise</h4><ul aria-label="Expertise tags">{p.tags.map(t=><li key={t.tag}>{t.tag}{t.derived?' · from page labels':''}</li>)}</ul>
  {(own||owner)?<button type="button" onClick={()=>setEdit(true)}>{own?'Edit my profile':'Set team and manager'}</button>:null}
  {(['owned','verified','frequent'] as const).map(kind=><section key={kind} aria-label={kind==='owned'?'Owned pages':kind==='verified'?'Verified pages':'Frequently edited pages'}><h4>{kind==='owned'?'Owns':kind==='verified'?'Verifies':'Frequently edits'}</h4><ul>{p.pages[kind].map(page=><li key={page.id}><a href={`/app/pages/${page.id}`}>{page.title}</a></li>)}</ul>{!p.pages[kind].length?<p>No readable pages in this list.</p>:null}</section>)}
  {edit?<ActionDialog title={own?'Edit my profile':`Team and manager for ${p.name}`} action="Save profile" onClose={()=>setEdit(false)} onSubmit={async data=>{
