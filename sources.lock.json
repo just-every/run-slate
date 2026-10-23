@@ -1619,6 +1619,142 @@
       "sha256": "ce17035168270d572b1b1c9202dbc775efe17a1dca8d1d26cea236be40918817",
       "executable": false
     },
+    "evidence/touch-client/touch-1440-board-layout.png": {
+      "sha256": "8bbd191e98f80bb71af742d09b5863e486eee58a7c6b25eda66fa92462c38650",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-board-record-edited.png": {
+      "sha256": "01520d9f0ff6a4dcce5b38707a6e2d07a6695853cd71de915c86a5b73525a4c9",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-calendar-layout.png": {
+      "sha256": "7ac209ae079c5ed7f7a7ec31429816723242903d85fb0078966eefdc10fec52e",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-calendar-record-edited.png": {
+      "sha256": "079a2da6aacec101a08bc645ca03fe9c59bfcb41707e9e42ec04cbbc4571b029",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-comment-resolved.png": {
+      "sha256": "d02a12bdd8bbac1b0048212678c63aac0aa1044bba1dba84914e25c6891a45ac",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-created-and-inserted-page-blocks.png": {
+      "sha256": "6db676e2dc9284120ee6e6e740b8ad63901acac969eba7ef3b444a98ad1336f1",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-gallery-layout.png": {
+      "sha256": "4fa922ef53fcf5061758ea4b8e9d45db743136aa5edca2a63f02b45876dc6881",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-gallery-record-edited.png": {
+      "sha256": "9ed5e14766940c471d0ab11ae5ec564da6054e3376adf2cc958e3043c99ad514",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-list-layout.png": {
+      "sha256": "05ba74d0bc8beddc4407d066996cd06ed319e8e260ee86fb1cab43be6ff2ddf3",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-list-record-edited.png": {
+      "sha256": "124da6e17e3fbffe7630f9143a7358ca6f14491994bf3b1ef0eda27d7f74867b",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-published-and-shared-page.png": {
+      "sha256": "ebf11fdcdb36f0851e44aa8a1b021c930677d4670df2ac8273149d8c0c2ec5b1",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-reviewed-publication.png": {
+      "sha256": "980712f09bfedfd25eaddca9cf9f2f0bdebf223e4a2752265c4eb4c51c33ef95",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-table-layout.png": {
+      "sha256": "62c5e235fd44c134353364fac58958044d8a3f8e84a41405063fe8b1366cf469",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-table-record-edited.png": {
+      "sha256": "8131db1c33ef9561609251a1f350c71247205b97c3cf075f6deac448b1c70b1e",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-timeline-layout.png": {
+      "sha256": "176bcde9dd091ca4a6bde5b9e0e5282891a7b889a32be7d8ed4cc37e098d1d09",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-timeline-record-edited.png": {
+      "sha256": "e86136abeb187ce1fc284101d8464c9bb2bb435f3040be6268193b8089806abd",
+      "executable": false
+    },
+    "evidence/touch-client/touch-1440-touch-drag-persists-block-order.png": {
+      "sha256": "cfc85006dad2c30a23faf8c3f5743969b6efb67d1d70dbf4571d9ba01a3067b6",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-board-layout.png": {
+      "sha256": "1b076062ea972fc71a54aad11248047e2d14ee92fe7f67e3435673c10362f151",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-board-record-edited.png": {
+      "sha256": "9f6f707fb77bd2751da740fb5b0d41f0837e8c087c48f61289fafcbc97d1ca6c",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-calendar-layout.png": {
+      "sha256": "d2172d53eb231481dbfaef91e900e9426c26e27dc2006da264fe46c5bac7d1c8",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-calendar-record-edited.png": {
+      "sha256": "4a755b9ec9ab26058f337f4d1afb74838f3e9d78ae7f121bcb1951daa17135ab",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-comment-resolved.png": {
+      "sha256": "bb520b7daf82c8468f6c1421851136b3f3a02bdef6aa39c6b4d47af6f50aee68",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-created-and-inserted-page-blocks.png": {
+      "sha256": "c44b0dc6cbe70ae441ea237e3efa78dc187b43d8be63e534c47add1670cd65bf",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-gallery-layout.png": {
+      "sha256": "af911551dfd065dc7b90ed5272c8c089077e82fed4f9914b9f00f789972cd6df",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-gallery-record-edited.png": {
+      "sha256": "e48979c62fe252c2367159f1d51ffb875e90566c60aca1c8285b6867fd13203b",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-list-layout.png": {
+      "sha256": "8c010adf93f99b3eea8a4d6fd2cb8a58c68321f6b3d3761cafe0a0098e0a7ea5",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-list-record-edited.png": {
+      "sha256": "528aa0679320f2cc4b6d9dd0270cbe6098bd260c3e6b6717062ddd656696791c",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-published-and-shared-page.png": {
+      "sha256": "4a901aa075a5ebfb0576dbd368fe784735736e1d2b43786c3a023c11f10f9291",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-reviewed-publication.png": {
+      "sha256": "86e5a4290e5841ad91b301bf28ee5ebff70afd35d3fc635b9493bd9e8fce007a",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-table-layout.png": {
+      "sha256": "417aed5221bcbda4af07b4cd2b54ba40aaf253c8e89f966d55fe9618233bbb0d",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-table-record-edited.png": {
+      "sha256": "8ad2dee12d4996e0c821401ca446f9374d4472392be889cc302e70b6cdee0735",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-timeline-layout.png": {
+      "sha256": "d26226422908f6b966574080812dfc7b440d6dfcd48f98829c7146a2b431fd1d",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-timeline-record-edited.png": {
+      "sha256": "fb8fffc3d4709f54a43b48501f412fb0e47b0c335c74174e008671b60ec89fc5",
+      "executable": false
+    },
+    "evidence/touch-client/touch-390-touch-drag-persists-block-order.png": {
+      "sha256": "d3f5e6dd1e2bd82f1cee17658d3a1ac751f6de6d278f016bd6a518893cd8f61d",
+      "executable": false
+    },
     "FLAGSHIP-DELIVERY.md": {
       "sha256": "8cc2b0698959d0379cf784ee71c1ea620cff3f1bf34313d14f41bd6caaa0d229",
       "executable": false
