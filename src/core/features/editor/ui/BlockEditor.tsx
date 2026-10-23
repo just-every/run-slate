@@ -1,3 +1,4 @@
+import "./columns.css";
 import { useRef, useState, type ReactNode } from "react";
 import { DeniedState, ErrorState, LoadingState, cn, type SurfaceState } from "../../../ui";
 import { knowledgeNoun } from "../../../shared/knowledge/vocabulary";
@@ -92,6 +93,8 @@ export function BlockEditor({
 
   const dropOn = (sourceId: string | null, targetId: string) => {
     if (!sourceId || sourceId === targetId) return;
+    const target=blocks.find(block=>block.id===targetId);
+    if(target?.type==="column"){setDraggingId(null);onMove(sourceId,{kind:"into-column",columnId:targetId});return;}
     const from = blocks.findIndex((block) => block.id === sourceId);
     const to = blocks.findIndex((block) => block.id === targetId);
     setDraggingId(null);
@@ -146,9 +149,7 @@ export function BlockEditor({
     );
   }
 
-  return frame(
-    <div className="flex flex-col">
-      {blocks.map((block) => (
+  const row = (block: EditorBlock) => (
         <BlockRow
           actions={actions}
           textLabel={block.id === emptyBlockId ? "Page body" : undefined}
@@ -171,7 +172,28 @@ export function BlockEditor({
           saveState={saveState?.[block.id]}
           selected={selectedBlockIds.includes(block.id)}
         />
-      ))}
+);
+  function renderGroup(parentId: string | undefined): ReactNode {
+    return blocks.filter(block=>block.layoutParentId === parentId).map(block=>block.type === "column" ? null : block.type === "columns" ? (
+      <section key={block.id} aria-label="Columns section" data-block-id={block.id} className="columns-section">
+        {row(block)}
+        <div className="slate-columns" style={{"--column-count":block.count} as import("react").CSSProperties}>
+          {blocks.filter(column=>column.layoutParentId===block.id && column.type==="column").map((column,index)=>(
+            <div key={column.id} className="slate-column" data-column-id={column.id} data-block-id={column.id} role="group" aria-label={`Column ${index+1}`}
+              onDragOver={canEdit?event=>event.preventDefault():undefined}
+              onDrop={canEdit?event=>{event.preventDefault();event.stopPropagation();if(draggingId && blocks.find(item=>item.id===draggingId)?.type!=="columns")onMove(draggingId,{kind:"into-column",columnId:column.id});setDraggingId(null);}:undefined}>
+              {renderGroup(column.id)}
+              {canEdit?<button type="button" className="column-add" onClick={event=>onInsert(column.id,event.currentTarget)}>Add to column {index+1}</button>:null}
+            </div>
+          ))}
+        </div>
+      </section>
+    ) : row(block));
+  }
+
+  return frame(
+    <div className="flex flex-col">
+      {renderGroup(undefined)}
       {footer ? <Column className="pt-3">{footer}</Column> : null}
     </div>,
   );
