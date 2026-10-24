@@ -12492,7 +12492,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-operator-journey.mjs": {
-      "sha256": "21520038fa5d1fad3fe2b4a8eb6d707c07e3a45621a9af1144fe0d3499813f92",
+      "sha256": "c418f1ea4c0d8569b95d6cd3c5480ec4d50ed188ab70377cbc0fc71b2272b506",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page-tools-journey.mjs": {
