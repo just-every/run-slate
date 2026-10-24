@@ -10008,7 +10008,7 @@
       "executable": false
     },
     "test-budget.json": {
-      "sha256": "100d4d5e80af7667e5560b5cdce5d90ecf829a201b3a85805c31ce244bc2e44e",
+      "sha256": "51721b943eca4ec3aae571272c59676f41e3e2a7ab9329cddbfe7f4c8d87e01a",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
@@ -10020,7 +10020,7 @@
       "executable": false
     },
     "tests/docs/docs-site.test.mjs": {
-      "sha256": "ecad3ec117a68f35dd315e898adfd8e095b09df01282ed6d869dc53a02ccc264",
+      "sha256": "4129e181fbcd8b33deb653b10a175df860f1b01a0df0b796c66060d0b28fa868",
       "executable": false
     },
     "tests/e2e/auth-paths.test.js": {
@@ -10036,7 +10036,7 @@
       "executable": false
     },
     "tests/e2e/contract-coverage.test.ts": {
-      "sha256": "b5602f38d6962188a3d9692eb8f402e1716edfe60aa5c4fc4f48e7f09af67342",
+      "sha256": "a9490ade407450e70df671390ae29429644783fd0c41e1da61cbf884ce716b3d",
       "executable": false
     },
     "tests/e2e/contract.d.ts": {
@@ -10220,7 +10220,7 @@
       "executable": false
     },
     "tests/e2e/landing-styles.test.mjs": {
-      "sha256": "969f08273bd2b3ac0e8e3cf9e3b360e67817309103388c4b8fe2ad48b6d8c3d8",
+      "sha256": "17145e849aa19f5ac56cce5db5bfc66581379092b5ad0abb35267d18609c6aba",
       "executable": false
     },
     "tests/e2e/landing.test.ts": {
@@ -10240,7 +10240,7 @@
       "executable": false
     },
     "tests/e2e/managed-first-open.mjs": {
-      "sha256": "213fd3711db62c257cf5c7779af06d581d132c60e20155da04edacca88a0e27c",
+      "sha256": "8a32185e9d29d54020fddc39146f52fcc6f983e0c86be7a4c74c0d24aef8c0de",
       "executable": false
     },
     "tests/e2e/navigation/create-in-place.test.ts": {
@@ -10432,7 +10432,7 @@
       "executable": false
     },
     "tests/e2e/signin-hint.mjs": {
-      "sha256": "50ac7f66b3a9a6764cfa34357a3c86da4eda839a8e8e69963d9bd4ea13f1fe8e",
+      "sha256": "8db5b78d47d259ea495cb510f9236a848fa34ee699e09c14c6f26c78a14fe33a",
       "executable": false
     },
     "tests/e2e/typescript-extension-loader.mjs": {
@@ -10453,10 +10453,6 @@
     },
     "tests/fixtures/aurora/seed.mjs": {
       "sha256": "6f4587e453e4a00ae9b334fc29294273ea7ceca21477ce8fab3e6099954ee96d",
-      "executable": false
-    },
-    "tests/fixtures/aurora/seed.test.mjs": {
-      "sha256": "d080161c19afb735599c31e90bfaa26a9f3ddf22ea8081b1096ba9a306de59bf",
       "executable": false
     },
     "tests/fixtures/aurora/workspace.json": {
@@ -12345,6 +12341,10 @@
     },
     "tests/requirements/cli-journey.md": {
       "sha256": "25665e13a94a7bbb1e49146e10e22c2a20348e97f4083aca9fa24bfc1c33874a",
+      "executable": false
+    },
+    "tests/requirements/count-registrations.mjs": {
+      "sha256": "343965bc8d6fbc27f4eb0372e813ce0e2f88da1ad8ad67bad4decf6538efa7bb",
       "executable": false
     },
     "tests/requirements/test-evidence.json": {

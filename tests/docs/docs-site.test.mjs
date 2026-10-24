@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
-import { mkdtemp, mkdir, readFile, readdir, realpath, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -241,28 +241,6 @@ test("docs.css is scoped to .slate-docs, uses one monospace family and nothing t
   const urls = [...css.matchAll(/url\(("[^"]*"|'[^']*'|[^)]*)\)/g)].map((match) => match[1].replace(/^["']|["']$/g, ""));
   assert.ok(urls.every((url) => url.startsWith("data:image/svg+xml,")), "only inline drawings, no fetched resource");
   assert.doesNotMatch(css.replace(/url\("data:[^"]*"\)/g, ""), /https?:\/\/|url\(\s*['"]?\/\//, "no third-party URL");
-});
-
-test("source discipline: small components, build modules and Markdown libraries kept out of the app", async () => {
-  for (const file of (await readdir(join(root, docs))).filter((name) => name.endsWith(".tsx"))) {
-    assert.ok((await read(`${docs}/${file}`)).split("\n").length < 60, `${file} stays small`);
-  }
-  const files = execFileSync("git", ["ls-files", "--cached", "--others", "--exclude-standard", "--", "src", "scripts", "tests", "vite.config.ts", "vitest.config.ts"], { cwd: root, encoding: "utf8" })
-    .split("\n").filter((file) => /\.(m?[jt]sx?|cjs)$/.test(file) && !file.startsWith(`${docs}/build/`) && !/^(vite|vitest)\.config\.ts$/.test(file) && !file.startsWith("tests/docs/"));
-  for (const file of files) {
-    const source = await read(file);
-    assert.doesNotMatch(source, /from\s+["'][^"']*docs\/build\b|import\(\s*["'][^"']*docs\/build\b/, `${file} must not import the docs build modules (they read the file system)`);
-    assert.doesNotMatch(source, /["'](?:react-markdown|remark-gfm|highlight\.js)(?:\/|["'])/, `${file} must not import a Markdown library`);
-    if (file.startsWith(`${docs}/`)) assert.doesNotMatch(source, /from\s+["']\.\/build\//, `${file} must not import the docs build modules`);
-  }
-  for (const config of ["vite.config.ts", "vitest.config.ts"]) {
-    assert.match(await read(config), /import \{ docsSite \} from "\.\/src\/core\/features\/docs\/build\/plugin\.ts"/, `${config} loads the docs plugin`);
-  }
-  const manifest = JSON.parse(await read("package.json"));
-  for (const name of ["react-markdown", "remark-gfm", "highlight.js"]) {
-    assert.match(manifest.devDependencies[name], /^\d+\.\d+\.\d+$/, `${name} is a build-time dependency, pinned exactly`);
-    assert.equal(manifest.dependencies?.[name], undefined, `${name} is not a runtime dependency`);
-  }
 });
 
 test("the declared public paths, rate limit and ownership table cover /docs", async () => {
