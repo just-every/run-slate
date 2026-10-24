@@ -1,3 +1,4 @@
+import {referenceDeleted} from './deleted';
 import {z} from 'zod';
 import type {FeatureContext} from '../../../app/feature-context';
 import {commitOperation,mutationGuard} from '../../../app/operations';
@@ -9,7 +10,7 @@ import {validateBlockContent} from '../validation';
 const inputSchema=z.object({operationKey:z.string().min(1),expectedCopyRevisionId:z.string(),expectedSourceRevisionId:z.string(),text:z.array(z.unknown())}).strict();
 export async function editSyncedCopy(ctx:FeatureContext,pageId:string,blockId:string,raw:unknown){
  const parsed=inputSchema.safeParse(raw);if(!parsed.success)throw new ApiProblem(400,'INVALID_SYNCED_EDIT','Supply the copy and source revisions and paragraph text.');const input=parsed.data;
- return commitOperation(ctx,{operationKey:input.operationKey,action:'pages.synced.update',request:{pageId,blockId,...input},authorize:async()=>{await requirePageLevel(ctx,pageId,'edit');const copy=(await pageBlocks(ctx.db,pageId)).find(b=>b.id===blockId&&b.blockType==='synced-reference');if(!copy||(copy.content as {staticId?:string}).staticId)throw new ApiProblem(404,'NOT_FOUND','The synced copy is unavailable.');await requirePageLevel(ctx,(copy.content as {sourcePageId:string}).sourcePageId,'edit');},prepare:async({revisionId})=>{
+ return commitOperation(ctx,{operationKey:input.operationKey,action:'pages.synced.update',request:{pageId,blockId,...input},authorize:async()=>{await requirePageLevel(ctx,pageId,'edit');const copy=(await pageBlocks(ctx.db,pageId)).find(b=>b.id===blockId&&b.blockType==='synced-reference');if(!copy||(copy.content as {staticId?:string}).staticId||await referenceDeleted(ctx.db,copy))throw new ApiProblem(404,'NOT_FOUND','The synced copy is unavailable.');await requirePageLevel(ctx,(copy.content as {sourcePageId:string}).sourcePageId,'edit');},prepare:async({revisionId})=>{
   const destination=await pageRow(ctx,pageId),copy=(await pageBlocks(ctx.db,pageId)).find(b=>b.id===blockId&&b.blockType==='synced-reference');
   if(destination.locked_at||destination.archived_at||destination.trashed_at)throw new ApiProblem(409,'PAGE_UNAVAILABLE','This page cannot be edited.');
   if(!copy||copy.revisionId!==input.expectedCopyRevisionId)throw new ApiProblem(409,'BLOCK_CONFLICT','The synced copy changed. Reload it before editing.');

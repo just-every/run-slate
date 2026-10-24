@@ -6492,7 +6492,7 @@
       "executable": false
     },
     "src/core/features/editor/service.ts": {
-      "sha256": "0e943f07813d0cd3f4edfc70eb9129443c610417b5bafee5b5e338a4aeb7fc0a",
+      "sha256": "e0378583fae3880ccf370b6262a8173d93b6c48dabb9249571cb797713689747",
       "executable": false
     },
     "src/core/features/editor/synced/audience.ts": {
@@ -6508,11 +6508,15 @@
       "executable": false
     },
     "src/core/features/editor/synced/guards.ts": {
-      "sha256": "bb4bdf87af761cc8e15d5a62da1695a2a68708b38aee04f4bedee3fedee7ce67",
+      "sha256": "cec0c86019d693e2c86eae7bb4a5c691b959919d5e2fd6970718d19d6761c7bb",
       "executable": false
     },
     "src/core/features/editor/synced/read.ts": {
       "sha256": "985db03c67dda25d35757da2556570d45432f93f4e277db6cbbb08a53a91b1e3",
+      "executable": false
+    },
+    "src/core/features/editor/synced/self.ts": {
+      "sha256": "6eb597a105b9378d037bf76c5f56698726a7e0a9aa45a3f2f1d8122553a6ff84",
       "executable": false
     },
     "src/core/features/editor/synced/static.ts": {
@@ -6520,7 +6524,7 @@
       "executable": false
     },
     "src/core/features/editor/synced/write.ts": {
-      "sha256": "a47ab1b5b563ea518a4e00d2ce6653aa8d88aaf957ce0741aee9509d1c541c00",
+      "sha256": "a991122c15a2a4dff28528f78d0b8280671dc2fd139c9b3a9a917eb77166ad82",
       "executable": false
     },
     "src/core/features/editor/table-of-contents.ts": {
@@ -10160,7 +10164,7 @@
       "executable": false
     },
     "tests/e2e/editor/synced-case.ts": {
-      "sha256": "3623109eadf6a2ef65adb063ff46035f58d05adfb80a57dc20dcdafdbb63bd2b",
+      "sha256": "7e24d3dbd833060f5d2047628e759d8a1ef70ddac59694565d50128e687f25cd",
       "executable": false
     },
     "tests/e2e/editor/tables.test.ts": {
@@ -12344,7 +12348,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
-      "sha256": "230fa5be21754c2af618e6ddab05c1aec8a0b8c90e2ade94b0156cf1de3ee99a",
+      "sha256": "c255258deaa52333f1c08c507e7b5d29ffb81dff2e81e7fc89c3251dece622bb",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-journey.mjs": {

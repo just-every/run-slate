@@ -64,13 +64,16 @@ response=await request('GET','/p/synthetic-slate-11',undefined,'public');html=aw
   const b=key(),s=await create('Source '+mode,[]);let empty=await json('GET',`/pages/${s}`);
   await json('POST',`/pages/${s}/publish`,{operationKey:key(),expectedRevisionId:empty.page.revisionId});empty=await json('GET',`/pages/${s}`);
   await json('PUT',`/pages/${s}/blocks`,{operationKey:key(),expectedRevisionId:empty.page.revisionId,blocks:[{id:b,blockType:'synced-source',content:{text:[{text:changed}]},treePosition:'0'}]});
+  const selfCopy={id:key(),blockType:'synced-reference',content:{sourcePageId:s,sourceBlockId:b},treePosition:'1'};
+  if(['remove','unsync'].includes(mode)){const sourceDoc=await json('GET',`/pages/${s}`);await json('PUT',`/pages/${s}/blocks`,{operationKey:key(),expectedRevisionId:sourceDoc.page.revisionId,blocks:[...sourceDoc.blocks.map(({id,blockType,content,parentBlockId,treePosition}:any)=>({id,blockType,content,parentBlockId,treePosition})),selfCopy]});}
   const c=await create('Copy '+mode,[{id:key(),blockType:'synced-reference',content:{sourcePageId:s,sourceBlockId:b},treePosition:'0'}]);
   await grant(c,'view');
   const live=await json('GET',`/pages/${s}`);
   if(mode==='restore')await json('POST',`/revisions/${s}/${empty.workingRevisionId}/restore`,{operationKey:key(),expectedRevisionId:live.page.revisionId});
   else if(mode==='discard'){
    await json('POST',`/pages/${s}/discard-changes`,{operationKey:key(),expectedRevisionId:live.page.revisionId});
-  }else await json('PUT',`/pages/${s}/blocks`,{operationKey:key(),expectedRevisionId:live.page.revisionId,blocks:mode==='remove'?[]:[{id:b,blockType:'paragraph',content:{text:[{text:changed}]},treePosition:'0'}]});
+  }else {const saved=await json('PUT',`/pages/${s}/blocks`,{operationKey:key(),expectedRevisionId:live.page.revisionId,blocks:mode==='remove'?[selfCopy]:[{id:b,blockType:'paragraph',content:{text:[{text:changed}]},treePosition:'0'},selfCopy]});expect(saved.value.blocks.find((block:any)=>block.id===selfCopy.id).blockType).toBe('paragraph');}
+  if(['remove','unsync'].includes(mode)){const own=(await json('GET',`/pages/${s}`)).blocks.find((block:any)=>block.id===selfCopy.id);expect(own.blockType).toBe('paragraph');expect(JSON.stringify(own.content)).toContain(changed);}
   expect((await json('GET',`/pages/${c}`)).blocks[0].synced).toMatchObject({static:true,text:[{text:changed}]});
   const hidden=await json('GET',`/pages/${c}`,undefined,'reader');expect(hidden.blocks[0].synced).toEqual({state:'access-needed'});expect(JSON.stringify(hidden)).not.toContain(changed);
  }
