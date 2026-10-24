@@ -112,7 +112,7 @@ for (const width of [1440, 390]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await withSecondPerson(state, width, people => sharedNavigationJourney(state, people));
-      await syncedCustodyJourney(state,width,['restore','discard']);
+      await syncedCustodyJourney(state,width);
       await syncedHistoryJourney(state,width);
       await syncedMemberErasureJourney(state,width);
     });

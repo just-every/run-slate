@@ -8324,7 +8324,7 @@
       "executable": false
     },
     "src/core/features/portability/coverage.ts": {
-      "sha256": "618bf7a5fa4ce531e840615a245f11db9586e999cb3747d947fbf589deb7b42c",
+      "sha256": "a28b7056f75f1892b7cbb852fef5290d4a938b9a80b7c152782cd7477046aec0",
       "executable": false
     },
     "src/core/features/portability/export-admission.ts": {
@@ -10956,7 +10956,7 @@
       "executable": false
     },
     "tests/flagship/release-clauses/portability/profile-retention.test.ts": {
-      "sha256": "59c9a09148402a9b04898352cc907893203278e527a057a2057efa845138a573",
+      "sha256": "e969e7426137294b2a98dbbeac45b54ad2613971600a5761a6e54ad7c0aa5b21",
       "executable": false
     },
     "tests/flagship/release-clauses/portability/staged-recovery.test.ts": {
@@ -12272,7 +12272,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "0593a8e3d72483b7359c29f9fa5c350d84cf944e63c1119ec68bc8f5dd5759f4",
+      "sha256": "cacf2003fecce051feff9e1915f71b498beda9b16c63ef870d2f7bd029a5186a",
       "executable": false
     },
     "tests/qualification/ui-convergence/my-tasks-journey.mjs": {
@@ -12348,11 +12348,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
-      "sha256": "7bf2d49723f7d6c4a0468a732198dd93b17320f30b1eb278c25ec14d1cbd4016",
+      "sha256": "84977cce91f6d3f21fcebfb7e60561cbae2620ac2962fcb2c9fe97aad1fbcf40",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-journey.mjs": {
-      "sha256": "cdca63463b907aa6a3c967924008ed57b254627335143698225f76a880f5ccea",
+      "sha256": "b1796eda71c342828f67b1c5b43d6065c9c48de7084bd40b91fa381ece07e388",
       "executable": false
     },
     "tests/qualification/ui-convergence/tables-journey.mjs": {
