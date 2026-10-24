@@ -10240,7 +10240,7 @@
       "executable": false
     },
     "tests/e2e/managed-first-open.mjs": {
-      "sha256": "213fd3711db62c257cf5c7779af06d581d132c60e20155da04edacca88a0e27c",
+      "sha256": "8a32185e9d29d54020fddc39146f52fcc6f983e0c86be7a4c74c0d24aef8c0de",
       "executable": false
     },
     "tests/e2e/navigation/create-in-place.test.ts": {
@@ -10432,7 +10432,7 @@
       "executable": false
     },
     "tests/e2e/signin-hint.mjs": {
-      "sha256": "50ac7f66b3a9a6764cfa34357a3c86da4eda839a8e8e69963d9bd4ea13f1fe8e",
+      "sha256": "8db5b78d47d259ea495cb510f9236a848fa34ee699e09c14c6f26c78a14fe33a",
       "executable": false
     },
     "tests/e2e/typescript-extension-loader.mjs": {
