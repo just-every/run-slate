@@ -10112,7 +10112,7 @@
       "executable": false
     },
     "test-budget.json": {
-      "sha256": "6fcc5112156a2c60e593bc5a91a9aa3c4edacc51cd9c3ba283532cb376772628",
+      "sha256": "abd167ebb902b45e0ac5384173a7ab814401256f70567344aa0bd3fdde57cbc7",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
@@ -10124,7 +10124,7 @@
       "executable": false
     },
     "tests/docs/docs-site.test.mjs": {
-      "sha256": "ecad3ec117a68f35dd315e898adfd8e095b09df01282ed6d869dc53a02ccc264",
+      "sha256": "4129e181fbcd8b33deb653b10a175df860f1b01a0df0b796c66060d0b28fa868",
       "executable": false
     },
     "tests/e2e/auth-paths.test.js": {
@@ -10324,7 +10324,7 @@
       "executable": false
     },
     "tests/e2e/landing-styles.test.mjs": {
-      "sha256": "969f08273bd2b3ac0e8e3cf9e3b360e67817309103388c4b8fe2ad48b6d8c3d8",
+      "sha256": "17145e849aa19f5ac56cce5db5bfc66581379092b5ad0abb35267d18609c6aba",
       "executable": false
     },
     "tests/e2e/landing.test.ts": {
