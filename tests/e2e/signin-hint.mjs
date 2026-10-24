@@ -12,7 +12,7 @@ export async function signInHintFlow(origin) {
   const shots = process.env.SLATE_SIGNIN_SHOTS;
   const ownerEmail = process.env.SLATE_SIGNIN_EMAIL ?? 'owner@example.test';
   if (shots) await mkdir(shots, { recursive: true });
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ headless: true, args: ['--use-mock-keychain', '--password-store=basic'] });
   try {
     for (const width of [1440, 390]) {
       const context = await browser.newContext({ viewport: { width, height: width === 1440 ? 1000 : 844 } });
