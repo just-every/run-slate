@@ -29,21 +29,25 @@ export function editorBlocks(blocks: BlockView[]): EditorBlock[] {
       throw new Error(
         "This block has unreadable content. Its stored value has not been changed.",
       );
-    let indent = 0;
+    let indent = 0, layoutParentId: string | undefined;
     let parent = block.parentBlockId;
     const visited = new Set([block.id]);
     while (parent && byId.has(parent)) {
-      if (visited.has(parent))
-        throw new Error("This page contains a circular block hierarchy.");
+      if (visited.has(parent)) throw new Error("This page contains a circular block hierarchy.");
       visited.add(parent);
+      const ancestor=byId.get(parent)!;
+      if (["columns","column"].includes(ancestor.blockType)){layoutParentId=parent;break;}
       indent++;
-      parent = byId.get(parent)!.parentBlockId;
+      parent=ancestor.parentBlockId;
     }
     return {
       ...block.content,
       id: block.id,
       type: block.blockType,
       indent,
+      layoutParentId,
+      synced:block.synced,
+      copyRevisionId:block.revisionId,
     } as EditorBlock;
   });
 }
@@ -51,9 +55,9 @@ export function editorBlocks(blocks: BlockView[]): EditorBlock[] {
 export function storedBlocks(blocks: EditorBlock[]) {
   const ancestors: string[] = [];
   return blocks.map((block, index) => {
-    const { id, type: blockType, indent = 0, ...content } = block;
+    const { id, type: blockType, indent = 0, layoutParentId, synced:_synced, copyRevisionId:_copyRevisionId, ...content } = block;
     const depth = Math.min(indent, ancestors.length);
-    const parentBlockId = depth > 0 ? ancestors[depth - 1] : null;
+    const parentBlockId = depth > 0 ? ancestors[depth - 1] : layoutParentId ?? null;
     ancestors.length = depth;
     ancestors.push(id);
     return {
@@ -98,7 +102,7 @@ export const contentApi = {
     expectedRevisionId: string,
     key: string,
   ) => {
-    const { id, type: _type, indent: _indent, ...content } = block;
+    const { id, type: _type, indent: _indent, layoutParentId: _layoutParentId, synced:_synced, copyRevisionId:_copyRevisionId, ...content } = block;
     return mutate<ContentReceipt>(
       `/api/pages/${encodeURIComponent(pageId)}/blocks/${encodeURIComponent(id)}`,
       { operationKey: key, expectedRevisionId, content },

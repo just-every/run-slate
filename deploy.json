@@ -41,8 +41,6 @@
     "AI_ENABLED": "false",
     "SSO_ENABLED": "false",
     "LOCAL_DEVELOPMENT": "false",
-    "MAIL_PROVIDER": "resend",
-    "MAIL_FROM": "auth@example.test",
     "MAIL_RELAY_URL": "",
     "IDENTITY_PROVIDER": ""
   },

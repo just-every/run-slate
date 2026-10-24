@@ -21,3 +21,5 @@ delivery-artifact/
 /evidence/generated/
 /evidence/runtime/
 /evidence/imports/remote-generated/
+
+.env*

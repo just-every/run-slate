@@ -23,7 +23,7 @@ export interface StoredReview {stream:Pick<ImportStreamPlan,'fingerprint'>;stage
  * statements do not stay reachable alongside the compressed reviewed plans. */
 async function prepareNativeSource(ctx:ImportRequestContext,job:PreviewJob,mappings:PrincipalMapping[],timings:ImportPreviewTimings) {
   const archiveStarted=performance.now();
-  const archive=await readRetainedZip(ctx.files,job.archive_key,path=>job.format==='notion-workspace'?/\.(md|csv)$/i.test(path):!path.includes('/')&&/\.csv(?:\.gz)?$/i.test(path)||/(?:^|\/)(?:entities\.xml|exportDescriptor\.properties(?:\.gz)?)$/i.test(path));
+  const archive=await readRetainedZip(ctx.files,job.archive_key,path=>job.format==='notion-workspace'?/\.(md|html?|csv)$/i.test(path):!path.includes('/')&&/\.csv(?:\.gz)?$/i.test(path)||/(?:^|\/)(?:entities\.xml|exportDescriptor\.properties(?:\.gz)?)$/i.test(path));
   timings.archiveReadAdmissionMs=performance.now()-archiveStarted;
   const parseStarted=performance.now();
   const parsed=job.format==='notion-workspace'?parseNotionFiles(archive.files,{name:job.filename}):parseConfluenceFiles(archive.files,{name:job.filename});

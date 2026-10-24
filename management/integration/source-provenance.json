@@ -4,7 +4,7 @@
   "sourceFiles": {
     "scripts/delivery/slate-spec.mjs": "sha256:550e3a9360a8e06d6d8c5013ff9dd18174ae49127bc190b6b074467b037cad1e",
     "scripts/build-delivery-artifact.mjs": "sha256:b751656105bb968559c5f9f2808fbd5b7bce8758c6315fa6ee967c3ce505fd15",
-    "scripts/delivery/base/packaging.json": "sha256:caa3ee344a4c7719e4342d38a10ce72c41834f89f592fbe3817e9755c212403f",
+    "scripts/delivery/base/packaging.json": "sha256:3c5004d8a593d8888a070832ac981927a056e9748554e9d2b68d7c4aef9c1157",
     "src/server.ts": "sha256:025ea8a8ae4d457bb96718b34abd59b6ba739664454e97bd570e720c76471a64",
     "src/core/features/workspace/bootstrap.ts": "sha256:22001510bdb939df3e34a7b58840caf20ec7ec0bc953bdf51bf6f8ac206dc5ec",
     "src/core/platform/config/runtime.ts": "sha256:d5f68939b73f00bb85c64faa2b408381b26cd0714612fe046e19484fa9e986cd",
@@ -62,6 +62,8 @@
     "migrations/core/0055_public_api_tokens.sql": "sha256:9e3e8c1311f8253ca1ae1f7c5ef34c75f225bce62dd61a5a54f81f2ab1c7ca66",
     "migrations/core/0056_webhook_subscriptions.sql": "sha256:fdbf117819a48a2dba9b1fbfa90d08562f6527c3bf8e96c89d671b7a2ad8ee5f",
     "migrations/core/0057_audit_stream.sql": "sha256:0d2c6c0ce09d647c2bdfe6b4f7c4bc828dc38735141c01ede5a2e39c49b0201f",
-    "migrations/core/0058_scim_directory.sql": "sha256:4575fde9650217cb358c7df14dc098ecb3a1f471db6f8c0e7a2fc82d0ea90084"
+    "migrations/core/0058_scim_directory.sql": "sha256:4575fde9650217cb358c7df14dc098ecb3a1f471db6f8c0e7a2fc82d0ea90084",
+    "migrations/core/0059_member_profiles.sql": "sha256:0b3a60c26182b8c8f6a79cbcaa20bd27ed4c448d9d796636c4a416146a0215c9",
+    "migrations/core/0060_synced_static.sql": "sha256:88b23a722205bdbbb461d20dcd370d5d9c1478e44e5eb1d3ead2d422c7715fb6"
   }
 }

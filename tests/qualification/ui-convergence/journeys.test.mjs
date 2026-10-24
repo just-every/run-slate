@@ -1,3 +1,11 @@
+import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} from './synced-custody.mjs';
+import {peopleJourney} from './people-journey.mjs';
+import {syncedJourney} from './synced-journey.mjs';
+import {touchDatabaseToolsJourney} from './touch-database-tools-journey.mjs';
+import {touchManagementJourney} from './touch-management-journey.mjs';
+import {touchPageToolsJourney} from './touch-page-tools-journey.mjs';
+import {touchOperatorJourney} from './touch-operator-journey.mjs';
+import {columnsJourney} from './columns-journey.mjs';
 import {beginTouchJourney} from './touch-journey.mjs';
 import {touchCommentJourney,touchPublishShareJourney} from './touch-page.mjs';
 import {touchDatabaseJourney} from './touch-database.mjs';
@@ -49,10 +57,11 @@ for (const width of [1440, 390]) {
   test(`provider embeds load only on interaction and [EMBED-004] files respect reader access at ${width}px`, {timeout:240000}, async()=>{
     await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{await setupWorkspace(state);await providerEmbedsJourney(state);}, {}, {folders:true});
   });
-  test(`presentation paginates read-only slides and restores the page at ${width}px`, { timeout: 180000 }, async () => {
+  test(`presentation paginates read-only slides; touch history, details and exports work at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await presentationJourney(state);
+      const touch=await beginTouchJourney(state,width);try{await touchPageToolsJourney(touch);}finally{await touch.close();}
     });
   });
   test(`readable exports retain discussions through HTML and Markdown re-import at ${width}px`, { timeout: 180000 }, async () => {
@@ -103,6 +112,9 @@ for (const width of [1440, 390]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await withSecondPerson(state, width, people => sharedNavigationJourney(state, people));
+      await syncedCustodyJourney(state,width);
+      await syncedHistoryJourney(state,width);
+      await syncedMemberErasureJourney(state,width);
     });
   });
   test(`global create names destinations for every content kind at ${width}px`, { timeout: 240000 }, async () => {
@@ -115,13 +127,14 @@ for (const width of [1440, 390]) {
       });
     });
   });
-  test(`TMPL-007 starter templates are found by category, preview, assign a task and duplicate at ${width}px`, { timeout: 240000 }, async () => {
+  test(`TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at ${width}px`, { timeout: 240000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await starterTemplatesJourney(state).catch(async cause => {
         await state.page.screenshot({ path: `.artifacts/ui-convergence/starter-templates-${width}-failure.png`, fullPage: true });
         throw cause;
       });
+      const touch=await beginTouchJourney(state,width);try{await touchManagementJourney(state,touch);}finally{await touch.close();}
     });
   });
   test(`DB-015 — a database's Templates tab says a schedule runs as its last saver, and a re-save hands it over at ${width}px`, { timeout: 240000 }, async () => {
@@ -196,17 +209,17 @@ for (const width of [1440, 390]) {
       await state.page.keyboard.press('Escape');
       let pageId,touch;
       try {
-        await t.test('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks', async () => { pageId = await writeJourney(state, width); touch=await beginTouchJourney(state,width); });
+        await t.test('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks', async () => { pageId = await writeJourney(state, width); touch=await beginTouchJourney(state,width);await columnsJourney(state,width,touch); });
         assert.ok(pageId, 'Writing must complete before dependent journeys.');
         assert.ok(touch, 'Touch-member writing must complete before its dependent journeys.');
         await t.test('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await touchCommentJourney(touch,touch.pageId);});
         await t.test('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touchPublishShareJourney(touch,touch.pageId);});
-        await t.test('query, highlighted results and opening exact page', () => searchJourney(state, pageId));
+        await t.test('query, highlighted results and opening exact page; touch Search, Inbox, My tasks and review queues', async () => {await searchJourney(state, pageId);await touchOperatorJourney(state,touch);});
         await settingsJourney(state, width);
         // Finish earlier page notifications before connecting the chat journey destinations.
         await state.runScheduled();
         await chatJourney(state, width);
-        await t.test('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts', async () => {await databaseJourney(state);await touchDatabaseJourney(touch,touch.containerId);});
+        await t.test('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts and uses charts, templates and automations', async () => {await databaseJourney(state);await touchDatabaseJourney(touch,touch.containerId);await touchDatabaseToolsJourney(state,touch);});
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
   });
@@ -224,6 +237,8 @@ for (const width of [1440, 390]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await withSecondPerson(state, width, people => reviewRequestJourney(state, people));
+      await syncedJourney(state,width);
+      await peopleJourney(state,width);
     }, {}, { scheduled: true });
   });
   test(`space blog post reaches a follower's inbox and Home at ${width}px`, { timeout: 240000 }, async () => {

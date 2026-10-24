@@ -344,6 +344,18 @@
       "name": "0058_scim_directory.sql",
       "sha256": "4575fde9650217cb358c7df14dc098ecb3a1f471db6f8c0e7a2fc82d0ea90084",
       "sql": "-- Renumber on integration, after all installed core migrations.\nCREATE TABLE scim_credentials (\n  id TEXT PRIMARY KEY,\n  workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n  owner_member_id TEXT NOT NULL REFERENCES members(id),\n  name TEXT NOT NULL,\n  token_hash TEXT UNIQUE,\n  created_at TEXT NOT NULL,\n  updated_at TEXT NOT NULL,\n  last_used_at TEXT,\n  revoked_at TEXT\n);\nCREATE INDEX scim_credentials_owner ON scim_credentials(workspace_id,owner_member_id);\nCREATE TABLE scim_resources (\n  id TEXT PRIMARY KEY,\n  workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n  resource_type TEXT NOT NULL CHECK(resource_type IN ('User','Group')),\n  external_id TEXT,\n  member_id TEXT REFERENCES members(id),\n  invitation_id TEXT REFERENCES invitations(id) ON DELETE SET NULL,\n  group_id TEXT REFERENCES groups(id) ON DELETE SET NULL,\n  user_name TEXT,\n  display_name TEXT,\n  given_name TEXT,\n  family_name TEXT,\n  state TEXT NOT NULL CHECK(state IN ('pending','active','inactive','deleted')),\n  created_at TEXT NOT NULL,\n  updated_at TEXT NOT NULL\n);\nCREATE UNIQUE INDEX scim_resources_external ON scim_resources(workspace_id,resource_type,external_id) WHERE external_id IS NOT NULL AND state!='deleted';\nCREATE UNIQUE INDEX scim_resources_user ON scim_resources(workspace_id,lower(user_name)) WHERE resource_type='User' AND state!='deleted';\nCREATE UNIQUE INDEX scim_resources_member ON scim_resources(member_id) WHERE member_id IS NOT NULL AND state!='deleted';\nCREATE UNIQUE INDEX scim_resources_group ON scim_resources(group_id) WHERE group_id IS NOT NULL;\n-- Authority loss makes every previously issued credential permanently unusable.\nCREATE TRIGGER scim_credentials_authority AFTER UPDATE OF status,role,member_kind,workspace_id,email ON members\nWHEN NEW.status!='active' OR NEW.role!='owner' OR NEW.member_kind!='member' OR NEW.workspace_id!=OLD.workspace_id OR NEW.email!=OLD.email\nBEGIN\n  UPDATE scim_credentials SET token_hash=NULL,revoked_at=COALESCE(revoked_at,NEW.updated_at),updated_at=NEW.updated_at WHERE owner_member_id=NEW.id;\nEND;\n-- Acceptance links the existing SCIM resource to the native, stable member ID.\nCREATE TRIGGER scim_invitation_accepted AFTER UPDATE OF accepted_by_member_id ON invitations\nWHEN NEW.accepted_by_member_id IS NOT NULL\nBEGIN\n  UPDATE scim_resources SET member_id=NEW.accepted_by_member_id,state='active',updated_at=COALESCE((SELECT updated_at FROM members WHERE id=NEW.accepted_by_member_id),updated_at) WHERE invitation_id=NEW.id AND state='pending';\nEND;\n\n-- Removed native principals cannot regain an earlier remote execution credential on re-invitation.\nCREATE TRIGGER scim_removed_remote_credentials AFTER UPDATE OF status ON members\nWHEN NEW.status='removed' BEGIN\n UPDATE intelligence_agent_credentials SET revoked_at=COALESCE(revoked_at,NEW.updated_at) WHERE owner_id=NEW.id OR subject_id=NEW.id;\nEND;\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0059_member_profiles.sql",
+      "sha256": "0b3a60c26182b8c8f6a79cbcaa20bd27ed4c448d9d796636c4a416146a0215c9",
+      "sql": "-- Optional profile fields and deliberate expertise visibility choices; existing members need no backfill.\nCREATE TABLE member_profiles (\n member_id TEXT PRIMARY KEY NOT NULL REFERENCES members(id),\n workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n title TEXT NOT NULL DEFAULT '', team TEXT NOT NULL DEFAULT '',\n manager_member_id TEXT REFERENCES members(id), timezone TEXT NOT NULL DEFAULT 'UTC',\n revision_id TEXT NOT NULL, updated_at TEXT NOT NULL\n);\nCREATE INDEX member_profiles_workspace ON member_profiles(workspace_id);\nCREATE TABLE member_expertise_overrides (\n member_id TEXT NOT NULL REFERENCES members(id), tag_key TEXT NOT NULL,\n label TEXT NOT NULL, custom INTEGER NOT NULL CHECK(custom IN (0,1)), hidden INTEGER NOT NULL CHECK(hidden IN (0,1)),\n PRIMARY KEY(member_id,tag_key)\n);\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0060_synced_static.sql",
+      "sha256": "88b23a722205bdbbb461d20dcd370d5d9c1478e44e5eb1d3ead2d422c7715fb6",
+      "sql": "-- Restricted static copies retain content separately from page bodies and search indexes.\nCREATE TABLE synced_static_content (\n id TEXT PRIMARY KEY NOT NULL,\n workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n page_id TEXT NOT NULL REFERENCES pages(id),\n block_id TEXT NOT NULL,\n text_json TEXT NOT NULL,\n source_title TEXT NOT NULL,\n reader_ids_json TEXT NOT NULL,\n anonymous_allowed INTEGER NOT NULL CHECK (anonymous_allowed IN (0,1)),\n created_at TEXT NOT NULL\n);\nCREATE INDEX synced_static_page ON synced_static_content(page_id);\n-- A restored historical reference never reconnects after its source was removed.\nCREATE TABLE synced_deleted_references (\n copy_page_id TEXT NOT NULL REFERENCES pages(id),\n copy_block_id TEXT NOT NULL,\n source_page_id TEXT NOT NULL,\n source_block_id TEXT NOT NULL,\n PRIMARY KEY(copy_page_id,copy_block_id,source_page_id,source_block_id)\n);\n"
     }
   ],
   "compatibilityDate": "2026-09-08",
@@ -411,7 +423,9 @@
   },
   "mail": {
     "providers": [
-      "rer"
+      "rer",
+      "resend",
+      "sendgrid"
     ]
   },
   "nativeExport": {

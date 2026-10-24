@@ -1,0 +1,92 @@
+import assert from 'node:assert/strict';
+import {randomUUID} from 'node:crypto';
+import {expect} from '@playwright/test';
+import {ok,grant} from './two-people-support.mjs';
+import {tap,type,checkpoint} from './touch-controls.mjs';
+
+/** Search, work and both review queues are operated by an ordinary touch member. */
+export async function touchOperatorJourney(state,touch){
+ const {page,context,origin,api}=touch;
+ await page.goto(origin+'/app/search',{waitUntil:'networkidle'});
+ const query=page.getByRole('searchbox',{name:'Search your workspace',exact:true});
+ await expect(query).toBeEnabled();
+ await type(page,query,'Response owner confirmed');
+ await tap(page.getByRole('button',{name:'Search',exact:true}));
+ const result=page.locator('.search-results a').filter({has:page.getByRole('heading',{name:'Field response guide',exact:true})});
+ await expect(result.locator('mark').first()).toBeVisible();
+ await checkpoint(page,'search result');
+ await tap(result);
+ await expect(page).toHaveURL(new RegExp(`/app/pages/${touch.pageId}`));
+ await expect(page.getByRole('status').filter({hasText:'Matches highlighted'})).toBeVisible();
+ await checkpoint(page,'opened search result');
+
+ const taskText='Confirm the on-call handover',blockId=randomUUID();
+ const task=(await ok(context,origin,'POST','/api/pages',{operationKey:randomUUID(),containerId:touch.containerId,title:'Duty handover',blocks:[{id:blockId,blockType:'task',treePosition:'0',content:{text:[{text:taskText}],done:false,assigneeMemberId:'browser-reader',dueDate:new Date(Date.now()+86400000).toISOString().slice(0,10)}}]})).value.pageId;
+ await page.goto(origin+'/app/tasks',{waitUntil:'networkidle'});
+ await expect(page.getByRole('tab',{name:'Assigned to me',exact:true})).toHaveAttribute('aria-selected','true');
+ const completing=page.getByRole('checkbox',{name:`Complete: ${taskText}`,exact:true});
+ await checkpoint(page,'my tasks assigned');
+ await tap(completing);
+ await expect(completing).toHaveCount(0);
+ await expect.poll(async()=>(await api(`/api/pages/${task}`)).blocks.find(b=>b.id===blockId).content.done).toBe(true);
+ assert.equal((await api(`/api/pages/${task}`)).blocks.find(b=>b.id===blockId).content.completedByMemberId,'browser-reader');
+ await page.goto(`${origin}/app/pages/${task}`,{waitUntil:'networkidle'});
+ await expect(page.getByRole('checkbox',{name:`Mark complete: ${taskText}`,exact:true})).toBeChecked();
+ await checkpoint(page,'completed task on page');
+
+ const space=(await state.api('/api/containers')).items.find(item=>item.name==='Handbook');
+ const reviewed=(await ok(state.context,origin,'POST','/api/pages',{operationKey:randomUUID(),containerId:space.id,title:'Touch incident review'})).value.pageId;
+ await grant(state.context,origin,reviewed,'browser-reader','edit');
+ if(!(await state.api('/api/status')).items.some(status=>status.requiresVerification))await ok(state.context,origin,'POST','/api/status',{operationKey:randomUUID(),key:'verified',label:'Verified',color:'#228855',requiresVerification:true});
+ const source=await state.api(`/api/pages/${reviewed}`);
+ await ok(state.context,origin,'POST',`/api/status/requests/page/${reviewed}`,{operationKey:randomUUID(),expectedRevisionId:source.page.revisionId,assigneeKind:'member',assigneeId:'browser-reader',date:new Date(Date.now()+2*86400000).toISOString().slice(0,10),time:'09:00',timezone:'UTC',note:'Confirm the touch incident procedure.'});
+ await page.goto(origin+'/app/inbox',{waitUntil:'networkidle'});
+ const notice=page.locator('.outcome-list li').filter({hasText:'Touch incident review'}).filter({hasText:'review requested'});
+ await expect(notice).toHaveCount(1);
+ await checkpoint(page,'inbox review item');
+ await tap(notice.getByRole('link').first());
+ await expect(page).toHaveURL(new RegExp(`/app/pages/${reviewed}`));
+ await expect.poll(async()=>(await api('/api/notifications')).items.find(item=>item.event==='review-requested'&&item.pageId===reviewed)?.readAt).toBeTruthy();
+ await page.goto(origin+'/app/review',{waitUntil:'networkidle'});
+ const queue=page.getByRole('region',{name:'Review requests',exact:true});
+ const item=queue.locator('li').filter({hasText:'Touch incident review'});
+ await tap(item.getByRole('link',{name:'Open current revision',exact:true}));
+ await expect(page.getByRole('textbox',{name:'Page title',exact:true})).toHaveValue('Touch incident review');
+ await page.waitForLoadState('networkidle');
+ await page.goto(origin+'/app/review',{waitUntil:'networkidle'});
+ await checkpoint(page,'assigned review queue');
+ await tap(item.getByRole('button',{name:'Verify review',exact:true}));
+ const verify=page.getByRole('dialog',{name:'Verify this exact revision',exact:true});
+ await expect(verify.getByText('The visit to this revision is not confirmed yet.')).toHaveCount(0);
+ await tap(verify.getByRole('button',{name:'I reviewed this revision',exact:true}));
+ await expect(verify).toBeHidden();
+ await expect(item).toHaveCount(0);
+ const attestation=(await api(`/api/status/page/${reviewed}`)).verification;
+ assert.equal(attestation.verifier.id,'browser-reader');assert.equal(attestation.state,'current');
+ await checkpoint(page,'assigned review verified');
+ // A changed revision then exercises the independent health queue's touch verification door.
+ const fresh=await state.api(`/api/pages/${reviewed}`);
+ await ok(state.context,origin,'PUT',`/api/pages/${reviewed}/blocks`,{operationKey:randomUUID(),expectedRevisionId:fresh.page.revisionId,blocks:[{id:randomUUID(),blockType:'paragraph',treePosition:'0',content:{text:[{text:'Updated incident escalation contacts.'}]}}]});
+ await page.goto(origin+'/app/review',{waitUntil:'networkidle'});
+ const health=page.locator('.review-list li').filter({hasText:'Touch incident review'});
+ await expect(health).toHaveAttribute('data-state','changed');
+ await checkpoint(page,'verification health queue');
+ await tap(health.getByRole('link',{name:'Review',exact:true}));
+ const currentParagraph=page.getByRole('article').getByRole('textbox',{name:'Paragraph',exact:true});
+ await expect(currentParagraph).toContainText('Updated incident escalation contacts.');
+ await expect(currentParagraph).toBeEditable();
+ // The comparison repeats the text, but must not satisfy the editable-document check.
+ const historyParagraph=page.getByRole('region',{name:'History',exact:true}).getByRole('textbox',{name:'Paragraph',exact:true});
+ await expect(historyParagraph).toContainText('Updated incident escalation contacts.');
+ await expect(historyParagraph).toHaveAttribute('aria-readonly','true');
+ await expect(historyParagraph).toHaveAttribute('contenteditable','false');
+ await page.waitForLoadState('networkidle');
+ await page.goto(origin+'/app/review',{waitUntil:'networkidle'});
+ await tap(health.getByRole('button',{name:'Verify again',exact:true}));
+ await tap(verify.getByRole('button',{name:'I reviewed this revision',exact:true}));
+ await expect(verify).toBeHidden();
+ await expect(health).toHaveCount(0);
+ assert.equal((await api(`/api/status/page/${reviewed}`)).verification.state,'current');
+ await checkpoint(page,'health queue reverified');
+ console.log('NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed');
+}

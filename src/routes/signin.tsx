@@ -11,7 +11,8 @@ const searchSchema = z.object({ next: z.string().optional(), requested: z.litera
 
 export const Route = createFileRoute("/signin")({
   validateSearch: searchSchema,
-  loader: () => loadSignInCapabilities(),
+  loaderDeps: ({search}) => ({next: search.next, requested: search.requested, owner_link: search.owner_link}),
+  loader: ({deps}) => loadSignInCapabilities({data: deps}),
   head: () => ({ meta: [{ title: "Sign in — Slate" }], links: [{ rel: "stylesheet", href: "/rer-theme.css" }] }),
   component: editorLeaf(SignIn),
 });
