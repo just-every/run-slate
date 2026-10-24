@@ -36,7 +36,9 @@ export async function removeMember(ctx:FeatureContext,input:{operationKey:string
     const target=await ctx.db.prepare('SELECT email,is_setup_owner FROM members WHERE id=? AND workspace_id=?').bind(input.memberId,ctx.actor.workspaceId).first<{email:string;is_setup_owner:number}>();
     if(!target) throw new ApiProblem(404,'NOT_FOUND','Not found.');
     if(target.is_setup_owner&&input.memberId!==ctx.actor.id) throw new ApiProblem(403,'SETUP_OWNER','Only the setup owner can remove themselves.');
+    const erasureContent=input.erase?await prepareEraseMemberContent(ctx,input.memberId):[];
     const statements=[
+      ...erasureContent,
       removeMemberReviewAssignment(ctx,input.memberId),
       mutationGuard(ctx.db,"SELECT role!='owner' OR status!='active' OR (SELECT count(*) FROM members WHERE workspace_id=? AND role='owner' AND status='active')>1 FROM members WHERE id=?",[ctx.actor.workspaceId,input.memberId]),
       ctx.db.prepare("UPDATE members SET status='removed',is_setup_owner=0,updated_at=? WHERE id=?").bind(ctx.now,input.memberId),
@@ -52,7 +54,7 @@ export async function removeMember(ctx:FeatureContext,input:{operationKey:string
       ctx.db.prepare('DELETE FROM group_members WHERE member_id=?').bind(input.memberId),
       ctx.db.prepare('DELETE FROM container_members WHERE member_id=?').bind(input.memberId),
     ];
-    if(input.erase) statements.push(...await prepareEraseMemberContent(ctx,input.memberId),ctx.db.prepare('DELETE FROM magic_links WHERE email=?').bind(target.email),ctx.db.prepare('DELETE FROM auth_proofs WHERE member_id=?').bind(input.memberId),ctx.db.prepare('DELETE FROM member_identity_bindings WHERE member_id=?').bind(input.memberId),ctx.db.prepare('DELETE FROM sessions WHERE member_id=?').bind(input.memberId),ctx.db.prepare("UPDATE members SET email=?,display_name='Deleted person',initials='?',updated_at=? WHERE id=?").bind(`erased-${input.memberId}@invalid`,ctx.now,input.memberId),ctx.db.prepare('UPDATE activity_entries SET actor_member_id=NULL WHERE actor_member_id=?').bind(input.memberId),ctx.db.prepare('UPDATE invitations SET email=? WHERE workspace_id=? AND email=?').bind(`erased-${input.memberId}@invalid`,ctx.actor.workspaceId,target.email),ctx.db.prepare('UPDATE mail_deliveries SET target_email=?,error_detail=NULL WHERE member_id=? OR target_email=?').bind(`erased-${input.memberId}@invalid`,input.memberId,target.email));
+    if(input.erase) statements.push(ctx.db.prepare('DELETE FROM magic_links WHERE email=?').bind(target.email),ctx.db.prepare('DELETE FROM auth_proofs WHERE member_id=?').bind(input.memberId),ctx.db.prepare('DELETE FROM member_identity_bindings WHERE member_id=?').bind(input.memberId),ctx.db.prepare('DELETE FROM sessions WHERE member_id=?').bind(input.memberId),ctx.db.prepare("UPDATE members SET email=?,display_name='Deleted person',initials='?',updated_at=? WHERE id=?").bind(`erased-${input.memberId}@invalid`,ctx.now,input.memberId),ctx.db.prepare('UPDATE activity_entries SET actor_member_id=NULL WHERE actor_member_id=?').bind(input.memberId),ctx.db.prepare('UPDATE invitations SET email=? WHERE workspace_id=? AND email=?').bind(`erased-${input.memberId}@invalid`,ctx.actor.workspaceId,target.email),ctx.db.prepare('UPDATE mail_deliveries SET target_email=?,error_detail=NULL WHERE member_id=? OR target_email=?').bind(`erased-${input.memberId}@invalid`,input.memberId,target.email));
     statements.push(await identityRevision(ctx,revisionId,'member',input.memberId,{removed:true,erased:!!input.erase}));
     return {entity:{id:input.memberId,kind:'member',revisionId},value:{removed:true,erased:!!input.erase},statements};
   }});

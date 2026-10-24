@@ -1,3 +1,6 @@
+import {referenceDeleted} from './deleted';
+import {staticResolution} from './static';
+import {resolveMentions} from '../../pages/mentions';
 import type {FeatureContext} from '../../../app/feature-context';
 import type {BlockView,SyncedResolution} from '../../../shared/api/content';
 import {ApiProblem} from '../../../app/problems';
@@ -19,17 +22,21 @@ export async function syncedSource(ctx:FeatureContext,pageId:string,blockId:stri
 export async function projectSynced(ctx:FeatureContext,blocks:BlockView[]):Promise<BlockView[]>{
  return Promise.all(blocks.map(async block=>{
   if(block.blockType!=='synced-reference')return block;
-  const c=block.content as {sourcePageId:string;sourceBlockId:string};
+  const c=block.content as {sourcePageId:string;sourceBlockId:string;staticId?:string};
+  if(c.staticId)return {...block,synced:await staticResolution(ctx.db,block,ctx)};
+  if(await referenceDeleted(ctx.db,block))return {...block,synced:{state:'deleted'}};
   let synced:SyncedResolution;
   try{synced=(await syncedSource(ctx,c.sourcePageId,c.sourceBlockId)).resolution;}
-  catch(error){if(!(error instanceof ApiProblem)||error.status!==404)throw error;synced={state:'access-needed'};}
+  catch(error){if(!(error instanceof ApiProblem)||error.status!==404)throw error;const mention=(await resolveMentions(ctx,[{content:{mention:{kind:'page',id:c.sourcePageId}}}]))[c.sourcePageId];synced=mention?.state==='trashed'?{state:'trashed',sourceTitle:mention.label,sourcePageId:c.sourcePageId}:{state:'access-needed'};}
   return {...block,synced};
  }));
 }
 export async function projectPublicSynced(db:D1Database,exposure:Record<string,any>,blocks:BlockView[]):Promise<BlockView[]>{
  return Promise.all(blocks.map(async block=>{
   if(block.blockType!=='synced-reference')return block;
-  const c=block.content as {sourcePageId:string;sourceBlockId:string};
+  const c=block.content as {sourcePageId:string;sourceBlockId:string;staticId?:string};
+  if(c.staticId)return {...block,synced:await staticResolution(db,block)};
+  if(await referenceDeleted(db,block))return {...block,synced:{state:'deleted'}};
   const row=await db.prepare('SELECT host,slug FROM public_exposures WHERE page_id=? AND revoked_at IS NULL').bind(c.sourcePageId).first<{host:string;slug:string}>();
   let synced:SyncedResolution={state:'access-needed'};
   if(row)try{
