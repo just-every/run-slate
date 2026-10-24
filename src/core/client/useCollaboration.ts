@@ -19,15 +19,22 @@ export function useCollaboration(pageId: string, read: Resource<DocumentView>["r
     let sequence = Math.max(0,...(snapshot.current?.events.map(event=>event.sequence)??[])), lastPresence = opened.current ? Date.now() : 0;
     async function update() {
       await read(async signal => {
+        const current = () => {
+          if (!alive || signal.aborted) throw new DOMException("Collaboration read retired", "AbortError");
+        };
+        current();
+        // Retire background state through the read's signal and sequence fence,
+        // while allowing a healthy transport to settle across navigation.
         if (Date.now() - lastPresence > 10000) {
-          await mutate(`/api/collaboration/${pageId}/presence`, { sessionId, cursor: null }, "POST", signal);
+          await mutate(`/api/collaboration/${pageId}/presence`, { sessionId, cursor: null }, "POST");
           lastPresence = Date.now();
+          current();
         }
         const result = await request<{
           document: DocumentView;
           events: { sequence: number }[];
           presence: typeof presence;
-        }>(`/api/collaboration/${pageId}?after=${sequence}`, { signal });
+        }>(`/api/collaboration/${pageId}?after=${sequence}`);
         if (alive && !signal.aborted) {
           setPresence([...new Map(result.presence.map(person=>[person.id,person])).values()]);
           sequence = Math.max(sequence, ...result.events.map(event=>event.sequence));
