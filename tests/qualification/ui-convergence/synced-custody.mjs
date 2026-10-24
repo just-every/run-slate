@@ -35,7 +35,10 @@ export async function syncedCustodyJourney(state,width){
      const current=await api(`/api/pages/${source}`);await ok(context,origin,'POST',`/api/archive/${source}`,{operationKey:key(),expectedRevisionId:current.page.revisionId,action:'trash'});
      await ownerPage.goto(`${origin}/app/pages/${copy}`,{waitUntil:'networkidle'});try{await expect(ownerPage.getByRole('complementary',{name:'Trashed source',exact:true})).toContainText(`${title} (trashed)`);}catch(error){failures.push(`trash-label: ${error.message}`);}await expect(ownerPage.locator('[data-page-editor]')).not.toContainText(text);await checkpoint(ownerPage,'synced allowed trashed source');
      await readerPage.reload({waitUntil:'networkidle'});await expect(readerPage.getByRole('complementary',{name:'Access needed',exact:true})).toBeVisible();await expect(readerPage.locator('body')).not.toContainText(title);await checkpoint(readerPage,'synced restricted trashed source');
-     try{await ok(reader,origin,'POST',`/api/revisions/${copy}/${old.workingRevisionId}/restore`,{operationKey:key(),expectedRevisionId:(await api(`/api/pages/${copy}`)).page.revisionId});}catch(error){failures.push(`copy-restore: ${error.message}`);}
+     for(const [actor,label] of [[reader,'restricted'],[context,'trashed']]){
+      await ok(actor,origin,'PUT',`/api/pages/${copy}/blocks`,{operationKey:key(),expectedRevisionId:(await api(`/api/pages/${copy}`)).page.revisionId,blocks:[]});
+      try{await ok(actor,origin,'POST',`/api/revisions/${copy}/${old.workingRevisionId}/restore`,{operationKey:key(),expectedRevisionId:(await api(`/api/pages/${copy}`)).page.revisionId});}catch(error){failures.push(`copy-restore-${label}: ${error.message}`);}
+     }
      await ok(context,origin,'POST',`/api/archive/${source}`,{operationKey:key(),expectedRevisionId:current.page.revisionId,action:'restore'});
      await ownerPage.reload({waitUntil:'networkidle'});await expect(ownerPage.locator('[aria-label="Synced copy"]')).toContainText(draft);
      await ok(context,origin,'POST',`/api/archive/${source}`,{operationKey:key(),expectedRevisionId:current.page.revisionId,action:'trash'});
@@ -61,6 +64,10 @@ export async function syncedCustodyJourney(state,width){
    await ok(context,origin,'POST',`/api/archive/${source}`,{operationKey:key(),expectedRevisionId:current.page.revisionId,action:'trash'});await ok(context,origin,'POST',`/api/archive/${source}/permanent-delete`,{operationKey:key(),confirmedPageIds:[source]});
    const after=await api(`/api/revisions/${copy}/${old.workingRevisionId}`),payload=doc=>JSON.stringify({id:doc.id,properties:doc.properties,createdAt:doc.createdAt,blocks:doc.blocks.map(({synced,...block})=>block)});assert.equal(payload(after),payload(before),'Earlier committed history is byte-identical after deletion.');
    await ownerPage.goto(`${origin}/app/pages/${copy}`,{waitUntil:'networkidle'});await expect(ownerPage.locator('[data-page-editor]')).toContainText('Committed history content');await checkpoint(ownerPage,'synced ordinary static and immutable history');
+   await ownerPage.goto(`${origin}/app/pages/${copy}?detail=history&revision=${old.workingRevisionId}`,{waitUntil:'networkidle'});
+   const preview=ownerPage.locator('.revision-preview');await expect(preview.getByRole('complementary',{name:'Deleted source',exact:true})).toBeVisible();await expect(preview).not.toContainText('Committed history content');await checkpoint(ownerPage,'synced immutable deleted reference in history');
+   await preview.getByRole('button',{name:'Restore this revision',exact:true}).click();const restoring=ownerPage.getByRole('dialog',{name:'Restore this revision?',exact:true});await restoring.getByRole('button',{name:'Restore revision',exact:true}).click();await expect(restoring).toBeHidden();
+   await ownerPage.goto(`${origin}/app/pages/${copy}`,{waitUntil:'networkidle'});await expect(ownerPage.locator('[data-page-editor]').getByRole('complementary',{name:'Deleted source',exact:true})).toBeVisible();await expect(ownerPage.locator('[data-page-editor]')).not.toContainText('Committed history content');await checkpoint(ownerPage,'synced restored deleted reference stays content free');
    console.log(`SYNCED_CUSTODY history ${width}: ordinary static and immutable prior revision`);
   }catch(error){failures.push(`history: ${error.stack}`);}
  }finally{await ownerPage.close();await reader.close();await anonymous.close();await configure(settings.policies);}
@@ -71,6 +78,7 @@ export async function syncedMemberErasureJourney(state,width){
  const {context,origin,api}=state,key=()=>randomUUID(),browser=context.browser();
  const reader=await browser.newContext({viewport:{width,height:width===390?844:1000},locale:'en-US'});
  await reader.addCookies([{name:'slate_session',value:state.readerCookie.split('=')[1],url:origin}]);
+ const anonymous=await browser.newContext({viewport:{width,height:width===390?844:1000},locale:'en-US'}),publicPage=await anonymous.newPage();
  const page=await context.newPage(),own=await reader.newPage();
  try{
   const container=(await ok(context,origin,'POST','/api/containers',{operationKey:key(),name:'Personal copy team',visibility:'private'})).value.id;
@@ -81,10 +89,12 @@ export async function syncedMemberErasureJourney(state,width){
   const copy=(await ok(context,origin,'POST','/api/pages',{operationKey:key(),containerId:container,title:'Personal source copy'})).value.pageId;
   await ok(context,origin,'POST','/api/sharing',{operationKey:key(),targetKind:'page',targetId:copy,principalKind:'member',principalId:'browser-reader',level:'edit'});
   await ok(reader,origin,'PUT',`/api/pages/${copy}/blocks`,{operationKey:key(),expectedRevisionId:(await api(`/api/pages/${copy}`)).page.revisionId,blocks:[{id:key(),blockType:'synced-reference',content:{sourcePageId:source,sourceBlockId:blockId},treePosition:'0'}]});
+  const slug='synthetic-slate-erased-copy';await ok(context,origin,'POST',`/api/publishing/${copy}`,{operationKey:key(),expectedRevisionId:(await api(`/api/pages/${copy}`)).page.revisionId,host:new URL(origin).host,slug});
   await own.goto(`${origin}/app/pages/${copy}`,{waitUntil:'networkidle'});await expect(own.locator('[aria-label="Synced copy"]')).toContainText(text);await checkpoint(own,'synced personal source before erasure');await own.goto('about:blank');
   await page.goto(`${origin}/app/pages/${copy}`,{waitUntil:'networkidle'});await expect(page.getByRole('complementary',{name:'Access needed',exact:true})).toBeVisible();await expect(page.locator('body')).not.toContainText(title);
   await ok(context,origin,'POST','/api/members/remove',{operationKey:key(),memberId:'browser-reader',erase:true});
   await page.reload({waitUntil:'networkidle'});await expect(page.getByRole('complementary',{name:'Access needed',exact:true})).toBeVisible();await expect(page.locator('body')).not.toContainText(text);await expect(page.locator('body')).not.toContainText(title);await checkpoint(page,'synced member erasure no wider audience');
+  await publicPage.goto(`${origin}/p/${slug}`,{waitUntil:'networkidle'});await expect(publicPage.locator('body')).toContainText('Access needed');await expect(publicPage.locator('body')).not.toContainText(text);await expect(publicPage.locator('body')).not.toContainText(title);await checkpoint(publicPage,'synced member erasure anonymous access needed');
   console.log(`SYNCED_CUSTODY member-erasure ${width}: deletion accepted, owner receives no private content`);
- }finally{await page.close();await reader.close();}
+ }finally{await page.close();await reader.close();await anonymous.close();}
 }

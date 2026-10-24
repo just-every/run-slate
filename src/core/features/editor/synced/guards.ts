@@ -1,3 +1,4 @@
+import {detachOwnCopies} from './self';
 import type {FeatureContext} from '../../../app/feature-context';
 import type {BlockInput} from '../../pages/types';
 import {mutationGuard} from '../../../app/operations';
@@ -17,6 +18,6 @@ export async function syncedGuards(ctx:FeatureContext,blocks:BlockInput[],old:Bl
   statements.push(mutationGuard(ctx.db,"SELECT p.revision_id=? AND p.deleted_at IS NULL AND p.trashed_at IS NULL FROM page_blocks b JOIN pages p ON p.id=b.page_id WHERE b.id=? AND b.page_id=? AND b.block_type='synced-source'",[source.page.revision_id,c.sourceBlockId,c.sourcePageId]));
  }
  const removed=old.filter(b=>b.blockType==='synced-source'&&!blocks.some(n=>n.id===b.id&&n.blockType==='synced-source'));
- if(removed.length){const rows=(await ctx.db.prepare('SELECT DISTINCT page_id FROM page_blocks WHERE id IN (SELECT value FROM json_each(?))').bind(JSON.stringify(removed.map(b=>b.id))).all<{page_id:string}>()).results;statements.push(...await detachSyncedSources(ctx,rows.map(r=>r.page_id),removed.map(b=>b.id)));}
+ if(removed.length){const rows=(await ctx.db.prepare('SELECT DISTINCT page_id FROM page_blocks WHERE id IN (SELECT value FROM json_each(?))').bind(JSON.stringify(removed.map(b=>b.id))).all<{page_id:string}>()).results;for(const row of rows)await detachOwnCopies(ctx,row.page_id,blocks,removed);statements.push(...await detachSyncedSources(ctx,rows.map(r=>r.page_id),removed.map(b=>b.id)));}
  return statements;
 }
