@@ -58,11 +58,11 @@ export async function signInHintFlow(origin) {
         const { member } = await session.json();
         assert.equal(member.email, 'jamie@aurora.example');
         assert.equal(member.role, 'owner');
-        for (const next of ['/app?view=recent', 'https://outside.invalid/app', '//outside.invalid/app']) {
+        for (const hint of [null, ownerEmail]) for (const next of [undefined, '/app?view=recent', 'https://outside.invalid/app', '//outside.invalid/app']) {
           const target = new URL('/signin', origin);
-          target.searchParams.set('login_hint', ownerEmail);
-          target.searchParams.set('next', next);
-          const expected = next.startsWith('/app?') ? next : '/app';
+          if (hint !== null) target.searchParams.set('login_hint', hint);
+          if (next !== undefined) target.searchParams.set('next', next);
+          const expected = next?.startsWith('/app?') ? next : '/app';
           const response = await context.request.get(target.href, {maxRedirects: 0});
           assert.equal(response.status(), 307);
           assert.equal(response.headers().location, expected);

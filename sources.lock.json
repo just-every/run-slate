@@ -10624,7 +10624,7 @@
       "executable": false
     },
     "tests/e2e/signin-hint.mjs": {
-      "sha256": "3efa5064a711c4bfed7ca157edb4917d71259cb8050e283a61c47a5eeece2836",
+      "sha256": "d65e2f29b1683402974f3434e1cfdf23d9f68b2b7845ff4452d7c26e6ad75037",
       "executable": false
     },
     "tests/e2e/typescript-extension-loader.mjs": {
