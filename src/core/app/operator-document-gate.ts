@@ -1,3 +1,4 @@
+import { normalizeEmail } from "../../../modules/operator-auth/index.mjs";
 import { createSessionService } from "../features/session/service";
 import { sessionOptions } from "../features/session/service";
 import { safeAppPath } from "../platform/auth/paths";
@@ -26,5 +27,11 @@ export async function operatorDocumentGate(
   if (member) return null;
 
   const next = safeAppPath(`${url.pathname}${url.search}`);
-  return new Response(null, { status: 302, headers: { location: `/signin?next=${encodeURIComponent(next)}` } });
+  const search = new URLSearchParams({ next });
+  try {
+    search.set("login_hint", normalizeEmail(url.searchParams.get("login_hint")));
+  } catch {
+    // An invalid optional hint never affects admission or the safe destination.
+  }
+  return new Response(null, { status: 302, headers: { location: `/signin?${search}` } });
 }

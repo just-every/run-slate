@@ -30,6 +30,17 @@ export async function signInHintFlow(origin) {
           const email = page.getByLabel('Email address', { exact: true });
           assert.equal(await email.inputValue(), hint?.includes('@') ? hint : '');
         }
+        for (const hint of ['invalid-address', ownerEmail]) {
+          const target = new URL('/app', origin);
+          target.searchParams.set('login_hint', hint);
+          const response = await context.request.get(target.href, {maxRedirects: 0});
+          assert.equal(response.status(), 302);
+          const destination = new URL(response.headers().location, origin);
+          assert.equal(destination.pathname, '/signin');
+          assert.equal(destination.searchParams.get('login_hint'), hint === ownerEmail ? ownerEmail : null);
+          await page.goto(target.href, {waitUntil: 'networkidle'});
+          assert.equal(await page.getByLabel('Email address', {exact: true}).inputValue(), hint === ownerEmail ? ownerEmail : '');
+        }
         assert.equal(requests, 0, 'Opening an owner entry never submits sign-in');
         assert.equal((await inbox(origin)).length, before.length, 'Prefill sends no mail');
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
@@ -47,6 +58,16 @@ export async function signInHintFlow(origin) {
         const { member } = await session.json();
         assert.equal(member.email, 'jamie@aurora.example');
         assert.equal(member.role, 'owner');
+        for (const next of ['/app?view=recent', 'https://outside.invalid/app', '//outside.invalid/app']) {
+          const target = new URL('/signin', origin);
+          target.searchParams.set('login_hint', ownerEmail);
+          target.searchParams.set('next', next);
+          await page.goto(target.href, {waitUntil: 'networkidle'});
+          const expected = next.startsWith('/app?') ? next : '/app';
+          assert.equal(new URL(page.url()).origin, origin);
+          assert.equal(new URL(page.url()).pathname + new URL(page.url()).search, expected);
+          assert.equal(await page.getByLabel('Email address', {exact: true}).count(), 0);
+        }
         assert.equal(requests, 1, 'Only the explicit request sent a sign-in email');
         if (shots) await page.screenshot({ path: path.join(shots, `signed-in-${width}.png`), fullPage: true });
       } finally { await context.close(); }
