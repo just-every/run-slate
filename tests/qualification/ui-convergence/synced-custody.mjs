@@ -4,7 +4,7 @@ import {expect} from '@playwright/test';
 import {ok} from './two-people-support.mjs';
 import {checkpoint} from './touch-controls.mjs';
 /** The same conversion rule through every destructive source door; no new registration. */
-export async function syncedCustodyJourney(state,width,modes=['delete','remove','unsync','restore','discard']){
+export async function syncedCustodyJourney(state,width){
  const {context,origin,api}=state,key=()=>randomUUID(),browser=context.browser();
  const options={viewport:{width,height:width===390?844:1000},locale:'en-US'};
  const reader=await browser.newContext(options),anonymous=await browser.newContext(options);
@@ -18,7 +18,7 @@ export async function syncedCustodyJourney(state,width,modes=['delete','remove',
   const container=(await ok(context,origin,'POST','/api/containers',{operationKey:key(),name:'Synced custody',visibility:'private'})).value.id;
   const create=async(title,blocks)=>(await ok(context,origin,'POST','/api/pages',{operationKey:key(),containerId:container,title,blocks})).value.pageId;
   const publish=async id=>ok(context,origin,'POST',`/api/pages/${id}/publish`,{operationKey:key(),expectedRevisionId:(await api(`/api/pages/${id}`)).page.revisionId});
-  for(const mode of modes){
+  for(const mode of ['delete','remove','unsync','restore','discard']){
    try{
     const title=`Custody source ${mode}`,text=`Retained published content for ${mode}`,draft=`Unpublished replacement for ${mode}`,source=await create(title,[]),blockId=key();
     await publish(source);const empty=await api(`/api/pages/${source}`);
