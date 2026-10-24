@@ -1,7 +1,7 @@
 import {TemplateSnapshotPreview,type TemplatePreviewSnapshot} from './TemplateSnapshotPreview';
 import {DeletedTemplateActions} from './DeletedTemplateActions';
 import { TemplateActions } from "./TemplateActions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import { mutate, operationKey } from "../../../../client/transport";
 import { RequestState } from "../../../../app/ui/RequestState";
@@ -25,12 +25,17 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
   const [state, setState] = useState("active");
   const [query, setQuery] = useState("");
   const [category,setCategory]=useState("");
+  const [settledFilters,setSettledFilters]=useState({query:"",category:""});
+  useEffect(()=>{
+    const timer=setTimeout(()=>setSettledFilters({query,category}),200);
+    return ()=>clearTimeout(timer);
+  },[query,category]);
   const [container, setContainer] = useState(defaultContainerId??"");
   const containers = useResource<{ items: { id: string; name: string }[] }>(
     "/api/containers",
   );
   const items = useResource<{ items: Template[] }>(
-    `/api/templates?state=${state}&query=${encodeURIComponent(query)}&category=${encodeURIComponent(category)}&containerId=${encodeURIComponent(container)}`,
+    `/api/templates?state=${state}&query=${encodeURIComponent(settledFilters.query)}&category=${encodeURIComponent(settledFilters.category)}&containerId=${encodeURIComponent(container)}`,
   );
   const [selected, setSelected] = useState<string | undefined>(templateId);
   const preview = useResource<Template>(

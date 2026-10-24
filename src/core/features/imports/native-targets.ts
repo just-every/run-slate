@@ -1,8 +1,9 @@
 import {derivedPageReferences,derivedContainerReferences,nativeReferenceCatalog,nativeIncomingChecks,incomingDependencies,shareNotice,type IncomingCheck} from './native-dependencies';
 import type {D1TargetAdapter,D1Database,D1Sql,TargetRow,D1UndoEffect,D1UndoSnapshot,Json} from '../../../../modules/import-kit/src/d1/index.ts';
 import {expectedNativeScope,type NativeUnit,type NativeScope} from './native-plan';
+import {nativeWrites,nativeIdentifier as identifier} from './native-writes';
+import {nativePlanCodec} from './native-plan-codec';
 
-const identifier=(name:string)=>{if(!/^[a-z][a-z0-9_]*$/.test(name))throw new Error('Invalid native import identifier.');return `"${name}"`;};
 const sql=(sql:string,...params:unknown[]):D1Sql=>({sql,params});
 export interface NativeImportBinding {id:string; created_at:string; native_published:number}
 
@@ -11,21 +12,30 @@ export interface NativeImportBinding {id:string; created_at:string; native_publi
 // rest with the page or container. A pending invitation still keeps it
 // (invitations.page_id, invitations.container_id).
 const grantTables=new Set(['container_grants','page_grants']);
-const ownedGrants=(unit:NativeUnit,table:string)=>JSON.stringify(unit.rows.filter(row=>row.table===table).map(row=>row.values.id));
+const ownedScopeIds=(unit:NativeUnit,table:string)=>JSON.stringify(unit.rows.filter(row=>row.table===table).map(row=>row.values.id));
 function scopeQuery(unit:NativeUnit,scope:NativeScope,job:NativeImportBinding):D1Sql {
   const columns=scope.columns.map(column=>{
     let expression=identifier(column);
     if(!job.native_published&&((scope.table==='pages'&&column==='deleted_at')||(scope.table==='containers'&&column==='trashed_at')))expression=`CASE WHEN ${expression}=${JSON.stringify(job.created_at).replaceAll("'","''").replace(/^"|"$/g,"'")} THEN NULL ELSE ${expression} END`;
     return `'${column}',${expression}`;
   }).join(',');
-  const owned=grantTables.has(scope.table);
-  return sql(`SELECT COALESCE(json_group_array(json(value)),'[]') FROM (SELECT json_object(${columns}) AS value FROM ${identifier(scope.table)} WHERE ${identifier(scope.column)}=?${owned?' AND id IN (SELECT value FROM json_each(?))':''} ORDER BY value COLLATE BINARY)`,scope.id,...owned?[ownedGrants(unit,scope.table)]:[]);
+  // Mapping ownership is aggregated per imported unit; older retained ID
+  // scopes continue to use their original exact identity comparison.
+  const owned=grantTables.has(scope.table)||(scope.table==='federation_import_mappings'&&scope.column==='import_job_id');
+  return sql(`SELECT COALESCE(json_group_array(json(value)),'[]') FROM (SELECT json_object(${columns}) AS value FROM ${identifier(scope.table)} WHERE ${identifier(scope.column)}=?${owned?' AND id IN (SELECT value FROM json_each(?))':''} ORDER BY value COLLATE BINARY)`,scope.id,...owned?[ownedScopeIds(unit,scope.table)]:[]);
 }
 function projection(unit:NativeUnit,job:NativeImportBinding):D1Sql {
   const queries=unit.scopes.map(scope=>scopeQuery(unit,scope,job));
   return sql(`SELECT ${queries.map((q,i)=>`(${q.sql}) AS s${i}`).join(',')}`,...queries.flatMap(q=>q.params??[]));
 }
-function expectedProjection(unit:NativeUnit){return unit.scopes.map(s=>expectedNativeScope(unit,s));}
+/** The ownership marker is compared with the complete retained value below.
+ * Derive its expected projections inside that same predicate so large page
+ * bodies are not transmitted a second time as a duplicate snapshot binding. */
+function retainedScope(scope:NativeScope,index:number):string {
+  const columns=scope.columns.map(column=>{identifier(column);return `'${column}',json_extract(r.value,'$.values.${column}')`;}).join(',');
+  identifier(scope.table);identifier(scope.column);
+  return `SELECT COALESCE(json_group_array(json(value)),'[]') FROM (SELECT json_object(${columns}) AS value FROM json_each(t.value_json,'$.unit.rows') r WHERE json_extract(r.value,'$.table')='${scope.table}' AND json_extract(r.value,'$.values.${scope.column}')=json_extract(t.value_json,'$.unit.scopes[${index}].id') ORDER BY value COLLATE BINARY)`;
+}
 function valueUnit(row:TargetRow):NativeUnit {return (row.value as unknown as {unit:NativeUnit}).unit;}
 const rootTable=(kind:string)=>({page:'pages',container:'containers',member:'members',group:'groups',media:'files'})[kind as 'page'|'container'|'member'|'group'|'media']!;
 const relationshipKey=(table:string)=>table==='database_records'||table==='content_schedules'?'page_id':'id';
@@ -50,6 +60,7 @@ export function nativeTargets(job:NativeImportBinding,writes:()=>number):D1Targe
     return {destination,targetKind:kind,targetId:id,value,revision:saved.revision};
   };
   const adapter:D1TargetAdapter={
+    planCodec:nativePlanCodec,
     async read(db,destination,kind,id) {
       const key=`${kind}\u0000${id}`,cached=reads.get(key);
       if(cached?.writes===writes())return structuredClone(await cached.row);
@@ -58,26 +69,17 @@ export function nativeTargets(job:NativeImportBinding,writes:()=>number):D1Targe
     },
     matches(row,destination,kind,id) {
       if(!row)return sql(`NOT EXISTS(SELECT 1 FROM import_native_targets WHERE import_id=? AND kind=? AND target_id=?) AND NOT EXISTS(SELECT 1 FROM ${identifier(rootTable(kind))} WHERE id=?)`,destination,kind,id,id);
-      const unit=valueUnit(row),observed=(row.value as unknown as {observed?:string[]}).observed??expectedProjection(unit);
+      const unit=valueUnit(row),observed=(row.value as unknown as {observed?:string[]}).observed;
       const queries=unit.scopes.map(scope=>scopeQuery(unit,scope,job));
       const value={...(row.value as object)} as Record<string,unknown>;delete value.observed;
       // One aggregate comparison avoids SQLite's expression-depth limit and
       // binds each scope identity once. Concatenation removes JSON subtypes so
       // both sides contain the exact serialized per-table snapshots.
-      return sql(`EXISTS(SELECT 1 FROM import_native_targets WHERE import_id=? AND kind=? AND target_id=? AND value_json=? AND revision=?) AND json_array(${queries.map(q=>`((${q.sql}) || '')`).join(',')})=?`,destination,kind,id,JSON.stringify(value),row.revision,...queries.flatMap(q=>q.params??[]),JSON.stringify(observed));
+      const expected=observed?'?':`json_array(${unit.scopes.map((scope,index)=>`((${retainedScope(scope,index)}) || '')`).join(',')})`;
+      return sql(`EXISTS(SELECT 1 FROM import_native_targets t WHERE t.import_id=? AND t.kind=? AND t.target_id=? AND t.value_json=? AND t.revision=? AND json_array(${queries.map(q=>`((${q.sql}) || '')`).join(',')})=${expected})`,destination,kind,id,JSON.stringify(value),row.revision,...queries.flatMap(q=>q.params??[]),...observed?[JSON.stringify(observed)]:[]);
     },
     write(row) {
-      const unit=valueUnit(row),statements:D1Sql[]=[];
-      for(const native of unit.rows) {
-        if(native.derived)continue;
-        for(const guard of native.before??[])statements.push(sql(guard.sql,...guard.params));
-        const values={...native.values};
-        if(!job.native_published&&native.table==='pages')values.deleted_at=job.created_at;
-        if(!job.native_published&&native.table==='containers')values.trashed_at=job.created_at;
-        const columns=Object.keys(values);
-        statements.push(sql(`INSERT INTO ${identifier(native.table)} (${columns.map(identifier).join(',')}) VALUES (${columns.map(()=>'?').join(',')})`,...columns.map(c=>values[c])));
-        for(const effect of native.after??[])statements.push(sql(effect.sql,...effect.params));
-      }
+      const unit=valueUnit(row),statements=nativeWrites(unit.rows,job.native_published?undefined:job.created_at);
       statements.push(sql('INSERT INTO import_native_targets(import_id,kind,target_id,value_json,revision) VALUES (?,?,?,?,?)',row.destination,row.targetKind,row.targetId,JSON.stringify(row.value),row.revision));
       return statements;
     },

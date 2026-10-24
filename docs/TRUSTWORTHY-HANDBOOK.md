@@ -68,3 +68,17 @@ A short expiry suits pages that change often, such as on-call rotas or prices. 9
 - It has no language model or other automation that reads, summarises or verifies your pages.
 - It sends lapse notices to the in-app **Inbox** only, not by email.
 - It does not import verification history from another product.
+
+## Columns
+
+Choose **Columns** from the block menu for a section with two to five columns. Drag an ordinary block by its handle into a column, or choose **Add to column** to write there. Columns stack in reading order on phones; the same labeled controls and handles work by touch. A section cannot contain another column section. Reducing the column count moves its content into the last remaining column.
+
+HTML exports preserve columns; Markdown uses HTML layout annotations and the readable archive retains the block tree for re-import. Notion HTML column exports and Confluence storage layouts map to columns. Word and PDF currently flow column content in reading order.
+
+A paragraph without child blocks can be made synced from its block actions. Copy its synced block link, then insert a **Synced block** on another page. Each copy names its source. Save an edit in a copy to update the source; open copies refresh within a few seconds. Editing requires edit access to both pages, and readers need access to the source.
+
+A trashed source shows an access-needed message. Permanent deletion turns its copies into ordinary paragraphs that retain the last published text and source name. Publish outstanding source changes first, and remove copies whose readers cannot read the source before deleting. Readable exports and duplicates contain ordinary paragraphs with the source named.
+
+## People and expertise
+
+Open **Settings → People → Browse people and expertise** to find someone by name, title, team or topic. A profile lists the pages they own, verify and frequently edit that you can read. Expertise comes from those pages’ labels; edit your profile to add a tag, hide a derived tag or restore a hidden one. Hidden expertise stays private and is excluded from review suggestions. You control your title and time zone; workspace owners set team and manager. Review suggestions require an explicit reviewer choice. Guests open **People on this page** from page details and see only that shared page’s authors, owner and editors.
