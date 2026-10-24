@@ -1,8 +1,8 @@
 {
   "defaultCap": 200,
-  "registrations": 1050,
+  "registrations": 1038,
   "scope": "Expanded TypeScript-AST inventory of every seed-owned test/it, contract and journeyTest registration under tests/, including nested t.test and every generated for-of/test.each case, including existing planned-clause todos; describe groups and generic wrapper implementation sites are excluded. Vendored modules are excluded. The legacy call-site-only convention is reported separately.",
-  "reason": "Expanded AST baseline measured 1053 registrations at 812 sites on 51e7e9e2, 10 above the inherited record of 1043. This intermediate consolidation class leaves 1050 registrations. The default cap remains 200; this is not an approved increased budget or cap success.",
+  "reason": "Expanded AST inventory on 51e7e9e2 measured 1053 registrations at 812 sites, 10 more than the inherited record of 1043. Removing two source-layout/CSS-scoping pins, one unused fixture identity pin, and twelve planned-clause todos duplicated by passing tagged Workers journeys leaves 1038 registrations at 809 sites (15 fewer). Mixed docs source checks retain unique resource and rate-limit assertions; distinct behavior assertions, all browser width registrations and never-run core-flow tests remain. This frozen inventory is not an approved increased budget or cap success; the default cap remains 200.",
   "dropCandidates": [
     {
       "file": "tests/flagship/intelligence/native-transport.test.ts",

@@ -10008,7 +10008,7 @@
       "executable": false
     },
     "test-budget.json": {
-      "sha256": "abd167ebb902b45e0ac5384173a7ab814401256f70567344aa0bd3fdde57cbc7",
+      "sha256": "51721b943eca4ec3aae571272c59676f41e3e2a7ab9329cddbfe7f4c8d87e01a",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
@@ -10036,7 +10036,7 @@
       "executable": false
     },
     "tests/e2e/contract-coverage.test.ts": {
-      "sha256": "b5602f38d6962188a3d9692eb8f402e1716edfe60aa5c4fc4f48e7f09af67342",
+      "sha256": "a9490ade407450e70df671390ae29429644783fd0c41e1da61cbf884ce716b3d",
       "executable": false
     },
     "tests/e2e/contract.d.ts": {
