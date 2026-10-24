@@ -10936,7 +10936,7 @@
       "executable": false
     },
     "tests/flagship/release-clauses/portability/profile-retention.test.ts": {
-      "sha256": "46facfac824a3d92032312d2fc1f86586453959d603b18c9ede55fdd2269f083",
+      "sha256": "87e3ad04005cb1f81f15022dabe8b18a9ad8ae1421cd3af2017ec6248b1dabaa",
       "executable": false
     },
     "tests/flagship/release-clauses/portability/staged-recovery.test.ts": {

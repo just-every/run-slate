@@ -118,7 +118,6 @@ test('FLAG-001 — core-profile restore retains and exports flagship history whi
   const restored=await runRestoreThroughApi(staged.cookie,staged.body.id,'');
   expect(restored.response.status).toBe(200);
   expect(restored.body.state).toBe('completed');
-  const restoredProfile=await apiRequest(`/api/people/${source.ownerId}`,await setupOwnerCookie(source),'core-wiki');expect(restoredProfile.status).toBe(200);expect(await restoredProfile.json<any>()).toMatchObject({title:'Response coordinator',timezone:'Australia/Brisbane',hiddenTags:[{tag:'Private restore choice',custom:true}]});
   expect(await migrationNames()).toEqual(migrations);
   const counts=await tableCounts();
   const afterD1=await portableSnapshot();
@@ -128,6 +127,8 @@ test('FLAG-001 — core-profile restore retains and exports flagship history whi
   const owner=await env.DB.prepare('SELECT id,email,role,status,is_setup_owner FROM members WHERE id=?').bind(source.ownerId).first<{id:string;email:string;role:string;status:string;is_setup_owner:number}>();
   expect(owner).toEqual({id:source.ownerId,email:source.ownerEmail,role:'owner',status:'active',is_setup_owner:1});
   const cookie=await sessionFor(source.ownerId,{freshProof:true});
+  // Authenticate the profile probe after comparing the untouched restored rows.
+  const restoredProfile=await apiRequest(`/api/people/${source.ownerId}`,cookie,'core-wiki');expect(restoredProfile.status).toBe(200);expect(await restoredProfile.json<any>()).toMatchObject({title:'Response coordinator',timezone:'Australia/Brisbane',hiddenTags:[{tag:'Private restore choice',custom:true}]});
   await expectCoreBlocks(cookie,'');
   const page=await apiJson(`/api/pages/${source.pages.rootId}`,cookie,'');
   expect(page.status).toBe(200);
