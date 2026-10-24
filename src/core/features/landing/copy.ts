@@ -19,7 +19,7 @@ export const copy = {
     body: "Slate is free and open source under the MIT licence. Read every line and change whatever you like.",
     points: ["No per-seat pricing.", "Your data stays with you.", "The whole source is public."],
     cta: "Browse the source",
-    label: "Drawing of a terminal that clones Slate, installs it, sets it up and runs it on the computer, beside a tag for the MIT licence.",
+    label: "Drawing of a terminal running the one line that installs Slate and starts it on the computer, beside a tag for the MIT licence.",
   },
   pages: {
     eyebrow: "Pages",

@@ -4,15 +4,17 @@ Slate runs as one Cloudflare Worker with D1, R2, a jobs queue and collaboration 
 
 ## On your computer
 
-Install Git and Node.js 22 or later to run rer. There is no Node or pnpm version to choose: rer fetches the ones this checkout pins and installs the pinned dependencies itself. Then run one line:
+Run one line. Git is required; rer brings Node and pnpm: there is no Node or pnpm version to choose, since rer fetches the ones this checkout pins and installs the pinned dependencies itself.
 
 ```sh
-npx -y @runeditrun/rer dev just-every/run-slate
+curl -fsSL https://runeditrun.com/install.sh | sh -s -- dev just-every/run-slate
 ```
 
-To start it again later, run `cd run-slate && rer dev`. This checkout runs the rer version pinned in `package.json`. In a fresh checkout `rer dev` alone installs the pinned dependencies and sets up a placeholder local owner; separate `rer install` and `rer setup` steps are optional. To use your own email instead, run `rer setup --owner-email owner@example.test` before `rer dev` (use your own address). Setup prepares local settings and the owner, then exits with no app running; `rer dev` starts Slate. When Slate is ready, open the printed `RER_OPEN` link to sign in as the local owner. Keep this link private. No email or outbox step is needed. On first use, name the workspace and create its first space and page at `/setup`. Private settings and local data survive restart; Slate creates no sample workspace. Setup reruns preserve your settings and owner. Stop dev with `rer dev --stop`. Use `rer preview` for a fixed production build.
+Already have Node 22 or later? `npx -y @runeditrun/rer dev just-every/run-slate` does the same. If the installer prints a line that puts `rer` on your PATH, run that line too. To start it again later, run the same line from the same folder, or `cd run-slate && rer dev`. This checkout runs the rer version pinned in `package.json`. In a fresh checkout `rer dev` alone installs the pinned dependencies and sets up a placeholder local owner; separate `rer install` and `rer setup` steps are optional. To use your own email instead, run `rer setup --owner-email owner@example.test` before `rer dev` (use your own address). Setup prepares local settings and the owner, then exits with no app running; `rer dev` starts Slate. When Slate is ready, open the printed `RER_OPEN` link to sign in as the local owner. Keep this link private. No email or outbox step is needed. On first use, name the workspace and create its first space and page at `/setup`. Private settings and local data survive restart; Slate creates no sample workspace. Setup reruns preserve your settings and owner. Stop dev with `rer dev --stop`. Use `rer preview` for a fixed production build.
 
 ## Run Edit Run hosting
+
+**Or let Run Edit Run host it.** [Run Edit Run](https://app.runeditrun.com/?product=slate&plan=assisted) can set Slate up on your own Cloudflare account and keep it updated; sign-ups are by request for now.
 
 Managed hosting includes mail without a Resend or SendGrid account. Run Edit Run Configure supplies the sender and relay settings and generates a private credential automatically. Free and Assisted hosting retain the options to use your own Resend or SendGrid account, verified sender and key. See [Email delivery](EMAIL.md) for relay acceptance and retry behavior.
 

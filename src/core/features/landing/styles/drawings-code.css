@@ -7,6 +7,8 @@
 .slate-landing .td-screen { margin: 0 0.9em 0.9em; padding: 1.2em 1.3em 1.35em; border-radius: 0.7em; background: #1f241d; color: #ebe8dc; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: max(12px, 0.92em); line-height: 1.8; }
 .slate-landing .td-screen b { margin-right: 0.5em; color: #9cc893; font-weight: 400; }
 .slate-landing .td-ok { margin-top: 0.5em; color: #b0e0a5; }
+.slate-landing .td-word { white-space: nowrap; }
+.slate-landing .td-comment, .slate-landing .td-comment b { color: #a6a397; }
 .slate-landing .td-licence { position: absolute; right: -2%; bottom: -3%; width: 34%; transform: rotate(3deg); --sk-base: 15; }
 .slate-landing .td-licence .sk-body { padding: 0.95em 1em 1.1em; }
 .slate-landing .td-licence-title { display: flex; align-items: center; gap: 0.5em; font-size: 1.1em; font-weight: 600; }

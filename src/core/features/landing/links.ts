@@ -3,9 +3,8 @@
 export const docsHomeSlug = "";
 export const installSlug = "install";
 export const sourceUrl = "https://github.com/just-every/run-slate";
-export const cloneUrl = `${sourceUrl}.git`;
 export const creditUrl = "https://runeditrun.com";
-/** The run site's Run page: the two commands that run Slate on your own computer. */
+/** The run site's Run page: the one line that runs Slate on your own computer. */
 export const runPath = "/run";
 /** The run site's contract page: every clause of the product target and how far the code has come. */
 export const contractPath = "/contract";

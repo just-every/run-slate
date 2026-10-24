@@ -1035,12 +1035,16 @@
       "sha256": "6af9fd3b1df3c581c1ee341526f1a0b5bf9eebde31b2479e57148ce6a8ecaa9d",
       "executable": false
     },
+    "docs/GETTING-STARTED.md": {
+      "sha256": "5e2445f3f01c726ae10f38dfa0d3e0a06bd148bef8f69d622d14f0c65ac81a88",
+      "executable": false
+    },
     "docs/IMPORTING.md": {
       "sha256": "5f9493da49589042f7464a4f931fddbf0d5e9c6545236ba434ff944241057ebe",
       "executable": false
     },
     "docs/INSTALL.md": {
-      "sha256": "f2335ba03bc3ce11cc520eba86b8139b93e1749a510e891e2ea562e0f4058aad",
+      "sha256": "3d01a5729e5396e361c152bc0c215c073a7fecf5653c388c48c8a933688c3b59",
       "executable": false
     },
     "docs/MAIL-DELIVERY.md": {
@@ -1076,7 +1080,7 @@
       "executable": false
     },
     "docs/site.json": {
-      "sha256": "e9f97de00618206c126e65e1d0d83cf811c22e0107a33ec9362c2ba85b4750da",
+      "sha256": "a1410416dadaff077445420bd4c533860ecd2c5c99c38597b99692a9da9f71e0",
       "executable": false
     },
     "docs/TRUSTWORTHY-HANDBOOK.md": {
@@ -7344,7 +7348,7 @@
       "executable": false
     },
     "src/core/features/landing/copy.ts": {
-      "sha256": "f208cb2ca97f89ed7365badfec42eba953d5160a45ae6739be1ab4d1b42050a5",
+      "sha256": "ac89ba6c30dae65aaad96718d191da2cf5bc5b310e8db982358a99033954e213",
       "executable": false
     },
     "src/core/features/landing/drawings/CollectionDrawing.tsx": {
@@ -7408,7 +7412,7 @@
       "executable": false
     },
     "src/core/features/landing/drawings/TerminalDrawing.tsx": {
-      "sha256": "40943b94589a0031424ce39b5a9fb961b8b2de9deb729eb7eb48e23ce78867fe",
+      "sha256": "30bba6c6e1d182e277a018f1cba0d721d658ce4cb58561b82c9a95352980929c",
       "executable": false
     },
     "src/core/features/landing/icons/Icon.tsx": {
@@ -7424,7 +7428,7 @@
       "executable": false
     },
     "src/core/features/landing/links.ts": {
-      "sha256": "f814dd6ed274b18c1b6fba8d6361964ac0dd29d13c1e49cabc61bfd1002d44e2",
+      "sha256": "85c474c7814d41e6a36649b7acc3d10c760dbbebed8173e05d97cc4d346eefd5",
       "executable": false
     },
     "src/core/features/landing/parts/Brand.tsx": {
@@ -7528,7 +7532,7 @@
       "executable": false
     },
     "src/core/features/landing/styles/drawings-code.css": {
-      "sha256": "f5cf3dc49e166e23f5dc266f0ccd8add29ca19758f27a633a5d74630913e970e",
+      "sha256": "3a31f31a0b2bdcc0b4e4393d3be5ca9395ec69208e7c793c7878f655daad7961",
       "executable": false
     },
     "src/core/features/landing/styles/drawings-data.css": {

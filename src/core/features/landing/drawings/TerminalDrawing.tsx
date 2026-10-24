@@ -1,18 +1,28 @@
-import { cloneUrl } from "../links";
 import { Icon } from "../icons/Icon";
 import { Sketch, WindowDots } from "../sketch/Sketch";
 
-const commands = ["cd run-slate", "rer install", "rer setup", "rer dev"];
+// The one start line every Run Edit Run page shows, and the alternative for people who already have Node.
+const start = "curl -fsSL https://runeditrun.com/install.sh | sh -s -- dev just-every/run-slate";
+const alternative = "Already have Node 22 or later? npx -y @runeditrun/rer dev just-every/run-slate";
 
-/** A terminal that takes Slate from clone to local development, with the MIT licence tagged on its corner. */
+/** A command that wraps only between words, keeping the installer's `install.sh | sh` together. */
+function words(line: string) {
+  return line.split(/(\S*install\.sh \| sh|\S+)/).map((part, index) => {
+    const pipe = /^(.*\/)(install\.sh \| sh)$/.exec(part);
+    if (pipe) return <span key={index}><span className="td-word">{pipe[1]}</span><wbr /><span className="td-word">{pipe[2]}</span></span>;
+    return part.trim() ? <span key={index} className="td-word">{part}</span> : part;
+  });
+}
+
+/** A terminal that starts Slate on your own computer with one line, with the MIT licence tagged on its corner. */
 export function TerminalDrawing() {
   return (
     <div className="td">
       <Sketch w={560} h={300} r={16} seed={5} seam="bottom" className="td-window">
         <div className="td-bar"><WindowDots /></div>
         <div className="td-screen">
-          <p><b>$</b> git clone {cloneUrl}</p>
-          {commands.map(command => <p key={command}><b>$</b> {command}</p>)}
+          <p><b>$</b> {words(start)}</p>
+          <p className="td-comment"><b>#</b> {words(alternative)}</p>
           <p className="td-ok">✓ Ready on your computer</p>
         </div>
       </Sketch>
