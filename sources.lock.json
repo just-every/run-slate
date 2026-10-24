@@ -10112,7 +10112,7 @@
       "executable": false
     },
     "test-budget.json": {
-      "sha256": "100d4d5e80af7667e5560b5cdce5d90ecf829a201b3a85805c31ce244bc2e44e",
+      "sha256": "6fcc5112156a2c60e593bc5a91a9aa3c4edacc51cd9c3ba283532cb376772628",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
@@ -10557,10 +10557,6 @@
     },
     "tests/fixtures/aurora/seed.mjs": {
       "sha256": "6f4587e453e4a00ae9b334fc29294273ea7ceca21477ce8fab3e6099954ee96d",
-      "executable": false
-    },
-    "tests/fixtures/aurora/seed.test.mjs": {
-      "sha256": "d080161c19afb735599c31e90bfaa26a9f3ddf22ea8081b1096ba9a306de59bf",
       "executable": false
     },
     "tests/fixtures/aurora/workspace.json": {
@@ -12449,6 +12445,10 @@
     },
     "tests/requirements/cli-journey.md": {
       "sha256": "25665e13a94a7bbb1e49146e10e22c2a20348e97f4083aca9fa24bfc1c33874a",
+      "executable": false
+    },
+    "tests/requirements/count-registrations.mjs": {
+      "sha256": "343965bc8d6fbc27f4eb0372e813ce0e2f88da1ad8ad67bad4decf6538efa7bb",
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
