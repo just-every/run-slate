@@ -1813,8 +1813,8 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 40 | 181 | 0 | 221 |
-| Target and push further | 19 | 49 | 37 | 105 |
-| All | 59 | 230 | 37 | 326 |
+| Target and push further | 19 | 52 | 34 | 105 |
+| All | 59 | 233 | 34 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
