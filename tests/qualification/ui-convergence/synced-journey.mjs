@@ -1,3 +1,4 @@
+import {syncedCustodyJourney} from './synced-custody.mjs';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
@@ -33,5 +34,6 @@ export async function syncedJourney(state,width){
   for(const id of copies)assert.ok((await api(`/api/pages/${id}`)).blocks.every(b=>b.blockType!=='synced-reference'));
   assert.deepEqual(errors,[],'Synced screens have no failed request, browser error or hydration mismatch.');
  }finally{await owner.close();await reader.close();}
+ await syncedCustodyJourney(state,width);
  console.log(`BLOCK-011 synced paragraphs, live copy, access needed and static deletion passed at ${width}px`);
 }

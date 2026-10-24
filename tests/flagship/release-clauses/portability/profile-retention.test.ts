@@ -1,7 +1,7 @@
 import {afterAll,beforeAll,expect,test} from 'vitest';
 import {env} from 'cloudflare:test';
 import {byteHash} from '../../../../src/core/features/portability/archive';
-import {sessionFor} from '../../../e2e/setup/fixtures';
+import {seedMember,sessionFor} from '../../../e2e/setup/fixtures';
 import {apiJson,apiRequest,exportNativeArchive,finishPages,grantPageView,makeConnection,makeDecisionSet,makeImport,makeInquirySet,makePageTree,makeSkillTrialSet,makeWorkspace,migrationNames,ownerEmail,originalFileBytes,portableSnapshot,randomOperationKey,resetNative,r2Snapshot,runRestoreThroughApi,setupOwnerCookie,stageRestoreThroughApi,tableCounts,type DecisionSet,type DurableScenario,type InquirySet,type PageSet,type PageTree,type SkillTrialSet,type WorkspaceHarness} from './support';
 
 let source:DurableScenario;
@@ -14,6 +14,8 @@ let inquiryRecords:InquirySet;
 let decision:DecisionSet;
 let skillTrial:SkillTrialSet;
 let connectionId:string;
+let staticCopyId:string;
+const staticText='Retained archive source content';
 let imported:{importId:string;importArchiveKey:string};
 beforeAll(async()=>{
   await resetNative();
@@ -31,7 +33,16 @@ beforeAll(async()=>{
   source={...workspace,pages,...inquiryRecords,...decision,...skillTrial,connectionId,...imported};
   migrations=await migrationNames();
   const profileCookie=await setupOwnerCookie(source);const profile=await apiRequest(`/api/people/${source.ownerId}`,profileCookie,'core-wiki');expect(profile.status).toBe(200);const beforeProfile=await profile.json<any>();const saved=await apiRequest(`/api/people/${source.ownerId}`,profileCookie,'core-wiki',{method:'PUT',headers:{'content-type':'application/json'},body:JSON.stringify({operationKey:randomOperationKey('directory-archive'),expectedRevisionId:beforeProfile.revisionId,title:'Response coordinator',timezone:'Australia/Brisbane',tags:[{tag:'Private restore choice',hidden:true,custom:true}]})});expect(saved.status,await saved.text()).toBe(200);
+  const call=async(method:string,path:string,body?:unknown)=>{const response=await apiRequest(path,profileCookie,'core-wiki',{method,headers:{'content-type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});const data=await response.json<any>();expect(response.status,JSON.stringify(data)).toBe(200);return data;};
+  const privateContainer=(await call('POST','/api/containers',{operationKey:randomOperationKey('static-container'),name:'Static archive source',visibility:'private'})).value.id;
+  const blockId=crypto.randomUUID(),sourceId=(await call('POST','/api/pages',{operationKey:randomOperationKey('static-source'),containerId:privateContainer,title:'Restricted archive source',blocks:[{id:blockId,blockType:'synced-source',content:{text:[{text:staticText}]},treePosition:'0'}]})).value.pageId;
+  staticCopyId=(await call('POST','/api/pages',{operationKey:randomOperationKey('static-copy'),containerId:privateContainer,title:'Static archive copy',blocks:[{id:crypto.randomUUID(),blockType:'synced-reference',content:{sourcePageId:sourceId,sourceBlockId:blockId},treePosition:'0'}]})).value.pageId;
+  await call('POST','/api/sharing',{operationKey:randomOperationKey('static-share'),targetKind:'page',targetId:staticCopyId,principalKind:'member',principalId:source.readerId,level:'view'});
+  const document=await call('GET',`/api/pages/${sourceId}`);await call('POST',`/api/archive/${sourceId}`,{operationKey:randomOperationKey('static-trash'),expectedRevisionId:document.page.revisionId,action:'trash'});
+  await call('POST',`/api/archive/${sourceId}/permanent-delete`,{operationKey:randomOperationKey('static-delete'),confirmedPageIds:[sourceId]});
+  expect((await call('GET',`/api/pages/${staticCopyId}`)).blocks[0].synced).toMatchObject({static:true,text:[{text:staticText}]});
   sourceArchive=await exportNativeArchive(source);
+  expect(sourceArchive.manifest.tables.synced_static_content!.length).toBeGreaterThan(0);
 },10000);
 afterAll(async()=>{await resetNative();},10000);
 
@@ -127,6 +138,12 @@ test('FLAG-001 — core-profile restore retains and exports flagship history whi
   const owner=await env.DB.prepare('SELECT id,email,role,status,is_setup_owner FROM members WHERE id=?').bind(source.ownerId).first<{id:string;email:string;role:string;status:string;is_setup_owner:number}>();
   expect(owner).toEqual({id:source.ownerId,email:source.ownerEmail,role:'owner',status:'active',is_setup_owner:1});
   const cookie=await sessionFor(source.ownerId,{freshProof:true});
+  const staticRead=await (await apiRequest(`/api/pages/${staticCopyId}`,cookie,'')).json<any>();expect(staticRead.blocks[0].synced).toMatchObject({static:true,text:[{text:staticText}]});
+  expect((await env.DB.prepare('SELECT * FROM synced_static_content ORDER BY id').all()).results).toEqual([...sourceArchive.manifest.tables.synced_static_content!].sort((a,b)=>String(a.id).localeCompare(String(b.id))));
+  const inactive=await apiRequest(`/api/pages/${staticCopyId}`,await sessionFor(source.readerId!),'' );expect(inactive.status).toBe(401);expect(await inactive.text()).not.toContain(staticText);
+  const {memberId:newReader}=await seedMember(source.workspaceId,{role:'member',email:'synthetic-slate-60@example.invalid',displayName:'New archive reader'});
+  const grant=await apiRequest('/api/sharing',cookie,'',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({operationKey:randomOperationKey('restored-static-reader'),targetKind:'page',targetId:staticCopyId,principalKind:'member',principalId:newReader,level:'view'})});expect(grant.status,await grant.text()).toBe(200);
+  const deniedResponse=await apiRequest(`/api/pages/${staticCopyId}`,await sessionFor(newReader),'');expect(deniedResponse.status).toBe(200);const staticDenied=await deniedResponse.json<any>();expect(staticDenied.blocks[0].synced).toEqual({state:'access-needed'});expect(JSON.stringify(staticDenied)).not.toContain(staticText);expect(JSON.stringify(staticDenied)).not.toContain('Restricted archive source');
   // Authenticate the profile probe after comparing the untouched restored rows.
   const restoredProfile=await apiRequest(`/api/people/${source.ownerId}`,cookie,'core-wiki');expect(restoredProfile.status).toBe(200);expect(await restoredProfile.json<any>()).toMatchObject({title:'Response coordinator',timezone:'Australia/Brisbane',hiddenTags:[{tag:'Private restore choice',custom:true}]});
   await expectCoreBlocks(cookie,'');

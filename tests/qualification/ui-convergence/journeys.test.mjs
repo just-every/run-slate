@@ -1,3 +1,4 @@
+import {syncedMemberErasureJourney} from './synced-custody.mjs';
 import {peopleJourney} from './people-journey.mjs';
 import {syncedJourney} from './synced-journey.mjs';
 import {touchDatabaseToolsJourney} from './touch-database-tools-journey.mjs';
@@ -235,6 +236,7 @@ for (const width of [1440, 390]) {
       await withSecondPerson(state, width, people => reviewRequestJourney(state, people));
       await syncedJourney(state,width);
       await peopleJourney(state,width);
+      await syncedMemberErasureJourney(state,width);
     }, {}, { scheduled: true });
   });
   test(`space blog post reaches a follower's inbox and Home at ${width}px`, { timeout: 240000 }, async () => {

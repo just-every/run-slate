@@ -21,7 +21,7 @@ const span = z.object({ text: z.string(), status: z.object({colour:z.enum(['grey
 const rich = z.array(span);
 const schemas: Record<string, z.ZodType> = {
     'synced-source': z.object({text:rich}).strict(),
-    'synced-reference': z.object({sourcePageId:z.string().min(1).max(160),sourceBlockId:z.string().min(1).max(160)}).strict(),
+    'synced-reference': z.object({sourcePageId:z.string().min(1).max(160),sourceBlockId:z.string().min(1).max(160),staticId:z.string().min(1).max(160).optional()}).strict(),
     columns: z.object({count:z.number().int().min(2).max(5)}).strict(),
     column: z.object({}).strict(),
     'file-card':fileReferenceSchema,

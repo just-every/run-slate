@@ -350,6 +350,12 @@
       "name": "0059_member_profiles.sql",
       "sha256": "0b3a60c26182b8c8f6a79cbcaa20bd27ed4c448d9d796636c4a416146a0215c9",
       "sql": "-- Optional profile fields and deliberate expertise visibility choices; existing members need no backfill.\nCREATE TABLE member_profiles (\n member_id TEXT PRIMARY KEY NOT NULL REFERENCES members(id),\n workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n title TEXT NOT NULL DEFAULT '', team TEXT NOT NULL DEFAULT '',\n manager_member_id TEXT REFERENCES members(id), timezone TEXT NOT NULL DEFAULT 'UTC',\n revision_id TEXT NOT NULL, updated_at TEXT NOT NULL\n);\nCREATE INDEX member_profiles_workspace ON member_profiles(workspace_id);\nCREATE TABLE member_expertise_overrides (\n member_id TEXT NOT NULL REFERENCES members(id), tag_key TEXT NOT NULL,\n label TEXT NOT NULL, custom INTEGER NOT NULL CHECK(custom IN (0,1)), hidden INTEGER NOT NULL CHECK(hidden IN (0,1)),\n PRIMARY KEY(member_id,tag_key)\n);\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0060_synced_static.sql",
+      "sha256": "88b23a722205bdbbb461d20dcd370d5d9c1478e44e5eb1d3ead2d422c7715fb6",
+      "sql": "-- Restricted static copies retain content separately from page bodies and search indexes.\nCREATE TABLE synced_static_content (\n id TEXT PRIMARY KEY NOT NULL,\n workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n page_id TEXT NOT NULL REFERENCES pages(id),\n block_id TEXT NOT NULL,\n text_json TEXT NOT NULL,\n source_title TEXT NOT NULL,\n reader_ids_json TEXT NOT NULL,\n anonymous_allowed INTEGER NOT NULL CHECK (anonymous_allowed IN (0,1)),\n created_at TEXT NOT NULL\n);\nCREATE INDEX synced_static_page ON synced_static_content(page_id);\n-- A restored historical reference never reconnects after its source was removed.\nCREATE TABLE synced_deleted_references (\n copy_page_id TEXT NOT NULL REFERENCES pages(id),\n copy_block_id TEXT NOT NULL,\n source_page_id TEXT NOT NULL,\n source_block_id TEXT NOT NULL,\n PRIMARY KEY(copy_page_id,copy_block_id,source_page_id,source_block_id)\n);\n"
     }
   ],
   "compatibilityDate": "2026-09-08",
