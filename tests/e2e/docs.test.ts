@@ -32,10 +32,10 @@ describe("DOCS-001 public documentation supporting regressions", () => {
       expect(html, path).toContain("Edit this page on GitHub");
       for (const target of ["/docs", "/docs/install", "/docs/moving-in", "/docs/backup", "/docs/email-delivery", "/docs/cloudflare-footprint"]) expect(html, `${path} nav ${target}`).toContain(`href="${target}"`);
       expect(html, path).not.toMatch(/Jamie Park|aurora\.example/);
-      // Nothing is loaded from another origin; outbound links name Slate, the Chest sibling, the credit and, on the footprint page, Cloudflare's pricing pages.
+      // Nothing is loaded from another origin; outbound links name Slate, the Chest sibling, the credit, Run Edit Run's hosting entry and, on the footprint page, Cloudflare's pricing pages.
       expect(html, path).not.toMatch(/\ssrc="https?:/);
       for (const link of [...html.matchAll(/href="(https?:\/\/[^"]+)"/g)].map((match) => match[1])) {
-        const allowed = slug === "cloudflare-footprint" ? /^https:\/\/(github\.com\/just-every\/run-chest$|github\.com\/just-every\/(?:run-)?slate|runeditrun\.com|developers\.cloudflare\.com\/)/ : /^https:\/\/(github\.com\/just-every\/run-chest$|github\.com\/just-every\/(?:run-)?slate|runeditrun\.com)/;
+        const allowed = slug === "cloudflare-footprint" ? /^https:\/\/(github\.com\/just-every\/run-chest$|github\.com\/just-every\/(?:run-)?slate|(?:app\.)?runeditrun\.com|developers\.cloudflare\.com\/)/ : /^https:\/\/(github\.com\/just-every\/run-chest$|github\.com\/just-every\/(?:run-)?slate|(?:app\.)?runeditrun\.com)/;
         expect(link, `${path} ${link}`).toMatch(allowed);
       }
     }

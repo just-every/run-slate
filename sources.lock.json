@@ -7412,7 +7412,7 @@
       "executable": false
     },
     "src/core/features/landing/drawings/TerminalDrawing.tsx": {
-      "sha256": "30bba6c6e1d182e277a018f1cba0d721d658ce4cb58561b82c9a95352980929c",
+      "sha256": "1f1dbb917ee2bfff17dd6bccaa7036931facf3d72f22aba8a2e4f394bd6464ad",
       "executable": false
     },
     "src/core/features/landing/icons/Icon.tsx": {
@@ -7428,7 +7428,7 @@
       "executable": false
     },
     "src/core/features/landing/links.ts": {
-      "sha256": "85c474c7814d41e6a36649b7acc3d10c760dbbebed8173e05d97cc4d346eefd5",
+      "sha256": "03d9b6edb60ad31949e269c3649d972841b66809ef720b44bb43bbdb83b10907",
       "executable": false
     },
     "src/core/features/landing/parts/Brand.tsx": {
@@ -10060,7 +10060,7 @@
       "executable": false
     },
     "tests/e2e/docs.test.ts": {
-      "sha256": "10e160a710e424eda6afab285252249bac9b32f839cf2860521ec6a8a7f6763f",
+      "sha256": "40be5635b2145518df303754b3cb317287f213638301829771771e05f2f04a88",
       "executable": false
     },
     "tests/e2e/editor/editable-composition.test.mjs": {
