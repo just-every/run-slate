@@ -77,7 +77,9 @@ HTML exports preserve columns; Markdown uses HTML layout annotations and the rea
 
 A paragraph without child blocks can be made synced from its block actions. Copy its synced block link, then insert a **Synced block** on another page. Each copy names its source. Save an edit in a copy to update the source; open copies refresh within a few seconds. Editing requires edit access to both pages, and readers need access to the source.
 
-A trashed source shows an access-needed message. Permanent deletion turns its copies into ordinary paragraphs that retain the last published text and source name. Publish outstanding source changes first, and remove copies whose readers cannot read the source before deleting. Readable exports and duplicates contain ordinary paragraphs with the source named.
+Moving a source to Trash hides its content in every copy. Readers allowed to see the trashed source see its name and the trashed label; other readers see access needed. Restoring the source resumes live copies.
+
+Permanent deletion, erasure and source-block removal are never refused because copies exist. Copies retain the source's last published content, or a never-published draft for that draft's readers. A copy becomes an ordinary paragraph when its readers could all read that content; otherwise its retained content stays limited to the source's readers at removal, and other readers see no source title or snippet. Conversion adds attributed revisions without changing earlier revisions. Restoring an older reference to a deleted source keeps the content-free deleted state. Published live copies need an equally public source for anonymous content, and restricted static copies retain that anonymous limit. Readable exports, duplicates and templates materialize only what the acting reader may read.
 
 ## People and expertise
 
