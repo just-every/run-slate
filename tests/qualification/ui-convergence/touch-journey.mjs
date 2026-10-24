@@ -4,7 +4,7 @@ import {ok} from './two-people-support.mjs';
 import {touchWriteJourney} from './touch-page.mjs';
 
 /** An ordinary member uses a touch context in the existing real-journey launch. */
-export async function beginTouchJourney(state,width) {
+export async function beginTouchJourney(state,width,{writePage=true}={}) {
   const workspace=await state.api('/api/workspace');
   async function policies(profile) {
     const current=await state.api('/api/workspace');
@@ -33,7 +33,7 @@ export async function beginTouchJourney(state,width) {
     assert.equal((await api('/api/members/current')).role,'member');
     const container=(await ok(context,state.origin,'POST','/api/containers',{operationKey:randomUUID(),name:'Response operations',visibility:'private'})).value;
     const touch={page,context,origin:state.origin,api,containerId:container.id,containerName:container.name};
-    touch.pageId=await touchWriteJourney(touch);
+    if(writePage)touch.pageId=await touchWriteJourney(touch);
     touch.close=async()=>{try{assert.deepEqual(errors,[],'Touch surfaces have no browser errors or hydration mismatch.');}finally{await context.close();}};
     return touch;
   } catch(cause) {await context.close();throw cause;}

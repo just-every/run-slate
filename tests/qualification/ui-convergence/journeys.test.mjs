@@ -51,8 +51,17 @@ import { trustRankingJourney } from './trust-ranking-journey.mjs';
 import { chatJourney } from './chat-journey.mjs';
 
 for (const width of [1440, 390]) {
-  test(`spreadsheet tables merge, sort and round-trip through edited database records at ${width}px`, {timeout:240000}, async()=>{
-    await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{await setupWorkspace(state);await tablesJourney(state);});
+  test(`spreadsheet tables merge, sort and round-trip through edited database records at ${width}px`, {timeout:240000}, async t=>{
+    await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{
+      await setupWorkspace(state);
+      await tablesJourney(state);
+      // Keep the independently set up database case with database round trips.
+      // Its own registration, assertions and member authority remain unchanged.
+      const touch=await beginTouchJourney(state,width,{writePage:false});
+      try {
+        await t.test('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts and uses charts, templates and automations', async () => {await databaseJourney(state);await touchDatabaseJourney(touch,touch.containerId);await touchDatabaseToolsJourney(state,touch);});
+      } finally {await touch.close();}
+    }, {}, {scheduled:true});
   });
   test(`provider embeds load only on interaction and [EMBED-004] files respect reader access at ${width}px`, {timeout:240000}, async()=>{
     await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{await setupWorkspace(state);await providerEmbedsJourney(state);}, {}, {folders:true});
@@ -219,7 +228,6 @@ for (const width of [1440, 390]) {
         // Finish earlier page notifications before connecting the chat journey destinations.
         await state.runScheduled();
         await chatJourney(state, width);
-        await t.test('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts and uses charts, templates and automations', async () => {await databaseJourney(state);await touchDatabaseJourney(touch,touch.containerId);await touchDatabaseToolsJourney(state,touch);});
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
   });
