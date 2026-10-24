@@ -41,6 +41,20 @@ beforeAll(async()=>{
   const document=await call('GET',`/api/pages/${sourceId}`);await call('POST',`/api/archive/${sourceId}`,{operationKey:randomOperationKey('static-trash'),expectedRevisionId:document.page.revisionId,action:'trash'});
   await call('POST',`/api/archive/${sourceId}/permanent-delete`,{operationKey:randomOperationKey('static-delete'),confirmedPageIds:[sourceId]});
   expect((await call('GET',`/api/pages/${staticCopyId}`)).blocks[0].synced).toMatchObject({static:true,text:[{text:staticText}]});
+  // Complete native backups must not widen a restricted static copy's frozen audience.
+  const readerCookie=await sessionFor(source.readerId!,{freshProof:true});
+  const readerCall=async(method:string,path:string,body?:unknown)=>{const response=await apiRequest(path,readerCookie,'core-wiki',{method,headers:{'content-type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});const data=await response.json<any>();expect(response.status,JSON.stringify(data)).toBe(200);return data;};
+  await readerCall('GET','/api/members/current');const personal=(await readerCall('GET','/api/containers')).items.find((c:any)=>c.visibility==='personal');expect(personal).toBeDefined();
+  const privateText='Private reader-only retained source',privateBlock=crypto.randomUUID();
+  const privateSource=(await readerCall('POST','/api/pages',{operationKey:randomOperationKey('private-static-source'),containerId:personal.id,title:'Private retained source',blocks:[{id:privateBlock,blockType:'synced-source',content:{text:[{text:privateText}]},treePosition:'0'}]})).value.pageId;
+  const privateCopy=(await call('POST','/api/pages',{operationKey:randomOperationKey('private-static-copy'),containerId:privateContainer,title:'Restricted retained copy'})).value.pageId;
+  await call('POST','/api/sharing',{operationKey:randomOperationKey('private-static-share'),targetKind:'page',targetId:privateCopy,principalKind:'member',principalId:source.readerId,level:'edit'});
+  await readerCall('PUT',`/api/pages/${privateCopy}/blocks`,{operationKey:randomOperationKey('private-static-insert'),expectedRevisionId:(await call('GET',`/api/pages/${privateCopy}`)).page.revisionId,blocks:[{id:crypto.randomUUID(),blockType:'synced-reference',content:{sourcePageId:privateSource,sourceBlockId:privateBlock},treePosition:'0'}]});
+  const privateDoc=await readerCall('GET',`/api/pages/${privateSource}`);await readerCall('POST',`/api/archive/${privateSource}`,{operationKey:randomOperationKey('private-static-trash'),expectedRevisionId:privateDoc.page.revisionId,action:'trash'});await readerCall('POST',`/api/archive/${privateSource}/permanent-delete`,{operationKey:randomOperationKey('private-static-delete'),confirmedPageIds:[privateSource]});
+  const hidden=await call('GET',`/api/pages/${privateCopy}`);expect(hidden.blocks[0].synced).toEqual({state:'access-needed'});expect(JSON.stringify(hidden)).not.toContain(privateText);
+  const refused=await apiRequest('/api/exports/workspace',profileCookie,'core-wiki',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({operationKey:randomOperationKey('private-static-export')})});const refusedBody=await refused.json<any>();expect(refused.status,JSON.stringify(refusedBody)).toBe(403);expect(refusedBody.code).toBe('EXPORT_SCOPE_INCOMPLETE');expect(refusedBody.message).toContain('retained static');expect(JSON.stringify(refusedBody)).not.toContain(privateText);
+  // Blind deletion of the copy remains permitted; it removes its retained private payload.
+  await call('POST',`/api/archive/${privateCopy}`,{operationKey:randomOperationKey('private-copy-trash'),expectedRevisionId:hidden.page.revisionId,action:'trash'});await call('POST',`/api/archive/${privateCopy}/permanent-delete`,{operationKey:randomOperationKey('private-copy-delete'),confirmedPageIds:[privateCopy]});
   sourceArchive=await exportNativeArchive(source);
   expect(sourceArchive.manifest.tables.synced_static_content!.length).toBeGreaterThan(0);
 },10000);
