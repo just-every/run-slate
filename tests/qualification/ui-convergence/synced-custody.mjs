@@ -4,7 +4,7 @@ import {expect} from '@playwright/test';
 import {ok} from './two-people-support.mjs';
 import {checkpoint} from './touch-controls.mjs';
 /** The same conversion rule through every destructive source door; no new registration. */
-export async function syncedCustodyJourney(state,width){
+export async function syncedCustodyJourney(state,width,modes=['delete','remove','unsync','restore','discard']){
  const {context,origin,api}=state,key=()=>randomUUID(),browser=context.browser();
  const options={viewport:{width,height:width===390?844:1000},locale:'en-US'};
  const reader=await browser.newContext(options),anonymous=await browser.newContext(options);
@@ -18,7 +18,7 @@ export async function syncedCustodyJourney(state,width){
   const container=(await ok(context,origin,'POST','/api/containers',{operationKey:key(),name:'Synced custody',visibility:'private'})).value.id;
   const create=async(title,blocks)=>(await ok(context,origin,'POST','/api/pages',{operationKey:key(),containerId:container,title,blocks})).value.pageId;
   const publish=async id=>ok(context,origin,'POST',`/api/pages/${id}/publish`,{operationKey:key(),expectedRevisionId:(await api(`/api/pages/${id}`)).page.revisionId});
-  for(const mode of ['delete','remove','unsync','restore','discard']){
+  for(const mode of modes){
    try{
     const title=`Custody source ${mode}`,text=`Retained published content for ${mode}`,draft=`Unpublished replacement for ${mode}`,source=await create(title,[]),blockId=key();
     await publish(source);const empty=await api(`/api/pages/${source}`);
@@ -57,7 +57,16 @@ export async function syncedCustodyJourney(state,width){
     console.log(`SYNCED_CUSTODY ${mode} ${width}: allowed static, denied and anonymous content-free, history unchanged`);
    }catch(error){failures.push(`${mode}: ${error.stack}`);}
   }
-  try{
+ }finally{await ownerPage.close();await reader.close();await anonymous.close();await configure(settings.policies);}
+ assert.deepEqual(failures,[],'Every source door keeps content without widening its audience or rewriting history.');
+}
+/** Historical copy privacy shares the existing invitation/erasure workspace. */
+export async function syncedHistoryJourney(state,width){
+ const {context,origin,api}=state,key=()=>randomUUID(),ownerPage=await context.newPage();
+ try{
+  const container=(await ok(context,origin,'POST','/api/containers',{operationKey:key(),name:'History copy team',visibility:'private'})).value.id;
+  const create=async(title,blocks)=>(await ok(context,origin,'POST','/api/pages',{operationKey:key(),containerId:container,title,blocks})).value.pageId;
+  const publish=async id=>ok(context,origin,'POST',`/api/pages/${id}/publish`,{operationKey:key(),expectedRevisionId:(await api(`/api/pages/${id}`)).page.revisionId});
    const blockId=key(),source=await create('History source',[{id:blockId,blockType:'synced-source',content:{text:[{text:'Committed history content'}]},treePosition:'0'}]);await publish(source);
    const copy=await create('History copy',[{id:key(),blockType:'synced-reference',content:{sourcePageId:source,sourceBlockId:blockId},treePosition:'0'}]);await publish(copy);
    const old=await api(`/api/pages/${copy}`),before=await api(`/api/revisions/${copy}/${old.workingRevisionId}`),current=await api(`/api/pages/${source}`);
@@ -69,11 +78,9 @@ export async function syncedCustodyJourney(state,width){
    await preview.getByRole('button',{name:'Restore this revision',exact:true}).click();const restoring=ownerPage.getByRole('dialog',{name:'Restore this revision?',exact:true});await restoring.getByRole('button',{name:'Restore revision',exact:true}).click();await expect(restoring).toBeHidden();
    await ownerPage.goto(`${origin}/app/pages/${copy}`,{waitUntil:'networkidle'});await expect(ownerPage.locator('[data-page-editor]').getByRole('complementary',{name:'Deleted source',exact:true})).toBeVisible();await expect(ownerPage.locator('[data-page-editor]')).not.toContainText('Committed history content');await checkpoint(ownerPage,'synced restored deleted reference stays content free');
    console.log(`SYNCED_CUSTODY history ${width}: ordinary static and immutable prior revision`);
-  }catch(error){failures.push(`history: ${error.stack}`);}
- }finally{await ownerPage.close();await reader.close();await anonymous.close();await configure(settings.policies);}
- assert.deepEqual(failures,[],'Every source door keeps content without widening its audience or rewriting history.');
+ }finally{await ownerPage.close();}
 }
-/** Run last in the existing review workspace: the member's native session ends on erasure. */
+/** Run last in the existing invitation workspace: the member's native session ends on erasure. */
 export async function syncedMemberErasureJourney(state,width){
  const {context,origin,api}=state,key=()=>randomUUID(),browser=context.browser();
  const reader=await browser.newContext({viewport:{width,height:width===390?844:1000},locale:'en-US'});
