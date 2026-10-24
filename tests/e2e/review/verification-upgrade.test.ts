@@ -26,9 +26,14 @@ test('Existing verifications and member profiles upgrade in place without losing
   const retained = async () => Object.fromEntries(await Promise.all(['page_verifications', 'pages', 'page_revisions', 'notification_outbox', 'members'].map(async table => [table, (await db.prepare(`SELECT * FROM ${table} ORDER BY 1`).all()).results])));
   const before = await retained();
 
-  await applyD1Migrations(db, env.TEST_MIGRATIONS);
+  await applyD1Migrations(db, env.TEST_MIGRATIONS.filter(m => m.name < '0059_member_profiles.sql'));
   // Every prior value is kept; the only change is that 0032 gives each page its lock columns, unlocked.
   expect(await retained()).toEqual({ ...before, members: (before.members as Record<string,unknown>[]).map(row=>({...row,guest_expires_at:null})), pages: (before.pages as Record<string, unknown>[]).map(row => ({ ...row, locked_at: null, locked_by_member_id: null })) });
+  // 0059 upgrades this populated main schema without rewriting existing rows.
+  const populatedMain = await retained();
+  expect(await db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='member_profiles'").first()).toBeNull();
+  await applyD1Migrations(db, env.TEST_MIGRATIONS);
+  expect(await retained()).toEqual(populatedMain);
   const indexes = (await db.prepare("SELECT name FROM sqlite_master WHERE type='index' AND tbl_name='page_verifications'").all<{ name: string }>()).results.map(r => r.name);
   expect(indexes).toEqual(expect.arrayContaining(['page_verifications_page_latest', 'page_verifications_due']));
 
