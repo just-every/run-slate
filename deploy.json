@@ -58,6 +58,16 @@
       "environment": "SLATE_SETUP_TOKEN"
     },
     {
+      "binding": "MAIL_PROVIDER",
+      "environment": "SLATE_MAIL_PROVIDER",
+      "verifyStandIn": "resend"
+    },
+    {
+      "binding": "MAIL_FROM",
+      "environment": "SLATE_MAIL_FROM",
+      "verifyStandIn": "auth@example.test"
+    },
+    {
       "binding": "MAIL_API_KEY",
       "environment": "SLATE_MAIL_API_KEY"
     }
