@@ -1,4 +1,4 @@
-import {syncedMemberErasureJourney} from './synced-custody.mjs';
+import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} from './synced-custody.mjs';
 import {peopleJourney} from './people-journey.mjs';
 import {syncedJourney} from './synced-journey.mjs';
 import {touchDatabaseToolsJourney} from './touch-database-tools-journey.mjs';
@@ -112,6 +112,9 @@ for (const width of [1440, 390]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await withSecondPerson(state, width, people => sharedNavigationJourney(state, people));
+      await syncedCustodyJourney(state,width,['restore','discard']);
+      await syncedHistoryJourney(state,width);
+      await syncedMemberErasureJourney(state,width);
     });
   });
   test(`global create names destinations for every content kind at ${width}px`, { timeout: 240000 }, async () => {
@@ -236,7 +239,6 @@ for (const width of [1440, 390]) {
       await withSecondPerson(state, width, people => reviewRequestJourney(state, people));
       await syncedJourney(state,width);
       await peopleJourney(state,width);
-      await syncedMemberErasureJourney(state,width);
     }, {}, { scheduled: true });
   });
   test(`space blog post reaches a follower's inbox and Home at ${width}px`, { timeout: 240000 }, async () => {
