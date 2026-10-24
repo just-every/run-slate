@@ -10188,7 +10188,7 @@
       "executable": false
     },
     "test-budget.json": {
-      "sha256": "51721b943eca4ec3aae571272c59676f41e3e2a7ab9329cddbfe7f4c8d87e01a",
+      "sha256": "14bf9f7d582a2cc05629d09a804ad6781515c853dea5b85e4f547e14e10cde67",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
