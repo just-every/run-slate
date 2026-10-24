@@ -944,7 +944,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "39338280474790dcbac6f052e839a938b2525fc851f39409e31ad4dd57037544",
+      "sha256": "261bac19bd4c08f72eceaa0ed515a8f3450dba07d1addaed3afdd6e1be2ce9f3",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "a45e0aecd392ea531e36c13eaa1f13ea2cbc7509501507820d4f0c3a1ae250d8",
+      "sha256": "579a365a9c4f2733b1d8766e336f6769843d6dae5dfcfbd3d77f0bcce32600bc",
       "executable": false
     },
     "DEMO.md": {
@@ -1816,7 +1816,7 @@
       "executable": false
     },
     "management/integration/deployment-spec.json": {
-      "sha256": "793b23ce488f3770d81367e20d27aa04eb8ff60bf94352eb8e8c8ee3196fe1c3",
+      "sha256": "0299808aaaf623d12a975fc769eb9f9628b58a34b3c373d736769b1c37db4584",
       "executable": false
     },
     "management/integration/index.d.mts": {
@@ -1840,7 +1840,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "0ef81115194146859e4327b52d84b414a7edf66e520eb8560c84a07211ed02f0",
+      "sha256": "3cdcc1eeed7083e20856c159e60a6bc173085d3f21cba0541c2fc400230d9d1d",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -2047,10 +2047,6 @@
       "sha256": "f328f36e4216432eab1dc729f6f321e2f83344ba4630b9c390cc40c1f3d356a1",
       "executable": false
     },
-    "migrations/core/0053_member_profiles.sql": {
-      "sha256": "0b3a60c26182b8c8f6a79cbcaa20bd27ed4c448d9d796636c4a416146a0215c9",
-      "executable": false
-    },
     "migrations/core/0055_public_api_tokens.sql": {
       "sha256": "9e3e8c1311f8253ca1ae1f7c5ef34c75f225bce62dd61a5a54f81f2ab1c7ca66",
       "executable": false
@@ -2065,6 +2061,10 @@
     },
     "migrations/core/0058_scim_directory.sql": {
       "sha256": "4575fde9650217cb358c7df14dc098ecb3a1f471db6f8c0e7a2fc82d0ea90084",
+      "executable": false
+    },
+    "migrations/core/0059_member_profiles.sql": {
+      "sha256": "0b3a60c26182b8c8f6a79cbcaa20bd27ed4c448d9d796636c4a416146a0215c9",
       "executable": false
     },
     "modules/d1-transport/index.d.mts": {
@@ -10400,7 +10400,7 @@
       "executable": false
     },
     "tests/e2e/review/verification-upgrade.test.ts": {
-      "sha256": "406d4f096dcdc9e3c3ac1cb287a422de6383a168b707c13504a40ac8cc5df4df",
+      "sha256": "d37664c36a09f3ffc81aa8f4598101491a74c698c4baf97492abb07aaf63cd67",
       "executable": false
     },
     "tests/e2e/runtime-config.test.js": {
@@ -12440,7 +12440,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "0b3f8060d432c20a64a3200d39232eeeabc82de33927eaa695acd31f718c8103",
+      "sha256": "73c2bb2068be09b99b23c95d7ebe2891a77029facf9c2b6f6252382bf1c1f88f",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
