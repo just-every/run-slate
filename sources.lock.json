@@ -5524,7 +5524,7 @@
       "executable": false
     },
     "src/core/client/useCollaboration.ts": {
-      "sha256": "87a121da16da9fa84ad383e9a8c477949a54664e50c96b319ab32eb2db5af5c4",
+      "sha256": "2d0b2761486fcef7ba7c3b60be3acfcc9908b4c49d94a6f84e955034d788e3c0",
       "executable": false
     },
     "src/core/client/usePageEditor.ts": {
