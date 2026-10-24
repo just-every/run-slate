@@ -1,6 +1,6 @@
 import {expect} from 'vitest';
 import {unzipSync} from 'fflate';
-export async function syncedCase(request:(method:string,path:string,body?:unknown,actor?:'owner'|'reader'|'public')=>Response|Promise<Response>,readerId:string){
+export async function syncedCase(request:(method:string,path:string,body?:unknown,actor?:'owner'|'reader'|'public')=>Response|Promise<Response>,readerId:string,db:D1Database){
  const json=async(method:string,path:string,body?:unknown,actor:'owner'|'reader'='owner')=>{const r=await request(method,path,body,actor),data=await r.json<any>();expect(r.status,JSON.stringify(data)).toBe(200);return data;};
  const key=()=>crypto.randomUUID(),containerId=(await json('POST','/containers',{operationKey:key(),name:'Incident source team',visibility:'private'})).value.id;
  const sourceBlock=key(),initial='Contact the incident coordinator.',changed='Contact the duty lead immediately.',sourceTitle='Incident escalation source';
@@ -36,11 +36,43 @@ export async function syncedCase(request:(method:string,path:string,body?:unknow
  const importedPage=(await json('GET','/pages')).items.find((p:any)=>p.title==='Response plan'&&p.id!==copies[0]);expect(importedPage).toBeDefined();const importedDoc=await json('GET',`/pages/${importedPage.id}`);expect(importedDoc.blocks.every((b:any)=>b.blockType==='paragraph')).toBe(true);expect(JSON.stringify(importedDoc.blocks)).toContain(changed);
  const word=await request('POST','/exports/readable',{scope:'page',id:copies[0],format:'docx',includeComments:false});expect(word.status).toBe(200);const xml=new TextDecoder().decode(unzipSync(new Uint8Array(await word.arrayBuffer()))['word/document.xml']);expect(xml).toContain(changed);expect(xml).toContain(sourceTitle);
  const duplicated=await json('POST',`/pages/${copies[0]}/duplicate`,{operationKey:key(),containerId}),duplicate=await json('GET',`/pages/${duplicated.value.pageId}`);expect(duplicate.blocks[0].blockType).toBe('paragraph');expect(JSON.stringify(duplicate.blocks)).toContain(changed);expect(JSON.stringify(duplicate.blocks)).toContain(sourceTitle);
+ const revisionBytes=await db.prepare('SELECT * FROM page_revisions WHERE page_id=? AND id=?').bind(copies[1],two.workingRevisionId).first();
+ const retainedBefore=await json('GET',`/revisions/${copies[1]}/${two.workingRevisionId}`);
+ await publish(copies[0],'synthetic-slate-11');
  const current=await json('GET',`/pages/${source}`);await json('POST',`/archive/${source}`,{operationKey:key(),expectedRevisionId:current.page.revisionId,action:'trash'});
- expect((await json('GET',`/pages/${copies[1]}`)).blocks[0].synced).toEqual({state:'access-needed'});
- const blocked=await request('POST',`/archive/${source}/permanent-delete`,{operationKey:key(),confirmedPageIds:[source]});expect(blocked.status).toBe(409);expect((await blocked.json<any>()).code).toBe('SYNCED_COPY_AUDIENCE');
- await grant(copies[0],'edit',copyGrant,true);await json('POST',`/archive/${source}/permanent-delete`,{operationKey:key(),confirmedPageIds:[source]});
- for(const id of copies){const doc=await json('GET',`/pages/${id}`);expect(doc.blocks[0].blockType).toBe('paragraph');expect(JSON.stringify(doc.blocks[0].content)).toContain(changed);expect(JSON.stringify(doc.blocks)).not.toContain('sourcePageId');}
- const retained=await json('GET',`/revisions/${copies[1]}/${two.workingRevisionId}`);expect(retained.blocks[0].blockType).toBe('paragraph');expect(JSON.stringify(retained.blocks)).toContain(changed);
+ expect((await json('GET',`/pages/${copies[1]}`)).blocks[0].synced).toMatchObject({state:'trashed',sourceTitle});
+ expect((await json('GET',`/pages/${copies[0]}`,undefined,'reader')).blocks[0].synced).toEqual({state:'access-needed'});
+ await json('POST',`/archive/${source}`,{operationKey:key(),expectedRevisionId:current.page.revisionId,action:'restore'});
+ expect((await json('GET',`/pages/${copies[1]}`)).blocks[0].synced).toMatchObject({state:'ready',text:[{text:changed}]});
+ await json('POST',`/archive/${source}`,{operationKey:key(),expectedRevisionId:current.page.revisionId,action:'trash'});
+ await json('POST',`/archive/${source}/permanent-delete`,{operationKey:key(),confirmedPageIds:[source]});
+ const restricted=await json('GET',`/pages/${copies[0]}`);expect(restricted.blocks[0].synced).toMatchObject({state:'ready',static:true,sourceTitle,text:[{text:changed}]});
+ const denied=await json('GET',`/pages/${copies[0]}`,undefined,'reader');expect(denied.blocks[0].synced).toEqual({state:'access-needed'});expect(JSON.stringify(denied)).not.toContain(changed);expect(JSON.stringify(denied)).not.toContain(sourceTitle);
+response=await request('GET','/p/synthetic-slate-11',undefined,'public');html=await response.text();expect(response.status).toBe(200);expect(html).toContain('Access needed');expect(html).not.toContain(changed);expect(html).not.toContain(sourceTitle);
+ const ordinary=await json('GET',`/pages/${copies[1]}`);expect(ordinary.blocks[0].blockType).toBe('paragraph');expect(JSON.stringify(ordinary.blocks[0].content)).toContain(changed);expect(JSON.stringify(ordinary.blocks)).not.toContain('sourcePageId');
+ const retained=await json('GET',`/revisions/${copies[1]}/${two.workingRevisionId}`);expect(retained.blocks[0].blockType).toBe('synced-reference');expect(retained.blocks[0].synced).toEqual({state:'deleted'});
+ expect(JSON.stringify(await db.prepare('SELECT * FROM page_revisions WHERE page_id=? AND id=?').bind(copies[1],two.workingRevisionId).first())).toBe(JSON.stringify(revisionBytes));
+ expect(retainedBefore.newerRevisionExists).toBe(false);expect(retained.newerRevisionExists).toBe(true);
+ const stored=(doc:any)=>JSON.stringify({id:doc.id,createdAt:doc.createdAt,properties:doc.properties,blocks:doc.blocks.map(({synced,...b}:any)=>b)});expect(stored(retained)).toBe(stored(retainedBefore));
+ await json('POST',`/revisions/${copies[0]}/${one.workingRevisionId}/restore`,{operationKey:key(),expectedRevisionId:restricted.page.revisionId},'reader');
+ expect((await json('GET',`/pages/${copies[0]}`,undefined,'reader')).blocks[0].synced).toEqual({state:'deleted'});
  expect((await request('GET',`/pages/${source}`)).status).toBe(404);
+ const settings=await json('GET','/workspace');const {id:_wid,revisionId:workspaceRevision,...workspaceSettings}=settings;
+ await json('PUT','/workspace',{...workspaceSettings,operationKey:key(),expectedRevisionId:workspaceRevision,policies:{...settings.policies,'page.lifecycle.v1':'draft-then-publish'}});
+ // Source block removal, unsync, restore-past and discard share the same atomic planner.
+ for(const mode of ['remove','unsync','restore','discard']){
+  const b=key(),s=await create('Source '+mode,[]);let empty=await json('GET',`/pages/${s}`);
+  await json('POST',`/pages/${s}/publish`,{operationKey:key(),expectedRevisionId:empty.page.revisionId});empty=await json('GET',`/pages/${s}`);
+  await json('PUT',`/pages/${s}/blocks`,{operationKey:key(),expectedRevisionId:empty.page.revisionId,blocks:[{id:b,blockType:'synced-source',content:{text:[{text:changed}]},treePosition:'0'}]});
+  const c=await create('Copy '+mode,[{id:key(),blockType:'synced-reference',content:{sourcePageId:s,sourceBlockId:b},treePosition:'0'}]);
+  await grant(c,'view');
+  const live=await json('GET',`/pages/${s}`);
+  if(mode==='restore')await json('POST',`/revisions/${s}/${empty.workingRevisionId}/restore`,{operationKey:key(),expectedRevisionId:live.page.revisionId});
+  else if(mode==='discard'){
+   await json('POST',`/pages/${s}/discard-changes`,{operationKey:key(),expectedRevisionId:live.page.revisionId});
+  }else await json('PUT',`/pages/${s}/blocks`,{operationKey:key(),expectedRevisionId:live.page.revisionId,blocks:mode==='remove'?[]:[{id:b,blockType:'paragraph',content:{text:[{text:changed}]},treePosition:'0'}]});
+  expect((await json('GET',`/pages/${c}`)).blocks[0].synced).toMatchObject({static:true,text:[{text:changed}]});
+  const hidden=await json('GET',`/pages/${c}`,undefined,'reader');expect(hidden.blocks[0].synced).toEqual({state:'access-needed'});expect(JSON.stringify(hidden)).not.toContain(changed);
+ }
+
 }

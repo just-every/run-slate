@@ -32,7 +32,12 @@ test('Existing verifications and member profiles upgrade in place without losing
   // 0059 upgrades this populated main schema without rewriting existing rows.
   const populatedMain = await retained();
   expect(await db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='member_profiles'").first()).toBeNull();
+  await applyD1Migrations(db, env.TEST_MIGRATIONS.filter(m=>m.name < '0060_synced_static.sql'));
+  const c24=await retained();
+  expect(await db.prepare("SELECT name FROM sqlite_master WHERE name='synced_static_content'").first()).toBeNull();
   await applyD1Migrations(db, env.TEST_MIGRATIONS);
+  expect(await retained()).toEqual(c24);
+  expect((await db.prepare('SELECT * FROM synced_static_content').all()).results).toEqual([]);
   expect(await retained()).toEqual(populatedMain);
   const indexes = (await db.prepare("SELECT name FROM sqlite_master WHERE type='index' AND tbl_name='page_verifications'").all<{ name: string }>()).results.map(r => r.name);
   expect(indexes).toEqual(expect.arrayContaining(['page_verifications_page_latest', 'page_verifications_due']));

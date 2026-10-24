@@ -51,5 +51,5 @@ contract('BLOCK-014','tables, columns and synced paragraphs preserve structured 
   expect(view.display.tableOrigin).not.toHaveProperty('rows');
   expect(view.display.tableOrigin).not.toHaveProperty('merges');
   await columnsCase(req,containerId,owner);
-  await syncedCase(req,reader);
+  await syncedCase(req,reader,env.DB);
 });

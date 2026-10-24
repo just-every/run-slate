@@ -222,7 +222,7 @@ export interface ColumnsBlockData extends BlockBase {type:"columns";count:number
 export interface ColumnBlockData extends BlockBase {type:"column"}
 
 export interface SyncedSourceBlockData extends BlockBase {type:"synced-source";text:RichText}
-export interface SyncedReferenceBlockData extends BlockBase {type:"synced-reference";sourcePageId:string;sourceBlockId:string}
+export interface SyncedReferenceBlockData extends BlockBase {type:"synced-reference";sourcePageId:string;sourceBlockId:string;staticId?:string}
 
 export type EditorBlock =
   | SyncedSourceBlockData
