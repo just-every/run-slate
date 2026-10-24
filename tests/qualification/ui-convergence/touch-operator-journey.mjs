@@ -72,7 +72,14 @@ export async function touchOperatorJourney(state,touch){
  await expect(health).toHaveAttribute('data-state','changed');
  await checkpoint(page,'verification health queue');
  await tap(health.getByRole('link',{name:'Review',exact:true}));
- await expect(page.getByRole('textbox',{name:'Paragraph',exact:true})).toContainText('Updated incident escalation contacts.');
+ const currentParagraph=page.getByRole('article').getByRole('textbox',{name:'Paragraph',exact:true});
+ await expect(currentParagraph).toContainText('Updated incident escalation contacts.');
+ await expect(currentParagraph).toBeEditable();
+ // The comparison repeats the text, but must not satisfy the editable-document check.
+ const historyParagraph=page.getByRole('region',{name:'History',exact:true}).getByRole('textbox',{name:'Paragraph',exact:true});
+ await expect(historyParagraph).toContainText('Updated incident escalation contacts.');
+ await expect(historyParagraph).toHaveAttribute('aria-readonly','true');
+ await expect(historyParagraph).toHaveAttribute('contenteditable','false');
  await page.waitForLoadState('networkidle');
  await page.goto(origin+'/app/review',{waitUntil:'networkidle'});
  await tap(health.getByRole('button',{name:'Verify again',exact:true}));
