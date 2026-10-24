@@ -9012,7 +9012,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/PeopleDirectory.tsx": {
-      "sha256": "c2941e20b0f8c0a420c6478cc19868b5b0e8cd1739c090bce8541e39a46a5419",
+      "sha256": "f58f2ad1fee8c928c2f7b9b4a43fce5708d7cb1b73f7883517960703dc42e5ef",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/PortabilityPanel.tsx": {
