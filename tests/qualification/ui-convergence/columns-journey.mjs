@@ -12,7 +12,13 @@ async function touchIntoColumn(page,handle,target){
  const cdp=await page.context().newCDPSession(page);
  try{
   const start={x:from.x+from.width/2,y:from.y+from.height/2},end={x:to.x+to.width/2,y:to.y+to.height/2};
-  await cdp.send('Input.synthesizeScrollGesture',{x:start.x,y:start.y,xDistance:start.x-end.x,yDistance:start.y-end.y,gestureSourceType:'touch',preventFling:true,speed:600});
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[start]});
+  for(let step=1;step<=8;step++)await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:start.x+(end.x-start.x)*step/8,y:start.y+(end.y-start.y)*step/8}]});
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+  // Chromium retains raw-drag tap suppression after the drop. End a cancelled
+  // contact before the next tap, without repeating a drag or changing content.
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[end]});
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});
   await expect(handle).not.toHaveAttribute('data-dragging','true');
  }finally{await cdp.detach();}
 }
