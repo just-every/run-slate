@@ -33,12 +33,17 @@ test('Existing verifications and member profiles upgrade in place without losing
   const populatedMain = await retained();
   expect(await db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='member_profiles'").first()).toBeNull();
   await applyD1Migrations(db, env.TEST_MIGRATIONS.filter(m=>m.name < '0060_synced_static.sql'));
+  expect(await retained()).toEqual(populatedMain);
+  await page('prior-synced-source',{title:'Existing c24 source'});await page('prior-synced-copy',{title:'Existing c24 copy'});
+  const sourceBlock={id:'upgrade-synced-source-block',pageId:'prior-synced-source',parentBlockId:null,blockType:'synced-source',content:{text:[{text:'Existing c24 synced content'}]},treePosition:'0',revisionId:'upgrade-source-block-revision'};
+  const copyBlock={id:'upgrade-synced-copy-block',pageId:'prior-synced-copy',parentBlockId:null,blockType:'synced-reference',content:{sourcePageId:'prior-synced-source',sourceBlockId:sourceBlock.id},treePosition:'0',revisionId:'upgrade-copy-block-revision'};
+  for(const block of [sourceBlock,copyBlock]){await sql('UPDATE page_revisions SET body_json=? WHERE page_id=?',JSON.stringify([block]),block.pageId);await sql('INSERT INTO page_blocks(id,page_id,parent_block_id,block_type,content_json,tree_position,revision_id,created_at,updated_at) VALUES (?,?,NULL,?,?,?,?,?,?)',block.id,block.pageId,block.blockType,JSON.stringify(block.content),block.treePosition,block.revisionId,now,now);}
   const c24=await retained();
   expect(await db.prepare("SELECT name FROM sqlite_master WHERE name='synced_static_content'").first()).toBeNull();
   await applyD1Migrations(db, env.TEST_MIGRATIONS);
   expect(await retained()).toEqual(c24);
   expect((await db.prepare('SELECT * FROM synced_static_content').all()).results).toEqual([]);
-  expect(await retained()).toEqual(populatedMain);
+  const upgradedCopy=await request('owner','GET','/api/pages/prior-synced-copy');expect(upgradedCopy.status).toBe(200);expect(upgradedCopy.data.blocks[0].synced).toMatchObject({state:'ready',text:[{text:'Existing c24 synced content'}]});expect(upgradedCopy.data.blocks[0].content).toEqual(copyBlock.content);
   const indexes = (await db.prepare("SELECT name FROM sqlite_master WHERE type='index' AND tbl_name='page_verifications'").all<{ name: string }>()).results.map(r => r.name);
   expect(indexes).toEqual(expect.arrayContaining(['page_verifications_page_latest', 'page_verifications_due']));
 
