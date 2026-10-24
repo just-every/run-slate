@@ -1,3 +1,4 @@
+import type {SyncedResolution} from '../../../shared/api/content';
 import type {FileReference} from '../file-cards/reference';
 import type {TableContent} from '../tables/model';
 import type {TableOfContentsSettings} from '../table-of-contents';
@@ -49,6 +50,10 @@ interface BlockBase {
   id: string;
   /** Nesting depth in the body tree. */
   indent?: number;
+  /** Structural parent for a layout; ordinary indentation stays relative to it. */
+  layoutParentId?: string;
+  synced?: SyncedResolution;
+  copyRevisionId?: string;
 }
 
 export interface ParagraphBlockData extends BlockBase {
@@ -213,7 +218,17 @@ export interface ContentQueryBlockData extends BlockBase {
 export interface TableOfContentsBlockData extends BlockBase, TableOfContentsSettings { type: "table-of-contents" }
 export interface TaskReportBlockData extends BlockBase { type: "task-report"; definition:TaskReportDefinition }
 
+export interface ColumnsBlockData extends BlockBase {type:"columns";count:number}
+export interface ColumnBlockData extends BlockBase {type:"column"}
+
+export interface SyncedSourceBlockData extends BlockBase {type:"synced-source";text:RichText}
+export interface SyncedReferenceBlockData extends BlockBase {type:"synced-reference";sourcePageId:string;sourceBlockId:string;staticId?:string}
+
 export type EditorBlock =
+  | SyncedSourceBlockData
+  | SyncedReferenceBlockData
+  | ColumnsBlockData
+  | ColumnBlockData
   | ParagraphBlockData
   | HeadingBlockData
   | ListBlockData
@@ -236,6 +251,7 @@ export type EditorBlockType = EditorBlock["type"];
 /* ---------- movement ---------- */
 
 export type BlockMove =
+  | { kind: "into-column"; columnId: string }
   | { kind: "step"; direction: "up" | "down" }
   | { kind: "indent" }
   | { kind: "outdent" }
@@ -270,6 +286,9 @@ export type ConflictChoice = "compare" | "reload" | "overwrite";
 /* ---------- shared renderer props ---------- */
 
 export interface BlockActions {
+  layoutBusy?: boolean;
+  onMakeSynced?: (blockId:string)=>void;
+  onSyncedSaved?: ()=>Promise<void>;
   onConvertTable?: (blockId:string) => void;
   onCopyCode?: (blockId: string) => void;
   onChooseFile?: (blockId: string) => void;

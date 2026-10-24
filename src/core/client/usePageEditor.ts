@@ -294,13 +294,13 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
         "Someone else added or removed blocks on this page. Nothing was changed; the page now shows their blocks, so try again.",
       );
     }
-    const content = ({ id: _id, indent: _indent, ...rest }: EditorBlock) => JSON.stringify(rest);
+    const content = ({ id: _id, indent: _indent, synced: _synced, copyRevisionId: _copyRevision, ...rest }: EditorBlock) => JSON.stringify(rest);
     const known = new Map(revisions.current);
     const rebased = next.map((block) => {
       const before = local.get(block.id), theirs = saved.get(block.id);
       if (!before || !theirs || content(before) !== content(block)) return block;
       known.set(block.id, fresh.blocks.find((item) => item.id === block.id)!.revisionId);
-      return { ...theirs, indent: block.indent };
+      return { ...theirs, indent: block.indent, layoutParentId: block.layoutParentId };
     });
     return { next: rebased, revision: fresh.page.revisionId, known };
   }
@@ -339,16 +339,7 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
     }
     invalidateRead();
     const fresh = await structureRead("after");
-    const loaded = editorBlocks(fresh.blocks);
-    current.current = loaded;
-    setBlocks(loaded);
-    synced.current = fresh.page.revisionId;
-    updateRevision(fresh.page.revisionId);
-    setWorkingRevisionId(fresh.workingRevisionId);
-    revisions.current = new Map(
-      fresh.blocks.map((block) => [block.id, block.revisionId]),
-    );
-    blockTypes.current = new Map(fresh.blocks.map(block => [block.id, block.blockType]));
+    adopt(fresh);
     setStructureState("saved");
     return committed.value.blocks;
     } catch(error) {setStructureState(null);throw error;} finally {structureBusy.current=false;}

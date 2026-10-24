@@ -21,6 +21,8 @@ export function ReviewRequestDialog({ pageId, pageRevisionId, request, onClose, 
   await onSaved();
  }}>
   <p>Assignment never grants access. The reviewer must already be able to read this page; verification also requires edit access.</p>
+  <p>Suggested expertise is a hint only. Choose the reviewer explicitly.</p>
+  <ul aria-label="Suggested experts">{targets.data?.items.filter(t=>t.expertise?.length).map(t=><li key={t.id}>{t.name}: {t.expertise!.join(', ')}</li>)}</ul>
   <RequestState loading={targets.loading} error={targets.error} retry={targets.reload}>
    <label>Reviewer<select aria-label="Reviewer" name="reviewer" required defaultValue={request ? `${request.assigneeKind}:${request.assigneeId}` : ''}>
     <option value="" disabled>Choose a member or group</option>

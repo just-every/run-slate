@@ -78,9 +78,16 @@ function AutomationRunLog({ id }: { id: string }) {
   }>(`/api/automation/${id}/runs`);
   useEffect(() => {
     // A new run may be enqueued after this log first opens.
-    const timer = setInterval(resource.reload, 4000);
-    return () => clearInterval(timer);
-  }, [resource.reload]);
+    if (resource.loading) return;
+    let active = true;
+    let timer: ReturnType<typeof setTimeout>;
+    const poll = async () => {
+      await resource.reload();
+      if (active) timer = setTimeout(poll, 4000);
+    };
+    timer = setTimeout(poll, 4000);
+    return () => { active = false; clearTimeout(timer); };
+  }, [resource.reload, resource.loading]);
   return (
     <section>
       <h3>Run log</h3>

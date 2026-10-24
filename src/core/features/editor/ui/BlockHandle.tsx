@@ -15,10 +15,12 @@ export interface BlockHandleProps {
   /** Names this block for a screen reader: its first words, or its type. */
   blockLabel: string;
   canEdit: boolean;
+  disabled?: boolean;
   onInsert: (anchor: HTMLElement) => void;
   onMove: (move: BlockMove) => void;
   onDuplicate: () => void;
   onDelete: () => void;
+  onMakeSynced?: () => void;
   onDragStart?: () => void;
   onDragEnd?: () => void;
   onTouchDrop?: (targetId: string) => void;
@@ -32,10 +34,12 @@ export interface BlockHandleProps {
 export function BlockHandle({
   blockLabel,
   canEdit,
+  disabled,
   onInsert,
   onMove,
   onDuplicate,
   onDelete,
+  onMakeSynced,
   onDragStart,
   onDragEnd,
   onTouchDrop,
@@ -47,6 +51,7 @@ export function BlockHandle({
   return (
     <div className="block-gutter flex w-12 shrink-0 items-start justify-end gap-0.5 pt-0.5 opacity-0 transition-opacity group-focus-within/row:opacity-100 group-hover/row:opacity-100 has-[[data-state=open]]:opacity-100">
       <Button
+        disabled={disabled}
         aria-label={`Insert a block after ${blockLabel}`}
         data-tooltip="Insert block" data-tooltip-align="end"
         onClick={(event) => onInsert(event.currentTarget)}
@@ -59,11 +64,16 @@ export function BlockHandle({
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
           <Button
+            disabled={disabled}
             aria-label={`Block actions for ${blockLabel}`}
             data-tooltip="Block actions" data-tooltip-align="end"
             className="touch-none data-[dragging=true]:bg-accent-soft"
             data-dragging={dragging || undefined}
             {...touch}
+            // A mouse down must remain a native drag start. The menu opens on
+            // the completed click; keyboard and touch retain their own forms.
+            onPointerDownCapture={event=>{if(event.pointerType==='mouse')event.stopPropagation();}}
+            onClick={()=>setOpen(true)}
             draggable
             onDragEnd={onDragEnd}
             onDragStart={onDragStart}
@@ -90,6 +100,7 @@ export function BlockHandle({
             <ChevronsLeft aria-hidden="true" className="size-3.5" />
             Outdent
           </DropdownMenuItem>
+          {onMakeSynced?<DropdownMenuItem onSelect={onMakeSynced}>Make synced</DropdownMenuItem>:null}
           <DropdownMenuSeparator />
           <DropdownMenuItem onSelect={onDuplicate}>
             <Copy aria-hidden="true" className="size-3.5" />
