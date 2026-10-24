@@ -62,10 +62,15 @@ export async function signInHintFlow(origin) {
           const target = new URL('/signin', origin);
           target.searchParams.set('login_hint', ownerEmail);
           target.searchParams.set('next', next);
-          await page.goto(target.href, {waitUntil: 'networkidle'});
           const expected = next.startsWith('/app?') ? next : '/app';
+          const response = await context.request.get(target.href, {maxRedirects: 0});
+          assert.equal(response.status(), 307);
+          assert.equal(response.headers().location, expected);
+          await page.goto(target.href, {waitUntil: 'networkidle'});
           assert.equal(new URL(page.url()).origin, origin);
-          assert.equal(new URL(page.url()).pathname + new URL(page.url()).search, expected);
+          // This fixture has not completed first-run setup: app admission must
+          // still send it to the wizard after the sign-in route's safe redirect.
+          assert.equal(new URL(page.url()).pathname, '/setup');
           assert.equal(await page.getByLabel('Email address', {exact: true}).count(), 0);
         }
         assert.equal(requests, 1, 'Only the explicit request sent a sign-in email');
