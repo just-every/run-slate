@@ -1,8 +1,11 @@
 # Edition-owned source authoring 1.1.0
 
-Copy this directory's `.mjs` files into `scripts/edition-authoring/` of any edition.
-Node 22+ and Git are the only authoring dependencies. Builds and integration remain
-ordinary edition code. This tool never runs source-provided scripts.
+Seeds pin the published `@runeditrun/rer` package and use `rer adopt-edition`
+and `rer refresh-base --ref FULL_COMMIT`; do not vendor authoring CLI files.
+See [EDITION-AUTHORING.md](../export/EDITION-AUTHORING.md) for adoption, acquisition,
+offline use and JSON output. Node 22+ and Git are the authoring dependencies.
+Builds and integration remain ordinary edition code. This tool never runs
+source-provided scripts. Existing local authoring scripts remain supported.
 
 The recommended path is a maintained complete edition with tested component
 choices, UI, infrastructure and commands that save implementation and adaptation
@@ -42,6 +45,11 @@ claim that edited local source equals upstream. `parent`, when present, is
 `{repository, revision}`. There may be at most one foundation. Semantic
 compatibility, route/resource conflicts and migration transitions require product
 tests; unique paths alone do not establish compatibility.
+
+Commands below use the historical local-script form. Package adopters run
+`node node_modules/@runeditrun/rer/edition-authoring/cli.mjs` in its place; Base
+authors can run `node /absolute/base/edition-authoring/cli.mjs` from the seed root.
+The public adoption and refresh verbs call these same implementation helpers.
 
 Commands, run at the edition root:
 
@@ -144,7 +152,8 @@ explicitly above it; the tool does not silently omit or truncate large source.
 
 Some editions copy Base modules byte for byte, for example the Base mail module into
 `src/base/modules/mail`. A copy record makes those copies traceable, so a later
-Base change can reach the edition and an accidental edit cannot hide.
+Base change can reach the edition and later accidental edits can be detected
+against the recorded snapshots.
 `base-copies.json` at the edition root records each copy's local path, Base
 origin path, Base commit, and the SHA-256 of every copied file:
 
@@ -171,9 +180,14 @@ bytes, so anyone holding that commit can check the record and a public reader
 sees no private address. To read Base, `record-base`, `refresh-base` and
 `verify-base` use `--base <checkout>` or the seed's `edition.json` component
 runeditrun/base: `source.repository` for Git source or `source.origin.repository`
-for local source. Without either, pass `--base <checkout>`, or `--offline` to
-verify local bytes. Older records with a `repository` field are still read and
-verified from it; recording or refreshing drops the field.
+for local source. Without either, `runeditrun/base` resolves to the public
+`https://github.com/runeditrun/base.git` repository. Pass `--offline` to verify
+local bytes without acquisition; offline refresh requires `--base <checkout>`.
+Offline source reads use a temporary repository sharing only the checkout’s
+object store and HEAD, with no remotes or inherited Git configuration. This
+prevents lazy fetches on Git 2.43 as well as newer Git. Missing objects require
+an online refresh without `--offline`; corrupt objects require checkout repair.
+Older records with a `repository` field are still read and verified from it; recording or refreshing drops the field.
 `modes` records each file's Git mode in Base, `100644` or `100755`, using the
 owner executable bit; a record
 without `modes` still verifies, but without mode checks until it is re-recorded.
@@ -189,8 +203,8 @@ the copy leaves out (`notCopied`), local files that differ from Base
 (`differs`, bytes or executable bit) and local files with no Base counterpart (`localOnly`). Pass
 `--base /absolute/base-checkout` to read a local Base checkout instead of
 cloning the recorded repository, and `--record <file>` for another record path.
-An acquisition URL or local source checkout belongs in the seed's own source
-declaration; a publisher-qualified identity alone is not a clone address.
+An explicit acquisition URL or local source checkout can remain in the seed's
+own source declaration; the default Base publisher identity uses its public URL.
 
 **Verify.** `... verify-base` checks three things and exits nonzero on any finding:
 
@@ -219,17 +233,93 @@ writes Base's bytes and modes for recorded files and for files already equal to
 Base, adopts files Base added under a copied path since the copy's pin (tests
 only into copies that already carry tests), drops recorded files that Base or the
 export removed, keeps out files the copy had left out, and re-records each copy.
-It refuses recorded files with local edits. To move one copy,
+An absent unadapted singleton is retired from the record entirely and named in
+the `retired` output. As with absent files in directory copies, local absence is
+the removal signal; refresh does not distinguish accidental deletion from an
+intentional removal. Absent files marked `skip-worktree`, `assume-unchanged`
+or `fsmonitor-valid`, and recorded children beneath uninitialized submodules,
+refuse before writes with the corresponding Git repair command. After submodule
+initialization, the child index and recorded bytes are read. Unreadable index
+evidence also refuses safely. Offline refresh suppresses promisor lazy fetching;
+a missing local object names an online refresh command, preserving the record.
+Verify before refreshing to inspect missing copies. Deleted
+adaptations still block refresh, and a singleton still present locally whose
+Base source disappeared still reports an error.
+It refuses undeclared local edits that differ from both the recorded and incoming
+Base bytes; declare intentional adaptations as described below. To move one copy,
 copy its files from Base at the new commit over the old copy, deleting files
 Base removed, and run `record-base` with the new commit. Then run `verify-base`
 and the edition's own tests, and commit the copies with the record. To review
 what changed upstream first, read `git -C BASE diff OLD NEW -- modules/mail`.
 
-A copy record claims byte equality. When an edition adapts copied source, move
-it out of the record: describe it in `edition.json` with an `origin` and
-`mappings`, and use `compare` to see upstream and local changes. Penny's
-`base/PROVENANCE.json` and `verify-base-source.mjs` were the model for this
-record and command.
+**Keep seed adaptations.** Before refreshing, explicitly declare each adapted file:
+
+```sh
+node scripts/edition-authoring/cli.mjs adapt-base .github/workflows/run-demo.yml
+node scripts/edition-authoring/cli.mjs adapt-base public/fonts/fonts.css
+node scripts/edition-authoring/cli.mjs adapt-base src/base/dispatch.ts
+node scripts/edition-authoring/cli.mjs adapt-base src/base/font-head.ts
+node scripts/edition-authoring/cli.mjs refresh-base FULL_40_HEX_COMMIT --base /absolute/base-checkout
+```
+
+`adapt-base <file> [--record <file>]` only accepts an existing regular recorded
+file. It keeps local bytes and mode unchanged, and adds `adapted: {"local/path":
+"ORIGINAL_FULL_BASE_COMMIT"}` and `acknowledged: {"local/path":
+{"sha256": "SHA256_OF_LOCAL_BYTES", "mode": "100644"}}` to that copy (`100755`
+for an executable file). The existing `files` digest and
+`modes` entry remain the Base baseline at this per-file commit, even when the
+copy's other files move to a newer revision. Repeating the declaration does not
+advance that baseline. Commit the record alongside the adaptation.
+
+The acknowledgement records those local bytes and mode. With that snapshot
+unchanged, a later change to either makes `refresh-base` refuse the entire refresh
+before writing any file or record. `verify-base` exits nonzero and
+reports `adaptation-modified` or `adaptation-mode` with the file and a runnable
+`acknowledge` command, including `--record` when needed. Review the change, then
+run `adapt-base <file>` again to update the local snapshot. This keeps the original
+Base baseline and upstream conflict notes. Older declarations without an
+`acknowledged` snapshot remain readable, but report `adaptation-unacknowledged`
+and block refresh until the same explicit re-acknowledgement; neither command
+automatically accepts the current bytes.
+
+The record is plain data in the owner's repository, under the owner's control.
+Its acknowledged snapshot guards against accidental later drift in a declared
+file's digest or mode; it is not tamper-evident. A hand edit to the record that
+supplies a digest and mode matching the current file is treated as acknowledged
+by `verify-base` (online or offline) and `refresh-base`, just like running
+`adapt-base`. Both are the same owner trust act. Review record diffs in code
+review like source diffs, alongside the adaptations they acknowledge.
+
+Refresh never writes or removes declared adaptations, including when Base deletes
+the source. It still refreshes every untouched copy. Its `adapted` report lists
+each seed-owned file; `conflict: true` means upstream bytes, mode or existence
+changed against the original baseline. A conflict note supplies a Git diff hint
+for explicit reconciliation. The note remains visible on repeated refreshes until
+you reconcile the baseline; it does not prevent other copies from refreshing.
+A second refresh to the same commit leaves the record and local file bytes
+unchanged. Undeclared local edits that differ from both the recorded and incoming
+Base bytes still block before any file is written, with an instruction naming
+`adapt-base`.
+
+`verify-base` reports declarations separately: it checks their existence,
+regular-file status, acknowledged local bytes and mode, and retained Base
+baselines. `--offline` checks the local acknowledgement but cannot
+validate the upstream baseline. Run the edition's product tests for adaptations.
+For richer source comparisons, use `edition.json` origins and mappings with
+`compare` instead.
+
+To return a copy to verbatim management, save the seed adaptation somewhere safe,
+restore its files and modes from the desired Base commit (including deletions),
+then run `record-base <copy-path> <origin-path> <commit> --base <checkout>`.
+This explicitly replaces that copy's declarations with a fresh verbatim record;
+redeclare any other adaptations in the same copy before refreshing. Verify and
+run edition tests before committing. To retain a reconciled adaptation against a
+new baseline, record that Base baseline first, restore the saved adaptation, and
+run `adapt-base <file>` again. Never update a previously applied migration in
+place: keep it and add a new seed migration for schema changes.
+
+Penny's `base/PROVENANCE.json` and `verify-base-source.mjs` were the model for
+this record and command.
 
 ## Public projections
 

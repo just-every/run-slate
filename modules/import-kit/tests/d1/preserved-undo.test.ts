@@ -24,6 +24,7 @@ for (const batchSize of [1, 4, 20]) for (const count of [0, 3, 25]) test(`preser
     assert.ok(report.cursor > cursor && report.cursor - cursor <= batchSize);
   }
   assert.equal(report.cursor, count);
+  assert.equal(report.outcome, count ? 'compensated' : 'undone');
   assert.equal(report.dispositions.filter(d => d.disposition === 'retained').length, Number(count > 0));
   assert.equal(r.native().prepare('SELECT COUNT(*) AS n FROM native_records').get()!.n, Number(count > 0));
   if (count) {

@@ -43,7 +43,7 @@ export interface AuthConfig {
   dependencies?: boolean;
   /** Name: 1-80 characters; accent: #rrggbb; signInPath: same-origin absolute path. */
   branding?: AuthBranding;
-  origin: string; OWNER_EMAIL: string; SESSION_SECRET: string; SETUP_TOKEN?: string; MAIL_FROM?: string;
+  origin: string; OWNER_EMAIL: string; SESSION_SECRET: string; INSTALLATION_KEY?: string; INSTALLATION_KEY_PREVIOUS?: string; SETUP_TOKEN?: string; MAIL_FROM?: string;
   /** Local HTTP is allowed only for literal localhost, 127.0.0.1 or [::1] with matching Host. */
   local?: boolean; allowList?: string[]; sessionSeconds?: number; linkSeconds?: number;
   /** Invitation lifetime in seconds, up to seven days (the default); independent of sign-in/step-up links. */
@@ -155,7 +155,7 @@ export interface OperatorAuth<R extends string = Role> {
   authenticateCredential(request:Request):Promise<{id:string;personId:string;fence:number;kind:SessionKind}|null>;
   authorizeDependencySetup(request: Request, input: { token?: string }): Promise<boolean>;
   completeLocalSetup(request:Request):Promise<{complete:boolean}>;
-  identitySettings(request:Request):Promise<{idpSignIn:boolean}>;
+  identitySettings(request:Request):Promise<{idpSignIn:boolean;providerSetup:{canEnable:boolean;providers:Array<{id:string;label:string;state:'linked'|'configured'|'unlinked'|'needs-relink'}>}}>;
   setIdentitySettings(request:Request,input:{idpSignIn:boolean}):Promise<{idpSignIn:boolean}>;
   requireEditorOwner(request:Request):Promise<Session<R>>;
   credentialFence(request:Request):Promise<{personId:string;fence:number;kind:SessionKind}>;

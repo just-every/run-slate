@@ -1,4 +1,5 @@
 import { createServer } from 'node:http';
+import { once } from 'node:events';
 import { randomUUID } from 'node:crypto';
 import { cp, mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -12,8 +13,20 @@ import { sha256 } from '../../src/provenance/identity.ts';
 import type { DoorAction, DoorGrant } from '../../src/door/grants.ts';
 import type { Json } from '../../src/types.ts';
 import type { D1Database } from '../../src/d1/types.ts';
+import { doorTransport } from './transport.ts';
+import { finishJob } from './progress.ts';
 
 export async function door(t: TestContext, mode: 'grant' | 'operator' = 'grant') {
+  let origin = '';
+  const transport = doorTransport(() => origin), handlersRunning = new Set<Promise<void>>();
+  // Registered before the database cleanup: drain HTTP work before closing SQLite.
+  t.after(async () => {
+    await transport.close();
+    const closed = new Promise<void>((resolve,reject)=>server.close(error=>error?reject(error):resolve()));
+    server.closeAllConnections();
+    await closed;
+    await Promise.allSettled([...handlersRunning]);
+  });
   const runtime = await sqliteRuntime(t), db = runtime.db();
   await db.batch(importDoorSchema.map(q=>db.prepare(q)));
   // Test-side counter of every statement the door executes, batch members included,
@@ -27,24 +40,31 @@ export async function door(t: TestContext, mode: 'grant' | 'operator' = 'grant')
   const publicKey = await crypto.subtle.exportKey('jwk',keys.publicKey);
   type Handler = (request: Request) => Promise<Response | null>;
   let handlers: Handler[] = [];
-  const server = createServer(async (req,res)=>{
+  const server = createServer((req,res)=>{
+    const controller = new AbortController();
+    const disconnect = () => controller.abort(new Error('door_client_closed'));
+    res.once('close',disconnect);
+    const handling = (async () => {
     const chunks: Buffer[] = []; for await (const chunk of req) chunks.push(Buffer.from(chunk));
-    const request = new Request(origin+(req.url ?? '/'),{method:req.method,headers:req.headers as Record<string,string>,...(req.method==='POST'?{body:Buffer.concat(chunks)}:{})});
+    const request = new Request(origin+(req.url ?? '/'),{method:req.method,headers:req.headers as Record<string,string>,signal:controller.signal,...(req.method==='POST'?{body:Buffer.concat(chunks)}:{})});
     statements = 0; bytes = 0;
     let response: Response | null = null;
     for (const handler of handlers) if ((response = await handler(request))) break;
     if (response) requests.push({action:new URL(request.url).pathname.split('/').pop()!,status:response.status,statements,bytes});
     response ??= new Response('Not found',{status:404});
     res.writeHead(response.status,Object.fromEntries(response.headers)); res.end(Buffer.from(await response.arrayBuffer()));
+    })().catch(error=>{res.destroy(error);}).finally(()=>{res.removeListener('close',disconnect);handlersRunning.delete(handling);});
+    handlersRunning.add(handling);
   });
   // The kit's node:sqlite work in this same process can run for minutes without
   // yielding to the event loop; a keep-alive timeout that then fires late resets
   // the next request on a reused connection. Idle connections stay open instead.
   server.keepAliveTimeout = 0;
-  await new Promise<void>(resolve=>server.listen(0,'127.0.0.1',resolve));
-  t.after(()=>new Promise<void>((resolve,reject)=>{server.closeAllConnections();server.close(error=>error?reject(error):resolve());}));
+  const ready = once(server,'listening');
+  server.listen(0,'127.0.0.1');
+  await ready;
   const address = server.address(); if (!address || typeof address==='string') throw new Error('no_address');
-  const origin = `http://127.0.0.1:${address.port}`;
+  origin = `http://127.0.0.1:${address.port}`;
   const options = {database,targets:sqliteTargets,claim:{issuer:'https://business.example.test',installationId:'test-installation',appOrigin:origin,expectedEmail:'owner@example.test',publicKeys:{test:publicKey}},
     ownerPrincipalId:'owner',destination:'workspace',format:'json' as const,
     parse(value:Json) {const record=value as {id:string;title:string};return {kind:'document',sourceId:record.id,payload:value};},
@@ -88,7 +108,7 @@ export async function door(t: TestContext, mode: 'grant' | 'operator' = 'grant')
     return sign(payload as unknown as Record<string,unknown>,privateKey);
   }
   async function call(action:DoorAction,body:unknown,overrides:Partial<DoorGrant>={},signed?:string) {
-    const response=await fetch(origin+(state.via==='operator'?'/api/operator/import/':'/api/rer/import/')+action,{method:'POST',headers:{'Content-Type':'application/json',...state.headers,...(state.via==='operator'?{Origin:origin,Cookie:'test-owner-session'}:{Authorization:'Bearer '+(signed ?? await token(action,overrides))})},body:JSON.stringify(body)});
+    const response=await transport.request(origin+(state.via==='operator'?'/api/operator/import/':'/api/rer/import/')+action,{method:'POST',headers:{'Content-Type':'application/json',...state.headers,...(state.via==='operator'?{Origin:origin,Cookie:'test-owner-session'}:{Authorization:'Bearer '+(signed ?? await token(action,overrides))})},body:JSON.stringify(body)});
     return {status:response.status,body:await response.json() as any};
   }
   /** Records upload as one JSON array; a Buffer uploads as given. */
@@ -110,16 +130,16 @@ export async function door(t: TestContext, mode: 'grant' | 'operator' = 'grant')
     return result;
   }
   async function apply(plan:any,overrides:Partial<DoorGrant>={}) {
-    let result;
-    do {result=await call('apply',{planId:plan.planId,reviewedFingerprint:plan.fingerprint},{fingerprint:plan.fingerprint,...approval,...overrides});assert.equal(result.status,200,JSON.stringify(result.body));} while(result.body.job.state!=='completed');
+    const result = await finishJob('apply',plan.planId,()=>call('apply',{planId:plan.planId,reviewedFingerprint:plan.fingerprint},{fingerprint:plan.fingerprint,...approval,...overrides}));
     return result.body.job;
   }
   async function undo(planId:string) {
-    let result;
-    do {result=await call('undo',{planId});assert.equal(result.status,200,JSON.stringify(result.body));} while(!['undone','rolled_back'].includes(result.body.job.state));
-    return result;
+    return finishJob('undo',planId,()=>call('undo',{planId}),async jobId=>{
+      const row=await db.prepare('SELECT COUNT(*) n FROM ik_provenance WHERE job_id=?').bind(jobId).first<{n:number}>();
+      return row!.n;
+    });
   }
-  return {origin,runtime,db,options,requests,ownerPredicate,approval,call,sign,token,upload,plan,apply,undo,state,operator,addGrants,
+  return {origin,request:transport.request,runtime,db,options,requests,ownerPredicate,approval,call,sign,token,upload,plan,apply,undo,state,operator,addGrants,
     mount:(...next:Handler[])=>{handlers=next;},
     enable:()=>writeImportDoorSettings(db,options.claim.installationId,{enabled:true},ownerPredicate)};
 }

@@ -227,9 +227,13 @@ allow more. Machine load alone never refuses a start or holds heavy work; a
 fleet that wants a load guard sets `RER_SERVERS_LOAD_THRESHOLD=N` and
 `RER_JOBS_LOAD_THRESHOLD=N` (the 1-minute load) in its own environment.
 When `rer dev` or `rer setup` holds a step 20 minutes for that guard, it stops with `Not started: this computer is busy`, the measured load, the threshold and the next step (run the same command again, or raise `RER_JOBS_LOAD_THRESHOLD`); it is never reported as a failed migration.
-A start needs 15 GiB free on the checkout and temporary volumes;
-`RER_SERVERS_DISK_FLOOR_GIB=N` changes that floor. A CI runner on a small disk
-may set it lower (for example 4); people should not.
+A start measures installed `node_modules` and `.wrangler` (including local D1
+state) and requires twice those bytes plus 256 MiB, with a 1 GiB minimum. It
+checks the checkout, the selected temporary directory (`TMPDIR`, then
+`TMP`/`TEMP`, then the OS default), and the actual server registry directory
+(`RER_SERVERS_DIR` or `~/.rer/servers`). A refusal names the path and exact free
+and required bytes. `RER_SERVERS_DISK_FLOOR_GIB=N` explicitly replaces the
+estimate (GiB, decimals allowed, 0 disables the floor).
 
 A new server is refused only when available memory is below 1.5 GiB. An idle
 dev server holds about 0.5-1.3 GiB and a preview about 0.4-0.8 GiB. The message

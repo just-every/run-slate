@@ -6,7 +6,7 @@ import { sqliteSource,sqliteMapping } from './sqlite-runtime.ts';
 import { initializeD1ImportStorage,d1LegacyStreamReceiptUpgrade,readD1ImportJob,readD1ImportUndoReport,applyD1ImportBatches,undoD1Import,readD1ImportStream,resumeD1ImportStream,undoD1ImportStream,planD1ImportStream,createD1ImportStream } from '../../src/d1/index.ts';
 
 test('structural legacy adoption preserves ordinary prior data and is idempotent with existing staging',async t=>{
-  const r=await legacyStreamOriginFixture(t),jobs=r.native().prepare('SELECT * FROM ik_jobs ORDER BY id').all(),native=r.native().prepare('SELECT * FROM native_records').all();
+  const r=await legacyStreamOriginFixture(t),jobs=r.native().prepare('SELECT * FROM ik_jobs ORDER BY id').all().map(row=>Object.assign(row,{reversal_conversion_hash:null})),native=r.native().prepare('SELECT * FROM native_records').all();
   await initializeD1ImportStorage(r.db());
   const origins=r.native().prepare('SELECT * FROM ik_d1_stream_origins').all();assert.equal(origins.length,1);assert.equal(origins[0].job_id,'child');assert.equal(origins[0].stream_id,'parent');assert.equal(origins[0].job_operation_key,'opaque-member-operation');
   assert.equal(r.native().prepare("SELECT version FROM ik_original_sets WHERE job_id='ordinary'").get()!.version,3);
