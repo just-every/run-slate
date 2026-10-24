@@ -75,7 +75,6 @@
       "name": "MAIL_FROM",
       "label": "Sender email",
       "kind": "email",
-      "default": "auth@localhost.test",
       "required": true,
       "group": "email",
       "runtimeEditable": true,

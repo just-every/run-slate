@@ -423,7 +423,9 @@
   },
   "mail": {
     "providers": [
-      "rer"
+      "rer",
+      "resend",
+      "sendgrid"
     ]
   },
   "nativeExport": {

@@ -4,7 +4,7 @@
   "sourceFiles": {
     "scripts/delivery/slate-spec.mjs": "sha256:550e3a9360a8e06d6d8c5013ff9dd18174ae49127bc190b6b074467b037cad1e",
     "scripts/build-delivery-artifact.mjs": "sha256:b751656105bb968559c5f9f2808fbd5b7bce8758c6315fa6ee967c3ce505fd15",
-    "scripts/delivery/base/packaging.json": "sha256:caa3ee344a4c7719e4342d38a10ce72c41834f89f592fbe3817e9755c212403f",
+    "scripts/delivery/base/packaging.json": "sha256:3c5004d8a593d8888a070832ac981927a056e9748554e9d2b68d7c4aef9c1157",
     "src/server.ts": "sha256:025ea8a8ae4d457bb96718b34abd59b6ba739664454e97bd570e720c76471a64",
     "src/core/features/workspace/bootstrap.ts": "sha256:22001510bdb939df3e34a7b58840caf20ec7ec0bc953bdf51bf6f8ac206dc5ec",
     "src/core/platform/config/runtime.ts": "sha256:d5f68939b73f00bb85c64faa2b408381b26cd0714612fe046e19484fa9e986cd",

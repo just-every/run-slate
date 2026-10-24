@@ -932,7 +932,7 @@
       "executable": false
     },
     ".gitignore": {
-      "sha256": "adb653a75e1bf8c7e7cc4399d9848f4e56451284d9c76ec2e94b53f3d0e8a4d0",
+      "sha256": "be2ff73e1fd36862cdb6c9784ef270f475b6a44d24d3b0ef14d427f0c5e5080e",
       "executable": false
     },
     ".node-version": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "deploy.json": {
-      "sha256": "0b2e8657e06f29fcaedf9924d4acd297fb0601e73e1052d7b61f9e78cc4c563d",
+      "sha256": "4ea8c58a7e6113d8872bf556f93a3d12d2f2fdcf542c15bb23ce7de22fa26b88",
       "executable": false
     },
     "deploy/footprint.md": {
@@ -1820,7 +1820,7 @@
       "executable": false
     },
     "management/integration/deployment-spec.json": {
-      "sha256": "f32bd740967bbbae5270369fad10977b1a2238f6cfe80ff8ba26b08911c75ef0",
+      "sha256": "3c7996dc06f4b7faca7bd9a890208829cd5c87e09b6574df2115e5df5ce053cf",
       "executable": false
     },
     "management/integration/index.d.mts": {
@@ -1844,7 +1844,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "797838b889a8f89a8160588d13c8df2a498be52d18a51acf4c8d88c96d4a7ebd",
+      "sha256": "a40fe654771747d8b53d725545f29e1f4d2387ba8a2f179916d7dc32f01a935f",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -4644,11 +4644,11 @@
       "executable": false
     },
     "rer-project.json": {
-      "sha256": "4653871d3141537e3d00d8b1e11ce63560a5edf75d45b7b6b5ffcc969b3ad455",
+      "sha256": "db9b60c8bc7d1e631b9d73d7aaf18efb4dbc6ec12362cb89a39f693576f3fde8",
       "executable": false
     },
     "rer-setup.json": {
-      "sha256": "6753070cd0f4bfd802cb6a1a93760d087be310982ff8a9cf61809d954a20ca40",
+      "sha256": "00385b9e22830290bc9e2eb737936934b7c794a8d5461be4513f53ef98e2c444",
       "executable": false
     },
     "RUN-LOCALLY.md": {
@@ -4772,7 +4772,7 @@
       "executable": false
     },
     "scripts/delivery/base/packaging.json": {
-      "sha256": "caa3ee344a4c7719e4342d38a10ce72c41834f89f592fbe3817e9755c212403f",
+      "sha256": "3c5004d8a593d8888a070832ac981927a056e9748554e9d2b68d7c4aef9c1157",
       "executable": false
     },
     "scripts/delivery/base/paths.mjs": {
