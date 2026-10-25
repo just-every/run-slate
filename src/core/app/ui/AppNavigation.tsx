@@ -98,7 +98,7 @@ function MemberNavigation({ onNavigate }: { onNavigate?: () => void }) {
       <p className="sidebar-label pagesbar">Pages</p>
       <SpaceTrees pages={pages} containers={containers} databases={databases} navigation={navigation} onError={setError} onNavigate={onNavigate} />
       <ExtensionSlot id="workspace.navigation.after.v1" />
-      <AccountMenu onNewDatabase={navigation.data?.isGuest ? undefined : () => setCreateDatabase(true)} />
+      <AccountMenu />
       </div>
       {createDatabase ? (
         <Suspense fallback={null}><CreateDatabaseDialog onClose={() => setCreateDatabase(false)} /></Suspense>

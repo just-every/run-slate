@@ -21,6 +21,7 @@ import { useResource, type Resource } from "../../../../client/useResource";
 import { contentApi, type DocumentView } from "../../../../client/content";
 import {
   mutate,
+  request,
   operationKey,
   errorMessage,
 } from "../../../../client/transport";
@@ -74,7 +75,7 @@ function PageAccessNeeded({pageId,changed,keys}:{pageId:string;changed:boolean;k
   return <div className="content-frame"><article className="main page-document">
     <div className="request-notice" role="alert">
       <h2>Access needed</h2>
-      <p>{changed?"Your access to this page changed while it was open. ":""}You need access to open this page.</p>
+      <p>{changed?"Your access to this page changed while it was open. ":""}This page isn’t available. It may not exist, or you may need access.</p>
       <button type="button" data-request-page-access={pageId}>Request access</button>
     </div>
     <UnsavedDraft keys={keys} reason="Your access to this page changed before this text was saved."/>
@@ -108,6 +109,7 @@ function LoadedPage({
   const [savedTitle, setSavedTitle] = useState(document.page.title);
   const [selection,setSelection] = useState<PageSelection>();
   const [present, setPresent] = useState(false);
+  const [reactionsOpen,setReactionsOpen]=useState(false);
   const [detail, setDetailState] = useState<string | null>(() => typeof window !== "undefined" ? (new URLSearchParams(window.location.search).get("detail") ?? (new URLSearchParams(window.location.search).has("thread")||new URLSearchParams(window.location.search).has("comment")?"comments":null)) : null);
   function setDetail(value: string | null) {
     setDetailState(value);
@@ -155,7 +157,7 @@ function LoadedPage({
   const titleInput = useRef<HTMLTextAreaElement>(null);
   useNewPageArrival(titleInput, document.permissions.canEdit);
   const [titleSaving, setTitleSaving] = useState(false);
-  const [titleSaved, setTitleSaved] = useState(false);
+
   const [titleFailure, setTitleFailure] = useState<string>();
   const titleAttempt = useRef<{title:string; revision:string; key:string} | undefined>(recovered.current??undefined);
   useEffect(()=>{setDetailState(new URLSearchParams(window.location.search).get("detail") ?? (new URLSearchParams(window.location.search).has("thread")||new URLSearchParams(window.location.search).has("comment")?"comments":null));},[]);
@@ -225,20 +227,23 @@ function LoadedPage({
   async function commitTitle() {
     if (!document.permissions.canEdit || title === savedTitle || titleSaving) return;
     setTitleSaving(true);
-    setTitleSaved(false);
     setTitleFailure(undefined);
     setError(undefined);
     try {
       const attempt = titleAttempt.current?.title === title ? titleAttempt.current : {title, revision: editor.revision, key: operationKey()};
       titleAttempt.current = attempt;
-      const result = await mutate<{value:{revisionId:string};document:DocumentView}>(`/api/pages/${document.page.id}`, {operationKey:attempt.key, expectedRevisionId:attempt.revision, properties:{title:attempt.title}}, "PATCH");
+      const result = await request<{value:{revisionId:string};document:DocumentView}>(`/api/pages/${document.page.id}`, {method:"PATCH",keepalive:true,body:JSON.stringify({operationKey:attempt.key, expectedRevisionId:attempt.revision, properties:{title:attempt.title}})});
       editor.setRevision(result.value.revisionId);
       await read(async () => result.document);
-      setSavedTitle(title);
-      setTitleSaved(true);
+      setSavedTitle(attempt.title);
       window.dispatchEvent(new Event("slate:navigation-changed"));
-      localStorage.removeItem(titleKey);
-      titleAttempt.current = undefined;
+      if(titleAttempt.current?.key===attempt.key){localStorage.removeItem(titleKey);titleAttempt.current=undefined;}
+      else if(titleAttempt.current?.revision===attempt.revision){
+        // Later typing follows this tab's confirmed title write, while a remote
+        // revision still keeps the ordinary conflict check.
+        titleAttempt.current={...titleAttempt.current,revision:result.value.revisionId};
+        localStorage.setItem(titleKey,JSON.stringify(titleAttempt.current));
+      }
       setTitleConflict(false);
     } catch (cause) {
       const conflict = cause instanceof ApiError && cause.status === 409;
@@ -249,6 +254,17 @@ function LoadedPage({
       setTitleSaving(false);
     }
   }
+  const saveTitleRef=useRef(saveTitle);saveTitleRef.current=saveTitle;
+  useEffect(()=>{
+    if(title===savedTitle || titleSaving || titleFailure || titleConflict || !document.permissions.canEdit)return;
+    const timer=setTimeout(()=>void saveTitleRef.current(),500);
+    return()=>clearTimeout(timer);
+  },[title,savedTitle,titleSaving,titleFailure,titleConflict,document.permissions.canEdit]);
+  useEffect(()=>{
+    const leaving=()=>{void saveTitleRef.current();};
+    window.addEventListener('pagehide',leaving);
+    return()=>window.removeEventListener('pagehide',leaving);
+  },[]);
   return (
     <>
       <PageTopBar
@@ -297,7 +313,6 @@ function LoadedPage({
               setTitle(event.target.value);
               const attempt={title:event.target.value,revision:titleAttempt.current?.revision??editor.revision,key:operationKey()};
               titleAttempt.current=attempt;localStorage.setItem(titleKey,JSON.stringify(attempt));
-              setTitleSaved(false);
               event.target.style.height = "auto";
               event.target.style.height = `${event.target.scrollHeight}px`;
             }}
@@ -310,7 +325,7 @@ function LoadedPage({
               }
             }}
           />
-          <PageReadMetadata document={document} saveState={titleSaving ? "Saving title…" : titleFailure ? undefined : titleSaved && !editor.hasUnsavedChanges ? "Saved" : title !== savedTitle ? "Unsaved title" : undefined} />
+          <PageReadMetadata document={document} />
           {titleFailure ? <SaveStatus state="failed" failureMessage={titleFailure} onRetry={() => void saveTitle()} /> : null}
           {host?.properties}
           {collaboration.presence.length > 1 ? (
@@ -352,10 +367,11 @@ function LoadedPage({
           {!document.permissions.canEdit?<>{!document.lock ? <p role="status">This page is read-only with your current access.</p> : null}<UnsavedDraft keys={keys} reason={document.lock ? "This page was locked before this text was saved." : "Your access to this page changed to view only before this text was saved."}/></>:null}
           <PageEditorBody
             editor={editor}
+            titleState={titleFailure || titleConflict ? "failed" : titleSaving || title!==savedTitle ? "saving" : undefined}
             document={document}
             onAsk={selection=>{if(flagship){setSelection(selection);setDetail("ask");}}}
             onComment={selection=>{setSelection(selection);setDetail("comments");if(selection)reload();}}
-            footer={<details className="page-reactions"><summary>👍 Reactions</summary><PageReactions pageId={document.page.id}/></details>}
+            footer={<details className="page-reactions" onToggle={event=>setReactionsOpen(event.currentTarget.open)}><summary>👍 Reactions</summary>{reactionsOpen?<PageReactions pageId={document.page.id}/>:null}</details>}
           />
         </article>
         {detail && Object.hasOwn(panelTitles, detail) && (flagship || detail !== "ask") ? (

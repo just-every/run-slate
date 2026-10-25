@@ -15,8 +15,12 @@ export async function peopleCase(base:Awaited<ReturnType<typeof reviewFixture>>)
  await json('POST','/api/sharing',{operationKey:key(),targetKind:'page',targetId:shared.id,principalKind:'member',principalId:f.readerId,level:'view'});
  const document=await json('GET',`/api/pages/${shared.id}`);await json('POST',`/api/pages/${shared.id}/open`,{operationKey:key(),revisionId:document.workingRevisionId});await json('POST',`/api/status/page/${shared.id}`,{operationKey:key(),expectedRevisionId:document.page.revisionId,statusKey:'verified',attestRevisionId:document.workingRevisionId,expiresAt:null});
  let profile=await json('GET',`/api/people/${f.ownerId}`);expect(profile.pages.owned.map((p:any)=>p.id)).toContain(shared.id);expect(profile.pages.verified.map((p:any)=>p.id)).toContain(shared.id);expect(profile.pages.frequent.map((p:any)=>p.id)).toContain(shared.id);
- await json('PUT',`/api/people/${f.ownerId}`,{operationKey:key(),expectedRevisionId:profile.revisionId,title:'Incident lead',timezone:'Australia/Brisbane',team:'Operations',managerId:f.readerId});
- for(const q of ['owner','Incident lead','Operations','Incident response'])expect((await json('GET','/api/people?q='+encodeURIComponent(q),undefined,f.readerId)).items.map((p:any)=>p.id)).toContain(f.ownerId);
+ await json('PUT',`/api/people/${f.ownerId}`,{operationKey:key(),expectedRevisionId:profile.revisionId,displayName:'  Alex Rivers  ',title:'Incident lead',timezone:'Australia/Brisbane',team:'Operations',managerId:f.readerId});
+ expect((await json('GET',`/api/people/${f.ownerId}`)).name).toBe('Alex Rivers');
+ expect(await env.DB.prepare('SELECT display_name,initials FROM members WHERE id=?').bind(f.ownerId).first()).toMatchObject({display_name:'Alex Rivers',initials:'AR'});
+ expect((await f.request('PUT',`/api/people/${f.ownerId}`,{operationKey:key(),expectedRevisionId:(await json('GET',`/api/people/${f.ownerId}`)).revisionId,displayName:'Owner'})).status).toBe(400);
+ expect((await f.request('PUT',`/api/people/${f.readerId}`,{operationKey:key(),expectedRevisionId:null,displayName:'Someone else'})).status).toBe(403);
+ for(const q of ['Alex Rivers','Incident lead','Operations','Incident response'])expect((await json('GET','/api/people?q='+encodeURIComponent(q),undefined,f.readerId)).items.map((p:any)=>p.id)).toContain(f.ownerId);
  const visible=await json('GET',`/api/people/${f.ownerId}`,undefined,f.readerId);expect(JSON.stringify(visible)).not.toContain(secret.id);expect(JSON.stringify(visible)).not.toContain('Acquisition');
  expect((await f.request('PUT',`/api/people/${f.readerId}`,{operationKey:key(),expectedRevisionId:null,team:'Forged team'},f.readerId)).status).toBe(403);
  expect((await f.request('PUT',`/api/people/${f.readerId}`,{operationKey:key(),expectedRevisionId:null,title:'Owner-written title'})).status).toBe(403);

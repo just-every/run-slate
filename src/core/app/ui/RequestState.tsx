@@ -23,7 +23,7 @@ export function RequestState({
         <p>{errorMessage(error)}</p>
         {error instanceof ApiError && error.status === 401 ? (
           <a href="/signin">Sign in again</a>
-        ) : retry ? (
+        ) : retry && !(error instanceof ApiError && [403,404].includes(error.status)) ? (
           <button type="button" onClick={retry}>
             Try again
           </button>
