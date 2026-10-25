@@ -22,13 +22,32 @@ export async function providerEmbedsJourney(state) {
   assert.equal(loaded.length,0);
   for(let i=0;i<providers.length;i++) {
     const [name]=providers[i], block=page.locator(`[data-block-id="${blocks[i].id}"]`);
-    await block.getByRole('button',{name:'Embed',exact:true}).click();
     if(i>=10){
-      await expect(block.getByRole('status')).toContainText('The provider does not allow embedding.');
-      await expect(block.locator('iframe')).toHaveCount(0);
-      await expect(block.getByRole('link',{name:providers[i][1],exact:true})).toBeVisible();
+      const assertRefusal=async()=>{
+        await expect(block.getByRole('status').filter({hasText:/^The provider does not allow embedding\. Open the original link\.$/})).toContainText('The provider does not allow embedding.');
+        await expect(block.locator('iframe')).toHaveCount(0);
+        await expect(block.getByRole('link',{name:providers[i][1],exact:true})).toBeVisible();
+      };
+      if(i===10){
+        // Hold a real save response: the refusal must remain identifiable while saving.
+        let release,arrive,finish;
+        const held=new Promise(resolve=>{release=resolve;}),saving=new Promise(resolve=>{arrive=resolve;}),handled=new Promise(resolve=>{finish=resolve;});
+        const path=`**/api/pages/${pageId}/blocks/${blocks[i].id}`;
+        const handler=async route=>{try{const response=await route.fetch();arrive();await held;await route.fulfill({response});}finally{finish();}};
+        await page.route(path,handler);
+        try{
+          await block.getByRole('button',{name:'Embed',exact:true}).click();
+          await saving;
+          await expect(block.getByRole('status').filter({hasText:/^Saving$/})).toBeVisible();
+          await assertRefusal();
+        }finally{release();await handled;await page.unroute(path,handler);}
+      }else{
+        await block.getByRole('button',{name:'Embed',exact:true}).click();
+        await assertRefusal();
+      }
       continue;
     }
+    await block.getByRole('button',{name:'Embed',exact:true}).click();
     await expect(block.getByRole('button',{name:`Load ${name} embed`,exact:true})).toBeVisible();
     const before=loaded.length;
     await block.getByRole('button',{name:`Load ${name} embed`,exact:true}).click();
