@@ -10264,7 +10264,7 @@
       "executable": false
     },
     "tests/e2e/editor/embed-refusals-journey.ts": {
-      "sha256": "4f5b8149cc8546f6a5eb141f44dacd38aa20ed2267c99b8a64326add52ed28fa",
+      "sha256": "eb9e067a1ae799d87a3f2db7d2340964406e86f8f7cb128ae6407c89606e9f71",
       "executable": false
     },
     "tests/e2e/editor/file-cards-journey.ts": {

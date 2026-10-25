@@ -15,6 +15,10 @@ export async function embedRefusalsJourney(req:(path:string,body?:unknown,auth?:
   const route=`/api/pages/${pageId}/embeds/${blocks[0]!.id}/status`;
   try{
     expect((await req(route,undefined,otherCookie)).status).toBe(404);expect(seen).toHaveLength(0);
+    const containerId=await env.DB.prepare('SELECT container_id FROM pages WHERE id=?').bind(pageId).first<string>('container_id');
+    const badId=crypto.randomUUID(),madeBad=await req('/api/pages',{operationKey:crypto.randomUUID(),containerId,title:'Untrusted provider host',blocks:[{id:badId,blockType:'link-card',treePosition:'00',content:{url:'https://embed.figma.com.attacker.test/design/synthetic-slate-1',display:'embed',previewState:'ready'}}]});
+    expect(madeBad.status).toBe(200);const badPage=(await madeBad.json<any>()).value.pageId;
+    expect((await req('/api/pages/'+badPage+'/embeds/'+badId+'/status')).status).toBe(404);expect(seen).toHaveLength(0);
     const cases:{headers:Record<string,string>;verdict:string}[]=[
       {headers:{'x-frame-options':'DENY'},verdict:'refuses'},
       {headers:{'x-frame-options':'SAMEORIGIN'},verdict:'refuses'},
