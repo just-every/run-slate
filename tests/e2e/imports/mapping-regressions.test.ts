@@ -80,7 +80,10 @@ test("historical Confluence versions arrive oldest first, with the current versi
   expect(parsed.report.created.filter((entry) => entry.kind === "version").length).toBe(3);
 });
 
-test("a Confluence restriction naming a user or a group becomes a named grant, never a space-wide one", () => {
+test("Confluence restrictions retain exact scoped grants and refuse unsafe principals", async () => {
+  // One grant-mapping matrix through parseImport; each original fixture and assertion is retained.
+  for (const scenario of [
+    async () => {
   const parsed = confluence(syntheticConfluenceCsvExport({
     tables: {
       content: [contentHeader, page({ contentid: "40", title: "Secret" })],
@@ -98,9 +101,8 @@ test("a Confluence restriction naming a user or a group becomes a named grant, n
   ]);
   expect(parsed.pages[0]!.grants.some((grant) => grant.general)).toBe(false);
   expect(parsed.members.map((member) => [member.sourceId, member.status])).toEqual([["confluence-member:u1", "inactive-historical"]]);
-});
-
-test("several space-wide Confluence restrictions collapse into the one general grant, at its strongest level", () => {
+},
+    async () => {
   const parsed = confluence(syntheticConfluenceCsvExport({
     tables: {
       content: [contentHeader, page({ contentid: "50", title: "Shared" })],
@@ -117,9 +119,8 @@ test("several space-wide Confluence restrictions collapse into the one general g
   expect(parsed.pages[0]!.grants.filter((grant) => grant.general).length).toBe(1);
   expect(parsed.pages[0]!.grants.some((grant) => grant.principalKind === "workspace")).toBe(false);
   expect(parsed.report.unmapped.some((entry) => entry.label.includes("more than one space-wide restriction"))).toBe(true);
-});
-
-test("Confluence restrictions never invent general grants for personal spaces or unknown permission and principal types",async()=>{
+},
+    async () => {
  // Independent fixtures exercise the same behaviour through both paths.
  for(const scenario of [async()=>{
   const parsed = confluence(syntheticConfluenceCsvExport({
@@ -149,7 +150,13 @@ async()=>{
   expect(parsed.pages[0]!.grants).toEqual([]);
   expect(parsed.report.unmapped.some((entry) => entry.label.includes("restriction principal type"))).toBe(true);
 }])await scenario();
+}
+  ]) await scenario();
 });
+
+
+
+
 
 test("Confluence content the tree would otherwise lose is imported or named: drafts, deleted rows, and second body rows", () => {
   const parsed = confluence(syntheticConfluenceCsvExport({

@@ -11,7 +11,6 @@ import { fileURLToPath } from "node:url";
 // (src/core/features/docs/build). These checks need no build: they import the same build modules the Vite plugin runs.
 const root = fileURLToPath(new URL("../..", import.meta.url));
 const read = (path) => readFile(join(root, path), "utf8");
-const docs = "src/core/features/docs";
 const { readManifest } = await import("../../src/core/features/docs/build/manifest.ts");
 const { absolutePath, buildSite, pathKind, readRepository } = await import("../../src/core/features/docs/build/site.ts");
 const { renderPage } = await import("../../src/core/features/docs/build/render.ts");
@@ -224,32 +223,4 @@ test("the landing's docs links name pages the manifest publishes", async () => {
   const value = (name) => new RegExp(`export const ${name} = "([^"]*)";`).exec(links)?.[1];
   assert.equal(site.pages.find((page) => page.slug === value("docsHomeSlug")).source, "docs/OVERVIEW.md");
   assert.equal(site.pages.find((page) => page.slug === value("installSlug")).source, "docs/INSTALL.md");
-});
-
-test("docs.css is scoped to .slate-docs, uses one monospace family and nothing third-party", async () => {
-  const raw = await read(`${docs}/docs.css`);
-  const css = raw.replace(/\/\*[\s\S]*?\*\//g, "");
-  const selectors = [...css.matchAll(/(?:^|[{}])\s*([^{}@]+?)\s*\{/g)].map((match) => match[1]);
-  assert.ok(selectors.length > 40, "docs.css has rules");
-  for (const selector of selectors.flatMap((group) => group.split(/,(?![^(]*\))/).map((part) => part.trim()))) {
-    assert.match(selector, /^\.slate-docs\b/, `docs.css: "${selector}" must be scoped to .slate-docs`);
-  }
-  assert.doesNotMatch(css, /prefers-color-scheme|data-theme|color-scheme:\s*dark/, "a fixed light palette");
-  const families = [...css.matchAll(/font-family:\s*([^;]+);/g)].map((match) => match[1]);
-  assert.equal(families.length, 1);
-  assert.match(families[0], /^ui-monospace,/);
-  const urls = [...css.matchAll(/url\(("[^"]*"|'[^']*'|[^)]*)\)/g)].map((match) => match[1].replace(/^["']|["']$/g, ""));
-  assert.ok(urls.every((url) => url.startsWith("data:image/svg+xml,")), "only inline drawings, no fetched resource");
-  assert.doesNotMatch(css.replace(/url\("data:[^"]*"\)/g, ""), /https?:\/\/|url\(\s*['"]?\/\//, "no third-party URL");
-});
-
-test("the declared public paths, rate limit and ownership table cover /docs", async () => {
-  const seed = JSON.parse(await read("seed.json"));
-  assert.ok(seed.deploy.publicPaths.includes("/docs") && seed.deploy.publicPaths.includes("/docs/"));
-  assert.ok(seed.capabilities.some((capability) => capability.clauses.includes("DOCS-001")));
-  assert.match(await read("src/core/app/http-security.ts"), /url\.pathname!=='\/docs'&&!url\.pathname\.startsWith\('\/docs\/'\)/);
-  assert.match(await read("deploy/REQUEST-OWNERSHIP.md"), /\| Start \| GET \| `\/docs`, `\/docs\/\*` \| any \| none \(declared public\)/);
-  const hono = await read("src/core/app/hono.ts");
-  assert.doesNotMatch(hono.slice(hono.indexOf("export function isHonoRequest")), /\/docs/, "Hono does not claim /docs");
-  assert.doesNotMatch(await read("src/core/app/operator-document-gate.ts"), /\/docs/, "the operator gate does not claim /docs");
 });

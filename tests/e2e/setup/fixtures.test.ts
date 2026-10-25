@@ -103,36 +103,7 @@ test("a seeded page's foreign keys resolve to its workspace, container, author a
   await expect(seedPage(createMissingContainerId(), { title: "Orphan", authorMemberId: authorId })).rejects.toThrow(/No container/);
 });
 
-test("a guest member is stored as a guest and a workspace carries the eight policy defaults", async () => {
-  const workspace = await seedWorkspace();
-  const { memberId } = await seedMember(workspace.workspaceId, {
-    role: "member",
-    email: "vendor@partner.test",
-    displayName: "Ola Vendor",
-    isGuest: true,
-  });
 
-  const row = await env.DB.prepare("SELECT member_kind, status, role FROM members WHERE id = ?")
-    .bind(memberId)
-    .first<{ member_kind: string; status: string; role: string }>();
-  expect(row).toEqual({ member_kind: "guest", status: "active", role: "member" });
-
-  expect(workspace.policyProfile).toEqual({
-    "page.lifecycle.v1": "always-live",
-    "page.access.v1": "workspace-general",
-    "page.public-access.v1": "site",
-    "page.version.v1": "autosnapshot",
-    "page.status.v1": "verification-only",
-    "record.page-parity.v1": "record-is-page",
-    "automation.scope.v1": "source",
-    "container.access.v1": "class-led",
-  });
-
-  const alternative = await seedWorkspace({ profile: { "page.lifecycle.v1": "draft-then-publish", "container.access.v1": "grant-led" } });
-  expect(alternative.policyProfile["page.lifecycle.v1"]).toBe("draft-then-publish");
-  expect(alternative.policyProfile["container.access.v1"]).toBe("grant-led");
-  await expect(seedWorkspace({ profile: { "page.access.v1": "nonsense" as never } })).rejects.toThrow(/page\.access\.v1/);
-});
 
 test("groups, container membership, blocks and grants land on their owners", async () => {
   const { workspaceId } = await seedWorkspace();

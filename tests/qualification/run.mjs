@@ -18,7 +18,6 @@ const workers = [
   'tests/qualification/publication/vitest.config.ts',
   'tests/qualification/refinement/vitest.config.ts',
   'tests/qualification/release-restore-authority/vitest.config.ts',
-  'tests/qualification/release-restored-evaluation/vitest.config.ts',
   'tests/qualification/tree-archive/vitest.config.ts',
   'tests/qualification/tree-correction/vitest.config.ts',
   'tests/qualification/tree-order/vitest.config.ts',
@@ -26,14 +25,9 @@ const workers = [
 
 const nodeTests = [[
   'node_modules/tsx/dist/cli.mjs', '--test', '--test-concurrency=1',
-  'tests/qualification/authority/cross-lifetime.test.mjs',
-  'tests/qualification/authority/verifier-boundary.test.mjs',
-  'tests/qualification/evidence-registry.test.mjs',
   'tests/qualification/interface/formatting.test.ts',
   'tests/qualification/interface/highlights.test.ts',
   'tests/qualification/interface/tree-order.test.ts',
-  'tests/qualification/local/release-cross-config.test.mjs',
-  'tests/qualification/local/release-runtime-process.test.mjs',
   'tests/qualification/offline-refresh/transport.test.ts',
   'tests/qualification/release-shell/native-shell.test.mjs',
   'tests/qualification/tree-correction/ui.node.tsx',

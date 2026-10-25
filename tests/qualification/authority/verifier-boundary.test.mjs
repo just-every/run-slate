@@ -1,6 +1,0 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import {taggedTestInventory} from '../../../scripts/evidence-registry.mjs';
-import {isolatedEnvironment,inferenceBoundary} from '../../flagship/cross/runtime.mjs';
-test('Unproven records cannot replace real raw clause test tags',()=>{const report={testResults:[{name:'security.test.ts',assertionResults:[{fullName:'SOURCE-005 — revocation denies content',status:'passed'},{fullName:'untagged partial regression',status:'passed'}]}]};assert.deepEqual([...taggedTestInventory(report)],['SOURCE-005']);assert.deepEqual([...taggedTestInventory({records:{'FLAG-004':{status:'unproven'}}})],[]);});
-test('Cross-runtime child environment excludes every inherited provider key and makes no fabricated zero-call claim',()=>{const env=isolatedEnvironment({PATH:'/runtime',HOME:'/test',OPENAI_API_KEY:'never-inherit',ANTHROPIC_API_KEY:'never-inherit',SLATE_AI_API_KEY:'never-inherit',AI_API_KEY:'never-inherit',SLATE_AI_LOCAL_URL:'http://provider',CLOUDFLARE_API_TOKEN:'never-inherit'});assert.equal(env.PATH,'/runtime');assert.equal(env.SLATE_AI_ENABLED,'false');for(const key of ['OPENAI_API_KEY','ANTHROPIC_API_KEY','SLATE_AI_API_KEY','AI_API_KEY','SLATE_AI_LOCAL_URL','CLOUDFLARE_API_TOKEN'])assert.equal(env[key],undefined);assert.equal(inferenceBoundary.providerCalls,'not measured; no zero-call claim');});

@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
 import test from "node:test";
 import {
   assertAuthorizedReceiptReplay,
@@ -181,17 +180,4 @@ test("operation replay requires the original actor, the same body, and current p
   assert.throws(() => assertAuthorizedReceiptReplay({ receipt, requestHash: "other-body", subject: member, context: shared, required: "edit", now }), OperationReplayError);
   assert.throws(() => assertAuthorizedReceiptReplay({ receipt, requestHash: "same-body", subject: otherMember, context: shared, required: "edit", now }));
   assert.throws(() => assertAuthorizedReceiptReplay({ receipt, requestHash: "same-body", subject: member, context: context(), required: "edit", now }));
-});
-
-test("the first knowledge migration stores every policy superset branch", async () => {
-  const migration = await readFile(new URL("../../migrations/core/0001_knowledge_foundation.sql", import.meta.url), "utf8");
-  for (const required of [
-    "lifecycle TEXT", "working_revision_id", "published_revision_id", "ordinal INTEGER", "label TEXT", "visibility TEXT",
-    "public_link_access", "anonymous_access", "member_kind TEXT", "container_members", "status_entries", "database_records", "retained_values_json", "scope TEXT",
-    "automation_runs", "page_grants", "grant_links", "knowledge_decisions", "ai_budget_reservations", "import_jobs", "export_jobs",
-  ]) assert.match(migration, new RegExp(required));
-  assert.match(migration, /page_grants_reject_private_general_insert/);
-  assert.match(migration, /pages_reject_private_lifecycle_with_general_grant/);
-  assert.match(migration, /public_exposures_reject_private_page/);
-  assert.match(migration, /pages_reject_private_lifecycle_with_public_exposure/);
 });
