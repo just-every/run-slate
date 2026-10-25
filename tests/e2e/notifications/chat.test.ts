@@ -154,9 +154,9 @@ contract('NOTIF-003', 'Chat destination sends link-only messages, shows last del
     const startup = createExecutionContext();
     const documentFailure = await handleApplicationRequest(new Request(origin + '/app/settings'), missingKey, startup);
     expect(documentFailure.status).toBe(503); expect(await documentFailure.text()).toContain('CONNECTOR_CREDENTIALS_KEY');
-    healthResponse(new Request(origin + '/health'), missingKey, startup);
+    await healthResponse(new Request(origin + '/health'), missingKey, startup);
     await waitOnExecutionContext(startup);
-    const health = healthResponse(new Request(origin + '/health'), missingKey, createExecutionContext());
+    const health = await healthResponse(new Request(origin + '/health'), missingKey, createExecutionContext());
     expect(health.status).toBe(503); expect(await health.text()).toContain('CONNECTOR_CREDENTIALS_KEY');
     // Disconnect during membership lookup wins before the transport dispatch claim.
     await comment();
