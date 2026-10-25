@@ -1820,8 +1820,8 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | --- | --- | --- | --- | --- | --- |
 | `HOME-001` | Public landing | published | done | `tests/e2e/landing-styles.test.mjs` |  |
 | `DOCS-001` | Public documentation | published | done | `tests/e2e/docs.test.ts` |  |
-| `WORK-001` | One workspace | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `WORK-003` | Member management | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WORK-001` | One workspace | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WORK-003` | Member management | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `WORK-006` | Invitations | published | done | `tests/e2e/local-outbox.node.test.mts` |  |
 | `WORK-007` | Removal | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-008` | Roles | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
@@ -1834,112 +1834,112 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `WORK-015` | Identity provider | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `SAVE-001` | Durable save state | published | partial | `tests/qualification/interface/routed.browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/routed.browser.mjs`. |
 | `SAVE-002` | Failed writes | published | done | `tests/e2e/saving/failed-writes.test.ts`, `tests/qualification/ui-convergence/failed-save-journey.mjs` | Real validation refusals retain unsent titles, name the failure and require explicit retry; corrected retries persist at 1440 and 390. Existing body transport-loss journey retains and retries unsent blocks. |
-| `SAVE-003` | Revision conflicts | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `SAVE-004` | Network loss | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `SAVE-005` | Operation keys | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `SAVE-003` | Revision conflicts | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `SAVE-004` | Network loss | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `SAVE-005` | Operation keys | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `SAVE-006` | Concurrent editing and optional co-editing | published | partial | `tests/qualification/ui-convergence/two-people-editing.mjs` | live co-editing only under the flagship opt-in; see COLLAB-001 |
 | `PAGE-001` | What a page is | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
 | `PAGE-002` | Creation | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
-| `PAGE-003` | Identity survives everything | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `PAGE-004` | Move | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `PAGE-003` | Identity survives everything | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `PAGE-004` | Move | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `PAGE-005` | Duplicate | published | done | `tests/flagship/content/http.test.ts` |  |
-| `PAGE-006` | Icon and cover | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `PAGE-006` | Icon and cover | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `PAGE-007` | Details | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
-| `PAGE-008` | Favorite | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `PAGE-008` | Favorite | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `PAGE-009` | Watch | published | done | `tests/flagship/discovery/following.test.ts` |  |
 | `PAGE-010` | Outline | published | done | `tests/qualification/ui-convergence/outline-journey.mjs` | Current heading text, navigation, persistence and no-heading state proven at 1440 and 390; long labels wrap. |
 | `PAGE-011` | Present | published | done | `tests/e2e/pages/presentation.test.ts`, `tests/qualification/ui-convergence/presentation-journey.mjs` | Read-only full-screen slides split at top-level headings; long slides keep controls visible, keyboard/touch navigation and exact scroll/focus return at 1440/390. |
 | `PAGE-012` | Page display options | published | done | `tests/e2e/pages/display-options.test.ts`, `tests/qualification/ui-convergence/page-display-journey.mjs` | Shared typeface, small text and full width; unchanged body; Markdown/HTML/PDF readable round trips and complete workspace restore; editor/reader browser journeys at 1440/390. |
 | `PAGE-013` | Analytics | published | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` | Page/space daily totals and uniques, named permitted readers/contributors, labeled author views, inclusive date filtering, draft/private-page exclusions and guest identity boundaries; 1440/390 reader journeys. |
 | `PAGE-014` | Reactions | published | done | `tests/e2e/pages/reactions.test.ts`, `tests/qualification/ui-convergence/reactions-journey.mjs` | Page/comment add and removal, named reactors, read-only readers, persistence, access refusal and unchanged notification/view counts at 1440/390. |
-| `TREE-001` | A nested tree in a container | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `TREE-002` | Reordering and nesting | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `TREE-001` | A nested tree in a container | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `TREE-002` | Reordering and nesting | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `TREE-003` | Shared with me | published | done | `tests/e2e/navigation/shared-navigation.test.ts`, `tests/qualification/ui-convergence/shared-navigation-journey.mjs` | Individual grants in non-member spaces have a named Shared with me section, independent of container discovery and broader access; revoked/expired grants remove the entry on the next load. Workers and 1440/390 browser journeys cover private neighbors, opening and revocation. |
 | `TREE-004` | Filter the tree | published | done | `tests/e2e/navigation/tree-filter.test.ts`, `tests/qualification/ui-convergence/tree-filter-journey.mjs` | Per-space title matching retains readable ancestors within 200ms; one clear restores member expansion, with access and 1440/390 browser coverage. |
 | `TREE-005` | Create in place | published | done | `tests/e2e/navigation/create-in-place.test.ts`, `tests/qualification/ui-convergence/create-in-place-journey.mjs` | Named tree-footer, child and global destinations, exact placement, persistence and read-only access checks at 1440/390. |
 | `BLOCK-001` | A body of blocks | published | partial | `tests/qualification/interface/routed.browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/routed.browser.mjs`. |
-| `BLOCK-002` | Inline text | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `BLOCK-003` | The insert menu | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `BLOCK-002` | Inline text | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `BLOCK-003` | The insert menu | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `BLOCK-004` | Markdown shortcuts | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
-| `BLOCK-005` | Mentions | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `BLOCK-005` | Mentions | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `BLOCK-006` | Structured blocks | published | partial | `tests/qualification/interface/blocks.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/blocks.mjs`. |
 | `BLOCK-007` | Task items | published | done | `tests/flagship/content/repair.test.ts` |  |
-| `BLOCK-008` | Media blocks | published | partial | — | upload and link media ship; configured stock source missing |
+| `BLOCK-008` | Media blocks | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | upload and link media ship; configured stock source missing |
 | `BLOCK-009` | Link cards | published | done | `tests/flagship/content/preview.test.ts` |  |
 | `BLOCK-010` | Content queries | published | partial | `tests/qualification/interface/blocks.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/blocks.mjs`. |
 | `LIFE-001` | Lifecycle states | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
-| `LIFE-002` | A draft is private | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `LIFE-002` | A draft is private | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `LIFE-003` | Publish | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
 | `LIFE-004` | Scheduled publish | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
 | `LIFE-005` | Unpublished changes | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
 | `LIFE-006` | Lifecycle profile | published | partial | `tests/qualification/policies/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/emitted.mjs`. |
-| `LIFE-007` | Discarding a draft | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `LIFE-007` | Discarding a draft | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `SHARE-001` | Grants | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
-| `SHARE-002` | What the levels mean | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `SHARE-003` | Inheritance | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `SHARE-002` | What the levels mean | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `SHARE-003` | Inheritance | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `SHARE-004` | General access | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
 | `SHARE-005` | Access profile | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
-| `SHARE-006` | Sharing with a person who is not a member | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `SHARE-007` | Access changes take effect at once | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `SHARE-008` | Expiring grants | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `WEB-001` | Anonymous access takes two acts | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `WEB-002` | What a published page carries | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `WEB-003` | The anonymous read view | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `WEB-004` | Children are not published by inheritance | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `WEB-005` | Indexing is off until it is chosen | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `WEB-006` | Unpublish | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `WEB-007` | Public-link profile | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `REV-001` | What a revision is | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `REV-002` | History | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `REV-003` | Restore | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `SHARE-006` | Sharing with a person who is not a member | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `SHARE-007` | Access changes take effect at once | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `SHARE-008` | Expiring grants | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WEB-001` | Anonymous access takes two acts | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WEB-002` | What a published page carries | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WEB-003` | The anonymous read view | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WEB-004` | Children are not published by inheritance | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WEB-005` | Indexing is off until it is chosen | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WEB-006` | Unpublish | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WEB-007` | Public-link profile | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `REV-001` | What a revision is | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `REV-002` | History | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `REV-003` | Restore | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `REV-004` | Compare | published | done | `tests/e2e/review/verification-flow.test.ts` |  |
 | `REV-005` | A citation resolves to its revision | published | done | `tests/e2e/review/verification-flow.test.ts` |  |
-| `REV-006` | Deleting a version | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `REV-006` | Deleting a version | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `REV-007` | Version profile | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
-| `STAT-001` | The status vocabulary | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `STAT-002` | A page's status | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `STAT-001` | The status vocabulary | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `STAT-002` | A page's status | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `STAT-003` | Verification | published | done | `tests/e2e/review/verification-flow.test.ts` |  |
-| `STAT-004` | Verification lapses | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `STAT-004` | Verification lapses | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `STAT-005` | Status profile | published | partial | `tests/qualification/policies/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/emitted.mjs`. |
-| `COMM-001` | Two kinds of thread | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `COMM-002` | Editing and deletion | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `COMM-001` | Two kinds of thread | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `COMM-002` | Editing and deletion | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `COMM-003` | Mentions | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
 | `COMM-004` | Anchors survive editing | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
 | `COMM-005` | Reactions | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
 | `COMM-006` | Discussions panel | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
-| `COMM-007` | Resolve | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `ARCH-001` | Archive | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `ARCH-002` | What archived means | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `ARCH-003` | Restore from archive | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `ARCH-004` | Archive is not deletion | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `ARCH-005` | Trash | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `COMM-007` | Resolve | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `ARCH-001` | Archive | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `ARCH-002` | What archived means | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `ARCH-003` | Restore from archive | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `ARCH-004` | Archive is not deletion | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `ARCH-005` | Trash | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `ARCH-006` | Permanent deletion | published | done | `tests/qualification/erasure-metadata/append-metadata.test.ts` |  |
-| `CONT-001` | What a container is | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `CONT-002` | Creating a container | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `CONT-003` | The container index | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `CONT-004` | Container settings | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `CONT-001` | What a container is | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `CONT-002` | Creating a container | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `CONT-003` | The container index | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `CONT-004` | Container settings | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `CONT-005` | Personal containers | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
-| `CONT-006` | Bulk actions | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `CONT-007` | External-access switches | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `CONT-008` | Container access profile | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `CONT-009` | Container grants | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DB-001` | A database | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DB-002` | Field types and evaluation | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DB-003` | Views | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DB-004` | Layouts | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DB-005` | Filter and sort | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DB-006` | Group | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DB-007` | Calculations | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DB-008` | Charts | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DB-009` | Lock structure | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DB-010` | A record is a page | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DB-011` | A view inside a page | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DB-012` | Record detail | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `AUTO-001` | A rule | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `AUTO-002` | A rule acts as its actor | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `AUTO-003` | Run log | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `AUTO-004` | Loops are bounded | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `AUTO-005` | Automation profile | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `CONT-006` | Bulk actions | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `CONT-007` | External-access switches | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `CONT-008` | Container access profile | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `CONT-009` | Container grants | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-001` | A database | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-002` | Field types and evaluation | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-003` | Views | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-004` | Layouts | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-005` | Filter and sort | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-006` | Group | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-007` | Calculations | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-008` | Charts | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-009` | Lock structure | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-010` | A record is a page | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-011` | A view inside a page | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-012` | Record detail | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `AUTO-001` | A rule | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `AUTO-002` | A rule acts as its actor | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `AUTO-003` | Run log | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `AUTO-004` | Loops are bounded | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `AUTO-005` | Automation profile | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `SEARCH-001` | Global search | published | partial | `tests/qualification/core/discovery-browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`. |
 | `SEARCH-002` | Results | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
 | `SEARCH-003` | Filters | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
@@ -1950,9 +1950,9 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `SEARCH-008` | Search without AI | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
 | `SEARCH-009` | Default visibility | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
 | `NAV-001` | Home | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
-| `NAV-002` | Recents | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `NAV-003` | Favorites | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `NAV-004` | One navigation | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `NAV-002` | Recents | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `NAV-003` | Favorites | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `NAV-004` | One navigation | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `NAV-005` | Global create | published | done | `tests/e2e/navigation/global-create.test.ts`, `tests/qualification/ui-convergence/global-create-journey.mjs` | Global creation is reachable on every configured operator destination; page, database, space and template flows name their destination before creation at 1440/390. Database choices include writable spaces only. |
 | `NAV-006` | The touch client edits | published | partial | `tests/qualification/ui-convergence/touch-page.mjs` — "touchWriteJourney", "touchCommentJourney" and "touchPublishShareJourney"; `tests/qualification/ui-convergence/touch-database.mjs` — "touchDatabaseJourney"; `tests/qualification/ui-convergence/columns-journey.mjs` — "columnsJourney"; `tests/qualification/ui-convergence/touch-operator-journey.mjs` — "touchOperatorJourney" (Search, Inbox, My tasks and requested/health review queues); `tests/qualification/ui-convergence/touch-management-journey.mjs` — "touchManagementJourney" (space settings, Templates, Archive, owner workspace settings); `tests/qualification/ui-convergence/touch-page-tools-journey.mjs` — "touchPageToolsJourney" (history/restore, labels, readable export and presentation); `tests/qualification/ui-convergence/touch-database-tools-journey.mjs` — "touchDatabaseToolsJourney" (charts, record templates, automations and run log). Existing core-wiki/touch-member, presentation and starter-template launches in `tests/qualification/ui-convergence/journeys.test.mjs` drive touch contexts at 1440px/390px; controls assert visual-viewport reachability, no overflow, no serious/critical accessibility finding, no browser error and no failed request. `tests/qualification/ui-convergence/synced-journey.mjs` — "syncedJourney" adds touch paragraph conversion, synced-copy insertion/editing and permanent deletion at both widths in the existing review-request launch. `tests/qualification/ui-convergence/people-journey.mjs` — "peopleJourney" adds directory search, profile edits, hidden expertise and scoped guest people by touch at both widths. | Touch-only editing remains unproven for block types beyond text, columns and synced paragraphs. |
 | `NOTIF-001` | Meaningful notifications | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
@@ -1961,16 +1961,16 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `MAIL-001` | Outbound only, two kinds | published | done | `tests/flagship/core/mail.test.ts` |  |
 | `MAIL-002` | Delivery failure | published | done | `tests/flagship/core/mail.node.test.mts` |  |
 | `ACT-001` | Durable timeline | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
-| `ACT-002` | Coverage | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `ACT-002` | Coverage | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `ACT-003` | Retrieval | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
 | `ACT-004` | Context | published | partial | `tests/qualification/core/discovery-browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`. |
 | `ACT-005` | Retained explanation | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
-| `TMPL-001` | Gallery | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `TMPL-002` | Preview | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `TMPL-003` | Snapshot on use | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `TMPL-004` | Custom templates | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `TMPL-005` | Save a page as a template | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `TMPL-006` | Where a template lives | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `TMPL-001` | Gallery | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `TMPL-002` | Preview | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `TMPL-003` | Snapshot on use | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `TMPL-004` | Custom templates | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `TMPL-005` | Save a page as a template | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `TMPL-006` | Where a template lives | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `IMP-001` | Import jobs | published | done | `tests/e2e/imports/preview-undo.test.ts` |  |
 | `IMP-002` | Notion import | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
 | `IMP-003` | Confluence import | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
@@ -1978,66 +1978,66 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `IMP-005` | Importing into a page | published | done | `tests/flagship/federation/federation.test.ts` |  |
 | `PORT-001` | Export contents | published | done | `tests/qualification/erasure-metadata/append-metadata.test.ts` |  |
 | `PORT-002` | Referential restore | published | done | `tests/qualification/erasure-metadata/append-metadata.test.ts` |  |
-| `PORT-003` | Visible jobs | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `PORT-003` | Visible jobs | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `PORT-004` | Search rebuild | published | done | `tests/e2e/imports/preview-undo.test.ts` |  |
 | `PORT-005` | Access boundary | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
 | `PORT-006` | Atomic import | published | done | `tests/qualification/authority/atomic-recovery.test.ts` |  |
 | `PORT-007` | Exporting a page or a container | published | done | `tests/flagship/federation/federation.test.ts` |  |
-| `LINK-001` | Permanent URLs | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `LINK-002` | Tombstones | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `LINK-003` | References follow their target | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `LINK-001` | Permanent URLs | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `LINK-002` | Tombstones | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `LINK-003` | References follow their target | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `LINK-004` | Links respect access | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
-| `AI-001` | Enablement | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-002` | Run lifecycle | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-001` | Enablement | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-002` | Run lifecycle | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `AI-003` | Proposal or bounded delegation | published | partial | `src/core/features/ai/routes.ts` | flagship opt-in only; no journey |
-| `AI-004` | Answer provenance | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-005` | Acceptance and granted mutation | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-006` | Current inputs before use | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-007` | Untrusted content | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-008` | Failure preserves confirmed work | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-009` | Retry | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-010` | Usage record | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-004` | Answer provenance | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-005` | Acceptance and granted mutation | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-006` | Current inputs before use | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-007` | Untrusted content | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-008` | Failure preserves confirmed work | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-009` | Retry | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-010` | Usage record | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `AI-011` | No self-granted authority | published | partial | `src/core/features/ai/routes.ts` | flagship opt-in only; no journey |
-| `AI-012` | Durable budgets | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-013` | Requester and audience boundary | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-014` | Scoped agents | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-015` | Workspace answers | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-012` | Durable budgets | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-013` | Requester and audience boundary | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-014` | Scoped agents | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-015` | Workspace answers | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `AI-016` | Summaries | published | partial | `src/core/features/ai/routes.ts` | flagship opt-in only; no journey |
-| `AI-017` | Writing with AI | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `DEC-001` | A decision is a layer over a page | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DEC-002` | States | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DEC-003` | An accepted decision is immutable | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DEC-004` | Decision log | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DEC-005` | Review dates | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `DEC-006` | A proposed decision is editable | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
-| `SUG-001` | Anchored suggestions | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `SUG-002` | Resolve explicitly | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-017` | Writing with AI | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `DEC-001` | A decision is a layer over a page | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DEC-002` | States | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DEC-003` | An accepted decision is immutable | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DEC-004` | Decision log | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DEC-005` | Review dates | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DEC-006` | A proposed decision is editable | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `SUG-001` | Anchored suggestions | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SUG-002` | Resolve explicitly | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SOURCE-001` | Connector contract | published | partial | `tests/flagship/release-clauses/federation/connector-disclosure.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SOURCE-002` | Exact passages | published | partial | `tests/flagship/release-clauses/federation/exact-passages.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SOURCE-003` | Scoped claims and authority | published | partial | `tests/qualification/authority/decision-authority.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SOURCE-004` | Live observations | published | partial | `tests/qualification/authority/native-boundaries.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `SOURCE-005` | Revocation and deletion | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SOURCE-005` | Revocation and deletion | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SOURCE-006` | Credential lifecycle | published | partial | `tests/qualification/authority/disconnect.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SKILL-001` | Versioned procedure | published | partial | `tests/qualification/authority/skill-disclosure.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `SKILL-002` | Evaluation and activation | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SKILL-002` | Evaluation and activation | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SKILL-003` | Version transitions | published | partial | `tests/qualification/authority/skill-disclosure.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `EFFECT-001` | Durable effects | published | partial | `tests/qualification/release-restore-authority/restored-effects.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `EFFECT-002` | Consent and product custody | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `EFFECT-003` | Impact and maintenance | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AGENT-001` | Semantic parity | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `EFFECT-002` | Consent and product custody | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `EFFECT-003` | Impact and maintenance | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AGENT-001` | Semantic parity | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `AGENT-002` | Portable owner interfaces | published | partial | `tests/flagship/release-clauses/portability/owner-views.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `INQ-001` | Open questions | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `INQ-002` | Reproducible reasoning | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `INQ-003` | Bounded planning | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `INQ-004` | Routing and ambient discovery | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `INQ-001` | Open questions | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `INQ-002` | Reproducible reasoning | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `INQ-003` | Bounded planning | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `INQ-004` | Routing and ambient discovery | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `INQ-005` | Economical sustained work | published | partial | `tests/qualification/authority/learned-provenance.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `TRIAL-001` | Predeclared comparison | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `TRIAL-002` | Exposure and safety | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `TRIAL-003` | Outcome classification | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `TRIAL-004` | Reusable learning | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `TRIAL-001` | Predeclared comparison | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `TRIAL-002` | Exposure and safety | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `TRIAL-003` | Outcome classification | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `TRIAL-004` | Reusable learning | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `FLAG-001` | Complete product gate | published | partial | `tests/flagship/release-clauses/portability/profile-retention.test.ts` | release gate; full flagship and provider evidence pending |
 | `FLAG-002` | Independent evidence | published | partial | `tests/flagship/release-clauses/portability/staged-recovery.test.ts` | release gate; full flagship and provider evidence pending |
-| `FLAG-003` | Value and held-out evaluation | published | partial | — | release gate; full flagship and provider evidence pending |
+| `FLAG-003` | Value and held-out evaluation | published | partial | `tests/requirements/clause-inventory.json` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | release gate; full flagship and provider evidence pending |
 | `FLAG-004` | Complete portable knowledge | published | partial | `tests/qualification/authority/recovery.test.ts` | release gate; full flagship and provider evidence pending |
 | `COLLAB-001` | Live co-editing by default | target | partial | `src/core/features/collaboration/durable-object.ts` | see the clause |
 | `COLLAB-002` | Presence, cursors and following | target | partial | `src/core/features/collaboration/service.ts` | see the clause |
@@ -2128,7 +2128,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `ADMIN-003` | Guest management | target | done | `tests/qualification/policies/invitations.test.ts`, `tests/qualification/ui-convergence/guest-console-journey.mjs` |  |
 | `ADMIN-004` | Workspace analytics | target | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` |  |
 | `ADMIN-005` | Audit export and SIEM streaming | target | partial | `tests/qualification/core/audit-content.test.ts` — auditExportProof: audited action families, filtered CSV/JSON, neutralized formulas, retention floor, signed ordered outage recovery; `tests/qualification/ui-convergence/audit-access-journey.mjs` (1440/390) | Signed generic webhooks inherit API-002’s unresolved address pinning and adopted destination rule; real vendor receivers and vendor-specific formats are not claimed. |
-| `ADMIN-006` | Content governance | target | partial | — | see the clause |
+| `ADMIN-006` | Content governance | target | partial | `ACCEPTANCE.md` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | see the clause |
 | `ADMIN-007` | Every target surface ships in the default product | target | partial | `src/core/platform/config/launch-profile.ts` | see the clause |
 | `MOBILE-001` | Native iOS and Android apps | target | missing | `tests/qualification/interface/routed.browser.mjs` | not implemented |
 | `MOBILE-002` | Desktop app | target | missing | — | not implemented |
@@ -2142,5 +2142,5 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `KEEP-006` | Checked runbooks | target | partial | `src/core/features/skills/routes.ts` | see the clause |
 | `KEEP-007` | Onboarding paths | target | missing | — | not implemented |
 | `KEEP-008` | Stale-knowledge sweeps | target | partial | `src/core/features/notifications/events.ts` | see the clause |
-| `KEEP-009` | Measured knowledge health | target | partial | — | see the clause |
-| `KEEP-010` | Team-built agents | target | partial | — | see the clause |
+| `KEEP-009` | Measured knowledge health | target | partial | `ACCEPTANCE.md` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | see the clause |
+| `KEEP-010` | Team-built agents | target | partial | `ACCEPTANCE.md` — unproven requirement record; no CI-run proof cited (ASK ct GAP). | see the clause |
