@@ -11324,7 +11324,7 @@
       "executable": false
     },
     "tests/qualification/core/native.config.ts": {
-      "sha256": "71d85a6a5ff429380bce934b0d0e0742d86690fa93a59fd2d02e473efc020b5b",
+      "sha256": "1867d877aaae0ee3b1f34467ed97350f6d465535ec93c5c9b6bffb84c873102a",
       "executable": false
     },
     "tests/qualification/core/public.mjs": {
@@ -11351,32 +11351,12 @@
       "sha256": "4b8326c896a2a62c95e3f3736bc98095cdf68ddffb997b6ec7a1432c1a83cd69",
       "executable": false
     },
-    "tests/qualification/data-erasure/composition.config.ts": {
-      "sha256": "08dde8b5d58ae7934518fd382dee9e9494a8a42d7dab7f825dc0de6df4a1fc04",
-      "executable": false
-    },
-    "tests/qualification/data-erasure/vitest.config.ts": {
-      "sha256": "ad5b70360bc27c52ba874612ec58c46bb50d238592c987e72e455ba19f58dea6",
-      "executable": false
-    },
     "tests/qualification/data/emitted.mjs": {
       "sha256": "bea12a6303ccfe5591b0f16d46df66ed99bc4bea45bc568ac43ecbc3b3e2f273",
       "executable": false
     },
-    "tests/qualification/data/outbound-boundary.ts": {
-      "sha256": "01bccdc80bb76e7b58e033f42614764c44936cfe9e2187ee761b0ea8c0211da8",
-      "executable": false
-    },
-    "tests/qualification/decisions/migration-setup.ts": {
-      "sha256": "68d8f1e05a959987213ff0aaf3dcdd6eb5c77f5896d6c28ef419ae90b3005355",
-      "executable": false
-    },
-    "tests/qualification/decisions/migration.config.ts": {
-      "sha256": "2c0dcbf334039b6271457fdd8a3d2ffefb3e60d108c031a4c4ad22a33151f660",
-      "executable": false
-    },
     "tests/qualification/decisions/vitest.config.ts": {
-      "sha256": "941bccc54d8a0ed1bab5cba045abc7a1f921f9c75d64616db92ecbc472b207e9",
+      "sha256": "a3e6283919512ae1435eef3b489975d1b2053dce6a3b364a7204d6771888bc44",
       "executable": false
     },
     "tests/qualification/erasure-metadata/append-metadata.test.ts": {
@@ -11397,10 +11377,6 @@
     },
     "tests/qualification/inquiry/fixture.ts": {
       "sha256": "df5b558f0a11ebe8959610cf8f87170b874aa46c2d14f38af37cea20c9b86f7b",
-      "executable": false
-    },
-    "tests/qualification/inquiry/trial-fixture.ts": {
-      "sha256": "c0d9a9b2e1dadb971af4e93b92c55e0b5bb5acaeb2bd2edd56a74392e400bba8",
       "executable": false
     },
     "tests/qualification/interface/actors.mjs": {
@@ -11527,24 +11503,12 @@
       "sha256": "c8798918e54cb54b24111a83bd3e9453b806848a80a395554aa4b600a80d8c98",
       "executable": false
     },
-    "tests/qualification/publication/review-helper.ts": {
-      "sha256": "facf55592cc5278c78f5bd4501735f4df0913e7c27843d44590568a938d669d7",
-      "executable": false
-    },
-    "tests/qualification/publication/vitest.config.ts": {
-      "sha256": "3bf37f831a5104ecb843cc53af170ba06f972cac47b5e102cee3af841dfba54f",
-      "executable": false
-    },
     "tests/qualification/README.md": {
       "sha256": "127c8b9a343e3fa1371a847a7842ad28bc3409909efdb103c9c350ff63881c9c",
       "executable": false
     },
-    "tests/qualification/refinement/fixture.ts": {
-      "sha256": "d47c2d1e8d54ca8cf74e73d9599ab399983ebee0c3119406e9217920177ea6a6",
-      "executable": false
-    },
     "tests/qualification/refinement/vitest.config.ts": {
-      "sha256": "9162379e187024d755b37ff12570ea5b00aab1281271f2197c79de4187364d73",
+      "sha256": "acfb7169dd65c9b6bc29d7cbc69f845cb3afcdef817beb1a22a811eff9c7fdbe",
       "executable": false
     },
     "tests/qualification/release-integration-repairs/branch-migration.test.ts": {
@@ -11612,7 +11576,7 @@
       "executable": false
     },
     "tests/qualification/run.mjs": {
-      "sha256": "de862f704cc4af83e423957c3128a8c5537d736d485c027e3c5ee2144bbbd716",
+      "sha256": "b5e4d07470fd1d4afaaec9ebd700e281500a7c69382afb1faf83b71147b67528",
       "executable": false
     },
     "tests/qualification/search/ancestry.mjs": {
@@ -11637,10 +11601,6 @@
     },
     "tests/qualification/search/semantics.mjs": {
       "sha256": "eb9ff71de1a73889053e5ee2b864e2e9a7201652226fb93af23775a28140eb91",
-      "executable": false
-    },
-    "tests/qualification/tree-correction/vitest.config.ts": {
-      "sha256": "f8c93a0865c619e158e58b2f71b5868a6452af78e5d182a58523dec73e243dcb",
       "executable": false
     },
     "tests/qualification/tree-order/fixture.ts": {
@@ -12080,7 +12040,7 @@
       "executable": false
     },
     "tests/ui/capture.mjs": {
-      "sha256": "4eff95153bfafc8ca7399b51c391df05f2103876d9399e3ee2912f252c3afea8",
+      "sha256": "1cabb7f43571f707e767386b6b9f1efe45f04f2f9a48ea8274f60851280ff808",
       "executable": false
     },
     "tests/ui/editor-interactions.mjs": {
@@ -12168,7 +12128,7 @@
       "executable": false
     },
     "tests/ui/README.md": {
-      "sha256": "eb6521e2fb799182c9d45f72cf7abba1c0feb2743c2c537e73f26455690ec029",
+      "sha256": "a8f99d4e501562c064b7f5370a35280be69ef2ebc9509cbdf3295e8012b76ced",
       "executable": false
     },
     "tests/ui/stories-databases.tsx": {
