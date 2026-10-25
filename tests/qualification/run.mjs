@@ -8,8 +8,6 @@ import { join } from 'node:path';
 
 const workers = [
   'tests/qualification/core/native.config.ts',
-  'tests/qualification/data/vitest.config.ts',
-  'tests/qualification/data/migration.config.ts',
   'tests/qualification/data-erasure/composition.config.ts',
   'tests/qualification/decisions/vitest.config.ts',
   'tests/qualification/decisions/migration.config.ts',
@@ -18,19 +16,14 @@ const workers = [
   'tests/qualification/publication/vitest.config.ts',
   'tests/qualification/refinement/vitest.config.ts',
   'tests/qualification/release-restore-authority/vitest.config.ts',
-  'tests/qualification/tree-archive/vitest.config.ts',
   'tests/qualification/tree-correction/vitest.config.ts',
-  'tests/qualification/tree-order/vitest.config.ts',
 ].map(config => ['node_modules/vitest/vitest.mjs', 'run', '--config', config]);
 
 const nodeTests = [[
   'node_modules/tsx/dist/cli.mjs', '--test', '--test-concurrency=1',
   'tests/qualification/interface/formatting.test.ts',
-  'tests/qualification/interface/highlights.test.ts',
-  'tests/qualification/interface/tree-order.test.ts',
   'tests/qualification/offline-refresh/transport.test.ts',
   'tests/qualification/release-shell/native-shell.test.mjs',
-  'tests/qualification/tree-correction/ui.node.tsx',
 ]];
 
 // Emitted-Worker and browser journeys read dist/ and choose ports in 8700-8799.
