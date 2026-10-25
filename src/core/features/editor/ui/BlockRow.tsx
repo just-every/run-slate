@@ -138,11 +138,11 @@ export function BlockRow({
         className={cn(
           "block-content w-full max-w-reading min-w-0 rounded-card px-1",
           indentClass[Math.min(block.indent ?? 0, 3)],
-          selected ? "bg-accent-soft ring-1 ring-accent/40" : "",
+          selected ? "bg-accent-soft" : "",
         )}
         onClick={
           onSelect
-            ? (event: MouseEvent<HTMLDivElement>) => onSelect({ extend: event.shiftKey })
+            ? (event: MouseEvent<HTMLDivElement>) => { if(!(event.target instanceof Element && event.target.closest("[data-slate-editable]")))onSelect({ extend: event.shiftKey }); }
             : undefined
         }
       >
@@ -172,16 +172,13 @@ export function BlockRow({
             state="failed"
           />
         ) : null}
-
         {status === "saving" ? <SaveStatus className="mt-1" state="saving" /> : null}
 
         {status === "offline" ? <SaveStatus className="mt-1" state="offline" onRetry={onRetrySave} /> : null}
 
         {status === "unsaved" ? <SaveStatus className="mt-1" state="unsaved" onRetry={onRetrySave} /> : null}
 
-        {status === "saved" && saveState?.status === "saved" ? (
-          <SaveStatus className="mt-1" savedAtLabel={saveState.atLabel} state="saved" />
-        ) : null}
+
       </div>
     </div>
   );

@@ -13,11 +13,12 @@ function SignInStory({ state, submitting = false }: { state: SignInScreenState; 
     deliveryError={state === 'delivery-failed' ? 'Mail provider: delivery rejected (503 Service Unavailable)' : null} />;
 }
 function FirstRunStory({ step, failure = false }: { step: 1 | 2 | 3; failure?: boolean }) {
+  const [name,setName]=useState('Rosa Chen');
   const [workspace, setWorkspace] = useState('Northwind Field Operations');
   const [container, setContainer] = useState('Customer Success');
   const [page, setPage] = useState('How we handle an escalation');
   const [addresses, setAddresses] = useState('daniel@example.com\namelia@example.com');
-  return <FirstRunWizard step={step} workspaceName={workspace} onWorkspaceNameChange={setWorkspace}
+  return <FirstRunWizard step={step} displayName={name} onDisplayNameChange={setName} workspaceName={workspace} onWorkspaceNameChange={setWorkspace}
     containerName={container} onContainerNameChange={setContainer} firstPageTitle={page} onFirstPageTitleChange={setPage}
     invitationAddresses={addresses} onInvitationAddressesChange={setAddresses} onBack={() => record('setup-back')}
     onNext={() => record('setup-next')} onSkipInvitations={() => record('skip-invitations')} onFinish={() => record('finish-setup')}
