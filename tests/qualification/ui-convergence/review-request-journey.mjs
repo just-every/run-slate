@@ -77,7 +77,7 @@ export async function reviewRequestJourney(state, people) {
   assert.equal((await notices(bob, origin, 'review-overdue')).length, 1);
   assert.equal((await notices(alice, origin, 'review-escalated')).length, 0, 'Container owners wait 24 hours after the reviewer reminder.');
   await bob.page.goto(`${origin}/app/inbox`, { waitUntil: 'networkidle' });
-  await expect(bob.page.locator('.outcome-list li').filter({ hasText: 'review overdue' })).toHaveCount(1);
+  await expect(bob.page.locator('.outcome-list li').and(bob.page.locator('[data-event=review-overdue]'))).toHaveCount(1);
   await people.shot('bob', 'overdue reminder');
   // A day passes: the stored reminder time moves back rather than the test sleeping.
   await state.atRest(`UPDATE review_request_deliveries SET created_at='${new Date(Date.now() - 25 * 3600000).toISOString()}' WHERE stage='reviewer'`);
@@ -86,7 +86,7 @@ export async function reviewRequestJourney(state, people) {
   assert.equal((await notices(alice, origin, 'review-escalated')).length, 1);
   assert.equal((await notices(bob, origin, 'review-overdue')).length, 1);
   await alice.page.goto(`${origin}/app/inbox`, { waitUntil: 'networkidle' });
-  await expect(alice.page.locator('.outcome-list li').filter({ hasText: 'review escalated' }).filter({ hasText: 'On-call runbook' })).toHaveCount(1);
+  await expect(alice.page.locator('.outcome-list li').and(alice.page.locator('[data-event=review-escalated]')).filter({ hasText: 'On-call runbook' })).toHaveCount(1);
   await alice.page.goto(`${origin}/app/review`, { waitUntil: 'networkidle' });
   const requested = alice.page.getByRole('region', { name: 'Review requests' });
   await requested.getByRole('button', { name: /^Requested by me/ }).click();

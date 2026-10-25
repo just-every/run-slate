@@ -118,7 +118,7 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
           ) : null}
         </RequestState>
         </div>
-        {selected&&state==='deleted'&&items.data?.items.find(item=>item.id===selected)?<DeletedTemplateActions template={items.data.items.find(item=>item.id===selected)!} onChanged={async()=>{setSelected(undefined);await items.reload();}}/>:null}
+        {selected&&state==='deleted'&&items.data?.items.find(item=>item.id===selected)?<section className="template-preview"><button className="secondary-button template-back" onClick={()=>setSelected(undefined)}>Back to templates</button><DeletedTemplateActions template={items.data.items.find(item=>item.id===selected)!} onChanged={async()=>{setSelected(undefined);await items.reload();}}/></section>:null}
         {selected&&state!=='deleted' ? (
           <section ref={previewElement} className="template-preview">
             <RequestState

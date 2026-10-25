@@ -234,7 +234,7 @@ function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
               updated();
             }}
           />:null}
-          {tab === "home" ? <Readership key={id} containerId={id} /> : null}
+          {tab === "home" ? <Readership key={`readership:${id}`} containerId={id} /> : null}
         </section>
       ) : null}
     </RequestState>

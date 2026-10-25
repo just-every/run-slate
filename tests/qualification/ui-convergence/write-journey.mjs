@@ -71,7 +71,9 @@ export async function writeJourney(state, width) {
   await expect(page.locator('.page-status-chip')).toHaveCount(0);
   await expect(page.locator('.page-document')).not.toContainText(/No status|Not verified|Status & verification/);
   await expect(page.locator('.page-byline')).toContainText('Owner: Alex Owner');
-  await expect(page.locator('.page-byline time')).toContainText('Updated');
+  const updated = page.locator('.page-byline time');
+  assert.ok(Number.isFinite(Date.parse(await updated.getAttribute('datetime'))), 'The byline carries the saved update instant.');
+  await expect(updated).toHaveAttribute('title', /.+/);
   await compactPage(page);
   if (width === 390) {
     assert.ok(emptyBox.y < 844 * .45, 'Mobile content begins above 45% of the viewport.');
