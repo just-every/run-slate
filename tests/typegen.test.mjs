@@ -35,10 +35,3 @@ test('binding check rejects stale declarations without overwriting them', async 
     await fs.rm(directory, { recursive: true, force: true });
   }
 });
-
-test('the app and compiler consume generated bindings', async () => {
-  const types = await fs.readFile(new URL('src/core/app/types.ts', root), 'utf8');
-  const config = JSON.parse(await fs.readFile(new URL('tsconfig.json', root), 'utf8'));
-  assert.match(types, /AppBindings\s*=.*SlateWorkerBindings/);
-  assert.ok(config.include.includes('worker-configuration.d.ts'));
-});

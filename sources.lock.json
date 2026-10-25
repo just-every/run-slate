@@ -10200,11 +10200,11 @@
       "executable": false
     },
     "test-budget.json": {
-      "sha256": "877ebd99a8eeb5d0038fae22454c9bdf75a0d09926089f53600a48e5360a16db",
+      "sha256": "ba34cc54b9ade8708e9095e9ea53765582fcb55ca3bb2a8f28e3586da8a31c9e",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
-      "sha256": "28baf20d9c7cd9aad6721d4507deb65a306b5c1c6969a2c86baf1f15df72c4d5",
+      "sha256": "81ffc5529bbf534c78fc648ee0ae8754ffde349fd77aee4a5a70a232ead4e72a",
       "executable": false
     },
     "tests/docs/docs-dev-sync.test.mjs": {
@@ -12208,7 +12208,7 @@
       "executable": false
     },
     "tests/release/fixture-policy.test.mjs": {
-      "sha256": "345779d053aa25aecbe0a364b7141c2baf5477f9720430f115aa0bf6d477eea7",
+      "sha256": "c50922bc4f33d896097ad6ade9e673951a3a312a00e0a4c6231d94ba73e31618",
       "executable": false
     },
     "tests/release/materialize-artifact.mjs": {
@@ -12216,7 +12216,7 @@
       "executable": false
     },
     "tests/release/source.test.mjs": {
-      "sha256": "f0b61e45a802b5b461b85a6972f317ff0ea4f2e1a7a0fc0351a75bc2d6536db1",
+      "sha256": "5478c0461d35a88866786298e43f292977ce560b32fe0aaa6adf0b78a929187d",
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
@@ -12248,11 +12248,11 @@
       "executable": false
     },
     "tests/typegen-operations.test.mjs": {
-      "sha256": "2f2f06ff91c21a5e9291b3e7915b0cf22f74c583b753855b378c3c29f2c6a41e",
+      "sha256": "cefeb46abec620174142c680f6c38b5c138d8746328a671cf2ddbe53ab4d7e21",
       "executable": false
     },
     "tests/typegen.test.mjs": {
-      "sha256": "75abac66546128d057258432e75984722c0a48aca77030ca79d07678ff78c8a2",
+      "sha256": "dd6beac935184ece9a6d4427ba2bacadaa3c1cad385fdad797db5b21366da118",
       "executable": false
     },
     "tests/ui/capture.mjs": {
