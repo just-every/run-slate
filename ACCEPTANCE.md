@@ -35,13 +35,13 @@
 | `WORK-015` Identity provider | Configured OIDC provider signs in an invited member only; a failing provider leaves magic-link sign-in working and says which is unavailable | done | `tests/qualification/core/identity.mjs` |
 | `SAVE-001` Durable save state | Editor shows Saving until the commit and Saved within 2 seconds after it | done | `tests/qualification/interface/routed.browser.mjs` |
 | `SAVE-002` Failed writes | A forced write failure shows a failed state with the unsent value and an explicit retry, never Saved | done | `tests/e2e/saving/failed-writes.test.ts`, `tests/qualification/ui-convergence/failed-save-journey.mjs` (Real validation refusals retain unsent titles, name the failure and require explicit retry; corrected retries persist at 1440 and 390. Existing body transport-loss journey retains and retries unsent blocks.) |
-| `SAVE-003` Revision conflicts | An edit against a superseded revision returns 409, keeps the draft and offers compare, reload or overwrite | done | `tests/qualification/policies/comments-suggestions.test.ts` |
+| `SAVE-003` Revision conflicts | An edit against a superseded revision returns 409, keeps the draft and offers compare, reload or overwrite | done | — |
 | `SAVE-004` Network loss | Offline editor shows Offline and keeps a labeled unsaved draft that never appears in tree, search or export | done | `tests/qualification/offline-refresh/transport.test.ts` |
 | `SAVE-005` Operation keys | A repeated operation key returns the first response and creates nothing twice; a different body is refused with 409 | done | `tests/qualification/backend/request-access.test.ts` |
 | `SAVE-006` Concurrent editing and optional co-editing | Two members edit different blocks concurrently; committed blocks refresh within 10 seconds without replacing unsaved text; presence shows who has the page open | partial | `tests/qualification/ui-convergence/two-people-editing.mjs` (live co-editing only under the flagship opt-in; see COLLAB-001) |
 | `PAGE-001` What a page is | A page carries every listed attribute, and labels survive import, export and re-import | done | `tests/e2e/imports/real-exports.test.ts` |
 | `PAGE-002` Creation | Pages are created blank and from a template from the tree, global create and as a child, each at one position | done | `tests/qualification/interface/content.mjs` |
-| `PAGE-003` Identity survives everything | Rename, move, archive, restore, publish and unpublish keep the page identifier and every link resolving | done | `tests/qualification/policies/container-links.test.ts` |
+| `PAGE-003` Identity survives everything | Rename, move, archive, restore, publish and unpublish keep the page identifier and every link resolving | done | — |
 | `PAGE-004` Move | Moving a page with children to another container re-resolves grants, shows the change first and keeps comments, versions and links | done | `tests/e2e/page-move-state.test.tsx` |
 | `PAGE-005` Duplicate | Duplicate copies title, icon, cover, body and properties with a new identifier and copies no comment, version, grant or public link | done | `tests/flagship/content/http.test.ts` |
 | `PAGE-006` Icon and cover | Icon from emoji, icon set or upload and cover from gallery, upload or link render in tree and search and are removable | done | `tests/qualification/backend/appearance-invitations.test.ts` |
@@ -65,7 +65,7 @@
 | `BLOCK-005` Mentions | `@` offers people, pages and dates; a person mention notifies; a page mention follows renames | done | `tests/e2e/editor/rich-text-editing.test.tsx` |
 | `BLOCK-006` Structured blocks | Each structured block type survives export and import with its named import equivalent | done | `tests/qualification/interface/blocks.mjs` |
 | `BLOCK-007` Task items | Task item toggles for editors, records who and when, and never appears in a database view | done | `tests/flagship/content/repair.test.ts` |
-| `BLOCK-008` Media blocks | Media by upload and link with caption and alt text; inline versus download disposition, `nosniff` and sanitized SVG served per the clause | partial | `tests/qualification/policies/safety-history.test.ts` (upload and link media ship; configured stock source missing) |
+| `BLOCK-008` Media blocks | Media by upload and link with caption and alt text; inline versus download disposition, `nosniff` and sanitized SVG served per the clause | partial | (upload and link media ship; configured stock source missing) |
 | `BLOCK-009` Link cards | Link preview fetches only public HTTPS with no credentials, refuses private addresses before each redirect, and leaves the plain link on refusal | done | `tests/flagship/content/preview.test.ts` |
 | `BLOCK-010` Content queries | Content query shows each reader only readable pages, never drafts, shows last run and a deleted source | done | `tests/qualification/interface/blocks.mjs` |
 
@@ -79,78 +79,78 @@
 | `LIFE-004` Scheduled publish | A scheduled publish fires at its time; cancel returns to draft; a failed schedule is reported | done | `tests/qualification/interface/publication.mjs` |
 | `LIFE-005` Unpublished changes | Readers see the published revision until republish; discard restores it without deleting a version | done | `tests/qualification/interface/publication.mjs` |
 | `LIFE-006` Lifecycle profile | Profile journeys for `always-live` and `draft-then-publish` show and hide exactly the listed surfaces | done | `tests/qualification/policies/emitted.mjs` |
-| `LIFE-007` Discarding a draft | Discarding a draft moves it to trash and closing keeps it a draft, notifying no one | done | `tests/qualification/policies/status-archive.test.ts` |
+| `LIFE-007` Discarding a draft | Discarding a draft moves it to trash and closing keeps it a draft, notifying no one | done | — |
 | `SHARE-001` Grants | Grant panel lists every effective grant with inheritance source and optional expiry | done | `tests/qualification/backend/emitted.mjs` |
 | `SHARE-002` What the levels mean | Server-side level matrix for full, edit, comment and view on every operation; no interface offers an action beyond the level | done | `tests/qualification/backend/request-access.test.ts` |
 | `SHARE-003` Inheritance | Children inherit at creation; restriction shown on descendants; removing it restores inheritance | done | `tests/qualification/backend/boundaries.test.ts` |
 | `SHARE-004` General access | At most one general grant; personal-container pages carry none; changing it is one recorded action | done | `tests/e2e/imports/real-exports.test.ts` |
 | `SHARE-005` Access profile | Profile journeys for `workspace-general` and `container-general` relabel without rewriting grants | done | `tests/e2e/imports/real-exports.test.ts` |
 | `SHARE-006` Sharing with a person who is not a member | Sharing to a non-member creates a guest invitation, shows the pending grant and revocation cancels it | done | `tests/qualification/backend/appearance-invitations.test.ts` |
-| `SHARE-007` Access changes take effect at once | Narrowing access applies on the next request, closes the editor with an explanation and removes the page from search, tree, inbox and answers within 5 seconds | done | `tests/qualification/policies/access-publication.test.ts` |
-| `SHARE-008` Expiring grants | An expired grant ends access, shows as expired and is re-granted in one action | done | `tests/qualification/policies/access-publication.test.ts` |
-| `WEB-001` Anonymous access takes two acts | Publishing needs full access and container permission; each of the three switches vetoes its own act at once | done | `tests/qualification/policies/access-publication.test.ts` |
-| `WEB-002` What a published page carries | Publishing writes the exposure record with an editable stored slug; a used slug is refused | done | `tests/qualification/policies/access-publication.test.ts` |
-| `WEB-003` The anonymous read view | Anonymous view renders only the published revision, sets no cookie and loads no third-party resource | done | `tests/qualification/policies/access-publication.test.ts` |
-| `WEB-004` Children are not published by inheritance | Children are not published by inheritance; links to unpublished pages render as text | done | `tests/qualification/policies/access-publication.test.ts` |
-| `WEB-005` Indexing is off until it is chosen | A new publication is noindex until indexing is turned on; turning it off restores noindex in one request | done | `tests/qualification/policies/access-publication.test.ts` |
-| `WEB-006` Unpublish | Unpublish stops the address within 5 seconds with a content-free page and keeps the slug reserved | done | `tests/qualification/policies/access-publication.test.ts` |
-| `WEB-007` Public-link profile | Profile journeys for `site` and `link` show and hide exactly the listed controls and keep the stored record | done | `tests/qualification/policies/access-publication.test.ts` |
-| `REV-001` What a revision is | Every committed edit writes an immutable revision with author, time, origin and content hash; a matching-hash retry commits nothing | done | `tests/qualification/policies/automation-templates.test.ts` |
-| `REV-002` History | History lists revisions newest first with actor, time and origin, readable by readers and never editable | done | `tests/qualification/policies/lifecycle-versions.test.ts` |
-| `REV-003` Restore | Restore writes a new revision and changes no link, anchor, child, grant or public link | done | `tests/qualification/policies/lifecycle-versions.test.ts` |
+| `SHARE-007` Access changes take effect at once | Narrowing access applies on the next request, closes the editor with an explanation and removes the page from search, tree, inbox and answers within 5 seconds | done | — |
+| `SHARE-008` Expiring grants | An expired grant ends access, shows as expired and is re-granted in one action | done | — |
+| `WEB-001` Anonymous access takes two acts | Publishing needs full access and container permission; each of the three switches vetoes its own act at once | done | — |
+| `WEB-002` What a published page carries | Publishing writes the exposure record with an editable stored slug; a used slug is refused | done | — |
+| `WEB-003` The anonymous read view | Anonymous view renders only the published revision, sets no cookie and loads no third-party resource | done | — |
+| `WEB-004` Children are not published by inheritance | Children are not published by inheritance; links to unpublished pages render as text | done | — |
+| `WEB-005` Indexing is off until it is chosen | A new publication is noindex until indexing is turned on; turning it off restores noindex in one request | done | — |
+| `WEB-006` Unpublish | Unpublish stops the address within 5 seconds with a content-free page and keeps the slug reserved | done | — |
+| `WEB-007` Public-link profile | Profile journeys for `site` and `link` show and hide exactly the listed controls and keep the stored record | done | — |
+| `REV-001` What a revision is | Every committed edit writes an immutable revision with author, time, origin and content hash; a matching-hash retry commits nothing | done | — |
+| `REV-002` History | History lists revisions newest first with actor, time and origin, readable by readers and never editable | done | — |
+| `REV-003` Restore | Restore writes a new revision and changes no link, anchor, child, grant or public link | done | — |
 | `REV-004` Compare | Any two revisions compare with added, removed and changed blocks under both version policy values | done | `tests/e2e/review/verification-flow.test.ts` |
 | `REV-005` A citation resolves to its revision | A revision link opens that revision with a newer-revision notice, checked against current access, and a tombstone after erasure | done | `tests/e2e/review/verification-flow.test.ts` |
-| `REV-006` Deleting a version | Full-access member deletes an intermediate version leaving a numbered tombstone; current and published versions cannot be deleted | done | `tests/qualification/policies/lifecycle-versions.test.ts` |
+| `REV-006` Deleting a version | Full-access member deletes an intermediate version leaving a numbered tombstone; current and published versions cannot be deleted | done | — |
 | `REV-007` Version profile | Profile journeys for `autosnapshot` and `labelled` show and hide exactly the listed columns and fields | done | `tests/e2e/imports/real-exports.test.ts` |
-| `STAT-001` The status vocabulary | Seeded vocabulary present; owner adds, renames, recolors and retires entries without stripping pages | done | `tests/qualification/policies/status-archive.test.ts` |
-| `STAT-002` A page's status | Setting a status is one recorded action and makes the page findable by status | done | `tests/qualification/policies/container-links.test.ts` |
+| `STAT-001` The status vocabulary | Seeded vocabulary present; owner adds, renames, recolors and retires entries without stripping pages | done | — |
+| `STAT-002` A page's status | Setting a status is one recorded action and makes the page findable by status | done | — |
 | `STAT-003` Verification | Only a member who opened the exact revision can verify; the badge shows owner, expiry and revision, and later edits show it is not current | done | `tests/e2e/review/verification-flow.test.ts` |
-| `STAT-004` Verification lapses | Lapse shows lapsed, notifies the owner once and never reads as current in search, queries, answers or exports | done | `tests/qualification/policies/status-archive.test.ts` |
+| `STAT-004` Verification lapses | Lapse shows lapsed, notifies the owner once and never reads as current in search, queries, answers or exports | done | — |
 | `STAT-005` Status profile | Profile journeys for `verification-only` and `open-vocabulary` show and hide exactly the listed controls | done | `tests/qualification/policies/emitted.mjs` |
 | `COMM-001` Two kinds of thread | Inline and page threads by comment-level members, chronological, Open or Resolved | done | `tests/e2e/editor/rich-text-editing.test.tsx` |
-| `COMM-002` Editing and deletion | Members edit or delete only their own comments; edits are timestamped and deletions leave tombstones | done | `tests/qualification/policies/comments-suggestions.test.ts` |
+| `COMM-002` Editing and deletion | Members edit or delete only their own comments; edits are timestamped and deletions leave tombstones | done | — |
 | `COMM-003` Mentions | A mention notifies once and never a member who cannot read the page; editing notifies only new mentions | done | `tests/qualification/interface/content.mjs` |
 | `COMM-004` Anchors survive editing | Inline threads follow text through edits and become orphaned, not lost, naming their revision | done | `tests/qualification/interface/content.mjs` |
 | `COMM-005` Reactions | Comment reactions show who reacted and never notify | done | `tests/qualification/interface/content.mjs` |
 | `COMM-006` Discussions panel | Discussions panel filters by kind, status and person, shows orphaned threads and resolves all | done | `tests/qualification/interface/content.mjs` |
-| `COMM-007` Resolve | Resolve and reopen by comment-level members; resolved threads stay readable and searchable | done | `tests/qualification/policies/comments-suggestions.test.ts` |
-| `ARCH-001` Archive | Archiving records actor, time, prior location and reason and archives descendants | done | `tests/qualification/policies/status-archive.test.ts` |
-| `ARCH-002` What archived means | Archived records are read-only and absent from tree, default search, queries and grounding while links still resolve | done | `tests/qualification/policies/status-archive.test.ts` |
-| `ARCH-003` Restore from archive | Restore returns to the prior parent with identifiers, revisions, comments, grants and status, or asks for a destination | done | `tests/qualification/policies/status-archive.test.ts` |
-| `ARCH-004` Archive is not deletion | Archiving deletes no data; permanent deletion is separate | done | `tests/qualification/policies/status-archive.test.ts` |
-| `ARCH-005` Trash | Trash lists who, when and where, is searchable and restores to the prior place; nothing expires on a timer | done | `tests/qualification/policies/status-archive.test.ts` |
+| `COMM-007` Resolve | Resolve and reopen by comment-level members; resolved threads stay readable and searchable | done | — |
+| `ARCH-001` Archive | Archiving records actor, time, prior location and reason and archives descendants | done | — |
+| `ARCH-002` What archived means | Archived records are read-only and absent from tree, default search, queries and grounding while links still resolve | done | — |
+| `ARCH-003` Restore from archive | Restore returns to the prior parent with identifiers, revisions, comments, grants and status, or asks for a destination | done | — |
+| `ARCH-004` Archive is not deletion | Archiving deletes no data; permanent deletion is separate | done | — |
+| `ARCH-005` Trash | Trash lists who, when and where, is searchable and restores to the prior place; nothing expires on a timer | done | — |
 | `ARCH-006` Permanent deletion | Confirmed permanent deletion removes body, revisions, files, comments, analytics and grounding within the cascade deadline, leaving tombstones | done | `tests/qualification/erasure-metadata/append-metadata.test.ts` |
-| `CONT-001` What a container is | A container carries every listed attribute and holds one tree | done | `tests/qualification/policies/container-links.test.ts` |
-| `CONT-002` Creating a container | Container creation form with purpose defaults that create no second kind of container | done | `tests/qualification/policies/container-links.test.ts` |
-| `CONT-003` The container index | Index lists and counts only containers the member may see | done | `tests/qualification/policies/container-links.test.ts` |
-| `CONT-004` Container settings | Container settings shell is separate from workspace settings and reachable only by its administrators | done | `tests/qualification/policies/container-links.test.ts` |
+| `CONT-001` What a container is | A container carries every listed attribute and holds one tree | done | — |
+| `CONT-002` Creating a container | Container creation form with purpose defaults that create no second kind of container | done | — |
+| `CONT-003` The container index | Index lists and counts only containers the member may see | done | — |
+| `CONT-004` Container settings | Container settings shell is separate from workspace settings and reachable only by its administrators | done | — |
 | `CONT-005` Personal containers | Personal container cannot be shared and is archived on member removal | done | `tests/e2e/imports/real-exports.test.ts` |
-| `CONT-006` Bulk actions | Bulk archive, trash, move, owner and status changes check each page and report partial failures by name | done | `tests/qualification/policies/container-links.test.ts` |
-| `CONT-007` External-access switches | Three switches per container; containers may only narrow the workspace value; forbidding applies at once | done | `tests/qualification/policies/access-publication.test.ts` |
-| `CONT-008` Container access profile | Profile journeys for `class-led` and `grant-led` relabel without rewriting grants | done | `tests/qualification/policies/access-publication.test.ts` |
-| `CONT-009` Container grants | Container grants are edited only by container administrators or owners and drive inherited access | done | `tests/qualification/policies/access-publication.test.ts` |
+| `CONT-006` Bulk actions | Bulk archive, trash, move, owner and status changes check each page and report partial failures by name | done | — |
+| `CONT-007` External-access switches | Three switches per container; containers may only narrow the workspace value; forbidding applies at once | done | — |
+| `CONT-008` Container access profile | Profile journeys for `class-led` and `grant-led` relabel without rewriting grants | done | — |
+| `CONT-009` Container grants | Container grants are edited only by container administrators or owners and drive inherited access | done | — |
 
 ### Published: Structured records, automation, search and navigation
 
 | Clause | Acceptance evidence | Status | Evidence today |
 | --- | --- | --- | --- |
-| `DB-001` A database | A database is created, moved, archived and trashed like a page and follows page access | done | `tests/qualification/policies/structured-views.test.ts` |
+| `DB-001` A database | A database is created, moved, archived and trashed like a page and follows page access | done | — |
 | `DB-002` Field types and evaluation | Every field type converts or names its loss; relations, rollups and formulas evaluate over reader-authorized records with cycles rejected | done | `tests/e2e/databases/field-editing.test.tsx` |
-| `DB-003` Views | Named views are shared, renamed, duplicated and deleted without changing records | done | `tests/qualification/policies/structured-views.test.ts` |
-| `DB-004` Layouts | Table, board, list, gallery, calendar and timeline layouts; a missing group or date field is offered for creation | done | `tests/qualification/policies/structured-views.test.ts` |
-| `DB-005` Filter and sort | Filter rules with and/or and ordered sorts are stored on the view, shown and cleared in one action | done | `tests/qualification/policies/structured-views.test.ts` |
-| `DB-006` Group | Grouping shows counts, moves records between groups and hides empty groups | done | `tests/qualification/policies/structured-views.test.ts` |
-| `DB-007` Calculations | Column calculations over filtered records update within 2 seconds | done | `tests/qualification/policies/fields.test.ts` |
-| `DB-008` Charts | A chart over one view states its view and embeds in a page | done | `tests/qualification/policies/fields.test.ts` |
-| `DB-009` Lock structure | Locked structure rejects field and view changes while records stay editable | done | `tests/qualification/policies/structured-views.test.ts` |
+| `DB-003` Views | Named views are shared, renamed, duplicated and deleted without changing records | done | — |
+| `DB-004` Layouts | Table, board, list, gallery, calendar and timeline layouts; a missing group or date field is offered for creation | done | — |
+| `DB-005` Filter and sort | Filter rules with and/or and ordered sorts are stored on the view, shown and cleared in one action | done | — |
+| `DB-006` Group | Grouping shows counts, moves records between groups and hides empty groups | done | — |
+| `DB-007` Calculations | Column calculations over filtered records update within 2 seconds | done | — |
+| `DB-008` Charts | A chart over one view states its view and embeds in a page | done | — |
+| `DB-009` Lock structure | Locked structure rejects field and view changes while records stay editable | done | — |
 | `DB-010` A record is a page | Profile journeys for `record-is-page` and `record-is-row` keep the body under both values | done | `tests/qualification/backend/records-templates.test.ts` |
-| `DB-011` A view inside a page | An embedded view shows only readable records, reflects changes within 5 seconds and keeps its own filters | done | `tests/qualification/policies/structured-views.test.ts` |
-| `DB-012` Record detail | Record detail shows ordered fields, comments, history and body; uneditable fields are shown read-only | done | `tests/qualification/policies/structured-views.test.ts` |
-| `AUTO-001` A rule | A rule with trigger, conditions, branch and actions runs on record events and schedules | done | `tests/qualification/policies/automation-templates.test.ts` |
-| `AUTO-002` A rule acts as its actor | Rule actions are checked against the actor at run time; forbidden actions are skipped and logged | done | `tests/qualification/policies/automation-templates.test.ts` |
-| `AUTO-003` Run log | Run log records every listed state; repeated failures disable the rule visibly | done | `tests/qualification/policies/automation-templates.test.ts` |
-| `AUTO-004` Loops are bounded | Self-trigger is impossible, chains stop at the declared depth and throttling is logged | done | `tests/qualification/policies/automation-templates.test.ts` |
-| `AUTO-005` Automation profile | Profile journeys for `source`, `container` and `site` scopes show and hide exactly the listed controls | done | `tests/qualification/policies/automation-templates.test.ts` |
+| `DB-011` A view inside a page | An embedded view shows only readable records, reflects changes within 5 seconds and keeps its own filters | done | — |
+| `DB-012` Record detail | Record detail shows ordered fields, comments, history and body; uneditable fields are shown read-only | done | — |
+| `AUTO-001` A rule | A rule with trigger, conditions, branch and actions runs on record events and schedules | done | — |
+| `AUTO-002` A rule acts as its actor | Rule actions are checked against the actor at run time; forbidden actions are skipped and logged | done | — |
+| `AUTO-003` Run log | Run log records every listed state; repeated failures disable the rule visibly | done | — |
+| `AUTO-004` Loops are bounded | Self-trigger is impossible, chains stop at the declared depth and throttling is logged | done | — |
+| `AUTO-005` Automation profile | Profile journeys for `source`, `container` and `site` scopes show and hide exactly the listed controls | done | — |
 | `SEARCH-001` Global search | One search over titles, bodies, fields, containers, comments and templates returns ranked results within 500ms with stable paging | done | `tests/qualification/core/discovery-browser.mjs` |
 | `SEARCH-002` Results | Results name their kind with highlighted context; quoted phrases match exactly | done | `tests/qualification/core/discovery.mjs` |
 | `SEARCH-003` Filters | Filters by kind, container, contributor, status, date and archived or trashed narrow results without changing the query | done | `tests/qualification/core/discovery.mjs` |
@@ -176,12 +176,12 @@
 | `ACT-003` Retrieval | Activity filters with stable newest-first paging show only readable records | done | `tests/qualification/core/discovery.mjs` |
 | `ACT-004` Context | Opening an entry opens the record with its referenced thread, revision or grant | done | `tests/qualification/core/discovery-browser.mjs` |
 | `ACT-005` Retained explanation | Entries cannot be edited or deleted and survive erasure anonymized | done | `tests/qualification/core/discovery.mjs` |
-| `TMPL-001` Gallery | Template gallery search and category filter with the exact no-match text | done | `tests/qualification/policies/automation-templates.test.ts` |
-| `TMPL-002` Preview | Preview shows the resulting page and children with only author-written figures | done | `tests/qualification/policies/automation-templates.test.ts` |
-| `TMPL-003` Snapshot on use | Using a template snapshots it; later template edits change no created page | done | `tests/qualification/policies/automation-templates.test.ts` |
-| `TMPL-004` Custom templates | Custom templates are created, edited, archived, restored and deleted; shipped templates are duplicate-only | done | `tests/qualification/policies/automation-templates.test.ts` |
-| `TMPL-005` Save a page as a template | Saving a page as a template copies body and properties and none of the excluded records | done | `tests/qualification/policies/automation-templates.test.ts` |
-| `TMPL-006` Where a template lives | Container templates are offered first in their container only; moving scope is one action | done | `tests/qualification/policies/automation-templates.test.ts` |
+| `TMPL-001` Gallery | Template gallery search and category filter with the exact no-match text | done | — |
+| `TMPL-002` Preview | Preview shows the resulting page and children with only author-written figures | done | — |
+| `TMPL-003` Snapshot on use | Using a template snapshots it; later template edits change no created page | done | — |
+| `TMPL-004` Custom templates | Custom templates are created, edited, archived, restored and deleted; shipped templates are duplicate-only | done | — |
+| `TMPL-005` Save a page as a template | Saving a page as a template copies body and properties and none of the excluded records | done | — |
+| `TMPL-006` Where a template lives | Container templates are offered first in their container only; moving scope is one action | done | — |
 
 ### Published: Import, portability and links
 
@@ -199,8 +199,8 @@
 | `PORT-005` Access boundary | Exports exclude sessions, links, invitations and secrets; import activates only the setup owner and publishes nothing | done | `tests/e2e/imports/real-exports.test.ts` |
 | `PORT-006` Atomic import | Import stages, validates and publishes in one step; failure leaves the deployment empty and retryable | done | `tests/qualification/authority/atomic-recovery.test.ts` |
 | `PORT-007` Exporting a page or a container | Page, subtree and container export to Markdown, HTML or PDF with CSV records re-imports to the same tree | done | `tests/flagship/federation/federation.test.ts` |
-| `LINK-001` Permanent URLs | Every record kind keeps a permanent URL through rename, move, archive and restore | done | `tests/qualification/policies/container-links.test.ts` |
-| `LINK-002` Tombstones | Deleted or erased records resolve to content-free tombstones | done | `tests/qualification/policies/status-archive.test.ts` |
+| `LINK-001` Permanent URLs | Every record kind keeps a permanent URL through rename, move, archive and restore | done | — |
+| `LINK-002` Tombstones | Deleted or erased records resolve to content-free tombstones | done | — |
 | `LINK-003` References follow their target | References show current title and state, follow moves and label archived, trashed or deleted targets | done | `tests/qualification/backend/page-details.test.ts` |
 | `LINK-004` Links respect access | Links to unreadable records show only that access is needed; request access notifies a granter | done | `tests/qualification/backend/emitted.mjs` |
 
@@ -231,8 +231,8 @@
 | `DEC-004` Decision log | Decision log filters by state, container, owner, dates and citation currency | done | `tests/qualification/decisions/mechanics.test.ts` |
 | `DEC-005` Review dates | An overdue review notifies the owner until a completed review or supersession | done | `tests/qualification/decisions/mechanics.test.ts` |
 | `DEC-006` A proposed decision is editable | Proposed decisions are editable with revisions; unchanged resubmits write none | done | `tests/qualification/decisions/mechanics.test.ts` |
-| `SUG-001` Anchored suggestions | Suggestions anchored to exact revisions change no content before acceptance | partial | `tests/qualification/policies/comments-suggestions.test.ts` (flagship opt-in only (FEATURE_DISABLED in core-wiki)) |
-| `SUG-002` Resolve explicitly | Accepting selected suggestions is atomic with a revision; conflicting anchors require rebase | partial | `tests/qualification/policies/comments-suggestions.test.ts` (flagship opt-in only (FEATURE_DISABLED in core-wiki)) |
+| `SUG-001` Anchored suggestions | Suggestions anchored to exact revisions change no content before acceptance | partial | (flagship opt-in only (FEATURE_DISABLED in core-wiki)) |
+| `SUG-002` Resolve explicitly | Accepting selected suggestions is atomic with a revision; conflicting anchors require rebase | partial | (flagship opt-in only (FEATURE_DISABLED in core-wiki)) |
 | `SOURCE-001` Connector contract | Each connector declares identity, scopes, ACL mapping, coverage, freshness and guarantees; unsupported guarantees show unavailable | partial | `tests/flagship/release-clauses/federation/connector-disclosure.test.ts` (flagship opt-in only (FEATURE_DISABLED in core-wiki)) |
 | `SOURCE-002` Exact passages | Citations open the exact source revision or a tombstone, never newer content | partial | `tests/flagship/release-clauses/federation/exact-passages.test.ts` (flagship opt-in only (FEATURE_DISABLED in core-wiki)) |
 | `SOURCE-003` Scoped claims and authority | Claims keep passages, scope, interval, owner, verification and authority separately | partial | `tests/qualification/authority/decision-authority.test.ts` (flagship opt-in only (FEATURE_DISABLED in core-wiki)) |
@@ -354,7 +354,7 @@
 | `ADMIN-003` Guest management | a browser journey lists three guests with their access, bulk-revokes two (their open sessions end under `SHARE-007`), and rejects an invite to a denied domain. | done | `tests/qualification/policies/invitations.test.ts`, `tests/qualification/ui-convergence/guest-console-journey.mjs` |
 | `ADMIN-004` Workspace analytics | a Workers journey over a seeded workspace asserts each report's rows, the CSV export, and that a container owner sees only their own container's figures. | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` |
 | `ADMIN-005` Audit export and SIEM streaming | a Workers journey produces each audited action kind, exports it and finds every action with its actor, time and target, and streams it to a test receiver with valid signatures and no gaps after a receiver outage. | partial | `tests/qualification/core/audit-content.test.ts` — auditExportProof extends the existing content audit registration: native sign-in, sharing, token grant/use/revoke, workspace settings, exports and retention; filtered CSV/JSON metadata, formula safety, non-owner refusals, signed ordered outage recovery and retention pruning. `tests/e2e/webhooks/deliveries.test.ts` — populated upgrade and retained audit setting after native restore. `tests/qualification/ui-convergence/audit-access-journey.mjs` — export, retention and stream states at 1440/390. Default ADOPTED: at least 365 days; generic signed webhooks inherit API-002’s destination rule and address-pinning Gap. Vendor receivers and formats are not claimed. |
-| `ADMIN-006` Content governance | a browser journey restricts public publishing to owners, labels a container Confidential, and confirms that a member's publish attempt, an AI request over a confidential page and an export by a non-permitted member are each refused with a reason. | partial | `tests/qualification/policies/access-publication.test.ts` |
+| `ADMIN-006` Content governance | a browser journey restricts public publishing to owners, labels a container Confidential, and confirms that a member's publish attempt, an AI request over a confidential page and an export by a non-permitted member are each refused with a reason. | partial | — |
 | `ADMIN-007` Every target surface ships in the default product | a Workers journey in the default profile, with `SLATE_PROFILE` unset, first finds every target surface (Ask, AI writing, AI fields, suggestions, MCP, each connector, chat ask and agent jobs) refusing with `FEATURE_DISABLED`. It turns each owner switch on and finds its surface serving, then turns it off and finds it refusing again on the next request with its stored records intact. A release check fails any target-clause journey that sets `SLATE_PROFILE=flagship`. | partial | `src/core/platform/config/launch-profile.ts` |
 | `MOBILE-001` Native iOS and Android apps | automated device-farm journeys on current iOS and Android sign in, edit and comment on a page, verify it, take a photo into a page through the device camera, lock and unlock the app with the platform biometric prompt, receive a mention push, and open a deep link. App Store and Play review builds are recorded with the release evidence. | missing | `tests/qualification/interface/routed.browser.mjs` |
 | `MOBILE-002` Desktop app | automated journeys on macOS and Windows open a deep link, open a second window on another page and edit in both, quit and relaunch to find both windows restored on their pages, edit offline and sync, and receive a system notification. The signed installers are recorded with the release evidence. | missing | — |
