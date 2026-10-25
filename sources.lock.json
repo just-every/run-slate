@@ -7904,7 +7904,7 @@
       "executable": false
     },
     "src/core/features/navigation/ui/workspace/TodayWorkspace.tsx": {
-      "sha256": "862e95c1eaf0832cabb3a9c5aa5b9806e0dccdb4564f6eb39b9bc2d48d652626",
+      "sha256": "f40a2fb461835a6969653c4e255a40892f01a07b9403246f3e2e48beb83ae2b2",
       "executable": false
     },
     "src/core/features/navigation/ui/workspace/WatchDefaults.tsx": {
@@ -8372,7 +8372,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageSharing.tsx": {
-      "sha256": "b97e038640ecd0819e7064f53286b4165e6e6ae197a7edf51a572d81c73e0dcc",
+      "sha256": "0a4d4278371a71ec006a280d13842a2268e60cddf32b035234a10a79ab0cf57d",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageStatusBadge.tsx": {
@@ -8880,7 +8880,7 @@
       "executable": false
     },
     "src/core/features/search/ui/TrustBadge.tsx": {
-      "sha256": "de120d6dad0494ccfa64d34010c3b5cd4bc4004460a4ff9b13dfdc4997f5661c",
+      "sha256": "a70e0af8901a1e5d2970a3182f66fa53303e329feb997877e47f03074c9c6e35",
       "executable": false
     },
     "src/core/features/search/ui/types.ts": {
@@ -8916,7 +8916,7 @@
       "executable": false
     },
     "src/core/features/search/ui/workspace/SearchResults.tsx": {
-      "sha256": "0a85070aebc1f434ee85eed26999df70f12a50a8dd823f60e026a57bffa71cf9",
+      "sha256": "80b5fe2c946607cd74870793c8cbe0df5b74187a3f54c049247866c29314cecd",
       "executable": false
     },
     "src/core/features/search/ui/workspace/WorkspaceSearch.tsx": {
@@ -12344,7 +12344,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/guest-console-journey.mjs": {
-      "sha256": "446d043d9eb28d5cf198a24171cdc9be6350158a09db5f80c797a825d8a54783",
+      "sha256": "7bedf1bf7b42e3bef22d793e547868b9e342641fce93447d6c2d2cf0b3d61abf",
       "executable": false
     },
     "tests/qualification/ui-convergence/hub-journey.mjs": {
@@ -12400,7 +12400,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "86396c77fa27c01aab94034961ee438c15effd3c77db050c361e0b4ecf340a0f",
+      "sha256": "927047a9f6b6c01db47e030c9f24f586751a34103ee9a254dd5d8ce7e851fda7",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {

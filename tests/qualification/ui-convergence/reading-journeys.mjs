@@ -13,7 +13,7 @@ export async function searchJourney({ page, origin, journeyTitle, searchTerm }, 
   await expect(result).toBeVisible();
   await expect(result.locator('p')).toContainText('Second block: record the next action.');
   await expect(result.locator('p mark')).toContainText(searchTerm);
-  await expect(result.locator('.eyebrow')).toHaveText('Page');
+  await expect(result.locator('..').locator('.result-kind')).toHaveText('Page ·');
   const markColor = await result.locator('mark').first().evaluate(element => getComputedStyle(element).backgroundColor);
   assert.notEqual(markColor, 'rgb(255, 255, 0)', 'Search matches use the application highlight treatment.');
   await page.locator('.search-options summary').first().click();

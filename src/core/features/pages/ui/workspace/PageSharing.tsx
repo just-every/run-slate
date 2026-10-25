@@ -89,6 +89,7 @@ export function PageSharing({ document }: { document: DocumentView }) {
     <section>
       <h2>Share this page</h2>
       <p className="muted">Invite people to this page. Copying its link does not change who can access it.</p>
+      <a href="/app/settings?section=activity">Activity</a>
       <button className="secondary-button"
         type="button"
         onClick={() => {
