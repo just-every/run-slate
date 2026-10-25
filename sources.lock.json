@@ -6684,7 +6684,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/BlockRow.tsx": {
-      "sha256": "21f8ce29dfac8111feb0a3e9728da1ab8f555628c4a298b043bdbf46fc0baf1a",
+      "sha256": "433b77f7b35c725a55f8217a6b4ee55f715ea71d6e474f95e107f7712205b2fc",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/BlockView.tsx": {
@@ -6764,7 +6764,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/MentionPicker.tsx": {
-      "sha256": "11cf229ce1ae012237000402ea0e137c0a610dfc6b21c1447d36b539d0576d0f",
+      "sha256": "417dc32be62f1cdb2a04a6a85fb76410081ded74c4d5e118e27d200acb555e9b",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/MentionPreview.tsx": {
@@ -8316,7 +8316,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageEditorBody.tsx": {
-      "sha256": "e4099568f3a910f4278520160d5b3be58cb3a7fc8a8d919b1f2c9c187f300690",
+      "sha256": "4bc64b619e2004947590f1fcfb5d3fd4cc6a8636b0c07b44a5188e01e60ca1be",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
@@ -8396,7 +8396,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/useNewPageArrival.ts": {
-      "sha256": "42ed182c3852ffb4d38fe6503a6ebc08c1e03369f42ebb5380141dfbf2791f94",
+      "sha256": "75b477560899a027d6c95bc154e50c87f9ddb525488f9142b9a92728ab7c3d09",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/usePageFollowing.ts": {
@@ -12488,7 +12488,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-support.mjs": {
-      "sha256": "78169452f05e3f1a0c12aff6651ec4381795017ef9172914e83805b9dca5eb3f",
+      "sha256": "8db3a5ccc6f18870e6093359c60c3283c4515ba3f15ce14d550d65444a945ad7",
       "executable": false
     },
     "tests/qualification/ui-convergence/webhook-access-journey.mjs": {
