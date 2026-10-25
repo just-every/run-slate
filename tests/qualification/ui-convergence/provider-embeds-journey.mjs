@@ -1,3 +1,4 @@
+import {embedTimeoutJourney} from './embed-timeout-journey.mjs';
 import {accessible} from './browser-evidence.mjs';
 import {fileCardsJourney} from './file-cards-journey.mjs';
 import assert from 'node:assert/strict';
@@ -63,5 +64,6 @@ export async function providerEmbedsJourney(state) {
     assert.equal((await state.readEmbedRequests()).length,serverReads);
     await publicPage.screenshot({path:`.artifacts/ui-convergence/embeds-${page.viewportSize().width}-public-loaded.png`});
   } finally {await publicContext.close();}
+  await embedTimeoutJourney(state);
   await fileCardsJourney(state);
 }

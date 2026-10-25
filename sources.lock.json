@@ -12247,6 +12247,10 @@
       "sha256": "79d2626b424679dc294dddc2bb38114c3df560dfcb4a85aeabc4dd684f4debab",
       "executable": false
     },
+    "tests/qualification/ui-convergence/embed-timeout-journey.mjs": {
+      "sha256": "0b7fd34774321767263b99c59d31ad26af8db2a22282c30773c1a4c601ecf71e",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/evidence/chat-1440-channel-blocked.png": {
       "sha256": "bd0c2a620b0245229cda5cf77c803206f8537ffbb196ab7c6639ac790cef77d8",
       "executable": false
@@ -12424,7 +12428,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/provider-embeds-journey.mjs": {
-      "sha256": "0f0e8ed05d28c6fe7895509ab3043659e3990877b864bced38d21fc509c899cb",
+      "sha256": "26f19224a88f402c8cdb199a5b229ae29ac139723c85870b69ffb7f1f944c386",
       "executable": false
     },
     "tests/qualification/ui-convergence/reachability.test.mjs": {
