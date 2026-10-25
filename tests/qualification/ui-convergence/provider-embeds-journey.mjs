@@ -1,3 +1,4 @@
+import {accessible} from './browser-evidence.mjs';
 import {fileCardsJourney} from './file-cards-journey.mjs';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
@@ -7,7 +8,7 @@ import {ok} from './two-people-support.mjs';
 export async function providerEmbedsJourney(state) {
   const {page,context,origin,api}=state;
   const space=(await api('/api/containers')).items.find(s=>s.name==='Handbook');
-  const providers=[['Figma','https://www.figma.com/design/Abc123/Plan'],['Miro','https://miro.com/app/board/uXjTest=/'],['Lucid','https://lucid.app/documents/embedded/abcd-1234'],['Loom','https://www.loom.com/share/abcd1234'],['YouTube','https://www.youtube.com/watch?v=dQw4w9WgXcQ'],['Vimeo','https://vimeo.com/12345678'],['Google Docs','https://docs.google.com/document/d/abc123/edit'],['Google Sheets','https://docs.google.com/spreadsheets/d/def123/edit'],['Google Slides','https://docs.google.com/presentation/d/ghi123/edit'],['Microsoft 365','https://onedrive.live.com/embed?resid=123']];
+  const providers=[['Figma','https://www.figma.com/design/Abc123/Plan'],['Miro','https://miro.com/app/board/uXjTest=/'],['Lucid','https://lucid.app/documents/embedded/abcd-1234'],['Loom','https://www.loom.com/share/abcd1234'],['YouTube','https://www.youtube.com/watch?v=dQw4w9WgXcQ'],['Vimeo','https://vimeo.com/12345678'],['Google Docs','https://docs.google.com/document/d/abc123/edit'],['Google Sheets','https://docs.google.com/spreadsheets/d/def123/edit'],['Google Slides','https://docs.google.com/presentation/d/ghi123/edit'],['Microsoft 365','https://onedrive.live.com/embed?resid=123'],['Lucid','https://www.lucidchart.com/documents/embedded/refused-1234'],['Microsoft 365','https://synthetic-slate-204.sharepoint.com/sites/wiki/_layouts/15/Doc.aspx?sourcedoc=abc&action=embedview']];
   const loaded=[];
   // This is the network edge only: each provider serves a deterministic embedded document.
   await context.route(url=>url.origin!==origin,async route=>{
@@ -21,6 +22,12 @@ export async function providerEmbedsJourney(state) {
   for(let i=0;i<providers.length;i++) {
     const [name]=providers[i], block=page.locator(`[data-block-id="${blocks[i].id}"]`);
     await block.getByRole('button',{name:'Embed',exact:true}).click();
+    if(i>=10){
+      await expect(block.getByRole('status')).toContainText('The provider does not allow embedding.');
+      await expect(block.locator('iframe')).toHaveCount(0);
+      await expect(block.getByRole('link',{name:providers[i][1],exact:true})).toBeVisible();
+      continue;
+    }
     await expect(block.getByRole('button',{name:`Load ${name} embed`,exact:true})).toBeVisible();
     const before=loaded.length;
     await block.getByRole('button',{name:`Load ${name} embed`,exact:true}).click();
@@ -32,6 +39,7 @@ export async function providerEmbedsJourney(state) {
     await block.getByRole('button',{name:'Show link instead',exact:true}).click();
     await expect(block.locator('iframe')).toHaveCount(0);
   }
+  await accessible(page,'Provider refusal link cards');
   await expect.poll(async()=> (await api(`/api/pages/${pageId}`)).blocks.every(b=>b.content.display==='embed')).toBe(true);
   const document=await api(`/api/pages/${pageId}`);
   await ok(context,origin,'POST',`/api/publishing/${pageId}`,{operationKey:randomUUID(),expectedRevisionId:document.page.revisionId,host:new URL(origin).host,slug:'planning-references'});
@@ -44,9 +52,15 @@ export async function providerEmbedsJourney(state) {
     assert.deepEqual(external,[]);
     assert.deepEqual(await publicContext.cookies(),[]);
     await publicPage.screenshot({path:`.artifacts/ui-convergence/embeds-${page.viewportSize().width}-public-before.png`});
+    await expect(publicPage.getByText('The provider does not allow embedding. Open the original link.')).toHaveCount(2);
+    await expect(publicPage.getByRole('button',{name:'Load Microsoft 365 embed',exact:true})).toHaveCount(1);
+    await expect(publicPage.getByRole('button',{name:'Load Lucid embed',exact:true})).toHaveCount(1);
+    const serverReads=(await state.readEmbedRequests()).length;
+    await accessible(publicPage,'Published refusal link cards');
     await publicPage.getByRole('button',{name:'Load Figma embed',exact:true}).click();
     await expect(publicPage.frameLocator('iframe[title="Figma embed"]').frameLocator('iframe').getByRole('heading',{name:'Shared planning document'})).toBeVisible();
     assert.equal(external.length,1);
+    assert.equal((await state.readEmbedRequests()).length,serverReads);
     await publicPage.screenshot({path:`.artifacts/ui-convergence/embeds-${page.viewportSize().width}-public-loaded.png`});
   } finally {await publicContext.close();}
   await fileCardsJourney(state);

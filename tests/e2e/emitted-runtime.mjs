@@ -1,3 +1,4 @@
+import {embedEdge} from '../helpers/embed-edge.mjs';
 import { webhookEdge } from '../helpers/webhook-edge.mjs';
 import { createRequire } from 'node:module';
 import { readFile, realpath, mkdir, writeFile, appendFile } from 'node:fs/promises';
@@ -30,6 +31,8 @@ const worker = { ...workerOptions, name: config.name,
     if(webhook)return webhook;
     const saml = await samlEdge(request, persistPath, miniflare.Response);
     if (saml) return saml;
+    const embed=await embedEdge(request,persistPath,miniflare.Response);
+    if(embed)return embed;
     const folder = await folderEdge(request, persistPath, miniflare.Response);
     if (folder) return folder;
     const s3 = await s3Edge(request, persistPath, miniflare.Response);

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect,useState} from 'react';
 import {providerEmbed} from '../../embeds/providers';
 import {useTaskPage} from './TaskPageContext';
 import { ExternalLink, Link as LinkIcon, TriangleAlert } from "lucide-react";
@@ -51,9 +51,20 @@ export function LinkCardBlock({ block, canEdit, onChange, actions }: BlockRender
   const parent=useTaskPage();
   const [loaded,setLoaded]=useState<string|null>(null);
   const embed=block.display==='embed'?providerEmbed(block.url):null;
-  if(embed && parent)return <div className="my-2 flex flex-col gap-2">
+  const [refused,setRefused]=useState(false);
+  const [ready,setReady]=useState(false);
+  useEffect(()=>{
+    setRefused(false);setLoaded(null);setReady(false);
+    if(!embed||!parent)return;
+    const controller=new AbortController();
+    fetch(`/api/pages/${encodeURIComponent(parent.pageId)}/embeds/${encodeURIComponent(block.id)}/status`,{signal:controller.signal,credentials:'same-origin'})
+      .then(async response=>{if(response.ok&& (await response.json()).verdict==='refuses')setRefused(true);}).catch(()=>{});
+    return ()=>controller.abort();
+  },[block.url,block.display,parent?.pageId,block.id]);
+  useEffect(()=>{if(!loaded||ready)return;const timer=setTimeout(()=>{setRefused(true);setLoaded(null);},8000);return()=>clearTimeout(timer);},[loaded,ready]);
+  if(embed && parent && !refused)return <div className="my-2 flex flex-col gap-2">
     <a href={block.url} target="_blank" rel="noreferrer" className="break-all text-accent underline">{block.preview?.title??embed.provider}</a>
-    {loaded===block.url?<><iframe title={`${embed.provider} embed`} src={`/api/pages/${encodeURIComponent(parent.pageId)}/embeds/${encodeURIComponent(block.id)}`} sandbox={embed.sandbox} referrerPolicy="no-referrer" allow="fullscreen" className="w-full rounded-card border border-line" style={{height:420}}/><Button onClick={()=>setLoaded(null)} variant="secondary">Show link instead</Button></>:<Button onClick={()=>setLoaded(block.url)} variant="secondary">Load {embed.provider} embed</Button>}
+    {loaded===block.url?<><iframe title={`${embed.provider} embed`} src={`/api/pages/${encodeURIComponent(parent.pageId)}/embeds/${encodeURIComponent(block.id)}`} onLoad={()=>setReady(true)} sandbox={embed.sandbox} referrerPolicy="no-referrer" allow="fullscreen" className="w-full rounded-card border border-line" style={{height:420}}/><Button onClick={()=>setLoaded(null)} variant="secondary">Show link instead</Button></>:<Button onClick={()=>{setReady(false);setLoaded(block.url);}} variant="secondary">Load {embed.provider} embed</Button>}
     <p className="text-small text-ink-muted">Loading connects to {embed.provider}. If unavailable, open the original link above.</p>
     {canEdit?<DisplaySwitch block={block} onChange={onChange}/>:null}
   </div>;
@@ -79,7 +90,7 @@ export function LinkCardBlock({ block, canEdit, onChange, actions }: BlockRender
     </RequestState>}
     {canEdit?<DisplaySwitch block={block} onChange={onChange}/>:null}
   </div>;
-  const failed = block.previewState === "refused" || block.previewState === "failed";
+  const failed = refused || block.previewState === "refused" || block.previewState === "failed";
   const preview = block.preview;
 
   return (
@@ -119,7 +130,7 @@ export function LinkCardBlock({ block, canEdit, onChange, actions }: BlockRender
       {failed ? (
         <p className="flex flex-wrap items-center gap-2 text-small text-ink-muted" role="status">
           <TriangleAlert aria-hidden="true" className="size-3.5 text-warn" />
-          {block.previewMessage ??
+          {refused ? "The provider does not allow embedding. Open the original link." : block.previewMessage ??
             (block.previewState === "refused"
               ? "A preview was refused for this address, so the link is shown as written."
               : "A preview could not be fetched, so the link is shown as written.")}

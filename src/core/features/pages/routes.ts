@@ -1,3 +1,4 @@
+import {embedStatus} from '../editor/embeds/service';
 import {editSyncedCopy} from '../editor/synced/write';
 import {syncedSource} from '../editor/synced/read';
 import {fileCard} from '../editor/file-cards/service';
@@ -45,6 +46,7 @@ export function createPagesRoutes() {
     r.get('/:id/mention-groups', async c => c.json(await mentionGroups(featureContext(c), c.req.param('id'))));
     r.post('/:id/mention-preview', async c => c.json(await previewMentions(featureContext(c), c.req.param('id'), await c.req.json())));
     r.get('/:id/file-cards/:blockId',async c=>{c.header('Cache-Control','private, no-store');return c.json(await fileCard(featureContext(c),c.req.param('id'),c.req.param('blockId')));});
+    r.get('/:id/embeds/:blockId/status',async c=>{c.header('Cache-Control','private, no-store');return c.json(await embedStatus(featureContext(c),c.req.param('id'),c.req.param('blockId'),new URL(c.req.url).origin));});
     r.get('/:id/embeds/:blockId', async c => {
       const document=await readPage(featureContext(c),c.req.param('id'));
       const block=document.blocks.find(b=>b.id===c.req.param('blockId') && b.blockType==='link-card');
