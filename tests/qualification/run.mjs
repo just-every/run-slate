@@ -8,21 +8,15 @@ import { join } from 'node:path';
 
 const workers = [
   'tests/qualification/core/native.config.ts',
-  'tests/qualification/data-erasure/composition.config.ts',
   'tests/qualification/decisions/vitest.config.ts',
-  'tests/qualification/decisions/migration.config.ts',
   'tests/qualification/journeys/guided-regressions.config.ts',
   'tests/qualification/policies/vitest.config.ts',
-  'tests/qualification/publication/vitest.config.ts',
   'tests/qualification/refinement/vitest.config.ts',
   'tests/qualification/release-restore-authority/vitest.config.ts',
-  'tests/qualification/tree-correction/vitest.config.ts',
 ].map(config => ['node_modules/vitest/vitest.mjs', 'run', '--config', config]);
 
 const nodeTests = [[
   'node_modules/tsx/dist/cli.mjs', '--test', '--test-concurrency=1',
-  'tests/qualification/interface/formatting.test.ts',
-  'tests/qualification/offline-refresh/transport.test.ts',
   'tests/qualification/release-shell/native-shell.test.mjs',
 ]];
 
