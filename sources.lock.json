@@ -9148,11 +9148,11 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/PendingInvitations.tsx": {
-      "sha256": "7dd973e4116dd5a53a9dd00e59ca544513b1b9f173e595cba5f83c9ce957c81b",
+      "sha256": "27ebf5c65e96df7fae5c876fe34264d0b263e369ca822bf1e867ef151e2bbf50",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/PeopleDirectory.tsx": {
-      "sha256": "f6371a11dded4ebb71032f44ca0f2d9e4e3f93f1cd39cc75f1d913a6d826235c",
+      "sha256": "f2ac3a39c73bfe4ad15b9d8b4bc5ed3c53f278cd13cc4eacdd040b9479f23dd2",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/PortabilityPanel.tsx": {
@@ -10188,7 +10188,7 @@
       "executable": false
     },
     "src/routes/app.tsx": {
-      "sha256": "623bd461c7082a3732a13f92914a15776badcf1f32abc39c4ba69fc9a5a04c22",
+      "sha256": "7cf2cf75a26359d51ab2390e852a14b40a29644533f50c9bc2223dbeea4a2802",
       "executable": false
     },
     "src/routes/docs.$slug.tsx": {
