@@ -124,8 +124,10 @@ export async function savedAfterCommit(page, blockId, edit) {
     window.slateBlockStates?.observer.disconnect();
     const seen = [];
     const observe = () => {
-      const text = document.querySelector(`.editor-save-status`)?.textContent ?? '';
-      if (text && seen.at(-1)?.text !== text) seen.push({ text, at: Date.now() });
+      for (const element of document.querySelectorAll(`.editor-save-status, [data-block-id="${CSS.escape(id)}"] [role="status"]`)) {
+        const text = element.textContent ?? '';
+        if (text && seen.at(-1)?.text !== text) seen.push({ text, at: Date.now() });
+      }
     };
     observe();
     const observer = new MutationObserver(observe);

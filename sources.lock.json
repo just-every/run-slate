@@ -12488,7 +12488,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-support.mjs": {
-      "sha256": "8db3a5ccc6f18870e6093359c60c3283c4515ba3f15ce14d550d65444a945ad7",
+      "sha256": "7e9af5ddee3a6bc8b5ca7e5934818184b1be7cce89909aed6f024eab4a6ad1d1",
       "executable": false
     },
     "tests/qualification/ui-convergence/webhook-access-journey.mjs": {
