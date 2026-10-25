@@ -19,6 +19,9 @@ export async function embedRefusalsJourney(req:(path:string,body?:unknown,auth?:
     ];
     for(const item of cases){await clear();seen.length=0;response=()=>new Response('<h1>Recorded design</h1>',{headers:item.headers});expect((await (await req(route)).json<any>()).verdict).toBe(item.verdict);expect(seen.map(x=>x.method)).toEqual(item.verdict==='refuses'?['HEAD']:['HEAD','GET']);}
     for(const body of ['Embedding is disabled','This document cannot be embedded']){await clear();response=()=>new Response(body);expect((await (await req(route)).json<any>()).verdict).toBe('refuses');}
+    await clear();response=()=>new Response('<h1>Recorded design</h1>');
+    await caches.default.put(`${base}/.derived/embed-verdict/${host}`,Response.json({verdict:'refuses',observedAt:new Date(Date.now()-86400001).toISOString()},{headers:{'cache-control':'max-age=86400'}}));
+    expect((await (await req(route)).json<any>()).verdict).toBe('embeddable');
     await clear();response=()=>new Response(null,{status:403});expect((await (await req(route)).json<any>()).verdict).toBe('refuses');
     await clear();response=()=>new Response(null,{status:302,headers:{location:'https://attacker.test/private'}});seen.length=0;expect((await (await req(route)).json<any>()).verdict).toBe('unknown');expect(seen).toHaveLength(1);
     await clear();response=()=>new Response('x'.repeat(contentLimits.maximumUrlFetchBytes+1));expect((await (await req(route)).json<any>()).verdict).toBe('unknown');

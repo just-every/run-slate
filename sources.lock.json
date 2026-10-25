@@ -10260,7 +10260,7 @@
       "executable": false
     },
     "tests/e2e/editor/embed-refusals-journey.ts": {
-      "sha256": "e1b15ddc91eff1c6874bf9dd98afdb453b227f0a8a8a74406f018116eb258d12",
+      "sha256": "a995bb46487e1b2bcc7219fa8559192ff0434337f5e63e45178e9c67e1307e43",
       "executable": false
     },
     "tests/e2e/editor/file-cards-journey.ts": {
@@ -11176,7 +11176,7 @@
       "executable": false
     },
     "tests/helpers/embed-edge.mjs": {
-      "sha256": "eb2f252ed89d344d1a079893c9e520767cee261f7271c202391be2c61ac2a3ef",
+      "sha256": "2f76cc778d7e62cdd5bb7f16253c47cf405a632454525817a50acdddcab6a44b",
       "executable": false
     },
     "tests/helpers/folder-edge.mjs": {
