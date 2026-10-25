@@ -18,6 +18,7 @@ export const Route = createFileRoute("/app")({
   },
   head: () => ({ meta: [{ title: "Workspace — Slate" }] }),
   component: AppLayout,
+  notFoundComponent: () => <section className="main"><h1>Not found</h1><p>This address isn’t available.</p><a href="/app">Go to Today</a></section>,
 });
 
 function AppLayout() {

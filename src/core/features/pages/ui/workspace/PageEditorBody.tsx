@@ -34,6 +34,7 @@ export function PageEditorBody({
   onAsk,
   onComment,
   footer,
+  titleState,
 }: {
   editor: ReturnType<typeof usePageEditor>;
   document: DocumentView;
@@ -41,6 +42,7 @@ export function PageEditorBody({
   onComment: (selection?:PageSelection) => void;
   /** Quiet controls that share the row below the body with Add block. */
   footer?: ReactNode;
+  titleState?: "saving" | "failed";
 }) {
   const insertion = usePageInsertion(document.page.id, editor);
   const [dateReminder,setDateReminder]=useState<{date:string;blockId?:string}|null>(null);
@@ -261,7 +263,7 @@ export function PageEditorBody({
         <details><summary>Your recovered blocks</summary>{insertion.conflicts.map(block => <BlockView key={block.id} block={block} canEdit={false} onChange={() => {}}/>)}</details>
         <button onClick={insertion.discard}>Use saved blocks</button>
       </section> : insertion.error ? <p role="alert">{insertion.error} <button onClick={() => void insertion.retry()}>Try saving inserted blocks again</button></p> : null}
-      {insertion.pending ? <p className="editor-save-status" role="status">{insertion.error ? "Unsaved inserted blocks" : "Saving…"}</p> : editor.structureState?<p className="editor-save-status" role="status">{editor.structureState==="saving"?"Saving…":"Saved"}</p>:null}
+      {document.permissions.canEdit && !insertion.conflicts.length && titleState!=="failed" && !Object.values(editor.saveState).some(state=>["failed","offline","unsaved","conflict"].includes(state.status)) ? <p className="editor-save-status" role="status">{insertion.error ? "Unsaved inserted blocks" : insertion.pending || editor.hasUnsavedChanges || titleState==="saving" ? "Saving…" : "Saved"}</p> : null}
       <BlockEditor
         emptyBlockId={!editor.blocks.length ? visibleBlocks[0]?.id : undefined}
         blocks={liveQueries.blocks.map(block=>{

@@ -6,13 +6,14 @@ export async function mentionTypingJourney({ page, api }, pageId) {
   const editable = page.locator('[data-page-editor] [data-slate-editable]').first();
   await editable.fill('Owner ');
   await page.keyboard.press('@');
-  await page.getByRole('dialog', { name: 'Insert mention' }).getByRole('button', { name: / · Person$/ }).first().click();
+  await page.getByRole('listbox', { name: 'Insert mention' }).getByRole('option', { name: / · Person$/ }).first().click();
   await page.keyboard.type(' will ship it. See ');
   await page.keyboard.press('@');
-  await page.getByRole('dialog', { name: 'Insert mention' }).getByRole('button', { name: / · Page$/ }).first().click();
+  await page.getByRole('listbox', { name: 'Insert mention' }).getByRole('option', { name: / · Page$/ }).first().click();
   await page.keyboard.type(' for dates. On ');
   await page.keyboard.press('@');
-  await page.getByRole('dialog', { name: 'Insert mention' }).getByLabel('Date', { exact: true }).fill('2026-11-03');
+  await page.keyboard.type('2026-11-03');
+  await page.getByRole('listbox', { name: 'Insert mention' }).getByRole('option',{name:'2026-11-03 · Date',exact:true}).click();
   await page.keyboard.type(' we launch.');
   const saved = async () => (await api(`/api/pages/${pageId}`)).blocks[0]?.content.text ?? [];
   await expect.poll(async () => (await saved()).filter(span => !span.mention).map(span => span.text).join('')).toBe('Owner  will ship it. See  for dates. On  we launch.');

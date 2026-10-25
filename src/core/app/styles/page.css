@@ -12,7 +12,7 @@
 .slate-app .page-appearance > .stored-page-icon { font-size: 36px; margin: 8px 0; }
 .slate-app .page-cover-image { width: 100%; height: 180px; object-fit: cover; border-radius: 4px; margin-bottom: 12px; }
 .slate-app .stored-page-icon { display: inline-block; width: 1.25em; height: 1.25em; object-fit: contain; }
-.slate-app .editor-save-status { font-size: 12px; color: var(--slate-ink-muted); margin-block: 8px 14px; }
+.slate-app .editor-save-status { font-size: 13px; color: var(--slate-ink-muted); margin-block: 8px 14px; }
 .slate-app [data-page-editor] > section > [data-slate-editable] { min-height: 44px; cursor: text; }
 .slate-app [data-block-id] { margin-bottom: 10px; }
 .slate-app [data-page-editor] .text-good { display: inline-block; margin-top: 6px; }

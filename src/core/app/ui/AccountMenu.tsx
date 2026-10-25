@@ -1,41 +1,37 @@
 import { personInitials } from '../../shared/person-identity';
-import { Archive, ChevronRight, Database, LayoutTemplate, Settings } from "lucide-react";
-import { useState } from "react";
-import { useWorkspace } from "./WorkspaceContext";
+import { ChevronRight, LogOut } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { useWorkspace } from './WorkspaceContext';
+import { mutate, errorMessage } from '../../client/transport';
 
-/** The account button at the foot of the sidebar; its tools open upward so they never fall below the rail. */
-export function AccountMenu({ onNewDatabase }: { onNewDatabase?: () => void }) {
+/** Account actions stay above the trigger without changing the sidebar's height. */
+export function AccountMenu() {
   const { member } = useWorkspace();
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="workspace">
-      {open ? (
-        <nav aria-label="Workspace tools">
-          {onNewDatabase ? <button className="navlink" onClick={onNewDatabase}>
-            <Database aria-hidden="true" />
-            New database
-          </button> : null}
-          <a className="navlink" href="/app/templates">
-            <LayoutTemplate aria-hidden="true" />
-            Templates
-          </a>
-          <a className="navlink" href="/app/archive">
-            <Archive aria-hidden="true" />
-            Archive & trash
-          </a>
-          <a className="navlink" href="/app/settings">
-            <Settings aria-hidden="true" />
-            Settings
-          </a>
-        </nav>
-      ) : null}
-      <button className="workrow" type="button" aria-expanded={open} onClick={() => setOpen(!open)}>
-        <span data-testid="member-initials" className="member-initials">
-          {personInitials(member.displayName, member.email)}
-        </span>
-        <span data-testid="member-name">{member.displayName}</span>
-        <ChevronRight aria-hidden="true" className="workrow-chevron" />
-      </button>
-    </div>
-  );
+  const [open,setOpen]=useState(false),[pending,setPending]=useState(false),[error,setError]=useState<unknown>();
+  const trigger=useRef<HTMLButtonElement>(null),menu=useRef<HTMLElement>(null);
+  const close=()=>{setOpen(false);trigger.current?.focus();};
+  useEffect(()=>{if(open)menu.current?.querySelector<HTMLElement>('button')?.focus();},[open]);
+  useEffect(()=>{
+    if(!open)return;
+    const outside=(event:MouseEvent)=>{if(event.target instanceof Node&&!menu.current?.contains(event.target)&&!trigger.current?.contains(event.target))setOpen(false);};
+    document.addEventListener('click',outside,true);return()=>document.removeEventListener('click',outside,true);
+  },[open]);
+  return <div className="workspace" onKeyDown={event=>{
+    if(!open)return;
+    if(event.key==='Escape'){event.preventDefault();event.stopPropagation();close();}
+    if(['ArrowDown','ArrowUp','Home','End'].includes(event.key)){event.preventDefault();menu.current?.querySelector<HTMLElement>('button')?.focus();}
+  }}>
+    {open?<nav ref={menu} aria-label="Account" role="menu">
+      <button type="button" role="menuitem" className="navlink" disabled={pending} onClick={async()=>{
+        setPending(true);setError(undefined);
+        try{await mutate('/api/auth/logout',{});window.location.assign('/signin');}
+        catch(cause){setError(cause);setPending(false);}
+      }}><LogOut aria-hidden="true"/>Sign out</button>
+      {error?<p role="alert">{errorMessage(error)}</p>:null}
+    </nav>:null}
+    <button ref={trigger} className="workrow" type="button" aria-expanded={open} aria-haspopup="menu" onClick={()=>setOpen(!open)}>
+      <span data-testid="member-initials" className="member-initials">{personInitials(member.displayName,member.email)}</span>
+      <span data-testid="member-name">{member.displayName}</span><ChevronRight aria-hidden="true" className="workrow-chevron"/>
+    </button>
+  </div>;
 }

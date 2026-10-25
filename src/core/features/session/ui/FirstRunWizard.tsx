@@ -2,10 +2,11 @@ import { useEffect, useId, useState } from "react";
 import { PaperPage, PaperScene } from "./PaperPage";
 import { FirstRunProgress, type FirstRunStep } from "./FirstRunProgress";
 import { containerNoun, sentenceCase } from "./nouns";
-import { LocalInvitationNotice } from "../../settings/ui/workspace/LocalInvitationNotice";
 
 export interface FirstRunWizardProps {
   step: FirstRunStep;
+  displayName: string;
+  onDisplayNameChange: (next: string) => void;
   workspaceName: string;
   onWorkspaceNameChange: (next: string) => void;
   containerName: string;
@@ -38,6 +39,8 @@ export interface FirstRunWizardProps {
  */
 export function FirstRunWizard({
   step,
+  displayName,
+  onDisplayNameChange,
   workspaceName,
   onWorkspaceNameChange,
   containerName: containerNameValue,
@@ -62,12 +65,12 @@ export function FirstRunWizard({
   const [interactive, setInteractive] = useState(false);
   useEffect(() => setInteractive(true), []);
   useEffect(() => {
-    if (interactive && step < 3) document.getElementById(`${fieldId}-${step === 1 ? "workspace" : "container"}`)?.focus();
+    if (interactive && step < 3) document.getElementById(`${fieldId}-${step === 1 ? "name" : "container"}`)?.focus();
   }, [interactive, step, fieldId]);
   const hasInvitations = invitationAddresses.trim().length > 0;
   const canContinue =
     step === 1
-      ? workspaceName.trim().length > 0
+      ? displayName.trim().length > 0 && workspaceName.trim().length > 0
       : step === 2
         ? containerNameValue.trim().length > 0 && firstPageTitle.trim().length > 0
         : true;
@@ -84,10 +87,10 @@ export function FirstRunWizard({
             <section className="paper-body">
               <h1 className="paper-title">Name this workspace</h1>
               <p className="paper-lede">You can rename it later in settings.</p>
+              <div className="paper-field"><label htmlFor={`${fieldId}-name`}>Your name</label><input className="paper-input" id={`${fieldId}-name`} autoComplete="name" maxLength={160} required disabled={!interactive || submitting} value={displayName} onChange={event=>onDisplayNameChange(event.target.value)}/></div>
               <div className="paper-field">
                 <label htmlFor={`${fieldId}-workspace`}>Workspace name</label>
                 <input
-                  autoFocus
                   className="paper-input"
                   disabled={!interactive || submitting}
                   id={`${fieldId}-workspace`}
@@ -131,7 +134,7 @@ export function FirstRunWizard({
             <section className="paper-body">
               <h1 className="paper-title">Invite people</h1>
               <p className="paper-lede">Optional. One address per line. Invitations expire after 7 days and can be used once.</p>
-              {localDevelopment ? <LocalInvitationNotice /> : null}
+
               <div className="paper-field">
                 <label htmlFor={`${fieldId}-invitations`}>Email addresses</label>
                 <textarea
@@ -166,9 +169,7 @@ export function FirstRunWizard({
               <>
                 {hasInvitations ? (
                   <button className="paper-pill" disabled={!interactive || submitting} onClick={onFinish} type="button">
-                    {localDevelopment
-                      ? submitting ? "Recording locally…" : "Record invitations locally and finish"
-                      : submitting ? "Sending the invitations…" : "Send the invitations and finish"}
+                    {submitting ? "Sending the invitations…" : "Send the invitations and finish"}
                   </button>
                 ) : null}
                 <button className={`paper-pill${hasInvitations ? " paper-pill--quiet" : ""}`} disabled={!interactive || submitting} onClick={onSkipInvitations} type="button">

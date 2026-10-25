@@ -28,7 +28,7 @@ export async function guestConsoleJourney(state) {
       await invite.getByLabel('Guest email').fill(`${name}@test.invalid`);
       await invite.getByLabel('Page to share').selectOption(pageId);
       if(name==='avery-partner')await page.screenshot({path:`.artifacts/ui-convergence/guest-console-${width}-invite.png`,fullPage:false});
-      await invite.getByRole('button',{name:'Record invitation locally',exact:true}).click();
+      await invite.getByRole('button',{name:'Send invitation',exact:true}).click();
       await expect(invite).toHaveCount(0);
       const link=await newOutboxLink(origin,before);
       const guestContext=await context.browser().newContext({viewport:page.viewportSize()});
@@ -69,7 +69,7 @@ export async function guestConsoleJourney(state) {
     await denied.getByLabel('Guest email').fill('new-partner@blocked.invalid');
     await denied.getByLabel('Page to share').selectOption(pageId);
     const refusal=page.waitForResponse(response=>new URL(response.url()).pathname==='/api/invitations'&&response.request().method()==='POST'&&response.status()===403);
-    await denied.getByRole('button',{name:'Record invitation locally',exact:true}).click();
+    await denied.getByRole('button',{name:'Send invitation',exact:true}).click();
     assert.equal((await (await refusal).json()).code,'GUEST_DOMAIN_DENIED');
     await expect(denied.getByRole('alert')).toBeVisible();
     await expect(denied.getByLabel('Guest email')).toHaveValue('new-partner@blocked.invalid');
