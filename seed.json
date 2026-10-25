@@ -677,6 +677,17 @@
         "No Slate page body, Slate session cookie or referrer is sent to the provider"
       ],
       "adapters": []
+    },
+    {
+      "id": "allowlisted-embed-provider",
+      "required": false,
+      "requiredWhen": "an authenticated member opens a readable page containing an allowlisted provider embed",
+      "why": "Provider response headers and explicit refusal documents determine whether a click-to-load embed must become its original link card. Published readers never trigger a server-side provider read.",
+      "data": [
+        "The allowlisted provider embed URL, sent anonymously to an allowlisted provider endpoint",
+        "The deployment outbound IP address and user agent; no member credentials, cookies or visitor data"
+      ],
+      "adapters": []
     }
   ],
   "env": [

@@ -5052,7 +5052,7 @@
       "executable": false
     },
     "seed.json": {
-      "sha256": "629c0af69468d22b53a7e3d722c7acbc22601157b71698cc692bd58c1f6cc64e",
+      "sha256": "f22d3f9101d4b6a8b8dfce36cbf656565571335dec3a21d5dfa657447607ba91",
       "executable": false
     },
     "src/base/runtime/contract-filter.ts": {
