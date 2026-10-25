@@ -111,7 +111,7 @@
   white-space: nowrap;
 }
 .slate-app .tabs > :is(button, a):not(:disabled):hover { background-color: var(--slate-sidebar-hover); color: var(--slate-ink-strong); }
-.slate-app .tabs > :is([aria-pressed="true"], [aria-current="page"], [aria-expanded="true"]) { background-color: var(--slate-accent-soft); color: var(--slate-accent); font-weight: 600; }
+.slate-app .tabs > :is([aria-pressed="true"], [aria-current="page"], [aria-expanded="true"], [aria-selected="true"]) { background-color: var(--slate-accent-soft); color: var(--slate-accent); font-weight: 600; }
 .slate-app :is(.main, .space-detail) > .tabs { margin-left: -14px; }
 .slate-app .main > .db-toolbar > .db-tabs { margin-left: -14px; }
 .slate-app .tabs-rule { padding-bottom: 12px; border-bottom: 1px solid var(--slate-line); }

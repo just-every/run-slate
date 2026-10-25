@@ -20,7 +20,7 @@ export function MyTasks() {
   function change(set:(value:string)=>void,value:string){set(value);setCursor(undefined);}
   async function complete(task:TaskItem){setPending(task.blockId);setError(undefined);try{await mutate(`/api/tasks/${task.pageId}/${task.blockId}`,{operationKey:operationKey(),expectedRevisionId:task.blockRevisionId,done:!task.done},'PATCH');await resource.reload();}catch(cause){setError(cause);}finally{setPending(null);}}
   return <><TopBar trail={[{label:'My tasks'}]}/><section className="main"><PageTitle>My tasks</PageTitle><p className="page-lede">Follow through on the work in your pages.</p>
-    <div className="task-tabs" role="tablist" aria-label="Task ownership">{[['assigned','Assigned to me'],['created','Created by me']].map(([value,label])=><button key={value} type="button" role="tab" aria-selected={tab===value} onClick={()=>change(setTab,value)}>{label}</button>)}</div>
+    <div className="tabs" role="tablist" aria-label="Task ownership">{[['assigned','Assigned to me'],['created','Created by me']].map(([value,label])=><button key={value} type="button" role="tab" aria-selected={tab===value} onClick={()=>change(setTab,value)}>{label}</button>)}</div>
     <div className="task-filters">
       <label>State<select value={state} onChange={event=>change(setState,event.target.value)}><option value="open">Open</option><option value="completed">Completed</option><option value="overdue">Overdue</option><option value="">All tasks</option></select></label>
       <label>Space<select value={container} onChange={event=>change(setContainer,event.target.value)}><option value="">Every space</option>{navigation.data?.containers.map(item=><option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
