@@ -49,8 +49,10 @@ export async function providerEmbedsJourney(state) {
   await publicContext.route(url=>url.origin!==origin,async route=>{external.push(route.request().url());await route.fulfill({status:200,contentType:'text/html',body:'<h1>Shared planning document</h1>'});});
   const publicPage=await publicContext.newPage();
   try {
+    const beforeVisitorReads=(await state.readEmbedRequests()).length;
     await publicPage.goto(origin+'/p/planning-references',{waitUntil:'networkidle'});
     assert.deepEqual(external,[]);
+    assert.equal((await state.readEmbedRequests()).length,beforeVisitorReads);
     assert.deepEqual(await publicContext.cookies(),[]);
     await publicPage.screenshot({path:`.artifacts/ui-convergence/embeds-${page.viewportSize().width}-public-before.png`});
     await expect(publicPage.getByText('The provider does not allow embedding. Open the original link.')).toHaveCount(2);

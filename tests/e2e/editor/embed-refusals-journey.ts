@@ -19,6 +19,16 @@ export async function embedRefusalsJourney(req:(path:string,body?:unknown,auth?:
     const badId=crypto.randomUUID(),madeBad=await req('/api/pages',{operationKey:crypto.randomUUID(),containerId,title:'Untrusted provider host',blocks:[{id:badId,blockType:'link-card',treePosition:'00',content:{url:'https://embed.figma.com.attacker.test/design/synthetic-slate-1',display:'embed',previewState:'ready'}}]});
     expect(madeBad.status).toBe(200);const badPage=(await madeBad.json<any>()).value.pageId;
     expect((await req('/api/pages/'+badPage+'/embeds/'+badId+'/status')).status).toBe(404);expect(seen).toHaveLength(0);
+    // Unsupported destinations never reach the provider edge, including redirects.
+    for(const destination of ['10.0.0.1','192.168.1.1','127.0.0.1','[::1]','169.254.169.254']){
+      const id=crypto.randomUUID();seen.length=0;
+      const made=await req('/api/pages',{operationKey:crypto.randomUUID(),containerId,title:'Private destination',blocks:[{id,blockType:'link-card',treePosition:'00',content:{url:`https://${destination}/design/synthetic-slate-1`,display:'embed',previewState:'ready'}}]});
+      expect(made.status).toBe(200);const privatePage=(await made.json<any>()).value.pageId;
+      expect((await req(`/api/pages/${privatePage}/embeds/${id}/status`)).status).toBe(404);expect(seen).toHaveLength(0);
+      await clear();response=()=>new Response(null,{status:302,headers:{location:`https://${destination}/private`}});
+      expect((await (await req(route)).json<any>()).verdict).toBe('unknown');
+      expect(seen.map(request=>new URL(request.url).hostname)).toEqual([host]);
+    }
     const cases:{headers:Record<string,string>;verdict:string}[]=[
       {headers:{'x-frame-options':'DENY'},verdict:'refuses'},
       {headers:{'x-frame-options':'SAMEORIGIN'},verdict:'refuses'},
@@ -39,6 +49,36 @@ export async function embedRefusalsJourney(req:(path:string,body?:unknown,auth?:
     expect((await cross(`/api/publishing/${pageId}`,{operationKey:crypto.randomUUID(),expectedRevisionId:crossDoc.page.revisionId,host:'public.slate.test',slug:'cross-host-refusal'})).status).toBe(200);
     seen.length=0;const crossPublic=await crossApi.request('https://public.slate.test/p/cross-host-refusal',{},crossBindings);
     expect(crossPublic.status).toBe(200);expect(await crossPublic.text()).not.toContain('Load Figma embed');expect(seen).toHaveLength(0);
+    // Refused and allowed origins share one published page; visitors never probe either.
+    await clear();response=()=>new Response(null,{headers:{'x-frame-options':'DENY'}});
+    expect((await (await req(route)).json<any>()).verdict).toBe('refuses');
+    const allowingHost='player.vimeo.com';
+    edge.mockImplementation(async(input,init)=>{const request=new Request(input,init);seen.push(request);expect(new URL(request.url).hostname).toBe(allowingHost);expect(request.headers.get('cookie')).toBeNull();expect(request.headers.get('authorization')).toBeNull();return new Response('<h1>Recorded video</h1>');});
+    const allowingRoute=`/api/pages/${pageId}/embeds/${blocks[5]!.id}/status`;
+    expect((await (await req(allowingRoute)).json<any>()).verdict).toBe('embeddable');
+    const paired=await (await req(`/api/pages/${pageId}`)).json<any>();
+    expect((await req(`/api/publishing/${pageId}`,{operationKey:crypto.randomUUID(),expectedRevisionId:paired.page.revisionId,host:'slate.test',slug:'paired-verdicts'})).status).toBe(200);
+    seen.length=0;
+    const pairedMarkup=await (await req('/p/paired-verdicts',undefined,'')).text();
+    expect(pairedMarkup).not.toContain('Load Figma embed');expect(pairedMarkup).toContain('Load Vimeo embed');expect(seen).toHaveLength(0);
+    expect(await (await req(`/p/paired-verdicts/embeds/${blocks[5]!.id}`,undefined,'')).text()).toContain('<iframe');expect(seen).toHaveLength(0);
+    const stale=new Date(Date.now()-86400001).toISOString();
+    await env.DB.prepare('UPDATE provider_embed_observations SET observed_at=? WHERE workspace_id=? AND provider_host=?').bind(stale,workspaceId,allowingHost).run();
+    expect(await (await req('/p/paired-verdicts',undefined,'')).text()).not.toContain('Load Vimeo embed');
+    expect(await (await req(`/p/paired-verdicts/embeds/${blocks[5]!.id}`,undefined,'')).text()).not.toContain('<iframe');expect(seen).toHaveLength(0);
+    expect((await (await req(allowingRoute)).json<any>()).verdict).toBe('embeddable');expect(seen.map(request=>request.method)).toEqual(['HEAD','GET']);
+    const stored=await env.DB.prepare('SELECT * FROM provider_embed_observations WHERE workspace_id=? AND provider_host=?').bind(workspaceId,allowingHost).first<Record<string,string>>();
+    expect(Date.parse(stored!.observed_at!)).toBeGreaterThan(Date.parse(stale));
+    const member=await env.DB.prepare('SELECT id,email FROM members WHERE workspace_id=? AND is_setup_owner=1').bind(workspaceId).first<{id:string;email:string}>();
+    expect(member).not.toBeNull();
+    for(const secret of [member!.id,member!.email,freshCookie,...freshCookie.split(/[=;]/).map(part=>part.trim()).filter(part=>part.length>12)]){
+      expect(Object.values(stored!).join(' ')).not.toContain(secret);
+    }
+    seen.length=0;expect(await (await req('/p/paired-verdicts',undefined,'')).text()).toContain('Load Vimeo embed');expect(seen).toHaveLength(0);
+    await env.DB.prepare('DELETE FROM provider_embed_observations WHERE workspace_id=? AND provider_host=?').bind(workspaceId,allowingHost).run();
+    expect(await (await req('/p/paired-verdicts',undefined,'')).text()).not.toContain('Load Vimeo embed');
+    expect(await (await req(`/p/paired-verdicts/embeds/${blocks[5]!.id}`,undefined,'')).text()).not.toContain('<iframe');expect(seen).toHaveLength(0);
+    edge.mockImplementation(async(input,init)=>{const request=new Request(input,init);seen.push(request);expect(new URL(request.url).hostname).toBe(host);expect(request.headers.get('cookie')).toBeNull();expect(request.headers.get('authorization')).toBeNull();return response();});
     for(const body of ['Embedding is disabled','This document cannot be embedded']){await clear();response=()=>new Response(body);expect((await (await req(route)).json<any>()).verdict).toBe('refuses');}
     await clear();response=()=>new Response('<h1>Recorded design</h1>');
     await env.DB.prepare('INSERT INTO provider_embed_observations VALUES (?,?,?,?,?)').bind(workspaceId,host,base,'refuses',new Date(Date.now()-86400001).toISOString()).run();

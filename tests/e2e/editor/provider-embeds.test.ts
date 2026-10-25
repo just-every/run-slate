@@ -36,10 +36,14 @@ contract('EMBED-003','allowlisted embeds use isolated provider frames, authorize
   const publicResponse=await req('/p/planning',undefined,'');
   expect(publicResponse.status).toBe(200);
   const markup=await publicResponse.text();
-  expect(markup).toContain('Load YouTube embed');
+  expect(markup).not.toContain('Load YouTube embed');
   expect(markup).not.toMatch(/<iframe[^>]+src="https:/);
-  expect(markup).toContain('<iframe hidden');
+  expect(markup).not.toContain('<iframe hidden');
   expect(publicResponse.headers.get('content-security-policy')).toContain("script-src 'sha256-");
+  await env.DB.prepare('INSERT INTO provider_embed_observations VALUES (?,?,?,?,?)').bind(workspaceId,'www.youtube-nocookie.com','https://slate.test','embeddable',new Date().toISOString()).run();
+  const freshMarkup=await (await req('/p/planning',undefined,'')).text();
+  expect(freshMarkup).toContain('Load YouTube embed');expect(freshMarkup).toContain('<iframe hidden');
+  await env.DB.prepare('DELETE FROM provider_embed_observations WHERE workspace_id=?').bind(workspaceId).run();
   expect((await req(`/p/planning/embeds/${blocks[0]!.id}`,undefined,'')).status).toBe(200);
   // Unpublishing fences both the document and every embedded resource.
   await req(`/api/publishing/${pageId}`,{operationKey:crypto.randomUUID(),expectedRevisionId:doc.page.revisionId,host:'slate.test',slug:'planning',revoke:true});

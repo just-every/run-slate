@@ -8588,7 +8588,7 @@
       "executable": false
     },
     "src/core/features/publishing/routes.ts": {
-      "sha256": "fe32f91b3a5dde123135f6e9bcd174d3e064b83dd63abe1137deb61257f0abf1",
+      "sha256": "4bd023d4e6644d748bdfc76607e55a76968e0d3d79a5cdb8a92a1c8343fa73c2",
       "executable": false
     },
     "src/core/features/publishing/service.ts": {
@@ -10264,7 +10264,7 @@
       "executable": false
     },
     "tests/e2e/editor/embed-refusals-journey.ts": {
-      "sha256": "eb9e067a1ae799d87a3f2db7d2340964406e86f8f7cb128ae6407c89606e9f71",
+      "sha256": "dae8598d425645ec8288e6e7f468013e82ec680c7e256ee846a2a605536cc839",
       "executable": false
     },
     "tests/e2e/editor/file-cards-journey.ts": {
@@ -10280,7 +10280,7 @@
       "executable": false
     },
     "tests/e2e/editor/provider-embeds.test.ts": {
-      "sha256": "65d0676d88b4967072c91072d56d4a09fd60f482b8ced818756024b65b2f58a3",
+      "sha256": "bb3acd472e641cc6b0e642c4ff1d8874852f3f59b9770861d29a7019440ac496",
       "executable": false
     },
     "tests/e2e/editor/rich-text-editing.test.tsx": {
@@ -12432,7 +12432,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/provider-embeds-journey.mjs": {
-      "sha256": "26f19224a88f402c8cdb199a5b229ae29ac139723c85870b69ffb7f1f944c386",
+      "sha256": "63d6cbadbb8484b2b1da7cfe147a9bfc6d8583255871153badd7c90c10fc60bd",
       "executable": false
     },
     "tests/qualification/ui-convergence/reachability.test.mjs": {
