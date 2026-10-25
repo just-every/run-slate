@@ -8360,7 +8360,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageWorkspace.tsx": {
-      "sha256": "870528385d89e818559235bd6aea6462ed862dff4e2cc3b8b3ae5c8939289512",
+      "sha256": "4f65d59c242993ba05bb737a323f77264fd8028adde6e9e95f502a47445fc995",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PublicationReviewPanel.tsx": {
