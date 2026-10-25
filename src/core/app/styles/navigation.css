@@ -6,10 +6,10 @@
 .slate-app .personal-home { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 16px; margin-top: 24px; }
 .slate-app .personal-home > section { padding: 18px 20px; border-radius: 10px; background: var(--slate-wash); }
 .slate-app .personal-home h2 { font-size: 15px; font-weight: 600; margin: 0 0 12px; }
-.slate-app .personal-home h3 { font-size: 12px; font-weight: 500; color: var(--slate-ink-muted); margin: 14px 0 4px; }
+.slate-app .personal-home h3 { font-size: var(--text-small); font-weight: 500; color: var(--slate-ink-muted); margin: 14px 0 4px; }
 .slate-app .personal-home ul { list-style: none; padding: 0; margin: 0; }
 .slate-app .navigation-backdrop { display: none; }
 @media (max-width: 700px) {
-  .slate-app .navigation-backdrop { display: block; position: fixed; inset: 61px 0 0 min(320px, 90vw); background: rgb(0 0 0 / .25); border: 0; border-radius: 0; padding: 0; z-index: 35; }
+  .slate-app .navigation-backdrop { display: block; position: fixed; inset: 65px 0 0 min(320px, 90vw); background: rgb(0 0 0 / .25); border: 0; border-radius: 0; padding: 0; z-index: 35; }
 }
-.slate-app .create-menu-hint { margin-left: auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--slate-ink-muted); font-size: .85em; }
+.slate-app .create-menu-hint { margin-left: auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--slate-ink-muted); font-size: max(var(--text-small), .85em); }

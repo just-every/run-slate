@@ -183,7 +183,7 @@ export function CommandItem({
     <div
       aria-selected={active}
       className={cn(
-        "flex cursor-pointer items-center gap-2 rounded-control px-2 py-1.5 text-ui text-ink",
+        "max-[700px]:min-h-11 flex cursor-pointer items-center gap-2 rounded-control px-2 py-1.5 text-ui text-ink",
         active ? "bg-sidebar-hover" : "",
         className,
       )}

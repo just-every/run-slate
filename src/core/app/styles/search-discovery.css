@@ -1,4 +1,4 @@
-.page-trust { display:flex; flex-wrap:wrap; align-items:baseline; gap:.3rem; color:var(--slate-ink-muted); font-size:.75rem; margin:.5rem 0; }
+.page-trust { display:flex; flex-wrap:wrap; align-items:baseline; gap:.3rem; color:var(--slate-ink-muted); font-size: var(--text-small); margin:.5rem 0; }
 .trust-state { padding:.15rem .45rem; border-radius:.25rem; background:var(--slate-sidebar-hover); color:var(--slate-ink); }
 .trust-state--verified { background:var(--slate-accent-soft); color:var(--slate-accent); }
 .trust-state--lapsed { color:var(--slate-danger); }

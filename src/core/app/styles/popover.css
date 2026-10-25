@@ -4,10 +4,10 @@
   max-height: min(var(--radix-dropdown-menu-content-available-height), 640px);
   overflow-y: auto;
 }
-.page-more-menu [role="menuitem"] { min-height: 32px; }
+.page-more-menu [role="menuitem"] { min-height: max(var(--slate-tap-target, 0px), 32px); }
 .page-more-menu [role="menuitem"][data-disabled] { opacity: 0.55; }
 .page-more-menu [role="separator"] + [role="separator"] { display: none; }
-.page-more-note { margin: 0; padding: 6px 8px; color: var(--slate-ink-muted); font-size: 12px; line-height: 1.4; }
+.page-more-note { margin: 0; padding: 6px 8px; color: var(--slate-ink-muted); font-size: var(--text-small); line-height: 1.4; }
 .slate-app .page-notice {
   position: fixed;
   right: 24px;
@@ -27,4 +27,4 @@
 .slate-app .page-notice a { color: var(--slate-accent); text-decoration: underline; }
 .slate-app .page-notice button { display: inline-flex; align-items: center; justify-content: center; border-color: transparent; }
 .slate-app .page-notice button svg { width: 16px; height: 16px; }
-.slate-app .right .detail-close { display: block; min-height: 32px; margin: 0 0 8px auto; border-color: transparent; background-color: var(--slate-surface); }
+.slate-app .right .detail-close { display: block; min-height: max(var(--slate-tap-target, 0px), 32px); margin: 0 0 8px auto; border-color: transparent; background-color: var(--slate-surface); }

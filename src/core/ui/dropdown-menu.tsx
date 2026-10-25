@@ -17,7 +17,7 @@ export const DropdownMenuSub = DropdownMenuPrimitive.Sub;
 export const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
 
 const itemClass =
-  "relative flex cursor-default items-center gap-2 rounded-control px-2 py-1.5 text-ui text-ink outline-none select-none data-[highlighted]:bg-sidebar-hover data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-ink-muted";
+  "max-[700px]:min-h-11 relative flex cursor-default items-center gap-2 rounded-control px-2 py-1.5 text-ui text-ink outline-none select-none data-[highlighted]:bg-sidebar-hover data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-ink-muted";
 
 export function DropdownMenuContent({
   className,

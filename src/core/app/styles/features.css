@@ -16,7 +16,7 @@
   margin-top: 38px;
 }
 .slate-app .today-section h2 {
-  font-size: 12px;
+  font-size: var(--text-small);
   font-weight: 400;
   letter-spacing: 1.4px;
   text-transform: uppercase;
@@ -37,7 +37,7 @@
 .slate-app .outcome-kind {
   color: var(--slate-accent);
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: var(--text-small);
   letter-spacing: 1.2px;
 }
 .slate-app .outcome-list h3 {
@@ -47,7 +47,7 @@
   margin: 8px 0;
 }
 .slate-app .outcome-list time {
-  font-size: 12px;
+  font-size: var(--text-small);
   color: var(--slate-ink-muted);
 }
 .slate-app .outcome-arrow {
@@ -161,7 +161,7 @@
   margin: 24px 0;
 }
 .slate-app .trial-bounds dt {
-  font-size: 12px;
+  font-size: var(--text-small);
   color: var(--slate-ink-muted);
 }
 .slate-app .trial-bounds dd {

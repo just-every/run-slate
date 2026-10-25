@@ -48,15 +48,15 @@
   --color-hl-purple: var(--slate-hl-purple);
 
   --font-sans:
-    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    Outfit, "Outfit Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: var(--slate-serif);
   --font-mono:
     "SFMono-Regular", ui-monospace, "JetBrains Mono", Menlo, monospace;
 
   /* Type scale read off the reference captures at a 1568px viewport. */
-  --text-micro: 0.6875rem;
+  --text-micro: var(--slate-text-micro);
   --text-micro--line-height: 1rem;
-  --text-tiny: 0.75rem;
+  --text-tiny: var(--slate-text-tiny);
   --text-tiny--line-height: 1.125rem;
   --text-small: 0.8125rem;
   --text-small--line-height: 1.25rem;
@@ -93,6 +93,8 @@
  * `WEB-003`) — stays light inside a dark document.
  */
 :root {
+  --slate-text-micro: 0.6875rem;
+  --slate-text-tiny: 0.75rem;
   --slate-serif: "Lyon Text", Georgia, ui-serif, serif;
 }
 
@@ -259,4 +261,16 @@ body {
   content: attr(data-placeholder);
   color: var(--slate-ink-faint);
   pointer-events: none;
+}
+
+/* Workspace type and touch floors; public landing and docs keep their scale. */
+.slate-app, body:has(.slate-app) {
+  --slate-text-micro: 0.8125rem;
+  --slate-text-tiny: 0.8125rem;
+  --slate-tap-target: 0px;
+}
+.slate-app small { font-size: max(var(--text-small), .8em); }
+.slate-app :is(sup, sub) { font-size: max(var(--text-small), .75em); }
+@media (max-width: 700px) {
+  .slate-app, body:has(.slate-app) { --slate-tap-target: 44px; }
 }

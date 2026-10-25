@@ -21,7 +21,7 @@
   border-right: 1px solid var(--slate-line);
   background: var(--slate-sidebar);
 }
-.slate-app .sidebar-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 40px; margin-bottom: 14px; padding-left: var(--row-inset); }
+.slate-app .sidebar-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: max(var(--slate-tap-target, 0px), 40px); margin-bottom: 14px; padding-left: var(--row-inset); }
 .slate-app .brand { display: flex; align-items: center; gap: 10px; min-width: 0; color: var(--slate-ink-strong); font: 400 22px/1.2 var(--slate-serif); }
 .slate-app .brand-mark { flex: none; width: 30px; line-height: 0; }
 .slate-app .brand-mark svg { display: block; width: 100%; height: auto; }
@@ -33,10 +33,10 @@
 .slate-app .navlink > span:not(.shortcut, .scheduled-publication) { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .slate-app .navlink:hover, .slate-app .navlink:focus-visible { background: var(--slate-sidebar-hover); }
 .slate-app .navlink[aria-current="page"], .slate-app .navlink[data-status="active"] { background: var(--slate-sidebar-hover); color: var(--slate-ink-strong); font-weight: 500; }
-.slate-app .shortcut { margin-left: auto; color: var(--slate-ink-muted); font-size: 12px; }
+.slate-app .shortcut { margin-left: auto; color: var(--slate-ink-muted); font-size: var(--text-small); }
 .slate-app .primary { display: grid; gap: 2px; padding-bottom: 12px; border-bottom: 1px solid var(--slate-line); }
 .slate-app .navigation-create { margin-top: 14px; }
-.slate-app .navigation-create > button { min-height: 40px; border-radius: 6px; }
+.slate-app .navigation-create > button { min-height: max(var(--slate-tap-target, 0px), 40px); border-radius: 6px; }
 .slate-app .sidebar-label { margin: 16px 0 4px; padding: 0; color: var(--slate-ink-muted); font-size: 13px; font-weight: 500; }
 .slate-app .favourites { margin-top: 4px; }
 .slate-app .empty-tree { margin: 0; padding: 8px var(--row-inset); color: var(--slate-ink-muted); font-size: 13px; }
@@ -62,6 +62,8 @@
 .slate-app .space-group > summary:hover, .slate-app .space-group > summary:focus-visible { background-color: var(--slate-sidebar-hover); }
 
 .slate-app .tree-filter { display: flex; align-items: center; gap: 6px; margin: 4px 4px 8px 24px; padding-left: 8px; border: 1px solid var(--slate-line); border-radius: 6px; background: var(--slate-sidebar); }
+.slate-app .tree-filter:focus-within { border-color: var(--slate-accent); }
+.slate-app .tree-filter input:focus-visible { outline: none; box-shadow: none; }
 .slate-app .tree-filter > svg { flex: none; width: 14px; height: 14px; color: var(--slate-ink-muted); }
 .slate-app .tree-filter input { flex: 1; min-width: 0; width: 100%; height: 32px; padding: 4px 0; border: 0; background: transparent; color: var(--slate-ink); font: inherit; font-size: 13px; }
 .slate-app .tree-filter button { display: grid; place-items: center; flex: none; width: 32px; height: 32px; padding: 6px; border: 0; border-radius: 6px; background: transparent; color: var(--slate-ink-muted); }
@@ -93,7 +95,7 @@
 .slate-app .workrow > span:nth-child(2) { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .slate-app .workrow-chevron { width: 16px; height: 16px; margin-left: auto; color: var(--slate-ink-muted); transition: transform 120ms ease; }
 .slate-app .workrow[aria-expanded="true"] .workrow-chevron { transform: rotate(-90deg); }
-.slate-app .member-initials { display: grid; flex: none; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--slate-accent); color: var(--slate-accent-ink); font-size: 11px; font-weight: 600; }
+.slate-app .member-initials { display: grid; flex: none; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--slate-accent); color: var(--slate-accent-ink); font-size: var(--text-small); font-weight: 600; }
 
 /* Collapsed: a 72px rail holding the mark and the button that opens it again. */
 .slate-app .app:has(.sidebar[data-collapsed="true"]) { grid-template-columns: 72px minmax(0, 1fr); background: linear-gradient(to right, var(--slate-sidebar) 72px, var(--slate-surface) 72px); }
@@ -109,8 +111,11 @@
 @media (max-width: 700px) {
   .slate-app .app, .slate-app .app:has(.sidebar[data-collapsed="true"]) { display: block; background: var(--slate-surface); }
   .slate-app .mobile-bar { display: flex; position: sticky; top: 0; z-index: 30; align-items: center; gap: 15px; padding: 10px 16px; background: var(--slate-sidebar); border-bottom: 1px solid var(--slate-line); }
-  .slate-app .mobile-bar button { width: 40px; height: 40px; }
-  .slate-app .sidebar { display: none; position: fixed; top: 61px; left: 0; z-index: 40; width: min(320px, 90vw); height: calc(100dvh - 61px); padding: 14px var(--rail-inset) 0; box-shadow: var(--slate-shadow-popover); }
+  .slate-app { --row-height: 44px; }
+  .slate-app .sidebar-header a, .slate-app .mobile-bar a, .slate-app .skip-link { display: inline-flex; align-items: center; min-height: 44px; }
+  .slate-app .mobile-bar button { width: 44px; height: 44px; }
+  .slate-app .tree-row .iconbutton, .slate-app .tree-filter button { width: 44px; min-width: 44px; }
+  .slate-app .sidebar { display: none; position: fixed; top: 65px; left: 0; z-index: 40; width: min(320px, 90vw); height: calc(100dvh - 65px); padding: 14px var(--rail-inset) 0; box-shadow: var(--slate-shadow-popover); }
   .slate-app .sidebar[data-collapsed="true"] { width: min(320px, 90vw); padding-inline: var(--rail-inset); }
   .slate-app .sidebar[data-collapsed="true"] .sidebar-content { display: flex; }
   .slate-app .sidebar[data-collapsed="true"] .brand-name { position: static; width: auto; height: auto; overflow: hidden; clip-path: none; }
@@ -121,5 +126,5 @@
 .slate-app button.navlink { width: 100%; border: 0; background-color: var(--slate-sidebar); text-align: left; }
 .slate-app button.navlink:hover, .slate-app button.navlink:focus-visible { background-color: var(--slate-sidebar-hover); }
 
-.slate-app .tree-create-page { width: 100%; min-height: 36px; text-align: start; color: var(--slate-ink-muted); }
+.slate-app .tree-create-page { width: 100%; min-height: max(var(--slate-tap-target, 0px), 36px); text-align: start; color: var(--slate-ink-muted); }
 .slate-app .navlink.tree-create-page > span { white-space: normal; overflow-wrap: anywhere; overflow: visible; }

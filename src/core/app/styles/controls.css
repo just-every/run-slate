@@ -1,7 +1,7 @@
 /* A shared painted treatment also covers native feature forms/disclosures. */
 .slate-app :is(button, [role="button"], summary) {
-  min-width: 32px;
-  min-height: 32px;
+  min-width: max(var(--slate-tap-target, 0px), 32px);
+  min-height: max(var(--slate-tap-target, 0px), 32px);
   padding-inline: 8px;
   border: 1px solid var(--slate-line);
   border-radius: 6px;
@@ -42,7 +42,7 @@
   background-color: var(--slate-surface);
   color: var(--slate-ink);
 }
-.slate-app :where(select, input:not([type="checkbox"], [type="radio"], [type="hidden"], [type="range"], [type="file"])) { min-height: 36px; padding-inline: 10px; }
+.slate-app :where(select, input:not([type="checkbox"], [type="radio"], [type="hidden"], [type="range"], [type="file"])) { min-height: max(var(--slate-tap-target, 0px), 36px); padding-inline: 10px; }
 /* Every single-choice select draws its chevron 14 px in from the border; multiple and size>1 lists keep their native look
    (Base #247 foundation/runtime/select-style.ts). The ink is the seed's muted ink, so it follows dark mode. */
 .slate-app select:not([multiple], [size]:not([size="1"])) {
@@ -72,3 +72,32 @@
   background-color: var(--slate-line-strong);
 }
 .slate-app button[role="switch"][aria-checked="true"] { background-color: var(--slate-accent); }
+
+/* Bordered fields show keyboard focus on their existing boundary. */
+.slate-app :is(input:not([type="checkbox"], [type="radio"], [type="range"]), select, textarea, button[role="combobox"]):not(.page-title-input):focus-visible,
+.slate-app .comment-form [contenteditable]:focus-visible {
+  outline: none;
+  border-color: var(--slate-accent);
+}
+@media (max-width: 700px) {
+  .slate-app :is(button, [role="button"], summary, [role="menuitem"], [role="tab"], [role="option"]) { min-height: var(--slate-tap-target); }
+  .slate-app :is(input:not([type="checkbox"], [type="radio"], [type="hidden"]), select, textarea) { min-height: var(--slate-tap-target); }
+  .slate-app label:has(input:is([type="checkbox"], [type="radio"])) { min-height: var(--slate-tap-target); align-content: center; }
+  .slate-app .task-list li > input[type="checkbox"] {
+    appearance: none; display: grid; place-content: center;
+    width: 44px; height: 44px; min-height: 44px; margin-top: 0; padding: 0;
+    border: 13px solid transparent; border-radius: 16px;
+    background-clip: padding-box; background-color: var(--slate-surface);
+    box-shadow: inset 0 0 0 1px var(--slate-line-strong);
+  }
+  .slate-app .task-list li > input[type="checkbox"]:checked { background-color: var(--slate-ink); box-shadow: none; }
+  .slate-app .task-list li > input[type="checkbox"]:checked::after {
+    content: ""; width: 6px; height: 10px; margin-top: -3px;
+    border: solid var(--slate-accent-ink); border-width: 0 2px 2px 0; transform: rotate(45deg);
+  }
+  .slate-app .task-list li > input[type="checkbox"]:focus-visible { outline-offset: -12px; }
+  .slate-app .task-list li > input[type="checkbox"]:disabled { opacity: .5; }
+  .slate-app :is(button[role="checkbox"], button[role="switch"]) { min-height: var(--slate-tap-target); }
+  .slate-app :is(.home-tasks, .empty-start) > a,
+  .slate-app .activity-page-link { display: inline-flex; align-items: center; min-height: var(--slate-tap-target); }
+}
