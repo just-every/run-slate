@@ -1,3 +1,4 @@
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { useEffect, useState } from 'react';
 import { useResource } from '../../../../client/useResource';
 import { mutate, operationKey, errorMessage } from '../../../../client/transport';
@@ -24,7 +25,7 @@ export function WebhookAccess({ containers, canManage }: { containers: { id: str
       {resource.data?.items.length ? <ul>{resource.data.items.map(destination => <li key={destination.id}><article aria-label={`Webhook ${destination.name}`}>
         <h4>{destination.name}</h4><p>{destination.destination}</p><p>Member: {destination.memberName}</p>
         {destination.mode === 'audit' ? <p>Workspace audit stream · Ordered delivery</p> : <><p>Space: {containers.find(c => c.id === destination.containerId)?.name ?? destination.containerId}</p><p>Events: {destination.events.join(', ')}</p></>}
-        <p>Created: {new Date(destination.createdAt).toLocaleString()}</p><p>Last use: {destination.lastUsedAt ? new Date(destination.lastUsedAt).toLocaleString() : 'Never'}</p>
+        <p>Created: <DateStamp value={destination.createdAt} /></p><p>Last use: {destination.lastUsedAt ? <DateStamp value={destination.lastUsedAt} /> : 'Never'}</p>
         <p>State: {destination.state}</p>{destination.disabledReason ? <p role="status">{destination.disabledReason}</p> : null}
         {canManage ? <button type="button" onClick={() => { setSelected(destination.id); void resource.reload(); }}>View deliveries for {destination.name}</button> : null}
         {canManage && destination.state === 'disabled' ? <button type="button" disabled={pending} onClick={() => { void action(`/api/developer/webhooks/${destination.id}/enable`); }}>Re-enable {destination.name}</button> : null}
@@ -34,7 +35,7 @@ export function WebhookAccess({ containers, canManage }: { containers: { id: str
     {selected ? <section aria-label="Webhook deliveries"><h4>Delivery history</h4><p>Recent deliveries and their attempts. Response excerpts are limited to 512 bytes.</p><button type="button" onClick={() => { void logs.reload(); }}>Refresh deliveries</button>
       <RequestState loading={logs.loading} error={logs.error} retry={logs.reload}>{logs.data?.items.length ? <ol>{logs.data.items.map(delivery => <li key={delivery.id}>
         <p>Event {delivery.eventId} · {delivery.state}{delivery.replayCount ? ' · Replayed' : ''}</p>
-        {delivery.nextAttemptAt ? <p>Next attempt: {new Date(delivery.nextAttemptAt).toLocaleString()}</p> : null}
+        {delivery.nextAttemptAt ? <p>Next attempt: <DateStamp value={delivery.nextAttemptAt} /></p> : null}
         <ol>{delivery.attempts.map(attempt => <li key={attempt.attempt}>Attempt {attempt.attempt}: {attempt.outcome} · {attempt.status ?? 'No response'} · {attempt.durationMs} ms<pre style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>{attempt.response}</pre></li>)}</ol>
         {delivery.state !== 'pending' ? <button type="button" disabled={pending} onClick={() => { void action(`/api/developer/webhooks/${selected}/deliveries/${delivery.id}/replay`); }}>Replay event {delivery.eventId}</button> : null}
       </li>)}</ol> : <p>No deliveries yet.</p>}</RequestState>

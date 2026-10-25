@@ -1,7 +1,7 @@
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { useState } from 'react';
 import { mutate, operationKey } from '../../../../client/transport';
 import { ActionDialog } from '../../../../app/ui/ActionDialog';
-import { displayDate } from '../../../../app/ui/displayDate';
 import type { ReviewRequestItem } from '../../request-types';
 import { ReviewRequestDialog } from './ReviewRequestDialog';
 import { VerifyDialog } from './VerifyDialog';
@@ -15,9 +15,9 @@ export function ReviewRequestList({ items, onSaved }: { items: ReviewRequestItem
     <div>
      <h3><a href={`/app/pages/${encodeURIComponent(item.pageId)}?detail=status`}>{item.title}</a></h3>
      <p>{item.state === 'pending' ? 'Awaiting review' : item.state === 'changes_requested' ? 'Changes requested' : item.state === 'verified' ? 'Verified' : 'Cancelled'} · {item.assigneeName}{item.assigneeKind === 'group' ? ' (group)' : ''} · Requested by {item.requesterName}</p>
-     <p>Due {item.date} at {item.time} ({item.timezone}){item.containerName ? ` · ${item.containerName}` : ''}</p>
+     <p>Due <DateStamp value={item.date} /> at {item.time} ({item.timezone}){item.containerName ? ` · ${item.containerName}` : ''}</p>
      {item.note ? <p style={{whiteSpace: 'pre-wrap'}}>{item.note}</p> : null}
-     {item.state === 'pending' ? <p className="muted">{item.dispatchPausedAt ? 'Reminders paused after restore. Reassign to resume.' : item.reviewerRemindedAt ? `Reviewer reminded ${displayDate(item.reviewerRemindedAt, true)}. ${item.ownerRemindedAt ? `Container owners reminded ${displayDate(item.ownerRemindedAt, true)}.` : `Container owners will be reminded after ${displayDate(item.ownerReminderAt, true)} if still pending.`}` : 'One overdue reminder goes to the reviewer, then one to current container owners 24 hours later if still pending.'}</p> : null}
+     {item.state === 'pending' ? <p className="muted">{item.dispatchPausedAt ? 'Reminders paused after restore. Reassign to resume.' : item.reviewerRemindedAt ? <>Reviewer reminded <DateStamp value={item.reviewerRemindedAt} />. {item.ownerRemindedAt ? <>Container owners reminded <DateStamp value={item.ownerRemindedAt} />.</> : <>Container owners will be reminded after <DateStamp value={item.ownerReminderAt} /> if still pending.</>}</> : 'One overdue reminder goes to the reviewer, then one to current container owners 24 hours later if still pending.'}</p> : null}
     </div>
     {item.state === 'pending' ? <div className="editor-actions">
      <a className="secondary-button" href={`/app/pages/${encodeURIComponent(item.pageId)}?detail=status`}>Open current revision</a>

@@ -1,4 +1,4 @@
-import { displayDate } from "../../../../app/ui/displayDate";
+import { DateStamp } from "../../../../app/ui/displayDate";
 
 export interface VerificationView {
   state: "current" | "changed" | "lapsed" | null;
@@ -16,7 +16,6 @@ export interface VerificationView {
   openedCurrent: boolean;
 }
 
-const when = (value: string) => displayDate(value, true);
 const people = (names: string[]) => names.length <= 1 ? names.join("") : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`;
 
 export function historyHref(pageId: string, revision: string, compare?: string) {
@@ -27,8 +26,8 @@ export function historyHref(pageId: string, revision: string, compare?: string) 
 
 /** STAT-003/STAT-004: who verified which revision, until when, and whether it still holds. */
 export function VerificationSummary({ pageId, verification: v, canEdit }: { pageId: string; verification: VerificationView; canEdit: boolean }) {
-  const attested = `${v.verifier.displayName} verified the revision of ${when(v.revisionCreatedAt ?? v.created_at)} on ${when(v.created_at)}.`;
-  const expiry = v.expires_at ? (v.lapsed ? `It lapsed on ${when(v.expires_at)}.` : `It expires on ${when(v.expires_at)}.`) : "It has no expiry.";
+  const attested = <>{v.verifier.displayName} verified the revision of <DateStamp value={v.revisionCreatedAt ?? v.created_at} /> on <DateStamp value={v.created_at} />.</>;
+  const expiry = v.expires_at ? <>{v.lapsed ? "It lapsed on" : "It expires on"} <DateStamp value={v.expires_at} />.</> : "It has no expiry.";
   const changes = v.changedSince
     ? `The verified revision is not the current one${v.revisionsSince ? `: ${v.revisionsSince} ${v.revisionsSince === 1 ? "revision" : "revisions"} since${v.editorsSince.length ? ` by ${people(v.editorsSince)}` : ""}` : ""}.`
     : "The verified revision is the current one.";
@@ -40,7 +39,7 @@ export function VerificationSummary({ pageId, verification: v, canEdit }: { page
         </strong>
       </p>
       {v.state === null ? (
-        <p>The page's status changed after its last verification on {when(v.created_at)}.</p>
+        <p>The page's status changed after its last verification on <DateStamp value={v.created_at} />.</p>
       ) : (
         <>
           <p>{attested} {expiry}</p>

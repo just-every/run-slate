@@ -12,7 +12,7 @@ export async function headingGap(button, name) {
   assert.ok(gap !== null && gap >= 8, `${name}: at least 8px below its heading (${gap})`);
 }
 export async function filterAlignment(spaces, width) {
-  const rows = await spaces.locator(':scope > .action-row').evaluateAll(rows => rows.map(row => [...row.querySelectorAll('button, select, label:has(input[type="checkbox"])')].map(el => { const r=el.getBoundingClientRect(); return { text:el.textContent.trim(),top:r.top,bottom:r.bottom,center:(r.top+r.bottom)/2 }; })));
+  const rows = await spaces.locator(':scope > .list-filters .list-filter-fields').evaluateAll(rows => rows.map(row => [...row.querySelectorAll('button, select, label:has(input[type="checkbox"])')].map(el => { const r=el.getBoundingClientRect(); return { text:el.textContent.trim(),top:r.top,bottom:r.bottom,center:(r.top+r.bottom)/2 }; })));
   for (const row of rows) for (let i=0;i<row.length;i++) for(let j=i+1;j<row.length;j++) {
     const a=row[i],b=row[j], sameLine=Math.min(a.bottom,b.bottom)>Math.max(a.top,b.top);
     if (width === 1440 || sameLine) assert.ok(Math.abs(a.center-b.center)<=2, `Space filters share centers, including checkbox-label: ${a.text}/${b.text} (${a.center}, ${b.center})`);

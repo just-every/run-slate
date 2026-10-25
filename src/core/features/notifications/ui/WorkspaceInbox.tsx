@@ -1,3 +1,5 @@
+import { DateStamp } from "../../../app/ui/displayDate";
+import { notificationText } from "./notificationText";
 import { useState } from "react";
 import { useResource } from "../../../client/useResource";
 import { mutate, operationKey, errorMessage } from "../../../client/transport";
@@ -9,6 +11,7 @@ interface Notice {
   id: string;
   title: string | null;
   event: string;
+  actor: { displayName: string } | null;
   href: string;
   createdAt: string;
   readAt: string | null;
@@ -16,8 +19,7 @@ interface Notice {
 }
 /** STAT-007: one coalesced notice per owner and run, counts and titles only. */
 function rulesSummary(rules: { unverified: number; flagged: number }) {
-  const parts = [rules.unverified ? `unverified ${rules.unverified}` : "", rules.flagged ? `flagged ${rules.flagged}` : ""].filter(Boolean);
-  return `Verification rules ${parts.join(" and ")} ${rules.unverified + rules.flagged === 1 ? "page" : "pages"} you own`;
+  return `Verification changed for ${rules.unverified + rules.flagged} ${rules.unverified + rules.flagged === 1 ? "page" : "pages"} you own`;
 }
 export function WorkspaceInbox() {
   const { localDevelopment } = useWorkspace();
@@ -75,16 +77,13 @@ export function WorkspaceInbox() {
         >
           <ul className="outcome-list">
             {resource.data?.items.map((item) => (
-              <li key={item.id}>
+              <li key={item.id} data-event={item.event}>
                 <a href={item.href} onClick={event => {event.preventDefault();void mutate("/api/notifications/actions",{operationKey:operationKey(),action:"read",id:item.id}).then(()=>window.location.assign(item.href)).catch(setError);}}>
-                  <span className="outcome-kind">
-                    {item.event.replaceAll("-", " ")}
-                    {!item.readAt ? " · Unread" : ""}
-                  </span>
-                  <h3>{item.title ?? (item.detail?.verificationRules ? rulesSummary(item.detail.verificationRules) : "Workspace update")}</h3>
+                  <h3>{item.detail?.verificationRules ? rulesSummary(item.detail.verificationRules) : notificationText(item)}</h3>
+                  {!item.readAt ? <span className="muted">Unread · </span> : null}
                   {item.detail?.verificationRules ? <p>{item.detail.verificationRules.pages.map(page => `${page.title} (${page.change})`).join(", ")}</p> : null}
                   {localDevelopment && item.detail?.outcome ? <p>{item.detail.outcome}</p> : null}
-                  <time dateTime={item.createdAt}>{new Date(item.createdAt).toLocaleString()}</time>
+                  <DateStamp value={item.createdAt} />
                 </a>
               </li>
             ))}

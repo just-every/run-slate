@@ -44,7 +44,7 @@ export async function blogJourney(state, people) {
   await bob.page.goto(`${origin}/app/inbox`, { waitUntil: 'networkidle' });
   const notices = bob.page.locator('.outcome-list li').filter({ hasText: title });
   await expect(notices).toHaveCount(1);
-  await expect(notices).toContainText('post published');
+  await expect(notices).toHaveAttribute('data-event', 'post-published');
   await people.shot('bob', 'post notification');
 
   await bob.page.goto(`${origin}/app`, { waitUntil: 'networkidle' });
@@ -52,7 +52,7 @@ export async function blogJourney(state, people) {
   const post = home.getByRole('article', { name: title });
   await expect(post).toContainText('By Alex Owner');
   await expect(post).toContainText('Handbook');
-  await expect(bob.page.getByRole('region', { name: 'Following' }).locator('li').filter({ hasText: title })).toContainText('post published');
+  await expect(bob.page.getByRole('region', { name: 'Following' }).locator('li').filter({ hasText: title })).toHaveAttribute('data-event', 'post-published');
   await accessible(bob.page, 'home posts');
   await people.shot('bob', 'home posts');
   const overflow = await bob.page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);

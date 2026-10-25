@@ -1,3 +1,4 @@
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { useState } from 'react';
 import { useResource } from '../../../../client/useResource';
 import { RequestState } from '../../../../app/ui/RequestState';
@@ -47,7 +48,7 @@ export function AnalyticsReports({ containerId }: { containerId: string }) {
         <a href={`${path}&format=csv`} download>Export report as CSV</a>
         {report.data.rows.length ? <div style={{ overflowX: 'auto' }} tabIndex={0} role="region" aria-label="Report table">
           <table><caption>{report.data.title}</caption><thead><tr>{report.data.columns.map(c => <th key={c.key} scope="col">{c.label}</th>)}</tr></thead>
-            <tbody>{report.data.rows.map((row, index) => <tr key={index}>{report.data!.columns.map(c => <td key={c.key}>{c.key === 'title' && row.pageId ? <a href={`/app/pages/${encodeURIComponent(String(row.pageId))}`}>{row[c.key]}</a> : row[c.key] ?? 'Never'}</td>)}</tr>)}</tbody>
+            <tbody>{report.data.rows.map((row, index) => <tr key={index}>{report.data!.columns.map(c => <td key={c.key}>{c.key === 'title' && row.pageId ? <a href={`/app/pages/${encodeURIComponent(String(row.pageId))}`}>{row[c.key]}</a> : row[c.key] && ['day','createdAt','lastEditedAt','verifiedAt','expiresAt'].includes(c.key) ? <DateStamp value={String(row[c.key])} /> : row[c.key] ?? 'Never'}</td>)}</tr>)}</tbody>
           </table>
         </div> : <p>No matching rows.</p>}
       </> : null}

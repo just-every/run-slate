@@ -1,3 +1,4 @@
+import { DateStamp } from "./displayDate";
 export function ScheduledPublication({
   page,
 }: {
@@ -15,9 +16,7 @@ export function ScheduledPublication({
         ? "Publication needs attention"
         : "Scheduled"}{" "}
       ·{" "}
-      <time dateTime={page.publishAt}>
-        {new Date(page.publishAt).toLocaleString()}
-      </time>
+      <DateStamp value={page.publishAt} />
       {page.scheduleFailure ? ` · ${page.scheduleFailure}` : null}
     </small>
   );

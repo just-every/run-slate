@@ -69,7 +69,6 @@ export async function globalCreateJourney(state) {
   await page.getByRole('menuitem', { name: 'Space', exact: true }).click();
   const container = page.getByRole('dialog', { name: 'Create a space', exact: true });
   await container.getByLabel('Name', { exact: true }).fill('Customer success');
-  await container.getByLabel('Description', { exact: true }).fill('Shared customer support playbooks');
   await accessible(page, 'global create space');
   await shot('space');
   const createdSpace = page.waitForResponse(response => response.request().method() === 'POST' && new URL(response.url()).pathname === '/api/containers');

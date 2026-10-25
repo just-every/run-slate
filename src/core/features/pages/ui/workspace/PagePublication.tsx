@@ -1,10 +1,10 @@
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { useState } from "react";
 import type { DocumentView } from "../../../../client/content";
 import { mutate, operationKey } from "../../../../client/transport";
 import { useResource } from "../../../../client/useResource";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import { RequestState } from "../../../../app/ui/RequestState";
-import { displayDate } from "../../../../app/ui/displayDate";
 type Exposure = {
   host: string;
   slug: string;
@@ -71,7 +71,7 @@ export function PagePublication({
         {exposure?.revokedAt ? (
           <p>
             Public access was stopped{" "}
-            {displayDate(exposure.revokedAt, true)}.
+            <DateStamp value={exposure.revokedAt} />.
           </p>
         ) : null}
       </RequestState>

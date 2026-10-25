@@ -63,6 +63,14 @@
   align-items: center;
   gap: 16px;
 }
+.folio-dialog > form > header {
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  position: static;
+}
+.slate-app .folio-dialog > form > header h2 { margin: 0; }
 .folio-dialog h2 {
   font:
     28px/1.2 Georgia,

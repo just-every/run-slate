@@ -1,3 +1,4 @@
+import { DateStamp } from "../../../app/ui/displayDate";
 import { EvidenceReference } from "../../ai/ui/EvidenceReference";
 export interface FindingArtifact {
   id: string;
@@ -55,7 +56,7 @@ export function FindingRecords({
             <p className="eyebrow">{artifact.kind}</p>
             <p>{content.finding}</p>
             <p className="muted">
-              {new Date(artifact.created_at).toLocaleString()}
+              <DateStamp value={artifact.created_at} />
             </p>
             <FindingSources
               refs={JSON.parse(artifact.refs_json)}

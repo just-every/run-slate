@@ -1,3 +1,4 @@
+import { relativeDate } from "../../../../app/ui/displayDate";
 import { useEffect, useState } from "react";
 import type {PageTrust} from "../../../search/trust-types";
 import { request, ApiError, errorMessage } from "../../../../client/transport";
@@ -59,7 +60,7 @@ export function useContentQueries(pageId: string, blocks: EditorBlock[]) {
                       labels.items.find((page) => page.id === item.id)
                         ?.containerLabel ?? "Unavailable space",
                   })),
-                  lastRanLabel: new Date(response.ranAt).toLocaleString(),
+                  lastRanLabel: relativeDate(response.ranAt),
                   sourceMissing: undefined,
                 },
               }));
@@ -69,7 +70,7 @@ export function useContentQueries(pageId: string, blocks: EditorBlock[]) {
                 ...old,
                 [id]: {
                   results: [],
-                  lastRanLabel: new Date().toLocaleString(),
+                  lastRanLabel: relativeDate(new Date().toISOString()),
                   sourceMissing: {
                     message:
                       error instanceof ApiError && error.status === 404

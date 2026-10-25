@@ -66,7 +66,7 @@ export function ActionDialog({
         if (!pending) onClose();
       }}
     >
-      <form onSubmit={submit}>
+      <form onSubmit={submit} style={{ margin: 0 }}>
         <header>
           <h2>{title}</h2>
           <button

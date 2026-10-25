@@ -33,8 +33,8 @@ export async function pagePanelsJourney({ page, origin, api, modelRequests }, pa
   await panel.getByRole('button', { name: 'Save display settings', exact: true }).scrollIntoViewIfNeeded();
   await capture(page, 'more-panel-display', { fullPage: true, requiredControls: ['Save display settings'] });
   await closeDetails(page);
-  await more.click();
-  await menu.getByRole('menuitem', { name: 'Readership & contributors', exact: true }).click();
+  await openPageAction(page, 'Details');
+  await panel.locator('summary').filter({ hasText: /^Readership$/ }).click();
   await expect(panel.getByRole('button', { name: 'Apply dates', exact: true })).toBeVisible();
   await panel.getByRole('button', { name: 'Apply dates', exact: true }).scrollIntoViewIfNeeded();
   await capture(page, 'more-panel-readership', { fullPage: true, requiredControls: ['Apply dates'] });

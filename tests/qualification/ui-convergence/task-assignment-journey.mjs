@@ -57,7 +57,7 @@ export async function taskAssignmentJourney(state, people) {
   await people.shot('alice', 'task assigned and dated');
 
   await bob.page.goto(`${origin}/app/inbox`, { waitUntil: 'networkidle' });
-  const notices = bob.page.locator('.outcome-list li').filter({ hasText: title }).filter({ has: bob.page.locator('.outcome-kind').filter({ hasText: /^task assigned\b/ }) });
+  const notices = bob.page.locator('.outcome-list li').filter({ hasText: title }).and(bob.page.locator('[data-event=task-assigned]'));
   await expect(notices).toHaveCount(1);
   assert.equal((await ok(bob.context, origin, 'GET', '/api/notifications')).items.filter(entry => entry.event === 'task-assigned' && entry.pageId === pageId).length, 1);
   await people.shot('bob', 'task assigned notice');

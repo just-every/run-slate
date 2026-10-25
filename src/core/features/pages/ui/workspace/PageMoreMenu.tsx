@@ -3,7 +3,6 @@ import {
   Bell,
   BellOff,
   CalendarX,
-  ChartColumn,
   ChevronDown,
   CircleDot,
   Copy,
@@ -181,7 +180,6 @@ export function PageMoreMenu({
           {canEdit ? item(<LayoutTemplate aria-hidden="true" />, "Save as template", dialogItem("template")) : null}
           <DropdownMenuSeparator />
           {item(<CircleDot aria-hidden="true" />, "Page status", panel("status"))}
-          {item(<ChartColumn aria-hidden="true" />, "Readership & contributors", panel("readership"))}
           {canShare ? item(<Globe aria-hidden="true" />, "Public access", panel("publication")) : null}
           {canEdit ? (
             <>

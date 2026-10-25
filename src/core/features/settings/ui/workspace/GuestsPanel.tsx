@@ -1,3 +1,4 @@
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { useState } from 'react';
 import { useResource } from '../../../../client/useResource';
 import { mutate, operationKey } from '../../../../client/transport';
@@ -6,7 +7,7 @@ import { ActionDialog } from '../../../../app/ui/ActionDialog';
 import { LocalInvitationNotice } from './LocalInvitationNotice';
 import type { GuestView } from '../../../workspace/guests';
 import type { GuestPolicy } from '../../../workspace/guest-policy';
-const date=(value:string|null)=>value?new Date(value).toLocaleString():'Not recorded';
+const date=(value:string|null)=>value?<DateStamp value={value} />:'Not recorded';
 const localDate=(value:string|null)=>value?new Date(Date.parse(value)-new Date(value).getTimezoneOffset()*60000).toISOString().slice(0,16):'';
 export function GuestsPanel({localDevelopment}:{localDevelopment:boolean}) {
   const guests=useResource<{items:GuestView[]}>('/api/guests');
@@ -20,7 +21,7 @@ export function GuestsPanel({localDevelopment}:{localDevelopment:boolean}) {
     <p>See each guest’s current pages, inviter, last activity and access expiry.</p>
     <button onClick={()=>setDialog('invite')}>Invite a guest</button>{' '}
     <button disabled={!policy.data} onClick={()=>setDialog('policy')}>Guest settings</button>{' '}
-    <button disabled={!selected.length} onClick={()=>setDialog('revoke')}>Revoke selected guests</button>
+    {selected.length ? <button onClick={()=>setDialog('revoke')}>Revoke selected guests</button> : null}
     {notice?<p role="status">{notice}</p>:null}
     <RequestState loading={guests.loading} error={guests.error} retry={guests.reload}>
       {!guests.data?.items.length?<p>No guests yet.</p>:<ul className="settings-list">
@@ -29,7 +30,7 @@ export function GuestsPanel({localDevelopment}:{localDevelopment:boolean}) {
             <p>{guest.email}</p><p>Invited by: {guest.invitedBy??'Not recorded'} · Last active: {date(guest.lastActiveAt)}</p>
             <p>Guest expiry: {guest.expiresAt?date(guest.expiresAt):'No expiry'}</p>
             <button onClick={()=>setExpiryGuest(guest)}>Set expiry for {guest.displayName}</button>
-            {guest.access.length?<ul>{guest.access.map(access=><li key={access.id}><a href={`/app/pages/${access.id}`}>{access.title}</a> · {access.expiresAt?`Expires ${date(access.expiresAt)}`:'No expiry'}</li>)}</ul>:<p>No current page access.</p>}
+            {guest.access.length?<ul>{guest.access.map(access=><li key={access.id}><a href={`/app/pages/${access.id}`}>{access.title}</a> · {access.expiresAt?<>Expires {date(access.expiresAt)}</>:'No expiry'}</li>)}</ul>:<p>No current page access.</p>}
           </div>
         </li>)}
       </ul>}

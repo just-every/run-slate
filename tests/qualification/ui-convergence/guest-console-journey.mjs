@@ -53,7 +53,7 @@ export async function guestConsoleJourney(state) {
     for(const name of ['avery-partner','blair-partner','casey-partner'])await expect(console).toContainText(`${name}@test.invalid`);
     await expect(console).toContainText('Alex Owner');
     await expect(console.getByRole('link',{name:'Partner onboarding guide',exact:true})).toHaveCount(3);
-    for(const guest of (await api('/api/guests')).items){assert.ok(guest.lastActiveAt);assert.ok(guest.expiresAt);await expect(console).toContainText(new Date(guest.expiresAt).toLocaleString('en-US'));}
+    for(const guest of (await api('/api/guests')).items){assert.ok(guest.lastActiveAt);assert.ok(guest.expiresAt);const row=console.locator('.settings-list > li').filter({has:page.getByRole('checkbox',{name:guest.displayName,exact:true})});await expect(row.locator('p').filter({hasText:/^Guest expiry:/}).locator(`time[datetime="${guest.expiresAt}"]`)).toBeVisible();}
     await page.screenshot({path:`.artifacts/ui-convergence/guest-console-${width}-three.png`,fullPage:true});
     await console.getByRole('checkbox',{name:'avery-partner',exact:true}).check();
     await console.getByRole('checkbox',{name:'blair-partner',exact:true}).check();

@@ -1,3 +1,6 @@
+import type { FollowingFeed } from "./Following";
+import { DateStamp } from "../../../../app/ui/displayDate";
+import { notificationText } from "../../../notifications/ui/notificationText";
 import { useFlagshipEnabled } from "../../../../app/ui/LaunchProfile";
 import {PersonalHome} from "./PersonalHome";
 import { useResource } from "../../../../client/useResource";
@@ -9,6 +12,7 @@ interface Notice {
   id: string;
   title: string | null;
   event: string;
+  actor: { displayName: string } | null;
   href: string;
   createdAt: string;
   readAt: string | null;
@@ -25,7 +29,14 @@ export function TodayWorkspace() {
 }
 function FlagshipToday() {
   const resource = useResource<Today>("/api/notifications/today");
+  const following = useResource<FollowingFeed>("/api/navigation/following");
   const data = resource.data;
+  const followedIds = new Set(following.data?.items.map(item => item.id));
+  const unique = (items: Notice[] = []) => items.filter(item => !followedIds.has(item.id));
+  const notices = unique(data?.notices);
+  const decisions = unique(data?.decisions);
+  const contradictions = unique(data?.contradictions);
+  const outcomes = data?.outcomes.map(group => ({ ...group, items: unique(group.items) })).filter(group => group.items.length) ?? [];
   const empty =
     data &&
     !data.decisions.length &&
@@ -36,7 +47,7 @@ function FlagshipToday() {
     return (
       <ul className="outcome-list">
         {items.map((item) => (
-          <li key={item.id}>
+          <li key={item.id} data-event={item.event}>
             <a
               href={item.href}
               onClick={() => {
@@ -47,13 +58,10 @@ function FlagshipToday() {
                 }).catch(() => {});
               }}
             >
-              <span className="outcome-kind">
-                {item.event.replaceAll("-", " ")}
-              </span>
-              <h3>{item.title ?? "Workspace update"}</h3>
-              <time dateTime={item.createdAt}>
-                {new Date(item.createdAt).toLocaleString()}
-              </time>
+              <h3>{notificationText(item)}</h3>
+              
+                
+              <DateStamp value={item.createdAt} />
               <span className="outcome-arrow" aria-hidden="true">
                 ↗
               </span>
@@ -88,32 +96,32 @@ function FlagshipToday() {
               </p>
             </div>
           ) : null}
-          {data?.decisions.length ? (
+          {!following.loading && decisions.length ? (
             <section className="today-section">
               <h2>Ready for your decision</h2>
-              {rows(data.decisions)}
+              {rows(decisions)}
             </section>
           ) : null}
-          {data?.contradictions.length ? (
+          {!following.loading && contradictions.length ? (
             <section className="today-section">
               <h2>Something needs a closer look</h2>
-              {rows(data.contradictions)}
+              {rows(contradictions)}
             </section>
           ) : null}
-          {data?.outcomes.map((group) => (
+          {!following.loading && outcomes.map((group) => (
             <section className="today-section" key={group.day}>
               <h2>Completed work · {group.day}</h2>
               {rows(group.items)}
             </section>
           ))}
-          {data?.notices.length ? (
+          {!following.loading && notices.length ? (
             <section className="today-section">
               <h2>For you</h2>
-              {rows(data.notices)}
+              {rows(notices)}
             </section>
           ) : null}
         </RequestState>
-        <PersonalHome/>
+        <PersonalHome following={following}/>
       </section>
     </>
   );

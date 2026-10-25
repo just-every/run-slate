@@ -44,8 +44,7 @@ export function PageAsk({ document,selection }: { document: DocumentView;selecti
       <h2>{selection ? "Work with selected text" : "Ask about this page"}</h2>
       {selection?<blockquote>{selection.quote}</blockquote>:null}
       <p className="muted">
-        Name the outcome. Slate uses the context you can access and keeps
-        uncertainty visible.
+        Ask a question about this page.
       </p>
       <AiAllowance />
       {availability.error ? <p role="alert">{errorMessage(availability.error)} <button onClick={() => void availability.reload()}>Check AI availability again</button></p> : null}
@@ -164,7 +163,7 @@ export function PageAsk({ document,selection }: { document: DocumentView;selecti
           ) : null}
         </RequestState>
       </details>
-      <ContextDisclosure label="Suggestions & authority">
+      <ContextDisclosure label="Suggestions & permissions">
         <PageSuggestions document={document} />
         <StandingAuthority />
       </ContextDisclosure>
@@ -172,7 +171,7 @@ export function PageAsk({ document,selection }: { document: DocumentView;selecti
         pageId={document.page.id}
         currentRevisionId={document.workingRevisionId}
       />
-      <ContextDisclosure label="Procedures from this page">
+      <ContextDisclosure label="Saved instructions">
         <PageSkills pageId={document.page.id} />
       </ContextDisclosure>
     </section>

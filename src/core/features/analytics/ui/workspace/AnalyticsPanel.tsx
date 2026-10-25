@@ -1,3 +1,4 @@
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { AnalyticsReports } from "./AnalyticsReports";
 import { useState } from "react";
 import { useResource } from "../../../../client/useResource";
@@ -36,7 +37,6 @@ export function AnalyticsPanel({
   );
   return (
     <section className="analytics-panel" aria-label={pageId ? "Page readership" : "Space readership"}>
-      <h3>Readership</h3>
       <form
         className="detail-form"
         onSubmit={(event) => {
@@ -116,7 +116,7 @@ export function AnalyticsPanel({
               <tbody>
                 {resource.data.overTime.map((day) => (
                   <tr key={day.day}>
-                    <td>{day.day}</td>
+                    <td><DateStamp value={day.day} /></td>
                     <td>
                       {metric === "views"
                         ? day.views - (own ? 0 : day.ownPageViews)
