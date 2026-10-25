@@ -124,7 +124,7 @@ export async function savedAfterCommit(page, blockId, edit) {
     window.slateBlockStates?.observer.disconnect();
     const seen = [];
     const observer = new MutationObserver(() => {
-      const text = document.querySelector(`[data-block-id="${CSS.escape(id)}"] [role="status"]`)?.textContent ?? '';
+      const text = document.querySelector(`.editor-save-status`)?.textContent ?? '';
       if (text && seen.at(-1)?.text !== text) seen.push({ text, at: Date.now() });
     });
     observer.observe(document.body, { childList: true, subtree: true, characterData: true });
@@ -134,7 +134,7 @@ export async function savedAfterCommit(page, blockId, edit) {
   await edit();
   const response = await committed;
   const commitAt = Date.now(), body = await response.json();
-  await expect(page.locator(`[data-block-id="${blockId}"] [role="status"]`).filter({ hasText: /^Saved/ })).toBeVisible({ timeout: 2000 });
+  await expect(page.locator('.editor-save-status').filter({ hasText: /^Saved/ })).toBeVisible({ timeout: 2000 });
   const seen = await page.evaluate(() => window.slateBlockStates.seen);
   const saving = seen.find(item => /^Saving/.test(item.text)), saved = saving && seen.find(item => /^Saved/.test(item.text) && item.at >= saving.at);
   assert.ok(saving, 'The block shows Saving while the write is in flight.');

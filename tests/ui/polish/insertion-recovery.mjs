@@ -70,7 +70,7 @@ export async function insertionRecoveryJourney({ page, context, origin }, contai
     } else {
       await expect(recovered).toHaveCount(0);
     }
-    await expect(page.locator('.editor-save-status')).toHaveCount(0);
+    await expect(page.locator('.editor-save-status')).toHaveText('Saved');
     await expect(heading()).toHaveAttribute('contenteditable', 'true');
     await page.screenshot({ path: `.artifacts/ui-convergence/recovery-saved-${conflict ? 'discarded' : 'empty'}-${page.viewportSize().width}.png`, fullPage: true });
     await page.reload({ waitUntil: 'networkidle' });

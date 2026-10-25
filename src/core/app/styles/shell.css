@@ -88,8 +88,9 @@
   .slate-app .tree-row .tree-action, .slate-app .favourite-row > .icon-action { display: inline-flex; }
 }
 
-.slate-app .workspace { position: relative; margin-top: auto; padding: 10px 0 12px; border-top: 1px solid var(--slate-line); }
-.slate-app .workspace > nav { display: grid; gap: 4px; margin-bottom: 8px; }
+.slate-app .workspace { position: sticky; bottom: 0; flex-shrink: 0; background: var(--slate-sidebar); margin-top: auto; padding: 10px 0 12px; border-top: 1px solid var(--slate-line); }
+.slate-app .workspace > nav { position: absolute; bottom: calc(100% - 8px); left: 0; right: 0; z-index: 50; display: grid; gap: 4px; padding: 8px; max-height: calc(100dvh - 160px); overflow: auto; border: 1px solid var(--slate-line); border-radius: 8px; background: var(--slate-surface); box-shadow: var(--slate-shadow-popover); }
+.slate-app .workspace > nav .navlink { min-height: 44px; width: 100%; font-size: 14px; }
 .slate-app .workrow { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px; padding: 0 var(--row-inset); border: 0; border-radius: 8px; background-color: var(--slate-sidebar); color: var(--slate-ink-strong); font-size: 14px; font-weight: 500; text-align: left; }
 .slate-app .workrow:hover { background-color: var(--slate-sidebar-hover); }
 .slate-app .workrow > span:nth-child(2) { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

@@ -37,10 +37,10 @@ export function TableView({
 }) {
   return (
     <TableScrollRegion className={className}>
-      <table className="w-full min-w-[48rem] border-collapse text-ui">
+      <table className="w-full table-fixed border-collapse text-ui" style={{minWidth:`${(fields.length+1)*144}px`}}>
         <thead>
           <tr className="border-b border-line">
-            <th className="h-8 w-64 px-2 text-left text-tiny font-medium whitespace-nowrap text-ink-muted" scope="col">
+            <th className={`${fields.length===1?"w-1/2":"w-64"} h-8 px-2 text-left text-tiny font-medium whitespace-nowrap text-ink-muted`} scope="col">
               <span className="flex items-center gap-1.5">
                 <FieldGlyph className="size-3.5 text-ink-faint" type="text" />
                 {titleColumnLabel}
