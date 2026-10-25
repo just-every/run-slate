@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "097421bbf4f42e1c3cc8ece359ca921dd9208009ea326d6978335722b9483655",
+      "sha256": "19b38a260fe9a7d5d0e143a11d428dadfb964235d5b87bded3faf95ad4568318",
       "executable": false
     },
     "DEMO.md": {
@@ -5044,7 +5044,7 @@
       "executable": false
     },
     "scripts/verify.mjs": {
-      "sha256": "f790674ade2bdb7e2b747ecf692f89577dd5f75fc11651cf048814993a785d5f",
+      "sha256": "6598af9d68d53f73da986829cb27c5eeaad2f4ccce766489e64c1a4c3d5ae31f",
       "executable": false
     },
     "SEED-COMMAND-CONTRACT.md": {
@@ -10200,7 +10200,7 @@
       "executable": false
     },
     "test-budget.json": {
-      "sha256": "045c7d90cff004881f026a033451a0b1862d553e98486eaad26cbfc4cc1f3c63",
+      "sha256": "a2af772981b63ef6e84f5c6eb49a5d9b95a71c4da6f25197175812c74ae16c61",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
@@ -10225,10 +10225,6 @@
     },
     "tests/e2e/confirmation-flow.mjs": {
       "sha256": "31e597ab78937d8a7f47441750beb3405c4b99bb71c940381ea67526b4ddc6c1",
-      "executable": false
-    },
-    "tests/e2e/contract-coverage.test.ts": {
-      "sha256": "a9490ade407450e70df671390ae29429644783fd0c41e1da61cbf884ce716b3d",
       "executable": false
     },
     "tests/e2e/contract.d.ts": {
@@ -12509,6 +12505,10 @@
     },
     "tests/requirements/count-registrations.mjs": {
       "sha256": "343965bc8d6fbc27f4eb0372e813ce0e2f88da1ad8ad67bad4decf6538efa7bb",
+      "executable": false
+    },
+    "tests/requirements/planned-clauses.json": {
+      "sha256": "88997e6de383f42e4bc626aa102083979b578f51bcaf534a18e0d47801c6bdea",
       "executable": false
     },
     "tests/requirements/test-evidence.json": {

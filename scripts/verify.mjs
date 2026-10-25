@@ -216,9 +216,30 @@ check("emitted Worker access matrix completed", artifactAccess.passed, artifactA
 check("the Workers contract suite completed", suiteCompleted, { exitCode: suiteStatus, reason: suiteFailure, failedTests });
 check("evidence metadata is exact and current", suiteCompleted && evidence.errors.length === 0, {errors: evidence.errors, supportingTests: evidence.registered.size});
 const rawTagged=taggedTestInventory(report??{});
-check("every contract clause has a tagged test", suiteCompleted && contractIds.every((id) => rawTagged.has(id) || overriddenIds.has(id)), {
+let plannedClauses = [];
+let plannedInventoryError;
+try {
+  const inventory = JSON.parse(await read("tests/requirements/planned-clauses.json"));
+  if (!Array.isArray(inventory) || inventory.some((entry) => !entry || typeof entry.id !== "string" || typeof entry.name !== "string" || !entry.name.trim())) {
+    throw new Error("Expected an array of clause ids and nonempty names.");
+  }
+  plannedClauses = inventory;
+} catch (cause) {
+  plannedInventoryError = cause.code === "ENOENT" ? "Missing planned-clause inventory." : "Invalid planned-clause inventory.";
+}
+const plannedIds = new Set(plannedClauses.map(({id}) => id));
+const inventoriedIds = [...contractIds, ...baselineIds];
+const observedIds = new Set([...rawTagged, ...(artifactAccess.passed ? ["BASE-ACCESS-002"] : [])]);
+const unknownPlanned = [...plannedIds].filter((id) => !contractIds.includes(id) && !baselineIds.includes(id));
+const duplicatePlanned = plannedClauses.filter(({id}, index) => plannedClauses.findIndex((entry) => entry.id === id) !== index).map(({id}) => id);
+const stalePlanned = [...plannedIds].filter((id) => tagged.get(id)?.some(({status}) => status === "passed"));
+const taggedPlanned = [...plannedIds].filter((id) => observedIds.has(id));
+check("every contract clause has a tagged test", suiteCompleted && !plannedInventoryError && unknownPlanned.length === 0 && duplicatePlanned.length === 0 && stalePlanned.length === 0 && taggedPlanned.length === 0 && inventoriedIds.every((id) => observedIds.has(id) || overriddenIds.has(id) || plannedIds.has(id)), {
   clauseCount: contractIds.length,
-  untagged: contractIds.filter((id) => !rawTagged.has(id) && !overriddenIds.has(id)),
+  baselineClauseCount: baselineIds.length,
+  untagged: inventoriedIds.filter((id) => !observedIds.has(id) && !overriddenIds.has(id) && !plannedIds.has(id)),
+  planned: [...plannedIds],
+  plannedInventoryError, unknownPlanned, duplicatePlanned, stalePlanned, taggedPlanned,
   reason: suiteFailure,
 });
 check("no test tags an unknown clause", suiteCompleted && unknownTags.length === 0 && untagged.length === 0, { unknownTags, untaggedTests: untagged, reason: suiteFailure });
