@@ -21,8 +21,8 @@
 | --- | --- | --- | --- |
 | `HOME-001` Public landing | Unauthenticated GET `/` and `/setup/state` before and after first-run setup return the Lobby states with no cookie and `no-store`; `rer build --site` output renders the landing with only allowed links and same-origin resources | done | `tests/e2e/landing-styles.test.mjs` |
 | `DOCS-001` Public documentation | GET `/docs` and each published slug render from `docs/site.json`; unknown slug answers the branded 404; the build fails on an unlisted Markdown file or a broken link | done | `tests/e2e/docs.test.ts` |
-| `WORK-001` One workspace | Setup creates one workspace; no route creates a second; renaming shows in the app header | done | `tests/qualification/backend/workspace-lifecycle.test.ts` |
-| `WORK-003` Member management | Owner invites and removes a member; a member's removal attempt is refused; the setup member is removable only by themselves | done | `tests/qualification/backend/workspace-lifecycle.test.ts` |
+| `WORK-001` One workspace | Setup creates one workspace; no route creates a second; renaming shows in the app header | done | — |
+| `WORK-003` Member management | Owner invites and removes a member; a member's removal attempt is refused; the setup member is removable only by themselves | done | — |
 | `WORK-006` Invitations | Invitation accepted once, revoked before use, refused after 7 days; the request response is identical for known and unknown addresses | done | `tests/e2e/local-outbox.node.test.mts` |
 | `WORK-007` Removal | Removing a member revokes sessions, archives their personal container, leaves owned pages ownerless and refuses removing the last owner | done | `tests/qualification/core/identity.mjs` |
 | `WORK-008` Roles | Owner and member role matrix over settings, members, groups, guests and containers; every other right comes from grants | done | `tests/qualification/core/identity.mjs` |
@@ -36,33 +36,33 @@
 | `SAVE-001` Durable save state | Editor shows Saving until the commit and Saved within 2 seconds after it | done | `tests/qualification/interface/routed.browser.mjs` |
 | `SAVE-002` Failed writes | A forced write failure shows a failed state with the unsent value and an explicit retry, never Saved | done | `tests/e2e/saving/failed-writes.test.ts`, `tests/qualification/ui-convergence/failed-save-journey.mjs` (Real validation refusals retain unsent titles, name the failure and require explicit retry; corrected retries persist at 1440 and 390. Existing body transport-loss journey retains and retries unsent blocks.) |
 | `SAVE-003` Revision conflicts | An edit against a superseded revision returns 409, keeps the draft and offers compare, reload or overwrite | done | — |
-| `SAVE-004` Network loss | Offline editor shows Offline and keeps a labeled unsaved draft that never appears in tree, search or export | done | `tests/qualification/offline-refresh/transport.test.ts` |
-| `SAVE-005` Operation keys | A repeated operation key returns the first response and creates nothing twice; a different body is refused with 409 | done | `tests/qualification/backend/request-access.test.ts` |
+| `SAVE-004` Network loss | Offline editor shows Offline and keeps a labeled unsaved draft that never appears in tree, search or export | done | — |
+| `SAVE-005` Operation keys | A repeated operation key returns the first response and creates nothing twice; a different body is refused with 409 | done | — |
 | `SAVE-006` Concurrent editing and optional co-editing | Two members edit different blocks concurrently; committed blocks refresh within 10 seconds without replacing unsaved text; presence shows who has the page open | partial | `tests/qualification/ui-convergence/two-people-editing.mjs` (live co-editing only under the flagship opt-in; see COLLAB-001) |
 | `PAGE-001` What a page is | A page carries every listed attribute, and labels survive import, export and re-import | done | `tests/e2e/imports/real-exports.test.ts` |
 | `PAGE-002` Creation | Pages are created blank and from a template from the tree, global create and as a child, each at one position | done | `tests/qualification/interface/content.mjs` |
 | `PAGE-003` Identity survives everything | Rename, move, archive, restore, publish and unpublish keep the page identifier and every link resolving | done | — |
-| `PAGE-004` Move | Moving a page with children to another container re-resolves grants, shows the change first and keeps comments, versions and links | done | `tests/e2e/page-move-state.test.tsx` |
+| `PAGE-004` Move | Moving a page with children to another container re-resolves grants, shows the change first and keeps comments, versions and links | done | — |
 | `PAGE-005` Duplicate | Duplicate copies title, icon, cover, body and properties with a new identifier and copies no comment, version, grant or public link | done | `tests/flagship/content/http.test.ts` |
-| `PAGE-006` Icon and cover | Icon from emoji, icon set or upload and cover from gallery, upload or link render in tree and search and are removable | done | `tests/qualification/backend/appearance-invitations.test.ts` |
+| `PAGE-006` Icon and cover | Icon from emoji, icon set or upload and cover from gallery, upload or link render in tree and search and are removable | done | — |
 | `PAGE-007` Details | Details show owner, creator, contributors, times, status, labels, views and backlinks; reassigning the owner changes no grant | done | `tests/qualification/backend/emitted.mjs` |
-| `PAGE-008` Favorite | Favorites are listed in navigation for their member only | done | `tests/qualification/backend/sharing-navigation.test.ts` |
+| `PAGE-008` Favorite | Favorites are listed in navigation for their member only | done | — |
 | `PAGE-009` Watch | Watching delivers comments, replies and publishes to the watcher's inbox and never notifies the actor | done | `tests/flagship/discovery/following.test.ts` |
 | `PAGE-010` Outline | Outline reflects headings within 2 seconds and scrolls to the chosen heading; no headings shows no outline | done | `tests/qualification/ui-convergence/outline-journey.mjs` (typing, long labels, scrolling, reload and no-heading state at 1440/390) |
 | `PAGE-011` Present | Present mode paginates by top-level headings without chrome and returns to the same scroll position | done | `tests/e2e/pages/presentation.test.ts`, `tests/qualification/ui-convergence/presentation-journey.mjs` (long slides, keyboard/touch, no-heading and empty pages, exact return at 1440/390) |
 | `PAGE-012` Page display options | Typeface, small text and full width are stored per page, identical for every reader and kept through export and import | done | `tests/e2e/pages/display-options.test.ts`, `tests/qualification/ui-convergence/page-display-journey.mjs` (shared display, unchanged content, readable round trips, complete workspace restore and 1440/390 editor/reader journeys) |
 | `PAGE-013` Analytics | Views and unique viewers over time per page and container, own views labeled, never exposing an unreadable viewer | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` (page/space time series, author views, inclusive dates, read access and identity boundaries at 1440/390) |
 | `PAGE-014` Reactions | Page reactions show who reacted, notify no one and are not counted in analytics | done | `tests/e2e/pages/reactions.test.ts`, `tests/qualification/ui-convergence/reactions-journey.mjs` (named page/comment reactions, add/remove, persistence, access and unchanged notice/view counts at 1440/390) |
-| `TREE-001` A nested tree in a container | Unlimited-depth tree per container with per-member expansion and exactly one parent per page | done | `tests/qualification/tree-correction/regression.test.ts` |
-| `TREE-002` Reordering and nesting | Drag reorder and re-parent store one explicit order for every member, unchanged by edits or renames | done | `tests/qualification/publication/preview.test.ts` |
+| `TREE-001` A nested tree in a container | Unlimited-depth tree per container with per-member expansion and exactly one parent per page | done | — |
+| `TREE-002` Reordering and nesting | Drag reorder and re-parent store one explicit order for every member, unchanged by edits or renames | done | — |
 | `TREE-003` Shared with me | Pages granted individually in non-member containers are listed with their container and vanish when the grant is removed | done | `tests/e2e/navigation/shared-navigation.test.ts`, `tests/qualification/ui-convergence/shared-navigation-journey.mjs` (current grants, membership, privacy and first-load revocation at 1440/390) |
 | `TREE-004` Filter the tree | Tree filter narrows within 200ms, keeps ancestors and clears without changing expansion | done | `tests/e2e/navigation/tree-filter.test.ts`, `tests/qualification/ui-convergence/tree-filter-journey.mjs` (Per-space title matching retains readable ancestors within 200ms; one clear restores member expansion, with access and 1440/390 browser coverage.) |
 | `TREE-005` Create in place | Create at the foot of a tree, from a node and from global create, each naming the destination first | done | `tests/e2e/navigation/create-in-place.test.ts`, `tests/qualification/ui-convergence/create-in-place-journey.mjs` (named destinations, exact placement, persistence and read-only access at 1440/390) |
 | `BLOCK-001` A body of blocks | Blocks reorder, nest, multi-select, duplicate and delete with identifiers surviving edits, moves and export | done | `tests/qualification/interface/routed.browser.mjs` |
-| `BLOCK-002` Inline text | Inline marks render under `BASE-INPUT-002` and round-trip unchanged through page export, workspace export and import | done | `tests/e2e/editor/editable-composition.test.mjs` |
-| `BLOCK-003` The insert menu | `/` menu filters, works by keyboard only, inserts at the cursor and reaches every block type; touch control above the keyboard at 390 | done | `tests/qualification/interface/formatting.test.ts` |
+| `BLOCK-002` Inline text | Inline marks render under `BASE-INPUT-002` and round-trip unchanged through page export, workspace export and import | done | — |
+| `BLOCK-003` The insert menu | `/` menu filters, works by keyboard only, inserts at the cursor and reaches every block type; touch control above the keyboard at 390 | done | — |
 | `BLOCK-004` Markdown shortcuts | Each Markdown shortcut converts as typed and one undo restores the typed characters | done | `tests/qualification/interface/content.mjs` |
-| `BLOCK-005` Mentions | `@` offers people, pages and dates; a person mention notifies; a page mention follows renames | done | `tests/e2e/editor/rich-text-editing.test.tsx` |
+| `BLOCK-005` Mentions | `@` offers people, pages and dates; a person mention notifies; a page mention follows renames | done | — |
 | `BLOCK-006` Structured blocks | Each structured block type survives export and import with its named import equivalent | done | `tests/qualification/interface/blocks.mjs` |
 | `BLOCK-007` Task items | Task item toggles for editors, records who and when, and never appears in a database view | done | `tests/flagship/content/repair.test.ts` |
 | `BLOCK-008` Media blocks | Media by upload and link with caption and alt text; inline versus download disposition, `nosniff` and sanitized SVG served per the clause | partial | (upload and link media ship; configured stock source missing) |
@@ -81,11 +81,11 @@
 | `LIFE-006` Lifecycle profile | Profile journeys for `always-live` and `draft-then-publish` show and hide exactly the listed surfaces | done | `tests/qualification/policies/emitted.mjs` |
 | `LIFE-007` Discarding a draft | Discarding a draft moves it to trash and closing keeps it a draft, notifying no one | done | — |
 | `SHARE-001` Grants | Grant panel lists every effective grant with inheritance source and optional expiry | done | `tests/qualification/backend/emitted.mjs` |
-| `SHARE-002` What the levels mean | Server-side level matrix for full, edit, comment and view on every operation; no interface offers an action beyond the level | done | `tests/qualification/backend/request-access.test.ts` |
-| `SHARE-003` Inheritance | Children inherit at creation; restriction shown on descendants; removing it restores inheritance | done | `tests/qualification/backend/boundaries.test.ts` |
+| `SHARE-002` What the levels mean | Server-side level matrix for full, edit, comment and view on every operation; no interface offers an action beyond the level | done | — |
+| `SHARE-003` Inheritance | Children inherit at creation; restriction shown on descendants; removing it restores inheritance | done | — |
 | `SHARE-004` General access | At most one general grant; personal-container pages carry none; changing it is one recorded action | done | `tests/e2e/imports/real-exports.test.ts` |
 | `SHARE-005` Access profile | Profile journeys for `workspace-general` and `container-general` relabel without rewriting grants | done | `tests/e2e/imports/real-exports.test.ts` |
-| `SHARE-006` Sharing with a person who is not a member | Sharing to a non-member creates a guest invitation, shows the pending grant and revocation cancels it | done | `tests/qualification/backend/appearance-invitations.test.ts` |
+| `SHARE-006` Sharing with a person who is not a member | Sharing to a non-member creates a guest invitation, shows the pending grant and revocation cancels it | done | — |
 | `SHARE-007` Access changes take effect at once | Narrowing access applies on the next request, closes the editor with an explanation and removes the page from search, tree, inbox and answers within 5 seconds | done | — |
 | `SHARE-008` Expiring grants | An expired grant ends access, shows as expired and is re-granted in one action | done | — |
 | `WEB-001` Anonymous access takes two acts | Publishing needs full access and container permission; each of the three switches vetoes its own act at once | done | — |
@@ -107,7 +107,7 @@
 | `STAT-003` Verification | Only a member who opened the exact revision can verify; the badge shows owner, expiry and revision, and later edits show it is not current | done | `tests/e2e/review/verification-flow.test.ts` |
 | `STAT-004` Verification lapses | Lapse shows lapsed, notifies the owner once and never reads as current in search, queries, answers or exports | done | — |
 | `STAT-005` Status profile | Profile journeys for `verification-only` and `open-vocabulary` show and hide exactly the listed controls | done | `tests/qualification/policies/emitted.mjs` |
-| `COMM-001` Two kinds of thread | Inline and page threads by comment-level members, chronological, Open or Resolved | done | `tests/e2e/editor/rich-text-editing.test.tsx` |
+| `COMM-001` Two kinds of thread | Inline and page threads by comment-level members, chronological, Open or Resolved | done | — |
 | `COMM-002` Editing and deletion | Members edit or delete only their own comments; edits are timestamped and deletions leave tombstones | done | — |
 | `COMM-003` Mentions | A mention notifies once and never a member who cannot read the page; editing notifies only new mentions | done | `tests/qualification/interface/content.mjs` |
 | `COMM-004` Anchors survive editing | Inline threads follow text through edits and become orphaned, not lost, naming their revision | done | `tests/qualification/interface/content.mjs` |
@@ -135,7 +135,7 @@
 | Clause | Acceptance evidence | Status | Evidence today |
 | --- | --- | --- | --- |
 | `DB-001` A database | A database is created, moved, archived and trashed like a page and follows page access | done | — |
-| `DB-002` Field types and evaluation | Every field type converts or names its loss; relations, rollups and formulas evaluate over reader-authorized records with cycles rejected | done | `tests/e2e/databases/field-editing.test.tsx` |
+| `DB-002` Field types and evaluation | Every field type converts or names its loss; relations, rollups and formulas evaluate over reader-authorized records with cycles rejected | done | — |
 | `DB-003` Views | Named views are shared, renamed, duplicated and deleted without changing records | done | — |
 | `DB-004` Layouts | Table, board, list, gallery, calendar and timeline layouts; a missing group or date field is offered for creation | done | — |
 | `DB-005` Filter and sort | Filter rules with and/or and ordered sorts are stored on the view, shown and cleared in one action | done | — |
@@ -143,7 +143,7 @@
 | `DB-007` Calculations | Column calculations over filtered records update within 2 seconds | done | — |
 | `DB-008` Charts | A chart over one view states its view and embeds in a page | done | — |
 | `DB-009` Lock structure | Locked structure rejects field and view changes while records stay editable | done | — |
-| `DB-010` A record is a page | Profile journeys for `record-is-page` and `record-is-row` keep the body under both values | done | `tests/qualification/backend/records-templates.test.ts` |
+| `DB-010` A record is a page | Profile journeys for `record-is-page` and `record-is-row` keep the body under both values | done | — |
 | `DB-011` A view inside a page | An embedded view shows only readable records, reflects changes within 5 seconds and keeps its own filters | done | — |
 | `DB-012` Record detail | Record detail shows ordered fields, comments, history and body; uneditable fields are shown read-only | done | — |
 | `AUTO-001` A rule | A rule with trigger, conditions, branch and actions runs on record events and schedules | done | — |
@@ -161,9 +161,9 @@
 | `SEARCH-008` Search without AI | With AI unconfigured, disabled or failing, ranked search still answers within 500ms and no answer box appears | done | `tests/qualification/core/discovery.mjs` |
 | `SEARCH-009` Default visibility | Default search excludes only archived and trashed records, which the filter restores | done | `tests/qualification/core/discovery.mjs` |
 | `NAV-001` Home | Home shows recents, favorites and containers, only readable, with no workspace feed | done | `tests/qualification/backend/emitted.mjs` |
-| `NAV-002` Recents | Recents are per member, newest first, grouped by day | done | `tests/qualification/backend/sharing-navigation.test.ts` |
-| `NAV-003` Favorites | Favorites are listed, reorderable and removed in one action | done | `tests/qualification/backend/sharing-navigation.test.ts` |
-| `NAV-004` One navigation | One sidebar whose order comes from configuration and the navigation slot, unchanged by policy values | done | `tests/qualification/backend/boundaries.test.ts` |
+| `NAV-002` Recents | Recents are per member, newest first, grouped by day | done | — |
+| `NAV-003` Favorites | Favorites are listed, reorderable and removed in one action | done | — |
+| `NAV-004` One navigation | One sidebar whose order comes from configuration and the navigation slot, unchanged by policy values | done | — |
 | `NAV-005` Global create | One create action on every operator screen names the destination before creating a page, database, container or template page | done | `tests/e2e/navigation/global-create.test.ts`, `tests/qualification/ui-convergence/global-create-journey.mjs` (Global creation is reachable on every configured operator destination; page, database, space and template flows name their destination before creation at 1440/390. Database choices include writable spaces only.) |
 | `NAV-006` The touch client edits | At 390 on touch, every operator surface edits, comments, publishes, shares and uses every database layout | partial | `tests/qualification/ui-convergence/touch-page.mjs` — "touchWriteJourney", "touchCommentJourney" and "touchPublishShareJourney"; `tests/qualification/ui-convergence/touch-database.mjs` — "touchDatabaseJourney"; `tests/qualification/ui-convergence/columns-journey.mjs` — "columnsJourney"; `tests/qualification/ui-convergence/touch-operator-journey.mjs` — "touchOperatorJourney" (Search, Inbox, My tasks and requested/health review queues); `tests/qualification/ui-convergence/touch-management-journey.mjs` — "touchManagementJourney" (space settings, Templates, Archive, owner workspace settings); `tests/qualification/ui-convergence/touch-page-tools-journey.mjs` — "touchPageToolsJourney" (history/restore, labels, readable export and presentation); `tests/qualification/ui-convergence/touch-database-tools-journey.mjs` — "touchDatabaseToolsJourney" (charts, record templates, automations and run log). Existing core-wiki/touch-member, presentation and starter-template launches in `tests/qualification/ui-convergence/journeys.test.mjs` drive touch contexts at 1440px/390px; controls assert visual-viewport reachability, no overflow, no serious/critical accessibility finding, no browser error and no failed request. `tests/qualification/ui-convergence/synced-journey.mjs` — "syncedJourney" adds touch paragraph conversion, synced-copy insertion/editing and permanent deletion at both widths in the existing review-request launch. `tests/qualification/ui-convergence/people-journey.mjs` — "peopleJourney" adds directory search, profile edits, hidden expertise and scoped guest people by touch at both widths. Gap: Touch-only editing remains unproven for block types beyond text, columns and synced paragraphs. |
 | `NOTIF-001` Meaningful notifications | Each listed event notifies its recipient once, rechecks access, never notifies the actor and never discloses unreadable records | done | `tests/qualification/backend/emitted.mjs` |
@@ -172,7 +172,7 @@
 | `MAIL-001` Outbound only, two kinds | Only sign-in and invitation mail is sent; replies create nothing | done | `tests/flagship/core/mail.test.ts` |
 | `MAIL-002` Delivery failure | Retry only with provider duplicate suppression; uncertain sends are held; failures are shown and never reported as sent | done | `tests/flagship/core/mail.node.test.mts` |
 | `ACT-001` Durable timeline | Each mutation commits with its activity entry atomically, naming actor or feature and cause | done | `tests/qualification/core/discovery.mjs` |
-| `ACT-002` Coverage | Each listed action kind produces an activity entry | done | `tests/qualification/core/audit-ai.test.ts` |
+| `ACT-002` Coverage | Each listed action kind produces an activity entry | done | — |
 | `ACT-003` Retrieval | Activity filters with stable newest-first paging show only readable records | done | `tests/qualification/core/discovery.mjs` |
 | `ACT-004` Context | Opening an entry opens the record with its referenced thread, revision or grant | done | `tests/qualification/core/discovery-browser.mjs` |
 | `ACT-005` Retained explanation | Entries cannot be edited or deleted and survive erasure anonymized | done | `tests/qualification/core/discovery.mjs` |
@@ -194,14 +194,14 @@
 | `IMP-005` Importing into a page | Markdown, HTML, Word, PDF, EPUB, text and CSV documents import into pages with headings and tables | done | `tests/flagship/federation/federation.test.ts` |
 | `PORT-001` Export contents | Workspace export contains every listed record kind with revisions and grants and original files | done | `tests/qualification/erasure-metadata/append-metadata.test.ts` |
 | `PORT-002` Referential restore | Restore into an empty deployment keeps identifiers, order, grants, links, anchors, slugs and files | done | `tests/qualification/erasure-metadata/append-metadata.test.ts` |
-| `PORT-003` Visible jobs | Export and import jobs show Queued, Running, Completed or Failed with counts and failure reports | done | `tests/qualification/portability-jobs/admission-audit.test.ts` |
+| `PORT-003` Visible jobs | Export and import jobs show Queued, Running, Completed or Failed with counts and failure reports | done | — |
 | `PORT-004` Search rebuild | Import completes only after every record has its search projection, fenced by readback | done | `tests/e2e/imports/preview-undo.test.ts` |
 | `PORT-005` Access boundary | Exports exclude sessions, links, invitations and secrets; import activates only the setup owner and publishes nothing | done | `tests/e2e/imports/real-exports.test.ts` |
 | `PORT-006` Atomic import | Import stages, validates and publishes in one step; failure leaves the deployment empty and retryable | done | `tests/qualification/authority/atomic-recovery.test.ts` |
 | `PORT-007` Exporting a page or a container | Page, subtree and container export to Markdown, HTML or PDF with CSV records re-imports to the same tree | done | `tests/flagship/federation/federation.test.ts` |
 | `LINK-001` Permanent URLs | Every record kind keeps a permanent URL through rename, move, archive and restore | done | — |
 | `LINK-002` Tombstones | Deleted or erased records resolve to content-free tombstones | done | — |
-| `LINK-003` References follow their target | References show current title and state, follow moves and label archived, trashed or deleted targets | done | `tests/qualification/backend/page-details.test.ts` |
+| `LINK-003` References follow their target | References show current title and state, follow moves and label archived, trashed or deleted targets | done | — |
 | `LINK-004` Links respect access | Links to unreadable records show only that access is needed; request access notifies a granter | done | `tests/qualification/backend/emitted.mjs` |
 
 ### Published: AI, decisions and the flagship extension
@@ -225,12 +225,12 @@
 | `AI-015` Workspace answers | Chat panel and search answer cite sources and say "I could not find that in what you can read" when they cannot | partial | (flagship opt-in only (FEATURE_DISABLED in core-wiki)) |
 | `AI-016` Summaries | Summaries of a page, comments or a diff name exact revisions and insert only when authorized | partial | `src/core/features/ai/routes.ts` (flagship opt-in only; no journey) |
 | `AI-017` Writing with AI | Selection actions show insert, replace, refine and discard and change nothing until chosen | partial | (flagship opt-in only (FEATURE_DISABLED in core-wiki)) |
-| `DEC-001` A decision is a layer over a page | A decision record layers over a page and removing it leaves the page intact | done | `tests/qualification/decisions/mechanics.test.ts` |
-| `DEC-002` States | Proposed, Accepted and Superseded transitions are recorded with actor and time | done | `tests/qualification/decisions/mechanics.test.ts` |
-| `DEC-003` An accepted decision is immutable | Accepting freezes content and cited revisions; later edits warn and changes supersede | done | `tests/qualification/decisions/mechanics.test.ts` |
-| `DEC-004` Decision log | Decision log filters by state, container, owner, dates and citation currency | done | `tests/qualification/decisions/mechanics.test.ts` |
-| `DEC-005` Review dates | An overdue review notifies the owner until a completed review or supersession | done | `tests/qualification/decisions/mechanics.test.ts` |
-| `DEC-006` A proposed decision is editable | Proposed decisions are editable with revisions; unchanged resubmits write none | done | `tests/qualification/decisions/mechanics.test.ts` |
+| `DEC-001` A decision is a layer over a page | A decision record layers over a page and removing it leaves the page intact | done | — |
+| `DEC-002` States | Proposed, Accepted and Superseded transitions are recorded with actor and time | done | — |
+| `DEC-003` An accepted decision is immutable | Accepting freezes content and cited revisions; later edits warn and changes supersede | done | — |
+| `DEC-004` Decision log | Decision log filters by state, container, owner, dates and citation currency | done | — |
+| `DEC-005` Review dates | An overdue review notifies the owner until a completed review or supersession | done | — |
+| `DEC-006` A proposed decision is editable | Proposed decisions are editable with revisions; unchanged resubmits write none | done | — |
 | `SUG-001` Anchored suggestions | Suggestions anchored to exact revisions change no content before acceptance | partial | (flagship opt-in only (FEATURE_DISABLED in core-wiki)) |
 | `SUG-002` Resolve explicitly | Accepting selected suggestions is atomic with a revision; conflicting anchors require rebase | partial | (flagship opt-in only (FEATURE_DISABLED in core-wiki)) |
 | `SOURCE-001` Connector contract | Each connector declares identity, scopes, ACL mapping, coverage, freshness and guarantees; unsupported guarantees show unavailable | partial | `tests/flagship/release-clauses/federation/connector-disclosure.test.ts` (flagship opt-in only (FEATURE_DISABLED in core-wiki)) |
@@ -258,7 +258,7 @@
 | `TRIAL-004` Reusable learning | Outcomes revise methods while keeping original forecasts; activation is owner-authorized | partial | (flagship opt-in only (FEATURE_DISABLED in core-wiki)) |
 | `FLAG-001` Complete product gate | Core-wiki launch gate and the full flagship gate as specified in this document's gate sections | partial | `tests/flagship/release-clauses/portability/profile-retention.test.ts` (release gate; full flagship and provider evidence pending) |
 | `FLAG-002` Independent evidence | Independent clean install, real browser and Worker journeys, migrations, restore, accessibility and load evidence | partial | `tests/flagship/release-clauses/portability/staged-recovery.test.ts` (release gate; full flagship and provider evidence pending) |
-| `FLAG-003` Value and held-out evaluation | Held-out comparison against expert and generic-agent baselines with all-attempt costs | partial | `tests/qualification/core/instrumentation.test.ts` (release gate; full flagship and provider evidence pending) |
+| `FLAG-003` Value and held-out evaluation | Held-out comparison against expert and generic-agent baselines with all-attempt costs | partial | (release gate; full flagship and provider evidence pending) |
 | `FLAG-004` Complete portable knowledge | Export and restore carry full flagship lineage with secrets excluded and fresh authorization required | partial | `tests/qualification/authority/recovery.test.ts` (release gate; full flagship and provider evidence pending) |
 
 ### Target and push-further clauses
@@ -368,7 +368,7 @@
 | `KEEP-006` Checked runbooks | a Workers journey with recorded tool fixtures dry-runs a runbook whose third step references a removed API field, flags exactly that step with the schema evidence, and makes no write call. | partial | `src/core/features/skills/routes.ts` |
 | `KEEP-007` Onboarding paths | a browser journey assigns a path to a new member, who answers questions and reports one confusing step. That step becomes a flag for its owner, and the manager's view shows only the shared completion. | missing | — |
 | `KEEP-008` Stale-knowledge sweeps | a Workers journey advances a week over a seeded workspace and delivers exactly one digest per owner with the expected items. Acting on two items applies the actions and leaves no duplicate notices. | partial | `src/core/features/notifications/events.ts` |
-| `KEEP-009` Measured knowledge health | a Workers journey seeds a month of events and checks every report figure against hand-computed values. A held-out re-run records its accuracy and cost under `FLAG-003`'s rules. | partial | `tests/qualification/core/quality.test.ts` |
+| `KEEP-009` Measured knowledge health | a Workers journey seeds a month of events and checks every report figure against hand-computed values. A held-out re-run records its accuracy and cost under `FLAG-003`'s rules. | partial | — |
 | `KEEP-010` Team-built agents | a Workers journey with a provider fake at the network edge builds an agent scoped to one container with the answer and propose-edit tools, and shares it with a group. A group member who can read only half the container asks it a question, and the answer cites only pages that member can read. The agent's proposed edit lands as a suggestion and changes nothing until it is accepted. A page in scope that instructs the agent to publish itself or grant access produces a refusal and no change. A scheduled run posts once to a channel fake, citing only sources its audience can read. Pausing the agent stops its next scheduled run, and exhausting its budget stops it with a notice to its owner. A browser journey at 1440 and 390 builds, tests and shares the agent. | partial | — |
 
 ## Core-wiki launch gate (6 October 2026 amendment, 6 October 2026)
