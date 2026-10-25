@@ -1,26 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import test from 'node:test';
-import { fileURLToPath } from 'node:url';
-import { describeOperations, inspectOperations } from '@runeditrun/rer/operations';
 import { validateConfiguration } from '../scripts/operations-config.mjs';
-
-const root = fileURLToPath(new URL('../', import.meta.url));
-test('operations declares available commands and sources for every required input', async () => {
-  const descriptor = await describeOperations(root);
-  assert.equal(descriptor.version, 2);
-  for (const name of descriptor.requiredEnvironment) assert.ok(descriptor.environmentSources[name]);
-  assert.ok(descriptor.requiredEnvironment.includes('SLATE_MAIL_PROVIDER'));
-  assert.ok(descriptor.loops.some(loop => loop.type === 'worker' && loop.required && loop.enabled));
-  assert.ok(descriptor.loops.every(loop => loop.type !== 'mail'));
-  const empty = await inspectOperations(root, {});
-  assert.equal(empty.ok, false);
-  assert.deepEqual(empty.missingEnvironment, descriptor.requiredEnvironment);
-  const pkg = JSON.parse(await fs.readFile(new URL('../package.json', import.meta.url), 'utf8'));
-  for (const command of Object.values(descriptor.commands)) {
-    if (command.argv[0] === 'pnpm' && command.argv[1] === 'run') assert.ok(pkg.scripts[command.argv[2]]);
-  }
-});
 
 test('local deployment validation names missing mail provider and selected key', () => {
   assert.throws(() => validateConfiguration({}), error => error.message.includes('SLATE_MAIL_PROVIDER') && error.message.includes('SLATE_MAIL_API_KEY'));

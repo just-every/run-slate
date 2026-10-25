@@ -1,5 +1,3 @@
-import {providerFolderJourney} from './provider-folder-journey';
-import {contract} from '../contract';
 import {beforeEach,expect,it} from 'vitest';
 import {env} from 'cloudflare:test';
 import {strFromU8,strToU8,unzipSync,zipSync} from 'fflate';
@@ -51,4 +49,3 @@ it('CONT-010 — a Confluence Cloud blog post imports as a post with its date an
  expect(await env.DB.prepare('SELECT COUNT(*) AS n FROM blog_posts').first('n')).toBe(0);
 },120_000);
 
-contract('IMP-009','Member folder imports preserve a nested twelve-document tree, resolving links and actor-only access with a per-file omission report',providerFolderJourney);
