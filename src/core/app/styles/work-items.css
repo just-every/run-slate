@@ -3,9 +3,6 @@
 .task-metadata button { padding:.15rem .2rem; text-decoration:underline; text-underline-offset:3px; }
 .task-overdue { color:var(--slate-danger,#a13e2c); font-weight:600; }
 .task-date-picker { display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; font-size:.8rem; }
-.task-tabs { display:flex; gap:1.25rem; border-bottom:1px solid var(--slate-line); margin:1.5rem 0 1rem; }
-.task-tabs button { border:0; border-radius:0; padding:.65rem 0; color:var(--slate-ink-muted); }
-.task-tabs button[aria-selected=true] { border-bottom:2px solid currentColor; color:var(--slate-ink); }
 .task-filters { display:flex; flex-wrap:wrap; align-items:end; gap:.75rem; margin:1.2rem 0 1.5rem; }
 .task-filters label { display:flex; flex-direction:column; gap:.3rem; font-size:.75rem; color:var(--slate-ink-muted); flex:1 1 120px; min-width:0; }
 .task-filters input,.task-filters select { width:100%; min-width:0; }

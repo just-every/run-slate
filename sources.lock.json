@@ -5296,7 +5296,7 @@
       "executable": false
     },
     "src/core/app/styles/header.css": {
-      "sha256": "c1479ec26e09b4efc8912fca2cca0afa911a6a8abf35094330ac4289ac42ae80",
+      "sha256": "40b65c72ce63daf24f6066686079d70752a78a23fa372a78a6fcf9fc8806e3f9",
       "executable": false
     },
     "src/core/app/styles/hub.css": {
@@ -5344,7 +5344,7 @@
       "executable": false
     },
     "src/core/app/styles/work-items.css": {
-      "sha256": "9722231c23a6b3233afd7def38f1a8ee6abd06482faee5cc8ada1368ec545b81",
+      "sha256": "e1c51acc84e161587bf7e2a0c2c3c5869bb6b8802561ac7bd3296591f2612c4b",
       "executable": false
     },
     "src/core/app/styles/workspace.css": {
@@ -9532,7 +9532,7 @@
       "executable": false
     },
     "src/core/features/work-items/ui/MyTasks.tsx": {
-      "sha256": "8aea1ad88f2def3e832cf44c23fe2b85492ac57da115e1e78805d5d46add94bd",
+      "sha256": "492e53c4a0b775360a72b37a7587f071921868bcc5c6050bf5ae7791b5b95901",
       "executable": false
     },
     "src/core/features/work-items/ui/PersonalReminders.tsx": {
