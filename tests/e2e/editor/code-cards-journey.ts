@@ -58,6 +58,11 @@ export async function codeCardsHttpJourney(){
    const blocks=urls.map((url,i)=>({id:key(),blockType:'link-card',treePosition:String(i),content:{url,display:'card',previewState:'ready',preview:{title:'Do not retain fetched metadata'}}}));
    const page=(await api('POST','/api/pages',{operationKey:key(),containerId:space,title:'Source review '+provider,blocks})).value.pageId;pages.push(page);
    const card=(i:number)=>'/api/pages/'+page+'/code-cards/'+blocks[i]!.id;
+   const badUrls=[base+'/blob/'+pinned+'/src/main.ts#L1-L201',base+'/blob/main/src/main.ts#L2-L3',urls[0]!.replace(provider+'.com',provider+'.com.attacker.test')];
+   const badBlocks=badUrls.map((url,i)=>({id:key(),blockType:'link-card',treePosition:String(i),content:{url,display:'card',previewState:'ready'}}));
+   const badPage=(await api('POST','/api/pages',{operationKey:key(),containerId:space,title:'Untrusted code references',blocks:badBlocks})).value.pageId;
+   requests.length=0;for(const block of badBlocks)expect((await raw('GET','/api/pages/'+badPage+'/code-cards/'+block.id)).status).toBe(404);expect(requests).toHaveLength(0);
+
    requests.length=0;expect(await api('GET',card(0))).toEqual({state:'connect'});expect(requests).toHaveLength(0);
    const connection=(await api('POST','/api/embed-connections',{operationKey:key(),provider,token:credentials[provider]![0]})).value;connectionIds.push(connection.id);
    const cipher=await env.DB.prepare('SELECT credential_ciphertext FROM code_embed_connections WHERE id=?').bind(connection.id).first<string>('credential_ciphertext');expect(cipher).toBeTruthy();expect(cipher).not.toContain(credentials[provider]![0]);

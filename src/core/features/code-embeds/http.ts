@@ -8,9 +8,10 @@ export async function codeRead(provider:CodeProvider,path:string,token:string,ra
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),5000);
  try{
   const response=await fetch(url.href,{method:'GET',redirect:'manual',credentials:'omit',headers:{Authorization:'Bearer '+token,Accept:raw&&provider==='github'?'application/vnd.github.raw+json':'application/json'},signal:controller.signal});
-  if([401,403].includes(response.status))throw new CodeProviderError('request-access');
-  if([404,410].includes(response.status)||response.status>=300&&response.status<400)throw new CodeProviderError('unavailable');
-  if(!response.ok||Number(response.headers.get('content-length'))>512*1024)throw new CodeProviderError('failed');
+  const rejectResponse=async(state:CodeProviderError['state']):Promise<never>=>{await response.body?.cancel();throw new CodeProviderError(state);};
+  if([401,403].includes(response.status))return rejectResponse('request-access');
+  if([404,410].includes(response.status)||response.status>=300&&response.status<400)return rejectResponse('unavailable');
+  if(!response.ok||Number(response.headers.get('content-length'))>512*1024)return rejectResponse('failed');
   const reader=response.body?.getReader(),decoder=new TextDecoder('utf-8',{fatal:true});let size=0,text='';
   if(!reader)throw new CodeProviderError('failed');
   try{while(true){const next=await reader.read();if(next.done)break;size+=next.value.byteLength;if(size>512*1024)throw new CodeProviderError('failed');text+=decoder.decode(next.value,{stream:true});}text+=decoder.decode();}finally{await reader.cancel();}

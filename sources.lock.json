@@ -5928,7 +5928,7 @@
       "executable": false
     },
     "src/core/features/code-embeds/http.ts": {
-      "sha256": "5658004bb0c2f731a7937b089a1e8d74c2cfe457e6f41752c827b197d7a7c294",
+      "sha256": "652cf195c7781bbcb149bd0d697961db57a822c3e2e0b4b9c0fbefc6f21d5636",
       "executable": false
     },
     "src/core/features/code-embeds/providers.ts": {
@@ -10284,7 +10284,7 @@
       "executable": false
     },
     "tests/e2e/editor/code-cards-journey.ts": {
-      "sha256": "b174fb73bbea45c37df1ac746cb353056ae8457d4b6b90b1167e7cd21df6b4fe",
+      "sha256": "a0e5562856f2bbcf8522e36bd9dbba92fffe99c6d2bdec505e4cf0821c81c403",
       "executable": false
     },
     "tests/e2e/editor/columns-case.ts": {
