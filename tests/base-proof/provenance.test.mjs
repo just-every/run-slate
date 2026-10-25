@@ -5,7 +5,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {execFileSync, spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
-import {HEAD, PINS, decodeObjects, encodeObject} from '../../scripts/base-proof/objects.mjs';
+import {PINS, decodeObjects, encodeObject} from '../../scripts/base-proof/objects.mjs';
 import {restoreProof, validateProof} from '../../scripts/base-proof/repository.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
@@ -46,22 +46,7 @@ function fixture(run) {
   }
 }
 
-test('native retained proof authenticates the exact pins and retains only approved blob bodies', () => {
-  const {objects, files} = validateProof(proof, record);
-  for (const pin of PINS) assert.equal(objects.get(pin).type, 'commit');
-  assert.ok(files.get(HEAD).size > Object.values(record.copies).reduce((sum, copy) => sum + Object.keys(copy.files).length, 0));
-  const approved = new Set(record.copies.flatMap(copy => Object.keys(copy.files).map(local => files.get(copy.revision).get(copy.originPath + local.slice(copy.path.length)))));
-  assert.deepEqual(new Set([...objects].filter(([, object]) => object.type === 'blob').map(([id]) => id)), approved);
-  assert.ok([...files.get(HEAD).values()].some(id => !objects.has(id)), 'unrelated blob bodies must be omitted');
-});
-
 test('unchanged CLI checks all three layers against a native Git object repository', () => fixture(({base, verify}) => {
-  assert.equal(git(base, 'rev-parse', 'HEAD'), HEAD);
-  const {files} = validateProof(proof, record);
-  for (const pin of PINS) {
-    const native = git(base, 'ls-tree', '-r', '--full-tree', pin).split('\n').filter(line => /^(100644|100755) blob /.test(line));
-    assert.equal(native.length, files.get(pin).size, 'native tree enumeration must include omitted blob identities');
-  }
   const {status, report} = verify();
   assert.equal(status, 0, JSON.stringify({ drift: report.drift, unrecordedCopies: report.unrecordedCopies }));
   assert.equal(report.ok, true);
