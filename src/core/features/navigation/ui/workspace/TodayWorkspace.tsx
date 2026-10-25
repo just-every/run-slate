@@ -32,7 +32,11 @@ function FlagshipToday() {
   const following = useResource<FollowingFeed>("/api/navigation/following");
   const data = resource.data;
   const followedIds = new Set(following.data?.items.map(item => item.id));
-  const notices = data?.notices.filter(item => !followedIds.has(item.id)) ?? [];
+  const unique = (items: Notice[] = []) => items.filter(item => !followedIds.has(item.id));
+  const notices = unique(data?.notices);
+  const decisions = unique(data?.decisions);
+  const contradictions = unique(data?.contradictions);
+  const outcomes = data?.outcomes.map(group => ({ ...group, items: unique(group.items) })).filter(group => group.items.length) ?? [];
   const empty =
     data &&
     !data.decisions.length &&
@@ -92,19 +96,19 @@ function FlagshipToday() {
               </p>
             </div>
           ) : null}
-          {data?.decisions.length ? (
+          {!following.loading && decisions.length ? (
             <section className="today-section">
               <h2>Ready for your decision</h2>
-              {rows(data.decisions)}
+              {rows(decisions)}
             </section>
           ) : null}
-          {data?.contradictions.length ? (
+          {!following.loading && contradictions.length ? (
             <section className="today-section">
               <h2>Something needs a closer look</h2>
-              {rows(data.contradictions)}
+              {rows(contradictions)}
             </section>
           ) : null}
-          {data?.outcomes.map((group) => (
+          {!following.loading && outcomes.map((group) => (
             <section className="today-section" key={group.day}>
               <h2>Completed work · {group.day}</h2>
               {rows(group.items)}
