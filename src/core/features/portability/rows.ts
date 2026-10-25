@@ -9,6 +9,7 @@ export function safeRow(table:string,row:DataRow,now=new Date().toISOString()):D
   out.agent_credential_id=null;
  }
  if(table==='provider_folder_policies')out.enabled=0;
+ if(table==='code_embed_connections'){out.state='disconnected';out.credential_ciphertext=null;}
  if(table==='provider_folder_connections'){out.state='disconnected';out.credential_ciphertext=null;}
  if(table==='provider_folder_runs'&&out.state==='running')out.state='failed';
  if(table==='backup_destinations'){out.state='disconnected';out.credential_ciphertext=null;}

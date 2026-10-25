@@ -1,3 +1,4 @@
+import {projectCodeLinks} from '../code-embeds/reference';
 import {projectSynced} from '../editor/synced/read';
 import {syncedGuards} from '../editor/synced/guards';
 import {canonicalGroupLabels} from '../comments/group-labels';
@@ -56,7 +57,7 @@ export async function readPage(ctx: FeatureContext, id: string): Promise<PageDoc
         (async () => {
             // Render immutable content for the revision named in this response, even if another edit commits mid-read.
             const delivered = await revisionRow(ctx, id, canEdit ? p.working_revision_id : p.published_revision_id ?? p.working_revision_id);
-            const blocks = JSON.parse(delivered.body_json);
+            const blocks = projectCodeLinks(JSON.parse(delivered.body_json));
             const snapshotProperties: PageProperties = JSON.parse(delivered.properties_json);
             const publishedOnly = !canEdit && p.published_revision_id && p.published_revision_id !== p.working_revision_id;
             const [props, mentions] = await Promise.all([

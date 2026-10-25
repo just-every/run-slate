@@ -1,3 +1,4 @@
+import {codeCardsHttpJourney} from './code-cards-journey';
 import {embedRefusalsJourney} from './embed-refusals-journey';
 import {fileCardsHttpJourney} from './file-cards-journey';
 import {env} from 'cloudflare:test';
@@ -52,4 +53,5 @@ contract('EMBED-003','allowlisted embeds use isolated provider frames, authorize
   expect((await req(`/api/pages/${badId}/embeds/${badDoc.blocks[0].id}`)).status).toBe(404);
   await embedRefusalsJourney(req,pageId,blocks,otherCookie,await sessionFor(memberId,{freshProof:true}),other);
   await fileCardsHttpJourney();
+  await codeCardsHttpJourney();
 });

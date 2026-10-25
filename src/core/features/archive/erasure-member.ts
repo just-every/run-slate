@@ -11,6 +11,7 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  const add=(sql:string,...v:(string|null)[])=>statements.push(db.prepare(sql).bind(...v));
  // Host observations carry no member identity; conservatively expire the derived category on erasure.
  add('DELETE FROM provider_embed_observations WHERE workspace_id=?',w);
+ add('DELETE FROM code_embed_connections WHERE workspace_id=? AND member_id=?',w,memberId);
  add('UPDATE audit_settings SET updated_by_member_id=NULL WHERE updated_by_member_id=?',memberId);
  add('DELETE FROM scim_credentials WHERE owner_member_id=?',memberId);
  add("DELETE FROM scim_resources WHERE resource_type='User' AND workspace_id=? AND (member_id=? OR lower(user_name)=(SELECT lower(email) FROM members WHERE id=?))",w,memberId,memberId);

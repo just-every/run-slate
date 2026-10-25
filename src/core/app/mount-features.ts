@@ -1,3 +1,4 @@
+import {createCodeConnectionRoutes} from '../features/code-embeds/routes';
 import {createBackupRoutes} from '../features/backups/routes';
 import {createWorkItemsRoutes} from '../features/work-items/routes';
 import {createReminderRoutes} from '../features/reminders/routes';
@@ -56,6 +57,7 @@ import type { AppEnvironment } from "./types";
  * unless its exact path is added to that file's public list.
  */
 export function mountFeatures(app: Hono<AppEnvironment>): Hono<AppEnvironment> {
+  app.route('/api/embed-connections',createCodeConnectionRoutes());
   mountLaunchProfile(app);
   registerIntelligenceVisibility();
   app.route("/", createWorkspaceRoutes());

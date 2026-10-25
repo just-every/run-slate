@@ -362,6 +362,12 @@
       "name": "0061_provider_embed_observations.sql",
       "sha256": "cc44fd9f0237ae4295aaf7af3c2036f3f34acb302017e9d8cc430d74d1ebeabd",
       "sql": "CREATE TABLE provider_embed_observations (\n workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n provider_host TEXT NOT NULL,\n deployment_origin TEXT NOT NULL,\n verdict TEXT NOT NULL CHECK(verdict IN ('embeddable','refuses')),\n observed_at TEXT NOT NULL,\n PRIMARY KEY(workspace_id,provider_host)\n);\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0062_code_embed_connections.sql",
+      "sha256": "9caefd4baa1f37f2c51a2a7c18c2505853d9891117ea836e0902a6ed1e77a5b1",
+      "sql": "CREATE TABLE code_embed_connections (\n id TEXT PRIMARY KEY NOT NULL,\n workspace_id TEXT NOT NULL REFERENCES workspaces(id),\n member_id TEXT NOT NULL REFERENCES members(id),\n provider TEXT NOT NULL CHECK(provider IN ('github','gitlab')),\n principal_id TEXT NOT NULL,\n verified_email TEXT NOT NULL,\n label TEXT NOT NULL,\n credential_ciphertext TEXT,\n state TEXT NOT NULL CHECK(state IN ('connected','disconnected')),\n revision_id TEXT NOT NULL,\n created_at TEXT NOT NULL,\n updated_at TEXT NOT NULL,\n UNIQUE(workspace_id,member_id,provider)\n);\n"
     }
   ],
   "compatibilityDate": "2026-09-08",
