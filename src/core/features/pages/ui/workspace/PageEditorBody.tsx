@@ -263,7 +263,7 @@ export function PageEditorBody({
         <details><summary>Your recovered blocks</summary>{insertion.conflicts.map(block => <BlockView key={block.id} block={block} canEdit={false} onChange={() => {}}/>)}</details>
         <button onClick={insertion.discard}>Use saved blocks</button>
       </section> : insertion.error ? <p role="alert">{insertion.error} <button onClick={() => void insertion.retry()}>Try saving inserted blocks again</button></p> : null}
-      {document.permissions.canEdit && !insertion.conflicts.length && titleState!=="failed" && !Object.values(editor.saveState).some(state=>["failed","offline","unsaved","conflict"].includes(state.status)) ? <p className="editor-save-status" role="status" suppressHydrationWarning>{insertion.error ? "Unsaved inserted blocks" : insertion.pending || editor.hasUnsavedChanges || titleState==="saving" ? "Saving…" : "Saved"}</p> : null}
+      {document.permissions.canEdit && !insertion.conflicts.length && titleState!=="failed" && !Object.values(editor.saveState).some(state=>["saving","failed","offline","unsaved","conflict"].includes(state.status)) ? <p className="editor-save-status" role="status" suppressHydrationWarning>{insertion.error ? "Unsaved inserted blocks" : insertion.pending || editor.hasUnsavedChanges || titleState==="saving" ? "Saving…" : "Saved"}</p> : null}
       <BlockEditor
         emptyBlockId={!editor.blocks.length ? visibleBlocks[0]?.id : undefined}
         blocks={liveQueries.blocks.map(block=>{

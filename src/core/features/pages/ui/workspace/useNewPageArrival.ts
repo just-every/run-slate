@@ -36,7 +36,7 @@ export function useNewPageArrival(title:RefObject<HTMLTextAreaElement|null>,canE
       if(typed!==latest.current.value){
         input.value=typed;latest.current.onEarlyInput(typed);
         if(early?.changed){input.focus();input.setSelectionRange(early.start,early.end);}
-      }else if(!early || early.input!==input){input.focus();input.select();}
+      }else if(!early || early.input!==input || (!early.changed && document.activeElement===input)){input.focus();input.select();}
       else {const status=input.closest('article')?.querySelector('.editor-save-status');if(status)status.textContent='Saved';}
       if(document.activeElement!==input && !early){frame=requestAnimationFrame(focus);return;}
       if(early)delete owner.__slateNewPageTitle;

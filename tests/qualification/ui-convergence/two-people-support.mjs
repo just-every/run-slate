@@ -123,10 +123,12 @@ export async function savedAfterCommit(page, blockId, edit) {
   await page.evaluate(id => {
     window.slateBlockStates?.observer.disconnect();
     const seen = [];
-    const observer = new MutationObserver(() => {
+    const observe = () => {
       const text = document.querySelector(`.editor-save-status`)?.textContent ?? '';
       if (text && seen.at(-1)?.text !== text) seen.push({ text, at: Date.now() });
-    });
+    };
+    observe();
+    const observer = new MutationObserver(observe);
     observer.observe(document.body, { childList: true, subtree: true, characterData: true });
     window.slateBlockStates = { observer, seen };
   }, blockId);
