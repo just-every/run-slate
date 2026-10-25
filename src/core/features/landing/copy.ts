@@ -6,7 +6,7 @@ export const copy = {
   nav: { docs: "Docs", contract: "Contract", source: "Source", signIn: "Sign in to workspace", signInShort: "Sign in" },
   hero: {
     title: "One home for everything your team knows.",
-    sub: "Pages, databases and search in one open-source wiki.",
+    sub: "Pages, databases and search in one wiki.",
     replaces: "100% free, open source alternative to Notion, Confluence and Guru",
     replacesBold: ["Notion", "Confluence", "Guru"],
     primary: "Run Slate",
