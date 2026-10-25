@@ -1,3 +1,4 @@
+import {codeReference} from '../code-embeds/reference';
 import {layoutStyles} from '../editor/layout';
 import {renderTable} from '../editor/tables/render';
 import type {TableContent} from '../editor/tables/model';
@@ -45,6 +46,7 @@ function renderBlock(b: BlockView, slug: string, links: Record<string, string>, 
     }
     case 'file-card': return `<p id="${id}"><a href="${html(c.url)}" rel="noopener noreferrer">${html(c.provider)} file</a></p>`;
     case 'link-card': {
+        const source=codeReference(c.url);if(source)return '<p id="'+id+'"><a href="'+html(source.url)+'" rel="noopener noreferrer">'+(source.provider==='github'?'GitHub':'GitLab')+' link</a></p>';
         const embed=c.display==='embed'?providerEmbed(c.url):null;
         if(embed && refusedHosts.has(new URL(embed.url).hostname))return `<section id="${id}"><p><a href="${html(c.url)}" rel="noreferrer">${html(c.preview?.title??embed.provider)}</a></p><p>The provider does not allow embedding. Open the original link.</p></section>`;
         if(embed) {

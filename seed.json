@@ -688,6 +688,17 @@
         "The deployment outbound IP address and user agent; no member credentials, cookies or visitor data"
       ],
       "adapters": []
+    },
+    {
+      "id": "reader-code-host-api",
+      "required": false,
+      "requiredWhen": "a member connects GitHub or GitLab or opens a readable code-host card through their own enabled connection",
+      "why": "Live source cards and pinned code require the current reader-authorized provider response. Published pages and readable exports never fetch provider data.",
+      "data": [
+        "The member-provided credential sent only to api.github.com or gitlab.com",
+        "Stable repository, item and pinned code references in the page the reader may open"
+      ],
+      "adapters": []
     }
   ],
   "env": [

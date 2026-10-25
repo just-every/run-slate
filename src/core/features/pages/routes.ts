@@ -1,3 +1,5 @@
+import {codeCard} from '../code-embeds/service';
+import {codeReference} from '../code-embeds/reference';
 import {embedDeployment} from '../editor/embeds/refusal';
 import {embedStatus} from '../editor/embeds/service';
 import {editSyncedCopy} from '../editor/synced/write';
@@ -31,6 +33,8 @@ export function createPagesRoutes() {
     r.post('/bulk', async (c) => c.json(await bulkPages(featureContext(c), await c.req.json())));
     r.post('/link-preview', async (c) => {
         featureContext(c);
+        const sourceBody=await c.req.json();const source=typeof sourceBody?.url==='string'?codeReference(sourceBody.url):null;
+        if(source)return c.json({url:source.url,display:'card',previewState:'ready',source});
         if (c.get('runtimeConfig')?.linkPreviewsEnabled === false)
             throw new ApiProblem(503, 'PREVIEWS_DISABLED', 'The workspace has disabled URL previews.');
         const b = await c.req.json();
@@ -46,6 +50,7 @@ export function createPagesRoutes() {
     r.get('/:id/link-card',async c=>c.json(await pageLinkCard(featureContext(c),c.req.param('id'),c.req.query('revision'))));
     r.get('/:id/mention-groups', async c => c.json(await mentionGroups(featureContext(c), c.req.param('id'))));
     r.post('/:id/mention-preview', async c => c.json(await previewMentions(featureContext(c), c.req.param('id'), await c.req.json())));
+    r.get('/:id/code-cards/:blockId',async c=>{c.header('Cache-Control','private, no-store');return c.json(await codeCard(featureContext(c),c.req.param('id'),c.req.param('blockId')));});
     r.get('/:id/file-cards/:blockId',async c=>{c.header('Cache-Control','private, no-store');return c.json(await fileCard(featureContext(c),c.req.param('id'),c.req.param('blockId')));});
     r.get('/:id/embeds/:blockId/status',async c=>{c.header('Cache-Control','private, no-store');return c.json(await embedStatus(featureContext(c),c.req.param('id'),c.req.param('blockId'),embedDeployment(c.get('runtimeConfig')?.appUrl??new URL(c.req.url).origin,c.get('runtimeConfig')?.publicPageHost)));});
     r.get('/:id/embeds/:blockId', async c => {
