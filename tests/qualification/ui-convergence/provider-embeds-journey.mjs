@@ -1,3 +1,4 @@
+import {codeCardsJourney} from './code-cards-journey.mjs';
 import {embedTimeoutJourney} from './embed-timeout-journey.mjs';
 import {accessible} from './browser-evidence.mjs';
 import {fileCardsJourney} from './file-cards-journey.mjs';
@@ -68,4 +69,5 @@ export async function providerEmbedsJourney(state) {
   } finally {await publicContext.close();}
   await embedTimeoutJourney(state);
   await fileCardsJourney(state);
+  await codeCardsJourney(state);
 }

@@ -1,3 +1,4 @@
+import {CodeConnections} from './CodeConnections';
 import { ReadableExportDialog } from '../../../workspace-export/ui/ReadableExportDialog';
 import {WorkspaceTransferJobs} from './WorkspaceTransferJobs';
 import { ScheduledBackups } from './ScheduledBackups';
@@ -112,6 +113,7 @@ export function PortabilityPanel() {
         while(mounted.current&&['preparing','running','indexing','undoing'].includes(next.state)) {next=await mutate<Job>(`/api/imports/${job.id}/resume`,{});setJob(next);}
       })}/> : null}
       <FolderImports />
+      <CodeConnections key={member.id}/>
       {member.role === "owner" ? <WorkspaceTransferJobs/> : null}
       {member.role === "owner" ? <ScheduledBackups /> : null}
     </section>

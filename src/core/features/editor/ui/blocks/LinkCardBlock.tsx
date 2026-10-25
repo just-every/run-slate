@@ -1,3 +1,5 @@
+import {CodeCardBlock} from './CodeCardBlock';
+import {codeReference} from '../../../code-embeds/reference';
 import {useEffect,useState} from 'react';
 import {providerEmbed} from '../../embeds/providers';
 import {useTaskPage} from './TaskPageContext';
@@ -62,6 +64,7 @@ export function LinkCardBlock({ block, canEdit, onChange, actions }: BlockRender
     return ()=>controller.abort();
   },[block.url,block.display,parent?.pageId,block.id]);
   useEffect(()=>{if(!loaded||ready)return;const timer=setTimeout(()=>{setRefused(true);setLoaded(null);},8000);return()=>clearTimeout(timer);},[loaded,ready]);
+  if(codeReference(block.url))return <CodeCardBlock block={block}/>;
   if(embed && parent && !refused)return <div className="my-2 flex flex-col gap-2">
     <a href={block.url} target="_blank" rel="noreferrer" className="break-all text-accent underline">{block.preview?.title??embed.provider}</a>
     {loaded===block.url?<><iframe title={`${embed.provider} embed`} src={`/api/pages/${encodeURIComponent(parent.pageId)}/embeds/${encodeURIComponent(block.id)}`} onLoad={()=>setReady(true)} sandbox={embed.sandbox} referrerPolicy="no-referrer" allow="fullscreen" className="w-full rounded-card border border-line" style={{height:420}}/><Button onClick={()=>setLoaded(null)} variant="secondary">Show link instead</Button></>:<Button onClick={()=>{setReady(false);setLoaded(block.url);}} variant="secondary">Load {embed.provider} embed</Button>}

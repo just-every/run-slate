@@ -1,3 +1,4 @@
+import {CodeWriteScopeError} from './scopes';
 import type {FeatureContext} from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
 import {commitOperation,mutationGuard,requestHash} from '../../app/operations';
@@ -20,7 +21,7 @@ const guard=(ctx:FeatureContext,email:string)=>mutationGuard(ctx.db,"SELECT EXIS
 export async function connectCode(ctx:FeatureContext,input:{operationKey:string;provider:CodeProvider;token:string}){
  const member=await codeMember(ctx);
  if(!ctx.sourceSecret)throw new ApiProblem(503,'CONNECTOR_KEY_MISSING','Configure credential custody before connecting an account.');
- const identity=await codeIdentity(input.provider,input.token,member.email);
+ const identity=await codeIdentity(input.provider,input.token,member.email).catch(error=>{if(error instanceof CodeWriteScopeError)throw new ApiProblem(400,'CODE_WRITE_SCOPE','Use a read-only personal access token.');throw error;});
  const id=ctx.actor.id+':'+input.provider,row={id,workspace_id:ctx.actor.workspaceId,member_id:ctx.actor.id,provider:input.provider};
  const ciphertext=await encryptSecret(ctx.sourceSecret,input.token,scope(row));
  return commitOperation(ctx,{operationKey:input.operationKey,action:'embeds.code-connect',request:{provider:input.provider,tokenHash:await requestHash(input.token)},authorize:async()=>{await codeMember(ctx);},prepare:async({revisionId})=>({

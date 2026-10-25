@@ -1,3 +1,4 @@
+import {CodeWriteScopeError} from './scopes';
 import type {FeatureContext} from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
 import {readPage} from '../pages/service';
@@ -21,6 +22,7 @@ export async function codeCard(ctx:FeatureContext,pageId:string,blockId:string):
   if(JSON.stringify(await reference())!==JSON.stringify(ref))throw new ApiProblem(409,'CODE_REFERENCE_CHANGED','Refresh this page.');
   return {state:'readable',reference:ref,metadata};
  }catch(error){
+  if(error instanceof CodeWriteScopeError)return {state:'request-access'};
   if(error instanceof CodeProviderError)return {state:error.state};
   if(error instanceof ApiProblem&&error.status===404)throw error;
   if(error instanceof ApiProblem&&error.status===403)return {state:'request-access'};

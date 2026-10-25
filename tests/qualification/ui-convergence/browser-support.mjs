@@ -1,3 +1,4 @@
+import {initializeCodeEdge,setCodeFixture,readCodeRequests} from '../../helpers/code-edge.mjs';
 import {initializeEmbedEdge,readEmbedRequests} from '../../helpers/embed-edge.mjs';
 import { initializeWebhookEdge, setWebhookFailure } from '../../helpers/webhook-edge.mjs';
 import { testDevKey } from '../../e2e/dev-key.mjs';
@@ -30,6 +31,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
     if (backups) await initializeS3Edge(state);
     if (folders) await initializeFolderEdge(state);
     await initializeEmbedEdge(state);
+    const codeCredentials=await initializeCodeEdge(state);
     await applyMigrations(state);
     const now = new Date().toISOString();
     await executeD1(state, `INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES('browser-workspace','Harbor operations','','${now}','${now}','initial');
@@ -76,7 +78,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
         delete submitted.secretAccessKey;
         requestBody = JSON.stringify(submitted);
       }
-      if (new URL(response.url()).pathname === '/api/imports/provider-folders/connections' && request.method() === 'POST' && requestBody) {
+      if (['/api/imports/provider-folders/connections','/api/embed-connections'].includes(new URL(response.url()).pathname) && request.method() === 'POST' && requestBody) {
         const submitted = JSON.parse(requestBody);
         delete submitted.token;
         requestBody = JSON.stringify(submitted);
@@ -157,7 +159,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       assert.equal(response.status, 200, await response.text());
     };
     try {
-      await run({readEmbedRequests:()=>readEmbedRequests(state), page, context, origin: runtime.baseUrl, api, records, atRest, fixtureSql, runScheduled, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}`,
+      await run({codeCredentials,setCodeFixture:changes=>setCodeFixture(state,changes),readCodeRequests:()=>readCodeRequests(state),readEmbedRequests:()=>readEmbedRequests(state), page, context, origin: runtime.baseUrl, api, records, atRest, fixtureSql, runScheduled, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}`,
         assertNoConsoleErrors: () => assert.deepEqual(consoleErrors, [], 'The browser must have no console errors or uncaught page errors.'),
         ...(webhooks ? {setWebhookFailure:failure=>setWebhookFailure(state,failure)} : {}),
         ...(backups ? { setS3Failure: failure => setS3Failure(state, failure), readS3Requests: () => readS3Requests(state), readS3Objects: () => readS3Objects(state) } : {}),

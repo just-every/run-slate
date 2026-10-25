@@ -1,3 +1,4 @@
+import {codeEdge} from '../helpers/code-edge.mjs';
 import {embedEdge} from '../helpers/embed-edge.mjs';
 import { webhookEdge } from '../helpers/webhook-edge.mjs';
 import { createRequire } from 'node:module';
@@ -31,6 +32,8 @@ const worker = { ...workerOptions, name: config.name,
     if(webhook)return webhook;
     const saml = await samlEdge(request, persistPath, miniflare.Response);
     if (saml) return saml;
+    const code=await codeEdge(request,persistPath,miniflare.Response);
+    if(code)return code;
     const embed=await embedEdge(request,persistPath,miniflare.Response);
     if(embed)return embed;
     const folder = await folderEdge(request, persistPath, miniflare.Response);

@@ -1,3 +1,4 @@
+import {codeReference} from '../../../code-embeds/reference';
 import {ConnectedFilePicker} from './ConnectedFilePicker';
 import {DocumentHeadings} from '../../../editor/ui/blocks/DocumentHeadings';
 import {StatusLabelDialog} from '../../../editor/ui/blocks/StatusLabelDialog';
@@ -225,7 +226,16 @@ export function PageEditorBody({
     }
   }
   return (
-    <TaskPageProvider pageId={document.page.id} revisionId={insertion.pending?'':editor.workingRevisionId} canShare={document.permissions.canShare}><DocumentHeadings blocks={visibleBlocks}><div ref={wrapper} data-page-editor tabIndex={-1} onClick={event=>{const target=(event.target as HTMLElement).closest<HTMLElement>('[data-reminder-date]');if(target?.dataset.reminderDate){setDateReminder({date:target.dataset.reminderDate,blockId:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId});}}}>
+    <TaskPageProvider pageId={document.page.id} revisionId={insertion.pending?'':editor.workingRevisionId} canShare={document.permissions.canShare}><DocumentHeadings blocks={visibleBlocks}><div ref={wrapper} data-page-editor tabIndex={-1} onPasteCapture={event=>{
+      if(!document.permissions.canEdit)return;
+      const target=(event.target as HTMLElement).closest<HTMLElement>('[data-slate-editable]'),row=target?.closest<HTMLElement>('[data-block-id]');
+      const block=visibleBlocks.find(item=>item.id===row?.dataset.blockId);
+      if(!target||block?.type!=='paragraph'||richTextToPlain(block.text)!==''||block.text.some(span=>span.mention||span.status||span.commentAnchorId))return;
+      const reference=codeReference(event.clipboardData.getData('text/plain').trim());if(!reference)return;
+      event.preventDefault();event.stopPropagation();undoConversion.current={block,removed:0};
+      const next:EditorBlock={id:block.id,type:'link-card',url:reference.url,display:'card',previewState:'ready',indent:block.indent,layoutParentId:block.layoutParentId};
+      insertion.insert(visibleBlocks.map(item=>item.id===block.id?next:item));wrapper.current?.focus();
+    }} onClick={event=>{const target=(event.target as HTMLElement).closest<HTMLElement>('[data-reminder-date]');if(target?.dataset.reminderDate){setDateReminder({date:target.dataset.reminderDate,blockId:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId});}}}>
       {dateReminder?<ReminderDialog pageId={document.page.id} {...dateReminder} onClose={()=>setDateReminder(null)}/>:null}
       {insert ? (
         <InsertMenu
