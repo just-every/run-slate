@@ -48,7 +48,13 @@ export async function embedRefusalsJourney(req:(path:string,body?:unknown,auth?:
     expect(await env.DB.prepare('SELECT * FROM provider_embed_observations WHERE workspace_id=?').bind(workspaceId).first()).toBeNull();
     const form=new FormData();form.set('file',new File([bytes],'workspace.zip',{type:'application/zip'}));
     const restored=await createApi().request(base+'/api/exports/restore',{method:'POST',headers:{cookie:freshCookie,origin:base},body:form},{...env,SLATE_PROFILE:undefined,PUBLIC_PAGE_HOST:'slate.test'});
-    expect(restored.status,await restored.clone().text()).toBe(200);
+    expect(restored.status).toBe(409);expect((await restored.json<any>()).code).toBe('ERASURE_CHECKPOINT');
+    expect((await (await req(route)).json<any>()).verdict).toBe('refuses');seen.length=0;
+    const freshExport=await req('/api/exports/workspace',{operationKey:crypto.randomUUID()},freshCookie);expect(freshExport.status).toBe(200);
+    const freshId=(await freshExport.json<any>()).id,freshDownload=await req(`/api/exports/${freshId}/download`,undefined,freshCookie);expect(freshDownload.status).toBe(200);
+    const freshForm=new FormData();freshForm.set('file',new File([await freshDownload.arrayBuffer()],'workspace.zip',{type:'application/zip'}));
+    const freshRestore=await createApi().request(base+'/api/exports/restore',{method:'POST',headers:{cookie:freshCookie,origin:base},body:freshForm},{...env,SLATE_PROFILE:undefined,PUBLIC_PAGE_HOST:'slate.test'});
+    expect(freshRestore.status,await freshRestore.clone().text()).toBe(200);
     expect(await env.DB.prepare('SELECT observed_at FROM provider_embed_observations WHERE workspace_id=? AND provider_host=?').bind(workspaceId,host).first('observed_at')).toBe('1970-01-01T00:00:00.000Z');
     expect(seen).toHaveLength(0);
 
