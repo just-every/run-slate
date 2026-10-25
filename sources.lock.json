@@ -944,7 +944,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "59b86664337ce940194d893f44407272dac16c1ce996fc59df6737d406dafbac",
+      "sha256": "8846e666b149d43e2d557421b0b1bba515263fbb2901ffc042eb32b4d521217b",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "2013f8e628bc6d736fe5f2a5cef11c248994008d2adf0cf4382a1519bda56f82",
+      "sha256": "6adbac7531cec1d57951b8fef605c5d75358c8c5923a7a74819246814f69ba57",
       "executable": false
     },
     "DEMO.md": {
@@ -10200,7 +10200,7 @@
       "executable": false
     },
     "test-budget.json": {
-      "sha256": "93f28978acc0aebeb29de3dfe7e39290dd74fdd352b3877eaee3159ccb280102",
+      "sha256": "f48b9bb320eaef53581e1bf55b7e913543d820de4646f2eff4e524a5509127fc",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
@@ -11263,10 +11263,6 @@
       "sha256": "04c77d1e7c64b05d7563674f26c02bb2cc5703fc99933b73f47ee3d179131361",
       "executable": false
     },
-    "tests/qualification/authority/evaluation-boundaries.test.ts": {
-      "sha256": "31a9756c3f5f5d254f9d2861e31d37edec94f986357ce82d6965c4c01c908c46",
-      "executable": false
-    },
     "tests/qualification/authority/fixture.ts": {
       "sha256": "77e9b636cb4c10097df7d6e4d3944eb460ce58d24d9e8b896a328f9dc96dfa61",
       "executable": false
@@ -11459,52 +11455,12 @@
       "sha256": "37630cf6af255761e4f318ff05cf95b6124a4ffd01ff78889f4a1fcc07d70a80",
       "executable": false
     },
-    "tests/qualification/inquiry/ambient.test.ts": {
-      "sha256": "ba28ded2f0dcb83257ba173fec0788a5734b01be63e4670deb98c99c89d52dee",
-      "executable": false
-    },
     "tests/qualification/inquiry/fixture.ts": {
       "sha256": "df5b558f0a11ebe8959610cf8f87170b874aa46c2d14f38af37cea20c9b86f7b",
       "executable": false
     },
-    "tests/qualification/inquiry/impact.test.ts": {
-      "sha256": "5ed7b7b1bcb4e746cdaab62c0586164648aff528f6ddffd06717683cc70f943a",
-      "executable": false
-    },
-    "tests/qualification/inquiry/inquiry-mechanics.test.ts": {
-      "sha256": "57ec4d8aea8746ffa6ad092b636c212ae994254fe7a7db96b8adbac42b2be7d2",
-      "executable": false
-    },
-    "tests/qualification/inquiry/lifecycle.test.ts": {
-      "sha256": "1e74fe80aea62329e6d64081e1dd80f3213e5d83468d0bd0c7b77cd013c9ec2c",
-      "executable": false
-    },
-    "tests/qualification/inquiry/provider-mechanics.test.ts": {
-      "sha256": "5983fbe0f106ec0dfc985b1249629339f34cb587b03b1396b64fe32e776915ad",
-      "executable": false
-    },
-    "tests/qualification/inquiry/routing.test.ts": {
-      "sha256": "644b76bfc56205d63cf609185ee2af621a55c396e386b39dd45ea59dcca77e6e",
-      "executable": false
-    },
-    "tests/qualification/inquiry/selection-agent.test.ts": {
-      "sha256": "859770de4043e555a92cdf59bcc35ae2d23b8078a4aea85a9b284de991ef675a",
-      "executable": false
-    },
-    "tests/qualification/inquiry/semantic-evaluation.test.ts": {
-      "sha256": "a1eefcf31379535034c5a303a86d42d4c44842b5df5879aca0096ccd90523873",
-      "executable": false
-    },
-    "tests/qualification/inquiry/transport-parity.test.ts": {
-      "sha256": "fd01de4869407e3fbb345ac7b519e573d270bb1c70ad33fcbe153759e478f8b4",
-      "executable": false
-    },
     "tests/qualification/inquiry/trial-fixture.ts": {
       "sha256": "c0d9a9b2e1dadb971af4e93b92c55e0b5bb5acaeb2bd2edd56a74392e400bba8",
-      "executable": false
-    },
-    "tests/qualification/inquiry/trial-loop.test.ts": {
-      "sha256": "be4378cf3d90b40dda941af1eac7d70d13449a7ccae0269a18421fb3869dcda6",
       "executable": false
     },
     "tests/qualification/interface/actors.mjs": {
