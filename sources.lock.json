@@ -10284,7 +10284,7 @@
       "executable": false
     },
     "tests/e2e/editor/code-cards-journey.ts": {
-      "sha256": "a0e5562856f2bbcf8522e36bd9dbba92fffe99c6d2bdec505e4cf0821c81c403",
+      "sha256": "c38171b1828876d8e55674874bcecaeb47c2207fc89642e2e7950539054a6e6b",
       "executable": false
     },
     "tests/e2e/editor/columns-case.ts": {
