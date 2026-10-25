@@ -6308,7 +6308,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/views/TableView.tsx": {
-      "sha256": "845f3d0a4a3a93b78c9999f315ef09a92cdd3a39c1cdce21df26f99642b94134",
+      "sha256": "7a8d53abb94ea514ab9dea2773ba3475b368f7f3d0d01d527799ce5afefdc505",
       "executable": false
     },
     "src/core/features/databases/ui/views/TimelineView.tsx": {
@@ -6360,7 +6360,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/workspace/RecordPeek.tsx": {
-      "sha256": "dab22d6e2f1d5419c477fee46890dbbc89f0be64579ee934714f50784412a9f4",
+      "sha256": "47afda18fb4c202b5bebc4e433ddb39c8d44ea9ba43f8866c718852b820d595f",
       "executable": false
     },
     "src/core/features/databases/ui/workspace/RecordPrint.tsx": {
@@ -12324,7 +12324,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/group-mentions-journey.mjs": {
-      "sha256": "4ae3487f51cbd294b1c55db7797c01af287d126f932fab33ed30493a8836f7be",
+      "sha256": "1adfdf1fe35c3c4e239a07c5f84a9e81831b3b31d7582c5e9a239f7edce9ecf7",
       "executable": false
     },
     "tests/qualification/ui-convergence/guest-console-journey.mjs": {
