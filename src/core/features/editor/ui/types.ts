@@ -1,3 +1,4 @@
+import type {CodeReference} from '../../code-embeds/reference';
 import type {SyncedResolution} from '../../../shared/api/content';
 import type {FileReference} from '../file-cards/reference';
 import type {TableContent} from '../tables/model';
@@ -168,6 +169,8 @@ export type LinkPreviewState = "ready" | "loading" | "refused" | "failed";
 
 export interface LinkCardBlockData extends BlockBase {
   type: "link-card";
+  /** A canonical reference, never fetched reader metadata or a credential. */
+  source?:CodeReference;
   /** Stored exactly as pasted, whatever the preview did. */
   url: string;
   display: LinkCardDisplay;

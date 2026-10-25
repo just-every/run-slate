@@ -233,7 +233,7 @@ export function PageEditorBody({
       if(!target||block?.type!=='paragraph'||richTextToPlain(block.text)!==''||block.text.some(span=>span.mention||span.status||span.commentAnchorId))return;
       const reference=codeReference(event.clipboardData.getData('text/plain').trim());if(!reference)return;
       event.preventDefault();event.stopPropagation();undoConversion.current={block,removed:0};
-      const next:EditorBlock={id:block.id,type:'link-card',url:reference.url,display:'card',previewState:'ready',indent:block.indent,layoutParentId:block.layoutParentId};
+      const next:EditorBlock={id:block.id,type:'link-card',url:reference.url,display:'card',previewState:'ready',source:reference,indent:block.indent,layoutParentId:block.layoutParentId};
       insertion.insert(visibleBlocks.map(item=>item.id===block.id?next:item));wrapper.current?.focus();
     }} onClick={event=>{const target=(event.target as HTMLElement).closest<HTMLElement>('[data-reminder-date]');if(target?.dataset.reminderDate){setDateReminder({date:target.dataset.reminderDate,blockId:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId});}}}>
       {dateReminder?<ReminderDialog pageId={document.page.id} {...dateReminder} onClose={()=>setDateReminder(null)}/>:null}

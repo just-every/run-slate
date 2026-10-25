@@ -6904,7 +6904,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/types.ts": {
-      "sha256": "6529e103b982be726d969fee1af2363eb11df47a4df2feb400f3a07e5a9a3082",
+      "sha256": "c0797f87bbc9610e83bfa646b0613f0e17f4a0ff6b1bf00618abf639487212b3",
       "executable": false
     },
     "src/core/features/editor/ui/useTouchBlockDrag.ts": {
@@ -8352,7 +8352,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageEditorBody.tsx": {
-      "sha256": "52df20f7cf54e0470c20a6f1313571c7b9a2177cae7cd1b21166d2bc5736f6f2",
+      "sha256": "9ac211f0e6fdfecc6af5b62c9e676995cb624b4ec4fa1f779983a5a8142c412f",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
