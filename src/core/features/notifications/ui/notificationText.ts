@@ -21,7 +21,7 @@ export function eventLabel(event: string) {
 export interface NotificationSentence { event: string; title: string | null; actor?: { displayName: string } | null }
 export function notificationText(item: NotificationSentence) {
   const person = item.actor?.displayName;
-  const verbs: Record<string, string> = {comment: "commented on", reply: "replied on", mention: "mentioned you on", published: "published", "page-created": "created", "page-edited": "edited", "page-moved": "moved", "page-archived": "archived", "page-trashed": "moved to trash:", "page-restored": "restored", "post-published": "published a post:"};
+  const verbs: Record<string, string> = {"task-assigned": "assigned you a task on", "review-requested": "requested your review of", "access-granted": "gave you access to", "access-requested": "requested access to", "decision-required": "requested a decision on", comment: "commented on", reply: "replied on", mention: "mentioned you on", published: "published", "page-created": "created", "page-edited": "edited", "page-moved": "moved", "page-archived": "archived", "page-trashed": "moved to trash:", "page-restored": "restored", "post-published": "published a post:"};
   if (verbs[item.event]) return `${person ?? "Someone"} ${verbs[item.event]} ${item.title ?? "a page"}`;
-  return `${eventLabel(item.event)}${item.title ? ` · ${item.title}` : ""}`;
+  return `${person ? `${person}: ` : ""}${eventLabel(item.event)}${item.title ? ` · ${item.title}` : ""}`;
 }

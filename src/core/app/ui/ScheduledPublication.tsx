@@ -16,8 +16,6 @@ export function ScheduledPublication({
         ? "Publication needs attention"
         : "Scheduled"}{" "}
       ·{" "}
-      
-        
       <DateStamp value={page.publishAt} />
       {page.scheduleFailure ? ` · ${page.scheduleFailure}` : null}
     </small>

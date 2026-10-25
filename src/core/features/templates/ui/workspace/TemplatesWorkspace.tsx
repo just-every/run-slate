@@ -3,7 +3,7 @@ import "./templates-workspace.css";
 import {TemplateSnapshotPreview,type TemplatePreviewSnapshot} from './TemplateSnapshotPreview';
 import {DeletedTemplateActions} from './DeletedTemplateActions';
 import { TemplateActions } from "./TemplateActions";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import { mutate, operationKey } from "../../../../client/transport";
 import { RequestState } from "../../../../app/ui/RequestState";
@@ -44,6 +44,11 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
     selected&&state!=="deleted" ? `/api/templates/${selected}` : null,
   );
   const [apply, setApply] = useState(false);
+  const previewElement = useRef<HTMLElement>(null);
+  useEffect(() => {
+    previewElement.current?.scrollTo({top: 0});
+    if (selected && window.matchMedia("(max-width: 700px)").matches) window.scrollTo({top: 0});
+  }, [selected]);
   const body = <>
         <div className="template-browser" data-preview={!!selected}>
         <div className="template-list">
@@ -115,7 +120,7 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
         </div>
         {selected&&state==='deleted'&&items.data?.items.find(item=>item.id===selected)?<DeletedTemplateActions template={items.data.items.find(item=>item.id===selected)!} onChanged={async()=>{setSelected(undefined);await items.reload();}}/>:null}
         {selected&&state!=='deleted' ? (
-          <section className="template-preview">
+          <section ref={previewElement} className="template-preview">
             <RequestState
               loading={preview.loading}
               error={preview.error}

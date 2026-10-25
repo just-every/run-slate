@@ -1,4 +1,4 @@
-import { DateStamp, shortDate } from "../../../../app/ui/displayDate";
+import { DateStamp, useDateText } from "../../../../app/ui/displayDate";
 import {ReadOnlyBlocks} from '../../../editor/ui/ReadOnlyBlocks';
 import { useState } from "react";
 import { useResource } from "../../../../client/useResource";
@@ -27,6 +27,7 @@ export function PageHistory({
   revision: string;
   reload: () => void;
 }) {
+  const dateText = useDateText();
   const history = useResource<{ items: Revision[] }>(
     `/api/revisions/${document.page.id}`,
   );
@@ -45,7 +46,7 @@ export function PageHistory({
   return (
     <section>
       <h2>Version history</h2>
-      {selected ? <label>Compare with<select aria-label="Compare with" value={compare} onChange={e=>setCompare(e.target.value)}><option value="">Choose another revision</option>{history.data?.items.filter(r=>r.id!==selected&&!r.deletedAt).map(r=><option key={r.id} value={r.id}>{r.label ? `${r.label} · ` : ""}{shortDate(r.createdAt)}{r.authorDisplayName ? ` · ${r.authorDisplayName}` : ""}</option>)}</select></label>:null}
+      {selected ? <label>Compare with<select aria-label="Compare with" value={compare} onChange={e=>setCompare(e.target.value)}><option value="">Choose another revision</option>{history.data?.items.filter(r=>r.id!==selected&&!r.deletedAt).map(r=><option key={r.id} value={r.id}>{r.label ? `${r.label} · ` : ""}{dateText(r.createdAt)}{r.authorDisplayName ? ` · ${r.authorDisplayName}` : ""}</option>)}</select></label>:null}
       {compare ? <RequestState loading={comparison.loading} error={comparison.error} retry={comparison.reload}><section aria-label="Revision comparison"><h3>Before and after</h3>{comparison.data?.blocks.map(item=><section key={item.id}><h4>{item.change}</h4><div className="conflict-columns">{[item.before,item.after].map((block,index)=><div key={index}><strong>{index===0?'Before':'After'}</strong>{block ? <RenderBlock block={editorBlocks([block])[0]} canEdit={false} onChange={()=>{}}/>:<p>No block</p>}</div>)}</div></section>)}<details><summary>Property changes</summary><pre>{JSON.stringify(comparison.data?.properties,null,2)}</pre></details></section></RequestState>:null}
       <RequestState
         loading={history.loading}

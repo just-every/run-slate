@@ -1,4 +1,4 @@
-import { shortDate } from "../../../../app/ui/displayDate";
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { AccessExpiry } from "../../../../app/ui/AccessExpiry";
 import { useRef, useState } from "react";
 import { useResource } from "../../../../client/useResource";
@@ -58,7 +58,7 @@ export function ContainerSharing({ id }: { id: string }) {
               <span>
                 {name(grant)} · {grant.revokedAt ? "Revoked" : grant.level}
                 {grant.expiresAt
-                  ? ` · Until ${shortDate(grant.expiresAt, true)}`
+                  ? <> · Until <DateStamp value={grant.expiresAt} /></>
                   : ""}
               </span>
               {!grant.revokedAt ? (

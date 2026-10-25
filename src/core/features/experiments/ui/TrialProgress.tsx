@@ -1,4 +1,4 @@
-import { shortDate } from "../../../app/ui/displayDate";
+import { DateStamp } from "../../../app/ui/displayDate";
 import { useEffect, useState } from "react";
 import { useResource } from "../../../client/useResource";
 import { mutate, operationKey, errorMessage } from "../../../client/transport";
@@ -107,7 +107,7 @@ export function TrialProgress({
                         <td>{observation.value}</td>
                         <td>{observation.support_work}</td>
                         <td>
-                          {shortDate(observation.observed_at)}
+                          <DateStamp value={observation.observed_at} />
                         </td>
                         <td>
                           {observation.effect_id

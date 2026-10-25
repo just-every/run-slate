@@ -1,9 +1,9 @@
-import { shortDate } from "../../../../app/ui/displayDate";
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { useId } from 'react';
 import type { SamlSettingsView } from './SamlTypes';
 
 function checkedTime(timestamp: number) {
-  return shortDate(timestamp < 1_000_000_000_000 ? timestamp * 1000 : timestamp);
+  return <DateStamp value={new Date(timestamp < 1_000_000_000_000 ? timestamp * 1000 : timestamp).toISOString()} />;
 }
 
 export function SamlDomain({ data, pending, onCheck }: {

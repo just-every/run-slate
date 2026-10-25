@@ -19,8 +19,7 @@ interface Notice {
 }
 /** STAT-007: one coalesced notice per owner and run, counts and titles only. */
 function rulesSummary(rules: { unverified: number; flagged: number }) {
-  const parts = [rules.unverified ? `unverified ${rules.unverified}` : "", rules.flagged ? `flagged ${rules.flagged}` : ""].filter(Boolean);
-  return `Verification rules ${parts.join(" and ")} ${rules.unverified + rules.flagged === 1 ? "page" : "pages"} you own`;
+  return `Verification changed for ${rules.unverified + rules.flagged} ${rules.unverified + rules.flagged === 1 ? "page" : "pages"} you own`;
 }
 export function WorkspaceInbox() {
   const { localDevelopment } = useWorkspace();

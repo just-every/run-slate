@@ -1,3 +1,4 @@
+import "./workspace-preferences.css";
 import {GroupMentionSettings} from './GroupMentionSettings';
 import {NavigationSettings} from "./NavigationSettings";
 import { useState } from "react";
@@ -139,20 +140,6 @@ export function WorkspacePreferences() {
                     defaultValue={data.description}
                   />
                 </label>
-                <details><summary>Policy profile</summary>
-                {policies.map(([id, label, options]) => (
-                  <label key={id}>
-                    {label}
-                    <select name={id} defaultValue={data.policies[id]}>
-                      {options.map(([value, text]) => (
-                        <option key={value} value={value}>
-                          {text}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                ))}
-                </details>
                 {(
                   [
                     ["guestAccess", "Guest access"],
@@ -168,6 +155,20 @@ export function WorkspacePreferences() {
                     </select>
                   </label>
                 ))}
+                <details className="workspace-policy-profile"><summary>Policy profile</summary>
+                {policies.map(([id, label, options]) => (
+                  <label key={id}>
+                    {label}
+                    <select name={id} defaultValue={data.policies[id]}>
+                      {options.map(([value, text]) => (
+                        <option key={value} value={value}>
+                          {text}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                ))}
+                </details>
               </ActionDialog>
             ) : null}
           </>

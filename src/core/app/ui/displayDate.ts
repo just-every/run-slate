@@ -4,12 +4,15 @@ import { createElement, useSyncExternalStore } from "react";
 export function displayDate(value: string, withTime = false) {
   return fullDate(value, withTime);
 }
-function instant(value: string | number) { return new Date(typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) ? `${value}T12:00:00` : value); }
+function instant(value: string | number) { return new Date(typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) ? `${value}T12:00:00Z` : value); }
 export function fullDate(value: string, withTime = true, timeZone?: string) {
-  return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", ...(withTime ? { hour: "2-digit", minute: "2-digit" } as const : {}), timeZone }).format(instant(value));
+  const dateOnly = /^\d{4}-\d{2}-\d{2}$/.test(value);
+  if (dateOnly) timeZone = "UTC";
+  return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", ...(withTime && !dateOnly ? { hour: "2-digit", minute: "2-digit" } as const : {}), timeZone }).format(instant(value));
 }
 /** Short absolute form for prose, options and tooltips; DateStamp also supplies recent relative times. */
 export function shortDate(value: string | number, _withTime = false, now = new Date(), timeZone?: string) {
+  if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value)) timeZone = "UTC";
   const date = instant(value);
   const year = new Intl.DateTimeFormat("en", { year: "numeric", timeZone });
   return new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", ...(year.format(date) !== year.format(now) ? {year: "numeric"} as const : {}), timeZone }).format(date);
@@ -26,6 +29,14 @@ export function relativeDate(value: string, now = new Date()) {
   return shortDate(value, false, now);
 }
 const subscribe = () => () => {};
+/** Text-only contexts such as option labels hydrate with the same absolute UTC form. */
+export function useDateText() {
+  const mounted = useSyncExternalStore(subscribe, () => true, () => false);
+  return (value: string | number, full = false) => {
+    const normalized = typeof value === "number" ? new Date(value).toISOString() : value;
+    return full ? fullDate(normalized, true, mounted ? undefined : "UTC") : mounted ? relativeDate(normalized) : shortDate(normalized, false, new Date(), "UTC");
+  };
+}
 /** UTC absolute text hydrates identically; the browser's local relative text starts after hydration. */
 export function DateStamp({ value, className }: { value: string; className?: string }) {
   const mounted = useSyncExternalStore(subscribe, () => true, () => false);

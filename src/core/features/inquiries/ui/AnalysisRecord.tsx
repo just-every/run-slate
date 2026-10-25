@@ -1,4 +1,4 @@
-import { shortDate } from "../../../app/ui/displayDate";
+import { DateStamp } from "../../../app/ui/displayDate";
 import { FindingSources } from "./FindingRecords";
 export interface Analysis {
   id: string;
@@ -60,7 +60,7 @@ export function AnalysisRecord({ analysis }: { analysis: Analysis }) {
           <dt>Method</dt>
           <dd>{analysis.engine_version}</dd>
           <dt>Recorded</dt>
-          <dd>{shortDate(analysis.created_at)}</dd>
+          <dd><DateStamp value={analysis.created_at} /></dd>
           <dt>Input fingerprint</dt>
           <dd style={{overflowWrap:"anywhere"}}>{analysis.input_hash}</dd>
         </dl>

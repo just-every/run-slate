@@ -1,3 +1,4 @@
+import { shortDate } from "../../../app/ui/displayDate";
 import { ListFilters } from "../../../app/ui/ListFilters";
 import { useState } from 'react';
 import { TopBar } from '../../../app/ui/header/TopBar';
@@ -25,8 +26,8 @@ export function MyTasks() {
     <ListFilters applied={[
       ...(state!=="open"?[{id:"state",label:state ? state[0].toUpperCase()+state.slice(1) : "All tasks",remove:()=>change(setState,"open")}]:[]),
       ...(container?[{id:"space",label:navigation.data?.containers.find(item=>item.id===container)?.name??"Space",remove:()=>change(setContainer,"")}]:[]),
-      ...(from?[{id:"from",label:`Due from ${from}`,remove:()=>change(setFrom,"")}]:[]),
-      ...(to?[{id:"to",label:`Due through ${to}`,remove:()=>change(setTo,"")}]:[]),
+      ...(from?[{id:"from",label:`Due from ${shortDate(from)}`,remove:()=>change(setFrom,"")}]:[]),
+      ...(to?[{id:"to",label:`Due through ${shortDate(to)}`,remove:()=>change(setTo,"")}]:[]),
       ...(sort!=="due"?[{id:"sort",label:`Sort by ${sort==="page"?"page":"space"}`,remove:()=>change(setSort,"due")}]:[]),
     ]}>
       <label>State<select value={state} onChange={event=>change(setState,event.target.value)}><option value="open">Open</option><option value="completed">Completed</option><option value="overdue">Overdue</option><option value="">All tasks</option></select></label>

@@ -1,3 +1,4 @@
+import "./space-create.css";
 import { ListFilters } from "../../../../app/ui/ListFilters";
 import {ContainerWatch} from './ContainerWatch';
 import {ContainerHome} from './ContainerHome';
@@ -134,7 +135,7 @@ export function ContainerWorkspace({containerId,embedded}:{containerId?:string;e
             Name
             <input name="name" required maxLength={200} autoFocus />
           </label>
-          <details><summary>More options</summary>
+          <details className="create-space-options"><summary>More options</summary>
           <label>Purpose<select onChange={e=>{const form=e.currentTarget.form;const visibility=form?.elements.namedItem("visibility") as HTMLSelectElement|null;if(visibility)visibility.value=e.target.value;}}><option value="private">Private project</option><option value="open">Open team knowledge</option><option value="closed">Restricted team</option></select></label>
           <label>Short key<input name="key"/></label>
           <label>

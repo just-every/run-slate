@@ -1,3 +1,4 @@
+import { eventLabel } from "../../../notifications/ui/notificationText";
 import { DateStamp } from "../../../../app/ui/displayDate";
 import { useState } from "react";
 import { useFlagshipEnabled } from "../../../../app/ui/LaunchProfile";
@@ -47,7 +48,7 @@ export function ChatNotifications() {
             ) : null}
             {connection.heldCount > 0 ? <HeldChatDelivery connection={connection} onResolved={current.reload} /> : null}
             <p>Delivery: {connection.deliveryMode === "daily" ? "Daily digest" : "Immediate"}.</p>
-            <p>Selected events: {selectedChatEvents(connection).map((event) => event.replaceAll("-", " ")).join(", ") || "None"}.</p>
+            <p>Selected events: {selectedChatEvents(connection).map(eventLabel).join(", ") || "None"}.</p>
             <p>{connection.lastDeliveredAt ? <>
               Last delivered: <DateStamp value={connection.lastDeliveredAt} />
             </> : "No confirmed delivery yet."}</p>

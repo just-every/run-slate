@@ -1,4 +1,4 @@
-import { shortDate } from "../../../../app/ui/displayDate";
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import { RequestState } from "../../../../app/ui/RequestState";
@@ -23,7 +23,7 @@ export const reviewChanged = () => window.dispatchEvent(new Event("slate:review-
 
 function expiryText(item: ReviewItem) {
   if (!item.expiresAt) return "No expiry";
-  return `${item.state === "lapsed" ? "Lapsed" : "Expires"} ${shortDate(item.expiresAt, true)}`;
+  return <>{item.state === "lapsed" ? "Lapsed" : "Expires"} <DateStamp value={item.expiresAt} /></>;
 }
 
 function changesText(item: ReviewItem) {
@@ -79,7 +79,7 @@ export function ReviewQueue() {
                     <p className="review-facts">
                       <span className="page-status-chip" data-state={item.state}>{stateLabel[item.state]}</span>
                       {item.containerName ? <span>{item.containerName}</span> : null}
-                      <span>Verified by {item.verifier.displayName}{item.verifier.active ? "" : " (no longer a member)"} on {shortDate(item.verifiedAt)}</span>
+                      <span>Verified by {item.verifier.displayName}{item.verifier.active ? "" : " (no longer a member)"} on <DateStamp value={item.verifiedAt} /></span>
                       <span>{expiryText(item)}</span>
                     </p>
                     <p className="muted">{changesText(item)}</p>

@@ -44,8 +44,8 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await expect(page.getByText('No chat delivery is connected.', { exact: true })).toBeVisible();
   await shot('not-connected');
   await page.getByLabel('Private channel ID', { exact: true }).fill('GTEST');
-  await page.getByRole('checkbox', { name: 'comment', exact: true }).check();
-  await page.getByRole('checkbox', { name: 'mention', exact: true }).check();
+  await page.getByRole('checkbox', { name: 'A comment was added', exact: true }).check();
+  await page.getByRole('checkbox', { name: 'You were mentioned', exact: true }).check();
   await setSlackFailure('public_channel');
   await page.getByLabel('Slack bot token', { exact: true }).fill('TEST-ONLY-SLACK-BOT-TOKEN');
   await page.getByRole('button', { name: 'Save chat delivery', exact: true }).click();
@@ -109,7 +109,7 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await comment(); await runScheduled();
   assert.equal(await count(), stoppedCount, 'Revoked authorization stops further sends.');
   await page.getByRole('button', { name: 'Reconnect', exact: true }).click();
-  for (const name of ['comment', 'mention']) await expect(page.getByRole('checkbox', { name, exact: true })).toBeChecked();
+  for (const name of ['A comment was added', 'You were mentioned']) await expect(page.getByRole('checkbox', { name, exact: true })).toBeChecked();
   await expect(page.getByLabel('Slack bot token', { exact: true })).toHaveValue('');
   await shot('reconnect-form');
   await setSlackFailure('ok'); await save();
@@ -126,7 +126,7 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await page.getByLabel('Private channel ID', { exact: true }).fill('GSLATE2');
   await page.getByLabel('Slack bot token', { exact: true }).fill('synthetic-slate-101');
   await page.getByLabel('Events from', { exact: true }).selectOption(space.id);
-  await page.getByRole('checkbox', {name:'comment',exact:true}).check();
+  await page.getByRole('checkbox', {name:'A comment was added',exact:true}).check();
   await page.getByRole('button',{name:'Save chat delivery',exact:true}).click();
   const second = page.getByRole('region',{name:'Slack delivery status: TTEST/GSLATE2',exact:true});
   await expect(second.getByRole('status')).toHaveText('Connected');
@@ -139,7 +139,7 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await shot('teams-permission-help');
   await page.getByLabel('Teams team/channel IDs',{exact:true}).fill('synthetic-slate-5/synthetic-slate-6');
   await page.getByLabel('Microsoft Graph access token',{exact:true}).fill('synthetic-slate-102');
-  await page.getByRole('checkbox',{name:'published',exact:true}).check();
+  await page.getByRole('checkbox',{name:'A page was published',exact:true}).check();
   await page.getByRole('button',{name:'Save chat delivery',exact:true}).click();
   const teams = page.getByRole('region',{name:'Teams delivery status: synthetic-slate-5/synthetic-slate-6',exact:true});
   await expect(teams.getByRole('status')).toHaveText('Connected');
@@ -180,7 +180,7 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await open();await expect(teams.getByRole('status')).toHaveText('Needs attention');await expect(second.getByRole('status')).toHaveText('Connected');
   await shot('isolated-authorization-failure');
   await teams.getByRole('button',{name:'Reconnect',exact:true}).click();
-  await expect(page.getByRole('checkbox',{name:'published',exact:true})).toBeChecked();
+  await expect(page.getByRole('checkbox',{name:'A page was published',exact:true})).toBeChecked();
   await expect(page.getByLabel('Microsoft Graph access token',{exact:true})).toHaveValue('');
   await shot('teams-reconnect');
   await state.setTeamsFailure('ok');

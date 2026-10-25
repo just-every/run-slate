@@ -1,4 +1,4 @@
-import { shortDate } from "../../../../app/ui/displayDate";
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { LocalInvitationNotice } from "../../../settings/ui/workspace/LocalInvitationNotice";
 import { AccessExpiry } from "../../../../app/ui/AccessExpiry";
 import { useState } from "react";
@@ -113,7 +113,7 @@ export function PageSharing({ document }: { document: DocumentView }) {
           <ul className="grant-list">
             {grants.data?.items.map((grant) => (
               <li key={grant.id}>
-                <span>{name(grant)}{grant.invitationId ? ` · ${grant.status??"Pending"} invitation` : ""}{grant.expiresAt ? ` · ${new Date(grant.expiresAt)<new Date()?"Expired":"Expires"} ${shortDate(grant.expiresAt, true)}` : ""}</span>
+                <span>{name(grant)}{grant.invitationId ? ` · ${grant.status??"Pending"} invitation` : ""}{grant.expiresAt ? <> · {new Date(grant.expiresAt)<new Date()?"Expired":"Expires"} <DateStamp value={grant.expiresAt} /></> : ""}</span>
                 {grant.revokedAt ? (
                   <span>Revoked {!grant.invitationId?<button disabled={pending} onClick={()=>void save({...grant,expiresAt:null})}>Regrant access</button>:null}</span>
                 ) : (

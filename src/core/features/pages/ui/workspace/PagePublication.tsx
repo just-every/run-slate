@@ -1,4 +1,4 @@
-import { shortDate } from "../../../../app/ui/displayDate";
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { useState } from "react";
 import type { DocumentView } from "../../../../client/content";
 import { mutate, operationKey } from "../../../../client/transport";
@@ -71,7 +71,7 @@ export function PagePublication({
         {exposure?.revokedAt ? (
           <p>
             Public access was stopped{" "}
-            {shortDate(exposure.revokedAt, true)}.
+            <DateStamp value={exposure.revokedAt} />.
           </p>
         ) : null}
       </RequestState>

@@ -1,3 +1,4 @@
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { InitialResourcesContext } from "../../../../client/InitialResources";
 import { useFlagshipEnabled } from "../../../../app/ui/LaunchProfile";
 import { useNavigate } from "@tanstack/react-router";
@@ -283,7 +284,7 @@ function LoadedPage({
           <h1 className="sr-only">{title || "Untitled page"}</h1>
           {document.lock ? <p role="status" className="request-notice" data-page-lock>Locked by {document.lock.lockedByDisplayName}. This page is read-only; comments stay open.</p> : null}
           <PublicPageBanner document={document} onManage={()=>setDetail("publication")}/>
-          {(document as DocumentView&{schedule?:{state:string;publishAt:string;failure?:string}}).schedule?.state==='scheduled'?<p role="status">Scheduled for {new Date((document as DocumentView&{schedule:{publishAt:string}}).schedule.publishAt).toLocaleString()}</p>:null}
+          {(document as DocumentView&{schedule?:{state:string;publishAt:string;failure?:string}}).schedule?.state==='scheduled'?<p role="status">Scheduled for <DateStamp value={(document as DocumentView&{schedule:{publishAt:string}}).schedule.publishAt} /></p>:null}
           {(document as DocumentView&{schedule?:{state:string;publishAt:string;failure?:string}}).schedule?.state==='failed'?<p role="alert">Scheduled publication needs attention: {(document as DocumentView&{schedule:{failure?:string}}).schedule.failure??'Open publication options to review and reschedule.'}</p>:null}
           <PageAppearance document={document}/>
           <textarea

@@ -1,4 +1,4 @@
-import { shortDate } from "../../../../app/ui/displayDate";
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { useEffect, useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import {
@@ -70,7 +70,7 @@ export function MailDeliveryPanel() {
                 <p>
                   {item.kind} · {item.state}
                   {item.sentAt
-                    ? ` · ${shortDate(item.sentAt)}`
+                    ? <> · <DateStamp value={item.sentAt} /></>
                     : ""}
                 </p>
                 {item.errorDetail ? (
@@ -79,7 +79,7 @@ export function MailDeliveryPanel() {
                 {item.nextAttemptAt ? (
                   <p>
                     Next delivery attempt:{" "}
-                    {shortDate(item.nextAttemptAt)}
+                    <DateStamp value={item.nextAttemptAt} />
                   </p>
                 ) : null}
               </div>

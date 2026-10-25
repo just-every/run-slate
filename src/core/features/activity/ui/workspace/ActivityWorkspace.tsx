@@ -1,5 +1,5 @@
 import { ListFilters } from "../../../../app/ui/ListFilters";
-import { DateStamp } from "../../../../app/ui/displayDate";
+import { DateStamp, shortDate } from "../../../../app/ui/displayDate";
 import { useRef, useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import { RequestState } from "../../../../app/ui/RequestState";
@@ -45,7 +45,7 @@ export function ActivityWorkspace() {
           setFilters(params.toString());
         }}
       >
-        <ListFilters applied={[...new URLSearchParams(filters)].map(([id,value])=>({id,label:`${({actorId:"Person",containerId:"Space",kind:"Kind",action:"Action",from:"From",to:"Until"} as Record<string,string>)[id]}: ${id==="actorId"?members.data?.items.find(item=>item.id===value)?.displayName??value:id==="containerId"?containers.data?.items.find(item=>item.id===value)?.name??value:value}`,remove:()=>{const params=new URLSearchParams(filters);params.delete(id);setFilters(params.toString());setCursor("");const field=form.current?.elements.namedItem(id) as HTMLInputElement|HTMLSelectElement|null;if(field)field.value="";}}))}>
+        <ListFilters applied={[...new URLSearchParams(filters)].map(([id,value])=>({id,label:`${({actorId:"Person",containerId:"Space",kind:"Kind",action:"Action",from:"From",to:"Until"} as Record<string,string>)[id]}: ${id==="actorId"?members.data?.items.find(item=>item.id===value)?.displayName??value:id==="containerId"?containers.data?.items.find(item=>item.id===value)?.name??value:["from","to"].includes(id)?shortDate(value):value}`,remove:()=>{const params=new URLSearchParams(filters);params.delete(id);setFilters(params.toString());setCursor("");const field=form.current?.elements.namedItem(id) as HTMLInputElement|HTMLSelectElement|null;if(field)field.value="";}}))}>
         <label>
           Person
           <select name="actorId">

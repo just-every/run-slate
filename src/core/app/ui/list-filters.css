@@ -9,3 +9,4 @@
 .slate-app .applied-filters { display: flex; flex-wrap: wrap; gap: 8px; }
 .slate-app .applied-filters button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--slate-line); border-radius: 5px; }
 @media (max-width: 700px) { .slate-app .list-filter-fields > label { flex: 1 1 100%; } }
+.slate-app .list-filter-fields :where(select, input:not([type="checkbox"], [type="radio"])) { min-height: 44px; }

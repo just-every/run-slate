@@ -28,7 +28,7 @@ export async function analyticsJourney(state, people) {
   await panel.getByLabel('From', { exact: true }).fill(day);
   await panel.getByLabel('Until', { exact: true }).fill(day);
   await panel.getByRole('button', { name: 'Apply dates' }).click();
-  await expect(panel.getByRole('table', { name: 'Readership over time' })).toContainText(day);
+  await expect(panel.getByRole('table', { name: 'Readership over time' }).locator(`time[datetime="${day}"]`)).toBeVisible();
   await expect(panel).toContainText('2 views');
   await panel.getByLabel('Include views by page authors').uncheck();
   await expect(panel).toContainText('1 views');
@@ -45,7 +45,7 @@ export async function analyticsJourney(state, people) {
   await page.locator('summary').filter({ hasText: /^Readership$/ }).click();
   const space = page.getByRole('region', { name: 'Space readership', exact: true });
   await expect(space).toContainText('Morgan Reader');
-  await expect(space.getByRole('table', { name: 'Readership over time' })).toContainText(day);
+  await expect(space.getByRole('table', { name: 'Readership over time' }).locator(`time[datetime="${day}"]`)).toBeVisible();
   const metrics = await api(`/api/analytics?containerId=${spaceId}`);
   assert.ok(metrics.totalViews >= 3); assert.equal(metrics.uniqueViewers, 2);
   await space.scrollIntoViewIfNeeded();

@@ -1,3 +1,4 @@
+import type { FollowingFeed } from "./Following";
 import { DateStamp } from "../../../../app/ui/displayDate";
 import { notificationText } from "../../../notifications/ui/notificationText";
 import { useFlagshipEnabled } from "../../../../app/ui/LaunchProfile";
@@ -28,7 +29,10 @@ export function TodayWorkspace() {
 }
 function FlagshipToday() {
   const resource = useResource<Today>("/api/notifications/today");
+  const following = useResource<FollowingFeed>("/api/navigation/following");
   const data = resource.data;
+  const followedIds = new Set(following.data?.items.map(item => item.id));
+  const notices = data?.notices.filter(item => !followedIds.has(item.id)) ?? [];
   const empty =
     data &&
     !data.decisions.length &&
@@ -106,14 +110,14 @@ function FlagshipToday() {
               {rows(group.items)}
             </section>
           ))}
-          {data?.notices.length ? (
+          {!following.loading && notices.length ? (
             <section className="today-section">
               <h2>For you</h2>
-              {rows(data.notices)}
+              {rows(notices)}
             </section>
           ) : null}
         </RequestState>
-        <PersonalHome excludedNotificationIds={data ? [...data.decisions, ...data.contradictions, ...data.notices, ...data.outcomes.flatMap(group => group.items)].map(item => item.id) : []}/>
+        <PersonalHome following={following}/>
       </section>
     </>
   );

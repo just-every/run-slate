@@ -70,6 +70,7 @@
   margin: 0;
   position: static;
 }
+.slate-app .folio-dialog > form > header h2 { margin: 0; }
 .folio-dialog h2 {
   font:
     28px/1.2 Georgia,

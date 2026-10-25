@@ -1,4 +1,4 @@
-import { shortDate } from "../../../../app/ui/displayDate";
+import { DateStamp } from "../../../../app/ui/displayDate";
 import type { PublicationPreviewResponse } from "../../../lifecycle/publication-preview";
 import { editorBlocks } from "../../../../client/content";
 import { BlockView } from "../../../editor/ui/blocks/BlockView";
@@ -20,7 +20,7 @@ export function PublicationReviewPanel({
       </p>
       <p>
         {review.options.publishAt
-          ? `Scheduled for ${shortDate(review.options.publishAt)}`
+          ? <>Scheduled for <DateStamp value={review.options.publishAt} /></>
           : "Publish immediately"}
         {review.options.label ? ` · ${review.options.label}` : ""}
       </p>
