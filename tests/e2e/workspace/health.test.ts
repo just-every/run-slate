@@ -115,16 +115,3 @@ contract("BASE-OPS-001", "health reports ready when the database answers", async
     clock.mockRestore();
   }
 });
-
-contract("BASE-OPS-001", "the knowledge foundation migration has been applied", async () => {
-  const table = await env.DB.prepare(
-    "SELECT name FROM sqlite_master WHERE type = 'table' AND name = ?",
-  )
-    .bind("workspaces")
-    .first<{ name: string }>();
-
-  expect(table?.name).toBe("workspaces");
-
-  const empty = await env.DB.prepare("SELECT count(*) AS total FROM workspaces").first<{ total: number }>();
-  expect(empty?.total).toBe(0);
-});

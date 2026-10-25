@@ -10200,7 +10200,7 @@
       "executable": false
     },
     "test-budget.json": {
-      "sha256": "974c4d9499a0a2a79ec9c1b857ba0361eec9b70944100531a017bc6d185c3123",
+      "sha256": "877ebd99a8eeb5d0038fae22454c9bdf75a0d09926089f53600a48e5360a16db",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
@@ -10644,7 +10644,7 @@
       "executable": false
     },
     "tests/e2e/workspace/health.test.ts": {
-      "sha256": "82295c6db78f3314ab8c2b539edcd8e6a1ad16c56bf7ffcc297eba667f1eefef",
+      "sha256": "70ba13d36b90edbf17256c6e9b18e4e590e7d91e1ca54ea33d1de98c578e4206",
       "executable": false
     },
     "tests/fixtures/aurora/members.json": {
