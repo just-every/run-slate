@@ -3,14 +3,11 @@ import {contentLimits} from '../limits';
 
 export type EmbedVerdict = {verdict:'embeddable'|'refuses'|'unknown'; observedAt:string};
 const age=86400;
-function key(origin:string,host:string){return new Request(`${origin}/.derived/embed-verdict/${encodeURIComponent(host)}`);}
-/** Disposable observations, never page or member data; loss of cache means click-to-load. */
-export async function observedEmbed(origin:string,url:string):Promise<EmbedVerdict|null>{
+/** Host-only observations contain no item URL, page, member, credentials or provider document. */
+export async function observedEmbed(db:D1Database,workspaceId:string,origin:string,url:string):Promise<EmbedVerdict|null>{
   const embed=providerEmbed(url);if(!embed)return null;
-  const response=await caches.default.match(key(origin,new URL(embed.url).hostname));
-  if(!response)return null;
-  const value=await response.json<EmbedVerdict>();
-  return Date.now()-Date.parse(value.observedAt)<age*1000?value:null;
+  const row=await db.prepare('SELECT verdict,observed_at AS observedAt FROM provider_embed_observations WHERE workspace_id=? AND provider_host=? AND deployment_origin=?').bind(workspaceId,new URL(embed.url).hostname,origin).first<EmbedVerdict>();
+  return row&&Date.now()-Date.parse(row.observedAt)<age*1000?row:null;
 }
 function allowed(url:URL){
   return url.protocol==='https:'&&!url.username&&!url.password&&!url.port&&embedFrameSources.split(' ').some(source=>source.includes('*.')?url.hostname.endsWith('.'+source.split('*.')[1])&&url.hostname!==source.split('*.')[1]:url.origin===source);
@@ -62,13 +59,13 @@ async function inspect(url:URL,deployment:URL,signal:AbortSignal):Promise<'embed
   }
   return 'embeddable';
 }
-export async function checkEmbed(origin:string,raw:string):Promise<EmbedVerdict>{
+export async function checkEmbed(db:D1Database,workspaceId:string,origin:string,raw:string):Promise<EmbedVerdict>{
   const embed=providerEmbed(raw);if(!embed)throw Error('Unsupported embed');
-  const cached=await observedEmbed(origin,raw);if(cached)return cached;
+  const cached=await observedEmbed(db,workspaceId,origin,raw);if(cached)return cached;
   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),5000);
   let verdict:EmbedVerdict['verdict']='unknown';
   try{verdict=await inspect(new URL(embed.url),new URL(origin),controller.signal);}catch{/* An inconclusive probe is not evidence of refusal. */}finally{clearTimeout(timer);}
   const value={verdict,observedAt:new Date().toISOString()};
-  if(verdict!=='unknown')await caches.default.put(key(origin,new URL(embed.url).hostname),Response.json(value,{headers:{'cache-control':`public, max-age=${age}`}}));
+  if(verdict!=='unknown')await db.prepare('INSERT INTO provider_embed_observations(workspace_id,provider_host,deployment_origin,verdict,observed_at) VALUES (?,?,?,?,?) ON CONFLICT(workspace_id,provider_host) DO UPDATE SET deployment_origin=excluded.deployment_origin,verdict=excluded.verdict,observed_at=excluded.observed_at').bind(workspaceId,new URL(embed.url).hostname,origin,value.verdict,value.observedAt).run();
   return value;
 }

@@ -9,6 +9,8 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  const sourceIds=(await db.prepare('SELECT s.id FROM federation_sources s JOIN federation_connections c ON c.id=s.connection_id WHERE c.workspace_id=? AND c.member_id=?').bind(w,memberId).all<{id:string}>()).results.map(r=>r.id);
  const statements=[...await prepareEraseImportMetadata(ctx,[],memberId),...prepareEraseLegacy(ctx,sourceIds,memberId),...prepareInvalidateExports(ctx),...await prepareEraseIntelligence(ctx,sourceIds,memberId)];
  const add=(sql:string,...v:(string|null)[])=>statements.push(db.prepare(sql).bind(...v));
+ // Host observations carry no member identity; conservatively expire the derived category on erasure.
+ add('DELETE FROM provider_embed_observations WHERE workspace_id=?',w);
  add('UPDATE audit_settings SET updated_by_member_id=NULL WHERE updated_by_member_id=?',memberId);
  add('DELETE FROM scim_credentials WHERE owner_member_id=?',memberId);
  add("DELETE FROM scim_resources WHERE resource_type='User' AND workspace_id=? AND (member_id=? OR lower(user_name)=(SELECT lower(email) FROM members WHERE id=?))",w,memberId,memberId);

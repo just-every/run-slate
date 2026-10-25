@@ -58,7 +58,7 @@ export function LinkCardBlock({ block, canEdit, onChange, actions }: BlockRender
     if(!embed||!parent)return;
     const controller=new AbortController();
     fetch(`/api/pages/${encodeURIComponent(parent.pageId)}/embeds/${encodeURIComponent(block.id)}/status`,{signal:controller.signal,credentials:'same-origin'})
-      .then(async response=>{if(response.ok&& (await response.json()).verdict==='refuses')setRefused(true);}).catch(()=>{});
+      .then(async response=>{if(response.ok){const value=await response.json() as {verdict?:string};if(value.verdict==='refuses')setRefused(true);}}).catch(()=>{});
     return ()=>controller.abort();
   },[block.url,block.display,parent?.pageId,block.id]);
   useEffect(()=>{if(!loaded||ready)return;const timer=setTimeout(()=>{setRefused(true);setLoaded(null);},8000);return()=>clearTimeout(timer);},[loaded,ready]);

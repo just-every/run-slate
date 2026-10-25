@@ -42,7 +42,7 @@ export function createPublicPagesRoutes() {
       await authorizePublic(c,p);
       const block=JSON.parse(p.body_json).find((b:any)=>b.id===c.req.param('blockId') && b.blockType==='link-card');
       if(!block)throw new ApiProblem(404,'NOT_FOUND','Not found.');
-      const verdict=await observedEmbed(new URL(c.req.url).origin,block.content.url);
+      const verdict=await observedEmbed(c.env.DB,p.workspace_id,new URL(c.req.url).origin,block.content.url);
       if(verdict?.verdict==='refuses')return c.html('<p>The provider does not allow embedding. Open the original link.</p>');
       return embedDocument(block.content);
     }).get('/:slug/media/:id', async (c) => {
@@ -59,7 +59,7 @@ export function createPublicPagesRoutes() {
     }).get('/*', async (c) => { try { const p = await publicPage(c.env.DB, new URL(c.req.url).host, decodeURIComponent(new URL(c.req.url).pathname.slice(3))); await authorizePublic(c, p); if (!c.get('member'))
         await publicViewStatement(c.env.DB, { viewId: createUlid(), pageId: p.page_id, host: new URL(c.req.url).host, slug: p.slug, now: new Date().toISOString() }).run(); p.body_json=JSON.stringify(await projectPublicSynced(c.env.DB,p,JSON.parse(p.body_json))); const { links, titles } = await publicTargets(c.env.DB, p), shown = await publicHeader(c.env.DB, await publicQueries(c.env.DB, p), c.req.query('q')??'');
         const refusedHosts=new Set<string>();
-        for(const block of JSON.parse(p.body_json)){if(block.blockType!=='link-card')continue;const embed=providerEmbed(block.content.url);if(embed&&(await observedEmbed(new URL(c.req.url).origin,block.content.url))?.verdict==='refuses')refusedHosts.add(new URL(embed.url).hostname);}
+        for(const block of JSON.parse(p.body_json)){if(block.blockType!=='link-card')continue;const embed=providerEmbed(block.content.url);if(embed&&(await observedEmbed(c.env.DB,p.workspace_id,new URL(c.req.url).origin,block.content.url))?.verdict==='refuses')refusedHosts.add(new URL(embed.url).hostname);}
         // LINK-004: an anonymous reader sees the title of a mentioned page only when that page is public too.
         return c.html(renderPublicDocument({ ...shown, body_json: JSON.stringify(labelPageMentions(JSON.parse((shown as Record<string, any>).body_json), id => titles[id] ?? 'Restricted page')) }, links, refusedHosts), 200, { 'X-Robots-Tag': p.indexable ? 'index,follow' : 'noindex,nofollow', ...publicDocumentHeaders });
         } catch (cause) {

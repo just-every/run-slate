@@ -2,6 +2,7 @@ import {forbiddenColumns,type DataRow} from './archive';
 
 export function safeRow(table:string,row:DataRow,now=new Date().toISOString()):DataRow{
  const out={...row};
+ if(table==='provider_embed_observations')out.observed_at='1970-01-01T00:00:00.000Z';
  for(const key of Object.keys(out))if(forbiddenColumns.test(key))out[key]=null;
  if(table==='intelligence_runs'&&out.agent_credential_id){
   out.input_json=JSON.stringify({...JSON.parse(String(out.input_json)),archiveAgentCredentialId:out.agent_credential_id});

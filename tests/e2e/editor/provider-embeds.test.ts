@@ -50,6 +50,6 @@ contract('EMBED-003','allowlisted embeds use isolated provider frames, authorize
   const badId=(await bad.json<any>()).value.pageId;
   const badDoc=await (await req(`/api/pages/${badId}`)).json<any>();
   expect((await req(`/api/pages/${badId}/embeds/${badDoc.blocks[0].id}`)).status).toBe(404);
-  await embedRefusalsJourney(req,pageId,blocks,otherCookie);
+  await embedRefusalsJourney(req,pageId,blocks,otherCookie,await sessionFor(memberId,{freshProof:true}),other);
   await fileCardsHttpJourney();
 });

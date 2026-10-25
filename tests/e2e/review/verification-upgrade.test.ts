@@ -40,7 +40,12 @@ test('Existing verifications and member profiles upgrade in place without losing
   for(const block of [sourceBlock,copyBlock]){await sql('UPDATE page_revisions SET body_json=? WHERE page_id=?',JSON.stringify([block]),block.pageId);await sql('INSERT INTO page_blocks(id,page_id,parent_block_id,block_type,content_json,tree_position,revision_id,created_at,updated_at) VALUES (?,?,NULL,?,?,?,?,?,?)',block.id,block.pageId,block.blockType,JSON.stringify(block.content),block.treePosition,block.revisionId,now,now);}
   const c24=await retained();
   expect(await db.prepare("SELECT name FROM sqlite_master WHERE name='synced_static_content'").first()).toBeNull();
+  await applyD1Migrations(db, env.TEST_MIGRATIONS.filter(m=>m.name < '0061_provider_embed_observations.sql'));
+  const populatedC30=await retained();
+  expect(await db.prepare("SELECT name FROM sqlite_master WHERE name='provider_embed_observations'").first()).toBeNull();
   await applyD1Migrations(db, env.TEST_MIGRATIONS);
+  expect(await retained()).toEqual(populatedC30);
+  expect((await db.prepare('SELECT * FROM provider_embed_observations').all()).results).toEqual([]);
   expect(await retained()).toEqual(c24);
   expect((await db.prepare('SELECT * FROM synced_static_content').all()).results).toEqual([]);
   const upgradedCopy=await request('owner','GET','/api/pages/prior-synced-copy');expect(upgradedCopy.status).toBe(200);expect(upgradedCopy.data.blocks[0].synced).toMatchObject({state:'ready',text:[{text:'Existing c24 synced content'}]});expect(upgradedCopy.data.blocks[0].content).toEqual(copyBlock.content);

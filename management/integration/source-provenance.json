@@ -64,6 +64,7 @@
     "migrations/core/0057_audit_stream.sql": "sha256:0d2c6c0ce09d647c2bdfe6b4f7c4bc828dc38735141c01ede5a2e39c49b0201f",
     "migrations/core/0058_scim_directory.sql": "sha256:4575fde9650217cb358c7df14dc098ecb3a1f471db6f8c0e7a2fc82d0ea90084",
     "migrations/core/0059_member_profiles.sql": "sha256:0b3a60c26182b8c8f6a79cbcaa20bd27ed4c448d9d796636c4a416146a0215c9",
-    "migrations/core/0060_synced_static.sql": "sha256:88b23a722205bdbbb461d20dcd370d5d9c1478e44e5eb1d3ead2d422c7715fb6"
+    "migrations/core/0060_synced_static.sql": "sha256:88b23a722205bdbbb461d20dcd370d5d9c1478e44e5eb1d3ead2d422c7715fb6",
+    "migrations/core/0061_provider_embed_observations.sql": "sha256:cc44fd9f0237ae4295aaf7af3c2036f3f34acb302017e9d8cc430d74d1ebeabd"
   }
 }
