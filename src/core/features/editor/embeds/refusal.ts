@@ -3,6 +3,12 @@ import {contentLimits} from '../limits';
 
 export type EmbedVerdict = {verdict:'embeddable'|'refuses'|'unknown'; observedAt:string};
 const age=86400;
+/** A single deployment may expose published pages on a separate configured host. */
+export function embedDeployment(appOrigin:string,publicHost?:string){
+  const origin=new URL(appOrigin).origin,origins=new Set([origin]);
+  if(publicHost)origins.add(new URL(new URL(origin).protocol+'//'+publicHost).origin);
+  return [...origins].sort().join(' ');
+}
 /** Host-only observations contain no item URL, page, member, credentials or provider document. */
 export async function observedEmbed(db:D1Database,workspaceId:string,origin:string,url:string):Promise<EmbedVerdict|null>{
   const embed=providerEmbed(url);if(!embed)return null;
@@ -20,7 +26,7 @@ function admits(source:string,provider:URL,deployment:URL){
   const wildcard=source.match(/^(https?):\/\/\*\.([^/:]+)(?::(\d+|\*))?$/);
   return !!wildcard&&deployment.protocol===wildcard[1]+':'&&deployment.hostname.endsWith('.'+wildcard[2])&&(!wildcard[3]? !deployment.port:wildcard[3]==='*'||deployment.port===wildcard[3]);
 }
-function refused(response:Response,url:URL,deployment:URL){
+function refused(response:Response,url:URL,deployment:URL[]){
   // Every enforced policy must admit all ancestors (the wrapper and deployment share an origin).
   const policies=(response.headers.get('content-security-policy')??'').split(',');
   let ancestors=false;
@@ -28,13 +34,13 @@ function refused(response:Response,url:URL,deployment:URL){
     const directive=policy.split(';').map(x=>x.trim()).find(x=>/^frame-ancestors(?:\s|$)/i.test(x));
     if(!directive)continue;
     ancestors=true;
-    if(!directive.split(/\s+/).slice(1).some(source=>admits(source,url,deployment)))return true;
+    if(!deployment.every(ancestor=>directive.split(/\s+/).slice(1).some(source=>admits(source,url,ancestor))))return true;
   }
   // CSP frame-ancestors supersedes X-Frame-Options in modern browsers.
-  if(!ancestors){const xfo=(response.headers.get('x-frame-options')??'').toUpperCase();if(/(?:^|[,\s])DENY(?:$|[,\s])/.test(xfo)||xfo.includes('SAMEORIGIN')&&url.origin!==deployment.origin)return true;}
+  if(!ancestors){const xfo=(response.headers.get('x-frame-options')??'').toUpperCase();if(/(?:^|[,\s])DENY(?:$|[,\s])/.test(xfo)||xfo.includes('SAMEORIGIN')&&deployment.some(ancestor=>url.origin!==ancestor.origin))return true;}
   return response.status>=400;
 }
-async function inspect(url:URL,deployment:URL,signal:AbortSignal):Promise<'embeddable'|'refuses'>{
+async function inspect(url:URL,deployment:URL[],signal:AbortSignal):Promise<'embeddable'|'refuses'>{
   for(const method of ['HEAD','GET']){
     let current=url;
     for(let hop=0;;hop++){
@@ -64,7 +70,7 @@ export async function checkEmbed(db:D1Database,workspaceId:string,origin:string,
   const cached=await observedEmbed(db,workspaceId,origin,raw);if(cached)return cached;
   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),5000);
   let verdict:EmbedVerdict['verdict']='unknown';
-  try{verdict=await inspect(new URL(embed.url),new URL(origin),controller.signal);}catch{/* An inconclusive probe is not evidence of refusal. */}finally{clearTimeout(timer);}
+  try{verdict=await inspect(new URL(embed.url),origin.split(' ').map(value=>new URL(value)),controller.signal);}catch{/* An inconclusive probe is not evidence of refusal. */}finally{clearTimeout(timer);}
   const value={verdict,observedAt:new Date().toISOString()};
   if(verdict!=='unknown')await db.prepare('INSERT INTO provider_embed_observations(workspace_id,provider_host,deployment_origin,verdict,observed_at) VALUES (?,?,?,?,?) ON CONFLICT(workspace_id,provider_host) DO UPDATE SET deployment_origin=excluded.deployment_origin,verdict=excluded.verdict,observed_at=excluded.observed_at').bind(workspaceId,new URL(embed.url).hostname,origin,value.verdict,value.observedAt).run();
   return value;

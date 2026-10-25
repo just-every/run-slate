@@ -24,6 +24,17 @@ export async function embedRefusalsJourney(req:(path:string,body?:unknown,auth?:
       {headers:{'content-security-policy':"frame-ancestors *"},verdict:'embeddable'},
     ];
     for(const item of cases){await clear();seen.length=0;response=()=>new Response('<h1>Recorded design</h1>',{headers:item.headers});expect((await (await req(route)).json<any>()).verdict).toBe(item.verdict);expect(seen.map(x=>x.method)).toEqual(item.verdict==='refuses'?['HEAD']:['HEAD','GET']);}
+    // Header compatibility and the stored verdict cover both configured deployment origins.
+    const crossBindings={...env,SLATE_PROFILE:undefined,PUBLIC_PAGE_HOST:'public.slate.test'},crossApi=createApi();
+    const cross=(path:string,body?:unknown)=>crossApi.request(base+path,{method:body?'POST':'GET',headers:{cookie:freshCookie,origin:base,'content-type':'application/json'},body:body?JSON.stringify(body):undefined},crossBindings);
+    await clear();response=()=>new Response('<h1>Recorded design</h1>',{headers:{'content-security-policy':'frame-ancestors https://slate.test https://public.slate.test'}});
+    expect((await (await cross(route)).json<any>()).verdict).toBe('embeddable');
+    await clear();response=()=>new Response(null,{headers:{'content-security-policy':'frame-ancestors https://slate.test'}});
+    expect((await (await cross(route)).json<any>()).verdict).toBe('refuses');
+    const crossDoc=await (await cross(`/api/pages/${pageId}`)).json<any>();
+    expect((await cross(`/api/publishing/${pageId}`,{operationKey:crypto.randomUUID(),expectedRevisionId:crossDoc.page.revisionId,host:'public.slate.test',slug:'cross-host-refusal'})).status).toBe(200);
+    seen.length=0;const crossPublic=await crossApi.request('https://public.slate.test/p/cross-host-refusal',{},crossBindings);
+    expect(crossPublic.status).toBe(200);expect(await crossPublic.text()).not.toContain('Load Figma embed');expect(seen).toHaveLength(0);
     for(const body of ['Embedding is disabled','This document cannot be embedded']){await clear();response=()=>new Response(body);expect((await (await req(route)).json<any>()).verdict).toBe('refuses');}
     await clear();response=()=>new Response('<h1>Recorded design</h1>');
     await env.DB.prepare('INSERT INTO provider_embed_observations VALUES (?,?,?,?,?)').bind(workspaceId,host,base,'refuses',new Date(Date.now()-86400001).toISOString()).run();
