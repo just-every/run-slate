@@ -818,7 +818,7 @@ Some files get no preview: an unsupported type, a password-protected or corrupt 
 - A file over the size limit and a password-protected PDF show the no-preview state with its reason.
 - The `IMP-010` fixture's Attachments and View File macros import as file blocks that preview.
 
-*Status:* missing. Images, video and audio display inline (`BLOCK-008`, `src/core/features/media/routes.ts`, `tests/qualification/policies/safety-history.test.ts`); every other attachment is download-only.
+*Status:* missing. Images, video and audio display inline (`BLOCK-008`, `src/core/features/media/routes.ts`, no CI-run proof yet); every other attachment is download-only.
 
 #### BLOCK-022 — Attachment versions.
 Uploading a file to a page that already has an attachment of the same name creates the next version of that attachment, not a second file. This holds for a drop, the file picker, `API-001` and every import. A "Replace file" action on a file block does the same under any file name.
@@ -1020,7 +1020,7 @@ A page can hold a dashboard: several charts (`DB-008`) and views (`DB-011`) arra
 
 *Acceptance:* a browser journey builds a dashboard of three charts and a view, applies a date filter that changes every tile, and confirms a member with fewer grants sees lower counts and no restricted values.
 
-*Status:* partial. Charts over a view exist (`src/core/features/databases/ui/workspace/DatabaseChart.tsx`, `tests/qualification/policies/structured-views.test.ts`); multi-tile dashboards with shared filters do not.
+*Status:* partial. Charts over a view exist (`src/core/features/databases/ui/workspace/DatabaseChart.tsx`, no CI-run proof yet); multi-tile dashboards with shared filters do not.
 
 #### DB-015 — Record templates and recurring records.
 A database has record templates (default fields and a body), and a template can repeat on a schedule (daily, weekly on given days, monthly or yearly), creating a record at the set time in the time zone of the member who last saved it. A schedule runs as the template's last saver (a re-save hands it to that saver, and the Templates tab shows who it runs as), exactly once per occurrence, even after restarts, and pauses with a visible reason if that saver loses access.
@@ -1085,7 +1085,7 @@ Every background action is a durable job with an accountable owner, a due condit
 
 *Acceptance:* a Workers journey kills a job mid-run and finds it resumed once with no duplicate effect. A forced failure appears on the owner's Home, and stopping a queued job cancels its pending sends.
 
-*Status:* partial. Automation run logs with failure states and repeated-failure disable exist (`src/core/features/automation/jobs.ts`, `tests/qualification/policies/automation-templates.test.ts`). Verification rules are covered: each rule runs as a durable nightly job with a receipt per rule and night, its effects recorded in activity, and repeated or concurrent runs adding nothing (`STAT-007`, `tests/e2e/review/verification-rules.test.ts`). The guarantee does not yet span every job kind.
+*Status:* partial. Automation run logs with failure states and repeated-failure disable exist (`src/core/features/automation/jobs.ts`, no CI-run proof yet). Verification rules are covered: each rule runs as a durable nightly job with a receipt per rule and night, its effects recorded in activity, and repeated or concurrent runs adding nothing (`STAT-007`, `tests/e2e/review/verification-rules.test.ts`). The guarantee does not yet span every job kind.
 
 ### Moving in and out
 
@@ -1591,7 +1591,7 @@ Owners decide who may create containers, publish publicly, invite guests, export
 
 *Acceptance:* a browser journey restricts public publishing to owners, labels a container Confidential, and confirms that a member's publish attempt, an AI request over a confidential page and an export by a non-permitted member are each refused with a reason.
 
-*Status:* partial. Container external-access switches ship (`CONT-007`, `tests/qualification/policies/access-publication.test.ts`); role-scoped governance and classification labels do not.
+*Status:* partial. Container external-access switches ship (`CONT-007`, no CI-run proof yet); role-scoped governance and classification labels do not.
 
 #### ADMIN-007 — Every target surface ships in the default product.
 Every surface that a target or push-further clause describes is part of the default product, and an owner turns it on in workspace settings with nothing else needed. Ask, AI writing and AI fields turn on once a provider is configured and AI is on (`AI-001`, `ANSWER-006`). Suggestions and agent maintenance (`SUG-*`, `KEEP-*`) turn on with AI. Each connector turns on once it is connected (`CONNECT-001`), and chat ask and unfurl once the chat app is installed (`CHAT-002`). MCP and OAuth clients work once a member grants them (`API-003`, `API-004`), and live co-editing is on from the start (`COLLAB-001`). No target surface requires `SLATE_PROFILE=flagship`. Settings show each switch's state and who changed it when, and every change is recorded in activity. Turning a switch off refuses its surface with `FEATURE_DISABLED` from the next request and stops its scheduled jobs, and it erases nothing. A surface also stays refused until its clause's own safety acceptance has passed: `ANSWER-003` for answers, `CONNECT-002` for connected items and `COLLAB-001`'s revocation test for co-editing. `SLATE_PROFILE=flagship` remains only for the inquiry, experiment, trial and production-effect extension (`INQ-*`, `TRIAL-*`, `EFFECT-002`).
@@ -1720,7 +1720,7 @@ Agents keep the knowledge true, not just stored. Each clause names what the agen
 
 *Acceptance:* a Workers journey advances a week over a seeded workspace and delivers exactly one digest per owner with the expected items. Acting on two items applies the actions and leaves no duplicate notices.
 
-*Status:* partial. Lapse notices to owners ship (`src/core/features/notifications/events.ts`, `tests/qualification/policies/status-archive.test.ts`); prepared weekly sweeps do not.
+*Status:* partial. Lapse notices to owners ship (`src/core/features/notifications/events.ts`, no CI-run proof yet); prepared weekly sweeps do not.
 
 #### KEEP-009 — Measured knowledge health.
 *What the agent does:* maintains a workspace knowledge-health report: the share of views landing on current verified pages, the median time from flag to fix, the flag false-positive rate from dismissals, and answer accuracy on an owner-curated held-out question set re-run monthly.
@@ -1834,13 +1834,13 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `WORK-015` | Identity provider | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `SAVE-001` | Durable save state | published | partial | `tests/qualification/interface/routed.browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/routed.browser.mjs`. |
 | `SAVE-002` | Failed writes | published | done | `tests/e2e/saving/failed-writes.test.ts`, `tests/qualification/ui-convergence/failed-save-journey.mjs` | Real validation refusals retain unsent titles, name the failure and require explicit retry; corrected retries persist at 1440 and 390. Existing body transport-loss journey retains and retries unsent blocks. |
-| `SAVE-003` | Revision conflicts | published | partial | `tests/qualification/policies/comments-suggestions.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/comments-suggestions.test.ts`. |
+| `SAVE-003` | Revision conflicts | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `SAVE-004` | Network loss | published | partial | `tests/qualification/offline-refresh/transport.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/offline-refresh/transport.test.ts`. |
 | `SAVE-005` | Operation keys | published | partial | `tests/qualification/backend/request-access.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/request-access.test.ts`. |
 | `SAVE-006` | Concurrent editing and optional co-editing | published | partial | `tests/qualification/ui-convergence/two-people-editing.mjs` | live co-editing only under the flagship opt-in; see COLLAB-001 |
 | `PAGE-001` | What a page is | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
 | `PAGE-002` | Creation | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
-| `PAGE-003` | Identity survives everything | published | partial | `tests/qualification/policies/container-links.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/container-links.test.ts`. |
+| `PAGE-003` | Identity survives everything | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `PAGE-004` | Move | published | partial | `tests/e2e/page-move-state.test.tsx` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/e2e/page-move-state.test.tsx`. |
 | `PAGE-005` | Duplicate | published | done | `tests/flagship/content/http.test.ts` |  |
 | `PAGE-006` | Icon and cover | published | partial | `tests/qualification/backend/appearance-invitations.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/appearance-invitations.test.ts`. |
@@ -1864,7 +1864,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `BLOCK-005` | Mentions | published | partial | `tests/e2e/editor/rich-text-editing.test.tsx` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/e2e/editor/rich-text-editing.test.tsx`. |
 | `BLOCK-006` | Structured blocks | published | partial | `tests/qualification/interface/blocks.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/blocks.mjs`. |
 | `BLOCK-007` | Task items | published | done | `tests/flagship/content/repair.test.ts` |  |
-| `BLOCK-008` | Media blocks | published | partial | `tests/qualification/policies/safety-history.test.ts` | upload and link media ship; configured stock source missing |
+| `BLOCK-008` | Media blocks | published | partial | — | upload and link media ship; configured stock source missing |
 | `BLOCK-009` | Link cards | published | done | `tests/flagship/content/preview.test.ts` |  |
 | `BLOCK-010` | Content queries | published | partial | `tests/qualification/interface/blocks.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/blocks.mjs`. |
 | `LIFE-001` | Lifecycle states | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
@@ -1873,73 +1873,73 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `LIFE-004` | Scheduled publish | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
 | `LIFE-005` | Unpublished changes | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
 | `LIFE-006` | Lifecycle profile | published | partial | `tests/qualification/policies/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/emitted.mjs`. |
-| `LIFE-007` | Discarding a draft | published | partial | `tests/qualification/policies/status-archive.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/status-archive.test.ts`. |
+| `LIFE-007` | Discarding a draft | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `SHARE-001` | Grants | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
 | `SHARE-002` | What the levels mean | published | partial | `tests/qualification/backend/request-access.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/request-access.test.ts`. |
 | `SHARE-003` | Inheritance | published | partial | `tests/qualification/backend/boundaries.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/boundaries.test.ts`. |
 | `SHARE-004` | General access | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
 | `SHARE-005` | Access profile | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
 | `SHARE-006` | Sharing with a person who is not a member | published | partial | `tests/qualification/backend/appearance-invitations.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/appearance-invitations.test.ts`. |
-| `SHARE-007` | Access changes take effect at once | published | partial | `tests/qualification/policies/access-publication.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/access-publication.test.ts`. |
-| `SHARE-008` | Expiring grants | published | partial | `tests/qualification/policies/access-publication.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/access-publication.test.ts`. |
-| `WEB-001` | Anonymous access takes two acts | published | partial | `tests/qualification/policies/access-publication.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/access-publication.test.ts`. |
-| `WEB-002` | What a published page carries | published | partial | `tests/qualification/policies/access-publication.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/access-publication.test.ts`. |
-| `WEB-003` | The anonymous read view | published | partial | `tests/qualification/policies/access-publication.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/access-publication.test.ts`. |
-| `WEB-004` | Children are not published by inheritance | published | partial | `tests/qualification/policies/access-publication.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/access-publication.test.ts`. |
-| `WEB-005` | Indexing is off until it is chosen | published | partial | `tests/qualification/policies/access-publication.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/access-publication.test.ts`. |
-| `WEB-006` | Unpublish | published | partial | `tests/qualification/policies/access-publication.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/access-publication.test.ts`. |
-| `WEB-007` | Public-link profile | published | partial | `tests/qualification/policies/access-publication.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/access-publication.test.ts`. |
-| `REV-001` | What a revision is | published | partial | `tests/qualification/policies/automation-templates.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/automation-templates.test.ts`. |
-| `REV-002` | History | published | partial | `tests/qualification/policies/lifecycle-versions.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/lifecycle-versions.test.ts`. |
-| `REV-003` | Restore | published | partial | `tests/qualification/policies/lifecycle-versions.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/lifecycle-versions.test.ts`. |
+| `SHARE-007` | Access changes take effect at once | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `SHARE-008` | Expiring grants | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WEB-001` | Anonymous access takes two acts | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WEB-002` | What a published page carries | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WEB-003` | The anonymous read view | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WEB-004` | Children are not published by inheritance | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WEB-005` | Indexing is off until it is chosen | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WEB-006` | Unpublish | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `WEB-007` | Public-link profile | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `REV-001` | What a revision is | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `REV-002` | History | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `REV-003` | Restore | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `REV-004` | Compare | published | done | `tests/e2e/review/verification-flow.test.ts` |  |
 | `REV-005` | A citation resolves to its revision | published | done | `tests/e2e/review/verification-flow.test.ts` |  |
-| `REV-006` | Deleting a version | published | partial | `tests/qualification/policies/lifecycle-versions.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/lifecycle-versions.test.ts`. |
+| `REV-006` | Deleting a version | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `REV-007` | Version profile | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
-| `STAT-001` | The status vocabulary | published | partial | `tests/qualification/policies/status-archive.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/status-archive.test.ts`. |
-| `STAT-002` | A page's status | published | partial | `tests/qualification/policies/container-links.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/container-links.test.ts`. |
+| `STAT-001` | The status vocabulary | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `STAT-002` | A page's status | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `STAT-003` | Verification | published | done | `tests/e2e/review/verification-flow.test.ts` |  |
-| `STAT-004` | Verification lapses | published | partial | `tests/qualification/policies/status-archive.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/status-archive.test.ts`. |
+| `STAT-004` | Verification lapses | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `STAT-005` | Status profile | published | partial | `tests/qualification/policies/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/emitted.mjs`. |
 | `COMM-001` | Two kinds of thread | published | partial | `tests/e2e/editor/rich-text-editing.test.tsx` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/e2e/editor/rich-text-editing.test.tsx`. |
-| `COMM-002` | Editing and deletion | published | partial | `tests/qualification/policies/comments-suggestions.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/comments-suggestions.test.ts`. |
+| `COMM-002` | Editing and deletion | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `COMM-003` | Mentions | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
 | `COMM-004` | Anchors survive editing | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
 | `COMM-005` | Reactions | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
 | `COMM-006` | Discussions panel | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
-| `COMM-007` | Resolve | published | partial | `tests/qualification/policies/comments-suggestions.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/comments-suggestions.test.ts`. |
-| `ARCH-001` | Archive | published | partial | `tests/qualification/policies/status-archive.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/status-archive.test.ts`. |
-| `ARCH-002` | What archived means | published | partial | `tests/qualification/policies/status-archive.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/status-archive.test.ts`. |
-| `ARCH-003` | Restore from archive | published | partial | `tests/qualification/policies/status-archive.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/status-archive.test.ts`. |
-| `ARCH-004` | Archive is not deletion | published | partial | `tests/qualification/policies/status-archive.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/status-archive.test.ts`. |
-| `ARCH-005` | Trash | published | partial | `tests/qualification/policies/status-archive.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/status-archive.test.ts`. |
+| `COMM-007` | Resolve | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `ARCH-001` | Archive | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `ARCH-002` | What archived means | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `ARCH-003` | Restore from archive | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `ARCH-004` | Archive is not deletion | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `ARCH-005` | Trash | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `ARCH-006` | Permanent deletion | published | done | `tests/qualification/erasure-metadata/append-metadata.test.ts` |  |
-| `CONT-001` | What a container is | published | partial | `tests/qualification/policies/container-links.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/container-links.test.ts`. |
-| `CONT-002` | Creating a container | published | partial | `tests/qualification/policies/container-links.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/container-links.test.ts`. |
-| `CONT-003` | The container index | published | partial | `tests/qualification/policies/container-links.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/container-links.test.ts`. |
-| `CONT-004` | Container settings | published | partial | `tests/qualification/policies/container-links.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/container-links.test.ts`. |
+| `CONT-001` | What a container is | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `CONT-002` | Creating a container | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `CONT-003` | The container index | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `CONT-004` | Container settings | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `CONT-005` | Personal containers | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
-| `CONT-006` | Bulk actions | published | partial | `tests/qualification/policies/container-links.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/container-links.test.ts`. |
-| `CONT-007` | External-access switches | published | partial | `tests/qualification/policies/access-publication.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/access-publication.test.ts`. |
-| `CONT-008` | Container access profile | published | partial | `tests/qualification/policies/access-publication.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/access-publication.test.ts`. |
-| `CONT-009` | Container grants | published | partial | `tests/qualification/policies/access-publication.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/access-publication.test.ts`. |
-| `DB-001` | A database | published | partial | `tests/qualification/policies/structured-views.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/structured-views.test.ts`. |
+| `CONT-006` | Bulk actions | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `CONT-007` | External-access switches | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `CONT-008` | Container access profile | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `CONT-009` | Container grants | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-001` | A database | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `DB-002` | Field types and evaluation | published | partial | `tests/e2e/databases/field-editing.test.tsx` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/e2e/databases/field-editing.test.tsx`. |
-| `DB-003` | Views | published | partial | `tests/qualification/policies/structured-views.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/structured-views.test.ts`. |
-| `DB-004` | Layouts | published | partial | `tests/qualification/policies/structured-views.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/structured-views.test.ts`. |
-| `DB-005` | Filter and sort | published | partial | `tests/qualification/policies/structured-views.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/structured-views.test.ts`. |
-| `DB-006` | Group | published | partial | `tests/qualification/policies/structured-views.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/structured-views.test.ts`. |
-| `DB-007` | Calculations | published | partial | `tests/qualification/policies/fields.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/fields.test.ts`. |
-| `DB-008` | Charts | published | partial | `tests/qualification/policies/fields.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/fields.test.ts`. |
-| `DB-009` | Lock structure | published | partial | `tests/qualification/policies/structured-views.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/structured-views.test.ts`. |
+| `DB-003` | Views | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-004` | Layouts | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-005` | Filter and sort | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-006` | Group | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-007` | Calculations | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-008` | Charts | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-009` | Lock structure | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `DB-010` | A record is a page | published | partial | `tests/qualification/backend/records-templates.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/records-templates.test.ts`. |
-| `DB-011` | A view inside a page | published | partial | `tests/qualification/policies/structured-views.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/structured-views.test.ts`. |
-| `DB-012` | Record detail | published | partial | `tests/qualification/policies/structured-views.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/structured-views.test.ts`. |
-| `AUTO-001` | A rule | published | partial | `tests/qualification/policies/automation-templates.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/automation-templates.test.ts`. |
-| `AUTO-002` | A rule acts as its actor | published | partial | `tests/qualification/policies/automation-templates.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/automation-templates.test.ts`. |
-| `AUTO-003` | Run log | published | partial | `tests/qualification/policies/automation-templates.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/automation-templates.test.ts`. |
-| `AUTO-004` | Loops are bounded | published | partial | `tests/qualification/policies/automation-templates.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/automation-templates.test.ts`. |
-| `AUTO-005` | Automation profile | published | partial | `tests/qualification/policies/automation-templates.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/automation-templates.test.ts`. |
+| `DB-011` | A view inside a page | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `DB-012` | Record detail | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `AUTO-001` | A rule | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `AUTO-002` | A rule acts as its actor | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `AUTO-003` | Run log | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `AUTO-004` | Loops are bounded | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `AUTO-005` | Automation profile | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `SEARCH-001` | Global search | published | partial | `tests/qualification/core/discovery-browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`. |
 | `SEARCH-002` | Results | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
 | `SEARCH-003` | Filters | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
@@ -1965,12 +1965,12 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `ACT-003` | Retrieval | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
 | `ACT-004` | Context | published | partial | `tests/qualification/core/discovery-browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`. |
 | `ACT-005` | Retained explanation | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
-| `TMPL-001` | Gallery | published | partial | `tests/qualification/policies/automation-templates.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/automation-templates.test.ts`. |
-| `TMPL-002` | Preview | published | partial | `tests/qualification/policies/automation-templates.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/automation-templates.test.ts`. |
-| `TMPL-003` | Snapshot on use | published | partial | `tests/qualification/policies/automation-templates.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/automation-templates.test.ts`. |
-| `TMPL-004` | Custom templates | published | partial | `tests/qualification/policies/automation-templates.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/automation-templates.test.ts`. |
-| `TMPL-005` | Save a page as a template | published | partial | `tests/qualification/policies/automation-templates.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/automation-templates.test.ts`. |
-| `TMPL-006` | Where a template lives | published | partial | `tests/qualification/policies/automation-templates.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/automation-templates.test.ts`. |
+| `TMPL-001` | Gallery | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `TMPL-002` | Preview | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `TMPL-003` | Snapshot on use | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `TMPL-004` | Custom templates | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `TMPL-005` | Save a page as a template | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `TMPL-006` | Where a template lives | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `IMP-001` | Import jobs | published | done | `tests/e2e/imports/preview-undo.test.ts` |  |
 | `IMP-002` | Notion import | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
 | `IMP-003` | Confluence import | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
@@ -1983,8 +1983,8 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `PORT-005` | Access boundary | published | done | `tests/e2e/imports/real-exports.test.ts` |  |
 | `PORT-006` | Atomic import | published | done | `tests/qualification/authority/atomic-recovery.test.ts` |  |
 | `PORT-007` | Exporting a page or a container | published | done | `tests/flagship/federation/federation.test.ts` |  |
-| `LINK-001` | Permanent URLs | published | partial | `tests/qualification/policies/container-links.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/container-links.test.ts`. |
-| `LINK-002` | Tombstones | published | partial | `tests/qualification/policies/status-archive.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/status-archive.test.ts`. |
+| `LINK-001` | Permanent URLs | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
+| `LINK-002` | Tombstones | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `LINK-003` | References follow their target | published | partial | `tests/qualification/backend/page-details.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/page-details.test.ts`. |
 | `LINK-004` | Links respect access | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
 | `AI-001` | Enablement | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
@@ -2010,8 +2010,8 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `DEC-004` | Decision log | published | partial | `tests/qualification/decisions/mechanics.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/decisions/mechanics.test.ts`. |
 | `DEC-005` | Review dates | published | partial | `tests/qualification/decisions/mechanics.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/decisions/mechanics.test.ts`. |
 | `DEC-006` | A proposed decision is editable | published | partial | `tests/qualification/decisions/mechanics.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/decisions/mechanics.test.ts`. |
-| `SUG-001` | Anchored suggestions | published | partial | `tests/qualification/policies/comments-suggestions.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `SUG-002` | Resolve explicitly | published | partial | `tests/qualification/policies/comments-suggestions.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SUG-001` | Anchored suggestions | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SUG-002` | Resolve explicitly | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SOURCE-001` | Connector contract | published | partial | `tests/flagship/release-clauses/federation/connector-disclosure.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SOURCE-002` | Exact passages | published | partial | `tests/flagship/release-clauses/federation/exact-passages.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SOURCE-003` | Scoped claims and authority | published | partial | `tests/qualification/authority/decision-authority.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
@@ -2128,7 +2128,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `ADMIN-003` | Guest management | target | done | `tests/qualification/policies/invitations.test.ts`, `tests/qualification/ui-convergence/guest-console-journey.mjs` |  |
 | `ADMIN-004` | Workspace analytics | target | done | `tests/e2e/pages/analytics.test.ts`, `tests/qualification/ui-convergence/analytics-journey.mjs` |  |
 | `ADMIN-005` | Audit export and SIEM streaming | target | partial | `tests/qualification/core/audit-content.test.ts` — auditExportProof: audited action families, filtered CSV/JSON, neutralized formulas, retention floor, signed ordered outage recovery; `tests/qualification/ui-convergence/audit-access-journey.mjs` (1440/390) | Signed generic webhooks inherit API-002’s unresolved address pinning and adopted destination rule; real vendor receivers and vendor-specific formats are not claimed. |
-| `ADMIN-006` | Content governance | target | partial | `tests/qualification/policies/access-publication.test.ts` | see the clause |
+| `ADMIN-006` | Content governance | target | partial | — | see the clause |
 | `ADMIN-007` | Every target surface ships in the default product | target | partial | `src/core/platform/config/launch-profile.ts` | see the clause |
 | `MOBILE-001` | Native iOS and Android apps | target | missing | `tests/qualification/interface/routed.browser.mjs` | not implemented |
 | `MOBILE-002` | Desktop app | target | missing | — | not implemented |
