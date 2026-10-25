@@ -6360,7 +6360,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/workspace/RecordPeek.tsx": {
-      "sha256": "c86b69ef7aa138799d10686efe2ad7f87d68c574bf25441b515367db1a8ed8cd",
+      "sha256": "dab22d6e2f1d5419c477fee46890dbbc89f0be64579ee934714f50784412a9f4",
       "executable": false
     },
     "src/core/features/databases/ui/workspace/RecordPrint.tsx": {
@@ -8316,7 +8316,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageEditorBody.tsx": {
-      "sha256": "5dca54446066fc6fc49f3483e3a7b20ad418edad09bf7c13578885650de42f1a",
+      "sha256": "e4099568f3a910f4278520160d5b3be58cb3a7fc8a8d919b1f2c9c187f300690",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
@@ -8360,7 +8360,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageWorkspace.tsx": {
-      "sha256": "1006a6d1ebea87920d2a218bc5251e1ca779cd47bfdbcba2a1a535a08e19a030",
+      "sha256": "870528385d89e818559235bd6aea6462ed862dff4e2cc3b8b3ae5c8939289512",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PublicationReviewPanel.tsx": {
@@ -8396,7 +8396,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/useNewPageArrival.ts": {
-      "sha256": "1a7a7fbfdbce1dccc53baa17cd1a859ed3d47ff35e79e883f563ecd18e61b9a5",
+      "sha256": "42ed182c3852ffb4d38fe6503a6ebc08c1e03369f42ebb5380141dfbf2791f94",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/usePageFollowing.ts": {
@@ -9048,7 +9048,7 @@
       "executable": false
     },
     "src/core/features/session/ui/FirstRunWizard.tsx": {
-      "sha256": "5d001f054014e83d964607b4a2fcc799aef1126129567402fceb6763c2f9e186",
+      "sha256": "96aade85d517392f579519df00d9d86f86937442055345654aa832716b5e6aac",
       "executable": false
     },
     "src/core/features/session/ui/nouns.ts": {
@@ -9140,7 +9140,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/MembersPanel.tsx": {
-      "sha256": "b57bb34dccbaf393afac4c6d6ce4a371d1db5b2d1738625b40f94b15bc7d2d99",
+      "sha256": "75011ba829eb6f541161df81cade23180026738b510ec20eb31d28ecc3c9d654",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/NavigationSettings.tsx": {
@@ -9152,7 +9152,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/PeopleDirectory.tsx": {
-      "sha256": "96e85ad159f7a1ad6fad4f1a8a30fa00052bbba18b6a6325ffb0b6b96290f8ac",
+      "sha256": "f6371a11dded4ebb71032f44ca0f2d9e4e3f93f1cd39cc75f1d913a6d826235c",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/PortabilityPanel.tsx": {
@@ -10188,7 +10188,7 @@
       "executable": false
     },
     "src/routes/app.tsx": {
-      "sha256": "cff858ed624d8412ffe42a63e2a46bf1848c94d4a21239ccb508762892ea9a95",
+      "sha256": "623bd461c7082a3732a13f92914a15776badcf1f32abc39c4ba69fc9a5a04c22",
       "executable": false
     },
     "src/routes/docs.$slug.tsx": {
@@ -10676,7 +10676,7 @@
       "executable": false
     },
     "tests/e2e/workspace/health.test.ts": {
-      "sha256": "02a4de02537920c84f061b1ccb80dfd43408444e4c14f8f4ff9cc32a4641a3ec",
+      "sha256": "82295c6db78f3314ab8c2b539edcd8e6a1ad16c56bf7ffcc297eba667f1eefef",
       "executable": false
     },
     "tests/fixtures/aurora/members.json": {
@@ -10792,7 +10792,7 @@
       "executable": false
     },
     "tests/flagship/cross/journey.mjs": {
-      "sha256": "1461aaf9c112f886d78aaf81e62d1f72f07ed7970040332854eb076919f743f8",
+      "sha256": "47afdf8c9fd7c0ebea1100c968d3ec16e3e7bd669a25819215b4c8b44254ba40",
       "executable": false
     },
     "tests/flagship/cross/orbit-bootstrap.mts": {
@@ -12488,7 +12488,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-support.mjs": {
-      "sha256": "efcef3cec455205595bcb8c744b0c87ec179844e056ac248ff706a945c2928c7",
+      "sha256": "78169452f05e3f1a0c12aff6651ec4381795017ef9172914e83805b9dca5eb3f",
       "executable": false
     },
     "tests/qualification/ui-convergence/webhook-access-journey.mjs": {
