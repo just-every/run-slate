@@ -63,7 +63,7 @@ export async function codeCardsHttpJourney(){
    const blocks=urls.map((url,i)=>({id:key(),blockType:'link-card',treePosition:String(i),content:{url,display:'card',previewState:'ready',preview:{title:'Do not retain fetched metadata'}}}));
    const page=(await api('POST','/api/pages',{operationKey:key(),containerId:space,title:'Source review '+provider,blocks})).value.pageId;pages.push(page);
    const card=(i:number)=>'/api/pages/'+page+'/code-cards/'+blocks[i]!.id;cardPaths.push(card(0));
-   const badUrls=[base+'/blob/'+pinned+'/src/main.ts#L1-L201',base+'/blob/main/src/main.ts#L2-L3',urls[0]!.replace(provider+'.com',provider+'.com.attacker.test'),...(provider==='gitlab'?[urls[0]!.replace('gitlab.com','gitlab.synthetic-slate.test')]:[])];
+   const badUrls=[base+'/blob/'+pinned+'/src/main.ts#L1-L201',base+'/blob/main/src/main.ts#L2-L3',urls[0]!.replace(provider+'.com',provider+'.com.attacker.test'),base+'/blob/'+pinned+'/%2e%2e%2f%2e%2e%2fuser%2femails#L1',base+'/blob/'+pinned+'/src%2fmain.ts#L2-L3',...(provider==='gitlab'?[urls[0]!.replace('gitlab.com','gitlab.synthetic-slate.test')]:[])];
    const badBlocks=badUrls.map((url,i)=>({id:key(),blockType:'link-card',treePosition:String(i),content:{url,display:'card',previewState:'ready'}}));
    const badPage=(await api('POST','/api/pages',{operationKey:key(),containerId:space,title:'Untrusted code references',blocks:badBlocks})).value.pageId;
    requests.length=0;for(const block of badBlocks)expect((await raw('GET','/api/pages/'+badPage+'/code-cards/'+block.id)).status).toBe(404);expect(requests).toHaveLength(0);
