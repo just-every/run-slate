@@ -5936,7 +5936,7 @@
       "executable": false
     },
     "src/core/features/code-embeds/reference.ts": {
-      "sha256": "c0cc0a04e6107572013de76793c8f578b562621b9713fbc705fd6dc3c507498e",
+      "sha256": "7ecf0c6fba9f750b0ae342d3fb207b83559ed9b051ba0706e8bb5aa05d700b67",
       "executable": false
     },
     "src/core/features/code-embeds/routes.ts": {
@@ -12276,7 +12276,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/code-cards-journey.mjs": {
-      "sha256": "8bdf53dedd249d0e787a9a7b1aaeb42b4f7b7fb3cc9ae30a1f18b83823ba062b",
+      "sha256": "f470184da591c3384859ccfa554286d456555392ffcbb0c759034e256315f4b8",
       "executable": false
     },
     "tests/qualification/ui-convergence/columns-journey.mjs": {

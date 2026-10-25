@@ -25,7 +25,7 @@ export function codeReference(raw:string):CodeReference|null{
    const match=/^#L(\d+)(?:-L?(\d+))?$/.exec(url.hash);if(!match)return null;
    first=Number(match[1]);last=Number(match[2]??match[1]);
    if(!Number.isSafeInteger(first)||!Number.isSafeInteger(last)||first<1||last<first||last-first+1>200)return null;
-   const pathParts=rest.slice(2);if(pathParts.some(x=>!x||x==='.'||x==='..'||/[\x00-\x1f\x7f]/.test(x)))return null;
+   const pathParts=rest.slice(2);if(pathParts.some(x=>!x||x.includes('/')||x==='.'||x==='..'||/[\x00-\x1f\x7f]/.test(x)))return null;
    path=pathParts.join('/');kind='code';
   }
   if(!kind)return null;

@@ -35,7 +35,7 @@ export async function codeCardsJourney(state){
   await expect(settings.getByLabel('Read-only access token',{exact:true})).toHaveValue('');
   await accessible(page,name+' code account connected');
   await page.goto(origin+'/app/pages/'+pageId,{waitUntil:'networkidle'});
-  await expect(pr.getByRole('link',{name:'Owner review',exact:true})).toBeVisible();await expect(pr).toContainText('open');
+  await expect(pr.getByRole('link',{name:'Owner review',exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'Try saving again',exact:true})).toHaveCount(0);await expect(pr).toContainText('open');
   await expect(pr.getByRole('list',{name:'Checks',exact:true})).toContainText(provider==='github'?'Build: success':'Pipeline: success');
   await expect(pr.locator('time').first()).toHaveAttribute('datetime','2026-10-25T00:00:00Z');await expect(pr).toContainText('owner');
   await expect(code.locator('pre')).toContainText('pinned <script> line');await expect(code.locator('script')).toHaveCount(0);await expect(code).toContainText(pinned);
