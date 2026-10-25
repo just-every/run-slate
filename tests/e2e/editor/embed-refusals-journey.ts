@@ -1,3 +1,5 @@
+import {resetDeployment} from '../setup/reset-deployment';
+import {seedWorkspace,seedMember,sessionFor} from '../setup/fixtures';
 import {createApi} from '../../../src/core/app/hono';
 import {env} from 'cloudflare:test';
 import {unzipSync,strFromU8} from 'fflate';
@@ -53,7 +55,8 @@ export async function embedRefusalsJourney(req:(path:string,body?:unknown,auth?:
     const freshExport=await req('/api/exports/workspace',{operationKey:crypto.randomUUID()},freshCookie);expect(freshExport.status).toBe(200);
     const freshId=(await freshExport.json<any>()).id,freshDownload=await req(`/api/exports/${freshId}/download`,undefined,freshCookie);expect(freshDownload.status).toBe(200);
     const freshForm=new FormData();freshForm.set('file',new File([await freshDownload.arrayBuffer()],'workspace.zip',{type:'application/zip'}));
-    const freshRestore=await createApi().request(base+'/api/exports/restore',{method:'POST',headers:{cookie:freshCookie,origin:base},body:freshForm},{...env,SLATE_PROFILE:undefined,PUBLIC_PAGE_HOST:'slate.test'});
+    await resetDeployment();const target=(await seedWorkspace()).workspaceId,targetOwner=(await seedMember(target,{email:'owner@slate.test',displayName:'Alex Owner',role:'owner',isSetupOwner:true})).memberId,targetCookie=await sessionFor(targetOwner,{freshProof:true});
+    const freshRestore=await createApi().request(base+'/api/exports/restore',{method:'POST',headers:{cookie:targetCookie,origin:base},body:freshForm},{...env,SLATE_PROFILE:undefined,PUBLIC_PAGE_HOST:'slate.test'});
     expect(freshRestore.status,await freshRestore.clone().text()).toBe(200);
     expect(await env.DB.prepare('SELECT observed_at FROM provider_embed_observations WHERE workspace_id=? AND provider_host=?').bind(workspaceId,host).first('observed_at')).toBe('1970-01-01T00:00:00.000Z');
     expect(seen).toHaveLength(0);
