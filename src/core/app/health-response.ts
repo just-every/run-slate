@@ -41,7 +41,7 @@ function stateFor(bindings: AppBindings): HealthState {
 
 function refresh(state: HealthState, bindings: AppBindings): Promise<void> {
   state.attemptedAt = Date.now();
-  // Defer all I/O to the execution context; even a cold health response never waits.
+  // Cold and still-current reads refresh in the execution context.
   return Promise.resolve().then(async () => {
     let timer: ReturnType<typeof setTimeout> | undefined;
     try {
@@ -66,12 +66,12 @@ function refresh(state: HealthState, bindings: AppBindings): Promise<void> {
 }
 
 /**
- * No storage or outbound calls are awaited here. Startup binding readiness has
- * five seconds to be confirmed by a probe. Active probes refresh every 30 s;
- * failures/timeouts clear success, and evidence older than two minutes is never trusted.
- * Thus the next health read after that bound fails even if a refresh is stuck.
+ * Startup binding readiness has five seconds to be confirmed by a probe.
+ * Current evidence refreshes in the background. An idle installation's expired
+ * success waits for one bounded fresh probe; failed or already-stuck probes
+ * remain unavailable. Expired success is never served as readiness.
  */
-export function healthResponse(request: Request, bindings: AppBindings, execution: Pick<ExecutionContext, "waitUntil">): Response {
+export async function healthResponse(request: Request, bindings: AppBindings, execution: Pick<ExecutionContext, "waitUntil">): Promise<Response> {
   const headers = { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", "Referrer-Policy": "same-origin" };
   try {
     runtimeConfigFor(bindings, new URL(request.url).hostname);
@@ -94,14 +94,16 @@ export function healthResponse(request: Request, bindings: AppBindings, executio
     return Response.json(error("RATE_LIMITED", "Too many requests. Try again later."), { status: 429, headers: { ...headers, "Retry-After": "60" } });
   }
   state.addresses.set(address, count);
+  const refreshExpiredSuccess = !!state.checks && now >= state.expiresAt && !state.refreshing;
   if (!state.refreshing && now - state.attemptedAt >= refreshInterval) {
     state.refreshing = refresh(state, bindings);
     execution.waitUntil(state.refreshing);
+    if (refreshExpiredSuccess) await state.refreshing;
   }
   if (state.configurationFailure) {
     return Response.json(error("CONFIGURATION_INVALID", state.configurationFailure.message), { status: 503, headers });
   }
-  if (!state.checks || now >= state.expiresAt) {
+  if (!state.checks || Date.now() >= state.expiresAt) {
     return Response.json(error("DEPENDENCY_UNAVAILABLE", "A Slate dependency is unavailable."), { status: 503, headers });
   }
   return Response.json({ status: "ok", checks: state.checks, ...deploymentHealth(bindings) }, { headers });
