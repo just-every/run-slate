@@ -20,7 +20,7 @@ export async function embedRefusalsJourney(req:(path:string,body?:unknown,auth?:
     expect(madeBad.status).toBe(200);const badPage=(await madeBad.json<any>()).value.pageId;
     expect((await req('/api/pages/'+badPage+'/embeds/'+badId+'/status')).status).toBe(404);expect(seen).toHaveLength(0);
     // Unsupported destinations never reach the provider edge, including redirects.
-    for(const destination of ['10.0.0.1','192.168.1.1','127.0.0.1','[::1]','169.254.169.254']){
+    for(const destination of ['10.0.0.1','192.168.1.1','127.0.0.1','2130706433','0x7f000001','[::1]','[::ffff:127.0.0.1]','169.254.169.254']){
       const id=crypto.randomUUID();seen.length=0;
       const made=await req('/api/pages',{operationKey:crypto.randomUUID(),containerId,title:'Private destination',blocks:[{id,blockType:'link-card',treePosition:'00',content:{url:`https://${destination}/design/synthetic-slate-1`,display:'embed',previewState:'ready'}}]});
       expect(made.status).toBe(200);const privatePage=(await made.json<any>()).value.pageId;
@@ -29,6 +29,23 @@ export async function embedRefusalsJourney(req:(path:string,body?:unknown,auth?:
       expect((await (await req(route)).json<any>()).verdict).toBe('unknown');
       expect(seen.map(request=>new URL(request.url).hostname)).toEqual([host]);
     }
+    for(const [url,creationStatus] of [['https://user@embed.figma.com/design/synthetic-slate-1',400],['https://embed.figma.com:8443/design/synthetic-slate-1',200],['http://embed.figma.com/design/synthetic-slate-1',200]] as const){
+      const id=crypto.randomUUID();seen.length=0;
+      const made=await req('/api/pages',{operationKey:crypto.randomUUID(),containerId,title:'Refused embed address',blocks:[{id,blockType:'link-card',treePosition:'00',content:{url,display:'embed',previewState:'ready'}}]});
+      expect(made.status).toBe(creationStatus);expect(seen).toHaveLength(0);if(creationStatus===400)continue;const refusedPage=(await made.json<any>()).value.pageId;
+      expect((await req(`/api/pages/${refusedPage}/embeds/${id}/status`)).status).toBe(404);expect(seen).toHaveLength(0);
+    }
+    await clear();seen.length=0;response=()=>new Response(null,{status:302,headers:{location:'https://synthetic-slate-1.example/'}});
+    expect((await (await req(route)).json<any>()).verdict).toBe('unknown');
+    expect(seen.map(request=>new URL(request.url).hostname)).toEqual([host]);
+    // An arbitrary hostname stays a link on both member and public doors.
+    seen.length=0;
+    const unsupported=await req('/api/pages/'+badPage);expect(unsupported.status).toBe(200);
+    const unsupportedDocument=await unsupported.json<any>();expect(seen).toHaveLength(0);
+    expect((await req('/api/publishing/'+badPage,{operationKey:crypto.randomUUID(),expectedRevisionId:unsupportedDocument.page.revisionId,host:'slate.test',slug:'unsupported-embed'})).status).toBe(200);
+    const unsupportedMarkup=await (await req('/p/unsupported-embed',undefined,'')).text();
+    expect(unsupportedMarkup).toContain('href="https://embed.figma.com.attacker.test/design/synthetic-slate-1"');
+    expect(unsupportedMarkup).not.toContain('<iframe');expect(seen).toHaveLength(0);
     const cases:{headers:Record<string,string>;verdict:string}[]=[
       {headers:{'x-frame-options':'DENY'},verdict:'refuses'},
       {headers:{'x-frame-options':'SAMEORIGIN'},verdict:'refuses'},
