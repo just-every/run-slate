@@ -12140,7 +12140,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
-      "sha256": "7b2c46488f9cfe8277fa20f91c4ca960f1a2a4dac7d6902a45cc9c8ce8164b8e",
+      "sha256": "d32b36f38e4370dfed4fc16b4b142eb79a977c558c31b1e84f0384dc78b96a36",
       "executable": false
     },
     "tests/qualification/ui-convergence/columns-journey.mjs": {
