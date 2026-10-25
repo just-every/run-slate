@@ -70,7 +70,7 @@ Restore signs everyone out. Use the private owner entry from `rer dev` again to 
 
 To restore:
 
-1. Prepare a distinct empty deployment as described in [Install and deploy](INSTALL.md), with the archived owner's address as `SLATE_SETUP_OWNER_EMAIL` and the required private deployment inputs. Review `rer deploy --environment restore-preview --dry-run`, then run it without `--dry-run` when authorized. Choose an environment name distinct from your existing deployment and retain its `.rer/deploy` receipts.
+1. Prepare a distinct empty deployment as described in [Install and deploy](INSTALL.md), with the archived owner's address as `SLATE_SETUP_OWNER_EMAIL` and the required private deployment inputs. Review `rer deploy --environment restore-preview --dry-run`, then run it without `--dry-run` when authorized. Choose an environment name distinct from your existing deployment and keep its `.rer/deploy` ownership records.
 2. Sign in. On the first step of the first-run setup, choose **Restore an existing workspace**.
 3. Choose your `.zip` archive and select **Restore workspace**.
 4. When it completes, select **Open restored workspace** and sign in again.
@@ -98,10 +98,12 @@ A workspace owner can open **Settings → Import & export → Scheduled backups*
 
 Only owners can configure, test, run or remove destinations, with a recent sign-in confirmation. Slate encrypts credentials and never returns them from the API or includes them in an archive. An owner can replace incorrect or expired credentials through `POST /api/backups/:id/credentials`, supplying a fresh operation key, access key ID and secret access key after a recent sign-in confirmation. Replacement keeps the schedule and run history. Removing a destination destroys its stored credentials and stops later runs; it leaves your bucket objects in your custody. Restored destinations are disconnected until an owner enters credentials again.
 
-A run makes the same complete workspace ZIP as manual export. It streams bounded parts, verifies the uploaded object's size and SHA256 by reading it back, and only then removes older objects that this destination's own successful run receipts name. Other bucket objects are untouched. An incomplete export scope fails before any external object is written. One durable receipt per destination and period prevents concurrent or restarted schedulers from writing another object for that period. An interrupted run is recorded as failed and needs a later period or an explicit new run.
+A run makes the same complete workspace ZIP as manual export, uploads it in parts and checks its size and SHA256 by reading it back. Only then can it remove older backups listed in this destination’s successful run history; other bucket objects are untouched.
+
+If the owner cannot export the whole workspace, nothing is uploaded, and a saved run record prevents simultaneous or restarted schedules from making another backup for the same period. An interrupted run is marked failed; wait for the next period or choose **Run now** to try again.
 
 Each destination shows its last success and current safe failure. Each failed run gives every active owner one in-app notice; a later successful run clears the current failure while retaining run history. Email failure delivery is not available yet.
 
 **Run restore drill** verifies the latest stored backup and shows a report, download and instructions. That report confirms archive validation; it does not claim a restore has run. Start a separate empty Slate deployment, sign in as its setup owner using an archived full member's email, restore the downloaded ZIP from Import & export, then sign in again and open the restored pages and their internal links. The source workspace must never be used as the restore target. Re-enter provider credentials after restoration.
 
-A local held-key Cloudflare R2 run exercised connection, multipart upload/readback, retention, failure notices and recovery, scope refusal, empty-target restore and removal. Its test objects and buckets were removed. The committed provider receipt is still pending, so this build claims no live-provider acceptance; no other S3-compatible provider was used. Chest can join the same destination contract when it publishes an intake; it is not currently selectable.
+Cloudflare R2 has been tried locally, but live backup and restore are not yet confirmed, and other S3-compatible services have not been tried. Choose an S3-compatible bucket or R2, test the connection and restore a backup into a separate empty installation before relying on the schedule; other destinations are not available yet.

@@ -1012,11 +1012,11 @@
       "executable": false
     },
     "docs/BACKUP.md": {
-      "sha256": "2370e878c4592e34e9ecc27b4f4da1874ec7695560c83c38ea6091a011014f2a",
+      "sha256": "12fc9d50806dcd595671d6635aad35a61ff4f0a17d4a7ba48fe036f1df52eef0",
       "executable": false
     },
     "docs/CHAT-NOTIFICATIONS.md": {
-      "sha256": "eef6eddceb78759a126ed82bcf9c9dc00e5f233b0dc9d8a230dc32bbf9c958d1",
+      "sha256": "59c80fba9bc921aaef820ae08fd99fb8f709397535323e0c4c398c7a71707a5d",
       "executable": false
     },
     "docs/CLAIMS.md": {
@@ -1024,11 +1024,11 @@
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
-      "sha256": "f3bfaa3949ceca3f284b9f8a6c31b51e44b5900b9740ce37abf761b82e97a4fe",
+      "sha256": "1032fac6c35b86ff74806863ce02e7e927606872411fe2761d0e53cfa67070cc",
       "executable": false
     },
     "docs/EMAIL.md": {
-      "sha256": "8937b8f471f4bdbb4d740830de8428c6d4ce25dd61b7167a51538a1e27c48431",
+      "sha256": "189e7f4b10c7aa2f666ca577b8e211752c2516419b708d66b3fab5ed16b10b7e",
       "executable": false
     },
     "docs/FLAGSHIP-API.md": {
@@ -1060,7 +1060,7 @@
       "executable": false
     },
     "docs/OVERVIEW.md": {
-      "sha256": "1c3bf9861201b1e0f90f695587747eae6b65c885cbed85ac4b6735a3d38d3b95",
+      "sha256": "706becbb32c39afd936a746c34ffcef9eacec36694e4e1fec603f43b11c29b5e",
       "executable": false
     },
     "docs/release/core-wiki-profile.md": {
@@ -7528,7 +7528,7 @@
       "executable": false
     },
     "src/core/features/landing/copy.ts": {
-      "sha256": "ac89ba6c30dae65aaad96718d191da2cf5bc5b310e8db982358a99033954e213",
+      "sha256": "a7df93e48ca820df9a232b0abca4b86d4b1161ef0a562df86e8ff7df8bdb838c",
       "executable": false
     },
     "src/core/features/landing/drawings/CollectionDrawing.tsx": {
