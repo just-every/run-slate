@@ -9132,7 +9132,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/CodeConnections.tsx": {
-      "sha256": "9abcaf18ec6f69dfbad82a06f74e1559f4d4e8f77e9fcd922d9f0a9d2f94416c",
+      "sha256": "18e76d5654c12e43a72a0b810910a4d735c83569709087af2d5ce859f5f89872",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/DeveloperAccess.tsx": {

@@ -13,7 +13,7 @@ export function CodeConnections(){
   setPending(true);setError(undefined);
   try{await work();await resource.reload();}catch(cause){setError(cause);}finally{setPending(false);}
  }
- return <section id="code-accounts" aria-label="Code host connections" className="my-4 min-w-0">
+ return <section id="code-accounts" aria-label="Code host connections" style={{border:0}} className="my-4 min-w-0 scroll-mt-48">
   <h3>Your code accounts</h3>
   <p>Connect your GitHub or GitLab account with a read-only personal access token. Cards use your own access.</p>
   <form className="detail-form" autoComplete="off" onSubmit={event=>{
@@ -24,7 +24,7 @@ export function CodeConnections(){
   }}>
    <fieldset disabled={pending||resource.loading||Boolean(resource.error)} className="m-0 grid min-w-0 gap-3 border-0 p-0">
     <legend className="mb-2 text-small">Connect a code account</legend>
-    <label>Code host<select name="provider" defaultValue="github"><option value="github">GitHub</option><option value="gitlab">GitLab</option></select></label>
+    <label>Code host<select name="provider" aria-label="Code host" defaultValue="github"><option value="github">GitHub</option><option value="gitlab">GitLab</option></select></label>
     <label>Read-only access token<input name="token" type="password" autoComplete="new-password" spellCheck={false} required/></label>
     <button type="submit" className="secondary-button">Connect code account</button>
    </fieldset>
