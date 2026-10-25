@@ -117,7 +117,7 @@ export async function elapsedUntil(check, { timeout, interval = 50, since = Date
 
 /**
  * SAVE-001: the time between the server's committed block response and the
- * block showing Saved. The page records when each status text first appears.
+ * page showing Saved. The page records when each status text first appears.
  */
 export async function savedAfterCommit(page, blockId, edit) {
   await page.evaluate(id => {
@@ -137,7 +137,7 @@ export async function savedAfterCommit(page, blockId, edit) {
   await expect(page.locator('.editor-save-status').filter({ hasText: /^Saved/ })).toBeVisible({ timeout: 2000 });
   const seen = await page.evaluate(() => window.slateBlockStates.seen);
   const saving = seen.find(item => /^Saving/.test(item.text)), saved = saving && seen.find(item => /^Saved/.test(item.text) && item.at >= saving.at);
-  assert.ok(saving, 'The block shows Saving while the write is in flight.');
+  assert.ok(saving, 'The page shows Saving while the write is in flight.');
   assert.ok(saved, 'Saved follows Saving.');
   return { blockRevisionId: body.value.blockRevisionId, revisionId: body.value.revisionId, savingShownMs: saving.at, savedAfterCommitMs: Math.max(0, saved.at - commitAt) };
 }

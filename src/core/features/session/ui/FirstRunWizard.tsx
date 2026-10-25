@@ -75,7 +75,7 @@ export function FirstRunWizard({
         ? containerNameValue.trim().length > 0 && firstPageTitle.trim().length > 0
         : true;
 
-  const hint = step === 1 ? "Enter your workspace name to continue." : "Enter a space name and first page title to continue.";
+  const hint = step === 1 ? "Enter your name and workspace name to continue." : "Enter a space name and first page title to continue.";
 
   return (
     <PaperPage className={className} owner={owner}>

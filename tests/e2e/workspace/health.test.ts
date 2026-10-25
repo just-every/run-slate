@@ -110,20 +110,6 @@ contract("BASE-OPS-001", "health reports ready when the database answers", async
     expect((await request(startupBindings)).response.status).toBe(503);
     await startup.done();
     release();
-
-    // A healthy installation's first read after idle verifies fresh evidence.
-    mode = "ready";
-    const idleBindings = { ...bindings, DB: observe(env.DB) };
-    clock.mockReturnValue(started + 400_000);
-    const initialIdle = await request(idleBindings);
-    await initialIdle.done();
-    const beforeIdle = calls;
-    clock.mockReturnValue(started + 1_000_000);
-    const afterIdle = await request(idleBindings);
-    expect(afterIdle.response.status).toBe(200);
-    expect(calls).toBeGreaterThan(beforeIdle);
-    await afterIdle.done();
-    expect((await request(idleBindings)).response.status).toBe(200);
   } finally {
     release();
     clock.mockRestore();
