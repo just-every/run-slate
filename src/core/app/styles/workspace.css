@@ -70,5 +70,5 @@
 .slate-app .primary-button {
   border-radius: 6px;
   padding: 0 18px;
-  min-height: 40px;
+  min-height: max(var(--slate-tap-target, 0px), 40px);
 }

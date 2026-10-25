@@ -152,7 +152,7 @@
   margin: 20px 0;
 }
 .slate-app .editor-actions button {
-  min-height: 40px;
+  min-height: max(var(--slate-tap-target, 0px), 40px);
   padding: 8px 12px;
   border-radius: 4px;
 }
@@ -163,10 +163,10 @@
   max-width: none;
 }
 .slate-app .detail-close {
-  font-size: 12px;
+  font-size: var(--text-small);
   color: var(--slate-ink-muted);
   margin-bottom: 24px;
-  min-height: 35px;
+  min-height: max(var(--slate-tap-target, 0px), 35px);
 }
 .slate-app .right h2 {
   font:
@@ -198,7 +198,7 @@
 .slate-app .comment-form textarea,
 .slate-app .grant-list select {
   width: 100%;
-  min-height: 40px;
+  min-height: max(var(--slate-tap-target, 0px), 40px);
   padding: 9px;
   border: 1px solid var(--slate-line-strong);
   border-radius: 5px;
@@ -231,7 +231,7 @@
 .slate-app .thread-heading,
 .slate-app .comment-actions {
   display: flex;
-  font-size: 12px;
+  font-size: var(--text-small);
 }
 .slate-app .comment {
   padding: 16px 0;
@@ -239,18 +239,18 @@
 .slate-app .comment header {
   display: grid;
   gap: 3px;
-  font-size: 12px;
+  font-size: var(--text-small);
 }
 .slate-app .comment time {
   color: var(--slate-ink-muted);
-  font-size: 11px;
+  font-size: var(--text-small);
 }
 .slate-app .comment p {
   margin: 12px 0;
   white-space: pre-wrap;
 }
 .slate-app .comment-actions button {
-  min-height: 32px;
+  min-height: max(var(--slate-tap-target, 0px), 32px);
 }
 .slate-app .history-list {
   list-style: none;
@@ -266,7 +266,7 @@
 }
 .slate-app .history-list span {
   color: var(--slate-ink-muted);
-  font-size: 12px;
+  font-size: var(--text-small);
 }
 .slate-app .revision-preview {
   border-block: 1px solid var(--slate-line);
@@ -303,7 +303,7 @@
 }
 .slate-app .statement-kind {
   color: var(--slate-accent);
-  font-size: 11px;
+  font-size: var(--text-small);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -325,7 +325,7 @@
   overflow-wrap: anywhere;
   max-height: 300px;
   overflow: auto;
-  font-size: 12px;
+  font-size: var(--text-small);
 }
 @media (max-width: 700px) {
   .conflict-columns {

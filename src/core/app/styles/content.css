@@ -4,7 +4,7 @@
 .inquiry-document .hypotheses, .trial-bounds { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 16px; }
 @media (max-width: 700px) { .proposal-diff { grid-template-columns: minmax(0, 1fr); } }
 .slate-app .page-outline { margin-block: 4px 24px; border: 1px solid var(--slate-line); border-radius: 8px; background: var(--slate-wash); color: var(--slate-ink-muted); }
-.slate-app .page-outline > summary { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 0; background-color: var(--slate-wash); color: var(--slate-ink-muted); font-size: 13px; list-style: none; }
+.slate-app .page-outline > summary { display: flex; align-items: center; gap: 8px; min-height: max(var(--slate-tap-target, 0px), 40px); padding: 0 14px; border: 0; background-color: var(--slate-wash); color: var(--slate-ink-muted); font-size: 13px; list-style: none; }
 .slate-app .page-outline > summary::-webkit-details-marker { display: none; }
 .slate-app .page-outline > summary::before { content: ""; width: 0; height: 0; border-block: 4px solid transparent; border-left: 6px solid currentColor; transition: transform 120ms ease; }
 .slate-app .page-outline[open] > summary::before { transform: rotate(90deg); }
@@ -25,7 +25,7 @@
 .slate-app .native-effect select,
 .slate-app .native-effect textarea { min-width: 0; max-width: 100%; box-sizing: border-box; }
 .slate-app .native-effect-details { display: grid; gap: 16px; margin: 20px 0; }
-.slate-app .native-effect-details dt { font-size: 12px; color: var(--slate-ink-muted); margin-bottom: 5px; }
+.slate-app .native-effect-details dt { font-size: var(--text-small); color: var(--slate-ink-muted); margin-bottom: 5px; }
 .slate-app .native-effect-details dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 .slate-app .native-effect-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
 .slate-app .native-effect-adjust { border: 1px solid var(--slate-line-strong); border-radius: 6px; padding: 12px 20px; min-height: 44px; }
@@ -41,7 +41,7 @@
 .slate-app .record-peek-side {width:min(850px,95vw);margin:2.5dvh 0 2.5dvh auto}
 .slate-app .record-peek-center {width:min(1000px,95vw);margin:2.5dvh auto}
 .slate-app .record-peek .main {padding:20px;max-width:100%}
-.slate-app .page-status-chip {display:inline-block;border:1px solid currentColor;border-radius:12px;padding:2px 8px;font-size:12px;margin-inline:8px}
+.slate-app .page-status-chip {display:inline-block;border:1px solid currentColor;border-radius:12px;padding:2px 8px;font-size: var(--text-small);margin-inline:8px}
 .slate-app .favourite-row {display:flex;align-items:center;gap:4px;min-width:0}.slate-app .favourite-row>a {min-width:0;flex:1}
 .slate-app .tools {flex-wrap:wrap}
 
@@ -54,13 +54,13 @@
 
 .slate-app .public-page-banner {display:flex;flex-wrap:wrap;align-items:center;gap:10px;border:1px solid var(--slate-line);padding:12px;margin-bottom:20px;font-size:14px;}
 
-.slate-app .scheduled-publication {display:block;font-size:11px;white-space:normal;line-height:1.5;}
+.slate-app .scheduled-publication {display:block;font-size: var(--text-small);white-space:normal;line-height:1.5;}
 
 .slate-app .template-snapshot {border:1px solid var(--slate-line);padding:20px;margin-block:16px;overflow-wrap:anywhere;}
 .slate-app .template-snapshot[data-typeface="serif"] {font-family:Georgia,serif;}.slate-app .template-snapshot[data-typeface="mono"] {font-family:monospace;}.slate-app .template-snapshot[data-small-text="true"] {font-size:13px;}
 
 .slate-app .reaction-controls {flex-wrap:wrap;font-size:13px;}.slate-app .reaction-controls label{gap:4px;}
-.slate-app .personal-home li > a {display:block;min-height:32px;padding:6px 0;line-height:20px;}
+.slate-app .personal-home li > a {display:block;min-height: max(var(--slate-tap-target, 0px), 32px);padding:6px 0;line-height:20px;}
 @media(max-width:700px){.slate-app .personal-home li > a {min-height:44px;padding:12px 0;}}
 
 .transfer-counts > div { display: flex; justify-content: space-between; gap: 16px; padding-block: 4px; }

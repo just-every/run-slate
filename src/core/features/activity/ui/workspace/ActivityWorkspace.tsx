@@ -112,7 +112,7 @@ export function ActivityWorkspace() {
                     <>
                       {" "}
                       ·{" "}
-                      <a
+                      <a className="activity-page-link"
                         href={`/app/pages/${item.context.pageId??item.target.id}?${new URLSearchParams(item.context.revisionId?{detail:"history",revision:item.context.revisionId}:item.context.threadId?{detail:"comments",thread:item.context.threadId}:item.context.commentId?{detail:"comments",comment:item.context.commentId}:item.context.grantId?{detail:"share"}:{}).toString()}`}
                       >
                         Open page{item.context.commentId ? " and comment" : ""}

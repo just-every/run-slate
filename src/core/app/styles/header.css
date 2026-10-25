@@ -35,7 +35,7 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  min-height: 36px;
+  min-height: max(var(--slate-tap-target, 0px), 36px);
   font-size: 14px;
   font-weight: 500;
 }
@@ -44,7 +44,7 @@
 .slate-app .tool-primary { border-color: var(--slate-accent); background-color: var(--slate-accent); color: var(--slate-accent-ink); font-weight: 600; }
 .slate-app .tool-primary:not(:disabled):hover { background-color: var(--slate-accent-hover); }
 .slate-app a.icon-action { border: 1px solid var(--slate-line); border-radius: 6px; background-color: var(--slate-surface); }
-.slate-app .icon-action { width: 36px; min-width: 36px; padding: 0 8px; color: var(--slate-ink-muted); }
+.slate-app .icon-action { width: max(var(--slate-tap-target), 36px); min-width: max(var(--slate-tap-target), 36px); padding: 0 8px; color: var(--slate-ink-muted); }
 .slate-app .icon-action svg { width: 18px; height: 18px; }
 .slate-app .icon-action:hover { color: var(--slate-ink-strong); }
 
@@ -60,7 +60,7 @@
   border-radius: 6px;
   background: var(--slate-ink-strong);
   color: var(--slate-canvas);
-  font-size: 12px;
+  font-size: var(--text-small);
   font-weight: 500;
   line-height: 1.4;
   white-space: nowrap;
@@ -89,8 +89,7 @@
   letter-spacing: -0.01em;
   text-wrap: balance;
 }
-.slate-app textarea.page-title-input { display: block; width: 100%; min-height: 1.15em; padding: 0; border: 0; background: transparent; resize: none; overflow: hidden; field-sizing: content; }
-.slate-app .page-title-input:focus-visible { outline: none; }
+.slate-app textarea.page-title-input { display: block; width: 100%; min-height: max(var(--slate-tap-target), 1.15em); padding: 0; border: 0; background: transparent; resize: none; overflow: hidden; field-sizing: content; }
 .slate-app .page-title:has(+ .page-lede) { margin-bottom: 8px; }
 .slate-app .page-title + .tabs { margin-top: 0; }
 .slate-app .page-lede { margin: 0 0 24px; color: var(--slate-ink-muted); font-size: 15px; line-height: 1.6; }
@@ -100,7 +99,7 @@
 .slate-app .tabs > :is(button, a) {
   display: inline-flex;
   align-items: center;
-  min-height: 36px;
+  min-height: max(var(--slate-tap-target, 0px), 36px);
   padding: 0 14px;
   border: 0;
   border-radius: 6px;
@@ -112,14 +111,16 @@
 }
 .slate-app .tabs > :is(button, a):not(:disabled):hover { background-color: var(--slate-sidebar-hover); color: var(--slate-ink-strong); }
 .slate-app .tabs > :is([aria-pressed="true"], [aria-current="page"], [aria-expanded="true"], [aria-selected="true"]) { background-color: var(--slate-accent-soft); color: var(--slate-accent); font-weight: 600; }
-.slate-app :is(.main, .space-detail) > .tabs { margin-left: -14px; }
-.slate-app .main > .db-toolbar > .db-tabs { margin-left: -14px; }
 .slate-app .tabs-rule { padding-bottom: 12px; border-bottom: 1px solid var(--slate-line); }
 
 @media (max-width: 700px) {
   .slate-app .tabs.settings-tabs { flex-wrap: nowrap; overflow-x: auto; margin-bottom: 8px; scrollbar-width: auto; }
-  .slate-app .topbar { flex-wrap: wrap; row-gap: 4px; min-height: 60px; padding: 8px 16px; }
+  .slate-app .topbar { flex-wrap: wrap; row-gap: 4px; min-height: 61px; padding: 8px 16px; }
   .slate-app .crumbs { flex: 1 1 auto; }
   .slate-app .main { padding-top: 28px; }
   .slate-app .page-title { font-size: 2rem; }
+}
+
+@media (max-width: 700px) {
+  .slate-app .crumbs a, .slate-app .tools > a:not(.icon-action) { display: inline-flex; align-items: center; min-height: var(--slate-tap-target); }
 }

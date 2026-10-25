@@ -14,7 +14,7 @@
   line-height: 1.5;
   white-space: normal;
 }
-.slate-app .mention-picker > button { text-align: left; min-height: 36px; }
+.slate-app .mention-picker > button { text-align: left; min-height: max(var(--slate-tap-target, 0px), 36px); }
 .slate-app .mention-picker label { display: grid; gap: 5px; }
 .slate-app .mention-picker input { min-width: 0; width: 100%; }
 .slate-app .mention-picker [aria-label="Group mention recipients"] {

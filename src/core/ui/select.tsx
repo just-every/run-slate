@@ -11,7 +11,7 @@ export function SelectTrigger({ className, children, ...props }: ComponentProps<
   return (
     <SelectPrimitive.Trigger
       className={cn(
-        "inline-flex h-8 items-center justify-between gap-1.5 rounded-control border border-line-strong bg-surface px-2.5 text-ui text-ink transition-colors hover:bg-sidebar-hover data-[placeholder]:text-ink-faint",
+        "max-[700px]:min-h-11 inline-flex h-8 items-center justify-between gap-1.5 rounded-control border border-line-strong bg-surface px-2.5 text-ui text-ink transition-colors hover:bg-sidebar-hover data-[placeholder]:text-ink-faint",
         className,
       )}
       {...props}
@@ -45,7 +45,7 @@ export function SelectItem({ className, children, ...props }: ComponentProps<typ
   return (
     <SelectPrimitive.Item
       className={cn(
-        "relative flex cursor-default items-center gap-2 rounded-control py-1.5 pr-2 pl-7 text-ui text-ink outline-none select-none data-[highlighted]:bg-sidebar-hover",
+        "max-[700px]:min-h-11 relative flex cursor-default items-center gap-2 rounded-control py-1.5 pr-2 pl-7 text-ui text-ink outline-none select-none data-[highlighted]:bg-sidebar-hover",
         className,
       )}
       {...props}
