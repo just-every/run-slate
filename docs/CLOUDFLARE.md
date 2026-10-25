@@ -19,7 +19,7 @@ Deployment stores the native owner email, session secret and selected mail provi
 
 ## How things are named
 
-`rer deploy --environment preview` uses Base deploy-kit with `deploy.json`. Names derive from the stable deployment project `just-every/slate`, the selected environment and each resource binding:
+`rer deploy --environment preview` reads `deploy.json` to create your deployment. Resource names use the project `just-every/slate`, your selected environment and the resource’s name in that file:
 
 | Resource | Name for `preview` |
 |---|---|
@@ -28,7 +28,9 @@ Deployment stores the native owner email, session secret and selected mail provi
 | R2 bucket (`FILES`) | `slate-preview-files` |
 | Queue (`JOBS`) | `slate-preview-jobs` |
 
-Base derives the workers.dev origin from the selected account. Resource custody is recorded in `.rer/deploy`; retain these receipts so subsequent deployments can verify ownership. Same-named resources without ownership proof are refused. Deployment requires the owner's authorization and explicit account/token inputs. `--dry-run` validates/builds locally without provider requests. Local `setup` prepares only the loopback app and creates no Cloudflare resources.
+Slate finds your workers.dev address from the Cloudflare account you select; keep the ownership records in `.rer/deploy` so later deployments can verify the resources belong to this installation. A resource with the same name is refused if that ownership cannot be confirmed.
+
+Provide your account ID and API token when you authorize a deployment; use `--dry-run` to check and build locally without contacting Cloudflare. Local `setup` prepares only the app on your computer and creates no Cloudflare resources.
 
 ## What it is likely to cost
 

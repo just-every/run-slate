@@ -34,7 +34,7 @@ For an existing installation, follow [Update your existing wiki](INSTALL.md#upda
 
 ## About the project
 
-The current Slate version is 0.2.0. The [changelog on GitHub](../CHANGELOG.md) lists what it includes. The product requirements are in [CONTRACT.md](../CONTRACT.md). Slate is MIT licensed; the licence is in [LICENSE](../LICENSE).
+The current Slate version is 0.2.0. The [changelog on GitHub](../CHANGELOG.md) lists what it includes. The product requirements are in [project requirements](../CONTRACT.md). Slate is MIT licensed; the licence is in [LICENSE](../LICENSE).
 
 ## Connected file references
 
@@ -42,4 +42,4 @@ Use **Add block → Connected file** in a page to choose a file from your own co
 
 The card fetches the current title, provider-reported owner, modified time and type using each reader's own connected account. **Refresh file** checks again after a rename. A reader whose provider access fails sees only the provider, **Request access** and the original provider link; an unconnected reader also gets **Connect to view**. Slate changes no provider permissions. Deleted files show unavailable without the old title. Disconnecting destroys that member's token; the page keeps its reference and asks for access when opened again.
 
-Only the provider, file ID and stable link are stored in the page. Exports, archives, restored pages and revisions retain that reference, with no file bytes, provider token or cached metadata. Readable exports and public pages show the provider link; they do not fetch connected-account metadata. Attaching a copy remains the separate file-attachment action. [Chest](https://github.com/just-every/run-chest) is the RunEditRun file-storage product; Chest card needs Chest's file-metadata door, not published. Drive and SharePoint evidence uses recorded provider fixtures only; no real provider call or consent was used.
+Only the provider, file ID and stable link are stored in the page. Exports, archives, restored pages and revisions retain that reference, with no file bytes, provider token or cached metadata. Readable exports and public pages show the provider link; they do not fetch connected-account metadata. Attaching a copy remains the separate file-attachment action. The [RunEditRun file-storage product](https://github.com/just-every/run-chest) is not available for connected file cards yet. Drive and SharePoint have been tested with stand-ins, so connect your account and check a file before relying on them.
