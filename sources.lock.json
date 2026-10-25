@@ -944,7 +944,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "5d5c1a99f12a5de417bca41439dcab786f0a3341a1de8f6a31350677d4787b02",
+      "sha256": "59b86664337ce940194d893f44407272dac16c1ce996fc59df6737d406dafbac",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "19b38a260fe9a7d5d0e143a11d428dadfb964235d5b87bded3faf95ad4568318",
+      "sha256": "2013f8e628bc6d736fe5f2a5cef11c248994008d2adf0cf4382a1519bda56f82",
       "executable": false
     },
     "DEMO.md": {
@@ -1020,7 +1020,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "fac46c08542dd80e2cf42287b11bdd17826803c47405ea161e38dcd9d49878c5",
+      "sha256": "d68fe3d48e0657dd44b46c9ecf216bcde87331b409b6c068d05166836be31a58",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -10328,7 +10328,11 @@
       "executable": false
     },
     "tests/e2e/imports/blog-posts.test.ts": {
-      "sha256": "9795dbb06cd7c2b830333619f8fe40ccb3e04c87529c94b4fbec7e0e79200755",
+      "sha256": "d5074a55e5e706d67d536a3e2eae9116fef17e2ce7cc726b7c1c037e1d210fa5",
+      "executable": false
+    },
+    "tests/e2e/imports/drive-sharepoint-import.test.ts": {
+      "sha256": "d8a91dd5e514b84810e6476e0bc06e3a6e192c4dadab6ec93792714eeb98b0e9",
       "executable": false
     },
     "tests/e2e/imports/fixtures/builders.ts": {
