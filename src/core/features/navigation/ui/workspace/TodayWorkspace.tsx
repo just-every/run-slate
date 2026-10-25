@@ -1,3 +1,5 @@
+import { DateStamp } from "../../../../app/ui/displayDate";
+import { notificationText } from "../../../notifications/ui/notificationText";
 import { useFlagshipEnabled } from "../../../../app/ui/LaunchProfile";
 import {PersonalHome} from "./PersonalHome";
 import { useResource } from "../../../../client/useResource";
@@ -9,6 +11,7 @@ interface Notice {
   id: string;
   title: string | null;
   event: string;
+  actor: { displayName: string } | null;
   href: string;
   createdAt: string;
   readAt: string | null;
@@ -36,7 +39,7 @@ function FlagshipToday() {
     return (
       <ul className="outcome-list">
         {items.map((item) => (
-          <li key={item.id}>
+          <li key={item.id} data-event={item.event}>
             <a
               href={item.href}
               onClick={() => {
@@ -47,13 +50,10 @@ function FlagshipToday() {
                 }).catch(() => {});
               }}
             >
-              <span className="outcome-kind">
-                {item.event.replaceAll("-", " ")}
-              </span>
-              <h3>{item.title ?? "Workspace update"}</h3>
-              <time dateTime={item.createdAt}>
-                {new Date(item.createdAt).toLocaleString()}
-              </time>
+              <h3>{notificationText(item)}</h3>
+              
+                
+              <DateStamp value={item.createdAt} />
               <span className="outcome-arrow" aria-hidden="true">
                 ↗
               </span>
@@ -113,7 +113,7 @@ function FlagshipToday() {
             </section>
           ) : null}
         </RequestState>
-        <PersonalHome/>
+        <PersonalHome excludedNotificationIds={data ? [...data.decisions, ...data.contradictions, ...data.notices, ...data.outcomes.flatMap(group => group.items)].map(item => item.id) : []}/>
       </section>
     </>
   );

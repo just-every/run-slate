@@ -1,6 +1,6 @@
+import { shortDate } from "../../../../app/ui/displayDate";
 import { LocalInvitationNotice } from "../../../settings/ui/workspace/LocalInvitationNotice";
 import { AccessExpiry } from "../../../../app/ui/AccessExpiry";
-import { displayDate } from "../../../../app/ui/displayDate";
 import { useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import {
@@ -89,7 +89,6 @@ export function PageSharing({ document }: { document: DocumentView }) {
     <section>
       <h2>Share this page</h2>
       <p className="muted">Invite people to this page. Copying its link does not change who can access it.</p>
-      <p className="muted">Access changes stay in <a href="/app/settings?section=activity">Activity</a>; reviewing them does not restore access.</p>
       <button className="secondary-button"
         type="button"
         onClick={() => {
@@ -114,7 +113,7 @@ export function PageSharing({ document }: { document: DocumentView }) {
           <ul className="grant-list">
             {grants.data?.items.map((grant) => (
               <li key={grant.id}>
-                <span>{name(grant)}{grant.invitationId ? ` · ${grant.status??"Pending"} invitation` : ""}{grant.expiresAt ? ` · ${new Date(grant.expiresAt)<new Date()?"Expired":"Expires"} ${displayDate(grant.expiresAt, true)}` : ""}</span>
+                <span>{name(grant)}{grant.invitationId ? ` · ${grant.status??"Pending"} invitation` : ""}{grant.expiresAt ? ` · ${new Date(grant.expiresAt)<new Date()?"Expired":"Expires"} ${shortDate(grant.expiresAt, true)}` : ""}</span>
                 {grant.revokedAt ? (
                   <span>Revoked {!grant.invitationId?<button disabled={pending} onClick={()=>void save({...grant,expiresAt:null})}>Regrant access</button>:null}</span>
                 ) : (

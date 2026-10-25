@@ -1,0 +1,11 @@
+.slate-app .template-browser { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
+.slate-app .template-browser[data-preview="true"] { grid-template-columns: minmax(240px, 2fr) minmax(0, 3fr); }
+.slate-app .template-list, .slate-app .template-preview { min-width: 0; }
+.slate-app .template-preview-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.slate-app .template-back { margin-bottom: 16px; }
+.slate-app .template-search label { display: grid; gap: 6px; }
+@media (max-width: 700px) {
+  .slate-app .template-browser[data-preview="true"] { grid-template-columns: minmax(0, 1fr); }
+  .slate-app .template-browser[data-preview="true"] > .template-list { display: none; }
+  .slate-app .template-preview-actions > button { min-height: 44px; }
+}

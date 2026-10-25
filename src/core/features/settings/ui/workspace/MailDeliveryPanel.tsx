@@ -1,3 +1,4 @@
+import { shortDate } from "../../../../app/ui/displayDate";
 import { useEffect, useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import {
@@ -69,7 +70,7 @@ export function MailDeliveryPanel() {
                 <p>
                   {item.kind} · {item.state}
                   {item.sentAt
-                    ? ` · ${new Date(item.sentAt).toLocaleString()}`
+                    ? ` · ${shortDate(item.sentAt)}`
                     : ""}
                 </p>
                 {item.errorDetail ? (
@@ -78,7 +79,7 @@ export function MailDeliveryPanel() {
                 {item.nextAttemptAt ? (
                   <p>
                     Next delivery attempt:{" "}
-                    {new Date(item.nextAttemptAt).toLocaleString()}
+                    {shortDate(item.nextAttemptAt)}
                   </p>
                 ) : null}
               </div>

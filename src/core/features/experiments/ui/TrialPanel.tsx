@@ -1,3 +1,4 @@
+import { shortDate } from "../../../app/ui/displayDate";
 import {LearnedMethod} from "./LearnedMethod";
 import { TrialProgress } from "./TrialProgress";
 import { useState } from "react";
@@ -81,8 +82,8 @@ export function TrialPanel({
         <div>
           <dt>Window</dt>
           <dd>
-            {new Date(plan.startsAt).toLocaleDateString()} –{" "}
-            {new Date(plan.endsAt).toLocaleDateString()}
+            {shortDate(plan.startsAt)} –{" "}
+            {shortDate(plan.endsAt)}
           </dd>
         </div>
         <div>

@@ -97,11 +97,8 @@ export function WorkspaceArchive({containerId,embedded}:{containerId?:string;emb
             }}
           >
             <p>
-              This removes the page’s content and revision content permanently.
-              If it has children, Slate will require confirmation of the full
-              list before any deletion. For imported content, this also removes
-              the retained source archive and its import recovery history. Other
-              native pages remain, but that import can no longer be retried or undone.
+              Permanently delete “{selected.title}” and its saved versions. For imported pages,
+              this also deletes the original import, which can no longer be restored or undone.
             </p>
             <label>
               Type the page title

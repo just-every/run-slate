@@ -1,3 +1,4 @@
+import { ListFilters } from "../../../../app/ui/ListFilters";
 import {ContainerWatch} from './ContainerWatch';
 import {ContainerHome} from './ContainerHome';
 import {ContainerBlog} from '../../../blog/ui/ContainerBlog';
@@ -14,7 +15,7 @@ import { mutate, operationKey, errorMessage } from "../../../../client/transport
 import { RequestState } from "../../../../app/ui/RequestState";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import { PageTree, type TreePage } from "../../../../app/ui/PageTree";
-import { AnalyticsPanel } from "../../../analytics/ui/workspace/AnalyticsPanel";
+import { Readership } from "../../../analytics/ui/workspace/Readership";
 import { ContainerSettings } from "./ContainerSettings";
 import { TopBar } from "../../../../app/ui/header/TopBar";
 import { PageTitle } from "../../../../app/ui/header/PageTitle";
@@ -64,6 +65,13 @@ export function ContainerWorkspace({containerId,embedded}:{containerId?:string;e
         >
           Create space
         </button>
+      </div>
+      <ListFilters applied={[
+        ...(archived?[{id:"archived",label:"Archived spaces",remove:()=>{setArchived(false);setSelected(null);}}]:[]),
+        ...(visibility?[{id:"visibility",label:visibilityLabel(visibility),remove:()=>setVisibility("")}]:[]),
+        ...(membership?[{id:"membership",label:"My memberships",remove:()=>setMembership(false)}]:[]),
+        ...(personal?[{id:"personal",label:"Personal spaces",remove:()=>setPersonal(false)}]:[]),
+      ]}>
         <label>
           <input
             type="checkbox"
@@ -75,8 +83,7 @@ export function ContainerWorkspace({containerId,embedded}:{containerId?:string;e
           />
           Show archived spaces
         </label>
-      </div>
-      <div className="action-row"><label>Visibility<select value={visibility} onChange={e=>setVisibility(e.target.value)}><option value="">All</option>{["default","open","closed","private","personal"].map(v=><option key={v} value={v}>{visibilityLabel(v)}</option>)}</select></label><label><input type="checkbox" checked={membership} onChange={e=>setMembership(e.target.checked)}/>My memberships</label><label><input type="checkbox" checked={personal} onChange={e=>setPersonal(e.target.checked)}/>Personal spaces</label></div>
+      <label>Visibility<select value={visibility} onChange={e=>setVisibility(e.target.value)}><option value="">All</option>{["default","open","closed","private","personal"].map(v=><option key={v} value={v}>{visibilityLabel(v)}</option>)}</select></label><label><input type="checkbox" checked={membership} onChange={e=>setMembership(e.target.checked)}/>My memberships</label><label><input type="checkbox" checked={personal} onChange={e=>setPersonal(e.target.checked)}/>Personal spaces</label></ListFilters>
       <RequestState
         loading={spaces.loading}
         error={spaces.error}
@@ -106,27 +113,30 @@ export function ContainerWorkspace({containerId,embedded}:{containerId?:string;e
           action="Create space"
           onClose={() => setCreate(false)}
           onSubmit={async (data) => {
+            const name = String(data.get("name")).trim();
+            const slug = name.normalize("NFKD").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,48);
             const result = await mutate<{ value: { id: string } }>(
               "/api/containers",
               {
                 operationKey: key.current,
-                name: String(data.get("name")),
+                name,
                 description: String(data.get("description")),
                 icon: String(data.get("icon")) || null,
                 visibility: String(data.get("visibility")),
-                key: String(data.get("key")) || null,
+                key: String(data.get("key")) || `${slug || "space"}-${key.current.slice(-8)}`,
               },
             );
             spaces.reload();
             setSelected(result.value.id);
           }}
         >
-          <label>Purpose<select onChange={e=>{const form=e.currentTarget.form;const visibility=form?.elements.namedItem("visibility") as unknown as HTMLSelectElement;if(visibility)visibility.value=e.target.value;}}><option value="private">Private project</option><option value="open">Open team knowledge</option><option value="closed">Restricted team</option></select></label>
-          <label>Short key<input name="key"/></label>
           <label>
             Name
-            <input name="name" required maxLength={200} />
+            <input name="name" required maxLength={200} autoFocus />
           </label>
+          <details><summary>More options</summary>
+          <label>Purpose<select onChange={e=>{const form=e.currentTarget.form;const visibility=form?.elements.namedItem("visibility") as HTMLSelectElement|null;if(visibility)visibility.value=e.target.value;}}><option value="private">Private project</option><option value="open">Open team knowledge</option><option value="closed">Restricted team</option></select></label>
+          <label>Short key<input name="key"/></label>
           <label>
             Description
             <textarea name="description" />
@@ -144,6 +154,7 @@ export function ContainerWorkspace({containerId,embedded}:{containerId?:string;e
               <option value="default">Default workspace access</option>
             </select>
           </label>
+          </details>
         </ActionDialog>
       ) : null}
     </section>
@@ -222,10 +233,7 @@ function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
               updated();
             }}
           />:null}
-          <details>
-            <summary>Readership</summary>
-            <AnalyticsPanel containerId={id} />
-          </details>
+          {tab === "home" ? <Readership key={id} containerId={id} /> : null}
         </section>
       ) : null}
     </RequestState>

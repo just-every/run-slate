@@ -35,7 +35,7 @@ export async function groupMentionJourney(state,people) {
  await people.shot('alice','group comment sent');
  await bob.page.goto(`${origin}/app/inbox`,{waitUntil:'networkidle'});
  assert.equal((await ok(bob.context,origin,'GET','/api/notifications')).items.filter(item=>item.event==='mention'&&item.pageId===pageId).length,1);
- await expect(bob.page.locator('.outcome-list li').filter({hasText:'Launch readiness'}).filter({has:bob.page.locator('.outcome-kind').filter({hasText:/^mention\b/})})).toHaveCount(1);
+ await expect(bob.page.locator('.outcome-list li').filter({hasText:'Launch readiness'}).and(bob.page.locator('[data-event=mention]'))).toHaveCount(1);
  await people.shot('bob','group mention inbox');
 
  // A group mention in an autosaving edit is confirmed before insertion, too.

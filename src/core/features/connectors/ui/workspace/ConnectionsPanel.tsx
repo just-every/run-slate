@@ -68,8 +68,7 @@ export function ConnectionsPanel() {
     <section className="settings-panel">
       <h2>Knowledge, with its context.</h2>
       <p>
-        Paste a HappyToHelp article, Orbit record, Google document, Slack message, or GitHub issue. Slate uses your
-        existing access and asks for sign-in only when needed.
+        Paste a link to bring its content into Slate.
       </p>
       <form
         onSubmit={(e) => {

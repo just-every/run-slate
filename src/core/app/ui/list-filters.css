@@ -1,0 +1,11 @@
+.slate-app .list-filters { display: flex; align-items: start; flex-wrap: wrap; gap: 8px; margin-block: 12px; }
+.slate-app .list-filters > details { min-width: 0; max-width: 100%; }
+.slate-app .list-filters > details[open] { flex-basis: 100%; }
+.slate-app .list-filters > details > summary { display: flex; align-items: center; width: fit-content; min-height: 44px; padding: 8px 14px; border: 1px solid var(--slate-line); border-radius: 5px; cursor: pointer; }
+.slate-app .list-filters > details > summary::after { content: "⌄"; margin-left: 12px; }
+.slate-app .list-filter-fields { display: flex; align-items: end; flex-wrap: wrap; gap: 12px; padding-block: 12px; }
+.slate-app .list-filter-fields > label { display: grid; gap: 6px; min-width: 0; }
+.slate-app .list-filter-fields > label:has(> input[type="checkbox"]) { display: flex; align-items: center; min-height: 44px; gap: 8px; }
+.slate-app .applied-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.slate-app .applied-filters button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--slate-line); border-radius: 5px; }
+@media (max-width: 700px) { .slate-app .list-filter-fields > label { flex: 1 1 100%; } }

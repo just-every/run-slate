@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { ListFilters } from "../../../../app/ui/ListFilters";
+import { DateStamp } from "../../../../app/ui/displayDate";
+import { useRef, useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import { RequestState } from "../../../../app/ui/RequestState";
 type Activity = {
@@ -13,6 +15,7 @@ type Activity = {
   aiRunId?: string;
 };
 export function ActivityWorkspace() {
+  const form = useRef<HTMLFormElement>(null);
   const [filters, setFilters] = useState("");
   const [cursor, setCursor] = useState("");
   const resource = useResource<{
@@ -31,7 +34,7 @@ export function ActivityWorkspace() {
     <section className="settings-panel">
       <h2>What changed.</h2>
       <form
-        className="detail-form"
+        ref={form}
         onSubmit={(event) => {
           event.preventDefault();
           const data = new FormData(event.currentTarget);
@@ -42,6 +45,7 @@ export function ActivityWorkspace() {
           setFilters(params.toString());
         }}
       >
+        <ListFilters applied={[...new URLSearchParams(filters)].map(([id,value])=>({id,label:`${({actorId:"Person",containerId:"Space",kind:"Kind",action:"Action",from:"From",to:"Until"} as Record<string,string>)[id]}: ${id==="actorId"?members.data?.items.find(item=>item.id===value)?.displayName??value:id==="containerId"?containers.data?.items.find(item=>item.id===value)?.name??value:value}`,remove:()=>{const params=new URLSearchParams(filters);params.delete(id);setFilters(params.toString());setCursor("");const field=form.current?.elements.namedItem(id) as HTMLInputElement|HTMLSelectElement|null;if(field)field.value="";}}))}>
         <label>
           Person
           <select name="actorId">
@@ -76,11 +80,11 @@ export function ActivityWorkspace() {
               "decision",
               "run",
             ].map((kind) => (
-              <option key={kind}>{kind}</option>
+              <option key={kind} value={kind}>{kind === "container" ? "Space" : kind.charAt(0).toUpperCase()+kind.slice(1)}</option>
             ))}
           </select>
         </label>
-        <label>Action<input name="action" placeholder="For example pages.properties"/></label>
+        <label>Action<input name="action" placeholder="Find an action"/></label>
         <label>
           From
           <input name="from" type="datetime-local" />
@@ -90,6 +94,7 @@ export function ActivityWorkspace() {
           <input name="to" type="datetime-local" />
         </label>
         <button>Filter activity</button>
+        </ListFilters>
       </form>
       <RequestState
         loading={resource.loading}
@@ -103,9 +108,9 @@ export function ActivityWorkspace() {
                 <strong>{item.actor?.displayName ?? (item.action.startsWith("verification-rules.") ? "Verification rules" : "Former member")}</strong> ·{" "}
                 {item.action.replace(/[._-]/g, " ")}
                 <p>
-                  <time dateTime={item.occurredAt}>
-                    {new Date(item.occurredAt).toLocaleString()}
-                  </time>
+                  
+                    
+                  <DateStamp value={item.occurredAt} />
                   {item.deleted ? (
                     " · Item no longer available"
                   ) : (item.context.pageId || item.target.kind === "page") ? (

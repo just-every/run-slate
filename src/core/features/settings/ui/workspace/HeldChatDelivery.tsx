@@ -1,3 +1,4 @@
+import { DateStamp } from "../../../../app/ui/displayDate";
 import {useState} from 'react';
 import {useResource} from '../../../../client/useResource';
 import {mutate,operationKey,errorMessage} from '../../../../client/transport';
@@ -19,7 +20,7 @@ function HeldList({connection,onResolved}:{connection:ChatConnection;onResolved:
   {history.loading?<p>Loading held sends…</p>:null}
   {history.error?<p role="alert">{errorMessage(history.error)}</p>:null}
   {history.data?.items.map(item=><div key={item.id}>
-   <p>Unconfirmed send from <time dateTime={item.createdAt}>{new Date(item.createdAt).toLocaleString()}</time>{item.failure?` — ${item.failure}`:''}.</p>
+   <p>Unconfirmed send from <DateStamp value={item.createdAt} />{item.failure?` — ${item.failure}`:''}.</p>
    <button disabled={pending} onClick={async()=>{
     setPending(true);setError(undefined);
     try{

@@ -1,3 +1,4 @@
+import { DateStamp } from "../../../../app/ui/displayDate";
 import {HighlightedText} from './SearchHighlight';
 import {formatSearchSnippet} from './formatSearchSnippet';
 import {TrustBadge} from '../TrustBadge';
@@ -19,7 +20,7 @@ export function SearchResults({items}:{items:SearchResultView[]}) {
       <h2>{result.kind==='comment-thread'?'Comment on ':''}<HighlightedText text={result.title} terms={result.highlights}/></h2>
       <p><HighlightedText text={formatSearchSnippet(result.snippet)} terms={result.highlights}/></p>
     </a>
-    {result.trust?<TrustBadge trust={result.trust}/>:<time className="muted" dateTime={result.updatedAt}>Updated {new Date(result.updatedAt).toLocaleDateString()}</time>}
+    {result.trust?<TrustBadge trust={result.trust} showOwner={result.kind!=="comment-thread"}/>:<span>Updated <DateStamp value={result.updatedAt} className="muted" /></span>}
     {result.similarPages?.length?<details className="similar-pages">
       <summary>{result.similarPages.length} similar {result.similarPages.length===1?'page':'pages'}</summary>
       <ul>{result.similarPages.map(item=><li key={item.id}>

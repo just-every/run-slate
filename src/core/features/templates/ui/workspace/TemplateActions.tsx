@@ -1,3 +1,4 @@
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../../../../ui";
 import { useRef, useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import { mutate, operationKey } from "../../../../client/transport";
@@ -33,17 +34,18 @@ export function TemplateActions({
   };
   return (
     <>
-      <div className="action-row">
-        <button className="secondary-button" disabled={!template.permissions?.canManage} onClick={() => start("edit")}>Update from a page</button>
-        <button className="secondary-button" disabled={!template.permissions?.canDuplicate} onClick={() => start("duplicate")}>Duplicate</button>
-        <button className="secondary-button" disabled={!template.permissions?.canManage} onClick={() => start("move")}>Move collection</button>
-        <button className="secondary-button" disabled={!template.permissions?.canManage} onClick={() => start(archived ? "restore" : "archive")}>
-          {archived ? "Restore" : "Archive"}
-        </button>
-        {archived ? (
-          <button className="secondary-button" disabled={!template.permissions?.canManage} onClick={() => start("delete")}>Delete template</button>
-        ) : null}
-      </div>
+      {template.permissions.canManage || template.permissions.canDuplicate ? <DropdownMenu>
+        <DropdownMenuTrigger asChild><button type="button" className="secondary-button">Template actions</button></DropdownMenuTrigger>
+        <DropdownMenuContent>
+          {template.permissions.canManage ? <DropdownMenuItem onSelect={() => start("edit")}>Update from a page</DropdownMenuItem> : null}
+          {template.permissions.canDuplicate ? <DropdownMenuItem onSelect={() => start("duplicate")}>Duplicate</DropdownMenuItem> : null}
+          {template.permissions.canManage ? <>
+            <DropdownMenuItem onSelect={() => start("move")}>Move collection</DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => start(archived ? "restore" : "archive")}>{archived ? "Restore" : "Archive"}</DropdownMenuItem>
+            {archived ? <DropdownMenuItem onSelect={() => start("delete")}>Delete template</DropdownMenuItem> : null}
+          </> : null}
+        </DropdownMenuContent>
+      </DropdownMenu> : null}
       {action ? (
         <ActionDialog
           title={

@@ -1,3 +1,4 @@
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { ScimAccess } from './ScimAccess';
 import { AuditAccess } from './AuditAccess';
 import { WebhookAccess } from './WebhookAccess';
@@ -34,9 +35,9 @@ export function DeveloperAccess() {
           <article aria-label={`Token ${token.name}`}>
             <h4>{token.name}</h4><p>Member: {token.memberName}</p>
             <p>Spaces: {token.scopes.map(scope => `${resource.data!.containers.find(c => c.id === scope.containerId)?.name ?? scope.containerId} (${scope.level})`).join(', ')}</p>
-            <p>Created: <time dateTime={token.createdAt}>{new Date(token.createdAt).toLocaleString()}</time></p>
-            <p>Expires: <time dateTime={token.expiresAt}>{new Date(token.expiresAt).toLocaleString()}</time></p>
-            <p>Last used: {token.lastUsedAt ? <time dateTime={token.lastUsedAt}>{new Date(token.lastUsedAt).toLocaleString()}</time> : 'Never'}</p>
+            <p>Created: <DateStamp value={token.createdAt} /></p>
+            <p>Expires: <DateStamp value={token.expiresAt} /></p>
+            <p>Last used: {token.lastUsedAt ? <DateStamp value={token.lastUsedAt} /> : 'Never'}</p>
             <p>State: {token.revokedAt ? 'Revoked' : token.expiresAt <= new Date().toISOString() ? 'Expired' : 'Active'}</p>
             {!token.revokedAt ? <button type="button" onClick={() => setRevoke(token)}>Revoke {token.name}</button> : null}
           </article>

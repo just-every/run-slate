@@ -12,7 +12,7 @@ export async function starterTemplatesJourney(state) {
   const width = page.viewportSize().width;
   const shot = label => page.screenshot({ path: path.join(root, `.artifacts/ui-convergence/starter-templates-${width}-${label}.png`), fullPage: true });
   const choice = title => page.locator('.template-choice').filter({ has: page.getByRole('heading', { name: title, exact: true }) });
-  const gallery = async () => { await page.goto(origin + '/app/templates', { waitUntil: 'networkidle' }); return page.getByLabel('Category', { exact: true }); };
+  const gallery = async () => { await page.goto(origin + '/app/templates', { waitUntil: 'networkidle' }); await page.locator('.list-filters summary').click(); return page.getByLabel('Category', { exact: true }); };
   let category = await gallery();
   for (const [title, name] of Object.entries(starters)) {
     await category.fill(name);
@@ -44,12 +44,14 @@ export async function starterTemplatesJourney(state) {
   await choice('Retrospective').click();
   const shipped = (await api('/api/templates?category=Meetings')).items.find(item => item.title === 'Retrospective');
   const before = await api(`/api/templates/${shipped.id}`);
-  await expect(page.getByRole('button', { name: 'Update from a page', exact: true })).toBeDisabled();
-  await page.getByRole('button', { name: 'Duplicate', exact: true }).click();
+  await page.getByRole('button', { name: 'Template actions', exact: true }).click();
+  await expect(page.getByRole('menuitem', { name: 'Update from a page', exact: true })).toHaveCount(0);
+  await page.getByRole('menuitem', { name: 'Duplicate', exact: true }).click();
   await page.getByRole('dialog', { name: 'Duplicate template', exact: true }).getByRole('button', { name: 'Duplicate', exact: true }).click();
   await expect(choice('Retrospective copy')).toBeVisible();
   await choice('Retrospective copy').click();
-  await page.getByRole('button', { name: 'Update from a page', exact: true }).click();
+  await page.getByRole('button', { name: 'Template actions', exact: true }).click();
+  await page.getByRole('menuitem', { name: 'Update from a page', exact: true }).click();
   const update = page.getByRole('dialog', { name: 'Update this template', exact: true });
   await update.locator('select[name="sourcePageId"]').selectOption(pageId);
   await update.locator('input[name="title"]').fill('Team retro');

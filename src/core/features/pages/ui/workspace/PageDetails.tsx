@@ -7,7 +7,6 @@ import { PageSharing } from "./PageSharing";
 import { PageAsk } from "./PageAsk";
 import { PageDisplay } from "./PageDisplay";
 import { PagePublication } from "./PagePublication";
-import { AnalyticsPanel } from "../../../analytics/ui/workspace/AnalyticsPanel";
 import { PageStatusPanel } from "../../../page-status/ui/workspace/PageStatusPanel";
 
 /** The side panels of a page, by the `detail` they are opened with, and the name each region carries. */
@@ -18,7 +17,6 @@ export const panelTitles: Record<string, string> = {
   share: "Share page",
   ask: "Ask",
   status: "Page status",
-  readership: "Readership & contributors",
   display: "Display settings",
   publication: "Public access",
 };
@@ -58,11 +56,6 @@ export function PageDetails({
         <section>
           <h2>Page status</h2>
           <PageStatusPanel pageId={document.page.id} revision={revision} workingRevisionId={document.workingRevisionId} canEdit={document.permissions.canEdit} onSaved={reload}/>
-        </section>
-      ) : kind === "readership" ? (
-        <section>
-          <h2>Readership & contributors</h2>
-          <AnalyticsPanel pageId={document.page.id} />
         </section>
       ) : kind === "display" ? (
         <PageDisplay document={document} revision={revision} reload={reload} />

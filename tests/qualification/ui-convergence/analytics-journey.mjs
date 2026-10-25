@@ -14,7 +14,8 @@ export async function analyticsJourney(state, people) {
   await people.bob.page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   const before = await api(`/api/analytics?pageId=${pageId}`);
   assert.equal(before.totalViews, 2); assert.equal(before.uniqueViewers, 2); assert.equal(before.ownPageViews, 1);
-  await openPageAction(people.bob.page, 'Readership & contributors');
+  await openPageAction(people.bob.page, 'Details');
+  await people.bob.page.locator('.right summary').filter({ hasText: /^Readership$/ }).click();
   const panel = people.bob.page.getByRole('region', { name: 'Page readership', exact: true });
   await expect(panel).toContainText('2 views');
   await expect(panel).toContainText('Author views: 1 (included).');

@@ -1,4 +1,4 @@
-import { displayDate } from "../../../../app/ui/displayDate";
+import { shortDate } from "../../../../app/ui/displayDate";
 
 export interface VerificationView {
   state: "current" | "changed" | "lapsed" | null;
@@ -16,7 +16,7 @@ export interface VerificationView {
   openedCurrent: boolean;
 }
 
-const when = (value: string) => displayDate(value, true);
+const when = (value: string) => shortDate(value, true);
 const people = (names: string[]) => names.length <= 1 ? names.join("") : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`;
 
 export function historyHref(pageId: string, revision: string, compare?: string) {

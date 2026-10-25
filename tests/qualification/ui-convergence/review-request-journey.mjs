@@ -45,7 +45,7 @@ export async function reviewRequestJourney(state, people) {
   await people.shot('alice', 'review requested');
 
   await bob.page.goto(`${origin}/app/inbox`, { waitUntil: 'networkidle' });
-  await expect(bob.page.locator('.outcome-list li').filter({ hasText: 'review requested' }).filter({ hasText: 'On-call runbook' })).toHaveCount(1);
+  await expect(bob.page.locator('.outcome-list li').and(bob.page.locator('[data-event=review-requested]')).filter({ hasText: 'On-call runbook' })).toHaveCount(1);
   await bob.page.goto(`${origin}/app/review`, { waitUntil: 'networkidle' });
   const queue = bob.page.getByRole('region', { name: 'Review requests' });
   await expect(queue.getByRole('button', { name: 'Assigned to me (1)' })).toBeVisible();

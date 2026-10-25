@@ -1,3 +1,4 @@
+import { shortDate } from "../../../../app/ui/displayDate";
 import { useEffect, useRef, useState } from 'react';
 import { useWorkspace } from '../../../../app/ui/WorkspaceContext';
 import { RequestState } from '../../../../app/ui/RequestState';
@@ -107,7 +108,7 @@ export function FolderImports() {
       window.dispatchEvent(new Event('slate:navigation-changed'));
     })} /> : null}
     {resource.data?.runs.length ? <>
-      <label>Retained folder imports<select aria-label="Retained folder imports" value={selectedRun} disabled={!!pending} onChange={event => setSelectedRun(event.target.value)}>{resource.data.runs.map(run => <option value={run.id} key={run.id}>{run.state} · {new Date(run.createdAt).toLocaleString()}</option>)}</select></label>
+      <label>Retained folder imports<select aria-label="Retained folder imports" value={selectedRun} disabled={!!pending} onChange={event => setSelectedRun(event.target.value)}>{resource.data.runs.map(run => <option value={run.id} key={run.id}>{run.state} · {shortDate(run.createdAt)}</option>)}</select></label>
       <button className="secondary-button" type="button" disabled={!!pending || report.loading} onClick={() => void act('Refreshing the folder import report…', async () => { await Promise.all([report.reload(), resource.reload()]); })}>Refresh folder import report</button>
     </> : null}
     <RequestState loading={report.loading} error={report.error} retry={() => void report.reload()}>

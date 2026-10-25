@@ -1,5 +1,5 @@
+import { DateStamp } from "../../../../app/ui/displayDate";
 import {useMentionPreview,MentionPreview} from '../../../editor/ui/blocks/MentionPreview';
-import { displayDate } from "../../../../app/ui/displayDate";
 import {ReactionControls} from './ReactionControls';
 import type {PageSelection} from "./selection";
 import {Editable} from "../../../editor/ui/blocks/Editable";
@@ -113,9 +113,9 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
                           ? member.displayName
                           : "Workspace member")}
                     </strong>
-                    <time dateTime={comment.createdAt}>
-                      {displayDate(comment.createdAt, true)}
-                    </time>
+                    
+                      
+                    <DateStamp value={comment.createdAt} />
                   </header>
                   {comment.deletedAt ? (
                     <p className="muted">Comment deleted</p>
@@ -124,7 +124,7 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
                       <p><InlineText value={comment.body ?? []} /></p>
                       <ReactionControls pageId={document.page.id} commentId={comment.id} reactions={resource.data?.reactions??[]} onChanged={resource.reload}/>
                       {comment.updatedAt !== comment.createdAt ? (
-                        <small>Edited <time dateTime={comment.updatedAt}>{displayDate(comment.updatedAt, true)}</time></small>
+                        <small>Edited <DateStamp value={comment.updatedAt} /></small>
                       ) : null}
                       {allowed ? (
                         <div className="comment-actions">

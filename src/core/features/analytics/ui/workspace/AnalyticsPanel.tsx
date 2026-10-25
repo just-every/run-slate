@@ -36,7 +36,6 @@ export function AnalyticsPanel({
   );
   return (
     <section className="analytics-panel" aria-label={pageId ? "Page readership" : "Space readership"}>
-      <h3>Readership</h3>
       <form
         className="detail-form"
         onSubmit={(event) => {

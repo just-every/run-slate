@@ -1,3 +1,4 @@
+import { DateStamp } from "../../../../app/ui/displayDate";
 import { useState } from "react";
 import { useFlagshipEnabled } from "../../../../app/ui/LaunchProfile";
 import { useResource } from "../../../../client/useResource";
@@ -48,10 +49,10 @@ export function ChatNotifications() {
             <p>Delivery: {connection.deliveryMode === "daily" ? "Daily digest" : "Immediate"}.</p>
             <p>Selected events: {selectedChatEvents(connection).map((event) => event.replaceAll("-", " ")).join(", ") || "None"}.</p>
             <p>{connection.lastDeliveredAt ? <>
-              Last delivered: <time dateTime={connection.lastDeliveredAt}>{new Date(connection.lastDeliveredAt).toLocaleString()}</time>
+              Last delivered: <DateStamp value={connection.lastDeliveredAt} />
             </> : "No confirmed delivery yet."}</p>
             <p>{connection.lastFailedAt ? <>
-              Last failed: <time dateTime={connection.lastFailedAt}>{new Date(connection.lastFailedAt).toLocaleString()}</time>
+              Last failed: <DateStamp value={connection.lastFailedAt} />
               {connection.lastFailureReason ? ` — ${connection.lastFailureReason}` : null}
             </> : "No delivery failure recorded."}</p>
             {editing !== connection.id ? (

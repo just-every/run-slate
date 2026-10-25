@@ -42,7 +42,7 @@ try {
   });
   await page.goto(`http://127.0.0.1:4174/app/pages/${created.pageId}`);
   await page.getByRole("button", { name: "Ask", exact: true }).click();
-  await page.getByText("Suggestions & authority", { exact: true }).click();
+  await page.getByText("Suggestions & permissions", { exact: true }).click();
   await page.getByText("Suggested page changes", { exact: true }).click();
   await page.getByText("Suggest a paragraph change", { exact: true }).click();
   await page

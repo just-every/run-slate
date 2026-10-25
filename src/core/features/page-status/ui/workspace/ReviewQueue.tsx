@@ -1,9 +1,9 @@
+import { shortDate } from "../../../../app/ui/displayDate";
 import { useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import { RequestState } from "../../../../app/ui/RequestState";
 import { TopBar } from "../../../../app/ui/header/TopBar";
 import { PageTitle } from "../../../../app/ui/header/PageTitle";
-import { displayDate } from "../../../../app/ui/displayDate";
 import type { ReviewCounts, ReviewFilter, ReviewItem } from "../../review";
 import { BulkVerifyDialog } from "./BulkVerifyDialog";
 import { RequestedReviewQueue } from "./RequestedReviewQueue";
@@ -23,7 +23,7 @@ export const reviewChanged = () => window.dispatchEvent(new Event("slate:review-
 
 function expiryText(item: ReviewItem) {
   if (!item.expiresAt) return "No expiry";
-  return `${item.state === "lapsed" ? "Lapsed" : "Expires"} ${displayDate(item.expiresAt, true)}`;
+  return `${item.state === "lapsed" ? "Lapsed" : "Expires"} ${shortDate(item.expiresAt, true)}`;
 }
 
 function changesText(item: ReviewItem) {
@@ -58,8 +58,7 @@ export function ReviewQueue() {
       <section className="main review-workspace">
         <PageTitle>Needs review</PageTitle>
         <p className="page-lede">
-          Pages whose verification has lapsed, lapses within 14 days, or was made before the page last changed.
-          Nothing here renews by itself: a person reviews the page and verifies it again.
+          Review pages with expired verification, upcoming expiry or recent changes.
         </p>
         <RequestedReviewQueue/>
         <h2>Verification health</h2>
@@ -68,7 +67,7 @@ export function ReviewQueue() {
           {tab("everyone", "Everyone", counts?.everyone)}
           {counts?.noVerifier !== null && counts?.noVerifier !== undefined ? tab("no-verifier", "No active verifier", counts.noVerifier) : null}
         </div>
-        {resource.data?.canBulkVerify ? <p><button type="button" disabled={!selected.length} onClick={() => setBulk(resource.data!.items.filter(i => selected.includes(i.pageId) && i.canVerify && i.openedCurrent))}>Verify selected opened revisions</button> Open each current revision before selecting it.</p> : null}
+        {resource.data?.canBulkVerify && selected.length ? <p><button type="button" onClick={() => setBulk(resource.data!.items.filter(i => selected.includes(i.pageId) && i.canVerify && i.openedCurrent))}>Verify selected opened revisions</button> Open each current revision before selecting it.</p> : null}
         <RequestState loading={resource.loading} error={resource.error} retry={resource.reload}>
           {resource.data?.items.length ? (
             <ul className="archive-list review-list">
@@ -80,7 +79,7 @@ export function ReviewQueue() {
                     <p className="review-facts">
                       <span className="page-status-chip" data-state={item.state}>{stateLabel[item.state]}</span>
                       {item.containerName ? <span>{item.containerName}</span> : null}
-                      <span>Verified by {item.verifier.displayName}{item.verifier.active ? "" : " (no longer a member)"} on {displayDate(item.verifiedAt)}</span>
+                      <span>Verified by {item.verifier.displayName}{item.verifier.active ? "" : " (no longer a member)"} on {shortDate(item.verifiedAt)}</span>
                       <span>{expiryText(item)}</span>
                     </p>
                     <p className="muted">{changesText(item)}</p>

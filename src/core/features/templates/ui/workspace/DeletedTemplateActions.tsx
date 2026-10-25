@@ -1,3 +1,4 @@
+import { shortDate } from "../../../../app/ui/displayDate";
 import { useRef, useState } from "react";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import { mutate, operationKey } from "../../../../client/transport";
@@ -29,7 +30,7 @@ export function DeletedTemplateActions({
           ? "File cleanup is pending. The template contents have been erased."
           : "Deleted"}
         {template.deletedAt
-          ? ` on ${new Date(template.deletedAt).toLocaleString()}`
+          ? ` on ${shortDate(template.deletedAt)}`
           : ""}
         . Existing page copies remain independent.
       </p>

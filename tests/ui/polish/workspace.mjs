@@ -17,6 +17,7 @@ export async function spacesJourney({ page }) {
   await control(create, 'Create space');
   const primary = await create.evaluate(el => ({ primary: el.classList.contains('primary-button'), height: el.getBoundingClientRect().height, bg: getComputedStyle(el).backgroundColor }));
   assert.ok(primary.primary && primary.height <= 52 && primary.bg !== 'rgba(0, 0, 0, 0)', 'Create space is a visible 32–52px primary action');
+  await spaces.locator('.list-filters summary').click();
   for (const label of ['Show archived spaces', 'My memberships', 'Personal spaces']) await checkboxBeside(spaces.getByRole('checkbox', { name: label, exact: true }), label);
   await filterAlignment(spaces, page.viewportSize().width);
   await capture(page, 'spaces-nav', { fullPage: true });
@@ -52,6 +53,7 @@ export async function spacesJourney({ page }) {
       const response = await (await collectionRequest).response();
       assert.ok(response?.ok(), 'Templates receive collection options from their real resource response');
       const collections = await response.json();
+      await spaces.locator('.templates-workspace .list-filters summary').click();
       const collection = spaces.getByRole('combobox', { name: 'Collection', exact: true });
       const expectedOptions = [
         { value: '', label: 'Workspace templates' },

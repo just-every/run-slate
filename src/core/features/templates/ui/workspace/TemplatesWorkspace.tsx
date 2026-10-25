@@ -1,3 +1,5 @@
+import { ListFilters } from "../../../../app/ui/ListFilters";
+import "./templates-workspace.css";
 import {TemplateSnapshotPreview,type TemplatePreviewSnapshot} from './TemplateSnapshotPreview';
 import {DeletedTemplateActions} from './DeletedTemplateActions';
 import { TemplateActions } from "./TemplateActions";
@@ -43,8 +45,22 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
   );
   const [apply, setApply] = useState(false);
   const body = <>
-        <div className="action-row template-filters">
-          <label>
+        <div className="template-browser" data-preview={!!selected}>
+        <div className="template-list">
+        <div className="template-search">          <label>
+            Find a template
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              type="search"
+            />
+          </label>
+</div>
+        <ListFilters applied={[
+          ...(state!=="active"?[{id:"state",label:state==="archived"?"Archived templates":"Deleted templates",remove:()=>{setState("active");setSelected(undefined);}}]:[]),
+          ...(category?[{id:"category",label:category,remove:()=>setCategory("")}]:[]),
+          ...(container!== (defaultContainerId??"")?[{id:"collection",label:containers.data?.items.find(item=>item.id===container)?.name??"Workspace templates",remove:()=>setContainer(defaultContainerId??"")}]:[]),
+        ]}>          <label>
             Show
             <select
               value={state}
@@ -57,14 +73,6 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
               <option value="archived">Archived templates</option>
               <option value="deleted">Deleted templates</option>
             </select>
-          </label>
-          <label>
-            Find a template
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              type="search"
-            />
           </label>
           <label>Category<input value={category} onChange={event=>setCategory(event.target.value)}/></label>
           <label>
@@ -81,7 +89,7 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
               ))}
             </select>
           </label>
-        </div>
+</ListFilters>
         <RequestState
           loading={items.loading}
           error={items.error}
@@ -104,6 +112,7 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
             </p>
           ) : null}
         </RequestState>
+        </div>
         {selected&&state==='deleted'&&items.data?.items.find(item=>item.id===selected)?<DeletedTemplateActions template={items.data.items.find(item=>item.id===selected)!} onChanged={async()=>{setSelected(undefined);await items.reload();}}/>:null}
         {selected&&state!=='deleted' ? (
           <section className="template-preview">
@@ -114,29 +123,20 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
             >
               {preview.data ? (
                 <>
+                  <div className="template-preview-actions">
+                    {preview.data.permissions.canApply ? <button className="primary-button" onClick={() => setApply(true)}>Use this template</button> : null}
+                    <TemplateActions template={preview.data} archived={state === "archived"} onChanged={async () => { await items.reload(); setSelected(undefined); }} />
+                  </div>
+                  <button className="secondary-button template-back" onClick={() => setSelected(undefined)}>Back to templates</button>
                   <h2>{preview.data.title}</h2>
-                  <TemplateActions
-                    template={preview.data}
-                    archived={state === "archived"}
-                    onChanged={async () => {
-                      await preview.reload();
-                      await items.reload();
-                    }}
-                  />
                   <p>{preview.data.description}</p>
                   {preview.data.snapshot?<TemplateSnapshotPreview snapshot={preview.data.snapshot} templateId={preview.data.id} revisionId={preview.data.revisionId}/>:null}
-                  <button
-                    disabled={!preview.data.permissions?.canApply}
-                    className="primary-button"
-                    onClick={() => setApply(true)}
-                  >
-                    Use this template
-                  </button>
                 </>
               ) : null}
             </RequestState>
           </section>
         ) : null}
+        </div>
         {apply && preview.data ? (
           <ActionDialog
             title="Use this template"

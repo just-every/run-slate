@@ -43,8 +43,8 @@ export async function followingJourney(state, people) {
   const following = bob.page.getByRole('region', { name: 'Following' });
   const updates = following.locator('li').filter({ hasText: title });
   await expect(updates).toHaveCount(4);
-  const kinds = (await updates.locator('.outcome-kind').allTextContents()).map(text => text.replace(' · Unread', '')).sort();
-  assert.deepEqual(kinds, ['comment', 'page created', 'page edited', 'page edited']);
+  const kinds = (await updates.evaluateAll(rows => rows.map(row => row.dataset.event))).sort();
+  assert.deepEqual(kinds, ['comment', 'page-created', 'page-edited', 'page-edited']);
   await expect(following.locator('li').filter({ hasText: hidden })).toHaveCount(0);
   await accessible(bob.page, 'home following');
   await people.shot('bob', 'home following');
@@ -52,7 +52,7 @@ export async function followingJourney(state, people) {
   assert.ok(overflow <= 0, `Home does not scroll sideways (${overflow}px).`);
   assert.equal((await ok(bob.context, origin, 'GET', '/api/notifications')).items.filter(item => item.pageId === pageId).length, 4, 'The inbox holds the same four items.');
 
-  await updates.filter({ has: bob.page.locator('.outcome-kind').filter({ hasText: /^comment\b/ }) }).getByRole('link').click();
+  await updates.and(bob.page.locator('[data-event=comment]')).getByRole('link').click();
   await bob.page.waitForURL(url => url.pathname === `/app/pages/${pageId}`);
   await expect(bob.page.getByRole('textbox', { name: 'Page title', exact: true })).toHaveValue(title);
   await people.shot('bob', 'following opened');

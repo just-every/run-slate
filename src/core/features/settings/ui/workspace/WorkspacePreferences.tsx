@@ -87,22 +87,8 @@ export function WorkspacePreferences() {
         {data ? (
           <>
             {member.role === "owner"?<><NavigationSettings/><GroupMentionSettings/></>:null}
-            <h3>{data.name}</h3>
-            <p>{data.description || "No description yet."}</p>
-            <dl className="settings-facts">
-              {policies.map(([id, label, options]) => (
-                <div key={id}>
-                  <dt>{label}</dt>
-                  <dd>
-                    {
-                      options.find(
-                        ([value]) => value === data.policies[id],
-                      )?.[1]
-                    }
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            <h3>{data.mark ? <span aria-hidden="true">{data.mark} </span> : null}{data.name}</h3>
+            {data.description ? <p>{data.description}</p> : null}
             {member.role === "owner" ? (
               <button className="secondary-button" onClick={() => setEditing(true)}>
                 Edit workspace & policies
@@ -153,6 +139,7 @@ export function WorkspacePreferences() {
                     defaultValue={data.description}
                   />
                 </label>
+                <details><summary>Policy profile</summary>
                 {policies.map(([id, label, options]) => (
                   <label key={id}>
                     {label}
@@ -165,6 +152,7 @@ export function WorkspacePreferences() {
                     </select>
                   </label>
                 ))}
+                </details>
                 {(
                   [
                     ["guestAccess", "Guest access"],
@@ -180,10 +168,6 @@ export function WorkspacePreferences() {
                     </select>
                   </label>
                 ))}
-                <p>
-                  Changes affect how pages are shared and published across this
-                  workspace. Existing history remains available.
-                </p>
               </ActionDialog>
             ) : null}
           </>

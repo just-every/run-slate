@@ -41,7 +41,7 @@ export async function touchOperatorJourney(state,touch){
  const source=await state.api(`/api/pages/${reviewed}`);
  await ok(state.context,origin,'POST',`/api/status/requests/page/${reviewed}`,{operationKey:randomUUID(),expectedRevisionId:source.page.revisionId,assigneeKind:'member',assigneeId:'browser-reader',date:new Date(Date.now()+2*86400000).toISOString().slice(0,10),time:'09:00',timezone:'UTC',note:'Confirm the touch incident procedure.'});
  await page.goto(origin+'/app/inbox',{waitUntil:'networkidle'});
- const notice=page.locator('.outcome-list li').filter({hasText:'Touch incident review'}).filter({hasText:'review requested'});
+ const notice=page.locator('.outcome-list li').filter({hasText:'Touch incident review'}).and(page.locator('[data-event=review-requested]'));
  await expect(notice).toHaveCount(1);
  await checkpoint(page,'inbox review item');
  await tap(notice.getByRole('link').first());
