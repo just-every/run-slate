@@ -24,7 +24,7 @@ export function MembersPanel() {
     <section className="settings-panel">
       <h2>Good work is shared.</h2>
       <button type="button" onClick={()=>setDirectory(!directory)}>{directory?"Close people directory":"Browse people and expertise"}</button>
-      {directory?<PeopleDirectory/>:null}
+      {directory?<PeopleDirectory onSaved={members.reload}/>:null}
 
       <button onClick={() => setInvite(true)}>Invite a member</button>
       {sent ? (

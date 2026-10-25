@@ -1,4 +1,6 @@
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
+import {TopBar} from "../core/app/ui/header/TopBar";
+import {PageTitle} from "../core/app/ui/header/PageTitle";
 import { AppShell } from "../core/app/ui/AppShell";
 import { loadWorkspace } from "../core/app/loaders";
 
@@ -18,7 +20,7 @@ export const Route = createFileRoute("/app")({
   },
   head: () => ({ meta: [{ title: "Workspace — Slate" }] }),
   component: AppLayout,
-  notFoundComponent: () => <section className="main"><h1>Not found</h1><p>This address isn’t available.</p><a href="/app">Go to Today</a></section>,
+  notFoundComponent: () => <><TopBar trail={[{label:"Not found"}]}/><section className="main"><PageTitle>Not found</PageTitle><p>This address isn’t available.</p><a href="/app">Go to Today</a></section></>,
 });
 
 function AppLayout() {

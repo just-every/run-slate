@@ -32,7 +32,7 @@ import { PageEditorBody } from "./PageEditorBody";
 import { PageDetails, panelTitles } from "./PageDetails";
 import { PageMoreMenu } from "./PageMoreMenu";
 import { PageTopBar } from "./PageTopBar";
-import { useNewPageArrival } from "./useNewPageArrival";
+import { useNewPageArrival,newPageArrivalScript } from "./useNewPageArrival";
 import { usePageTrail } from "./usePageTrail";
 import type { Crumb } from "../../../../app/ui/header/TopBar";
 
@@ -155,11 +155,19 @@ function LoadedPage({
   },[detail]);
   const [error, setError] = useState<unknown>();
   const titleInput = useRef<HTMLTextAreaElement>(null);
-  useNewPageArrival(titleInput, document.permissions.canEdit);
   const [titleSaving, setTitleSaving] = useState(false);
 
   const [titleFailure, setTitleFailure] = useState<string>();
   const titleAttempt = useRef<{title:string; revision:string; key:string} | undefined>(recovered.current??undefined);
+  const titleDirty=useRef(false);
+  function changeTitle(value:string){
+    titleDirty.current=true;recovered.current=null;
+    setTitle(value);
+    const attempt={title:value,revision:titleAttempt.current?.revision??editor.revision,key:operationKey()};
+    titleAttempt.current=attempt;localStorage.setItem(titleKey,JSON.stringify(attempt));
+    const input=titleInput.current;if(input){input.style.height="auto";input.style.height=`${input.scrollHeight}px`;}
+  }
+  const newPage=useNewPageArrival(titleInput,document.permissions.canEdit,title,changeTitle);
   useEffect(()=>{setDetailState(new URLSearchParams(window.location.search).get("detail") ?? (new URLSearchParams(window.location.search).has("thread")||new URLSearchParams(window.location.search).has("comment")?"comments":null));},[]);
   // A title committed elsewhere replaces the shown title unless this tab is editing it.
   useEffect(() => {
@@ -240,7 +248,7 @@ function LoadedPage({
       await read(async () => result.document);
       setSavedTitle(attempt.title);
       window.dispatchEvent(new Event("slate:navigation-changed"));
-      if(titleAttempt.current?.key===attempt.key){localStorage.removeItem(titleKey);titleAttempt.current=undefined;}
+      if(titleAttempt.current?.key===attempt.key){localStorage.removeItem(titleKey);titleAttempt.current=undefined;titleDirty.current=false;recovered.current=null;}
       else if(titleAttempt.current?.revision===attempt.revision){
         // Later typing follows this tab's confirmed title write, while a remote
         // revision still keeps the ordinary conflict check.
@@ -259,12 +267,12 @@ function LoadedPage({
   }
   const saveTitleRef=useRef(saveTitle);saveTitleRef.current=saveTitle;
   useEffect(()=>{
-    if(title===savedTitle || titleSaving || titleFailure || titleConflict || !document.permissions.canEdit)return;
+    if(!titleDirty.current || title===savedTitle || titleSaving || titleFailure || titleConflict || !document.permissions.canEdit)return;
     const timer=setTimeout(()=>void saveTitleRef.current(),500);
     return()=>clearTimeout(timer);
   },[title,savedTitle,titleSaving,titleFailure,titleConflict,document.permissions.canEdit]);
   useEffect(()=>{
-    const leaving=()=>{void saveTitleRef.current();};
+    const leaving=()=>{if(titleDirty.current)void saveTitleRef.current();};
     window.addEventListener('pagehide',leaving);
     return()=>window.removeEventListener('pagehide',leaving);
   },[]);
@@ -312,13 +320,7 @@ function LoadedPage({
             aria-label="Page title"
             readOnly={!document.permissions.canEdit}
             value={title}
-            onChange={(event) => {
-              setTitle(event.target.value);
-              const attempt={title:event.target.value,revision:titleAttempt.current?.revision??editor.revision,key:operationKey()};
-              titleAttempt.current=attempt;localStorage.setItem(titleKey,JSON.stringify(attempt));
-              event.target.style.height = "auto";
-              event.target.style.height = `${event.target.scrollHeight}px`;
-            }}
+            onChange={event=>changeTitle(event.target.value)}
             onBlur={() => { if (!titleFailure) void saveTitle(); }}
             onKeyDown={(event) => {
               if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {
@@ -328,7 +330,9 @@ function LoadedPage({
               }
             }}
           />
+          {newPage && document.permissions.canEdit ? <script dangerouslySetInnerHTML={{__html:newPageArrivalScript}}/> : null}
           <PageReadMetadata document={document} />
+          {recovered.current && title!==savedTitle ? <SaveStatus state="unsaved" recoveredDraft onRetry={()=>void saveTitle()}/> : null}
           {titleFailure ? <SaveStatus state="failed" failureMessage={titleFailure} onRetry={() => void saveTitle()} /> : null}
           {host?.properties}
           {collaboration.presence.length > 1 ? (
@@ -370,7 +374,7 @@ function LoadedPage({
           {!document.permissions.canEdit?<>{!document.lock ? <p role="status">This page is read-only with your current access.</p> : null}<UnsavedDraft keys={keys} reason={document.lock ? "This page was locked before this text was saved." : "Your access to this page changed to view only before this text was saved."}/></>:null}
           <PageEditorBody
             editor={editor}
-            titleState={titleFailure || titleConflict ? "failed" : titleSaving || title!==savedTitle ? "saving" : undefined}
+            titleState={titleFailure || titleConflict || recovered.current ? "failed" : titleSaving || title!==savedTitle ? "saving" : undefined}
             document={document}
             onAsk={selection=>{if(flagship){setSelection(selection);setDetail("ask");}}}
             onComment={selection=>{setSelection(selection);setDetail("comments");if(selection)reload();}}
