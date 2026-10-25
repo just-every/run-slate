@@ -944,7 +944,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "506df46d9fe96d8192f843945528eb21efcabb1d3f79ea57db7df0105cd2da9e",
+      "sha256": "7efbb90de85c0491a738b617b1ceb8729886192e3c938ff366cf2eb120042481",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "1e520474ddda4c82e307d8d0e435078cb5eb0a83bcd0eb6c189e6c7b9bd36a45",
+      "sha256": "2e5b1ee2362442bbb012f3efaea8ef614d03e359a9539ec3f69ce481fc3c38bb",
       "executable": false
     },
     "DEMO.md": {
@@ -10296,7 +10296,7 @@
       "executable": false
     },
     "tests/e2e/editor/code-cards-journey.ts": {
-      "sha256": "03dbfba292c0b40bb8291a1c11134eb657086348833669a7f3db25b5cf8a967f",
+      "sha256": "a73fb38a9d79d46ce6e57956ef74e31e4b926161a2b24f6e81dd3078991c8b35",
       "executable": false
     },
     "tests/e2e/editor/columns-case.ts": {

@@ -1,3 +1,4 @@
+import contractText from '../../../CONTRACT.md?raw';
 import {env} from 'cloudflare:test';
 import {expect,vi} from 'vitest';
 import {unzipSync,strFromU8} from 'fflate';
@@ -6,6 +7,7 @@ import {resetDeployment} from '../setup/reset-deployment';
 import {seedWorkspace,seedMember,sessionFor} from '../setup/fixtures';
 
 export async function codeCardsHttpJourney(){
+ const gap=contractText.split('\n').find(line=>line.startsWith('| `EMBED-002` |'));expect(gap).toContain('OAuth apps');expect(gap).toContain('self-hosted GitLab');
  await resetDeployment();
  const key=()=>crypto.randomUUID(),{workspaceId}=await seedWorkspace();
  const owner=(await seedMember(workspaceId,{email:'synthetic-slate-1@example.test',displayName:'Alex Owner',role:'owner',isSetupOwner:true})).memberId;
