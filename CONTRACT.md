@@ -1464,7 +1464,7 @@ Once an owner configures a provider and turns AI on (`AI-001`), every member get
 
 *Acceptance:* in the default profile with AI on and a provider fake at the network edge, a browser journey asks a question in search and in a page panel and gets an answer whose every citation opens its exact revision. A follow-up that refers to the first answer only by pronoun ("who owns it?") is answered about the same page. Clicking a suggested follow-up asks it. The conversation reopens from the member's history after a reload, another member cannot list or open it, and deleting it removes it. After the asker loses access to a cited page, the next follow-up does not cite it. With AI off, Ask is absent and search is unchanged (`SEARCH-008`).
 
-*Status:* partial. Workspace answers exist behind the flagship profile (`src/core/features/ai/integration.ts`, `tests/qualification/inquiry/inquiry-mechanics.test.ts`) and are refused in the default profile (`src/core/platform/config/launch-profile.ts`).
+*Status:* partial. Workspace answers exist behind the flagship profile (`src/core/features/ai/integration.ts`, no CI-run proof yet) and are refused in the default profile (`src/core/platform/config/launch-profile.ts`).
 
 #### ANSWER-002 — Answers state their trust.
 Each answer shows, for every cited source, its verification state, owner and last update. It flags disagreement between sources, separates what the sources state from what the model inferred, and gives its uncertainty in words. When the only evidence is lapsed or conflicting, it says so and names the owner to ask, with a one-click review request (`STAT-006`). It prefers current verified sources, using `SEARCH-011`'s verification states and ordering; answer trust is proven by this clause's acceptance, not by `SEARCH-011`'s.
@@ -1522,7 +1522,7 @@ A remote MCP endpoint (Streamable HTTP with OAuth 2.1) exposes search, fetch pag
 
 *Acceptance:* an MCP client conformance run lists the tools, calls each one as two members and asserts access parity with the UI, confirms that a write without a grant becomes a suggestion, and confirms that revoking the client ends its session at once. With a direct-write grant, it assigns, reassigns and completes a task and finds the same notifications and completion record as the UI.
 
-*Status:* partial. An external-agent MCP route with semantic parity exists behind the flagship profile (`src/core/features/external-agent/routes.ts`, `tests/qualification/inquiry/transport-parity.test.ts`); public OAuth client registration does not.
+*Status:* partial. An external-agent MCP route with semantic parity exists behind the flagship profile (`src/core/features/external-agent/routes.ts`, no CI-run proof yet); public OAuth client registration does not.
 
 #### API-004 — App and token administration.
 Owners see every personal access token, OAuth app, MCP client and webhook, with its member, scopes, creation time and last use, and can revoke any of them. Members see and revoke their own. Tokens expire after a default of 90 days. Revocation takes effect on the next request, and every grant and revocation is recorded in activity.
@@ -1747,7 +1747,7 @@ Each agent is an `AI-014` agent record. Its builder can test it against sample q
 
 *Acceptance:* a Workers journey with a provider fake at the network edge builds an agent scoped to one container with the answer and propose-edit tools, and shares it with a group. A group member who can read only half the container asks it a question, and the answer cites only pages that member can read. The agent's proposed edit lands as a suggestion and changes nothing until it is accepted. A page in scope that instructs the agent to publish itself or grant access produces a refusal and no change. A scheduled run posts once to a channel fake, citing only sources its audience can read. Pausing the agent stops its next scheduled run, and exhausting its budget stops it with a notice to its owner. A browser journey at 1440 and 390 builds, tests and shares the agent.
 
-*Status:* partial. Scoped agent records with exact scopes, budgets and run records exist behind the flagship profile (`tests/qualification/inquiry/routing.test.ts`, `AI-014`); there is no agent builder, no scheduled or chat trigger, and nothing runs in the default profile.
+*Status:* partial. Scoped agent records with exact scopes, budgets and run records exist behind the flagship profile (no CI-run proof yet, `AI-014`); there is no agent builder, no scheduled or chat trigger, and nothing runs in the default profile.
 
 ## Honest boundaries
 
@@ -1868,7 +1868,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `BLOCK-009` | Link cards | published | done | `tests/flagship/content/preview.test.ts` |  |
 | `BLOCK-010` | Content queries | published | partial | `tests/qualification/interface/blocks.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/blocks.mjs`. |
 | `LIFE-001` | Lifecycle states | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
-| `LIFE-002` | A draft is private | published | partial | `tests/qualification/inquiry/lifecycle.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/inquiry/lifecycle.test.ts`. |
+| `LIFE-002` | A draft is private | published | partial | — | evidence tests are not loaded by any Verify job or named scheduled job: no CI-run proof yet. |
 | `LIFE-003` | Publish | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
 | `LIFE-004` | Scheduled publish | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
 | `LIFE-005` | Unpublished changes | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
@@ -1987,23 +1987,23 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `LINK-002` | Tombstones | published | partial | `tests/qualification/policies/status-archive.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/status-archive.test.ts`. |
 | `LINK-003` | References follow their target | published | partial | `tests/qualification/backend/page-details.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/page-details.test.ts`. |
 | `LINK-004` | Links respect access | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
-| `AI-001` | Enablement | published | partial | `tests/qualification/inquiry/provider-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-002` | Run lifecycle | published | partial | `tests/qualification/inquiry/lifecycle.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-001` | Enablement | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-002` | Run lifecycle | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `AI-003` | Proposal or bounded delegation | published | partial | `src/core/features/ai/routes.ts` | flagship opt-in only; no journey |
-| `AI-004` | Answer provenance | published | partial | `tests/qualification/inquiry/lifecycle.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-005` | Acceptance and granted mutation | published | partial | `tests/qualification/inquiry/transport-parity.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-006` | Current inputs before use | published | partial | `tests/qualification/inquiry/lifecycle.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-007` | Untrusted content | published | partial | `tests/qualification/inquiry/provider-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-008` | Failure preserves confirmed work | published | partial | `tests/qualification/inquiry/provider-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-009` | Retry | published | partial | `tests/qualification/inquiry/lifecycle.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-010` | Usage record | published | partial | `tests/qualification/inquiry/provider-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-004` | Answer provenance | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-005` | Acceptance and granted mutation | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-006` | Current inputs before use | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-007` | Untrusted content | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-008` | Failure preserves confirmed work | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-009` | Retry | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-010` | Usage record | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `AI-011` | No self-granted authority | published | partial | `src/core/features/ai/routes.ts` | flagship opt-in only; no journey |
-| `AI-012` | Durable budgets | published | partial | `tests/qualification/inquiry/lifecycle.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-013` | Requester and audience boundary | published | partial | `tests/qualification/inquiry/lifecycle.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-014` | Scoped agents | published | partial | `tests/qualification/inquiry/routing.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AI-015` | Workspace answers | published | partial | `tests/qualification/inquiry/inquiry-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-012` | Durable budgets | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-013` | Requester and audience boundary | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-014` | Scoped agents | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-015` | Workspace answers | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `AI-016` | Summaries | published | partial | `src/core/features/ai/routes.ts` | flagship opt-in only; no journey |
-| `AI-017` | Writing with AI | published | partial | `tests/qualification/inquiry/selection-agent.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AI-017` | Writing with AI | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `DEC-001` | A decision is a layer over a page | published | partial | `tests/qualification/decisions/mechanics.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/decisions/mechanics.test.ts`. |
 | `DEC-002` | States | published | partial | `tests/qualification/decisions/mechanics.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/decisions/mechanics.test.ts`. |
 | `DEC-003` | An accepted decision is immutable | published | partial | `tests/qualification/decisions/mechanics.test.ts` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/decisions/mechanics.test.ts`. |
@@ -2016,25 +2016,25 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `SOURCE-002` | Exact passages | published | partial | `tests/flagship/release-clauses/federation/exact-passages.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SOURCE-003` | Scoped claims and authority | published | partial | `tests/qualification/authority/decision-authority.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SOURCE-004` | Live observations | published | partial | `tests/qualification/authority/native-boundaries.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `SOURCE-005` | Revocation and deletion | published | partial | `tests/qualification/authority/evaluation-boundaries.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SOURCE-005` | Revocation and deletion | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SOURCE-006` | Credential lifecycle | published | partial | `tests/qualification/authority/disconnect.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SKILL-001` | Versioned procedure | published | partial | `tests/qualification/authority/skill-disclosure.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `SKILL-002` | Evaluation and activation | published | partial | `tests/qualification/authority/evaluation-boundaries.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `SKILL-002` | Evaluation and activation | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `SKILL-003` | Version transitions | published | partial | `tests/qualification/authority/skill-disclosure.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `EFFECT-001` | Durable effects | published | partial | `tests/qualification/release-restore-authority/restored-effects.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `EFFECT-002` | Consent and product custody | published | partial | `tests/qualification/inquiry/inquiry-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `EFFECT-003` | Impact and maintenance | published | partial | `tests/qualification/inquiry/impact.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `AGENT-001` | Semantic parity | published | partial | `tests/qualification/inquiry/selection-agent.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `EFFECT-002` | Consent and product custody | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `EFFECT-003` | Impact and maintenance | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `AGENT-001` | Semantic parity | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `AGENT-002` | Portable owner interfaces | published | partial | `tests/flagship/release-clauses/portability/owner-views.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `INQ-001` | Open questions | published | partial | `tests/qualification/inquiry/inquiry-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `INQ-002` | Reproducible reasoning | published | partial | `tests/qualification/inquiry/inquiry-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `INQ-003` | Bounded planning | published | partial | `tests/qualification/inquiry/inquiry-mechanics.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `INQ-004` | Routing and ambient discovery | published | partial | `tests/qualification/inquiry/ambient.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `INQ-001` | Open questions | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `INQ-002` | Reproducible reasoning | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `INQ-003` | Bounded planning | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `INQ-004` | Routing and ambient discovery | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `INQ-005` | Economical sustained work | published | partial | `tests/qualification/authority/learned-provenance.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `TRIAL-001` | Predeclared comparison | published | partial | `tests/qualification/inquiry/trial-loop.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `TRIAL-002` | Exposure and safety | published | partial | `tests/qualification/inquiry/trial-loop.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `TRIAL-003` | Outcome classification | published | partial | `tests/qualification/inquiry/trial-loop.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
-| `TRIAL-004` | Reusable learning | published | partial | `tests/qualification/inquiry/semantic-evaluation.test.ts` | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `TRIAL-001` | Predeclared comparison | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `TRIAL-002` | Exposure and safety | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `TRIAL-003` | Outcome classification | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
+| `TRIAL-004` | Reusable learning | published | partial | — | flagship opt-in only (FEATURE_DISABLED in core-wiki) |
 | `FLAG-001` | Complete product gate | published | partial | `tests/flagship/release-clauses/portability/profile-retention.test.ts` | release gate; full flagship and provider evidence pending |
 | `FLAG-002` | Independent evidence | published | partial | `tests/flagship/release-clauses/portability/staged-recovery.test.ts` | release gate; full flagship and provider evidence pending |
 | `FLAG-003` | Value and held-out evaluation | published | partial | `tests/qualification/core/instrumentation.test.ts` | release gate; full flagship and provider evidence pending |
@@ -2143,4 +2143,4 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `KEEP-007` | Onboarding paths | target | missing | — | not implemented |
 | `KEEP-008` | Stale-knowledge sweeps | target | partial | `src/core/features/notifications/events.ts` | see the clause |
 | `KEEP-009` | Measured knowledge health | target | partial | `tests/qualification/core/quality.test.ts` | see the clause |
-| `KEEP-010` | Team-built agents | target | partial | `tests/qualification/inquiry/routing.test.ts` | see the clause |
+| `KEEP-010` | Team-built agents | target | partial | — | see the clause |

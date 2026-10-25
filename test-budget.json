@@ -1,8 +1,8 @@
 {
   "defaultCap": 200,
-  "registrations": 622,
+  "registrations": 585,
   "scope": "Expanded TypeScript-AST inventory of every seed-owned test/it, contract and journeyTest registration under tests/, including nested t.test and every generated for-of/test.each case, including existing planned-clause todos; describe groups and generic wrapper implementation sites are excluded. Vendored modules are excluded. The legacy call-site-only convention is reported separately.",
-  "reason": "Under the owner rule of 25 October 2026 at 12:37Z and main ruling of 26 October 2026 at 22:19Z, this prune reduces registrations from 981 to 630 to 622, comprising 598 ordinary tests and 24 release-wall clause registrations, while the ordinary cap remains 200.",
+  "reason": "Under the owner rule of 25 October 2026 at 12:37Z and main ruling of 26 October 2026 at 22:19Z, this prune reduces registrations from 981 to 630 to 585, comprising 561 ordinary tests and 24 release-wall clause registrations, while the ordinary cap remains 200.",
   "dropCandidates": [
     {
       "file": "tests/flagship/intelligence/native-transport.test.ts",
