@@ -99,5 +99,8 @@
   .slate-app .task-list li > input[type="checkbox"]:disabled { opacity: .5; }
   .slate-app :is(button[role="checkbox"], button[role="switch"]) { min-height: var(--slate-tap-target); }
   .slate-app :is(.home-tasks, .empty-start) > a,
+  .slate-app :where(td, li) > :where(a:only-child),
+  .slate-app .analytics-panel section > a,
+  .slate-app .action-row > a,
   .slate-app .activity-page-link { display: inline-flex; align-items: center; min-height: var(--slate-tap-target); }
 }
