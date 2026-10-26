@@ -1,6 +1,6 @@
 /** One locale and date order for displayed dates and editable access expiry. */
-export function displayDate(value: string, withTime = false) {
-  return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", ...(withTime ? { hour: "2-digit", minute: "2-digit" } as const : {}) }).format(new Date(value));
+export function displayDate(value: string, withTime = false, timeZone?: string) {
+  return new Intl.DateTimeFormat("en-GB", { timeZone, day: "2-digit", month: "short", year: "numeric", ...(withTime ? { hour: "2-digit", minute: "2-digit" } as const : {}) }).format(new Date(value));
 }
 export function dateGroup(day: string, timeZone: string) {
   const today = new Intl.DateTimeFormat("en-CA", { timeZone, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
