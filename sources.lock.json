@@ -1012,11 +1012,11 @@
       "executable": false
     },
     "docs/BACKUP.md": {
-      "sha256": "12fc9d50806dcd595671d6635aad35a61ff4f0a17d4a7ba48fe036f1df52eef0",
+      "sha256": "b2fbf63ee4ccf5ae68cdc5520da157714a6c4c571a9710533a913280d2ea3c42",
       "executable": false
     },
     "docs/CHAT-NOTIFICATIONS.md": {
-      "sha256": "59c80fba9bc921aaef820ae08fd99fb8f709397535323e0c4c398c7a71707a5d",
+      "sha256": "f7d3099d55ae0d6408c07d1dc8860862ed721366bd3a74b8d163b3a6540def9b",
       "executable": false
     },
     "docs/CLAIMS.md": {
@@ -1060,7 +1060,7 @@
       "executable": false
     },
     "docs/OVERVIEW.md": {
-      "sha256": "706becbb32c39afd936a746c34ffcef9eacec36694e4e1fec603f43b11c29b5e",
+      "sha256": "52f56067da05c26e7cc9997aa529c12899dca65d1550e9d239728ccfb5daf103",
       "executable": false
     },
     "docs/release/core-wiki-profile.md": {

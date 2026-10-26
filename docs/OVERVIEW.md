@@ -34,7 +34,7 @@ For an existing installation, follow [Update your existing wiki](INSTALL.md#upda
 
 ## About the project
 
-The current Slate version is 0.2.0. The [changelog on GitHub](../CHANGELOG.md) lists what it includes. The product requirements are in [project requirements](../CONTRACT.md). Slate is MIT licensed; the licence is in [LICENSE](../LICENSE).
+The current Slate version is 0.2.0. The [changelog on GitHub](../CHANGELOG.md) lists what it includes. The [product requirements](../CONTRACT.md) are there too. Slate is MIT licensed; the licence is in [LICENSE](../LICENSE).
 
 ## Connected file references
 
