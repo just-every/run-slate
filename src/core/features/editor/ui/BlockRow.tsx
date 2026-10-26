@@ -172,7 +172,7 @@ export function BlockRow({
             state="failed"
           />
         ) : null}
-
+        {status === "saving" ? <SaveStatus className="mt-1" state="saving" /> : null}
 
         {status === "offline" ? <SaveStatus className="mt-1" state="offline" onRetry={onRetrySave} /> : null}
 

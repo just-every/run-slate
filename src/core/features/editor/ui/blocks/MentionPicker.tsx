@@ -44,7 +44,7 @@ export const MentionPicker=forwardRef<MentionPickerHandle,Props>(function Mentio
   const confirm=()=>{if(preview){onSelect(preview.span);onClose();}};
   useImperativeHandle(ref,()=>({keyDown(key){
     if(key==='Escape'){onClose();return true;}
-    if(key===' '&&!choices.length&&!preview){onClose();return false;}
+    if(key===' '&&!choices.length&&!preview&&!people.loading&&!pages.loading&&!groups.loading){onClose();return false;}
     if(key==='ArrowDown'||key==='ArrowUp'){setActive(at=>(at+(key==='ArrowDown'?1:-1)+choices.length)%Math.max(1,choices.length));return true;}
     if(key==='Enter'||key==='Tab'){if(preview)confirm();else if(choices[index])void choose(choices[index]);else onClose();return true;}
     return false;
