@@ -100,7 +100,7 @@ Only owners can configure, test, run or remove destinations, with a recent sign-
 
 A run makes the same complete workspace ZIP as manual export, uploads it in parts and checks its size and SHA256 by reading it back. Only then can it remove older backups listed in this destination’s successful run history; other bucket objects are untouched.
 
-If the owner cannot export the whole workspace, nothing is uploaded, and a saved run record prevents simultaneous or restarted schedules from making another backup for the same period. An interrupted run is marked failed; wait for the next period or choose **Run now** to try again.
+If the owner cannot export the whole workspace, nothing is uploaded. A saved run record stops simultaneous or restarted schedules from making a second backup for the same period. An interrupted run is marked failed; wait for the next period or choose **Run now** to try again.
 
 Each destination shows its last success and current safe failure. Each failed run gives every active owner one in-app notice; a later successful run clears the current failure while retaining run history. Email failure delivery is not available yet.
 

@@ -40,7 +40,7 @@ Migration 0045 extends the existing registered `chat_connections` table and remo
 
 Slack and Teams delivery has been tested with stand-ins, not yet against a live workspace. After connecting, trigger a selected event in a private test channel and confirm the message arrives; Slack needs its bot invited and every person matched to an active Slate member, and Teams needs a licensed posting user.
 
-For Nook, set your installation’s HTTPS address in `NOOK_NOTIFICATION_ORIGIN`, or provide its approved `NOOK_NOTIFIER` binding; without either, you cannot connect. Delivery has been tested with stand-ins only, so confirm a message arrives in your channel before relying on it.
+For Nook, set `NOOK_NOTIFICATION_ORIGIN` to your Nook server's HTTPS address, or provide the approved `NOOK_NOTIFIER` binding; without either, you cannot connect. Delivery has been tested with stand-ins only, so confirm a message arrives in your channel before relying on it.
 
 Nook groups later events for the same page into its first message’s thread within 24 hours, and checks its delivery record before resolving an uncertain send without posting again. If that record is missing or cannot be checked, the send stays held; choose **Acknowledge without resending** after checking the channel, which keeps the unclear outcome and any unfinished message updates on record.
 
