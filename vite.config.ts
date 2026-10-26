@@ -2,13 +2,13 @@ import { seedIcons } from "@runeditrun/rer/seed-icons";
 import { demoSockets } from "./modules/demo/vite.mjs";
 import { existsSync } from "node:fs";
 import { isAbsolute, relative, resolve, sep } from "node:path";
+import { pathToFileURL } from "node:url";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import { loadLocalSettings, localPaths } from "./scripts/installer/settings.mjs";
-import { readBusinessCarry, businessCarryWatch } from "./scripts/installer/business-carry.mjs";
 import { archiveOutputGuard } from "@runeditrun/rer/archive-output";
 import { docsSite } from "./src/core/features/docs/build/plugin.ts";
 
@@ -21,7 +21,12 @@ export default defineConfig(async ({ command }) => {
   // guard reads the served folders even right after `rer reset`.
   let missingSettings: unknown;
   const local = command === 'serve' ? await loadLocalSettings(process.cwd()).catch(error => { missingSettings = error; return undefined; }) : undefined;
-  const business = command === 'serve' && process.env.RER_DEMO !== '1' ? await readBusinessCarry(process.cwd()) : null;
+  const carry = command === 'serve' && process.env.RER_DEMO !== '1'
+    ? await import(pathToFileURL(resolve('scripts/installer/business-carry.mjs')).href) as {
+      readBusinessCarry(root: string): Promise<string | null>;
+      businessCarryWatch(root: string): Plugin;
+    } : null;
+  const business = carry ? await carry.readBusinessCarry(process.cwd()) : null;
   // Wrangler reloads .dev.vars after config.vars; keep the selected origin in
   // its own binding so the runtime can apply it after saved settings load.
   if (local && process.env.RER_DEV_ORIGIN) Object.assign(local, { RER_DEV_ORIGIN: process.env.RER_DEV_ORIGIN });
@@ -56,7 +61,7 @@ export default defineConfig(async ({ command }) => {
   plugins: [
     seedIcons(),
     demoSockets(),
-    ...(command === 'serve' && process.env.RER_DEMO !== '1' ? [businessCarryWatch(process.cwd())] : []),
+    ...(carry ? [carry.businessCarryWatch(process.cwd())] : []),
     ...(missingSettings ? [{ name: 'slate-local-settings', configureServer() { throw missingSettings; } }] : []),
     cloudflare({
       inspectorPort: process.env.SLATE_INSPECTOR_PORT ? Number(process.env.SLATE_INSPECTOR_PORT) : false,
