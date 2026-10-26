@@ -4,7 +4,9 @@ import { fixture, state, env, key } from './fixture';
 import { createPage, updatePage } from '../../../src/core/features/pages/service';
 import { seedContainerGrant } from '../../e2e/setup/fixtures';
 
-test('Relocation SAVE-003 LIFE-003 stale subtree or destination preview refuses without partial writes', async () => {
+test("Relocation publication confirmation refuses stale, revoked and concurrently changed reviewed state", async () => {
+  const cases = [
+    { name: "Relocation SAVE-003 LIFE-003 stale subtree or destination preview refuses without partial writes", run: async () => {
  let firstCase=true;
  for (const change of ['root', 'child', 'new-descendant', 'destination-reader'] as const){
  if(!firstCase)await resetDeployment();
@@ -30,9 +32,8 @@ test('Relocation SAVE-003 LIFE-003 stale subtree or destination preview refuses 
   if (change !== 'destination-reader') expect(await response.json()).toMatchObject({ code: 'PUBLICATION_PREVIEW_CHANGED' });
   expect(await state()).toEqual(before);
  }
-});
-
-test('Relocation SHARE-007 SAVE-005 destination revocation blocks confirmation or replay at either boundary', async () => {
+} },
+    { name: "Relocation SHARE-007 SAVE-005 destination revocation blocks confirmation or replay at either boundary", run: async () => {
  let firstCase=true;
  for (const timing of ['before-confirm', 'after-commit']){
  if(!firstCase)await resetDeployment();
@@ -45,9 +46,8 @@ test('Relocation SHARE-007 SAVE-005 destination revocation blocks confirmation o
   const before = await state(), response = await f.request('/publish', input);
   expect(response.status).toBe(404); expect(await state()).toEqual(before);
  }
-});
-
-test('Relocation ACT-001 concurrent subtree or destination race rolls back receipt, publication and subtree writes', async () => {
+} },
+    { name: "Relocation ACT-001 concurrent subtree or destination race rolls back receipt, publication and subtree writes", run: async () => {
  let firstCase=true;
  for (const race of ['destination-acl', 'child-revision', 'new-child', 'public-exposure']){
  if(!firstCase)await resetDeployment();
@@ -71,4 +71,11 @@ test('Relocation ACT-001 concurrent subtree or destination race rolls back recei
     expect(await state()).toEqual(before);
   } finally { await env.DB.exec('DROP TRIGGER q9_publication_race;'); }
  }
+} }
+  ];
+  for (const entry of cases) {
+    await resetDeployment();
+    try { await entry.run(); }
+    catch (cause) { throw new Error(`Case ${entry.name} failed`, { cause }); }
+  }
 });
