@@ -6,6 +6,7 @@ export async function fixtureFirstOwner(runtime,context){
  await runtime.sql(`INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES('qualification-workspace','Fixture pre-wizard','', '${now}','${now}','fixture-revision'); INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('qualification-owner','qualification-workspace','qualification-owner@test.invalid','Qualification owner','QO','owner','member','active',1,'${now}','${now}');`);
  const page=await context.newPage();await signInBrowser(page,runtime.origin,'qualification-owner@test.invalid');
  await page.getByRole('heading',{name:'Name this workspace',exact:true}).waitFor();
+ await page.getByLabel('Your name',{exact:true}).fill('Qualification Owner');
  await page.getByLabel('Workspace name',{exact:true}).fill('Qualification workspace');await page.getByRole('button',{name:'Continue',exact:true}).click();
  await page.getByRole('textbox',{name:'Space name',exact:true}).fill('Qualification container');await page.getByLabel('First page title').fill('Qualification first page');await page.getByRole('button',{name:'Continue',exact:true}).click();await page.getByRole('button',{name:'Skip this step'}).click();
  await page.waitForLoadState('networkidle');

@@ -1,6 +1,6 @@
+import {PendingInvitations,type PendingInvitation} from './PendingInvitations';
 import {PeopleDirectory} from './PeopleDirectory';
 import { MailDeliveryPanel } from "./MailDeliveryPanel";
-import { LocalInvitationNotice } from "./LocalInvitationNotice";
 import { GuestsPanel } from './GuestsPanel';
 import { useState } from "react";
 import { useResource } from "../../../../client/useResource";
@@ -14,23 +14,22 @@ export function MembersPanel() {
   const owner = member.role === "owner";
   const members = useResource<{ items: MemberView[] }>("/api/members");
   const groups = useResource<{ items: GroupView[] }>(owner?"/api/groups":null);
+  const invitations=useResource<{items:PendingInvitation[]}>(owner?"/api/invitations":null);
   const [directory,setDirectory]=useState(false);
   const [invite, setInvite] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [sent, setSent] = useState("");
   const [remove, setRemove] = useState<MemberView>();
   const [group, setGroup] = useState<GroupView | "new">();
   return (
     <section className="settings-panel">
       <h2>Good work is shared.</h2>
       <button type="button" onClick={()=>setDirectory(!directory)}>{directory?"Close people directory":"Browse people and expertise"}</button>
-      {directory?<PeopleDirectory/>:null}
-      {localDevelopment ? <LocalInvitationNotice /> : null}
+      {directory?<PeopleDirectory onSaved={members.reload}/>:null}
+
       <button onClick={() => setInvite(true)}>Invite a member</button>
       {sent ? (
         <p role="status">
-          {localDevelopment
-            ? "Invitation request accepted locally. No email was sent. The recipient cannot sign in from this request; send a new invitation from a hosted installation to give them access."
-            : "Invitation request accepted. Delivery follows the workspace’s mail configuration."}
+          {`Invitation sent to ${sent}`}
         </p>
       ) : null}
       <RequestState
@@ -54,7 +53,7 @@ export function MembersPanel() {
           ))}
         </ul>
       </RequestState>
-      {owner ? <GuestsPanel localDevelopment={localDevelopment}/> : null}
+      {owner ? <><PendingInvitations resource={invitations}/><GuestsPanel onInvited={invitations.reload}/></> : null}
       {localDevelopment||!owner ? null : <MailDeliveryPanel/>}
       <h3>Groups</h3>
       {owner ? (
@@ -82,7 +81,7 @@ export function MembersPanel() {
       {invite ? (
         <ActionDialog
           title="Invite a member"
-          action={localDevelopment ? "Record invitation locally" : "Send invitation"}
+          action="Send invitation"
           onClose={() => setInvite(false)}
           onSubmit={async (data) => {
             await mutate("/api/invitations", {
@@ -90,10 +89,11 @@ export function MembersPanel() {
               email: String(data.get("email")),
               kind: "member",
             });
-            setSent(true);
+            setSent(String(data.get("email")));
+            if(owner)await invitations.reload();
           }}
         >
-          {localDevelopment ? <LocalInvitationNotice /> : null}
+
           <label>
             Email
             <input type="email" name="email" required />

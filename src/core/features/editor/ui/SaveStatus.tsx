@@ -6,8 +6,6 @@ export type SaveStatusState = "saving" | "saved" | "failed" | "offline" | "unsav
 
 export interface SaveStatusProps {
   state: SaveStatusState;
-  /** Shown beside Saved once the write and its activity entry are committed. */
-  savedAtLabel?: string;
   /** Names the failure. Required by `SAVE-002` when the state is failed. */
   failureMessage?: string;
   onRetry?: () => void;
@@ -20,7 +18,6 @@ const iconClass = "size-3.5 shrink-0";
 
 export function SaveStatus({
   state,
-  savedAtLabel,
   failureMessage,
   onRetry,
   recoveredDraft = false,
@@ -41,8 +38,8 @@ export function SaveStatus({
 
       {state === "saved" ? (
         <span className="flex items-center gap-1.5 text-ink-muted">
-          <CircleCheck aria-hidden="true" className={cn(iconClass, "text-good")} />
-          Saved{savedAtLabel ? ` ${savedAtLabel}` : ""}
+          <CircleCheck aria-hidden="true" className={iconClass} />
+          Saved
         </span>
       ) : null}
 

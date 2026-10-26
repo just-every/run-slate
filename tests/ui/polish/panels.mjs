@@ -60,10 +60,10 @@ export async function pagePanelsJourney({ page, origin, api, modelRequests }, pa
   await panel.locator('summary').filter({ hasText: /^Invite by email$/ }).click();
   await panel.locator('summary').filter({ hasText: /^Advanced access$/ }).click();
   await panel.locator('summary').filter({ hasText: /^Expiry & removal$/ }).first().click();
-  await expect(panel.getByRole('button', { name: 'Record invitation locally', exact: true })).toBeVisible();
+  await expect(panel.getByRole('button', { name: 'Send invitation', exact: true })).toBeVisible();
   await expect(panel.getByRole('button', { name: 'Remove access', exact: true }).first()).toBeVisible();
-  await panel.getByRole('button', { name: 'Record invitation locally', exact: true }).scrollIntoViewIfNeeded();
-  await capture(page, 'share-panel-expanded', { fullPage: true, requiredControls: ['Record invitation locally'] });
+  await panel.getByRole('button', { name: 'Send invitation', exact: true }).scrollIntoViewIfNeeded();
+  await capture(page, 'share-panel-expanded', { fullPage: true, requiredControls: ['Send invitation'] });
   await panel.getByRole('button', { name: 'Remove access', exact: true }).first().scrollIntoViewIfNeeded();
   await capture(page, 'share-panel-removal', { fullPage: true, requiredControls: ['Remove access'] });
   await closeDetails(page);

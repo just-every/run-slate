@@ -25,11 +25,16 @@ import { Route as DocsIndexRouteImport } from './routes/docs.index'
 import { Route as DocsSlugRouteImport } from './routes/docs.$slug'
 import { Route as AppContainersIndexRouteImport } from './routes/app.containers.index'
 import { Route as AppContainersContainerIdRouteImport } from './routes/app.containers.$containerId'
+import { Route as AppDatabasesIndexRouteImport } from './routes/app.databases.index'
 import { Route as AppDecisionsIndexRouteImport } from './routes/app.decisions.index'
 import { Route as AppDecisionsDecisionIdRouteImport } from './routes/app.decisions.$decisionId'
 import { Route as AppInquiriesInquiryIdRouteImport } from './routes/app.inquiries.$inquiryId'
+import { Route as AppPagesIndexRouteImport } from './routes/app.pages.index'
 import { Route as AppPagesPageIdRouteImport } from './routes/app.pages.$pageId'
+import { Route as AppProfileIndexRouteImport } from './routes/app.profile.index'
+import { Route as AppRecordsIndexRouteImport } from './routes/app.records.index'
 import { Route as AppRunsRunIdRouteImport } from './routes/app.runs.$runId'
+import { Route as AppSpacesIndexRouteImport } from './routes/app.spaces.index'
 import { Route as AppTemplatesIndexRouteImport } from './routes/app.templates.index'
 import { Route as AppTemplatesTemplateIdRouteImport } from './routes/app.templates.$templateId'
 import { Route as AppDatabasesDatabaseIdIndexRouteImport } from './routes/app.databases.$databaseId.index'
@@ -116,6 +121,11 @@ const AppContainersContainerIdRoute =
     path: '/$containerId',
     getParentRoute: () => AppContainersRoute,
   } as any)
+const AppDatabasesIndexRoute = AppDatabasesIndexRouteImport.update({
+  id: '/databases/',
+  path: '/databases/',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppDecisionsIndexRoute = AppDecisionsIndexRouteImport.update({
   id: '/decisions/',
   path: '/decisions/',
@@ -131,14 +141,34 @@ const AppInquiriesInquiryIdRoute = AppInquiriesInquiryIdRouteImport.update({
   path: '/inquiries/$inquiryId',
   getParentRoute: () => AppRoute,
 } as any)
+const AppPagesIndexRoute = AppPagesIndexRouteImport.update({
+  id: '/pages/',
+  path: '/pages/',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppPagesPageIdRoute = AppPagesPageIdRouteImport.update({
   id: '/pages/$pageId',
   path: '/pages/$pageId',
   getParentRoute: () => AppRoute,
 } as any)
+const AppProfileIndexRoute = AppProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRecordsIndexRoute = AppRecordsIndexRouteImport.update({
+  id: '/records/',
+  path: '/records/',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppRunsRunIdRoute = AppRunsRunIdRouteImport.update({
   id: '/runs/$runId',
   path: '/runs/$runId',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSpacesIndexRoute = AppSpacesIndexRouteImport.update({
+  id: '/spaces/',
+  path: '/spaces/',
   getParentRoute: () => AppRoute,
 } as any)
 const AppTemplatesIndexRoute = AppTemplatesIndexRouteImport.update({
@@ -186,7 +216,12 @@ export interface FileRoutesByFullPath {
   '/app/runs/$runId': typeof AppRunsRunIdRoute
   '/app/templates/$templateId': typeof AppTemplatesTemplateIdRoute
   '/app/containers/': typeof AppContainersIndexRoute
+  '/app/databases/': typeof AppDatabasesIndexRoute
   '/app/decisions/': typeof AppDecisionsIndexRoute
+  '/app/pages/': typeof AppPagesIndexRoute
+  '/app/profile/': typeof AppProfileIndexRoute
+  '/app/records/': typeof AppRecordsIndexRoute
+  '/app/spaces/': typeof AppSpacesIndexRoute
   '/app/templates/': typeof AppTemplatesIndexRoute
   '/app/databases/$databaseId/': typeof AppDatabasesDatabaseIdIndexRoute
   '/app/databases/$databaseId/records/$recordId': typeof AppDatabasesDatabaseIdRecordsRecordIdRoute
@@ -211,7 +246,12 @@ export interface FileRoutesByTo {
   '/app/runs/$runId': typeof AppRunsRunIdRoute
   '/app/templates/$templateId': typeof AppTemplatesTemplateIdRoute
   '/app/containers': typeof AppContainersIndexRoute
+  '/app/databases': typeof AppDatabasesIndexRoute
   '/app/decisions': typeof AppDecisionsIndexRoute
+  '/app/pages': typeof AppPagesIndexRoute
+  '/app/profile': typeof AppProfileIndexRoute
+  '/app/records': typeof AppRecordsIndexRoute
+  '/app/spaces': typeof AppSpacesIndexRoute
   '/app/templates': typeof AppTemplatesIndexRoute
   '/app/databases/$databaseId': typeof AppDatabasesDatabaseIdIndexRoute
   '/app/databases/$databaseId/records/$recordId': typeof AppDatabasesDatabaseIdRecordsRecordIdRoute
@@ -239,7 +279,12 @@ export interface FileRoutesById {
   '/app/runs/$runId': typeof AppRunsRunIdRoute
   '/app/templates/$templateId': typeof AppTemplatesTemplateIdRoute
   '/app/containers/': typeof AppContainersIndexRoute
+  '/app/databases/': typeof AppDatabasesIndexRoute
   '/app/decisions/': typeof AppDecisionsIndexRoute
+  '/app/pages/': typeof AppPagesIndexRoute
+  '/app/profile/': typeof AppProfileIndexRoute
+  '/app/records/': typeof AppRecordsIndexRoute
+  '/app/spaces/': typeof AppSpacesIndexRoute
   '/app/templates/': typeof AppTemplatesIndexRoute
   '/app/databases/$databaseId/': typeof AppDatabasesDatabaseIdIndexRoute
   '/app/databases/$databaseId/records/$recordId': typeof AppDatabasesDatabaseIdRecordsRecordIdRoute
@@ -268,7 +313,12 @@ export interface FileRouteTypes {
     | '/app/runs/$runId'
     | '/app/templates/$templateId'
     | '/app/containers/'
+    | '/app/databases/'
     | '/app/decisions/'
+    | '/app/pages/'
+    | '/app/profile/'
+    | '/app/records/'
+    | '/app/spaces/'
     | '/app/templates/'
     | '/app/databases/$databaseId/'
     | '/app/databases/$databaseId/records/$recordId'
@@ -293,7 +343,12 @@ export interface FileRouteTypes {
     | '/app/runs/$runId'
     | '/app/templates/$templateId'
     | '/app/containers'
+    | '/app/databases'
     | '/app/decisions'
+    | '/app/pages'
+    | '/app/profile'
+    | '/app/records'
+    | '/app/spaces'
     | '/app/templates'
     | '/app/databases/$databaseId'
     | '/app/databases/$databaseId/records/$recordId'
@@ -320,7 +375,12 @@ export interface FileRouteTypes {
     | '/app/runs/$runId'
     | '/app/templates/$templateId'
     | '/app/containers/'
+    | '/app/databases/'
     | '/app/decisions/'
+    | '/app/pages/'
+    | '/app/profile/'
+    | '/app/records/'
+    | '/app/spaces/'
     | '/app/templates/'
     | '/app/databases/$databaseId/'
     | '/app/databases/$databaseId/records/$recordId'
@@ -448,6 +508,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppContainersContainerIdRouteImport
       parentRoute: typeof AppContainersRoute
     }
+    '/app/databases/': {
+      id: '/app/databases/'
+      path: '/databases'
+      fullPath: '/app/databases/'
+      preLoaderRoute: typeof AppDatabasesIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/decisions/': {
       id: '/app/decisions/'
       path: '/decisions'
@@ -469,6 +536,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppInquiriesInquiryIdRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/pages/': {
+      id: '/app/pages/'
+      path: '/pages'
+      fullPath: '/app/pages/'
+      preLoaderRoute: typeof AppPagesIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/pages/$pageId': {
       id: '/app/pages/$pageId'
       path: '/pages/$pageId'
@@ -476,11 +550,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPagesPageIdRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/profile/': {
+      id: '/app/profile/'
+      path: '/profile'
+      fullPath: '/app/profile/'
+      preLoaderRoute: typeof AppProfileIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/records/': {
+      id: '/app/records/'
+      path: '/records'
+      fullPath: '/app/records/'
+      preLoaderRoute: typeof AppRecordsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/runs/$runId': {
       id: '/app/runs/$runId'
       path: '/runs/$runId'
       fullPath: '/app/runs/$runId'
       preLoaderRoute: typeof AppRunsRunIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/spaces/': {
+      id: '/app/spaces/'
+      path: '/spaces'
+      fullPath: '/app/spaces/'
+      preLoaderRoute: typeof AppSpacesIndexRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/templates/': {
@@ -543,7 +638,12 @@ interface AppRouteChildren {
   AppPagesPageIdRoute: typeof AppPagesPageIdRoute
   AppRunsRunIdRoute: typeof AppRunsRunIdRoute
   AppTemplatesTemplateIdRoute: typeof AppTemplatesTemplateIdRoute
+  AppDatabasesIndexRoute: typeof AppDatabasesIndexRoute
   AppDecisionsIndexRoute: typeof AppDecisionsIndexRoute
+  AppPagesIndexRoute: typeof AppPagesIndexRoute
+  AppProfileIndexRoute: typeof AppProfileIndexRoute
+  AppRecordsIndexRoute: typeof AppRecordsIndexRoute
+  AppSpacesIndexRoute: typeof AppSpacesIndexRoute
   AppTemplatesIndexRoute: typeof AppTemplatesIndexRoute
   AppDatabasesDatabaseIdIndexRoute: typeof AppDatabasesDatabaseIdIndexRoute
   AppDatabasesDatabaseIdRecordsRecordIdRoute: typeof AppDatabasesDatabaseIdRecordsRecordIdRoute
@@ -564,7 +664,12 @@ const AppRouteChildren: AppRouteChildren = {
   AppPagesPageIdRoute: AppPagesPageIdRoute,
   AppRunsRunIdRoute: AppRunsRunIdRoute,
   AppTemplatesTemplateIdRoute: AppTemplatesTemplateIdRoute,
+  AppDatabasesIndexRoute: AppDatabasesIndexRoute,
   AppDecisionsIndexRoute: AppDecisionsIndexRoute,
+  AppPagesIndexRoute: AppPagesIndexRoute,
+  AppProfileIndexRoute: AppProfileIndexRoute,
+  AppRecordsIndexRoute: AppRecordsIndexRoute,
+  AppSpacesIndexRoute: AppSpacesIndexRoute,
   AppTemplatesIndexRoute: AppTemplatesIndexRoute,
   AppDatabasesDatabaseIdIndexRoute: AppDatabasesDatabaseIdIndexRoute,
   AppDatabasesDatabaseIdRecordsRecordIdRoute:

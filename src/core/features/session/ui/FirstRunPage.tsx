@@ -8,7 +8,8 @@ import { clearDraft, readDraft, writeDraft } from "./first-run-draft";
 import { mutate, operationKey, errorMessage } from "../../../client/transport";
 import { useWorkspace } from "../../../app/ui/WorkspaceContext";
 export function FirstRunPage({ owner }: { owner: string }) {
-  const { localDevelopment } = useWorkspace();
+  const { localDevelopment,member } = useWorkspace();
+  const [displayName,setDisplayName]=useState(member.displayName!==member.email.split("@")[0]?member.displayName:"");
   const [restore, setRestore] = useState(false);
   // The step is mirrored into the address (`/setup?step=2`) and the typed answers kept in this tab's session, so a reload shows
   // the same step with the same answers. The address is only written, never navigated: the form keeps its own state.
@@ -25,13 +26,15 @@ export function FirstRunPage({ owner }: { owner: string }) {
   useEffect(() => {
     const draft = readDraft();
     if (draft) {
+      if(typeof draft.displayName==="string")setDisplayName(draft.displayName);
       setWorkspaceName(draft.workspaceName);
       setContainerName(draft.containerName);
       setPageTitle(draft.pageTitle);
       setAddresses(draft.addresses);
     }
     // An address that skips ahead of what was answered lands on the first open step.
-    const reachable = !draft?.workspaceName.trim() ? 1 : draft.containerName.trim() && draft.pageTitle.trim() ? 3 : 2;
+    const name=draft?.displayName??(member.displayName!==member.email.split('@')[0]?member.displayName:'');
+    const reachable = !name.trim() || !draft?.workspaceName.trim() ? 1 : draft.containerName.trim() && draft.pageTitle.trim() ? 3 : 2;
     setStepState((current) => {
       const next = Math.min(current, reachable) as 1 | 2 | 3;
       if (next !== current) window.history.replaceState(window.history.state, "", next === 1 ? "/setup" : `/setup?step=${next}`);
@@ -40,8 +43,8 @@ export function FirstRunPage({ owner }: { owner: string }) {
     setRestored(true);
   }, []);
   useEffect(() => {
-    if (restored) writeDraft({ workspaceName, containerName, pageTitle, addresses });
-  }, [restored, workspaceName, containerName, pageTitle, addresses]);
+    if (restored) writeDraft({ displayName,workspaceName, containerName, pageTitle, addresses });
+  }, [restored, displayName,workspaceName, containerName, pageTitle, addresses]);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string>();
   const key = useRef(operationKey());
@@ -64,6 +67,7 @@ export function FirstRunPage({ owner }: { owner: string }) {
           "/api/workspace/first-run",
           {
             operationKey: key.current,
+            displayName,
             workspaceName,
             containerName,
             pageTitle,
@@ -108,6 +112,8 @@ export function FirstRunPage({ owner }: { owner: string }) {
     <FirstRunWizard
       localDevelopment={localDevelopment}
       step={step}
+      displayName={displayName}
+      onDisplayNameChange={setDisplayName}
       workspaceName={workspaceName}
       onWorkspaceNameChange={setWorkspaceName}
       containerName={containerName}

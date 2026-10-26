@@ -46,7 +46,7 @@ export const loadWorkspace = createServerFn({ method: "GET" }).inputValidator(wo
   const { initialResources } = await import("./initial-resources.server");
   const requestUrl=getRequestUrl();
   const url=data.path ? new URL(data.path,requestUrl.origin) : requestUrl;
-  const recordVisit=(data.visit??true) && /^\/app\/pages\/[^/]+$/.test(url.pathname) && ![getRequestHeader('sec-purpose'),getRequestHeader('purpose')].some(value=>value?.includes('prefetch'));
+  const recordVisit=(data.visit??true) && /^\/app\/(pages|containers)\/[^/]+$/.test(url.pathname) && ![getRequestHeader('sec-purpose'),getRequestHeader('purpose')].some(value=>value?.includes('prefetch'));
   const resourcesRead=initialResources(context,url,current,recordVisit);
   const [workspace, setup, personalNavigation, resources] = await Promise.all([
     readWorkspace(context), firstRunState(context), navigation(context), resourcesRead,

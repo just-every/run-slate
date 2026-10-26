@@ -101,6 +101,7 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
     for (const width of [1440, 390]) {
       const current = await signIn(browser, vars.APP_URL, email, width, async page => {
         if (width === 1440) {
+          await page.getByLabel('Your name', { exact: true }).fill('Alex Owner');
           await page.getByLabel('Workspace name', { exact: true }).fill('CLI owner workspace');
           await page.getByRole('button', { name: 'Continue', exact: true }).click();
           await page.getByLabel('Space name', { exact: true }).fill('Owner documents');
