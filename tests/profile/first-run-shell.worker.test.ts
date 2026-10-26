@@ -29,11 +29,12 @@ test("the first-run page shows the card mark beside the owner's name for the pro
   expect(html).not.toContain("Northwind");
 
   const carriedName = "Example Business Co";
-  snapshot.business = readRuntimeConfig({ ...env, RER_BUSINESS: JSON.stringify({ name: carriedName }) }, false).business;
+  const carry = JSON.stringify({ version: 1, origin: "https://example.test", business_id: "synthetic-slate-1", business_url: "https://example.test/business/synthetic-slate-1", name: carriedName, legal_name: null, accent: null, logo_url: null, refreshed_at: "2026-10-27T09:00:00.000Z" });
+  snapshot.business = readRuntimeConfig({ ...env, RER_BUSINESS: carry }, false).business;
   const carriedHtml = renderToString(createElement(RouterProvider, { router }));
   expect(carriedHtml).toMatch(new RegExp(`<input[^>]*value="${carriedName}"`));
   expect(carriedHtml).not.toContain("Northwind");
-  for (const bindings of [{ ...env, RER_BUSINESS: "{" }, { ...env, RER_BUSINESS: JSON.stringify({ name: carriedName }), RER_DEMO: "1" }]) {
+  for (const bindings of [{ ...env, RER_BUSINESS: "{" }, { ...env, RER_BUSINESS: carry, RER_DEMO: "1" }]) {
     snapshot.business = readRuntimeConfig(bindings, false).business;
     const withoutBusiness = renderToString(createElement(RouterProvider, { router }));
     expect(withoutBusiness).toMatch(/<input[^>]*value=""/);

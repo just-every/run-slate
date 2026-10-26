@@ -12,7 +12,7 @@ import { loadLocalSettings, localPaths } from "./scripts/installer/settings.mjs"
 import { archiveOutputGuard } from "@runeditrun/rer/archive-output";
 import { docsSite } from "./src/core/features/docs/build/plugin.ts";
 
-export default defineConfig(async ({ command }) => {
+export default defineConfig(async ({ command, isPreview }) => {
   const paths = localPaths();
   const configPath = command === 'build' && !process.env.SLATE_WRANGLER_CONFIG_PATH && existsSync('wrangler.toml') ? 'wrangler.toml' : paths.configPath;
   const persistPath = process.env.RER_STATE_DIR ?? paths.persistPath;
@@ -21,7 +21,7 @@ export default defineConfig(async ({ command }) => {
   // guard reads the served folders even right after `rer reset`.
   let missingSettings: unknown;
   const local = command === 'serve' ? await loadLocalSettings(process.cwd()).catch(error => { missingSettings = error; return undefined; }) : undefined;
-  const carry = command === 'serve' && process.env.RER_DEMO !== '1'
+  const carry = command === 'serve' && !isPreview && process.env.RER_DEMO !== '1'
     ? await import(pathToFileURL(resolve('scripts/installer/business-carry.mjs')).href) as {
       readBusinessCarry(root: string): Promise<string | null>;
       businessCarryWatch(root: string): Plugin;
