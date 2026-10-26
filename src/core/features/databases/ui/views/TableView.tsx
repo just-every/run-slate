@@ -68,6 +68,7 @@ export function TableView({
               {/* No left padding: the record button carries its own inset, so the icon lands on the page's content edge. */}
               <td className="h-9 max-w-64 pr-2 pl-0 align-middle">
                 <RecordTitle
+                  className="w-full"
                   icon={record.icon}
                   onOpen={() => onOpenRecord(record.id)}
                   showIcon={showRecordIcon}
