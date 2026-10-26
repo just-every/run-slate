@@ -11656,7 +11656,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/columns-journey.mjs": {
-      "sha256": "63fa8e19af334a23fa7301a5d893ad870f5bf283c1ce1570b560619d9ffb4041",
+      "sha256": "9842535ecf7e27e59d6bb3fca57d8d1c64ab29149d45743f3c9c5d0d9cd0d19f",
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
@@ -11884,7 +11884,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/saml-journey.mjs": {
-      "sha256": "8eb6dfcb737e80e70c3d3f7340a785200303b7b3e379e76c84da0d0439f34794",
+      "sha256": "a4d843735fc1f991585f39ff1a0fa5a53edb9ff4a6d24d752ad7e19dc15e93ac",
       "executable": false
     },
     "tests/qualification/ui-convergence/scim-access-journey.mjs": {
@@ -11936,7 +11936,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-journey.mjs": {
-      "sha256": "056f1af89ec3e183f2558bfed54f51d54321d2a57f63753f892f79e4582bf863",
+      "sha256": "586e7faffd3cdbe02dd9ad423907f1842a19d1cd16fffb51589a5facc8804133",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-management-journey.mjs": {
