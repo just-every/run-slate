@@ -48,6 +48,14 @@
       "reason": "False positive: SCIM 2.0 (RFC 7644) Users resource request paths built as template literals from synthetic fixture ids (lines 12). The matched segment is an interpolated SCIM resource id, not a home-directory user name; the file contains no filesystem path.",
       "reviewer": "Claude sd-slate-land-c20 lander",
       "date": "2026-10-23"
+    },
+    {
+      "rule": "hygiene.local-path",
+      "path": "tests/e2e/scim/users.ts",
+      "blob": "17863914b1328c70522c3a8c8e16988d2e26fca3",
+      "reason": "False positive: the existing SCIM Users resource request template on line 12 interpolates a synthetic resource id. The s3 People profile assertions changed this blob but did not change that request path. It is an HTTP resource path, not a filesystem path. This disposition applies only to this rule, path and blob.",
+      "reviewer": "Codex uip-slate-s3-fix1 builder",
+      "date": "2026-10-26"
     }
   ]
 }
