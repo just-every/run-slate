@@ -26,7 +26,7 @@ export async function groupMentionJourney(state,people) {
  await expect(picker).toContainText('3 people will be notified');
  await expect(picker).toContainText('1 person cannot read this page');
  assert.equal((await ok(alice.context,origin,'GET',`/api/comments/page/${pageId}`)).comments.length,0,'Preview precedes saving.');
- await expect(picker.getByRole('option',{name:'Cancel mention',exact:true})).toBeInViewport({ratio:1});
+ await expect(picker.getByRole('button',{name:'Cancel mention',exact:true})).toBeInViewport({ratio:1});
  await people.shot('alice','group mention preview');
  await picker.getByRole('option',{name:'Mention readers',exact:true}).click();
  await expect(alice.page.locator('.comment-form')).toContainText('3 people will be notified');
