@@ -2,6 +2,8 @@ import { createElement } from "react";
 import { renderToString } from "react-dom/server";
 import { Outlet, RouterProvider, createMemoryHistory, createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
 import { expect, test } from "vitest";
+import { env } from "cloudflare:test";
+import { readRuntimeConfig } from "../../src/core/platform/config/runtime";
 import { FirstRunShell } from "../../src/core/app/ui/FirstRunShell";
 import { WorkspaceProvider } from "../../src/core/app/ui/WorkspaceContext";
 import type { WorkspaceSnapshot } from "../../src/core/app/ui/workspaceSnapshot";
@@ -25,4 +27,10 @@ test("the first-run page shows the card mark beside the owner's name for the pro
   expect(mark![0].match(/transform="rotate\(-20 31 24\)"/g)).toHaveLength(1);
   expect(html).toMatch(/data-testid="member-email"[^>]*>[\s\S]*rosa@example\.com/);
   expect(html).not.toContain("Northwind");
+
+  const carriedName = "Example Business Co";
+  snapshot.business = readRuntimeConfig({ ...env, RER_BUSINESS: JSON.stringify({ name: carriedName }) }, false).business;
+  const carriedHtml = renderToString(createElement(RouterProvider, { router }));
+  expect(carriedHtml).toMatch(new RegExp(`<input[^>]*value="${carriedName}"`));
+  expect(carriedHtml).not.toContain("Northwind");
 });
