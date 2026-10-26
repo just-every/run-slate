@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       SLATE_DEPLOY_ENV: ${{ inputs.environment }}
       SLATE_APP_URL: ${{ inputs.environment == 'preview' && vars.SLATE_PREVIEW_URL || vars.SLATE_PRODUCTION_URL }}
