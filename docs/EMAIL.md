@@ -27,7 +27,7 @@ Free and Assisted hosting retain own-account **Resend** or **SendGrid** options.
 | `SLATE_SETUP_OWNER_EMAIL` | The owner's mailbox for native sign-in. |
 | `SLATE_SESSION_SECRET` | Protects sessions and waiting messages; preserve it across deployments. |
 
-Supply these private deployment inputs and the explicit Cloudflare account/token described in [Install and deploy](INSTALL.md) and OPERATIONS.md. Review `rer deploy --environment production --dry-run`, then run the same command without `--dry-run` when deployment is authorized. Base derives the deployed origin and sets runtime `APP_URL`, which is used in mail links. Local `setup` prepares the loopback app and rejects hosted provider credentials.
+Supply these private deployment inputs and the explicit Cloudflare account/token described in [Install and deploy](INSTALL.md) and OPERATIONS.md. Review `rer deploy --environment production --dry-run`, then run the same command without `--dry-run` when deployment is authorized. Slate finds your deployed address and sets `APP_URL` so email links lead to your wiki. Local `setup` prepares the app on your computer and refuses hosted provider credentials.
 
 A few rules keep retries safe:
 
@@ -46,7 +46,9 @@ Each request makes at most one attempt. A background job that runs every minute 
 
 ### Managed relay
 
-HTTP 202 with `accepted: true` means the provider accepted the message. The relay returns no message receipt ID; this response is valid acceptance, not proof of inbox delivery. Invitation delivery queues HTTP 429 responses, respecting `Retry-After` within the existing retry budget. A refused sign-in email is shown as a mail problem; request a new sign-in link after fixing it. Ambiguous outcomes are held for review, with no blind automatic or manual resend. Ask Run Edit Run support to check a held message before requesting a new sign-in link or replacing an invitation.
+A message marked sent has been taken by the mail provider, even when it returns no message ID; check the recipient’s inbox to confirm arrival. Rate-limited invitations wait before retrying, and a refused sign-in email shows a mail problem so you can fix it and request a new link.
+
+If the outcome is unclear, Slate holds the message without resending it. Ask Run Edit Run support to check a held message before requesting a new sign-in link or replacing an invitation.
 
 ### Resend
 
@@ -57,7 +59,7 @@ Resend remembers identical requests for 24 hours, so a retry cannot send a secon
 SendGrid does not offer the same protection against duplicates, so Slate is more careful:
 
 - When SendGrid clearly rejects a message, the failure is shown and the owner can retry it.
-- When the outcome is unclear, for example after a network error, a server error, an acceptance that comes back with no identifier, or a send that was interrupted, Slate **holds** the message. It will not send it again automatically, and the Retry button will not send it either. Instead it asks you to check SendGrid.
+- When the outcome is unclear, for example after a network error, a server error, a successful response with no message identifier, or a send that was interrupted, Slate **holds** the message. It will not send it again automatically, and the Retry button will not send it either. Instead it asks you to check SendGrid.
 - Look in SendGrid's own activity log for the recipient address. If the message went out, you are done. If it did not, revoke the invitation and send a new one, or ask the person to request a new sign-in link.
 
 ## Where you see what happened
