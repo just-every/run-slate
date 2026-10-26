@@ -266,13 +266,15 @@ function LoadedPage({
     }
   }
   const saveTitleRef=useRef(saveTitle);saveTitleRef.current=saveTitle;
+  const titleCanLeave=useRef(false);
+  titleCanLeave.current=document.permissions.canEdit && !titleFailure && !titleConflict && !recovered.current;
   useEffect(()=>{
     if(!titleDirty.current || title===savedTitle || titleSaving || titleFailure || titleConflict || !document.permissions.canEdit)return;
     const timer=setTimeout(()=>void saveTitleRef.current(),500);
     return()=>clearTimeout(timer);
   },[title,savedTitle,titleSaving,titleFailure,titleConflict,document.permissions.canEdit]);
   useEffect(()=>{
-    const leaving=()=>{if(titleDirty.current)void saveTitleRef.current();};
+    const leaving=()=>{if(titleDirty.current && titleCanLeave.current)void saveTitleRef.current();};
     window.addEventListener('pagehide',leaving);
     return()=>window.removeEventListener('pagehide',leaving);
   },[]);
