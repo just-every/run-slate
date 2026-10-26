@@ -1,5 +1,9 @@
 const roleName = /^(owner|member|admin|administrator|guest)$/i;
 
+export function isPersonalName(name: string): boolean {
+  return !!name.trim() && !roleName.test(name.trim());
+}
+
 /** A person's name, or their mailbox name when no personal name is supplied. */
 export function personDisplayName(displayName?: string | null, email?: string | null): string {
   const name = displayName?.trim() ?? "";

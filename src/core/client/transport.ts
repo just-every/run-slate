@@ -97,7 +97,7 @@ export function errorMessage(error: unknown): string {
       return "Your session has ended. Sign in again to continue. Unsaved changes remain here.";
     if (error.code === "STEP_UP_REQUIRED" || error.code === "GROUP_MENTION_LIMIT" || error.code === "GUEST_DOMAIN_DENIED") return error.message;
     if (error.status === 403 || error.status === 404)
-      return "This content is unavailable with your current access.";
+      return "This content isn’t available. It may not exist, or you may need access.";
     return error.message;
   }
   return error instanceof Error

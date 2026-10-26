@@ -1,6 +1,6 @@
 import {StatusLabelDialog} from './StatusLabelDialog';
 import {typedInline} from "../typedFormatting";
-import {MentionPicker} from "./MentionPicker";
+import {MentionPicker,type MentionPickerHandle} from "./MentionPicker";
 import {useTaskPage} from './TaskPageContext';
 import {
   useLayoutEffect,
@@ -42,7 +42,14 @@ export function EditableElement({
   const markup = useMemo(() => ({ __html: html }), [html]);
   const root = useRef<HTMLElement>(null);
   const taskPage=useTaskPage();
-  const [mention,setMention] = useState<{start:number;before:RichText;after:RichText}|null>(null);
+  const [mention,setMention] = useState<{start:number;before:RichText;after:RichText;query:string;anchor:{left:number;bottom:number}}|null>(null);
+  const mentionPicker=useRef<MentionPickerHandle>(null);
+  function caretAnchor(element:HTMLElement){
+    const selected=window.getSelection(),range=selected?.rangeCount?selected.getRangeAt(0).cloneRange():null;range?.collapse(false);
+    let rect=range?.getClientRects()[0]??element.getBoundingClientRect();
+    if(rect.bottom>window.innerHeight-100){element.scrollIntoView({block:"center"});rect=range?.getClientRects()[0]??element.getBoundingClientRect();}
+    return {left:rect.left,bottom:rect.bottom};
+  }
   const [statusIndex,setStatusIndex]=useState<number|null>(null);
   function editStatus(target:HTMLElement) {
     const element=target.closest<HTMLElement>('[data-slate-status]');
@@ -57,6 +64,11 @@ export function EditableElement({
   const publish = (element: HTMLElement) => {
     pendingSelection.current = readEditableSelection(element);
     const next = readRichText(element, value);
+    if(mention){
+      const caret=pendingSelection.current?.focus,plain=richTextToPlain(next);
+      if(caret===undefined || caret<mention.start+1 || plain[mention.start]!=="@" || plain.slice(mention.start+1,caret).includes("\n"))setMention(null);
+      else setMention({...mention,query:plain.slice(mention.start+1,caret),before:sliceRichText(next,0,mention.start),after:sliceRichText(next,caret),anchor:caretAnchor(element)});
+    }
     const formatted = typedInline(next);
     inlineUndo.current = formatted ? next : null;
     if(formatted) pendingSelection.current = {anchor: formatted.map(s=>s.text).join("").length,focus:formatted.map(s=>s.text).join("").length};
@@ -104,10 +116,9 @@ export function EditableElement({
         onChange={onChange}
         canEdit={canEdit}
       />
-      {mention && canEdit ? <MentionPicker pageId={mentionPageId??taskPage?.pageId} value={value} previous={previousMentions??[mention.before,mention.after]} onClose={()=>{setMention(null);root.current?.focus();}} onQueryChange={query=>{
-        onChange([...mention.before,{text:'@'+query},...mention.after]);
-      }} onSelect={span=>{
-        pendingSelection.current={anchor:mention.start+span.text.length,focus:mention.start+span.text.length};onChange([...mention.before,span,...mention.after]);root.current?.focus();
+      {mention && canEdit && root.current ? <MentionPicker ref={mentionPicker} query={mention.query} anchor={mention.anchor} host={root.current.closest<HTMLElement>('.slate-app')??root.current.parentElement!} pageId={mentionPageId??taskPage?.pageId} value={value} previous={previousMentions??[mention.before,mention.after]} onClose={()=>setMention(null)} onSelect={span=>{
+        pendingSelection.current={anchor:mention.start+span.text.length,focus:mention.start+span.text.length};pendingFocus.current=true;
+        onChange([...mention.before,span,...mention.after]);setMention(null);
       }}/> : null}
       {statusIndex!==null && value[statusIndex]?.status?<StatusLabelDialog text={value[statusIndex].text} colour={value[statusIndex].status.colour} onClose={()=>setStatusIndex(null)} onSave={(text,colour)=>{
         const next=value.map((span,index)=>index===statusIndex?{...span,text,status:{colour}}:span);
@@ -130,6 +141,7 @@ export function EditableElement({
         onClick={(event:React.MouseEvent<HTMLElement>)=>{if(editStatus(event.target as HTMLElement))event.preventDefault();}}
         onKeyDown={(event: React.KeyboardEvent<HTMLElement>) => {
           if(!canEdit || event.nativeEvent.isComposing) return;
+          if(mention && mentionPicker.current?.keyDown(event.key)){event.preventDefault();event.stopPropagation();return;}
           if((event.key==='Enter'||event.key===' ') && editStatus(event.target as HTMLElement)){event.preventDefault();return;}
           if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='z'&&inlineUndo.current){event.preventDefault();onChange(inlineUndo.current);inlineUndo.current=null;return;}
           if(!event.metaKey&&!event.ctrlKey&&!event.altKey&&(event.key==='@' || (event.key==='/'&&event.currentTarget.closest('[data-page-editor]')&&!event.currentTarget.closest('[data-task-item]')))){
@@ -139,7 +151,8 @@ export function EditableElement({
               const start=Math.min(selected.anchor,selected.focus),end=Math.max(selected.anchor,selected.focus);
               const before=sliceRichText(value,0,start),after=sliceRichText(value,end);
               onChange([...before,{text:'@'},...after]);
-              setMention({start,before,after});
+              pendingSelection.current={anchor:start+1,focus:start+1};
+              setMention({start,before,after,query:'',anchor:caretAnchor(event.currentTarget)});
             }
             else event.currentTarget.dispatchEvent(new CustomEvent('slate-insert-at-cursor',{bubbles:true,detail:{...selected,inlineLabels,onInlineInsert:inlineLabels?(span:RichText[number])=>{
               const start=Math.min(selected.anchor,selected.focus),end=Math.max(selected.anchor,selected.focus);

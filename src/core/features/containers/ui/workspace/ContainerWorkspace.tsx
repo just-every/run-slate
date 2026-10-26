@@ -1,3 +1,4 @@
+import {useWorkspace} from '../../../../app/ui/WorkspaceContext';
 import {ContainerWatch} from './ContainerWatch';
 import {ContainerHome} from './ContainerHome';
 import {ContainerBlog} from '../../../blog/ui/ContainerBlog';
@@ -46,11 +47,11 @@ export function ContainerWorkspace({containerId,embedded}:{containerId?:string;e
   const [visibility,setVisibility]=useState("");
   const [membership,setMembership]=useState(false);
   const [personal,setPersonal]=useState(false);
-  const navigation=useResource<{containers:{id:string}[]}>("/api/navigation");
+  const {navigation}=useWorkspace();
   useEffect(()=>{setSelected(requestedContainer);setCreate(requestedCreate);},[requestedContainer,requestedCreate]);
   const key = useRef(operationKey());
   const spaces = useResource<{ items: Container[] }>(
-    `/api/containers?archived=${archived}`,
+    containerId ? null : `/api/containers?archived=${archived}`,
   );
   const panel = (
     <section className="settings-panel spaces-workspace">

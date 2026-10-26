@@ -1,3 +1,5 @@
+import { bootstrapOwner } from './core/features/workspace/bootstrap';
+import { saveProfile } from './core/features/workspace/profile';
 import type { AppBindings } from './core/app/types';
 import { createMemberRepository } from './core/features/session/repository';
 import { slateSessions } from './core/features/session/auth';
@@ -20,10 +22,12 @@ export async function demoOwner(env: AppBindings): Promise<string | null> {
 /** Real operations, with stable operation keys so an interrupted seed can resume. */
 export async function seedDemo(env: AppBindings, { ownerEmail, now }: { ownerEmail: string; now: Date }): Promise<void> {
   const config = readRuntimeConfig(env, isLocalOrigin(env.APP_URL));
+  await bootstrapOwner(env.DB,config,ownerEmail,undefined,'Alex Morgan');
   const person = await slateSessions(env.DB, config).member('lower(email)=lower(?)', ownerEmail);
   const actor = person && await createMemberRepository(env.DB).getMember(person.id);
   if (!actor) throw new Error('Demo owner is unavailable');
   const ctx = { db: env.DB, files: env.FILES, jobs: env.JOBS, actor, now: now.toISOString() };
+  if (person!.displayName===ownerEmail.split('@')[0]) await saveProfile(ctx,actor.id,{operationKey:'demo:owner:name',expectedRevisionId:null,displayName:'Alex Morgan'});
   const first = await seedDemoWorkspace(ctx);
   const containerId = first.value.containerId;
   const welcome = await readPage(ctx, first.value.pageId);
@@ -31,7 +35,7 @@ export async function seedDemo(env: AppBindings, { ownerEmail, now }: { ownerEma
   for (const page of demoPages) await createPage(ctx, { operationKey: `demo:page:${page.id}`, containerId, ...page });
   await seedTeam(ctx, config);
   const database = await createDatabase(ctx, { operationKey: 'demo:database:projects', containerId, title: 'Project tracker' });
-  const field = await saveField(ctx, database.value.id, { operationKey: 'demo:field:status', expectedRevisionId: database.value.revisionId, field: { id: 'demo-status', name: 'Status', type: 'text', position: 0, config: {} } });
+  const field = await saveField(ctx, database.value.id, { operationKey: 'demo:field:status', expectedRevisionId: database.value.revisionId, field: { id: 'demo-status', name: 'Status', type: 'select', position: 0, config: { options: ['Planned','In progress','In review','Done'] } } });
   await saveView(ctx, database.value.id, { operationKey: 'demo:view:table', expectedRevisionId: field.receipt.revisionId, view: { id: 'demo-projects-table', name: 'All projects', layout: 'table', filters: [], sorts: [], groups: [], calculations: {}, display: {}, position: 0 } });
   for (const [index, title, status] of [['1', 'Customer onboarding refresh', 'In progress'], ['2', 'Help centre launch', 'In review'], ['3', 'Quarterly planning', 'Planned']]) {
     await createRecord(ctx, database.value.id, { operationKey: `demo:record:${index}`, title: title!, values: { 'demo-status': status! } });

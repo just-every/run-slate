@@ -163,7 +163,6 @@ export function usePageEditor(document: DocumentView, invalidateRead: () => void
       } else
         status(id, {
           status: "saved",
-          atLabel: new Date(receipt.receipt.committedAt).toLocaleTimeString(),
         });
     } catch (error) {
       status(
