@@ -1239,15 +1239,6 @@
     },
     {
       "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
-      "testName": "AGENT-001 \u2014 a valid credential loses status and mutation disclosure when the source audience loses access",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AGENT-001"
-      ],
-      "reason": "Native local REST and credentialed MCP exercise current tool, source, audience, credential and exact-grant authority, control receipts and refusal without disclosure. This is partial semantic-parity evidence; complete browser/API/MCP parity, independent clients and owning-product consent remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
       "testName": "AGENT-001 \u2014 revoking the exact effect grant fences an admitted procedure despite a current credential",
       "kind": "supporting-regression",
       "clauses": [

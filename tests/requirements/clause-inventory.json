@@ -2411,10 +2411,6 @@
         },
         {
           "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
-          "testName": "AGENT-001 \u2014 a valid credential loses status and mutation disclosure when the source audience loses access"
-        },
-        {
-          "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
           "testName": "AGENT-001 \u2014 revoking the exact effect grant fences an admitted procedure despite a current credential"
         }
       ]
