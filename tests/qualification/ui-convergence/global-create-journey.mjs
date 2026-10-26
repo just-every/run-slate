@@ -29,13 +29,27 @@ export async function globalCreateJourney(state) {
   const menu = page.getByRole('menu', { name: 'Create content' });
   await expect(menu.getByRole('menuitem', { name: 'Page', exact: true })).toHaveAccessibleDescription('in Handbook');
   await shot('menu');
-  await menu.getByRole('menuitem', { name: 'Page', exact: true }).click();
-  await expect(page.getByRole('textbox', { name: 'Page title', exact: true })).toHaveValue('Untitled');
-  const pageId = new URL(page.url()).pathname.split('/').at(-1);
+  const cdp = await context.newCDPSession(page);
+  let pageId;
+  try {
+    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+    const previous = new URL(page.url()).pathname;
+    await menu.getByRole('menuitem', { name: 'Page', exact: true }).click();
+    await page.waitForURL(url => url.pathname.startsWith('/app/pages/') && url.pathname !== previous, { waitUntil: 'commit' });
+    const title = page.getByRole('textbox', { name: 'Page title', exact: true });
+    await title.waitFor({ state: 'visible' });
+    await page.keyboard.type('Incident response notes', { delay: 35 });
+    await expect(title).toHaveValue('Incident response notes');
+    // A following key must land at the caret retained across hydration.
+    await page.keyboard.type('.');
+    await expect(title).toHaveValue('Incident response notes.');
+    pageId = new URL(page.url()).pathname.split('/').at(-1);
+    await expect.poll(async () => (await api(`/api/pages/${pageId}`)).page.title).toBe('Incident response notes.');
+  } finally {
+    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 1 });
+    await cdp.detach();
+  }
   assert.equal((await api(`/api/pages/${pageId}`)).page.containerId, space.id);
-  await page.getByRole('textbox', { name: 'Page title', exact: true }).fill('Incident response notes');
-  await page.getByRole('textbox', { name: 'Page title', exact: true }).press('Tab');
-  await expect.poll(async () => (await api(`/api/pages/${pageId}`)).page.title).toBe('Incident response notes');
   await shot('page');
   await openNavigation(page);
   await page.getByRole('button', { name: 'Create', exact: true }).click();
