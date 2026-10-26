@@ -1,0 +1,814 @@
+[
+  {
+    "id": "HOME-001",
+    "name": "Public landing"
+  },
+  {
+    "id": "DOCS-001",
+    "name": "Public documentation"
+  },
+  {
+    "id": "WORK-001",
+    "name": "One workspace"
+  },
+  {
+    "id": "WORK-003",
+    "name": "Member management"
+  },
+  {
+    "id": "WORK-006",
+    "name": "Invitations"
+  },
+  {
+    "id": "WORK-007",
+    "name": "Removal"
+  },
+  {
+    "id": "WORK-008",
+    "name": "Roles"
+  },
+  {
+    "id": "WORK-009",
+    "name": "Groups"
+  },
+  {
+    "id": "WORK-010",
+    "name": "Guests"
+  },
+  {
+    "id": "WORK-011",
+    "name": "Workspace settings"
+  },
+  {
+    "id": "WORK-012",
+    "name": "Theme"
+  },
+  {
+    "id": "WORK-013",
+    "name": "First run"
+  },
+  {
+    "id": "WORK-014",
+    "name": "Shortcut reference"
+  },
+  {
+    "id": "WORK-015",
+    "name": "Identity provider"
+  },
+  {
+    "id": "SAVE-001",
+    "name": "Durable save state"
+  },
+  {
+    "id": "SAVE-003",
+    "name": "Revision conflicts"
+  },
+  {
+    "id": "SAVE-004",
+    "name": "Network loss"
+  },
+  {
+    "id": "SAVE-005",
+    "name": "Operation keys"
+  },
+  {
+    "id": "SAVE-006",
+    "name": "Concurrent editing without co-editing"
+  },
+  {
+    "id": "PAGE-001",
+    "name": "What a page is"
+  },
+  {
+    "id": "PAGE-002",
+    "name": "Creation"
+  },
+  {
+    "id": "PAGE-003",
+    "name": "Identity survives everything"
+  },
+  {
+    "id": "PAGE-004",
+    "name": "Move"
+  },
+  {
+    "id": "PAGE-005",
+    "name": "Duplicate"
+  },
+  {
+    "id": "PAGE-006",
+    "name": "Icon and cover"
+  },
+  {
+    "id": "PAGE-007",
+    "name": "Details"
+  },
+  {
+    "id": "PAGE-008",
+    "name": "Favourite"
+  },
+  {
+    "id": "PAGE-009",
+    "name": "Watch"
+  },
+  {
+    "id": "PAGE-010",
+    "name": "Outline"
+  },
+  {
+    "id": "TREE-001",
+    "name": "A nested tree in a container"
+  },
+  {
+    "id": "TREE-002",
+    "name": "Reordering and nesting"
+  },
+  {
+    "id": "BLOCK-001",
+    "name": "A body of blocks"
+  },
+  {
+    "id": "BLOCK-002",
+    "name": "Inline text"
+  },
+  {
+    "id": "BLOCK-003",
+    "name": "The insert menu"
+  },
+  {
+    "id": "BLOCK-004",
+    "name": "Markdown shortcuts"
+  },
+  {
+    "id": "BLOCK-005",
+    "name": "Mentions"
+  },
+  {
+    "id": "BLOCK-006",
+    "name": "Structured blocks"
+  },
+  {
+    "id": "BLOCK-007",
+    "name": "Task items"
+  },
+  {
+    "id": "BLOCK-008",
+    "name": "Media blocks"
+  },
+  {
+    "id": "BLOCK-009",
+    "name": "Link cards"
+  },
+  {
+    "id": "BLOCK-010",
+    "name": "Content queries"
+  },
+  {
+    "id": "LIFE-001",
+    "name": "Lifecycle states"
+  },
+  {
+    "id": "LIFE-002",
+    "name": "A draft is private"
+  },
+  {
+    "id": "LIFE-003",
+    "name": "Publish"
+  },
+  {
+    "id": "LIFE-004",
+    "name": "Scheduled publish"
+  },
+  {
+    "id": "LIFE-005",
+    "name": "Unpublished changes"
+  },
+  {
+    "id": "LIFE-006",
+    "name": "Lifecycle profile"
+  },
+  {
+    "id": "LIFE-007",
+    "name": "Discarding a draft"
+  },
+  {
+    "id": "SHARE-001",
+    "name": "Grants"
+  },
+  {
+    "id": "SHARE-002",
+    "name": "What the levels mean"
+  },
+  {
+    "id": "SHARE-003",
+    "name": "Inheritance"
+  },
+  {
+    "id": "SHARE-004",
+    "name": "General access"
+  },
+  {
+    "id": "SHARE-005",
+    "name": "Access profile"
+  },
+  {
+    "id": "SHARE-006",
+    "name": "Sharing with a person who is not a member"
+  },
+  {
+    "id": "SHARE-007",
+    "name": "Access changes take effect at once"
+  },
+  {
+    "id": "SHARE-008",
+    "name": "Expiring grants"
+  },
+  {
+    "id": "WEB-001",
+    "name": "Anonymous access takes two acts"
+  },
+  {
+    "id": "WEB-002",
+    "name": "What a published page carries"
+  },
+  {
+    "id": "WEB-003",
+    "name": "The anonymous read view"
+  },
+  {
+    "id": "WEB-004",
+    "name": "Children are not published by inheritance"
+  },
+  {
+    "id": "WEB-005",
+    "name": "Indexing is off until it is chosen"
+  },
+  {
+    "id": "WEB-006",
+    "name": "Unpublish"
+  },
+  {
+    "id": "WEB-007",
+    "name": "Public-link profile"
+  },
+  {
+    "id": "REV-001",
+    "name": "What a revision is"
+  },
+  {
+    "id": "REV-002",
+    "name": "History"
+  },
+  {
+    "id": "REV-003",
+    "name": "Restore"
+  },
+  {
+    "id": "REV-004",
+    "name": "Compare"
+  },
+  {
+    "id": "REV-005",
+    "name": "A citation resolves to its revision"
+  },
+  {
+    "id": "REV-006",
+    "name": "Deleting a version"
+  },
+  {
+    "id": "REV-007",
+    "name": "Version profile"
+  },
+  {
+    "id": "STAT-001",
+    "name": "The status vocabulary"
+  },
+  {
+    "id": "STAT-002",
+    "name": "A page's status"
+  },
+  {
+    "id": "STAT-003",
+    "name": "Verification"
+  },
+  {
+    "id": "STAT-004",
+    "name": "Verification lapses"
+  },
+  {
+    "id": "STAT-005",
+    "name": "Status profile"
+  },
+  {
+    "id": "COMM-001",
+    "name": "Two kinds of thread"
+  },
+  {
+    "id": "COMM-002",
+    "name": "Editing and deletion"
+  },
+  {
+    "id": "COMM-003",
+    "name": "Mentions"
+  },
+  {
+    "id": "COMM-004",
+    "name": "Anchors survive editing"
+  },
+  {
+    "id": "COMM-005",
+    "name": "Reactions"
+  },
+  {
+    "id": "COMM-006",
+    "name": "Discussions panel"
+  },
+  {
+    "id": "COMM-007",
+    "name": "Resolve"
+  },
+  {
+    "id": "ARCH-001",
+    "name": "Archive"
+  },
+  {
+    "id": "ARCH-002",
+    "name": "What archived means"
+  },
+  {
+    "id": "ARCH-003",
+    "name": "Restore from archive"
+  },
+  {
+    "id": "ARCH-004",
+    "name": "Archive is not deletion"
+  },
+  {
+    "id": "ARCH-005",
+    "name": "Trash"
+  },
+  {
+    "id": "ARCH-006",
+    "name": "Permanent deletion"
+  },
+  {
+    "id": "CONT-001",
+    "name": "What a container is"
+  },
+  {
+    "id": "CONT-002",
+    "name": "Creating a container"
+  },
+  {
+    "id": "CONT-003",
+    "name": "The container index"
+  },
+  {
+    "id": "CONT-004",
+    "name": "Container settings"
+  },
+  {
+    "id": "CONT-005",
+    "name": "Personal containers"
+  },
+  {
+    "id": "CONT-006",
+    "name": "Bulk actions"
+  },
+  {
+    "id": "CONT-007",
+    "name": "External-access switches"
+  },
+  {
+    "id": "CONT-008",
+    "name": "Container access profile"
+  },
+  {
+    "id": "CONT-009",
+    "name": "Container grants"
+  },
+  {
+    "id": "DB-001",
+    "name": "A database"
+  },
+  {
+    "id": "DB-002",
+    "name": "Field types"
+  },
+  {
+    "id": "DB-003",
+    "name": "Views"
+  },
+  {
+    "id": "DB-004",
+    "name": "Layouts"
+  },
+  {
+    "id": "DB-005",
+    "name": "Filter and sort"
+  },
+  {
+    "id": "DB-006",
+    "name": "Group"
+  },
+  {
+    "id": "DB-007",
+    "name": "Calculations"
+  },
+  {
+    "id": "DB-008",
+    "name": "Charts"
+  },
+  {
+    "id": "DB-009",
+    "name": "Lock structure"
+  },
+  {
+    "id": "DB-010",
+    "name": "A record is a page"
+  },
+  {
+    "id": "DB-011",
+    "name": "A view inside a page"
+  },
+  {
+    "id": "DB-012",
+    "name": "Record detail"
+  },
+  {
+    "id": "AUTO-001",
+    "name": "A rule"
+  },
+  {
+    "id": "AUTO-002",
+    "name": "A rule acts as its actor"
+  },
+  {
+    "id": "AUTO-003",
+    "name": "Run log"
+  },
+  {
+    "id": "AUTO-004",
+    "name": "Loops are bounded"
+  },
+  {
+    "id": "AUTO-005",
+    "name": "Automation profile"
+  },
+  {
+    "id": "SEARCH-001",
+    "name": "Global search"
+  },
+  {
+    "id": "SEARCH-002",
+    "name": "Results"
+  },
+  {
+    "id": "SEARCH-003",
+    "name": "Filters"
+  },
+  {
+    "id": "SEARCH-004",
+    "name": "Freshness"
+  },
+  {
+    "id": "SEARCH-005",
+    "name": "What search never shows"
+  },
+  {
+    "id": "SEARCH-006",
+    "name": "Search in one container"
+  },
+  {
+    "id": "SEARCH-007",
+    "name": "No results"
+  },
+  {
+    "id": "SEARCH-008",
+    "name": "Search without AI"
+  },
+  {
+    "id": "SEARCH-009",
+    "name": "Default visibility"
+  },
+  {
+    "id": "NAV-001",
+    "name": "Home"
+  },
+  {
+    "id": "NAV-002",
+    "name": "Recents"
+  },
+  {
+    "id": "NAV-003",
+    "name": "Favourites"
+  },
+  {
+    "id": "NAV-004",
+    "name": "One navigation"
+  },
+  {
+    "id": "NAV-006",
+    "name": "The touch client edits"
+  },
+  {
+    "id": "NOTIF-001",
+    "name": "What notifies"
+  },
+  {
+    "id": "NOTIF-002",
+    "name": "Inbox"
+  },
+  {
+    "id": "MAIL-001",
+    "name": "Outbound only, two kinds"
+  },
+  {
+    "id": "MAIL-002",
+    "name": "Delivery failure"
+  },
+  {
+    "id": "ACT-001",
+    "name": "Durable timeline"
+  },
+  {
+    "id": "ACT-002",
+    "name": "Coverage"
+  },
+  {
+    "id": "ACT-003",
+    "name": "Retrieval"
+  },
+  {
+    "id": "ACT-004",
+    "name": "Context"
+  },
+  {
+    "id": "ACT-005",
+    "name": "Retained explanation"
+  },
+  {
+    "id": "TMPL-001",
+    "name": "Gallery"
+  },
+  {
+    "id": "TMPL-002",
+    "name": "Preview"
+  },
+  {
+    "id": "TMPL-003",
+    "name": "Snapshot on use"
+  },
+  {
+    "id": "TMPL-004",
+    "name": "Custom templates"
+  },
+  {
+    "id": "TMPL-005",
+    "name": "Save a page as a template"
+  },
+  {
+    "id": "TMPL-006",
+    "name": "Where a template lives"
+  },
+  {
+    "id": "IMP-001",
+    "name": "Import jobs"
+  },
+  {
+    "id": "IMP-002",
+    "name": "Notion import"
+  },
+  {
+    "id": "IMP-003",
+    "name": "Confluence import"
+  },
+  {
+    "id": "IMP-005",
+    "name": "Importing into a page"
+  },
+  {
+    "id": "PORT-001",
+    "name": "Export contents"
+  },
+  {
+    "id": "PORT-002",
+    "name": "Referential restore"
+  },
+  {
+    "id": "PORT-003",
+    "name": "Visible jobs"
+  },
+  {
+    "id": "PORT-004",
+    "name": "Search rebuild"
+  },
+  {
+    "id": "PORT-007",
+    "name": "Exporting a page or a container"
+  },
+  {
+    "id": "LINK-001",
+    "name": "Permanent URLs"
+  },
+  {
+    "id": "LINK-002",
+    "name": "Tombstones"
+  },
+  {
+    "id": "LINK-003",
+    "name": "References follow their target"
+  },
+  {
+    "id": "AI-001",
+    "name": "Enablement"
+  },
+  {
+    "id": "AI-002",
+    "name": "Run lifecycle"
+  },
+  {
+    "id": "AI-003",
+    "name": "Review before mutation"
+  },
+  {
+    "id": "AI-004",
+    "name": "Answer provenance"
+  },
+  {
+    "id": "AI-005",
+    "name": "Acceptance"
+  },
+  {
+    "id": "AI-007",
+    "name": "Untrusted content"
+  },
+  {
+    "id": "AI-008",
+    "name": "Provider and output failure"
+  },
+  {
+    "id": "AI-009",
+    "name": "Retry"
+  },
+  {
+    "id": "AI-010",
+    "name": "Usage record"
+  },
+  {
+    "id": "AI-011",
+    "name": "No autonomous authority"
+  },
+  {
+    "id": "AI-012",
+    "name": "Budget"
+  },
+  {
+    "id": "AI-013",
+    "name": "A generated answer respects the reader"
+  },
+  {
+    "id": "AI-014",
+    "name": "Agents"
+  },
+  {
+    "id": "AI-015",
+    "name": "Workspace answers"
+  },
+  {
+    "id": "AI-016",
+    "name": "Summaries"
+  },
+  {
+    "id": "AI-017",
+    "name": "Writing with AI"
+  },
+  {
+    "id": "DEC-001",
+    "name": "A decision is a layer over a page"
+  },
+  {
+    "id": "DEC-002",
+    "name": "States"
+  },
+  {
+    "id": "DEC-003",
+    "name": "An accepted decision is immutable"
+  },
+  {
+    "id": "DEC-004",
+    "name": "Decision log"
+  },
+  {
+    "id": "DEC-005",
+    "name": "Review dates"
+  },
+  {
+    "id": "DEC-006",
+    "name": "A proposed decision is editable"
+  },
+  {
+    "id": "BLOCK-015",
+    "name": "Assigned tasks with due dates"
+  },
+  {
+    "id": "BLOCK-016",
+    "name": "Task reports"
+  },
+  {
+    "id": "NAV-007",
+    "name": "My tasks"
+  },
+  {
+    "id": "NOTIF-004",
+    "name": "Reminders"
+  },
+  {
+    "id": "SEARCH-010",
+    "name": "Labels and advanced search"
+  },
+  {
+    "id": "SEARCH-011",
+    "name": "Verified-first ranking and trust badges"
+  },
+  {
+    "id": "BASE-ACCESS-001",
+    "name": "Sign-in"
+  },
+  {
+    "id": "BASE-ACCESS-003",
+    "name": "Public endpoints"
+  },
+  {
+    "id": "BASE-ACCESS-004",
+    "name": "Server-side authorisation"
+  },
+  {
+    "id": "BASE-INPUT-001",
+    "name": "Validation"
+  },
+  {
+    "id": "BASE-INPUT-002",
+    "name": "HTML"
+  },
+  {
+    "id": "BASE-INPUT-003",
+    "name": "Uploads"
+  },
+  {
+    "id": "BASE-SECRET-001",
+    "name": "No leakage"
+  },
+  {
+    "id": "BASE-SECRET-002",
+    "name": "Startup"
+  },
+  {
+    "id": "BASE-DATA-001",
+    "name": "Export and import"
+  },
+  {
+    "id": "BASE-DATA-002",
+    "name": "Retention"
+  },
+  {
+    "id": "BASE-DATA-003",
+    "name": "Erasure"
+  },
+  {
+    "id": "BASE-DATA-004",
+    "name": "Outbound flows"
+  },
+  {
+    "id": "BASE-DATA-005",
+    "name": "Independence"
+  },
+  {
+    "id": "BASE-PUBLIC-001",
+    "name": "Privacy"
+  },
+  {
+    "id": "BASE-PUBLIC-002",
+    "name": "Origins"
+  },
+  {
+    "id": "BASE-PUBLIC-003",
+    "name": "Accessibility"
+  },
+  {
+    "id": "BASE-OPS-002",
+    "name": "Migrations"
+  },
+  {
+    "id": "BASE-OPS-003",
+    "name": "Idempotency"
+  },
+  {
+    "id": "BASE-OPS-004",
+    "name": "Failure is visible"
+  },
+  {
+    "id": "BASE-OPS-005",
+    "name": "Audit"
+  }
+]

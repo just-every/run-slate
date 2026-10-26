@@ -136,11 +136,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/access.test.ts",
-          "testName": "WORK-010 guest never inherits workspace grants and container veto wins over named grants"
-        },
-        {
-          "file": "tests/flagship/core/access.test.ts",
-          "testName": "bulk current ACL agrees with single resolution and preserves restricted ancestors"
+          "testName": "page viewing applies current grants, private scopes, guest vetoes and restricted ancestry"
         },
         {
           "file": "tests/flagship/core/identity-upgrade.test.ts",
@@ -220,15 +216,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP round trips rich text, enforces CAS, deduplicates actor-bound operations and rejects missing sessions"
+          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP concurrent different blocks both persist; same block has exactly one winner"
-        },
-        {
-          "file": "tests/flagship/content/http.test.ts",
-          "testName": "live room authenticates native sessions, broadcasts durable edits, and refuses stale same-block writes"
+          "testName": "native collaboration sockets deliver durable edits and retain shared cursors across refreshes"
         },
         {
           "file": "tests/flagship/core/security.test.ts",
@@ -255,7 +247,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP round trips rich text, enforces CAS, deduplicates actor-bound operations and rejects missing sessions"
+          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
         },
         {
           "file": "tests/flagship/core/security.test.ts",
@@ -275,15 +267,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP concurrent different blocks both persist; same block has exactly one winner"
+          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "live room authenticates native sessions, broadcasts durable edits, and refuses stale same-block writes"
-        },
-        {
-          "file": "tests/flagship/content/repair.test.ts",
-          "testName": "presence snapshots and native sockets retain and deliver shared cursors across refreshes"
+          "testName": "native collaboration sockets deliver durable edits and retain shared cursors across refreshes"
         }
       ]
     },
@@ -407,8 +395,8 @@
       "unmetReason": "Listed exact supporting regressions cover only particular mechanics of TREE-001 \u2014 A nested tree in a container. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
-          "file": "tests/flagship/content/repair.test.ts",
-          "testName": "archive restore rejects self/descendant parents while restoring a valid tree"
+          "file": "tests/flagship/content/http.test.ts",
+          "testName": "archive restoration preserves draft trees, refuses cycles and requires relocation authority"
         }
       ]
     },
@@ -448,7 +436,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP round trips rich text, enforces CAS, deduplicates actor-bound operations and rejects missing sessions"
+          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
         }
       ]
     },
@@ -507,11 +495,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety SVGs are sanitized, direct file requests download, scoped display is inline, and public veto is immediate"
-        },
-        {
-          "file": "tests/flagship/content/repair.test.ts",
-          "testName": "anonymous media rejects draft attachment but allows exact published attachment"
+          "testName": "content publication, files, restoration and safety media exposure sanitizes uploads and serves only the allowed published attachments"
         }
       ]
     },
@@ -549,31 +533,19 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP draft privacy and published snapshot protect working content from readers"
+          "testName": "content durable HTTP draft publication keeps working content private through publish, discard and scheduling"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "restores archived descendants together and preserves draft privacy through archive"
+          "testName": "archive restoration preserves draft trees, refuses cycles and requires relocation authority"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "read-only members receive the published title/body while editors retain unpublished work"
-        },
-        {
-          "file": "tests/flagship/content/repair.test.ts",
-          "testName": "unpublished revision stays invisible after discard and a subsequent publication"
-        },
-        {
-          "file": "tests/flagship/content/repair.test.ts",
-          "testName": "anonymous media rejects draft attachment but allows exact published attachment"
+          "testName": "content publication, files, restoration and safety media exposure sanitizes uploads and serves only the allowed published attachments"
         },
         {
           "file": "tests/flagship/core/access.test.ts",
-          "testName": "LIFE-002 workspace grant never opens another author draft"
-        },
-        {
-          "file": "tests/flagship/core/access.test.ts",
-          "testName": "bulk current ACL agrees with single resolution and preserves restricted ancestors"
+          "testName": "page viewing applies current grants, private scopes, guest vetoes and restricted ancestry"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -596,7 +568,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "scheduled publication executes durably and cancelled schedules publish nothing"
+          "testName": "content durable HTTP draft publication keeps working content private through publish, discard and scheduling"
         }
       ]
     },
@@ -608,11 +580,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP draft privacy and published snapshot protect working content from readers"
-        },
-        {
-          "file": "tests/flagship/content/http.test.ts",
-          "testName": "read-only members receive the published title/body while editors retain unpublished work"
+          "testName": "content durable HTTP draft publication keeps working content private through publish, discard and scheduling"
         }
       ]
     },
@@ -630,8 +598,8 @@
       "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LIFE-007 \u2014 Discarding a draft. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
-          "file": "tests/flagship/content/repair.test.ts",
-          "testName": "unpublished revision stays invisible after discard and a subsequent publication"
+          "file": "tests/flagship/content/http.test.ts",
+          "testName": "content durable HTTP draft publication keeps working content private through publish, discard and scheduling"
         }
       ]
     },
@@ -690,7 +658,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP comments retain revisions; exact human opens gate verification; revocation blocks replay"
+          "testName": "content durable HTTP exact human opens gate verification and stale or forged attestations are refused"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -698,11 +666,7 @@
         },
         {
           "file": "tests/flagship/core/access.test.ts",
-          "testName": "SHARE-007 group removal changes current access immediately; owner role never grants page access"
-        },
-        {
-          "file": "tests/flagship/core/access.test.ts",
-          "testName": "bulk current ACL agrees with single resolution and preserves restricted ancestors"
+          "testName": "page viewing applies current grants, private scopes, guest vetoes and restricted ancestry"
         },
         {
           "file": "tests/flagship/core/security.test.ts",
@@ -856,15 +820,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP comments retain revisions; exact human opens gate verification; revocation blocks replay"
+          "testName": "content durable HTTP exact human opens gate verification and stale or forged attestations are refused"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
           "testName": "suggestions stay pinned to their base and accepted edits never issue human verification"
-        },
-        {
-          "file": "tests/flagship/content/repair.test.ts",
-          "testName": "creation rejects verified status and exact opens reject the stale delivered revision"
         }
       ]
     },
@@ -897,7 +857,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP comments retain revisions; exact human opens gate verification; revocation blocks replay"
+          "testName": "content durable HTTP exact human opens gate verification and stale or forged attestations are refused"
         }
       ]
     },
@@ -915,8 +875,8 @@
       "unmetReason": "Listed exact supporting regressions cover only particular mechanics of COMM-004 \u2014 Anchors survive editing. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
-          "file": "tests/flagship/content/repair.test.ts",
-          "testName": "restores unchanged anchored text and orphans only anchors absent from the restored body"
+          "file": "tests/flagship/content/http.test.ts",
+          "testName": "content publication, files, restoration and safety revision restoration preserves identity, history and surviving comment anchors"
         }
       ]
     },
@@ -963,15 +923,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety restoration preserves page identity/history and trash reads are denied until explicit restore"
+          "testName": "content publication, files, restoration and safety revision restoration preserves identity, history and surviving comment anchors"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "restores archived descendants together and preserves draft privacy through archive"
-        },
-        {
-          "file": "tests/flagship/content/repair.test.ts",
-          "testName": "archive restore rejects self/descendant parents while restoring a valid tree"
+          "testName": "archive restoration preserves draft trees, refuses cycles and requires relocation authority"
         }
       ]
     },
@@ -990,7 +946,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety restoration preserves page identity/history and trash reads are denied until explicit restore"
+          "testName": "content publication, files, restoration and safety revision restoration preserves identity, history and surviving comment anchors"
         }
       ]
     },
@@ -1051,11 +1007,7 @@
         },
         {
           "file": "tests/flagship/core/access.test.ts",
-          "testName": "CONT-005 personal container denies even a stored explicit outsider grant"
-        },
-        {
-          "file": "tests/flagship/core/access.test.ts",
-          "testName": "bulk current ACL agrees with single resolution and preserves restricted ancestors"
+          "testName": "page viewing applies current grants, private scopes, guest vetoes and restricted ancestry"
         }
       ]
     },
@@ -1074,7 +1026,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety SVGs are sanitized, direct file requests download, scoped display is inline, and public veto is immediate"
+          "testName": "content publication, files, restoration and safety media exposure sanitizes uploads and serves only the allowed published attachments"
         }
       ]
     },
@@ -1907,15 +1859,7 @@
         },
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Pause releases reservation and concurrent resume has one fresh reservation"
-        },
-        {
-          "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Ten-minute expiry is terminal and crash-after-dispatch remains uncertain"
-        },
-        {
-          "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Read-only grounded answer completes without a human review and releases unused budget"
+          "testName": "Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API"
         }
       ]
     },
@@ -1977,7 +1921,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Ten-minute expiry is terminal and crash-after-dispatch remains uncertain"
+          "testName": "Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API"
         }
       ]
     },
@@ -1989,11 +1933,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "AI-009 semantic failure has one attempt, visible failure and no partial proposal"
-        },
-        {
-          "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "AI-009 transport retries stop at three and retain conservative unknown spend"
+          "testName": "Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API"
         }
       ]
     },
@@ -2023,15 +1963,7 @@
         },
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Pause releases reservation and concurrent resume has one fresh reservation"
-        },
-        {
-          "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Resume cannot recapture funds spent by another run while paused"
-        },
-        {
-          "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Read-only grounded answer completes without a human review and releases unused budget"
+          "testName": "Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API"
         }
       ]
     },
@@ -2479,10 +2411,6 @@
         },
         {
           "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
-          "testName": "AGENT-001 \u2014 a valid credential loses status and mutation disclosure when the source audience loses access"
-        },
-        {
-          "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
           "testName": "AGENT-001 \u2014 revoking the exact effect grant fences an admitted procedure despite a current credential"
         }
       ]
@@ -2811,7 +2739,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP round trips rich text, enforces CAS, deduplicates actor-bound operations and rejects missing sessions"
+          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
         },
         {
           "file": "tests/flagship/content/http.test.ts",

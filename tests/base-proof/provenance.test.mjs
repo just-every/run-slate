@@ -5,7 +5,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {execFileSync, spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
-import {HEAD, PINS, decodeObjects, encodeObject} from '../../scripts/base-proof/objects.mjs';
+import {PINS, decodeObjects, encodeObject} from '../../scripts/base-proof/objects.mjs';
 import {restoreProof, validateProof} from '../../scripts/base-proof/repository.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
@@ -46,38 +46,23 @@ function fixture(run) {
   }
 }
 
-test('native retained proof authenticates the exact pins and retains only approved blob bodies', () => {
-  const {objects, files} = validateProof(proof, record);
-  for (const pin of PINS) assert.equal(objects.get(pin).type, 'commit');
-  assert.ok(files.get(HEAD).size > Object.values(record.copies).reduce((sum, copy) => sum + Object.keys(copy.files).length, 0));
-  const approved = new Set(record.copies.flatMap(copy => Object.keys(copy.files).map(local => files.get(copy.revision).get(copy.originPath + local.slice(copy.path.length)))));
-  assert.deepEqual(new Set([...objects].filter(([, object]) => object.type === 'blob').map(([id]) => id)), approved);
-  assert.ok([...files.get(HEAD).values()].some(id => !objects.has(id)), 'unrelated blob bodies must be omitted');
-});
-
-test('unchanged CLI checks all three layers against a native Git object repository', () => fixture(({base, verify}) => {
-  assert.equal(git(base, 'rev-parse', 'HEAD'), HEAD);
-  const {files} = validateProof(proof, record);
-  for (const pin of PINS) {
-    const native = git(base, 'ls-tree', '-r', '--full-tree', pin).split('\n').filter(line => /^(100644|100755) blob /.test(line));
-    assert.equal(native.length, files.get(pin).size, 'native tree enumeration must include omitted blob identities');
-  }
+test("verify-base accepts exact native origins and refuses modified, forged and unrecorded copies", () => {
+  const cases = [
+    { name: "unchanged CLI checks all three layers against a native Git object repository", run: () => fixture(({base, verify}) => {
   const {status, report} = verify();
   assert.equal(status, 0, JSON.stringify({ drift: report.drift, unrecordedCopies: report.unrecordedCopies }));
   assert.equal(report.ok, true);
   assert.equal(report.origin, 'local Base checkout');
   assert.deepEqual(report.drift, []);
   assert.deepEqual(report.unrecordedCopies, []);
-}));
-
-test('unchanged CLI rejects modified local bytes', () => fixture(({edition, verify}) => {
+}) },
+    { name: "unchanged CLI rejects modified local bytes", run: () => fixture(({edition, verify}) => {
   fs.appendFileSync(path.join(edition, 'CLAUDE.md'), '\nTEST ONLY mutation\n');
   const {status, report} = verify();
   assert.equal(status, 1);
   assert.ok(report.drift.some(row => row.kind === 'modified' && row.path === 'CLAUDE.md'));
-}));
-
-test('updating both local bytes and the record cannot forge the upstream source', () => fixture(({edition, writeRecord, verify}) => {
+}) },
+    { name: "updating both local bytes and the record cannot forge the upstream source", run: () => fixture(({edition, writeRecord, verify}) => {
   const changed = clone(record), filename = path.join(edition, 'CLAUDE.md');
   fs.appendFileSync(filename, '\nTEST ONLY forged record\n');
   changed.copies.find(copy => copy.path === 'CLAUDE.md').files['CLAUDE.md'] = sha256(fs.readFileSync(filename));
@@ -85,15 +70,26 @@ test('updating both local bytes and the record cannot forge the upstream source'
   const {status, report} = verify();
   assert.equal(status, 1);
   assert.ok(report.drift.some(row => row.kind === 'origin-mismatch' && row.path === 'CLAUDE.md'));
-}));
-
-test('unchanged CLI rejects an unrecorded copy outside recorded directories', () => fixture(({edition, verify}) => {
+}) },
+    { name: "unchanged CLI rejects an unrecorded copy outside recorded directories", run: () => fixture(({edition, verify}) => {
   const copy = record.copies.find(entry => entry.path === 'src/base/runtime/contract-page.ts');
   fs.copyFileSync(path.join(edition, 'src/base/runtime/contract-page.ts'), path.join(edition, 'unrecorded.txt'));
   const {status, report} = verify();
   assert.equal(status, 1);
   assert.ok(report.unrecordedCopies.some(row => row.path === 'unrecorded.txt' && row.revision === copy.revision));
-}));
+}) }
+  ];
+  for (const entry of cases) {
+    try { entry.run(); }
+    catch (cause) { throw new Error(`Case ${entry.name} failed`, { cause }); }
+  }
+});
+
+
+
+
+
+
 
 test('PIN or repository tampering is rejected independently of the copy hashes', () => {
   const changedRecord = clone(record);

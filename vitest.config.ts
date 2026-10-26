@@ -77,8 +77,6 @@ export default defineConfig({
       "tests/e2e/platform-adapters.test.ts",
       // Node test assertions run unchanged through test:platform.
       "tests/e2e/search/search-location.test.ts",
-      // These use node:test; test:frontend executes them without changing assertions.
-      "tests/flagship/frontend/*.test.ts",
     ],
     setupFiles: ["./tests/e2e/setup/apply-migrations.ts"],
     // A clause journey that asserts nothing must never report its clause

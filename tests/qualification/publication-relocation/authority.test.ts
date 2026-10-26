@@ -6,7 +6,9 @@ import { previewPublication } from '../../../src/core/features/lifecycle/publica
 import { publishPage } from '../../../src/core/features/lifecycle/publication';
 import { runContentJobs } from '../../../src/core/features/lifecycle/jobs';
 
-test('Relocation SHARE-002 destination view or edit access widening requires full authority on every affected descendant', async () => {
+test("Relocation publication preview and confirmation enforce each current audience boundary", async () => {
+  const cases = [
+    { name: "Relocation SHARE-002 destination view or edit access widening requires full authority on every affected descendant", run: async () => {
  let firstCase=true;
  for (const level of ['view', 'edit'] as const){
  if(!firstCase)await resetDeployment();
@@ -34,16 +36,14 @@ test('Relocation SHARE-002 destination view or edit access widening requires ful
   const response = await f.request('/publish', { ...f.input, previewFingerprint: preview.previewFingerprint });
   expect(response.status, await response.clone().text()).toBe(200);
  }
-});
-
-test('Relocation SHARE-002 explicit access-setting changes still require full authority even when the member audience is unchanged', async () => {
+} },
+    { name: "Relocation SHARE-002 explicit access-setting changes still require full authority even when the member audience is unchanged", run: async () => {
   const f = await fixture();
   const before = await state();
   expect((await f.request('/publish-preview', { ...f.input, generalAccess: { kind: 'restricted' } })).status).toBe(404);
   expect(await state()).toEqual(before);
-});
-
-test('Relocation SHARE-002 retargeted container-general grants cannot disclose a restricted child with edit-only authority', async () => {
+} },
+    { name: "Relocation SHARE-002 retargeted container-general grants cannot disclose a restricted child with edit-only authority", run: async () => {
   const f = await fixture();
   await env.DB.prepare("UPDATE pages SET access_inheritance='restricted' WHERE id=?").bind(f.child.value.pageId).run();
   await seedPageGrant(f.child.value.pageId, { principalKind: 'member', principalId: f.reader.actor.id, level: 'edit' });
@@ -53,9 +53,8 @@ test('Relocation SHARE-002 retargeted container-general grants cannot disclose a
   const before = await state();
   expect((await f.request('/publish-preview', f.input)).status).toBe(404);
   expect(await state()).toEqual(before);
-});
-
-test('Relocation WEB-001 anonymous and public-link widening preserves full-publication authority', async () => {
+} },
+    { name: "Relocation WEB-001 anonymous and public-link widening preserves full-publication authority", run: async () => {
  let firstCase=true;
  for (const field of ['anonymous_access', 'public_link_access']){
  if(!firstCase)await resetDeployment();
@@ -72,7 +71,35 @@ test('Relocation WEB-001 anonymous and public-link widening preserves full-publi
   expect(preview.publicAccess?.some(change => change.pageId === f.child.value.pageId && change.before === null && change.after === 'view')).toBe(true);
   expect((await f.request('/publish', { ...f.input, previewFingerprint: preview.previewFingerprint })).status).toBe(200);
  }
+} },
+    { name: "Relocation WEB-001 LIFE-003 the review binds public exposure changes even without an ACL epoch change", run: async () => {
+  const f = await fixture();
+  await env.DB.prepare("UPDATE containers SET anonymous_access='forbidden' WHERE id=?").bind(f.containerId).run();
+  await seedPageGrant(f.child.value.pageId, { principalKind: 'member', principalId: f.reader.actor.id, level: 'full' });
+  const exposureId = crypto.randomUUID();
+  await env.DB.prepare('INSERT INTO public_exposures(id,page_id,host,slug,published_at) VALUES(?,?,?,?,?)').bind(exposureId, f.child.value.pageId, 'q9.test.invalid', key('q9-stale-exposure'), f.owner.now).run();
+  const review = await f.preview();
+  expect(review.publicAccess).toHaveLength(1);
+  const epoch = await env.DB.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first();
+  await env.DB.prepare('UPDATE public_exposures SET revoked_at=? WHERE id=?').bind(f.owner.now, exposureId).run();
+  expect(await env.DB.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first()).toEqual(epoch);
+  const before = await state(), response = await f.request('/publish', { ...f.input, previewFingerprint: review.previewFingerprint });
+  expect(response.status).toBe(409); expect(await response.json()).toMatchObject({ code: 'PUBLICATION_PREVIEW_CHANGED' });
+  expect(await state()).toEqual(before);
+} }
+  ];
+  for (const entry of cases) {
+    await resetDeployment();
+    try { await entry.run(); }
+    catch (cause) { throw new Error(`Case ${entry.name} failed`, { cause }); }
+  }
 });
+
+
+
+
+
+
 
 test('Relocation LIFE-003 scheduled same-audience relocation preserves reviewed release and edit-only descendant authority', async () => {
   const f = await fixture();
@@ -87,20 +114,4 @@ test('Relocation LIFE-003 scheduled same-audience relocation preserves reviewed 
   await runContentJobs(env, input.publishAt);
   expect(await env.DB.prepare('SELECT state,failure FROM content_schedules WHERE page_id=?').bind(f.root.value.pageId).first()).toMatchObject({ state: 'published', failure: null });
   for (const page of [f.root, f.child, f.grandchild]) expect((await env.DB.prepare('SELECT container_id FROM pages WHERE id=?').bind(page.value.pageId).first())!.container_id).toBe(f.target);
-});
-
-test('Relocation WEB-001 LIFE-003 the review binds public exposure changes even without an ACL epoch change', async () => {
-  const f = await fixture();
-  await env.DB.prepare("UPDATE containers SET anonymous_access='forbidden' WHERE id=?").bind(f.containerId).run();
-  await seedPageGrant(f.child.value.pageId, { principalKind: 'member', principalId: f.reader.actor.id, level: 'full' });
-  const exposureId = crypto.randomUUID();
-  await env.DB.prepare('INSERT INTO public_exposures(id,page_id,host,slug,published_at) VALUES(?,?,?,?,?)').bind(exposureId, f.child.value.pageId, 'q9.test.invalid', key('q9-stale-exposure'), f.owner.now).run();
-  const review = await f.preview();
-  expect(review.publicAccess).toHaveLength(1);
-  const epoch = await env.DB.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first();
-  await env.DB.prepare('UPDATE public_exposures SET revoked_at=? WHERE id=?').bind(f.owner.now, exposureId).run();
-  expect(await env.DB.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first()).toEqual(epoch);
-  const before = await state(), response = await f.request('/publish', { ...f.input, previewFingerprint: review.previewFingerprint });
-  expect(response.status).toBe(409); expect(await response.json()).toMatchObject({ code: 'PUBLICATION_PREVIEW_CHANGED' });
-  expect(await state()).toEqual(before);
 });

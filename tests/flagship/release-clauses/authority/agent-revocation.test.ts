@@ -1,3 +1,4 @@
+import {resetDeployment} from '../../../e2e/setup/reset-deployment';
 import {env} from 'cloudflare:test';
 import {test,expect,afterEach,vi} from 'vitest';
 import {fixture,transport,refuseNetwork,effectFixture,effects,receipts} from './fixture';
@@ -7,7 +8,9 @@ import {saveGrant} from '../../../../src/core/features/sharing/grants';
 import {revokeGrant} from '../../../../src/core/features/effects/grants';
 import {prepareEffect} from '../../../../src/core/features/effects/service';
 afterEach(()=>vi.unstubAllGlobals());
-test('AGENT-001 — exact credential scope gates REST and MCP control replay and current revocation',async()=>{
+test("AGENT-001 — exact credential scope gates REST and MCP control replay and current revocation",async()=>{
+ const cases=[
+    {name:"AGENT-001 — exact credential scope gates REST and MCP control replay and current revocation",run:async()=>{
  const calls=refuseNetwork(),f=await fixture(),api=await transport(f),run=await startRun(f.context(),f.ask,{apiKey:'test-only'});
  const credential=await issueAgentCredential(f.context(),{operationKey:'control-agent',subjectId:f.owner,expiresAt:'2099-01-01T00:00:00.000Z',scope:{tools:['run_status','pause_run','resume_run','cancel_run'],sourceIds:[f.page.pageId],audience:[f.owner,f.reader],grantIds:[]}}),token=credential.token!;
  expect((await api.mcp(token,'run_status',{id:run.value.id})).value.id).toBe(run.value.id);
@@ -30,8 +33,8 @@ test('AGENT-001 — exact credential scope gates REST and MCP control replay and
  const before=await receipts(f.workspaceId),row=await env.DB.prepare('SELECT * FROM intelligence_runs WHERE id=?').bind(run.value.id).first();
  for(const name of ['run_status','pause_run']){const denied=await api.mcp(token,name,name==='run_status'?{id:run.value.id}:{id:run.value.id,operationKey:'after-revoke',expectedRevisionId:stopped.value.value.revisionId});expect(denied.status).toBe(401);expect(JSON.stringify(denied.body)).not.toContain(f.ask.question);}
  expect(await receipts(f.workspaceId)).toEqual(before);expect(await env.DB.prepare('SELECT * FROM intelligence_runs WHERE id=?').bind(run.value.id).first()).toEqual(row);expect(calls).toEqual([]);
-});
-test('AGENT-001 — a valid credential loses status and mutation disclosure when the source audience loses access',async()=>{
+}},
+    {name:"AGENT-001 — a valid credential loses status and mutation disclosure when the source audience loses access",run:async()=>{
  const calls=refuseNetwork(),f=await fixture(),api=await transport(f),run=await startRun(f.context(),f.ask,{apiKey:'test-only'});
  const credential=await issueAgentCredential(f.context(),{operationKey:'source-agent',subjectId:f.owner,expiresAt:'2099-01-01T00:00:00.000Z',scope:{tools:['run_status','pause_run'],sourceIds:[f.page.pageId],audience:[f.owner,f.reader],grantIds:[]}});
  expect((await api.mcp(credential.token!,'run_status',{id:run.value.id})).value.id).toBe(run.value.id);
@@ -39,7 +42,14 @@ test('AGENT-001 — a valid credential loses status and mutation disclosure when
  const before=await receipts(f.workspaceId),row=await env.DB.prepare('SELECT * FROM intelligence_runs WHERE id=?').bind(run.value.id).first();
  for(const name of ['run_status','pause_run']){const r=await api.mcp(credential.token!,name,name==='run_status'?{id:run.value.id}:{id:run.value.id,operationKey:'revoked-source-control',expectedRevisionId:run.value.revisionId});expect(r.body.result.isError).toBe(true);expect(r.value.code).toBe('NOT_FOUND');expect(JSON.stringify(r.value)).not.toContain(f.ask.question);}
  expect(await receipts(f.workspaceId)).toEqual(before);expect(await env.DB.prepare('SELECT * FROM intelligence_runs WHERE id=?').bind(run.value.id).first()).toEqual(row);expect(calls).toEqual([]);
+}}
+ ];
+ for(const entry of cases){
+  try{vi.unstubAllGlobals();await resetDeployment();await entry.run();}
+  catch(cause){throw new Error(`Case ${entry.name} failed`,{cause});}
+ }
 });
+
 test('AGENT-001 — revoking the exact effect grant fences an admitted procedure despite a current credential',async()=>{
  const f=await effectFixture('procedure'),prepared=await prepareEffect(f.context(),f.input);
  expect((await effects(f.workspaceId))[0]).toMatchObject({id:prepared.value.id,state:'prepared'});

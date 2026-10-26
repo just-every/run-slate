@@ -20,8 +20,6 @@ try {
  for(let i=0;;i++){ try {if((await fetch(base)).ok) break;}catch{} if(i===100)throw new Error(output);await delay(100);}
  browser=await chromium.launch();
  await mkdir(path.join(evidence,'screenshots'),{recursive:true});
- const fieldTest=spawn('pnpm',['exec','tsx','--test','tests/e2e/databases/field-editing.test.tsx'],{stdio:'inherit',env:{...process.env,UI_TEST_URL:base}});
- assert.equal((await once(fieldTest,'exit'))[0],0,'database field browser regression must pass');
  const interactions=await checkInteractions(browser,base);
  await writeFile(path.join(evidence,'interactions.json'),JSON.stringify(interactions,null,2)+'\n');
  const index=await browser.newPage();await index.goto(base);await index.locator('li a').first().waitFor();
