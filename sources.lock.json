@@ -11224,7 +11224,7 @@
       "executable": false
     },
     "tests/profile/first-run-shell.worker.test.ts": {
-      "sha256": "9f7042933affbfe97952456634432ba7ce1ae811ee8a3028ca3581b4ccf619b8",
+      "sha256": "5feacd51459d5aadb9d77e03e953e835e10099003d6c9f77aed8cc4ca24aa8ae",
       "executable": false
     },
     "tests/profile/page-lock-journey.ts": {
@@ -12192,7 +12192,7 @@
       "executable": false
     },
     "vite.config.ts": {
-      "sha256": "dc6c5b414ea6b8198f4e1e85645c32a4c028203a636f4f968b56be78ff00d7d9",
+      "sha256": "91c2779cfb4a6540fcea3e55a7a04d327159bee2f2ad07da39fa2e17665e9761",
       "executable": false
     },
     "vite.site.config.ts": {
