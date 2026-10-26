@@ -6812,11 +6812,11 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TaskAssignment.tsx": {
-      "sha256": "c0ca3963b5a1976925122462ef9fc868172e7067bf370d718b6009222068e643",
+      "sha256": "d1d1f5d7c0d624fe10f6ea7f1dfb0eadc2e7912792e1068330fa783718e8e250",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TaskBlock.tsx": {
-      "sha256": "42f12432760320dea4e29750c6bef67cc1fcccd136673792d294f3eaf11c513c",
+      "sha256": "62f046dad376a2bb3bb8d15a232992ba3a5e5244ae810916f783d7ea6adf29f3",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TaskPageContext.tsx": {
@@ -9144,7 +9144,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/MembersPanel.tsx": {
-      "sha256": "75011ba829eb6f541161df81cade23180026738b510ec20eb31d28ecc3c9d654",
+      "sha256": "6a31eeafc5490d4e8b27950433c6d77670c775889a90d0d08a8fb0075642b32f",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/NavigationSettings.tsx": {
@@ -12148,7 +12148,7 @@
       "executable": false
     },
     "tests/ui/polish/mentions.mjs": {
-      "sha256": "c88b69d213dee838807ef13eebce34f2165956e8562cf5df665568c68239c528",
+      "sha256": "29ac6b1f83a995912d225d8d0f8ee93b21230f402cf50b038a2d6ec10abaa8f6",
       "executable": false
     },
     "tests/ui/polish/panels.mjs": {
