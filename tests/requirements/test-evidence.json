@@ -1912,16 +1912,6 @@
       "reason": "Asserts the single-destination chat door stores a credential only after a fresh email confirmation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
-      "file": "tests/qualification/policies/invitations.test.ts",
-      "testName": "ADMIN-003 \u2014 guest policy, invitation acceptance and inviter revocation enforce current membership authority",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-006",
-        "WORK-010"
-      ],
-      "reason": "Asserts a member invitation stops admitting once its inviter is no longer a full member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
       "file": "tests/e2e/notifications/chat.test.ts",
       "testName": "a person whose own Slack token posts to a channel stays in that channel audience",
       "kind": "supporting-regression",
@@ -2004,6 +1994,16 @@
         "ACT-002"
       ],
       "reason": "Exercises the SCIM HTTP protocol through native invitation, Member identity, group and removal services, including credential custody and current authority. Real directory-provider acceptance and native invitation capacity outside SCIM remain unproven."
+    },
+    {
+      "file": "tests/qualification/policies/invitations.test.ts",
+      "testName": "a member invitation stops admitting once its inviter is no longer a full member",
+      "kind": "supporting-regression",
+      "clauses": [
+        "WORK-006",
+        "WORK-010"
+      ],
+      "reason": "Asserts a member invitation stops admitting once its inviter is no longer a full member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     }
   ]
 }

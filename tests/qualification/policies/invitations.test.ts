@@ -9,8 +9,7 @@ import { saveGrant, listGrants } from '../../../src/core/features/sharing/grants
 import { readRuntimeConfig } from '../../../src/core/platform/config/runtime';
 import { createMemberRepository } from '../../../src/core/features/session/repository';
 import { removeMember } from '../../../src/core/features/workspace/members';
-test("ADMIN-003 \u2014 guest policy, invitation acceptance and inviter revocation enforce current membership authority", async () => {
-  await scenario("ADMIN-003 \u2014 HTTP guest policy, default expiry and bulk revocation; SHARE-006 SHARE-001 SHARE-007: pending guest invitation grants no access, local provider double captures exact acceptance token, revoke invalidates pending grant", async () => {
+test('ADMIN-003 — HTTP guest policy, default expiry and bulk revocation; SHARE-006 SHARE-001 SHARE-007: pending guest invitation grants no access, local provider double captures exact acceptance token, revoke invalidates pending grant', async () => {
     const { owner, containerId } = await scenario();
     const page = await createPage(owner, { operationKey: key('page'), containerId, title: 'Guest invitation' });
     const config = { ...readRuntimeConfig(env, false), appUrl: 'https://qualification.invalid', mailFrom: 'test@qualification.invalid', mailApiKey: 'TEST-ONLY-PROVIDER-DOUBLE' };
@@ -87,10 +86,8 @@ test("ADMIN-003 \u2014 guest policy, invitation acceptance and inviter revocatio
     finally {
         provider.mockRestore();
     }
-
-  });
-  await reset();
-  await scenario("a member invitation stops admitting once its inviter is no longer a full member", async () => {
+});
+test('a member invitation stops admitting once its inviter is no longer a full member', async () => {
     const { owner, reader, containerId } = await scenario();
     const page = await createPage(owner, { operationKey: key('return-page'), containerId, title: 'Guest return page' });
     const config = { ...readRuntimeConfig(env, false), mailFrom: 'test@qualification.invalid', mailApiKey: 'synthetic-slate-301' };
@@ -110,13 +107,4 @@ test("ADMIN-003 \u2014 guest policy, invitation acceptance and inviter revocatio
         expect(response.headers.get('set-cookie')).toBeNull();
         expect(await rows("SELECT id FROM members WHERE email='latecomer@qualification.invalid'")).toEqual([]);
     } finally { provider.mockRestore(); }
-
-  });
 });
-
-
-// Keep each clause point visible in the failure while sharing one family registration.
-async function scenario(name: string, run: () => Promise<void>) {
-  try { await run(); }
-  catch (cause) { throw new Error(`Scenario ${name} failed`, { cause }); }
-}
