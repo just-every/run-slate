@@ -5280,11 +5280,11 @@
       "executable": false
     },
     "src/core/app/styles/content.css": {
-      "sha256": "ddc9fe10326544cd73fd72369f2fc63083e12bc1b8480d982d65bcb51eeb2b94",
+      "sha256": "56796d40524bc2c22c102a9ab97dcf0a4ae433e3876404973a8ed0db5e0fe9d9",
       "executable": false
     },
     "src/core/app/styles/controls.css": {
-      "sha256": "da667dbb68108573cafab4146fdcf87503829fad4c25842d14b482d6bd4dc098",
+      "sha256": "48d189c38ae043823abb92bdd22ed8dd5e5c751d5787bc7daf27cb9e9421284c",
       "executable": false
     },
     "src/core/app/styles/database.css": {
@@ -5300,7 +5300,7 @@
       "executable": false
     },
     "src/core/app/styles/header.css": {
-      "sha256": "efe78cf4817b1c9b6f94f264a374e4c78563aa95288744ee7ce21740ca1535f7",
+      "sha256": "64dbd77129c32102c2cc7b29775e14b18f16aded3fcb41a5b4c78ab40be77016",
       "executable": false
     },
     "src/core/app/styles/hub.css": {
@@ -5328,7 +5328,7 @@
       "executable": false
     },
     "src/core/app/styles/panels.css": {
-      "sha256": "ec4333901ea3467772029dd214a993227434cce0ebf9527a33e149591c84bf3e",
+      "sha256": "29f682a10bf886b53ce6baaaa1244b5a9b4d42c8fe09ef5f505ebad0285e3ee8",
       "executable": false
     },
     "src/core/app/styles/popover.css": {
@@ -5352,7 +5352,7 @@
       "executable": false
     },
     "src/core/app/styles/workspace.css": {
-      "sha256": "5e78f6678ce2873029ec24552974b4eb447b3b57eb3473e0239e17f37ef69b05",
+      "sha256": "d7adb712bb1bfbaf7791d030eee3cef61792928f12355f047dcbb3b89693483e",
       "executable": false
     },
     "src/core/app/types.ts": {
@@ -5376,7 +5376,7 @@
       "executable": false
     },
     "src/core/app/ui/AppShell.tsx": {
-      "sha256": "b341e3ddd9140f706d9d6e644a03110037ed9a43c5d49709c9986b4bca2d2519",
+      "sha256": "e842ec44af36bee0c16e81b225974d204f7e171f6d530b93284b6d965b7bc6a7",
       "executable": false
     },
     "src/core/app/ui/displayDate.ts": {
@@ -9976,7 +9976,7 @@
       "executable": false
     },
     "src/core/ui/tooltip.tsx": {
-      "sha256": "65ee40f6f44fdcf39474ca2ec58af48945ecc3eedbe2a1b41a3d4060214e200a",
+      "sha256": "e07082ee3ab2c47167a8e8382cfda07c27625e2f38cd83ebe86ac1c9ec45138d",
       "executable": false
     },
     "src/demo.ts": {
@@ -12108,7 +12108,7 @@
       "executable": false
     },
     "tests/ui/polish-journeys.test.mjs": {
-      "sha256": "fe3de5403c7fe1c01d81595b04b2d4a08ce14a2d826d9484fe5c5d0864f73992",
+      "sha256": "afe6167da59e1feba7005bc5197a4fd35bfc1481585b984c46e950dff3cadf63",
       "executable": false
     },
     "tests/ui/polish/capture-camera.mjs": {
@@ -12117,6 +12117,10 @@
     },
     "tests/ui/polish/control-sweep.mjs": {
       "sha256": "f8cc2b6265b88068258497059282d852ec42e1822a24ef4f41efa25e1c1d7a8f",
+      "executable": false
+    },
+    "tests/ui/polish/controls.mjs": {
+      "sha256": "61d478f5df92d2661dba7250cc1b72d8880327e69f6156a439a61b0d64e23d1f",
       "executable": false
     },
     "tests/ui/polish/editor-focus-transport.mjs": {
