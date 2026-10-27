@@ -1407,11 +1407,7 @@
       "supportingTests": [
         {
           "file": "tests/e2e/notifications/destinations.test.ts",
-          "testName": "CHAT-001 \u2014 Readable grouped events survive an unreadable or purged leader without duplicate delivery"
-        },
-        {
-          "file": "tests/e2e/notifications/destinations.test.ts",
-          "testName": "CHAT-001 \u2014 Withdrawal uses each original channel roster in either receipt ordering"
+          "testName": "CHAT-001 \u2014 grouped delivery and withdrawal keep each original channel audience current"
         },
         {
           "file": "tests/e2e/notifications/destinations.test.ts",
@@ -3111,11 +3107,7 @@
       "supportingTests": [
         {
           "file": "tests/e2e/notifications/destinations.test.ts",
-          "testName": "CHAT-001 \u2014 Readable grouped events survive an unreadable or purged leader without duplicate delivery"
-        },
-        {
-          "file": "tests/e2e/notifications/destinations.test.ts",
-          "testName": "CHAT-001 \u2014 Withdrawal uses each original channel roster in either receipt ordering"
+          "testName": "CHAT-001 \u2014 grouped delivery and withdrawal keep each original channel audience current"
         },
         {
           "file": "tests/e2e/notifications/destinations.test.ts",

@@ -1786,17 +1786,7 @@
     },
     {
       "file": "tests/e2e/notifications/destinations.test.ts",
-      "testName": "CHAT-001 \u2014 Readable grouped events survive an unreadable or purged leader without duplicate delivery",
-      "kind": "supporting-regression",
-      "clauses": [
-        "CHAT-001",
-        "NOTIF-003"
-      ],
-      "reason": "Public notification configuration, event and queue doors with provider-edge fakes only. Proves this named repair flow; does not establish live-provider or admin-install acceptance or change clause status."
-    },
-    {
-      "file": "tests/e2e/notifications/destinations.test.ts",
-      "testName": "CHAT-001 \u2014 Withdrawal uses each original channel roster in either receipt ordering",
+      "testName": "CHAT-001 \u2014 grouped delivery and withdrawal keep each original channel audience current",
       "kind": "supporting-regression",
       "clauses": [
         "CHAT-001",
