@@ -5296,11 +5296,11 @@
       "executable": false
     },
     "src/core/app/styles/content.css": {
-      "sha256": "ddc9fe10326544cd73fd72369f2fc63083e12bc1b8480d982d65bcb51eeb2b94",
+      "sha256": "13a48cfa8696a9191b6015f7f4616a362de1cf25812bb2505398844dfe7b7fe4",
       "executable": false
     },
     "src/core/app/styles/controls.css": {
-      "sha256": "49c00f6270316ae0bb776ea1603afb01b342fcb93922a958301f355459c6b1b1",
+      "sha256": "1d0ce7f23d0e34616f3c2715e8ab0cf1fff01f07895edfb346152579834b3645",
       "executable": false
     },
     "src/core/app/styles/database.css": {
@@ -5316,7 +5316,7 @@
       "executable": false
     },
     "src/core/app/styles/header.css": {
-      "sha256": "efe78cf4817b1c9b6f94f264a374e4c78563aa95288744ee7ce21740ca1535f7",
+      "sha256": "64dbd77129c32102c2cc7b29775e14b18f16aded3fcb41a5b4c78ab40be77016",
       "executable": false
     },
     "src/core/app/styles/hub.css": {
@@ -5344,7 +5344,7 @@
       "executable": false
     },
     "src/core/app/styles/panels.css": {
-      "sha256": "8f394e6465c76a61bac014ee499769ad3448ecd204bc3afc363b56cd9634ddac",
+      "sha256": "29f682a10bf886b53ce6baaaa1244b5a9b4d42c8fe09ef5f505ebad0285e3ee8",
       "executable": false
     },
     "src/core/app/styles/popover.css": {
@@ -5352,7 +5352,7 @@
       "executable": false
     },
     "src/core/app/styles/search-discovery.css": {
-      "sha256": "2fc46b59a989b09a1be33585d08e5c1d4a9bf2b4d7b4bc0a3db054269cf80e18",
+      "sha256": "dc0983317a6de7f08ed24ca24370310570f2ca865e4b1d93e69165963e44ed3a",
       "executable": false
     },
     "src/core/app/styles/shell.css": {
@@ -5368,7 +5368,7 @@
       "executable": false
     },
     "src/core/app/styles/workspace.css": {
-      "sha256": "5e78f6678ce2873029ec24552974b4eb447b3b57eb3473e0239e17f37ef69b05",
+      "sha256": "d7adb712bb1bfbaf7791d030eee3cef61792928f12355f047dcbb3b89693483e",
       "executable": false
     },
     "src/core/app/types.ts": {
@@ -5384,7 +5384,7 @@
       "executable": false
     },
     "src/core/app/ui/ActionDialog.tsx": {
-      "sha256": "2f1044955cfcb0feee90f8c018c5f3edbf51306e287ee26ab1870074b9975b2a",
+      "sha256": "f5e27f37c3cd8e34cb0cca032f2447cf401aec9ffff030e651ca4cc74fda5e86",
       "executable": false
     },
     "src/core/app/ui/AppNavigation.tsx": {
@@ -5392,7 +5392,7 @@
       "executable": false
     },
     "src/core/app/ui/AppShell.tsx": {
-      "sha256": "b341e3ddd9140f706d9d6e644a03110037ed9a43c5d49709c9986b4bca2d2519",
+      "sha256": "e842ec44af36bee0c16e81b225974d204f7e171f6d530b93284b6d965b7bc6a7",
       "executable": false
     },
     "src/core/app/ui/displayDate.ts": {
@@ -8912,7 +8912,7 @@
       "executable": false
     },
     "src/core/features/search/ui/workspace/WorkspaceSearch.tsx": {
-      "sha256": "ff3c79011bd0036c00d4761ddde30f0d2df0d74c9adc82edd19cb50f60a151be",
+      "sha256": "f15ce87c7b14ddc9aa1126a63d934cddcffe66e74e10c69a742c543c39c414cc",
       "executable": false
     },
     "src/core/features/search/visibility.ts": {
@@ -9920,7 +9920,7 @@
       "executable": false
     },
     "src/core/ui/checkbox.tsx": {
-      "sha256": "09185f768d8518794974c1954a76d70be4f582e3054fd0d60d67d05549d926f6",
+      "sha256": "45da271e224b4d39a47096d18d98e22756f178a7f4f3cbf1fa938db87e0a6cf1",
       "executable": false
     },
     "src/core/ui/cn.ts": {
@@ -9992,7 +9992,7 @@
       "executable": false
     },
     "src/core/ui/tooltip.tsx": {
-      "sha256": "65ee40f6f44fdcf39474ca2ec58af48945ecc3eedbe2a1b41a3d4060214e200a",
+      "sha256": "e07082ee3ab2c47167a8e8382cfda07c27625e2f38cd83ebe86ac1c9ec45138d",
       "executable": false
     },
     "src/demo.ts": {
@@ -12124,7 +12124,7 @@
       "executable": false
     },
     "tests/ui/polish-journeys.test.mjs": {
-      "sha256": "11288857da003ab605ba68bd0088b1e17e7d64e5be9969da482d4e6a5ea11e79",
+      "sha256": "0db70ecba00d96316e91f3ecd157310be46d2bfadcb0de539ae5b65918d181eb",
       "executable": false
     },
     "tests/ui/polish/capture-camera.mjs": {
@@ -12133,6 +12133,10 @@
     },
     "tests/ui/polish/control-sweep.mjs": {
       "sha256": "f8cc2b6265b88068258497059282d852ec42e1822a24ef4f41efa25e1c1d7a8f",
+      "executable": false
+    },
+    "tests/ui/polish/controls.mjs": {
+      "sha256": "a48f0c4b17bd144971e58bc2abf27461a7d272f63b7638020674c0f2d6769bdc",
       "executable": false
     },
     "tests/ui/polish/editor-focus-transport.mjs": {
