@@ -1070,12 +1070,14 @@
     },
     {
       "file": "tests/qualification/authority/decision-authority.test.ts",
-      "testName": "SOURCE-003 \u2014 claims keep accepted authority through review, withdraw it when nested citations change or layer is removed, and preserve exact history through restore",
+      "testName": "SOURCE-003 \u2014 decision authority and exact historical prose retain current citation boundaries through review and restore",
       "kind": "supporting-regression",
       "clauses": [
-        "SOURCE-003"
+        "SOURCE-003",
+        "DEC-004",
+        "DEC-006"
       ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
+      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance. Asserts an earlier decision revision is read without the current prose its reader can no longer cite. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/authority/native-boundaries.test.ts",
@@ -1915,16 +1917,6 @@
         "CHAT-001"
       ],
       "reason": "Asserts the single-destination chat door stores a credential only after a fresh email confirmation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/qualification/authority/decision-authority.test.ts",
-      "testName": "an earlier decision revision is read without the current prose its reader can no longer cite",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DEC-004",
-        "DEC-006"
-      ],
-      "reason": "Asserts an earlier decision revision is read without the current prose its reader can no longer cite. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/policies/invitations.test.ts",
