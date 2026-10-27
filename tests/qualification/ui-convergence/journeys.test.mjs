@@ -75,10 +75,12 @@ for (const width of [1440]) {
   test(`provider embeds load only on interaction and [EMBED-004] files respect reader access at ${width}px`, {timeout:240000}, async()=>{
     await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{await setupWorkspace(state);await providerEmbedsJourney(state);}, {}, {folders:true});
   });
-  test(`presentation paginates read-only slides; touch history, details and exports work at ${width}px`, { timeout: 180000 }, async () => {
+  test(`page presentation, outline and display; touch history, details and exports work at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
-      await presentationJourney(state);
+      await step('PAGE-011 — presentation paginates read-only slides', () => presentationJourney(state));
+      await step('PAGE-010 — outline follows edited headings and navigates long pages', () => outlineJourney(state));
+      await withSecondPerson(state, width, people => step('PAGE-014 — shared display settings survive export and import', () => pageDisplayJourney(state, people)));
       const touch=await beginTouchJourney(state,width);try{await touchPageToolsJourney(touch);}finally{await touch.close();}
     });
   });
@@ -102,12 +104,7 @@ for (const width of [1440]) {
       await withSecondPerson(state, width, people => reactionsJourney(state, people));
     });
   });
-  test(`page display settings are shared and survive export and import at ${width}px`, { timeout: 180000 }, async () => {
-    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
-      await setupWorkspace(state);
-      await withSecondPerson(state, width, people => pageDisplayJourney(state, people));
-    });
-  });
+  
   test(`create in place names root and child destinations at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
@@ -120,12 +117,7 @@ for (const width of [1440]) {
       await withSecondPerson(state, width, people => pageLockBrowserJourney(state, people));
     });
   });
-  test(`page outline follows headings and navigates long pages at ${width}px`, { timeout: 180000 }, async () => {
-    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
-      await setupWorkspace(state);
-      await outlineJourney(state);
-    });
-  });
+  
   test(`shared page invitations name their space and disappear on revocation at ${width}px`, { timeout: 240000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
