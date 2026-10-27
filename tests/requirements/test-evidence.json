@@ -1018,14 +1018,15 @@
     },
     {
       "file": "tests/qualification/authority/skill-disclosure.test.ts",
-      "testName": "SKILL-001 \u2014 HTTP method disclosure rejects revoked definition sources and exact audience widening",
+      "testName": "SKILL-001 \u2014 method disclosure and portable snapshots retain exact source, audience and attachment boundaries",
       "kind": "supporting-regression",
       "clauses": [
         "SKILL-001",
         "SOURCE-005",
-        "AI-013"
+        "AI-013",
+        "BLOCK-008"
       ],
-      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance."
+      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance. Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance. Asserts skill snapshot export carries only the attachments its exact source revisions show the reader. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/authority/skill-disclosure.test.ts",
@@ -1057,18 +1058,6 @@
         "SOURCE-005"
       ],
       "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance."
-    },
-    {
-      "file": "tests/qualification/authority/snapshot.test.ts",
-      "testName": "SKILL-001 \u2014 portable skill snapshots preserve exact definitions and only currently disclosed attachments",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SKILL-001",
-        "SOURCE-005",
-        "AI-013",
-        "BLOCK-008"
-      ],
-      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance. Asserts skill snapshot export carries only the attachments its exact source revisions show the reader. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/authority/decision-authority.test.ts",
