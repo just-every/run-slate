@@ -12,6 +12,7 @@ import { AppNavigation } from "./AppNavigation";
 import { WorkspaceGate } from "./WorkspaceGate";
 import { WorkspaceProvider } from "./WorkspaceContext";
 import { useAppearance } from "../../client/useAppearance";
+import { TooltipDismissal } from "../../ui/tooltip";
 
 export function AppShell({
   snapshot,
@@ -52,6 +53,7 @@ export function AppShell({
       {snapshot.editorEnabled && member.role === 'owner' ? <EditorMount ownerId={member.id} /> : null}
       <InitialResourcesProvider key={snapshot.resourcePath} resources={snapshot.resources ?? {}}><WorkspaceGate>
         <div className="slate-app">
+          <TooltipDismissal />
           <PublicDuplicate />
           {shortcuts ? (
             <KeyboardReference onClose={() => setShortcuts(false)} />
