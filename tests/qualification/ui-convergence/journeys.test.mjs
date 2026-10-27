@@ -105,18 +105,15 @@ for (const width of [1440]) {
     });
   });
   
-  test(`create in place names root and child destinations at ${width}px`, { timeout: 180000 }, async () => {
+  test(`page creation destinations and editor locks preserve readable content at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
-      await createInPlaceJourney(state);
+      await step('TREE-005 — create in place names root and child destinations', () => createInPlaceJourney(state));
+      await state.switchIdentity('owner');
+      await withSecondPerson(state, width, people => step('PAGE-015 — locks protect content while editors comment and unlock', () => pageLockBrowserJourney(state, people)));
     });
   });
-  test(`page locks protect content while editors comment and unlock at ${width}px`, { timeout: 180000 }, async () => {
-    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
-      await setupWorkspace(state);
-      await withSecondPerson(state, width, people => pageLockBrowserJourney(state, people));
-    });
-  });
+  
   
   test(`shared page invitations name their space and disappear on revocation at ${width}px`, { timeout: 240000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
