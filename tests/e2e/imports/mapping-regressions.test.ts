@@ -49,18 +49,18 @@ test("a gzipped Confluence table member is inflated against a budget, so a neste
   expect(() => confluence(archive, { maximumExpandedBytes: 100_000, maximumEntryBytes: 100_000 })).toThrowError({ asymmetricMatch: (error: unknown) => error instanceof ImportError && error.code === "IMPORT_ARCHIVE_LIMIT_EXCEEDED" });
 });
 
-test("a Confluence table member that really is gzipped is read through the gzip path", () => {
+test("incumbent export mappings preserve content, identities, relationships and reports", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: "a Confluence table member that really is gzipped is read through the gzip path", run: () => {
   const rows = "contentid,contenttype,title,version,versioncomment,prevver,content_status,spaceid,child_position,parentid\n20,PAGE,Compressed,1,,,current,1,1,\n";
   const parsed = confluence(syntheticConfluenceCsvExport({
     tables: {},
     files: { "content.csv.gz": gzipSync(strToU8(rows)) },
   }));
   expect(parsed.pages.map((entry) => entry.title)).toEqual(["Compressed"]);
-});
-
-// ------------------------------------------------------------ confluence ----
-
-test("historical Confluence versions arrive oldest first, with the current version last", () => {
+} },
+    { name: "historical Confluence versions arrive oldest first, with the current version last", run: () => {
   // The committed Confluence export has no historical page version, so version
   // ordering can only be pinned on a synthetic export.
   const parsed = confluence(syntheticConfluenceCsvExport({
@@ -78,9 +78,8 @@ test("historical Confluence versions arrive oldest first, with the current versi
     [1, "first"], [2, "second"], [3, undefined],
   ]);
   expect(parsed.report.created.filter((entry) => entry.kind === "version").length).toBe(3);
-});
-
-test("Confluence restrictions retain exact scoped grants and refuse unsafe principals", async () => {
+} },
+    { name: "Confluence restrictions retain exact scoped grants and refuse unsafe principals", run: async () => {
   // One grant-mapping matrix through parseImport; each original fixture and assertion is retained.
   for (const scenario of [
     async () => {
@@ -152,13 +151,8 @@ async()=>{
 }])await scenario();
 }
   ]) await scenario();
-});
-
-
-
-
-
-test("Confluence content the tree would otherwise lose is imported or named: drafts, deleted rows, and second body rows", () => {
+} },
+    { name: "Confluence content the tree would otherwise lose is imported or named: drafts, deleted rows, and second body rows", run: () => {
   const parsed = confluence(syntheticConfluenceCsvExport({
     tables: {
       content: [
@@ -185,9 +179,8 @@ test("Confluence content the tree would otherwise lose is imported or named: dra
   expect(parsed.pages.some((entry) => entry.title === "Binned")).toBe(false);
   expect(parsed.report.unmapped.some((entry) => entry.label.includes('status "deleted"'))).toBe(true);
   expect(parsed.report.unmapped.some((entry) => entry.label.includes("body type 1 is a plugin payload"))).toBe(true);
-});
-
-test("Confluence storage format loses no text: links in paragraphs, images in lists and headings, and macro prose", () => {
+} },
+    { name: "Confluence storage format loses no text: links in paragraphs, images in lists and headings, and macro prose", run: () => {
   const body = [
     '<p>See <ac:link><ri:page ri:content-title="Other" /><ac:link-body>the other page</ac:link-body></ac:link> for detail.</p>',
     '<h2>Diagram <ac:image ac:alt="in a heading"><ri:attachment ri:filename="a.png" /></ac:image></h2>',
@@ -238,11 +231,8 @@ test("Confluence storage format loses no text: links in paragraphs, images in li
   const statusParagraph = blocks.find(block => block.text === 'Before Done and Blocked after.')!;
   expect(statusParagraph.statuses?.map(status => [statusParagraph.text!.slice(status.textStart, status.textEnd), status.colour])).toEqual([['Done', 'green'], ['Blocked', 'red']]);
   expect(parsed.report.unmapped.some(entry => /macro "(?:toc|status)" has no Slate equivalent/.test(entry.label))).toBe(false);
-});
-
-// ---------------------------------------------------------------- notion ----
-
-test("duplicate Notion titles resolve links and record bodies only by unambiguous source identity", () => {
+} },
+    { name: "duplicate Notion titles resolve links and record bodies only by unambiguous source identity", run: () => {
   for (const scenario of [() => {
   const parsed = notion({
     "Root aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.md": "# Root\n\n[first](Root/Untitled 11111111111111111111111111111111.md)\n\n[second](Root/Untitled 22222222222222222222222222222222.md)",
@@ -265,9 +255,8 @@ test("duplicate Notion titles resolve links and record bodies only by unambiguou
   expect(parsed.pages).toHaveLength(2);
   expect(parsed.report.unmapped.filter((entry) => entry.label.includes("ambiguous exported record pages"))).toHaveLength(2);
   }]) scenario();
-});
-
-test("a Notion archive file with an unusual extension is imported as media, never reported absent", () => {
+} },
+    { name: "a Notion archive file with an unusual extension is imported as media, never reported absent", run: () => {
   const parsed = notion({
     "Page aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.md": "# Page\n\n![Shot](Page/photo.heic)\n\n[Deck](Page/deck.key)",
     "Page/photo.heic": new Uint8Array([0, 0, 0, 24, 102, 116, 121, 112, 104, 101, 105, 99]),
@@ -280,9 +269,8 @@ test("a Notion archive file with an unusual extension is imported as media, neve
   expect(parsed.report.unmapped.filter((entry) => entry.label === "Archive file was not present")).toEqual([]);
   const media = allBlocks(parsed.pages[0]!.blocks).find((block) => block.kind === "media")!;
   expect(media.mediaSourceId).toBe(parsed.media.find((entry) => entry.name === "photo.heic")!.sourceId);
-});
-
-test("Notion fenced code keeps its indentation and a wrapped quote stays one block", () => {
+} },
+    { name: "Notion fenced code keeps its indentation and a wrapped quote stays one block", run: () => {
   const parsed = notion({
     "Page aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.md": "# Page\n\n```python\ndef f():\n    return 1\n```\n\n> A quote that the exporter\n> wrapped across two lines.\n",
   });
@@ -291,9 +279,8 @@ test("Notion fenced code keeps its indentation and a wrapped quote stays one blo
     ["quote", undefined, "A quote that the exporter wrapped across two lines."],
   ]);
   expect(parsed.pages[0]!.blocks[0]!.language).toBe("python");
-});
-
-test("Notion heading levels and to-do state are carried exactly", () => {
+} },
+    { name: "Notion heading levels and to-do state are carried exactly", run: () => {
   const parsed = notion({
     "Page aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.md": "# Page\n\n## Second level\n\n### Third level\n\n- [x]  Done item\n\n- [ ]  Open item\n",
   });
@@ -304,9 +291,8 @@ test("Notion heading levels and to-do state are carried exactly", () => {
     ["task", undefined, "Open item"],
   ]);
   expect(allBlocks(parsed.pages[0]!.blocks).filter((block) => block.kind === "task").map((block) => block.checked)).toEqual([true, false]);
-});
-
-test("a Notion CSV column of comma-separated values is a multi-select, and its options are collected", () => {
+} },
+    { name: "a Notion CSV column of comma-separated values is a multi-select, and its options are collected", run: () => {
   const parsed = notion({
     "Page aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.md": "# Page",
     "Tags cccccccccccccccccccccccccccccccc_all.csv": "Name,Labels,Owner\nFirst,\"alpha, beta\",Ada\nSecond,alpha,Grace\n",
@@ -317,11 +303,8 @@ test("a Notion CSV column of comma-separated values is a multi-select, and its o
   ]);
   expect(database.fields[1]!.options).toEqual(["alpha", "beta"]);
   expect(parsed.records[0]!.fields.Labels).toEqual(["alpha", "beta"]);
-});
-
-// ------------------------------------------------------------------ docx ----
-
-test("Word numbering and absent numbering preserve the intended paragraph, heading and list shapes",async()=>{
+} },
+    { name: "Word numbering and absent numbering preserve the intended paragraph, heading and list shapes", run: async()=>{
  // Independent fixtures exercise the same behaviour through both paths.
  for(const scenario of [async()=>{
   const numbering = [
@@ -370,4 +353,38 @@ async()=>{
   expect(shape(parsed.pages[0]!.blocks)).toEqual([["heading", 1, "Heading one"], ["paragraph", undefined, "Body"]]);
   expect(parsed.report.unmapped).toEqual([]);
 }])await scenario();
+} }
+  ];
+  for (const scenario of cases) {
+    try {  await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
 });
+
+// ------------------------------------------------------------ confluence ----
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---------------------------------------------------------------- notion ----
+
+
+
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------------ docx ----

@@ -24,11 +24,15 @@ beforeEach(resetDeployment);
  * mapping for exactly that reason — a failure here still fails the suite.
  */
 
-test("a seeded member's session authenticates at /api/session", async () => {
-  const { workspaceId } = await seedWorkspace({ name: "Aurora Labs" });
+test("deployment ownership fixtures retain authenticated identity, page foreign keys, membership and grants", async () => {
+  const workspace = await seedWorkspace({ name: "Aurora Labs" });
+  // Each step retains its original fixture assertions and failure context.
+  const cases = [
+    { name: "a seeded member's session authenticates at /api/session", run: async () => {
+  const { workspaceId } = workspace;
   const { memberId } = await seedMember(workspaceId, {
     role: "owner",
-    email: "rae@aurora.test",
+    email: "rae\x40aurora.test",
     displayName: "Rae Mensah",
   });
   const cookie = await sessionFor(memberId);
@@ -41,37 +45,16 @@ test("a seeded member's session authenticates at /api/session", async () => {
       id: memberId,
       workspaceId,
       workspaceName: "Aurora Labs",
-      email: "rae@aurora.test",
+      email: "rae\x40aurora.test",
       displayName: "Rae Mensah",
       initials: "RM",
       role: "owner",
     },
   });
-});
-
-test("sessionFor stores only the hashed token, so expiry and revocation are real", async () => {
-  const { workspaceId } = await seedWorkspace();
-  const { memberId } = await seedMember(workspaceId, { role: "member", email: "dev@aurora.test", displayName: "Devi Rao" });
-
-  const expired = await sessionFor(memberId, { expiresAt: new Date(Date.now() - 60_000).toISOString() });
-  const revoked = await sessionFor(memberId, { revokedAt: new Date().toISOString() });
-  const valid = await sessionFor(memberId);
-
-  expect((await SELF.fetch("https://slate.test/api/session", { headers: { cookie: expired } })).status).toBe(401);
-  expect((await SELF.fetch("https://slate.test/api/session", { headers: { cookie: revoked } })).status).toBe(401);
-  expect((await SELF.fetch("https://slate.test/api/session", { headers: { cookie: valid } })).status).toBe(200);
-
-  // The token in the cookie is never a stored value: only its digest is.
-  const token = valid.split("=")[1]!;
-  const stored = await env.DB.prepare("SELECT count(*) AS total FROM sessions WHERE token_digest = ?")
-    .bind(token)
-    .first<{ total: number }>();
-  expect(stored?.total).toBe(0);
-});
-
-test("a seeded page's foreign keys resolve to its workspace, container, author and parent", async () => {
-  const { workspaceId } = await seedWorkspace();
-  const { memberId: authorId } = await seedMember(workspaceId, { role: "owner", email: "kit@aurora.test", displayName: "Kit Ogun" });
+} },
+    { name: "a seeded page's foreign keys resolve to its workspace, container, author and parent", run: async () => {
+  const { workspaceId } = workspace;
+  const { memberId: authorId } = await seedMember(workspaceId, { role: "owner", email: "kit\x40aurora.test", displayName: "Kit Ogun" });
   const { containerId } = await seedContainer(workspaceId, { ownerMemberId: authorId, visibility: "open", name: "Handbook" });
   const parent = await seedPage(containerId, { title: "Onboarding", authorMemberId: authorId });
   const child = await seedPage(containerId, { title: "Day one", authorMemberId: authorId, parentPageId: parent.pageId, lifecycle: "draft" });
@@ -96,19 +79,16 @@ test("a seeded page's foreign keys resolve to its workspace, container, author a
     parent_page_id: parent.pageId,
     workspace_id: workspaceId,
     container_id: containerId,
-    author_email: "kit@aurora.test",
+    author_email: "kit\x40aurora.test",
   });
 
   // The schema, not the fixture, is the authority on what a page may reference.
   await expect(seedPage(createMissingContainerId(), { title: "Orphan", authorMemberId: authorId })).rejects.toThrow(/No container/);
-});
-
-
-
-test("groups, container membership, blocks and grants land on their owners", async () => {
-  const { workspaceId } = await seedWorkspace();
-  const { memberId: ownerId } = await seedMember(workspaceId, { role: "owner", email: "owner@aurora.test", displayName: "Ada Owner" });
-  const { memberId: readerId } = await seedMember(workspaceId, { role: "member", email: "reader@aurora.test", displayName: "Ben Reader" });
+} },
+    { name: "groups, container membership, blocks and grants land on their owners", run: async () => {
+  const { workspaceId } = workspace;
+  const { memberId: ownerId } = await seedMember(workspaceId, { role: "owner", email: "owner\x40aurora.test", displayName: "Ada Owner" });
+  const { memberId: readerId } = await seedMember(workspaceId, { role: "member", email: "reader\x40aurora.test", displayName: "Ben Reader" });
   const { groupId } = await seedGroup(workspaceId, { name: "Editors", memberIds: [ownerId, readerId] });
   const { containerId } = await seedContainer(workspaceId, { ownerMemberId: ownerId, visibility: "personal", personal: true });
   await seedContainerMember(containerId, readerId);
@@ -141,7 +121,51 @@ test("groups, container membership, blocks and grants land on their owners", asy
 
   // A personal container is a visibility, so a contradictory fixture is refused.
   await expect(seedContainer(workspaceId, { ownerMemberId: ownerId, visibility: "open", personal: true })).rejects.toThrow(/personal/);
+} }
+  ];
+  for (const scenario of cases) {
+    try { await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
 });
+
+test("deployment session fixtures retain hashed tokens, expiry and revocation", async () => {
+  const workspace = await seedWorkspace({ name: "Aurora Labs" });
+  // Each step retains its original fixture assertions and failure context.
+  const cases = [
+    { name: "sessionFor stores only the hashed token, so expiry and revocation are real", run: async () => {
+  const { workspaceId } = workspace;
+  const { memberId } = await seedMember(workspaceId, { role: "member", email: "dev\x40aurora.test", displayName: "Devi Rao" });
+
+  const expired = await sessionFor(memberId, { expiresAt: new Date(Date.now() - 60_000).toISOString() });
+  const revoked = await sessionFor(memberId, { revokedAt: new Date().toISOString() });
+  const valid = await sessionFor(memberId);
+
+  expect((await SELF.fetch("https://slate.test/api/session", { headers: { cookie: expired } })).status).toBe(401);
+  expect((await SELF.fetch("https://slate.test/api/session", { headers: { cookie: revoked } })).status).toBe(401);
+  expect((await SELF.fetch("https://slate.test/api/session", { headers: { cookie: valid } })).status).toBe(200);
+
+  // The token in the cookie is never a stored value: only its digest is.
+  const token = valid.split("=")[1]!;
+  const stored = await env.DB.prepare("SELECT count(*) AS total FROM sessions WHERE token_digest = ?")
+    .bind(token)
+    .first<{ total: number }>();
+  expect(stored?.total).toBe(0);
+} }
+  ];
+  for (const scenario of cases) {
+    try { await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
+});
+
+
+
+
+
+
+
+
 
 /** A well-formed ULID no container was ever seeded with. */
 function createMissingContainerId(): string {

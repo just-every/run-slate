@@ -46,7 +46,10 @@ function fixture(run) {
   }
 }
 
-test("verify-base accepts exact native origins and refuses modified, forged and unrecorded copies", () => {
+test("native Base provenance authenticates exact copies and refuses every forged or missing origin", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: "verify-base accepts exact native origins and refuses modified, forged and unrecorded copies", run: () => {
   const cases = [
     { name: "unchanged CLI checks all three layers against a native Git object repository", run: () => fixture(({base, verify}) => {
   const {status, report} = verify();
@@ -83,23 +86,18 @@ test("verify-base accepts exact native origins and refuses modified, forged and 
     try { entry.run(); }
     catch (cause) { throw new Error(`Case ${entry.name} failed`, { cause }); }
   }
-});
-
-
-
-
-
-
-
-test('PIN or repository tampering is rejected independently of the copy hashes', () => {
+} },
+    { name: "native proof authentication refuses forged identities, altered or missing objects and unapproved origins", run: async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: 'PIN or repository tampering is rejected independently of the copy hashes', run: () => {
   const changedRecord = clone(record);
   changedRecord.copies[0].revision = '0'.repeat(40);
   assert.throws(() => validateProof(proof, changedRecord), /exact approved Base pin/);
   assert.throws(() => validateProof({...proof, revisions: [...PINS.slice(0, -1), '0'.repeat(40)]}, record), /proof identity/);
   assert.throws(() => validateProof({...proof, repository: 'https://example.test/base.git'}, record), /proof identity/);
-});
-
-test('commit, tree and blob tampering fails native object authentication', () => {
+} },
+    { name: 'commit, tree and blob tampering fails native object authentication', run: () => {
   const objects = decodeObjects(proof);
   for (const type of ['commit', 'tree', 'blob']) {
     const [id, object] = [...objects].find(([, value]) => value.type === type);
@@ -108,9 +106,8 @@ test('commit, tree and blob tampering fails native object authentication', () =>
     changed.objects[id] = forged.encoded;
     assert.throws(() => validateProof(changed, record), /object hash mismatch/);
   }
-});
-
-test('omitting a native tree or approved origin blob fails closed', () => {
+} },
+    { name: 'omitting a native tree or approved origin blob fails closed', run: () => {
   const objects = decodeObjects(proof);
   for (const type of ['tree', 'blob']) {
     const [id] = [...objects].find(([, object]) => object.type === type);
@@ -118,18 +115,28 @@ test('omitting a native tree or approved origin blob fails closed', () => {
     delete changed.objects[id];
     assert.throws(() => validateProof(changed, record), /missing/);
   }
-});
-
-test('a correctly hashed unrelated object cannot be smuggled into the retained proof', () => {
+} },
+    { name: 'a correctly hashed unrelated object cannot be smuggled into the retained proof', run: () => {
   const changed = clone(proof), extra = encodeObject('blob', Buffer.from('TEST ONLY unrelated content'));
   changed.objects[extra.id] = extra.encoded;
   assert.throws(() => validateProof(changed, record), /unapproved object/);
-});
-
-test('redirecting a record to an unretained origin cannot authorize its missing bytes', () => {
+} },
+    { name: 'redirecting a record to an unretained origin cannot authorize its missing bytes', run: () => {
   const changed = clone(record), {objects, files} = validateProof(proof, record);
   const copy = changed.copies.find(entry => entry.path === 'CLAUDE.md');
   const [origin] = [...files.get(copy.revision)].find(([, id]) => !objects.has(id));
   copy.originPath = origin;
   assert.throws(() => validateProof(proof, changed), /missing the recorded origin blob/);
+} }
+  ];
+  for (const scenario of cases) {
+    try {  await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
+} }
+  ];
+  for (const scenario of cases) {
+    try {  await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
 });

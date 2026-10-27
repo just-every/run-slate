@@ -14,7 +14,7 @@ import { listMembers } from '../../src/core/features/workspace/members';
 import { containerIndex } from '../../src/core/features/containers/queries';
 import { currentSubject, requirePageLevel, requireContainerLevel } from '../../src/core/features/sharing/current-access';
 import { search } from '../../src/core/features/search/service';
-const settings = {LOCAL_DEVELOPMENT:'true', APP_URL:'http://127.0.0.1:4312',SETUP_OWNER_EMAIL:'owner@example.com',SESSION_SECRET:'test-only-local-secret',MAIL_PROVIDER:'resend',MAIL_API_KEY:'test-only-mail-key',MAIL_FROM:'auth@localhost.test',RER_DEV_KEY:'test-only-local-dev-key'.padEnd(43,'k')};
+const settings = {LOCAL_DEVELOPMENT:'true', APP_URL:'http://127.0.0.1:4312',SETUP_OWNER_EMAIL:'owner\x40example.com',SESSION_SECRET:'test-only-local-secret',MAIL_PROVIDER:'resend',MAIL_API_KEY:'test-only-mail-key',MAIL_FROM:'auth\x40localhost.test',RER_DEV_KEY:'test-only-local-dev-key'.padEnd(43,'k')};
 let captured: {to:string[];text:string}[] = [];
 const realFetch = globalThis.fetch;
 function installMailCapture() {
@@ -61,12 +61,15 @@ function signInToken(fixture: ReturnType<typeof localMailDatabase>, email: strin
   return /\/auth\/confirm\?token=([A-Za-z0-9_-]{43})/.exec(message.text)![1]!;
 }
 
-test('native local first magic link bootstraps one owner and each new request reaches the mail provider once', async () => {
+test("native local mail sign-in and invitations preserve identity, delivery and scoped authority", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: 'native local first magic link bootstraps one owner and each new request reaches the mail provider once', run: async () => {
   const fixture = localMailDatabase(); fixture.migrate();
 
   try {
     const env = {...settings,DB:fixture.db} as AppBindings, app = routes();
-    assert.equal((await requestLink(app,fixture.db,'other@example.com')).status,200);
+    assert.equal((await requestLink(app,fixture.db,'other\x40example.com')).status,200);
     assert.equal(fixture.sql.prepare('SELECT count(*) n FROM workspaces').get()!.n,0);
     assert.equal((await requestLink(app,fixture.db,settings.SETUP_OWNER_EMAIL)).status,200);
 
@@ -82,27 +85,25 @@ test('native local first magic link bootstraps one owner and each new request re
     assert.equal(fixture.sql.prepare('SELECT count(*) n FROM members').get()!.n,1);
     assert.equal((await confirmLink(app,fixture.db,token)).status,400);
   } finally { fixture.close(); }
-});
-
-test('existing local member signs in through mail after additive migration without changing stored workspace data', async () => {
+} },
+    { name: 'existing local member signs in through mail after additive migration without changing stored workspace data', run: async () => {
   const fixture = localMailDatabase();
   try {
-    fixture.sql.exec("INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES ('prior','My edited workspace','P','before','before','r'); INSERT INTO members(id,workspace_id,email,display_name,initials,role,is_setup_owner,created_at,updated_at) VALUES ('member','prior','existing@example.com','My name','ME','owner',1,'before','before'); INSERT INTO containers(id,workspace_id,name,visibility,created_at,updated_at,revision_id) VALUES ('container','prior','My documents','open','before','before','r');");
+    fixture.sql.exec("INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES ('prior','My edited workspace','P','before','before','r'); INSERT INTO members(id,workspace_id,email,display_name,initials,role,is_setup_owner,created_at,updated_at) VALUES ('member','prior','existing\x40example.com','My name','ME','owner',1,'before','before'); INSERT INTO containers(id,workspace_id,name,visibility,created_at,updated_at,revision_id) VALUES ('container','prior','My documents','open','before','before','r');");
     const tables = ['workspaces','members','containers'];
     // Additive migrations may introduce columns; every existing column and row must survive.
     const columns = tables.map(table=>fixture.sql.prepare(`PRAGMA table_info(${table})`).all().map(column=>`"${column.name}"`).join(','));
     const snapshot = () => tables.map((table,index)=>fixture.sql.prepare(`SELECT ${columns[index]} FROM ${table} ORDER BY id`).all());
     const before = snapshot(); fixture.migrate();
     const app = routes();
-    assert.equal((await requestLink(app,fixture.db,'existing@example.com')).status,200);
-    assert.equal((await confirmLink(app,fixture.db,signInToken(fixture,'existing@example.com'))).status,303);
+    assert.equal((await requestLink(app,fixture.db,'existing\x40example.com')).status,200);
+    assert.equal((await confirmLink(app,fixture.db,signInToken(fixture,'existing\x40example.com'))).status,303);
     assert.deepEqual(snapshot(),before);
     assert.equal(fixture.sql.prepare('SELECT member_id FROM sessions').get()!.member_id,'member');
     assert.deepEqual(fixture.sql.prepare('PRAGMA foreign_key_check').all(),[]);
   } finally { fixture.close(); }
-});
-
-test('native local sign-in retains strict JSON magic links and exposes no sample-owner bypass', async () => {
+} },
+    { name: 'native local sign-in retains strict JSON magic links and exposes no sample-owner bypass', run: async () => {
   const fixture = localMailDatabase(); fixture.migrate();
   try {
     const app = routes();
@@ -118,7 +119,115 @@ test('native local sign-in retains strict JSON magic links and exposes no sample
     assert.equal(response.status,200);assert.deepEqual(await response.json(),{accepted:true});
     assert.equal(captured.length,1);
   } finally {fixture.close();}
+} },
+    { name: 'native local member invitation delivers once, accepts into a native session and preserves member authority', run: async () => {
+  await withLocalOwner(async (fixture,owner) => {
+    const input = {operationKey:crypto.randomUUID(),email:'member\x40example.com',kind:'member' as const};
+    const first = await invite(owner,config(),input);
+    assert.deepEqual(first.value,{accepted:true});
+    assert.deepEqual(await invite(owner,config(),input),first);
+    assert.equal(fixture.sql.prepare('SELECT count(*) n FROM invitations').get()!.n,1);
+    assert.equal(captured.length,2);
+    const delivery = fixture.sql.prepare("SELECT state,delivery_phase,provider,attempt_count,payload_ciphertext FROM mail_deliveries WHERE kind='invitation'").get()!;
+    assert.deepEqual({...delivery},{state:'sent',delivery_phase:'sent',provider:'resend',attempt_count:1,payload_ciphertext:null});
+    const token = outboxToken(fixture,input.email);
+    const member = await authenticatedContext(fixture,await acceptThroughRoute(routes(),fixture.db,token));
+    assert.equal(member.actor.role,'member');assert.equal(member.actor.email,input.email);
+    assert.equal((await currentSubject(member)).isGuest,false);
+    assert.equal(fixture.sql.prepare("SELECT count(*) n FROM containers c JOIN container_owners o ON o.container_id=c.id WHERE c.visibility='personal' AND o.member_id=?").get(member.actor.id)!.n,1);
+    await assert.rejects(acceptInvitation(fixture.db,config(),token),{code:'LINK_INVALID'});
+    await invite(member,config(),{operationKey:crypto.randomUUID(),email:'colleague\x40example.com',kind:'member'});
+    assert.equal(captured.length,3);
+    const before = invitationCounts(fixture);
+    assert.deepEqual((await invite(owner,config(),{operationKey:crypto.randomUUID(),email:input.email,kind:'member'})).value,first.value);
+    assert.deepEqual(invitationCounts(fixture).slice(0,3),before.slice(0,3));
+  });
+} },
+    { name: 'native local page and container guest invitations accept only their named scope and retain guest restrictions', run: async () => {
+  for (const [index,target] of (['page','container'] as const).entries()) {
+    if(index>0){restoreMailCapture();installMailCapture();}
+  await withLocalOwner(async (fixture,owner) => {
+    const setup = (await completeFirstRun(owner,{operationKey:crypto.randomUUID(),workspaceName:'Local workspace',containerName:'Named container',pageTitle:'Named page'})).value;
+    // A second resource with a workspace grant is visible to members, never to scoped guests.
+    fixture.sql.prepare("INSERT INTO containers(id,workspace_id,name,visibility,created_at,updated_at,revision_id) VALUES ('unrelated-container',?,'Unrelated container','open',?,?,'unrelated-revision')").run(owner.actor.workspaceId,owner.now,owner.now);
+    fixture.sql.prepare("INSERT INTO pages(id,workspace_id,container_id,title,author_member_id,working_revision_id,created_at,updated_at,revision_id) VALUES ('unrelated-page',?,'unrelated-container','Unrelated page',?,'unrelated-revision',?,?,'unrelated-revision')").run(owner.actor.workspaceId,owner.actor.id,owner.now,owner.now);
+    fixture.sql.prepare("INSERT INTO page_grants(id,page_id,principal_kind,principal_id,level,created_at,updated_at) VALUES ('unrelated-grant','unrelated-page','workspace',?,'view',?,?)").run(owner.actor.workspaceId,owner.now,owner.now);
+    const email = `${target}-guest\x40example.com`, grantExpiry = new Date(Date.now()+3600000).toISOString();
+    const input = {operationKey:crypto.randomUUID(),email,kind:'guest' as const,level:'view' as const,expiresAt:grantExpiry,...(target==='page'?{pageId:setup.pageId}:{containerId:setup.containerId})};
+    const result = await invite(owner,config(),input);
+    assert.deepEqual(await invite(owner,config(),input),result);
+    assert.equal(captured.length,2);
+    const invitation = fixture.sql.prepare('SELECT id,page_grant_id,container_grant_id,accepted_by_member_id FROM invitations').get()!;
+    assert.equal(invitation.accepted_by_member_id,null);
+    const table = target==='page'?'page_grants':'container_grants';
+    const grantId = invitation[target==='page'?'page_grant_id':'container_grant_id'];
+    const pending = fixture.sql.prepare(`SELECT principal_id,level,expires_at FROM ${table} WHERE id=?`).get(grantId)!;
+    assert.equal(pending.principal_id,`invitation:${invitation.id}`);assert.equal(pending.level,'view');assert.equal(pending.expires_at,grantExpiry);
+    const token = outboxToken(fixture,email);
+    const guest = await authenticatedContext(fixture,await acceptThroughRoute(routes(),fixture.db,token));
+    assert.equal((await currentSubject(guest)).isGuest,true);
+    assert.equal(fixture.sql.prepare(`SELECT principal_id FROM ${table} WHERE id=?`).get(grantId)!.principal_id,guest.actor.id);
+    assert.equal((await requirePageLevel(guest,setup.pageId,'view')).decision.level,'view');
+    await assert.rejects(requirePageLevel(guest,setup.pageId,'edit'),{code:'NOT_FOUND'});
+    await assert.rejects(requirePageLevel(guest,'unrelated-page','view'),{code:'NOT_FOUND'});
+    if(target==='container')await requireContainerLevel(guest,setup.containerId,'view');
+    else await assert.rejects(requireContainerLevel(guest,setup.containerId,'view'),{code:'NOT_FOUND'});
+    await assert.rejects(containerIndex(guest),{code:'FORBIDDEN'});
+    await assert.rejects(listMembers(guest,'member'),{code:'FORBIDDEN'});
+    assert.equal((await listMembers(owner,'member')).items.length,1);
+    assert.equal(fixture.sql.prepare('SELECT count(*) n FROM container_owners WHERE member_id=?').get(guest.actor.id)!.n,0);
+    assert.deepEqual((await search(guest,{query:'page',kind:'page'})).items.map(item=>item.id),[setup.pageId]);
+    const before = invitationCounts(fixture);
+    await assert.rejects(invite(guest,config(),{operationKey:crypto.randomUUID(),email:'guest-cannot-invite\x40example.com',kind:'member'}),{code:'FORBIDDEN'});
+    assert.deepEqual(invitationCounts(fixture),before);
+    await assert.rejects(acceptInvitation(fixture.db,config(),token,owner),{code:'LINK_INVALID'});
+  },true);
+  }
+} },
+    { name: 'native local invitations preserve scope validation, guest veto and revocation before acceptance', run: async () => {
+  await withLocalOwner(async (fixture,owner) => {
+    const setup = (await completeFirstRun(owner,{operationKey:crypto.randomUUID(),workspaceName:'Local workspace',containerName:'Named container',pageTitle:'Named page'})).value;
+    const before = invitationCounts(fixture);
+    for (const [scope,code] of [
+      [{kind:'guest'},'TARGET_REQUIRED'],
+      [{kind:'guest',pageId:setup.pageId,containerId:setup.containerId},'INVALID_INVITATION_SCOPE'],
+      [{kind:'member',pageId:setup.pageId},'INVALID_INVITATION_SCOPE'],
+      [{kind:'member',level:'full'},'INVALID_INVITATION_SCOPE'],
+      [{kind:'guest',pageId:setup.pageId,expiresAt:'2000-01-01T00:00:00.000Z'},'INVALID_GRANT_EXPIRY'],
+    ] as const) await assert.rejects(invite(owner,config(),{operationKey:crypto.randomUUID(),email:'invalid\x40example.com',...scope}),{code});
+    fixture.sql.prepare("UPDATE containers SET guest_access='forbidden' WHERE id=?").run(setup.containerId);
+    await assert.rejects(invite(owner,config(),{operationKey:crypto.randomUUID(),email:'veto\x40example.com',kind:'guest',pageId:setup.pageId}),{code:'GUESTS_FORBIDDEN'});
+    assert.deepEqual(invitationCounts(fixture),before);
+    fixture.sql.prepare("UPDATE containers SET guest_access='allowed' WHERE id=?").run(setup.containerId);
+    await invite(owner,config(),{operationKey:crypto.randomUUID(),email:'revoked\x40example.com',kind:'guest',pageId:setup.pageId});
+    const token=outboxToken(fixture,'revoked\x40example.com'), invitation=fixture.sql.prepare('SELECT id,page_grant_id FROM invitations').get()!;
+    await revokeInvitation(owner,{operationKey:crypto.randomUUID(),id:invitation.id as string});
+    assert.ok(fixture.sql.prepare('SELECT revoked_at FROM page_grants WHERE id=?').get(invitation.page_grant_id)!.revoked_at);
+    await assert.rejects(acceptInvitation(fixture.db,config(),token,owner),{code:'LINK_INVALID'});
+    assert.equal(fixture.sql.prepare('SELECT count(*) n FROM members').get()!.n,1);
+  },true);
+} },
+    { name: 'native invitation readiness still refuses hosted providers without credentials before admission', run: async () => {
+  await withLocalOwner(async (fixture,owner) => {
+    const before = invitationCounts(fixture);
+    for (const provider of ['resend','sendgrid'] as const) {
+      assert.throws(()=>readRuntimeConfig({...settings,MAIL_API_KEY:undefined,LOCAL_DEVELOPMENT:'false',APP_URL:'https://slate.example.com',MAIL_PROVIDER:provider},false),/MAIL_API_KEY/);
+      for(const kind of ['member','guest'] as const) await assert.rejects(invite(owner,{...config(),mailApiKey:undefined,localDevelopment:false,appUrl:'https://slate.example.com',mailProvider:provider},{operationKey:crypto.randomUUID(),email:'hosted\x40example.com',kind}),{status:503,code:'MAIL_UNAVAILABLE'});
+    }
+    assert.deepEqual(invitationCounts(fixture),before);
+  });
+} }
+  ];
+  for (const scenario of cases) {
+    try { await (installMailCapture)(); await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+    finally { await (restoreMailCapture)(); }
+  }
 });
+
+
+
+
 
 // These are native SQLite/mail regressions, not hosted-provider or full clause acceptance.
 type LocalMailFixture = ReturnType<typeof localMailDatabase>;
@@ -155,104 +264,3 @@ function invitationCounts(fixture: LocalMailFixture) {
   return ['invitations','mail_deliveries','rer_mail_development_outbox','operation_receipts','page_grants','container_grants']
     .map(table => fixture.sql.prepare(`SELECT count(*) n FROM ${table}`).get()!.n);
 }
-
-test('native local member invitation delivers once, accepts into a native session and preserves member authority', async () => {
-  await withLocalOwner(async (fixture,owner) => {
-    const input = {operationKey:crypto.randomUUID(),email:'member@example.com',kind:'member' as const};
-    const first = await invite(owner,config(),input);
-    assert.deepEqual(first.value,{accepted:true});
-    assert.deepEqual(await invite(owner,config(),input),first);
-    assert.equal(fixture.sql.prepare('SELECT count(*) n FROM invitations').get()!.n,1);
-    assert.equal(captured.length,2);
-    const delivery = fixture.sql.prepare("SELECT state,delivery_phase,provider,attempt_count,payload_ciphertext FROM mail_deliveries WHERE kind='invitation'").get()!;
-    assert.deepEqual({...delivery},{state:'sent',delivery_phase:'sent',provider:'resend',attempt_count:1,payload_ciphertext:null});
-    const token = outboxToken(fixture,input.email);
-    const member = await authenticatedContext(fixture,await acceptThroughRoute(routes(),fixture.db,token));
-    assert.equal(member.actor.role,'member');assert.equal(member.actor.email,input.email);
-    assert.equal((await currentSubject(member)).isGuest,false);
-    assert.equal(fixture.sql.prepare("SELECT count(*) n FROM containers c JOIN container_owners o ON o.container_id=c.id WHERE c.visibility='personal' AND o.member_id=?").get(member.actor.id)!.n,1);
-    await assert.rejects(acceptInvitation(fixture.db,config(),token),{code:'LINK_INVALID'});
-    await invite(member,config(),{operationKey:crypto.randomUUID(),email:'colleague@example.com',kind:'member'});
-    assert.equal(captured.length,3);
-    const before = invitationCounts(fixture);
-    assert.deepEqual((await invite(owner,config(),{operationKey:crypto.randomUUID(),email:input.email,kind:'member'})).value,first.value);
-    assert.deepEqual(invitationCounts(fixture).slice(0,3),before.slice(0,3));
-  });
-});
-
-test('native local page and container guest invitations accept only their named scope and retain guest restrictions', async () => {
-  for (const [index,target] of (['page','container'] as const).entries()) {
-    if(index>0){restoreMailCapture();installMailCapture();}
-  await withLocalOwner(async (fixture,owner) => {
-    const setup = (await completeFirstRun(owner,{operationKey:crypto.randomUUID(),workspaceName:'Local workspace',containerName:'Named container',pageTitle:'Named page'})).value;
-    // A second resource with a workspace grant is visible to members, never to scoped guests.
-    fixture.sql.prepare("INSERT INTO containers(id,workspace_id,name,visibility,created_at,updated_at,revision_id) VALUES ('unrelated-container',?,'Unrelated container','open',?,?,'unrelated-revision')").run(owner.actor.workspaceId,owner.now,owner.now);
-    fixture.sql.prepare("INSERT INTO pages(id,workspace_id,container_id,title,author_member_id,working_revision_id,created_at,updated_at,revision_id) VALUES ('unrelated-page',?,'unrelated-container','Unrelated page',?,'unrelated-revision',?,?,'unrelated-revision')").run(owner.actor.workspaceId,owner.actor.id,owner.now,owner.now);
-    fixture.sql.prepare("INSERT INTO page_grants(id,page_id,principal_kind,principal_id,level,created_at,updated_at) VALUES ('unrelated-grant','unrelated-page','workspace',?,'view',?,?)").run(owner.actor.workspaceId,owner.now,owner.now);
-    const email = `${target}-guest@example.com`, grantExpiry = new Date(Date.now()+3600000).toISOString();
-    const input = {operationKey:crypto.randomUUID(),email,kind:'guest' as const,level:'view' as const,expiresAt:grantExpiry,...(target==='page'?{pageId:setup.pageId}:{containerId:setup.containerId})};
-    const result = await invite(owner,config(),input);
-    assert.deepEqual(await invite(owner,config(),input),result);
-    assert.equal(captured.length,2);
-    const invitation = fixture.sql.prepare('SELECT id,page_grant_id,container_grant_id,accepted_by_member_id FROM invitations').get()!;
-    assert.equal(invitation.accepted_by_member_id,null);
-    const table = target==='page'?'page_grants':'container_grants';
-    const grantId = invitation[target==='page'?'page_grant_id':'container_grant_id'];
-    const pending = fixture.sql.prepare(`SELECT principal_id,level,expires_at FROM ${table} WHERE id=?`).get(grantId)!;
-    assert.equal(pending.principal_id,`invitation:${invitation.id}`);assert.equal(pending.level,'view');assert.equal(pending.expires_at,grantExpiry);
-    const token = outboxToken(fixture,email);
-    const guest = await authenticatedContext(fixture,await acceptThroughRoute(routes(),fixture.db,token));
-    assert.equal((await currentSubject(guest)).isGuest,true);
-    assert.equal(fixture.sql.prepare(`SELECT principal_id FROM ${table} WHERE id=?`).get(grantId)!.principal_id,guest.actor.id);
-    assert.equal((await requirePageLevel(guest,setup.pageId,'view')).decision.level,'view');
-    await assert.rejects(requirePageLevel(guest,setup.pageId,'edit'),{code:'NOT_FOUND'});
-    await assert.rejects(requirePageLevel(guest,'unrelated-page','view'),{code:'NOT_FOUND'});
-    if(target==='container')await requireContainerLevel(guest,setup.containerId,'view');
-    else await assert.rejects(requireContainerLevel(guest,setup.containerId,'view'),{code:'NOT_FOUND'});
-    await assert.rejects(containerIndex(guest),{code:'FORBIDDEN'});
-    await assert.rejects(listMembers(guest,'member'),{code:'FORBIDDEN'});
-    assert.equal((await listMembers(owner,'member')).items.length,1);
-    assert.equal(fixture.sql.prepare('SELECT count(*) n FROM container_owners WHERE member_id=?').get(guest.actor.id)!.n,0);
-    assert.deepEqual((await search(guest,{query:'page',kind:'page'})).items.map(item=>item.id),[setup.pageId]);
-    const before = invitationCounts(fixture);
-    await assert.rejects(invite(guest,config(),{operationKey:crypto.randomUUID(),email:'guest-cannot-invite@example.com',kind:'member'}),{code:'FORBIDDEN'});
-    assert.deepEqual(invitationCounts(fixture),before);
-    await assert.rejects(acceptInvitation(fixture.db,config(),token,owner),{code:'LINK_INVALID'});
-  },true);
-  }
-});
-
-test('native local invitations preserve scope validation, guest veto and revocation before acceptance', async () => {
-  await withLocalOwner(async (fixture,owner) => {
-    const setup = (await completeFirstRun(owner,{operationKey:crypto.randomUUID(),workspaceName:'Local workspace',containerName:'Named container',pageTitle:'Named page'})).value;
-    const before = invitationCounts(fixture);
-    for (const [scope,code] of [
-      [{kind:'guest'},'TARGET_REQUIRED'],
-      [{kind:'guest',pageId:setup.pageId,containerId:setup.containerId},'INVALID_INVITATION_SCOPE'],
-      [{kind:'member',pageId:setup.pageId},'INVALID_INVITATION_SCOPE'],
-      [{kind:'member',level:'full'},'INVALID_INVITATION_SCOPE'],
-      [{kind:'guest',pageId:setup.pageId,expiresAt:'2000-01-01T00:00:00.000Z'},'INVALID_GRANT_EXPIRY'],
-    ] as const) await assert.rejects(invite(owner,config(),{operationKey:crypto.randomUUID(),email:'invalid@example.com',...scope}),{code});
-    fixture.sql.prepare("UPDATE containers SET guest_access='forbidden' WHERE id=?").run(setup.containerId);
-    await assert.rejects(invite(owner,config(),{operationKey:crypto.randomUUID(),email:'veto@example.com',kind:'guest',pageId:setup.pageId}),{code:'GUESTS_FORBIDDEN'});
-    assert.deepEqual(invitationCounts(fixture),before);
-    fixture.sql.prepare("UPDATE containers SET guest_access='allowed' WHERE id=?").run(setup.containerId);
-    await invite(owner,config(),{operationKey:crypto.randomUUID(),email:'revoked@example.com',kind:'guest',pageId:setup.pageId});
-    const token=outboxToken(fixture,'revoked@example.com'), invitation=fixture.sql.prepare('SELECT id,page_grant_id FROM invitations').get()!;
-    await revokeInvitation(owner,{operationKey:crypto.randomUUID(),id:invitation.id as string});
-    assert.ok(fixture.sql.prepare('SELECT revoked_at FROM page_grants WHERE id=?').get(invitation.page_grant_id)!.revoked_at);
-    await assert.rejects(acceptInvitation(fixture.db,config(),token,owner),{code:'LINK_INVALID'});
-    assert.equal(fixture.sql.prepare('SELECT count(*) n FROM members').get()!.n,1);
-  },true);
-});
-
-test('native invitation readiness still refuses hosted providers without credentials before admission', async () => {
-  await withLocalOwner(async (fixture,owner) => {
-    const before = invitationCounts(fixture);
-    for (const provider of ['resend','sendgrid'] as const) {
-      assert.throws(()=>readRuntimeConfig({...settings,MAIL_API_KEY:undefined,LOCAL_DEVELOPMENT:'false',APP_URL:'https://slate.example.com',MAIL_PROVIDER:provider},false),/MAIL_API_KEY/);
-      for(const kind of ['member','guest'] as const) await assert.rejects(invite(owner,{...config(),mailApiKey:undefined,localDevelopment:false,appUrl:'https://slate.example.com',mailProvider:provider},{operationKey:crypto.randomUUID(),email:'hosted@example.com',kind}),{status:503,code:'MAIL_UNAVAILABLE'});
-    }
-    assert.deepEqual(invitationCounts(fixture),before);
-  });
-});
