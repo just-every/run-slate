@@ -8,7 +8,7 @@ const {mutationGuard}=await tsImport('../../src/core/app/operations.ts',import.m
 const {bootstrapOwner}=await tsImport('../../src/core/features/workspace/bootstrap.ts',import.meta.url);
 
 async function bootstrap(h,statuses){
-  const email='restore-owner@example.invalid';
+  const email='restore-owner\x40example.invalid';
   await bootstrapOwner(h.db,{setupOwnerEmail:email},email);
   assert.equal(h.sql.prepare('SELECT COUNT(*) AS count FROM status_entries').get().count,4);
   if(!statuses)h.sql.exec('DELETE FROM status_entries');
@@ -16,9 +16,9 @@ async function bootstrap(h,statuses){
 
 const identityCases=[
   ['second member',h=>h.sql.exec(`INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,created_at,updated_at)
-    SELECT 'extra',id,'extra@example.invalid','Extra','EX','member','member','active',created_at,updated_at FROM workspaces`)],
+    SELECT 'extra',id,'extra\x40example.invalid','Extra','EX','member','member','active',created_at,updated_at FROM workspaces`)],
   ['guest',h=>h.sql.exec(`INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,created_at,updated_at)
-    SELECT 'guest',id,'guest@example.invalid','Guest','GU','member','guest','active',created_at,updated_at FROM workspaces`)],
+    SELECT 'guest',id,'guest\x40example.invalid','Guest','GU','member','guest','active',created_at,updated_at FROM workspaces`)],
   ['second workspace',h=>h.sql.exec(`INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id)
     SELECT 'second','Existing workspace','',created_at,updated_at,'second-revision' FROM workspaces`)],
   ['non-setup owner',h=>h.sql.exec('UPDATE members SET is_setup_owner=0')],
@@ -57,7 +57,10 @@ async function assertRejectedWithoutDeletion(h){
   assert.deepEqual(h.snapshot(),before,'Failed in-transaction guards roll back all writes and preserve every table.');
 }
 
-test('restore accepts empty and pristine legacy or native bootstrap targets in preflight and every transactional selector',async()=>{
+test("restore admission accepts pristine bootstrap targets and preserves every retained identity and record", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: 'restore accepts empty and pristine legacy or native bootstrap targets in preflight and every transactional selector', run: async()=>{
   for(const mode of ['empty','legacy zero-status bootstrap','native four-status bootstrap']){
     const h=restoreDatabase();
     try{
@@ -70,27 +73,23 @@ test('restore accepts empty and pristine legacy or native bootstrap targets in p
       assert.deepEqual(h.snapshot(),before,'Successful emptiness checks have no data side effects.');
     }finally{h.close();}
   }
-});
-
-test('restore preserves every target without exactly one active setup owner in its sole workspace with either bootstrap vocabulary',async()=>{
+} },
+    { name: 'restore preserves every target without exactly one active setup owner in its sole workspace with either bootstrap vocabulary', run: async()=>{
   for(const statuses of [false,true])for(const [name,alter] of identityCases){
     const h=restoreDatabase();
     try{await bootstrap(h,statuses);alter(h);await assertRejectedWithoutDeletion(h);}
     finally{h.close();}
   }
-});
-
-for(const [name,alter] of retainedDataCases){
-  test(`restore preserves ${name} with either bootstrap vocabulary`,async()=>{
-    for(const statuses of [false,true]){
-      const h=restoreDatabase();
-      try{await bootstrap(h,statuses);alter(h);await assertRejectedWithoutDeletion(h);}
-      finally{h.close();}
-    }
-  });
-}
-
-test('restore preserves every customized or incomplete bootstrap status vocabulary',async()=>{
+} },
+    { name: 'restore preserves retained identity bindings and product records with either bootstrap vocabulary', run: async()=>{
+  for(const [name,alter] of retainedDataCases)for(const statuses of [false,true]){
+    const h=restoreDatabase();
+    try{await bootstrap(h,statuses);alter(h);await assertRejectedWithoutDeletion(h);}
+    catch(cause){throw new Error(`Restore retained ${name} failed`,{cause});}
+    finally{h.close();}
+  }
+} },
+    { name: 'restore preserves every customized or incomplete bootstrap status vocabulary', run: async()=>{
   for(const [name,query] of [
     ['custom label',"UPDATE status_entries SET label='Owner vocabulary' WHERE key='rough-draft'"],
     ['custom color',"UPDATE status_entries SET color='#123456' WHERE key='rough-draft'"],
@@ -105,10 +104,15 @@ test('restore preserves every customized or incomplete bootstrap status vocabula
     try{await bootstrap(h,true);h.sql.exec(query);await assertRejectedWithoutDeletion(h);}
     finally{h.close();}
   }
-});
-
-test('restore preserves completed first run',async()=>{
+} },
+    { name: 'restore preserves completed first run', run: async()=>{
   const h=restoreDatabase();
   try{await bootstrap(h,true);h.sql.exec("UPDATE workspaces SET first_run_completed_at=created_at");await assertRejectedWithoutDeletion(h);}
   finally{h.close();}
+} }
+  ];
+  for (const scenario of cases) {
+    try {  await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
 });

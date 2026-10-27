@@ -3,7 +3,10 @@ import { strToU8, unzipSync, zipSync } from "fflate";
 import { parseImport } from "../../../src/core/features/imports/index";
 import { syntheticConfluenceArchive, syntheticDocx, syntheticEpub, syntheticNotionArchive, syntheticPdf } from "./fixtures/synthetic";
 
-test("synthetic Notion archive preserves the page tree, page links, CSV fields, and archive media", () => {
+test("explicit import formats preserve their content and relationships", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: "synthetic Notion archive preserves the page tree, page links, CSV fields, and archive media", run: () => {
   const parsed = parseImport("notion-workspace", { name: "synthetic-notion.zip", bytes: syntheticNotionArchive() });
   expect(parsed.pages.length).toBe(2);
   expect(parsed.pages[1]!.parentSourceId).toBe(parsed.pages[0]!.sourceId);
@@ -12,9 +15,8 @@ test("synthetic Notion archive preserves the page tree, page links, CSV fields, 
   expect(parsed.databases[0]?.fields.map((field) => field.type)).toEqual(["title", "checkbox", "date"]);
   expect(parsed.records.length).toBe(1);
   expect(parsed.media.length).toBe(1);
-});
-
-test("synthetic Confluence archive keeps unmapped restrictions closed and reports unsupported constructs", () => {
+} },
+    { name: "synthetic Confluence archive keeps unmapped restrictions closed and reports unsupported constructs", run: () => {
   const parsed = parseImport("confluence-space", { name: "synthetic-confluence.zip", bytes: syntheticConfluenceArchive() });
   const overview = parsed.pages.find((page) => page.title === "Overview")!;
   const child = parsed.pages.find((page) => page.title === "Child")!;
@@ -36,9 +38,8 @@ test("synthetic Confluence archive keeps unmapped restrictions closed and report
   expect(mapped.blocks.find(block => block.kind === 'table-of-contents')?.tableOfContents).toEqual({minLevel: 1, maxLevel: 2, style: 'nested'});
   const labelled = mapped.blocks.find(block => block.text === 'Before Ready after.')!;
   expect(labelled.statuses?.map(status => [labelled.text!.slice(status.textStart, status.textEnd), status.colour])).toEqual([['Ready', 'blue']]);
-});
-
-test("synthetic DOCX and Google DOCX imports preserve ordered headings, tables, and embedded archive media", () => {
+} },
+    { name: "synthetic DOCX and Google DOCX imports preserve ordered headings, tables, and embedded archive media", run: () => {
   const word = parseImport("docx", { name: "synthetic-word.docx", bytes: syntheticDocx() });
   const google = parseImport("google-docx", { name: "synthetic-google.docx", bytes: syntheticDocx() });
   expect(word.pages[0]!.blocks[0]?.kind).toBe("heading");
@@ -46,9 +47,8 @@ test("synthetic DOCX and Google DOCX imports preserve ordered headings, tables, 
   expect(word.pages[0]!.blocks.some((block) => block.kind === "media")).toBe(true);
   expect(word.media.length).toBe(1);
   expect(google.format).toBe("google-docx");
-});
-
-test("generic EPUB, PDF, Markdown, HTML, text, and CSV import through their explicit format paths", () => {
+} },
+    { name: "generic EPUB, PDF, Markdown, HTML, text, and CSV import through their explicit format paths", run: () => {
   expect(parseImport("epub", { name: "synthetic.epub", bytes: syntheticEpub() }).pages[0]?.title).toBe("Chapter one");
   expect(parseImport("pdf", { name: "synthetic.pdf", bytes: syntheticPdf() }).pages[0]?.blocks[0]?.text).toBe("A PDF paragraph");
   expect(parseImport("markdown", { name: "note.md", bytes: new TextEncoder().encode("# Title\n\nText") }).pages[0]?.blocks.length).toBe(2);
@@ -74,4 +74,10 @@ test("generic EPUB, PDF, Markdown, HTML, text, and CSV import through their expl
   expect(definition.containerId.startsWith('unavailable:')).toBe(true);
   expect(definition.assignee.memberId.startsWith('unavailable:')).toBe(true);
   expect(reportImport.report.warnings.filter(warning => warning.sourceId === report.sourceId)).toHaveLength(2);
+} }
+  ];
+  for (const scenario of cases) {
+    try {  await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
 });

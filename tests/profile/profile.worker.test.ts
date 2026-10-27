@@ -21,7 +21,10 @@ async function workspace() {
   await seedContainerGrant(containerId, {principalKind:'member',principalId:memberId,level:'full'});
   return {containerId,memberId,workspaceId, cookie:await sessionFor(memberId)};
 }
-it('FLAG-001 — default API refuses flagship entry points after native authentication; explicit opt-in retains routes', async () => {
+it("FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: 'FLAG-001 — default API refuses flagship entry points after native authentication; explicit opt-in retains routes', run: async () => {
   const {cookie} = await workspace(), api = createApi();
   for (const family of ['ai','runs','inquiries','experiments','skills','effects','impact','agent','claims','sources','connectors','suggestions','decisions/from-run/old-run']) {
     for (const method of ['GET','POST']) {
@@ -36,8 +39,8 @@ it('FLAG-001 — default API refuses flagship entry points after native authenti
   const enabled = await api.request('https://slate.example/api/ai/availability',{headers:{cookie}},{...env,SLATE_PROFILE:'flagship'});
   expect(enabled.status).toBe(200);
   expect(await enabled.json()).toMatchObject({providerConfigured:false});
-});
-it('FLAG-001 — core wiki creates and revises genuine pages, searches them, and retains portability and publication endpoints', async () => {
+} },
+    { name: 'FLAG-001 — core wiki creates and revises genuine pages, searches them, and retains portability and publication endpoints', run: async () => {
   const {cookie,containerId,memberId,workspaceId} = await workspace(), api=createApi();
   const request=(path:string,method='GET',body?:unknown)=>api.request('https://slate.example'+path,{method,headers:{cookie,...(body?{'content-type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})},env);
   const created=await request('/api/pages','POST',{operationKey:crypto.randomUUID(),containerId,title:'Profile journal'});
@@ -79,7 +82,27 @@ it('FLAG-001 — core wiki creates and revises genuine pages, searches them, and
   expect(await run.json()).toMatchObject({state:'completed'});
   await bodyBlocksJourney(api,containerId,cookie);
   await pageLockJourney(api,containerId,workspaceId,cookie);
+} },
+    { name: 'FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', run: async () => {
+  for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {
+    const id=crypto.randomUUID();let acknowledged=false,retried=false;
+    const message={id,body:{kind,runId:crypto.randomUUID()},attempts:1,timestamp:new Date(),ack(){acknowledged=true;},retry(){retried=true;}};
+    await consumeJobs({messages:[message],queue:'profile-test',metadata:{metrics:{backlogCount:1,backlogBytes:0}},ackAll(){throw Error('unexpected batch ack');},retryAll(){throw Error('unexpected batch retry');}},env);
+    expect(acknowledged).toBe(false);expect(retried).toBe(true);
+    expect(await env.DB.prepare('SELECT state,error_code FROM core_job_failures WHERE id=?').bind(id).first()).toEqual({state:'failed',error_code:'FEATURE_DISABLED'});
+  }
+} }
+  ];
+  for (const scenario of cases) {
+    try { await (async () => {
+  vi.setSystemTime(new Date('2026-10-18T12:00:00.000Z'));
+  await resetDeployment();
+})(); await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+    finally { await (() => vi.useRealTimers())(); }
+  }
 });
+
 it('BLOCK-015 — a task assigned to a member without access prompts a share, notifies its assignee once, reassigns without notifying the previous assignee and records completion', async () => {
   const {cookie,containerId,memberId,workspaceId} = await workspace();
   await tasksJourney(await workItems(createApi(),containerId,memberId,workspaceId,cookie));
@@ -91,13 +114,4 @@ it('NOTIF-004 — page, task and date-mention reminders arrive once at local tim
 it('BLOCK-016 — a task report shows each reader only the tasks they can read and completes a task on its page', async () => {
   const {cookie,containerId,memberId,workspaceId} = await workspace();
   await taskReportsJourney(await workItems(createApi(),containerId,memberId,workspaceId,cookie));
-});
-it('FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', async () => {
-  for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {
-    const id=crypto.randomUUID();let acknowledged=false,retried=false;
-    const message={id,body:{kind,runId:crypto.randomUUID()},attempts:1,timestamp:new Date(),ack(){acknowledged=true;},retry(){retried=true;}};
-    await consumeJobs({messages:[message],queue:'profile-test',metadata:{metrics:{backlogCount:1,backlogBytes:0}},ackAll(){throw Error('unexpected batch ack');},retryAll(){throw Error('unexpected batch retry');}},env);
-    expect(acknowledged).toBe(false);expect(retried).toBe(true);
-    expect(await env.DB.prepare('SELECT state,error_code FROM core_job_failures WHERE id=?').bind(id).first()).toEqual({state:'failed',error_code:'FEATURE_DISABLED'});
-  }
 });

@@ -15,11 +15,14 @@ import { slackNetwork, type SlackAudienceFixture } from '../helpers/slack-networ
 import { captureMail } from '../helpers/mail-edge';
 
 beforeEach(resetDeployment);
-contract('NOTIF-003', 'Chat destination sends link-only messages, shows last delivery and failure, retries only transient failures, marks revoked authorization as needing attention and stops on disconnect', async () => {
+test("NOTIF-003 — chat admission requires fresh authority and keeps link-only delivery inside the current audience", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: 'Chat destination sends link-only messages, shows last delivery and failure, retries only transient failures, marks revoked authorization as needing attention and stops on disconnect', run: async () => {
   const { workspaceId } = await seedWorkspace();
-  const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner@chat.test', displayName: 'Alex Owner' })).memberId;
-  const reader = (await seedMember(workspaceId, { role: 'member', email: 'reader@chat.test', displayName: 'Morgan Reader' })).memberId;
-  await seedMember(workspaceId, { role: 'member', email: 'removed@chat.test', displayName: 'Former Reader', status: 'removed' });
+  const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner\x40chat.test', displayName: 'Alex Owner' })).memberId;
+  const reader = (await seedMember(workspaceId, { role: 'member', email: 'reader\x40chat.test', displayName: 'Morgan Reader' })).memberId;
+  await seedMember(workspaceId, { role: 'member', email: 'removed\x40chat.test', displayName: 'Former Reader', status: 'removed' });
   const containerId = (await seedContainer(workspaceId, { ownerMemberId: owner, visibility: 'private' })).containerId;
   for (const [principalId, level] of [[owner, 'full'], [reader, 'comment']] as const) await seedContainerGrant(containerId, { principalKind: 'member', principalId, level });
   const cookies = { owner: await sessionFor(owner, { freshProof: true }), reader: await sessionFor(reader) };
@@ -33,7 +36,7 @@ contract('NOTIF-003', 'Chat destination sends link-only messages, shows last del
     expect(response.status, text).toBe(200); return JSON.parse(text);
   };
   const selected = ['comment', 'mention', 'published'];
-  const edge = slackNetwork('reader@chat.test', token);
+  const edge = slackNetwork('reader\x40chat.test', token);
   const connection = async () => (await api('GET', '/api/notifications/chat')).connection;
   const history = async () => (await api('GET', '/api/notifications/chat/deliveries')).items;
   const connect = async () => api('POST', '/api/notifications/chat', { operationKey: key(), channel: 'GCHAT', token, events: selected, expectedRevisionId: (await connection())?.revisionId });
@@ -41,10 +44,10 @@ contract('NOTIF-003', 'Chat destination sends link-only messages, shows last del
     { name: 'public channel', audience: { channel: { is_private: false } }, reason: 'private_unshared_channel_required', status: 422 },
     { name: 'externally shared channel', audience: { channel: { is_ext_shared: true } }, reason: 'private_unshared_channel_required', status: 422 },
     { name: 'organization-shared channel', audience: { channel: { is_org_shared: true } }, reason: 'private_unshared_channel_required', status: 422 },
-    { name: 'another bot', audience: { users: { READER: { profile: { email: 'reader@chat.test' } }, OTHERBOT: { is_bot: true, profile: { email: 'reader@chat.test' } } } }, reason: 'unverifiable_audience', status: 422 },
+    { name: 'another bot', audience: { users: { READER: { profile: { email: 'reader\x40chat.test' } }, OTHERBOT: { is_bot: true, profile: { email: 'reader\x40chat.test' } } } }, reason: 'unverifiable_audience', status: 422 },
     { name: 'hidden email', audience: { users: { READER: { profile: {} } } }, reason: 'unverifiable_audience', status: 422 },
-    { name: 'unmapped email', audience: { users: { READER: { profile: { email: 'unknown@chat.test' } } } }, reason: 'CHAT_AUDIENCE_UNMAPPED', status: 409 },
-    { name: 'inactive Slate member', audience: { users: { READER: { profile: { email: 'removed@chat.test' } } } }, reason: 'CHAT_AUDIENCE_UNMAPPED', status: 409 },
+    { name: 'unmapped email', audience: { users: { READER: { profile: { email: 'unknown\x40chat.test' } } } }, reason: 'CHAT_AUDIENCE_UNMAPPED', status: 409 },
+    { name: 'inactive Slate member', audience: { users: { READER: { profile: { email: 'removed\x40chat.test' } } } }, reason: 'CHAT_AUDIENCE_UNMAPPED', status: 409 },
   ];
   const drain = async () => {
   await env.DB.prepare("UPDATE chat_deliveries SET created_at=? WHERE state='pending' AND message_id IS NULL AND created_at>=?").bind(new Date(Date.now()-120000).toISOString(),new Date().toISOString().slice(0,10)).run();
@@ -69,7 +72,7 @@ contract('NOTIF-003', 'Chat destination sends link-only messages, shows last del
       expect(await env.DB.prepare("SELECT COUNT(*) AS count FROM discovery_revisions WHERE entity_kind='chat-connection'").first<number>('count'), refusal.name).toBe(0);
     }
     // The sending bot is excluded; a deactivated person needs neither a visible email nor a Slate account.
-    const validAudience = { users: { READER: { profile: { email: 'reader@chat.test' } }, DEACTIVATED: { deleted: true } } };
+    const validAudience = { users: { READER: { profile: { email: 'reader\x40chat.test' } }, DEACTIVATED: { deleted: true } } };
     edge.setAudience(validAudience);
     const pageId = (await api('POST', '/api/pages', { operationKey: key(), containerId, title: 'Incident handover' })).value.pageId;
     const document = await api('GET', `/api/pages/${pageId}`);
@@ -167,14 +170,14 @@ contract('NOTIF-003', 'Chat destination sends link-only messages, shows last del
     expect((await history()).length).toBeGreaterThanOrEqual(3);
     await expect(assertStoredConfiguration(missingKey)).resolves.toBeUndefined();
   } finally { edge.restore(); vi.useRealTimers(); }
-});
-test('the single-destination chat door stores a credential only after a fresh email confirmation', async () => {
+} },
+    { name: 'the single-destination chat door stores a credential only after a fresh email confirmation', run: async () => {
   const { workspaceId } = await seedWorkspace();
-  const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner@chat.test', displayName: 'Alex Owner' })).memberId;
-  await seedMember(workspaceId, { role: 'member', email: 'reader@chat.test', displayName: 'Morgan Reader' });
+  const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner\x40chat.test', displayName: 'Alex Owner' })).memberId;
+  await seedMember(workspaceId, { role: 'member', email: 'reader\x40chat.test', displayName: 'Morgan Reader' });
   const token = 'synthetic-slate-201', origin = 'https://slate.test';
   const bindings: AppBindings = { ...env, SLATE_PROFILE: undefined, CONNECTOR_CREDENTIALS_KEY: crypto.randomUUID(), APP_URL: origin };
-  const app = createApi(), edge = slackNetwork('reader@chat.test', token), mail = captureMail();
+  const app = createApi(), edge = slackNetwork('reader\x40chat.test', token), mail = captureMail();
   const connect = async (cookie: string) => app.request(origin + '/api/notifications/chat', { method: 'POST', headers: { cookie, origin, 'content-type': 'application/json' }, body: JSON.stringify({ operationKey: crypto.randomUUID(), channel: 'GCHAT', token, events: ['comment'] }) }, bindings);
   try {
     const unconfirmed = await connect(await sessionFor(owner));
@@ -186,18 +189,18 @@ test('the single-destination chat door stores a credential only after a fresh em
     expect(confirmed.status, await confirmed.clone().text()).toBe(200);
     expect(await env.DB.prepare('SELECT COUNT(*) AS count FROM chat_connections').first<number>('count')).toBe(1);
   } finally { mail.restore(); edge.restore(); }
-});
-test('a person whose own Slack token posts to a channel stays in that channel audience', async () => {
+} },
+    { name: 'a person whose own Slack token posts to a channel stays in that channel audience', run: async () => {
   const { workspaceId } = await seedWorkspace();
-  const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner@chat.test', displayName: 'Alex Owner' })).memberId;
-  const reader = (await seedMember(workspaceId, { role: 'member', email: 'reader@chat.test', displayName: 'Morgan Reader' })).memberId;
+  const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner\x40chat.test', displayName: 'Alex Owner' })).memberId;
+  const reader = (await seedMember(workspaceId, { role: 'member', email: 'reader\x40chat.test', displayName: 'Morgan Reader' })).memberId;
   const shared = (await seedContainer(workspaceId, { ownerMemberId: owner, visibility: 'private' })).containerId;
   const readerOnly = (await seedContainer(workspaceId, { ownerMemberId: reader, visibility: 'private' })).containerId;
   for (const [containerId, principalId] of [[shared, owner], [shared, reader], [readerOnly, reader]] as const) await seedContainerGrant(containerId, { principalKind: 'member', principalId, level: 'full' });
   const cookies = { owner: await sessionFor(owner, { freshProof: true }), reader: await sessionFor(reader) };
   const token = 'synthetic-slate-202', origin = 'https://slate.test', key = () => crypto.randomUUID();
   const bindings: AppBindings = { ...env, SLATE_PROFILE: undefined, CONNECTOR_CREDENTIALS_KEY: crypto.randomUUID(), APP_URL: origin };
-  const app = createApi(), edge = slackNetwork('reader@chat.test', token);
+  const app = createApi(), edge = slackNetwork('reader\x40chat.test', token);
   const raw = (method: string, path: string, body?: unknown, actor: keyof typeof cookies = 'owner') => app.request(origin + path, { method, headers: { cookie: cookies[actor], origin, ...(body === undefined ? {} : { 'content-type': 'application/json' }) }, body: body === undefined ? undefined : JSON.stringify(body) }, bindings);
   const api = async (method: string, path: string, body?: unknown, actor: keyof typeof cookies = 'owner') => { const response = await raw(method, path, body, actor), text = await response.text(); expect(response.status, text).toBe(200); return JSON.parse(text); };
   const drain = async () => {
@@ -209,7 +212,7 @@ test('a person whose own Slack token posts to a channel stays in that channel au
   };
   try {
     // The connecting credential is the owner's own Slack identity, not a bot.
-    edge.setAudience({ users: { BOT: { profile: { email: 'owner@chat.test' } }, READER: { profile: { email: 'reader@chat.test' } } } });
+    edge.setAudience({ users: { BOT: { profile: { email: 'owner\x40chat.test' } }, READER: { profile: { email: 'reader\x40chat.test' } } } });
     await api('POST', '/api/notifications/chat', { operationKey: key(), channel: 'GCHAT', token, events: ['comment'] });
     const visible = (await api('POST', '/api/pages', { operationKey: key(), containerId: shared, title: 'Shared incident review' }, 'reader')).value.pageId;
     const hidden = (await api('POST', '/api/pages', { operationKey: key(), containerId: readerOnly, title: 'Reader-only acquisition plan' }, 'reader')).value.pageId;
@@ -219,4 +222,11 @@ test('a person whose own Slack token posts to a channel stays in that channel au
     expect(edge.messages.map(message => message.text).join('\n')).toContain('Shared incident review');
     expect(JSON.stringify(edge.messages)).not.toContain('Reader-only acquisition plan');
   } finally { edge.restore(); }
+} }
+  ];
+  for (const scenario of cases) {
+    try { await (resetDeployment)(); await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+    finally {  }
+  }
 });

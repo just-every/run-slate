@@ -43,7 +43,10 @@ async function withIdentity<T>(change: Partial<typeof ownerIdentity>, run: () =>
 const plain = (html: string) => html.replace(/<!-- -->/g, "").replace(/<\/?strong>/g, "").replace(/<[^>]+>/g, " ").replace(/&#x27;/g, "'").replace(/&quot;/g, '"').replace(/\s+/g, " ");
 
 describe("HOME-001 landing page supporting regressions", () => {
-  test("installed root: the Worker answers / with the Lobby, which offers setup until the owner finishes first-run setup and sign-in after", async () => {
+  test("installed lobby and public landing preserve owner configuration, navigation and privacy", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: "installed root: the Worker answers / with the Lobby, which offers setup until the owner finishes first-run setup and sign-in after", run: async () => {
     const state = async () => (await SELF.fetch("https://slate.test/setup/state")).json();
     const lobby = async () => {
       const response = await SELF.fetch("https://slate.test/");
@@ -68,9 +71,8 @@ describe("HOME-001 landing page supporting regressions", () => {
     // The Lobby reveals the claim and nothing else about the installation.
     expect(claimed).not.toContain("Aurora private workspace");
     expect(claimed).not.toMatch(/<script[\s>]/);
-  });
-
-  test("landing page: owner identity, description and the credit toggle are read from the owner configuration", async () => {
+  } },
+    { name: "landing page: owner identity, description and the credit toggle are read from the owner configuration", run: async () => {
     const withCredit = await withIdentity({ name: "Qualified owner", description: "Owner sentence.", showFooterCredit: true }, renderLanding);
     expect(withCredit).toContain('<h1 class="brand-name">Qualified owner</h1>');
     // The brand mark is Slate's card logo: a decorative drawing with no text, so a configured mark such as "Q" never reaches the landing.
@@ -85,9 +87,8 @@ describe("HOME-001 landing page supporting regressions", () => {
     const withoutCredit = await withIdentity({ name: "Qualified owner", showFooterCredit: false }, renderLanding);
     expect(withoutCredit).toContain('<h1 class="brand-name">Qualified owner</h1>');
     expect(withoutCredit).not.toContain("runeditrun.com");
-  });
-
-  test("landing page: sections, the Run page link and outbound addresses are the static product description only", async () => {
+  } },
+    { name: "landing page: sections, the Run page link and outbound addresses are the static product description only", run: async () => {
     const html = await withIdentity({ showFooterCredit: true }, renderLanding);
     for (const id of sections) expect(html).toContain(`id="${id}"`);
     expect(html.match(/<h1[\s>]/g)).toHaveLength(1);
@@ -102,11 +103,8 @@ describe("HOME-001 landing page supporting regressions", () => {
     }
     expect(html).not.toMatch(/<(script|img|iframe|video|audio|object|embed|link|form|input|style)[\s>]/i);
     expect(html).not.toMatch(/url\(|data:|@import|srcset/i);
-  });
-
-  const sources = import.meta.glob("../../src/core/features/landing/**/*.{ts,tsx,css}", { query: "?raw", import: "default", eager: true }) as Record<string, string>;
-
-  test("landing page: source loads nothing off-origin, sets no cookies and tracks no one", () => {
+  } },
+    { name: "landing page: source loads nothing off-origin, sets no cookies and tracks no one", run: () => {
     const files = Object.entries(sources);
     expect(files.length).toBeGreaterThan(0);
     for (const [file, source] of files) {
@@ -121,5 +119,19 @@ describe("HOME-001 landing page supporting regressions", () => {
     }
     const links = Object.entries(sources).find(([file]) => file.endsWith("/links.ts"))?.[1] ?? "";
     for (const url of links.match(/https?:\/\/[^\s"'`;)]+/g) ?? []) expect(navigationTargets.has(url), url).toBe(true);
-  });
+  } }
+  ];
+  for (const scenario of cases) {
+    try {  await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
+});
+
+
+
+
+
+  const sources = import.meta.glob("../../src/core/features/landing/**/*.{ts,tsx,css}", { query: "?raw", import: "default", eager: true }) as Record<string, string>;
+
+
 });
