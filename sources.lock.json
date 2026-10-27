@@ -8160,7 +8160,7 @@
       "executable": false
     },
     "src/core/features/page-status/ui/workspace/VerifyDialog.tsx": {
-      "sha256": "d832992fcb1c99da9ad1ca7797096b65c6d1c94fcc64c1615dffc21c8a4274d1",
+      "sha256": "9b7d16e952d8c2d22b4a4651b7f9cd73e08bba99de36510b05bfac76f4a08dfc",
       "executable": false
     },
     "src/core/features/pages/appearance.ts": {
