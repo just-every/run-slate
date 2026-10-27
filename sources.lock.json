@@ -10240,7 +10240,7 @@
       "executable": false
     },
     "tests/docs/docs-site.test.mjs": {
-      "sha256": "6bae6a0cbd312f3652bf944931f96270f9c0bd998b220bca32d900f7f25d511a",
+      "sha256": "083ba41651cd5daaee64e93e24794dbbead37a8bb82dbdb70ac38b43115d9e18",
       "executable": false
     },
     "tests/e2e/auth-paths.test.js": {

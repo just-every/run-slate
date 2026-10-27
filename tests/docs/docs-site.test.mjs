@@ -222,17 +222,3 @@ const fixtureContext = (source = "docs/PAGE.md") => ({
   kind: (path) => ({ "docs/PAGE.md": "file", "docs/OTHER.md": "file", "docs/INTERNAL.md": "file", "docs/licenses": "directory", LICENSE: "file", "docs/media/diagram.png": "file" })[path] ?? null,
 });
 const render = (body, source) => renderPage(`# Fixture page\n\n${body}\n`, fixtureContext(source));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
