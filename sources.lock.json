@@ -11652,7 +11652,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
-      "sha256": "d32b36f38e4370dfed4fc16b4b142eb79a977c558c31b1e84f0384dc78b96a36",
+      "sha256": "48ece225c75f25a0ea5874678dfce9cd4bf959abd674059ad000df7fb2629a88",
       "executable": false
     },
     "tests/qualification/ui-convergence/columns-journey.mjs": {
