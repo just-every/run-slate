@@ -11664,7 +11664,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/browser-support.mjs": {
-      "sha256": "fb03e35cfad9194f5f82329aeb31dcf9bca07425f71a53080ea38acee8a738b5",
+      "sha256": "2a293c948562a6afebcc664bef8e7dea229dd021e1990caa4df59043111a9dbc",
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {

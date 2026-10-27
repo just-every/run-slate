@@ -3,7 +3,7 @@ import { initializeWebhookEdge, setWebhookFailure } from '../../helpers/webhook-
 import { testDevKey } from '../../e2e/dev-key.mjs';
 import assert from 'node:assert/strict';
 import { signInWithOutbox } from '../../e2e/outbox-auth.mjs';
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { chromium, expect, request } from '@playwright/test';
 import { applyMigrations, executeD1, root, stop, testSessionSecret } from '../../e2e/runtime-harness.mjs';
@@ -14,6 +14,20 @@ import { initializeS3Edge, setS3Failure, readS3Requests, readS3Objects } from '.
 import { initializeFolderEdge, readFolderRequests, setFileCardFixture } from '../../helpers/folder-edge.mjs';
 import { initializeSamlEdge, installSamlIdp, closeSamlIdp, setSamlDns, setSamlAssertion, readSamlRequests } from '../../helpers/saml-edge.mjs';
 export { accessible } from './browser-evidence.mjs';
+
+// Prepare the empty schema before registering journeys. Each journey copies it
+// before seeding identity, so member data, sessions, erasure and restore stay
+// isolated in its own D1 store. The migration CLI closes before any copy.
+const pristineDatabase = await (async () => {
+  await mkdir(path.join(root, '.artifacts/ui-convergence'), { recursive: true });
+  const template = await mkdtemp(path.join(root, '.artifacts/ui-convergence/schema-'));
+  await applyMigrations(template);
+  return path.join(template, 'v3', 'd1');
+})();
+async function initializeWorkspaceDatabase(state) {
+  await mkdir(path.join(state, 'v3'), { recursive: true });
+  await cp(pristineDatabase, path.join(state, 'v3', 'd1'), { recursive: true });
+}
 
 /** Test-only identity records replace mailbox possession, never successful API responses. */
 /** `scheduled` exposes the Worker's own cron handler, which a journey fires in place of waiting for the clock. */
@@ -30,7 +44,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
     if (backups) await initializeS3Edge(state);
     if (folders) await initializeFolderEdge(state);
     await initializeEmbedEdge(state);
-    await applyMigrations(state);
+    await initializeWorkspaceDatabase(state);
     const now = new Date().toISOString();
     await executeD1(state, `INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES('browser-workspace','Harbor operations','','${now}','${now}','initial');
       INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('browser-owner','browser-workspace','owner@test.invalid','Alex Owner','AO','owner','member','active',1,'${now}','${now}');
