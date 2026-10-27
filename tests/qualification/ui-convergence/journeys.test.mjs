@@ -35,7 +35,7 @@ async function step(name, run) {
 import { accessible, setupWorkspace, withWorkspace } from './browser-support.mjs';
 import { commentJourney, searchJourney, settingsJourney, shareJourney, writeJourney } from './core-journeys.mjs';
 import { askDraftJourney } from './ask-journey.mjs';
-import { withSecondPerson } from './two-people-support.mjs';
+import { withSecondPerson, call } from './two-people-support.mjs';
 import { concurrentEditingJourney } from './two-people-editing.mjs';
 import { accessChangeJourney } from './two-people-access.mjs';
 import { historyJourney } from './two-people-history.mjs';
@@ -150,18 +150,28 @@ for (const width of [1440]) {
       await withSecondPerson(state, width, people => recordTemplatesJourney(state, people));
     });
   });
-  test(`BLOCK-016 — a task report shows each reader only the tasks they can read, completes one on its page and stays a sign-in notice when published at ${width}px`, { timeout: 240000 }, async () => {
+  test(`BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at ${width}px`, { timeout: 240000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
-      await withSecondPerson(state, width, people => taskReportJourney(state, people));
+      await withSecondPerson(state, width, async people => {
+        const retained = new Set((await state.api('/api/pages')).items.map(item => item.id));
+        const retireTaskPages = async () => {
+          await Promise.all([people.alice.page.goto('about:blank'), people.bob.page.goto('about:blank')]);
+          for (const item of (await state.api('/api/pages')).items.filter(item => !retained.has(item.id))) {
+            const document = await state.api(`/api/pages/${item.id}`);
+            const response = await call(state.context, state.origin, 'POST', `/api/archive/${item.id}`, {operationKey:crypto.randomUUID(),expectedRevisionId:document.page.revisionId,action:'trash'});
+            assert.equal(response.status, 200, `Retire completed task scenario page ${item.id}`);
+          }
+        };
+        await step('BLOCK-016 — task report access, inline completion and published sign-in notice', () => taskReportJourney(state, people));
+        await retireTaskPages();
+        await step('NAV-007 — assigned open tasks, due dates, completion and revoked access', () => myTasksJourney(state, people));
+        await retireTaskPages();
+        await step('BLOCK-015 — typed assignment, due date, exactly one notification and overdue state', () => taskAssignmentJourney(state, people));
+      });
     });
   });
-  test(`NAV-007 — My tasks lists assigned open tasks by due date, completes on the page and drops a revoked page at ${width}px`, { timeout: 240000 }, async () => {
-    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
-      await setupWorkspace(state);
-      await withSecondPerson(state, width, people => myTasksJourney(state, people));
-    });
-  });
+  
   test(`SEARCH-011 — verified, unverified and lapsed pages rank in order with badges, near-duplicates collapse and published views carry no trust at ${width}px`, { timeout: 240000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
@@ -171,12 +181,7 @@ for (const width of [1440]) {
 }
 
 for (const width of [1440]) {
-  test(`BLOCK-015 — a typed task is assigned with @, dated with //, notifies once and shows overdue at ${width}px`, { timeout: 240000 }, async () => {
-    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
-      await setupWorkspace(state);
-      await withSecondPerson(state, width, people => taskAssignmentJourney(state, people));
-    });
-  });
+  
 }
 
 for (const width of [1440]) {
