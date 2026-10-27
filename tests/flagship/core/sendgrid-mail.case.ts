@@ -12,7 +12,7 @@ async function fixture() {
   const {memberId} = await seedMember(workspaceId, {email: `${workspaceId}@test.invalid`, role: 'owner', displayName: 'Owner', isSetupOwner: true});
   return {db: env.DB, files: env.FILES, jobs: env.JOBS, actor: {id: memberId, workspaceId, workspaceName: 'Workspace', email: `${workspaceId}@test.invalid`, displayName: 'Owner', initials: 'O', role: 'owner'}, now: new Date().toISOString()} as FeatureContext;
 }
-test('MAIL-002 BASE-ACCESS-001 SendGrid outcomes and expired leases retain durable attempts without blind resend',async()=>{
+export async function sendgridMailCase() {
 for (const outcome of ['receipt', 'no-receipt', 'transport', 'server-error'] as const) {
   {
     const ctx = await fixture();
@@ -59,4 +59,4 @@ for (const outcome of ['receipt', 'no-receipt', 'transport', 'server-error'] as 
     expect((await listIdentityMail(ctx)).items[0]).toMatchObject({state: 'uncertain', canRetry: false});
   } finally {provider.mockRestore();}
 }
-});
+}

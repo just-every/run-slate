@@ -3,7 +3,6 @@ import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { request as httpRequest } from "node:http";
-import { runtimeHealth } from './runtime-health.mjs';
 import { createServer } from "node:net";
 import path from "node:path";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
@@ -58,14 +57,10 @@ export async function waitForReady(baseUrl, child, timeoutMs = 60000, headers) {
   const deadline = Date.now() + timeoutMs;
   let failure;
   while (Date.now() < deadline) {
-    if (child.exitCode !== null || child.signalCode !== null) {
-      // Preserve error classes/codes for diagnosis without logging runtime bindings.
-      const codes = [...new Set((runtimes.get(child)?.output() ?? '').match(/\b(?:[A-Z][A-Za-z]*Error|ERR_[A-Z_]+|UND_ERR_[A-Z_]+|EADDRINUSE|ECONNRESET|ECONNREFUSED|EPIPE)\b/g) ?? [])];
-      throw new Error(`Runtime exited with ${child.exitCode ?? child.signalCode} before it became ready.${codes.length ? ` Diagnostics: ${codes.join(', ')}` : ''}`);
-    }
+    if (child.exitCode !== null || child.signalCode !== null) throw new Error(`Runtime exited with ${child.exitCode ?? child.signalCode} before it became ready.`);
     try {
-      const status = await runtimeHealth(baseUrl, headers, Math.max(1, Math.min(5000, deadline - Date.now())));
-      if (status === 200 || status === 503) return;
+      const response = await fetch(`${baseUrl}/health`, { headers });
+      if (response.status === 200 || response.status === 503) return;
     } catch (cause) {
       failure = cause;
     }

@@ -50,7 +50,9 @@ export function useResource<T>(path:string|null,policy:ResourcePolicy<T>={}):Res
    return false;
   }
  },[]);
- const reload=useCallback(()=>read(signal=>request<T>(currentPath.current!,{signal})),[read]);
+ // Retire the response through read's fences without aborting a healthy GET
+ // when a write or route change supersedes it.
+ const reload=useCallback(()=>read(()=>request<T>(currentPath.current!)),[read]);
  useEffect(()=>{
   active.current=true;
   if(seeded.current)seeded.current=false;else void reload();

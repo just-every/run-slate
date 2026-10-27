@@ -1,3 +1,4 @@
+import assert from 'node:assert/strict';
 import {expect} from '@playwright/test';
 import {accessible} from './browser-evidence.mjs';
 
@@ -5,16 +6,14 @@ import {accessible} from './browser-evidence.mjs';
 export async function reachable(locator) {
   await locator.scrollIntoViewIfNeeded();
   await expect(locator).toBeVisible();
-  // Scrolling a native dialog and its visual viewport settles asynchronously.
-  // Wait for the same complete geometry/hit-test predicate before tapping.
-  await expect.poll(() => locator.evaluate(element => {
+  assert.ok(await locator.evaluate(element => {
     const r=element.getBoundingClientRect(),v=window.visualViewport;
     const left=v?.offsetLeft??0,top=v?.offsetTop??0;
     const hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);
     return r.width>0&&r.height>0&&r.left>=left&&r.top>=top
       &&r.right<=left+(v?.width??innerWidth)&&r.bottom<=top+(v?.height??innerHeight)
       &&(hit===element||element.contains(hit));
-  }), {message:'A touch control is wholly inside the visual viewport and unobscured.'}).toBe(true);
+  }), 'A touch control is wholly inside the visual viewport and unobscured.');
 }
 export async function tap(locator) {await reachable(locator);await locator.tap();}
 export async function type(page,locator,text) {

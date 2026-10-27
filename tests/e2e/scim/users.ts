@@ -10,6 +10,10 @@ export async function userJourney(f:Awaited<ReturnType<typeof scimFixture>>) {
   expect((await f.request('/Users','POST',user(email,{externalId:'synthetic-external-person'}),f.credential.secret,operationKey)).status).toBe(409);
   expect((await f.request('/Groups','POST',{schemas:['urn:ietf:params:scim:schemas:core:2.0:Group'],displayName:'Pending rejected',members:[{value:pending.id}]})).status).toBe(400);
   const accepted=await f.accept(email),path=`/Users/${pending.id}`;
+  const profileResponse=await f.api.request(`https://slate.test/api/people/${accepted.memberId}`,{headers:{cookie:accepted.cookie}},{...env,SLATE_PROFILE:undefined});
+  expect(profileResponse.status).toBe(200);const profile=await profileResponse.json<any>();expect(profile.nameManaged).toBe(true);
+  const rename=await f.api.request(`https://slate.test/api/people/${accepted.memberId}`,{method:'PUT',headers:{cookie:accepted.cookie,origin:'https://slate.test','content-type':'application/json'},body:JSON.stringify({operationKey:createUlid(),expectedRevisionId:profile.revisionId,displayName:'Forged directory name'})},{...env,SLATE_PROFILE:undefined});
+  expect(rename.status).toBe(403);
   const active=await f.scim(path);expect(active.active).toBe(true);expect(active.displayName).toBe('Synthetic Person');
   expect(await env.DB.prepare('SELECT role FROM members WHERE id=?').bind(accepted.memberId).first<string>('role')).toBe('member');
   for(const [query,expected] of [[`filter=${encodeURIComponent(`userName eq "${email}"`)}`,1],[`filter=${encodeURIComponent('userName eq "missing@example.test"')}`,0],['count=0',1]] as const){const list=await f.scim('/Users?'+query);expect(list.totalResults).toBe(expected);expect(list.Resources).toHaveLength(query==='count=0'?0:expected);}

@@ -6,7 +6,7 @@ on:
   pull_request:
   workflow_dispatch:
   schedule:
-    - cron: '17 3 * * 1,4'
+    - cron: '30 17 * * *'
 permissions:
   contents: read
 concurrency:
@@ -115,42 +115,44 @@ jobs:
         include:
           - suite: core
             ui: 1
-            worker: 1
+            worker: 4
             browser: true
-            command: node --test tests/e2e/runtime-health.test.mjs tests/qualification/ui-convergence/touch-controls.test.mjs && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts
+            command: pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts
           - suite: tooling
             ui: 2
-            worker: 2
+            worker: 1
             browser: true
             command: pnpm test:base-proof && pnpm test:docs && pnpm test:typegen && pnpm test:portability && pnpm test:release-source && pnpm test:rer-editor
           - suite: delivery
             ui: 3
-            worker: 3
+            worker: 2
             browser: true
             command: pnpm test:delivery-artifact && pnpm test:release-regressions
           - suite: ui-state
             ui: 4
-            worker: 4
+            worker: 5
             browser: true
             command: pnpm test:ui:reachability && pnpm test:ui:state && node --test --test-concurrency=1 --test-name-pattern='^insertion recovery' tests/ui/polish-journeys.test.mjs
           - suite: ui-focus-desktop
             ui: 5
-            worker: 5
+            worker: 0
             browser: true
             command: node --test --test-concurrency=1 --test-name-pattern='^genuine insertion focus.*1440' tests/ui/polish-journeys.test.mjs
           - suite: ui-focus-mobile
+            polish_journeys: true
             ui: 6
             worker: 6
             browser: true
             command: node --test --test-concurrency=1 --test-name-pattern='^genuine insertion focus.*390' tests/ui/polish-journeys.test.mjs
           - suite: ui-polish-desktop
+            core_desktop: true
             ui: 7
             worker: 0
             browser: true
             command: node --test --test-concurrency=1 --test-name-pattern='^visible Slate polish.*1440' tests/ui/polish-journeys.test.mjs
           - suite: ui-polish-mobile
             ui: 8
-            worker: 0
+            worker: 3
             browser: true
             command: node --test --test-concurrency=1 --test-name-pattern='^visible Slate polish.*390' tests/ui/polish-journeys.test.mjs
     name: verify (${{ matrix.suite }})
@@ -171,22 +173,22 @@ jobs:
         with:
           name: verified-app-build
           path: .
-      # The six Workers report partitions stay intact for contract aggregation.
-      - name: Workers contract partition
-        if: matrix.worker != 0
-        run: pnpm exec vitest run --shard=${{ matrix.worker }}/6 --testNamePattern="^(?!Undo removes unedited and merely shared imported pages).*$" --reporter=default --reporter=json --outputFile=.artifacts/contract-${{ matrix.worker }}.json
+      # The browser owns its workspace; the other lane owns its Workers/suite
+      # processes. Join both and retain each exit status before aggregation.
+      - name: Workers, public-door journeys and suite
+        env:
+          SLATE_UI_SHARD: ${{ matrix.ui }}/8
+          CORE_DESKTOP: ${{ matrix.core_desktop == true && 'true' || 'false' }}
+          POLISH_JOURNEYS: ${{ matrix.polish_journeys == true && 'true' || 'false' }}
+          WORKER_SHARD: ${{ matrix.worker }}
+          SUITE_COMMAND: ${{ matrix.command }}
+        run: bash .github/scripts/run-shard.sh
       - uses: actions/upload-artifact@v4
         if: always() && matrix.worker != 0
         with:
           name: contract-${{ matrix.worker }}
           path: .artifacts/contract-${{ matrix.worker }}.json
           if-no-files-found: error
-      # Partition whole top-level journeys, retaining both 1440 and 390 doors.
-      - name: Public-door browser journeys
-        env:
-          SLATE_UI_SHARD: ${{ matrix.ui }}/8
-        run: node --test --test-concurrency=1 tests/qualification/ui-convergence/journeys.test.mjs
-      - run: ${{ matrix.command }}
       - name: Retain failures
         if: failure()
         uses: actions/upload-artifact@v4

@@ -1,3 +1,4 @@
+import {runFoldCases} from '../fold-cases';
 import { env } from "cloudflare:test";
 import { beforeEach, test, expect } from "vitest";
 import { resetDeployment } from "../../e2e/setup/reset-deployment";
@@ -107,7 +108,11 @@ const adapters = {
     );
   },
 };
-test("real D1 database structure CAS, record page revisions, replay and lock enforcement", async () => {
+test("structured records, computation, readers, templates, automation, policies and views retain durable semantics", async () => {
+  await runFoldCases([
+{name:"real D1 database structure CAS, record page revisions, replay and lock enforcement",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
     operationKey: "case:001",
@@ -173,8 +178,12 @@ test("real D1 database structure CAS, record page revisions, replay and lock enf
       })
     ).value.values.estimate,
   ).toBe(8);
-});
-test("reader filtering precedes summaries and unauthorized reader cannot mutate", async () => {
+
+} finally {}
+}},
+{name:"reader filtering precedes summaries and unauthorized reader cannot mutate",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   const { ctx, containerId, reader } = await scenario();
   const db = await createDatabase(ctx, {
     operationKey: "case:009",
@@ -226,8 +235,12 @@ test("reader filtering precedes summaries and unauthorized reader cannot mutate"
       values: {},
     }),
   ).rejects.toMatchObject({ status: 404 });
-});
-test("numeric formulas evaluate and recompute while invalid types and cycles reject before and after records exist", async () => {
+
+} finally {}
+}},
+{name:"numeric formulas evaluate and recompute while invalid types and cycles reject before and after records exist",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   // Original variant: typed formula cycles reject and arithmetic evaluates without executable code
   await (async () => {
   const f = (id: string, expression: unknown) => ({
@@ -329,8 +342,12 @@ test("numeric formulas evaluate and recompute while invalid types and cycles rej
   ).rejects.toMatchObject({ code: "FORMULA_CYCLE" });
 
   })();
-});
-test("template snapshots retain prescribed children independently and application replays", async () => {
+
+} finally {}
+}},
+{name:"template snapshots retain prescribed children independently and application replays",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   const { ctx, containerId } = await scenario();
   const source = await createPage(ctx, {
     operationKey: "case:014",
@@ -366,8 +383,12 @@ test("template snapshots retain prescribed children independently and applicatio
     action: "archive",
   });
   expect((await readPage(ctx, first.value.pageId)).page.title).toBe("Root");
-});
-test("rule execution retains exactly-once receipts and refuses effects when authority is lost before or during a run", async () => {
+
+} finally {}
+}},
+{name:"rule execution retains exactly-once receipts and refuses effects when authority is lost before or during a run",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   // Original variant: rule action executes once with durable receipts and revoked actor loses execution
   await (async () => {
   const { ctx, containerId } = await scenario();
@@ -510,8 +531,12 @@ test("rule execution retains exactly-once receipts and refuses effects when auth
   ).toBe(0);
 
   })();
-});
-test("record body persists across both parity profiles", async () => {
+
+} finally {}
+}},
+{name:"record body persists across both parity profiles",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
     operationKey: "case:022",
@@ -538,9 +563,12 @@ test("record body persists across both parity profiles", async () => {
   const result = await openRecord(ctx, record.value.pageId);
   expect(result.presentation.body).toBe(false);
   expect(result.page.page.id).toBe(record.value.pageId);
-});
 
-test("rollup writes reject stale references and cycles while reads preserve current authority and prior records", async () => {
+} finally {}
+}},
+{name:"rollup writes reject stale references and cycles while reads preserve current authority and prior records",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   // Original variant: rollups filter related unreadable records before aggregate and reject stale references
   await (async () => {
   const { ctx, containerId, reader } = await scenario();
@@ -695,8 +723,12 @@ test("rollup writes reject stale references and cycles while reads preserve curr
   expect((await openRecord(ctx, a.value.pageId)).values["cycle-roll"]).toBe(0);
 
   })();
-});
-test("automation schedules and content events deduplicate effects and durably log chain and self-trigger throttling", async () => {
+
+} finally {}
+}},
+{name:"automation schedules and content events deduplicate effects and durably log chain and self-trigger throttling",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   // Original variant: all automation scopes persist; schedules deduplicate and chains throttle with a log
   await (async () => {
   const { ctx, containerId } = await scenario();
@@ -818,9 +850,12 @@ test("automation schedules and content events deduplicate effects and durably lo
   ).toBe(3);
 
   })();
-});
 
-test("all eight policy alternatives preserve structured data and template exclusions", async () => {
+} finally {}
+}},
+{name:"all eight policy alternatives preserve structured data and template exclusions",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   const { ctx, containerId } = await scenario();
   const alternatives = {
     "page.lifecycle.v1": "draft-then-publish",
@@ -869,10 +904,12 @@ test("all eight policy alternatives preserve structured data and template exclus
   expect(snapshot.grants).toBeUndefined();
   expect(snapshot.revisions).toBeUndefined();
   expect(snapshot.publicExposure).toBeUndefined();
-});
 
+} finally {}
+}},
+{name:"draft profile record readers never see unpublished field values",before:async()=>{await resetDeployment();},run:async()=>{
+try {
 
-test("draft profile record readers never see unpublished field values", async () => {
   const { publishPage } =
     await import("../../../src/core/features/lifecycle/service");
   const { ctx, containerId, reader } = await scenario();
@@ -926,8 +963,12 @@ test("draft profile record readers never see unpublished field values", async ()
   expect(
     (await openRecord(reader, record.value.pageId)).values["draft-value"],
   ).toBe(2);
-});
-test("views persist every layout, filter summaries, charts and independent embedded filters", async () => {
+
+} finally {}
+}},
+{name:"views persist every layout, filter summaries, charts and independent embedded filters",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   const { chart } = await import("../../../src/core/features/databases/views");
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
@@ -1024,8 +1065,12 @@ test("views persist every layout, filter summaries, charts and independent embed
       { label: "Done", value: 9 },
     ]),
   );
-});
-test("template attachments are immutable independent copies and remain readable after source removal", async () => {
+
+} finally {}
+}},
+{name:"template attachments are immutable independent copies and remain readable after source removal",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   const { uploadMedia } =
     await import("../../../src/core/features/media/service");
   const { replaceBlocks } =
@@ -1105,8 +1150,12 @@ test("template attachments are immutable independent copies and remain readable 
   expect(await (await env.FILES.get(copied!.storage_key))!.text()).toBe(
     "Independent retained attachment",
   );
-});
-test("retained imported formulas remain labelled and do not block later schema edits", async () => {
+
+} finally {}
+}},
+{name:"retained imported formulas remain labelled and do not block later schema edits",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   const { ctx, containerId } = await scenario();
   const db = await createDatabase(ctx, {
     operationKey: "case:072",
@@ -1152,8 +1201,12 @@ test("retained imported formulas remain labelled and do not block later schema e
   expect(
     opened.fields.find((f) => f.id === "retained-formula")?.evaluationState,
   ).toBe("retained-not-recomputed");
-});
-test("database navigation and reference hydration expose actual permitted labels only", async () => {
+
+} finally {}
+}},
+{name:"database navigation and reference hydration expose actual permitted labels only",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   const { listDatabases, resolveReferences, referenceOptions } =
     await import("../../../src/core/features/databases/discovery");
   const { ctx, containerId, reader } = await scenario();
@@ -1207,4 +1260,8 @@ test("database navigation and reference hydration expose actual permitted labels
       await referenceOptions(reader, db.value.id, "reference-rel", "Named")
     ).items.map((r) => r.label),
   ).toEqual(["Named record"]);
+
+} finally {}
+}}
+  ]);
 });

@@ -1,3 +1,4 @@
+import {runFoldCases} from '../../fold-cases';
 import {afterAll,beforeAll,expect,test} from 'vitest';
 import {env} from 'cloudflare:test';
 import {byteHash} from '../../../../src/core/features/portability/archive';
@@ -49,16 +50,23 @@ async function restoreArchiveForFreshOwner(){
   return {cookie:await sessionFor(source.ownerId,{freshProof:true}),restored,beforeR2};
 }
 
-test('AGENT-002 — an owner-defined page view does not expose its private skill to a page-only member',async()=>{
+test("AGENT-002 — private and restored owner views retain exact lineage, history and originals", async () => {
+  await runFoldCases([
+{name:"AGENT-002 — an owner-defined page view does not expose its private skill to a page-only member",before:async()=>{},run:async()=>{
+try {
+
   const readerCookie=await sessionFor(source.readerId!);
   const readerPage=await apiJson(`/api/pages/${source.pages.rootId}`,readerCookie,'flagship');
   expect(readerPage.status).toBe(200);
   const privateSkill=await apiJson(`/api/skills/${source.skillId}`,readerCookie,'flagship');
   expect(privateSkill.status).toBe(404);
   expect(archive.manifest.tables.pages!.some(row=>row.id===source.pages.rootId)).toBe(true);
-});
 
-test('AGENT-002 — a fresh setup owner reads restored inquiry, analysis, decision and trial views with exact lineage',async()=>{
+} finally {}
+}},
+{name:"AGENT-002 — a fresh setup owner reads restored inquiry, analysis, decision and trial views with exact lineage",before:async()=>{},run:async()=>{
+try {
+
   const {cookie,restored,beforeR2}=await restoreArchiveForFreshOwner();
   const inquiry=await apiJson(`/api/inquiries/${source.inquiryId}`,cookie,'flagship');
   expect(inquiry.status).toBe(200);
@@ -75,9 +83,12 @@ test('AGENT-002 — a fresh setup owner reads restored inquiry, analysis, decisi
   expect(trial.status).toBe(200);
   expect((await trial.json() as {id:string;state:string;grant_id:string|null;plan_json:string})).toMatchObject({id:source.trialId,state:'stopped',grant_id:null,plan_json:archive.manifest.tables.intelligence_experiments!.find(row=>row.id===source.trialId)!.plan_json});
   console.log('Release_EVIDENCE '+JSON.stringify({clause:'AGENT-002',branch:'fresh-owner-restored-domain-views',archiveHash:await byteHash(archive.bytes),portableTableCount:Object.keys(archive.manifest.tables).length,migrationNames:sourceMigrations,beforeR2,decisionAcceptanceRevision:source.decisionRevisionId,restoreId:restored.body.restoreId}));
-});
 
-test('AGENT-002 — restored page history, comments, skill definition and imported original remain available to the fresh owner',async()=>{
+} finally {}
+}},
+{name:"AGENT-002 — restored page history, comments, skill definition and imported original remain available to the fresh owner",before:async()=>{},run:async()=>{
+try {
+
   const {cookie,restored,beforeR2}=await restoreArchiveForFreshOwner();
   const page=await apiJson(`/api/pages/${source.pages.rootId}`,cookie,'flagship');
   expect(page.status).toBe(200);
@@ -110,4 +121,8 @@ test('AGENT-002 — restored page history, comments, skill definition and import
   const foreignKeys=await env.DB.prepare('PRAGMA foreign_key_check').all();
   expect(foreignKeys.results).toEqual([]);
   console.log('Release_EVIDENCE '+JSON.stringify({clause:'AGENT-002',branch:'fresh-owner-page-skill-and-original-views',archiveHash:await byteHash(archive.bytes),freshArchiveHash:await byteHash(freshExport.bytes),portableTableCount:Object.keys(archive.manifest.tables).length,migrationNames:sourceMigrations,beforeR2,restoredR2:afterRestoreR2,originalObjectKey:imported!.archive_key,originalBytesHash:await byteHash(originalBytes),foreignKeyViolations:foreignKeys.results.length,restoreId:restored.body.restoreId}));
+
+} finally {}
+}}
+  ]);
 });

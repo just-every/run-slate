@@ -1,3 +1,4 @@
+import {runFoldCases} from '../../fold-cases';
 import {test,expect,afterEach,vi,beforeEach} from 'vitest';
 import {env} from 'cloudflare:test';
 import {nativeTrial,effects,prepareEffect} from './native-trial';
@@ -10,7 +11,11 @@ afterEach(()=>{vi.useRealTimers();vi.unstubAllGlobals();});
 let f:Awaited<ReturnType<typeof nativeTrial>>;
 beforeEach(async()=>{f=await nativeTrial([1,1,8,8],2,true);});
 
-test('TRIAL-001 — immutable predeclaration rejects changed replay and unappointed or stale approval',async()=>{
+test("TRIAL-001 — immutable plans require exact approval and constrain treatment content", async () => {
+  await runFoldCases([
+{name:"TRIAL-001 — immutable predeclaration rejects changed replay and unappointed or stale approval",before:async()=>{{f=await nativeTrial([1,1,8,8],2,true);}},run:async()=>{
+try {
+
   const before=await requireTrial(f.context(),f.trialId);
   expect(before.state).toBe('prepared'); expect(before.grant_id).toBeNull();
   expect(f.plan).toMatchObject({...f.input.plan,effects:f.input.plan.effects.map(e=>({...e,audience:[f.owner,f.reader]})),instrumentationRevision:expect.stringMatching(/^[a-f0-9]{64}$/)});
@@ -31,9 +36,12 @@ test('TRIAL-001 — immutable predeclaration rejects changed replay and unappoin
   f.advance(f.plan.startsAt);
   await expect(executeTrial(f.context(),f.trialId)).rejects.toMatchObject({code:'TRIAL_NOT_EXECUTABLE'});
   expect(await effects(f.trialId)).toEqual([]);expect(f.wire.sends).toHaveLength(0);
-});
 
-test('TRIAL-001 — exact approved plan grants only its declared treatment targets and content',async()=>{
+} finally {{vi.useRealTimers();vi.unstubAllGlobals();}}
+}},
+{name:"TRIAL-001 — exact approved plan grants only its declared treatment targets and content",before:async()=>{{f=await nativeTrial([1,1,8,8],2,true);}},run:async()=>{
+try {
+
   const before=await requireTrial(f.context(),f.trialId);
   await f.approve();const active=await requireTrial(f.context(),f.trialId);
   const scope=JSON.parse((await env.DB.prepare('SELECT scope_json FROM intelligence_grants WHERE id=?').bind(active.grant_id).first<string>('scope_json'))!);
@@ -47,4 +55,8 @@ test('TRIAL-001 — exact approved plan grants only its declared treatment targe
   expect((await executeTrial(f.context(),f.trialId)).state).toBe('observing');
   expect(f.wire.sends).toHaveLength(2); expect((await effects(f.trialId)).map(e=>e.state)).toEqual(['confirmed','confirmed']);
   expect((await requireTrial(f.context(),f.trialId)).plan_json).toBe(before.plan_json);
+
+} finally {{vi.useRealTimers();vi.unstubAllGlobals();}}
+}}
+  ]);
 });

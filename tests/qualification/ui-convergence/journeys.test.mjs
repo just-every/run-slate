@@ -23,7 +23,7 @@ import { createInPlaceJourney } from './create-in-place-journey.mjs';
 import assert from 'node:assert/strict';
 import { journeyTest as test } from './journey-shard.mjs';
 import { expect } from '@playwright/test';
-import { setupWorkspace, withWorkspace } from './browser-support.mjs';
+import { accessible, setupWorkspace, withWorkspace } from './browser-support.mjs';
 import { commentJourney, searchJourney, settingsJourney, shareJourney, writeJourney } from './core-journeys.mjs';
 import { askDraftJourney } from './ask-journey.mjs';
 import { withSecondPerson } from './two-people-support.mjs';
@@ -50,7 +50,7 @@ import { myTasksJourney } from './my-tasks-journey.mjs';
 import { trustRankingJourney } from './trust-ranking-journey.mjs';
 import { chatJourney } from './chat-journey.mjs';
 
-for (const width of [1440, 390]) {
+for (const width of [1440]) {
   test(`spreadsheet tables merge, sort and round-trip through edited database records at ${width}px`, {timeout:240000}, async t=>{
     await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{
       await setupWorkspace(state);
@@ -170,24 +170,36 @@ for (const width of [1440, 390]) {
       await trustRankingJourney(state);
     });
   });
+}
+
+for (const width of [1440, 390]) {
   test(`BLOCK-015 — a typed task is assigned with @, dated with //, notifies once and shows overdue at ${width}px`, { timeout: 240000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await withSecondPerson(state, width, people => taskAssignmentJourney(state, people));
     });
   });
+}
+
+for (const width of [1440]) {
   test(`CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at ${width}px`, { timeout: 240000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await withSecondPerson(state, width, people => followingJourney(state, people));
     });
   });
+}
+
+for (const width of [1440, 390]) {
   test(`space tree title filtering preserves ancestors, access and expansion at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await treeFilterJourney(state);
     });
   });
+}
+
+for (const width of [1440]) {
   test(`rejected writes retain drafts and require explicit retry at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
@@ -206,6 +218,10 @@ for (const width of [1440, 390]) {
       await withSecondPerson(state, width, people => groupMentionJourney(state, people));
     });
   });
+}
+
+// Phone first spreads the long desktop journey across the existing ordinal shards.
+for (const width of [390, 1440]) {
   test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: 300000 }, async t => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
@@ -228,9 +244,22 @@ for (const width of [1440, 390]) {
         // Finish earlier page notifications before connecting the chat journey destinations.
         await state.runScheduled();
         await chatJourney(state, width);
+        if (width === 390) {
+          // One phone smoke visits the main screens; functional journeys use desktop
+          // except where an assertion distinguishes the phone layout or touch input.
+          for (const route of ['/app', `/app/pages/${pageId}`, '/app/search', '/app/inbox', '/app/tasks', '/app/review', '/app/templates', '/app/settings']) {
+            const response = await state.page.goto(state.origin + route, { waitUntil: 'networkidle' });
+            assert.equal(response.status(), 200, `Phone smoke: ${route}`);
+            await expect(state.page.getByRole('main')).toHaveCount(1);
+            await accessible(state.page, `phone smoke ${route}`);
+          }
+        }
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
   });
+}
+
+for (const width of [1440]) {
   test(`two people edit at once, lose access mid-edit and restore history at ${width}px`, { timeout: 420000 }, async t => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
@@ -267,5 +296,4 @@ for (const width of [1440, 390]) {
       await samlJourney(state);
     }, {}, { scheduled: true, saml: true });
   });
-
 }

@@ -40,8 +40,9 @@ export async function scratch() {
   function start(command, args, cwd = root, extra = {}, stdin = 'pipe') {
     const child = spawn('nice', ['-n', '15', command, ...args], { cwd, env: { ...env, RER_SERVER_JOURNEY: '1', ...extra }, detached: true, stdio: [stdin, 'pipe', 'pipe'] });
     children.add(child);
-    child.output = '';
-    for (const stream of [child.stdout, child.stderr]) stream.on('data', data => { child.output += data; });
+    child.output = ''; child.stdoutText = ''; child.stderrText = '';
+    child.stdout.on('data', data => { child.stdoutText += data; child.output += data; });
+    child.stderr.on('data', data => { child.stderrText += data; child.output += data; });
     child.done = new Promise((resolve, reject) => { child.once('error', reject); child.once('close', code => resolve(code)); });
     return child;
   }
@@ -62,7 +63,7 @@ export async function scratch() {
     if (command === 'node' || command === 'pnpm') await resources();
     const child = start(command, args, cwd, extra);
     // The capture travels on the error for saveFailure's redaction; the message stays credential-free.
-    try { const code = await child.done; if (code !== 0) throw Object.assign(new assert.AssertionError({ message: `${command} command failed with exit ${code}; output withheld to protect credentials`, actual: code, expected: 0, operator: 'strictEqual' }), { capture: { command: [command, ...args].join(' ').slice(0, 200), cwd, output: child.output } }); return child.output; } finally { await stop(child); }
+    try { const code = await child.done; if (code !== 0) throw Object.assign(new assert.AssertionError({ message: `${command} command failed with exit ${code}; output withheld to protect credentials`, actual: code, expected: 0, operator: 'strictEqual' }), { capture: { command: [command, ...args].join(' ').slice(0, 200), cwd, output: child.output } }); return child.stdoutText; } finally { await stop(child); }
   }
   try {
     await run('git', ['init', '--quiet']);

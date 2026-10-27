@@ -10,8 +10,11 @@ import { ok } from './two-people-support.mjs';
 /** NOTIF-003: owner token setup, actual comment events and production cron, Slack HTTP edge only. */
 export async function chatJourney(state, width = state.page.viewportSize().width) {
   const { page, context, origin, fixtureSql, setSlackFailure, readSlackMessages } = state;
-  const runScheduled=async()=>{
-    await fixtureSql(["UPDATE notification_outbox SET created_at=date('now')||'T00:00:00.000Z' WHERE processed_at IS NULL", "UPDATE chat_deliveries SET created_at=date('now')||'T00:00:00.000Z' WHERE state='pending' AND message_id IS NULL AND substr(created_at,1,10)=date('now')"]);
+  const runScheduled=async({sameDay=false}={})=>{
+    // Immediate batches must be in a past minute even during 00:00 UTC.
+    // The daily hold case deliberately keeps its events in the current day.
+    const createdAt=sameDay ? "date('now')||'T00:00:00.000Z'" : "strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 minutes')";
+    await fixtureSql([`UPDATE notification_outbox SET created_at=${createdAt} WHERE processed_at IS NULL`, `UPDATE chat_deliveries SET created_at=${createdAt} WHERE state='pending' AND message_id IS NULL AND substr(created_at,1,10)=date('now')`]);
     await state.runScheduled();
   };
   const api = (method, route, data) => ok(context, origin, method, route, data);
@@ -81,7 +84,26 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await shot('delivered');
 
   await setSlackFailure('rate_limited');
-  await comment(); await runScheduled();
+  await comment();
+  // A queue peer can record a 429 after this sweep reads the pending row and
+  // connection. Set each clock during preparation, immediately before the
+  // dispatch claim, to exercise that interleaving without timing or sleeps.
+  for (const [clock, update] of [
+    ['delivery retry', "UPDATE chat_deliveries SET next_attempt_at='2999-01-01T00:00:00.000Z' WHERE id=NEW.id"],
+    ['destination cooldown', "UPDATE chat_connections SET retry_after='2999-01-01T00:00:00.000Z' WHERE id=NEW.connection_id"],
+  ]) {
+    await fixtureSql([`CREATE TRIGGER chat_journey_retry_fence AFTER UPDATE OF message_id ON chat_deliveries WHEN NEW.state='pending' BEGIN ${update}; END`]);
+    try {
+      await runScheduled();
+      assert.equal(await count(), 3, `A concurrent ${clock} must fence the final dispatch claim.`);
+      const pending = (await history()).filter(item => item.state === 'pending');
+      assert.equal(pending.length, 1);
+      assert.equal(pending[0].attempts, 0, 'A fenced claim must not consume an attempt.');
+    } finally {
+      await fixtureSql(['DROP TRIGGER chat_journey_retry_fence', "UPDATE chat_deliveries SET next_attempt_at=NULL WHERE state='pending'", 'UPDATE chat_connections SET retry_after=NULL']);
+    }
+  }
+  await runScheduled();
   assert.equal(await count(), 4);
   await open(); await expect(status).toContainText('rate_limited');
   await shot('transient-failure');
@@ -201,7 +223,7 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await expect(teams.getByRole('status')).toHaveText('Connected');
   await open();await expect(teams).toContainText('Daily digest');
   const digestBefore=(await state.readTeamsMessages()).length;
-  await publish();await runScheduled();assert.equal((await state.readTeamsMessages()).length,digestBefore);
+  await publish();await runScheduled({sameDay:true});assert.equal((await state.readTeamsMessages()).length,digestBefore);
   await fixtureSql(["UPDATE chat_deliveries SET created_at='2000-01-01T00:00:00.000Z' WHERE state='pending'"]);
   await runScheduled();assert.equal((await state.readTeamsMessages()).length,digestBefore+1);
   await open();await shot('daily-digest');

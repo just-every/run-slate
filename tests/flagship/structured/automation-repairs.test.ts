@@ -1,3 +1,5 @@
+import {runFoldCases} from '../fold-cases';
+import {resetDeployment as resetFoldDeployment} from '../../e2e/setup/reset-deployment';
 import { resetDeployment } from "../../e2e/setup/reset-deployment";
 import { env } from "cloudflare:test";
 import { test,expect } from "vitest";
@@ -12,7 +14,11 @@ import { registerAutomationActivity } from "../../../src/core/features/automatio
 import { activity } from "../../../src/core/features/activity/service";
 import type { AutomationAdapters } from "../../../src/core/features/automation/actions";
 const adapters:AutomationAdapters={archive:(ctx,id,input)=>archivePage(ctx,id,{...input,action:"archive"}),notify:async()=>{throw Error("Unused notification adapter");}};
-test("AUTO-002 admission, movement, branch and resumed actions enforce current container scope and private definitions", async () => {
+test("automation admission, resumed effects and schedules preserve current scope and exactly-once recovery", async () => {
+  await runFoldCases([
+{name:"AUTO-002 admission, movement, branch and resumed actions enforce current container scope and private definitions",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
   // Original variant: AUTO-002 source/container admission rejects out-of-scope destinations; site definitions and activity are private
   await (async () => {
  const {ctx,reader,containerId}=await setup();const a=await databaseWith(ctx,containerId,"scope-a",[]);
@@ -80,16 +86,12 @@ test("AUTO-002 admission, movement, branch and resumed actions enforce current c
  expect(rule.value.id).toBeTruthy();
 
   })();
-});
 
-function confirmationFailure(db:D1Database) {
- let failed=false;
- function wrap(statement:D1PreparedStatement,sql:string):D1PreparedStatement {
-  return new Proxy(statement,{get(target,key){if(key==="bind")return (...args:unknown[])=>wrap(target.bind(...args),sql);if(key==="run")return async()=>{if(!failed&&sql.includes("SET state='confirmed'")){failed=true;throw Error("Injected transient confirmation failure");}return target.run();};const value=Reflect.get(target,key);return typeof value==="function"?value.bind(target):value;}});
- }
- return new Proxy(db,{get(target,key){if(key==="prepare")return(sql:string)=>wrap(target.prepare(sql),sql);const value=Reflect.get(target,key);return typeof value==="function"?value.bind(target):value;}});
-}
-test("AUTO-003 durable recovery before and after commit retains admitted conditions and completes ordered effects exactly once", async () => {
+} finally {}
+}},
+{name:"AUTO-003 durable recovery before and after commit retains admitted conditions and completes ordered effects exactly once",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
   // Original variant: AUTO-003 durable recovery reconciles commit-before-confirm and completes ordered actions exactly once
   await (async () => {
  const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"retry",[]);
@@ -117,8 +119,12 @@ test("AUTO-003 durable recovery before and after commit retains admitted conditi
  const count=await env.DB.prepare("SELECT COUNT(*) AS n FROM activity_entries WHERE target_id=? AND action='databases.record.update'").bind(record.value.pageId).first<{n:number}>();expect(count?.n).toBe(1);
 
   })();
-});
-test("AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions",async()=>{
+
+} finally {}
+}},
+{name:"AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
  const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"schedule-target",[field("n","number"),field("date","date")]);
  const record=await createRecord(ctx,db.id,{operationKey:"schedule-target-record",title:"Target",values:{n:1,date:"2026-09-27T00:30:00+10:00"}});
  await saveRule(ctx,{operationKey:"schedule-target-rule",name:"Daily",scope:"source",sourceDatabaseId:db.id,trigger:{event:"schedule",startsAt:ctx.now,intervalMinutes:60},conditions:[{field:"date",op:"lt",value:"2026-09-26T15:00:00Z"}],actions:[{type:"edit-fields",values:{n:2}},{type:"comment",body:"Scheduled comment"},{type:"archive"}]});
@@ -126,4 +132,16 @@ test("AUTO-001 source schedules target current records for edit, comment and arc
  const page=await readPage(ctx,record.value.pageId);expect(page.page.lifecycle).toBe("archived");
  const row=await env.DB.prepare("SELECT field_values_json FROM database_records WHERE page_id=?").bind(record.value.pageId).first<{field_values_json:string}>();expect(JSON.parse(row!.field_values_json).n).toBe(2);
  const comments=await env.DB.prepare("SELECT COUNT(*) AS n FROM comments c JOIN comment_threads t ON t.id=c.thread_id WHERE t.page_id=?").bind(record.value.pageId).first<{n:number}>();expect(comments?.n).toBe(1);
+
+} finally {}
+}}
+  ]);
 });
+
+function confirmationFailure(db:D1Database) {
+ let failed=false;
+ function wrap(statement:D1PreparedStatement,sql:string):D1PreparedStatement {
+  return new Proxy(statement,{get(target,key){if(key==="bind")return (...args:unknown[])=>wrap(target.bind(...args),sql);if(key==="run")return async()=>{if(!failed&&sql.includes("SET state='confirmed'")){failed=true;throw Error("Injected transient confirmation failure");}return target.run();};const value=Reflect.get(target,key);return typeof value==="function"?value.bind(target):value;}});
+ }
+ return new Proxy(db,{get(target,key){if(key==="prepare")return(sql:string)=>wrap(target.prepare(sql),sql);const value=Reflect.get(target,key);return typeof value==="function"?value.bind(target):value;}});
+}

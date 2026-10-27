@@ -9,14 +9,15 @@ import type { apiFixture } from './support';
 export async function tokenCustody(f: Pick<Awaited<ReturnType<typeof apiFixture>>, 'api' | 'owner' | 'ok' | 'cookies'>, secret: string, otherSecrets: string[] = []) {
   const prior = (env as unknown as { PRIOR_DB: D1Database }).PRIOR_DB;
   const migrations = env.TEST_MIGRATIONS as D1Migration[];
-  await applyD1Migrations(prior, migrations.filter(m => !/(?:public_api_tokens|webhook_subscriptions|audit_stream|scim_directory)\.sql$/.test(m.name)));
+  const upgrade = (m: D1Migration) => /(?:public_api_tokens|webhook_subscriptions|audit_stream|scim_directory|scim_portable_invitations)\.sql$/.test(m.name);
+  await applyD1Migrations(prior, migrations.filter(m => !upgrade(m)));
   const now = new Date().toISOString(), ownerId = createUlid(), workspaceId = createUlid();
   await prior.batch([
     prior.prepare('INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES(?,?,?, ?,?,?)').bind(workspaceId, 'Synthetic restore', 'SR', now, now, createUlid()),
     prior.prepare("INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES(?,?,?,'Synthetic owner','SO','owner','member','active',1,?,?)").bind(ownerId, workspaceId, 'synthetic-slate-1@example.test', now, now),
   ]);
   const before = (await prior.prepare('SELECT * FROM members').all()).results;
-  await applyD1Migrations(prior, migrations.filter(m => /(?:public_api_tokens|webhook_subscriptions|audit_stream|scim_directory)\.sql$/.test(m.name)));
+  await applyD1Migrations(prior, migrations.filter(upgrade));
   expect((await prior.prepare('SELECT * FROM members').all()).results).toEqual(before);
   const exported = await f.ok('/api/exports/workspace', 'POST', { operationKey: createUlid() });
   const download = await f.api.request(`https://slate.test/api/exports/${exported.id}/download`, { headers: { cookie: f.cookies[f.owner]! } }, {...env,SLATE_PROFILE:undefined});

@@ -83,3 +83,10 @@ export async function acceptInvitation(db:D1Database,config:RuntimeConfig,token:
 export async function revokeInvitation(ctx:FeatureContext,input:{operationKey:string;id:string}) {
   return commitOperation(ctx,{operationKey:input.operationKey,action:'invitation.revoke',request:input,authorize:()=>requireWorkspaceOwner(ctx),prepare:async({revisionId})=>({entity:{id:input.id,kind:'invitation',revisionId},value:{revoked:true},statements:[mutationGuard(ctx.db,'SELECT workspace_id=? AND accepted_by_member_id IS NULL AND revoked_at IS NULL AND expires_at>? FROM invitations WHERE id=?',[ctx.actor.workspaceId,ctx.now,input.id]),ctx.db.prepare('UPDATE invitations SET revoked_at=? WHERE id=?').bind(ctx.now,input.id),ctx.db.prepare('UPDATE page_grants SET revoked_at=?,updated_at=? WHERE id=(SELECT page_grant_id FROM invitations WHERE id=?)').bind(ctx.now,ctx.now,input.id),ctx.db.prepare('UPDATE container_grants SET revoked_at=?,updated_at=? WHERE id=(SELECT container_grant_id FROM invitations WHERE id=?)').bind(ctx.now,ctx.now,input.id),ctx.db.prepare("UPDATE mail_deliveries SET state=CASE WHEN state='sent' THEN state ELSE 'failed' END,delivery_phase=CASE WHEN state='sent' THEN delivery_phase ELSE 'cancelled' END,payload_ciphertext=NULL,next_attempt_at=NULL,lease_until=NULL,updated_at=? WHERE invitation_id=?").bind(ctx.now,input.id)]})});
 }
+
+/** Pending invitations are an owner view; delivery history has its own surface. */
+export async function listInvitations(ctx:FeatureContext) {
+  await requireWorkspaceOwner(ctx);
+  return {items:(await ctx.db.prepare("SELECT id,email,kind AS role,expires_at AS expiresAt FROM invitations WHERE workspace_id=? AND accepted_by_member_id IS NULL AND revoked_at IS NULL AND expires_at>? ORDER BY created_at DESC,id")
+    .bind(ctx.actor.workspaceId,ctx.now).all<{id:string;email:string;role:'member'|'guest';expiresAt:string}>()).results};
+}

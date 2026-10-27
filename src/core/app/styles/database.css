@@ -11,7 +11,7 @@
 .slate-app .view-criteria p { margin: 0; }
 .slate-app .view-criteria button { min-height: max(var(--slate-tap-target, 0px), 28px); padding: 0 10px; font-size: 13px; }
 
-.slate-app .database-workspace table { width: calc(100% + 16px); margin-inline: -8px; border-collapse: collapse; }
+.slate-app .database-workspace table { width: 100%; margin-inline: 0; border-collapse: collapse; }
 .slate-app .database-workspace thead th { height: 40px; font-size: 13px; font-weight: 500; }
 .slate-app .database-workspace td { background-color: var(--slate-canvas); }
 .slate-app .database-workspace tbody tr:hover td { background-color: var(--slate-wash); }

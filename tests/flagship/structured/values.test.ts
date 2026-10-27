@@ -1,3 +1,4 @@
+import {runFoldCases} from '../fold-cases';
 import { test, expect } from "vitest";
 import {
   validateValue,
@@ -7,7 +8,11 @@ import {
   type Field,
 } from "../../../src/core/features/databases/values";
 import { validateFormulas } from "../../../src/core/features/databases/formulas";
-test("editable fields accept null while computed mutations reject all supplied values", () => {
+test("typed values, summaries, filters and formula validation preserve their boundaries", async () => {
+  await runFoldCases([
+{name:"editable fields accept null while computed mutations reject all supplied values",before:async()=>{},run:async()=>{
+try {
+
   for (const type of fieldTypes) {
     const field: Field = {
       id: type,
@@ -50,8 +55,12 @@ test("editable fields accept null while computed mutations reject all supplied v
     validateValue({ ...number, type: "relation" }, ["duplicate", "duplicate"]),
   ).toThrow();
   expect(() => validateValue({ ...number, type: "formula" }, 1)).toThrow();
-});
-test("summaries and nested filters use only supplied filtered values", () => {
+
+} finally {}
+}},
+{name:"summaries and nested filters use only supplied filtered values",before:async()=>{},run:async()=>{
+try {
+
   const values = [null, 2, 4];
   expect(
     [
@@ -82,8 +91,12 @@ test("summaries and nested filters use only supplied filtered values", () => {
       },
     ),
   ).toBe(true);
-});
-test("formula validation catches absent references and typed operand mismatches before rows exist", () => {
+
+} finally {}
+}},
+{name:"formula validation catches absent references and typed operand mismatches before rows exist",before:async()=>{},run:async()=>{
+try {
+
   const field: Field = {
     id: "text",
     name: "Text",
@@ -106,4 +119,8 @@ test("formula validation catches absent references and typed operand mismatches 
       { ...formula, config: { expression: { field: "missing" } } },
     ]),
   ).toThrow(/unknown/);
+
+} finally {}
+}}
+  ]);
 });

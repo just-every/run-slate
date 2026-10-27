@@ -1,3 +1,4 @@
+import {runFoldCases} from '../../fold-cases';
 import {test,expect,afterEach,vi,beforeEach} from 'vitest';
 import {env} from 'cloudflare:test';
 import {nativeTrial,effects,prepareEffect} from './native-trial';
@@ -8,9 +9,13 @@ import {revokeGrant} from '../../../../src/core/features/effects/grants';
 afterEach(()=>{vi.useRealTimers();vi.unstubAllGlobals();});
 
 let f:Awaited<ReturnType<typeof nativeTrial>>;
-beforeEach(async({task})=>{f=task.name.includes('guardrail during')?await nativeTrial([1,1,1,8,8],3):await nativeTrial();await f.approve();f.advance(f.plan.measurement!.observeAfter);});
 
-test('TRIAL-002 — guardrail during provider uncertainty cancels unsent work and preserves confirmed and uncertain truth',async()=>{
+
+test("TRIAL-002 — uncertain exposure and revoked grants preserve dispatch truth and block unsent work", async () => {
+  await runFoldCases([
+{name:"TRIAL-002 — guardrail during provider uncertainty cancels unsent work and preserves confirmed and uncertain truth",before:async()=>{{const task = {name: "TRIAL-002 — guardrail during provider uncertainty cancels unsent work and preserves confirmed and uncertain truth"};f=task.name.includes('guardrail during')?await nativeTrial([1,1,1,8,8],3):await nativeTrial();await f.approve();f.advance(f.plan.measurement!.observeAfter);}},run:async()=>{
+try {
+
   let pendingId='',firstReceipt='';
   f.wire.hooks.send=async(_,index)=>{
     const rows=await effects(f.trialId);
@@ -31,9 +36,12 @@ test('TRIAL-002 — guardrail during provider uncertainty cancels unsent work an
   // Current authority is checked before any recovery request; identity/audience reads are allowed.
   expect(f.wire.requests.slice(requests).some(r=>r.includes('/effects'))).toBe(false);expect(f.wire.sends).toHaveLength(2);
   expect((await effects(f.trialId)).map(e=>[e.state,e.receipt_json])).toEqual(rows.map(e=>[e.state,e.receipt_json]));
-});
 
-test('TRIAL-002 — grant revoked after trial admission invalidates the D1 dispatch claim without a provider send',async()=>{
+} finally {{vi.useRealTimers();vi.unstubAllGlobals();}}
+}},
+{name:"TRIAL-002 — grant revoked after trial admission invalidates the D1 dispatch claim without a provider send",before:async()=>{{const task = {name: "TRIAL-002 — grant revoked after trial admission invalidates the D1 dispatch claim without a provider send"};f=task.name.includes('guardrail during')?await nativeTrial([1,1,1,8,8],3):await nativeTrial();await f.approve();f.advance(f.plan.measurement!.observeAfter);}},run:async()=>{
+try {
+
   let captured='';let armed=false;
   // During prepare, the effect row does not yet exist. During dispatch authorization it does.
   f.wire.hooks.audience=async()=>{if(armed)return;const rows=await effects(f.trialId);if(!rows.length)return;armed=true;captured=rows[0]!.id;const trial=await requireTrial(f.context(),f.trialId);await revokeGrant(f.context(),{id:trial.grant_id!,operationKey:'revoke-after-trial-admission'});};
@@ -43,4 +51,8 @@ test('TRIAL-002 — grant revoked after trial admission invalidates the D1 dispa
   await revokeGrant(f.context(),{id:row.grant_id,operationKey:'cancel-unsent-exact-grant'});
   expect((await effects(f.trialId))[0]!.state).toBe('cancelled');
   await expect(dispatchEffect(f.context(),row.id)).rejects.toMatchObject({code:'GRANT_REQUIRED'});expect(f.wire.sends).toHaveLength(0);
+
+} finally {{vi.useRealTimers();vi.unstubAllGlobals();}}
+}}
+  ], {prepareFirst: true});
 });

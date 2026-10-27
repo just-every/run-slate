@@ -3,7 +3,7 @@ import {test, expect} from 'vitest';
 import {fixture} from './measured-fixture';
 import {startRun} from '../../../src/core/features/runs/service';
 
-test('INQ-005 identical concurrent authorized intents retain one run and one reservation', async () => {
+export async function reservationPrerequisitesCase() {
   const f = await fixture();
   await env.DB.prepare('UPDATE workspaces SET ai_monthly_budget_micros=110000 WHERE id=?').bind(f.workspaceId).run();
   const [first, second] = await Promise.all([
@@ -13,4 +13,4 @@ test('INQ-005 identical concurrent authorized intents retain one run and one res
   expect(first.value.id).toBe(second.value.id);
   expect(await env.DB.prepare('SELECT count(*) n FROM intelligence_runs WHERE workspace_id=?').bind(f.workspaceId).first<number>('n')).toBe(1);
   expect(await env.DB.prepare('SELECT count(*) n FROM intelligence_budgets WHERE run_id=? AND released_at IS NULL').bind(first.value.id).first<number>('n')).toBe(1);
-});
+}

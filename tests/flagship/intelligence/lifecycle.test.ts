@@ -1,3 +1,8 @@
+import {nativeProposalCase} from './native-proposal.case';
+import {claimsCase} from './claims.case';
+import {reservationPrerequisitesCase} from './reservation-prerequisites.case';
+import {runFoldCases} from '../fold-cases';
+import {resetDeployment as resetFoldDeployment} from '../../e2e/setup/reset-deployment';
 import {env} from 'cloudflare:test';
 import {test,expect,vi,afterEach} from 'vitest';
 import {fixture} from './measured-fixture';
@@ -12,7 +17,11 @@ import {invokeAgentTool} from '../../../src/core/features/external-agent/tools';
 afterEach(()=>vi.unstubAllGlobals());
 const response=(answer:unknown)=>Response.json({id:'provider-fixture-receipt',status:'completed',output:[{type:'message',content:[{type:'output_text',text:JSON.stringify(answer)}]}],usage:{input_tokens:100,output_tokens:30,total_tokens:130}});
 const answer={statements:[{text:'The handoff is open.',evidenceIds:['E1'],kind:'observation',limitations:[]}],unresolved:['Handoff'],proposedChanges:[],researchPlan:null,hypothesisAssessment:null};
-test('Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API',async()=>{
+test("run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority", async () => {
+  await runFoldCases([
+{name:"Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
   const cases:RunFlow[]=[
     {title:'AI-009 semantic failure has one attempt, visible failure and no partial proposal',execute:async(f,door)=>{
       const run=await door.start(f.ask);
@@ -80,8 +89,12 @@ test('Signed-in run lifecycle exposes failure, pause, resume and terminal outcom
     }},
   ];
   for(const entry of cases)await runFlowCase(entry.title,entry.execute);
-});
-test('External-agent same semantic read has exact source scope and revocation',async()=>{
+
+} finally {{await (vi.unstubAllGlobals());}}
+}},
+{name:"External-agent same semantic read has exact source scope and revocation",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
   await resetDeployment();
   const f=await fixture();
   const issued=await issueAgentCredential(f.context(),{operationKey:'agent-issue-test',subjectId:f.reader,expiresAt:'2099-01-01T00:00:00.000Z',scope:{tools:['read_evidence'],sourceIds:[f.page.pageId],audience:[f.reader],grantIds:[]}});
@@ -102,4 +115,14 @@ test('External-agent same semantic read has exact source scope and revocation',a
   const revoked=await request('POST','/api/agent/tools/read_evidence',{refs:f.refs,audience:[f.reader]},headers);
   expect(revoked.status).toBe(401);
   expect(await revoked.json()).toMatchObject({code:'CREDENTIAL_REVOKED'});
+
+} finally {{await (vi.unstubAllGlobals());}}
+}}
+  ,
+{name:"INQ-005 identical concurrent authorized intents retain one run and one reservation",before:async()=>{await resetFoldDeployment();},run:reservationPrerequisitesCase}
+,
+{name:"Scoped claims preserve exact passages and unknown scope; only an exact accepted decision supplies a named approver",before:async()=>{await resetFoldDeployment();},run:claimsCase}
+,
+{name:"Exact native review derives source boundaries, refuses stale approval and content expansion, and revokes unsent work",before:async()=>{await resetFoldDeployment();},run:nativeProposalCase}
+]);
 });

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
-import {ok} from './two-people-support.mjs';
+import {call,ok} from './two-people-support.mjs';
 import {touchWriteJourney} from './touch-page.mjs';
 
 /** An ordinary member uses a touch context in the existing real-journey launch. */
@@ -27,8 +27,8 @@ export async function beginTouchJourney(state,width,{writePage=true}={}) {
     page.on('requestfailed',request=>errors.push(`${new URL(request.url()).pathname}: ${request.failure()?.errorText}`));
     page.on('console',message=>{if(message.type()==='error')errors.push(message.text());});
     const api=async route=>{
-      const response=await context.request.get(state.origin+route,{maxRetries:0});
-      assert.equal(response.status(),200,await response.text());return response.json();
+      const response=await call(context,state.origin,'GET',route);
+      assert.equal(response.status,200,JSON.stringify(response.body));return response.body;
     };
     assert.equal((await api('/api/members/current')).role,'member');
     const container=(await ok(context,state.origin,'POST','/api/containers',{operationKey:randomUUID(),name:'Response operations',visibility:'private'})).value;

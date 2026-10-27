@@ -117,16 +117,20 @@ export async function elapsedUntil(check, { timeout, interval = 50, since = Date
 
 /**
  * SAVE-001: the time between the server's committed block response and the
- * block showing Saved. The page records when each status text first appears.
+ * page showing Saved. The page records when each status text first appears.
  */
 export async function savedAfterCommit(page, blockId, edit) {
   await page.evaluate(id => {
     window.slateBlockStates?.observer.disconnect();
     const seen = [];
-    const observer = new MutationObserver(() => {
-      const text = document.querySelector(`[data-block-id="${CSS.escape(id)}"] [role="status"]`)?.textContent ?? '';
-      if (text && seen.at(-1)?.text !== text) seen.push({ text, at: Date.now() });
-    });
+    const observe = () => {
+      for (const element of document.querySelectorAll(`.editor-save-status, [data-block-id="${CSS.escape(id)}"] [role="status"]`)) {
+        const text = element.textContent ?? '';
+        if (text && seen.at(-1)?.text !== text) seen.push({ text, at: Date.now() });
+      }
+    };
+    observe();
+    const observer = new MutationObserver(observe);
     observer.observe(document.body, { childList: true, subtree: true, characterData: true });
     window.slateBlockStates = { observer, seen };
   }, blockId);
@@ -134,10 +138,10 @@ export async function savedAfterCommit(page, blockId, edit) {
   await edit();
   const response = await committed;
   const commitAt = Date.now(), body = await response.json();
-  await expect(page.locator(`[data-block-id="${blockId}"] [role="status"]`).filter({ hasText: /^Saved/ })).toBeVisible({ timeout: 2000 });
+  await expect(page.locator('.editor-save-status').filter({ hasText: /^Saved/ })).toBeVisible({ timeout: 2000 });
   const seen = await page.evaluate(() => window.slateBlockStates.seen);
   const saving = seen.find(item => /^Saving/.test(item.text)), saved = saving && seen.find(item => /^Saved/.test(item.text) && item.at >= saving.at);
-  assert.ok(saving, 'The block shows Saving while the write is in flight.');
+  assert.ok(saving, 'The page shows Saving while the write is in flight.');
   assert.ok(saved, 'Saved follows Saving.');
   return { blockRevisionId: body.value.blockRevisionId, revisionId: body.value.revisionId, savingShownMs: saving.at, savedAfterCommitMs: Math.max(0, saved.at - commitAt) };
 }

@@ -1,3 +1,5 @@
+import {runFoldCases} from '../../fold-cases';
+import {resetDeployment as resetFoldDeployment} from '../../../e2e/setup/reset-deployment';
 import {resetDeployment} from '../../../e2e/setup/reset-deployment';
 import {env} from 'cloudflare:test';
 import {test,expect,afterEach,vi} from 'vitest';
@@ -8,7 +10,11 @@ import {saveGrant} from '../../../../src/core/features/sharing/grants';
 import {revokeGrant} from '../../../../src/core/features/effects/grants';
 import {prepareEffect} from '../../../../src/core/features/effects/service';
 afterEach(()=>vi.unstubAllGlobals());
-test("AGENT-001 — exact credential scope gates REST and MCP control replay and current revocation",async()=>{
+test("AGENT-001 — exact credentials and effect grants fence replay, dispatch and local-session revocation", async () => {
+  await runFoldCases([
+{name:"AGENT-001 — exact credential scope gates REST and MCP control replay and current revocation",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
  const cases=[
     {name:"AGENT-001 — exact credential scope gates REST and MCP control replay and current revocation",run:async()=>{
  const calls=refuseNetwork(),f=await fixture(),api=await transport(f),run=await startRun(f.context(),f.ask,{apiKey:'test-only'});
@@ -48,17 +54,24 @@ test("AGENT-001 — exact credential scope gates REST and MCP control replay and
   try{vi.unstubAllGlobals();await resetDeployment();await entry.run();}
   catch(cause){throw new Error(`Case ${entry.name} failed`,{cause});}
  }
-});
 
-test('AGENT-001 — revoking the exact effect grant fences an admitted procedure despite a current credential',async()=>{
+} finally {{await (vi.unstubAllGlobals());}}
+}},
+{name:"AGENT-001 — revoking the exact effect grant fences an admitted procedure despite a current credential",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
  const f=await effectFixture('procedure'),prepared=await prepareEffect(f.context(),f.input);
  expect((await effects(f.workspaceId))[0]).toMatchObject({id:prepared.value.id,state:'prepared'});
  const credential=await issueAgentCredential(f.context(),{operationKey:'dispatch-agent',subjectId:f.owner,expiresAt:'2099-01-01T00:00:00.000Z',scope:{tools:['dispatch_effect','run_status'],sourceIds:[f.page.pageId],audience:[f.owner,f.reader],grantIds:[f.grant.value.id]}});
  await revokeGrant(f.context(),{id:f.grant.value.id,operationKey:'revoke-exact-effect'});
  expect((await f.mcp(credential.token!,'run_status',{id:f.run.value.id})).body.result.isError).not.toBe(true);
  const before=await effects(f.workspaceId),result=await f.mcp(credential.token!,'dispatch_effect',{id:prepared.value.id});expect(result.value.code).toBe('GRANT_REQUIRED');expect(await effects(f.workspaceId)).toEqual(before);expect(before[0]).toMatchObject({state:'cancelled',receipt_json:null,dispatched_at:null});expect(f.issue.body).toBe('Unchanged target');expect(f.sends).toEqual([]);
-});
-test('AGENT-001 — a credential minted from a local dev session never authenticates without the local key gate',async()=>{
+
+} finally {{await (vi.unstubAllGlobals());}}
+}},
+{name:"AGENT-001 — a credential minted from a local dev session never authenticates without the local key gate",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
  const calls=refuseNetwork(),f=await fixture(),api=await transport(f),run=await startRun(f.context(),f.ask,{apiKey:'test-only'});
  const scope={tools:['run_status'],sourceIds:[f.page.pageId],audience:[f.owner,f.reader],grantIds:[]} as const;
  const ordinary=await issueAgentCredential(f.context(),{operationKey:'native-minted-agent',subjectId:f.owner,expiresAt:'2099-01-01T00:00:00.000Z',scope:{...scope,tools:[...scope.tools],sourceIds:[...scope.sourceIds],audience:[...scope.audience],grantIds:[]}});
@@ -67,4 +80,8 @@ test('AGENT-001 — a credential minted from a local dev session never authentic
  // This deployed Worker never loads the local-only dev layer, so no request passes the key gate.
  expect((await api.mcp(dev.token!,'run_status',{id:run.value.id})).status).toBe(401);
  expect(calls).toEqual([]);
+
+} finally {{await (vi.unstubAllGlobals());}}
+}}
+  ]);
 });

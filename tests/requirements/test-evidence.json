@@ -3,59 +3,46 @@
   "entries": [
     {
       "file": "tests/flagship/content/http.test.ts",
-      "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS",
+      "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state",
       "kind": "supporting-regression",
       "clauses": [
         "BLOCK-001",
         "SAVE-003",
         "SAVE-005",
         "BASE-ACCESS-002",
-        "SAVE-006"
+        "SAVE-006",
+        "ARCH-003",
+        "ARCH-005",
+        "COMM-004",
+        "PAGE-004",
+        "PAGE-005",
+        "ARCH-006",
+        "LINK-002",
+        "REV-001",
+        "REV-006",
+        "LIFE-002",
+        "TREE-001",
+        "SHARE-003",
+        "AI-005",
+        "STAT-003",
+        "BLOCK-008"
       ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
+      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance. Asserts move requires the exact access preview, moves descendants, and duplicates omit history and comments. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts permanent deletion removes body/history/comment/grounding content and keeps a content-free tombstone. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts identical saves do not create revisions or activity and labelled versions become immutable tombstones. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts suggestions stay pinned to their base and accepted edits never issue human verification. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts duplicating a page with attachments respects the deployment attachment storage limit. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/content/http.test.ts",
-      "testName": "content durable HTTP draft publication keeps working content private through publish, discard and scheduling",
+      "testName": "content durable HTTP publication, human verification and media enforce current reader authority",
       "kind": "supporting-regression",
       "clauses": [
         "LIFE-002",
         "LIFE-005",
         "LIFE-004",
-        "LIFE-007"
-      ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "content durable HTTP exact human opens gate verification and stale or forged attestations are refused",
-      "kind": "supporting-regression",
-      "clauses": [
+        "LIFE-007",
         "COMM-002",
         "STAT-003",
-        "SHARE-007"
-      ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "content publication, files, restoration and safety media exposure sanitizes uploads and serves only the allowed published attachments",
-      "kind": "supporting-regression",
-      "clauses": [
+        "SHARE-007",
         "BLOCK-008",
-        "CONT-007",
-        "LIFE-002"
-      ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "content publication, files, restoration and safety revision restoration preserves identity, history and surviving comment anchors",
-      "kind": "supporting-regression",
-      "clauses": [
-        "ARCH-003",
-        "ARCH-005",
-        "COMM-004"
+        "CONT-007"
       ],
       "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
     },
@@ -71,49 +58,6 @@
     },
     {
       "file": "tests/flagship/content/http.test.ts",
-      "testName": "move requires the exact access preview, moves descendants, and duplicates omit history and comments",
-      "kind": "supporting-regression",
-      "clauses": [
-        "PAGE-004",
-        "PAGE-005"
-      ],
-      "reason": "Asserts move requires the exact access preview, moves descendants, and duplicates omit history and comments. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "permanent deletion removes body/history/comment/grounding content and keeps a content-free tombstone",
-      "kind": "supporting-regression",
-      "clauses": [
-        "ARCH-006",
-        "LINK-002"
-      ],
-      "reason": "Asserts permanent deletion removes body/history/comment/grounding content and keeps a content-free tombstone. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "identical saves do not create revisions or activity and labelled versions become immutable tombstones",
-      "kind": "supporting-regression",
-      "clauses": [
-        "REV-001",
-        "REV-006"
-      ],
-      "reason": "Asserts identical saves do not create revisions or activity and labelled versions become immutable tombstones. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "archive restoration preserves draft trees, refuses cycles and requires relocation authority",
-      "kind": "supporting-regression",
-      "clauses": [
-        "ARCH-003",
-        "LIFE-002",
-        "TREE-001",
-        "PAGE-004",
-        "SHARE-003"
-      ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
       "testName": "idle sockets close within five seconds after direct-grant revocation or session expiry",
       "kind": "supporting-regression",
       "clauses": [
@@ -121,16 +65,6 @@
         "BASE-ACCESS-002"
       ],
       "reason": "Asserts idle sockets close within five seconds after direct-grant revocation or session expiry. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "suggestions stay pinned to their base and accepted edits never issue human verification",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AI-005",
-        "STAT-003"
-      ],
-      "reason": "Asserts suggestions stay pinned to their base and accepted edits never issue human verification. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/content/preview.test.ts",
@@ -143,41 +77,20 @@
     },
     {
       "file": "tests/flagship/content/repair.test.ts",
-      "testName": "normalizes creation and structural task attribution and preserves existing completion",
+      "testName": "content structure, task attribution, privacy and activity retain exact revisions",
       "kind": "supporting-regression",
       "clauses": [
-        "BLOCK-007"
-      ],
-      "reason": "Asserts normalizes creation and structural task attribution and preserves existing completion. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/repair.test.ts",
-      "testName": "container metadata and archived listing expose stored policies and preserve personal privacy",
-      "kind": "supporting-regression",
-      "clauses": [
+        "BLOCK-007",
         "CONT-004",
-        "CONT-005"
-      ],
-      "reason": "Asserts container metadata and archived listing expose stored policies and preserve personal privacy. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/repair.test.ts",
-      "testName": "public header controls and social metadata render from explicit publication without private search results",
-      "kind": "supporting-regression",
-      "clauses": [
+        "CONT-005",
         "WEB-002",
-        "SEARCH-005"
+        "SEARCH-005",
+        "ACT-004",
+        "SAVE-003",
+        "SAVE-006",
+        "LINK-004"
       ],
-      "reason": "Asserts public header controls and social metadata render from explicit publication without private search results. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/repair.test.ts",
-      "testName": "comment activity receives exact entity revision context in the atomic operation",
-      "kind": "supporting-regression",
-      "clauses": [
-        "ACT-004"
-      ],
-      "reason": "Asserts comment activity receives exact entity revision context in the atomic operation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts normalizes creation and structural task attribution and preserves existing completion. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts container metadata and archived listing expose stored policies and preserve personal privacy. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts public header controls and social metadata render from explicit publication without private search results. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts comment activity receives exact entity revision context in the atomic operation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts that a reader whose mention labels differ from the stored titles saves another block through the structure route without a false BLOCK_CONFLICT, and that no reader's label is written back over the stored title. Its supporting scope is limited to the listed requirements; it does not establish the editor UI, every profile or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/core/access.test.ts",
@@ -202,551 +115,149 @@
     },
     {
       "file": "tests/flagship/core/identity.test.ts",
-      "testName": "BASE-ACCESS-002 private HTTP denies missing expired and revoked sessions without data",
+      "testName": "native authentication, invitations and secret custody preserve current authority",
       "kind": "supporting-regression",
       "clauses": [
-        "BASE-ACCESS-002"
+        "BASE-ACCESS-002",
+        "WORK-006",
+        "BASE-SECRET-001",
+        "AI-001"
       ],
-      "reason": "Asserts BASE-ACCESS-002 private HTTP denies missing expired and revoked sessions without data. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
-      "testName": "WORK-006 invitation concurrent replay creates exactly one active member",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-006"
-      ],
-      "reason": "Asserts WORK-006 invitation concurrent replay creates exactly one active member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
-      "testName": "BASE-SECRET-001 credential ciphertext is identity bound and failure reveals no plaintext",
-      "kind": "supporting-regression",
-      "clauses": [
-        "BASE-SECRET-001"
-      ],
-      "reason": "Asserts BASE-SECRET-001 credential ciphertext is identity bound and failure reveals no plaintext. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
-      "testName": "cross-origin cookie mutations and WebSocket handshakes are denied before authorization or writes",
-      "kind": "supporting-regression",
-      "clauses": [
-        "BASE-ACCESS-002"
-      ],
-      "reason": "Asserts cross-origin cookie mutations are denied before writes. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WebSocket cross-origin handshake is rejected before collaboration authorization. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
-      "testName": "AI local configuration requires real bridge credentials and is refused on hosted runtime",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AI-001",
-        "BASE-SECRET-001"
-      ],
-      "reason": "Asserts AI local configuration requires real bridge credentials and is refused on hosted runtime. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
-      "testName": "WORK-006 invitation cannot smuggle an unowned container through an authorized page or member invite",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-006"
-      ],
-      "reason": "Asserts WORK-006 invitation cannot smuggle an unowned container through an authorized page or member invite. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
-      "testName": "WORK-006 concurrent identical invite sends one provider request and returns one receipt",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-006"
-      ],
-      "reason": "Asserts WORK-006 concurrent identical invite sends one provider request and returns one receipt. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts BASE-ACCESS-002 private HTTP denies missing expired and revoked sessions without data. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WORK-006 invitation concurrent replay creates exactly one active member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts BASE-SECRET-001 credential ciphertext is identity bound and failure reveals no plaintext. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts cross-origin cookie mutations are denied before writes. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WebSocket cross-origin handshake is rejected before collaboration authorization. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AI local configuration requires real bridge credentials and is refused on hosted runtime. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WORK-006 invitation cannot smuggle an unowned container through an authorized page or member invite. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WORK-006 concurrent identical invite sends one provider request and returns one receipt. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/core/mail.test.ts",
-      "testName": "MAIL-002 Worker D1 durable retry uses a single encrypted message across five minutes and explicit recovery",
+      "testName": "identity mail preserves durable retry, recovery, authentication and provider custody",
       "kind": "supporting-regression",
       "clauses": [
-        "MAIL-002"
+        "MAIL-002",
+        "WORK-006",
+        "BASE-ACCESS-001"
       ],
-      "reason": "Asserts MAIL-002 Worker D1 durable retry uses a single encrypted message across five minutes and explicit recovery. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/mail.test.ts",
-      "testName": "MAIL-002 Worker routes require current authentication and expose public sign-in status only with capability",
-      "kind": "supporting-regression",
-      "clauses": [
-        "MAIL-002"
-      ],
-      "reason": "Exercises public sign-in and owner mail routes with real Worker D1 and native Request validation before the network fake: exact RER envelope, accepted sign-in, redirects refused without following, visible credential rejection, durable Retry-After queue and replay, and held ambiguous delivery. Retains authentication and status-capability checks. Supporting scope only; no live relay or full UI acceptance claim."
-    },
-    {
-      "file": "tests/flagship/core/mail.test.ts",
-      "testName": "WORK-006 Worker pending guest grant is durable and exact revocation disables delivery",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-006"
-      ],
-      "reason": "Asserts WORK-006 Worker pending guest grant is durable and exact revocation disables delivery. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/mail.test.ts",
-      "testName": "MAIL-002 Worker restart after invitation commit resumes the admitted encrypted command",
-      "kind": "supporting-regression",
-      "clauses": [
-        "MAIL-002"
-      ],
-      "reason": "Asserts MAIL-002 Worker restart after invitation commit resumes the admitted encrypted command. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/mail.test.ts",
-      "testName": "MAIL-002 Worker lost provider response replays identical request without a second logical email",
-      "kind": "supporting-regression",
-      "clauses": [
-        "MAIL-002"
-      ],
-      "reason": "Asserts MAIL-002 Worker lost provider response replays identical request without a second logical email. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts MAIL-002 Worker D1 durable retry uses a single encrypted message across five minutes and explicit recovery. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Exercises public sign-in and owner mail routes with real Worker D1 and native Request validation before the network fake: exact RER envelope, accepted sign-in, redirects refused without following, visible credential rejection, durable Retry-After queue and replay, and held ambiguous delivery. Retains authentication and status-capability checks. Supporting scope only; no live relay or full UI acceptance claim. Asserts WORK-006 Worker pending guest grant is durable and exact revocation disables delivery. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts MAIL-002 Worker restart after invitation commit resumes the admitted encrypted command. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts MAIL-002 Worker lost provider response replays identical request without a second logical email. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim."
     },
     {
       "file": "tests/flagship/core/security.test.ts",
-      "testName": "core durable authority WORK-013 first run has exactly three domain records and cannot repeat",
+      "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority",
       "kind": "supporting-regression",
       "clauses": [
-        "WORK-013"
-      ],
-      "reason": "Asserts core durable authority WORK-013 first run has exactly three domain records and cannot repeat. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/security.test.ts",
-      "testName": "core durable authority same key/body commits once; changed body conflicts and revoked membership denies replay",
-      "kind": "supporting-regression",
-      "clauses": [
+        "WORK-013",
         "SAVE-005",
-        "WORK-007"
-      ],
-      "reason": "Asserts core durable authority same key/body commits once; changed body conflicts and revoked membership denies replay. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/security.test.ts",
-      "testName": "core durable authority failed CAS rolls back mutation receipt and activity atomically",
-      "kind": "supporting-regression",
-      "clauses": [
+        "WORK-007",
         "SAVE-003",
-        "ACT-001"
-      ],
-      "reason": "Asserts core durable authority failed CAS rolls back mutation receipt and activity atomically. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/security.test.ts",
-      "testName": "core durable authority WORK-007 last owner and setup owner survive unauthorized removal",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-007"
-      ],
-      "reason": "Asserts core durable authority WORK-007 last owner and setup owner survive unauthorized removal. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/security.test.ts",
-      "testName": "core durable authority ACL revocation racing an authorized preparation aborts the batch",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SHARE-007"
-      ],
-      "reason": "Asserts core durable authority ACL revocation racing an authorized preparation aborts the batch. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/security.test.ts",
-      "testName": "WORK-011 all eight policy values save with immutable identity revision and stale update denied",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-011"
-      ],
-      "reason": "Asserts WORK-011 all eight policy values save with immutable identity revision and stale update denied. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/security.test.ts",
-      "testName": "WORK-003 ordinary members cannot remove themselves or another member",
-      "kind": "supporting-regression",
-      "clauses": [
+        "ACT-001",
+        "SHARE-007",
+        "WORK-011",
         "WORK-003"
       ],
-      "reason": "Asserts WORK-003 ordinary members cannot remove themselves or another member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts core durable authority WORK-013 first run has exactly three domain records and cannot repeat. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts core durable authority same key/body commits once; changed body conflicts and revoked membership denies replay. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts core durable authority failed CAS rolls back mutation receipt and activity atomically. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts core durable authority WORK-007 last owner and setup owner survive unauthorized removal. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts core durable authority ACL revocation racing an authorized preparation aborts the batch. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WORK-011 all eight policy values save with immutable identity revision and stale update denied. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WORK-003 ordinary members cannot remove themselves or another member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/intelligence/authority.test.ts",
-      "testName": "AI-013 current source and audience ACL prevents persisted output, replay and HTTP disclosure after revocation",
+      "testName": "source disclosure, citations, run budgets and decisions preserve current authority",
       "kind": "supporting-regression",
       "clauses": [
-        "AI-013"
-      ],
-      "reason": "Asserts AI-013 current source and audience ACL prevents persisted output, replay and HTTP disclosure after revocation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/authority.test.ts",
-      "testName": "AI-004 exact issued citation validation rejects invented identifiers and deleted exact revisions",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AI-004"
-      ],
-      "reason": "Asserts AI-004 exact issued citation validation rejects invented identifiers and deleted exact revisions. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/authority.test.ts",
-      "testName": "AI-012 concurrent reservations cannot overspend and failed reservation creates no run",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AI-012"
-      ],
-      "reason": "Asserts AI-012 concurrent reservations cannot overspend and failed reservation creates no run. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/authority.test.ts",
-      "testName": "AI-002 pause releases execution, resume rechecks revision, terminal cancellation never resurrects",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AI-002"
-      ],
-      "reason": "Asserts AI-002 pause releases execution, resume rechecks revision, terminal cancellation never resurrects. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/authority.test.ts",
-      "testName": "DEC-003 accepted decision immutable and source changes warn without rewriting rationale",
-      "kind": "supporting-regression",
-      "clauses": [
+        "AI-013",
+        "AI-004",
+        "AI-012",
+        "AI-002",
         "DEC-003"
       ],
-      "reason": "Asserts DEC-003 accepted decision immutable and source changes warn without rewriting rationale. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts AI-013 current source and audience ACL prevents persisted output, replay and HTTP disclosure after revocation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AI-004 exact issued citation validation rejects invented identifiers and deleted exact revisions. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AI-012 concurrent reservations cannot overspend and failed reservation creates no run. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AI-002 pause releases execution, resume rechecks revision, terminal cancellation never resurrects. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts DEC-003 accepted decision immutable and source changes warn without rewriting rationale. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/intelligence/effects.test.ts",
-      "testName": "External effect timeout stays uncertain and reconciliation never sends twice",
+      "testName": "external and native effects preserve reconciliation, grant revocation and exactly-once recovery",
       "kind": "supporting-regression",
       "clauses": [
         "EFFECT-001",
         "EFFECT-003"
       ],
-      "reason": "Asserts External effect timeout stays uncertain and reconciliation never sends twice. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/effects.test.ts",
-      "testName": "Revocation blocks prepared effects and inquiry kind never activates despite a valid tool grant",
-      "kind": "supporting-regression",
-      "clauses": [
-        "EFFECT-001",
-        "EFFECT-003"
-      ],
-      "reason": "Asserts Revocation blocks prepared effects and inquiry kind never activates despite a valid tool grant. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts External effect timeout stays uncertain and reconciliation never sends twice. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Revocation blocks prepared effects and inquiry kind never activates despite a valid tool grant. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Native lost response recovers attributable receipt, preserves completion and forbids successor double-send. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/intelligence/inquiry.test.ts",
-      "testName": "Sustained inquiry preserves rival hypotheses, disconfirmation and executable reproducible analysis",
+      "testName": "inquiry hypotheses, outcomes and historical cutoffs retain evidence boundaries",
       "kind": "supporting-regression",
       "clauses": [
         "INQ-001",
-        "INQ-002"
-      ],
-      "reason": "Asserts Sustained inquiry preserves rival hypotheses, disconfirmation and executable reproducible analysis. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/inquiry.test.ts",
-      "testName": "Outcome logic distinguishes benefit precise null adverse and inconclusive; no early-window result",
-      "kind": "supporting-regression",
-      "clauses": [
+        "INQ-002",
         "TRIAL-003"
       ],
-      "reason": "Asserts Outcome logic distinguishes benefit precise null adverse and inconclusive; no early-window result. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/inquiry.test.ts",
-      "testName": "Historical evidence cutoff prevents future content entering investigation",
-      "kind": "supporting-regression",
-      "clauses": [
-        "INQ-002"
-      ],
-      "reason": "Asserts Historical evidence cutoff prevents future content entering investigation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts Sustained inquiry preserves rival hypotheses, disconfirmation and executable reproducible analysis. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Outcome logic distinguishes benefit precise null adverse and inconclusive; no early-window result. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Historical evidence cutoff prevents future content entering investigation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/intelligence/lifecycle.test.ts",
-      "testName": "Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API",
+      "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority",
       "kind": "supporting-regression",
       "clauses": [
         "AI-009",
         "AI-002",
         "AI-012",
-        "AI-008"
-      ],
-      "reason": "Preserves separately asserted cases of the signed-in run lifecycle through the run API; supports only the listed requirements and does not establish complete acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/lifecycle.test.ts",
-      "testName": "External-agent same semantic read has exact source scope and revocation",
-      "kind": "supporting-regression",
-      "clauses": [
+        "AI-008",
         "AI-014",
-        "AI-013"
+        "AI-013",
+        "EFFECT-001",
+        "SOURCE-003",
+        "INQ-005"
       ],
-      "reason": "Preserves separately asserted cases of the signed-in run lifecycle through the run API; supports only the listed requirements and does not establish complete acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/native-effects.test.ts",
-      "testName": "Native lost response recovers attributable receipt, preserves completion and forbids successor double-send",
-      "kind": "supporting-regression",
-      "clauses": [
-        "EFFECT-003"
-      ],
-      "reason": "Asserts Native lost response recovers attributable receipt, preserves completion and forbids successor double-send. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/native-proposal.test.ts",
-      "testName": "Exact native review derives source boundaries, refuses stale approval and content expansion, and revokes unsent work",
-      "kind": "supporting-regression",
-      "clauses": [
-        "EFFECT-001"
-      ],
-      "reason": "Asserts Exact native review derives source boundaries, refuses stale approval and content expansion, and revokes unsent work. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Preserves separately asserted cases of the signed-in run lifecycle through the run API; supports only the listed requirements and does not establish complete acceptance. Asserts Exact native review derives source boundaries, refuses stale approval and content expansion, and revokes unsent work. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Scoped claims preserve exact passages and unknown scope; only an exact accepted decision supplies a named approver. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Controlled local Worker regression; no provider or full clause acceptance claim."
     },
     {
       "file": "tests/flagship/intelligence/skills.test.ts",
-      "testName": "Pinned skill cannot activate failed/absent evaluation or silently substitute a retired version",
+      "testName": "pinned skills, evaluation cutoffs and retained learning preserve admission boundaries",
       "kind": "supporting-regression",
       "clauses": [
         "SKILL-001",
-        "SKILL-002"
-      ],
-      "reason": "Asserts Pinned skill cannot activate failed/absent evaluation or silently substitute a retired version. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/skills.test.ts",
-      "testName": "Evaluation cases freeze source cutoff; a future timestamp cannot bless future context",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SKILL-001",
-        "SKILL-002"
-      ],
-      "reason": "Asserts Evaluation cases freeze source cutoff; a future timestamp cannot bless future context. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/learned-method.test.ts",
-      "testName": "Retained trial learning prepares one inactive draft with failed hypotheses, forecast and evaluation boundary",
-      "kind": "supporting-regression",
-      "clauses": [
+        "SKILL-002",
         "TRIAL-004"
       ],
-      "reason": "Asserts Retained trial learning prepares one inactive draft with failed hypotheses, forecast and evaluation boundary. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts Pinned skill cannot activate failed/absent evaluation or silently substitute a retired version. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Evaluation cases freeze source cutoff; a future timestamp cannot bless future context. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Retained trial learning prepares one inactive draft with failed hypotheses, forecast and evaluation boundary. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/intelligence/native-transport.test.ts",
-      "testName": "Native transport refuses redirected token and credential requests without following a location",
+      "testName": "native transport refuses credential redirects and preserves exact bounded timestamps",
       "kind": "supporting-regression",
       "clauses": [
-        "SOURCE-002"
-      ],
-      "reason": "Asserts Native transport refuses redirected token and credential requests without following a location. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/native-transport.test.ts",
-      "testName": "Native timestamps preserve valid ISO instants and normalize bounded Unix milliseconds",
-      "kind": "supporting-regression",
-      "clauses": [
+        "SOURCE-002",
         "SOURCE-004"
       ],
-      "reason": "Asserts Native timestamps preserve valid ISO instants and normalize bounded Unix milliseconds. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/claims.test.ts",
-      "testName": "Scoped claims preserve exact passages and unknown scope; only an exact accepted decision supplies a named approver",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SOURCE-003"
-      ],
-      "reason": "Asserts Scoped claims preserve exact passages and unknown scope; only an exact accepted decision supplies a named approver. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts Native transport refuses redirected token and credential requests without following a location. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Native timestamps preserve valid ISO instants and normalize bounded Unix milliseconds. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "Trial-only source revocation fences standalone and nested plan and outcome disclosure",
+      "testName": "trial disclosure, exposure, measurement and dispatch preserve stop and revocation boundaries",
       "kind": "supporting-regression",
       "clauses": [
         "AI-013",
-        "TRIAL-001"
-      ],
-      "reason": "Asserts Trial-only source revocation fences standalone and nested plan and outcome disclosure. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "Treatment observations reject unrelated and out-of-window receipts and count exact trial exposure once",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-002"
-      ],
-      "reason": "Asserts Treatment observations reject unrelated and out-of-window receipts and count exact trial exposure once. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "guardrail stops and conclusions cancel prepared trial work while preserving confirmed exposure",
-      "kind": "supporting-regression",
-      "clauses": [
+        "TRIAL-001",
         "TRIAL-002",
-        "EFFECT-003"
-      ],
-      "reason": "Asserts guardrail stops and conclusions cancel prepared trial work while preserving confirmed exposure. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "Unverifiable or changed measurements stay inconclusive despite the caller repeating the declared instrumentation hash",
-      "kind": "supporting-regression",
-      "clauses": [
+        "EFFECT-003",
         "TRIAL-003",
         "TRIAL-004"
       ],
-      "reason": "Asserts Unverifiable instrumentation stays inconclusive despite caller repeating the declared hash. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Changed actual measurement fields cannot be blessed by resubmitting the old instrumentation hash. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "Direct dispatch rejects stopped and expired trial boundaries even if its procedure still runs",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-002"
-      ],
-      "reason": "Asserts Direct dispatch rejects stopped and expired trial boundaries even if its procedure still runs. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-      "testName": "A stop after trial admission invalidates the atomic dispatch guard and preserves uncertain history",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-002",
-        "EFFECT-003"
-      ],
-      "reason": "Asserts A stop after trial admission invalidates the atomic dispatch guard and preserves uncertain history. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/intelligence/reservation-prerequisites.test.ts",
-      "testName": "INQ-005 identical concurrent authorized intents retain one run and one reservation",
-      "kind": "supporting-regression",
-      "clauses": [
-        "INQ-005"
-      ],
-      "reason": "Controlled local Worker regression; no provider or full clause acceptance claim."
+      "reason": "Asserts Trial-only source revocation fences standalone and nested plan and outcome disclosure. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Treatment observations reject unrelated and out-of-window receipts and count exact trial exposure once. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts guardrail stops and conclusions cancel prepared trial work while preserving confirmed exposure. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Unverifiable instrumentation stays inconclusive despite caller repeating the declared hash. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Changed actual measurement fields cannot be blessed by resubmitting the old instrumentation hash. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts Direct dispatch rejects stopped and expired trial boundaries even if its procedure still runs. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts A stop after trial admission invalidates the atomic dispatch guard and preserves uncertain history. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation persists a real Google Docs export, retains original, searchable canonical content, and replays without duplicate pages",
+      "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery",
       "kind": "supporting-regression",
       "clauses": [
         "IMP-003",
-        "IMP-001"
-      ],
-      "reason": "Asserts durable imports and federation persists a real Google Docs export, retains original, searchable canonical content, and replays without duplicate pages. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation reviews genuine Notion and Confluence exports before atomic publication",
-      "kind": "supporting-regression",
-      "clauses": [
-        "IMP-002",
-        "IMP-003"
-      ],
-      "reason": "Asserts durable imports and federation reviews genuine Notion and Confluence exports before atomic publication. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation fails an invalid destination plan without publishing partial tree and retries after interruption",
-      "kind": "supporting-regression",
-      "clauses": [
         "IMP-001",
-        "PORT-006"
-      ],
-      "reason": "Asserts durable imports and federation fails an invalid destination plan without publishing partial tree and retries after interruption. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation retains exact source revisions, denies changed audience and revoked connection without content",
-      "kind": "supporting-regression",
-      "clauses": [
+        "IMP-002",
+        "PORT-006",
         "SOURCE-001",
-        "SOURCE-002"
-      ],
-      "reason": "Asserts durable imports and federation retains exact source revisions, denies changed audience and revoked connection without content. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation complete credential-free archives refuse corruption and restore retained records and originals into an empty deployment",
-      "kind": "supporting-regression",
-      "clauses": [
+        "SOURCE-002",
         "BASE-DATA-001",
         "PORT-001",
         "PORT-002",
-        "PORT-005"
-      ],
-      "reason": "Asserts durable imports and federation exports complete tables without credentials and detects corruption before restore. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts durable imports and federation restores retained ids and original files to an empty deployment, excludes sessions and disables public delivery. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation imports a publisher-produced Microsoft Word fixture with retained provenance",
-      "kind": "supporting-regression",
-      "clauses": [
-        "IMP-003"
-      ],
-      "reason": "Asserts durable imports and federation imports a publisher-produced Microsoft Word fixture with retained provenance. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation authorizes real Worker HTTP imports and export endpoints against current sessions",
-      "kind": "supporting-regression",
-      "clauses": [
-        "IMP-001",
         "PORT-005",
-        "BASE-ACCESS-002"
-      ],
-      "reason": "Asserts durable imports and federation authorizes real Worker HTTP imports and export endpoints against current sessions. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation uses actor-bound single-use OAuth PKCE and discovers identity instead of asking for account ids",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SOURCE-002"
-      ],
-      "reason": "Asserts durable imports and federation uses actor-bound single-use OAuth PKCE and discovers identity instead of asking for account ids. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation exports readable Markdown HTML and embedded-font PDF and reimports its tree",
-      "kind": "supporting-regression",
-      "clauses": [
-        "PORT-007"
-      ],
-      "reason": "Asserts durable imports and federation exports readable Markdown HTML and embedded-font PDF and reimports its tree. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation keeps the previous published source on provider failure and treats deletion as a content-free tombstone",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SOURCE-001",
-        "SOURCE-002"
-      ],
-      "reason": "Asserts durable imports and federation keeps the previous published source on provider failure and treats deletion as a content-free tombstone. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation rolls back a failing D1 publication after earlier page statements and succeeds on a retained-archive retry",
-      "kind": "supporting-regression",
-      "clauses": [
-        "PORT-006"
-      ],
-      "reason": "Asserts durable imports and federation rolls back a failing D1 publication after earlier page statements and succeeds on a retained-archive retry. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/federation/federation.test.ts",
-      "testName": "durable imports and federation appends an import to an existing page atomically and preserves preexisting blocks on stale revisions",
-      "kind": "supporting-regression",
-      "clauses": [
+        "BASE-ACCESS-002",
+        "PORT-007",
         "IMP-005"
       ],
-      "reason": "Asserts durable imports and federation appends an import to an existing page atomically and preserves preexisting blocks on stale revisions. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts durable imports and federation persists a real Google Docs export, retains original, searchable canonical content, and replays without duplicate pages. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts durable imports and federation reviews genuine Notion and Confluence exports before atomic publication. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts durable imports and federation fails an invalid destination plan without publishing partial tree and retries after interruption. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts durable imports and federation retains exact source revisions, denies changed audience and revoked connection without content. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts durable imports and federation exports complete tables without credentials and detects corruption before restore. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts durable imports and federation restores retained ids and original files to an empty deployment, excludes sessions and disables public delivery. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts durable imports and federation imports a publisher-produced Microsoft Word fixture with retained provenance. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts durable imports and federation authorizes real Worker HTTP imports and export endpoints against current sessions. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts durable imports and federation uses actor-bound single-use OAuth PKCE and discovers identity instead of asking for account ids. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts durable imports and federation exports readable Markdown HTML and embedded-font PDF and reimports its tree. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts durable imports and federation keeps the previous published source on provider failure and treats deletion as a content-free tombstone. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts durable imports and federation rolls back a failing D1 publication after earlier page statements and succeeds on a retained-archive retry. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts durable imports and federation appends an import to an existing page atomically and preserves preexisting blocks on stale revisions. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/federation/oauth-return.test.ts",
@@ -759,51 +270,40 @@
     },
     {
       "file": "tests/flagship/structured/automation-repairs.test.ts",
-      "testName": "AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions",
+      "testName": "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery",
       "kind": "supporting-regression",
       "clauses": [
-        "AUTO-001"
+        "AUTO-001",
+        "AUTO-002",
+        "AUTO-003"
       ],
-      "reason": "Asserts AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-002 source/container admission rejects out-of-scope destinations; site definitions and activity are private. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-002 current container movement blocks an admitted action. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-002 branch targets and prepared resumed actions recheck current container scope. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-003 durable recovery reconciles commit-before-confirm and completes ordered actions exactly once. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-003 transient failure before commit resumes admitted conditions after an earlier field edit. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "real D1 database structure CAS, record page revisions, replay and lock enforcement",
+      "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics",
       "kind": "supporting-regression",
       "clauses": [
         "DB-009",
         "SAVE-003",
-        "SAVE-005"
-      ],
-      "reason": "Asserts real D1 database structure CAS, record page revisions, replay and lock enforcement. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "reader filtering precedes summaries and unauthorized reader cannot mutate",
-      "kind": "supporting-regression",
-      "clauses": [
+        "SAVE-005",
         "DB-007",
-        "SHARE-002"
+        "SHARE-002",
+        "TMPL-003",
+        "DB-010",
+        "LIFE-002",
+        "DB-003",
+        "DB-004",
+        "DB-011",
+        "DB-002",
+        "NAV-004",
+        "AUTO-002",
+        "AUTO-003",
+        "SHARE-007",
+        "AUTO-005",
+        "AUTO-004"
       ],
-      "reason": "Asserts reader filtering precedes summaries and unauthorized reader cannot mutate. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "template snapshots retain prescribed children independently and application replays",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TMPL-003"
-      ],
-      "reason": "Asserts template snapshots retain prescribed children independently and application replays. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "record body persists across both parity profiles",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-010"
-      ],
-      "reason": "Asserts record body persists across both parity profiles. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts real D1 database structure CAS, record page revisions, replay and lock enforcement. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts reader filtering precedes summaries and unauthorized reader cannot mutate. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts template snapshots retain prescribed children independently and application replays. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts record body persists across both parity profiles. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Checks preserved structured records and template exclusions while switching each policy alternative. This is supporting superset-data evidence only, not every behavior or UI of all eight policy clauses. Asserts draft profile record readers never see unpublished field values. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts views persist every layout, filter summaries, charts and independent embedded filters. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts template attachments are immutable independent copies and remain readable after source removal. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts retained imported formulas remain labelled and do not block later schema edits. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts database navigation and reference hydration expose actual permitted labels only. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts typed formula cycles reject and arithmetic evaluates without executable code. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts empty database accepts numeric formula, recomputes changed fields, rejects invalid types and cycles. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts rule action executes once with durable receipts and revoked actor loses execution. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts rule permission loss skips unauthorized later effects and retains confirmed receipt. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts rollups filter related unreadable records before aggregate and reject stale references. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts rollup cycle writes reject while prior records remain readable. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts all automation scopes persist; schedules deduplicate and chains throttle with a log. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts committed content events drain durably and self-triggering field rules are throttled. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/http.test.ts",
@@ -815,153 +315,42 @@
       "reason": "Asserts Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "all eight policy alternatives preserve structured data and template exclusions",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-010",
-        "TMPL-003"
-      ],
-      "reason": "Checks preserved structured records and template exclusions while switching each policy alternative. This is supporting superset-data evidence only, not every behavior or UI of all eight policy clauses."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "draft profile record readers never see unpublished field values",
-      "kind": "supporting-regression",
-      "clauses": [
-        "LIFE-002"
-      ],
-      "reason": "Asserts draft profile record readers never see unpublished field values. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "views persist every layout, filter summaries, charts and independent embedded filters",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-003",
-        "DB-004",
-        "DB-011"
-      ],
-      "reason": "Asserts views persist every layout, filter summaries, charts and independent embedded filters. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "template attachments are immutable independent copies and remain readable after source removal",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TMPL-003"
-      ],
-      "reason": "Asserts template attachments are immutable independent copies and remain readable after source removal. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "retained imported formulas remain labelled and do not block later schema edits",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts retained imported formulas remain labelled and do not block later schema edits. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "database navigation and reference hydration expose actual permitted labels only",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002",
-        "NAV-004"
-      ],
-      "reason": "Asserts database navigation and reference hydration expose actual permitted labels only. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
       "file": "tests/flagship/structured/template-permissions.test.ts",
-      "testName": "TMPL-003/005 current server capabilities distinguish manage, apply destinations, shipped copies and revoked access",
+      "testName": "template management, application, shipped copies and guest destinations preserve exact current capabilities",
       "kind": "supporting-regression",
       "clauses": [
         "TMPL-003",
         "TMPL-005"
       ],
-      "reason": "Asserts TMPL-003/005 current server capabilities distinguish manage, apply destinations, shipped copies and revoked access. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/template-permissions.test.ts",
-      "testName": "TMPL-003 guest parent destinations do not require or expose a container index",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TMPL-003"
-      ],
-      "reason": "Asserts TMPL-003 guest parent destinations do not require or expose a container index. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts TMPL-003/005 current server capabilities distinguish manage, apply destinations, shipped copies and revoked access. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts TMPL-003 guest parent destinations do not require or expose a container index. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/template-repairs.test.ts",
-      "testName": "DB-002 historical page, record and template properties remove current hidden relation IDs and counts",
+      "testName": "template snapshots, privacy and typed repairs preserve immutable definitions",
       "kind": "supporting-regression",
       "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts DB-002 historical page, record and template properties remove current hidden relation IDs and counts. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/template-repairs.test.ts",
-      "testName": "TPL-001 template icon and file properties, including children, materialize independently for destination-only readers",
-      "kind": "supporting-regression",
-      "clauses": [
+        "DB-002",
         "TMPL-003"
       ],
-      "reason": "Asserts TPL-001 template icon and file properties, including children, materialize independently for destination-only readers. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts DB-002 historical page, record and template properties remove current hidden relation IDs and counts. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts TPL-001 template icon and file properties, including children, materialize independently for destination-only readers. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/typed-repairs.test.ts",
-      "testName": "DB-002 computed assignments reject null/empty and imported results survive",
+      "testName": "typed relation, aggregate and formula repairs preserve current source authority",
       "kind": "supporting-regression",
       "clauses": [
         "DB-002"
       ],
-      "reason": "Asserts DB-002 computed assignments reject null/empty and imported results survive. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/typed-repairs.test.ts",
-      "testName": "DB-002 dates compare instants consistently in filters and views",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts DB-002 dates compare instants consistently in filters and views. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/typed-repairs.test.ts",
-      "testName": "DB-002 formula output types protect local and cross-database numeric rollup dependencies",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts DB-002 formula output types constrain rollups, charts and later dependency edits. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts DB-002 a target formula edit cannot invalidate another empty database's numeric rollup. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts DB-002 computed assignments reject null/empty and imported results survive. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts DB-002 dates compare instants consistently in filters and views. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts DB-002 formula output types constrain rollups, charts and later dependency edits. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts DB-002 a target formula edit cannot invalidate another empty database's numeric rollup. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/values.test.ts",
-      "testName": "editable fields accept null while computed mutations reject all supplied values",
+      "testName": "typed values, summaries, filters and formula validation preserve their boundaries",
       "kind": "supporting-regression",
       "clauses": [
         "DB-002"
       ],
-      "reason": "Asserts editable fields accept null while computed mutations reject all supplied values. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/values.test.ts",
-      "testName": "summaries and nested filters use only supplied filtered values",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts summaries and nested filters use only supplied filtered values. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/values.test.ts",
-      "testName": "formula validation catches absent references and typed operand mismatches before rows exist",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts formula validation catches absent references and typed operand mismatches before rows exist. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts editable fields accept null while computed mutations reject all supplied values. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts summaries and nested filters use only supplied filtered values. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts formula validation catches absent references and typed operand mismatches before rows exist. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/authority/atomic-recovery.test.ts",
@@ -1212,16 +601,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/federation/exact-passages.test.ts",
-      "testName": "SOURCE-002 \u2014 an exact passage remains revision-pinned across refresh failure and becomes content-free when its current authority is lost",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SOURCE-002"
-      ],
-      "reason": "Native D1 exact-passage, immutable revision/hash, staging rollback and current-authority tombstone checks with controlled native transport. Does not establish full extraction/original provenance, exact-citation browser UI, live-provider guarantees or complete requirement acceptance."
-    },
-    {
-      "file": "tests/flagship/release-clauses/federation/exact-passages.test.ts",
-      "testName": "SOURCE-002 \u2014 current connection authority is rechecked after the final provider read and disconnected passages disclose only a tombstone",
+      "testName": "SOURCE-002 \u2014 passages stay revision-pinned and content-free after source or connection revocation",
       "kind": "supporting-regression",
       "clauses": [
         "SOURCE-002"
@@ -1230,16 +610,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
-      "testName": "AGENT-001 \u2014 exact credential scope gates REST and MCP control replay and current revocation",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AGENT-001"
-      ],
-      "reason": "Native local REST and credentialed MCP exercise current tool, source, audience, credential and exact-grant authority, control receipts and refusal without disclosure. This is partial semantic-parity evidence; complete browser/API/MCP parity, independent clients and owning-product consent remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
-      "testName": "AGENT-001 \u2014 revoking the exact effect grant fences an admitted procedure despite a current credential",
+      "testName": "AGENT-001 \u2014 exact credentials and effect grants fence replay, dispatch and local-session revocation",
       "kind": "supporting-regression",
       "clauses": [
         "AGENT-001"
@@ -1248,16 +619,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/authority/impact-scope.test.ts",
-      "testName": "EFFECT-003 \u2014 scoped rehearsal hides a currently inaccessible dependency and records one read-only impact on replay",
-      "kind": "supporting-regression",
-      "clauses": [
-        "EFFECT-003"
-      ],
-      "reason": "Native local scoped rehearsal, immutable accepted decision, lost target access, record replay and genuinely evaluated pinned maintenance exercise exact current authority. Synthetic evaluation records prove mechanics only; complete affected-answer/skill invalidation, coalesced repairs, scoped-exception UI and real evaluated repair quality remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/authority/impact-scope.test.ts",
-      "testName": "EFFECT-003 \u2014 evaluated pinned maintenance waits for a current exact grant and applies one attributable repair",
+      "testName": "EFFECT-003 \u2014 scoped rehearsal and pinned maintenance require exact current authority",
       "kind": "supporting-regression",
       "clauses": [
         "EFFECT-003"
@@ -1266,16 +628,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/authority/inquiry-custody.test.ts",
-      "testName": "EFFECT-002 \u2014 admitted inquiry and credentialed MCP refuse operational consent and unsupported product sends",
-      "kind": "supporting-regression",
-      "clauses": [
-        "EFFECT-002"
-      ],
-      "reason": "Native local inquiry admission, grant records and actual REST/MCP/native connector boundaries refuse operational consent escalation, unsupported product sends and cross-product publication authority. Controlled protocol transport is not real provider acceptance; the positive paid SSO consent, commercial approval, entitlement and activation journey remains unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/authority/inquiry-custody.test.ts",
-      "testName": "EFFECT-002 \u2014 article publication requires its own current audience and exact grant",
+      "testName": "EFFECT-002 \u2014 inquiry custody and article publication preserve separate operational authority",
       "kind": "supporting-regression",
       "clauses": [
         "EFFECT-002"
@@ -1284,43 +637,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-      "testName": "INQ-004 \u2014 revoked or expired scheduled route qualification blocks dispatch without model substitution",
-      "kind": "supporting-regression",
-      "clauses": [
-        "INQ-004"
-      ],
-      "reason": "Native scheduled qualification/freshness, source revocation, invalid protocol and deterministic missed-event lineage mechanics under synthetic test provider receipts only. Real model measured fit, semantic discovery usefulness and empirical missed-event recall remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-      "testName": "INQ-004 \u2014 source access lost during metered assessment refuses publication and later disclosure",
-      "kind": "supporting-regression",
-      "clauses": [
-        "INQ-004"
-      ],
-      "reason": "Native scheduled qualification/freshness, source revocation, invalid protocol and deterministic missed-event lineage mechanics under synthetic test provider receipts only. Real model measured fit, semantic discovery usefulness and empirical missed-event recall remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-      "testName": "INQ-004 \u2014 invalid semantic output is metered once and makes no fallback or guessed question",
-      "kind": "supporting-regression",
-      "clauses": [
-        "INQ-004"
-      ],
-      "reason": "Native scheduled qualification/freshness, source revocation, invalid protocol and deterministic missed-event lineage mechanics under synthetic test provider receipts only. Real model measured fit, semantic discovery usefulness and empirical missed-event recall remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-      "testName": "INQ-004 \u2014 deterministic low-score audits and frontier shadow retain exact missed-event lineage",
-      "kind": "supporting-regression",
-      "clauses": [
-        "INQ-004"
-      ],
-      "reason": "Native scheduled qualification/freshness, source revocation, invalid protocol and deterministic missed-event lineage mechanics under synthetic test provider receipts only. Real model measured fit, semantic discovery usefulness and empirical missed-event recall remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-      "testName": "INQ-004 \u2014 audience source revocation before consumption prevents any semantic dispatch",
+      "testName": "INQ-004 \u2014 scheduled assessments preserve route, source, audience, semantic and audit authority",
       "kind": "supporting-regression",
       "clauses": [
         "INQ-004"
@@ -1356,16 +673,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/trials/exposure-safety.test.ts",
-      "testName": "TRIAL-002 \u2014 guardrail during provider uncertainty cancels unsent work and preserves confirmed and uncertain truth",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-002"
-      ],
-      "reason": "Controlled native adapter and D1 race/cancellation/uncertainty mechanics only. Synthetic clock is not a prospective window; genuine provider behavior and separately authorized supported recovery remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/trials/exposure-safety.test.ts",
-      "testName": "TRIAL-002 \u2014 grant revoked after trial admission invalidates the D1 dispatch claim without a provider send",
+      "testName": "TRIAL-002 \u2014 uncertain exposure and revoked grants preserve dispatch truth and block unsent work",
       "kind": "supporting-regression",
       "clauses": [
         "TRIAL-002"
@@ -1401,16 +709,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/trials/predeclaration.test.ts",
-      "testName": "TRIAL-001 \u2014 immutable predeclaration rejects changed replay and unappointed or stale approval",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-001"
-      ],
-      "reason": "Controlled local D1 predeclaration, replay, exact grant and effect-scope mechanics only. Full trial UI, defensible randomization, genuine provider effects and prospective customer protocol remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/trials/predeclaration.test.ts",
-      "testName": "TRIAL-001 \u2014 exact approved plan grants only its declared treatment targets and content",
+      "testName": "TRIAL-001 \u2014 immutable plans require exact approval and constrain treatment content",
       "kind": "supporting-regression",
       "clauses": [
         "TRIAL-001"
@@ -1419,112 +718,39 @@
     },
     {
       "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-      "testName": "AGENT-002 \u2014 an owner-defined page view does not expose its private skill to a page-only member",
+      "testName": "AGENT-002 \u2014 private and restored owner views retain exact lineage, history and originals",
       "clauses": [
         "AGENT-002"
       ],
-      "reason": "Exercises native page-view grant and actual member-facing view access while checking the private skill remains inaccessible through page-only authority. This is one access boundary, not complete owner-copy interface portability.",
-      "kind": "supporting-regression"
-    },
-    {
-      "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-      "testName": "AGENT-002 \u2014 a fresh setup owner reads restored inquiry, analysis, decision and trial views with exact lineage",
-      "clauses": [
-        "AGENT-002"
-      ],
-      "reason": "Exports and restores actual inquiry, analysis, accepted-decision and trial rows, then reauthenticates the restored owner through production views and compares durable IDs and cited lineage. It does not prove source-controlled UI or complete owner-copy acceptance.",
-      "kind": "supporting-regression"
-    },
-    {
-      "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-      "testName": "AGENT-002 \u2014 restored page history, comments, skill definition and imported original remain available to the fresh owner",
-      "clauses": [
-        "AGENT-002"
-      ],
-      "reason": "Checks actual restored page revisions, comment, private skill definition, imported-original row and original R2 bytes under the fresh owner. It is bounded durable-view retention evidence, not a complete customization or binary portability proof.",
+      "reason": "Exercises native page-view grant and actual member-facing view access while checking the private skill remains inaccessible through page-only authority. This is one access boundary, not complete owner-copy interface portability. Exports and restores actual inquiry, analysis, accepted-decision and trial rows, then reauthenticates the restored owner through production views and compares durable IDs and cited lineage. It does not prove source-controlled UI or complete owner-copy acceptance. Checks actual restored page revisions, comment, private skill definition, imported-original row and original R2 bytes under the fresh owner. It is bounded durable-view retention evidence, not a complete customization or binary portability proof.",
       "kind": "supporting-regression"
     },
     {
       "file": "tests/flagship/release-clauses/portability/profile-retention.test.ts",
-      "testName": "FLAG-001 \u2014 default and empty core profiles block flagship operations without provider effects while preserving page read, edit, export and historical rows",
+      "testName": "FLAG-001 \u2014 core profile gates preserve pages, portable history and disabled restored execution",
       "clauses": [
         "FLAG-001"
       ],
-      "reason": "Exercises default and empty profile bindings against real API routes, counts intercepted outbound provider requests, snapshots native D1/R2 history, and verifies core page read/edit/export behavior. It does not prove every flagship surface or release profile journey.",
-      "kind": "supporting-regression"
-    },
-    {
-      "file": "tests/flagship/release-clauses/portability/profile-retention.test.ts",
-      "testName": "FLAG-001 \u2014 core-profile restore retains and exports flagship history while restored execution authority remains disabled",
-      "clauses": [
-        "FLAG-001"
-      ],
-      "reason": "Uses native export/restore and actual records to check history remains exportable after core-profile restore while trial execution is stopped and provider authority is cleared. It does not establish complete flagship acceptance. Populated member profile fields and a hidden expertise override survive the same archive restore.",
+      "reason": "Exercises default and empty profile bindings against real API routes, counts intercepted outbound provider requests, snapshots native D1/R2 history, and verifies core page read/edit/export behavior. It does not prove every flagship surface or release profile journey. Uses native export/restore and actual records to check history remains exportable after core-profile restore while trial execution is stopped and provider authority is cleared. It does not establish complete flagship acceptance. Populated member profile fields and a hidden expertise override survive the same archive restore.",
       "kind": "supporting-regression"
     },
     {
       "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-      "testName": "FLAG-002 \u2014 staged restore refuses a target that gains a product row and leaves all canonical rows and R2 originals unchanged",
+      "testName": "FLAG-002 \u2014 staged restore retains atomic emptiness, current owner authority and complete recovery",
       "clauses": [
         "FLAG-002"
       ],
-      "reason": "A native D1 trigger inserts a real product group only after the run's initial prepareRestore emptiness check and during tracked R2 admission; the final atomic empty-target guard must refuse publication. This revised race construction has not yet been rerun.",
-      "kind": "supporting-regression"
-    },
-    {
-      "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-      "testName": "FLAG-002 \u2014 restore rechecks current setup-owner authority inside the canonical D1 commit after archive admission",
-      "clauses": [
-        "FLAG-002"
-      ],
-      "reason": "Revokes the admitting owner's setup-owner bit inside native D1 after archive admission, compensates the ACL epoch to isolate the atomic current-authority guard, and checks a failed receipt with no canonical or R2 partial restore.",
-      "kind": "supporting-regression"
-    },
-    {
-      "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-      "testName": "FLAG-002 \u2014 a second empty target restores the complete archive, imported originals, foreign keys and fresh owner authority",
-      "clauses": [
-        "FLAG-002"
-      ],
-      "reason": "Uses a separate empty bootstrap target for positive native D1/R2 recovery, verifies complete table counts, imported original bytes, FK integrity and fresh owner routes. This is local recovery evidence, not sealed prior-store or release qualification.",
+      "reason": "A native D1 trigger inserts a real product group only after the run's initial prepareRestore emptiness check and during tracked R2 admission; the final atomic empty-target guard must refuse publication. This revised race construction has not yet been rerun. Revokes the admitting owner's setup-owner bit inside native D1 after archive admission, compensates the ACL epoch to isolate the atomic current-authority guard, and checks a failed receipt with no canonical or R2 partial restore. Uses a separate empty bootstrap target for positive native D1/R2 recovery, verifies complete table counts, imported original bytes, FK integrity and fresh owner routes. This is local recovery evidence, not sealed prior-store or release qualification.",
       "kind": "supporting-regression"
     },
     {
       "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-      "testName": "FLAG-003 \u2014 frozen comparison pins equal source, question, audience and model limits before policy and index drift",
+      "testName": "FLAG-003 \u2014 comparison arms preserve equal inputs, current grants and attributable costs",
       "kind": "supporting-regression",
       "clauses": [
         "FLAG-003"
       ],
-      "reason": "Real evaluation preparation preserves the exact development case, source revision, audience, method/tools, question, route, model, and output limit across candidate and generic runs. Reauthorization blocks current policy-ceiling drift, while poisoned derived search text cannot replace the pinned evidence packet. Synthetic development setup does not establish held-out or requirement-level value."
-    },
-    {
-      "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-      "testName": "FLAG-003 \u2014 current source grant revocation blocks both prepared runs before disclosure",
-      "kind": "supporting-regression",
-      "clauses": [
-        "FLAG-003"
-      ],
-      "reason": "A real grant is present and the owner resolves the exact private source before preparation, then revocation through the sharing service makes direct resolution and both native worker admissions fail before provider transport. This is a bounded revocation regression, not private held-out evidence."
-    },
-    {
-      "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-      "testName": "FLAG-003 \u2014 both comparison arms retain failed and successful attempt timing and cost status",
-      "kind": "supporting-regression",
-      "clauses": [
-        "FLAG-003"
-      ],
-      "reason": "Controlled native worker transport records two 503 attempts and one valid response for the candidate run; reloaded D1 generation stages and budget rows preserve each time, outcome, known or bounded-uncertain cost, tokens, retry, receipt, and final settlement. Owner attention, expert quality, and useful-value measurements remain null/unclaimed. Controlled native worker transport records two 503 attempts and one valid response for the generic run; reloaded D1 generation stages and budget rows preserve each time, outcome, known or bounded-uncertain cost, tokens, retry, receipt, and final settlement. Owner attention, expert quality, and useful-value measurements remain null/unclaimed."
-    },
-    {
-      "file": "tests/flagship/core/sendgrid-mail.test.ts",
-      "testName": "MAIL-002 BASE-ACCESS-001 SendGrid outcomes and expired leases retain durable attempts without blind resend",
-      "kind": "supporting-regression",
-      "clauses": [
-        "MAIL-002",
-        "BASE-ACCESS-001"
-      ],
-      "reason": "Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim."
+      "reason": "Real evaluation preparation preserves the exact development case, source revision, audience, method/tools, question, route, model, and output limit across candidate and generic runs. Reauthorization blocks current policy-ceiling drift, while poisoned derived search text cannot replace the pinned evidence packet. Synthetic development setup does not establish held-out or requirement-level value. A real grant is present and the owner resolves the exact private source before preparation, then revocation through the sharing service makes direct resolution and both native worker admissions fail before provider transport. This is a bounded revocation regression, not private held-out evidence. Controlled native worker transport records two 503 attempts and one valid response for the candidate run; reloaded D1 generation stages and budget rows preserve each time, outcome, known or bounded-uncertain cost, tokens, retry, receipt, and final settlement. Owner attention, expert quality, and useful-value measurements remain null/unclaimed. Controlled native worker transport records two 503 attempts and one valid response for the generic run; reloaded D1 generation stages and budget rows preserve each time, outcome, known or bounded-uncertain cost, tokens, retry, receipt, and final settlement. Owner attention, expert quality, and useful-value measurements remain null/unclaimed."
     },
     {
       "file": "tests/e2e/landing.test.ts",
@@ -1711,42 +937,14 @@
       "reason": "Local D1 prior-data upgrade through migration 0026: current, lapsed and notified, lapsed and due, changed-since and departed-verifier rows are unchanged, the review list and page reads show each state, and two lapse-job runs notify only the due row once without stalling on the departed verifier. Real CLI export/import of an upgraded store is separate evidence. Also proves the per-reader directory, profile and expertise flow through the existing native routes."
     },
     {
-      "file": "tests/flagship/content/structure-save-labels.test.ts",
-      "testName": "a structure save never reports a conflict for a block whose only difference is a mention label",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SAVE-003",
-        "SAVE-006",
-        "LINK-004"
-      ],
-      "reason": "Asserts that a reader whose mention labels differ from the stored titles saves another block through the structure route without a false BLOCK_CONFLICT, and that no reader's label is written back over the stored title. Its supporting scope is limited to the listed requirements; it does not establish the editor UI, every profile or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/owner-bootstrap.test.ts",
-      "testName": "POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards",
-      "kind": "supporting-regression",
-      "clauses": [
-        "BASE-DATA-005"
-      ],
-      "reason": "Asserts POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
       "file": "tests/flagship/core/preview-owner-signin.test.ts",
-      "testName": "a preview owner grant signs the owner in once; reuse, expiry and a non-preview Worker fall back to sign-in",
+      "testName": "preview and bootstrap owner sign-in preserve identity and single-use authority",
       "kind": "supporting-regression",
       "clauses": [
+        "BASE-DATA-005",
         "BASE-ACCESS-001"
       ],
-      "reason": "Local Worker journey: a grant written as RER's preview writer writes it signs the owner in once on a Worker bound RER_PREVIEW_OWNER_SIGNIN=/auth/owner-signin; reuse, expiry, a missing token and a non-preview Worker go to the sign-in page with no session. Hosted preview evidence is recorded separately."
-    },
-    {
-      "file": "tests/flagship/core/preview-owner-signin.test.ts",
-      "testName": "preview sign-in mail and native confirmation identify the preview; live keeps its normal identity",
-      "kind": "supporting-regression",
-      "clauses": [
-        "BASE-ACCESS-001"
-      ],
-      "reason": "Local Worker journey: on a Worker bound RER_PREVIEW_OWNER_SIGNIN the sign-in mail subject, text and html and the native confirmation page name the app as a preview and carry the preview banner; a live Worker's mail and page carry neither. Hosted preview evidence is recorded separately."
+      "reason": "Asserts POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Local Worker journey: a grant written as RER's preview writer writes it signs the owner in once on a Worker bound RER_PREVIEW_OWNER_SIGNIN=/auth/owner-signin; reuse, expiry, a missing token and a non-preview Worker go to the sign-in page with no session. Hosted preview evidence is recorded separately. Local Worker journey: on a Worker bound RER_PREVIEW_OWNER_SIGNIN the sign-in mail subject, text and html and the native confirmation page name the app as a preview and carry the preview banner; a live Worker's mail and page carry neither. Hosted preview evidence is recorded separately."
     },
     {
       "file": "tests/flagship/discovery/following.test.ts",
@@ -1795,16 +993,7 @@
     },
     {
       "file": "tests/flagship/discovery/space-hub.test.ts",
-      "testName": "CONT-011 \u2014 a space opens its editable home with normal page authority and revision conflicts",
-      "kind": "supporting-regression",
-      "clauses": [
-        "CONT-011"
-      ],
-      "reason": "Native HTTP journey covers space-home editing and owner hub curation with live reader permissions, revision conflicts, published snapshots and verification boundaries. Browser acceptance runs separately at 1440 and 390."
-    },
-    {
-      "file": "tests/flagship/discovery/space-hub.test.ts",
-      "testName": "CONT-011 \u2014 an owner curates a company hub for a new member, filtering private, unpublished and unverified content on every read",
+      "testName": "CONT-011 \u2014 space homes and curated hubs retain revision and reader authority",
       "kind": "supporting-regression",
       "clauses": [
         "CONT-011"
@@ -1858,63 +1047,6 @@
         "NOTIF-003"
       ],
       "reason": "Public notification configuration, event and queue doors with provider-edge fakes only. Proves this named repair flow; does not establish live-provider or admin-install acceptance or change clause status."
-    },
-    {
-      "file": "tests/flagship/structured/automation-repairs.test.ts",
-      "testName": "AUTO-002 admission, movement, branch and resumed actions enforce current container scope and private definitions",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-002"
-      ],
-      "reason": "Asserts AUTO-002 source/container admission rejects out-of-scope destinations; site definitions and activity are private. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-002 current container movement blocks an admitted action. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-002 branch targets and prepared resumed actions recheck current container scope. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/automation-repairs.test.ts",
-      "testName": "AUTO-003 durable recovery before and after commit retains admitted conditions and completes ordered effects exactly once",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-003"
-      ],
-      "reason": "Asserts AUTO-003 durable recovery reconciles commit-before-confirm and completes ordered actions exactly once. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-003 transient failure before commit resumes admitted conditions after an earlier field edit. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "numeric formulas evaluate and recompute while invalid types and cycles reject before and after records exist",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts typed formula cycles reject and arithmetic evaluates without executable code. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts empty database accepts numeric formula, recomputes changed fields, rejects invalid types and cycles. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "rule execution retains exactly-once receipts and refuses effects when authority is lost before or during a run",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-002",
-        "AUTO-003"
-      ],
-      "reason": "Asserts rule action executes once with durable receipts and revoked actor loses execution. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts rule permission loss skips unauthorized later effects and retains confirmed receipt. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "rollup writes reject stale references and cycles while reads preserve current authority and prior records",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002",
-        "SHARE-007"
-      ],
-      "reason": "Asserts rollups filter related unreadable records before aggregate and reject stale references. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts rollup cycle writes reject while prior records remain readable. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "automation schedules and content events deduplicate effects and durably log chain and self-trigger throttling",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-005",
-        "AUTO-004"
-      ],
-      "reason": "Asserts all automation scopes persist; schedules deduplicate and chains throttle with a log. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts committed content events drain durably and self-triggering field rules are throttled. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/authority/snapshot.test.ts",
@@ -1975,16 +1107,6 @@
         "BLOCK-005"
       ],
       "reason": "Asserts record templates show each database viewer only the page mention titles they can open. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "duplicating a page with attachments respects the deployment attachment storage limit",
-      "kind": "supporting-regression",
-      "clauses": [
-        "PAGE-005",
-        "BLOCK-008"
-      ],
-      "reason": "Asserts duplicating a page with attachments respects the deployment attachment storage limit. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/authority/learned-provenance.test.ts",
