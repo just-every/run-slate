@@ -11147,6 +11147,22 @@
       "sha256": "7362cb4892e48a83a57540f6aefc288aa41a026a0cc9b1dc87ba0bed29d451a7",
       "executable": false
     },
+    "tests/local-journey/business-carry-capture.mjs": {
+      "sha256": "1ad577e89dce892c0f2fca0c4929008b864bc1fc40e7bcbf3be6945daea7ef3b",
+      "executable": false
+    },
+    "tests/local-journey/business-carry-journey.mjs": {
+      "sha256": "3dad185f41379a750775c2a68eb85678e262fcb87c179919e57a854016e5e4e4",
+      "executable": false
+    },
+    "tests/local-journey/business-carry-restart.mjs": {
+      "sha256": "a175ae45dfd7aaaf9055a83a9303e32a9be380af6652ede074dfa18258cf7b59",
+      "executable": false
+    },
+    "tests/local-journey/business-carry-runtime.mjs": {
+      "sha256": "182cfda921f04ccbb40a0eda6b22cdd6a7af9f5cfee8ae4570b266f524795e8b",
+      "executable": false
+    },
     "tests/local-journey/cli.test.mjs": {
       "sha256": "1a0f68314a7b77fa9e562e987e8476c35f99e45171d4d7e2e21f694c6a2b9341",
       "executable": false
