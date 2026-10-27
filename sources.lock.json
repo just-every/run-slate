@@ -10240,7 +10240,7 @@
       "executable": false
     },
     "tests/docs/docs-site.test.mjs": {
-      "sha256": "4cb1e9fbaa414d7e00b82c1658c925176f610c812376956fa8ce3c15935d98e6",
+      "sha256": "e5b3cf4c2ce74a6987537d9e80933b5b1cd7f3b53ad9037d1147ed723718157b",
       "executable": false
     },
     "tests/e2e/auth-paths.test.js": {
@@ -10340,7 +10340,7 @@
       "executable": false
     },
     "tests/e2e/imports/archive-safety.test.ts": {
-      "sha256": "889d79db76e91aa2eeb37e6c71adcabcc211028473aea42178842fe25071c512",
+      "sha256": "d900a69e40314eb2d853bc16c087c40475d85e5248beabbbf77a76d69d2547cf",
       "executable": false
     },
     "tests/e2e/imports/blog-posts.test.ts": {
