@@ -60,7 +60,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "WORK-003 ordinary members cannot remove themselves or another member"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         }
       ]
     },
@@ -72,19 +72,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/identity.test.ts",
-          "testName": "WORK-006 invitation concurrent replay creates exactly one active member"
-        },
-        {
-          "file": "tests/flagship/core/identity.test.ts",
-          "testName": "WORK-006 invitation cannot smuggle an unowned container through an authorized page or member invite"
-        },
-        {
-          "file": "tests/flagship/core/identity.test.ts",
-          "testName": "WORK-006 concurrent identical invite sends one provider request and returns one receipt"
+          "testName": "native authentication, invitations and secret custody preserve current authority"
         },
         {
           "file": "tests/flagship/core/mail.test.ts",
-          "testName": "WORK-006 Worker pending guest grant is durable and exact revocation disables delivery"
+          "testName": "identity mail preserves durable retry, recovery, authentication and provider custody"
         }
       ]
     },
@@ -96,11 +88,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "core durable authority same key/body commits once; changed body conflicts and revoked membership denies replay"
-        },
-        {
-          "file": "tests/flagship/core/security.test.ts",
-          "testName": "core durable authority WORK-007 last owner and setup owner survive unauthorized removal"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         }
       ]
     },
@@ -152,7 +140,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "WORK-011 all eight policy values save with immutable identity revision and stale update denied"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         }
       ]
     },
@@ -171,7 +159,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "core durable authority WORK-013 first run has exactly three domain records and cannot repeat"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         }
       ]
     },
@@ -224,7 +212,7 @@
         },
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "core durable authority failed CAS rolls back mutation receipt and activity atomically"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -251,7 +239,7 @@
         },
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "core durable authority same key/body commits once; changed body conflicts and revoked membership denies replay"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -666,7 +654,7 @@
         },
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "core durable authority ACL revocation racing an authorized preparation aborts the batch"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -1414,23 +1402,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/mail.test.ts",
-          "testName": "MAIL-002 Worker D1 durable retry uses a single encrypted message across five minutes and explicit recovery"
-        },
-        {
-          "file": "tests/flagship/core/mail.test.ts",
-          "testName": "MAIL-002 Worker routes require current authentication and expose public sign-in status only with capability"
-        },
-        {
-          "file": "tests/flagship/core/mail.test.ts",
-          "testName": "MAIL-002 Worker restart after invitation commit resumes the admitted encrypted command"
-        },
-        {
-          "file": "tests/flagship/core/mail.test.ts",
-          "testName": "MAIL-002 Worker lost provider response replays identical request without a second logical email"
-        },
-        {
-          "file": "tests/flagship/core/sendgrid-mail.test.ts",
-          "testName": "MAIL-002 BASE-ACCESS-001 SendGrid outcomes and expired leases retain durable attempts without blind resend"
+          "testName": "identity mail preserves durable retry, recovery, authentication and provider custody"
         }
       ]
     },
@@ -1442,7 +1414,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "core durable authority failed CAS rolls back mutation receipt and activity atomically"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         }
       ]
     },
@@ -1791,7 +1763,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/identity.test.ts",
-          "testName": "AI local configuration requires real bridge credentials and is refused on hosted runtime"
+          "testName": "native authentication, invitations and secret custody preserve current authority"
         }
       ]
     },
@@ -2670,8 +2642,8 @@
       "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BASE-ACCESS-001 \u2014 Sign-in. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
-          "file": "tests/flagship/core/sendgrid-mail.test.ts",
-          "testName": "MAIL-002 BASE-ACCESS-001 SendGrid outcomes and expired leases retain durable attempts without blind resend"
+          "file": "tests/flagship/core/mail.test.ts",
+          "testName": "identity mail preserves durable retry, recovery, authentication and provider custody"
         },
         {
           "file": "tests/flagship/core/identity-upgrade.test.ts",
@@ -2695,11 +2667,7 @@
         },
         {
           "file": "tests/flagship/core/identity.test.ts",
-          "testName": "BASE-ACCESS-002 private HTTP denies missing expired and revoked sessions without data"
-        },
-        {
-          "file": "tests/flagship/core/identity.test.ts",
-          "testName": "cross-origin cookie mutations and WebSocket handshakes are denied before authorization or writes"
+          "testName": "native authentication, invitations and secret custody preserve current authority"
         },
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -2758,11 +2726,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/identity.test.ts",
-          "testName": "BASE-SECRET-001 credential ciphertext is identity bound and failure reveals no plaintext"
-        },
-        {
-          "file": "tests/flagship/core/identity.test.ts",
-          "testName": "AI local configuration requires real bridge credentials and is refused on hosted runtime"
+          "testName": "native authentication, invitations and secret custody preserve current authority"
         }
       ]
     },

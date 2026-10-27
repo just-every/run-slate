@@ -1,3 +1,5 @@
+import {ownerBootstrapCase} from './owner-bootstrap.case';
+import {runFoldCases} from '../fold-cases';
 import {env} from 'cloudflare:test';
 import {beforeEach,test,expect,vi} from 'vitest';
 import {handleApplicationRequest} from '../../../src/core/app/request-handler';
@@ -32,7 +34,11 @@ const confirm=(token:string,bindings=preview)=>api.request(`${origin}/auth/owner
 beforeEach(resetDeployment);
 
 // A Managed preview that copied live opens at RER's owner grant: one grant, one use, owner only, preview only.
-test('a preview owner grant signs the owner in once; reuse, expiry and a non-preview Worker fall back to sign-in',async()=>{
+test("preview and bootstrap owner sign-in preserve identity and single-use authority", async () => {
+  await runFoldCases([
+{name:"a preview owner grant signs the owner in once; reuse, expiry and a non-preview Worker fall back to sign-in",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
  expect((await api.request(`${origin}/auth/bootstrap`,{method:'POST',headers:{'content-type':'application/json',origin},body:JSON.stringify({token:setupToken,displayName:'Owner',returnTo:'/'})},live)).status).toBe(303);
  const token=await writeGrant('OWNER@slate.test');
  const page=await open(token);
@@ -63,10 +69,12 @@ test('a preview owner grant signs the owner in once; reuse, expiry and a non-pre
  signInInstead(await open(outside,live),'owner@slate.test');signInInstead(await confirm(outside,live),'owner@slate.test');
  expect(await env.DB.prepare('SELECT count(*) n FROM oa_owner_signins WHERE consumed_at IS NOT NULL').first()).toEqual({n:1});
  expect(await env.DB.prepare("SELECT count(*) n FROM sessions s JOIN members m ON m.id=s.member_id WHERE m.role='owner'").first()).toEqual({n:2});
-});
 
+} finally {}
+}},
+{name:"preview sign-in mail and native confirmation identify the preview; live keeps its normal identity",before:async()=>{await resetDeployment();},run:async()=>{
+try {
 
-test('preview sign-in mail and native confirmation identify the preview; live keeps its normal identity', async () => {
  const messages: Array<{subject:string;text:string;html:string}> = [];
  const provider = vi.spyOn(globalThis, 'fetch').mockImplementation(async (_url, init) => {
   messages.push(JSON.parse(String(init!.body)));
@@ -93,4 +101,10 @@ test('preview sign-in mail and native confirmation identify the preview; live ke
   }
   expect(messages).toHaveLength(2);
  } finally { provider.mockRestore(); }
+
+} finally {}
+}}
+  ,
+{name:"POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards",before:async()=>{await resetDeployment();},run:ownerBootstrapCase}
+]);
 });

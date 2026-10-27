@@ -1,3 +1,5 @@
+import {sendgridMailCase} from './sendgrid-mail.case';
+import {runFoldCases} from '../fold-cases';
 import {env} from 'cloudflare:test';
 import {beforeEach,test,expect,vi} from 'vitest';
 import {resetDeployment} from '../../e2e/setup/reset-deployment';
@@ -28,7 +30,11 @@ function statementFault(db:D1Database,match:(query:string)=>boolean,fail:()=>nev
   const value=Reflect.get(target,key,target);return typeof value==='function'?value.bind(target):value;
  }});
 }
-test('MAIL-002 Worker D1 durable retry uses a single encrypted message across five minutes and explicit recovery',async()=>{
+test("identity mail preserves durable retry, recovery, authentication and provider custody", async () => {
+  await runFoldCases([
+{name:"MAIL-002 Worker D1 durable retry uses a single encrypted message across five minutes and explicit recovery",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
  const ctx=await fixture();let success=false;const provider=vi.spyOn(globalThis,'fetch').mockImplementation(async()=>success?Response.json({id:'provider-confirmed'}):new Response('provider raw secret',{status:503}));
  try{const input={operationKey:crypto.randomUUID(),email:'retry@test.invalid',kind:'member' as const};await invite(ctx,config,input);const read=()=>env.DB.prepare('SELECT * FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<any>();const initial=await read();expect(initial.payload_ciphertext).toMatch(/^v1\./);expect(initial.payload_ciphertext).not.toContain('/accept');expect(provider).toHaveBeenCalledTimes(1);expect(initial.next_attempt_at).toBe(new Date(Date.parse(ctx.now)+150000).toISOString());
   await deliverIdentityMail(env.DB,config,initial.id,ctx,new Date(Date.parse(ctx.now)+149999).toISOString());expect(provider).toHaveBeenCalledTimes(1);
@@ -47,8 +53,12 @@ test('MAIL-002 Worker D1 durable retry uses a single encrypted message across fi
   expect((await env.DB.prepare('SELECT count(*) AS n FROM invitations').first<{n:number}>())!.n).toBe(1);
   expect((await retry()).status).toBe(200);expect(provider).toHaveBeenCalledTimes(4);expect((await read()).provider_message_id).toBe('provider-confirmed');expect((await read()).payload_ciphertext).toBeNull();const requests=provider.mock.calls.map(call=>call[1]!);expect(new Set(requests.map(r=>new Headers(r.headers).get('Idempotency-Key'))).size).toBe(1);expect(new Set(requests.map(r=>r.body)).size).toBe(1);
  }finally{provider.mockRestore();}
-});
-test('MAIL-002 Worker routes require current authentication and expose public sign-in status only with capability',async()=>{
+
+} finally {}
+}},
+{name:"MAIL-002 Worker routes require current authentication and expose public sign-in status only with capability",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
  const ctx=await fixture(),api=createApi();const noSession=await api.request('/api/workspace/mail',{},env);expect(noSession.status).toBe(401);const cookie=await sessionFor(ctx.actor.id);expect((await api.request('/api/workspace/mail',{headers:{cookie}},env)).status).toBe(200);
  const status=await api.request('/api/auth/magic/status',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:'unknown@test.invalid',requestKey:crypto.randomUUID()})},env);expect(status.status).toBe(200);expect(await status.json()).toMatchObject({state:'unconfirmed'});
  const relayEnv={...env,APP_URL:'https://slate.test.invalid',MAIL_PROVIDER:'rer',MAIL_FROM:'auth@test.invalid',MAIL_API_KEY:'test-only-relay-key',MAIL_RELAY_URL:'https://management.test.invalid/api/managed-mail/send'};
@@ -84,8 +94,12 @@ test('MAIL-002 Worker routes require current authentication and expose public si
   expect(provider).toHaveBeenCalledTimes(beforeInviteRedirect+1);expect(await env.DB.prepare("SELECT delivery_phase FROM mail_deliveries WHERE target_email='relay-redirect@test.invalid'").first()).toMatchObject({delivery_phase:'failed'});
  }finally{provider.mockRestore();}
  const first=await api.request('/api/workspace/first-run',{headers:{cookie}},env);expect(await first.json()).toEqual({required:true,canComplete:true});await env.DB.prepare("UPDATE members SET status='removed' WHERE id=?").bind(ctx.actor.id).run();expect((await api.request('/api/workspace/first-run',{headers:{cookie}},env)).status).toBe(401);
-});
-test('WORK-006 Worker pending guest grant is durable and exact revocation disables delivery',async()=>{
+
+} finally {}
+}},
+{name:"WORK-006 Worker pending guest grant is durable and exact revocation disables delivery",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
  const ctx=await fixture();const{containerId}=await seedContainer(ctx.actor.workspaceId,{name:'Guest target',ownerMemberId:ctx.actor.id,visibility:'open',guestAccess:'allowed'});await seedContainerGrant(containerId,{principalKind:'member',principalId:ctx.actor.id,level:'full'});
  const provider=vi.spyOn(globalThis,'fetch').mockResolvedValue(new Response('down',{status:503}));try{await invite(ctx,config,{operationKey:crypto.randomUUID(),email:'guest@test.invalid',kind:'guest',containerId});const invitation=await env.DB.prepare('SELECT id,container_grant_id FROM invitations WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{id:string;container_grant_id:string}>();expect(invitation!.container_grant_id).toBeTruthy();
  const api=createApi(),cookie=await sessionFor(ctx.actor.id);
@@ -95,8 +109,12 @@ test('WORK-006 Worker pending guest grant is durable and exact revocation disabl
  const reader=await seedMember(ctx.actor.workspaceId,{email:'reader@test.invalid',displayName:'Reader',role:'member'});
  expect((await api.request('/api/invitations',{headers:{cookie:await sessionFor(reader.memberId)}},env)).status).toBe(403);
  await revokeInvitation(ctx,{operationKey:crypto.randomUUID(),id:invitation!.id});expect(((await (await api.request('/api/invitations',{headers:{cookie}},env)).json()) as {items:{id:string}[]}).items.some(item=>item.id===invitation!.id)).toBe(false);expect((await env.DB.prepare('SELECT revoked_at FROM container_grants WHERE id=?').bind(invitation!.container_grant_id).first<{revoked_at:string}>())!.revoked_at).toBeTruthy();await scheduleIdentityMail(env.DB,config,ctx,new Date(Date.parse(ctx.now)+300000).toISOString());expect(provider).toHaveBeenCalledTimes(1);}finally{provider.mockRestore();}
-});
-test('MAIL-002 Worker restart after invitation commit resumes the admitted encrypted command',async()=>{
+
+} finally {}
+}},
+{name:"MAIL-002 Worker restart after invitation commit resumes the admitted encrypted command",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
  const ctx=await fixture(),input={operationKey:crypto.randomUUID(),email:'restart@test.invalid',kind:'member' as const};
  const interrupted=statementFault(env.DB,q=>q.startsWith('SELECT id FROM mail_deliveries WHERE workspace_id='),()=>{throw new Error('process ended after commit');});
  const provider=vi.spyOn(globalThis,'fetch').mockResolvedValue(Response.json({id:'restart-receipt'}));try{await expect(invite({...ctx,db:interrupted},config,input)).rejects.toThrow('process ended after commit');expect(provider).not.toHaveBeenCalled();const command=await env.DB.prepare('SELECT delivery_phase,payload_ciphertext FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{delivery_phase:string;payload_ciphertext:string}>();expect(command!.delivery_phase).toBe('pending');expect(command!.payload_ciphertext).toMatch(/^v1\./);expect(command!.payload_ciphertext).not.toContain('/accept');
@@ -111,8 +129,12 @@ test('MAIL-002 Worker restart after invitation commit resumes the admitted encry
   const cookie=await sessionFor(ctx.actor.id),status=await createApi().request('/api/workspace/mail',{headers:{cookie}},env);
   expect(status.status).toBe(200);expect(await status.json()).toMatchObject({items:[{state:'sent'}]});
  }finally{provider.mockRestore();}
-});
-test('MAIL-002 Worker lost provider response replays identical request without a second logical email',async()=>{
+
+} finally {}
+}},
+{name:"MAIL-002 Worker lost provider response replays identical request without a second logical email",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
  for(const fault of ['response','receipt'] as const){
   await resetDeployment();
  const ctx=await fixture();const accepted=new Map<string,string>();let attempts=0;const provider=vi.spyOn(globalThis,'fetch').mockImplementation(async(_url,init)=>{attempts++;const key=new Headers(init!.headers).get('Idempotency-Key')!,body=String(init!.body);if(!accepted.has(key)){accepted.set(key,body);if(fault==='response')throw new Error('provider accepted; response lost');}expect(body).toBe(accepted.get(key));return Response.json({id:'recovered-receipt'});});
@@ -133,4 +155,10 @@ test('MAIL-002 Worker lost provider response replays identical request without a
   expect(status.status).toBe(200);expect(await status.json()).toMatchObject({items:[{state:'sent'}]});
  }finally{provider.mockRestore();}
  }
+
+} finally {}
+}}
+  ,
+{name:"MAIL-002 BASE-ACCESS-001 SendGrid outcomes and expired leases retain durable attempts without blind resend",before:async()=>{await resetDeployment();},run:sendgridMailCase}
+]);
 });

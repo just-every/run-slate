@@ -6,10 +6,10 @@ import {createApi} from '../../../src/core/app/hono';
 const token='b'.repeat(64),origin='https://slate.test';
 const hosted={...env,SETUP_TOKEN:token,SETUP_OWNER_EMAIL:'qa-inbox@slate.test'} as typeof env;
 const claim=(body:unknown,bindings=hosted)=>createApi().request(`${origin}/auth/bootstrap`,{method:'POST',headers:{'content-type':'application/json',origin},body:JSON.stringify(body)},bindings);
-beforeEach(resetDeployment);
+
 
 // The hosted owner claim RER makes after the first publication (Base operator-auth's POST /auth/bootstrap).
-test('POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards',async()=>{
+export async function ownerBootstrapCase() {
  const refused=await claim({token:'c'.repeat(64),displayName:'Owner',returnTo:'/'});
  expect(refused.status).toBe(403);expect(await env.DB.prepare('SELECT count(*) n FROM workspaces').first()).toEqual({n:0});
  expect((await claim({token,displayName:'Owner',returnTo:'/'},env)).status).toBe(403);
@@ -34,4 +34,4 @@ test('POST /auth/bootstrap claims the setup owner once with the setup token and 
  const namedCookie=named.headers.get('set-cookie')!.split(';',1)[0]!;
  const namedSession=await createApi().request(`${origin}/api/session`,{headers:{cookie:namedCookie}},hosted);
  expect(await namedSession.json()).toMatchObject({member:{email:'qa-inbox@slate.test',displayName:'Priya Shah',initials:'PS'}});
-});
+}

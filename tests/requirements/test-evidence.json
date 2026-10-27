@@ -115,177 +115,42 @@
     },
     {
       "file": "tests/flagship/core/identity.test.ts",
-      "testName": "BASE-ACCESS-002 private HTTP denies missing expired and revoked sessions without data",
+      "testName": "native authentication, invitations and secret custody preserve current authority",
       "kind": "supporting-regression",
       "clauses": [
-        "BASE-ACCESS-002"
+        "BASE-ACCESS-002",
+        "WORK-006",
+        "BASE-SECRET-001",
+        "AI-001"
       ],
-      "reason": "Asserts BASE-ACCESS-002 private HTTP denies missing expired and revoked sessions without data. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
-      "testName": "WORK-006 invitation concurrent replay creates exactly one active member",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-006"
-      ],
-      "reason": "Asserts WORK-006 invitation concurrent replay creates exactly one active member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
-      "testName": "BASE-SECRET-001 credential ciphertext is identity bound and failure reveals no plaintext",
-      "kind": "supporting-regression",
-      "clauses": [
-        "BASE-SECRET-001"
-      ],
-      "reason": "Asserts BASE-SECRET-001 credential ciphertext is identity bound and failure reveals no plaintext. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
-      "testName": "cross-origin cookie mutations and WebSocket handshakes are denied before authorization or writes",
-      "kind": "supporting-regression",
-      "clauses": [
-        "BASE-ACCESS-002"
-      ],
-      "reason": "Asserts cross-origin cookie mutations are denied before writes. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WebSocket cross-origin handshake is rejected before collaboration authorization. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
-      "testName": "AI local configuration requires real bridge credentials and is refused on hosted runtime",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AI-001",
-        "BASE-SECRET-001"
-      ],
-      "reason": "Asserts AI local configuration requires real bridge credentials and is refused on hosted runtime. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
-      "testName": "WORK-006 invitation cannot smuggle an unowned container through an authorized page or member invite",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-006"
-      ],
-      "reason": "Asserts WORK-006 invitation cannot smuggle an unowned container through an authorized page or member invite. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/identity.test.ts",
-      "testName": "WORK-006 concurrent identical invite sends one provider request and returns one receipt",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-006"
-      ],
-      "reason": "Asserts WORK-006 concurrent identical invite sends one provider request and returns one receipt. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts BASE-ACCESS-002 private HTTP denies missing expired and revoked sessions without data. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WORK-006 invitation concurrent replay creates exactly one active member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts BASE-SECRET-001 credential ciphertext is identity bound and failure reveals no plaintext. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts cross-origin cookie mutations are denied before writes. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WebSocket cross-origin handshake is rejected before collaboration authorization. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AI local configuration requires real bridge credentials and is refused on hosted runtime. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WORK-006 invitation cannot smuggle an unowned container through an authorized page or member invite. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WORK-006 concurrent identical invite sends one provider request and returns one receipt. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/core/mail.test.ts",
-      "testName": "MAIL-002 Worker D1 durable retry uses a single encrypted message across five minutes and explicit recovery",
+      "testName": "identity mail preserves durable retry, recovery, authentication and provider custody",
       "kind": "supporting-regression",
       "clauses": [
-        "MAIL-002"
+        "MAIL-002",
+        "WORK-006",
+        "BASE-ACCESS-001"
       ],
-      "reason": "Asserts MAIL-002 Worker D1 durable retry uses a single encrypted message across five minutes and explicit recovery. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/mail.test.ts",
-      "testName": "MAIL-002 Worker routes require current authentication and expose public sign-in status only with capability",
-      "kind": "supporting-regression",
-      "clauses": [
-        "MAIL-002"
-      ],
-      "reason": "Exercises public sign-in and owner mail routes with real Worker D1 and native Request validation before the network fake: exact RER envelope, accepted sign-in, redirects refused without following, visible credential rejection, durable Retry-After queue and replay, and held ambiguous delivery. Retains authentication and status-capability checks. Supporting scope only; no live relay or full UI acceptance claim."
-    },
-    {
-      "file": "tests/flagship/core/mail.test.ts",
-      "testName": "WORK-006 Worker pending guest grant is durable and exact revocation disables delivery",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-006"
-      ],
-      "reason": "Asserts WORK-006 Worker pending guest grant is durable and exact revocation disables delivery. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/mail.test.ts",
-      "testName": "MAIL-002 Worker restart after invitation commit resumes the admitted encrypted command",
-      "kind": "supporting-regression",
-      "clauses": [
-        "MAIL-002"
-      ],
-      "reason": "Asserts MAIL-002 Worker restart after invitation commit resumes the admitted encrypted command. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/mail.test.ts",
-      "testName": "MAIL-002 Worker lost provider response replays identical request without a second logical email",
-      "kind": "supporting-regression",
-      "clauses": [
-        "MAIL-002"
-      ],
-      "reason": "Asserts MAIL-002 Worker lost provider response replays identical request without a second logical email. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts MAIL-002 Worker D1 durable retry uses a single encrypted message across five minutes and explicit recovery. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Exercises public sign-in and owner mail routes with real Worker D1 and native Request validation before the network fake: exact RER envelope, accepted sign-in, redirects refused without following, visible credential rejection, durable Retry-After queue and replay, and held ambiguous delivery. Retains authentication and status-capability checks. Supporting scope only; no live relay or full UI acceptance claim. Asserts WORK-006 Worker pending guest grant is durable and exact revocation disables delivery. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts MAIL-002 Worker restart after invitation commit resumes the admitted encrypted command. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts MAIL-002 Worker lost provider response replays identical request without a second logical email. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim."
     },
     {
       "file": "tests/flagship/core/security.test.ts",
-      "testName": "core durable authority WORK-013 first run has exactly three domain records and cannot repeat",
+      "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority",
       "kind": "supporting-regression",
       "clauses": [
-        "WORK-013"
-      ],
-      "reason": "Asserts core durable authority WORK-013 first run has exactly three domain records and cannot repeat. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/security.test.ts",
-      "testName": "core durable authority same key/body commits once; changed body conflicts and revoked membership denies replay",
-      "kind": "supporting-regression",
-      "clauses": [
+        "WORK-013",
         "SAVE-005",
-        "WORK-007"
-      ],
-      "reason": "Asserts core durable authority same key/body commits once; changed body conflicts and revoked membership denies replay. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/security.test.ts",
-      "testName": "core durable authority failed CAS rolls back mutation receipt and activity atomically",
-      "kind": "supporting-regression",
-      "clauses": [
+        "WORK-007",
         "SAVE-003",
-        "ACT-001"
-      ],
-      "reason": "Asserts core durable authority failed CAS rolls back mutation receipt and activity atomically. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/security.test.ts",
-      "testName": "core durable authority WORK-007 last owner and setup owner survive unauthorized removal",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-007"
-      ],
-      "reason": "Asserts core durable authority WORK-007 last owner and setup owner survive unauthorized removal. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/security.test.ts",
-      "testName": "core durable authority ACL revocation racing an authorized preparation aborts the batch",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SHARE-007"
-      ],
-      "reason": "Asserts core durable authority ACL revocation racing an authorized preparation aborts the batch. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/security.test.ts",
-      "testName": "WORK-011 all eight policy values save with immutable identity revision and stale update denied",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-011"
-      ],
-      "reason": "Asserts WORK-011 all eight policy values save with immutable identity revision and stale update denied. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/core/security.test.ts",
-      "testName": "WORK-003 ordinary members cannot remove themselves or another member",
-      "kind": "supporting-regression",
-      "clauses": [
+        "ACT-001",
+        "SHARE-007",
+        "WORK-011",
         "WORK-003"
       ],
-      "reason": "Asserts WORK-003 ordinary members cannot remove themselves or another member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts core durable authority WORK-013 first run has exactly three domain records and cannot repeat. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts core durable authority same key/body commits once; changed body conflicts and revoked membership denies replay. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts core durable authority failed CAS rolls back mutation receipt and activity atomically. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts core durable authority WORK-007 last owner and setup owner survive unauthorized removal. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts core durable authority ACL revocation racing an authorized preparation aborts the batch. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WORK-011 all eight policy values save with immutable identity revision and stale update denied. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts WORK-003 ordinary members cannot remove themselves or another member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/intelligence/authority.test.ts",
@@ -1308,16 +1173,6 @@
       "reason": "Controlled native worker transport records two 503 attempts and one valid response for the candidate run; reloaded D1 generation stages and budget rows preserve each time, outcome, known or bounded-uncertain cost, tokens, retry, receipt, and final settlement. Owner attention, expert quality, and useful-value measurements remain null/unclaimed. Controlled native worker transport records two 503 attempts and one valid response for the generic run; reloaded D1 generation stages and budget rows preserve each time, outcome, known or bounded-uncertain cost, tokens, retry, receipt, and final settlement. Owner attention, expert quality, and useful-value measurements remain null/unclaimed."
     },
     {
-      "file": "tests/flagship/core/sendgrid-mail.test.ts",
-      "testName": "MAIL-002 BASE-ACCESS-001 SendGrid outcomes and expired leases retain durable attempts without blind resend",
-      "kind": "supporting-regression",
-      "clauses": [
-        "MAIL-002",
-        "BASE-ACCESS-001"
-      ],
-      "reason": "Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim. Controlled local Worker regression; no provider or full clause acceptance claim."
-    },
-    {
       "file": "tests/e2e/landing.test.ts",
       "testName": "HOME-001 landing page supporting regressions installed root: the Worker answers / with the Lobby, which offers setup until the owner finishes first-run setup and sign-in after",
       "kind": "supporting-regression",
@@ -1502,31 +1357,14 @@
       "reason": "Local D1 prior-data upgrade through migration 0026: current, lapsed and notified, lapsed and due, changed-since and departed-verifier rows are unchanged, the review list and page reads show each state, and two lapse-job runs notify only the due row once without stalling on the departed verifier. Real CLI export/import of an upgraded store is separate evidence. Also proves the per-reader directory, profile and expertise flow through the existing native routes."
     },
     {
-      "file": "tests/flagship/core/owner-bootstrap.test.ts",
-      "testName": "POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards",
-      "kind": "supporting-regression",
-      "clauses": [
-        "BASE-DATA-005"
-      ],
-      "reason": "Asserts POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
       "file": "tests/flagship/core/preview-owner-signin.test.ts",
-      "testName": "a preview owner grant signs the owner in once; reuse, expiry and a non-preview Worker fall back to sign-in",
+      "testName": "preview and bootstrap owner sign-in preserve identity and single-use authority",
       "kind": "supporting-regression",
       "clauses": [
+        "BASE-DATA-005",
         "BASE-ACCESS-001"
       ],
-      "reason": "Local Worker journey: a grant written as RER's preview writer writes it signs the owner in once on a Worker bound RER_PREVIEW_OWNER_SIGNIN=/auth/owner-signin; reuse, expiry, a missing token and a non-preview Worker go to the sign-in page with no session. Hosted preview evidence is recorded separately."
-    },
-    {
-      "file": "tests/flagship/core/preview-owner-signin.test.ts",
-      "testName": "preview sign-in mail and native confirmation identify the preview; live keeps its normal identity",
-      "kind": "supporting-regression",
-      "clauses": [
-        "BASE-ACCESS-001"
-      ],
-      "reason": "Local Worker journey: on a Worker bound RER_PREVIEW_OWNER_SIGNIN the sign-in mail subject, text and html and the native confirmation page name the app as a preview and carry the preview banner; a live Worker's mail and page carry neither. Hosted preview evidence is recorded separately."
+      "reason": "Asserts POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Local Worker journey: a grant written as RER's preview writer writes it signs the owner in once on a Worker bound RER_PREVIEW_OWNER_SIGNIN=/auth/owner-signin; reuse, expiry, a missing token and a non-preview Worker go to the sign-in page with no session. Hosted preview evidence is recorded separately. Local Worker journey: on a Worker bound RER_PREVIEW_OWNER_SIGNIN the sign-in mail subject, text and html and the native confirmation page name the app as a preview and carry the preview banner; a live Worker's mail and page carry neither. Hosted preview evidence is recorded separately."
     },
     {
       "file": "tests/flagship/discovery/following.test.ts",
