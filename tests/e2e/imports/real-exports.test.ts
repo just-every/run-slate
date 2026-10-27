@@ -60,7 +60,10 @@ const notion = () => parseImport("notion-workspace", { name: "notion-workspace-e
 const confluence = () => parseImport("confluence-space", { name: "confluence-space-export.zip", bytes: fixture("confluence-space-export.zip") });
 const googleDocx = () => parseImport("google-docx", { name: "google-docs-download.docx", bytes: fixture("google-docs-download.docx") });
 
-test("the real Notion workspace export becomes pages, a tree, databases, records and archive media", () => {
+test("incumbent-produced archives preserve pages, relationships, media and explicit losses", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: "the real Notion workspace export becomes pages, a tree, databases, records and archive media", run: () => {
   const parsed = notion();
 
   // 57 archive entries: 35 Markdown pages, 7 CSV databases, 15 media files.
@@ -168,9 +171,8 @@ test("the real Notion workspace export becomes pages, a tree, databases, records
     "Notion CSV column has too few distinct values to tell a select from free text, so it arrived as text",
   ]);
   expect([...new Set(parsed.report.created.map((entry) => entry.kind))].sort()).toEqual(["container", "database", "file", "page", "record"]);
-});
-
-test("the real Confluence Cloud space export becomes pages, versions, restrictions and a named residue", () => {
+} },
+    { name: "the real Confluence Cloud space export becomes pages, versions, restrictions and a named residue", run: () => {
   const parsed = confluence();
 
   expect(parsed.containers.length).toBe(1);
@@ -302,9 +304,8 @@ test("the real Confluence Cloud space export becomes pages, versions, restrictio
   // The placeholders Confluence left in the template page are named with their
   // own text, not with an empty detail.
   expect(parsed.report.unmapped.filter((entry) => entry.label === "Confluence placeholder text dropped").map((entry) => entry.detail).sort()).toEqual(["Insert your LinkedIn URL here", "Insert your Medium profile here", "Insert your Twitter handle here", "Insert your email here"]);
-});
-
-test("the real Google Docs .docx download imports as paragraphs, and the package proves its producer", async () => {
+} },
+    { name: "the real Google Docs .docx download imports as paragraphs, and the package proves its producer", run: async () => {
   const files = readZipArchive(fixture("google-docs-download.docx"));
   const paths = [...files.keys()].sort();
   const text = (path: string) => new TextDecoder().decode(files.get(path)!);
@@ -339,5 +340,10 @@ test("the real Google Docs .docx download imports as paragraphs, and the package
   ]);
   expect(parsed.media.length).toBe(0);
   expect(parsed.report.unmapped).toEqual([]);
+} }
+  ];
+  for (const scenario of cases) {
+    try {  await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
 });
-
