@@ -3,6 +3,7 @@ import { watchFile, unwatchFile } from 'node:fs';
 import { resolve } from 'node:path';
 
 const carryPath = root => resolve(root, '.rer', 'local', 'business.json');
+const restartModules = new Map();
 
 /** Presentation hints only; none of these values establishes authority. */
 export async function readBusinessCarry(root, log = console.warn) {
@@ -31,12 +32,21 @@ export function businessCarryWatch(root) {
     apply: 'serve',
     configureServer(server) {
       const closeVite = server.close.bind(server);
+      const modules = restartModules.get(root);
+      restartModules.delete(root);
+      for (const [name, urls] of modules ?? []) {
+        const environment = server.environments[name];
+        if (environment) for (const url of urls) void environment.warmupRequest(url);
+      }
       let timer;
       const changed = (current, previous) => {
         if (current.mtimeMs === previous.mtimeMs && current.ctimeMs === previous.ctimeMs && current.ino === previous.ino && current.size === previous.size) return;
         clearTimeout(timer);
         timer = setTimeout(async () => {
           try {
+            // Compile the modules this tab already used while the replacement
+            // runner starts, instead of waiting for its first document request.
+            restartModules.set(root, Object.entries(server.environments).map(([name, environment]) => [name, [...environment.moduleGraph.urlToModuleMap.keys()]]));
             // This hook precedes Cloudflare's close wrapper. Quiesce the old Vite
             // handlers before Cloudflare updates its shared runner with new bindings.
             await closeVite();
