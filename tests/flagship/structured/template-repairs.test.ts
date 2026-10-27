@@ -1,3 +1,5 @@
+import {runFoldCases} from '../fold-cases';
+import {resetDeployment as resetFoldDeployment} from '../../e2e/setup/reset-deployment';
 import { test,expect } from "vitest";
 import { env } from "cloudflare:test";
 import { setup,databaseWith,field } from "./repair-fixture";
@@ -8,7 +10,11 @@ import { readPage,updatePage,createPage } from "../../../src/core/features/pages
 import { readRevision } from "../../../src/core/features/versions/service";
 import { saveTemplate,previewTemplate,applyTemplate } from "../../../src/core/features/templates/service";
 import { uploadMedia,serveMedia } from "../../../src/core/features/media/service";
-test("DB-002 historical page, record and template properties remove current hidden relation IDs and counts",async()=>{
+test("template snapshots, privacy and typed repairs preserve immutable definitions", async () => {
+  await runFoldCases([
+{name:"DB-002 historical page, record and template properties remove current hidden relation IDs and counts",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
  const {ctx,reader,containerId}=await setup();const db=await databaseWith(ctx,containerId,"privacy",[field("n","number")]);
  let rev=await saveField(ctx,db.id,{operationKey:"privacy-rel",expectedRevisionId:db.revisionId,field:field("relation","relation",{databaseId:db.id})});
  await saveField(ctx,db.id,{operationKey:"privacy-count",expectedRevisionId:rev.receipt.revisionId,field:field("count","rollup",{relationField:"relation",targetField:"n",calculation:"count"})});
@@ -19,8 +25,12 @@ test("DB-002 historical page, record and template properties remove current hidd
  const template=await saveTemplate(ctx,{operationKey:"privacy-template",sourcePageId:visible.value.pageId,includeChildren:false,containerId:null,title:"Relations",description:"",category:""});
  for(const result of [await readPage(reader,visible.value.pageId),await readRevision(reader,visible.value.pageId,visible.receipt.revisionId),await openRecord(reader,visible.value.pageId),await previewTemplate(reader,template.value.id)])expect(JSON.stringify(result)).not.toContain(secret.value.pageId);
  const preview=await previewTemplate(reader,template.value.id);expect(preview.snapshot.properties.databaseFields).toMatchObject({relation:[],count:0});
-});
-test("TPL-001 template icon and file properties, including children, materialize independently for destination-only readers",async()=>{
+
+} finally {}
+}},
+{name:"TPL-001 template icon and file properties, including children, materialize independently for destination-only readers",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
  const {ctx,reader,containerId}=await setup();const db=await databaseWith(ctx,containerId,"property-assets",[field("attachment","file")]);
  const record=await createRecord(ctx,db.id,{operationKey:"property-assets-record",title:"Source",values:{}});
  const icon=await uploadMedia(ctx,{operationKey:"property-assets-icon",pageId:record.value.pageId,name:"icon.txt",contentType:"text/plain",bytes:new TextEncoder().encode("icon retained")});
@@ -41,4 +51,8 @@ test("TPL-001 template icon and file properties, including children, materialize
  const children=await env.DB.prepare("SELECT id FROM pages WHERE parent_page_id=?").bind(applied.value.pageId).all<{id:string}>();expect(children.results).toHaveLength(1);
  const copiedChild=await readPage(reader,children.results[0].id);const childIcon=copiedChild.properties.icon!.slice(5);expect(childIcon).not.toBe(newIcon);expect(await(await serveMedia(reader,childIcon)).text()).toBe("icon retained");
  expect(child.value.pageId).not.toBe(children.results[0].id);
+
+} finally {}
+}}
+  ]);
 });

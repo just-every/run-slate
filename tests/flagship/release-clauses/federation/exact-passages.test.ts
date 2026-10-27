@@ -1,3 +1,4 @@
+import {runFoldCases} from '../../fold-cases';
 import {env} from 'cloudflare:test';
 import {it,expect,beforeEach,afterEach,vi} from 'vitest';
 import {addSource,refreshSource,resolveEvidence} from '../../../../src/core/features/source-memory/service';
@@ -8,7 +9,11 @@ beforeEach(reset);
 afterEach(()=>vi.unstubAllGlobals());
 const hashText=async(text:string)=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(text)))),b=>b.toString(16).padStart(2,'0')).join('');
 
-it('SOURCE-002 — an exact passage remains revision-pinned across refresh failure and becomes content-free when its current authority is lost',async()=>{
+it("SOURCE-002 — passages stay revision-pinned and content-free after source or connection revocation", async () => {
+  await runFoldCases([
+{name:"SOURCE-002 — an exact passage remains revision-pinned across refresh failure and becomes content-free when its current authority is lost",before:async()=>{await reset();},run:async()=>{
+try {
+
  const {owner}=await actors(),native=installation('passages'),transport=trap([native]);
  native.text='First chunk. '.repeat(360)+'EXACT OLD QUOTATION. '.repeat(230);
  const originalText=native.text,originalTitle=native.title;
@@ -63,9 +68,12 @@ it('SOURCE-002 — an exact passage remains revision-pinned across refresh failu
  expect((await env.DB.prepare('SELECT title,acl_json,content_hash FROM federation_revisions WHERE source_id=?').bind(first.sourceId).all()).results).toEqual([{title:'',acl_json:'{}',content_hash:''},{title:'',acl_json:'{}',content_hash:''}]);
  transport.assertClosed();
  console.log('U2 passage effects',JSON.stringify({initialPassages:initialPassages.length,reference,retainedContentHash:revision.content_hash,publishedPointerBeforeFailure:pointerBefore.published_revision_id,publishedPointerAfterFailure:after.published_revision_id,revisionsBeforeFailure:revisionsBefore.length,revisionsAfterFailure:revisionsAfterFailure.length,passagesBeforeFailure:passagesBefore.length,passagesAfterFailure:passagesAfterFailure.length,refreshes,controlledCalls:transport.calls,operationalEffects:0}));
-});
 
-it('SOURCE-002 — current connection authority is rechecked after the final provider read and disconnected passages disclose only a tombstone',async()=>{
+} finally {{await (vi.unstubAllGlobals());}}
+}},
+{name:"SOURCE-002 — current connection authority is rechecked after the final provider read and disconnected passages disclose only a tombstone",before:async()=>{await reset();},run:async()=>{
+try {
+
  const {owner}=await actors(),native=installation('final-authority'),transport=trap([native]);native.publicAudience=true;
  const connected=await connectNative(owner,native),added=await addSource(fresh(owner),{operationKey:'add-authority',connectionId:connected.value.id,remoteId:native.target});
  const first=await refreshSource(fresh(owner),added.value.id,secret);
@@ -86,4 +94,8 @@ it('SOURCE-002 — current connection authority is rechecked after the final pro
  expect(transport.calls.filter(c=>c.path==='revoke')).toHaveLength(1);
  transport.assertClosed();
  console.log('U2 final authority effects',JSON.stringify({controlledCalls:transport.calls,remoteRevocations:1,operationalEffects:0}));
+
+} finally {{await (vi.unstubAllGlobals());}}
+}}
+  ]);
 });

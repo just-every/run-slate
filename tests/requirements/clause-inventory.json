@@ -60,7 +60,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "WORK-003 ordinary members cannot remove themselves or another member"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         }
       ]
     },
@@ -72,19 +72,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/identity.test.ts",
-          "testName": "WORK-006 invitation concurrent replay creates exactly one active member"
-        },
-        {
-          "file": "tests/flagship/core/identity.test.ts",
-          "testName": "WORK-006 invitation cannot smuggle an unowned container through an authorized page or member invite"
-        },
-        {
-          "file": "tests/flagship/core/identity.test.ts",
-          "testName": "WORK-006 concurrent identical invite sends one provider request and returns one receipt"
+          "testName": "native authentication, invitations and secret custody preserve current authority"
         },
         {
           "file": "tests/flagship/core/mail.test.ts",
-          "testName": "WORK-006 Worker pending guest grant is durable and exact revocation disables delivery"
+          "testName": "identity mail preserves durable retry, recovery, authentication and provider custody"
         }
       ]
     },
@@ -96,11 +88,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "core durable authority same key/body commits once; changed body conflicts and revoked membership denies replay"
-        },
-        {
-          "file": "tests/flagship/core/security.test.ts",
-          "testName": "core durable authority WORK-007 last owner and setup owner survive unauthorized removal"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         }
       ]
     },
@@ -152,7 +140,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "WORK-011 all eight policy values save with immutable identity revision and stale update denied"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         }
       ]
     },
@@ -171,7 +159,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "core durable authority WORK-013 first run has exactly three domain records and cannot repeat"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         }
       ]
     },
@@ -216,7 +204,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -224,11 +212,11 @@
         },
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "core durable authority failed CAS rolls back mutation receipt and activity atomically"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "real D1 database structure CAS, record page revisions, replay and lock enforcement"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -247,15 +235,15 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         },
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "core durable authority same key/body commits once; changed body conflicts and revoked membership denies replay"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "real D1 database structure CAS, record page revisions, replay and lock enforcement"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -267,7 +255,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -304,7 +292,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "move requires the exact access preview, moves descendants, and duplicates omit history and comments"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -316,7 +304,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "move requires the exact access preview, moves descendants, and duplicates omit history and comments"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -396,7 +384,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "archive restoration preserves draft trees, refuses cycles and requires relocation authority"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -436,7 +424,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -483,7 +471,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
-          "testName": "normalizes creation and structural task attribution and preserves existing completion"
+          "testName": "content structure, task attribution, privacy and activity retain exact revisions"
         }
       ]
     },
@@ -495,7 +483,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety media exposure sanitizes uploads and serves only the allowed published attachments"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         }
       ]
     },
@@ -533,15 +521,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP draft publication keeps working content private through publish, discard and scheduling"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "archive restoration preserves draft trees, refuses cycles and requires relocation authority"
-        },
-        {
-          "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety media exposure sanitizes uploads and serves only the allowed published attachments"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         },
         {
           "file": "tests/flagship/core/access.test.ts",
@@ -549,7 +533,7 @@
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "draft profile record readers never see unpublished field values"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -568,7 +552,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP draft publication keeps working content private through publish, discard and scheduling"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         }
       ]
     },
@@ -580,7 +564,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP draft publication keeps working content private through publish, discard and scheduling"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         }
       ]
     },
@@ -599,7 +583,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP draft publication keeps working content private through publish, discard and scheduling"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         }
       ]
     },
@@ -618,7 +602,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "reader filtering precedes summaries and unauthorized reader cannot mutate"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -658,7 +642,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP exact human opens gate verification and stale or forged attestations are refused"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -670,11 +654,11 @@
         },
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "core durable authority ACL revocation racing an authorized preparation aborts the batch"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rollup writes reject stale references and cycles while reads preserve current authority and prior records"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -700,7 +684,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
-          "testName": "public header controls and social metadata render from explicit publication without private search results"
+          "testName": "content structure, task attribution, privacy and activity retain exact revisions"
         }
       ]
     },
@@ -747,7 +731,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "identical saves do not create revisions or activity and labelled versions become immutable tombstones"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -787,7 +771,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "identical saves do not create revisions or activity and labelled versions become immutable tombstones"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -820,11 +804,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP exact human opens gate verification and stale or forged attestations are refused"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "suggestions stay pinned to their base and accepted edits never issue human verification"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -857,7 +841,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP exact human opens gate verification and stale or forged attestations are refused"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         }
       ]
     },
@@ -876,7 +860,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety revision restoration preserves identity, history and surviving comment anchors"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -923,11 +907,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety revision restoration preserves identity, history and surviving comment anchors"
-        },
-        {
-          "file": "tests/flagship/content/http.test.ts",
-          "testName": "archive restoration preserves draft trees, refuses cycles and requires relocation authority"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -946,7 +926,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety revision restoration preserves identity, history and surviving comment anchors"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -958,7 +938,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "permanent deletion removes body/history/comment/grounding content and keeps a content-free tombstone"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -991,7 +971,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
-          "testName": "container metadata and archived listing expose stored policies and preserve personal privacy"
+          "testName": "content structure, task attribution, privacy and activity retain exact revisions"
         }
       ]
     },
@@ -1003,7 +983,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
-          "testName": "container metadata and archived listing expose stored policies and preserve personal privacy"
+          "testName": "content structure, task attribution, privacy and activity retain exact revisions"
         },
         {
           "file": "tests/flagship/core/access.test.ts",
@@ -1026,7 +1006,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety media exposure sanitizes uploads and serves only the allowed published attachments"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         }
       ]
     },
@@ -1059,47 +1039,19 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "numeric formulas evaluate and recompute while invalid types and cycles reject before and after records exist"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rollup writes reject stale references and cycles while reads preserve current authority and prior records"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "retained imported formulas remain labelled and do not block later schema edits"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "database navigation and reference hydration expose actual permitted labels only"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         },
         {
           "file": "tests/flagship/structured/template-repairs.test.ts",
-          "testName": "DB-002 historical page, record and template properties remove current hidden relation IDs and counts"
+          "testName": "template snapshots, privacy and typed repairs preserve immutable definitions"
         },
         {
           "file": "tests/flagship/structured/typed-repairs.test.ts",
-          "testName": "DB-002 computed assignments reject null/empty and imported results survive"
-        },
-        {
-          "file": "tests/flagship/structured/typed-repairs.test.ts",
-          "testName": "DB-002 dates compare instants consistently in filters and views"
-        },
-        {
-          "file": "tests/flagship/structured/typed-repairs.test.ts",
-          "testName": "DB-002 formula output types protect local and cross-database numeric rollup dependencies"
+          "testName": "typed relation, aggregate and formula repairs preserve current source authority"
         },
         {
           "file": "tests/flagship/structured/values.test.ts",
-          "testName": "editable fields accept null while computed mutations reject all supplied values"
-        },
-        {
-          "file": "tests/flagship/structured/values.test.ts",
-          "testName": "summaries and nested filters use only supplied filtered values"
-        },
-        {
-          "file": "tests/flagship/structured/values.test.ts",
-          "testName": "formula validation catches absent references and typed operand mismatches before rows exist"
+          "testName": "typed values, summaries, filters and formula validation preserve their boundaries"
         }
       ]
     },
@@ -1111,7 +1063,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "views persist every layout, filter summaries, charts and independent embedded filters"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1123,7 +1075,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "views persist every layout, filter summaries, charts and independent embedded filters"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1149,7 +1101,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "reader filtering precedes summaries and unauthorized reader cannot mutate"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1168,7 +1120,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "real D1 database structure CAS, record page revisions, replay and lock enforcement"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1180,11 +1132,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "record body persists across both parity profiles"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "all eight policy alternatives preserve structured data and template exclusions"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1196,7 +1144,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "views persist every layout, filter summaries, charts and independent embedded filters"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1215,7 +1163,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/automation-repairs.test.ts",
-          "testName": "AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions"
+          "testName": "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery"
         }
       ]
     },
@@ -1227,11 +1175,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/automation-repairs.test.ts",
-          "testName": "AUTO-002 admission, movement, branch and resumed actions enforce current container scope and private definitions"
+          "testName": "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rule execution retains exactly-once receipts and refuses effects when authority is lost before or during a run"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1243,11 +1191,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/automation-repairs.test.ts",
-          "testName": "AUTO-003 durable recovery before and after commit retains admitted conditions and completes ordered effects exactly once"
+          "testName": "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rule execution retains exactly-once receipts and refuses effects when authority is lost before or during a run"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1259,7 +1207,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "automation schedules and content events deduplicate effects and durably log chain and self-trigger throttling"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1271,7 +1219,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "automation schedules and content events deduplicate effects and durably log chain and self-trigger throttling"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1311,7 +1259,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
-          "testName": "public header controls and social metadata render from explicit publication without private search results"
+          "testName": "content structure, task attribution, privacy and activity retain exact revisions"
         }
       ]
     },
@@ -1377,7 +1325,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "database navigation and reference hydration expose actual permitted labels only"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1454,23 +1402,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/mail.test.ts",
-          "testName": "MAIL-002 Worker D1 durable retry uses a single encrypted message across five minutes and explicit recovery"
-        },
-        {
-          "file": "tests/flagship/core/mail.test.ts",
-          "testName": "MAIL-002 Worker routes require current authentication and expose public sign-in status only with capability"
-        },
-        {
-          "file": "tests/flagship/core/mail.test.ts",
-          "testName": "MAIL-002 Worker restart after invitation commit resumes the admitted encrypted command"
-        },
-        {
-          "file": "tests/flagship/core/mail.test.ts",
-          "testName": "MAIL-002 Worker lost provider response replays identical request without a second logical email"
-        },
-        {
-          "file": "tests/flagship/core/sendgrid-mail.test.ts",
-          "testName": "MAIL-002 BASE-ACCESS-001 SendGrid outcomes and expired leases retain durable attempts without blind resend"
+          "testName": "identity mail preserves durable retry, recovery, authentication and provider custody"
         }
       ]
     },
@@ -1482,7 +1414,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
-          "testName": "core durable authority failed CAS rolls back mutation receipt and activity atomically"
+          "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
         }
       ]
     },
@@ -1508,7 +1440,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
-          "testName": "comment activity receives exact entity revision context in the atomic operation"
+          "testName": "content structure, task attribution, privacy and activity retain exact revisions"
         }
       ]
     },
@@ -1541,27 +1473,15 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "template snapshots retain prescribed children independently and application replays"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "all eight policy alternatives preserve structured data and template exclusions"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "template attachments are immutable independent copies and remain readable after source removal"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         },
         {
           "file": "tests/flagship/structured/template-permissions.test.ts",
-          "testName": "TMPL-003/005 current server capabilities distinguish manage, apply destinations, shipped copies and revoked access"
-        },
-        {
-          "file": "tests/flagship/structured/template-permissions.test.ts",
-          "testName": "TMPL-003 guest parent destinations do not require or expose a container index"
+          "testName": "template management, application, shipped copies and guest destinations preserve exact current capabilities"
         },
         {
           "file": "tests/flagship/structured/template-repairs.test.ts",
-          "testName": "TPL-001 template icon and file properties, including children, materialize independently for destination-only readers"
+          "testName": "template snapshots, privacy and typed repairs preserve immutable definitions"
         }
       ]
     },
@@ -1580,7 +1500,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/template-permissions.test.ts",
-          "testName": "TMPL-003/005 current server capabilities distinguish manage, apply destinations, shipped copies and revoked access"
+          "testName": "template management, application, shipped copies and guest destinations preserve exact current capabilities"
         }
       ]
     },
@@ -1599,15 +1519,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation persists a real Google Docs export, retains original, searchable canonical content, and replays without duplicate pages"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation fails an invalid destination plan without publishing partial tree and retries after interruption"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation authorizes real Worker HTTP imports and export endpoints against current sessions"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/e2e/imports/preview-undo.test.ts",
@@ -1631,7 +1543,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation reviews genuine Notion and Confluence exports before atomic publication"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/e2e/imports/preview-undo.test.ts",
@@ -1647,15 +1559,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation persists a real Google Docs export, retains original, searchable canonical content, and replays without duplicate pages"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation reviews genuine Notion and Confluence exports before atomic publication"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation imports a publisher-produced Microsoft Word fixture with retained provenance"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/e2e/imports/preview-undo.test.ts",
@@ -1687,7 +1591,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation appends an import to an existing page atomically and preserves preexisting blocks on stale revisions"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         }
       ]
     },
@@ -1699,7 +1603,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation complete credential-free archives refuse corruption and restore retained records and originals into an empty deployment"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/qualification/authority/recovery.test.ts",
@@ -1715,7 +1619,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation complete credential-free archives refuse corruption and restore retained records and originals into an empty deployment"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/qualification/authority/recovery.test.ts",
@@ -1750,11 +1654,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation complete credential-free archives refuse corruption and restore retained records and originals into an empty deployment"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation authorizes real Worker HTTP imports and export endpoints against current sessions"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
@@ -1778,11 +1678,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation fails an invalid destination plan without publishing partial tree and retries after interruption"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation rolls back a failing D1 publication after earlier page statements and succeeds on a retained-archive retry"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/qualification/authority/atomic-recovery.test.ts",
@@ -1798,7 +1694,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation exports readable Markdown HTML and embedded-font PDF and reimports its tree"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         }
       ]
     },
@@ -1817,7 +1713,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "permanent deletion removes body/history/comment/grounding content and keeps a content-free tombstone"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -1843,7 +1739,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/identity.test.ts",
-          "testName": "AI local configuration requires real bridge credentials and is refused on hosted runtime"
+          "testName": "native authentication, invitations and secret custody preserve current authority"
         }
       ]
     },
@@ -1855,11 +1751,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
-          "testName": "AI-002 pause releases execution, resume rechecks revision, terminal cancellation never resurrects"
+          "testName": "source disclosure, citations, run budgets and decisions preserve current authority"
         },
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API"
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         }
       ]
     },
@@ -1878,7 +1774,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
-          "testName": "AI-004 exact issued citation validation rejects invented identifiers and deleted exact revisions"
+          "testName": "source disclosure, citations, run budgets and decisions preserve current authority"
         }
       ]
     },
@@ -1890,7 +1786,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "suggestions stay pinned to their base and accepted edits never issue human verification"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -1921,7 +1817,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API"
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         }
       ]
     },
@@ -1933,7 +1829,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API"
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         }
       ]
     },
@@ -1959,11 +1855,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
-          "testName": "AI-012 concurrent reservations cannot overspend and failed reservation creates no run"
+          "testName": "source disclosure, citations, run budgets and decisions preserve current authority"
         },
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API"
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         }
       ]
     },
@@ -1975,15 +1871,15 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
-          "testName": "AI-013 current source and audience ACL prevents persisted output, replay and HTTP disclosure after revocation"
+          "testName": "source disclosure, citations, run budgets and decisions preserve current authority"
         },
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "External-agent same semantic read has exact source scope and revocation"
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         },
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "Trial-only source revocation fences standalone and nested plan and outcome disclosure"
+          "testName": "trial disclosure, exposure, measurement and dispatch preserve stop and revocation boundaries"
         },
         {
           "file": "tests/qualification/authority/learned-provenance.test.ts",
@@ -2019,7 +1915,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "External-agent same semantic read has exact source scope and revocation"
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         }
       ]
     },
@@ -2066,7 +1962,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
-          "testName": "DEC-003 accepted decision immutable and source changes warn without rewriting rationale"
+          "testName": "source disclosure, citations, run budgets and decisions preserve current authority"
         }
       ]
     },
@@ -2123,11 +2019,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation retains exact source revisions, denies changed audience and revoked connection without content"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation keeps the previous published source on provider failure and treats deletion as a content-free tombstone"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/flagship/release-clauses/federation/connector-disclosure.test.ts",
@@ -2143,27 +2035,15 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation retains exact source revisions, denies changed audience and revoked connection without content"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation uses actor-bound single-use OAuth PKCE and discovers identity instead of asking for account ids"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation keeps the previous published source on provider failure and treats deletion as a content-free tombstone"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/flagship/intelligence/native-transport.test.ts",
-          "testName": "Native transport refuses redirected token and credential requests without following a location"
+          "testName": "native transport refuses credential redirects and preserves exact bounded timestamps"
         },
         {
           "file": "tests/flagship/release-clauses/federation/exact-passages.test.ts",
-          "testName": "SOURCE-002 \u2014 an exact passage remains revision-pinned across refresh failure and becomes content-free when its current authority is lost"
-        },
-        {
-          "file": "tests/flagship/release-clauses/federation/exact-passages.test.ts",
-          "testName": "SOURCE-002 \u2014 current connection authority is rechecked after the final provider read and disconnected passages disclose only a tombstone"
+          "testName": "SOURCE-002 \u2014 passages stay revision-pinned and content-free after source or connection revocation"
         }
       ]
     },
@@ -2174,8 +2054,8 @@
       "unmetReason": "Supporting scope and remaining gaps: Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance. Requirement-level acceptance remains unproven.",
       "supportingTests": [
         {
-          "file": "tests/flagship/intelligence/claims.test.ts",
-          "testName": "Scoped claims preserve exact passages and unknown scope; only an exact accepted decision supplies a named approver"
+          "file": "tests/flagship/intelligence/lifecycle.test.ts",
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         },
         {
           "file": "tests/qualification/authority/decision-authority.test.ts",
@@ -2191,7 +2071,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/native-transport.test.ts",
-          "testName": "Native timestamps preserve valid ISO instants and normalize bounded Unix milliseconds"
+          "testName": "native transport refuses credential redirects and preserves exact bounded timestamps"
         },
         {
           "file": "tests/qualification/authority/native-boundaries.test.ts",
@@ -2259,11 +2139,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/skills.test.ts",
-          "testName": "Pinned skill cannot activate failed/absent evaluation or silently substitute a retired version"
-        },
-        {
-          "file": "tests/flagship/intelligence/skills.test.ts",
-          "testName": "Evaluation cases freeze source cutoff; a future timestamp cannot bless future context"
+          "testName": "pinned skills, evaluation cutoffs and retained learning preserve admission boundaries"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
@@ -2287,11 +2163,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/skills.test.ts",
-          "testName": "Pinned skill cannot activate failed/absent evaluation or silently substitute a retired version"
-        },
-        {
-          "file": "tests/flagship/intelligence/skills.test.ts",
-          "testName": "Evaluation cases freeze source cutoff; a future timestamp cannot bless future context"
+          "testName": "pinned skills, evaluation cutoffs and retained learning preserve admission boundaries"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
@@ -2319,15 +2191,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/effects.test.ts",
-          "testName": "External effect timeout stays uncertain and reconciliation never sends twice"
+          "testName": "external and native effects preserve reconciliation, grant revocation and exactly-once recovery"
         },
         {
-          "file": "tests/flagship/intelligence/effects.test.ts",
-          "testName": "Revocation blocks prepared effects and inquiry kind never activates despite a valid tool grant"
-        },
-        {
-          "file": "tests/flagship/intelligence/native-proposal.test.ts",
-          "testName": "Exact native review derives source boundaries, refuses stale approval and content expansion, and revokes unsent work"
+          "file": "tests/flagship/intelligence/lifecycle.test.ts",
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
@@ -2355,11 +2223,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/authority/inquiry-custody.test.ts",
-          "testName": "EFFECT-002 \u2014 admitted inquiry and credentialed MCP refuse operational consent and unsupported product sends"
-        },
-        {
-          "file": "tests/flagship/release-clauses/authority/inquiry-custody.test.ts",
-          "testName": "EFFECT-002 \u2014 article publication requires its own current audience and exact grant"
+          "testName": "EFFECT-002 \u2014 inquiry custody and article publication preserve separate operational authority"
         }
       ]
     },
@@ -2371,31 +2235,15 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/effects.test.ts",
-          "testName": "External effect timeout stays uncertain and reconciliation never sends twice"
-        },
-        {
-          "file": "tests/flagship/intelligence/effects.test.ts",
-          "testName": "Revocation blocks prepared effects and inquiry kind never activates despite a valid tool grant"
-        },
-        {
-          "file": "tests/flagship/intelligence/native-effects.test.ts",
-          "testName": "Native lost response recovers attributable receipt, preserves completion and forbids successor double-send"
+          "testName": "external and native effects preserve reconciliation, grant revocation and exactly-once recovery"
         },
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "guardrail stops and conclusions cancel prepared trial work while preserving confirmed exposure"
-        },
-        {
-          "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "A stop after trial admission invalidates the atomic dispatch guard and preserves uncertain history"
+          "testName": "trial disclosure, exposure, measurement and dispatch preserve stop and revocation boundaries"
         },
         {
           "file": "tests/flagship/release-clauses/authority/impact-scope.test.ts",
-          "testName": "EFFECT-003 \u2014 scoped rehearsal hides a currently inaccessible dependency and records one read-only impact on replay"
-        },
-        {
-          "file": "tests/flagship/release-clauses/authority/impact-scope.test.ts",
-          "testName": "EFFECT-003 \u2014 evaluated pinned maintenance waits for a current exact grant and applies one attributable repair"
+          "testName": "EFFECT-003 \u2014 scoped rehearsal and pinned maintenance require exact current authority"
         }
       ]
     },
@@ -2407,11 +2255,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
-          "testName": "AGENT-001 \u2014 exact credential scope gates REST and MCP control replay and current revocation"
-        },
-        {
-          "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
-          "testName": "AGENT-001 \u2014 revoking the exact effect grant fences an admitted procedure despite a current credential"
+          "testName": "AGENT-001 \u2014 exact credentials and effect grants fence replay, dispatch and local-session revocation"
         }
       ]
     },
@@ -2423,15 +2267,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-          "testName": "AGENT-002 \u2014 an owner-defined page view does not expose its private skill to a page-only member"
-        },
-        {
-          "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-          "testName": "AGENT-002 \u2014 a fresh setup owner reads restored inquiry, analysis, decision and trial views with exact lineage"
-        },
-        {
-          "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-          "testName": "AGENT-002 \u2014 restored page history, comments, skill definition and imported original remain available to the fresh owner"
+          "testName": "AGENT-002 \u2014 private and restored owner views retain exact lineage, history and originals"
         }
       ]
     },
@@ -2443,7 +2279,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/inquiry.test.ts",
-          "testName": "Sustained inquiry preserves rival hypotheses, disconfirmation and executable reproducible analysis"
+          "testName": "inquiry hypotheses, outcomes and historical cutoffs retain evidence boundaries"
         },
         {
           "file": "tests/flagship/release-clauses/inquiry/durable-branches.test.ts",
@@ -2467,11 +2303,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/inquiry.test.ts",
-          "testName": "Sustained inquiry preserves rival hypotheses, disconfirmation and executable reproducible analysis"
-        },
-        {
-          "file": "tests/flagship/intelligence/inquiry.test.ts",
-          "testName": "Historical evidence cutoff prevents future content entering investigation"
+          "testName": "inquiry hypotheses, outcomes and historical cutoffs retain evidence boundaries"
         },
         {
           "file": "tests/flagship/release-clauses/inquiry/replay-analysis.test.ts",
@@ -2499,23 +2331,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 \u2014 revoked or expired scheduled route qualification blocks dispatch without model substitution"
-        },
-        {
-          "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 \u2014 source access lost during metered assessment refuses publication and later disclosure"
-        },
-        {
-          "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 \u2014 invalid semantic output is metered once and makes no fallback or guessed question"
-        },
-        {
-          "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 \u2014 deterministic low-score audits and frontier shadow retain exact missed-event lineage"
-        },
-        {
-          "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 \u2014 audience source revocation before consumption prevents any semantic dispatch"
+          "testName": "INQ-004 \u2014 scheduled assessments preserve route, source, audience, semantic and audit authority"
         }
       ]
     },
@@ -2530,8 +2346,8 @@
           "testName": "INQ-005 \u2014 learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse"
         },
         {
-          "file": "tests/flagship/intelligence/reservation-prerequisites.test.ts",
-          "testName": "INQ-005 identical concurrent authorized intents retain one run and one reservation"
+          "file": "tests/flagship/intelligence/lifecycle.test.ts",
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         }
       ]
     },
@@ -2543,15 +2359,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "Trial-only source revocation fences standalone and nested plan and outcome disclosure"
+          "testName": "trial disclosure, exposure, measurement and dispatch preserve stop and revocation boundaries"
         },
         {
           "file": "tests/flagship/release-clauses/trials/predeclaration.test.ts",
-          "testName": "TRIAL-001 \u2014 immutable predeclaration rejects changed replay and unappointed or stale approval"
-        },
-        {
-          "file": "tests/flagship/release-clauses/trials/predeclaration.test.ts",
-          "testName": "TRIAL-001 \u2014 exact approved plan grants only its declared treatment targets and content"
+          "testName": "TRIAL-001 \u2014 immutable plans require exact approval and constrain treatment content"
         }
       ]
     },
@@ -2563,27 +2375,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "Treatment observations reject unrelated and out-of-window receipts and count exact trial exposure once"
-        },
-        {
-          "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "guardrail stops and conclusions cancel prepared trial work while preserving confirmed exposure"
-        },
-        {
-          "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "Direct dispatch rejects stopped and expired trial boundaries even if its procedure still runs"
-        },
-        {
-          "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "A stop after trial admission invalidates the atomic dispatch guard and preserves uncertain history"
+          "testName": "trial disclosure, exposure, measurement and dispatch preserve stop and revocation boundaries"
         },
         {
           "file": "tests/flagship/release-clauses/trials/exposure-safety.test.ts",
-          "testName": "TRIAL-002 \u2014 guardrail during provider uncertainty cancels unsent work and preserves confirmed and uncertain truth"
-        },
-        {
-          "file": "tests/flagship/release-clauses/trials/exposure-safety.test.ts",
-          "testName": "TRIAL-002 \u2014 grant revoked after trial admission invalidates the D1 dispatch claim without a provider send"
+          "testName": "TRIAL-002 \u2014 uncertain exposure and revoked grants preserve dispatch truth and block unsent work"
         }
       ]
     },
@@ -2595,11 +2391,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/inquiry.test.ts",
-          "testName": "Outcome logic distinguishes benefit precise null adverse and inconclusive; no early-window result"
+          "testName": "inquiry hypotheses, outcomes and historical cutoffs retain evidence boundaries"
         },
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "Unverifiable or changed measurements stay inconclusive despite the caller repeating the declared instrumentation hash"
+          "testName": "trial disclosure, exposure, measurement and dispatch preserve stop and revocation boundaries"
         },
         {
           "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
@@ -2618,12 +2414,12 @@
       "unmetReason": "Supporting scope and remaining gaps: Inactive draft provenance, stale-source refusal and native D1/R2 restore only. Passing held-out evaluation, owner activation under fresh authority and repeated quality-preserving work savings remain unproven. Requirement-level acceptance remains unproven.",
       "supportingTests": [
         {
-          "file": "tests/flagship/intelligence/learned-method.test.ts",
-          "testName": "Retained trial learning prepares one inactive draft with failed hypotheses, forecast and evaluation boundary"
+          "file": "tests/flagship/intelligence/skills.test.ts",
+          "testName": "pinned skills, evaluation cutoffs and retained learning preserve admission boundaries"
         },
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "Unverifiable or changed measurements stay inconclusive despite the caller repeating the declared instrumentation hash"
+          "testName": "trial disclosure, exposure, measurement and dispatch preserve stop and revocation boundaries"
         },
         {
           "file": "tests/flagship/release-clauses/trials/learning-provenance.test.ts",
@@ -2639,11 +2435,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/portability/profile-retention.test.ts",
-          "testName": "FLAG-001 \u2014 default and empty core profiles block flagship operations without provider effects while preserving page read, edit, export and historical rows"
-        },
-        {
-          "file": "tests/flagship/release-clauses/portability/profile-retention.test.ts",
-          "testName": "FLAG-001 \u2014 core-profile restore retains and exports flagship history while restored execution authority remains disabled"
+          "testName": "FLAG-001 \u2014 core profile gates preserve pages, portable history and disabled restored execution"
         }
       ]
     },
@@ -2659,15 +2451,7 @@
         },
         {
           "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-          "testName": "FLAG-002 \u2014 staged restore refuses a target that gains a product row and leaves all canonical rows and R2 originals unchanged"
-        },
-        {
-          "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-          "testName": "FLAG-002 \u2014 restore rechecks current setup-owner authority inside the canonical D1 commit after archive admission"
-        },
-        {
-          "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-          "testName": "FLAG-002 \u2014 a second empty target restores the complete archive, imported originals, foreign keys and fresh owner authority"
+          "testName": "FLAG-002 \u2014 staged restore retains atomic emptiness, current owner authority and complete recovery"
         }
       ]
     },
@@ -2679,15 +2463,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-          "testName": "FLAG-003 \u2014 frozen comparison pins equal source, question, audience and model limits before policy and index drift"
-        },
-        {
-          "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-          "testName": "FLAG-003 \u2014 current source grant revocation blocks both prepared runs before disclosure"
-        },
-        {
-          "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-          "testName": "FLAG-003 \u2014 both comparison arms retain failed and successful attempt timing and cost status"
+          "testName": "FLAG-003 \u2014 comparison arms preserve equal inputs, current grants and attributable costs"
         }
       ]
     },
@@ -2722,8 +2498,8 @@
       "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BASE-ACCESS-001 \u2014 Sign-in. Full requirement-level UI, profile and runtime evidence remains unproven.",
       "supportingTests": [
         {
-          "file": "tests/flagship/core/sendgrid-mail.test.ts",
-          "testName": "MAIL-002 BASE-ACCESS-001 SendGrid outcomes and expired leases retain durable attempts without blind resend"
+          "file": "tests/flagship/core/mail.test.ts",
+          "testName": "identity mail preserves durable retry, recovery, authentication and provider custody"
         },
         {
           "file": "tests/flagship/core/identity-upgrade.test.ts",
@@ -2739,7 +2515,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -2747,15 +2523,11 @@
         },
         {
           "file": "tests/flagship/core/identity.test.ts",
-          "testName": "BASE-ACCESS-002 private HTTP denies missing expired and revoked sessions without data"
-        },
-        {
-          "file": "tests/flagship/core/identity.test.ts",
-          "testName": "cross-origin cookie mutations and WebSocket handshakes are denied before authorization or writes"
+          "testName": "native authentication, invitations and secret custody preserve current authority"
         },
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation authorizes real Worker HTTP imports and export endpoints against current sessions"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/flagship/structured/http.test.ts",
@@ -2810,11 +2582,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/core/identity.test.ts",
-          "testName": "BASE-SECRET-001 credential ciphertext is identity bound and failure reveals no plaintext"
-        },
-        {
-          "file": "tests/flagship/core/identity.test.ts",
-          "testName": "AI local configuration requires real bridge credentials and is refused on hosted runtime"
+          "testName": "native authentication, invitations and secret custody preserve current authority"
         }
       ]
     },
@@ -2833,7 +2601,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation complete credential-free archives refuse corruption and restore retained records and originals into an empty deployment"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/qualification/authority/recovery.test.ts",
@@ -3040,11 +2808,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/discovery/space-hub.test.ts",
-          "testName": "CONT-011 \u2014 a space opens its editable home with normal page authority and revision conflicts"
-        },
-        {
-          "file": "tests/flagship/discovery/space-hub.test.ts",
-          "testName": "CONT-011 \u2014 an owner curates a company hub for a new member, filtering private, unpublished and unverified content on every read"
+          "testName": "CONT-011 \u2014 space homes and curated hubs retain revision and reader authority"
         }
       ]
     },

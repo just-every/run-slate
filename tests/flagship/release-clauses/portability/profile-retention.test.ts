@@ -1,3 +1,4 @@
+import {runFoldCases} from '../../fold-cases';
 import {afterAll,beforeAll,expect,test} from 'vitest';
 import {env} from 'cloudflare:test';
 import {byteHash} from '../../../../src/core/features/portability/archive';
@@ -84,7 +85,11 @@ async function expectCoreBlocks(cookie:string,profile:'core-wiki'|''|undefined){
   }
 }
 
-test('FLAG-001 — default and empty core profiles block flagship operations without provider effects while preserving page read, edit, export and historical rows',async()=>{
+test("FLAG-001 — core profile gates preserve pages, portable history and disabled restored execution", async () => {
+  await runFoldCases([
+{name:"FLAG-001 — default and empty core profiles block flagship operations without provider effects while preserving page read, edit, export and historical rows",before:async()=>{},run:async()=>{
+try {
+
   const cookie=await setupOwnerCookie(source),beforeCounts=await tableCounts(),beforeD1=await portableSnapshot(),beforeR2=await r2Snapshot();
   const effectBefore=await env.DB.prepare('SELECT count(*) AS n FROM intelligence_effects').first<number>('n');
   const connectionBefore=await env.DB.prepare('SELECT id,state,credential_ciphertext FROM federation_connections WHERE id=?').bind(source.connectionId).first();
@@ -130,9 +135,12 @@ test('FLAG-001 — default and empty core profiles block flagship operations wit
   const migrationsAfter=await migrationNames();
   expect(migrationsAfter).toEqual(migrations);
   console.log('Release_EVIDENCE '+JSON.stringify({clause:'FLAG-001',profiles:['default','empty'],blockedRequests:16,providerAttempts:providerAttempts.length,portableTableCount:Object.keys(sourceArchive.manifest.tables).length,migrationNames:migrationsAfter,sourceArchiveHash:await byteHash(sourceArchive.bytes),sourceArchiveR2Key:sourceArchive.key,coreExportHash:await byteHash(exportedBytes),coreExportR2Key:(await env.DB.prepare('SELECT archive_key FROM federation_exports WHERE id=?').bind(job.id).first<{archive_key:string}>())?.archive_key,blockedBeforeD1:beforeD1,blockedAfterD1:afterBlockedD1,blockedBeforeR2:beforeR2,blockedAfterR2:afterBlockedR2,sourceCounts:beforeCounts,afterCoreEditAndExportCounts:counts,retainedIds:{page:source.pages.rootId,decision:source.decisionId,inquiry:source.inquiryId,analysis:source.analysisId,trial:source.trialId,skill:source.skillId,connection:source.connectionId,import:source.importId},effectRows:effectBefore,blockedRequestReceiptRows:receiptsBefore}));
-});
 
-test('FLAG-001 — core-profile restore retains and exports flagship history while restored execution authority remains disabled',async()=>{
+} finally {}
+}},
+{name:"FLAG-001 — core-profile restore retains and exports flagship history while restored execution authority remains disabled",before:async()=>{},run:async()=>{
+try {
+
   await resetNative();
   const target=await makeWorkspace({email:source.ownerEmail,withReader:false,withContainer:false});
   const beforeD1=await portableSnapshot();
@@ -195,4 +203,8 @@ test('FLAG-001 — core-profile restore retains and exports flagship history whi
   const afterR2=await r2Snapshot();
   expect(afterR2).toEqual(expect.arrayContaining([{key:imported!.archive_key,size:originalFileBytes.length,hash:await byteHash(originalFileBytes)}]));
   console.log('Release_EVIDENCE '+JSON.stringify({clause:'FLAG-001',restoreId:restored.body.restoreId,archiveHash:await byteHash(sourceArchive.bytes),portableTableCount:Object.keys(sourceArchive.manifest.tables).length,beforeD1,afterD1,restoredCounts:counts,migrationNames:await migrationNames(),beforeR2,afterR2,coreRearchiveHash:await byteHash(new Uint8Array(await (await apiRequest(`/api/exports/${exportedJob.id}/download`,cookie,'')).arrayBuffer())),authority:{trialState:trial!.state,trialGrant:trial!.grant_id,connectionState:(connection as {state:string}).state,credentialCiphertext:(connection as {credential_ciphertext:null}).credential_ciphertext},importedKey:imported!.archive_key,importedOriginalHash:await byteHash(originalFileBytes),foreignKeyViolations:foreignKeys.results.length}));
+
+} finally {}
+}}
+  ]);
 });

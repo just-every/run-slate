@@ -1,3 +1,4 @@
+import {runFoldCases} from '../../fold-cases';
 import {env} from 'cloudflare:test';
 import {beforeEach,test,expect,afterEach,vi} from 'vitest';
 import {resetDeployment} from '../../../e2e/setup/reset-deployment';
@@ -6,7 +7,11 @@ import {issueAgentCredential} from '../../../../src/core/features/external-agent
 import {readPage} from '../../../../src/core/features/pages/service';
 afterEach(()=>vi.unstubAllGlobals());
 beforeEach(resetDeployment);
-test('EFFECT-002 — admitted inquiry and credentialed MCP refuse operational consent and unsupported product sends',async()=>{
+test("EFFECT-002 — inquiry custody and article publication preserve separate operational authority", async () => {
+  await runFoldCases([
+{name:"EFFECT-002 — admitted inquiry and credentialed MCP refuse operational consent and unsupported product sends",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
  const f=await effectFixture();
  const credential=await issueAgentCredential(f.context(),{operationKey:'custody-agent',subjectId:f.owner,expiresAt:'2099-01-01T00:00:00.000Z',scope:{tools:['prepare_effect'],sourceIds:[f.page.pageId],audience:[f.owner,f.reader],grantIds:[f.grant.value.id]}});
  expect(await env.DB.prepare('SELECT revoked_at FROM intelligence_grants WHERE id=?').bind(f.grant.value.id).first()).toEqual({revoked_at:null});
@@ -20,9 +25,12 @@ test('EFFECT-002 — admitted inquiry and credentialed MCP refuse operational co
  }
  expect(await effects(f.workspaceId)).toEqual(before.effects);expect(await receipts(f.workspaceId)).toEqual(before.receipts);
  expect(await readPage(f.context(),f.page.pageId)).toEqual(before.page);expect(f.issue).toEqual(before.issue);expect(f.sends).toEqual([]);expect(f.requests).toHaveLength(before.requests);
-});
 
-test('EFFECT-002 — article publication requires its own current audience and exact grant',async()=>{
+} finally {{await (vi.unstubAllGlobals());}}
+}},
+{name:"EFFECT-002 — article publication requires its own current audience and exact grant",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
  const {articleFixture}=await import('./publication-fixture');
  const {issueGrant}=await import('../../../../src/core/features/effects/grants');
  const {requestHash}=await import('../../../../src/core/app/operations');
@@ -39,4 +47,8 @@ test('EFFECT-002 — article publication requires its own current audience and e
  expect(await effects(f.workspaceId)).toEqual([]);f.setAudience('audience-one');
  const allowed=await f.request('/api/effects',{...f.input,grantId:exact.value.id});expect(allowed.status,JSON.stringify(allowed.body)).toBe(200);expect(allowed.body.value.state).toBe('prepared');
  expect((await effects(f.workspaceId))[0]).toMatchObject({grant_id:exact.value.id,state:'prepared',receipt_json:null,dispatched_at:null});expect(f.sends).toEqual([]);
+
+} finally {{await (vi.unstubAllGlobals());}}
+}}
+  ]);
 });

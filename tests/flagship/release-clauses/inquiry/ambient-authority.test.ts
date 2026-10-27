@@ -1,3 +1,5 @@
+import {runFoldCases} from '../../fold-cases';
+import {resetDeployment as resetFoldDeployment} from '../../../e2e/setup/reset-deployment';
 import {resetDeployment} from '../../../e2e/setup/reset-deployment';
 import { test, expect, afterEach, vi } from "vitest";
 import { env } from "cloudflare:test";
@@ -60,7 +62,11 @@ async function noDiscovery(workspaceId: string) {
       .first<number>("n"),
   ).toBe(0);
 }
-test('INQ-004 — revoked or expired scheduled route qualification blocks dispatch without model substitution',async()=>{
+test("INQ-004 — scheduled assessments preserve route, source, audience, semantic and audit authority", async () => {
+  await runFoldCases([
+{name:"INQ-004 — revoked or expired scheduled route qualification blocks dispatch without model substitution",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
  // Revocation and expiry invalidate the exact scheduled route before any provider dispatch.
  for(const run of [
   // Original case: INQ-004 — scheduled exact route revocation blocks dispatch and never substitutes a model
@@ -143,8 +149,12 @@ test('INQ-004 — revoked or expired scheduled route qualification blocks dispat
   await resetDeployment();
   try{await run();}finally{vi.unstubAllGlobals();}
   }
-});
-test("INQ-004 — source access lost during metered assessment refuses publication and later disclosure", async () => {
+
+} finally {{await (vi.unstubAllGlobals());}}
+}},
+{name:"INQ-004 — source access lost during metered assessment refuses publication and later disclosure",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
   const f = await setup(true),
     event = f.view.events.find((e) => e.kind === "change")!;
   const calls = transport(
@@ -199,8 +209,12 @@ test("INQ-004 — source access lost during metered assessment refuses publicati
       .first<string>("assessment_json"),
   ).toBeNull();
   await noDiscovery(f.workspaceId);
-});
-test("INQ-004 — invalid semantic output is metered once and makes no fallback or guessed question", async () => {
+
+} finally {{await (vi.unstubAllGlobals());}}
+}},
+{name:"INQ-004 — invalid semantic output is metered once and makes no fallback or guessed question",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
   const f = await setup(),
     event = f.view.events.find((e) => e.kind === "change")!;
   const calls = transport(answer);
@@ -226,8 +240,12 @@ test("INQ-004 — invalid semantic output is metered once and makes no fallback 
       .first(),
   ).toMatchObject({ attempts: 1, cost_micros: 20, status: "failed" });
   await noDiscovery(f.workspaceId);
-});
-test("INQ-004 — deterministic low-score audits and frontier shadow retain exact missed-event lineage", async () => {
+
+} finally {{await (vi.unstubAllGlobals());}}
+}},
+{name:"INQ-004 — deterministic low-score audits and frontier shadow retain exact missed-event lineage",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
   const f = await setup(),
     ranked = f.view.events.find((e) => e.kind === "change")!,
     sweep = f.view.events.find((e) => e.kind === "frontier-sweep")!;
@@ -305,10 +323,12 @@ test("INQ-004 — deterministic low-score audits and frontier shadow retain exac
   ).toBe(1);
   await scheduleAmbient(binding());
   expect((await ambientView(f.context(), f.scopeId)).events).toHaveLength(4);
-});
 
+} finally {{await (vi.unstubAllGlobals());}}
+}},
+{name:"INQ-004 — audience source revocation before consumption prevents any semantic dispatch",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
 
-test("INQ-004 — audience source revocation before consumption prevents any semantic dispatch", async () => {
   const f = await setup(true);
   await revokeReader(f);
   const calls = transport({ ...answer, ambientAssessment: assessment });
@@ -346,4 +366,8 @@ test("INQ-004 — audience source revocation before consumption prevents any sem
     JSON.stringify({ runs: runs.results, scope }),
   );
   await noDiscovery(f.workspaceId);
+
+} finally {{await (vi.unstubAllGlobals());}}
+}}
+  ]);
 });
