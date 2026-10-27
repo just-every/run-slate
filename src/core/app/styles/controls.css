@@ -16,10 +16,13 @@
 }
 .slate-app :is(.primary-button, button.primary, .actions .run):not(:disabled):hover { background-color: var(--slate-accent-hover); }
 .slate-app :is(.secondary-button, .tool, .icon-action):not(.tool-primary):not(:disabled):hover { background-color: var(--slate-wash); }
+/* A preview or slide can be narrower than the viewport. The tip fits its task row too. */
+.slate-app [data-task-item] { container-type: inline-size; }
 .slate-app button[role="checkbox"][data-tooltip-align="start"]::after {
   left: 0;
   width: max-content;
-  max-width: calc(100vw - 64px);
+  max-width: min(16rem, calc(100vw - 64px), calc(100cqi - 12px));
+  overflow-wrap: anywhere;
   white-space: normal;
   transform: none;
 }

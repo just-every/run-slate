@@ -75,13 +75,29 @@ for (const width of [1440, 390]) {
 async function controlPolishJourney({ page, context, origin, api }, width) {
   const containerId = (await api('/api/containers')).items.find(space => space.name === 'Handbook').id;
   const post = (route, data) => ok(context, origin, 'POST', route, { operationKey: randomUUID(), ...data });
+  const workspace = await api('/api/workspace');
+  const { name, mark, description, guestAccess, publicLinkAccess, anonymousAccess } = workspace;
+  await ok(context, origin, 'PUT', '/api/workspace', { operationKey: randomUUID(), expectedRevisionId: workspace.revisionId, name, mark, description, guestAccess, publicLinkAccess, anonymousAccess, policies: { ...workspace.policies, 'page.lifecycle.v1': 'draft-then-publish' } });
   const blockId = randomUUID();
-  const pageId = (await post('/api/pages', { containerId, title: 'Release review', blocks: [{ id: blockId, blockType: 'task', treePosition: '0', content: { text: [{ text: 'Check release notes' }], done: false } }] })).value.pageId;
+  const taskText = 'Check release notes '.repeat(22).slice(0, 400);
+  const pageId = (await post('/api/pages', { containerId, title: 'Release review', blocks: [{ id: blockId, blockType: 'task', treePosition: '0', content: { text: [{ text: taskText }], done: false } }] })).value.pageId;
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   if (width === 1440) {
-    const checkbox = page.getByRole('checkbox', { name: 'Mark complete: Check release notes', exact: true });
+    const checkbox = page.getByRole('checkbox', { name: `Mark complete: ${taskText}`, exact: true });
     const name = await checkbox.getAttribute('aria-label');
     await expect(checkbox).toHaveAttribute('data-tooltip', name);
+    const assertNoOverflow = async locator => {
+      const box = await locator.evaluate(el => ({ scroll: el.scrollWidth, width: el.clientWidth }));
+      assert.equal(box.scroll, box.width, 'SL35 long To-do tips do not widen their surface');
+    };
+    await assertNoOverflow(page.locator('html'));
+    const tip = await checkbox.evaluate(el => {
+      const style = getComputedStyle(el, '::after');
+      return { width: parseFloat(style.width), position: style.position, wrap: style.whiteSpace };
+    });
+    assert.ok(tip.width <= 256, 'SL35 long names wrap inside the 16rem cap');
+    assert.equal(tip.position, 'absolute');
+    assert.equal(tip.wrap, 'normal');
     await page.mouse.move(0, 0);
     await checkbox.hover();
     await expect.poll(() => checkbox.evaluate(el => getComputedStyle(el, '::after').opacity)).toBe('1');
@@ -97,6 +113,19 @@ async function controlPolishJourney({ page, context, origin, api }, width) {
     await page.keyboard.press('Space');
     await expect(checkbox).toBeChecked();
     await expect.poll(async () => (await api(`/api/pages/${pageId}`)).blocks[0].content.done).toBe(true);
+    await page.getByRole('button', { name: 'More', exact: true }).click();
+    await page.getByRole('menuitem', { name: 'Publish workspace revision', exact: true }).click();
+    const preview = page.getByRole('region', { name: 'Workspace publication preview', exact: true });
+    await expect(preview.getByRole('checkbox')).toBeDisabled();
+    await assertNoOverflow(preview);
+    await assertNoOverflow(page.locator('html'));
+    await page.getByRole('button', { name: 'Close dialog', exact: true }).click();
+    await page.getByRole('button', { name: 'More', exact: true }).click();
+    await page.getByRole('menuitem', { name: 'Present this page', exact: true }).click();
+    await expect(page.locator('.page-presentation article').getByRole('checkbox')).toBeDisabled();
+    await assertNoOverflow(page.locator('.page-presentation article'));
+    await assertNoOverflow(page.locator('html'));
+    await page.getByRole('button', { name: 'Exit presentation', exact: true }).click();
     for (let i = 0; i < 30; i++) await post('/api/pages', { containerId, title: `Release guide ${i + 1}` });
     await page.goto(origin + '/app/search?q=&kind=page', { waitUntil: 'networkidle' });
     const next = page.getByRole('button', { name: 'Next results →', exact: true });
