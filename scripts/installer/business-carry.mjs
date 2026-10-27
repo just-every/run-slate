@@ -1,6 +1,6 @@
 import { readFile, stat } from 'node:fs/promises';
 import { watchFile, unwatchFile } from 'node:fs';
-import { resolve } from 'node:path';
+import { isAbsolute, resolve } from 'node:path';
 import { createServer } from 'node:http';
 
 const carryPath = root => resolve(root, '.rer', 'local', 'business.json');
@@ -14,7 +14,7 @@ async function stamp(file) {
 
 async function clientCache(server) {
   const graph = server.environments.client.moduleGraph;
-  const files = new Set([...graph.fileToModulesMap.keys(), server.config.configFile].filter(Boolean));
+  const files = new Set([...graph.fileToModulesMap.keys(), server.config.configFile].filter(file => typeof file === 'string' && isAbsolute(file) && !file.includes('\0')));
   return {
     maps: graphMaps.map(name => [name, [...graph[name]]]),
     stamps: await Promise.all([...files].map(async file => [file, await stamp(file)])),
