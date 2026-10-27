@@ -209,6 +209,9 @@ jobs:
           node-version: 22.20.0
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # Emitted-Worker first-open and sign-in acceptance launch Chromium.
+      - name: Install Chromium
+        run: bash .github/scripts/install-browsers.sh
       - uses: actions/download-artifact@v4
         with:
           name: verified-app-build
