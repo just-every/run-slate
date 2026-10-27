@@ -3,11 +3,11 @@ export async function runFoldCases(cases: readonly {
   name: string;
   before?: () => Promise<void>;
   run: () => Promise<void> | void;
-}[]): Promise<void> {
+}[], options: {prepareFirst?: boolean} = {}): Promise<void> {
   const failures: Error[] = [];
   for (const [index, point] of cases.entries()) {
     try {
-      if (index > 0) await point.before?.();
+      if (index > 0 || options.prepareFirst) await point.before?.();
       await point.run();
     } catch (cause) {
       failures.push(new Error(`[${point.name}] ${cause instanceof Error ? cause.message : String(cause)}`, {cause}));
