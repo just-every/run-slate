@@ -61,7 +61,10 @@ function signInToken(fixture: ReturnType<typeof localMailDatabase>, email: strin
   return /\/auth\/confirm\?token=([A-Za-z0-9_-]{43})/.exec(message.text)![1]!;
 }
 
-test('native local first magic link bootstraps one owner and each new request reaches the mail provider once', async () => {
+test("native local mail sign-in and invitations preserve identity, delivery and scoped authority", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: 'native local first magic link bootstraps one owner and each new request reaches the mail provider once', run: async () => {
   const fixture = localMailDatabase(); fixture.migrate();
 
   try {
@@ -82,9 +85,8 @@ test('native local first magic link bootstraps one owner and each new request re
     assert.equal(fixture.sql.prepare('SELECT count(*) n FROM members').get()!.n,1);
     assert.equal((await confirmLink(app,fixture.db,token)).status,400);
   } finally { fixture.close(); }
-});
-
-test('existing local member signs in through mail after additive migration without changing stored workspace data', async () => {
+} },
+    { name: 'existing local member signs in through mail after additive migration without changing stored workspace data', run: async () => {
   const fixture = localMailDatabase();
   try {
     fixture.sql.exec("INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES ('prior','My edited workspace','P','before','before','r'); INSERT INTO members(id,workspace_id,email,display_name,initials,role,is_setup_owner,created_at,updated_at) VALUES ('member','prior','existing@example.com','My name','ME','owner',1,'before','before'); INSERT INTO containers(id,workspace_id,name,visibility,created_at,updated_at,revision_id) VALUES ('container','prior','My documents','open','before','before','r');");
@@ -100,9 +102,8 @@ test('existing local member signs in through mail after additive migration witho
     assert.equal(fixture.sql.prepare('SELECT member_id FROM sessions').get()!.member_id,'member');
     assert.deepEqual(fixture.sql.prepare('PRAGMA foreign_key_check').all(),[]);
   } finally { fixture.close(); }
-});
-
-test('native local sign-in retains strict JSON magic links and exposes no sample-owner bypass', async () => {
+} },
+    { name: 'native local sign-in retains strict JSON magic links and exposes no sample-owner bypass', run: async () => {
   const fixture = localMailDatabase(); fixture.migrate();
   try {
     const app = routes();
@@ -118,45 +119,8 @@ test('native local sign-in retains strict JSON magic links and exposes no sample
     assert.equal(response.status,200);assert.deepEqual(await response.json(),{accepted:true});
     assert.equal(captured.length,1);
   } finally {fixture.close();}
-});
-
-// These are native SQLite/mail regressions, not hosted-provider or full clause acceptance.
-type LocalMailFixture = ReturnType<typeof localMailDatabase>;
-function outboxToken(fixture: LocalMailFixture, email: string) {
-  const rows = captured.map(message => ({message:JSON.stringify(message)}));
-  const messages = rows.map(row => JSON.parse(row.message as string) as {to:string[];text:string});
-  const message = messages.reverse().find(message => message.to.includes(email));
-  assert.ok(message, 'Expected a locally captured message for the recipient');
-  const token = new URL(message.text.split('\n')[0].split(': ').slice(1).join(': ')).searchParams.get('token');
-  assert.ok(token, 'Expected a native acceptance token');
-  return token;
-}
-async function authenticatedContext(fixture: LocalMailFixture, token: string): Promise<FeatureContext> {
-  const actor = await sessions(fixture.db).authenticate(new Headers({cookie:`slate_session=${token}`}));
-  assert.ok(actor, 'Expected an authenticated native session');
-  const unused = new Proxy({}, {get(){throw new Error('Invitation regression must not use files or jobs');}});
-  return {db:fixture.db,files:unused as R2Bucket,jobs:unused as Queue<unknown>,actor,now:new Date().toISOString()};
-}
-async function withLocalOwner(run: (fixture: LocalMailFixture, owner: FeatureContext) => Promise<void>, guestSql = false) {
-  // Native guest access uses D1's existing double-quoted SQL literals. Opt in
-  // only for these new guest cases; earlier fixtures retain Node's strict default.
-  const fixture = localMailDatabase(guestSql ? {enableDoubleQuotedStringLiterals:true} : {}); fixture.migrate();
-
-  try {
-
-    const app = routes();
-    assert.equal((await requestLink(app,fixture.db,settings.SETUP_OWNER_EMAIL)).status,200);
-    const accepted = await confirmLink(app,fixture.db,signInToken(fixture,settings.SETUP_OWNER_EMAIL));
-    await run(fixture,await authenticatedContext(fixture,sessionCookie(accepted).slice('slate_session='.length)));
-    assert.deepEqual(fixture.sql.prepare('PRAGMA foreign_key_check').all(),[]);
-  } finally {fixture.close();}
-}
-function invitationCounts(fixture: LocalMailFixture) {
-  return ['invitations','mail_deliveries','rer_mail_development_outbox','operation_receipts','page_grants','container_grants']
-    .map(table => fixture.sql.prepare(`SELECT count(*) n FROM ${table}`).get()!.n);
-}
-
-test('native local member invitation delivers once, accepts into a native session and preserves member authority', async () => {
+} },
+    { name: 'native local member invitation delivers once, accepts into a native session and preserves member authority', run: async () => {
   await withLocalOwner(async (fixture,owner) => {
     const input = {operationKey:crypto.randomUUID(),email:'member@example.com',kind:'member' as const};
     const first = await invite(owner,config(),input);
@@ -178,9 +142,8 @@ test('native local member invitation delivers once, accepts into a native sessio
     assert.deepEqual((await invite(owner,config(),{operationKey:crypto.randomUUID(),email:input.email,kind:'member'})).value,first.value);
     assert.deepEqual(invitationCounts(fixture).slice(0,3),before.slice(0,3));
   });
-});
-
-test('native local page and container guest invitations accept only their named scope and retain guest restrictions', async () => {
+} },
+    { name: 'native local page and container guest invitations accept only their named scope and retain guest restrictions', run: async () => {
   for (const [index,target] of (['page','container'] as const).entries()) {
     if(index>0){restoreMailCapture();installMailCapture();}
   await withLocalOwner(async (fixture,owner) => {
@@ -220,9 +183,8 @@ test('native local page and container guest invitations accept only their named 
     await assert.rejects(acceptInvitation(fixture.db,config(),token,owner),{code:'LINK_INVALID'});
   },true);
   }
-});
-
-test('native local invitations preserve scope validation, guest veto and revocation before acceptance', async () => {
+} },
+    { name: 'native local invitations preserve scope validation, guest veto and revocation before acceptance', run: async () => {
   await withLocalOwner(async (fixture,owner) => {
     const setup = (await completeFirstRun(owner,{operationKey:crypto.randomUUID(),workspaceName:'Local workspace',containerName:'Named container',pageTitle:'Named page'})).value;
     const before = invitationCounts(fixture);
@@ -244,9 +206,8 @@ test('native local invitations preserve scope validation, guest veto and revocat
     await assert.rejects(acceptInvitation(fixture.db,config(),token,owner),{code:'LINK_INVALID'});
     assert.equal(fixture.sql.prepare('SELECT count(*) n FROM members').get()!.n,1);
   },true);
-});
-
-test('native invitation readiness still refuses hosted providers without credentials before admission', async () => {
+} },
+    { name: 'native invitation readiness still refuses hosted providers without credentials before admission', run: async () => {
   await withLocalOwner(async (fixture,owner) => {
     const before = invitationCounts(fixture);
     for (const provider of ['resend','sendgrid'] as const) {
@@ -255,4 +216,51 @@ test('native invitation readiness still refuses hosted providers without credent
     }
     assert.deepEqual(invitationCounts(fixture),before);
   });
+} }
+  ];
+  for (const scenario of cases) {
+    try { await (installMailCapture)(); await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+    finally { await (restoreMailCapture)(); }
+  }
 });
+
+
+
+
+
+// These are native SQLite/mail regressions, not hosted-provider or full clause acceptance.
+type LocalMailFixture = ReturnType<typeof localMailDatabase>;
+function outboxToken(fixture: LocalMailFixture, email: string) {
+  const rows = captured.map(message => ({message:JSON.stringify(message)}));
+  const messages = rows.map(row => JSON.parse(row.message as string) as {to:string[];text:string});
+  const message = messages.reverse().find(message => message.to.includes(email));
+  assert.ok(message, 'Expected a locally captured message for the recipient');
+  const token = new URL(message.text.split('\n')[0].split(': ').slice(1).join(': ')).searchParams.get('token');
+  assert.ok(token, 'Expected a native acceptance token');
+  return token;
+}
+async function authenticatedContext(fixture: LocalMailFixture, token: string): Promise<FeatureContext> {
+  const actor = await sessions(fixture.db).authenticate(new Headers({cookie:`slate_session=${token}`}));
+  assert.ok(actor, 'Expected an authenticated native session');
+  const unused = new Proxy({}, {get(){throw new Error('Invitation regression must not use files or jobs');}});
+  return {db:fixture.db,files:unused as R2Bucket,jobs:unused as Queue<unknown>,actor,now:new Date().toISOString()};
+}
+async function withLocalOwner(run: (fixture: LocalMailFixture, owner: FeatureContext) => Promise<void>, guestSql = false) {
+  // Native guest access uses D1's existing double-quoted SQL literals. Opt in
+  // only for these new guest cases; earlier fixtures retain Node's strict default.
+  const fixture = localMailDatabase(guestSql ? {enableDoubleQuotedStringLiterals:true} : {}); fixture.migrate();
+
+  try {
+
+    const app = routes();
+    assert.equal((await requestLink(app,fixture.db,settings.SETUP_OWNER_EMAIL)).status,200);
+    const accepted = await confirmLink(app,fixture.db,signInToken(fixture,settings.SETUP_OWNER_EMAIL));
+    await run(fixture,await authenticatedContext(fixture,sessionCookie(accepted).slice('slate_session='.length)));
+    assert.deepEqual(fixture.sql.prepare('PRAGMA foreign_key_check').all(),[]);
+  } finally {fixture.close();}
+}
+function invitationCounts(fixture: LocalMailFixture) {
+  return ['invitations','mail_deliveries','rer_mail_development_outbox','operation_receipts','page_grants','container_grants']
+    .map(table => fixture.sql.prepare(`SELECT count(*) n FROM ${table}`).get()!.n);
+}
