@@ -11912,7 +11912,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-journey.mjs": {
-      "sha256": "b1796eda71c342828f67b1c5b43d6065c9c48de7084bd40b91fa381ece07e388",
+      "sha256": "4a9d01676d1b6ab093b46b53e4693f92f200bd5a17a617e1898fe72429895074",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/synced-refresh.mjs": {
+      "sha256": "0c292b0ce05a0d9b890a5961d01e4adeaa7b820bee44803a6257345f3cb82d32",
       "executable": false
     },
     "tests/qualification/ui-convergence/tables-journey.mjs": {

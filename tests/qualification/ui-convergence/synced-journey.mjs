@@ -3,6 +3,7 @@ import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
 import {ok} from './two-people-support.mjs';
 import {tap,type,checkpoint} from './touch-controls.mjs';
+import {saveAndMeasureSyncedCopy} from './synced-refresh.mjs';
 export async function syncedJourney(state,width){
  const {origin,context,api}=state,key=()=>randomUUID(),title='Incident escalation source',initial='Contact the incident coordinator.',changed='Contact the duty lead immediately.';
  const container=(await ok(context,origin,'POST','/api/containers',{operationKey:key(),name:'Incident source team',visibility:'private'})).value.id;
@@ -21,7 +22,7 @@ export async function syncedJourney(state,width){
   for(const id of copies){await page.goto(`${origin}/app/pages/${id}`,{waitUntil:'networkidle'});await tap(page.getByRole('button',{name:/Add block/}));await tap(page.getByRole('option',{name:'Synced block',exact:true}));const dialog=page.getByRole('dialog',{name:'Insert synced block',exact:true});await type(page,dialog.getByRole('textbox',{name:'Source block link',exact:true}),link);await tap(dialog.getByRole('button',{name:'Insert synced copy',exact:true}));await expect(dialog).toBeHidden();await expect(page.locator('[aria-label="Synced copy"]')).toContainText(initial);}
   await state.page.goto(`${origin}/app/pages/${copies[1]}`,{waitUntil:'networkidle'});await page.goto(`${origin}/app/pages/${copies[0]}`,{waitUntil:'networkidle'});
   await type(page,page.getByRole('textbox',{name:'Synced paragraph',exact:true}),changed);
-  const started=Date.now();await tap(page.getByRole('button',{name:'Save synced block',exact:true}));await expect(state.page.locator('[aria-label="Synced copy"]')).toContainText(changed,{timeout:5000});assert.ok(Date.now()-started<=5000,'The visible copy refreshes within five seconds.');await checkpoint(page,'synced copy edited');
+  await saveAndMeasureSyncedCopy(page,state.page,changed);await checkpoint(page,'synced copy edited');
   const readerId=(await context.request.get(origin+'/api/members')).json().then(body=>body.items.find(m=>m.displayName==='Morgan Reader').id);
   const grant=(await ok(context,origin,'POST','/api/sharing',{operationKey:key(),targetKind:'page',targetId:copies[0],principalKind:'member',principalId:await readerId,level:'edit'})).value.id;
   await reader.addCookies([{name:'slate_session',value:state.readerCookie.split('=')[1],url:origin}]);const denied=await reader.newPage();await denied.goto(`${origin}/app/pages/${copies[0]}`,{waitUntil:'networkidle'});await expect(denied.getByRole('complementary',{name:'Access needed',exact:true})).toBeVisible();await expect(denied.locator('body')).not.toContainText(changed);await expect(denied.locator('body')).not.toContainText(title);await checkpoint(denied,'synced source access needed');
