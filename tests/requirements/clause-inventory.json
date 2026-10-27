@@ -2876,11 +2876,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/discovery/space-hub.test.ts",
-          "testName": "CONT-011 \u2014 a space opens its editable home with normal page authority and revision conflicts"
-        },
-        {
-          "file": "tests/flagship/discovery/space-hub.test.ts",
-          "testName": "CONT-011 \u2014 an owner curates a company hub for a new member, filtering private, unpublished and unverified content on every read"
+          "testName": "CONT-011 \u2014 space homes and curated hubs retain revision and reader authority"
         }
       ]
     },

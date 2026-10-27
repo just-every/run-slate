@@ -1146,16 +1146,7 @@
     },
     {
       "file": "tests/flagship/discovery/space-hub.test.ts",
-      "testName": "CONT-011 \u2014 a space opens its editable home with normal page authority and revision conflicts",
-      "kind": "supporting-regression",
-      "clauses": [
-        "CONT-011"
-      ],
-      "reason": "Native HTTP journey covers space-home editing and owner hub curation with live reader permissions, revision conflicts, published snapshots and verification boundaries. Browser acceptance runs separately at 1440 and 390."
-    },
-    {
-      "file": "tests/flagship/discovery/space-hub.test.ts",
-      "testName": "CONT-011 \u2014 an owner curates a company hub for a new member, filtering private, unpublished and unverified content on every read",
+      "testName": "CONT-011 \u2014 space homes and curated hubs retain revision and reader authority",
       "kind": "supporting-regression",
       "clauses": [
         "CONT-011"
