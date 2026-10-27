@@ -15,7 +15,10 @@ import { slackNetwork, type SlackAudienceFixture } from '../helpers/slack-networ
 import { captureMail } from '../helpers/mail-edge';
 
 beforeEach(resetDeployment);
-contract('NOTIF-003', 'Chat destination sends link-only messages, shows last delivery and failure, retries only transient failures, marks revoked authorization as needing attention and stops on disconnect', async () => {
+test("NOTIF-003 — chat admission requires fresh authority and keeps link-only delivery inside the current audience", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: 'Chat destination sends link-only messages, shows last delivery and failure, retries only transient failures, marks revoked authorization as needing attention and stops on disconnect', run: async () => {
   const { workspaceId } = await seedWorkspace();
   const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner@chat.test', displayName: 'Alex Owner' })).memberId;
   const reader = (await seedMember(workspaceId, { role: 'member', email: 'reader@chat.test', displayName: 'Morgan Reader' })).memberId;
@@ -167,8 +170,8 @@ contract('NOTIF-003', 'Chat destination sends link-only messages, shows last del
     expect((await history()).length).toBeGreaterThanOrEqual(3);
     await expect(assertStoredConfiguration(missingKey)).resolves.toBeUndefined();
   } finally { edge.restore(); vi.useRealTimers(); }
-});
-test('the single-destination chat door stores a credential only after a fresh email confirmation', async () => {
+} },
+    { name: 'the single-destination chat door stores a credential only after a fresh email confirmation', run: async () => {
   const { workspaceId } = await seedWorkspace();
   const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner@chat.test', displayName: 'Alex Owner' })).memberId;
   await seedMember(workspaceId, { role: 'member', email: 'reader@chat.test', displayName: 'Morgan Reader' });
@@ -186,8 +189,8 @@ test('the single-destination chat door stores a credential only after a fresh em
     expect(confirmed.status, await confirmed.clone().text()).toBe(200);
     expect(await env.DB.prepare('SELECT COUNT(*) AS count FROM chat_connections').first<number>('count')).toBe(1);
   } finally { mail.restore(); edge.restore(); }
-});
-test('a person whose own Slack token posts to a channel stays in that channel audience', async () => {
+} },
+    { name: 'a person whose own Slack token posts to a channel stays in that channel audience', run: async () => {
   const { workspaceId } = await seedWorkspace();
   const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner@chat.test', displayName: 'Alex Owner' })).memberId;
   const reader = (await seedMember(workspaceId, { role: 'member', email: 'reader@chat.test', displayName: 'Morgan Reader' })).memberId;
@@ -219,4 +222,11 @@ test('a person whose own Slack token posts to a channel stays in that channel au
     expect(edge.messages.map(message => message.text).join('\n')).toContain('Shared incident review');
     expect(JSON.stringify(edge.messages)).not.toContain('Reader-only acquisition plan');
   } finally { edge.restore(); }
+} }
+  ];
+  for (const scenario of cases) {
+    try { await (resetDeployment)(); await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+    finally {  }
+  }
 });
