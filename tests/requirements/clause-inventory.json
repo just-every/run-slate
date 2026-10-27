@@ -9,19 +9,7 @@
       "supportingTests": [
         {
           "file": "tests/e2e/landing.test.ts",
-          "testName": "HOME-001 landing page supporting regressions installed root: the Worker answers / with the Lobby, which offers setup until the owner finishes first-run setup and sign-in after"
-        },
-        {
-          "file": "tests/e2e/landing.test.ts",
-          "testName": "HOME-001 landing page supporting regressions landing page: owner identity, description and the credit toggle are read from the owner configuration"
-        },
-        {
-          "file": "tests/e2e/landing.test.ts",
-          "testName": "HOME-001 landing page supporting regressions landing page: sections, the Run page link and outbound addresses are the static product description only"
-        },
-        {
-          "file": "tests/e2e/landing.test.ts",
-          "testName": "HOME-001 landing page supporting regressions landing page: source loads nothing off-origin, sets no cookies and tracks no one"
+          "testName": "HOME-001 landing page supporting regressions installed lobby and public landing preserve owner configuration, navigation and privacy"
         }
       ]
     },
