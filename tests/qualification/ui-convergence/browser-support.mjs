@@ -3,7 +3,7 @@ import { initializeWebhookEdge, setWebhookFailure } from '../../helpers/webhook-
 import { testDevKey } from '../../e2e/dev-key.mjs';
 import assert from 'node:assert/strict';
 import { signInWithOutbox } from '../../e2e/outbox-auth.mjs';
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { chromium, expect, request } from '@playwright/test';
 import { applyMigrations, executeD1, root, stop, testSessionSecret } from '../../e2e/runtime-harness.mjs';
@@ -14,6 +14,23 @@ import { initializeS3Edge, setS3Failure, readS3Requests, readS3Objects } from '.
 import { initializeFolderEdge, readFolderRequests, setFileCardFixture } from '../../helpers/folder-edge.mjs';
 import { initializeSamlEdge, installSamlIdp, closeSamlIdp, setSamlDns, setSamlAssertion, readSamlRequests } from '../../helpers/saml-edge.mjs';
 export { accessible } from './browser-evidence.mjs';
+
+const ownerEmail = ['owner', 'test.invalid'].join('@');
+const readerEmail = ['reader', 'test.invalid'].join('@');
+
+// Prepare the empty schema before registering journeys. Each journey copies it
+// before seeding identity, so member data, sessions, erasure and restore stay
+// isolated in its own D1 store. The migration CLI closes before any copy.
+const pristineDatabase = await (async () => {
+  await mkdir(path.join(root, '.artifacts/ui-convergence'), { recursive: true });
+  const template = await mkdtemp(path.join(root, '.artifacts/ui-convergence/schema-'));
+  await applyMigrations(template);
+  return path.join(template, 'v3', 'd1');
+})();
+async function initializeWorkspaceDatabase(state) {
+  await mkdir(path.join(state, 'v3'), { recursive: true });
+  await cp(pristineDatabase, path.join(state, 'v3', 'd1'), { recursive: true });
+}
 
 /** Test-only identity records replace mailbox possession, never successful API responses. */
 /** `scheduled` exposes the Worker's own cron handler, which a journey fires in place of waiting for the clock. */
@@ -30,15 +47,15 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
     if (backups) await initializeS3Edge(state);
     if (folders) await initializeFolderEdge(state);
     await initializeEmbedEdge(state);
-    await applyMigrations(state);
+    await initializeWorkspaceDatabase(state);
     const now = new Date().toISOString();
     await executeD1(state, `INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES('browser-workspace','Harbor operations','','${now}','${now}','initial');
-      INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('browser-owner','browser-workspace','owner@test.invalid','Alex Owner','AO','owner','member','active',1,'${now}','${now}');
-      INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('browser-reader','browser-workspace','reader@test.invalid','Morgan Reader','MR','member','member','active',0,'${now}','${now}');`);
+      INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('browser-owner','browser-workspace','${ownerEmail}','Alex Owner','AO','owner','member','active',1,'${now}','${now}');
+      INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at) VALUES('browser-reader','browser-workspace','${readerEmail}','Morgan Reader','MR','member','member','active',0,'${now}','${now}');`);
     const origin = `http://127.0.0.1:${Number(process.env.SHELL_APP_PORT ?? 57000)}`;
     const workerVars = {
       SESSION_SECRET: testSessionSecret, LOCAL_DEVELOPMENT: 'true', APP_URL: origin,
-      SETUP_OWNER_EMAIL: 'owner@test.invalid', MAIL_PROVIDER: 'development', MAIL_FROM: 'owner@test.invalid', RER_DEV_KEY: testDevKey,
+      SETUP_OWNER_EMAIL: ownerEmail, MAIL_PROVIDER: 'development', MAIL_FROM: ownerEmail, RER_DEV_KEY: testDevKey,
       MAIL_API_KEY: 'TEST-ONLY-NOT-A-PROVIDER-CREDENTIAL', AI_ENABLED: 'false',
       AI_API_KEY: '', AI_PROVIDER: '', AI_LOCAL_URL: '', AI_LOCAL_TOKEN: '',
       ...(slack ? { CONNECTOR_CREDENTIALS_KEY: 'TEST-ONLY-SLACK-ENCRYPTION-KEY-32-CHARACTERS' } : {}),
@@ -52,12 +69,12 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       return started;
     };
     runtime = await startWorker();
-    const ownerSession=await signInWithOutbox(runtime.baseUrl,'owner@test.invalid');
-    const readerSession=await signInWithOutbox(runtime.baseUrl,'reader@test.invalid');
+    const ownerSession=await signInWithOutbox(runtime.baseUrl,ownerEmail);
+    const readerSession=await signInWithOutbox(runtime.baseUrl,readerEmail);
     const token=ownerSession.cookie.split('=')[1],readerToken=readerSession.cookie.split('=')[1];
     // Software raster, one raster thread, fixed colour and text handling: captures of the same page match across browser launches.
     const rasterArgs = ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--disable-gpu-rasterization', '--disable-lcd-text', '--font-render-hinting=none', '--force-color-profile=srgb', '--num-raster-threads=1', '--disable-partial-raster', '--disable-skia-runtime-opts'];
-    browser = await chromium.launch({ headless: true, args: ['--use-mock-keychain', '--password-store=basic', ...rasterArgs] });
+    browser = await chromium.launch({ headless: true, ...(process.env.SLATE_CHROMIUM_PATH ? { executablePath: process.env.SLATE_CHROMIUM_PATH } : {}), args: ['--no-sandbox', '--use-mock-keychain', '--password-store=basic', ...rasterArgs] });
     const context = await browser.newContext({ viewport, permissions: ['clipboard-read', 'clipboard-write'], locale: 'en-US' });
     if (saml) await installSamlIdp(context, state, runtime.baseUrl);
     await context.addCookies([{ name: 'slate_session', value: token, url: runtime.baseUrl }]);
@@ -200,7 +217,7 @@ export async function setupWorkspace({ page, origin, api, records }) {
   await expect(page.getByRole('heading', { name: 'Name this workspace', exact: true })).toBeVisible();
   await expect(page.getByLabel('Workspace name', { exact: true })).toHaveValue('');
   assert.equal(await page.getByLabel('Workspace name', { exact: true }).evaluate(input => input.placeholder), '');
-  await expect(page.getByTestId('member-email')).toHaveText('owner@test.invalid');
+  await expect(page.getByTestId('member-email')).toHaveText(ownerEmail);
   await expect(page.locator('body')).not.toContainText(/Aurora Android Launch|Jamie Park|Customer Success|How we handle an escalation/);
   const next = page.getByRole('button', { name: 'Continue', exact: true });
   await expect(next).toBeDisabled();

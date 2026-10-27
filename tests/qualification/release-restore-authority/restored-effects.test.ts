@@ -56,21 +56,27 @@ async()=>{
 
 
 
-test('EFFECT-001 — a normal current grant permits one dispatch and receipt replay sends nothing',async()=>{
+test("EFFECT-001 \u2014 current grants dispatch once with receipt replay while revoked grants deny without mutations", async () => {
+  await scenario("EFFECT-001 \u2014 a normal current grant permits one dispatch and receipt replay sends nothing", async () => {
  const f=await effectFixture();
  expect((await dispatchEffect(f.ctx,f.effectId)).state).toBe('confirmed');
  const before=await durableState();
  expect((await dispatchEffect(f.ctx,f.effectId)).state).toBe('confirmed');
  expect(f.sends()).toBe(1);expect(await durableState()).toEqual(before);
-});
 
-test('EFFECT-001 — revoked grants still deny ordinary non-restored effects without mutations',async()=>{
+  });
+  await reset();
+  await scenario("EFFECT-001 \u2014 revoked grants still deny ordinary non-restored effects without mutations", async () => {
  const f=await effectFixture();
  await revokeGrant(f.ctx,{id:f.input.grantId,operationKey:crypto.randomUUID()});
  const before=await durableState();
  await expect(dispatchEffect({...f.context(),sourceSecret:f.ctx.sourceSecret},f.effectId)).rejects.toMatchObject({status:403,code:'GRANT_REQUIRED'});
  expect(await durableState()).toEqual(before);expect(f.sends()).toBe(0);
+
+  });
 });
+
+
 
 test('PORT-005 — missing and revoked actors are rejected before restored history or effect authority is disclosed',async()=>{
  let firstCase=true;
@@ -122,3 +128,9 @@ test('AI-006 — non-restored paused, cancelled and completed runs retain the ex
  } finally { vi.unstubAllGlobals(); }
  }
 });
+
+// Keep each clause point visible in the failure while sharing one family registration.
+async function scenario(name: string, run: () => Promise<void>) {
+  try { await run(); }
+  catch (cause) { throw new Error(`Scenario ${name} failed`, { cause }); }
+}

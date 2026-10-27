@@ -1,17 +1,11 @@
 import {beforeEach,afterEach,test,expect,vi} from 'vitest';
 import {fixture,reset} from './fixture';
-import {exchangeToken} from '../../../src/core/features/connectors/oauth-provider';
 import {connect} from '../../../src/core/features/connectors/service';
 import {getEffectAdapter} from '../../../src/core/features/connectors/effects';
 import {nativeHash} from '../../../src/core/features/connectors/native-effects';
 
 beforeEach(reset);afterEach(()=>vi.unstubAllGlobals());
-test('SOURCE-006 — native OAuth refuses a redirect without replaying or forwarding the personal authorization code',async()=>{
- const requests:{url:string;redirect:RequestRedirect|undefined}[]=[];
- vi.stubGlobal('fetch',async(input:Request|string|URL,init?:RequestInit)=>{requests.push({url:String(input),redirect:init?.redirect});return new Response(null,{status:302,headers:{Location:'https://unexpected.test/token'}});});
- await expect(exchangeToken('orbit',{code:'labelled-single-use-code'},'https://native.test/api/delegation/v1/token')).rejects.toMatchObject({code:'OAUTH_EXCHANGE_FAILED'});
- expect(requests).toEqual([{url:'https://native.test/api/delegation/v1/token',redirect:'manual'}]);
-});
+
 test('SOURCE-004 — typed native article receipt binds exact publication audience and rejects invalid observation time without dispatch',async()=>{
  const f=await fixture(),ctx=f.context(),origin='https://native.test',target='projects/account/articles/article',secret='test-only-credential-key-1234567890123456',now=ctx.now;
  const identity={protocol:'rer-delegation/1',provider:'happytohelp',installationId:'installation',accountId:'account',principalId:'native-owner',label:'Labelled protocol identity',grantId:'grant',expiresAt:'2099-01-01T00:00:00.000Z',scopes:['knowledge.article.read','knowledge.article.update','knowledge.article.publish'],targets:[target],capabilities:{readKinds:['knowledge.article'],operations:['happytohelp.article.update'],conditionalWrite:true,providerIdempotency:true,readBack:true,reconciliationAttribution:true}};

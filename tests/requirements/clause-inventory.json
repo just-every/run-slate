@@ -1859,11 +1859,11 @@
         },
         {
           "file": "tests/qualification/authority/learned-provenance.test.ts",
-          "testName": "INQ-005 \u2014 learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse"
+          "testName": "INQ-005 \u2014 learned provenance and published inquiry references preserve exact disclosed sources"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 \u2014 revoking an older definition source denies the all-version HTTP read without revealing instructions"
+          "testName": "SKILL-001 \u2014 method disclosure and portable snapshots retain exact source, audience and attachment boundaries"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
@@ -1872,14 +1872,6 @@
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
           "testName": "SKILL-002 \u2014 held-out evaluation admission rechecks full draft definition beyond frozen case refs"
-        },
-        {
-          "file": "tests/qualification/authority/snapshot.test.ts",
-          "testName": "SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
-        },
-        {
-          "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 \u2014 a readable host and source cannot widen the exact method audience"
         }
       ]
     },
@@ -2035,7 +2027,7 @@
         },
         {
           "file": "tests/qualification/authority/decision-authority.test.ts",
-          "testName": "SOURCE-003 \u2014 claims keep accepted authority through review, withdraw it when nested citations change or layer is removed, and preserve exact history through restore"
+          "testName": "SOURCE-003 \u2014 decision authority and exact historical prose retain current citation boundaries through review and restore"
         }
       ]
     },
@@ -2063,11 +2055,11 @@
       "supportingTests": [
         {
           "file": "tests/qualification/authority/learned-provenance.test.ts",
-          "testName": "INQ-005 \u2014 learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse"
+          "testName": "INQ-005 \u2014 learned provenance and published inquiry references preserve exact disclosed sources"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 \u2014 revoking an older definition source denies the all-version HTTP read without revealing instructions"
+          "testName": "SKILL-001 \u2014 method disclosure and portable snapshots retain exact source, audience and attachment boundaries"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
@@ -2080,14 +2072,6 @@
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
           "testName": "SOURCE-005 \u2014 complete archive refuses retained skill prose when its source authority has been erased"
-        },
-        {
-          "file": "tests/qualification/authority/snapshot.test.ts",
-          "testName": "SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
-        },
-        {
-          "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 \u2014 a readable host and source cannot widen the exact method audience"
         }
       ]
     },
@@ -2099,11 +2083,7 @@
       "supportingTests": [
         {
           "file": "tests/qualification/authority/disconnect.test.ts",
-          "testName": "SOURCE-006 \u2014 disconnect atomically stops queued work, withdraws activation and grant authority, and reconnect preserves suspension"
-        },
-        {
-          "file": "tests/qualification/authority/native-boundaries.test.ts",
-          "testName": "SOURCE-006 \u2014 native OAuth refuses a redirect without replaying or forwarding the personal authorization code"
+          "testName": "SOURCE-006 \u2014 OAuth redirects preserve authorization codes and disconnect withdraws executable authority without reactivation"
         }
       ]
     },
@@ -2119,15 +2099,7 @@
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 \u2014 revoking an older definition source denies the all-version HTTP read without revealing instructions"
-        },
-        {
-          "file": "tests/qualification/authority/snapshot.test.ts",
-          "testName": "SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
-        },
-        {
-          "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 \u2014 a readable host and source cannot widen the exact method audience"
+          "testName": "SKILL-001 \u2014 method disclosure and portable snapshots retain exact source, audience and attachment boundaries"
         }
       ]
     },
@@ -2179,11 +2151,7 @@
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "EFFECT-001 \u2014 a normal current grant permits one dispatch and receipt replay sends nothing"
-        },
-        {
-          "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "EFFECT-001 \u2014 revoked grants still deny ordinary non-restored effects without mutations"
+          "testName": "EFFECT-001 \u2014 current grants dispatch once with receipt replay while revoked grants deny without mutations"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
@@ -2319,7 +2287,7 @@
       "supportingTests": [
         {
           "file": "tests/qualification/authority/learned-provenance.test.ts",
-          "testName": "INQ-005 \u2014 learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse"
+          "testName": "INQ-005 \u2014 learned provenance and published inquiry references preserve exact disclosed sources"
         },
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
