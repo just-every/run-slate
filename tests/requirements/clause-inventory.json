@@ -2003,7 +2003,7 @@
         },
         {
           "file": "tests/qualification/authority/snapshot.test.ts",
-          "testName": "SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
+          "testName": "SKILL-001 \u2014 portable skill snapshots preserve exact definitions and only currently disclosed attachments"
         }
       ]
     },
@@ -2223,7 +2223,7 @@
         },
         {
           "file": "tests/qualification/authority/snapshot.test.ts",
-          "testName": "SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
+          "testName": "SKILL-001 \u2014 portable skill snapshots preserve exact definitions and only currently disclosed attachments"
         }
       ]
     },
@@ -2263,7 +2263,7 @@
         },
         {
           "file": "tests/qualification/authority/snapshot.test.ts",
-          "testName": "SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
+          "testName": "SKILL-001 \u2014 portable skill snapshots preserve exact definitions and only currently disclosed attachments"
         }
       ]
     },

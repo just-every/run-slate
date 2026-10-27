@@ -8,7 +8,8 @@ import {uploadMedia} from '../../../src/core/features/media/service';
 import {replaceBlocks} from '../../../src/core/features/editor/service';
 import {sessionFor} from '../../e2e/setup/fixtures';
 beforeEach(reset);
-test('SKILL-001 — portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks',async()=>{
+test("SKILL-001 \u2014 portable skill snapshots preserve exact definitions and only currently disclosed attachments", async () => {
+  await scenario("SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks", async () => {
  const f=await fixture(),host=await document(f,'Skill source with attachment'),bytes=new TextEncoder().encode('Original permitted source attachment');
  await env.FILES.put('test/skill-attachment',bytes);await env.DB.prepare("INSERT INTO files(id,workspace_id,page_id,storage_key,original_name,content_type,size_bytes,created_at) VALUES('skill-file',?,?,'test/skill-attachment','original.txt','text/plain',?,?)").bind(f.workspaceId,host.id,bytes.length,f.context().now).run();
  const cited=await replaceBlocks(f.context(),host.id,{operationKey:'cite-attachment',expectedRevisionId:host.ref.revisionId,blocks:[{id:'skill-attachment-block',blockType:'media',treePosition:'1',content:{kind:'file',source:{url:'/api/media/skill-file',fileId:'skill-file',name:'original.txt'},caption:'',alt:''}}]}),def=definition(f,[{...host.ref,revisionId:cited.receipt.revisionId}]);
@@ -18,8 +19,10 @@ test('SKILL-001 — portable SKILL.md preserves exact definition and original at
  expect(strFromU8(archive['SKILL.md']!)).toContain('no live synchronization or execution authority');expect(archive['attachments/0']).toEqual(bytes);
  await env.DB.prepare('DELETE FROM page_grants WHERE id=?').bind(host.grantId).run();
  await expect(exportSkillSnapshot(f.context(f.reader),skill.value.revisionId)).rejects.toMatchObject({status:404});
-});
-test('skill snapshot export carries only the attachments its exact source revisions show the reader',async()=>{
+
+  });
+  await reset();
+  await scenario("skill snapshot export carries only the attachments its exact source revisions show the reader", async () => {
  const {SELF}=await import('cloudflare:test');
  const f=await fixture(),host=await document(f,'Skill source with a shown attachment'),owner=f.context();
  const upload=(name:string,text:string)=>uploadMedia(owner,{operationKey:crypto.randomUUID(),pageId:host.id,name,contentType:'text/plain',bytes:new TextEncoder().encode(text)});
@@ -34,4 +37,13 @@ test('skill snapshot export carries only the attachments its exact source revisi
  const archive=unzipSync(new Uint8Array(await response.arrayBuffer()));
  expect(JSON.parse(strFromU8(archive['attachments.json']!)).map((file:{name:string})=>file.name)).toEqual(['shown.txt']);
  expect(Object.values(archive).map(bytes=>strFromU8(bytes)).join('\n')).not.toMatch(/unreleased/i);
+
+  });
 });
+
+
+// Keep each clause point visible in the failure while sharing one family registration.
+async function scenario(name: string, run: () => Promise<void>) {
+  try { await run(); }
+  catch (cause) { throw new Error(`Scenario ${name} failed`, { cause }); }
+}
