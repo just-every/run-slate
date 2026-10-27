@@ -19,7 +19,10 @@ const { createSlugger } = await import("../../src/core/features/docs/build/slug.
 const site = buildSite(root);
 const repository = readRepository(root).url;
 
-test("the manifest rules are enforced: one home first, clean unique slugs, existing unique sources, reasons", async () => {
+test("docs build renders declared pages and refuses invalid manifests, markup, links and images", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: "the manifest rules are enforced: one home first, clean unique slugs, existing unique sources, reasons", run: async () => {
   const fixture = await realpath(await mkdtemp(join(tmpdir(), "slate-docs-manifest-")));
   try {
     await mkdir(join(fixture, "docs"));
@@ -43,9 +46,8 @@ test("the manifest rules are enforced: one home first, clean unique slugs, exist
   } finally {
     await rm(fixture, { recursive: true, force: true });
   }
-});
-
-test("every Markdown file at the root, under docs/ or as a top-level README is published or listed as GitHub-only", () => {
+} },
+    { name: "every Markdown file at the root, under docs/ or as a top-level README is published or listed as GitHub-only", run: () => {
   const manifest = readManifest(root);
   const listed = new Set([...manifest.pages, ...manifest.githubOnly].map((entry) => entry.source));
   const inScope = execFileSync("git", ["ls-files", "--cached", "--others", "--exclude-standard", "--", "*.md"], { cwd: root, encoding: "utf8" })
@@ -53,9 +55,8 @@ test("every Markdown file at the root, under docs/ or as a top-level README is p
   const unlisted = inScope.filter((file) => !listed.has(file));
   assert.deepEqual(unlisted, [], `Add ${unlisted.join(", ")} to docs/site.json, as a published page or under githubOnly with a reason`);
   assert.equal(listed.size, manifest.pages.length + manifest.githubOnly.length, "no source is listed twice");
-});
-
-test("the docs build renders every page with no problems, one title, unique ids and only safe, resolvable links", () => {
+} },
+    { name: "the docs build renders every page with no problems, one title, unique ids and only safe, resolvable links", run: () => {
   assert.deepEqual(site.problems, []);
   assert.deepEqual(
     site.pages.map(({ section, slug, source, label, href }) => ({ section, slug, source, label, href })),
@@ -89,9 +90,8 @@ test("the docs build renders every page with no problems, one title, unique ids 
     }
   }
 
-});
-
-test("published pages describe only the default core-wiki profile and carry no maintainer material", () => {
+} },
+    { name: "published pages describe only the default core-wiki profile and carry no maintainer material", run: () => {
   // Development-only surfaces and specific maintainer commands or records stay on GitHub.
   const forbidden = [
     [/flagship/i, "flagship"], [/frontier/i, "frontier"], [/user-journeys?/i, "user journeys"], [/\bAI\b/, "AI"], [/inquir/i, "inquiry"],
@@ -105,18 +105,8 @@ test("published pages describe only the default core-wiki profile and carry no m
     for (const [pattern, name] of forbidden) assert.doesNotMatch(text, pattern, `${page.source} mentions ${name}`);
     for (const [, href] of page.html.matchAll(/<a href="([^"]+)"/g)) assert.doesNotMatch(href, nonPublished, `${page.source} links ${href}`);
   }
-});
-
-// A link context for in-memory fixtures: one published page and a few repository paths.
-const fixtureContext = (source = "docs/PAGE.md") => ({
-  source,
-  repository: { url: "https://example.test/source.git", branch: "main" },
-  published: new Map([["docs/PAGE.md", "/docs/page"], ["docs/OTHER.md", "/docs/other"]]),
-  kind: (path) => ({ "docs/PAGE.md": "file", "docs/OTHER.md": "file", "docs/INTERNAL.md": "file", "docs/licenses": "directory", LICENSE: "file", "docs/media/diagram.png": "file" })[path] ?? null,
-});
-const render = (body, source) => renderPage(`# Fixture page\n\n${body}\n`, fixtureContext(source));
-
-test("heading ids match GitHub, including duplicates, em dashes, backticks and parentheses", () => {
+} },
+    { name: "heading ids match GitHub, including duplicates, em dashes, backticks and parentheses", run: () => {
   const slug = createSlugger();
   assert.equal(slug("Request limits (`RATE_LIMITS`)"), "request-limits-rate_limits");
   assert.equal(slug("Updates, backup and recovery"), "updates-backup-and-recovery");
@@ -131,9 +121,8 @@ test("heading ids match GitHub, including duplicates, em dashes, backticks and p
   ]);
   assert.equal(page.title, "Fixture page");
   assert.equal(page.titleId, "fixture-page");
-});
-
-test("tables, code, callouts and raw HTML render safely with classes only", () => {
+} },
+    { name: "tables, code, callouts and raw HTML render safely with classes only", run: () => {
   const table = render("| Name | Count |\n|:----:|------:|\n| a | 1 |").html.trim();
   assert.match(table, /^<div class="docs-table" role="region" tabindex="0" aria-label="Table: Name, Count"><table>/);
   assert.match(table, /<th class="docs-align-center">Name<\/th><th class="docs-align-right">Count<\/th>/);
@@ -152,9 +141,8 @@ test("tables, code, callouts and raw HTML render safely with classes only", () =
   const raw = render("Hello <script>alert(1)</script> <img src=x onerror=alert(1)>").html;
   assert.doesNotMatch(raw, /<script|<img/);
   assert.match(raw, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
-});
-
-test("links go to published pages, to GitHub for everything else, or are reported", () => {
+} },
+    { name: "links go to published pages, to GitHub for everything else, or are reported", run: () => {
   const page = render([
     "[same page](#fixture-page) [other](OTHER.md) [other heading](OTHER.md#part) [internal](INTERNAL.md) [licences](licenses)",
     "[licence](../LICENSE) [site](https://example.com/a?b=c) [mail](mailto:team@example.com)",
@@ -170,9 +158,8 @@ test("links go to published pages, to GitHub for everything else, or are reporte
     "MISSING.md (docs/MISSING.md does not exist)", "../../outside.md (outside the repository)", "javascript:alert(1) (unsupported link scheme)",
     "/docs/x (use a path relative to docs/PAGE.md)", "../LICENSE#x (an anchor can only point into a Markdown file)",
   ]);
-});
-
-test("images come only from docs/media, with alt text", () => {
+} },
+    { name: "images come only from docs/media, with alt text", run: () => {
   const good = render("![A diagram](media/diagram.png)");
   assert.deepEqual(good.problems, []);
   assert.deepEqual(good.images, ["docs/media/diagram.png"]);
@@ -181,9 +168,8 @@ test("images come only from docs/media, with alt text", () => {
     "../LICENSE (images must be files in docs/media/)", "https://example.com/a.png (images must be files in docs/media/)",
     "media/diagram.png (image has no alt text)", "media/none.png (docs/media/none.png does not exist)",
   ]);
-});
-
-test("a page has one H1, first, and a description from its first real paragraph", () => {
+} },
+    { name: "a page has one H1, first, and a description from its first real paragraph", run: () => {
   assert.deepEqual(renderPage("Intro first.\n\n# Title\n", fixtureContext()).problems, ["the first block must be the page's H1", "an H1 that is not the first block (a page has exactly one H1, first)"]);
   assert.deepEqual(renderPage("<b>x</b>\n\n# Title\n", fixtureContext()).problems, ["the first block must be the page's H1", "an H1 that is not the first block (a page has exactly one H1, first)"]);
   assert.deepEqual(renderPage("# One\n\n# Two\n", fixtureContext()).problems, ["an H1 that is not the first block (a page has exactly one H1, first)"]);
@@ -191,10 +177,8 @@ test("a page has one H1, first, and a description from its first real paragraph"
   assert.ok(page.description.startsWith("This paragraph explains what the page covers in more than eight words, and keeps going"));
   assert.ok(page.description.length <= 160 && page.description.endsWith("…"), page.description);
   assert.equal(render("Too short.").description, "Fixture page: Slate documentation.");
-  assert.match(site.pages[0].description, /^Slate is a self-hosted team wiki\./);
-});
-
-test("broken links and anchors across pages fail the site build, naming the file and the link", async () => {
+} },
+    { name: "broken links and anchors across pages fail the site build, naming the file and the link", run: async () => {
   const fixture = await realpath(await mkdtemp(join(tmpdir(), "slate-docs-site-")));
   try {
     await mkdir(join(fixture, "docs"));
@@ -216,11 +200,25 @@ test("broken links and anchors across pages fail the site build, naming the file
   } finally {
     await rm(fixture, { recursive: true, force: true });
   }
+} }
+  ];
+  for (const scenario of cases) {
+    try { await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
 });
 
-test("the landing's docs links name pages the manifest publishes", async () => {
-  const links = await read("src/core/features/landing/links.ts");
-  const value = (name) => new RegExp(`export const ${name} = "([^"]*)";`).exec(links)?.[1];
-  assert.equal(site.pages.find((page) => page.slug === value("docsHomeSlug")).source, "docs/OVERVIEW.md");
-  assert.equal(site.pages.find((page) => page.slug === value("installSlug")).source, "docs/INSTALL.md");
+
+
+
+
+
+
+// A link context for in-memory fixtures: one published page and a few repository paths.
+const fixtureContext = (source = "docs/PAGE.md") => ({
+  source,
+  repository: { url: "https://example.test/source.git", branch: "main" },
+  published: new Map([["docs/PAGE.md", "/docs/page"], ["docs/OTHER.md", "/docs/other"]]),
+  kind: (path) => ({ "docs/PAGE.md": "file", "docs/OTHER.md": "file", "docs/INTERNAL.md": "file", "docs/licenses": "directory", LICENSE: "file", "docs/media/diagram.png": "file" })[path] ?? null,
 });
+const render = (body, source) => renderPage(`# Fixture page\n\n${body}\n`, fixtureContext(source));

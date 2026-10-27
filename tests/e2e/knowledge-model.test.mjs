@@ -83,7 +83,10 @@ test("the eight policies default to Notion and accept every alternative without 
   });
 });
 
-test("draft and scheduled pages admit only the author or an active own-grant principal", () => {
+test("current authority controls page grants, external access and operation replay", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: "draft and scheduled pages admit only the author or an active own-grant principal", run: () => {
   for (const lifecycle of ["draft", "scheduled"]) {
     const privatePage = context({ page: { ...context().page, lifecycle } });
     assert.equal(evaluatePageAccess(member, privatePage, now).level, "full");
@@ -101,9 +104,8 @@ test("draft and scheduled pages admit only the author or an active own-grant pri
   assert.equal(canUseSessionBoundGrantLink(otherMember, { acceptedMemberId: "member-b", expiresAt: null, revokedAt: null }, now), true);
   assert.equal(canUseSessionBoundGrantLink(otherMember, { acceptedMemberId: "member-b", expiresAt: null, revokedAt: now }, now), false);
   assert.equal(canUseSessionBoundGrantLink(historicalMember, { acceptedMemberId: "member-b", expiresAt: null, revokedAt: null }, now), false);
-});
-
-test("a policy switch cannot add, rewrite, or widen a page's general principal", () => {
+} },
+    { name: "a policy switch cannot add, rewrite, or widen a page's general principal", run: () => {
   const containerGrant = grant("general", "container", "container-a", "view");
   const expiringContainerGrant = { ...containerGrant, expiresAt: "2026-09-09T00:00:00.000Z" };
   const revokedContainerGrant = { ...containerGrant, revokedAt: now };
@@ -113,9 +115,8 @@ test("a policy switch cannot add, rewrite, or widen a page's general principal",
   assert.throws(() => assertNoGrantWidening([expiringContainerGrant], [containerGrant]), GrantInvariantError);
   assert.throws(() => assertNoGrantWidening([revokedContainerGrant], [containerGrant]), GrantInvariantError);
   assert.throws(() => assertNoGrantWidening([], [grant("general", "workspace", "workspace-a", "view")]), GrantInvariantError);
-});
-
-test("container-general access requires current membership and guest revocation takes effect immediately", () => {
+} },
+    { name: "container-general access requires current membership and guest revocation takes effect immediately", run: () => {
   const containerGeneral = context({ page: { ...context().page, grants: [grant("general", "container", "container-a")] } });
   assert.equal(evaluatePageAccess(otherMember, containerGeneral, now).allowed, false);
   assert.equal(evaluatePageAccess({ ...otherMember, containerIds: ["container-a"] }, containerGeneral, now).level, "view");
@@ -129,9 +130,8 @@ test("container-general access requires current membership and guest revocation 
   });
   assert.equal(evaluatePageAccess(guest, guestsForbidden, now).allowed, false);
   assert.equal(evaluatePageAccess(otherMember, { ...guestsForbidden, page: { ...guestsForbidden.page, grants: [grant("member-grant", "member", "member-b")] } }, now).level, "view");
-});
-
-test("each container veto controls only its own external act", () => {
+} },
+    { name: "each container veto controls only its own external act", run: () => {
   const allowed = context();
   assert.equal(canPublishPublicPage(allowed), true);
   assert.equal(canReadAnonymousPage(allowed, true), true);
@@ -155,7 +155,27 @@ test("each container veto controls only its own external act", () => {
   assert.equal(canPublishPublicPage(context({ page: { ...allowed.page, lifecycle: "scheduled" } })), false);
   assert.equal(canReadAnonymousPage(context({ page: { ...allowed.page, lifecycle: "draft" } }), true), false);
   assert.equal(canReadAnonymousPage(context({ page: { ...allowed.page, lifecycle: "scheduled" } }), true), false);
+} },
+    { name: "operation replay requires the original actor, the same body, and current page access", run: () => {
+  const receipt = { actorMemberId: "member-a", requestHash: "same-body", expiresAt: "2026-09-09T00:00:00.000Z" };
+  const shared = context({ page: { ...context().page, grants: [grant("full", "member", "member-a", "full")] } });
+  assert.doesNotThrow(() => assertAuthorizedReceiptReplay({ receipt, requestHash: "same-body", subject: member, context: shared, required: "edit", now }));
+  assert.throws(() => assertAuthorizedReceiptReplay({ receipt, requestHash: "other-body", subject: member, context: shared, required: "edit", now }), OperationReplayError);
+  assert.throws(() => assertAuthorizedReceiptReplay({ receipt, requestHash: "same-body", subject: otherMember, context: shared, required: "edit", now }));
+  assert.throws(() => assertAuthorizedReceiptReplay({ receipt, requestHash: "same-body", subject: member, context: context(), required: "edit", now }));
+} }
+  ];
+  for (const scenario of cases) {
+    try {  await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
 });
+
+
+
+
+
+
 
 test("revision text normalizes Unicode and whitespace before SHA-256", async () => {
   assert.equal(extractRevisionText({ properties: { title: "Cafe\u0301" }, body: [{ text: "  one\n two  " }] }), "one two Café");
@@ -171,13 +191,4 @@ test("revision text normalizes Unicode and whitespace before SHA-256", async () 
     await revisionContentHash({ body: [{ text: "Hello" }], properties: { title: "Page" } }),
     await revisionContentHash({ body: [{ text: "Changed" }], properties: { title: "Page" } }),
   );
-});
-
-test("operation replay requires the original actor, the same body, and current page access", () => {
-  const receipt = { actorMemberId: "member-a", requestHash: "same-body", expiresAt: "2026-09-09T00:00:00.000Z" };
-  const shared = context({ page: { ...context().page, grants: [grant("full", "member", "member-a", "full")] } });
-  assert.doesNotThrow(() => assertAuthorizedReceiptReplay({ receipt, requestHash: "same-body", subject: member, context: shared, required: "edit", now }));
-  assert.throws(() => assertAuthorizedReceiptReplay({ receipt, requestHash: "other-body", subject: member, context: shared, required: "edit", now }), OperationReplayError);
-  assert.throws(() => assertAuthorizedReceiptReplay({ receipt, requestHash: "same-body", subject: otherMember, context: shared, required: "edit", now }));
-  assert.throws(() => assertAuthorizedReceiptReplay({ receipt, requestHash: "same-body", subject: member, context: context(), required: "edit", now }));
 });

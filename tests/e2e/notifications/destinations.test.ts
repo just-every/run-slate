@@ -1,6 +1,6 @@
 import {landedNookHttpJourney} from './nook-http-journey';
 import {env,applyD1Migrations,createExecutionContext,waitOnExecutionContext} from 'cloudflare:test';
-import {beforeEach,expect,vi} from 'vitest';
+import {beforeEach,expect,test,vi} from 'vitest';
 import {contract} from '../contract';
 import {resetDeployment} from '../setup/reset-deployment';
 import {seedWorkspace,seedMember,seedContainer,seedContainerGrant,sessionFor} from '../setup/fixtures';
@@ -19,7 +19,10 @@ import type {SlackAudienceFixture} from '../helpers/slack-network';
 // This single journey now covers four destinations, upgrades and destructive withdrawal.
 vi.setConfig({testTimeout:60000});
 beforeEach(resetDeployment);
-contract('CHAT-001','Owners connect several chat destinations, each with its own event selection, and every destination sends one link-only message, fails and disconnects on its own',async()=>{
+test("CHAT-001 — Owners connect several chat destinations, each with its own event selection, and every destination sends one link-only message, fails and disconnects on its own", async () => {
+  // Each step retains its original fixture assertions and failure context.
+  const cases = [
+    { name: 'Owners connect several chat destinations, each with its own event selection, and every destination sends one link-only message, fails and disconnects on its own', run: async()=>{
  const {workspaceId}=await seedWorkspace();
  const owner=(await seedMember(workspaceId,{role:'owner',email:'synthetic-slate-1@example.test',displayName:'synthetic-slate-1'})).memberId;
  const reader=(await seedMember(workspaceId,{role:'member',email:'synthetic-slate-2@example.test',displayName:'synthetic-slate-2'})).memberId;
@@ -306,55 +309,18 @@ contract('CHAT-001','Owners connect several chat destinations, each with its own
   expect(await env.DB.prepare('SELECT count(*) AS n FROM chat_connections,json_each(audience_member_ids_json) WHERE value=?').bind(reader).first<number>('n')).toBe(0);
   console.log('PASS CHAT-001 per-destination selection, access, retry, authorization, custody, erasure and disconnect');
  }finally{edge.restore();vi.useRealTimers();}
+} }
+  ];
+  for (const scenario of cases) {
+    try { await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
 });
 
-
-/** Public notification routes and queue, with fakes only at provider edges. */
-async function repairJourney() {
- await resetDeployment();
- const {workspaceId}=await seedWorkspace(),key=()=>crypto.randomUUID();
- const ownerEmail='synthetic-slate-owner@example.test',readerEmail='synthetic-slate-reader@example.test';
- const owner=(await seedMember(workspaceId,{role:'owner',email:ownerEmail,displayName:'synthetic-slate-owner'})).memberId;
- const reader=(await seedMember(workspaceId,{role:'member',email:readerEmail,displayName:'synthetic-slate-reader'})).memberId;
- const open=(await seedContainer(workspaceId,{ownerMemberId:owner,visibility:'private'})).containerId;
- const closed=(await seedContainer(workspaceId,{ownerMemberId:owner,visibility:'private'})).containerId;
- await seedContainerGrant(open,{principalKind:'member',principalId:reader,level:'edit'});
- for(const containerId of [open,closed])await seedContainerGrant(containerId,{principalKind:'member',principalId:owner,level:'full'});
- const cookie=await sessionFor(owner,{freshProof:true}),origin='https://slate.test';
- const tokens=['synthetic-slate-201','synthetic-slate-202','synthetic-slate-203','synthetic-slate-204','synthetic-slate-205'];
- const edge=chatNetwork(tokens,readerEmail),bindings:AppBindings={...env,SLATE_PROFILE:undefined,APP_URL:origin,CONNECTOR_CREDENTIALS_KEY:key()};
- const channels=['GSLATE1','synthetic-slate-team/synthetic-slate-channel','synthetic-slate-channel1'];
- const nookScopes=new Map([[tokens[2]!,channels[2]!],[tokens[3]!,'synthetic-slate-channel3'],[tokens[4]!,channels[2]!]]);
- const nookCalls:{channel:string;allowed:boolean;operation:string}[]=[];
- const allowed=(token:string,channel:string,operation:string)=>{const ok=nookScopes.get(token)===channel;nookCalls.push({channel,allowed:ok,operation});return ok;};
- bindings.NOOK_NOTIFIER={
-  async audience(token,channel){if(!allowed(token,channel,'audience'))return new Response(null,{status:403});edge.audienceCalls.push({token,channel});return Response.json({channel,private:true,shared:false,archived:false,revoked:false,rosterComplete:true,membershipManagedByMembers:true,appId:'synthetic-slate-app',members:(edge.rosters.get(token+':'+channel)??[readerEmail]).map(email=>({email,verified:true,guest:false,external:false,bot:false}))});},
-  async post(token,input){if(!allowed(token,input.channel,'post'))return new Response(null,{status:403});const f=edge.failures.get(token);const status=f==='transient'?429:f==='uncertain'?503:200;edge.attempts.push({token,key:input.clientKey,status});if(status===429){edge.failures.delete(token);return new Response(null,{status:429,headers:{'Retry-After':'120'}});}if(status!==200)return new Response(null,{status});const prior=edge.messages.find(m=>m.channel===input.channel&&m.key===input.clientKey);if(prior)return Response.json({receipt:prior.receipt});const receipt=String(edge.messages.length+1);edge.messages.push({token,provider:'nook',channel:input.channel,text:input.text,key:input.clientKey,receipt,thread:input.thread});return Response.json({receipt});},
-  async editOwn(token,input){if(!allowed(token,input.channel,'edit'))return new Response(null,{status:403});const message=edge.messages.find(m=>m.provider==='nook'&&m.channel===input.channel&&m.receipt===input.receipt);if(!message)return new Response(null,{status:404});message.text=input.text;return new Response(null,{status:204});},
-  async find(token,{channel,clientKey}){if(!allowed(token,channel,'find'))return new Response(null,{status:403});return Response.json({receipt:edge.messages.find(m=>m.channel===channel&&m.key===clientKey)?.receipt??null});},
- };
- const app=createApi();
- const raw=(method:string,path:string,body?:unknown,auth=cookie)=>app.request(origin+path,{method,headers:{cookie:auth,origin,'content-type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)},bindings);
- const api=async(method:string,path:string,body?:unknown)=>{const r=await raw(method,path,body),text=await r.text();expect(r.status,text).toBe(200);for(const token of tokens)expect(text).not.toContain(token);return JSON.parse(text);};
- const destination=async(id:string)=>(await api('GET','/api/notifications/chat/destinations')).items.find((c:any)=>c.id===id);
- const connect=async(provider:string,token:string,channel:string,deliveryMode='immediate')=>(await api('POST','/api/notifications/chat/destinations',{operationKey:key(),provider,token,channel,events:['comment'],deliveryMode})).value.id as string;
- const update=async(id:string,token:string,channel:string,deliveryMode='immediate')=>raw('PUT','/api/notifications/chat/destinations/'+id,{operationKey:key(),provider:(await destination(id)).provider,expectedRevisionId:(await destination(id)).revisionId,token,channel,events:['comment'],deliveryMode});
- const page=async(title:string,containerId=open)=>(await api('POST','/api/pages',{operationKey:key(),containerId,title})).value.pageId as string;
- const comment=(id:string)=>api('POST','/api/comments/page/'+id,{operationKey:key(),body:[{text:'synthetic-slate-private-body'}]});
- const readerCookie=await sessionFor(reader);
- const commentByReader=async(id:string)=>{const response=await raw('POST','/api/comments/page/'+id,{operationKey:key(),body:[{text:'synthetic-slate-private-body'}]},readerCookie);expect(response.status,await response.clone().text()).toBe(200);};
- const sweep=async(day=false)=>{
-  // Move only event clocks; application outbox, claims and delivery execute unchanged.
-  const at=day?'2000-01-01T00:00:00.000Z':new Date(Date.now()-120000).toISOString();
-  await env.DB.prepare('UPDATE notification_outbox SET created_at=? WHERE processed_at IS NULL').bind(at).run();
-  await env.DB.prepare("UPDATE chat_deliveries SET created_at=? WHERE state='pending' AND message_id IS NULL").bind(at).run();
-  const ack=vi.fn(),retry=vi.fn();await worker.queue!({queue:'synthetic-slate-1',metadata:{metrics:{backlogCount:1,backlogBytes:0}},messages:[{id:key(),body:{type:'discovery.deliver'},timestamp:new Date(),attempts:1,ack,retry}],ackAll:vi.fn(),retryAll:vi.fn()} as MessageBatch<unknown>,bindings);expect(retry).not.toHaveBeenCalled();expect(ack).toHaveBeenCalledOnce();
- };
- const purge=async(id:string)=>{const doc=await api('GET','/api/pages/'+id);await api('POST','/api/archive/'+id,{operationKey:key(),expectedRevisionId:doc.page.revisionId,action:'trash'});await api('POST','/api/archive/'+id+'/permanent-delete',{operationKey:key(),confirmedPageIds:[id]});};
- return {edge,bindings,tokens,channels,nookCalls,ownerEmail,readerEmail,owner,reader,open,closed,key,raw,api,destination,connect,update,page,comment,commentByReader,sweep,purge};
-}
-
-contract('CHAT-001','Readable grouped events survive an unreadable or purged leader without duplicate delivery',async()=>{
+test("CHAT-001 — grouped delivery and withdrawal keep each original channel audience current", async () => {
+  // Each step retains its original fixture assertions and failure context.
+  const cases = [
+    { name: 'Readable grouped events survive an unreadable or purged leader without duplicate delivery', run: async()=>{
  for(const scenario of ['C2','C2b','C3','C6','C6-reconcile','retry','retry-retarget','uncertain','five','six','concurrent']){
   const h=await repairJourney();
   try{
@@ -407,9 +373,8 @@ contract('CHAT-001','Readable grouped events survive an unreadable or purged lea
    expect.soft(await env.DB.prepare("SELECT count(*) AS n FROM chat_messages WHERE provider_receipt IS NULL AND state IN ('prepared','withdraw')").first<number>('n'),scenario+' ghost group').toBe(0);
   }finally{h.edge.restore();}
  }
-});
-
-contract('CHAT-001','Withdrawal uses each original channel roster in either receipt ordering',async()=>{
+} },
+    { name: 'Withdrawal uses each original channel roster in either receipt ordering', run: async()=>{
  for(const ordering of ['old-first','new-first','no-old'])for(const provider of ['slack','teams','nook']){
   const reverse=ordering==='new-first',control=ordering==='no-old';
   const h=await repairJourney();
@@ -440,9 +405,18 @@ contract('CHAT-001','Withdrawal uses each original channel roster in either rece
    expect(h.nookCalls.every(c=>c.allowed)).toBe(true);
   }finally{h.edge.restore();}
  }
+} }
+  ];
+  for (const scenario of cases) {
+    try { await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
 });
 
-contract('CHAT-001','Nook channel changes are refused before custody changes while rotation and independent destinations work',async()=>{
+test("CHAT-001 — Nook channel changes are refused before custody changes while rotation and independent destinations work", async () => {
+  // Each step retains its original fixture assertions and failure context.
+  const cases = [
+    { name: 'Nook channel changes are refused before custody changes while rotation and independent destinations work', run: async()=>{
  const h=await repairJourney();
  try{
   const id=await h.connect('nook',h.tokens[2]!,h.channels[2]!),page=await h.page('synthetic-slate-old-title');
@@ -465,4 +439,56 @@ contract('CHAT-001','Nook channel changes are refused before custody changes whi
   expect(h.nookCalls.every(c=>c.allowed)).toBe(true);
  }finally{h.edge.restore();}
  await landedNookHttpJourney(await repairJourney());
+} }
+  ];
+  for (const scenario of cases) {
+    try { await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
 });
+
+
+/** Public notification routes and queue, with fakes only at provider edges. */
+async function repairJourney() {
+ await resetDeployment();
+ const {workspaceId}=await seedWorkspace(),key=()=>crypto.randomUUID();
+ const ownerEmail='synthetic-slate-owner@example.test',readerEmail='synthetic-slate-reader@example.test';
+ const owner=(await seedMember(workspaceId,{role:'owner',email:ownerEmail,displayName:'synthetic-slate-owner'})).memberId;
+ const reader=(await seedMember(workspaceId,{role:'member',email:readerEmail,displayName:'synthetic-slate-reader'})).memberId;
+ const open=(await seedContainer(workspaceId,{ownerMemberId:owner,visibility:'private'})).containerId;
+ const closed=(await seedContainer(workspaceId,{ownerMemberId:owner,visibility:'private'})).containerId;
+ await seedContainerGrant(open,{principalKind:'member',principalId:reader,level:'edit'});
+ for(const containerId of [open,closed])await seedContainerGrant(containerId,{principalKind:'member',principalId:owner,level:'full'});
+ const cookie=await sessionFor(owner,{freshProof:true}),origin='https://slate.test';
+ const tokens=['synthetic-slate-201','synthetic-slate-202','synthetic-slate-203','synthetic-slate-204','synthetic-slate-205'];
+ const edge=chatNetwork(tokens,readerEmail),bindings:AppBindings={...env,SLATE_PROFILE:undefined,APP_URL:origin,CONNECTOR_CREDENTIALS_KEY:key()};
+ const channels=['GSLATE1','synthetic-slate-team/synthetic-slate-channel','synthetic-slate-channel1'];
+ const nookScopes=new Map([[tokens[2]!,channels[2]!],[tokens[3]!,'synthetic-slate-channel3'],[tokens[4]!,channels[2]!]]);
+ const nookCalls:{channel:string;allowed:boolean;operation:string}[]=[];
+ const allowed=(token:string,channel:string,operation:string)=>{const ok=nookScopes.get(token)===channel;nookCalls.push({channel,allowed:ok,operation});return ok;};
+ bindings.NOOK_NOTIFIER={
+  async audience(token,channel){if(!allowed(token,channel,'audience'))return new Response(null,{status:403});edge.audienceCalls.push({token,channel});return Response.json({channel,private:true,shared:false,archived:false,revoked:false,rosterComplete:true,membershipManagedByMembers:true,appId:'synthetic-slate-app',members:(edge.rosters.get(token+':'+channel)??[readerEmail]).map(email=>({email,verified:true,guest:false,external:false,bot:false}))});},
+  async post(token,input){if(!allowed(token,input.channel,'post'))return new Response(null,{status:403});const f=edge.failures.get(token);const status=f==='transient'?429:f==='uncertain'?503:200;edge.attempts.push({token,key:input.clientKey,status});if(status===429){edge.failures.delete(token);return new Response(null,{status:429,headers:{'Retry-After':'120'}});}if(status!==200)return new Response(null,{status});const prior=edge.messages.find(m=>m.channel===input.channel&&m.key===input.clientKey);if(prior)return Response.json({receipt:prior.receipt});const receipt=String(edge.messages.length+1);edge.messages.push({token,provider:'nook',channel:input.channel,text:input.text,key:input.clientKey,receipt,thread:input.thread});return Response.json({receipt});},
+  async editOwn(token,input){if(!allowed(token,input.channel,'edit'))return new Response(null,{status:403});const message=edge.messages.find(m=>m.provider==='nook'&&m.channel===input.channel&&m.receipt===input.receipt);if(!message)return new Response(null,{status:404});message.text=input.text;return new Response(null,{status:204});},
+  async find(token,{channel,clientKey}){if(!allowed(token,channel,'find'))return new Response(null,{status:403});return Response.json({receipt:edge.messages.find(m=>m.channel===channel&&m.key===clientKey)?.receipt??null});},
+ };
+ const app=createApi();
+ const raw=(method:string,path:string,body?:unknown,auth=cookie)=>app.request(origin+path,{method,headers:{cookie:auth,origin,'content-type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)},bindings);
+ const api=async(method:string,path:string,body?:unknown)=>{const r=await raw(method,path,body),text=await r.text();expect(r.status,text).toBe(200);for(const token of tokens)expect(text).not.toContain(token);return JSON.parse(text);};
+ const destination=async(id:string)=>(await api('GET','/api/notifications/chat/destinations')).items.find((c:any)=>c.id===id);
+ const connect=async(provider:string,token:string,channel:string,deliveryMode='immediate')=>(await api('POST','/api/notifications/chat/destinations',{operationKey:key(),provider,token,channel,events:['comment'],deliveryMode})).value.id as string;
+ const update=async(id:string,token:string,channel:string,deliveryMode='immediate')=>raw('PUT','/api/notifications/chat/destinations/'+id,{operationKey:key(),provider:(await destination(id)).provider,expectedRevisionId:(await destination(id)).revisionId,token,channel,events:['comment'],deliveryMode});
+ const page=async(title:string,containerId=open)=>(await api('POST','/api/pages',{operationKey:key(),containerId,title})).value.pageId as string;
+ const comment=(id:string)=>api('POST','/api/comments/page/'+id,{operationKey:key(),body:[{text:'synthetic-slate-private-body'}]});
+ const readerCookie=await sessionFor(reader);
+ const commentByReader=async(id:string)=>{const response=await raw('POST','/api/comments/page/'+id,{operationKey:key(),body:[{text:'synthetic-slate-private-body'}]},readerCookie);expect(response.status,await response.clone().text()).toBe(200);};
+ const sweep=async(day=false)=>{
+  // Move only event clocks; application outbox, claims and delivery execute unchanged.
+  const at=day?'2000-01-01T00:00:00.000Z':new Date(Date.now()-120000).toISOString();
+  await env.DB.prepare('UPDATE notification_outbox SET created_at=? WHERE processed_at IS NULL').bind(at).run();
+  await env.DB.prepare("UPDATE chat_deliveries SET created_at=? WHERE state='pending' AND message_id IS NULL").bind(at).run();
+  const ack=vi.fn(),retry=vi.fn();await worker.queue!({queue:'synthetic-slate-1',metadata:{metrics:{backlogCount:1,backlogBytes:0}},messages:[{id:key(),body:{type:'discovery.deliver'},timestamp:new Date(),attempts:1,ack,retry}],ackAll:vi.fn(),retryAll:vi.fn()} as MessageBatch<unknown>,bindings);expect(retry).not.toHaveBeenCalled();expect(ack).toHaveBeenCalledOnce();
+ };
+ const purge=async(id:string)=>{const doc=await api('GET','/api/pages/'+id);await api('POST','/api/archive/'+id,{operationKey:key(),expectedRevisionId:doc.page.revisionId,action:'trash'});await api('POST','/api/archive/'+id+'/permanent-delete',{operationKey:key(),confirmedPageIds:[id]});};
+ return {edge,bindings,tokens,channels,nookCalls,ownerEmail,readerEmail,owner,reader,open,closed,key,raw,api,destination,connect,update,page,comment,commentByReader,sweep,purge};
+}

@@ -9,19 +9,7 @@
       "supportingTests": [
         {
           "file": "tests/e2e/landing.test.ts",
-          "testName": "HOME-001 landing page supporting regressions installed root: the Worker answers / with the Lobby, which offers setup until the owner finishes first-run setup and sign-in after"
-        },
-        {
-          "file": "tests/e2e/landing.test.ts",
-          "testName": "HOME-001 landing page supporting regressions landing page: owner identity, description and the credit toggle are read from the owner configuration"
-        },
-        {
-          "file": "tests/e2e/landing.test.ts",
-          "testName": "HOME-001 landing page supporting regressions landing page: sections, the Run page link and outbound addresses are the static product description only"
-        },
-        {
-          "file": "tests/e2e/landing.test.ts",
-          "testName": "HOME-001 landing page supporting regressions landing page: source loads nothing off-origin, sets no cookies and tracks no one"
+          "testName": "HOME-001 landing page supporting regressions installed lobby and public landing preserve owner configuration, navigation and privacy"
         }
       ]
     },
@@ -33,15 +21,7 @@
       "supportingTests": [
         {
           "file": "tests/e2e/docs.test.ts",
-          "testName": "DOCS-001 public documentation supporting regressions docs: the Worker serves /docs and each published page with one h1, the landing frame and the section navigation"
-        },
-        {
-          "file": "tests/e2e/docs.test.ts",
-          "testName": "DOCS-001 public documentation supporting regressions docs: an unknown, miscased or nested slug is a real 404 and /docs is not a Hono or operator route"
-        },
-        {
-          "file": "tests/e2e/docs.test.ts",
-          "testName": "DOCS-001 public documentation supporting regressions docs: the landing links to /docs and /docs/install and the docs header has no brand h1"
+          "testName": "DOCS-001 public documentation supporting regressions public docs serve declared pages with accessible navigation and refuse unknown routes"
         }
       ]
     },
@@ -1427,11 +1407,7 @@
       "supportingTests": [
         {
           "file": "tests/e2e/notifications/destinations.test.ts",
-          "testName": "CHAT-001 \u2014 Readable grouped events survive an unreadable or purged leader without duplicate delivery"
-        },
-        {
-          "file": "tests/e2e/notifications/destinations.test.ts",
-          "testName": "CHAT-001 \u2014 Withdrawal uses each original channel roster in either receipt ordering"
+          "testName": "CHAT-001 \u2014 grouped delivery and withdrawal keep each original channel audience current"
         },
         {
           "file": "tests/e2e/notifications/destinations.test.ts",
@@ -3131,11 +3107,7 @@
       "supportingTests": [
         {
           "file": "tests/e2e/notifications/destinations.test.ts",
-          "testName": "CHAT-001 \u2014 Readable grouped events survive an unreadable or purged leader without duplicate delivery"
-        },
-        {
-          "file": "tests/e2e/notifications/destinations.test.ts",
-          "testName": "CHAT-001 \u2014 Withdrawal uses each original channel roster in either receipt ordering"
+          "testName": "CHAT-001 \u2014 grouped delivery and withdrawal keep each original channel audience current"
         },
         {
           "file": "tests/e2e/notifications/destinations.test.ts",

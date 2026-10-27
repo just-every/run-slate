@@ -1528,61 +1528,16 @@
     },
     {
       "file": "tests/e2e/landing.test.ts",
-      "testName": "HOME-001 landing page supporting regressions installed root: the Worker answers / with the Lobby, which offers setup until the owner finishes first-run setup and sign-in after",
+      "testName": "HOME-001 landing page supporting regressions installed lobby and public landing preserve owner configuration, navigation and privacy",
       "kind": "supporting-regression",
       "clauses": [
         "HOME-001"
       ],
-      "reason": "Controlled local Worker regression of the amended HOME-001 installed root: the shared Lobby and GET /setup/state before and after the first-run record, with no workspace data, cookie or script. No browser, accessibility or full clause acceptance claim."
-    },
-    {
-      "file": "tests/e2e/landing.test.ts",
-      "testName": "HOME-001 landing page supporting regressions landing page: owner identity, description and the credit toggle are read from the owner configuration",
-      "kind": "supporting-regression",
-      "clauses": [
-        "HOME-001"
-      ],
-      "reason": "Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim."
-    },
-    {
-      "file": "tests/e2e/landing.test.ts",
-      "testName": "HOME-001 landing page supporting regressions landing page: sections, the Run page link and outbound addresses are the static product description only",
-      "kind": "supporting-regression",
-      "clauses": [
-        "HOME-001"
-      ],
-      "reason": "Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim."
-    },
-    {
-      "file": "tests/e2e/landing.test.ts",
-      "testName": "HOME-001 landing page supporting regressions landing page: source loads nothing off-origin, sets no cookies and tracks no one",
-      "kind": "supporting-regression",
-      "clauses": [
-        "HOME-001"
-      ],
-      "reason": "Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim."
+      "reason": "Controlled local Worker regression of the amended HOME-001 installed root: the shared Lobby and GET /setup/state before and after the first-run record, with no workspace data, cookie or script. No browser, accessibility or full clause acceptance claim. Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim. Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim. Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim."
     },
     {
       "file": "tests/e2e/docs.test.ts",
-      "testName": "DOCS-001 public documentation supporting regressions docs: the Worker serves /docs and each published page with one h1, the landing frame and the section navigation",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DOCS-001"
-      ],
-      "reason": "Controlled local Worker regression of the DOCS-001 public documentation routes: what the documents render and which requests they refuse. No browser, cookie, accessibility, emitted-artifact or full clause acceptance claim."
-    },
-    {
-      "file": "tests/e2e/docs.test.ts",
-      "testName": "DOCS-001 public documentation supporting regressions docs: an unknown, miscased or nested slug is a real 404 and /docs is not a Hono or operator route",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DOCS-001"
-      ],
-      "reason": "Controlled local Worker regression of the DOCS-001 public documentation routes: what the documents render and which requests they refuse. No browser, cookie, accessibility, emitted-artifact or full clause acceptance claim."
-    },
-    {
-      "file": "tests/e2e/docs.test.ts",
-      "testName": "DOCS-001 public documentation supporting regressions docs: the landing links to /docs and /docs/install and the docs header has no brand h1",
+      "testName": "DOCS-001 public documentation supporting regressions public docs serve declared pages with accessible navigation and refuse unknown routes",
       "kind": "supporting-regression",
       "clauses": [
         "DOCS-001"
@@ -1831,17 +1786,7 @@
     },
     {
       "file": "tests/e2e/notifications/destinations.test.ts",
-      "testName": "CHAT-001 \u2014 Readable grouped events survive an unreadable or purged leader without duplicate delivery",
-      "kind": "supporting-regression",
-      "clauses": [
-        "CHAT-001",
-        "NOTIF-003"
-      ],
-      "reason": "Public notification configuration, event and queue doors with provider-edge fakes only. Proves this named repair flow; does not establish live-provider or admin-install acceptance or change clause status."
-    },
-    {
-      "file": "tests/e2e/notifications/destinations.test.ts",
-      "testName": "CHAT-001 \u2014 Withdrawal uses each original channel roster in either receipt ordering",
+      "testName": "CHAT-001 \u2014 grouped delivery and withdrawal keep each original channel audience current",
       "kind": "supporting-regression",
       "clauses": [
         "CHAT-001",
@@ -1927,16 +1872,6 @@
       "reason": "Asserts skill snapshot export carries only the attachments its exact source revisions show the reader. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
-      "file": "tests/e2e/notifications/chat.test.ts",
-      "testName": "the single-destination chat door stores a credential only after a fresh email confirmation",
-      "kind": "supporting-regression",
-      "clauses": [
-        "NOTIF-003",
-        "CHAT-001"
-      ],
-      "reason": "Asserts the single-destination chat door stores a credential only after a fresh email confirmation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
       "file": "tests/qualification/authority/decision-authority.test.ts",
       "testName": "an earlier decision revision is read without the current prose its reader can no longer cite",
       "kind": "supporting-regression",
@@ -1955,16 +1890,6 @@
         "WORK-010"
       ],
       "reason": "Asserts a member invitation stops admitting once its inviter is no longer a full member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/e2e/notifications/chat.test.ts",
-      "testName": "a person whose own Slack token posts to a channel stays in that channel audience",
-      "kind": "supporting-regression",
-      "clauses": [
-        "NOTIF-003",
-        "CHAT-001"
-      ],
-      "reason": "Asserts a person whose own Slack token posts to a channel stays in that channel audience. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/e2e/databases/record-templates.test.ts",
