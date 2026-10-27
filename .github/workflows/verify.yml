@@ -117,7 +117,7 @@ jobs:
             ui: 1
             worker: 4
             browser: true
-            command: pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts
+            command: node --test .github/scripts/journey-shard.test.mjs && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts
           - suite: tooling
             ui: 2
             worker: 1
@@ -134,20 +134,20 @@ jobs:
             browser: true
             command: pnpm test:ui:reachability && pnpm test:ui:state && node --test --test-concurrency=1 --test-name-pattern='^insertion recovery' tests/ui/polish-journeys.test.mjs
           - suite: ui-focus-desktop
+            serial: true
             ui: 5
             worker: 0
             browser: true
             command: node --test --test-concurrency=1 --test-name-pattern='^genuine insertion focus.*1440' tests/ui/polish-journeys.test.mjs
           - suite: ui-focus-mobile
-            polish_journeys: true
+            serial: true
             ui: 6
-            worker: 6
+            worker: 0
             browser: true
             command: node --test --test-concurrency=1 --test-name-pattern='^genuine insertion focus.*390' tests/ui/polish-journeys.test.mjs
           - suite: ui-polish-desktop
-            core_desktop: true
             ui: 7
-            worker: 0
+            worker: 6
             browser: true
             command: node --test --test-concurrency=1 --test-name-pattern='^visible Slate polish.*1440' tests/ui/polish-journeys.test.mjs
           - suite: ui-polish-mobile
@@ -178,8 +178,8 @@ jobs:
       - name: Workers, public-door journeys and suite
         env:
           SLATE_UI_SHARD: ${{ matrix.ui }}/8
-          CORE_DESKTOP: ${{ matrix.core_desktop == true && 'true' || 'false' }}
-          POLISH_JOURNEYS: ${{ matrix.polish_journeys == true && 'true' || 'false' }}
+          SLATE_UI_ASSIGNMENTS: .github/scripts/journey-shards.json
+          SERIAL_SUITE: ${{ matrix.serial == true && 'true' || 'false' }}
           WORKER_SHARD: ${{ matrix.worker }}
           SUITE_COMMAND: ${{ matrix.command }}
         run: bash .github/scripts/run-shard.sh
