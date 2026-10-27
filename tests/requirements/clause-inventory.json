@@ -2227,11 +2227,7 @@
       "supportingTests": [
         {
           "file": "tests/qualification/authority/disconnect.test.ts",
-          "testName": "SOURCE-006 \u2014 disconnect atomically stops queued work, withdraws activation and grant authority, and reconnect preserves suspension"
-        },
-        {
-          "file": "tests/qualification/authority/native-boundaries.test.ts",
-          "testName": "SOURCE-006 \u2014 native OAuth refuses a redirect without replaying or forwarding the personal authorization code"
+          "testName": "SOURCE-006 \u2014 OAuth redirects preserve authorization codes and disconnect withdraws executable authority without reactivation"
         }
       ]
     },
