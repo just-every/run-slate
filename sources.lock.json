@@ -907,9 +907,25 @@
       "sha256": "a24c2d2fa8f49570cfd9db65001b444a42fb3bd2aef3d652b81b39fafe63f6e2",
       "executable": false
     },
-    ".github/scripts/install-browsers.sh": {
-      "sha256": "869ac942fcb13571cc5b2b763bd9b6571c677c93f8036d989c8825d3f2c52e72",
+    ".github/scripts/chromium-probe.mjs": {
+      "sha256": "dbbb07363ff2d0878bae4f159b4297b45c7e6d84334312b1c4d5ef78440f0c76",
       "executable": false
+    },
+    ".github/scripts/install-browsers.sh": {
+      "sha256": "640edd70c163cc915656fb583cb5a5024e8790f7c69d02ea7750937d6e7357ea",
+      "executable": false
+    },
+    ".github/scripts/journey-shard.test.mjs": {
+      "sha256": "3759f8a58b660aa1949bd5d36a612f5cce514ec5b2b829419918912cef875ca8",
+      "executable": false
+    },
+    ".github/scripts/journey-shards.json": {
+      "sha256": "1d8c2937a2d86efa81acec011d41b86948152186a3b7ed9566278a2201b8026d",
+      "executable": false
+    },
+    ".github/scripts/run-shard.sh": {
+      "sha256": "b6af437a89d227af0197a32e59736da6b352408444ae64956f6c9edd539d417d",
+      "executable": true
     },
     ".github/workflows/deploy.yml": {
       "sha256": "512968d8a08f82211af3a14d2924c1029e55845b11ea847700d9a6ae98669477",
@@ -928,7 +944,7 @@
       "executable": false
     },
     ".github/workflows/verify.yml": {
-      "sha256": "3b12f388e9cd90265aa391cba992a152dcf7dfe97e5dde8d68656e22caa21291",
+      "sha256": "d1f27def04a7f75ee47a605208032d8b6a0fb0622904df76a871703972fc94a3",
       "executable": false
     },
     ".gitignore": {
@@ -11856,7 +11872,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journey-shard.mjs": {
-      "sha256": "68740aeef4eda602b8624756d34bf9d7558afbf232344553ab47adad8468ec72",
+      "sha256": "447883aa8d1402927a61b0cabfe3e2a66ae8e4e472a5d59518e18f98a5f12128",
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
