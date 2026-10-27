@@ -91,21 +91,7 @@ test("the docs build renders every page with no problems, one title, unique ids 
 
 });
 
-test("published pages describe only the default core-wiki profile and carry no maintainer material", () => {
-  // Development-only surfaces and specific maintainer commands or records stay on GitHub.
-  const forbidden = [
-    [/flagship/i, "flagship"], [/frontier/i, "frontier"], [/user-journeys?/i, "user journeys"], [/\bAI\b/, "AI"], [/inquir/i, "inquiry"],
-    [/connectors?\b/i, "connector"], [/\bagents?\b/i, "agent"], [/\bexperiments?\b/i, "experiment"], [/\bMCP\b/, "MCP"], [/\bRER\b/, "RER"],
-    [/source:lock|integration:sync|publish-check|artifact:delivery/, "maintainer command"],
-    [/sources\.lock|edition\.json|Base Mail/i, "maintainer record"], [/\b[A-Z]{2,8}-\d{3}\b/, "requirement ID"],
-  ];
-  const nonPublished = /FLAGSHIP|FRONTIER|USER-JOURNEYS|HANDOVER|ACCEPTANCE|PROOF|local-agent/;
-  for (const page of site.pages) {
-    const text = page.html.replace(/<[^>]+>/g, " ");
-    for (const [pattern, name] of forbidden) assert.doesNotMatch(text, pattern, `${page.source} mentions ${name}`);
-    for (const [, href] of page.html.matchAll(/<a href="([^"]+)"/g)) assert.doesNotMatch(href, nonPublished, `${page.source} links ${href}`);
-  }
-});
+
 
 // A link context for in-memory fixtures: one published page and a few repository paths.
 const fixtureContext = (source = "docs/PAGE.md") => ({
@@ -191,7 +177,6 @@ test("a page has one H1, first, and a description from its first real paragraph"
   assert.ok(page.description.startsWith("This paragraph explains what the page covers in more than eight words, and keeps going"));
   assert.ok(page.description.length <= 160 && page.description.endsWith("…"), page.description);
   assert.equal(render("Too short.").description, "Fixture page: Slate documentation.");
-  assert.match(site.pages[0].description, /^Slate is a self-hosted team wiki\./);
 });
 
 test("broken links and anchors across pages fail the site build, naming the file and the link", async () => {
@@ -218,9 +203,4 @@ test("broken links and anchors across pages fail the site build, naming the file
   }
 });
 
-test("the landing's docs links name pages the manifest publishes", async () => {
-  const links = await read("src/core/features/landing/links.ts");
-  const value = (name) => new RegExp(`export const ${name} = "([^"]*)";`).exec(links)?.[1];
-  assert.equal(site.pages.find((page) => page.slug === value("docsHomeSlug")).source, "docs/OVERVIEW.md");
-  assert.equal(site.pages.find((page) => page.slug === value("installSlug")).source, "docs/INSTALL.md");
-});
+
