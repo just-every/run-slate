@@ -1112,16 +1112,7 @@
     },
     {
       "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "EFFECT-001 \u2014 a normal current grant permits one dispatch and receipt replay sends nothing",
-      "kind": "supporting-regression",
-      "clauses": [
-        "EFFECT-001"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "EFFECT-001 \u2014 revoked grants still deny ordinary non-restored effects without mutations",
+      "testName": "EFFECT-001 \u2014 current grants dispatch once with receipt replay while revoked grants deny without mutations",
       "kind": "supporting-regression",
       "clauses": [
         "EFFECT-001"

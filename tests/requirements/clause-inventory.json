@@ -2323,11 +2323,7 @@
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "EFFECT-001 \u2014 a normal current grant permits one dispatch and receipt replay sends nothing"
-        },
-        {
-          "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-          "testName": "EFFECT-001 \u2014 revoked grants still deny ordinary non-restored effects without mutations"
+          "testName": "EFFECT-001 \u2014 current grants dispatch once with receipt replay while revoked grants deny without mutations"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
