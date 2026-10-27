@@ -943,25 +943,7 @@
       "clauses": [
         "DB-002"
       ],
-      "reason": "Asserts editable fields accept null while computed mutations reject all supplied values. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/values.test.ts",
-      "testName": "summaries and nested filters use only supplied filtered values",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts summaries and nested filters use only supplied filtered values. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/values.test.ts",
-      "testName": "formula validation catches absent references and typed operand mismatches before rows exist",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts formula validation catches absent references and typed operand mismatches before rows exist. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts editable fields accept null while computed mutations reject all supplied values. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts summaries and nested filters use only supplied filtered values. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts formula validation catches absent references and typed operand mismatches before rows exist. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/authority/atomic-recovery.test.ts",

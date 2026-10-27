@@ -1092,14 +1092,6 @@
         {
           "file": "tests/flagship/structured/values.test.ts",
           "testName": "editable fields accept null while computed mutations reject all supplied values"
-        },
-        {
-          "file": "tests/flagship/structured/values.test.ts",
-          "testName": "summaries and nested filters use only supplied filtered values"
-        },
-        {
-          "file": "tests/flagship/structured/values.test.ts",
-          "testName": "formula validation catches absent references and typed operand mismatches before rows exist"
         }
       ]
     },

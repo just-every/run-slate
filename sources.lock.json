@@ -11120,7 +11120,7 @@
       "executable": false
     },
     "tests/flagship/structured/values.test.ts": {
-      "sha256": "443797e7bce1e02aa7f0490c46e02f944cf561ab041f0a322b381a0fd70ca6a2",
+      "sha256": "b0d2fca15fb022ef3b6d700b1e26d2ddb3a14c5379d13911fb45e57ccb55af86",
       "executable": false
     },
     "tests/flagship/structured/vitest.config.ts": {
@@ -12044,7 +12044,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "0b5f9bf6da64f01bc033cca0914c4aa38b7cbe20b4f9c72621277d5b371f60da",
+      "sha256": "5653b29291fc7f161e71d107747f3efbe391602beb2de5799edc1afb4210b67b",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12060,7 +12060,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "ed6c350c463ab310cc7e267cd8dc38d7fd4ec5d24f92274733733b9b2dc48fe1",
+      "sha256": "6ffbb1f119cda68d2863235689e946b9277aee854ceaefc54efcfe68afe054b5",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
