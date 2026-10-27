@@ -928,7 +928,7 @@
       "executable": false
     },
     ".github/workflows/verify.yml": {
-      "sha256": "3b12f388e9cd90265aa391cba992a152dcf7dfe97e5dde8d68656e22caa21291",
+      "sha256": "e4ea4ab0d1841722750edde0ba5ad97803f7ff4e3b9ff9c17c93a2777742af6a",
       "executable": false
     },
     ".gitignore": {
@@ -944,7 +944,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "4b41ee9d1ffab05e1022d8e3eac598b6e66ab002637954c0a1021b620726a044",
+      "sha256": "50d03649405d570172bd13834d5b7daaa75869e272f2a1e2fe6ab358341ed700",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "9c8d76d64621e1f2a907d2eb2eb3cc15b6c558b8a777efb6b83f2c76a9c7839a",
+      "sha256": "15943914838141bb1245b7bd80c2f6ef00bf8c6c2007b6144fdced7c42f2e432",
       "executable": false
     },
     "DEMO.md": {
@@ -11844,7 +11844,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "c959de8b7257b83f7673863b3be0915604f9172938b030f83066c87453578590",
+      "sha256": "4d2ed9998b7c2e716467314aada384323dc2efa2a485e6f3b81d8df15b614f36",
       "executable": false
     },
     "tests/qualification/ui-convergence/my-tasks-journey.mjs": {
