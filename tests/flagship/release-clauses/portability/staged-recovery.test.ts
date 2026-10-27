@@ -1,3 +1,4 @@
+import {runFoldCases} from '../../fold-cases';
 import {afterAll,beforeAll,expect,test} from 'vitest';
 import {env} from 'cloudflare:test';
 import {byteHash} from '../../../../src/core/features/portability/archive';
@@ -33,7 +34,11 @@ afterAll(async()=>{await resetNative();},10000);
 
 async function target(){return makeWorkspace({email:source.ownerEmail,withReader:false,withContainer:false});}
 
-test('FLAG-002 — staged restore refuses a target that gains a product row and leaves all canonical rows and R2 originals unchanged',async()=>{
+test("FLAG-002 — staged restore retains atomic emptiness, current owner authority and complete recovery", async () => {
+  await runFoldCases([
+{name:"FLAG-002 — staged restore refuses a target that gains a product row and leaves all canonical rows and R2 originals unchanged",before:async()=>{},run:async()=>{
+try {
+
   await resetNative();
   const empty=await target(),staged=await stageRestoreThroughApi(empty,sourceArchive.bytes);
   expect(staged.response.status).toBe(202);
@@ -63,9 +68,12 @@ test('FLAG-002 — staged restore refuses a target that gains a product row and 
   expect(JSON.parse(jobRow!.report_json).code).toBe('RESTORE_NOT_EMPTY');
   expect(JSON.parse(jobRow!.cleanup_json)).toEqual([]);
   console.log('Release_EVIDENCE '+JSON.stringify({clause:'FLAG-002',control:'target-product-row-created-after-run-prepare-before-atomic-empty-guard',archiveHash:await byteHash(sourceArchive.bytes),beforeD1:beforeSnapshot,afterD1:afterSnapshot,beforeCounts:before,afterCounts,lateProductGroup:retained,beforeR2:beforeObjects,afterR2:remainingObjects,refusal:refused.body.report,receiptState:jobRow!.state}));
-});
 
-test('FLAG-002 — restore rechecks current setup-owner authority inside the canonical D1 commit after archive admission',async()=>{
+} finally {}
+}},
+{name:"FLAG-002 — restore rechecks current setup-owner authority inside the canonical D1 commit after archive admission",before:async()=>{},run:async()=>{
+try {
+
   await resetNative();
   const empty=await target(),staged=await stageRestoreThroughApi(empty,sourceArchive.bytes);
   expect(staged.response.status).toBe(202);
@@ -114,9 +122,12 @@ test('FLAG-002 — restore rechecks current setup-owner authority inside the can
   const foreignKeys=await env.DB.prepare('PRAGMA foreign_key_check').all();
   expect(foreignKeys.results).toEqual([]);
   console.log('Release_EVIDENCE '+JSON.stringify({clause:'FLAG-002',control:'setup-owner-revoked-after-admission-before-atomic-guard',archiveHash:await byteHash(sourceArchive.bytes),beforeD1:beforeSnapshot,afterD1:afterSnapshot,beforeR2:beforeObjects,afterR2:remainingObjects,beforeAclEpoch:epochBefore,afterAclEpoch:await env.DB.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first<number>('epoch'),owner,cleanupTombstones:cleanupKeys,refusal:refused.body.report,receiptState:row!.state,foreignKeyViolations:foreignKeys.results.length}));
-});
 
-test('FLAG-002 — a second empty target restores the complete archive, imported originals, foreign keys and fresh owner authority',async()=>{
+} finally {}
+}},
+{name:"FLAG-002 — a second empty target restores the complete archive, imported originals, foreign keys and fresh owner authority",before:async()=>{},run:async()=>{
+try {
+
   await resetNative();
   const clean=await target(),beforeD1=await portableSnapshot(),staged=await stageRestoreThroughApi(clean,sourceArchive.bytes);
   expect(staged.response.status).toBe(202);
@@ -156,4 +167,8 @@ test('FLAG-002 — a second empty target restores the complete archive, imported
   const owner=await env.DB.prepare('SELECT id,email,role,status,is_setup_owner FROM members WHERE id=?').bind(source.ownerId).first();
   expect(owner).toEqual({id:source.ownerId,email:source.ownerEmail,role:'owner',status:'active',is_setup_owner:1});
   console.log('Release_EVIDENCE '+JSON.stringify({clause:'FLAG-002',control:'separate-empty-target-positive-recovery',restoreId:restored.body.restoreId,archiveHash:await byteHash(sourceArchive.bytes),beforeD1,afterD1,restoredCounts:actualCounts,migrationNames:await migrationNames(),beforeR2,afterR2,originalObjectKey:imported!.archive_key,originalBytesHash:await byteHash(bytes),foreignKeyViolations:foreignKeys.results.length,owner}));
+
+} finally {}
+}}
+  ]);
 });

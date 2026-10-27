@@ -2043,11 +2043,7 @@
         },
         {
           "file": "tests/flagship/release-clauses/federation/exact-passages.test.ts",
-          "testName": "SOURCE-002 \u2014 an exact passage remains revision-pinned across refresh failure and becomes content-free when its current authority is lost"
-        },
-        {
-          "file": "tests/flagship/release-clauses/federation/exact-passages.test.ts",
-          "testName": "SOURCE-002 \u2014 current connection authority is rechecked after the final provider read and disconnected passages disclose only a tombstone"
+          "testName": "SOURCE-002 \u2014 passages stay revision-pinned and content-free after source or connection revocation"
         }
       ]
     },
@@ -2227,11 +2223,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/authority/inquiry-custody.test.ts",
-          "testName": "EFFECT-002 \u2014 admitted inquiry and credentialed MCP refuse operational consent and unsupported product sends"
-        },
-        {
-          "file": "tests/flagship/release-clauses/authority/inquiry-custody.test.ts",
-          "testName": "EFFECT-002 \u2014 article publication requires its own current audience and exact grant"
+          "testName": "EFFECT-002 \u2014 inquiry custody and article publication preserve separate operational authority"
         }
       ]
     },
@@ -2251,11 +2243,7 @@
         },
         {
           "file": "tests/flagship/release-clauses/authority/impact-scope.test.ts",
-          "testName": "EFFECT-003 \u2014 scoped rehearsal hides a currently inaccessible dependency and records one read-only impact on replay"
-        },
-        {
-          "file": "tests/flagship/release-clauses/authority/impact-scope.test.ts",
-          "testName": "EFFECT-003 \u2014 evaluated pinned maintenance waits for a current exact grant and applies one attributable repair"
+          "testName": "EFFECT-003 \u2014 scoped rehearsal and pinned maintenance require exact current authority"
         }
       ]
     },
@@ -2267,11 +2255,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
-          "testName": "AGENT-001 \u2014 exact credential scope gates REST and MCP control replay and current revocation"
-        },
-        {
-          "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
-          "testName": "AGENT-001 \u2014 revoking the exact effect grant fences an admitted procedure despite a current credential"
+          "testName": "AGENT-001 \u2014 exact credentials and effect grants fence replay, dispatch and local-session revocation"
         }
       ]
     },
@@ -2283,15 +2267,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-          "testName": "AGENT-002 \u2014 an owner-defined page view does not expose its private skill to a page-only member"
-        },
-        {
-          "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-          "testName": "AGENT-002 \u2014 a fresh setup owner reads restored inquiry, analysis, decision and trial views with exact lineage"
-        },
-        {
-          "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-          "testName": "AGENT-002 \u2014 restored page history, comments, skill definition and imported original remain available to the fresh owner"
+          "testName": "AGENT-002 \u2014 private and restored owner views retain exact lineage, history and originals"
         }
       ]
     },
@@ -2355,23 +2331,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 \u2014 revoked or expired scheduled route qualification blocks dispatch without model substitution"
-        },
-        {
-          "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 \u2014 source access lost during metered assessment refuses publication and later disclosure"
-        },
-        {
-          "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 \u2014 invalid semantic output is metered once and makes no fallback or guessed question"
-        },
-        {
-          "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 \u2014 deterministic low-score audits and frontier shadow retain exact missed-event lineage"
-        },
-        {
-          "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-          "testName": "INQ-004 \u2014 audience source revocation before consumption prevents any semantic dispatch"
+          "testName": "INQ-004 \u2014 scheduled assessments preserve route, source, audience, semantic and audit authority"
         }
       ]
     },
@@ -2403,11 +2363,7 @@
         },
         {
           "file": "tests/flagship/release-clauses/trials/predeclaration.test.ts",
-          "testName": "TRIAL-001 \u2014 immutable predeclaration rejects changed replay and unappointed or stale approval"
-        },
-        {
-          "file": "tests/flagship/release-clauses/trials/predeclaration.test.ts",
-          "testName": "TRIAL-001 \u2014 exact approved plan grants only its declared treatment targets and content"
+          "testName": "TRIAL-001 \u2014 immutable plans require exact approval and constrain treatment content"
         }
       ]
     },
@@ -2423,11 +2379,7 @@
         },
         {
           "file": "tests/flagship/release-clauses/trials/exposure-safety.test.ts",
-          "testName": "TRIAL-002 \u2014 guardrail during provider uncertainty cancels unsent work and preserves confirmed and uncertain truth"
-        },
-        {
-          "file": "tests/flagship/release-clauses/trials/exposure-safety.test.ts",
-          "testName": "TRIAL-002 \u2014 grant revoked after trial admission invalidates the D1 dispatch claim without a provider send"
+          "testName": "TRIAL-002 \u2014 uncertain exposure and revoked grants preserve dispatch truth and block unsent work"
         }
       ]
     },
@@ -2483,11 +2435,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/portability/profile-retention.test.ts",
-          "testName": "FLAG-001 \u2014 default and empty core profiles block flagship operations without provider effects while preserving page read, edit, export and historical rows"
-        },
-        {
-          "file": "tests/flagship/release-clauses/portability/profile-retention.test.ts",
-          "testName": "FLAG-001 \u2014 core-profile restore retains and exports flagship history while restored execution authority remains disabled"
+          "testName": "FLAG-001 \u2014 core profile gates preserve pages, portable history and disabled restored execution"
         }
       ]
     },
@@ -2503,15 +2451,7 @@
         },
         {
           "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-          "testName": "FLAG-002 \u2014 staged restore refuses a target that gains a product row and leaves all canonical rows and R2 originals unchanged"
-        },
-        {
-          "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-          "testName": "FLAG-002 \u2014 restore rechecks current setup-owner authority inside the canonical D1 commit after archive admission"
-        },
-        {
-          "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-          "testName": "FLAG-002 \u2014 a second empty target restores the complete archive, imported originals, foreign keys and fresh owner authority"
+          "testName": "FLAG-002 \u2014 staged restore retains atomic emptiness, current owner authority and complete recovery"
         }
       ]
     },
@@ -2523,15 +2463,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-          "testName": "FLAG-003 \u2014 frozen comparison pins equal source, question, audience and model limits before policy and index drift"
-        },
-        {
-          "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-          "testName": "FLAG-003 \u2014 current source grant revocation blocks both prepared runs before disclosure"
-        },
-        {
-          "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-          "testName": "FLAG-003 \u2014 both comparison arms retain failed and successful attempt timing and cost status"
+          "testName": "FLAG-003 \u2014 comparison arms preserve equal inputs, current grants and attributable costs"
         }
       ]
     },

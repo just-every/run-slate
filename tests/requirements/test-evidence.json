@@ -601,16 +601,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/federation/exact-passages.test.ts",
-      "testName": "SOURCE-002 \u2014 an exact passage remains revision-pinned across refresh failure and becomes content-free when its current authority is lost",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SOURCE-002"
-      ],
-      "reason": "Native D1 exact-passage, immutable revision/hash, staging rollback and current-authority tombstone checks with controlled native transport. Does not establish full extraction/original provenance, exact-citation browser UI, live-provider guarantees or complete requirement acceptance."
-    },
-    {
-      "file": "tests/flagship/release-clauses/federation/exact-passages.test.ts",
-      "testName": "SOURCE-002 \u2014 current connection authority is rechecked after the final provider read and disconnected passages disclose only a tombstone",
+      "testName": "SOURCE-002 \u2014 passages stay revision-pinned and content-free after source or connection revocation",
       "kind": "supporting-regression",
       "clauses": [
         "SOURCE-002"
@@ -619,16 +610,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
-      "testName": "AGENT-001 \u2014 exact credential scope gates REST and MCP control replay and current revocation",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AGENT-001"
-      ],
-      "reason": "Native local REST and credentialed MCP exercise current tool, source, audience, credential and exact-grant authority, control receipts and refusal without disclosure. This is partial semantic-parity evidence; complete browser/API/MCP parity, independent clients and owning-product consent remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
-      "testName": "AGENT-001 \u2014 revoking the exact effect grant fences an admitted procedure despite a current credential",
+      "testName": "AGENT-001 \u2014 exact credentials and effect grants fence replay, dispatch and local-session revocation",
       "kind": "supporting-regression",
       "clauses": [
         "AGENT-001"
@@ -637,16 +619,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/authority/impact-scope.test.ts",
-      "testName": "EFFECT-003 \u2014 scoped rehearsal hides a currently inaccessible dependency and records one read-only impact on replay",
-      "kind": "supporting-regression",
-      "clauses": [
-        "EFFECT-003"
-      ],
-      "reason": "Native local scoped rehearsal, immutable accepted decision, lost target access, record replay and genuinely evaluated pinned maintenance exercise exact current authority. Synthetic evaluation records prove mechanics only; complete affected-answer/skill invalidation, coalesced repairs, scoped-exception UI and real evaluated repair quality remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/authority/impact-scope.test.ts",
-      "testName": "EFFECT-003 \u2014 evaluated pinned maintenance waits for a current exact grant and applies one attributable repair",
+      "testName": "EFFECT-003 \u2014 scoped rehearsal and pinned maintenance require exact current authority",
       "kind": "supporting-regression",
       "clauses": [
         "EFFECT-003"
@@ -655,16 +628,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/authority/inquiry-custody.test.ts",
-      "testName": "EFFECT-002 \u2014 admitted inquiry and credentialed MCP refuse operational consent and unsupported product sends",
-      "kind": "supporting-regression",
-      "clauses": [
-        "EFFECT-002"
-      ],
-      "reason": "Native local inquiry admission, grant records and actual REST/MCP/native connector boundaries refuse operational consent escalation, unsupported product sends and cross-product publication authority. Controlled protocol transport is not real provider acceptance; the positive paid SSO consent, commercial approval, entitlement and activation journey remains unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/authority/inquiry-custody.test.ts",
-      "testName": "EFFECT-002 \u2014 article publication requires its own current audience and exact grant",
+      "testName": "EFFECT-002 \u2014 inquiry custody and article publication preserve separate operational authority",
       "kind": "supporting-regression",
       "clauses": [
         "EFFECT-002"
@@ -673,43 +637,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-      "testName": "INQ-004 \u2014 revoked or expired scheduled route qualification blocks dispatch without model substitution",
-      "kind": "supporting-regression",
-      "clauses": [
-        "INQ-004"
-      ],
-      "reason": "Native scheduled qualification/freshness, source revocation, invalid protocol and deterministic missed-event lineage mechanics under synthetic test provider receipts only. Real model measured fit, semantic discovery usefulness and empirical missed-event recall remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-      "testName": "INQ-004 \u2014 source access lost during metered assessment refuses publication and later disclosure",
-      "kind": "supporting-regression",
-      "clauses": [
-        "INQ-004"
-      ],
-      "reason": "Native scheduled qualification/freshness, source revocation, invalid protocol and deterministic missed-event lineage mechanics under synthetic test provider receipts only. Real model measured fit, semantic discovery usefulness and empirical missed-event recall remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-      "testName": "INQ-004 \u2014 invalid semantic output is metered once and makes no fallback or guessed question",
-      "kind": "supporting-regression",
-      "clauses": [
-        "INQ-004"
-      ],
-      "reason": "Native scheduled qualification/freshness, source revocation, invalid protocol and deterministic missed-event lineage mechanics under synthetic test provider receipts only. Real model measured fit, semantic discovery usefulness and empirical missed-event recall remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-      "testName": "INQ-004 \u2014 deterministic low-score audits and frontier shadow retain exact missed-event lineage",
-      "kind": "supporting-regression",
-      "clauses": [
-        "INQ-004"
-      ],
-      "reason": "Native scheduled qualification/freshness, source revocation, invalid protocol and deterministic missed-event lineage mechanics under synthetic test provider receipts only. Real model measured fit, semantic discovery usefulness and empirical missed-event recall remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
-      "testName": "INQ-004 \u2014 audience source revocation before consumption prevents any semantic dispatch",
+      "testName": "INQ-004 \u2014 scheduled assessments preserve route, source, audience, semantic and audit authority",
       "kind": "supporting-regression",
       "clauses": [
         "INQ-004"
@@ -745,16 +673,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/trials/exposure-safety.test.ts",
-      "testName": "TRIAL-002 \u2014 guardrail during provider uncertainty cancels unsent work and preserves confirmed and uncertain truth",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-002"
-      ],
-      "reason": "Controlled native adapter and D1 race/cancellation/uncertainty mechanics only. Synthetic clock is not a prospective window; genuine provider behavior and separately authorized supported recovery remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/trials/exposure-safety.test.ts",
-      "testName": "TRIAL-002 \u2014 grant revoked after trial admission invalidates the D1 dispatch claim without a provider send",
+      "testName": "TRIAL-002 \u2014 uncertain exposure and revoked grants preserve dispatch truth and block unsent work",
       "kind": "supporting-regression",
       "clauses": [
         "TRIAL-002"
@@ -790,16 +709,7 @@
     },
     {
       "file": "tests/flagship/release-clauses/trials/predeclaration.test.ts",
-      "testName": "TRIAL-001 \u2014 immutable predeclaration rejects changed replay and unappointed or stale approval",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TRIAL-001"
-      ],
-      "reason": "Controlled local D1 predeclaration, replay, exact grant and effect-scope mechanics only. Full trial UI, defensible randomization, genuine provider effects and prospective customer protocol remain unproven."
-    },
-    {
-      "file": "tests/flagship/release-clauses/trials/predeclaration.test.ts",
-      "testName": "TRIAL-001 \u2014 exact approved plan grants only its declared treatment targets and content",
+      "testName": "TRIAL-001 \u2014 immutable plans require exact approval and constrain treatment content",
       "kind": "supporting-regression",
       "clauses": [
         "TRIAL-001"
@@ -808,102 +718,39 @@
     },
     {
       "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-      "testName": "AGENT-002 \u2014 an owner-defined page view does not expose its private skill to a page-only member",
+      "testName": "AGENT-002 \u2014 private and restored owner views retain exact lineage, history and originals",
       "clauses": [
         "AGENT-002"
       ],
-      "reason": "Exercises native page-view grant and actual member-facing view access while checking the private skill remains inaccessible through page-only authority. This is one access boundary, not complete owner-copy interface portability.",
-      "kind": "supporting-regression"
-    },
-    {
-      "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-      "testName": "AGENT-002 \u2014 a fresh setup owner reads restored inquiry, analysis, decision and trial views with exact lineage",
-      "clauses": [
-        "AGENT-002"
-      ],
-      "reason": "Exports and restores actual inquiry, analysis, accepted-decision and trial rows, then reauthenticates the restored owner through production views and compares durable IDs and cited lineage. It does not prove source-controlled UI or complete owner-copy acceptance.",
-      "kind": "supporting-regression"
-    },
-    {
-      "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
-      "testName": "AGENT-002 \u2014 restored page history, comments, skill definition and imported original remain available to the fresh owner",
-      "clauses": [
-        "AGENT-002"
-      ],
-      "reason": "Checks actual restored page revisions, comment, private skill definition, imported-original row and original R2 bytes under the fresh owner. It is bounded durable-view retention evidence, not a complete customization or binary portability proof.",
+      "reason": "Exercises native page-view grant and actual member-facing view access while checking the private skill remains inaccessible through page-only authority. This is one access boundary, not complete owner-copy interface portability. Exports and restores actual inquiry, analysis, accepted-decision and trial rows, then reauthenticates the restored owner through production views and compares durable IDs and cited lineage. It does not prove source-controlled UI or complete owner-copy acceptance. Checks actual restored page revisions, comment, private skill definition, imported-original row and original R2 bytes under the fresh owner. It is bounded durable-view retention evidence, not a complete customization or binary portability proof.",
       "kind": "supporting-regression"
     },
     {
       "file": "tests/flagship/release-clauses/portability/profile-retention.test.ts",
-      "testName": "FLAG-001 \u2014 default and empty core profiles block flagship operations without provider effects while preserving page read, edit, export and historical rows",
+      "testName": "FLAG-001 \u2014 core profile gates preserve pages, portable history and disabled restored execution",
       "clauses": [
         "FLAG-001"
       ],
-      "reason": "Exercises default and empty profile bindings against real API routes, counts intercepted outbound provider requests, snapshots native D1/R2 history, and verifies core page read/edit/export behavior. It does not prove every flagship surface or release profile journey.",
-      "kind": "supporting-regression"
-    },
-    {
-      "file": "tests/flagship/release-clauses/portability/profile-retention.test.ts",
-      "testName": "FLAG-001 \u2014 core-profile restore retains and exports flagship history while restored execution authority remains disabled",
-      "clauses": [
-        "FLAG-001"
-      ],
-      "reason": "Uses native export/restore and actual records to check history remains exportable after core-profile restore while trial execution is stopped and provider authority is cleared. It does not establish complete flagship acceptance. Populated member profile fields and a hidden expertise override survive the same archive restore.",
+      "reason": "Exercises default and empty profile bindings against real API routes, counts intercepted outbound provider requests, snapshots native D1/R2 history, and verifies core page read/edit/export behavior. It does not prove every flagship surface or release profile journey. Uses native export/restore and actual records to check history remains exportable after core-profile restore while trial execution is stopped and provider authority is cleared. It does not establish complete flagship acceptance. Populated member profile fields and a hidden expertise override survive the same archive restore.",
       "kind": "supporting-regression"
     },
     {
       "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-      "testName": "FLAG-002 \u2014 staged restore refuses a target that gains a product row and leaves all canonical rows and R2 originals unchanged",
+      "testName": "FLAG-002 \u2014 staged restore retains atomic emptiness, current owner authority and complete recovery",
       "clauses": [
         "FLAG-002"
       ],
-      "reason": "A native D1 trigger inserts a real product group only after the run's initial prepareRestore emptiness check and during tracked R2 admission; the final atomic empty-target guard must refuse publication. This revised race construction has not yet been rerun.",
-      "kind": "supporting-regression"
-    },
-    {
-      "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-      "testName": "FLAG-002 \u2014 restore rechecks current setup-owner authority inside the canonical D1 commit after archive admission",
-      "clauses": [
-        "FLAG-002"
-      ],
-      "reason": "Revokes the admitting owner's setup-owner bit inside native D1 after archive admission, compensates the ACL epoch to isolate the atomic current-authority guard, and checks a failed receipt with no canonical or R2 partial restore.",
-      "kind": "supporting-regression"
-    },
-    {
-      "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
-      "testName": "FLAG-002 \u2014 a second empty target restores the complete archive, imported originals, foreign keys and fresh owner authority",
-      "clauses": [
-        "FLAG-002"
-      ],
-      "reason": "Uses a separate empty bootstrap target for positive native D1/R2 recovery, verifies complete table counts, imported original bytes, FK integrity and fresh owner routes. This is local recovery evidence, not sealed prior-store or release qualification.",
+      "reason": "A native D1 trigger inserts a real product group only after the run's initial prepareRestore emptiness check and during tracked R2 admission; the final atomic empty-target guard must refuse publication. This revised race construction has not yet been rerun. Revokes the admitting owner's setup-owner bit inside native D1 after archive admission, compensates the ACL epoch to isolate the atomic current-authority guard, and checks a failed receipt with no canonical or R2 partial restore. Uses a separate empty bootstrap target for positive native D1/R2 recovery, verifies complete table counts, imported original bytes, FK integrity and fresh owner routes. This is local recovery evidence, not sealed prior-store or release qualification.",
       "kind": "supporting-regression"
     },
     {
       "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-      "testName": "FLAG-003 \u2014 frozen comparison pins equal source, question, audience and model limits before policy and index drift",
+      "testName": "FLAG-003 \u2014 comparison arms preserve equal inputs, current grants and attributable costs",
       "kind": "supporting-regression",
       "clauses": [
         "FLAG-003"
       ],
-      "reason": "Real evaluation preparation preserves the exact development case, source revision, audience, method/tools, question, route, model, and output limit across candidate and generic runs. Reauthorization blocks current policy-ceiling drift, while poisoned derived search text cannot replace the pinned evidence packet. Synthetic development setup does not establish held-out or requirement-level value."
-    },
-    {
-      "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-      "testName": "FLAG-003 \u2014 current source grant revocation blocks both prepared runs before disclosure",
-      "kind": "supporting-regression",
-      "clauses": [
-        "FLAG-003"
-      ],
-      "reason": "A real grant is present and the owner resolves the exact private source before preparation, then revocation through the sharing service makes direct resolution and both native worker admissions fail before provider transport. This is a bounded revocation regression, not private held-out evidence."
-    },
-    {
-      "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
-      "testName": "FLAG-003 \u2014 both comparison arms retain failed and successful attempt timing and cost status",
-      "kind": "supporting-regression",
-      "clauses": [
-        "FLAG-003"
-      ],
-      "reason": "Controlled native worker transport records two 503 attempts and one valid response for the candidate run; reloaded D1 generation stages and budget rows preserve each time, outcome, known or bounded-uncertain cost, tokens, retry, receipt, and final settlement. Owner attention, expert quality, and useful-value measurements remain null/unclaimed. Controlled native worker transport records two 503 attempts and one valid response for the generic run; reloaded D1 generation stages and budget rows preserve each time, outcome, known or bounded-uncertain cost, tokens, retry, receipt, and final settlement. Owner attention, expert quality, and useful-value measurements remain null/unclaimed."
+      "reason": "Real evaluation preparation preserves the exact development case, source revision, audience, method/tools, question, route, model, and output limit across candidate and generic runs. Reauthorization blocks current policy-ceiling drift, while poisoned derived search text cannot replace the pinned evidence packet. Synthetic development setup does not establish held-out or requirement-level value. A real grant is present and the owner resolves the exact private source before preparation, then revocation through the sharing service makes direct resolution and both native worker admissions fail before provider transport. This is a bounded revocation regression, not private held-out evidence. Controlled native worker transport records two 503 attempts and one valid response for the candidate run; reloaded D1 generation stages and budget rows preserve each time, outcome, known or bounded-uncertain cost, tokens, retry, receipt, and final settlement. Owner attention, expert quality, and useful-value measurements remain null/unclaimed. Controlled native worker transport records two 503 attempts and one valid response for the generic run; reloaded D1 generation stages and budget rows preserve each time, outcome, known or bounded-uncertain cost, tokens, retry, receipt, and final settlement. Owner attention, expert quality, and useful-value measurements remain null/unclaimed."
     },
     {
       "file": "tests/e2e/landing.test.ts",
