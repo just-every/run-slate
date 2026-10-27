@@ -18,10 +18,13 @@ export function WorkspacePublicationDialog({document,onClose,onSaved}:{document:
  const [move,setMove]=useState(false),[destination,setDestination]=useState(document.page.containerId),[general,setGeneral]=useState('keep');
  const [review,setReview]=useState<{response:PublicationPreviewResponse;input:Record<string,unknown>}|null>(null);
  const current=preview.data;
+ // Access arrives independently of the page. Inserting its summary after the
+ // preview is usable moves Review below the phone viewport during a touch.
+ const loading=preview.loading||sharing.loading;
  const generalKind=current?.policyProfile['page.access.v1']==='container-general'?'container':'workspace';
- return <ActionDialog title="Publish this revision" action={review?"Publish workspace revision":"Review publication"} onClose={onClose} onSubmit={async data=>{
+ return <ActionDialog title="Publish this revision" action={review?"Publish workspace revision":"Review publication"} submitDisabled={loading||Boolean(preview.error??sharing.error)} onClose={onClose} onSubmit={async data=>{
   if(review){await mutate(`/api/pages/${document.page.id}/publish`,{...review.input,operationKey:operationKey(),previewFingerprint:review.response.previewFingerprint});await onSaved();window.dispatchEvent(new Event("slate:navigation-changed"));return;}
-  if(!current)throw new Error('Wait for the publication preview to load.');
+  if(!current||loading||preview.error||sharing.error)throw new Error('Wait for the publication preview and current access to load.');
   const input={
    operationKey:operationKey(),expectedRevisionId:current.page.revisionId,label:String(data.get('label')??''),
    ...(data.get('publishAt')?{publishAt:new Date(String(data.get('publishAt'))).toISOString()}:{}),
@@ -30,7 +33,7 @@ export function WorkspacePublicationDialog({document,onClose,onSaved}:{document:
    ...(general==='keep'?{}:{generalAccess:{kind:general,...(general==='restricted'?{}:{level:String(data.get('level'))})}}),
   };const response=await mutate<PublicationPreviewResponse>(`/api/pages/${document.page.id}/publish-preview`,input);setReview({response,input});return false;
  }}><p>Review what the workspace audience will see. Web publishing is managed separately.</p>
- <div hidden={!!review}><RequestState loading={preview.loading} error={preview.error} retry={preview.reload}>{current?<>
+ <div hidden={!!review}><RequestState loading={loading} error={preview.error??sharing.error} retry={()=>{void preview.reload();void sharing.reload();}}>{current?<>
  <section aria-label="Workspace publication preview"><h2>{current.page.title}</h2>{editorBlocks(current.blocks).map(block=><BlockView key={block.id} block={block} canEdit={false} onChange={()=>{}}/>)}</section>
  <p className="muted">Preview of the saved working revision. Any later change requires a new preview before publishing.</p>
  {current.policyProfile['page.version.v1']==='labelled'?<label>Version label<input name="label"/></label>:null}

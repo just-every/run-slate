@@ -6,14 +6,17 @@ import {accessible} from './browser-evidence.mjs';
 export async function reachable(locator) {
   await locator.scrollIntoViewIfNeeded();
   await expect(locator).toBeVisible();
-  assert.ok(await locator.evaluate(element => {
+  const measured = await locator.evaluate(element => {
     const r=element.getBoundingClientRect(),v=window.visualViewport;
     const left=v?.offsetLeft??0,top=v?.offsetTop??0;
     const hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);
-    return r.width>0&&r.height>0&&r.left>=left&&r.top>=top
+    const valid = r.width>0&&r.height>0&&r.left>=left&&r.top>=top
       &&r.right<=left+(v?.width??innerWidth)&&r.bottom<=top+(v?.height??innerHeight)
       &&(hit===element||element.contains(hit));
-  }), 'A touch control is wholly inside the visual viewport and unobscured.');
+    return {valid, element:{tag:element.tagName,role:element.getAttribute('role'),label:element.getAttribute('aria-label')}, box:r.toJSON(), viewport:{left,top,width:v?.width??innerWidth,height:v?.height??innerHeight}, scroll:{x:scrollX,y:scrollY},hit:hit?{tag:hit.tagName,id:hit.id,className:typeof hit.className==='string'?hit.className:''}:null};
+  });
+  if (!measured.valid) console.error('TOUCH GEOMETRY', JSON.stringify(measured));
+  assert.ok(measured.valid, 'A touch control is wholly inside the visual viewport and unobscured.');
 }
 export async function tap(locator) {await reachable(locator);await locator.tap();}
 export async function type(page,locator,text) {
