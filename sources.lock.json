@@ -4952,7 +4952,7 @@
       "executable": false
     },
     "scripts/installer/business-carry.mjs": {
-      "sha256": "e1670a1709429f93ebb986f60e7f19e3581835cd6d20fd68dbf7b8182642637a",
+      "sha256": "647200ae5c5bc219cf8da93d966ca47d8e7ef98392f3dca996c66d51b1218aa9",
       "executable": false
     },
     "scripts/installer/deploy.mjs": {
