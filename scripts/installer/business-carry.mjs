@@ -30,15 +30,16 @@ export function businessCarryWatch(root) {
     name: 'slate-business-carry',
     apply: 'serve',
     configureServer(server) {
+      const closeVite = server.close.bind(server);
       let timer;
       const changed = (current, previous) => {
         if (current.mtimeMs === previous.mtimeMs && current.ctimeMs === previous.ctimeMs && current.ino === previous.ino && current.size === previous.size) return;
         clearTimeout(timer);
         timer = setTimeout(async () => {
           try {
-            // Vite normally creates the replacement before closing the old server.
-            // Cloudflare shares its runner across them; close it before changing bindings.
-            await server.close();
+            // This hook precedes Cloudflare's close wrapper. Quiesce the old Vite
+            // handlers before Cloudflare updates its shared runner with new bindings.
+            await closeVite();
             await server.restart();
           } catch (error) {
             server.config.logger.error(`Business carry restart failed: ${error.message}`);
