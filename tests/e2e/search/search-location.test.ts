@@ -3,12 +3,14 @@ import test from 'node:test';
 import {searchLocation, submittedSearch} from '../../../src/core/features/search/ui/workspace/searchLocation';
 import {emptyRefinements} from '../../../src/core/features/search/ui/workspace/SearchRefinements';
 
-test('unsubmitted search stays distinct from an explicitly empty search', () => {
+test("submitted search locations round-trip refinements while keeping unsubmitted state and authority separate", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: 'unsubmitted search stays distinct from an explicitly empty search', run: () => {
   assert.equal(searchLocation('').submitted, undefined);
   assert.equal(searchLocation('?q=').submitted, '');
-});
-
-test("submitted searches round-trip populated and cleared refinements while ignoring authority and result fields", () => {
+} },
+    { name: "submitted searches round-trip populated and cleared refinements while ignoring authority and result fields", run: () => {
   // Original variant: submitted search round-trips text and every available refinement
   (() => {
   const refinements = {...emptyRefinements, label:'launch', sort:'views', containerId:'space/1', contributorId:'member+2', status:'Needs review', updatedFrom:'2026-10-01', updatedTo:'2026-10-02', includeTrashed:true};
@@ -25,4 +27,11 @@ test("submitted searches round-trip populated and cleared refinements while igno
   assert.equal('isAdmin' in searchLocation('?q=guide&isAdmin=true'), false);
 
   })();
+} }
+  ];
+  for (const scenario of cases) {
+    try {  await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+    finally {  }
+  }
 });
