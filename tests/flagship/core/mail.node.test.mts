@@ -25,36 +25,6 @@ const row=(f:ReturnType<typeof fixture>)=>f.sql.prepare('SELECT * FROM mail_deli
 const after=(milliseconds:number)=>new Date(Date.parse(now)+milliseconds).toISOString();
 function provider(fn:(request:RequestInit)=>Promise<Response>){const original=globalThis.fetch;globalThis.fetch=async(_url,init)=>fn(init!);return ()=>{globalThis.fetch=original;};}
 function tokenFrom(body:string){return new URL(JSON.parse(body).text.split('\n')[0].split(': ').slice(1).join(': ')).searchParams.get('token')!;}
-test('MAIL-002 atomic encrypted admission survives commit-before-dispatch process loss',async()=>{
- const f=fixture();let sentBody='',calls=0;const restore=provider(async init=>{calls++;sentBody=String(init.body);return Response.json({id:'receipt-one'});});
- try{
-  f.setFault(q=>q.startsWith('SELECT id FROM mail_deliveries WHERE workspace_id='));
-  const request=input();await assert.rejects(invite(f.ctx,config,request),/injected/);
-  assert.equal(f.sql.prepare('SELECT count(*) n FROM invitations').get()!.n,1);assert.equal(f.sql.prepare('SELECT count(*) n FROM operation_receipts').get()!.n,1);
-  const admitted=row(f);assert.equal(admitted.delivery_phase,'pending');assert.ok(admitted.payload_ciphertext.startsWith('v1.'));assert.ok(!admitted.payload_ciphertext.includes('/accept'));assert.equal(calls,0);
-  f.setFault(()=>false);await scheduleIdentityMail(f.db,config,undefined,now);
-  assert.equal(calls,1);assert.equal(row(f).provider_message_id,'receipt-one');assert.equal(row(f).payload_ciphertext,null);
-  await invite(f.ctx,config,request);assert.equal(calls,1);
-  // The recovered ciphertext contains the original still-valid single-use token.
-  const token=tokenFrom(sentBody);assert.ok((await acceptInvitation(f.db,config,token)).memberId);await assert.rejects(acceptInvitation(f.db,config,token),{code:'LINK_INVALID'});
- }finally{restore();f.close();}
-});
-test('MAIL-002 spaced retry budget, visible HTTP failure, explicit recovery and current authorization',async()=>{
- const f=fixture();let calls=0,ok=false;const bodies:string[]=[],keys:string[]=[];const restore=provider(async init=>{calls++;bodies.push(String(init.body));keys.push(new Headers(init.headers).get('Idempotency-Key')!);return ok?Response.json({id:'receipt-recovered'}):new Response('secret raw provider text',{status:503});});
- try{const request=input();await invite(f.ctx,config,request);const id=row(f).id;assert.equal(calls,1);assert.equal(row(f).next_attempt_at,after(150000));await invite(f.ctx,config,request);await deliverIdentityMail(f.db,config,id,undefined,after(149999));assert.equal(calls,1);
-  await scheduleIdentityMail(f.db,config,undefined,after(150000));assert.equal(calls,2);await scheduleIdentityMail(f.db,config,undefined,after(300000));assert.equal(calls,3);assert.equal(row(f).state,'failed');
-  const visible=(await listIdentityMail({...f.ctx,now:after(300000)})).items[0];assert.equal(visible.canRetry,true);assert.match(visible.errorDetail!,/503/);assert.ok(!JSON.stringify(visible).includes('secret raw'));assert.ok(!JSON.stringify(visible).includes('ciphertext'));
-  await assert.rejects(retryIdentityMail({...f.ctx,actor:{...f.ctx.actor,id:'b',role:'member'},now:after(300000)},config,id),{status:404});
-  ok=true;await retryIdentityMail({...f.ctx,now:after(300000)},config,id);assert.equal(row(f).state,'sent');assert.equal(calls,4);assert.equal(new Set(bodies).size,1);assert.equal(new Set(keys).size,1);assert.equal(f.sql.prepare('SELECT count(*) n FROM invitations').get()!.n,1);
-  await retryIdentityMail({...f.ctx,now:after(300000)},config,id);assert.equal(calls,4);
- }finally{restore();f.close();}
-});
-test('MAIL-002 provider accepted response loss is recovered by same payload and idempotency key',async()=>{
- const f=fixture();const accepted=new Map<string,string>();let requests=0;const restore=provider(async init=>{requests++;const key=new Headers(init.headers).get('Idempotency-Key')!,body=String(init.body);if(accepted.has(key))assert.equal(accepted.get(key),body);else accepted.set(key,body);return Response.json({id:'durable-provider-receipt'});});
- try{let lose=true;f.setFault(q=>{if(lose&&q.includes("SET state='sent',delivery_phase='sent'")){lose=false;return true;}return false;});await invite(f.ctx,config,input());assert.equal(row(f).state,'queued');assert.match(row(f).error_detail,/receipt persistence/);
-  await scheduleIdentityMail(f.db,config,undefined,after(150000));assert.equal(requests,2);assert.equal(accepted.size,1);assert.equal(row(f).provider_message_id,'durable-provider-receipt');
- }finally{restore();f.close();}
-});
 test('WORK-006 revocation cancels exactly one invitation and expired leases recheck current grants',async()=>{
  const f=fixture();let calls=0;const restore=provider(async()=>{calls++;return new Response('down',{status:503});});
  try{await invite(f.ctx,config,input());const first=row(f);await invite(f.ctx,config,input());const second=f.sql.prepare('SELECT id FROM invitations WHERE id!=?').get(first.invitation_id)!.id;

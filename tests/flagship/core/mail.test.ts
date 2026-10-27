@@ -4,8 +4,8 @@ import {resetDeployment} from '../../e2e/setup/reset-deployment';
 import {seedWorkspace,seedMember,seedContainer,seedContainerGrant,sessionFor} from '../../e2e/setup/fixtures';
 import {createApi} from '../../../src/core/app/hono';
 import {readRuntimeConfig} from '../../../src/core/platform/config/runtime';
-import {invite,revokeInvitation} from '../../../src/core/features/workspace/invitations';
-import {scheduleIdentityMail} from '../../../src/core/features/session/mail';
+import {invite,revokeInvitation,acceptInvitation} from '../../../src/core/features/workspace/invitations';
+import {scheduleIdentityMail,deliverIdentityMail} from '../../../src/core/features/session/mail';
 import {retryIdentityMail,listIdentityMail} from '../../../src/core/features/session/mail-status';
 import type {FeatureContext} from '../../../src/core/app/feature-context';
 const config={...readRuntimeConfig(env,false),appUrl:'https://slate.test.invalid',mailFrom:'Slate <mail@test.invalid>',mailApiKey:'test-only-key'};
@@ -13,12 +13,22 @@ beforeEach(resetDeployment);
 async function fixture(){const{workspaceId}=await seedWorkspace();const{memberId}=await seedMember(workspaceId,{email:`${workspaceId}@test.invalid`,displayName:'Owner',role:'owner',isSetupOwner:true});return {db:env.DB,files:env.FILES,jobs:env.JOBS,actor:{id:memberId,workspaceId,workspaceName:'Workspace',email:`${workspaceId}@test.invalid`,displayName:'Owner',initials:'O',role:'owner'},now:new Date().toISOString()} as FeatureContext;}
 test('MAIL-002 Worker D1 durable retry uses a single encrypted message across five minutes and explicit recovery',async()=>{
  const ctx=await fixture();let success=false;const provider=vi.spyOn(globalThis,'fetch').mockImplementation(async()=>success?Response.json({id:'provider-confirmed'}):new Response('provider raw secret',{status:503}));
- try{const input={operationKey:crypto.randomUUID(),email:'retry@test.invalid',kind:'member' as const};await invite(ctx,config,input);const read=()=>env.DB.prepare('SELECT * FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<any>();const initial=await read();expect(initial.payload_ciphertext).toMatch(/^v1\./);expect(initial.payload_ciphertext).not.toContain('/accept');expect(provider).toHaveBeenCalledTimes(1);
+ try{const input={operationKey:crypto.randomUUID(),email:'retry@test.invalid',kind:'member' as const};await invite(ctx,config,input);const read=()=>env.DB.prepare('SELECT * FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<any>();const initial=await read();expect(initial.payload_ciphertext).toMatch(/^v1\./);expect(initial.payload_ciphertext).not.toContain('/accept');expect(provider).toHaveBeenCalledTimes(1);expect(initial.next_attempt_at).toBe(new Date(Date.parse(ctx.now)+150000).toISOString());
+  await deliverIdentityMail(env.DB,config,initial.id,ctx,new Date(Date.parse(ctx.now)+149999).toISOString());expect(provider).toHaveBeenCalledTimes(1);
   await invite(ctx,config,input);expect(provider).toHaveBeenCalledTimes(1);
-  // One-minute cron can first observe a 150s deadline at180s. Third remains due300s.
+  // A due retry runs exactly at 150s; a later cron tick must not send twice.
+  await scheduleIdentityMail(env.DB,config,ctx,new Date(Date.parse(ctx.now)+150000).toISOString());expect(provider).toHaveBeenCalledTimes(2);
   await scheduleIdentityMail(env.DB,config,ctx,new Date(Date.parse(ctx.now)+180000).toISOString());expect(provider).toHaveBeenCalledTimes(2);expect((await read()).next_attempt_at).toBe(new Date(Date.parse(ctx.now)+300000).toISOString());
-  const later={...ctx,now:new Date(Date.parse(ctx.now)+300000).toISOString()};await scheduleIdentityMail(env.DB,config,ctx,later.now);expect(provider).toHaveBeenCalledTimes(3);expect((await read()).state).toBe('failed');const item=(await listIdentityMail(later)).items[0];expect(item.errorDetail).toContain('503');expect(JSON.stringify(item)).not.toContain('provider raw secret');expect(item.canRetry).toBe(true);
-  success=true;await retryIdentityMail(later,config,initial.id);expect((await read()).provider_message_id).toBe('provider-confirmed');expect((await read()).payload_ciphertext).toBeNull();const requests=provider.mock.calls.map(call=>call[1]!);expect(new Set(requests.map(r=>new Headers(r.headers).get('Idempotency-Key'))).size).toBe(1);expect(new Set(requests.map(r=>r.body)).size).toBe(1);
+  const later={...ctx,now:new Date(Date.parse(ctx.now)+300000).toISOString()};await scheduleIdentityMail(env.DB,config,ctx,later.now);expect(provider).toHaveBeenCalledTimes(3);expect((await read()).state).toBe('failed');const item=(await listIdentityMail(later)).items[0];expect(item.errorDetail).toContain('503');expect(JSON.stringify(item)).not.toContain('provider raw secret');expect(item.canRetry).toBe(true);expect(JSON.stringify(item)).not.toContain('ciphertext');
+  const {memberId:ordinary}=await seedMember(ctx.actor.workspaceId,{email:'synthetic-slate-301@test.invalid',displayName:'Member',role:'member'});
+  await expect(retryIdentityMail({...later,actor:{...ctx.actor,id:ordinary,role:'member'}},config,initial.id)).rejects.toMatchObject({status:404});
+  success=true;
+  const api=createApi(),cookie=await sessionFor(ctx.actor.id),bindings={...env,APP_URL:config.appUrl,MAIL_PROVIDER:config.mailProvider,MAIL_FROM:config.mailFrom,MAIL_API_KEY:config.mailApiKey};
+  const retry=()=>api.request(config.appUrl+'/api/workspace/mail/'+initial.id+'/retry',{method:'POST',headers:{cookie,origin:config.appUrl}},bindings);
+  expect((await retry()).status).toBe(200);
+  expect((await read()).state).toBe('sent');expect(provider).toHaveBeenCalledTimes(4);
+  expect((await env.DB.prepare('SELECT count(*) AS n FROM invitations WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{n:number}>())!.n).toBe(1);
+  expect((await retry()).status).toBe(200);expect(provider).toHaveBeenCalledTimes(4);expect((await read()).provider_message_id).toBe('provider-confirmed');expect((await read()).payload_ciphertext).toBeNull();const requests=provider.mock.calls.map(call=>call[1]!);expect(new Set(requests.map(r=>new Headers(r.headers).get('Idempotency-Key'))).size).toBe(1);expect(new Set(requests.map(r=>r.body)).size).toBe(1);
  }finally{provider.mockRestore();}
 });
 test('MAIL-002 Worker routes require current authentication and expose public sign-in status only with capability',async()=>{
@@ -65,11 +75,39 @@ test('WORK-006 Worker pending guest grant is durable and exact revocation disabl
 test('MAIL-002 Worker restart after invitation commit resumes the admitted encrypted command',async()=>{
  const ctx=await fixture(),input={operationKey:crypto.randomUUID(),email:'restart@test.invalid',kind:'member' as const};
  const interrupted=new Proxy(env.DB,{get(target,key){if(key==='prepare')return(query:string)=>{if(query.startsWith('SELECT id FROM mail_deliveries WHERE workspace_id='))throw new Error('process ended after commit');return target.prepare(query);};const value=Reflect.get(target,key,target);return typeof value==='function'?value.bind(target):value;}});
- const provider=vi.spyOn(globalThis,'fetch').mockResolvedValue(Response.json({id:'restart-receipt'}));try{await expect(invite({...ctx,db:interrupted},config,input)).rejects.toThrow('process ended after commit');expect(provider).not.toHaveBeenCalled();const command=await env.DB.prepare('SELECT delivery_phase,payload_ciphertext FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{delivery_phase:string;payload_ciphertext:string}>();expect(command!.delivery_phase).toBe('pending');expect(command!.payload_ciphertext).toMatch(/^v1\./);
+ const provider=vi.spyOn(globalThis,'fetch').mockResolvedValue(Response.json({id:'restart-receipt'}));try{await expect(invite({...ctx,db:interrupted},config,input)).rejects.toThrow('process ended after commit');expect(provider).not.toHaveBeenCalled();const command=await env.DB.prepare('SELECT delivery_phase,payload_ciphertext FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{delivery_phase:string;payload_ciphertext:string}>();expect(command!.delivery_phase).toBe('pending');expect(command!.payload_ciphertext).toMatch(/^v1\./);expect(command!.payload_ciphertext).not.toContain('/accept');
+  expect((await env.DB.prepare('SELECT count(*) AS n FROM invitations WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{n:number}>())!.n).toBe(1);
+  expect((await env.DB.prepare('SELECT count(*) AS n FROM operation_receipts WHERE workspace_id=? AND operation_key=?').bind(ctx.actor.workspaceId,input.operationKey).first<{n:number}>())!.n).toBe(1);
   await scheduleIdentityMail(env.DB,config,ctx,ctx.now);await invite(ctx,config,input);expect(provider).toHaveBeenCalledTimes(1);expect((await env.DB.prepare('SELECT provider_message_id FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{provider_message_id:string}>())!.provider_message_id).toBe('restart-receipt');
+  expect((await env.DB.prepare('SELECT payload_ciphertext FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{payload_ciphertext:null}>())!.payload_ciphertext).toBeNull();
+  const body=JSON.parse(String(provider.mock.calls[0]![1]!.body));
+  const token=new URL(body.text.split('\n')[0].split(': ').slice(1).join(': ')).searchParams.get('token')!;
+  expect((await acceptInvitation(env.DB,config,token,ctx)).memberId).toBeTruthy();
+  await expect(acceptInvitation(env.DB,config,token,ctx)).rejects.toMatchObject({code:'LINK_INVALID'});
+  const cookie=await sessionFor(ctx.actor.id),status=await createApi().request('/api/workspace/mail',{headers:{cookie}},env);
+  expect(status.status).toBe(200);expect(await status.json()).toMatchObject({items:[{state:'sent'}]});
  }finally{provider.mockRestore();}
 });
 test('MAIL-002 Worker lost provider response replays identical request without a second logical email',async()=>{
- const ctx=await fixture();const accepted=new Map<string,string>();let attempts=0;const provider=vi.spyOn(globalThis,'fetch').mockImplementation(async(_url,init)=>{attempts++;const key=new Headers(init!.headers).get('Idempotency-Key')!,body=String(init!.body);if(!accepted.has(key)){accepted.set(key,body);throw new Error('provider accepted; response lost');}expect(body).toBe(accepted.get(key));return Response.json({id:'recovered-receipt'});});
- try{await invite(ctx,config,{operationKey:crypto.randomUUID(),email:'lost-response@test.invalid',kind:'member'});await scheduleIdentityMail(env.DB,config,ctx,new Date(Date.parse(ctx.now)+150000).toISOString());expect(attempts).toBe(2);expect(accepted.size).toBe(1);expect((await env.DB.prepare('SELECT state,provider_message_id FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{state:string;provider_message_id:string}>())).toMatchObject({state:'sent',provider_message_id:'recovered-receipt'});}finally{provider.mockRestore();}
+ for(const fault of ['response','receipt'] as const){
+  await resetDeployment();
+ const ctx=await fixture();const accepted=new Map<string,string>();let attempts=0;const provider=vi.spyOn(globalThis,'fetch').mockImplementation(async(_url,init)=>{attempts++;const key=new Headers(init!.headers).get('Idempotency-Key')!,body=String(init!.body);if(!accepted.has(key)){accepted.set(key,body);if(fault==='response')throw new Error('provider accepted; response lost');}expect(body).toBe(accepted.get(key));return Response.json({id:'recovered-receipt'});});
+ let loseReceipt=fault==='receipt';
+ const interrupted=new Proxy(env.DB,{get(target,key){if(key==='prepare')return(query:string)=>{
+  if(loseReceipt&&query.includes("SET state='sent',delivery_phase='sent'")){loseReceipt=false;throw new Error('injected receipt persistence failure');}
+  return target.prepare(query);
+ };const value=Reflect.get(target,key,target);return typeof value==='function'?value.bind(target):value;}});
+ try{const input={operationKey:crypto.randomUUID(),email:'lost-response@test.invalid',kind:'member' as const};
+  await invite({...ctx,db:interrupted},config,input);
+  const pending=await env.DB.prepare('SELECT state,error_detail FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{state:string;error_detail:string}>();
+  expect(pending!.state).toBe('queued');
+  if(fault==='receipt')expect(pending!.error_detail).toMatch(/receipt persistence/);
+  await scheduleIdentityMail(env.DB,config,ctx,new Date(Date.parse(ctx.now)+150000).toISOString());expect(attempts).toBe(2);expect(accepted.size).toBe(1);expect((await env.DB.prepare('SELECT state,provider_message_id FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{state:string;provider_message_id:string}>())).toMatchObject({state:'sent',provider_message_id:'recovered-receipt'});
+  const cookie=await sessionFor(ctx.actor.id),api=createApi(),bindings={...env,APP_URL:config.appUrl,MAIL_PROVIDER:config.mailProvider,MAIL_FROM:config.mailFrom,MAIL_API_KEY:config.mailApiKey};
+  expect((await api.request(config.appUrl+'/api/invitations',{method:'POST',headers:{cookie,origin:config.appUrl,'content-type':'application/json'},body:JSON.stringify(input)},bindings)).status).toBe(200);
+  expect(attempts).toBe(2);
+  const status=await api.request('/api/workspace/mail',{headers:{cookie}},bindings);
+  expect(status.status).toBe(200);expect(await status.json()).toMatchObject({items:[{state:'sent'}]});
+ }finally{provider.mockRestore();}
+ }
 });

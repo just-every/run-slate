@@ -10704,11 +10704,11 @@
       "executable": false
     },
     "tests/flagship/core/mail.node.test.mts": {
-      "sha256": "51353129aeb755a907485ecf15b9a259c0512c24b31940b9638ef552ddb9a71a",
+      "sha256": "bf26803f57df616bb68d158aefb8d93df43d21e4f61fcfa2cf21b3e8b1387140",
       "executable": false
     },
     "tests/flagship/core/mail.test.ts": {
-      "sha256": "9b4ebe74262808b37bfa548da618998120141b932750a634948d9fe3a25a2247",
+      "sha256": "bffa0e5f11e624d12d1bdacc62843232fbdeb80994b166e9b7f0052e5598e4b8",
       "executable": false
     },
     "tests/flagship/core/owner-bootstrap.test.ts": {
