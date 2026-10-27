@@ -11872,7 +11872,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/people-journey.mjs": {
-      "sha256": "7d611d8512b32d29091215d4ea9d2c71afe3872c42492bb7e034ed552564449a",
+      "sha256": "217f4d8fd64c4b159c5ce6c7dc0e09f02baa4e20388114c6c8fc0d6edf319dc0",
       "executable": false
     },
     "tests/qualification/ui-convergence/presentation-journey.mjs": {
@@ -11968,7 +11968,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page-tools-journey.mjs": {
-      "sha256": "6ee52cb153f89365f5f66344900963bd39b5661b9c2f82efe49e7cdaa39b0f5e",
+      "sha256": "cfc2f5b23ffc12e9385579c6f02322a7d33c32119a6836f722f273b78c4b929d",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page.mjs": {
