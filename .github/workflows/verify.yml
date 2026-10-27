@@ -90,7 +90,10 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: verified-app-build
-          path: dist/
+          # Keep the build provenance used by browser evidence with its bytes.
+          path: |
+            dist/
+            .cache/slate/build-source.json
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 1
@@ -167,7 +170,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: verified-app-build
-          path: dist/
+          path: .
       # The six Workers report partitions stay intact for contract aggregation.
       - name: Workers contract partition
         if: matrix.worker != 0
@@ -209,7 +212,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: verified-app-build
-          path: dist/
+          path: .
       - uses: actions/download-artifact@v4
         with:
           pattern: contract-*
@@ -239,7 +242,7 @@ jobs:
         if: github.event_name != 'workflow_dispatch'
         with:
           name: verified-app-build
-          path: dist/
+          path: .
       - run: pnpm build
         if: github.event_name == 'workflow_dispatch'
       - run: pnpm test:installer && pnpm test:local-journey
