@@ -91,6 +91,21 @@ test("docs build renders declared pages and refuses invalid manifests, markup, l
   }
 
 } },
+    { name: "published pages describe only the default core-wiki profile and carry no maintainer material", run: () => {
+  // Development-only surfaces and specific maintainer commands or records stay on GitHub.
+  const forbidden = [
+    [/flagship/i, "flagship"], [/frontier/i, "frontier"], [/user-journeys?/i, "user journeys"], [/\bAI\b/, "AI"], [/inquir/i, "inquiry"],
+    [/connectors?\b/i, "connector"], [/\bagents?\b/i, "agent"], [/\bexperiments?\b/i, "experiment"], [/\bMCP\b/, "MCP"], [/\bRER\b/, "RER"],
+    [/source:lock|integration:sync|publish-check|artifact:delivery/, "maintainer command"],
+    [/sources\.lock|edition\.json|Base Mail/i, "maintainer record"], [/\b[A-Z]{2,8}-\d{3}\b/, "requirement ID"],
+  ];
+  const nonPublished = /FLAGSHIP|FRONTIER|USER-JOURNEYS|HANDOVER|ACCEPTANCE|PROOF|local-agent/;
+  for (const page of site.pages) {
+    const text = page.html.replace(/<[^>]+>/g, " ");
+    for (const [pattern, name] of forbidden) assert.doesNotMatch(text, pattern, `${page.source} mentions ${name}`);
+    for (const [, href] of page.html.matchAll(/<a href="([^"]+)"/g)) assert.doesNotMatch(href, nonPublished, `${page.source} links ${href}`);
+  }
+} },
     { name: "heading ids match GitHub, including duplicates, em dashes, backticks and parentheses", run: () => {
   const slug = createSlugger();
   assert.equal(slug("Request limits (`RATE_LIMITS`)"), "request-limits-rate_limits");
