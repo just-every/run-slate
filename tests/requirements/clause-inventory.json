@@ -216,7 +216,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -247,7 +247,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         },
         {
           "file": "tests/flagship/core/security.test.ts",
@@ -267,7 +267,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -304,7 +304,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "move requires the exact access preview, moves descendants, and duplicates omit history and comments"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -316,7 +316,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "move requires the exact access preview, moves descendants, and duplicates omit history and comments"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -396,7 +396,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "archive restoration preserves draft trees, refuses cycles and requires relocation authority"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -436,7 +436,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -483,7 +483,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
-          "testName": "normalizes creation and structural task attribution and preserves existing completion"
+          "testName": "content structure, task attribution, privacy and activity retain exact revisions"
         }
       ]
     },
@@ -495,7 +495,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety media exposure sanitizes uploads and serves only the allowed published attachments"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         }
       ]
     },
@@ -533,15 +533,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP draft publication keeps working content private through publish, discard and scheduling"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "archive restoration preserves draft trees, refuses cycles and requires relocation authority"
-        },
-        {
-          "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety media exposure sanitizes uploads and serves only the allowed published attachments"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         },
         {
           "file": "tests/flagship/core/access.test.ts",
@@ -568,7 +564,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP draft publication keeps working content private through publish, discard and scheduling"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         }
       ]
     },
@@ -580,7 +576,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP draft publication keeps working content private through publish, discard and scheduling"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         }
       ]
     },
@@ -599,7 +595,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP draft publication keeps working content private through publish, discard and scheduling"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         }
       ]
     },
@@ -658,7 +654,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP exact human opens gate verification and stale or forged attestations are refused"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -700,7 +696,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
-          "testName": "public header controls and social metadata render from explicit publication without private search results"
+          "testName": "content structure, task attribution, privacy and activity retain exact revisions"
         }
       ]
     },
@@ -747,7 +743,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "identical saves do not create revisions or activity and labelled versions become immutable tombstones"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -787,7 +783,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "identical saves do not create revisions or activity and labelled versions become immutable tombstones"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -820,11 +816,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP exact human opens gate verification and stale or forged attestations are refused"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         },
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "suggestions stay pinned to their base and accepted edits never issue human verification"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -857,7 +853,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP exact human opens gate verification and stale or forged attestations are refused"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         }
       ]
     },
@@ -876,7 +872,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety revision restoration preserves identity, history and surviving comment anchors"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -923,11 +919,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety revision restoration preserves identity, history and surviving comment anchors"
-        },
-        {
-          "file": "tests/flagship/content/http.test.ts",
-          "testName": "archive restoration preserves draft trees, refuses cycles and requires relocation authority"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -946,7 +938,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety revision restoration preserves identity, history and surviving comment anchors"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -958,7 +950,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "permanent deletion removes body/history/comment/grounding content and keeps a content-free tombstone"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -991,7 +983,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
-          "testName": "container metadata and archived listing expose stored policies and preserve personal privacy"
+          "testName": "content structure, task attribution, privacy and activity retain exact revisions"
         }
       ]
     },
@@ -1003,7 +995,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
-          "testName": "container metadata and archived listing expose stored policies and preserve personal privacy"
+          "testName": "content structure, task attribution, privacy and activity retain exact revisions"
         },
         {
           "file": "tests/flagship/core/access.test.ts",
@@ -1026,7 +1018,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content publication, files, restoration and safety media exposure sanitizes uploads and serves only the allowed published attachments"
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         }
       ]
     },
@@ -1279,7 +1271,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
-          "testName": "public header controls and social metadata render from explicit publication without private search results"
+          "testName": "content structure, task attribution, privacy and activity retain exact revisions"
         }
       ]
     },
@@ -1476,7 +1468,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
-          "testName": "comment activity receives exact entity revision context in the atomic operation"
+          "testName": "content structure, task attribution, privacy and activity retain exact revisions"
         }
       ]
     },
@@ -1773,7 +1765,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "permanent deletion removes body/history/comment/grounding content and keeps a content-free tombstone"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -1846,7 +1838,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "suggestions stay pinned to their base and accepted edits never issue human verification"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         }
       ]
     },
@@ -2695,7 +2687,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
-          "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS"
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
         },
         {
           "file": "tests/flagship/content/http.test.ts",

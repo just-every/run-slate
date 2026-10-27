@@ -3,59 +3,46 @@
   "entries": [
     {
       "file": "tests/flagship/content/http.test.ts",
-      "testName": "content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS",
+      "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state",
       "kind": "supporting-regression",
       "clauses": [
         "BLOCK-001",
         "SAVE-003",
         "SAVE-005",
         "BASE-ACCESS-002",
-        "SAVE-006"
+        "SAVE-006",
+        "ARCH-003",
+        "ARCH-005",
+        "COMM-004",
+        "PAGE-004",
+        "PAGE-005",
+        "ARCH-006",
+        "LINK-002",
+        "REV-001",
+        "REV-006",
+        "LIFE-002",
+        "TREE-001",
+        "SHARE-003",
+        "AI-005",
+        "STAT-003",
+        "BLOCK-008"
       ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
+      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance. Asserts move requires the exact access preview, moves descendants, and duplicates omit history and comments. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts permanent deletion removes body/history/comment/grounding content and keeps a content-free tombstone. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts identical saves do not create revisions or activity and labelled versions become immutable tombstones. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts suggestions stay pinned to their base and accepted edits never issue human verification. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts duplicating a page with attachments respects the deployment attachment storage limit. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/content/http.test.ts",
-      "testName": "content durable HTTP draft publication keeps working content private through publish, discard and scheduling",
+      "testName": "content durable HTTP publication, human verification and media enforce current reader authority",
       "kind": "supporting-regression",
       "clauses": [
         "LIFE-002",
         "LIFE-005",
         "LIFE-004",
-        "LIFE-007"
-      ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "content durable HTTP exact human opens gate verification and stale or forged attestations are refused",
-      "kind": "supporting-regression",
-      "clauses": [
+        "LIFE-007",
         "COMM-002",
         "STAT-003",
-        "SHARE-007"
-      ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "content publication, files, restoration and safety media exposure sanitizes uploads and serves only the allowed published attachments",
-      "kind": "supporting-regression",
-      "clauses": [
+        "SHARE-007",
         "BLOCK-008",
-        "CONT-007",
-        "LIFE-002"
-      ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "content publication, files, restoration and safety revision restoration preserves identity, history and surviving comment anchors",
-      "kind": "supporting-regression",
-      "clauses": [
-        "ARCH-003",
-        "ARCH-005",
-        "COMM-004"
+        "CONT-007"
       ],
       "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
     },
@@ -71,49 +58,6 @@
     },
     {
       "file": "tests/flagship/content/http.test.ts",
-      "testName": "move requires the exact access preview, moves descendants, and duplicates omit history and comments",
-      "kind": "supporting-regression",
-      "clauses": [
-        "PAGE-004",
-        "PAGE-005"
-      ],
-      "reason": "Asserts move requires the exact access preview, moves descendants, and duplicates omit history and comments. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "permanent deletion removes body/history/comment/grounding content and keeps a content-free tombstone",
-      "kind": "supporting-regression",
-      "clauses": [
-        "ARCH-006",
-        "LINK-002"
-      ],
-      "reason": "Asserts permanent deletion removes body/history/comment/grounding content and keeps a content-free tombstone. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "identical saves do not create revisions or activity and labelled versions become immutable tombstones",
-      "kind": "supporting-regression",
-      "clauses": [
-        "REV-001",
-        "REV-006"
-      ],
-      "reason": "Asserts identical saves do not create revisions or activity and labelled versions become immutable tombstones. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "archive restoration preserves draft trees, refuses cycles and requires relocation authority",
-      "kind": "supporting-regression",
-      "clauses": [
-        "ARCH-003",
-        "LIFE-002",
-        "TREE-001",
-        "PAGE-004",
-        "SHARE-003"
-      ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
       "testName": "idle sockets close within five seconds after direct-grant revocation or session expiry",
       "kind": "supporting-regression",
       "clauses": [
@@ -121,16 +65,6 @@
         "BASE-ACCESS-002"
       ],
       "reason": "Asserts idle sockets close within five seconds after direct-grant revocation or session expiry. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "suggestions stay pinned to their base and accepted edits never issue human verification",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AI-005",
-        "STAT-003"
-      ],
-      "reason": "Asserts suggestions stay pinned to their base and accepted edits never issue human verification. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/content/preview.test.ts",
@@ -143,41 +77,20 @@
     },
     {
       "file": "tests/flagship/content/repair.test.ts",
-      "testName": "normalizes creation and structural task attribution and preserves existing completion",
+      "testName": "content structure, task attribution, privacy and activity retain exact revisions",
       "kind": "supporting-regression",
       "clauses": [
-        "BLOCK-007"
-      ],
-      "reason": "Asserts normalizes creation and structural task attribution and preserves existing completion. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/repair.test.ts",
-      "testName": "container metadata and archived listing expose stored policies and preserve personal privacy",
-      "kind": "supporting-regression",
-      "clauses": [
+        "BLOCK-007",
         "CONT-004",
-        "CONT-005"
-      ],
-      "reason": "Asserts container metadata and archived listing expose stored policies and preserve personal privacy. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/repair.test.ts",
-      "testName": "public header controls and social metadata render from explicit publication without private search results",
-      "kind": "supporting-regression",
-      "clauses": [
+        "CONT-005",
         "WEB-002",
-        "SEARCH-005"
+        "SEARCH-005",
+        "ACT-004",
+        "SAVE-003",
+        "SAVE-006",
+        "LINK-004"
       ],
-      "reason": "Asserts public header controls and social metadata render from explicit publication without private search results. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/repair.test.ts",
-      "testName": "comment activity receives exact entity revision context in the atomic operation",
-      "kind": "supporting-regression",
-      "clauses": [
-        "ACT-004"
-      ],
-      "reason": "Asserts comment activity receives exact entity revision context in the atomic operation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts normalizes creation and structural task attribution and preserves existing completion. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts container metadata and archived listing expose stored policies and preserve personal privacy. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts public header controls and social metadata render from explicit publication without private search results. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts comment activity receives exact entity revision context in the atomic operation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts that a reader whose mention labels differ from the stored titles saves another block through the structure route without a false BLOCK_CONFLICT, and that no reader's label is written back over the stored title. Its supporting scope is limited to the listed requirements; it does not establish the editor UI, every profile or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/core/access.test.ts",
@@ -1589,17 +1502,6 @@
       "reason": "Local D1 prior-data upgrade through migration 0026: current, lapsed and notified, lapsed and due, changed-since and departed-verifier rows are unchanged, the review list and page reads show each state, and two lapse-job runs notify only the due row once without stalling on the departed verifier. Real CLI export/import of an upgraded store is separate evidence. Also proves the per-reader directory, profile and expertise flow through the existing native routes."
     },
     {
-      "file": "tests/flagship/content/structure-save-labels.test.ts",
-      "testName": "a structure save never reports a conflict for a block whose only difference is a mention label",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SAVE-003",
-        "SAVE-006",
-        "LINK-004"
-      ],
-      "reason": "Asserts that a reader whose mention labels differ from the stored titles saves another block through the structure route without a false BLOCK_CONFLICT, and that no reader's label is written back over the stored title. Its supporting scope is limited to the listed requirements; it does not establish the editor UI, every profile or complete end-to-end acceptance."
-    },
-    {
       "file": "tests/flagship/core/owner-bootstrap.test.ts",
       "testName": "POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards",
       "kind": "supporting-regression",
@@ -1796,16 +1698,6 @@
         "BLOCK-005"
       ],
       "reason": "Asserts record templates show each database viewer only the page mention titles they can open. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/content/http.test.ts",
-      "testName": "duplicating a page with attachments respects the deployment attachment storage limit",
-      "kind": "supporting-regression",
-      "clauses": [
-        "PAGE-005",
-        "BLOCK-008"
-      ],
-      "reason": "Asserts duplicating a page with attachments respects the deployment attachment storage limit. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/authority/learned-provenance.test.ts",

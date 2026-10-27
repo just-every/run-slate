@@ -9,7 +9,7 @@ import {seedContainer, seedContainerGrant, seedMember, seedWorkspace, sessionFor
  * mention block's earlier revision and changed nothing in it, then saves her own change.
  * Her save is never refused as a BLOCK_CONFLICT because of a label.
  */
-test('a structure save never reports a conflict for a block whose only difference is a mention label', async () => {
+export async function structureSaveLabelsCase() {
   const api = createApi(), origin = 'https://slate.test';
   const {workspaceId} = await seedWorkspace();
   const {memberId: alice} = await seedMember(workspaceId, {role: 'owner', email: `alice-${workspaceId}@example.test`, displayName: 'Alice Owner'});
@@ -71,4 +71,4 @@ test('a structure save never reports a conflict for a block whose only differenc
   const after = await load(carolCookie);
   expect(JSON.stringify(after.blocks[0]!.content)).toContain(title);
   expect(JSON.stringify((await load(bobCookie)).blocks[0]!.content)).not.toContain(title);
-});
+}
