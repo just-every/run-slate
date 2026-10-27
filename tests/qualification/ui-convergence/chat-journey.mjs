@@ -10,8 +10,11 @@ import { ok } from './two-people-support.mjs';
 /** NOTIF-003: owner token setup, actual comment events and production cron, Slack HTTP edge only. */
 export async function chatJourney(state, width = state.page.viewportSize().width) {
   const { page, context, origin, fixtureSql, setSlackFailure, readSlackMessages } = state;
-  const runScheduled=async()=>{
-    await fixtureSql(["UPDATE notification_outbox SET created_at=date('now')||'T00:00:00.000Z' WHERE processed_at IS NULL", "UPDATE chat_deliveries SET created_at=date('now')||'T00:00:00.000Z' WHERE state='pending' AND message_id IS NULL AND substr(created_at,1,10)=date('now')"]);
+  const runScheduled=async({sameDay=false}={})=>{
+    // Immediate batches must be in a past minute even during 00:00 UTC.
+    // The daily hold case deliberately keeps its events in the current day.
+    const createdAt=sameDay ? "date('now')||'T00:00:00.000Z'" : "strftime('%Y-%m-%dT%H:%M:%fZ','now','-2 minutes')";
+    await fixtureSql([`UPDATE notification_outbox SET created_at=${createdAt} WHERE processed_at IS NULL`, `UPDATE chat_deliveries SET created_at=${createdAt} WHERE state='pending' AND message_id IS NULL AND substr(created_at,1,10)=date('now')`]);
     await state.runScheduled();
   };
   const api = (method, route, data) => ok(context, origin, method, route, data);
@@ -201,7 +204,7 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await expect(teams.getByRole('status')).toHaveText('Connected');
   await open();await expect(teams).toContainText('Daily digest');
   const digestBefore=(await state.readTeamsMessages()).length;
-  await publish();await runScheduled();assert.equal((await state.readTeamsMessages()).length,digestBefore);
+  await publish();await runScheduled({sameDay:true});assert.equal((await state.readTeamsMessages()).length,digestBefore);
   await fixtureSql(["UPDATE chat_deliveries SET created_at='2000-01-01T00:00:00.000Z' WHERE state='pending'"]);
   await runScheduled();assert.equal((await state.readTeamsMessages()).length,digestBefore+1);
   await open();await shot('daily-digest');

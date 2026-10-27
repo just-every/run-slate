@@ -17,7 +17,9 @@ function inputs(markup: string): Array<Record<string, string>> {
   return found;
 }
 
-test('access expiry round-trips every month through the displayed local date and rendered ISO field', () => {
+test("access expiry round-trips rendered input, rejects invalid dates and clears optional values", async () => {
+  const cases = [
+    {name: 'access expiry round-trips every month through the displayed local date and rendered ISO field', run: () => {
   for (let month = 0; month < 12; month++) {
     const instant = new Date(2028, month, 15, 16, 30).toISOString();
     const shown = displayDate(instant, true);
@@ -30,16 +32,14 @@ test('access expiry round-trips every month through the displayed local date and
     assert.equal(submitted.value, instant, 'The date the owner sees must be the expiry sent to the server.');
     assert.equal(parseAccessExpiry(visible.value!), submitted.value);
   }
-});
-
-test('both September abbreviations refer to the same expiry instant', () => {
+}},
+    {name: 'both September abbreviations refer to the same expiry instant', run: () => {
   const instant = new Date(2028, 8, 15, 16, 30).toISOString();
   for (const month of ['Sep', 'Sept', 'sep', 'SEPT']) {
     assert.equal(parseAccessExpiry(`15 ${month} 2028, 16:30`), instant);
   }
-});
-
-test('invalid calendar dates, years, months and times are rejected without normalization', () => {
+}},
+    {name: 'invalid calendar dates, years, months and times are rejected without normalization', run: () => {
   const invalid = [
     '00 Jan 2028, 16:30', '32 Jan 2028, 16:30',
     '31 Apr 2028, 16:30', '31 Jun 2028, 16:30', '31 Sep 2028, 16:30', '31 Nov 2028, 16:30',
@@ -49,21 +49,25 @@ test('invalid calendar dates, years, months and times are rejected without norma
     '15 Jan 2028, 16:30 trailing text', '2028-01-15T16:30:00Z',
   ];
   for (const value of invalid) assert.equal(parseAccessExpiry(value), undefined, value);
-});
-
-test('29 February is accepted only in a leap year, including century boundaries', () => {
+}},
+    {name: '29 February is accepted only in a leap year, including century boundaries', run: () => {
   for (const year of [2024, 2028, 2000, 2400]) {
     assert.equal(parseAccessExpiry(`29 Feb ${year}, 16:30`), new Date(year, 1, 29, 16, 30).toISOString());
   }
   for (const year of [2023, 2025, 1900, 2100, 2200]) {
     assert.equal(parseAccessExpiry(`29 Feb ${year}, 16:30`), undefined);
   }
-});
-
-test('an empty optional expiry clears access expiry while invalid text remains distinct', () => {
+}},
+    {name: 'an empty optional expiry clears access expiry while invalid text remains distinct', run: () => {
   for (const empty of ['', ' ', '\t\n']) assert.equal(parseAccessExpiry(empty), null);
   assert.equal(parseAccessExpiry('not a date'), undefined);
   const fields = inputs(renderToStaticMarkup(createElement(AccessExpiry, { name: 'expiresAt', value: null })));
   assert.equal(fields.find(field => field.type === 'hidden' && field.name === 'expiresAt')?.value, '');
   assert.equal(fields.find(field => field['aria-label'] === 'Access expiry date and time')?.value, '');
+}}
+  ];
+  for (const entry of cases) {
+    try { await entry.run(); }
+    catch (cause) { throw new Error(`Case ${entry.name} failed`, {cause}); }
+  }
 });
