@@ -7916,7 +7916,7 @@
       "executable": false
     },
     "src/core/features/notifications/chat-delivery.ts": {
-      "sha256": "2a91647c792da32352618c041e28003cd2360cffa438978b51d855cd101df9e6",
+      "sha256": "fd7be651707ea4bee4ff37cf113bcb4c205e7373ba3f440df8a57cac385f1592",
       "executable": false
     },
     "src/core/features/notifications/chat-message.ts": {
@@ -11656,7 +11656,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
-      "sha256": "48ece225c75f25a0ea5874678dfce9cd4bf959abd674059ad000df7fb2629a88",
+      "sha256": "06f823a4a1cdb62da3d1fbb553e7014d5ce92a2145411a236c24bc1e3a47e69d",
       "executable": false
     },
     "tests/qualification/ui-convergence/columns-journey.mjs": {
