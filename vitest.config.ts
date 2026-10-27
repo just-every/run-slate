@@ -65,7 +65,6 @@ export default defineConfig({
       "tests/qualification/authority/learned-provenance.test.ts",
       "tests/qualification/authority/recovery.test.ts",
       "tests/qualification/authority/skill-disclosure.test.ts",
-      "tests/qualification/authority/snapshot.test.ts",
       "tests/qualification/authority/decision-authority.test.ts",
       "tests/qualification/authority/native-boundaries.test.ts",
       "tests/qualification/release-restore-authority/restored-effects.test.ts",

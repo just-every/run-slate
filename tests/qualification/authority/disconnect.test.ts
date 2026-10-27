@@ -1,3 +1,4 @@
+import {exchangeToken} from '../../../src/core/features/connectors/oauth-provider';
 import {env} from 'cloudflare:test';
 import {test,expect,beforeEach,afterEach,vi} from 'vitest';
 import {fixture,reset,document,passingEvaluation} from './fixture';
@@ -7,7 +8,17 @@ import {createSkill,transitionSkill} from '../../../src/core/features/skills/ser
 import {requireActiveSkill} from '../../../src/core/features/skills/admission';
 import {issueGrant} from '../../../src/core/features/effects/grants';
 beforeEach(reset);afterEach(()=>vi.unstubAllGlobals());
-test('SOURCE-006 — disconnect atomically stops queued work, withdraws activation and grant authority, and reconnect preserves suspension',async()=>{
+test("SOURCE-006 \u2014 OAuth redirects preserve authorization codes and disconnect withdraws executable authority without reactivation", async () => {
+ await scenario("SOURCE-006 \u2014 native OAuth refuses a redirect without replaying or forwarding the personal authorization code", async () => {
+ const requests:{url:string;redirect:RequestRedirect|undefined}[]=[];
+ vi.stubGlobal('fetch',async(input:Request|string|URL,init?:RequestInit)=>{requests.push({url:String(input),redirect:init?.redirect});return new Response(null,{status:302,headers:{Location:'https://unexpected.test/token'}});});
+ await expect(exchangeToken('orbit',{code:'labelled-single-use-code'},'https://native.test/api/delegation/v1/token')).rejects.toMatchObject({code:'OAUTH_EXCHANGE_FAILED'});
+ expect(requests).toEqual([{url:'https://native.test/api/delegation/v1/token',redirect:'manual'}]);
+
+ });
+ vi.unstubAllGlobals();
+ await reset();
+ await scenario("SOURCE-006 \u2014 disconnect atomically stops queued work, withdraws activation and grant authority, and reconnect preserves suspension", async () => {
  const f=await fixture(),host=await document(f,'Method host'),secret='test-only-credential-key-1234567890123456',ctx=()=>({...f.context(),sourceSecret:secret});
  // A labelled protocol double only: no hosted source acceptance is claimed.
  vi.stubGlobal('fetch',async(input:Request|string|URL)=>{const url=String(input);return Response.json(url.endsWith('/user')?{id:7,login:'reader'}:{title:'Owning source',body:'Permitted source evidence',updated_at:'v1',state:'open',number:1});});
@@ -23,4 +34,8 @@ test('SOURCE-006 — disconnect atomically stops queued work, withdraws activati
  await connect(ctx(),{operationKey:'reconnect-explicit-identity',provider:'github',accountId:'reader',token:'test-only-new-token'},secret);
  await expect(requireActiveSkill(ctx(),skill.value.revisionId,[ref],[f.owner],1)).rejects.toMatchObject({code:'SKILL_CHANGED'});
  expect(await env.DB.prepare('SELECT status FROM intelligence_runs WHERE id=?').bind('queued-test-run').first<string>('status')).toBe('paused');
+
+ });
 });
+
+async function scenario(name:string,run:()=>Promise<void>){try{await run();}catch(cause){throw new Error(`Scenario ${name} failed`,{cause});}}

@@ -364,12 +364,12 @@
     },
     {
       "file": "tests/qualification/authority/disconnect.test.ts",
-      "testName": "SOURCE-006 \u2014 disconnect atomically stops queued work, withdraws activation and grant authority, and reconnect preserves suspension",
+      "testName": "SOURCE-006 \u2014 OAuth redirects preserve authorization codes and disconnect withdraws executable authority without reactivation",
       "kind": "supporting-regression",
       "clauses": [
         "SOURCE-006"
       ],
-      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance."
+      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance. Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
     },
     {
       "file": "tests/qualification/authority/import-safety.test.ts",
@@ -382,14 +382,16 @@
     },
     {
       "file": "tests/qualification/authority/learned-provenance.test.ts",
-      "testName": "INQ-005 \u2014 learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse",
+      "testName": "INQ-005 \u2014 learned provenance and published inquiry references preserve exact disclosed sources",
       "kind": "supporting-regression",
       "clauses": [
         "INQ-005",
         "SOURCE-005",
-        "AI-013"
+        "AI-013",
+        "LIFE-005",
+        "ARCH-002"
       ],
-      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance."
+      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance. Asserts inquiry and archive page references show a reader the published title, not an unpublished rename. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/authority/recovery.test.ts",
@@ -405,14 +407,15 @@
     },
     {
       "file": "tests/qualification/authority/skill-disclosure.test.ts",
-      "testName": "SKILL-001 \u2014 revoking an older definition source denies the all-version HTTP read without revealing instructions",
+      "testName": "SKILL-001 \u2014 method disclosure and portable snapshots retain exact source, audience and attachment boundaries",
       "kind": "supporting-regression",
       "clauses": [
         "SKILL-001",
         "SOURCE-005",
-        "AI-013"
+        "AI-013",
+        "BLOCK-008"
       ],
-      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance."
+      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance. Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance. Asserts skill snapshot export carries only the attachments its exact source revisions show the reader. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/authority/skill-disclosure.test.ts",
@@ -446,44 +449,15 @@
       "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance."
     },
     {
-      "file": "tests/qualification/authority/skill-disclosure.test.ts",
-      "testName": "SKILL-001 \u2014 a readable host and source cannot widen the exact method audience",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SKILL-001",
-        "SOURCE-005",
-        "AI-013"
-      ],
-      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance."
-    },
-    {
-      "file": "tests/qualification/authority/snapshot.test.ts",
-      "testName": "SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SKILL-001",
-        "SOURCE-005",
-        "AI-013"
-      ],
-      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance."
-    },
-    {
       "file": "tests/qualification/authority/decision-authority.test.ts",
-      "testName": "SOURCE-003 \u2014 claims keep accepted authority through review, withdraw it when nested citations change or layer is removed, and preserve exact history through restore",
+      "testName": "SOURCE-003 \u2014 decision authority and exact historical prose retain current citation boundaries through review and restore",
       "kind": "supporting-regression",
       "clauses": [
-        "SOURCE-003"
+        "SOURCE-003",
+        "DEC-004",
+        "DEC-006"
       ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/authority/native-boundaries.test.ts",
-      "testName": "SOURCE-006 \u2014 native OAuth refuses a redirect without replaying or forwarding the personal authorization code",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SOURCE-006"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
+      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance. Asserts an earlier decision revision is read without the current prose its reader can no longer cite. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/authority/native-boundaries.test.ts",
@@ -507,16 +481,7 @@
     },
     {
       "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "EFFECT-001 \u2014 a normal current grant permits one dispatch and receipt replay sends nothing",
-      "kind": "supporting-regression",
-      "clauses": [
-        "EFFECT-001"
-      ],
-      "reason": "Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance."
-    },
-    {
-      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
-      "testName": "EFFECT-001 \u2014 revoked grants still deny ordinary non-restored effects without mutations",
+      "testName": "EFFECT-001 \u2014 current grants dispatch once with receipt replay while revoked grants deny without mutations",
       "kind": "supporting-regression",
       "clauses": [
         "EFFECT-001"
@@ -571,6 +536,26 @@
         "FLAG-002"
       ],
       "reason": "Native original-schema inquiry and finding records survive the additive branch admission migration with no fabricated historical outcome. This locally created prior database is not the sealed prior-store acceptance input."
+    },
+    {
+      "file": "tests/qualification/core/audit-content.test.ts",
+      "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor/time",
+      "kind": "supporting-regression",
+      "clauses": [
+        "ACT-002",
+        "BASE-OPS-005"
+      ],
+      "reason": "Preserves the existing content audit assertions and extends them through native HTTP sign-in, sharing, token use, owner metadata exports, retention and signed ordered audit recovery. Real vendor receivers and resolved-address pinning remain unproven."
+    },
+    {
+      "file": "tests/qualification/policies/invitations.test.ts",
+      "testName": "a member invitation stops admitting once its inviter is no longer a full member",
+      "kind": "supporting-regression",
+      "clauses": [
+        "WORK-006",
+        "WORK-010"
+      ],
+      "reason": "Asserts a member invitation stops admitting once its inviter is no longer a full member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/release-clauses/suggestions/anchors.test.ts",
@@ -1049,16 +1034,6 @@
       "reason": "Public notification configuration, event and queue doors with provider-edge fakes only. Proves this named repair flow; does not establish live-provider or admin-install acceptance or change clause status."
     },
     {
-      "file": "tests/qualification/authority/snapshot.test.ts",
-      "testName": "skill snapshot export carries only the attachments its exact source revisions show the reader",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SKILL-001",
-        "BLOCK-008"
-      ],
-      "reason": "Asserts skill snapshot export carries only the attachments its exact source revisions show the reader. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
       "file": "tests/e2e/notifications/chat.test.ts",
       "testName": "the single-destination chat door stores a credential only after a fresh email confirmation",
       "kind": "supporting-regression",
@@ -1067,26 +1042,6 @@
         "CHAT-001"
       ],
       "reason": "Asserts the single-destination chat door stores a credential only after a fresh email confirmation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/qualification/authority/decision-authority.test.ts",
-      "testName": "an earlier decision revision is read without the current prose its reader can no longer cite",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DEC-004",
-        "DEC-006"
-      ],
-      "reason": "Asserts an earlier decision revision is read without the current prose its reader can no longer cite. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/qualification/policies/invitations.test.ts",
-      "testName": "a member invitation stops admitting once its inviter is no longer a full member",
-      "kind": "supporting-regression",
-      "clauses": [
-        "WORK-006",
-        "WORK-010"
-      ],
-      "reason": "Asserts a member invitation stops admitting once its inviter is no longer a full member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/e2e/notifications/chat.test.ts",
@@ -1107,16 +1062,6 @@
         "BLOCK-005"
       ],
       "reason": "Asserts record templates show each database viewer only the page mention titles they can open. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/qualification/authority/learned-provenance.test.ts",
-      "testName": "inquiry and archive page references show a reader the published title, not an unpublished rename",
-      "kind": "supporting-regression",
-      "clauses": [
-        "LIFE-005",
-        "ARCH-002"
-      ],
-      "reason": "Asserts inquiry and archive page references show a reader the published title, not an unpublished rename. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/http.test.ts",
@@ -1150,16 +1095,6 @@
         "NOTIF-004"
       ],
       "reason": "Exercises owner-managed outbound event delivery, current native source access, signatures, durable retry and replay, owner reminders, credential portability and erasure. OAuth subscribers, resolved-address pinning and real receiver acceptance remain unproven."
-    },
-    {
-      "file": "tests/qualification/core/audit-content.test.ts",
-      "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor/time",
-      "kind": "supporting-regression",
-      "clauses": [
-        "ACT-002",
-        "BASE-OPS-005"
-      ],
-      "reason": "Preserves the existing content audit assertions and extends them through native HTTP sign-in, sharing, token use, owner metadata exports, retention and signed ordered audit recovery. Real vendor receivers and resolved-address pinning remain unproven."
     },
     {
       "file": "tests/e2e/scim/contract.test.ts",
