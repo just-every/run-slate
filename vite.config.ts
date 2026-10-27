@@ -24,7 +24,7 @@ export default defineConfig(async ({ command, isPreview }) => {
   const carry = command === 'serve' && !isPreview && process.env.RER_DEMO !== '1'
     ? await import(pathToFileURL(resolve('scripts/installer/business-carry.mjs')).href) as {
       readBusinessCarry(root: string): Promise<string | null>;
-      businessCarryWatch(root: string): Plugin;
+      businessCarryWatch(root: string, warmup: (server: import('vite').ViteDevServer) => Promise<void>): Plugin;
     } : null;
   const business = carry ? await carry.readBusinessCarry(process.cwd()) : null;
   // Wrangler reloads .dev.vars after config.vars; keep the selected origin in
@@ -61,7 +61,18 @@ export default defineConfig(async ({ command, isPreview }) => {
   plugins: [
     seedIcons(),
     demoSockets(),
-    ...(carry ? [carry.businessCarryWatch(process.cwd())] : []),
+    ...(carry ? [carry.businessCarryWatch(process.cwd(), async (server) => {
+      const address = server.httpServer!.address() as { port: number };
+      await Promise.all([
+        ...['/signin', '/api/workspace'].map(async path => {
+          const response = await fetch(`http://127.0.0.1:${address.port}${path}`, { redirect: 'manual' });
+          await response.arrayBuffer();
+          if (response.status !== (path === '/signin' ? 200 : 401)) throw new Error(`Dev restart warmup returned ${response.status}.`);
+        }),
+        ...['/src/client.tsx', '/src/routeTree.gen.ts'].map(path => server.environments.client.warmupRequest(path)),
+      ]);
+      await server.waitForRequestsIdle();
+    })] : []),
     ...(missingSettings ? [{ name: 'slate-local-settings', configureServer() { throw missingSettings; } }] : []),
     cloudflare({
       inspectorPort: process.env.SLATE_INSPECTOR_PORT ? Number(process.env.SLATE_INSPECTOR_PORT) : false,
