@@ -12,6 +12,7 @@ export interface WorkspaceSnapshot {
   member: AuthenticatedMember;
   workspace: WorkspaceView;
   setup: { required: boolean; canComplete: boolean };
+  business?: { name: string } | null;
   navigation: Awaited<ReturnType<typeof navigation>>;
   profile: { profile: LaunchProfile };
 }

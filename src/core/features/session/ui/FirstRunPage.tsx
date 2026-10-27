@@ -8,12 +8,14 @@ import { clearDraft, readDraft, writeDraft } from "./first-run-draft";
 import { mutate, operationKey, errorMessage } from "../../../client/transport";
 import { useWorkspace } from "../../../app/ui/WorkspaceContext";
 export function FirstRunPage({ owner }: { owner: string }) {
-  const { localDevelopment } = useWorkspace();
+  const { localDevelopment, business } = useWorkspace();
   const [restore, setRestore] = useState(false);
   // The step is mirrored into the address (`/setup?step=2`) and the typed answers kept in this tab's session, so a reload shows
   // the same step with the same answers. The address is only written, never navigated: the form keeps its own state.
   const [step, setStepState] = useState(((useSearch({ strict: false }) as { step?: number }).step ?? 1) as 1 | 2 | 3);
-  const [workspaceName, setWorkspaceName] = useState("");
+  // Only an owner's answer is a draft; an untouched Business name remains a live prefill.
+  const [workspaceNameAnswer, setWorkspaceName] = useState<string | null>(null);
+  const workspaceName = workspaceNameAnswer ?? business?.name ?? "";
   const [containerName, setContainerName] = useState("");
   const [pageTitle, setPageTitle] = useState("");
   const [addresses, setAddresses] = useState("");
@@ -25,13 +27,13 @@ export function FirstRunPage({ owner }: { owner: string }) {
   useEffect(() => {
     const draft = readDraft();
     if (draft) {
-      setWorkspaceName(draft.workspaceName);
+      setWorkspaceName(draft.workspaceName.trim() ? draft.workspaceName : null);
       setContainerName(draft.containerName);
       setPageTitle(draft.pageTitle);
       setAddresses(draft.addresses);
     }
     // An address that skips ahead of what was answered lands on the first open step.
-    const reachable = !draft?.workspaceName.trim() ? 1 : draft.containerName.trim() && draft.pageTitle.trim() ? 3 : 2;
+    const reachable = !(draft?.workspaceName.trim() || business?.name) ? 1 : draft?.containerName.trim() && draft.pageTitle.trim() ? 3 : 2;
     setStepState((current) => {
       const next = Math.min(current, reachable) as 1 | 2 | 3;
       if (next !== current) window.history.replaceState(window.history.state, "", next === 1 ? "/setup" : `/setup?step=${next}`);
@@ -40,8 +42,8 @@ export function FirstRunPage({ owner }: { owner: string }) {
     setRestored(true);
   }, []);
   useEffect(() => {
-    if (restored) writeDraft({ workspaceName, containerName, pageTitle, addresses });
-  }, [restored, workspaceName, containerName, pageTitle, addresses]);
+    if (restored) writeDraft({ workspaceName: workspaceNameAnswer ?? "", containerName, pageTitle, addresses });
+  }, [restored, workspaceNameAnswer, containerName, pageTitle, addresses]);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string>();
   const key = useRef(operationKey());
