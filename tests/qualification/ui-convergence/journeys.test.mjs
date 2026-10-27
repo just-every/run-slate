@@ -27,7 +27,10 @@ import { expect } from '@playwright/test';
 // Consecutive steps share their parent journey's workspace and registration.
 async function step(name, run) {
   try { await run(); }
-  catch (cause) { throw new Error(`Step ${name} failed`, {cause}); }
+  catch (cause) {
+    if (cause instanceof Error) { cause.message = `Step ${name} failed: ${cause.message}`; throw cause; }
+    throw new Error(`Step ${name} failed: ${String(cause)}`);
+  }
 }
 import { accessible, setupWorkspace, withWorkspace } from './browser-support.mjs';
 import { commentJourney, searchJourney, settingsJourney, shareJourney, writeJourney } from './core-journeys.mjs';

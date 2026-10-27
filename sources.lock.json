@@ -11828,7 +11828,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "5bf9cf8be63a6158681f40048bd971e417d15d44eee21d824d4df077ff104413",
+      "sha256": "35f0ba18fb4d9b13709dcca886dc8b40e86c441a7f2375db22b43290aa43a58b",
       "executable": false
     },
     "tests/qualification/ui-convergence/my-tasks-journey.mjs": {
