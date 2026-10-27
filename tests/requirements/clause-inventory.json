@@ -1519,15 +1519,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation persists a real Google Docs export, retains original, searchable canonical content, and replays without duplicate pages"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation fails an invalid destination plan without publishing partial tree and retries after interruption"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation authorizes real Worker HTTP imports and export endpoints against current sessions"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/e2e/imports/preview-undo.test.ts",
@@ -1551,7 +1543,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation reviews genuine Notion and Confluence exports before atomic publication"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/e2e/imports/preview-undo.test.ts",
@@ -1567,15 +1559,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation persists a real Google Docs export, retains original, searchable canonical content, and replays without duplicate pages"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation reviews genuine Notion and Confluence exports before atomic publication"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation imports a publisher-produced Microsoft Word fixture with retained provenance"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/e2e/imports/preview-undo.test.ts",
@@ -1607,7 +1591,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation appends an import to an existing page atomically and preserves preexisting blocks on stale revisions"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         }
       ]
     },
@@ -1619,7 +1603,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation complete credential-free archives refuse corruption and restore retained records and originals into an empty deployment"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/qualification/authority/recovery.test.ts",
@@ -1635,7 +1619,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation complete credential-free archives refuse corruption and restore retained records and originals into an empty deployment"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/qualification/authority/recovery.test.ts",
@@ -1670,11 +1654,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation complete credential-free archives refuse corruption and restore retained records and originals into an empty deployment"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation authorizes real Worker HTTP imports and export endpoints against current sessions"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
@@ -1698,11 +1678,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation fails an invalid destination plan without publishing partial tree and retries after interruption"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation rolls back a failing D1 publication after earlier page statements and succeeds on a retained-archive retry"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/qualification/authority/atomic-recovery.test.ts",
@@ -1718,7 +1694,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation exports readable Markdown HTML and embedded-font PDF and reimports its tree"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         }
       ]
     },
@@ -2043,11 +2019,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation retains exact source revisions, denies changed audience and revoked connection without content"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation keeps the previous published source on provider failure and treats deletion as a content-free tombstone"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/flagship/release-clauses/federation/connector-disclosure.test.ts",
@@ -2063,15 +2035,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation retains exact source revisions, denies changed audience and revoked connection without content"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation uses actor-bound single-use OAuth PKCE and discovers identity instead of asking for account ids"
-        },
-        {
-          "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation keeps the previous published source on provider failure and treats deletion as a content-free tombstone"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/flagship/intelligence/native-transport.test.ts",
@@ -2671,7 +2635,7 @@
         },
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation authorizes real Worker HTTP imports and export endpoints against current sessions"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/flagship/structured/http.test.ts",
@@ -2745,7 +2709,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
-          "testName": "durable imports and federation complete credential-free archives refuse corruption and restore retained records and originals into an empty deployment"
+          "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
         },
         {
           "file": "tests/qualification/authority/recovery.test.ts",
