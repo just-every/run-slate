@@ -103,3 +103,45 @@
 @media (max-width: 700px) {
   .slate-app .settings-panel > a, .slate-app .settings-panel :is(section, details) > a, .slate-app .settings-panel p > a:only-child { display: inline-flex; align-items: center; min-height: var(--slate-tap-target); }
 }
+
+@media (max-width: 700px) {
+  .slate-app .review-list > li > div > h2 > a {
+    /* Inline padding grows the hit area without changing wrapped title lines. */
+    padding-block: calc((44px - 1em) / 2);
+  }
+  .slate-app .review-list > li > label {
+    display: inline-flex;
+    align-items: center;
+  }
+  .slate-app .review-list > li > label > input[type="checkbox"] {
+    appearance: none;
+    display: grid;
+    place-content: center;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    flex-shrink: 0;
+    margin: -13px;
+    padding: 0;
+    border: 13px solid transparent;
+    border-radius: 16px;
+    background-clip: padding-box;
+    background-color: var(--slate-surface);
+    box-shadow: inset 0 0 0 1px var(--slate-line-strong);
+  }
+  .slate-app .review-list > li > label > input[type="checkbox"]:checked {
+    background-color: var(--slate-ink);
+    box-shadow: none;
+  }
+  .slate-app .review-list > li > label > input[type="checkbox"]:checked::after {
+    content: "";
+    width: 6px;
+    height: 10px;
+    margin-top: -3px;
+    border: solid var(--slate-accent-ink);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .slate-app .review-list > li > label > input[type="checkbox"]:focus-visible { outline-offset: -12px; }
+  .slate-app .review-list > li > label > input[type="checkbox"]:disabled { opacity: .5; }
+}
