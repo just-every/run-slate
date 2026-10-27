@@ -763,25 +763,7 @@
     },
     {
       "file": "tests/e2e/docs.test.ts",
-      "testName": "DOCS-001 public documentation supporting regressions docs: the Worker serves /docs and each published page with one h1, the landing frame and the section navigation",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DOCS-001"
-      ],
-      "reason": "Controlled local Worker regression of the DOCS-001 public documentation routes: what the documents render and which requests they refuse. No browser, cookie, accessibility, emitted-artifact or full clause acceptance claim."
-    },
-    {
-      "file": "tests/e2e/docs.test.ts",
-      "testName": "DOCS-001 public documentation supporting regressions docs: an unknown, miscased or nested slug is a real 404 and /docs is not a Hono or operator route",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DOCS-001"
-      ],
-      "reason": "Controlled local Worker regression of the DOCS-001 public documentation routes: what the documents render and which requests they refuse. No browser, cookie, accessibility, emitted-artifact or full clause acceptance claim."
-    },
-    {
-      "file": "tests/e2e/docs.test.ts",
-      "testName": "DOCS-001 public documentation supporting regressions docs: the landing links to /docs and /docs/install and the docs header has no brand h1",
+      "testName": "DOCS-001 public documentation supporting regressions public docs serve declared pages with accessible navigation and refuse unknown routes",
       "kind": "supporting-regression",
       "clauses": [
         "DOCS-001"

@@ -17,7 +17,10 @@ const get = (path: string) => SELF.fetch(`https://slate.test${path}`);
 const links = (html: string) => [...html.matchAll(/<a [^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)].map((match) => [match[1], match[2].replace(/<[^>]+>/g, "").trim()]);
 
 describe("DOCS-001 public documentation supporting regressions", () => {
-  test("docs: the Worker serves /docs and each published page with one h1, the landing frame and the section navigation", async () => {
+  test("public docs serve declared pages with accessible navigation and refuse unknown routes", async () => {
+  // Each row retains its original fixture and every assertion.
+  const cases = [
+    { name: "docs: the Worker serves /docs and each published page with one h1, the landing frame and the section navigation", run: async () => {
     for (const slug of published) {
       const path = slug ? `/docs/${slug}` : "/docs";
       const response = await get(path);
@@ -53,9 +56,8 @@ describe("DOCS-001 public documentation supporting regressions", () => {
     expect(body).toMatch(/^<body[\s>]/i);
     expect(body).not.toMatch(/<(img|iframe|video|audio|object|embed|form|input|style)[\s>]/i);
     expect(install).not.toMatch(/\sstyle="|\son[a-z]+="/);
-  });
-
-  test("docs: an unknown, miscased or nested slug is a real 404 and /docs is not a Hono or operator route", async () => {
+  } },
+    { name: "docs: an unknown, miscased or nested slug is a real 404 and /docs is not a Hono or operator route", run: async () => {
     for (const path of ["/docs/does-not-exist", "/docs/Install", "/docs/install/extra", "/docs/index", "/docs/__proto__", "/docs/constructor"]) {
       const response = await get(path);
       expect(response.status, path).toBe(404);
@@ -68,9 +70,8 @@ describe("DOCS-001 public documentation supporting regressions", () => {
     const app = await SELF.fetch("https://slate.test/app", { redirect: "manual" });
     expect(app.status).toBe(302);
     expect(app.headers.get("location")).toBe("/signin?next=%2Fapp");
-  });
-
-  test("docs: the landing links to /docs and /docs/install and the docs header has no brand h1", async () => {
+  } },
+    { name: "docs: the landing links to /docs and /docs/install and the docs header has no brand h1", run: async () => {
     // The landing is the run site's homepage (src/site/pages.tsx renders it the same way).
     const landing = renderToStaticMarkup(createElement(Landing));
     const landingHrefs = links(landing).map(([href]) => href);
@@ -88,5 +89,15 @@ describe("DOCS-001 public documentation supporting regressions", () => {
     const header = docs.slice(docs.indexOf("<header"), docs.indexOf("</header>"));
     expect(header).toMatch(/aria-current="page"[^>]*href="\/docs"/);
     expect(header.indexOf('href="/docs"')).toBeLessThan(header.indexOf('href="https://github.com/just-every/run-slate"'));
-  });
+  } }
+  ];
+  for (const scenario of cases) {
+    try {  await scenario.run(); }
+    catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+  }
+});
+
+
+
+
 });
