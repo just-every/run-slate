@@ -27,6 +27,9 @@ export async function samlJourney(state) {
   const browserErrors = [], consoleErrors = [], refusedDocuments = [];
   const authContext = await context.browser().newContext({ viewport: page.viewportSize(), locale: 'en-US' });
   await installSamlIdp(authContext);
+  // The synthetic IdP serves SSO only; answer Chromium's auxiliary icon request
+  // at that network edge without replacing any sign-in or verification request.
+  await authContext.route(new URL('/favicon.ico', samlFixture.ssoUrl).href, route => route.fulfill({ status: 204 }));
   const auth = await authContext.newPage();
   auth.on('pageerror', cause => browserErrors.push(String(cause)));
   auth.on('console', message => { if (message.type() === 'error') consoleErrors.push({text:message.text(), path:new URL(auth.url()).pathname}); });

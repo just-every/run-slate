@@ -18,6 +18,7 @@ export function useCollaboration(pageId: string, read: Resource<DocumentView>["r
     const sessionId = opened.current?.sessionId ?? operationKey();
     let sequence = Math.max(0,...(snapshot.current?.events.map(event=>event.sequence)??[])), lastPresence = opened.current ? Date.now() : 0;
     async function update() {
+      const started = Date.now();
       await read(async signal => {
         const current = () => {
           if (!alive || signal.aborted) throw new DOMException("Collaboration read retired", "AbortError");
@@ -41,7 +42,9 @@ export function useCollaboration(pageId: string, read: Resource<DocumentView>["r
         }
         return result.document;
       });
-      if (alive) timer = setTimeout(update, 3000);
+      // Keep the three-second dispatch cadence without overlapping reads.
+      // Waiting three seconds after completion adds transport time each turn.
+      if (alive) timer = setTimeout(update, Math.max(0, 3000 - (Date.now() - started)));
     }
     // The SSR snapshot already read the current document and presence. Start
     // the ordinary polling cadence from that read, rather than repeat it.

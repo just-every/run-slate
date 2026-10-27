@@ -1,3 +1,4 @@
+import {displayNameInput} from './profile-name';
 import {directory,memberProfile,peopleOnPage} from './directory';
 import {saveProfile,profileInput} from './profile';
 import { mentionConfiguration, setMentionConfiguration } from '../comments/group-mentions';
@@ -5,7 +6,7 @@ import { requireStepUp } from '../session/step-up';
 import { listIdentityMail,retryIdentityMail } from '../session/mail-status';
 import { requireWorkspaceOwner } from '../sharing/current-access';
 import { completeFirstRun,firstRunState } from './bootstrap';
-import { invite, revokeInvitation } from './invitations';
+import { invite, revokeInvitation, listInvitations } from './invitations';
 import { guestPolicy, saveGuestPolicy } from './guest-policy';
 import { listGuests, revokeGuests, setGuestExpiry } from './guests';
 import { Hono } from 'hono';
@@ -23,7 +24,7 @@ const policies=z.object({'page.lifecycle.v1':z.enum(['always-live','draft-then-p
 export async function parseBody<T>(request:{json:()=>Promise<unknown>},schema:z.ZodType<T>):Promise<T>{const parsed=schema.safeParse(await request.json().catch(()=>null));if(!parsed.success)throw new ApiProblem(400,'INVALID_REQUEST','The request is invalid.');return parsed.data;}
 export function createWorkspaceRoutes(){return new Hono<AppEnvironment>()
 .get('/api/workspace/first-run',async c=>c.json(await firstRunState(featureContext(c))))
-.post('/api/workspace/first-run',async c=>c.json(await completeFirstRun(featureContext(c),await parseBody(c.req,z.object({operationKey:op,workspaceName:z.string().trim().min(1).max(160),containerName:z.string().trim().min(1).max(160),pageTitle:z.string().trim().min(1).max(500)}).strict()))))
+.post('/api/workspace/first-run',async c=>c.json(await completeFirstRun(featureContext(c),await parseBody(c.req,z.object({operationKey:op,displayName:displayNameInput.optional(),workspaceName:z.string().trim().min(1).max(160),containerName:z.string().trim().min(1).max(160),pageTitle:z.string().trim().min(1).max(500)}).strict()))))
 .get('/api/workspace/jobs',async c=>{const ctx=featureContext(c);await requireWorkspaceOwner(ctx);return c.json({items:(await ctx.db.prepare('SELECT id,kind,attempts,state,error_code AS errorCode,updated_at AS updatedAt FROM core_job_failures ORDER BY updated_at DESC LIMIT 100').all()).results});})
 .get('/api/workspace/mail',async c=>c.json(await listIdentityMail(featureContext(c))))
 .post('/api/workspace/mail/:id/retry',async c=>c.json(await retryIdentityMail(featureContext(c),c.get('runtimeConfig'),c.req.param('id'))))
@@ -48,6 +49,7 @@ export function createWorkspaceRoutes(){return new Hono<AppEnvironment>()
   // Refuse what can never succeed before emailing a step-up confirmation; the service checks both again.
   if(input.memberId!==ctx.actor.id){await requireWorkspaceOwner(ctx);if(target?.is_setup_owner)throw new ApiProblem(403,'SETUP_OWNER','Only the setup owner can remove themselves.');}
   await requireStepUp(c,input.erase?'delete':'owner:transfer');}return c.json(await removeMember(featureContext(c),input));})
+.get('/api/invitations',async c=>c.json(await listInvitations(featureContext(c))))
 .post('/api/invitations',async c=>c.json(await invite(featureContext(c),c.get('runtimeConfig'),await parseBody(c.req,z.object({operationKey:op,email:z.string().email().max(254),kind:z.enum(['member','guest']),pageId:id.optional(),containerId:id.optional(),level:z.enum(['full','edit','comment','view']).optional(),expiresAt:z.string().datetime().nullable().optional()}).strict()))))
 .post('/api/invitations/revoke',async c=>c.json(await revokeInvitation(featureContext(c),await parseBody(c.req,z.object({operationKey:op,id}).strict()))))
 .get('/api/groups',async c=>c.json(await listGroups(featureContext(c))))

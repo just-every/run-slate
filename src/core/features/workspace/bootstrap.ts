@@ -1,3 +1,4 @@
+import { profileNameStatements } from './profile-name';
 import { personDisplayName, personInitials } from '../../shared/person-identity';
 import { firstRunRecords } from './first-run-records';
 import { defaultStatusStatements } from '../page-status/defaults';
@@ -20,15 +21,16 @@ export async function firstRunState(ctx:FeatureContext){
  const required=!!state&&!state.first_run_completed_at&&state.is_setup_owner===1;
  return {required,canComplete:required&&state?.role==='owner'};
 }
-export async function completeFirstRun(ctx:FeatureContext,input:{operationKey:string;workspaceName:string;containerName:string;pageTitle:string}){
+export async function completeFirstRun(ctx:FeatureContext,input:{operationKey:string;workspaceName:string;containerName:string;pageTitle:string;displayName?:string}){
   return commitOperation(ctx,{operationKey:input.operationKey,action:'workspace.first-run',request:input,authorize:()=>requireWorkspaceOwner(ctx),prepare:async({revisionId})=>{
     const initial=await firstRunRecords(ctx,input,revisionId);
+    const nameStatements=input.displayName===undefined?[]:await profileNameStatements(ctx,ctx.actor.id,input.displayName);
     return {entity:{id:ctx.actor.workspaceId,kind:'workspace',revisionId},value:{workspaceId:ctx.actor.workspaceId,containerId:initial.containerId,pageId:initial.pageId,invitationStep:true},statements:[
       mutationGuard(ctx.db,'SELECT is_setup_owner=1 FROM members WHERE id=?',[ctx.actor.id]),
       mutationGuard(ctx.db,'SELECT first_run_completed_at IS NULL FROM workspaces WHERE id=?',[ctx.actor.workspaceId]),
       mutationGuard(ctx.db,'SELECT NOT EXISTS (SELECT 1 FROM containers WHERE workspace_id=?) AND NOT EXISTS (SELECT 1 FROM pages WHERE workspace_id=?)',[ctx.actor.workspaceId,ctx.actor.workspaceId]),
       ctx.db.prepare('UPDATE workspaces SET name=?,updated_at=?,revision_id=?,first_run_completed_at=? WHERE id=?').bind(input.workspaceName,ctx.now,revisionId,ctx.now,ctx.actor.workspaceId),
-      ...initial.statements,
+      ...nameStatements,...initial.statements,
     ]};
   }});
 }

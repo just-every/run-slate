@@ -138,7 +138,7 @@ export async function concurrentEditingJourney(state, people) {
   const overwritten = await overwrite;
   assert.equal(overwritten.status(), 200, 'An explicit overwrite is saved as a new revision.');
   const overwriteRevision = (await overwritten.json()).value.revisionId;
-  await expect(alice.page.locator(`[data-block-id="${second}"] [role="status"]`).filter({ hasText: /^Saved/ })).toBeVisible();
+  await expect(alice.page.locator('.editor-save-status').filter({ hasText: /^Saved$/ })).toBeVisible();
   assert.ok((await savedBlock(alice.context, origin, pageId, second)).includes(secondConflict.aliceDraft), 'The overwrite holds Alice\'s text.');
   // No last write wins: Bob's text stays in the revision his save committed.
   const bobRevision = await ok(alice.context, origin, 'GET', `/api/revisions/${pageId}/${secondConflict.bobCommit.revisionId}`);

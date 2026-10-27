@@ -15,7 +15,7 @@ export function ContainerHome({containerId,name,onSaved}:{containerId:string;nam
     <RequestState loading={home.loading} error={home.error} retry={home.reload}>
       {home.data ? <>
         {home.data.canManage ? <div className="space-home-actions"><button type="button" className="secondary-button" onClick={()=>setChoosing(true)}>{home.data.pageId ? 'Change home page' : 'Set up space home'}</button></div> : null}
-        {home.data.pageId ? <PageWorkspace pageId={home.data.pageId} host={{trail:[{label:'Spaces',href:'/app/containers'},{label:name,href:`/app/containers/${encodeURIComponent(containerId)}`}]}}/> : <p className="muted">There is no space home available with your current access. You can browse the pages in Content.</p>}
+        {home.data.pageId ? <PageWorkspace pageId={home.data.pageId} host={{trail:[{label:'Spaces',href:'/app/containers'},{label:name,href:`/app/containers/${encodeURIComponent(containerId)}`}]}}/> : <p className="muted">No home page yet</p>}
       </> : null}
     </RequestState>
     {choosing && home.data ? <HomeChoice containerId={containerId} home={home.data} onClose={()=>setChoosing(false)} onSaved={async()=>{await home.reload();onSaved();}}/> : null}

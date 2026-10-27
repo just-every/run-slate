@@ -57,6 +57,7 @@ for (const profile of ['core-wiki', 'flagship']) {
       await page.getByRole('heading', { name: 'Name this workspace', exact: true }).waitFor();
       assert.equal(await page.evaluate(() => performance.timeOrigin), origin);
       assert.ok(calls.length > 0);
+      await page.getByLabel('Your name', { exact: true }).fill('Alex Owner');
       await page.getByLabel('Workspace name', { exact: true }).fill('Shell qualification workspace');
       await page.getByRole('button', { name: 'Continue', exact: true }).click();
       assert.equal(await page.getByRole('button', { name: 'Continue', exact: true }).isDisabled(), true);
