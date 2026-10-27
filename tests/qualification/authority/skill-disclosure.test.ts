@@ -10,7 +10,8 @@ import {freezeCases} from '../../../src/core/features/skills/cases';
 import {issueGrant} from '../../../src/core/features/effects/grants';
 import {exportWorkspace} from '../../../src/core/features/portability/service';
 beforeEach(reset);
-test('SKILL-001 — revoking an older definition source denies the all-version HTTP read without revealing instructions',async()=>{
+test("SKILL-001 \u2014 HTTP method disclosure rejects revoked definition sources and exact audience widening", async () => {
+  await scenario("SKILL-001 \u2014 revoking an older definition source denies the all-version HTTP read without revealing instructions", async () => {
  const f=await fixture(),host=await document(f,'Method host'),source=await document(f,'Secret separate source'),def=definition(f,[host.ref,source.ref]);
  const skill=await createSkill(f.context(),{operationKey:'method-create',pageId:host.id,name:'Sensitive method',definition:def});
  const next=await createSkill(f.context(),{operationKey:'method-next',pageId:host.id,name:'Sensitive method',skillId:skill.value.id,expectedRevisionId:skill.value.revisionId,definition:definition(f,[host.ref])});
@@ -20,6 +21,17 @@ test('SKILL-001 — revoking an older definition source denies the all-version H
  await env.DB.prepare('DELETE FROM page_grants WHERE id=?').bind(source.grantId).run();
  const response=await read();expect([403,404]).toContain(response.status);expect(await response.text()).not.toContain(def.instructions);
  expect((await listPageSkills(f.context(f.reader),host.id)).items).toHaveLength(0);
+
+  });
+  await reset();
+  await scenario("SKILL-001 \u2014 a readable host and source cannot widen the exact method audience", async () => {
+ const f=await fixture(),host=await document(f,'Readable source outside skill audience'),def={...definition(f,[host.ref]),audience:[f.owner]};
+ const skill=await createSkill(f.context(),{operationKey:'private-method-audience',pageId:host.id,name:'Owner audience method',definition:def});
+ expect((await listPageSkills(f.context(f.reader),host.id)).items).toHaveLength(0);
+ const response=await createApi().request('https://slate.example/api/skills/'+skill.value.id,{headers:{Cookie:await sessionFor(f.reader)}},env);
+ expect(response.status).toBe(404);expect(await response.text()).not.toContain(def.instructions);
+
+  });
 });
 test('SKILL-003 — exact continuation authority cannot disclose revoked dependencies outside the run subset',async()=>{
  const f=await fixture(),host=await document(f,'Allowed subset'),secret=await document(f,'Other confidential dependency'),def=definition(f,[host.ref,secret.ref]);
@@ -45,10 +57,10 @@ test('SOURCE-005 — complete archive refuses retained skill prose when its sour
  await env.DB.prepare('UPDATE pages SET deleted_at=? WHERE id=?').bind(f.context().now,secret.id).run();
  await expect(exportWorkspace(f.context())).rejects.toMatchObject({code:'EXPORT_SCOPE_INCOMPLETE'});
 });
-test('SKILL-001 — a readable host and source cannot widen the exact method audience',async()=>{
- const f=await fixture(),host=await document(f,'Readable source outside skill audience'),def={...definition(f,[host.ref]),audience:[f.owner]};
- const skill=await createSkill(f.context(),{operationKey:'private-method-audience',pageId:host.id,name:'Owner audience method',definition:def});
- expect((await listPageSkills(f.context(f.reader),host.id)).items).toHaveLength(0);
- const response=await createApi().request('https://slate.example/api/skills/'+skill.value.id,{headers:{Cookie:await sessionFor(f.reader)}},env);
- expect(response.status).toBe(404);expect(await response.text()).not.toContain(def.instructions);
-});
+
+
+// Keep each clause point visible in the failure while sharing one family registration.
+async function scenario(name: string, run: () => Promise<void>) {
+  try { await run(); }
+  catch (cause) { throw new Error(`Scenario ${name} failed`, { cause }); }
+}

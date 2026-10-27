@@ -1991,7 +1991,7 @@
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 \u2014 revoking an older definition source denies the all-version HTTP read without revealing instructions"
+          "testName": "SKILL-001 \u2014 HTTP method disclosure rejects revoked definition sources and exact audience widening"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
@@ -2004,10 +2004,6 @@
         {
           "file": "tests/qualification/authority/snapshot.test.ts",
           "testName": "SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
-        },
-        {
-          "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 \u2014 a readable host and source cannot widen the exact method audience"
         }
       ]
     },
@@ -2211,7 +2207,7 @@
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 \u2014 revoking an older definition source denies the all-version HTTP read without revealing instructions"
+          "testName": "SKILL-001 \u2014 HTTP method disclosure rejects revoked definition sources and exact audience widening"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
@@ -2228,10 +2224,6 @@
         {
           "file": "tests/qualification/authority/snapshot.test.ts",
           "testName": "SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
-        },
-        {
-          "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 \u2014 a readable host and source cannot widen the exact method audience"
         }
       ]
     },
@@ -2267,15 +2259,11 @@
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 \u2014 revoking an older definition source denies the all-version HTTP read without revealing instructions"
+          "testName": "SKILL-001 \u2014 HTTP method disclosure rejects revoked definition sources and exact audience widening"
         },
         {
           "file": "tests/qualification/authority/snapshot.test.ts",
           "testName": "SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks"
-        },
-        {
-          "file": "tests/qualification/authority/skill-disclosure.test.ts",
-          "testName": "SKILL-001 \u2014 a readable host and source cannot widen the exact method audience"
         }
       ]
     },

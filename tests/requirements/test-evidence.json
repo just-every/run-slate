@@ -1016,7 +1016,7 @@
     },
     {
       "file": "tests/qualification/authority/skill-disclosure.test.ts",
-      "testName": "SKILL-001 \u2014 revoking an older definition source denies the all-version HTTP read without revealing instructions",
+      "testName": "SKILL-001 \u2014 HTTP method disclosure rejects revoked definition sources and exact audience widening",
       "kind": "supporting-regression",
       "clauses": [
         "SKILL-001",
@@ -1053,17 +1053,6 @@
       "kind": "supporting-regression",
       "clauses": [
         "SOURCE-005"
-      ],
-      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance."
-    },
-    {
-      "file": "tests/qualification/authority/skill-disclosure.test.ts",
-      "testName": "SKILL-001 \u2014 a readable host and source cannot widen the exact method audience",
-      "kind": "supporting-regression",
-      "clauses": [
-        "SKILL-001",
-        "SOURCE-005",
-        "AI-013"
       ],
       "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance."
     },
