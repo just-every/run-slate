@@ -5,6 +5,8 @@ import { listPages } from '../features/pages/tree';
 import { readPage } from '../features/pages/service';
 import { openPage } from '../features/pages/open';
 import { listDatabases } from '../features/databases/discovery';
+import { readContainerHome } from '../features/containers/home';
+import { readContainer } from '../features/containers/queries';
 import { listContainers } from '../features/containers/service';
 import { listMembers } from '../features/workspace/members';
 import type { MemberView } from '../shared/api/workspace';
@@ -46,22 +48,39 @@ export async function initialResources(ctx: FeatureContext, url: URL, member: Me
   } else if (url.pathname === '/app/archive') {
     add('/api/archive', () => listArchive(ctx));
   }
-  const page = /^\/app\/pages\/([^/]+)$/.exec(url.pathname);
-  if (page) {
-    const id = decodeURIComponent(page[1]);
-    add(`/api/pages/${encodeURIComponent(id)}`, async () => {
+  const seedPage = async (id:string) => {
+    const pending:Promise<void>[]=[];
+    const seed=(path:string,read:()=>Promise<unknown>)=>pending.push(read().then(value=>{resources[path]=value;}).catch(cause=>{if(!(cause instanceof ApiProblem))throw cause;}));
+    seed(`/api/pages/${encodeURIComponent(id)}`,async()=>{
       const document=await readPage(ctx,id);
       if(recordVisit) {
-        const sessionId=crypto.randomUUID(), epoch=ctx.authorizationEpoch!;
+        const sessionId=crypto.randomUUID(),epoch=ctx.authorizationEpoch!;
         const opened=await openPage({...ctx},id,{operationKey:crypto.randomUUID(),revisionId:['edit','full'].includes(document.permissions.level)?document.workingRevisionId:document.publishedRevisionId??document.workingRevisionId},{document,authorizationEpoch:epoch,sessionId});
         resources[`/api/pages/${id}/opened`]={sessionId,revisionId:opened.value.revisionId,recent:{id:document.page.id,title:document.page.title,containerId:document.page.containerId,icon:document.properties.icon,openedAt:ctx.now,...Object.fromEntries(['publishAt','scheduleState','scheduleFailure'].filter(key=>key in document.page).map(key=>[key,(document.page as unknown as Record<string,unknown>)[key]]))}};
         resources[`/api/collaboration/${id}?after=0`]=opened.collaboration;
       }
       return document;
     });
-    add('/api/status', () => statusEntries(ctx));
-    add(`/api/comments/page/${id}`, () => listComments(ctx, id));
-    add(`/api/publishing/${id}`, () => publishingExposure(ctx, id));
+    seed('/api/status',()=>statusEntries(ctx));
+    seed(`/api/comments/page/${id}`,()=>listComments(ctx,id));
+    seed(`/api/publishing/${id}`,()=>publishingExposure(ctx,id));
+    await Promise.all(pending);
+  };
+  const page=/^\/app\/pages\/([^/]+)$/.exec(url.pathname);
+  const container=/^\/app\/containers\/([^/]+)$/.exec(url.pathname);
+  if(page)reads.push(seedPage(decodeURIComponent(page[1])));
+  if(container) {
+    const id=decodeURIComponent(container[1]),path=`/api/containers/${encodeURIComponent(id)}`;
+    add(path,()=>readContainer(ctx,id));
+    add(`/api/pages?containerId=${encodeURIComponent(id)}`,()=>listPages(ctx,id));
+    add(`${path}/home`,async()=>{
+      const home=await readContainerHome(ctx,id);
+      if(home.pageId) {
+        await seedPage(home.pageId);
+        if(resources[`/api/pages/${home.pageId}/opened`])resources[`${path}/opened`]=resources[`/api/pages/${home.pageId}/opened`];
+      }
+      return home;
+    });
   }
   await Promise.all(reads);
   return resources;

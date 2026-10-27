@@ -12,7 +12,7 @@ import { ReminderDialog } from './ReminderDialog';
  */
 export function TaskBlock({ block, canEdit, onChange }: BlockRenderProps<TaskBlockData>) {
   const plain = richTextToPlain(block.text);
-  const {page,assign,prompt}=useTaskAssignment(block,onChange);
+  const {page,assign,prompt,update}=useTaskAssignment(block,onChange);
   const [dateOpen,setDateOpen]=useState(false);
   const [remind,setRemind]=useState(false);
   const due=block.dueDate ? new Date(`${block.dueDate}T00:00:00`) : null;
@@ -42,11 +42,11 @@ export function TaskBlock({ block, canEdit, onChange }: BlockRenderProps<TaskBlo
           label="To-do item"
           onChange={(text) => {
             const value=richTextToPlain(text);
-            if(value.endsWith('//')){onChange({...block,text:sliceRichText(text,0,value.length-2)});setDateOpen(true);return;}
+            if(value.endsWith('//')){update({text:sliceRichText(text,0,value.length-2)});setDateOpen(true);return;}
             const person=text.find(span=>span.mention?.kind==='person'&&!block.text.some(old=>old.mention?.kind==='person'&&old.mention.id===span.mention?.id));
             if(person?.mention?.id){assign(person.mention.id,text);return;}
             const date=text.find(span=>span.mention?.kind==='date'&&!block.text.some(old=>old.mention?.kind==='date'&&old.mention.id===span.mention?.id));
-            onChange({ ...block, text, ...(date?.mention?.id?{dueDate:date.mention.id}:{}) });
+            update({ text, ...(date?.mention?.id?{dueDate:date.mention.id}:{}) });
           }}
           placeholder="To-do"
           value={block.text}

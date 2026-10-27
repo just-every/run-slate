@@ -229,7 +229,8 @@ for (const width of [1440]) {
   });
 }
 
-for (const width of [1440, 390]) {
+// Start the phone journey first to balance the ordinal desktop shards.
+for (const width of [390, 1440]) {
   test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: 300000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);

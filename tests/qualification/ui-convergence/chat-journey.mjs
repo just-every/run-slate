@@ -84,7 +84,26 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   await shot('delivered');
 
   await setSlackFailure('rate_limited');
-  await comment(); await runScheduled();
+  await comment();
+  // A queue peer can record a 429 after this sweep reads the pending row and
+  // connection. Set each clock during preparation, immediately before the
+  // dispatch claim, to exercise that interleaving without timing or sleeps.
+  for (const [clock, update] of [
+    ['delivery retry', "UPDATE chat_deliveries SET next_attempt_at='2999-01-01T00:00:00.000Z' WHERE id=NEW.id"],
+    ['destination cooldown', "UPDATE chat_connections SET retry_after='2999-01-01T00:00:00.000Z' WHERE id=NEW.connection_id"],
+  ]) {
+    await fixtureSql([`CREATE TRIGGER chat_journey_retry_fence AFTER UPDATE OF message_id ON chat_deliveries WHEN NEW.state='pending' BEGIN ${update}; END`]);
+    try {
+      await runScheduled();
+      assert.equal(await count(), 3, `A concurrent ${clock} must fence the final dispatch claim.`);
+      const pending = (await history()).filter(item => item.state === 'pending');
+      assert.equal(pending.length, 1);
+      assert.equal(pending[0].attempts, 0, 'A fenced claim must not consume an attempt.');
+    } finally {
+      await fixtureSql(['DROP TRIGGER chat_journey_retry_fence', "UPDATE chat_deliveries SET next_attempt_at=NULL WHERE state='pending'", 'UPDATE chat_connections SET retry_after=NULL']);
+    }
+  }
+  await runScheduled();
   assert.equal(await count(), 4);
   await open(); await expect(status).toContainText('rate_limited');
   await shot('transient-failure');

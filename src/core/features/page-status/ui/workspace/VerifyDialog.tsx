@@ -47,7 +47,11 @@ export function VerifyDialog({ pageId, statusKey, expectedRevisionId, attestRevi
           ...(reviewRequest ? { reviewRequest } : {}),
           ...(choice === "date" ? { expiresAt: endOfDay(date) } : choice === "none" ? { expiresAt: null } : { expiresInDays: Number(choice) }),
         });
+        // The attestation is saved. A pending queue refresh must not keep the
+        // successful action open or later dismiss a newly opened dialog.
+        onClose();
         await onVerified();
+        return false;
       }}
     >
       <p>

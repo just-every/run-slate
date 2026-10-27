@@ -27,9 +27,9 @@ export async function taskAssignmentJourney(state, people) {
   await item.click();
   await alice.page.keyboard.type('Renew the vendor contract ');
   await alice.page.keyboard.press('@');
-  const picker = alice.page.getByRole('dialog', { name: 'Insert mention', exact: true });
-  await picker.getByLabel('Find a person, group or page').fill('Morgan');
-  await picker.getByRole('button', { name: 'Morgan Reader · Person', exact: true }).click();
+  const picker = alice.page.getByRole('listbox', { name: 'Insert mention', exact: true });
+  await alice.page.keyboard.type('Morgan');
+  await picker.getByRole('option', { name: 'Morgan Reader · Person', exact: true }).click();
   const prompt = alice.page.getByRole('dialog', { name: 'Share before assigning', exact: true });
   await expect(prompt).toContainText('Morgan Reader cannot read this page.');
   assert.equal((await ok(bob.context, origin, 'GET', '/api/notifications')).items.filter(entry => entry.pageId === pageId).length, 0, 'Nothing reaches a member who cannot read the page.');

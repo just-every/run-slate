@@ -3,12 +3,11 @@ import { useResource } from '../../../../client/useResource';
 import { mutate, operationKey } from '../../../../client/transport';
 import { RequestState } from '../../../../app/ui/RequestState';
 import { ActionDialog } from '../../../../app/ui/ActionDialog';
-import { LocalInvitationNotice } from './LocalInvitationNotice';
 import type { GuestView } from '../../../workspace/guests';
 import type { GuestPolicy } from '../../../workspace/guest-policy';
 const date=(value:string|null)=>value?new Date(value).toLocaleString():'Not recorded';
 const localDate=(value:string|null)=>value?new Date(Date.parse(value)-new Date(value).getTimezoneOffset()*60000).toISOString().slice(0,16):'';
-export function GuestsPanel({localDevelopment}:{localDevelopment:boolean}) {
+export function GuestsPanel({onInvited}:{onInvited:()=>Promise<boolean>}) {
   const guests=useResource<{items:GuestView[]}>('/api/guests');
   const policy=useResource<GuestPolicy>('/api/guests/policy');
   const pages=useResource<{items:{id:string;title:string}[]}>('/api/pages');
@@ -54,10 +53,10 @@ export function GuestsPanel({localDevelopment}:{localDevelopment:boolean}) {
     {dialog==='revoke'?<ActionDialog title="Revoke selected guests?" action="Revoke guests" onClose={()=>setDialog(undefined)} onSubmit={async()=>{
       await mutate('/api/guests/revoke',{operationKey:operationKey(),memberIds:selected});setSelected([]);guests.reload();setNotice('Selected guests revoked. Their sessions have ended.');
     }}><p>Remove {selected.length} guests and end their open sessions. Their authored content and history remain.</p></ActionDialog>:null}
-    {dialog==='invite'?<ActionDialog title="Invite a guest" action={localDevelopment?'Record invitation locally':'Send invitation'} onClose={()=>setDialog(undefined)} onSubmit={async form=>{
-      await mutate('/api/invitations',{operationKey:operationKey(),kind:'guest',email:String(form.get('email')),pageId:String(form.get('pageId'))});setNotice(localDevelopment?'Invitation request accepted locally. No email was sent.':'Invitation request accepted. Check mail delivery for its status.');
+    {dialog==='invite'?<ActionDialog title="Invite a guest" action="Send invitation" onClose={()=>setDialog(undefined)} onSubmit={async form=>{
+      await mutate('/api/invitations',{operationKey:operationKey(),kind:'guest',email:String(form.get('email')),pageId:String(form.get('pageId'))});setNotice(`Invitation sent to ${String(form.get('email'))}`);await onInvited();
     }}>
-      {localDevelopment?<LocalInvitationNotice/>:null}
+
       <label>Guest email<input type="email" name="email" required/></label>
       <label>Page to share<select name="pageId" required defaultValue=""><option value="" disabled>Choose a page</option>{pages.data?.items.map(page=><option key={page.id} value={page.id}>{page.title}</option>)}</select></label>
       <p>Guests receive view access to this page. The workspace’s default expiry applies.</p>

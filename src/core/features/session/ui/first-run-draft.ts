@@ -2,7 +2,7 @@
 // convenience: when it is unavailable the page simply starts blank, as it always did.
 const key = "slate-first-run-draft";
 
-export interface FirstRunDraft { workspaceName: string; containerName: string; pageTitle: string; addresses: string }
+export interface FirstRunDraft { displayName?: string; workspaceName: string; containerName: string; pageTitle: string; addresses: string }
 
 export function readDraft(): FirstRunDraft | null {
   try {

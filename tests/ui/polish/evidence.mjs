@@ -31,8 +31,8 @@ export async function capture(page, name, { fullPage = false, requiredControls =
     // The camera restore and control sweep move the page and its pointer target; let that settle too.
     await waitForScrollSettled(page);
     const frame = await guard.unchanged('beforeScreenshot');
-    // Wall-clock stamps (dated <time> text and the editor's "Saved 3:40:42 AM") differ on every run; the rest of the page must not.
-    const screenshot = await page.screenshot({ path: path.join(output, `${stem}.png`), fullPage, mask: [page.locator('time'), page.locator('[role="status"]', { hasText: /^Saved\s+\d{1,2}:\d{2}/ })] });
+    // Wall-clock dates differ on every run; the rest of the page must not.
+    const screenshot = await page.screenshot({ path: path.join(output, `${stem}.png`), fullPage, mask: [page.locator('time')] });
     integrity.screenshot = assertScreenshotCamera(screenshot, frame, fullPage, name);
     await guard.unchanged('afterScreenshot');
     await writeFile(path.join(evidenceRoot, `${stem}.json`), JSON.stringify({ name, url: page.url(), artifact, geometry, sweep, axe, integrity }, null, 2));
