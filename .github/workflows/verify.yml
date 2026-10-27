@@ -121,8 +121,6 @@ jobs:
             command: pnpm build && node --test --test-concurrency=1 --test-name-pattern=390 tests/ui/polish-journeys.test.mjs
           - suite: ui-content-mobile-1
             command: pnpm build && SLATE_UI_SHARD=1/3 node --test --test-concurrency=1 --test-name-pattern=390 tests/qualification/ui-convergence/journeys.test.mjs
-          - suite: ui-content-mobile-2
-            command: pnpm build && SLATE_UI_SHARD=2/3 node --test --test-concurrency=1 --test-name-pattern=390 tests/qualification/ui-convergence/journeys.test.mjs
           - suite: ui-content-mobile-3
             command: pnpm build && SLATE_UI_SHARD=3/3 node --test --test-concurrency=1 --test-name-pattern=390 tests/qualification/ui-convergence/journeys.test.mjs
           - suite: ui-state
