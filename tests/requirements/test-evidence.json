@@ -1528,39 +1528,12 @@
     },
     {
       "file": "tests/e2e/landing.test.ts",
-      "testName": "HOME-001 landing page supporting regressions installed root: the Worker answers / with the Lobby, which offers setup until the owner finishes first-run setup and sign-in after",
+      "testName": "HOME-001 landing page supporting regressions installed lobby and public landing preserve owner configuration, navigation and privacy",
       "kind": "supporting-regression",
       "clauses": [
         "HOME-001"
       ],
-      "reason": "Controlled local Worker regression of the amended HOME-001 installed root: the shared Lobby and GET /setup/state before and after the first-run record, with no workspace data, cookie or script. No browser, accessibility or full clause acceptance claim."
-    },
-    {
-      "file": "tests/e2e/landing.test.ts",
-      "testName": "HOME-001 landing page supporting regressions landing page: owner identity, description and the credit toggle are read from the owner configuration",
-      "kind": "supporting-regression",
-      "clauses": [
-        "HOME-001"
-      ],
-      "reason": "Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim."
-    },
-    {
-      "file": "tests/e2e/landing.test.ts",
-      "testName": "HOME-001 landing page supporting regressions landing page: sections, the Run page link and outbound addresses are the static product description only",
-      "kind": "supporting-regression",
-      "clauses": [
-        "HOME-001"
-      ],
-      "reason": "Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim."
-    },
-    {
-      "file": "tests/e2e/landing.test.ts",
-      "testName": "HOME-001 landing page supporting regressions landing page: source loads nothing off-origin, sets no cookies and tracks no one",
-      "kind": "supporting-regression",
-      "clauses": [
-        "HOME-001"
-      ],
-      "reason": "Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim."
+      "reason": "Controlled local Worker regression of the amended HOME-001 installed root: the shared Lobby and GET /setup/state before and after the first-run record, with no workspace data, cookie or script. No browser, accessibility or full clause acceptance claim. Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim. Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim. Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim."
     },
     {
       "file": "tests/e2e/docs.test.ts",
