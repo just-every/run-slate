@@ -9044,7 +9044,7 @@
       "executable": false
     },
     "src/core/features/session/ui/FirstRunPage.tsx": {
-      "sha256": "c171626dbb445b06bf3f785412a9933d82eafd2059c0b1001af3c4f09a296570",
+      "sha256": "bb29532cf6ad2689f8b9457ad4083c709ecd9260f649f1bb3948e43c4edf51f7",
       "executable": false
     },
     "src/core/features/session/ui/FirstRunProgress.tsx": {
@@ -9052,7 +9052,7 @@
       "executable": false
     },
     "src/core/features/session/ui/FirstRunWizard.tsx": {
-      "sha256": "1792b80a7a199b2bed7aa3b5c808bd10550f83d591cdfbe0cc964d3a02536ee9",
+      "sha256": "7a10a065e6527bf630607e8d8c3292bdb96ad2fc6572c4145adc5fc5d2e3eb6a",
       "executable": false
     },
     "src/core/features/session/ui/nouns.ts": {
@@ -9724,7 +9724,7 @@
       "executable": false
     },
     "src/core/features/workspace/routes.ts": {
-      "sha256": "2f26c30d30a9689ea01e67b08da707c5d00b21cf3effd9589a6b7b9133323004",
+      "sha256": "90d4b14b130df07a91e21083c9db667334afb2c406c5ccfbf795593253184e00",
       "executable": false
     },
     "src/core/features/workspace/settings.ts": {
@@ -11224,7 +11224,7 @@
       "executable": false
     },
     "tests/profile/first-run-shell.worker.test.ts": {
-      "sha256": "eb5d05b85366e41d4a3f114cb633c9482be174a704a38f0ce263fb6c02a9cfde",
+      "sha256": "85902a459f118132dfded68a658b217b4cc56950d815767fd9c8da6637f46549",
       "executable": false
     },
     "tests/profile/page-lock-journey.ts": {
