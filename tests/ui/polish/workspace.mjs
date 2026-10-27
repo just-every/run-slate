@@ -208,13 +208,13 @@ export async function navigationAndSearch(argumentsState, width) {
   await expect(create).toBeFocused();
   const owner = page.locator('.sidebar .workrow');
   await owner.click();
-  const ownerMenu = page.getByRole('navigation', { name: 'Workspace tools', exact: true });
-  const database = ownerMenu.getByRole('button', { name: 'New database', exact: true });
+  const ownerMenu = page.getByRole('menu', { name: 'Account', exact: true });
+  const database = ownerMenu.getByRole('menuitem', { name: 'Sign out', exact: true });
   await expect(owner).toHaveAttribute('aria-expanded', 'true');
   await control(owner, 'Owner menu trigger');
-  await control(database, 'New database');
+  await control(database, 'Sign out');
   await separated([owner, database], 'Owner menu choices');
-  await capture(page, 'nav-owner', { requiredControls: ['New database'] });
+  await capture(page, 'nav-owner', { requiredControls: ['Sign out'] });
   await owner.click();
   await expect(owner).toHaveAttribute('aria-expanded', 'false');
   await expect(ownerMenu).toHaveCount(0);

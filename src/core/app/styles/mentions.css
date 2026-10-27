@@ -1,23 +1,23 @@
 .slate-app .mention-picker {
+  position: fixed;
+  z-index: 80;
   display: grid;
-  gap: 8px;
-  padding: 12px;
-  margin: 8px 0;
+  gap: 2px;
+  padding: 4px;
+  margin: 0;
   border: 1px solid var(--slate-line);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--slate-surface);
-  max-height: min(440px, 65dvh);
+  box-shadow: var(--slate-shadow-popover);
   overflow: auto;
-  max-width: 100%;
+  overscroll-behavior: contain;
+  box-sizing: border-box;
   font-size: 13px;
   font-weight: 400;
   line-height: 1.5;
   white-space: normal;
 }
-.slate-app .mention-picker > button { text-align: left; min-height: max(var(--slate-tap-target, 0px), 36px); }
-.slate-app .mention-picker label { display: grid; gap: 5px; }
-.slate-app .mention-picker input { min-width: 0; width: 100%; }
-.slate-app .mention-picker [aria-label="Group mention recipients"] {
-  border-top: 1px solid var(--slate-line);
-  padding-top: 10px;
-}
+.slate-app .mention-picker button { text-align: left; min-height: max(var(--slate-tap-target, 0px), 36px); width: 100%; padding: 6px 10px; border: 0; border-radius: 4px; background: transparent; color: var(--slate-ink); font-size: 13px; }
+.slate-app .mention-picker [aria-selected="true"] { background: var(--slate-sidebar-hover); }
+.slate-app .mention-picker p { margin: 4px 10px; }
+.slate-app .mention-picker [aria-label="Group mention recipients"] { padding: 6px; }

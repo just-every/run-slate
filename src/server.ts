@@ -55,7 +55,7 @@ async function developmentAsset(request: Request, bindings: AppBindings): Promis
 async function handleRequest(request: Request, bindings: AppBindings, execution: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     if (url.pathname === "/health" && (request.method === "GET" || request.method === "HEAD")) {
-      const response = healthResponse(request, bindings, execution);
+      const response = await healthResponse(request, bindings, execution);
       return request.method === "HEAD" ? new Response(null, response) : response;
     }
     const asset = import.meta.env.DEV ? await developmentAsset(request, bindings) : await staticAssetResponse(request, bindings);

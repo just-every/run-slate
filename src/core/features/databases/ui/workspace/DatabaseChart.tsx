@@ -11,7 +11,7 @@ export function DatabaseChart({
   viewId: string;
   fields: FieldDto[];
 }) {
-  const [group, setGroup] = useState("");
+  const [group, setGroup] = useState(() => fields.find(field=>["select","status"].includes(field.type))?.id ?? fields[0]?.id ?? "");
   const [numeric, setNumeric] = useState("");
   const [calculation, setCalculation] = useState("count");
   const chart = useResource<{ series: { label: string; value: number }[] }>(
