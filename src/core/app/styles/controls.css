@@ -16,8 +16,10 @@
 }
 .slate-app :is(.primary-button, button.primary, .actions .run):not(:disabled):hover { background-color: var(--slate-accent-hover); }
 .slate-app :is(.secondary-button, .tool, .icon-action):not(.tool-primary):not(:disabled):hover { background-color: var(--slate-wash); }
-/* A preview or slide can be narrower than the viewport. The tip fits its task row too. */
-.slate-app [data-task-item] { container-type: inline-size; }
+/* Tips fit the local task, record property, list row or card, even in a narrow peek. */
+.slate-app :is([data-task-item], .record-field dd,
+  .database-workspace li:has(button[role="checkbox"]),
+  .database-workspace article:has(button[role="checkbox"])) { container-type: inline-size; }
 .slate-app button[role="checkbox"][data-tooltip-align="start"]::after {
   left: 0;
   width: max-content;
@@ -25,6 +27,16 @@
   overflow-wrap: anywhere;
   white-space: normal;
   transform: none;
+}
+/* List fields trail the title: expand their tips back into the bounded row. */
+.slate-app .database-workspace li button[role="checkbox"][data-tooltip-align="start"]::after {
+  left: auto;
+  right: 0;
+}
+/* Keep card covers clipped at their corners without clipping a field's tip. */
+.slate-app .database-workspace article:has(button[role="checkbox"]) { overflow: visible; }
+.slate-app .database-workspace article:has(button[role="checkbox"]) > [aria-hidden="true"] {
+  clip-path: inset(0 round calc(var(--radius-card) - 1px) calc(var(--radius-card) - 1px) 0 0);
 }
 /* A checkbox keeps its 32px touch target and draws a 20px box inside it. */
 .slate-app button[role="checkbox"] {

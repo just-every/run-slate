@@ -3,6 +3,47 @@ import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
 import { ok } from '../../qualification/ui-convergence/two-people-support.mjs';
 
+// Keep shared Checkbox tooltips bounded in every database host, including a
+// trailing list field whose tip must expand back into the row.
+async function databaseCheckboxBounds({ page, context, origin, api }, containerId) {
+  const mutate = async (route, data) => (await ok(context, origin, 'POST', route, { operationKey: randomUUID(), ...data })).value;
+  const database = await mutate('/api/databases', { containerId, title: 'Checkbox tooltip bounds' });
+  const base = `/api/databases/${database.id}`;
+  const field = { id: randomUUID(), name: 'Confirm this checkbox field remains readable within its database list, record, peek and gallery without widening the page. '.repeat(2).slice(0, 160), type: 'checkbox', config: {}, position: 0 };
+  let revision = (await mutate(base + '/fields', { expectedRevisionId: database.revisionId, field })).revisionId;
+  for (const [position, layout] of ['list', 'gallery'].entries()) {
+    const view = { id: randomUUID(), name: `Checks ${layout}`, layout, filters: [], sorts: [], groups: [], calculations: {}, display: { visibleFieldIds: [field.id] }, position };
+    revision = (await mutate(base + '/views', { expectedRevisionId: revision, view })).revisionId;
+  }
+  const record = await mutate(base + '/records', { title: 'Release checkbox', values: { [field.id]: false } });
+  for (const surface of ['list', 'record', 'peek', 'gallery']) {
+    if (surface === 'record') await page.goto(`${origin}/app/databases/${database.id}/records/${record.pageId}`, { waitUntil: 'networkidle' });
+    else {
+      await page.goto(`${origin}/app/databases/${database.id}`, { waitUntil: 'networkidle' });
+      await page.getByRole('button', { name: `Checks ${surface === 'gallery' ? 'gallery' : 'list'}`, exact: true }).click();
+      if (surface === 'peek') await page.getByRole('button', { name: 'Release checkbox', exact: true }).click();
+    }
+    const host = surface === 'peek' ? page.getByRole('dialog', { name: 'Record preview', exact: true }) : page;
+    const checkbox = host.getByRole('checkbox', { name: field.name, exact: true });
+    await expect(checkbox).toBeDisabled();
+    const measure = () => checkbox.evaluate(el => {
+      const style = getComputedStyle(el, '::after'), box = el.getBoundingClientRect();
+      return { scroll: document.documentElement.scrollWidth, viewport: innerWidth, width: parseFloat(style.width), left: box.x + el.clientLeft + parseFloat(style.left), opacity: style.opacity, delay: style.transitionDelay, wrap: style.whiteSpace, ring: getComputedStyle(el).boxShadow, controlOpacity: getComputedStyle(el).opacity };
+    });
+    if (surface === 'gallery') assert.equal(await checkbox.evaluate(el => getComputedStyle(el.closest('article')).overflow), 'visible', 'SL35 gallery tips are not clipped by the card');
+    const rest = await measure();
+    assert.equal(rest.scroll, rest.viewport, `SL35 ${surface}: a hidden field tip does not widen the page`);
+    await checkbox.hover();
+    await expect.poll(async () => (await measure()).opacity).toBe('1');
+    const shown = await measure();
+    assert.equal(shown.scroll, shown.viewport, `SL35 ${surface}: a shown field tip does not widen the page`);
+    assert.ok(shown.width <= 256 && shown.left >= 0 && shown.left + shown.width <= shown.viewport, `SL35 ${surface}: the field name wraps inside its cap`);
+    assert.equal(shown.wrap, 'normal');
+    assert.equal(shown.delay, '0.3s');
+    assert.equal(shown.controlOpacity, '1', `Disabled ${surface} tip retains full strength`);
+  }
+}
+
 // Extend the existing polish registration: paging and tooltips at desktop,
 // phone-only review targets at phone width, all through the emitted Worker.
 export async function controlPolishJourney({ page, context, origin, api }, width) {
@@ -69,6 +110,7 @@ export async function controlPolishJourney({ page, context, origin, api }, width
     await assertNoOverflow(page.locator('.page-presentation article'));
     await assertNoOverflow(page.locator('html'));
     await page.getByRole('button', { name: 'Exit presentation', exact: true }).click();
+    await databaseCheckboxBounds({ page, context, origin, api }, containerId);
     for (let i = 0; i < 30; i++) await post('/api/pages', { containerId, title: `Release guide ${i + 1}` });
     await page.goto(origin + '/app/search?q=&kind=page', { waitUntil: 'networkidle' });
     const next = page.getByRole('button', { name: 'Next results →', exact: true });
