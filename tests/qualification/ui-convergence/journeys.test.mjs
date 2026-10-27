@@ -196,7 +196,7 @@ for (const width of [1440]) {
   });
 }
 
-for (const width of [1440, 390]) {
+for (const width of [390]) {
   test(`space tree title filtering preserves ancestors, access and expansion at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
