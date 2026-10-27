@@ -1922,7 +1922,7 @@
     },
     {
       "file": "tests/qualification/policies/invitations.test.ts",
-      "testName": "a member invitation stops admitting once its inviter is no longer a full member",
+      "testName": "ADMIN-003 \u2014 guest policy, invitation acceptance and inviter revocation enforce current membership authority",
       "kind": "supporting-regression",
       "clauses": [
         "WORK-006",
