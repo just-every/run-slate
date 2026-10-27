@@ -16,6 +16,7 @@
 .page-presentation button:disabled { opacity: .45; }
 .page-presentation button:disabled[data-tooltip] { opacity: 1; }
 .page-presentation button:disabled[data-tooltip] > * { opacity: .45; }
+.page-presentation button[role="checkbox"]:disabled { --slate-disabled-checkbox-strength: 45%; }
 .presentation-close { justify-self: end; }
 @media print { .sidebar,.topbar,.mobile-bar,.right,.editor-actions,.page-outline { display: none !important; } .slate-app .app,.slate-app .content-frame { display: block; } .slate-app .main { width: 100%; padding: 0; } }
 

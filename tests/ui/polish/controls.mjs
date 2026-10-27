@@ -5,7 +5,7 @@ import { ok } from '../../qualification/ui-convergence/two-people-support.mjs';
 
 // Keep shared Checkbox tooltips bounded in every database host, including a
 // trailing list field whose tip must expand back into the row.
-async function databaseCheckboxBounds({ page, context, origin, api }, containerId) {
+async function databaseCheckboxBounds({ page, context, origin, api }, containerId, enabledRing) {
   const mutate = async (route, data) => (await ok(context, origin, 'POST', route, { operationKey: randomUUID(), ...data })).value;
   const database = await mutate('/api/databases', { containerId, title: 'Checkbox tooltip bounds' });
   const base = `/api/databases/${database.id}`;
@@ -33,6 +33,7 @@ async function databaseCheckboxBounds({ page, context, origin, api }, containerI
     if (surface === 'gallery') assert.equal(await checkbox.evaluate(el => getComputedStyle(el.closest('article')).overflow), 'visible', 'SL35 gallery tips are not clipped by the card');
     const rest = await measure();
     assert.equal(rest.scroll, rest.viewport, `SL35 ${surface}: a hidden field tip does not widen the page`);
+    assert.notEqual(rest.ring, enabledRing, `Read-only ${surface} checkbox keeps its faded ring`);
     await checkbox.hover();
     await expect.poll(async () => (await measure()).opacity).toBe('1');
     const shown = await measure();
@@ -59,6 +60,7 @@ export async function controlPolishJourney({ page, context, origin, api }, width
   if (width === 1440) {
     const checkbox = page.getByRole('checkbox', { name: `Mark complete: ${taskText}`, exact: true });
     const name = await checkbox.getAttribute('aria-label');
+    const enabledRing = await checkbox.evaluate(el => getComputedStyle(el).boxShadow);
     await expect(checkbox).toHaveAttribute('data-tooltip', name);
     const assertNoOverflow = async locator => {
       const box = await locator.evaluate(el => ({ scroll: el.scrollWidth, width: el.clientWidth }));
@@ -92,6 +94,7 @@ export async function controlPolishJourney({ page, context, origin, api }, width
     await expect.poll(() => checkbox.evaluate(el => getComputedStyle(el, '::after').opacity)).toBe('1');
     await page.keyboard.press('Space');
     await expect(checkbox).toBeChecked();
+    const enabledFill = await checkbox.evaluate(el => getComputedStyle(el).backgroundColor);
     await expect.poll(async () => (await api(`/api/pages/${pageId}`)).blocks[0].content.done).toBe(true);
     await page.getByRole('button', { name: 'More', exact: true }).click();
     await page.getByRole('menuitem', { name: 'Publish workspace revision', exact: true }).click();
@@ -101,6 +104,7 @@ export async function controlPolishJourney({ page, context, origin, api }, width
     await disabledTip.hover();
     await expect.poll(() => disabledTip.evaluate(el => getComputedStyle(el, '::after').opacity)).toBe('1');
     assert.equal(await disabledTip.evaluate(el => getComputedStyle(el).opacity), '1', 'Disabled control does not fade its accessible-name tip');
+    assert.notEqual(await disabledTip.evaluate(el => getComputedStyle(el).backgroundColor), enabledFill, 'Read-only checked To-do keeps its faded fill');
     await assertNoOverflow(preview);
     await assertNoOverflow(page.locator('html'));
     await page.getByRole('button', { name: 'Close dialog', exact: true }).click();
@@ -110,7 +114,7 @@ export async function controlPolishJourney({ page, context, origin, api }, width
     await assertNoOverflow(page.locator('.page-presentation article'));
     await assertNoOverflow(page.locator('html'));
     await page.getByRole('button', { name: 'Exit presentation', exact: true }).click();
-    await databaseCheckboxBounds({ page, context, origin, api }, containerId);
+    await databaseCheckboxBounds({ page, context, origin, api }, containerId, enabledRing);
     for (let i = 0; i < 30; i++) await post('/api/pages', { containerId, title: `Release guide ${i + 1}` });
     await page.goto(origin + '/app/search?q=&kind=page', { waitUntil: 'networkidle' });
     const next = page.getByRole('button', { name: 'Next results →', exact: true });

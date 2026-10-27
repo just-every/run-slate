@@ -50,6 +50,14 @@
   box-shadow: inset 0 0 0 1px var(--slate-line-strong);
 }
 .slate-app button[role="checkbox"][data-state="checked"] { background-color: var(--slate-accent); box-shadow: none; color: var(--slate-accent-ink); }
+/* Fade the control's own paint, leaving its accessible-name tip fully opaque. */
+.slate-app button[role="checkbox"]:disabled[data-tooltip] {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--slate-line-strong) var(--slate-disabled-checkbox-strength, 55%), transparent);
+}
+.slate-app button[role="checkbox"][data-state="checked"]:disabled[data-tooltip] {
+  background-color: color-mix(in srgb, var(--slate-accent) var(--slate-disabled-checkbox-strength, 55%), transparent);
+  box-shadow: none;
+}
 .slate-app .settings-panel :is(h2,h3) + button { margin-top: 8px; }
 .slate-app .space-choice[aria-pressed="true"] { border-color: var(--slate-accent); background: var(--slate-accent-soft); }
 .slate-app .restore-workspace > summary { margin-top: 8px; }
