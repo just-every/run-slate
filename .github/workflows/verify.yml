@@ -1,17 +1,74 @@
 name: Verify Slate
 on:
   push:
-    branches: [main]
+    branches: [main, 'cloud/**']
     tags: ['v*']
   pull_request:
   workflow_dispatch:
   schedule:
-    - cron: '30 17 * * *'
+    - cron: '17 3 * * 1,4'
 permissions:
   contents: read
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.event_name }}-${{ github.ref == 'refs/heads/main' && github.run_id || github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      skip: ${{ steps.reuse.outputs.skip }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - id: reuse
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          SAME_REPO: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          WF_REF: ${{ github.workflow_ref }}
+        run: |
+          set -euo pipefail
+          wf="${WF_REF%@*}"; wf="${wf##*/}"
+          # Only the newest same-repository push of this workflow is evidence.
+          # PR merge refs, dispatch subsets, forks and this run cannot satisfy it.
+          newest_push() {
+            gh api "repos/$GITHUB_REPOSITORY/actions/workflows/$wf/runs?head_sha=$1&event=push&per_page=100" \
+              --jq "[.workflow_runs[] | select(.head_repository.full_name == \"$GITHUB_REPOSITORY\" and .id != $GITHUB_RUN_ID)] | max_by(.id) | select(. != null) | \"\(.status) \(.conclusion)\"" || true
+          }
+          green() { [ "$(newest_push "$1")" = "completed success" ]; }
+          skip=false
+          # C1: reuse the exact candidate's green push after landing on main.
+          if [ "$EVENT" = push ] && [ "$REF" = refs/heads/main ] && green "$GITHUB_SHA"; then skip=true; fi
+          # C3: an identical parent tree, with the parent's newest push green.
+          if [ "$skip" = false ] && [ "$EVENT" = push ] && parent=$(git rev-parse -q --verify HEAD~1) \
+             && [ "$(git rev-parse 'HEAD^{tree}')" = "$(git rev-parse 'HEAD~1^{tree}')" ] && green "$parent"; then skip=true; fi
+          # C2: a same-repository PR may reuse only its own green push head.
+          # Missing/red evidence runs in full; wait at most 25 minutes if running.
+          if [ "$EVENT" = pull_request ] && [ "$SAME_REPO" = true ]; then
+            for _ in $(seq 1 50); do
+              state=$(newest_push "$PR_HEAD")
+              case "$state" in
+                'completed success') skip=true; break ;;
+                ''|completed\ *) break ;;
+                *) sleep 30 ;;
+              esac
+            done
+          fi
+          # Tags also require installer/local and scale assertions. A normal push
+          # is no nightly marker: never reuse it to bypass these release doors.
+          if [[ "$REF" == refs/tags/* ]]; then skip=false; fi
+          echo "skip=$skip" >> "$GITHUB_OUTPUT"
   app:
-    if: github.event_name != 'workflow_dispatch'
+    needs: plan
+    if: needs.plan.outputs.skip != 'true' && github.event_name != 'workflow_dispatch'
     name: verify (app)
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -25,10 +82,11 @@ jobs:
           node-version: 22.20.0
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Install Chromium with bounded apt mirror fallback
+      # rer verify also checks hosted output and page hydration in Chromium.
+      - name: Install Chromium
         run: bash .github/scripts/install-browsers.sh
       - run: node scripts/sync-project-setup.mjs --check && pnpm verify
-      # Contract acceptance consumes the same verified build while Workers run.
+      # Every shard and contract acceptance consume this one verified build.
       - uses: actions/upload-artifact@v4
         with:
           name: verified-app-build
@@ -43,14 +101,56 @@ jobs:
           name: failures-app
           path: .artifacts/
           if-no-files-found: ignore
-  workers:
-    if: github.event_name != 'workflow_dispatch'
+  shards:
+    needs: [plan, app]
+    if: needs.plan.outputs.skip != 'true' && github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 25
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3, 4, 5, 6]
+        include:
+          - suite: core
+            ui: 1
+            worker: 1
+            browser: true
+            command: pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts
+          - suite: tooling
+            ui: 2
+            worker: 2
+            browser: true
+            command: pnpm test:base-proof && pnpm test:docs && pnpm test:typegen && pnpm test:portability && pnpm test:release-source && pnpm test:rer-editor
+          - suite: delivery
+            ui: 3
+            worker: 3
+            browser: true
+            command: pnpm test:delivery-artifact && pnpm test:release-regressions
+          - suite: ui-state
+            ui: 4
+            worker: 4
+            browser: true
+            command: pnpm test:ui:reachability && pnpm test:ui:state && node --test --test-concurrency=1 --test-name-pattern='^insertion recovery' tests/ui/polish-journeys.test.mjs
+          - suite: ui-focus-desktop
+            ui: 5
+            worker: 5
+            browser: true
+            command: node --test --test-concurrency=1 --test-name-pattern='^genuine insertion focus.*1440' tests/ui/polish-journeys.test.mjs
+          - suite: ui-focus-mobile
+            ui: 6
+            worker: 6
+            browser: true
+            command: node --test --test-concurrency=1 --test-name-pattern='^genuine insertion focus.*390' tests/ui/polish-journeys.test.mjs
+          - suite: ui-polish-desktop
+            ui: 7
+            worker: 0
+            browser: true
+            command: node --test --test-concurrency=1 --test-name-pattern='^visible Slate polish.*1440' tests/ui/polish-journeys.test.mjs
+          - suite: ui-polish-mobile
+            ui: 8
+            worker: 0
+            browser: true
+            command: node --test --test-concurrency=1 --test-name-pattern='^visible Slate polish.*390' tests/ui/polish-journeys.test.mjs
+    name: verify (${{ matrix.suite }})
     steps:
       - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
@@ -61,14 +161,39 @@ jobs:
           node-version: 22.20.0
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec vitest run --shard=${{ matrix.shard }}/6 --testNamePattern="^(?!Undo removes unedited and merely shared imported pages).*$" --reporter=default --reporter=json --outputFile=.artifacts/contract-${{ matrix.shard }}.json
-      - uses: actions/upload-artifact@v4
-        if: always()
+      - name: Install Chromium
+        if: matrix.browser
+        run: bash .github/scripts/install-browsers.sh
+      - uses: actions/download-artifact@v4
         with:
-          name: contract-${{ matrix.shard }}
-          path: .artifacts/contract-${{ matrix.shard }}.json
+          name: verified-app-build
+          path: dist/
+      # The six Workers report partitions stay intact for contract aggregation.
+      - name: Workers contract partition
+        if: matrix.worker != 0
+        run: pnpm exec vitest run --shard=${{ matrix.worker }}/6 --testNamePattern="^(?!Undo removes unedited and merely shared imported pages).*$" --reporter=default --reporter=json --outputFile=.artifacts/contract-${{ matrix.worker }}.json
+      - uses: actions/upload-artifact@v4
+        if: always() && matrix.worker != 0
+        with:
+          name: contract-${{ matrix.worker }}
+          path: .artifacts/contract-${{ matrix.worker }}.json
+          if-no-files-found: error
+      # Partition whole top-level journeys, retaining both 1440 and 390 doors.
+      - name: Public-door browser journeys
+        env:
+          SLATE_UI_SHARD: ${{ matrix.ui }}/8
+        run: node --test --test-concurrency=1 tests/qualification/ui-convergence/journeys.test.mjs
+      - run: ${{ matrix.command }}
+      - name: Retain failures
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failures-${{ matrix.suite }}
+          path: .artifacts/
+          if-no-files-found: ignore
   contract:
-    needs: [workers, app]
+    needs: [plan, shards, app]
+    if: needs.plan.outputs.skip != 'true' && github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -81,8 +206,6 @@ jobs:
           node-version: 22.20.0
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Install Chromium with bounded apt mirror fallback
-        run: bash .github/scripts/install-browsers.sh
       - uses: actions/download-artifact@v4
         with:
           name: verified-app-build
@@ -95,67 +218,13 @@ jobs:
       - run: node scripts/verify.mjs
         env:
           SLATE_WORKERS_REPORTS: .artifacts/contract-shards
-  verify:
-    if: github.event_name != 'workflow_dispatch'
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - suite: core
-            command: pnpm build && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts
-          - suite: tooling
-            command: pnpm build && pnpm test:base-proof && pnpm test:docs && pnpm test:typegen && pnpm test:portability && pnpm test:release-source && pnpm test:rer-editor
-          - suite: delivery
-            command: pnpm build && pnpm test:delivery-artifact && pnpm test:release-regressions
-          - suite: ui-polish-desktop
-            command: pnpm build && node --test --test-concurrency=1 --test-name-pattern=1440 tests/ui/polish-journeys.test.mjs
-          - suite: ui-content-desktop-1
-            command: pnpm build && SLATE_UI_SHARD=1/3 node --test --test-concurrency=1 --test-name-pattern=1440 tests/qualification/ui-convergence/journeys.test.mjs
-          - suite: ui-content-desktop-2
-            command: pnpm build && SLATE_UI_SHARD=2/3 node --test --test-concurrency=1 --test-name-pattern=1440 tests/qualification/ui-convergence/journeys.test.mjs
-          - suite: ui-content-desktop-3
-            command: pnpm build && SLATE_UI_SHARD=3/3 node --test --test-concurrency=1 --test-name-pattern=1440 tests/qualification/ui-convergence/journeys.test.mjs
-          - suite: ui-polish-mobile
-            command: pnpm build && node --test --test-concurrency=1 --test-name-pattern=390 tests/ui/polish-journeys.test.mjs
-          - suite: ui-content-mobile-1
-            command: pnpm build && SLATE_UI_SHARD=1/3 node --test --test-concurrency=1 --test-name-pattern=390 tests/qualification/ui-convergence/journeys.test.mjs
-          - suite: ui-content-mobile-2
-            command: pnpm build && SLATE_UI_SHARD=2/3 node --test --test-concurrency=1 --test-name-pattern=390 tests/qualification/ui-convergence/journeys.test.mjs
-          - suite: ui-content-mobile-3
-            command: pnpm build && SLATE_UI_SHARD=3/3 node --test --test-concurrency=1 --test-name-pattern=390 tests/qualification/ui-convergence/journeys.test.mjs
-          - suite: ui-state
-            command: pnpm build && pnpm test:ui:reachability && pnpm test:ui:state
-    name: verify (${{ matrix.suite }})
-    steps:
-      - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.12.4
-      - uses: actions/setup-node@v5
-        with:
-          node-version: 22.20.0
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - name: Install Chromium with bounded apt mirror fallback
-        run: bash .github/scripts/install-browsers.sh
-      - run: ${{ matrix.command }}
-      - name: Retain failures
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: failures-${{ matrix.suite }}
-          path: .artifacts/
-          if-no-files-found: ignore
   local-journeys:
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
+    needs: [plan, app]
+    if: ${{ !cancelled() && needs.plan.result == 'success' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')) }}
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v5
-      - name: Prepare runner disk
-        run: sudo rm -rf -- /usr/local/lib/android /usr/share/dotnet /usr/local/.ghcup
       - uses: pnpm/action-setup@v4
         with:
           version: 10.12.4
@@ -164,9 +233,15 @@ jobs:
           node-version: 22.20.0
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Install Chromium with bounded apt mirror fallback
+      - name: Install Chromium
         run: bash .github/scripts/install-browsers.sh
+      - uses: actions/download-artifact@v4
+        if: github.event_name != 'workflow_dispatch'
+        with:
+          name: verified-app-build
+          path: dist/
       - run: pnpm build
+        if: github.event_name == 'workflow_dispatch'
       - run: pnpm test:installer && pnpm test:local-journey
       - if: failure()
         uses: actions/upload-artifact@v4
@@ -176,7 +251,8 @@ jobs:
           if-no-files-found: ignore
 
   import-scale:
-    if: github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags/')
+    needs: plan
+    if: needs.plan.outputs.skip != 'true' && (github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags/'))
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -190,3 +266,35 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec vitest run tests/e2e/imports/undo-cross-references.test.ts
+
+  verify:
+    needs: [plan, app, shards, contract, local-journeys, import-scale]
+    if: ${{ always() }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    steps:
+      - name: Require the plan and every expected job
+        env:
+          PLAN: ${{ needs.plan.result }}
+          SKIP: ${{ needs.plan.outputs.skip }}
+          APP: ${{ needs.app.result }}
+          SHARDS: ${{ needs.shards.result }}
+          CONTRACT: ${{ needs.contract.result }}
+          LOCAL: ${{ needs.local-journeys.result }}
+          SCALE: ${{ needs.import-scale.result }}
+          EVENT: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+        run: |
+          set -euo pipefail
+          test "$PLAN" = success
+          if [ "$SKIP" = true ]; then exit 0; fi
+          # Dispatch has always been the installer/local-only entry point.
+          if [ "$EVENT" != workflow_dispatch ]; then
+            for result in "$APP" "$SHARDS" "$CONTRACT"; do test "$result" = success; done
+          fi
+          if [ "$EVENT" = schedule ] || [ "$EVENT" = workflow_dispatch ] || [[ "$REF" == refs/tags/* ]]; then
+            test "$LOCAL" = success
+          fi
+          if [ "$EVENT" = schedule ] || [[ "$REF" == refs/tags/* ]]; then
+            test "$SCALE" = success
+          fi

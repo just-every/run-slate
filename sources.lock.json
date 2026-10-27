@@ -907,8 +907,12 @@
       "sha256": "a24c2d2fa8f49570cfd9db65001b444a42fb3bd2aef3d652b81b39fafe63f6e2",
       "executable": false
     },
+    ".github/scripts/chromium-probe.mjs": {
+      "sha256": "dbbb07363ff2d0878bae4f159b4297b45c7e6d84334312b1c4d5ef78440f0c76",
+      "executable": false
+    },
     ".github/scripts/install-browsers.sh": {
-      "sha256": "869ac942fcb13571cc5b2b763bd9b6571c677c93f8036d989c8825d3f2c52e72",
+      "sha256": "640edd70c163cc915656fb583cb5a5024e8790f7c69d02ea7750937d6e7357ea",
       "executable": false
     },
     ".github/workflows/deploy.yml": {
@@ -928,7 +932,7 @@
       "executable": false
     },
     ".github/workflows/verify.yml": {
-      "sha256": "3b12f388e9cd90265aa391cba992a152dcf7dfe97e5dde8d68656e22caa21291",
+      "sha256": "5ee81a44264b8cdcb8ee2b6c41bae8b840619f7da6abce9dea04b1d3acb03a70",
       "executable": false
     },
     ".gitignore": {
