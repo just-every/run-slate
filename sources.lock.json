@@ -5296,11 +5296,11 @@
       "executable": false
     },
     "src/core/app/styles/content.css": {
-      "sha256": "56796d40524bc2c22c102a9ab97dcf0a4ae433e3876404973a8ed0db5e0fe9d9",
+      "sha256": "13a48cfa8696a9191b6015f7f4616a362de1cf25812bb2505398844dfe7b7fe4",
       "executable": false
     },
     "src/core/app/styles/controls.css": {
-      "sha256": "48d189c38ae043823abb92bdd22ed8dd5e5c751d5787bc7daf27cb9e9421284c",
+      "sha256": "1d0ce7f23d0e34616f3c2715e8ab0cf1fff01f07895edfb346152579834b3645",
       "executable": false
     },
     "src/core/app/styles/database.css": {
@@ -12136,7 +12136,7 @@
       "executable": false
     },
     "tests/ui/polish/controls.mjs": {
-      "sha256": "61d478f5df92d2661dba7250cc1b72d8880327e69f6156a439a61b0d64e23d1f",
+      "sha256": "8ebb306b7d1d72937ecc9d3a8735117ae1e1c93475865329943d65948db3c932",
       "executable": false
     },
     "tests/ui/polish/editor-focus-transport.mjs": {
