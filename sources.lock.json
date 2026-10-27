@@ -1844,7 +1844,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "a0f439b33e8d69bb34e0829a6d19f6d2547cf54103b433e247a8c4449f2f2ce4",
+      "sha256": "9ad21c631dc30f825f09513712dc2d161ff6ed4c904bc939e6aa1e4095350a2e",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -4952,7 +4952,7 @@
       "executable": false
     },
     "scripts/installer/business-carry.mjs": {
-      "sha256": "bd91c6253eed0b68094846c4496a4d38ca1de1ab1c4afe64341f9c6747efa98b",
+      "sha256": "9a4c02fc7c1f84dbc032cf9cb2ae1b0e678b04d2bf78f6b6a480d1fa8dd941e4",
       "executable": false
     },
     "scripts/installer/deploy.mjs": {
@@ -8356,7 +8356,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageTopBar.tsx": {
-      "sha256": "3d007a01947e1f9105a519c4f04dfc7fa044b62b7a5ab705aa3ff4e02cd24a8e",
+      "sha256": "85c78d13921d1c09b35da73ab340b131c40a055731ddc86260dd33486daa8fc5",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageTransferDialog.tsx": {
@@ -9052,7 +9052,7 @@
       "executable": false
     },
     "src/core/features/session/ui/FirstRunWizard.tsx": {
-      "sha256": "2e2d58f907883319a175114e9badc85a4db886a5ced2d70588984f7ebab9ab87",
+      "sha256": "1792b80a7a199b2bed7aa3b5c808bd10550f83d591cdfbe0cc964d3a02536ee9",
       "executable": false
     },
     "src/core/features/session/ui/nouns.ts": {
@@ -9724,7 +9724,7 @@
       "executable": false
     },
     "src/core/features/workspace/routes.ts": {
-      "sha256": "8ccba49e60b953840e3cc097a4b2ac54d11c62944aab262a9dd0e607e5f23733",
+      "sha256": "2f26c30d30a9689ea01e67b08da707c5d00b21cf3effd9589a6b7b9133323004",
       "executable": false
     },
     "src/core/features/workspace/settings.ts": {
@@ -11224,7 +11224,7 @@
       "executable": false
     },
     "tests/profile/first-run-shell.worker.test.ts": {
-      "sha256": "5feacd51459d5aadb9d77e03e953e835e10099003d6c9f77aed8cc4ca24aa8ae",
+      "sha256": "eb5d05b85366e41d4a3f114cb633c9482be174a704a38f0ce263fb6c02a9cfde",
       "executable": false
     },
     "tests/profile/page-lock-journey.ts": {
