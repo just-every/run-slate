@@ -1987,7 +1987,7 @@
         },
         {
           "file": "tests/qualification/authority/learned-provenance.test.ts",
-          "testName": "INQ-005 \u2014 learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse"
+          "testName": "INQ-005 \u2014 learned provenance and published inquiry references preserve exact disclosed sources"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
@@ -2203,7 +2203,7 @@
       "supportingTests": [
         {
           "file": "tests/qualification/authority/learned-provenance.test.ts",
-          "testName": "INQ-005 \u2014 learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse"
+          "testName": "INQ-005 \u2014 learned provenance and published inquiry references preserve exact disclosed sources"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
@@ -2515,7 +2515,7 @@
       "supportingTests": [
         {
           "file": "tests/qualification/authority/learned-provenance.test.ts",
-          "testName": "INQ-005 \u2014 learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse"
+          "testName": "INQ-005 \u2014 learned provenance and published inquiry references preserve exact disclosed sources"
         },
         {
           "file": "tests/flagship/intelligence/reservation-prerequisites.test.ts",

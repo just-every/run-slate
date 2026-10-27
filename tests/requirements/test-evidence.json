@@ -993,14 +993,16 @@
     },
     {
       "file": "tests/qualification/authority/learned-provenance.test.ts",
-      "testName": "INQ-005 \u2014 learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse",
+      "testName": "INQ-005 \u2014 learned provenance and published inquiry references preserve exact disclosed sources",
       "kind": "supporting-regression",
       "clauses": [
         "INQ-005",
         "SOURCE-005",
-        "AI-013"
+        "AI-013",
+        "LIFE-005",
+        "ARCH-002"
       ],
-      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance."
+      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance. Asserts inquiry and archive page references show a reader the published title, not an unpublished rename. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/authority/recovery.test.ts",
@@ -1957,16 +1959,6 @@
         "BLOCK-008"
       ],
       "reason": "Asserts duplicating a page with attachments respects the deployment attachment storage limit. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/qualification/authority/learned-provenance.test.ts",
-      "testName": "inquiry and archive page references show a reader the published title, not an unpublished rename",
-      "kind": "supporting-regression",
-      "clauses": [
-        "LIFE-005",
-        "ARCH-002"
-      ],
-      "reason": "Asserts inquiry and archive page references show a reader the published title, not an unpublished rename. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/http.test.ts",
