@@ -944,7 +944,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "50d03649405d570172bd13834d5b7daaa75869e272f2a1e2fe6ab358341ed700",
+      "sha256": "8cb7a3bae237ed610e774f0738720d603b217abf87bc4b602af982ddf49b6fb8",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -972,7 +972,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "15943914838141bb1245b7bd80c2f6ef00bf8c6c2007b6144fdced7c42f2e432",
+      "sha256": "9051d8247345a11ee74a045524349ab36d04a7685378e94e18926241b2419ca9",
       "executable": false
     },
     "DEMO.md": {
@@ -11280,7 +11280,7 @@
       "executable": false
     },
     "tests/qualification/authority/disconnect.test.ts": {
-      "sha256": "04c77d1e7c64b05d7563674f26c02bb2cc5703fc99933b73f47ee3d179131361",
+      "sha256": "71749e1ce62306c03782e2e0d23222ece00fb6f9de3be5e5e5056930cd3cf907",
       "executable": false
     },
     "tests/qualification/authority/fixture.ts": {
@@ -11296,7 +11296,7 @@
       "executable": false
     },
     "tests/qualification/authority/native-boundaries.test.ts": {
-      "sha256": "3d54924adceb0408392b1a00d6e34a06c9d5619ad599dc3618c8478f7218d3f9",
+      "sha256": "cb2d36c7d89b41d4e6fd91a49ead57031d0eaccb2ba474aeb23c12888d1f2cda",
       "executable": false
     },
     "tests/qualification/authority/recovery.test.ts": {
@@ -11304,11 +11304,7 @@
       "executable": false
     },
     "tests/qualification/authority/skill-disclosure.test.ts": {
-      "sha256": "921e474b6c9248e0d907d3389f93730ca4565ff1db2574aaf80b05fa1df4c3c5",
-      "executable": false
-    },
-    "tests/qualification/authority/snapshot.test.ts": {
-      "sha256": "20b7c5c7b00aa10244cfc3650159ccd80424635287aff0ac5ebed52a1baec87b",
+      "sha256": "93e0eacd4357080515e1a615ad1ff76749d227676611b210bb093ca3aa9e7cf3",
       "executable": false
     },
     "tests/qualification/authority/vitest.config.ts": {
@@ -11844,7 +11840,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "4d2ed9998b7c2e716467314aada384323dc2efa2a485e6f3b81d8df15b614f36",
+      "sha256": "c18a8d9e3d103afddf821172e684ab787bf1829e629ba1d85c08c236d063cfd6",
       "executable": false
     },
     "tests/qualification/ui-convergence/my-tasks-journey.mjs": {
@@ -12032,7 +12028,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "b8163204c9ad58805c3e374d81ef8660421b7075d8d6bd80f09ca32406feb077",
+      "sha256": "eb8e28c98ee3e93f281264d7322b4e55e069efcdd9ccb7c7004b86387a5f1049",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12048,7 +12044,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "e7bffb44d2d99826c74b2226d6120a421f7bca43dbc812e03a375272c214de8b",
+      "sha256": "56448b4402d4168b14bdb05cb1ba32b40e0f8cbb00d79d48c34b8df0b321128c",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
@@ -12216,7 +12212,7 @@
       "executable": false
     },
     "vitest.config.ts": {
-      "sha256": "cad7f20ee4eeacc9e5b3cb621a7300e6d4a4fc608635dadc7299006956acbdaf",
+      "sha256": "344297368eb8445c91bda68189dd0a7814eb38126bfa0a9bf455e86d96ca8c65",
       "executable": false
     },
     "worker-configuration.d.ts": {
