@@ -2,16 +2,17 @@ import { seedIcons } from "@runeditrun/rer/seed-icons";
 import { demoSockets } from "./modules/demo/vite.mjs";
 import { existsSync } from "node:fs";
 import { isAbsolute, relative, resolve, sep } from "node:path";
+import { pathToFileURL } from "node:url";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import { loadLocalSettings, localPaths } from "./scripts/installer/settings.mjs";
 import { archiveOutputGuard } from "@runeditrun/rer/archive-output";
 import { docsSite } from "./src/core/features/docs/build/plugin.ts";
 
-export default defineConfig(async ({ command }) => {
+export default defineConfig(async ({ command, isPreview }) => {
   const paths = localPaths();
   const configPath = command === 'build' && !process.env.SLATE_WRANGLER_CONFIG_PATH && existsSync('wrangler.toml') ? 'wrangler.toml' : paths.configPath;
   const persistPath = process.env.RER_STATE_DIR ?? paths.persistPath;
@@ -20,9 +21,16 @@ export default defineConfig(async ({ command }) => {
   // guard reads the served folders even right after `rer reset`.
   let missingSettings: unknown;
   const local = command === 'serve' ? await loadLocalSettings(process.cwd()).catch(error => { missingSettings = error; return undefined; }) : undefined;
+  const carry = command === 'serve' && !isPreview && process.env.RER_DEMO !== '1'
+    ? await import(pathToFileURL(resolve('scripts/installer/business-carry.mjs')).href) as {
+      readBusinessCarry(root: string): Promise<string | null>;
+      businessCarryWatch(root: string): Plugin;
+    } : null;
+  const business = carry ? await carry.readBusinessCarry(process.cwd()) : null;
   // Wrangler reloads .dev.vars after config.vars; keep the selected origin in
   // its own binding so the runtime can apply it after saved settings load.
   if (local && process.env.RER_DEV_ORIGIN) Object.assign(local, { RER_DEV_ORIGIN: process.env.RER_DEV_ORIGIN });
+  if (local && business) Object.assign(local, { RER_BUSINESS: business });
   // Only `vite dev` receives the checkout's dev key and loads the local-only dev identity entry.
   if (local && process.env.RER_DEV_KEY) Object.assign(local, { RER_DEV_KEY: process.env.RER_DEV_KEY, RER_DEV_IDENTITY: process.env.RER_DEV_IDENTITY ?? 'on' });
   const optionalBindings = ['RER_MANAGEMENT_ORIGIN','RER_INSTALLATION_ID','HAPPYTOHELP_DELEGATION_ORIGIN','HAPPYTOHELP_DELEGATION_CLIENT_ID','HAPPYTOHELP_DELEGATION_ACCOUNT_ID','ORBIT_DELEGATION_ORIGIN','ORBIT_DELEGATION_CLIENT_ID','ORBIT_DELEGATION_ACCOUNT_ID','ALLOW_LOOPBACK_DELEGATION','GOOGLE_CLIENT_ID','GOOGLE_CLIENT_SECRET','SLACK_CLIENT_ID','SLACK_CLIENT_SECRET','GITHUB_CLIENT_ID','GITHUB_CLIENT_SECRET','AI_ENABLED','AI_PROVIDER','AI_API_KEY','AI_MODEL','AI_LOCAL_URL','AI_LOCAL_TOKEN','CONNECTOR_CREDENTIALS_KEY','SLATE_PROFILE'];
@@ -53,6 +61,7 @@ export default defineConfig(async ({ command }) => {
   plugins: [
     seedIcons(),
     demoSockets(),
+    ...(carry ? [carry.businessCarryWatch(process.cwd())] : []),
     ...(missingSettings ? [{ name: 'slate-local-settings', configureServer() { throw missingSettings; } }] : []),
     cloudflare({
       inspectorPort: process.env.SLATE_INSPECTOR_PORT ? Number(process.env.SLATE_INSPECTOR_PORT) : false,
