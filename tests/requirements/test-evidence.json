@@ -1015,13 +1015,13 @@
     },
     {
       "file": "tests/e2e/notifications/chat.test.ts",
-      "testName": "the single-destination chat door stores a credential only after a fresh email confirmation",
+      "testName": "NOTIF-003 \u2014 chat admission requires fresh authority and keeps link-only delivery inside the current audience",
       "kind": "supporting-regression",
       "clauses": [
         "NOTIF-003",
         "CHAT-001"
       ],
-      "reason": "Asserts the single-destination chat door stores a credential only after a fresh email confirmation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts the single-destination chat door stores a credential only after a fresh email confirmation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts a person whose own Slack token posts to a channel stays in that channel audience. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/authority/decision-authority.test.ts",
@@ -1042,16 +1042,6 @@
         "WORK-010"
       ],
       "reason": "Asserts a member invitation stops admitting once its inviter is no longer a full member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/e2e/notifications/chat.test.ts",
-      "testName": "a person whose own Slack token posts to a channel stays in that channel audience",
-      "kind": "supporting-regression",
-      "clauses": [
-        "NOTIF-003",
-        "CHAT-001"
-      ],
-      "reason": "Asserts a person whose own Slack token posts to a channel stays in that channel audience. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/e2e/databases/record-templates.test.ts",
