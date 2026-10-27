@@ -17,20 +17,26 @@ import { readWorkspace, updateWorkspace } from './settings';
 import { currentMember, listMembers, removeMember, setTheme, setMemberRole } from './members';
 import { listGroups, saveGroup } from './groups';
 const op=z.string().min(8).max(160); const id=z.string().min(1).max(128);
+const workspaceNameMessage='Workspace names must contain 1–200 characters.';
+const workspaceName=z.string().trim().refine(value=>{const length=[...value].length;return length>=1&&length<=200;},workspaceNameMessage);
 const toggle=z.enum(['allowed','forbidden']);
 const domain=z.string().trim().toLowerCase().regex(/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/).max(253);
 const policies=z.object({'page.lifecycle.v1':z.enum(['always-live','draft-then-publish']),'page.access.v1':z.enum(['workspace-general','container-general']),'page.public-access.v1':z.enum(['site','link']),'page.version.v1':z.enum(['autosnapshot','labelled']),'page.status.v1':z.enum(['verification-only','open-vocabulary']),'record.page-parity.v1':z.enum(['record-is-page','record-is-row']),'automation.scope.v1':z.enum(['source','container','site']),'container.access.v1':z.enum(['class-led','grant-led'])}).strict();
-export async function parseBody<T>(request:{json:()=>Promise<unknown>},schema:z.ZodType<T>):Promise<T>{const parsed=schema.safeParse(await request.json().catch(()=>null));if(!parsed.success)throw new ApiProblem(400,'INVALID_REQUEST','The request is invalid.');return parsed.data;}
+export async function parseBody<T>(request:{json:()=>Promise<unknown>},schema:z.ZodType<T>,fieldMessages:Record<string,string>={}):Promise<T>{
+ const parsed=schema.safeParse(await request.json().catch(()=>null));
+ if(!parsed.success){const field=parsed.error.issues.find(issue=>typeof issue.path[0]==='string'&&Object.hasOwn(fieldMessages,issue.path[0]))?.path[0];throw new ApiProblem(400,'INVALID_REQUEST',typeof field==='string'?fieldMessages[field]:'The request is invalid.');}
+ return parsed.data;
+}
 export function createWorkspaceRoutes(){return new Hono<AppEnvironment>()
 .get('/api/workspace/first-run',async c=>c.json(await firstRunState(featureContext(c))))
-.post('/api/workspace/first-run',async c=>c.json(await completeFirstRun(featureContext(c),await parseBody(c.req,z.object({operationKey:op,workspaceName:z.string().trim().min(1).max(160),containerName:z.string().trim().min(1).max(160),pageTitle:z.string().trim().min(1).max(500)}).strict()))))
+.post('/api/workspace/first-run',async c=>c.json(await completeFirstRun(featureContext(c),await parseBody(c.req,z.object({operationKey:op,workspaceName,containerName:z.string().trim().min(1).max(160),pageTitle:z.string().trim().min(1).max(500)}).strict(),{workspaceName:workspaceNameMessage}))))
 .get('/api/workspace/jobs',async c=>{const ctx=featureContext(c);await requireWorkspaceOwner(ctx);return c.json({items:(await ctx.db.prepare('SELECT id,kind,attempts,state,error_code AS errorCode,updated_at AS updatedAt FROM core_job_failures ORDER BY updated_at DESC LIMIT 100').all()).results});})
 .get('/api/workspace/mail',async c=>c.json(await listIdentityMail(featureContext(c))))
 .post('/api/workspace/mail/:id/retry',async c=>c.json(await retryIdentityMail(featureContext(c),c.get('runtimeConfig'),c.req.param('id'))))
 .get('/api/workspace/mention-configuration',async c=>c.json(await mentionConfiguration(featureContext(c))))
 .put('/api/workspace/mention-configuration',async c=>c.json(await setMentionConfiguration(featureContext(c),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id.nullable(),restrictLargeGroups:z.boolean()}).strict()))))
 .get('/api/workspace',async c=>c.json(await readWorkspace(featureContext(c))))
-.put('/api/workspace',async c=>c.json(await updateWorkspace(featureContext(c),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id,name:z.string().trim().min(1).max(160),mark:z.string().max(2048),description:z.string().max(2000),guestAccess:toggle,publicLinkAccess:toggle,anonymousAccess:toggle,policies}).strict()))))
+.put('/api/workspace',async c=>c.json(await updateWorkspace(featureContext(c),await parseBody(c.req,z.object({operationKey:op,expectedRevisionId:id,name:workspaceName,mark:z.string().max(2048),description:z.string().max(2000),guestAccess:toggle,publicLinkAccess:toggle,anonymousAccess:toggle,policies}).strict(),{name:workspaceNameMessage}))))
 .get('/api/people',async c=>c.json(await directory(featureContext(c),{q:c.req.query('q')})))
 .get('/api/people/:id',async c=>c.json(await memberProfile(featureContext(c),c.req.param('id'),c.req.query('pageId'))))
 .put('/api/people/:id',async c=>c.json(await saveProfile(featureContext(c),c.req.param('id'),await parseBody(c.req,profileInput))))

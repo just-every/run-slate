@@ -7,6 +7,9 @@ import { readRuntimeConfig } from "../../src/core/platform/config/runtime";
 import { FirstRunShell } from "../../src/core/app/ui/FirstRunShell";
 import { WorkspaceProvider } from "../../src/core/app/ui/WorkspaceContext";
 import type { WorkspaceSnapshot } from "../../src/core/app/ui/workspaceSnapshot";
+import { createApi } from "../../src/core/app/hono";
+import { seedWorkspace, seedMember, sessionFor } from "../e2e/setup/fixtures";
+import { resetDeployment } from "../e2e/setup/reset-deployment";
 
 test("the first-run page shows the card mark beside the owner's name for the product and the signed-in owner's address", async () => {
   const snapshot = {
@@ -39,5 +42,32 @@ test("the first-run page shows the card mark beside the owner's name for the pro
     const withoutBusiness = renderToString(createElement(RouterProvider, { router }));
     expect(withoutBusiness).toMatch(/<input[^>]*value=""/);
     expect(withoutBusiness).not.toContain(carriedName);
+  }
+
+  for (const name of ["a".repeat(161), "a".repeat(200), "🌿".repeat(200)]) {
+    await resetDeployment();
+    const { workspaceId } = await seedWorkspace();
+    const { memberId } = await seedMember(workspaceId, { role: "owner", isSetupOwner: true, displayName: "Example Owner", email: "you@example.test" });
+    const cookie = await sessionFor(memberId);
+    const bindings = { ...env, RER_BUSINESS: JSON.stringify({ name }) };
+    snapshot.business = readRuntimeConfig(bindings, false).business;
+    expect(renderToString(createElement(RouterProvider, { router }))).toContain(`value="${name}"`);
+    const api = createApi();
+    const finish = (workspaceName: string) => api.request("https://slate.example/api/workspace/first-run", {
+      method: "POST", headers: { cookie, "content-type": "application/json" },
+      body: JSON.stringify({ operationKey: crypto.randomUUID(), workspaceName, containerName: "Team handbook", pageTitle: "Welcome" }),
+    }, bindings);
+    const refused = await finish("a".repeat(201));
+    expect(refused.status).toBe(400);
+    expect(await refused.json()).toMatchObject({ message: expect.stringMatching(/workspace.*characters/i) });
+    const created = await finish(name);
+    expect(created.status).toBe(200);
+    const { value } = await created.json() as { value: { pageId: string } };
+    const workspace = await api.request("https://slate.example/api/workspace", { headers: { cookie } }, bindings);
+    expect(workspace.status).toBe(200);
+    expect(await workspace.json()).toMatchObject({ name });
+    const page = await api.request(`https://slate.example/api/pages/${value.pageId}`, { headers: { cookie } }, bindings);
+    expect(page.status).toBe(200);
+    expect(await page.json()).toMatchObject({ page: { title: "Welcome" } });
   }
 });

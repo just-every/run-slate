@@ -65,9 +65,13 @@ export function FirstRunWizard({
     if (interactive && step < 3) document.getElementById(`${fieldId}-${step === 1 ? "workspace" : "container"}`)?.focus();
   }, [interactive, step, fieldId]);
   const hasInvitations = invitationAddresses.trim().length > 0;
+  const workspaceNameLength = [...workspaceName.trim()].length;
+  const workspaceNameError = step === 1 && workspaceNameLength > 200
+    ? "Workspace names must contain 1–200 characters."
+    : null;
   const canContinue =
     step === 1
-      ? workspaceName.trim().length > 0
+      ? workspaceNameLength > 0 && workspaceNameLength <= 200
       : step === 2
         ? containerNameValue.trim().length > 0 && firstPageTitle.trim().length > 0
         : true;
@@ -87,6 +91,8 @@ export function FirstRunWizard({
               <div className="paper-field">
                 <label htmlFor={`${fieldId}-workspace`}>Workspace name</label>
                 <input
+                  aria-describedby={workspaceNameError ? `${fieldId}-workspace-error` : undefined}
+                  aria-invalid={Boolean(workspaceNameError)}
                   autoFocus
                   className="paper-input"
                   disabled={!interactive || submitting}
@@ -94,6 +100,7 @@ export function FirstRunWizard({
                   onChange={(event) => onWorkspaceNameChange(event.target.value)}
                   value={workspaceName}
                 />
+                {workspaceNameError ? <p className="paper-note" id={`${fieldId}-workspace-error`} role="alert">{workspaceNameError}</p> : null}
               </div>
             </section>
           ) : null}
@@ -176,7 +183,7 @@ export function FirstRunWizard({
                 </button>
               </>
             )}
-            {!canContinue ? <p className="paper-note">{hint}</p> : null}
+            {!canContinue && !workspaceNameError ? <p className="paper-note">{hint}</p> : null}
           </div>
 
           {step === 1 && onRestore ? (
