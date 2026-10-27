@@ -20,9 +20,14 @@ async function databaseCheckboxBounds({ page, context, origin, api }, containerI
     if (surface === 'record') await page.goto(`${origin}/app/databases/${database.id}/records/${record.pageId}`, { waitUntil: 'networkidle' });
     else {
       await page.goto(`${origin}/app/databases/${database.id}`, { waitUntil: 'networkidle' });
-      await page.getByRole('button', { name: `Checks ${surface === 'gallery' ? 'gallery' : 'list'}`, exact: true }).click();
+      const view = page.getByRole('button', { name: `Checks ${surface === 'gallery' ? 'gallery' : 'list'}`, exact: true });
+      await view.click();
+      await expect(view).toHaveAttribute('aria-pressed', 'true');
       if (surface === 'peek') await page.getByRole('button', { name: 'Release checkbox', exact: true }).click();
     }
+    // Changing views and opening a peek fetch their own record content. Finish
+    // that render before placing the pointer on its final checkbox position.
+    await page.waitForLoadState('networkidle');
     const host = surface === 'peek' ? page.getByRole('dialog', { name: 'Record preview', exact: true }) : page;
     const checkbox = host.getByRole('checkbox', { name: field.name, exact: true });
     await expect(checkbox).toBeDisabled();
@@ -34,8 +39,10 @@ async function databaseCheckboxBounds({ page, context, origin, api }, containerI
     const rest = await measure();
     assert.equal(rest.scroll, rest.viewport, `SL35 ${surface}: a hidden field tip does not widen the page`);
     assert.notEqual(rest.ring, enabledRing, `Read-only ${surface} checkbox keeps its faded ring`);
+    await page.mouse.move(0, 0);
     await checkbox.hover();
-    await expect.poll(async () => (await measure()).opacity).toBe('1');
+    await expect.poll(() => checkbox.evaluate(el => el.matches(':hover')), { message: `SL35 ${surface}: the pointer reaches the field` }).toBe(true);
+    await expect.poll(async () => (await measure()).opacity, { message: `SL35 ${surface}: the field tip appears after hover` }).toBe('1');
     const shown = await measure();
     assert.equal(shown.scroll, shown.viewport, `SL35 ${surface}: a shown field tip does not widen the page`);
     assert.ok(shown.width <= 256 && shown.left >= 0 && shown.left + shown.width <= shown.viewport, `SL35 ${surface}: the field name wraps inside its cap`);
