@@ -69,9 +69,8 @@ export default defineConfig(async ({ command, isPreview }) => {
           await response.arrayBuffer();
           if (response.status !== (path === '/signin' ? 200 : 401)) throw new Error(`Dev restart warmup returned ${response.status}.`);
         }),
-        ...['/src/client.tsx', '/src/routeTree.gen.ts'].map(path => server.environments.client.warmupRequest(path)),
+        server.environments.client.warmupRequest('/@vite/client'),
       ]);
-      await server.waitForRequestsIdle();
     })] : []),
     ...(missingSettings ? [{ name: 'slate-local-settings', configureServer() { throw missingSettings; } }] : []),
     cloudflare({

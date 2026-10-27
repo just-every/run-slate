@@ -1,10 +1,43 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 import { watchFile, unwatchFile } from 'node:fs';
 import { resolve } from 'node:path';
 import { createServer } from 'node:http';
 
 const carryPath = root => resolve(root, '.rer', 'local', 'business.json');
 const listeners = new Map();
+const graphMaps = ['urlToModuleMap', 'idToModuleMap', 'etagToModuleMap', 'fileToModulesMap'];
+
+async function stamp(file) {
+  try { const value = await stat(file); return [value.mtimeMs, value.size]; }
+  catch (error) { if (error.code === 'ENOENT') return null; throw error; }
+}
+
+async function clientCache(server) {
+  const graph = server.environments.client.moduleGraph;
+  const files = new Set([...graph.fileToModulesMap.keys(), server.config.configFile].filter(Boolean));
+  return {
+    maps: graphMaps.map(name => [name, [...graph[name]]]),
+    stamps: await Promise.all([...files].map(async file => [file, await stamp(file)])),
+  };
+}
+
+async function restoreClient(server, cache) {
+  if (!cache) return;
+  const current = await Promise.all(cache.stamps.map(([file]) => stamp(file)));
+  if (cache.stamps.some(([, before], index) => JSON.stringify(before) !== JSON.stringify(current[index]))) return;
+  const graph = server.environments.client.moduleGraph;
+  for (const [name, entries] of cache.maps) {
+    graph[name].clear();
+    for (const [key, value] of entries) graph[name].set(key, value);
+  }
+  // Vite's bootstrap contains the new socket token; ordinary client modules
+  // contain no Worker bindings and remain valid for a carry-only restart.
+  const bootstrap = graph.urlToModuleMap.get('/@vite/client');
+  if (bootstrap) {
+    bootstrap.transformResult = null;
+    for (const [etag, module] of graph.etagToModuleMap) if (module === bootstrap) graph.etagToModuleMap.delete(etag);
+  }
+}
 
 function servingState() {
   const state = { active: 0, idle: [], sockets: new Set() };
@@ -85,6 +118,7 @@ function keepServing(server, state, root, warmup) {
       server.ws.close = async () => {};
       try {
         await close();
+        state.clientCache = state.carry ? await clientCache(server) : null;
         await restart(force);
         state.release();
         await warmup?.(server);
@@ -135,8 +169,10 @@ export function businessCarryWatch(root, warmup) {
       config.server.middlewareMode = true;
       config.server.ws = { ...config.server.ws, server: state.http };
     },
-    configureServer(server) {
+    async configureServer(server) {
       const state = listeners.get(root);
+      await restoreClient(server, state.clientCache);
+      state.clientCache = null;
       state.server = server;
       server.httpServer = state.http;
       let timer;
@@ -144,10 +180,13 @@ export function businessCarryWatch(root, warmup) {
         if (current.mtimeMs === previous.mtimeMs && current.ctimeMs === previous.ctimeMs && current.ino === previous.ino && current.size === previous.size) return;
         clearTimeout(timer);
         timer = setTimeout(async () => {
+          state.carry = true;
           try {
             await server.restart();
           } catch (error) {
             server.config.logger.error(`Business carry restart failed: ${error.message}`);
+          } finally {
+            state.carry = false;
           }
         }, 100);
       };
