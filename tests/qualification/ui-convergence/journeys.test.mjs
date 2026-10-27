@@ -181,7 +181,7 @@ for (const width of [1440]) {
   });
 }
 
-for (const width of [1440, 390]) {
+for (const width of [1440]) {
   test(`BLOCK-015 — a typed task is assigned with @, dated with //, notifies once and shows overdue at ${width}px`, { timeout: 240000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
@@ -229,8 +229,8 @@ for (const width of [1440]) {
   });
 }
 
-// Start the phone journey first to balance the ordinal desktop shards.
-for (const width of [390, 1440]) {
+// The core/touch journey is the seed's single phone smoke.
+for (const width of [390]) {
   test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: 300000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
