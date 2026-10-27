@@ -18,7 +18,7 @@ import { currentMember, listMembers, removeMember, setTheme, setMemberRole } fro
 import { listGroups, saveGroup } from './groups';
 const op=z.string().min(8).max(160); const id=z.string().min(1).max(128);
 const workspaceNameMessage='Workspace names must contain 1–200 characters.';
-const workspaceName=z.string().trim().refine(value=>{const length=[...value].length;return length>=1&&length<=200;},workspaceNameMessage);
+const workspaceName=z.string().refine(value=>{const length=[...value].length;return length>=1&&length<=200;},workspaceNameMessage);
 const toggle=z.enum(['allowed','forbidden']);
 const domain=z.string().trim().toLowerCase().regex(/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/).max(253);
 const policies=z.object({'page.lifecycle.v1':z.enum(['always-live','draft-then-publish']),'page.access.v1':z.enum(['workspace-general','container-general']),'page.public-access.v1':z.enum(['site','link']),'page.version.v1':z.enum(['autosnapshot','labelled']),'page.status.v1':z.enum(['verification-only','open-vocabulary']),'record.page-parity.v1':z.enum(['record-is-page','record-is-row']),'automation.scope.v1':z.enum(['source','container','site']),'container.access.v1':z.enum(['class-led','grant-led'])}).strict();

@@ -44,7 +44,7 @@ test("the first-run page shows the card mark beside the owner's name for the pro
     expect(withoutBusiness).not.toContain(carriedName);
   }
 
-  for (const name of ["a".repeat(161), "a".repeat(200), "🌿".repeat(200)]) {
+  for (const name of ["a".repeat(161), "a".repeat(200), "🌿".repeat(200), " ".repeat(200)]) {
     await resetDeployment();
     const { workspaceId } = await seedWorkspace();
     const { memberId } = await seedMember(workspaceId, { role: "owner", isSetupOwner: true, displayName: "Example Owner", email: "you@example.test" });

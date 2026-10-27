@@ -65,7 +65,7 @@ export function FirstRunWizard({
     if (interactive && step < 3) document.getElementById(`${fieldId}-${step === 1 ? "workspace" : "container"}`)?.focus();
   }, [interactive, step, fieldId]);
   const hasInvitations = invitationAddresses.trim().length > 0;
-  const workspaceNameLength = [...workspaceName.trim()].length;
+  const workspaceNameLength = [...workspaceName].length;
   const workspaceNameError = step === 1 && workspaceNameLength > 200
     ? "Workspace names must contain 1–200 characters."
     : null;

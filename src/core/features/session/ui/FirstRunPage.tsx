@@ -33,7 +33,7 @@ export function FirstRunPage({ owner }: { owner: string }) {
       setAddresses(draft.addresses);
     }
     // An address that skips ahead of what was answered lands on the first open step.
-    const reachable = !(draft?.workspaceName.trim() || business?.name.trim()) ? 1 : draft?.containerName.trim() && draft.pageTitle.trim() ? 3 : 2;
+    const reachable = !(draft?.workspaceName.trim() || business?.name) ? 1 : draft?.containerName.trim() && draft.pageTitle.trim() ? 3 : 2;
     setStepState((current) => {
       const next = Math.min(current, reachable) as 1 | 2 | 3;
       if (next !== current) window.history.replaceState(window.history.state, "", next === 1 ? "/setup" : `/setup?step=${next}`);
