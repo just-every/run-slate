@@ -228,7 +228,7 @@
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "real D1 database structure CAS, record page revisions, replay and lock enforcement"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -255,7 +255,7 @@
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "real D1 database structure CAS, record page revisions, replay and lock enforcement"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -549,7 +549,7 @@
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "draft profile record readers never see unpublished field values"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -618,7 +618,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "reader filtering precedes summaries and unauthorized reader cannot mutate"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -674,7 +674,7 @@
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rollup writes reject stale references and cycles while reads preserve current authority and prior records"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1059,39 +1059,19 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "numeric formulas evaluate and recompute while invalid types and cycles reject before and after records exist"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rollup writes reject stale references and cycles while reads preserve current authority and prior records"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "retained imported formulas remain labelled and do not block later schema edits"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "database navigation and reference hydration expose actual permitted labels only"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         },
         {
           "file": "tests/flagship/structured/template-repairs.test.ts",
-          "testName": "DB-002 historical page, record and template properties remove current hidden relation IDs and counts"
+          "testName": "template snapshots, privacy and typed repairs preserve immutable definitions"
         },
         {
           "file": "tests/flagship/structured/typed-repairs.test.ts",
-          "testName": "DB-002 computed assignments reject null/empty and imported results survive"
-        },
-        {
-          "file": "tests/flagship/structured/typed-repairs.test.ts",
-          "testName": "DB-002 dates compare instants consistently in filters and views"
-        },
-        {
-          "file": "tests/flagship/structured/typed-repairs.test.ts",
-          "testName": "DB-002 formula output types protect local and cross-database numeric rollup dependencies"
+          "testName": "typed relation, aggregate and formula repairs preserve current source authority"
         },
         {
           "file": "tests/flagship/structured/values.test.ts",
-          "testName": "editable fields accept null while computed mutations reject all supplied values"
+          "testName": "typed values, summaries, filters and formula validation preserve their boundaries"
         }
       ]
     },
@@ -1103,7 +1083,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "views persist every layout, filter summaries, charts and independent embedded filters"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1115,7 +1095,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "views persist every layout, filter summaries, charts and independent embedded filters"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1141,7 +1121,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "reader filtering precedes summaries and unauthorized reader cannot mutate"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1160,7 +1140,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "real D1 database structure CAS, record page revisions, replay and lock enforcement"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1172,11 +1152,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "record body persists across both parity profiles"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "all eight policy alternatives preserve structured data and template exclusions"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1188,7 +1164,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "views persist every layout, filter summaries, charts and independent embedded filters"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1207,7 +1183,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/automation-repairs.test.ts",
-          "testName": "AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions"
+          "testName": "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery"
         }
       ]
     },
@@ -1219,11 +1195,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/automation-repairs.test.ts",
-          "testName": "AUTO-002 admission, movement, branch and resumed actions enforce current container scope and private definitions"
+          "testName": "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rule execution retains exactly-once receipts and refuses effects when authority is lost before or during a run"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1235,11 +1211,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/automation-repairs.test.ts",
-          "testName": "AUTO-003 durable recovery before and after commit retains admitted conditions and completes ordered effects exactly once"
+          "testName": "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery"
         },
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "rule execution retains exactly-once receipts and refuses effects when authority is lost before or during a run"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1251,7 +1227,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "automation schedules and content events deduplicate effects and durably log chain and self-trigger throttling"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1263,7 +1239,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "automation schedules and content events deduplicate effects and durably log chain and self-trigger throttling"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1369,7 +1345,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "database navigation and reference hydration expose actual permitted labels only"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         }
       ]
     },
@@ -1533,27 +1509,15 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "template snapshots retain prescribed children independently and application replays"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "all eight policy alternatives preserve structured data and template exclusions"
-        },
-        {
-          "file": "tests/flagship/structured/structured.test.ts",
-          "testName": "template attachments are immutable independent copies and remain readable after source removal"
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
         },
         {
           "file": "tests/flagship/structured/template-permissions.test.ts",
-          "testName": "TMPL-003/005 current server capabilities distinguish manage, apply destinations, shipped copies and revoked access"
-        },
-        {
-          "file": "tests/flagship/structured/template-permissions.test.ts",
-          "testName": "TMPL-003 guest parent destinations do not require or expose a container index"
+          "testName": "template management, application, shipped copies and guest destinations preserve exact current capabilities"
         },
         {
           "file": "tests/flagship/structured/template-repairs.test.ts",
-          "testName": "TPL-001 template icon and file properties, including children, materialize independently for destination-only readers"
+          "testName": "template snapshots, privacy and typed repairs preserve immutable definitions"
         }
       ]
     },
@@ -1572,7 +1536,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/structured/template-permissions.test.ts",
-          "testName": "TMPL-003/005 current server capabilities distinguish manage, apply destinations, shipped copies and revoked access"
+          "testName": "template management, application, shipped copies and guest destinations preserve exact current capabilities"
         }
       ]
     },

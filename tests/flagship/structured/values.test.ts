@@ -8,7 +8,7 @@ import {
   type Field,
 } from "../../../src/core/features/databases/values";
 import { validateFormulas } from "../../../src/core/features/databases/formulas";
-test("editable fields accept null while computed mutations reject all supplied values", async () => {
+test("typed values, summaries, filters and formula validation preserve their boundaries", async () => {
   await runFoldCases([
 {name:"editable fields accept null while computed mutations reject all supplied values",before:async()=>{},run:async()=>{
 try {
@@ -124,5 +124,3 @@ try {
 }}
   ]);
 });
-
-

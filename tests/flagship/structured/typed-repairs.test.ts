@@ -1,3 +1,5 @@
+import {runFoldCases} from '../fold-cases';
+import {resetDeployment as resetFoldDeployment} from '../../e2e/setup/reset-deployment';
 import { test,expect } from "vitest";
 import { env } from "cloudflare:test";
 import { setup,databaseWith,field } from "./repair-fixture";
@@ -6,7 +8,11 @@ import { saveField,createRecord } from "../../../src/core/features/databases/ser
 import { openRecord,updateRecord } from "../../../src/core/features/databases/records";
 import { saveView,queryView,chart } from "../../../src/core/features/databases/views";
 import { validateFormulas } from "../../../src/core/features/databases/formulas";
-test("DB-002 computed assignments reject null/empty and imported results survive",async()=>{
+test("typed relation, aggregate and formula repairs preserve current source authority", async () => {
+  await runFoldCases([
+{name:"DB-002 computed assignments reject null/empty and imported results survive",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
  const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"readonly",[field("formula","formula",{expression:{literal:42}})]);
  const record=await createRecord(ctx,db.id,{operationKey:"readonly-record",title:"Record",values:{}});
  await env.DB.prepare("UPDATE database_fields SET config_json='{}' WHERE id='formula' AND database_id=?").bind(db.id).run();
@@ -14,8 +20,12 @@ test("DB-002 computed assignments reject null/empty and imported results survive
  for(const value of [null,"",undefined])expect(()=>validateValue(field("formula","formula"),value)).toThrow();
  for(const [index,value] of [null,""].entries())await expect(updateRecord(ctx,record.value.pageId,{operationKey:`readonly-edit-${index}`,expectedRevisionId:record.receipt.revisionId,values:{formula:value}})).rejects.toMatchObject({code:"COMPUTED_FIELD"});
  expect((await openRecord(ctx,record.value.pageId)).values.formula).toBe(42);
-});
-test("DB-002 dates compare instants consistently in filters and views",async()=>{
+
+} finally {}
+}},
+{name:"DB-002 dates compare instants consistently in filters and views",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
  const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"dates",[field("when","date")]);
  const earlier="2026-09-27T00:30:00+10:00",later="2026-09-26T15:00:00Z";
  const definitions=[field("when","date")];
@@ -26,8 +36,12 @@ test("DB-002 dates compare instants consistently in filters and views",async()=>
  await createRecord(ctx,db.id,{operationKey:"dates-late-record",title:"Late",values:{when:later}});
  await saveView(ctx,db.id,{operationKey:"dates-save-view",expectedRevisionId:db.revisionId,view:{id:"dates-view",name:"Earlier",layout:"table",filters:[{field:"when",op:"lt",value:later}],sorts:[{field:"when",direction:"asc"}],groups:[],calculations:{},display:{},position:0}});
  expect((await queryView(ctx,db.id,"dates-view")).records.map(r=>r.title)).toEqual(["Early"]);
-});
-test("DB-002 formula output types protect local and cross-database numeric rollup dependencies",async()=>{
+
+} finally {}
+}},
+{name:"DB-002 formula output types protect local and cross-database numeric rollup dependencies",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
  // Independent fixtures exercise the same behaviour through both paths.
  for(const scenario of [async()=>{
  const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"types",[field("label","select",{options:["A"]}),field("result","formula",{expression:{literal:3}})]);
@@ -46,6 +60,8 @@ async()=>{
  await expect(saveField(ctx,source.id,{operationKey:"cross-type-change",expectedRevisionId:source.revisionId,field:field("cross-formula","formula",{expression:{literal:"invalid numeric dependency"}})})).rejects.toMatchObject({code:"ROLLUP_TYPE"});
  expect(consumer.id).toBeTruthy();
 }])await scenario();
+
+} finally {}
+}}
+  ]);
 });
-
-

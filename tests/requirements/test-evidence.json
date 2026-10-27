@@ -759,51 +759,40 @@
     },
     {
       "file": "tests/flagship/structured/automation-repairs.test.ts",
-      "testName": "AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions",
+      "testName": "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery",
       "kind": "supporting-regression",
       "clauses": [
-        "AUTO-001"
+        "AUTO-001",
+        "AUTO-002",
+        "AUTO-003"
       ],
-      "reason": "Asserts AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-002 source/container admission rejects out-of-scope destinations; site definitions and activity are private. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-002 current container movement blocks an admitted action. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-002 branch targets and prepared resumed actions recheck current container scope. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-003 durable recovery reconciles commit-before-confirm and completes ordered actions exactly once. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-003 transient failure before commit resumes admitted conditions after an earlier field edit. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "real D1 database structure CAS, record page revisions, replay and lock enforcement",
+      "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics",
       "kind": "supporting-regression",
       "clauses": [
         "DB-009",
         "SAVE-003",
-        "SAVE-005"
-      ],
-      "reason": "Asserts real D1 database structure CAS, record page revisions, replay and lock enforcement. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "reader filtering precedes summaries and unauthorized reader cannot mutate",
-      "kind": "supporting-regression",
-      "clauses": [
+        "SAVE-005",
         "DB-007",
-        "SHARE-002"
+        "SHARE-002",
+        "TMPL-003",
+        "DB-010",
+        "LIFE-002",
+        "DB-003",
+        "DB-004",
+        "DB-011",
+        "DB-002",
+        "NAV-004",
+        "AUTO-002",
+        "AUTO-003",
+        "SHARE-007",
+        "AUTO-005",
+        "AUTO-004"
       ],
-      "reason": "Asserts reader filtering precedes summaries and unauthorized reader cannot mutate. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "template snapshots retain prescribed children independently and application replays",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TMPL-003"
-      ],
-      "reason": "Asserts template snapshots retain prescribed children independently and application replays. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "record body persists across both parity profiles",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-010"
-      ],
-      "reason": "Asserts record body persists across both parity profiles. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts real D1 database structure CAS, record page revisions, replay and lock enforcement. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts reader filtering precedes summaries and unauthorized reader cannot mutate. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts template snapshots retain prescribed children independently and application replays. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts record body persists across both parity profiles. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Checks preserved structured records and template exclusions while switching each policy alternative. This is supporting superset-data evidence only, not every behavior or UI of all eight policy clauses. Asserts draft profile record readers never see unpublished field values. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts views persist every layout, filter summaries, charts and independent embedded filters. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts template attachments are immutable independent copies and remain readable after source removal. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts retained imported formulas remain labelled and do not block later schema edits. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts database navigation and reference hydration expose actual permitted labels only. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts typed formula cycles reject and arithmetic evaluates without executable code. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts empty database accepts numeric formula, recomputes changed fields, rejects invalid types and cycles. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts rule action executes once with durable receipts and revoked actor loses execution. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts rule permission loss skips unauthorized later effects and retains confirmed receipt. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts rollups filter related unreadable records before aggregate and reject stale references. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts rollup cycle writes reject while prior records remain readable. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts all automation scopes persist; schedules deduplicate and chains throttle with a log. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts committed content events drain durably and self-triggering field rules are throttled. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/http.test.ts",
@@ -815,130 +804,37 @@
       "reason": "Asserts Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "all eight policy alternatives preserve structured data and template exclusions",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-010",
-        "TMPL-003"
-      ],
-      "reason": "Checks preserved structured records and template exclusions while switching each policy alternative. This is supporting superset-data evidence only, not every behavior or UI of all eight policy clauses."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "draft profile record readers never see unpublished field values",
-      "kind": "supporting-regression",
-      "clauses": [
-        "LIFE-002"
-      ],
-      "reason": "Asserts draft profile record readers never see unpublished field values. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "views persist every layout, filter summaries, charts and independent embedded filters",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-003",
-        "DB-004",
-        "DB-011"
-      ],
-      "reason": "Asserts views persist every layout, filter summaries, charts and independent embedded filters. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "template attachments are immutable independent copies and remain readable after source removal",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TMPL-003"
-      ],
-      "reason": "Asserts template attachments are immutable independent copies and remain readable after source removal. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "retained imported formulas remain labelled and do not block later schema edits",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts retained imported formulas remain labelled and do not block later schema edits. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "database navigation and reference hydration expose actual permitted labels only",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002",
-        "NAV-004"
-      ],
-      "reason": "Asserts database navigation and reference hydration expose actual permitted labels only. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
       "file": "tests/flagship/structured/template-permissions.test.ts",
-      "testName": "TMPL-003/005 current server capabilities distinguish manage, apply destinations, shipped copies and revoked access",
+      "testName": "template management, application, shipped copies and guest destinations preserve exact current capabilities",
       "kind": "supporting-regression",
       "clauses": [
         "TMPL-003",
         "TMPL-005"
       ],
-      "reason": "Asserts TMPL-003/005 current server capabilities distinguish manage, apply destinations, shipped copies and revoked access. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/template-permissions.test.ts",
-      "testName": "TMPL-003 guest parent destinations do not require or expose a container index",
-      "kind": "supporting-regression",
-      "clauses": [
-        "TMPL-003"
-      ],
-      "reason": "Asserts TMPL-003 guest parent destinations do not require or expose a container index. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts TMPL-003/005 current server capabilities distinguish manage, apply destinations, shipped copies and revoked access. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts TMPL-003 guest parent destinations do not require or expose a container index. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/template-repairs.test.ts",
-      "testName": "DB-002 historical page, record and template properties remove current hidden relation IDs and counts",
+      "testName": "template snapshots, privacy and typed repairs preserve immutable definitions",
       "kind": "supporting-regression",
       "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts DB-002 historical page, record and template properties remove current hidden relation IDs and counts. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/template-repairs.test.ts",
-      "testName": "TPL-001 template icon and file properties, including children, materialize independently for destination-only readers",
-      "kind": "supporting-regression",
-      "clauses": [
+        "DB-002",
         "TMPL-003"
       ],
-      "reason": "Asserts TPL-001 template icon and file properties, including children, materialize independently for destination-only readers. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts DB-002 historical page, record and template properties remove current hidden relation IDs and counts. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts TPL-001 template icon and file properties, including children, materialize independently for destination-only readers. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/typed-repairs.test.ts",
-      "testName": "DB-002 computed assignments reject null/empty and imported results survive",
+      "testName": "typed relation, aggregate and formula repairs preserve current source authority",
       "kind": "supporting-regression",
       "clauses": [
         "DB-002"
       ],
-      "reason": "Asserts DB-002 computed assignments reject null/empty and imported results survive. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/typed-repairs.test.ts",
-      "testName": "DB-002 dates compare instants consistently in filters and views",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts DB-002 dates compare instants consistently in filters and views. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/typed-repairs.test.ts",
-      "testName": "DB-002 formula output types protect local and cross-database numeric rollup dependencies",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts DB-002 formula output types constrain rollups, charts and later dependency edits. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts DB-002 a target formula edit cannot invalidate another empty database's numeric rollup. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts DB-002 computed assignments reject null/empty and imported results survive. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts DB-002 dates compare instants consistently in filters and views. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts DB-002 formula output types constrain rollups, charts and later dependency edits. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts DB-002 a target formula edit cannot invalidate another empty database's numeric rollup. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/flagship/structured/values.test.ts",
-      "testName": "editable fields accept null while computed mutations reject all supplied values",
+      "testName": "typed values, summaries, filters and formula validation preserve their boundaries",
       "kind": "supporting-regression",
       "clauses": [
         "DB-002"
@@ -1840,63 +1736,6 @@
         "NOTIF-003"
       ],
       "reason": "Public notification configuration, event and queue doors with provider-edge fakes only. Proves this named repair flow; does not establish live-provider or admin-install acceptance or change clause status."
-    },
-    {
-      "file": "tests/flagship/structured/automation-repairs.test.ts",
-      "testName": "AUTO-002 admission, movement, branch and resumed actions enforce current container scope and private definitions",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-002"
-      ],
-      "reason": "Asserts AUTO-002 source/container admission rejects out-of-scope destinations; site definitions and activity are private. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-002 current container movement blocks an admitted action. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-002 branch targets and prepared resumed actions recheck current container scope. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/automation-repairs.test.ts",
-      "testName": "AUTO-003 durable recovery before and after commit retains admitted conditions and completes ordered effects exactly once",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-003"
-      ],
-      "reason": "Asserts AUTO-003 durable recovery reconciles commit-before-confirm and completes ordered actions exactly once. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AUTO-003 transient failure before commit resumes admitted conditions after an earlier field edit. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "numeric formulas evaluate and recompute while invalid types and cycles reject before and after records exist",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002"
-      ],
-      "reason": "Asserts typed formula cycles reject and arithmetic evaluates without executable code. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts empty database accepts numeric formula, recomputes changed fields, rejects invalid types and cycles. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "rule execution retains exactly-once receipts and refuses effects when authority is lost before or during a run",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-002",
-        "AUTO-003"
-      ],
-      "reason": "Asserts rule action executes once with durable receipts and revoked actor loses execution. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts rule permission loss skips unauthorized later effects and retains confirmed receipt. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "rollup writes reject stale references and cycles while reads preserve current authority and prior records",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DB-002",
-        "SHARE-007"
-      ],
-      "reason": "Asserts rollups filter related unreadable records before aggregate and reject stale references. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts rollup cycle writes reject while prior records remain readable. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
-    },
-    {
-      "file": "tests/flagship/structured/structured.test.ts",
-      "testName": "automation schedules and content events deduplicate effects and durably log chain and self-trigger throttling",
-      "kind": "supporting-regression",
-      "clauses": [
-        "AUTO-005",
-        "AUTO-004"
-      ],
-      "reason": "Asserts all automation scopes persist; schedules deduplicate and chains throttle with a log. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts committed content events drain durably and self-triggering field rules are throttled. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
     },
     {
       "file": "tests/qualification/authority/snapshot.test.ts",
