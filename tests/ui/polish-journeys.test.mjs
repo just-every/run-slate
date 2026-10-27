@@ -153,10 +153,25 @@ async function controlPolishJourney({ page, context, origin, api }, width) {
     const linkBox = await title.boundingBox(), checkBox = await checkbox.boundingBox();
     assert.ok(linkBox.height >= 44, 'SL34 title has a 44px phone target');
     assert.ok(checkBox.width >= 44 && checkBox.height >= 44, 'SL34 selection has a 44px square phone target');
-    await checkbox.click({ position: { x: 2, y: 2 } });
-    await expect(checkbox).toBeChecked();
+    const chipBox = await row.locator('.page-status-chip').boundingBox();
+    const overlaps = (a, b) => a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
+    assert.ok(!overlaps(linkBox, chipBox) && !overlaps(checkBox, chipBox), 'SL34 the status chip does not overlap either target');
+    let checked = false;
+    for (const y of [1, 22, 43]) {
+      for (const x of [1, 22, 43]) {
+        await checkbox.scrollIntoViewIfNeeded();
+        const box = await checkbox.boundingBox();
+        await page.mouse.click(box.x + x, box.y + y);
+        checked = !checked;
+        await expect(checkbox).toBeChecked({ checked });
+        await expect(page).toHaveURL(origin + '/app/review');
+      }
+    }
     await expect(page.getByRole('button', { name: 'Verify selected opened revisions', exact: true })).toBeEnabled();
-    await title.click({ position: { x: 2, y: 2 } });
-    await expect(page.getByRole('textbox', { name: 'Page title', exact: true })).toHaveValue('Release review');
+    for (const y of [1, 22, 43]) {
+      await title.click({ position: { x: 2, y } });
+      await expect(page.getByRole('textbox', { name: 'Page title', exact: true })).toHaveValue('Release review');
+      await page.goto(origin + '/app/review', { waitUntil: 'networkidle' });
+    }
   }
 }

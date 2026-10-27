@@ -106,12 +106,14 @@
 
 @media (max-width: 700px) {
   .slate-app .review-list > li > div > h2 > a {
-    /* Inline padding grows the hit area without changing wrapped title lines. */
-    padding-block: calc((44px - 1em) / 2);
+    display: block;
+    min-height: 44px;
   }
   .slate-app .review-list > li > label {
     display: inline-flex;
     align-items: center;
+    min-height: 44px;
+    gap: 6px;
   }
   .slate-app .review-list > li > label > input[type="checkbox"] {
     appearance: none;
@@ -121,7 +123,7 @@
     height: 44px;
     min-height: 44px;
     flex-shrink: 0;
-    margin: -13px;
+    margin: 0;
     padding: 0;
     border: 13px solid transparent;
     border-radius: 16px;
