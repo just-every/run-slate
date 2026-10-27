@@ -33,7 +33,8 @@ export function useShellResource<T>(path: string, initial: T): Resource<T> {
       return false;
     }
   }, []);
-  const reload = useCallback(() => read(signal => request<T>(source.current.path, { signal })), [read]);
+  // Route retirement fences the response; the background GET can finish.
+  const reload = useCallback(() => read(() => request<T>(source.current.path)), [read]);
   useEffect(() => {
     active.current = true;
     setState({ initial, data: initial, loading: false });

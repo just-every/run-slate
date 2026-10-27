@@ -182,6 +182,9 @@ function LoadedPage({
   }, [document.page.id, reload]);
 
   useEffect(() => {
+    // A local write can already have superseded this loaded read. Wait for a
+    // current document before attesting it; a save receipt alone is not a read.
+    if (title !== savedTitle || titleSaving || editor.hasUnsavedChanges || editor.workingRevisionId !== document.workingRevisionId) return;
     const revisionId = ["edit", "full"].includes(document.permissions.level)
       ? document.workingRevisionId
       : (document.publishedRevisionId ?? document.workingRevisionId);
@@ -203,7 +206,7 @@ function LoadedPage({
       else setError(cause);
     });
     return () => { current = false; };
-  }, [document.page.id, document.workingRevisionId, document.publishedRevisionId, document.permissions.level, reload]);
+  }, [document.page.id, document.workingRevisionId, document.publishedRevisionId, document.permissions.level, title, savedTitle, titleSaving, editor.hasUnsavedChanges, editor.workingRevisionId, reload]);
   // SAVE-003: a title saved against a superseded page revision is refused; keeping
   // it is an explicit overwrite against the revision the server holds now.
   const [titleConflict,setTitleConflict]=useState(false);
