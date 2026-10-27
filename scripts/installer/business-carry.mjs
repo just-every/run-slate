@@ -34,8 +34,15 @@ export function businessCarryWatch(root) {
       const changed = (current, previous) => {
         if (current.mtimeMs === previous.mtimeMs && current.ctimeMs === previous.ctimeMs && current.ino === previous.ino && current.size === previous.size) return;
         clearTimeout(timer);
-        timer = setTimeout(() => {
-          server.restart().catch(error => server.config.logger.error(`Business carry restart failed: ${error.message}`));
+        timer = setTimeout(async () => {
+          try {
+            // Vite normally creates the replacement before closing the old server.
+            // Cloudflare shares its runner across them; close it before changing bindings.
+            await server.close();
+            await server.restart();
+          } catch (error) {
+            server.config.logger.error(`Business carry restart failed: ${error.message}`);
+          }
         }, 100);
       };
       watchFile(file, { interval: 500, persistent: false }, changed);
