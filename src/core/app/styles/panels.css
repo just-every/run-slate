@@ -154,7 +154,7 @@
   /* The dialog has a 16px viewport inset, 26px padding and 1px border per side. */
   max-height: calc(100dvh - 86px);
 }
-.slate-app .folio-dialog[aria-label="Publish this revision"] > form > fieldset {
+.slate-app .folio-dialog[aria-label="Publish this revision"] > form > .folio-dialog-content {
   min-width: 0;
   min-height: 0;
   overflow: auto;

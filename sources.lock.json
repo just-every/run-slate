@@ -5328,7 +5328,7 @@
       "executable": false
     },
     "src/core/app/styles/panels.css": {
-      "sha256": "b23ed231f32d7bb7a2a6d54e8b9019441015fb1b549434766f9ff4352c2bc6db",
+      "sha256": "ec4333901ea3467772029dd214a993227434cce0ebf9527a33e149591c84bf3e",
       "executable": false
     },
     "src/core/app/styles/popover.css": {
@@ -5368,7 +5368,7 @@
       "executable": false
     },
     "src/core/app/ui/ActionDialog.tsx": {
-      "sha256": "2f1044955cfcb0feee90f8c018c5f3edbf51306e287ee26ab1870074b9975b2a",
+      "sha256": "f5e27f37c3cd8e34cb0cca032f2447cf401aec9ffff030e651ca4cc74fda5e86",
       "executable": false
     },
     "src/core/app/ui/AppNavigation.tsx": {
