@@ -1,3 +1,4 @@
+import {runFoldCases} from '../fold-cases';
 import { env } from 'cloudflare:test';
 import { beforeEach, expect, test } from 'vitest';
 import { createApi } from '../../../src/core/app/hono';
@@ -13,7 +14,11 @@ async function publishing(f:Awaited<ReturnType<typeof followingFixture>>,mode:'a
   await f.ok(f.owner,'PUT','/api/workspace',{operationKey:f.key(),expectedRevisionId:workspace.revisionId,name,mark,description,guestAccess,publicLinkAccess,anonymousAccess,policies:{...workspace.policies,'page.lifecycle.v1':mode}});
 }
 
-test('CONT-011 — a space opens its editable home with normal page authority and revision conflicts', async () => {
+test("CONT-011 — space homes and curated hubs retain revision and reader authority", async () => {
+  await runFoldCases([
+{name:"CONT-011 — a space opens its editable home with normal page authority and revision conflicts",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   const f=await followingFixture();
   const native=await f.ok(f.owner,'POST','/api/containers',{operationKey:f.key(),name:'Product',description:'How the product team works.',visibility:'private'});
   const fresh=await f.ok(f.owner,'GET',`/api/containers/${native.value.id}/home`);
@@ -50,9 +55,12 @@ test('CONT-011 — a space opens its editable home with normal page authority an
   const replacement=await f.ok(f.owner,'PUT',`/api/containers/${f.containerId}/home`,{operationKey:f.key(),expectedRevisionId:current.revisionId,create:true});
   expect(replacement.value.pageId).not.toBe(existing);
   expect((await f.ok(f.editor,'GET',`/api/pages/${replacement.value.pageId}`)).permissions.canEdit).toBe(true);
-});
 
-test('CONT-011 — an owner curates a company hub for a new member, filtering private, unpublished and unverified content on every read', async () => {
+} finally {}
+}},
+{name:"CONT-011 — an owner curates a company hub for a new member, filtering private, unpublished and unverified content on every read",before:async()=>{await resetDeployment();},run:async()=>{
+try {
+
   const f=await followingFixture();
   const guide=(await f.create('Getting started')).value.pageId;
   const keyPage=(await f.create('Escalation policy')).value.pageId;
@@ -120,4 +128,8 @@ test('CONT-011 — an owner curates a company hub for a new member, filtering pr
   const draft=(await f.create('Draft hub page')).value.pageId;
   expect((await f.request(f.owner,'PUT','/api/hub',{operationKey:f.key(),expectedRevisionId:saved.value.revisionId,configuration:{...configuration,linkPageIds:[draft]}})).status).toBe(400);
   expect((await f.request(f.owner,'PUT','/api/hub',{operationKey:f.key(),expectedRevisionId:saved.value.revisionId,configuration:{...configuration,announcementPageIds:[guide]}})).status).toBe(400);
+
+} finally {}
+}}
+  ]);
 });

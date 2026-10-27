@@ -1,3 +1,5 @@
+import {runFoldCases} from '../../fold-cases';
+import {resetDeployment as resetFoldDeployment} from '../../../e2e/setup/reset-deployment';
 import { env } from 'cloudflare:test';
 import { afterEach, expect, test, vi } from 'vitest';
 import { refreshSearchIndex } from '../../../../src/core/features/search/index';
@@ -8,7 +10,11 @@ import { assertBoundedAttemptAccounting, comparisonRuns, json, runOnce } from '.
 
 afterEach(() => vi.unstubAllGlobals());
 
-test('FLAG-003 — frozen comparison pins equal source, question, audience and model limits before policy and index drift', async () => {
+test("FLAG-003 — comparison arms preserve equal inputs, current grants and attributable costs", async () => {
+  await runFoldCases([
+{name:"FLAG-003 — frozen comparison pins equal source, question, audience and model limits before policy and index drift",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
   const comparison = await prepareComparison();
   const { f, skill, refs, prepared } = comparison;
   const ctx = f.context();
@@ -109,9 +115,12 @@ test('FLAG-003 — frozen comparison pins equal source, question, audience and m
     expect(stage.state).toBe('failed');
     expect(json(stage.result_json)).toMatchObject({ phase: 'admission', outcome: 'failed', errorCode: 'RUN_BUDGET_EXCEEDED' });
   }
-});
 
-test('FLAG-003 — current source grant revocation blocks both prepared runs before disclosure', async () => {
+} finally {{await (vi.unstubAllGlobals());}}
+}},
+{name:"FLAG-003 — current source grant revocation blocks both prepared runs before disclosure",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
   const comparison = await prepareComparison(true);
   const { f, source, refs, prepared } = comparison;
   expect(source).not.toBeNull();
@@ -147,8 +156,15 @@ test('FLAG-003 — current source grant revocation blocks both prepared runs bef
     expect(stage.state).toBe('failed');
     expect(json(stage.result_json)).toMatchObject({ phase: 'admission', outcome: 'failed', errorCode: 'NOT_FOUND' });
   }
-});
 
-test('FLAG-003 — both comparison arms retain failed and successful attempt timing and cost status',async()=>{
+} finally {{await (vi.unstubAllGlobals());}}
+}},
+{name:"FLAG-003 — both comparison arms retain failed and successful attempt timing and cost status",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
  for(const arm of ['candidate','generic'] as const)await assertBoundedAttemptAccounting(arm);
+
+} finally {{await (vi.unstubAllGlobals());}}
+}}
+  ]);
 });

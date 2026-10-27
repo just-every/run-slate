@@ -1,3 +1,5 @@
+import {runFoldCases} from '../../fold-cases';
+import {resetDeployment as resetFoldDeployment} from '../../../e2e/setup/reset-deployment';
 import {env} from 'cloudflare:test';
 import {test,expect,vi,afterEach} from 'vitest';
 import {fixture,refuseNetwork,effects,receipts} from './fixture';
@@ -7,7 +9,11 @@ import {saveDecision,acceptDecision,getDecision} from '../../../../src/core/feat
 import {replaceBlocks} from '../../../../src/core/features/editor/service';
 import {saveGrant} from '../../../../src/core/features/sharing/grants';
 afterEach(()=>vi.unstubAllGlobals());
-test('EFFECT-003 — scoped rehearsal hides a currently inaccessible dependency and records one read-only impact on replay',async()=>{
+test("EFFECT-003 — scoped rehearsal and pinned maintenance require exact current authority", async () => {
+  await runFoldCases([
+{name:"EFFECT-003 — scoped rehearsal hides a currently inaccessible dependency and records one read-only impact on replay",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
  const calls=refuseNetwork(),f=await fixture();
  const decision=await saveDecision(f.context(),{operationKey:'scoped-decision',pageId:f.page.pageId,question:'Which account policy?',options:['Keep','Change'],outcome:'Keep',rationale:'Immutable accepted account policy',ownerId:f.owner,decidedAt:null,reviewAt:null,citations:f.refs});
  await acceptDecision(f.context(),{operationKey:'scoped-accept',id:decision.value.id,expectedRevisionId:decision.value.revisionId});
@@ -29,9 +35,12 @@ test('EFFECT-003 — scoped rehearsal hides a currently inaccessible dependency 
  const request={...input,operationKey:'record-scoped-impact'},recorded=await recordImpact(f.context(f.reader),request);expect(await recordImpact(f.context(f.reader),request)).toEqual(recorded);
  const rows=(await env.DB.prepare('SELECT * FROM intelligence_impacts WHERE workspace_id=?').bind(f.workspaceId).all()).results;expect(rows).toHaveLength(1);expect(rows[0]).toMatchObject({dependency_id:accepted.value.id,state:'pending'});
  expect((await getDecision(f.context(),decision.value.id)).accepted_snapshot_json).toBe(snapshot);expect(await effects(f.workspaceId)).toEqual([]);expect(calls).toEqual([]);
-});
 
-test('EFFECT-003 — evaluated pinned maintenance waits for a current exact grant and applies one attributable repair',async()=>{
+} finally {{await (vi.unstubAllGlobals());}}
+}},
+{name:"EFFECT-003 — evaluated pinned maintenance waits for a current exact grant and applies one attributable repair",before:async()=>{await resetFoldDeployment();},run:async()=>{
+try {
+
  const {maintenanceFixture}=await import('./maintenance-fixture');
  const {tryGrantedMaintenance}=await import('../../../../src/core/features/impact/maintenance');
  const {issueGrant,revokeGrant}=await import('../../../../src/core/features/effects/grants');
@@ -53,4 +62,8 @@ test('EFFECT-003 — evaluated pinned maintenance waits for a current exact gran
  const receipt=await env.DB.prepare('SELECT request_hash FROM operation_receipts WHERE workspace_id=? AND operation_key=?').bind(f.workspaceId,'granted-maintenance:'+f.run.value.id).first<{request_hash:string}>();
  expect(receipt!.request_hash).toBe(await requestHash({action:'runs.granted-changes',request:{runId:f.run.value.id,operationKey:'granted-maintenance:'+f.run.value.id,expectedRevisionId:f.row.revision_id,selections:[{index:0,pageId:f.page.pageId,expectedPageRevisionId:before.page.revisionId,mode:'insert-below'}],standingGrantId:valid.value.id}}));
  expect(await effects(f.workspaceId)).toEqual([]);expect(f.calls).toHaveLength(3);
+
+} finally {{await (vi.unstubAllGlobals());}}
+}}
+  ]);
 });

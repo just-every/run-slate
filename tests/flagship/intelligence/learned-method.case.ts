@@ -5,7 +5,7 @@ import {createInquiry,recordFinding,inquiryView} from '../../../src/core/feature
 import {prepareTrial,approveTrial,concludeTrial} from '../../../src/core/features/experiments/service';
 import {prepareLearnedSkill} from '../../../src/core/features/experiments/learning';
 import {transitionSkill} from '../../../src/core/features/skills/service';
-test('Retained trial learning prepares one inactive draft with failed hypotheses, forecast and evaluation boundary',async()=>{
+export async function learnedMethodCase() {
  const f=await fixture(),ctx=f.context();const inquiry=await createInquiry(ctx,{operationKey:'learning-inquiry',pageId:f.page.pageId,question:'Why did support load change?',refs:f.refs,audience:[f.owner],hypotheses:[{statement:'Instrumentation changed',disconfirmation:'Same event definition'},{statement:'Handoff changed',disconfirmation:'Unchanged handoff'}]});
  const hypothesis=(await inquiryView(f.context(),inquiry.value.id)).hypotheses[0]!;
  await recordFinding(f.context(),{id:inquiry.value.id,operationKey:'learning-finding',hypothesisId:hypothesis.id as string,status:'disconfirmed',finding:'The event definition was unchanged.',kind:'observation',refs:f.refs});
@@ -19,4 +19,4 @@ test('Retained trial learning prepares one inactive draft with failed hypotheses
  const input={id:prepared.value.id,operationKey:'learning-draft',expectedRevisionId:conclusion.value.methodRevision};
  const learned=await prepareLearnedSkill(f.context(),input),again=await prepareLearnedSkill(f.context(),input);expect(again.value).toEqual(learned.value);
  const version=await env.DB.prepare('SELECT state,definition_json FROM intelligence_skill_versions WHERE id=?').bind(learned.value.skillRevisionId).first<{state:string;definition_json:string}>();expect(version!.state).toBe('draft');const definition=JSON.parse(version!.definition_json),instructions=JSON.parse(definition.instructions);expect(instructions.originalForecast).toBe('Handoff changes may reduce support work');expect(instructions.outcome.classification).toBe('inconclusive');expect(instructions.hypotheses.some((h:{status:string})=>h.status==='disconfirmed')).toBe(true);expect(definition.effects).toEqual([]);expect(definition.tools).not.toContain('granted-effect');await expect(transitionSkill(f.context(),{operationKey:'learning-activate',revisionId:learned.value.skillRevisionId,action:'activate'})).rejects.toMatchObject({code:'EVALUATION_REQUIRED'});
-});
+}
