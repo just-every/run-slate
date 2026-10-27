@@ -6,8 +6,10 @@ import {connect} from '../../../src/core/features/connectors/service';
 import {previewNativeEffect,authorizeNativeEffect} from '../../../src/core/features/effects/native-proposal';
 import {dispatchEffect} from '../../../src/core/features/effects/service';
 import {revokeGrant} from '../../../src/core/features/effects/grants';
-afterEach(()=>vi.unstubAllGlobals());
-test('Exact native review derives source boundaries, refuses stale approval and content expansion, and revokes unsent work',async()=>{
+
+export async function nativeProposalCase() {
+try {
+
  const f=await fixture(),ctx={...f.context(),sourceSecret:'test-only-secret-for-native-proposal-32'},run=await startRun(f.context(),{...f.ask,kind:'procedure'},{apiKey:'test-only'});
  const target='opportunities/example/handoffs/next',identity={protocol:'rer-delegation/1',provider:'orbit',installationId:'installation',accountId:'account',principalId:'native-owner',label:'Owner',grantId:'source-grant',expiresAt:'2099-01-01T00:00:00Z',scopes:['crm.evidence.read','crm.handoff.write'],targets:[target],capabilities:{readKinds:['crm.handoff'],operations:['orbit.handoff.upsert'],conditionalWrite:true,providerIdempotency:true,readBack:true,reconciliationAttribution:true}};
  let revision='before',sends=0;
@@ -20,4 +22,8 @@ test('Exact native review derives source boundaries, refuses stale approval and 
  revision='before';const authorized=await authorizeNativeEffect(ctx,approval);expect(authorized.state).toBe('prepared');expect(sends).toBe(0);
  const grant=await env.DB.prepare('SELECT scope_json FROM intelligence_grants WHERE id=?').bind(authorized.grantId).first<{scope_json:string}>();expect(JSON.parse(grant!.scope_json)).toMatchObject({operations:['orbit.handoff.upsert'],targets:[target],conditions:{expectedRevision:'before',expectedAudienceRevision:'audience'},maxCostMicros:0});
  await revokeGrant(ctx,{id:authorized.grantId,operationKey:'revoke-native-preview'});expect(await env.DB.prepare('SELECT state FROM intelligence_effects WHERE id=?').bind(authorized.effectId).first<string>('state')).toBe('cancelled');await expect(dispatchEffect(ctx,authorized.effectId)).rejects.toMatchObject({code:'GRANT_REQUIRED'});expect(sends).toBe(0);
-});
+
+} finally {
+await (vi.unstubAllGlobals());
+}
+}

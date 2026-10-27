@@ -1751,11 +1751,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
-          "testName": "AI-002 pause releases execution, resume rechecks revision, terminal cancellation never resurrects"
+          "testName": "source disclosure, citations, run budgets and decisions preserve current authority"
         },
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API"
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         }
       ]
     },
@@ -1774,7 +1774,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
-          "testName": "AI-004 exact issued citation validation rejects invented identifiers and deleted exact revisions"
+          "testName": "source disclosure, citations, run budgets and decisions preserve current authority"
         }
       ]
     },
@@ -1817,7 +1817,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API"
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         }
       ]
     },
@@ -1829,7 +1829,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API"
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         }
       ]
     },
@@ -1855,11 +1855,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
-          "testName": "AI-012 concurrent reservations cannot overspend and failed reservation creates no run"
+          "testName": "source disclosure, citations, run budgets and decisions preserve current authority"
         },
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "Signed-in run lifecycle exposes failure, pause, resume and terminal outcomes through the run API"
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         }
       ]
     },
@@ -1871,15 +1871,15 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
-          "testName": "AI-013 current source and audience ACL prevents persisted output, replay and HTTP disclosure after revocation"
+          "testName": "source disclosure, citations, run budgets and decisions preserve current authority"
         },
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "External-agent same semantic read has exact source scope and revocation"
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         },
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "Trial-only source revocation fences standalone and nested plan and outcome disclosure"
+          "testName": "trial disclosure, exposure, measurement and dispatch preserve stop and revocation boundaries"
         },
         {
           "file": "tests/qualification/authority/learned-provenance.test.ts",
@@ -1915,7 +1915,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/lifecycle.test.ts",
-          "testName": "External-agent same semantic read has exact source scope and revocation"
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         }
       ]
     },
@@ -1962,7 +1962,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
-          "testName": "DEC-003 accepted decision immutable and source changes warn without rewriting rationale"
+          "testName": "source disclosure, citations, run budgets and decisions preserve current authority"
         }
       ]
     },
@@ -2039,7 +2039,7 @@
         },
         {
           "file": "tests/flagship/intelligence/native-transport.test.ts",
-          "testName": "Native transport refuses redirected token and credential requests without following a location"
+          "testName": "native transport refuses credential redirects and preserves exact bounded timestamps"
         },
         {
           "file": "tests/flagship/release-clauses/federation/exact-passages.test.ts",
@@ -2058,8 +2058,8 @@
       "unmetReason": "Supporting scope and remaining gaps: Native local authority, receipt, exact lineage and restore regression only. Controlled fixtures do not establish complete product journeys, genuine providers, sealed prior-store upgrade, deployment or full requirement acceptance. Requirement-level acceptance remains unproven.",
       "supportingTests": [
         {
-          "file": "tests/flagship/intelligence/claims.test.ts",
-          "testName": "Scoped claims preserve exact passages and unknown scope; only an exact accepted decision supplies a named approver"
+          "file": "tests/flagship/intelligence/lifecycle.test.ts",
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         },
         {
           "file": "tests/qualification/authority/decision-authority.test.ts",
@@ -2075,7 +2075,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/native-transport.test.ts",
-          "testName": "Native timestamps preserve valid ISO instants and normalize bounded Unix milliseconds"
+          "testName": "native transport refuses credential redirects and preserves exact bounded timestamps"
         },
         {
           "file": "tests/qualification/authority/native-boundaries.test.ts",
@@ -2143,11 +2143,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/skills.test.ts",
-          "testName": "Pinned skill cannot activate failed/absent evaluation or silently substitute a retired version"
-        },
-        {
-          "file": "tests/flagship/intelligence/skills.test.ts",
-          "testName": "Evaluation cases freeze source cutoff; a future timestamp cannot bless future context"
+          "testName": "pinned skills, evaluation cutoffs and retained learning preserve admission boundaries"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
@@ -2171,11 +2167,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/skills.test.ts",
-          "testName": "Pinned skill cannot activate failed/absent evaluation or silently substitute a retired version"
-        },
-        {
-          "file": "tests/flagship/intelligence/skills.test.ts",
-          "testName": "Evaluation cases freeze source cutoff; a future timestamp cannot bless future context"
+          "testName": "pinned skills, evaluation cutoffs and retained learning preserve admission boundaries"
         },
         {
           "file": "tests/qualification/authority/skill-disclosure.test.ts",
@@ -2203,15 +2195,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/effects.test.ts",
-          "testName": "External effect timeout stays uncertain and reconciliation never sends twice"
+          "testName": "external and native effects preserve reconciliation, grant revocation and exactly-once recovery"
         },
         {
-          "file": "tests/flagship/intelligence/effects.test.ts",
-          "testName": "Revocation blocks prepared effects and inquiry kind never activates despite a valid tool grant"
-        },
-        {
-          "file": "tests/flagship/intelligence/native-proposal.test.ts",
-          "testName": "Exact native review derives source boundaries, refuses stale approval and content expansion, and revokes unsent work"
+          "file": "tests/flagship/intelligence/lifecycle.test.ts",
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         },
         {
           "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
@@ -2255,23 +2243,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/effects.test.ts",
-          "testName": "External effect timeout stays uncertain and reconciliation never sends twice"
-        },
-        {
-          "file": "tests/flagship/intelligence/effects.test.ts",
-          "testName": "Revocation blocks prepared effects and inquiry kind never activates despite a valid tool grant"
-        },
-        {
-          "file": "tests/flagship/intelligence/native-effects.test.ts",
-          "testName": "Native lost response recovers attributable receipt, preserves completion and forbids successor double-send"
+          "testName": "external and native effects preserve reconciliation, grant revocation and exactly-once recovery"
         },
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "guardrail stops and conclusions cancel prepared trial work while preserving confirmed exposure"
-        },
-        {
-          "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "A stop after trial admission invalidates the atomic dispatch guard and preserves uncertain history"
+          "testName": "trial disclosure, exposure, measurement and dispatch preserve stop and revocation boundaries"
         },
         {
           "file": "tests/flagship/release-clauses/authority/impact-scope.test.ts",
@@ -2327,7 +2303,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/inquiry.test.ts",
-          "testName": "Sustained inquiry preserves rival hypotheses, disconfirmation and executable reproducible analysis"
+          "testName": "inquiry hypotheses, outcomes and historical cutoffs retain evidence boundaries"
         },
         {
           "file": "tests/flagship/release-clauses/inquiry/durable-branches.test.ts",
@@ -2351,11 +2327,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/inquiry.test.ts",
-          "testName": "Sustained inquiry preserves rival hypotheses, disconfirmation and executable reproducible analysis"
-        },
-        {
-          "file": "tests/flagship/intelligence/inquiry.test.ts",
-          "testName": "Historical evidence cutoff prevents future content entering investigation"
+          "testName": "inquiry hypotheses, outcomes and historical cutoffs retain evidence boundaries"
         },
         {
           "file": "tests/flagship/release-clauses/inquiry/replay-analysis.test.ts",
@@ -2414,8 +2386,8 @@
           "testName": "INQ-005 \u2014 learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse"
         },
         {
-          "file": "tests/flagship/intelligence/reservation-prerequisites.test.ts",
-          "testName": "INQ-005 identical concurrent authorized intents retain one run and one reservation"
+          "file": "tests/flagship/intelligence/lifecycle.test.ts",
+          "testName": "run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority"
         }
       ]
     },
@@ -2427,7 +2399,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "Trial-only source revocation fences standalone and nested plan and outcome disclosure"
+          "testName": "trial disclosure, exposure, measurement and dispatch preserve stop and revocation boundaries"
         },
         {
           "file": "tests/flagship/release-clauses/trials/predeclaration.test.ts",
@@ -2447,19 +2419,7 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "Treatment observations reject unrelated and out-of-window receipts and count exact trial exposure once"
-        },
-        {
-          "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "guardrail stops and conclusions cancel prepared trial work while preserving confirmed exposure"
-        },
-        {
-          "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "Direct dispatch rejects stopped and expired trial boundaries even if its procedure still runs"
-        },
-        {
-          "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "A stop after trial admission invalidates the atomic dispatch guard and preserves uncertain history"
+          "testName": "trial disclosure, exposure, measurement and dispatch preserve stop and revocation boundaries"
         },
         {
           "file": "tests/flagship/release-clauses/trials/exposure-safety.test.ts",
@@ -2479,11 +2439,11 @@
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/inquiry.test.ts",
-          "testName": "Outcome logic distinguishes benefit precise null adverse and inconclusive; no early-window result"
+          "testName": "inquiry hypotheses, outcomes and historical cutoffs retain evidence boundaries"
         },
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "Unverifiable or changed measurements stay inconclusive despite the caller repeating the declared instrumentation hash"
+          "testName": "trial disclosure, exposure, measurement and dispatch preserve stop and revocation boundaries"
         },
         {
           "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
@@ -2502,12 +2462,12 @@
       "unmetReason": "Supporting scope and remaining gaps: Inactive draft provenance, stale-source refusal and native D1/R2 restore only. Passing held-out evaluation, owner activation under fresh authority and repeated quality-preserving work savings remain unproven. Requirement-level acceptance remains unproven.",
       "supportingTests": [
         {
-          "file": "tests/flagship/intelligence/learned-method.test.ts",
-          "testName": "Retained trial learning prepares one inactive draft with failed hypotheses, forecast and evaluation boundary"
+          "file": "tests/flagship/intelligence/skills.test.ts",
+          "testName": "pinned skills, evaluation cutoffs and retained learning preserve admission boundaries"
         },
         {
           "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
-          "testName": "Unverifiable or changed measurements stay inconclusive despite the caller repeating the declared instrumentation hash"
+          "testName": "trial disclosure, exposure, measurement and dispatch preserve stop and revocation boundaries"
         },
         {
           "file": "tests/flagship/release-clauses/trials/learning-provenance.test.ts",
