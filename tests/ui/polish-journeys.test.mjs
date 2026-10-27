@@ -9,6 +9,7 @@ import { insertionRecoveryJourney } from './polish/insertion-recovery.mjs';
 import { mentionTypingJourney } from './polish/mentions.mjs';
 import { assertCaptureInventory } from './polish/inventory.mjs';
 import { pagePanelsJourney, commentsFailureJourney } from './polish/panels.mjs';
+import { controlPolishJourney } from './polish/controls.mjs';
 
 // The qualification harness seeds identity only. Setup, content, comments and all
 // reads/writes use the emitted Worker, real API, real browser and persisted D1.
@@ -37,6 +38,10 @@ for (const width of [1440, 390]) {
       assertCaptureInventory(width);
       assert.deepEqual(state.modelRequests, [], 'Flagship polish does not submit model work');
     });
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await controlPolishJourney(state, width);
+    });
   });
   test(`genuine insertion focus lifecycle at ${width}px`, { timeout: 240000 }, async () => {
     // Isolate this new journey's authoring from the original suite's request
@@ -62,3 +67,4 @@ for (const width of [1440, 390]) {
     });
   });
 }
+

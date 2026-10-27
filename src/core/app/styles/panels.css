@@ -103,3 +103,64 @@
 @media (max-width: 700px) {
   .slate-app .settings-panel > a, .slate-app .settings-panel :is(section, details) > a, .slate-app .settings-panel p > a:only-child { display: inline-flex; align-items: center; min-height: var(--slate-tap-target); }
 }
+
+@media (max-width: 700px) {
+  .slate-app .review-list > li > div > h2 > a {
+    display: block;
+    min-height: 44px;
+  }
+  .slate-app .review-list > li > label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    gap: 6px;
+  }
+  .slate-app .review-list > li > label > input[type="checkbox"] {
+    appearance: none;
+    display: grid;
+    place-content: center;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    border: 13px solid transparent;
+    border-radius: 16px;
+    background-clip: padding-box;
+    background-color: var(--slate-surface);
+    box-shadow: inset 0 0 0 1px var(--slate-line-strong);
+  }
+  .slate-app .review-list > li > label > input[type="checkbox"]:checked {
+    background-color: var(--slate-ink);
+    box-shadow: none;
+  }
+  .slate-app .review-list > li > label > input[type="checkbox"]:checked::after {
+    content: "";
+    width: 6px;
+    height: 10px;
+    margin-top: -3px;
+    border: solid var(--slate-accent-ink);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .slate-app .review-list > li > label > input[type="checkbox"]:focus-visible { outline-offset: -12px; }
+  .slate-app .review-list > li > label > input[type="checkbox"]:disabled { opacity: .5; }
+}
+
+/* Preview and access reads can arrive after a touch user scrolls to the action.
+   Scroll the publication content independently so those reads cannot move its footer away. */
+.slate-app .folio-dialog[aria-label="Publish this revision"] > form {
+  display: flex;
+  flex-direction: column;
+  /* The dialog has a 16px viewport inset, 26px padding and 1px border per side. */
+  max-height: calc(100dvh - 86px);
+}
+.slate-app .folio-dialog[aria-label="Publish this revision"] > form > .folio-dialog-content {
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+.slate-app .folio-dialog[aria-label="Publish this revision"] > form > :is(header, footer) {
+  flex-shrink: 0;
+}

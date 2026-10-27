@@ -79,7 +79,9 @@ export function ActionDialog({
             ×
           </button>
         </header>
-        <fieldset disabled={pending}>{children}</fieldset>
+        <div className="folio-dialog-content">
+          <fieldset disabled={pending}>{children}</fieldset>
+        </div>
         {error ? <p role="alert">{errorMessage(error)}</p> : null}
         <footer>
           <button type="button" disabled={pending} onClick={onClose}>
