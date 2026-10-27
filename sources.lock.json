@@ -932,7 +932,7 @@
       "executable": false
     },
     ".github/workflows/verify.yml": {
-      "sha256": "60a1e76648deba2b5814808fae5086249f3de54298b1f2bb76b022a6620580b9",
+      "sha256": "6382f4201bc1a844cefab5bea00ca3947d625fdee460617767eb61f70d5b1370",
       "executable": false
     },
     ".gitignore": {
@@ -10536,7 +10536,15 @@
       "executable": false
     },
     "tests/e2e/runtime-harness.mjs": {
-      "sha256": "4d931b09bda3a4005c30219d7a69c1f61c13066be15bec5aeef5a9e27decc6ea",
+      "sha256": "69a1c5701285b7207d43d1e77d11ada011204c365dd71e55e6d18d5bf75c041f",
+      "executable": false
+    },
+    "tests/e2e/runtime-health.mjs": {
+      "sha256": "dd53e6eac2a78db71706dda9cef5b64bdd82f8552ce30bbacc9b733435dcd501",
+      "executable": false
+    },
+    "tests/e2e/runtime-health.test.mjs": {
+      "sha256": "834b7394f3b69a6ecbb15b986bf32e971a8227c1e210886d85106b8e5ac5e309",
       "executable": false
     },
     "tests/e2e/saving/failed-writes.test.ts": {
@@ -11928,7 +11936,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-controls.mjs": {
-      "sha256": "b39cddbcb0a0a8cbe658182981ad6367ba16ec2bf6ca3ce150258ec9cbfcc119",
+      "sha256": "89b778b046edc66bc1e9d2222396fdd0e6f7e246e2923e993788984c97bbcb12",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/touch-controls.test.mjs": {
+      "sha256": "166573d9042bc3cf7573bcd29289a4282f1788ec1561d26a90b239448e110ffa",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-database-tools-journey.mjs": {

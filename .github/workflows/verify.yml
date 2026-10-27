@@ -117,7 +117,7 @@ jobs:
             ui: 1
             worker: 1
             browser: true
-            command: pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts
+            command: node --test tests/e2e/runtime-health.test.mjs tests/qualification/ui-convergence/touch-controls.test.mjs && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts
           - suite: tooling
             ui: 2
             worker: 2
