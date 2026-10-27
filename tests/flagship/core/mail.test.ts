@@ -11,6 +11,23 @@ import type {FeatureContext} from '../../../src/core/app/feature-context';
 const config={...readRuntimeConfig(env,false),appUrl:'https://slate.test.invalid',mailFrom:'Slate <mail@test.invalid>',mailApiKey:'test-only-key'};
 beforeEach(resetDeployment);
 async function fixture(){const{workspaceId}=await seedWorkspace();const{memberId}=await seedMember(workspaceId,{email:`${workspaceId}@test.invalid`,displayName:'Owner',role:'owner',isSetupOwner:true});return {db:env.DB,files:env.FILES,jobs:env.JOBS,actor:{id:memberId,workspaceId,workspaceName:'Workspace',email:`${workspaceId}@test.invalid`,displayName:'Owner',initials:'O',role:'owner'},now:new Date().toISOString()} as FeatureContext;}
+// Match the Node harness: preparation and binding succeed, then SQLite/D1
+// execution fails. A prepare-time exception would miss swallowed run failures.
+function statementFault(db:D1Database,match:(query:string)=>boolean,fail:()=>never):D1Database{
+ return new Proxy(db,{get(target,key){
+  if(key==='prepare')return(query:string)=>{
+   const statement=target.prepare(query);
+   if(!match(query))return statement;
+   const wrap=(statement:D1PreparedStatement):D1PreparedStatement=>new Proxy(statement,{get(target,key){
+    if(key==='bind')return(...values:unknown[])=>wrap(target.bind(...values));
+    if(['run','all','first','raw'].includes(String(key)))return()=>Promise.resolve().then(fail);
+    const value=Reflect.get(target,key,target);return typeof value==='function'?value.bind(target):value;
+   }});
+   return wrap(statement);
+  };
+  const value=Reflect.get(target,key,target);return typeof value==='function'?value.bind(target):value;
+ }});
+}
 test('MAIL-002 Worker D1 durable retry uses a single encrypted message across five minutes and explicit recovery',async()=>{
  const ctx=await fixture();let success=false;const provider=vi.spyOn(globalThis,'fetch').mockImplementation(async()=>success?Response.json({id:'provider-confirmed'}):new Response('provider raw secret',{status:503}));
  try{const input={operationKey:crypto.randomUUID(),email:'retry@test.invalid',kind:'member' as const};await invite(ctx,config,input);const read=()=>env.DB.prepare('SELECT * FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<any>();const initial=await read();expect(initial.payload_ciphertext).toMatch(/^v1\./);expect(initial.payload_ciphertext).not.toContain('/accept');expect(provider).toHaveBeenCalledTimes(1);expect(initial.next_attempt_at).toBe(new Date(Date.parse(ctx.now)+150000).toISOString());
@@ -27,7 +44,7 @@ test('MAIL-002 Worker D1 durable retry uses a single encrypted message across fi
   const retry=()=>api.request(config.appUrl+'/api/workspace/mail/'+initial.id+'/retry',{method:'POST',headers:{cookie,origin:config.appUrl}},bindings);
   expect((await retry()).status).toBe(200);
   expect((await read()).state).toBe('sent');expect(provider).toHaveBeenCalledTimes(4);
-  expect((await env.DB.prepare('SELECT count(*) AS n FROM invitations WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{n:number}>())!.n).toBe(1);
+  expect((await env.DB.prepare('SELECT count(*) AS n FROM invitations').first<{n:number}>())!.n).toBe(1);
   expect((await retry()).status).toBe(200);expect(provider).toHaveBeenCalledTimes(4);expect((await read()).provider_message_id).toBe('provider-confirmed');expect((await read()).payload_ciphertext).toBeNull();const requests=provider.mock.calls.map(call=>call[1]!);expect(new Set(requests.map(r=>new Headers(r.headers).get('Idempotency-Key'))).size).toBe(1);expect(new Set(requests.map(r=>r.body)).size).toBe(1);
  }finally{provider.mockRestore();}
 });
@@ -74,10 +91,10 @@ test('WORK-006 Worker pending guest grant is durable and exact revocation disabl
 });
 test('MAIL-002 Worker restart after invitation commit resumes the admitted encrypted command',async()=>{
  const ctx=await fixture(),input={operationKey:crypto.randomUUID(),email:'restart@test.invalid',kind:'member' as const};
- const interrupted=new Proxy(env.DB,{get(target,key){if(key==='prepare')return(query:string)=>{if(query.startsWith('SELECT id FROM mail_deliveries WHERE workspace_id='))throw new Error('process ended after commit');return target.prepare(query);};const value=Reflect.get(target,key,target);return typeof value==='function'?value.bind(target):value;}});
+ const interrupted=statementFault(env.DB,q=>q.startsWith('SELECT id FROM mail_deliveries WHERE workspace_id='),()=>{throw new Error('process ended after commit');});
  const provider=vi.spyOn(globalThis,'fetch').mockResolvedValue(Response.json({id:'restart-receipt'}));try{await expect(invite({...ctx,db:interrupted},config,input)).rejects.toThrow('process ended after commit');expect(provider).not.toHaveBeenCalled();const command=await env.DB.prepare('SELECT delivery_phase,payload_ciphertext FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{delivery_phase:string;payload_ciphertext:string}>();expect(command!.delivery_phase).toBe('pending');expect(command!.payload_ciphertext).toMatch(/^v1\./);expect(command!.payload_ciphertext).not.toContain('/accept');
-  expect((await env.DB.prepare('SELECT count(*) AS n FROM invitations WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{n:number}>())!.n).toBe(1);
-  expect((await env.DB.prepare('SELECT count(*) AS n FROM operation_receipts WHERE workspace_id=? AND operation_key=?').bind(ctx.actor.workspaceId,input.operationKey).first<{n:number}>())!.n).toBe(1);
+  expect((await env.DB.prepare('SELECT count(*) AS n FROM invitations').first<{n:number}>())!.n).toBe(1);
+  expect((await env.DB.prepare('SELECT count(*) AS n FROM operation_receipts').first<{n:number}>())!.n).toBe(1);
   await scheduleIdentityMail(env.DB,config,ctx,ctx.now);await invite(ctx,config,input);expect(provider).toHaveBeenCalledTimes(1);expect((await env.DB.prepare('SELECT provider_message_id FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{provider_message_id:string}>())!.provider_message_id).toBe('restart-receipt');
   expect((await env.DB.prepare('SELECT payload_ciphertext FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{payload_ciphertext:null}>())!.payload_ciphertext).toBeNull();
   const body=JSON.parse(String(provider.mock.calls[0]![1]!.body));
@@ -93,10 +110,9 @@ test('MAIL-002 Worker lost provider response replays identical request without a
   await resetDeployment();
  const ctx=await fixture();const accepted=new Map<string,string>();let attempts=0;const provider=vi.spyOn(globalThis,'fetch').mockImplementation(async(_url,init)=>{attempts++;const key=new Headers(init!.headers).get('Idempotency-Key')!,body=String(init!.body);if(!accepted.has(key)){accepted.set(key,body);if(fault==='response')throw new Error('provider accepted; response lost');}expect(body).toBe(accepted.get(key));return Response.json({id:'recovered-receipt'});});
  let loseReceipt=fault==='receipt';
- const interrupted=new Proxy(env.DB,{get(target,key){if(key==='prepare')return(query:string)=>{
-  if(loseReceipt&&query.includes("SET state='sent',delivery_phase='sent'")){loseReceipt=false;throw new Error('injected receipt persistence failure');}
-  return target.prepare(query);
- };const value=Reflect.get(target,key,target);return typeof value==='function'?value.bind(target):value;}});
+ const interrupted=statementFault(env.DB,q=>loseReceipt&&q.includes("SET state='sent',delivery_phase='sent'"),()=>{
+  loseReceipt=false;throw new Error('injected receipt persistence failure');
+ });
  try{const input={operationKey:crypto.randomUUID(),email:'lost-response@test.invalid',kind:'member' as const};
   await invite({...ctx,db:interrupted},config,input);
   const pending=await env.DB.prepare('SELECT state,error_detail FROM mail_deliveries WHERE workspace_id=?').bind(ctx.actor.workspaceId).first<{state:string;error_detail:string}>();
