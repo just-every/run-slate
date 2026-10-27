@@ -4952,7 +4952,7 @@
       "executable": false
     },
     "scripts/installer/business-carry.mjs": {
-      "sha256": "5e4c618467d45321ba106dcb23d1854647a173f63ea31dc10cee77662667a71b",
+      "sha256": "e1670a1709429f93ebb986f60e7f19e3581835cd6d20fd68dbf7b8182642637a",
       "executable": false
     },
     "scripts/installer/deploy.mjs": {
@@ -12192,7 +12192,7 @@
       "executable": false
     },
     "vite.config.ts": {
-      "sha256": "ea065668c29c19a2208651b748b836812d03ece3ff868b21425a0ebeff936148",
+      "sha256": "2722692c01a285843a2789df9edb174c88e098d71e64dac62697277d5be07fe5",
       "executable": false
     },
     "vite.site.config.ts": {
