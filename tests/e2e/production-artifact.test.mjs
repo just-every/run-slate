@@ -65,7 +65,10 @@ async function generatedServerFunctionIds() {
   return ids;
 }
 
-test("the build emits a clean client bundle and no prerendered HTML", async () => {
+test("emitted bundles keep server internals and Markdown tooling off the client", async () => {
+  // Preserve every original assertion and each runtime step's original deadline.
+  const cases = [
+    { name: "the build emits a clean client bundle and no prerendered HTML", timeout: undefined, run: async () => {
   await requireBuild();
 
   const docsChunks = await docsPageChunks();
@@ -91,9 +94,47 @@ test("the build emits a clean client bundle and no prerendered HTML", async () =
   }
   await walk(path.join(root, "dist", "client"));
   assert.deepEqual(emitted, []);
+} },
+    { name: "DOCS-001: the Worker and client bundles carry no Markdown or highlighting code, only rendered pages", timeout: undefined, run: async () => {
+  await requireBuild();
+  const files = [];
+  async function walk(directory) {
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
+      const full = path.join(directory, entry.name);
+      if (entry.isDirectory()) await walk(full);
+      else if (/\.(m?js|cjs)$/.test(entry.name)) files.push(full);
+    }
+  }
+  await walk(path.join(root, "dist", "client"));
+  await walk(path.join(root, "dist", "server"));
+  assert.ok(files.length > 0);
+  // Signatures of the libraries themselves; the pages' own highlighted HTML legitimately contains hljs-* class names.
+  const libraries = /registerLanguage|micromark|mdast-util|remark-parse|remark-gfm|react-markdown|\bunified\(|hast-util|highlight\.js/;
+  const hits = [];
+  for (const file of files) if (libraries.test(await readFile(file, "utf8"))) hits.push(path.relative(root, file));
+  assert.deepEqual(hits, [], "No emitted module may contain the Markdown build libraries.");
+  // The pages themselves are emitted as rendered HTML.
+  let rendered = 0;
+  for (const file of files) if ((await readFile(file, "utf8")).includes("Install and deploy")) rendered += 1;
+  assert.ok(rendered > 0, "The docs pages are in the build as rendered HTML.");
+} }
+  ];
+  for (const scenario of cases) {
+    let timer;
+    try {
+      if (scenario.timeout === undefined) await scenario.run();
+      else await Promise.race([scenario.run(), new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error(`Original deadline exceeded: ${scenario.name}`)), scenario.timeout);
+      })]);
+    } catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+    finally { clearTimeout(timer); }
+  }
 });
 
-test("every request family refuses a deployment that is missing configuration", { timeout: 180000 }, async () => {
+test("emitted Worker admission serves configured public doors and protects native owner access", async () => {
+  // Preserve every original assertion and each runtime step's original deadline.
+  const cases = [
+    { name: "every request family refuses a deployment that is missing configuration", timeout: 180000, run: async () => {
   await requireBuild();
   const persistPath = await mkdtemp(path.join(os.tmpdir(), "slate-artifact-bare-"));
   let runtime;
@@ -133,9 +174,8 @@ test("every request family refuses a deployment that is missing configuration", 
     if (runtime) await stop(runtime.child);
     await rm(persistPath, { recursive: true, force: true });
   }
-});
-
-test("a claimed RER owner signs in to a ready default workspace", { timeout: 240000 }, async () => {
+} },
+    { name: "a claimed RER owner signs in to a ready default workspace", timeout: 240000, run: async () => {
   await requireBuild();
   const persistPath = await mkdtemp(path.join(os.tmpdir(), "slate-first-open-"));
   let runtime;
@@ -148,9 +188,8 @@ test("a claimed RER owner signs in to a ready default workspace", { timeout: 240
     if (runtime) await stop(runtime.child);
     await rm(persistPath, { recursive: true, force: true });
   }
-});
-
-test("the emitted Worker serves every declared surface and a real 404 everywhere else", { timeout: 240000 }, async () => {
+} },
+    { name: "the emitted Worker serves every declared surface and a real 404 everywhere else", timeout: 240000, run: async () => {
   await requireBuild();
   const persistPath = await mkdtemp(path.join(os.tmpdir(), "slate-artifact-"));
   let runtime;
@@ -365,9 +404,8 @@ test("the emitted Worker serves every declared surface and a real 404 everywhere
     if (runtime) await stop(runtime.child);
     await rm(persistPath, { recursive: true, force: true });
   }
-});
-
-test("Base's deploy-identity check accepts the emitted Worker's /health", { timeout: 180000 }, async () => {
+} },
+    { name: "Base's deploy-identity check accepts the emitted Worker's /health", timeout: 180000, run: async () => {
   await requireBuild();
   const persistPath = await mkdtemp(path.join(os.tmpdir(), "slate-artifact-identity-"));
   let runtime;
@@ -390,33 +428,8 @@ test("Base's deploy-identity check accepts the emitted Worker's /health", { time
     if (runtime) await stop(runtime.child);
     await rm(persistPath, { recursive: true, force: true });
   }
-});
-
-test("DOCS-001: the Worker and client bundles carry no Markdown or highlighting code, only rendered pages", async () => {
-  await requireBuild();
-  const files = [];
-  async function walk(directory) {
-    for (const entry of await readdir(directory, { withFileTypes: true })) {
-      const full = path.join(directory, entry.name);
-      if (entry.isDirectory()) await walk(full);
-      else if (/\.(m?js|cjs)$/.test(entry.name)) files.push(full);
-    }
-  }
-  await walk(path.join(root, "dist", "client"));
-  await walk(path.join(root, "dist", "server"));
-  assert.ok(files.length > 0);
-  // Signatures of the libraries themselves; the pages' own highlighted HTML legitimately contains hljs-* class names.
-  const libraries = /registerLanguage|micromark|mdast-util|remark-parse|remark-gfm|react-markdown|\bunified\(|hast-util|highlight\.js/;
-  const hits = [];
-  for (const file of files) if (libraries.test(await readFile(file, "utf8"))) hits.push(path.relative(root, file));
-  assert.deepEqual(hits, [], "No emitted module may contain the Markdown build libraries.");
-  // The pages themselves are emitted as rendered HTML.
-  let rendered = 0;
-  for (const file of files) if ((await readFile(file, "utf8")).includes("Install and deploy")) rendered += 1;
-  assert.ok(rendered > 0, "The docs pages are in the build as rendered HTML.");
-});
-
-test("DOCS-001: the emitted Worker serves /docs and each page, a real 404 for any other slug, and no cookie", { timeout: 240000 }, async () => {
+} },
+    { name: "DOCS-001: the emitted Worker serves /docs and each page, a real 404 for any other slug, and no cookie", timeout: 240000, run: async () => {
   await requireBuild();
   const persistPath = await mkdtemp(path.join(os.tmpdir(), "slate-artifact-docs-"));
   let runtime;
@@ -464,5 +477,17 @@ test("DOCS-001: the emitted Worker serves /docs and each page, a real 404 for an
   } finally {
     if (runtime) await stop(runtime.child);
     await rm(persistPath, { recursive: true, force: true });
+  }
+} }
+  ];
+  for (const scenario of cases) {
+    let timer;
+    try {
+      if (scenario.timeout === undefined) await scenario.run();
+      else await Promise.race([scenario.run(), new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error(`Original deadline exceeded: ${scenario.name}`)), scenario.timeout);
+      })]);
+    } catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
+    finally { clearTimeout(timer); }
   }
 });
