@@ -56,6 +56,10 @@ export async function controlPolishJourney({ page, context, origin, api }, width
     await page.getByRole('menuitem', { name: 'Publish workspace revision', exact: true }).click();
     const preview = page.getByRole('region', { name: 'Workspace publication preview', exact: true });
     await expect(preview.getByRole('checkbox')).toBeDisabled();
+    const disabledTip = preview.getByRole('checkbox');
+    await disabledTip.hover();
+    await expect.poll(() => disabledTip.evaluate(el => getComputedStyle(el, '::after').opacity)).toBe('1');
+    assert.equal(await disabledTip.evaluate(el => getComputedStyle(el).opacity), '1', 'Disabled control does not fade its accessible-name tip');
     await assertNoOverflow(preview);
     await assertNoOverflow(page.locator('html'));
     await page.getByRole('button', { name: 'Close dialog', exact: true }).click();
