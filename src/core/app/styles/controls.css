@@ -16,6 +16,13 @@
 }
 .slate-app :is(.primary-button, button.primary, .actions .run):not(:disabled):hover { background-color: var(--slate-accent-hover); }
 .slate-app :is(.secondary-button, .tool, .icon-action):not(.tool-primary):not(:disabled):hover { background-color: var(--slate-wash); }
+.slate-app button[role="checkbox"][data-tooltip-align="start"]::after {
+  left: 0;
+  width: max-content;
+  max-width: calc(100vw - 64px);
+  white-space: normal;
+  transform: none;
+}
 /* A checkbox keeps its 32px touch target and draws a 20px box inside it. */
 .slate-app button[role="checkbox"] {
   width: 32px;

@@ -5284,7 +5284,7 @@
       "executable": false
     },
     "src/core/app/styles/controls.css": {
-      "sha256": "49c00f6270316ae0bb776ea1603afb01b342fcb93922a958301f355459c6b1b1",
+      "sha256": "da667dbb68108573cafab4146fdcf87503829fad4c25842d14b482d6bd4dc098",
       "executable": false
     },
     "src/core/app/styles/database.css": {
@@ -5328,7 +5328,7 @@
       "executable": false
     },
     "src/core/app/styles/panels.css": {
-      "sha256": "8f394e6465c76a61bac014ee499769ad3448ecd204bc3afc363b56cd9634ddac",
+      "sha256": "ec4333901ea3467772029dd214a993227434cce0ebf9527a33e149591c84bf3e",
       "executable": false
     },
     "src/core/app/styles/popover.css": {
@@ -5336,7 +5336,7 @@
       "executable": false
     },
     "src/core/app/styles/search-discovery.css": {
-      "sha256": "2fc46b59a989b09a1be33585d08e5c1d4a9bf2b4d7b4bc0a3db054269cf80e18",
+      "sha256": "dc0983317a6de7f08ed24ca24370310570f2ca865e4b1d93e69165963e44ed3a",
       "executable": false
     },
     "src/core/app/styles/shell.css": {
@@ -5368,7 +5368,7 @@
       "executable": false
     },
     "src/core/app/ui/ActionDialog.tsx": {
-      "sha256": "2f1044955cfcb0feee90f8c018c5f3edbf51306e287ee26ab1870074b9975b2a",
+      "sha256": "f5e27f37c3cd8e34cb0cca032f2447cf401aec9ffff030e651ca4cc74fda5e86",
       "executable": false
     },
     "src/core/app/ui/AppNavigation.tsx": {
@@ -8896,7 +8896,7 @@
       "executable": false
     },
     "src/core/features/search/ui/workspace/WorkspaceSearch.tsx": {
-      "sha256": "ff3c79011bd0036c00d4761ddde30f0d2df0d74c9adc82edd19cb50f60a151be",
+      "sha256": "f15ce87c7b14ddc9aa1126a63d934cddcffe66e74e10c69a742c543c39c414cc",
       "executable": false
     },
     "src/core/features/search/visibility.ts": {
@@ -9904,7 +9904,7 @@
       "executable": false
     },
     "src/core/ui/checkbox.tsx": {
-      "sha256": "09185f768d8518794974c1954a76d70be4f582e3054fd0d60d67d05549d926f6",
+      "sha256": "45da271e224b4d39a47096d18d98e22756f178a7f4f3cbf1fa938db87e0a6cf1",
       "executable": false
     },
     "src/core/ui/cn.ts": {
@@ -12104,7 +12104,7 @@
       "executable": false
     },
     "tests/ui/polish-journeys.test.mjs": {
-      "sha256": "2d0b4c56ad3a6f501330229195119c808731bb66379f9d4b61b6b884ba844fe3",
+      "sha256": "fe3de5403c7fe1c01d81595b04b2d4a08ce14a2d826d9484fe5c5d0864f73992",
       "executable": false
     },
     "tests/ui/polish/capture-camera.mjs": {
