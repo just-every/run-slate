@@ -14,10 +14,16 @@ import { waitForScrollSettled } from './scroll-settle.mjs';
 
 const output = process.env.SLATE_POLISH_SHOTS ?? fileURLToPath(new URL('../../../.artifacts/slate-polish/shots', import.meta.url));
 const evidenceRoot = path.join(path.dirname(output), 'polish-evidence');
-export async function capture(page, name, { fullPage = false, requiredControls = [], requiredDocumentControls = [] } = {}) {
+export async function capture(page, name, { fullPage = false, requiredControls = [], requiredDocumentControls = [], prepare } = {}) {
   await page.waitForLoadState('networkidle');
   await waitForRenderedResourceReadiness(page);
   await waitForScrollSettled(page);
+  // Position the intended controls after readiness, before fixing the original
+  // camera. Navigation may restore scroll while the readiness checks run.
+  if (prepare) {
+    await prepare();
+    await waitForScrollSettled(page);
+  }
   const guard = await guardCaptureCamera(page, name, () => new AxeBuilder({ page }).analyze());
   try {
     const { axe, integrity } = guard;

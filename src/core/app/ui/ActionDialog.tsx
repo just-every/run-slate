@@ -17,6 +17,7 @@ export function ActionDialog({
   onClose,
   initialFocus,
   busy = false,
+  submitDisabled = false,
 }: {
   title: string;
   children: ReactNode;
@@ -26,6 +27,8 @@ export function ActionDialog({
   initialFocus?: RefObject<HTMLElement | null>;
   /** Work started by the dialog continues outside it (e.g. the browser is leaving); keeps it disabled. */
   busy?: boolean;
+  /** Initial data may still be loading; keep Cancel available and the action's label intact. */
+  submitDisabled?: boolean;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -85,7 +88,7 @@ export function ActionDialog({
           <button type="button" disabled={pending} onClick={onClose}>
             Cancel
           </button>
-          <button className="primary" type="submit" disabled={pending}>
+          <button className="primary" type="submit" disabled={pending || submitDisabled}>
             {pending ? "Saving…" : action}
           </button>
         </footer>
