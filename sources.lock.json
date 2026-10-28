@@ -8819,7 +8819,7 @@
       "executable": false
     },
     "src/core/features/portability/restore-plan.ts": {
-      "sha256": "1a3b4077faef0665404d54647dd23a2255c159010b42658f07fc0b1a32e544bb",
+      "sha256": "b30a116f0775c0e9fb0a5d0110366c10cf4dc322ae953eb51ab6ef9024d1ddbd",
       "executable": false
     },
     "src/core/features/portability/restore-run.ts": {
@@ -8827,7 +8827,7 @@
       "executable": false
     },
     "src/core/features/portability/rows.ts": {
-      "sha256": "1049249d6bd10ccfc099881e594dac9ad6b19118c9b9b79d5b9f7b17d674cf15",
+      "sha256": "46bda3ede698e8dc27d20999891d6ae32af888acb2f61f7de1b14b29c4fd7ac1",
       "executable": false
     },
     "src/core/features/portability/service.ts": {
@@ -8839,7 +8839,7 @@
       "executable": false
     },
     "src/core/features/portability/tables.ts": {
-      "sha256": "85e46420da4e3eed32a5a900589a88ea58362124102d5f5e4dd4b706fd350397",
+      "sha256": "7e9c01ebfdea5be56a436fe77b10d0319a9366f257d58be1c7084294b6f97db4",
       "executable": false
     },
     "src/core/features/public-api/authentication.ts": {
