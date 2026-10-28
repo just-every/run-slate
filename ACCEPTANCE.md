@@ -4696,12 +4696,12 @@ Agent surface · target · **missing** · From new · Cites BASE-AGENT-006, BASE
 **Requirement.** Slate derives classes from the actual wiki target, exposure, relationship and provider state.
 
 **Acceptance.**
-1. An internal reversible wiki edit, watch, draft, task or suggestion carries its item count; a move or edit is external as well when it newly exposes content outside the business.
-2. A public page, outside share, chat delivery, connector write or externally visible wiki change carries recipients and counterparty: internal, known from an admitted domain or existing company relationship, new otherwise, or public for an open publication.
-3. Paid activation carries the verified amount, currency and counterparty of the charge or changed price.
-4. An accepted decision, attestation, approval of relied-on content or commercial term carries its value and counterparty; an agent’s act remains distinct from a person’s attestation.
-5. Creating a paid SSO account or outside resource carries its provider.
-6. A provider’s account consent, hosted card entry or identity check carries provider and step when that provider requires a person; an offered agent API uses the company policy for the call’s classes.
+1. standard: An internal reversible wiki edit, watch, draft, task or suggestion carries its item count; a move or edit is external as well when it newly exposes content outside the business.
+2. external: A public page, outside share, chat delivery, connector write or externally visible wiki change carries recipients and counterparty: internal, known from an admitted domain or existing company relationship, new otherwise, or public for an open publication.
+3. money: Paid activation carries the verified amount, currency and counterparty of the charge or changed price.
+4. commitment: An accepted decision, attestation, approval of relied-on content or commercial term carries its value and counterparty; an agent’s act remains distinct from a person’s attestation.
+5. accounts: Creating a paid SSO account or outside resource carries its provider.
+6. gated: A provider’s account consent, hosted card entry or identity check carries provider and step when that provider requires a person; an offered agent API uses the company policy for the call’s classes.
 
 **Evidence.** None.
 **Gap.** No executed Slate MCP journey yet covers this seed delta under both company policies.
@@ -4713,11 +4713,11 @@ Agent surface · target · **missing** · From new · Cites BASE-AGENT-006, BASE
 **Requirement.** Slate derives classes from the actual wiki target, exposure, relationship and provider state.
 
 **Acceptance.**
-1. Membership, groups, guest or page grants, devices and client authority carry people affected and widening or narrowing; reassigning a page owner without changing authority remains standard.
-2. SSO enforcement, connector credentials, token custody and backup protective settings carry the changed setting.
-3. Permanent erasure or deleting an intermediate version carries the item count; reversible trash and archive remain standard.
-4. Reading or exporting source or wiki records containing regulated ID, health, bank, card or payroll data carries record count and data kind; a confidential label alone does not invent this class.
-5. A trial effect, operational remediation or skill activation that changes a running service carries that service; a read-only rehearsal remains standard.
+1. access: Membership, groups, guest or page grants, devices and client authority carry people affected and widening or narrowing; reassigning a page owner without changing authority remains standard.
+2. security: SSO enforcement, connector credentials, token custody and backup protective settings carry the changed setting.
+3. destructive: Permanent erasure or deleting an intermediate version carries the item count; reversible trash and archive remain standard.
+4. sensitive: Reading or exporting source or wiki records containing regulated ID, health, bank, card or payroll data carries record count and data kind; a confidential label alone does not invent this class.
+5. live: A trial effect, operational remediation or skill activation that changes a running service carries that service; a read-only rehearsal remains standard.
 
 **Evidence.** None.
 **Gap.** No executed Slate MCP journey yet covers this seed delta under both company policies.
