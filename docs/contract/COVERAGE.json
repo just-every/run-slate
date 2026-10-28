@@ -2,7 +2,7 @@
   "schema": 1,
   "seed": "contract-md-slate",
   "old": {
-    "commit": "cf224209ec25188c2631cb959060d946b366e61b",
+    "commit": "c9607a90ff52882a4c48a2bf685917c3929287b4",
     "files": [
       "CONTRACT.md",
       "ACCEPTANCE.md",

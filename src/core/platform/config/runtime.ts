@@ -5,6 +5,7 @@ import { ownerIdentity } from "../../../ext/config";
 export interface RuntimeBindings {
   RER_PREVIEW_OWNER_SIGNIN?: string;
   RER_DEMO?: string;
+  RER_BUSINESS?: string;
   RER_OWNER_CLAIM_ISSUER?: string;
   RER_OWNER_CLAIM_INSTALLATION_ID?: string;
   RER_OWNER_CLAIM_PUBLIC_KEYS?: string;
@@ -62,6 +63,7 @@ export interface RuntimeBindings {
 export interface RuntimeConfig {
   preview?: boolean;
   demo?: boolean;
+  business?: { name: string } | null;
   /** Omitted by narrow adapter callers; deployment reads always resolve this. */
   launchProfile?: LaunchProfile;
   localDevelopment: boolean;
@@ -106,6 +108,15 @@ export interface IdentityProviderPin {
 }
 
 export class RuntimeConfigurationError extends Error {}
+
+function readBusiness(value: string | undefined): { name: string } | null {
+  try {
+    const business: unknown = JSON.parse(value ?? 'null');
+    if (!business || typeof business !== 'object' || !('name' in business) || typeof business.name !== 'string'
+      || [...business.name].length < 1 || [...business.name].length > 200 || /\p{Cc}/u.test(business.name)) return null;
+    return { name: business.name };
+  } catch { return null; }
+}
 
 const requiredDeploymentVariables = [
   "APP_URL",
@@ -216,6 +227,7 @@ export function readRuntimeConfig(env: RuntimeBindings, isLoopback: boolean): Ru
     launchProfile,
     preview: isPreviewWorker(env),
     demo: env.RER_DEMO === "1",
+    business: env.RER_DEMO === "1" ? null : readBusiness(env.RER_BUSINESS),
     localDevelopment,
     sessionSecret: requireSessionSecret(env),
     appUrl: localDevelopment ? env.APP_URL : appUrl.toString(),
