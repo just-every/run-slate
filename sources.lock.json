@@ -975,7 +975,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "57433a6d98e7b7f45a70b733ad0b0722632db89b47bbc9ad1a164a7f12ca5705",
+      "sha256": "05a3848bb3def674398034bcad0de2aa51abc541b5ed878bf7390b3a162d61ee",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -983,7 +983,7 @@
       "executable": false
     },
     "AGENTS.md": {
-      "sha256": "3cf97cbfcc273114fb21c21bd4721a4b4e0c2c2a451a0832fe609ab4b13148e5",
+      "sha256": "3b6e171f2d47d80e45bcf9cd452a505f96012b483371695616b5e79a0a78146d",
       "executable": false
     },
     "base-copies.json": {
@@ -1003,7 +1003,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "caeaae74ad89e7579f8de9da58a7068adae1598769abf5e89088411a6d7f9483",
+      "sha256": "942736891e346e7cee605fb9fa75086ae4ec822abd5224af7447d124d88a440e",
       "executable": false
     },
     "DEMO.md": {
@@ -1051,7 +1051,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "8cae940f405081d0dda7c2cce1416423c3898d34e61a3dfa8df9a88c999b62f8",
+      "sha256": "efd823bcfd94f7220a53e6551253eb8992af058ecdf502cdcba59b5d256c3e79",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -5659,7 +5659,7 @@
       "executable": false
     },
     "src/core/app/styles/panels.css": {
-      "sha256": "8f394e6465c76a61bac014ee499769ad3448ecd204bc3afc363b56cd9634ddac",
+      "sha256": "7147a91722a019bf4b67b9868eef30c19f936f6c1ce7b3de7381bd97dccf4220",
       "executable": false
     },
     "src/core/app/styles/popover.css": {
@@ -9223,7 +9223,7 @@
       "executable": false
     },
     "src/core/features/search/ui/workspace/SearchRefinements.tsx": {
-      "sha256": "89118b1d1b5f7c75d3cbf351bc1713308fcaa7bf8082680b21b82f612bcf5a97",
+      "sha256": "d6713aa768e656eece1a078601d05c1b7a44b5df3c770ae2874471b00fb8c756",
       "executable": false
     },
     "src/core/features/search/ui/workspace/SearchResults.tsx": {
@@ -9231,7 +9231,7 @@
       "executable": false
     },
     "src/core/features/search/ui/workspace/WorkspaceSearch.tsx": {
-      "sha256": "ff3c79011bd0036c00d4761ddde30f0d2df0d74c9adc82edd19cb50f60a151be",
+      "sha256": "ea946d43a1b2695a201bf0e48b95faa00af2bdcbb11feeb65615e79254c598ed",
       "executable": false
     },
     "src/core/features/search/visibility.ts": {
@@ -10935,7 +10935,11 @@
       "executable": false
     },
     "tests/e2e/search/discovery-journey.ts": {
-      "sha256": "63797d9e77faf7f16d042f3c723db8b8c14f5e6777e84aa317266e3438baa00b",
+      "sha256": "1b5e48364271a354166c1ab19cc0c0bd71e67ed16fa3a9025b05c3ce09364dd5",
+      "executable": false
+    },
+    "tests/e2e/search/freshness-journey.ts": {
+      "sha256": "f23656d57ebfc323a9c94b60323680ad4c96ddaa991db9a1c411356f510d1340",
       "executable": false
     },
     "tests/e2e/search/fts-permissions.test.ts": {
@@ -12235,7 +12239,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "86396c77fa27c01aab94034961ee438c15effd3c77db050c361e0b4ecf340a0f",
+      "sha256": "68662c4088eef48e286591bbdbbd73c938ee9821ae26086ccdb4183013c92c33",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
@@ -12252,6 +12256,10 @@
     },
     "tests/qualification/ui-convergence/scim-access-journey.mjs": {
       "sha256": "fb19a23ef8a6c8bf64f8d12570aa6b723fedd06af1e674f5f6d8ea3bef2c0bf4",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/search-filters-journey.mjs": {
+      "sha256": "b2caef13ab2af92eaa7c95d55bca3da5e785e36f6e6bd683f7b906e691b20d53",
       "executable": false
     },
     "tests/qualification/ui-convergence/shared-navigation-journey.mjs": {
@@ -12395,7 +12403,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "3d19a6ea6de2512725c7675ad24c0e156533b3a57ae3079746fe5622224f7701",
+      "sha256": "90600476990ef1419cfd1092beb8e5d4b06113024daa73ca4d280f70befad99d",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
