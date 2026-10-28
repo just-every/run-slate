@@ -1,3 +1,5 @@
+import { commentJourney } from './comments-journey.mjs';
+import { commentAnchorsJourney } from './comment-anchors.mjs';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
@@ -7,8 +9,11 @@ import { grant, ok, restrictedPage } from './two-people-support.mjs';
 export async function reactionsJourney(state, people) {
   const { page, context, origin, api } = state;
   const width = page.viewportSize().width;
-  const { pageId } = await restrictedPage(state, 'Customer incident handover', ['The service is healthy. Confirm the next owner before closing the incident.']);
+  const { pageId } = await restrictedPage(state, 'Customer incident handover', ['The on-call lead owns escalation decisions.']);
   await grant(context, origin, pageId, 'browser-reader', 'view');
+  await commentJourney(state, pageId);
+  const anchoredThread = (await api(`/api/comments/page/${pageId}`)).threads.find(thread => thread.kind === 'inline');
+  await commentAnchorsJourney(state, pageId, anchoredThread);
   const comment = (await ok(context, origin, 'POST', `/api/comments/page/${pageId}`, { operationKey: randomUUID(), body: [{ text: 'Recovery confirmed; the next shift can take over.' }] })).value.id;
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   const section = page.getByRole('region', { name: 'Page reactions', exact: true });

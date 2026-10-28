@@ -1,4 +1,3 @@
-import { commentAnchorsJourney } from './comment-anchors.mjs';
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { accessible, closeDetails } from './browser-support.mjs';
@@ -80,5 +79,4 @@ export async function commentJourney(state, pageId) {
   await closeDetails(page);
   await expect(page.locator('.right')).toHaveCount(0);
   await expect(paragraph).toBeFocused();
-  await commentAnchorsJourney(state, pageId, comments.threads[0]);
 }
