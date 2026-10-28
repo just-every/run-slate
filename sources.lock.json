@@ -11700,7 +11700,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/comment-anchors.mjs": {
-      "sha256": "fc7ec18b942bddf7a8d3b836aea3d7c3ab5e507efbb9dd333f43a63063cfcd53",
+      "sha256": "0626ca78848ecdef85db57027960602d7cc34bcae4e682b9646671bc8f410cdc",
       "executable": false
     },
     "tests/qualification/ui-convergence/comment-mentions.mjs": {

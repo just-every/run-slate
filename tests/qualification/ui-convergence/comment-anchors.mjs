@@ -8,27 +8,34 @@ export async function commentAnchorsJourney(state, pageId, thread) {
   const { page, context, origin } = state;
   const width = page.viewportSize().width;
   const quote = JSON.parse(thread.anchor_json).quote;
+  const editedQuote = 'Next shift: ' + quote;
   const readThread = async () => (await ok(context, origin, 'GET', `/api/comments/page/${pageId}`)).threads.find(item => item.id === thread.id);
   let blockId = thread.block_id;
   const saved = () => page.waitForResponse(response => response.url().includes(`/api/pages/${pageId}/blocks`) && ['PATCH', 'PUT'].includes(response.request().method()) && response.ok());
   let commit = saved();
-  await editable(page, blockId).focus();
-  await page.keyboard.press('ControlOrMeta+End');
-  await page.keyboard.type(' Confirm the handover.');
+  await editable(page, blockId).locator('mark').evaluate(element => {
+    element.closest('[contenteditable]').focus();
+    const range = document.createRange(); range.selectNodeContents(element); range.collapse(true);
+    const selection = getSelection(); selection.removeAllRanges(); selection.addRange(range);
+  });
+  await page.keyboard.type('Next shift: ');
   await commit;
-  await expect(editable(page, blockId).locator('mark')).toHaveText(quote);
+  await expect(editable(page, blockId).locator('mark')).toHaveText(editedQuote);
   await expect(editable(page, blockId).locator('mark')).toHaveAttribute('data-comment-anchor', JSON.parse(thread.anchor_json).anchorId);
-  assert.equal(!!(await readThread()).orphaned, false, 'Editing around the selected text retains its thread.');
+  assert.equal(!!(await readThread()).orphaned, false, 'Editing the selected text retains its thread.');
 
   // Split before the marked text: the same anchor moves onto the new block.
-  await editable(page, blockId).focus();
-  await page.keyboard.press('ControlOrMeta+Home');
+  await editable(page, blockId).evaluate(element => {
+    element.focus();
+    const range = document.createRange(); range.selectNodeContents(element); range.collapse(true);
+    const selection = getSelection(); selection.removeAllRanges(); selection.addRange(range);
+  });
   commit = saved();
   await page.keyboard.press('Enter');
   await commit;
   await expect.poll(async () => (await readThread()).block_id).not.toBe(blockId);
   blockId = (await readThread()).block_id;
-  await expect(editable(page, blockId).locator('mark')).toHaveText(quote);
+  await expect(editable(page, blockId).locator('mark')).toHaveText(editedQuote);
   assert.equal(!!(await readThread()).orphaned, false, 'Splitting relocates the thread onto its marked text.');
   await page.locator(`[data-block-id="${blockId}"]`).hover();
   await page.locator(`[data-block-id="${blockId}"]`).getByRole('button', { name: /^Block actions for/ }).click();
@@ -37,7 +44,7 @@ export async function commentAnchorsJourney(state, pageId, thread) {
   await commit;
   await expect.poll(async () => (await ok(context, origin, 'GET', `/api/pages/${pageId}`)).blocks[0].id).toBe(blockId);
   await page.reload({ waitUntil: 'networkidle' });
-  await expect(editable(page, blockId).locator('mark')).toHaveText(quote);
+  await expect(editable(page, blockId).locator('mark')).toHaveText(editedQuote);
   assert.equal(!!(await readThread()).orphaned, false, 'Moving the block retains the same anchored thread.');
   await openPageAction(page, 'Comments');
   await page.getByLabel('Threads', { exact: true }).selectOption('resolved');
