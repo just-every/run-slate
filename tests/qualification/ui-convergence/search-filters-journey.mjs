@@ -23,6 +23,7 @@ export async function searchFiltersJourney(state) {
  const clear=page.getByRole('button',{name:'Clear search',exact:true});
  await clear.focus();await expect.poll(()=>clear.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
  await input.focus();await clear.hover();await expect.poll(()=>clear.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
+ await page.screenshot({path:'.artifacts/ui-convergence/evidence/search-clear-tooltip-'+page.viewportSize().width+'.png',fullPage:true});
  // Result order is irrelevant to filtering; compare independently sorted titles.
  const titles=async expected=>{
   await expect.poll(async()=>(await page.locator('.search-results h2').allTextContents()).sort()).toEqual([...expected].sort());
@@ -38,7 +39,7 @@ export async function searchFiltersJourney(state) {
  const other=(await api('/api/containers')).items.find(item=>item.id!==space&&item.visibility==='default');assert.ok(other);
  await source.selectOption(other.id);await titles([]);await source.selectOption(space);await titles(['Release handover checklist','Support rotation']);
  const contributor=page.getByRole('combobox',{name:'Contributor',exact:true});
- await contributor.selectOption('browser-reader');await titles(['Support rotation']);await contributor.selectOption('');
+ await contributor.selectOption('browser-reader');await titles(['Support rotation']);await expect(page.locator('.search-filter-summary')).toContainText('Morgan Reader');await contributor.selectOption('');
  const status=page.getByRole('combobox',{name:'Status',exact:true});
  await status.selectOption('search-ready');await titles(['Release handover checklist']);await expect(page.locator('.search-filter-summary')).toContainText('Ready for release');await status.selectOption('');
  const from=page.getByLabel('Updated from',{exact:true}),until=page.getByLabel('Updated until',{exact:true});
@@ -46,6 +47,7 @@ export async function searchFiltersJourney(state) {
  await until.fill('2000-01-01');await titles([]);await until.fill('2099-01-01');await titles(['Release handover checklist','Support rotation']);
  await page.getByRole('checkbox',{name:'Include archive',exact:true}).check();await titles(['Archived checklist','Release handover checklist','Support rotation']);
  await page.getByRole('checkbox',{name:'Include trash',exact:true}).check();await titles(['Archived checklist','Removed checklist','Release handover checklist','Support rotation']);
+ for(const visible of ['Release operations','Updated from 2000-01-01','Updated until 2099-01-01','Including archive','Including trash'])await expect(page.locator('.search-filter-summary')).toContainText(visible);
  await accessible(page,'search filters and retained results');
  // The controls display every filter in force alongside real results, and reload retains them.
  await page.reload({waitUntil:'networkidle'});await titles(['Archived checklist','Removed checklist','Release handover checklist','Support rotation']);

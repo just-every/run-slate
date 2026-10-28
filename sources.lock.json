@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "41f87e34f979c17ba05d90d84424de760df82cd9a5c100ffa160743a9cd66872",
+      "sha256": "05a3848bb3def674398034bcad0de2aa51abc541b5ed878bf7390b3a162d61ee",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "caeaae74ad89e7579f8de9da58a7068adae1598769abf5e89088411a6d7f9483",
+      "sha256": "942736891e346e7cee605fb9fa75086ae4ec822abd5224af7447d124d88a440e",
       "executable": false
     },
     "DEMO.md": {
@@ -1036,7 +1036,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "6c94948b60fa6025846fcdc45bfd900194ee76f5bd4f0d3dbc2bfa4ef3633e26",
+      "sha256": "efd823bcfd94f7220a53e6551253eb8992af058ecdf502cdcba59b5d256c3e79",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -5352,7 +5352,7 @@
       "executable": false
     },
     "src/core/app/styles/panels.css": {
-      "sha256": "8f394e6465c76a61bac014ee499769ad3448ecd204bc3afc363b56cd9634ddac",
+      "sha256": "7147a91722a019bf4b67b9868eef30c19f936f6c1ce7b3de7381bd97dccf4220",
       "executable": false
     },
     "src/core/app/styles/popover.css": {
@@ -11952,7 +11952,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/search-filters-journey.mjs": {
-      "sha256": "1d9305b9bc6fa69656ca0a2e9ae258acdbdd3a5ca4b1e19ad2f08b061de54167",
+      "sha256": "b2caef13ab2af92eaa7c95d55bca3da5e785e36f6e6bd683f7b906e691b20d53",
       "executable": false
     },
     "tests/qualification/ui-convergence/shared-navigation-journey.mjs": {
