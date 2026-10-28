@@ -1860,7 +1860,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "51d8d668d6b34cabda73d9fafa225b9a97d60d185a83151012d58d2141340cf2",
+      "sha256": "7f08a82007c71fa23e8caa86a890b6e1ce22795b15f0b76c6a473b193fce75e7",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -4971,6 +4971,10 @@
       "sha256": "7180f39ace2735886df5e410464266dd9f491dcf5a82299b2177fb6da57e8f5d",
       "executable": false
     },
+    "scripts/installer/business-carry.mjs": {
+      "sha256": "bd91c6253eed0b68094846c4496a4d38ca1de1ab1c4afe64341f9c6747efa98b",
+      "executable": false
+    },
     "scripts/installer/deploy.mjs": {
       "sha256": "248cb97a2adcc2b7b7f743fc6600583e612c56378e1af049286ccfd349dd7bb6",
       "executable": false
@@ -5232,7 +5236,7 @@
       "executable": false
     },
     "src/core/app/loaders.ts": {
-      "sha256": "9f8c14f2fb4dc9fa604ea8c9563ab69b227077e980573d6c8014c1b24f26acfa",
+      "sha256": "3482e1a89d91f91bb7e2df63fbf75a4efaaf6c970cd77d8ef917b914aaaed9fb",
       "executable": false
     },
     "src/core/app/managed-lobby.ts": {
@@ -5504,7 +5508,7 @@
       "executable": false
     },
     "src/core/app/ui/WorkspaceContext.tsx": {
-      "sha256": "941e70eb887fa6ce8490a78f52c3a4edc35b003746976512e0703ed76960c6ff",
+      "sha256": "50bc42d1705a34ffcdfe61839ff3a8ec541c7f381e9abd4cf52f696c857f80f4",
       "executable": false
     },
     "src/core/app/ui/WorkspaceGate.tsx": {
@@ -5512,7 +5516,7 @@
       "executable": false
     },
     "src/core/app/ui/workspaceSnapshot.ts": {
-      "sha256": "311bb6b4c17918d5c6149f69fcaa95d6298deba06ec6381a40b79e95655fcca3",
+      "sha256": "e041d90dec0cf3d4aac626558519a31910ff7a36cfd2643af7d7dc2b235627ff",
       "executable": false
     },
     "src/core/app/workspace-location.ts": {
@@ -9060,7 +9064,7 @@
       "executable": false
     },
     "src/core/features/session/ui/FirstRunPage.tsx": {
-      "sha256": "195d23334a5e57372b406103be3bc47f66fbd562ee51171cee884c273c35c245",
+      "sha256": "f28dd7cf2a4da4ecf6ea16c92035ae1d6592129c002755dfa0667070b80299b9",
       "executable": false
     },
     "src/core/features/session/ui/FirstRunProgress.tsx": {
@@ -9788,7 +9792,7 @@
       "executable": false
     },
     "src/core/platform/config/runtime.ts": {
-      "sha256": "d5f68939b73f00bb85c64faa2b408381b26cd0714612fe046e19484fa9e986cd",
+      "sha256": "d97dc338708315b5bb6563a4f5fd11b650f6b6f9c02ac105c2e5f7e0d286981e",
       "executable": false
     },
     "src/core/platform/db/client.ts": {
@@ -11268,7 +11272,7 @@
       "executable": false
     },
     "tests/profile/first-run-shell.worker.test.ts": {
-      "sha256": "3e4610626de0fc18ca643d15e8907dd7752829eb6e53e65e334bb0540cacee06",
+      "sha256": "b2e1982768bd5b775c9f1f52beaada35fccbf17a785edf5781583849a0dabb8b",
       "executable": false
     },
     "tests/profile/page-lock-journey.ts": {
@@ -12224,7 +12228,7 @@
       "executable": false
     },
     "vite.config.ts": {
-      "sha256": "a5591133c4093384cbc10b5a096901d1ff370c2081a38f33bb476a47d135861a",
+      "sha256": "91c2779cfb4a6540fcea3e55a7a04d327159bee2f2ad07da39fa2e17665e9761",
       "executable": false
     },
     "vite.site.config.ts": {
