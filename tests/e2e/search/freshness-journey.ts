@@ -45,12 +45,17 @@ export async function freshnessJourney(f:Awaited<ReturnType<typeof searchFixture
  });
  // A draft must become readable to the searching member only after publication.
  const workspace=await request('GET','/workspace');
- await request('PUT','/workspace',{operationKey:crypto.randomUUID(),expectedRevisionId:workspace.revisionId,name:workspace.name,mark:workspace.mark,description:workspace.description,guestAccess:workspace.guestAccess,publicLinkAccess:workspace.publicLinkAccess,anonymousAccess:workspace.anonymousAccess,policies:{...workspace.policies,'page.lifecycle.v1':'draft-then-publish'}});
+ const configure=async(policies:Record<string,string>)=>{
+  const current=await request('GET','/workspace');
+  await request('PUT','/workspace',{operationKey:crypto.randomUUID(),expectedRevisionId:current.revisionId,name:current.name,mark:current.mark,description:current.description,guestAccess:current.guestAccess,publicLinkAccess:current.publicLinkAccess,anonymousAccess:current.anonymousAccess,policies});
+ };
+ await configure({...workspace.policies,'page.lifecycle.v1':'draft-then-publish'});
  const draft=(await request('POST','/pages',{operationKey:crypto.randomUUID(),containerId:'c',title:'Freshness publication guide'})).value.pageId;
  expect(await ids('Freshness publication guide')).toEqual([]);
  await observed(async()=>request('POST','/pages/'+draft+'/publish',{operationKey:crypto.randomUUID(),expectedRevisionId:await revision(draft)}),async()=>{
   expect(await ids('Freshness publication guide')).toEqual([draft]);
  });
+ await configure(workspace.policies);
  // An already indexed retained record must stop matching after confirmed erasure.
  await request('POST','/archive/'+id,{operationKey:crypto.randomUUID(),expectedRevisionId:await revision(id),action:'trash'});
  const erase={operationKey:crypto.randomUUID(),confirmedPageIds:[id]};
