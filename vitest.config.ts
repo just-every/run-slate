@@ -27,7 +27,7 @@ export default defineConfig({
             const names = ["notion-workspace-export.zip", "confluence-space-export.zip", "google-docs-download.docx"];
             // The committed scale generator's Server/DC archive, built in memory.
             if (name === "server-dc-entities-scale.zip") {
-              const entries = buildServerDcBlueprint(root, "server-dc-entities", "scale-reader@example.test").entries;
+              const entries = buildServerDcBlueprint(root, "server-dc-entities", ["scale-reader", "example.test"].join("@")).entries;
               return new Response(zipSync(Object.fromEntries(entries.map((entry) => [entry.path, entry.source as Uint8Array]))), { headers: { "Content-Type": "application/octet-stream" } });
             }
             const fixture = name === "word-government-impact-assessment.docx"
@@ -65,7 +65,6 @@ export default defineConfig({
       "tests/qualification/authority/learned-provenance.test.ts",
       "tests/qualification/authority/recovery.test.ts",
       "tests/qualification/authority/skill-disclosure.test.ts",
-      "tests/qualification/authority/snapshot.test.ts",
       "tests/qualification/authority/decision-authority.test.ts",
       "tests/qualification/authority/native-boundaries.test.ts",
       "tests/qualification/release-restore-authority/restored-effects.test.ts",

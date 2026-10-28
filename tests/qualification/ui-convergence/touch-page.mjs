@@ -54,10 +54,32 @@ export async function touchCommentJourney({page,origin,api},id) {
 
 export async function touchPublishShareJourney({page,origin,api},id) {
   await page.goto(`${origin}/app/pages/${id}`,{waitUntil:'networkidle'});
+  // Delay the real access response, not a fixture: the page preview used to
+  // enable Review before this response inserted content above its footer.
+  let releaseAccess;
+  const accessGate=new Promise(resolve=>{releaseAccess=resolve;});
+  const accessRoute=`**/api/sharing/pages/${id}`;
+  const holdAccess=async route=>{
+    const response=await route.fetch();
+    await accessGate;
+    await route.fulfill({response});
+  };
+  const phone=page.viewportSize().width===390;
+  if(phone)await page.route(accessRoute,holdAccess);
+  const accessReady=phone?page.waitForRequest(request=>request.method()==='GET'&&new URL(request.url()).pathname===`/api/sharing/pages/${id}`,{timeout:15000}):null;
+  try {
   await tap(page.getByRole('button',{name:'More',exact:true}));
   await tap(page.getByRole('menuitem',{name:'Publish workspace revision',exact:true}));
   const publication=page.getByRole('dialog',{name:'Publish this revision',exact:true});
+  if(phone){
+    await accessReady;
+    await expect(publication.getByRole('button',{name:'Review publication',exact:true})).toBeDisabled();
+    releaseAccess();
+  }
   await expect(publication.getByRole('region',{name:'Workspace publication preview'})).toContainText('Notify the duty team.');
+  await expect(publication.getByRole('region',{name:'Current publication access',exact:true})).toBeVisible();
+  await reachable(publication.getByRole('button',{name:'Review publication',exact:true}));
+  await checkpoint(page,'publication preview with current access');
   await tap(publication.getByRole('button',{name:'Review publication',exact:true}));
   await expect(publication.getByRole('region',{name:'Reviewed publication'})).toBeVisible();
   await checkpoint(page,'reviewed publication');
@@ -76,4 +98,8 @@ export async function touchPublishShareJourney({page,origin,api},id) {
   await checkpoint(page,'published and shared page');
   console.log('NAV-006 touch workspace publication and sharing persisted');
   return id;
+  } finally {
+    releaseAccess();
+    if(phone)await page.unroute(accessRoute,holdAccess);
+  }
 }

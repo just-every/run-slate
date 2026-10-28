@@ -8,7 +8,8 @@ import {exportWorkspace,restoreWorkspace} from '../../../src/core/features/porta
 import {sessionFor} from '../../e2e/setup/fixtures';
 
 beforeEach(reset);
-test('SOURCE-003 — claims keep accepted authority through review, withdraw it when nested citations change or layer is removed, and preserve exact history through restore',async()=>{
+test("SOURCE-003 \u2014 decision authority and exact historical prose retain current citation boundaries through review and restore", async () => {
+  await scenario("SOURCE-003 \u2014 claims keep accepted authority through review, withdraw it when nested citations change or layer is removed, and preserve exact history through restore", async () => {
  const f=await fixture(),host=await document(f,'Exact scoped claim evidence'),decisionSource=await document(f,'Independent decision source'),ctx=f.context();
  // Labelled retained-answer fixture; no generated answer or provider acceptance is claimed.
  const answer={statements:[{text:'The scope remains unknown.',kind:'observation',evidenceIds:['E1'],limitations:['Local test record only.']}],unresolved:[],proposedChanges:[],researchPlan:null,hypothesisAssessment:null,procedurePlan:null,evaluationAssessment:null,ambientAssessment:null};
@@ -32,8 +33,10 @@ test('SOURCE-003 — claims keep accepted authority through review, withdraw it 
  expect(await env.DB.prepare('SELECT * FROM knowledge_decisions WHERE id=?').bind(decision.value.id).first()).toEqual(prior);
  expect((await readClaim(f.context(),revised.value.revisionId)).authorityCurrent).toBe(false);
  expect((await env.DB.prepare('PRAGMA foreign_key_check').all()).results).toEqual([]);
-});
-test('an earlier decision revision is read without the current prose its reader can no longer cite',async()=>{
+
+  });
+  await reset();
+  await scenario("an earlier decision revision is read without the current prose its reader can no longer cite", async () => {
  const {SELF}=await import('cloudflare:test');
  const f=await fixture(),host=await document(f,'Decision host page'),open=await document(f,'Open vendor comparison'),later=await document(f,'Later negotiation notes'),ctx=f.context();
  const draft={pageId:host.id,options:['Vendor A','Vendor B'],ownerId:f.owner,decidedAt:null,reviewAt:null};
@@ -47,4 +50,13 @@ test('an earlier decision revision is read without the current prose its reader 
  expect(earlier.status,text).toBe(200);
  expect(JSON.parse(text)).toMatchObject({question:'Which vendor do we shortlist?',content:{outcome:'Vendor A'}});
  expect(text).not.toMatch(/counter-offer|confidential/i);
+
+  });
 });
+
+
+// Keep each clause point visible in the failure while sharing one family registration.
+async function scenario(name: string, run: () => Promise<void>) {
+  try { await run(); }
+  catch (cause) { throw new Error(`Scenario ${name} failed`, { cause }); }
+}

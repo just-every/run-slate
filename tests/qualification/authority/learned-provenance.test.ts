@@ -11,7 +11,8 @@ import {seedPageGrant,sessionFor} from '../../e2e/setup/fixtures';
 import {updatePage} from '../../../src/core/features/pages/service';
 import {archivePage} from '../../../src/core/features/archive/service';
 beforeEach(reset);
-test('INQ-005 — learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse',async()=>{
+test("INQ-005 \u2014 learned provenance and published inquiry references preserve exact disclosed sources", async () => {
+  await scenario("INQ-005 \u2014 learned definitions retain inquiry, observation, analysis, finding and measurement provenance through reuse", async () => {
  const f=await fixture(),host=await document(f,'Method host'),inquirySource=await document(f,'Private inquiry question'),observation=await document(f,'Private observation'),analysis=await document(f,'Private analysis'),finding=await document(f,'Private finding'),measurement=await document(f,'Private measurement');
  const inquiry=await createInquiry(f.context(),{operationKey:'learned-inquiry',pageId:host.id,question:'Confidential inquiry question',refs:[inquirySource.ref],audience:[f.owner,f.reader],hypotheses:[{statement:'Initial explanation',disconfirmation:'Rival evidence'},{statement:'Rival explanation',disconfirmation:'Initial evidence'}]});
  await recordAnalysis(f.context(),{id:inquiry.value.id,operationKey:'retained-analysis',analysis:{kind:'allocate',items:[{id:'one',cost:1,value:2}],capacity:1},refs:[analysis.ref]});
@@ -33,8 +34,10 @@ test('INQ-005 — learned definitions retain inquiry, observation, analysis, fin
   await expect(requireActiveSkill(f.context(f.reader),versionId,[host.ref],[f.reader],1)).rejects.toMatchObject({status:404});
   await seedPageGrant(source.id,{principalKind:'member',principalId:f.reader,level:'view'});
  }
-});
-test('inquiry and archive page references show a reader the published title, not an unpublished rename',async()=>{
+
+  });
+  await reset();
+  await scenario("inquiry and archive page references show a reader the published title, not an unpublished rename", async () => {
  const {SELF}=await import('cloudflare:test');
  const f=await fixture(),host=await document(f,'Published inquiry host'),source=await document(f,'Inquiry evidence'),ctx=f.context();
  const inquiry=await createInquiry(ctx,{operationKey:'published-title-inquiry',pageId:host.id,question:'Why did the handover slip?',refs:[source.ref],audience:[f.owner,f.reader],hypotheses:[{statement:'Staffing changed',disconfirmation:'Same staffing'},{statement:'Tooling changed',disconfirmation:'Same tooling'}]});
@@ -50,4 +53,13 @@ test('inquiry and archive page references show a reader the published title, not
  const archiveText=await read('/archive');
  expect(JSON.parse(archiveText).items.find((item:{id:string})=>item.id===host.id)?.title).toBe('Published inquiry host');
  expect(archiveText).not.toContain('Confidential restructuring plan');
+
+  });
 });
+
+
+// Keep each clause point visible in the failure while sharing one family registration.
+async function scenario(name: string, run: () => Promise<void>) {
+  try { await run(); }
+  catch (cause) { throw new Error(`Scenario ${name} failed`, { cause }); }
+}

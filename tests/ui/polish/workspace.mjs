@@ -101,6 +101,10 @@ async function settingsTab(page, tabs, name, width) {
   await insideViewport(page, tab, name);
   await tab.click();
   await expect(tab).toHaveAttribute('aria-current', 'page');
+  // aria-current changes before navigation's final render/scroll restoration.
+  // Finish its network work as well as rendered resource work before leaving
+  // this helper; capture preparation must follow navigation readiness.
+  await page.waitForLoadState('networkidle');
   // The panel's resources load after the click and move the page; later scrolling must start from the settled layout.
   await waitForRenderedResourceReadiness(page);
   await waitForScrollSettled(page);
@@ -138,12 +142,11 @@ export async function settingsJourney({ page, origin }, width) {
   await settingsTab(page, tabs, 'Import & export', width);
   assert.equal(new URL(page.url()).searchParams.get('section'), 'portability');
   const restore = page.locator('summary').filter({ hasText: /^Restore into an empty deployment$/ });
-  await restore.scrollIntoViewIfNeeded();
-  await capture(page, 'settings-portability', { fullPage: true, requiredControls: ['Export workspace', 'Restore into an empty deployment'] });
+  await expect(restore).toBeVisible();
+  await capture(page, 'settings-portability', { fullPage: true, prepare: () => restore.scrollIntoViewIfNeeded(), requiredControls: ['Export workspace', 'Restore into an empty deployment'] });
   await restore.click();
   await expect(page.getByRole('button', { name: 'Restore workspace', exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Restore workspace', exact: true }).scrollIntoViewIfNeeded();
-  await capture(page, 'settings-portability-expanded', { fullPage: true, requiredControls: ['Restore workspace'] });
+  await capture(page, 'settings-portability-expanded', { fullPage: true, prepare: () => page.getByRole('button', { name: 'Restore workspace', exact: true }).scrollIntoViewIfNeeded(), requiredControls: ['Restore workspace'] });
   await settingsTab(page, tabs, 'Preferences', width);
   const prefs = page.locator('.settings-panel');
   await expect(prefs.getByRole('textbox', { name: /Timezone/ })).toBeVisible();

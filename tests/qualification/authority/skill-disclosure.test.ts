@@ -1,3 +1,7 @@
+import {unzipSync,strFromU8} from 'fflate';
+import {exportSkillSnapshot} from '../../../src/core/features/skills/export';
+import {uploadMedia} from '../../../src/core/features/media/service';
+import {replaceBlocks} from '../../../src/core/features/editor/service';
 import {env} from 'cloudflare:test';
 import {beforeEach,test,expect} from 'vitest';
 import {reset,fixture,document,definition,passingEvaluation} from './fixture';
@@ -10,7 +14,9 @@ import {freezeCases} from '../../../src/core/features/skills/cases';
 import {issueGrant} from '../../../src/core/features/effects/grants';
 import {exportWorkspace} from '../../../src/core/features/portability/service';
 beforeEach(reset);
-test('SKILL-001 — revoking an older definition source denies the all-version HTTP read without revealing instructions',async()=>{
+test("SKILL-001 \u2014 method disclosure and portable snapshots retain exact source, audience and attachment boundaries", async () => {
+ await scenario("SKILL-001 \u2014 HTTP method disclosure rejects revoked definition sources and exact audience widening", async () => {
+  await scenario("SKILL-001 \u2014 revoking an older definition source denies the all-version HTTP read without revealing instructions", async () => {
  const f=await fixture(),host=await document(f,'Method host'),source=await document(f,'Secret separate source'),def=definition(f,[host.ref,source.ref]);
  const skill=await createSkill(f.context(),{operationKey:'method-create',pageId:host.id,name:'Sensitive method',definition:def});
  const next=await createSkill(f.context(),{operationKey:'method-next',pageId:host.id,name:'Sensitive method',skillId:skill.value.id,expectedRevisionId:skill.value.revisionId,definition:definition(f,[host.ref])});
@@ -20,6 +26,53 @@ test('SKILL-001 — revoking an older definition source denies the all-version H
  await env.DB.prepare('DELETE FROM page_grants WHERE id=?').bind(source.grantId).run();
  const response=await read();expect([403,404]).toContain(response.status);expect(await response.text()).not.toContain(def.instructions);
  expect((await listPageSkills(f.context(f.reader),host.id)).items).toHaveLength(0);
+
+  });
+  await reset();
+  await scenario("SKILL-001 \u2014 a readable host and source cannot widen the exact method audience", async () => {
+ const f=await fixture(),host=await document(f,'Readable source outside skill audience'),def={...definition(f,[host.ref]),audience:[f.owner]};
+ const skill=await createSkill(f.context(),{operationKey:'private-method-audience',pageId:host.id,name:'Owner audience method',definition:def});
+ expect((await listPageSkills(f.context(f.reader),host.id)).items).toHaveLength(0);
+ const response=await createApi().request('https://slate.example/api/skills/'+skill.value.id,{headers:{Cookie:await sessionFor(f.reader)}},env);
+ expect(response.status).toBe(404);expect(await response.text()).not.toContain(def.instructions);
+
+  });
+
+ });
+ await reset();
+ await scenario("SKILL-001 \u2014 portable skill snapshots preserve exact definitions and only currently disclosed attachments", async () => {
+  await scenario("SKILL-001 \u2014 portable SKILL.md preserves exact definition and original attachment with snapshot labels and current disclosure checks", async () => {
+ const f=await fixture(),host=await document(f,'Skill source with attachment'),bytes=new TextEncoder().encode('Original permitted source attachment');
+ await env.FILES.put('test/skill-attachment',bytes);await env.DB.prepare("INSERT INTO files(id,workspace_id,page_id,storage_key,original_name,content_type,size_bytes,created_at) VALUES('skill-file',?,?,'test/skill-attachment','original.txt','text/plain',?,?)").bind(f.workspaceId,host.id,bytes.length,f.context().now).run();
+ const cited=await replaceBlocks(f.context(),host.id,{operationKey:'cite-attachment',expectedRevisionId:host.ref.revisionId,blocks:[{id:'skill-attachment-block',blockType:'media',treePosition:'1',content:{kind:'file',source:{url:'/api/media/skill-file',fileId:'skill-file',name:'original.txt'},caption:'',alt:''}}]}),def=definition(f,[{...host.ref,revisionId:cited.receipt.revisionId}]);
+ const skill=await createSkill(f.context(),{operationKey:'skill-export',pageId:host.id,name:'Exact owned method',definition:def});
+ const archive=unzipSync((await exportSkillSnapshot(f.context(f.reader),skill.value.revisionId)).bytes),snapshot=JSON.parse(strFromU8(archive['snapshot.json']!));
+ expect(snapshot).toMatchObject({revisionId:skill.value.revisionId,ownerId:f.owner,executionAuthority:false,synchronization:'none',definition:def});
+ expect(strFromU8(archive['SKILL.md']!)).toContain('no live synchronization or execution authority');expect(archive['attachments/0']).toEqual(bytes);
+ await env.DB.prepare('DELETE FROM page_grants WHERE id=?').bind(host.grantId).run();
+ await expect(exportSkillSnapshot(f.context(f.reader),skill.value.revisionId)).rejects.toMatchObject({status:404});
+
+  });
+  await reset();
+  await scenario("skill snapshot export carries only the attachments its exact source revisions show the reader", async () => {
+ const {SELF}=await import('cloudflare:test');
+ const f=await fixture(),host=await document(f,'Skill source with a shown attachment'),owner=f.context();
+ const upload=(name:string,text:string)=>uploadMedia(owner,{operationKey:crypto.randomUUID(),pageId:host.id,name,contentType:'text/plain',bytes:new TextEncoder().encode(text)});
+ const shown=await upload('shown.txt','Attachment the cited revision shows');
+ const shownRevision=await replaceBlocks(owner,host.id,{operationKey:crypto.randomUUID(),expectedRevisionId:host.ref.revisionId,blocks:[{id:crypto.randomUUID(),blockType:'media',treePosition:'1',content:{kind:'file',source:{url:shown.value.url,fileId:shown.value.id,name:'shown.txt'},caption:'',alt:''}}]});
+ const ref={...host.ref,revisionId:shownRevision.receipt.revisionId},skill=await createSkill(owner,{operationKey:crypto.randomUUID(),pageId:host.id,name:'Shown attachment method',definition:definition(f,[ref])});
+ const hidden=await upload('unreleased-plan.txt','Unreleased upload the reader never sees');
+ const cookie=await sessionFor(f.reader);
+ expect((await SELF.fetch(`http://localhost/api/media/${hidden.value.id}`,{headers:{cookie}})).status).toBe(404);
+ const response=await SELF.fetch(`http://localhost/api/skills/versions/${skill.value.revisionId}/export`,{headers:{cookie}});
+ expect(response.status,await response.clone().text()).toBe(200);
+ const archive=unzipSync(new Uint8Array(await response.arrayBuffer()));
+ expect(JSON.parse(strFromU8(archive['attachments.json']!)).map((file:{name:string})=>file.name)).toEqual(['shown.txt']);
+ expect(Object.values(archive).map(bytes=>strFromU8(bytes)).join('\n')).not.toMatch(/unreleased/i);
+
+  });
+
+ });
 });
 test('SKILL-003 — exact continuation authority cannot disclose revoked dependencies outside the run subset',async()=>{
  const f=await fixture(),host=await document(f,'Allowed subset'),secret=await document(f,'Other confidential dependency'),def=definition(f,[host.ref,secret.ref]);
@@ -45,10 +98,10 @@ test('SOURCE-005 — complete archive refuses retained skill prose when its sour
  await env.DB.prepare('UPDATE pages SET deleted_at=? WHERE id=?').bind(f.context().now,secret.id).run();
  await expect(exportWorkspace(f.context())).rejects.toMatchObject({code:'EXPORT_SCOPE_INCOMPLETE'});
 });
-test('SKILL-001 — a readable host and source cannot widen the exact method audience',async()=>{
- const f=await fixture(),host=await document(f,'Readable source outside skill audience'),def={...definition(f,[host.ref]),audience:[f.owner]};
- const skill=await createSkill(f.context(),{operationKey:'private-method-audience',pageId:host.id,name:'Owner audience method',definition:def});
- expect((await listPageSkills(f.context(f.reader),host.id)).items).toHaveLength(0);
- const response=await createApi().request('https://slate.example/api/skills/'+skill.value.id,{headers:{Cookie:await sessionFor(f.reader)}},env);
- expect(response.status).toBe(404);expect(await response.text()).not.toContain(def.instructions);
-});
+
+
+// Keep each clause point visible in the failure while sharing one family registration.
+async function scenario(name: string, run: () => Promise<void>) {
+  try { await run(); }
+  catch (cause) { throw new Error(`Scenario ${name} failed`, { cause }); }
+}
