@@ -24,6 +24,17 @@
       }
     },
     {
+      "path": "BASELINE.md",
+      "originPath": "export/BASELINE.md",
+      "revision": "0fe27af9a5cb1bd9dc5e41da024784082e609010",
+      "files": {
+        "BASELINE.md": "7edf11ce7f54181e40afcf424209b9527bd1e0f7cf6fee7bf84d7811f082042f"
+      },
+      "modes": {
+        "BASELINE.md": "100644"
+      }
+    },
+    {
       "path": "CLAUDE.md",
       "originPath": "export/CLAUDE.md",
       "revision": "11f94fec479228d71ba6d7dd6ea7796c0d42c544",

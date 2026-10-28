@@ -15,7 +15,7 @@ import { slackNetwork, type SlackAudienceFixture } from '../helpers/slack-networ
 import { captureMail } from '../helpers/mail-edge';
 
 beforeEach(resetDeployment);
-test("NOTIF-003 — chat admission requires fresh authority and keeps link-only delivery inside the current audience", async () => {
+test("NOTIF-007 — chat admission requires fresh authority and keeps link-only delivery inside the current audience", async () => {
   // Each row retains its original fixture and every assertion.
   const cases = [
     { name: 'Chat destination sends link-only messages, shows last delivery and failure, retries only transient failures, marks revoked authorization as needing attention and stops on disconnect', run: async () => {

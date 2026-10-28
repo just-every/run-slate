@@ -85,6 +85,7 @@ jobs:
       # rer verify also checks hosted output and page hydration in Chromium.
       - name: Install Chromium
         run: bash .github/scripts/install-browsers.sh
+      - run: node src/base/runtime/contract-docs.mjs check
       - run: node scripts/sync-project-setup.mjs --check && pnpm verify
       # Every shard and contract acceptance consume this one verified build.
       - uses: actions/upload-artifact@v4

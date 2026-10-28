@@ -810,5 +810,461 @@
   {
     "id": "BASE-OPS-005",
     "name": "Audit"
+  },
+  {
+    "id": "HOME-002",
+    "name": "Run-site product landing"
+  },
+  {
+    "id": "HOME-003",
+    "name": "Run-site privacy and readable presentation"
+  },
+  {
+    "id": "IMP-015",
+    "name": "Import original, Undo and erasure custody"
+  },
+  {
+    "id": "IMP-016",
+    "name": "Imported Confluence principal and restriction mapping"
+  },
+  {
+    "id": "SURFACE-001",
+    "name": "Wiki registry and Core coverage"
+  },
+  {
+    "id": "SURFACE-002",
+    "name": "Wiki class computation for records and outside services"
+  },
+  {
+    "id": "SURFACE-003",
+    "name": "Wiki class computation for business and data effects"
+  },
+  {
+    "id": "SURFACE-004",
+    "name": "Revision-pinned knowledge resources"
+  },
+  {
+    "id": "SURFACE-005",
+    "name": "Wiki event handoffs"
+  },
+  {
+    "id": "SURFACE-006",
+    "name": "One seeded week for the wiki curator"
+  },
+  {
+    "id": "BASE-ROLE-001",
+    "name": "Roles through every door"
+  },
+  {
+    "id": "BASE-AUDIT-001",
+    "name": "Searchable, durable audit"
+  },
+  {
+    "id": "BASE-BACKUP-001",
+    "name": "Independent backup, restore and rollback"
+  },
+  {
+    "id": "BASE-DATA-006",
+    "name": "Erasure respects retention and legal hold"
+  },
+  {
+    "id": "BASE-SIGNIN-001",
+    "name": "Standards-based SSO and lifecycle"
+  },
+  {
+    "id": "BASE-SIGNIN-002",
+    "name": "Native multi-factor authentication"
+  },
+  {
+    "id": "BASE-INSTALL-001",
+    "name": "Free self-host and removal"
+  },
+  {
+    "id": "BASE-MAIL-001",
+    "name": "Truthful mail outcomes"
+  },
+  {
+    "id": "BASE-ACCESSIBILITY-001",
+    "name": "One accessibility bar"
+  },
+  {
+    "id": "BASE-DOCS-001",
+    "name": "On-site docs from one contract"
+  },
+  {
+    "id": "BASE-AGENT-001",
+    "name": "One MCP door per seed"
+  },
+  {
+    "id": "BASE-AGENT-002",
+    "name": "The seed's jobs are tools, through the UI's own actions"
+  },
+  {
+    "id": "BASE-AGENT-003",
+    "name": "Records are resources"
+  },
+  {
+    "id": "BASE-AGENT-004",
+    "name": "Business identity and short-lived, audience-bound tokens"
+  },
+  {
+    "id": "BASE-AGENT-005",
+    "name": "An agent acts as a person in a role, never more"
+  },
+  {
+    "id": "BASE-AGENT-006",
+    "name": "Every action declares its risk class"
+  },
+  {
+    "id": "BASE-AGENT-007",
+    "name": "The company's policy decides, at one chokepoint"
+  },
+  {
+    "id": "BASE-AGENT-008",
+    "name": "Truthful attribution"
+  },
+  {
+    "id": "BASE-AGENT-009",
+    "name": "Every agent action is audited with its class and decision"
+  },
+  {
+    "id": "BASE-AGENT-010",
+    "name": "Agents can follow changes"
+  },
+  {
+    "id": "BASE-AGENT-011",
+    "name": "Limits are policy, and Pause stops everything"
+  },
+  {
+    "id": "BASE-AGENT-012",
+    "name": "Writes are idempotent and conflict-safe"
+  },
+  {
+    "id": "BASE-AGENT-013",
+    "name": "Manifest, docs and the conformance journey"
+  },
+  {
+    "id": "NOTIF-003",
+    "name": "Chat notifications"
+  },
+  {
+    "id": "COLLAB-001",
+    "name": "Live co-editing by default"
+  },
+  {
+    "id": "COLLAB-002",
+    "name": "Presence, cursors and following"
+  },
+  {
+    "id": "COLLAB-003",
+    "name": "Offline edits that merge"
+  },
+  {
+    "id": "COLLAB-004",
+    "name": "Long pages and heavy tables stay fast"
+  },
+  {
+    "id": "COLLAB-005",
+    "name": "Attributed history from co-editing"
+  },
+  {
+    "id": "BLOCK-011",
+    "name": "Synced blocks"
+  },
+  {
+    "id": "BLOCK-012",
+    "name": "Columns and page layouts"
+  },
+  {
+    "id": "BLOCK-013",
+    "name": "Equations and diagrams as code"
+  },
+  {
+    "id": "BLOCK-017",
+    "name": "Table of contents block"
+  },
+  {
+    "id": "BLOCK-018",
+    "name": "Status labels"
+  },
+  {
+    "id": "BLOCK-019",
+    "name": "Diagrams.net diagrams"
+  },
+  {
+    "id": "BLOCK-021",
+    "name": "Attachment previews"
+  },
+  {
+    "id": "BLOCK-022",
+    "name": "Attachment versions"
+  },
+  {
+    "id": "WORK-016",
+    "name": "People directory and expertise"
+  },
+  {
+    "id": "SHARE-009",
+    "name": "Share with a message"
+  },
+  {
+    "id": "SEARCH-012",
+    "name": "Connected results in search"
+  },
+  {
+    "id": "SEARCH-013",
+    "name": "Search inside attached files"
+  },
+  {
+    "id": "SEARCH-014",
+    "name": "Old Confluence URLs find their Slate record"
+  },
+  {
+    "id": "STAT-006",
+    "name": "Review requests and expert queues"
+  },
+  {
+    "id": "CARD-001",
+    "name": "Knowledge cards and collections"
+  },
+  {
+    "id": "CARD-002",
+    "name": "Browser extension"
+  },
+  {
+    "id": "CARD-003",
+    "name": "Required reading and announcements"
+  },
+  {
+    "id": "DB-013",
+    "name": "Database forms"
+  },
+  {
+    "id": "DB-014",
+    "name": "Dashboards"
+  },
+  {
+    "id": "DB-016",
+    "name": "AI autofill fields"
+  },
+  {
+    "id": "NOTIF-005",
+    "name": "Email, push and digest delivery"
+  },
+  {
+    "id": "NOTIF-006",
+    "name": "Workspace notification defaults"
+  },
+  {
+    "id": "AUTO-006",
+    "name": "Outbound automation actions"
+  },
+  {
+    "id": "AUTO-007",
+    "name": "Triggers from connected tools"
+  },
+  {
+    "id": "AUTO-008",
+    "name": "Accountable follow-through"
+  },
+  {
+    "id": "IMP-006",
+    "name": "Notion import with comments and live databases"
+  },
+  {
+    "id": "IMP-007",
+    "name": "Confluence Cloud live migration"
+  },
+  {
+    "id": "IMP-008",
+    "name": "Guru import"
+  },
+  {
+    "id": "IMP-010",
+    "name": "Confluence macros, tasks and diagrams map to Slate blocks"
+  },
+  {
+    "id": "IMP-011",
+    "name": "Confluence space permissions become container grants"
+  },
+  {
+    "id": "IMP-012",
+    "name": "Confluence personal spaces become personal containers"
+  },
+  {
+    "id": "IMP-013",
+    "name": "Old Confluence links resolve in Slate"
+  },
+  {
+    "id": "IMP-014",
+    "name": "Links between spaces imported in separate passes"
+  },
+  {
+    "id": "EMBED-001",
+    "name": "Live issue embeds from Vector and Jira"
+  },
+  {
+    "id": "EMBED-002",
+    "name": "GitHub and GitLab embeds"
+  },
+  {
+    "id": "EMBED-004",
+    "name": "Live file cards from Drive, SharePoint and Chest"
+  },
+  {
+    "id": "EMBED-005",
+    "name": "Backlinks on Jira and Vector issues"
+  },
+  {
+    "id": "EMBED-006",
+    "name": "Jira links to migrated Confluence pages are re-pointed at cutover"
+  },
+  {
+    "id": "EMBED-007",
+    "name": "Issues that link here"
+  },
+  {
+    "id": "EMBED-008",
+    "name": "Slate for Jira: smart links and project pages"
+  },
+  {
+    "id": "CHAT-002",
+    "name": "Ask and unfurl in chat"
+  },
+  {
+    "id": "CHAT-003",
+    "name": "Capture chat into pages"
+  },
+  {
+    "id": "CHAT-004",
+    "name": "Personal notifications as chat direct messages"
+  },
+  {
+    "id": "CONNECT-001",
+    "name": "Named connectors"
+  },
+  {
+    "id": "CONNECT-002",
+    "name": "Source permissions are mirrored"
+  },
+  {
+    "id": "CONNECT-003",
+    "name": "Connector health"
+  },
+  {
+    "id": "ANSWER-001",
+    "name": "Cited answers in the default product"
+  },
+  {
+    "id": "ANSWER-002",
+    "name": "Answers state their trust"
+  },
+  {
+    "id": "ANSWER-003",
+    "name": "Answers never leak restricted knowledge"
+  },
+  {
+    "id": "ANSWER-004",
+    "name": "Feedback and unanswered questions"
+  },
+  {
+    "id": "ANSWER-005",
+    "name": "Summaries and catch-up"
+  },
+  {
+    "id": "ANSWER-006",
+    "name": "Owner-chosen models and data controls"
+  },
+  {
+    "id": "API-001",
+    "name": "Public REST API"
+  },
+  {
+    "id": "API-002",
+    "name": "Webhooks"
+  },
+  {
+    "id": "API-003",
+    "name": "MCP server"
+  },
+  {
+    "id": "API-004",
+    "name": "App and token administration"
+  },
+  {
+    "id": "API-005",
+    "name": "Zapier, Make and Crank apps"
+  },
+  {
+    "id": "ADMIN-002",
+    "name": "SCIM provisioning"
+  },
+  {
+    "id": "ADMIN-005",
+    "name": "Audit export and SIEM streaming"
+  },
+  {
+    "id": "ADMIN-006",
+    "name": "Content governance"
+  },
+  {
+    "id": "ADMIN-007",
+    "name": "Every target surface ships in the default product"
+  },
+  {
+    "id": "MOBILE-001",
+    "name": "Native iOS and Android apps"
+  },
+  {
+    "id": "MOBILE-002",
+    "name": "Desktop app"
+  },
+  {
+    "id": "MOBILE-003",
+    "name": "Offline pages"
+  },
+  {
+    "id": "MOBILE-004",
+    "name": "Push notifications"
+  },
+  {
+    "id": "KEEP-001",
+    "name": "Contradiction watch"
+  },
+  {
+    "id": "KEEP-002",
+    "name": "Revision-specific fix proposals"
+  },
+  {
+    "id": "KEEP-003",
+    "name": "Close knowledge gaps as work"
+  },
+  {
+    "id": "KEEP-004",
+    "name": "Duplicates and conflicts"
+  },
+  {
+    "id": "KEEP-005",
+    "name": "Answers with current evidence and stated uncertainty"
+  },
+  {
+    "id": "KEEP-006",
+    "name": "Checked runbooks"
+  },
+  {
+    "id": "KEEP-007",
+    "name": "Onboarding paths"
+  },
+  {
+    "id": "KEEP-008",
+    "name": "Stale-knowledge sweeps"
+  },
+  {
+    "id": "KEEP-009",
+    "name": "Measured knowledge health"
+  },
+  {
+    "id": "KEEP-010",
+    "name": "Team-built agents"
   }
 ]

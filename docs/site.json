@@ -255,6 +255,26 @@
     {
       "source": "modules/import-kit/src/door/ADOPTING.md",
       "reason": "Pinned Base import door integration reference for maintainers."
+    },
+    {
+      "source": "RULINGS.md",
+      "reason": "Owner and ct decisions governing the target contract"
+    },
+    {
+      "source": "docs/contract/DONE-AUDIT.md",
+      "reason": "Clause-by-clause carried-done journey review"
+    },
+    {
+      "source": "docs/wiki-doors.md",
+      "reason": "Protocol and representation detail for contract authors"
+    },
+    {
+      "source": "docs/verification-rules.md",
+      "reason": "Detailed verification-rule semantics"
+    },
+    {
+      "source": "docs/verify.md",
+      "reason": "Retained full-product acceptance gates and qualification guidance"
     }
   ]
 }

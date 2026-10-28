@@ -3,9 +3,11 @@
   "old": "c9607a90ff52882a4c48a2bf685917c3929287b4",
   "ids": {
     "HOME-001": {
-      "how": "kept",
+      "how": "split",
       "to": [
-        "HOME-001"
+        "HOME-001",
+        "HOME-002",
+        "HOME-003"
       ]
     },
     "DOCS-001": {
@@ -837,9 +839,10 @@
       ]
     },
     "NOTIF-003": {
-      "how": "kept",
+      "how": "split",
       "to": [
-        "NOTIF-003"
+        "NOTIF-003",
+        "NOTIF-007"
       ]
     },
     "MAIL-001": {
@@ -921,9 +924,10 @@
       ]
     },
     "IMP-001": {
-      "how": "kept",
+      "how": "split",
       "to": [
-        "IMP-001"
+        "IMP-001",
+        "IMP-015"
       ]
     },
     "IMP-002": {
@@ -933,9 +937,10 @@
       ]
     },
     "IMP-003": {
-      "how": "kept",
+      "how": "split",
       "to": [
-        "IMP-003"
+        "IMP-003",
+        "IMP-016"
       ]
     },
     "IMP-004": {

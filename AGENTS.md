@@ -44,3 +44,8 @@ The default profile is core-wiki. Flagship is explicitly configured development 
 `SLATE_MAIL_PROVIDER` is an explicit deployment input (`resend` or `sendgrid`) rendered as runtime `MAIL_PROVIDER`; do not restore a provider default. Development mail is allowed only with `LOCAL_DEVELOPMENT=true` and an exact loopback origin. Deployment and remote provider operations need the caller's authorization. `rer setup` prepares local native settings and owner sign-in; `rer deploy --environment NAME` uses Base deploy-kit for owner-account resources, secrets, migrations and health. Record local, deployed and provider evidence separately. Stop servers and watchers started for checks when finished.
 
 Managed hosting uses the copied Base `rer` mail relay adapter and needs no owner provider account. RER Configure fills and hides `MAIL_PROVIDER=rer`, `MAIL_FROM`, `MAIL_RELAY_URL` and private `MAIL_API_KEY`, generating the installation/environment credential. Never expose that credential or the upstream provider key. Free and Assisted hosting retain own-account Resend/SendGrid options; owner-account `rer deploy` still requires explicit `SLATE_MAIL_PROVIDER=resend` or `sendgrid`. Local dev and demo suppress mail silently per rer 0.2.22; sign-in is one click. Relay acceptance is not inbox delivery; record deployed relay evidence separately from local checks.
+
+Contract views are generated from CONTRACT.md before locking source:
+
+Lander-Regenerate: node src/base/runtime/contract-docs.mjs write
+Lander-Regenerate: node scripts/edition-authoring/cli.mjs lock

@@ -1,3 +1,4 @@
+import {parseContract} from '../src/base/runtime/seed-contract.mjs';
 import {retiredRuntimeFindings} from './retired-runtime.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -12,21 +13,8 @@ export async function inspectContract(root = process.cwd()) {
     try { return JSON.parse(await read(relativePath)); }
     catch (error) { if (error.code === 'ENOENT') return undefined; throw error; }
   }
-  /** Splits CONTRACT.md into `{ id, body }` in document order. */
-  function readClauses(markdown, registeredIds) {
-    const clauses = [];
-    // A target can be registered without rewriting the owner's contract text.
-    const pattern = /\*\*([A-Z]+-\d{3}) —|^#### ([A-Z]+-\d{3}) —/gm;
-    let match;
-    while ((match = pattern.exec(markdown))) {
-      const id = match[1] ?? match[2];
-      if (match[2] && !registeredIds.has(id)) continue;
-      const next = /\*\*[A-Z]+-\d{3} —|^#### [A-Z]+-\d{3} —/gm;
-      next.lastIndex = match.index + match[0].length;
-      const end = next.exec(markdown)?.index ?? markdown.length;
-      clauses.push({ id, body: markdown.slice(match.index, end) });
-    }
-    return clauses;
+  function readClauses(markdown) {
+    return parseContract(markdown).clauses.map(clause => ({id: clause.id, body: clause.text}));
   }
 
   /**
@@ -74,7 +62,7 @@ export async function inspectContract(root = process.cwd()) {
   check("every declared policy has a definition with values", [...manifestPolicies].every((id) => (policyDefinitions.get(id)?.values.length ?? 0) >= 2), {
     policies: Object.fromEntries([...policyDefinitions].map(([id, definition]) => [id, definition.values])),
   });
-  check("contract IDs do not collide with baseline suffixes", contractIds.every((id) => !baselineIds.some((baselineId) => baselineId.endsWith(id))));
+  check("contract IDs are distinct from complete Base IDs", contractIds.every((id) => !baselineIds.includes(id) && !id.startsWith("BASE-")));
   const retiredFindings = await retiredRuntimeFindings(root);
   check("retired runtimes have been removed", retiredFindings.length === 0, {findings: retiredFindings});
   check("operator and public paths follow the seed URL convention", manifest.deploy.operatorPath === "/app" && ["/", "/signin", "/health", "/api/auth/", "/assets/"].every((path) => manifest.deploy.publicPaths.includes(path)) && manifest.deploy.publicPaths.every((path) => path === "/" || path.startsWith("/")))
