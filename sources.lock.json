@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "ff13ed84a56c853dcf25301027b916cd5b1fe5ab17505f7327ab9653aaf87754",
+      "sha256": "9cee18c64b05398dd59de0b83ac64325f4247dfd1ecf96069f1482e40642d0fb",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -968,7 +968,7 @@
       "executable": false
     },
     "AGENTS.md": {
-      "sha256": "172473e185da7ef11ee55853ea15bf9784e11e84c19d117ddc87daf26cdabaee",
+      "sha256": "3b6e171f2d47d80e45bcf9cd452a505f96012b483371695616b5e79a0a78146d",
       "executable": false
     },
     "base-copies.json": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "59c3e67e8553bec17d2c42f560f1b965080a51a58023b89bf6b8a333ee1faa76",
+      "sha256": "cafd9a15af45600472eb36e231f2d9fe952db172634576665963c10793e0f401",
       "executable": false
     },
     "DEMO.md": {
@@ -1036,7 +1036,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "2f2e32228d5c9c4c87f178645ea693c33a4fe04d46be2961e30539034745ba3c",
+      "sha256": "ce07ce9eb84e85808c223a84d2268c85d248529a5b05dd5dde39d90ed540c5ce",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -4740,7 +4740,7 @@
       "executable": false
     },
     "scripts/contract-docs.mjs": {
-      "sha256": "543701034dc91ed81beb46fe1a83c11e38d057c8f373e1e2be044f3423a5f90c",
+      "sha256": "4c6e4da63e7ed2ee27959e8b8bc20aed1b1367e4177dcd7dd896e7ea80543603",
       "executable": false
     },
     "scripts/delivery/base/artifact.mjs": {
@@ -6744,7 +6744,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/EditableElement.tsx": {
-      "sha256": "505634c2c0745f4bffd71abf93d6115dad199afc10619e6bcdae39ac9673eac8",
+      "sha256": "b888cd2dc30630dff915f1094139e1d0e4a1529dc78eacd7365bcf8fc7b57462",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/editableSelection.ts": {
@@ -8332,7 +8332,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageComments.tsx": {
-      "sha256": "d4b834d52569eef961368d9b62af238bb0fbb24ace8137423928c35129ab6823",
+      "sha256": "b7d5625273476cb56fe1ed742f7f6f6fbc509da2020afd8a20516e0acd4776c8",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageDetails.tsx": {
@@ -8400,7 +8400,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/ReactionControls.tsx": {
-      "sha256": "37eff1f2ac47971d692f900e869b44e35b5b92a7b79fa015cd3e54e3d63eb781",
+      "sha256": "4cb7d49d3dad13c52a3c1c36b3d0d54e5f4addeeb4175079fa492f8fbb445b9e",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/selection.ts": {
@@ -11699,6 +11699,14 @@
       "sha256": "9842535ecf7e27e59d6bb3fca57d8d1c64ab29149d45743f3c9c5d0d9cd0d19f",
       "executable": false
     },
+    "tests/qualification/ui-convergence/comment-anchors.mjs": {
+      "sha256": "884935a15d5ff376f243f1c083f4a17970324a8245e5db32ff41c21baf5f2a20",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/comment-mentions.mjs": {
+      "sha256": "edc8ebf06bce58fa9c9db699dc6ed6aeac1503025bd41c4a506f37a6f10a6ec2",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
       "sha256": "637efdb5ebd64f8c68bf1010877475a2a73719c199e5bdedf215161d8c4af602",
       "executable": false
@@ -11852,7 +11860,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/group-mentions-journey.mjs": {
-      "sha256": "1adfdf1fe35c3c4e239a07c5f84a9e81831b3b31d7582c5e9a239f7edce9ecf7",
+      "sha256": "c85ad0dc6e2f684dfabd1018b128d7083bc5bc67c9d7ec9489cfb84b4da11163",
       "executable": false
     },
     "tests/qualification/ui-convergence/guest-console-journey.mjs": {
@@ -11916,7 +11924,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reactions-journey.mjs": {
-      "sha256": "8e92a162392c9c6999018112d7c3ce50c5e576227061770b814947641401f00f",
+      "sha256": "cd35fa489658b3d9c36f51117e1b860f0218fee458df1ce54bdf57e38db3bfe1",
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {

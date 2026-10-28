@@ -100,7 +100,7 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
             </div>
             {thread.anchor_json ? (
               <div><blockquote>{(JSON.parse(thread.anchor_json) as {quote?:string}).quote}</blockquote>
-              {document.blocks.some(b=>b.id===thread.block_id && JSON.stringify(b.content).includes((JSON.parse(thread.anchor_json!) as {anchorId:string}).anchorId)) ? <button onClick={()=>window.document.querySelector(`[data-block-id="${CSS.escape(thread.block_id!)}"]`)?.scrollIntoView({block:"center"})}>Jump to selected text</button> : <p>Original text is no longer on the page. <a href={`/app/pages/${document.page.id}?detail=history&revision=${thread.anchor_revision_id}`}>Open original revision</a></p>}</div>
+              {document.blocks.some(b=>b.id===thread.block_id && JSON.stringify(b.content).includes((JSON.parse(thread.anchor_json!) as {anchorId:string}).anchorId)) ? <button onClick={()=>window.document.querySelector(`[data-block-id="${CSS.escape(thread.block_id!)}"]`)?.scrollIntoView({block:"center"})}>Jump to selected text</button> : <p>Original text is no longer on the page. <a href={`/app/pages/${document.page.id}?detail=history&revision=${thread.anchor_revision_id}`}>Open original revision {thread.anchor_revision_id}</a></p>}</div>
             ) : null}
             {resource.data?.comments
               .filter((comment) => comment.threadId === thread.id)

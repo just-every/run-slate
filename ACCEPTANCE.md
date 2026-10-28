@@ -11,9 +11,9 @@
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 44 | 177 | 0 | 221 |
+| Published | 47 | 174 | 0 | 221 |
 | Target and push further | 19 | 52 | 34 | 105 |
-| All | 63 | 229 | 34 | 326 |
+| All | 66 | 226 | 34 | 326 |
 
 ### Published: Workspace, editing and pages
 
@@ -109,9 +109,9 @@
 | `STAT-005` Status profile | Profile journeys for `verification-only` and `open-vocabulary` show and hide exactly the listed controls | done | `tests/qualification/policies/emitted.mjs` |
 | `COMM-001` Two kinds of thread | Inline and page threads by comment-level members, chronological, Open or Resolved | done | No validated CI-run proof for this acceptance point: "A member with `comment` access or more can open an inline thread anchored to a selection in a block, and a page thread about the page as a whole."<br>No validated CI-run proof for this acceptance point: "A thread is chronological, is Open or Resolved, and records each comment's author and time."<br>No validated CI-run proof for this acceptance point: "Both kinds are threads; only their anchor differs." |
 | `COMM-002` Editing and deletion | Members edit or delete only their own comments; edits are timestamped and deletions leave tombstones | done | No validated CI-run proof for this acceptance point: "A member can edit or delete only their own comments."<br>No validated CI-run proof for this acceptance point: "An edited comment shows the time it was last edited, a deleted comment leaves a tombstone in place, and both write an activity entry." |
-| `COMM-003` Mentions | A mention notifies once and never a member who cannot read the page; editing notifies only new mentions | done | `tests/qualification/interface/content.mjs` |
-| `COMM-004` Anchors survive editing | Inline threads follow text through edits and become orphaned, not lost, naming their revision | done | `tests/qualification/interface/content.mjs` |
-| `COMM-005` Reactions | Comment reactions show who reacted and never notify | done | `tests/qualification/interface/content.mjs` |
+| `COMM-003` Mentions | A mention notifies once and never a member who cannot read the page; editing notifies only new mentions | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "group mentions preview readers and refuse oversized groups at 1440px", including `tests/qualification/ui-convergence/comment-mentions.mjs` — "commentMentionsJourney" (one unread comment-linked notice, unreadable recipients excluded, new mentions only on edit and replay-safe delivery). |
+| `COMM-004` Anchors survive editing | Inline threads follow text through edits and become orphaned, not lost, naming their revision | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "page and comment reactions identify people without notifications or views at 1440px", including `tests/qualification/ui-convergence/comment-anchors.mjs` — "commentAnchorsJourney" (edits within selected text, splits, moves, retained orphaned discussion, named original revision and exact snapshot navigation). |
+| `COMM-005` Reactions | Comment reactions show who reacted and never notify | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "page and comment reactions identify people without notifications or views at 1440px", using `tests/qualification/ui-convergence/reactions-journey.mjs` — "reactionsJourney" (named reader, add and remove, unchanged inbox and keyboard tooltip); `tests/e2e/pages/reactions.test.ts` — "PAGE-014 page and comment reactions identify each member, toggle independently and never notify or count as views" (view-only reader and denied access). |
 | `COMM-006` Discussions panel | Discussions panel filters by kind, status and person, shows orphaned threads and resolves all | done | `tests/qualification/interface/content.mjs` |
 | `COMM-007` Resolve | Resolve and reopen by comment-level members; resolved threads stay readable and searchable | done | No validated CI-run proof for this acceptance point: "Any member with `comment` access can resolve or reopen a thread."<br>No validated CI-run proof for this acceptance point: "A resolved thread is hidden from the page body, stays readable in the panel and in search, and keeps its comments and reactions." |
 | `ARCH-001` Archive | Archiving records actor, time, prior location and reason and archives descendants | done | No validated CI-run proof for this acceptance point: "A page, a container or a database can be archived."<br>No validated CI-run proof for this acceptance point: "Archiving records the actor, the time, the prior location and an optional reason, and archives the record's descendants with it." |
