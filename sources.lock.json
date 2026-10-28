@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "63b2de42d2e924e4a429a5c1bb8522c0cd7387e84efb4898f77096269b3676cc",
+      "sha256": "39b9f3ccaf6ab0b3cd874307607d59b328554cce4f897a3fcc38669acf31a9d7",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -968,7 +968,7 @@
       "executable": false
     },
     "AGENTS.md": {
-      "sha256": "cb44736073dd73bad6a8431e91d279ea0f293d08f626d6f2b27d9074c5fadaeb",
+      "sha256": "3cf97cbfcc273114fb21c21bd4721a4b4e0c2c2a451a0832fe609ab4b13148e5",
       "executable": false
     },
     "base-copies.json": {
@@ -1036,7 +1036,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "d68fe3d48e0657dd44b46c9ecf216bcde87331b409b6c068d05166836be31a58",
+      "sha256": "805b5e43eff759c0433083faf03ff553ee6b0ff0ee967676c152db2c88b0ab4b",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -4737,6 +4737,10 @@
     },
     "scripts/check-rer-adoption.mjs": {
       "sha256": "6fd951a719b9e8111662e9f7ef612b6dec7140ceebfa5b8b47aec9fa84976ea4",
+      "executable": false
+    },
+    "scripts/contract-docs.mjs": {
+      "sha256": "4c6e4da63e7ed2ee27959e8b8bc20aed1b1367e4177dcd7dd896e7ea80543603",
       "executable": false
     },
     "scripts/delivery/base/artifact.mjs": {
@@ -11700,7 +11704,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/comment-mentions.mjs": {
-      "sha256": "2aa9470a8062019e2b5b7803d6051bf5c06d003db0ea15b0e9d5ac89155287db",
+      "sha256": "f03e807a5bafcfe42fd927068deeeb0473bfc45e0a9f6d8ec6e474fc7f4c7ff8",
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
