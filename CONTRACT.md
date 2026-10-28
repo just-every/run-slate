@@ -3542,8 +3542,8 @@ Inherits BASE-AGENT-001 to BASE-AGENT-013. The company's policy decides every ca
 - **accounts.** Creating a paid SSO account or outside resource carries its provider.
 - **gated.** A provider’s account consent (including Slack OAuth installation or Teams Entra-admin consent), hosted card entry or identity check carries provider and step when that provider requires a person; an offered agent API uses the company policy for the call’s classes.
 - **access.** Membership, groups, guest or page grants, SAML admission allow-lists, restored grants, connector or client authority and governance changes to standing permission carry people affected and widening or narrowing; reassigning a page owner without changing authority remains standard.
-- **security.** SSO enforcement, AI-provider, chat or source connector credential custody and changes, token custody, signed-webhook or audit-stream signing and SIEM credentials, audit retention and backup protective settings carry the affected setting.
-- **destructive.** Permanent erasure, connector-content purge, permanent template deletion, backup retention deletion or deleting a retained page or attachment version carries the item count; reversible trash and archive remain standard.
+- **security.** SSO enforcement, AI-provider, chat or source connector credential custody and changes, token custody, signed-webhook or audit-stream signing and SIEM credentials, audit retention, backup and form anti-spam protective settings carry the affected setting.
+- **destructive.** Permanent erasure, connector-content purge, permanent template, saved-conversation, decision-record or saved-view deletion, irreversible field conversion or removal, backup retention deletion or deleting a retained page or attachment version carries the item count; reversible trash, archive and changes recoverable through revision restore remain standard.
 - **sensitive.** Reading, writing or exporting source or wiki records containing regulated ID, health, bank, card or payroll data carries record count and data kind; a confidential label alone does not invent this class.
 - **live.** A trial effect, operational remediation, learned-procedure activation or skill activation that changes a running service carries that service; a read-only rehearsal remains standard.
 
@@ -3551,18 +3551,18 @@ The table declares possible classes; a conditional class is added only when curr
 
 | Tool | Does | Core clauses | Risk class | Today |
 | --- | --- | --- | --- | --- |
-| `slate.workspace.read` | Workspace — read | WORK-001 | standard (+ sensitive) | not exposed |
+| `slate.workspace.read` | Workspace — read | WORK-001 | standard or external (+ sensitive) | not exposed |
 | `slate.members.manage` | Members — manage | WORK-003, WORK-008 | standard or external (+ access) | not exposed |
 | `slate.invitations.manage` | Invitations — manage | WORK-006, SHARE-006 | standard or external (+ access) (+ sensitive) | not exposed |
-| `slate.members.remove` | Members — remove | WORK-007 | standard (+ access) | not exposed |
+| `slate.members.remove` | Members — remove | WORK-007 | standard (+ access) (+ sensitive) | not exposed |
 | `slate.groups.manage` | Groups — manage | WORK-009 | standard (+ access) | not exposed |
-| `slate.guests.manage` | Guests — manage | WORK-010, ADMIN-003 | standard or external (+ access) | not exposed |
+| `slate.guests.manage` | Guests — manage | WORK-010, ADMIN-003 | standard or external (+ access) (+ sensitive) | not exposed |
 | `slate.settings.update` | Settings — update | WORK-011, LIFE-006, WEB-007, REV-007, STAT-005, CONT-008 | standard or external (+ sensitive) | not exposed |
 | `slate.identity.configure` | Identity — configure | WORK-015, ADMIN-001 | standard (+ access) (+ security) | not exposed |
 | `slate.pages.update` | Pages — update | SAVE-003, SAVE-005, PAGE-006, PAGE-012, LIFE-005 | standard or external (+ sensitive) | not exposed |
 | `slate.blocks.update` | Blocks — update | SAVE-006, BLOCK-001, BLOCK-002, BLOCK-005, BLOCK-006, BLOCK-007, COLLAB-001, COLLAB-003, BLOCK-011, BLOCK-012, BLOCK-013, BLOCK-014, BLOCK-017, BLOCK-018, BLOCK-019, BLOCK-020 | standard or external (+ sensitive) | not exposed |
 | `slate.pages.read` | Pages — read | PAGE-001, PAGE-003, PAGE-007, LIFE-001, LIFE-002 | standard or external (+ access) (+ sensitive) | not exposed |
-| `slate.pages.create` | Pages — create | PAGE-002, TREE-005, NAV-005 | standard or external (+ sensitive) | not exposed |
+| `slate.pages.create` | Pages — create | PAGE-002, TREE-005, NAV-005 | standard or external (+ access) (+ sensitive) | not exposed |
 | `slate.pages.move` | Pages — move | PAGE-004, TREE-002 | standard or external (+ access) (+ sensitive) | not exposed |
 | `slate.pages.duplicate` | Pages — duplicate | PAGE-005 | standard or external (+ sensitive) | not exposed |
 | `slate.favorites.set` | Favorites — set | PAGE-008 | standard or external (+ sensitive) | not exposed |
@@ -3585,9 +3585,9 @@ The table declares possible classes; a conditional class is added only when curr
 | `slate.revisions.restore` | Revisions — restore | REV-003 | standard or external (+ sensitive) | not exposed |
 | `slate.revisions.compare` | Revisions — compare | REV-004 | standard (+ sensitive) | not exposed |
 | `slate.revisions.delete` | Revisions — delete | REV-006 | destructive (+ sensitive) | not exposed |
-| `slate.statuses.configure` | Statuses — configure | STAT-001 | standard (+ sensitive) | not exposed |
-| `slate.statuses.set` | Statuses — set | STAT-002 | standard or external (+ sensitive) | not exposed |
-| `slate.statuses.verify` | Statuses — verify | STAT-003 | standard (+ commitment) (+ sensitive) | not exposed |
+| `slate.statuses.configure` | Statuses — configure | STAT-001 | standard or external (+ sensitive) | not exposed |
+| `slate.statuses.set` | Statuses — set | STAT-002 | standard or external (+ commitment) (+ sensitive) | not exposed |
+| `slate.statuses.verify` | Statuses — verify | STAT-003 | standard or external (+ commitment) (+ sensitive) | not exposed |
 | `slate.statuses.read` | Statuses — read | STAT-004 | standard (+ sensitive) | not exposed |
 | `slate.comments.create` | Comments — create | COMM-001, COMM-003 | standard or external (+ sensitive) | not exposed |
 | `slate.comments.manage` | Comments — manage | COMM-002 | standard or external (+ destructive) (+ sensitive) | not exposed |
@@ -3599,10 +3599,10 @@ The table declares possible classes; a conditional class is added only when curr
 | `slate.containers.create` | Containers — create | CONT-002 | standard or external (+ access) (+ sensitive) | not exposed |
 | `slate.containers.list` | Containers — list | CONT-003 | standard (+ sensitive) | not exposed |
 | `slate.containers.configure` | Containers — configure | CONT-004, CONT-007 | standard or external (+ access) (+ security) (+ sensitive) | not exposed |
-| `slate.pages.bulk_update` | Pages — bulk update | CONT-006 | standard or external (+ sensitive) | not exposed |
+| `slate.pages.bulk_update` | Pages — bulk update | CONT-006 | standard or external (+ commitment) (+ access) (+ sensitive) | not exposed |
 | `slate.databases.create` | Databases — create | DB-001 | standard or external (+ access) (+ sensitive) | not exposed |
-| `slate.fields.configure` | Fields — configure | DB-002 | standard or external (+ sensitive) | not exposed |
-| `slate.views.configure` | Views — configure | DB-003, DB-004, DB-005, DB-006 | standard or external (+ sensitive) | not exposed |
+| `slate.fields.configure` | Fields — configure | DB-002 | standard or external (+ destructive) (+ sensitive) | not exposed |
+| `slate.views.configure` | Views — configure | DB-003, DB-004, DB-005, DB-006 | standard or external (+ destructive) (+ sensitive) | not exposed |
 | `slate.views.query` | Views — query | DB-007, DB-011 | standard (+ sensitive) | not exposed |
 | `slate.charts.configure` | Charts — configure | DB-008 | standard or external (+ sensitive) | not exposed |
 | `slate.databases.lock` | Databases — lock | DB-009 | standard or external (+ sensitive) | not exposed |
@@ -3619,7 +3619,7 @@ The table declares possible classes; a conditional class is added only when curr
 | `slate.templates.use` | Templates — use | TMPL-003 | standard or external (+ sensitive) | not exposed |
 | `slate.templates.manage` | Templates — manage | TMPL-004, TMPL-005, TMPL-006 | standard or external (+ destructive) (+ sensitive) | not exposed |
 | `slate.exports.workspace` | Exports — workspace | PORT-001, PORT-003, PORT-005 | standard or external (+ sensitive) | not exposed |
-| `slate.installation.restore` | Installation — restore | PORT-002, PORT-004, PORT-006 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.installation.restore` | Installation — restore | PORT-002, PORT-004, PORT-006 | standard or external (+ access) (+ security) (+ sensitive) | not exposed |
 | `slate.exports.readable` | Exports — readable | PORT-007, PORT-008, PORT-010 | standard or external (+ sensitive) | not exposed |
 | `slate.links.resolve` | Links — resolve | LINK-001, LINK-002, LINK-003, LINK-004 | standard (+ sensitive) | not exposed |
 | `slate.providers.configure` | Providers — configure | AI-001, ANSWER-006 | standard or external (+ security) (+ sensitive) | not exposed |
@@ -3630,10 +3630,10 @@ The table declares possible classes; a conditional class is added only when curr
 | `slate.runs.read` | Runs — read | AI-008 | standard (+ sensitive) | run_status (partial) |
 | `slate.usage.read` | Usage — read | AI-010 | standard (+ sensitive) | not exposed |
 | `slate.agents.configure` | Agents — configure | AI-014, KEEP-010 | standard or external (+ commitment) (+ gated) (+ access) (+ destructive) (+ sensitive) | not exposed |
-| `slate.answers.ask` | Answers — ask | AI-015, ANSWER-001, ANSWER-002, ANSWER-003, ANSWER-004, KEEP-005 | standard or external (+ sensitive) | not exposed |
+| `slate.answers.ask` | Answers — ask | AI-015, ANSWER-001, ANSWER-002, ANSWER-003, ANSWER-004, KEEP-005 | standard or external (+ destructive) (+ sensitive) | not exposed |
 | `slate.summaries.run` | Summaries — run | AI-016, ANSWER-005 | standard or external (+ sensitive) | not exposed |
 | `slate.writing.transform` | Writing — transform | AI-017 | standard or external (+ sensitive) | not exposed |
-| `slate.decisions.manage` | Decisions — manage | DEC-001, DEC-002, DEC-003, DEC-004, DEC-005, DEC-006 | standard or external (+ commitment) (+ sensitive) | not exposed |
+| `slate.decisions.manage` | Decisions — manage | DEC-001, DEC-002, DEC-003, DEC-004, DEC-005, DEC-006 | standard or external (+ commitment) (+ destructive) (+ sensitive) | not exposed |
 | `slate.suggestions.manage` | Suggestions — manage | SUG-001, SUG-002 | standard or external (+ commitment) (+ sensitive) | not exposed |
 | `slate.connectors.configure` | Connectors — configure | SOURCE-001, SOURCE-006, CONNECT-001 | standard or external (+ gated) (+ access) (+ security) (+ sensitive) | not exposed |
 | `slate.claims.manage` | Claims — manage | SOURCE-003 | standard (+ commitment) (+ sensitive) | not exposed |
@@ -3655,18 +3655,18 @@ The table declares possible classes; a conditional class is added only when curr
 | `slate.attachments.replace` | Attachments — replace | BLOCK-022 | standard or external (+ destructive) (+ sensitive) | not exposed |
 | `slate.blog.manage` | Blog — manage | CONT-010 | standard or external (+ sensitive) | not exposed |
 | `slate.hub.configure` | Hub — configure | CONT-011 | standard or external (+ sensitive) | not exposed |
-| `slate.people.manage` | People — manage | WORK-016 | standard (+ access) (+ sensitive) | not exposed |
+| `slate.people.manage` | People — manage | WORK-016 | standard or external (+ access) (+ sensitive) | not exposed |
 | `slate.tasks.list` | Tasks — list | NAV-007 | standard or external (+ sensitive) | not exposed |
 | `slate.reviews.manage` | Reviews — manage | STAT-006 | standard or external (+ commitment) (+ sensitive) | not exposed |
 | `slate.verification_rules.configure` | Verification rules — configure | STAT-007 | standard or external (+ sensitive) | not exposed |
 | `slate.cards.manage` | Cards — manage | CARD-001 | standard or external (+ sensitive) | not exposed |
 | `slate.reading.manage` | Reading — manage | CARD-003 | standard or external (+ commitment) (+ sensitive) | not exposed |
-| `slate.forms.manage` | Forms — manage | DB-013 | standard or external (+ sensitive) | not exposed |
+| `slate.forms.manage` | Forms — manage | DB-013 | standard or external (+ security) (+ sensitive) | not exposed |
 | `slate.dashboards.configure` | Dashboards — configure | DB-014 | standard or external (+ sensitive) | not exposed |
 | `slate.record_templates.configure` | Record templates — configure | DB-015 | standard or external (+ sensitive) | not exposed |
 | `slate.fields.autofill` | Fields — autofill | DB-016 | standard or external (+ sensitive) | not exposed |
 | `slate.reminders.set` | Reminders — set | NOTIF-004 | standard or external (+ sensitive) | not exposed |
-| `slate.notification_preferences.configure` | Notification preferences — configure | NOTIF-005, NOTIF-006, CHAT-004 | standard or external (+ security) (+ sensitive) | not exposed |
+| `slate.notification_preferences.configure` | Notification preferences — configure | NOTIF-005, NOTIF-006, CHAT-004 | standard or external (+ gated) (+ access) (+ security) (+ sensitive) | not exposed |
 | `slate.rules.execute` | Rules — execute | AUTO-006 | standard or external (+ gated) (+ security) (+ sensitive) | not exposed |
 | `slate.jobs.manage` | Jobs — manage | AUTO-008 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ destructive) (+ sensitive) (+ live) | not exposed |
 | `slate.backups.configure` | Backups — configure | PORT-009 | standard or external (+ security) (+ destructive) (+ sensitive) | not exposed |
@@ -3679,7 +3679,7 @@ The table declares possible classes; a conditional class is added only when curr
 | `slate.clients.manage` | Clients — manage | API-004 | standard (+ access) (+ security) | not exposed |
 | `slate.directory.configure` | Directory — configure | ADMIN-002 | standard or external (+ access) (+ security) | not exposed |
 | `slate.analytics.report` | Analytics — report | ADMIN-004 | standard (+ sensitive) | not exposed |
-| `slate.audit.export_and_stream` | Audit — export and stream | ADMIN-005 | standard or external (+ security) (+ sensitive) | not exposed |
+| `slate.audit.export_and_stream` | Audit — export and stream | ADMIN-005 | standard or external (+ access) (+ security) (+ sensitive) | not exposed |
 | `slate.governance.configure` | Governance — configure | ADMIN-006 | standard or external (+ access) (+ security) | not exposed |
 | `slate.features.configure` | Features — configure | ADMIN-007 | standard or external (+ gated) (+ access) (+ security) | not exposed |
 | `slate.knowledge.check` | Knowledge — check | KEEP-001 | standard or external (+ sensitive) | not exposed |
@@ -3687,7 +3687,7 @@ The table declares possible classes; a conditional class is added only when curr
 | `slate.knowledge.request_evidence` | Knowledge — request evidence | KEEP-003 | standard or external (+ commitment) (+ sensitive) | not exposed |
 | `slate.knowledge.reconcile` | Knowledge — reconcile | KEEP-004 | standard or external (+ sensitive) | not exposed |
 | `slate.runbooks.check` | Runbooks — check | KEEP-006 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ destructive) (+ sensitive) (+ live) | not exposed |
-| `slate.onboarding.prepare` | Onboarding — prepare | KEEP-007 | standard or external (+ sensitive) | not exposed |
+| `slate.onboarding.prepare` | Onboarding — prepare | KEEP-007 | standard or external (+ commitment) (+ sensitive) | not exposed |
 | `slate.knowledge.sweep` | Knowledge — sweep | KEEP-008 | standard or external (+ commitment) (+ access) (+ sensitive) | not exposed |
 | `slate.knowledge_health.read` | Knowledge health — read | KEEP-009 | standard (+ sensitive) | not exposed |
 
@@ -3790,8 +3790,8 @@ The table declares possible classes; a conditional class is added only when curr
 
 **Acceptance.**
 1. access: Membership, groups, guest or page grants, SAML admission allow-lists, restored grants, connector or client authority and governance changes to standing permission carry people affected and widening or narrowing; reassigning a page owner without changing authority remains standard.
-2. security: SSO enforcement, AI-provider, chat or source connector credential custody and changes, token custody, signed-webhook or audit-stream signing and SIEM credentials, audit retention and backup protective settings carry the affected setting.
-3. destructive: Permanent erasure, connector-content purge, permanent template deletion, backup retention deletion or deleting a retained page or attachment version carries the item count; reversible trash and archive remain standard.
+2. security: SSO enforcement, AI-provider, chat or source connector credential custody and changes, token custody, signed-webhook or audit-stream signing and SIEM credentials, audit retention, backup and form anti-spam protective settings carry the affected setting.
+3. destructive: Permanent erasure, connector-content purge, permanent template, saved-conversation, decision-record or saved-view deletion, irreversible field conversion or removal, backup retention deletion or deleting a retained page or attachment version carries the item count; reversible trash, archive and changes recoverable through revision restore remain standard.
 4. sensitive: Reading, writing or exporting source or wiki records containing regulated ID, health, bank, card or payroll data carries record count and data kind; a confidential label alone does not invent this class.
 5. live: A trial effect, operational remediation, learned-procedure activation or skill activation that changes a running service carries that service; a read-only rehearsal remains standard.
 
