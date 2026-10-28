@@ -20,6 +20,12 @@ export async function workspaceAuthorityJourney(state,width) {
     assert.deepEqual(await api('/api/workspace'),workspace,'Refused settings change leaves the workspace intact.');
     await ok(context,origin,'PUT','/api/workspace',settings);
     assert.equal((await api('/api/workspace')).description,settings.description);
+    const current=await api('/api/workspace');
+    const switches=Object.fromEntries(['guestAccess','publicLinkAccess','anonymousAccess'].map(name=>[name,current[name]==='allowed'?'forbidden':'allowed']));
+    await ok(context,origin,'PUT','/api/workspace',{...settings,operationKey:key(),expectedRevisionId:current.revisionId,...switches});
+    const switched=await api('/api/workspace');
+    for(const [name,value] of Object.entries(switches))assert.equal(switched[name],value);
+    await ok(context,origin,'PUT','/api/workspace',{...settings,operationKey:key(),expectedRevisionId:switched.revisionId});
     const groupsBefore=await api('/api/groups');
     assert.equal((await call(reader,origin,'POST','/api/groups',{operationKey:key(),name:'Unauthorized group',memberIds:[]})).status,403);
     assert.deepEqual(await api('/api/groups'),groupsBefore);

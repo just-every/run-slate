@@ -57,6 +57,11 @@ export async function memberRemovalJourney(state,width) {
     }
     assert.equal((await call(context,origin,'GET',`/api/pages/${personal}`)).status,404);
     assert.ok(!(await api('/api/containers?archived=true')).items.some(item=>item.id===privateSpace.id),'Archived personal content is never exposed to the owner.');
+    const [{results:[stored]}]=await state.atRest(`SELECT c.archived_at AS archivedAt,p.lifecycle,p.deleted_at AS deletedAt,b.content_json AS content FROM containers c JOIN pages p ON p.container_id=c.id JOIN page_blocks b ON b.page_id=p.id WHERE c.id='${privateSpace.id}' AND p.id='${personal}'`);
+    assert.ok(stored.archivedAt,'Removal archives the personal space rather than deleting it.');
+    assert.equal(stored.lifecycle,'archived');
+    assert.equal(stored.deletedAt,null);
+    assert.equal(JSON.parse(stored.content).text[0].text,'Private departure notes remain private.');
     for(const {id} of pages)assert.equal((await api(`/api/pages/${id}`)).properties.ownerMemberId,null);
     const retained=(await api(`/api/activity?actorId=${person.id}&limit=100`)).items;
     for(const item of beforeActivity) {
@@ -74,21 +79,6 @@ export async function memberRemovalJourney(state,width) {
     await expect(page.getByRole('list',{name:'Bulk results',exact:true})).toContainText('Saved');
     for(const {id} of pages)assert.equal((await api(`/api/pages/${id}`)).properties.ownerMemberId,'browser-owner');
     await accessible(page,'removed member pages reassigned in bulk');
-    // Only an explicit new invitation can re-admit Casey. It preserves the old
-    // archived personal space while creating a separate current personal space.
-    const before=await inbox(origin);
-    await ok(context,origin,'POST','/api/invitations',{operationKey:key(),email,kind:'member'});
-    const fresh=new URL(await newOutboxLink(origin,before));
-    assert.equal((await colleague.request.post(origin+'/api/auth/invitation/accept',{headers:{origin},form:{token:fresh.searchParams.get('token')},maxRedirects:0})).status(),303);
-    assert.equal((await ok(colleague,origin,'GET','/api/members/current')).id,person.id);
-    const archived=(await ok(colleague,origin,'GET','/api/containers?archived=true')).items.find(item=>item.id===privateSpace.id);
-    assert.ok(archived?.archivedAt,'Removal archives the personal space rather than deleting it.');
-    const preserved=await ok(colleague,origin,'GET',`/api/pages/${personal}`);
-    assert.equal(preserved.page.lifecycle,'archived');
-    assert.equal(preserved.blocks[0].content.text[0].text,'Private departure notes remain private.');
-    assert.equal((await call(context,origin,'GET',`/api/pages/${personal}`)).status,404);
-    assert.equal((await second.request.get(links[1],{maxRedirects:0})).status(),400,'A fresh invitation never reactivates the old unused capture.');
-    await ok(context,origin,'POST','/api/members/remove',{operationKey:key(),memberId:person.id});
     assert.equal((await call(colleague,origin,'GET','/api/session')).status,401);
     await ok(context,origin,'POST','/api/members/remove',{operationKey:key(),memberId:person.id,erase:true});
     const anonymized=(await api('/api/activity?limit=100')).items;

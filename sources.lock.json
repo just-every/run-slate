@@ -11688,7 +11688,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/browser-support.mjs": {
-      "sha256": "107cc92a8abdf48b7ada4179a056300edae11fcd7f195a5a245d81d1a6011850",
+      "sha256": "85dd98e7f8eeddeceaa44c412c5465ade318ea98e1744eca06eea7c001b74302",
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
@@ -11872,7 +11872,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/member-removal-journey.mjs": {
-      "sha256": "47c0408e8519f6ad9643ba56d7b70d484d9500eb6012713abc29b0b12dd2dc24",
+      "sha256": "4b2cc5701d7ad47b145e55636696e90d95b8614594df168a4769fb5e97b89cae",
       "executable": false
     },
     "tests/qualification/ui-convergence/my-tasks-journey.mjs": {
@@ -12032,7 +12032,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/workspace-authority-journey.mjs": {
-      "sha256": "c3768ffb6e428b26d501c21e441929c568c65b10caef95dd07f90381de1264f7",
+      "sha256": "e22cd7c36708c472e7ec9e526fd36aaa7f6dc7fff41be31752cd1c73ac980780",
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {
