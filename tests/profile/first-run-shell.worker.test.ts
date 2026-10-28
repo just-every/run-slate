@@ -34,7 +34,7 @@ test("the first-run page shows the card mark beside the owner's name for the pro
   const carriedHtml = renderToString(createElement(RouterProvider, { router }));
   expect(carriedHtml).toMatch(new RegExp(`<input[^>]*value="${carriedName}"`));
   expect(carriedHtml).not.toContain("Northwind");
-  const longName = "Example Business ".repeat(12);
+  const longName = "Example Business ".repeat(11);
   snapshot.business = readRuntimeConfig({ ...env, RER_BUSINESS: JSON.stringify({ ...JSON.parse(carry), name: longName }) }, false).business;
   const longHtml = renderToString(createElement(RouterProvider, { router }));
   expect(longHtml).toContain(`value="${longName.slice(0, 160)}"`);

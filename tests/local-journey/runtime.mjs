@@ -33,7 +33,7 @@ export async function scratch() {
   const bin = join(directory, 'rer-bin');
   await mkdir(bin);
   await writeFile(join(bin, 'rer'), `#!/bin/sh\nexec node ${JSON.stringify(join(repo, 'node_modules/@runeditrun/rer/global/rer.mjs'))} "$@"\n`, { mode: 0o755 });
-  const env = { PATH: `${bin}:${providerGuard.PATH}`, HOME: join(directory, 'home'), CI: 'true', TMPDIR: join(directory, 'tmp'), WRANGLER_SEND_METRICS: 'false', WRANGLER_LOG_PATH: join(directory, 'tmp/wrangler.log'), RER_SERVERS_DIR: join(directory, 'servers'), RER_JOBS_DIR: join(directory, 'queue'), npm_config_child_concurrency: '1', npm_config_network_concurrency: '2',
+  const env = { ...Object.fromEntries(['HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY', 'NO_PROXY', 'http_proxy', 'https_proxy', 'all_proxy', 'no_proxy', 'NODE_USE_ENV_PROXY', 'NODE_EXTRA_CA_CERTS', 'SSL_CERT_FILE'].flatMap(name => process.env[name] ? [[name, process.env[name]]] : [])), PATH: `${bin}:${providerGuard.PATH}`, HOME: join(directory, 'home'), CI: 'true', TMPDIR: join(directory, 'tmp'), WRANGLER_SEND_METRICS: 'false', WRANGLER_LOG_PATH: join(directory, 'tmp/wrangler.log'), RER_SERVERS_DIR: join(directory, 'servers'), RER_JOBS_DIR: join(directory, 'queue'), npm_config_child_concurrency: '1', npm_config_network_concurrency: '2',
     // The caller's own queue limits (RER_JOBS_*), for a host where they differ from the defaults.
     ...Object.fromEntries(Object.entries(process.env).filter(([name]) => name.startsWith('RER_JOBS_') && name !== 'RER_JOBS_DIR')) };
   const children = new Set();

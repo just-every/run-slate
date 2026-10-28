@@ -79,6 +79,8 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
         if (width === 1440) {
           const name = page.getByLabel('Your name', { exact: true });
           await name.waitFor();
+          // Dev compiles modules on demand; measure readiness after those downloads.
+          await page.waitForLoadState('networkidle');
           await page.waitForFunction(() => [...document.querySelectorAll('input')].every(input => !input.disabled), null, { timeout: 2000 });
           await name.fill('Synthetic Owner');
           assert.equal(await name.inputValue(), 'Synthetic Owner', 'hydrated fields retain typed input');

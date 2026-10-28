@@ -11196,7 +11196,7 @@
       "executable": false
     },
     "tests/local-journey/cli.test.mjs": {
-      "sha256": "018b003505246b3c852068971fd58312ee029afecf867d516de4d3ec889b7a69",
+      "sha256": "9c9239cb91527cf2c29d4e6c8ea0f58692c0eeb261cb5a25e2e7fc73366231a6",
       "executable": false
     },
     "tests/local-journey/diagnostics.mjs": {
@@ -11236,7 +11236,7 @@
       "executable": false
     },
     "tests/local-journey/runtime.mjs": {
-      "sha256": "e32f7ed1dbece8433a8ef3e264b6f2e3ed1f12cd1b1e137450ab564d97e85862",
+      "sha256": "6eeb319393f8de44c61b4bbb66c1128742cd4e752e59189155d3d839b524167f",
       "executable": false
     },
     "tests/local-journey/security.mjs": {
@@ -11272,7 +11272,7 @@
       "executable": false
     },
     "tests/profile/first-run-shell.worker.test.ts": {
-      "sha256": "b2e1982768bd5b775c9f1f52beaada35fccbf17a785edf5781583849a0dabb8b",
+      "sha256": "b91f14d9b8ea3cc1dcff536157ced2d2ab38a8d0072838364829bde51a37d0a0",
       "executable": false
     },
     "tests/profile/page-lock-journey.ts": {
