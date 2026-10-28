@@ -1806,15 +1806,15 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `701f66227cda40ed101b73cf337a1c69082e206f` (28 October 2026); the landing candidate adds its generated status views and a visible revision-preview assertion.
+Judged from the code and tests at commit `9fc894d5350dfe87a0b9935ee7c1641da1fb08bd` (29 October 2026); the landing candidate adds its generated status views.
 
 Live-provider evidence remains explicitly open. See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 43 | 178 | 0 | 221 |
+| Published | 44 | 177 | 0 | 221 |
 | Target and push further | 19 | 52 | 34 | 105 |
-| All | 62 | 230 | 34 | 326 |
+| All | 63 | 229 | 34 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1906,7 +1906,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `COMM-003` | Mentions | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "group mentions preview readers and refuse oversized groups at 1440px", including `tests/qualification/ui-convergence/comment-mentions.mjs` — "commentMentionsJourney" (one unread comment-linked notice, unreadable recipients excluded, new mentions only on edit and replay-safe delivery). |  |
 | `COMM-004` | Anchors survive editing | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "page and comment reactions identify people without notifications or views at 1440px", including `tests/qualification/ui-convergence/comment-anchors.mjs` — "commentAnchorsJourney" (edits within selected text, splits, moves, retained orphaned discussion, named original revision and exact snapshot navigation). |  |
 | `COMM-005` | Reactions | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "page and comment reactions identify people without notifications or views at 1440px", using `tests/qualification/ui-convergence/reactions-journey.mjs` — "reactionsJourney" (named reader, add and remove, unchanged inbox and keyboard tooltip); `tests/e2e/pages/reactions.test.ts` — "PAGE-014 page and comment reactions identify each member, toggle independently and never notify or count as views" (view-only reader and denied access). |  |
-| `COMM-006` | Discussions panel | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
+| `COMM-006` | Discussions panel | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "page and comment reactions identify people without notifications or views at 1440px", using `tests/qualification/ui-convergence/discussions-journey.mjs` — "discussionsJourney" (combined kind, status and participant filters, replies, visible orphan, resolve-all across hidden threads and persisted states) and `tests/qualification/ui-convergence/comment-anchors.mjs` — "commentAnchorsJourney" (selecting an offscreen anchor scrolls it into view). |  |
 | `COMM-007` | Resolve | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Any member with `comment` access can resolve or reopen a thread."<br>No validated CI-run proof for this acceptance point: "A resolved thread is hidden from the page body, stays readable in the panel and in search, and keeps its comments and reactions." |
 | `ARCH-001` | Archive | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A page, a container or a database can be archived."<br>No validated CI-run proof for this acceptance point: "Archiving records the actor, the time, the prior location and an optional reason, and archives the record's descendants with it." |
 | `ARCH-002` | What archived means | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "An archived record is read-only, is absent from the tree, from default search (`SEARCH-009`), from content queries and from AI grounding, and its existing links, mentions and citations still resolve."<br>No validated CI-run proof for this acceptance point: "It is discoverable by the archived filter, and its comments, versions and grants are unchanged." |
