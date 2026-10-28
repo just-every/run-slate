@@ -10632,7 +10632,7 @@
       "executable": false
     },
     "tests/e2e/search/freshness-journey.ts": {
-      "sha256": "b43bf9f2bdce86b968fd17a666649c5422b77cfae69bedef7fc5e9f4924aaf60",
+      "sha256": "ed271ce0c2d3b53091f73100092447b115bbd50c5ef17c7f43bc886087ab717b",
       "executable": false
     },
     "tests/e2e/search/fts-permissions.test.ts": {

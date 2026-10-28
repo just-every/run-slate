@@ -21,10 +21,9 @@ export async function freshnessJourney(f:Awaited<ReturnType<typeof searchFixture
  const observed=async(mutate:()=>Promise<unknown>,check:()=>Promise<void>,deadline=5000)=>{
   await mutate();const start=performance.now();await check();expect(performance.now()-start).toBeLessThan(deadline);
  };
- let id:string;
- await observed(async()=>{id=(await request('POST','/pages',{operationKey:crypto.randomUUID(),containerId:'c',title:'Freshness initial guide'})).value.pageId;},async()=>{
-  expect(await ids('Freshness initial guide')).toEqual([id]);
- });
+ const created=await request('POST','/pages',{operationKey:crypto.randomUUID(),containerId:'c',title:'Freshness initial guide'});
+ const id:string=created.value.pageId,createdAt=performance.now();
+ expect(await ids('Freshness initial guide')).toEqual([id]);expect(performance.now()-createdAt).toBeLessThan(5000);
  await observed(async()=>request('PATCH','/pages/'+id,{operationKey:crypto.randomUUID(),expectedRevisionId:await revision(id),properties:{title:'Freshness revised guide'}}),async()=>{
   expect(await ids('Freshness initial guide')).toEqual([]);expect(await ids('Freshness revised guide')).toEqual([id]);
  });
@@ -54,7 +53,7 @@ export async function freshnessJourney(f:Awaited<ReturnType<typeof searchFixture
  const erase={operationKey:crypto.randomUUID(),confirmedPageIds:[id]};
  await observed(async()=>request('POST','/archive/'+id+'/permanent-delete',erase),async()=>{
   expect(await ids('Freshness revised guide','owner',{includeArchived:'true',includeTrashed:'true'})).toEqual([]);
- },300000);
+ });
  await request('POST','/archive/'+id+'/permanent-delete',erase);
  expect(await ids('Freshness revised guide','owner',{includeArchived:'true',includeTrashed:'true'})).toEqual([]);
  // Replay of a completed import may never bring its erased source back.
