@@ -11704,7 +11704,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/comment-mentions.mjs": {
-      "sha256": "f03e807a5bafcfe42fd927068deeeb0473bfc45e0a9f6d8ec6e474fc7f4c7ff8",
+      "sha256": "edc8ebf06bce58fa9c9db699dc6ed6aeac1503025bd41c4a506f37a6f10a6ec2",
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
@@ -11916,7 +11916,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reactions-journey.mjs": {
-      "sha256": "8e92a162392c9c6999018112d7c3ce50c5e576227061770b814947641401f00f",
+      "sha256": "2d065ceed7ae30772b902b39b6bf169ee794b9a84046718e6faa4826949c3d58",
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {

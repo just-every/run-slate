@@ -33,6 +33,7 @@ export async function reactionsJourney(state, people) {
   await article.getByRole('button', { name: 'React with thumbs up' }).click();
   await expect(article.getByRole('list', { name: 'Reactions', exact: true })).toContainText('👍 Morgan Reader');
   await article.screenshot({ path: `.artifacts/ui-convergence/reactions-${width}-comment.png` });
+  await people.shot('bob', 'comment reaction shows reader');
   await article.getByRole('button', { name: 'React with thumbs up' }).click();
   await expect(article.getByRole('list', { name: 'Reactions', exact: true })).toBeEmpty();
   assert.deepEqual(await api(`/api/analytics?pageId=${pageId}`), commentViews, 'Comment reaction add/remove never records a view.');

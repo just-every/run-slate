@@ -38,7 +38,10 @@ export async function commentMentionsJourney(state, people) {
   await editor.press('End');
   await alice.page.keyboard.press('@');
   await alice.page.keyboard.type(bob.name);
-  await alice.page.getByRole('listbox', { name: 'Insert mention', exact: true }).getByRole('option', { name: `${bob.name} · Person`, exact: true }).click();
+  const choice = alice.page.getByRole('listbox', { name: 'Insert mention', exact: true }).getByRole('option', { name: `${bob.name} · Person`, exact: true });
+  await expect(choice).toBeInViewport({ ratio: 1 });
+  await people.shot('alice', 'person mention edit picker');
+  await choice.click();
   await alice.page.getByRole('button', { name: 'Save comment', exact: true }).click();
   await expect(article).toContainText(`@${bob.name}`);
   const delivered = await mentions();
