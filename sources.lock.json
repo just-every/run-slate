@@ -8328,7 +8328,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageComments.tsx": {
-      "sha256": "d4b834d52569eef961368d9b62af238bb0fbb24ace8137423928c35129ab6823",
+      "sha256": "b7d5625273476cb56fe1ed742f7f6f6fbc509da2020afd8a20516e0acd4776c8",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageDetails.tsx": {
@@ -11695,8 +11695,16 @@
       "sha256": "9842535ecf7e27e59d6bb3fca57d8d1c64ab29149d45743f3c9c5d0d9cd0d19f",
       "executable": false
     },
+    "tests/qualification/ui-convergence/comment-anchors.mjs": {
+      "sha256": "70abc6577c5b81d1c7174ff480c2c8abb6d8d8014ee47bfa2145e6bc8b348ac9",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/comment-mentions.mjs": {
+      "sha256": "2aa9470a8062019e2b5b7803d6051bf5c06d003db0ea15b0e9d5ac89155287db",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
-      "sha256": "637efdb5ebd64f8c68bf1010877475a2a73719c199e5bdedf215161d8c4af602",
+      "sha256": "31e3ca9b795d8df18a920b497362fae88efbaa25bddbcdce9015a192fa02afb1",
       "executable": false
     },
     "tests/qualification/ui-convergence/core-journeys.mjs": {
@@ -11848,7 +11856,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/group-mentions-journey.mjs": {
-      "sha256": "1adfdf1fe35c3c4e239a07c5f84a9e81831b3b31d7582c5e9a239f7edce9ecf7",
+      "sha256": "c85ad0dc6e2f684dfabd1018b128d7083bc5bc67c9d7ec9489cfb84b4da11163",
       "executable": false
     },
     "tests/qualification/ui-convergence/guest-console-journey.mjs": {
