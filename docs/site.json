@@ -255,6 +255,26 @@
     {
       "source": "modules/import-kit/src/door/ADOPTING.md",
       "reason": "Pinned Base import door integration reference for maintainers."
+    },
+    {
+      "source": "modules/agent-door/ADOPTING.md",
+      "reason": "Pinned Base agent door maintainer reference."
+    },
+    {
+      "source": "modules/agent-door/README.md",
+      "reason": "Pinned Base agent door maintainer reference."
+    },
+    {
+      "source": "modules/agent-door/policy/PROVENANCE.md",
+      "reason": "Pinned Base agent door maintainer reference."
+    },
+    {
+      "source": "modules/business-settings/ADOPTING.md",
+      "reason": "Pinned Base agent door maintainer reference."
+    },
+    {
+      "source": "modules/business-settings/README.md",
+      "reason": "Pinned Base agent door maintainer reference."
     }
   ]
 }

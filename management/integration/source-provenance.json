@@ -66,6 +66,9 @@
     "migrations/core/0059_member_profiles.sql": "sha256:0b3a60c26182b8c8f6a79cbcaa20bd27ed4c448d9d796636c4a416146a0215c9",
     "migrations/core/0060_synced_static.sql": "sha256:88b23a722205bdbbb461d20dcd370d5d9c1478e44e5eb1d3ead2d422c7715fb6",
     "migrations/core/0061_provider_embed_observations.sql": "sha256:cc44fd9f0237ae4295aaf7af3c2036f3f34acb302017e9d8cc430d74d1ebeabd",
-    "migrations/core/0062_scim_portable_invitations.sql": "sha256:3ce68bcb9dd3b821f4314509c9104515ea91568be8c5d5fe1f3313ecf817644e"
+    "migrations/core/0062_scim_portable_invitations.sql": "sha256:3ce68bcb9dd3b821f4314509c9104515ea91568be8c5d5fe1f3313ecf817644e",
+    "migrations/core/0063_agent_door.sql": "sha256:016d8a98b964385f5c4a13447361c3c783910a76aaf4606b0e0081482bc819cc",
+    "migrations/core/0064_business_settings.sql": "sha256:a16f736a781aa3fe02a2e090c993f8c360c904f9fb6d86126acdab6e1f24e773",
+    "migrations/core/0065_business_people.sql": "sha256:51aa39622d866b987d71b6e37c9a8300e7f24c54a55611edaab669ed051b01cd"
   }
 }
