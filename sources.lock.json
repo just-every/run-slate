@@ -11888,7 +11888,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "77dd7a9dd407679918eb1785858e70189728cf0137d2b0bf7cb4932580dd9b2d",
+      "sha256": "984e0c951b5a577b346710a62e3e4c9d29c10a61e3db120ff15f8fc02db72704",
       "executable": false
     },
     "tests/qualification/ui-convergence/member-removal-journey.mjs": {
