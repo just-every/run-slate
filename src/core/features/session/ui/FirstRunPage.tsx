@@ -8,13 +8,15 @@ import { clearDraft, readDraft, writeDraft } from "./first-run-draft";
 import { mutate, operationKey, errorMessage } from "../../../client/transport";
 import { useWorkspace } from "../../../app/ui/WorkspaceContext";
 export function FirstRunPage({ owner }: { owner: string }) {
-  const { localDevelopment,member } = useWorkspace();
+  const { localDevelopment,member,business } = useWorkspace();
   const [displayName,setDisplayName]=useState(member.displayName!==member.email.split("@")[0]?member.displayName:"");
   const [restore, setRestore] = useState(false);
   // The step is mirrored into the address (`/setup?step=2`) and the typed answers kept in this tab's session, so a reload shows
   // the same step with the same answers. The address is only written, never navigated: the form keeps its own state.
   const [step, setStepState] = useState(((useSearch({ strict: false }) as { step?: number }).step ?? 1) as 1 | 2 | 3);
-  const [workspaceName, setWorkspaceName] = useState("");
+  // Keep the live prefill separate from an owner's saved answer.
+  const [workspaceNameAnswer, setWorkspaceName] = useState<string | null>(null);
+  const workspaceName = workspaceNameAnswer ?? business?.name.slice(0, 160) ?? "";
   const [containerName, setContainerName] = useState("");
   const [pageTitle, setPageTitle] = useState("");
   const [addresses, setAddresses] = useState("");
@@ -27,14 +29,14 @@ export function FirstRunPage({ owner }: { owner: string }) {
     const draft = readDraft();
     if (draft) {
       if(typeof draft.displayName==="string")setDisplayName(draft.displayName);
-      setWorkspaceName(draft.workspaceName);
+      setWorkspaceName(draft.workspaceName.trim() ? draft.workspaceName : null);
       setContainerName(draft.containerName);
       setPageTitle(draft.pageTitle);
       setAddresses(draft.addresses);
     }
     // An address that skips ahead of what was answered lands on the first open step.
     const name=draft?.displayName??(member.displayName!==member.email.split('@')[0]?member.displayName:'');
-    const reachable = !name.trim() || !draft?.workspaceName.trim() ? 1 : draft.containerName.trim() && draft.pageTitle.trim() ? 3 : 2;
+    const reachable = !name.trim() || !(draft?.workspaceName.trim() || business?.name.trim()) ? 1 : draft?.containerName.trim() && draft.pageTitle.trim() ? 3 : 2;
     setStepState((current) => {
       const next = Math.min(current, reachable) as 1 | 2 | 3;
       if (next !== current) window.history.replaceState(window.history.state, "", next === 1 ? "/setup" : `/setup?step=${next}`);
@@ -43,8 +45,8 @@ export function FirstRunPage({ owner }: { owner: string }) {
     setRestored(true);
   }, []);
   useEffect(() => {
-    if (restored) writeDraft({ displayName,workspaceName, containerName, pageTitle, addresses });
-  }, [restored, displayName,workspaceName, containerName, pageTitle, addresses]);
+    if (restored) writeDraft({ displayName,workspaceName: workspaceNameAnswer ?? "", containerName, pageTitle, addresses });
+  }, [restored, displayName,workspaceNameAnswer, containerName, pageTitle, addresses]);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string>();
   const key = useRef(operationKey());

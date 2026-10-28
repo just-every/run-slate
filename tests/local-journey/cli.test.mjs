@@ -62,7 +62,7 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
       await waitFor(() => { if (dev.exitCode !== null) throw Error(`CLI dev restart ${restart} failed; private output withheld`); return dev.output.includes('RER_OPEN ' + vars.APP_URL + '/__dev/key#rer-dev='); }, `dev restart ${restart} signed-in open`);
     }
     await publicStatuses(vars.APP_URL, copy.root, 'dev');
-    browser = await chromium.launch({ headless: true, args: ['--use-mock-keychain', '--password-store=basic'] });
+    browser = await chromium.launch({ headless: true, ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH } : {}), args: ['--no-sandbox', '--use-mock-keychain', '--password-store=basic'] });
     // Dev identity: RER_OPEN signs the browser in as the claimed owner with a real
     // key-gated dev session; the private enter route selects real local personas.
     const open = [...dev.output.matchAll(/RER_OPEN (\S+)/g)].at(-1)[1];
@@ -72,7 +72,22 @@ test('fresh README CLI setup, native sign-in at both widths, custody, transfer a
       const context = await browser.newContext({ viewport: { width, height: 900 } });
       try {
         const page = await context.newPage(), session = () => page.evaluate(async () => { const r = await fetch('/api/session'); return { status: r.status, body: await r.json() }; });
+        const hydrationMessages = [];
+        const observeHydration = message => { if (/hydrat/i.test(message.text())) hydrationMessages.push(message.text()); };
+        if (width === 1440) page.on('console', observeHydration);
         await page.goto(open); await page.waitForURL(vars.APP_URL + '/setup');
+        if (width === 1440) {
+          const name = page.getByLabel('Your name', { exact: true });
+          await name.waitFor();
+          // Dev compiles modules on demand; measure readiness after those downloads.
+          await page.waitForLoadState('networkidle');
+          await page.waitForFunction(() => [...document.querySelectorAll('input')].every(input => !input.disabled), null, { timeout: 2000 });
+          await name.fill('Synthetic Owner');
+          assert.equal(await name.inputValue(), 'Synthetic Owner', 'hydrated fields retain typed input');
+          assert.equal(await page.getByRole('button', { name: 'Restore an existing workspace', exact: true }).isEnabled(), true);
+          assert.deepEqual(hydrationMessages, [], 'setup hydrates without a console warning or error');
+          page.off('console', observeHydration);
+        }
         assert.deepEqual((await session()).body.member.email, email);
         await page.getByLabel('Workspace name', {exact:true}).waitFor();
         await page.screenshot({ path: join(repo, '.artifacts/local-journey', `dev-owner-${width}.png`), fullPage: true });
