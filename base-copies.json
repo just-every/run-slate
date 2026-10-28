@@ -128,6 +128,48 @@
       }
     },
     {
+      "path": "migrations/core/0063_agent_door.sql",
+      "originPath": "modules/agent-door/schema/agent-door.sql",
+      "revision": "d555e789cffb744a9f83d76ebe42a2e3bdd7a055",
+      "files": {
+        "migrations/core/0063_agent_door.sql": "016d8a98b964385f5c4a13447361c3c783910a76aaf4606b0e0081482bc819cc"
+      },
+      "modes": {
+        "migrations/core/0063_agent_door.sql": "100644"
+      },
+      "originFiles": [
+        "modules/agent-door/schema/agent-door.sql"
+      ]
+    },
+    {
+      "path": "migrations/core/0064_business_settings.sql",
+      "originPath": "modules/business-settings/schema/0001_business_settings.sql",
+      "revision": "d555e789cffb744a9f83d76ebe42a2e3bdd7a055",
+      "files": {
+        "migrations/core/0064_business_settings.sql": "a16f736a781aa3fe02a2e090c993f8c360c904f9fb6d86126acdab6e1f24e773"
+      },
+      "modes": {
+        "migrations/core/0064_business_settings.sql": "100644"
+      },
+      "originFiles": [
+        "modules/business-settings/schema/0001_business_settings.sql"
+      ]
+    },
+    {
+      "path": "migrations/core/0065_business_people.sql",
+      "originPath": "modules/business-settings/schema/0002_business_people.sql",
+      "revision": "d555e789cffb744a9f83d76ebe42a2e3bdd7a055",
+      "files": {
+        "migrations/core/0065_business_people.sql": "51aa39622d866b987d71b6e37c9a8300e7f24c54a55611edaab669ed051b01cd"
+      },
+      "modes": {
+        "migrations/core/0065_business_people.sql": "100644"
+      },
+      "originFiles": [
+        "modules/business-settings/schema/0002_business_people.sql"
+      ]
+    },
+    {
       "path": "modules/agent-door",
       "originPath": "modules/agent-door",
       "revision": "d555e789cffb744a9f83d76ebe42a2e3bdd7a055",

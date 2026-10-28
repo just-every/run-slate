@@ -987,7 +987,7 @@
       "executable": false
     },
     "base-copies.json": {
-      "sha256": "9e61942fe996c5b7c5ccea2c87dd5d4f1acd1e1392ee8b3959cadd8e3343b24f",
+      "sha256": "d92df2ac08ce08d92ef35e16a95e2295543a87b60dc8e98a85e6cb7da0840ba0",
       "executable": false
     },
     "BASELINE.md": {
@@ -4975,11 +4975,11 @@
       "executable": false
     },
     "rer-project.json": {
-      "sha256": "db9b60c8bc7d1e631b9d73d7aaf18efb4dbc6ec12362cb89a39f693576f3fde8",
+      "sha256": "eb9ae3e81641ab254b4833917b14b1d14c3c96a092fccb0111b766c98cad8ab4",
       "executable": false
     },
     "rer-setup.json": {
-      "sha256": "00385b9e22830290bc9e2eb737936934b7c794a8d5461be4513f53ef98e2c444",
+      "sha256": "9056ad62b4df831dc745294d5cf02ab269ecaf458ac3f843f3de20f0a9809710",
       "executable": false
     },
     "RUN-LOCALLY.md": {
@@ -4987,15 +4987,15 @@
       "executable": false
     },
     "scripts/base-proof/objects.mjs": {
-      "sha256": "64c62ce5606f418d3ffbc69b0e13fa8e07150646e740f388f3d8dff5ab6ddbfc",
+      "sha256": "aa01f7460e0fe7fdceacb6fd4ca94ae9c44d7fbaa228f957c578beec6934544b",
       "executable": false
     },
     "scripts/base-proof/pin-objects.json": {
-      "sha256": "76e13556a98e3b373146e6d5bd94251931e2d16c3a5c1e204a0103e0cb0e1a14",
+      "sha256": "420c9e199972f71b78525eaf68c3a95fec37a4a816916e2726596f6ff9001c49",
       "executable": false
     },
     "scripts/base-proof/README.md": {
-      "sha256": "56583f49dd58b9b31d203e5de0cc1a9b88e85a6a4546e1dc7f9c709a662d11ed",
+      "sha256": "e79cf7c3998a7d39571ae39964402741c9a00019846ca2525e54982876d710b2",
       "executable": false
     },
     "scripts/base-proof/repository.mjs": {
@@ -5507,7 +5507,7 @@
       "executable": false
     },
     "src/core/app/feature-context.ts": {
-      "sha256": "976630d2aa8b0cf16781945e0ec9554abc00080fb72139e8ba0993752ab0e74c",
+      "sha256": "310bac3fa886b0807e97f41797d93861ce7e66d9b2110b08a647f6c7e8880740",
       "executable": false
     },
     "src/core/app/font-head.ts": {
@@ -5555,7 +5555,7 @@
       "executable": false
     },
     "src/core/app/operations.ts": {
-      "sha256": "a3193945af7776d4699fb5d91e4916baa5e2a0161b34271a3b75f2890fd75cc3",
+      "sha256": "9d1bebe56822c3447ee02c75f619852b17103329f6a5f2c1355229e88e8aac63",
       "executable": false
     },
     "src/core/app/operator-document-gate.ts": {
