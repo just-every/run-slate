@@ -11864,7 +11864,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "1112f1b783416593784698d895f3d1a7aada4953197b4282213f985623871518",
+      "sha256": "f6afb83dc91d8d4fc618620aefeb3fdf76a10500d15a6140680bc272520753ef",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/member-removal-journey.mjs": {
+      "sha256": "4fcb70c06d9a926f1175f89eaba039664b220e40dc045f0e499a1aeba1ff9234",
       "executable": false
     },
     "tests/qualification/ui-convergence/my-tasks-journey.mjs": {
@@ -12021,6 +12025,10 @@
     },
     "tests/qualification/ui-convergence/webhook-access-journey.mjs": {
       "sha256": "3f0dfbce6d93dd7be4879cce565407e42d24cc39454df0c47fbf22d40828fcba",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/workspace-authority-journey.mjs": {
+      "sha256": "c3768ffb6e428b26d501c21e441929c568c65b10caef95dd07f90381de1264f7",
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {

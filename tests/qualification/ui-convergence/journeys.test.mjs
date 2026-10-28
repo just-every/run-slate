@@ -1,5 +1,6 @@
 import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} from './synced-custody.mjs';
 import {peopleJourney} from './people-journey.mjs';
+import {workspaceAuthorityJourney} from './workspace-authority-journey.mjs';
 import {syncedJourney} from './synced-journey.mjs';
 import {touchDatabaseToolsJourney} from './touch-database-tools-journey.mjs';
 import {touchManagementJourney} from './touch-management-journey.mjs';
@@ -84,6 +85,7 @@ for (const width of [390, 1440]) {
         // Finish earlier page notifications before connecting the chat journey destinations.
         await state.runScheduled();
         await chatJourney(state, width);
+        await step('workspace roles, group access and member departure',()=>workspaceAuthorityJourney(state,width));
         if (width === 390) {
           // One phone smoke visits the main screens; functional journeys use desktop
           // except where an assertion distinguishes the phone layout or touch input.
