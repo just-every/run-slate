@@ -2140,7 +2140,22 @@
     {
       "file": "CONTRACT.md",
       "line": 358,
-      "text": "**WORK-013 — First run.** An owner claimed through RER’s verified bootstrap or signed claim receives the configured deployment name, a General space and a Welcome page atomically, with first run complete; the name, space and page remain editable. RER currently does not convey its independently renamed app name. A local deployment runs a short wizard that names the workspace, creates the first container and its first page, and ends on an invitation step that can be skipped. It runs once, is never shown to a member who joins later, and creates nothing beyond those three records. Its native owner wizard lives at `/setup`: unfinished owners are redirected there from operator app routes after sign-in; completed setup and later members proceed to `/app`. The same native session and owner authorization guard the route and completion API.",
+      "text": "**WORK-013 — First run.** An owner claimed through RER’s verified bootstrap or signed claim receives the configured deployment name, a General space and a Welcome page atomically, with first run complete; the name, space and page remain editable.",
+      "to": "clause",
+      "ids": [
+        "WORK-013"
+      ]
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 358,
+      "text": "RER currently does not convey its independently renamed app name.",
+      "to": "changelog"
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 358,
+      "text": "A local deployment runs a short wizard that names the workspace, creates the first container and its first page, and ends on an invitation step that can be skipped. It runs once, is never shown to a member who joins later, and creates nothing beyond those three records. Its native owner wizard lives at `/setup`: unfinished owners are redirected there from operator app routes after sign-in; completed setup and later members proceed to `/app`. The same native session and owner authorization guard the route and completion API.",
       "to": "clause",
       "ids": [
         "WORK-013"
@@ -7221,7 +7236,22 @@
     {
       "file": "CONTRACT.md",
       "line": 1271,
-      "text": "An owner can schedule a nightly or weekly complete export (`PORT-001`) to the buyer's own S3-compatible bucket or Cloudflare R2, with a retention count, failure notices to owners, and a restore drill that restores the latest backup into an empty deployment (`PORT-002`). [Chest](https://github.com/just-every/run-chest) inherits this destination contract when it publishes an intake; it is not a destination kind today. Failure notices are in-app; email notices inherit `NOTIF-005`.",
+      "text": "An owner can schedule a nightly or weekly complete export (`PORT-001`) to the buyer's own S3-compatible bucket or Cloudflare R2, with a retention count, failure notices to owners, and a restore drill that restores the latest backup into an empty deployment (`PORT-002`). [Chest](https://github.com/just-every/run-chest) inherits this destination contract when it publishes an intake;",
+      "to": "clause",
+      "ids": [
+        "PORT-009"
+      ]
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 1271,
+      "text": "it is not a destination kind today.",
+      "to": "changelog"
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 1271,
+      "text": "Failure notices are in-app; email notices inherit `NOTIF-005`.",
       "to": "clause",
       "ids": [
         "PORT-009"
@@ -7263,7 +7293,22 @@
     {
       "file": "CONTRACT.md",
       "line": 1282,
-      "text": "Every string is XML-escaped. The document contains no macros and no external relationships except hyperlinks to Slate URLs; image bytes come only from files the exporting member can read. The not-yet-implemented equation and diagram blocks inherit these Word obligations in their own clauses and acceptance: `BLOCK-013` carries equations as OMML or images and Mermaid diagrams as images; `BLOCK-019` carries diagrams.net previews as images. Their absence does not invent an export representation or establish those clauses as implemented.",
+      "text": "Every string is XML-escaped. The document contains no macros and no external relationships except hyperlinks to Slate URLs; image bytes come only from files the exporting member can read. The",
+      "to": "clause",
+      "ids": [
+        "PORT-010"
+      ]
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 1282,
+      "text": "not-yet-implemented",
+      "to": "changelog"
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 1282,
+      "text": "equation and diagram blocks inherit these Word obligations in their own clauses and acceptance: `BLOCK-013` carries equations as OMML or images and Mermaid diagrams as images; `BLOCK-019` carries diagrams.net previews as images. Their absence does not invent an export representation or establish those clauses as implemented.",
       "to": "clause",
       "ids": [
         "PORT-010"
