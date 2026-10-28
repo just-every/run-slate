@@ -5684,7 +5684,23 @@
     {
       "file": "CONTRACT.md",
       "line": 948,
-      "text": "**API and MCP.** `GET /api/v1/resolve?url=` and the MCP `resolve` tool (`API-001`, `API-003`) return the record's ID and URL to a token or client acting as a member who can read it, the access-needed result otherwise, and `not_migrated` for an unmapped URL.",
+      "text": "**API and MCP.**",
+      "to": "clause",
+      "ids": [
+        "SEARCH-014"
+      ]
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 948,
+      "text": "`GET /api/v1/resolve?url=`",
+      "to": "docs",
+      "path": "docs/wiki-doors.md"
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 948,
+      "text": "and the MCP `resolve` tool (`API-001`, `API-003`) return the record's ID and URL to a token or client acting as a member who can read it, the access-needed result otherwise, and `not_migrated` for an unmapped URL.",
       "to": "clause",
       "ids": [
         "SEARCH-014"
@@ -7446,7 +7462,23 @@
     {
       "file": "CONTRACT.md",
       "line": 1322,
-      "text": "When a page embeds, mentions or links a Jira or Vector issue (`EMBED-001`), or a member or a rule creates an issue from it (`EMBED-001`, `AUTO-006`), Slate writes exactly one link to the page on the issue, so the issue lists the Slate pages that reference it. In Jira Cloud this is a remote issue link (`POST /rest/api/3/issue/{key}/remotelink`) with a stable global ID for each page and issue, written under the acting member's linked account. In [Vector](https://github.com/just-every/run-vector) it is Vector's own page link. Embedding the same issue again on the same page writes nothing new. Renaming the page updates the link's title. Removing the page's last reference to the issue, or trashing or erasing the page, removes the link, and restoring the page writes it again. A page in a `private` or `personal` container, a draft (`LIFE-002`), or a page under a Confidential classification (`ADMIN-006`) gets a link titled \"Slate page\" with no page title, and opening any backlink still requires Slate access. A failed write is retried under its operation key and shown on the embed, never dropped silently. Links that people add to the page from the Jira or Vector side are listed on the page (`EMBED-007`), and the links Jira already holds to Confluence pages that Slate migrated are re-pointed at cutover (`EMBED-006`).",
+      "text": "When a page embeds, mentions or links a Jira or Vector issue (`EMBED-001`), or a member or a rule creates an issue from it (`EMBED-001`, `AUTO-006`), Slate writes exactly one link to the page on the issue, so the issue lists the Slate pages that reference it. In Jira Cloud this is a remote issue link",
+      "to": "clause",
+      "ids": [
+        "EMBED-005"
+      ]
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 1322,
+      "text": "(`POST /rest/api/3/issue/{key}/remotelink`)",
+      "to": "docs",
+      "path": "docs/wiki-doors.md"
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 1322,
+      "text": "with a stable global ID for each page and issue, written under the acting member's linked account. In [Vector](https://github.com/just-every/run-vector) it is Vector's own page link. Embedding the same issue again on the same page writes nothing new. Renaming the page updates the link's title. Removing the page's last reference to the issue, or trashing or erasing the page, removes the link, and restoring the page writes it again. A page in a `private` or `personal` container, a draft (`LIFE-002`), or a page under a Confidential classification (`ADMIN-006`) gets a link titled \"Slate page\" with no page title, and opening any backlink still requires Slate access. A failed write is retried under its operation key and shown on the embed, never dropped silently. Links that people add to the page from the Jira or Vector side are listed on the page (`EMBED-007`), and the links Jira already holds to Confluence pages that Slate migrated are re-pointed at cutover (`EMBED-006`).",
       "to": "clause",
       "ids": [
         "EMBED-005"

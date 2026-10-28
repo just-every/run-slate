@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "2f99d4f44e1ee6f6b4883a8c16a1b570c0de5eef0beb8723517b4c5d2095a621",
+      "sha256": "ccaed09e9a88a9fabb0eb40a995be419094e45363c0752ecc4aecdfd65604d05",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "e1bdb098db1930bce6b39cd598e74209ebf91503a2bc33442e0b072a412c0f68",
+      "sha256": "db9fc436c3d9a11b25b966e2fa28990e7b310cfe6a567651cb017f9e754065fa",
       "executable": false
     },
     "DEMO.md": {
@@ -1044,7 +1044,7 @@
       "executable": false
     },
     "docs/contract/COVERAGE.json": {
-      "sha256": "a0dbb54988e53980670dfc76852e0fc92e1975c1539df1b05414aec0f860dfd8",
+      "sha256": "c969dd1a07e1cfe9d28e62ad840979c71b547de70459dedc3006c1f0eca05cda",
       "executable": false
     },
     "docs/contract/DONE-AUDIT.md": {
@@ -1124,7 +1124,7 @@
       "executable": false
     },
     "docs/wiki-doors.md": {
-      "sha256": "8abb809a7cb769f789b89587cd17e8beac73dc0f6de0b6e553239cb4db5e4507",
+      "sha256": "8df6883cc3b9da3e2846c58404c6f553fd05069b1b74e7211d5c00b54cac5a06",
       "executable": false
     },
     "edition.json": {
