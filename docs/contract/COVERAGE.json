@@ -2,7 +2,7 @@
   "schema": 1,
   "seed": "slate",
   "old": {
-    "commit": "c9607a90ff52882a4c48a2bf685917c3929287b4",
+    "commit": "249f2a9e18ef944c96bee8d0ba1735027e2559cf",
     "files": [
       "CONTRACT.md",
       "ACCEPTANCE.md",
@@ -9571,9 +9571,15 @@
     {
       "file": "CONTRACT.md",
       "line": 1809,
-      "text": "Judged from the code and tests at commit `23c59bb2dcdd4b6df2499f350b3bc624bc14feee` (25 October 2026).",
+      "text": "Judged from the code and tests at commit `9fc894d5350dfe87a0b9935ee7c1641da1fb08bd` (29 October 2026);",
       "to": "section",
       "section": "Status"
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 1809,
+      "text": "the landing candidate adds its generated status views.",
+      "to": "changelog"
     },
     {
       "file": "CONTRACT.md",
@@ -10263,46 +10269,6 @@
       "to": "gap",
       "ids": [
         "COMM-002"
-      ]
-    },
-    {
-      "file": "CONTRACT.md",
-      "line": 1906,
-      "cell": "gap",
-      "text": "evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`.",
-      "to": "gap",
-      "ids": [
-        "COMM-003"
-      ]
-    },
-    {
-      "file": "CONTRACT.md",
-      "line": 1907,
-      "cell": "gap",
-      "text": "evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`.",
-      "to": "gap",
-      "ids": [
-        "COMM-004"
-      ]
-    },
-    {
-      "file": "CONTRACT.md",
-      "line": 1908,
-      "cell": "gap",
-      "text": "evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`.",
-      "to": "gap",
-      "ids": [
-        "COMM-005"
-      ]
-    },
-    {
-      "file": "CONTRACT.md",
-      "line": 1909,
-      "cell": "gap",
-      "text": "evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`.",
-      "to": "gap",
-      "ids": [
-        "COMM-006"
       ]
     },
     {
@@ -12431,7 +12397,7 @@
     {
       "file": "ACCEPTANCE.md",
       "line": 14,
-      "text": "| Published | 40 | 181 | 0 | 221 |",
+      "text": "| Published | 44 | 177 | 0 | 221 |",
       "to": "generated",
       "note": "The contract generator writes this status or count."
     },
@@ -12445,7 +12411,7 @@
     {
       "file": "ACCEPTANCE.md",
       "line": 16,
-      "text": "| All | 59 | 233 | 34 | 326 |",
+      "text": "| All | 63 | 229 | 34 | 326 |",
       "to": "generated",
       "note": "The contract generator writes this status or count."
     },
@@ -14508,7 +14474,7 @@
     {
       "file": "ACCEPTANCE.md",
       "line": 112,
-      "text": "| `COMM-003` Mentions |",
+      "text": "| `COMM-003` Mentions | A mention notifies once and never a member who cannot read the page; editing notifies only new mentions | done | `tests/qualification/ui-convergence/journeys.test.mjs` — \"group mentions preview readers and refuse oversized groups at 1440px\", including `tests/qualification/ui-convergence/comment-mentions.mjs` — \"commentMentionsJourney\" (one unread comment-linked notice, unreadable recipients excluded, new mentions only on edit and replay-safe delivery). |",
       "to": "clause",
       "ids": [
         "COMM-003"
@@ -14516,23 +14482,8 @@
     },
     {
       "file": "ACCEPTANCE.md",
-      "line": 112,
-      "text": "A mention notifies once and never a member who cannot read the page; editing notifies only new mentions |",
-      "to": "clause",
-      "ids": [
-        "COMM-003"
-      ]
-    },
-    {
-      "file": "ACCEPTANCE.md",
-      "line": 112,
-      "text": "done | `tests/qualification/interface/content.mjs` |",
-      "to": "changelog"
-    },
-    {
-      "file": "ACCEPTANCE.md",
       "line": 113,
-      "text": "| `COMM-004` Anchors survive editing |",
+      "text": "| `COMM-004` Anchors survive editing | Inline threads follow text through edits and become orphaned, not lost, naming their revision | done | `tests/qualification/ui-convergence/journeys.test.mjs` — \"page and comment reactions identify people without notifications or views at 1440px\", including `tests/qualification/ui-convergence/comment-anchors.mjs` — \"commentAnchorsJourney\" (edits within selected text, splits, moves, retained orphaned discussion, named original revision and exact snapshot navigation). |",
       "to": "clause",
       "ids": [
         "COMM-004"
@@ -14540,23 +14491,8 @@
     },
     {
       "file": "ACCEPTANCE.md",
-      "line": 113,
-      "text": "Inline threads follow text through edits and become orphaned, not lost, naming their revision |",
-      "to": "clause",
-      "ids": [
-        "COMM-004"
-      ]
-    },
-    {
-      "file": "ACCEPTANCE.md",
-      "line": 113,
-      "text": "done | `tests/qualification/interface/content.mjs` |",
-      "to": "changelog"
-    },
-    {
-      "file": "ACCEPTANCE.md",
       "line": 114,
-      "text": "| `COMM-005` Reactions |",
+      "text": "| `COMM-005` Reactions | Comment reactions show who reacted and never notify | done | `tests/qualification/ui-convergence/journeys.test.mjs` — \"page and comment reactions identify people without notifications or views at 1440px\", using `tests/qualification/ui-convergence/reactions-journey.mjs` — \"reactionsJourney\" (named reader, add and remove, unchanged inbox and keyboard tooltip); `tests/e2e/pages/reactions.test.ts` — \"PAGE-014 page and comment reactions identify each member, toggle independently and never notify or count as views\" (view-only reader and denied access). |",
       "to": "clause",
       "ids": [
         "COMM-005"
@@ -14564,42 +14500,12 @@
     },
     {
       "file": "ACCEPTANCE.md",
-      "line": 114,
-      "text": "Comment reactions show who reacted and never notify |",
-      "to": "clause",
-      "ids": [
-        "COMM-005"
-      ]
-    },
-    {
-      "file": "ACCEPTANCE.md",
-      "line": 114,
-      "text": "done | `tests/qualification/interface/content.mjs` |",
-      "to": "changelog"
-    },
-    {
-      "file": "ACCEPTANCE.md",
       "line": 115,
-      "text": "| `COMM-006` Discussions panel |",
+      "text": "| `COMM-006` Discussions panel | Discussions panel filters by kind, status and person, shows orphaned threads and resolves all | done | `tests/qualification/ui-convergence/journeys.test.mjs` — \"page and comment reactions identify people without notifications or views at 1440px\", using `tests/qualification/ui-convergence/discussions-journey.mjs` — \"discussionsJourney\" (combined kind, status and participant filters, replies, visible orphan, resolve-all across hidden threads and persisted states) and `tests/qualification/ui-convergence/comment-anchors.mjs` — \"commentAnchorsJourney\" (selecting an offscreen anchor scrolls it into view). |",
       "to": "clause",
       "ids": [
         "COMM-006"
       ]
-    },
-    {
-      "file": "ACCEPTANCE.md",
-      "line": 115,
-      "text": "Discussions panel filters by kind, status and person, shows orphaned threads and resolves all |",
-      "to": "clause",
-      "ids": [
-        "COMM-006"
-      ]
-    },
-    {
-      "file": "ACCEPTANCE.md",
-      "line": 115,
-      "text": "done | `tests/qualification/interface/content.mjs` |",
-      "to": "changelog"
     },
     {
       "file": "ACCEPTANCE.md",
@@ -21726,6 +21632,49 @@
       "line": 78,
       "text": "| EMBED-004 | partial | Drive and SharePoint insertion, refreshed metadata, denied and disconnected readers, deleted files and export custody pass recorded-provider Worker and 1440/390 browser journeys (`fileCardsHttpJourney`, `fileCardsJourney`). References store provider, file ID and stable link only. | Chest card needs Chest's file-metadata door, not published. Real Google Drive and SharePoint acceptance NOT RUN: recorded provider fixtures only; no real provider call or consent was used. Default adopted under ct’s 22 October 23:00Z ruling (“Connect to view” when unconnected): no metadata is disclosed when the reader’s own provider access fails; show request access and the existing connect path. |",
       "to": "changelog"
+    },
+    {
+      "file": "docs/CLAIMS.md",
+      "line": 82,
+      "text": "| Clause | Status | Proven behaviour | Remaining gap |",
+      "to": "generated",
+      "note": "This legacy evidence-table header is replaced by generated claim and status views."
+    },
+    {
+      "file": "docs/CLAIMS.md",
+      "line": 84,
+      "text": "| COMM-003 | done | `tests/qualification/ui-convergence/journeys.test.mjs` — \"group mentions preview readers and refuse oversized groups at 1440px\", including `tests/qualification/ui-convergence/comment-mentions.mjs` — \"commentMentionsJourney\" (one unread comment-linked notice, unreadable recipients excluded, new mentions only on edit and replay-safe delivery). | None. |",
+      "to": "clause",
+      "ids": [
+        "COMM-003"
+      ]
+    },
+    {
+      "file": "docs/CLAIMS.md",
+      "line": 85,
+      "text": "| COMM-004 | done | `tests/qualification/ui-convergence/journeys.test.mjs` — \"page and comment reactions identify people without notifications or views at 1440px\", including `tests/qualification/ui-convergence/comment-anchors.mjs` — \"commentAnchorsJourney\" (edits within selected text, splits, moves, retained orphaned discussion, named original revision and exact snapshot navigation). | None. |",
+      "to": "clause",
+      "ids": [
+        "COMM-004"
+      ]
+    },
+    {
+      "file": "docs/CLAIMS.md",
+      "line": 86,
+      "text": "| COMM-005 | done | `tests/qualification/ui-convergence/journeys.test.mjs` — \"page and comment reactions identify people without notifications or views at 1440px\", using `tests/qualification/ui-convergence/reactions-journey.mjs` — \"reactionsJourney\" (named reader, add and remove, unchanged inbox and keyboard tooltip); `tests/e2e/pages/reactions.test.ts` — \"PAGE-014 page and comment reactions identify each member, toggle independently and never notify or count as views\" (view-only reader and denied access). | None. |",
+      "to": "clause",
+      "ids": [
+        "COMM-005"
+      ]
+    },
+    {
+      "file": "docs/CLAIMS.md",
+      "line": 88,
+      "text": "| COMM-006 | done | `tests/qualification/ui-convergence/journeys.test.mjs` — \"page and comment reactions identify people without notifications or views at 1440px\", using `tests/qualification/ui-convergence/discussions-journey.mjs` — \"discussionsJourney\" (combined kind, status and participant filters, replies, visible orphan, resolve-all across hidden threads and persisted states) and `tests/qualification/ui-convergence/comment-anchors.mjs` — \"commentAnchorsJourney\" (selecting an offscreen anchor scrolls it into view). | None. |",
+      "to": "clause",
+      "ids": [
+        "COMM-006"
+      ]
     }
   ]
 }

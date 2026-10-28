@@ -3069,3 +3069,7 @@ Contract/operating-description consistency checks are local authoring evidence
 only. Full product, genuine-provider, prospective inquiry and release evidence
 remain pending independent release acceptance. Record missing prerequisites by named
 owner, exact scope and effect; do not replace them with fixtures or mark complete.
+
+## 29 October 2026 — Discussion judgments
+
+The judgment recorded at `9fc894d5350dfe87a0b9935ee7c1641da1fb08bd` marks COMM-003, COMM-004, COMM-005 and COMM-006 done. The landing candidate adds its generated status views.

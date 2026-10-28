@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 30 | 267 | 34 | 331 |
+| Core | 34 | 263 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 30 | 267 | 40 | 337 |
+| Full target | 34 | 263 | 40 | 337 |
 
-Judged from the code and tests at commit `23c59bb2dcdd4b6df2499f350b3bc624bc14feee` (25 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `9fc894d5350dfe87a0b9935ee7c1641da1fb08bd` (29 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -1238,7 +1238,7 @@ Core · published · **partial**
 
 #### COMM-003 — Mentions
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Mentioning a member in a comment creates one unread notification (`NOTIF-001`) linked to that comment, and mentions no one who cannot read the page.
 
@@ -1246,12 +1246,12 @@ Core · published · **partial**
 1. Editing the comment notifies only a member the comment did not already mention.
 2. A mention notifies once and never a member who cannot read the page; editing notifies only new mentions.
 
-**Evidence.** `tests/qualification/interface/content.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "group mentions preview readers and refuse oversized groups at 1440px", including `tests/qualification/ui-convergence/comment-mentions.mjs` — "commentMentionsJourney" (one unread comment-linked notice, unreadable recipients excluded, new mentions only on edit and replay-safe delivery).
+**Gap.** None.
 
 #### COMM-004 — Anchors survive editing
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** An inline thread follows its text through edits, splits and moves within the page.
 
@@ -1259,12 +1259,12 @@ Core · published · **partial**
 1. When its text is deleted the thread becomes orphaned rather than lost: it stays in the discussions panel, names the revision it was anchored in, and opens that revision (`REV-005`).
 2. Inline threads follow text through edits and become orphaned, not lost, naming their revision.
 
-**Evidence.** `tests/qualification/interface/content.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "page and comment reactions identify people without notifications or views at 1440px", including `tests/qualification/ui-convergence/comment-anchors.mjs` — "commentAnchorsJourney" (edits within selected text, splits, moves, retained orphaned discussion, named original revision and exact snapshot navigation).
+**Gap.** None.
 
 #### COMM-005 — Reactions
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A member can add and remove an emoji reaction on any comment they can read.
 
@@ -1272,12 +1272,12 @@ Core · published · **partial**
 1. Reactions show who reacted and never notify.
 2. Comment reactions show who reacted and never notify.
 
-**Evidence.** `tests/qualification/interface/content.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "page and comment reactions identify people without notifications or views at 1440px", using `tests/qualification/ui-convergence/reactions-journey.mjs` — "reactionsJourney" (named reader, add and remove, unchanged inbox and keyboard tooltip); `tests/e2e/pages/reactions.test.ts` — "PAGE-014 page and comment reactions identify each member, toggle independently and never notify or count as views" (view-only reader and denied access).
+**Gap.** None.
 
 #### COMM-006 — Discussions panel
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** One panel lists every thread on the page, filtered by kind, status and person, with an action that resolves all open threads.
 
@@ -1285,8 +1285,8 @@ Core · published · **partial**
 1. It shows unresolved threads whose anchor is orphaned, and selecting a thread scrolls to its anchor.
 2. Discussions panel filters by kind, status and person, shows orphaned threads and resolves all.
 
-**Evidence.** `tests/qualification/interface/content.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "page and comment reactions identify people without notifications or views at 1440px", using `tests/qualification/ui-convergence/discussions-journey.mjs` — "discussionsJourney" (combined kind, status and participant filters, replies, visible orphan, resolve-all across hidden threads and persisted states) and `tests/qualification/ui-convergence/comment-anchors.mjs` — "commentAnchorsJourney" (selecting an offscreen anchor scrolls it into view).
+**Gap.** None.
 
 #### COMM-007 — Resolve
 

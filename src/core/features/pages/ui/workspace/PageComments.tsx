@@ -1,5 +1,6 @@
 import {useMentionPreview,MentionPreview} from '../../../editor/ui/blocks/MentionPreview';
 import { displayDate } from "../../../../app/ui/displayDate";
+import {DiscussionFilters} from "./DiscussionFilters";
 import {ReactionControls} from './ReactionControls';
 import type {PageSelection} from "./selection";
 import {Editable} from "../../../editor/ui/blocks/Editable";
@@ -45,6 +46,8 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
   const commentKey=useRef<{signature:string;key:string}|null>(null);
   const [body, setBody] = useState<RichText>([]);
   const [filter,setFilter]=useState("all");
+  const [kind,setKind]=useState("all");
+  const [person,setPerson]=useState("all");
   const [editBody,setEditBody]=useState<RichText>([]);
   const [reply, setReply] = useState<string>();
   const [pending, setPending] = useState(false);
@@ -66,10 +69,19 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
       throw cause;
     }
   }
+  const people = new Map<string, string>();
+  for (const comment of resource.data?.comments ?? []) {
+    people.set(comment.authorMemberId, comment.authorDisplayName ?? (comment.authorMemberId === member.id ? member.displayName : "Workspace member"));
+  }
+  const threads = resource.data?.threads.filter(thread =>
+    (filter === "all" || thread.state === filter) &&
+    (kind === "all" || thread.kind === kind) &&
+    (person === "all" || resource.data?.comments.some(comment => comment.threadId === thread.id && comment.authorMemberId === person)),
+  ) ?? [];
   return (
     <section className="comments-panel">
       <h2>{title}</h2>
-      <label className="panel-filter"><span>Threads</span><select aria-label="Threads" value={filter} onChange={e=>setFilter(e.target.value)}><option value="all">All threads</option><option value="open">Open threads</option><option value="resolved">Resolved threads</option></select></label>
+      <DiscussionFilters status={filter} kind={kind} person={person} people={[...people]} onStatus={setFilter} onKind={setKind} onPerson={setPerson}/>
       {allowed && resource.data?.threads.some(t=>t.state==='open') ? <button className="secondary-button" onClick={()=>void action(`/api/comments/page/${document.page.id}/resolve-all`,{operationKey:operationKey()}).catch(()=>{})}>Resolve all open threads</button>:null}
       <RequestState
         loading={resource.loading}
@@ -79,7 +91,8 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
         {resource.data?.threads.length === 0 ? (
           <p className="muted">Start a conversation about this page.</p>
         ) : null}
-        {resource.data?.threads.filter(t=>filter==="all"||t.state===filter).map((thread) => (
+        {!resource.loading && resource.data && resource.data.threads.length > 0 && threads.length === 0 ? <p className="muted" role="status">No threads match these filters.</p> : null}
+        {threads.map((thread) => (
           <section className="comment-thread" id={`thread-${thread.id}`} key={thread.id}>
             <div className="thread-heading">
               <span>{thread.state === "resolved" ? "Resolved" : "Open"}</span>
@@ -100,7 +113,7 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
             </div>
             {thread.anchor_json ? (
               <div><blockquote>{(JSON.parse(thread.anchor_json) as {quote?:string}).quote}</blockquote>
-              {document.blocks.some(b=>b.id===thread.block_id && JSON.stringify(b.content).includes((JSON.parse(thread.anchor_json!) as {anchorId:string}).anchorId)) ? <button onClick={()=>window.document.querySelector(`[data-block-id="${CSS.escape(thread.block_id!)}"]`)?.scrollIntoView({block:"center"})}>Jump to selected text</button> : <p>Original text is no longer on the page. <a href={`/app/pages/${document.page.id}?detail=history&revision=${thread.anchor_revision_id}`}>Open original revision</a></p>}</div>
+              {document.blocks.some(b=>b.id===thread.block_id && JSON.stringify(b.content).includes((JSON.parse(thread.anchor_json!) as {anchorId:string}).anchorId)) ? <button onClick={()=>window.document.querySelector(`[data-block-id="${CSS.escape(thread.block_id!)}"]`)?.scrollIntoView({block:"center"})}>Jump to selected text</button> : <p>Original text is no longer on the page. <a href={`/app/pages/${document.page.id}?detail=history&revision=${thread.anchor_revision_id}`}>Open original revision {thread.anchor_revision_id}</a></p>}</div>
             ) : null}
             {resource.data?.comments
               .filter((comment) => comment.threadId === thread.id)

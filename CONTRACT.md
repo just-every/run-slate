@@ -3954,13 +3954,13 @@ Cross-functional task and project management (Asana, monday.com, ClickUp) stays 
 
 ## Status
 
-Judged from the code and tests at commit `23c59bb2dcdd4b6df2499f350b3bc624bc14feee` (25 October 2026).
+Judged from the code and tests at commit `9fc894d5350dfe87a0b9935ee7c1641da1fb08bd` (29 October 2026).
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 14 | 212 | 0 | 226 |
+| Published | 18 | 208 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 30 | 267 | 40 | 337 |
+| All | 34 | 263 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4051,10 +4051,10 @@ Judged from the code and tests at commit `23c59bb2dcdd4b6df2499f350b3bc624bc14fe
 | `STAT-005` | Status profile | published | partial | `tests/qualification/policies/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/emitted.mjs`. |
 | `COMM-001` | Two kinds of thread | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A member with `comment` access or more can open an inline thread anchored to a selection in a block, and a page thread about the page as a whole."<br>No validated CI-run proof for this acceptance point: "A thread is chronological, is Open or Resolved, and records each comment's author and time."<br>No validated CI-run proof for this acceptance point: "Both kinds are threads; only their anchor differs." |
 | `COMM-002` | Editing and deletion | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A member can edit or delete only their own comments."<br>No validated CI-run proof for this acceptance point: "An edited comment shows the time it was last edited, a deleted comment leaves a tombstone in place, and both write an activity entry." |
-| `COMM-003` | Mentions | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
-| `COMM-004` | Anchors survive editing | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
-| `COMM-005` | Reactions | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
-| `COMM-006` | Discussions panel | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
+| `COMM-003` | Mentions | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "group mentions preview readers and refuse oversized groups at 1440px", including `tests/qualification/ui-convergence/comment-mentions.mjs` — "commentMentionsJourney" (one unread comment-linked notice, unreadable recipients excluded, new mentions only on edit and replay-safe delivery). |  |
+| `COMM-004` | Anchors survive editing | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "page and comment reactions identify people without notifications or views at 1440px", including `tests/qualification/ui-convergence/comment-anchors.mjs` — "commentAnchorsJourney" (edits within selected text, splits, moves, retained orphaned discussion, named original revision and exact snapshot navigation). |  |
+| `COMM-005` | Reactions | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "page and comment reactions identify people without notifications or views at 1440px", using `tests/qualification/ui-convergence/reactions-journey.mjs` — "reactionsJourney" (named reader, add and remove, unchanged inbox and keyboard tooltip); `tests/e2e/pages/reactions.test.ts` — "PAGE-014 page and comment reactions identify each member, toggle independently and never notify or count as views" (view-only reader and denied access). |  |
+| `COMM-006` | Discussions panel | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "page and comment reactions identify people without notifications or views at 1440px", using `tests/qualification/ui-convergence/discussions-journey.mjs` — "discussionsJourney" (combined kind, status and participant filters, replies, visible orphan, resolve-all across hidden threads and persisted states) and `tests/qualification/ui-convergence/comment-anchors.mjs` — "commentAnchorsJourney" (selecting an offscreen anchor scrolls it into view). |  |
 | `COMM-007` | Resolve | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Any member with `comment` access can resolve or reopen a thread."<br>No validated CI-run proof for this acceptance point: "A resolved thread is hidden from the page body, stays readable in the panel and in search, and keeps its comments and reactions." |
 | `ARCH-001` | Archive | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A page, a container or a database can be archived."<br>No validated CI-run proof for this acceptance point: "Archiving records the actor, the time, the prior location and an optional reason, and archives the record's descendants with it." |
 | `ARCH-002` | What archived means | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "An archived record is read-only, is absent from the tree, from default search (`SEARCH-009`), from content queries and from AI grounding, and its existing links, mentions and citations still resolve."<br>No validated CI-run proof for this acceptance point: "It is discoverable by the archived filter, and its comments, versions and grants are unchanged." |

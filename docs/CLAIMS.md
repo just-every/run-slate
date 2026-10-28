@@ -41,7 +41,7 @@ A claim is done when every clause behind it is done, missing when every one is m
 | 33 | Give your team one home. | `HOME-002` partial; `AGENT-002` partial | partial |
 | 34 | Pages, databases and search in one open-source wiki. | `HOME-002` partial; `AGENT-002` partial | partial |
 | 35 | Free and open source, MIT licensed. | `HOME-002` partial; `AGENT-002` partial | partial |
-| 36 | Comments: Discuss any page or record. | `COMM-001` partial; `COMM-006` partial | partial |
+| 36 | Comments: Discuss any page or record. | `COMM-001` partial; `COMM-006` done | partial |
 | 37 | Templates: Start from a page you've saved. | `TMPL-005` partial | partial |
 | 38 | Verification: Mark pages verified, with an expiry. | `STAT-003` done; `STAT-004` partial | partial |
 | 39 | Inbox: Mentions, replies and watched pages. | `NOTIF-001` partial; `NOTIF-002` partial | partial |

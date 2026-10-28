@@ -45,7 +45,9 @@ The default profile is core-wiki. Flagship is explicitly configured development 
 
 Managed hosting uses the copied Base `rer` mail relay adapter and needs no owner provider account. RER Configure fills and hides `MAIL_PROVIDER=rer`, `MAIL_FROM`, `MAIL_RELAY_URL` and private `MAIL_API_KEY`, generating the installation/environment credential. Never expose that credential or the upstream provider key. Free and Assisted hosting retain own-account Resend/SendGrid options; owner-account `rer deploy` still requires explicit `SLATE_MAIL_PROVIDER=resend` or `sendgrid`. Local dev and demo suppress mail silently per rer 0.2.22; sign-in is one click. Relay acceptance is not inbox delivery; record deployed relay evidence separately from local checks.
 
-Contract views are generated from CONTRACT.md before locking source:
+## Lander-Regenerate
+
+CONTRACT.md remains the status and evidence source. Regenerate the contract views before locking source, then check them with `node src/base/runtime/contract-docs.mjs check`. This updates the summary counts, ACCEPTANCE.md and docs/CLAIMS.md while retaining other clauses. After regeneration, stage intended files, run `pnpm source:lock` last, then `pnpm source:check`.
 
 Lander-Regenerate: node src/base/runtime/contract-docs.mjs write
 Lander-Regenerate: node scripts/edition-authoring/cli.mjs lock

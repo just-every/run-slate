@@ -1,3 +1,6 @@
+import { discussionsJourney } from './discussions-journey.mjs';
+import { commentJourney } from './comments-journey.mjs';
+import { commentAnchorsJourney } from './comment-anchors.mjs';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
@@ -7,8 +10,12 @@ import { grant, ok, restrictedPage } from './two-people-support.mjs';
 export async function reactionsJourney(state, people) {
   const { page, context, origin, api } = state;
   const width = page.viewportSize().width;
-  const { pageId } = await restrictedPage(state, 'Customer incident handover', ['The service is healthy. Confirm the next owner before closing the incident.']);
-  await grant(context, origin, pageId, 'browser-reader', 'view');
+  const { pageId } = await restrictedPage(state, 'Customer incident handover', ['The on-call lead owns escalation decisions.', ...Array.from({ length: 24 }, (_, index) => `Handover step ${index + 1}: review the incident timeline, confirm the current service health, and record the next escalation contact before transferring responsibility.`)]);
+  const readerGrant = await grant(context, origin, pageId, 'browser-reader', 'view');
+  await commentJourney(state, pageId);
+  const anchoredThread = (await api(`/api/comments/page/${pageId}`)).threads.find(thread => thread.kind === 'inline');
+  await commentAnchorsJourney(state, pageId, anchoredThread);
+  await discussionsJourney(state, people, pageId, anchoredThread, readerGrant.value.id);
   const comment = (await ok(context, origin, 'POST', `/api/comments/page/${pageId}`, { operationKey: randomUUID(), body: [{ text: 'Recovery confirmed; the next shift can take over.' }] })).value.id;
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   const section = page.getByRole('region', { name: 'Page reactions', exact: true });
@@ -33,6 +40,15 @@ export async function reactionsJourney(state, people) {
   await article.getByRole('button', { name: 'React with thumbs up' }).click();
   await expect(article.getByRole('list', { name: 'Reactions', exact: true })).toContainText('👍 Morgan Reader');
   await article.screenshot({ path: `.artifacts/ui-convergence/reactions-${width}-comment.png` });
+  await people.shot('bob', 'comment reaction shows reader');
+  const emojiControl = article.getByRole('combobox', { name: 'Reaction emoji' });
+  await emojiControl.focus();
+  const hint = people.bob.page.locator('[data-reaction-tooltip]');
+  await expect(hint).toBeVisible();
+  await expect(hint).toBeInViewport({ ratio: 1 });
+  await expect(hint).toContainText(/\S+\s+\S+/);
+  await people.shot('bob', 'comment reaction emoji tooltip');
+  await emojiControl.blur();
   await article.getByRole('button', { name: 'React with thumbs up' }).click();
   await expect(article.getByRole('list', { name: 'Reactions', exact: true })).toBeEmpty();
   assert.deepEqual(await api(`/api/analytics?pageId=${pageId}`), commentViews, 'Comment reaction add/remove never records a view.');
