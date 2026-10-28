@@ -13,16 +13,16 @@ export async function commentAnchorsJourney(state, pageId, thread) {
   const saved = () => page.waitForResponse(response => response.url().includes(`/api/pages/${pageId}/blocks`) && ['PATCH', 'PUT'].includes(response.request().method()) && response.ok());
   let commit = saved();
   await editable(page, blockId).focus();
-  await page.keyboard.press('ControlOrMeta+Home');
-  await page.keyboard.type('Before handover. ');
+  await page.keyboard.press('ControlOrMeta+End');
+  await page.keyboard.type(' Confirm the handover.');
   await commit;
   await expect(editable(page, blockId).locator('mark')).toHaveText(quote);
+  await expect(editable(page, blockId).locator('mark')).toHaveAttribute('data-comment-anchor', JSON.parse(thread.anchor_json).anchorId);
   assert.equal(!!(await readThread()).orphaned, false, 'Editing around the selected text retains its thread.');
 
   // Split before the marked text: the same anchor moves onto the new block.
   await editable(page, blockId).focus();
   await page.keyboard.press('ControlOrMeta+Home');
-  for (let index = 0; index < 'Before handover. '.length; index++) await page.keyboard.press('ArrowRight');
   commit = saved();
   await page.keyboard.press('Enter');
   await commit;

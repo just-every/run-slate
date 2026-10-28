@@ -6744,7 +6744,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/EditableElement.tsx": {
-      "sha256": "505634c2c0745f4bffd71abf93d6115dad199afc10619e6bcdae39ac9673eac8",
+      "sha256": "b888cd2dc30630dff915f1094139e1d0e4a1529dc78eacd7365bcf8fc7b57462",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/editableSelection.ts": {
@@ -11700,7 +11700,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/comment-anchors.mjs": {
-      "sha256": "70abc6577c5b81d1c7174ff480c2c8abb6d8d8014ee47bfa2145e6bc8b348ac9",
+      "sha256": "fc7ec18b942bddf7a8d3b836aea3d7c3ab5e507efbb9dd333f43a63063cfcd53",
       "executable": false
     },
     "tests/qualification/ui-convergence/comment-mentions.mjs": {
