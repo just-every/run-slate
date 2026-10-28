@@ -68,7 +68,7 @@ export async function scratch() {
   try {
     await run('git', ['init', '--quiet']);
     await run('git', ['add', '.']);
-    await run('git', ['-c', 'user.name=Local Journey', '-c', 'user.email=journey@example.test', '-c', 'commit.gpgsign=false', '-c', 'core.hooksPath=/dev/null', 'commit', '--quiet', '-m', 'Local journey source snapshot']);
+    await run('env', ['GIT_AUTHOR_NAME=Run Edit Run fleet', 'GIT_AUTHOR_EMAIL=fleet@runeditrun.com', 'GIT_COMMITTER_NAME=Run Edit Run fleet', 'GIT_COMMITTER_EMAIL=fleet@runeditrun.com', 'git', '-c', 'commit.gpgsign=false', 'commit', '--quiet', '-m', 'Local journey source snapshot']);
   } catch (error) { await rm(directory, { recursive: true, force: true }); throw error; }
   return { root, directory, env, providerGuard, start, run, stop, async close() { try { for (const child of children) await stop(child); } finally { await rm(directory, { recursive: true, force: true }); } } };
 }

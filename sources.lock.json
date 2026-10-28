@@ -11196,7 +11196,7 @@
       "executable": false
     },
     "tests/local-journey/cli.test.mjs": {
-      "sha256": "205a590f3ad33afdd6152e5c8a3a9ed82bf0359c9e7871b4108f94d2629358bd",
+      "sha256": "018b003505246b3c852068971fd58312ee029afecf867d516de4d3ec889b7a69",
       "executable": false
     },
     "tests/local-journey/diagnostics.mjs": {
@@ -11236,7 +11236,7 @@
       "executable": false
     },
     "tests/local-journey/runtime.mjs": {
-      "sha256": "c9fb2e34dc1540b9ded55fd2c68165335575b51c6ee166383f894e4fac9ac0c9",
+      "sha256": "e32f7ed1dbece8433a8ef3e264b6f2e3ed1f12cd1b1e137450ab564d97e85862",
       "executable": false
     },
     "tests/local-journey/security.mjs": {
