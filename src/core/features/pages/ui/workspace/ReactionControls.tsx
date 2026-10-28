@@ -45,7 +45,7 @@ export function ReactionControls({
         ))}
       </ul>
       <div className="reaction-controls">
-        <label>
+        <label className="reaction-emoji" data-tooltip="Choose reaction">
           <span className="sr-only">Reaction emoji</span>
           <select
             value={emoji}

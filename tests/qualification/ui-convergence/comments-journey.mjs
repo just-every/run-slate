@@ -3,8 +3,7 @@ import { expect } from '@playwright/test';
 import { accessible, closeDetails } from './browser-support.mjs';
 import { insideViewport, withinViewport } from './browser-evidence.mjs';
 
-export async function commentJourney(state, pageId) {
-  const { page, origin, api } = state;
+export async function commentJourney({ page, origin, api }, pageId) {
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   const paragraph = page.getByRole('textbox', { name: 'Paragraph', exact: true }).first();
   await paragraph.focus();

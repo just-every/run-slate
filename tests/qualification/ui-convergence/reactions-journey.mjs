@@ -39,6 +39,11 @@ export async function reactionsJourney(state, people) {
   await expect(article.getByRole('list', { name: 'Reactions', exact: true })).toContainText('👍 Morgan Reader');
   await article.screenshot({ path: `.artifacts/ui-convergence/reactions-${width}-comment.png` });
   await people.shot('bob', 'comment reaction shows reader');
+  const emojiControl = article.getByRole('combobox', { name: 'Reaction emoji' });
+  await emojiControl.focus();
+  await expect.poll(() => emojiControl.evaluate(element => getComputedStyle(element.closest('[data-tooltip]'), '::after').opacity)).toBe('1');
+  await people.shot('bob', 'comment reaction emoji tooltip');
+  await emojiControl.blur();
   await article.getByRole('button', { name: 'React with thumbs up' }).click();
   await expect(article.getByRole('list', { name: 'Reactions', exact: true })).toBeEmpty();
   assert.deepEqual(await api(`/api/analytics?pageId=${pageId}`), commentViews, 'Comment reaction add/remove never records a view.');

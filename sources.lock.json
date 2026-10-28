@@ -5304,7 +5304,7 @@
       "executable": false
     },
     "src/core/app/styles/content.css": {
-      "sha256": "ddc9fe10326544cd73fd72369f2fc63083e12bc1b8480d982d65bcb51eeb2b94",
+      "sha256": "6b193efc6b7da84946222b19fb4f6034610a28b1a47ba0a382cdd351e163378a",
       "executable": false
     },
     "src/core/app/styles/controls.css": {
@@ -8400,7 +8400,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/ReactionControls.tsx": {
-      "sha256": "37eff1f2ac47971d692f900e869b44e35b5b92a7b79fa015cd3e54e3d63eb781",
+      "sha256": "d4f9d3f4592e222d561ff1816544b74a1ef05e2906f767f3caba0698953b0e4d",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/selection.ts": {
@@ -11708,7 +11708,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
-      "sha256": "b12ca0147828ee5bbb077b740c040d17fc1458bb15456d40e254fd48eeae6f5e",
+      "sha256": "637efdb5ebd64f8c68bf1010877475a2a73719c199e5bdedf215161d8c4af602",
       "executable": false
     },
     "tests/qualification/ui-convergence/core-journeys.mjs": {
@@ -11916,7 +11916,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reactions-journey.mjs": {
-      "sha256": "8baa75dc4f10d7fc5ec01858646b6b6b0a31f60c3ef952d3e5facd926d22ff3a",
+      "sha256": "f794e503100ebe95abc910070ca78a7fb09cd8527802188d55272eed131332e7",
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
