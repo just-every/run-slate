@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 34 | 263 | 34 | 331 |
+| Core | 38 | 259 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 34 | 263 | 40 | 337 |
+| Full target | 38 | 259 | 40 | 337 |
 
-Judged from the code and tests at commit `9fc894d5350dfe87a0b9935ee7c1641da1fb08bd` (29 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -1758,7 +1758,7 @@ Core · published · **partial**
 
 #### SEARCH-002 — Results
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Each result names its kind, shows the matched text in context, and opens the record with the match highlighted.
 
@@ -1766,12 +1766,12 @@ Core · published · **partial**
 1. A quoted query matches only records whose retained text contains that exact phrase.
 2. Results name their kind with highlighted context; quoted phrases match exactly.
 
-**Evidence.** `tests/qualification/core/discovery.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.
+**Evidence.** `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors"; `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px"; `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 390px"; `tests/qualification/ui-convergence/reading-journeys.mjs` — "searchJourney"; `tests/qualification/ui-convergence/search-filters-journey.mjs` — "searchFiltersJourney"
+**Gap.** None.
 
 #### SEARCH-003 — Filters
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Results are narrowed by kind, container, contributor, status, updated date, and whether archived or trashed records are included, without changing the query text, and the filters in force are shown with the results.
 
@@ -1779,12 +1779,12 @@ Core · published · **partial**
 1. Results are narrowed by kind, container, contributor, status, updated date, and whether archived or trashed records are included, without changing the query text, and the filters in force are shown with the results.
 2. Filters by kind, container, contributor, status, date and archived or trashed narrow results without changing the query.
 
-**Evidence.** `tests/qualification/core/discovery.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.
+**Evidence.** `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors"; `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px"; `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 390px"; `tests/qualification/ui-convergence/search-filters-journey.mjs` — "searchFiltersJourney"
+**Gap.** None.
 
 #### SEARCH-004 — Freshness
 
-Core · published · **partial** · Cites BASE-DATA-003
+Core · published · **done** · Cites BASE-DATA-003
 
 **Requirement.** A committed create, edit, publish, move, archive, restore or delete is reflected in results within 5 seconds.
 
@@ -1792,12 +1792,12 @@ Core · published · **partial** · Cites BASE-DATA-003
 1. An import is not complete until its records are searchable (`PORT-004`), and content removed under `ARCH-006` stops matching within the cascade deadline in `BASE-DATA-003`.
 2. Committed changes are searchable within 5 seconds; erased content stops matching within the cascade deadline.
 
-**Evidence.** `tests/qualification/core/discovery.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.
+**Evidence.** `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors"; `tests/e2e/search/freshness-journey.ts` — "freshnessJourney"
+**Gap.** None.
 
 #### SEARCH-005 — What search never shows
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Search returns only what the searching member may read: no page they lack a grant for, no other member's draft (`LIFE-002`), nothing in another member's personal container (`CONT-005`), and no title, snippet, facet count or result total that would reveal the existence of any of them.
 
@@ -1805,8 +1805,8 @@ Core · published · **partial**
 1. Access is the only rule that removes a record from search outright; every other exclusion is a default the member can undo (`SEARCH-009`).
 2. No title, snippet, facet or total reveals an unreadable page, another member's draft or a personal container.
 
-**Evidence.** `tests/qualification/core/discovery.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.
+**Evidence.** `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors"; `tests/e2e/search/freshness-journey.ts` — "freshnessJourney"
+**Gap.** None.
 
 #### SEARCH-006 — Search in one container
 

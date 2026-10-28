@@ -2,7 +2,7 @@
   "schema": 1,
   "seed": "slate",
   "old": {
-    "commit": "249f2a9e18ef944c96bee8d0ba1735027e2559cf",
+    "commit": "a04bc61d26d82437722a7f13ea86801e5bcf4e4b",
     "files": [
       "CONTRACT.md",
       "ACCEPTANCE.md",
@@ -9571,14 +9571,14 @@
     {
       "file": "CONTRACT.md",
       "line": 1809,
-      "text": "Judged from the code and tests at commit `9fc894d5350dfe87a0b9935ee7c1641da1fb08bd` (29 October 2026);",
+      "text": "Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026);",
       "to": "section",
       "section": "Status"
     },
     {
       "file": "CONTRACT.md",
       "line": 1809,
-      "text": "the landing candidate adds its generated status views.",
+      "text": "the landing candidate adds its generated status views and final tooltip and filter assertions.",
       "to": "changelog"
     },
     {
@@ -10589,46 +10589,6 @@
       "to": "gap",
       "ids": [
         "SEARCH-001"
-      ]
-    },
-    {
-      "file": "CONTRACT.md",
-      "line": 1944,
-      "cell": "gap",
-      "text": "evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.",
-      "to": "gap",
-      "ids": [
-        "SEARCH-002"
-      ]
-    },
-    {
-      "file": "CONTRACT.md",
-      "line": 1945,
-      "cell": "gap",
-      "text": "evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.",
-      "to": "gap",
-      "ids": [
-        "SEARCH-003"
-      ]
-    },
-    {
-      "file": "CONTRACT.md",
-      "line": 1946,
-      "cell": "gap",
-      "text": "evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.",
-      "to": "gap",
-      "ids": [
-        "SEARCH-004"
-      ]
-    },
-    {
-      "file": "CONTRACT.md",
-      "line": 1947,
-      "cell": "gap",
-      "text": "evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.",
-      "to": "gap",
-      "ids": [
-        "SEARCH-005"
       ]
     },
     {
@@ -12397,9 +12357,9 @@
     {
       "file": "ACCEPTANCE.md",
       "line": 14,
-      "text": "| Published | 44 | 177 | 0 | 221 |",
+      "text": "| Published | 48 | 173 | 0 | 221 |",
       "to": "generated",
-      "note": "The contract generator writes this status or count."
+      "note": "The contract generator writes this status count."
     },
     {
       "file": "ACCEPTANCE.md",
@@ -12411,9 +12371,9 @@
     {
       "file": "ACCEPTANCE.md",
       "line": 16,
-      "text": "| All | 63 | 229 | 34 | 326 |",
+      "text": "| All | 67 | 225 | 34 | 326 |",
       "to": "generated",
-      "note": "The contract generator writes this status or count."
+      "note": "The contract generator writes this status count."
     },
     {
       "file": "ACCEPTANCE.md",
@@ -15332,7 +15292,7 @@
     {
       "file": "ACCEPTANCE.md",
       "line": 155,
-      "text": "| `SEARCH-002` Results |",
+      "text": "| `SEARCH-002` Results | Results name their kind with highlighted context; quoted phrases match exactly |",
       "to": "clause",
       "ids": [
         "SEARCH-002"
@@ -15341,22 +15301,14 @@
     {
       "file": "ACCEPTANCE.md",
       "line": 155,
-      "text": "Results name their kind with highlighted context; quoted phrases match exactly |",
-      "to": "clause",
-      "ids": [
-        "SEARCH-002"
-      ]
-    },
-    {
-      "file": "ACCEPTANCE.md",
-      "line": 155,
-      "text": "done | `tests/qualification/core/discovery.mjs` |",
-      "to": "changelog"
+      "text": " done | `tests/e2e/search/fts-permissions.test.ts` — \"Indexed search uses current native authority for literal matches, totals, facets and cursors\" (exact phrases and reordered-word exclusion); `tests/qualification/ui-convergence/journeys.test.mjs` — \"real core-wiki and touch-member journeys at 1440px\" and \"real core-wiki and touch-member journeys at 390px\", calling `tests/qualification/ui-convergence/reading-journeys.mjs` searchJourney and `tests/qualification/ui-convergence/search-filters-journey.mjs` searchFiltersJourney (kind, contextual match, opened-page highlighting and quoted results). |",
+      "to": "section",
+      "section": "Status"
     },
     {
       "file": "ACCEPTANCE.md",
       "line": 156,
-      "text": "| `SEARCH-003` Filters |",
+      "text": "| `SEARCH-003` Filters | Filters by kind, container, contributor, status, date and archived or trashed narrow results without changing the query |",
       "to": "clause",
       "ids": [
         "SEARCH-003"
@@ -15365,22 +15317,14 @@
     {
       "file": "ACCEPTANCE.md",
       "line": 156,
-      "text": "Filters by kind, container, contributor, status, date and archived or trashed narrow results without changing the query |",
-      "to": "clause",
-      "ids": [
-        "SEARCH-003"
-      ]
-    },
-    {
-      "file": "ACCEPTANCE.md",
-      "line": 156,
-      "text": "done | `tests/qualification/core/discovery.mjs` |",
-      "to": "changelog"
+      "text": " done | `tests/e2e/search/fts-permissions.test.ts` — \"Indexed search uses current native authority for literal matches, totals, facets and cursors\" (kind, space, contributor, status, dates, archive and trash); `tests/qualification/ui-convergence/journeys.test.mjs` — \"real core-wiki and touch-member journeys at 1440px\" and \"real core-wiki and touch-member journeys at 390px\", calling `tests/qualification/ui-convergence/search-filters-journey.mjs` searchFiltersJourney (each filter narrows real results, preserves the query, displays the active selection and survives reload). |",
+      "to": "section",
+      "section": "Status"
     },
     {
       "file": "ACCEPTANCE.md",
       "line": 157,
-      "text": "| `SEARCH-004` Freshness |",
+      "text": "| `SEARCH-004` Freshness | Committed changes are searchable within 5 seconds; erased content stops matching within the cascade deadline |",
       "to": "clause",
       "ids": [
         "SEARCH-004"
@@ -15389,22 +15333,14 @@
     {
       "file": "ACCEPTANCE.md",
       "line": 157,
-      "text": "Committed changes are searchable within 5 seconds; erased content stops matching within the cascade deadline |",
-      "to": "clause",
-      "ids": [
-        "SEARCH-004"
-      ]
-    },
-    {
-      "file": "ACCEPTANCE.md",
-      "line": 157,
-      "text": "done | `tests/qualification/core/discovery.mjs` |",
-      "to": "changelog"
+      "text": " done | `tests/e2e/search/fts-permissions.test.ts` — \"Indexed search uses current native authority for literal matches, totals, facets and cursors\", calling `tests/e2e/search/freshness-journey.ts` freshnessJourney (committed create, edit, publish, move, archive, restore and trash or permanent erasure visible within five seconds; completed import has indexed IDs and no dirty generations before first search; erased content and refused import replay stay absent, within BASE-DATA-003). |",
+      "to": "section",
+      "section": "Status"
     },
     {
       "file": "ACCEPTANCE.md",
       "line": 158,
-      "text": "| `SEARCH-005` What search never shows |",
+      "text": "| `SEARCH-005` What search never shows | No title, snippet, facet or total reveals an unreadable page, another member's draft or a personal container |",
       "to": "clause",
       "ids": [
         "SEARCH-005"
@@ -15413,17 +15349,9 @@
     {
       "file": "ACCEPTANCE.md",
       "line": 158,
-      "text": "No title, snippet, facet or total reveals an unreadable page, another member's draft or a personal container |",
-      "to": "clause",
-      "ids": [
-        "SEARCH-005"
-      ]
-    },
-    {
-      "file": "ACCEPTANCE.md",
-      "line": 158,
-      "text": "done | `tests/qualification/core/discovery.mjs` |",
-      "to": "changelog"
+      "text": " done | `tests/e2e/search/fts-permissions.test.ts` — \"Indexed search uses current native authority for literal matches, totals, facets and cursors\" (readable and denied native members and guests, another author's drafts and personal spaces, titles and bodies, exact totals and facets, cursor revocation and current-readable computed record values); `tests/e2e/search/freshness-journey.ts` freshnessJourney (confirmed erasure and refused replay cannot restore searchable content). |",
+      "to": "section",
+      "section": "Status"
     },
     {
       "file": "ACCEPTANCE.md",
@@ -21674,6 +21602,42 @@
       "to": "clause",
       "ids": [
         "COMM-006"
+      ]
+    },
+    {
+      "file": "docs/CLAIMS.md",
+      "line": 90,
+      "text": "| SEARCH-002 | done | `tests/e2e/search/fts-permissions.test.ts` — \"Indexed search uses current native authority for literal matches, totals, facets and cursors\" (exact phrases and reordered-word exclusion); `tests/qualification/ui-convergence/journeys.test.mjs` — \"real core-wiki and touch-member journeys at 1440px\" and \"real core-wiki and touch-member journeys at 390px\", calling `tests/qualification/ui-convergence/reading-journeys.mjs` searchJourney and `tests/qualification/ui-convergence/search-filters-journey.mjs` searchFiltersJourney (kind, contextual match, opened-page highlighting and quoted results). | None. |",
+      "to": "clause",
+      "ids": [
+        "SEARCH-002"
+      ]
+    },
+    {
+      "file": "docs/CLAIMS.md",
+      "line": 91,
+      "text": "| SEARCH-003 | done | `tests/e2e/search/fts-permissions.test.ts` — \"Indexed search uses current native authority for literal matches, totals, facets and cursors\" (kind, space, contributor, status, dates, archive and trash); `tests/qualification/ui-convergence/journeys.test.mjs` — \"real core-wiki and touch-member journeys at 1440px\" and \"real core-wiki and touch-member journeys at 390px\", calling `tests/qualification/ui-convergence/search-filters-journey.mjs` searchFiltersJourney (each filter narrows real results, preserves the query, displays the active selection and survives reload). | None. |",
+      "to": "clause",
+      "ids": [
+        "SEARCH-003"
+      ]
+    },
+    {
+      "file": "docs/CLAIMS.md",
+      "line": 92,
+      "text": "| SEARCH-004 | done | `tests/e2e/search/fts-permissions.test.ts` — \"Indexed search uses current native authority for literal matches, totals, facets and cursors\", calling `tests/e2e/search/freshness-journey.ts` freshnessJourney (committed create, edit, publish, move, archive, restore and trash or permanent erasure visible within five seconds; completed import has indexed IDs and no dirty generations before first search; erased content and refused import replay stay absent, within BASE-DATA-003). | None. |",
+      "to": "clause",
+      "ids": [
+        "SEARCH-004"
+      ]
+    },
+    {
+      "file": "docs/CLAIMS.md",
+      "line": 93,
+      "text": "| SEARCH-005 | done | `tests/e2e/search/fts-permissions.test.ts` — \"Indexed search uses current native authority for literal matches, totals, facets and cursors\" (readable and denied native members and guests, another author's drafts and personal spaces, titles and bodies, exact totals and facets, cursor revocation and current-readable computed record values); `tests/e2e/search/freshness-journey.ts` freshnessJourney (confirmed erasure and refused replay cannot restore searchable content). | None. |",
+      "to": "clause",
+      "ids": [
+        "SEARCH-005"
       ]
     }
   ]

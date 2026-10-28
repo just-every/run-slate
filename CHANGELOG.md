@@ -3073,3 +3073,7 @@ owner, exact scope and effect; do not replace them with fixtures or mark complet
 ## 29 October 2026 — Discussion judgments
 
 The judgment recorded at `9fc894d5350dfe87a0b9935ee7c1641da1fb08bd` marks COMM-003, COMM-004, COMM-005 and COMM-006 done. The landing candidate adds its generated status views.
+
+## 2026-10-28 — Search reconciliation
+
+Main `a04bc61d26d82437722a7f13ea86801e5bcf4e4b` records: the landing candidate adds its generated status views and final tooltip and filter assertions.

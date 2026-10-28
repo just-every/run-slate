@@ -3954,13 +3954,13 @@ Cross-functional task and project management (Asana, monday.com, ClickUp) stays 
 
 ## Status
 
-Judged from the code and tests at commit `9fc894d5350dfe87a0b9935ee7c1641da1fb08bd` (29 October 2026).
+Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026).
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 18 | 208 | 0 | 226 |
+| Published | 22 | 204 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 34 | 263 | 40 | 337 |
+| All | 38 | 259 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4089,10 +4089,10 @@ Judged from the code and tests at commit `9fc894d5350dfe87a0b9935ee7c1641da1fb08
 | `AUTO-004` | Loops are bounded | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A rule never triggers itself, a chain of rules stops at the depth in `seed.json → limits`, and a run that would exceed the workspace's rate limit is throttled and logged rather than dropped silently." |
 | `AUTO-005` | Automation profile | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "`source` creates rules from a database's own toolbar, scopes them to that database, shows one When-and-Do form, scopes the run log to that database, and hides the scope selector, the site option, the branch rail and the cross-container rule list."<br>No validated CI-run proof for this acceptance point: "`container` and `site` create rules from a rule list, expose the scope selector and the branch rail, and hide nothing from each other."<br>No validated CI-run proof for this acceptance point: "The scope field and the run log are stored under every value, so an imported container or site rule keeps its scope and its history." |
 | `SEARCH-001` | Global search | published | partial | `tests/qualification/core/discovery-browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`. |
-| `SEARCH-002` | Results | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
-| `SEARCH-003` | Filters | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
-| `SEARCH-004` | Freshness | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
-| `SEARCH-005` | What search never shows | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
+| `SEARCH-002` | Results | published | done | `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors"; `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px"; `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 390px"; `tests/qualification/ui-convergence/reading-journeys.mjs` — "searchJourney"; `tests/qualification/ui-convergence/search-filters-journey.mjs` — "searchFiltersJourney" | |
+| `SEARCH-003` | Filters | published | done | `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors"; `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px"; `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 390px"; `tests/qualification/ui-convergence/search-filters-journey.mjs` — "searchFiltersJourney" | |
+| `SEARCH-004` | Freshness | published | done | `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors"; `tests/e2e/search/freshness-journey.ts` — "freshnessJourney" | |
+| `SEARCH-005` | What search never shows | published | done | `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors"; `tests/e2e/search/freshness-journey.ts` — "freshnessJourney" | |
 | `SEARCH-006` | Search in one container | published | partial | `tests/qualification/core/discovery-browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`. |
 | `SEARCH-007` | No results | published | partial | `tests/qualification/core/discovery-browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`. |
 | `SEARCH-008` | Search without AI | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |

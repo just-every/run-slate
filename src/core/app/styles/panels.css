@@ -54,7 +54,7 @@
 .slate-app .search-input-wrap { position: relative; flex: 1; min-width: 0; display: flex; }
 .slate-app .search-input-wrap input { width: 100%; padding-right: 42px; color: var(--slate-ink); background: var(--slate-canvas); }
 .slate-app .search-input-wrap input::-webkit-search-cancel-button { appearance: none; }
-.slate-app .search-clear { position: absolute; inset: 4px 4px 4px auto; display: inline-flex; align-items: center; justify-content: center; width: 36px; min-height: max(var(--slate-tap-target, 0px), 32px); padding: 4px 6px; color: var(--slate-ink); background: var(--slate-canvas); border: 1px solid var(--slate-line-strong); border-radius: 4px; font-size: 22px; line-height: 1; }
+.slate-app .search-input-wrap .search-clear { position: absolute; inset: 4px 4px 4px auto; display: inline-flex; align-items: center; justify-content: center; width: 36px; min-height: max(var(--slate-tap-target, 0px), 32px); padding: 4px 6px; color: var(--slate-ink); background: var(--slate-canvas); border: 1px solid var(--slate-line-strong); border-radius: 4px; font-size: 22px; line-height: 1; }
 .slate-app .search-clear:hover, .slate-app .search-clear:focus-visible { background: var(--slate-sidebar-hover); color: var(--slate-ink); }
 @media (max-width: 700px) {
   .slate-app .search-clear { inset: 0 0 0 auto; width: 44px; }

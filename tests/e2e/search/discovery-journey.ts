@@ -3,6 +3,7 @@ import {expect} from 'vitest';
 import {createApi} from '../../../src/core/app/hono';
 import type {searchFixture} from './route-fixture';
 import seed from '../../../seed.json';
+import {freshnessJourney} from './freshness-journey';
 
 /** One public HTTP search journey, shared with the existing authority corpus. */
 export async function discoveryJourney(f:Awaited<ReturnType<typeof searchFixture>>) {
@@ -41,6 +42,20 @@ export async function discoveryJourney(f:Awaited<ReturnType<typeof searchFixture
   expect(r.data.items.map((x:any)=>x.id).sort(),actor+': '+query).toEqual([...expected].sort());
  }
  const filtered=await find('title:Discovery','reader',{label:'launch',sort:'updated'});expect(filtered.data.items.map((x:any)=>x.id)).toEqual(['discovery-a']);
+ for(const [filters,expected]of [
+  [{kind:'page'},['discovery-a','discovery-b']], [{kind:'record'},[]],
+  [{containerId:'c'},['discovery-a','discovery-b']], [{containerId:'absent-container'},[]],
+  [{contributorId:'reader'},['discovery-b']], [{contributorId:'denied'},[]],
+  [{status:'review'},['discovery-a']], [{status:'approved'},['discovery-b']],
+  [{updatedFrom:'2000-01-01',updatedTo:'2099-01-01'},['discovery-a','discovery-b']],
+  [{updatedFrom:'2099-01-01'},[]], [{updatedTo:'2000-01-01'},[]],
+ ] as [Record<string,string>,string[]][]) {
+  const result=await find('title:Discovery','reader',filters);expect(result.status).toBe(200);
+  expect(result.data.items.map((item:any)=>item.id).sort()).toEqual(expected);
+  expect(result.data.filters.query).toBe('title:Discovery');
+  for(const [key,value]of Object.entries(filters))expect(String(result.data.filters[key])).toBe(key.startsWith('updated')?new Date(value).toISOString():value);
+ }
+ expect((await find('title:Discovery AND "phrase exact"')).data.total).toBe(0);
  expect((await request('/pages?containerId=c&label=launch','reader')).data.items.map((x:any)=>x.id)).toEqual(['discovery-a']);
  const saved=await request('/search/saved','owner',{operationKey:'save-discovery',name:'Launch knowledge',query:{query:'title:Discovery label:launch'}});expect(saved.status).toBe(200);
  const criteria=saved.data.value.query;
@@ -80,4 +95,5 @@ export async function discoveryJourney(f:Awaited<ReturnType<typeof searchFixture
  try{seed.limits.nearDuplicateSimilarity=.65;const lowered=await find('Duplicatecorpus');expect(lowered.data.total).toBe(1);expect(lowered.data.items[0].similarPages).toHaveLength(2);}finally{seed.limits.nearDuplicateSimilarity=threshold;}
  await sql("UPDATE page_grants SET revoked_at=? WHERE id='discovery-private-grant'",now);
  expect((await find('title:Discovery','denied')).data.total).toBe(0);
+ await freshnessJourney(f);
 }
