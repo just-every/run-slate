@@ -10632,7 +10632,7 @@
       "executable": false
     },
     "tests/e2e/search/freshness-journey.ts": {
-      "sha256": "6f736784482411d0ee32d858cbe7b18e794333035a3e72b3acda47e6c4b409bf",
+      "sha256": "235c583818acb71cd167d678b4df170a728691f88f219cced42ea6cc9c849cdc",
       "executable": false
     },
     "tests/e2e/search/fts-permissions.test.ts": {
@@ -12096,7 +12096,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "3d19a6ea6de2512725c7675ad24c0e156533b3a57ae3079746fe5622224f7701",
+      "sha256": "90600476990ef1419cfd1092beb8e5d4b06113024daa73ca4d280f70befad99d",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

@@ -742,9 +742,11 @@
       "clauses": [
         "SEARCH-001",
         "SEARCH-002",
-        "SEARCH-003"
+        "SEARCH-003",
+        "SEARCH-004",
+        "SEARCH-005"
       ],
-      "reason": "Local native public search route exercises live member/guest/grant boundaries, private content, archive/trash filters, literal syntax, cursor revocation and reader-specific computed record values. This is supporting regression evidence, not full search UI or hosted capacity acceptance."
+      "reason": "Public HTTP search journey checks literal matches, exact phrases, refinements, live member and guest authority, private drafts, personal spaces, totals, facets and cursors. It also checks committed content changes, completed import indexing, erasure and refused import replay. Built browser results and filter controls run in the existing core-wiki journeys; hosted capacity remains separate."
     },
     {
       "file": "tests/e2e/search/fts-upgrade.test.ts",

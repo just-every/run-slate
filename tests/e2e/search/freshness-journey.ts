@@ -6,9 +6,9 @@ import type {searchFixture} from './route-fixture';
 
 /** Committed changes and erasure are observed through the same HTTP search door. */
 export async function freshnessJourney(f:Awaited<ReturnType<typeof searchFixture>>) {
- const app=createApi(),cookie=await sessionFor('owner',{freshProof:true});
+ const app=createApi(),cookie=await sessionFor('owner',{freshProof:true}),origin=new URL(String(env.APP_URL)).origin;
  const request=async(method:string,path:string,body?:unknown)=>{
-  const response=await app.request('http://localhost:8787/api'+path,{method,headers:{cookie,...(body instanceof FormData?{}:{'content-type':'application/json'})},...(body===undefined?{}:{body:body instanceof FormData?body:JSON.stringify(body)})},{...env,SLATE_PROFILE:undefined});
+  const response=await app.request(origin+'/api'+path,{method,headers:{cookie,origin,...(body instanceof FormData?{}:{'content-type':'application/json'})},...(body===undefined?{}:{body:body instanceof FormData?body:JSON.stringify(body)})},{...env,SLATE_PROFILE:undefined});
   const data=await response.json<any>();
   expect(response.status,method+' '+path+' '+JSON.stringify(data)).toBe(200);
   return data;
@@ -72,7 +72,7 @@ export async function freshnessJourney(f:Awaited<ReturnType<typeof searchFixture
  expect(await ids('Freshness imported body','owner')).toEqual(mapped.map(row=>row.target_id));
  await request('POST','/archive/'+mapped[0]!.target_id,{operationKey:crypto.randomUUID(),expectedRevisionId:await revision(mapped[0]!.target_id),action:'trash'});
  await request('POST','/archive/'+mapped[0]!.target_id+'/permanent-delete',{operationKey:crypto.randomUUID(),confirmedPageIds:[mapped[0]!.target_id]});
- const replay=await app.request('http://localhost:8787/api/imports/'+imported.id+'/run',{method:'POST',headers:{cookie,'content-type':'application/json'},body:'{}'},{...env,SLATE_PROFILE:undefined});
+ const replay=await app.request(origin+'/api/imports/'+imported.id+'/run',{method:'POST',headers:{cookie,origin,'content-type':'application/json'},body:'{}'},{...env,SLATE_PROFILE:undefined});
  expect(replay.status).toBe(409);
  expect(await ids('Freshness imported body','owner',{includeArchived:'true',includeTrashed:'true'})).toEqual([]);
 }
