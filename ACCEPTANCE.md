@@ -11,9 +11,9 @@
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 43 | 178 | 0 | 221 |
+| Published | 44 | 177 | 0 | 221 |
 | Target and push further | 19 | 52 | 34 | 105 |
-| All | 62 | 230 | 34 | 326 |
+| All | 63 | 229 | 34 | 326 |
 
 ### Published: Workspace, editing and pages
 
@@ -27,7 +27,7 @@
 | `WORK-007` Removal | Removing a member revokes sessions, archives their personal container, leaves owned pages ownerless and refuses removing the last owner | done | `tests/qualification/ui-convergence/member-removal-journey.mjs` — "memberRemovalJourney", called by "real core-wiki and touch-member journeys" in `tests/qualification/ui-convergence/journeys.test.mjs`: Settings removal, revoked sessions and unused invitations, inactive page and container grants, retained private archive, unassigned pages and bulk reassignment, retained activity then erasure, and last-owner refusal. |
 | `WORK-008` Roles | Owner and member role matrix over settings, members, groups, guests and containers; every other right comes from grants | done | `tests/qualification/ui-convergence/workspace-authority-journey.mjs` — "workspaceAuthorityJourney", called by "real core-wiki and touch-member journeys" in `tests/qualification/ui-convergence/journeys.test.mjs`: owner and member administration boundaries and private-space administration without page access. `tests/flagship/core/identity-upgrade.test.ts` — "published v0.1.0 members, groups, guests and live sessions keep identity, access and authority through Base sign-in adoption": role changes and fresh authority. |
 | `WORK-009` Groups | Owner creates a group, grants it, changes membership and access changes at once with one activity entry; deleting it removes only its grants | done | `tests/qualification/ui-convergence/workspace-authority-journey.mjs` — "workspaceAuthorityJourney", called by "real core-wiki and touch-member journeys" in `tests/qualification/ui-convergence/journeys.test.mjs`: named group creation and membership editing, page and container grants, immediate access changes, one activity entry with replay, and group deletion retaining individual grants. |
-| `WORK-010` Guests | A guest reaches only granted pages and sees no container index, member list or search results beyond grants | partial | `tests/qualification/ui-convergence/guest-scope-journey.mjs` — "guestScopeJourney", called by "real core-wiki and touch-member journeys" in `tests/qualification/ui-convergence/journeys.test.mjs`: native scoped invitation, unchanged member list and count, denied workspace indexes, grant-limited pages and search, named container grant, immediate container guest veto and revoked session. |
+| `WORK-010` Guests | A guest reaches only granted pages and sees no container index, member list or search results beyond grants | done | `tests/qualification/ui-convergence/guest-scope-journey.mjs` — "guestScopeJourney", called by "real core-wiki and touch-member journeys" in `tests/qualification/ui-convergence/journeys.test.mjs`: native scoped invitation, unchanged member list and count, denied workspace indexes, grant-limited pages and search, named container grant, immediate container guest veto and revoked session. |
 | `WORK-011` Workspace settings | Settings shell reaches every listed area; a change in workspace settings never changes a container's settings | done | `tests/qualification/core/identity.mjs` |
 | `WORK-012` Theme | Theme choice applies to every operator surface and persists across sessions and devices; the anonymous view uses the page theme | done | `tests/qualification/core/identity.mjs` |
 | `WORK-013` First run | Claimed owner gets name, General space and Welcome page atomically; local wizard runs once at `/setup` and later members go to `/app` | done | `tests/qualification/backend/emitted.mjs` |

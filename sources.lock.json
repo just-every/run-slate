@@ -944,7 +944,7 @@
       "executable": false
     },
     ".github/workflows/verify.yml": {
-      "sha256": "edcd37df281b9d01a2fc73c023c16809c3911f738de5b29c7770bb1940ab9557",
+      "sha256": "6eeebe646cb247e4748f206deffd7cbc30f5ba7ec3564df3b96be45025bde70a",
       "executable": false
     },
     ".gitignore": {
@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "f3f368a51fca1c23a2596c6946b81ed09c429057f82e5cdbd3998d467eed24bb",
+      "sha256": "ff13ed84a56c853dcf25301027b916cd5b1fe5ab17505f7327ab9653aaf87754",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "67702fd74d522a2d0e354a32499fcd62900bc9e770d37a5ceac068ff4a0fdfd0",
+      "sha256": "59c3e67e8553bec17d2c42f560f1b965080a51a58023b89bf6b8a333ee1faa76",
       "executable": false
     },
     "DEMO.md": {
@@ -1036,7 +1036,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "2719f9304b9fe48fce4d0bbe702cb40a458f64562156e3a101e7d047f34a31b5",
+      "sha256": "2f2e32228d5c9c4c87f178645ea693c33a4fe04d46be2961e30539034745ba3c",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {

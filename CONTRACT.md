@@ -1806,15 +1806,15 @@ favor of `BLOCK-001` and `BLOCK-002`.
 
 ## Status
 
-Judged from the code and tests at commit `e41b599e2799b32553f8a0b707aa606a8a9051cb` (28 October 2026).
+Judged from the code and tests at commit `27ece6a52a1cbe3e0937cfab66593787d26069e2` (29 October 2026).
 
 Live-provider evidence remains explicitly open. See [How to read this contract](#how-to-read-this-contract) for what each status means. Evidence is the first test or file that exercises the clause; a `partial` note says what is missing. No status here is acceptance. The NOTIF-003 row includes the default-profile Workers journey exercising channel and audience refusal at connect and no-send after connection, plus the 1440/390 settings journeys. Provider acceptance remains open: the held Slack destination is a public channel, while the notifier requires a private, unshared channel with the bot invited and every human member mapped to an active Slate member; no live message delivery or cleanup is claimed.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 43 | 178 | 0 | 221 |
+| Published | 44 | 177 | 0 | 221 |
 | Target and push further | 19 | 52 | 34 | 105 |
-| All | 62 | 230 | 34 | 326 |
+| All | 63 | 229 | 34 | 326 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -1826,7 +1826,7 @@ Live-provider evidence remains explicitly open. See [How to read this contract](
 | `WORK-007` | Removal | published | done | `tests/qualification/ui-convergence/member-removal-journey.mjs` — "memberRemovalJourney", called by "real core-wiki and touch-member journeys" in `tests/qualification/ui-convergence/journeys.test.mjs`: Settings removal, revoked sessions and unused invitations, inactive page and container grants, retained private archive, unassigned pages and bulk reassignment, retained activity then erasure, and last-owner refusal. | |
 | `WORK-008` | Roles | published | done | `tests/qualification/ui-convergence/workspace-authority-journey.mjs` — "workspaceAuthorityJourney", called by "real core-wiki and touch-member journeys" in `tests/qualification/ui-convergence/journeys.test.mjs`: owner and member administration boundaries and private-space administration without page access. `tests/flagship/core/identity-upgrade.test.ts` — "published v0.1.0 members, groups, guests and live sessions keep identity, access and authority through Base sign-in adoption": role changes and fresh authority. | |
 | `WORK-009` | Groups | published | done | `tests/qualification/ui-convergence/workspace-authority-journey.mjs` — "workspaceAuthorityJourney", called by "real core-wiki and touch-member journeys" in `tests/qualification/ui-convergence/journeys.test.mjs`: named group creation and membership editing, page and container grants, immediate access changes, one activity entry with replay, and group deletion retaining individual grants. | |
-| `WORK-010` | Guests | published | partial | `tests/qualification/ui-convergence/guest-scope-journey.mjs` — "guestScopeJourney", called by "real core-wiki and touch-member journeys" in `tests/qualification/ui-convergence/journeys.test.mjs`: native scoped invitation, unchanged member list and count, denied workspace indexes, grant-limited pages and search, named container grant, immediate container guest veto and revoked session. | Recorded candidate journey proof pending. |
+| `WORK-010` | Guests | published | done | `tests/qualification/ui-convergence/guest-scope-journey.mjs` — "guestScopeJourney", called by "real core-wiki and touch-member journeys" in `tests/qualification/ui-convergence/journeys.test.mjs`: native scoped invitation, unchanged member list and count, denied workspace indexes, grant-limited pages and search, named container grant, immediate container guest veto and revoked session. | |
 | `WORK-011` | Workspace settings | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-012` | Theme | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-013` | First run | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
