@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
 import { ok } from '../../qualification/ui-convergence/two-people-support.mjs';
+import { waitForScrollSettled } from './scroll-settle.mjs';
 
 // Keep shared Checkbox tooltips bounded in every database host, including a
 // trailing list field whose tip must expand back into the row.
@@ -25,9 +26,6 @@ async function databaseCheckboxBounds({ page, context, origin, api }, containerI
       await expect(view).toHaveAttribute('aria-pressed', 'true');
       if (surface === 'peek') await page.getByRole('button', { name: 'Release checkbox', exact: true }).click();
     }
-    // Changing views and opening a peek fetch their own record content. Finish
-    // that render before placing the pointer on its final checkbox position.
-    await page.waitForLoadState('networkidle');
     const host = surface === 'peek' ? page.getByRole('dialog', { name: 'Record preview', exact: true }) : page;
     const checkbox = host.getByRole('checkbox', { name: field.name, exact: true });
     await expect(checkbox).toBeDisabled();
@@ -39,6 +37,10 @@ async function databaseCheckboxBounds({ page, context, origin, api }, containerI
     const rest = await measure();
     assert.equal(rest.scroll, rest.viewport, `SL35 ${surface}: a hidden field tip does not widen the page`);
     assert.notEqual(rest.ring, enabledRing, `Read-only ${surface} checkbox keeps its faded ring`);
+    // The tip's 300 ms transition starts only on a presented frame. A loaded
+    // runner can hold a new view's first frames for seconds; a hover inside that
+    // backlog leaves the tip at 0. Let the view's frames settle before hovering.
+    await waitForScrollSettled(page);
     await page.mouse.move(0, 0);
     await checkbox.hover();
     await expect.poll(() => checkbox.evaluate(el => el.matches(':hover')), { message: `SL35 ${surface}: the pointer reaches the field` }).toBe(true);

@@ -12120,7 +12120,7 @@
       "executable": false
     },
     "tests/ui/polish/controls.mjs": {
-      "sha256": "a48f0c4b17bd144971e58bc2abf27461a7d272f63b7638020674c0f2d6769bdc",
+      "sha256": "2cb674141808482ea11558198753091b90c11be2b39a52d826bf49c03f15ab91",
       "executable": false
     },
     "tests/ui/polish/editor-focus-transport.mjs": {
