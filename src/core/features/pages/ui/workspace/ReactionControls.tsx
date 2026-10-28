@@ -1,3 +1,4 @@
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../../../ui/tooltip';
 import { useState } from "react";
 import { useWorkspace } from "../../../../app/ui/WorkspaceContext";
 import { useResource } from "../../../../client/useResource";
@@ -45,17 +46,22 @@ export function ReactionControls({
         ))}
       </ul>
       <div className="reaction-controls">
-        <label className="reaction-emoji" data-tooltip="Choose reaction">
+        <TooltipProvider delayDuration={300}>
+          <Tooltip>
+        <label>
           <span className="sr-only">Reaction emoji</span>
-          <select
+          <TooltipTrigger asChild><select
             value={emoji}
             onChange={(event) => setEmoji(event.target.value)}
           >
             {["👍", "❤️", "🎉", "💡", "👀", "✅"].map((value) => (
               <option key={value}>{value}</option>
             ))}
-          </select>
+          </select></TooltipTrigger>
         </label>
+            <TooltipContent side="top" className="text-[13px]" data-reaction-tooltip>Choose reaction</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         <button
           type="button"
           aria-label={

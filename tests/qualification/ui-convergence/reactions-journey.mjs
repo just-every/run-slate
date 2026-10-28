@@ -41,7 +41,10 @@ export async function reactionsJourney(state, people) {
   await people.shot('bob', 'comment reaction shows reader');
   const emojiControl = article.getByRole('combobox', { name: 'Reaction emoji' });
   await emojiControl.focus();
-  await expect.poll(() => emojiControl.evaluate(element => getComputedStyle(element.closest('[data-tooltip]'), '::after').opacity)).toBe('1');
+  const hint = people.bob.page.locator('[data-reaction-tooltip]');
+  await expect(hint).toBeVisible();
+  await expect(hint).toBeInViewport({ ratio: 1 });
+  await expect(hint).toContainText(/\S+\s+\S+/);
   await people.shot('bob', 'comment reaction emoji tooltip');
   await emojiControl.blur();
   await article.getByRole('button', { name: 'React with thumbs up' }).click();

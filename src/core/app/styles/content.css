@@ -145,6 +145,3 @@
   font-weight: 600;
   margin-block: 4px 8px;
 }
-
-.slate-app .reaction-emoji::after { top: auto; bottom: calc(100% + 6px); left: 0; transform: none; }
-.slate-app .reaction-emoji:focus-within::after { opacity: 1; transition-delay: 0ms; }
