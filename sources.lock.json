@@ -9220,7 +9220,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/SettingsWorkspace.tsx": {
-      "sha256": "c2c0defc7fccee559407af0dcfb591cc9b4c58aaf70d80bad99673f4f90ca344",
+      "sha256": "a404fa39d65451c728ad57ae604eb12cc4041ada2c0adeda21fadd68c5926f4b",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/TransferCounts.tsx": {
@@ -11872,7 +11872,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/member-removal-journey.mjs": {
-      "sha256": "4b2cc5701d7ad47b145e55636696e90d95b8614594df168a4769fb5e97b89cae",
+      "sha256": "75b9240d2d19c25b1d7038690e13f6adbc8e24e484f8930299d13844945393ce",
       "executable": false
     },
     "tests/qualification/ui-convergence/my-tasks-journey.mjs": {
@@ -12032,7 +12032,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/workspace-authority-journey.mjs": {
-      "sha256": "e22cd7c36708c472e7ec9e526fd36aaa7f6dc7fff41be31752cd1c73ac980780",
+      "sha256": "6c0f947f7d3bbbe674512a6f33b1b5219ac72a4ee19a0cba948b56e777fcfa21",
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {

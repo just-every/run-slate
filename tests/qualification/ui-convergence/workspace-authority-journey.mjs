@@ -52,6 +52,15 @@ export async function workspaceAuthorityJourney(state,width) {
     const dialog=page.getByRole('dialog',{name:'Create group',exact:true});
     await dialog.getByRole('textbox',{name:'Name',exact:true}).fill('Response team');
     await dialog.getByRole('checkbox',{name:'Morgan Reader',exact:true}).check();
+    const close=dialog.getByRole('button',{name:'Close dialog',exact:true});
+    await page.keyboard.press('Tab');
+    await close.focus();
+    await expect.poll(()=>close.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
+    await expect(close).toHaveAttribute('data-tooltip',/\S+\s+\S+/);
+    await accessible(page,'group dialog keyboard tooltip');
+    await dialog.getByRole('textbox',{name:'Name',exact:true}).focus();
+    await close.hover();
+    await expect.poll(()=>close.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
     await accessible(page,'named group with selected member');
     await dialog.getByRole('button',{name:'Save group',exact:true}).click();
     await expect(dialog).toBeHidden();
@@ -95,6 +104,13 @@ export async function workspaceAuthorityJourney(state,width) {
     assert.equal((await read(`/api/containers/${space}`)).name,'Group response guides');
     await page.reload({waitUntil:'networkidle'});
     await expect(page.getByText('Response team',{exact:true})).toHaveCount(0);
+    if(width===390) {
+      const more=page.getByRole('button',{name:'More settings sections',exact:true});
+      await page.keyboard.press('Tab');
+      await more.focus();
+      await expect.poll(()=>more.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
+      await expect(more).toHaveAttribute('data-tooltip',/\S+\s+\S+/);
+    }
     await accessible(page,'deleted group leaves individual grants intact');
     await memberRemovalJourney(state,width);
   } finally {await reader.close();}

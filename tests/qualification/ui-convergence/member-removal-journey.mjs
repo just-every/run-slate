@@ -67,7 +67,8 @@ export async function memberRemovalJourney(state,width) {
     for(const item of beforeActivity) {
       assert.equal(retained.find(entry=>entry.id===item.id)?.actor?.displayName,'Casey Chen','Removal keeps existing activity attribution.');
     }
-    await page.goto(`${origin}/app/settings?section=containers&container=${space}`,{waitUntil:'networkidle'});
+    await page.goto(origin+'/app/settings?section=spaces',{waitUntil:'networkidle'});
+    await page.locator('.space-choice').filter({hasText:'Departure handover'}).click();
     await page.getByRole('navigation',{name:'Space navigation',exact:true}).getByRole('button',{name:'Bulk',exact:true}).click();
     for(const {title} of pages)await page.getByRole('checkbox',{name:title,exact:true}).check();
     await page.getByRole('button',{name:'Change owner',exact:true}).click();
