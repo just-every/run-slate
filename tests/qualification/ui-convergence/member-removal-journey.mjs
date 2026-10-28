@@ -35,7 +35,7 @@ export async function memberRemovalJourney(state,width) {
     }
     assert.equal((await call(context,origin,'GET',`/api/pages/${personal}`)).status,404);
     const beforeActivity=(await api(`/api/activity?actorId=${person.id}&limit=100`)).items;
-    assert.ok(beforeActivity.some(item=>item.action==='page.create'&&item.actor.displayName==='Casey Chen'));
+    assert.ok(beforeActivity.some(item=>item.action==='pages.create'&&item.actor.displayName==='Casey Chen'));
     await page.goto(origin+'/app/settings?section=members',{waitUntil:'networkidle'});
     const row=page.locator('.settings-list li').filter({has:page.getByText('Casey Chen',{exact:true})});
     await row.getByRole('button',{name:'Remove',exact:true}).click();
@@ -90,6 +90,10 @@ export async function memberRemovalJourney(state,width) {
     assert.equal((await second.request.get(links[1],{maxRedirects:0})).status(),400,'A fresh invitation never reactivates the old unused capture.');
     await ok(context,origin,'POST','/api/members/remove',{operationKey:key(),memberId:person.id});
     assert.equal((await call(colleague,origin,'GET','/api/session')).status,401);
+    await ok(context,origin,'POST','/api/members/remove',{operationKey:key(),memberId:person.id,erase:true});
+    const anonymized=(await api('/api/activity?limit=100')).items;
+    for(const item of beforeActivity)assert.equal(anonymized.find(entry=>entry.id===item.id)?.actor,null,'Personal-data erasure anonymizes retained activity.');
+    for(const link of links)assert.equal((await second.request.get(link,{maxRedirects:0})).status(),400);
     const refused=await call(context,origin,'POST','/api/members/remove',{operationKey:key(),memberId:'browser-owner'});
     assert.equal(refused.status,409,'The last owner cannot remove themselves.');
     assert.equal((await api('/api/members/current')).role,'owner');
