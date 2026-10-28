@@ -3,8 +3,10 @@ import {guestConsoleJourney} from './guest-console-journey.mjs';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-support.mjs';
 import { compactPage } from './browser-evidence.mjs';
+import {searchFiltersJourney} from './search-filters-journey.mjs';
 
-export async function searchJourney({ page, origin, journeyTitle, searchTerm }, pageId) {
+export async function searchJourney(state, pageId) {
+  const {page,origin,journeyTitle,searchTerm}=state;
   await page.goto(origin + '/app/search', { waitUntil: 'networkidle' });
   await expect(page.locator('body')).not.toContainText(/A thought away\.|FIND SOMETHING WORTH KEEPING/);
   await page.getByRole('searchbox', { name: 'Search your workspace', exact: true }).fill(searchTerm);
@@ -50,6 +52,7 @@ export async function searchJourney({ page, origin, journeyTitle, searchTerm }, 
   const create = page.getByRole('button', { name: /Create a page titled/ });
   assert.ok(await create.evaluate(element => element.classList.contains('primary-button')));
   await accessible(page, 'search no match');
+  await searchFiltersJourney(state);
 }
 
 export async function settingsJourney(state, width) {

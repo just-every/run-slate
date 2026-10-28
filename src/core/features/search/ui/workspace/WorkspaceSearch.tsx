@@ -78,7 +78,7 @@ export function WorkspaceSearch() {
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search pages, records and conversations…"
           />
-          {query ? <button type="button" className="search-clear" aria-label="Clear search" onClick={() => {setQuery("");queryInput.current?.focus();}}>×</button> : null}</div>
+          {query ? <button type="button" className="search-clear" aria-label="Clear search" data-tooltip="Clear search" data-tooltip-align="end" onClick={() => {setQuery("");queryInput.current?.focus();}}>×</button> : null}</div>
           <button className="primary-button" type="submit" disabled={!ready}>
             Search
           </button>

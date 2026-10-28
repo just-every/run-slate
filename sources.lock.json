@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "57433a6d98e7b7f45a70b733ad0b0722632db89b47bbc9ad1a164a7f12ca5705",
+      "sha256": "41f87e34f979c17ba05d90d84424de760df82cd9a5c100ffa160743a9cd66872",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -968,7 +968,7 @@
       "executable": false
     },
     "AGENTS.md": {
-      "sha256": "3cf97cbfcc273114fb21c21bd4721a4b4e0c2c2a451a0832fe609ab4b13148e5",
+      "sha256": "3b6e171f2d47d80e45bcf9cd452a505f96012b483371695616b5e79a0a78146d",
       "executable": false
     },
     "base-copies.json": {
@@ -1036,7 +1036,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "8cae940f405081d0dda7c2cce1416423c3898d34e61a3dfa8df9a88c999b62f8",
+      "sha256": "6c94948b60fa6025846fcdc45bfd900194ee76f5bd4f0d3dbc2bfa4ef3633e26",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -8924,7 +8924,7 @@
       "executable": false
     },
     "src/core/features/search/ui/workspace/WorkspaceSearch.tsx": {
-      "sha256": "ff3c79011bd0036c00d4761ddde30f0d2df0d74c9adc82edd19cb50f60a151be",
+      "sha256": "b5850d8c891e893ea1dde9f812cc4133a514349e5c746936c385703fc8c81166",
       "executable": false
     },
     "src/core/features/search/visibility.ts": {
@@ -10628,7 +10628,11 @@
       "executable": false
     },
     "tests/e2e/search/discovery-journey.ts": {
-      "sha256": "63797d9e77faf7f16d042f3c723db8b8c14f5e6777e84aa317266e3438baa00b",
+      "sha256": "1b5e48364271a354166c1ab19cc0c0bd71e67ed16fa3a9025b05c3ce09364dd5",
+      "executable": false
+    },
+    "tests/e2e/search/freshness-journey.ts": {
+      "sha256": "b43bf9f2bdce86b968fd17a666649c5422b77cfae69bedef7fc5e9f4924aaf60",
       "executable": false
     },
     "tests/e2e/search/fts-permissions.test.ts": {
@@ -11928,7 +11932,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "86396c77fa27c01aab94034961ee438c15effd3c77db050c361e0b4ecf340a0f",
+      "sha256": "68662c4088eef48e286591bbdbbd73c938ee9821ae26086ccdb4183013c92c33",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
@@ -11945,6 +11949,10 @@
     },
     "tests/qualification/ui-convergence/scim-access-journey.mjs": {
       "sha256": "fb19a23ef8a6c8bf64f8d12570aa6b723fedd06af1e674f5f6d8ea3bef2c0bf4",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/search-filters-journey.mjs": {
+      "sha256": "a7b6585612cf831387bf6d4a6aebe8566560864793c4b0d9b52f7fff6b7beffd",
       "executable": false
     },
     "tests/qualification/ui-convergence/shared-navigation-journey.mjs": {

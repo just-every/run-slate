@@ -47,4 +47,4 @@ Managed hosting uses the copied Base `rer` mail relay adapter and needs no owner
 
 ## Lander-Regenerate
 
-CONTRACT.md remains the status and evidence source. Regenerate the touched legacy rows with `node scripts/contract-docs.mjs write <clause IDs>` and check them with `node scripts/contract-docs.mjs check <clause IDs>`. This updates the summary counts, ACCEPTANCE.md and docs/CLAIMS.md while retaining release instructions and other clauses. After regeneration, stage intended files, run `pnpm source:lock` last, then `pnpm source:check`.
+CONTRACT.md remains the status and evidence source. Regenerate the touched legacy rows with `node scripts/contract-docs.mjs write CLAUSE...` and check them with `node scripts/contract-docs.mjs check CLAUSE...`. This updates the summary counts, ACCEPTANCE.md and docs/CLAIMS.md while retaining release instructions and other clauses. After regeneration, stage intended files, run `pnpm source:lock` last, then `pnpm source:check`.
