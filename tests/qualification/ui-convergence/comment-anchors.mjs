@@ -73,6 +73,8 @@ export async function commentAnchorsJourney(state, pageId, thread) {
   await page.screenshot({ path: `.artifacts/ui-convergence/comments-${width}-orphaned.png`, fullPage: true });
   await revision.click();
   await expect(page).toHaveURL(new RegExp(`revision=${thread.anchor_revision_id}`));
+  await page.locator('.revision-preview').scrollIntoViewIfNeeded();
+  await expect(page.locator('.revision-preview')).toBeVisible();
   await expect(page.locator('.revision-preview')).toContainText(quote);
   await page.screenshot({ path: `.artifacts/ui-convergence/comments-${width}-original-revision.png`, fullPage: true });
   await closeDetails(page);
