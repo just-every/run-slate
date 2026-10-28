@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "63b2de42d2e924e4a429a5c1bb8522c0cd7387e84efb4898f77096269b3676cc",
+      "sha256": "bed9ffbf4ab3f805cf1d353c0dabd7deb7754cf603448d0a11435af57c36499e",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -972,7 +972,7 @@
       "executable": false
     },
     "base-copies.json": {
-      "sha256": "849cf6d2f5ac7cb777b42d1667dadf6d5493199ed5dc52c4e5e323cbaf8dd02f",
+      "sha256": "a69ce618ebe6734734380dcc74fea07c6af35725e9abd2697fbda0f78d019966",
       "executable": false
     },
     "BASELINE.md": {
@@ -980,7 +980,7 @@
       "executable": false
     },
     "CHANGELOG.md": {
-      "sha256": "07bf302b389c19c61f961c1b88e0ff295a80a6f3480f2d4e31cf19d705f54e09",
+      "sha256": "53274e3a3ef02620cdf48d1e6efee30e1aa3ba26af1cbe8117da326f19bc378b",
       "executable": false
     },
     "CLAUDE.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "feba2ffde7476487d86de1b17f90c46d62a119226af23e26dfde2820553a9e99",
+      "sha256": "14c19717dd779d1c0b73345722b786405060805eacc74f48fdfc5c05faa91105",
       "executable": false
     },
     "DEMO.md": {
@@ -1036,11 +1036,19 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "d68fe3d48e0657dd44b46c9ecf216bcde87331b409b6c068d05166836be31a58",
+      "sha256": "9ef173e691d1fb2a62d4e9911c495cc59250e89728edcbd8a7b71d9430a582ea",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
       "sha256": "1032fac6c35b86ff74806863ce02e7e927606872411fe2761d0e53cfa67070cc",
+      "executable": false
+    },
+    "docs/contract/COVERAGE.json": {
+      "sha256": "f02b377b5449f3b41b528b39f68a17c21a21e5a1d10137626a89e0477d05d661",
+      "executable": false
+    },
+    "docs/contract/ID-MAP.json": {
+      "sha256": "d0625a83d0ad92f89a76100fe82483f1ee2afc632578febb4d19a319a9958358",
       "executable": false
     },
     "docs/EMAIL.md": {
@@ -1101,6 +1109,10 @@
     },
     "docs/TRUSTWORTHY-HANDBOOK.md": {
       "sha256": "59d87ffa26b56a13d764fe88eab7651cbb7089efcfa79c70e8ccf94c48f0bab9",
+      "executable": false
+    },
+    "docs/verify.md": {
+      "sha256": "63b2de42d2e924e4a429a5c1bb8522c0cd7387e84efb4898f77096269b3676cc",
       "executable": false
     },
     "edition.json": {
@@ -5073,6 +5085,10 @@
     },
     "seed.json": {
       "sha256": "f22d3f9101d4b6a8b8dfce36cbf656565571335dec3a21d5dfa657447607ba91",
+      "executable": false
+    },
+    "src/base/runtime/contract-docs.mjs": {
+      "sha256": "d98e14f489c57f60446c2cc68310db09f298f7974d77026dbaa2c62868cc4838",
       "executable": false
     },
     "src/base/runtime/contract-filter.ts": {
