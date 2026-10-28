@@ -8307,6 +8307,10 @@
       "sha256": "073def030ec1a18f1f41a42be1c5efdd4c4ed7f86dc7b75bc9dc4062cb8627eb",
       "executable": false
     },
+    "src/core/features/pages/ui/workspace/DiscussionFilters.tsx": {
+      "sha256": "41726e331ac05c7ffef9dc0087088c935a87ecf314f963010c07925d030d7e9d",
+      "executable": false
+    },
     "src/core/features/pages/ui/workspace/EditorMediaDialog.tsx": {
       "sha256": "5e0f83f6580d0b0f05f9261ac40a50691a4f5e127c9644f04113f02119a5acf0",
       "executable": false
@@ -8332,7 +8336,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageComments.tsx": {
-      "sha256": "b7d5625273476cb56fe1ed742f7f6f6fbc509da2020afd8a20516e0acd4776c8",
+      "sha256": "542adf492bc49eb3b684bb1b6407c6b0d1e6377f4ae764b045ecad94e1326a16",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageDetails.tsx": {
@@ -11700,7 +11704,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/comment-anchors.mjs": {
-      "sha256": "884935a15d5ff376f243f1c083f4a17970324a8245e5db32ff41c21baf5f2a20",
+      "sha256": "efcdc3a9ef55a5f8dcf20a14a2be19d2e1716079de120e68d1a3b91c1ef76aa4",
       "executable": false
     },
     "tests/qualification/ui-convergence/comment-mentions.mjs": {
@@ -11725,6 +11729,10 @@
     },
     "tests/qualification/ui-convergence/developer-access-journey.mjs": {
       "sha256": "79d2626b424679dc294dddc2bb38114c3df560dfcb4a85aeabc4dd684f4debab",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/discussions-journey.mjs": {
+      "sha256": "7c29c683b2bc9add680e33d945636930c410c445a6820c9629dcb69e9168ae0e",
       "executable": false
     },
     "tests/qualification/ui-convergence/embed-timeout-journey.mjs": {
@@ -11916,7 +11924,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reactions-journey.mjs": {
-      "sha256": "cd35fa489658b3d9c36f51117e1b860f0218fee458df1ce54bdf57e38db3bfe1",
+      "sha256": "9b1c8a7778b89f8be53cec7ed45605eb596938d7500a14a7a21a31a703e09b8b",
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {

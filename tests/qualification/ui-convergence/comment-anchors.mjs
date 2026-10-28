@@ -50,6 +50,11 @@ export async function commentAnchorsJourney(state, pageId, thread) {
   await page.getByLabel('Threads', { exact: true }).selectOption('resolved');
   const discussion = page.locator(`#thread-${thread.id}`);
   await expect(discussion.getByRole('button', { name: 'Jump to selected text', exact: true })).toBeVisible();
+  const anchor = editable(page, blockId).locator('mark');
+  await page.locator('.page-document [data-block-id]').last().scrollIntoViewIfNeeded();
+  await expect(anchor).not.toBeInViewport();
+  await discussion.getByRole('button', { name: 'Jump to selected text', exact: true }).click();
+  await expect(anchor).toBeInViewport({ ratio: 1 });
   await page.screenshot({ path: `.artifacts/ui-convergence/comments-${width}-moved-anchor.png`, fullPage: true });
   await closeDetails(page);
 
