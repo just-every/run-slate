@@ -117,7 +117,7 @@ jobs:
             ui: 1
             worker: 4
             browser: true
-            command: node --test .github/scripts/journey-shard.test.mjs && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts
+            command: node scripts/contract-docs.mjs check WORK-007 WORK-008 WORK-009 WORK-010 && node --test .github/scripts/journey-shard.test.mjs && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts
           - suite: tooling
             ui: 2
             worker: 1
