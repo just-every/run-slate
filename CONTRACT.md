@@ -3551,298 +3551,145 @@ The table declares possible classes; a conditional class is added only when curr
 
 | Tool | Does | Core clauses | Risk class | Today |
 | --- | --- | --- | --- | --- |
-| `slate.work.one_workspace` | One workspace | WORK-001 | standard | not exposed |
-| `slate.work.member_management` | Member management | WORK-003 | standard (+ access) | not exposed |
-| `slate.work.invitations` | Invitations | WORK-006 | standard | not exposed |
-| `slate.work.removal` | Removal | WORK-007 | standard (+ access) | not exposed |
-| `slate.work.roles` | Roles | WORK-008 | standard (+ access) | not exposed |
-| `slate.work.groups` | Groups | WORK-009 | standard (+ access) | not exposed |
-| `slate.work.guests` | Guests | WORK-010 | standard (+ access) | not exposed |
-| `slate.work.workspace_settings` | Workspace settings | WORK-011 | standard | not exposed |
-| `slate.work.first_run` | First run | WORK-013 | standard | not exposed |
-| `slate.work.identity_provider` | Identity provider | WORK-015 | standard | not exposed |
-| `slate.save.durable_save_state` | Durable save state | SAVE-001 | standard | not exposed |
-| `slate.save.failed_writes` | Failed writes | SAVE-002 | standard | not exposed |
-| `slate.save.revision_conflicts` | Revision conflicts | SAVE-003 | standard | not exposed |
-| `slate.save.network_loss` | Network loss | SAVE-004 | standard | not exposed |
-| `slate.save.operation_keys` | Operation keys | SAVE-005 | standard | not exposed |
-| `slate.save.concurrent_editing_and_optional_co_editing` | Concurrent editing and optional co-editing | SAVE-006 | standard | not exposed |
-| `slate.page.what_a_page_is` | What a page is | PAGE-001 | standard (+ sensitive) | not exposed |
-| `slate.page.creation` | Creation | PAGE-002 | standard or external (+ sensitive) | not exposed |
-| `slate.page.identity_survives_everything` | Identity survives everything | PAGE-003 | standard or external (+ sensitive) | not exposed |
-| `slate.page.move` | Move | PAGE-004 | standard or external (+ sensitive) | not exposed |
-| `slate.page.duplicate` | Duplicate | PAGE-005 | standard or external (+ sensitive) | not exposed |
-| `slate.page.icon_and_cover` | Icon and cover | PAGE-006 | standard or external (+ sensitive) | not exposed |
-| `slate.page.details` | Details | PAGE-007 | standard (+ sensitive) | not exposed |
-| `slate.page.favorite` | Favorite | PAGE-008 | standard or external (+ sensitive) | not exposed |
-| `slate.page.watch` | Watch | PAGE-009 | standard or external (+ sensitive) | not exposed |
-| `slate.page.page_display_options` | Page display options | PAGE-012 | standard or external (+ sensitive) | not exposed |
-| `slate.page.analytics` | Analytics | PAGE-013 | standard (+ sensitive) | not exposed |
-| `slate.page.reactions` | Reactions | PAGE-014 | standard or external (+ sensitive) | not exposed |
-| `slate.tree.a_nested_tree_in_a_container` | A nested tree in a container | TREE-001 | standard (+ sensitive) | not exposed |
-| `slate.tree.reordering_and_nesting` | Reordering and nesting | TREE-002 | standard (+ sensitive) | not exposed |
-| `slate.tree.shared_with_me` | Shared with me | TREE-003 | standard (+ sensitive) | not exposed |
-| `slate.tree.filter_the_tree` | Filter the tree | TREE-004 | standard (+ sensitive) | not exposed |
-| `slate.tree.create_in_place` | Create in place | TREE-005 | standard (+ sensitive) | not exposed |
-| `slate.block.a_body_of_blocks` | A body of blocks | BLOCK-001 | standard or external (+ sensitive) | not exposed |
-| `slate.block.inline_text` | Inline text | BLOCK-002 | standard or external (+ sensitive) | not exposed |
-| `slate.block.mentions` | Mentions | BLOCK-005 | standard or external (+ sensitive) | not exposed |
-| `slate.block.structured_blocks` | Structured blocks | BLOCK-006 | standard or external (+ sensitive) | not exposed |
-| `slate.block.task_items` | Task items | BLOCK-007 | standard or external (+ sensitive) | not exposed |
-| `slate.block.media_blocks` | Media blocks | BLOCK-008 | standard or external (+ sensitive) | not exposed |
-| `slate.block.link_cards` | Link cards | BLOCK-009 | standard or external (+ sensitive) | not exposed |
-| `slate.block.content_queries` | Content queries | BLOCK-010 | standard or external (+ sensitive) | not exposed |
-| `slate.life.lifecycle_states` | Lifecycle states | LIFE-001 | standard or external (+ sensitive) | not exposed |
-| `slate.life.a_draft_is_private` | A draft is private | LIFE-002 | standard or external (+ sensitive) | not exposed |
-| `slate.life.publish` | Publish | LIFE-003 | standard or external (+ sensitive) | not exposed |
-| `slate.life.scheduled_publish` | Scheduled publish | LIFE-004 | standard or external (+ sensitive) | not exposed |
-| `slate.life.unpublished_changes` | Unpublished changes | LIFE-005 | standard or external (+ sensitive) | not exposed |
-| `slate.life.lifecycle_profile` | Lifecycle profile | LIFE-006 | standard or external (+ sensitive) | not exposed |
-| `slate.life.discarding_a_draft` | Discarding a draft | LIFE-007 | standard or external (+ sensitive) | not exposed |
-| `slate.share.grants` | Grants | SHARE-001 | standard or external (+ access) (+ sensitive) | not exposed |
-| `slate.share.what_the_levels_mean` | What the levels mean | SHARE-002 | standard or external (+ access) (+ sensitive) | not exposed |
-| `slate.share.inheritance` | Inheritance | SHARE-003 | standard or external (+ access) (+ sensitive) | not exposed |
-| `slate.share.general_access` | General access | SHARE-004 | standard or external (+ access) (+ sensitive) | not exposed |
-| `slate.share.access_profile` | Access profile | SHARE-005 | standard or external (+ access) (+ sensitive) | not exposed |
-| `slate.share.sharing_with_a_person_who_is_not_a_member` | Sharing with a person who is not a member | SHARE-006 | standard or external (+ access) (+ sensitive) | not exposed |
-| `slate.share.access_changes_take_effect_at_once` | Access changes take effect at once | SHARE-007 | standard or external (+ access) (+ sensitive) | not exposed |
-| `slate.share.expiring_grants` | Expiring grants | SHARE-008 | standard or external (+ access) (+ sensitive) | not exposed |
-| `slate.web.anonymous_access_takes_two_acts` | Anonymous access takes two acts | WEB-001 | standard or external (+ sensitive) | not exposed |
-| `slate.web.what_a_published_page_carries` | What a published page carries | WEB-002 | standard or external (+ sensitive) | not exposed |
-| `slate.web.the_anonymous_read_view` | The anonymous read view | WEB-003 | standard or external (+ sensitive) | not exposed |
-| `slate.web.children_are_not_published_by_inheritance` | Children are not published by inheritance | WEB-004 | standard or external (+ sensitive) | not exposed |
-| `slate.web.indexing_is_off_until_it_is_chosen` | Indexing is off until it is chosen | WEB-005 | standard or external (+ sensitive) | not exposed |
-| `slate.web.unpublish` | Unpublish | WEB-006 | standard or external (+ sensitive) | not exposed |
-| `slate.web.public_link_profile` | Public-link profile | WEB-007 | standard or external (+ sensitive) | not exposed |
-| `slate.rev.what_a_revision_is` | What a revision is | REV-001 | standard (+ sensitive) | not exposed |
-| `slate.rev.history` | History | REV-002 | standard (+ sensitive) | not exposed |
-| `slate.rev.restore` | Restore | REV-003 | standard (+ sensitive) | not exposed |
-| `slate.rev.compare` | Compare | REV-004 | standard (+ sensitive) | not exposed |
-| `slate.rev.a_citation_resolves_to_its_revision` | A citation resolves to its revision | REV-005 | standard (+ sensitive) | not exposed |
-| `slate.rev.deleting_a_version` | Deleting a version | REV-006 | destructive (+ sensitive) | not exposed |
-| `slate.rev.version_profile` | Version profile | REV-007 | standard (+ sensitive) | not exposed |
-| `slate.stat.the_status_vocabulary` | The status vocabulary | STAT-001 | standard (+ sensitive) | not exposed |
-| `slate.stat.a_page_s_status` | A page's status | STAT-002 | standard (+ sensitive) | not exposed |
-| `slate.stat.verification` | Verification | STAT-003 | standard (+ commitment) (+ sensitive) | not exposed |
-| `slate.stat.verification_lapses` | Verification lapses | STAT-004 | standard (+ sensitive) | not exposed |
-| `slate.stat.status_profile` | Status profile | STAT-005 | standard (+ sensitive) | not exposed |
-| `slate.comm.two_kinds_of_thread` | Two kinds of thread | COMM-001 | standard (+ sensitive) | not exposed |
-| `slate.comm.editing_and_deletion` | Editing and deletion | COMM-002 | standard or external (+ sensitive) | not exposed |
-| `slate.comm.mentions` | Mentions | COMM-003 | standard or external (+ sensitive) | not exposed |
-| `slate.comm.anchors_survive_editing` | Anchors survive editing | COMM-004 | standard or external (+ sensitive) | not exposed |
-| `slate.comm.reactions` | Reactions | COMM-005 | standard or external (+ sensitive) | not exposed |
-| `slate.comm.discussions_panel` | Discussions panel | COMM-006 | standard or external (+ sensitive) | not exposed |
-| `slate.comm.resolve` | Resolve | COMM-007 | standard or external (+ sensitive) | not exposed |
-| `slate.arch.archive` | Archive | ARCH-001 | standard or external (+ sensitive) | not exposed |
-| `slate.arch.what_archived_means` | What archived means | ARCH-002 | standard (+ sensitive) | not exposed |
-| `slate.arch.restore_from_archive` | Restore from archive | ARCH-003 | standard or external (+ sensitive) | not exposed |
-| `slate.arch.archive_is_not_deletion` | Archive is not deletion | ARCH-004 | standard or external (+ sensitive) | not exposed |
-| `slate.arch.trash` | Trash | ARCH-005 | standard or external (+ sensitive) | not exposed |
-| `slate.arch.permanent_deletion` | Permanent deletion | ARCH-006 | destructive (+ sensitive) | not exposed |
-| `slate.cont.what_a_container_is` | What a container is | CONT-001 | standard (+ sensitive) | not exposed |
-| `slate.cont.creating_a_container` | Creating a container | CONT-002 | standard or external (+ sensitive) | not exposed |
-| `slate.cont.the_container_index` | The container index | CONT-003 | standard or external (+ sensitive) | not exposed |
-| `slate.cont.container_settings` | Container settings | CONT-004 | standard or external (+ sensitive) | not exposed |
-| `slate.cont.personal_containers` | Personal containers | CONT-005 | standard or external (+ sensitive) | not exposed |
-| `slate.cont.bulk_actions` | Bulk actions | CONT-006 | standard or external (+ sensitive) | not exposed |
-| `slate.cont.external_access_switches` | External-access switches | CONT-007 | standard or external (+ access) (+ sensitive) | not exposed |
-| `slate.cont.container_access_profile` | Container access profile | CONT-008 | standard or external (+ sensitive) | not exposed |
-| `slate.cont.container_grants` | Container grants | CONT-009 | standard or external (+ access) (+ sensitive) | not exposed |
-| `slate.db.a_database` | A database | DB-001 | standard (+ sensitive) | not exposed |
-| `slate.db.field_types_and_evaluation` | Field types and evaluation | DB-002 | standard or external (+ sensitive) | not exposed |
-| `slate.db.views` | Views | DB-003 | standard or external (+ sensitive) | not exposed |
-| `slate.db.layouts` | Layouts | DB-004 | standard or external (+ sensitive) | not exposed |
-| `slate.db.filter_and_sort` | Filter and sort | DB-005 | standard or external (+ sensitive) | not exposed |
-| `slate.db.group` | Group | DB-006 | standard or external (+ sensitive) | not exposed |
-| `slate.db.calculations` | Calculations | DB-007 | standard or external (+ sensitive) | not exposed |
-| `slate.db.charts` | Charts | DB-008 | standard or external (+ sensitive) | not exposed |
-| `slate.db.lock_structure` | Lock structure | DB-009 | standard or external (+ sensitive) | not exposed |
-| `slate.db.a_record_is_a_page` | A record is a page | DB-010 | standard (+ sensitive) | not exposed |
-| `slate.db.a_view_inside_a_page` | A view inside a page | DB-011 | standard or external (+ sensitive) | not exposed |
-| `slate.db.record_detail` | Record detail | DB-012 | standard or external (+ sensitive) | not exposed |
-| `slate.auto.a_rule` | A rule | AUTO-001 | standard or external | not exposed |
-| `slate.auto.a_rule_acts_as_its_actor` | A rule acts as its actor | AUTO-002 | standard or external | not exposed |
-| `slate.auto.run_log` | Run log | AUTO-003 | standard or external | not exposed |
-| `slate.auto.loops_are_bounded` | Loops are bounded | AUTO-004 | standard or external | not exposed |
-| `slate.auto.automation_profile` | Automation profile | AUTO-005 | standard or external | not exposed |
-| `slate.search.global_search` | Global search | SEARCH-001 | standard (+ sensitive) | not exposed |
-| `slate.search.results` | Results | SEARCH-002 | standard (+ sensitive) | not exposed |
-| `slate.search.filters` | Filters | SEARCH-003 | standard (+ sensitive) | not exposed |
-| `slate.search.freshness` | Freshness | SEARCH-004 | standard (+ sensitive) | not exposed |
-| `slate.search.what_search_never_shows` | What search never shows | SEARCH-005 | standard (+ sensitive) | not exposed |
-| `slate.search.search_in_one_container` | Search in one container | SEARCH-006 | standard (+ sensitive) | not exposed |
-| `slate.search.no_results` | No results | SEARCH-007 | standard (+ sensitive) | not exposed |
-| `slate.search.search_without_ai` | Search without AI | SEARCH-008 | standard (+ sensitive) | not exposed |
-| `slate.search.default_visibility` | Default visibility | SEARCH-009 | standard (+ sensitive) | not exposed |
-| `slate.nav.home` | Home | NAV-001 | standard | not exposed |
-| `slate.nav.recents` | Recents | NAV-002 | standard | not exposed |
-| `slate.nav.favorites` | Favorites | NAV-003 | standard | not exposed |
-| `slate.nav.global_create` | Global create | NAV-005 | standard | not exposed |
-| `slate.notif.meaningful_notifications` | Meaningful notifications | NOTIF-001 | standard or external | not exposed |
-| `slate.notif.inbox` | Inbox | NOTIF-002 | standard or external | not exposed |
-| `slate.notif.chat_notifications` | Chat notifications | NOTIF-003 | standard or external | not exposed |
-| `slate.notif.slack_destination_audience_admission` | Slack destination audience admission | NOTIF-007 | standard or external | not exposed |
-| `slate.mail.outbound_only_two_kinds` | Outbound only, two kinds | MAIL-001 | standard | not exposed |
-| `slate.mail.delivery_failure` | Delivery failure | MAIL-002 | standard | not exposed |
-| `slate.act.durable_timeline` | Durable timeline | ACT-001 | standard | not exposed |
-| `slate.act.coverage` | Coverage | ACT-002 | standard | not exposed |
-| `slate.act.retrieval` | Retrieval | ACT-003 | standard | not exposed |
-| `slate.act.context` | Context | ACT-004 | standard | not exposed |
-| `slate.act.retained_explanation` | Retained explanation | ACT-005 | standard | not exposed |
-| `slate.tmpl.gallery` | Gallery | TMPL-001 | standard or external (+ sensitive) | not exposed |
-| `slate.tmpl.preview` | Preview | TMPL-002 | standard or external (+ sensitive) | not exposed |
-| `slate.tmpl.snapshot_on_use` | Snapshot on use | TMPL-003 | standard or external (+ sensitive) | not exposed |
-| `slate.tmpl.custom_templates` | Custom templates | TMPL-004 | standard or external (+ sensitive) | not exposed |
-| `slate.tmpl.save_a_page_as_a_template` | Save a page as a template | TMPL-005 | standard or external (+ sensitive) | not exposed |
-| `slate.tmpl.where_a_template_lives` | Where a template lives | TMPL-006 | standard or external (+ sensitive) | not exposed |
-| `slate.port.export_contents` | Export contents | PORT-001 | standard or external (+ sensitive) | not exposed |
-| `slate.port.referential_restore` | Referential restore | PORT-002 | standard or external (+ sensitive) | not exposed |
-| `slate.port.visible_jobs` | Visible jobs | PORT-003 | standard or external (+ sensitive) | not exposed |
-| `slate.port.search_rebuild` | Search rebuild | PORT-004 | standard or external (+ sensitive) | not exposed |
-| `slate.port.access_boundary` | Access boundary | PORT-005 | standard or external (+ sensitive) | not exposed |
-| `slate.port.atomic_import` | Atomic import | PORT-006 | standard or external (+ sensitive) | not exposed |
-| `slate.port.exporting_a_page_or_a_container` | Exporting a page or a container | PORT-007 | standard or external (+ sensitive) | not exposed |
-| `slate.link.permanent_urls` | Permanent URLs | LINK-001 | standard | not exposed |
-| `slate.link.tombstones` | Tombstones | LINK-002 | standard | not exposed |
-| `slate.link.references_follow_their_target` | References follow their target | LINK-003 | standard | not exposed |
-| `slate.link.links_respect_access` | Links respect access | LINK-004 | standard | not exposed |
-| `slate.ai.enablement` | Enablement | AI-001 | standard or external (+ sensitive) | not exposed |
-| `slate.ai.run_lifecycle` | Run lifecycle | AI-002 | standard or external (+ sensitive) | run_status |
-| `slate.ai.proposal_or_bounded_delegation` | Proposal or bounded delegation | AI-003 | standard or external (+ sensitive) | ask |
-| `slate.ai.answer_provenance` | Answer provenance | AI-004 | standard or external (+ sensitive) | read_evidence |
-| `slate.ai.acceptance_and_granted_mutation` | Acceptance and granted mutation | AI-005 | standard or external (+ commitment) (+ sensitive) | accept_changes |
-| `slate.ai.current_inputs_before_use` | Current inputs before use | AI-006 | standard or external (+ sensitive) | refine_run |
-| `slate.ai.untrusted_content` | Untrusted content | AI-007 | standard or external (+ sensitive) | not exposed |
-| `slate.ai.failure_preserves_confirmed_work` | Failure preserves confirmed work | AI-008 | standard or external (+ sensitive) | not exposed |
-| `slate.ai.retry` | Retry | AI-009 | standard or external (+ sensitive) | not exposed |
-| `slate.ai.usage_record` | Usage record | AI-010 | standard or external (+ sensitive) | not exposed |
-| `slate.ai.no_self_granted_authority` | No self-granted authority | AI-011 | standard or external (+ commitment) (+ sensitive) | not exposed |
-| `slate.ai.durable_budgets` | Durable budgets | AI-012 | standard or external (+ sensitive) | not exposed |
-| `slate.ai.requester_and_audience_boundary` | Requester and audience boundary | AI-013 | standard or external (+ sensitive) | not exposed |
-| `slate.ai.scoped_agents` | Scoped agents | AI-014 | standard or external (+ sensitive) | not exposed |
-| `slate.ai.workspace_answers` | Workspace answers | AI-015 | standard or external (+ sensitive) | not exposed |
-| `slate.ai.summaries` | Summaries | AI-016 | standard or external (+ sensitive) | not exposed |
-| `slate.ai.writing_with_ai` | Writing with AI | AI-017 | standard or external (+ sensitive) | not exposed |
-| `slate.dec.a_decision_is_a_layer_over_a_page` | A decision is a layer over a page | DEC-001 | standard | not exposed |
-| `slate.dec.states` | States | DEC-002 | standard (+ commitment) | not exposed |
-| `slate.dec.an_accepted_decision_is_immutable` | An accepted decision is immutable | DEC-003 | standard (+ commitment) | not exposed |
-| `slate.dec.decision_log` | Decision log | DEC-004 | standard | not exposed |
-| `slate.dec.review_dates` | Review dates | DEC-005 | standard (+ commitment) | not exposed |
-| `slate.dec.a_proposed_decision_is_editable` | A proposed decision is editable | DEC-006 | standard | not exposed |
-| `slate.sug.anchored_suggestions` | Anchored suggestions | SUG-001 | standard or external (+ sensitive) | not exposed |
-| `slate.sug.resolve_explicitly` | Resolve explicitly | SUG-002 | standard or external (+ commitment) (+ sensitive) | not exposed |
-| `slate.source.connector_contract` | Connector contract | SOURCE-001 | standard (+ sensitive) | not exposed |
-| `slate.source.exact_passages` | Exact passages | SOURCE-002 | standard (+ sensitive) | not exposed |
-| `slate.source.scoped_claims_and_authority` | Scoped claims and authority | SOURCE-003 | standard (+ sensitive) | not exposed |
-| `slate.source.live_observations` | Live observations | SOURCE-004 | standard (+ sensitive) | not exposed |
-| `slate.source.revocation_and_deletion` | Revocation and deletion | SOURCE-005 | standard (+ sensitive) | not exposed |
-| `slate.source.credential_lifecycle` | Credential lifecycle | SOURCE-006 | standard (+ security) (+ sensitive) | not exposed |
-| `slate.skill.versioned_procedure` | Versioned procedure | SKILL-001 | standard or external (+ sensitive) | not exposed |
-| `slate.skill.evaluation_and_activation` | Evaluation and activation | SKILL-002 | standard or external (+ sensitive) (+ live) | not exposed |
-| `slate.skill.version_transitions` | Version transitions | SKILL-003 | standard or external (+ sensitive) (+ live) | not exposed |
-| `slate.effect.durable_effects` | Durable effects | EFFECT-001 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ destructive) (+ sensitive) (+ live) | prepare_effect, dispatch_effect, reconcile_effect |
-| `slate.effect.consent_and_product_custody` | Consent and product custody | EFFECT-002 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ sensitive) (+ live) | not exposed |
-| `slate.effect.impact_and_maintenance` | Impact and maintenance | EFFECT-003 | standard or external (+ sensitive) (+ live) | not exposed |
-| `slate.agent.semantic_parity` | Semantic parity | AGENT-001 | standard (+ sensitive) | not exposed |
-| `slate.agent.portable_owner_interfaces` | Portable owner interfaces | AGENT-002 | standard (+ sensitive) | not exposed |
-| `slate.inq.open_questions` | Open questions | INQ-001 | standard (+ sensitive) | inquiry_status |
-| `slate.inq.reproducible_reasoning` | Reproducible reasoning | INQ-002 | standard (+ sensitive) | not exposed |
-| `slate.inq.bounded_planning` | Bounded planning | INQ-003 | standard (+ sensitive) | not exposed |
-| `slate.inq.routing_and_ambient_discovery` | Routing and ambient discovery | INQ-004 | standard (+ sensitive) | not exposed |
-| `slate.inq.economical_sustained_work` | Economical sustained work | INQ-005 | standard (+ sensitive) | not exposed |
-| `slate.trial.predeclared_comparison` | Predeclared comparison | TRIAL-001 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ destructive) (+ sensitive) (+ live) | not exposed |
-| `slate.trial.exposure_and_safety` | Exposure and safety | TRIAL-002 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ destructive) (+ sensitive) (+ live) | not exposed |
-| `slate.trial.outcome_classification` | Outcome classification | TRIAL-003 | standard or external (+ sensitive) | not exposed |
-| `slate.trial.reusable_learning` | Reusable learning | TRIAL-004 | standard or external (+ sensitive) | not exposed |
-| `slate.collab.live_co_editing_by_default` | Live co-editing by default | COLLAB-001 | standard | not exposed |
-| `slate.collab.offline_edits_that_merge` | Offline edits that merge | COLLAB-003 | standard | not exposed |
-| `slate.collab.attributed_history_from_co_editing` | Attributed history from co-editing | COLLAB-005 | standard | not exposed |
-| `slate.page.page_lock` | Page lock | PAGE-015 | standard or external (+ sensitive) | not exposed |
-| `slate.block.synced_blocks` | Synced blocks | BLOCK-011 | standard or external (+ sensitive) | not exposed |
-| `slate.block.columns_and_page_layouts` | Columns and page layouts | BLOCK-012 | standard or external (+ sensitive) | not exposed |
-| `slate.block.equations_and_diagrams_as_code` | Equations and diagrams as code | BLOCK-013 | standard or external (+ sensitive) | not exposed |
-| `slate.block.tables_that_work_like_tables` | Tables that work like tables | BLOCK-014 | standard or external (+ sensitive) | not exposed |
-| `slate.block.assigned_tasks_with_due_dates` | Assigned tasks with due dates | BLOCK-015 | standard or external (+ sensitive) | not exposed |
-| `slate.block.task_reports` | Task reports | BLOCK-016 | standard or external (+ sensitive) | not exposed |
-| `slate.block.table_of_contents_block` | Table of contents block | BLOCK-017 | standard or external (+ sensitive) | not exposed |
-| `slate.block.status_labels` | Status labels | BLOCK-018 | standard or external (+ sensitive) | not exposed |
-| `slate.block.diagrams_net_diagrams` | Diagrams.net diagrams | BLOCK-019 | standard or external (+ sensitive) | not exposed |
-| `slate.block.group_mentions` | Group mentions | BLOCK-020 | standard or external (+ sensitive) | not exposed |
-| `slate.block.attachment_previews` | Attachment previews | BLOCK-021 | standard or external (+ sensitive) | not exposed |
-| `slate.block.attachment_versions` | Attachment versions | BLOCK-022 | standard or external (+ sensitive) | not exposed |
-| `slate.cont.space_blog_and_announcements` | Space blog and announcements | CONT-010 | standard or external (+ sensitive) | not exposed |
-| `slate.cont.space_home_and_company_hub` | Space home and company hub | CONT-011 | standard or external (+ sensitive) | not exposed |
-| `slate.cont.watch_a_container` | Watch a container | CONT-012 | standard or external (+ sensitive) | not exposed |
-| `slate.page.autowatch_on_create_and_edit` | Autowatch on create and edit | PAGE-016 | standard or external (+ sensitive) | not exposed |
-| `slate.work.people_directory_and_expertise` | People directory and expertise | WORK-016 | standard (+ access) | not exposed |
-| `slate.share.share_with_a_message` | Share with a message | SHARE-009 | standard or external (+ access) (+ sensitive) | not exposed |
-| `slate.tmpl.starter_templates` | Starter templates | TMPL-007 | standard or external (+ sensitive) | not exposed |
-| `slate.nav.my_tasks` | My tasks | NAV-007 | standard | not exposed |
-| `slate.search.labels_and_advanced_search` | Labels and advanced search | SEARCH-010 | standard (+ sensitive) | not exposed |
-| `slate.search.verified_first_ranking_and_trust_badges` | Verified-first ranking and trust badges | SEARCH-011 | standard (+ sensitive) | not exposed |
-| `slate.search.connected_results_in_search` | Connected results in search | SEARCH-012 | standard (+ sensitive) | not exposed |
-| `slate.search.search_inside_attached_files` | Search inside attached files | SEARCH-013 | standard (+ sensitive) | not exposed |
-| `slate.search.old_confluence_urls_find_their_slate_record` | Old Confluence URLs find their Slate record | SEARCH-014 | standard (+ sensitive) | not exposed |
-| `slate.stat.review_requests_and_expert_queues` | Review requests and expert queues | STAT-006 | standard (+ commitment) (+ sensitive) | not exposed |
-| `slate.stat.verification_rules` | Verification rules | STAT-007 | standard (+ sensitive) | not exposed |
-| `slate.card.knowledge_cards_and_collections` | Knowledge cards and collections | CARD-001 | standard or external (+ sensitive) | not exposed |
-| `slate.card.required_reading_and_announcements` | Required reading and announcements | CARD-003 | standard (+ sensitive) | not exposed |
-| `slate.db.database_forms` | Database forms | DB-013 | standard or external (+ sensitive) | not exposed |
-| `slate.db.dashboards` | Dashboards | DB-014 | standard or external (+ sensitive) | not exposed |
-| `slate.db.record_templates_and_recurring_records` | Record templates and recurring records | DB-015 | standard or external (+ sensitive) | not exposed |
-| `slate.db.ai_autofill_fields` | AI autofill fields | DB-016 | standard or external (+ sensitive) | not exposed |
-| `slate.notif.reminders` | Reminders | NOTIF-004 | standard or external | not exposed |
-| `slate.notif.email_push_and_digest_delivery` | Email, push and digest delivery | NOTIF-005 | standard or external | not exposed |
-| `slate.notif.workspace_notification_defaults` | Workspace notification defaults | NOTIF-006 | standard or external | not exposed |
-| `slate.auto.outbound_automation_actions` | Outbound automation actions | AUTO-006 | standard or external | not exposed |
-| `slate.auto.triggers_from_connected_tools` | Triggers from connected tools | AUTO-007 | standard or external | not exposed |
-| `slate.auto.accountable_follow_through` | Accountable follow-through | AUTO-008 | standard or external | not exposed |
-| `slate.port.exports_carry_comments` | Exports carry comments | PORT-008 | standard or external (+ sensitive) | not exposed |
-| `slate.port.scheduled_backups_to_the_buyer_s_storage` | Scheduled backups to the buyer's storage | PORT-009 | standard or external (+ security) (+ sensitive) | not exposed |
-| `slate.port.word_export_of_a_page` | Word export of a page | PORT-010 | standard or external (+ sensitive) | not exposed |
-| `slate.embed.live_issue_embeds_from_vector_and_jira` | Live issue embeds from Vector and Jira | EMBED-001 | standard or external (+ gated) | not exposed |
-| `slate.embed.github_and_gitlab_embeds` | GitHub and GitLab embeds | EMBED-002 | standard or external | not exposed |
-| `slate.embed.design_video_and_document_embeds` | Design, video and document embeds | EMBED-003 | standard or external | not exposed |
-| `slate.embed.live_file_cards_from_drive_sharepoint_and_chest` | Live file cards from Drive, SharePoint and Chest | EMBED-004 | standard or external (+ gated) | not exposed |
-| `slate.embed.backlinks_on_jira_and_vector_issues` | Backlinks on Jira and Vector issues | EMBED-005 | standard or external (+ gated) | not exposed |
-| `slate.embed.jira_links_to_migrated_confluence_pages_are_re_pointed_at_cutover` | Jira links to migrated Confluence pages are re-pointed at cutover | EMBED-006 | standard or external (+ gated) | not exposed |
-| `slate.embed.issues_that_link_here` | Issues that link here | EMBED-007 | standard or external | not exposed |
-| `slate.embed.slate_for_jira_smart_links_and_project_pages` | Slate for Jira: smart links and project pages | EMBED-008 | standard or external (+ gated) | not exposed |
-| `slate.chat.chat_notifications_to_slack_microsoft_teams_and_nook` | Chat notifications to Slack, Microsoft Teams and Nook | CHAT-001 | standard or external | not exposed |
-| `slate.chat.ask_and_unfurl_in_chat` | Ask and unfurl in chat | CHAT-002 | standard or external | not exposed |
-| `slate.chat.capture_chat_into_pages` | Capture chat into pages | CHAT-003 | standard or external | not exposed |
-| `slate.chat.personal_notifications_as_chat_direct_messages` | Personal notifications as chat direct messages | CHAT-004 | standard or external | not exposed |
-| `slate.connect.named_connectors` | Named connectors | CONNECT-001 | standard or external (+ gated) | not exposed |
-| `slate.connect.source_permissions_are_mirrored` | Source permissions are mirrored | CONNECT-002 | standard or external (+ gated) | not exposed |
-| `slate.connect.connector_health` | Connector health | CONNECT-003 | standard or external (+ gated) | not exposed |
-| `slate.answer.cited_answers_in_the_default_product` | Cited answers in the default product | ANSWER-001 | standard (+ sensitive) | not exposed |
-| `slate.answer.answers_state_their_trust` | Answers state their trust | ANSWER-002 | standard (+ sensitive) | not exposed |
-| `slate.answer.answers_never_leak_restricted_knowledge` | Answers never leak restricted knowledge | ANSWER-003 | standard (+ sensitive) | not exposed |
-| `slate.answer.feedback_and_unanswered_questions` | Feedback and unanswered questions | ANSWER-004 | standard (+ sensitive) | not exposed |
-| `slate.answer.summaries_and_catch_up` | Summaries and catch-up | ANSWER-005 | standard (+ sensitive) | not exposed |
-| `slate.answer.owner_chosen_models_and_data_controls` | Owner-chosen models and data controls | ANSWER-006 | standard (+ sensitive) | not exposed |
-| `slate.api.public_rest_api` | Public REST API | API-001 | standard or external (+ commitment) (+ access) (+ security) (+ destructive) (+ sensitive) | not exposed |
-| `slate.api.webhooks` | Webhooks | API-002 | standard or external (+ security) | not exposed |
-| `slate.api.mcp_server` | MCP server | API-003 | standard (+ sensitive) | not exposed |
-| `slate.api.app_and_token_administration` | App and token administration | API-004 | standard (+ access) (+ security) | not exposed |
-| `slate.api.zapier_make_and_crank_apps` | Zapier, Make and Crank apps | API-005 | standard | not exposed |
-| `slate.admin.saml_single_sign_on` | SAML single sign-on | ADMIN-001 | standard (+ security) | not exposed |
-| `slate.admin.scim_provisioning` | SCIM provisioning | ADMIN-002 | standard (+ access) (+ security) | not exposed |
-| `slate.admin.guest_management` | Guest management | ADMIN-003 | standard (+ access) | not exposed |
-| `slate.admin.workspace_analytics` | Workspace analytics | ADMIN-004 | standard | not exposed |
-| `slate.admin.audit_export_and_siem_streaming` | Audit export and SIEM streaming | ADMIN-005 | standard | not exposed |
-| `slate.admin.content_governance` | Content governance | ADMIN-006 | standard (+ security) | not exposed |
-| `slate.admin.every_target_surface_ships_in_the_default_product` | Every target surface ships in the default product | ADMIN-007 | standard | not exposed |
-| `slate.keep.contradiction_watch` | Contradiction watch | KEEP-001 | standard or external (+ sensitive) | not exposed |
-| `slate.keep.revision_specific_fix_proposals` | Revision-specific fix proposals | KEEP-002 | standard or external (+ sensitive) | not exposed |
-| `slate.keep.close_knowledge_gaps_as_work` | Close knowledge gaps as work | KEEP-003 | standard or external (+ commitment) (+ sensitive) | not exposed |
-| `slate.keep.duplicates_and_conflicts` | Duplicates and conflicts | KEEP-004 | standard or external (+ sensitive) | not exposed |
-| `slate.keep.answers_with_current_evidence_and_stated_uncertainty` | Answers with current evidence and stated uncertainty | KEEP-005 | standard or external (+ sensitive) | not exposed |
-| `slate.keep.checked_runbooks` | Checked runbooks | KEEP-006 | standard or external (+ sensitive) (+ live) | not exposed |
-| `slate.keep.onboarding_paths` | Onboarding paths | KEEP-007 | standard or external (+ sensitive) | not exposed |
-| `slate.keep.stale_knowledge_sweeps` | Stale-knowledge sweeps | KEEP-008 | standard or external (+ commitment) (+ sensitive) | not exposed |
-| `slate.keep.measured_knowledge_health` | Measured knowledge health | KEEP-009 | standard or external (+ sensitive) | not exposed |
-| `slate.keep.team_built_agents` | Team-built agents | KEEP-010 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.workspace.read` | Workspace — read | WORK-001 | standard (+ sensitive) | not exposed |
+| `slate.members.manage` | Members — manage | WORK-003, WORK-008 | standard (+ access) | not exposed |
+| `slate.invitations.manage` | Invitations — manage | WORK-006, SHARE-006 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.members.remove` | Members — remove | WORK-007 | standard (+ access) | not exposed |
+| `slate.groups.manage` | Groups — manage | WORK-009 | standard (+ access) | not exposed |
+| `slate.guests.manage` | Guests — manage | WORK-010, ADMIN-003 | standard (+ access) | not exposed |
+| `slate.settings.update` | Settings — update | WORK-011, LIFE-006, WEB-007, REV-007, STAT-005, CONT-008 | standard or external (+ sensitive) | not exposed |
+| `slate.identity.configure` | Identity — configure | WORK-015, ADMIN-001 | standard (+ security) | not exposed |
+| `slate.pages.update` | Pages — update | SAVE-003, SAVE-005, PAGE-006, PAGE-012, LIFE-005 | standard or external (+ sensitive) | not exposed |
+| `slate.blocks.update` | Blocks — update | SAVE-006, BLOCK-001, BLOCK-002, BLOCK-005, BLOCK-006, BLOCK-007, COLLAB-001, COLLAB-003, BLOCK-011, BLOCK-012, BLOCK-013, BLOCK-014, BLOCK-017, BLOCK-018, BLOCK-019, BLOCK-020 | standard or external (+ sensitive) | not exposed |
+| `slate.pages.read` | Pages — read | PAGE-001, PAGE-003, PAGE-007, LIFE-001, LIFE-002 | standard (+ sensitive) | not exposed |
+| `slate.pages.create` | Pages — create | PAGE-002, TREE-005, NAV-005 | standard or external (+ sensitive) | not exposed |
+| `slate.pages.move` | Pages — move | PAGE-004, TREE-002 | standard or external (+ sensitive) | not exposed |
+| `slate.pages.duplicate` | Pages — duplicate | PAGE-005 | standard or external (+ sensitive) | not exposed |
+| `slate.favorites.set` | Favorites — set | PAGE-008 | standard or external (+ sensitive) | not exposed |
+| `slate.watches.set` | Watches — set | PAGE-009, CONT-012, PAGE-016 | standard or external (+ sensitive) | not exposed |
+| `slate.analytics.read` | Analytics — read | PAGE-013 | standard (+ sensitive) | not exposed |
+| `slate.reactions.set` | Reactions — set | PAGE-014, COMM-005 | standard or external (+ sensitive) | not exposed |
+| `slate.pages.list` | Pages — list | TREE-001, TREE-003, TREE-004 | standard (+ sensitive) | not exposed |
+| `slate.files.upload` | Files — upload | BLOCK-008 | standard or external (+ sensitive) | not exposed |
+| `slate.links.preview` | Links — preview | BLOCK-009 | standard or external (+ sensitive) | not exposed |
+| `slate.queries.run` | Queries — run | BLOCK-010 | standard or external (+ sensitive) | not exposed |
+| `slate.pages.publish` | Pages — publish | LIFE-003 | standard or external (+ sensitive) | not exposed |
+| `slate.pages.schedule` | Pages — schedule | LIFE-004 | standard or external (+ sensitive) | not exposed |
+| `slate.pages.discard` | Pages — discard | LIFE-007 | standard or external (+ sensitive) | not exposed |
+| `slate.grants.set` | Grants — set | SHARE-001, SHARE-002, SHARE-003, SHARE-004, SHARE-005, SHARE-007, SHARE-008, CONT-009, SHARE-009 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.publishing.publish` | Publishing — publish | WEB-001, WEB-002, WEB-004 | standard or external (+ sensitive) | not exposed |
+| `slate.publishing.preview` | Publishing — preview | WEB-003 | standard or external (+ sensitive) | not exposed |
+| `slate.publishing.index` | Publishing — index | WEB-005 | standard or external (+ sensitive) | not exposed |
+| `slate.publishing.revoke` | Publishing — revoke | WEB-006 | standard or external (+ sensitive) | not exposed |
+| `slate.revisions.read` | Revisions — read | REV-001, REV-002, REV-005, COLLAB-005 | standard (+ sensitive) | not exposed |
+| `slate.revisions.restore` | Revisions — restore | REV-003 | standard (+ sensitive) | not exposed |
+| `slate.revisions.compare` | Revisions — compare | REV-004 | standard (+ sensitive) | not exposed |
+| `slate.revisions.delete` | Revisions — delete | REV-006 | destructive (+ sensitive) | not exposed |
+| `slate.statuses.configure` | Statuses — configure | STAT-001 | standard (+ sensitive) | not exposed |
+| `slate.statuses.set` | Statuses — set | STAT-002 | standard (+ sensitive) | not exposed |
+| `slate.statuses.verify` | Statuses — verify | STAT-003 | standard (+ commitment) (+ sensitive) | not exposed |
+| `slate.statuses.read` | Statuses — read | STAT-004 | standard (+ sensitive) | not exposed |
+| `slate.comments.create` | Comments — create | COMM-001, COMM-003 | standard or external (+ sensitive) | not exposed |
+| `slate.comments.manage` | Comments — manage | COMM-002 | standard or external (+ destructive) (+ sensitive) | not exposed |
+| `slate.comments.read` | Comments — read | COMM-004, COMM-006 | standard (+ sensitive) | not exposed |
+| `slate.comments.resolve` | Comments — resolve | COMM-007 | standard or external (+ sensitive) | not exposed |
+| `slate.archive.manage` | Archive — manage | ARCH-001, ARCH-002, ARCH-003, ARCH-004, ARCH-005 | standard or external (+ sensitive) | not exposed |
+| `slate.trash.purge` | Trash — purge | ARCH-006 | destructive (+ sensitive) | not exposed |
+| `slate.containers.read` | Containers — read | CONT-001, CONT-005 | standard (+ sensitive) | not exposed |
+| `slate.containers.create` | Containers — create | CONT-002 | standard or external (+ sensitive) | not exposed |
+| `slate.containers.list` | Containers — list | CONT-003 | standard (+ sensitive) | not exposed |
+| `slate.containers.configure` | Containers — configure | CONT-004, CONT-007 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.pages.bulk_update` | Pages — bulk update | CONT-006 | standard or external (+ sensitive) | not exposed |
+| `slate.databases.create` | Databases — create | DB-001 | standard (+ sensitive) | not exposed |
+| `slate.fields.configure` | Fields — configure | DB-002 | standard or external (+ sensitive) | not exposed |
+| `slate.views.configure` | Views — configure | DB-003, DB-004, DB-005, DB-006 | standard or external (+ sensitive) | not exposed |
+| `slate.views.query` | Views — query | DB-007, DB-011 | standard (+ sensitive) | not exposed |
+| `slate.charts.configure` | Charts — configure | DB-008 | standard or external (+ sensitive) | not exposed |
+| `slate.databases.lock` | Databases — lock | DB-009 | standard or external (+ sensitive) | not exposed |
+| `slate.records.read` | Records — read | DB-010, DB-012 | standard (+ sensitive) | not exposed |
+| `slate.rules.configure` | Rules — configure | AUTO-001, AUTO-002, AUTO-004, AUTO-005, AUTO-007 | standard or external | not exposed |
+| `slate.jobs.read` | Jobs — read | AUTO-003 | standard (+ sensitive) | not exposed |
+| `slate.search.query` | Search — query | SEARCH-001, SEARCH-002, SEARCH-003, SEARCH-004, SEARCH-005, SEARCH-006, SEARCH-007, SEARCH-008, SEARCH-009, SEARCH-010, SEARCH-011, SEARCH-012, SEARCH-013, SEARCH-014 | standard (+ sensitive) | not exposed |
+| `slate.navigation.read` | Navigation — read | NAV-001, NAV-002, NAV-003 | standard (+ sensitive) | not exposed |
+| `slate.inbox.manage` | Inbox — manage | NOTIF-001, NOTIF-002 | standard or external | not exposed |
+| `slate.chat_destinations.configure` | Chat destinations — configure | NOTIF-003, NOTIF-007, CHAT-001 | standard or external | not exposed |
+| `slate.mail.retry` | Mail — retry | MAIL-002 | standard | not exposed |
+| `slate.audit.read` | Audit — read | ACT-001, ACT-002, ACT-003, ACT-004, ACT-005 | standard (+ sensitive) | not exposed |
+| `slate.templates.list` | Templates — list | TMPL-001, TMPL-002, TMPL-007 | standard (+ sensitive) | not exposed |
+| `slate.templates.use` | Templates — use | TMPL-003 | standard or external (+ sensitive) | not exposed |
+| `slate.templates.manage` | Templates — manage | TMPL-004, TMPL-005, TMPL-006 | standard or external (+ sensitive) | not exposed |
+| `slate.exports.workspace` | Exports — workspace | PORT-001, PORT-003, PORT-005 | standard or external (+ sensitive) | not exposed |
+| `slate.installation.restore` | Installation — restore | PORT-002, PORT-004, PORT-006 | standard or external (+ sensitive) | not exposed |
+| `slate.exports.readable` | Exports — readable | PORT-007, PORT-008, PORT-010 | standard or external (+ sensitive) | not exposed |
+| `slate.links.resolve` | Links — resolve | LINK-001, LINK-002, LINK-003, LINK-004 | standard (+ sensitive) | not exposed |
+| `slate.providers.configure` | Providers — configure | AI-001, ANSWER-006 | standard or external (+ sensitive) | not exposed |
+| `slate.runs.manage` | Runs — manage | AI-002, AI-006, AGENT-001 | standard or external (+ sensitive) | run_status, pause_run, resume_run, cancel_run, refine_run (partial) |
+| `slate.runs.start` | Runs — start | AI-003, AI-009 | standard or external (+ sensitive) | ask, successor_run (partial) |
+| `slate.evidence.read` | Evidence — read | AI-004, AI-007, AI-013, SOURCE-002 | standard (+ sensitive) | read_evidence (partial) |
+| `slate.proposals.apply` | Proposals — apply | AI-005 | standard or external (+ commitment) (+ sensitive) | accept_changes (partial) |
+| `slate.runs.read` | Runs — read | AI-008 | standard (+ sensitive) | run_status (partial) |
+| `slate.usage.read` | Usage — read | AI-010 | standard (+ sensitive) | not exposed |
+| `slate.agents.configure` | Agents — configure | AI-014, KEEP-010 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.answers.ask` | Answers — ask | AI-015, ANSWER-001, ANSWER-002, ANSWER-003, ANSWER-004, KEEP-005 | standard or external (+ sensitive) | not exposed |
+| `slate.summaries.run` | Summaries — run | AI-016, ANSWER-005 | standard or external (+ sensitive) | not exposed |
+| `slate.writing.transform` | Writing — transform | AI-017 | standard or external (+ sensitive) | not exposed |
+| `slate.decisions.manage` | Decisions — manage | DEC-001, DEC-002, DEC-003, DEC-004, DEC-005, DEC-006 | standard (+ commitment) | not exposed |
+| `slate.suggestions.manage` | Suggestions — manage | SUG-001, SUG-002 | standard or external (+ commitment) (+ sensitive) | not exposed |
+| `slate.connectors.configure` | Connectors — configure | SOURCE-001, SOURCE-006, CONNECT-001 | standard or external (+ gated) (+ security) (+ sensitive) | not exposed |
+| `slate.claims.manage` | Claims — manage | SOURCE-003 | standard (+ sensitive) | not exposed |
+| `slate.sources.sync` | Sources — sync | SOURCE-004, SOURCE-005, CONNECT-002, CONNECT-003 | standard or external (+ gated) (+ sensitive) | not exposed |
+| `slate.skills.manage` | Skills — manage | SKILL-001 | standard or external (+ sensitive) | not exposed |
+| `slate.skills.evaluate_and_activate` | Skills — evaluate and activate | SKILL-002 | standard or external (+ sensitive) (+ live) | not exposed |
+| `slate.skills.transition` | Skills — transition | SKILL-003 | standard or external (+ sensitive) (+ live) | not exposed |
+| `slate.effects.manage` | Effects — manage | EFFECT-001 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ destructive) (+ sensitive) (+ live) | prepare_effect, dispatch_effect, reconcile_effect (partial) |
+| `slate.activation.manage` | Activation — manage | EFFECT-002 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ sensitive) (+ live) | not exposed |
+| `slate.impact.rehearse_and_apply` | Impact — rehearse and apply | EFFECT-003 | standard or external (+ sensitive) (+ live) | not exposed |
+| `slate.inquiries.manage` | Inquiries — manage | INQ-001, INQ-002, INQ-003, INQ-004, INQ-005 | standard (+ sensitive) | inquiry_status (partial) |
+| `slate.trials.plan` | Trials — plan | TRIAL-001 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ destructive) (+ sensitive) (+ live) | not exposed |
+| `slate.trials.execute` | Trials — execute | TRIAL-002 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ destructive) (+ sensitive) (+ live) | not exposed |
+| `slate.trials.conclude` | Trials — conclude | TRIAL-003 | standard or external (+ sensitive) | not exposed |
+| `slate.learning.update` | Learning — update | TRIAL-004 | standard or external (+ sensitive) | not exposed |
+| `slate.pages.lock` | Pages — lock | PAGE-015 | standard or external (+ sensitive) | not exposed |
+| `slate.tasks.update` | Tasks — update | BLOCK-015 | standard or external (+ sensitive) | not exposed |
+| `slate.tasks.report` | Tasks — report | BLOCK-016 | standard or external (+ sensitive) | not exposed |
+| `slate.attachments.replace` | Attachments — replace | BLOCK-022 | standard or external (+ sensitive) | not exposed |
+| `slate.blog.manage` | Blog — manage | CONT-010 | standard or external (+ sensitive) | not exposed |
+| `slate.hub.configure` | Hub — configure | CONT-011 | standard or external (+ sensitive) | not exposed |
+| `slate.people.manage` | People — manage | WORK-016 | standard (+ access) | not exposed |
+| `slate.tasks.list` | Tasks — list | NAV-007 | standard | not exposed |
+| `slate.reviews.manage` | Reviews — manage | STAT-006 | standard (+ commitment) (+ sensitive) | not exposed |
+| `slate.verification_rules.configure` | Verification rules — configure | STAT-007 | standard (+ sensitive) | not exposed |
+| `slate.cards.manage` | Cards — manage | CARD-001 | standard or external (+ sensitive) | not exposed |
+| `slate.reading.manage` | Reading — manage | CARD-003 | standard (+ sensitive) | not exposed |
+| `slate.forms.manage` | Forms — manage | DB-013 | standard or external (+ sensitive) | not exposed |
+| `slate.dashboards.configure` | Dashboards — configure | DB-014 | standard or external (+ sensitive) | not exposed |
+| `slate.record_templates.configure` | Record templates — configure | DB-015 | standard or external (+ sensitive) | not exposed |
+| `slate.fields.autofill` | Fields — autofill | DB-016 | standard or external (+ sensitive) | not exposed |
+| `slate.reminders.set` | Reminders — set | NOTIF-004 | standard or external | not exposed |
+| `slate.notification_preferences.configure` | Notification preferences — configure | NOTIF-005, NOTIF-006, CHAT-004 | standard or external | not exposed |
+| `slate.rules.execute` | Rules — execute | AUTO-006 | standard or external | not exposed |
+| `slate.jobs.manage` | Jobs — manage | AUTO-008 | standard or external | not exposed |
+| `slate.backups.configure` | Backups — configure | PORT-009 | standard or external (+ security) (+ sensitive) | not exposed |
+| `slate.embeds.read` | Embeds — read | EMBED-001, EMBED-002, EMBED-003, EMBED-004, EMBED-007, EMBED-008 | standard (+ sensitive) | not exposed |
+| `slate.issues.link_back` | Issues — link back | EMBED-005 | standard or external (+ gated) | not exposed |
+| `slate.jira.cutover_links` | Jira — cutover links | EMBED-006 | standard or external (+ gated) | not exposed |
+| `slate.chat.ask_or_unfurl` | Chat — ask or unfurl | CHAT-002 | standard or external | not exposed |
+| `slate.chat.capture` | Chat — capture | CHAT-003 | standard or external | not exposed |
+| `slate.webhooks.manage` | Webhooks — manage | API-002 | standard or external (+ security) | not exposed |
+| `slate.clients.manage` | Clients — manage | API-004 | standard (+ access) (+ security) | not exposed |
+| `slate.directory.configure` | Directory — configure | ADMIN-002 | standard (+ access) (+ security) | not exposed |
+| `slate.analytics.report` | Analytics — report | ADMIN-004 | standard (+ sensitive) | not exposed |
+| `slate.audit.export_and_stream` | Audit — export and stream | ADMIN-005 | standard | not exposed |
+| `slate.governance.configure` | Governance — configure | ADMIN-006 | standard (+ security) | not exposed |
+| `slate.features.configure` | Features — configure | ADMIN-007 | standard | not exposed |
+| `slate.knowledge.check` | Knowledge — check | KEEP-001 | standard or external (+ sensitive) | not exposed |
+| `slate.knowledge.repair` | Knowledge — repair | KEEP-002 | standard or external (+ sensitive) | not exposed |
+| `slate.knowledge.request_evidence` | Knowledge — request evidence | KEEP-003 | standard or external (+ commitment) (+ sensitive) | not exposed |
+| `slate.knowledge.reconcile` | Knowledge — reconcile | KEEP-004 | standard or external (+ sensitive) | not exposed |
+| `slate.runbooks.check` | Runbooks — check | KEEP-006 | standard or external (+ sensitive) (+ live) | not exposed |
+| `slate.onboarding.prepare` | Onboarding — prepare | KEEP-007 | standard or external (+ sensitive) | not exposed |
+| `slate.knowledge.sweep` | Knowledge — sweep | KEEP-008 | standard or external (+ commitment) (+ sensitive) | not exposed |
+| `slate.knowledge_health.read` | Knowledge health — read | KEEP-009 | standard (+ sensitive) | not exposed |
 
 **Resources.** `slate://containers/{id}`, `slate://pages/{id}`, `slate://pages/{id}/revisions/{revision}`, `slate://blocks/{id}`, `slate://databases/{id}`, `slate://records/{id}`, `slate://threads/{id}`, `slate://sources/{id}/passages/{passage}`, `slate://decisions/{id}`, `slate://inquiries/{id}`, `slate://runs/{id}`.
 
@@ -3893,6 +3740,18 @@ The table declares possible classes; a conditional class is added only when curr
 | MOBILE-002 | Device-only native UI, biometric, offline-storage or operating-system delivery work; its record actions use the ordinary tools. |
 | MOBILE-003 | Device-only native UI, biometric, offline-storage or operating-system delivery work; its record actions use the ordinary tools. |
 | MOBILE-004 | Device-only native UI, biometric, offline-storage or operating-system delivery work; its record actions use the ordinary tools. |
+| SAVE-001 | A person’s editor save-state display; the page and block write tools return the committed receipt. |
+| SAVE-002 | A person’s failed-save and retry display; page and block tools return the same refusal and retained revision. |
+| SAVE-004 | Device-only offline draft recovery; committed writes use the normal page and block tools. |
+| WORK-013 | A person’s first-run and owner-claim screen; the resulting workspace is an installation fact. |
+| BLOCK-021 | A person’s in-page and full-screen preview viewers; file resources supply permitted originals and renditions. |
+| AGENT-002 | An owner’s source-customization and installation fact; record and interface data remain available through their normal reads and exports. |
+| API-001 | The REST transport and its OpenAPI description are installation facts; its page, block, record, comment, search, member, group and file jobs are tools below. |
+| API-005 | Connector-managed Zapier, Make and Crank apps; their record actions use the same individual tools and event feed. |
+| API-003 | The MCP transport is an installation fact; its search, page, database, answer, comment and task jobs are the individual tools below. |
+| AI-011 | A wiki authority invariant on every action; grant and client administration have their own actions, and people set company policy. |
+| AI-012 | A person’s company-policy and provider-spend setup screen, under the fixed rule that people set policy; usage is a read tool. |
+| MAIL-001 | An installation mail-transport fact; invitation and notification actions trigger its permitted messages. |
 
 **Limits.** The installation's documented request, body, byte and computation capacity applies. Business thresholds and provider-spend caps are company policy, including an explicit no-cap answer.
 
