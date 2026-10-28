@@ -3536,16 +3536,16 @@ Inherits BASE-AGENT-001 to BASE-AGENT-013. The company's policy decides every ca
 **How Slate computes each class.**
 
 - **standard.** An internal reversible wiki edit, watch, draft, task or suggestion carries its item count; a move or edit is external as well when it newly exposes content outside the business.
-- **external.** A public page, outside share, chat delivery, connector write or externally visible wiki change carries recipients and counterparty: internal, known from an admitted domain or existing company relationship, new otherwise, or public for an open publication.
+- **external.** A public page, outside share, mail retry, chat delivery, audit stream, connector write or externally visible wiki change carries recipient count and counterparty: internal, known from an admitted domain or existing company relationship, new otherwise, or public for an open publication.
 - **money.** Paid activation carries the verified amount, currency and counterparty of the charge or changed price.
 - **commitment.** An accepted decision, attestation, approval of relied-on content or commercial term carries its value and counterparty; an agent’s act remains distinct from a person’s attestation.
 - **accounts.** Creating a paid SSO account or outside resource carries its provider.
-- **gated.** A provider’s account consent, hosted card entry or identity check carries provider and step when that provider requires a person; an offered agent API uses the company policy for the call’s classes.
-- **access.** Membership, groups, guest or page grants, devices and client authority carry people affected and widening or narrowing; reassigning a page owner without changing authority remains standard.
-- **security.** SSO enforcement, connector credentials, token custody and backup protective settings carry the changed setting.
-- **destructive.** Permanent erasure or deleting an intermediate version carries the item count; reversible trash and archive remain standard.
+- **gated.** A provider’s account consent (including Slack OAuth installation or Teams Entra-admin consent), hosted card entry or identity check carries provider and step when that provider requires a person; an offered agent API uses the company policy for the call’s classes.
+- **access.** Membership, groups, guest or page grants, devices, client authority and governance changes to standing permission carry people affected and widening or narrowing; reassigning a page owner without changing authority remains standard.
+- **security.** SSO enforcement, chat or source connector credential custody and changes, token custody and backup protective settings carry the affected setting.
+- **destructive.** Permanent erasure, backup retention deletion or deleting a retained page or attachment version carries the item count; reversible trash and archive remain standard.
 - **sensitive.** Reading or exporting source or wiki records containing regulated ID, health, bank, card or payroll data carries record count and data kind; a confidential label alone does not invent this class.
-- **live.** A trial effect, operational remediation or skill activation that changes a running service carries that service; a read-only rehearsal remains standard.
+- **live.** A trial effect, operational remediation, learned-procedure activation or skill activation that changes a running service carries that service; a read-only rehearsal remains standard.
 
 The table declares possible classes; a conditional class is added only when current record, audience or provider facts meet its definition above.
 
@@ -3612,8 +3612,8 @@ The table declares possible classes; a conditional class is added only when curr
 | `slate.search.query` | Search — query | SEARCH-001, SEARCH-002, SEARCH-003, SEARCH-004, SEARCH-005, SEARCH-006, SEARCH-007, SEARCH-008, SEARCH-009, SEARCH-010, SEARCH-011, SEARCH-012, SEARCH-013, SEARCH-014 | standard (+ sensitive) | not exposed |
 | `slate.navigation.read` | Navigation — read | NAV-001, NAV-002, NAV-003 | standard (+ sensitive) | not exposed |
 | `slate.inbox.manage` | Inbox — manage | NOTIF-001, NOTIF-002 | standard or external | not exposed |
-| `slate.chat_destinations.configure` | Chat destinations — configure | NOTIF-003, NOTIF-007, CHAT-001 | standard or external | not exposed |
-| `slate.mail.retry` | Mail — retry | MAIL-002 | standard | not exposed |
+| `slate.chat_destinations.configure` | Chat destinations — configure | NOTIF-003, NOTIF-007, CHAT-001 | standard or external (+ gated) (+ security) | not exposed |
+| `slate.mail.retry` | Mail — retry | MAIL-002 | standard or external | not exposed |
 | `slate.audit.read` | Audit — read | ACT-001, ACT-002, ACT-003, ACT-004, ACT-005 | standard (+ sensitive) | not exposed |
 | `slate.templates.list` | Templates — list | TMPL-001, TMPL-002, TMPL-007 | standard (+ sensitive) | not exposed |
 | `slate.templates.use` | Templates — use | TMPL-003 | standard or external (+ sensitive) | not exposed |
@@ -3648,11 +3648,11 @@ The table declares possible classes; a conditional class is added only when curr
 | `slate.trials.plan` | Trials — plan | TRIAL-001 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ destructive) (+ sensitive) (+ live) | not exposed |
 | `slate.trials.execute` | Trials — execute | TRIAL-002 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ destructive) (+ sensitive) (+ live) | not exposed |
 | `slate.trials.conclude` | Trials — conclude | TRIAL-003 | standard or external (+ sensitive) | not exposed |
-| `slate.learning.update` | Learning — update | TRIAL-004 | standard or external (+ sensitive) | not exposed |
+| `slate.learning.update` | Learning — update | TRIAL-004 | standard or external (+ sensitive) (+ live) | not exposed |
 | `slate.pages.lock` | Pages — lock | PAGE-015 | standard or external (+ sensitive) | not exposed |
 | `slate.tasks.update` | Tasks — update | BLOCK-015 | standard or external (+ sensitive) | not exposed |
 | `slate.tasks.report` | Tasks — report | BLOCK-016 | standard or external (+ sensitive) | not exposed |
-| `slate.attachments.replace` | Attachments — replace | BLOCK-022 | standard or external (+ sensitive) | not exposed |
+| `slate.attachments.replace` | Attachments — replace | BLOCK-022 | standard or external (+ destructive) (+ sensitive) | not exposed |
 | `slate.blog.manage` | Blog — manage | CONT-010 | standard or external (+ sensitive) | not exposed |
 | `slate.hub.configure` | Hub — configure | CONT-011 | standard or external (+ sensitive) | not exposed |
 | `slate.people.manage` | People — manage | WORK-016 | standard (+ access) | not exposed |
@@ -3669,7 +3669,7 @@ The table declares possible classes; a conditional class is added only when curr
 | `slate.notification_preferences.configure` | Notification preferences — configure | NOTIF-005, NOTIF-006, CHAT-004 | standard or external | not exposed |
 | `slate.rules.execute` | Rules — execute | AUTO-006 | standard or external | not exposed |
 | `slate.jobs.manage` | Jobs — manage | AUTO-008 | standard or external | not exposed |
-| `slate.backups.configure` | Backups — configure | PORT-009 | standard or external (+ security) (+ sensitive) | not exposed |
+| `slate.backups.configure` | Backups — configure | PORT-009 | standard or external (+ security) (+ destructive) (+ sensitive) | not exposed |
 | `slate.embeds.read` | Embeds — read | EMBED-001, EMBED-002, EMBED-003, EMBED-004, EMBED-007, EMBED-008 | standard (+ sensitive) | not exposed |
 | `slate.issues.link_back` | Issues — link back | EMBED-005 | standard or external (+ gated) | not exposed |
 | `slate.jira.cutover_links` | Jira — cutover links | EMBED-006 | standard or external (+ gated) | not exposed |
@@ -3679,8 +3679,8 @@ The table declares possible classes; a conditional class is added only when curr
 | `slate.clients.manage` | Clients — manage | API-004 | standard (+ access) (+ security) | not exposed |
 | `slate.directory.configure` | Directory — configure | ADMIN-002 | standard (+ access) (+ security) | not exposed |
 | `slate.analytics.report` | Analytics — report | ADMIN-004 | standard (+ sensitive) | not exposed |
-| `slate.audit.export_and_stream` | Audit — export and stream | ADMIN-005 | standard | not exposed |
-| `slate.governance.configure` | Governance — configure | ADMIN-006 | standard (+ security) | not exposed |
+| `slate.audit.export_and_stream` | Audit — export and stream | ADMIN-005 | standard or external | not exposed |
+| `slate.governance.configure` | Governance — configure | ADMIN-006 | standard (+ access) (+ security) | not exposed |
 | `slate.features.configure` | Features — configure | ADMIN-007 | standard | not exposed |
 | `slate.knowledge.check` | Knowledge — check | KEEP-001 | standard or external (+ sensitive) | not exposed |
 | `slate.knowledge.repair` | Knowledge — repair | KEEP-002 | standard or external (+ sensitive) | not exposed |
@@ -3688,7 +3688,7 @@ The table declares possible classes; a conditional class is added only when curr
 | `slate.knowledge.reconcile` | Knowledge — reconcile | KEEP-004 | standard or external (+ sensitive) | not exposed |
 | `slate.runbooks.check` | Runbooks — check | KEEP-006 | standard or external (+ sensitive) (+ live) | not exposed |
 | `slate.onboarding.prepare` | Onboarding — prepare | KEEP-007 | standard or external (+ sensitive) | not exposed |
-| `slate.knowledge.sweep` | Knowledge — sweep | KEEP-008 | standard or external (+ commitment) (+ sensitive) | not exposed |
+| `slate.knowledge.sweep` | Knowledge — sweep | KEEP-008 | standard or external (+ commitment) (+ access) (+ sensitive) | not exposed |
 | `slate.knowledge_health.read` | Knowledge health — read | KEEP-009 | standard (+ sensitive) | not exposed |
 
 **Resources.** `slate://containers/{id}`, `slate://pages/{id}`, `slate://pages/{id}/revisions/{revision}`, `slate://blocks/{id}`, `slate://databases/{id}`, `slate://records/{id}`, `slate://threads/{id}`, `slate://sources/{id}/passages/{passage}`, `slate://decisions/{id}`, `slate://inquiries/{id}`, `slate://runs/{id}`.
@@ -3776,11 +3776,11 @@ The table declares possible classes; a conditional class is added only when curr
 
 **Acceptance.**
 1. standard: An internal reversible wiki edit, watch, draft, task or suggestion carries its item count; a move or edit is external as well when it newly exposes content outside the business.
-2. external: A public page, outside share, chat delivery, connector write or externally visible wiki change carries recipients and counterparty: internal, known from an admitted domain or existing company relationship, new otherwise, or public for an open publication.
+2. external: A public page, outside share, mail retry, chat delivery, audit stream, connector write or externally visible wiki change carries recipient count and counterparty: internal, known from an admitted domain or existing company relationship, new otherwise, or public for an open publication.
 3. money: Paid activation carries the verified amount, currency and counterparty of the charge or changed price.
 4. commitment: An accepted decision, attestation, approval of relied-on content or commercial term carries its value and counterparty; an agent’s act remains distinct from a person’s attestation.
 5. accounts: Creating a paid SSO account or outside resource carries its provider.
-6. gated: A provider’s account consent, hosted card entry or identity check carries provider and step when that provider requires a person; an offered agent API uses the company policy for the call’s classes.
+6. gated: A provider’s account consent (including Slack OAuth installation or Teams Entra-admin consent), hosted card entry or identity check carries provider and step when that provider requires a person; an offered agent API uses the company policy for the call’s classes.
 
 #### SURFACE-003 — Wiki class computation for business and data effects
 
@@ -3789,11 +3789,11 @@ The table declares possible classes; a conditional class is added only when curr
 **Requirement.** Slate derives classes from the actual wiki target, exposure, relationship and provider state.
 
 **Acceptance.**
-1. access: Membership, groups, guest or page grants, devices and client authority carry people affected and widening or narrowing; reassigning a page owner without changing authority remains standard.
-2. security: SSO enforcement, connector credentials, token custody and backup protective settings carry the changed setting.
-3. destructive: Permanent erasure or deleting an intermediate version carries the item count; reversible trash and archive remain standard.
+1. access: Membership, groups, guest or page grants, devices, client authority and governance changes to standing permission carry people affected and widening or narrowing; reassigning a page owner without changing authority remains standard.
+2. security: SSO enforcement, chat or source connector credential custody and changes, token custody and backup protective settings carry the affected setting.
+3. destructive: Permanent erasure, backup retention deletion or deleting a retained page or attachment version carries the item count; reversible trash and archive remain standard.
 4. sensitive: Reading or exporting source or wiki records containing regulated ID, health, bank, card or payroll data carries record count and data kind; a confidential label alone does not invent this class.
-5. live: A trial effect, operational remediation or skill activation that changes a running service carries that service; a read-only rehearsal remains standard.
+5. live: A trial effect, operational remediation, learned-procedure activation or skill activation that changes a running service carries that service; a read-only rehearsal remains standard.
 
 #### SURFACE-004 — Revision-pinned knowledge resources
 
