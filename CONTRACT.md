@@ -9,7 +9,7 @@ Slate is an owned company wiki and knowledge workspace for US teams switching fr
 | Category | Team wiki and knowledge management |
 | Incumbents a buyer switches from | Confluence, Notion, Guru |
 | Up-and-comers it must also beat | Slite, Outline, Glean, Dust for team agents |
-| First buyer | A US team of 20 to 500 people moving its wiki or knowledge base; USD, US English, the buyer's own Cloudflare account and chosen time zone |
+| First buyer | A US team of 20 to 500 people moving its wiki or knowledge base; USD, no per-seat pricing, US English, the buyer's own Cloudflare account and chosen time zone |
 
 The primary journey: Import the team's existing knowledge, invite its members, write and organize together, find and ask with exact citations, review and maintain current knowledge, and export or restore the whole wiki.
 
@@ -4015,6 +4015,27 @@ Slate is a US-first owned wiki. These are the jobs it deliberately does not do, 
 
 - A container is a Notion teamspace or Confluence space; a record is a database page or entry; a member is the person Base calls an operator. Edition labels change no requirement.
 - Personal screen-reader and certification receipts, vendor tenants, store approval and elapsed real-world outcomes are field proof; seeded scale, standards providers and official-schema fakes remain acceptance.
+
+**Neighboring products.**
+
+Slate is one product. Where the market sells a neighboring product separately, Slate connects to it and does not rebuild it; when the neighbor is a Run Edit Run sibling, Slate links to that sibling first and to the US incumbent second.
+
+| Job | Owned by | How Slate meets it |
+| --- | --- | --- |
+| Issue tracking and sprints | [Vector](https://github.com/just-every/run-vector) (or Jira, Linear) | Live issue embeds, create-issue-from-text, backlinks, issues that link here, re-pointed Confluence links, the Slate for Jira app and issue-triggered automations (`EMBED-001`, `EMBED-005` to `EMBED-008`, `AUTO-007`) |
+| Team chat | [Nook](https://github.com/just-every/run-nook) (or Slack, Microsoft Teams) | Notifications, unfurls, ask-in-chat and capture-to-page (`CHAT-001` to `CHAT-003`) |
+| File storage and sync | [Chest](https://github.com/just-every/run-chest) (or Google Drive, SharePoint) | Live file cards, embeds and connected search (`EMBED-004`, `CONNECT-001`) |
+| Large relational databases and internal apps | [Cradle](https://github.com/just-every/run-cradle) (or Airtable) | Wiki-scale databases inside pages, within `seed.json → limits` |
+| Standalone forms and surveys | [Pencil](https://github.com/just-every/run-pencil) (or Typeform) | Database intake forms only (`DB-013`) |
+| Courses and training records | [Beam](https://github.com/just-every/run-beam) (or TalentLMS) | Reading paths built from wiki pages (`KEEP-007`) |
+| Customer-facing help center and ticket deflection | [HappyToHelp](https://github.com/just-every/run-happytohelp) (or Zendesk) | Published pages and cards that HappyToHelp can cite (`WEB-*`, `API-003`) |
+| IT service desk knowledge | [Linen](https://github.com/just-every/run-linen) (or ServiceNow) | Pages Linen cites through the API |
+| Identity provider | [Auth](https://github.com/just-every/run-auth) (or Okta, Microsoft Entra ID) | SAML service provider and SCIM client (`ADMIN-001`, `ADMIN-002`) |
+| Workflow automation across apps | [Crank](https://github.com/just-every/run-crank) (or Zapier, Make) | Webhooks, REST API, in-product rules, and published Zapier, Make and Crank apps (`API-001`, `API-002`, `API-005`, `AUTO-*`) |
+| Product feedback boards | [Penny](https://github.com/just-every/run-penny) (or Canny) | Not rebuilt; pages link to feedback items |
+| Compliance automation | [Evidence](https://github.com/just-every/run-evidence) (or Vanta) | Policy pages with owners and review dates that Evidence reads |
+
+Cross-functional task and project management (Asana, monday.com, ClickUp) stays outside Slate; [Pegboard](https://github.com/just-every/run-pegboard) is the RunEditRun sibling in that category. Slate's databases can hold a lightweight tracker, but Slate does not become a project-management product. Payroll and monitoring/observability also stay outside Slate; [Envelope](https://github.com/just-every/run-envelope) and [Porthole](https://github.com/just-every/run-porthole) are the respective RunEditRun siblings.
 
 ## Homepage claims
 
