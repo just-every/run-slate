@@ -36,7 +36,10 @@ export async function freshnessJourney(f:Awaited<ReturnType<typeof searchFixture
   expect(await ids('Freshness revised guide','owner',{containerId:'c'})).toEqual([]);
   expect(await ids('Freshness revised guide','owner',{containerId:destination})).toEqual([id]);
  });
- for(const action of ['archive','restore','trash','restore'] as const)await observed(async()=>request('POST','/archive/'+id,{operationKey:crypto.randomUUID(),expectedRevisionId:await revision(id),action}),async()=>{
+ for(const action of ['archive','restore','trash','restore'] as const)await observed(async()=>{
+  const expectedRevisionId=action==='restore'?(await request('GET','/archive')).items.find((item:{id:string})=>item.id===id).revisionId:await revision(id);
+  await request('POST','/archive/'+id,{operationKey:crypto.randomUUID(),expectedRevisionId,action});
+ },async()=>{
   expect(await ids('Freshness revised guide','owner')).toEqual(action==='restore'?[id]:[]);
   expect(await ids('Freshness revised guide','owner',{includeArchived:'true',includeTrashed:'true'})).toEqual([id]);
  });
