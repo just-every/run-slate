@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "234ac35f71d1272a372c9b178efa37845ff74dc648297c6167580a26b4ddf779",
+      "sha256": "f1281044421b518688927e18c0571c443127e4bbf22903fa9e6949c8a10d333b",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "aaeec48d388fd83512c9bc9070d1442f179a2402f618bc8d8ff9d399cddf704b",
+      "sha256": "2468d6b96b5e0fdc3feb36f5b270b46374edecf9cb45167bff050e7627c33860",
       "executable": false
     },
     "DEMO.md": {
@@ -1036,7 +1036,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "ffb8004f26523c688e35dc4d55c59c918d7ba8915fc9539ab94f3c121311fd88",
+      "sha256": "1281762652f4db3d489dccfab2087775596b050afea8f4fda3aebdeeb65c5a16",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -11888,7 +11888,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "f6afb83dc91d8d4fc618620aefeb3fdf76a10500d15a6140680bc272520753ef",
+      "sha256": "77dd7a9dd407679918eb1785858e70189728cf0137d2b0bf7cb4932580dd9b2d",
       "executable": false
     },
     "tests/qualification/ui-convergence/member-removal-journey.mjs": {

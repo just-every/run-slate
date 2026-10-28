@@ -85,7 +85,6 @@ for (const width of [390, 1440]) {
         // Finish earlier page notifications before connecting the chat journey destinations.
         await state.runScheduled();
         await chatJourney(state, width);
-        await step('workspace roles, group access and member departure',()=>workspaceAuthorityJourney(state,width));
         if (width === 390) {
           // One phone smoke visits the main screens; functional journeys use desktop
           // except where an assertion distinguishes the phone layout or touch input.
@@ -112,6 +111,8 @@ for (const width of [390]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await treeFilterJourney(state);
+      await state.switchIdentity('owner');
+      await workspaceAuthorityJourney(state,width);
     });
   });
 }
@@ -362,6 +363,7 @@ for (const width of [1440]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await outlineJourney(state);
+      await workspaceAuthorityJourney(state,width);
     });
   });
 }
