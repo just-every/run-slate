@@ -31,6 +31,8 @@ export async function memberRemovalJourney(state,width) {
     for(const title of ['Support handover','Release handover']) {
       const id=(await ok(colleague,origin,'POST','/api/pages',{operationKey:key(),containerId:space,title})).value.pageId;
       await ok(colleague,origin,'POST','/api/sharing',{operationKey:key(),targetKind:'page',targetId:id,principalKind:'member',principalId:'browser-owner',level:'full'});
+      const direct=(await ok(colleague,origin,'POST','/api/sharing',{operationKey:key(),targetKind:'page',targetId:id,principalKind:'member',principalId:person.id,level:'full'})).value.id;
+      assert.ok((await ok(colleague,origin,'GET',`/api/sharing/pages/${id}`)).items.some(grant=>grant.id===direct&&grant.effective));
       pages.push({id,title});
     }
     assert.equal((await call(context,origin,'GET',`/api/pages/${personal}`)).status,404);
