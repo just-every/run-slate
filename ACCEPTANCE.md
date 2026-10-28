@@ -4787,7 +4787,7 @@ None.
 | R-11 | Receipts from real Claude, ChatGPT, Cursor and other supported MCP clients. | API-003 | not run | | |
 | R-12 | Real Okta, Microsoft Entra ID, Google Workspace, JumpCloud and Auth tenant acceptance; standards fixtures and run-auth remain acceptance duties. | WORK-015, ADMIN-001, ADMIN-002 | not run | | |
 | R-13 | A real authorized R2 or S3 backup destination and complete independent restore receipt. | PORT-009 | not run | | |
-| R-14 | Real licensed Slack, Teams and Nook app installation and destination acceptance. | NOTIF-003, CHAT-001, CHAT-004 | not run | | |
+| R-14 | Real licensed Slack, Teams and Nook app installation and destination acceptance. | NOTIF-003, NOTIF-007, CHAT-001, CHAT-004 | not run | | |
 | R-15 | Provider acceptance repeats this with real Slack and Teams workspaces. | CHAT-001 | not run | | |
 | R-16 | Provider acceptance installs both apps through admin consent. | CHAT-001 | not run | | |
 | R-17 | Provider acceptance repeats this with real Okta and Entra tenants. | ADMIN-001 | not run | | |
