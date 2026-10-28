@@ -278,409 +278,613 @@
       "file": "CONTRACT.md",
       "line": 64,
       "text": "The owner directed on 16 October 2026 that every seed's contract describe a genuine competitor to its category's incumbents. This amendment records which published clauses the target changes. It removes no requirement and no assertion, and none of these clauses is renumbered.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 66,
       "text": "Affected IDs: `SAVE-006`, `PAGE-001`, `PAGE-009`, `BLOCK-005`, `BLOCK-006`, `BLOCK-007`, `BLOCK-008`, `SEARCH-001`, `WORK-015`, `NAV-006`, `NOTIF-003`, `MAIL-001`, `IMP-003`, `PORT-007`, `FLAG-001`, the [Out of scope](#out-of-scope) list, and the core-wiki launch amendment's disabled-surface list. Their mirrors in `RELEASE.json`, `seed.json` and `tests/requirements` change when a build round implements the target clauses below. This document changes no code.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 68,
       "text": "Replacement behavior:",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 70,
       "text": "**Live co-editing becomes the default.** It is no longer an optional deployment choice (`SAVE-006` → `COLLAB-001` to `COLLAB-005`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 71,
       "text": "**Labels can be filtered and searched** (`PAGE-001` → `SEARCH-010`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 72,
       "text": "**SAML SSO and SCIM provisioning** join the OIDC identity provider (`WORK-015` → `ADMIN-001`, `ADMIN-002`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 73,
       "text": "**Native apps join the responsive client.** Native iOS, Android and desktop apps with offline pages and push notifications are added (`NAV-006` → `MOBILE-001` to `MOBILE-004`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 74,
       "text": "**Chat delivery widens** from one Slack destination to several, across Slack, Microsoft Teams and Nook (`NOTIF-003` → `CHAT-001`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 75,
       "text": "**Notification email and digests join sign-in and invitation mail** (`MAIL-001` → `NOTIF-005`, `NOTIF-006`). A workspace owner sets the default delivery for each event kind, and a member's own choice, including an unsubscribe, overrides it. A new workspace starts with Confluence's defaults (mentions and replies by immediate email, watched changes as a daily digest); a workspace upgraded from an earlier version sends only sign-in and invitation mail until an owner sets a default.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 76,
       "text": "**Cited answers become part of the default product** once an owner configures a provider and turns AI on. The core-wiki profile then no longer hides them (`AI-001`, `AI-015` → `ANSWER-001`). Until a build round meets `ANSWER-003`, the core-wiki profile keeps refusing AI surfaces as it does today.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 77,
       "text": "**Every target and push-further clause ships in the default product** (`ADMIN-007`). The core-wiki launch amendment's disabled-surface list no longer hides any surface that a target clause needs: Ask and AI writing and answers (`ANSWER-*`, `AI-016`, `AI-017`, `DB-016`), suggestions (`SUG-001`, `SUG-002`, used by `API-003` and `KEEP-002`), the external-agent and MCP surface (`API-003`), source connectors (`CONNECT-*`, `SEARCH-012`, `CHAT-002`, `EMBED-*`, `AUTO-007`), the runs, skills, claims and impact tracing that `KEEP-001` to `KEEP-010` use, live co-editing sockets (`COLLAB-*`), and the intelligence and connector jobs those clauses dispatch. Each surface is turned on by an owner action (an AI provider with AI on, a connected connector, a client grant), never by `SLATE_PROFILE`, and stays refused with `FEATURE_DISABLED` until its own safety acceptance passes. Each target clause's acceptance runs in the default profile; evidence produced under `SLATE_PROFILE=flagship` never satisfies a target clause. Inquiry, experiments, trials and production effects (`INQ-*`, `TRIAL-*`, `EFFECT-002`) stay the flagship extension.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 78,
       "text": "**Tasks gain assignees, due dates, My tasks and task reports** (`BLOCK-007` → `BLOCK-015`, `BLOCK-016`, `NAV-007`). Task items stay blocks and still never appear in a database view.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 79,
       "text": "**Watching widens** to whole containers and to pages a member creates or edits (`PAGE-009` → `PAGE-016`, `CONT-012`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 80,
       "text": "**Confluence imports map every common macro, diagram, task and space permission** to a named Slate equivalent (`IMP-003` → `IMP-010`, `IMP-011`). The body gains a table-of-contents block and status labels (`BLOCK-006` → `BLOCK-017`, `BLOCK-018`), and diagrams.net diagrams become native (`BLOCK-019`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 81,
       "text": "**Mentions reach groups** (`BLOCK-005` → `BLOCK-020`), and **page export adds Word** (`PORT-007` → `PORT-010`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 82,
       "text": "**Attached files preview, keep versions and are searchable** (`BLOCK-008` → `BLOCK-021`, `BLOCK-022`; `SEARCH-001` → `SEARCH-013`). A PDF, Office or OpenDocument attachment opens in an in-page and a full-screen viewer; the raw file keeps `BLOCK-008`'s download disposition, and only the sanitized preview rendition Slate derives from it is served inline as a display request. Uploading a file with the same name to the same page creates its next version. Global search also matches the text inside attachments. `SEARCH-001`'s 500ms bound and every `SEARCH-005` exclusion apply to that text.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 83,
       "text": "**Personal notifications reach chat** (`NOTIF-003` → `CHAT-004`). Beside the owner-configured channel messages, a member who links their Slack, Teams or Nook identity can receive their own notifications as direct messages from the Slate app.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 84,
       "text": "**Confluence personal spaces become personal containers** where the space's owner maps to a member (`IMP-003` → `IMP-012`), instead of private containers owned by the importing member.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 85,
       "text": "**Old Confluence links keep working after cutover** (`IMP-003` → `IMP-013`, `IMP-014`, `SEARCH-014`, `EMBED-006`). Every Confluence import keeps its map from source page, blog post, space and attachment to Slate record, and Slate answers old Confluence URLs itself at an authenticated route, at an old hostname the buyer owns, in search, in pasted links, in chat unfurls and through the browser extension (`CARD-002`). Links between spaces imported in separate passes are rewritten when the target space arrives, instead of resolving only within one import, and an optional reviewed cutover step re-points the Jira issue links that pointed at migrated Confluence pages.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 86,
       "text": "**FLAG-001 stays the gate for the full flagship.** The category target sits beside it: the target clauses are the product's requirements, while the inquiry and trial extensions stay flagship requirements.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 88,
       "text": "Security consequences:",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 90,
       "text": "**Co-editing** moves live sockets into the default attack surface. `COLLAB-001` therefore requires the per-operation access recheck, revocation within five seconds and durable attributed operations that `SAVE-006` already demanded.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 91,
       "text": "**Notification email and push payloads** carry a page title, a link and, for watched changes, counts of what changed, and never a body. Section headings appear in a change summary only when a workspace owner turns that on (`NOTIF-005`), and never block or comment text. Recipient access is rechecked at send, and a title or heading the recipient cannot read is never sent.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 92,
       "text": "**SCIM bearer tokens and SAML signing certificates** are new secrets. They are covered by `BASE-SECRET-001`/`002` and are excluded from exports under `PORT-005`.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 93,
       "text": "**Personal access tokens, OAuth apps, webhooks and MCP clients** each act as exactly one member and never widen that member's access (`API-001` to `API-004`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 94,
       "text": "**Offline copies on devices** are encrypted at rest by the operating system and erased on revocation or remote sign-out at the next connection (`MOBILE-003`). An offline copy is never a source for answers or exports.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 95,
       "text": "**Default-profile AI, MCP, connectors and suggestions** keep every `AI-*`, `SOURCE-*`, `SUG-*` and `CONNECT-002` guarantee. Moving a surface into the default product relaxes none of them (`ADMIN-007`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 96,
       "text": "**Issue backlinks** write a Slate page's title and URL into Jira or Vector under the acting member's linked account (`EMBED-005`). A page in a `private` or `personal` container, a draft, or a page under a Confidential classification gets the neutral title \"Slate page\" instead, and opening a backlink still requires Slate access.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 97,
       "text": "**Task assignments, group mentions and shares with a message** never notify a member who cannot read the page; the actor is asked to share the page or cancel (`BLOCK-015`, `BLOCK-020`, `SHARE-009`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 98,
       "text": "**Imported space permissions** become container grants only through reviewed principal mappings, never widen access when a source permission has no Slate level, and never publish anonymous access (`IMP-011`, `PORT-005`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 99,
       "text": "**The diagrams.net editor** is served from the deployment's own origin and sends diagram content to no third party (`BLOCK-019`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 100,
       "text": "**Attachment previews** are renditions of untrusted files. Slate renders them itself and never sends a file to a third-party viewer. A rendition runs no script or macro from the file, fetches no external reference, and is served same-origin in a sandboxed frame under a content security policy that allows no third-party request. Rendition and text extraction run as bounded jobs within `seed.json → limits`, and a file that fails to render shows its download state with the reason, never a partial rendition (`BLOCK-021`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 101,
       "text": "**Attachment text in search and answers** is page content. It is never shown to a member who cannot read the page, and it is never counted in a total or facet they see (`SEARCH-013`, `SEARCH-005`). It is untrusted content to every AI run (`AI-007`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 102,
       "text": "**Chat direct messages** carry the event kind, the actor, the page title and a link, never a page body or comment text. Recipient access is rechecked at send, and a member's chat identity link is a credential that unlinking or removal (`WORK-007`) revokes from the next event (`CHAT-004`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 103,
       "text": "**Old-URL resolution** reveals no more than `LINK-004` allows. The resolver answers only signed-in members and guests, redirects to the record's permanent URL where the normal access check runs, and tells an unmapped URL apart only by naming the source space key the URL or the import records carry, never a page title. Lookups are rate-limited per member (`seed.json → limits.legacyLinkLookupsPerMinute`). An old hostname pointed at the deployment serves only redirects to the main origin: it sets no cookie, serves no app, API or file, and resolves nothing itself (`IMP-013`).",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 104,
       "text": "**Cutover link rewriting** changes only link targets. Back-filled links (`IMP-014`) grant no access, keep every native edit and are reverted by Undo, and the Jira re-pointing step (`EMBED-006`) writes only under the running member's linked Jira account, previews every change, records each one in the run log and is reversible.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 105,
       "text": "**The Slate for Jira app** (`EMBED-008`) holds no Slate content. It asks Slate for each title and page list as the viewing Jira user's linked Slate identity, and shows \"Restricted Slate page\" when that identity cannot read the page.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 106,
       "text": "**Team-built agents** (`KEEP-010`) read only the intersection of their declared scope and what the member they run for may read, keep every `AI-*` guarantee, and can never verify, publish or change access.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 107,
       "text": "**No existing protection is relaxed.** `LIFE-002`, `SEARCH-005`, `AI-011`, `AI-013`, `STAT-003`/`004` and the container vetoes in `WEB-001` stay absolute under every target clause.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-4"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 111,
       "text": "The amendment dated 6 October 2026 authorizes the `core-wiki`",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 112,
       "text": "deployment profile as the default launch scope. This is a deployment choice,",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 113,
       "text": "not a ninth content policy, subscription tier or deletion of flagship requirements.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 114,
       "text": "`SLATE_PROFILE=flagship` explicitly opts into the retained development surfaces;",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 115,
       "text": "it does not certify them. AI and SSO retain their separate default-off switches.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 117,
       "text": "Core wiki retains native sign-in, membership and access, pages and blocks, trees,",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 118,
       "text": "comments, revisions, manual decisions, containers, structured records, templates,",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 119,
       "text": "manual publication, archive and erasure, ranked search, notifications, import,",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 120,
       "text": "export and restore. Every applicable baseline and all eight content policies",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 121,
       "text": "remain binding. Publication relocation, erased filename removal, prior-store upgrade,",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 122,
       "text": "complete portability and the original qualification suites are launch gates.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 124,
       "text": "The default profile exposes no Ask, AI writing/answers, runs, inquiry, experiment,",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 125,
       "text": "claim, skill, impact, effect, external-agent/MCP, source-connector or suggestion",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 126,
       "text": "surface. Their direct APIs refuse with `FEATURE_DISABLED` after authentication;",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 127,
       "text": "UI links and panels are unavailable. Live co-editing sockets are disabled, while",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 128,
       "text": "ordinary block editing, presence and committed-content refresh remain available.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 129,
       "text": "Intelligence and federation cron dispatch is disabled; previously queued jobs",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 130,
       "text": "refuse visibly without provider dispatch or success acknowledgment. Profile",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 131,
       "text": "changes erase no stored records, grant, receipt or applied migration. Export,",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 132,
       "text": "restore and erasure must still cover retained flagship records.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 134,
       "text": "The amendment changes release scope under FLAG-001 only. SUG-001/002, SOURCE-001",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 135,
       "text": "through SOURCE-006, SKILL-001 through SKILL-003, EFFECT-001 through EFFECT-003,",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 136,
       "text": "AGENT-001/002, INQ-001 through INQ-005, TRIAL-001 through TRIAL-004 and the",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 137,
       "text": "flagship aspects of SAVE-006, DB-002, WEB-001, NOTIF-001 and AI-001 through",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 138,
       "text": "AI-017 remain requirements pending their full acceptance. Disabled capability is",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 139,
       "text": "not satisfied capability. FLAG-002/003/004 and the six complete journeys remain",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 140,
       "text": "the full flagship gate; no provider or prospective-value claim follows from a",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 141,
       "text": "core-wiki release. See ACCEPTANCE.md for the distinct evidence requirements.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
       "line": 143,
       "text": "Target (16 October 2026): the [Target amendment](#target-amendment--16-october-2026) narrows the disabled-surface list above. A surface that a target or push-further clause needs leaves the list when that clause's build round lands. It is then turned on by an owner switch in the default profile (`ADMIN-007`), not by `SLATE_PROFILE=flagship`, and until then it keeps refusing as described above. Inquiry, experiments, trials and production effects stay flagship-only.",
-      "to": "changelog"
+      "to": "rulings",
+      "ids": [
+        "RL-5"
+      ]
     },
     {
       "file": "CONTRACT.md",
@@ -4289,10 +4493,19 @@
     {
       "file": "CONTRACT.md",
       "line": 667,
-      "text": "**TRIAL-002 — Exposure and safety.** Only owning systems perform granted changes; retain attempted versus confirmed effects, receipts, actual exposure, missing observations and instrumentation changes. Guardrail breaches stop future effects and initiate only separately authorized supported recovery. Prospective windows must actually elapse; fixtures or simulated time are not prospective outcome evidence.",
+      "text": "**TRIAL-002 — Exposure and safety.** Only owning systems perform granted changes; retain attempted versus confirmed effects, receipts, actual exposure, missing observations and instrumentation changes. Guardrail breaches stop future effects and initiate only separately authorized supported recovery.",
       "to": "clause",
       "ids": [
         "TRIAL-002"
+      ]
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 667,
+      "text": "Prospective windows must actually elapse; fixtures or simulated time are not prospective outcome evidence.",
+      "to": "register",
+      "ids": [
+        "R-18"
       ]
     },
     {
@@ -4325,7 +4538,25 @@
     {
       "file": "CONTRACT.md",
       "line": 675,
-      "text": "**FLAG-002 — Independent evidence.** Verify clean install, real browser/Worker journeys, customized owner copy, old-data migrations, restart/failure/revocation, complete export/restore, accessibility and load. Test genuine incumbent exports including Word; use real authorized document, evidence and operational providers for provider acceptance. Separate requirements, local implementation evidence, provider evidence and release/deployment evidence; no claim advances without independent semantic verification.",
+      "text": "**FLAG-002 — Independent evidence.** Verify clean install, real browser/Worker journeys, customized owner copy, old-data migrations, restart/failure/revocation, complete export/restore, accessibility and load. Test genuine incumbent exports including Word;",
+      "to": "clause",
+      "ids": [
+        "FLAG-002"
+      ]
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 675,
+      "text": "use real authorized document, evidence and operational providers for provider acceptance.",
+      "to": "register",
+      "ids": [
+        "R-19"
+      ]
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 675,
+      "text": "Separate requirements, local implementation evidence, provider evidence and release/deployment evidence; no claim advances without independent semantic verification.",
       "to": "clause",
       "ids": [
         "FLAG-002"
@@ -7449,7 +7680,7 @@
       "text": "Provider acceptance repeats this with real Slack and Teams workspaces.",
       "to": "register",
       "ids": [
-        "R-15"
+        "R-14"
       ]
     },
     {
@@ -7467,7 +7698,7 @@
       "text": "Provider acceptance installs both apps through admin consent.",
       "to": "register",
       "ids": [
-        "R-16"
+        "R-14"
       ]
     },
     {
@@ -8093,7 +8324,25 @@
     {
       "file": "CONTRACT.md",
       "line": 1523,
-      "text": "*Acceptance:* an MCP client conformance run lists the tools, calls each one as two members and asserts access parity with the UI, confirms that a write without a grant becomes a suggestion, and confirms that revoking the client ends its session at once. With a direct-write grant, it assigns, reassigns and completes a task and finds the same notifications and completion record as the UI.",
+      "text": "*Acceptance:* an MCP client conformance run lists the tools, calls each one as two members and asserts access parity with the UI, confirms that a write without a grant becomes a suggestion, and confirms that",
+      "to": "clause",
+      "ids": [
+        "API-003"
+      ]
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 1523,
+      "text": "revoking the client ends its session at once.",
+      "to": "base",
+      "ids": [
+        "BASE-AGENT-004"
+      ]
+    },
+    {
+      "file": "CONTRACT.md",
+      "line": 1523,
+      "text": "With a direct-write grant, it assigns, reassigns and completes a task and finds the same notifications and completion record as the UI.",
       "to": "clause",
       "ids": [
         "API-003"
@@ -8266,7 +8515,7 @@
       "text": "Provider acceptance repeats this with real Okta and Entra tenants.",
       "to": "register",
       "ids": [
-        "R-17"
+        "R-12"
       ]
     },
     {
@@ -11509,9 +11758,9 @@
       "line": 2091,
       "cell": "gap",
       "text": "Real Google Drive and SharePoint provider acceptance, the Google console redirect step and consent are NOT RUN.",
-      "to": "gap",
+      "to": "register",
       "ids": [
-        "IMP-009"
+        "R-4"
       ]
     },
     {
@@ -11576,9 +11825,14 @@
       "line": 2098,
       "cell": "gap",
       "text": "Committed live R2 receipt pending. A local held-key run passed connection, multipart readback, exact-key retention, real 403 owner notices and recovery, incomplete-scope refusal, empty-target restore and credential removal; all test objects and buckets were removed. Chest inherits this destination contract when it publishes an intake; no Chest destination is claimed. Email failure notices inherit NOTIF-005. No live provider acceptance is claimed without the committed receipt; no other provider was used.",
-      "to": "gap",
-      "ids": [
-        "PORT-009"
+      "to": "changelog",
+      "also": [
+        {
+          "to": "register",
+          "ids": [
+            "R-13"
+          ]
+        }
       ]
     },
     {
@@ -11626,6 +11880,20 @@
       "to": "gap",
       "ids": [
         "EMBED-004"
+      ],
+      "also": [
+        {
+          "to": "register",
+          "ids": [
+            "R-4"
+          ]
+        },
+        {
+          "to": "rulings",
+          "ids": [
+            "RL-2"
+          ]
+        }
       ]
     },
     {
@@ -11856,6 +12124,14 @@
       "to": "gap",
       "ids": [
         "ADMIN-001"
+      ],
+      "also": [
+        {
+          "to": "register",
+          "ids": [
+            "R-12"
+          ]
+        }
       ]
     },
     {
@@ -17101,7 +17377,22 @@
     {
       "file": "ACCEPTANCE.md",
       "line": 248,
-      "text": "partial | No validated CI-run proof for this acceptance point: \"UI, API and MCP expose the same authorized reads, exact citations, proposals, granted effects, run status, pause/resume, stop and outcomes, with operation keys, current ACL/grant checks and receipts.\"<br>No validated CI-run proof for this acceptance point: \"External identities cannot bypass browser or product consent boundaries.\"<br>No validated CI-run proof for this acceptance point: \"Unsupported operations fail explicitly.\" |",
+      "text": "partial | No validated CI-run proof for this acceptance point: \"UI, API and MCP expose the same authorized reads, exact citations, proposals, granted effects, run status, pause/resume, stop and outcomes, with operation keys, current ACL/grant checks and receipts.\"<br>No validated CI-run proof for this acceptance point: \"",
+      "to": "changelog"
+    },
+    {
+      "file": "ACCEPTANCE.md",
+      "line": 248,
+      "text": "External identities cannot bypass browser or product consent boundaries.",
+      "to": "base",
+      "ids": [
+        "BASE-AGENT-008"
+      ]
+    },
+    {
+      "file": "ACCEPTANCE.md",
+      "line": 248,
+      "text": "\"<br>No validated CI-run proof for this acceptance point: \"Unsupported operations fail explicitly.\" |",
       "to": "changelog"
     },
     {
@@ -17293,7 +17584,22 @@
     {
       "file": "ACCEPTANCE.md",
       "line": 256,
-      "text": "partial | No validated CI-run proof for this acceptance point: \"Only owning systems perform granted changes; retain attempted versus confirmed effects, receipts, actual exposure, missing observations and instrumentation changes.\"<br>No validated CI-run proof for this acceptance point: \"Guardrail breaches stop future effects and initiate only separately authorized supported recovery.\"<br>No validated CI-run proof for this acceptance point: \"Prospective windows must actually elapse; fixtures or simulated time are not prospective outcome evidence.\" |",
+      "text": "partial | No validated CI-run proof for this acceptance point: \"Only owning systems perform granted changes; retain attempted versus confirmed effects, receipts, actual exposure, missing observations and instrumentation changes.\"<br>No validated CI-run proof for this acceptance point: \"Guardrail breaches stop future effects and initiate only separately authorized supported recovery.\"<br>No validated CI-run proof for this acceptance point: \"",
+      "to": "changelog"
+    },
+    {
+      "file": "ACCEPTANCE.md",
+      "line": 256,
+      "text": "Prospective windows must actually elapse; fixtures or simulated time are not prospective outcome evidence.",
+      "to": "register",
+      "ids": [
+        "R-18"
+      ]
+    },
+    {
+      "file": "ACCEPTANCE.md",
+      "line": 256,
+      "text": "\" |",
       "to": "changelog"
     },
     {
@@ -19402,7 +19708,7 @@
     {
       "file": "ACCEPTANCE.md",
       "line": 349,
-      "text": "an MCP client conformance run lists the tools, calls each one as two members and asserts access parity with the UI, confirms that a write without a grant becomes a suggestion, and confirms that revoking the client ends its session at once. With a direct-write grant, it assigns, reassigns and completes a task and finds the same notifications and completion record as the UI. |",
+      "text": "an MCP client conformance run lists the tools, calls each one as two members and asserts access parity with the UI, confirms that a write without a grant becomes a suggestion, and confirms that",
       "to": "clause",
       "ids": [
         "API-003"
@@ -19411,7 +19717,40 @@
     {
       "file": "ACCEPTANCE.md",
       "line": 349,
-      "text": "partial | No validated CI-run proof for this acceptance point: \"an MCP client conformance run lists the tools, calls each one as two members and asserts access parity with the UI, confirms that a write without a grant becomes a suggestion, and confirms that revoking the client ends its session at once.\"<br>No validated CI-run proof for this acceptance point: \"With a direct-write grant, it assigns, reassigns and completes a task and finds the same notifications and completion record as the UI.\" |",
+      "text": "revoking the client ends its session at once.",
+      "to": "base",
+      "ids": [
+        "BASE-AGENT-004"
+      ]
+    },
+    {
+      "file": "ACCEPTANCE.md",
+      "line": 349,
+      "text": "With a direct-write grant, it assigns, reassigns and completes a task and finds the same notifications and completion record as the UI. |",
+      "to": "clause",
+      "ids": [
+        "API-003"
+      ]
+    },
+    {
+      "file": "ACCEPTANCE.md",
+      "line": 349,
+      "text": "partial | No validated CI-run proof for this acceptance point: \"an MCP client conformance run lists the tools, calls each one as two members and asserts access parity with the UI, confirms that a write without a grant becomes a suggestion, and confirms that",
+      "to": "changelog"
+    },
+    {
+      "file": "ACCEPTANCE.md",
+      "line": 349,
+      "text": "revoking the client ends its session at once.",
+      "to": "base",
+      "ids": [
+        "BASE-AGENT-004"
+      ]
+    },
+    {
+      "file": "ACCEPTANCE.md",
+      "line": 349,
+      "text": "\"<br>No validated CI-run proof for this acceptance point: \"With a direct-write grant, it assigns, reassigns and completes a task and finds the same notifications and completion record as the UI.\" |",
       "to": "changelog"
     },
     {

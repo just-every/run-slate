@@ -297,12 +297,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 - `INQ-004`: *Tier:* Core
 - `INQ-005`: *Tier:* Core
 - `TRIAL-001`: *Tier:* Core
-- `TRIAL-002`: *Tier:* Core
-- `TRIAL-003`: *Tier:* Core
+- `TRIAL-002`: *Tier:* Core · *Register:* R-18
+- `TRIAL-003`: *Tier:* Core · *Register:* R-18
 - `TRIAL-004`: *Tier:* Core
 - `FLAG-001`: *Tier:* Core
-- `FLAG-002`: *Tier:* Core · *Register:* R-9, R-10
-- `FLAG-003`: *Tier:* Core
+- `FLAG-002`: *Tier:* Core · *Register:* R-9, R-10, R-19
+- `FLAG-003`: *Tier:* Core · *Register:* R-18
 - `FLAG-004`: *Tier:* Core
 
 ### Public landing
@@ -781,7 +781,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 2. There is no readable address for a draft that carries no grant, a draft has no general access grant under either value of `SHARE-005` (`SHARE-004`), and a draft cannot be published to the anonymous web (`WEB-001`).
 3. No role, policy value, container setting, workspace owner action, automation or extension defeats this.
 4. `LIFE-006` decides whether a draft state arises, never whether this clause holds.
-5. Under the held company policy for the call’s classes, a draft is absent from search, queries, inbox, analytics, AI grounding, listings and other trees, and readable only by its author and grantees.
+5. Under the held company policy for standard changes, external exposure or commitment decisions, a draft is absent from search, queries, inbox, analytics, AI grounding, listings and other trees, and readable only by its author and grantees.
 
 #### LIFE-003 — Publish
 
@@ -1891,7 +1891,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 **Requirement.** Runs prepare revision-specific proposals or carry out bounded work according to the company policy for each call’s classes; the source scope, target, audience and conditions remain explicit.
 
 **Acceptance.**
-1. Under the held company policy, an edit is prepared as a proposal and has no product effect until the person named by that policy accepts its exact revision.
+1. Under the held company policy for standard or external edits, an edit is prepared as a proposal and has no product effect until the person named by that policy accepts its exact revision.
 2. Under the all-autonomous company policy, a determinate change within the caller’s authority commits with its sources, checks and receipt.
 3. Business decisions carry commitment; changes to publication carry external; the company policy decides their execution, and no output supplies its own authority.
 
@@ -1965,7 +1965,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 **Requirement.** Slate evaluates wiki changes against the authority and company policy of the named sponsoring person. Private drafts, container vetoes and source-audience rights remain product boundaries.
 
 **Acceptance.**
-1. A call never widens the calling agent’s own authority, and a general goal, service credential, confidence or source text supplies no grant.
+1. A wiki page asking the caller to widen its own grant or sponsor’s role causes no authority change; a general goal or credential supplies no page grant.
 2. Page publication and unpublication carry external; reversible archive and trash carry standard; permanent deletion carries destructive; membership and grant changes carry access; protective settings carry security.
 3. A verification or accepted decision an agent records carries commitment and names the agent; it never becomes a person’s attestation.
 4. Missing, expired, narrowed, changed-target or revoked resource authority refuses the effect; the company policy decides each otherwise-authorized class.
@@ -1992,7 +1992,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 3. Recheck every contributor before fan-in, generation, write, delivery, resume and later read of persisted output.
 4. Changed or uncertain ACLs, source/requester/audience/destination rights withhold or invalidate derived artifacts, including caches, embeddings, transcripts and proposals; no titles, counts, hints or citations disclose restricted facts.
 5. Revoked, archived, trashed and another member’s draft content is excluded without reindexing.
-6. Credentials supply capability, never disclosure authority.
+6. A provider credential that can read more pages than the asker contributes only passages permitted for every member of the declared output audience.
 7. LIFE-002 and source deletion rules remain absolute under every policy.
 8. Answers and outputs use only sources authorized for the asker and audience, rechecked at every boundary.
 
@@ -2006,7 +2006,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 3. Owner policy bounds providers/models, skill/run/provider budgets and permitted effects; Slate routes automatically by measured task fit within it.
 4. Runs name actor, audience, agent, exact skill revision, provider/model and cost.
 5. No model selector or agent-management chore is required for ordinary work.
-6. Under the held company policy for the call’s classes, agents are named auditable records whose access never exceeds the invoking member's.
+6. Under the held company policy for standard changes, external exposure or commitment decisions, agents are named auditable records whose access never exceeds the invoking member's.
 
 #### AI-015 — Workspace answers
 
@@ -2188,7 +2188,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 2. Recheck all current sources/grants; stop and revocation override continuation.
 3. Preserve immutable history and receipts, reconcile ambiguity and never silently substitute versions.
 4. Notify subscribed external agents of changes.
-5. Superseded versions start no runs; pinned work suspends by default.
+5. Superseded versions start no runs; the company policy for affected classes decides what happens to pinned work, and the held-policy journey suspends it.
 
 #### EFFECT-001 — Durable effects
 
@@ -2221,12 +2221,11 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 #### AGENT-001 — Semantic parity
 
-**Requirement.** UI, API and MCP expose the same authorized reads, exact citations, proposals, granted effects, run status, pause/resume, stop and outcomes, with operation keys, current ACL/grant checks and receipts.
+**Requirement.** Slate exposes its revision-pinned evidence, inquiries, proposals, granted effects and durable run outcomes through the corresponding UI, API and MCP jobs.
 
 **Acceptance.**
-1. External identities cannot bypass browser or product consent boundaries.
-2. Unsupported operations fail explicitly.
-3. UI, API and MCP expose the same authorized reads, proposals and effects with the same checks.
+1. Through each door, read an exact citation, inspect a proposal and a granted effect, and observe run pause, resume, stop and final outcome with the same source revisions and receipt.
+2. An operation that Slate does not support fails explicitly.
 
 #### AGENT-002 — Portable owner interfaces
 
@@ -2298,7 +2297,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 **Acceptance.**
 1. Guardrail breaches stop future effects and initiate only separately authorized supported recovery.
-2. Prospective windows must actually elapse; fixtures or simulated time are not prospective outcome evidence.
+2. A seeded lifecycle journey exercises the declared window and stop conditions with recorded exposure; prospective outcome claims use the dated measurements in R-18.
 3. Only owning systems perform granted trial effects; guardrail breaches stop future effects.
 
 #### TRIAL-003 — Outcome classification
@@ -2318,7 +2317,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 1. Learned procedures/prompts/tests/code are versioned and evaluated before owner-authorized activation.
 2. No automatic model-weight tuning or cross-deployment sharing.
 3. Verify repeated-work savings without invalid assumption reuse.
-4. Outcomes revise methods while keeping original forecasts; activation is owner-authorized.
+4. Outcomes revise methods while keeping original forecasts; an agent’s activation carries standard or live according to the service affected, as decided by company policy.
 
 #### FLAG-001 — Complete product gate
 
@@ -2328,14 +2327,14 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 1. No minimum subset, parser/component suite or self-report substitutes for full product acceptance.
 2. The core-wiki launch amendment authorizes a separately labeled core-wiki release with the default-disabled surfaces and retained obligations specified in the core-wiki launch amendment.
 3. This changes the launch gate only; it does not satisfy or waive full flagship acceptance.
-4. Core-wiki launch gate and the full flagship gate as specified in this document's gate sections.
+4. The core-wiki release exception and complete flagship gate remain distinct under RL-4 and RL-5; their execution mechanics are in [verification guidance](docs/verify.md).
 
 #### FLAG-002 — Independent evidence
 
 **Requirement.** Verify clean install, real browser/Worker journeys, customized owner copy, old-data migrations, restart/failure/revocation, complete export/restore, accessibility and load.
 
 **Acceptance.**
-1. Test genuine incumbent exports including Word; use real authorized document, evidence and operational providers for provider acceptance.
+1. Test genuine incumbent exports including Word through the seed’s public doors, with recorded providers or official-schema fakes at the network edge; real account receipts are recorded separately in R-19.
 2. Separate requirements, local implementation evidence, provider evidence and release/deployment evidence; no claim advances without independent semantic verification.
 3. Independent clean install, real browser and Worker journeys, migrations, restore, accessibility and load evidence.
 
@@ -3058,7 +3057,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 #### EMBED-004 — Live file cards from Drive, SharePoint and Chest
 
-*Tier:* Core
+*Tier:* Core · *Register:* R-4
 
 **Requirement.** A file picker inserts Google Drive, SharePoint/OneDrive or [Chest](https://github.com/just-every/run-chest) files by reference. Each card shows the file's current title, owner, last modified time and type, and whether the reader can open it. Slate never copies the file unless the member chooses "attach a copy" (`BLOCK-008`). Drive and SharePoint references use the inserting member's own provider connection. Metadata is resolved afresh with each reader's own provider authority: when it cannot open the file, the card exposes no title, owner, type or time, only the provider, request-access action and provider link; an unconnected reader also sees the existing connect path. This conservative default grants no provider permission. Unmapped or ambiguous provider identity and ACL refresh failure disclose no metadata (`CONNECT-002`). Deleted files show unavailable without retained metadata. Disconnect destroys the member token and retains page references. A reference stores and exports only provider, file ID and stable link; existing page revisions, archive/restore and erasure carry it without file bytes, tokens or cached metadata. Public pages and readable exports show the provider link without fetching metadata. [Chest](https://github.com/just-every/run-chest), the RunEditRun file-storage product, remains a named source gap while it publishes no metadata door.
 
@@ -3118,7 +3117,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 #### CHAT-001 — Chat notifications to Slack, Microsoft Teams and Nook
 
-*Tier:* Core · *Rules:* D-1 · *Register:* R-14, R-15, R-16
+*Tier:* Core · *Rules:* D-1 · *Register:* R-14
 
 **Requirement.** Workspace and container owners connect any number of channels in Slack, Microsoft Teams or [Nook](https://github.com/just-every/run-nook), each with its own event selection: published or updated pages, new comments, blog posts, review requests and lapsed verifications in the container. `NOTIF-003`'s guarantees apply to every destination: link-only messages, access-checked links, encrypted credentials returned by no API response and destroyed on disconnect, startup refusal naming connector credentials key when any destination is connected and that key is missing, delivery and failure state, transient-only retry, and stopping on disconnect. Expired or revoked authorization marks that destination as needing attention, offers reconnect and stops sending to it while retaining the destination, its event selection and its delivery history. Every Slack destination, however it is authorized, also meets `NOTIF-007`'s Slack channel and audience rules. Every Teams and Nook destination meets the same rule in its provider's terms: a channel whose full roster Slate can read and only admitted members change (Teams private team or private channel, Nook private channel), not shared with another organization (`NOOK-031`), with no guest, external account or bot but Slate's, and every person an active Slate member by verified email who can read the linked record immediately before sending; Slate refuses it at connect, rechecks before every send and sends nothing while it fails. Slack connects as an OAuth app a workspace admin installs; Teams as an app package an Entra admin consents to with resource-specific channel permissions; Nook through `NOOK-080`. Slate honours each provider's rate limit and `Retry-After` without loss, and coalesces more than five events per destination per minute into one message. Later events on the same page within 24 hours reply in its first message's thread. Each destination chooses immediate or daily digest. When a page is deleted, moves beyond the channel's audience or its actor is erased (`WORK-007`), Slate edits every message it sent about it to "Restricted Slate page". Protocol and representation details are in [wiki doors](docs/wiki-doors.md).
 
@@ -3286,7 +3285,6 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 1. Two members search, fetch, query, ask and comment through MCP and observe the same wiki outcomes as in the browser.
 2. Under the held company policy for standard edits, a page change is a revision-pinned suggestion and changes nothing before the person named by policy accepts it.
 3. Under the all-autonomous company policy, an authorized page update and task assignment, reassignment and completion execute with the same notifications and completion record as the browser.
-4. Revoking a client’s consent ends its access; the current-role, resource, token and untrusted-content duties are inherited.
 
 #### API-004 — App and token administration
 
@@ -3310,7 +3308,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 #### ADMIN-001 — SAML single sign-on
 
-*Tier:* Core · *Cites:* BASE-SIGNIN-001 · *Register:* R-12, R-17
+*Tier:* Core · *Cites:* BASE-SIGNIN-001 · *Register:* R-12
 
 **Requirement.** Slate is a SAML 2.0 service provider for Okta, Microsoft Entra ID, Google Workspace, JumpCloud and [Auth](https://github.com/just-every/run-auth). It supports both SP- and IdP-initiated sign-in, signed assertions, an email domain verified by a DNS TXT record the owner publishes (rechecked daily; a failed check stops new just-in-time creation and notifies owners) and just-in-time creation of invited or allow-listed members. When an owner enforces SSO, members sign in only through the provider, guests keep magic links, and one designated owner keeps a magic-link break-glass path. Slate's OIDC identity-provider function (WORK-015) stays available to members who have signed in through the enforced method. Protocol and representation details are in [wiki doors](docs/wiki-doors.md).
 
@@ -3396,6 +3394,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 **Acceptance.**
 1. automated journeys on macOS and Windows open a deep link, open a second window on another page and edit in both, quit and relaunch to find both windows restored on their pages, edit offline and sync, and receive a system notification.
+2. Native fixture builds produce the signed installers; an installed client verifies a signed update and rejects an invalid signature.
 
 #### MOBILE-003 — Offline pages
 
@@ -3436,10 +3435,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 *Tier:* Core · *Cites:* BASE-AGENT-002, BASE-AGENT-005, BASE-AGENT-006, BASE-AGENT-007, BASE-AGENT-008 · *Rules:* D-1
 
-**Requirement.** For each flag, the knowledge agent drafts a suggestion (`SUG-001`) against the exact block revision. The suggestion carries a diff, the sources, the readers who will see the change, and the answers and runbooks it affects, and is routed to the page owner. Its data is the flagged page revision, the cited change and the pages that depend on it. The company policy decides standard internal edits and external edits where outsiders gain visibility. Under the held policy the owner accepts the suggestion (`SUG-002`); under the all-autonomous policy a bounded rename commits as a revision that `REV-003` can roll back in one action. Verification never carries over: an edited verified page shows that its verified revision is not current (`STAT-003`).
+**Requirement.** For each flag, the knowledge agent drafts a suggestion (`SUG-001`) against the exact block revision. The suggestion carries a diff, the sources, the readers who will see the change, and the answers and runbooks it affects, and is routed to the page owner. Its data is the flagged page revision, the cited change and the pages that depend on it. The company policy decides standard internal edits and external edits where outsiders gain visibility. Under the held company policy for standard or external changes, the owner accepts the suggestion (`SUG-002`); under the all-autonomous policy a bounded rename commits as a revision that `REV-003` can roll back in one action. Verification never carries over: an edited verified page shows that its verified revision is not current (`STAT-003`).
 
 **Acceptance.**
-1. a browser journey in which the owner receives a fix suggestion, inspects the diff and sources, and accepts it, producing one revision.
+1. under the held company policy for standard or external changes, a browser journey in which the owner receives a fix suggestion, inspects the diff and sources, and accepts it, producing one revision.
 2. A second case applies a granted rename across three pages and rolls one back.
 3. A suggestion whose anchor changed in the meantime requires a rebase and never applies silently.
 
@@ -3447,18 +3446,18 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 *Tier:* Core · *Cites:* BASE-AGENT-002, BASE-AGENT-005, BASE-AGENT-006, BASE-AGENT-007, BASE-AGENT-008 · *Rules:* D-1
 
-**Requirement.** The knowledge agent takes clusters of unanswered questions and low-rated answers (`ANSWER-004`) and repeated questions in chat (`CHAT-003`), finds the best expert (page owners, frequent editors, verifiers and `WORK-016` expertise), and sends that expert a short evidence request with the question, what was found and what is missing. From the expert's reply it drafts a card or page, and after the expert verifies it, re-asks the original questions to confirm they now retrieve it. Its data is questions without asker identity, expertise signals and the expert's reply. The expert decides whether the draft is correct and sets its verification expiry. An agent verification carries commitment and names the agent under company policy; it never records the expert’s attestation. The draft is visible only to its eventual audience.
+**Requirement.** The knowledge agent takes clusters of unanswered questions and low-rated answers (`ANSWER-004`) and repeated questions in chat (`CHAT-003`), finds the best expert (page owners, frequent editors, verifiers and `WORK-016` expertise), and sends that expert a short evidence request with the question, what was found and what is missing. From the expert's reply it drafts a card or page, records commitment-class verification as company policy decides, and re-asks the original questions to confirm they now retrieve it; under the held policy the expert verifies the draft. Its data is questions without asker identity, expertise signals and the expert's reply. The expert decides whether the draft is correct and sets its verification expiry. An agent verification carries commitment and names the agent under company policy; it never records the expert’s attestation. The draft is visible only to its eventual audience.
 
 **Acceptance.**
 1. a Workers journey with a provider fake clusters seeded unanswered questions and sends one evidence request to the right expert.
-2. The expert's reply produces a draft, the expert verifies it, and re-asking the cluster's questions returns the new card as a top citation.
+2. Under the held company policy for commitment, the expert's reply produces a draft, the expert verifies it, and re-asking the cluster's questions returns the new card as a top citation.
 3. The gap report then shows the cluster closed.
 
 #### KEEP-004 — Duplicates and conflicts
 
 *Tier:* Core · *Cites:* BASE-AGENT-002, BASE-AGENT-005, BASE-AGENT-006, BASE-AGENT-007, BASE-AGENT-008 · *Rules:* D-1
 
-**Requirement.** The knowledge agent finds near-duplicate pages, by `SEARCH-011`'s definition and its `seed.json → limits.nearDuplicateSimilarity` threshold, and statements that conflict across pages, and proposes a merge (one canonical page, with the others redirecting through `LINK-003` tombstone links) or a reconciliation for the owners to choose. Its data is page revisions within one audience; it never compares across an access boundary for a reader who lacks either side. A merge is reversible through restore, carries standard or external according to visibility, and is decided by company policy; under the held policy both page owners accept the exact merge.
+**Requirement.** The knowledge agent finds near-duplicate pages, by `SEARCH-011`'s definition and its `seed.json → limits.nearDuplicateSimilarity` threshold, and statements that conflict across pages, and proposes a merge (one canonical page, with the others redirecting through `LINK-003` tombstone links) or a reconciliation for the owners to choose. Its data is page revisions within one audience; it never compares across an access boundary for a reader who lacks either side. A merge is reversible through restore, carries standard or external according to visibility, and is decided by company policy; under the held company policy for standard or external merges, both page owners accept the exact merge.
 
 **Acceptance.**
 1. a Workers journey over a seeded corpus with a pair of pages at a measured similarity of 0.9, a pair at 0.7 and one conflict proposes exactly one merge and one reconciliation, and nothing for the pair at 0.7.
@@ -3497,7 +3496,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 *Tier:* Core · *Cites:* BASE-AGENT-002, BASE-AGENT-005, BASE-AGENT-006, BASE-AGENT-007, BASE-AGENT-008 · *Rules:* D-1
 
-**Requirement.** Once a week, the knowledge agent prepares each owner one digest of their lapsed verifications, open flags, ownerless pages in their containers and pages nobody has opened in 180 days. Each item comes with a prepared action: re-verify (which opens the revision), accept a fix, reassign, or archive. Its data is status, analytics (`PAGE-013`), flags and ownership. The company policy decides every action: commitment for verification, standard for reversible archive, and access when reassignment changes standing authority. Under the held policy the owner performs the prepared actions.
+**Requirement.** Once a week, the knowledge agent prepares each owner one digest of their lapsed verifications, open flags, ownerless pages in their containers and pages nobody has opened in 180 days. Each item comes with a prepared action: re-verify (which opens the revision), accept a fix, reassign, or archive. Its data is status, analytics (`PAGE-013`), flags and ownership. The company policy decides every action: commitment for verification, standard for reversible archive, and access when reassignment changes standing authority. Under the held company policy for commitment, standard and access, the owner performs the prepared actions.
 
 **Acceptance.**
 1. a Workers journey advances a week over a seeded workspace and delivers exactly one digest per owner with the expected items.
@@ -3517,12 +3516,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 *Tier:* Core · *Cites:* BASE-AGENT-002, BASE-AGENT-005, BASE-AGENT-006, BASE-AGENT-007, BASE-AGENT-008 · *Rules:* D-1
 
-**Requirement.** An authorized member builds an agent for their team without code. The agent has a name, instructions, a knowledge scope (containers, labels, cards and connected sources), the tools it may use, and when it runs: Its tools offer search and cited answers (`ANSWER-001`), drafting pages and cards, proposing edits as suggestions (`SUG-001`), filing issues (`EMBED-001`) and posting to a chat channel (`CHAT-001`). Its triggers are asked in Slate, in chat (`CHAT-002`) or over MCP (`API-003`), on a schedule, or on an automation event (`AUTO-*`). Each agent is an `AI-014` agent record. Its builder can test it against sample questions before sharing it with groups. Its data is the intersection of the agent's declared scope and what the member it runs for may read. A scheduled or event run reads as the agent's owner, and its output reaches only an audience that may read every source it used (`AI-013`). Verification carries commitment, publication external, reversible archive standard, permanent deletion destructive and access changes access. The company policy decides execution; under the held policy edits are suggestions and pages stay drafts until the named person accepts them. Every run records its actor, scope, tools, sources and cost against the company’s chosen spend policy (`AI-010`, `AI-012`). Owners can see, pause or delete any agent, and removing an agent's owner pauses it (`WORK-007`).
+**Requirement.** An authorized member builds an agent for their team without code. The agent has a name, instructions, a knowledge scope (containers, labels, cards and connected sources), the tools it may use, and when it runs: Its tools offer search and cited answers (`ANSWER-001`), drafting pages and cards, proposing edits as suggestions (`SUG-001`), filing issues (`EMBED-001`) and posting to a chat channel (`CHAT-001`). Its triggers are asked in Slate, in chat (`CHAT-002`) or over MCP (`API-003`), on a schedule, or on an automation event (`AUTO-*`). Each agent is an `AI-014` agent record. Its builder can test it against sample questions before sharing it with groups. Its data is the intersection of the agent's declared scope and what the member it runs for may read. A scheduled or event run reads as the agent's owner, and its output reaches only an audience that may read every source it used (`AI-013`). Verification carries commitment, publication external, reversible archive standard, permanent deletion destructive and access changes access. The company policy decides execution; under the held company policy for standard or external edits, edits are suggestions and pages stay drafts until the named person accepts them. Every run records its actor, scope, tools, sources and cost against the company’s chosen spend policy (`AI-010`, `AI-012`). Owners can see, pause or delete any agent, and removing an agent's owner pauses it (`WORK-007`).
 
 **Acceptance.**
 1. a Workers journey with a provider fake at the network edge builds an agent scoped to one container with the answer and propose-edit tools, and shares it with a group.
 2. A group member who can read only half the container asks it a question, and the answer cites only pages that member can read.
-3. Under the held company policy the agent’s proposed edit lands as a suggestion and changes nothing until the named person accepts it.
+3. Under the held company policy for standard or external edits, the agent’s proposed edit lands as a suggestion and changes nothing until the named person accepts it.
 4. A page in scope that instructs the agent to publish itself or grant access produces a refusal and no change.
 5. A scheduled run posts once to a channel fake, citing only sources its audience can read.
 6. Pausing the agent stops its next scheduled run, and exhausting its budget stops it with a notice to its owner.
@@ -3548,15 +3547,17 @@ Inherits BASE-AGENT-001 to BASE-AGENT-013. The company's policy decides every ca
 - **sensitive.** Reading or exporting source or wiki records containing regulated ID, health, bank, card or payroll data carries record count and data kind; a confidential label alone does not invent this class.
 - **live.** A trial effect, operational remediation or skill activation that changes a running service carries that service; a read-only rehearsal remains standard.
 
+The table declares possible classes; a conditional class is added only when current record, audience or provider facts meet its definition above.
+
 | Tool | Does | Core clauses | Risk class | Today |
 | --- | --- | --- | --- | --- |
 | `slate.work.one_workspace` | One workspace | WORK-001 | standard | not exposed |
-| `slate.work.member_management` | Member management | WORK-003 | standard or access | not exposed |
+| `slate.work.member_management` | Member management | WORK-003 | standard (+ access) | not exposed |
 | `slate.work.invitations` | Invitations | WORK-006 | standard | not exposed |
-| `slate.work.removal` | Removal | WORK-007 | standard or access | not exposed |
-| `slate.work.roles` | Roles | WORK-008 | standard or access | not exposed |
-| `slate.work.groups` | Groups | WORK-009 | standard or access | not exposed |
-| `slate.work.guests` | Guests | WORK-010 | standard or access | not exposed |
+| `slate.work.removal` | Removal | WORK-007 | standard (+ access) | not exposed |
+| `slate.work.roles` | Roles | WORK-008 | standard (+ access) | not exposed |
+| `slate.work.groups` | Groups | WORK-009 | standard (+ access) | not exposed |
+| `slate.work.guests` | Guests | WORK-010 | standard (+ access) | not exposed |
 | `slate.work.workspace_settings` | Workspace settings | WORK-011 | standard | not exposed |
 | `slate.work.first_run` | First run | WORK-013 | standard | not exposed |
 | `slate.work.identity_provider` | Identity provider | WORK-015 | standard | not exposed |
@@ -3566,121 +3567,121 @@ Inherits BASE-AGENT-001 to BASE-AGENT-013. The company's policy decides every ca
 | `slate.save.network_loss` | Network loss | SAVE-004 | standard | not exposed |
 | `slate.save.operation_keys` | Operation keys | SAVE-005 | standard | not exposed |
 | `slate.save.concurrent_editing_and_optional_co_editing` | Concurrent editing and optional co-editing | SAVE-006 | standard | not exposed |
-| `slate.page.what_a_page_is` | What a page is | PAGE-001 | standard | not exposed |
-| `slate.page.creation` | Creation | PAGE-002 | standard | not exposed |
-| `slate.page.identity_survives_everything` | Identity survives everything | PAGE-003 | standard | not exposed |
-| `slate.page.move` | Move | PAGE-004 | standard | not exposed |
-| `slate.page.duplicate` | Duplicate | PAGE-005 | standard | not exposed |
-| `slate.page.icon_and_cover` | Icon and cover | PAGE-006 | standard | not exposed |
-| `slate.page.details` | Details | PAGE-007 | standard | not exposed |
-| `slate.page.favorite` | Favorite | PAGE-008 | standard | not exposed |
-| `slate.page.watch` | Watch | PAGE-009 | standard | not exposed |
-| `slate.page.page_display_options` | Page display options | PAGE-012 | standard | not exposed |
-| `slate.page.analytics` | Analytics | PAGE-013 | standard | not exposed |
-| `slate.page.reactions` | Reactions | PAGE-014 | standard | not exposed |
-| `slate.tree.a_nested_tree_in_a_container` | A nested tree in a container | TREE-001 | standard | not exposed |
-| `slate.tree.reordering_and_nesting` | Reordering and nesting | TREE-002 | standard | not exposed |
-| `slate.tree.shared_with_me` | Shared with me | TREE-003 | standard | not exposed |
-| `slate.tree.filter_the_tree` | Filter the tree | TREE-004 | standard | not exposed |
-| `slate.tree.create_in_place` | Create in place | TREE-005 | standard | not exposed |
-| `slate.block.a_body_of_blocks` | A body of blocks | BLOCK-001 | standard | not exposed |
-| `slate.block.inline_text` | Inline text | BLOCK-002 | standard | not exposed |
-| `slate.block.mentions` | Mentions | BLOCK-005 | standard | not exposed |
-| `slate.block.structured_blocks` | Structured blocks | BLOCK-006 | standard | not exposed |
-| `slate.block.task_items` | Task items | BLOCK-007 | standard | not exposed |
-| `slate.block.media_blocks` | Media blocks | BLOCK-008 | standard | not exposed |
-| `slate.block.link_cards` | Link cards | BLOCK-009 | standard | not exposed |
-| `slate.block.content_queries` | Content queries | BLOCK-010 | standard | not exposed |
-| `slate.life.lifecycle_states` | Lifecycle states | LIFE-001 | standard | not exposed |
-| `slate.life.a_draft_is_private` | A draft is private | LIFE-002 | standard | not exposed |
-| `slate.life.publish` | Publish | LIFE-003 | standard | not exposed |
-| `slate.life.scheduled_publish` | Scheduled publish | LIFE-004 | standard | not exposed |
-| `slate.life.unpublished_changes` | Unpublished changes | LIFE-005 | standard | not exposed |
-| `slate.life.lifecycle_profile` | Lifecycle profile | LIFE-006 | standard | not exposed |
-| `slate.life.discarding_a_draft` | Discarding a draft | LIFE-007 | standard | not exposed |
-| `slate.share.grants` | Grants | SHARE-001 | standard or external or access | not exposed |
-| `slate.share.what_the_levels_mean` | What the levels mean | SHARE-002 | standard or access | not exposed |
-| `slate.share.inheritance` | Inheritance | SHARE-003 | standard or access | not exposed |
-| `slate.share.general_access` | General access | SHARE-004 | standard or external or access | not exposed |
-| `slate.share.access_profile` | Access profile | SHARE-005 | standard or access | not exposed |
-| `slate.share.sharing_with_a_person_who_is_not_a_member` | Sharing with a person who is not a member | SHARE-006 | standard or external or access | not exposed |
-| `slate.share.access_changes_take_effect_at_once` | Access changes take effect at once | SHARE-007 | standard or access | not exposed |
-| `slate.share.expiring_grants` | Expiring grants | SHARE-008 | standard or access | not exposed |
-| `slate.web.anonymous_access_takes_two_acts` | Anonymous access takes two acts | WEB-001 | standard or external | not exposed |
-| `slate.web.what_a_published_page_carries` | What a published page carries | WEB-002 | standard or external | not exposed |
-| `slate.web.the_anonymous_read_view` | The anonymous read view | WEB-003 | standard or external | not exposed |
-| `slate.web.children_are_not_published_by_inheritance` | Children are not published by inheritance | WEB-004 | standard or external | not exposed |
-| `slate.web.indexing_is_off_until_it_is_chosen` | Indexing is off until it is chosen | WEB-005 | standard or external | not exposed |
-| `slate.web.unpublish` | Unpublish | WEB-006 | standard or external | not exposed |
-| `slate.web.public_link_profile` | Public-link profile | WEB-007 | standard or external | not exposed |
-| `slate.rev.what_a_revision_is` | What a revision is | REV-001 | standard | not exposed |
-| `slate.rev.history` | History | REV-002 | standard | not exposed |
-| `slate.rev.restore` | Restore | REV-003 | standard | not exposed |
-| `slate.rev.compare` | Compare | REV-004 | standard | not exposed |
-| `slate.rev.a_citation_resolves_to_its_revision` | A citation resolves to its revision | REV-005 | standard | not exposed |
-| `slate.rev.deleting_a_version` | Deleting a version | REV-006 | destructive | not exposed |
-| `slate.rev.version_profile` | Version profile | REV-007 | standard | not exposed |
-| `slate.stat.the_status_vocabulary` | The status vocabulary | STAT-001 | standard | not exposed |
-| `slate.stat.a_page_s_status` | A page's status | STAT-002 | standard | not exposed |
-| `slate.stat.verification` | Verification | STAT-003 | standard or commitment | not exposed |
-| `slate.stat.verification_lapses` | Verification lapses | STAT-004 | standard | not exposed |
-| `slate.stat.status_profile` | Status profile | STAT-005 | standard | not exposed |
-| `slate.comm.two_kinds_of_thread` | Two kinds of thread | COMM-001 | standard | not exposed |
-| `slate.comm.editing_and_deletion` | Editing and deletion | COMM-002 | standard | not exposed |
-| `slate.comm.mentions` | Mentions | COMM-003 | standard | not exposed |
-| `slate.comm.anchors_survive_editing` | Anchors survive editing | COMM-004 | standard | not exposed |
-| `slate.comm.reactions` | Reactions | COMM-005 | standard | not exposed |
-| `slate.comm.discussions_panel` | Discussions panel | COMM-006 | standard | not exposed |
-| `slate.comm.resolve` | Resolve | COMM-007 | standard | not exposed |
-| `slate.arch.archive` | Archive | ARCH-001 | standard | not exposed |
-| `slate.arch.what_archived_means` | What archived means | ARCH-002 | standard | not exposed |
-| `slate.arch.restore_from_archive` | Restore from archive | ARCH-003 | standard | not exposed |
-| `slate.arch.archive_is_not_deletion` | Archive is not deletion | ARCH-004 | standard | not exposed |
-| `slate.arch.trash` | Trash | ARCH-005 | standard | not exposed |
-| `slate.arch.permanent_deletion` | Permanent deletion | ARCH-006 | destructive | not exposed |
-| `slate.cont.what_a_container_is` | What a container is | CONT-001 | standard | not exposed |
-| `slate.cont.creating_a_container` | Creating a container | CONT-002 | standard | not exposed |
-| `slate.cont.the_container_index` | The container index | CONT-003 | standard | not exposed |
-| `slate.cont.container_settings` | Container settings | CONT-004 | standard | not exposed |
-| `slate.cont.personal_containers` | Personal containers | CONT-005 | standard | not exposed |
-| `slate.cont.bulk_actions` | Bulk actions | CONT-006 | standard or external | not exposed |
-| `slate.cont.external_access_switches` | External-access switches | CONT-007 | standard or access | not exposed |
-| `slate.cont.container_access_profile` | Container access profile | CONT-008 | standard | not exposed |
-| `slate.cont.container_grants` | Container grants | CONT-009 | standard or access | not exposed |
-| `slate.db.a_database` | A database | DB-001 | standard | not exposed |
-| `slate.db.field_types_and_evaluation` | Field types and evaluation | DB-002 | standard | not exposed |
-| `slate.db.views` | Views | DB-003 | standard | not exposed |
-| `slate.db.layouts` | Layouts | DB-004 | standard | not exposed |
-| `slate.db.filter_and_sort` | Filter and sort | DB-005 | standard | not exposed |
-| `slate.db.group` | Group | DB-006 | standard | not exposed |
-| `slate.db.calculations` | Calculations | DB-007 | standard | not exposed |
-| `slate.db.charts` | Charts | DB-008 | standard | not exposed |
-| `slate.db.lock_structure` | Lock structure | DB-009 | standard | not exposed |
-| `slate.db.a_record_is_a_page` | A record is a page | DB-010 | standard | not exposed |
-| `slate.db.a_view_inside_a_page` | A view inside a page | DB-011 | standard | not exposed |
-| `slate.db.record_detail` | Record detail | DB-012 | standard | not exposed |
-| `slate.auto.a_rule` | A rule | AUTO-001 | standard | not exposed |
-| `slate.auto.a_rule_acts_as_its_actor` | A rule acts as its actor | AUTO-002 | standard | not exposed |
-| `slate.auto.run_log` | Run log | AUTO-003 | standard | not exposed |
-| `slate.auto.loops_are_bounded` | Loops are bounded | AUTO-004 | standard | not exposed |
-| `slate.auto.automation_profile` | Automation profile | AUTO-005 | standard | not exposed |
-| `slate.search.global_search` | Global search | SEARCH-001 | standard | not exposed |
-| `slate.search.results` | Results | SEARCH-002 | standard | not exposed |
-| `slate.search.filters` | Filters | SEARCH-003 | standard | not exposed |
-| `slate.search.freshness` | Freshness | SEARCH-004 | standard | not exposed |
-| `slate.search.what_search_never_shows` | What search never shows | SEARCH-005 | standard | not exposed |
-| `slate.search.search_in_one_container` | Search in one container | SEARCH-006 | standard | not exposed |
-| `slate.search.no_results` | No results | SEARCH-007 | standard | not exposed |
-| `slate.search.search_without_ai` | Search without AI | SEARCH-008 | standard | not exposed |
-| `slate.search.default_visibility` | Default visibility | SEARCH-009 | standard | not exposed |
+| `slate.page.what_a_page_is` | What a page is | PAGE-001 | standard (+ sensitive) | not exposed |
+| `slate.page.creation` | Creation | PAGE-002 | standard or external (+ sensitive) | not exposed |
+| `slate.page.identity_survives_everything` | Identity survives everything | PAGE-003 | standard or external (+ sensitive) | not exposed |
+| `slate.page.move` | Move | PAGE-004 | standard or external (+ sensitive) | not exposed |
+| `slate.page.duplicate` | Duplicate | PAGE-005 | standard or external (+ sensitive) | not exposed |
+| `slate.page.icon_and_cover` | Icon and cover | PAGE-006 | standard or external (+ sensitive) | not exposed |
+| `slate.page.details` | Details | PAGE-007 | standard (+ sensitive) | not exposed |
+| `slate.page.favorite` | Favorite | PAGE-008 | standard or external (+ sensitive) | not exposed |
+| `slate.page.watch` | Watch | PAGE-009 | standard or external (+ sensitive) | not exposed |
+| `slate.page.page_display_options` | Page display options | PAGE-012 | standard or external (+ sensitive) | not exposed |
+| `slate.page.analytics` | Analytics | PAGE-013 | standard (+ sensitive) | not exposed |
+| `slate.page.reactions` | Reactions | PAGE-014 | standard or external (+ sensitive) | not exposed |
+| `slate.tree.a_nested_tree_in_a_container` | A nested tree in a container | TREE-001 | standard (+ sensitive) | not exposed |
+| `slate.tree.reordering_and_nesting` | Reordering and nesting | TREE-002 | standard (+ sensitive) | not exposed |
+| `slate.tree.shared_with_me` | Shared with me | TREE-003 | standard (+ sensitive) | not exposed |
+| `slate.tree.filter_the_tree` | Filter the tree | TREE-004 | standard (+ sensitive) | not exposed |
+| `slate.tree.create_in_place` | Create in place | TREE-005 | standard (+ sensitive) | not exposed |
+| `slate.block.a_body_of_blocks` | A body of blocks | BLOCK-001 | standard or external (+ sensitive) | not exposed |
+| `slate.block.inline_text` | Inline text | BLOCK-002 | standard or external (+ sensitive) | not exposed |
+| `slate.block.mentions` | Mentions | BLOCK-005 | standard or external (+ sensitive) | not exposed |
+| `slate.block.structured_blocks` | Structured blocks | BLOCK-006 | standard or external (+ sensitive) | not exposed |
+| `slate.block.task_items` | Task items | BLOCK-007 | standard or external (+ sensitive) | not exposed |
+| `slate.block.media_blocks` | Media blocks | BLOCK-008 | standard or external (+ sensitive) | not exposed |
+| `slate.block.link_cards` | Link cards | BLOCK-009 | standard or external (+ sensitive) | not exposed |
+| `slate.block.content_queries` | Content queries | BLOCK-010 | standard or external (+ sensitive) | not exposed |
+| `slate.life.lifecycle_states` | Lifecycle states | LIFE-001 | standard or external (+ sensitive) | not exposed |
+| `slate.life.a_draft_is_private` | A draft is private | LIFE-002 | standard or external (+ sensitive) | not exposed |
+| `slate.life.publish` | Publish | LIFE-003 | standard or external (+ sensitive) | not exposed |
+| `slate.life.scheduled_publish` | Scheduled publish | LIFE-004 | standard or external (+ sensitive) | not exposed |
+| `slate.life.unpublished_changes` | Unpublished changes | LIFE-005 | standard or external (+ sensitive) | not exposed |
+| `slate.life.lifecycle_profile` | Lifecycle profile | LIFE-006 | standard or external (+ sensitive) | not exposed |
+| `slate.life.discarding_a_draft` | Discarding a draft | LIFE-007 | standard or external (+ sensitive) | not exposed |
+| `slate.share.grants` | Grants | SHARE-001 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.share.what_the_levels_mean` | What the levels mean | SHARE-002 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.share.inheritance` | Inheritance | SHARE-003 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.share.general_access` | General access | SHARE-004 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.share.access_profile` | Access profile | SHARE-005 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.share.sharing_with_a_person_who_is_not_a_member` | Sharing with a person who is not a member | SHARE-006 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.share.access_changes_take_effect_at_once` | Access changes take effect at once | SHARE-007 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.share.expiring_grants` | Expiring grants | SHARE-008 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.web.anonymous_access_takes_two_acts` | Anonymous access takes two acts | WEB-001 | standard or external (+ sensitive) | not exposed |
+| `slate.web.what_a_published_page_carries` | What a published page carries | WEB-002 | standard or external (+ sensitive) | not exposed |
+| `slate.web.the_anonymous_read_view` | The anonymous read view | WEB-003 | standard or external (+ sensitive) | not exposed |
+| `slate.web.children_are_not_published_by_inheritance` | Children are not published by inheritance | WEB-004 | standard or external (+ sensitive) | not exposed |
+| `slate.web.indexing_is_off_until_it_is_chosen` | Indexing is off until it is chosen | WEB-005 | standard or external (+ sensitive) | not exposed |
+| `slate.web.unpublish` | Unpublish | WEB-006 | standard or external (+ sensitive) | not exposed |
+| `slate.web.public_link_profile` | Public-link profile | WEB-007 | standard or external (+ sensitive) | not exposed |
+| `slate.rev.what_a_revision_is` | What a revision is | REV-001 | standard (+ sensitive) | not exposed |
+| `slate.rev.history` | History | REV-002 | standard (+ sensitive) | not exposed |
+| `slate.rev.restore` | Restore | REV-003 | standard (+ sensitive) | not exposed |
+| `slate.rev.compare` | Compare | REV-004 | standard (+ sensitive) | not exposed |
+| `slate.rev.a_citation_resolves_to_its_revision` | A citation resolves to its revision | REV-005 | standard (+ sensitive) | not exposed |
+| `slate.rev.deleting_a_version` | Deleting a version | REV-006 | destructive (+ sensitive) | not exposed |
+| `slate.rev.version_profile` | Version profile | REV-007 | standard (+ sensitive) | not exposed |
+| `slate.stat.the_status_vocabulary` | The status vocabulary | STAT-001 | standard (+ sensitive) | not exposed |
+| `slate.stat.a_page_s_status` | A page's status | STAT-002 | standard (+ sensitive) | not exposed |
+| `slate.stat.verification` | Verification | STAT-003 | standard (+ commitment) (+ sensitive) | not exposed |
+| `slate.stat.verification_lapses` | Verification lapses | STAT-004 | standard (+ sensitive) | not exposed |
+| `slate.stat.status_profile` | Status profile | STAT-005 | standard (+ sensitive) | not exposed |
+| `slate.comm.two_kinds_of_thread` | Two kinds of thread | COMM-001 | standard (+ sensitive) | not exposed |
+| `slate.comm.editing_and_deletion` | Editing and deletion | COMM-002 | standard or external (+ sensitive) | not exposed |
+| `slate.comm.mentions` | Mentions | COMM-003 | standard or external (+ sensitive) | not exposed |
+| `slate.comm.anchors_survive_editing` | Anchors survive editing | COMM-004 | standard or external (+ sensitive) | not exposed |
+| `slate.comm.reactions` | Reactions | COMM-005 | standard or external (+ sensitive) | not exposed |
+| `slate.comm.discussions_panel` | Discussions panel | COMM-006 | standard or external (+ sensitive) | not exposed |
+| `slate.comm.resolve` | Resolve | COMM-007 | standard or external (+ sensitive) | not exposed |
+| `slate.arch.archive` | Archive | ARCH-001 | standard or external (+ sensitive) | not exposed |
+| `slate.arch.what_archived_means` | What archived means | ARCH-002 | standard (+ sensitive) | not exposed |
+| `slate.arch.restore_from_archive` | Restore from archive | ARCH-003 | standard or external (+ sensitive) | not exposed |
+| `slate.arch.archive_is_not_deletion` | Archive is not deletion | ARCH-004 | standard or external (+ sensitive) | not exposed |
+| `slate.arch.trash` | Trash | ARCH-005 | standard or external (+ sensitive) | not exposed |
+| `slate.arch.permanent_deletion` | Permanent deletion | ARCH-006 | destructive (+ sensitive) | not exposed |
+| `slate.cont.what_a_container_is` | What a container is | CONT-001 | standard (+ sensitive) | not exposed |
+| `slate.cont.creating_a_container` | Creating a container | CONT-002 | standard or external (+ sensitive) | not exposed |
+| `slate.cont.the_container_index` | The container index | CONT-003 | standard or external (+ sensitive) | not exposed |
+| `slate.cont.container_settings` | Container settings | CONT-004 | standard or external (+ sensitive) | not exposed |
+| `slate.cont.personal_containers` | Personal containers | CONT-005 | standard or external (+ sensitive) | not exposed |
+| `slate.cont.bulk_actions` | Bulk actions | CONT-006 | standard or external (+ sensitive) | not exposed |
+| `slate.cont.external_access_switches` | External-access switches | CONT-007 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.cont.container_access_profile` | Container access profile | CONT-008 | standard or external (+ sensitive) | not exposed |
+| `slate.cont.container_grants` | Container grants | CONT-009 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.db.a_database` | A database | DB-001 | standard (+ sensitive) | not exposed |
+| `slate.db.field_types_and_evaluation` | Field types and evaluation | DB-002 | standard or external (+ sensitive) | not exposed |
+| `slate.db.views` | Views | DB-003 | standard or external (+ sensitive) | not exposed |
+| `slate.db.layouts` | Layouts | DB-004 | standard or external (+ sensitive) | not exposed |
+| `slate.db.filter_and_sort` | Filter and sort | DB-005 | standard or external (+ sensitive) | not exposed |
+| `slate.db.group` | Group | DB-006 | standard or external (+ sensitive) | not exposed |
+| `slate.db.calculations` | Calculations | DB-007 | standard or external (+ sensitive) | not exposed |
+| `slate.db.charts` | Charts | DB-008 | standard or external (+ sensitive) | not exposed |
+| `slate.db.lock_structure` | Lock structure | DB-009 | standard or external (+ sensitive) | not exposed |
+| `slate.db.a_record_is_a_page` | A record is a page | DB-010 | standard (+ sensitive) | not exposed |
+| `slate.db.a_view_inside_a_page` | A view inside a page | DB-011 | standard or external (+ sensitive) | not exposed |
+| `slate.db.record_detail` | Record detail | DB-012 | standard or external (+ sensitive) | not exposed |
+| `slate.auto.a_rule` | A rule | AUTO-001 | standard or external | not exposed |
+| `slate.auto.a_rule_acts_as_its_actor` | A rule acts as its actor | AUTO-002 | standard or external | not exposed |
+| `slate.auto.run_log` | Run log | AUTO-003 | standard or external | not exposed |
+| `slate.auto.loops_are_bounded` | Loops are bounded | AUTO-004 | standard or external | not exposed |
+| `slate.auto.automation_profile` | Automation profile | AUTO-005 | standard or external | not exposed |
+| `slate.search.global_search` | Global search | SEARCH-001 | standard (+ sensitive) | not exposed |
+| `slate.search.results` | Results | SEARCH-002 | standard (+ sensitive) | not exposed |
+| `slate.search.filters` | Filters | SEARCH-003 | standard (+ sensitive) | not exposed |
+| `slate.search.freshness` | Freshness | SEARCH-004 | standard (+ sensitive) | not exposed |
+| `slate.search.what_search_never_shows` | What search never shows | SEARCH-005 | standard (+ sensitive) | not exposed |
+| `slate.search.search_in_one_container` | Search in one container | SEARCH-006 | standard (+ sensitive) | not exposed |
+| `slate.search.no_results` | No results | SEARCH-007 | standard (+ sensitive) | not exposed |
+| `slate.search.search_without_ai` | Search without AI | SEARCH-008 | standard (+ sensitive) | not exposed |
+| `slate.search.default_visibility` | Default visibility | SEARCH-009 | standard (+ sensitive) | not exposed |
 | `slate.nav.home` | Home | NAV-001 | standard | not exposed |
 | `slate.nav.recents` | Recents | NAV-002 | standard | not exposed |
 | `slate.nav.favorites` | Favorites | NAV-003 | standard | not exposed |
 | `slate.nav.global_create` | Global create | NAV-005 | standard | not exposed |
-| `slate.notif.meaningful_notifications` | Meaningful notifications | NOTIF-001 | standard | not exposed |
-| `slate.notif.inbox` | Inbox | NOTIF-002 | standard | not exposed |
-| `slate.notif.chat_notifications` | Chat notifications | NOTIF-003 | standard | not exposed |
-| `slate.notif.slack_destination_audience_admission` | Slack destination audience admission | NOTIF-007 | standard | not exposed |
+| `slate.notif.meaningful_notifications` | Meaningful notifications | NOTIF-001 | standard or external | not exposed |
+| `slate.notif.inbox` | Inbox | NOTIF-002 | standard or external | not exposed |
+| `slate.notif.chat_notifications` | Chat notifications | NOTIF-003 | standard or external | not exposed |
+| `slate.notif.slack_destination_audience_admission` | Slack destination audience admission | NOTIF-007 | standard or external | not exposed |
 | `slate.mail.outbound_only_two_kinds` | Outbound only, two kinds | MAIL-001 | standard | not exposed |
 | `slate.mail.delivery_failure` | Delivery failure | MAIL-002 | standard | not exposed |
 | `slate.act.durable_timeline` | Durable timeline | ACT-001 | standard | not exposed |
@@ -3688,160 +3689,160 @@ Inherits BASE-AGENT-001 to BASE-AGENT-013. The company's policy decides every ca
 | `slate.act.retrieval` | Retrieval | ACT-003 | standard | not exposed |
 | `slate.act.context` | Context | ACT-004 | standard | not exposed |
 | `slate.act.retained_explanation` | Retained explanation | ACT-005 | standard | not exposed |
-| `slate.tmpl.gallery` | Gallery | TMPL-001 | standard | not exposed |
-| `slate.tmpl.preview` | Preview | TMPL-002 | standard | not exposed |
-| `slate.tmpl.snapshot_on_use` | Snapshot on use | TMPL-003 | standard | not exposed |
-| `slate.tmpl.custom_templates` | Custom templates | TMPL-004 | standard | not exposed |
-| `slate.tmpl.save_a_page_as_a_template` | Save a page as a template | TMPL-005 | standard | not exposed |
-| `slate.tmpl.where_a_template_lives` | Where a template lives | TMPL-006 | standard | not exposed |
-| `slate.port.export_contents` | Export contents | PORT-001 | standard or sensitive | not exposed |
-| `slate.port.referential_restore` | Referential restore | PORT-002 | standard or sensitive | not exposed |
-| `slate.port.visible_jobs` | Visible jobs | PORT-003 | standard | not exposed |
-| `slate.port.search_rebuild` | Search rebuild | PORT-004 | standard | not exposed |
-| `slate.port.access_boundary` | Access boundary | PORT-005 | standard | not exposed |
-| `slate.port.atomic_import` | Atomic import | PORT-006 | standard | not exposed |
-| `slate.port.exporting_a_page_or_a_container` | Exporting a page or a container | PORT-007 | standard or external | not exposed |
+| `slate.tmpl.gallery` | Gallery | TMPL-001 | standard or external (+ sensitive) | not exposed |
+| `slate.tmpl.preview` | Preview | TMPL-002 | standard or external (+ sensitive) | not exposed |
+| `slate.tmpl.snapshot_on_use` | Snapshot on use | TMPL-003 | standard or external (+ sensitive) | not exposed |
+| `slate.tmpl.custom_templates` | Custom templates | TMPL-004 | standard or external (+ sensitive) | not exposed |
+| `slate.tmpl.save_a_page_as_a_template` | Save a page as a template | TMPL-005 | standard or external (+ sensitive) | not exposed |
+| `slate.tmpl.where_a_template_lives` | Where a template lives | TMPL-006 | standard or external (+ sensitive) | not exposed |
+| `slate.port.export_contents` | Export contents | PORT-001 | standard or external (+ sensitive) | not exposed |
+| `slate.port.referential_restore` | Referential restore | PORT-002 | standard or external (+ sensitive) | not exposed |
+| `slate.port.visible_jobs` | Visible jobs | PORT-003 | standard or external (+ sensitive) | not exposed |
+| `slate.port.search_rebuild` | Search rebuild | PORT-004 | standard or external (+ sensitive) | not exposed |
+| `slate.port.access_boundary` | Access boundary | PORT-005 | standard or external (+ sensitive) | not exposed |
+| `slate.port.atomic_import` | Atomic import | PORT-006 | standard or external (+ sensitive) | not exposed |
+| `slate.port.exporting_a_page_or_a_container` | Exporting a page or a container | PORT-007 | standard or external (+ sensitive) | not exposed |
 | `slate.link.permanent_urls` | Permanent URLs | LINK-001 | standard | not exposed |
 | `slate.link.tombstones` | Tombstones | LINK-002 | standard | not exposed |
 | `slate.link.references_follow_their_target` | References follow their target | LINK-003 | standard | not exposed |
 | `slate.link.links_respect_access` | Links respect access | LINK-004 | standard | not exposed |
-| `slate.ai.enablement` | Enablement | AI-001 | standard | not exposed |
-| `slate.ai.run_lifecycle` | Run lifecycle | AI-002 | standard | run_status |
-| `slate.ai.proposal_or_bounded_delegation` | Proposal or bounded delegation | AI-003 | standard | ask |
-| `slate.ai.answer_provenance` | Answer provenance | AI-004 | standard | read_evidence |
-| `slate.ai.acceptance_and_granted_mutation` | Acceptance and granted mutation | AI-005 | standard or external or commitment | accept_changes |
-| `slate.ai.current_inputs_before_use` | Current inputs before use | AI-006 | standard | refine_run |
-| `slate.ai.untrusted_content` | Untrusted content | AI-007 | standard | not exposed |
-| `slate.ai.failure_preserves_confirmed_work` | Failure preserves confirmed work | AI-008 | standard | not exposed |
-| `slate.ai.retry` | Retry | AI-009 | standard | not exposed |
-| `slate.ai.usage_record` | Usage record | AI-010 | standard | not exposed |
-| `slate.ai.no_self_granted_authority` | No self-granted authority | AI-011 | standard or commitment | not exposed |
-| `slate.ai.durable_budgets` | Durable budgets | AI-012 | standard | not exposed |
-| `slate.ai.requester_and_audience_boundary` | Requester and audience boundary | AI-013 | standard or sensitive | not exposed |
-| `slate.ai.scoped_agents` | Scoped agents | AI-014 | standard | not exposed |
-| `slate.ai.workspace_answers` | Workspace answers | AI-015 | standard | not exposed |
-| `slate.ai.summaries` | Summaries | AI-016 | standard or external | not exposed |
-| `slate.ai.writing_with_ai` | Writing with AI | AI-017 | standard | not exposed |
+| `slate.ai.enablement` | Enablement | AI-001 | standard or external (+ sensitive) | not exposed |
+| `slate.ai.run_lifecycle` | Run lifecycle | AI-002 | standard or external (+ sensitive) | run_status |
+| `slate.ai.proposal_or_bounded_delegation` | Proposal or bounded delegation | AI-003 | standard or external (+ sensitive) | ask |
+| `slate.ai.answer_provenance` | Answer provenance | AI-004 | standard or external (+ sensitive) | read_evidence |
+| `slate.ai.acceptance_and_granted_mutation` | Acceptance and granted mutation | AI-005 | standard or external (+ commitment) (+ sensitive) | accept_changes |
+| `slate.ai.current_inputs_before_use` | Current inputs before use | AI-006 | standard or external (+ sensitive) | refine_run |
+| `slate.ai.untrusted_content` | Untrusted content | AI-007 | standard or external (+ sensitive) | not exposed |
+| `slate.ai.failure_preserves_confirmed_work` | Failure preserves confirmed work | AI-008 | standard or external (+ sensitive) | not exposed |
+| `slate.ai.retry` | Retry | AI-009 | standard or external (+ sensitive) | not exposed |
+| `slate.ai.usage_record` | Usage record | AI-010 | standard or external (+ sensitive) | not exposed |
+| `slate.ai.no_self_granted_authority` | No self-granted authority | AI-011 | standard or external (+ commitment) (+ sensitive) | not exposed |
+| `slate.ai.durable_budgets` | Durable budgets | AI-012 | standard or external (+ sensitive) | not exposed |
+| `slate.ai.requester_and_audience_boundary` | Requester and audience boundary | AI-013 | standard or external (+ sensitive) | not exposed |
+| `slate.ai.scoped_agents` | Scoped agents | AI-014 | standard or external (+ sensitive) | not exposed |
+| `slate.ai.workspace_answers` | Workspace answers | AI-015 | standard or external (+ sensitive) | not exposed |
+| `slate.ai.summaries` | Summaries | AI-016 | standard or external (+ sensitive) | not exposed |
+| `slate.ai.writing_with_ai` | Writing with AI | AI-017 | standard or external (+ sensitive) | not exposed |
 | `slate.dec.a_decision_is_a_layer_over_a_page` | A decision is a layer over a page | DEC-001 | standard | not exposed |
-| `slate.dec.states` | States | DEC-002 | standard or commitment | not exposed |
-| `slate.dec.an_accepted_decision_is_immutable` | An accepted decision is immutable | DEC-003 | standard or commitment | not exposed |
+| `slate.dec.states` | States | DEC-002 | standard (+ commitment) | not exposed |
+| `slate.dec.an_accepted_decision_is_immutable` | An accepted decision is immutable | DEC-003 | standard (+ commitment) | not exposed |
 | `slate.dec.decision_log` | Decision log | DEC-004 | standard | not exposed |
-| `slate.dec.review_dates` | Review dates | DEC-005 | standard or commitment | not exposed |
+| `slate.dec.review_dates` | Review dates | DEC-005 | standard (+ commitment) | not exposed |
 | `slate.dec.a_proposed_decision_is_editable` | A proposed decision is editable | DEC-006 | standard | not exposed |
-| `slate.sug.anchored_suggestions` | Anchored suggestions | SUG-001 | standard | not exposed |
-| `slate.sug.resolve_explicitly` | Resolve explicitly | SUG-002 | standard or commitment | not exposed |
-| `slate.source.connector_contract` | Connector contract | SOURCE-001 | standard or sensitive | not exposed |
-| `slate.source.exact_passages` | Exact passages | SOURCE-002 | standard or sensitive | not exposed |
-| `slate.source.scoped_claims_and_authority` | Scoped claims and authority | SOURCE-003 | standard or sensitive | not exposed |
-| `slate.source.live_observations` | Live observations | SOURCE-004 | standard or sensitive | not exposed |
-| `slate.source.revocation_and_deletion` | Revocation and deletion | SOURCE-005 | standard or sensitive | not exposed |
-| `slate.source.credential_lifecycle` | Credential lifecycle | SOURCE-006 | standard or security or sensitive | not exposed |
-| `slate.skill.versioned_procedure` | Versioned procedure | SKILL-001 | standard | not exposed |
-| `slate.skill.evaluation_and_activation` | Evaluation and activation | SKILL-002 | standard or live | not exposed |
-| `slate.skill.version_transitions` | Version transitions | SKILL-003 | standard or live | not exposed |
-| `slate.effect.durable_effects` | Durable effects | EFFECT-001 | standard or live | prepare_effect, dispatch_effect, reconcile_effect |
-| `slate.effect.consent_and_product_custody` | Consent and product custody | EFFECT-002 | standard or accounts or money or commitment or gated or external | not exposed |
-| `slate.effect.impact_and_maintenance` | Impact and maintenance | EFFECT-003 | standard or live | not exposed |
-| `slate.agent.semantic_parity` | Semantic parity | AGENT-001 | standard | not exposed |
-| `slate.agent.portable_owner_interfaces` | Portable owner interfaces | AGENT-002 | standard | not exposed |
-| `slate.inq.open_questions` | Open questions | INQ-001 | standard | inquiry_status |
-| `slate.inq.reproducible_reasoning` | Reproducible reasoning | INQ-002 | standard | not exposed |
-| `slate.inq.bounded_planning` | Bounded planning | INQ-003 | standard | not exposed |
-| `slate.inq.routing_and_ambient_discovery` | Routing and ambient discovery | INQ-004 | standard | not exposed |
-| `slate.inq.economical_sustained_work` | Economical sustained work | INQ-005 | standard | not exposed |
-| `slate.trial.predeclared_comparison` | Predeclared comparison | TRIAL-001 | standard or live | not exposed |
-| `slate.trial.exposure_and_safety` | Exposure and safety | TRIAL-002 | standard or live | not exposed |
-| `slate.trial.outcome_classification` | Outcome classification | TRIAL-003 | standard | not exposed |
-| `slate.trial.reusable_learning` | Reusable learning | TRIAL-004 | standard | not exposed |
+| `slate.sug.anchored_suggestions` | Anchored suggestions | SUG-001 | standard or external (+ sensitive) | not exposed |
+| `slate.sug.resolve_explicitly` | Resolve explicitly | SUG-002 | standard or external (+ commitment) (+ sensitive) | not exposed |
+| `slate.source.connector_contract` | Connector contract | SOURCE-001 | standard (+ sensitive) | not exposed |
+| `slate.source.exact_passages` | Exact passages | SOURCE-002 | standard (+ sensitive) | not exposed |
+| `slate.source.scoped_claims_and_authority` | Scoped claims and authority | SOURCE-003 | standard (+ sensitive) | not exposed |
+| `slate.source.live_observations` | Live observations | SOURCE-004 | standard (+ sensitive) | not exposed |
+| `slate.source.revocation_and_deletion` | Revocation and deletion | SOURCE-005 | standard (+ sensitive) | not exposed |
+| `slate.source.credential_lifecycle` | Credential lifecycle | SOURCE-006 | standard (+ security) (+ sensitive) | not exposed |
+| `slate.skill.versioned_procedure` | Versioned procedure | SKILL-001 | standard or external (+ sensitive) | not exposed |
+| `slate.skill.evaluation_and_activation` | Evaluation and activation | SKILL-002 | standard or external (+ sensitive) (+ live) | not exposed |
+| `slate.skill.version_transitions` | Version transitions | SKILL-003 | standard or external (+ sensitive) (+ live) | not exposed |
+| `slate.effect.durable_effects` | Durable effects | EFFECT-001 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ destructive) (+ sensitive) (+ live) | prepare_effect, dispatch_effect, reconcile_effect |
+| `slate.effect.consent_and_product_custody` | Consent and product custody | EFFECT-002 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ sensitive) (+ live) | not exposed |
+| `slate.effect.impact_and_maintenance` | Impact and maintenance | EFFECT-003 | standard or external (+ sensitive) (+ live) | not exposed |
+| `slate.agent.semantic_parity` | Semantic parity | AGENT-001 | standard (+ sensitive) | not exposed |
+| `slate.agent.portable_owner_interfaces` | Portable owner interfaces | AGENT-002 | standard (+ sensitive) | not exposed |
+| `slate.inq.open_questions` | Open questions | INQ-001 | standard (+ sensitive) | inquiry_status |
+| `slate.inq.reproducible_reasoning` | Reproducible reasoning | INQ-002 | standard (+ sensitive) | not exposed |
+| `slate.inq.bounded_planning` | Bounded planning | INQ-003 | standard (+ sensitive) | not exposed |
+| `slate.inq.routing_and_ambient_discovery` | Routing and ambient discovery | INQ-004 | standard (+ sensitive) | not exposed |
+| `slate.inq.economical_sustained_work` | Economical sustained work | INQ-005 | standard (+ sensitive) | not exposed |
+| `slate.trial.predeclared_comparison` | Predeclared comparison | TRIAL-001 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ destructive) (+ sensitive) (+ live) | not exposed |
+| `slate.trial.exposure_and_safety` | Exposure and safety | TRIAL-002 | standard or external (+ money) (+ commitment) (+ accounts) (+ gated) (+ access) (+ security) (+ destructive) (+ sensitive) (+ live) | not exposed |
+| `slate.trial.outcome_classification` | Outcome classification | TRIAL-003 | standard or external (+ sensitive) | not exposed |
+| `slate.trial.reusable_learning` | Reusable learning | TRIAL-004 | standard or external (+ sensitive) | not exposed |
 | `slate.collab.live_co_editing_by_default` | Live co-editing by default | COLLAB-001 | standard | not exposed |
 | `slate.collab.offline_edits_that_merge` | Offline edits that merge | COLLAB-003 | standard | not exposed |
 | `slate.collab.attributed_history_from_co_editing` | Attributed history from co-editing | COLLAB-005 | standard | not exposed |
-| `slate.page.page_lock` | Page lock | PAGE-015 | standard | not exposed |
-| `slate.block.synced_blocks` | Synced blocks | BLOCK-011 | standard | not exposed |
-| `slate.block.columns_and_page_layouts` | Columns and page layouts | BLOCK-012 | standard | not exposed |
-| `slate.block.equations_and_diagrams_as_code` | Equations and diagrams as code | BLOCK-013 | standard | not exposed |
-| `slate.block.tables_that_work_like_tables` | Tables that work like tables | BLOCK-014 | standard | not exposed |
-| `slate.block.assigned_tasks_with_due_dates` | Assigned tasks with due dates | BLOCK-015 | standard | not exposed |
-| `slate.block.task_reports` | Task reports | BLOCK-016 | standard | not exposed |
-| `slate.block.table_of_contents_block` | Table of contents block | BLOCK-017 | standard | not exposed |
-| `slate.block.status_labels` | Status labels | BLOCK-018 | standard | not exposed |
-| `slate.block.diagrams_net_diagrams` | Diagrams.net diagrams | BLOCK-019 | standard | not exposed |
-| `slate.block.group_mentions` | Group mentions | BLOCK-020 | standard | not exposed |
-| `slate.block.attachment_previews` | Attachment previews | BLOCK-021 | standard | not exposed |
-| `slate.block.attachment_versions` | Attachment versions | BLOCK-022 | standard | not exposed |
-| `slate.cont.space_blog_and_announcements` | Space blog and announcements | CONT-010 | standard | not exposed |
-| `slate.cont.space_home_and_company_hub` | Space home and company hub | CONT-011 | standard | not exposed |
-| `slate.cont.watch_a_container` | Watch a container | CONT-012 | standard | not exposed |
-| `slate.page.autowatch_on_create_and_edit` | Autowatch on create and edit | PAGE-016 | standard | not exposed |
-| `slate.work.people_directory_and_expertise` | People directory and expertise | WORK-016 | standard | not exposed |
-| `slate.share.share_with_a_message` | Share with a message | SHARE-009 | standard or access | not exposed |
-| `slate.tmpl.starter_templates` | Starter templates | TMPL-007 | standard | not exposed |
+| `slate.page.page_lock` | Page lock | PAGE-015 | standard or external (+ sensitive) | not exposed |
+| `slate.block.synced_blocks` | Synced blocks | BLOCK-011 | standard or external (+ sensitive) | not exposed |
+| `slate.block.columns_and_page_layouts` | Columns and page layouts | BLOCK-012 | standard or external (+ sensitive) | not exposed |
+| `slate.block.equations_and_diagrams_as_code` | Equations and diagrams as code | BLOCK-013 | standard or external (+ sensitive) | not exposed |
+| `slate.block.tables_that_work_like_tables` | Tables that work like tables | BLOCK-014 | standard or external (+ sensitive) | not exposed |
+| `slate.block.assigned_tasks_with_due_dates` | Assigned tasks with due dates | BLOCK-015 | standard or external (+ sensitive) | not exposed |
+| `slate.block.task_reports` | Task reports | BLOCK-016 | standard or external (+ sensitive) | not exposed |
+| `slate.block.table_of_contents_block` | Table of contents block | BLOCK-017 | standard or external (+ sensitive) | not exposed |
+| `slate.block.status_labels` | Status labels | BLOCK-018 | standard or external (+ sensitive) | not exposed |
+| `slate.block.diagrams_net_diagrams` | Diagrams.net diagrams | BLOCK-019 | standard or external (+ sensitive) | not exposed |
+| `slate.block.group_mentions` | Group mentions | BLOCK-020 | standard or external (+ sensitive) | not exposed |
+| `slate.block.attachment_previews` | Attachment previews | BLOCK-021 | standard or external (+ sensitive) | not exposed |
+| `slate.block.attachment_versions` | Attachment versions | BLOCK-022 | standard or external (+ sensitive) | not exposed |
+| `slate.cont.space_blog_and_announcements` | Space blog and announcements | CONT-010 | standard or external (+ sensitive) | not exposed |
+| `slate.cont.space_home_and_company_hub` | Space home and company hub | CONT-011 | standard or external (+ sensitive) | not exposed |
+| `slate.cont.watch_a_container` | Watch a container | CONT-012 | standard or external (+ sensitive) | not exposed |
+| `slate.page.autowatch_on_create_and_edit` | Autowatch on create and edit | PAGE-016 | standard or external (+ sensitive) | not exposed |
+| `slate.work.people_directory_and_expertise` | People directory and expertise | WORK-016 | standard (+ access) | not exposed |
+| `slate.share.share_with_a_message` | Share with a message | SHARE-009 | standard or external (+ access) (+ sensitive) | not exposed |
+| `slate.tmpl.starter_templates` | Starter templates | TMPL-007 | standard or external (+ sensitive) | not exposed |
 | `slate.nav.my_tasks` | My tasks | NAV-007 | standard | not exposed |
-| `slate.search.labels_and_advanced_search` | Labels and advanced search | SEARCH-010 | standard | not exposed |
-| `slate.search.verified_first_ranking_and_trust_badges` | Verified-first ranking and trust badges | SEARCH-011 | standard | not exposed |
-| `slate.search.connected_results_in_search` | Connected results in search | SEARCH-012 | standard | not exposed |
-| `slate.search.search_inside_attached_files` | Search inside attached files | SEARCH-013 | standard | not exposed |
-| `slate.search.old_confluence_urls_find_their_slate_record` | Old Confluence URLs find their Slate record | SEARCH-014 | standard | not exposed |
-| `slate.stat.review_requests_and_expert_queues` | Review requests and expert queues | STAT-006 | standard or commitment | not exposed |
-| `slate.stat.verification_rules` | Verification rules | STAT-007 | standard | not exposed |
-| `slate.card.knowledge_cards_and_collections` | Knowledge cards and collections | CARD-001 | standard | not exposed |
-| `slate.card.required_reading_and_announcements` | Required reading and announcements | CARD-003 | standard | not exposed |
-| `slate.db.database_forms` | Database forms | DB-013 | standard or external | not exposed |
-| `slate.db.dashboards` | Dashboards | DB-014 | standard | not exposed |
-| `slate.db.record_templates_and_recurring_records` | Record templates and recurring records | DB-015 | standard | not exposed |
-| `slate.db.ai_autofill_fields` | AI autofill fields | DB-016 | standard | not exposed |
-| `slate.notif.reminders` | Reminders | NOTIF-004 | standard | not exposed |
-| `slate.notif.email_push_and_digest_delivery` | Email, push and digest delivery | NOTIF-005 | standard | not exposed |
-| `slate.notif.workspace_notification_defaults` | Workspace notification defaults | NOTIF-006 | standard | not exposed |
+| `slate.search.labels_and_advanced_search` | Labels and advanced search | SEARCH-010 | standard (+ sensitive) | not exposed |
+| `slate.search.verified_first_ranking_and_trust_badges` | Verified-first ranking and trust badges | SEARCH-011 | standard (+ sensitive) | not exposed |
+| `slate.search.connected_results_in_search` | Connected results in search | SEARCH-012 | standard (+ sensitive) | not exposed |
+| `slate.search.search_inside_attached_files` | Search inside attached files | SEARCH-013 | standard (+ sensitive) | not exposed |
+| `slate.search.old_confluence_urls_find_their_slate_record` | Old Confluence URLs find their Slate record | SEARCH-014 | standard (+ sensitive) | not exposed |
+| `slate.stat.review_requests_and_expert_queues` | Review requests and expert queues | STAT-006 | standard (+ commitment) (+ sensitive) | not exposed |
+| `slate.stat.verification_rules` | Verification rules | STAT-007 | standard (+ sensitive) | not exposed |
+| `slate.card.knowledge_cards_and_collections` | Knowledge cards and collections | CARD-001 | standard or external (+ sensitive) | not exposed |
+| `slate.card.required_reading_and_announcements` | Required reading and announcements | CARD-003 | standard (+ sensitive) | not exposed |
+| `slate.db.database_forms` | Database forms | DB-013 | standard or external (+ sensitive) | not exposed |
+| `slate.db.dashboards` | Dashboards | DB-014 | standard or external (+ sensitive) | not exposed |
+| `slate.db.record_templates_and_recurring_records` | Record templates and recurring records | DB-015 | standard or external (+ sensitive) | not exposed |
+| `slate.db.ai_autofill_fields` | AI autofill fields | DB-016 | standard or external (+ sensitive) | not exposed |
+| `slate.notif.reminders` | Reminders | NOTIF-004 | standard or external | not exposed |
+| `slate.notif.email_push_and_digest_delivery` | Email, push and digest delivery | NOTIF-005 | standard or external | not exposed |
+| `slate.notif.workspace_notification_defaults` | Workspace notification defaults | NOTIF-006 | standard or external | not exposed |
 | `slate.auto.outbound_automation_actions` | Outbound automation actions | AUTO-006 | standard or external | not exposed |
 | `slate.auto.triggers_from_connected_tools` | Triggers from connected tools | AUTO-007 | standard or external | not exposed |
-| `slate.auto.accountable_follow_through` | Accountable follow-through | AUTO-008 | standard | not exposed |
-| `slate.port.exports_carry_comments` | Exports carry comments | PORT-008 | standard or external | not exposed |
-| `slate.port.scheduled_backups_to_the_buyer_s_storage` | Scheduled backups to the buyer's storage | PORT-009 | standard or security | not exposed |
-| `slate.port.word_export_of_a_page` | Word export of a page | PORT-010 | standard or external | not exposed |
-| `slate.embed.live_issue_embeds_from_vector_and_jira` | Live issue embeds from Vector and Jira | EMBED-001 | standard or external or gated | not exposed |
+| `slate.auto.accountable_follow_through` | Accountable follow-through | AUTO-008 | standard or external | not exposed |
+| `slate.port.exports_carry_comments` | Exports carry comments | PORT-008 | standard or external (+ sensitive) | not exposed |
+| `slate.port.scheduled_backups_to_the_buyer_s_storage` | Scheduled backups to the buyer's storage | PORT-009 | standard or external (+ security) (+ sensitive) | not exposed |
+| `slate.port.word_export_of_a_page` | Word export of a page | PORT-010 | standard or external (+ sensitive) | not exposed |
+| `slate.embed.live_issue_embeds_from_vector_and_jira` | Live issue embeds from Vector and Jira | EMBED-001 | standard or external (+ gated) | not exposed |
 | `slate.embed.github_and_gitlab_embeds` | GitHub and GitLab embeds | EMBED-002 | standard or external | not exposed |
 | `slate.embed.design_video_and_document_embeds` | Design, video and document embeds | EMBED-003 | standard or external | not exposed |
-| `slate.embed.live_file_cards_from_drive_sharepoint_and_chest` | Live file cards from Drive, SharePoint and Chest | EMBED-004 | standard or external or gated | not exposed |
-| `slate.embed.backlinks_on_jira_and_vector_issues` | Backlinks on Jira and Vector issues | EMBED-005 | standard or external or gated | not exposed |
-| `slate.embed.jira_links_to_migrated_confluence_pages_are_re_pointed_at_cutover` | Jira links to migrated Confluence pages are re-pointed at cutover | EMBED-006 | standard or external or gated | not exposed |
+| `slate.embed.live_file_cards_from_drive_sharepoint_and_chest` | Live file cards from Drive, SharePoint and Chest | EMBED-004 | standard or external (+ gated) | not exposed |
+| `slate.embed.backlinks_on_jira_and_vector_issues` | Backlinks on Jira and Vector issues | EMBED-005 | standard or external (+ gated) | not exposed |
+| `slate.embed.jira_links_to_migrated_confluence_pages_are_re_pointed_at_cutover` | Jira links to migrated Confluence pages are re-pointed at cutover | EMBED-006 | standard or external (+ gated) | not exposed |
 | `slate.embed.issues_that_link_here` | Issues that link here | EMBED-007 | standard or external | not exposed |
-| `slate.embed.slate_for_jira_smart_links_and_project_pages` | Slate for Jira: smart links and project pages | EMBED-008 | standard or external or gated | not exposed |
+| `slate.embed.slate_for_jira_smart_links_and_project_pages` | Slate for Jira: smart links and project pages | EMBED-008 | standard or external (+ gated) | not exposed |
 | `slate.chat.chat_notifications_to_slack_microsoft_teams_and_nook` | Chat notifications to Slack, Microsoft Teams and Nook | CHAT-001 | standard or external | not exposed |
 | `slate.chat.ask_and_unfurl_in_chat` | Ask and unfurl in chat | CHAT-002 | standard or external | not exposed |
 | `slate.chat.capture_chat_into_pages` | Capture chat into pages | CHAT-003 | standard or external | not exposed |
 | `slate.chat.personal_notifications_as_chat_direct_messages` | Personal notifications as chat direct messages | CHAT-004 | standard or external | not exposed |
-| `slate.connect.named_connectors` | Named connectors | CONNECT-001 | standard or external or gated | not exposed |
-| `slate.connect.source_permissions_are_mirrored` | Source permissions are mirrored | CONNECT-002 | standard or external or gated | not exposed |
-| `slate.connect.connector_health` | Connector health | CONNECT-003 | standard or external or gated | not exposed |
-| `slate.answer.cited_answers_in_the_default_product` | Cited answers in the default product | ANSWER-001 | standard or sensitive | not exposed |
-| `slate.answer.answers_state_their_trust` | Answers state their trust | ANSWER-002 | standard or sensitive | not exposed |
-| `slate.answer.answers_never_leak_restricted_knowledge` | Answers never leak restricted knowledge | ANSWER-003 | standard or sensitive | not exposed |
-| `slate.answer.feedback_and_unanswered_questions` | Feedback and unanswered questions | ANSWER-004 | standard or sensitive | not exposed |
-| `slate.answer.summaries_and_catch_up` | Summaries and catch-up | ANSWER-005 | standard or sensitive | not exposed |
-| `slate.answer.owner_chosen_models_and_data_controls` | Owner-chosen models and data controls | ANSWER-006 | standard or sensitive | not exposed |
-| `slate.api.public_rest_api` | Public REST API | API-001 | standard or sensitive | not exposed |
-| `slate.api.webhooks` | Webhooks | API-002 | standard | not exposed |
-| `slate.api.mcp_server` | MCP server | API-003 | standard or sensitive | not exposed |
-| `slate.api.app_and_token_administration` | App and token administration | API-004 | standard or access or security | not exposed |
+| `slate.connect.named_connectors` | Named connectors | CONNECT-001 | standard or external (+ gated) | not exposed |
+| `slate.connect.source_permissions_are_mirrored` | Source permissions are mirrored | CONNECT-002 | standard or external (+ gated) | not exposed |
+| `slate.connect.connector_health` | Connector health | CONNECT-003 | standard or external (+ gated) | not exposed |
+| `slate.answer.cited_answers_in_the_default_product` | Cited answers in the default product | ANSWER-001 | standard (+ sensitive) | not exposed |
+| `slate.answer.answers_state_their_trust` | Answers state their trust | ANSWER-002 | standard (+ sensitive) | not exposed |
+| `slate.answer.answers_never_leak_restricted_knowledge` | Answers never leak restricted knowledge | ANSWER-003 | standard (+ sensitive) | not exposed |
+| `slate.answer.feedback_and_unanswered_questions` | Feedback and unanswered questions | ANSWER-004 | standard (+ sensitive) | not exposed |
+| `slate.answer.summaries_and_catch_up` | Summaries and catch-up | ANSWER-005 | standard (+ sensitive) | not exposed |
+| `slate.answer.owner_chosen_models_and_data_controls` | Owner-chosen models and data controls | ANSWER-006 | standard (+ sensitive) | not exposed |
+| `slate.api.public_rest_api` | Public REST API | API-001 | standard or external (+ commitment) (+ access) (+ security) (+ destructive) (+ sensitive) | not exposed |
+| `slate.api.webhooks` | Webhooks | API-002 | standard or external (+ security) | not exposed |
+| `slate.api.mcp_server` | MCP server | API-003 | standard (+ sensitive) | not exposed |
+| `slate.api.app_and_token_administration` | App and token administration | API-004 | standard (+ access) (+ security) | not exposed |
 | `slate.api.zapier_make_and_crank_apps` | Zapier, Make and Crank apps | API-005 | standard | not exposed |
-| `slate.admin.saml_single_sign_on` | SAML single sign-on | ADMIN-001 | standard or security | not exposed |
-| `slate.admin.scim_provisioning` | SCIM provisioning | ADMIN-002 | standard or security | not exposed |
-| `slate.admin.guest_management` | Guest management | ADMIN-003 | standard or access | not exposed |
+| `slate.admin.saml_single_sign_on` | SAML single sign-on | ADMIN-001 | standard (+ security) | not exposed |
+| `slate.admin.scim_provisioning` | SCIM provisioning | ADMIN-002 | standard (+ access) (+ security) | not exposed |
+| `slate.admin.guest_management` | Guest management | ADMIN-003 | standard (+ access) | not exposed |
 | `slate.admin.workspace_analytics` | Workspace analytics | ADMIN-004 | standard | not exposed |
 | `slate.admin.audit_export_and_siem_streaming` | Audit export and SIEM streaming | ADMIN-005 | standard | not exposed |
-| `slate.admin.content_governance` | Content governance | ADMIN-006 | standard or security | not exposed |
+| `slate.admin.content_governance` | Content governance | ADMIN-006 | standard (+ security) | not exposed |
 | `slate.admin.every_target_surface_ships_in_the_default_product` | Every target surface ships in the default product | ADMIN-007 | standard | not exposed |
-| `slate.keep.contradiction_watch` | Contradiction watch | KEEP-001 | standard | not exposed |
-| `slate.keep.revision_specific_fix_proposals` | Revision-specific fix proposals | KEEP-002 | standard or external | not exposed |
-| `slate.keep.close_knowledge_gaps_as_work` | Close knowledge gaps as work | KEEP-003 | standard or commitment | not exposed |
-| `slate.keep.duplicates_and_conflicts` | Duplicates and conflicts | KEEP-004 | standard or external | not exposed |
-| `slate.keep.answers_with_current_evidence_and_stated_uncertainty` | Answers with current evidence and stated uncertainty | KEEP-005 | standard | not exposed |
-| `slate.keep.checked_runbooks` | Checked runbooks | KEEP-006 | standard or live | not exposed |
-| `slate.keep.onboarding_paths` | Onboarding paths | KEEP-007 | standard | not exposed |
-| `slate.keep.stale_knowledge_sweeps` | Stale-knowledge sweeps | KEEP-008 | standard or commitment | not exposed |
-| `slate.keep.measured_knowledge_health` | Measured knowledge health | KEEP-009 | standard | not exposed |
-| `slate.keep.team_built_agents` | Team-built agents | KEEP-010 | standard or external or access | not exposed |
+| `slate.keep.contradiction_watch` | Contradiction watch | KEEP-001 | standard or external (+ sensitive) | not exposed |
+| `slate.keep.revision_specific_fix_proposals` | Revision-specific fix proposals | KEEP-002 | standard or external (+ sensitive) | not exposed |
+| `slate.keep.close_knowledge_gaps_as_work` | Close knowledge gaps as work | KEEP-003 | standard or external (+ commitment) (+ sensitive) | not exposed |
+| `slate.keep.duplicates_and_conflicts` | Duplicates and conflicts | KEEP-004 | standard or external (+ sensitive) | not exposed |
+| `slate.keep.answers_with_current_evidence_and_stated_uncertainty` | Answers with current evidence and stated uncertainty | KEEP-005 | standard or external (+ sensitive) | not exposed |
+| `slate.keep.checked_runbooks` | Checked runbooks | KEEP-006 | standard or external (+ sensitive) (+ live) | not exposed |
+| `slate.keep.onboarding_paths` | Onboarding paths | KEEP-007 | standard or external (+ sensitive) | not exposed |
+| `slate.keep.stale_knowledge_sweeps` | Stale-knowledge sweeps | KEEP-008 | standard or external (+ commitment) (+ sensitive) | not exposed |
+| `slate.keep.measured_knowledge_health` | Measured knowledge health | KEEP-009 | standard or external (+ sensitive) | not exposed |
+| `slate.keep.team_built_agents` | Team-built agents | KEEP-010 | standard or external (+ access) (+ sensitive) | not exposed |
 
 **Resources.** `slate://containers/{id}`, `slate://pages/{id}`, `slate://pages/{id}/revisions/{revision}`, `slate://blocks/{id}`, `slate://databases/{id}`, `slate://records/{id}`, `slate://threads/{id}`, `slate://sources/{id}/passages/{passage}`, `slate://decisions/{id}`, `slate://inquiries/{id}`, `slate://runs/{id}`.
 
@@ -3978,20 +3979,19 @@ Inherits BASE-AGENT-001 to BASE-AGENT-013. The company's policy decides every ca
 | R-1 | Provider acceptance repeats this against a real authorized Google Drive. | SEARCH-012 | not run | | |
 | R-2 | A provider acceptance run repeats this against a real workspace. | IMP-006 | not run | | |
 | R-3 | A provider acceptance run repeats this against a real Confluence Cloud site. | IMP-007 | not run | | |
-| R-4 | Provider acceptance repeats this with a real Drive and a real SharePoint site. | IMP-009 | not run | | |
+| R-4 | Real Google Drive and SharePoint folder-import and file-card acceptance. | IMP-009, EMBED-004 | not run | | |
 | R-5 | Provider acceptance repeats this against a real Jira Cloud site. | EMBED-001 | not run | | |
 | R-6 | Provider acceptance repeats this against a real Jira Cloud site. | EMBED-005 | not run | | |
 | R-7 | App Store and Play review builds are recorded with the release evidence. | MOBILE-001 | not run | | |
-| R-8 | The signed installers are recorded with the release evidence. | MOBILE-002 | not run | | |
+| R-8 | Notarization and real distribution-signing identity receipts for desktop installers. | MOBILE-002 | not run | | |
 | R-9 | Human screen-reader review of every operator and public surface. | DOCS-001, NAV-006, FLAG-002 | not run | | |
 | R-10 | A dated VPAT for Slate. | FLAG-002 | not run | | |
 | R-11 | Receipts from real Claude, ChatGPT, Cursor and other supported MCP clients. | API-003 | not run | | |
 | R-12 | Real Okta, Microsoft Entra ID, Google Workspace, JumpCloud and Auth tenant acceptance; standards fixtures and run-auth remain acceptance duties. | WORK-015, ADMIN-001, ADMIN-002 | not run | | |
 | R-13 | A real authorized R2 or S3 backup destination and complete independent restore receipt. | PORT-009 | not run | | |
 | R-14 | Real licensed Slack, Teams and Nook app installation and destination acceptance. | NOTIF-003, NOTIF-007, CHAT-001, CHAT-004 | not run | | |
-| R-15 | Provider acceptance repeats this with real Slack and Teams workspaces. | CHAT-001 | not run | | |
-| R-16 | Provider acceptance installs both apps through admin consent. | CHAT-001 | not run | | |
-| R-17 | Provider acceptance repeats this with real Okta and Entra tenants. | ADMIN-001 | not run | | |
+| R-18 | Prospective trial windows actually elapse; real outcome measurements, uncertainty and repeated-work results are published without presenting simulated time as prospective proof. | TRIAL-002, TRIAL-003, FLAG-003 | not run | | |
+| R-19 | Real authorized document, evidence and operational-provider account receipts for full flagship qualification. | FLAG-002 | not run | | |
 
 ## Boundaries
 
@@ -4359,19 +4359,19 @@ Judged from the code and tests at commit `23c59bb2dcdd4b6df2499f350b3bc624bc14fe
 | `IMP-006` | Notion import with comments and live databases | target | partial | `src/core/features/imports/service.ts` | Missing a complete public-door journey for notion import with comments and live databases; the cited material shows only part of the capability. |
 | `IMP-007` | Confluence Cloud live migration | target | missing | — | not implemented |
 | `IMP-008` | Guru import | target | missing | — | not implemented |
-| `IMP-009` | Folder imports from Google Drive and SharePoint | target | partial | `tests/e2e/imports/drive-sharepoint-import.test.ts` — "IMP-009 — Member folder imports preserve a nested twelve-document tree, resolving links and actor-only access with a per-file omission report" (Verify Slate: workers); `tests/qualification/ui-convergence/folder-journey.mjs` — "folderJourney", loaded by the existing readable-export journey (Verify Slate: ui-content-desktop shards, 1440) | Real Google Drive and SharePoint provider acceptance, the Google console redirect step and consent are NOT RUN. |
+| `IMP-009` | Folder imports from Google Drive and SharePoint | target | partial | `tests/e2e/imports/drive-sharepoint-import.test.ts` — "IMP-009 — Member folder imports preserve a nested twelve-document tree, resolving links and actor-only access with a per-file omission report" (Verify Slate: workers); `tests/qualification/ui-convergence/folder-journey.mjs` — "folderJourney", loaded by the existing readable-export journey (Verify Slate: ui-content-desktop shards, 1440) | Carried partial pending a fresh-judge claim on the existing recorded-provider and browser journeys. Real Drive/SharePoint accounts and consent are R-4 field proof and do not gate DONE. |
 | `IMP-010` | Confluence macros, tasks and diagrams map to Slate blocks | target | partial | `src/core/features/imports/confluence/storage.ts` | Missing a complete public-door journey for confluence macros, tasks and diagrams map to slate blocks; the cited material shows only part of the capability. |
 | `IMP-011` | Confluence space permissions become container grants | target | missing | — | not implemented |
 | `IMP-012` | Confluence personal spaces become personal containers | target | partial | `src/core/features/imports/confluence/space.ts` | Missing a complete public-door journey for confluence personal spaces become personal containers; the cited material shows only part of the capability. |
 | `IMP-013` | Old Confluence links resolve in Slate | target | partial | `src/core/platform/db/knowledge-operations-schema.ts` | Missing a complete public-door journey for old confluence links resolve in slate; the cited material shows only part of the capability. |
 | `IMP-014` | Links between spaces imported in separate passes | target | missing | — | not implemented |
 | `PORT-008` | Exports carry comments | target | done | `tests/qualification/ui-convergence/export-comments-journey.mjs` — "exportCommentsJourney" |  |
-| `PORT-009` | Scheduled backups to the buyer's storage | target | partial | `tests/flagship/federation/federation.test.ts` — "PORT-009 — Scheduled backup writes to the destination, applies retention, notifies owners on failure and restores into an empty deployment" (Verify Slate: workers); `tests/qualification/ui-convergence/backups-journey.mjs` — "backupsJourney", loaded by "readable exports retain discussions through HTML and Markdown re-import" (Verify Slate: ui-content-desktop shards, 1440) | Committed live R2 receipt pending. A local held-key run passed connection, multipart readback, exact-key retention, real 403 owner notices and recovery, incomplete-scope refusal, empty-target restore and credential removal; all test objects and buckets were removed. Chest inherits this destination contract when it publishes an intake; no Chest destination is claimed. Email failure notices inherit NOTIF-005. No live provider acceptance is claimed without the committed receipt; no other provider was used. |
+| `PORT-009` | Scheduled backups to the buyer's storage | target | partial | `tests/flagship/federation/federation.test.ts` — "PORT-009 — Scheduled backup writes to the destination, applies retention, notifies owners on failure and restores into an empty deployment" (Verify Slate: workers); `tests/qualification/ui-convergence/backups-journey.mjs` — "backupsJourney", loaded by "readable exports retain discussions through HTML and Markdown re-import" (Verify Slate: ui-content-desktop shards, 1440) | Carried partial pending a fresh-judge claim on the cited S3/R2 fixture and browser restore journeys. The real bucket receipt is R-13 field proof and does not gate DONE; email notices remain NOTIF-005’s obligation. |
 | `PORT-010` | Word export of a page | target | done | `tests/qualification/ui-convergence/export-comments-journey.mjs` — "exportCommentsJourney"; `tests/e2e/imports/word-export.test.ts` — "PORT-010 — PORT-010 Word export carries every block kind, omits a child the member cannot read and re-imports with the same headings, merged tables and image alt" |  |
 | `EMBED-001` | Live issue embeds from Vector and Jira | target | missing | — | not implemented |
 | `EMBED-002` | GitHub and GitLab embeds | target | missing | `src/core/features/connectors/github.ts` | not implemented |
 | `EMBED-003` | Design, video and document embeds | target | partial | `tests/e2e/editor/provider-embeds.test.ts` — existing EMBED-003 registration via embedRefusalsJourney (`tests/e2e/editor/embed-refusals-journey.ts`) proves paired allowed/refused origins, zero visitor provider reads, expired-verdict rejection and member refresh, private/loopback/link-local literals and redirect-hop rejection, observation values free of member identity and credentials, and closed-target refusal of decimal, hex and IPv4-mapped literals, userinfo, non-443 ports and non-https schemes, plus stopped non-allowlisted redirects and arbitrary-host published link cards with zero probes, Verify Slate: workers (1/6); `tests/e2e/review/verification-upgrade.test.ts` — populated prior-schema upgrade, Verify Slate: workers; `tests/qualification/ui-convergence/provider-embeds-journey.mjs` via embedTimeoutJourney, Verify Slate: ui-content-desktop shards (1440) | Unrecognized HTTP-200 error documents; provider-specific authenticated/consent refusals; live provider acceptance NOT RUN; arbitrary-host embeds are not probed. |
-| `EMBED-004` | Live file cards from Drive, SharePoint and Chest | target | partial | `tests/e2e/editor/provider-embeds.test.ts` — EMBED-003 registration with [EMBED-004], fileCardsHttpJourney (`tests/e2e/editor/file-cards-journey.ts`); `tests/qualification/ui-convergence/provider-embeds-journey.mjs` — fileCardsJourney (`tests/qualification/ui-convergence/file-cards-journey.mjs`) at 1440 (`evidence/file-cards/`), Verify Slate: workers, ui-content-desktop shards | Chest card needs Chest's file-metadata door, not published. Real Google Drive and SharePoint acceptance NOT RUN: recorded provider fixtures only; no real provider call or consent was used. Conservative default: no metadata unless the reader’s own provider authority can open the file; request access and “Connect to view” when unconnected (ct, 22 October 23:00Z). |
+| `EMBED-004` | Live file cards from Drive, SharePoint and Chest | target | partial | `tests/e2e/editor/provider-embeds.test.ts` — EMBED-003 registration with [EMBED-004], fileCardsHttpJourney (`tests/e2e/editor/file-cards-journey.ts`); `tests/qualification/ui-convergence/provider-embeds-journey.mjs` — fileCardsJourney (`tests/qualification/ui-convergence/file-cards-journey.mjs`) at 1440 (`evidence/file-cards/`), Verify Slate: workers, ui-content-desktop shards | Chest file cards remain unimplemented until its metadata door exists. Drive/SharePoint real account receipts are R-4 field proof; the recorded per-reader card journeys remain local evidence. The unconnected-reader outcome follows RL-2. |
 | `EMBED-005` | Backlinks on Jira and Vector issues | target | missing | — | not implemented |
 | `EMBED-006` | Jira links to migrated Confluence pages are re-pointed at cutover | target | missing | — | not implemented |
 | `EMBED-007` | Issues that link here | target | missing | — | not implemented |
@@ -4394,8 +4394,8 @@ Judged from the code and tests at commit `23c59bb2dcdd4b6df2499f350b3bc624bc14fe
 | `API-003` | MCP server | target | partial | `src/core/features/external-agent/routes.ts` | No validated CI-run proof for this acceptance point: "an MCP client conformance run lists the tools, calls each one as two members and asserts access parity with the UI, confirms that a write without a grant becomes a suggestion, and confirms that revoking the client ends its session at once."<br>No validated CI-run proof for this acceptance point: "With a direct-write grant, it assigns, reassigns and completes a task and finds the same notifications and completion record as the UI." |
 | `API-004` | App and token administration | target | partial | `tests/e2e/public-api/contract.test.ts`; `tests/qualification/ui-convergence/developer-access-journey.mjs` — developerAccessJourney, existing readership journey at 1440 | OAuth application and MCP-client administration remain unimplemented; RL-102 keeps the complete administration target partial and authorizes no carve. |
 | `API-005` | Zapier, Make and Crank apps | target | missing | — | not implemented |
-| `ADMIN-001` | SAML single sign-on | target | partial | `tests/flagship/core/identity-upgrade.test.ts` — "ADMIN-001 — signed SP and IdP SAML, DNS-gated invited or allow-listed JIT, enforced member SSO and one owner mailbox escape" (Verify Slate: workers); `tests/qualification/ui-convergence/saml-journey.mjs` — "samlJourney", loaded by "SAML sign-in verifies the domain and signatures while preserving guest and designated-owner access" (Verify Slate: ui-content-desktop shards, 1440) | Real Okta and Microsoft Entra ID SAML provider acceptance is NOT RUN. Google Workspace, JumpCloud and Auth SAML provider acceptance is also NOT RUN. Pre-enforcement Managed preview owner sessions lack provenance distinguishing them from mailbox sessions; that prior-session case is not proven. WORK-015 currently implements sign-in through an external OIDC provider; Slate exposes no OIDC identity-provider token-issuance door, so the identity-provider-function sentence remains unproven. |
-| `ADMIN-002` | SCIM provisioning | target | partial | `tests/e2e/scim/contract.test.ts` — SCIM RFC7643/7644 HTTP sequence uses native invitations, Members, groups and revocation authority; populated upgrade, revoked restore and erasure; `tests/qualification/ui-convergence/scim-access-journey.mjs` (1440) | Real Okta, Entra ID, JumpCloud and Auth acceptance is not run. Default ADOPTED: Member role and name/email/groups only, Owner/guest/break-glass protection, hashed owner credentials; scoped admission cap applies to SCIM, while native invitation admission has no shared capacity guard. |
+| `ADMIN-001` | SAML single sign-on | target | partial | `tests/flagship/core/identity-upgrade.test.ts` — "ADMIN-001 — signed SP and IdP SAML, DNS-gated invited or allow-listed JIT, enforced member SSO and one owner mailbox escape" (Verify Slate: workers); `tests/qualification/ui-convergence/saml-journey.mjs` — "samlJourney", loaded by "SAML sign-in verifies the domain and signatures while preserving guest and designated-owner access" (Verify Slate: ui-content-desktop shards, 1440) | Pre-enforcement Managed preview owner sessions lack provenance distinguishing them from mailbox sessions; that prior-session case is not proven. WORK-015 currently implements sign-in through an external OIDC provider; Slate exposes no OIDC identity-provider token-issuance door, so the identity-provider-function sentence remains unproven. |
+| `ADMIN-002` | SCIM provisioning | target | partial | `tests/e2e/scim/contract.test.ts` — SCIM RFC7643/7644 HTTP sequence uses native invitations, Members, groups and revocation authority; populated upgrade, revoked restore and erasure; `tests/qualification/ui-convergence/scim-access-journey.mjs` (1440) | Default ADOPTED: Member role and name/email/groups only, Owner/guest/break-glass protection, hashed owner credentials; scoped admission cap applies to SCIM, while native invitation admission has no shared capacity guard. |
 | `ADMIN-003` | Guest management | target | done | `tests/qualification/ui-convergence/guest-console-journey.mjs` — "guestConsoleJourney" |  |
 | `ADMIN-004` | Workspace analytics | target | done | `tests/e2e/pages/analytics.test.ts` — "ADMIN-004 — owner reports export every report as CSV and container owners see only their readable container figures" |  |
 | `ADMIN-005` | Audit export and SIEM streaming | target | partial | `tests/qualification/core/audit-content.test.ts` — auditExportProof: audited action families, filtered CSV/JSON, neutralized formulas, retention floor, signed ordered outage recovery; `tests/qualification/ui-convergence/audit-access-journey.mjs` (1440) | Signed generic webhooks inherit API-002’s unresolved address pinning and adopted destination rule; real vendor receivers and vendor-specific formats are not claimed. |

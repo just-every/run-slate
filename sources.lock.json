@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "44fdb48fe7424ca9d553aa98da5f68423d70ec7fdb64baac8aba950e1e2a0eb2",
+      "sha256": "0b0c81d93d6ef97fe75cbdb3716aecdd4b7d8f7a416a52c3febc7660a5c196af",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "d1afd75ea4f34b9ff4ce0e4c10e15afa3b4b00dce3eb4cf6ba0ff556dc4757c7",
+      "sha256": "2a11c8fbab30e59a20bf80f06795cd916b76b5a61ba07442b1fd2d6686aaa0b3",
       "executable": false
     },
     "DEMO.md": {
@@ -1044,7 +1044,7 @@
       "executable": false
     },
     "docs/contract/COVERAGE.json": {
-      "sha256": "e4b88ad789274297c072d670aa40f5f47c73a389c0edbbc1297dfdbcaab74148",
+      "sha256": "1ab2c566917a4c43f98d7ab929cc5b9277fffca3561aecdcd6db6c41eb768b09",
       "executable": false
     },
     "docs/contract/DONE-AUDIT.md": {
@@ -4700,7 +4700,7 @@
       "executable": false
     },
     "RULINGS.md": {
-      "sha256": "68d5d4dabad09703e406aab64ce84f6c7bc9e0d1db267a2a99ac45e78d0b9b6f",
+      "sha256": "c9566d1f432f8ad1ada2c4d761c499a9728dd0663682bd64afbd2f0fd946080a",
       "executable": false
     },
     "RUN-LOCALLY.md": {
@@ -4708,15 +4708,15 @@
       "executable": false
     },
     "scripts/base-proof/objects.mjs": {
-      "sha256": "64c62ce5606f418d3ffbc69b0e13fa8e07150646e740f388f3d8dff5ab6ddbfc",
+      "sha256": "8bd82dfefa43e80dc838bfb17cccca48e186ef0e876d46974bcf2e3625d62dc9",
       "executable": false
     },
     "scripts/base-proof/pin-objects.json": {
-      "sha256": "76e13556a98e3b373146e6d5bd94251931e2d16c3a5c1e204a0103e0cb0e1a14",
+      "sha256": "8a329c8dcafa27567bd13836a6cd9818deb54b3ea138d0c65fdaafb3df13af14",
       "executable": false
     },
     "scripts/base-proof/README.md": {
-      "sha256": "56583f49dd58b9b31d203e5de0cc1a9b88e85a6a4546e1dc7f9c709a662d11ed",
+      "sha256": "8d54442391847a954212733ec21293475f01589e3d608407f78aef8670621961",
       "executable": false
     },
     "scripts/base-proof/repository.mjs": {

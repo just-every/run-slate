@@ -13,7 +13,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 | Later | 0 | 0 | 0 | 0 |
 | Full target | 30 | 267 | 40 | 337 |
 
-Judged from the code and tests at commit `23c59bb2dcdd4b6df2499f350b3bc624bc14feee` (25 October 2026). Field proof register: 17 rows; 0 passed, 0 failed, 17 not run.
+Judged from the code and tests at commit `23c59bb2dcdd4b6df2499f350b3bc624bc14feee` (25 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -755,7 +755,7 @@ Core · published · **partial**
 2. There is no readable address for a draft that carries no grant, a draft has no general access grant under either value of `SHARE-005` (`SHARE-004`), and a draft cannot be published to the anonymous web (`WEB-001`).
 3. No role, policy value, container setting, workspace owner action, automation or extension defeats this.
 4. `LIFE-006` decides whether a draft state arises, never whether this clause holds.
-5. Under the held company policy for the call’s classes, a draft is absent from search, queries, inbox, analytics, AI grounding, listings and other trees, and readable only by its author and grantees.
+5. Under the held company policy for standard changes, external exposure or commitment decisions, a draft is absent from search, queries, inbox, analytics, AI grounding, listings and other trees, and readable only by its author and grantees.
 
 **Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
 **Gap.** No validated CI-run proof for this acceptance point: "While a page is `draft` it is absent from search, from content queries, from the inbox, from analytics, from AI grounding, from every administrative and export listing, and from the tree of every member it has not been shared with."<br>No validated CI-run proof for this acceptance point: "Its body is readable only by its author and by the principals in its own grant list: sharing a draft, by link or by address, creates a grant under `SHARE-001` and `SHARE-006`, that grant requires a session like every other, it is shown in the draft's grant list, and revoking it ends access under `SHARE-007`."<br>No validated CI-run proof for this acceptance point: "There is no readable address for a draft that carries no grant, a draft has no general access grant under either value of `SHARE-005` (`SHARE-004`), and a draft cannot be published to the anonymous web (`WEB-001`)."<br>No validated CI-run proof for this acceptance point: "No role, policy value, container setting, workspace owner action, automation or extension defeats this."<br>No validated CI-run proof for this acceptance point: "`LIFE-006` decides whether a draft state arises, never whether this clause holds."
@@ -2483,7 +2483,7 @@ Core · published · **partial** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-A
 **Requirement.** Runs prepare revision-specific proposals or carry out bounded work according to the company policy for each call’s classes; the source scope, target, audience and conditions remain explicit.
 
 **Acceptance.**
-1. Under the held company policy, an edit is prepared as a proposal and has no product effect until the person named by that policy accepts its exact revision.
+1. Under the held company policy for standard or external edits, an edit is prepared as a proposal and has no product effect until the person named by that policy accepts its exact revision.
 2. Under the all-autonomous company policy, a determinate change within the caller’s authority commits with its sources, checks and receipt.
 3. Business decisions carry commitment; changes to publication carry external; the company policy decides their execution, and no output supplies its own authority.
 
@@ -2597,7 +2597,7 @@ Core · published · **partial** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-A
 **Requirement.** Slate evaluates wiki changes against the authority and company policy of the named sponsoring person. Private drafts, container vetoes and source-audience rights remain product boundaries.
 
 **Acceptance.**
-1. A call never widens the calling agent’s own authority, and a general goal, service credential, confidence or source text supplies no grant.
+1. A wiki page asking the caller to widen its own grant or sponsor’s role causes no authority change; a general goal or credential supplies no page grant.
 2. Page publication and unpublication carry external; reversible archive and trash carry standard; permanent deletion carries destructive; membership and grant changes carry access; protective settings carry security.
 3. A verification or accepted decision an agent records carries commitment and names the agent; it never becomes a person’s attestation.
 4. Missing, expired, narrowed, changed-target or revoked resource authority refuses the effect; the company policy decides each otherwise-authorized class.
@@ -2634,7 +2634,7 @@ Core · published · **partial** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-A
 3. Recheck every contributor before fan-in, generation, write, delivery, resume and later read of persisted output.
 4. Changed or uncertain ACLs, source/requester/audience/destination rights withhold or invalidate derived artifacts, including caches, embeddings, transcripts and proposals; no titles, counts, hints or citations disclose restricted facts.
 5. Revoked, archived, trashed and another member’s draft content is excluded without reindexing.
-6. Credentials supply capability, never disclosure authority.
+6. A provider credential that can read more pages than the asker contributes only passages permitted for every member of the declared output audience.
 7. LIFE-002 and source deletion rules remain absolute under every policy.
 8. Answers and outputs use only sources authorized for the asker and audience, rechecked at every boundary.
 
@@ -2653,7 +2653,7 @@ Core · published · **partial** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-A
 3. Owner policy bounds providers/models, skill/run/provider budgets and permitted effects; Slate routes automatically by measured task fit within it.
 4. Runs name actor, audience, agent, exact skill revision, provider/model and cost.
 5. No model selector or agent-management chore is required for ordinary work.
-6. Under the held company policy for the call’s classes, agents are named auditable records whose access never exceeds the invoking member's.
+6. Under the held company policy for standard changes, external exposure or commitment decisions, agents are named auditable records whose access never exceeds the invoking member's.
 
 **Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
 **Gap.** The cited material does not prove the complete revision, authority, audience and outcome journey for this capability under company policy; the held and all-autonomous cases remain unproven. Earlier implementation notes are retained in CHANGELOG.md.
@@ -2935,7 +2935,7 @@ Core · published · **partial**
 2. Recheck all current sources/grants; stop and revocation override continuation.
 3. Preserve immutable history and receipts, reconcile ambiguity and never silently substitute versions.
 4. Notify subscribed external agents of changes.
-5. Superseded versions start no runs; pinned work suspends by default.
+5. Superseded versions start no runs; the company policy for affected classes decides what happens to pinned work, and the held-policy journey suspends it.
 
 **Evidence.** `tests/qualification/authority/skill-disclosure.test.ts`
 **Gap.** The cited material does not prove the complete revision, authority, audience and outcome journey for this capability under company policy; the held and all-autonomous cases remain unproven. Earlier implementation notes are retained in CHANGELOG.md.
@@ -2988,12 +2988,11 @@ Core · published · **partial**
 
 Core · published · **partial** · Cites BASE-AGENT-002, BASE-AGENT-005
 
-**Requirement.** UI, API and MCP expose the same authorized reads, exact citations, proposals, granted effects, run status, pause/resume, stop and outcomes, with operation keys, current ACL/grant checks and receipts.
+**Requirement.** Slate exposes its revision-pinned evidence, inquiries, proposals, granted effects and durable run outcomes through the corresponding UI, API and MCP jobs.
 
 **Acceptance.**
-1. External identities cannot bypass browser or product consent boundaries.
-2. Unsupported operations fail explicitly.
-3. UI, API and MCP expose the same authorized reads, proposals and effects with the same checks.
+1. Through each door, read an exact citation, inspect a proposal and a granted effect, and observe run pause, resume, stop and final outcome with the same source revisions and receipt.
+2. An operation that Slate does not support fails explicitly.
 
 **Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
 **Gap.** The cited material does not prove the complete revision, authority, audience and outcome journey for this capability under company policy; the held and all-autonomous cases remain unproven. Earlier implementation notes are retained in CHANGELOG.md.
@@ -3099,13 +3098,13 @@ Core · published · **partial**
 
 #### TRIAL-002 — Exposure and safety
 
-Core · published · **partial**
+Core · published · **partial** · Register R-18
 
 **Requirement.** Only owning systems perform granted changes; retain attempted versus confirmed effects, receipts, actual exposure, missing observations and instrumentation changes.
 
 **Acceptance.**
 1. Guardrail breaches stop future effects and initiate only separately authorized supported recovery.
-2. Prospective windows must actually elapse; fixtures or simulated time are not prospective outcome evidence.
+2. A seeded lifecycle journey exercises the declared window and stop conditions with recorded exposure; prospective outcome claims use the dated measurements in R-18.
 3. Only owning systems perform granted trial effects; guardrail breaches stop future effects.
 
 **Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
@@ -3113,7 +3112,7 @@ Core · published · **partial**
 
 #### TRIAL-003 — Outcome classification
 
-Core · published · **partial**
+Core · published · **partial** · Register R-18
 
 **Requirement.** At the declared window classify benefit, null, adverse or inconclusive against the predeclared comparison and guardrails, with uncertainty, applicability, selection bias and measurement quality.
 
@@ -3135,7 +3134,7 @@ Core · published · **partial**
 1. Learned procedures/prompts/tests/code are versioned and evaluated before owner-authorized activation.
 2. No automatic model-weight tuning or cross-deployment sharing.
 3. Verify repeated-work savings without invalid assumption reuse.
-4. Outcomes revise methods while keeping original forecasts; activation is owner-authorized.
+4. Outcomes revise methods while keeping original forecasts; an agent’s activation carries standard or live according to the service affected, as decided by company policy.
 
 **Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
 **Gap.** No validated CI-run proof for this acceptance point: "Every outcome revises explanations and methods while retaining original forecast, decision and failed hypotheses."<br>No validated CI-run proof for this acceptance point: "Learned procedures/prompts/tests/code are versioned and evaluated before owner-authorized activation."<br>No validated CI-run proof for this acceptance point: "No automatic model-weight tuning or cross-deployment sharing."<br>No validated CI-run proof for this acceptance point: "Verify repeated-work savings without invalid assumption reuse."
@@ -3150,19 +3149,19 @@ Core · published · **partial**
 1. No minimum subset, parser/component suite or self-report substitutes for full product acceptance.
 2. The core-wiki launch amendment authorizes a separately labeled core-wiki release with the default-disabled surfaces and retained obligations specified in the core-wiki launch amendment.
 3. This changes the launch gate only; it does not satisfy or waive full flagship acceptance.
-4. Core-wiki launch gate and the full flagship gate as specified in this document's gate sections.
+4. The core-wiki release exception and complete flagship gate remain distinct under RL-4 and RL-5; their execution mechanics are in [verification guidance](docs/verify.md).
 
 **Evidence.** `tests/flagship/release-clauses/portability/profile-retention.test.ts`
 **Gap.** release gate; full flagship and provider evidence pending
 
 #### FLAG-002 — Independent evidence
 
-Core · published · **partial** · Register R-9, R-10
+Core · published · **partial** · Register R-9, R-10, R-19
 
 **Requirement.** Verify clean install, real browser/Worker journeys, customized owner copy, old-data migrations, restart/failure/revocation, complete export/restore, accessibility and load.
 
 **Acceptance.**
-1. Test genuine incumbent exports including Word; use real authorized document, evidence and operational providers for provider acceptance.
+1. Test genuine incumbent exports including Word through the seed’s public doors, with recorded providers or official-schema fakes at the network edge; real account receipts are recorded separately in R-19.
 2. Separate requirements, local implementation evidence, provider evidence and release/deployment evidence; no claim advances without independent semantic verification.
 3. Independent clean install, real browser and Worker journeys, migrations, restore, accessibility and load evidence.
 
@@ -3171,7 +3170,7 @@ Core · published · **partial** · Register R-9, R-10
 
 #### FLAG-003 — Value and held-out evaluation
 
-Core · published · **partial**
+Core · published · **partial** · Register R-18
 
 **Requirement.** Compare identical accessible sources/tools against expert/current-tools and capable generic-agent baselines and owner-customized Slate.
 
@@ -3882,7 +3881,7 @@ Core · target · **partial** · Cites BASE-INPUT-001, BASE-INPUT-002, BASE-INPU
 7. A file whose structure cannot be preserved is wholly omitted and named in the report; supported tagged PDFs preserve headings, tables, images and document links.
 
 **Evidence.** `tests/e2e/imports/drive-sharepoint-import.test.ts` — "IMP-009 — Member folder imports preserve a nested twelve-document tree, resolving links and actor-only access with a per-file omission report" (Verify Slate: workers); `tests/qualification/ui-convergence/folder-journey.mjs` — "folderJourney", loaded by the existing readable-export journey (Verify Slate: ui-content-desktop shards, 1440)
-**Gap.** Real Google Drive and SharePoint provider acceptance, the Google console redirect step and consent are NOT RUN.
+**Gap.** Carried partial pending a fresh-judge claim on the existing recorded-provider and browser journeys. Real Drive/SharePoint accounts and consent are R-4 field proof and do not gate DONE.
 
 #### IMP-010 — Confluence macros, tasks and diagrams map to Slate blocks
 
@@ -4014,7 +4013,7 @@ Core · target · **partial** · Cites BASE-BACKUP-001, BASE-DATA-001 · Registe
 2. Chest inherits the same destination contract when an intake exists; email failure notices inherit `NOTIF-005`.
 
 **Evidence.** `tests/flagship/federation/federation.test.ts` — "PORT-009 — Scheduled backup writes to the destination, applies retention, notifies owners on failure and restores into an empty deployment" (Verify Slate: workers); `tests/qualification/ui-convergence/backups-journey.mjs` — "backupsJourney", loaded by "readable exports retain discussions through HTML and Markdown re-import" (Verify Slate: ui-content-desktop shards, 1440)
-**Gap.** Committed live R2 receipt pending. A local held-key run passed connection, multipart readback, exact-key retention, real 403 owner notices and recovery, incomplete-scope refusal, empty-target restore and credential removal; all test objects and buckets were removed. Chest inherits this destination contract when it publishes an intake; no Chest destination is claimed. Email failure notices inherit NOTIF-005. No live provider acceptance is claimed without the committed receipt; no other provider was used.
+**Gap.** Carried partial pending a fresh-judge claim on the cited S3/R2 fixture and browser restore journeys. The real bucket receipt is R-13 field proof and does not gate DONE; email notices remain NOTIF-005’s obligation.
 
 #### PORT-010 — Word export of a page
 
@@ -4072,7 +4071,7 @@ Core · target · **partial** · Cites BASE-PUBLIC-001
 
 #### EMBED-004 — Live file cards from Drive, SharePoint and Chest
 
-Core · target · **partial**
+Core · target · **partial** · Register R-4
 
 **Requirement.** A file picker inserts Google Drive, SharePoint/OneDrive or [Chest](https://github.com/just-every/run-chest) files by reference. Each card shows the file's current title, owner, last modified time and type, and whether the reader can open it. Slate never copies the file unless the member chooses "attach a copy" (`BLOCK-008`). Drive and SharePoint references use the inserting member's own provider connection. Metadata is resolved afresh with each reader's own provider authority: when it cannot open the file, the card exposes no title, owner, type or time, only the provider, request-access action and provider link; an unconnected reader also sees the existing connect path. This conservative default grants no provider permission. Unmapped or ambiguous provider identity and ACL refresh failure disclose no metadata (`CONNECT-002`). Deleted files show unavailable without retained metadata. Disconnect destroys the member token and retains page references. A reference stores and exports only provider, file ID and stable link; existing page revisions, archive/restore and erasure carry it without file bytes, tokens or cached metadata. Public pages and readable exports show the provider link without fetching metadata. [Chest](https://github.com/just-every/run-chest), the RunEditRun file-storage product, remains a named source gap while it publishes no metadata door.
 
@@ -4080,7 +4079,7 @@ Core · target · **partial**
 1. a browser journey with recorded provider fixtures inserts one file from each source, sees a renamed file's new title after refresh, and sees "request access" for a reader without access.
 
 **Evidence.** `tests/e2e/editor/provider-embeds.test.ts` — EMBED-003 registration with [EMBED-004], fileCardsHttpJourney (`tests/e2e/editor/file-cards-journey.ts`); `tests/qualification/ui-convergence/provider-embeds-journey.mjs` — fileCardsJourney (`tests/qualification/ui-convergence/file-cards-journey.mjs`) at 1440 (`evidence/file-cards/`), Verify Slate: workers, ui-content-desktop shards
-**Gap.** Chest card needs Chest's file-metadata door, not published. Real Google Drive and SharePoint acceptance NOT RUN: recorded provider fixtures only; no real provider call or consent was used. Conservative default: no metadata unless the reader’s own provider authority can open the file; request access and “Connect to view” when unconnected (ct, 22 October 23:00Z).
+**Gap.** Chest file cards remain unimplemented until its metadata door exists. Drive/SharePoint real account receipts are R-4 field proof; the recorded per-reader card journeys remain local evidence. The unconnected-reader outcome follows RL-2.
 
 #### EMBED-005 — Backlinks on Jira and Vector issues
 
@@ -4147,7 +4146,7 @@ Core · target · **missing**
 
 #### CHAT-001 — Chat notifications to Slack, Microsoft Teams and Nook
 
-Core · target · **partial** · Rules D-1 · Register R-14, R-15, R-16
+Core · target · **partial** · Rules D-1 · Register R-14
 
 **Requirement.** Workspace and container owners connect any number of channels in Slack, Microsoft Teams or [Nook](https://github.com/just-every/run-nook), each with its own event selection: published or updated pages, new comments, blog posts, review requests and lapsed verifications in the container. `NOTIF-003`'s guarantees apply to every destination: link-only messages, access-checked links, encrypted credentials returned by no API response and destroyed on disconnect, startup refusal naming connector credentials key when any destination is connected and that key is missing, delivery and failure state, transient-only retry, and stopping on disconnect. Expired or revoked authorization marks that destination as needing attention, offers reconnect and stops sending to it while retaining the destination, its event selection and its delivery history. Every Slack destination, however it is authorized, also meets `NOTIF-007`'s Slack channel and audience rules. Every Teams and Nook destination meets the same rule in its provider's terms: a channel whose full roster Slate can read and only admitted members change (Teams private team or private channel, Nook private channel), not shared with another organization (`NOOK-031`), with no guest, external account or bot but Slate's, and every person an active Slate member by verified email who can read the linked record immediately before sending; Slate refuses it at connect, rechecks before every send and sends nothing while it fails. Slack connects as an OAuth app a workspace admin installs; Teams as an app package an Entra admin consents to with resource-specific channel permissions; Nook through `NOOK-080`. Slate honours each provider's rate limit and `Retry-After` without loss, and coalesces more than five events per destination per minute into one message. Later events on the same page within 24 hours reply in its first message's thread. Each destination chooses immediate or daily digest. When a page is deleted, moves beyond the channel's audience or its actor is erased (`WORK-007`), Slate edits every message it sent about it to "Restricted Slate page". Protocol and representation details are in [wiki doors](docs/wiki-doors.md).
 
@@ -4358,7 +4357,6 @@ Core · target · **partial** · Cites BASE-AGENT-001, BASE-AGENT-002, BASE-AGEN
 1. Two members search, fetch, query, ask and comment through MCP and observe the same wiki outcomes as in the browser.
 2. Under the held company policy for standard edits, a page change is a revision-pinned suggestion and changes nothing before the person named by policy accepts it.
 3. Under the all-autonomous company policy, an authorized page update and task assignment, reassignment and completion execute with the same notifications and completion record as the browser.
-4. Revoking a client’s consent ends its access; the current-role, resource, token and untrusted-content duties are inherited.
 
 **Evidence.** `src/core/features/external-agent/routes.ts`
 **Gap.** No validated CI-run proof for this acceptance point: "an MCP client conformance run lists the tools, calls each one as two members and asserts access parity with the UI, confirms that a write without a grant becomes a suggestion, and confirms that revoking the client ends its session at once."<br>No validated CI-run proof for this acceptance point: "With a direct-write grant, it assigns, reassigns and completes a task and finds the same notifications and completion record as the UI."
@@ -4391,7 +4389,7 @@ Core · target · **missing**
 
 #### ADMIN-001 — SAML single sign-on
 
-Core · target · **partial** · Cites BASE-SIGNIN-001 · Register R-12, R-17
+Core · target · **partial** · Cites BASE-SIGNIN-001 · Register R-12
 
 **Requirement.** Slate is a SAML 2.0 service provider for Okta, Microsoft Entra ID, Google Workspace, JumpCloud and [Auth](https://github.com/just-every/run-auth). It supports both SP- and IdP-initiated sign-in, signed assertions, an email domain verified by a DNS TXT record the owner publishes (rechecked daily; a failed check stops new just-in-time creation and notifies owners) and just-in-time creation of invited or allow-listed members. When an owner enforces SSO, members sign in only through the provider, guests keep magic links, and one designated owner keeps a magic-link break-glass path. Slate's OIDC identity-provider function (WORK-015) stays available to members who have signed in through the enforced method. Protocol and representation details are in [wiki doors](docs/wiki-doors.md).
 
@@ -4405,7 +4403,7 @@ Core · target · **partial** · Cites BASE-SIGNIN-001 · Register R-12, R-17
 7. SP AuthnRequests are unsigned; assertions must be signed. Provider trust, pending requests and sessions do not cross backup and restore.
 
 **Evidence.** `tests/flagship/core/identity-upgrade.test.ts` — "ADMIN-001 — signed SP and IdP SAML, DNS-gated invited or allow-listed JIT, enforced member SSO and one owner mailbox escape" (Verify Slate: workers); `tests/qualification/ui-convergence/saml-journey.mjs` — "samlJourney", loaded by "SAML sign-in verifies the domain and signatures while preserving guest and designated-owner access" (Verify Slate: ui-content-desktop shards, 1440)
-**Gap.** Real Okta and Microsoft Entra ID SAML provider acceptance is NOT RUN. Google Workspace, JumpCloud and Auth SAML provider acceptance is also NOT RUN. Pre-enforcement Managed preview owner sessions lack provenance distinguishing them from mailbox sessions; that prior-session case is not proven. WORK-015 currently implements sign-in through an external OIDC provider; Slate exposes no OIDC identity-provider token-issuance door, so the identity-provider-function sentence remains unproven.
+**Gap.** Pre-enforcement Managed preview owner sessions lack provenance distinguishing them from mailbox sessions; that prior-session case is not proven. WORK-015 currently implements sign-in through an external OIDC provider; Slate exposes no OIDC identity-provider token-issuance door, so the identity-provider-function sentence remains unproven.
 
 #### ADMIN-002 — SCIM provisioning
 
@@ -4417,7 +4415,7 @@ Core · target · **partial** · Cites BASE-SIGNIN-001 · Register R-12
 1. a SCIM compliance run (Okta's SCIM test suite shape) creates, updates, pushes groups to and deactivates users, and asserts the resulting members, groups, revoked sessions and activity entries.
 
 **Evidence.** `tests/e2e/scim/contract.test.ts` — SCIM RFC7643/7644 HTTP sequence uses native invitations, Members, groups and revocation authority; populated upgrade, revoked restore and erasure; `tests/qualification/ui-convergence/scim-access-journey.mjs` (1440)
-**Gap.** Real Okta, Entra ID, JumpCloud and Auth acceptance is not run. Default ADOPTED: Member role and name/email/groups only, Owner/guest/break-glass protection, hashed owner credentials; scoped admission cap applies to SCIM, while native invitation admission has no shared capacity guard.
+**Gap.** Default ADOPTED: Member role and name/email/groups only, Owner/guest/break-glass protection, hashed owner credentials; scoped admission cap applies to SCIM, while native invitation admission has no shared capacity guard.
 
 #### ADMIN-003 — Guest management
 
@@ -4501,6 +4499,7 @@ Core · target · **missing** · Cites BASE-ACCESSIBILITY-001 · Register R-8
 
 **Acceptance.**
 1. automated journeys on macOS and Windows open a deep link, open a second window on another page and edit in both, quit and relaunch to find both windows restored on their pages, edit offline and sync, and receive a system notification.
+2. Native fixture builds produce the signed installers; an installed client verifies a signed update and rejects an invalid signature.
 
 **Evidence.** —
 **Gap.** not implemented
@@ -4552,10 +4551,10 @@ Core · target · **partial** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-AGEN
 
 Core · target · **partial** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-AGENT-006, BASE-AGENT-007, BASE-AGENT-008 · Rules D-1
 
-**Requirement.** For each flag, the knowledge agent drafts a suggestion (`SUG-001`) against the exact block revision. The suggestion carries a diff, the sources, the readers who will see the change, and the answers and runbooks it affects, and is routed to the page owner. Its data is the flagged page revision, the cited change and the pages that depend on it. The company policy decides standard internal edits and external edits where outsiders gain visibility. Under the held policy the owner accepts the suggestion (`SUG-002`); under the all-autonomous policy a bounded rename commits as a revision that `REV-003` can roll back in one action. Verification never carries over: an edited verified page shows that its verified revision is not current (`STAT-003`).
+**Requirement.** For each flag, the knowledge agent drafts a suggestion (`SUG-001`) against the exact block revision. The suggestion carries a diff, the sources, the readers who will see the change, and the answers and runbooks it affects, and is routed to the page owner. Its data is the flagged page revision, the cited change and the pages that depend on it. The company policy decides standard internal edits and external edits where outsiders gain visibility. Under the held company policy for standard or external changes, the owner accepts the suggestion (`SUG-002`); under the all-autonomous policy a bounded rename commits as a revision that `REV-003` can roll back in one action. Verification never carries over: an edited verified page shows that its verified revision is not current (`STAT-003`).
 
 **Acceptance.**
-1. a browser journey in which the owner receives a fix suggestion, inspects the diff and sources, and accepts it, producing one revision.
+1. under the held company policy for standard or external changes, a browser journey in which the owner receives a fix suggestion, inspects the diff and sources, and accepts it, producing one revision.
 2. A second case applies a granted rename across three pages and rolls one back.
 3. A suggestion whose anchor changed in the meantime requires a rebase and never applies silently.
 
@@ -4566,11 +4565,11 @@ Core · target · **partial** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-AGEN
 
 Core · target · **missing** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-AGENT-006, BASE-AGENT-007, BASE-AGENT-008 · Rules D-1
 
-**Requirement.** The knowledge agent takes clusters of unanswered questions and low-rated answers (`ANSWER-004`) and repeated questions in chat (`CHAT-003`), finds the best expert (page owners, frequent editors, verifiers and `WORK-016` expertise), and sends that expert a short evidence request with the question, what was found and what is missing. From the expert's reply it drafts a card or page, and after the expert verifies it, re-asks the original questions to confirm they now retrieve it. Its data is questions without asker identity, expertise signals and the expert's reply. The expert decides whether the draft is correct and sets its verification expiry. An agent verification carries commitment and names the agent under company policy; it never records the expert’s attestation. The draft is visible only to its eventual audience.
+**Requirement.** The knowledge agent takes clusters of unanswered questions and low-rated answers (`ANSWER-004`) and repeated questions in chat (`CHAT-003`), finds the best expert (page owners, frequent editors, verifiers and `WORK-016` expertise), and sends that expert a short evidence request with the question, what was found and what is missing. From the expert's reply it drafts a card or page, records commitment-class verification as company policy decides, and re-asks the original questions to confirm they now retrieve it; under the held policy the expert verifies the draft. Its data is questions without asker identity, expertise signals and the expert's reply. The expert decides whether the draft is correct and sets its verification expiry. An agent verification carries commitment and names the agent under company policy; it never records the expert’s attestation. The draft is visible only to its eventual audience.
 
 **Acceptance.**
 1. a Workers journey with a provider fake clusters seeded unanswered questions and sends one evidence request to the right expert.
-2. The expert's reply produces a draft, the expert verifies it, and re-asking the cluster's questions returns the new card as a top citation.
+2. Under the held company policy for commitment, the expert's reply produces a draft, the expert verifies it, and re-asking the cluster's questions returns the new card as a top citation.
 3. The gap report then shows the cluster closed.
 
 **Evidence.** —
@@ -4580,7 +4579,7 @@ Core · target · **missing** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-AGEN
 
 Core · target · **partial** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-AGENT-006, BASE-AGENT-007, BASE-AGENT-008 · Rules D-1
 
-**Requirement.** The knowledge agent finds near-duplicate pages, by `SEARCH-011`'s definition and its `seed.json → limits.nearDuplicateSimilarity` threshold, and statements that conflict across pages, and proposes a merge (one canonical page, with the others redirecting through `LINK-003` tombstone links) or a reconciliation for the owners to choose. Its data is page revisions within one audience; it never compares across an access boundary for a reader who lacks either side. A merge is reversible through restore, carries standard or external according to visibility, and is decided by company policy; under the held policy both page owners accept the exact merge.
+**Requirement.** The knowledge agent finds near-duplicate pages, by `SEARCH-011`'s definition and its `seed.json → limits.nearDuplicateSimilarity` threshold, and statements that conflict across pages, and proposes a merge (one canonical page, with the others redirecting through `LINK-003` tombstone links) or a reconciliation for the owners to choose. Its data is page revisions within one audience; it never compares across an access boundary for a reader who lacks either side. A merge is reversible through restore, carries standard or external according to visibility, and is decided by company policy; under the held company policy for standard or external merges, both page owners accept the exact merge.
 
 **Acceptance.**
 1. a Workers journey over a seeded corpus with a pair of pages at a measured similarity of 0.9, a pair at 0.7 and one conflict proposes exactly one merge and one reconciliation, and nothing for the pair at 0.7.
@@ -4631,7 +4630,7 @@ Core · target · **missing** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-AGEN
 
 Core · target · **partial** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-AGENT-006, BASE-AGENT-007, BASE-AGENT-008 · Rules D-1
 
-**Requirement.** Once a week, the knowledge agent prepares each owner one digest of their lapsed verifications, open flags, ownerless pages in their containers and pages nobody has opened in 180 days. Each item comes with a prepared action: re-verify (which opens the revision), accept a fix, reassign, or archive. Its data is status, analytics (`PAGE-013`), flags and ownership. The company policy decides every action: commitment for verification, standard for reversible archive, and access when reassignment changes standing authority. Under the held policy the owner performs the prepared actions.
+**Requirement.** Once a week, the knowledge agent prepares each owner one digest of their lapsed verifications, open flags, ownerless pages in their containers and pages nobody has opened in 180 days. Each item comes with a prepared action: re-verify (which opens the revision), accept a fix, reassign, or archive. Its data is status, analytics (`PAGE-013`), flags and ownership. The company policy decides every action: commitment for verification, standard for reversible archive, and access when reassignment changes standing authority. Under the held company policy for commitment, standard and access, the owner performs the prepared actions.
 
 **Acceptance.**
 1. a Workers journey advances a week over a seeded workspace and delivers exactly one digest per owner with the expected items.
@@ -4657,12 +4656,12 @@ Core · target · **partial** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-AGEN
 
 Core · target · **partial** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-AGENT-006, BASE-AGENT-007, BASE-AGENT-008 · Rules D-1
 
-**Requirement.** An authorized member builds an agent for their team without code. The agent has a name, instructions, a knowledge scope (containers, labels, cards and connected sources), the tools it may use, and when it runs: Its tools offer search and cited answers (`ANSWER-001`), drafting pages and cards, proposing edits as suggestions (`SUG-001`), filing issues (`EMBED-001`) and posting to a chat channel (`CHAT-001`). Its triggers are asked in Slate, in chat (`CHAT-002`) or over MCP (`API-003`), on a schedule, or on an automation event (`AUTO-*`). Each agent is an `AI-014` agent record. Its builder can test it against sample questions before sharing it with groups. Its data is the intersection of the agent's declared scope and what the member it runs for may read. A scheduled or event run reads as the agent's owner, and its output reaches only an audience that may read every source it used (`AI-013`). Verification carries commitment, publication external, reversible archive standard, permanent deletion destructive and access changes access. The company policy decides execution; under the held policy edits are suggestions and pages stay drafts until the named person accepts them. Every run records its actor, scope, tools, sources and cost against the company’s chosen spend policy (`AI-010`, `AI-012`). Owners can see, pause or delete any agent, and removing an agent's owner pauses it (`WORK-007`).
+**Requirement.** An authorized member builds an agent for their team without code. The agent has a name, instructions, a knowledge scope (containers, labels, cards and connected sources), the tools it may use, and when it runs: Its tools offer search and cited answers (`ANSWER-001`), drafting pages and cards, proposing edits as suggestions (`SUG-001`), filing issues (`EMBED-001`) and posting to a chat channel (`CHAT-001`). Its triggers are asked in Slate, in chat (`CHAT-002`) or over MCP (`API-003`), on a schedule, or on an automation event (`AUTO-*`). Each agent is an `AI-014` agent record. Its builder can test it against sample questions before sharing it with groups. Its data is the intersection of the agent's declared scope and what the member it runs for may read. A scheduled or event run reads as the agent's owner, and its output reaches only an audience that may read every source it used (`AI-013`). Verification carries commitment, publication external, reversible archive standard, permanent deletion destructive and access changes access. The company policy decides execution; under the held company policy for standard or external edits, edits are suggestions and pages stay drafts until the named person accepts them. Every run records its actor, scope, tools, sources and cost against the company’s chosen spend policy (`AI-010`, `AI-012`). Owners can see, pause or delete any agent, and removing an agent's owner pauses it (`WORK-007`).
 
 **Acceptance.**
 1. a Workers journey with a provider fake at the network edge builds an agent scoped to one container with the answer and propose-edit tools, and shares it with a group.
 2. A group member who can read only half the container asks it a question, and the answer cites only pages that member can read.
-3. Under the held company policy the agent’s proposed edit lands as a suggestion and changes nothing until the named person accepts it.
+3. Under the held company policy for standard or external edits, the agent’s proposed edit lands as a suggestion and changes nothing until the named person accepts it.
 4. A page in scope that instructs the agent to publish itself or grant access produces a refusal and no change.
 5. A scheduled run posts once to a channel fake, citing only sources its audience can read.
 6. Pausing the agent stops its next scheduled run, and exhausting its budget stops it with a notice to its owner.
@@ -4777,17 +4776,16 @@ None.
 | R-1 | Provider acceptance repeats this against a real authorized Google Drive. | SEARCH-012 | not run | | |
 | R-2 | A provider acceptance run repeats this against a real workspace. | IMP-006 | not run | | |
 | R-3 | A provider acceptance run repeats this against a real Confluence Cloud site. | IMP-007 | not run | | |
-| R-4 | Provider acceptance repeats this with a real Drive and a real SharePoint site. | IMP-009 | not run | | |
+| R-4 | Real Google Drive and SharePoint folder-import and file-card acceptance. | IMP-009, EMBED-004 | not run | | |
 | R-5 | Provider acceptance repeats this against a real Jira Cloud site. | EMBED-001 | not run | | |
 | R-6 | Provider acceptance repeats this against a real Jira Cloud site. | EMBED-005 | not run | | |
 | R-7 | App Store and Play review builds are recorded with the release evidence. | MOBILE-001 | not run | | |
-| R-8 | The signed installers are recorded with the release evidence. | MOBILE-002 | not run | | |
+| R-8 | Notarization and real distribution-signing identity receipts for desktop installers. | MOBILE-002 | not run | | |
 | R-9 | Human screen-reader review of every operator and public surface. | DOCS-001, NAV-006, FLAG-002 | not run | | |
 | R-10 | A dated VPAT for Slate. | FLAG-002 | not run | | |
 | R-11 | Receipts from real Claude, ChatGPT, Cursor and other supported MCP clients. | API-003 | not run | | |
 | R-12 | Real Okta, Microsoft Entra ID, Google Workspace, JumpCloud and Auth tenant acceptance; standards fixtures and run-auth remain acceptance duties. | WORK-015, ADMIN-001, ADMIN-002 | not run | | |
 | R-13 | A real authorized R2 or S3 backup destination and complete independent restore receipt. | PORT-009 | not run | | |
 | R-14 | Real licensed Slack, Teams and Nook app installation and destination acceptance. | NOTIF-003, NOTIF-007, CHAT-001, CHAT-004 | not run | | |
-| R-15 | Provider acceptance repeats this with real Slack and Teams workspaces. | CHAT-001 | not run | | |
-| R-16 | Provider acceptance installs both apps through admin consent. | CHAT-001 | not run | | |
-| R-17 | Provider acceptance repeats this with real Okta and Entra tenants. | ADMIN-001 | not run | | |
+| R-18 | Prospective trial windows actually elapse; real outcome measurements, uncertainty and repeated-work results are published without presenting simulated time as prospective proof. | TRIAL-002, TRIAL-003, FLAG-003 | not run | | |
+| R-19 | Real authorized document, evidence and operational-provider account receipts for full flagship qualification. | FLAG-002 | not run | | |
