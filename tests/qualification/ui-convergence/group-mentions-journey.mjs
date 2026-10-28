@@ -1,3 +1,4 @@
+import { commentMentionsJourney } from './comment-mentions.mjs';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
@@ -68,4 +69,5 @@ export async function groupMentionJourney(state,people) {
  await expect(setting).toBeChecked();await setting.scrollIntoViewIfNeeded();
  await people.shot('alice','group mention settings');
  assert.equal(await alice.page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth),0);
+ await commentMentionsJourney(state,people);
 }

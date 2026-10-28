@@ -1,9 +1,11 @@
+import { commentAnchorsJourney } from './comment-anchors.mjs';
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { accessible, closeDetails } from './browser-support.mjs';
 import { insideViewport, withinViewport } from './browser-evidence.mjs';
 
-export async function commentJourney({ page, origin, api }, pageId) {
+export async function commentJourney(state, pageId) {
+  const { page, origin, api } = state;
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   const paragraph = page.getByRole('textbox', { name: 'Paragraph', exact: true }).first();
   await paragraph.focus();
@@ -78,4 +80,5 @@ export async function commentJourney({ page, origin, api }, pageId) {
   await closeDetails(page);
   await expect(page.locator('.right')).toHaveCount(0);
   await expect(paragraph).toBeFocused();
+  await commentAnchorsJourney(state, pageId, comments.threads[0]);
 }
