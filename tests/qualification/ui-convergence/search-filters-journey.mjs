@@ -27,6 +27,7 @@ export async function searchFiltersJourney(state) {
  const titles=async expected=>{
   await expect.poll(async()=>(await page.locator('.search-results h2').allTextContents()).sort()).toEqual([...expected].sort());
   await expect(input).toHaveValue(query);
+  await expect(page.getByText(/^Filters:/)).toBeVisible();
  };
  await titles(['Release handover checklist','Support rotation']);
  await page.locator('.search-options > summary').click();
@@ -39,7 +40,7 @@ export async function searchFiltersJourney(state) {
  const contributor=page.getByRole('combobox',{name:'Contributor',exact:true});
  await contributor.selectOption('browser-reader');await titles(['Support rotation']);await contributor.selectOption('');
  const status=page.getByRole('combobox',{name:'Status',exact:true});
- await status.selectOption('search-ready');await titles(['Release handover checklist']);await status.selectOption('');
+ await status.selectOption('search-ready');await titles(['Release handover checklist']);await expect(page.locator('.search-filter-summary')).toContainText('Ready for release');await status.selectOption('');
  const from=page.getByLabel('Updated from',{exact:true}),until=page.getByLabel('Updated until',{exact:true});
  await from.fill('2099-01-01');await titles([]);await from.fill('2000-01-01');await titles(['Release handover checklist','Support rotation']);
  await until.fill('2000-01-01');await titles([]);await until.fill('2099-01-01');await titles(['Release handover checklist','Support rotation']);

@@ -8916,7 +8916,7 @@
       "executable": false
     },
     "src/core/features/search/ui/workspace/SearchRefinements.tsx": {
-      "sha256": "89118b1d1b5f7c75d3cbf351bc1713308fcaa7bf8082680b21b82f612bcf5a97",
+      "sha256": "d6713aa768e656eece1a078601d05c1b7a44b5df3c770ae2874471b00fb8c756",
       "executable": false
     },
     "src/core/features/search/ui/workspace/SearchResults.tsx": {
@@ -8924,7 +8924,7 @@
       "executable": false
     },
     "src/core/features/search/ui/workspace/WorkspaceSearch.tsx": {
-      "sha256": "b5850d8c891e893ea1dde9f812cc4133a514349e5c746936c385703fc8c81166",
+      "sha256": "ea946d43a1b2695a201bf0e48b95faa00af2bdcbb11feeb65615e79254c598ed",
       "executable": false
     },
     "src/core/features/search/visibility.ts": {
@@ -11952,7 +11952,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/search-filters-journey.mjs": {
-      "sha256": "a7b6585612cf831387bf6d4a6aebe8566560864793c4b0d9b52f7fff6b7beffd",
+      "sha256": "1d9305b9bc6fa69656ca0a2e9ae258acdbdd3a5ca4b1e19ad2f08b061de54167",
       "executable": false
     },
     "tests/qualification/ui-convergence/shared-navigation-journey.mjs": {
