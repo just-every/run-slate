@@ -65,7 +65,7 @@ Date: 2026-10-16 · Ruled by: owner · Governs: SAVE-006, PAGE-001, PAGE-009, BL
 
 The owner directed on 16 October 2026 that every seed's contract describe a genuine competitor to its category's incumbents. This amendment records which published clauses the target changes. It removes no requirement and no assertion, and none of these clauses is renumbered.
 
-Affected IDs: `SAVE-006`, `PAGE-001`, `PAGE-009`, `BLOCK-005`, `BLOCK-006`, `BLOCK-007`, `BLOCK-008`, `SEARCH-001`, `WORK-015`, `NAV-006`, `NOTIF-003`, `MAIL-001`, `IMP-003`, `PORT-007`, `FLAG-001`, the [Out of scope](#out-of-scope) list, and the core-wiki launch amendment's disabled-surface list. Their mirrors in `RELEASE.json`, `seed.json` and `tests/requirements` change when a build round implements the target clauses below. This document changes no code.
+Affected IDs: `SAVE-006`, `PAGE-001`, `PAGE-009`, `BLOCK-005`, `BLOCK-006`, `BLOCK-007`, `BLOCK-008`, `SEARCH-001`, `WORK-015`, `NAV-006`, `NOTIF-003`, `MAIL-001`, `IMP-003`, `PORT-007`, `FLAG-001`, the [Boundaries](CONTRACT.md#boundaries) list, and the core-wiki launch amendment's disabled-surface list. Their mirrors in `RELEASE.json`, `seed.json` and `tests/requirements` change when a build round implements the target clauses below. This document changes no code.
 
 Replacement behavior:
 

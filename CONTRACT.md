@@ -3872,7 +3872,7 @@ Slate is a US-first owned wiki. These are the jobs it deliberately does not do, 
 - **Rewriting links stored in other products.** Slate does not edit the Slack or Teams messages, emails, Google Docs or Jira comment text that contain old Confluence URLs, and Confluence does not either when a site moves. Those links still reach the right record through the resolver, chat unfurls, pasted-URL resolution and the browser extension, which IT can force-install on managed browsers (`IMP-013`, `SEARCH-014`, `CARD-002`), and Jira's issue links are re-pointed (`EMBED-006`). Atlassian owns the `atlassian.net` hostname, so after that site is canceled a click on an old link in a browser without the extension reaches Atlassian, not Slate.
 - **Native app distribution.** This needs the buyer's or Run Edit Run's Apple and Google developer accounts. That is engineering and release work (`MOBILE-001`, `MOBILE-002`), not a reason to drop the apps.
 
-- A container is a Notion teamspace or Confluence space; a record is a database page or entry; a member is the person Base calls an operator. Edition labels change no requirement.
+The words in this contract are the family's, not either product's. A **container** is what Notion calls a teamspace and Confluence a space. A **record** is what Notion calls a page in a database and Confluence an entry. A **page body** is what Notion calls blocks and Confluence elements or macros. A **member** is a person with an account in the workspace; `BASELINE.md` calls the same person an operator, and the two words mean one thing. An edition relabels these words; no clause changes when it does.
 - Personal screen-reader and certification receipts, vendor tenants, store approval and elapsed real-world outcomes are field proof; seeded scale, standards providers and official-schema fakes remain acceptance.
 
 **Neighboring products.**
@@ -3895,6 +3895,26 @@ Slate is one product. Where the market sells a neighboring product separately, S
 | Compliance automation | [Evidence](https://github.com/just-every/run-evidence) (or Vanta) | Policy pages with owners and review dates that Evidence reads |
 
 Cross-functional task and project management (Asana, monday.com, ClickUp) stays outside Slate; [Pegboard](https://github.com/just-every/run-pegboard) is the RunEditRun sibling in that category. Slate's databases can hold a lightweight tracker, but Slate does not become a project-management product. Payroll and monitoring/observability also stay outside Slate; [Envelope](https://github.com/just-every/run-envelope) and [Porthole](https://github.com/just-every/run-porthole) are the respective RunEditRun siblings.
+
+The following remain non-goals:
+
+- commercial plan ladders, subscription trials and credits, seat counting and upgrade gates;
+- vendor suite chrome;
+- a commercial marketplace or storefront;
+- coupling to a single issue tracker (Vector and Jira connect through the same embed and automation clauses);
+- a bundled screen recorder;
+- multiple workspaces per deployment.
+
+Bounded product experiments are not subscription trials. Live co-editing, evaluated formulas and rollups, suggested edits, scoped agent budgets, native apps (`MOBILE-*`), page locks (`PAGE-015`), label filtering (`SEARCH-010`), space blogs (`CONT-010`) and a company hub (`CONT-011`) are in scope.
+
+Some incumbent features are met another way:
+
+- native whiteboards by embeds (`EMBED-003`) and diagrams as code (`BLOCK-013`);
+- container calendars by database calendar views (`DB-004`);
+- meeting-note specializations by starter templates with assigned tasks (`TMPL-007`, `BLOCK-015`);
+- team profiles by the people directory (`WORK-016`).
+
+Contributed tree node kinds beyond pages, databases, cards and posts, and cross-container assignments, remain future extensions; existing page, comment and activity requirements are not waived. The target adds no new policy profile and preserves all eight profiles and every value unchanged. [Boundaries](#boundaries) lists what Slate connects to instead of building.
 
 ## Homepage claims
 

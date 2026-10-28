@@ -85,12 +85,6 @@ Incumbent import fixtures use synthetic identities while retaining archive and p
 
 What this product does. Every clause has a stable ID and requires tagged observable evidence. A clause without executed acceptance evidence remains uncovered; code presence or a green foundation check is not satisfaction. See `ACCEPTANCE.md` for the full release gate. Security, privacy, and operational guarantees are in `BASELINE.md`; a clause here may supersede one of them by naming its `BASE-` ID. `BLOCK-008` supersedes `BASE-INPUT-003`'s download disposition, narrowly and with its own test; no other clause supersedes a baseline clause. Capacity and rate limits are in `seed.json → limits`. Times are p95 at those limits. Clauses marked *Policy* have a default that buyers may replace through the named extension point. There are eight, they are the eight divergences between the products in this family, and each names both profiles and what each one shows and hides. A rule that can be written down is written down instead of becoming a ninth.
 
-## Scope
-
-A knowledge workspace for one business: the family a Notion user and a Confluence user both arrive from. The primary record is a page — a title, an icon, a cover, a byline and a body of blocks — living in a tree inside a container, commented on in place, versioned, shared with named people and groups, and exposed to the anonymous web only by an explicit act. Members organize pages into containers, keep structured records in the same tree, search everything they may read, and ask AI over the same boundary. Slate replaces Notion, Confluence and Guru: it imports each product's own export (Guru under `IMP-008`), ships Notion's conventions as its defaults, and reaches Confluence's through the eight policies below. It is one product, not a suite. The accepted full flagship adds federated operational memory, authorized skills and effects, collaboration, and sustained inquiry through reproducible experiments and reusable learning. The complete flagship still requires all six USER-JOURNEYS.md journeys, FLAGSHIP-DELIVERY.md and the FRONTIER-EXTENSION.md inquiry loop. The 6 October 2026 core-wiki launch amendment below separately authorizes a core-wiki launch candidate without claiming flagship acceptance. Requirements are accepted; implementation, provider and release acceptance remain pending independent evidence. Exclusions appear below.
-
-The words in this contract are the family's, not either product's. A **container** is what Notion calls a teamspace and Confluence a space. A **record** is what Notion calls a page in a database and Confluence an entry. A **page body** is what Notion calls blocks and Confluence elements or macros. A **member** is a person with an account in the workspace; `BASELINE.md` calls the same person an operator, and the two words mean one thing. An edition relabels these words; no clause changes when it does.
-
 ## Product target — 16 October 2026
 
 Slate is the owned company wiki and knowledge workspace a US small or mid-size team buys instead of a Confluence space, a Notion wiki or a Guru knowledge base: real-time block editing, spaces and page trees, databases, permission-aware search and cited AI answers, kept current by verification and by agents that notice when knowledge has gone stale. This contract describes that product, which is what Slate is being built towards, and marks how close the current code is (see [Status](#status)).
@@ -1831,48 +1825,6 @@ Each agent is an `AI-014` agent record. Its builder can test it against sample q
 *Acceptance:* a Workers journey with a provider fake at the network edge builds an agent scoped to one container with the answer and propose-edit tools, and shares it with a group. A group member who can read only half the container asks it a question, and the answer cites only pages that member can read. The agent's proposed edit lands as a suggestion and changes nothing until it is accepted. A page in scope that instructs the agent to publish itself or grant access produces a refusal and no change. A scheduled run posts once to a channel fake, citing only sources its audience can read. Pausing the agent stops its next scheduled run, and exhausting its budget stops it with a notice to its owner. A browser journey at 1440 and 390 builds, tests and shares the agent.
 
 *Status:* partial. Scoped agent records with exact scopes, budgets and run records exist behind the flagship profile (no CI-run proof yet, `AI-014`); there is no agent builder, no scheduled or chat trigger, and nothing runs in the default profile.
-
-## Honest boundaries
-
-Slate is a US-first owned wiki. These are the jobs it deliberately does not do, and how a buyer gets each one done.
-
-- **Office documents, spreadsheets and slides.** Slate is not a full office suite. Attached Office, OpenDocument and PDF files preview, keep versions and are searchable in Slate (`BLOCK-021`, `BLOCK-022`, `SEARCH-013`), but they are edited in their own applications. Google Workspace or Microsoft 365 files are embedded and linked (`EMBED-003`, `EMBED-004`) and kept in [Chest](https://github.com/just-every/run-chest), Drive or SharePoint, while Slate pages stay the place knowledge is written and co-edited.
-- **Whiteboards and diagramming suites.** Slate is not a whiteboard. Figma, Miro and Lucid boards are embedded (`EMBED-003`); diagrams as code (`BLOCK-013`) and diagrams.net diagrams (`BLOCK-019`) are native. Confluence whiteboards are named in the import report with a link to the original (`IMP-010`).
-- **Video recording.** Slate does not record video. Loom and YouTube recordings are embedded (`EMBED-003`).
-- **Issue tracking, sprints and project portfolios.** These belong to [Vector](https://github.com/just-every/run-vector) or Jira, embedded and connected (`EMBED-001`, `AUTO-007`). Databases can hold a light tracker. Cross-functional project management (Asana, monday.com) stays outside Slate; [Pegboard](https://github.com/just-every/run-pegboard) is the RunEditRun sibling in that category.
-- **Chat.** Slack, Microsoft Teams and [Nook](https://github.com/just-every/run-nook) are connected (`CHAT-*`).
-- **Large relational databases and internal apps.** These belong to [Cradle](https://github.com/just-every/run-cradle). Slate databases stay within `seed.json → limits`, and beyond them the buyer links a Cradle base.
-- **Formal training and compliance certifications.** These belong to [Beam](https://github.com/just-every/run-beam) and [Evidence](https://github.com/just-every/run-evidence). Slate provides reading paths and acknowledgments (`KEEP-007`, `CARD-003`).
-- **A customer-facing help center and ticket deflection.** These belong to [HappyToHelp](https://github.com/just-every/run-happytohelp), which can cite Slate pages and cards. Slate publishes pages (`WEB-*`), not a support portal.
-- **Identity provider.** Slate is a SAML and OIDC relying party and a SCIM client (`ADMIN-001`, `ADMIN-002`). The directory itself is Okta, Entra ID or [Auth](https://github.com/just-every/run-auth).
-- **Freshness and access beyond what a source's API exposes.** Connectors mirror documented ACLs and deletions and show their lag (`CONNECT-002`, `CONNECT-003`). Slate promises nothing beyond what a source's API exposes, and a working credential is never treated as permission to disclose.
-- **Hosting frontier models or unbounded compute.** Inference runs at the owner's chosen provider under owner budgets (`ANSWER-006`, `AI-012`). Long jobs run as bounded durable stages within Cloudflare Workers limits.
-- **Regulated records management.** Legal hold, records retention schedules, HIPAA and FedRAMP programs are not promised by ordinary wiki security. Buyers keep regulated records in an approved records system and connect scoped knowledge. SOC 2 evidence collection belongs to [Evidence](https://github.com/just-every/run-evidence).
-- **Hosting region, currency and language.** Slate is US-first: it is deployed to the buyer's Cloudflare account, budgets are in USD and the interface is in US English. EU data-residency guarantees and localized interfaces are not claimed.
-- **Rewriting links stored in other products.** Slate does not edit the Slack or Teams messages, emails, Google Docs or Jira comment text that contain old Confluence URLs, and Confluence does not either when a site moves. Those links still reach the right record through the resolver, chat unfurls, pasted-URL resolution and the browser extension, which IT can force-install on managed browsers (`IMP-013`, `SEARCH-014`, `CARD-002`), and Jira's issue links are re-pointed (`EMBED-006`). Atlassian owns the `atlassian.net` hostname, so after that site is canceled a click on an old link in a browser without the extension reaches Atlassian, not Slate.
-- **Native app distribution.** This needs the buyer's or Run Edit Run's Apple and Google developer accounts. That is engineering and release work (`MOBILE-001`, `MOBILE-002`), not a reason to drop the apps.
-
-## Out of scope
-
-The following remain non-goals:
-
-- commercial plan ladders, subscription trials and credits, seat counting and upgrade gates;
-- vendor suite chrome;
-- a commercial marketplace or storefront;
-- coupling to a single issue tracker (Vector and Jira connect through the same embed and automation clauses);
-- a bundled screen recorder;
-- multiple workspaces per deployment.
-
-Bounded product experiments are not subscription trials. Live co-editing, evaluated formulas and rollups, suggested edits, scoped agent budgets, native apps (`MOBILE-*`), page locks (`PAGE-015`), label filtering (`SEARCH-010`), space blogs (`CONT-010`) and a company hub (`CONT-011`) are in scope.
-
-Some incumbent features are met another way:
-
-- native whiteboards by embeds (`EMBED-003`) and diagrams as code (`BLOCK-013`);
-- container calendars by database calendar views (`DB-004`);
-- meeting-note specializations by starter templates with assigned tasks (`TMPL-007`, `BLOCK-015`);
-- team profiles by the people directory (`WORK-016`).
-
-Contributed tree node kinds beyond pages, databases, cards and posts, and cross-container assignments, remain future extensions; existing page, comment and activity requirements are not waived. The target adds no new policy profile and preserves all eight profiles and every value unchanged. [Honest boundaries](#honest-boundaries) lists what Slate connects to instead of building.
 
 ## Retired clause IDs
 
