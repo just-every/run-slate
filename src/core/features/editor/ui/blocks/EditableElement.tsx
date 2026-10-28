@@ -116,7 +116,7 @@ export function EditableElement({
         onChange={onChange}
         canEdit={canEdit}
       />
-      {mention && canEdit && root.current ? <MentionPicker ref={mentionPicker} query={mention.query} anchor={mention.anchor} host={root.current.closest<HTMLElement>('.slate-app')??root.current.parentElement!} pageId={mentionPageId??taskPage?.pageId} value={value} previous={previousMentions??[mention.before,mention.after]} onClose={()=>setMention(null)} onSelect={span=>{
+      {mention && canEdit && root.current ? <MentionPicker ref={mentionPicker} query={mention.query} anchor={mention.anchor} host={root.current.closest<HTMLElement>('dialog[open]')??root.current.closest<HTMLElement>('.slate-app')??root.current.parentElement!} pageId={mentionPageId??taskPage?.pageId} value={value} previous={previousMentions??[mention.before,mention.after]} onClose={()=>setMention(null)} onSelect={span=>{
         pendingSelection.current={anchor:mention.start+span.text.length,focus:mention.start+span.text.length};pendingFocus.current=true;
         onChange([...mention.before,span,...mention.after]);setMention(null);
       }}/> : null}

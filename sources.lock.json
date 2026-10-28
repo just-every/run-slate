@@ -975,7 +975,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "63b2de42d2e924e4a429a5c1bb8522c0cd7387e84efb4898f77096269b3676cc",
+      "sha256": "fa4b2dff9bcfff2e00ac1f2ae7cc21c1e87e0edd1b86e1a4bed04c60fbeb0199",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -983,7 +983,7 @@
       "executable": false
     },
     "AGENTS.md": {
-      "sha256": "cb44736073dd73bad6a8431e91d279ea0f293d08f626d6f2b27d9074c5fadaeb",
+      "sha256": "3cf97cbfcc273114fb21c21bd4721a4b4e0c2c2a451a0832fe609ab4b13148e5",
       "executable": false
     },
     "base-copies.json": {
@@ -1003,7 +1003,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "feba2ffde7476487d86de1b17f90c46d62a119226af23e26dfde2820553a9e99",
+      "sha256": "c5cbfd04a9c11343f55f4981138cceb1ebce6dd133777db711b21a21e2c7c5a0",
       "executable": false
     },
     "DEMO.md": {
@@ -1051,7 +1051,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "d68fe3d48e0657dd44b46c9ecf216bcde87331b409b6c068d05166836be31a58",
+      "sha256": "a5d3149e015a0b41de35292c1e7c6828b9e1a970222baf49ee1f027a3034dd3f",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -5046,6 +5046,10 @@
       "sha256": "6fd951a719b9e8111662e9f7ef612b6dec7140ceebfa5b8b47aec9fa84976ea4",
       "executable": false
     },
+    "scripts/contract-docs.mjs": {
+      "sha256": "4c6e4da63e7ed2ee27959e8b8bc20aed1b1367e4177dcd7dd896e7ea80543603",
+      "executable": false
+    },
     "scripts/delivery/base/artifact.mjs": {
       "sha256": "129f210f1556e816ba94ffe74359ac553cd26466aaf8c6c299765e9cea29aa07",
       "executable": false
@@ -7047,7 +7051,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/EditableElement.tsx": {
-      "sha256": "505634c2c0745f4bffd71abf93d6115dad199afc10619e6bcdae39ac9673eac8",
+      "sha256": "b888cd2dc30630dff915f1094139e1d0e4a1529dc78eacd7365bcf8fc7b57462",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/editableSelection.ts": {
@@ -8635,7 +8639,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageComments.tsx": {
-      "sha256": "d4b834d52569eef961368d9b62af238bb0fbb24ace8137423928c35129ab6823",
+      "sha256": "b7d5625273476cb56fe1ed742f7f6f6fbc509da2020afd8a20516e0acd4776c8",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageDetails.tsx": {
@@ -8703,7 +8707,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/ReactionControls.tsx": {
-      "sha256": "37eff1f2ac47971d692f900e869b44e35b5b92a7b79fa015cd3e54e3d63eb781",
+      "sha256": "4cb7d49d3dad13c52a3c1c36b3d0d54e5f4addeeb4175079fa492f8fbb445b9e",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/selection.ts": {
@@ -12002,6 +12006,14 @@
       "sha256": "9842535ecf7e27e59d6bb3fca57d8d1c64ab29149d45743f3c9c5d0d9cd0d19f",
       "executable": false
     },
+    "tests/qualification/ui-convergence/comment-anchors.mjs": {
+      "sha256": "884935a15d5ff376f243f1c083f4a17970324a8245e5db32ff41c21baf5f2a20",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/comment-mentions.mjs": {
+      "sha256": "edc8ebf06bce58fa9c9db699dc6ed6aeac1503025bd41c4a506f37a6f10a6ec2",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
       "sha256": "637efdb5ebd64f8c68bf1010877475a2a73719c199e5bdedf215161d8c4af602",
       "executable": false
@@ -12155,7 +12167,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/group-mentions-journey.mjs": {
-      "sha256": "1adfdf1fe35c3c4e239a07c5f84a9e81831b3b31d7582c5e9a239f7edce9ecf7",
+      "sha256": "c85ad0dc6e2f684dfabd1018b128d7083bc5bc67c9d7ec9489cfb84b4da11163",
       "executable": false
     },
     "tests/qualification/ui-convergence/guest-console-journey.mjs": {
@@ -12211,7 +12223,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reactions-journey.mjs": {
-      "sha256": "8e92a162392c9c6999018112d7c3ce50c5e576227061770b814947641401f00f",
+      "sha256": "cd35fa489658b3d9c36f51117e1b860f0218fee458df1ce54bdf57e38db3bfe1",
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
