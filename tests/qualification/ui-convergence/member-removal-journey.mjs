@@ -36,6 +36,9 @@ export async function memberRemovalJourney(state,width) {
     assert.equal((await call(context,origin,'GET',`/api/pages/${personal}`)).status,404);
     const beforeActivity=(await api(`/api/activity?actorId=${person.id}&limit=100`)).items;
     assert.ok(beforeActivity.some(item=>item.action==='pages.create'&&item.actor.displayName==='Casey Chen'));
+    assert.equal((await call(colleague,origin,'POST','/api/members/remove',{operationKey:key(),memberId:person.id})).status,403);
+    assert.equal((await call(colleague,origin,'POST','/api/members/remove',{operationKey:key(),memberId:'browser-reader'})).status,403);
+    assert.equal((await ok(colleague,origin,'GET','/api/session')).member.id,person.id);
     await page.goto(origin+'/app/settings?section=members',{waitUntil:'networkidle'});
     const row=page.locator('.settings-list li').filter({has:page.getByText('Casey Chen',{exact:true})});
     await row.getByRole('button',{name:'Remove',exact:true}).click();

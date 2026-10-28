@@ -4,6 +4,7 @@ import {expect} from '@playwright/test';
 import {accessible} from './browser-evidence.mjs';
 import {call,ok} from './two-people-support.mjs';
 import {memberRemovalJourney} from './member-removal-journey.mjs';
+import {guestScopeJourney} from './guest-scope-journey.mjs';
 
 /** Workspace administration and content grants remain separate authorities. */
 export async function workspaceAuthorityJourney(state,width) {
@@ -59,6 +60,8 @@ export async function workspaceAuthorityJourney(state,width) {
     await expect(close).toHaveAttribute('data-tooltip',/\S+\s+\S+/);
     await accessible(page,'group dialog keyboard tooltip');
     await dialog.getByRole('textbox',{name:'Name',exact:true}).focus();
+    await page.mouse.move(0,0);
+    await expect.poll(()=>close.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('0');
     await close.hover();
     await expect.poll(()=>close.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
     await accessible(page,'named group with selected member');
@@ -73,6 +76,8 @@ export async function workspaceAuthorityJourney(state,width) {
     assert.equal((await read(`/api/containers/${space}`)).name,'Group response guides');
     const activity=async()=>(await api('/api/activity?kind=group&action=group.save&limit=100')).items.filter(item=>item.target.id===group.id);
     const before=await activity();
+    assert.equal((await call(reader,origin,'POST','/api/groups',{operationKey:key(),id:group.id,expectedRevisionId:group.revisionId,name:group.name,memberIds:[]})).status,403);
+    assert.deepEqual((await api('/api/groups')).items.find(item=>item.id===group.id),group);
     const row=page.locator('.settings-list li').filter({has:page.getByText('Response team',{exact:true})});
     await row.getByRole('button',{name:'Edit',exact:true}).click();
     const edit=page.getByRole('dialog',{name:'Edit group',exact:true});
@@ -95,6 +100,8 @@ export async function workspaceAuthorityJourney(state,width) {
     }
     const grants=async()=>Promise.all([api(`/api/sharing/pages/${pageId}`),api(`/api/sharing/containers/${space}`)]);
     const personal=(await grants()).map(result=>result.items.filter(grant=>grant.principalKind==='member'));
+    assert.equal((await call(reader,origin,'POST','/api/groups',{operationKey:key(),id:group.id,expectedRevisionId:saved.value.revisionId,name:group.name,memberIds:[],remove:true})).status,403);
+    assert.ok((await api('/api/groups')).items.some(item=>item.id===group.id));
     await ok(context,origin,'POST','/api/groups',{operationKey:key(),id:group.id,expectedRevisionId:saved.value.revisionId,name:group.name,memberIds:[],remove:true});
     assert.ok(!(await api('/api/groups')).items.some(item=>item.id===group.id));
     const after=await grants();
@@ -113,5 +120,6 @@ export async function workspaceAuthorityJourney(state,width) {
     }
     await accessible(page,'deleted group leaves individual grants intact');
     await memberRemovalJourney(state,width);
+    await guestScopeJourney(state,width);
   } finally {await reader.close();}
 }

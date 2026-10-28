@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "9e9805a9c9844950cc2b2e33e816c8728b7614825957081d827d4c60b802c0fb",
+      "sha256": "f3f368a51fca1c23a2596c6946b81ed09c429057f82e5cdbd3998d467eed24bb",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "ec829a783c0f6d8e32a6099ba26441124e52bc3cb6b59c55dab9ef812e149d94",
+      "sha256": "67702fd74d522a2d0e354a32499fcd62900bc9e770d37a5ceac068ff4a0fdfd0",
       "executable": false
     },
     "DEMO.md": {
@@ -1036,7 +1036,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "c29656d7ffa968eba8ff48a4770dccc5c038199e41f08692d54f26466c07e098",
+      "sha256": "2719f9304b9fe48fce4d0bbe702cb40a458f64562156e3a101e7d047f34a31b5",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -11859,6 +11859,10 @@
       "sha256": "69cf87d03d75ec7656280843b9f78b034ced2c8eaabc2ab34512ecf8dc7fec9d",
       "executable": false
     },
+    "tests/qualification/ui-convergence/guest-scope-journey.mjs": {
+      "sha256": "7ee84208d049d2d54fbd6d526da03d13dbe191f4ec0c0976a524f6fd09f4002e",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/hub-journey.mjs": {
       "sha256": "8766cc4ff9b0cac341f79944bec3e37018dd796e5faa93c6dec213851ed97d74",
       "executable": false
@@ -11872,7 +11876,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/member-removal-journey.mjs": {
-      "sha256": "75b9240d2d19c25b1d7038690e13f6adbc8e24e484f8930299d13844945393ce",
+      "sha256": "dfff1419a99abe49db37ab6861e2a08df4b9f4d168d61d2737f5b0067cced735",
       "executable": false
     },
     "tests/qualification/ui-convergence/my-tasks-journey.mjs": {
@@ -12032,7 +12036,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/workspace-authority-journey.mjs": {
-      "sha256": "6c0f947f7d3bbbe674512a6f33b1b5219ac72a4ee19a0cba948b56e777fcfa21",
+      "sha256": "2e4288f450b70622df4477b7838c827f05ec7392cc5682a9d8c5a57d0e0d22a0",
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {
