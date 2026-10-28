@@ -104,6 +104,8 @@ export async function workspaceAuthorityJourney(state,width) {
     assert.ok((await api('/api/groups')).items.some(item=>item.id===group.id));
     await ok(context,origin,'POST','/api/groups',{operationKey:key(),id:group.id,expectedRevisionId:saved.value.revisionId,name:group.name,memberIds:[],remove:true});
     assert.ok(!(await api('/api/groups')).items.some(item=>item.id===group.id));
+    await ok(context,origin,'POST','/api/groups',add);
+    assert.ok(!(await api('/api/groups')).items.some(item=>item.id===group.id),'Replaying an earlier membership save cannot resurrect a deleted group.');
     const after=await grants();
     assert.deepEqual(after.map(result=>result.items.filter(grant=>grant.principalKind==='member')),personal);
     assert.ok(after.every(result=>!result.items.some(grant=>grant.principalKind==='group'&&grant.principalId===group.id)));
