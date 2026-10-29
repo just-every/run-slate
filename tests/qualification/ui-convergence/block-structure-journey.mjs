@@ -5,6 +5,7 @@ import { unzipSync } from 'fflate';
 import { expect } from '@playwright/test';
 import { accessible, closeDetails } from './browser-support.mjs';
 import { ok } from './two-people-support.mjs';
+import { nestedColumnStructureJourney } from './nested-column-structure-journey.mjs';
 
 const shape = blocks => blocks.map(({ id, blockType, content, parentBlockId }) => ({ id, blockType, content, parentBlockId: parentBlockId ?? null }));
 
@@ -84,7 +85,9 @@ export async function blockStructureJourney(state, width) {
   await closeDetails(page);
   await reconcile('Anchored source');
   await input(a).click();
-  await page.keyboard.press('ControlOrMeta+End');
+  // Collapse a native select-all to the document end even when text wraps.
+  await page.keyboard.press('ControlOrMeta+A');
+  await page.keyboard.press('ArrowRight');
   const editing = page.waitForResponse(response => new URL(response.url()).pathname === `/api/pages/${pageId}/blocks/${a}` && response.request().method() === 'PATCH' && response.request().postData()?.includes('Keep the trail.'));
   await page.keyboard.type(' Keep the trail.');
   const edited = await editing;
@@ -220,5 +223,6 @@ export async function blockStructureJourney(state, width) {
     await output.screenshot({ path: `.artifacts/ui-convergence/block-structure-${width}-export.png`, fullPage: true });
   } finally { await output.close(); }
   await expect(dialog).toHaveCount(0);
+  await nestedColumnStructureJourney(state, width);
   console.log(`BLOCK-001 ordered tree, structural actions, retained identifiers and anchored export passed at ${width}px`);
 }

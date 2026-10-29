@@ -53,9 +53,13 @@ export function editorBlocks(blocks: BlockView[]): EditorBlock[] {
 }
 
 export function storedBlocks(blocks: EditorBlock[]) {
-  const ancestors: string[] = [];
+  // Ordinary indentation is relative to its layout. Visiting a column or its
+  // contents must not replace the enclosing body's ordinary ancestor chain.
+  const scopes = new Map<string | undefined, string[]>();
   return blocks.map((block, index) => {
     const { id, type: blockType, indent = 0, layoutParentId, synced:_synced, copyRevisionId:_copyRevisionId, ...content } = block;
+    let ancestors = scopes.get(layoutParentId);
+    if (!ancestors) scopes.set(layoutParentId, ancestors = []);
     const depth = Math.min(indent, ancestors.length);
     const parentBlockId = depth > 0 ? ancestors[depth - 1] : layoutParentId ?? null;
     ancestors.length = depth;

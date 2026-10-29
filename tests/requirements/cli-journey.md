@@ -115,3 +115,10 @@ also reconcile retained identifiers and content after reload. The emitted Worker
 and D1 serve every read and mutation, without an application response fake. This
 browser proof is outside the Workers-only evidence registry and runs in push
 Verify's existing desktop and phone polish jobs.
+
+The same journey also loads ordinary paragraph siblings beside a nested columns
+section. Move down carries the sibling past the section while retaining its
+ordinary parent; deleting the last column's paragraph retains that unrelated
+sibling. Copying and deleting the columns branch also retain every original.
+Each mutation and reload compares the complete ordered tree, including immediate
+parents and content, through the real API at both responsive widths.
