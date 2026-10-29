@@ -306,11 +306,12 @@ export function PageEditorBody({
           const children = editor.blocks.filter(block => block.id !== id && branch.has(block.id));
           const ids=new Map([source,...children].map(block=>[block.id,crypto.randomUUID()]));
           const end = editor.blocks.reduce((end, block, index) => branch.has(block.id) ? index + 1 : end, at + 1);
-          next.splice(end,0,...[source,...children].map(block=>{
+          next.splice(end,0,...[source,...children].map(original=>{
+            const block = withoutCommentAnchors(structuredClone(original));
             const base={id:ids.get(block.id)!,indent:block.indent,layoutParentId:ids.get(block.layoutParentId??"")??block.layoutParentId};
             if(block.type==='synced-source')return {...base,type:'paragraph' as const,text:[...block.text,{text:`\nSource: ${document.page.title}`}]};
             if(block.type==='synced-reference')return {...base,type:'paragraph' as const,text:block.synced?.state==='ready'?[...(block.synced.text as import('../../../editor/ui/types').RichText),{text:`\nSource: ${block.synced.sourceTitle}`}]:[{text:'Access needed'}]};
-            return {...withoutCommentAnchors(structuredClone(block)),...base};
+            return {...block,...base};
           }));
           void apply(next);
         }}

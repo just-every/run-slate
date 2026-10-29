@@ -8384,7 +8384,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageEditorBody.tsx": {
-      "sha256": "1304ad32b07daf68a9c33749c6a0de137b9f0c8619e6d82fd70f9d8ff7ff7f72",
+      "sha256": "349dfc0aff8b348ea1daf18f764a7c567bce426d95d85a546729a4767a607b45",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
@@ -11732,7 +11732,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/block-structure-journey.mjs": {
-      "sha256": "ff8b4e6736f1cb58934f02fb79f9d17c683b616902e0223ae24b801542e05d37",
+      "sha256": "ba2b55f0c2c74e199ba55ccb7cf958b1f8b43bf2cc9b14df7658ec370577c351",
       "executable": false
     },
     "tests/qualification/ui-convergence/blog-journey.mjs": {

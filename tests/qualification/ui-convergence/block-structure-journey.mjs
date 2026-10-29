@@ -103,8 +103,14 @@ export async function blockStructureJourney(state, width) {
   await reconcile('Native drag carries the complete subtree after another root');
 
   // Click the row padding, outside the editable, then extend across neighbours.
-  await row(a).locator('.block-content').click({ position: { x: 1, y: 1 } });
-  await row(c).locator('.block-content').click({ position: { x: 1, y: 1 }, modifiers: ['Shift'] });
+  const select = async (id, modifiers = []) => {
+    const content = row(id).locator('.block-content');
+    const box = await content.boundingBox();
+    assert.ok(box);
+    await content.click({ position: { x: 2, y: box.height / 2 }, modifiers });
+  };
+  await select(a);
+  await select(c, ['Shift']);
   assert.deepEqual(await page.locator('.block-row[data-selected=true]').evaluateAll(rows => rows.map(row => row.dataset.blockId)), [a, b, c]);
   assert.deepEqual(shape((await read()).blocks), expected, 'Selecting adjacent blocks does not write or replace them.');
   await accessible(page, 'selected adjacent blocks');
