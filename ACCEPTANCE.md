@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 48 | 249 | 34 | 331 |
+| Core | 49 | 248 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 48 | 249 | 40 | 337 |
+| Full target | 49 | 248 | 40 | 337 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -234,7 +234,7 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 
 #### WORK-015 — Identity provider
 
-Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001 · Register R-12
+Core · published · **done** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001 · Register R-12
 
 **Requirement.** A provider sign-in creates no member who was not invited or allow-listed, and an unconfigured or failing provider leaves magic-link sign-in working and says which is unavailable.
 
@@ -244,7 +244,7 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 3. Configured OIDC provider signs in an invited member only; a failing provider leaves magic-link sign-in working and says which is unavailable.
 
 **Evidence.** `tests/flagship/core/identity-upgrade.test.ts` — "published v0.1.0 members, groups, guests and live sessions keep identity, access and authority through Base sign-in adoption" calls "invitedProviderJourney" (native invitation, signed OIDC, refusal without identity writes, mailbox replacement and provider-independent email); `tests/e2e/production-artifact.test.mjs` — "emitted Worker admission serves configured public doors and protects native owner access" calls `tests/e2e/provider-fallback-flow.mjs` — "providerFallbackFlow" and `tests/e2e/signin-hint.mjs` — "signInHintFlow".
-**Gap.** Candidate emitted-browser proof pending. SAML and SCIM duties remain with ADMIN-001 and ADMIN-002; real tenant receipts remain in R-12.
+**Gap.** None.
 
 ### Editing and saving
 

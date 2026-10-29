@@ -3976,11 +3976,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
+WORK-015 source review: commit `24c36e3a9cc3c526f983fc5dd396516c6714fd43`; the candidate retains the same native authentication assertions and improves the sign-in notice padding. Exact candidate browser proof, branch Verify and guarded landing receipts identify the final commit separately.
+
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 32 | 194 | 0 | 226 |
+| Published | 33 | 193 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 48 | 249 | 40 | 337 |
+| All | 49 | 248 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -3999,7 +4001,7 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `WORK-012` | Theme | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-013` | First run | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
 | `WORK-014` | Shortcut reference | published | partial | `tests/qualification/core/shell.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/shell.mjs`. |
-| `WORK-015` | Identity provider | published | partial | `tests/flagship/core/identity-upgrade.test.ts` — "published v0.1.0 members, groups, guests and live sessions keep identity, access and authority through Base sign-in adoption" calls "invitedProviderJourney" (native invitation, signed OIDC, refusal without identity writes, mailbox replacement and provider-independent email); `tests/e2e/production-artifact.test.mjs` — "emitted Worker admission serves configured public doors and protects native owner access" calls `tests/e2e/provider-fallback-flow.mjs` — "providerFallbackFlow" and `tests/e2e/signin-hint.mjs` — "signInHintFlow". | Candidate emitted-browser proof pending. SAML and SCIM duties remain with ADMIN-001 and ADMIN-002; real tenant receipts remain in R-12. |
+| `WORK-015` | Identity provider | published | done | `tests/flagship/core/identity-upgrade.test.ts` — "published v0.1.0 members, groups, guests and live sessions keep identity, access and authority through Base sign-in adoption" calls "invitedProviderJourney" (native invitation, signed OIDC, refusal without identity writes, mailbox replacement and provider-independent email); `tests/e2e/production-artifact.test.mjs` — "emitted Worker admission serves configured public doors and protects native owner access" calls `tests/e2e/provider-fallback-flow.mjs` — "providerFallbackFlow" and `tests/e2e/signin-hint.mjs` — "signInHintFlow". |  |
 | `SAVE-001` | Durable save state | published | partial | `tests/qualification/interface/routed.browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/routed.browser.mjs`. |
 | `SAVE-002` | Failed writes | published | done | `tests/qualification/ui-convergence/failed-save-journey.mjs` — "failedSaveJourney" |  |
 | `SAVE-003` | Revision conflicts | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Every edit is submitted with the revision it began from: the block's revision for a body edit, the page's for a title, property, structure or order change."<br>No validated CI-run proof for this acceptance point: "An edit against a superseded revision is rejected with 409, keeps the local draft, and offers compare, reload, or explicit overwrite."<br>No validated CI-run proof for this acceptance point: "Slate never resolves a conflict by last write wins." |
