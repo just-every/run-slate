@@ -37,8 +37,11 @@ export async function nativeClients(context,containerId,pageId,foreignPageId) {
    const unavailable=await mcp(context,clients.reader,'resources/read',{uri:'slate://pages/'+target});
    assert.equal(unavailable.body.error?.data?.code,'capability_not_declared');
    assert.equal(unavailable.body.error?.data?.capability,'resources');
+   const hidden=await mcp(context,clients.reader,'tools/call',{name:'slate.pages.read',arguments:{id:target}});
+   assert.equal(hidden.body.result?._meta?.['com.runeditrun/error']?.code,'NOT_FOUND');
+   assert.equal(hidden.body.result?.structuredContent,undefined);
   }
-  console.log('Native scoped MCP proof: permitted read=200 read-only write=403 foreign/missing resource=capability_not_declared');
+  console.log('Native scoped MCP proof: permitted read=200 read-only write=403 foreign/missing page=NOT_FOUND resource=capability_not_declared');
  }
  return clients;
 }

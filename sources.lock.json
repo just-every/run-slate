@@ -10857,7 +10857,7 @@
       "executable": false
     },
     "tests/agent-door/clients.mjs": {
-      "sha256": "d46476a50f7f7137f5d61040fc9ee7bbedd0c72e741dee727fba7d5a38b32cfa",
+      "sha256": "8ce02e703e3b8559c02e73fdee4d58b06eadd0d6da67586ca0eb35f9093090c7",
       "executable": false
     },
     "tests/agent-door/fixtures.mjs": {
