@@ -8380,7 +8380,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageEditorBody.tsx": {
-      "sha256": "4bc64b619e2004947590f1fcfb5d3fd4cc6a8636b0c07b44a5188e01e60ca1be",
+      "sha256": "43f0b2eb75d4e01d3e04cef32ff286302b7009b9e3fe8709c855fd0eb8010f71",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
@@ -12024,7 +12024,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/shortcut-reference-journey.mjs": {
-      "sha256": "0ed46f554b03e1eaad796115009648ff30c92b0d98300197127662e057a3a989",
+      "sha256": "ddc2297a7c134e58bcfa77654c02dee02faf6564cf85dd227f7b851dd9c8593f",
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {

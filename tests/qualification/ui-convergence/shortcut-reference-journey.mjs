@@ -218,9 +218,10 @@ export async function shortcutReferenceJourney(state, width) {
     const { value: database } = await ok(context, origin, 'POST', '/api/databases', { operationKey: randomUUID(), containerId: space.id, title: 'Shortcut ledger' });
     routes.add(`/app/databases/${database.id}`);
     const { value: record } = await ok(context, origin, 'POST', `/api/databases/${database.id}/records`, { operationKey: randomUUID(), title: 'Keyboard record', values: {} });
-    routes.add(`/app/databases/${database.id}/records/${record.id}`);
+    routes.add(`/app/databases/${database.id}/records/${record.pageId}`);
     await page.goto(origin + '/app/settings', { waitUntil: 'networkidle' });
     for (const href of await page.getByRole('navigation', { name: 'Settings sections' }).locator('a').evaluateAll(links => links.map(link => link.getAttribute('href')))) routes.add(href);
+    let contents;
     for (const route of routes) {
       const response = await page.goto(origin + route, { waitUntil: 'networkidle' });
       assert.equal(response.status(), 200, route);
@@ -228,7 +229,10 @@ export async function shortcutReferenceJourney(state, width) {
       if (await input.isVisible()) await input.focus();
       await page.keyboard.press(shortcut);
       await expect(reference(page)).toBeVisible();
-      await catalog(page);
+      if (!contents) {
+        await catalog(page);
+        contents = await reference(page).getByRole('listitem').allTextContents();
+      } else assert.deepEqual(await reference(page).getByRole('listitem').allTextContents(), contents, 'Every destination opens the same complete reference.');
       await page.keyboard.press('Escape');
       await expect(reference(page)).toHaveCount(0);
       assert.equal(new URL(page.url()).pathname + new URL(page.url()).search, route);
