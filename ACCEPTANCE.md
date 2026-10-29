@@ -4687,8 +4687,8 @@ Agent surface · target · **partial**
 5. A foreign Origin returns 403, and a header and body method mismatch returns `HeaderMismatch`.
 6. An oversized body returns 413 with no effect.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
-**Gap.** Native shared door is wired; integrated conformance and exact-head CI remain pending.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
+**Gap.** Native shared door is wired; The declared subset conformance passes. Normal rer verify and exact-head CI remain blocked by Base's public MAIL_PROVIDER/deploy-secret declaration conflict.
 
 #### BASE-AGENT-002 — The seed's jobs are tools, through the UI's own actions
 
@@ -4704,7 +4704,7 @@ Agent surface · target · **partial**
 5. The UI action and its tool, on the same fixture, give the same record state and the same audit event type.
 6. The seed's embedded agents appear in the audit as calls to the same tools.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
 **Gap.** Declared wiki subset only; the remaining native verbs in the Agent surface table are not yet adapted.
 
 #### BASE-AGENT-003 — Records are resources
@@ -4721,7 +4721,7 @@ Agent surface · target · **partial**
 5. Bytes over budget return `budget_exhausted` and no partial content.
 6. Customer-sourced text carries the untrusted marker.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
 **Gap.** Pages and containers only; exact revisions, blocks, database records, threads, sources, decisions, inquiries and runs remain undeclared resource families. Resource refresh is unproven.
 
 #### BASE-AGENT-004 — Business identity and short-lived, audience-bound tokens
@@ -4739,7 +4739,7 @@ Agent surface · target · **partial**
 6. Revoking consent in the seed or in Business refuses the next call within 60 seconds.
 7. After unpairing, Business tokens are refused and the seed's own sign-in still works.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
 **Gap.** Owner-bound Business identity is wired; native local credentials, inactive/excluded sponsor journeys and multi-sponsor team reconciliation remain undeclared.
 
 #### BASE-AGENT-005 — An agent acts as a person in a role, never more
@@ -4755,7 +4755,7 @@ Agent surface · target · **partial**
 4. Calls that widen the agent's own grant or its sponsor's role, or change the policy or Pause, return `self_escalation` and change nothing, even under a policy with every class autonomous; dropping a scope from its own grant runs.
 5. An injection fixture yields no out-of-grant call and no change of class: record text asking for a wider action, or claiming that a recipient is internal.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
 **Gap.** Native page and container permissions apply; access/security tools and multi-sponsor authority journeys remain undeclared.
 
 #### BASE-AGENT-006 — Every action declares its risk class
@@ -4772,7 +4772,7 @@ Agent surface · target · **partial**
 5. No tool in `tools / list` declares a class outside the fleet list, and `rer check` fails on one.
 6. A refused call's audit row still records its computed classes.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
 **Gap.** Standard, external and sensitive content are classified for the declared wiki tools; other class families and native verbs remain undeclared.
 
 #### BASE-AGENT-007 — The company's policy decides, at one chokepoint
@@ -4791,8 +4791,8 @@ Agent surface · target · **partial**
 7. A policy change applies to the next call within 60 seconds, and the audit cites the new revision.
 8. A policy document with a bad signature or another Business's id is rejected, and the door keeps the last valid revision.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
-**Gap.** Shared signed policy and native approval controls are wired; end-to-end held and autonomous conformance remains pending.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
+**Gap.** Shared signed policy and native approval controls are wired; the declared held and autonomous journey passes; the wider specialist surface remains unproven.
 
 #### BASE-AGENT-008 — Truthful attribution
 
@@ -4809,7 +4809,7 @@ Agent surface · target · **partial**
 6. Activity and exports at 1440 and 390 show `"<agent> for <person>"` for every agent act.
 7. Mail an agent sends to an outside address names `"<agent> for <person>"` as its sender.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
 **Gap.** Native activity retains agent, sponsor and approvers. Native Undo and outbound provider attribution remain undeclared.
 
 #### BASE-AGENT-009 — Every agent action is audited with its class and decision
@@ -4827,8 +4827,8 @@ Agent surface · target · **partial**
 6. Removing the agent keeps its rows and its name.
 7. The Agents page works at 1440 and 390 with no serious or critical axe findings.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
-**Gap.** Shared audit is wired; full integrated conformance remains pending.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
+**Gap.** Shared audit is wired; the declared subset conformance passes; complete specialist acceptance remains unproven.
 
 #### BASE-AGENT-010 — Agents can follow changes
 
@@ -4844,7 +4844,7 @@ Agent surface · target · **partial**
 5. A failed webhook is visible and replays without duplicate effects.
 6. `approval.pending`, `approval.decided`, `review.flagged` and `policy.adopted` carry the class and decision and nothing the subscriber may not read.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
 **Gap.** Undeclared families: events and subscriptions, including handoffs, cursors and signed delivery. No event acceptance is claimed.
 
 #### BASE-AGENT-011 — Limits are policy, and Pause stops everything
@@ -4862,7 +4862,7 @@ Agent surface · target · **partial**
 6. Pause and Pause all agents each stop the next call within 60 seconds, and resume restores access.
 7. An agent token cannot resume.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
 **Gap.** Pause and write fences are wired. Spend reservations, queued lifecycle, mail edges, timed lifecycle and dual-host lifecycle remain unproven.
 
 #### BASE-AGENT-012 — Writes are idempotent and conflict-safe
@@ -4878,8 +4878,8 @@ Agent surface · target · **partial**
 4. A stale revision returns a conflict naming the current revision.
 5. A job handle used by another person's token reads as not found.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
-**Gap.** Native operation keys and revisions are wired; integrated replay conformance remains pending.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
+**Gap.** Native operation keys and revisions are wired; the declared replay journey passes; complete native-tool coverage remains partial.
 
 #### BASE-AGENT-013 — Manifest, docs and the conformance journey
 
@@ -4894,7 +4894,7 @@ Agent surface · target · **partial**
 4. Every acceptance point runs under both policies, every decision matches the policy in force, and under all autonomous no call waits for a person or is refused by policy.
 5. A stranger agent given only the seed URL completes the specialist journey through MCP.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
 **Gap.** Declared subset and journey are present. Prompts, stranger completion, owner-native administration and the full specialist week remain undeclared or unproven.
 
 ### Agent surface
@@ -4910,8 +4910,8 @@ Agent surface · target · **partial** · From new · Cites BASE-AGENT-002, BASE
 2. Existing evidence reads, asks, run controls and effect operations are brought into the same registry as page, block, database, task, comment, sharing and administration actions.
 3. The Base conformance journey runs on Slate’s own populated wiki fixtures and rejects any registry or UI-parity gap.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
-**Gap.** Declared wiki subset only; remaining table verbs, including flagship run/effect tools, are not yet in the shared registry.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
+**Gap.** Declared wiki subset only; remaining wiki table verbs are not yet adapted. Existing development-profile jobs use the same door and original narrow credentials, but are outside the core-wiki conformance declaration.
 
 #### SURFACE-002 — Wiki class computation for records and outside services
 
@@ -4927,7 +4927,7 @@ Agent surface · target · **partial** · From new · Cites BASE-AGENT-006, BASE
 5. accounts: Creating a paid SSO account or outside resource carries its provider.
 6. gated: A provider’s account consent (including Slack OAuth installation or Teams Entra-admin consent), hosted card entry or identity check carries provider and step when that provider requires a person; an offered agent API uses the company policy for the call’s classes.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
 **Gap.** Standard, external and sensitive wiki effects only; money, commitment, accounts and gated provider families remain undeclared.
 
 #### SURFACE-003 — Wiki class computation for business and data effects
@@ -4943,7 +4943,7 @@ Agent surface · target · **partial** · From new · Cites BASE-AGENT-006, BASE
 4. sensitive: Reading, writing or exporting source or wiki records containing regulated ID, health, bank, card or payroll data carries record count and data kind; a confidential label alone does not invent this class.
 5. live: A trial effect, operational remediation, learned-procedure activation or skill activation that changes a running service carries that service; a read-only rehearsal remains standard.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
 **Gap.** Access, security, destructive and live effect families remain undeclared. Sensitive detection covers explicit regulated identifiers and financial/health content; broader native classification is unproven.
 
 #### SURFACE-004 — Revision-pinned knowledge resources
@@ -4957,7 +4957,7 @@ Agent surface · target · **partial** · From new · Cites BASE-AGENT-003, BASE
 2. A cited answer opens the exact permitted source passage or a content-free tombstone after erasure.
 3. Changing a source’s authority or audience invalidates its derived wiki output rather than silently substituting a newer or wider source.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
 **Gap.** Pages and containers only; remaining record families, exact revisions, citations and derived authority invalidation remain partial.
 
 #### SURFACE-005 — Wiki event handoffs
@@ -4971,7 +4971,7 @@ Agent surface · target · **partial** · From new · Cites BASE-AGENT-010, BASE
 2. A Vector or Jira issue event can request review of its linked page, and a restricted page sends no disclosing handoff to an unauthorized subscriber.
 3. The same wiki event is read through the event cursor, subscription and signed webhook without creating a duplicate effect.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
 **Gap.** Undeclared families: events and subscriptions; no typed cross-product or signed webhook handoff is claimed.
 
 #### SURFACE-006 — One seeded week for the wiki curator
@@ -4987,7 +4987,7 @@ Agent surface · target · **partial** · From new · Cites BASE-AGENT-005, BASE
 4. The week reads the final pages, citations, task state, outside update, activity and usage, then demonstrates revocation and no duplicate result after retry.
 5. A changed source, a private draft and a message claiming broader authority change neither the call’s computed class nor the outcome the current company policy requires.
 
-**Evidence.** `src/core/features/agent-door` and `agent-surface.json`; local typecheck and source checks pass.
+**Evidence.** `agent-surface.json` and `tests/agent-door` — rer 0.2.91 on the production build: 3277/3277 door points; native authority regressions, typecheck and browser proof at 1440 and 390 pass locally.
 **Gap.** Declared subset journey only; the full seeded specialist week, tasks, answers, outside updates and usage remain unproven.
 
 ## Later

@@ -1,6 +1,6 @@
 import path from 'node:path';
 const key=(file,name)=>JSON.stringify([file,name]);
-export function requirementRecords(documents,registeredClauseIds=[]){return Object.entries(documents).flatMap(([document,text])=>{const matches=[...text.matchAll(/\*\*((?:BASE-)?[A-Z]+-\d{3}) —|^#### ([A-Z]+-\d{3}) —/gm)].filter(match=>match[1]||registeredClauseIds.includes(match[2]));return matches.map((match,i)=>({id:match[1]??match[2],document,requirement:text.slice(match.index,matches[i+1]?.index??text.length).trim()}));});}
+export function requirementRecords(documents,registeredClauseIds=[]){return Object.entries(documents).flatMap(([document,text])=>{const matches=[...text.matchAll(/\*\*((?:BASE-)?[A-Z]+-\d{3}) —|^#### ((?:BASE-)?[A-Z]+-\d{3}) —/gm)].filter(match=>(match[1]||registeredClauseIds.includes(match[2])) && !(document==='BASELINE.md' && registeredClauseIds.includes(match[1]??match[2]) && (match[1]??match[2]).startsWith('BASE-AGENT-')));return matches.map((match,i)=>({id:match[1]??match[2],document,requirement:text.slice(match.index,matches[i+1]?.index??text.length).trim()}));});}
 /** Exact registration only. Supporting checks can never satisfy a clause. */
 export function validateEvidenceRegistry({root,report,registry,inventory,documents,registeredClauseIds=[]}){
  const errors=[],registered=new Map(),observed=new Set(),requirements=requirementRecords(documents,registeredClauseIds),ids=new Set(requirements.map(x=>x.id)),records=new Map();

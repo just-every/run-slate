@@ -1,12 +1,12 @@
 import {randomUUID} from 'node:crypto';
-export default async function({request,origin,cookie}){
+export default async function({request,origin,cookie,phase}){
  const call=async(path,method='GET',body)=>{
   const r=await request(new URL(path,origin).href,{method,headers:{Cookie:cookie,Origin:origin,'Content-Type':'application/json'},...(body===undefined?{}:{body:JSON.stringify(body)})});
-  if(!r.ok)throw new Error('Native fixture refused');return r.json();
+  if(!r.ok){const e=await r.json().catch(()=>({}));console.error('Native fixture refusal',phase,method,path.split('/').slice(0,3).join('/'),r.status,e.code??'unknown');throw new Error('Native fixture refused');}return r.json();
  };
  const container=await call('/api/containers','POST',{operationKey:randomUUID(),name:'Curator sources'});
  const sensitiveContainer=await call('/api/containers','POST',{operationKey:randomUUID(),name:'Sensitive records',description:'SSN 123-45-6789'});
- const make=async(title,text)=>{const r=await call('/api/pages','POST',{operationKey:randomUUID(),containerId:container.value.id,title,blocks:[{id:randomUUID(),blockType:'paragraph',content:{text},treePosition:'a'}]});return {id:r.value.pageId};};
+ const make=async(title,text)=>{const r=await call('/api/pages','POST',{operationKey:randomUUID(),containerId:container.value.id,title,blocks:[{id:randomUUID(),blockType:'paragraph',content:{text:[{text}]},treePosition:'a'}]});return {id:r.value.pageId};};
  const page=await make('Service guide','Current operating instructions');
  const sensitive=await make('SSN 123-45-6789','SSN 123-45-6789');
  const publicPage=await make('Public guide','Public operating instructions');

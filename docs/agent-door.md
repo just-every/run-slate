@@ -27,13 +27,13 @@ only through that signed mapping. Slate has no native admin role: ownership is
 not inferred from a Business admin label. Automatic Business team reconciliation
 and multi-sponsor conformance are not declared in this first subset.
 
-The old standalone `/api/agent/tools` dispatcher is retired. Existing native
+The old standalone `/api/agent/tools` dispatcher is retired. Development-profile run, evidence, inquiry and effect jobs use the same door with their original narrow local credentials and native source/audience/effect grants; their wider provider journey is not claimed by the core-wiki conformance declaration. Existing native
 SDK, device, import, connector and installation credentials retain their original
 purposes; they do not receive wiki access merely by being presented to MCP.
 
 Native activity labels an effect as `<agent> for <person>` and retains named
 approvers separately. Retrying the same key returns one effect; changed arguments
-conflict. Native revisions and current permissions still guard the write. No
+conflict. Native revisions and current permissions still guard the write. A native person retains proposal acceptance and attestation; an agent cannot register its own confirmation as that person’s review. No
 Undo is advertised because these adapters do not yet expose a reviewed native
 reversal. No provider cost or spend reservation is claimed (`spend: {none: true}`).
 
@@ -42,7 +42,7 @@ Resource refresh, queued provider execution, mail edges, multi-sponsor scenarios
 timed/dual-host lifecycles and native owner administration remain partial.
 Broader tools and record families in CONTRACT.md's Agent surface remain target
 work: databases, tasks, sharing, administration, publication, connectors, AI,
-inquiries, trials and maintenance are not advertised by this subset. No target
+inquiries, trials and maintenance are not advertised by this subset. Wiki writes refuse with `provider_edge_not_declared` when enabled chat, webhook or automation delivery would require an undeclared queued provider lifecycle. No target
 capability is represented by a mock tool.
 
 Verification uses the production signed `/auth/bootstrap` lifecycle and the real

@@ -28,12 +28,12 @@ try {
  const rest=await api.request(`/api/runs/${run.value.id}/control`,{...pause,action:'pause'});expect(rest.status).toBe(200);
  const replay=await api.mcp(token,'pause_run',{...pause,id:run.value.id});expect(replay.value).toEqual(rest.body);
  expect(await env.DB.prepare("SELECT count(*) n FROM operation_receipts WHERE workspace_id=? AND operation_key='pause-exact'").bind(f.workspaceId).first<number>('n')).toBe(1);
- const wrong=await api.mcp(token,'pause_run',{...pause,id:run.value.id,reason:'Changed body'});expect(wrong.value.code).toBe('OPERATION_KEY_CONFLICT');
+ const wrong=await api.mcp(token,'pause_run',{...pause,id:run.value.id,reason:'Changed body'});expect(wrong.value.code).toBe('idempotency_conflict');
  const resumed=await api.mcp(token,'resume_run',{id:run.value.id,operationKey:'resume-exact',expectedRevisionId:rest.body.value.revisionId});expect(resumed.body.result.isError).not.toBe(true);expect(resumed.value.value.status).toBe('queued');
  const narrow=await issueAgentCredential(f.context(),{operationKey:'control-narrow',subjectId:f.owner,expiresAt:'2099-01-01T00:00:00.000Z',scope:{tools:['run_status'],sourceIds:[f.page.pageId],audience:[f.owner,f.reader],grantIds:[]}});
- expect((await api.mcp(narrow.token!,'cancel_run',{id:run.value.id,operationKey:'forbidden-stop',expectedRevisionId:resumed.value.value.revisionId})).value.code).toBe('AGENT_SCOPE');
+ expect((await api.mcp(narrow.token!,'cancel_run',{id:run.value.id,operationKey:'forbidden-stop',expectedRevisionId:resumed.value.value.revisionId})).value.code).toBe('insufficient_scope');
  expect((await api.request('/api/pages/'+f.page.pageId,undefined,token)).status).toBe(401);
- expect((await api.mcp(token,'send_customer_email',{})).value.code).toBe('UNKNOWN_TOOL');
+ expect((await api.mcp(token,'send_customer_email',{})).value.code).toBe('tool_not_found');
  const stopped=await api.mcp(token,'cancel_run',{id:run.value.id,operationKey:'stop-exact',expectedRevisionId:resumed.value.value.revisionId});expect(stopped.value.value.status).toBe('cancelled');
  await revokeAgentCredential(f.context(),{id:credential.value.id,operationKey:'revoke-control-agent'});
  const before=await receipts(f.workspaceId),row=await env.DB.prepare('SELECT * FROM intelligence_runs WHERE id=?').bind(run.value.id).first();

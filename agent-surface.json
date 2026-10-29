@@ -183,7 +183,6 @@
       "readOnly": false,
       "classes": [
         "standard",
-        "external",
         "sensitive"
       ],
       "clauses": [
@@ -570,20 +569,8 @@
           "$fixture": "container",
           "pointer": "/id"
         },
-        "title": "Protected evidence",
-        "blocks": [
-          {
-            "id": {
-              "$fixture": "blockIds",
-              "pointer": "/create"
-            },
-            "blockType": "paragraph",
-            "content": {
-              "text": "SSN 123-45-6789"
-            },
-            "treePosition": "a"
-          }
-        ]
+        "title": "SSN 123-45-6789",
+        "blocks": []
       },
       "expect": [
         {
@@ -698,7 +685,11 @@
             },
             "blockType": "paragraph",
             "content": {
-              "text": "Curated evidence"
+              "text": [
+                {
+                  "text": "Curated evidence"
+                }
+              ]
             },
             "treePosition": "a"
           }
@@ -859,7 +850,11 @@
             },
             "blockType": "paragraph",
             "content": {
-              "text": "SSN 123-45-6789"
+              "text": [
+                {
+                  "text": "SSN 123-45-6789"
+                }
+              ]
             },
             "treePosition": "a"
           }
@@ -1020,7 +1015,11 @@
             },
             "blockType": "paragraph",
             "content": {
-              "text": "Curated evidence"
+              "text": [
+                {
+                  "text": "Curated evidence"
+                }
+              ]
             },
             "treePosition": "a"
           }
@@ -1066,13 +1065,6 @@
           "class": "standard",
           "facts": {
             "measure": 1
-          }
-        },
-        {
-          "class": "external",
-          "facts": {
-            "measure": 1,
-            "counterparty": "public"
           }
         }
       ],
