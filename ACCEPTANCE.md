@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 39 | 258 | 34 | 331 |
+| Core | 40 | 257 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 39 | 258 | 40 | 337 |
+| Full target | 40 | 257 | 40 | 337 |
 
-Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `2e59b2c6f20aa7d06028d6e12c97ac53ec70e5ce` (29 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -1810,7 +1810,7 @@ Core · published · **done**
 
 #### SEARCH-006 — Search in one container
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Search can be scoped to one container from that container's own surface, keeps every filter in `SEARCH-003`, and says which container it is scoped to.
 
@@ -1818,8 +1818,8 @@ Core · published · **partial**
 1. Search can be scoped to one container from that container's own surface, keeps every filter in `SEARCH-003`, and says which container it is scoped to.
 2. Search scoped to one container keeps filters and names its scope.
 
-**Evidence.** `tests/qualification/core/discovery-browser.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/search-filters-journey.mjs` — "searchFiltersJourney", called by "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: the space action opens named scoped search; kind, space, contributor, status, updated dates, archive and trash narrow real results without changing the query; named scope and every active control survive reload.
+**Gap.** None.
 
 #### SEARCH-007 — No results
 
