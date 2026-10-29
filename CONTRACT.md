@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `2c663c2d12e23d4dadf0e8f3c774ea4264be1381` (29 October 2026); WORK-014 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 28 | 198 | 0 | 226 |
+| Published | 29 | 197 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 44 | 253 | 40 | 337 |
+| All | 45 | 252 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -3998,7 +3998,7 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `WORK-011` | Workspace settings | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-012` | Theme | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-013` | First run | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
-| `WORK-014` | Shortcut reference | published | partial | `tests/qualification/core/shell.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/shell.mjs`. |
+| `WORK-014` | Shortcut reference | published | done | `tests/qualification/ui-convergence/shortcut-reference-journey.mjs` — "shortcutReferenceJourney": acceptance 1 and 2, the same single shortcut through every current navigation destination, Settings section, space and database editor, with the complete typed and keyboard command corpus, native read-back, search, focus and selection retention; called by "page outline follows headings and navigates long pages at 1440px" and the reference phone smoke by "space tree title filtering preserves ancestors, access and expansion at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`. `tests/qualification/ui-convergence/tables-journey.mjs` — "tablesJourney": all four table keys retain every cell through a native database round trip. `tests/qualification/ui-convergence/presentation-journey.mjs` — "presentationJourney": both arrow and Page navigation alternatives, Escape, retained revision and reading position. | |
 | `WORK-015` | Identity provider | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `SAVE-001` | Durable save state | published | partial | `tests/qualification/interface/routed.browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/routed.browser.mjs`. |
 | `SAVE-002` | Failed writes | published | done | `tests/qualification/ui-convergence/failed-save-journey.mjs` — "failedSaveJourney" |  |

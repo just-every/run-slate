@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 44 | 253 | 34 | 331 |
+| Core | 45 | 252 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 44 | 253 | 40 | 337 |
+| Full target | 45 | 252 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `2c663c2d12e23d4dadf0e8f3c774ea4264be1381` (29 October 2026); WORK-014 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -221,7 +221,7 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 
 #### WORK-014 — Shortcut reference
 
-Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001
+Core · published · **done** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001
 
 **Requirement.** One reference lists every keyboard shortcut and every typed formatting shortcut the editor accepts, is reachable from anywhere in the operator app by a single shortcut, and matches what the editor actually does.
 
@@ -229,8 +229,8 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 1. One reference lists every keyboard shortcut and every typed formatting shortcut the editor accepts, is reachable from anywhere in the operator app by a single shortcut, and matches what the editor actually does.
 2. One shortcut opens a reference that matches every shortcut the editor accepts.
 
-**Evidence.** `tests/qualification/core/shell.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/shell.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/shortcut-reference-journey.mjs` — "shortcutReferenceJourney": acceptance 1 and 2, the same single shortcut through every current navigation destination, Settings section, space and database editor, with the complete typed and keyboard command corpus, native read-back, search, focus and selection retention; called by "page outline follows headings and navigates long pages at 1440px" and the reference phone smoke by "space tree title filtering preserves ancestors, access and expansion at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`. `tests/qualification/ui-convergence/tables-journey.mjs` — "tablesJourney": all four table keys retain every cell through a native database round trip. `tests/qualification/ui-convergence/presentation-journey.mjs` — "presentationJourney": both arrow and Page navigation alternatives, Escape, retained revision and reading position.
+**Gap.** None.
 
 #### WORK-015 — Identity provider
 

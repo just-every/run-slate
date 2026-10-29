@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "1fe175a95591a3b436b7f40d6226480d869e9af004c0a68e3253825fa8764ccf",
+      "sha256": "bf89a3aafd86130a56d93719f65edca96b88b8f94bf59838ff44c1744afe2b51",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "2e815260aea9d0675e0263b85063ed3e04c7d22691f4bc9f0eefc83b40bc936d",
+      "sha256": "c2170344e3ef884e33f24ab25a2a277f95452d6c8a2ad0b1e607b7f9a222d102",
       "executable": false
     },
     "DEMO.md": {
@@ -8380,7 +8380,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageEditorBody.tsx": {
-      "sha256": "43f0b2eb75d4e01d3e04cef32ff286302b7009b9e3fe8709c855fd0eb8010f71",
+      "sha256": "7027977967a3a1377423d68b962619ada3d664777159f36e843ee2a20b4ccd3f",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
@@ -11940,7 +11940,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "c5fc63ab8362f695c71fbbffdc0d03f6228790a31f449a232ea6557d117828fb",
+      "sha256": "905f1e81870351326b15c1801e904a20854043e7ab77840483ef7f0173863c41",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12024,7 +12024,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/shortcut-reference-journey.mjs": {
-      "sha256": "83e01d4f2fa49329bc836b32dd11e70b86c6609ebf42a4cd74ee71cb5e0c1d93",
+      "sha256": "fc52e936abbe8b5a12efe52612a173c878ea152941078d16a16ddb0aea016a42",
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {

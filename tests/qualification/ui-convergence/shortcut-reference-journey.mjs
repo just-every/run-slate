@@ -24,8 +24,9 @@ const conversions = [
 
 async function catalog(page) {
   const dialog = reference(page);
+  const displayed = await dialog.locator('kbd').allTextContents();
   for (const keys of new Set(conversions.map(item => item.display))) {
-    await expect(dialog.locator('kbd').filter({ hasText: keys }).first()).toBeAttached();
+    assert.ok(displayed.includes(keys), `The reference lists the accepted typed command ${keys}.`);
   }
   for (const [label, keys] of [
     ['Insert a block', '/'], ['Mention a person, group, page or date', '@'], ['Set a task due date', '//'],
@@ -49,13 +50,14 @@ async function catalog(page) {
 
 async function typeCatalog(state, pageId) {
   const { page, api } = state;
+  const blockId = (await api(`/api/pages/${pageId}`)).blocks[0].id;
   for (const command of conversions) {
     const body = paragraph(page);
     await body.fill('');
     await page.keyboard.type(command.keys);
     const converted = async () => {
       const block = (await api(`/api/pages/${pageId}`)).blocks[0];
-      if (block.blockType !== command.type) return false;
+      if (block.id !== blockId || block.blockType !== command.type) return false;
       for (const [key, value] of Object.entries(command.content ?? {})) if (block.content[key] !== value) return false;
       return !command.mark || (plain(block) === 'Launch' && block.content.text[0].marks?.includes(command.mark));
     };
@@ -67,6 +69,9 @@ async function typeCatalog(state, pageId) {
       return block.blockType === 'paragraph' && plain(block) === command.keys && !block.content.text.some(span => span.marks?.length);
     }, { message: 'One undo durably restores every typed character' }).toBe(true);
   }
+  await page.reload({ waitUntil: 'networkidle' });
+  await expect(paragraph(page)).toHaveText('`Launch`');
+  assert.equal((await api(`/api/pages/${pageId}`)).blocks[0].id, blockId);
 }
 
 async function editorCommands(state, pageId, blockId) {
@@ -161,7 +166,7 @@ async function editorCommands(state, pageId, blockId) {
   await expect(mentions).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(mentions).toHaveCount(0);
-  await expect.poll(async () => plain((await api(`/api/pages/${pageId}`)).blocks[0])?.endsWith('@')).toBe(true);
+  await expect.poll(async () => plain((await api(`/api/pages/${pageId}`)).blocks[0])).toBe('Launch readiness retainedMorgan Reader2026-10-20@\nOne line break');
   const committed = (await api(`/api/pages/${pageId}`)).blocks;
   await page.keyboard.press('ControlOrMeta+K');
   await expect(page).toHaveURL(origin + '/app/search');
@@ -226,6 +231,12 @@ export async function shortcutReferenceJourney(state, width) {
     for (const route of routes) {
       const response = await page.goto(origin + route, { waitUntil: 'networkidle' });
       assert.equal(response.status(), 200, route);
+      // Server HTML can precede live keyboard handlers. Enter through a real control first.
+      await page.getByRole('button', { name: 'Create', exact: true }).click();
+      const create = page.getByRole('menu', { name: 'Create content', exact: true });
+      await expect(create).toBeVisible();
+      await page.keyboard.press('Escape');
+      await expect(create).toHaveCount(0);
       const input = page.locator('main [contenteditable=true], main input:not([type=hidden]), main textarea').first();
       if (await input.isVisible()) await input.focus();
       await page.keyboard.press(shortcut);
