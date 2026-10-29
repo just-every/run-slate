@@ -161,8 +161,10 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       await Promise.all([...captures]);
       await stop(runtime.child);
       runtime = undefined;
-      try { await executeD1(state, statement); }
+      let result;
+      try { result = await executeD1(state, statement); }
       finally { runtime = await startWorker(); }
+      return result;
     };
     const fixtureSql = async statements => {
       assert.ok(scheduled && runtime.child.connected, 'Clock fixtures require the scheduled test process IPC channel.');

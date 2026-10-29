@@ -61,9 +61,9 @@ export function SettingsWorkspace() {
           ))}
         </nav>
         <div className="settings-scroll-controls">
-          <button type="button" className="secondary-button" aria-label="Previous settings sections" disabled={!scrollReady} onClick={() => tabs.current?.scrollBy({ left: -260, behavior: "smooth" })}>←</button>
+          <button type="button" className="secondary-button" aria-label="Previous settings sections" data-tooltip="Previous sections" disabled={!scrollReady} onClick={() => tabs.current?.scrollBy({ left: -260, behavior: "smooth" })}>←</button>
           <span>Scroll for more sections</span>
-          <button type="button" className="secondary-button" aria-label="More settings sections" disabled={!scrollReady} onClick={() => tabs.current?.scrollBy({ left: 260, behavior: "smooth" })}>→</button>
+          <button type="button" className="secondary-button" aria-label="More settings sections" data-tooltip="More sections" data-tooltip-align="end" disabled={!scrollReady} onClick={() => tabs.current?.scrollBy({ left: 260, behavior: "smooth" })}>→</button>
         </div>
         </div>
         {section === "developer" ? <DeveloperAccess /> : section === "chat" ? (
