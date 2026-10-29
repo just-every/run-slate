@@ -29,7 +29,7 @@ export async function searchFiltersJourney(state) {
  await expect(page.locator('.search-filter-summary')).toContainText('Space: Release operations');
  const input=page.getByRole('searchbox',{name:'Search your workspace',exact:true});
  const clear=page.getByRole('button',{name:'Clear search',exact:true});
- await clear.focus();await expect.poll(()=>clear.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
+ await input.focus();await page.keyboard.press('Tab');await expect(clear).toBeFocused();await expect.poll(()=>clear.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
  await input.focus();await clear.hover();await expect.poll(()=>clear.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
  await page.screenshot({path:'.artifacts/ui-convergence/evidence/search-clear-tooltip-'+page.viewportSize().width+'.png',fullPage:true});
  // Result order is irrelevant to filtering; compare independently sorted titles.
@@ -77,4 +77,36 @@ export async function searchFiltersJourney(state) {
  await expect.poll(async()=>(await page.locator('.search-results h2').allTextContents()).sort()).toEqual(['Archived checklist','Release handover checklist','Removed checklist']);
  await expect(page.locator('.search-results a').filter({hasText:'Support rotation'})).toHaveCount(0);
  await accessible(page,'quoted phrase excludes reordered words');
+ // The empty state retains the exact query and every applied filter, then creates one real page.
+ const missing='Unwritten release review brief';
+ await contributor.selectOption('browser-owner');await status.selectOption('search-ready');
+ await input.fill(missing);await page.getByRole('button',{name:'Search',exact:true}).click();
+ const empty=page.locator('.search-empty');
+ await expect(empty.getByText('No matches for “'+missing+'”.',{exact:true})).toBeVisible();
+ for(const applied of ['page','containerId: '+space,'contributorId: browser-owner','status: search-ready','updatedFrom: 2000-01-01','updatedTo: 2099-01-01','Including archive','includeTrashed: true'])await expect(empty.getByText(/^Filters:/)).toContainText(applied);
+ await expect(input).toHaveValue(missing);
+ await expect(page.locator('.search-results a')).toHaveCount(0);
+ await expect(page.getByRole('region',{name:'Retained answer',exact:true})).toHaveCount(0);
+ await expect(page.getByRole('button',{name:'Clear all filters',exact:true})).toHaveCount(1);
+ await expect(page.getByRole('button',{name:'Create a page titled “'+missing+'”',exact:true})).toHaveCount(1);
+ await accessible(page,'no results restates the query and every applied filter');
+ await page.getByRole('button',{name:'Clear all filters',exact:true}).click();
+ await expect(empty).toContainText('Filters: None');await expect(input).toHaveValue(missing);
+ for(const control of [source,kind,contributor,status,from,until])await expect(control).toHaveValue('');
+ for(const name of ['Include archive','Include trash'])await expect(page.getByRole('checkbox',{name,exact:true})).not.toBeChecked();
+ await expect(page.locator('.search-results a')).toHaveCount(0);
+ await expect(page.getByRole('region',{name:'Retained answer',exact:true})).toHaveCount(0);
+ const before=new Set((await api('/api/pages')).items.map(item=>item.id));
+ await page.getByRole('button',{name:'Create a page titled “'+missing+'”',exact:true}).click();
+ await expect(page).toHaveURL(/\/app\/pages\/[^/?]+/);
+ const createdId=new URL(page.url()).pathname.split('/').at(-1);
+ await expect(page.getByRole('textbox',{name:'Page title',exact:true})).toHaveValue(missing);
+ const added=(await api('/api/pages')).items.filter(item=>!before.has(item.id));
+ assert.equal(added.length,1,'One create action makes exactly one page.');assert.equal(added[0].id,createdId);
+ const created=(await api('/api/pages/'+createdId)).page;assert.equal(created.title,missing);
+ assert.equal((await api('/api/containers')).items.find(item=>item.id===created.containerId)?.permissions.canCreatePages,true,'The created page belongs to an authorized destination.');
+ await page.reload({waitUntil:'networkidle'});await expect(page.getByRole('textbox',{name:'Page title',exact:true})).toHaveValue(missing);
+ const found=await api('/api/search?'+new URLSearchParams({q:'"'+missing+'"'}));
+ assert.equal(found.total,1);assert.deepEqual(found.items.map(item=>item.id),[createdId]);
+ await accessible(page,'no-results action creates exactly one readable page with the query title');
 }
