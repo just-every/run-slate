@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "4c81d909c994d715c2f08899f7efc3ce37e03f6d5c2ff91168d5cc82689683f1",
+      "sha256": "a464dffdcde41c85b44b810e9cce143349d30b6fa33c404235ecc3d0bb6e07a3",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "e43a3e44861402f7ae8dab74a56664079a870b49726fdeae9727138375471b55",
+      "sha256": "830a48a24e48e4726a7b9f89b210073050d4005ca40f32f0aab4b039d49ba9e8",
       "executable": false
     },
     "DEMO.md": {
@@ -1036,7 +1036,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "3bc7378092f6de6fd1617aa52ee8bfa09385916a072e92e9944f50c020d101c0",
+      "sha256": "1c6a3d98a7829ccb63793598f976d86f6aa7d0269b4c55ce076b4ad2052a897d",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -10676,7 +10676,7 @@
       "executable": false
     },
     "tests/e2e/search/mixed-kinds-journey.ts": {
-      "sha256": "c2b0b5d4375d9cab592dcac1d5e724a93918a4925f3fa65f0138bc1101c68e34",
+      "sha256": "c72895e6e607ff882bb44b5aafda19d425ae99f7414aba3daa806ef269b732a1",
       "executable": false
     },
     "tests/e2e/search/route-fixture.ts": {
@@ -11688,7 +11688,7 @@
       "executable": false
     },
     "tests/qualification/search/capacity-journey.mjs": {
-      "sha256": "39a2f86fb8cbde8dce4dbcc513b9ec4323d17cd3d076369a685ca24d21c04f50",
+      "sha256": "4bc9bc80b88428a8ed290572c9f7a7501fc1fc34e1eac9bcec350c6e9dfac4c4",
       "executable": false
     },
     "tests/qualification/search/evidence.mjs": {

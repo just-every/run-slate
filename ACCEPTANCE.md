@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 48 | 249 | 34 | 331 |
+| Core | 49 | 248 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 48 | 249 | 40 | 337 |
+| Full target | 49 | 248 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -1745,7 +1745,7 @@ Core · published · **partial**
 
 #### SEARCH-001 — Global search
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** One search covers page titles and retained body text, record field values, container names and descriptions, comments and templates, and returns the first page of ranked results within 500ms with the total number of matches and an ordering stable across pages.
 
@@ -1753,8 +1753,8 @@ Core · published · **partial**
 1. One search covers page titles and retained body text, record field values, container names and descriptions, comments and templates, and returns the first page of ranked results within 500ms with the total number of matches and an ordering stable across pages.
 2. One search over titles, bodies, fields, containers, comments and templates returns ranked results within 500ms with stable paging.
 
-**Evidence.** `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors", calling `tests/e2e/search/mixed-kinds-journey.ts` — "mixedKindsJourney"; `tests/qualification/ui-convergence/mixed-search-journey.mjs` — "mixedSearchJourney", loaded by both existing responsive core-wiki callers; `tests/qualification/search/capacity-journey.mjs` — native capacity journey.
-**Gap.** Exact-candidate capacity latency receipt pending.
+**Evidence.** `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors", calling `tests/e2e/search/mixed-kinds-journey.ts` — "mixedKindsJourney" (all retained kinds, exact mixed ranking, totals and current-authority cursor traversal); `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", calling `tests/qualification/ui-convergence/reading-journeys.mjs` — "searchJourney" and `tests/qualification/ui-convergence/mixed-search-journey.mjs` — "mixedSearchJourney"; `tests/qualification/search/capacity-journey.mjs` — native emitted-Worker HTTP capacity journey with raw first-page latency samples and canonical corpus manifest (exact candidate receipt supplied at handoff).
+**Gap.** None.
 
 #### SEARCH-002 — Results
 

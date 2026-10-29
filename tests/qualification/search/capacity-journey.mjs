@@ -15,7 +15,7 @@ assert.equal(execFileSync('git',['status','--porcelain','--untracked-files=no'],
 const limits=seed.limits.capacityEstimate;
 const q=value=>"'"+String(value).replaceAll("'","''")+"'";
 const now='2026-01-15T12:00:00.000Z';
-const report={head,startedAt:new Date().toISOString(),limits,transport:'Native emitted Worker and D1, loopback HTTP; Node wall time includes response body and JSON decoding.',samples:[],manifest:{},outcome:'pending'};
+const report={head,runId:'search-capacity-'+head.slice(0,12)+'-'+Date.now(),node:process.version,startedAt:new Date().toISOString(),limits,transport:'Native emitted Worker and D1, loopback HTTP; Node wall time includes response body and JSON decoding.',samples:[],manifest:{},outcome:'pending'};
 try {
  await withWorkspace({width:1440,height:1000},'core-wiki',async state=>{
   await setupWorkspace(state);
@@ -89,6 +89,12 @@ try {
   const mixed=report.samples.filter(sample=>sample.query==='Capacityneedle').map(sample=>sample.ms).sort((a,b)=>a-b);
   report.mixedFirstPageP95Ms=mixed[Math.ceil(mixed.length*.95)-1];
   assert.ok(report.mixedFirstPageP95Ms<500,`Mixed first-page p95 ${report.mixedFirstPageP95Ms.toFixed(2)}ms must be below 500ms.`);
+  report.byQuery=Object.fromEntries(workloads.map(([query])=>{
+   const values=report.samples.filter(sample=>sample.query===query).map(sample=>sample.ms).sort((a,b)=>a-b);
+   const p95Ms=values[Math.ceil(values.length*.95)-1];
+   assert.ok(p95Ms<500,`${query} first-page p95 ${p95Ms.toFixed(2)}ms must be below 500ms.`);
+   return [query,{samples:values.length,p95Ms,maxMs:values.at(-1)}];
+  }));
   report.outcome='pass';
   assert.ok(report.p95Ms<500,`First-page p95 ${report.p95Ms.toFixed(2)}ms must be below 500ms.`);
  });

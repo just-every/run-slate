@@ -39,6 +39,10 @@ export async function mixedKindsJourney(f:Awaited<ReturnType<typeof searchFixtur
   const single=await find(marker);
   expect(single.status,kind+' retained text').toBe(200);
   expect(single.data.items.map((item:any)=>[item.id,item.kind])).toEqual([[id,kind]]);
+  if(kind==='comment-thread') {
+   const spans=await find(`"${query} ${marker} retained comment"`);
+   expect(spans.status).toBe(200);expect(spans.data.items.map((item:any)=>item.id)).toEqual([id]);
+  }
  }
  // Isolate title, description and template body matches from all other content.
  for(const [term,ids]of [
