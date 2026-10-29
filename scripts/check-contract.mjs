@@ -44,6 +44,10 @@ export async function inspectContract(root = process.cwd()) {
   const clauses = readClauses(contract, capabilityIds);
   const contractIds = clauses.map(({ id }) => id);
   const baselineIds = [...baseline.matchAll(/\*\*(BASE-[A-Z]+-\d{3}) —/g)].map((match) => match[1]);
+  // Agent duties are canonical Base clauses delivered into the seed contract.
+  // Read their identities from the recorded source, rather than admitting a
+  // BASE-* prefix or an arbitrary numeric range.
+  const agentIds = new Set([...(await read('modules/agent-door/CLAUSES.md')).matchAll(/^#### (BASE-AGENT-\d{3}) —/gm)].map(match => match[1]));
   const contractPolicies = [...contract.matchAll(/Policy: `([^`]+)`/g)].map((match) => match[1]);
   const manifestPolicies = new Set(manifest.extensionPoints.policies);
   const policyDefinitions = readPolicyDefinitions(policySource);
@@ -62,7 +66,8 @@ export async function inspectContract(root = process.cwd()) {
   check("every declared policy has a definition with values", [...manifestPolicies].every((id) => (policyDefinitions.get(id)?.values.length ?? 0) >= 2), {
     policies: Object.fromEntries([...policyDefinitions].map(([id, definition]) => [id, definition.values])),
   });
-  check("contract IDs are distinct from complete Base IDs", contractIds.every((id) => !baselineIds.includes(id) && !id.startsWith("BASE-")));
+  check("contract IDs are distinct from complete Base IDs", contractIds.every((id) => !id.startsWith("BASE-") || agentIds.has(id)));
+  check("canonical agent clauses are present", [...agentIds].every(id => contractIds.includes(id)), {missing: [...agentIds].filter(id => !contractIds.includes(id))});
   const retiredFindings = await retiredRuntimeFindings(root);
   check("retired runtimes have been removed", retiredFindings.length === 0, {findings: retiredFindings});
   check("operator and public paths follow the seed URL convention", manifest.deploy.operatorPath === "/app" && ["/", "/signin", "/health", "/api/auth/", "/assets/"].every((path) => manifest.deploy.publicPaths.includes(path)) && manifest.deploy.publicPaths.every((path) => path === "/" || path.startsWith("/")))
