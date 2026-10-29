@@ -28,8 +28,8 @@ export async function searchFiltersJourney(state) {
  const input=page.getByRole('searchbox',{name:'Search your workspace',exact:true});
  await input.fill(query);await page.getByRole('button',{name:'Search',exact:true}).click();
  const clear=page.getByRole('button',{name:'Clear search',exact:true});
- await clear.focus();await expect.poll(()=>clear.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
  await input.focus();await page.keyboard.press('Tab');await expect(clear).toBeFocused();await expect.poll(()=>clear.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
+ await clear.focus();await expect.poll(()=>clear.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
  await input.focus();await clear.hover();await expect.poll(()=>clear.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
  await page.screenshot({path:'.artifacts/ui-convergence/evidence/search-clear-tooltip-'+page.viewportSize().width+'.png',fullPage:true});
  // Result order is irrelevant to filtering; compare independently sorted titles.
