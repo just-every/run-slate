@@ -27,6 +27,7 @@ const publicApiPaths = new Set(["/api/auth/saml/public", "/api/auth/capabilities
 
 export function createApi() {
   const app = new Hono<AppEnvironment>()
+    .use("*",async(context,next)=>{const response=await (await import("../features/agent-door/index.server")).agentDoorResponse(context.req.raw,context.env);if(response)return response;await next();})
     .use("*", async (context, next) => {
       context.set("runtimeConfig", runtimeConfigFor(context.env, new URL(context.req.url).hostname));
       if(new URL(context.req.url).pathname!=="/health")await assertStoredConfiguration(context.env);

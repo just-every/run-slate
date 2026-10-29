@@ -312,7 +312,7 @@
       "mode": "signed",
       "emailField": "SETUP_OWNER_EMAIL",
       "tokenField": "SETUP_TOKEN",
-      "path": "/auth/bootstrap"
+      "path": "/auth/owner-claim"
     },
     {
       "type": "extension",
