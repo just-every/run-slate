@@ -60,7 +60,7 @@ export async function readPage(ctx: FeatureContext, id: string): Promise<PageDoc
             const snapshotProperties: PageProperties = JSON.parse(delivered.properties_json);
             const publishedOnly = !canEdit && p.published_revision_id && p.published_revision_id !== p.working_revision_id;
             const [props, mentions] = await Promise.all([
-                filterRecordProperties(ctx, id, publishedOnly ? snapshotProperties : { ...snapshotProperties, statusKey: p.status_key }),
+                filterRecordProperties(ctx, id, { ...snapshotProperties, ...(!publishedOnly ? {statusKey: p.status_key} : {}), ownerMemberId: p.owner_member_id }),
                 resolveMentions(ctx, blocks),
             ]);
             return { props, mentions, blocks: await projectSynced(ctx,await canonicalGroupLabels(ctx,labelPageMentions(blocks, mention => mentions[mention]?.label ?? 'Unavailable page'))) };

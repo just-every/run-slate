@@ -3978,9 +3978,9 @@ Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 22 | 204 | 0 | 226 |
+| Published | 23 | 203 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 38 | 259 | 40 | 337 |
+| All | 39 | 258 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -3993,7 +3993,7 @@ Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e
 | `WORK-006` | Invitations | published | partial | `tests/e2e/local-outbox.node.test.mts` — "native local mail sign-in and invitations preserve identity, delivery and scoped authority" | Missing a native invitation journey that advances past seven days, reads the retained expired invitation and compares existing-address responses; the cited local-mail journey accepts and revokes invitations without that expiry path. |
 | `WORK-007` | Removal | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-008` | Roles | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
-| `WORK-009` | Groups | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
+| `WORK-009` | Groups | published | done | `tests/qualification/ui-convergence/workspace-authority-journey.mjs` — "workspaceAuthorityJourney", called by "space tree title filtering preserves ancestors, access and expansion at 390px" and "page outline follows headings and navigates long pages at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: named group creation and membership editing, page and container grants, immediate access changes, one activity entry with replay, and group deletion retaining individual grants. | |
 | `WORK-010` | Guests | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-011` | Workspace settings | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-012` | Theme | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |

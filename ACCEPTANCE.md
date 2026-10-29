@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 38 | 259 | 34 | 331 |
+| Core | 39 | 258 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 38 | 259 | 40 | 337 |
+| Full target | 39 | 258 | 40 | 337 |
 
 Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -152,7 +152,7 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 
 #### WORK-009 — Groups
 
-Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001
+Core · published · **done** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001
 
 **Requirement.** A workspace owner can create a named group, add and remove members, and use it as a grant principal anywhere a person can be used.
 
@@ -160,8 +160,8 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 1. Changing a group's membership changes access at once and writes one activity entry, and deleting a group removes its grants without touching the grants of its members.
 2. Owner creates a group, grants it, changes membership and access changes at once with one activity entry; deleting it removes only its grants.
 
-**Evidence.** `tests/qualification/core/identity.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/workspace-authority-journey.mjs` — "workspaceAuthorityJourney", called by "space tree title filtering preserves ancestors, access and expansion at 390px" and "page outline follows headings and navigates long pages at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: named group creation and membership editing, page and container grants, immediate access changes, one activity entry with replay, and group deletion retaining individual grants.
+**Gap.** None.
 
 #### WORK-010 — Guests
 
