@@ -11976,7 +11976,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
-      "sha256": "45eff59846049c30e11c694d98cb0b85750c5356cc8c41b66b7507ef2d76b1ba",
+      "sha256": "8ba31b066f291543bd1e8efc132c1212c3a9f3310cd674f417cf7829546784a4",
       "executable": false
     },
     "tests/qualification/ui-convergence/review-request-journey.mjs": {

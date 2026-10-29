@@ -60,7 +60,9 @@ export async function recordTemplatesJourney(state, people) {
   // The former editor keeps read access, but a revoked edit grant cannot power the schedule or a replayed save.
   await ok(alice.context, origin, 'POST', '/api/sharing', { operationKey: randomUUID(), targetKind: 'container', targetId: space.id, id: access.id, principalKind: 'member', principalId: bob.id, level: 'edit', revoke: true });
   await ok(alice.context, origin, 'POST', '/api/sharing', { operationKey: randomUUID(), targetKind: 'container', targetId: space.id, principalKind: 'member', principalId: bob.id, level: 'view' });
-  assert.equal((await call(bob.context, origin, 'POST', `/api/databases/${database.id}/templates`, replay)).status, 403);
+  const refused = await call(bob.context, origin, 'POST', `/api/databases/${database.id}/templates`, replay);
+  assert.equal(refused.status, 404);
+  assert.equal(refused.body.code, 'NOT_FOUND');
   const viewId = (await ok(alice.context, origin, 'GET', `/api/databases/${database.id}`)).views[0].id;
   const before = await ok(alice.context, origin, 'GET', `/api/databases/${database.id}/views/${viewId}`);
   // Move only the due clock into the past, then execute the emitted Worker's native scheduled handler.
