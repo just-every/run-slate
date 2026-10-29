@@ -42,7 +42,16 @@ export async function settingsIsolationJourney(state) {
   await accessible(page, 'settings people groups and guests');
 
   await section('Statuses');
+  await page.getByRole('button', {name: 'Add status', exact: true}).click();
+  const newStatus = page.getByRole('dialog', {name: 'Add status', exact: true});
+  await newStatus.getByLabel('Name', {exact: true}).fill('Settings review');
+  const statusCommitted = page.waitForResponse(response => new URL(response.url()).pathname === '/api/status' && response.request().method() === 'POST');
+  await newStatus.getByRole('button', {name: 'Save status', exact: true}).click();
+  assert.equal((await statusCommitted).status(), 200);
+  await expect(newStatus).toBeHidden();
+  await page.reload({waitUntil: 'networkidle'});
   const statuses = (await api('/api/status')).items;
+  assert.ok(statuses.some(status => status.label === 'Settings review'));
   assert.ok(statuses.length > 0, 'The vocabulary proof reads populated native statuses.');
   for (const status of statuses) await expect(page.locator('.settings-list')).toContainText(status.label);
   await page.locator('.settings-list li').first().getByRole('button', {name: 'Edit', exact: true}).click();
