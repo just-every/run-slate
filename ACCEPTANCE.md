@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 48 | 249 | 34 | 331 |
+| Core | 50 | 247 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 48 | 249 | 40 | 337 |
+| Full target | 50 | 247 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `b8cd76f06d1b2a9b96ec9788f42de90153ea7015` (29 October 2026); NAV-003 and PAGE-008 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -427,7 +427,7 @@ Core · published · **partial**
 
 #### PAGE-008 — Favorite
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A member can favorite a page or a container and unfavorite it.
 
@@ -435,8 +435,8 @@ Core · published · **partial**
 1. Favorites are personal, are listed in the navigation (`NAV-003`), and are visible to no other member.
 2. Favorites are listed in navigation for their member only.
 
-**Evidence.** `tests/qualification/ui-convergence/favourites-journey.mjs` — favouritesJourney through the existing following journey at 1440px and core member journey at 390px; native toggles, complete ordered sidebar and API read-back, stable moves, one-action removal and two-member isolation.
-**Gap.** Exact candidate browser proof and recorded Verify pending.
+**Evidence.** `tests/qualification/ui-convergence/favourites-journey.mjs` — "favouritesJourney": native page and container toggles, full ordered sidebar and API read-back after reload, adjacent moves preserving untouched order, one-action removal and unchanged favourites for another member with the same readable targets. Loaded by "CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`.
+**Gap.** None.
 
 #### PAGE-009 — Watch
 
@@ -1890,7 +1890,7 @@ Core · published · **partial**
 
 #### NAV-003 — Favorites
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Favorited pages and containers (`PAGE-008`) are listed in the navigation, reorderable by the member, and removed from the list in one action.
 
@@ -1898,8 +1898,8 @@ Core · published · **partial**
 1. Favorited pages and containers (`PAGE-008`) are listed in the navigation, reorderable by the member, and removed from the list in one action.
 2. Favorites are listed, reorderable and removed in one action.
 
-**Evidence.** `tests/qualification/ui-convergence/favourites-journey.mjs` — favouritesJourney through the existing following journey at 1440px and core member journey at 390px; native toggles, complete ordered sidebar and API read-back, stable moves, one-action removal and two-member isolation.
-**Gap.** Exact candidate browser proof and recorded Verify pending.
+**Evidence.** `tests/qualification/ui-convergence/favourites-journey.mjs` — "favouritesJourney": native page and container toggles, full ordered sidebar and API read-back after reload, adjacent moves preserving untouched order, one-action removal and unchanged favourites for another member with the same readable targets. Loaded by "CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`.
+**Gap.** None.
 
 #### NAV-004 — One navigation
 

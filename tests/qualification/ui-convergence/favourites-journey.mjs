@@ -78,7 +78,9 @@ export async function favouritesJourney(state, people) {
   [expected[1], expected[2]] = [expected[2], expected[1]];
   const move = sidebar(alice.page).getByRole('button', { name: `Move ${moved.title} up`, exact: true });
   await sidebar(alice.page).getByRole('link', { name: moved.title, exact: true }).focus();
+  await alice.page.keyboard.press('Tab');
   await move.focus();
+  await expect(move).toBeFocused();
   assert.equal(await move.evaluate(element => getComputedStyle(element, '::after').opacity), '1', 'Keyboard focus shows the move tooltip immediately.');
   const receipt = alice.page.waitForResponse(response => response.request().method() === 'PUT'
     && new URL(response.url()).pathname === '/api/navigation/favourites');
@@ -94,7 +96,9 @@ export async function favouritesJourney(state, people) {
   for (const target of [targets[0], targets[1]]) {
     const remove = sidebar(alice.page).getByRole('button', { name: `Unfavourite ${target.title}`, exact: true });
     await sidebar(alice.page).getByRole('link', { name: target.title, exact: true }).focus();
+    await alice.page.keyboard.press('Tab');
     await remove.focus();
+    await expect(remove).toBeFocused();
     assert.equal(await remove.evaluate(element => getComputedStyle(element, '::after').opacity), '1', 'Keyboard focus shows the removal tooltip immediately.');
     await remove.click();
     expected.splice(expected.findIndex(item => identity(item) === identity(target)), 1);

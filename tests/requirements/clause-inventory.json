@@ -310,7 +310,7 @@
       "id": "PAGE-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PAGE-008 — Favourite. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "This Workers-only supporting inventory does not classify browser acceptance. CONTRACT.md records the native favouritesJourney in ./tests/qualification/ui-convergence/favourites-journey.mjs, invoked by the existing following journey at 1440px and core member journey at 390px: personal page and container toggles, complete ordered sidebar and API read-back after reload, stable adjacent moves, single-action removal and unchanged second-member favourites.",
       "supportingTests": []
     },
     {
@@ -1298,7 +1298,7 @@
       "id": "NAV-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for NAV-003 — Favourites. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "This Workers-only supporting inventory does not classify browser acceptance. CONTRACT.md records the native favouritesJourney in ./tests/qualification/ui-convergence/favourites-journey.mjs, invoked by the existing following journey at 1440px and core member journey at 390px: personal page and container toggles, complete ordered sidebar and API read-back after reload, stable adjacent moves, single-action removal and unchanged second-member favourites.",
       "supportingTests": []
     },
     {
