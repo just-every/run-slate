@@ -120,6 +120,12 @@ export async function unpublishedChangesJourney(state, people) {
       assert.notEqual(retained.deleted, true);
     }
     await shot('alice', 'discard restored published title and body');
+    await page.goto(`${origin}/app/pages/${pageId}?detail=history&revision=${before.workingRevisionId}`, {waitUntil: 'networkidle'});
+    const retainedPreview = page.locator('.revision-preview');
+    await expect(retainedPreview).toContainText('Discarded response body');
+    await expect(retainedPreview.getByRole('button', {name: 'Restore this revision', exact: true})).toBeVisible();
+    await shot('alice', 'discarded working version remains readable in History');
+    await page.goto(`${origin}/app/pages/${pageId}`, {waitUntil: 'networkidle'});
     await bob.page.reload({waitUntil: 'networkidle'});
     await read(bob, 'Revised response guide', 'Revised response body');
     await expect(indication(bob.page)).toHaveCount(0);

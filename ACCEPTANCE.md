@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 41 | 256 | 34 | 331 |
+| Core | 42 | 255 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 41 | 256 | 40 | 337 |
+| Full target | 42 | 255 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof retained; LIFE-005 unpublished revision and lossless discard source replayed from the finished candidate onto current main. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -787,7 +787,7 @@ Core · published · **partial** · Cites BASE-OPS-004
 
 #### LIFE-005 — Unpublished changes
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Editing a `live` page changes what readers see only when it is republished: every reader other than the editors sees the published revision, and the page shows that it has unpublished changes to anyone who may edit it.
 
@@ -795,8 +795,8 @@ Core · published · **partial**
 1. Discarding them restores the published revision as the working revision and deletes no version.
 2. Readers see the published revision until republish; discard restores it without deleting a version.
 
-**Evidence.** `tests/qualification/interface/publication.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/unpublished-changes-journey.mjs` — unpublishedChangesJourney, loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — real core-wiki and touch-member journeys at 1440px and 390px: editor indication, reader title and body through reload until republish, native discard and retained readable versions; `tests/flagship/content/http.test.ts` — content durable HTTP publication, human verification and media enforce current reader authority: published content, republish, refused read-only discard, complete retained history and duplicate-safe discard.
+**Gap.** None.
 
 #### LIFE-006 — Lifecycle profile
 
