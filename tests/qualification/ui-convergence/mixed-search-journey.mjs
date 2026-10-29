@@ -7,7 +7,9 @@ import {accessible} from './browser-evidence.mjs';
 export async function mixedSearchJourney(state) {
  const {page,context,origin,api}=state,query='Prismneedle';
  const mutate=(path,data)=>ok(context,origin,'POST','/api'+path,{operationKey:crypto.randomUUID(),...data});
- const space=(await mutate('/containers',{name:query+' space',description:'Purpose of the cross-kind search space',visibility:'default'})).value.id;
+ const createdSpace=await mutate('/containers',{name:'Cross-kind operations',description:'Purpose of the cross-kind search space',visibility:'default'});
+ const space=createdSpace.value.id;
+ await ok(context,origin,'PATCH','/api/containers/'+space,{operationKey:crypto.randomUUID(),expectedRevisionId:createdSpace.receipt.revisionId,description:query+' retained space description'});
  const create=async(title,text)=>(await mutate('/pages',{containerId:space,title,blocks:[{id:crypto.randomUUID(),blockType:'paragraph',treePosition:'a',content:{text:[{text}]}}]})).value.pageId;
  const titlePage=await create(query,'Title-only page with a distinct retained body.');
  const bodyPage=await create('Retained body guide',query+' retained page body for release preparation.');
@@ -26,7 +28,7 @@ export async function mixedSearchJourney(state) {
  const results=page.locator('.search-results > li');
  await expect(results).toHaveCount(6);
  await expect.poll(async()=>(await results.locator('.eyebrow').allTextContents()).sort()).toEqual(['Comment','Page','Page','Record','Space','Template']);
- const titles=[query,'Retained body guide','Retained field record',query+' space','Comment on '+query,query+' template'].sort();
+ const titles=[query,'Retained body guide','Retained field record','Cross-kind operations','Comment on '+query,query+' template'].sort();
  await expect.poll(async()=>(await results.locator('h2').allTextContents()).sort()).toEqual(titles);
  for(const text of ['retained page body','retained field value','retained comment body'])await expect(results).toContainText([new RegExp(text)]);
  await expect(page.locator('main')).toContainText('6 results');

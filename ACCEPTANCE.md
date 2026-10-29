@@ -1753,8 +1753,8 @@ Core · published · **partial**
 1. One search covers page titles and retained body text, record field values, container names and descriptions, comments and templates, and returns the first page of ranked results within 500ms with the total number of matches and an ordering stable across pages.
 2. One search over titles, bodies, fields, containers, comments and templates returns ranked results within 500ms with stable paging.
 
-**Evidence.** `tests/qualification/core/discovery-browser.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`.
+**Evidence.** `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors", calling `tests/e2e/search/mixed-kinds-journey.ts` — "mixedKindsJourney"; `tests/qualification/ui-convergence/mixed-search-journey.mjs` — "mixedSearchJourney", loaded by both existing responsive core-wiki callers; `tests/qualification/search/capacity-journey.mjs` — native capacity journey.
+**Gap.** Exact-candidate capacity latency receipt pending.
 
 #### SEARCH-002 — Results
 
