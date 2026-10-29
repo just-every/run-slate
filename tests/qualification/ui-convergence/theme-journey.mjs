@@ -15,6 +15,11 @@ const luminance = rgb => rgb.slice(0, 3).map(value => {
 /** Check the painted surface and text, including inherited editor backgrounds. */
 async function paintedTheme(view, theme, target = view.locator('.slate-app')) {
   await expect(view.locator('html')).toHaveAttribute('data-theme', theme);
+  // Keep the real motion preference and wait for the application's color
+  // transitions before measuring contrast or starting an accessibility scan.
+  await view.evaluate(() => Promise.allSettled(document.getAnimations()
+    .filter(animation => animation instanceof CSSTransition && ['color', 'background-color'].includes(animation.transitionProperty))
+    .map(animation => animation.finished)));
   await expect(target).toBeVisible();
   const palette = await target.evaluate(element => {
     const canvas = document.createElement('canvas');
