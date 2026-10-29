@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 39 | 258 | 34 | 331 |
+| Core | 40 | 257 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 39 | 258 | 40 | 337 |
+| Full target | 40 | 257 | 40 | 337 |
 
-Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `b6431d9a26a94293c0246157010238763f026860` (29 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -1823,7 +1823,7 @@ Core · published · **partial**
 
 #### SEARCH-007 — No results
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** When nothing matches, search restates the query and every applied filter, offers one action that clears the filters and one that creates a page with that title, and shows no invented result or answer.
 
@@ -1831,8 +1831,8 @@ Core · published · **partial**
 1. When nothing matches, search restates the query and every applied filter, offers one action that clears the filters and one that creates a page with that title, and shows no invented result or answer.
 2. No results restates query and filters with clear-filters and create-page actions and no invented answer.
 
-**Evidence.** `tests/qualification/core/discovery-browser.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/search-filters-journey.mjs` — "searchNoResultsJourney", called by "searchFiltersJourney" in the existing "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: exact query and every applied filter; no results or generated answer; clear all filters without changing the query or writing content; create exactly one readable, persisted page with that title in an authorized destination.
+**Gap.** None.
 
 #### SEARCH-008 — Search without AI
 
