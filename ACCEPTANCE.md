@@ -2052,8 +2052,8 @@ Core · published · **partial** · Cites BASE-AUDIT-001, BASE-OPS-005
 1. A page mutation and its activity entry are both present after commit, or neither is present after a failed commit.
 2. An entry links to the exact page, revision, comment or grant and records the responsible feature when it is a scheduled wiki operation.
 
-**Evidence.** `tests/qualification/core/discovery.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.
+**Evidence.** `tests/qualification/core/audit-content.test.ts` — ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor/time; `tests/flagship/core/security.test.ts` — first-run, operation replay, atomic rollback and membership policies preserve authority
+**Gap.** Native atomic commit, late D1 rollback and scheduled attribution pass locally; exact-context browser proof and exact-candidate Verify remain pending.
 
 #### ACT-002 — Coverage
 
