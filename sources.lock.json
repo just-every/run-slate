@@ -1031,7 +1031,7 @@
       "executable": false
     },
     "deploy/wrangler.template.toml": {
-      "sha256": "e3dd4048e797e7d7b1be2f2c0bcde54c0541e0aaef76d9fc33e6b8cf79ec4638",
+      "sha256": "53c6dbd40cc79572972c18c7cf317e7e302e57ffd921cccc5dd0e0425711d82b",
       "executable": false
     },
     "DIVERGENCE.md": {
@@ -12851,7 +12851,7 @@
       "executable": false
     },
     "wrangler.jsonc": {
-      "sha256": "7c39f8d760a37bcb7bddca8ea8e927493272e75e383dd2a0d53cf14faa81f2ab",
+      "sha256": "e3ec6bd42f2edc3b2cee14a4660bd02a6370abb047336f6d91be741cddf67292",
       "executable": false
     }
   }
