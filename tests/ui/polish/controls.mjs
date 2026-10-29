@@ -42,7 +42,16 @@ async function databaseCheckboxBounds({ page, context, origin, api }, containerI
     await page.mouse.move(0, 0);
     await checkbox.hover();
     await expect.poll(() => checkbox.evaluate(el => el.matches(':hover')), { message: `SL35 ${surface}: the pointer reaches the field` }).toBe(true);
-    await expect.poll(async () => (await measure()).opacity, { message: `SL35 ${surface}: the field tip appears after hover` }).toBe('1');
+    try { await expect.poll(async () => (await measure()).opacity, { message: `SL35 ${surface}: the field tip appears after hover` }).toBe('1'); }
+    catch (error) {
+      const trace = [];
+      for (let i = 0; i < 8; i++) {
+        trace.push(await checkbox.evaluate(el => { const r = el.getBoundingClientRect(), top = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); const st = getComputedStyle(el, '::after'); return { t: Math.round(performance.now()), rect: [r.x, r.y, r.width, r.height].map(Math.round), top: top === el ? 'self' : top?.outerHTML.slice(0, 80), connected: el.isConnected, hover: el.matches(':hover'), dismissed: el.dataset.tooltipDismissed, opacity: st.opacity, delay: st.transitionDelay, dur: st.transitionDuration, anims: document.getAnimations().map(a => `${a.transitionProperty ?? a.animationName}:${a.playState}:${Math.round(a.currentTime)}:${a.effect?.pseudoElement ?? ''}`), reduced: matchMedia('(prefers-reduced-motion: reduce)').matches, vis: document.visibilityState, ua: navigator.userAgent.slice(-40) }; }));
+        await page.waitForTimeout(400);
+      }
+      console.log('DIAG ' + surface + ' ' + JSON.stringify(trace));
+      throw error;
+    }
     const shown = await measure();
     assert.equal(shown.scroll, shown.viewport, `SL35 ${surface}: a shown field tip does not widen the page`);
     assert.ok(shown.width <= 256 && shown.left >= 0 && shown.left + shown.width <= shown.viewport, `SL35 ${surface}: the field name wraps inside its cap`);
