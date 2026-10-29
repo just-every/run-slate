@@ -74,6 +74,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v5
+      - name: Fetch contract coverage history
+        run: git fetch --no-tags --depth=1 origin "$(jq -r '.old.commit' docs/contract/COVERAGE.json)"
       - uses: pnpm/action-setup@v4
         with:
           version: 10.12.4
@@ -159,6 +161,9 @@ jobs:
     name: verify (${{ matrix.suite }})
     steps:
       - uses: actions/checkout@v5
+      - name: Fetch contract coverage history
+        if: matrix.suite == 'core'
+        run: git fetch --no-tags --depth=1 origin "$(jq -r '.old.commit' docs/contract/COVERAGE.json)"
       - uses: pnpm/action-setup@v4
         with:
           version: 10.12.4
