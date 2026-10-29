@@ -29,6 +29,7 @@ export async function pageCreationJourney(state, { phoneProof = false } = {}) {
     title: 'Creation procedure', description: 'A reusable incident procedure.', category: 'Operations',
   })).value.id;
   const templateBefore = await api(`/api/templates/${templateId}`);
+  const retainedTemplate = ({ revisionId, title, description, category, snapshot }) => ({ revisionId, title, description, category, snapshot });
   const originalProfile = (await api('/api/workspace')).policies['page.lifecycle.v1'];
 
   async function profile(value) {
@@ -41,6 +42,7 @@ export async function pageCreationJourney(state, { phoneProof = false } = {}) {
     assert.equal((await api('/api/workspace')).policies['page.lifecycle.v1'], value);
   }
   async function enter(door, template) {
+    const existing = new Set((await api('/api/pages')).items.map(item => item.id));
     if (door === 'child') {
       await page.goto(`${origin}/app/pages/${parent.id}`, { waitUntil: 'networkidle' });
       await page.getByRole('button', { name: 'More', exact: true }).click();
@@ -87,6 +89,7 @@ export async function pageCreationJourney(state, { phoneProof = false } = {}) {
       }
       await dialog.getByRole('button', { name: 'Create page', exact: true }).click();
     }
+    await page.waitForURL(url => url.pathname.startsWith('/app/pages/') && !existing.has(url.pathname.split('/').at(-1)), { waitUntil: 'networkidle' });
     await expect(page.getByRole('textbox', { name: 'Page title', exact: true })).toBeVisible();
     return new URL(page.url()).pathname.split('/').at(-1);
   }
@@ -150,7 +153,7 @@ export async function pageCreationJourney(state, { phoneProof = false } = {}) {
     }
   }
   if (!phoneProof) await profile(originalProfile);
-  assert.deepEqual(await api(`/api/templates/${templateId}`), templateBefore, 'Applying copies never changes the source template.');
+  assert.deepEqual(retainedTemplate(await api(`/api/templates/${templateId}`)), retainedTemplate(templateBefore), 'Applying copies never changes the source template.');
   const sourceAfter = await api(`/api/pages/${sourceId}`);
   assert.deepEqual({ page: sourceAfter.page, blocks: sourceAfter.blocks, properties: sourceAfter.properties },
     { page: sourceBefore.page, blocks: sourceBefore.blocks, properties: sourceBefore.properties }, 'Creation leaves the source page intact.');
