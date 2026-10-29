@@ -59,7 +59,7 @@ export async function pageDetailsJourney(state,people) {
   const details=await ok(member.context,origin,'GET',`/api/pages/${pageId}/details`);
   assert.equal(details.wordCount,9);assert.equal(details.characterCount,text.length);
   await expect(field('Status')).toHaveText('In review');
-  await expect(field('Labels')).toContainText('operations, handover');
+  await expect(field('Labels')).toContainText('handover, operations');
   assert.deepEqual(details.linkedFrom,[{id:readableId,title:'Readable response reference'}]);
   await expect(panel.getByRole('link',{name:'Readable response reference',exact:true})).toHaveAttribute('href',`/app/pages/${readableId}`);
   await expect(panel).not.toContainText('Private response reference');
@@ -86,9 +86,10 @@ export async function pageDetailsJourney(state,people) {
   const timeline=async()=> (await api(`/api/activity?${new URLSearchParams({actorId:member.id,action:'pages.update',kind:'page'})}`)).items;
   const entry=(await timeline()).filter(item=>item.operationKey===request.operationKey);
   assert.equal(entry.length,1);assert.equal(entry[0].target.id,pageId);
+  assert.equal((await timeline()).filter(item=>item.target.id===pageId).length,1);
   const replay=await ok(member.context,origin,'PATCH',`/api/pages/${pageId}`,request);
   assert.deepEqual(replay.receipt,receipt.receipt);
-  assert.deepEqual((await timeline()).filter(item=>item.operationKey===request.operationKey),entry,'Replaying the same owner change writes exactly one activity entry.');
+  assert.deepEqual((await timeline()).filter(item=>item.target.id===pageId),entry,'Replaying the same owner change writes exactly one activity entry.');
   assert.deepEqual(await api(`/api/sharing/pages/${pageId}`),before);
   await view.reload({waitUntil:'networkidle'});
   if(!await panel.getByRole('heading',{name:'Page details',exact:true}).isVisible())await openPageAction(view,'Details');
@@ -107,6 +108,8 @@ export async function pageDetailsJourney(state,people) {
   const revisionsBeforeRefusal=await api(`/api/revisions/${pageId}`);
   const refused=await call(member.context,origin,'PATCH',`/api/pages/${pageId}`,{operationKey:randomUUID(),expectedRevisionId:editDoc.page.revisionId,properties:{ownerMemberId:'browser-owner'}});
   assert.equal(refused.status,403);
+  const staleReplay=await call(member.context,origin,'PATCH',`/api/pages/${pageId}`,request);
+  assert.equal(staleReplay.status,403,'A captured full-access owner change cannot replay with edit-only authority.');
   assert.deepEqual(await ok(member.context,origin,'GET',`/api/pages/${pageId}`),editDoc,'Refusal leaves page content, owner and revision unchanged.');
   assert.deepEqual(await api(`/api/revisions/${pageId}`),revisionsBeforeRefusal);
   assert.deepEqual(await api(`/api/sharing/pages/${pageId}`),grantsBeforeRefusal);
