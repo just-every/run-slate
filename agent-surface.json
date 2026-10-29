@@ -5189,7 +5189,7 @@
         {
           "class": "access",
           "facts": {
-            "measure": 1,
+            "measure": 2,
             "direction": "widens"
           }
         }

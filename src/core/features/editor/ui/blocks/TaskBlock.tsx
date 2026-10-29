@@ -31,7 +31,8 @@ export function TaskBlock({ block, canEdit, onChange }: BlockRenderProps<TaskBlo
       <Checkbox
         aria-label={plain.length > 0 ? `Mark complete: ${plain}` : "Mark this to-do complete"}
         checked={block.done}
-        className="mt-1 size-11"
+        className="-mt-0.5 size-11"
+        style={{ width: 44, height: 44, borderWidth: 12, borderRadius: 17 }}
         disabled={!canEdit}
         onCheckedChange={(checked) => onChange({ ...block, done: checked === true })}
       />

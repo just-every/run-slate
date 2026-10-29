@@ -985,7 +985,7 @@
       "executable": false
     },
     "agent-surface.json": {
-      "sha256": "bcfa1158974e764d721fd3f81434a7b9c40abf108adfabdfd2ebf21b7d1e616c",
+      "sha256": "90ce7dd41dbfaecb9111a41e79586e9b31dfbd6c6bc6a1b3c40854f790c5c2b4",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -6085,7 +6085,7 @@
       "executable": false
     },
     "src/core/features/activity/ui/workspace/ActivityWorkspace.tsx": {
-      "sha256": "5e6497d38e5548232529ea02922750a9351939a13addfd3954062fa1ba3865e9",
+      "sha256": "b1f7e2fbbd6a57899137c0d660f1cd9b88b6fa32230067f42f5d99c57b120fb7",
       "executable": false
     },
     "src/core/features/ai/allowance.ts": {
@@ -7445,7 +7445,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TaskBlock.tsx": {
-      "sha256": "5c6035486137054c7e778128cc5454aad6a1daab008227c0374f8c2afcf6c594",
+      "sha256": "1d29f12674c9882ce8f2829698aaabac56760385a7f9e79bd8ebd95227f6b277",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TaskPageContext.tsx": {
@@ -10885,7 +10885,7 @@
       "executable": false
     },
     "tests/agent-door/browser.mjs": {
-      "sha256": "1e9c1fe99ea7ab912b73781c84b295130d1fb47768e07e7f79a131e036bd2ee8",
+      "sha256": "79d0a996671699df7e91b4502ba5c60180a4c2e8fb7b26ad2d03c5ad216239dd",
       "executable": false
     },
     "tests/agent-door/clients.mjs": {
@@ -10921,7 +10921,7 @@
       "executable": false
     },
     "tests/agent-door/surface.mts": {
-      "sha256": "6d4fcc3cbdb3539bfe5ebb0c71493286026446a3733717665972b36d44c52217",
+      "sha256": "ff4ac6def2c08f2583a43afd01ba444341bc704caa35d691e19bcf3bedf07743",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
