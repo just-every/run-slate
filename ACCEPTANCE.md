@@ -13,7 +13,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 | Later | 0 | 0 | 0 | 0 |
 | Full target | 42 | 255 | 40 | 337 |
 
-Judged from the code and tests at commit `e7213c0f4b473a6e41ff2e2038d40a27f55e82da` (29 October 2026); PAGE-007 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `de84cf42255e910b0a17c8803324e6fb5f0a7e44` (29 October 2026); PAGE-007 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -422,7 +422,7 @@ Core · published · **done**
 1. A member with `full` access can reassign the owner, which changes no grant and writes one activity entry.
 2. Details show owner, creator, contributors, times, status, labels, views and backlinks; reassigning the owner changes no grant.
 
-**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", invoking `tests/qualification/ui-convergence/page-details-journey.mjs` — `pageDetailsJourney`: acceptance 1 and 2 through native Details, populated metadata including table-inclusive length, readable backlink navigation and hidden-source filtering, full-member owner reassignment and reload, unchanged direct and inherited grant snapshots, exactly one activity entry under replay, and edit-only reassignment and captured replay refused with unchanged page, revisions, grants and activity.
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", invoking `tests/qualification/ui-convergence/page-details-journey.mjs` — "pageDetailsJourney": acceptance 1 and 2 through native Details, populated metadata including table-inclusive length, readable backlink navigation and hidden-source filtering, full-member owner reassignment and reload, unchanged direct and inherited grant snapshots, exactly one activity entry under replay, and edit-only reassignment and captured replay refused with unchanged page, revisions, grants and activity.
 **Gap.** None.
 
 #### PAGE-008 — Favorite
