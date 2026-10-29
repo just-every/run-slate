@@ -199,6 +199,14 @@ export async function blockStructureJourney(state, width) {
   assert.deepEqual(comments.threads[0].anchor, anchor);
   assert.equal(comments.threads[0].orphaned, false);
   assert.deepEqual(comments.threads[0].comments[0].body, discussion.comments[0].body);
+  const archivedComment = comments.threads[0].comments[0], sourceComment = discussion.comments[0];
+  assert.equal(archivedComment.id, sourceComment.id);
+  assert.equal(archivedComment.parentCommentId, sourceComment.parentCommentId);
+  assert.equal(archivedComment.authorId, sourceComment.authorMemberId);
+  assert.equal(comments.authors.find(author => author.id === archivedComment.authorId)?.displayName, sourceComment.authorDisplayName);
+  assert.equal(archivedComment.createdAt, sourceComment.createdAt);
+  assert.equal(archivedComment.updatedAt, sourceComment.updatedAt);
+  assert.equal(archivedComment.deletedAt, sourceComment.deletedAt);
   const output = await context.newPage();
   try {
     await output.setContent(decode(`pages/${pageId}.html`));

@@ -3974,7 +3974,7 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `d2cf3c83e1063eff466601bb47a430e18db6145e` (29 October 2026); BLOCK-001 source proof, retaining the earlier clause judgments. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `4da775b465442877828e70b92e9766b308414e1b` (29 October 2026); BLOCK-001 source proof, retaining the earlier clause judgments. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
