@@ -981,7 +981,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "0338ddc39d4216c76613dab8837f7fc0aa5674bcbb1e36103ea7626c17d26059",
+      "sha256": "56d572a865432c21d092af9c17b1ab4fccf45d147f37150a9464cdc4b8881bd0",
       "executable": false
     },
     "agent-surface.json": {
@@ -1013,7 +1013,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "d9bbfa71d578d3e943a0fc0f9cf7b599c5ff949464bf37dbe65e6c9343db55e0",
+      "sha256": "5fc17281109ac4d4269bae97a30be14511a5cc041dfb129f4c7ff2329b054015",
       "executable": false
     },
     "DEMO.md": {
@@ -10969,7 +10969,7 @@
       "executable": false
     },
     "tests/e2e/helpers/local-mail-database.ts": {
-      "sha256": "93dc279fb77817a625653f88e0c89700f8910df8c792ccc07c735613b3c1fb39",
+      "sha256": "8896c3129721f2330355bb27fc37afb8a27629fdfa7a5a0876b2bc416f7cad95",
       "executable": false
     },
     "tests/e2e/helpers/mail-edge.ts": {
@@ -11093,7 +11093,7 @@
       "executable": false
     },
     "tests/e2e/local-outbox.node.test.mts": {
-      "sha256": "cc902cc2e0c223462caa69ededec334740664bb27e91b9883d2e9490283e62ce",
+      "sha256": "ec56032b3f1daf637ba0f3b9e019cad6d6fd723e3e613033dcc26159e07908f8",
       "executable": false
     },
     "tests/e2e/mail-runtime.d.mts": {
@@ -12149,7 +12149,7 @@
       "executable": false
     },
     "tests/qualification/policies/invitations.test.ts": {
-      "sha256": "c3cc5f74e7ee9655487913b69d3a01adfc636e133990ca6ae3996ed72962b6ca",
+      "sha256": "84ce2999b17d618a32db7e90788409b5fbf47b2b7192292a202673768c28bf01",
       "executable": false
     },
     "tests/qualification/policies/README.md": {
@@ -12713,7 +12713,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "9064220f00849cbbe1fe4021c4f0afdfd8b34f9c47cf139cd952077040c2f306",
+      "sha256": "c6367af9fee13c854194df03253cb45111807b9d5906d4e872a565c8fb7c7958",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12729,7 +12729,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "166d6d7ebdc7043b0b544d4fdd5c04afd4201538e528466cd6f8e4c62b18b595",
+      "sha256": "c550cb16a9b2bff9f4dd55e2dc6bd45d8f376f8aaa86b2be17458afc0a8b61e2",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
