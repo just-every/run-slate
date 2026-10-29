@@ -12,6 +12,11 @@ export async function publicationJourney(state) {
   const directory=path.join(root,'.artifacts/ui-convergence/publication',String(width));
   await mkdir(directory,{recursive:true});
   const id=(await state.api('/api/pages')).items.find(item=>item.title==='Welcome').id;
+  const containerId=(await state.api(`/api/pages/${id}`)).page.containerId;
+  await ok(state.context,state.origin,'POST','/api/sharing',{
+    operationKey:crypto.randomUUID(),targetKind:'container',targetId:containerId,
+    principalKind:'member',principalId:'browser-reader',level:'view',
+  });
   await withSecondPerson(state,width,async people=>{
     const target=await publicationChecks({page:state.page,context:state.context,id,
       runtime:{origin:state.origin,directory},reader:people.bob,check:()=>{}});
