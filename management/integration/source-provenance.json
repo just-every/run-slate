@@ -72,6 +72,7 @@
     "migrations/core/0065_business_people.sql": "sha256:51aa39622d866b987d71b6e37c9a8300e7f24c54a55611edaab669ed051b01cd",
     "migrations/core/0066_business_native_invitations.sql": "sha256:14fe9f04d4f5cdb8f8fbfec08cfa5d07ba88103e4bb8fcf7751d8d243e9076f2",
     "migrations/core/0067_agent_native_proofs.sql": "sha256:bf9798482a8f82bc1540b3145ae3abfbe8506f8932f1f1d951b2f7be59ad0ac9",
-    "migrations/core/0068_agent_attribution.sql": "sha256:c3ffdeefc3e3533600cc14980e869a2cc76bf47ca10fe4180b346d7c9479fadf"
+    "migrations/core/0068_agent_attribution.sql": "sha256:c3ffdeefc3e3533600cc14980e869a2cc76bf47ca10fe4180b346d7c9479fadf",
+    "migrations/core/0069_company_agent_jobs.sql": "sha256:44b8474e28c61890f8478099b661ad006d0688effddc5956308a80705fc83d3f"
   }
 }

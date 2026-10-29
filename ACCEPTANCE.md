@@ -4845,7 +4845,7 @@ Agent surface · target · **partial**
 6. `approval.pending`, `approval.decided`, `review.flagged` and `policy.adopted` carry the class and decision and nothing the subscriber may not read.
 
 **Evidence.** `docs/agent-access.md` — intended capability families; native adoption is unfinished.
-**Gap.** 2026-10-29: not-declared — events and subscriptions are outside this round’s intended CORE families; rer 0.2.86 has no subset declaration field. Native wiki activity is not a typed door resource event feed.
+**Gap.** 2026-10-29: not-declared — events and subscriptions are outside this round’s intended CORE families; rer 0.2.87 has no subset declaration field. Native wiki activity is not a typed door resource event feed.
 
 #### BASE-AGENT-011 — Limits are policy, and Pause stops everything
 
@@ -4972,7 +4972,7 @@ Agent surface · target · **partial** · From new · Cites BASE-AGENT-010, BASE
 3. The same wiki event is read through the event cursor, subscription and signed webhook without creating a duplicate effect.
 
 **Evidence.** `docs/agent-access.md` — intended capability families; native adoption is unfinished.
-**Gap.** 2026-10-29: not-declared — events and subscriptions are outside this round’s intended CORE families; rer 0.2.86 has no subset declaration field. Native wiki activity is not a typed door resource event feed.
+**Gap.** 2026-10-29: not-declared — events and subscriptions are outside this round’s intended CORE families; rer 0.2.87 has no subset declaration field. Native wiki activity is not a typed door resource event feed.
 
 #### SURFACE-006 — One seeded week for the wiki curator
 

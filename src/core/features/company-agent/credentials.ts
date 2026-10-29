@@ -1,3 +1,4 @@
+import {ApiProblem} from '../../app/problems';
 import type {AppBindings} from '../../app/types';
 import type {AgentDoorOptions,Principal} from '../../../../modules/agent-door/index.ts';
 import {authenticateNativeApiToken} from '../public-api/authentication';
@@ -13,7 +14,7 @@ export function localCredentials(env:AppBindings):NonNullable<AgentDoorOptions['
       const record=await env.DB.prepare('SELECT name FROM public_api_tokens WHERE id=? AND revoked_at IS NULL').bind(token.id).first<{name:string}>();
       if(!record)return null;
       return {sponsor:{id:token.member.id},agent:{id:'api-token:'+token.id,name:record.name,specialist:'wiki curator'},clientId:'api-token:'+token.id,scopes:[...reads,...(token.scopes.some(scope=>scope.level==='write')?writes:[])]};
-    }catch{return null;}
+    }catch(error){if(error instanceof ApiProblem&&[401,403,429].includes(error.status))return null;throw error;}
   };
 }
 export async function nativeClientGrant(env:AppBindings,principal:Pick<Principal,'person'|'clientId'>) {

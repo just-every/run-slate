@@ -404,6 +404,12 @@
       "name": "0068_agent_attribution.sql",
       "sha256": "c3ffdeefc3e3533600cc14980e869a2cc76bf47ca10fe4180b346d7c9479fadf",
       "sql": "ALTER TABLE page_revisions ADD COLUMN agent_attribution_json TEXT;\nALTER TABLE record_revisions ADD COLUMN agent_attribution_json TEXT;\nALTER TABLE page_verifications ADD COLUMN agent_attribution_json TEXT;\nALTER TABLE pages ADD COLUMN agent_creator_json TEXT;\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0069_company_agent_jobs.sql",
+      "sha256": "44b8474e28c61890f8478099b661ad006d0688effddc5956308a80705fc83d3f",
+      "sql": "-- Durable native invocation, retaining the originating identity without bearer tokens.\nCREATE TABLE slate_agent_jobs (\n id TEXT PRIMARY KEY,\n person_id TEXT NOT NULL REFERENCES members(id) ON DELETE CASCADE,\n agent_id TEXT NOT NULL,\n public_key TEXT NOT NULL,\n request_json TEXT NOT NULL,\n request_hash TEXT NOT NULL,\n state TEXT NOT NULL CHECK(state IN ('pending','running','complete')),\n result_json TEXT,\n lease_until INTEGER,\n lease_id TEXT,\n created_at TEXT NOT NULL,\n completed_at TEXT,\n UNIQUE(agent_id,public_key)\n);\n"
     }
   ],
   "compatibilityDate": "2026-09-08",
