@@ -11992,7 +11992,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "68662c4088eef48e286591bbdbbd73c938ee9821ae26086ccdb4183013c92c33",
+      "sha256": "d9b74f8bd0e68a7590c64dcca2f540e09b3be7224caddda38a541f3cfa4a2b79",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
@@ -12049,6 +12049,10 @@
     },
     "tests/qualification/ui-convergence/task-report-journey.mjs": {
       "sha256": "b0ee39ec453ddacfb5d458184d819693d2de7373524da20aa7bbcf6e56192fe1",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/theme-journey.mjs": {
+      "sha256": "3b505131580744f82ec6ccbe55a1b5f51a266e1032718fc2a1b0e46f1455ca37",
       "executable": false
     },
     "tests/qualification/ui-convergence/today-outcomes-journey.mjs": {
@@ -12148,11 +12152,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "075400979c16283b3de207f37725ad4322a09a93775c093198b5fed83fbd6b88",
+      "sha256": "bb428fbaaab4037e281b1e63ac0db93f6f405be0542c39b3b68d85f50edfe7fb",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "25665e13a94a7bbb1e49146e10e22c2a20348e97f4083aca9fa24bfc1c33874a",
+      "sha256": "da7bce7a98082b2c1218dc0969252b01dabd1d8d56b0d9ac8bae45938798d121",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
