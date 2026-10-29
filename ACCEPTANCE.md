@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 44 | 253 | 34 | 331 |
+| Core | 45 | 252 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 44 | 253 | 40 | 337 |
+| Full target | 45 | 252 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. WORK-013 source proof at commit `f937c237d4c093c69a611c5386dc9de76f4891a9`; the final candidate and exact Verify receipt are carried by its branch and guarded landing record. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -205,7 +205,7 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 
 #### WORK-013 — First run
 
-Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001
+Core · published · **done** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001
 
 **Requirement.** An owner claimed through RER’s verified bootstrap or signed claim receives the configured deployment name, a General space and a Welcome page atomically, with first run complete; the name, space and page remain editable. Protocol and representation details are in [wiki doors](docs/wiki-doors.md).
 
@@ -216,8 +216,8 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 4. The same native session and owner authorization guard the route and completion API.
 5. Claimed owner gets name, General space and Welcome page atomically; local wizard runs once at the documented public door and later members go to the documented public door.
 
-**Evidence.** `tests/qualification/backend/emitted.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`.
+**Evidence.** Acceptance 1–4 and local part of 5: `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", via `tests/qualification/ui-convergence/browser-support.mjs` — "setupWorkspace"; claimed-owner part of 5 and editable atomic defaults: `tests/flagship/core/preview-owner-signin.test.ts` — "preview and bootstrap owner sign-in preserve identity and single-use authority", via `tests/flagship/core/owner-bootstrap.case.ts` — "ownerBootstrapCase"; emitted owner entry and editing: `tests/e2e/production-artifact.test.mjs` — "emitted Worker admission serves configured public doors and protects native owner access", via `tests/e2e/managed-first-open.mjs` — "managedFirstOpen".
+**Gap.** None.
 
 #### WORK-014 — Shortcut reference
 

@@ -92,7 +92,11 @@ export async function managedFirstOpen(origin, token, email = ['owner', 'example
         assert.deepEqual(edited.blocks[0].content, { text: [{ text: 'Our first notes' }] });
         await page.reload({ waitUntil: 'networkidle' });
         assert.equal(await page.getByRole('textbox', { name: 'Page title', exact: true }).inputValue(), 'Start here');
+        const navigation = page.getByRole('button', { name: 'Open navigation', exact: true });
+        const closed = await navigation.isVisible();
+        if (closed) await navigation.click();
         await page.getByTestId('workspace-name').filter({ hasText: 'Team notes' }).waitFor();
+        if (closed) await page.locator('.mobile-bar').getByRole('button', { name: 'Close navigation', exact: true }).click();
         await page.getByText('Our first notes', { exact: true }).waitFor();
         await shot('claimed-editable');
         // Return names through the same native doors so both responsive views
