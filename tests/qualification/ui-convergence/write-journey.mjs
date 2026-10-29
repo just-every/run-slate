@@ -5,6 +5,7 @@ import { compactPage, savedAfterSaving, watchSaveStates } from './browser-eviden
 import { randomBytes } from 'node:crypto';
 import { secondaryCreateDestinations } from './navigation-journey.mjs';
 import { firstWordsJourney } from './first-words-journey.mjs';
+import { blockStructureJourney } from './block-structure-journey.mjs';
 
 export async function writeJourney(state, width) {
   const { page, origin, api } = state;
@@ -132,6 +133,7 @@ export async function writeJourney(state, width) {
   await expect(paragraphs.nth(1)).toContainText('Second block: record the next action.');
   await accessible(page, 'two blocks saved in order');
   await firstWordsJourney(state);
+  await blockStructureJourney(state, width);
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   return pageId;
 }

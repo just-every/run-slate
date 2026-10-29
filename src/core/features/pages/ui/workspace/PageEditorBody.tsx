@@ -1,3 +1,4 @@
+import {moveBlockTree, subtreeIds, withoutCommentAnchors} from './blockStructure';
 import {ConnectedFilePicker} from './ConnectedFilePicker';
 import {DocumentHeadings} from '../../../editor/ui/blocks/DocumentHeadings';
 import {StatusLabelDialog} from '../../../editor/ui/blocks/StatusLabelDialog';
@@ -186,32 +187,7 @@ export function PageEditorBody({
     requestInsertFocus(inserted.id)(true);
   }
   function move(id: string, movement: BlockMove) {
-    const next = [...editor.blocks];
-    const index = next.findIndex((block) => block.id === id);
-    if (index < 0) return;
-    if (movement.kind === "into-column") {
-      if(next[index].type==="columns" || next[index].type==="column")return;
-      next[index]={...next[index],layoutParentId:movement.columnId,indent:0};
-    } else if (movement.kind === "indent" || movement.kind === "outdent")
-      next[index] = {
-        ...next[index],
-        indent: Math.max(
-          0,
-          (next[index].indent ?? 0) + (movement.kind === "indent" ? 1 : -1),
-        ),
-      };
-    else {
-      const [original] = next.splice(index, 1);
-      const targetBlock=movement.kind!=="step"?next.find(item=>item.id===movement.blockId):undefined;
-      const block={...original,layoutParentId:targetBlock?.layoutParentId};
-      const target =
-        movement.kind === "step"
-          ? index + (movement.direction === "up" ? -1 : 1)
-          : next.findIndex((item) => item.id === movement.blockId) +
-            (movement.kind === "after" ? 1 : 0);
-      next.splice(Math.max(0, Math.min(next.length, target)), 0, block);
-    }
-    void apply(next);
+    void apply(moveBlockTree(editor.blocks, id, movement));
   }
   async function compare(id: string) {
     try {
@@ -317,21 +293,24 @@ export function PageEditorBody({
           }else{undoConversion.current=null;insertion.change(id,next);}
         }}
         onInsert={(after, anchor) => setInsert({ after, anchor })}
-        onDelete={(id) =>
-          void apply(editor.blocks.filter((block) => block.id !== id && block.layoutParentId !== id && !editor.blocks.some(parent=>parent.id===block.layoutParentId && parent.layoutParentId===id)))
-        }
+        onDelete={(id) => {
+          const removed = subtreeIds(editor.blocks, id);
+          void apply(editor.blocks.filter(block => !removed.has(block.id)));
+        }}
         onMove={move}
         onDuplicate={(id) => {
           const at = editor.blocks.findIndex((block) => block.id === id);
           const next = [...editor.blocks];
           const source=editor.blocks[at];
-          const children=source.type==="columns"?editor.blocks.filter(block=>block.layoutParentId===id || editor.blocks.some(parent=>parent.id===block.layoutParentId && parent.layoutParentId===id)):[];
+          const branch = subtreeIds(editor.blocks, id);
+          const children = editor.blocks.filter(block => block.id !== id && branch.has(block.id));
           const ids=new Map([source,...children].map(block=>[block.id,crypto.randomUUID()]));
-          next.splice(at+1,0,...[source,...children].map(block=>{
+          const end = editor.blocks.reduce((end, block, index) => branch.has(block.id) ? index + 1 : end, at + 1);
+          next.splice(end,0,...[source,...children].map(block=>{
             const base={id:ids.get(block.id)!,indent:block.indent,layoutParentId:ids.get(block.layoutParentId??"")??block.layoutParentId};
             if(block.type==='synced-source')return {...base,type:'paragraph' as const,text:[...block.text,{text:`\nSource: ${document.page.title}`}]};
             if(block.type==='synced-reference')return {...base,type:'paragraph' as const,text:block.synced?.state==='ready'?[...(block.synced.text as import('../../../editor/ui/types').RichText),{text:`\nSource: ${block.synced.sourceTitle}`}]:[{text:'Access needed'}]};
-            return {...structuredClone(block),...base};
+            return {...withoutCommentAnchors(structuredClone(block)),...base};
           }));
           void apply(next);
         }}

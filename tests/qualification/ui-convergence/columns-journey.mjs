@@ -83,6 +83,18 @@ export async function columnsJourney(state,width,touch){
  await expect.poll(async()=>(await touch.api(`/api/pages/${id}`)).blocks.find(b=>b.id===source.id).parentBlockId).toBe(await targetPage.locator('.slate-column').first().getAttribute('data-column-id'));
  await targetPage.waitForLoadState('networkidle');
 
+ const finalDocument=await touch.api(`/api/pages/${id}`);
+ assert.deepEqual(finalDocument.blocks.map(block=>block.id).sort(),document.blocks.map(block=>block.id).sort(),'Column moves and editing retain every block identifier.');
+ assert.equal(finalDocument.blocks.find(block=>block.id===source.id).content.text.map(span=>span.text).join(''),'Response owner confirmed by touch.');
+ for(const original of document.blocks.filter(block=>block.id!==source.id)){
+  const retained=finalDocument.blocks.find(block=>block.id===original.id);
+  assert.equal(retained.blockType,original.blockType);
+  assert.equal(retained.parentBlockId,original.parentBlockId);
+  assert.deepEqual(retained.content,original.content);
+ }
+ await targetPage.reload({waitUntil:'networkidle'});
+ assert.deepEqual((await touch.api(`/api/pages/${id}`)).blocks,finalDocument.blocks,'Reload retains the exact committed column tree.');
+ await expect(targetPage.locator('.slate-column').first()).toContainText('Response owner confirmed by touch.');
  await checkpoint(targetPage,'columns insert drag and edit');
  await targetPage.screenshot({path:`.artifacts/ui-convergence/columns-${width}-touch.png`,fullPage:true});
  console.log(`BLOCK-012 columns insert, desktop drag and touch layout passed at ${width}px`);

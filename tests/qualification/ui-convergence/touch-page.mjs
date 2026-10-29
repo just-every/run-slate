@@ -25,12 +25,18 @@ export async function touchWriteJourney({page,origin,api,containerName}) {
   const rows=page.locator('[data-page-editor] [data-block-id]');
   const handle=rows.first().getByRole('button',{name:'Block actions for Confirm the response owner.',exact:true});
   assert.ok(await handle.evaluate(element=>Number(getComputedStyle(element.parentElement).opacity)>0),'The unfocused drag handle is visible without hover.');
+  const beforeDrag=(await api(`/api/pages/${id}`)).blocks;
   await touchReorder(page,handle,rows.nth(1));
   await expect.poll(async()=>(await api(`/api/pages/${id}`)).blocks.map(b=>(b.content.text??[]).map(s=>s.text).join('')))
     .toEqual(['Notify the duty team.','Confirm the response owner.']);
+  const reordered=(await api(`/api/pages/${id}`)).blocks;
+  assert.deepEqual(reordered.map(block=>block.id),beforeDrag.map(block=>block.id).reverse(),'Touch dragging keeps the original block identifiers.');
+  assert.deepEqual(reordered.map(block=>block.parentBlockId),[null,null]);
+  for(const block of reordered)assert.deepEqual(block.content,beforeDrag.find(original=>original.id===block.id).content);
   await expect(page.getByRole('menu')).toHaveCount(0);
   await page.reload({waitUntil:'networkidle'});
   await expect(page.getByRole('textbox',{name:'Paragraph',exact:true}).first()).toHaveText('Notify the duty team.');
+  assert.deepEqual((await api(`/api/pages/${id}`)).blocks,reordered,'Reload keeps the committed touch order and block identities.');
   await checkpoint(page,'touch drag persists block order');
   console.log('NAV-006 touch create, type, insert and drag persisted');
 
