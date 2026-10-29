@@ -748,9 +748,10 @@
         "SEARCH-002",
         "SEARCH-003",
         "SEARCH-004",
-        "SEARCH-005"
+        "SEARCH-005",
+        "SEARCH-009"
       ],
-      "reason": "Public HTTP search journey checks literal matches, exact phrases, refinements, live member and guest authority, private drafts, personal spaces, totals, facets and cursors. It also checks committed content changes, completed import indexing, erasure and refused import replay. Built browser results and filter controls run in the existing core-wiki journeys; hosted capacity remains separate."
+      "reason": "Public HTTP search journey checks literal matches, exact phrases, refinements, live member and guest authority, private drafts, personal spaces, totals, facets and cursors. It also checks committed content changes, completed import indexing, erasure and refused import replay. Built browser results and filter controls run in the existing core-wiki journeys; hosted capacity remains separate. The same registration runs defaultVisibilityJourney: a reader with a bounded complete authorized corpus compares unfiltered results and all four archive and trash combinations, including a readable private draft and differing statuses. Native retained page, mention, preview and exact revision doors remain read-only or unavailable as appropriate, then refuse revoked access without new grants; searchFiltersJourney follows actual retained links, mentions and citations after reload and revocation in the existing responsive browser callers."
     },
     {
       "file": "tests/e2e/search/fts-upgrade.test.ts",

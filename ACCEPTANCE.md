@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 48 | 249 | 34 | 331 |
+| Core | 49 | 248 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 48 | 249 | 40 | 337 |
+| Full target | 49 | 248 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `67120d4dca5d19580b09bb53e50472ec644f48e5` (29 October 2026); SEARCH-009 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -1849,7 +1849,7 @@ Core · published · **partial**
 
 #### SEARCH-009 — Default visibility
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Search without the archived or trashed filter (`SEARCH-003`) excludes archived and trashed records and nothing else.
 
@@ -1857,8 +1857,8 @@ Core · published · **partial**
 1. This is the only rule that hides a record the searching member may read, and every record it hides stays reachable by applying that filter and through every existing link, mention and citation (`LINK-001`, `LINK-003`).
 2. Default search excludes only archived and trashed records, which the filter restores.
 
-**Evidence.** `tests/qualification/core/discovery.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.
+**Evidence.** `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors" calls `tests/e2e/search/freshness-journey.ts` — "defaultVisibilityJourney": the complete authorized corpus, readable drafts, differing statuses, neither inclusion, either inclusion and both, retained mentions and exact revision reads, current revocation and unchanged grants. `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" call `tests/qualification/ui-convergence/search-filters-journey.mjs` — "searchFiltersJourney" and "retainedReferencesJourney": native filter controls and reload, retained links and mentions, distinct current and cited archived content, trash refusal, and revoked access without additional grants.
+**Gap.** None.
 
 ### Personal surfaces and navigation
 

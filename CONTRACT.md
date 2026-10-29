@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `67120d4dca5d19580b09bb53e50472ec644f48e5` (29 October 2026); SEARCH-009 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 32 | 194 | 0 | 226 |
+| Published | 33 | 193 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 48 | 249 | 40 | 337 |
+| All | 49 | 248 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4116,7 +4116,7 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `SEARCH-006` | Search in one container | published | partial | `tests/qualification/core/discovery-browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`. |
 | `SEARCH-007` | No results | published | partial | `tests/qualification/core/discovery-browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`. |
 | `SEARCH-008` | Search without AI | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
-| `SEARCH-009` | Default visibility | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
+| `SEARCH-009` | Default visibility | published | done | `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors" calls `tests/e2e/search/freshness-journey.ts` — "defaultVisibilityJourney": the complete authorized corpus, readable drafts, differing statuses, neither inclusion, either inclusion and both, retained mentions and exact revision reads, current revocation and unchanged grants. `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" call `tests/qualification/ui-convergence/search-filters-journey.mjs` — "searchFiltersJourney" and "retainedReferencesJourney": native filter controls and reload, retained links and mentions, distinct current and cited archived content, trash refusal, and revoked access without additional grants. | |
 | `NAV-001` | Home | published | done | `tests/qualification/ui-convergence/home-journey.mjs` — "homeJourney", called by "CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: populated recents, page and container favourites, owned containers, opening every entry, personal visits and immediate removal of revoked entries. |  |
 | `NAV-002` | Recents | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Recently opened pages are listed per member, newest first and grouped by day, and a page appears there for no one but the member who opened it." |
 | `NAV-003` | Favorites | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Favorited pages and containers (`PAGE-008`) are listed in the navigation, reorderable by the member, and removed from the list in one action." |

@@ -1272,8 +1272,13 @@
       "id": "SEARCH-009",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SEARCH-009 — Default visibility. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "Native default visibility and retained-reference outcomes are covered by the exact supporting search registration and the existing responsive core-wiki browser callers. Recorded exact-candidate Verify and guarded landing remain the acceptance receipts; this supporting registry does not itself certify acceptance.",
+      "supportingTests": [
+        {
+          "file": "tests/e2e/search/fts-permissions.test.ts",
+          "testName": "Indexed search uses current native authority for literal matches, totals, facets and cursors"
+        }
+      ]
     },
     {
       "id": "NAV-001",
