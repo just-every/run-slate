@@ -3,6 +3,7 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {execFileSync} from 'node:child_process';
 import {withWorkspace,setupWorkspace} from '../ui-convergence/browser-support.mjs';
+import {ok} from '../ui-convergence/two-people-support.mjs';
 
 // Explicit clock and scale journey, outside push Verify. Measure the complete
 // HTTP response from Node so Worker clock coarsening cannot hide request work.
@@ -20,6 +21,7 @@ try {
   await setupWorkspace(state);
   const containers=(await state.api('/api/containers')).items;
   const container=containers.find(item=>item.visibility==='default').id;
+  await ok(state.context,state.origin,'POST','/api/sharing',{operationKey:crypto.randomUUID(),targetKind:'container',targetId:container,principalKind:'member',principalId:'browser-reader',level:'view'});
   // Canonical fixture writes happen with the Worker stopped. No derived search
   // rows, result caches or application responses are supplied by the fixture.
   const pages=limits.pagesPerWorkspace,records=limits.recordsPerDatabase;
