@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 41 | 256 | 34 | 331 |
+| Core | 42 | 255 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 41 | 256 | 40 | 337 |
+| Full target | 42 | 255 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. ACT-003 source proof reviewed from commit `a9e83ca58b3a309e68a8ca2f7cce4509a26813ca`; candidate receipts identify the completed browser journey and final head. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -2070,7 +2070,7 @@ Core · published · **partial** · Cites BASE-AUDIT-001
 
 #### ACT-003 — Retrieval
 
-Core · published · **partial** · Cites BASE-AUDIT-001, BASE-ROLE-001
+Core · published · **done** · Cites BASE-AUDIT-001, BASE-ROLE-001
 
 **Requirement.** The activity view filters wiki events by actor, action, record kind, container and date range.
 
@@ -2078,8 +2078,8 @@ Core · published · **partial** · Cites BASE-AUDIT-001, BASE-ROLE-001
 1. Filtering a populated timeline yields only matching wiki events in newest-first order, with stable page boundaries while new events arrive.
 2. Opening an entry retains the wiki record context and exposes no unreadable record.
 
-**Evidence.** `tests/qualification/core/audit-content.test.ts` — auditRetrievalProof in the existing content audit registration; `tests/qualification/ui-convergence/activity-retrieval-journey.mjs` — activityRetrievalJourney via the existing settingsJourney callers in `tests/qualification/ui-convergence/journeys.test.mjs`
-**Gap.** Populated native filters and stable cursor retrieval pass in the loaded Workers journey; candidate browser and exact-SHA Verify proof pending.
+**Evidence.** Acceptance 1: `tests/qualification/core/audit-content.test.ts` — auditRetrievalProof in the existing content audit registration, exact native filter results, inclusive dates, tied timestamps and four cursor pages with arriving events; `tests/qualification/ui-convergence/activity-retrieval-journey.mjs` — activityRetrievalJourney, all visible filters and three cursor pages over 61 native edits. Acceptance 2: the same journeys open the exact matching page and refuse stale links and timeline reads after native access revocation. Browser journey loaded by the existing settingsJourney callers in `tests/qualification/ui-convergence/journeys.test.mjs`: page outline follows headings and navigates long pages at 1440px; space tree title filtering preserves ancestors, access and expansion at 390px.
+**Gap.** None.
 
 #### ACT-004 — Context
 

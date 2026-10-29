@@ -28,13 +28,14 @@ export async function activityRetrievalJourney(state,width){
  }
  // The records and their audit entries were created through native HTTP. Only
  // historical clock values change, with the Worker stopped during the fixture.
+ await page.goto('about:blank');
  await state.atRest(events.map(event=>`UPDATE activity_entries SET occurred_at='${event.time}' WHERE id='${event.id}';`).join('\n'));
  await page.goto(`${origin}/app/settings?section=activity`,{waitUntil:'networkidle'});
  const panel=page.locator('.settings-panel').filter({has:page.getByRole('heading',{name:'What changed.',exact:true})});
  const rows=panel.getByRole('list',{name:'Activity timeline'}).locator('li');
  const localDate=iso=>page.evaluate(value=>{const date=new Date(value),part=n=>String(n).padStart(2,'0');return `${date.getFullYear()}-${part(date.getMonth()+1)}-${part(date.getDate())}T${part(date.getHours())}:${part(date.getMinutes())}`;},iso);
  const filter=async(values={})=>{
-  for(const name of ['Person','Space','Kind'])await panel.getByLabel(name,{exact:true}).selectOption(values[name]??'');
+  for(const name of ['Person','Space','Kind'])await panel.getByRole('combobox',{name,exact:true}).selectOption(values[name]??'');
   for(const name of ['Action','From','Until'])await panel.getByLabel(name,{exact:true}).fill(values[name]??'');
   const loaded=page.waitForResponse(response=>new URL(response.url()).pathname==='/api/activity'&&response.status()===200);
   await panel.getByRole('button',{name:'Filter activity',exact:true}).click();await loaded;
@@ -84,7 +85,7 @@ export async function activityRetrievalJourney(state,width){
  await page.goto(`${origin}/app/settings?section=activity`,{waitUntil:'networkidle'});
  await filter({From:start,Until:end,Action:'pages.create'});
  await expect.poll(()=>rows.evaluateAll(elements=>elements.map(element=>element.dataset.activityId))).not.toContain(first.receipt.activityId);
- await expect(rows.getByRole('link').filter({hasText:'Timeline opening guide'})).toHaveCount(0);
+ await expect(panel.locator(`a[href^="/app/pages/${pageId}"]`)).toHaveCount(0);
  await state.switchIdentity('owner');
  const retained=await api(`/api/activity?${new URLSearchParams({from:'2000-01-02T12:00:00.000Z',to:'2000-01-02T12:00:00.000Z',action:'pages.create'})}`);
  assert.deepEqual(retained.items.map(item=>item.id),[first.receipt.activityId]);
