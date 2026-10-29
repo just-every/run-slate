@@ -6672,7 +6672,7 @@
       "executable": false
     },
     "src/core/features/editor/service.ts": {
-      "sha256": "e0378583fae3880ccf370b6262a8173d93b6c48dabb9249571cb797713689747",
+      "sha256": "9642e53010eafe02ddbd21459380305882520063841d104bcca945019b21a9d7",
       "executable": false
     },
     "src/core/features/editor/synced/audience.ts": {
@@ -11732,7 +11732,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/block-structure-journey.mjs": {
-      "sha256": "ba2b55f0c2c74e199ba55ccb7cf958b1f8b43bf2cc9b14df7658ec370577c351",
+      "sha256": "edf8f321e9d165ef37b13d6778c5d9d726aae67d3900a68be8113e7a2905c051",
       "executable": false
     },
     "tests/qualification/ui-convergence/blog-journey.mjs": {

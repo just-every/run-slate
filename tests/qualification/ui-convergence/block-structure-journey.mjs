@@ -74,6 +74,12 @@ export async function blockStructureJourney(state, width) {
   await page.keyboard.type(' Keep the trail.');
   expected[0].content.text[1].text += ' Keep the trail.';
   await reconcile('Editing keeps the source identifier and comment mark');
+  await action(a, 'Move down');
+  expected = [expected[1], expected[0], ...expected.slice(2)];
+  await reconcile('Moving the anchored source down retains its identifier');
+  await action(a, 'Move up');
+  expected = [expected[1], expected[0], ...expected.slice(2)];
+  await reconcile('Moving the anchored source back retains its identifier');
 
   await action(c, /^Indent/);
   expected[2].parentBlockId = b;
@@ -107,9 +113,10 @@ export async function blockStructureJourney(state, width) {
     const content = row(id).locator('.block-content');
     const box = await content.boundingBox();
     assert.ok(box);
-    await content.click({ position: { x: 2, y: box.height / 2 }, modifiers });
+    await content.click({ position: { x: box.width - 2, y: box.height / 2 }, modifiers });
   };
   await select(a);
+  await expect(row(a)).toHaveAttribute('data-selected', 'true');
   await select(c, ['Shift']);
   assert.deepEqual(await page.locator('.block-row[data-selected=true]').evaluateAll(rows => rows.map(row => row.dataset.blockId)), [a, b, c]);
   assert.deepEqual(shape((await read()).blocks), expected, 'Selecting adjacent blocks does not write or replace them.');
