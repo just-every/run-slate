@@ -59,7 +59,7 @@ async function typeCatalog(state, pageId) {
       const block = (await api(`/api/pages/${pageId}`)).blocks[0];
       if (block.id !== blockId || block.blockType !== command.type) return false;
       for (const [key, value] of Object.entries(command.content ?? {})) if (block.content[key] !== value) return false;
-      return !command.mark || (plain(block) === 'Launch' && block.content.text[0].marks?.includes(command.mark));
+      return !command.mark || (plain(block) === 'Launch' && block.content.text.every(span => !span.text || span.marks?.includes(command.mark)));
     };
     await expect.poll(converted, { message: `Typed ${JSON.stringify(command.keys)} commits its advertised conversion` }).toBe(true);
     await page.keyboard.press('ControlOrMeta+Z');
@@ -82,7 +82,10 @@ async function editorCommands(state, pageId, blockId) {
     await body.focus();
     await page.keyboard.press('ControlOrMeta+A');
     await page.keyboard.press(`ControlOrMeta+${key}`);
-    await expect.poll(async () => (await api(`/api/pages/${pageId}`)).blocks[0].content.text.every(span => span.marks?.includes(mark))).toBe(true);
+    await expect.poll(async () => {
+      const block = (await api(`/api/pages/${pageId}`)).blocks[0];
+      return plain(block) === 'Launch readiness' && block.content.text.every(span => span.marks?.includes(mark));
+    }).toBe(true);
   }
   await body.focus();
   await page.keyboard.press('End');
@@ -105,6 +108,7 @@ async function editorCommands(state, pageId, blockId) {
   await expect(dialog).toHaveCount(0);
   await expect(body).toBeFocused();
   assert.equal(await page.evaluate(() => getSelection()?.toString()), selected, 'Closing after reference search restores the editor selection.');
+  assert.deepEqual((await api(`/api/pages/${pageId}`)).blocks, before.blocks, 'Reference search and closing preserve every stored editor span.');
   await page.keyboard.type('ss retained');
   await expect(body).toHaveText('Launch readiness retained');
   await expect.poll(async () => plain((await api(`/api/pages/${pageId}`)).blocks[0])).toBe('Launch readiness retained');
@@ -133,9 +137,12 @@ async function editorCommands(state, pageId, blockId) {
   const menu = page.getByRole('combobox', { name: 'Insert a block', exact: true });
   await expect(menu).toBeFocused();
   await menu.fill('heading');
-  await expect(page.getByRole('option', { name: /^Heading/ })).toHaveCount(3);
+  const headings = page.getByRole('option', { name: /^Heading/ });
+  await expect(headings).toHaveCount(3);
   await page.keyboard.press('ArrowDown');
+  await expect(headings.nth(1)).toHaveAttribute('aria-selected', 'true');
   await page.keyboard.press('ArrowUp');
+  await expect(headings.first()).toHaveAttribute('aria-selected', 'true');
   await page.keyboard.press('Enter');
   await expect(page.getByRole('textbox', { name: 'Heading level 1', exact: true })).toBeFocused();
   await page.keyboard.type('Inserted by keyboard');
@@ -146,11 +153,16 @@ async function editorCommands(state, pageId, blockId) {
   await expect(menu).toHaveCount(0);
   await paragraph(page).focus();
   await page.keyboard.press('End');
-  await page.keyboard.type('@Morgan');
+  await page.keyboard.type('@');
   const mentions = page.getByRole('listbox', { name: 'Insert mention' });
-  await expect(mentions.getByRole('option')).toHaveCount(1);
+  await expect(mentions.getByRole('option', { name: 'Morgan Reader · Person', exact: true })).toBeVisible();
+  const choices = mentions.getByRole('option');
   await page.keyboard.press('ArrowDown');
+  await expect(choices.nth(1)).toHaveAttribute('aria-selected', 'true');
   await page.keyboard.press('ArrowUp');
+  await expect(choices.first()).toHaveAttribute('aria-selected', 'true');
+  await page.keyboard.type('Morgan');
+  await expect(choices).toHaveCount(1);
   await page.keyboard.press('Tab');
   await expect(mentions).toHaveCount(0);
   await expect.poll(async () => (await api(`/api/pages/${pageId}`)).blocks[0].content.text.some(span => span.mention?.kind === 'person' && span.mention.id === 'browser-reader')).toBe(true);
@@ -256,10 +268,19 @@ export async function shortcutReferenceJourney(state, width) {
     await editorCommands(state, pageId, blockId);
     await taskAndStatusCommands(state, space.id);
   } else {
+    const stored = (await api(`/api/pages/${pageId}`)).blocks;
     await paragraph(page).focus();
     await page.keyboard.press(shortcut);
     await reference(page).getByLabel('Search shortcuts').fill('');
     await page.screenshot({ path: `.artifacts/ui-convergence/shortcuts-${width}.png` });
     await page.keyboard.press('Escape');
+    await expect(reference(page)).toHaveCount(0);
+    const navigation = page.locator('.mobile-bar button');
+    await navigation.click();
+    await expect(navigation).toHaveAttribute('aria-expanded', 'true');
+    await page.keyboard.press('Escape');
+    await expect(navigation).toHaveAttribute('aria-expanded', 'false');
+    await expect(navigation).toBeFocused();
+    assert.deepEqual((await api(`/api/pages/${pageId}`)).blocks, stored, 'Reference and navigation dismissal preserve the phone editor.');
   }
 }
