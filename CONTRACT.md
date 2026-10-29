@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026).
+Judged from the code and tests at commit `c7af9a43c7af759e7c7e92142673b9e5cc40bb67` (29 October 2026); LIFE-005 source reviewed in this round. The candidate SHA and its exact Verify run are recorded in the landing handoff.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 23 | 203 | 0 | 226 |
+| Published | 24 | 202 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 39 | 258 | 40 | 337 |
+| All | 40 | 257 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4039,7 +4039,7 @@ Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e
 | `LIFE-002` | A draft is private | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "While a page is `draft` it is absent from search, from content queries, from the inbox, from analytics, from AI grounding, from every administrative and export listing, and from the tree of every member it has not been shared with."<br>No validated CI-run proof for this acceptance point: "Its body is readable only by its author and by the principals in its own grant list: sharing a draft, by link or by address, creates a grant under `SHARE-001` and `SHARE-006`, that grant requires a session like every other, it is shown in the draft's grant list, and revoking it ends access under `SHARE-007`."<br>No validated CI-run proof for this acceptance point: "There is no readable address for a draft that carries no grant, a draft has no general access grant under either value of `SHARE-005` (`SHARE-004`), and a draft cannot be published to the anonymous web (`WEB-001`)."<br>No validated CI-run proof for this acceptance point: "No role, policy value, container setting, workspace owner action, automation or extension defeats this."<br>No validated CI-run proof for this acceptance point: "`LIFE-006` decides whether a draft state arises, never whether this clause holds." |
 | `LIFE-003` | Publish | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
 | `LIFE-004` | Scheduled publish | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
-| `LIFE-005` | Unpublished changes | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
+| `LIFE-005` | Unpublished changes | published | done | `tests/qualification/ui-convergence/unpublished-changes-journey.mjs` — unpublishedChangesJourney, loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — real core-wiki and touch-member journeys at 1440px and 390px: editor indication, reader title and body through reload until republish, native discard and retained readable versions; `tests/flagship/content/http.test.ts` — content durable HTTP publication, human verification and media enforce current reader authority: published content, republish, refused read-only discard, complete retained history and duplicate-safe discard. | |
 | `LIFE-006` | Lifecycle profile | published | partial | `tests/qualification/policies/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/emitted.mjs`. |
 | `LIFE-007` | Discarding a draft | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "The author of a `draft` page can discard it, which moves it to trash (`ARCH-005`) rather than deleting it, and can close it, which leaves it a draft."<br>No validated CI-run proof for this acceptance point: "Neither action notifies anyone or leaves a trace in another member's tree." |
 | `SHARE-001` | Grants | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |

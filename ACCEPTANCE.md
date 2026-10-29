@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 39 | 258 | 34 | 331 |
+| Core | 40 | 257 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 39 | 258 | 40 | 337 |
+| Full target | 40 | 257 | 40 | 337 |
 
-Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `c7af9a43c7af759e7c7e92142673b9e5cc40bb67` (29 October 2026); LIFE-005 source reviewed in this round. The candidate SHA and its exact Verify run are recorded in the landing handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -787,7 +787,7 @@ Core · published · **partial** · Cites BASE-OPS-004
 
 #### LIFE-005 — Unpublished changes
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Editing a `live` page changes what readers see only when it is republished: every reader other than the editors sees the published revision, and the page shows that it has unpublished changes to anyone who may edit it.
 
@@ -795,8 +795,8 @@ Core · published · **partial**
 1. Discarding them restores the published revision as the working revision and deletes no version.
 2. Readers see the published revision until republish; discard restores it without deleting a version.
 
-**Evidence.** `tests/qualification/interface/publication.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/unpublished-changes-journey.mjs` — unpublishedChangesJourney, loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — real core-wiki and touch-member journeys at 1440px and 390px: editor indication, reader title and body through reload until republish, native discard and retained readable versions; `tests/flagship/content/http.test.ts` — content durable HTTP publication, human verification and media enforce current reader authority: published content, republish, refused read-only discard, complete retained history and duplicate-safe discard.
+**Gap.** None.
 
 #### LIFE-006 — Lifecycle profile
 
