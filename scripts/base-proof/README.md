@@ -67,3 +67,5 @@ upstream availability. `base-copies.json` names no repository: each copy's full
 commit, file digests and modes bind the copied bytes. Public checks authenticate the exact approved commit,
 complete tree graph, copied blob bytes and executable modes offline. Maintainers
 acquire Base separately and regenerate this same proof through the retention tool.
+
+Agent-door prerequisite copies additionally retain the authenticated commits `d555e789cffb744a9f83d76ebe42a2e3bdd7a055` and `7ce44fa5b70b68b21d270ba54760dae28b4a37a7`.
