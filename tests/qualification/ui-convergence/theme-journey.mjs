@@ -14,52 +14,57 @@ const luminance = rgb => rgb.slice(0, 3).map(value => {
 
 /** Check the painted surface and text, including inherited editor backgrounds. */
 async function paintedTheme(view, theme, target = view.getByRole('main').locator('.main').first()) {
-  console.log(`Theme inspection ${theme} ${view.url()}: foreground`);
   await view.bringToFront();
   await expect(view.locator('html')).toHaveAttribute('data-theme', theme);
-  // Keep the real motion preference and wait for the application's color
-  // transitions before measuring contrast or starting an accessibility scan.
-  console.log(`Theme inspection ${theme} ${view.url()}: transitions`);
-  await view.evaluate(() => Promise.allSettled(document.getAnimations()
-    .filter(animation => animation instanceof CSSTransition && ['color', 'background-color'].includes(animation.transitionProperty))
-    .map(animation => animation.finished)));
   await expect(target).toBeVisible();
-  console.log(`Theme inspection ${theme} ${view.url()}: connected colors`);
   let palette;
   await expect.poll(async () => {
     palette = await target.evaluate(element => {
-    // Client navigation can replace the locator's node before evaluation.
-    // Sample its connected successor instead of parsing an empty style as black.
-    if (!element.isConnected) return null;
-    let parser;
-    const rgba = color => {
-      const rgb = /^rgba?\(([^)]+)\)$/.exec(color);
-      const channels = rgb?.[1].split(',').map(Number);
-      if (channels && [3, 4].includes(channels.length) && channels.every(Number.isFinite)) {
-        return [...channels.slice(0, 3), Math.round((channels[3] ?? 1) * 255)];
+      // Client navigation can replace the locator's node before evaluation.
+      // Sample its connected successor instead of parsing an empty style as black.
+      if (!element.isConnected) return null;
+      // Keep real motion enabled. Poll only color transitions that paint this
+      // surface; an unrelated control cannot leave an unbounded finished promise.
+      for (let node = element; node; node = node.parentElement) {
+        if (node.getAnimations().some(animation => animation instanceof CSSTransition
+          && ['color', 'background-color'].includes(animation.transitionProperty)
+          && animation.playState !== 'finished')) return null;
       }
-      // Retain support for any CSS color syntax without repeated GPU reads.
-      if (!parser) {
-        const canvas = document.createElement('canvas');
-        canvas.width = canvas.height = 1;
-        parser = canvas.getContext('2d', { willReadFrequently: true });
-      }
-      parser.clearRect(0, 0, 1, 1);
-      parser.fillStyle = color;
-      parser.fillRect(0, 0, 1, 1);
-      return [...parser.getImageData(0, 0, 1, 1).data];
-    };
-    let surface = element;
-    while (surface.parentElement && rgba(getComputedStyle(surface).backgroundColor)[3] === 0) surface = surface.parentElement;
-    return { background: rgba(getComputedStyle(surface).backgroundColor), ink: rgba(getComputedStyle(element).color) };
-    });
+      let parser;
+      const rgba = color => {
+        const rgb = /^rgba?\(([^)]+)\)$/.exec(color);
+        const channels = rgb?.[1].split(',').map(Number);
+        if (channels && [3, 4].includes(channels.length) && channels.every(Number.isFinite)) {
+          return [...channels.slice(0, 3), Math.round((channels[3] ?? 1) * 255)];
+        }
+        // Retain support for any CSS color syntax without repeated GPU reads.
+        if (!parser) {
+          const canvas = document.createElement('canvas');
+          canvas.width = canvas.height = 1;
+          parser = canvas.getContext('2d', { willReadFrequently: true });
+        }
+        parser.clearRect(0, 0, 1, 1);
+        parser.fillStyle = color;
+        parser.fillRect(0, 0, 1, 1);
+        return [...parser.getImageData(0, 0, 1, 1).data];
+      };
+      let surface = element;
+      while (surface.parentElement && rgba(getComputedStyle(surface).backgroundColor)[3] === 0) surface = surface.parentElement;
+      return { background: rgba(getComputedStyle(surface).backgroundColor), ink: rgba(getComputedStyle(element).color) };
+    }, undefined, { timeout: 5000 });
     return palette !== null;
-  }, { message: 'Inspect the connected route surface.' }).toBe(true);
+  }, { message: 'Inspect the connected route surface after its color transitions settle.' }).toBe(true);
   assert.equal(palette.background[3], 255, 'The visible surface has an opaque background.');
   const background = luminance(palette.background), ink = luminance(palette.ink);
   assert.ok(theme === 'light' ? background > .5 : background < .1, `${view.url()}: ${theme} paints the actual surface: ${JSON.stringify(palette)}`);
   assert.ok((Math.max(background, ink) + .05) / (Math.min(background, ink) + .05) >= 4.5, `${view.url()}: ${theme} text remains readable on its painted surface: ${JSON.stringify(palette)}`);
-  console.log(`Theme inspection ${theme} ${view.url()}: passed`);
+}
+
+/** Full-page scans and captures also inspect controls outside the main surface. */
+async function settledColors(view) {
+  await expect.poll(() => view.evaluate(() => document.getAnimations().filter(animation =>
+    animation instanceof CSSTransition && ['color', 'background-color'].includes(animation.transitionProperty)
+    && animation.playState === 'running').length), { message: 'Full-page color transitions settle.' }).toBe(0);
 }
 
 async function choose(view, origin, theme) {
@@ -110,7 +115,10 @@ async function operatorDestination(view, origin, route, inNavigation) {
 export async function themeJourney(state, width) {
   const { page, context, origin, api } = state;
   const browser = context.browser(), viewport = page.viewportSize();
-  const shot = (view, label) => view.screenshot({ path: `.artifacts/ui-convergence/theme-${width}-${label}.png`, fullPage: false });
+  const shot = async (view, label) => {
+    await settledColors(view);
+    await view.screenshot({ path: `.artifacts/ui-convergence/theme-${width}-${label}.png`, fullPage: false });
+  };
   const member = await api('/api/members/current');
   const space = (await api('/api/containers')).items.find(item => item.name === 'Handbook');
   assert.ok(space);
@@ -161,6 +169,7 @@ export async function themeJourney(state, width) {
       await choose(page, origin, preference);
       const resolved = preference === 'system' ? 'dark' : preference;
       await paintedTheme(page, resolved);
+      await settledColors(page);
       await accessible(page, `appearance ${preference}`);
       await shot(page, `appearance-${preference}`);
       for (const [index, route] of routes.entries()) {
