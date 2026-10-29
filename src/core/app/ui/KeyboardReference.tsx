@@ -42,6 +42,7 @@ export function KeyboardReference({ onClose }: { onClose: () => void }) {
         groups={[
           {id:"typed",title:"Typed formatting",kind:"typed",entries:[
             {id:"insert",label:"Insert a block",keys:"/"},{id:"mention",label:"Mention a person, group, page or date",keys:"@"},
+            {id:"task-date",label:"Set a task due date",keys:"//"},
             {id:"heading",label:"Headings (then space)",keys:"# or ## or ###"},{id:"bullet",label:"Bulleted list (then space)",keys:"- or *"},
             {id:"number",label:"Numbered list (then space)",keys:"1."},{id:"quote",label:"Quote (then space)",keys:"> or \""},
             {id:"task",label:"Task (then space)",keys:"[] or [ ]"},{id:"divider",label:"Divider",keys:"---"},{id:"codeblock",label:"Code block",keys:"```"},
@@ -77,6 +78,7 @@ export function KeyboardReference({ onClose }: { onClose: () => void }) {
             entries: [
               { id: "paragraph", label: "Split a block or continue a task", keys: "Enter" },
               { id: "line-break", label: "Line break within a block", keys: "Shift Enter" },
+              { id: "status-edit", label: "Edit a focused inline status label", keys: "Enter or Space" },
               { id: "suggestion-move", label: "Move through insert or mention suggestions", keys: "↑ or ↓" },
               { id: "suggestion-choose", label: "Choose an insert or mention suggestion", keys: "Enter" },
               { id: "mention-choose", label: "Choose a mention suggestion", keys: "Tab" },

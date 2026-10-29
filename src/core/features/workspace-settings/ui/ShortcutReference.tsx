@@ -80,7 +80,7 @@ export function ShortcutReference({
               <h3 className="text-ui font-medium text-ink">{group.title}</h3>
               <p className="text-tiny text-ink-muted">
                 {group.kind === "typed"
-                  ? "Typed as you write. One undo returns the characters you typed."
+                  ? "Typed as you write. One undo reverses a formatting conversion."
                   : "Pressed together."}
               </p>
               <ul className="mt-1 flex flex-col">

@@ -28,7 +28,7 @@ async function catalog(page) {
     await expect(dialog.locator('kbd').filter({ hasText: keys }).first()).toBeAttached();
   }
   for (const [label, keys] of [
-    ['Insert a block', '/'], ['Mention a person, group, page or date', '@'],
+    ['Insert a block', '/'], ['Mention a person, group, page or date', '@'], ['Set a task due date', '//'],
     ['Open workspace search', 'Ctrl K or ⌘ K'], ['Show keyboard shortcuts', 'Ctrl / or ⌘ /'],
     ['Close an open dialog or mobile navigation', 'Esc'],
     ['Bold', 'Ctrl B or ⌘ B'], ['Italic', 'Ctrl I or ⌘ I'], ['Underline', 'Ctrl U or ⌘ U'],
@@ -37,6 +37,7 @@ async function catalog(page) {
     ['Add a column after this cell', 'Alt Shift →'], ['Remove this column', 'Alt Shift ←'],
     ['Next section', '→ or Page Down'], ['Previous section', '← or Page Up'],
     ['Split a block or continue a task', 'Enter'], ['Line break within a block', 'Shift Enter'],
+    ['Edit a focused inline status label', 'Enter or Space'],
     ['Move through insert or mention suggestions', '↑ or ↓'],
     ['Choose an insert or mention suggestion', 'Enter'], ['Choose a mention suggestion', 'Tab'],
     ['Close insert or mention suggestions', 'Esc'],
@@ -150,6 +151,12 @@ async function editorCommands(state, pageId, blockId) {
   await expect.poll(async () => (await api(`/api/pages/${pageId}`)).blocks[0].content.text.some(span => span.mention?.kind === 'person' && span.mention.id === 'browser-reader')).toBe(true);
   await paragraph(page).focus();
   await page.keyboard.press('End');
+  await page.keyboard.type('@2026-10-20');
+  await expect(mentions.getByRole('option')).toHaveCount(1);
+  await page.keyboard.press('Enter');
+  await expect.poll(async () => (await api(`/api/pages/${pageId}`)).blocks[0].content.text.some(span => span.mention?.kind === 'date' && span.mention.id === '2026-10-20')).toBe(true);
+  await paragraph(page).focus();
+  await page.keyboard.press('End');
   await page.keyboard.type('@');
   await expect(mentions).toBeVisible();
   await page.keyboard.press('Escape');
@@ -160,6 +167,40 @@ async function editorCommands(state, pageId, blockId) {
   await expect(page.getByRole('searchbox', { name: 'Search your workspace', exact: true })).toBeVisible();
   await page.goBack({ waitUntil: 'networkidle' });
   assert.deepEqual((await api(`/api/pages/${pageId}`)).blocks, committed, 'Workspace search navigation preserves committed editor content.');
+}
+
+async function taskAndStatusCommands(state, spaceId) {
+  const { page, context, origin, api } = state;
+  const { value: { pageId } } = await ok(context, origin, 'POST', '/api/pages', {
+    operationKey: randomUUID(), containerId: spaceId, title: 'Keyboard task and label',
+    blocks: [
+      { id: randomUUID(), blockType: 'task', content: { text: [{ text: 'Coordinate review' }], done: false }, treePosition: 'a' },
+      { id: randomUUID(), blockType: 'paragraph', content: { text: [{ text: 'Ready', status: { colour: 'green' } }] }, treePosition: 'b' },
+    ],
+  });
+  await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
+  const task = page.getByRole('textbox', { name: 'To-do item', exact: true }).first();
+  await task.focus();
+  await page.keyboard.press('End');
+  await page.keyboard.type('//');
+  await expect(page.getByLabel('Task due date', { exact: true })).toBeVisible();
+  await page.getByLabel('Task due date', { exact: true }).fill('2026-11-15');
+  await expect.poll(async () => (await api(`/api/pages/${pageId}`)).blocks[0].content.dueDate).toBe('2026-11-15');
+  await task.focus();
+  await page.keyboard.press('End');
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('textbox', { name: 'To-do item', exact: true })).toHaveCount(2);
+  await page.keyboard.press('Enter');
+  await expect.poll(async () => (await api(`/api/pages/${pageId}`)).blocks.map(block => block.blockType)).toEqual(['task', 'paragraph', 'paragraph']);
+  for (const key of ['Enter', 'Space']) {
+    await page.getByRole('button', { name: 'Edit status label: Ready', exact: true }).focus();
+    await page.keyboard.press(key);
+    const dialog = page.getByRole('dialog', { name: 'Edit status label', exact: true });
+    await expect(dialog.getByLabel('Label text')).toHaveValue('Ready');
+    await page.keyboard.press('Escape');
+    await expect(dialog).toHaveCount(0);
+  }
+  assert.equal((await api(`/api/pages/${pageId}`)).blocks.at(-1).content.text[0].text, 'Ready');
 }
 
 export async function shortcutReferenceJourney(state, width) {
@@ -197,6 +238,7 @@ export async function shortcutReferenceJourney(state, width) {
   if (width === 1440) {
     await typeCatalog(state, pageId);
     await editorCommands(state, pageId, blockId);
+    await taskAndStatusCommands(state, space.id);
   } else {
     await paragraph(page).focus();
     await page.keyboard.press(shortcut);

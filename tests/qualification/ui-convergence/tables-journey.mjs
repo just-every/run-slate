@@ -48,6 +48,8 @@ export async function tablesJourney({page,context,origin,api}) {
   await block.getByRole('button',{name:'Merge cells',exact:true}).click();
   await expect.poll(async()=> (await api(`/api/pages/${pageId}`)).blocks[0].content.merges?.[0]?.rowId).toBe(before.rows[0].id);
   const committed=(await api(`/api/pages/${pageId}`)).blocks[0].content;
+  assert.deepEqual(committed.columns,before.columns,'Keyboard column edits retain every heading.');
+  assert.deepEqual(committed.rows,before.rows,'Keyboard row edits retain every original cell.');
   await page.screenshot({path:`.artifacts/ui-convergence/tables-${page.viewportSize().width}-editing.png`});
   await block.getByRole('button',{name:'Convert to database',exact:true}).click();
   await expect(page).toHaveURL(/\/app\/databases\//);

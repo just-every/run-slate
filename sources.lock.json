@@ -5464,7 +5464,7 @@
       "executable": false
     },
     "src/core/app/ui/KeyboardReference.tsx": {
-      "sha256": "26d0268d4a536c2876d56ab52e9b33eb6a25c0d2de170ed88ec3f172c7ee2749",
+      "sha256": "d3c514e8150656129ec8b61aea72ac5e1beefb22e70fd0084a1cad6ff5d7c715",
       "executable": false
     },
     "src/core/app/ui/LaunchProfile.tsx": {
@@ -9720,7 +9720,7 @@
       "executable": false
     },
     "src/core/features/workspace-settings/ui/ShortcutReference.tsx": {
-      "sha256": "6d0345846259f30d6ee546c51d9fe1164ba2202f0cb90678342aa77123ed17ff",
+      "sha256": "637fe585f4a3710034bc0de7c82942895e48df47aff7e614e60a3024171fcca0",
       "executable": false
     },
     "src/core/features/workspace-settings/ui/types.ts": {
@@ -12024,7 +12024,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/shortcut-reference-journey.mjs": {
-      "sha256": "884cb5a3aa22f4f2a38e4f07284815905462fc0d1654a56eca9978befca315af",
+      "sha256": "0ed46f554b03e1eaad796115009648ff30c92b0d98300197127662e057a3a989",
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {
@@ -12044,7 +12044,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/tables-journey.mjs": {
-      "sha256": "e8117e75070f236a26d712e3e505748132068c7fd0f4c21ca8fde14cb3523edd",
+      "sha256": "c4a3aea9a8029e5091305d3375e01040346cf1176c728690c0acce5ee9c3d308",
       "executable": false
     },
     "tests/qualification/ui-convergence/task-assignment-journey.mjs": {
@@ -12152,7 +12152,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "a44c8fa79ae8b39488926e542eaa9ca69dbd881ae93d21f9b8c16f55c0092aac",
+      "sha256": "10206f38953af871dd089d1ab0727520677b699389927684992ca84fa2008a36",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
