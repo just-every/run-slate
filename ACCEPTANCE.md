@@ -243,8 +243,8 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 2. SAML single sign-on and SCIM provisioning are `ADMIN-001` and `ADMIN-002`.
 3. Configured OIDC provider signs in an invited member only; a failing provider leaves magic-link sign-in working and says which is unavailable.
 
-**Evidence.** `tests/qualification/core/identity.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`.
+**Evidence.** `tests/flagship/core/identity-upgrade.test.ts` — "published v0.1.0 members, groups, guests and live sessions keep identity, access and authority through Base sign-in adoption" calls "invitedProviderJourney" (native invitation, signed OIDC, refusal without identity writes, mailbox replacement and provider-independent email); `tests/e2e/production-artifact.test.mjs` — "emitted Worker admission serves configured public doors and protects native owner access" calls `tests/e2e/provider-fallback-flow.mjs` — "providerFallbackFlow" and `tests/e2e/signin-hint.mjs` — "signInHintFlow".
+**Gap.** Candidate emitted-browser proof pending. SAML and SCIM duties remain with ADMIN-001 and ADMIN-002; real tenant receipts remain in R-12.
 
 ### Editing and saving
 
