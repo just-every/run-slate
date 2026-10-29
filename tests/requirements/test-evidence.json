@@ -44,7 +44,7 @@
         "BLOCK-008",
         "CONT-007"
       ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
+      "reason": "Preserves separately asserted cases of the same public flow. LIFE-005 support performs published title and body reads, editor changes, republish, read-only discard refusal, lossless discard and duplicate-safe replay through native routes. Full LIFE-005 browser acceptance is the unpublishedChangesJourney in the existing responsive core journeys; the other named clauses retain supporting scope."
     },
     {
       "file": "tests/flagship/content/http.test.ts",
