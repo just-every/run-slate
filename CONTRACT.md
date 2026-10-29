@@ -3978,9 +3978,9 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 25 | 201 | 0 | 226 |
+| Published | 26 | 200 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 41 | 256 | 40 | 337 |
+| All | 42 | 255 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4114,7 +4114,7 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `SEARCH-004` | Freshness | published | done | `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors"; `tests/e2e/search/freshness-journey.ts` — "freshnessJourney" | |
 | `SEARCH-005` | What search never shows | published | done | `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors"; `tests/e2e/search/freshness-journey.ts` — "freshnessJourney" | |
 | `SEARCH-006` | Search in one container | published | partial | `tests/qualification/core/discovery-browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`. |
-| `SEARCH-007` | No results | published | partial | `tests/qualification/core/discovery-browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`. |
+| `SEARCH-007` | No results | published | done | `tests/qualification/ui-convergence/search-filters-journey.mjs` — "searchNoResultsJourney", called by "searchFiltersJourney" in the existing "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: exact query and every applied filter; no results or generated answer; clear all filters without changing the query or writing content; create exactly one readable, persisted page with that title in an authorized destination. |  |
 | `SEARCH-008` | Search without AI | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
 | `SEARCH-009` | Default visibility | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
 | `NAV-001` | Home | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |

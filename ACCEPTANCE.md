@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 41 | 256 | 34 | 331 |
+| Core | 42 | 255 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 41 | 256 | 40 | 337 |
+| Full target | 42 | 255 | 40 | 337 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1823,7 +1823,7 @@ Core · published · **partial**
 
 #### SEARCH-007 — No results
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** When nothing matches, search restates the query and every applied filter, offers one action that clears the filters and one that creates a page with that title, and shows no invented result or answer.
 
@@ -1831,8 +1831,8 @@ Core · published · **partial**
 1. When nothing matches, search restates the query and every applied filter, offers one action that clears the filters and one that creates a page with that title, and shows no invented result or answer.
 2. No results restates query and filters with clear-filters and create-page actions and no invented answer.
 
-**Evidence.** `tests/qualification/core/discovery-browser.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/search-filters-journey.mjs` — "searchNoResultsJourney", called by "searchFiltersJourney" in the existing "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: exact query and every applied filter; no results or generated answer; clear all filters without changing the query or writing content; create exactly one readable, persisted page with that title in an authorized destination.
+**Gap.** None.
 
 #### SEARCH-008 — Search without AI
 
