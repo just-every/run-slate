@@ -126,7 +126,10 @@ export async function savedAfterCommit(page, blockId, edit, { whileSaving } = {}
   const routePath = `/api/pages/${pageId}${blockId ? `/blocks/${blockId}` : ''}`;
   const action = blockId ? 'pages.block.update' : 'pages.update';
   const activityPath = `/api/activity?action=${action}&limit=100`;
-  const before = await ok(page.context(), origin, 'GET', `/api/pages/${pageId}`);
+  const [before, session] = await Promise.all([
+    ok(page.context(), origin, 'GET', `/api/pages/${pageId}`),
+    ok(page.context(), origin, 'GET', '/api/session'),
+  ]);
   const persisted = document => blockId ? document.blocks.find(block => block.id === blockId) : document.page.title;
   const blockStatus = blockId ? `[data-block-id="${blockId}"] [role="status"]` : '.editor-save-status';
   await page.evaluate(selector => {
@@ -134,7 +137,7 @@ export async function savedAfterCommit(page, blockId, edit, { whileSaving } = {}
     const seen = [];
     const observe = () => {
       const text = (document.querySelector(selector) ?? document.querySelector('.editor-save-status'))?.textContent?.trim() ?? '';
-      if (text && seen.at(-1)?.text !== text) seen.push({ text, at: Date.now() });
+      if (seen.at(-1)?.text !== text) seen.push({ text, at: Date.now() });
     };
     observe();
     const observer = new MutationObserver(observe);
@@ -184,7 +187,7 @@ export async function savedAfterCommit(page, blockId, edit, { whileSaving } = {}
     assert.equal(activity.action, action);
     assert.deepEqual(activity.target, { kind: 'page', id: pageId });
     assert.equal(activity.occurredAt, receipt.committedAt);
-    assert.equal(activity.actor.id, (await ok(page.context(), origin, 'GET', '/api/session')).member.id);
+    assert.equal(activity.actor.id, session.member.id);
     await expect(badge).toHaveText(/^Saving/);
     const pending = await page.evaluate(() => window.slateBlockStates.seen);
     const savingIndex = pending.findIndex(item => /^Saving/.test(item.text));
