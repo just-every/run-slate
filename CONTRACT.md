@@ -3978,9 +3978,9 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 25 | 201 | 0 | 226 |
+| Published | 26 | 200 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 41 | 256 | 40 | 337 |
+| All | 42 | 255 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4000,7 +4000,7 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `WORK-013` | First run | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
 | `WORK-014` | Shortcut reference | published | partial | `tests/qualification/core/shell.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/shell.mjs`. |
 | `WORK-015` | Identity provider | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
-| `SAVE-001` | Durable save state | published | partial | `tests/qualification/interface/routed.browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/routed.browser.mjs`. |
+| `SAVE-001` | Durable save state | published | done | `tests/qualification/ui-convergence/write-journey.mjs` — "writeJourney", called by "real core-wiki and touch-member journeys at 1440px" and its existing phone smoke in `tests/qualification/ui-convergence/journeys.test.mjs`; `tests/qualification/ui-convergence/two-people-editing.mjs` — "concurrentEditingJourney", called by "two people edit at once, lose access mid-edit and restore history at 1440px": both acceptance points use "savedAfterCommit" in `tests/qualification/ui-convergence/two-people-support.mjs` to hold a native title or body write, observe continuous Saving with unchanged durable content and no activity, correlate the committed receipt with durable content and exactly one matching activity entry, and assert Saved follows that receipt within two seconds of its commit timestamp. Explicit retry, failed writes and reload persistence remain asserted. | |
 | `SAVE-002` | Failed writes | published | done | `tests/qualification/ui-convergence/failed-save-journey.mjs` — "failedSaveJourney" |  |
 | `SAVE-003` | Revision conflicts | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Every edit is submitted with the revision it began from: the block's revision for a body edit, the page's for a title, property, structure or order change."<br>No validated CI-run proof for this acceptance point: "An edit against a superseded revision is rejected with 409, keeps the local draft, and offers compare, reload, or explicit overwrite."<br>No validated CI-run proof for this acceptance point: "Slate never resolves a conflict by last write wins." |
 | `SAVE-004` | Network loss | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "While the server is unreachable the editor shows Offline and keeps the unsent draft in browser storage as recovery only."<br>No validated CI-run proof for this acceptance point: "A recovered draft is labeled unsaved and never appears in the tree, in lists, in search, or in export as workspace data." |

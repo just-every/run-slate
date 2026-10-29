@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 41 | 256 | 34 | 331 |
+| Core | 42 | 255 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 41 | 256 | 40 | 337 |
+| Full target | 42 | 255 | 40 | 337 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -250,7 +250,7 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 
 #### SAVE-001 — Durable save state
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** An editor shows Saving until the write and its activity entry are committed, then shows Saved within 2 seconds of the commit.
 
@@ -258,8 +258,8 @@ Core · published · **partial**
 1. An editor shows Saving until the write and its activity entry are committed, then shows Saved within 2 seconds of the commit.
 2. Editor shows Saving until the commit and Saved within 2 seconds after it.
 
-**Evidence.** `tests/qualification/interface/routed.browser.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/routed.browser.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/write-journey.mjs` — "writeJourney", called by "real core-wiki and touch-member journeys at 1440px" and its existing phone smoke in `tests/qualification/ui-convergence/journeys.test.mjs`; `tests/qualification/ui-convergence/two-people-editing.mjs` — "concurrentEditingJourney", called by "two people edit at once, lose access mid-edit and restore history at 1440px": both acceptance points use "savedAfterCommit" in `tests/qualification/ui-convergence/two-people-support.mjs` to hold a native title or body write, observe continuous Saving with unchanged durable content and no activity, correlate the committed receipt with durable content and exactly one matching activity entry, and assert Saved follows that receipt within two seconds of its commit timestamp. Explicit retry, failed writes and reload persistence remain asserted.
+**Gap.** None.
 
 #### SAVE-002 — Failed writes
 
