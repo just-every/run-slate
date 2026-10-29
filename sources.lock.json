@@ -12156,7 +12156,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "075400979c16283b3de207f37725ad4322a09a93775c093198b5fed83fbd6b88",
+      "sha256": "24f83b0c68ddf334b5a541dc22492880df8ebb9d8a56be94e7df152ddea2dfa7",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12168,7 +12168,7 @@
       "executable": false
     },
     "tests/requirements/planned-clauses.json": {
-      "sha256": "0edf01b945b4c9c79c692f9766dc7f54fd257426392a2dff038e6e0e68c31ed6",
+      "sha256": "eed0531709a5db1a425958cf5bea6df68e19e2e5c905c2b4eeea89b770168238",
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
