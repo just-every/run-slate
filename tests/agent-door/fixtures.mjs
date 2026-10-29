@@ -3,11 +3,17 @@ import assert from 'node:assert/strict';
 import {randomUUID,randomInt} from 'node:crypto';
 import fs from 'node:fs/promises';
 export const phases=new Map();
+export const proofRecords={};
 
 export const sensitiveText=()=>`SSN: ${String(randomInt(100,900))}-${String(randomInt(10,99))}-${String(randomInt(1000,9999))}`;
+const nativeStarts=[];
 export async function native(context,path,body,method=body?'POST':'GET') {
- // Stay below the native 600/minute person capacity while preparing real state.
- await new Promise(resolve=>setTimeout(resolve,150));
+ // Pace fixture preparation against the real person capacity, with room for
+ // the client bootstrap and browser's own native requests. Never retry a refusal.
+ while(nativeStarts.length&&nativeStarts[0]<=Date.now()-60_000)nativeStarts.shift();
+ if(nativeStarts.length>=500)await new Promise(resolve=>setTimeout(resolve,Math.max(1,nativeStarts[0]+60_000-Date.now())));
+ while(nativeStarts.length&&nativeStarts[0]<=Date.now()-60_000)nativeStarts.shift();
+ nativeStarts.push(Date.now());
  const response=await context.request(new URL(path,context.origin).href,{method,headers:{cookie:context.cookie,origin:context.origin,'content-type':'application/json'},...(body?{body:JSON.stringify({...body,operationKey:randomUUID()})}:{}),redirect:'manual'});
  const data=await response.json().catch(()=>null);
  assert.ok(response.ok,`Native fixture ${path} returned ${response.status} (${data?.code??'non-JSON'}).`);
@@ -43,12 +49,21 @@ async function prepare(context) {
  values.local_page={id:localPage.pageId};
  values.local_create={containerId:shared.id,title:'Native client-created record'};
  const guestId=(await native(context,'/api/guests')).items.find(person=>person.email==='synthetic-guest@example.invalid').id;
+ const group=(await native(context,'/api/groups',{name:'Native escalation group '+randomUUID(),memberIds:[reviewer.id]})).value;
+ values.escalation_group={id:group.id,name:group.name,memberId:reviewer.id};
+
 
  for(const step of surface.journey) {
   const cls=step.expect.at(-1).class,key=step.id,tool=step.tool.slice(6);
   if(step.client){cases[key]={cls,tool};continue;}
   let args={};
   if(tool==='events.list'){args={limit:200};values[key]=args;continue;}
+  if(tool==='groups.list'){values[key]={};cases[key]={cls,tool};continue;}
+  if(tool==='groups.manage') {
+   if(cls==='standard')args={name:'Native agent group '+randomUUID(),memberIds:[]};
+   else {const current=(await native(context,'/api/groups',{name:'Native narrowing group '+randomUUID(),memberIds:[reviewer.id]})).value;args={id:current.id,name:current.name,memberIds:[]};}
+   values[key]=args;cases[key]={cls,tool};continue;
+  }
   if(['workspace.read','audit.read','navigation.read','containers.list'].includes(tool)){
    const container=shared;
    args={};cases[key]={containerId:container.id,cls,tool};values[key]=args;continue;
@@ -61,6 +76,19 @@ async function prepare(context) {
   const content=blockType==='task'?{text:[{text}],done:false,assigneeMemberId:ownerId}:{text:[{text}]};
   const page=(await native(context,'/api/pages',{containerId:container.id,title:'Native fixture page',blocks:[{id:blockId,blockType,content,treePosition:'a'}]})).value;
   cases[key]={containerId:container.id,pageId:page.pageId,blockId,cls,tool,text,openId:open.id};
+  if(tool==='evidence.read')args={refs:[{kind:'page',sourceId:page.pageId,revisionId:page.revisionId}],audience:[ownerId]};
+  if(tool==='comments.create')args={id:page.pageId,body:[{text:'Agent-prepared discussion '+text}]};
+  if(['comments.manage','comments.resolve'].includes(tool)) {
+   const created=await native(context,'/api/comments/page/'+page.pageId,{body:[{text}]});
+   args=tool==='comments.manage'?{id:created.value.id,body:[{text:'Agent-edited discussion '+text}]}:{id:created.value.threadId,resolved:true};
+  }
+  if(['revisions.restore','pages.discard'].includes(tool)) {
+   await setPage(context,page.pageId,{title:'Working draft to curate'});
+   args={id:page.pageId,...(tool==='revisions.restore'?{revisionId:page.revisionId}:{})};
+  }
+  if(tool==='queries.run') {
+   args={id:page.pageId,definition:{container:container.id,search:{query:needle},limit:20}};
+  }
   if(tool==='favorites.set')args={kind:'page',id:page.pageId,enabled:true};
   if(tool==='watches.set')args={kind:'page',id:page.pageId,enabled:true};
   if(tool==='reactions.set')args={id:page.pageId,emoji:'👍'};

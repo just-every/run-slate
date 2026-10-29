@@ -1,3 +1,4 @@
+import {sdkCredentials,nativeSdkGrant,sdkScopes} from './sdk-credentials';
 import {ApiProblem} from '../../app/problems';
 import type {AppBindings} from '../../app/types';
 import type {AgentDoorOptions,Principal} from '../../../../modules/agent-door/index.ts';
@@ -8,7 +9,7 @@ const reads=['slate.pages.list','slate.pages.read','slate.blocks.list','slate.ta
 const writes=['slate.pages.create','slate.pages.update','slate.blocks.update','slate.blocks.edit','slate.tasks.update'];
 export function localCredentials(env:AppBindings):NonNullable<AgentDoorOptions['localCredentials']> {
   return async request=>{
-    if(!/^Bearer [A-Za-z0-9_-]{43}$/.test(request.headers.get('authorization')??''))return null;
+    if(!/^Bearer [A-Za-z0-9_-]{43}$/.test(request.headers.get('authorization')??''))return sdkCredentials(env,request);
     try {
       const token=await authenticateNativeApiToken(env.DB,request.headers);
       const record=await env.DB.prepare('SELECT name FROM public_api_tokens WHERE id=? AND revoked_at IS NULL').bind(token.id).first<{name:string}>();
@@ -26,5 +27,5 @@ export async function nativeClientGrant(env:AppBindings,principal:Pick<Principal
   return {id,valid:scopes.success,scopes:scopes.success?scopes.data:[],json:row.scopes_json};
 }
 export function currentScopes(env:AppBindings):NonNullable<AgentDoorOptions['currentScopes']> {
-  return async principal=>{const grant=await nativeClientGrant(env,principal);return grant?(grant.valid?[...reads,...(grant.scopes.some(scope=>scope.level==='write')?writes:[])]:[]):[...principal.scopes];};
+  return async principal=>{const sdk=await nativeSdkGrant(env,principal);if(sdk)return sdk.valid&&sdk.scope?[...new Set(sdk.scope.tools.map(tool=>sdkScopes[tool]!))]:[];const grant=await nativeClientGrant(env,principal);return grant?(grant.valid?[...reads,...(grant.scopes.some(scope=>scope.level==='write')?writes:[])]:[]):[...principal.scopes];};
 }

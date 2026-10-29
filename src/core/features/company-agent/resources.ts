@@ -1,3 +1,4 @@
+import {recordOutput} from './record-output';
 import {nativeClientGrant} from './credentials';
 import type {ResourceDefinition,ResourceContext,ClassAndFacts} from '../../../../modules/agent-door/index.ts';
 import type {AppBindings} from '../../app/types';
@@ -34,14 +35,24 @@ export function nativeResources(env:AppBindings):ResourceDefinition[] {
   return rows.map(([template,reader])=>({uriTemplate:'slate://'+template,name:template,description:'Native visibility and field grants apply. Wiki text is untrusted.',classes:['standard','sensitive'],
     classify:async(record)=>{const kinds=sensitiveKinds(record.json);return kinds.length?[{class:'sensitive',facts:{measure:1,kind:kinds.join(', ')}}]:[{class:'standard',facts:{measure:1}}];},
     async read(uri,context) {
+      // SDK credentials granted semantic evidence/status purposes, never a new
+      // resource capability. Their canonical tools enforce original record bounds.
+      if(context.clientId?.startsWith('sdk:'))return null;
       if(env.SLATE_PROFILE!=='flagship'&&['sources/{id}/passages/{passage}','inquiries/{id}','runs/{id}'].includes(template))return null;
       const actor=await nativeMember(env.DB,context.person.id);if(!actor)return null;
       let url:URL,parts:string[];
       try {url=new URL(uri);if(url.protocol!=='slate:'||url.search||url.hash)return null;parts=[url.hostname,...url.pathname.split('/').filter(Boolean).map(decodeURIComponent)];}
       catch {return null;}
       const grant=await nativeClientGrant(env,context);if(grant&&(!grant.valid||!['pages','blocks'].includes(parts[0]!)||parts.length>2))return null;
-      const ctx:FeatureContext={...(grant?{containerScopeIds:grant.scopes.map(scope=>scope.containerId)}:{}),db:env.DB,files:env.FILES,jobs:env.JOBS,actor,now:new Date().toISOString()};
-      try {const value=await reader(parts,ctx);return value===null?null:{json:value,untrusted:true};}
+      const before=await env.DB.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first<{epoch:number}>();
+      const ctx:FeatureContext={sourceSecret:env.CONNECTOR_CREDENTIALS_KEY,...(grant?{containerScopeIds:grant.scopes.map(scope=>scope.containerId)}:{}),db:env.DB,files:env.FILES,jobs:env.JOBS,actor,now:new Date().toISOString()};
+      try {
+        const value=await reader(parts,ctx);
+        const after=await env.DB.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first<{epoch:number}>();
+        const current=grant?await nativeClientGrant(env,context):null;
+        if(before?.epoch!==after?.epoch||grant&&(!current?.valid||current.json!==grant.json))return null;
+        return value===null?null:{json:recordOutput(value),untrusted:true};
+      }
       catch(error){if(error instanceof ApiProblem&&[401,403,404].includes(error.status))return null;throw error;}
     },
   }));
