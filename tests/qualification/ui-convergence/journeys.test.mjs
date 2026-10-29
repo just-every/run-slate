@@ -20,6 +20,7 @@ import { presentationJourney } from './presentation-journey.mjs';
 import { analyticsJourney } from './analytics-journey.mjs';
 import { reactionsJourney } from './reactions-journey.mjs';
 import { pageDisplayJourney } from './page-display-journey.mjs';
+import { pageCreationJourney } from './page-creation-journey.mjs';
 import { createInPlaceJourney } from './create-in-place-journey.mjs';
 import assert from 'node:assert/strict';
 import { journeyTest as test } from './journey-shard.mjs';
@@ -113,6 +114,7 @@ for (const width of [390]) {
       await setupWorkspace(state);
       await treeFilterJourney(state);
       await state.switchIdentity('owner');
+      await pageCreationJourney(state, { phoneProof: true });
       await settingsJourney(state,width);
       await workspaceAuthorityJourney(state,width);
     });
@@ -246,6 +248,7 @@ for (const width of [1440]) {
       await setupWorkspace(state);
       await step('TREE-005 — create in place names root and child destinations', () => createInPlaceJourney(state));
       await state.switchIdentity('owner');
+      await pageCreationJourney(state);
       await withSecondPerson(state, width, people => step('PAGE-015 — locks protect content while editors comment and unlock', () => pageLockBrowserJourney(state, people)));
     });
   });
