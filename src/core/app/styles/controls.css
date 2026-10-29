@@ -16,6 +16,28 @@
 }
 .slate-app :is(.primary-button, button.primary, .actions .run):not(:disabled):hover { background-color: var(--slate-accent-hover); }
 .slate-app :is(.secondary-button, .tool, .icon-action):not(.tool-primary):not(:disabled):hover { background-color: var(--slate-wash); }
+/* Tips fit the local task, record property, list row or card, even in a narrow peek. */
+.slate-app :is([data-task-item], .record-field dd,
+  .database-workspace li:has(button[role="checkbox"]),
+  .database-workspace article:has(button[role="checkbox"])) { container-type: inline-size; }
+.slate-app button[role="checkbox"][data-tooltip-align="start"]::after {
+  left: 0;
+  width: max-content;
+  max-width: min(16rem, calc(100vw - 64px), calc(100cqi - 12px));
+  overflow-wrap: anywhere;
+  white-space: normal;
+  transform: none;
+}
+/* List fields trail the title: expand their tips back into the bounded row. */
+.slate-app .database-workspace li button[role="checkbox"][data-tooltip-align="start"]::after {
+  left: auto;
+  right: 0;
+}
+/* Keep card covers clipped at their corners without clipping a field's tip. */
+.slate-app .database-workspace article:has(button[role="checkbox"]) { overflow: visible; }
+.slate-app .database-workspace article:has(button[role="checkbox"]) > [aria-hidden="true"] {
+  clip-path: inset(0 round calc(var(--radius-card) - 1px) calc(var(--radius-card) - 1px) 0 0);
+}
 /* A checkbox keeps its 32px touch target and draws a 20px box inside it. */
 .slate-app button[role="checkbox"] {
   width: 32px;
@@ -28,6 +50,14 @@
   box-shadow: inset 0 0 0 1px var(--slate-line-strong);
 }
 .slate-app button[role="checkbox"][data-state="checked"] { background-color: var(--slate-accent); box-shadow: none; color: var(--slate-accent-ink); }
+/* Fade the control's own paint, leaving its accessible-name tip fully opaque. */
+.slate-app button[role="checkbox"]:disabled[data-tooltip] {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--slate-line-strong) var(--slate-disabled-checkbox-strength, 55%), transparent);
+}
+.slate-app button[role="checkbox"][data-state="checked"]:disabled[data-tooltip] {
+  background-color: color-mix(in srgb, var(--slate-accent) var(--slate-disabled-checkbox-strength, 55%), transparent);
+  box-shadow: none;
+}
 .slate-app .settings-panel :is(h2,h3) + button { margin-top: 8px; }
 .slate-app .space-choice[aria-pressed="true"] { border-color: var(--slate-accent); background: var(--slate-accent-soft); }
 .slate-app .restore-workspace > summary { margin-top: 8px; }
