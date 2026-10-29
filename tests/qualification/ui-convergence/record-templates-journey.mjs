@@ -41,7 +41,7 @@ export async function recordTemplatesJourney(state, people) {
   const committed = bob.page.waitForResponse(response => response.request().method() === 'POST' && new URL(response.url()).pathname === `/api/databases/${database.id}/templates`);
   await dialog.getByRole('button', { name: 'Save template', exact: true }).click();
   const response = await committed;
-  assert.equal(response.status(), 200);
+  assert.equal(response.status(), 201);
   const replay = response.request().postDataJSON();
   await expect(dialog).not.toBeVisible();
   await expect(card(bob.page)).toContainText('runs as Morgan Reader');
