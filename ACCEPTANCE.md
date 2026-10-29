@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 44 | 253 | 34 | 331 |
+| Core | 45 | 252 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 44 | 253 | 40 | 337 |
+| Full target | 45 | 252 | 40 | 337 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1194,7 +1194,7 @@ Core · published · **partial**
 
 #### STAT-005 — Status profile
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** *Policy: `page.status.v1`; default: `verification-only`, following Notion.
 
@@ -1205,7 +1205,7 @@ Core · published · **partial**
 4. Profile journeys for `verification-only` and `open-vocabulary` show and hide exactly the listed controls.
 
 **Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", loading `tests/qualification/ui-convergence/status-profile-journey.mjs` — "statusProfileJourney": acceptance 1–4, both profiles and their controls, chip placement, twenty-character custom labels, native policy round trips preserving vocabulary, assigned statuses, content, revision history and human verification; owner vocabulary authority and unopened attestation refusal. `tests/e2e/review/verification-flow.test.ts` — "Verifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current" retains exact-revision human verification.
-**Gap.** Native profile journeys pass in isolation; complete shared-core proof is pending reconciliation with the active vocabulary added by the search journey.
+**Gap.** None.
 
 ### Comments
 

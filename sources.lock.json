@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "1be42d9bbc3c17406eda1e4791e749635d759de946b83715f1a848b439cd11d2",
+      "sha256": "57b28269ba5005d5915634334138b8ffa8e8b726a39a84ce6c7a25e01166e639",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "7acddce54892f0b85b732ec1af0a40bc51fc9d7c9428352dff985d44c6861e50",
+      "sha256": "bda0f5043aa3864f52d5a35d4e86740517df0aeccce3085a6682fbeaa358980d",
       "executable": false
     },
     "DEMO.md": {
@@ -12028,7 +12028,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/status-profile-journey.mjs": {
-      "sha256": "a71bdc245d06e58fac5aae55b6a81e9d6a750f6f91e56e554df2d549b89db418",
+      "sha256": "4b377cbec98a47540e63e13fde3b59a0a8dd0d628ad2684d3d01a05eb10f6337",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
