@@ -35,7 +35,7 @@ try {
    SELECT printf('capacity-record-%06d',i),${common},'record',printf('Customer record %06d',i),'browser-owner','live','r','r',${q(now)},${q(now)},'r' FROM n;
    INSERT INTO database_records(page_id,database_id,field_values_json,created_at,updated_at,revision_id)
    SELECT id,'capacity-db',json_object('capacity-field',CASE WHEN CAST(substr(id,-6) AS INTEGER)%1000=0 THEN 'Capacityneedle ' ELSE '' END||'Retained customer context '||id),${q(now)},${q(now)},'r' FROM pages WHERE id LIKE 'capacity-record-%';`);
-  const extra=limits.containersPerWorkspace-containers.length;
+  const extra=limits.containersPerWorkspace-containers.filter(item=>item.visibility!=='personal').length;
   await state.atRest(`${sequence(extra)} INSERT INTO containers(id,workspace_id,name,description,created_at,updated_at,revision_id)
    SELECT printf('capacity-container-%03d',i),'browser-workspace',printf('Team space %03d',i),CASE WHEN i%10=0 THEN 'Capacityneedle retained space purpose' ELSE 'Retained space purpose' END,${q(now)},${q(now)},'r' FROM n;
    INSERT INTO container_grants(id,container_id,principal_kind,principal_id,level,created_at,updated_at)
@@ -48,6 +48,7 @@ try {
    SELECT printf('capacity-template-%03d',i),'browser-workspace',printf('Reusable procedure %03d',i),'Retained template description','General',json_object('blocks',json_array(json_object('content',json_object('text',CASE WHEN i%10=0 THEN 'Capacityneedle retained template content' ELSE 'Retained template content' END)))),${q(now)},${q(now)},'r' FROM n;`);
   const [counts]=await state.atRest("SELECT (SELECT COUNT(*) FROM pages WHERE id LIKE 'capacity-page-%') AS ordinaryPages,(SELECT COUNT(*) FROM database_records WHERE database_id='capacity-db') AS recordPages,(SELECT COUNT(*) FROM containers WHERE visibility!='personal') AS containers,(SELECT COUNT(*) FROM comments WHERE id LIKE 'capacity-thread-%') AS retainedComments,(SELECT COUNT(*) FROM knowledge_templates WHERE id LIKE 'capacity-template-%') AS templates");
   const actualCounts=counts.results[0];
+  console.log('Capacity canonical corpus',JSON.stringify(actualCounts));
   assert.deepEqual(actualCounts,{ordinaryPages:pages,recordPages:records,containers:limits.containersPerWorkspace,retainedComments:limits.commentsPerPage,templates:100});
   report.manifest={actualCounts,ordinaryPages:pages,recordPages:records,recordsPerDatabase:records,containers:limits.containersPerWorkspace,retainedComments:limits.commentsPerPage,templates:100,
    expectedMatchingKinds:{page:pages/1000,record:records/1000,container:Math.floor(extra/10),'comment-thread':Math.floor(limits.commentsPerPage/100),template:10},
@@ -65,6 +66,7 @@ try {
   const indexing=await request('Capacityneedle',state.readerCookie,1200000);
   assert.equal(indexing.status,200,JSON.stringify(indexing.data));
   report.indexPreparationMs=indexing.ms;
+  console.log('Capacity index preparation milliseconds',indexing.ms);
   const expected=Object.values(report.manifest.expectedMatchingKinds).reduce((a,b)=>a+b,0);
   assert.equal(indexing.data.total,expected);assert.deepEqual(indexing.data.facets.kind,report.manifest.expectedMatchingKinds);
   const workloads=[['Capacityneedle',expected],['"Operations handbook 000002"',1],['"Retained procedure capacity-page-000002"',1],['"Retained customer context capacity-record-000002"',1],['"Capacityneedle retained space purpose"',Math.floor(extra/10)],['"Capacityneedle retained discussion"',Math.floor(limits.commentsPerPage/100)],['"Capacityneedle retained template content"',10]];
@@ -72,6 +74,7 @@ try {
    const response=await request(query);assert.equal(response.status,200,JSON.stringify(response.data));assert.equal(response.data.total,total,query);
    if(query==='Capacityneedle')assert.deepEqual(response.data.facets.kind,report.manifest.expectedMatchingKinds);
    report.samples.push({round,query,total,items:response.data.items.map(item=>item.id),ms:response.ms});
+   if(query==='Capacityneedle'&&round%5===0)console.log('Capacity mixed first-page sample',round,response.ms);
   }
   // Cold process and owner context are measured separately and included in p95.
   await state.atRest('SELECT 1');
