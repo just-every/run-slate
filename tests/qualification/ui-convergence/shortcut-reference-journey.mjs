@@ -161,6 +161,7 @@ async function editorCommands(state, pageId, blockId) {
   await expect(mentions).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(mentions).toHaveCount(0);
+  await expect.poll(async () => plain((await api(`/api/pages/${pageId}`)).blocks[0])?.endsWith('@')).toBe(true);
   const committed = (await api(`/api/pages/${pageId}`)).blocks;
   await page.keyboard.press('ControlOrMeta+K');
   await expect(page).toHaveURL(origin + '/app/search');

@@ -5432,7 +5432,7 @@
       "executable": false
     },
     "src/core/app/ui/AppShell.tsx": {
-      "sha256": "e842ec44af36bee0c16e81b225974d204f7e171f6d530b93284b6d965b7bc6a7",
+      "sha256": "b2c85a82f06c519c64fc07309be1587332379964794a03f6178bc02513f3186b",
       "executable": false
     },
     "src/core/app/ui/displayDate.ts": {
@@ -12024,7 +12024,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/shortcut-reference-journey.mjs": {
-      "sha256": "ddc2297a7c134e58bcfa77654c02dee02faf6564cf85dd227f7b851dd9c8593f",
+      "sha256": "83e01d4f2fa49329bc836b32dd11e70b86c6609ebf42a4cd74ee71cb5e0c1d93",
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {
