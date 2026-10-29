@@ -13,26 +13,33 @@ import { ApiProblem } from '../../app/problems';
 import { deliverIdentityMail } from '../session/mail';
 import { admitIdentityMail, requireMailConfig } from '../session/mail-admission';
 import { requireGuestDomain } from './guest-policy';
-type InvitationInput={operationKey:string;email:string;kind:'member'|'guest';pageId?:string;containerId?:string;level?:AccessLevel;expiresAt?:string|null};
-/** Admit the invitation and encrypted delivery together, before transport. */
-export async function prepareInvitation(ctx:FeatureContext,config:RuntimeConfig,input:InvitationInput) {
+export type InvitationInput={operationKey:string;email:string;kind:'member'|'guest';pageId?:string;containerId?:string;level?:AccessLevel;expiresAt?:string|null};
+/** Native admission, shared by the UI and signed Business roster adapter. */
+export async function authorizeInvitation(ctx:FeatureContext,input:InvitationInput) {
+
+    const subject=await currentSubject(ctx);if(subject.isGuest)throw new ApiProblem(403,'FORBIDDEN','Guests cannot invite people.');
+    if(input.kind==='guest') { await requireConfiguredLevel(ctx,input.level??'view'); if(input.pageId) { const access=await requirePageLevel(ctx,input.pageId,'full'); if(access.context.container.externalAccess.guests==='forbidden')throw new ApiProblem(403,'GUESTS_FORBIDDEN','Guests are forbidden here.'); } else if(input.containerId) { await requireContainerLevel(ctx,input.containerId,'full'); const veto=await ctx.db.prepare('SELECT c.visibility,c.guest_access,w.guest_access AS site_guests FROM containers c JOIN workspaces w ON w.id=c.workspace_id WHERE c.id=?').bind(input.containerId).first<{visibility:string;guest_access:string;site_guests:string}>();if(!veto||veto.visibility==='personal'||veto.guest_access==='forbidden'||veto.site_guests==='forbidden')throw new ApiProblem(403,'GUESTS_FORBIDDEN','Guests are forbidden here.'); } else throw new ApiProblem(400,'TARGET_REQUIRED','A guest requires a page or container.'); }
+
+}
+/** Prepare once; the caller commits invitation, encrypted mail and its own authority fence together. */
+export async function nativeInvitationPlan(ctx:FeatureContext,config:RuntimeConfig,input:InvitationInput,revisionId:string) {
   if(input.kind==='member'&&(input.level!==undefined||input.expiresAt!==undefined))throw new ApiProblem(400,'INVALID_INVITATION_SCOPE','Resource permissions apply only to guest invitations.');
   if(input.expiresAt!==undefined&&input.expiresAt!==null&&(!Number.isFinite(Date.parse(input.expiresAt))||input.expiresAt<=ctx.now))throw new ApiProblem(400,'INVALID_GRANT_EXPIRY','Choose a future grant expiry.');
   if((input.pageId&&input.containerId)||(input.kind==='member'&&(input.pageId||input.containerId)))throw new ApiProblem(400,'INVALID_INVITATION_SCOPE','A guest invitation names exactly one page or container; member invitations do not confer resource grants.');
   requireMailConfig(config);
   const token=createOpaqueToken();
-  const result=await commitOperation(ctx,{operationKey:input.operationKey,action:'member.invite',request:input,authorize:async()=>{
-    const subject=await currentSubject(ctx);if(subject.isGuest)throw new ApiProblem(403,'FORBIDDEN','Guests cannot invite people.');
-    if(input.kind==='guest') { await requireConfiguredLevel(ctx,input.level??'view'); if(input.pageId) { const access=await requirePageLevel(ctx,input.pageId,'full'); if(access.context.container.externalAccess.guests==='forbidden')throw new ApiProblem(403,'GUESTS_FORBIDDEN','Guests are forbidden here.'); } else if(input.containerId) { await requireContainerLevel(ctx,input.containerId,'full'); const veto=await ctx.db.prepare('SELECT c.visibility,c.guest_access,w.guest_access AS site_guests FROM containers c JOIN workspaces w ON w.id=c.workspace_id WHERE c.id=?').bind(input.containerId).first<{visibility:string;guest_access:string;site_guests:string}>();if(!veto||veto.visibility==='personal'||veto.guest_access==='forbidden'||veto.site_guests==='forbidden')throw new ApiProblem(403,'GUESTS_FORBIDDEN','Guests are forbidden here.'); } else throw new ApiProblem(400,'TARGET_REQUIRED','A guest requires a page or container.'); }
-  },prepare:async({revisionId})=>{
+
     const policy=input.kind==='guest'?await requireGuestDomain(ctx.db,ctx.actor.workspaceId,input.email):null;
     const grantExpiry=input.expiresAt==null&&policy?.defaultExpiryDays?new Date(Date.parse(ctx.now)+policy.defaultExpiryDays*86400000).toISOString():input.expiresAt??null;
     const id=createUlid(),grantId=input.kind==='guest'?createUlid():null; const existing=await ctx.db.prepare("SELECT id FROM members WHERE workspace_id=? AND lower(email)=lower(?) AND status='active'").bind(ctx.actor.workspaceId,input.email.toLowerCase()).first();
     const statements:D1PreparedStatement[]=[];
     if(!existing) { if(grantId){const table=input.pageId?'page_grants':'container_grants',key=input.pageId?'page_id':'container_id';statements.push(ctx.db.prepare(`INSERT INTO ${table} (id,${key},principal_kind,principal_id,level,expires_at,created_at,updated_at) VALUES (?,?,'member',?,?,?,?,?)`).bind(grantId,input.pageId??input.containerId!,`invitation:${id}`,input.level??'view',grantExpiry,ctx.now,ctx.now));} statements.push(ctx.db.prepare('INSERT INTO invitations (id,workspace_id,email,kind,container_id,page_id,container_grant_id,page_grant_id,token_digest,invited_by_member_id,expires_at,created_at,guest_expires_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)').bind(id,ctx.actor.workspaceId,input.email.toLowerCase(),input.kind,input.containerId??null,input.pageId??null,input.containerId?grantId:null,input.pageId?grantId:null,await sessionDigest(config.sessionSecret,token),ctx.actor.id,new Date(Date.parse(ctx.now)+7*86400000).toISOString(),ctx.now,grantExpiry)); const url=new URL('/api/auth/invitation/accept',config.appUrl);url.searchParams.set('token',token);const delivery=await admitIdentityMail(ctx.db,config,{workspaceId:ctx.actor.workspaceId,email:input.email.toLowerCase(),kind:'invitation',invitationId:id,url:url.toString(),operationKey:input.operationKey,requestedByMemberId:ctx.actor.id},ctx.now);statements.push(delivery.statement); }
-    return {entity:{id:ctx.actor.workspaceId,kind:'invitation',revisionId},value:{accepted:true},statements};
-  }});
-  return result;
+    return {entity:{id:ctx.actor.workspaceId,kind:'invitation',revisionId},value:{accepted:true},statements,invitationId:id};
+}
+/** Admit the invitation and encrypted delivery together, before transport. */
+export async function prepareInvitation(ctx:FeatureContext,config:RuntimeConfig,input:InvitationInput) {
+  return commitOperation(ctx,{operationKey:input.operationKey,action:'member.invite',request:input,
+    authorize:()=>authorizeInvitation(ctx,input),prepare:({revisionId})=>nativeInvitationPlan(ctx,config,input,revisionId)});
 }
 export async function invite(ctx:FeatureContext,config:RuntimeConfig,input:InvitationInput) {
   const result=await prepareInvitation(ctx,config,input);
@@ -57,6 +64,8 @@ export async function acceptInvitation(db:D1Database,config:RuntimeConfig,token:
   if(former&&!['removed','historical'].includes(former.status))throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or already used.');
   const personal=former?.status==='historical'&&!!await db.prepare("SELECT 1 FROM containers WHERE workspace_id=? AND key=? AND archived_at IS NULL").bind(row.workspace_id,`personal:${former.id}`).first();
   const id=former?.id??createUlid();
+  const businessBinding=await db.prepare('SELECT member_id FROM slate_business_invitations WHERE invitation_id=?').bind(row.id).first<{member_id:string|null}>();
+  if(businessBinding?.member_id&&businessBinding.member_id!==id)throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or expired.');
   const statements=[mutationGuard(db,'SELECT accepted_by_member_id IS NULL AND revoked_at IS NULL AND expires_at>? FROM invitations WHERE id=?',[now,row.id]),former?db.prepare("UPDATE members SET status='active',role='member',member_kind=?,is_setup_owner=0,updated_at=?,guest_expires_at=? WHERE id=?").bind(row.kind,now,guestExpiry,id):db.prepare("INSERT INTO members (id,workspace_id,email,display_name,initials,role,member_kind,status,is_setup_owner,created_at,updated_at,guest_expires_at) VALUES (?,?,?,?,?,'member',?,'active',0,?,?,?)").bind(id,row.workspace_id,row.email,row.email.split('@')[0],row.email.slice(0,2).toUpperCase(),row.kind,now,now,guestExpiry),db.prepare('UPDATE invitations SET accepted_by_member_id=? WHERE id=?').bind(id,row.id)];
   // Only a current full member of this workspace can stand behind a delivered invitation.
   statements.unshift(mutationGuard(db,"SELECT status='active' AND member_kind='member' AND workspace_id=? FROM members WHERE id=?",[row.workspace_id,row.invited_by_member_id]));
@@ -77,12 +86,17 @@ export async function acceptInvitation(db:D1Database,config:RuntimeConfig,token:
     const plan=await scimInvitationAcceptancePlan({db,files:resources.files,jobs:resources.jobs,actor:inviter,now},row.id,id);
     statements.unshift(...plan.before);statements.push(...plan.after);
   }
+  // Only this exact native invitation can complete its pre-existing Business binding.
+  statements.push(db.prepare('UPDATE slate_business_invitations SET member_id=? WHERE invitation_id=? AND member_id IS NULL').bind(id,row.id));
+  statements.push(db.prepare("UPDATE bs_team SET operator_id=?,state='active' WHERE state='invited' AND (operator_id IS NULL OR operator_id=?) AND business_id=(SELECT business_id FROM slate_business_invitations WHERE invitation_id=? AND member_id=?)").bind(id,id,row.id,id));
   try { await db.batch(statements); } catch {throw new ApiProblem(400,'LINK_INVALID','This invitation is invalid or already used.');}
   return {memberId:id};
 }
 export async function revokeInvitation(ctx:FeatureContext,input:{operationKey:string;id:string}) {
-  return commitOperation(ctx,{operationKey:input.operationKey,action:'invitation.revoke',request:input,authorize:()=>requireWorkspaceOwner(ctx),prepare:async({revisionId})=>({entity:{id:input.id,kind:'invitation',revisionId},value:{revoked:true},statements:[mutationGuard(ctx.db,'SELECT workspace_id=? AND accepted_by_member_id IS NULL AND revoked_at IS NULL AND expires_at>? FROM invitations WHERE id=?',[ctx.actor.workspaceId,ctx.now,input.id]),ctx.db.prepare('UPDATE invitations SET revoked_at=? WHERE id=?').bind(ctx.now,input.id),ctx.db.prepare('UPDATE page_grants SET revoked_at=?,updated_at=? WHERE id=(SELECT page_grant_id FROM invitations WHERE id=?)').bind(ctx.now,ctx.now,input.id),ctx.db.prepare('UPDATE container_grants SET revoked_at=?,updated_at=? WHERE id=(SELECT container_grant_id FROM invitations WHERE id=?)').bind(ctx.now,ctx.now,input.id),ctx.db.prepare("UPDATE mail_deliveries SET state=CASE WHEN state='sent' THEN state ELSE 'failed' END,delivery_phase=CASE WHEN state='sent' THEN delivery_phase ELSE 'cancelled' END,payload_ciphertext=NULL,next_attempt_at=NULL,lease_until=NULL,updated_at=? WHERE invitation_id=?").bind(ctx.now,input.id)]})});
+  return commitOperation(ctx,{operationKey:input.operationKey,action:'invitation.revoke',request:input,authorize:()=>requireWorkspaceOwner(ctx),prepare:async({revisionId})=>nativeRevokeInvitationPlan(ctx,input,revisionId)});
 }
+
+export function nativeRevokeInvitationPlan(ctx:FeatureContext,input:{operationKey:string;id:string},revisionId:string) {return {entity:{id:input.id,kind:'invitation',revisionId},value:{revoked:true},statements:[mutationGuard(ctx.db,'SELECT workspace_id=? AND accepted_by_member_id IS NULL AND revoked_at IS NULL AND expires_at>? FROM invitations WHERE id=?',[ctx.actor.workspaceId,ctx.now,input.id]),ctx.db.prepare('UPDATE invitations SET revoked_at=? WHERE id=?').bind(ctx.now,input.id),ctx.db.prepare('UPDATE page_grants SET revoked_at=?,updated_at=? WHERE id=(SELECT page_grant_id FROM invitations WHERE id=?)').bind(ctx.now,ctx.now,input.id),ctx.db.prepare('UPDATE container_grants SET revoked_at=?,updated_at=? WHERE id=(SELECT container_grant_id FROM invitations WHERE id=?)').bind(ctx.now,ctx.now,input.id),ctx.db.prepare("UPDATE mail_deliveries SET state=CASE WHEN state='sent' THEN state ELSE 'failed' END,delivery_phase=CASE WHEN state='sent' THEN delivery_phase ELSE 'cancelled' END,payload_ciphertext=NULL,next_attempt_at=NULL,lease_until=NULL,updated_at=? WHERE invitation_id=?").bind(ctx.now,input.id)]};}
 
 /** Pending invitations are an owner view; delivery history has its own surface. */
 export async function listInvitations(ctx:FeatureContext) {

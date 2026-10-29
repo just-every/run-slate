@@ -74,3 +74,5 @@ async function handleRequest(request: Request, bindings: AppBindings, execution:
 
 export { ContentCollaboration } from "./core/features/collaboration/durable-object";
 export type { AppType } from "./core/app/hono";
+
+export {SlateAgentOperations} from './core/features/company-agent/worker';

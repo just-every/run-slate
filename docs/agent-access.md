@@ -12,10 +12,10 @@ owner-native administration. Native wiki activity is not a typed shared-door
 resource event feed. BASE-AGENT-010 and SURFACE-005 remain partial / not-declared
 for events and subscriptions, rather than claiming cross-product handoffs.
 
-The shared door is not yet connected to Slate's native registry. Its source and
-contract clauses alone do not make the wiki available through that door. The
-native interface remains authoritative. Existing development agent endpoints
-are not proof of the company-policy integration.
+The shared door is connected to native workspace/activity/navigation reads and
+page, block and container actions. Its full Agent surface adoption is still in
+progress. The native interface remains authoritative; the target tool table is
+not a claim that every drafted job is available through this door.
 
 Every eventual shared-door call must resolve the signed Business subject to a
 current native member id. An email match cannot select a sponsor or transfer a
@@ -27,3 +27,9 @@ Only a real native reversal may offer Undo. No provider cost or spend enforcemen
 is claimed; a conformance policy must use `spend: {none: true}`. Provider and
 queued effects need their own native execution and revocation evidence before
 they can be declared.
+
+The portable deployment declaration supplies public `resend` /
+`signin@example.invalid` values for disposable hosted verification. These are
+not credentials. The native deployment hook still requires explicit
+`SLATE_MAIL_PROVIDER` and `SLATE_MAIL_FROM`, and overwrites both values before
+calling Base deployment. It refuses absent owner answers.

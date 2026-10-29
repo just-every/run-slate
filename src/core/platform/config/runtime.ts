@@ -6,6 +6,7 @@ export interface RuntimeBindings {
   RER_PREVIEW_OWNER_SIGNIN?: string;
   RER_DEMO?: string;
   RER_BUSINESS?: string;
+  RER_BUSINESS_TRUST?: string;
   RER_OWNER_CLAIM_ISSUER?: string;
   RER_OWNER_CLAIM_INSTALLATION_ID?: string;
   RER_OWNER_CLAIM_PUBLIC_KEYS?: string;

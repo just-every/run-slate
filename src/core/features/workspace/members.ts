@@ -33,6 +33,13 @@ export async function removeMember(ctx:FeatureContext,input:{operationKey:string
     if(!selfException)await requireWorkspaceOwner(ctx);
   };
   const result=await commitOperation(ctx,{commit:erasure?.commit,operationKey:input.operationKey,action:input.erase?'member.erase':'member.remove',request:input,authorize,prepare:async({revisionId})=>{
+    return nativeRemoveMemberPlan(ctx,input,revisionId);
+  }});
+  if(input.erase)await completeErasure(ctx);
+  return result;
+}
+/** Shared native removal plan; its caller must authorize and fence the committing batch. */
+export async function nativeRemoveMemberPlan(ctx:FeatureContext,input:{operationKey:string;memberId:string;erase?:boolean},revisionId:string) {
     const target=await ctx.db.prepare('SELECT email,is_setup_owner FROM members WHERE id=? AND workspace_id=?').bind(input.memberId,ctx.actor.workspaceId).first<{email:string;is_setup_owner:number}>();
     if(!target) throw new ApiProblem(404,'NOT_FOUND','Not found.');
     if(target.is_setup_owner&&input.memberId!==ctx.actor.id) throw new ApiProblem(403,'SETUP_OWNER','Only the setup owner can remove themselves.');
@@ -57,9 +64,6 @@ export async function removeMember(ctx:FeatureContext,input:{operationKey:string
     if(input.erase) statements.push(ctx.db.prepare('DELETE FROM magic_links WHERE email=?').bind(target.email),ctx.db.prepare('DELETE FROM auth_proofs WHERE member_id=?').bind(input.memberId),ctx.db.prepare('DELETE FROM member_identity_bindings WHERE member_id=?').bind(input.memberId),ctx.db.prepare('DELETE FROM sessions WHERE member_id=?').bind(input.memberId),ctx.db.prepare("UPDATE members SET email=?,display_name='Deleted person',initials='?',updated_at=? WHERE id=?").bind(`erased-${input.memberId}@invalid`,ctx.now,input.memberId),ctx.db.prepare('UPDATE activity_entries SET actor_member_id=NULL WHERE actor_member_id=?').bind(input.memberId),ctx.db.prepare('UPDATE invitations SET email=? WHERE workspace_id=? AND email=?').bind(`erased-${input.memberId}@invalid`,ctx.actor.workspaceId,target.email),ctx.db.prepare('UPDATE mail_deliveries SET target_email=?,error_detail=NULL WHERE member_id=? OR target_email=?').bind(`erased-${input.memberId}@invalid`,input.memberId,target.email));
     statements.push(await identityRevision(ctx,revisionId,'member',input.memberId,{removed:true,erased:!!input.erase}));
     return {entity:{id:input.memberId,kind:'member',revisionId},value:{removed:true,erased:!!input.erase},statements};
-  }});
-  if(input.erase)await completeErasure(ctx);
-  return result;
 }
 export async function setMemberRole(ctx:FeatureContext,input:{operationKey:string;memberId:string;expectedRole:'owner'|'member';role:'owner'|'member'}) {
  return commitOperation(ctx,{operationKey:input.operationKey,action:'member.role',request:input,authorize:()=>requireWorkspaceOwner(ctx),prepare:async({revisionId})=>({entity:{id:input.memberId,kind:'member',revisionId},value:{id:input.memberId,role:input.role},statements:[mutationGuard(ctx.db,"SELECT role=? AND status='active' AND member_kind='member' AND workspace_id=? FROM members WHERE id=?",[input.expectedRole,ctx.actor.workspaceId,input.memberId]),...(input.role==='member'?[mutationGuard(ctx.db,"SELECT role!='owner' OR (SELECT count(*) FROM members WHERE workspace_id=? AND role='owner' AND status='active')>1 FROM members WHERE id=?",[ctx.actor.workspaceId,input.memberId])]:[]),ctx.db.prepare('UPDATE members SET role=?,updated_at=? WHERE id=?').bind(input.role,ctx.now,input.memberId),await identityRevision(ctx,revisionId,'member',input.memberId,{role:input.role})]})});
