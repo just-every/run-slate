@@ -39,11 +39,13 @@ async function databaseCheckboxBounds({ page, context, origin, api }, containerI
     const rest = await measure();
     assert.equal(rest.scroll, rest.viewport, `SL35 ${surface}: a hidden field tip does not widen the page`);
     assert.notEqual(rest.ring, enabledRing, `Read-only ${surface} checkbox keeps its faded ring`);
-    // CI's headless Chromium can hold the first frame after a hover on an idle
-    // page for ~5 s, longer than the poll. A live frame loop keeps it rendering.
+    // CI's headless Chromium stalled for ~5 s when the tip's pseudo-element style
+    // was polled while its 300 ms delayed fade ran on an idle page. Keep frames
+    // rendering and let the delay and fade finish before the first read.
     await page.evaluate(() => { const loop = () => { window.__tipFrames = requestAnimationFrame(loop); }; loop(); });
     await page.mouse.move(0, 0);
     await checkbox.hover();
+    await page.waitForTimeout(1000);
     await expect.poll(() => checkbox.evaluate(el => el.matches(':hover')), { message: `SL35 ${surface}: the pointer reaches the field` }).toBe(true);
     await expect.poll(async () => (await measure()).opacity, { message: `SL35 ${surface}: the field tip appears after hover` }).toBe('1');
     const shown = await measure();
