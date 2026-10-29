@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 44 | 253 | 34 | 331 |
+| Core | 49 | 248 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 44 | 253 | 40 | 337 |
+| Full target | 49 | 248 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `66dfc5cf0e5cea55b6517fa3156c11e078a2c35a` (29 October 2026); PAGE-002 source proof, retaining newer main clause judgments. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -349,7 +349,7 @@ Core · published · **partial**
 
 #### PAGE-002 — Creation
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A member with edit access on the destination can create a page blank or from a template (`TMPL-003`), from the tree, from the global create action, or as a child of an open page.
 
@@ -357,8 +357,8 @@ Core · published · **partial**
 1. It is created in exactly one container at one position, and its initial lifecycle state follows `LIFE-006`.
 2. Pages are created blank and from a template from the tree, global create and as a child, each at one position.
 
-**Evidence.** `tests/qualification/interface/content.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/page-creation-journey.mjs` — "pageCreationJourney", called by "page creation destinations and editor locks preserve readable content at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2, blank and populated template creation through the tree, global Create and open-page child actions under both lifecycle values; canonical container, parent and unique sibling position after reload; unchanged source template and source page; refused view-only creation leaves the entire tree unchanged. The existing "space tree title filtering preserves ancestors, access and expansion at 390px" caller records responsive creation proof.
+**Gap.** None.
 
 #### PAGE-003 — Identity survives everything
 
@@ -731,7 +731,7 @@ Core · published · **partial**
 
 #### LIFE-001 — Lifecycle states
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A page is `draft`, `scheduled`, `live`, `live-with-unpublished-changes` or `archived`.
 
@@ -740,8 +740,8 @@ Core · published · **partial**
 2. Every transition records the actor and the time, and every state exists in the stored model whichever value `LIFE-006` carries.
 3. Every lifecycle state and transition is stored with actor and time under both lifecycle policy values.
 
-**Evidence.** `tests/qualification/interface/publication.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`.
+**Evidence.** `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`).
+**Gap.** None.
 
 #### LIFE-002 — A draft is private
 
@@ -761,7 +761,7 @@ Core · published · **partial**
 
 #### LIFE-003 — Publish
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Publishing takes a location, a general access setting (`SHARE-004`), an optional version comment, an optional schedule and an optional publish-as attribution, shows a preview of what readers will see, and on confirmation makes the page visible in its container's tree, in search and in content queries, and writes one version with origin `publish` (`REV-002`).
 
@@ -769,12 +769,12 @@ Core · published · **partial**
 1. Publishing takes a location, a general access setting (`SHARE-004`), an optional version comment, an optional schedule and an optional publish-as attribution, shows a preview of what readers will see, and on confirmation makes the page visible in its container's tree, in search and in content queries, and writes one version with origin `publish` (`REV-002`).
 2. Publish with location, access, comment, schedule and attribution previews and writes one `publish` version.
 
-**Evidence.** `tests/qualification/interface/publication.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`.
+**Evidence.** `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`).
+**Gap.** None.
 
 #### LIFE-004 — Scheduled publish
 
-Core · published · **partial** · Cites BASE-OPS-004
+Core · published · **done** · Cites BASE-OPS-004
 
 **Requirement.** A publish set for a future time leaves the page `scheduled`, shows that time wherever the page appears to its author, and publishes at that time without a further action.
 
@@ -782,12 +782,12 @@ Core · published · **partial** · Cites BASE-OPS-004
 1. Canceling before it fires returns the page to `draft` and publishes nothing; a schedule that fails to fire leaves the page `scheduled` and reports the failure under `BASE-OPS-004`.
 2. A scheduled publish fires at its time; cancel returns to draft; a failed schedule is reported.
 
-**Evidence.** `tests/qualification/interface/publication.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`.
+**Evidence.** `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`).
+**Gap.** None.
 
 #### LIFE-005 — Unpublished changes
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Editing a `live` page changes what readers see only when it is republished: every reader other than the editors sees the published revision, and the page shows that it has unpublished changes to anyone who may edit it.
 
@@ -795,8 +795,8 @@ Core · published · **partial**
 1. Discarding them restores the published revision as the working revision and deletes no version.
 2. Readers see the published revision until republish; discard restores it without deleting a version.
 
-**Evidence.** `tests/qualification/interface/publication.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`.
+**Evidence.** `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`).
+**Gap.** None.
 
 #### LIFE-006 — Lifecycle profile
 
