@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 41 | 256 | 34 | 331 |
+| Core | 42 | 255 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 41 | 256 | 40 | 337 |
+| Full target | 42 | 255 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `e7213c0f4b473a6e41ff2e2038d40a27f55e82da` (29 October 2026); PAGE-007 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -414,7 +414,7 @@ Core · published · **partial**
 
 #### PAGE-007 — Details
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A page's details show its owner, creator, contributors, created and updated times, length, status (`STAT-002`), labels (`PAGE-001`), views (`PAGE-013`) and the pages that link to it.
 
@@ -422,8 +422,8 @@ Core · published · **partial**
 1. A member with `full` access can reassign the owner, which changes no grant and writes one activity entry.
 2. Details show owner, creator, contributors, times, status, labels, views and backlinks; reassigning the owner changes no grant.
 
-**Evidence.** `tests/qualification/backend/emitted.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", invoking `tests/qualification/ui-convergence/page-details-journey.mjs` — `pageDetailsJourney`: acceptance 1 and 2 through native Details, populated metadata including table-inclusive length, readable backlink navigation and hidden-source filtering, full-member owner reassignment and reload, unchanged direct and inherited grant snapshots, exactly one activity entry under replay, and edit-only reassignment and captured replay refused with unchanged page, revisions, grants and activity.
+**Gap.** None.
 
 #### PAGE-008 — Favorite
 

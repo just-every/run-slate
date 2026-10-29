@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `e7213c0f4b473a6e41ff2e2038d40a27f55e82da` (29 October 2026); PAGE-007 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 25 | 201 | 0 | 226 |
+| Published | 26 | 200 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 41 | 256 | 40 | 337 |
+| All | 42 | 255 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4012,7 +4012,7 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `PAGE-004` | Move | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A member with edit access on both places can move a page to another position, another parent, or another container, choosing the destination from a searchable picker."<br>No validated CI-run proof for this acceptance point: "Children move with it, grants are re-resolved against the new parent and the change is shown before it is applied, and comments, versions and links are unchanged." |
 | `PAGE-005` | Duplicate | published | partial | `tests/flagship/content/http.test.ts` | Missing a duplication journey that creates comments, versions, watchers, analytics, grants and publication before duplicating and reads their exclusion; the cited content flow checks some duplicate content and verification behavior only. |
 | `PAGE-006` | Icon and cover | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A page takes an icon from emoji, a supplied icon set or an upload, and a cover from a gallery, an upload or a link."<br>No validated CI-run proof for this acceptance point: "Both are removable, both render in the tree and in search results where the surface has room, and neither is required." |
-| `PAGE-007` | Details | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
+| `PAGE-007` | Details | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", invoking `tests/qualification/ui-convergence/page-details-journey.mjs` — `pageDetailsJourney`: acceptance 1 and 2 through native Details, populated metadata including table-inclusive length, readable backlink navigation and hidden-source filtering, full-member owner reassignment and reload, unchanged direct and inherited grant snapshots, exactly one activity entry under replay, and edit-only reassignment and captured replay refused with unchanged page, revisions, grants and activity. | |
 | `PAGE-008` | Favorite | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A member can favorite a page or a container and unfavorite it."<br>No validated CI-run proof for this acceptance point: "Favorites are personal, are listed in the navigation (`NAV-003`), and are visible to no other member." |
 | `PAGE-009` | Watch | published | done | `tests/flagship/discovery/following.test.ts` — "PAGE-016 — authoring watches respect durable unwatch, personal overrides and workspace defaults" |  |
 | `PAGE-010` | Outline | published | done | `tests/qualification/ui-convergence/outline-journey.mjs` — "outlineJourney" |  |
