@@ -101,7 +101,7 @@ export async function defaultVisibilityJourney(f:Awaited<ReturnType<typeof searc
  const create=async(title:string,statusKey:string|null=null)=>{
   const body='Retained '+title+' instructions.';
   const value=(await mutate('/pages',{containerId:space.id,title,properties:{statusKey},blocks:[{id:crypto.randomUUID(),blockType:'paragraph',treePosition:'a',content:{text:[{text:body}]}}]})).value;
-  return {id:value.pageId as string,revision:value.revisionId as string,title,body};
+  return {id:value.pageId as string,revision:value.revisionId as string,currentRevision:value.revisionId as string,title,body,currentBody:body};
  };
  for(const key of ['visibility-review','visibility-approved'])await mutate('/status',{key,label:key,color:'#145a3d',requiresVerification:false});
  const live=await create('Current procedure','visibility-review');
@@ -129,15 +129,20 @@ export async function defaultVisibilityJourney(f:Awaited<ReturnType<typeof searc
   {text:'Cite '+target.id,link:{href:'/app/pages/'+target.id+'?detail=history&revision='+target.revision}},
  ])}}]})).value.pageId as string;
  await mutate('/sharing',{targetKind:'page',targetId:host,principalKind:'member',principalId:'corpus-guest',level:'view'});
+ // A citation must resolve its original content even after a newer revision commits.
+ const beforeEdit=(await request('GET','/pages/'+archived.id)).data.blocks[0];
+ archived.currentBody='Replacement procedure after the retained citation.';
+ const changed=await request('PATCH','/pages/'+archived.id+'/blocks/'+beforeEdit.id,{operationKey:crypto.randomUUID(),expectedRevisionId:beforeEdit.revisionId,content:{text:[{text:archived.currentBody}]}});
+ expect(changed.status).toBe(200);archived.currentRevision=changed.data.value.revisionId;
  for(const [target,actions] of [[archived,['archive']],[trashed,['trash']],[both,['archive','trash']]] as const)
-  for(const action of actions)await mutate('/archive/'+target.id,{expectedRevisionId:target.revision,action});
+  for(const action of actions)await mutate('/archive/'+target.id,{expectedRevisionId:target.currentRevision,action});
  const base=[space.id,space.homePageId,live.id,approved.id,draft.id,thread.threadId,template.id,host];
  expect(base.every(id=>typeof id==='string')).toBe(true);
  const corpus=async(includeArchived:boolean,includeTrashed:boolean,allowed=true)=>{
   // No query, kind, container, contributor, status or date restriction is supplied.
   const result=await f.find('','corpus-guest',{includeArchived:String(includeArchived),includeTrashed:String(includeTrashed),limit:'100'});
   expect(result.status).toBe(200);
-  const expected=allowed?[...base,...includeArchived?[archived.id]:[],...includeTrashed?[trashed.id]:[],...includeArchived&&includeTrashed?[both.id]:[]]:[draft.id,host];
+  const expected=allowed?[...base,...(includeArchived?[archived.id]:[]),...(includeTrashed?[trashed.id]:[]),...(includeArchived&&includeTrashed?[both.id]:[])]:[draft.id,host];
   expect(result.data.items.map((item:any)=>item.id).sort()).toEqual(expected.sort());
   expect(result.data.total).toBe(expected.length);
   expect(result.data.nextCursor).toBeUndefined();
@@ -162,7 +167,13 @@ export async function defaultVisibilityJourney(f:Awaited<ReturnType<typeof searc
    else expect(JSON.stringify(result.data)).not.toContain(target.body);
   }
  }
- expect((await request('GET','/pages/'+archived.id,undefined,'corpus-guest')).data.permissions.canEdit).toBe(false);
+ const current=(await request('GET','/pages/'+archived.id,undefined,'corpus-guest')).data;
+ expect(current.permissions.canEdit).toBe(false);
+ expect(JSON.stringify(current.blocks)).toContain(archived.currentBody);
+ expect(JSON.stringify(current.blocks)).not.toContain(archived.body);
+ const cited=(await request('GET','/revisions/'+archived.id+'/'+archived.revision,undefined,'corpus-guest')).data;
+ expect(cited.id).toBe(archived.revision);expect(cited.newerRevisionExists).toBe(true);
+ expect(JSON.stringify(cited.blocks)).toContain(archived.body);expect(JSON.stringify(cited.blocks)).not.toContain(archived.currentBody);
  // Reloading the host leaves its retained references and target grants unchanged.
  expect((await request('GET','/pages/'+host,undefined,'corpus-guest')).data.blocks).toEqual(hostBefore.data.blocks);
  const retained=(await f.db.prepare('SELECT id,revoked_at FROM page_grants WHERE page_id IN (?,?,?) ORDER BY id').bind(archived.id,trashed.id,both.id).all()).results;

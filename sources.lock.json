@@ -10664,7 +10664,7 @@
       "executable": false
     },
     "tests/e2e/search/freshness-journey.ts": {
-      "sha256": "333f3bb5eb70b928afd28080fe2efeeb13b4d16f26458d04ab2630c1fdd5d8ad",
+      "sha256": "c3475d011b37154c324fadfabb30f38812f3f3bc63d7b349b3b1ae9ffa9a5cc9",
       "executable": false
     },
     "tests/e2e/search/fts-permissions.test.ts": {
@@ -12020,7 +12020,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/search-filters-journey.mjs": {
-      "sha256": "3060fbab038efdb3e8b802be29eb98e4530d8209dc8749e7f7739148b3f10d2c",
+      "sha256": "c8b3c132f1cf61b8ea1809c5e456152504eca300fd9aa113b92ae8e612bf818d",
       "executable": false
     },
     "tests/qualification/ui-convergence/shared-navigation-journey.mjs": {

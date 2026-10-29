@@ -7,7 +7,8 @@ import {accessible} from './browser-evidence.mjs';
 export async function searchFiltersJourney(state) {
  const {page,context,origin,api,switchIdentity}=state;
  const mutate=(method,path,data)=>ok(context,origin,method,path,{operationKey:crypto.randomUUID(),...data});
- const space=(await mutate('POST','/api/containers',{name:'Release operations',visibility:'default'})).value.id;
+ const space=(await mutate('POST','/api/containers',{name:'Release operations',visibility:'closed'})).value.id;
+ const readerAccess=await mutate('POST','/api/sharing',{targetKind:'container',targetId:space,principalKind:'member',principalId:'browser-reader',level:'edit'});
  const create=async(title,text)=> (await mutate('POST','/api/pages',{containerId:space,title,blocks:[{id:crypto.randomUUID(),blockType:'paragraph',treePosition:'a',content:{text:[{text}]}}]})).value.pageId;
  const guide=await create('Release handover checklist','The amber handover checklist records the release owner.');
  await switchIdentity('reader');
@@ -23,7 +24,7 @@ export async function searchFiltersJourney(state) {
  const trashed=await create('Removed checklist','The obsolete handover checklist describes the abandoned escalation.');
  await mutate('POST','/api/status',{key:'search-ready',label:'Ready for release',color:'#145a3d',requiresVerification:false});
  await mutate('POST','/api/status/page/'+guide,{expectedRevisionId:(await api('/api/pages/'+guide)).page.revisionId,statusKey:'search-ready'});
- const references=await retainReferences(state,space,[archived,trashed]);
+ const references=await retainReferences(state,space,[archived,trashed],readerAccess.value.id);
  for(const [id,action]of [[archived,'archive'],[trashed,'trash']])await mutate('POST','/api/archive/'+id,{expectedRevisionId:(await api('/api/pages/'+id)).page.revisionId,action});
  const query='handover checklist';
  await page.goto(origin+'/app/search?'+new URLSearchParams({q:query,containerId:space}),{waitUntil:'networkidle'});
@@ -72,19 +73,17 @@ export async function searchFiltersJourney(state) {
  await expect(page.locator('.search-results a').filter({hasText:'Support rotation'})).toHaveCount(0);
  await accessible(page,'quoted phrase excludes reordered words');
  await retainedReferencesJourney(state,references);
- assert.equal((await api('/api/pages/'+draft)).page.lifecycle);
+ assert.equal((await api('/api/pages/'+draft)).page.lifecycle,'draft');
 }
 
 
 /** Store real references before excluding their targets; no stored title grants access. */
-async function retainReferences(state,space,ids) {
+async function retainReferences(state,space,ids,readerGrant) {
  const {context,origin,api}=state,targets=[];
  for(const id of ids){
   await grant(context,origin,id,'browser-owner','full');
-  const readerGrant=await grant(context,origin,id,'browser-reader','view');
   const document=await api('/api/pages/'+id);
-  await ok(context,origin,'PUT','/api/sharing/pages/'+id+'/inheritance',{operationKey:crypto.randomUUID(),expectedRevisionId:document.page.revisionId,restricted:true});
-  targets.push({id,title:document.page.title,revision:document.workingRevisionId,readerGrant:readerGrant.value.id,body:document.blocks[0].content.text[0].text});
+  targets.push({id,title:document.page.title,revision:document.workingRevisionId,grants:(await api('/api/sharing/pages/'+id)).items,body:document.blocks[0].content.text[0].text});
  }
  const host=(await ok(context,origin,'POST','/api/pages',{operationKey:crypto.randomUUID(),containerId:space,title:'Retained references',blocks:targets.map((target,index)=>({
   id:crypto.randomUUID(),blockType:'paragraph',treePosition:'a'+index,content:{text:[
@@ -93,18 +92,28 @@ async function retainReferences(state,space,ids) {
    {text:'Cite retained '+index,link:{href:'/app/pages/'+target.id+'?detail=history&revision='+target.revision}},
   ]},
  }))})).value.pageId;
- return {host,targets};
+ await grant(context,origin,host,'browser-owner','full');
+ await grant(context,origin,host,'browser-reader','view');
+ await ok(context,origin,'PUT','/api/sharing/pages/'+host+'/inheritance',{operationKey:crypto.randomUUID(),expectedRevisionId:(await api('/api/pages/'+host)).page.revisionId,restricted:true});
+ // Give the archived citation a genuinely older revision to distinguish it from current content.
+ const archived=targets[0],document=await api('/api/pages/'+archived.id),block=document.blocks[0];
+ archived.currentBody='The updated handover checklist contains the replacement procedure.';
+ await ok(context,origin,'PATCH','/api/pages/'+archived.id+'/blocks/'+block.id,{operationKey:crypto.randomUUID(),expectedRevisionId:block.revisionId,content:{text:[{text:archived.currentBody}]}});
+ return {host,targets,space,readerGrant};
 }
 
 /** Open the retained doors after reload, then end their authority without altering the host. */
-async function retainedReferencesJourney(state,{host,targets}) {
+async function retainedReferencesJourney(state,{host,targets,space,readerGrant}) {
  const {page,context,origin,api,switchIdentity}=state;
  const openHost=async()=>{await page.goto(origin+'/app/pages/'+host,{waitUntil:'networkidle'});await page.reload({waitUntil:'networkidle'});};
  const targetOutcome=async(view,target,allowed,citation=false)=>{
   if(allowed){
    await expect(view.getByRole('textbox',{name:'Page title',exact:true})).toHaveValue(target.title);
    await expect(view.getByRole('textbox',{name:'Page title',exact:true})).toHaveAttribute('readonly','');
-   await expect(view.locator(citation?'.revision-preview':'[data-page-editor]')).toContainText(target.body);
+   const content=view.locator(citation?'.revision-preview':'[data-page-editor]');
+   await expect(content).toContainText(citation?target.body:target.currentBody);
+   await expect(content).not.toContainText(citation?target.currentBody:target.body);
+   if(citation)await expect(content).toContainText('A newer revision exists.');
    if(citation)assert.equal(new URL(view.url()).searchParams.get('revision'),target.revision);
   }else{
    await expect(view.getByRole('heading',{name:'Access needed',exact:true})).toBeVisible();
@@ -134,11 +143,8 @@ async function retainedReferencesJourney(state,{host,targets}) {
   await accessible(page,'retained archived and trashed mentions');
   assert.deepEqual((await api('/api/pages/'+host)).blocks,before.blocks,'Opening references does not restore targets or rewrite retained content.');
   await switchIdentity('owner');
-  const grantsBefore=[];
-  for(const target of targets){
-   grantsBefore.push((await api('/api/sharing/pages/'+target.id)).items);
-   await grant(context,origin,target.id,'browser-reader','view',{id:target.readerGrant,revoke:true});
-  }
+  const grantsBefore=(await api('/api/sharing/containers/'+space)).items;
+  await ok(context,origin,'POST','/api/sharing',{operationKey:crypto.randomUUID(),id:readerGrant,targetKind:'container',targetId:space,principalKind:'member',principalId:'browser-reader',level:'edit',revoke:true});
   await switchIdentity('reader');await openHost();
   for(const [index,target]of targets.entries()){
    const mention=page.locator('[data-mention-kind=page]').nth(index);
@@ -155,9 +161,10 @@ async function retainedReferencesJourney(state,{host,targets}) {
   for(const target of targets)assert.ok(!search.items.some(item=>item.id===target.id),'Inclusion never grants access after revocation.');
   await accessible(page,'retained references after revocation');
   await switchIdentity('owner');
-  for(const [index,target]of targets.entries()){
-   const after=(await api('/api/sharing/pages/'+target.id)).items;
-   assert.deepEqual(after.filter(item=>item.id!==target.readerGrant),grantsBefore[index].filter(item=>item.id!==target.readerGrant),'Following retained references never adds a grant.');
-  }
+  const after=(await api('/api/sharing/containers/'+space)).items;
+  assert.deepEqual(after.filter(item=>item.id!==readerGrant),grantsBefore.filter(item=>item.id!==readerGrant),'Following retained references never adds a grant.');
+  assert.equal(after.find(item=>item.id===readerGrant).status,'revoked');
+  assert.deepEqual((await api('/api/sharing/pages/'+targets[0].id)).items,targets[0].grants,'Archived page grants remain unchanged.');
+  assert.equal((await call(context,origin,'GET','/api/sharing/pages/'+targets[1].id)).status,404,'Trash keeps its ordinary administration refusal.');
  }finally{await switchIdentity('owner');}
 }
