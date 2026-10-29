@@ -12024,7 +12024,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/settings-isolation-journey.mjs": {
-      "sha256": "4f3a168f92bf63fb340124d0956d90a040632c54041f7c74811d19808de0b5e1",
+      "sha256": "fbf200f4bf9bef11dbe23f39331205a07eef48e94ad4533c99ffcce7fa240404",
       "executable": false
     },
     "tests/qualification/ui-convergence/shared-navigation-journey.mjs": {
@@ -12164,7 +12164,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "25665e13a94a7bbb1e49146e10e22c2a20348e97f4083aca9fa24bfc1c33874a",
+      "sha256": "96107f983e7812a608f82bcb21850c94bf2933842f97a5f422591dd32d240599",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

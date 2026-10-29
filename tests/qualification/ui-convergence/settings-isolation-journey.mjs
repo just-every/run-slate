@@ -21,6 +21,19 @@ export async function settingsIsolationJourney(state) {
   // Enter through the app's own navigation, rather than a section URL.
   await page.getByRole('link', {name: 'Back to workspace', exact: true}).click();
   await enterSettings();
+  // These scroll controls exist only in the phone layout. Keyboard input
+  // establishes focus-visible, just as the retained authority journey does.
+  if (width === 390) {
+    await page.keyboard.press('Tab');
+    for (const name of ['Previous settings sections', 'More settings sections']) {
+      const control = page.getByRole('button', {name, exact: true});
+      await expect(control).toHaveAttribute('data-tooltip', /\S+\s+\S+/);
+      await control.focus();
+      await expect.poll(() => control.evaluate(element => getComputedStyle(element, '::after').opacity)).toBe('1');
+    }
+    await accessible(page, 'phone settings navigation keyboard tooltip');
+    await tabs.getByRole('link', {name: 'Workspace', exact: true}).focus();
+  }
   const original = await api('/api/workspace');
   const space = (await api('/api/containers')).items.find(item => item.name === 'Handbook');
   assert.ok(space);
@@ -62,7 +75,7 @@ export async function settingsIsolationJourney(state) {
 
   await section('Import & export');
   await expect(page.getByLabel('File', {exact: true})).toBeEnabled();
-  await expect(page.getByLabel('Format', {exact: true})).toBeEnabled();
+  await expect(page.getByRole('combobox', {name: 'Format', exact: true})).toBeEnabled();
   await expect(page.getByRole('button', {name: 'Upload and review', exact: true})).toBeEnabled();
   await page.getByRole('button', {name: 'Export readable workspace', exact: true}).click();
   const exporter = page.getByRole('dialog', {name: 'Export readable content', exact: true});
@@ -91,6 +104,7 @@ export async function settingsIsolationJourney(state) {
     return value;
   };
   const editWorkspace = async values => {
+    await enterSettings();
     await section('Workspace');
     await page.getByRole('button', {name: 'Edit workspace & policies', exact: true}).click();
     const dialog = page.getByRole('dialog', {name: 'Workspace settings', exact: true});
@@ -134,7 +148,10 @@ export async function settingsIsolationJourney(state) {
     await openSpace(values.name);
     const stored = await api(`/api/containers/${space.id}`);
     for (const [field, value] of Object.entries(values)) assert.equal(stored[field], value);
+    await page.getByRole('button', {name: 'Edit details', exact: true}).click();
+    for (const [field, value] of Object.entries(values)) await expect(dialog.locator(`[name="${field}"]`)).toHaveValue(value ?? '');
     await accessible(page, 'separate space settings after reload');
+    await dialog.getByRole('button', {name: 'Cancel', exact: true}).click();
   };
 
   await editSpace(space.name, {name: space.name, description: 'A space-specific baseline', icon: '📗', key: 'GUIDE'});

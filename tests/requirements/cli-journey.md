@@ -91,3 +91,21 @@ The 16 October managed first-open case `a claimed RER owner signs in to a ready 
 The CLI flagship credential leg explicitly configures its private development profile and requests credentials:mint’s email proof through the native /auth/step-up door. It privately receives the message at the test-only paid network edge, previews the real confirmation page and submits its native form in that same dev session. Credential issuance then succeeds with the durable proof the commit requires. No proof is injected and no authorization route is bypassed.
 
 The guest invitation case removes its obsolete 24-hour lifetime pin; requested guest access expiry, pending/accepted grants, replay, expired access and revocation behavior remain checked.
+
+The WORK-011 native settings specification is `settingsIsolationJourney` in
+`tests/qualification/ui-convergence/settings-isolation-journey.mjs`, called by
+`settingsJourney` in `tests/qualification/ui-convergence/reading-journeys.mjs`.
+Its existing outline registration at 1440 and tree-filter registration at 390
+enter Settings from the workspace navigation and reach identity, populated people,
+groups, guests, a natively created status, and the import and export controls.
+Phone settings navigation arrows expose their tooltips on keyboard focus. Workspace
+identity and external-access switches are saved and read back after reload;
+canonical container rows, switches, grants and retained revision contents stay
+unchanged. The separate Spaces destination opens its own settings navigation;
+changes to its details survive reload in the native dialog and preserve every
+workspace setting and retained workspace revision. The helper restores the
+original identity and switches before the existing guest-management and workspace
+authority journeys continue. Those journeys retain allowed owner operations,
+refused member operations and guest revocation. This proves the native portion
+of WORK-011; connected services and AI settings in the default product remain
+unproven under ADMIN-007. No whole-clause acceptance is registered.
