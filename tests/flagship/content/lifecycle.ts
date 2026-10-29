@@ -53,6 +53,7 @@ export async function lifecycleJourney(f: Fixture) {
   await state('live');
   const history = () => send('GET', `/api/revisions/${id}`);
   expect((await history()).items.filter((r: any) => r.origin === 'publish')).toHaveLength(1);
+  const publishedBlockRevision=(await read()).blocks[0].revisionId;
   const changed = await send('PATCH', `/api/pages/${id}/blocks/${bid}`, {operationKey:createUlid(),expectedRevisionId:(await read()).blocks[0].revisionId,content:{text:[{text:'Private working edit'}]}});
   await state('live-with-unpublished-changes');
   const versions = (await history()).items.map((r: any) => r.id);
@@ -61,6 +62,10 @@ export async function lifecycleJourney(f: Fixture) {
   const restored = await read();
   expect(restored.workingRevisionId).toBe(restored.publishedRevisionId);
   expect(restored.blocks[0].content.text[0].text).toBe('Reviewed release');
+  expect(restored.blocks[0].revisionId).not.toBe(publishedBlockRevision);
+  const staleEdit=await f.request('PATCH', `/api/pages/${id}/blocks/${bid}`, {operationKey:createUlid(),expectedRevisionId:publishedBlockRevision,content:{text:[{text:'Stale write after discard'}]}});
+  expect(staleEdit.status).toBe(409);
+  expect((await read()).blocks).toEqual(restored.blocks);
   expect((await history()).items.map((r: any) => r.id)).toEqual(expect.arrayContaining(versions));
   await send('POST', `/api/pages/${id}/publish`, {operationKey:createUlid(),expectedRevisionId:restored.page.revisionId,publishAt:future});
   await state('scheduled');

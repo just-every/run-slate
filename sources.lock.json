@@ -8288,7 +8288,7 @@
       "executable": false
     },
     "src/core/features/pages/service.ts": {
-      "sha256": "b39ff70ddb0b137e1598395a8aea73d547f5edfcb9617c52d5876022fd100504",
+      "sha256": "c832856abfc8665751b62217be5950a9ddb2436789623b505bd8a114c9761343",
       "executable": false
     },
     "src/core/features/pages/tree-access.ts": {
@@ -10748,7 +10748,7 @@
       "executable": false
     },
     "tests/flagship/content/lifecycle.ts": {
-      "sha256": "9e944824ed4994ec987362f5054dd9be74630b7888c84d56cce0b8fcfad3bded",
+      "sha256": "4b9e480f22741794faeeb5fc22bc2815649e1c37970ef4289ebe8ea97668de1b",
       "executable": false
     },
     "tests/flagship/content/mention-access.test.ts": {
@@ -11508,7 +11508,7 @@
       "executable": false
     },
     "tests/qualification/interface/publication.mjs": {
-      "sha256": "1950bde8b5eaacec28566fec392999a6fb30d24a9bb21eabc73dc129f3294673",
+      "sha256": "07e05555f9db3f931d016c5223cf93e86521480fa3c2229e7995ec95903eaba7",
       "executable": false
     },
     "tests/qualification/interface/queries.mjs": {
