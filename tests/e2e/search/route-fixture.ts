@@ -10,7 +10,7 @@ export async function searchFixture(db:D1Database) {
  const cookies:Record<string,string>={};
  const sessionSecret=env.SESSION_SECRET;
  if(!sessionSecret)throw new Error('Search fixture requires SESSION_SECRET.');
- for(const id of ['owner','reader','denied','guest','page-guest','removed','inactive','expired','revoked']){
+ for(const id of ['owner','reader','denied','guest','page-guest','corpus-guest','removed','inactive','expired','revoked']){
   await sql("INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,created_at,updated_at) VALUES(?,'w',?,?,?, ?,?,'active',?,?)",id,id+'@search.test',id,id.slice(0,2),id==='owner'?'owner':'member',id.endsWith('guest')?'guest':'member',now,now);
   const token=createOpaqueToken();cookies[id]=SESSION_COOKIE_NAME+'='+token;
   await sql("INSERT INTO sessions(id,member_id,token_digest,created_at,updated_at,expires_at) VALUES(?,?,?,?,?,?)",id,id,await sessionDigest(sessionSecret,token),now,now,'2099-01-01T00:00:00.000Z');

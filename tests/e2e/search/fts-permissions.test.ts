@@ -2,12 +2,14 @@ import { env } from 'cloudflare:test';
 import { test,expect } from 'vitest';
 import { searchFixture } from './route-fixture';
 import {discoveryJourney} from './discovery-journey';
+import {defaultVisibilityJourney} from './freshness-journey';
 
 test('Indexed search uses current native authority for literal matches, totals, facets and cursors',async()=>{
  const f=await searchFixture(env.DB),{sql,page,find,now}=f;
  type Document={id:string;title:string;body:string;container:string;status:string|null};
  type Row={actor:string;name:string;query:string;visible:Document[];filters?:Record<string,string>;total?:number;facetsFrom?:Document[]};
  await discoveryJourney(f);
+ await defaultVisibilityJourney(f);
  const documents:Document[]=[];
  const seed=async(id:string,title:string,body:string,options:Parameters<typeof page>[2]={})=>{
   await page(id,body,{...options,title});

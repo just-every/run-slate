@@ -10664,11 +10664,11 @@
       "executable": false
     },
     "tests/e2e/search/freshness-journey.ts": {
-      "sha256": "f23656d57ebfc323a9c94b60323680ad4c96ddaa991db9a1c411356f510d1340",
+      "sha256": "333f3bb5eb70b928afd28080fe2efeeb13b4d16f26458d04ab2630c1fdd5d8ad",
       "executable": false
     },
     "tests/e2e/search/fts-permissions.test.ts": {
-      "sha256": "18ccecbb22c5704af54d443afacca1ef56ac3580dea8a93c76fb5073a7b80f59",
+      "sha256": "0d3ea68817613d505e2bfd57073b4fccd86883e76f1451c5b7ca7df74022a4bf",
       "executable": false
     },
     "tests/e2e/search/fts-upgrade.test.ts": {
@@ -10676,7 +10676,7 @@
       "executable": false
     },
     "tests/e2e/search/route-fixture.ts": {
-      "sha256": "1557d21a2fa1677ddb2b49a30e815f42a155a5bf6b89281a36788a63e02854e8",
+      "sha256": "3404f7fc33c47b7f4e2f75e04e66e1204ab8a7e193abc0d22cae2dcaa6692b3a",
       "executable": false
     },
     "tests/e2e/search/search-location.test.ts": {
@@ -12020,7 +12020,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/search-filters-journey.mjs": {
-      "sha256": "b2caef13ab2af92eaa7c95d55bca3da5e785e36f6e6bd683f7b906e691b20d53",
+      "sha256": "3060fbab038efdb3e8b802be29eb98e4530d8209dc8749e7f7739148b3f10d2c",
       "executable": false
     },
     "tests/qualification/ui-convergence/shared-navigation-journey.mjs": {
