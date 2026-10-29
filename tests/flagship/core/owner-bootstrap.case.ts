@@ -91,6 +91,11 @@ async function signedClaim() {
  return {bindings,submit,value};
 }
 async function claimTransactions() {
+ const originalName=ownerIdentity.name;
+ // This is the buyer-owned configuration consumed by both native claim doors.
+ // Use a nondefault name so a hard-coded product name cannot satisfy the proof.
+ ownerIdentity.name='Synthetic team knowledge';
+ try {
  for(const door of ['verified-bootstrap','signed-claim']) {
   await resetDeployment();
   const signed=await signedClaim();
@@ -122,4 +127,5 @@ async function claimTransactions() {
   expect((await submit()).status).toBe(409);expect(await snapshot()).toEqual(revoked);
   expect((await request('/api/workspace',cookie,bindings)).status).toBe(401);
  }
+ } finally {ownerIdentity.name=originalName;}
 }
