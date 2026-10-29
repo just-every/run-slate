@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "2ff3c7b79a21874469250dd92a48d79b0364d8c5db33b044408cf2f3f63a92bf",
+      "sha256": "84311ded63c4f44fb9a089785e16f89808daef5847f3058c10c5eb9c4d4d3263",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "7924bbe992ff013de999f80199c43fce75550d5e55c48b1e3979879a981b205b",
+      "sha256": "6b0a523ab9609852ceef3e0ca2235b14ba82150e25b49705c9121ed770d0a3fb",
       "executable": false
     },
     "DEMO.md": {
@@ -5108,7 +5108,7 @@
       "executable": false
     },
     "seed.json": {
-      "sha256": "bff159cf5adeceb2e510e92eee46ef8a36913318ea01096890e8baa1bc0eed31",
+      "sha256": "c5811bc959261515409024e89e3af09da8664e10ded4ff3841ebf6e5a410475b",
       "executable": false
     },
     "src/base/runtime/contract-docs.mjs": {
