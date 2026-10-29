@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 41 | 256 | 34 | 331 |
+| Core | 42 | 255 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 41 | 256 | 40 | 337 |
+| Full target | 42 | 255 | 40 | 337 |
 
-Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `9dc6d22ddbcd82cd810999f6cadfaed9280b015f` (29 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -1965,7 +1965,7 @@ Core · published · **partial**
 
 #### NOTIF-002 — Inbox
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Notifications are listed newest first, grouped by period, with an unread count and separate views for those addressed to the member and those from watched pages.
 
@@ -1973,8 +1973,8 @@ Core · published · **partial**
 1. Opening one marks it read and opens the referenced record at the referenced comment; a member can mark all read and archive read notifications.
 2. Inbox groups by period with unread count and two views; opening marks read and opens the referenced comment.
 
-**Evidence.** `tests/qualification/core/discovery.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/inbox-journey.mjs` — "inboxJourney", called by "CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: populated periods and newest-first order, unread count, Direct and Watching views, opening the referenced comment marks read, mark all read and archive read. `tests/flagship/discovery/meaningful-notifications.ts` — "meaningfulNotifications" in `tests/flagship/discovery/following.test.ts` covers native actions and current access after revocation and erasure.
+**Gap.** None.
 
 #### NOTIF-003 — Chat notifications
 
