@@ -23,8 +23,11 @@ export async function browserProof({request,origin,cookie,taskPageId,taskActor,p
   page=await context.newPage();
   const screens=[['/agents','agents'],['/docs/agents','agent-docs'],['/app/settings?section=activity','native-activity']];
   if(taskPageId)screens.push(['/app/pages/'+taskPageId,'native-agent-task']);
-  if(preparedPublicPath)screens.push([preparedPublicPath,'native-agent-public-edit']);
-  if(publishedPublicPath)screens.push([publishedPublicPath,'native-agent-public-publish']);
+  if(preparedPublicPath===publishedPublicPath&&preparedPublicPath)screens.push([preparedPublicPath,'native-agent-publication']);
+  else {
+   if(preparedPublicPath)screens.push([preparedPublicPath,'native-agent-public-edit']);
+   if(publishedPublicPath)screens.push([publishedPublicPath,'native-agent-public-publish']);
+  }
   for(const [path,label] of screens) {
    stage=path;
    const response=await page.goto(origin+path,{waitUntil:'networkidle'});
@@ -56,8 +59,8 @@ export async function browserProof({request,origin,cookie,taskPageId,taskActor,p
     const box=await page.getByRole('checkbox',{name:'Mark complete: Review the support handoff before publishing.',exact:true}).boundingBox();
     assert.ok(box&&box.width>=44&&box.height>=44,'The changed task control must have a 44px target.');
    }
-   if(label==='native-agent-public-edit')await page.getByText('Prepared by Agent door conformance for Morgan Lee',{exact:true}).waitFor();
-   if(label==='native-agent-public-publish')await page.getByText('Published by Agent door conformance for Morgan Lee',{exact:true}).waitFor();
+   if(['native-agent-public-edit','native-agent-publication'].includes(label))await page.getByText('Prepared by Agent door conformance for Morgan Lee',{exact:true}).waitFor();
+   if(['native-agent-public-publish','native-agent-publication'].includes(label))await page.getByText('Published by Agent door conformance for Morgan Lee',{exact:true}).waitFor();
    if(path==='/app/settings?section=activity')assert.match(await page.locator('body').innerText(),/Agent door conformance for Morgan Lee/);
    await page.setViewportSize({width:390,height:844});
    if(label==='native-agent-task')await page.getByText('Completed by '+taskActor,{exact:false}).first().scrollIntoViewIfNeeded();
