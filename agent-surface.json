@@ -2180,6 +2180,892 @@
       }
     },
     {
+      "name": "slate.pages.publish",
+      "scope": "slate.pages.publish",
+      "clauses": [
+        "LIFE-003"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "access",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "sponsorEscalation": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "publishAsMemberId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "destination": {
+            "type": "object",
+            "properties": {
+              "containerId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "parentPageId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "treePosition": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              }
+            },
+            "required": [
+              "containerId",
+              "parentPageId",
+              "treePosition"
+            ],
+            "additionalProperties": false
+          },
+          "generalAccess": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "restricted"
+                  }
+                },
+                "required": [
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "workspace",
+                      "container"
+                    ]
+                  },
+                  "level": {
+                    "type": "string",
+                    "enum": [
+                      "view",
+                      "comment",
+                      "edit",
+                      "full"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind",
+                  "level"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.publishing.read",
+      "scope": "slate.publishing.read",
+      "clauses": [
+        "WEB-001",
+        "WEB-002",
+        "WEB-004",
+        "WEB-006"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.publishing.publish",
+      "scope": "slate.publishing.publish",
+      "clauses": [
+        "WEB-001",
+        "WEB-002",
+        "WEB-004",
+        "WEB-005"
+      ],
+      "classes": [
+        "external",
+        "access",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "sponsorEscalation": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "slug": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "indexable": {
+            "type": "boolean"
+          },
+          "theme": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "headerControls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "duplicateAsTemplate": {
+            "type": "boolean"
+          },
+          "socialPreview": {
+            "type": "object",
+            "additionalProperties": false,
+            "patternProperties": {
+              "^[\\s\\S]{0,}$": {
+                "type": "string"
+              }
+            }
+          },
+          "children": {
+            "maxItems": 100,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "pageId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 160
+                },
+                "slug": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "expectedRevisionId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "pageId",
+                "slug",
+                "expectedRevisionId"
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "slug"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.publishing.revoke",
+      "scope": "slate.publishing.revoke",
+      "clauses": [
+        "WEB-006"
+      ],
+      "classes": [
+        "access",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "widens": false,
+      "narrowing": {
+        "effect": "revoke",
+        "target": "id"
+      },
+      "sponsorEscalation": false,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "slate.databases.create",
+      "scope": "slate.databases.create",
+      "clauses": [
+        "DB-001"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "containerId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "parentPageId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "containerId",
+          "title"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.databases.read",
+      "scope": "slate.databases.read",
+      "clauses": [
+        "DB-001",
+        "DB-002",
+        "DB-003"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.databases.lock",
+      "scope": "slate.databases.lock",
+      "clauses": [
+        "DB-009"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "locked": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "locked",
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.fields.configure",
+      "scope": "slate.fields.configure",
+      "clauses": [
+        "DB-002"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "destructive",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "delete": {
+            "type": "boolean"
+          },
+          "field": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "number",
+                  "checkbox",
+                  "date",
+                  "select",
+                  "multi-select",
+                  "status",
+                  "person",
+                  "file",
+                  "url",
+                  "email",
+                  "phone",
+                  "place",
+                  "relation",
+                  "rollup",
+                  "formula",
+                  "created-at",
+                  "updated-at",
+                  "identifier"
+                ]
+              },
+              "config": {
+                "type": "object",
+                "additionalProperties": false,
+                "patternProperties": {
+                  "^[\\s\\S]{0,}$": {}
+                }
+              },
+              "position": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "type",
+              "config",
+              "position"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "field",
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.views.configure",
+      "scope": "slate.views.configure",
+      "clauses": [
+        "DB-003",
+        "DB-004",
+        "DB-005",
+        "DB-006"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "destructive",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "delete": {
+            "type": "boolean"
+          },
+          "view": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "layout": {
+                "type": "string",
+                "enum": [
+                  "table",
+                  "board",
+                  "list",
+                  "gallery",
+                  "calendar",
+                  "timeline"
+                ]
+              },
+              "filters": {
+                "maxItems": 100,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "patternProperties": {
+                    "^[\\s\\S]{0,}$": {}
+                  }
+                }
+              },
+              "sorts": {
+                "maxItems": 100,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160
+                    },
+                    "direction": {
+                      "type": "string",
+                      "enum": [
+                        "asc",
+                        "desc"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "field",
+                    "direction"
+                  ]
+                }
+              },
+              "groups": {
+                "maxItems": 10,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160
+                    },
+                    "hideEmpty": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "field"
+                  ]
+                }
+              },
+              "calculations": {
+                "type": "object",
+                "additionalProperties": false,
+                "patternProperties": {
+                  "^[\\s\\S]{0,}$": {
+                    "type": "string"
+                  }
+                }
+              },
+              "display": {
+                "type": "object",
+                "additionalProperties": false,
+                "patternProperties": {
+                  "^[\\s\\S]{0,}$": {}
+                }
+              },
+              "position": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "layout",
+              "filters",
+              "sorts",
+              "groups",
+              "calculations",
+              "display",
+              "position"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "view",
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.views.query",
+      "scope": "slate.views.query",
+      "clauses": [
+        "DB-007",
+        "DB-011"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "viewId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "embedded": {
+            "type": "object",
+            "properties": {
+              "pageId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "filters": {
+                "maxItems": 100,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "patternProperties": {
+                    "^[\\s\\S]{0,}$": {}
+                  }
+                }
+              },
+              "sorts": {
+                "maxItems": 100,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160
+                    },
+                    "direction": {
+                      "type": "string",
+                      "enum": [
+                        "asc",
+                        "desc"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "field",
+                    "direction"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "pageId"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "viewId"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.charts.configure",
+      "scope": "slate.charts.configure",
+      "clauses": [
+        "DB-008"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "viewId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "display": {
+            "type": "object",
+            "additionalProperties": false,
+            "patternProperties": {
+              "^[\\s\\S]{0,}$": {}
+            }
+          }
+        },
+        "required": [
+          "id",
+          "viewId",
+          "display"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.charts.read",
+      "scope": "slate.charts.read",
+      "clauses": [
+        "DB-008"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "viewId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "group": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "numeric": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "calculation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "viewId",
+          "group"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.records.read",
+      "scope": "slate.records.read",
+      "clauses": [
+        "DB-010",
+        "DB-012"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.records.create",
+      "scope": "slate.records.create",
+      "clauses": [
+        "DB-010",
+        "DB-012"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "values": {
+            "type": "object",
+            "additionalProperties": false,
+            "patternProperties": {
+              "^[\\s\\S]{0,}$": {}
+            }
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "title",
+          "values",
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.records.update",
+      "scope": "slate.records.update",
+      "clauses": [
+        "DB-010",
+        "DB-012"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "object",
+            "additionalProperties": false,
+            "patternProperties": {
+              "^[\\s\\S]{0,}$": {}
+            }
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "values",
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
       "name": "slate.events.list",
       "scope": "events:read",
       "clauses": [
@@ -4250,6 +5136,839 @@
       }
     },
     {
+      "id": "pages_publish_standard",
+      "tool": "slate.pages.publish",
+      "args": {
+        "$fixture": "pages_publish_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_publish_external",
+      "tool": "slate.pages.publish",
+      "args": {
+        "$fixture": "pages_publish_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_publish_access",
+      "tool": "slate.pages.publish",
+      "args": {
+        "$fixture": "pages_publish_access",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "access",
+          "facts": {
+            "measure": 1,
+            "direction": "widens"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_publish_sensitive",
+      "tool": "slate.pages.publish",
+      "args": {
+        "$fixture": "pages_publish_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "publishing_read_standard",
+      "tool": "slate.publishing.read",
+      "args": {
+        "$fixture": "publishing_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "publishing_read_sensitive",
+      "tool": "slate.publishing.read",
+      "args": {
+        "$fixture": "publishing_read_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "publishing_publish_external",
+      "tool": "slate.publishing.publish",
+      "args": {
+        "$fixture": "publishing_publish_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "publishing_publish_access",
+      "tool": "slate.publishing.publish",
+      "args": {
+        "$fixture": "publishing_publish_access",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        },
+        {
+          "class": "access",
+          "facts": {
+            "measure": 1,
+            "direction": "widens"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "publishing_publish_sensitive",
+      "tool": "slate.publishing.publish",
+      "args": {
+        "$fixture": "publishing_publish_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        },
+        {
+          "class": "access",
+          "facts": {
+            "measure": 1,
+            "direction": "widens"
+          }
+        },
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "publishing_revoke_access",
+      "tool": "slate.publishing.revoke",
+      "args": {
+        "$fixture": "publishing_revoke_access",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "access",
+          "facts": {
+            "measure": 1,
+            "direction": "narrows"
+          }
+        }
+      ]
+    },
+    {
+      "id": "publishing_revoke_sensitive",
+      "tool": "slate.publishing.revoke",
+      "args": {
+        "$fixture": "publishing_revoke_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "access",
+          "facts": {
+            "measure": 1,
+            "direction": "narrows"
+          }
+        },
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "databases_create_standard",
+      "tool": "slate.databases.create",
+      "args": {
+        "$fixture": "databases_create_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "databases_create_sensitive",
+      "tool": "slate.databases.create",
+      "args": {
+        "$fixture": "databases_create_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "databases_read_standard",
+      "tool": "slate.databases.read",
+      "args": {
+        "$fixture": "databases_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "databases_read_sensitive",
+      "tool": "slate.databases.read",
+      "args": {
+        "$fixture": "databases_read_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "databases_lock_standard",
+      "tool": "slate.databases.lock",
+      "args": {
+        "$fixture": "databases_lock_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "databases_lock_external",
+      "tool": "slate.databases.lock",
+      "args": {
+        "$fixture": "databases_lock_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "databases_lock_sensitive",
+      "tool": "slate.databases.lock",
+      "args": {
+        "$fixture": "databases_lock_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "fields_configure_standard",
+      "tool": "slate.fields.configure",
+      "args": {
+        "$fixture": "fields_configure_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "fields_configure_external",
+      "tool": "slate.fields.configure",
+      "args": {
+        "$fixture": "fields_configure_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "fields_configure_destructive",
+      "tool": "slate.fields.configure",
+      "args": {
+        "$fixture": "fields_configure_destructive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "destructive",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "fields_configure_sensitive",
+      "tool": "slate.fields.configure",
+      "args": {
+        "$fixture": "fields_configure_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "views_configure_standard",
+      "tool": "slate.views.configure",
+      "args": {
+        "$fixture": "views_configure_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "views_configure_external",
+      "tool": "slate.views.configure",
+      "args": {
+        "$fixture": "views_configure_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "views_configure_destructive",
+      "tool": "slate.views.configure",
+      "args": {
+        "$fixture": "views_configure_destructive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "destructive",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "views_configure_sensitive",
+      "tool": "slate.views.configure",
+      "args": {
+        "$fixture": "views_configure_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "views_query_standard",
+      "tool": "slate.views.query",
+      "args": {
+        "$fixture": "views_query_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "views_query_sensitive",
+      "tool": "slate.views.query",
+      "args": {
+        "$fixture": "views_query_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "charts_configure_standard",
+      "tool": "slate.charts.configure",
+      "args": {
+        "$fixture": "charts_configure_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "charts_configure_external",
+      "tool": "slate.charts.configure",
+      "args": {
+        "$fixture": "charts_configure_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "charts_configure_sensitive",
+      "tool": "slate.charts.configure",
+      "args": {
+        "$fixture": "charts_configure_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "charts_read_standard",
+      "tool": "slate.charts.read",
+      "args": {
+        "$fixture": "charts_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "charts_read_sensitive",
+      "tool": "slate.charts.read",
+      "args": {
+        "$fixture": "charts_read_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "records_read_standard",
+      "tool": "slate.records.read",
+      "args": {
+        "$fixture": "records_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "records_read_sensitive",
+      "tool": "slate.records.read",
+      "args": {
+        "$fixture": "records_read_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "records_create_standard",
+      "tool": "slate.records.create",
+      "args": {
+        "$fixture": "records_create_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "records_create_sensitive",
+      "tool": "slate.records.create",
+      "args": {
+        "$fixture": "records_create_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "records_update_standard",
+      "tool": "slate.records.update",
+      "args": {
+        "$fixture": "records_update_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "records_update_external",
+      "tool": "slate.records.update",
+      "args": {
+        "$fixture": "records_update_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "records_update_sensitive",
+      "tool": "slate.records.update",
+      "args": {
+        "$fixture": "records_update_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
       "id": "events_list_standard",
       "tool": "slate.events.list",
       "args": {
@@ -4342,6 +6061,22 @@
           "$sponsor": "id"
         },
         "level": "full"
+      }
+    }
+  ],
+  "narrowings": [
+    {
+      "tool": "slate.publishing.revoke",
+      "step": "publishing_revoke_access",
+      "witness": {
+        "tool": "slate.publishing.read",
+        "args": {
+          "id": {
+            "$fixture": "publishing_revoke_access",
+            "pointer": "/id"
+          }
+        },
+        "pointer": "/grants"
       }
     }
   ],

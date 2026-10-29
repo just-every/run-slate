@@ -9,6 +9,10 @@ export async function beforeStep(context) {
   if(['navigation.read','containers.list','containers.read'].includes(info.tool))await setContainer(context,info.containerId,sensitiveText());
   if(['pages.list','queries.run'].includes(info.tool))await setPage(context,info.pageId,{title:sensitiveText()});
  }
+ if(info.tool==='publishing.revoke'||info.tool==='publishing.read'&&info.cls==='sensitive') {
+  const current=await native(context,'/api/pages/'+info.pageId);
+  await native(context,'/api/publishing/'+info.pageId,{expectedRevisionId:current.page.revisionId,host:new URL(context.origin).host,slug:'witness-'+randomUUID(),...(info.cls==='sensitive'?{socialPreview:{description:info.text}}:{})});
+ }
  if(info.cls==='external'&&info.tool!=='grants.set') {
   const page=await native(context,'/api/pages/'+info.pageId);
   if(!page.publishedRevisionId){const preview=await native(context,'/api/pages/'+info.pageId+'/publish-preview',{expectedRevisionId:page.page.revisionId});await native(context,'/api/pages/'+info.pageId+'/publish',{expectedRevisionId:page.page.revisionId,previewFingerprint:preview.previewFingerprint});}
@@ -18,6 +22,11 @@ export async function beforeStep(context) {
 }
 export async function afterStep(context) {
  const state=phases.get(context.phase),info=state?.cases[context.step.id];if(!info)return;
+ if(info.tool==='pages.update'&&info.cls==='external') {
+  const {exposure}=await native(context,'/api/publishing/'+info.pageId);
+  proofRecords.preparedPublicPath='/p/'+exposure.slug;
+ }
+ if(info.tool==='publishing.publish'&&info.cls==='external')proofRecords.publishedPublicPath=new URL(context.result.value.url).pathname;
  if(info.tool==='tasks.update') {
   const document=await native(context,'/api/pages/'+info.pageId),block=document.blocks.find(block=>block.id===info.blockId);
   const activity=await native(context,'/api/activity?limit=100');

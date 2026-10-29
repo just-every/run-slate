@@ -62,7 +62,8 @@
           "migrations/core/0067_agent_native_proofs.sql",
           "migrations/core/0068_agent_attribution.sql",
           "migrations/core/0069_company_agent_jobs.sql",
-          "migrations/core/0070_agent_native_authorship.sql"
+          "migrations/core/0070_agent_native_authorship.sql",
+          "migrations/core/0071_agent_public_authorship.sql"
         ]
       },
       "assumptions": [

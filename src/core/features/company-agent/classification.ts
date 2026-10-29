@@ -3,10 +3,18 @@ export function sensitiveKinds(record:unknown):string[] {
   const kinds=new Set<string>();
   const visit=(value:unknown,key='')=>{
     if(Array.isArray(value)){for(const item of value)visit(item,key);return;}
-    if(value&&typeof value==='object'){for(const [name,item] of Object.entries(value))visit(item,name);return;}
+    if(value&&typeof value==='object'){
+      const record=value as {fields?:Array<{id?:unknown;name?:unknown}>;values?:Record<string,unknown>;records?:Array<{values?:Record<string,unknown>}>};
+      if(Array.isArray(record.fields))for(const field of record.fields)if(typeof field.id==='string'&&typeof field.name==='string'){
+        if(record.values)visit(record.values[field.id],field.name);
+        if(Array.isArray(record.records))for(const row of record.records)if(row.values)visit(row.values[field.id],field.name);
+      }
+      for(const [name,item] of Object.entries(value))visit(item,name);return;
+    }
     if(typeof value!=='string'&&typeof value!=='number')return;
-    const text=String(value);
+    const text=String(value);key=key.replace(/[^a-zA-Z0-9]/g,'');
     if(/\b(?:SSN|social security number|national ID)\s*[:=]\s*\d{3}[- ]?\d{2}[- ]?\d{4}\b/i.test(text))kinds.add('regulated ID');
+    if(/\b\d{3}-\d{2}-\d{4}\b/.test(text))kinds.add('regulated ID');
     if(/\bIBAN\s*[:=]\s*[A-Z]{2}\d{2}[A-Z0-9 ]{11,30}\b/i.test(text))kinds.add('bank');
     if(/\b(?:diagnosis|medical record|patient ID)\s*[:=]\s*\S+/i.test(text))kinds.add('health');
     if(/\b(?:payroll|salary)\s*[:=]\s*[$€£]?\d+/i.test(text))kinds.add('payroll');

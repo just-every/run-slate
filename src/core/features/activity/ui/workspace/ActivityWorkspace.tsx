@@ -28,7 +28,7 @@ export function ActivityWorkspace() {
     "/api/containers",
   );
   return (
-    <section className="settings-panel">
+    <section className="settings-panel" aria-busy={resource.loading}>
       <h2>What changed.</h2>
       <form
         className="detail-form"
@@ -98,7 +98,7 @@ export function ActivityWorkspace() {
       >
         <ol className="settings-list">
           {resource.data?.items.map((item) => (
-            <li key={item.id}>
+            <li key={item.id} data-activity-id={item.id}>
               <div>
                 <strong>{item.actor?.displayName ?? (item.action.startsWith("verification-rules.") ? "Verification rules" : "Former member")}</strong> ·{" "}
                 {item.action.replace(/[._-]/g, " ")}
