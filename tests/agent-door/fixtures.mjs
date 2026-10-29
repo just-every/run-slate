@@ -76,7 +76,6 @@ async function prepare(context) {
  const clients=await nativeClients(context,shared.id,localPage.pageId,foreignPage.pageId);
  values.local_page={id:localPage.pageId};
  values.local_create={containerId:shared.id,title:'Native client-created record'};
- if(context.phase==='initial')return {values:{},clients};
  const guestId=(await native(context,'/api/guests')).items.find(person=>person.email==='synthetic-guest@example.invalid').id;
  const group=(await native(context,'/api/groups',{name:'Native escalation group '+randomUUID(),memberIds:[reviewer.id]})).value;
  values.escalation_group={id:group.id,name:group.name,memberId:reviewer.id};
