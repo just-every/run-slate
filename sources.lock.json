@@ -12020,7 +12020,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/search-filters-journey.mjs": {
-      "sha256": "a294ccaa45b7b5fbee5fa172e9d00e0ec98df3390e092ae27e5fa87ffbf7971b",
+      "sha256": "f97acb875a3c6c40468fe27d70a117de6ac545b453cf6b23e3dc6b25fda1b258",
       "executable": false
     },
     "tests/qualification/ui-convergence/shared-navigation-journey.mjs": {
