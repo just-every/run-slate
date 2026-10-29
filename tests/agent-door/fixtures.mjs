@@ -131,7 +131,12 @@ async function prepare(context) {
   const content=blockType==='task'?{text:[{text:taskText}],done:false,assigneeMemberId:ownerId}:{text:[{text}]};
   const page=(await native(context,'/api/pages',{containerId:container.id,title:tool.startsWith('tasks.')?'Support handoff review':'Native fixture page',blocks:[{id:blockId,blockType,content,treePosition:'a'}]})).value;
   cases[key]={containerId:container.id,pageId:page.pageId,blockId,cls,tool,text,openId:open.id};
-  if(tool==='pages.publish')args={id:page.pageId,...(cls==='access'?{generalAccess:{kind:'workspace',level:'view'}}:{})};
+  if(tool==='pages.publish') {
+   // General access replaces inherited grants. Keep the sponsor's native full
+   // authority for the approved retry while widening access for the reviewer.
+   if(cls==='access')await native(context,'/api/sharing',{targetKind:'page',targetId:page.pageId,principalKind:'member',principalId:ownerId,level:'full'});
+   args={id:page.pageId,...(cls==='access'?{generalAccess:{kind:'workspace',level:'view'}}:{})};
+  }
   if(tool==='publishing.publish')args={id:page.pageId,slug:'curator-'+randomUUID(),indexable:true};
   if(['publishing.read','publishing.revoke'].includes(tool))args={id:page.pageId};
   if(tool==='evidence.read')args={refs:[{kind:'page',sourceId:page.pageId,revisionId:page.revisionId}],audience:[ownerId]};

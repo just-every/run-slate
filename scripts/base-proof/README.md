@@ -1,10 +1,8 @@
 # Base verification without private repository credentials
 
 `pnpm verify-base` authenticates retained native Git objects against the approved
-Base commits in `objects.mjs` (`PINS`: `11f94fec479228d71ba6d7dd6ea7796c0d42c544`,
-the source of `rer-v0.2.80`, and `0fe27af9a5cb1bd9dc5e41da024784082e609010`,
-the contract-docs and extended-baseline source named by the contract rewrite), creates a temporary bare Git object repository whose HEAD
-is the newest pin, and runs the unchanged copied command:
+Base commits in `objects.mjs` (`PINS`), creates a temporary bare Git object
+repository whose HEAD is the newest pin, and runs the unchanged copied command:
 
 ```
 node scripts/edition-authoring/cli.mjs verify-base --base <temporary-repository>
@@ -68,11 +66,9 @@ commit, file digests and modes bind the copied bytes. Public checks authenticate
 complete tree graph, copied blob bytes and executable modes offline. Maintainers
 acquire Base separately and regenerate this same proof through the retention tool.
 
-Agent-door prerequisite copies additionally retain the authenticated commits `d555e789cffb744a9f83d76ebe42a2e3bdd7a055` and `7ce44fa5b70b68b21d270ba54760dae28b4a37a7`.
-
-The released agent-door runtime, Business settings and operator-auth dependencies are retained at `5381ab872b5ab4de80e811bcb4b1a803dd713e0f` (`rer-v0.2.87`). Historical schema copies remain at their original pins; applied migrations are not refreshed.
-
-The declared CORE door is refreshed to released rer 0.2.88 at
-`114ef7a61f080da053af783c5fbe06f625d692cc`. Its native commit and complete
-tree identities were authenticated from the repository API, and recorded blobs
-were hash-checked against those trees. Earlier pins remain for retained copies.
+The current copies are refreshed to released rer 0.2.90 at
+`ab97e5e864013ef03fd7f1e1a335101dd9150891`, including the shared run-data
+runtime. The proof is retained from native Git objects in the maintainer's local
+Base checkout. Historical approved pins remain for custody and existing fixtures,
+including rer 0.2.80, agent-door prerequisites, rer 0.2.87 and rer 0.2.88.
+This source refresh does not establish migration execution or full-clause acceptance.
