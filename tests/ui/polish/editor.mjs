@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { capture, insideViewport } from './evidence.mjs';
+import { blockStructureJourney } from '../../qualification/ui-convergence/block-structure-journey.mjs';
 
 async function menuGeometry(page, trigger) {
   const menu = page.locator('.insert-menu');
@@ -18,7 +19,8 @@ async function menuGeometry(page, trigger) {
   const below = b.y - (a.y + a.height), above = a.y - (b.y + b.height);
   assert.ok(overlapsHorizontally && ((below >= 0 && below <= 16) || (above >= 0 && above <= 16)), `Block menu sits above/below its trigger with 0–16px edge gap, without overlap (${above}, ${below})`);
 }
-export async function editorJourney({ page, origin, api }, pageId, width) {
+export async function editorJourney(state, pageId, width) {
+  const { page, origin, api } = state;
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   await page.getByRole('textbox', { name: 'Page body', exact: true }).fill('Top-level text stays aligned with this document.');
   await expect.poll(async () => JSON.stringify((await api(`/api/pages/${pageId}`)).blocks)).toContain('Top-level text stays aligned');
@@ -105,4 +107,6 @@ export async function editorJourney({ page, origin, api }, pageId, width) {
   await page.reload({ waitUntil: 'networkidle' });
   await expect(heading).toHaveText('Inserted by the real empty-caret slash menu.');
   await expect(page.getByRole('textbox', { name: 'Paragraph', exact: true }).nth(2)).toContainText('Inserted by the real lower-edge menu.');
+  await blockStructureJourney(state, width);
+  await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
 }

@@ -95,24 +95,23 @@ The guest invitation case removes its obsolete 24-hour lifetime pin; requested g
 
 ## Native block structure journey
 
-The existing “real core-wiki and touch-member journeys at 390px” and 1440px
-registrations in `tests/qualification/ui-convergence/journeys.test.mjs` call
-`blockStructureJourney` through `tests/qualification/ui-convergence/write-journey.mjs`.
-Its independent browser page runs alongside the original page, and the existing
-registration joins both results and reports every failure before exiting. The
-original deadline and assertions remain. The journey in
-`tests/qualification/ui-convergence/block-structure-journey.mjs`
+The existing responsive polish registrations at 1440 and 390 in `tests/ui/polish-journeys.test.mjs` call `blockStructureJourney`
+through `tests/ui/polish/editor.mjs`. This keeps the original core writing,
+touch, reading and chat journeys within their existing deadline. No assertion,
+viewport or registration is removed, and no deadline is extended.
+
+The journey in `tests/qualification/ui-convergence/block-structure-journey.mjs`
 performs BLOCK-001's complete native flow: drag handles and move menus reorder
 whole branches, indent and outdent retain nesting, adjacent selection changes no
 stored data, duplication gives every copied block a fresh identifier, and deletion
-removes only the selected branch. Each action awaits its real mutation receipt before read-back. Every step compares
-the ordered identifier,
-type, content and parent projection with an independent expected tree after commit
-and reload. A selected-text comment remains on the original through edits, moves,
-copying and deletion of the copy. The actual downloaded readable HTML archive
-retains the source identifiers, tree, content and comment target, and its rendered
-inline-thread link opens that retained block. Existing touch dragging and column
-journeys also reconcile retained identifiers and content after reload. No new test
-registration or application response fake is used; the emitted Worker and D1 serve
-every read and mutation. This browser proof is outside the Workers-only evidence
-registry and runs in push Verify's existing core and tooling shards.
+removes only the selected branch. Each action awaits its real mutation receipt
+before read-back. Every step compares the ordered identifier, type, content and
+parent projection with an independent expected tree after commit and reload. A
+selected-text comment remains on the original through edits, moves, copying and
+deletion of the copy. The actual downloaded readable HTML archive retains the
+source identifiers, tree, content and comment target, and its rendered inline-thread
+link opens that retained block. Existing core touch dragging and column journeys
+also reconcile retained identifiers and content after reload. The emitted Worker
+and D1 serve every read and mutation, without an application response fake. This
+browser proof is outside the Workers-only evidence registry and runs in push
+Verify's existing desktop and phone polish jobs.

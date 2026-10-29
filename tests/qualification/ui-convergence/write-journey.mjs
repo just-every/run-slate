@@ -5,7 +5,6 @@ import { compactPage, savedAfterSaving, watchSaveStates } from './browser-eviden
 import { randomBytes } from 'node:crypto';
 import { secondaryCreateDestinations } from './navigation-journey.mjs';
 import { firstWordsJourney } from './first-words-journey.mjs';
-import { blockStructureJourney } from './block-structure-journey.mjs';
 
 export async function writeJourney(state, width) {
   const { page, origin, api } = state;
@@ -133,20 +132,6 @@ export async function writeJourney(state, width) {
   await expect(paragraphs.nth(1)).toContainText('Second block: record the next action.');
   await accessible(page, 'two blocks saved in order');
   await firstWordsJourney(state);
-  // This independent page shares native authority, while the original page's
-  // touch and reading steps continue. The caller joins the proof before exit.
-  const structureProof = async () => {
-    const proofPage = await state.context.newPage(), errors = [];
-    proofPage.on('pageerror', error => errors.push(String(error)));
-    try {
-      await blockStructureJourney({ ...state, page: proofPage }, width);
-      assert.deepEqual(errors, [], 'The structure page has no uncaught browser errors.');
-    } catch (error) {
-      await accessible(proofPage, 'block structure failure').catch(() => {});
-      throw error;
-    } finally { await proofPage.close(); }
-  };
-  state.blockStructureProof = structureProof().then(() => ({}), error => ({ error }));
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   return pageId;
 }
