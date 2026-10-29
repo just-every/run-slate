@@ -1,3 +1,4 @@
+import {recordOutput} from './record-output';
 import {readPage} from '../pages/service';
 import {restorePageRevision} from '../versions/service';
 import {nativeMember} from './people';
@@ -54,8 +55,8 @@ export function job<S extends z.ZodRawShape>(env:AppBindings,definition:Job<S>):
     classify:(a,c)=>invoke(a,c,definition.classify),run:async(a,c)=>invoke(a,c,async(args,ctx,door)=>{
       const recordId=(args as Record<string,unknown>).id;
       const prior=definition.reversible&&typeof recordId==='string'?(await readPage(ctx,recordId)).page.revisionId:null;
-      const result=await definition.run(args,ctx,door);
       const target=definition.target?await definition.target(args,ctx):null;
+      const result=await definition.run(args,ctx,door);
       const resources=definition.resources?.(args,result)??(target&&['page','container','database','record','thread','decision','inquiry','run'].includes(target.kind)?[{uri:'slate://'+({page:'pages',container:'containers',database:'databases',record:'records',thread:'threads',decision:'decisions',inquiry:'inquiries',run:'runs'}[target.kind as 'page']),name:definition.title}].map(link=>({...link,uri:link.uri+'/'+encodeURIComponent(target.id)})):[]);
       const current=prior?(await readPage(ctx,recordId as string)).page.revisionId:null;
       if(definition.readOnly) {
@@ -63,10 +64,10 @@ export function job<S extends z.ZodRawShape>(env:AppBindings,definition:Job<S>):
         const current=await ctx.db.prepare('SELECT (SELECT revision FROM import_native_epoch WHERE id=1) AS nativeEpoch,(SELECT epoch FROM core_acl_epoch WHERE id=1) AS aclEpoch').first<{nativeEpoch:number;aclEpoch:number}>();
         if(!current||current.nativeEpoch!==prepared.nativeEpoch||current.aclEpoch!==prepared.aclEpoch)throw new ToolRefusal('revision_conflict');
       }
-      return {result:JSON.parse(JSON.stringify(result)),resources,...(prior?{undo:{pageId:recordId,prior,current,key:door.operationId}}:{})};
+      return {result:recordOutput(JSON.parse(JSON.stringify(result))),resources,...(prior?{undo:{pageId:recordId,prior,current,key:door.operationId}}:{})};
     }),
     ...(definition.target?{target:(a:Record<string,unknown>,c:ToolContext)=>invoke(a,c,definition.target!)}:{}),
-    ...(definition.summary?{summary:(a:Record<string,unknown>,c:ToolContext)=>invoke(a,c,definition.summary!)}:{}),
+    ...(definition.summary?{summary:(a:Record<string,unknown>,c:ToolContext)=>invoke(a,c,async(args,ctx)=>recordOutput(JSON.parse(JSON.stringify(await definition.summary!(args,ctx)))) as ApprovalSummary)}:{}),
     ...(definition.revision?{revisionType:'string' as const,revision:(a:Record<string,unknown>,c:ToolContext)=>invoke(a,c,definition.revision!)}:{}),
     ...(definition.authority?{authority:(a:Record<string,unknown>,c:ToolContext)=>invoke(a,c,definition.authority!)}:{}),
     ...(definition.proof?{proof:'native' as const,proofKind:'step_up'}:{}),

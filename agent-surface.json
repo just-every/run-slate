@@ -1733,6 +1733,453 @@
       }
     },
     {
+      "name": "slate.comments.create",
+      "scope": "slate.comments.create",
+      "clauses": [
+        "COMM-001",
+        "COMM-003"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "body": {},
+          "threadId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "parentCommentId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "inline",
+              "page"
+            ]
+          },
+          "blockId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "anchor": {
+            "type": "object",
+            "properties": {
+              "anchorId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "quote": {
+                "type": "string",
+                "maxLength": 5000
+              }
+            },
+            "required": [
+              "anchorId",
+              "quote"
+            ]
+          },
+          "anchorRevisionId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id",
+          "body"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.comments.manage",
+      "scope": "slate.comments.manage",
+      "clauses": [
+        "COMM-002"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "body": {},
+          "delete": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.comments.resolve",
+      "scope": "slate.comments.resolve",
+      "clauses": [
+        "COMM-007"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "all": {
+            "type": "boolean"
+          },
+          "resolved": {
+            "default": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.revisions.restore",
+      "scope": "slate.revisions.restore",
+      "clauses": [
+        "REV-003"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "revisionId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id",
+          "revisionId"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.pages.discard",
+      "scope": "slate.pages.discard",
+      "clauses": [
+        "LIFE-007"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.queries.run",
+      "scope": "slate.queries.run",
+      "clauses": [
+        "BLOCK-010"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "definition": {
+            "type": "object",
+            "properties": {
+              "search": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "maxLength": 1000
+                  },
+                  "kind": {
+                    "type": "string"
+                  },
+                  "containerId": {
+                    "type": "string"
+                  },
+                  "contributorId": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string",
+                    "maxLength": 80
+                  },
+                  "sort": {
+                    "type": "string",
+                    "enum": [
+                      "relevance",
+                      "updated",
+                      "views"
+                    ]
+                  },
+                  "updatedFrom": {
+                    "type": "string"
+                  },
+                  "updatedTo": {
+                    "type": "string"
+                  },
+                  "includeArchived": {
+                    "type": "boolean"
+                  },
+                  "includeTrashed": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              },
+              "searchName": {
+                "type": "string",
+                "maxLength": 120
+              },
+              "label": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "container": {
+                "type": "string"
+              },
+              "ancestor": {
+                "type": "string"
+              },
+              "pageType": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "contributor": {
+                "type": "string"
+              },
+              "dateRange": {
+                "type": "string"
+              },
+              "orderBy": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "definition"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.evidence.read",
+      "scope": "slate.evidence.read",
+      "clauses": [
+        "AI-004",
+        "AI-007",
+        "AI-013"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "refs": {
+            "minItems": 1,
+            "maxItems": 100,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "const": "page"
+                },
+                "sourceId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "revisionId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "passageId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "kind",
+                "sourceId",
+                "revisionId"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "audience": {
+            "minItems": 1,
+            "maxItems": 100,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "refs",
+          "audience"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.groups.list",
+      "scope": "slate.groups.list",
+      "clauses": [
+        "WORK-009"
+      ],
+      "classes": [
+        "standard"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {},
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.groups.manage",
+      "scope": "slate.groups.manage",
+      "clauses": [
+        "WORK-009"
+      ],
+      "classes": [
+        "standard",
+        "access"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "memberIds": {
+            "maxItems": 1000,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          },
+          "remove": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "memberIds"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
       "name": "slate.events.list",
       "scope": "events:read",
       "clauses": [
@@ -3353,6 +3800,456 @@
       }
     },
     {
+      "id": "comments_create_standard",
+      "tool": "slate.comments.create",
+      "args": {
+        "$fixture": "comments_create_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "comments_create_external",
+      "tool": "slate.comments.create",
+      "args": {
+        "$fixture": "comments_create_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "comments_create_sensitive",
+      "tool": "slate.comments.create",
+      "args": {
+        "$fixture": "comments_create_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "comments_manage_standard",
+      "tool": "slate.comments.manage",
+      "args": {
+        "$fixture": "comments_manage_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "comments_manage_external",
+      "tool": "slate.comments.manage",
+      "args": {
+        "$fixture": "comments_manage_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "comments_manage_sensitive",
+      "tool": "slate.comments.manage",
+      "args": {
+        "$fixture": "comments_manage_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "comments_resolve_standard",
+      "tool": "slate.comments.resolve",
+      "args": {
+        "$fixture": "comments_resolve_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "comments_resolve_external",
+      "tool": "slate.comments.resolve",
+      "args": {
+        "$fixture": "comments_resolve_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "comments_resolve_sensitive",
+      "tool": "slate.comments.resolve",
+      "args": {
+        "$fixture": "comments_resolve_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "revisions_restore_standard",
+      "tool": "slate.revisions.restore",
+      "args": {
+        "$fixture": "revisions_restore_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "revisions_restore_external",
+      "tool": "slate.revisions.restore",
+      "args": {
+        "$fixture": "revisions_restore_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "revisions_restore_sensitive",
+      "tool": "slate.revisions.restore",
+      "args": {
+        "$fixture": "revisions_restore_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_discard_standard",
+      "tool": "slate.pages.discard",
+      "args": {
+        "$fixture": "pages_discard_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_discard_external",
+      "tool": "slate.pages.discard",
+      "args": {
+        "$fixture": "pages_discard_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_discard_sensitive",
+      "tool": "slate.pages.discard",
+      "args": {
+        "$fixture": "pages_discard_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "queries_run_standard",
+      "tool": "slate.queries.run",
+      "args": {
+        "$fixture": "queries_run_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "queries_run_sensitive",
+      "tool": "slate.queries.run",
+      "args": {
+        "$fixture": "queries_run_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "evidence_read_standard",
+      "tool": "slate.evidence.read",
+      "args": {
+        "$fixture": "evidence_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "evidence_read_sensitive",
+      "tool": "slate.evidence.read",
+      "args": {
+        "$fixture": "evidence_read_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "groups_list_standard",
+      "tool": "slate.groups.list",
+      "args": {
+        "$fixture": "groups_list_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "groups_manage_standard",
+      "tool": "slate.groups.manage",
+      "args": {
+        "$fixture": "groups_manage_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "groups_manage_access",
+      "tool": "slate.groups.manage",
+      "args": {
+        "$fixture": "groups_manage_access",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "access",
+          "facts": {
+            "measure": 1,
+            "direction": "narrows"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
       "id": "events_list_standard",
       "tool": "slate.events.list",
       "args": {
@@ -3408,6 +4305,29 @@
     }
   ],
   "escalations": [
+    {
+      "id": "own_group_widen",
+      "tool": "slate.groups.manage",
+      "args": {
+        "id": {
+          "$fixture": "escalation_group",
+          "pointer": "/id"
+        },
+        "name": {
+          "$fixture": "escalation_group",
+          "pointer": "/name"
+        },
+        "memberIds": [
+          {
+            "$fixture": "escalation_group",
+            "pointer": "/memberId"
+          },
+          {
+            "$sponsor": "id"
+          }
+        ]
+      }
+    },
     {
       "id": "own_grant_widen",
       "tool": "slate.grants.set",

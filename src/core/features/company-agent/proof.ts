@@ -6,21 +6,21 @@ import { createSessionService,sessionOptions } from '../session/service';
 import { requestHash } from '../../app/request-hash';
 import { safeAppPath } from '../../platform/auth/paths';
 
-export async function nativeProofSession(env:AppBindings,reference:string,person:string,agent:string):Promise<string|null> {
+export async function nativeProofSession(env:AppBindings,reference:string,person:string,agent:string,client:string|null=null):Promise<string|null> {
   return (await env.DB.prepare(`SELECT p.session_id FROM slate_agent_native_proofs p JOIN sessions s ON s.id=p.session_id JOIN members m ON m.id=p.person_id
-    WHERE p.id=? AND p.person_id=? AND p.agent_id=? AND p.expires_at>? AND s.member_id=p.person_id AND s.revoked_at IS NULL AND s.expires_at>?
+    WHERE p.id=? AND p.person_id=? AND p.agent_id=? AND p.client_id IS ? AND p.proof_kind='step_up' AND p.expires_at>? AND s.member_id=p.person_id AND s.revoked_at IS NULL AND s.expires_at>?
     AND m.status='active' AND s.proof_at>=? AND s.proof_version=COALESCE((SELECT version FROM member_authority WHERE member_id=m.id),1)`)
-    .bind(reference,person,agent,Date.now(),new Date().toISOString(),Date.now()-600_000).first<{session_id:string}>())?.session_id??null;
+    .bind(reference,person,agent,client,Date.now(),new Date().toISOString(),Date.now()-600_000).first<{session_id:string}>())?.session_id??null;
 }
 export function nativeProof(env:AppBindings,config:RuntimeConfig):NonNullable<AgentDoorOptions['nativeProof']> {
   return {
-    async handoff({tool,principal}) {
+    async handoff({kind,tool,principal}) {
       const id=crypto.randomUUID();
-      await env.DB.prepare('INSERT INTO slate_agent_native_proofs(id,person_id,agent_id,tool,expires_at) VALUES(?,?,?,?,?)').bind(id,principal.person.id,principal.agent.id,tool,Date.now()+600_000).run();
+      await env.DB.prepare('INSERT INTO slate_agent_native_proofs(id,person_id,agent_id,tool,client_id,proof_kind,expires_at) VALUES(?,?,?,?,?,?,?)').bind(id,principal.person.id,principal.agent.id,tool,principal.clientId??null,kind,Date.now()+600_000).run();
       return new URL('/agents/native-proof/'+id,config.appUrl).href;
     },
     async verify({tool,principal,reference}) {
-      if(!await nativeProofSession(env,reference,principal.person.id,principal.agent.id))return false;
+      if(!await nativeProofSession(env,reference,principal.person.id,principal.agent.id,principal.clientId??null))return false;
       return !!await env.DB.prepare('SELECT 1 FROM slate_agent_native_proofs WHERE id=? AND tool=?').bind(reference,tool).first();
     },
   };

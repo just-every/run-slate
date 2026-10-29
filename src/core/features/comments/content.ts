@@ -1,7 +1,7 @@
 import type {FeatureContext} from '../../app/feature-context';
 import {requestHash} from '../../app/operations';
 
-export async function commentRevision(ctx: FeatureContext, id: string, revisionId: string, value: unknown) { return ctx.db.prepare('INSERT INTO record_revisions (id,workspace_id,entity_kind,entity_id,content_hash,content_json,author_member_id,created_at) VALUES (?,?,?,?,?,?,?,?)').bind(revisionId, ctx.actor.workspaceId, 'comment-thread', id, await requestHash({ value, revisionId }), JSON.stringify(value), ctx.actor.id, ctx.now); }
+export async function commentRevision(ctx: FeatureContext, id: string, revisionId: string, value: unknown) { return ctx.db.prepare('INSERT INTO record_revisions (id,workspace_id,entity_kind,entity_id,content_hash,content_json,author_member_id,created_at,agent_attribution_json) VALUES (?,?,?,?,?,?,?,?,?)').bind(revisionId, ctx.actor.workspaceId, 'comment-thread', id, await requestHash({ value, revisionId }), JSON.stringify(value), ctx.actor.id, ctx.now,ctx.agent?JSON.stringify(ctx.agent):null); }
 export function mentionIds(value: unknown): string[] {
     const ids = new Set<string>();
     function walk(v: unknown) {

@@ -11,7 +11,7 @@ export async function chatMessage(ctx: FeatureContext, events: OutboxRow[], appU
       : event.container_id ? (await ctx.db.prepare('SELECT name AS title FROM containers WHERE id=?').bind(event.container_id).first<{ title: string }>())?.title : undefined;
     const url = new URL(event.page_id ? `/app/pages/${event.page_id}` : event.container_id ? `/app/containers/${event.container_id}` : '/app', appUrl);
     if (event.comment_id) url.searchParams.set('comment', event.comment_id);
-    lines.push([event.event, actor?.display_name ?? 'Slate', title ?? '', url.href].filter(Boolean).join(' · '));
+    lines.push([event.event, JSON.parse(event.detail_json).agent?.label ?? actor?.display_name ?? 'Slate', title ?? '', url.href].filter(Boolean).join(' · '));
   }
   return lines.join('\n');
 }

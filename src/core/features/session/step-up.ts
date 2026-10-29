@@ -16,12 +16,6 @@ const POST = (request: Request) => request.method === "POST" ? request : new Req
  * the proof check (`FeatureContext.stepUp`).
  */
 export async function requireStepUp(c: Context<AppEnvironment>, action: StepUpAction): Promise<void> {
-  const agent=c.get('companyAgent');
-  if(agent) {
-    if(!agent.stepUp)throw new ApiProblem(403,'STEP_UP_REQUIRED','Complete the native authentication handoff.');
-    c.set('stepUp',agent.stepUp);
-    return;
-  }
   const { auth } = await createSlateAuth(c.env.DB, c.get("runtimeConfig"));
   try {
     const session = await auth.requireStepUp(c.req.raw, action);
