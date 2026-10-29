@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 41 | 256 | 34 | 331 |
+| Core | 42 | 255 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 41 | 256 | 40 | 337 |
+| Full target | 42 | 255 | 40 | 337 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1810,7 +1810,7 @@ Core · published · **done**
 
 #### SEARCH-006 — Search in one container
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Search can be scoped to one container from that container's own surface, keeps every filter in `SEARCH-003`, and says which container it is scoped to.
 
@@ -1818,8 +1818,8 @@ Core · published · **partial**
 1. Search can be scoped to one container from that container's own surface, keeps every filter in `SEARCH-003`, and says which container it is scoped to.
 2. Search scoped to one container keeps filters and names its scope.
 
-**Evidence.** `tests/qualification/core/discovery-browser.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/search-filters-journey.mjs` — "searchFiltersJourney", called by "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: the space action opens named scoped search; kind, space, contributor, status, updated dates, archive and trash narrow real results without changing the query; named scope and every active control survive reload.
+**Gap.** None.
 
 #### SEARCH-007 — No results
 
