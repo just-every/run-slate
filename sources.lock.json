@@ -12132,7 +12132,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "2223d6ae63baab3183ea82d1b27a3bf4be99f0f99dd93252082c6a6e3c26c379",
+      "sha256": "2c8810d09b31fa08b7623f51414821984955b9526336039d94f73bdd99f565ce",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12148,7 +12148,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "5305a647c944a03946e2481c91aec5f4efe9377707c92f6ba363b1cedb01a92e",
+      "sha256": "f4c65e831b1b91870d59c17847e1ade7ebdbbf63865fafb06121e95ed133e313",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

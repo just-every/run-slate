@@ -1414,14 +1414,6 @@
         {
           "file": "tests/qualification/core/audit-content.test.ts",
           "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor/time"
-        },
-        {
-          "file": "tests/qualification/ui-convergence/journeys.test.mjs",
-          "testName": "page outline follows headings and navigates long pages at 1440px"
-        },
-        {
-          "file": "tests/qualification/ui-convergence/journeys.test.mjs",
-          "testName": "space tree title filtering preserves ancestors, access and expansion at 390px"
         }
       ]
     },
