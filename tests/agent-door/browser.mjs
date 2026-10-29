@@ -4,9 +4,11 @@ import {existsSync} from 'node:fs';
 import {mkdtemp,writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
+import {nativeQuietWindow,pacedNativeRequest} from './fixtures.mjs';
 
 /** Browser proof uses only the disposable production application's real doors. */
 export async function browserProof({request,origin,cookie,taskPageId,taskActor,preparedPublicPath,publishedPublicPath}) {
+ await nativeQuietWindow();
  const directory=await mkdtemp(join(tmpdir(),'slate-agent-proof-'));
  let stage='launch',page;
  const browser=await chromium.launch({headless:true,...(existsSync('/usr/bin/chromium')?{executablePath:'/usr/bin/chromium'}:{}),args:['--no-sandbox']});
@@ -16,7 +18,7 @@ export async function browserProof({request,origin,cookie,taskPageId,taskActor,p
   await context.route('**/*',async route=>{
    const incoming=route.request(),url=new URL(incoming.url());
    if(url.origin!==origin){await route.abort();return;}
-   const response=await request(url.href,{method:incoming.method(),headers:await incoming.allHeaders(),...(incoming.postDataBuffer()?{body:incoming.postDataBuffer()}:{}),redirect:'manual'});
+   const response=await pacedNativeRequest({request},url.href,{method:incoming.method(),headers:await incoming.allHeaders(),...(incoming.postDataBuffer()?{body:incoming.postDataBuffer()}:{}),redirect:'manual'});
    const headers=Object.fromEntries(response.headers);for(const name of ['content-length','content-encoding','transfer-encoding'])delete headers[name];
    await route.fulfill({status:response.status,headers,body:Buffer.from(await response.arrayBuffer())});
   });
