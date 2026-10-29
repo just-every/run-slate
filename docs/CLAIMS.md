@@ -14,11 +14,11 @@ A claim is done when every clause behind it is done, missing when every one is m
 | 6 | No per-seat pricing. | `AGENT-002` partial; `HOME-002` partial | partial |
 | 7 | Your data stays with you. | `AGENT-002` partial; `HOME-002` partial | partial |
 | 8 | The whole source is public. | `AGENT-002` partial; `HOME-002` partial | partial |
-| 9 | Write the way you already do. | `BLOCK-003` partial; `BLOCK-004` partial; `BLOCK-005` partial; `TREE-001` partial | partial |
-| 10 | Type # for a heading, @ to mention a person or a page, and / to insert anything else. Pages nest into trees, so the wiki follows the shape of your work. | `BLOCK-003` partial; `BLOCK-004` partial; `BLOCK-005` partial; `TREE-001` partial | partial |
-| 11 | Markdown shortcuts | `BLOCK-003` partial; `BLOCK-004` partial; `BLOCK-005` partial; `TREE-001` partial | partial |
-| 12 | Nested page trees | `BLOCK-003` partial; `BLOCK-004` partial; `BLOCK-005` partial; `TREE-001` partial | partial |
-| 13 | @mentions | `BLOCK-003` partial; `BLOCK-004` partial; `BLOCK-005` partial; `TREE-001` partial | partial |
+| 9 | Write the way you already do. | `BLOCK-003` partial; `BLOCK-004` done; `BLOCK-005` partial; `TREE-001` partial | partial |
+| 10 | Type # for a heading, @ to mention a person or a page, and / to insert anything else. Pages nest into trees, so the wiki follows the shape of your work. | `BLOCK-003` partial; `BLOCK-004` done; `BLOCK-005` partial; `TREE-001` partial | partial |
+| 11 | Markdown shortcuts | `BLOCK-003` partial; `BLOCK-004` done; `BLOCK-005` partial; `TREE-001` partial | partial |
+| 12 | Nested page trees | `BLOCK-003` partial; `BLOCK-004` done; `BLOCK-005` partial; `TREE-001` partial | partial |
+| 13 | @mentions | `BLOCK-003` partial; `BLOCK-004` done; `BLOCK-005` partial; `TREE-001` partial | partial |
 | 14 | Every record is a page. | `DB-001` partial; `DB-004` partial; `DB-005` partial; `DB-006` partial; `DB-008` partial; `DB-010` partial; `DB-012` partial | partial |
 | 15 | Give a collection its own fields, then view it as a table, a board or a chart. Filter, sort and group as you go, and open any row as a full page with comments and history. | `DB-001` partial; `DB-004` partial; `DB-005` partial; `DB-006` partial; `DB-008` partial; `DB-010` partial; `DB-012` partial | partial |
 | 16 | Table, board and chart | `DB-001` partial; `DB-004` partial; `DB-005` partial; `DB-006` partial; `DB-008` partial; `DB-010` partial; `DB-012` partial | partial |

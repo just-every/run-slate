@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 44 | 253 | 34 | 331 |
+| Core | 45 | 252 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 44 | 253 | 40 | 337 |
+| Full target | 45 | 252 | 40 | 337 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -631,7 +631,7 @@ Core · published · **partial**
 
 #### BLOCK-004 — Markdown shortcuts
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Typed Markdown converts as it is written — headings, lists, quotes, code fences, dividers, bold, italic and inline code — and each conversion is undone by one undo without losing the typed characters.
 
@@ -639,8 +639,8 @@ Core · published · **partial**
 1. The reference in `WORK-014` lists every shortcut the editor accepts.
 2. Each Markdown shortcut converts as typed and one undo restores the typed characters.
 
-**Evidence.** `tests/qualification/interface/content.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/typed-shortcuts-journey.mjs` — "typedShortcutsJourney", through "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1, the complete accepted typed reference; acceptance 2, all fifteen native typing inputs, stored types and content, one undo retaining every character, durable literal read-back and reloaded reconversion with the same block identifier. `tests/ui/polish/editor-focus.mjs` — "editorFocusJourney", formatting scenario of "genuine insertion focus lifecycle at 1440px": retained rich headings, marks, link, mention and comment anchor.
+**Gap.** None.
 
 #### BLOCK-005 — Mentions
 

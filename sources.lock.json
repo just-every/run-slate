@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "1fe175a95591a3b436b7f40d6226480d869e9af004c0a68e3253825fa8764ccf",
+      "sha256": "1ff38039eb4167a131b036ccbf23b8ad7873f17fb3398da8f59684fbf3054ecb",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "2e815260aea9d0675e0263b85063ed3e04c7d22691f4bc9f0eefc83b40bc936d",
+      "sha256": "43f3484f57c93fce6a540737193e6c7e636febbedcd365467aa5f2bb9891ea68",
       "executable": false
     },
     "DEMO.md": {
@@ -1036,7 +1036,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "3bc7378092f6de6fd1617aa52ee8bfa09385916a072e92e9944f50c020d101c0",
+      "sha256": "a384f08034426d8ab783cb9c335542b5d23af2de2ff435442925b619508d00c5",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -11940,7 +11940,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "c5fc63ab8362f695c71fbbffdc0d03f6228790a31f449a232ea6557d117828fb",
+      "sha256": "6db43e50fee89296127599a8974342eaa64800d5138481a4e370bb833efc37d6",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12112,7 +12112,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/typed-shortcuts-journey.mjs": {
-      "sha256": "395d530bfcd82e8186730fbc99f330b9de137bae6610ff07a4eecd2dbb9f78b8",
+      "sha256": "6b2b8d3e2647860a547abf34e4e6e4d12fb59e2f8d6f282ad9e9c3b9adf21c23",
       "executable": false
     },
     "tests/qualification/ui-convergence/webhook-access-journey.mjs": {
@@ -12152,11 +12152,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "075400979c16283b3de207f37725ad4322a09a93775c093198b5fed83fbd6b88",
+      "sha256": "9f01ed27237c0387fbf98e1b21969adaf69adb6671de150f2461b0900c6d1abc",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "25665e13a94a7bbb1e49146e10e22c2a20348e97f4083aca9fa24bfc1c33874a",
+      "sha256": "1db00709ca668ee07187b64854b73160522c30fef2b2e13c58b6faff86dd100d",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
