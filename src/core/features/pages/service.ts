@@ -65,9 +65,10 @@ export async function readPage(ctx: FeatureContext, id: string): Promise<PageDoc
                 const current = (await ctx.db.prepare('SELECT b.id,b.revision_id AS revisionId FROM page_blocks b JOIN pages p ON p.id=b.page_id WHERE p.id=? AND p.revision_id=?')
                     .bind(id, p.revision_id).all<{id:string;revisionId:string}>()).results;
                 const tokens = new Map(current.map(block => [block.id, block.revisionId]));
-                if (current.length !== blocks.length || blocks.some((block:{id:string}) => !tokens.has(block.id)))
-                    throw new ApiProblem(409, 'REVISION_CONFLICT', 'The page changed while loading. Reload before editing.');
-                blocks = blocks.map((block:{id:string}) => ({...block,revisionId:tokens.get(block.id)!}));
+                // A snapshot remains readable without a live block projection.
+                // Keep its original tokens when the fenced lookup has no match;
+                // the write endpoint still refuses any stale token.
+                blocks = blocks.map((block:{id:string;revisionId:string}) => ({...block,revisionId:tokens.get(block.id) ?? block.revisionId}));
             }
             const snapshotProperties: PageProperties = JSON.parse(delivered.properties_json);
             const publishedOnly = !canEdit && p.published_revision_id && p.published_revision_id !== p.working_revision_id;

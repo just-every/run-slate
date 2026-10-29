@@ -3974,7 +3974,7 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `39e3294f391cbd0100879b08cf6dcd7add46a7d9` (29 October 2026).
+Judged from the code and tests at commit `2f0768fbc144e205b2f421f58d904259da205c11` (29 October 2026).
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
