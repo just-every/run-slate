@@ -1,5 +1,12 @@
 {
   "schema": "rer-agent-surface/1",
+  "capabilities": [
+    "tools",
+    "policy",
+    "pause",
+    "audit",
+    "idempotency"
+  ],
   "seed": "slate",
   "specialist": "wiki curator",
   "tools": [

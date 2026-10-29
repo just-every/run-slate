@@ -71,3 +71,8 @@ acquire Base separately and regenerate this same proof through the retention too
 Agent-door prerequisite copies additionally retain the authenticated commits `d555e789cffb744a9f83d76ebe42a2e3bdd7a055` and `7ce44fa5b70b68b21d270ba54760dae28b4a37a7`.
 
 The released agent-door runtime, Business settings and operator-auth dependencies are retained at `5381ab872b5ab4de80e811bcb4b1a803dd713e0f` (`rer-v0.2.87`). Historical schema copies remain at their original pins; applied migrations are not refreshed.
+
+The declared CORE door is refreshed to released rer 0.2.88 at
+`114ef7a61f080da053af783c5fbe06f625d692cc`. Its native commit and complete
+tree identities were authenticated from the repository API, and recorded blobs
+were hash-checked against those trees. Earlier pins remain for retained copies.

@@ -1,14 +1,17 @@
 # Company agent access
 
-Slate's intended shared-door profile contains tools, policy, pause, audit and
+Slate's declared shared-door profile contains tools, policy, pause, audit and
 idempotency. Principal authorization and owner-bound tokens are mandatory.
 The installed command and recorded agent-door runtime are pinned to released
-rer 0.2.87. That release has no capability-declaration field; this document does
-not add one to the machine-readable surface.
+rer 0.2.88. The same CORE array is declared in `agent-surface.json` and passed
+to the production `createAgentDoor` factory.
 
-No optional family is declared: events, subscriptions, multi-sponsor, mail
+No scopeable optional capability is declared: events, resources, prompts or
+subscriptions. Their public doors return `capability_not_declared`. Native
+resource visibility adapters remain private to the runtime. Multi-sponsor, mail
 edges, resource refresh, timed lifecycle, dual host, queued lifecycle and
-owner-native administration. Native wiki activity is not a typed shared-door
+owner-native administration are unscoped by this first subset release; CORE
+security checks, including native approvals and queued consent, still run. Native wiki activity is not a typed shared-door
 resource event feed. BASE-AGENT-010 and SURFACE-005 remain partial / not-declared
 for events and subscriptions, rather than claiming cross-product handoffs.
 
