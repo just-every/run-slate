@@ -69,3 +69,5 @@ complete tree graph, copied blob bytes and executable modes offline. Maintainers
 acquire Base separately and regenerate this same proof through the retention tool.
 
 Agent-door prerequisite copies additionally retain the authenticated commits `d555e789cffb744a9f83d76ebe42a2e3bdd7a055` and `7ce44fa5b70b68b21d270ba54760dae28b4a37a7`.
+
+The released agent-door runtime, Business settings and operator-auth dependencies are retained at `f96363bf919ea3e7ed1837daba6894810a50e4a6` (`rer-v0.2.86`). Historical schema copies remain at their original pins; applied migrations are not refreshed.
