@@ -139,6 +139,7 @@ async function inboxJourney(f:Awaited<ReturnType<typeof followingFixture>>){
  expect((await f.ok(f.editor,'GET','/api/notifications?archived=true')).items.filter((n:any)=>n.pageId===pageId).map((n:any)=>n.id)).toEqual([direct.id]);
  await f.ok(f.editor,'POST','/api/notifications/actions',{operationKey:f.key(),action:'read-all'});
  const allRead=await f.ok(f.editor,'GET','/api/notifications');
+ expect(allRead.items.map((n:any)=>n.id)).toEqual(ordered.slice(1).map(n=>n.id));
  expect(allRead.unreadCount).toBe(0);expect(allRead.items.every((n:any)=>n.readAt)).toBe(true);
  await f.ok(f.editor,'POST','/api/notifications/actions',{operationKey:f.key(),action:'archive-read'});
  expect((await f.ok(f.editor,'GET','/api/notifications')).items).toEqual([]);

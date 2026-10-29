@@ -153,6 +153,7 @@ export async function inboxJourney(state,touch){
  await expect(page.locator('.page-lede')).toHaveText('3 unread notifications');
  await tap(page.getByRole('button',{name:'Mark all read',exact:true}));
  await expect(page.locator('.page-lede')).toHaveText('0 unread notifications');
+  await expect(rows).toHaveCount(3);
  await page.reload({waitUntil:'networkidle'});
  assert.ok((await api('/api/notifications')).items.every(item=>item.readAt));
  await tap(page.getByRole('button',{name:'Archive read',exact:true}));
