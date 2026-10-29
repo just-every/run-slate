@@ -5464,7 +5464,7 @@
       "executable": false
     },
     "src/core/app/ui/KeyboardReference.tsx": {
-      "sha256": "34cd4898e8e0b5c47695e2f36cb6b09bb2e566a1f9c076186ae3fe1e0958c46b",
+      "sha256": "3eb07c3f435e22f13e9135702660da84d37169e09a16d9c8887d7c5da38f824b",
       "executable": false
     },
     "src/core/app/ui/LaunchProfile.tsx": {
