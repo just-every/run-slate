@@ -45,13 +45,11 @@ async function databaseCheckboxBounds({ page, context, origin, api }, containerI
     // 300 ms delay and fade finish before the first read.
     await page.mouse.move(0, 0);
     await page.waitForTimeout(600);
-    await page.evaluate(() => { const w = window; w.__g = { gaps: [], frames: 0, t0: performance.now() }; let last = performance.now(); setInterval(() => { const n = performance.now(); if (n - last > 100) w.__g.gaps.push([Math.round(last - w.__g.t0), Math.round(n - last)]); last = n; }, 20); const loop = () => { w.__g.frames++; w.__tipFrames = requestAnimationFrame(loop); }; loop(); });
+    await page.evaluate(() => { const loop = () => { window.__tipFrames = requestAnimationFrame(loop); }; loop(); });
     await checkbox.hover();
     await page.waitForTimeout(1000);
-    try {
     await expect.poll(() => checkbox.evaluate(el => el.matches(':hover')), { message: `SL35 ${surface}: the pointer reaches the field` }).toBe(true);
     await expect.poll(async () => (await measure()).opacity, { message: `SL35 ${surface}: the field tip appears after hover` }).toBe('1');
-    } catch (error) { await page.waitForTimeout(3000); console.log('DIAG6 ' + surface + ' ' + JSON.stringify(await page.evaluate(() => ({ ...window.__g, now: Math.round(performance.now() - window.__g.t0) })))); throw error; }
     const shown = await measure();
     await page.evaluate(() => cancelAnimationFrame(window.__tipFrames));
     assert.equal(shown.scroll, shown.viewport, `SL35 ${surface}: a shown field tip does not widen the page`);
