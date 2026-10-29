@@ -46,6 +46,6 @@ export async function deleteRevision(ctx: FeatureContext, pageId: string, id: st
             if ([p.revision_id, p.working_revision_id, p.published_revision_id].includes(id))
                 throw new ApiProblem(409, 'CURRENT_REVISION', 'Current and published versions cannot be deleted.');
             await revisionRow(ctx, pageId, id);
-            return { statements: [pageGuard(ctx, p, p.revision_id), ctx.db.prepare("UPDATE page_revisions SET body_json='[]',properties_json='{}',content_hash='',author_member_id=NULL,label=NULL,status_key=NULL,deleted_at=?,deleted_by_member_id=? WHERE id=? AND page_id=?").bind(ctx.now, ctx.actor.id, id, pageId)], entity: { id: pageId, kind: 'page', revisionId: p.revision_id }, value: { id, deleted: true } };
+            return { statements: [pageGuard(ctx, p, p.revision_id), ctx.db.prepare("UPDATE page_revisions SET body_json='[]',properties_json='{}',content_hash='',author_member_id=NULL,label=NULL,status_key=NULL,deleted_at=?,deleted_by_member_id=? WHERE id=? AND page_id=?").bind(ctx.now, ctx.actor.id, id, pageId)], detail: {revisionId:id}, entity: { id: pageId, kind: 'page', revisionId: p.revision_id }, value: { id, deleted: true } };
         } });
 }

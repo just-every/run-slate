@@ -1,3 +1,4 @@
+import {activityCommitProof} from './activity-commit-proof';
 import {activityContextProof} from './activity-context-proof';
 import {auditExportProof} from './audit-export-proof';
 import {test,expect} from 'vitest';
@@ -28,8 +29,11 @@ test('ACT-002 BASE-OPS-005 audit content, publication, archive and version mutat
  await f.profile({'page.version.v1':'labelled','page.lifecycle.v1':'draft-then-publish'});const p=await f.page('Version audit'),initial=p.revisionId;
  await f.request('PATCH',`/api/pages/${p.id}`,{operationKey:createUlid(),expectedRevisionId:await f.revision(p.id),properties:{title:'Second revision'}});
  await f.mutation('version restores','pages.restore','POST',`/api/revisions/${p.id}/${initial}/restore`,{expectedRevisionId:await f.revision(p.id)});
- await f.mutation('version deletions','versions.delete','DELETE',`/api/revisions/${p.id}/${initial}`,{});
+ const deleted=await f.mutation('version deletions','versions.delete','DELETE',`/api/revisions/${p.id}/${initial}`,{});
+ const timeline=await f.request('GET','/api/activity?limit=100');expect(timeline.data.items.find((item:{id:string})=>item.id===deleted.receipt.activityId).context).toMatchObject({pageId:p.id,revisionId:initial});
+ expect((await f.request('GET',`/api/revisions/${p.id}/${initial}`)).data.deleted).toBe(true);
 }
 await activityContextProof(f);
+await activityCommitProof(f);
 await auditExportProof(f);
 });

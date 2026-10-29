@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 41 | 256 | 34 | 331 |
+| Core | 43 | 254 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 41 | 256 | 40 | 337 |
+| Full target | 43 | 254 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `82844d6537ba4a917b553f42ee523ba504e7dbff` (29 October 2026); this is the source parent for the ACT-001 and ACT-004 completion. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -2044,7 +2044,7 @@ Core · published · **partial** · Cites BASE-MAIL-001
 
 #### ACT-001 — Durable timeline
 
-Core · published · **partial** · Cites BASE-AUDIT-001, BASE-OPS-005
+Core · published · **done** · Cites BASE-AUDIT-001, BASE-OPS-005
 
 **Requirement.** Wiki changes and their activity entries commit together. Slate activity identifies the wiki operation and its operation key, automation run or AI run.
 
@@ -2052,8 +2052,8 @@ Core · published · **partial** · Cites BASE-AUDIT-001, BASE-OPS-005
 1. A page mutation and its activity entry are both present after commit, or neither is present after a failed commit.
 2. An entry links to the exact page, revision, comment or grant and records the responsible feature when it is a scheduled wiki operation.
 
-**Evidence.** `tests/qualification/core/discovery.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.
+**Evidence.** `tests/qualification/core/activity-commit-proof.ts` — activityCommitProof, invoked by the native audit journey in `tests/qualification/core/audit-content.test.ts`: committed page, revision, receipt and activity agree under replay; a late native D1 batch failure preserves all four; scheduled publication retains its feature, operation key and exact context. `tests/qualification/ui-convergence/activity-context-journey.mjs` — activityContextJourney opens that native context through the existing settings callers.
+**Gap.** None.
 
 #### ACT-002 — Coverage
 
@@ -2083,7 +2083,7 @@ Core · published · **partial** · Cites BASE-AUDIT-001, BASE-ROLE-001
 
 #### ACT-004 — Context
 
-Core · published · **partial** · Cites BASE-AUDIT-001
+Core · published · **done** · Cites BASE-AUDIT-001
 
 **Requirement.** Opening an activity entry opens the record it describes together with the comment thread, revision or grant it references, and changes no entry.
 
@@ -2091,8 +2091,8 @@ Core · published · **partial** · Cites BASE-AUDIT-001
 1. Opening an activity entry opens the record it describes together with the comment thread, revision or grant it references, and changes no entry.
 2. Opening an entry opens the record with its referenced thread, revision or grant.
 
-**Evidence.** `tests/qualification/core/discovery-browser.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/activity-context-journey.mjs` — activityContextJourney through the existing settings callers at 1440 and 390; `tests/qualification/core/activity-context-proof.ts` — activityContextProof, invoked by the native audit journey in `tests/qualification/core/audit-content.test.ts`. Both acceptance points: exact revision, comment, thread and grant context through reload, byte-equivalent retained entries and current-access refusal.
+**Gap.** None.
 
 #### ACT-005 — Retained explanation
 

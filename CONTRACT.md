@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `82844d6537ba4a917b553f42ee523ba504e7dbff` (29 October 2026); this is the source parent for the ACT-001 and ACT-004 completion. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 25 | 201 | 0 | 226 |
+| Published | 27 | 199 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 41 | 256 | 40 | 337 |
+| All | 43 | 254 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4129,10 +4129,10 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `NOTIF-007` | Slack destination audience admission | published | done | `tests/e2e/notifications/chat.test.ts` — "NOTIF-007 — chat admission requires fresh authority and keeps link-only delivery inside the current audience"; `tests/qualification/ui-convergence/chat-journey.mjs` — "chatJourney" |  |
 | `MAIL-001` | Outbound only, two kinds | published | partial | `tests/flagship/core/mail.test.ts` | Missing a native sign-in/invitation mail journey that also attempts inbound reply handling and checks that unrelated wiki events send no mail; the cited mail suite tests adapters and dispatch custody. |
 | `MAIL-002` | Delivery failure | published | partial | `tests/flagship/core/mail.node.test.mts`; `tests/flagship/core/mail.test.ts` ("identity mail preserves durable retry, recovery, authentication and provider custody") | Missing a browser sign-in and invitation failure journey that reads the safe failure or uncertain-send state and recovery; the cited mail suites establish provider and durable dispatch behavior below those screens. |
-| `ACT-001` | Durable timeline | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
+| `ACT-001` | Durable timeline | published | done | `tests/qualification/core/activity-commit-proof.ts` — activityCommitProof, invoked by the native audit journey in `tests/qualification/core/audit-content.test.ts`: committed page, revision, receipt and activity agree under replay; a late native D1 batch failure preserves all four; scheduled publication retains its feature, operation key and exact context. `tests/qualification/ui-convergence/activity-context-journey.mjs` — activityContextJourney opens that native context through the existing settings callers. | |
 | `ACT-002` | Coverage | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Activity records page creation, body and property changes, publish and unpublish, moves, archive, trash, restore and permanent deletion, version restores and deletions, status and verification changes, grant and external-access changes, comment activity, container and group changes, database structure changes, automation runs, AI runs and their acceptance or rejection, member invitation and removal, import and export." |
 | `ACT-003` | Retrieval | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
-| `ACT-004` | Context | published | partial | `tests/qualification/core/discovery-browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`. |
+| `ACT-004` | Context | published | done | `tests/qualification/ui-convergence/activity-context-journey.mjs` — activityContextJourney through the existing settings callers at 1440 and 390; `tests/qualification/core/activity-context-proof.ts` — activityContextProof, invoked by the native audit journey in `tests/qualification/core/audit-content.test.ts`. Both acceptance points: exact revision, comment, thread and grant context through reload, byte-equivalent retained entries and current-access refusal. | |
 | `ACT-005` | Retained explanation | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
 | `TMPL-001` | Gallery | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Members can search templates by title and description and filter them by category."<br>No validated CI-run proof for this acceptance point: "A search with no match shows "No templates match this search."" |
 | `TMPL-002` | Preview | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A template preview shows the page it produces, including its body, properties and any child pages, before it is used."<br>No validated CI-run proof for this acceptance point: "A figure such as a team size or a duration appears only when the template's author wrote one; Slate never estimates, infers, or displays a placeholder for either." |
