@@ -7,14 +7,22 @@ export const proofRecords={};
 
 export const sensitiveText=()=>`SSN: ${String(randomInt(100,900))}-${String(randomInt(10,99))}-${String(randomInt(1000,9999))}`;
 const nativeStarts=[];
+const pruneNativeStarts=()=>{while(nativeStarts.length&&nativeStarts[0]<=Date.now()-60_000)nativeStarts.shift();};
+/** Begin navigation with its own request window, rather than delaying an
+ * in-flight browser navigation. Native server capacities remain unchanged. */
+export async function nativeQuietWindow() {
+ for(;;){pruneNativeStarts();if(!nativeStarts.length)return;await new Promise(resolve=>setTimeout(resolve,Math.max(1,nativeStarts[0]+60_000-Date.now())));}
+}
+export async function pacedNativeRequest(context,url,init) {
+ if(new URL(url).pathname.startsWith('/api/')&&!new URL(url).pathname.startsWith('/api/rer/')) {
+  // Reserve before yielding so concurrent browser requests share this capacity.
+  // A refusal is never retried.
+  for(;;){pruneNativeStarts();if(nativeStarts.length<500){nativeStarts.push(Date.now());break;}await new Promise(resolve=>setTimeout(resolve,Math.max(1,nativeStarts[0]+60_000-Date.now())));}
+ }
+ return context.request(url,init);
+}
 export async function native(context,path,body,method=body?'POST':'GET') {
- // Pace fixture preparation against the real person capacity, with room for
- // the client bootstrap and browser's own native requests. Never retry a refusal.
- while(nativeStarts.length&&nativeStarts[0]<=Date.now()-60_000)nativeStarts.shift();
- if(nativeStarts.length>=500)await new Promise(resolve=>setTimeout(resolve,Math.max(1,nativeStarts[0]+60_000-Date.now())));
- while(nativeStarts.length&&nativeStarts[0]<=Date.now()-60_000)nativeStarts.shift();
- nativeStarts.push(Date.now());
- const response=await context.request(new URL(path,context.origin).href,{method,headers:{cookie:context.cookie,origin:context.origin,'content-type':'application/json'},...(body?{body:JSON.stringify({...body,operationKey:randomUUID()})}:{}),redirect:'manual'});
+ const response=await pacedNativeRequest(context,new URL(path,context.origin).href,{method,headers:{cookie:context.cookie,origin:context.origin,'content-type':'application/json'},...(body?{body:JSON.stringify({...body,operationKey:randomUUID()})}:{}),redirect:'manual'});
  const data=await response.json().catch(()=>null);
  assert.ok(response.ok,`Native fixture ${path} returned ${response.status} (${data?.code??'non-JSON'}).`);
  return data;
