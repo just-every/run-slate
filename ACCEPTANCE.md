@@ -13,7 +13,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 | Later | 0 | 0 | 0 | 0 |
 | Full target | 43 | 254 | 40 | 337 |
 
-Judged from the code and tests at commit `71e44a7e2a6ded9dc40281f5f773f687293c9158` (29 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `39e3294f391cbd0100879b08cf6dcd7add46a7d9` (29 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
