@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 48 | 249 | 34 | 331 |
+| Core | 50 | 247 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 48 | 249 | 40 | 337 |
+| Full target | 50 | 247 | 40 | 337 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -427,7 +427,7 @@ Core · published · **partial**
 
 #### PAGE-008 — Favorite
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A member can favorite a page or a container and unfavorite it.
 
@@ -435,8 +435,8 @@ Core · published · **partial**
 1. Favorites are personal, are listed in the navigation (`NAV-003`), and are visible to no other member.
 2. Favorites are listed in navigation for their member only.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A member can favorite a page or a container and unfavorite it."<br>No validated CI-run proof for this acceptance point: "Favorites are personal, are listed in the navigation (`NAV-003`), and are visible to no other member."
+**Evidence.** `tests/qualification/ui-convergence/favourites-journey.mjs` — "favouritesJourney", loaded by the existing CONT-012 desktop and core-wiki phone Verify journeys; native page and container toggles, personal navigation for two readable members, ordered reload and single-action removal; `tests/qualification/ui-convergence/home-journey.mjs` — "homeJourney" retains current-access filtering and refuses a revoked favourite replay.
+**Gap.** None.
 
 #### PAGE-009 — Watch
 
@@ -1890,7 +1890,7 @@ Core · published · **partial**
 
 #### NAV-003 — Favorites
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Favorited pages and containers (`PAGE-008`) are listed in the navigation, reorderable by the member, and removed from the list in one action.
 
@@ -1898,8 +1898,8 @@ Core · published · **partial**
 1. Favorited pages and containers (`PAGE-008`) are listed in the navigation, reorderable by the member, and removed from the list in one action.
 2. Favorites are listed, reorderable and removed in one action.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Favorited pages and containers (`PAGE-008`) are listed in the navigation, reorderable by the member, and removed from the list in one action."
+**Evidence.** `tests/qualification/ui-convergence/favourites-journey.mjs` — "favouritesJourney", loaded by the existing CONT-012 desktop and core-wiki phone Verify journeys; native page and container toggles, personal navigation for two readable members, ordered reload and single-action removal; `tests/qualification/ui-convergence/home-journey.mjs` — "homeJourney" retains current-access filtering and refuses a revoked favourite replay.
+**Gap.** None.
 
 #### NAV-004 — One navigation
 
