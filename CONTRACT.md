@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026).
+Judged from the code and tests at commit `793ad789a74e5c8daa5f7c10c70392e8313a1518` (29 October 2026).
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 23 | 203 | 0 | 226 |
+| Published | 24 | 202 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 39 | 258 | 40 | 337 |
+| All | 40 | 257 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4124,7 +4124,7 @@ Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e
 | `NAV-005` | Global create | published | done | `tests/qualification/ui-convergence/global-create-journey.mjs` — "globalCreateJourney" |  |
 | `NAV-006` | The touch client edits | published | partial | `tests/qualification/ui-convergence/touch-page.mjs` — "touchWriteJourney", "touchCommentJourney" and "touchPublishShareJourney"; `tests/qualification/ui-convergence/touch-database.mjs` — "touchDatabaseJourney"; `tests/qualification/ui-convergence/columns-journey.mjs` — "columnsJourney"; `tests/qualification/ui-convergence/touch-operator-journey.mjs` — "touchOperatorJourney" (Search, Inbox, My tasks and requested/health review queues); `tests/qualification/ui-convergence/touch-management-journey.mjs` — "touchManagementJourney" (space settings, Templates, Archive, owner workspace settings); `tests/qualification/ui-convergence/touch-page-tools-journey.mjs` — "touchPageToolsJourney" (history/restore, labels, readable export and presentation); `tests/qualification/ui-convergence/touch-database-tools-journey.mjs` — "touchDatabaseToolsJourney" (charts, record templates, automations and run log). Core-wiki/touch-member launches at 1440px/390px and presentation and starter-template launches at 1440px in `tests/qualification/ui-convergence/journeys.test.mjs` drive touch contexts; controls assert visual-viewport reachability, no overflow, no serious/critical accessibility finding, no browser error and no failed request. `tests/qualification/ui-convergence/synced-journey.mjs` — "syncedJourney" adds touch paragraph conversion, synced-copy insertion/editing and permanent deletion at 1440px in the existing review-request launch. `tests/qualification/ui-convergence/people-journey.mjs` — "peopleJourney" adds directory search, profile edits, hidden expertise and scoped guest people by touch at 1440px. | Touch-only editing remains unproven for block types beyond text, columns and synced paragraphs. |
 | `NOTIF-001` | Meaningful notifications | published | partial | `tests/qualification/backend/emitted.mjs` | Missing a complete public-door journey for meaningful notifications under the current authority, audience and company policy; prior quoted implementation and policy notes are retained in CHANGELOG.md. |
-| `NOTIF-002` | Inbox | published | partial | `tests/flagship/discovery/following.test.ts` — "CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access" (inboxJourney); `tests/qualification/ui-convergence/touch-operator-journey.mjs` — "inboxJourney", called by "real core-wiki and touch-member journeys" | Emitted-browser proof of the complete grouped inbox and exact-candidate Verify remain pending. |
+| `NOTIF-002` | Inbox | published | done | `tests/qualification/ui-convergence/touch-operator-journey.mjs` — "inboxJourney", loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px"; `tests/flagship/discovery/following.test.ts` — "CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access" (inboxJourney) |  |
 | `NOTIF-003` | Chat notifications | published | done | `tests/e2e/notifications/chat.test.ts` — "NOTIF-007 — chat admission requires fresh authority and keeps link-only delivery inside the current audience"; `tests/qualification/ui-convergence/chat-journey.mjs` — "chatJourney" |  |
 | `NOTIF-007` | Slack destination audience admission | published | done | `tests/e2e/notifications/chat.test.ts` — "NOTIF-007 — chat admission requires fresh authority and keeps link-only delivery inside the current audience"; `tests/qualification/ui-convergence/chat-journey.mjs` — "chatJourney" |  |
 | `MAIL-001` | Outbound only, two kinds | published | partial | `tests/flagship/core/mail.test.ts` | Missing a native sign-in/invitation mail journey that also attempts inbound reply handling and checks that unrelated wiki events send no mail; the cited mail suite tests adapters and dispatch custody. |

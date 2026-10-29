@@ -1339,7 +1339,7 @@
       "id": "NOTIF-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "The loaded Following Workers journey now exercises native inbox ordering, audiences, personal read and archive state, current access, replay and source erasure. Complete emitted-browser proof and exact-candidate Verify remain pending for the rendered inbox.",
+      "unmetReason": "The native Following Workers journey and emitted core-wiki inboxJourney cover period ordering, unread totals, both audiences, the visible referenced comment, read state, read-all without archiving, archive-only-read persistence and current access. The requirement verdict is recorded in CONTRACT.md; this supporting-test registry does not replace exact-candidate Verify or guarded landing.",
       "supportingTests": [
         {
           "file": "tests/flagship/discovery/following.test.ts",

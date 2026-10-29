@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "612f37be67dc526d0513f15bea3a70b4ad1ad8f71313de469cbd65a51cbd4f1a",
+      "sha256": "fce3b4c2fc741486c7a8f6278ca8efa9ba8b17186849e3cb10b514867febd509",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "2f39b0a932f001f3a513fb9e5214f0d3b31105482fac72ef989b9faf0b1298b0",
+      "sha256": "711bfbde8f653352843e1694783c1dd407ca02f3ea272c92f0bbdec043170da0",
       "executable": false
     },
     "DEMO.md": {
@@ -1036,7 +1036,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "ee7cc577c62977664e03f768a41083b9e6afb9c00ea3d77a61ec034e91123765",
+      "sha256": "3bc7378092f6de6fd1617aa52ee8bfa09385916a072e92e9944f50c020d101c0",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -8056,7 +8056,7 @@
       "executable": false
     },
     "src/core/features/notifications/ui/WorkspaceInbox.tsx": {
-      "sha256": "713f5bda5533510d672662807729d660cd18dc8d4f8c4c68b33b779ddcfd0be9",
+      "sha256": "9dca736415f3a9f426c5a7e2e05edf79b8298f94d9a0f025da9369ec57ad307a",
       "executable": false
     },
     "src/core/features/notifications/visibility.ts": {
@@ -10856,7 +10856,7 @@
       "executable": false
     },
     "tests/flagship/discovery/following.test.ts": {
-      "sha256": "099db3a1a179f50da27076caaed1a5e4d9dd7138bf45b190a639870d82f6a9e6",
+      "sha256": "facfa4a5a29bf1e853d0435c9083ee9239c20ef63131f38b7a7f5c1e6ba37e05",
       "executable": false
     },
     "tests/flagship/discovery/group-mentions.test.ts": {
@@ -12052,7 +12052,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-operator-journey.mjs": {
-      "sha256": "cec2512673bea6fed7d32c2baaccecbe78e27105fda7dd213c5c75b818c171c3",
+      "sha256": "a06f02ff4fda525e75b9dd2143aa54b48ff6bba4e5a5696a460a573e0556d800",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page-tools-journey.mjs": {
@@ -12124,7 +12124,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "9a458a44895a5216d353c23c3f012e4d7f13a40f8bd09530ee633e1cf2dd3783",
+      "sha256": "a1ea8eab185c264d90915a916a7a57b23a959f536168d62488df4d4ce7957385",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {

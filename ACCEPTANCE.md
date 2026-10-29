@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 39 | 258 | 34 | 331 |
+| Core | 40 | 257 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 39 | 258 | 40 | 337 |
+| Full target | 40 | 257 | 40 | 337 |
 
-Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `793ad789a74e5c8daa5f7c10c70392e8313a1518` (29 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -1965,7 +1965,7 @@ Core · published · **partial**
 
 #### NOTIF-002 — Inbox
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Notifications are listed newest first, grouped by period, with an unread count and separate views for those addressed to the member and those from watched pages.
 
@@ -1973,8 +1973,8 @@ Core · published · **partial**
 1. Opening one marks it read and opens the referenced record at the referenced comment; a member can mark all read and archive read notifications.
 2. Inbox groups by period with unread count and two views; opening marks read and opens the referenced comment.
 
-**Evidence.** `tests/flagship/discovery/following.test.ts` — "CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access" (inboxJourney); `tests/qualification/ui-convergence/touch-operator-journey.mjs` — "inboxJourney", called by "real core-wiki and touch-member journeys"
-**Gap.** Emitted-browser proof of the complete grouped inbox and exact-candidate Verify remain pending.
+**Evidence.** `tests/qualification/ui-convergence/touch-operator-journey.mjs` — "inboxJourney", loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px"; `tests/flagship/discovery/following.test.ts` — "CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access" (inboxJourney)
+**Gap.** None.
 
 #### NOTIF-003 — Chat notifications
 
