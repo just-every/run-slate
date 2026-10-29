@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "a85bf9d9529d6339cc7d5f7d3432453435d9cc09e26e1c88898bd142e2e18390",
+      "sha256": "19f316c39e97ce59e559efcf1ca65259a6a05d1d81d542c29d3af583edf50669",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "f7164f6e55c87127e24b6628cf1748d9d340efedaf197729939456b428295b87",
+      "sha256": "5f2c5164bffebdda99dc08e344dbf19ddb0ee39a58bb6a6074408226e2ce759e",
       "executable": false
     },
     "DEMO.md": {
@@ -8056,7 +8056,7 @@
       "executable": false
     },
     "src/core/features/notifications/ui/WorkspaceInbox.tsx": {
-      "sha256": "ce97fc0336bb5a7d57b4190de6f461b85b2f58d6419d4e7062096e0ee4cb656f",
+      "sha256": "713f5bda5533510d672662807729d660cd18dc8d4f8c4c68b33b779ddcfd0be9",
       "executable": false
     },
     "src/core/features/notifications/visibility.ts": {
@@ -10856,7 +10856,7 @@
       "executable": false
     },
     "tests/flagship/discovery/following.test.ts": {
-      "sha256": "93982e0fe7f700b7de487d504a7040eeea57fc1b47f6db94b39c0b3bc1402af3",
+      "sha256": "099db3a1a179f50da27076caaed1a5e4d9dd7138bf45b190a639870d82f6a9e6",
       "executable": false
     },
     "tests/flagship/discovery/group-mentions.test.ts": {
@@ -12052,7 +12052,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-operator-journey.mjs": {
-      "sha256": "c418f1ea4c0d8569b95d6cd3c5480ec4d50ed188ab70377cbc0fc71b2272b506",
+      "sha256": "cec2512673bea6fed7d32c2baaccecbe78e27105fda7dd213c5c75b818c171c3",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page-tools-journey.mjs": {
@@ -12124,7 +12124,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "075400979c16283b3de207f37725ad4322a09a93775c093198b5fed83fbd6b88",
+      "sha256": "ec4d61d2c7e137323c2eec9cc72876ed583a0e41af040c89a53e93600012ebb9",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12140,7 +12140,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "c550cb16a9b2bff9f4dd55e2dc6bd45d8f376f8aaa86b2be17458afc0a8b61e2",
+      "sha256": "9dc9b889921e88304453c48643a6a82e5a500a5f9758278ddee8042e768ba174",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
