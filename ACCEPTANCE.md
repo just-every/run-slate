@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 40 | 257 | 34 | 331 |
+| Core | 44 | 253 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 40 | 257 | 40 | 337 |
+| Full target | 44 | 253 | 40 | 337 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -731,7 +731,7 @@ Core · published · **partial**
 
 #### LIFE-001 — Lifecycle states
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A page is `draft`, `scheduled`, `live`, `live-with-unpublished-changes` or `archived`.
 
@@ -741,7 +741,7 @@ Core · published · **partial**
 3. Every lifecycle state and transition is stored with actor and time under both lifecycle policy values.
 
 **Evidence.** `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`).
-**Gap.** Candidate browser and exact-SHA Verify proof pending.
+**Gap.** None.
 
 #### LIFE-002 — A draft is private
 
@@ -761,7 +761,7 @@ Core · published · **partial**
 
 #### LIFE-003 — Publish
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Publishing takes a location, a general access setting (`SHARE-004`), an optional version comment, an optional schedule and an optional publish-as attribution, shows a preview of what readers will see, and on confirmation makes the page visible in its container's tree, in search and in content queries, and writes one version with origin `publish` (`REV-002`).
 
@@ -770,11 +770,11 @@ Core · published · **partial**
 2. Publish with location, access, comment, schedule and attribution previews and writes one `publish` version.
 
 **Evidence.** `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`).
-**Gap.** Candidate browser and exact-SHA Verify proof pending.
+**Gap.** None.
 
 #### LIFE-004 — Scheduled publish
 
-Core · published · **partial** · Cites BASE-OPS-004
+Core · published · **done** · Cites BASE-OPS-004
 
 **Requirement.** A publish set for a future time leaves the page `scheduled`, shows that time wherever the page appears to its author, and publishes at that time without a further action.
 
@@ -783,11 +783,11 @@ Core · published · **partial** · Cites BASE-OPS-004
 2. A scheduled publish fires at its time; cancel returns to draft; a failed schedule is reported.
 
 **Evidence.** `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`).
-**Gap.** Candidate browser and exact-SHA Verify proof pending.
+**Gap.** None.
 
 #### LIFE-005 — Unpublished changes
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Editing a `live` page changes what readers see only when it is republished: every reader other than the editors sees the published revision, and the page shows that it has unpublished changes to anyone who may edit it.
 
@@ -796,7 +796,7 @@ Core · published · **partial**
 2. Readers see the published revision until republish; discard restores it without deleting a version.
 
 **Evidence.** `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`).
-**Gap.** Candidate browser and exact-SHA Verify proof pending.
+**Gap.** None.
 
 #### LIFE-006 — Lifecycle profile
 
