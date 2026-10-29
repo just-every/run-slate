@@ -17,6 +17,9 @@ export async function handleApplicationRequest(request: Request, bindings: AppBi
     const url = new URL(request.url);
     const checkedBindings = requireBindings(bindings);
 
+    const door = await (await import("../features/agent-door/index.server")).agentDoorResponse(request, checkedBindings);
+    if (door) return door;
+
     if (isHonoRequest(url.pathname)) {
       api ??= import("./hono").then(module => module.createApi());
       return previewDocument(await (await api).fetch(request, checkedBindings, execution), checkedBindings);

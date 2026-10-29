@@ -637,6 +637,25 @@
         "KEEP-009",
         "KEEP-010"
       ]
+    },
+    {
+      "id": "company-agent-door",
+      "description": "Shared company policy, native sponsor authority, audit, Pause and idempotency; declared optional resources.",
+      "clauses": [
+        "BASE-AGENT-001",
+        "BASE-AGENT-002",
+        "BASE-AGENT-003",
+        "BASE-AGENT-004",
+        "BASE-AGENT-005",
+        "BASE-AGENT-006",
+        "BASE-AGENT-007",
+        "BASE-AGENT-008",
+        "BASE-AGENT-009",
+        "BASE-AGENT-010",
+        "BASE-AGENT-011",
+        "BASE-AGENT-012",
+        "BASE-AGENT-013"
+      ]
     }
   ],
   "nonGoals": [
