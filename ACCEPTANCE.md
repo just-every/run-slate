@@ -740,8 +740,8 @@ Core · published · **partial**
 2. Every transition records the actor and the time, and every state exists in the stored model whichever value `LIFE-006` carries.
 3. Every lifecycle state and transition is stored with actor and time under both lifecycle policy values.
 
-**Evidence.** `tests/qualification/interface/publication.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`.
+**Evidence.** `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`).
+**Gap.** Candidate browser and exact-SHA Verify proof pending.
 
 #### LIFE-002 — A draft is private
 
@@ -769,8 +769,8 @@ Core · published · **partial**
 1. Publishing takes a location, a general access setting (`SHARE-004`), an optional version comment, an optional schedule and an optional publish-as attribution, shows a preview of what readers will see, and on confirmation makes the page visible in its container's tree, in search and in content queries, and writes one version with origin `publish` (`REV-002`).
 2. Publish with location, access, comment, schedule and attribution previews and writes one `publish` version.
 
-**Evidence.** `tests/qualification/interface/publication.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`.
+**Evidence.** `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`).
+**Gap.** Candidate browser and exact-SHA Verify proof pending.
 
 #### LIFE-004 — Scheduled publish
 
@@ -782,8 +782,8 @@ Core · published · **partial** · Cites BASE-OPS-004
 1. Canceling before it fires returns the page to `draft` and publishes nothing; a schedule that fails to fire leaves the page `scheduled` and reports the failure under `BASE-OPS-004`.
 2. A scheduled publish fires at its time; cancel returns to draft; a failed schedule is reported.
 
-**Evidence.** `tests/qualification/interface/publication.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`.
+**Evidence.** `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`).
+**Gap.** Candidate browser and exact-SHA Verify proof pending.
 
 #### LIFE-005 — Unpublished changes
 
@@ -795,8 +795,8 @@ Core · published · **partial**
 1. Discarding them restores the published revision as the working revision and deletes no version.
 2. Readers see the published revision until republish; discard restores it without deleting a version.
 
-**Evidence.** `tests/qualification/interface/publication.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`.
+**Evidence.** `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`).
+**Gap.** Candidate browser and exact-SHA Verify proof pending.
 
 #### LIFE-006 — Lifecycle profile
 
