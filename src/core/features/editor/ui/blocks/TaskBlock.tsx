@@ -20,8 +20,8 @@ export function TaskBlock({ block, canEdit, onChange }: BlockRenderProps<TaskBlo
   const overdue=!block.done&&due&&due<today;
   const assignee=page?.people.find(person=>person.id===block.assigneeMemberId);
   const completion =
-    block.done && (block.completedBy || block.completedAtLabel)
-      ? [block.completedBy ? `Completed by ${block.completedBy.name}` : "Completed", block.completedAtLabel]
+    block.done && (block.completedByAgent || block.completedBy || block.completedAtLabel)
+      ? [block.completedByAgent ? `Completed by ${block.completedByAgent}` : block.completedBy ? `Completed by ${block.completedBy.name}` : "Completed", block.completedAtLabel]
           .filter(Boolean)
           .join(" · ")
       : null;
@@ -31,7 +31,8 @@ export function TaskBlock({ block, canEdit, onChange }: BlockRenderProps<TaskBlo
       <Checkbox
         aria-label={plain.length > 0 ? `Mark complete: ${plain}` : "Mark this to-do complete"}
         checked={block.done}
-        className="mt-1"
+        className="-mt-0.5 size-11"
+        style={{ width: 44, height: 44, borderWidth: 12, borderRadius: 17 }}
         disabled={!canEdit}
         onCheckedChange={(checked) => onChange({ ...block, done: checked === true })}
       />

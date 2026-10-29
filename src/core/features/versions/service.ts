@@ -11,7 +11,7 @@ import { restorePageContent } from '../lifecycle/service';
 export async function revisionHistory(ctx: FeatureContext, pageId: string) {
     const access = await requirePageLevel(ctx, pageId, 'view');
     const editor = access.decision.level === 'edit' || access.decision.level === 'full';
-    return (await ctx.db.prepare("SELECT r.id,r.origin,r.author_member_id AS authorMemberId,COALESCE(m.display_name,'Former member') AS authorDisplayName,r.ordinal,r.label,r.status_key AS statusKey,r.created_at AS createdAt,r.deleted_at AS deletedAt,r.deleted_by_member_id AS deletedByMemberId FROM page_revisions r LEFT JOIN members m ON m.id=r.author_member_id AND m.workspace_id=? WHERE r.page_id=? AND (? OR EXISTS (SELECT 1 FROM content_published_revisions v WHERE v.page_id=r.page_id AND v.revision_id=r.id)) ORDER BY r.created_at DESC,r.id DESC").bind(ctx.actor.workspaceId,pageId,+editor).all()).results;
+    return (await ctx.db.prepare("SELECT r.id,r.origin,r.author_member_id AS authorMemberId,COALESCE(json_extract(r.agent_attribution_json,'$.label'),m.display_name,'Former member') AS authorDisplayName,r.ordinal,r.label,r.status_key AS statusKey,r.created_at AS createdAt,r.deleted_at AS deletedAt,r.deleted_by_member_id AS deletedByMemberId FROM page_revisions r LEFT JOIN members m ON m.id=r.author_member_id AND m.workspace_id=? WHERE r.page_id=? AND (? OR EXISTS (SELECT 1 FROM content_published_revisions v WHERE v.page_id=r.page_id AND v.revision_id=r.id)) ORDER BY r.created_at DESC,r.id DESC").bind(ctx.actor.workspaceId,pageId,+editor).all()).results;
 }
 export async function readRevision(ctx: FeatureContext, pageId: string, id: string) {
     const access = await requirePageLevel(ctx, pageId, 'view');
@@ -46,6 +46,6 @@ export async function deleteRevision(ctx: FeatureContext, pageId: string, id: st
             if ([p.revision_id, p.working_revision_id, p.published_revision_id].includes(id))
                 throw new ApiProblem(409, 'CURRENT_REVISION', 'Current and published versions cannot be deleted.');
             await revisionRow(ctx, pageId, id);
-            return { statements: [pageGuard(ctx, p, p.revision_id), ctx.db.prepare("UPDATE page_revisions SET body_json='[]',properties_json='{}',content_hash='',author_member_id=NULL,label=NULL,status_key=NULL,deleted_at=?,deleted_by_member_id=? WHERE id=? AND page_id=?").bind(ctx.now, ctx.actor.id, id, pageId)], entity: { id: pageId, kind: 'page', revisionId: p.revision_id }, value: { id, deleted: true } };
+            return { statements: [pageGuard(ctx, p, p.revision_id), ctx.db.prepare("UPDATE page_revisions SET body_json='[]',properties_json='{}',content_hash='',author_member_id=NULL,agent_attribution_json=NULL,label=NULL,status_key=NULL,deleted_at=?,deleted_by_member_id=? WHERE id=? AND page_id=?").bind(ctx.now, ctx.actor.id, id, pageId)], entity: { id: pageId, kind: 'page', revisionId: p.revision_id }, value: { id, deleted: true } };
         } });
 }

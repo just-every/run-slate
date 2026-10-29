@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import { RequestState } from "../../../../app/ui/RequestState";
 type Activity = {
@@ -13,6 +13,8 @@ type Activity = {
   aiRunId?: string;
 };
 export function ActivityWorkspace() {
+  const [interactive, setInteractive] = useState(false);
+  useEffect(() => setInteractive(true), []);
   const [filters, setFilters] = useState("");
   const [cursor, setCursor] = useState("");
   const resource = useResource<{
@@ -28,7 +30,7 @@ export function ActivityWorkspace() {
     "/api/containers",
   );
   return (
-    <section className="settings-panel">
+    <section className="settings-panel" aria-busy={!interactive || resource.loading}>
       <h2>What changed.</h2>
       <form
         className="detail-form"
@@ -89,7 +91,7 @@ export function ActivityWorkspace() {
           Until
           <input name="to" type="datetime-local" />
         </label>
-        <button>Filter activity</button>
+        <button disabled={!interactive}>Filter activity</button>
       </form>
       <RequestState
         loading={resource.loading}
@@ -98,7 +100,7 @@ export function ActivityWorkspace() {
       >
         <ol className="settings-list">
           {resource.data?.items.map((item) => (
-            <li key={item.id}>
+            <li key={item.id} data-activity-id={item.id}>
               <div>
                 <strong>{item.actor?.displayName ?? (item.action.startsWith("verification-rules.") ? "Verification rules" : "Former member")}</strong> ·{" "}
                 {item.action.replace(/[._-]/g, " ")}

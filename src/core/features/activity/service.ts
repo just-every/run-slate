@@ -4,24 +4,30 @@ import { currentSubject,requireContainerLevel,resolveCurrentAccessMany } from '.
 import { readableTarget,permitted } from '../search/visibility';
 import { encodeCursor,limitValue,timeCursor } from '../search/pagination';
 import { ApiProblem } from '../../app/problems';
-export interface ActivityInput {actorId?:string;action?:string;kind?:string;containerId?:string;from?:string;to?:string;cursor?:string;limit?:number}
+export interface ActivityInput {category?:'all'|'changes';actorId?:string;action?:string;kind?:string;containerId?:string;from?:string;to?:string;cursor?:string;limit?:number}
 export interface Row {id:string;actor_member_id:string|null;feature:string|null;action:string;target_kind:string;target_id:string;detail_json:string;operation_key:string|null;automation_run_id:string|null;ai_run_id:string|null;occurred_at:string}
 export type ActivityAccessResolver=(ctx:FeatureContext,id:string)=>Promise<boolean>;
 const resolvers=new Map<string,ActivityAccessResolver>();
 /** Feature-owned targets register their actual current authorization boundary at app assembly. */
 export function registerActivityResolver(kind:string,resolver:ActivityAccessResolver){resolvers.set(kind,resolver);}
 export async function activity(ctx:FeatureContext,input:ActivityInput={}){
- await currentSubject(ctx);for(const value of [input.from,input.to])if(value&&!Number.isFinite(Date.parse(value)))throw new ApiProblem(400,'INVALID_DATE','Invalid activity date.');
+ await currentSubject(ctx);if(input.category!==undefined&&!['all','changes'].includes(input.category))throw new ApiProblem(400,'INVALID_ACTIVITY_CATEGORY','Choose all activity or changes.');for(const value of [input.from,input.to])if(value&&!Number.isFinite(Date.parse(value)))throw new ApiProblem(400,'INVALID_DATE','Invalid activity date.');
  const cursor=timeCursor(input.cursor,ctx.now),limit=limitValue(input.limit);
  if(input.containerId&&!await permitted(()=>requireContainerLevel(ctx,input.containerId!,'view')))return {items:[]};
- const rows=await ctx.db.prepare('SELECT * FROM activity_entries WHERE workspace_id=? AND occurred_at<=? AND (occurred_at<? OR (occurred_at=? AND id<?)) AND (? IS NULL OR actor_member_id=?) AND (? IS NULL OR action=?) AND (? IS NULL OR target_kind=?) AND (? IS NULL OR occurred_at>=?) AND (? IS NULL OR occurred_at<=?) ORDER BY occurred_at DESC,id DESC').bind(ctx.actor.workspaceId,cursor.ceiling,cursor.at,cursor.at,cursor.id,input.actorId??null,input.actorId??null,input.action??null,input.action??null,input.kind??null,input.kind??null,input.from??null,input.from??null,input.to??null,input.to??null).all<Row>();
+ const items=[];const batchSize=128;let scanAt=cursor.at,scanId=cursor.id;
+ for(;;){
+ const rows=await ctx.db.prepare(`SELECT * FROM activity_entries WHERE workspace_id=? AND (?=0 OR action NOT IN ('api-token.use','api-token.expired')) AND occurred_at<=? AND (occurred_at<? OR (occurred_at=? AND id<?)) AND (? IS NULL OR actor_member_id=?) AND (? IS NULL OR action=?) AND (? IS NULL OR target_kind=?) AND (? IS NULL OR occurred_at>=?) AND (? IS NULL OR occurred_at<=?) ORDER BY occurred_at DESC,id DESC LIMIT ?`).bind(ctx.actor.workspaceId,+(input.category==='changes'),cursor.ceiling,scanAt,scanAt,scanId,input.actorId??null,input.actorId??null,input.action??null,input.action??null,input.kind??null,input.kind??null,input.from??null,input.from??null,input.to??null,input.to??null,batchSize).all<Row>();
  const contexts=new Map<string,string>();for(const row of rows.results){const id=await activityPageId(ctx,row.target_kind,row.target_id);if(id)contexts.set(row.id,id);}const pageIds=[...contexts.values()];const retained=await resolveCurrentAccessMany(ctx,pageIds,{includeDeleted:true,includeTrashed:true});
- const items=[];
+ const [pageMetadata,actors]=await Promise.all([ctx.db.prepare('SELECT id,container_id,deleted_at FROM pages WHERE workspace_id=? AND id IN (SELECT value FROM json_each(?))').bind(ctx.actor.workspaceId,JSON.stringify([...new Set(pageIds)])).all<{id:string;container_id:string;deleted_at:string|null}>(),ctx.db.prepare("SELECT id,display_name AS displayName FROM members WHERE workspace_id=? AND (member_kind='member' OR id=?) AND id IN (SELECT value FROM json_each(?))").bind(ctx.actor.workspaceId,ctx.actor.id,JSON.stringify([...new Set(rows.results.flatMap(row=>row.actor_member_id?[row.actor_member_id]:[]))])).all<{id:string;displayName:string}>()]);
+ const pagesById=new Map(pageMetadata.results.map(page=>[page.id,page])),actorsById=new Map(actors.results.map(actor=>[actor.id,actor]));
  for(const row of rows.results){
   const pageId=contexts.get(row.id);const {allowed,detail}=await activityVisibility(ctx,row,pageId,pageId?!!retained.get(pageId)?.decision.allowed:undefined);if(!allowed)continue;
-  const page=await ctx.db.prepare('SELECT container_id,deleted_at FROM pages WHERE id=? AND workspace_id=?').bind(pageId??'',ctx.actor.workspaceId).first<{container_id:string;deleted_at:string|null}>();if(input.containerId&&row.target_id!==input.containerId&&page?.container_id!==input.containerId)continue;
-  let actor:null|{id:string;displayName:string}=null;if(row.actor_member_id&&!page?.deleted_at){const a=await ctx.db.prepare("SELECT id,display_name AS displayName FROM members WHERE id=? AND workspace_id=? AND (member_kind='member' OR id=?)").bind(row.actor_member_id,ctx.actor.workspaceId,ctx.actor.id).first<{id:string;displayName:string}>();actor=a?{...a,displayName:activityActorLabel(row)??a.displayName}:null;}
+  const page=pageId?pagesById.get(pageId):undefined;if(input.containerId&&row.target_id!==input.containerId&&page?.container_id!==input.containerId)continue;
+  let actor:null|{id:string;displayName:string}=null;if(row.actor_member_id&&!page?.deleted_at){const a=actorsById.get(row.actor_member_id);actor=a?{...a,displayName:activityActorLabel(row)??a.displayName}:null;}
   items.push({id:row.id,actor,feature:row.feature,action:row.action,target:{kind:row.target_kind,id:row.target_id},occurredAt:row.occurred_at,operationKey:row.operation_key,automationRunId:row.automation_run_id,aiRunId:row.ai_run_id,deleted:!!page?.deleted_at,context:page?.deleted_at?{}:{pageId,commentId:detail.commentId??(row.target_kind==='comment'?row.target_id:undefined),threadId:row.target_kind==='comment-thread'?row.target_id:undefined,revisionId:detail.revisionId??(row.target_kind==='revision'?row.target_id:undefined),grantId:detail.grantId},explanation:page?.deleted_at?'The underlying page was erased; only this activity record remains.':undefined});if(items.length>limit)break;
+ }
+  if(items.length>limit||rows.results.length<batchSize)break;
+  const lastScanned=rows.results.at(-1)!;scanAt=lastScanned.occurred_at;scanId=lastScanned.id;
  }
  const hasMore=items.length>limit;if(hasMore)items.pop();const last=items.at(-1);return {items,nextCursor:hasMore&&last?encodeCursor({at:last.occurredAt,id:last.id,ceiling:cursor.ceiling}):undefined};
 }
@@ -46,4 +52,4 @@ export async function auditRecord(ctx:FeatureContext,id:string){
  return {id:row.id,actor:actor?{...actor,displayName:activityActorLabel(row)??actor.displayName}:null,occurredAt:new Date(row.occurred_at).toISOString(),action:row.action,target:{kind:row.target_kind,id:row.target_id}};
 }
 
-function activityActorLabel(row:Row):string|undefined {const detail=JSON.parse(row.detail_json) as {scimCredential?:{name?:unknown}};return typeof detail.scimCredential?.name==='string'?`SCIM: ${detail.scimCredential.name}`:undefined;}
+function activityActorLabel(row:Row):string|undefined {const detail=JSON.parse(row.detail_json) as {agent?:{label?:string};scimCredential?:{name?:unknown}};if(typeof detail.agent?.label==='string')return detail.agent.label;return typeof detail.scimCredential?.name==='string'?`SCIM: ${detail.scimCredential.name}`:undefined;}

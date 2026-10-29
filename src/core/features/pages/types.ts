@@ -3,6 +3,7 @@ import type { BlockView } from '../../shared/api/content';
 import type { JsonValue } from '../../shared/api/common';
 import type { PageLifecycle } from '../../shared/knowledge/model';
 export interface PageRow {
+    agent_creator_json?:string|null;
     id: string;
     workspace_id: string;
     container_id: string;
@@ -33,6 +34,7 @@ export interface PageRow {
     revision_id: string;
 }
 export interface PageProperties {
+    agentPreparation?: {agent:{id:string;name:string};for:{id:string;name:string};label:string};
     byline?: string;
     databaseFields?: Record<string, JsonValue>;
     title: string;

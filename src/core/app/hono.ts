@@ -8,7 +8,6 @@ import {editorConfig} from "./editor-config";
 import { assertRequestOrigin, enforceRateLimit } from "./http-security";
 import { ApiProblem } from "./problems";
 import { invalidateContentRooms } from "../features/collaboration/invalidation";
-import { authenticateExternalAgent } from "../features/external-agent/credentials";
 import { ZodError } from "zod";
 import { Hono } from "hono";
 import { createSessionRoutes, createSessionService } from "../features/session";
@@ -52,9 +51,7 @@ export function createApi() {
     .use("/api/*", async (context, next) => {
       const current = await createSessionService(context.env.DB, sessionOptions(context.get("runtimeConfig"))).current(context.req.raw);
       if (current) context.set("sessionId", current.session.id);
-      let member = current?.member ?? null;
-      const pathname=new URL(context.req.url).pathname;
-      if(!member&&(pathname==="/api/agent"||pathname.startsWith("/api/agent/")))member=await authenticateExternalAgent(context.env.DB,context.req.raw.headers);
+      const member = current?.member ?? null;
       if (member) { context.set("member", member); await enforceRateLimit(context,`operator:${member.id}`,600); }
       if (!member && !publicApiPaths.has(new URL(context.req.url).pathname)) {
         return context.json(error("UNAUTHENTICATED", "A valid session is required."), 401);

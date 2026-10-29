@@ -312,7 +312,7 @@
       "mode": "signed",
       "emailField": "SETUP_OWNER_EMAIL",
       "tokenField": "SETUP_TOKEN",
-      "path": "/auth/bootstrap"
+      "path": "/auth/owner-claim"
     },
     {
       "type": "extension",
@@ -334,5 +334,17 @@
         "/auth/oidc/auth/logout"
       ]
     }
-  ]
+  ],
+  "business": {
+    "settings": 1,
+    "values": [
+      "display_name"
+    ],
+    "team": {
+      "roles": {
+        "admin": "member",
+        "member": "member"
+      }
+    }
+  }
 }
