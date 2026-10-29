@@ -40,7 +40,11 @@ export async function commitOperation<T>(ctx: FeatureContext, input: {
       ...(ctx.stepUp ? [freshProofGuard(ctx)] : []),
       ...(ctx.operationStatements?.before ?? []),
       ...plan.statements,
-      ...(plan.noChange?[]:[ctx.db.prepare('INSERT INTO activity_entries (id,workspace_id,actor_member_id,feature,action,target_kind,target_id,detail_json,operation_key,occurred_at) VALUES (?,?,?,?,?,?,?,?,?,?)').bind(activityId,ctx.actor.workspaceId,ctx.actor.id,input.action.split('.')[0],input.action,plan.entity.kind,plan.entity.id,JSON.stringify(plan.detail??{}),input.operationKey,ctx.now)]),
+      ...(ctx.agent?[
+        ctx.db.prepare('UPDATE page_revisions SET agent_attribution_json=? WHERE id=?').bind(JSON.stringify(ctx.agent),revisionId),
+        ctx.db.prepare('UPDATE record_revisions SET agent_attribution_json=? WHERE id=?').bind(JSON.stringify(ctx.agent),revisionId),
+      ]:[]),
+      ...(plan.noChange?[]:[ctx.db.prepare('INSERT INTO activity_entries (id,workspace_id,actor_member_id,feature,action,target_kind,target_id,detail_json,operation_key,occurred_at) VALUES (?,?,?,?,?,?,?,?,?,?)').bind(activityId,ctx.actor.workspaceId,ctx.actor.id,input.action.split('.')[0],input.action,plan.entity.kind,plan.entity.id,JSON.stringify({...((plan.detail&&typeof plan.detail==='object'&&!Array.isArray(plan.detail))?plan.detail:{}),...(ctx.agent?{agent:ctx.agent}:{})}),input.operationKey,ctx.now)]),
       ...(ctx.operationStatements?.after ?? []),
     ];
   try {

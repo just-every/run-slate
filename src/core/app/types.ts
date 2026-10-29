@@ -24,6 +24,7 @@ export interface AuthenticatedMember {
 }
 
 export interface AppVariables {
+  /** Set only by the internal shared-action adapter after door admission. */
   member?: AuthenticatedMember;
   /** The native session that authenticated `member`; absent for agent credentials. */
   sessionId?: string;

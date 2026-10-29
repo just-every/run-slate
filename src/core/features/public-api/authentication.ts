@@ -7,10 +7,15 @@ import { scopesSchema, type TokenPrincipal } from './model';
 import limits from '../../../../seed.json';
 
 export async function authenticateToken(c: Context<AppEnvironment>): Promise<TokenPrincipal> {
-  const match = /^Bearer ([A-Za-z0-9_-]{43})$/.exec(c.req.header('authorization') ?? '');
+  return authenticateNativeApiToken(c.env.DB,c.req.raw.headers,seconds=>c.header('Retry-After',String(seconds)));
+}
+
+/** Shared native token admission for the API and the company door. */
+export async function authenticateNativeApiToken(db:D1Database,headers:Headers,rateLimit?:(seconds:number)=>void):Promise<TokenPrincipal> {
+  const match = /^Bearer ([A-Za-z0-9_-]{43})$/.exec(headers.get('authorization') ?? '');
   const denied = () => new ApiProblem(401, 'UNAUTHENTICATED', 'A valid API token is required.');
   if (!match) throw denied();
-  const now = new Date().toISOString(), db = c.env.DB;
+  const now = new Date().toISOString();
   const token = await db.prepare('SELECT id,member_id,scopes_json,expires_at,revoked_at FROM public_api_tokens WHERE token_hash=?').bind(await sha256(match[1]!)).first<{ id: string; member_id: string; scopes_json: string; expires_at: string; revoked_at: string | null }>();
   if (!token || token.revoked_at) throw denied();
   if (token.expires_at <= now) {
@@ -26,7 +31,7 @@ export async function authenticateToken(c: Context<AppEnvironment>): Promise<Tok
   if (!scopes.success) throw denied();
   const bucket = Math.floor(Date.now() / 60000), end = new Date((bucket + 1) * 60000).toISOString();
   const count = await db.prepare('INSERT INTO request_limits (key,count,expires_at) VALUES (?,1,?) ON CONFLICT(key) DO UPDATE SET count=count+1 RETURNING count').bind(`api-token:${token.id}:${bucket}`, end).first<number>('count');
-  if ((count ?? 0) > limits.limits.publicApiRequestsPerTokenPerMinute) { c.header('Retry-After', String(Math.max(1, Math.ceil((Date.parse(end) - Date.now()) / 1000)))); throw new ApiProblem(429, 'RATE_LIMITED', 'The token request limit was reached. Try again later.'); }
+  if ((count ?? 0) > limits.limits.publicApiRequestsPerTokenPerMinute) { rateLimit?.(Math.max(1,Math.ceil((Date.parse(end)-Date.now())/1000))); throw new ApiProblem(429, 'RATE_LIMITED', 'The token request limit was reached. Try again later.'); }
   await tokenActivity(db, token.id, 'use', now);
   return { id: token.id, member, scopes: scopes.data };
 }

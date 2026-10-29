@@ -1,3 +1,4 @@
+import {companyAgentResponse} from '../features/company-agent';
 import { previewDocument } from "./preview-document";
 import type { AppBindings } from "./types";
 import { requireBindings } from "../platform/bindings.server";
@@ -16,6 +17,17 @@ let api: Promise<ReturnType<typeof import("./hono").createApi>> | undefined;
 export async function handleApplicationRequest(request: Request, bindings: AppBindings, execution: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     const checkedBindings = requireBindings(bindings);
+
+    // The shared door owns its credentials and policy receiver before native
+    // session, setup and document redirects. Ordinary routes keep their guards.
+    if(url.pathname==='/mcp'||url.pathname.startsWith('/agents')||url.pathname.startsWith('/api/rer/')||url.pathname.startsWith('/.well-known/oauth-protected-resource')) {
+      try {
+        const config=runtimeConfigFor(checkedBindings,url.hostname);
+        await assertStoredConfiguration(checkedBindings);
+        const response=await companyAgentResponse(request,checkedBindings,config);
+        if(response)return response;
+      } catch(cause) {return configurationFailureResponse(cause);}
+    }
 
     if (isHonoRequest(url.pathname)) {
       api ??= import("./hono").then(module => module.createApi());

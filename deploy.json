@@ -42,7 +42,9 @@
     "SSO_ENABLED": "false",
     "LOCAL_DEVELOPMENT": "false",
     "MAIL_RELAY_URL": "",
-    "IDENTITY_PROVIDER": ""
+    "IDENTITY_PROVIDER": "",
+    "MAIL_PROVIDER": "resend",
+    "MAIL_FROM": "signin@example.invalid"
   },
   "secrets": [
     {
@@ -56,16 +58,6 @@
     {
       "binding": "SETUP_TOKEN",
       "environment": "SLATE_SETUP_TOKEN"
-    },
-    {
-      "binding": "MAIL_PROVIDER",
-      "environment": "SLATE_MAIL_PROVIDER",
-      "verifyStandIn": "resend"
-    },
-    {
-      "binding": "MAIL_FROM",
-      "environment": "SLATE_MAIL_FROM",
-      "verifyStandIn": "auth@example.test"
     },
     {
       "binding": "MAIL_API_KEY",

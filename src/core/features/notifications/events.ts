@@ -35,9 +35,9 @@ export function notificationStatements(ctx:FeatureContext,event:NotificationFact
  (SELECT json_group_array(member_id) FROM watched WHERE ?=1 AND member_id IN (SELECT id FROM eligible)
  AND EXISTS(SELECT 1 FROM pages p LEFT JOIN content_archive_locations a ON a.page_id=p.id WHERE p.id=? AND COALESCE(a.prior_lifecycle,p.lifecycle) NOT IN ('draft','scheduled'))),?,?
  WHERE ?=0 OR EXISTS(SELECT 1 FROM pages p LEFT JOIN content_archive_locations a ON a.page_id=p.id WHERE p.id=? AND COALESCE(a.prior_lifecycle,p.lifecycle) NOT IN ('draft','scheduled'))`)
- .bind(ctx.actor.workspaceId,event.pageId??null,event.containerId??null,ctx.now,JSON.stringify(event.detail??{}),...extra.values,
+ .bind(ctx.actor.workspaceId,event.pageId??null,event.containerId??null,ctx.now,JSON.stringify({...event.detail,...(ctx.agent?{agent:ctx.agent}:{})}),...extra.values,
  event.pageId??null,+(options.containerWatchers??true),event.pageId??null,JSON.stringify(options.containerIds??[]),...idValues,
  ctx.actor.workspaceId,event.actorId===undefined?ctx.actor.id:event.actorId,event.event,event.pageId??null,event.containerId??null,event.commentId??null,
- JSON.stringify(event.recipientIds??[]),event.pageId??null,event.event,+watched,event.pageId??null,JSON.stringify(event.detail??{}),ctx.now,+(event.event.startsWith('page-')||event.event==='post-published'),event.pageId??null)];
+ JSON.stringify(event.recipientIds??[]),event.pageId??null,event.event,+watched,event.pageId??null,JSON.stringify({...event.detail,...(ctx.agent?{agent:ctx.agent}:{})}),ctx.now,+(event.event.startsWith('page-')||event.event==='post-published'),event.pageId??null)];
 }
 export interface OutboxRow {id:string;workspace_id:string;actor_member_id:string|null;event:NotificationEvent;page_id:string|null;container_id:string|null;comment_id:string|null;recipients_json:string;watched_recipients_json:string;detail_json:string;created_at:string}
