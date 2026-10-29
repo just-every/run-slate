@@ -12076,7 +12076,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-editing.mjs": {
-      "sha256": "50375c770b0932c51ef85fa015e9ec3621c3d0741587c6ea8a4c0f7166718ea9",
+      "sha256": "0265f20aa80afcaaa5294459ddb7040231be761f0b8844af191d74dd20823850",
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-history.mjs": {
@@ -12084,7 +12084,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-support.mjs": {
-      "sha256": "7e9af5ddee3a6bc8b5ca7e5934818184b1be7cce89909aed6f024eab4a6ad1d1",
+      "sha256": "73196ed107d902e82260289210d51136026b137e75bd08c51d213ff4db334ef7",
       "executable": false
     },
     "tests/qualification/ui-convergence/webhook-access-journey.mjs": {
@@ -12096,7 +12096,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {
-      "sha256": "4766f4cc0b921ecf0d5148aa87659e63fda374320d1c1f7e8ffb41e6f36c6b81",
+      "sha256": "1c08c1d7c19b8d5410ba254b64d762d75a1938fc7fc71cc659f0b78d0d74e935",
       "executable": false
     },
     "tests/release/delivery-runtime.mjs": {
