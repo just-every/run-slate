@@ -48,7 +48,7 @@
       "id": "WORK-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-006 — Invitations. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "This legacy inventory classifies supporting tests only; CONTRACT.md owns native clause status. The loaded HTTP invitation journey now covers uniform admission, single use, pre-use revocation and retained seven-day expiry. It does not claim external inbox delivery or unrelated Base acceptance.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/identity.test.ts",
@@ -57,6 +57,10 @@
         {
           "file": "tests/flagship/core/mail.test.ts",
           "testName": "identity mail preserves durable retry, recovery, authentication and provider custody"
+        },
+        {
+          "file": "tests/qualification/policies/invitations.test.ts",
+          "testName": "native member invitations preserve uniform admission, lifetime and current inviter authority"
         }
       ]
     },
@@ -2807,7 +2811,7 @@
       "id": "DB-015",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "A tagged default-profile Workers journey exercises record templates, schedules, restarts and the access pause; independent release acceptance is separate.",
+      "unmetReason": "The tagged default-profile Workers record templates journey covers defaults, personal time zones, two occurrences, restart deduplication and revoked-saver pause. The recordTemplatesJourney browser path in tests/qualification/ui-convergence/record-templates-journey.mjs runs in the existing desktop Templates registration and phone core journey, showing Alex then Morgan as the last saver after native re-save and reload, plus the visible paused reason and refused save replay after revocation. Independent release acceptance is separate.",
       "supportingTests": []
     },
     {
