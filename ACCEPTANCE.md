@@ -13,7 +13,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 | Later | 0 | 0 | 0 | 0 |
 | Full target | 45 | 252 | 40 | 337 |
 
-Judged from the code and tests at commit `ba8899aa71f251c098584a539863e8df7d1ef0f2` (29 October 2026); WORK-012 source proof, extended by this candidate. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `eee16a474b7669f2942412e81ec1157bf0197fd9` (29 October 2026); WORK-012 source proof, extended by this candidate's native workspace navigation. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 

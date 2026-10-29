@@ -3974,7 +3974,7 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `ba8899aa71f251c098584a539863e8df7d1ef0f2` (29 October 2026); WORK-012 source proof, extended by this candidate. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `eee16a474b7669f2942412e81ec1157bf0197fd9` (29 October 2026); WORK-012 source proof, extended by this candidate's native workspace navigation. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
