@@ -31,40 +31,23 @@ async function databaseCheckboxBounds({ page, context, origin, api }, containerI
     const host = surface === 'peek' ? page.getByRole('dialog', { name: 'Record preview', exact: true }) : page;
     const checkbox = host.getByRole('checkbox', { name: field.name, exact: true });
     await expect(checkbox).toBeDisabled();
-    // A delayed hover transition only advances while the browser renders frames,
-    // and a static list produces none by itself: sample after each rendered frame.
-    const measure = () => checkbox.evaluate(el => new Promise(resolve => requestAnimationFrame(() => {
+    const measure = () => checkbox.evaluate(el => {
       const style = getComputedStyle(el, '::after'), box = el.getBoundingClientRect();
-      resolve({ scroll: document.documentElement.scrollWidth, viewport: innerWidth, width: parseFloat(style.width), left: box.x + el.clientLeft + parseFloat(style.left), opacity: style.opacity, delay: style.transitionDelay, wrap: style.whiteSpace, ring: getComputedStyle(el).boxShadow, controlOpacity: getComputedStyle(el).opacity });
-    })));
+      return { scroll: document.documentElement.scrollWidth, viewport: innerWidth, width: parseFloat(style.width), left: box.x + el.clientLeft + parseFloat(style.left), opacity: style.opacity, delay: style.transitionDelay, wrap: style.whiteSpace, ring: getComputedStyle(el).boxShadow, controlOpacity: getComputedStyle(el).opacity };
+    });
     if (surface === 'gallery') assert.equal(await checkbox.evaluate(el => getComputedStyle(el.closest('article')).overflow), 'visible', 'SL35 gallery tips are not clipped by the card');
     const rest = await measure();
     assert.equal(rest.scroll, rest.viewport, `SL35 ${surface}: a hidden field tip does not widen the page`);
     assert.notEqual(rest.ring, enabledRing, `Read-only ${surface} checkbox keeps its faded ring`);
-    if (surface === 'list') {
-      const experiment = async label => {
-        await page.mouse.move(0, 0);
-        await page.waitForTimeout(600);
-        await checkbox.evaluate(el => { const w = window; w.__g = { gaps: [], frames: 0, t0: performance.now() }; let last = performance.now(); w.__iv = setInterval(() => { const n = performance.now(); if (n - last > 100) w.__g.gaps.push([Math.round(last - w.__g.t0), Math.round(n - last)]); last = n; }, 20); const f = () => { w.__g.frames++; w.__raf = requestAnimationFrame(f); }; f(); });
-        await checkbox.hover();
-        await page.waitForTimeout(6500);
-        const r = await checkbox.evaluate(el => { clearInterval(window.__iv); cancelAnimationFrame(window.__raf); return { ...window.__g, opacity: getComputedStyle(el, '::after').opacity, hover: el.matches(':hover') }; });
-        console.log('DIAG5 ' + label + ' ' + JSON.stringify(r));
-      };
-      const tip = await checkbox.getAttribute('data-tooltip');
-      await checkbox.evaluate(el => el.removeAttribute('data-tooltip'));
-      await experiment('E3 no tip attribute');
-      await checkbox.evaluate((el, value) => el.setAttribute('data-tooltip', value), tip);
-      await experiment('E1 as shipped');
-      await checkbox.evaluate(el => { el.closest('li').style.containerType = 'normal'; });
-      await experiment('E2 row container-type normal');
-      throw new Error('DIAG5 done');
-    }
+    // CI's headless Chromium can hold the first frame after a hover on an idle
+    // page for ~5 s, longer than the poll. A live frame loop keeps it rendering.
+    await page.evaluate(() => { const loop = () => { window.__tipFrames = requestAnimationFrame(loop); }; loop(); });
     await page.mouse.move(0, 0);
     await checkbox.hover();
     await expect.poll(() => checkbox.evaluate(el => el.matches(':hover')), { message: `SL35 ${surface}: the pointer reaches the field` }).toBe(true);
     await expect.poll(async () => (await measure()).opacity, { message: `SL35 ${surface}: the field tip appears after hover` }).toBe('1');
     const shown = await measure();
+    await page.evaluate(() => cancelAnimationFrame(window.__tipFrames));
     assert.equal(shown.scroll, shown.viewport, `SL35 ${surface}: a shown field tip does not widen the page`);
     assert.ok(shown.width <= 256 && shown.left >= 0 && shown.left + shown.width <= shown.viewport, `SL35 ${surface}: the field name wraps inside its cap`);
     assert.equal(shown.wrap, 'normal');
