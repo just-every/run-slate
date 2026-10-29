@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 49 | 248 | 34 | 331 |
+| Core | 48 | 249 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 49 | 248 | 40 | 337 |
+| Full target | 48 | 249 | 40 | 337 |
 
 Judged from the code and tests at commit `66dfc5cf0e5cea55b6517fa3156c11e078a2c35a` (29 October 2026); PAGE-002 source proof, retaining newer main clause judgments. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -349,7 +349,7 @@ Core · published · **partial**
 
 #### PAGE-002 — Creation
 
-Core · published · **done**
+Core · published · **partial**
 
 **Requirement.** A member with edit access on the destination can create a page blank or from a template (`TMPL-003`), from the tree, from the global create action, or as a child of an open page.
 
@@ -358,7 +358,7 @@ Core · published · **done**
 2. Pages are created blank and from a template from the tree, global create and as a child, each at one position.
 
 **Evidence.** `tests/qualification/ui-convergence/page-creation-journey.mjs` — "pageCreationJourney", called by "page creation destinations and editor locks preserve readable content at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2, blank and populated template creation through the tree, global Create and open-page child actions under both lifecycle values; canonical container, parent and unique sibling position after reload; unchanged source template and source page; refused view-only creation leaves the entire tree unchanged. The existing "space tree title filtering preserves ancestors, access and expansion at 390px" caller records responsive creation proof.
-**Gap.** None.
+**Gap.** The 390px creation journey fails keyboard return to the child-create control after Tab and Shift+Tab; focus lands on the Welcome link. No Verify-loaded sanity journey locks an unrelated page and then checks member template listing, preview and root application, together with PAGE_LOCKED refusal and unchanged state at the locked destination.
 
 #### PAGE-003 — Identity survives everything
 
