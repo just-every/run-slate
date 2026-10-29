@@ -748,9 +748,10 @@
         "SEARCH-002",
         "SEARCH-003",
         "SEARCH-004",
-        "SEARCH-005"
+        "SEARCH-005",
+        "SEARCH-010"
       ],
-      "reason": "Public HTTP search journey checks literal matches, exact phrases, refinements, live member and guest authority, private drafts, personal spaces, totals, facets and cursors. It also checks committed content changes, completed import indexing, erasure and refused import replay. Built browser results and filter controls run in the existing core-wiki journeys; hosted capacity remains separate."
+      "reason": "Public HTTP search journey checks literal matches, exact phrases, refinements, live member and guest authority, private drafts, personal spaces, totals, facets and cursors. It also checks committed content changes, completed import indexing, erasure and refused import replay. Built browser results and filter controls run in the existing core-wiki journeys; hosted capacity remains separate. The shared discoveryJourney checks every advanced operator and Boolean combination over a two-member corpus, plus label filtering and current-authority saved criteria."
     },
     {
       "file": "tests/e2e/search/fts-upgrade.test.ts",
