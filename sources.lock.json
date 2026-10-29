@@ -975,7 +975,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "2095232856cb27d37cc6707b65252a6917c81515a177ca740a80c626412960ed",
+      "sha256": "c94d046462ea0e46d65d2a216a819be0f0aba3d03b25e9ef84bd5a0df40f81bd",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -1003,7 +1003,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "19c1335da385d6e679eb29c2d3d966587e6ebb5c556adfaa6b570aaa4c27e12c",
+      "sha256": "1e7b67ea749958c69e230804b2a5399ccb9bde335b412105ea07bbbbefc62f2b",
       "executable": false
     },
     "DEMO.md": {
@@ -1031,7 +1031,7 @@
       "executable": false
     },
     "deploy/wrangler.template.toml": {
-      "sha256": "e3dd4048e797e7d7b1be2f2c0bcde54c0541e0aaef76d9fc33e6b8cf79ec4638",
+      "sha256": "53c6dbd40cc79572972c18c7cf317e7e302e57ffd921cccc5dd0e0425711d82b",
       "executable": false
     },
     "DIVERGENCE.md": {
@@ -5611,7 +5611,7 @@
       "executable": false
     },
     "src/core/app/feature-context.ts": {
-      "sha256": "310bac3fa886b0807e97f41797d93861ce7e66d9b2110b08a647f6c7e8880740",
+      "sha256": "f0a99a892ae1ccea3507f8843e33a94c357410297f6ad7ea80e13c5eaedfadd5",
       "executable": false
     },
     "src/core/app/font-head.ts": {
@@ -5659,7 +5659,7 @@
       "executable": false
     },
     "src/core/app/operations.ts": {
-      "sha256": "9d1bebe56822c3447ee02c75f619852b17103329f6a5f2c1355229e88e8aac63",
+      "sha256": "94a8fe673332d10f65ddf8f45b6efd195e908fcf04fd7838653066fc53fd6dcd",
       "executable": false
     },
     "src/core/app/operator-document-gate.ts": {
@@ -6007,7 +6007,7 @@
       "executable": false
     },
     "src/core/features/activity/service.ts": {
-      "sha256": "6131960723ea05b624bd77c83a4afe70c76e2527071dd7e073ef18aae1e2f0b9",
+      "sha256": "0a8f2e7d10732123d33dfe1516308e17a15d4ea87190b20e17dcd1fa12581402",
       "executable": false
     },
     "src/core/features/activity/ui/workspace/ActivityWorkspace.tsx": {
@@ -12691,7 +12691,7 @@
       "executable": false
     },
     "wrangler.jsonc": {
-      "sha256": "7c39f8d760a37bcb7bddca8ea8e927493272e75e383dd2a0d53cf14faa81f2ab",
+      "sha256": "e3ec6bd42f2edc3b2cee14a4660bd02a6370abb047336f6d91be741cddf67292",
       "executable": false
     }
   }
