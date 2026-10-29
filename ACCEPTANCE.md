@@ -435,8 +435,8 @@ Core · published · **partial**
 1. Favorites are personal, are listed in the navigation (`NAV-003`), and are visible to no other member.
 2. Favorites are listed in navigation for their member only.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A member can favorite a page or a container and unfavorite it."<br>No validated CI-run proof for this acceptance point: "Favorites are personal, are listed in the navigation (`NAV-003`), and are visible to no other member."
+**Evidence.** `tests/qualification/ui-convergence/favourites-journey.mjs` — favouritesJourney through the existing following journey at 1440px and core member journey at 390px; native toggles, complete ordered sidebar and API read-back, stable moves, one-action removal and two-member isolation.
+**Gap.** Exact candidate browser proof and recorded Verify pending.
 
 #### PAGE-009 — Watch
 
@@ -1898,8 +1898,8 @@ Core · published · **partial**
 1. Favorited pages and containers (`PAGE-008`) are listed in the navigation, reorderable by the member, and removed from the list in one action.
 2. Favorites are listed, reorderable and removed in one action.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Favorited pages and containers (`PAGE-008`) are listed in the navigation, reorderable by the member, and removed from the list in one action."
+**Evidence.** `tests/qualification/ui-convergence/favourites-journey.mjs` — favouritesJourney through the existing following journey at 1440px and core member journey at 390px; native toggles, complete ordered sidebar and API read-back, stable moves, one-action removal and two-member isolation.
+**Gap.** Exact candidate browser proof and recorded Verify pending.
 
 #### NAV-004 — One navigation
 

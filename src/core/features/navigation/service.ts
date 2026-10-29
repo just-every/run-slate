@@ -1,3 +1,4 @@
+import { favouriteRows } from './favourites';
 import { authorScheduleProjections } from '../lifecycle/schedule-view';
 import { navigationConfiguration } from './configuration';
 import { requiredId } from './request';
@@ -11,7 +12,7 @@ export { preferences, updatePreferences } from './preferences';
 export async function navigation(ctx:FeatureContext){const subject=await currentSubject(ctx);
  const [recent,favourites,containers,watches,containerWatches,personal,configuration]=await Promise.all([
  ctx.db.prepare('SELECT p.id,p.title,p.container_id AS containerId,p.icon,r.opened_at AS openedAt FROM recent_pages r JOIN pages p ON p.id=r.page_id WHERE r.member_id=? AND p.workspace_id=? AND p.deleted_at IS NULL ORDER BY r.opened_at DESC,p.id DESC').bind(ctx.actor.id,ctx.actor.workspaceId).all<{id:string;title:string;containerId:string;icon:string|null;openedAt:string}>(),
- ctx.db.prepare("SELECT CASE WHEN d.id IS NULL THEN 'page' ELSE 'database' END AS kind,COALESCE(d.id,p.id) AS id,p.id AS pageId,p.title AS title,f.position FROM page_favourites f JOIN pages p ON p.id=f.page_id LEFT JOIN databases d ON d.page_id=p.id WHERE f.member_id=? AND p.workspace_id=? AND p.deleted_at IS NULL UNION ALL SELECT 'container',c.id,NULL AS pageId,c.name,f.position FROM container_favourites f JOIN containers c ON c.id=f.container_id WHERE f.member_id=? AND c.workspace_id=? ORDER BY position,id").bind(ctx.actor.id,ctx.actor.workspaceId,ctx.actor.id,ctx.actor.workspaceId).all<{kind:'page'|'container'|'database';id:string;pageId:string|null;title:string;position:string}>(),
+ favouriteRows(ctx),
  ctx.db.prepare('SELECT DISTINCT c.id,c.name,c.icon FROM containers c LEFT JOIN container_members m ON m.container_id=c.id LEFT JOIN container_owners o ON o.container_id=c.id WHERE c.workspace_id=? AND (m.member_id=? OR o.member_id=?) ORDER BY c.name,c.id').bind(ctx.actor.workspaceId,ctx.actor.id,ctx.actor.id).all<{id:string;name:string;icon:string|null}>(),
  ctx.db.prepare('SELECT page_id AS id FROM page_watches WHERE member_id=? AND enabled=1').bind(ctx.actor.id).all<{id:string}>(),ctx.db.prepare('SELECT container_id AS id FROM container_watches WHERE member_id=?').bind(ctx.actor.id).all<{id:string}>(),preferences(ctx),navigationConfiguration(ctx)]);
  const pageIds=[...new Set([...recent.results.map(p=>p.id),...favourites.results.flatMap(p=>p.pageId?[p.pageId]:[]),...watches.results.map(p=>p.id)])];

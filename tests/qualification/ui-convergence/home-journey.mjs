@@ -4,6 +4,7 @@ import { expect } from '@playwright/test';
 import { accessible } from './browser-evidence.mjs';
 import { openPageAction } from './browser-support.mjs';
 import { grant, ok } from './two-people-support.mjs';
+import { favouritesJourney } from './favourites-journey.mjs';
 
 /** Populated personal Home, real destinations, and current access after revocation. */
 export async function homeJourney(state, people) {
@@ -72,4 +73,5 @@ export async function homeJourney(state, people) {
   await bob.page.reload({ waitUntil: 'networkidle' });
   await expect(bob.page.getByRole('region', { name: 'Following', exact: true })).not.toContainText(unwatchedTitle);
   assert.ok(!(await ok(bob.context, origin, 'GET', '/api/navigation/following')).items.some(item => item.pageId === unwatched), 'Readable but unwatched activity does not become a workspace feed.');
+  await favouritesJourney(state, people);
 }

@@ -66,6 +66,15 @@ function MemberNavigation({ onNavigate }: { onNavigate?: () => void }) {
   const creation = useCreatePage();
   const [createDatabase, setCreateDatabase] = useState(false);
   const [error,setError]=useState<unknown>();
+  const [favouritePending,setFavouritePending]=useState(false);
+  async function changeFavourite(item:{kind:string;id:string},enabled:boolean,position?:number) {
+    setFavouritePending(true);
+    try {
+      await mutate("/api/navigation/favourites",{operationKey:operationKey(),kind:item.kind,id:item.id,enabled,position},"PUT");
+      await navigation.reload();
+    } catch (cause) { setError(cause); }
+    finally { setFavouritePending(false); }
+  }
   const collapsed = navigation.data?.preferences.value.sidebarCollapsed === true;
   function toggleSidebar() {
     if (!navigation.data) return;
@@ -87,8 +96,8 @@ function MemberNavigation({ onNavigate }: { onNavigate?: () => void }) {
         <nav className="favourites" aria-label="Favourites">
           <p className="sidebar-label">Favourites</p>
           {navigation.data.favourites
-            .map((item) => (
-              <div key={item.id} className="favourite-row"><a className="navlink" href={item.href}><span>{item.title}</span><ScheduledPublication page={item}/></a><button className="icon-action" aria-label={`Move ${item.title} up`} data-tooltip="Move favourite" data-tooltip-align="end" onClick={()=>{const at=navigation.data!.favourites.findIndex(f=>f.id===item.id);if(at<1)return;void Promise.all([mutate("/api/navigation/favourites",{operationKey:operationKey(),kind:item.kind,id:item.id,enabled:true,position:at-1},"PUT"),mutate("/api/navigation/favourites",{operationKey:operationKey(),kind:navigation.data!.favourites[at-1].kind,id:navigation.data!.favourites[at-1].id,enabled:true,position:at},"PUT")]).then(navigation.reload).catch(setError);}}><ArrowUp aria-hidden="true"/></button><button className="icon-action" aria-label={`Unfavourite ${item.title}`} data-tooltip="Remove favourite" data-tooltip-align="end" onClick={()=>void mutate("/api/navigation/favourites",{operationKey:operationKey(),kind:item.kind,id:item.id,enabled:false},"PUT").then(navigation.reload).catch(setError)}><X aria-hidden="true"/></button></div>
+            .map((item,index) => (
+              <div key={`${item.kind}:${item.id}`} className="favourite-row"><a className="navlink" href={item.href}><span>{item.title}</span><ScheduledPublication page={item}/></a><button className="icon-action" aria-label={`Move ${item.title} up`} data-tooltip="Move favourite" data-tooltip-align="end" disabled={favouritePending||index===0} onClick={()=>void changeFavourite(item,true,index-1)}><ArrowUp aria-hidden="true"/></button><button className="icon-action" aria-label={`Unfavourite ${item.title}`} data-tooltip="Remove favourite" data-tooltip-align="end" disabled={favouritePending} onClick={()=>void changeFavourite(item,false)}><X aria-hidden="true"/></button></div>
             ))}
         </nav>
       ) : null}
