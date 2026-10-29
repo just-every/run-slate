@@ -12128,7 +12128,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-support.mjs": {
-      "sha256": "73196ed107d902e82260289210d51136026b137e75bd08c51d213ff4db334ef7",
+      "sha256": "8d0880c6adad3f66b63c9c66314ed5ddd6f3d1bcbd0ff8350c7fd64dd2c71bdf",
       "executable": false
     },
     "tests/qualification/ui-convergence/webhook-access-journey.mjs": {
