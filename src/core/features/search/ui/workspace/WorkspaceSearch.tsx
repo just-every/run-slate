@@ -53,7 +53,6 @@ export function WorkspaceSearch() {
       ? null
       : `/api/search?q=${encodeURIComponent(submitted)}&kind=${encodeURIComponent(kind)}&includeArchived=${archived}&${extra}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`,
   );
-  const filterDescription = [kind,archived?"Including archive":"",...Object.entries(refinements).filter(([,value])=>value!==""&&value!==false).map(([key,value])=>`${key}: ${value}`)].filter(Boolean).join(" · ") || "None";
   return (
     <>
       <TopBar trail={[{ label: "Search" }]} />
@@ -100,7 +99,7 @@ export function WorkspaceSearch() {
               </p>
               {resource.data.items.length>0?<SearchFilterSummary kind={kind} archived={archived} value={refinements} options={searchOptions}/>:null}
               {resource.data.items.length === 0 ? (
-                <section className="search-empty"><p>No matches for “{submitted}”.</p><p>Filters: {filterDescription}</p>{kind || archived || Object.values(refinements).some(value => value !== "" && value !== false) ? <button className="secondary-button" onClick={()=>{setKind("");setArchived(false);setRefinements(emptyRefinements);setCursor(undefined);}}>Clear all filters</button> : null}<button className="primary-button" aria-busy={creation.pending||undefined} onClick={()=>{const title=submitted||DEFAULT_PAGE_TITLE;void creation.create(async()=>({containerId:(await destination.resolve())?.id??null,title}));}}>Create a page titled “{submitted}”</button></section>
+                <section className="search-empty"><p>No matches for “{submitted}”.</p><SearchFilterSummary kind={kind} archived={archived} value={refinements} options={searchOptions}/>{kind || archived || Object.values(refinements).some(value => value !== "" && value !== false) ? <button className="secondary-button" onClick={()=>{setKind("");setArchived(false);setRefinements(emptyRefinements);setCursor(undefined);}}>Clear all filters</button> : null}<button className="primary-button" aria-busy={creation.pending||undefined} onClick={()=>{const title=submitted||DEFAULT_PAGE_TITLE;void creation.create(async()=>({containerId:(await destination.resolve())?.id??null,title}));}}>Create a page titled “{submitted}”</button></section>
               ) : (
                 <SearchResults items={resource.data.items}/>
               )}

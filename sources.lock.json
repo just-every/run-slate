@@ -8956,7 +8956,7 @@
       "executable": false
     },
     "src/core/features/search/ui/workspace/WorkspaceSearch.tsx": {
-      "sha256": "ea946d43a1b2695a201bf0e48b95faa00af2bdcbb11feeb65615e79254c598ed",
+      "sha256": "119a743577e26b06a3aca13cfbea449385e36ead7472496b2e2de5a2e6a8522b",
       "executable": false
     },
     "src/core/features/search/visibility.ts": {
@@ -11408,7 +11408,7 @@
       "executable": false
     },
     "tests/qualification/core/discovery-browser.mjs": {
-      "sha256": "c6cf4001428dfdc808939a0e3e1a9fc83ed0a077bbe6fc572ceb2487c1063999",
+      "sha256": "69df9f350af91590ecd313cd9a66384c0cc63769331deaeca41d956977acea68",
       "executable": false
     },
     "tests/qualification/core/discovery-run.mjs": {
@@ -11992,7 +11992,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/search-filters-journey.mjs": {
-      "sha256": "b2caef13ab2af92eaa7c95d55bca3da5e785e36f6e6bd683f7b906e691b20d53",
+      "sha256": "a294ccaa45b7b5fbee5fa172e9d00e0ec98df3390e092ae27e5fa87ffbf7971b",
       "executable": false
     },
     "tests/qualification/ui-convergence/shared-navigation-journey.mjs": {
