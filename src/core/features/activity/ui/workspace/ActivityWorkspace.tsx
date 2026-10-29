@@ -28,7 +28,7 @@ export function ActivityWorkspace() {
     "/api/containers",
   );
   return (
-    <section className="settings-panel">
+    <section className="settings-panel" aria-busy={resource.loading}>
       <h2>What changed.</h2>
       <form
         className="detail-form"

@@ -34,6 +34,7 @@ export interface PageRow {
     revision_id: string;
 }
 export interface PageProperties {
+    agentPreparation?: {agent:{id:string;name:string};for:{id:string;name:string};label:string};
     byline?: string;
     databaseFields?: Record<string, JsonValue>;
     title: string;

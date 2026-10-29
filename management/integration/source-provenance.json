@@ -74,6 +74,7 @@
     "migrations/core/0067_agent_native_proofs.sql": "sha256:bf9798482a8f82bc1540b3145ae3abfbe8506f8932f1f1d951b2f7be59ad0ac9",
     "migrations/core/0068_agent_attribution.sql": "sha256:c3ffdeefc3e3533600cc14980e869a2cc76bf47ca10fe4180b346d7c9479fadf",
     "migrations/core/0069_company_agent_jobs.sql": "sha256:44b8474e28c61890f8478099b661ad006d0688effddc5956308a80705fc83d3f",
-    "migrations/core/0070_agent_native_authorship.sql": "sha256:dd6f33d82836f00598d19e2784362775a82141ab2ae1919a6124d87b09f5db23"
+    "migrations/core/0070_agent_native_authorship.sql": "sha256:dd6f33d82836f00598d19e2784362775a82141ab2ae1919a6124d87b09f5db23",
+    "migrations/core/0071_agent_public_authorship.sql": "sha256:ddafdb354d9f1510725e6f5a8c31eb3f5ee29de7515f26359c380470bc6c2e42"
   }
 }

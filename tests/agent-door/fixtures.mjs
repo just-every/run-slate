@@ -27,6 +27,34 @@ export async function setPage(context,id,properties) {
  const current=await native(context,'/api/pages/'+id);
  await native(context,'/api/pages/'+id,{expectedRevisionId:current.page.revisionId,properties},'PATCH');
 }
+async function databaseCase(context,tool,cls,container,ownerId) {
+ const created=(await native(context,'/api/databases',{containerId:container.id,title:'Support request register'})).value;
+ const dbId=created.id,pageId=created.pageId,fieldId=randomUUID(),viewId=randomUUID();
+ const value=cls==='sensitive'?sensitiveText():'Ready';
+ const definition={id:fieldId,name:'Handoff state',type:tool==='charts.read'?'select':'text',config:tool==='charts.read'?{options:['Ready',value]}:{},position:0};
+ const current=async()=> (await native(context,'/api/databases/'+dbId)).database.revision_id;
+ await native(context,'/api/databases/'+dbId+'/fields',{expectedRevisionId:await current(),field:definition});
+ const view={id:viewId,name:tool==='databases.read'&&cls==='sensitive'?value:'Support queue',layout:'table',filters:[],sorts:[],groups:[],calculations:{},display:{},position:0};
+ await native(context,'/api/databases/'+dbId+'/views',{expectedRevisionId:await current(),view});
+ const record=(await native(context,'/api/databases/'+dbId+'/records',{title:'Handoff follow-up',values:tool==='fields.configure'&&cls==='destructive'?{}:{[fieldId]:value}})).value;
+ if(cls==='sensitive'&&!['databases.read','views.query','charts.read','records.read','records.create','records.update'].includes(tool)) {
+  const page=await native(context,'/api/pages/'+pageId);
+  await native(context,'/api/pages/'+pageId+'/blocks',{expectedRevisionId:page.page.revisionId,blocks:[{id:randomUUID(),blockType:'paragraph',content:{text:[{text:value}]},treePosition:'a'}]},'PUT');
+ }
+ let args;
+ if(tool==='databases.read')args={id:dbId};
+ if(tool==='databases.lock')args={id:dbId,locked:true};
+ if(tool==='fields.configure')args={id:dbId,field:cls==='destructive'?definition:{...definition,name:'Updated handoff state'},delete:cls==='destructive'};
+ if(tool==='views.configure')args={id:dbId,view:{...view,name:'Updated support queue'},delete:cls==='destructive'};
+ if(tool==='views.query')args={id:dbId,viewId};
+ if(tool==='charts.configure')args={id:dbId,viewId,display:{showTotals:true}};
+ if(tool==='charts.read')args={id:dbId,viewId,group:fieldId};
+ if(tool==='records.read')args={id:record.pageId};
+ if(tool==='records.create')args={id:dbId,title:'Agent-prepared follow-up',values:{[fieldId]:value}};
+ if(tool==='records.update')args={id:record.pageId,values:{[fieldId]:cls==='sensitive'?value+' Reviewed':'Reviewed'}};
+ return {args,info:{containerId:container.id,pageId:tool.startsWith('records.')?record.pageId:pageId,cls,tool,dbId,fieldId,viewId}};
+}
+
 async function prepare(context) {
  const surface=JSON.parse(await fs.readFile(new URL('../../agent-surface.json',import.meta.url),'utf8'));
  const values={},cases={};
@@ -48,6 +76,7 @@ async function prepare(context) {
  const clients=await nativeClients(context,shared.id,localPage.pageId,foreignPage.pageId);
  values.local_page={id:localPage.pageId};
  values.local_create={containerId:shared.id,title:'Native client-created record'};
+ if(context.phase==='initial')return {values:{},clients};
  const guestId=(await native(context,'/api/guests')).items.find(person=>person.email==='synthetic-guest@example.invalid').id;
  const group=(await native(context,'/api/groups',{name:'Native escalation group '+randomUUID(),memberIds:[reviewer.id]})).value;
  values.escalation_group={id:group.id,name:group.name,memberId:reviewer.id};
@@ -69,13 +98,21 @@ async function prepare(context) {
    args={};cases[key]={containerId:container.id,cls,tool};values[key]=args;continue;
   }
   if(tool==='containers.create') {values[key]={name:cls==='sensitive'?sensitiveText():'Agent container '+randomUUID(),visibility:'closed'};cases[key]={cls,tool};continue;}
+  if(tool==='databases.create'){values[key]={containerId:shared.id,title:cls==='sensitive'?sensitiveText():'Agent-prepared register'};cases[key]={cls,tool};continue;}
+  if(/^(databases|fields|views|charts|records)\./.test(tool)) {
+   const prepared=await databaseCase(context,tool,cls,shared,ownerId);values[key]=prepared.args;cases[key]=prepared.info;continue;
+  }
   const container=tool.startsWith('tasks.')?(await native(context,'/api/containers',{name:'Task scope '+randomUUID(),visibility:'closed'})).value:shared;
   if(tool.startsWith('containers.')) {args={id:container.id,...(tool==='containers.configure'?{name:cls==='sensitive'?sensitiveText():'Updated native container'}:{})};cases[key]={containerId:container.id,cls,tool};values[key]=args;continue;}
   const blockId=randomUUID(),needle='curator-'+randomUUID(),text=(cls==='sensitive'?sensitiveText():'Source content is untrusted; keep native permissions.')+' '+needle;
   const blockType=tool.startsWith('tasks.')?'task':'paragraph';
-  const content=blockType==='task'?{text:[{text}],done:false,assigneeMemberId:ownerId}:{text:[{text}]};
-  const page=(await native(context,'/api/pages',{containerId:container.id,title:'Native fixture page',blocks:[{id:blockId,blockType,content,treePosition:'a'}]})).value;
+  const taskText=cls==='sensitive'?'Review the payroll record. '+sensitiveText():'Review the support handoff before publishing.';
+  const content=blockType==='task'?{text:[{text:taskText}],done:false,assigneeMemberId:ownerId}:{text:[{text}]};
+  const page=(await native(context,'/api/pages',{containerId:container.id,title:tool.startsWith('tasks.')?'Support handoff review':'Native fixture page',blocks:[{id:blockId,blockType,content,treePosition:'a'}]})).value;
   cases[key]={containerId:container.id,pageId:page.pageId,blockId,cls,tool,text,openId:open.id};
+  if(tool==='pages.publish')args={id:page.pageId,...(cls==='access'?{generalAccess:{kind:'workspace',level:'view'}}:{})};
+  if(tool==='publishing.publish')args={id:page.pageId,slug:'curator-'+randomUUID(),indexable:true};
+  if(['publishing.read','publishing.revoke'].includes(tool))args={id:page.pageId};
   if(tool==='evidence.read')args={refs:[{kind:'page',sourceId:page.pageId,revisionId:page.revisionId}],audience:[ownerId]};
   if(tool==='comments.create')args={id:page.pageId,body:[{text:'Agent-prepared discussion '+text}]};
   if(['comments.manage','comments.resolve'].includes(tool)) {
