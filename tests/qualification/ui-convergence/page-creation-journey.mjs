@@ -61,6 +61,9 @@ export async function pageCreationJourney(state, { phoneProof = false } = {}) {
         if (door === 'tree-child') {
           await tree.getByRole('link', { name: 'Welcome', exact: true }).hover();
           await trigger.focus();
+          await page.keyboard.press('Tab');
+          await page.keyboard.press('Shift+Tab');
+          await expect(trigger).toBeFocused();
           await expect(trigger).toHaveAttribute('data-tooltip', 'Add child');
           assert.equal(await trigger.evaluate(element => getComputedStyle(element, '::after').opacity), '1', 'The focused child control shows its tooltip immediately.');
         }
@@ -131,6 +134,7 @@ export async function pageCreationJourney(state, { phoneProof = false } = {}) {
       await openNavigation(page);
       const tree = page.getByRole('navigation', { name: 'Pages', exact: true });
       await expect(tree.getByRole('button', { name: 'Create page in Handbook', exact: true })).toHaveCount(0);
+      await tree.getByRole('link', { name: 'Welcome', exact: true }).hover();
       await expect(tree.getByRole('button', { name: 'Create child of Welcome', exact: true })).toBeDisabled();
       // Close the phone navigation before opening the page's own action menu.
       const close = page.getByRole('button', { name: 'Close navigation', exact: true });
