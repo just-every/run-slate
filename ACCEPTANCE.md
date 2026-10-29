@@ -1204,8 +1204,8 @@ Core · published · **partial**
 3. Both values store the whole vocabulary, so switching exposes or hides entries and rewrites no page.*
 4. Profile journeys for `verification-only` and `open-vocabulary` show and hide exactly the listed controls.
 
-**Evidence.** `tests/qualification/policies/emitted.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/emitted.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", loading `tests/qualification/ui-convergence/status-profile-journey.mjs` — "statusProfileJourney": acceptance 1–4, both profiles and their controls, chip placement, twenty-character custom labels, native policy round trips preserving vocabulary, assigned statuses, content, revision history and human verification; owner vocabulary authority and unopened attestation refusal. `tests/e2e/review/verification-flow.test.ts` — "Verifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current" retains exact-revision human verification.
+**Gap.** Native profile journeys pass in isolation; complete shared-core proof is pending reconciliation with the active vocabulary added by the search journey.
 
 ### Comments
 
