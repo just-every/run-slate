@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 41 | 256 | 34 | 331 |
+| Core | 43 | 254 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 41 | 256 | 40 | 337 |
+| Full target | 43 | 254 | 40 | 337 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1864,7 +1864,7 @@ Core · published · **partial**
 
 #### NAV-001 — Home
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A member's home shows their recent pages, their favorites and the containers they belong to, each entry opening the record.
 
@@ -1872,8 +1872,8 @@ Core · published · **partial**
 1. It shows nothing the member may not read and no workspace-wide activity feed.
 2. Home shows recents, favorites and containers, only readable, with no workspace feed.
 
-**Evidence.** `tests/qualification/backend/emitted.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/home-journey.mjs` — "homeJourney", called by "CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: populated recents, page and container favourites, owned containers, opening every entry, personal visits and immediate removal of revoked entries.
+**Gap.** None.
 
 #### NAV-002 — Recents
 
@@ -1960,8 +1960,8 @@ Core · published · **partial**
 7. Preserve `NOTIF-002` inbox behavior, `NOTIF-003` optional link-only chat delivery and `MAIL-001` limited email use.
 8. Each listed event notifies its recipient once, rechecks access, never notifies the actor and never discloses unreadable records.
 
-**Evidence.** `tests/qualification/backend/emitted.mjs`
-**Gap.** Missing a complete public-door journey for meaningful notifications under the current authority, audience and company policy; prior quoted implementation and policy notes are retained in CHANGELOG.md.
+**Evidence.** `tests/flagship/discovery/meaningful-notifications.ts` — "meaningfulNotifications", called by "PAGE-016 — authoring watches respect durable unwatch, personal overrides and workspace defaults" in `tests/flagship/discovery/following.test.ts`; `tests/flagship/intelligence/attention-journey.ts` — "attentionJourney" and run failure and quiet-success cases in `tests/flagship/intelligence/lifecycle.test.ts`; `tests/flagship/release-clauses/authority/impact-scope.test.ts` — "EFFECT-003 — scoped rehearsal and pinned maintenance require exact current authority"; `tests/flagship/release-clauses/trials/outcomes.test.ts` — "TRIAL-003 — persisted conclusions use collected fields and independently checked precision".
+**Gap.** Company-policy integration and delegated actionable pauses remain unproven under both held and all-autonomous dispositions. BASE-AGENT-007 owns the shared policy chokepoint; BASELINE.md records its conformance journey as planned and the pinned Base has no agent-door module. Retained default: exact explicit grants permit bounded maintenance, other proposed changes require their named person; no new policy authority is inferred. No live provider result is claimed.
 
 #### NOTIF-002 — Inbox
 
@@ -2430,7 +2430,7 @@ Core · published · **partial**
 
 #### LINK-004 — Links respect access
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A mention or link to a record the reader may not open shows that a linked record exists and that access is needed, and shows no title, snippet, icon or author.
 
@@ -2438,8 +2438,8 @@ Core · published · **partial**
 1. Requesting access is one action that notifies a member who can grant it.
 2. Links to unreadable records show only that access is needed; request access notifies a granter.
 
-**Evidence.** `tests/qualification/backend/emitted.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/link-access-journey.mjs` — "linkAccessJourney", called by "shared page invitations name their space and disappear on revocation at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: readable mention and destination, content-free denied mention and page, one-action request, current granter, duplicate suppression and no implicit grant. `tests/flagship/content/mention-access.test.ts` — "LINK-004 — a mentioned page title reaches a reader through no door once their access is removed or expired" covers retained representations and expiry.
+**Gap.** None.
 
 ### AI
 
