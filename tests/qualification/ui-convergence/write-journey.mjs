@@ -4,6 +4,7 @@ import { accessible, openNavigation } from './browser-support.mjs';
 import { compactPage, savedAfterSaving, watchSaveStates } from './browser-evidence.mjs';
 import { randomBytes } from 'node:crypto';
 import { secondaryCreateDestinations } from './navigation-journey.mjs';
+import { typedShortcutsJourney } from './typed-shortcuts-journey.mjs';
 import { firstWordsJourney } from './first-words-journey.mjs';
 
 export async function writeJourney(state, width) {
@@ -132,6 +133,7 @@ export async function writeJourney(state, width) {
   await expect(paragraphs.nth(1)).toContainText('Second block: record the next action.');
   await accessible(page, 'two blocks saved in order');
   await firstWordsJourney(state);
+  await typedShortcutsJourney(state);
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   return pageId;
 }
