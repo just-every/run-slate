@@ -981,7 +981,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "c907f5a091225ea32b0947b428f8e2e68f6955e5d3d0af76e940dff1a47f2503",
+      "sha256": "03713d7687ddcd31ed5d4787cd11afdc33c9cb3f3f401308efe3dc74df978826",
       "executable": false
     },
     "agent-surface.json": {
@@ -1013,7 +1013,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "bc4decdf6714d6a45ed21b79817411d30a2ac0d70db384d7d41f54f774ab6d98",
+      "sha256": "882bcb896ca2fe3a05e24c55ec86a5a96af5096975b3afc2b0ae0b4a134d64b7",
       "executable": false
     },
     "DEMO.md": {
@@ -12513,7 +12513,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/guest-scope-journey.mjs": {
-      "sha256": "7ee84208d049d2d54fbd6d526da03d13dbe191f4ec0c0976a524f6fd09f4002e",
+      "sha256": "8a142fba54b1302e6d89f34d9732505e9454250cc1a73202f31fc75902bcb0e1",
       "executable": false
     },
     "tests/qualification/ui-convergence/hub-journey.mjs": {

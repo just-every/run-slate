@@ -4165,9 +4165,9 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 24 | 202 | 0 | 226 |
+| Published | 25 | 201 | 0 | 226 |
 | Target and push further | 16 | 60 | 48 | 124 |
-| All | 40 | 262 | 48 | 350 |
+| All | 41 | 261 | 48 | 350 |
 
 
 | Clause | Title | Kind | Status | Evidence | Gap |
@@ -4182,7 +4182,7 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `WORK-007` | Removal | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-008` | Roles | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-009` | Groups | published | done | `tests/qualification/ui-convergence/workspace-authority-journey.mjs` — "workspaceAuthorityJourney", called by "space tree title filtering preserves ancestors, access and expansion at 390px" and "page outline follows headings and navigates long pages at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: named group creation and membership editing, page and container grants, immediate access changes, one activity entry with replay, and group deletion retaining individual grants. | |
-| `WORK-010` | Guests | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
+| `WORK-010` | Guests | published | done | `tests/qualification/ui-convergence/guest-scope-journey.mjs` — "guestScopeJourney", through "workspaceAuthorityJourney" in `tests/qualification/ui-convergence/workspace-authority-journey.mjs`, called by "space tree title filtering preserves ancestors, access and expansion at 390px" and "page outline follows headings and navigates long pages at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: guest admission preserves member list and count; named page and container grants bound reads and search while workspace indexes stay denied; the container veto immediately removes access; revocation survives grant and invitation replay. | |
 | `WORK-011` | Workspace settings | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-012` | Theme | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-013` | First run | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
