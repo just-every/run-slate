@@ -4166,8 +4166,8 @@ Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 23 | 203 | 0 | 226 |
-| Target and push further | 16 | 55 | 53 | 124 |
-| All | 39 | 258 | 53 | 350 |
+| Target and push further | 16 | 57 | 51 | 124 |
+| All | 39 | 260 | 51 | 350 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4506,7 +4506,7 @@ Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e
 | `SURFACE-002` | Wiki class computation for records and outside services | target | missing |  | No executed Slate MCP journey yet covers this seed delta under both company policies. |
 | `SURFACE-003` | Wiki class computation for business and data effects | target | missing |  | No executed Slate MCP journey yet covers this seed delta under both company policies. |
 | `SURFACE-004` | Revision-pinned knowledge resources | target | missing |  | No executed Slate MCP journey yet covers this seed delta under both company policies. |
-| `SURFACE-005` | Wiki event handoffs | target | partial |  | 2026-10-29: not-declared — events and subscriptions are outside this round’s intended CORE families; rer 0.2.86 has no subset declaration field. Native wiki activity is not a typed door resource event feed. |
+| `SURFACE-005` | Wiki event handoffs | target | partial | `docs/agent-access.md` — intended capability families; native adoption is unfinished. | 2026-10-29: not-declared — events and subscriptions are outside this round’s intended CORE families; rer 0.2.86 has no subset declaration field. Native wiki activity is not a typed door resource event feed. |
 | `SURFACE-006` | One seeded week for the wiki curator | target | missing |  | No executed Slate MCP journey yet covers this seed delta under both company policies. |
 | `BASE-AGENT-001` | One MCP door per seed | target | missing | | Not yet judged through this seed's own doors. |
 | `BASE-AGENT-002` | The seed's jobs are tools, through the UI's own actions | target | missing | | Not yet judged through this seed's own doors. |
@@ -4517,7 +4517,7 @@ Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e
 | `BASE-AGENT-007` | The company's policy decides, at one chokepoint | target | missing | | Not yet judged through this seed's own doors. |
 | `BASE-AGENT-008` | Truthful attribution | target | missing | | Not yet judged through this seed's own doors. |
 | `BASE-AGENT-009` | Every agent action is audited with its class and decision | target | missing | | Not yet judged through this seed's own doors. |
-| `BASE-AGENT-010` | Agents can follow changes | target | partial | | 2026-10-29: not-declared — events and subscriptions are outside this round’s intended CORE families; rer 0.2.86 has no subset declaration field. Native wiki activity is not a typed door resource event feed. |
+| `BASE-AGENT-010` | Agents can follow changes | target | partial | `docs/agent-access.md` — intended capability families; native adoption is unfinished. | 2026-10-29: not-declared — events and subscriptions are outside this round’s intended CORE families; rer 0.2.86 has no subset declaration field. Native wiki activity is not a typed door resource event feed. |
 | `BASE-AGENT-011` | Limits are policy, and Pause stops everything | target | missing | | Not yet judged through this seed's own doors. |
 | `BASE-AGENT-012` | Writes are idempotent and conflict-safe | target | missing | | Not yet judged through this seed's own doors. |
 | `BASE-AGENT-013` | Manifest, docs and the conformance journey | target | missing | | Not yet judged through this seed's own doors. |

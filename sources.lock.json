@@ -975,7 +975,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "c94d046462ea0e46d65d2a216a819be0f0aba3d03b25e9ef84bd5a0df40f81bd",
+      "sha256": "3ed243802a1981c7ca3d7965e04b777ee74b0df35a22d0a9d98090b97df33a0f",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -1003,7 +1003,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "1e7b67ea749958c69e230804b2a5399ccb9bde335b412105ea07bbbbefc62f2b",
+      "sha256": "5156ff94492650e557a783dfa8696fca3cee8a5bba511b73acda72c6a5a50ad2",
       "executable": false
     },
     "DEMO.md": {
@@ -1019,7 +1019,7 @@
       "executable": false
     },
     "deploy.json": {
-      "sha256": "5cf5dcc7bfa17f92bdc3adf06d2bfa7fd421786fc7f0118ae34a75745d340836",
+      "sha256": "2a30bf72b364ea741b6eda33201e2aa3b83901e8955415324a805c41228ff439",
       "executable": false
     },
     "deploy/footprint.md": {
@@ -1031,7 +1031,7 @@
       "executable": false
     },
     "deploy/wrangler.template.toml": {
-      "sha256": "53c6dbd40cc79572972c18c7cf317e7e302e57ffd921cccc5dd0e0425711d82b",
+      "sha256": "8106d46ec1e89bd11f41cc3781acc24e5760fb9d464169e49ea5b6e3acb94b30",
       "executable": false
     },
     "DIVERGENCE.md": {
@@ -5611,7 +5611,7 @@
       "executable": false
     },
     "src/core/app/feature-context.ts": {
-      "sha256": "f0a99a892ae1ccea3507f8843e33a94c357410297f6ad7ea80e13c5eaedfadd5",
+      "sha256": "310bac3fa886b0807e97f41797d93861ce7e66d9b2110b08a647f6c7e8880740",
       "executable": false
     },
     "src/core/app/font-head.ts": {
@@ -5659,7 +5659,7 @@
       "executable": false
     },
     "src/core/app/operations.ts": {
-      "sha256": "94a8fe673332d10f65ddf8f45b6efd195e908fcf04fd7838653066fc53fd6dcd",
+      "sha256": "9d1bebe56822c3447ee02c75f619852b17103329f6a5f2c1355229e88e8aac63",
       "executable": false
     },
     "src/core/app/operator-document-gate.ts": {
@@ -6007,7 +6007,7 @@
       "executable": false
     },
     "src/core/features/activity/service.ts": {
-      "sha256": "0a8f2e7d10732123d33dfe1516308e17a15d4ea87190b20e17dcd1fa12581402",
+      "sha256": "6131960723ea05b624bd77c83a4afe70c76e2527071dd7e073ef18aae1e2f0b9",
       "executable": false
     },
     "src/core/features/activity/ui/workspace/ActivityWorkspace.tsx": {
@@ -12691,7 +12691,7 @@
       "executable": false
     },
     "wrangler.jsonc": {
-      "sha256": "e3ec6bd42f2edc3b2cee14a4660bd02a6370abb047336f6d91be741cddf67292",
+      "sha256": "7c39f8d760a37bcb7bddca8ea8e927493272e75e383dd2a0d53cf14faa81f2ab",
       "executable": false
     }
   }
