@@ -120,7 +120,7 @@
       "id": "WORK-011",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-011 — Workspace settings. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "The existing desktop outline and phone tree browser registrations call settingsIsolationJourney through settingsJourney. Native navigation reaches workspace identity, people, groups, guests, status vocabulary, external-access switches and import and export. Native identity and switch edits preserve stored container details, switches, grants and immutable revisions; native container edits preserve all workspace settings and revisions after reload. workspaceAuthorityJourney retains owner and member refusals. Connected services and AI settings remain omitted from the default product under ADMIN-007; whole-clause acceptance remains unproven.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",

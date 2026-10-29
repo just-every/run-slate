@@ -187,8 +187,8 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 1. It is separate from a container's own settings shell (`CONT-004`), and a change in one never silently changes the other.
 2. Settings shell reaches every listed area; a change in workspace settings never changes a container's settings.
 
-**Evidence.** `tests/qualification/core/identity.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/settings-isolation-journey.mjs` — "settingsIsolationJourney", called by "settingsJourney" in `tests/qualification/ui-convergence/reading-journeys.mjs`, loaded by "page outline follows headings and navigates long pages at 1440px" and "space tree title filtering preserves ancestors, access and expansion at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs` (push Verify); `tests/qualification/ui-convergence/workspace-authority-journey.mjs` — "workspaceAuthorityJourney" (same callers)
+**Gap.** Connected services and AI settings remain omitted from the default product under the existing ADMIN-007 prerequisite. Native settings navigation and bidirectional workspace and container isolation are covered; whole-clause acceptance remains partial.
 
 #### WORK-012 — Theme
 
