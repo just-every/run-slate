@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "2095232856cb27d37cc6707b65252a6917c81515a177ca740a80c626412960ed",
+      "sha256": "a46039aecc8fcede196855773a1ba05b824adad91dcc40050316f31ae1d425be",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "19c1335da385d6e679eb29c2d3d966587e6ebb5c556adfaa6b570aaa4c27e12c",
+      "sha256": "9fc506e86ae7f7a41998394b9ef3b4ba3b629456044a3061d4d99a32cf407d06",
       "executable": false
     },
     "DEMO.md": {
@@ -11560,7 +11560,7 @@
       "executable": false
     },
     "tests/qualification/policies/invitations.test.ts": {
-      "sha256": "7e6953be86993112f1bab2cc673c711be2a56077792e61f3fc9d2116d8919fa8",
+      "sha256": "84ce2999b17d618a32db7e90788409b5fbf47b2b7192292a202673768c28bf01",
       "executable": false
     },
     "tests/qualification/policies/README.md": {
@@ -12140,7 +12140,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "9936ab888b376702268bdebcfec9477306fe32467f29c4ff168b7b5b16205faf",
+      "sha256": "c550cb16a9b2bff9f4dd55e2dc6bd45d8f376f8aaa86b2be17458afc0a8b61e2",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

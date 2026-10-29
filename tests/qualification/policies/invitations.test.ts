@@ -127,6 +127,10 @@ test('native member invitations preserve uniform admission, lifetime and current
                 expect(await snapshot()).toEqual(before);
             }
         };
+        const beforeAnonymous=await snapshot();
+        const anonymous=await api.request(origin+'/api/invitations',{method:'POST',headers:{origin,'content-type':'application/json'},body:JSON.stringify({operationKey:key('anonymous-invite'),email:'synthetic-slate-607\x40example.test',kind:'member'})},bindings);
+        expect(anonymous.status).toBe(401);
+        expect(await snapshot()).toEqual(beforeAnonymous);
         const knownEmail=(await rows('SELECT email FROM members WHERE id=?',reader.actor.id))[0].email as string;
         const sentBefore=mails.length,known=await admit(knownEmail);
         expect(mails).toHaveLength(sentBefore);
@@ -151,6 +155,10 @@ test('native member invitations preserve uniform admission, lifetime and current
         const revokedEmail='synthetic-slate-605\x40example.test';
         await admit(revokedEmail);
         const revokedToken=token(),[revoked]=await rows('SELECT id FROM invitations WHERE email=?',revokedEmail);
+        const memberCookie=await sessionFor(reader.actor.id),beforeForbidden=await snapshot();
+        const forbidden=await api.request(origin+'/api/invitations/revoke',{method:'POST',headers:{cookie:memberCookie,origin,'content-type':'application/json'},body:JSON.stringify({operationKey:key('member-revoke'),id:revoked.id})},bindings);
+        expect(forbidden.status).toBe(403);
+        expect(await snapshot()).toEqual(beforeForbidden);
         const revokedResponse=await request('/invitations/revoke','POST',{operationKey:key('lifetime-revoke'),id:revoked.id});
         expect(revokedResponse.status).toBe(200);
         expect((await revokedResponse.json<any>()).value).toEqual({revoked:true});
@@ -160,6 +168,9 @@ test('native member invitations preserve uniform admission, lifetime and current
         await admit(expiredEmail);
         const expiredToken=token(),[expiring]=await rows('SELECT * FROM invitations WHERE email=?',expiredEmail);
         expect(Date.parse(expiring.expires_at as string)-admittedAt).toBe(7*86400000);
+        const boundaryEmail='synthetic-slate-608\x40example.test';
+        await admit(boundaryEmail);
+        const boundaryToken=token();
         const beforeExpiry=await snapshot();
         vi.setSystemTime(new Date(Date.parse(expiring.expires_at as string)-1));
         const stillValid=await acceptance(expiredToken,'GET');
@@ -167,6 +178,12 @@ test('native member invitations preserve uniform admission, lifetime and current
         expect(await stillValid.text()).toContain('Accept invitation');
         expect(stillValid.headers.get('set-cookie')).toBeNull();
         expect(await snapshot()).toEqual(beforeExpiry);
+        const lastValidAcceptance=await acceptance(boundaryToken);
+        expect(lastValidAcceptance.status).toBe(303);
+        const boundaryCookie=lastValidAcceptance.headers.get('set-cookie')!.split(';')[0];
+        const boundaryMember=await api.request(origin+'/api/members/current',{headers:{cookie:boundaryCookie}},bindings);
+        expect(boundaryMember.status).toBe(200);
+        expect((await boundaryMember.json<any>()).email).toBe(boundaryEmail);
         for(const elapsed of [0,1]){
             vi.setSystemTime(new Date(Date.parse(expiring.expires_at as string)+elapsed));
             await refuse(expiredToken);

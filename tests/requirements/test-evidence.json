@@ -980,7 +980,7 @@
         "WORK-006",
         "WORK-010"
       ],
-      "reason": "Native HTTP admission compares the complete known and unknown address response except generated operation identifiers. The same journey accepts once into an authenticated native session, refuses replay and pre-use revocation without changing members or sessions, advances an actually issued invitation to seven days and beyond without changing storage, and reads the retained expired row. It preserves the prior inviter-removal and guest-return refusal. Only mail delivery and the Date clock are faked; no external inbox delivery or unrelated Base acceptance is claimed."
+      "reason": "Native HTTP admission compares the complete known and unknown address response except generated operation identifiers. The same journey accepts once into an authenticated native session, refuses replay and pre-use revocation without changing members or sessions, advances an actually issued invitation to seven days and beyond without changing storage, and reads the retained expired row. It also accepts a second link immediately before expiry, refuses anonymous admission and member revocation without writes, and preserves the prior inviter-removal and guest-return refusal. Only mail delivery and the Date clock are faked; no external inbox delivery or unrelated Base acceptance is claimed."
     },
     {
       "file": "tests/e2e/databases/record-templates.test.ts",

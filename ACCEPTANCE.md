@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 39 | 258 | 34 | 331 |
+| Core | 40 | 257 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 39 | 258 | 40 | 337 |
+| Full target | 40 | 257 | 40 | 337 |
 
-Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `e8001cf2bb98f24a53d490c35140b88c01aaeaea` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -112,7 +112,7 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 
 #### WORK-006 — Invitations
 
-Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001
+Core · published · **done** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001
 
 **Requirement.** An invitation is single-use, can be revoked before it is used, and can no longer be accepted 7 days after it was sent; an expired invitation is retained, not deleted.
 
@@ -120,8 +120,8 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 1. Requesting an invitation returns the same response whether or not the address already belongs to a member.
 2. Invitation accepted once, revoked before use, refused after 7 days; the request response is identical for known and unknown addresses.
 
-**Evidence.** `tests/e2e/local-outbox.node.test.mts` — "native local mail sign-in and invitations preserve identity, delivery and scoped authority"
-**Gap.** Missing a native invitation journey that advances past seven days, reads the retained expired invitation and compares existing-address responses; the cited local-mail journey accepts and revokes invitations without that expiry path.
+**Evidence.** `tests/e2e/local-outbox.node.test.mts` — "native local mail sign-in and invitations preserve identity, delivery and scoped authority": acceptance 1 and 2, complete HTTP admission comparison apart from generated operation identifiers, native single-use session acceptance, pre-use revocation and retained seven-day expiry. `tests/qualification/policies/invitations.test.ts` — "native member invitations preserve uniform admission, lifetime and current inviter authority": acceptance 1 and 2 through the native Workers HTTP doors, including expired GET and POST refusal with unchanged members, sessions and retained invitation.
+**Gap.** None.
 
 #### WORK-007 — Removal
 
