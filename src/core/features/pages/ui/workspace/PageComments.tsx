@@ -43,6 +43,7 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
   const resource = useResource<{ threads: Thread[]; comments: Comment[]; reactions:{id:string;commentId:string;emoji:string;memberId:string;displayName:string}[] }>(
     `/api/comments/page/${document.page.id}`,
   );
+  const [reference] = useState(() => {const params=new URLSearchParams(window.location.search);return {thread:params.get("thread"),comment:params.get("comment")};});
   const commentKey=useRef<{signature:string;key:string}|null>(null);
   const [body, setBody] = useState<RichText>([]);
   const [filter,setFilter]=useState("all");
@@ -94,6 +95,7 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
         {!resource.loading && resource.data && resource.data.threads.length > 0 && threads.length === 0 ? <p className="muted" role="status">No threads match these filters.</p> : null}
         {threads.map((thread) => (
           <section className="comment-thread" id={`thread-${thread.id}`} key={thread.id}>
+            {reference.thread===thread.id && !reference.comment ? <p role="status">Referenced thread</p> : null}
             <div className="thread-heading">
               <span>{thread.state === "resolved" ? "Resolved" : "Open"}</span>
               {allowed ? (
@@ -119,6 +121,7 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
               .filter((comment) => comment.threadId === thread.id)
               .map((comment) => (
                 <article key={comment.id} id={`comment-${comment.id}`} className="comment">
+                  {reference.comment===comment.id ? <p role="status">Referenced comment</p> : null}
                   <header>
                     <strong>
                       {comment.authorDisplayName ??

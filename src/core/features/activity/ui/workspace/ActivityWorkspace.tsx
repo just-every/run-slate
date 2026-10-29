@@ -98,7 +98,7 @@ export function ActivityWorkspace() {
       >
         <ol className="settings-list">
           {resource.data?.items.map((item) => (
-            <li key={item.id}>
+            <li key={item.id} data-activity-id={item.id}>
               <div>
                 <strong>{item.actor?.displayName ?? (item.action.startsWith("verification-rules.") ? "Verification rules" : "Former member")}</strong> ·{" "}
                 {item.action.replace(/[._-]/g, " ")}
@@ -113,11 +113,13 @@ export function ActivityWorkspace() {
                       {" "}
                       ·{" "}
                       <a className="activity-page-link"
-                        href={`/app/pages/${item.context.pageId??item.target.id}?${new URLSearchParams(item.context.revisionId?{detail:"history",revision:item.context.revisionId}:item.context.threadId?{detail:"comments",thread:item.context.threadId}:item.context.commentId?{detail:"comments",comment:item.context.commentId}:item.context.grantId?{detail:"share"}:{}).toString()}`}
+                        href={`/app/pages/${item.context.pageId??item.target.id}?${new URLSearchParams(item.context.commentId?{detail:"comments",comment:item.context.commentId,...(item.context.threadId?{thread:item.context.threadId}:{})}:item.context.threadId?{detail:"comments",thread:item.context.threadId}:item.context.grantId?{detail:"share",grant:item.context.grantId}:item.context.revisionId?{detail:"history",revision:item.context.revisionId}:{}).toString()}`}
                       >
-                        Open page{item.context.commentId ? " and comment" : ""}
+                        Open page{item.context.commentId ? " and comment" : item.context.threadId ? " and thread" : item.context.grantId ? " and grant" : item.context.revisionId ? " and revision" : ""}
                       </a>
                     </>
+                  ) : item.target.kind === "container" && item.context.grantId ? (
+                    <> · <a className="activity-page-link" href={`/app/containers/${item.target.id}?${new URLSearchParams({tab:"settings",grant:item.context.grantId})}`}>Open space and grant</a></>
                   ) : null}
                 </p>
                 {item.automationRunId ? (

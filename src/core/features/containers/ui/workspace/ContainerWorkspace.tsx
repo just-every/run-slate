@@ -169,7 +169,7 @@ function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
   const [query, setQuery] = useState("");
   const [label,setLabel]=useState('');
   const [exporting,setExporting]=useState(false);
-  const [tab,setTab]=useState("home");
+  const [tab,setTab]=useState(() => typeof window !== "undefined" && new URLSearchParams(window.location.search).get("tab")==="settings" ? "settings" : "home");
   useEffect(()=>setTab('home'),[id]);
   const available = pages.data?.items ?? [];
   const matched = new Set(

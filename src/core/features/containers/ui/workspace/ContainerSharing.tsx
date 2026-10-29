@@ -1,6 +1,6 @@
 import { AccessExpiry } from "../../../../app/ui/AccessExpiry";
 import { displayDate } from "../../../../app/ui/displayDate";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import {
   mutate,
@@ -31,6 +31,8 @@ export function ContainerSharing({ id }: { id: string }) {
   const groups = useResource<{ items: { id: string; name: string }[] }>(
     member.role === "owner" ? "/api/groups" : null,
   );
+  const [referencedGrant] = useState(() => new URLSearchParams(window.location.search).get("grant"));
+  useEffect(() => {if(referencedGrant) window.document.getElementById(`grant-${referencedGrant}`)?.scrollIntoView({block:"center"});},[grants.data,referencedGrant]);
   const [editing, setEditing] = useState<Grant | "new" | null>(null);
   const key = useRef("");
   const [error, setError] = useState<unknown>();
@@ -53,8 +55,9 @@ export function ContainerSharing({ id }: { id: string }) {
         retry={grants.reload}
       >
         <ul className="settings-list">
-          {grants.data?.items.filter(grant=>!grantLed||grant.principalKind===tab).map((grant) => (
-            <li key={grant.id}>
+          {grants.data?.items.filter(grant=>grant.id===referencedGrant||!grantLed||grant.principalKind===tab).map((grant) => (
+            <li key={grant.id} id={`grant-${grant.id}`} aria-current={referencedGrant===grant.id ? "true" : undefined}>
+              {referencedGrant===grant.id ? <strong>Referenced access change</strong> : null}
               <span>
                 {name(grant)} · {grant.revokedAt ? "Revoked" : grant.level}
                 {grant.expiresAt

@@ -119,6 +119,8 @@ function LoadedPage({
       url.searchParams.delete("detail");
       url.searchParams.delete("thread");
       url.searchParams.delete("comment");
+      url.searchParams.delete("grant");
+      url.searchParams.delete("revision");
     }
     // A panel updates the current page URL without restoring an earlier page
     // scroll position after its own focus has already settled.

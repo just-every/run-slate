@@ -7,6 +7,7 @@ import { ApiProblem } from '../../app/problems';
 export interface ActivityInput {actorId?:string;action?:string;kind?:string;containerId?:string;from?:string;to?:string;cursor?:string;limit?:number}
 export interface Row {id:string;actor_member_id:string|null;feature:string|null;action:string;target_kind:string;target_id:string;detail_json:string;operation_key:string|null;automation_run_id:string|null;ai_run_id:string|null;occurred_at:string}
 export type ActivityAccessResolver=(ctx:FeatureContext,id:string)=>Promise<boolean>;
+interface ActivityDetail {commentId?:string;revisionId?:string;grantId?:string;sourcePageIds?:string[]}
 const resolvers=new Map<string,ActivityAccessResolver>();
 /** Feature-owned targets register their actual current authorization boundary at app assembly. */
 export function registerActivityResolver(kind:string,resolver:ActivityAccessResolver){resolvers.set(kind,resolver);}
@@ -21,7 +22,7 @@ export async function activity(ctx:FeatureContext,input:ActivityInput={}){
   const pageId=contexts.get(row.id);const {allowed,detail}=await activityVisibility(ctx,row,pageId,pageId?!!retained.get(pageId)?.decision.allowed:undefined);if(!allowed)continue;
   const page=await ctx.db.prepare('SELECT container_id,deleted_at FROM pages WHERE id=? AND workspace_id=?').bind(pageId??'',ctx.actor.workspaceId).first<{container_id:string;deleted_at:string|null}>();if(input.containerId&&row.target_id!==input.containerId&&page?.container_id!==input.containerId)continue;
   let actor:null|{id:string;displayName:string}=null;if(row.actor_member_id&&!page?.deleted_at){const a=await ctx.db.prepare("SELECT id,display_name AS displayName FROM members WHERE id=? AND workspace_id=? AND (member_kind='member' OR id=?)").bind(row.actor_member_id,ctx.actor.workspaceId,ctx.actor.id).first<{id:string;displayName:string}>();actor=a?{...a,displayName:activityActorLabel(row)??a.displayName}:null;}
-  items.push({id:row.id,actor,feature:row.feature,action:row.action,target:{kind:row.target_kind,id:row.target_id},occurredAt:row.occurred_at,operationKey:row.operation_key,automationRunId:row.automation_run_id,aiRunId:row.ai_run_id,deleted:!!page?.deleted_at,context:page?.deleted_at?{}:{pageId,commentId:detail.commentId??(row.target_kind==='comment'?row.target_id:undefined),threadId:row.target_kind==='comment-thread'?row.target_id:undefined,revisionId:detail.revisionId??(row.target_kind==='revision'?row.target_id:undefined),grantId:detail.grantId},explanation:page?.deleted_at?'The underlying page was erased; only this activity record remains.':undefined});if(items.length>limit)break;
+  items.push({id:row.id,actor,feature:row.feature,action:row.action,target:{kind:row.target_kind,id:row.target_id},occurredAt:row.occurred_at,operationKey:row.operation_key,automationRunId:row.automation_run_id,aiRunId:row.ai_run_id,deleted:!!page?.deleted_at,context:page?.deleted_at?{}:await activityContext(ctx,row,pageId,detail),explanation:page?.deleted_at?'The underlying page was erased; only this activity record remains.':undefined});if(items.length>limit)break;
  }
  const hasMore=items.length>limit;if(hasMore)items.pop();const last=items.at(-1);return {items,nextCursor:hasMore&&last?encodeCursor({at:last.occurredAt,id:last.id,ceiling:cursor.ceiling}):undefined};
 }
@@ -29,7 +30,7 @@ export async function activity(ctx:FeatureContext,input:ActivityInput={}){
 /** Both the timeline and integrations use this exact target/source visibility boundary. */
 async function activityVisibility(ctx:FeatureContext,row:Row,pageId?:string,allowedPage?:boolean){
  const allowed=pageId?(allowedPage??(await resolveCurrentAccessMany(ctx,[pageId],{includeDeleted:true,includeTrashed:true})).get(pageId)?.decision.allowed):resolvers.has(row.target_kind)?await resolvers.get(row.target_kind)!(ctx,row.target_id):await readableTarget(ctx,row.target_kind,row.target_id);
- const detail=JSON.parse(row.detail_json) as {commentId?:string;revisionId?:string;grantId?:string;sourcePageIds?:string[]};
+ const detail=JSON.parse(row.detail_json) as ActivityDetail;
  if(!allowed)return {allowed:false,detail};
  for(const id of detail.sourcePageIds??[])if(!await readableTarget(ctx,'page',id))return {allowed:false,detail};
  return {allowed:true,detail};
@@ -47,3 +48,12 @@ export async function auditRecord(ctx:FeatureContext,id:string){
 }
 
 function activityActorLabel(row:Row):string|undefined {const detail=JSON.parse(row.detail_json) as {scimCredential?:{name?:unknown}};return typeof detail.scimCredential?.name==='string'?`SCIM: ${detail.scimCredential.name}`:undefined;}
+
+/** A comment revision belongs to its thread, never to page version history. */
+async function activityContext(ctx:FeatureContext,row:Row,pageId:string|undefined,detail:ActivityDetail) {
+ const commentId=detail.commentId??(row.target_kind==='comment'?row.target_id:undefined);
+ const threadId=row.target_kind==='comment-thread'?row.target_id:undefined;
+ const candidate=detail.revisionId??(row.target_kind==='revision'?row.target_id:undefined);
+ const revisionId=pageId&&candidate&&!commentId&&!threadId&&!detail.grantId&&await ctx.db.prepare('SELECT id FROM page_revisions WHERE id=? AND page_id=?').bind(candidate,pageId).first()?candidate:undefined;
+ return {pageId,commentId,threadId,revisionId,grantId:detail.grantId};
+}

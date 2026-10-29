@@ -43,7 +43,7 @@ export function ContainerSettings({
         )}
       </div>
       {container.visibility !== "personal" ? (
-        classLed ? <details className="space-access-details"><summary>Manage access</summary><ContainerSharing id={container.id}/></details>:<ContainerSharing id={container.id}/>
+        classLed ? <details className="space-access-details" open={typeof window !== "undefined" && new URLSearchParams(window.location.search).has("grant") ? true : undefined}><summary>Manage access</summary><ContainerSharing id={container.id}/></details>:<ContainerSharing id={container.id}/>
       ) : null}
       <VerificationRulesPanel containerId={container.id} />
       {action ? (

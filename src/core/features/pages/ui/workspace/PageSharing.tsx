@@ -1,6 +1,6 @@
 import { AccessExpiry } from "../../../../app/ui/AccessExpiry";
 import { displayDate } from "../../../../app/ui/displayDate";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import {
   mutate,
@@ -43,6 +43,8 @@ export function PageSharing({ document }: { document: DocumentView }) {
   const groups = useResource<{ items: GroupView[] }>(
     document.permissions.canShare && member.role === "owner" ? "/api/groups" : null,
   );
+  const [referencedGrant] = useState(() => new URLSearchParams(window.location.search).get("grant"));
+  useEffect(() => { if(referencedGrant) window.document.getElementById(`grant-${referencedGrant}`)?.scrollIntoView({block:"center"}); }, [grants.data,referencedGrant]);
   const [error, setError] = useState<unknown>();
   const [pending, setPending] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -108,11 +110,14 @@ export function PageSharing({ document }: { document: DocumentView }) {
           error={grants.error}
           retry={grants.reload}
         >
+          {referencedGrant && grants.data && !grants.data.items.some(grant=>grant.id===referencedGrant) ? <p role="status">The referenced grant is no longer available.</p> : null}
           <section aria-label="Who has access"><h3>Who has access</h3>
-          {grants.data?.inheritedItems?.length ? <section><h3>Inherited access</h3><ul>{grants.data.inheritedItems.map(grant=><li key={grant.id}>{name(grant)} · {accessLabel(grant.level)} · {grant.status} · From {grant.origin?.name}</li>)}</ul></section>:null}
+          {grants.data?.inheritedItems?.length ? <section><h3>Inherited access</h3><ul>{grants.data.inheritedItems.map(grant=><li key={grant.id} id={`grant-${grant.id}`} aria-current={referencedGrant===grant.id ? "true" : undefined}>
+                {referencedGrant===grant.id ? <strong>Referenced access change</strong> : null}{name(grant)} · {accessLabel(grant.level)} · {grant.status} · From {grant.origin?.name}</li>)}</ul></section>:null}
           <ul className="grant-list">
             {grants.data?.items.map((grant) => (
-              <li key={grant.id}>
+              <li key={grant.id} id={`grant-${grant.id}`} aria-current={referencedGrant===grant.id ? "true" : undefined}>
+                {referencedGrant===grant.id ? <strong>Referenced access change</strong> : null}
                 <span>{name(grant)}{grant.invitationId ? ` · ${grant.status??"Pending"} invitation` : ""}{grant.expiresAt ? ` · ${new Date(grant.expiresAt)<new Date()?"Expired":"Expires"} ${displayDate(grant.expiresAt, true)}` : ""}</span>
                 {grant.revokedAt ? (
                   <span>Revoked {!grant.invitationId?<button disabled={pending} onClick={()=>void save({...grant,expiresAt:null})}>Regrant access</button>:null}</span>
