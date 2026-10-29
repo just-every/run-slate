@@ -54,7 +54,11 @@ export async function contentQueryJourney(state, width) {
 
     const endpoint=`/api/pages/${target}/query`;
     const query=view=>view.getByRole('region',{name:'Content query',exact:true});
-    const responseFor=view=>view.waitForResponse(response=>new URL(response.url()).pathname===endpoint&&response.request().method()==='POST');
+    const responseFor=view=>{
+      const pending=view.waitForResponse(response=>new URL(response.url()).pathname===endpoint&&response.request().method()==='POST');
+      void pending.catch(()=>{});
+      return pending;
+    };
     const checkResponse=async(view,pending,expected)=>{
       const response=await pending;
       assert.equal(response.status(),200,await response.text());
@@ -77,6 +81,7 @@ export async function contentQueryJourney(state, width) {
     await page.getByPlaceholder('Type to search').fill('Content query');
     await page.getByRole('option',{name:'Content query',exact:true}).click();
     assert.equal((await added).status(),200);
+    await expect(page.locator('.editor-save-status')).toHaveText('Saved');
     let definition={container:space,ancestor:source,pageType:'page',status:'query-ready',contributor:'browser-owner',dateRange:'2000-01-01/2099-12-31',orderBy:'title',limit:2};
     let criteriaCaptured=false;
     const edit=async(changes,expected)=>{
@@ -102,6 +107,9 @@ export async function contentQueryJourney(state, width) {
       if(!criteriaCaptured){
         const close=dialog.getByRole('button',{name:'Close dialog',exact:true});
         await close.focus();
+        await page.keyboard.press('Tab');
+        await page.keyboard.press('Shift+Tab');
+        await expect(close).toBeFocused();
         await expect.poll(()=>close.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
         await dialog.getByLabel('Space',{exact:true}).focus();
         await close.hover();
