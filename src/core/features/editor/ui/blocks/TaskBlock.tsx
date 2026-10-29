@@ -20,8 +20,8 @@ export function TaskBlock({ block, canEdit, onChange }: BlockRenderProps<TaskBlo
   const overdue=!block.done&&due&&due<today;
   const assignee=page?.people.find(person=>person.id===block.assigneeMemberId);
   const completion =
-    block.done && (block.completedBy || block.completedAtLabel)
-      ? [block.completedBy ? `Completed by ${block.completedBy.name}` : "Completed", block.completedAtLabel]
+    block.done && (block.completedByAgent || block.completedBy || block.completedAtLabel)
+      ? [block.completedByAgent ? `Completed by ${block.completedByAgent}` : block.completedBy ? `Completed by ${block.completedBy.name}` : "Completed", block.completedAtLabel]
           .filter(Boolean)
           .join(" · ")
       : null;

@@ -983,7 +983,7 @@
       "executable": false
     },
     "agent-surface.json": {
-      "sha256": "a65065b60c3215cd2ea1ddaaa8bbf1b3dc6c7622309a4005c8bfa4611c2b5eb1",
+      "sha256": "9717c28294ef121638116ad1b3a93aea589cb701cb355c4ff2cb4b0ff6f7db5f",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -6051,7 +6051,7 @@
       "executable": false
     },
     "src/core/features/activity/service.ts": {
-      "sha256": "3fe814f459325505f35bbdf57d58d91d5d9cc647c0ff72be1ac203af00232f97",
+      "sha256": "b1ada0fb1010c9a68f2934dfc9d0e0ec6d1c2540907621f401f7b2aa3eee2cdb",
       "executable": false
     },
     "src/core/features/activity/ui/workspace/ActivityWorkspace.tsx": {
@@ -6435,7 +6435,7 @@
       "executable": false
     },
     "src/core/features/comments/list.ts": {
-      "sha256": "61e8fa9a3ae12af27728cfa0470bdfaa78150c7a745a3ede52db9a13fdaf4916",
+      "sha256": "4b463f5d3e5e7baf84b14c29f5e288c8ab59294af233dc4f2b29012d667123e9",
       "executable": false
     },
     "src/core/features/comments/quotes.ts": {
@@ -6467,7 +6467,7 @@
       "executable": false
     },
     "src/core/features/company-agent/catalogue.ts": {
-      "sha256": "e2b8b78d4b67ac49affae1b272381b377774f4bea0cd672dd9a55b477bf9b337",
+      "sha256": "98100da718f0e1365102d4b65e4eb5aa410d0979c37d53face42481f829d90ed",
       "executable": false
     },
     "src/core/features/company-agent/classification.ts": {
@@ -6491,11 +6491,15 @@
       "executable": false
     },
     "src/core/features/company-agent/index.ts": {
-      "sha256": "7d2f32e38dc2a7d025788cb7de1b2f55cbcee8143590fb467eb04f9f6573578d",
+      "sha256": "aade600e2b94c19f0de32b2a0c58029016749bb15551d7c8dde19b43e09824a9",
       "executable": false
     },
     "src/core/features/company-agent/jobs.ts": {
       "sha256": "2a3570b8ba3b72c6598f2f2c0ce82cbd230d27a9bd66f5d9e03be9f488151f1e",
+      "executable": false
+    },
+    "src/core/features/company-agent/knowledge-read-tools.ts": {
+      "sha256": "2d01c5f9254cf91c89e53039d3db985c95b8bcecfe931e0daffd87adf601e195",
       "executable": false
     },
     "src/core/features/company-agent/native-context.ts": {
@@ -6515,7 +6519,11 @@
       "executable": false
     },
     "src/core/features/company-agent/people.ts": {
-      "sha256": "fb8ba06f91cce5728ccbc470f7fa8e969c042298aa9d3f6a977ab2a9f49f1ffb",
+      "sha256": "b1ba13b527ba2c998fe3ff78701ae8e08b97360dbf85dec3490ff9477ee049ee",
+      "executable": false
+    },
+    "src/core/features/company-agent/personal-tools.ts": {
+      "sha256": "81506e11cf493b284ab23382736b764f1c1d931ec4cdbc93ec00955d8c436822",
       "executable": false
     },
     "src/core/features/company-agent/proof.ts": {
@@ -6523,11 +6531,11 @@
       "executable": false
     },
     "src/core/features/company-agent/read-tools.ts": {
-      "sha256": "d397c551330947becefd75808f4185d330dbd563dcf9eddba86c87f9ba129f8b",
+      "sha256": "a7adbbcd805e0a3f4e1f07a1cb5c127734c268b9d4dd9c2fc8be2d718d2ef2a0",
       "executable": false
     },
     "src/core/features/company-agent/resources.ts": {
-      "sha256": "02a2dc986906e2e735b40cbd873f3a4cd1885d01249516a947ec9bf315f2fa28",
+      "sha256": "8931c88f02fba19b8abaddd8b0ee1563009c923e9e275de1492671c829c4e501",
       "executable": false
     },
     "src/core/features/company-agent/schema.ts": {
@@ -6535,7 +6543,7 @@
       "executable": false
     },
     "src/core/features/company-agent/tool.ts": {
-      "sha256": "1ba8855ccf5827b2aa3756075d05b24ebfa6269de7e3850df8b6448bec181d8a",
+      "sha256": "86218e71b2fcb489ad843cd77ee1411b8a0375af6c7561b1d6442351628caddf",
       "executable": false
     },
     "src/core/features/company-agent/worker.ts": {
@@ -7223,7 +7231,7 @@
       "executable": false
     },
     "src/core/features/editor/tasks.ts": {
-      "sha256": "3eb75d34bbafb6a452f1657c72b747c9b7aec112dfff46b33304f74cf381420c",
+      "sha256": "82965bf655c20b3ac85ce025406d39a333e465f92dedd45cce326106f21da7c1",
       "executable": false
     },
     "src/core/features/editor/ui/blockCatalog.ts": {
@@ -7371,7 +7379,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TaskBlock.tsx": {
-      "sha256": "62f046dad376a2bb3bb8d15a232992ba3a5e5244ae810916f783d7ea6adf29f3",
+      "sha256": "1c512ca57d961a6cb5960a7e9a5f32eba4a36b8264a0a9b2a9e474c0440dc366",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TaskPageContext.tsx": {
@@ -7427,7 +7435,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/types.ts": {
-      "sha256": "6529e103b982be726d969fee1af2363eb11df47a4df2feb400f3a07e5a9a3082",
+      "sha256": "d2f8bff255723d5f59c51f6008089039ffb70a0f5e4cd1973a3f194525f39cb8",
       "executable": false
     },
     "src/core/features/editor/ui/useTouchBlockDrag.ts": {
@@ -7435,7 +7443,7 @@
       "executable": false
     },
     "src/core/features/editor/validation.ts": {
-      "sha256": "9c4179f01dfbbc2784e6d83a017db8768a7fc944daf1b7842881cc460b661f95",
+      "sha256": "b4016b837c2046ba6a170ec6d7558e39e62ea4eaa663b9a8a6c821d8e1aa8990",
       "executable": false
     },
     "src/core/features/effects/authority.ts": {
@@ -10791,7 +10799,7 @@
       "executable": false
     },
     "tests/agent-door/browser.mjs": {
-      "sha256": "a452801bb72801dd44006e002a3c24915d4cb7e4e2cea35d2670de78efb64dd2",
+      "sha256": "25f1159ee707ca51b9a8f278d4a1b14ca96e9b3699d688882ae4f0a07d7eba6b",
       "executable": false
     },
     "tests/agent-door/clients.mjs": {
@@ -10799,7 +10807,7 @@
       "executable": false
     },
     "tests/agent-door/fixtures.mjs": {
-      "sha256": "8cab8562c3abcaed2223903c0224e058ed19a18c232932321c29ad0f12844715",
+      "sha256": "ef21f10fde14483af41d35cfccc0d6aeb28b1df0c0427366467e949587f5b375",
       "executable": false
     },
     "tests/agent-door/guest.mjs": {
@@ -10827,7 +10835,7 @@
       "executable": false
     },
     "tests/agent-door/surface.mts": {
-      "sha256": "a10ee92f65d358147e197747a0cd9d01c88235a683f3688bc604e634916c9f09",
+      "sha256": "854f31cb3812bd544ecd4973cbff1b72107fb217ea049b8b2c3eb77ddc159185",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {

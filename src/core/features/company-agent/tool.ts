@@ -30,22 +30,22 @@ export function job<S extends z.ZodRawShape>(env:AppBindings,definition:Job<S>):
   const invoke=async<T>(raw:Record<string,unknown>,door:ToolContext,operation:(a:z.infer<z.ZodObject<S>>,ctx:FeatureContext,door:ToolContext)=>Promise<T>)=>{
     try{
       const args=definition.schema.strip().parse(raw),ctx=await agentFeatureContext(env,door,!definition.readOnly);
-      if(!definition.readOnly) {
+      {
         let prepared=preparations.get(door.operationId);
         if(!prepared) {
           const epochs=await ctx.db.prepare('SELECT (SELECT revision FROM import_native_epoch WHERE id=1) AS nativeEpoch,(SELECT epoch FROM core_acl_epoch WHERE id=1) AS aclEpoch').first<{nativeEpoch:number;aclEpoch:number}>();
-          prepared={nativeEpoch:epochs!.nativeEpoch,aclEpoch:epochs!.aclEpoch,revision:definition.revision?(await definition.revision(args,ctx))??undefined:undefined};
+          prepared={nativeEpoch:epochs!.nativeEpoch,aclEpoch:epochs!.aclEpoch,revision:!definition.readOnly&&definition.revision?(await definition.revision(args,ctx))??undefined:undefined};
           preparations.set(door.operationId,prepared);
         }
         ctx.agentRevision=prepared.revision;
         const epoch=prepared;
-        ctx.operationStatements={before:[mutationGuard(ctx.db,'SELECT (SELECT revision FROM import_native_epoch WHERE id=1)=? AND (SELECT epoch FROM core_acl_epoch WHERE id=1)=?',[epoch.nativeEpoch,epoch.aclEpoch])],after:[]};
+        if(!definition.readOnly)ctx.operationStatements={before:[mutationGuard(ctx.db,'SELECT (SELECT revision FROM import_native_epoch WHERE id=1)=? AND (SELECT epoch FROM core_acl_epoch WHERE id=1)=?',[epoch.nativeEpoch,epoch.aclEpoch])],after:[]};
       }
       return await operation(args,ctx,door);
     }
     catch(error){if(error instanceof ApiProblem)throw new ToolRefusal(error.code,error.message);if(error instanceof z.ZodError)throw new ToolRefusal('INVALID_REQUEST');throw error;}
   };
-  const schema=doorSchema(z.toJSONSchema(definition.schema,{target:'draft-7'})) as ToolDefinition['inputSchema'];
+  const schema=doorSchema(z.toJSONSchema(definition.schema,{target:'draft-7',io:'input'})) as ToolDefinition['inputSchema'];
   // Unknown transport-level flags are projected away; native input fields keep
   // their real types and the native service still validates the proposed effect.
   schema.additionalProperties=true;
@@ -58,6 +58,11 @@ export function job<S extends z.ZodRawShape>(env:AppBindings,definition:Job<S>):
       const target=definition.target?await definition.target(args,ctx):null;
       const resources=definition.resources?.(args,result)??(target&&['page','container','database','record','thread','decision','inquiry','run'].includes(target.kind)?[{uri:'slate://'+({page:'pages',container:'containers',database:'databases',record:'records',thread:'threads',decision:'decisions',inquiry:'inquiries',run:'runs'}[target.kind as 'page']),name:definition.title}].map(link=>({...link,uri:link.uri+'/'+encodeURIComponent(target.id)})):[]);
       const current=prior?(await readPage(ctx,recordId as string)).page.revisionId:null;
+      if(definition.readOnly) {
+        const prepared=preparations.get(door.operationId)!;
+        const current=await ctx.db.prepare('SELECT (SELECT revision FROM import_native_epoch WHERE id=1) AS nativeEpoch,(SELECT epoch FROM core_acl_epoch WHERE id=1) AS aclEpoch').first<{nativeEpoch:number;aclEpoch:number}>();
+        if(!current||current.nativeEpoch!==prepared.nativeEpoch||current.aclEpoch!==prepared.aclEpoch)throw new ToolRefusal('revision_conflict');
+      }
       return {result:JSON.parse(JSON.stringify(result)),resources,...(prior?{undo:{pageId:recordId,prior,current,key:door.operationId}}:{})};
     }),
     ...(definition.target?{target:(a:Record<string,unknown>,c:ToolContext)=>invoke(a,c,definition.target!)}:{}),

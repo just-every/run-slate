@@ -38,7 +38,15 @@
       "inputSchema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
-        "properties": {},
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "all",
+              "changes"
+            ]
+          }
+        },
         "additionalProperties": true
       }
     },
@@ -1102,6 +1110,624 @@
           "principalKind",
           "principalId",
           "level"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.revisions.read",
+      "scope": "slate.revisions.read",
+      "clauses": [
+        "REV-001",
+        "REV-002",
+        "REV-005",
+        "COLLAB-005"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "revisionId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.revisions.compare",
+      "scope": "slate.revisions.compare",
+      "clauses": [
+        "REV-004"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "leftRevisionId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "rightRevisionId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id",
+          "leftRevisionId",
+          "rightRevisionId"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.comments.read",
+      "scope": "slate.comments.read",
+      "clauses": [
+        "COMM-004",
+        "COMM-006"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.analytics.read",
+      "scope": "slate.analytics.read",
+      "clauses": [
+        "PAGE-013"
+      ],
+      "classes": [
+        "standard"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "page",
+              "container"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.statuses.read",
+      "scope": "slate.statuses.read",
+      "clauses": [
+        "STAT-004"
+      ],
+      "classes": [
+        "standard"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.tasks.list",
+      "scope": "slate.tasks.list",
+      "clauses": [
+        "NAV-007"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "tab": {
+            "type": "string",
+            "enum": [
+              "assigned",
+              "created"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "",
+              "open",
+              "completed",
+              "overdue"
+            ]
+          },
+          "containerId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "dueFrom": {
+            "type": "string"
+          },
+          "dueTo": {
+            "type": "string"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "due",
+              "page",
+              "container"
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "cursor": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.tasks.report",
+      "scope": "slate.tasks.report",
+      "clauses": [
+        "BLOCK-016"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "definition": {
+            "type": "object",
+            "properties": {
+              "containerId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "ancestorPageId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80
+              },
+              "assignee": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "const": "member"
+                      },
+                      "memberId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 160
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "memberId"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "const": "current-reader"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "creatorMemberId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "dueFrom": {
+                "type": "string"
+              },
+              "dueTo": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string",
+                "enum": [
+                  "open",
+                  "completed"
+                ]
+              },
+              "groupBy": {
+                "default": "page",
+                "type": "string",
+                "enum": [
+                  "page",
+                  "assignee",
+                  "due"
+                ]
+              },
+              "orderBy": {
+                "default": "due",
+                "type": "string",
+                "enum": [
+                  "due",
+                  "page",
+                  "assignee"
+                ]
+              },
+              "direction": {
+                "default": "asc",
+                "type": "string",
+                "enum": [
+                  "asc",
+                  "desc"
+                ]
+              },
+              "limit": {
+                "default": 20,
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "definition"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.search.query",
+      "scope": "slate.search.query",
+      "clauses": [
+        "SEARCH-001",
+        "SEARCH-002",
+        "SEARCH-003",
+        "SEARCH-004",
+        "SEARCH-005",
+        "SEARCH-006",
+        "SEARCH-007",
+        "SEARCH-008",
+        "SEARCH-009",
+        "SEARCH-010",
+        "SEARCH-011",
+        "SEARCH-012",
+        "SEARCH-013",
+        "SEARCH-014"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "kind": {
+            "type": "string"
+          },
+          "containerId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "contributorId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "status": {
+            "type": "string"
+          },
+          "updatedFrom": {
+            "type": "string"
+          },
+          "updatedTo": {
+            "type": "string"
+          },
+          "includeArchived": {
+            "type": "boolean"
+          },
+          "includeTrashed": {
+            "type": "boolean"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "relevance",
+              "updated",
+              "views"
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "cursor": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.favorites.set",
+      "scope": "slate.favorites.set",
+      "clauses": [
+        "PAGE-008"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "page",
+              "container",
+              "database"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "position": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 999999
+          }
+        },
+        "required": [
+          "kind",
+          "id",
+          "enabled"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.watches.set",
+      "scope": "slate.watches.set",
+      "clauses": [
+        "PAGE-009",
+        "CONT-012",
+        "PAGE-016"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "page",
+              "container"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "enabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "kind",
+          "id",
+          "enabled"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.reactions.set",
+      "scope": "slate.reactions.set",
+      "clauses": [
+        "PAGE-014",
+        "COMM-005"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "commentId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "emoji": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32
+          },
+          "remove": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "emoji"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.tasks.update",
+      "scope": "slate.tasks.update",
+      "clauses": [
+        "BLOCK-015"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "blockId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "done": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "blockId",
+          "done"
         ],
         "additionalProperties": true
       }
@@ -2303,6 +2929,430 @@
       }
     },
     {
+      "id": "revisions_read_standard",
+      "tool": "slate.revisions.read",
+      "args": {
+        "$fixture": "revisions_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "revisions_read_sensitive",
+      "tool": "slate.revisions.read",
+      "args": {
+        "$fixture": "revisions_read_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "revisions_compare_standard",
+      "tool": "slate.revisions.compare",
+      "args": {
+        "$fixture": "revisions_compare_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "revisions_compare_sensitive",
+      "tool": "slate.revisions.compare",
+      "args": {
+        "$fixture": "revisions_compare_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "comments_read_standard",
+      "tool": "slate.comments.read",
+      "args": {
+        "$fixture": "comments_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "comments_read_sensitive",
+      "tool": "slate.comments.read",
+      "args": {
+        "$fixture": "comments_read_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "analytics_read_standard",
+      "tool": "slate.analytics.read",
+      "args": {
+        "$fixture": "analytics_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "statuses_read_standard",
+      "tool": "slate.statuses.read",
+      "args": {
+        "$fixture": "statuses_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "tasks_list_standard",
+      "tool": "slate.tasks.list",
+      "args": {
+        "$fixture": "tasks_list_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "tasks_list_sensitive",
+      "tool": "slate.tasks.list",
+      "args": {
+        "$fixture": "tasks_list_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tasks_report_standard",
+      "tool": "slate.tasks.report",
+      "args": {
+        "$fixture": "tasks_report_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "tasks_report_sensitive",
+      "tool": "slate.tasks.report",
+      "args": {
+        "$fixture": "tasks_report_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "search_query_standard",
+      "tool": "slate.search.query",
+      "args": {
+        "$fixture": "search_query_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "search_query_sensitive",
+      "tool": "slate.search.query",
+      "args": {
+        "$fixture": "search_query_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "favorites_set_standard",
+      "tool": "slate.favorites.set",
+      "args": {
+        "$fixture": "favorites_set_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "favorites_set_sensitive",
+      "tool": "slate.favorites.set",
+      "args": {
+        "$fixture": "favorites_set_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "watches_set_standard",
+      "tool": "slate.watches.set",
+      "args": {
+        "$fixture": "watches_set_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "watches_set_sensitive",
+      "tool": "slate.watches.set",
+      "args": {
+        "$fixture": "watches_set_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "reactions_set_standard",
+      "tool": "slate.reactions.set",
+      "args": {
+        "$fixture": "reactions_set_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "reactions_set_sensitive",
+      "tool": "slate.reactions.set",
+      "args": {
+        "$fixture": "reactions_set_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "tasks_update_standard",
+      "tool": "slate.tasks.update",
+      "args": {
+        "$fixture": "tasks_update_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "tasks_update_external",
+      "tool": "slate.tasks.update",
+      "args": {
+        "$fixture": "tasks_update_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "tasks_update_sensitive",
+      "tool": "slate.tasks.update",
+      "args": {
+        "$fixture": "tasks_update_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
       "id": "events_list_standard",
       "tool": "slate.events.list",
       "args": {
@@ -2377,7 +3427,9 @@
   ],
   "witness": {
     "tool": "slate.audit.read",
-    "args": {}
+    "args": {
+      "category": "changes"
+    }
   },
   "verification": {
     "owner": {

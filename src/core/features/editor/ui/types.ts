@@ -140,6 +140,7 @@ export interface TaskBlockData extends BlockBase {
   /** `BLOCK-007` — who completed it and when. */
   completedBy?: { name: string };
   completedAtLabel?: string;
+  completedByAgent?: string;
 }
 
 export type MediaKind = "image" | "video" | "audio" | "file";
