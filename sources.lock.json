@@ -1038,6 +1038,10 @@
       "sha256": "8504f445f9220fa6128350941d843794a398a54f57b727d6c4245627c22a753d",
       "executable": false
     },
+    "docs/agent-access.md": {
+      "sha256": "ba6faeb27212567c5af56c41f8e7e6c76afdfc309e15e10d9048aeba802677fa",
+      "executable": false
+    },
     "docs/API.md": {
       "sha256": "908c69b0c902030c5cb6a55c58359cb7cbda8cb71515575629fe23b6c4d9c0b3",
       "executable": false
@@ -1123,7 +1127,7 @@
       "executable": false
     },
     "docs/site.json": {
-      "sha256": "ac3fb485a066280d93e489062fe7a51b981bc0c1de02d257d596e08e7c53108e",
+      "sha256": "899b6f736e00fb41303dbd65239bae0210a8c4e627fb22114b6fa635874d2d53",
       "executable": false
     },
     "docs/TRUSTWORTHY-HANDBOOK.md": {
