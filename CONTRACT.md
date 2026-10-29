@@ -3992,13 +3992,15 @@ Judged from the code and tests at commit `30886e55608596bb44862e4c6942dc1a24ef98
 
 CONT-001 is judged from source commit `12379d17957e993f2aa09d13a8df536aad5a41d8`; owners are read by members only, and a guest's container read carries none. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
+SEARCH-010 proof is from the code and registered journeys at commit 0b1fb4db41d22e9fb41e16f7899894a7f39786b1 (29 October 2026), replayed onto current main; the replay keeps those journey bytes and adds the saved-search call after main's mixed-search call. Other clause judgments remain as on main.
+
 STAT-005 retains the current main judgment below. The native status-profile controls and responsive journeys have been reapplied as supporting implementation and assertions; this replay does not promote the clause or replace its recorded evidence gap.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 38 | 188 | 1 | 227 |
-| Target and push further | 16 | 55 | 40 | 111 |
-| All | 54 | 243 | 41 | 338 |
+| Target and push further | 17 | 54 | 40 | 111 |
+| All | 55 | 242 | 41 | 338 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4255,7 +4257,7 @@ STAT-005 retains the current main judgment below. The native status-profile cont
 | `SHARE-009` | Share with a message | target | partial | `tests/qualification/backend/emitted.mjs` | Missing a complete public-door journey for share with a message; the cited material shows only part of the capability. |
 | `TMPL-007` | Starter templates | target | done | `tests/qualification/ui-convergence/starter-templates-journey.mjs` — "starterTemplatesJourney" |  |
 | `NAV-007` | My tasks | target | done | `tests/qualification/ui-convergence/my-tasks-journey.mjs` — "myTasksJourney" |  |
-| `SEARCH-010` | Labels and advanced search | target | partial | `tests/e2e/search/discovery-journey.ts` | Missing a browser journey saving a search and embedding it in a page; the cited discoveryJourney checks operator and saved-query HTTP results only. |
+| `SEARCH-010` | Labels and advanced search | target | done | `tests/e2e/search/discovery-journey.ts` — "discoveryJourney", loaded by `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors"; `tests/qualification/ui-convergence/saved-search-journey.mjs` — "savedSearchJourney", loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" | |
 | `SEARCH-011` | Verified-first ranking and trust badges | target | done | `tests/qualification/ui-convergence/trust-ranking-journey.mjs` — "trustRankingJourney"; `tests/e2e/search/discovery-journey.ts` — "discoveryJourney" |  |
 | `SEARCH-012` | Connected results in search | target | partial | `src/core/features/source-memory/service.ts` | Missing a complete public-door journey for connected results in search; the cited material shows only part of the capability. |
 | `SEARCH-013` | Search inside attached files | target | missing | — | not implemented |
