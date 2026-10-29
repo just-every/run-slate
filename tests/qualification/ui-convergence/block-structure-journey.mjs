@@ -117,9 +117,12 @@ export async function blockStructureJourney(state, width) {
   // Click the row padding, outside the editable, then extend across neighbours.
   const select = async (id, modifiers = []) => {
     const content = row(id).locator('.block-content');
-    const box = await content.boundingBox();
-    assert.ok(box);
-    await content.click({ position: { x: box.width - 2, y: box.height / 2 }, modifiers });
+    const box = await content.boundingBox(), text = await input(id).boundingBox();
+    assert.ok(box && text);
+    // The text's trailing margin stays clear of the phone's visible handles.
+    const position = { x: text.x + text.width - box.x + 2, y: text.y + text.height / 2 - box.y };
+    assert.ok(position.x < box.width);
+    await content.click({ position, modifiers });
   };
   await select(a);
   await expect(row(a)).toHaveAttribute('data-selected', 'true');

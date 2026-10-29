@@ -11736,7 +11736,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/block-structure-journey.mjs": {
-      "sha256": "3579da2098c909bfb67e8eee2c1fd9ef4e8842f08d0b4d226d919a954b9b81ad",
+      "sha256": "f12ee7157776542e92a2256b5984ac1e143a5ce34136c01c066d91c52b1784e1",
       "executable": false
     },
     "tests/qualification/ui-convergence/blog-journey.mjs": {
