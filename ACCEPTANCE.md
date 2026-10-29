@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 44 | 253 | 34 | 331 |
+| Core | 45 | 252 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 44 | 253 | 40 | 337 |
+| Full target | 45 | 252 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `ba8899aa71f251c098584a539863e8df7d1ef0f2` (29 October 2026); WORK-012 source proof, extended by this candidate. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -192,7 +192,7 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 
 #### WORK-012 — Theme
 
-Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001
+Core · published · **done** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001
 
 **Requirement.** Light, dark and follow-the-system are offered, apply to every operator surface including editors, and persist per member across sessions and devices.
 
@@ -200,8 +200,8 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 1. The anonymous read view uses the published page's own theme (`WEB-002`), never the reader's member setting.
 2. Theme choice applies to every operator surface and persists across sessions and devices; the anonymous view uses the page theme.
 
-**Evidence.** `tests/qualification/core/identity.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/theme-journey.mjs` — "themeJourney", called by "settingsJourney" in `tests/qualification/ui-convergence/reading-journeys.mjs` and the existing phone tree and desktop outline registrations in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2; Light, Dark and Match device across every configured operator destination, Settings section and page, database cell and record value editor; live device changes, native preference read-back, reload and newly issued sessions in clean contexts at the other viewport; independent member choices; light and dark anonymous exposures under both device schemes and every member preference.
+**Gap.** None.
 
 #### WORK-013 — First run
 

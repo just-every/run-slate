@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "1fe175a95591a3b436b7f40d6226480d869e9af004c0a68e3253825fa8764ccf",
+      "sha256": "846ff230d79f743d89fe961eb8272c876bd40d6a7390cf7fe35e47dd51e4adcb",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "2e815260aea9d0675e0263b85063ed3e04c7d22691f4bc9f0eefc83b40bc936d",
+      "sha256": "96c9a65c36359711dec010223913c750b83cc37a03bdc64d5ca39ff5c58781c7",
       "executable": false
     },
     "DEMO.md": {
@@ -11940,7 +11940,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "205d263e93531617a5d32965efbd6aa3a819f95a15addd3fafee421a3fd7ea31",
+      "sha256": "a1b7366c1586470d5587515c4d845f554df8a3212d09d65b7891aeecff865b74",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12052,7 +12052,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/theme-journey.mjs": {
-      "sha256": "dca495693d279c47dbd83c0736a4466fce5e28ef1c16ebb2d1373bdc864859f2",
+      "sha256": "f3527621163d327f2997ff59834cee3967245c2ec5916343e46c6a67ecb8aa1e",
       "executable": false
     },
     "tests/qualification/ui-convergence/today-outcomes-journey.mjs": {

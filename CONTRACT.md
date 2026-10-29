@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `ba8899aa71f251c098584a539863e8df7d1ef0f2` (29 October 2026); WORK-012 source proof, extended by this candidate. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 28 | 198 | 0 | 226 |
+| Published | 29 | 197 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 44 | 253 | 40 | 337 |
+| All | 45 | 252 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -3996,7 +3996,7 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `WORK-009` | Groups | published | done | `tests/qualification/ui-convergence/workspace-authority-journey.mjs` — "workspaceAuthorityJourney", called by "space tree title filtering preserves ancestors, access and expansion at 390px" and "page outline follows headings and navigates long pages at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: named group creation and membership editing, page and container grants, immediate access changes, one activity entry with replay, and group deletion retaining individual grants. | |
 | `WORK-010` | Guests | published | done | `tests/qualification/ui-convergence/guest-scope-journey.mjs` — "guestScopeJourney", through "workspaceAuthorityJourney" in `tests/qualification/ui-convergence/workspace-authority-journey.mjs`, called by "space tree title filtering preserves ancestors, access and expansion at 390px" and "page outline follows headings and navigates long pages at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: guest admission preserves member list and count; named page and container grants bound reads and search while workspace indexes stay denied; the container veto immediately removes access; revocation survives grant and invitation replay. | |
 | `WORK-011` | Workspace settings | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
-| `WORK-012` | Theme | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
+| `WORK-012` | Theme | published | done | `tests/qualification/ui-convergence/theme-journey.mjs` — "themeJourney", called by "settingsJourney" in `tests/qualification/ui-convergence/reading-journeys.mjs` and the existing phone tree and desktop outline registrations in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2; Light, Dark and Match device across every configured operator destination, Settings section and page, database cell and record value editor; live device changes, native preference read-back, reload and newly issued sessions in clean contexts at the other viewport; independent member choices; light and dark anonymous exposures under both device schemes and every member preference. | |
 | `WORK-013` | First run | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
 | `WORK-014` | Shortcut reference | published | partial | `tests/qualification/core/shell.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/shell.mjs`. |
 | `WORK-015` | Identity provider | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |

@@ -13,7 +13,7 @@ const luminance = rgb => rgb.slice(0, 3).map(value => {
 }).reduce((total, channel, index) => total + channel * [.2126, .7152, .0722][index], 0);
 
 /** Check the painted surface and text, including inherited editor backgrounds. */
-async function paintedTheme(view, theme, target = view.locator('.slate-app')) {
+async function paintedTheme(view, theme, target = view.getByRole('main').locator('.main').first()) {
   await expect(view.locator('html')).toHaveAttribute('data-theme', theme);
   // Keep the real motion preference and wait for the application's color
   // transitions before measuring contrast or starting an accessibility scan.
@@ -56,6 +56,20 @@ async function choose(view, origin, theme) {
   }
   await expect(choice).toBeChecked();
   assert.equal((await ok(view.context(), origin, 'GET', '/api/members/current')).theme, theme, 'The native member record stores the selected preference.');
+}
+
+async function operatorDestination(view, origin, route) {
+  if (route.startsWith('/app/settings?') && new URL(view.url()).pathname === '/app/settings') {
+    // Exercise the same native section links a member uses, retaining the
+    // document-door check without rebuilding the whole browser document.
+    const response = await view.context().request.get(origin + route);
+    const link = view.getByRole('navigation', { name: 'Settings sections', exact: true }).locator(`a[href="${route}"]`);
+    await link.click();
+    await expect(view).toHaveURL(origin + route);
+    await expect(link).toHaveAttribute('aria-current', 'page');
+    return response;
+  }
+  return view.goto(origin + route, { waitUntil: 'networkidle' });
 }
 
 /** Native member preferences, new sign-ins and public exposure documents; no application response is faked. */
@@ -116,7 +130,7 @@ export async function themeJourney(state, width) {
       await accessible(page, `appearance ${preference}`);
       await shot(page, `appearance-${preference}`);
       for (const [index, route] of routes.entries()) {
-        const response = await page.goto(origin + route, { waitUntil: 'networkidle' });
+        const response = await operatorDestination(page, origin, route);
         assert.equal(response.status(), 200, `Operator destination ${route} is served.`);
         await expect(page.getByRole('main')).toHaveCount(1);
         await paintedTheme(page, resolved);
