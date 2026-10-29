@@ -41,24 +41,29 @@ async function databaseCheckboxBounds({ page, context, origin, api }, containerI
     const rest = await measure();
     assert.equal(rest.scroll, rest.viewport, `SL35 ${surface}: a hidden field tip does not widen the page`);
     assert.notEqual(rest.ring, enabledRing, `Read-only ${surface} checkbox keeps its faded ring`);
+    if (surface === 'list') {
+      const experiment = async label => {
+        await page.mouse.move(0, 0);
+        await page.waitForTimeout(600);
+        await checkbox.evaluate(el => { const w = window; w.__g = { gaps: [], frames: 0, t0: performance.now() }; let last = performance.now(); w.__iv = setInterval(() => { const n = performance.now(); if (n - last > 100) w.__g.gaps.push([Math.round(last - w.__g.t0), Math.round(n - last)]); last = n; }, 20); const f = () => { w.__g.frames++; w.__raf = requestAnimationFrame(f); }; f(); });
+        await checkbox.hover();
+        await page.waitForTimeout(6500);
+        const r = await checkbox.evaluate(el => { clearInterval(window.__iv); cancelAnimationFrame(window.__raf); return { ...window.__g, opacity: getComputedStyle(el, '::after').opacity, hover: el.matches(':hover') }; });
+        console.log('DIAG5 ' + label + ' ' + JSON.stringify(r));
+      };
+      const tip = await checkbox.getAttribute('data-tooltip');
+      await checkbox.evaluate(el => el.removeAttribute('data-tooltip'));
+      await experiment('E3 no tip attribute');
+      await checkbox.evaluate((el, value) => el.setAttribute('data-tooltip', value), tip);
+      await experiment('E1 as shipped');
+      await checkbox.evaluate(el => { el.closest('li').style.containerType = 'normal'; });
+      await experiment('E2 row container-type normal');
+      throw new Error('DIAG5 done');
+    }
     await page.mouse.move(0, 0);
-    const cdp = await context.newCDPSession(page);
-    const events = [];
-    cdp.on('Tracing.dataCollected', ({ value }) => events.push(...value));
-    await cdp.send('Tracing.start', { categories: 'devtools.timeline,v8,disabled-by-default-devtools.timeline', transferMode: 'ReportEvents' });
     await checkbox.hover();
     await expect.poll(() => checkbox.evaluate(el => el.matches(':hover')), { message: `SL35 ${surface}: the pointer reaches the field` }).toBe(true);
-    try { await expect.poll(async () => (await measure()).opacity, { message: `SL35 ${surface}: the field tip appears after hover` }).toBe('1'); }
-    catch (error) {
-      await page.waitForTimeout(1500);
-      const done = new Promise(resolve => cdp.once('Tracing.tracingComplete', resolve));
-      await cdp.send('Tracing.end'); await done;
-      const os = await import('node:os');
-      const top = events.filter(e => e.ph === 'X' && e.dur > 150000).sort((x, y) => y.dur - x.dur).slice(0, 25).map(e => `${e.name} ${Math.round(e.dur / 1000)}ms tid=${e.tid} ${JSON.stringify(e.args?.data ?? e.args ?? {}).slice(0, 160)}`);
-      console.log('DIAG4 ' + surface + ' cpus=' + os.cpus().length + ' load=' + os.loadavg().map(n => n.toFixed(1)) + ' freeGB=' + (os.freemem() / 1e9).toFixed(1) + '\n' + top.join('\n'));
-      throw error;
-    }
-    await cdp.detach();
+    await expect.poll(async () => (await measure()).opacity, { message: `SL35 ${surface}: the field tip appears after hover` }).toBe('1');
     const shown = await measure();
     assert.equal(shown.scroll, shown.viewport, `SL35 ${surface}: a shown field tip does not widen the page`);
     assert.ok(shown.width <= 256 && shown.left >= 0 && shown.left + shown.width <= shown.viewport, `SL35 ${surface}: the field name wraps inside its cap`);
