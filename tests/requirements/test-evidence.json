@@ -1031,9 +1031,10 @@
       "kind": "supporting-regression",
       "clauses": [
         "ACT-002",
-        "BASE-OPS-005"
+        "BASE-OPS-005",
+        "ACT-003"
       ],
-      "reason": "Preserves the existing content audit assertions and extends them through native HTTP sign-in, sharing, token use, owner metadata exports, retention and signed ordered audit recovery. Real vendor receivers and resolved-address pinning remain unproven."
+      "reason": "Preserves the existing content audit assertions and extends them through native HTTP sign-in, sharing, token use, owner metadata exports, retention and signed ordered audit recovery. Real vendor receivers and resolved-address pinning remain unproven. The same loaded registration invokes auditRetrievalProof: native populated activity filtered by each dimension and intersected dates, inclusive UTC and offset bounds, tied timestamps and four cursor pages with new native events, plus current access on initial and continued reads and the exact opened page."
     },
     {
       "file": "tests/e2e/scim/contract.test.ts",
@@ -1045,6 +1046,24 @@
         "ACT-002"
       ],
       "reason": "Exercises the SCIM HTTP protocol through native invitation, Member identity, group and removal services, including credential custody and current authority. Real directory-provider acceptance and native invitation capacity outside SCIM remain unproven."
+    },
+    {
+      "file": "tests/qualification/ui-convergence/journeys.test.mjs",
+      "testName": "page outline follows headings and navigates long pages at 1440px",
+      "kind": "supporting-regression",
+      "clauses": [
+        "ACT-003"
+      ],
+      "reason": "The existing settingsJourney caller invokes activityRetrievalJourney for a populated native timeline, with full filter, cursor and current-access proof at desktop and the phone screen smoke. No new registration."
+    },
+    {
+      "file": "tests/qualification/ui-convergence/journeys.test.mjs",
+      "testName": "space tree title filtering preserves ancestors, access and expansion at 390px",
+      "kind": "supporting-regression",
+      "clauses": [
+        "ACT-003"
+      ],
+      "reason": "The existing settingsJourney caller invokes activityRetrievalJourney for a populated native timeline, with full filter, cursor and current-access proof at desktop and the phone screen smoke. No new registration."
     }
   ]
 }

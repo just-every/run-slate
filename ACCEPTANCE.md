@@ -2078,8 +2078,8 @@ Core · published · **partial** · Cites BASE-AUDIT-001, BASE-ROLE-001
 1. Filtering a populated timeline yields only matching wiki events in newest-first order, with stable page boundaries while new events arrive.
 2. Opening an entry retains the wiki record context and exposes no unreadable record.
 
-**Evidence.** `tests/qualification/core/discovery.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.
+**Evidence.** `tests/qualification/core/audit-content.test.ts` — auditRetrievalProof in the existing content audit registration; `tests/qualification/ui-convergence/activity-retrieval-journey.mjs` — activityRetrievalJourney via the existing settingsJourney callers in `tests/qualification/ui-convergence/journeys.test.mjs`
+**Gap.** Populated native filters and stable cursor retrieval pass in the loaded Workers journey; candidate browser and exact-SHA Verify proof pending.
 
 #### ACT-004 — Context
 
