@@ -10660,7 +10660,7 @@
       "executable": false
     },
     "tests/e2e/search/discovery-journey.ts": {
-      "sha256": "1b5e48364271a354166c1ab19cc0c0bd71e67ed16fa3a9025b05c3ce09364dd5",
+      "sha256": "b6675e70101f561dfc6adb3b6f86bdd3fba31065e3371005245016a98b90720f",
       "executable": false
     },
     "tests/e2e/search/freshness-journey.ts": {
@@ -10673,6 +10673,10 @@
     },
     "tests/e2e/search/fts-upgrade.test.ts": {
       "sha256": "07df913af346c518518b4ebf97032976c1369efd74d308739c924c2df28895c3",
+      "executable": false
+    },
+    "tests/e2e/search/mixed-kinds-journey.ts": {
+      "sha256": "c2b0b5d4375d9cab592dcac1d5e724a93918a4925f3fa65f0138bc1101c68e34",
       "executable": false
     },
     "tests/e2e/search/route-fixture.ts": {
@@ -11679,6 +11683,10 @@
       "sha256": "c8100960ff1c21b831d56dd95e0b828a3ff071aecc8e7d17dd858a4960f9dcc4",
       "executable": false
     },
+    "tests/qualification/search/capacity-journey.mjs": {
+      "sha256": "ae4a7248af82780b44ea97bcfa9315585e08fc598f4aad90c9209c2a2d77a599",
+      "executable": false
+    },
     "tests/qualification/search/evidence.mjs": {
       "sha256": "da02c02c6ebe800d519d0f397e3e18fa6b1b46d5dd28940b5cdf38d8c8c60675",
       "executable": false
@@ -11951,6 +11959,10 @@
       "sha256": "0ec48966bedeccacc77d88eea1baeb9e44574d88271fcef2366aa49500348b37",
       "executable": false
     },
+    "tests/qualification/ui-convergence/mixed-search-journey.mjs": {
+      "sha256": "6ff9d9c062b135c3db46d8d129bc1d789eb82ff73ccd7295a762bbcf6d3428e3",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/my-tasks-journey.mjs": {
       "sha256": "3a8ea235859167116e1a5e7b6d7d01e08bac4b8bc6f7310ba637f1f104856658",
       "executable": false
@@ -11992,7 +12004,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "68662c4088eef48e286591bbdbbd73c938ee9821ae26086ccdb4183013c92c33",
+      "sha256": "28ed9bb06a30ee2426bfd16014f604bd091c52b7069d50980c4d175e834279f9",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
