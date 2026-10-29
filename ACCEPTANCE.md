@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 41 | 256 | 34 | 331 |
+| Core | 42 | 255 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 41 | 256 | 40 | 337 |
+| Full target | 42 | 255 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `ace8cd91d8e1258f54b7376a2a55064454e7a7a4` (29 October 2026); SHARE-001 source proof, retaining the newer main judgments. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -830,7 +830,7 @@ Core · published · **partial**
 
 #### SHARE-001 — Grants
 
-Core · published · **partial** · Cites BASE-ROLE-001
+Core · published · **done** · Cites BASE-ROLE-001
 
 **Requirement.** A page carries an ordered list of grants.
 
@@ -839,8 +839,8 @@ Core · published · **partial** · Cites BASE-ROLE-001
 2. The panel that edits them shows every effective grant, whether it is inherited or set here, and where an inherited one comes from.
 3. Grant panel lists every effective grant with inheritance source and optional expiry.
 
-**Evidence.** `tests/qualification/backend/emitted.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", invoking `tests/qualification/ui-convergence/sharing-journey.mjs` — "shareJourney" and "grantCorpusJourney": acceptance 1, ordered native person, group, container and workspace grants across every configured level with optional expiry; acceptance 2 and 3, nonempty direct, ancestor-page and container grants reconciled with their sources and expiry in the reloaded panel. The same journeys retain expiry and regrant checks and refuse unauthorized inspection, mutation and replay resurrection.
+**Gap.** None.
 
 #### SHARE-002 — What the levels mean
 

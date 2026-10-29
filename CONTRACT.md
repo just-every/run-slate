@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `ace8cd91d8e1258f54b7376a2a55064454e7a7a4` (29 October 2026); SHARE-001 source proof, retaining the newer main judgments. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 25 | 201 | 0 | 226 |
+| Published | 26 | 200 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 41 | 256 | 40 | 337 |
+| All | 42 | 255 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4042,7 +4042,7 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `LIFE-005` | Unpublished changes | published | partial | `tests/qualification/interface/publication.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/publication.mjs`. |
 | `LIFE-006` | Lifecycle profile | published | partial | `tests/qualification/policies/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/emitted.mjs`. |
 | `LIFE-007` | Discarding a draft | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "The author of a `draft` page can discard it, which moves it to trash (`ARCH-005`) rather than deleting it, and can close it, which leaves it a draft."<br>No validated CI-run proof for this acceptance point: "Neither action notifies anyone or leaves a trace in another member's tree." |
-| `SHARE-001` | Grants | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
+| `SHARE-001` | Grants | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", invoking `tests/qualification/ui-convergence/sharing-journey.mjs` — "shareJourney" and "grantCorpusJourney": acceptance 1, ordered native person, group, container and workspace grants across every configured level with optional expiry; acceptance 2 and 3, nonempty direct, ancestor-page and container grants reconciled with their sources and expiry in the reloaded panel. The same journeys retain expiry and regrant checks and refuse unauthorized inspection, mutation and replay resurrection. | |
 | `SHARE-002` | What the levels mean | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "`full` may read, edit, comment, share and change access; `edit` may read, edit and comment; `comment` may read and comment; `view` may read only."<br>No validated CI-run proof for this acceptance point: "Every server operation checks the level for the acting member (`BASE-ACCESS-004`), and no interface offers an action the level does not carry." |
 | `SHARE-003` | Inheritance | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A page inherits its parent's grants, and a child added later inherits the parent's grants at that moment."<br>No validated CI-run proof for this acceptance point: "A page may add grants or be restricted, and a restriction is shown on the page and on every descendant it affects."<br>No validated CI-run proof for this acceptance point: "Removing a restriction restores inheritance rather than copying the parent's grants." |
 | `SHARE-004` | General access | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a populated general-access change journey that reads the changed grant and activity and tries the forbidden widening; the cited test parses archive records only. |

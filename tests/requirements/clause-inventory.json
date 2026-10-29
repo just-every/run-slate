@@ -2811,7 +2811,7 @@
       "id": "DB-015",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "A tagged default-profile Workers journey exercises record templates, schedules, restarts and the access pause; independent release acceptance is separate.",
+      "unmetReason": "The tagged default-profile Workers record templates journey covers defaults, personal time zones, two occurrences, restart deduplication and revoked-saver pause. The recordTemplatesJourney browser path in tests/qualification/ui-convergence/record-templates-journey.mjs runs in the existing desktop Templates registration and phone core journey, showing Alex then Morgan as the last saver after native re-save and reload, plus the visible paused reason and refused save replay after revocation. Independent release acceptance is separate.",
       "supportingTests": []
     },
     {

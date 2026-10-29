@@ -29,11 +29,11 @@ A claim is done when every clause behind it is done, missing when every one is m
 | 21 | Results each person may open | `SEARCH-001` partial; `SEARCH-005` done; `SEARCH-006` partial; `SEARCH-008` partial | partial |
 | 22 | Pages and records | `SEARCH-001` partial; `SEARCH-005` done; `SEARCH-006` partial; `SEARCH-008` partial | partial |
 | 23 | One container or all of them | `SEARCH-001` partial; `SEARCH-005` done; `SEARCH-006` partial; `SEARCH-008` partial | partial |
-| 24 | Share it, or publish it. | `SHARE-001` partial; `SHARE-006` partial; `SHARE-008` partial; `WEB-001` partial; `WEB-006` partial | partial |
-| 25 | Give people, groups or guests view, comment or edit access. Guest access can expire. Publish a page to the web, and take it down again whenever you like. | `SHARE-001` partial; `SHARE-006` partial; `SHARE-008` partial; `WEB-001` partial; `WEB-006` partial | partial |
-| 26 | People, groups and guests | `SHARE-001` partial; `SHARE-006` partial; `SHARE-008` partial; `WEB-001` partial; `WEB-006` partial | partial |
-| 27 | Access that can expire | `SHARE-001` partial; `SHARE-006` partial; `SHARE-008` partial; `WEB-001` partial; `WEB-006` partial | partial |
-| 28 | Publish to the web | `SHARE-001` partial; `SHARE-006` partial; `SHARE-008` partial; `WEB-001` partial; `WEB-006` partial | partial |
+| 24 | Share it, or publish it. | `SHARE-001` done; `SHARE-006` partial; `SHARE-008` partial; `WEB-001` partial; `WEB-006` partial | partial |
+| 25 | Give people, groups or guests view, comment or edit access. Guest access can expire. Publish a page to the web, and take it down again whenever you like. | `SHARE-001` done; `SHARE-006` partial; `SHARE-008` partial; `WEB-001` partial; `WEB-006` partial | partial |
+| 26 | People, groups and guests | `SHARE-001` done; `SHARE-006` partial; `SHARE-008` partial; `WEB-001` partial; `WEB-006` partial | partial |
+| 27 | Access that can expire | `SHARE-001` done; `SHARE-006` partial; `SHARE-008` partial; `WEB-001` partial; `WEB-006` partial | partial |
+| 28 | Publish to the web | `SHARE-001` done; `SHARE-006` partial; `SHARE-008` partial; `WEB-001` partial; `WEB-006` partial | partial |
 | 29 | Nothing is lost. | `REV-002` partial; `REV-003` partial; `REV-004` partial | partial |
 | 30 | Slate keeps a history of revisions. Compare any two and restore the one you want. | `REV-002` partial; `REV-003` partial; `REV-004` partial | partial |
 | 31 | Bring your wiki with you. | `IMP-002` partial; `IMP-003` partial; `IMP-005` partial | partial |

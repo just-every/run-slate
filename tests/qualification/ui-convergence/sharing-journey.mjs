@@ -110,12 +110,13 @@ async function grantCorpusJourney({ page, context, origin, api, readerCookie }) 
   const ancestor = [await grant('page', parent, 'member', 'browser-reader', 'comment', future),
     await grant('page', parent, 'group', group, 'full')];
   const general = await grant('container', space, 'workspace', 'browser-workspace', 'view', future);
+  const fields = item => [item.id, item.principalKind, item.principalId, item.level, item.expiresAt];
   const containerRows = (await api(`/api/sharing/containers/${space}`)).items;
   assert.equal(containerRows.length, 2, 'The native space has only its creator and the added workspace grant.');
+  assert.deepEqual(fields(containerRows.find(item => item.id === general.id)), fields(general), 'The inherited workspace grant retains the submitted principal, level and expiry.');
   assert.deepEqual(new Set(own.map(item => item.level)), new Set((await api('/api/sharing/configuration')).levels));
   const project = () => api(`/api/sharing/pages/${child}`);
   const readAsReader = () => api(`/api/pages/${child}`, { headers: { cookie: readerCookie } });
-  const fields = item => [item.id, item.principalKind, item.principalId, item.level, item.expiresAt];
   const label = level => ({ full: 'Manage access', edit: 'Edit', comment: 'Comment', view: 'View' })[level];
   const panel = page.locator('.right');
   async function inspect(expectedOwn, expectedInherited, screenshot) {
@@ -128,10 +129,12 @@ async function grantCorpusJourney({ page, context, origin, api, readerCookie }) 
     await page.reload({ waitUntil: 'networkidle' });
     await page.getByRole('button', { name: 'Share', exact: true }).click();
     await expect(panel.getByRole('heading', { name: 'Share this page', exact: true })).toBeVisible();
+    await expect(panel.locator('.grant-list > li')).toHaveCount(expectedOwn.length);
     assert.deepEqual(await panel.locator('.grant-list > li').evaluateAll(rows => rows.map(row => row.dataset.grantId)), expectedOwn.map(item => item.id));
     await expect(panel.locator('.inherited-grant-list > li')).toHaveCount(expectedInherited.length);
     for (const item of [...projection.items, ...projection.inheritedItems]) {
       const row = panel.locator(`[data-grant-id="${item.id}"]`);
+      await expect(row).toBeVisible();
       await expect(row).toContainText(item.principalLabel);
       if (item.inherited) {
         assert.equal(item.origin.kind, ancestor.some(grant => grant.id === item.id) ? 'page' : 'container');
