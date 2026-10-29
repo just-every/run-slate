@@ -54,7 +54,11 @@
           "migrations/core/0029_import_retirement.sql",
           "migrations/core/0030_native_dependencies.sql",
           "src/demo.ts",
-          "src/demo"
+          "src/demo",
+          "agent-surface.json",
+          "migrations/core/0063_business_settings.sql",
+          "migrations/core/0064_business_people.sql",
+          "migrations/core/0065_agent_door.sql"
         ]
       },
       "assumptions": [
@@ -846,6 +850,18 @@
         "kind": "local",
         "paths": [
           "modules/demo"
+        ]
+      }
+    },
+    {
+      "id": "runeditrun/agent-door",
+      "role": "module",
+      "source": {
+        "kind": "local",
+        "paths": [
+          "modules/agent-door",
+          "modules/business-settings",
+          "foundation/runtime"
         ]
       }
     }

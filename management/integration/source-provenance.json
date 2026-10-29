@@ -7,7 +7,7 @@
     "scripts/delivery/base/packaging.json": "sha256:3c5004d8a593d8888a070832ac981927a056e9748554e9d2b68d7c4aef9c1157",
     "src/server.ts": "sha256:76774c9d0337067a7b695e526fbbd4c8dc435331fe1ebd1e36f3307c9e4c34ad",
     "src/core/features/workspace/bootstrap.ts": "sha256:ebc9e9fb05fb305a0b3642e089f30d5c809734a7e21b7e80b290895c79ea8906",
-    "src/core/platform/config/runtime.ts": "sha256:d97dc338708315b5bb6563a4f5fd11b650f6b6f9c02ac105c2e5f7e0d286981e",
+    "src/core/platform/config/runtime.ts": "sha256:668518454fe90c7d86b9d90bfa8dfa7a00953d4453e89506e0e810c61c0183e7",
     "migrations/core/0001_knowledge_foundation.sql": "sha256:88bb09f3c90f4741bc686f333fd765ca838ff6e96969d5182b292df0c4816c39",
     "migrations/core/0002_core_runtime.sql": "sha256:34e5c0c5c9a3f4bb7364e649054a87ec8fe614bd469417e6e7c3412ba1e47346",
     "migrations/core/0003_content_collaboration.sql": "sha256:534fe0d90d535c02a669c55591698b02520cd478c2bb3b87d74825154c71d1f7",
@@ -66,6 +66,9 @@
     "migrations/core/0059_member_profiles.sql": "sha256:0b3a60c26182b8c8f6a79cbcaa20bd27ed4c448d9d796636c4a416146a0215c9",
     "migrations/core/0060_synced_static.sql": "sha256:88b23a722205bdbbb461d20dcd370d5d9c1478e44e5eb1d3ead2d422c7715fb6",
     "migrations/core/0061_provider_embed_observations.sql": "sha256:cc44fd9f0237ae4295aaf7af3c2036f3f34acb302017e9d8cc430d74d1ebeabd",
-    "migrations/core/0062_scim_portable_invitations.sql": "sha256:3ce68bcb9dd3b821f4314509c9104515ea91568be8c5d5fe1f3313ecf817644e"
+    "migrations/core/0062_scim_portable_invitations.sql": "sha256:3ce68bcb9dd3b821f4314509c9104515ea91568be8c5d5fe1f3313ecf817644e",
+    "migrations/core/0063_business_settings.sql": "sha256:a16f736a781aa3fe02a2e090c993f8c360c904f9fb6d86126acdab6e1f24e773",
+    "migrations/core/0064_business_people.sql": "sha256:51aa39622d866b987d71b6e37c9a8300e7f24c54a55611edaab669ed051b01cd",
+    "migrations/core/0065_agent_door.sql": "sha256:016d8a98b964385f5c4a13447361c3c783910a76aaf4606b0e0081482bc819cc"
   }
 }

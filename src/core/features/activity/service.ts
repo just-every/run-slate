@@ -46,4 +46,4 @@ export async function auditRecord(ctx:FeatureContext,id:string){
  return {id:row.id,actor:actor?{...actor,displayName:activityActorLabel(row)??actor.displayName}:null,occurredAt:new Date(row.occurred_at).toISOString(),action:row.action,target:{kind:row.target_kind,id:row.target_id}};
 }
 
-function activityActorLabel(row:Row):string|undefined {const detail=JSON.parse(row.detail_json) as {scimCredential?:{name?:unknown}};return typeof detail.scimCredential?.name==='string'?`SCIM: ${detail.scimCredential.name}`:undefined;}
+function activityActorLabel(row:Row):string|undefined {const detail=JSON.parse(row.detail_json) as {agentAttribution?:{label?:string};scimCredential?:{name?:unknown}};if(typeof detail.agentAttribution?.label==='string')return detail.agentAttribution.label;return typeof detail.scimCredential?.name==='string'?`SCIM: ${detail.scimCredential.name}`:undefined;}
