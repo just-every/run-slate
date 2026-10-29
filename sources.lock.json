@@ -975,7 +975,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "31520f0231e2563448d79cf30dd4bd570f2daa41a9a88448903c9db499dcf970",
+      "sha256": "e9b817f4161295a550a05166ad24f8a8cabc6d31acd0c64a67450615c10f43c1",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -1003,7 +1003,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "c4c1d982da7b33bc7c4b389969545f1e7ee721023a0d19ddba3183f038854d79",
+      "sha256": "22e9b515865b177bbaef92e4cd2881ed6eddf6f5b6bc5ef29da1d367912bab7f",
       "executable": false
     },
     "DEMO.md": {
@@ -1036,6 +1036,10 @@
     },
     "DIVERGENCE.md": {
       "sha256": "8504f445f9220fa6128350941d843794a398a54f57b727d6c4245627c22a753d",
+      "executable": false
+    },
+    "docs/agent-access.md": {
+      "sha256": "ba6faeb27212567c5af56c41f8e7e6c76afdfc309e15e10d9048aeba802677fa",
       "executable": false
     },
     "docs/API.md": {
@@ -1123,7 +1127,7 @@
       "executable": false
     },
     "docs/site.json": {
-      "sha256": "ac3fb485a066280d93e489062fe7a51b981bc0c1de02d257d596e08e7c53108e",
+      "sha256": "899b6f736e00fb41303dbd65239bae0210a8c4e627fb22114b6fa635874d2d53",
       "executable": false
     },
     "docs/TRUSTWORTHY-HANDBOOK.md": {

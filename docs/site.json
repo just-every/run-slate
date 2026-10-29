@@ -295,6 +295,14 @@
     {
       "source": "modules/business-settings/README.md",
       "reason": "Pinned Base agent door maintainer reference."
+    },
+    {
+      "source": "modules/agent-door/CLAUSES.md",
+      "reason": "Pinned Base agent-door clause reference for maintainers."
+    },
+    {
+      "source": "docs/agent-access.md",
+      "reason": "Shared-door capability boundaries for maintainers; native adoption is incomplete."
     }
   ]
 }

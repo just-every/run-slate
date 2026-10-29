@@ -9,9 +9,9 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Core | 38 | 259 | 34 | 331 |
-| Agent surface | 0 | 0 | 19 | 19 |
+| Agent surface | 0 | 2 | 17 | 19 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 38 | 259 | 53 | 350 |
+| Full target | 38 | 261 | 51 | 350 |
 
 Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -4832,7 +4832,7 @@ Agent surface · target · **missing**
 
 #### BASE-AGENT-010 — Agents can follow changes
 
-Agent surface · target · **missing**
+Agent surface · target · **partial**
 
 **Requirement.** The seed emits a typed event for every record change and for every approval, review and policy decision. Each event carries a stable id, a type, the record URI, the actor (a person, or an agent acting for a person) and a time. Events never carry secrets or more than the subscriber may read. Agents can read events three ways: `subscriptions / listen`, an `events.list` tool with a cursor, and signed webhooks from Base `integrations` using the same ids. Every channel delivers at least once and filters by access at delivery.
 
@@ -4844,8 +4844,8 @@ Agent surface · target · **missing**
 5. A failed webhook is visible and replays without duplicate effects.
 6. `approval.pending`, `approval.decided`, `review.flagged` and `policy.adopted` carry the class and decision and nothing the subscriber may not read.
 
-**Evidence.** None.
-**Gap.** Not yet judged through this seed's own doors.
+**Evidence.** `docs/agent-access.md` — intended capability boundary only; no native event journey.
+**Gap.** 2026-10-29: partial / not-declared — events and subscriptions are outside the intended CORE capability set. No native typed resource-event, subscription or signed-handoff journey is claimed.
 
 #### BASE-AGENT-011 — Limits are policy, and Pause stops everything
 
@@ -4962,7 +4962,7 @@ Agent surface · target · **missing** · From new · Cites BASE-AGENT-003, BASE
 
 #### SURFACE-005 — Wiki event handoffs
 
-Agent surface · target · **missing** · From new · Cites BASE-AGENT-010, BASE-OPS-003 · Rules D-1
+Agent surface · target · **partial** · From new · Cites BASE-AGENT-010, BASE-OPS-003 · Rules D-1
 
 **Requirement.** Wiki changes and knowledge-maintenance outcomes can start accountable cross-product follow-up.
 
@@ -4971,8 +4971,8 @@ Agent surface · target · **missing** · From new · Cites BASE-AGENT-010, BASE
 2. A Vector or Jira issue event can request review of its linked page, and a restricted page sends no disclosing handoff to an unauthorized subscriber.
 3. The same wiki event is read through the event cursor, subscription and signed webhook without creating a duplicate effect.
 
-**Evidence.** None.
-**Gap.** No executed Slate MCP journey yet covers this seed delta under both company policies.
+**Evidence.** `docs/agent-access.md` — intended capability boundary only; no native event journey.
+**Gap.** 2026-10-29: partial / not-declared — events and subscriptions are outside the intended CORE capability set; native wiki activity is not a typed cross-product handoff. No executed Slate MCP journey covers this seed delta.
 
 #### SURFACE-006 — One seeded week for the wiki curator
 
