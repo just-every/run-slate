@@ -1,0 +1,1833 @@
+{
+  "schema": "rer-agent-surface/1",
+  "seed": "slate",
+  "specialist": "wiki curator",
+  "tools": [
+    {
+      "name": "slate.workspace.read",
+      "scope": "slate.workspace.read",
+      "clauses": [
+        "WORK-001"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {},
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.audit.read",
+      "scope": "slate.audit.read",
+      "clauses": [
+        "ACT-001",
+        "ACT-002",
+        "ACT-003",
+        "ACT-004",
+        "ACT-005"
+      ],
+      "classes": [
+        "standard"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {},
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.navigation.read",
+      "scope": "slate.navigation.read",
+      "clauses": [
+        "NAV-001",
+        "NAV-002",
+        "NAV-003"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {},
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.blocks.list",
+      "scope": "slate.blocks.list",
+      "clauses": [
+        "BLOCK-001"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.containers.list",
+      "scope": "slate.containers.list",
+      "clauses": [
+        "CONT-003"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "archived": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.containers.read",
+      "scope": "slate.containers.read",
+      "clauses": [
+        "CONT-001",
+        "CONT-005"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.containers.create",
+      "scope": "slate.containers.create",
+      "clauses": [
+        "CONT-002"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "key": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "icon": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "default",
+              "open",
+              "closed",
+              "private"
+            ]
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.containers.configure",
+      "scope": "slate.containers.configure",
+      "clauses": [
+        "CONT-004"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "key": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "icon": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.pages.list",
+      "scope": "slate.pages.list",
+      "clauses": [
+        "TREE-001",
+        "TREE-003",
+        "TREE-004"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "containerId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "containerId"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.pages.read",
+      "scope": "slate.pages.read",
+      "clauses": [
+        "PAGE-001",
+        "PAGE-003",
+        "PAGE-007",
+        "LIFE-001",
+        "LIFE-002"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.pages.create",
+      "scope": "slate.pages.create",
+      "clauses": [
+        "PAGE-002",
+        "TREE-005",
+        "NAV-005"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "containerId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "parentPageId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "blocks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 160
+                },
+                "blockType": {
+                  "type": "string"
+                },
+                "content": {},
+                "parentBlockId": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "treePosition": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                }
+              },
+              "required": [
+                "id",
+                "blockType",
+                "content",
+                "treePosition"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "maxLength": 1000
+              },
+              "icon": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 1000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "coverFileId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "cover": {
+                "anyOf": [
+                  {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "type": "string",
+                            "const": "gallery"
+                          },
+                          "id": {
+                            "type": "string",
+                            "enum": [
+                              "sand",
+                              "ocean",
+                              "forest",
+                              "sunset",
+                              "lavender",
+                              "slate"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "id"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "type": "string",
+                            "const": "link"
+                          },
+                          "url": {
+                            "type": "string",
+                            "maxLength": 2048,
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "url"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "ownerMemberId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "statusKey": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "labels": {
+                "maxItems": 100,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80
+                }
+              },
+              "typeface": {
+                "type": "string",
+                "enum": [
+                  "default",
+                  "serif",
+                  "mono"
+                ]
+              },
+              "smallText": {
+                "type": "boolean"
+              },
+              "fullWidth": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          },
+          "treePosition": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "containerId",
+          "title"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.pages.update",
+      "scope": "slate.pages.update",
+      "clauses": [
+        "SAVE-003",
+        "SAVE-005",
+        "PAGE-006",
+        "PAGE-012",
+        "LIFE-005"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "properties": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "maxLength": 1000
+              },
+              "icon": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 1000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "coverFileId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "cover": {
+                "anyOf": [
+                  {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "type": "string",
+                            "const": "gallery"
+                          },
+                          "id": {
+                            "type": "string",
+                            "enum": [
+                              "sand",
+                              "ocean",
+                              "forest",
+                              "sunset",
+                              "lavender",
+                              "slate"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "id"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "type": "string",
+                            "const": "link"
+                          },
+                          "url": {
+                            "type": "string",
+                            "maxLength": 2048,
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "url"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "ownerMemberId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "statusKey": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "labels": {
+                "maxItems": 100,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80
+                }
+              },
+              "typeface": {
+                "type": "string",
+                "enum": [
+                  "default",
+                  "serif",
+                  "mono"
+                ]
+              },
+              "smallText": {
+                "type": "boolean"
+              },
+              "fullWidth": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "properties",
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.blocks.update",
+      "scope": "slate.blocks.update",
+      "clauses": [
+        "SAVE-006",
+        "BLOCK-001",
+        "BLOCK-002",
+        "BLOCK-005",
+        "BLOCK-006",
+        "BLOCK-007",
+        "COLLAB-001",
+        "COLLAB-003",
+        "BLOCK-011",
+        "BLOCK-012",
+        "BLOCK-013",
+        "BLOCK-014",
+        "BLOCK-017",
+        "BLOCK-018",
+        "BLOCK-019",
+        "BLOCK-020"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "blocks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 160
+                },
+                "blockType": {
+                  "type": "string"
+                },
+                "content": {},
+                "parentBlockId": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "treePosition": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                }
+              },
+              "required": [
+                "id",
+                "blockType",
+                "content",
+                "treePosition"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "blockRevisions": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "additionalProperties": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "blocks",
+          "id"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.blocks.edit",
+      "scope": "slate.blocks.edit",
+      "clauses": [
+        "BLOCK-001",
+        "SAVE-006"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "content": {},
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "blockId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "content",
+          "id",
+          "blockId"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.pages.move",
+      "scope": "slate.pages.move",
+      "clauses": [
+        "PAGE-004",
+        "TREE-002"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "sensitive",
+        "access"
+      ],
+      "readOnly": false,
+      "sponsorEscalation": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "containerId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "parentPageId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "treePosition": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "id",
+          "containerId",
+          "parentPageId",
+          "treePosition"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.pages.duplicate",
+      "scope": "slate.pages.duplicate",
+      "clauses": [
+        "PAGE-005"
+      ],
+      "classes": [
+        "standard",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "containerId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "parentPageId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "containerId"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.pages.lock",
+      "scope": "slate.pages.lock",
+      "clauses": [
+        "PAGE-015"
+      ],
+      "classes": [
+        "standard",
+        "external",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "locked": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "locked"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.events.list",
+      "scope": "events:read",
+      "clauses": [
+        "BASE-AGENT-010"
+      ],
+      "classes": [
+        "standard"
+      ],
+      "readOnly": true
+    }
+  ],
+  "resources": [
+    "slate://containers/{id}",
+    "slate://pages/{id}",
+    "slate://pages/{id}/revisions/{revision}",
+    "slate://blocks/{id}",
+    "slate://databases/{id}",
+    "slate://records/{id}",
+    "slate://threads/{id}",
+    "slate://sources/{id}/passages/{passage}",
+    "slate://decisions/{id}",
+    "slate://inquiries/{id}",
+    "slate://runs/{id}"
+  ],
+  "notTools": [],
+  "journey": [
+    {
+      "id": "workspace_read_standard",
+      "tool": "slate.workspace.read",
+      "args": {
+        "$fixture": "workspace_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "workspace_read_sensitive",
+      "tool": "slate.workspace.read",
+      "args": {
+        "$fixture": "workspace_read_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "audit_read_standard",
+      "tool": "slate.audit.read",
+      "args": {
+        "$fixture": "audit_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "navigation_read_standard",
+      "tool": "slate.navigation.read",
+      "args": {
+        "$fixture": "navigation_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "navigation_read_sensitive",
+      "tool": "slate.navigation.read",
+      "args": {
+        "$fixture": "navigation_read_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "blocks_list_standard",
+      "tool": "slate.blocks.list",
+      "args": {
+        "$fixture": "blocks_list_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "blocks_list_sensitive",
+      "tool": "slate.blocks.list",
+      "args": {
+        "$fixture": "blocks_list_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "containers_list_standard",
+      "tool": "slate.containers.list",
+      "args": {
+        "$fixture": "containers_list_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "containers_list_sensitive",
+      "tool": "slate.containers.list",
+      "args": {
+        "$fixture": "containers_list_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "containers_read_standard",
+      "tool": "slate.containers.read",
+      "args": {
+        "$fixture": "containers_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "containers_read_sensitive",
+      "tool": "slate.containers.read",
+      "args": {
+        "$fixture": "containers_read_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "containers_create_standard",
+      "tool": "slate.containers.create",
+      "args": {
+        "$fixture": "containers_create_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "containers_create_sensitive",
+      "tool": "slate.containers.create",
+      "args": {
+        "$fixture": "containers_create_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "containers_configure_standard",
+      "tool": "slate.containers.configure",
+      "args": {
+        "$fixture": "containers_configure_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "containers_configure_sensitive",
+      "tool": "slate.containers.configure",
+      "args": {
+        "$fixture": "containers_configure_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_list_standard",
+      "tool": "slate.pages.list",
+      "args": {
+        "$fixture": "pages_list_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "pages_list_sensitive",
+      "tool": "slate.pages.list",
+      "args": {
+        "$fixture": "pages_list_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pages_read_standard",
+      "tool": "slate.pages.read",
+      "args": {
+        "$fixture": "pages_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "pages_read_sensitive",
+      "tool": "slate.pages.read",
+      "args": {
+        "$fixture": "pages_read_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pages_create_standard",
+      "tool": "slate.pages.create",
+      "args": {
+        "$fixture": "pages_create_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_create_sensitive",
+      "tool": "slate.pages.create",
+      "args": {
+        "$fixture": "pages_create_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_update_standard",
+      "tool": "slate.pages.update",
+      "args": {
+        "$fixture": "pages_update_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_update_external",
+      "tool": "slate.pages.update",
+      "args": {
+        "$fixture": "pages_update_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_update_sensitive",
+      "tool": "slate.pages.update",
+      "args": {
+        "$fixture": "pages_update_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "blocks_update_standard",
+      "tool": "slate.blocks.update",
+      "args": {
+        "$fixture": "blocks_update_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "blocks_update_external",
+      "tool": "slate.blocks.update",
+      "args": {
+        "$fixture": "blocks_update_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "blocks_update_sensitive",
+      "tool": "slate.blocks.update",
+      "args": {
+        "$fixture": "blocks_update_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "blocks_edit_standard",
+      "tool": "slate.blocks.edit",
+      "args": {
+        "$fixture": "blocks_edit_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "blocks_edit_external",
+      "tool": "slate.blocks.edit",
+      "args": {
+        "$fixture": "blocks_edit_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "blocks_edit_sensitive",
+      "tool": "slate.blocks.edit",
+      "args": {
+        "$fixture": "blocks_edit_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_move_standard",
+      "tool": "slate.pages.move",
+      "args": {
+        "$fixture": "pages_move_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_move_external",
+      "tool": "slate.pages.move",
+      "args": {
+        "$fixture": "pages_move_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_move_sensitive",
+      "tool": "slate.pages.move",
+      "args": {
+        "$fixture": "pages_move_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_move_access",
+      "tool": "slate.pages.move",
+      "args": {
+        "$fixture": "pages_move_access",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "access",
+          "facts": {
+            "measure": 1,
+            "direction": "widens"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_duplicate_standard",
+      "tool": "slate.pages.duplicate",
+      "args": {
+        "$fixture": "pages_duplicate_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_duplicate_sensitive",
+      "tool": "slate.pages.duplicate",
+      "args": {
+        "$fixture": "pages_duplicate_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_lock_standard",
+      "tool": "slate.pages.lock",
+      "args": {
+        "$fixture": "pages_lock_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_lock_external",
+      "tool": "slate.pages.lock",
+      "args": {
+        "$fixture": "pages_lock_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "public"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "pages_lock_sensitive",
+      "tool": "slate.pages.lock",
+      "args": {
+        "$fixture": "pages_lock_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "events_list_standard",
+      "tool": "slate.events.list",
+      "args": {
+        "$fixture": "events_list_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    }
+  ],
+  "witness": {
+    "tool": "slate.audit.read",
+    "args": {}
+  },
+  "verification": {
+    "owner": {
+      "email": "synthetic-owner@example.invalid",
+      "initializer": "tests/agent-door/owner.mjs",
+      "bindings": {
+        "SESSION_SECRET": "sessionSecret",
+        "MAIL_PROVIDER": {
+          "module": "tests/agent-door/mail-provider.mjs"
+        },
+        "MAIL_FROM": "email"
+      }
+    },
+    "reviewers": [
+      {
+        "label": "reviewer",
+        "email": "synthetic-reviewer@example.invalid",
+        "initializer": "tests/agent-door/reviewer.mjs"
+      }
+    ],
+    "fixtures": {
+      "module": "tests/agent-door/fixtures.mjs"
+    },
+    "journey": "tests/agent-door/journey.mjs",
+    "invoke": {
+      "module": "tests/agent-door/invoke.mjs",
+      "entrypoint": "SlateAgentOperations"
+    },
+    "replayAdmission": {
+      "prepare": [
+        "containers_create_standard"
+      ]
+    }
+  }
+}

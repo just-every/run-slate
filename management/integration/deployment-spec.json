@@ -386,6 +386,24 @@
       "name": "0065_business_people.sql",
       "sha256": "51aa39622d866b987d71b6e37c9a8300e7f24c54a55611edaab669ed051b01cd",
       "sql": "ALTER TABLE bs_settings ADD COLUMN owner_id TEXT CHECK(owner_id IS NULL OR owner_id <> '');\nALTER TABLE bs_team ADD COLUMN business_id TEXT CHECK(business_id IS NULL OR business_id <> '');\nALTER TABLE bs_team ADD COLUMN business_role TEXT CHECK(business_role IS NULL OR business_role IN('admin','member'));\nCREATE UNIQUE INDEX bs_team_business_id ON bs_team(business_id) WHERE business_id IS NOT NULL;\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0066_business_native_invitations.sql",
+      "sha256": "14fe9f04d4f5cdb8f8fbfec08cfa5d07ba88103e4bb8fcf7751d8d243e9076f2",
+      "sql": "-- Bind an admitted native invitation to its signed Business person ID, once.\n-- The address is delivery data; it cannot transfer an existing binding.\nCREATE TABLE slate_business_invitations (\n  business_id TEXT PRIMARY KEY,\n  invitation_id TEXT NOT NULL UNIQUE REFERENCES invitations(id) ON DELETE CASCADE,\n  member_id TEXT REFERENCES members(id) ON DELETE SET NULL\n);\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0067_agent_native_proofs.sql",
+      "sha256": "bf9798482a8f82bc1540b3145ae3abfbe8506f8932f1f1d951b2f7be59ad0ac9",
+      "sql": "CREATE TABLE slate_agent_native_proofs (\n  id TEXT PRIMARY KEY,\n  person_id TEXT NOT NULL REFERENCES members(id) ON DELETE CASCADE,\n  agent_id TEXT NOT NULL,\n  tool TEXT NOT NULL,\n  arguments_hash TEXT,\n  session_id TEXT REFERENCES sessions(id) ON DELETE CASCADE,\n  expires_at INTEGER NOT NULL\n);\n"
+    },
+    {
+      "binding": "DB",
+      "name": "0068_agent_attribution.sql",
+      "sha256": "c3ffdeefc3e3533600cc14980e869a2cc76bf47ca10fe4180b346d7c9479fadf",
+      "sql": "ALTER TABLE page_revisions ADD COLUMN agent_attribution_json TEXT;\nALTER TABLE record_revisions ADD COLUMN agent_attribution_json TEXT;\nALTER TABLE page_verifications ADD COLUMN agent_attribution_json TEXT;\nALTER TABLE pages ADD COLUMN agent_creator_json TEXT;\n"
     }
   ],
   "compatibilityDate": "2026-09-08",

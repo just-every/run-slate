@@ -57,7 +57,10 @@
           "src/demo",
           "migrations/core/0063_agent_door.sql",
           "migrations/core/0064_business_settings.sql",
-          "migrations/core/0065_business_people.sql"
+          "migrations/core/0065_business_people.sql",
+          "migrations/core/0066_business_native_invitations.sql",
+          "migrations/core/0067_agent_native_proofs.sql",
+          "migrations/core/0068_agent_attribution.sql"
         ]
       },
       "assumptions": [

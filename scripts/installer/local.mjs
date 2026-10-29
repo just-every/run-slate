@@ -32,7 +32,7 @@ export const commandAdapter = describeAdapter(lifecycle, {
   publicPages: ['/signin', '/docs', '/docs/install', '/docs/moving-in', '/docs/move-from-notion', '/docs/move-from-confluence', '/docs/trustworthy-handbook', '/docs/backup', '/docs/email-delivery', '/docs/cloudflare-footprint'],
   setup: { manifestFile: 'rer-setup.json' }, product: 'Slate',
   // Local-only persona sign-in; vite.config.ts loads the entry for `vite dev` alone.
-  devIdentity: { entry: 'src/dev/server.ts', output: ['dist'], emailLinkTest: 'tests/local-journey/cli.test.mjs' },
+  devIdentity: { deployConfig: 'wrangler.jsonc', entry: 'src/dev/server.ts', output: ['dist'], emailLinkTest: 'tests/local-journey/cli.test.mjs' },
   settings: [secrets.file, secrets.file + '.previous'],
   // Hosted setup defaults to a real provider; local setup uses suppressed development mail and native dev identity.
   input: { names: { email: 'SETUP_OWNER_EMAIL' }, defaults: async () => ({ MAIL_PROVIDER: 'development', MAIL_FROM: 'auth@localhost.test' }) },

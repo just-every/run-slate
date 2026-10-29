@@ -5,9 +5,9 @@
     "scripts/delivery/slate-spec.mjs": "sha256:550e3a9360a8e06d6d8c5013ff9dd18174ae49127bc190b6b074467b037cad1e",
     "scripts/build-delivery-artifact.mjs": "sha256:b751656105bb968559c5f9f2808fbd5b7bce8758c6315fa6ee967c3ce505fd15",
     "scripts/delivery/base/packaging.json": "sha256:3c5004d8a593d8888a070832ac981927a056e9748554e9d2b68d7c4aef9c1157",
-    "src/server.ts": "sha256:76774c9d0337067a7b695e526fbbd4c8dc435331fe1ebd1e36f3307c9e4c34ad",
+    "src/server.ts": "sha256:9eac3375064e93a505ce7b6cab3b871d9eacfa31d5fe6ba723cae89a0561612c",
     "src/core/features/workspace/bootstrap.ts": "sha256:ebc9e9fb05fb305a0b3642e089f30d5c809734a7e21b7e80b290895c79ea8906",
-    "src/core/platform/config/runtime.ts": "sha256:d97dc338708315b5bb6563a4f5fd11b650f6b6f9c02ac105c2e5f7e0d286981e",
+    "src/core/platform/config/runtime.ts": "sha256:4ecef2eddeaba0a64b4d9c5c3ef50e5c8da2a94f264a32825179212f0f4da520",
     "migrations/core/0001_knowledge_foundation.sql": "sha256:88bb09f3c90f4741bc686f333fd765ca838ff6e96969d5182b292df0c4816c39",
     "migrations/core/0002_core_runtime.sql": "sha256:34e5c0c5c9a3f4bb7364e649054a87ec8fe614bd469417e6e7c3412ba1e47346",
     "migrations/core/0003_content_collaboration.sql": "sha256:534fe0d90d535c02a669c55591698b02520cd478c2bb3b87d74825154c71d1f7",
@@ -69,6 +69,9 @@
     "migrations/core/0062_scim_portable_invitations.sql": "sha256:3ce68bcb9dd3b821f4314509c9104515ea91568be8c5d5fe1f3313ecf817644e",
     "migrations/core/0063_agent_door.sql": "sha256:016d8a98b964385f5c4a13447361c3c783910a76aaf4606b0e0081482bc819cc",
     "migrations/core/0064_business_settings.sql": "sha256:a16f736a781aa3fe02a2e090c993f8c360c904f9fb6d86126acdab6e1f24e773",
-    "migrations/core/0065_business_people.sql": "sha256:51aa39622d866b987d71b6e37c9a8300e7f24c54a55611edaab669ed051b01cd"
+    "migrations/core/0065_business_people.sql": "sha256:51aa39622d866b987d71b6e37c9a8300e7f24c54a55611edaab669ed051b01cd",
+    "migrations/core/0066_business_native_invitations.sql": "sha256:14fe9f04d4f5cdb8f8fbfec08cfa5d07ba88103e4bb8fcf7751d8d243e9076f2",
+    "migrations/core/0067_agent_native_proofs.sql": "sha256:bf9798482a8f82bc1540b3145ae3abfbe8506f8932f1f1d951b2f7be59ad0ac9",
+    "migrations/core/0068_agent_attribution.sql": "sha256:c3ffdeefc3e3533600cc14980e869a2cc76bf47ca10fe4180b346d7c9479fadf"
   }
 }

@@ -2409,13 +2409,13 @@
     {
       "path": "scripts/delivery/base/schema",
       "originPath": "schema",
-      "revision": "11f94fec479228d71ba6d7dd6ea7796c0d42c544",
+      "revision": "5381ab872b5ab4de80e811bcb4b1a803dd713e0f",
       "files": {
-        "scripts/delivery/base/schema/business-field-inputs.mjs": "02ec0a4f21bfff9008c306b7a2fa6dea9fe0ea6584f13da7978e5ef45a054e60",
+        "scripts/delivery/base/schema/business-field-inputs.mjs": "b028b576bc85758c4ed400d059d4aae4fdda7a29eeb290fd1032ea15aaf957d1",
         "scripts/delivery/base/schema/dependencies.mjs": "4bfc30fa75029db2727a9d1fb095d4969dc756c5317ac55ce768202bb869e2b7",
         "scripts/delivery/base/schema/json-schema.mjs": "f964a1f8bab23bfad0c8b6552d8e717091619fa438e0d6e65a9801e1d97782bc",
-        "scripts/delivery/base/schema/setup-validation.mjs": "339797a913d8bf0899ae8a5d0ce861a370101a2349b2bbfbee301db658d14ca7",
-        "scripts/delivery/base/schema/SETUP.schema.json": "2aa43379cfd4bb29b3b5ee42cff9d938085560c68be2a12f3883408987641195"
+        "scripts/delivery/base/schema/setup-validation.mjs": "89327f524f2e7cfcaf9c750e9a5aa7249c91199a9afd0c14afe9efcf444ad14a",
+        "scripts/delivery/base/schema/SETUP.schema.json": "ac52bac39e7e7e4dace1c22dce370f76df52e7f5bb167730ecfd96b0b7961c86"
       },
       "modes": {
         "scripts/delivery/base/schema/business-field-inputs.mjs": "100644",
@@ -2423,7 +2423,38 @@
         "scripts/delivery/base/schema/json-schema.mjs": "100644",
         "scripts/delivery/base/schema/setup-validation.mjs": "100644",
         "scripts/delivery/base/schema/SETUP.schema.json": "100644"
-      }
+      },
+      "originFiles": [
+        "schema/COMPOSITION.example.json",
+        "schema/COMPOSITION.schema.json",
+        "schema/FAMILY.example.json",
+        "schema/FAMILY.schema.json",
+        "schema/RELEASE.example.json",
+        "schema/RELEASE.schema.json",
+        "schema/SEED.example.json",
+        "schema/SEED.schema.json",
+        "schema/SETUP.example.json",
+        "schema/SETUP.extensions.test.mjs",
+        "schema/SETUP.invalid.example.json",
+        "schema/SETUP.md",
+        "schema/SETUP.review.corpus.test.mjs",
+        "schema/SETUP.review.test.mjs",
+        "schema/SETUP.schema.json",
+        "schema/SETUP.test.mjs",
+        "schema/business-field-inputs.mjs",
+        "schema/business-role-agreement.test.mjs",
+        "schema/composition.test.mjs",
+        "schema/dependencies.mjs",
+        "schema/dependencies.test.mjs",
+        "schema/generate-business-role.mjs",
+        "schema/json-schema.mjs",
+        "schema/setup-consumers.test.mjs",
+        "schema/setup-negative-corpus.json",
+        "schema/setup-review-negative-corpus.json",
+        "schema/setup-validation.mjs",
+        "schema/validate.mjs",
+        "schema/validate.test.mjs"
+      ]
     },
     {
       "path": "scripts/delivery/base/sign-in.mjs",
