@@ -109,10 +109,10 @@ export function PageSharing({ document }: { document: DocumentView }) {
           retry={grants.reload}
         >
           <section aria-label="Who has access"><h3>Who has access</h3>
-          {grants.data?.inheritedItems?.length ? <section><h3>Inherited access</h3><ul>{grants.data.inheritedItems.map(grant=><li key={grant.id}>{name(grant)} · {accessLabel(grant.level)} · {grant.status} · From {grant.origin?.name}</li>)}</ul></section>:null}
+          {grants.data?.inheritedItems?.length ? <section aria-label="Inherited access"><h3>Inherited access</h3><ul className="inherited-grant-list">{grants.data.inheritedItems.map(grant=><li key={grant.id} data-grant-id={grant.id}>{name(grant)} · {accessLabel(grant.level)} · {grant.status} · From {grant.origin?.name}{grant.expiresAt ? ` · ${grant.status === "expired" ? "Expired" : "Expires"} ${displayDate(grant.expiresAt, true)}` : ""}</li>)}</ul></section>:null}
           <ul className="grant-list">
             {grants.data?.items.map((grant) => (
-              <li key={grant.id}>
+              <li key={grant.id} data-grant-id={grant.id}>
                 <span>{name(grant)}{grant.invitationId ? ` · ${grant.status??"Pending"} invitation` : ""}{grant.expiresAt ? ` · ${new Date(grant.expiresAt)<new Date()?"Expired":"Expires"} ${displayDate(grant.expiresAt, true)}` : ""}</span>
                 {grant.revokedAt ? (
                   <span>Revoked {!grant.invitationId?<button disabled={pending} onClick={()=>void save({...grant,expiresAt:null})}>Regrant access</button>:null}</span>
