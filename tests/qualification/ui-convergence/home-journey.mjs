@@ -43,6 +43,9 @@ export async function homeJourney(state, people) {
   }
 
   const shared = await grant(alice.context, origin, created.pageId, bob.id, 'view');
+  const beforeVisit = await ok(bob.context, origin, 'GET', '/api/navigation');
+  assert.ok(!beforeVisit.recents.some(item => item.id === created.pageId));
+  assert.ok(!beforeVisit.favourites.some(item => item.id === created.pageId));
   await bob.page.goto(`${origin}/app/pages/${created.pageId}`, { waitUntil: 'networkidle' });
   await ok(bob.context, origin, 'PUT', '/api/navigation/favourites', { operationKey: randomUUID(), kind: 'page', id: created.pageId, enabled: true });
   await bob.page.goto(origin + '/app', { waitUntil: 'networkidle' });
@@ -56,8 +59,17 @@ export async function homeJourney(state, people) {
   const navigation = await ok(bob.context, origin, 'GET', '/api/navigation');
   assert.ok(!navigation.recents.some(item => item.id === created.pageId || item.id === privatePage));
   assert.ok(!navigation.favourites.some(item => item.id === created.pageId));
+  assert.ok(!navigation.containers.some(item => item.id === privateSpace));
   await expect(bob.page.getByRole('main')).not.toContainText(title);
   await expect(bob.page.getByRole('main')).not.toContainText(privateTitle);
+  await expect(bob.page.getByRole('main')).not.toContainText('Personal navigation');
   await accessible(bob.page, 'personal Home after access removal');
   await people.shot('bob', 'personal home access removed');
+  const unwatchedTitle = 'Unwatched coordination note';
+  const unwatched = (await ok(alice.context, origin, 'POST', '/api/pages', { operationKey: randomUUID(), containerId: privateSpace, title: unwatchedTitle })).value.pageId;
+  await grant(alice.context, origin, unwatched, bob.id, 'view');
+  assert.equal((await ok(bob.context, origin, 'GET', `/api/pages/${unwatched}`)).page.title, unwatchedTitle);
+  await bob.page.reload({ waitUntil: 'networkidle' });
+  await expect(bob.page.getByRole('region', { name: 'Following', exact: true })).not.toContainText(unwatchedTitle);
+  assert.ok(!(await ok(bob.context, origin, 'GET', '/api/navigation/following')).items.some(item => item.pageId === unwatched), 'Readable but unwatched activity does not become a workspace feed.');
 }

@@ -35,7 +35,7 @@ export async function attentionJourney() {
     const currentRun = await ok(owner, 'GET', `/api/runs/${run.value.id}`);
     const pause = { operationKey: key(), expectedRevisionId: currentRun.revisionId, action: 'pause', reason: 'Owner is checking the handoff.' };
     await ok(owner, 'POST', `/api/runs/${run.value.id}/control`, pause);
-    expect((await notices()).filter(item => item.detail?.runId === run.value.id)).toHaveLength(1, 'An owner pausing their own run adds no self notification.');
+    expect((await notices()).filter(item => item.detail?.runId === run.value.id), 'An owner pausing their own run adds no self notification.').toHaveLength(1);
 
     await ok(owner, 'POST', '/api/sharing', { operationKey: key(), id: f.readerGrant, targetKind: 'page', targetId: f.page.pageId, principalKind: 'member', principalId: f.reader, level: 'edit' });
     const input = { operationKey: key(), pageId: f.page.pageId, question: 'Who must approve the handoff?', options: ['Keep the current owner', 'Choose a new owner'], outcome: 'Keep the current owner', rationale: 'The named owner must decide before work proceeds.', ownerId: f.owner, decidedAt: null, reviewAt: '2028-01-02T12:00:00.000Z', citations: f.refs };
@@ -48,7 +48,7 @@ export async function attentionJourney() {
     vi.setSystemTime(new Date('2028-01-03T12:00:00.000Z'));
     await notifyOverdueDecisions(env as AppBindings, new Date().toISOString());
     await notifyOverdueDecisions(env as AppBindings, new Date().toISOString());
-    expect((await notices()).filter(item => item.detail?.decisionId === decision.value.id)).toHaveLength(2, 'One initial decision and one overdue decision remain distinct.');
+    expect((await notices()).filter(item => item.detail?.decisionId === decision.value.id), 'One initial decision and one overdue decision remain distinct.').toHaveLength(2);
     const accepted = await ok(owner, 'GET', `/api/decisions/${decision.value.id}`);
     await ok(owner, 'POST', `/api/decisions/${decision.value.id}/review`, { operationKey: key(), expectedRevisionId: accepted.revision_id, note: 'Owner reviewed the outstanding choice.', nextReviewAt: null });
     expect((await ok(owner, 'GET', '/api/notifications/today')).decisions.some((item: any) => item.detail?.decisionId === decision.value.id)).toBe(false);
