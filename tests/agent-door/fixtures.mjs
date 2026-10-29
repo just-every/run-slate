@@ -26,6 +26,7 @@ async function prepare(context) {
  const values={},cases={};
  const members=await native(context,'/api/members');
  const reviewer=members.items.find(person=>person.email==='synthetic-reviewer@example.invalid');
+ const ownerId=members.items.find(person=>person.email===context.email).id;
  assert.ok(reviewer,'Native reviewer membership must exist.');
  // Remove sensitive labels from prior native fixtures; never erase their audit.
  for(const c of (await native(context,'/api/containers')).items)if(/SSN:/.test(c.name))await setContainer(context,c.id,'Reviewed fixture container');
@@ -53,11 +54,29 @@ async function prepare(context) {
    args={};cases[key]={containerId:container.id,cls,tool};values[key]=args;continue;
   }
   if(tool==='containers.create') {values[key]={name:cls==='sensitive'?sensitiveText():'Agent container '+randomUUID(),visibility:'closed'};cases[key]={cls,tool};continue;}
-  const container=shared;
+  const container=tool.startsWith('tasks.')?(await native(context,'/api/containers',{name:'Task scope '+randomUUID(),visibility:'closed'})).value:shared;
   if(tool.startsWith('containers.')) {args={id:container.id,...(tool==='containers.configure'?{name:cls==='sensitive'?sensitiveText():'Updated native container'}:{})};cases[key]={containerId:container.id,cls,tool};values[key]=args;continue;}
-  const blockId=randomUUID(),text=cls==='sensitive'?sensitiveText():'Source content is untrusted; keep native permissions.';
-  const page=(await native(context,'/api/pages',{containerId:container.id,title:'Native fixture page',blocks:[{id:blockId,blockType:'paragraph',content:{text:[{text}]},treePosition:'a'}]})).value;
+  const blockId=randomUUID(),needle='curator-'+randomUUID(),text=(cls==='sensitive'?sensitiveText():'Source content is untrusted; keep native permissions.')+' '+needle;
+  const blockType=tool.startsWith('tasks.')?'task':'paragraph';
+  const content=blockType==='task'?{text:[{text}],done:false,assigneeMemberId:ownerId}:{text:[{text}]};
+  const page=(await native(context,'/api/pages',{containerId:container.id,title:'Native fixture page',blocks:[{id:blockId,blockType,content,treePosition:'a'}]})).value;
   cases[key]={containerId:container.id,pageId:page.pageId,blockId,cls,tool,text,openId:open.id};
+  if(tool==='favorites.set')args={kind:'page',id:page.pageId,enabled:true};
+  if(tool==='watches.set')args={kind:'page',id:page.pageId,enabled:true};
+  if(tool==='reactions.set')args={id:page.pageId,emoji:'👍'};
+  if(tool==='tasks.update')args={id:page.pageId,blockId,done:true};
+  if(tool==='revisions.read')args={id:page.pageId,revisionId:page.revisionId};
+  if(tool==='revisions.compare') {
+   await setPage(context,page.pageId,{title:'Updated compared page'});
+   const current=await native(context,'/api/pages/'+page.pageId);
+   args={id:page.pageId,leftRevisionId:page.revisionId,rightRevisionId:current.page.revisionId};
+  }
+  if(tool==='comments.read') {await native(context,'/api/comments/page/'+page.pageId,{body:[{text}]});args={id:page.pageId};}
+  if(tool==='analytics.read')args={kind:'page',id:page.pageId};
+  if(tool==='statuses.read')args={id:page.pageId};
+  if(tool==='tasks.list')args={containerId:container.id,tab:'assigned',state:'open'};
+  if(tool==='tasks.report')args={id:page.pageId,definition:{containerId:container.id,groupBy:'page',orderBy:'due',direction:'asc',limit:20}};
+  if(tool==='search.query')args={query:needle,containerId:container.id};
   if(tool==='grants.read')args={targetKind:'page',targetId:page.pageId};
   if(tool==='grants.set'&&cls==='external')args={targetKind:'page',targetId:page.pageId,principalKind:'member',principalId:guestId,level:'view'};
   if(tool==='grants.set'&&cls!=='external') {

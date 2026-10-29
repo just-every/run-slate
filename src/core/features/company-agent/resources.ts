@@ -25,7 +25,7 @@ export function nativeResources(env:AppBindings):ResourceDefinition[] {
     ['blocks/{id}',async(p,c)=>{const row=await c.db.prepare('SELECT page_id FROM page_blocks WHERE id=?').bind(p[1]).first<{page_id:string}>();if(!row)throw new ApiProblem(404,'NOT_FOUND','Not found.');const document=await readPage(c,row.page_id);return document.blocks.find(b=>b.id===p[1])??null;}],
     ['databases/{id}',async(p,c)=>({database:await database(c,p[1]!),fields:await fields(c,p[1]!)})],
     ['records/{id}',(p,c)=>openRecord(c,p[1]!)],
-    ['threads/{id}',async(p,c)=>{const row=await c.db.prepare('SELECT page_id FROM comment_threads WHERE id=?').bind(p[1]).first<{page_id:string}>();if(!row)throw new ApiProblem(404,'NOT_FOUND','Not found.');const comments=await listComments(c,row.page_id);return {...comments,threads:comments.threads.filter(thread=>thread.id===p[1])};}],
+    ['threads/{id}',async(p,c)=>{const row=await c.db.prepare('SELECT page_id FROM comment_threads WHERE id=?').bind(p[1]).first<{page_id:string}>();if(!row)throw new ApiProblem(404,'NOT_FOUND','Not found.');const comments=await listComments(c,row.page_id);const selected=comments.comments.filter(comment=>comment.threadId===p[1]);const ids=new Set(selected.map(comment=>comment.id));return {threads:comments.threads.filter(thread=>thread.id===p[1]),comments:selected,reactions:comments.reactions.filter(reaction=>ids.has(String(reaction.commentId)))};}],
     ['sources/{id}/passages/{passage}',async(p,c)=>{const row=await c.db.prepare('SELECT revision_id FROM federation_passages WHERE id=? AND source_id=?').bind(p[3],p[1]).first<{revision_id:string}>();if(!row)throw new ApiProblem(404,'NOT_FOUND','Not found.');return resolveEvidence(c,[{kind:'source',sourceId:p[1]!,revisionId:row.revision_id,passageId:p[3]!}],[c.actor.id]);}],
     ['decisions/{id}',(p,c)=>getDecision(c,p[1]!)],
     ['inquiries/{id}',(p,c)=>inquiryView(c,p[1]!)],
@@ -36,8 +36,9 @@ export function nativeResources(env:AppBindings):ResourceDefinition[] {
     async read(uri,context) {
       if(env.SLATE_PROFILE!=='flagship'&&['sources/{id}/passages/{passage}','inquiries/{id}','runs/{id}'].includes(template))return null;
       const actor=await nativeMember(env.DB,context.person.id);if(!actor)return null;
-      const url=new URL(uri);if(url.protocol!=='slate:'||url.search||url.hash)return null;
-      const parts=[url.hostname,...url.pathname.split('/').filter(Boolean).map(decodeURIComponent)];
+      let url:URL,parts:string[];
+      try {url=new URL(uri);if(url.protocol!=='slate:'||url.search||url.hash)return null;parts=[url.hostname,...url.pathname.split('/').filter(Boolean).map(decodeURIComponent)];}
+      catch {return null;}
       const grant=await nativeClientGrant(env,context);if(grant&&(!grant.valid||!['pages','blocks'].includes(parts[0]!)||parts.length>2))return null;
       const ctx:FeatureContext={...(grant?{containerScopeIds:grant.scopes.map(scope=>scope.containerId)}:{}),db:env.DB,files:env.FILES,jobs:env.JOBS,actor,now:new Date().toISOString()};
       try {const value=await reader(parts,ctx);return value===null?null:{json:value,untrusted:true};}

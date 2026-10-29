@@ -32,6 +32,7 @@ export async function browserProof({request,origin,cookie}) {
    if(path==='/docs/agents')await page.getByRole('heading',{name:'Company agent access',exact:true}).waitFor();
    if(path==='/app/settings?section=activity')assert.match(await page.locator('body').innerText(),/Agent door conformance for Morgan Lee/);
    await page.setViewportSize({width:390,height:844});
+   if(path==='/app/settings?section=activity')await page.getByText('Agent door conformance for Morgan Lee',{exact:false}).first().scrollIntoViewIfNeeded();
    await page.screenshot({path:join(directory,label+'-390.png'),fullPage:false});
    await page.setViewportSize({width:1440,height:1000});
   }
