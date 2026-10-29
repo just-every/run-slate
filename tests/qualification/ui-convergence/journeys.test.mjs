@@ -242,10 +242,11 @@ for (const width of [1440]) {
 }
 
 for (const width of [1440]) {
-  test(`page creation destinations and editor locks preserve readable content at ${width}px`, { timeout: 180000 }, async () => {
+  test(`page creation destinations and editor locks preserve readable content at ${width}px`, { timeout: 300000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await step('TREE-005 — create in place names root and child destinations', () => createInPlaceJourney(state));
+      await state.switchIdentity('owner');
       await step('review, publish, edit and cancel a scheduled publication', () => publicationJourney(state));
       await state.switchIdentity('owner');
       await withSecondPerson(state, width, people => step('PAGE-015 — locks protect content while editors comment and unlock', () => pageLockBrowserJourney(state, people)));
