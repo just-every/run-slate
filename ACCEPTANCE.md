@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 48 | 249 | 34 | 331 |
+| Core | 49 | 248 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 48 | 249 | 40 | 337 |
+| Full target | 49 | 248 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `d2cf3c83e1063eff466601bb47a430e18db6145e` (29 October 2026); BLOCK-001 source proof, retaining the earlier clause judgments. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -591,7 +591,7 @@ Core · published · **done**
 
 #### BLOCK-001 — A body of blocks
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A page body is an ordered tree of typed blocks, each with an identifier, a type, content, and optional children.
 
@@ -600,8 +600,8 @@ Core · published · **partial**
 2. Block identifiers survive editing, moving and export, and an anchored comment (`COMM-001`) points at one.
 3. Blocks reorder, nest, multi-select, duplicate and delete with identifiers surviving edits, moves and export.
 
-**Evidence.** `tests/qualification/interface/routed.browser.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/routed.browser.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/block-structure-journey.mjs` — "blockStructureJourney" (acceptance 1–3: native structural actions, committed tree, retained identifiers, anchored comment and downloaded export); `tests/qualification/ui-convergence/touch-page.mjs` — "touchWriteJourney"; `tests/qualification/ui-convergence/columns-journey.mjs` — "columnsJourney"; `tests/ui/polish/editor.mjs` — "editorJourney"
+**Gap.** None.
 
 #### BLOCK-002 — Inline text
 

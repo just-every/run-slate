@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `d2cf3c83e1063eff466601bb47a430e18db6145e` (29 October 2026); BLOCK-001 source proof, retaining the earlier clause judgments. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 32 | 194 | 0 | 226 |
+| Published | 33 | 193 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 48 | 249 | 40 | 337 |
+| All | 49 | 248 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4025,7 +4025,7 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `TREE-003` | Shared with me | published | done | `tests/qualification/ui-convergence/shared-navigation-journey.mjs` — "sharedNavigationJourney" |  |
 | `TREE-004` | Filter the tree | published | done | `tests/qualification/ui-convergence/tree-filter-journey.mjs` — "treeFilterJourney" |  |
 | `TREE-005` | Create in place | published | done | `tests/qualification/ui-convergence/create-in-place-journey.mjs` — "createInPlaceJourney" |  |
-| `BLOCK-001` | A body of blocks | published | partial | `tests/qualification/interface/routed.browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/routed.browser.mjs`. |
+| `BLOCK-001` | A body of blocks | published | done | `tests/qualification/ui-convergence/block-structure-journey.mjs` — "blockStructureJourney" (acceptance 1–3: native structural actions, committed tree, retained identifiers, anchored comment and downloaded export); `tests/qualification/ui-convergence/touch-page.mjs` — "touchWriteJourney"; `tests/qualification/ui-convergence/columns-journey.mjs` — "columnsJourney"; `tests/ui/polish/editor.mjs` — "editorJourney" |  |
 | `BLOCK-002` | Inline text | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Text in a block carries bold, italic, underline, strikethrough, inline code, color, links, and mentions, and nothing else."<br>No validated CI-run proof for this acceptance point: "It is stored in one format, rendered under `BASE-INPUT-002`, and round-trips unchanged through page export, workspace export and import." |
 | `BLOCK-003` | The insert menu | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Typing `/` at the cursor opens an insert menu grouped by kind, filtered by what is typed, navigable and selectable by keyboard alone, and it inserts at the cursor without leaving the editor."<br>No validated CI-run proof for this acceptance point: "Every block type this contract names is reachable from it, and on a touch client the same list is reachable from a labeled control above the keyboard." |
 | `BLOCK-004` | Markdown shortcuts | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |

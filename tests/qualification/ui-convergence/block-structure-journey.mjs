@@ -49,6 +49,12 @@ export async function blockStructureJourney(state, width) {
   }
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   await reconcile('Initial typed blocks');
+  await handle(a).focus();
+  await page.keyboard.press('Shift+Tab');
+  await page.keyboard.press('Tab');
+  await expect(handle(a)).toBeFocused();
+  await expect.poll(() => handle(a).evaluate(element => getComputedStyle(element, '::after').opacity)).toBe('1');
+  await page.screenshot({ path: `.artifacts/ui-convergence/block-structure-${width}-handle.png`, fullPage: true });
 
   // Make an actual selected-text comment before editing or moving its source.
   const quote = 'Open the response';
@@ -182,6 +188,7 @@ export async function blockStructureJourney(state, width) {
   const output = await context.newPage();
   try {
     await output.setContent(decode(`pages/${pageId}.html`));
+    assert.deepEqual(await output.locator('[id^="slate-block-"]').evaluateAll(elements => elements.map(element => element.id)), expected.map(block => `slate-block-${block.id}`), 'The readable document renders each retained identifier in committed order.');
     for (const block of expected) await expect(output.locator(`#slate-block-${block.id}`)).toContainText(block.content.text.map(span => span.text).join(''));
     const link = output.getByRole('link', { name: 'Inline thread', exact: true });
     await expect(link).toHaveAttribute('href', `#slate-block-${a}`);
