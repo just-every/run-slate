@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 41 | 256 | 34 | 331 |
+| Core | 43 | 254 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 41 | 256 | 40 | 337 |
+| Full target | 43 | 254 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `69372673caf6b97f051efc9631f40e9a6b2fa99a` (29 October 2026); ACT-001 atomic timeline and ACT-004 exact-context source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -2044,7 +2044,7 @@ Core · published · **partial** · Cites BASE-MAIL-001
 
 #### ACT-001 — Durable timeline
 
-Core · published · **partial** · Cites BASE-AUDIT-001, BASE-OPS-005
+Core · published · **done** · Cites BASE-AUDIT-001, BASE-OPS-005
 
 **Requirement.** Wiki changes and their activity entries commit together. Slate activity identifies the wiki operation and its operation key, automation run or AI run.
 
@@ -2052,8 +2052,8 @@ Core · published · **partial** · Cites BASE-AUDIT-001, BASE-OPS-005
 1. A page mutation and its activity entry are both present after commit, or neither is present after a failed commit.
 2. An entry links to the exact page, revision, comment or grant and records the responsible feature when it is a scheduled wiki operation.
 
-**Evidence.** `tests/qualification/core/audit-content.test.ts` — ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor/time; `tests/flagship/core/security.test.ts` — first-run, operation replay, atomic rollback and membership policies preserve authority
-**Gap.** Native atomic commit, late D1 rollback and scheduled attribution pass locally; exact-context browser proof and exact-candidate Verify remain pending.
+**Evidence.** Acceptance 1: `tests/qualification/core/audit-content.test.ts` — ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time, pageDurabilityProof; `tests/flagship/core/security.test.ts` — first-run, operation replay, atomic rollback and membership policies preserve authority. Acceptance 2: `tests/qualification/core/audit-content.test.ts` — ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time, scheduled publication and activityContextProof; `tests/qualification/ui-convergence/activity-context-journey.mjs` — activityContextJourney, loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — page outline follows headings and navigates long pages at 1440px.
+**Gap.** None.
 
 #### ACT-002 — Coverage
 
@@ -2083,7 +2083,7 @@ Core · published · **partial** · Cites BASE-AUDIT-001, BASE-ROLE-001
 
 #### ACT-004 — Context
 
-Core · published · **partial** · Cites BASE-AUDIT-001
+Core · published · **done** · Cites BASE-AUDIT-001
 
 **Requirement.** Opening an activity entry opens the record it describes together with the comment thread, revision or grant it references, and changes no entry.
 
@@ -2091,8 +2091,8 @@ Core · published · **partial** · Cites BASE-AUDIT-001
 1. Opening an activity entry opens the record it describes together with the comment thread, revision or grant it references, and changes no entry.
 2. Opening an entry opens the record with its referenced thread, revision or grant.
 
-**Evidence.** `tests/qualification/core/discovery-browser.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`.
+**Evidence.** Acceptance 1 and 2: `tests/qualification/ui-convergence/activity-context-journey.mjs` — activityContextJourney, loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — page outline follows headings and navigates long pages at 1440px; `tests/qualification/core/audit-content.test.ts` — ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time, activityContextProof. Native receipts retain the exact page revision, comment, thread and grant; opening and reloading retain the complete entries, and revoked readers cannot read targets.
+**Gap.** None.
 
 #### ACT-005 — Retained explanation
 

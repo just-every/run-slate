@@ -53,4 +53,15 @@ export async function activityContextJourney(state) {
    await expect(page.locator('body')).not.toContainText(/synthetic-slate-(referenced|current)/);
   }
  } finally {await state.switchIdentity('owner');}
+ // Following a retained grant entry after revocation must identify it without restoring it.
+ const beforeGrantRead=await api(`/api/sharing/pages/${pageId}`);
+ await page.goto(origin+'/app/settings?section=activity',{waitUntil:'networkidle'});
+ await page.locator(`[data-activity-id="${grant.receipt.activityId}"]`).getByRole('link',{name:/Open page/}).click();
+ const revoked=page.locator(`#grant-${grant.value.id}`);
+ await expect(revoked).toContainText('Referenced grant');await expect(revoked).toContainText('Revoked');
+ await page.reload({waitUntil:'networkidle'});await expect(revoked).toContainText('Revoked');
+ assert.deepEqual(await api(`/api/sharing/pages/${pageId}`),beforeGrantRead,'Reading the exact revoked grant cannot regrant access.');
+ await state.switchIdentity('reader');
+ try {assert.equal((await call(context,origin,'GET',`/api/pages/${pageId}`)).status,404);}
+ finally {await state.switchIdentity('owner');}
 }
