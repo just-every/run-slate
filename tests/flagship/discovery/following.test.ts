@@ -3,6 +3,7 @@ import {beforeEach,expect,test} from 'vitest';
 import {resetDeployment} from '../../e2e/setup/reset-deployment';
 import {seedPage,seedPageGrant} from '../../e2e/setup/fixtures';
 import {followingFixture} from './following-support';
+import {meaningfulNotifications} from './meaningful-notifications';
 beforeEach(resetDeployment);
 
 test('PAGE-016 — authoring watches respect durable unwatch, personal overrides and workspace defaults',async()=>{
@@ -39,6 +40,7 @@ test('PAGE-016 — authoring watches respect durable unwatch, personal overrides
  await f.preferences(f.editor,true);
  const overridden=(await f.create('Personal autowatch on',f.editor)).value.pageId;
  expect((await f.ok(f.editor,'GET','/api/navigation')).watches).toContain(overridden);
+ await meaningfulNotifications(f);
 });
 
 test('CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access',async()=>{
