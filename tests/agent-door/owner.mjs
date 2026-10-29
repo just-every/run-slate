@@ -9,6 +9,7 @@ export default async function({request,origin,email,token,claim,reviewers}) {
  const read=await request(new URL('/api/workspace',origin).href,{headers:{cookie}});assert.equal(read.status,200);await read.body?.cancel();
  const replay=await request(new URL(claim.path,origin).href,{method:'POST',headers,body:JSON.stringify({token:claim.token}),redirect:'manual'});assert.equal(replay.status,409);await replay.body?.cancel();
  await reviewers.initialize('reviewer',{cookie});
+ await reviewers.initialize('guest',{cookie});
  console.log('Native owner bootstrap: raw=403 signed=303 owner-read=200 replay=409');
  return response;
 }

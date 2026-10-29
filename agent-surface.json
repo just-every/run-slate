@@ -786,15 +786,13 @@
           },
           "blockRevisions": {
             "type": "object",
-            "propertyNames": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 160
-            },
-            "additionalProperties": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 160
+            "additionalProperties": false,
+            "patternProperties": {
+              "^[\\s\\S]{1,160}$": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              }
             }
           },
           "id": {
@@ -940,8 +938,8 @@
               }
             ]
           },
-          "title": {
-            "type": "string"
+          "includeChildren": {
+            "type": "boolean"
           }
         },
         "required": [
@@ -984,6 +982,131 @@
       }
     },
     {
+      "name": "slate.grants.read",
+      "scope": "slate.grants.read",
+      "clauses": [
+        "SHARE-001",
+        "SHARE-008"
+      ],
+      "classes": [
+        "standard"
+      ],
+      "readOnly": true,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "targetKind": {
+            "type": "string",
+            "enum": [
+              "page",
+              "container"
+            ]
+          },
+          "targetId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "targetKind",
+          "targetId"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "slate.grants.set",
+      "scope": "slate.grants.set",
+      "clauses": [
+        "SHARE-001",
+        "SHARE-002",
+        "SHARE-003",
+        "SHARE-004",
+        "SHARE-005",
+        "SHARE-007",
+        "SHARE-008",
+        "CONT-009",
+        "SHARE-009"
+      ],
+      "classes": [
+        "access",
+        "external",
+        "sensitive"
+      ],
+      "readOnly": false,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "targetKind": {
+            "type": "string",
+            "enum": [
+              "page",
+              "container"
+            ]
+          },
+          "targetId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "principalKind": {
+            "type": "string",
+            "enum": [
+              "member",
+              "group",
+              "container",
+              "workspace"
+            ]
+          },
+          "principalId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "view",
+              "comment",
+              "edit",
+              "full"
+            ]
+          },
+          "expiresAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "revoke": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "targetKind",
+          "targetId",
+          "principalKind",
+          "principalId",
+          "level"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
       "name": "slate.events.list",
       "scope": "events:read",
       "clauses": [
@@ -1008,7 +1131,314 @@
     "slate://inquiries/{id}",
     "slate://runs/{id}"
   ],
-  "notTools": [],
+  "notTools": [
+    {
+      "clauses": [
+        "HOME-001"
+      ],
+      "reason": "installation"
+    },
+    {
+      "clauses": [
+        "HOME-002"
+      ],
+      "reason": "installation"
+    },
+    {
+      "clauses": [
+        "HOME-003"
+      ],
+      "reason": "installation"
+    },
+    {
+      "clauses": [
+        "DOCS-001"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "WORK-012"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "WORK-014"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "PAGE-010"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "PAGE-011"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "BLOCK-003"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "BLOCK-004"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "NAV-004"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "NAV-006"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "IMP-001"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "IMP-015"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "IMP-002"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "IMP-003"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "IMP-016"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "IMP-004"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "IMP-005"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "FLAG-001"
+      ],
+      "reason": "installation"
+    },
+    {
+      "clauses": [
+        "FLAG-002"
+      ],
+      "reason": "installation"
+    },
+    {
+      "clauses": [
+        "FLAG-003"
+      ],
+      "reason": "installation"
+    },
+    {
+      "clauses": [
+        "FLAG-004"
+      ],
+      "reason": "installation"
+    },
+    {
+      "clauses": [
+        "COLLAB-002"
+      ],
+      "reason": "device"
+    },
+    {
+      "clauses": [
+        "COLLAB-004"
+      ],
+      "reason": "installation"
+    },
+    {
+      "clauses": [
+        "CARD-002"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "IMP-006"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "IMP-007"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "IMP-008"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "IMP-009"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "IMP-010"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "IMP-011"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "IMP-012"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "IMP-013"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "IMP-014"
+      ],
+      "reason": "import-door"
+    },
+    {
+      "clauses": [
+        "MOBILE-001"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "MOBILE-002"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "MOBILE-003"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "MOBILE-004"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "SAVE-001"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "SAVE-002"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "SAVE-004"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "WORK-013"
+      ],
+      "reason": "installation"
+    },
+    {
+      "clauses": [
+        "BLOCK-021"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "AGENT-002"
+      ],
+      "reason": "installation"
+    },
+    {
+      "clauses": [
+        "API-001"
+      ],
+      "reason": "installation"
+    },
+    {
+      "clauses": [
+        "API-005"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "API-003"
+      ],
+      "reason": "installation"
+    },
+    {
+      "clauses": [
+        "AI-011"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "AI-012"
+      ],
+      "reason": "screen"
+    },
+    {
+      "clauses": [
+        "MAIL-001"
+      ],
+      "reason": "installation"
+    }
+  ],
   "journey": [
     {
       "id": "workspace_read_standard",
@@ -1777,6 +2207,102 @@
       }
     },
     {
+      "id": "grants_read_standard",
+      "tool": "slate.grants.read",
+      "args": {
+        "$fixture": "grants_read_standard",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "grants_set_access",
+      "tool": "slate.grants.set",
+      "args": {
+        "$fixture": "grants_set_access",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "access",
+          "facts": {
+            "measure": 1,
+            "direction": "narrows"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "grants_set_external",
+      "tool": "slate.grants.set",
+      "args": {
+        "$fixture": "grants_set_external",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "access",
+          "facts": {
+            "measure": 1,
+            "direction": "widens"
+          }
+        },
+        {
+          "class": "external",
+          "facts": {
+            "measure": 1,
+            "counterparty": "known"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
+      "id": "grants_set_sensitive",
+      "tool": "slate.grants.set",
+      "args": {
+        "$fixture": "grants_set_sensitive",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "access",
+          "facts": {
+            "measure": 1,
+            "direction": "narrows"
+          }
+        },
+        {
+          "class": "sensitive",
+          "facts": {
+            "measure": 1,
+            "kind": "regulated ID"
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true,
+        "confirmedByHuman": true
+      }
+    },
+    {
       "id": "events_list_standard",
       "tool": "slate.events.list",
       "args": {
@@ -1791,6 +2317,62 @@
           }
         }
       ]
+    },
+    {
+      "id": "local_page_read",
+      "tool": "slate.pages.read",
+      "client": "reader",
+      "args": {
+        "$fixture": "local_page",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "local_page_create",
+      "tool": "slate.pages.create",
+      "client": "local",
+      "args": {
+        "$fixture": "local_create",
+        "pointer": ""
+      },
+      "expect": [
+        {
+          "class": "standard",
+          "facts": {
+            "measure": 1
+          }
+        }
+      ],
+      "inject": {
+        "internal": true,
+        "confirmExternal": true
+      }
+    }
+  ],
+  "escalations": [
+    {
+      "id": "own_grant_widen",
+      "tool": "slate.grants.set",
+      "args": {
+        "targetKind": "page",
+        "targetId": {
+          "$fixture": "escalation_page",
+          "pointer": ""
+        },
+        "principalKind": "member",
+        "principalId": {
+          "$sponsor": "id"
+        },
+        "level": "full"
+      }
     }
   ],
   "witness": {
@@ -1814,6 +2396,11 @@
         "label": "reviewer",
         "email": "synthetic-reviewer@example.invalid",
         "initializer": "tests/agent-door/reviewer.mjs"
+      },
+      {
+        "label": "guest",
+        "email": "synthetic-guest@example.invalid",
+        "initializer": "tests/agent-door/guest.mjs"
       }
     ],
     "fixtures": {

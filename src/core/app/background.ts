@@ -1,3 +1,4 @@
+import {consumeAgentJob,recoverAgentJobs} from '../features/company-agent/jobs';
 import { pruneAudit } from '../features/activity/audit-settings';
 import { scheduleWebhooks } from '../features/webhooks/worker';
 import { recheckSamlDomains } from '../features/session/saml/domain';
@@ -20,7 +21,7 @@ export async function consumeJobs(batch:MessageBatch<unknown>,env:AppBindings){
       if (readLaunchProfile(env.SLATE_PROFILE) === 'core-wiki' && isFlagshipJob(message.body)) {
         throw new ApiProblem(403, 'FEATURE_DISABLED', 'This job requires the flagship profile.');
       }
-      const handled=(!!message.body&&typeof message.body==='object'&&'kind' in message.body&&message.body.kind==='core.health')||await consumeIntelligenceJob(env,message.body)||await handleDiscoveryJob(env,message.body)||await handleAutomationJob(env,message.body)||await consumeFederationJob(env,message.body);
+      const handled=(!!message.body&&typeof message.body==='object'&&'kind' in message.body&&message.body.kind==='core.health')||await consumeAgentJob(env,message.body)||await consumeIntelligenceJob(env,message.body)||await handleDiscoveryJob(env,message.body)||await handleAutomationJob(env,message.body)||await consumeFederationJob(env,message.body);
       if(!handled)throw new Error('UNSUPPORTED_JOB');
       await env.DB.prepare("UPDATE core_job_failures SET state='recovered',updated_at=? WHERE id=?").bind(new Date().toISOString(),message.id).run();
       message.ack();
@@ -33,6 +34,7 @@ export async function consumeJobs(batch:MessageBatch<unknown>,env:AppBindings){
 export async function scheduledJobs(env:AppBindings,now=new Date().toISOString()){
   const flagship = readLaunchProfile(env.SLATE_PROFILE) === 'flagship';
   const tasks: [string, () => Promise<unknown>][] = [
+    ['company-agent', () => recoverAgentJobs(env)],
     ['audit-retention', () => pruneAudit(env,now)],
     ['webhooks', () => scheduleWebhooks(env,now)],
     ['saml-domains', () => recheckSamlDomains(env.DB)],

@@ -1,3 +1,4 @@
+import {browserProof} from './browser.mjs';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {phases,native,setContainer,setPage,sensitiveText} from './fixtures.mjs';
@@ -8,7 +9,7 @@ export async function beforeStep(context) {
   if(['navigation.read','containers.list','containers.read'].includes(info.tool))await setContainer(context,info.containerId,sensitiveText());
   if(info.tool==='pages.list')await setPage(context,info.pageId,{title:sensitiveText()});
  }
- if(info.cls==='external') {
+ if(info.cls==='external'&&info.tool!=='grants.set') {
   const page=await native(context,'/api/pages/'+info.pageId);
   if(!page.publishedRevisionId){const preview=await native(context,'/api/pages/'+info.pageId+'/publish-preview',{expectedRevisionId:page.page.revisionId});await native(context,'/api/pages/'+info.pageId+'/publish',{expectedRevisionId:page.page.revisionId,previewFingerprint:preview.previewFingerprint});}
   const current=await native(context,'/api/pages/'+info.pageId);
@@ -29,5 +30,6 @@ export default async function({request,origin,cookie,tool}) {
  const response=await request(new URL('/api/workspace',origin).href,{headers:{cookie}});assert.equal(response.status,200);
  const native=await response.json(),agent=await tool('slate.workspace.read',{});
  assert.equal(agent.result.structuredContent.id,native.id);
+ await browserProof({request,origin,cookie});
  console.log('Wiki curator native/agent workspace read parity: passed');
 }
