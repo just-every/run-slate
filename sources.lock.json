@@ -9468,7 +9468,7 @@
       "executable": false
     },
     "src/core/features/templates/permissions.ts": {
-      "sha256": "7aa5061e901af9c889a65094311c5566832f685a2ff1dc6eb3ea83c5536ac16b",
+      "sha256": "092b32d95f16307d7bef853b27130fabb2f0dc5a83f7fb901eda2f1b09e4a68a",
       "executable": false
     },
     "src/core/features/templates/routes.ts": {
