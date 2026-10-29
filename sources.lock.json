@@ -12196,7 +12196,7 @@
       "executable": false
     },
     "tests/ui/polish/controls.mjs": {
-      "sha256": "ebdd921eca260fa9a880cbe90875f4fd6522f8c93ffa0101c63229f422689af3",
+      "sha256": "8545a567ae0ee328031fec56001859de0baba9c314fa5c9443cbc91aa5ef4734",
       "executable": false
     },
     "tests/ui/polish/editor-focus-transport.mjs": {
