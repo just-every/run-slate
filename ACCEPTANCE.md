@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 40 | 257 | 34 | 331 |
+| Core | 41 | 256 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 40 | 257 | 40 | 337 |
+| Full target | 41 | 256 | 40 | 337 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -165,7 +165,7 @@ Core · published · **done** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-RO
 
 #### WORK-010 — Guests
 
-Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001
+Core · published · **done** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001
 
 **Requirement.** A guest is a person invited to named pages or containers only.
 
@@ -174,8 +174,8 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 2. A container may forbid guests (`CONT-007`).
 3. A guest reaches only granted pages and sees no container index, member list or search results beyond grants.
 
-**Evidence.** `tests/qualification/core/identity.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/guest-scope-journey.mjs` — "guestScopeJourney", through "workspaceAuthorityJourney" in `tests/qualification/ui-convergence/workspace-authority-journey.mjs`, called by "space tree title filtering preserves ancestors, access and expansion at 390px" and "page outline follows headings and navigates long pages at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: guest admission preserves member list and count; named page and container grants bound reads and search while workspace indexes stay denied; the container veto immediately removes access; revocation survives grant and invitation replay.
+**Gap.** None.
 
 #### WORK-011 — Workspace settings
 
