@@ -53,6 +53,12 @@ export async function presentationJourney({ page, context, origin, api }) {
   await page.screenshot({ path: `.artifacts/ui-convergence/presentation-${width}-last-slide.png` });
   await page.keyboard.press('PageUp');
   await expect(dialog.getByRole('status')).toHaveText('2 / 3');
+  await page.keyboard.press('ArrowLeft');
+  await expect(dialog.getByRole('status')).toHaveText('1 / 3');
+  await expect(dialog).toContainText('Weekly operations review');
+  await page.keyboard.press('PageDown');
+  await expect(dialog.getByRole('status')).toHaveText('2 / 3');
+  await expect(dialog).toContainText('Customer impact');
   await page.keyboard.press('Escape');
   await expect(dialog).toHaveCount(0);
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(scroll);

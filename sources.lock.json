@@ -5464,7 +5464,7 @@
       "executable": false
     },
     "src/core/app/ui/KeyboardReference.tsx": {
-      "sha256": "34cd4898e8e0b5c47695e2f36cb6b09bb2e566a1f9c076186ae3fe1e0958c46b",
+      "sha256": "26d0268d4a536c2876d56ab52e9b33eb6a25c0d2de170ed88ec3f172c7ee2749",
       "executable": false
     },
     "src/core/app/ui/LaunchProfile.tsx": {
@@ -11976,7 +11976,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/presentation-journey.mjs": {
-      "sha256": "9b4000a239d27fddb4d716411aba3e7361c1a83cd65d3d83416214cf11752517",
+      "sha256": "09db2ce0a16c3b7ac5545e74ae01022c7525b3d916b75d3e593217086e02cacd",
       "executable": false
     },
     "tests/qualification/ui-convergence/provider-embeds-journey.mjs": {
@@ -11992,7 +11992,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "68662c4088eef48e286591bbdbbd73c938ee9821ae26086ccdb4183013c92c33",
+      "sha256": "5c5d06476cc318768cef2f222459a8f05e4cea99459418c0b984c75dab2b59b2",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
@@ -12021,6 +12021,10 @@
     },
     "tests/qualification/ui-convergence/sharing-journey.mjs": {
       "sha256": "e69a4fafd7067637f7f34c10d0dd7c3571d5cc6b8fbcbb132574e5201fcb992b",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/shortcut-reference-journey.mjs": {
+      "sha256": "884cb5a3aa22f4f2a38e4f07284815905462fc0d1654a56eca9978befca315af",
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {
@@ -12148,7 +12152,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "075400979c16283b3de207f37725ad4322a09a93775c093198b5fed83fbd6b88",
+      "sha256": "a44c8fa79ae8b39488926e542eaa9ca69dbd881ae93d21f9b8c16f55c0092aac",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
