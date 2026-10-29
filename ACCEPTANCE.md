@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 49 | 248 | 34 | 331 |
+| Core | 50 | 247 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 49 | 248 | 40 | 337 |
+| Full target | 50 | 247 | 40 | 337 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -221,7 +221,7 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 
 #### WORK-014 — Shortcut reference
 
-Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001
+Core · published · **done** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE-ROLE-001
 
 **Requirement.** One reference lists every keyboard shortcut and every typed formatting shortcut the editor accepts, is reachable from anywhere in the operator app by a single shortcut, and matches what the editor actually does.
 
@@ -229,8 +229,8 @@ Core · published · **partial** · Cites BASE-ACCESS-001, BASE-ACCESS-002, BASE
 1. One reference lists every keyboard shortcut and every typed formatting shortcut the editor accepts, is reachable from anywhere in the operator app by a single shortcut, and matches what the editor actually does.
 2. One shortcut opens a reference that matches every shortcut the editor accepts.
 
-**Evidence.** `tests/qualification/core/shell.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/shell.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/shortcut-reference-journey.mjs` — "shortcutReferenceJourney", through the existing responsive Settings callers in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2, the keyboard catalog and reference from operator destinations, Settings sections, spaces and page and database editors; native formatting and search commands, searchable reference, Escape and preserved editor content and focus. `tests/qualification/ui-convergence/typed-shortcuts-journey.mjs` — "typedShortcutsJourney": every typed conversion and its undo. `tests/qualification/ui-convergence/tables-journey.mjs` — "tablesJourney": all four table commands. `tests/qualification/ui-convergence/presentation-journey.mjs` — "presentationJourney": both arrow keys and both page keys. `tests/ui/polish-journeys.test.mjs` — "genuine insertion focus lifecycle at 1440px": native insertion and mention typing. `tests/qualification/ui-convergence/task-assignment-journey.mjs` — "taskAssignmentJourney": the accepted task date input and reference while the picker is focused.
+**Gap.** None.
 
 #### WORK-015 — Identity provider
 

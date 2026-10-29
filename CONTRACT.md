@@ -3978,9 +3978,9 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 33 | 193 | 0 | 226 |
+| Published | 34 | 192 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 49 | 248 | 40 | 337 |
+| All | 50 | 247 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -3998,7 +3998,7 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `WORK-011` | Workspace settings | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-012` | Theme | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `WORK-013` | First run | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
-| `WORK-014` | Shortcut reference | published | partial | `tests/qualification/core/shell.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/shell.mjs`. |
+| `WORK-014` | Shortcut reference | published | done | `tests/qualification/ui-convergence/shortcut-reference-journey.mjs` — "shortcutReferenceJourney", through the existing responsive Settings callers in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2, the keyboard catalog and reference from operator destinations, Settings sections, spaces and page and database editors; native formatting and search commands, searchable reference, Escape and preserved editor content and focus. `tests/qualification/ui-convergence/typed-shortcuts-journey.mjs` — "typedShortcutsJourney": every typed conversion and its undo. `tests/qualification/ui-convergence/tables-journey.mjs` — "tablesJourney": all four table commands. `tests/qualification/ui-convergence/presentation-journey.mjs` — "presentationJourney": both arrow keys and both page keys. `tests/ui/polish-journeys.test.mjs` — "genuine insertion focus lifecycle at 1440px": native insertion and mention typing. `tests/qualification/ui-convergence/task-assignment-journey.mjs` — "taskAssignmentJourney": the accepted task date input and reference while the picker is focused. | |
 | `WORK-015` | Identity provider | published | partial | `tests/qualification/core/identity.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/identity.mjs`. |
 | `SAVE-001` | Durable save state | published | partial | `tests/qualification/interface/routed.browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/routed.browser.mjs`. |
 | `SAVE-002` | Failed writes | published | done | `tests/qualification/ui-convergence/failed-save-journey.mjs` — "failedSaveJourney" |  |
