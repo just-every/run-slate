@@ -275,6 +275,34 @@
     {
       "source": "docs/verify.md",
       "reason": "Retained full-product acceptance gates and qualification guidance"
+    },
+    {
+      "source": "modules/agent-door/ADOPTING.md",
+      "reason": "Copied Base agent door integration reference for maintainers; wiki curator jobs are described in the product agent documentation."
+    },
+    {
+      "source": "modules/agent-door/CLAUSES.md",
+      "reason": "Copied Base agent door integration reference for maintainers; wiki curator jobs are described in the product agent documentation."
+    },
+    {
+      "source": "modules/agent-door/README.md",
+      "reason": "Copied Base agent door integration reference for maintainers; wiki curator jobs are described in the product agent documentation."
+    },
+    {
+      "source": "modules/agent-door/policy/PROVENANCE.md",
+      "reason": "Copied Base agent door integration reference for maintainers; wiki curator jobs are described in the product agent documentation."
+    },
+    {
+      "source": "modules/business-settings/ADOPTING.md",
+      "reason": "Copied Base agent door integration reference for maintainers; wiki curator jobs are described in the product agent documentation."
+    },
+    {
+      "source": "modules/business-settings/README.md",
+      "reason": "Copied Base agent door integration reference for maintainers; wiki curator jobs are described in the product agent documentation."
+    },
+    {
+      "source": "docs/agent-door.md",
+      "reason": "Maintainer integration and declared agent subset limits; the product agent door supplies its live registry."
     }
   ]
 }

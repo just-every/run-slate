@@ -3,6 +3,7 @@ import { readLaunchProfile, type LaunchProfile } from "./launch-profile";
 import { ownerIdentity } from "../../../ext/config";
 
 export interface RuntimeBindings {
+  RER_BUSINESS_TRUST?: string;
   RER_PREVIEW_OWNER_SIGNIN?: string;
   RER_DEMO?: string;
   RER_BUSINESS?: string;

@@ -42,7 +42,7 @@ export async function commitOperation<T>(ctx: FeatureContext, input: {
       ...(ctx.stepUp ? [freshProofGuard(ctx)] : []),
       ...(ctx.operationStatements?.before ?? []),
       ...plan.statements,
-      ...(plan.noChange?[]:[ctx.db.prepare('INSERT INTO activity_entries (id,workspace_id,actor_member_id,feature,action,target_kind,target_id,detail_json,operation_key,occurred_at) VALUES (?,?,?,?,?,?,?,?,?,?)').bind(activityId,ctx.actor.workspaceId,ctx.actor.id,plan.feature ?? input.action.split('.')[0],input.action,plan.entity.kind,plan.entity.id,JSON.stringify(detail),input.operationKey,ctx.now)]),
+      ...(plan.noChange?[]:[ctx.db.prepare('INSERT INTO activity_entries (id,workspace_id,actor_member_id,feature,action,target_kind,target_id,detail_json,operation_key,occurred_at) VALUES (?,?,?,?,?,?,?,?,?,?)').bind(activityId,ctx.actor.workspaceId,ctx.actor.id,plan.feature ?? input.action.split('.')[0],input.action,plan.entity.kind,plan.entity.id,JSON.stringify(ctx.agentAttribution&&detail&&typeof detail==='object'&&!Array.isArray(detail)?{...detail,agentAttribution:ctx.agentAttribution}:detail),input.operationKey,ctx.now)]),
       ...(ctx.operationStatements?.after ?? []),
     ];
   try {
