@@ -20,6 +20,24 @@ export function safeRow(table:string,row:DataRow,now=new Date().toISOString()):D
 
 /** Restore retains facts and definitions, while every route back to execution needs fresh authority. */
 const rules:Record<string,(row:DataRow,ownerEmail:string,now:string,keys:Map<string,string>)=>void>={
+ 'agent_door_agents':row=>{row.revoked=1;row.window=0;row.requests=0;},
+ 'agent_door_approvals':row=>{
+  if(['pending','executing'].includes(String(row.state))) {
+   row.state='expired';
+   const saved=JSON.parse(String(row.saved));saved.expires_at='1970-01-01T00:00:00.000Z';
+   row.saved=JSON.stringify(saved);
+  }
+ },
+ 'agent_door_reviews':row=>{
+  const saved=JSON.parse(String(row.saved));delete saved.undo;row.saved=JSON.stringify(saved);
+ },
+ 'agent_door_calls':row=>{
+  if(['running','pending'].includes(String(row.state))) {
+   row.state='refused';
+   const prior=row.outcome?JSON.parse(String(row.outcome)):{decision:null};
+   row.outcome=JSON.stringify({...prior,outcome:'refused',code:'restored_authority_required'});
+  }
+ },
  'scim_credentials':(row,_ownerEmail,now)=>{row.token_hash=null;row.revoked_at=row.revoked_at??now;},
  'scim_resources':(row)=>{row.invitation_id=null;if(row.resource_type==='User'&&row.state!=='deleted')row.state='inactive';},
  'webhook_subscriptions':(row,_ownerEmail,now)=>{row.credential_ciphertext=null;row.state='disabled';row.disabled_at=now;row.disabled_reason='Restored: create a fresh destination.';},

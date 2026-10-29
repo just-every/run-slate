@@ -275,6 +275,26 @@
     {
       "source": "docs/verify.md",
       "reason": "Retained full-product acceptance gates and qualification guidance"
+    },
+    {
+      "source": "modules/agent-door/ADOPTING.md",
+      "reason": "Pinned Base agent door maintainer reference."
+    },
+    {
+      "source": "modules/agent-door/README.md",
+      "reason": "Pinned Base agent door maintainer reference."
+    },
+    {
+      "source": "modules/agent-door/policy/PROVENANCE.md",
+      "reason": "Pinned Base agent door maintainer reference."
+    },
+    {
+      "source": "modules/business-settings/ADOPTING.md",
+      "reason": "Pinned Base agent door maintainer reference."
+    },
+    {
+      "source": "modules/business-settings/README.md",
+      "reason": "Pinned Base agent door maintainer reference."
     }
   ]
 }
