@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "346a01b579118565321bee4230b9f49a70e49c89bd6c9370605d88f05ae891ce",
+      "sha256": "6d2c5598dfa1119818bfed9f2514532d94f12962dba9afbd369468dd9ad887a0",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "042d150b0e844f76bad3ffc704672ed4bd92e618a69813f9e0ade2a694a42ab1",
+      "sha256": "d0093891403c75af44f1717d2384a5a8f622f9095beb04737dfb346f055578d8",
       "executable": false
     },
     "DEMO.md": {
@@ -1036,7 +1036,7 @@
       "executable": false
     },
     "docs/CLAIMS.md": {
-      "sha256": "ee7cc577c62977664e03f768a41083b9e6afb9c00ea3d77a61ec034e91123765",
+      "sha256": "3bc7378092f6de6fd1617aa52ee8bfa09385916a072e92e9944f50c020d101c0",
       "executable": false
     },
     "docs/CLOUDFLARE.md": {
@@ -7940,7 +7940,7 @@
       "executable": false
     },
     "src/core/features/navigation/ui/workspace/TodayWorkspace.tsx": {
-      "sha256": "78f34b2485655bf1373730379459c79821f8c10e883175b77ec57f5e67d4dd0d",
+      "sha256": "9453922dae36eaceaef4f044c96e5e3f724308f9402c7e5c72415301c8adfd91",
       "executable": false
     },
     "src/core/features/navigation/ui/workspace/WatchDefaults.tsx": {
@@ -10952,7 +10952,7 @@
       "executable": false
     },
     "tests/flagship/intelligence/attention-journey.ts": {
-      "sha256": "6f4df231835acd44771cef65cb7c24517a7ca1f3264d4e75801d68294044a29f",
+      "sha256": "3fa08ddf231d9c77ebcf45c43305daefa6f03b375ba6fb8c9f50e9ba994455ab",
       "executable": false
     },
     "tests/flagship/intelligence/authority.test.ts": {
@@ -11924,7 +11924,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/home-journey.mjs": {
-      "sha256": "391d10e7b35e84fe56edde96d5832a97f3a5ecc70a3c3ff8c29c6edf42f51891",
+      "sha256": "a8fd35fee226f283324af309ce419ede0e5fbf07ba946ca76e122ff206b6dc67",
       "executable": false
     },
     "tests/qualification/ui-convergence/hub-journey.mjs": {
@@ -11932,7 +11932,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/inbox-journey.mjs": {
-      "sha256": "4eb6f804e813024f72d3665e5ed56261a0e4f9b44d77249125c37b1519e0aa1e",
+      "sha256": "2528f20e975d57e9177c693bfea760732a702b1ef102bd710bb047af486c0509",
       "executable": false
     },
     "tests/qualification/ui-convergence/journey-shard.mjs": {
@@ -11940,7 +11940,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "984e0c951b5a577b346710a62e3e4c9d29c10a61e3db120ff15f8fc02db72704",
+      "sha256": "9805686f05f01b0b0a0794de8de634dfd548e72cccd6102fc71bf8527ca1ed23",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12049,6 +12049,10 @@
     },
     "tests/qualification/ui-convergence/task-report-journey.mjs": {
       "sha256": "b0ee39ec453ddacfb5d458184d819693d2de7373524da20aa7bbcf6e56192fe1",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/today-outcomes-journey.mjs": {
+      "sha256": "28f60c23979785c834c640876d75a4274400cf86d2c2ddcc2addf2cc02546f49",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-controls.mjs": {

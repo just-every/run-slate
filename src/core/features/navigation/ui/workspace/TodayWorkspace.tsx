@@ -103,7 +103,7 @@ function FlagshipToday() {
             </section>
           ) : null}
           {data?.outcomes.map((group) => (
-            <details className="today-section" key={group.day}>
+            <details className="today-section" key={group.items[0]?.id ?? group.day}>
               <summary>Completed work · {group.count} {group.count === 1 ? "outcome" : "outcomes"} · {group.day}</summary>
               {rows(group.items)}
             </details>

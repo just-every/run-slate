@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 42 | 255 | 34 | 331 |
+| Core | 43 | 254 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 42 | 255 | 40 | 337 |
+| Full target | 43 | 254 | 40 | 337 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1965,7 +1965,7 @@ Core · published · **partial**
 
 #### NOTIF-002 — Inbox
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Notifications are listed newest first, grouped by period, with an unread count and separate views for those addressed to the member and those from watched pages.
 
@@ -1973,8 +1973,8 @@ Core · published · **partial**
 1. Opening one marks it read and opens the referenced record at the referenced comment; a member can mark all read and archive read notifications.
 2. Inbox groups by period with unread count and two views; opening marks read and opens the referenced comment.
 
-**Evidence.** `tests/qualification/core/discovery.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/inbox-journey.mjs` — "inboxJourney", called by "CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: populated periods and newest-first order, unread count, Direct and Watching views, opening the referenced comment marks read, mark all read and archive read. `tests/flagship/discovery/meaningful-notifications.ts` — "meaningfulNotifications" in `tests/flagship/discovery/following.test.ts` covers native actions and current access after revocation and erasure.
+**Gap.** None.
 
 #### NOTIF-003 — Chat notifications
 

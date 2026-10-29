@@ -59,6 +59,7 @@ import { taskReportJourney } from './task-report-journey.mjs';
 import { myTasksJourney } from './my-tasks-journey.mjs';
 import { trustRankingJourney } from './trust-ranking-journey.mjs';
 import { chatJourney } from './chat-journey.mjs';
+import { todayOutcomesJourney } from './today-outcomes-journey.mjs';
 
 // Retain both responsive branches: desktop sidebar visibility and horizontal
 // column geometry are unique assertions, while the phone case checks stacking.
@@ -335,7 +336,8 @@ for (const width of [1440]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'flagship', async state => {
       await setupWorkspace(state);
       await askDraftJourney(state);
-    });
+      await todayOutcomesJourney(state);
+    }, {}, {scheduled:true});
   });
 }
 

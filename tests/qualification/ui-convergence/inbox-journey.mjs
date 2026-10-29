@@ -14,9 +14,13 @@ export async function inboxJourney(state, people) {
   const input = { operationKey: randomUUID(), body: [{ text: 'Please review the handoff. ' }, { text: bob.name, mention: { kind: 'person', id: bob.id, label: bob.name } }] };
   const comment = await ok(alice.context, origin, 'POST', `/api/comments/page/${pageId}`, input);
   await ok(alice.context, origin, 'POST', `/api/comments/page/${pageId}`, input);
+  // Stored notification clock fixture: both periods contain real delivered events.
+  await Promise.all([alice.page.goto('about:blank'), bob.page.goto('about:blank')]);
+  await state.atRest(`UPDATE notifications SET created_at='2000-01-01T12:00:00.000Z' WHERE source_page_id='${pageId}' AND event='comment';`);
   await bob.page.goto(origin + '/app/inbox', { waitUntil: 'networkidle' });
   const inbox = bob.page.getByRole('main');
   const data = await ok(bob.context, origin, 'GET', '/api/notifications');
+  assert.ok(new Set(data.items.map(item => item.createdAt.slice(0, 10))).size >= 2);
   await expect(inbox).toContainText(`${data.unreadCount} unread notifications`);
   await expect(inbox.locator('.inbox-period')).toHaveCount(new Set(data.items.map(item => item.createdAt.slice(0, 10))).size);
   const dates = await inbox.locator('.outcome-list time').evaluateAll(elements => elements.map(element => element.dateTime));
@@ -24,12 +28,17 @@ export async function inboxJourney(state, people) {
   assert.deepEqual(dates, [...dates].sort().reverse(), 'Visible notices are newest first.');
   const audience = inbox.getByRole('combobox', { name: 'Notification audience', exact: true });
   await audience.selectOption('watched');
-  await expect(inbox.locator('li').filter({ hasText: title })).toHaveCount(1);
-  await expect(inbox.locator('li').filter({ hasText: title }).locator('.outcome-kind')).toContainText('comment');
+  const watched = inbox.locator('li').filter({ hasText: title });
+  await expect(watched).toHaveCount(2);
+  assert.deepEqual((await watched.locator('.outcome-kind').allTextContents()).map(text => text.replace(' · Unread', '')).sort(), ['comment', 'page created']);
   await audience.selectOption('direct');
   const mention = inbox.locator('li').filter({ hasText: title });
   await expect(mention).toHaveCount(1);
   await expect(mention.locator('.outcome-kind')).toContainText('mention');
+  const icon = bob.page.locator('button[data-tooltip]:visible').first();
+  await expect(icon).toHaveAttribute('data-tooltip', /\S+\s+\S+/);
+  await icon.focus();
+  assert.equal(await icon.evaluate(element => getComputedStyle(element, '::after').opacity), '1', 'Keyboard focus immediately shows the icon tooltip.');
   await accessible(bob.page, 'Inbox direct mention');
   await people.shot('bob', 'inbox direct mention');
   await mention.getByRole('link').click();
