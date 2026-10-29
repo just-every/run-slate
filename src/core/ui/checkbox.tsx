@@ -10,6 +10,8 @@ export function Checkbox({ className, ...props }: ComponentProps<typeof Checkbox
         "flex size-4 shrink-0 items-center justify-center rounded-[3px] border border-line-strong bg-surface text-accent-ink transition-colors data-[state=checked]:border-accent data-[state=checked]:bg-accent",
         className,
       )}
+      data-tooltip={props["aria-label"]}
+      data-tooltip-align="start"
       {...props}
     >
       <CheckboxPrimitive.Indicator>

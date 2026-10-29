@@ -106,6 +106,7 @@ export function WorkspaceSearch() {
               )}
               {resource.data.nextCursor ? (
                 <button
+                  className="search-next-results"
                   type="button"
                   onClick={() => setCursor(resource.data!.nextCursor)}
                 >
