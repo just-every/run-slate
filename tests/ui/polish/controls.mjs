@@ -42,9 +42,11 @@ async function databaseCheckboxBounds({ page, context, origin, api }, containerI
     assert.equal(rest.scroll, rest.viewport, `SL35 ${surface}: a hidden field tip does not widen the page`);
     assert.notEqual(rest.ring, enabledRing, `Read-only ${surface} checkbox keeps its faded ring`);
     await page.mouse.move(0, 0);
+    await checkbox.evaluate(el => { const w = window; w.__trace = []; w.__frames = 0; const t0 = performance.now(); const loopless = () => w.__frames++; w.__raf = () => requestAnimationFrame(() => { loopless(); }); const iv = setInterval(() => { const st = getComputedStyle(el, '::after'); w.__trace.push([Math.round(performance.now() - t0), Math.round(document.timeline.currentTime - 0), w.__frames, el.matches(':hover'), st.opacity, document.getAnimations().map(a => `${a.transitionProperty}:${a.playState}:${Math.round(a.currentTime ?? -1)}`).join('|')]); if (performance.now() - t0 > 9000) clearInterval(iv); }, 100); });
     await checkbox.hover();
     await expect.poll(() => checkbox.evaluate(el => el.matches(':hover')), { message: `SL35 ${surface}: the pointer reaches the field` }).toBe(true);
-    await expect.poll(async () => (await measure()).opacity, { message: `SL35 ${surface}: the field tip appears after hover` }).toBe('1');
+    try { await expect.poll(async () => (await measure()).opacity, { message: `SL35 ${surface}: the field tip appears after hover` }).toBe('1'); }
+    catch (error) { await page.waitForTimeout(2500); console.log('DIAG3 ' + surface + ' ' + JSON.stringify(await page.evaluate(() => window.__trace))); throw error; }
     const shown = await measure();
     assert.equal(shown.scroll, shown.viewport, `SL35 ${surface}: a shown field tip does not widen the page`);
     assert.ok(shown.width <= 256 && shown.left >= 0 && shown.left + shown.width <= shown.viewport, `SL35 ${surface}: the field name wraps inside its cap`);
