@@ -11972,7 +11972,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "68662c4088eef48e286591bbdbbd73c938ee9821ae26086ccdb4183013c92c33",
+      "sha256": "acc0b45f42eb514fdd67ab5a6aa80389be2c75d2b154394906aeb3abc22fdadb",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
@@ -11985,6 +11985,10 @@
     },
     "tests/qualification/ui-convergence/saml-journey.mjs": {
       "sha256": "a4d843735fc1f991585f39ff1a0fa5a53edb9ff4a6d24d752ad7e19dc15e93ac",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/saved-search-journey.mjs": {
+      "sha256": "3d9f0f5fe7c726c8d25ef3ec2996d39d95ea3d7b5bca80adf6672dc0de8fabc7",
       "executable": false
     },
     "tests/qualification/ui-convergence/scim-access-journey.mjs": {
