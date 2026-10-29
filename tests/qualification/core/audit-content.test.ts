@@ -1,7 +1,7 @@
 import {auditExportProof} from './audit-export-proof';
 import {test,expect} from 'vitest';
 import {auditFixture,env,createUlid} from './audit-support';
-test('ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor/time',async()=>{
+test('ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time',async()=>{
  const f=await auditFixture();
 {
  const p=await f.mutation('page creation','pages.create','POST','/api/pages',{containerId:f.containerId,title:'Audit original'}),id=p.value.pageId;
@@ -32,7 +32,9 @@ test('ACT-002 BASE-OPS-005 audit content, publication, archive and version mutat
  for(const entry of original){const kept=retained.data.items.find((item:any)=>item.id===entry.id);expect(kept).toMatchObject({target:entry.target,occurredAt:entry.occurredAt,action:entry.action,deleted:true,actor:null,context:{}});expect(kept.context).toEqual({});}
  expect(JSON.stringify(retained.data)).not.toContain(erasedTitle);expect(JSON.stringify(retained.data)).not.toContain(erasedBody);
  expect((await f.request('PUT',`/api/pages/${p.id}/blocks`,write)).status).toBe(404);
- expect(JSON.stringify((await f.request('GET',`/api/pages/${p.id}`)).data)).not.toContain(erasedBody);
+ const erased=await f.request('GET',`/api/pages/${p.id}`);expect(erased.status).toBe(404);expect(JSON.stringify(erased.data)).not.toContain(erasedBody);
+ const afterReplay=await f.request('GET',`/api/activity?kind=page&containerId=${f.containerId}`);
+ expect(afterReplay.data.items.filter((item:any)=>item.target.id===p.id)).toEqual(retained.data.items.filter((item:any)=>item.target.id===p.id));
  const visible=await f.request('GET','/api/activity',undefined,f.readerId);expect(visible.status).toBe(200);expect(visible.data.items.some((item:any)=>item.target.id===p.id)).toBe(true);
  expect((await f.request('POST','/api/sharing',{operationKey:createUlid(),targetKind:'container',targetId:f.containerId,id:grant.data.value.id,principalKind:'member',principalId:f.readerId,level:'view',revoke:true})).status).toBe(200);
  const refused=await f.request('GET','/api/activity',undefined,f.readerId);expect(refused.status).toBe(200);expect(refused.data.items.some((item:any)=>item.target.id===p.id)).toBe(false);

@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026).
+Judged from the code and tests at commit `2f540ef40e1b5d8c1d3afcbfb78e00eed2e0a767` (29 October 2026); ACT-005 retained-activity proof is refreshed in this candidate.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 23 | 203 | 0 | 226 |
+| Published | 24 | 202 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 39 | 258 | 40 | 337 |
+| All | 40 | 257 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4133,7 +4133,7 @@ Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e
 | `ACT-002` | Coverage | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Activity records page creation, body and property changes, publish and unpublish, moves, archive, trash, restore and permanent deletion, version restores and deletions, status and verification changes, grant and external-access changes, comment activity, container and group changes, database structure changes, automation runs, AI runs and their acceptance or rejection, member invitation and removal, import and export." |
 | `ACT-003` | Retrieval | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
 | `ACT-004` | Context | published | partial | `tests/qualification/core/discovery-browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`. |
-| `ACT-005` | Retained explanation | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
+| `ACT-005` | Retained explanation | published | done | `tests/qualification/core/audit-content.test.ts` — "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time"; `tests/qualification/ui-convergence/reading-journeys.mjs` — "settingsJourney" and "retainedActivityJourney", loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "page outline follows headings and navigates long pages at 1440px" and "space tree title filtering preserves ancestors, access and expansion at 390px": native permanent erasure retains the original activity kind, timestamp and content-free reference; current access, content removal and replay are checked. | |
 | `TMPL-001` | Gallery | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Members can search templates by title and description and filter them by category."<br>No validated CI-run proof for this acceptance point: "A search with no match shows "No templates match this search."" |
 | `TMPL-002` | Preview | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A template preview shows the page it produces, including its body, properties and any child pages, before it is used."<br>No validated CI-run proof for this acceptance point: "A figure such as a team size or a duration appears only when the template's author wrote one; Slate never estimates, infers, or displays a placeholder for either." |
 | `TMPL-003` | Snapshot on use | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Using a template creates a page holding a copy of its body, properties and children in the destination the member chose."<br>No validated CI-run proof for this acceptance point: "Editing, archiving or deleting the template afterwards changes no page already created from it." |

@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 39 | 258 | 34 | 331 |
+| Core | 40 | 257 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 39 | 258 | 40 | 337 |
+| Full target | 40 | 257 | 40 | 337 |
 
-Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `2f540ef40e1b5d8c1d3afcbfb78e00eed2e0a767` (29 October 2026); ACT-005 retained-activity proof is refreshed in this candidate. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -2096,15 +2096,15 @@ Core · published · **partial** · Cites BASE-AUDIT-001
 
 #### ACT-005 — Retained explanation
 
-Core · published · **partial** · Cites BASE-AUDIT-001, BASE-DATA-003
+Core · published · **done** · Cites BASE-AUDIT-001, BASE-DATA-003
 
 **Requirement.** Erased wiki records remain understandable in their activity context without retaining erased content.
 
 **Acceptance.**
 1. The activity view retains the wiki record’s kind and time and a content-free reference after erasure.
 
-**Evidence.** `tests/qualification/core/discovery.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.
+**Evidence.** `tests/qualification/core/audit-content.test.ts` — "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time"; `tests/qualification/ui-convergence/reading-journeys.mjs` — "settingsJourney" and "retainedActivityJourney", loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "page outline follows headings and navigates long pages at 1440px" and "space tree title filtering preserves ancestors, access and expansion at 390px": native permanent erasure retains the original activity kind, timestamp and content-free reference; current access, content removal and replay are checked.
+**Gap.** None.
 
 ### Templates
 

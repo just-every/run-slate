@@ -139,6 +139,8 @@ export async function retainedActivityJourney(state, width) {
     assert.equal(replay.status,200);
     assert.ok(!JSON.stringify(replay.body).includes(title)&&!JSON.stringify(replay.body).includes(content));
     const tombstone=await call(context,origin,'GET',`/api/pages/${pageId}`);
+    assert.equal(tombstone.status,404,'Replaying creation cannot resurrect the erased page.');
+    assert.deepEqual((await api('/api/activity?kind=page')).items.find(item=>item.id===before.id),retained,'Replay leaves the retained explanation unchanged.');
     assert.ok(!JSON.stringify(tombstone.body).includes(title)&&!JSON.stringify(tombstone.body).includes(content));
   }
   await accessible(page,'retained erased activity');
