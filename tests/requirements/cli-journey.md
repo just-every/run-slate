@@ -98,11 +98,15 @@ The guest invitation case removes its obsolete 24-hour lifetime pin; requested g
 The existing “real core-wiki and touch-member journeys at 390px” and 1440px
 registrations in `tests/qualification/ui-convergence/journeys.test.mjs` call
 `blockStructureJourney` through `tests/qualification/ui-convergence/write-journey.mjs`.
-The journey in `tests/qualification/ui-convergence/block-structure-journey.mjs`
+Its independent browser page runs alongside the original page, and the existing
+registration joins both results and reports every failure before exiting. The
+original deadline and assertions remain. The journey in
+`tests/qualification/ui-convergence/block-structure-journey.mjs`
 performs BLOCK-001's complete native flow: drag handles and move menus reorder
 whole branches, indent and outdent retain nesting, adjacent selection changes no
 stored data, duplication gives every copied block a fresh identifier, and deletion
-removes only the selected branch. Every step compares the ordered identifier,
+removes only the selected branch. Each action awaits its real mutation receipt before read-back. Every step compares
+the ordered identifier,
 type, content and parent projection with an independent expected tree after commit
 and reload. A selected-text comment remains on the original through edits, moves,
 copying and deletion of the copy. The actual downloaded readable HTML archive

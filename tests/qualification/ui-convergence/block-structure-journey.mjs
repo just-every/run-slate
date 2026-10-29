@@ -30,7 +30,7 @@ export async function blockStructureJourney(state, width) {
   const read = () => api(`/api/pages/${pageId}`);
   let expected = structuredClone(original);
   async function reconcile(label) {
-    await expect.poll(async () => shape((await read()).blocks), { message: label }).toEqual(expected);
+    assert.deepEqual(shape((await read()).blocks), expected, `${label}: the completed mutation commits the expected tree.`);
     await page.reload({ waitUntil: 'networkidle' });
     const committed = (await read()).blocks;
     assert.deepEqual(shape(committed), expected, `${label}: reload retains every identifier, type, content and parent in order.`);
@@ -43,10 +43,18 @@ export async function blockStructureJourney(state, width) {
       await expect(handle(block.id)).toHaveAttribute('data-tooltip', 'Block actions');
     }
   }
+  async function committed(perform) {
+    const pending = page.waitForResponse(response => new URL(response.url()).pathname === `/api/pages/${pageId}/blocks` && response.request().method() === 'PUT');
+    await perform();
+    const response = await pending;
+    assert.equal(response.status(), 200, await response.text());
+    assert.equal((await response.json()).value.pageId, pageId);
+  }
   async function action(id, name) {
     await handle(id).click();
-    await page.getByRole('menuitem', { name, exact: true }).click();
+    await committed(() => page.getByRole('menuitem', { name, exact: true }).click());
   }
+  const drag = (id, target) => committed(() => handle(id).dragTo(row(target)));
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   await reconcile('Initial typed blocks');
   await handle(a).focus();
@@ -77,7 +85,10 @@ export async function blockStructureJourney(state, width) {
   await reconcile('Anchored source');
   await input(a).click();
   await page.keyboard.press('ControlOrMeta+End');
+  const editing = page.waitForResponse(response => new URL(response.url()).pathname === `/api/pages/${pageId}/blocks/${a}` && response.request().method() === 'PATCH' && response.request().postData()?.includes('Keep the trail.'));
   await page.keyboard.type(' Keep the trail.');
+  const edited = await editing;
+  assert.equal(edited.status(), 200, await edited.text());
   expected[0].content.text[1].text += ' Keep the trail.';
   await reconcile('Editing keeps the source identifier and comment mark');
   await action(a, 'Move down');
@@ -97,7 +108,7 @@ export async function blockStructureJourney(state, width) {
   expected[2].parentBlockId = b;
   await reconcile('Re-nest the original child');
 
-  await handle(d).dragTo(row(a));
+  await drag(d, a);
   expected = [expected[3], ...expected.slice(0, 3)];
   await reconcile('Native handle drag reorders roots');
   await action(b, 'Move up');
@@ -107,10 +118,10 @@ export async function blockStructureJourney(state, width) {
   expected = [expected[0], expected[3], expected[1], expected[2]];
   await reconcile('Moving a parent down keeps its ordered subtree');
 
-  await handle(b).dragTo(row(d));
+  await drag(b, d);
   expected = [...expected.slice(2), ...expected.slice(0, 2)];
   await reconcile('Native drag carries the complete subtree before another root');
-  await handle(b).dragTo(row(a));
+  await drag(b, a);
   expected = [...expected.slice(2), ...expected.slice(0, 2)];
   await reconcile('Native drag carries the complete subtree after another root');
 
@@ -132,7 +143,7 @@ export async function blockStructureJourney(state, width) {
   await accessible(page, 'selected adjacent blocks');
 
   await action(a, 'Duplicate');
-  await expect.poll(async () => (await read()).blocks.length).toBe(5);
+  assert.equal((await read()).blocks.length, 5);
   const anchoredCopy = (await read()).blocks.find(block => !original.some(source => source.id === block.id));
   assert.ok(anchoredCopy);
   expected.splice(2, 0, { ...structuredClone(expected[1]), id: anchoredCopy.id,
@@ -144,7 +155,7 @@ export async function blockStructureJourney(state, width) {
   await reconcile('Deleting the independent copy leaves the anchored source');
 
   await action(b, 'Duplicate');
-  await expect.poll(async () => (await read()).blocks.length).toBe(6);
+  assert.equal((await read()).blocks.length, 6);
   const copied = (await read()).blocks.filter(block => !original.some(source => source.id === block.id));
   assert.equal(copied.length, 2, 'Duplicating a parent copies its child with fresh identifiers.');
   const [copyParent, copyChild] = copied;

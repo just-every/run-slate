@@ -76,6 +76,7 @@ for (const width of [390, 1440]) {
       await expect(state.page.getByRole('menu').getByRole('menuitem', { name: 'Ask', exact: true })).toHaveCount(0);
       await state.page.keyboard.press('Escape');
       let pageId,touch;
+      const failures = [];
       try {
         await step('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks', async () => { pageId = await writeJourney(state, width); touch=await beginTouchJourney(state,width);await columnsJourney(state,width,touch); });
         assert.ok(pageId, 'Writing must complete before dependent journeys.');
@@ -97,7 +98,14 @@ for (const width of [390, 1440]) {
             await accessible(state.page, `phone smoke ${route}`);
           }
         }
-      } finally {await touch?.close();}
+      } catch (error) { failures.push(error); }
+      finally {
+        const structure = await state.blockStructureProof;
+        if (structure?.error) failures.push(structure.error);
+        try { await touch?.close(); } catch (error) { failures.push(error); }
+        if (failures.length === 1) throw failures[0];
+        if (failures.length) throw new AggregateError(failures, 'Core writing and structure journeys failed');
+      }
     }, {}, { scheduled: true, slack: true });
   });
 }

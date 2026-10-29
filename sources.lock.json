@@ -11736,7 +11736,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/block-structure-journey.mjs": {
-      "sha256": "f12ee7157776542e92a2256b5984ac1e143a5ce34136c01c066d91c52b1784e1",
+      "sha256": "2f280ca339ff007f97249941319813348aff8bbf8702c7a6e80bca4a640cbac7",
       "executable": false
     },
     "tests/qualification/ui-convergence/blog-journey.mjs": {
@@ -11952,7 +11952,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "a4cd1c0483504a7bc234b5a821eeb9f3c238fc17c6428c0b9e44ddc34b0cb39f",
+      "sha256": "4d516c4d76e7de3fd50b08ea185b877e86515fe3eccc6df63fc4875d2be17dfc",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12136,7 +12136,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {
-      "sha256": "618cc6703ceaccb5b8da20c24a278127a84e1ccd2522f5518116e411932df54a",
+      "sha256": "018eb8f4eb43b0266497cb45c8287d95467d2dddb8aeff3a66a80d37ac104f6a",
       "executable": false
     },
     "tests/release/delivery-runtime.mjs": {
@@ -12168,7 +12168,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "2ac2bee7a3b9ea32b78bfad6ec9dd8aa5f4e561406f0a5a89c2dde225bc44837",
+      "sha256": "d61fa46ab700c849d9ed1c343b573d7c8557794c2cd2aa04528da55a1720c1af",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
