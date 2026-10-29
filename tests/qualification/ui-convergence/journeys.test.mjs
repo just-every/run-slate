@@ -85,6 +85,7 @@ for (const width of [390, 1440]) {
         await state.runScheduled();
         await chatJourney(state, width);
         if (width === 390) {
+          await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
           // One phone smoke visits the main screens; functional journeys use desktop
           // except where an assertion distinguishes the phone layout or touch input.
           for (const route of ['/app', `/app/pages/${pageId}`, '/app/search', '/app/inbox', '/app/tasks', '/app/review', '/app/templates', '/app/settings']) {
@@ -254,7 +255,7 @@ for (const width of [1440]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await withSecondPerson(state, width, people => recordTemplatesJourney(state, people));
-    });
+    }, {}, { scheduled: true });
   });
 }
 
