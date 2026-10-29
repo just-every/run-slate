@@ -45,6 +45,6 @@ work: databases, tasks, sharing, administration, publication, connectors, AI,
 inquiries, trials and maintenance are not advertised by this subset. Wiki writes refuse with `provider_edge_not_declared` when enabled chat, webhook or automation delivery would require an undeclared queued provider lifecycle. No target
 capability is represented by a mock tool.
 
-Verification uses the production signed `/auth/bootstrap` lifecycle and the real
+Verification uses the production signed `/auth/owner-claim` lifecycle and the real
 D1 migrations. `tests/agent-door` contains only disposable public-door fixture and
 journey tooling; no verification route or native-authority replacement is shipped.
