@@ -1973,8 +1973,8 @@ Core · published · **partial**
 1. Opening one marks it read and opens the referenced record at the referenced comment; a member can mark all read and archive read notifications.
 2. Inbox groups by period with unread count and two views; opening marks read and opens the referenced comment.
 
-**Evidence.** `tests/qualification/core/discovery.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`.
+**Evidence.** `tests/flagship/discovery/following.test.ts` — "CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access" (inboxJourney); `tests/qualification/ui-convergence/touch-operator-journey.mjs` — "inboxJourney", called by "real core-wiki and touch-member journeys"
+**Gap.** Emitted-browser proof of the complete grouped inbox and exact-candidate Verify remain pending.
 
 #### NOTIF-003 — Chat notifications
 
