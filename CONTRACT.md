@@ -4166,8 +4166,8 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 24 | 202 | 0 | 226 |
-| Target and push further | 16 | 57 | 51 | 124 |
-| All | 40 | 259 | 51 | 350 |
+| Target and push further | 16 | 60 | 48 | 124 |
+| All | 40 | 262 | 48 | 350 |
 
 
 | Clause | Title | Kind | Status | Evidence | Gap |
@@ -4506,12 +4506,12 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `SURFACE-001` | Wiki registry and Core coverage | target | missing |  | No executed Slate MCP journey yet covers this seed delta under both company policies. |
 | `SURFACE-002` | Wiki class computation for records and outside services | target | missing |  | No executed Slate MCP journey yet covers this seed delta under both company policies. |
 | `SURFACE-003` | Wiki class computation for business and data effects | target | missing |  | No executed Slate MCP journey yet covers this seed delta under both company policies. |
-| `SURFACE-004` | Revision-pinned knowledge resources | target | missing |  | No executed Slate MCP journey yet covers this seed delta under both company policies. |
+| `SURFACE-004` | Revision-pinned knowledge resources | target | partial | `src/core/features/company-agent/resources.ts`, `agent-surface.json` — private native readers and the deployed CORE declaration. | 2026-10-29: not-declared — resources are outside the declared CORE set. Eleven private native templates do not establish a public revision-pinned resource journey. |
 | `SURFACE-005` | Wiki event handoffs | target | partial | `docs/agent-access.md` — intended capability families; native adoption is unfinished. | 2026-10-29: not-declared — events and subscriptions are outside this round’s intended CORE families; rer 0.2.88 declares CORE only in the descriptor and runtime. Native wiki activity is not a typed door resource event feed. |
 | `SURFACE-006` | One seeded week for the wiki curator | target | missing |  | No executed Slate MCP journey yet covers this seed delta under both company policies. |
 | `BASE-AGENT-001` | One MCP door per seed | target | missing | | Not yet judged through this seed's own doors. |
 | `BASE-AGENT-002` | The seed's jobs are tools, through the UI's own actions | target | missing | | Not yet judged through this seed's own doors. |
-| `BASE-AGENT-003` | Records are resources | target | missing | | Not yet judged through this seed's own doors. |
+| `BASE-AGENT-003` | Records are resources | target | partial | `src/core/features/company-agent/resources.ts`, `agent-surface.json` — private native readers and the deployed CORE declaration. | 2026-10-29: not-declared — resources are omitted from the CORE capability array; no public resource catalogue, links or reads are claimed. Native readers still require separate end-to-end resource acceptance. |
 | `BASE-AGENT-004` | Business identity and short-lived, audience-bound tokens | target | missing | | Not yet judged through this seed's own doors. |
 | `BASE-AGENT-005` | An agent acts as a person in a role, never more | target | missing | | Not yet judged through this seed's own doors. |
 | `BASE-AGENT-006` | Every action declares its risk class | target | missing | | Not yet judged through this seed's own doors. |
@@ -4521,4 +4521,4 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `BASE-AGENT-010` | Agents can follow changes | target | partial | `docs/agent-access.md` — intended capability families; native adoption is unfinished. | 2026-10-29: not-declared — events and subscriptions are outside this round’s intended CORE families; rer 0.2.88 declares CORE only in the descriptor and runtime. Native wiki activity is not a typed door resource event feed. |
 | `BASE-AGENT-011` | Limits are policy, and Pause stops everything | target | missing | | Not yet judged through this seed's own doors. |
 | `BASE-AGENT-012` | Writes are idempotent and conflict-safe | target | missing | | Not yet judged through this seed's own doors. |
-| `BASE-AGENT-013` | Manifest, docs and the conformance journey | target | missing | | Not yet judged through this seed's own doors. |
+| `BASE-AGENT-013` | Manifest, docs and the conformance journey | target | partial | `src/core/features/company-agent/docs.ts`, `agent-surface.json`, `tests/agent-door/journey.mjs` — generated native inventory and CORE journey. | 2026-10-29: not-declared — prompts are omitted from the CORE capability array. Shared-door conformance and the wider native registry remain incomplete; no full-clause acceptance is claimed. |

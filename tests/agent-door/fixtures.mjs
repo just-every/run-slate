@@ -44,7 +44,12 @@ async function databaseCase(context,tool,cls,container,ownerId) {
  await native(context,'/api/databases/'+dbId+'/fields',{expectedRevisionId:await current(),field:definition});
  const view={id:viewId,name:tool==='databases.read'&&cls==='sensitive'?value:'Support queue',layout:'table',filters:[],sorts:[],groups:[],calculations:{},display:{},position:0};
  await native(context,'/api/databases/'+dbId+'/views',{expectedRevisionId:await current(),view});
- const record=(await native(context,'/api/databases/'+dbId+'/records',{title:'Handoff follow-up',values:tool==='fields.configure'&&cls==='destructive'?{}:{[fieldId]:value}})).value;
+ let credential;
+ if(tool==='records.read') {
+  credential={id:randomUUID(),value:randomUUID()+randomUUID()};
+  await native(context,'/api/databases/'+dbId+'/fields',{expectedRevisionId:await current(),field:{id:credential.id,name:'API token',type:'text',config:{},position:1}});
+ }
+ const record=(await native(context,'/api/databases/'+dbId+'/records',{title:'Handoff follow-up',values:tool==='fields.configure'&&cls==='destructive'?{}:{[fieldId]:value,...(credential?{[credential.id]:credential.value}:{})}})).value;
  if(cls==='sensitive'&&!['databases.read','views.query','charts.read','records.read','records.create','records.update'].includes(tool)) {
   const page=await native(context,'/api/pages/'+pageId);
   await native(context,'/api/pages/'+pageId+'/blocks',{expectedRevisionId:page.page.revisionId,blocks:[{id:randomUUID(),blockType:'paragraph',content:{text:[{text:value}]},treePosition:'a'}]},'PUT');
@@ -60,7 +65,7 @@ async function databaseCase(context,tool,cls,container,ownerId) {
  if(tool==='records.read')args={id:record.pageId};
  if(tool==='records.create')args={id:dbId,title:'Agent-prepared follow-up',values:{[fieldId]:value}};
  if(tool==='records.update')args={id:record.pageId,values:{[fieldId]:cls==='sensitive'?value+' Reviewed':'Reviewed'}};
- return {args,info:{containerId:container.id,pageId:tool.startsWith('records.')?record.pageId:pageId,cls,tool,dbId,fieldId,viewId}};
+ return {args,info:{containerId:container.id,pageId:tool.startsWith('records.')?record.pageId:pageId,cls,tool,dbId,fieldId,viewId,credential}};
 }
 
 async function prepare(context) {
@@ -89,7 +94,16 @@ async function prepare(context) {
  values.escalation_group={id:group.id,name:group.name,memberId:reviewer.id};
 
 
- for(const step of surface.journey) {
+ // Every tested call keeps a fresh native prerequisite. Security-only phases
+ // need their actual selected steps, rather than a second unused wiki corpus.
+ const firstWrite=surface.journey.find(step=>!surface.tools.find(tool=>tool.name===step.tool)?.readOnly);
+ let steps=surface.journey;
+ if(context.phase==='paused')steps=surface.tools.map(tool=>surface.journey.find(step=>step.tool===tool.name)).filter(Boolean);
+ if(context.phase==='negative')steps=surface.journey.filter((step,index)=>index===0||step===firstWrite);
+ if(context.phase==='consent')steps=surface.journey.slice(0,1);
+ if(context.phase==='invocation')steps=firstWrite?[firstWrite]:[];
+ if(context.phase==='replay')steps=surface.journey.filter(step=>surface.verification.replayAdmission.prepare.includes(step.id));
+ for(const step of steps) {
   const cls=step.expect.at(-1).class,key=step.id,tool=step.tool.slice(6);
   if(step.client){cases[key]={cls,tool};continue;}
   let args={};

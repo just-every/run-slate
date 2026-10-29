@@ -9,9 +9,9 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Core | 40 | 257 | 34 | 331 |
-| Agent surface | 0 | 2 | 17 | 19 |
+| Agent surface | 0 | 5 | 14 | 19 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 40 | 259 | 51 | 350 |
+| Full target | 40 | 262 | 48 | 350 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -4709,7 +4709,7 @@ Agent surface · target · **missing**
 
 #### BASE-AGENT-003 — Records are resources
 
-Agent surface · target · **missing**
+Agent surface · target · **partial**
 
 **Requirement.** Each primary record type has a URI template, and tools return `resource_link`s to the records they touch. A read returns exactly the fields the caller's role sees in the UI. File bytes count against any byte budget on the grant. A record the caller cannot open reads as not found, identical to a missing id. Text from customers, imports or files carries an untrusted marker in `_meta`.
 
@@ -4721,8 +4721,8 @@ Agent surface · target · **missing**
 5. Bytes over budget return `budget_exhausted` and no partial content.
 6. Customer-sourced text carries the untrusted marker.
 
-**Evidence.** None.
-**Gap.** Not yet judged through this seed's own doors.
+**Evidence.** `src/core/features/company-agent/resources.ts`, `agent-surface.json` — private native readers and the deployed CORE declaration.
+**Gap.** 2026-10-29: not-declared — resources are omitted from the CORE capability array; no public resource catalogue, links or reads are claimed. Native readers still require separate end-to-end resource acceptance.
 
 #### BASE-AGENT-004 — Business identity and short-lived, audience-bound tokens
 
@@ -4883,7 +4883,7 @@ Agent surface · target · **missing**
 
 #### BASE-AGENT-013 — Manifest, docs and the conformance journey
 
-Agent surface · target · **missing**
+Agent surface · target · **partial**
 
 **Requirement.** `server / discover` instructions and an on-site `/docs/agents` page are generated from the action registry. The page lists tools by job, with each tool's classes, the test that adds each computed class, its scopes, resource templates, event types, capacity limits and error codes, and the specialist role. `prompts / list` carries the specialist's jobs. Base ships the conformance journey, a harness that `rer verify` runs against `rer dev` and seeds run in CI. It is an MCP client; a signed-in test person takes a person's steps (setup answers, approvals, review marks, resume) through the URLs the door returns, and the same browser leg runs the UI-parity actions and the page checks at 1440 and 390. It runs every acceptance point of BASE-AGENT-001 to 012 and of the seed's SURFACE clauses under two company policies: *all autonomous* (`*`), and *held* (standard review, every other class the seed declares approval, which the test person grants), plus the single-class variants a point names. A point that names no disposition passes under both.
 
@@ -4894,8 +4894,8 @@ Agent surface · target · **missing**
 4. Every acceptance point runs under both policies, every decision matches the policy in force, and under all autonomous no call waits for a person or is refused by policy.
 5. A stranger agent given only the seed URL completes the specialist journey through MCP.
 
-**Evidence.** None.
-**Gap.** Not yet judged through this seed's own doors.
+**Evidence.** `src/core/features/company-agent/docs.ts`, `agent-surface.json`, `tests/agent-door/journey.mjs` — generated native inventory and CORE journey.
+**Gap.** 2026-10-29: not-declared — prompts are omitted from the CORE capability array. Shared-door conformance and the wider native registry remain incomplete; no full-clause acceptance is claimed.
 
 ### Agent surface
 
@@ -4948,7 +4948,7 @@ Agent surface · target · **missing** · From new · Cites BASE-AGENT-006, BASE
 
 #### SURFACE-004 — Revision-pinned knowledge resources
 
-Agent surface · target · **missing** · From new · Cites BASE-AGENT-003, BASE-AGENT-005 · Rules D-1
+Agent surface · target · **partial** · From new · Cites BASE-AGENT-003, BASE-AGENT-005 · Rules D-1
 
 **Requirement.** The curator works with pages, blocks, databases and records, containers, comments, exact revisions, source passages, decisions, inquiries and runs.
 
@@ -4957,8 +4957,8 @@ Agent surface · target · **missing** · From new · Cites BASE-AGENT-003, BASE
 2. A cited answer opens the exact permitted source passage or a content-free tombstone after erasure.
 3. Changing a source’s authority or audience invalidates its derived wiki output rather than silently substituting a newer or wider source.
 
-**Evidence.** None.
-**Gap.** No executed Slate MCP journey yet covers this seed delta under both company policies.
+**Evidence.** `src/core/features/company-agent/resources.ts`, `agent-surface.json` — private native readers and the deployed CORE declaration.
+**Gap.** 2026-10-29: not-declared — resources are outside the declared CORE set. Eleven private native templates do not establish a public revision-pinned resource journey.
 
 #### SURFACE-005 — Wiki event handoffs
 

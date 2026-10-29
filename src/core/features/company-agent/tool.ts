@@ -1,4 +1,4 @@
-import {recordOutput} from './record-output';
+import {nativeRecordOutput} from './record-output';
 import {readPage} from '../pages/service';
 import {restorePageRevision} from '../versions/service';
 import {nativeMember} from './people';
@@ -67,11 +67,11 @@ export function job<S extends z.ZodRawShape>(env:AppBindings,definition:Job<S>):
         const current=await ctx.db.prepare('SELECT (SELECT revision FROM import_native_epoch WHERE id=1) AS nativeEpoch,(SELECT epoch FROM core_acl_epoch WHERE id=1) AS aclEpoch').first<{nativeEpoch:number;aclEpoch:number}>();
         if(!current||current.nativeEpoch!==prepared.nativeEpoch||current.aclEpoch!==prepared.aclEpoch)throw new ToolRefusal('revision_conflict');
       }
-      return {result:recordOutput(JSON.parse(JSON.stringify(result))),resources,...(prior?{undo:{pageId:recordId,prior,current,key:door.operationId}}:{})};
+      return {result:await nativeRecordOutput(JSON.parse(JSON.stringify(result)),ctx),resources,...(prior?{undo:{pageId:recordId,prior,current,key:door.operationId}}:{})};
     }),
     ...(definition.narrowing?{widens:false,narrowing:definition.narrowing}:{}),
     ...(definition.target?{target:(a:Record<string,unknown>,c:ToolContext)=>invoke(a,c,definition.target!)}:{}),
-    ...(definition.summary?{summary:(a:Record<string,unknown>,c:ToolContext)=>invoke(a,c,async(args,ctx)=>recordOutput(JSON.parse(JSON.stringify(await definition.summary!(args,ctx)))) as ApprovalSummary)}:{}),
+    ...(definition.summary?{summary:(a:Record<string,unknown>,c:ToolContext)=>invoke(a,c,async(args,ctx)=>await nativeRecordOutput(JSON.parse(JSON.stringify(await definition.summary!(args,ctx))),ctx) as ApprovalSummary)}:{}),
     ...(definition.revision?{revisionType:'string' as const,revision:(a:Record<string,unknown>,c:ToolContext)=>invoke(a,c,definition.revision!)}:{}),
     ...(definition.authority?{authority:(a:Record<string,unknown>,c:ToolContext)=>invoke(a,c,definition.authority!)}:{}),
     ...(definition.proof?{proof:'native' as const,proofKind:'step_up'}:{}),

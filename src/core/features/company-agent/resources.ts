@@ -1,4 +1,4 @@
-import {recordOutput} from './record-output';
+import {nativeRecordOutput} from './record-output';
 import {nativeClientGrant} from './credentials';
 import type {ResourceDefinition,ResourceContext,ClassAndFacts} from '../../../../modules/agent-door/index.ts';
 import type {AppBindings} from '../../app/types';
@@ -51,7 +51,7 @@ export function nativeResources(env:AppBindings):ResourceDefinition[] {
         const after=await env.DB.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first<{epoch:number}>();
         const current=grant?await nativeClientGrant(env,context):null;
         if(before?.epoch!==after?.epoch||grant&&(!current?.valid||current.json!==grant.json))return null;
-        return value===null?null:{json:recordOutput(value),untrusted:true};
+        return value===null?null:{json:await nativeRecordOutput(value,ctx),untrusted:true};
       }
       catch(error){if(error instanceof ApiProblem&&[401,403,404].includes(error.status))return null;throw error;}
     },

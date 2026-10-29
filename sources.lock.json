@@ -981,7 +981,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "fdc718adabd54c57acf095a4cc407e7a00129c7f64989a30017b00d656738c13",
+      "sha256": "c907f5a091225ea32b0947b428f8e2e68f6955e5d3d0af76e940dff1a47f2503",
       "executable": false
     },
     "agent-surface.json": {
@@ -1013,7 +1013,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "c9595ab8ca3c186ec2abafc3317938b73cf784da4238f1fdd3b83b2543fae898",
+      "sha256": "bc4decdf6714d6a45ed21b79817411d30a2ac0d70db384d7d41f54f774ab6d98",
       "executable": false
     },
     "DEMO.md": {
@@ -1049,7 +1049,7 @@
       "executable": false
     },
     "docs/agent-access.md": {
-      "sha256": "03260f91484b1f0fb0d8445deafd941a2df7df8db11b4770dc39c1676f6a28c8",
+      "sha256": "c2e234fadc03744d64543081558c5c1c548706cfab6c3939fa8f3c6f2dbcae40",
       "executable": false
     },
     "docs/API.md": {
@@ -5697,7 +5697,7 @@
       "executable": false
     },
     "src/core/app/hono.ts": {
-      "sha256": "71e0e98361b85dd5fdecce63a9ca82fed8a2586fbda0c88fb6e6953b71f475ea",
+      "sha256": "3d98314b148abfca87f3388d930c2d797899a5d25c7d61fd789bd1283fc54bb0",
       "executable": false
     },
     "src/core/app/http-security.ts": {
@@ -6585,11 +6585,11 @@
       "executable": false
     },
     "src/core/features/company-agent/record-output.ts": {
-      "sha256": "dc38174a6707c1695cf2ab5c9b1e30e220008c053d4bf22caa3e1adc59699093",
+      "sha256": "91c503735552d511850ff2556cec26019aa631306688b9c3aa3eb9dbaf570e33",
       "executable": false
     },
     "src/core/features/company-agent/resources.ts": {
-      "sha256": "739e301a3c67440bdb1dfaeb7d133e83754885163fe4e360e3fd5e48b70622ed",
+      "sha256": "60ad2a915422f92107981af5bf84d65634ee5952dd6fdfd06115d538b2a649de",
       "executable": false
     },
     "src/core/features/company-agent/schema.ts": {
@@ -6601,7 +6601,7 @@
       "executable": false
     },
     "src/core/features/company-agent/tool.ts": {
-      "sha256": "d4f9cf6715d77b44dbf296bc4fdd9420858ad5799494832ae1a936422b8970cb",
+      "sha256": "d373c5ba1c0a32951dc9acd25125be48a2e470e0a00f47d560fd25f5e3ab68b6",
       "executable": false
     },
     "src/core/features/company-agent/worker.ts": {
@@ -7605,15 +7605,11 @@
       "executable": false
     },
     "src/core/features/external-agent/credentials.ts": {
-      "sha256": "9946eee4e3468c28f57bc7e365ecbdd103de854ebac29124c8b5d5b9c2417e2b",
+      "sha256": "a003b224c1c9776439cea792162f8f7945336a354d2817860cd846ec48c7b6c4",
       "executable": false
     },
     "src/core/features/external-agent/routes.ts": {
-      "sha256": "84dfd86c9147ff6f8016434a3bcd61565f91f9f96d5a4567e5b7a73f65b83754",
-      "executable": false
-    },
-    "src/core/features/external-agent/tools.ts": {
-      "sha256": "251dda6b22f7700f4140ec29ac67cc2b1af0c0566718ef4f9ed4c2d281651595",
+      "sha256": "e05462e7251fec97df3eb1c7c21f806c160ca0750cb4961fbdc6a2f5ab466ffc",
       "executable": false
     },
     "src/core/features/hub/configuration.ts": {
@@ -10861,11 +10857,11 @@
       "executable": false
     },
     "tests/agent-door/clients.mjs": {
-      "sha256": "ad74a26b02c8df68afefe76ae124de5e97d4234e91f5a585da7302f1ba94d0de",
+      "sha256": "d46476a50f7f7137f5d61040fc9ee7bbedd0c72e741dee727fba7d5a38b32cfa",
       "executable": false
     },
     "tests/agent-door/fixtures.mjs": {
-      "sha256": "abb8fe205741de3d879fffffd0dda0cd594b0b8a8fb0b38bbaa7036fbac2bf69",
+      "sha256": "e4f04e906bb62b1a88ab00ef6af683faacb928a561006b97761d1bb77de9e0a9",
       "executable": false
     },
     "tests/agent-door/guest.mjs": {
@@ -10877,7 +10873,7 @@
       "executable": false
     },
     "tests/agent-door/journey.mjs": {
-      "sha256": "4a2559fc2d27b153f9633a4e85260b2323b11355f9eaa2686817c91bdb2be4d4",
+      "sha256": "39b9d62606ce69e9251c9a32d3aecb76948fc1c603c89e614e7cf1d977c7f89b",
       "executable": false
     },
     "tests/agent-door/mail-provider.mjs": {
@@ -11577,7 +11573,7 @@
       "executable": false
     },
     "tests/flagship/intelligence/lifecycle.test.ts": {
-      "sha256": "7be78a2fbb3939ee70812e4770a75c5e2669d0ced2427279a10ae6e5c4b52ffe",
+      "sha256": "551851bde899c1fac6739cf688f07a65914eff672d10a819e3f848deacb8a066",
       "executable": false
     },
     "tests/flagship/intelligence/live.config.mts": {

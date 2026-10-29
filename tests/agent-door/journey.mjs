@@ -22,6 +22,11 @@ export async function beforeStep(context) {
 }
 export async function afterStep(context) {
  const state=phases.get(context.phase),info=state?.cases[context.step.id];if(!info)return;
+ if(info.credential) {
+  assert.equal(context.result.values[info.credential.id],'[redacted credential]');
+  assert.equal(JSON.stringify(context.result).includes(info.credential.value),false,'A native credential field must not escape through nested page data.');
+  if(info.cls==='standard')console.log('Native record credential proof: field value and nested page value redacted');
+ }
  if(info.tool==='pages.update'&&info.cls==='external') {
   const {exposure}=await native(context,'/api/publishing/'+info.pageId);
   proofRecords.preparedPublicPath='/p/'+exposure.slug;

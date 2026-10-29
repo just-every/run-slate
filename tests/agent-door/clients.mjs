@@ -35,9 +35,10 @@ export async function nativeClients(context,containerId,pageId,foreignPageId) {
   assert.equal(missing.status,403);
   for(const target of [foreignPageId,randomUUID()]) {
    const unavailable=await mcp(context,clients.reader,'resources/read',{uri:'slate://pages/'+target});
-   assert.equal(unavailable.body.error?.data?.code,'resource_unavailable');
+   assert.equal(unavailable.body.error?.data?.code,'capability_not_declared');
+   assert.equal(unavailable.body.error?.data?.capability,'resources');
   }
-  console.log('Native scoped MCP proof: permitted read=200 read-only write=403 foreign/missing resource=resource_unavailable');
+  console.log('Native scoped MCP proof: permitted read=200 read-only write=403 foreign/missing resource=capability_not_declared');
  }
  return clients;
 }

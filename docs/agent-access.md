@@ -36,3 +36,9 @@ The portable deployment declaration supplies public `resend` /
 not credentials. The native deployment hook still requires explicit
 `SLATE_MAIL_PROVIDER` and `SLATE_MAIL_FROM`, and overwrites both values before
 calling Base deployment. It refuses absent owner answers.
+
+The previous `/api/agent/mcp` and `/api/agent/tools` dispatchers are retired.
+Native SDK credentials retain their stored purposes and map to canonical tool
+scopes; an unmigrated purpose grants no additional tool. Native credential
+issuance and revocation still require a person’s session. The shared `/mcp`
+door supplies current policy, consent and audit for supported calls.

@@ -13,7 +13,8 @@ import {consumeIntelligenceJob,scheduleIntelligence} from '../../../src/core/fea
 import {requireRun} from '../../../src/core/features/runs/repository';
 import type {AppBindings} from '../../../src/core/app/types';
 import {issueAgentCredential,authenticateExternalAgent} from '../../../src/core/features/external-agent/credentials';
-import {invokeAgentTool} from '../../../src/core/features/external-agent/tools';
+import {sdkCredentials,authorizeSdk} from '../../../src/core/features/company-agent/sdk-credentials';
+import {resolveEvidence} from '../../../src/core/features/ai/evidence';
 afterEach(()=>vi.unstubAllGlobals());
 const response=(answer:unknown)=>Response.json({id:'provider-fixture-receipt',status:'completed',output:[{type:'message',content:[{type:'output_text',text:JSON.stringify(answer)}]}],usage:{input_tokens:100,output_tokens:30,total_tokens:130}});
 const answer={statements:[{text:'The handoff is open.',evidenceIds:['E1'],kind:'observation',limitations:[]}],unresolved:['Handoff'],proposedChanges:[],researchPlan:null,hypothesisAssessment:null};
@@ -100,21 +101,25 @@ try {
   const issued=await issueAgentCredential(f.context(),{operationKey:'agent-issue-test',subjectId:f.reader,expiresAt:'2099-01-01T00:00:00.000Z',scope:{tools:['read_evidence'],sourceIds:[f.page.pageId],audience:[f.reader],grantIds:[]}});
   const headers=new Headers({authorization:`Bearer ${issued.token}`});
   const request=await sessionDoor(f.reader);
-  const read=await request('POST','/api/agent/tools/read_evidence',{refs:f.refs,audience:[f.reader]},headers);
-  expect(read.status).toBe(200);
-  expect(await read.json()).toHaveLength(1);
-  const denied=await request('POST','/api/agent/tools/ask',{...f.ask,audience:[f.reader]},headers);
-  expect(denied.status).toBe(403);
-  expect(await denied.json()).toMatchObject({code:'AGENT_SCOPE'});
+  // The old ungoverned dispatcher is retired, including its HTTP tool calls.
+  expect((await request('POST','/api/agent/tools/read_evidence',{refs:f.refs,audience:[f.reader]},headers)).status).toBe(404);
+  expect((await request('POST','/api/agent/mcp',{jsonrpc:'2.0',id:1,method:'tools/list'},headers)).status).toBe(404);
+  const principal=await sdkCredentials(env as AppBindings,new Request('https://slate.example/mcp',{headers}));
+  expect(principal?.sponsor.id).toBe(f.reader);
+  expect(principal?.scopes).toEqual(['slate.evidence.read']);
+  expect(principal?.scopes).not.toContain('slate.runs.start');
   expect((await authenticateExternalAgent(env.DB,headers))?.id).toBe(f.reader);
-  expect(await invokeAgentTool(f.context(f.reader),headers,'read_evidence',{refs:f.refs,audience:[f.reader]},{})).toHaveLength(1);
-  await expect(invokeAgentTool(f.context(f.reader),headers,'ask',{...f.ask,audience:[f.reader]},{})).rejects.toMatchObject({code:'AGENT_SCOPE'});
+  const context={...f.context(f.reader),agentCredentialId:issued.value.id};
+  await authorizeSdk(context,'read_evidence',[f.page.pageId],[f.reader]);
+  expect(await resolveEvidence(context,f.refs,[f.reader])).toHaveLength(1);
+  await expect(authorizeSdk(context,'ask',[f.page.pageId],[f.reader])).rejects.toMatchObject({code:'AGENT_SCOPE'});
+  await expect(authorizeSdk(context,'read_evidence',[f.page.pageId],[f.owner])).rejects.toMatchObject({code:'AGENT_SCOPE'});
+  await expect(authorizeSdk(context,'read_evidence',[crypto.randomUUID()],[f.reader])).rejects.toMatchObject({code:'AGENT_SCOPE'});
   await env.DB.prepare('UPDATE intelligence_agent_credentials SET revoked_at=? WHERE id=?').bind(new Date().toISOString(),issued.value.id).run();
   expect(await authenticateExternalAgent(env.DB,headers)).toBeNull();
-  await expect(invokeAgentTool(f.context(f.reader),headers,'read_evidence',{refs:f.refs,audience:[f.reader]},{})).rejects.toMatchObject({code:'CREDENTIAL_REVOKED'});
-  const revoked=await request('POST','/api/agent/tools/read_evidence',{refs:f.refs,audience:[f.reader]},headers);
-  expect(revoked.status).toBe(401);
-  expect(await revoked.json()).toMatchObject({code:'CREDENTIAL_REVOKED'});
+  expect(await sdkCredentials(env as AppBindings,new Request('https://slate.example/mcp',{headers}))).toBeNull();
+  await expect(authorizeSdk(context,'read_evidence',[f.page.pageId],[f.reader])).rejects.toMatchObject({code:'AGENT_SCOPE'});
+  expect((await request('POST','/api/agent/tools/read_evidence',{refs:f.refs,audience:[f.reader]},headers)).status).toBe(404);
 
 } finally {{await (vi.unstubAllGlobals());}}
 }}
