@@ -17,6 +17,11 @@ export async function recordTemplatesJourney(state, people) {
   const space = (await ok(alice.context, origin, 'POST', '/api/containers', { operationKey: randomUUID(), name: 'Recurring notes', visibility: 'private' })).value;
   const access = (await ok(alice.context, origin, 'POST', '/api/sharing', { operationKey: randomUUID(), targetKind: 'container', targetId: space.id, principalKind: 'member', principalId: bob.id, level: 'edit' })).value;
   const database = (await ok(alice.context, origin, 'POST', '/api/databases', { operationKey: randomUUID(), containerId: space.id, title: 'Team syncs' })).value;
+  const viewId = randomUUID();
+  await ok(alice.context, origin, 'POST', `/api/databases/${database.id}/views`, {
+    operationKey: randomUUID(), expectedRevisionId: database.revisionId,
+    view: { id: viewId, name: 'All syncs', layout: 'table', filters: [], sorts: [], groups: [], calculations: {}, display: {}, position: 0 },
+  });
   const saved = (await ok(alice.context, origin, 'POST', `/api/databases/${database.id}/templates`, {
     operationKey: randomUUID(), name: 'Weekly sync', title: 'Weekly sync notes', values: {}, blocks: [], recurrence: { frequency: 'weekly', weekdays: [1, 3], time: '09:00' },
   })).value;
@@ -63,7 +68,6 @@ export async function recordTemplatesJourney(state, people) {
   const refused = await call(bob.context, origin, 'POST', `/api/databases/${database.id}/templates`, replay);
   assert.equal(refused.status, 404);
   assert.equal(refused.body.code, 'NOT_FOUND');
-  const viewId = (await ok(alice.context, origin, 'GET', `/api/databases/${database.id}`)).views[0].id;
   const before = await ok(alice.context, origin, 'GET', `/api/databases/${database.id}/views/${viewId}`);
   // Move only the due clock into the past, then execute the emitted Worker's native scheduled handler.
   await state.fixtureSql([`UPDATE database_record_templates SET next_occurrence_at='2000-01-03T09:00:00.000Z' WHERE id='${saved.id}'`]);
