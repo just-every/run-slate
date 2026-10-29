@@ -98,10 +98,13 @@ export function ActivityWorkspace() {
       >
         <ol className="settings-list">
           {resource.data?.items.map((item) => (
-            <li key={item.id}>
+            <li key={item.id} data-activity-id={item.id}>
               <div>
                 <strong>{item.actor?.displayName ?? (item.action.startsWith("verification-rules.") ? "Verification rules" : "Former member")}</strong> ·{" "}
                 {item.action.replace(/[._-]/g, " ")}
+                <p className="activity-target">
+                  {item.target.kind} · Reference {item.target.id}
+                </p>
                 <p>
                   <time dateTime={item.occurredAt}>
                     {new Date(item.occurredAt).toLocaleString()}

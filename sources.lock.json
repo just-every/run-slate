@@ -5636,7 +5636,7 @@
       "executable": false
     },
     "src/core/features/activity/ui/workspace/ActivityWorkspace.tsx": {
-      "sha256": "4e20b53569613b0d31710bdb25e233681c267e565af34e5a6b85f51fb0f85b41",
+      "sha256": "7ef86f0743c113658a915551b05a7105b4013c4b1284c09de6929143bdfe0682",
       "executable": false
     },
     "src/core/features/ai/allowance.ts": {
@@ -11388,7 +11388,7 @@
       "executable": false
     },
     "tests/qualification/core/audit-content.test.ts": {
-      "sha256": "e44cda18f8419c82ffa7d1ef25136da80a4f9425c584e937aca8f94594131b17",
+      "sha256": "fa5e13f785b5191014458900aa4f3776981d8b9e02d1a7bd036dc1ec18134235",
       "executable": false
     },
     "tests/qualification/core/audit-export-proof.ts": {
@@ -11972,7 +11972,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "68662c4088eef48e286591bbdbbd73c938ee9821ae26086ccdb4183013c92c33",
+      "sha256": "944655988bb4faa87d84dc146b805c6122901d67005eada04f6380d39367b350",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
