@@ -7,6 +7,7 @@ import {resetDeployment as resetFoldDeployment} from '../../e2e/setup/reset-depl
 import {env} from 'cloudflare:test';
 import {test,expect,vi,afterEach} from 'vitest';
 import {fixture} from './measured-fixture';
+import {legacyNames} from '../../../src/core/features/agent-door/legacy';
 import {runFlowCase,sessionDoor,type RunFlow} from './run-flow';
 import {resetDeployment} from '../../e2e/setup/reset-deployment';
 import {controlRun} from '../../../src/core/features/runs/service';
@@ -108,21 +109,24 @@ try {
   const issued=await issueAgentCredential(f.context(),{operationKey:'agent-issue-test',subjectId:f.reader,expiresAt:'2099-01-01T00:00:00.000Z',scope:{tools:['read_evidence'],sourceIds:[f.page.pageId],audience:[f.reader],grantIds:[]}});
   const headers=new Headers({authorization:`Bearer ${issued.token}`});
   const request=await sessionDoor(f.reader);
-  const read=await request('POST','/api/agent/tools/read_evidence',{refs:f.refs,audience:[f.reader]},headers);
+  const owner=await sessionDoor(f.owner);
+  const policy=await owner('PUT','/agents/api/policy',{document:{schema:'rer-agent-policy/1',catalogue:'rer-agent-classes/1',rules:[{id:'all',class:'*',do:'autonomous'}],spend:{none:true}}});expect(policy.status).toBe(200);
+  const mcp=async(name:string,args:unknown)=>{const extra=new Headers(headers);extra.set('MCP-Protocol-Version','2025-11-25');extra.set('Mcp-Method','tools/call');extra.set('Mcp-Name',legacyNames[name]!);const r=await request('POST','/mcp',{jsonrpc:'2.0',id:1,method:'tools/call',params:{name:legacyNames[name],arguments:{input:args}}},extra);return r;};
+  const read=await mcp('read_evidence',{refs:f.refs,audience:[f.reader]});
   expect(read.status).toBe(200);
-  expect(await read.json()).toHaveLength(1);
-  const denied=await request('POST','/api/agent/tools/ask',{...f.ask,audience:[f.reader]},headers);
+  expect((await read.json<any>()).result.structuredContent).toHaveLength(1);
+  const denied=await mcp('ask',{...f.ask,audience:[f.reader]});
   expect(denied.status).toBe(403);
-  expect(await denied.json()).toMatchObject({code:'AGENT_SCOPE'});
+  expect((await denied.json<any>()).error.data).toMatchObject({code:'insufficient_scope'});
   expect((await authenticateExternalAgent(env.DB,headers))?.id).toBe(f.reader);
   expect(await invokeAgentTool(f.context(f.reader),headers,'read_evidence',{refs:f.refs,audience:[f.reader]},{})).toHaveLength(1);
   await expect(invokeAgentTool(f.context(f.reader),headers,'ask',{...f.ask,audience:[f.reader]},{})).rejects.toMatchObject({code:'AGENT_SCOPE'});
   await env.DB.prepare('UPDATE intelligence_agent_credentials SET revoked_at=? WHERE id=?').bind(new Date().toISOString(),issued.value.id).run();
   expect(await authenticateExternalAgent(env.DB,headers)).toBeNull();
   await expect(invokeAgentTool(f.context(f.reader),headers,'read_evidence',{refs:f.refs,audience:[f.reader]},{})).rejects.toMatchObject({code:'CREDENTIAL_REVOKED'});
-  const revoked=await request('POST','/api/agent/tools/read_evidence',{refs:f.refs,audience:[f.reader]},headers);
+  const revoked=await mcp('read_evidence',{refs:f.refs,audience:[f.reader]});
   expect(revoked.status).toBe(401);
-  expect(await revoked.json()).toMatchObject({code:'CREDENTIAL_REVOKED'});
+  expect((await revoked.json<any>()).error).toMatchObject({code:-32001});
 
 } finally {{await (vi.unstubAllGlobals());}}
 }}

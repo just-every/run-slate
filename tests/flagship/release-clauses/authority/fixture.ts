@@ -1,3 +1,4 @@
+import {legacyNames} from '../../../../src/core/features/agent-door/legacy';
 import {env} from 'cloudflare:test';
 import {vi,expect} from 'vitest';
 import {fixture} from '../../../qualification/inquiry/fixture';
@@ -13,9 +14,11 @@ import type {AppBindings} from '../../../../src/core/app/types';
 export {fixture};
 export const secret='release-test-only-secret-at-least-thirty-two-bytes';
 export async function transport(f:Awaited<ReturnType<typeof fixture>>){
- const api=createApi(),cookie=await sessionFor(f.owner),bindings={...env,AI_API_KEY:'test-only',CONNECTOR_CREDENTIALS_KEY:secret} as AppBindings;
- async function request(path:string,input?:unknown,token?:string){const response=await api.request('https://local.test'+path,{method:input===undefined?'GET':'POST',headers:{origin:'https://local.test','content-type':'application/json',...(token?{authorization:`Bearer ${token}`}:{cookie})},...(input===undefined?{}:{body:JSON.stringify(input)})},bindings);return {status:response.status,body:await response.json<any>()};}
- async function mcp(token:string,name:string,args:unknown){const r=await request('/api/agent/mcp',{jsonrpc:'2.0',id:1,method:'tools/call',params:{name,arguments:args}},token);return {...r,value:r.body.result?.content?.[0]?JSON.parse(r.body.result.content[0].text):r.body};}
+ const api=createApi(),cookie=await sessionFor(f.owner),bindings={...env,APP_URL:'https://local.test',AI_API_KEY:'test-only',CONNECTOR_CREDENTIALS_KEY:secret} as AppBindings;
+ const policy=await api.request('https://local.test/agents/api/policy',{method:'PUT',headers:{cookie,origin:'https://local.test','content-type':'application/json'},body:JSON.stringify({document:{schema:'rer-agent-policy/1',catalogue:'rer-agent-classes/1',rules:[{id:'all',class:'*',do:'autonomous'}],spend:{none:true}}})},bindings);
+ expect(policy.status).toBe(200);
+ async function request(path:string,input?:unknown,token?:string){const response=await api.request('https://local.test'+path,{method:input===undefined?'GET':'POST',headers:{origin:'https://local.test','content-type':'application/json','MCP-Protocol-Version':'2025-11-25','Mcp-Method':'tools/call','Mcp-Name':(input as any)?.params?.name??'',...(token?{authorization:`Bearer ${token}`}:{cookie})},...(input===undefined?{}:{body:JSON.stringify(input)})},bindings);return {status:response.status,body:await response.json<any>()};}
+ async function mcp(token:string,name:string,args:unknown){const original=args as Record<string,unknown>;const r=await request('/mcp',{jsonrpc:'2.0',id:1,method:'tools/call',params:{name:legacyNames[name]??'slate.unknown',arguments:{input:original,idempotency_key:original.operationKey??'read-only'}}},token);return {...r,value:r.body.result?.content?.[0]?JSON.parse(r.body.result.content[0].text):r.body.error?.data??r.body};}
  return {request,mcp};
 }
 export function refuseNetwork(){const calls:string[]=[];vi.stubGlobal('fetch',async(input:string|URL|Request)=>{const url=String(input instanceof Request?input.url:input);calls.push(url);throw new Error('Unmatched authority test transport: '+url);});return calls;}
