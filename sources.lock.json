@@ -11992,7 +11992,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/search-filters-journey.mjs": {
-      "sha256": "f4b892974362276a2d842bd770fd16040ecb38788acfc8b781af942a83c98fb1",
+      "sha256": "02b698f86247df81e702e5cf6cceafc74dfbd441a15dd5784fcb37e0986f7eaa",
       "executable": false
     },
     "tests/qualification/ui-convergence/shared-navigation-journey.mjs": {
