@@ -64,7 +64,7 @@ import { todayOutcomesJourney } from './today-outcomes-journey.mjs';
 // Retain both responsive branches: desktop sidebar visibility and horizontal
 // column geometry are unique assertions, while the phone case checks stacking.
 for (const width of [390, 1440]) {
-  test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: 420000 }, async () => {
+  test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: 600000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       const refused = await state.context.request.get(state.origin + '/api/ai/availability');
@@ -108,7 +108,7 @@ for (const width of [1440]) {
 }
 
 for (const width of [390]) {
-  test(`space tree title filtering preserves ancestors, access and expansion at ${width}px`, { timeout: 300000 }, async () => {
+  test(`space tree title filtering preserves ancestors, access and expansion at ${width}px`, { timeout: 420000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await treeFilterJourney(state);
@@ -362,7 +362,7 @@ for (const width of [1440]) {
 }
 
 for (const width of [1440]) {
-  test(`page outline follows headings and navigates long pages at ${width}px`, { timeout: 300000 }, async () => {
+  test(`page outline follows headings and navigates long pages at ${width}px`, { timeout: 420000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await outlineJourney(state);

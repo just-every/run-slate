@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "1ff38039eb4167a131b036ccbf23b8ad7873f17fb3398da8f59684fbf3054ecb",
+      "sha256": "36bfc28c1aeab629c01c4cab5a432f48a951547bb9b5eb6fe19dcc5c552ce48b",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "43f3484f57c93fce6a540737193e6c7e636febbedcd365467aa5f2bb9891ea68",
+      "sha256": "f0427c33cc3ad85b799f291ffdae8af52157dddef7dd607081d81a3145b80fe1",
       "executable": false
     },
     "DEMO.md": {
@@ -5464,7 +5464,7 @@
       "executable": false
     },
     "src/core/app/ui/KeyboardReference.tsx": {
-      "sha256": "3eb07c3f435e22f13e9135702660da84d37169e09a16d9c8887d7c5da38f824b",
+      "sha256": "a565557a7bc09fc5cba339cd41c5df4e3102e5217b8ce06dcd5a30edc0564ec3",
       "executable": false
     },
     "src/core/app/ui/LaunchProfile.tsx": {
@@ -11940,7 +11940,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "8c91d1003546dece2e1e81359b8f34a0169e0996bff7ea39cd5f4a53370ba266",
+      "sha256": "a38d0267189d08a4f97e389848fe0751fd9b3b8c16ca8e05b78543134ad53755",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12024,7 +12024,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/shortcut-reference-journey.mjs": {
-      "sha256": "3a4c14c1205c7d5b34609c7ea9fb287f3825b871476f04c1f06020eada8367ee",
+      "sha256": "7ec2f0f3d4a2ae72e7713267fef150733b074541b69e194d102d76146cf940fd",
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {
@@ -12048,7 +12048,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/task-assignment-journey.mjs": {
-      "sha256": "367f927ca0312e61a46611f3ae9a5ed4bbfbccbb243754f24f6ca6f17408f4c5",
+      "sha256": "f48a77b8d2d8c85b5f20d2768c8a9187f76f43c5d18dcfa612de94338a522a1a",
       "executable": false
     },
     "tests/qualification/ui-convergence/task-report-journey.mjs": {
@@ -12116,7 +12116,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/typed-shortcuts-journey.mjs": {
-      "sha256": "6b2b8d3e2647860a547abf34e4e6e4d12fb59e2f8d6f282ad9e9c3b9adf21c23",
+      "sha256": "1347f7032ddf3bb37de4c404de7e92e0dcf097bb4bad6d021d26fee4d213864d",
       "executable": false
     },
     "tests/qualification/ui-convergence/webhook-access-journey.mjs": {
@@ -12160,7 +12160,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "d2315b3ae12ac5f3f24873a509f104ddfc107f3239f82b577e030b4221264e49",
+      "sha256": "7031cc3d24f76a6a03304842d5c5bba2762208b105a84889c82b57afb3a66cdc",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

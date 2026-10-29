@@ -24,18 +24,21 @@ export async function shortcutReferenceJourney(state) {
   const pageId = created.value.pageId;
   const database = await ok(context, origin, 'POST', '/api/databases', { operationKey: randomUUID(), containerId: space.id, title: 'Keyboard reference records' });
   const record = await ok(context, origin, 'POST', `/api/databases/${database.value.id}/records`, { operationKey: randomUUID(), title: 'Keyboard reference record', values: {} });
+  const recordPath = `/app/databases/${database.value.id}/records/${record.value.pageId}`;
   const navigation = await api('/api/navigation/configuration');
   await page.goto(origin + '/app/settings', { waitUntil: 'networkidle' });
   const settings = await page.getByRole('navigation', { name: 'Settings sections' }).getByRole('link').evaluateAll(links => links.map(link => link.getAttribute('href')));
   const destinations = [...new Set([
     ...navigation.destinations.filter(item => item.visible).map(item => item.href), ...settings,
-    `/app/containers/${space.id}`, `/app/pages/${pageId}`, `/app/databases/${database.value.id}`, `/app/databases/${database.value.id}/records/${record.value.pageId}`,
+    `/app/containers/${space.id}`, `/app/pages/${pageId}`, `/app/databases/${database.value.id}`, recordPath,
   ])];
   const reference = page.getByRole('dialog', { name: 'Keyboard shortcuts', exact: true });
   for (const route of destinations) {
     const response = await page.goto(origin + route, { waitUntil: 'networkidle' });
     assert.equal(response.status(), 200, `Reference destination ${route}`);
     await expect.poll(() => page.getByRole('main').evaluate(element => Object.keys(element).some(key => key.startsWith('__reactProps')))).toBe(true);
+    const editor = route === recordPath ? page.getByRole('textbox', { name: 'Page title', exact: true }) : undefined;
+    if (editor) { await expect(editor).toHaveValue('Keyboard reference record'); await editor.focus(); }
     const openedUrl = page.url();
     await page.keyboard.press('ControlOrMeta+/');
     await expect(reference, `Reference opens from ${route}`).toBeVisible();
@@ -43,6 +46,7 @@ export async function shortcutReferenceJourney(state) {
     await page.keyboard.press('Escape');
     await expect(reference).toHaveCount(0);
     assert.equal(page.url(), openedUrl, 'Closing the reference preserves the current destination.');
+    if (editor) { await expect(editor).toBeFocused(); await expect(editor).toHaveValue('Keyboard reference record'); }
   }
 
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
@@ -79,6 +83,7 @@ export async function shortcutReferenceJourney(state) {
   await page.keyboard.press('ControlOrMeta+k');
   await page.waitForURL(url => url.pathname === '/app/search', { waitUntil: 'networkidle' });
   await expect(page.getByRole('searchbox', { name: 'Search your workspace', exact: true })).toBeVisible();
+  assert.equal((await api(`/api/pages/${pageId}`)).blocks[0].content.text.map(span => span.text).join(''), text + ' remains editable', 'Opening workspace search from the editor preserves its committed content.');
   if (width === 390) {
     await openNavigation(page);
     await expect(page.getByRole('button', { name: 'Close navigation', exact: true }).first()).toBeVisible();
