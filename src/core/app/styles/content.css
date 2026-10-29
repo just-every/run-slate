@@ -14,6 +14,9 @@
 .page-presentation footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .page-presentation button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--slate-line); border-radius: 6px; }
 .page-presentation button:disabled { opacity: .45; }
+.page-presentation button:disabled[data-tooltip] { opacity: 1; }
+.page-presentation button:disabled[data-tooltip] > * { opacity: .45; }
+.page-presentation button[role="checkbox"]:disabled { --slate-disabled-checkbox-strength: 45%; }
 .presentation-close { justify-self: end; }
 @media print { .sidebar,.topbar,.mobile-bar,.right,.editor-actions,.page-outline { display: none !important; } .slate-app .app,.slate-app .content-frame { display: block; } .slate-app .main { width: 100%; padding: 0; } }
 

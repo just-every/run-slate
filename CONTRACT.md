@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026).
+Judged from the code and tests at commit `3370979d7c4296f22fc16c588588896660ee9826` (29 October 2026).
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 23 | 203 | 0 | 226 |
-| Target and push further | 16 | 55 | 40 | 111 |
-| All | 39 | 258 | 40 | 337 |
+| Target and push further | 17 | 54 | 40 | 111 |
+| All | 40 | 257 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4248,7 +4248,7 @@ Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e
 | `CARD-003` | Required reading and announcements | target | missing | — | not implemented |
 | `DB-013` | Database forms | target | missing | — | not implemented |
 | `DB-014` | Dashboards | target | partial | `src/core/features/databases/ui/workspace/DatabaseChart.tsx` | No validated CI-run proof for this acceptance point: "a browser journey builds a dashboard of three charts and a view, applies a date filter that changes every tile, and confirms a member with fewer grants sees lower counts and no restricted values." |
-| `DB-015` | Record templates and recurring records | target | partial | `tests/e2e/databases/record-templates.test.ts` | Missing a browser journey through the Templates tab showing the last saver before and after another member re-saves; the cited HTTP journey covers recurrence, revocation and returned last-saver names only. |
+| `DB-015` | Record templates and recurring records | target | done | `tests/e2e/databases/record-templates.test.ts` — "DB-015 — record templates fill fields and a body; a weekly schedule in its last saver's time zone creates exactly one record per occurrence across restarts, runs as its last saver and pauses with its reason when that saver loses access" (acceptance 1–2; Verify Workers); `tests/qualification/ui-convergence/record-templates-journey.mjs` — "recordTemplatesJourney" (acceptance 2–3), loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "DB-015 — a database's Templates tab says a schedule runs as its last saver, and a re-save hands it over at 1440px" (Verify ui-state) and "real core-wiki and touch-member journeys at 390px" (Verify core). |  |
 | `DB-016` | AI autofill fields | target | missing | — | not implemented |
 | `NOTIF-004` | Reminders | target | done | `tests/profile/work-items-journey.ts` — "remindersJourney" |  |
 | `NOTIF-005` | Email, push and digest delivery | target | missing | — | not implemented |

@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 39 | 258 | 34 | 331 |
+| Core | 40 | 257 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 39 | 258 | 40 | 337 |
+| Full target | 40 | 257 | 40 | 337 |
 
-Judged from the code and tests at commit `297b2ea5343fa80455166331849aca69e3730e5f` (28 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `3370979d7c4296f22fc16c588588896660ee9826` (29 October 2026). Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -3711,7 +3711,7 @@ Core · target · **partial**
 
 #### DB-015 — Record templates and recurring records
 
-Core · target · **partial**
+Core · target · **done**
 
 **Requirement.** A database has record templates (default fields and a body), and a template can repeat on a schedule (daily, weekly on given days, monthly or yearly), creating a record at the set time in the time zone of the member who last saved it. A schedule runs as the template's last saver (a re-save hands it to that saver, and the Templates tab shows who it runs as), exactly once per occurrence, even after restarts, and pauses with a visible reason if that saver loses access.
 
@@ -3720,8 +3720,8 @@ Core · target · **partial**
 2. Revoking the last saver's access pauses the schedule with its reason shown.
 3. A browser journey at 1440 and 390 shows the Templates tab saying the schedule runs as the member who last saved it, and a second member's re-save changing that name for both.
 
-**Evidence.** `tests/e2e/databases/record-templates.test.ts`
-**Gap.** Missing a browser journey through the Templates tab showing the last saver before and after another member re-saves; the cited HTTP journey covers recurrence, revocation and returned last-saver names only.
+**Evidence.** `tests/e2e/databases/record-templates.test.ts` — "DB-015 — record templates fill fields and a body; a weekly schedule in its last saver's time zone creates exactly one record per occurrence across restarts, runs as its last saver and pauses with its reason when that saver loses access" (acceptance 1–2; Verify Workers); `tests/qualification/ui-convergence/record-templates-journey.mjs` — "recordTemplatesJourney" (acceptance 2–3), loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "DB-015 — a database's Templates tab says a schedule runs as its last saver, and a re-save hands it over at 1440px" (Verify ui-state) and "real core-wiki and touch-member journeys at 390px" (Verify core).
+**Gap.** None.
 
 #### DB-016 — AI autofill fields
 
