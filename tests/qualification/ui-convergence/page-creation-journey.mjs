@@ -145,7 +145,7 @@ export async function pageCreationJourney(state, { phoneProof = false } = {}) {
             operationKey: randomUUID(), containerId: space.id, parentPageId,
             ...(template ? { expectedRevisionId: templateBefore.revisionId } : { title: 'Refused creation' }),
           });
-          assert.equal(response.status, 403, 'A non-editor cannot create at the root or below a page.');
+          assert.equal(response.status, 404, 'A non-editor cannot create at the root or below a page.');
         }
       }
       await switchIdentity('owner');
