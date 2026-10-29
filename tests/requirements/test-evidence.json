@@ -974,13 +974,13 @@
     },
     {
       "file": "tests/qualification/policies/invitations.test.ts",
-      "testName": "a member invitation stops admitting once its inviter is no longer a full member",
+      "testName": "native member invitations preserve uniform admission, lifetime and current inviter authority",
       "kind": "supporting-regression",
       "clauses": [
         "WORK-006",
         "WORK-010"
       ],
-      "reason": "Asserts a member invitation stops admitting once its inviter is no longer a full member. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Native HTTP admission compares the complete known and unknown address response except generated operation identifiers. The same journey accepts once into an authenticated native session, refuses replay and pre-use revocation without changing members or sessions, advances an actually issued invitation to seven days and beyond without changing storage, and reads the retained expired row. It preserves the prior inviter-removal and guest-return refusal. Only mail delivery and the Date clock are faked; no external inbox delivery or unrelated Base acceptance is claimed."
     },
     {
       "file": "tests/e2e/databases/record-templates.test.ts",

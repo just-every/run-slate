@@ -48,7 +48,7 @@
       "id": "WORK-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WORK-006 — Invitations. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "This legacy inventory classifies supporting tests only; CONTRACT.md owns native clause status. The loaded HTTP invitation journey now covers uniform admission, single use, pre-use revocation and retained seven-day expiry. It does not claim external inbox delivery or unrelated Base acceptance.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/identity.test.ts",
@@ -57,6 +57,10 @@
         {
           "file": "tests/flagship/core/mail.test.ts",
           "testName": "identity mail preserves durable retry, recovery, authentication and provider custody"
+        },
+        {
+          "file": "tests/qualification/policies/invitations.test.ts",
+          "testName": "native member invitations preserve uniform admission, lifetime and current inviter authority"
         }
       ]
     },
