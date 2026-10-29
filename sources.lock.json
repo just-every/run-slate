@@ -5516,7 +5516,7 @@
       "executable": false
     },
     "src/core/app/ui/TreeCreatePage.tsx": {
-      "sha256": "522fe4b3eb341254e1035d32794a8b1c1970e895b7e4ecd7247b955e1ff588b8",
+      "sha256": "f7978de3b98a49e9167146ccea04646ebfc8efc6933c1499cee943dda2fe2608",
       "executable": false
     },
     "src/core/app/ui/treeFilter.ts": {
@@ -8392,7 +8392,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageMoreMenu.tsx": {
-      "sha256": "4346c5bc34973df2ee0b8077e5f96760de338baa4bdf927860e826fb6b88d242",
+      "sha256": "96332260b1867ca4ef09769a90422f417ba8fd67657bc7b9223cf55c7ee73416",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PagePresentation.tsx": {
@@ -11616,7 +11616,7 @@
       "executable": false
     },
     "tests/qualification/release-navigation-performance/native-journeys.mjs": {
-      "sha256": "b7b4060445d5f1bb93bc82457e0fdd72b9ad54041e7cef7039c273f8c08d5441",
+      "sha256": "2ee68491da7bed4270f6fd4332a07149a910d77830ee4c55db303fdd47ecfa61",
       "executable": false
     },
     "tests/qualification/release-navigation-performance/native-permissions.mjs": {
@@ -11964,7 +11964,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/page-creation-journey.mjs": {
-      "sha256": "d6d027b9028d6ad6b871f365a5eaf27eaea94de38451a09b889a056e6a1fe7b4",
+      "sha256": "4a58f26d9b89763250e4130882f03f430a3824678c3353869b53c5ab563cb706",
       "executable": false
     },
     "tests/qualification/ui-convergence/page-display-journey.mjs": {
@@ -12088,7 +12088,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page.mjs": {
-      "sha256": "ee8f133a84566c32d5cacc773874e02e3be8d3623221b3a2c7eab05795701024",
+      "sha256": "71272fec7b3f6408ce5100884109b925e31f11ef7feb2a7feef13a5c11f5c990",
       "executable": false
     },
     "tests/qualification/ui-convergence/tree-filter-journey.mjs": {
@@ -12152,7 +12152,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "075400979c16283b3de207f37725ad4322a09a93775c093198b5fed83fbd6b88",
+      "sha256": "5cb3e1b66cd1c490faa5afd0961f2d42eb41f0a416cdc5888d83ef3da5f654be",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {

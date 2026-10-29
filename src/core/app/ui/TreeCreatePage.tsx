@@ -23,8 +23,8 @@ export function TreeCreatePage({ containerId, name, parentPageId, disabled = fal
         <DropdownMenuItem onSelect={() => void creation.create(async () => ({ containerId, parentPageId, title: DEFAULT_PAGE_TITLE }))}>
           <FileText aria-hidden="true" />Blank page
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <a href={templateCreationHref(containerId, parentPageId)}><LayoutTemplate aria-hidden="true" />Page from template</a>
+        <DropdownMenuItem onSelect={() => window.location.assign(templateCreationHref(containerId, parentPageId))}>
+          <LayoutTemplate aria-hidden="true" />Page from template
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

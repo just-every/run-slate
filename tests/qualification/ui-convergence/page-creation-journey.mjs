@@ -19,8 +19,8 @@ export async function pageCreationJourney(state, { phoneProof = false } = {}) {
   const sourceId = (await ok(context, origin, 'POST', '/api/pages', {
     operationKey: randomUUID(), containerId: space.id, title: 'Creation source',
     properties: { labels: ['Operations'] }, blocks: [
-      { id: randomUUID(), blockType: 'heading', content: { text: 'Incident response', level: 2 }, treePosition: 'a' },
-      { id: randomUUID(), blockType: 'paragraph', content: { text: 'Retain the response procedure.' }, treePosition: 'b' },
+      { id: randomUUID(), blockType: 'heading', content: { text: [{ text: 'Incident response' }], level: 2 }, treePosition: 'a' },
+      { id: randomUUID(), blockType: 'paragraph', content: { text: [{ text: 'Retain the response procedure.' }] }, treePosition: 'b' },
     ],
   })).value.pageId;
   const sourceBefore = await api(`/api/pages/${sourceId}`);

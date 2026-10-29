@@ -182,8 +182,8 @@ export function PageMoreMenu({
               <DropdownMenuItem disabled={creation.pending} onSelect={() => void creation.create(async () => ({containerId: document.page.containerId, parentPageId: document.page.id, title: DEFAULT_PAGE_TITLE}))}>
                 <Plus aria-hidden="true" />Create child page
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href={templateCreationHref(document.page.containerId, document.page.id)}><LayoutTemplate aria-hidden="true" />Child from template</a>
+              <DropdownMenuItem onSelect={() => window.location.assign(templateCreationHref(document.page.containerId, document.page.id))}>
+                <LayoutTemplate aria-hidden="true" />Child from template
               </DropdownMenuItem>
             </>
           ) : null}
