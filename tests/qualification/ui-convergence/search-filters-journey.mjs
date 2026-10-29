@@ -29,6 +29,7 @@ export async function searchFiltersJourney(state) {
  await input.fill(query);await page.getByRole('button',{name:'Search',exact:true}).click();
  const clear=page.getByRole('button',{name:'Clear search',exact:true});
  await clear.focus();await expect.poll(()=>clear.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
+ await input.focus();await page.keyboard.press('Tab');await expect(clear).toBeFocused();await expect.poll(()=>clear.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
  await input.focus();await clear.hover();await expect.poll(()=>clear.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
  await page.screenshot({path:'.artifacts/ui-convergence/evidence/search-clear-tooltip-'+page.viewportSize().width+'.png',fullPage:true});
  // Result order is irrelevant to filtering; compare independently sorted titles.
@@ -56,7 +57,12 @@ export async function searchFiltersJourney(state) {
  await page.getByRole('checkbox',{name:'Include trash',exact:true}).check();await titles(['Archived checklist','Removed checklist','Release handover checklist','Support rotation']);
  for(const visible of ['Release operations','Updated from 2000-01-01','Updated until 2099-01-01','Including archive','Including trash'])await expect(page.locator('.search-filter-summary')).toContainText(visible);
  await accessible(page,'search filters and retained results');
- await contributor.selectOption('browser-owner');await status.selectOption('search-ready');await titles(['Release handover checklist']);
+ await page.reload({waitUntil:'networkidle'});await titles(['Archived checklist','Removed checklist','Release handover checklist','Support rotation']);
+ await page.locator('.search-options > summary').click();await page.getByText('Refine your search',{exact:true}).click();
+ for(const [control,value]of [[source,space],[kind,'page'],[contributor,''],[status,''],[from,'2000-01-01'],[until,'2099-01-01']])await expect(control).toHaveValue(value);
+ for(const name of ['Include archive','Include trash'])await expect(page.getByRole('checkbox',{name,exact:true})).toBeChecked();
+ await contributor.selectOption('browser-owner');await titles(['Archived checklist','Removed checklist','Release handover checklist']);
+ await status.selectOption('search-ready');await titles(['Release handover checklist']);
  const retained=['Pages','Space: Release operations','Contributor: Alex Owner','Status: Ready for release','Updated from 2000-01-01','Updated until 2099-01-01','Including archive','Including trash'];
  for(const visible of retained)await expect(page.locator('.search-filter-summary')).toContainText(visible);
  // The controls display every filter in force alongside real results, and reload retains them.
@@ -67,6 +73,7 @@ export async function searchFiltersJourney(state) {
  await expect(contributor).toHaveValue('browser-owner');await expect(status).toHaveValue('search-ready');
  await expect(page.getByRole('checkbox',{name:'Include archive',exact:true})).toBeChecked();await expect(page.getByRole('checkbox',{name:'Include trash',exact:true})).toBeChecked();
  await accessible(page,'space search retains every filter after reload');
+ await page.screenshot({path:'.artifacts/ui-convergence/evidence/search-scoped-filters-'+page.viewportSize().width+'.png',fullPage:true});
  await contributor.selectOption('');await status.selectOption('');await titles(['Archived checklist','Removed checklist','Release handover checklist','Support rotation']);
  await input.fill('"handover checklist"');await page.getByRole('button',{name:'Search',exact:true}).click();
  await expect.poll(async()=>(await page.locator('.search-results h2').allTextContents()).sort()).toEqual(['Archived checklist','Release handover checklist','Removed checklist']);
