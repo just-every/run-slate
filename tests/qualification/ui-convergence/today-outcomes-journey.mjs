@@ -17,6 +17,9 @@ export async function todayOutcomesJourney(state) {
   for (const title of ['First maintained note', 'Second maintained note']) await ok(context, origin, 'POST', '/api/pages', { operationKey: randomUUID(), containerId, title });
   await state.runScheduled();
   await state.runScheduled();
+  // Pin the stored event clock so two real outcomes share a period even at midnight.
+  await page.goto('about:blank');
+  await state.atRest("UPDATE notifications SET created_at='2000-01-01T12:00:00.000Z' WHERE event='maintenance' AND recipient_member_id='browser-owner';");
   const today = await ok(context, origin, 'GET', '/api/notifications/today');
   const group = today.outcomes.find(item => item.items.some(notice => notice.title === 'First maintained note'));
   assert.ok(group);
