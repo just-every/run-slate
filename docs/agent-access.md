@@ -3,7 +3,7 @@
 Slate's intended shared-door profile contains tools, policy, pause, audit and
 idempotency. Principal authorization and owner-bound tokens are mandatory.
 The installed command and recorded agent-door runtime are pinned to released
-rer 0.2.86. That release has no capability-declaration field; this document does
+rer 0.2.87. That release has no capability-declaration field; this document does
 not add one to the machine-readable surface.
 
 No optional family is declared: events, subscriptions, multi-sponsor, mail

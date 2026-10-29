@@ -70,4 +70,4 @@ acquire Base separately and regenerate this same proof through the retention too
 
 Agent-door prerequisite copies additionally retain the authenticated commits `d555e789cffb744a9f83d76ebe42a2e3bdd7a055` and `7ce44fa5b70b68b21d270ba54760dae28b4a37a7`.
 
-The released agent-door runtime, Business settings and operator-auth dependencies are retained at `f96363bf919ea3e7ed1837daba6894810a50e4a6` (`rer-v0.2.86`). Historical schema copies remain at their original pins; applied migrations are not refreshed.
+The released agent-door runtime, Business settings and operator-auth dependencies are retained at `5381ab872b5ab4de80e811bcb4b1a803dd713e0f` (`rer-v0.2.87`). Historical schema copies remain at their original pins; applied migrations are not refreshed.
