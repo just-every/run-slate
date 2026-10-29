@@ -430,7 +430,7 @@
       "id": "BLOCK-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BLOCK-004 — Markdown shortcuts. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "The Workers-only registry does not collect Node browser journeys. BLOCK-004 native browser acceptance is specified in tests/requirements/cli-journey.md and cited in CONTRACT.md: typedShortcutsJourney runs in both existing responsive core-wiki registrations; editorFocusJourney retains rich-heading regression coverage. No Workers assertion is claimed here.",
       "supportingTests": []
     },
     {

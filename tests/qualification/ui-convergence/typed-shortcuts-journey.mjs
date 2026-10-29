@@ -40,6 +40,8 @@ function assertConverted(block, shortcut) {
 /** Native typing, committed conversion, one undo, durable literal text and reloaded reconversion. */
 export async function typedShortcutsJourney(state) {
   const { page, api } = state;
+  await page.waitForLoadState('networkidle');
+  await expect.poll(() => page.locator('[data-page-editor] [data-slate-editable]').first().evaluate(element => Object.keys(element).some(key => key.startsWith('__reactProps')))).toBe(true);
   await page.keyboard.press('ControlOrMeta+/');
   const reference = page.getByRole('dialog', { name: 'Keyboard shortcuts', exact: true });
   await expect(reference).toBeVisible();
