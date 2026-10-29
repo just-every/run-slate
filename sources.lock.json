@@ -1019,7 +1019,7 @@
       "executable": false
     },
     "deploy.json": {
-      "sha256": "5cf5dcc7bfa17f92bdc3adf06d2bfa7fd421786fc7f0118ae34a75745d340836",
+      "sha256": "2a30bf72b364ea741b6eda33201e2aa3b83901e8955415324a805c41228ff439",
       "executable": false
     },
     "deploy/footprint.md": {
@@ -1031,7 +1031,7 @@
       "executable": false
     },
     "deploy/wrangler.template.toml": {
-      "sha256": "53c6dbd40cc79572972c18c7cf317e7e302e57ffd921cccc5dd0e0425711d82b",
+      "sha256": "8106d46ec1e89bd11f41cc3781acc24e5760fb9d464169e49ea5b6e3acb94b30",
       "executable": false
     },
     "DIVERGENCE.md": {
@@ -12851,7 +12851,7 @@
       "executable": false
     },
     "wrangler.jsonc": {
-      "sha256": "e3ec6bd42f2edc3b2cee14a4660bd02a6370abb047336f6d91be741cddf67292",
+      "sha256": "7c39f8d760a37bcb7bddca8ea8e927493272e75e383dd2a0d53cf14faa81f2ab",
       "executable": false
     }
   }
