@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 41 | 256 | 34 | 331 |
+| Core | 42 | 255 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 41 | 256 | 40 | 337 |
+| Full target | 42 | 255 | 40 | 337 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -3551,7 +3551,7 @@ Core · target · **done**
 
 #### SEARCH-010 — Labels and advanced search
 
-Core · target · **partial**
+Core · target · **done**
 
 **Requirement.** Search and container views filter by label. Queries accept the operators `title:`, `label:`, `in:` (container), `by:` (contributor), `owner:`, `status:`, `verified:`, `before:`, `after:`, `type:` and quoted phrases, combined with `AND`, `OR` and `-`. A member can save a search, and a saved search can feed a content query (`BLOCK-010`). Operators never widen access (`SEARCH-005`).
 
@@ -3559,8 +3559,8 @@ Core · target · **partial**
 1. a Workers journey over seeded pages checks each operator and each combination against expected result IDs for two members with different grants.
 2. A browser journey saves a search and embeds it in a page.
 
-**Evidence.** `tests/e2e/search/discovery-journey.ts`
-**Gap.** Missing a browser journey saving a search and embedding it in a page; the cited discoveryJourney checks operator and saved-query HTTP results only.
+**Evidence.** `tests/e2e/search/discovery-journey.ts` — "discoveryJourney", loaded by `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors"; `tests/qualification/ui-convergence/saved-search-journey.mjs` — "savedSearchJourney", loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px"
+**Gap.** None.
 
 #### SEARCH-011 — Verified-first ranking and trust badges
 

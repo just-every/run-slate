@@ -3979,8 +3979,8 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 25 | 201 | 0 | 226 |
-| Target and push further | 16 | 55 | 40 | 111 |
-| All | 41 | 256 | 40 | 337 |
+| Target and push further | 17 | 54 | 40 | 111 |
+| All | 42 | 255 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4236,7 +4236,7 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `SHARE-009` | Share with a message | target | partial | `tests/qualification/backend/emitted.mjs` | Missing a complete public-door journey for share with a message; the cited material shows only part of the capability. |
 | `TMPL-007` | Starter templates | target | done | `tests/qualification/ui-convergence/starter-templates-journey.mjs` — "starterTemplatesJourney" |  |
 | `NAV-007` | My tasks | target | done | `tests/qualification/ui-convergence/my-tasks-journey.mjs` — "myTasksJourney" |  |
-| `SEARCH-010` | Labels and advanced search | target | partial | `tests/e2e/search/discovery-journey.ts` | Missing a browser journey saving a search and embedding it in a page; the cited discoveryJourney checks operator and saved-query HTTP results only. |
+| `SEARCH-010` | Labels and advanced search | target | done | `tests/e2e/search/discovery-journey.ts` — "discoveryJourney", loaded by `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors"; `tests/qualification/ui-convergence/saved-search-journey.mjs` — "savedSearchJourney", loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" | |
 | `SEARCH-011` | Verified-first ranking and trust badges | target | done | `tests/qualification/ui-convergence/trust-ranking-journey.mjs` — "trustRankingJourney"; `tests/e2e/search/discovery-journey.ts` — "discoveryJourney" |  |
 | `SEARCH-012` | Connected results in search | target | partial | `src/core/features/source-memory/service.ts` | Missing a complete public-door journey for connected results in search; the cited material shows only part of the capability. |
 | `SEARCH-013` | Search inside attached files | target | missing | — | not implemented |
