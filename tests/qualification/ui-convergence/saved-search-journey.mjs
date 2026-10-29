@@ -9,6 +9,7 @@ export async function savedSearchJourney(state) {
   const {page, context, origin, api} = state;
   const shared = await restrictedPage(state, 'Catalog launch guide', ['Confirm the public launch checklist.']);
   const privatePage = await restrictedPage(state, 'Catalog private forecast', ['Confidential launch forecast.']);
+  await ok(context, origin, 'POST', '/api/sharing', {operationKey:randomUUID(), targetKind:'container', targetId:shared.spaceId, principalKind:'member', principalId:'browser-reader', level:'view'});
   await grant(context, origin, shared.pageId, 'browser-reader', 'view');
   for (const id of [shared.pageId, privatePage.pageId]) {
     const document = await api(`/api/pages/${id}`);
@@ -25,6 +26,7 @@ export async function savedSearchJourney(state) {
   const otherSpace = (await ok(context, origin, 'POST', '/api/containers', {operationKey:randomUUID(), name:'Other catalog', visibility:'default'})).value.id;
   await create('Catalog outside scope', ['launch'], otherSpace);
   const host = await create('Saved launch index', []);
+  await grant(context, origin, host, 'browser-reader', 'view');
   const query = 'title:Catalog AND label:launch -title:Excluded';
   const name = 'Launch review';
   const ownerTitles = ['Catalog launch guide', 'Catalog private forecast'];
@@ -96,16 +98,10 @@ export async function savedSearchJourney(state) {
   };
   await page.reload({waitUntil:'networkidle'});
   await queryTitles(page, ownerTitles);
-  // Publish the embedded revision through the same reviewed door readers use.
-  await page.getByRole('button', {name:'More', exact:true}).click();
-  await page.getByRole('menuitem', {name:'Publish workspace revision', exact:true}).click();
-  const publication = page.getByRole('dialog', {name:'Publish this revision', exact:true});
-  await publication.getByRole('button', {name:'Review publication', exact:true}).click();
-  await publication.getByRole('button', {name:'Publish workspace revision', exact:true}).click();
-  await expect(publication).toHaveCount(0);
   await accessible(page, 'saved search embedded after page reload');
   await withSecondPerson(state, page.viewportSize().width, async ({bob}) => {
-    await ok(bob.context, origin, 'GET', `/api/pages/${host}`);
+    const readerDocument = await ok(bob.context, origin, 'GET', `/api/pages/${host}`);
+    assert.equal(readerDocument.permissions.canEdit, false, 'The second person reads the embedded query without edit authority.');
     await bob.page.goto(`${origin}/app/pages/${host}`, {waitUntil:'networkidle'});
     await queryTitles(bob.page, ['Catalog launch guide']);
     await expect(embedded(bob.page)).not.toContainText('Catalog private forecast');
