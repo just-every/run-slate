@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 44 | 253 | 34 | 331 |
+| Core | 45 | 252 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 44 | 253 | 40 | 337 |
+| Full target | 45 | 252 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `5c753c61b2403690235b39a1e374b84980368d3f` (29 October 2026); BLOCK-010 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -715,7 +715,7 @@ Core · published · **partial**
 
 #### BLOCK-010 — Content queries
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A body can hold a live list of pages defined by container, ancestor, type, status, contributor and date, ordered and limited by the author.
 
@@ -724,8 +724,8 @@ Core · published · **partial**
 2. A query whose source is deleted shows that, not an empty list.
 3. Content query shows each reader only readable pages, never drafts, shows last run and a deleted source.
 
-**Evidence.** `tests/qualification/interface/blocks.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/blocks.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", through `tests/qualification/ui-convergence/content-query-journey.mjs` — contentQueryJourney: native criteria persistence, exact ordered current-reader results, both authors’ drafts excluded, response-correlated last run, committed source updates on reopen, revoked and deleted sources without stale rows, and retained missing-source criteria.
+**Gap.** None.
 
 ### Page lifecycle
 
