@@ -12131,6 +12131,10 @@
       "sha256": "8d0880c6adad3f66b63c9c66314ed5ddd6f3d1bcbd0ff8350c7fd64dd2c71bdf",
       "executable": false
     },
+    "tests/qualification/ui-convergence/typed-shortcuts-journey.mjs": {
+      "sha256": "5b5c73478d504d20ada5374526576912b1584c1b262e3b911eb479b9ff572e1d",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/unpublished-changes-journey.mjs": {
       "sha256": "da03e884cb0e5653174c0dfc97620abcc0cd4dc97c75c2d953c46c101adc841a",
       "executable": false
@@ -12144,7 +12148,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {
-      "sha256": "1c08c1d7c19b8d5410ba254b64d762d75a1938fc7fc71cc659f0b78d0d74e935",
+      "sha256": "df069e4d6f8c48fa8baf45f513ee0090d3a99c9a49d55f17cb7278caeca76cc1",
       "executable": false
     },
     "tests/release/delivery-runtime.mjs": {
