@@ -99,7 +99,8 @@ export async function memberThreadsJourney(state, people) {
   // Native browser selection, with no synthetic application event or write.
   await paragraph.evaluate(element => {
     element.focus();
-    const text = element.firstChild;
+    const text = document.createTreeWalker(element, NodeFilter.SHOW_TEXT).nextNode();
+    if (!text) throw new Error('The readable paragraph has no text to select.');
     const range = document.createRange();
     range.setStart(text, 4); range.setEnd(text, 16);
     getSelection().removeAllRanges(); getSelection().addRange(range);
@@ -119,6 +120,7 @@ export async function memberThreadsJourney(state, people) {
     return result.value.threadId;
   }
   const inlineId = await send(bob, 'Please confirm this selected responsibility.');
+  await expect(paragraph.locator('mark[data-comment-anchor]')).toHaveText('on-call lead');
   await expect(bob.locator('.comment-form blockquote')).toHaveCount(0);
   await closeDetails(bob);
   await bob.evaluate(() => getSelection().removeAllRanges());
@@ -180,6 +182,7 @@ export async function memberThreadsJourney(state, people) {
       await expect(section.locator('.thread-heading > span')).toHaveText(threadId === inlineId ? 'Resolved' : 'Open');
     }
     await expect(view.locator(`#thread-${inlineId} blockquote`)).toHaveText('on-call lead');
+    await expect(view.getByRole('textbox', { name: 'Paragraph', exact: true }).first().locator('mark[data-comment-anchor]')).toHaveText('on-call lead');
     await expect(view.locator(`#thread-${inlineId}`).getByRole('button', { name: 'Jump to selected text', exact: true })).toBeVisible();
     await expect(view.locator(`#thread-${pageThreadId} blockquote`)).toHaveCount(0);
   }
@@ -196,14 +199,20 @@ export async function memberThreadsJourney(state, people) {
     ['PATCH',`/api/pages/${pageId}/blocks/${blockIds[0]}`,{expectedRevisionId:after.blocks[0].revisionId,content:{text:[{text:'Unauthorized body'}]}}],
     ['PUT',`/api/pages/${pageId}/blocks`,{expectedRevisionId:after.page.revisionId,blocks:[]}],
   ];
-  for (const [method,path,input] of denied) assert.equal((await call(people.bob.context,origin,method,path,{operationKey:crypto.randomUUID(),...input})).status,403);
+  for (const [method,path,input] of denied) {
+    const refused = await call(people.bob.context,origin,method,path,{operationKey:crypto.randomUUID(),...input});
+    assert.equal(refused.status,404,`${method} ${path} preserves the native concealed-access refusal.`);
+    assert.equal(refused.body.code,'NOT_FOUND');
+  }
   const forged = await call(people.bob.context,origin,'POST',route,{...writes[0].input,operationKey:crypto.randomUUID(),anchor:{...writes[0].input.anchor,quote:'Unselected text'}});
   assert.equal(forged.status,409,'An anchor cannot claim text outside the actual readable selection.');
   assert.deepEqual(await api(route), resolved, 'Refused content writes and invalid anchors change no discussion.');
   assert.deepEqual(await api(`/api/pages/${pageId}`), after, 'Comment authority cannot change the page.');
   await grant(context,origin,pageId,people.bob.id,'view',{id:access.value.id});
   for (const input of [writes[0].input,writes[1].input,{operationKey:crypto.randomUUID(),threadId:inlineId,body:[{text:'Refused reply'}]}]) {
-    assert.equal((await call(people.bob.context,origin,'POST',route,input)).status,403,'Downgraded access refuses both new comments and replay.');
+    const refused = await call(people.bob.context,origin,'POST',route,input);
+    assert.equal(refused.status,404,'Downgraded access refuses both new comments and replay.');
+    assert.equal(refused.body.code,'NOT_FOUND');
   }
   assert.deepEqual(await api(route),resolved,'A replay cannot recreate comments after comment authority is removed.');
   console.log(`PROBE COMM-001 points 1-3: comment-level selection and page composers -> two threads, six ordered attributed comments, persisted Open and Resolved states; forbidden content edits, invalid selection and revoked replay refused at ${bob.viewportSize().width}px`);
