@@ -11,7 +11,7 @@ import { PageTransferDialog } from "./PageTransferDialog";
 import { WorkspacePublicationDialog } from "./WorkspacePublicationDialog";
 
 /** The dialogs the page's More menu opens. */
-export type PageDialog = "export" | "decision" | "move" | "duplicate" | "template" | "icon" | "cover" | "publish" | "cancel-schedule" | "discard-changes" | "archive" | "trash";
+export type PageDialog = "export" | "decision" | "move" | "duplicate" | "template" | "icon" | "cover" | "publish" | "cancel-schedule" | "discard-changes" | "discard-draft" | "archive" | "trash";
 
 /** Renders the dialog the menu asked for, and the notice a saved template leaves behind. */
 export function PageActionDialogs({
@@ -20,12 +20,14 @@ export function PageActionDialogs({
   revision,
   reload,
   onClose,
+  onCloseDraft,
 }: {
   dialog: PageDialog | null;
   document: DocumentView;
   revision: string;
   reload: () => void;
   onClose: () => void;
+  onCloseDraft: () => void;
 }) {
   const [templateSaved, setTemplateSaved] = useState(false);
   const id = document.page.id;
@@ -65,6 +67,15 @@ export function PageActionDialogs({
         />
       ) : null}
       {dialog === "publish" ? <WorkspacePublicationDialog document={document} revision={revision} onClose={onClose} onSaved={reload} /> : null}
+      {dialog === "discard-draft" ? (
+        <ActionDialog title="Discard this draft?" action="Discard draft" onClose={onClose} onSubmit={async () => {
+          await mutate(`/api/archive/${id}`, { operationKey: operationKey(), expectedRevisionId: revision, action: "trash" });
+          window.dispatchEvent(new Event("slate:navigation-changed"));
+          onCloseDraft();
+        }}>
+          <p>This moves your draft to trash. Its content and history are retained, and you can restore it. No one is notified.</p>
+        </ActionDialog>
+      ) : null}
       {dialog === "archive" || dialog === "trash" || dialog === "cancel-schedule" || dialog === "discard-changes" ? (
         <ActionDialog
           title={dialog === "archive" ? "Archive this page?" : dialog === "trash" ? "Move this page to trash?" : "Confirm this page change"}
