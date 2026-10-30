@@ -3986,7 +3986,7 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff.
+Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. SHARE-006 source proof reviewed at `26e2e1e9c53a93e6fb78322b30265b2438575876` (30 October 2026); exact candidate Verify and guarded landing remain separate receipts.
 
 Judged from the code and tests at commit `30886e55608596bb44862e4c6942dc1a24ef982e` for STAT-001; both status profiles passed the native HTTP and responsive vocabulary journeys. The exact candidate and guarded landing receipts remain in the branch handoff.
 
@@ -3996,9 +3996,9 @@ STAT-005 retains the current main judgment below. The native status-profile cont
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 38 | 188 | 1 | 227 |
+| Published | 39 | 187 | 1 | 227 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 54 | 243 | 41 | 338 |
+| All | 55 | 242 | 41 | 338 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4066,7 +4066,7 @@ STAT-005 retains the current main judgment below. The native status-profile cont
 | `SHARE-003` | Inheritance | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A page inherits its parent's grants, and a child added later inherits the parent's grants at that moment."<br>No validated CI-run proof for this acceptance point: "A page may add grants or be restricted, and a restriction is shown on the page and on every descendant it affects."<br>No validated CI-run proof for this acceptance point: "Removing a restriction restores inheritance rather than copying the parent's grants." |
 | `SHARE-004` | General access | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a populated general-access change journey that reads the changed grant and activity and tries the forbidden widening; the cited test parses archive records only. |
 | `SHARE-005` | Access profile | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a two-profile grant journey that changes policy and reads retained grants and hidden levels; the cited test parses an incumbent archive only. |
-| `SHARE-006` | Sharing with a person who is not a member | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Granting access to an address that belongs to no member creates a guest invitation (`WORK-010`, `MAIL-001`) and the grant takes effect when it is accepted."<br>No validated CI-run proof for this acceptance point: "Until then the page shows the pending grant, and revoking it cancels the invitation." |
+| `SHARE-006` | Sharing with a person who is not a member | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px", through `tests/qualification/ui-convergence/guest-invitation-journey.mjs` — "guestInvitationJourney": requirement and acceptance 1–2; non-owner full-page Share invitation to an unknown address, persisted pending grant, native acceptance with exactly named view access, retained cancellation, token refusal and captured-request replay without authority resurrection. `tests/qualification/ui-convergence/guest-scope-journey.mjs` — "guestScopeJourney": named guest scope and current vetoes through the loaded workspace authority journeys. | |
 | `SHARE-007` | Access changes take effect at once | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Removing or narrowing a grant applies to the next request from every existing session, closes an open editor with an explanation rather than silently discarding the writer's unsaved text, and removes the page from that member's search results, tree, inbox items and AI answers within 5 seconds." |
 | `SHARE-008` | Expiring grants | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A grant may carry an expiry time."<br>No validated CI-run proof for this acceptance point: "When it passes, access ends under `SHARE-007`, the grant is shown as expired rather than deleted, and re-granting is one action." |
 | `WEB-001` | Anonymous access takes two acts | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | Missing a complete public-door journey for anonymous access takes two acts under the current authority, audience and company policy; prior quoted implementation and policy notes are retained in CHANGELOG.md. |
