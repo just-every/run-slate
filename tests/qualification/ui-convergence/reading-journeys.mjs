@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {themeJourney} from './theme-journey.mjs';
 import {guestConsoleJourney} from './guest-console-journey.mjs';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-support.mjs';
@@ -88,4 +89,5 @@ export async function settingsJourney(state, width) {
   await expect(page.locator('body')).not.toContainText(/\bContainers?\b/);
   await accessible(page, 'space settings');
   await guestConsoleJourney(state);
+  await themeJourney(state, width);
 }
