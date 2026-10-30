@@ -11980,7 +11980,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/page-details-journey.mjs": {
-      "sha256": "cb879cfa84743f5aaef2b6ee40232c6d5f86e505c463690bda3d7a97e8baab9c",
+      "sha256": "66b319e30970479d05627676104ff38e14b70f3494d55d9a9d1e1d730fe8ddab",
       "executable": false
     },
     "tests/qualification/ui-convergence/page-display-journey.mjs": {
