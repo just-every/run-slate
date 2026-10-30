@@ -1474,7 +1474,7 @@
       "id": "TMPL-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for TMPL-004 — Custom templates. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "Native custom lifecycle and shipped-template protections are exercised by tests/e2e/pages/starter-templates.test.ts (TMPL-007 starter-template journey) and tests/qualification/ui-convergence/template-lifecycle-journey.mjs through the existing desktop starter-template and phone core-wiki registrations in tests/qualification/ui-convergence/journeys.test.mjs. This legacy Workers inventory records supporting coverage; the source Status row and exact candidate Verify determine full acceptance.",
       "supportingTests": []
     },
     {
