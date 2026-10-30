@@ -8384,7 +8384,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
-      "sha256": "308a02beb7200fedbcc9e140eab01cad09d0d3339a0d168615d0f9328ce97a9f",
+      "sha256": "f92bb132118929c8c25129ea08f07209421b9275b3709e4ee3bede9652ee1a1e",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageMetadata.tsx": {
@@ -9528,7 +9528,7 @@
       "executable": false
     },
     "src/core/features/versions/service.ts": {
-      "sha256": "2c7ba27475e8168a120aa34c497927e9a0a42cb5f887c0c71b49600c72696d5c",
+      "sha256": "69c74bacb61efb9377cb3fee98863576ad4c5af48b85dc398c089056bf39c313",
       "executable": false
     },
     "src/core/features/versions/ui/types.ts": {
@@ -11952,7 +11952,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "a4cd1c0483504a7bc234b5a821eeb9f3c238fc17c6428c0b9e44ddc34b0cb39f",
+      "sha256": "67d26f37362f2a1ffa6fd65d5e00eee0d314c393afed6a34cb051f13311a8a75",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12124,7 +12124,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-history.mjs": {
-      "sha256": "15beb0b97f7d881a9d62df0e845a42837b1c9de0def0159ee0348efbf761c054",
+      "sha256": "889a54f20511b1d062b5191aadd1791afdabbdccc0027f64380047664e309fc5",
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-support.mjs": {

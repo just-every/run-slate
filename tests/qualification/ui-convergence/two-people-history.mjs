@@ -1,3 +1,4 @@
+import { versionDeletionJourney } from './version-deletion-journey.mjs';
 import assert from 'node:assert/strict';
 import { randomBytes, randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
@@ -152,5 +153,6 @@ export async function historyJourney(state, people) {
   assert.equal((await anonymous.request.get(`${origin}/api/revisions/${privatePage}/${privateRevision}`)).status(), 401);
   await stranger.screenshot({ path: `${people.evidence}/anonymous-citation-unpublished.png`, fullPage: true });
   await anonymous.close();
+  await versionDeletionJourney(state, people);
   record('history', { restoredFrom: target.revisionId, newRevision: after.revision, revisionsBefore: before.history, revisionsAfter: after.history, activity: { action: activity.action, actor: alice.name, restoredRevisionId: activity.context.revisionId } });
 }
