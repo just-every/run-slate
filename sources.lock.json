@@ -6744,7 +6744,7 @@
       "executable": false
     },
     "src/core/features/agent-door/index.server.ts": {
-      "sha256": "42f92758ecc728e5fc7b584c0a91645c23e432c4fe94c5c3416cf4aca07cae4c",
+      "sha256": "9f0a9e067648bc33b341c2633ce8b66d31f5e5fb82be8afbb46bec047e0863d4",
       "executable": false
     },
     "src/core/features/agent-door/legacy.ts": {
@@ -8092,7 +8092,7 @@
       "executable": false
     },
     "src/core/features/effects/service.ts": {
-      "sha256": "7d008af0739e4867ddc2395aa09158aaad5c56b230e20bcd033436d3f0a80437",
+      "sha256": "5f722667bd963875e289a7869e47386ac2d4f098320a922b7fbf50432e2737b2",
       "executable": false
     },
     "src/core/features/effects/ui/EffectReceipt.tsx": {
@@ -8172,7 +8172,7 @@
       "executable": false
     },
     "src/core/features/external-agent/credentials.ts": {
-      "sha256": "ed4ec513db777747f7bd5409c72412a4fc486c60c0c7797f338ac66e7a98a607",
+      "sha256": "ff075592960f68023ac67ef0b06bc08efb3f2003d88a9417a97360682109bd8e",
       "executable": false
     },
     "src/core/features/external-agent/routes.ts": {
@@ -12184,7 +12184,7 @@
       "executable": false
     },
     "tests/flagship/release-clauses/authority/agent-revocation.test.ts": {
-      "sha256": "85090029d760b7b2e22bbb3b2f09f79230dc3f21fe518d7bff23ee5ffee48bcc",
+      "sha256": "676d2cdf34e22cc438c3a2fda782b3bc04844c7421707008e4cc8b47c5b32d46",
       "executable": false
     },
     "tests/flagship/release-clauses/authority/fixture.ts": {
@@ -12197,6 +12197,10 @@
     },
     "tests/flagship/release-clauses/authority/inquiry-custody.test.ts": {
       "sha256": "a270dce8b40b1ebaf1b1335c9031301a49450ab1d1c8c4d44b72c7042f3e6b00",
+      "executable": false
+    },
+    "tests/flagship/release-clauses/authority/issuer-demotion.case.ts": {
+      "sha256": "ac91da39da5a04a3386d4815bc7701eb8255e75807546901221d2a82a4fe8f41",
       "executable": false
     },
     "tests/flagship/release-clauses/authority/maintenance-fixture.ts": {
