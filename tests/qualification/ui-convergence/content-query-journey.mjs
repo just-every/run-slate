@@ -63,6 +63,7 @@ export async function contentQueryJourney(state, width) {
       const response=await pending;
       assert.equal(response.status(),200,await response.text());
       const result=await response.json();
+      assert.ok(Number.isFinite(Date.parse(result.ranAt)),'The native query records a valid last-run instant.');
       assert.deepEqual(result.items.map(item=>item.id),expected,'The native response has the exact ordered readable results.');
       await expect(query(view).locator('tbody tr button')).toHaveText(result.items.map(item=>item.title));
       const stamp=await view.evaluate(value=>new Date(value).toLocaleString(),result.ranAt);

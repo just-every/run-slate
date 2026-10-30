@@ -724,8 +724,8 @@ Core · published · **partial**
 2. A query whose source is deleted shows that, not an empty list.
 3. Content query shows each reader only readable pages, never drafts, shows last run and a deleted source.
 
-**Evidence.** `tests/qualification/interface/blocks.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/blocks.mjs`.
+**Evidence.** `tests/qualification/interface/blocks.mjs`; additional supporting browser coverage: `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", through `tests/qualification/ui-convergence/content-query-journey.mjs` — contentQueryJourney: native criteria persistence, exact ordered current-reader results, both authors’ drafts excluded, response-correlated last run, committed source updates on reopen, revoked and deleted sources without stale rows, and retained missing-source criteria.
+**Gap.** Main’s partial judgment is retained pending acceptance of the additional native browser coverage. evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/blocks.mjs`.
 
 ### Page lifecycle
 
