@@ -1,3 +1,4 @@
+import { revisionCompareJourney } from './revision-compare-journey.mjs';
 import { publicationJourney } from './publication-journey.mjs';
 import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} from './synced-custody.mjs';
 import {peopleJourney} from './people-journey.mjs';
@@ -87,6 +88,8 @@ for (const width of [390, 1440]) {
         await state.runScheduled();
         await chatJourney(state, width);
         if (width === 390) {
+          await state.switchIdentity('owner');
+          await step('REV-004 — comparison remains available on a phone under both profiles', () => revisionCompareJourney(state, width));
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
           // One phone smoke visits the main screens; functional journeys use desktop
           // except where an assertion distinguishes the phone layout or touch input.
@@ -188,6 +191,7 @@ for (const width of [1440]) {
         await step('different blocks, same block, title and unreachable server', () => concurrentEditingJourney(state, people));
         await step('removed, narrowed and expired access with unsaved typing', () => accessChangeJourney(state, people, width));
         await step('restore writes a new revision; citations resolve to theirs', () => historyJourney(state, people));
+        await step('REV-004 — nonadjacent block comparisons under both profiles', () => revisionCompareJourney(state, width));
       });
     });
   });
