@@ -8056,7 +8056,7 @@
       "executable": false
     },
     "src/core/features/notifications/ui/WorkspaceInbox.tsx": {
-      "sha256": "016fac2a59e345a685f9772a1e41cc1d94c47225004046516da20eeadce0d1d0",
+      "sha256": "8d862f57ec2204e1e0afc8db3461c4198caa22e840cde458e8c0173b93a15c5f",
       "executable": false
     },
     "src/core/features/notifications/visibility.ts": {
@@ -8424,7 +8424,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageWorkspace.tsx": {
-      "sha256": "c8c1e8b636a6f3ff158b82f35e0cef5bd14b8af93161b25081876d3912505542",
+      "sha256": "0e5f8c52482f15c0471f52068a84e970c153d8f636ac535b0a195ba6f3cf5177",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PublicationReviewPanel.tsx": {
@@ -10864,7 +10864,7 @@
       "executable": false
     },
     "tests/flagship/discovery/following.test.ts": {
-      "sha256": "5d87a093ae9a2d6d4a8740b4a308d9f5f613d8a16b6fea02f13b703a689067a4",
+      "sha256": "fb1d94586675e0e28844b5eaa92759f18673dc9c33249fd4a9f473d049959cb0",
       "executable": false
     },
     "tests/flagship/discovery/group-mentions.test.ts": {
@@ -12096,7 +12096,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-operator-journey.mjs": {
-      "sha256": "c418f1ea4c0d8569b95d6cd3c5480ec4d50ed188ab70377cbc0fc71b2272b506",
+      "sha256": "a06f02ff4fda525e75b9dd2143aa54b48ff6bba4e5a5696a460a573e0556d800",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page-tools-journey.mjs": {
@@ -12172,7 +12172,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "c3d3cd2ae9658cb72474e495a695d099f2e469d580806df20ff092eab38737d5",
+      "sha256": "1836811b1bb02eb95b285ae3ee36fa2f5770fb2f19f086f3a84dd617d9104ede",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12188,7 +12188,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "6e3a5bec569b558d51899cd79469dac0974911e55829791cdfac0a47ba4fb02b",
+      "sha256": "488098b3a30920549a0559835a4aab0e0b917baf15fb841c1846840973b767d4",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
