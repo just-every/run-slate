@@ -1,3 +1,4 @@
+import {issuerDemotionCase} from './issuer-demotion.case';
 import {runFoldCases} from '../../fold-cases';
 import {resetDeployment as resetFoldDeployment} from '../../../e2e/setup/reset-deployment';
 import {resetDeployment} from '../../../e2e/setup/reset-deployment';
@@ -84,4 +85,10 @@ try {
 } finally {{await (vi.unstubAllGlobals());}}
 }}
   ]);
+  vi.unstubAllGlobals();await resetDeployment();
+  const authorized=await issuerDemotionCase(false);
+  vi.unstubAllGlobals();await resetDeployment();
+  const demoted=await issuerDemotionCase(true);
+  console.log('CURRENT_ISSUER_RECEIPT '+JSON.stringify(authorized));
+  console.log('ISSUER_DEMOTION_RECEIPT '+JSON.stringify(demoted));
 });

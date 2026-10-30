@@ -35,8 +35,9 @@ export async function requireEffect(ctx:FeatureContext,effectId:string){const ef
 export async function dispatchEffect(ctx:FeatureContext,effectId:string){
  const effect=await requireEffect(ctx,effectId);const input=effectSchema.parse(JSON.parse(effect.intent_json));const {adapter,grant,trialGuard}=await authorizeIntent(ctx,input);
  if(effect.state!=='prepared')return effect;
- // Durable claim precedes the only dispatch. A crash from this point is reconciled, never retried.
- await ctx.db.batch([...(trialGuard?[trialGuard]:[]),mutationGuard(ctx.db,"SELECT state='prepared' FROM intelligence_effects WHERE id=?",[effectId]),mutationGuard(ctx.db,"SELECT revision_id=? AND revoked_at IS NULL AND expires_at>? FROM intelligence_grants WHERE id=?",[grant.row.revision_id,ctx.now,input.grantId]),mutationGuard(ctx.db,'SELECT epoch=? FROM core_acl_epoch WHERE id=1',[ctx.authorizationEpoch!]),mutationGuard(ctx.db,"SELECT status NOT IN ('paused','cancelled','failed','completed') FROM intelligence_runs WHERE id=?",[input.runId]),ctx.db.prepare("UPDATE intelligence_effects SET state='dispatched',dispatched_at=?,revision_id=? WHERE id=?").bind(ctx.now,id(),effectId)]);
+ // Native credential and policy guards share the durable claim with grant and ACL checks.
+ // A crash after this claim is reconciled, never retried.
+ await ctx.db.batch([...(ctx.credentialGuard?[ctx.credentialGuard()]:[]),...(ctx.operationStatements?.before??[]),...(trialGuard?[trialGuard]:[]),mutationGuard(ctx.db,"SELECT state='prepared' FROM intelligence_effects WHERE id=?",[effectId]),mutationGuard(ctx.db,"SELECT revision_id=? AND revoked_at IS NULL AND expires_at>? FROM intelligence_grants WHERE id=?",[grant.row.revision_id,ctx.now,input.grantId]),mutationGuard(ctx.db,'SELECT epoch=? FROM core_acl_epoch WHERE id=1',[ctx.authorizationEpoch!]),mutationGuard(ctx.db,"SELECT status NOT IN ('paused','cancelled','failed','completed') FROM intelligence_runs WHERE id=?",[input.runId]),ctx.db.prepare("UPDATE intelligence_effects SET state='dispatched',dispatched_at=?,revision_id=? WHERE id=?").bind(ctx.now,id(),effectId),...(ctx.operationStatements?.after??[])]);
  try{
   const result=await adapter.dispatch(input);
   // Retain actual provider receipts even if authority is revoked during the request; never undo a completed write.
