@@ -51,6 +51,7 @@ import { failedSaveJourney } from './failed-save-journey.mjs';
 import { sharedNavigationJourney } from './shared-navigation-journey.mjs';
 import { globalCreateJourney } from './global-create-journey.mjs';
 import { starterTemplatesJourney } from './starter-templates-journey.mjs';
+import { templateGalleryJourney } from './template-gallery-journey.mjs';
 import { taskAssignmentJourney } from './task-assignment-journey.mjs';
 import { recordTemplatesJourney } from './record-templates-journey.mjs';
 import { pageLockBrowserJourney } from './page-lock-journey.mjs';
@@ -87,6 +88,7 @@ for (const width of [390, 1440]) {
         await state.runScheduled();
         await chatJourney(state, width);
         if (width === 390) {
+          await templateGalleryJourney(state);
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
           // One phone smoke visits the main screens; functional journeys use desktop
           // except where an assertion distinguishes the phone layout or touch input.
