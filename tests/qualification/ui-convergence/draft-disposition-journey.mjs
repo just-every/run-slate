@@ -77,7 +77,7 @@ export async function draftDispositionJourney(state, people) {
     await openDraft(closedId);
     await page.reload({ waitUntil: 'networkidle' });
     await expect(page.getByRole('textbox', { name: 'Page title', exact: true })).toHaveValue(closed.page.title);
-    await expect(page.getByRole('textbox', { name: 'Page body', exact: true })).toContainText('Retained content after closing');
+    await expect(page.locator('[data-block-id="' + closed.blocks[0].id + '"] [contenteditable="true"]')).toHaveText('Retained content after closing');
     const reopened = await read(closedId);
     assert.equal(reopened.page.lifecycle, 'draft');
     assert.equal(reopened.page.id, closedId);
@@ -140,7 +140,7 @@ export async function draftDispositionJourney(state, people) {
     assert.equal(restored.publishedRevisionId, null);
     assert.deepEqual(restored.blocks, discarded.blocks);
     assert.deepEqual(await history(discardedId), discardedHistory);
-    await expect(page.getByRole('textbox', { name: 'Page body', exact: true })).toContainText('Retained content after discarding');
+    await expect(page.locator('[data-block-id="' + discarded.blocks[0].id + '"] [contenteditable="true"]')).toHaveText('Retained content after discarding');
     await shot('restored');
     await state.runScheduled();
     assert.deepEqual(await outsiderTree(), beforeTree);
