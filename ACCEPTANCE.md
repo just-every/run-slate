@@ -2131,7 +2131,7 @@ Core · published · **partial**
 1. A figure such as a team size or a duration appears only when the template's author wrote one; Slate never estimates, infers, or displays a placeholder for either.
 2. Preview shows the resulting page and children with only author-written figures.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof. Supporting native browser assertions: `tests/qualification/ui-convergence/template-preview-journey.mjs` — "templatePreviewJourney", loaded by "starterTemplatesJourney" at 1440px; "templatePreviewSmoke" is loaded by the core journey at 390px. Current main’s partial judgment and acceptance gap are retained pending exact-SHA Verify and guarded landing.
 **Gap.** No validated CI-run proof for this acceptance point: "A template preview shows the page it produces, including its body, properties and any child pages, before it is used."<br>No validated CI-run proof for this acceptance point: "A figure such as a team size or a duration appears only when the template's author wrote one; Slate never estimates, infers, or displays a placeholder for either."
 
 #### TMPL-003 — Snapshot on use
@@ -2144,7 +2144,7 @@ Core · published · **partial**
 1. Editing, archiving or deleting the template afterwards changes no page already created from it.
 2. Using a template snapshots it; later template edits change no created page.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof. Supporting native browser assertions: `tests/qualification/ui-convergence/template-preview-journey.mjs` — "templatePreviewJourney", loaded by "starterTemplatesJourney" at 1440px; "templatePreviewSmoke" is loaded by the core journey at 390px. Current main’s partial judgment and acceptance gap are retained pending exact-SHA Verify and guarded landing.
 **Gap.** No validated CI-run proof for this acceptance point: "Using a template creates a page holding a copy of its body, properties and children in the destination the member chose."<br>No validated CI-run proof for this acceptance point: "Editing, archiving or deleting the template afterwards changes no page already created from it."
 
 #### TMPL-004 — Custom templates

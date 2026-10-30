@@ -1447,14 +1447,14 @@
       "id": "TMPL-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for TMPL-002 — Preview. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "This legacy inventory classifies Workers supporting tests only; CONTRACT.md owns native clause status. The existing starterTemplatesJourney now calls templatePreviewJourney through the emitted Worker: author-written figures and no-figure templates, populated appearance and structured properties, a nested child hierarchy, complete browser preview before use, and native copy reconciliation. The existing phone core journey captures both previews. Exact candidate Verify and guarded landing receipts remain separate.",
       "supportingTests": []
     },
     {
       "id": "TMPL-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of TMPL-003 — Snapshot on use. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "This legacy inventory classifies Workers supporting tests only; CONTRACT.md owns native clause status. The existing starterTemplatesJourney calls templatePreviewJourney to apply a retained four-page snapshot through the native dialog into Handbook, read back fresh blocks and the complete copied hierarchy and properties, then replace, archive and delete the template while comparing unchanged native copies. Exact candidate Verify and guarded landing receipts remain separate.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
