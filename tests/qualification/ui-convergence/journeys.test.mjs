@@ -46,7 +46,7 @@ import { withSecondPerson, call } from './two-people-support.mjs';
 import { concurrentEditingJourney } from './two-people-editing.mjs';
 import { accessChangeJourney } from './two-people-access.mjs';
 import { historyJourney } from './two-people-history.mjs';
-import { databaseJourney } from './database-journey.mjs';
+import { databaseJourney, savedViewsJourney } from './database-journey.mjs';
 import { recordDetailJourney } from './record-detail-journey.mjs';
 import { reviewRequestJourney } from './review-request-journey.mjs';
 import { hubJourney } from './hub-journey.mjs';
@@ -99,6 +99,7 @@ for (const width of [390, 1440]) {
         if (width === 390) {
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
           await templateCaptureJourney(state);
+          await savedViewsJourney(state);
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
           // One phone smoke visits the main screens; functional journeys use desktop
           // except where an assertion distinguishes the phone layout or touch input.
@@ -141,7 +142,7 @@ for (const width of [1440]) {
       // Its assertions and member authority remain unchanged.
       const touch=await beginTouchJourney(state,width,{writePage:false});
       try {
-        await step('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts and uses charts, templates and automations', async () => {await databaseJourney(state);await touchDatabaseJourney(touch,touch.containerId);await touchDatabaseToolsJourney(state,touch);});
+        await step('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts and uses charts, templates and automations', async () => {await databaseJourney(state);await savedViewsJourney(state);await touchDatabaseJourney(touch,touch.containerId);await touchDatabaseToolsJourney(state,touch);});
       } finally {await touch.close();}
     }, {}, {scheduled:true});
   });
