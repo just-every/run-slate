@@ -11,7 +11,13 @@ export async function contentQueryJourney(state, width) {
   const space=(await mutate('POST','/api/containers',{name:'Query sources',visibility:'default'})).value.id;
   const elsewhere=(await mutate('POST','/api/containers',{name:'Other query sources',visibility:'default'})).value.id;
   await mutate('POST','/api/status',{key:'query-ready',label:'Query ready',color:'#145a3d',requiresVerification:false});
-  const create=async(title,{parentPageId,containerId=space,statusKey='query-ready',actor=context}={})=>(await mutate('POST','/api/pages',{containerId,parentPageId,title,properties:{statusKey}},actor)).value.pageId;
+  const create=async(title,{parentPageId,containerId=space,statusKey='query-ready',actor=context}={})=>{
+    const blockId=randomUUID();
+    const created=(await mutate('POST','/api/pages',{containerId,parentPageId,title,properties:{statusKey},blocks:[{id:blockId,blockType:'paragraph',treePosition:'a',content:{text:[{text:'Initial query source'}]}}]},actor)).value;
+    const doc=await ok(actor,origin,'GET',`/api/pages/${created.pageId}`);
+    await mutate('PATCH',`/api/pages/${created.pageId}/blocks/${blockId}`,{expectedRevisionId:doc.blocks[0].revisionId,content:{text:[{text:'Committed contribution to '+title}]}},actor);
+    return created.pageId;
+  };
   const source=await create('Query source ancestor');
   const alpha=await create('Alpha query page',{parentPageId:source});
   const bravo=await create('Bravo private query page',{parentPageId:source});
