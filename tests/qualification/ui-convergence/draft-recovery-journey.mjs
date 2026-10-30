@@ -72,7 +72,11 @@ export async function draftRecoveryJourney(state, people) {
       assert.equal(listed.items.find(item => item.id === pageId).title, committedTitle, door);
       assert.ok(!JSON.stringify(listed).includes('unsent-title'), 'Tree and lists use the committed title.');
     }
+    const openNavigation = alice.page.getByRole('button', { name: 'Open navigation', exact: true });
+    const closedNavigation = await openNavigation.isVisible();
+    if (closedNavigation) await openNavigation.click();
     await expect(alice.page.getByRole('navigation', { name: 'Pages', exact: true }).locator(`a[href="/app/pages/${pageId}"]`)).toHaveText(committedTitle);
+    if (closedNavigation) await alice.page.locator('button[aria-label="Close navigation"][aria-expanded="true"]').click();
     for (const query of ['unsent-title', `Unsent-body ${marker}`]) {
       const found = await ok(alice.context, origin, 'GET', `/api/search?q=${encodeURIComponent(query)}`);
       assert.ok(!JSON.stringify(found).includes(pageId), 'Unsent text is not indexed.');
@@ -132,7 +136,7 @@ export async function draftRecoveryJourney(state, people) {
     await expect(editable(person.page, blockId)).toHaveText(committedBody + unsentBody);
   }
   assert.equal((await ok(alice.context, origin, 'GET', `/api/pages?containerId=${spaceId}`)).items.find(item => item.id === pageId).title, unsentTitle);
-  assert.ok(JSON.stringify(await ok(alice.context, origin, 'GET', `/api/search?q=${marker}`)).includes(pageId));
+  assert.ok(JSON.stringify(await ok(alice.context, origin, 'GET', `/api/search?q=${encodeURIComponent(unsentBody.trim())}`)).includes(pageId), 'Explicit retry makes the recovered body searchable.');
   const exported = await readablePage(alice.context, origin, pageId);
   assert.equal(exported.page.title, unsentTitle);
   assert.ok(JSON.stringify(exported.page.blocks).includes(unsentBody.trim()));
