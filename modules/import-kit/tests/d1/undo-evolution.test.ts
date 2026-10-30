@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { DatabaseSync } from 'node:sqlite';
+import { DatabaseSync } from '../../../container/adapters/d1-sqlite.mjs';
 import { sqlitePort, sqliteTargets } from './sqlite-runtime.ts';
 import { buildImportPlan } from '../../src/plan/index.ts';
 import { d1Schema, preservedUndoEvolution, initializeD1ImportStorage, readD1ImportJob, readD1ImportUndoReport, applyD1ImportBatches, undoD1Import, canonicalJson } from '../../src/d1/index.ts';

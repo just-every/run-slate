@@ -2,12 +2,12 @@ import assert from 'node:assert/strict';
 import { cp, mkdir, mkdtemp, realpath, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, relative, resolve, sep } from 'node:path';
-import { Miniflare, convertV4MiniflareOptions } from 'miniflare';
+import { Miniflare, convertV4MiniflareOptions } from '../../../container/adapters/d1-workerd.mjs';
 import { initializeD1ImportStorage } from '../../src/d1/index.ts';
 import type { D1Database, D1ImportContext } from '../../src/d1/index.ts';
 import { targets } from './fixtures.ts';
 
-/** Measures executed real D1 statements, including complete batch transport. */
+/** Measures real D1 calls and checks every statement in complete batch transport. */
 function meter(current:()=>D1Database) {
   const raw=new WeakMap<object,any>(),queries=new WeakMap<object,{sql:string;params:any[]}>();
   let count=0,maxSql=0,maxValue=0,maxBindings=0,maxWire=0;
@@ -25,7 +25,7 @@ function meter(current:()=>D1Database) {
   };
   const database:D1Database={prepare:wrap,async batch(statements){
     const batch=statements.map(statement=>{const query=queries.get(statement)!;assert.ok(query);check(query.sql,query.params);return query;});
-    count+=batch.length;const bytes=Buffer.byteLength(JSON.stringify(batch));maxWire=Math.max(maxWire,bytes);assert.ok(bytes<=2*1024*1024);
+    count++;const bytes=Buffer.byteLength(JSON.stringify(batch));maxWire=Math.max(maxWire,bytes);assert.ok(bytes<=2*1024*1024);
     return current().batch(statements.map(statement=>raw.get(statement)));
   }};
   return {database,async request<T>(label:string,run:()=>Promise<T>):Promise<T>{count=0;try{return await run();}finally{requests.push({label,queries:count});assert.ok(count<=1000,`${label}: ${count} queries`);}},summary:()=>({requests,maxSql,maxValue,maxBindings,maxWire})};

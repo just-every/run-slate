@@ -1,5 +1,5 @@
 import test from 'node:test';
-import { DatabaseSync } from 'node:sqlite';
+import { DatabaseSync } from '../../../container/adapters/d1-sqlite.mjs';
 import assert from 'node:assert/strict';
 import { sqliteRuntime, sqliteSource, sqliteMapping } from './sqlite-runtime.ts';
 import { planD1Import, planD1ImportStream } from '../../src/d1/index.ts';

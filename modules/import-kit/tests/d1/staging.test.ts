@@ -79,7 +79,7 @@ test('destination privacy erases another principal private payload and prevents 
 test('whole request budget is reserved before private writes', async t => {
   const r = await sqliteRuntime(t), plan = await planD1ImportStream(normalized(), sqliteMapping, r.context());
   const context = requestContext({ ...r.context(), reviewedFingerprint: plan.fingerprint });
-  await context.storage.database.batch(Array.from({ length: 940 }, () => context.storage.database.prepare('SELECT 1')));
+  for (let n = 0; n < 940; n++) await context.storage.database.prepare('SELECT 1').first();
   await assert.rejects(createD1ImportStream(plan, context), /IMPORT_D1_REQUEST_LIMIT/); empty(r.native());
 });
 

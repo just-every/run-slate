@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { door, documents } from './door/fixture.ts';
 import { createImportDoorHandler, DoorError, enableDoorAtFirstClaim, importDoorApplyFailureMigration, importDoorSchema, readImportDoorHistory, verifyRerGrant, writeImportDoorSettings } from '../src/door/index.ts';
-import { d1RequestContext, readD1ImportJob, readD1ImportOriginals, readD1ErasureJournal, retireD1ImportCustody, undoD1Import } from '../src/d1/index.ts';
+import { d1RequestContext, readD1ImportJob, readD1ImportUndoReport, readD1ImportOriginals, readD1ErasureJournal, retireD1ImportCustody, undoD1Import } from '../src/d1/index.ts';
 import { limitStatements } from '../src/d1/budget.ts';
 import { canonicalJson, sha256 } from '../src/provenance/identity.ts';
 import { sqliteTargets } from './d1/sqlite-runtime.ts';
@@ -10,7 +10,7 @@ import type { ImportMapping, Json, ParsedRecord } from '../src/types.ts';
 
 test('HTTP import door is absent until the installation opts in',async t=>{
   const d=await door(t);
-  for (const action of ['uploads','plan','apply','status','reconcile','undo'] as const) assert.equal((await d.call(action,{})).status,404);
+  for (const action of ['uploads','plan','apply','status','reconcile','undo','cancel'] as const) assert.equal((await d.call(action,{})).status,404);
   assert.equal(d.runtime.native().prepare('SELECT COUNT(*) n FROM ik_door_grants').get()!.n,0);
   assert.equal(d.runtime.native().prepare('SELECT COUNT(*) n FROM native_records').get()!.n,0);
   const erased=await retireD1ImportCustody({values:['absent@example.test']},[],d.runtime.context(),[]);
@@ -18,7 +18,7 @@ test('HTTP import door is absent until the installation opts in',async t=>{
   assert.equal((await readD1ErasureJournal(d.runtime.context()))[0].receiptId,erased.receiptId);
   await d.enable();
   delete (d.options.claim.publicKeys as Record<string, JsonWebKey>).test;
-  for (const action of ['uploads','plan','apply','status','reconcile','undo'] as const) assert.equal((await d.call(action,{})).status,404);
+  for (const action of ['uploads','plan','apply','status','reconcile','undo','cancel'] as const) assert.equal((await d.call(action,{})).status,404);
   assert.equal(d.runtime.native().prepare('SELECT COUNT(*) n FROM ik_door_grants').get()!.n,0);
 });
 
@@ -189,6 +189,8 @@ test('HTTP upload, reviewed plan, bounded apply, reconcile and owner-visible und
   assert.equal((await d.call('uploads',{name:'bad.json',bundleSha256:sha256(badBytes),totalBytes:badBytes.length,totalChunks:1,index:0,chunkSha256:sha256(badBytes),base64:badBytes.toString('base64')},{maxBytes:1})).status,400);
   const records=[...documents(50,true),{id:'unsupported',title:'Unsupported',reject:true}];
   const planned=await d.plan(records);assert.equal(planned.status,200,JSON.stringify(planned.body));
+  assert.equal(planned.body.created,true);
+  const reused=await d.plan(records);assert.deepEqual([reused.body.planId,reused.body.created],[planned.body.planId,false]);
   assert.equal(planned.body.rejected.length,1);assert.equal(d.runtime.native().prepare('SELECT COUNT(*) n FROM native_records').get()!.n,0);
   const job=await d.apply(planned.body);
   const status=await d.call('status',{planId:planned.body.planId});assert.equal(status.body.job.state,'completed');assert.ok(status.body.caption.includes(planned.body.fingerprint));
@@ -827,7 +829,7 @@ test('HTTP reconcile and catch-up planning fail closed on a native edit between 
 
 test('owner-session HTTP pipeline works in a seed with no owner-claim module or grant key ring',async t=>{
   const d=await door(t,'operator');
-  for (const action of ['uploads','plan','apply','status','reconcile','undo']) {
+  for (const action of ['uploads','plan','apply','status','reconcile','undo','cancel']) {
     assert.equal((await d.request(d.origin+'/api/rer/import/'+action,{method:'POST'})).status,404);
   }
   const post=(body:unknown,headers:Record<string,string>)=>d.request(d.origin+'/api/operator/import/apply',{
@@ -1223,61 +1225,73 @@ test('HTTP door names every reader and bundle-check refusal with a 4xx and the f
   assert.equal(d.runtime.native().prepare('SELECT count(*) n FROM native_records').get()!.n,0);
 });
 
-test('A door created with the preserve-owner-edits reversal policy keeps owner edits on undo and reads in the seed\'s history; strict stays the default',async t=>{
-  for (const reversalPolicy of [undefined,'preserve-conflicts'] as const) {
-    const d=await door(t);await d.enable();
-    if (reversalPolicy) d.mount(createImportDoorHandler({...d.options,reversalPolicy}));
-    const planned=await d.plan(documents(3));assert.equal(planned.status,200,JSON.stringify(planned.body));
-    const job=await d.apply(planned.body),native=d.runtime.native();
-    // Lamp's ordinary history reads every import job with its own preserving policy.
-    const history={...d.runtime.context(),namespace:job.namespace,reversalPolicy:'preserve-conflicts' as const};
-    if (reversalPolicy) assert.equal((await readD1ImportJob(job.id,history)).state,'completed');
-    else await assert.rejects(readD1ImportJob(job.id,history),/REVERSAL_POLICY_CONFLICT/);
-    // The owner edits one imported record, then undoes the door import.
-    native.prepare("UPDATE native_records SET revision='owner-edit',value_json=? WHERE id='1'").run(canonicalJson({local:'owner edit'}));
-    if (!reversalPolicy) {
-      const refused=await d.call('undo',{planId:planned.body.planId});
-      assert.deepEqual([refused.status,refused.body.error],[409,'native_edit_conflict'],JSON.stringify(refused.body));assert.equal(typeof refused.body.details.reason,'string');
-      assert.deepEqual(native.prepare('SELECT id FROM native_records ORDER BY id').all().map(r=>r.id),['0','1','2']);
-      continue;
-    }
-    const undone=await d.undo(planned.body.planId);assert.equal(undone.body.job.state,'undone');
-    assert.deepEqual(native.prepare('SELECT id,value_json FROM native_records ORDER BY id').all().map(r=>[r.id,r.value_json]),[['1',canonicalJson({local:'owner edit'})]]);
-    assert.equal((await readD1ImportJob(job.id,history)).state,'undone');
+test('A declared door adapter preserves native edits on undo, with durable policy across resume and replay',async t=>{
+  const d=await door(t);await d.enable();
+  d.mount(createImportDoorHandler({...d.options,targets:sqliteTargets}));
+  const planned=await d.plan(documents(3));assert.equal(planned.status,200,JSON.stringify(planned.body));
+  const job=await d.apply(planned.body),native=d.runtime.native();
+  const history={...d.runtime.context(),namespace:job.namespace,reversalPolicy:'preserve-conflicts' as const};
+  assert.equal((await readD1ImportJob(job.id,history)).state,'completed');
+  native.prepare("UPDATE native_records SET revision='owner-edit',value_json=? WHERE id='1'").run(canonicalJson({local:'owner edit'}));
+  // An explicit new-job setting cannot change an already created job's policy.
+  d.mount(createImportDoorHandler({...d.options,targets:sqliteTargets,reversalPolicy:'strict'}));
+  assert.equal((await d.undo(planned.body.planId)).body.job.state,'undone');
+  assert.deepEqual(native.prepare('SELECT id,value_json FROM native_records ORDER BY id').all().map(r=>[r.id,r.value_json]),[['1',canonicalJson({local:'owner edit'})]]);
+  const report=await readD1ImportUndoReport(job.id,history);
+  assert.equal(report.outcome,'compensated');
+  assert.deepEqual(report.dispositions.filter(r=>r.disposition==='retained').map(r=>[r.targetId,r.reason]),[['1','edited']]);
+  assert.equal(report.dispositions.filter(r=>r.disposition==='reversed').length,2);
+  assert.equal((await d.undo(planned.body.planId)).body.job.state,'undone');
+  assert.deepEqual(await readD1ImportUndoReport(job.id,history),report);
+  // Creation and apply replay keep the durable policy after an adapter remount.
+  const s=await door(t);await s.enable();
+  s.mount(createImportDoorHandler({...s.options,targets:sqliteTargets}));
+  const pending=await s.plan(documents(60));assert.equal(pending.status,200);
+  const input={planId:pending.body.planId,reviewedFingerprint:pending.body.fingerprint},grant={fingerprint:pending.body.fingerprint,...s.approval};
+  assert.equal((await s.call('apply',input,grant)).body.job.state,'applying');
+  s.mount(createImportDoorHandler({...s.options,targets:sqliteTargets,reversalPolicy:'strict'}));
+  const applied=await s.apply(pending.body);
+  assert.equal((await s.call('apply',input,grant)).body.job.id,applied.id);
+  assert.equal((await readD1ImportJob(applied.id,{...s.runtime.context(),namespace:applied.namespace,reversalPolicy:'preserve-conflicts'})).state,'completed');
+  // Catch-up reversal still releases a retained successor's baseline layer.
+  const l=await door(t);await l.enable();
+  l.mount(createImportDoorHandler({...l.options,targets:sqliteTargets}));
+  const docs=documents(30),base=await l.plan(docs),baseJob=await l.apply(base.body);
+  const layer=await l.plan([...docs.map(r=>r.id==='4'?{...r,title:'Changed at source'}:r),{id:'30',title:'Added',body:'z'}],{catchup:true});
+  assert.equal(layer.status,200);await l.apply(layer.body);
+  const early=await l.call('undo',{planId:base.body.planId});
+  assert.deepEqual([early.status,early.body.error],[409,'import_superseded']);
+  l.runtime.native().prepare("UPDATE native_records SET revision='owner-edit',value_json=? WHERE id='4'").run(canonicalJson({local:'owner'}));
+  assert.equal((await l.undo(layer.body.planId)).body.job.state,'undone');
+  assert.equal((await l.undo(base.body.planId)).body.job.state,'undone');
+  assert.deepEqual(l.runtime.native().prepare('SELECT id,value_json FROM native_records').all().map(r=>[r.id,r.value_json]),[['4',canonicalJson({local:'owner'})]]);
+  const reports=(await readD1ImportUndoReport(baseJob.id,{...l.runtime.context(),namespace:baseJob.namespace})).dispositions;
+  assert.equal(reports.length,30);
+  assert.equal(reports.filter(r=>r.disposition==='reversed').length,29);
+  assert.deepEqual(reports.filter(r=>r.disposition==='retained').map(r=>[r.targetId,r.reason]),[['4','superseded']]);
+  assert.equal((await readD1ImportJob(baseJob.id,{...l.runtime.context(),namespace:baseJob.namespace,reversalPolicy:'preserve-conflicts'})).state,'undone');
+});
+
+test('An undeclared door adapter keeps strict undo, including jobs created before a preserving adapter upgrade',async t=>{
+  const d=await door(t);await d.enable();
+  const planned=await d.plan(documents(3));assert.equal(planned.status,200);
+  const job=await d.apply(planned.body),native=d.runtime.native();
+  await assert.rejects(readD1ImportJob(job.id,{...d.runtime.context(),namespace:job.namespace,reversalPolicy:'preserve-conflicts'}),/REVERSAL_POLICY_CONFLICT/);
+  native.prepare("UPDATE native_records SET revision='owner-edit',value_json=? WHERE id='1'").run(canonicalJson({local:'owner edit'}));
+  for (const targets of [d.options.targets,sqliteTargets]) {
+    d.mount(createImportDoorHandler({...d.options,targets}));
+    const refused=await d.call('undo',{planId:planned.body.planId});
+    assert.deepEqual([refused.status,refused.body.error],[409,'native_edit_conflict'],JSON.stringify(refused.body));
+    assert.equal(typeof refused.body.details.reason,'string');
+    assert.deepEqual(native.prepare('SELECT id FROM native_records ORDER BY id').all().map(r=>r.id),['0','1','2']);
   }
-  // Only creation selects the policy: an apply in flight when the seed remounts
-  // with another policy resumes and keeps its job's own policy.
-  for (const [from,to] of [[undefined,'preserve-conflicts'],['preserve-conflicts','strict']] as const) {
-    const s=await door(t);await s.enable();
-    if (from) s.mount(createImportDoorHandler({...s.options,reversalPolicy:from}));
-    const planned=await s.plan(documents(60));assert.equal(planned.status,200,JSON.stringify(planned.body));
-    const input={planId:planned.body.planId,reviewedFingerprint:planned.body.fingerprint},grant={fingerprint:planned.body.fingerprint,...s.approval};
-    assert.equal((await s.call('apply',input,grant)).body.job.state,'applying');
-    s.mount(createImportDoorHandler({...s.options,reversalPolicy:to}));
-    const job=await s.apply(planned.body);assert.equal(job.state,'completed');
-    assert.equal(s.runtime.native().prepare('SELECT reversal_policy FROM ik_jobs WHERE id=?').get(job.id)!.reversal_policy,from ?? 'strict');
-  }
-  // A catch-up layer over the owner's edit: undoing it keeps the edit and
-  // releases the baseline beneath, which then undoes fully. While the catch-up
-  // is live, undoing the baseline is refused by name.
-  {
-    const l=await door(t);await l.enable();
-    l.mount(createImportDoorHandler({...l.options,reversalPolicy:'preserve-conflicts'}));
-    const native=l.runtime.native(),docs=documents(30);
-    const base=await l.plan(docs);const baseJob=await l.apply(base.body);
-    const layer=await l.plan([...docs.map(r=>r.id==='4'?{...r,title:'Changed at source'}:r),{id:'30',title:'Added',body:'z'}],{catchup:true});
-    assert.equal(layer.status,200,JSON.stringify(layer.body));await l.apply(layer.body);
-    const early=await l.call('undo',{planId:base.body.planId});
-    assert.deepEqual([early.status,early.body.error],[409,'import_superseded'],JSON.stringify(early.body));
-    native.prepare("UPDATE native_records SET revision='owner-edit',value_json=? WHERE id='4'").run(canonicalJson({local:'owner'}));
-    assert.equal((await l.undo(layer.body.planId)).body.job.state,'undone');
-    assert.equal((await l.undo(base.body.planId)).body.job.state,'undone');
-    assert.deepEqual(native.prepare('SELECT id,value_json FROM native_records').all().map(r=>[r.id,r.value_json]),[['4',canonicalJson({local:'owner'})]]);
-    const reports=native.prepare('SELECT record_json FROM ik_d1_reversal_reports WHERE job_id=?').all(baseJob.id).map(r=>JSON.parse(r.record_json as string));
-    assert.equal(reports.length,30);assert.deepEqual(reports.filter(r=>r.disposition==='retained').map(r=>[r.targetId,r.reason]),[['4','superseded']]);
-    assert.equal((await readD1ImportJob(baseJob.id,{...l.runtime.context(),namespace:baseJob.namespace,reversalPolicy:'preserve-conflicts'})).state,'undone');
-  }
-  const d=await door(t);
-  assert.throws(()=>createImportDoorHandler({...d.options,reversalPolicy:'preserve-conflicts',targets:{...sqliteTargets,preparePreservedUndo:undefined}}),/invalid_configuration/);
+  const s=await door(t);await s.enable();
+  const pending=await s.plan(documents(60));assert.equal(pending.status,200);
+  const input={planId:pending.body.planId,reviewedFingerprint:pending.body.fingerprint},grant={fingerprint:pending.body.fingerprint,...s.approval};
+  assert.equal((await s.call('apply',input,grant)).body.job.state,'applying');
+  s.mount(createImportDoorHandler({...s.options,targets:sqliteTargets}));
+  const resumed=await s.apply(pending.body);
+  assert.equal((await readD1ImportJob(resumed.id,{...s.runtime.context(),namespace:resumed.namespace,reversalPolicy:'strict'})).state,'completed');
+  assert.throws(()=>createImportDoorHandler({...d.options,reversalPolicy:'preserve-conflicts'}),/invalid_configuration/);
   assert.throws(()=>createImportDoorHandler({...d.options,reversalPolicy:'keep-everything' as 'strict'}),/invalid_configuration/);
 });

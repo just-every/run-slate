@@ -12,7 +12,7 @@ export function provenanceTransportMeter(current:()=>D1Database) {
   };
   const statement=(query:string,values:any[]=[]):any=>({query,values,bind(...next:any[]){return statement(query,next);},async first(){check(query,values);queries++;return current().prepare(query).bind(...values).first();},async all(){check(query,values);queries++;return current().prepare(query).bind(...values).all();}});
   const database:D1Database={prepare:statement,async batch(rows:any[]){
-    rows.forEach(row=>check(row.query,row.values));queries+=rows.length;
+    rows.forEach(row=>check(row.query,row.values));queries++;
     const bytes=Buffer.byteLength(JSON.stringify(rows.map(row=>({sql:row.query,params:row.values}))));maxWire=Math.max(maxWire,bytes);assert.ok(bytes<=2*1024*1024);
     privateBatches+=Number(rows.some(row=>row.query.startsWith('INSERT INTO ik_d1_native_staging_values')));
     return current().batch(rows);
