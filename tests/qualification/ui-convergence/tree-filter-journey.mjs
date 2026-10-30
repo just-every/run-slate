@@ -21,6 +21,8 @@ export async function treeFilterJourney(state) {
   const shared = await create('Shared rota contacts', hidden.pageId);
   await grant(context, origin, shared, 'browser-reader', 'view');
   const other = (await ok(context, origin, 'POST', '/api/containers', { operationKey: randomUUID(), name: 'People operations' })).value.id;
+  // Carry this native workspace-readable fixture into the later index proof.
+  state.containerIndexFixtures = [{ id: other, name: 'People operations', description: '', visibility: 'default', memberCount: 1, members: ['browser-owner'] }];
   await ok(context, origin, 'POST', '/api/pages', { operationKey: randomUUID(), containerId: other, title: 'Benefits guide' });
   await page.goto(origin + '/app', { waitUntil: 'networkidle' });
   await openNavigation(page);
