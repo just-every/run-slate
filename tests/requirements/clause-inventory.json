@@ -866,7 +866,7 @@
       "id": "COMM-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for COMM-007 — Resolve. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "Native browser acceptance is exercised by resolveThreadsJourney in tests/qualification/ui-convergence/discussions-journey.mjs through the existing desktop reactions and phone tree registrations in tests/qualification/ui-convergence/journeys.test.mjs. This Workers-only inventory does not ingest browser receipts; exact candidate Verify and guarded landing establish recorded acceptance.",
       "supportingTests": []
     },
     {

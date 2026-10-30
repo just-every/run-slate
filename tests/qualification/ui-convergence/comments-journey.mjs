@@ -67,6 +67,10 @@ export async function commentJourney({ page, origin, api }, pageId) {
   const resolved = await api(`/api/comments/page/${pageId}`);
   assert.equal(resolved.threads[0].state, 'resolved');
   assert.equal(resolved.comments.length, 2);
+  const retainedAnchor = paragraph.locator(`[data-comment-anchor="${anchor.anchorId}"]`);
+  await expect(retainedAnchor).toHaveText('The on-call lead');
+  await expect(paragraph.locator('mark[data-comment-anchor]')).toHaveCount(0);
+  assert.ok((await api(`/api/pages/${pageId}`)).resolvedCommentAnchorIds.includes(anchor.anchorId));
   await filter.selectOption('open');
   await expect(page.locator('.comment-thread')).toHaveCount(0);
   await filter.selectOption('resolved');

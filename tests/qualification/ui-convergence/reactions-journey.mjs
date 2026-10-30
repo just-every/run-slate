@@ -1,4 +1,4 @@
-import { discussionsJourney } from './discussions-journey.mjs';
+import { discussionsJourney, resolveThreadsJourney } from './discussions-journey.mjs';
 import { commentJourney } from './comments-journey.mjs';
 import { commentAnchorsJourney } from './comment-anchors.mjs';
 import assert from 'node:assert/strict';
@@ -66,4 +66,5 @@ export async function reactionsJourney(state, people) {
   await section.getByRole('button', { name: 'React with thumbs up' }).click();
   await expect(section.getByRole('list')).toBeEmpty();
   await section.screenshot({ path: `.artifacts/ui-convergence/reactions-${width}-removed.png` });
+  await resolveThreadsJourney(state, people);
 }

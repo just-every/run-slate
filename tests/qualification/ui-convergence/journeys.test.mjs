@@ -1,3 +1,4 @@
+import { resolveThreadsJourney } from './discussions-journey.mjs';
 import { publicationJourney } from './publication-journey.mjs';
 import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} from './synced-custody.mjs';
 import {peopleJourney} from './people-journey.mjs';
@@ -114,6 +115,7 @@ for (const width of [390]) {
       await setupWorkspace(state);
       await treeFilterJourney(state);
       await state.switchIdentity('owner');
+      await withSecondPerson(state, width, people => resolveThreadsJourney(state, people));
       await settingsJourney(state,width);
       await workspaceAuthorityJourney(state,width);
     });
