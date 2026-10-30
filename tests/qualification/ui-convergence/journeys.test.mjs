@@ -47,6 +47,7 @@ import { hubJourney } from './hub-journey.mjs';
 import { blogJourney } from './blog-journey.mjs';
 import { followingJourney } from './following-journey.mjs';
 import { treeFilterJourney } from './tree-filter-journey.mjs';
+import { treeStructureJourney } from './tree-structure-journey.mjs';
 import { failedSaveJourney } from './failed-save-journey.mjs';
 import { sharedNavigationJourney } from './shared-navigation-journey.mjs';
 import { globalCreateJourney } from './global-create-journey.mjs';
@@ -112,6 +113,7 @@ for (const width of [390]) {
   test(`space tree title filtering preserves ancestors, access and expansion at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
+      await treeStructureJourney(state);
       await treeFilterJourney(state);
       await state.switchIdentity('owner');
       await settingsJourney(state,width);
@@ -245,6 +247,7 @@ for (const width of [1440]) {
   test(`page creation destinations and editor locks preserve readable content at ${width}px`, { timeout: 300000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
+      await step('TREE-002 — shared explicit order through native tree moves', () => treeStructureJourney(state));
       await step('TREE-005 — create in place names root and child destinations', () => createInPlaceJourney(state));
       await state.switchIdentity('owner');
       await step('review, publish, edit and cancel a scheduled publication', () => publicationJourney(state));
