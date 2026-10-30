@@ -70,6 +70,7 @@ export async function draftDispositionJourney(state, people) {
     const closed = await read(closedId), closedHistory = await history(closedId);
     await more();
     await expect(page.getByRole('menuitem', { name: 'Close draft', exact: true })).toBeEnabled();
+    await page.getByRole('menuitem', { name: 'Discard draft', exact: true }).scrollIntoViewIfNeeded();
     await accessible(page, `Draft disposition actions ${width}`);
     await shot('author-actions');
     await page.getByRole('menuitem', { name: 'Close draft', exact: true }).click();
@@ -121,6 +122,7 @@ export async function draftDispositionJourney(state, people) {
     assert.equal((await call(context, origin, 'GET', `/api/pages/${discardedId}`)).status, 404);
     assert.equal((await call(context, origin, 'POST', `/api/archive/${discardedId}`, submittedInput)).status, 200, 'Replaying the native discard is safe.');
     await page.goto(`${origin}/app/archive`, { waitUntil: 'networkidle' });
+    await page.getByRole('button', { name: 'Trash', exact: true }).click();
     await expect(page.getByRole('main')).toContainText(discarded.page.title);
     await shot('retained-trash');
     await state.runScheduled();
