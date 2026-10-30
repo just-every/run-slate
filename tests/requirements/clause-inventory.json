@@ -899,8 +899,13 @@
       "id": "ARCH-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for ARCH-004 — Archive is not deletion. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "This legacy inventory classifies supporting Workers tests; CONTRACT.md owns native clause status. The loaded HTTP archive-retention journey and existing responsive browser callers cover populated retention, restoration and separate confirmed deletion. External provider and unrelated erasure obligations are not claimed.",
+      "supportingTests": [
+        {
+          "file": "tests/qualification/core/audit-content.test.ts",
+          "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time"
+        }
+      ]
     },
     {
       "id": "ARCH-005",

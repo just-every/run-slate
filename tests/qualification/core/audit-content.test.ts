@@ -2,7 +2,7 @@ import {archiveRetentionProof} from './archive-retention-proof';
 import {auditExportProof} from './audit-export-proof';
 import {test,expect} from 'vitest';
 import {auditFixture,env,createUlid} from './audit-support';
-test('ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor/time',async()=>{
+test('ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time',async()=>{
  const f=await auditFixture();
 {
  const p=await f.mutation('page creation','pages.create','POST','/api/pages',{containerId:f.containerId,title:'Audit original'}),id=p.value.pageId;

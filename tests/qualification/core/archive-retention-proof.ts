@@ -22,22 +22,37 @@ export async function archiveRetentionProof(f:Awaited<ReturnType<typeof auditFix
   });
   const {ids,root,database,before,snapshot,read,write}=fixture;
   const body=async(id:string,action:string)=>({operationKey:createUlid(),expectedRevisionId:(await read(`/api/pages/${id}`)).page.revisionId,action,reason:'Retained by explicit archive'});
+  const retainedPages=async()=>(await env.DB.prepare(`SELECT * FROM pages WHERE id IN (${ids.map(()=>'?').join(',')}) ORDER BY id`).bind(...ids).all<Record<string,unknown>>()).results
+    .map(({archived_at,trashed_at,lifecycle,updated_at,...content})=>content);
+  const originalPages=await retainedPages();
+  const transition=async(action:string,target:string,run:()=>Promise<unknown>)=>{
+    const prior=(await env.DB.prepare('SELECT * FROM activity_entries WHERE workspace_id=? ORDER BY id').bind(f.workspaceId).all<Record<string,unknown>>()).results;
+    await run();
+    expect(await retainedPages(),'only archive metadata changes on retained pages').toEqual(originalPages);
+    const after=(await env.DB.prepare('SELECT * FROM activity_entries WHERE workspace_id=? ORDER BY id').bind(f.workspaceId).all<Record<string,unknown>>()).results;
+    const oldIds=new Set(prior.map(row=>row.id));
+    expect(after.filter(row=>oldIds.has(row.id)),'all prior activity is retained separately from new activity').toEqual(prior);
+    expect(after.filter(row=>!oldIds.has(row.id))).toMatchObject([{action,target_id:target,actor_member_id:f.ownerId}]);
+    expect(after.length).toBe(prior.length+1);
+  };
   const lifecycles=await Promise.all(ids.map(async id=>(await read(`/api/pages/${id}`)).page.lifecycle));
   for(const [label,id,affected] of [['page tree',root.pageId,ids],['database',database.pageId,[database.pageId,fixture.record.pageId]]] as const) {
-    expect((await f.request('POST',`/api/archive/${id}`,await body(id,'archive'))).status).toBe(200);
+    await transition('archive.archive',id,async()=>expect((await f.request('POST',`/api/archive/${id}`,await body(id,'archive'))).status).toBe(200));
+    const locations=(await env.DB.prepare(`SELECT page_id,actor_member_id,reason FROM content_archive_locations WHERE page_id IN (${affected.map(()=>'?').join(',')}) ORDER BY page_id`).bind(...affected).all()).results;
+    expect(locations).toEqual([...affected].sort().map(page_id=>({page_id,actor_member_id:f.ownerId,reason:'Retained by explicit archive'})));
     expect(await snapshot(),`${label} archive keeps populated content`).toEqual(before);
     for(const pageId of affected)expect((await read(`/api/pages/${pageId}`)).page.lifecycle).toBe('archived');
-    expect((await f.request('POST',`/api/archive/${id}`,await body(id,'restore'))).status).toBe(200);
+    await transition('archive.restore',id,async()=>expect((await f.request('POST',`/api/archive/${id}`,await body(id,'restore'))).status).toBe(200));
     expect(await snapshot(),`${label} restore keeps populated content`).toEqual(before);
     expect(await Promise.all(ids.map(async pageId=>(await read(`/api/pages/${pageId}`)).page.lifecycle))).toEqual(lifecycles);
     console.info(`PROBE ARCH-004 retention: native ${label} archive and restore -> bodies, history, comments, grants, status, definitions, records and bytes unchanged`);
   }
   const container=await read(`/api/containers/${f.containerId}`);
-  await write(`/api/containers/${f.containerId}/archive`,{expectedRevisionId:container.revisionId,reason:'Retained space'});
+  await transition('containers.archive',f.containerId,()=>write(`/api/containers/${f.containerId}/archive`,{expectedRevisionId:container.revisionId,reason:'Retained space'}));
   expect(await snapshot(),'container archive retains the entire populated tree').toEqual(before);
   for(const id of ids)expect((await read(`/api/pages/${id}`)).page.lifecycle).toBe('archived');
   const archivedContainer=await read(`/api/containers/${f.containerId}`);
-  await write(`/api/containers/${f.containerId}/archive`,{expectedRevisionId:archivedContainer.revisionId,restore:true});
+  await transition('containers.restore',f.containerId,()=>write(`/api/containers/${f.containerId}/archive`,{expectedRevisionId:archivedContainer.revisionId,restore:true}));
   expect(await snapshot(),'container restore retains the entire populated tree').toEqual(before);
   expect(await Promise.all(ids.map(async id=>(await read(`/api/pages/${id}`)).page.lifecycle))).toEqual(lifecycles);
   console.info('PROBE ARCH-004 retention: native container archive and restore -> populated tree and uploaded bytes unchanged');

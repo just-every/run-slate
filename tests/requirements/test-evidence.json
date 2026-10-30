@@ -1027,13 +1027,14 @@
     },
     {
       "file": "tests/qualification/core/audit-content.test.ts",
-      "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor/time",
+      "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time",
       "kind": "supporting-regression",
       "clauses": [
         "ACT-002",
-        "BASE-OPS-005"
+        "BASE-OPS-005",
+        "ARCH-004"
       ],
-      "reason": "Preserves the existing content audit assertions and extends them through native HTTP sign-in, sharing, token use, owner metadata exports, retention and signed ordered audit recovery. Real vendor receivers and resolved-address pinning remain unproven."
+      "reason": "Preserves the existing content audit assertions and extends them through native HTTP sign-in, sharing, token use, owner metadata exports, retention and signed ordered audit recovery. Real vendor receivers and resolved-address pinning remain unproven. Native archiveRetentionProof populates a page tree, container and database through HTTP, compares retained bodies, revisions, comments, grants, statuses, definitions, records and file bytes across archive and restore, separates archive metadata and new activity, and executes confirmed deletion and unchanged refusals through native step-up."
     },
     {
       "file": "tests/e2e/scim/contract.test.ts",
