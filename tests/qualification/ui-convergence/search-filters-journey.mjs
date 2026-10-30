@@ -28,13 +28,12 @@ export async function searchFiltersJourney(state) {
  const titles=async expected=>{
   await expect.poll(async()=>(await page.locator('.search-results h2').allTextContents()).sort()).toEqual([...expected].sort());
   await expect(input).toHaveValue(query);
-  await expect(page.getByText(/^Filters:/)).toBeVisible();
+  await expect(page.locator('.search-filter-summary')).toBeVisible();
  };
  await titles(['Release handover checklist','Support rotation']);
- await page.locator('.search-options > summary').click();
+ await page.getByRole('button',{name:'Filter results',exact:true}).click();
  const kind=page.getByRole('combobox',{name:'Look in',exact:true});
  await kind.selectOption('record');await titles([]);await kind.selectOption('page');await titles(['Release handover checklist','Support rotation']);
- await page.getByText('Refine your search',{exact:true}).click();
  const source=page.getByRole('combobox',{name:'Space',exact:true});await expect(source).toHaveValue(space);
  const other=(await api('/api/containers')).items.find(item=>item.id!==space&&item.visibility==='default');assert.ok(other);
  await source.selectOption(other.id);await titles([]);await source.selectOption(space);await titles(['Release handover checklist','Support rotation']);
@@ -47,11 +46,11 @@ export async function searchFiltersJourney(state) {
  await until.fill('2000-01-01');await titles([]);await until.fill('2099-01-01');await titles(['Release handover checklist','Support rotation']);
  await page.getByRole('checkbox',{name:'Include archive',exact:true}).check();await titles(['Archived checklist','Release handover checklist','Support rotation']);
  await page.getByRole('checkbox',{name:'Include trash',exact:true}).check();await titles(['Archived checklist','Removed checklist','Release handover checklist','Support rotation']);
- for(const visible of ['Release operations','Updated from 2000-01-01','Updated until 2099-01-01','Including archive','Including trash'])await expect(page.locator('.search-filter-summary')).toContainText(visible);
+ for(const visible of ['Release operations','Updated from 01 Jan 2000','Updated until 01 Jan 2099','Including archive','Including trash'])await expect(page.locator('.search-filter-summary')).toContainText(visible);
  await accessible(page,'search filters and retained results');
  // The controls display every filter in force alongside real results, and reload retains them.
  await page.reload({waitUntil:'networkidle'});await titles(['Archived checklist','Removed checklist','Release handover checklist','Support rotation']);
- await page.locator('.search-options > summary').click();await page.getByText('Refine your search',{exact:true}).click();
+ await page.getByRole('button',{name:'Filter results',exact:true}).click();
  await expect(source).toHaveValue(space);await expect(kind).toHaveValue('page');await expect(from).toHaveValue('2000-01-01');await expect(until).toHaveValue('2099-01-01');
  await expect(page.getByRole('checkbox',{name:'Include archive',exact:true})).toBeChecked();await expect(page.getByRole('checkbox',{name:'Include trash',exact:true})).toBeChecked();
  await input.fill('"handover checklist"');await page.getByRole('button',{name:'Search',exact:true}).click();
