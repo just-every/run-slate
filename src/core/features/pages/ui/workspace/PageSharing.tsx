@@ -109,7 +109,19 @@ export function PageSharing({ document }: { document: DocumentView }) {
           retry={grants.reload}
         >
           <section aria-label="Who has access"><h3>Who has access</h3>
-          {grants.data?.inheritedItems?.length ? <section aria-label="Inherited access"><h3>Inherited access</h3><ul className="inherited-grant-list">{grants.data.inheritedItems.map(grant=><li key={grant.id} data-grant-id={grant.id}>{name(grant)} · {accessLabel(grant.level)} · {grant.status} · From {grant.origin?.name}{grant.expiresAt ? ` · ${grant.status === "expired" ? "Expired" : "Expires"} ${displayDate(grant.expiresAt, true)}` : ""}</li>)}</ul></section>:null}
+          {grants.data?.inheritedItems?.length ? (
+            <section aria-label="Inherited access">
+              <h3>Inherited access</h3>
+              <ul className="inherited-grant-list">
+                {grants.data.inheritedItems.map(grant => (
+                  <li key={grant.id} data-grant-id={grant.id}>
+                    {name(grant)} · {accessLabel(grant.level)} · {grant.status} · From {grant.origin?.name}
+                    {grant.expiresAt ? ` · ${grant.status === "expired" ? "Expired" : "Expires"} ${displayDate(grant.expiresAt, true)}` : ""}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
           <ul className="grant-list">
             {grants.data?.items.map((grant) => (
               <li key={grant.id} data-grant-id={grant.id}>
