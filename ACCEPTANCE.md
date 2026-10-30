@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 49 | 248 | 34 | 331 |
+| Core | 50 | 247 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 49 | 248 | 40 | 337 |
+| Full target | 50 | 247 | 40 | 337 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1225,7 +1225,7 @@ Core · published · **partial**
 
 #### COMM-002 — Editing and deletion
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A member can edit or delete only their own comments.
 
@@ -1233,8 +1233,8 @@ Core · published · **partial**
 1. An edited comment shows the time it was last edited, a deleted comment leaves a tombstone in place, and both write an activity entry.
 2. Members edit or delete only their own comments; edits are timestamped and deletions leave tombstones.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A member can edit or delete only their own comments."<br>No validated CI-run proof for this acceptance point: "An edited comment shows the time it was last edited, a deleted comment leaves a tombstone in place, and both write an activity entry."
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", through `tests/qualification/ui-convergence/comments-journey.mjs` — `commentAuthorshipJourney`: acceptance 1, native edited timestamps and chronological deletion tombstones after reload, exact mutation receipts and one activity entry per committed change after create/edit/delete replay; acceptance 2, two native comment-capable authors edit/delete their own comments, hidden cross-author controls and unchanged-state HTTP refusal including an owner. `tests/flagship/content/http.test.ts` — "content durable HTTP publication, human verification and media enforce current reader authority": acceptance 1–2 through native sessions, two comment-level members and a separate owner, cross-author edit/delete refusal, exact comment/activity read-back and replay without resurrection.
+**Gap.** None.
 
 #### COMM-003 — Mentions
 
