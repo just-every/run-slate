@@ -25,6 +25,73 @@ import { contentLimits } from '../../../src/core/features/editor/limits';
 const now=new Date().toISOString();
 beforeEach(resetDeployment);
 async function fixture(){const w=createUlid(),a=createUlid(),b=createUlid();await env.DB.prepare('INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES (?,?,?,?,?,?)').bind(w,'Content test','C',now,now,createUlid()).run();for(const id of [a,b])await env.DB.prepare("INSERT INTO members(id,workspace_id,email,display_name,initials,role,created_at,updated_at) VALUES (?,?,?,?,?,'owner',?,?)").bind(id,w,`${id}@test.invalid`,id,'CT',now,now).run();const actors=new Map([a,b].map(id=>[id,{id,workspaceId:w,workspaceName:'Content test',email:`${id}@test.invalid`,displayName:id,initials:'CT',role:'owner'} as AuthenticatedMember]));const app=new Hono<AppEnvironment>();app.use('*',async(c,next)=>{const actor=actors.get(c.req.header('x-test-actor')??'');if(actor)c.set('member',actor);await next();});app.onError((e,c)=>e instanceof ApiProblem?c.json({code:e.code,message:e.message,details:e.details},e.status):c.json({code:'ERROR',message:e.message},500));app.route('/api/suggestions',createSuggestionsRoutes());app.route('/api/sharing',createSharingRoutes());app.route('/api/pages',createPagesRoutes());app.route('/api/containers',createContainersRoutes());app.route('/api/revisions',createRevisionsRoutes());app.route('/api/comments',createCommentsRoutes());app.route('/api/status',createStatusRoutes());app.route('/api/media',createMediaRoutes());app.route('/api/publishing',createPublishingRoutes());app.route('/api/archive',createArchiveRoutes());app.route('/p',createPublicPagesRoutes());const request=async(method:string,path:string,body?:unknown,actor=a)=>{const r=await app.request(`https://local.test${path}`,{method,headers:{'content-type':'application/json','x-test-actor':actor},body:body===undefined?undefined:JSON.stringify(body)},env);const data=await r.json<any>();return {status:r.status,data};};const container=await request('POST','/api/containers',{operationKey:createUlid(),name:'Team'});expect(container.status,JSON.stringify(container.data)).toBe(200);return {w,a,b,actors,app,request,containerId:container.data.value.id};}
+/** Native HTTP author journey; identity fixtures never supply successful content responses. */
+async function commentAuthorshipJourney() {
+ const {workspaceId}=await seedWorkspace();
+ const owner=(await seedMember(workspaceId,{role:'owner',email:'synthetic-slate-owner@example.test',displayName:'Casey Owner',isSetupOwner:true})).memberId;
+ const authors=await Promise.all(['Alex','Morgan'].map(async name=>(await seedMember(workspaceId,{role:'member',email:`synthetic-slate-${name.toLowerCase()}@example.test`,displayName:name})).memberId));
+ const cookies=new Map(await Promise.all([owner,...authors].map(async id=>[id,await sessionFor(id,{freshProof:true})] as const)));
+ const origin=new URL(String(env.APP_URL)).origin,app=createApi();
+ const request=async(actor:string,method:string,path:string,input?:unknown)=>{
+  const response=await app.request(origin+path,{method,headers:{cookie:cookies.get(actor)!,origin,'content-type':'application/json'},body:input===undefined?undefined:JSON.stringify(input)},env);
+  return {status:response.status,data:await response.json<any>()};
+ };
+ const ok=async(actor:string,method:string,path:string,input?:unknown)=>{const result=await request(actor,method,path,input);expect(result.status,JSON.stringify(result.data)).toBe(200);return result.data;};
+ const container=(await ok(owner,'POST','/api/containers',{operationKey:createUlid(),name:'Comment handover',visibility:'private'})).value.id;
+ const pageId=(await ok(owner,'POST','/api/pages',{operationKey:createUlid(),containerId:container,title:'Shift discussion'})).value.pageId;
+ for(const author of authors){
+  await ok(owner,'POST','/api/sharing',{operationKey:createUlid(),targetKind:'page',targetId:pageId,principalKind:'member',principalId:author,level:'comment'});
+  expect((await ok(author,'GET',`/api/pages/${pageId}`)).permissions.level).toBe('comment');
+ }
+ const path=`/api/comments/page/${pageId}`;
+ const read=()=>ok(owner,'GET',path);
+ const activity=async()=>(await ok(owner,'GET','/api/activity?kind=comment-thread&limit=100')).items.filter((entry:any)=>entry.context.pageId===pageId);
+ const snapshot=async()=>({comments:await read(),activity:await activity()});
+ const records:{actor:string;method:string;path:string;input:any;result:any}[]=[];
+ const commit=async(actor:string,method:string,route:string,input:any,action:string)=>{
+  const result=await ok(actor,method,route,input),receipt=result.receipt;
+  expect(receipt.operationKey).toBe(input.operationKey);
+  expect(receipt.revisionId).toBe(result.value.revisionId);
+  const comment=(await read()).comments.find((item:any)=>item.id===result.value.id);
+  expect(comment).toMatchObject({authorMemberId:actor,revisionId:receipt.revisionId,updatedAt:receipt.committedAt});
+  expect(receipt.entity).toEqual({kind:'comment-thread',id:comment.threadId,revisionId:result.value.revisionId});
+  if(action==='comments.delete')expect(comment).toMatchObject({body:null,deletedAt:receipt.committedAt});
+  else expect(comment).toMatchObject({body:input.body,deletedAt:null});
+  const entries=(await activity()).filter((entry:any)=>entry.operationKey===input.operationKey);
+  expect(entries).toHaveLength(1);
+  expect(entries[0]).toMatchObject({id:receipt.activityId,action,actor:{id:actor},target:{kind:'comment-thread',id:comment.threadId},occurredAt:receipt.committedAt,context:{commentId:comment.id,revisionId:receipt.revisionId}});
+  records.push({actor,method,path:route,input,result});return comment;
+ };
+ const comments:any[]=[];
+ for(const [index,author] of authors.entries())comments.push(await commit(author,'POST',path,{operationKey:createUlid(),...(index?{threadId:comments[0].threadId}:{}),body:[{text:`${index?'Morgan':'Alex'} checks the rota.`}]},'comments.create'));
+ const order=comments.map(comment=>comment.id);
+ for(const [index,comment] of comments.entries()){
+  // Owners also lack authority to rewrite another member's words or tombstone them.
+  for(const actor of [authors[1-index]!,owner])for(const change of [{body:[{text:'Cross-author replacement'}]},{delete:true}]){
+   const before=await snapshot(),result=await request(actor,'PATCH',`/api/comments/${comment.id}`,{operationKey:createUlid(),expectedRevisionId:comment.revisionId,...change});
+   expect(result.status).toBe(403);expect(result.data.code).toBe('FORBIDDEN');expect(await snapshot()).toEqual(before);
+  }
+  const edited=await commit(authors[index]!,'PATCH',`/api/comments/${comment.id}`,{operationKey:createUlid(),expectedRevisionId:comment.revisionId,body:[{text:`${index?'Morgan':'Alex'} confirms the next shift.`}]},'comments.edit');
+  expect(Date.parse(edited.updatedAt)).toBeGreaterThan(Date.parse(edited.createdAt));comments[index]=edited;
+ }
+ const retained=await snapshot();
+ for(const record of records.filter(record=>record.method==='PATCH')){
+  expect(await ok(record.actor,record.method,record.path,record.input)).toEqual(record.result);
+  expect(await snapshot()).toEqual(retained);
+ }
+ for(const [index,comment] of comments.entries())await commit(authors[index]!,'PATCH',`/api/comments/${comment.id}`,{operationKey:createUlid(),expectedRevisionId:comment.revisionId,delete:true},'comments.delete');
+ const deleted=await snapshot();
+ expect(deleted.comments.comments.map((comment:any)=>comment.id)).toEqual(order);
+ expect(deleted.comments.threads).toHaveLength(1);
+ expect(deleted.activity).toHaveLength(6);
+ for(const comment of deleted.comments.comments){expect(comment.body).toBeNull();expect(comment.deletedAt).toBeTruthy();}
+ for(const record of records){
+  expect(await ok(record.actor,record.method,record.path,record.input)).toEqual(record.result);
+  expect(await snapshot()).toEqual(deleted);
+ }
+ for(const author of authors)expect(await ok(author,'GET',path)).toEqual(deleted.comments);
+ console.log('PROBE COMM-002 HTTP: two comment-level members and owner use native sessions -> own edits/deletes 200; eight cross-author mutations 403 with unchanged comments/activity; exact receipts replay without resurrection or duplicate activity');
+}
 const block=(id:string,text:string)=>({id,blockType:'paragraph',content:{text:[{text,marks:['bold'],colour:'blue'}]},treePosition:id});
 describe('content durable HTTP',()=>{
 it("content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state",async()=>{await runFoldCases([
@@ -105,6 +172,7 @@ it("publication, human verification and media enforce current reader authority",
 }},
 {name:"content durable HTTP exact human opens gate verification and stale or forged attestations are refused",before:resetDeployment,run:async()=>{
  await runContentCases([
+{name:"native comment authors edit/delete with durable tombstones and exactly-once activity",run:commentAuthorshipJourney},
 {name:"content durable HTTP comments retain revisions; exact human opens gate verification; revocation blocks replay",run:async()=>{const f=await fixture();const c=await f.request('POST','/api/pages',{operationKey:createUlid(),containerId:f.containerId,title:'Review'});const id=c.data.value.pageId;const comment=await f.request('POST',`/api/comments/page/${id}`,{operationKey:createUlid(),body:[{text:'Discuss'}]});expect(comment.status,JSON.stringify(comment.data)).toBe(200);const status=await f.request('POST','/api/status',{operationKey:createUlid(),key:'verified',label:'Verified',color:'#00aa00',requiresVerification:true});expect(status.status).toBe(200);const input={operationKey:createUlid(),expectedRevisionId:c.data.value.revisionId,statusKey:'verified',attestRevisionId:c.data.value.revisionId};expect((await f.request('POST',`/api/status/page/${id}`,input)).status).toBe(409);expect((await f.request('POST',`/api/pages/${id}/open`,{operationKey:createUlid(),revisionId:(await f.request('GET',`/api/pages/${id}`)).data.workingRevisionId})).status).toBe(200);expect((await f.request('POST',`/api/status/page/${id}`,input)).status).toBe(200);await env.DB.prepare('DELETE FROM container_grants WHERE container_id=? AND principal_kind=\'workspace\'').bind(f.containerId).run();expect((await f.request('GET',`/api/pages/${id}`,undefined,f.b)).status).toBe(404);}},
 {name:"creation rejects verified status and exact opens reject the stale delivered revision",run:async(fixture=repairFixture,page=repairPage,paragraph=repairParagraph)=>{
  const f=await fixture();await f.request('POST','/api/status',{operationKey:createUlid(),key:'verified',label:'Verified',color:'#228855',requiresVerification:true});

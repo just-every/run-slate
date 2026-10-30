@@ -821,7 +821,7 @@
       "id": "COMM-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of COMM-002 — Editing and deletion. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "The existing Workers HTTP registration now exercises both comment-level authors, cross-author and owner refusals, edited timestamps, retained tombstones and exact activity through native sessions and replay. The separate responsive Node journeys specified by CONTRACT.md exercise native comment controls and reload at 1440 and 390; that browser proof is outside this Workers-only report, which remains supporting evidence.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",

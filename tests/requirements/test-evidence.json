@@ -44,7 +44,7 @@
         "BLOCK-008",
         "CONT-007"
       ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
+      "reason": "Preserves separately asserted cases of the same public flow. COMM-002 acceptance 1–2: native-session HTTP journey has two comment-level members author, edit and delete their own comments; another author and an owner receive 403 without changing comments, threads or activity. Exact comment timestamps, in-place tombstones, mutation receipts and one activity per committed change survive all create/edit/delete replays. Responsive native controls in journeys.test.mjs complete the visible proof. Other listed clauses remain supporting regressions."
     },
     {
       "file": "tests/flagship/content/http.test.ts",
