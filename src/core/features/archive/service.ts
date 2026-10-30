@@ -10,7 +10,7 @@ import { commitOperation } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
 import { createUlid } from '../../shared/ulid';
 import { requirePageLevel } from '../sharing/current-access';
-import { pageRow, pageLockGuard, unlocked, contentEvent } from '../pages/repository';
+import { pageRow, pageGuard, pageLockGuard, unlocked, contentEvent } from '../pages/repository';
 import { treeTopologyGuard } from '../pages/tree-order';
 import { creationDestinationGuards } from '../pages/service';
 import { descendants, relocationAudienceChanges } from '../pages/tree';
@@ -19,7 +19,7 @@ import { destination } from '../pages/service';
 export async function archivePage(ctx: FeatureContext, id: string, input: {
     operationKey: string;
     expectedRevisionId: string;
-    action: 'archive' | 'trash' | 'restore';
+    action: 'archive' | 'trash' | 'restore' | 'discard-draft';
     reason?: string;
     containerId?: string;
     parentPageId?: string | null;
@@ -27,7 +27,7 @@ export async function archivePage(ctx: FeatureContext, id: string, input: {
 export async function prepareArchivePage(ctx: FeatureContext, id: string, input: {
     operationKey: string;
     expectedRevisionId: string;
-    action: 'archive' | 'trash' | 'restore';
+    action: 'archive' | 'trash' | 'restore' | 'discard-draft';
     reason?: string;
     containerId?: string;
     parentPageId?: string | null;
@@ -35,8 +35,14 @@ export async function prepareArchivePage(ctx: FeatureContext, id: string, input:
     restoringContainer?: string;
 } = {}) {
     const pages = await descendants(ctx, id), root = pages.find(p => p.id === id)!;
-    const statements = [await treeTopologyGuard(ctx, id), pageLockGuard(ctx, root, input.expectedRevisionId)];
-    if (input.action === 'restore' && (input.containerId !== undefined || input.parentPageId !== undefined)) {
+    const discardingDraft = input.action === 'discard-draft';
+    if (discardingDraft && (root.lifecycle !== 'draft' || root.archived_at || root.trashed_at))
+        throw new ApiProblem(409, 'NOT_DRAFT', 'Only an active draft can be discarded.');
+    if (discardingDraft && root.author_member_id !== ctx.actor.id)
+        throw new ApiProblem(403, 'DRAFT_AUTHOR_REQUIRED', 'Only the author can discard this draft.');
+    const action = discardingDraft ? 'trash' : input.action;
+    const statements = [await treeTopologyGuard(ctx, id), (discardingDraft ? pageGuard : pageLockGuard)(ctx, root, input.expectedRevisionId)];
+    if (action === 'restore' && (input.containerId !== undefined || input.parentPageId !== undefined)) {
         // Restoring somewhere else is a move: changing who can read requires sharing authority over every affected page.
         const overrides: Record<string, { containerId: string; parentPageId: string | null }> = {};
         for (const p of pages) {
@@ -52,7 +58,7 @@ export async function prepareArchivePage(ctx: FeatureContext, id: string, input:
         await requirePageLevel(ctx, p.id, 'edit', { includeTrashed: true });
         unlocked(p);
         if (p.id !== id) statements.push(pageLockGuard(ctx, p));
-        if (input.action === 'restore') {
+        if (action === 'restore') {
             const prior = await ctx.db.prepare('SELECT * FROM content_archive_locations WHERE page_id=?').bind(p.id).first<Record<string, any>>();
             if (!prior)
                 continue;
@@ -65,9 +71,11 @@ export async function prepareArchivePage(ctx: FeatureContext, id: string, input:
             statements.push(ctx.db.prepare('UPDATE pages SET archived_at=NULL,trashed_at=NULL,lifecycle=?,container_id=?,parent_page_id=?,tree_position=?,updated_at=? WHERE id=?').bind(prior.prior_lifecycle, containerId, parentId, prior.prior_position, ctx.now, p.id), ctx.db.prepare('DELETE FROM content_archive_locations WHERE page_id=?').bind(p.id));
         }
         else {
-            statements.push(ctx.db.prepare('INSERT INTO content_archive_locations VALUES (?,?,?,?,?,?,?,?,?) ON CONFLICT(page_id) DO NOTHING').bind(p.id, p.parent_page_id, p.container_id, p.tree_position, p.lifecycle, input.action, ctx.actor.id, input.reason ?? null, ctx.now), ctx.db.prepare(input.action === 'archive' ? "UPDATE pages SET archived_at=?,lifecycle='archived',updated_at=? WHERE id=?" : 'UPDATE pages SET trashed_at=?,updated_at=? WHERE id=?').bind(ctx.now, ctx.now, p.id));
+            statements.push(ctx.db.prepare('INSERT INTO content_archive_locations VALUES (?,?,?,?,?,?,?,?,?) ON CONFLICT(page_id) DO NOTHING').bind(p.id, p.parent_page_id, p.container_id, p.tree_position, p.lifecycle, action, ctx.actor.id, input.reason ?? null, ctx.now), ctx.db.prepare(action === 'archive' ? "UPDATE pages SET archived_at=?,lifecycle='archived',updated_at=? WHERE id=?" : 'UPDATE pages SET trashed_at=?,updated_at=? WHERE id=?').bind(ctx.now, ctx.now, p.id));
         }
-        statements.push(...contentEvent(ctx, p.id, p.revision_id, input.action, {}, [p.container_id]));
+        // LIFE-007: this disposition is silent for every retained descendant,
+        // including live children. Keep audit events and generic archive notifications.
+        statements.push(...contentEvent(ctx, p.id, p.revision_id, action, {}, [p.container_id], action, !discardingDraft));
     }
     return { statements, entity: { id, kind: 'page', revisionId: root.revision_id }, value: { pageId: id, revisionId: root.revision_id, action: input.action } };
 }
