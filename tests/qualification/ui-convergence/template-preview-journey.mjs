@@ -81,13 +81,9 @@ async function saveCorpus(state) {
     const saved = await mutate('POST', '/api/templates', { sourcePageId: expected.sourceId, includeChildren: true,
       containerId: null, title: expected.title + ' template', description: 'A retained session plan.', category: 'Preview proof' });
     const retained = await api(`/api/templates/${saved.id}`);
-    compareSnapshot(retained.snapshot, expected);
-    assert.deepEqual(retained.snapshot.fieldDefinitions.map(field => ({ name: field.name, type: field.type })),
-      fields.map(field => ({ name: field.name, type: field.type })));
     // A later source edit cannot leak into the retained preview.
     const current = await api(`/api/pages/${expected.sourceId}`);
     await mutate('PATCH', `/api/pages/${expected.sourceId}`, { expectedRevisionId: current.page.revisionId, properties: { title: 'Changed source after capture' } });
-    assert.deepEqual(await api(`/api/templates/${saved.id}`), retained);
     corpus.push({ id: saved.id, retained, expected, fields, spaceId: space.id });
   }
   return corpus;
@@ -121,6 +117,11 @@ async function openPreview(state, item, inspect) {
       for (const [index, child] of expected.children.entries()) await inspectPage(children.nth(index), child);
     };
     await inspectPage(snapshot, item.expected, item.fields);
+    const figures = (await preview.innerText()).match(/\b\d+(?:\.\d+)?\b/g) ?? [];
+    assert.deepEqual(figures, item.fields.some(field => field.name === 'Team size') ? ['7', '45', '7', '45'] : [],
+      'Only the figures the author supplied appear anywhere in the complete preview.');
+    await expect(preview).not.toContainText(/\b(?:estimated|inferred|placeholder|TBD|unknown)\b/i);
+    if (!figures.length) await expect(preview).not.toContainText(/team size|duration|not specified/i);
     await expect(snapshot.locator('input[placeholder], [contenteditable="true"]')).toHaveCount(0);
     // Nothing is created while browsing the complete preview.
     assert.equal((await state.api('/api/pages')).items.some(page => page.title === item.expected.title && page.id !== item.expected.sourceId), false);
@@ -133,10 +134,11 @@ async function readCopy(state, id, expected, spaceId, parentPageId = null) {
   const document = await state.api(`/api/pages/${id}`);
   comparePage({ ...document, title: document.page.title }, expected);
   assert.equal(document.page.containerId, spaceId);
-  assert.equal(document.page.parentPageId, parentPageId);
+  const tree = (await state.api('/api/pages')).items;
+  assert.equal(tree.find(page => page.id === id).parentPageId, parentPageId);
   assert.notEqual(id, expected.sourceId);
   assert.ok(document.blocks.every(block => !expected.blocks.some(source => source.id === block.id)), 'Copies own fresh block identifiers.');
-  const children = (await state.api('/api/pages')).items.filter(page => page.parentPageId === id);
+  const children = tree.filter(page => page.parentPageId === id);
   assert.deepEqual(children.map(page => page.title), expected.children.map(child => child.title));
   const result = { id, document, children: [] };
   for (const [index, child] of expected.children.entries()) result.children.push(await readCopy(state, children[index].id, child, spaceId, id));
@@ -147,6 +149,10 @@ async function readCopy(state, id, expected, spaceId, parentPageId = null) {
 export async function templatePreviewJourney(state) {
   const { page, context, origin, api } = state;
   for (const item of await saveCorpus(state)) {
+    compareSnapshot(item.retained.snapshot, item.expected);
+    assert.deepEqual(item.retained.snapshot.fieldDefinitions.map(field => ({ name: field.name, type: field.type })),
+      item.fields.map(field => ({ name: field.name, type: field.type })));
+    assert.deepEqual(await api(`/api/templates/${item.id}`), item.retained, 'The retained preview ignores later source edits.');
     await openPreview(state, item, true);
     const before = (await api('/api/pages')).items.map(page => page.id);
     await page.getByRole('button', { name: 'Use this template', exact: true }).click();
@@ -155,9 +161,10 @@ export async function templatePreviewJourney(state) {
     const committed = page.waitForResponse(response => response.request().method() === 'POST' && new URL(response.url()).pathname === `/api/templates/${item.id}/apply`);
     await dialog.getByRole('button', { name: 'Create page', exact: true }).click();
     const response = await committed;
-    assert.equal(response.status(), 201, await response.text());
-    const copyId = (await response.json()).value.pageId;
-    await expect(page).toHaveURL(new RegExp(`/app/pages/${copyId}$`));
+    assert.equal(response.status(), 201);
+    // The native action navigates immediately; read its committed destination instead of a discarded response buffer.
+    await expect(page).toHaveURL(/\/app\/pages\/[^/]+$/);
+    const copyId = new URL(page.url()).pathname.split('/').at(-1);
     await expect(page.getByRole('textbox', { name: 'Page title', exact: true })).toHaveValue(item.expected.title);
     await page.reload({ waitUntil: 'networkidle' });
     const copy = await readCopy(state, copyId, item.expected, item.spaceId);
@@ -172,7 +179,8 @@ export async function templatePreviewJourney(state) {
     assert.deepEqual(await readCopy(state, copyId, item.expected, item.spaceId), copy);
     for (const action of ['archive', 'delete']) {
       changed = await ok(context, origin, 'POST', `/api/templates/${item.id}/change`, { operationKey: randomUUID(), expectedRevisionId: changed.value.revisionId, action });
-      assert.ok((await api(`/api/templates/${item.id}`))[action === 'archive' ? 'archivedAt' : 'deletedAt']);
+      const listed = (await api(`/api/templates?state=${action === 'archive' ? 'archived' : 'deleted'}`)).items;
+      assert.ok(listed.some(template => template.id === item.id), `The ${action} action is retained in its native collection.`);
       assert.deepEqual(await readCopy(state, copyId, item.expected, item.spaceId), copy);
     }
   }
