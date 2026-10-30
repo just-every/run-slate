@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `11a2f8e22b94f66461ea793b0aae39ffe3d8f80c` (30 October 2026); TMPL-001 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 32 | 194 | 0 | 226 |
+| Published | 33 | 193 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 48 | 249 | 40 | 337 |
+| All | 49 | 248 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4134,7 +4134,7 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `ACT-003` | Retrieval | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
 | `ACT-004` | Context | published | partial | `tests/qualification/core/discovery-browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`. |
 | `ACT-005` | Retained explanation | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
-| `TMPL-001` | Gallery | published | partial | `tests/qualification/ui-convergence/template-gallery-journey.mjs` — "templateGalleryJourney", loaded by the existing starter-template and phone core journeys in `tests/qualification/ui-convergence/journeys.test.mjs`: native template creation, independent title and description search, combined categories, exact results and explicit empty state. | Exact candidate browser execution pending. |
+| `TMPL-001` | Gallery | published | done | `tests/qualification/ui-convergence/template-gallery-journey.mjs` — "templateGalleryJourney": acceptance 1 and 2 through native template creation, independent title and description searches, exact ordered choices, combined categories and an empty result with the required message. Loaded by "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`; starter preview, use, duplicate and source-preservation assertions remain. | |
 | `TMPL-002` | Preview | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A template preview shows the page it produces, including its body, properties and any child pages, before it is used."<br>No validated CI-run proof for this acceptance point: "A figure such as a team size or a duration appears only when the template's author wrote one; Slate never estimates, infers, or displays a placeholder for either." |
 | `TMPL-003` | Snapshot on use | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Using a template creates a page holding a copy of its body, properties and children in the destination the member chose."<br>No validated CI-run proof for this acceptance point: "Editing, archiving or deleting the template afterwards changes no page already created from it." |
 | `TMPL-004` | Custom templates | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Members can create, edit, archive, restore and delete templates."<br>No validated CI-run proof for this acceptance point: "Templates shipped with Slate cannot be edited or deleted and can be duplicated into an editable copy." |

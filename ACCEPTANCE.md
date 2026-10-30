@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 48 | 249 | 34 | 331 |
+| Core | 49 | 248 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 48 | 249 | 40 | 337 |
+| Full target | 49 | 248 | 40 | 337 |
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `11a2f8e22b94f66461ea793b0aae39ffe3d8f80c` (30 October 2026); TMPL-001 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -2110,7 +2110,7 @@ Core · published · **partial** · Cites BASE-AUDIT-001, BASE-DATA-003
 
 #### TMPL-001 — Gallery
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Members can search templates by title and description and filter them by category.
 
@@ -2118,8 +2118,8 @@ Core · published · **partial**
 1. A search with no match shows "No templates match this search."
 2. Template gallery search and category filter with the exact no-match text.
 
-**Evidence.** `tests/qualification/ui-convergence/template-gallery-journey.mjs` — "templateGalleryJourney", loaded by the existing starter-template and phone core journeys in `tests/qualification/ui-convergence/journeys.test.mjs`: native template creation, independent title and description search, combined categories, exact results and explicit empty state.
-**Gap.** Exact candidate browser execution pending.
+**Evidence.** `tests/qualification/ui-convergence/template-gallery-journey.mjs` — "templateGalleryJourney": acceptance 1 and 2 through native template creation, independent title and description searches, exact ordered choices, combined categories and an empty result with the required message. Loaded by "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`; starter preview, use, duplicate and source-preservation assertions remain.
+**Gap.** None.
 
 #### TMPL-002 — Preview
 

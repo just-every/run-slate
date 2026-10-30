@@ -1435,7 +1435,7 @@
       "id": "TMPL-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "This legacy Workers inventory classifies supporting tests only; CONTRACT.md owns native clause status. The existing responsive browser registrations now load templateGalleryJourney, which creates native templates and checks independent title and description matches, combined categories, exact returned choices and the empty result. Exact candidate execution remains to be recorded.",
+      "unmetReason": "This legacy Workers inventory classifies supporting tests only; CONTRACT.md owns native clause status. The existing responsive browser registrations load templateGalleryJourney, which creates native templates and proves independent title and description matches, combined categories, exact ordered choices and the explicit empty result. Both responsive callers retain their existing assertions and registration count; candidate execution is recorded by branch Verify.",
       "supportingTests": []
     },
     {
