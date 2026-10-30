@@ -71,6 +71,7 @@ export async function publicPage(db: D1Database, host: string, slug: string, rev
         const revision = await db.prepare('SELECT r.body_json,r.properties_json FROM page_revisions r JOIN content_published_revisions v ON v.page_id=r.page_id AND v.revision_id=r.id WHERE r.page_id=? AND r.id=? AND r.deleted_at IS NULL').bind(p.page_id,revisionId).first<{body_json:string;properties_json:string}>();
         if (!revision) throw new ApiProblem(404, 'NOT_FOUND', 'This link is no longer available.');
         Object.assign(p, revision);
+        p.selectedRevisionId = revisionId;
         p.newerRevisionExists = (await db.prepare('SELECT working_revision_id FROM pages WHERE id=?').bind(p.page_id).first<{working_revision_id:string}>())?.working_revision_id !== revisionId;
     }
     return p;

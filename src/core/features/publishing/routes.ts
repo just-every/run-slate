@@ -38,7 +38,7 @@ export function createPublishingRoutes() {
 }
 export function createPublicPagesRoutes() {
     return new Hono<AppEnvironment>().get('/:slug/embeds/:blockId',async c=>{
-      const p=await publicPage(c.env.DB,new URL(c.req.url).host,c.req.param('slug'));
+      const p=await publicPage(c.env.DB,new URL(c.req.url).host,c.req.param('slug'),c.req.query('revision'));
       await authorizePublic(c,p);
       const block=JSON.parse(p.body_json).find((b:any)=>b.id===c.req.param('blockId') && b.blockType==='link-card');
       if(!block)throw new ApiProblem(404,'NOT_FOUND','Not found.');
@@ -46,7 +46,7 @@ export function createPublicPagesRoutes() {
       if(verdict?.verdict!=='embeddable')return c.html('<p>The provider does not allow embedding. Open the original link.</p>');
       return embedDocument(block.content);
     }).get('/:slug/media/:id', async (c) => {
-        const p = await publicPage(c.env.DB, new URL(c.req.url).host, c.req.param('slug'));
+        const p = await publicPage(c.env.DB, new URL(c.req.url).host, c.req.param('slug'), c.req.query('revision'));
         await authorizePublic(c, p);
         const f = await c.env.DB.prepare('SELECT * FROM files WHERE id=? AND page_id=? AND deleted_at IS NULL').bind(c.req.param('id'), p.page_id).first<Record<string, any>>();
         if (!f)

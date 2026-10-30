@@ -34,7 +34,7 @@ function rich(value: any, links: Record<string, string>): string { if (!Array.is
     href = links[span.mention.id]; if (typeof href === 'string' && href.startsWith('/app/'))
     href = publicHref(href,links); if (href && (safeUrl(href) || href.startsWith('/p/')))
     text = `<a${span.mention ? ' class="mention"' : ''} href="${html(href)}" rel="noopener noreferrer">${text}</a>`; else if (span.mention) text = `<span class="mention">${text}</span>`; return text; }).join(''); }
-function renderBlock(b: BlockView, slug: string, links: Record<string, string>, blocks: BlockView[], refusedHosts: Set<string>) { const c = b.content as Record<string, any>, id = html(b.id), text = rich(c.text, links); switch (b.blockType) {
+function renderBlock(b: BlockView, slug: string, links: Record<string, string>, blocks: BlockView[], refusedHosts: Set<string>, revisionId?: string) { const c = b.content as Record<string, any>, id = html(b.id), text = rich(c.text, links); switch (b.blockType) {
     case 'synced-source': return `<section id="${id}"><p>Synced source</p><p>${text}</p></section>`;
     case 'synced-reference': return b.synced?.state==='ready'?`<section id="${id}"><p>Source: ${html(b.synced.sourceTitle)}</p><p>${rich(b.synced.text,links)}</p></section>`:`<aside id="${id}">Access needed</aside>`;
     case 'heading': return `<h${c.level} id="${html(headingAnchor(b.id))}">${text}</h${c.level}>`;
@@ -53,7 +53,7 @@ function renderBlock(b: BlockView, slug: string, links: Record<string, string>, 
     case 'media': {
         if (!c.source?.fileId)
             return `<p>${html(c.caption || c.source?.name || '')}</p>`;
-        const base = `/p/${encodeURIComponent(slug)}/media/${encodeURIComponent(c.source.fileId)}`, url = `${base}?display=${encodeURIComponent(b.id)}`;
+        const base = `/p/${encodeURIComponent(slug)}/media/${encodeURIComponent(c.source.fileId)}${revisionId ? `?revision=${encodeURIComponent(revisionId)}` : ''}`, url = `${base}${revisionId ? '&amp;' : '?'}display=${encodeURIComponent(b.id)}`;
         return c.kind === 'image' ? `<figure><img src="${url}" alt="${html(c.alt)}"><figcaption>${html(c.caption)}</figcaption></figure>` : c.kind === 'audio' ? `<audio controls src="${url}"></audio>` : c.kind === 'video' ? `<video controls src="${url}"></video>` : `<a href="${base}">${html(c.source.name)}</a>`;
     }
     case 'file-card': return `<p id="${id}"><a href="${html(c.url)}" rel="noopener noreferrer">${html(c.provider)} file</a></p>`;
@@ -62,7 +62,7 @@ function renderBlock(b: BlockView, slug: string, links: Record<string, string>, 
         if(embed && refusedHosts.has(new URL(embed.url).hostname))return `<section id="${id}"><p><a href="${html(c.url)}" rel="noreferrer">${html(c.preview?.title??embed.provider)}</a></p><p>The provider does not allow embedding. Open the original link.</p></section>`;
         if(embed) {
           const name=`embed-${id}`,route=`/p/${encodeURIComponent(slug)}/embeds/${encodeURIComponent(b.id)}`;
-          return `<section id="${id}"><p><a href="${html(c.url)}" rel="noreferrer">${html(c.preview?.title??embed.provider)}</a></p><form data-slate-embed action="${route}" target="${name}" method="get"><button type="submit" class="public-action">Load ${html(embed.provider)} embed</button><p data-embed-message>This connects to ${html(embed.provider)}. If unavailable, open the original link above.</p></form><iframe hidden name="${name}" title="${html(embed.provider)} embed" sandbox="${embed.sandbox}" referrerpolicy="no-referrer" allow="fullscreen" style="width:100%;height:420px;border:0"></iframe></section>`;
+          return `<section id="${id}"><p><a href="${html(c.url)}" rel="noreferrer">${html(c.preview?.title??embed.provider)}</a></p><form data-slate-embed action="${route}" target="${name}" method="get">${revisionId ? `<input type="hidden" name="revision" value="${html(revisionId)}">` : ''}<button type="submit" class="public-action">Load ${html(embed.provider)} embed</button><p data-embed-message>This connects to ${html(embed.provider)}. If unavailable, open the original link above.</p></form><iframe hidden name="${name}" title="${html(embed.provider)} embed" sandbox="${embed.sandbox}" referrerpolicy="no-referrer" allow="fullscreen" style="width:100%;height:420px;border:0"></iframe></section>`;
         }
         const url = publicHref(c.url,links);
         return url && (safeUrl(url) || url.startsWith('/p/')) ? `<p><a href="${html(url)}" rel="noopener noreferrer">${html(c.preview?.title ?? c.url)}</a></p>` : `<p>${html(c.preview?.title ?? c.url)}</p>`;
@@ -81,9 +81,9 @@ export function renderPublicDocument(exposure: Record<string, any>, links: Recor
         byParent.set(parent, rows);
     }
     function tree(parent: string | null): string {
-        return (byParent.get(parent) ?? []).map(block => block.blockType==='columns' ? `<section class="slate-columns" style="--column-count:${Number((block.content as {count:number}).count)}">${tree(block.id)}</section>` : block.blockType==='column' ? `<div class="slate-column">${tree(block.id)}</div>` : `${renderBlock(block, exposure.slug, links, blocks, refusedHosts)}${byParent.has(block.id) ? `<section class="nested">${tree(block.id)}</section>` : ''}`).join('');
+        return (byParent.get(parent) ?? []).map(block => block.blockType==='columns' ? `<section class="slate-columns" style="--column-count:${Number((block.content as {count:number}).count)}">${tree(block.id)}</section>` : block.blockType==='column' ? `<div class="slate-column">${tree(block.id)}</div>` : `${renderBlock(block, exposure.slug, links, blocks, refusedHosts, exposure.selectedRevisionId)}${byParent.has(block.id) ? `<section class="nested">${tree(block.id)}</section>` : ''}`).join('');
     }
-    const media = (id: string) => `/p/${encodeURIComponent(exposure.slug)}/media/${encodeURIComponent(id)}`;
+    const media = (id: string) => `/p/${encodeURIComponent(exposure.slug)}/media/${encodeURIComponent(id)}${exposure.selectedRevisionId ? `?revision=${encodeURIComponent(exposure.selectedRevisionId)}` : ''}`;
     const cover = properties.coverFileId ? `<img class="page-cover" src="${media(properties.coverFileId)}" alt="">` : '';
     const icon = properties.icon ? `<div class="page-icon">${properties.icon.startsWith('file:') ? `<img src="${media(properties.icon.slice(5))}" alt="">` : html(properties.icon)}</div>` : '';
     return publicDocumentShell({
