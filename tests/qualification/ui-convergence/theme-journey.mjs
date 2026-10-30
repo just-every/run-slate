@@ -40,9 +40,12 @@ async function choose(view, origin, theme) {
   await view.goto(origin + appearance, { waitUntil: 'networkidle' });
   const choice = view.getByRole('radio', { name: labels[theme], exact: true });
   if (!await choice.isChecked()) {
-    const committed = view.waitForResponse(response => new URL(response.url()).pathname === '/api/members/current/theme' && response.request().method() === 'PUT');
-    await choice.check();
-    const response = await committed;
+    // The controlled radio reflects the committed response, rather than the
+    // synchronous native toggle that Playwright check() requires.
+    const [response] = await Promise.all([
+      view.waitForResponse(response => new URL(response.url()).pathname === '/api/members/current/theme' && response.request().method() === 'PUT'),
+      choice.click(),
+    ]);
     assert.equal(response.status(), 200, await response.text());
     assert.equal((await response.json()).value.theme, theme);
   }
@@ -63,7 +66,8 @@ export async function themeJourney(state, width) {
   const { value: { pageId } } = await mutate('/api/pages', { containerId: space.id, title: 'Theme response plan', blocks: [{ id: randomUUID(), blockType: 'paragraph', treePosition: 'a0', content: { text: [{ text: marker }] } }] });
   const database = (await mutate('/api/databases', { containerId: space.id, title: 'Theme response tracker' })).value;
   const field = { id: randomUUID(), name: 'Response notes', type: 'text', config: {}, position: 0 };
-  await mutate(`/api/databases/${database.id}/fields`, { expectedRevisionId: database.revisionId, field });
+  const structure = (await mutate(`/api/databases/${database.id}/fields`, { expectedRevisionId: database.revisionId, field })).value;
+  await mutate(`/api/databases/${database.id}/views`, { expectedRevisionId: structure.revisionId, view: { id: randomUUID(), name: 'Response table', layout: 'table', filters: [], sorts: [], groups: [], calculations: {}, display: {}, position: 0 } });
   const record = (await mutate(`/api/databases/${database.id}/records`, { title: 'Theme response record', values: { [field.id]: marker } })).value;
   const pagePath = `/app/pages/${pageId}`, databasePath = `/app/databases/${database.id}`;
   const recordPath = `${databasePath}/records/${record.pageId}`;
@@ -115,6 +119,23 @@ export async function themeJourney(state, width) {
           const title = page.getByRole('textbox', { name: 'Page title', exact: true });
           await expect(title).toBeEditable();
           await paintedTheme(page, resolved, title);
+          if (route === recordPath) {
+            const property = page.locator('.record-field').filter({ has: page.getByText(field.name, { exact: true }) });
+            await property.getByRole('button', { name: 'Edit', exact: true }).click();
+            const dialog = page.getByRole('dialog', { name: `Edit ${field.name}`, exact: true });
+            const value = dialog.getByRole('textbox', { name: field.name, exact: true });
+            await expect(value).toHaveValue(marker);
+            await expect(value).toBeEditable();
+            await paintedTheme(page, resolved, value);
+            if (preference === 'system') {
+              await page.emulateMedia({ colorScheme: 'light' });
+              await paintedTheme(page, 'light', value);
+              await page.emulateMedia({ colorScheme: 'dark' });
+              await paintedTheme(page, 'dark', value);
+            }
+            if (preference === 'dark') await shot(page, 'record-value-editor');
+            await dialog.getByRole('button', { name: 'Cancel', exact: true }).click();
+          }
           if (route === pagePath) {
             const paragraph = page.getByRole('textbox', { name: 'Paragraph', exact: true });
             await expect(paragraph).toHaveText(marker);
