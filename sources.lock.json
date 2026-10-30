@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "830a48a24e48e4726a7b9f89b210073050d4005ca40f32f0aab4b039d49ba9e8",
+      "sha256": "4829e318fc9dcd3f84888520ced7a0177dd4f1766ec99b823d65ca9e78e29e73",
       "executable": false
     },
     "DEMO.md": {
@@ -8388,7 +8388,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
-      "sha256": "d08b9f6d41c3f8755f56a4f33cf8893583e360b291c7ef389d81cb85f4ee9392",
+      "sha256": "3f984dd05e88f2836d57d71ccc02aae0ea16cc44a970759ed824cad1dd6bb6c8",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageMetadata.tsx": {
@@ -12128,7 +12128,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-history.mjs": {
-      "sha256": "6eda60003bc44ac7c258a8211bbc05fba9f13966dc487498bcb71b87d017c1bf",
+      "sha256": "0a07892e70c48f4b595b06bab940af57001d397e9c8e2b770a00d6d3efd8e63c",
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-support.mjs": {
@@ -12172,7 +12172,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "bf858eff3498bb0e2dcfbf3de2e5c30c4c1727abb0f3c1a49d4d0bef8890cb62",
+      "sha256": "d7583765c4f728f288004086b1eaab8818955f7fc388b8526553a07f762adcf2",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
