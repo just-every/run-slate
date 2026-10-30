@@ -11944,7 +11944,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "0bb6fe24bfa2b6d44191ed357dc60d7dee6ef0735a6613721a6b22f2419e7506",
+      "sha256": "032ee910cda20207660d816431b128cba599bd1c6970f883d1ff6feff12010bb",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12060,7 +12060,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/theme-journey.mjs": {
-      "sha256": "dca495693d279c47dbd83c0736a4466fce5e28ef1c16ebb2d1373bdc864859f2",
+      "sha256": "f3527621163d327f2997ff59834cee3967245c2ec5916343e46c6a67ecb8aa1e",
       "executable": false
     },
     "tests/qualification/ui-convergence/today-outcomes-journey.mjs": {
