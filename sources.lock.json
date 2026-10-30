@@ -11792,7 +11792,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/discussions-journey.mjs": {
-      "sha256": "70c320c3081f0e531f26e885bb44a090fbd8c7296a1273013ade44f1d2b523bf",
+      "sha256": "1fe901c1811f2762724fd778eb3ba846155ff88fca788eba62d4f30dd55d8bd7",
       "executable": false
     },
     "tests/qualification/ui-convergence/embed-timeout-journey.mjs": {
