@@ -1,3 +1,4 @@
+import {activityRetrievalJourney} from './activity-retrieval-journey.mjs';
 import assert from 'node:assert/strict';
 import {guestConsoleJourney} from './guest-console-journey.mjs';
 import { expect } from '@playwright/test';
@@ -86,4 +87,5 @@ export async function settingsJourney(state, width) {
   await expect(page.locator('body')).not.toContainText(/\bContainers?\b/);
   await accessible(page, 'space settings');
   await guestConsoleJourney(state);
+  await activityRetrievalJourney(state,width);
 }
