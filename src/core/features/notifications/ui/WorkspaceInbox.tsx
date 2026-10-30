@@ -50,6 +50,16 @@ export function WorkspaceInbox() {
       setError(cause);
     }
   }
+  async function openNotice(id: string) {
+    try {
+      const receipt = await mutate<{ value: { href: string } }>("/api/notifications/actions", {
+        operationKey: operationKey(), action: "read", id,
+      });
+      window.location.assign(receipt.value.href);
+    } catch (cause) {
+      setError(cause);
+    }
+  }
   return (
     <>
       <TopBar trail={[{ label: "Inbox" }]} />
@@ -86,7 +96,7 @@ export function WorkspaceInbox() {
               <ul className="outcome-list">
                 {items.map((item) => (
                   <li key={item.id}>
-                    <a href={item.href} onClick={event => {event.preventDefault();void mutate("/api/notifications/actions",{operationKey:operationKey(),action:"read",id:item.id}).then(()=>window.location.assign(item.href)).catch(setError);}}>
+                    <a href={item.href} onClick={event => {event.preventDefault();void openNotice(item.id);}}>
                       <span className="outcome-kind">
                         {item.event.replaceAll("-", " ")}
                         {!item.readAt ? " · Unread" : ""}
