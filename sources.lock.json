@@ -11988,7 +11988,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/public-page-journey.mjs": {
-      "sha256": "b0d8e8de815a0df21b8cde4a2011240e428ad18ca85e100e62f3d096fba3c1c0",
+      "sha256": "b62aeb41ef13b8b1d7539ad85879bb2297ddd703b5d42d7db8a438e77dfb7a3a",
       "executable": false
     },
     "tests/qualification/ui-convergence/publication-journey.mjs": {

@@ -166,7 +166,8 @@ export async function publicPageUnpublishJourney(state) {
     assert.deepEqual(replay, published.receipt, 'Retry returns the original receipt.');
     unavailable(await anonymousRead(address));
     const denied = await call(reader, origin, 'POST', `/api/publishing/${id}`, { ...published.input, operationKey: key() });
-    assert.equal(denied.status, 403, 'A workspace reader cannot restore public access.');
+    assert.equal(denied.status, 404, 'Insufficient page authority is refused without disclosing the publication.');
+    assert.equal(denied.body.code, 'NOT_FOUND');
     assert.deepEqual((await exposure(id)).exposure, revoked, 'Refused publication leaves the exposure revoked.');
     unavailable(await anonymousRead(address));
 
