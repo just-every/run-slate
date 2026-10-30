@@ -10,10 +10,11 @@ import {fixture} from './measured-fixture';
 
 export async function sessionDoor(memberId:string,overrides:Partial<AppBindings>={}) {
   const app=createApi(),cookie=await sessionFor(memberId);
-  const bindings={...env,AI_API_KEY:'test-only',...overrides} as AppBindings;
+  const bindings={...env,APP_URL:'https://slate.example',AI_API_KEY:'test-only',...overrides} as AppBindings;
   return async (method:string,path:string,body?:unknown,extraHeaders?:Headers) => {
     const headers=new Headers(extraHeaders);
     headers.set('cookie',cookie);
+    headers.set('origin','https://slate.example');
     if(body!==undefined)headers.set('content-type','application/json');
     return app.request(`https://slate.example${path}`,{
       method,headers,...(body===undefined?{}:{body:JSON.stringify(body)}),

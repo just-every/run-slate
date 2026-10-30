@@ -123,8 +123,8 @@ importers:
         specifier: 1.63.0
         version: 1.63.0
       '@runeditrun/rer':
-        specifier: 0.2.80
-        version: 0.2.80
+        specifier: 0.2.94
+        version: 0.2.94
       '@tailwindcss/vite':
         specifier: 4.3.3
         version: 4.3.3(vite@8.2.2(@types/node@26.5.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13))
@@ -143,6 +143,9 @@ importers:
       highlight.js:
         specifier: 10.7.3
         version: 10.7.3
+      miniflare:
+        specifier: 5.20260907.0-alpha
+        version: 5.20260907.0-alpha(@types/node@26.5.0)
       react-markdown:
         specifier: 6.0.3
         version: 6.0.3(@types/react@19.2.18)(react@19.2.8)
@@ -1403,8 +1406,8 @@ packages:
   '@rolldown/pluginutils@1.0.1':
     resolution: {integrity: sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==}
 
-  '@runeditrun/rer@0.2.80':
-    resolution: {integrity: sha512-ZyuCv5DFElXDn78EL03hTLzwoB7z7wDGsUDUd3WDSYE8C6BJODx4oj0nkZwqVa20/1G7h+cWwIQUku6z8Ngxlw==}
+  '@runeditrun/rer@0.2.94':
+    resolution: {integrity: sha512-F+URqV6t0nTLmognzhm0X66Fd0N9JmDxqa7UP6Hz7rLYigdU4U2rvN6tji3Ml7ivZqp+0k3rHH8ERizQ9/cTtA==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -3899,7 +3902,7 @@ snapshots:
 
   '@rolldown/pluginutils@1.0.1': {}
 
-  '@runeditrun/rer@0.2.80': {}
+  '@runeditrun/rer@0.2.94': {}
 
   '@sindresorhus/is@7.2.0': {}
 
