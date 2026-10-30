@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 49 | 248 | 34 | 331 |
+| Core | 50 | 247 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 49 | 248 | 40 | 337 |
+| Full target | 50 | 247 | 40 | 337 |
 
-Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `be115c6059ced8a8e2d6bcbe3ebb911f4a60b397` (30 October 2026); TMPL-006 native collection scope and move proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -2175,7 +2175,7 @@ Core · published · **partial**
 
 #### TMPL-006 — Where a template lives
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A template belongs to the workspace or to one container.
 
@@ -2183,8 +2183,8 @@ Core · published · **partial**
 1. A container's templates are offered first inside that container and are not offered elsewhere, and moving a template between the two is one action.
 2. Container templates are offered first in their container only; moving scope is one action.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A template belongs to the workspace or to one container."<br>No validated CI-run proof for this acceptance point: "A container's templates are offered first inside that container and are not offered elsewhere, and moving a template between the two is one action."
+**Evidence.** `tests/qualification/ui-convergence/template-scope-journey.mjs` — "templateScopeJourney", invoked by `tests/qualification/ui-convergence/journeys.test.mjs` — "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px": acceptance 1 and 2 use two readable containers and populated workspace templates, exact native and visible ordered lists after reload, and one Move collection submission each way retaining identifier and snapshot.
+**Gap.** None.
 
 ### Import
 
