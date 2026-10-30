@@ -303,7 +303,7 @@
       "id": "PAGE-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PAGE-007 — Details. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "This legacy inventory classifies Workers supporting tests only; CONTRACT.md owns native clause status. The existing responsive core-wiki Node registrations invoke pageDetailsJourney in tests/qualification/ui-convergence/page-details-journey.mjs. Through the emitted app and native HTTP they populate two contributors, owner and creator, times, table-inclusive length, status, labels, visits and readable backlinks; inspect Details; reassign as a full member with unchanged direct and inherited grants; replay with one activity entry; reload; and refuse an edit-only owner change and captured replay with unchanged page, revisions, grants and activity. The Node browser journey is outside this Workers report; independent release acceptance remains separate.",
       "supportingTests": []
     },
     {
