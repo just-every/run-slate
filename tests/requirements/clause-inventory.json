@@ -1043,7 +1043,7 @@
       "id": "DB-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-003 — Views. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "This legacy inventory classifies supporting tests only; CONTRACT.md owns clause status. The loaded savedViewsJourney now covers native named-view creation, non-owner editor rename, independent duplicate configuration, confirmed deletion, shared reload, viewer refusal and revoked-editor replay with unchanged populated records.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
