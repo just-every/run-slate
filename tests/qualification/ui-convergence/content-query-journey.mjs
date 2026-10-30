@@ -99,7 +99,15 @@ export async function contentQueryJourney(state, width) {
       await expect(dialog.getByLabel('Updated from',{exact:true})).toHaveValue(from);
       await expect(dialog.getByLabel('Updated through',{exact:true})).toHaveValue(through);
       await expect(dialog.getByLabel('Maximum results',{exact:true})).toHaveValue(String(definition.limit));
-      if(!criteriaCaptured){await accessible(page,'content query retained native criteria');criteriaCaptured=true;}
+      if(!criteriaCaptured){
+        const close=dialog.getByRole('button',{name:'Close dialog',exact:true});
+        await close.focus();
+        await expect.poll(()=>close.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
+        await dialog.getByLabel('Space',{exact:true}).focus();
+        await close.hover();
+        await expect.poll(()=>close.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
+        await accessible(page,'content query retained native criteria');criteriaCaptured=true;
+      }
       await dialog.getByRole('button',{name:'Cancel',exact:true}).click();
     };
     await edit({},[alpha,bravo]);
@@ -113,6 +121,8 @@ export async function contentQueryJourney(state, width) {
     await edit({limit:100},[alpha,bravo,zulu]);
     await edit({status:''},[alpha,bravo,wrongStatus,zulu]);
     await edit({status:'query-ready',contributor:bob.id},[wrongContributor]);
+    assert.equal((await call(bob.context,origin,'GET',`/api/pages/${readerDraft}`)).status,200,'Morgan can read their own draft directly.');
+    await reopen(bob.page,[wrongContributor]);
     await edit({contributor:'browser-owner',ancestor:'',container:elsewhere},[otherSpace]);
     await edit({container:space,pageType:'record',status:'',contributor:''},[record]);
     await edit({pageType:'page',status:'query-ready',contributor:'browser-owner',ancestor:source,dateRange:'1980-01-01/1990-12-31'},[]);
@@ -121,8 +131,10 @@ export async function contentQueryJourney(state, width) {
     // A real title commit changes both ordering and the visible result after reopening.
     await mutate('PATCH',`/api/pages/${alpha}`,{expectedRevisionId:(await api(`/api/pages/${alpha}`)).page.revisionId,properties:{title:'Omega updated query page'}});
     await reopen(page,[alpha,bravo]);
+    await expect(query(page).getByRole('button',{name:'Omega updated query page',exact:true})).toBeVisible();
     await edit({orderBy:'title',limit:100},[bravo,alpha,zulu]);
     await reopen(bob.page,[alpha,zulu]);
+    await expect(query(bob.page).getByRole('button',{name:'Omega updated query page',exact:true})).toBeVisible();
     const rerun=responseFor(bob.page);
     await query(bob.page).getByRole('button',{name:'Run it again',exact:true}).click();
     await checkResponse(bob.page,rerun,[alpha,zulu]);
@@ -146,6 +158,15 @@ export async function contentQueryJourney(state, width) {
     await page.getByRole('button',{name:'More',exact:true}).click();
     await page.getByRole('menuitem',{name:'Move to trash',exact:true}).click();
     const trash=page.getByRole('dialog',{name:'Move this page to trash?'});
+    const beforeTrash=await api(`/api/pages/${source}`);
+    const denied=page.waitForResponse(response=>new URL(response.url()).pathname===`/api/archive/${source}`&&response.request().method()==='POST');
+    await trash.getByRole('button',{name:'Confirm',exact:true}).click();
+    assert.equal((await denied).status(),404,'The source cannot be trashed while Morgan’s private draft is not shared with Alex.');
+    assert.deepEqual(await api(`/api/pages/${source}`),beforeTrash,'Refused trash leaves the source unchanged.');
+    await trash.getByRole('button',{name:'Cancel',exact:true}).click();
+    await grant(bob.context,origin,readerDraft,'browser-owner','full');
+    await page.getByRole('button',{name:'More',exact:true}).click();
+    await page.getByRole('menuitem',{name:'Move to trash',exact:true}).click();
     const removed=page.waitForResponse(response=>new URL(response.url()).pathname===`/api/archive/${source}`&&response.request().method()==='POST');
     await trash.getByRole('button',{name:'Confirm',exact:true}).click();
     assert.equal((await removed).status(),200);
@@ -154,6 +175,13 @@ export async function contentQueryJourney(state, width) {
       await unavailable(view,()=>view.goto(`${origin}/app/pages/${target}`,{waitUntil:'networkidle'}));
       await unavailable(view,()=>query(view).getByRole('button',{name:'Run it again',exact:true}).click());
     }
+    await query(page).getByRole('button',{name:'Edit the query',exact:true}).click();
+    const missing=page.getByRole('dialog',{name:'Edit content query'});
+    await expect(missing.getByLabel('Under page',{exact:true})).toHaveValue(source);
+    await missing.getByRole('button',{name:'Save query',exact:true}).click();
+    await expect(missing).toBeHidden();
+    assert.equal((await api(`/api/pages/${target}`)).blocks.find(block=>block.blockType==='content-query').content.definition.ancestor,source,'Saving other criteria never silently broadens a query with a missing source.');
+    await unavailable(page,()=>query(page).getByRole('button',{name:'Run it again',exact:true}).click());
     await accessible(page,'content query deleted source without stale results');
     // Keep the seed corpus explicit: these negatives must exist rather than testing an empty workspace.
     assert.equal((await api(`/api/pages/${outside}`)).page.title,'Outside ancestor query page');
