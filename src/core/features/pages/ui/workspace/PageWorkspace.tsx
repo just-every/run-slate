@@ -141,8 +141,12 @@ function LoadedPage({
       if(requestedReturn.current)detailReturnFocus.current=requestedReturn.current;
       else if(active instanceof HTMLElement && active!==window.document.body && !detailPanel.current?.contains(active))detailReturnFocus.current=active;
       requestedReturn.current=null;
-      detailPanel.current?.querySelector<HTMLButtonElement>('button')?.focus();
-      if (window.matchMedia("(max-width: 1200px)").matches) detailPanel.current?.scrollIntoView({block:"start"});
+      const params=new URLSearchParams(window.location.search);
+      const linkedComment=detail==="comments" && (params.has("comment") || params.has("thread"));
+      // PageComments scrolls to the referenced discussion. Panel focus must
+      // preserve that position when its data was already present at mount.
+      detailPanel.current?.querySelector<HTMLButtonElement>('button')?.focus({preventScroll:linkedComment});
+      if (!linkedComment && window.matchMedia("(max-width: 1200px)").matches) detailPanel.current?.scrollIntoView({block:"start"});
     }else if(detailReturnFocus.current || detailReturnBlock.current){
       if(detailReturnFocus.current?.isConnected)detailReturnFocus.current.focus();
       else if(detailReturnBlock.current){
