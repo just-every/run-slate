@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
-import { accessible } from './browser-support.mjs';
+import { accessible, openNavigation } from './browser-support.mjs';
 
 // This is an input corpus for the public editor, independent of its parser.
 const shortcuts = [
@@ -27,6 +27,7 @@ function assertConverted(block, shortcut) {
     assert.ok(block.content.items[0].id, 'The native list item has its own identifier.');
   }
   if (shortcut.type === 'task') assert.equal(block.content.done, false);
+  if (shortcut.type === 'divider') assert.deepEqual(block.content, {});
   if (shortcut.type === 'code') {
     assert.equal(block.content.language, 'text');
     assert.equal(block.content.code, '');
@@ -42,7 +43,7 @@ export async function typedShortcutsJourney(state) {
   await page.keyboard.press('ControlOrMeta+/');
   const reference = page.getByRole('dialog', { name: 'Keyboard shortcuts', exact: true });
   await expect(reference).toBeVisible();
-  const typed = reference.locator('section').filter({ has: page.getByRole('heading', { name: 'Typed formatting', exact: true }) });
+  const typed = reference.getByRole('heading', { name: 'Typed formatting', exact: true }).locator('..');
   for (const shortcut of shortcuts) {
     const entry = typed.getByRole('listitem').filter({ has: page.getByText(shortcut.reference, { exact: true }) });
     await expect(entry.locator('kbd')).toHaveText(shortcut.keys);
@@ -53,9 +54,11 @@ export async function typedShortcutsJourney(state) {
   await expect(reference).toHaveCount(0);
 
   // Create through the same menu as a writer; neither bodies nor responses are seeded.
+  const previousPath = new URL(page.url()).pathname;
+  await openNavigation(page);
   await page.getByRole('button', { name: 'Create', exact: true }).click();
   await page.getByRole('menuitem', { name: 'Page', exact: true }).click();
-  await page.waitForURL(url => url.pathname.startsWith('/app/pages/'));
+  await page.waitForURL(url => url.pathname.startsWith('/app/pages/') && url.pathname !== previousPath, { waitUntil: 'networkidle' });
   const pageId = new URL(page.url()).pathname.split('/').at(-1);
   const title = page.getByRole('textbox', { name: 'Page title', exact: true });
   await title.fill('Typed formatting reference examples');
@@ -76,11 +79,13 @@ export async function typedShortcutsJourney(state) {
       assertConverted(await read(), shortcut);
       if (shortcut.type === 'divider') await expect(row.locator('hr')).toBeVisible();
       else await expect(row.locator('[data-slate-editable]')).toHaveText(shortcut.text ?? '');
+      if (shortcut.mark) await expect(row.locator(({bold:'strong', italic:'em', code:'code'})[shortcut.mark])).toHaveText(shortcut.text);
 
       // No click or focus call may repair focus lost by a conversion.
       await page.keyboard.press('ControlOrMeta+z');
       const undone = row.getByRole('textbox', { name: 'Paragraph', exact: true });
       await expect(undone).toBeFocused();
+      await expect(undone.locator('strong, em, code')).toHaveCount(0);
       assert.equal((await undone.textContent()).replaceAll('\u00a0', ' '), shortcut.typed, 'One undo restores every typed character.');
       await expect.poll(async () => {
         const block = await read();
@@ -101,9 +106,9 @@ export async function typedShortcutsJourney(state) {
       assertConverted(await read(), shortcut);
       if (shortcut.type === 'divider') await expect(row.locator('hr')).toBeVisible();
       else await expect(row.locator('[data-slate-editable]')).toHaveText(shortcut.text ?? '');
+      if (shortcut.mark) await expect(row.locator(({bold:'strong', italic:'em', code:'code'})[shortcut.mark])).toHaveText(shortcut.text);
     } catch (cause) {
-      cause.message = `Typed shortcut ${JSON.stringify(shortcut.typed)}: ${cause.message}`;
-      throw cause;
+      throw new Error(`Typed shortcut ${JSON.stringify(shortcut.typed)} failed`, { cause });
     }
   }
   await accessible(page, 'typed shortcuts survive undo and reconversion');
