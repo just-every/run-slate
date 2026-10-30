@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { randomBytes, randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-evidence.mjs';
+import { revisionDeletionJourney } from './revision-deletion-journey.mjs';
 import { blockText, call, editable, grant, ok, restrictedPage, savedAfterCommit } from './two-people-support.mjs';
 
 const order = async (context, origin, pageId) => (await ok(context, origin, 'GET', `/api/pages/${pageId}`)).blocks.map(block => block.id);
@@ -260,4 +261,5 @@ export async function historyJourney(state, people) {
   await stranger.screenshot({ path: `${people.evidence}/anonymous-citation-unpublished.png`, fullPage: true });
   await anonymous.close();
   record('history', { restoredFrom: target.revisionId, newRevision: after.revision, revisionsBefore: before.history, revisionsAfter: after.history, retainedLink: canonicalLink, publicAddress, child: childBefore, activity: { action: activity.action, actor: bob.name, restoredRevisionId: activity.context.revisionId } });
+  await revisionDeletionJourney(state, people);
 }

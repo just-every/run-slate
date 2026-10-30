@@ -109,3 +109,14 @@ reload. An exact restore retry creates neither another revision nor another
 activity entry; after access revocation the same retry is refused without
 changing either. These browser assertions support REV-003 through emitted
 Worker public doors; no additional test registration is introduced.
+
+The same callers invoke `revisionDeletionJourney` in
+`tests/qualification/ui-convergence/revision-deletion-journey.mjs` for REV-006.
+The native journey publishes three numbered revisions and leaves a distinct
+working revision. It refuses edit-only deletion, deletion of either protected
+revision, and deletion under autosnapshot without changing retained state.
+A non-owner with full access then confirms deletion through History: the
+selected content becomes unavailable while its number, deleting member and
+actual deletion time remain visible after reload. Other versions and current
+content remain readable. Exact retry is duplicate-safe, a deleted revision
+cannot be restored, and reduced authority cannot replay the delete receipt.

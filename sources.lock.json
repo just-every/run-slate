@@ -8384,7 +8384,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
-      "sha256": "308a02beb7200fedbcc9e140eab01cad09d0d3339a0d168615d0f9328ce97a9f",
+      "sha256": "ec797d1db9337cf2a9f096d270c7ed705a067b25bb51cade3a66cc2fd502497d",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageMetadata.tsx": {
@@ -9528,7 +9528,7 @@
       "executable": false
     },
     "src/core/features/versions/service.ts": {
-      "sha256": "2c7ba27475e8168a120aa34c497927e9a0a42cb5f887c0c71b49600c72696d5c",
+      "sha256": "ef579a14d4ab69df68d026c024c51b2a1ef44e28be204deb109aaab7d7f4edf4",
       "executable": false
     },
     "src/core/features/versions/ui/types.ts": {
@@ -12023,6 +12023,10 @@
       "sha256": "b530886b8acd20ff0cd2e1730cbc6596a61f1c383256ff63638636af6c71f918",
       "executable": false
     },
+    "tests/qualification/ui-convergence/revision-deletion-journey.mjs": {
+      "sha256": "807a445dcca10c74f9668a46a2b9f347665234548a46c83337eb961533531a53",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/saml-journey.mjs": {
       "sha256": "a4d843735fc1f991585f39ff1a0fa5a53edb9ff4a6d24d752ad7e19dc15e93ac",
       "executable": false
@@ -12124,7 +12128,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-history.mjs": {
-      "sha256": "3dc4f333adeb786844eae4747b5396ce61376beef0616a81eaa04b261571368b",
+      "sha256": "c39907eaa59a653d00e236d403e583f89f21e2d64f55a551c8b64f5516cac217",
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-support.mjs": {
@@ -12168,11 +12172,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "8c3cafe821f00429e1ba30bdab0884b6ffe82a4eab40aec33bbfc1d45a0e761d",
+      "sha256": "62bc66af9cf67182329322a7804d6378a52e902601975e1e0958429aafce1cd6",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "87e4761dc855c42848aa0420bee667d5c78176113d434a12afce83169052ea35",
+      "sha256": "f40d5ff0b13d0cf288f468efea7afa9987d3a08ee06a1c968a7a35ad1313855c",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
