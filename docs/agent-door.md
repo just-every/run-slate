@@ -48,3 +48,9 @@ capability is represented by a mock tool.
 Verification uses the production signed `/auth/owner-claim` lifecycle and the real
 D1 migrations. `tests/agent-door` contains only disposable public-door fixture and
 journey tooling; no verification route or native-authority replacement is shipped.
+
+The declared container and page creation steps include expected written resource
+state. Conformance follows each returned native resource link through
+`resources/read`, checks that the created name or title is present, and applies
+the current company policy before returning content. This proves those declared
+record families; the wider resource and specialist gaps remain in CONTRACT.md.
