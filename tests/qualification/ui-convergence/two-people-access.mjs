@@ -3,6 +3,7 @@ import { randomBytes, randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
 import { strFromU8, unzipSync } from 'fflate';
 import { accessible } from './browser-evidence.mjs';
+import { regrantExpiredJourney } from './expiry-journey.mjs';
 import { call, caretAtEnd, editable, elapsedUntil, grant, ok, restrictedPage } from './two-people-support.mjs';
 
 /** The owner changes Bob's access through the Share panel's own controls. */
@@ -42,7 +43,7 @@ async function mentionDoors(alice, bob, origin, index, title) {
  * SHARE-007, SHARE-008, LINK-004 and REV-005: Bob has the page open with unsaved
  * typing when the owner removes, narrows or lets his access expire.
  */
-export async function accessChangeJourney(state, people, width) {
+async function accessChangeFixture(state, people, width) {
   const { alice, bob, record, shot } = people, { origin } = state;
   const tag = randomBytes(4).toString('hex');
   const marker = `access${tag}`;
@@ -132,6 +133,7 @@ export async function accessChangeJourney(state, people, width) {
       measured.editorReadOnlyMs = await elapsedUntil(async () => (await bob.page.locator(`[data-block-id="${first}"] [contenteditable="true"]`).count()) === 0 && await bob.page.getByText('This page is read-only with your current access.').isVisible(), { timeout: 5000, since: changedAt });
       for (const where of ['page', 'tree', 'search']) assert.ok(await bobSees[where](), `${name}: a viewer still reads and finds the page (${where}).`);
     }
+    for (const [outcome, milliseconds] of Object.entries(measured)) if (outcome.endsWith('Ms')) assert.ok(milliseconds <= 5000, `${name}: ${outcome} takes at most five seconds (${milliseconds} ms).`);
     stop = true;
     await typing;
     const kept = (await bob.page.evaluate(() => window.slateTyped)).trim();
@@ -142,6 +144,7 @@ export async function accessChangeJourney(state, people, width) {
     await expect(draft).toContainText('It was not saved to the workspace');
     const server = await ok(alice.context, origin, 'GET', `/api/pages/${pageId}`);
     assert.ok(!JSON.stringify(server.blocks).includes(`Unsent ${name}`), `${name}: the unsaved text is not on the page.`);
+    assert.ok(!JSON.stringify(server.blocks).includes('Should never save.'), `${name}: the refused write changes no content.`);
     assert.ok(!JSON.stringify(await ok(alice.context, origin, 'GET', `/api/search?q=${encodeURIComponent(`Unsent ${name}`)}`)).includes(pageId));
     await shot('bob', `${name} editor after access change`);
     await accessible(bob.page, `${name} access change keeps draft`);
@@ -171,6 +174,13 @@ export async function accessChangeJourney(state, people, width) {
     results[name] = measured;
   };
 
+  return { pageId, first, tag, bobApi, bobSees, results, mentionResults, mentionsShown, scenario };
+}
+
+export async function accessChangeJourney(state, people, width) {
+  const { alice, bob, shot } = people, { origin } = state;
+  const fixture = await accessChangeFixture(state, people, width);
+  const { pageId, bobApi, mentionsShown, scenario } = fixture;
   // (a) The owner removes Bob's grant in the Share panel.
   await grant(alice.context, origin, pageId, bob.id, 'edit');
   await scenario('removed', async () => {
@@ -199,9 +209,21 @@ export async function accessChangeJourney(state, people, width) {
     assert.equal((await narrowed).status(), 200);
     return Date.now();
   }, 'read-only');
+  return expireAndRegrant(state, people, fixture);
+}
 
-  // (c) A short expiry set through the route passes while Bob is typing. Bob's one
-  // grant is raised back to edit first.
+/** Focused phone execution of the same live boundary and regrant sequence. */
+export async function expiryAccessJourney(state, people, width) {
+  const fixture = await accessChangeFixture(state, people, width);
+  await grant(people.alice.context, state.origin, fixture.pageId, people.bob.id, 'edit');
+  return expireAndRegrant(state, people, fixture);
+}
+
+async function expireAndRegrant(state, people, { pageId, first, tag, bobApi, bobSees, results, mentionResults, mentionsShown, scenario }) {
+  const { alice, bob, record, shot } = people, { origin } = state;
+  // (c) Share issues a future expiry on the same grant. Wait near its real
+  // minute boundary before Bob starts typing; neither browser nor Worker clock
+  // is replaced, and no stored expiry is backdated.
   const bobGrant = async () => {
     const active = (await ok(alice.context, origin, 'GET', `/api/sharing/pages/${pageId}`)).items.filter(item => item.principalId === bob.id && !item.revokedAt);
     assert.equal(active.length, 1, 'Bob holds one grant on the page.');
@@ -209,22 +231,77 @@ export async function accessChangeJourney(state, people, width) {
   };
   await grant(alice.context, origin, pageId, bob.id, 'edit', { id: (await bobGrant()).id });
   await expect.poll(async () => (await bobApi('GET', `/api/pages/${pageId}`)).body?.permissions?.canEdit).toBe(true);
-  let expiresAt;
+  const original = await bobGrant();
+  await alice.page.reload({ waitUntil: 'networkidle' });
+  let controls = await bobGrantControls(alice, pageId, origin);
+  await expect(controls.getByRole('combobox', { name: 'Access for Morgan Reader', exact: true })).toHaveValue(original.level);
+  const details = controls.locator('details');
+  if ((await details.getAttribute('open')) === null) await details.locator('summary').click();
+  // The public date field has minute precision. Leave time for issuing and
+  // reloading it even when this journey starts just before the next minute.
+  const expiresAt = Math.ceil((Date.now() + 20000) / 60000) * 60000;
+  const expiryText = await alice.page.evaluate(instant => new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(instant)), expiresAt);
+  const issued = alice.page.waitForResponse(response => new URL(response.url()).pathname === '/api/sharing' && response.request().method() === 'POST');
+  await controls.getByRole('textbox', { name: 'Access expiry date and time', exact: true }).fill(expiryText);
+  await controls.getByRole('textbox', { name: 'Access expiry date and time', exact: true }).blur();
+  const issueResponse = await issued;
+  assert.equal(issueResponse.status(), 200);
+  const issuedBody = await issueResponse.json();
+  assert.equal(issuedBody.value.id, original.id);
+  assert.equal(issuedBody.receipt.operationKey, issueResponse.request().postDataJSON().operationKey);
+  assert.ok(issuedBody.receipt.activityId);
+  const future = await bobGrant();
+  assert.equal(future.id, original.id);
+  assert.equal(future.level, original.level);
+  assert.equal(future.expiresAt, new Date(expiresAt).toISOString());
+  assert.equal(future.status, 'active');
+  assert.ok(Date.parse(future.expiresAt) > Date.now(), 'Share commits an expiry that is still in the future.');
+  await alice.page.reload({ waitUntil: 'networkidle' });
+  controls = await bobGrantControls(alice, pageId, origin);
+  await expect(controls).toContainText('Expires');
+  assert.equal((await bobGrant()).expiresAt, future.expiresAt, 'The issued expiry survives reload.');
+  await shot('alice', 'future expiry issued through Share');
+  await new Promise(resolve => setTimeout(resolve, Math.max(0, expiresAt - Date.now() - 10000)));
   await scenario('expired', async () => {
-    const current = await bobGrant();
-    expiresAt = Date.now() + 3000;
-    await grant(alice.context, origin, pageId, bob.id, 'edit', { id: current.id, expiresAt: new Date(expiresAt).toISOString() });
     await new Promise(resolve => setTimeout(resolve, Math.max(0, expiresAt - Date.now())));
     return expiresAt;
   }, 'closed');
   await mentionsShown('expired', false);
   record('mentionDoors', mentionResults);
   const expired = (await ok(alice.context, origin, 'GET', `/api/sharing/pages/${pageId}`)).items.find(item => item.principalId === bob.id);
+  assert.equal(expired.id, original.id);
+  assert.equal(expired.expiresAt, future.expiresAt);
   assert.equal(expired.status, 'expired', 'An expired grant is shown as expired, not deleted.');
   await alice.page.goto(`${origin}/app/pages/${pageId}?detail=share`, { waitUntil: 'networkidle' });
   await bobGrantControls(alice, pageId, origin);
   await expect(alice.page.locator('.grant-list > li').filter({ hasText: 'Expired' })).toBeVisible();
   await shot('alice', 'owner sees expired grant');
+  const regrant = await regrantExpiredJourney({ page: alice.page, api: route => ok(alice.context, origin, 'GET', route) }, pageId, expired);
+  for (const [where, check] of Object.entries(bobSees)) assert.ok(await check(), `Regrant restores ${where} access for the same session.`);
+  await bob.page.reload({ waitUntil: 'networkidle' });
+  await expect(editable(bob.page, first)).toBeVisible();
+  const restored = await ok(bob.context, origin, 'GET', `/api/pages/${pageId}`);
+  assert.equal(restored.permissions.level, original.level);
+  assert.equal(restored.permissions.canEdit, true);
+  const restoredText = `Restored edit ${tag}.`;
+  const saved = await ok(bob.context, origin, 'PATCH', `/api/pages/${pageId}/blocks/${first}`, { operationKey: randomUUID(), expectedRevisionId: restored.blocks[0].revisionId, content: { text: [{ text: restoredText }] } });
+  assert.ok(saved.receipt.activityId, 'The regranted session can commit its intended edit again.');
+  await bob.page.reload({ waitUntil: 'networkidle' });
+  await expect(editable(bob.page, first)).toHaveText(restoredText);
+  await alice.page.reload({ waitUntil: 'networkidle' });
+  controls = await bobGrantControls(alice, pageId, origin);
+  await controls.locator('details summary').click();
+  await expect(controls.getByRole('textbox', { name: 'Access expiry date and time', exact: true })).toHaveValue('');
+  await expect(controls.getByRole('button', { name: 'Regrant access', exact: true })).toHaveCount(0);
+  const reconciled = await bobGrant();
+  assert.equal(reconciled.id, original.id);
+  assert.equal(reconciled.level, original.level);
+  assert.equal(reconciled.status, 'active');
+  assert.equal(reconciled.expiresAt, null);
+  assert.equal(reconciled.revokedAt, null);
+  await shot('alice', 'same grant regranted after reload');
+  await shot('bob', 'restored edit after regrant and reload');
+  record('expiryRegrant', { issued: future, expired, regranted: reconciled, issueReceipt: issuedBody.receipt, regrantReceipt: regrant.receipt, writeReceipt: saved.receipt });
   record('accessChanges', results);
   return { pageId };
 }

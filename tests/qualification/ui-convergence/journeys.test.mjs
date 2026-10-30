@@ -39,7 +39,7 @@ import { commentJourney, searchJourney, settingsJourney, shareJourney, writeJour
 import { askDraftJourney } from './ask-journey.mjs';
 import { withSecondPerson, call } from './two-people-support.mjs';
 import { concurrentEditingJourney } from './two-people-editing.mjs';
-import { accessChangeJourney } from './two-people-access.mjs';
+import { accessChangeJourney, expiryAccessJourney } from './two-people-access.mjs';
 import { historyJourney } from './two-people-history.mjs';
 import { databaseJourney } from './database-journey.mjs';
 import { reviewRequestJourney } from './review-request-journey.mjs';
@@ -88,6 +88,7 @@ for (const width of [390, 1440]) {
         await chatJourney(state, width);
         if (width === 390) {
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
+          await withSecondPerson(state, width, people => step('SHARE-008 — one grant crosses expiry and is regranted on a phone', () => expiryAccessJourney(state, people, width)));
           // One phone smoke visits the main screens; functional journeys use desktop
           // except where an assertion distinguishes the phone layout or touch input.
           for (const route of ['/app', `/app/pages/${pageId}`, '/app/search', '/app/inbox', '/app/tasks', '/app/review', '/app/templates', '/app/settings']) {
