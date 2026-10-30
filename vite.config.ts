@@ -53,9 +53,10 @@ export default defineConfig(async ({ command, isPreview }) => {
       return fromState === '' || (!isAbsolute(fromState) && fromState !== '..' && !fromState.startsWith(`..${sep}`));
     },
   }, fs: {
-    // The Worker runner also loads copied modules and the public seed descriptor.
+    // The Worker runner also loads copied foundation/modules and the public
+    // seed and agent-door descriptors.
     strict: true,
-    allow: ["src", "modules", "seed.json", "public", "node_modules"],
+    allow: ["src", "modules", "foundation", "seed.json", "agent-surface.json", "public", "node_modules"],
     deny: ["**/.rer/**", "**/.seed/**", "**/exports/**", "**/*.rer", "**/.env*", "**/.dev.vars*", "**/.git/**"],
   } },
   plugins: [
