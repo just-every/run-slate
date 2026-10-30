@@ -3,7 +3,7 @@
 `pnpm verify-base` authenticates retained native Git objects against the approved
 Base commits in `objects.mjs` (`PINS`: `11f94fec479228d71ba6d7dd6ea7796c0d42c544`,
 the source of `rer-v0.2.80`, and `0fe27af9a5cb1bd9dc5e41da024784082e609010`,
-the contract-docs and extended-baseline source named by the contract rewrite, and `2135c394939f4a737adabdc8003b0e667b31ac5a`, the rer 0.2.91 agent-door source), creates a temporary bare Git object repository whose HEAD
+the contract-docs and extended-baseline source named by the contract rewrite, and `2135c394939f4a737adabdc8003b0e667b31ac5a`, the rer 0.2.91 agent-door source, and `e881e6f66ce7cd737d17dbeb945995aab83c30d8`, the rer 0.2.94 refresh source), creates a temporary bare Git object repository whose HEAD
 is the newest pin, and runs the unchanged copied command:
 
 ```

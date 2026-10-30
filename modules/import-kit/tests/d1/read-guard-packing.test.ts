@@ -28,13 +28,16 @@ for (const [name, setup] of [['SQLite', sqliteRuntime], ['actual D1', runtime]] 
 test('SELECT fence rejects a whole over-budget batch before executing any group', async t => {
   const r = await sqliteRuntime(t), observed = observeReads(r.db());
   const ctx = requestContext({ ...r.context(), storage: { ...r.context().storage, database: observed.database } });
-  await ctx.storage.database.batch(Array.from({ length: 999 }, () => ctx.storage.database.prepare('SELECT 1')));
+  for (let n = 0; n < 999; n++) await ctx.storage.database.prepare('SELECT 1').first();
   const count = totalChanges(r.native()), executed = observed.executed.length;
   const guards = Array.from({ length: 51 }, (_, i) => guard(sql(`1 /* ${i} */`)));
-  await assert.rejects(readAtomic(ctx, guards), /IMPORT_D1_REQUEST_LIMIT/);
-  assert.equal(observed.executed.length, executed); assert.equal(totalChanges(r.native()), count);
-  await readAtomic(ctx, [guard(sql('1'))]);
-  assert.equal(observed.executed.length, 1000);
+  const limited = requestContext({ ...r.context(), storage: { ...r.context().storage, database: observed.database } });
+  for (let n = 0; n < 1000; n++) await limited.storage.database.prepare('SELECT 1').first();
+  const beforeBatch = observed.executed.length;
+  await assert.rejects(readAtomic(limited, guards), /IMPORT_D1_REQUEST_LIMIT/);
+  assert.equal(observed.executed.length, beforeBatch); assert.equal(totalChanges(r.native()), count);
+  await readAtomic(ctx, guards);
+  assert.equal(observed.executed.length, executed + 1002, 'all packed groups execute in the final one-query batch');
   await assert.rejects(readAtomic(ctx, []), /IMPORT_D1_REQUEST_LIMIT/);
 });
 

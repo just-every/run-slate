@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { DatabaseSync } from 'node:sqlite';
+import { DatabaseSync } from '../../../container/adapters/d1-sqlite.mjs';
 import { readFile } from 'node:fs/promises';
 import { sqliteRows } from './sqlite-text.ts';
 import { sqliteTargets, sqliteMapping, sqliteSource } from './sqlite-runtime.ts';

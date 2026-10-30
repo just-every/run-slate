@@ -508,10 +508,12 @@ test('real D1: a resumable redaction whose one import job is more than a request
   const steps: { statements: number; phase: string; jobsPending?: number }[] = [];
   let continuation: string | undefined, result: any;
   do {
-    // Each call is its own request; the meter refuses any request over D1's 1,000 statements.
+    // Each call has the paid query budget and the existing 1,000-statement
+    // erasure work ceiling, including every member of a batch.
     const m = meter(r.db());
     result = await m.request(`step-${steps.length + 1}`, () => retireD1ImportCustody({ values: [actor], related: { fields } }, [], context(m.database), [{ sql: 'UPDATE privacy_epoch SET epoch=epoch+1' }], { resumable: true, continuation }));
-    steps.push({ statements: m.snapshots[0].count, phase: result.phase, jobsPending: result.jobsPending });
+    assert.ok(m.snapshots[0].statements <= 1000, 'the erasure statement work ceiling is preserved');
+    steps.push({ statements: m.snapshots[0].statements, phase: result.phase, jobsPending: result.jobsPending });
     continuation = result.continuation;
     assert.ok(steps.length <= 10, `the erasure finishes: ${JSON.stringify(steps)}`);
   } while (result.phase !== 'complete');

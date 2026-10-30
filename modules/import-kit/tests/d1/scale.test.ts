@@ -48,8 +48,14 @@ test('real D1: complete public requests stay bounded across resumable entries', 
   console.log(JSON.stringify({ requests: snapshots.length, maxStatements: Math.max(...snapshots.map(s => s.count)), meter: snapshots }));
 });
 
-test('real D1: default batch and multiple effects stop at a durable request budget', async t => {
-  const r = await runtime(t), m = meter(r.db()), ctx = { ...r.context(), batchSize: 100, storage: { database: m.database, targets } };
+test('real D1: native read-heavy multiple effects stop at a durable query budget', async t => {
+  const r = await runtime(t), m = meter(r.db());
+  const readHeavy = { ...targets, async read(db: any, destination: string, kind: string, id: string) {
+    // Native related-table reads each consume a D1 query, unlike batch members.
+    for (let n = 0; n < 8; n++) await db.prepare('SELECT detail FROM evidence WHERE id=?').bind(id).first();
+    return targets.read(db, destination, kind, id);
+  } };
+  const ctx = { ...r.context(), batchSize: 100, storage: { database: m.database, targets: readHeavy } };
   const many = { version: 'v1', map: (record: any) => ({ effects: Array.from({ length: 30 }, (_, i) => ({ targetKind: 'contact', targetId: `${record.sourceId}:${i}`, value: record.payload })) }) };
   const records = fullScale ? 10 : 4;
   const plan = await m.request('many-plan', () => planD1Import(source(records), many, ctx));

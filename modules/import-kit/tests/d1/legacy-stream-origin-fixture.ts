@@ -1,4 +1,4 @@
-import { DatabaseSync } from 'node:sqlite';
+import { DatabaseSync } from '../../../container/adapters/d1-sqlite.mjs';
 import { mkdtempSync,rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';

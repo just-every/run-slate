@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { runtime, source, mapping, targets } from './fixtures.ts';
 import { meter } from './meter.ts';
 import { planD1Import, createD1ImportJob, applyD1ImportBatches, resumeD1Import, undoD1Import, readD1ImportJob, sha256 } from '../../src/d1/index.ts';
+import { limitStatements, requestContext } from '../../src/d1/budget.ts';
 import type { D1ImportContext, D1TargetAdapter } from '../../src/d1/index.ts';
 
 // These statements execute against the real native table. Their count models an
@@ -14,7 +15,7 @@ const nativeAdapter = (writeCount: number, removeCount = 0): D1TargetAdapter => 
   remove(...args) { return [...targets.remove(...args), ...nativeStatements(removeCount)]; },
 });
 
-for (const chunked of [false, true]) for (const action of ['apply', 'undo']) test(`real D1: default ${action} reserves ${chunked ? 'chunked' : 'inline'} return reads before native publication`, async t => {
+for (const chunked of [false, true]) for (const action of ['apply', 'undo']) test(`real D1: explicit statement ceiling for ${action} reserves ${chunked ? 'chunked' : 'inline'} return reads before native publication`, async t => {
   const r = await runtime(t), m = meter(r.db());
   const ctx: D1ImportContext = { ...r.context(), batchSize: undefined, storage: { database: m.database, targets } };
   const bundle = source(1);
@@ -26,14 +27,14 @@ for (const chunked of [false, true]) for (const action of ['apply', 'undo']) tes
   const create = (operationKey: string) => m.request(`create:${operationKey}`, () => createD1ImportJob(plan, { ...ctx, operationKey, reviewedFingerprint: plan.fingerprint }));
   const baseline = await create('baseline');
   assert.equal((await m.request('baseline-apply', () => applyD1ImportBatches(baseline, ctx))).state, 'completed');
-  const applyCount = m.snapshots.at(-1).count;
+  const applyCount = m.snapshots.at(-1).statements;
   assert.equal((await m.request('baseline-undo', () => undoD1Import(baseline.id, ctx))).state, 'undone');
-  const undoCount = m.snapshots.at(-1).count;
+  const undoCount = m.snapshots.at(-1).statements;
 
   const rejected = await create('near-limit');
   if (action === 'apply') {
     const applyContext = { ...ctx, storage: { ...ctx.storage, targets: nativeAdapter(1001 - applyCount) } };
-    await assert.rejects(m.request('near-limit-apply', () => applyD1ImportBatches(rejected, applyContext)), /IMPORT_D1_REQUEST_LIMIT/);
+    await assert.rejects(m.request('near-limit-apply', () => applyD1ImportBatches(rejected, limitStatements(requestContext(applyContext), 1000))), /IMPORT_D1_REQUEST_LIMIT/);
     const queued = await readD1ImportJob(rejected.id, r.context());
     assert.equal(queued.state, 'queued'); assert.equal(queued.checkpoint, 0); assert.equal(queued.fence, 0);
     for (const table of ['contacts', 'evidence']) assert.equal((await r.db().prepare(`SELECT COUNT(*) AS n FROM ${table}`).first())?.n, 0);
@@ -42,7 +43,7 @@ for (const chunked of [false, true]) for (const action of ['apply', 'undo']) tes
     assert.equal((await m.request('apply-for-undo', () => applyD1ImportBatches(rejected, ctx))).state, 'completed');
     const before = await targets.read(r.db(), ctx.destination, 'contact', '0');
     const reverseContext = { ...ctx, storage: { ...ctx.storage, targets: nativeAdapter(0, 1001 - undoCount) } };
-    await assert.rejects(m.request('near-limit-undo', () => undoD1Import(rejected.id, reverseContext)), /IMPORT_D1_REQUEST_LIMIT/);
+    await assert.rejects(m.request('near-limit-undo', () => undoD1Import(rejected.id, limitStatements(requestContext(reverseContext), 1000))), /IMPORT_D1_REQUEST_LIMIT/);
     const reversing = await readD1ImportJob(rejected.id, r.context());
     assert.equal(reversing.state, 'undoing'); assert.equal(reversing.checkpoint, 1); assert.equal(reversing.fence, 2);
     assert.deepEqual(await targets.read(r.db(), ctx.destination, 'contact', '0'), before);
@@ -54,7 +55,7 @@ for (const chunked of [false, true]) for (const action of ['apply', 'undo']) tes
   console.log(JSON.stringify({ returnBudget: chunked ? 'chunked' : 'inline', action, requests: m.snapshots }));
 });
 
-for (const exhaustedAt of ['preflight', 'publication']) test(`real D1: default multi-batch resume returns durable progress when later ${exhaustedAt} exhausts its budget`, async t => {
+for (const exhaustedAt of ['preflight', 'publication']) test(`real D1: statement-bounded multi-batch resume returns durable progress when later ${exhaustedAt} exhausts its budget`, async t => {
   const r = await runtime(t), m = meter(r.db()), ctx = { ...r.context(), storage: { database: m.database, targets } };
   const plan = await m.request('plan', () => planD1Import(source(2), mapping, ctx));
   const job = await m.request('create', () => createD1ImportJob(plan, { ...ctx, reviewedFingerprint: plan.fingerprint }));
@@ -68,12 +69,12 @@ for (const exhaustedAt of ['preflight', 'publication']) test(`real D1: default m
       return targets.read(db, destination, kind, id);
     },
   });
-  const partial = await m.request('multi-apply', () => resumeD1Import(job.id, { ...ctx, storage: { ...ctx.storage, targets: expensiveRead('1') } }));
+  const partial = await m.request('multi-apply', () => resumeD1Import(job.id, limitStatements(requestContext({ ...ctx, storage: { ...ctx.storage, targets: expensiveRead('1') } }), 1000)));
   assert.equal(partial.state, 'applying'); assert.equal(partial.checkpoint, 1); assert.equal(partial.fence, 1);
   assert.deepEqual(await readD1ImportJob(job.id, r.context()), partial);
   assert.equal((await r.db().prepare('SELECT COUNT(*) AS n FROM contacts').first())?.n, 1);
   assert.equal((await m.request('complete-apply', () => resumeD1Import(job.id, ctx))).state, 'completed');
-  const reversing = await m.request('multi-undo', () => undoD1Import(job.id, { ...ctx, storage: { ...ctx.storage, targets: expensiveRead('0') } }));
+  const reversing = await m.request('multi-undo', () => undoD1Import(job.id, limitStatements(requestContext({ ...ctx, storage: { ...ctx.storage, targets: expensiveRead('0') } }), 1000)));
   assert.equal(reversing.state, 'undoing'); assert.equal(reversing.checkpoint, 2); assert.equal(reversing.fence, 4);
   assert.deepEqual(await readD1ImportJob(job.id, r.context()), reversing);
   assert.equal((await r.db().prepare('SELECT COUNT(*) AS n FROM contacts').first())?.n, 1);

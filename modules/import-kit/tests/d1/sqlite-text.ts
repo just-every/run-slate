@@ -1,4 +1,5 @@
-import type { DatabaseSync } from 'node:sqlite';
+import { DatabaseSync } from 'node:sqlite';
+import { d1Preflight, d1ResultPreflight, guardD1Rows } from '../../../container/adapters/d1-limits.mjs';
 
 /** Node 22's native TEXT conversion can truncate at NUL. Read SQL values through
  * SQLite's hex representation, preserving the full UTF-8 bytes on every Node
@@ -6,6 +7,8 @@ import type { DatabaseSync } from 'node:sqlite';
  * custody comparisons remain unchanged. One materialized SELECT executes the
  * original query once, retaining its SQL and binding order. */
 export function sqliteRows(native: DatabaseSync, query: string, values: any[], first = false) {
+  d1Preflight(query, values);
+  guardD1Rows(native, sql => DatabaseSync.prototype.prepare.call(native, sql), sql => DatabaseSync.prototype.exec.call(native, sql));
   const statement = native.prepare(query), columns = statement.columns();
   const read = selectText(query);
   // Non-SELECT statement grammars (including setup PRAGMA) stay native.
@@ -13,14 +16,14 @@ export function sqliteRows(native: DatabaseSync, query: string, values: any[], f
     if (!first) return prepared.all(...values);
     const row = prepared.get(...values); return row ? [row] : [];
   };
-  if (!columns.length || !read) return execute(statement);
+  if (!columns.length || !read) { const rows = execute(statement); d1ResultPreflight(rows); return rows; }
   const names = columns.map((_, i) => `c${i}`);
   let relation = 'ik_test_rows';
   while (query.toLowerCase().includes(relation)) relation += '_';
   const body = first ? `SELECT * FROM (${read}\n) LIMIT 1` : read;
   const projection = names.flatMap((name, i) => [`typeof(${name}) AS t${i}`, `CASE WHEN typeof(${name})='text' THEN hex(${name}) ELSE ${name} END AS v${i}`]);
-  const rows = execute(native.prepare(`WITH ${relation}(${names.join(',')}) AS MATERIALIZED (${body}\n) SELECT ${projection.join(',')} FROM ${relation}`));
-  return rows.map(row => {
+  const rows = execute(DatabaseSync.prototype.prepare.call(native, `WITH ${relation}(${names.join(',')}) AS MATERIALIZED (${body}\n) SELECT ${projection.join(',')} FROM ${relation}`));
+  const result = rows.map(row => {
     const decoded: Record<string, any> = Object.create(Object.getPrototypeOf(row));
     for (const [i, column] of columns.entries()) {
       const value = row[`t${i}`] === 'text' ? Buffer.from(row[`v${i}`] as string, 'hex').toString('utf8') : row[`v${i}`];
@@ -28,6 +31,8 @@ export function sqliteRows(native: DatabaseSync, query: string, values: any[], f
     }
     return decoded;
   });
+  d1ResultPreflight(result);
+  return result;
 }
 
 // Keep only top-level grammar tokens; quoted names and nested CTE bodies are

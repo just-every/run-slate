@@ -4,7 +4,7 @@ import { runtimeLease } from '../../../../tests/support/runtime-lease.mjs';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { Miniflare, convertV4MiniflareOptions } from 'miniflare';
+import { Miniflare, convertV4MiniflareOptions } from '../../../container/adapters/d1-workerd.mjs';
 import { initializeD1ImportStorage, canonicalJson, sha256 } from '../../src/d1/index.ts';
 import type { D1TargetAdapter, D1ImportContext, SourceBundle, ImportMapping, TargetRow } from '../../src/d1/index.ts';
 

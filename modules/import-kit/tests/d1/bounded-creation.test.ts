@@ -30,7 +30,7 @@ test('bounded ordinary creation preflight includes exact final checks and its re
   const r=await sqliteRuntime(t),base=r.context(),source=sqliteSource(1),plan=await planD1Import(source,sqliteMapping,base);
   let queries=0;const wire:number[]=[];
   const wrap=(statement:any):any=>({query:statement.query,values:statement.values,bind(...values:any[]){return wrap(statement.bind(...values));},async first(){queries++;return statement.first();},async all(){queries++;return statement.all();}});
-  const database={prepare:(sql:string)=>wrap(base.storage.database.prepare(sql)),async batch(statements:any[]){queries+=statements.length;wire.push(Buffer.byteLength(JSON.stringify(statements.map(s=>({sql:s.query,params:s.values})))));return base.storage.database.batch(statements);}};
+  const database={prepare:(sql:string)=>wrap(base.storage.database.prepare(sql)),async batch(statements:any[]){queries++;wire.push(Buffer.byteLength(JSON.stringify(statements.map(s=>({sql:s.query,params:s.values})))));return base.storage.database.batch(statements);}};
   const context={...base,maxBatchBytes:2*1024*1024,reviewedFingerprint:plan.fingerprint,storage:{...base.storage,database}};
   const admitted=preflightD1ImportJob(plan,context);
   await createD1ImportJob(plan,context);

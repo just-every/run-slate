@@ -2,11 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { nativeStagingFixture, nativePrivateTables } from './native-staging-fixture.ts';
 import { readD1ImportStream, resumeD1ImportStream, undoD1ImportStream } from '../../src/d1/index.ts';
-import { requestContext, remaining } from '../../src/d1/budget.ts';
+import { requestContext, remaining, limitStatements } from '../../src/d1/budget.ts';
 import { streamState, streamReturnQueries } from '../../src/d1/stream-state.ts';
 
-test('the pre-admitted stream tail covers all actual authority and snapshot statements',async t=>{
-  const r=await nativeStagingFixture(t),context=requestContext(r.context());
+test('the pre-admitted stream tail covers all authority and snapshot statements under a work ceiling',async t=>{
+  const r=await nativeStagingFixture(t),context=limitStatements(requestContext(r.context()),1000);
   const current=await streamState(r.job.id,context),reserved=streamReturnQueries(current,context),before=remaining(context);
   await readD1ImportStream(r.job.id,context);
   const actual=before-remaining(context);

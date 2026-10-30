@@ -5,7 +5,7 @@ import { stripTypeScriptTypes } from 'node:module';
 import { tmpdir } from 'node:os';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { Miniflare, convertV4MiniflareOptions } from 'miniflare';
+import { Miniflare, convertV4MiniflareOptions } from '../../../container/adapters/d1-workerd.mjs';
 
 test('Worker entry retains originals and reverses normalized streams inside actual workerd', async () => {
   const root = fileURLToPath(new URL('../../src/', import.meta.url)), modules: any[] = [], seen = new Set<string>();
