@@ -1,9 +1,11 @@
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { accessible, closeDetails } from './browser-support.mjs';
+import { publicPageJourney } from './public-page-journey.mjs';
 import { expiryRegrantJourney } from './expiry-journey.mjs';
 
-export async function shareJourney({ page, origin, api, readerCookie, switchIdentity }, pageId) {
+export async function shareJourney(state, pageId) {
+  const { page, origin, api, readerCookie, switchIdentity } = state;
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   await page.getByRole('button', { name: 'Share', exact: true }).click();
   const panel = page.locator('.right');
@@ -83,4 +85,5 @@ export async function shareJourney({ page, origin, api, readerCookie, switchIden
   await page.waitForURL(url => url.pathname === '/app/settings' && url.searchParams.get('section') === 'activity');
   await expect(page.getByRole('heading', { name: 'What changed.', exact: true })).toBeVisible();
   assert.ok((await api(`/api/sharing/pages/${pageId}`)).items.find(item => item.principalId === 'browser-reader').revokedAt, 'Opening Activity leaves the removed page grant revoked.');
+  await publicPageJourney(state, pageId);
 }
