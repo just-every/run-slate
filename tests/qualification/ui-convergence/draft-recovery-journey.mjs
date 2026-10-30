@@ -32,7 +32,7 @@ export async function draftRecoveryJourney(state, people) {
   const route = `${origin}/app/pages/${pageId}`;
   await Promise.all([alice, bob].map(person => person.page.goto(route, { waitUntil: 'networkidle' })));
   const baseline = await ok(alice.context, origin, 'GET', `/api/pages/${pageId}`);
-  const unsentTitle = `${committedTitle} unsent-title`;
+  let unsentTitle = `${committedTitle} unsent-title`;
   const unsentBody = ` Unsent-body ${marker}.`;
   const title = alice.page.getByRole('textbox', { name: 'Page title', exact: true });
   const bodyStatus = alice.page.locator(`[data-block-id="${blockId}"] [role="status"]`);
@@ -72,6 +72,7 @@ export async function draftRecoveryJourney(state, people) {
       assert.equal(listed.items.find(item => item.id === pageId).title, committedTitle, door);
       assert.ok(!JSON.stringify(listed).includes('unsent-title'), 'Tree and lists use the committed title.');
     }
+    await expect(alice.page.getByRole('navigation', { name: 'Pages', exact: true }).locator(`a[href="/app/pages/${pageId}"]`)).toHaveText(committedTitle);
     for (const query of ['unsent-title', `Unsent-body ${marker}`]) {
       const found = await ok(alice.context, origin, 'GET', `/api/search?q=${encodeURIComponent(query)}`);
       assert.ok(!JSON.stringify(found).includes(pageId), 'Unsent text is not indexed.');
@@ -96,12 +97,22 @@ export async function draftRecoveryJourney(state, people) {
   const recoveredTitle = alice.page.getByRole('status').filter({ hasText: /^Unsaved — a draft was recovered/ });
   await expect(recoveredTitle).toBeVisible();
   await expect(bodyStatus).toContainText('unsaved edit was recovered');
-  await expect(alice.page.locator('.editor-save-status')).not.toHaveText('Saved');
+  await expect(alice.page.locator('.editor-save-status').filter({ hasText: /^Saved$/ })).toHaveCount(0);
   assert.deepEqual(await storage(), pending, 'Reload reads the real recovery journals without replacing them.');
   // Merely focusing and leaving a recovered title is not consent to commit it.
   await title.focus();
   await title.press('Tab');
   await alice.page.waitForTimeout(1200);
+  await noWorkspaceDraft();
+  // Correcting recovered text, including Enter, still waits for explicit retry.
+  await title.focus();
+  await title.press('ControlOrMeta+End');
+  await alice.page.keyboard.type(' revised');
+  unsentTitle += ' revised';
+  await title.press('Enter');
+  await alice.page.waitForTimeout(1200);
+  await expect(recoveredTitle).toBeVisible();
+  assert.equal(JSON.parse((await storage()).title[1]).title, unsentTitle);
   await noWorkspaceDraft();
   await shot('alice', 'recovered title and body explicitly unsaved');
   await accessible(alice.page, 'recovered title and body explicitly unsaved');
