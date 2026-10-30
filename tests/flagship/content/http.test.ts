@@ -26,6 +26,88 @@ const now=new Date().toISOString();
 beforeEach(resetDeployment);
 async function fixture(){const w=createUlid(),a=createUlid(),b=createUlid();await env.DB.prepare('INSERT INTO workspaces(id,name,mark,created_at,updated_at,revision_id) VALUES (?,?,?,?,?,?)').bind(w,'Content test','C',now,now,createUlid()).run();for(const id of [a,b])await env.DB.prepare("INSERT INTO members(id,workspace_id,email,display_name,initials,role,created_at,updated_at) VALUES (?,?,?,?,?,'owner',?,?)").bind(id,w,`${id}@test.invalid`,id,'CT',now,now).run();const actors=new Map([a,b].map(id=>[id,{id,workspaceId:w,workspaceName:'Content test',email:`${id}@test.invalid`,displayName:id,initials:'CT',role:'owner'} as AuthenticatedMember]));const app=new Hono<AppEnvironment>();app.use('*',async(c,next)=>{const actor=actors.get(c.req.header('x-test-actor')??'');if(actor)c.set('member',actor);await next();});app.onError((e,c)=>e instanceof ApiProblem?c.json({code:e.code,message:e.message,details:e.details},e.status):c.json({code:'ERROR',message:e.message},500));app.route('/api/suggestions',createSuggestionsRoutes());app.route('/api/sharing',createSharingRoutes());app.route('/api/pages',createPagesRoutes());app.route('/api/containers',createContainersRoutes());app.route('/api/revisions',createRevisionsRoutes());app.route('/api/comments',createCommentsRoutes());app.route('/api/status',createStatusRoutes());app.route('/api/media',createMediaRoutes());app.route('/api/publishing',createPublishingRoutes());app.route('/api/archive',createArchiveRoutes());app.route('/p',createPublicPagesRoutes());const request=async(method:string,path:string,body?:unknown,actor=a)=>{const r=await app.request(`https://local.test${path}`,{method,headers:{'content-type':'application/json','x-test-actor':actor},body:body===undefined?undefined:JSON.stringify(body)},env);const data=await r.json<any>();return {status:r.status,data};};const container=await request('POST','/api/containers',{operationKey:createUlid(),name:'Team'});expect(container.status,JSON.stringify(container.data)).toBe(200);return {w,a,b,actors,app,request,containerId:container.data.value.id};}
 const block=(id:string,text:string)=>({id,blockType:'paragraph',content:{text:[{text,marks:['bold'],colour:'blue'}]},treePosition:id});
+/** Real session/API journey shared with the existing human-verification registration. */
+async function pageStatusHttpJourney() {
+ const { workspaceId } = await seedWorkspace();
+ const owner = (await seedMember(workspaceId, { role: 'owner', email: 'owner@status.test', displayName: 'Status owner' })).memberId;
+ const editor = (await seedMember(workspaceId, { role: 'member', email: 'editor@status.test', displayName: 'Status editor' })).memberId;
+ const viewer = (await seedMember(workspaceId, { role: 'member', email: 'viewer@status.test', displayName: 'Status viewer' })).memberId;
+ const { containerId } = await seedContainer(workspaceId, { visibility: 'private', ownerMemberId: owner });
+ for (const [principalId, level] of [[owner, 'full'], [editor, 'edit'], [viewer, 'view']] as const) {
+  await seedContainerGrant(containerId, { principalKind: 'member', principalId, level });
+ }
+ const native = createApi(), origin = new URL(String(env.APP_URL)).origin;
+ const cookies = new Map(await Promise.all([owner, editor, viewer].map(async id => [id, await sessionFor(id)] as const)));
+ const request = async (actor: string, method: string, route: string, body?: unknown) => {
+  const response = await native.request(origin + '/api' + route, { method, headers: { cookie: cookies.get(actor)!, origin, 'content-type': 'application/json' }, body: body === undefined ? undefined : JSON.stringify(body) }, env);
+  return { status: response.status, data: await response.json<any>() };
+ };
+ const ok = async (actor: string, method: string, route: string, body?: unknown) => {
+  const response = await request(actor, method, route, body);
+  expect(response.status, JSON.stringify(response.data)).toBe(200);
+  return response.data;
+ };
+ const mutate = (route: string, data: Record<string, unknown>) => ok(owner, 'POST', route, { operationKey: createUlid(), ...data });
+ for (const [key, label, requiresVerification] of [['draft', 'Draft', false], ['progress', 'In progress', false], ['verified', 'Verified', true]] as const) {
+  await mutate('/status', { key, label, color: '#228855', requiresVerification });
+ }
+ const create = async (title: string, text: string) => (await mutate('/pages', { containerId, title, blocks: [block(createUlid(), text)] })).value.pageId as string;
+ const target = await create('Statusneedle handover', 'Preserve this rich-text body across every status change.');
+ const initial = await ok(editor, 'GET', `/pages/${target}`);
+ expect(initial.permissions.level).toBe('edit');
+ expect(initial.properties.statusKey).toBeNull();
+ const references: { id: string; status: string }[] = [];
+ for (const [status, text] of [['draft', 'Preliminary service checklist'], ['progress', 'Active escalation guide']]) {
+  const id = await create('Statusneedle ' + status, text!);
+  await mutate(`/status/page/${id}`, { expectedRevisionId: (await ok(owner, 'GET', `/pages/${id}`)).page.revisionId, statusKey: status });
+  references.push({ id, status: status! });
+ }
+ const definitions = references.map(item => ({ container: containerId, status: item.status, orderBy: 'title', limit: 20 }));
+ const index = (await mutate('/pages', { containerId, title: 'Retained status index', blocks: definitions.map((definition, i) => ({ id: createUlid(), blockType: 'content-query', treePosition: String(i), content: { definition } })) })).value.pageId;
+ const activity = async () => (await ok(editor, 'GET', '/activity?action=pages.status&limit=100')).items.filter((item: any) => item.target.id === target);
+ const receipts: any[] = [];
+ for (const statusKey of ['draft', 'progress', null]) {
+  const before = await ok(editor, 'GET', `/pages/${target}`);
+  const submitted = { operationKey: createUlid(), expectedRevisionId: before.page.revisionId, statusKey };
+  const saved = await ok(editor, 'POST', `/status/page/${target}`, submitted);
+  receipts.push(saved.receipt);
+  expect(await ok(editor, 'POST', `/status/page/${target}`, submitted)).toEqual(saved);
+  const after = await ok(editor, 'GET', `/pages/${target}`);
+  expect(after.page.revisionId).toBe(saved.value.revisionId);
+  expect(after.properties.statusKey).toBe(statusKey);
+  expect(after.blocks).toEqual(initial.blocks);
+  const entries = await activity();
+  expect(entries).toHaveLength(receipts.length);
+  for (const receipt of receipts) {
+   expect(entries.filter((item: any) => item.operationKey === receipt.operationKey)).toEqual([expect.objectContaining({ id: receipt.activityId, actor: expect.objectContaining({ id: editor }), target: { kind: 'page', id: target }, occurredAt: receipt.committedAt })]);
+  }
+  const retained = (await ok(editor, 'GET', `/pages/${index}`)).blocks;
+  expect(retained.map((item: any) => item.content.definition)).toEqual(definitions);
+  for (const [i, reference] of references.entries()) {
+   const expected = [reference.id, ...(statusKey === reference.status ? [target] : [])].sort();
+   const search = await ok(editor, 'GET', '/search?' + new URLSearchParams({ q: 'Statusneedle', kind: 'page', status: reference.status }));
+   expect(search.items.map((item: any) => item.id).sort()).toEqual(expected);
+   const query = await ok(editor, 'POST', `/pages/${index}/query`, retained[i].content.definition);
+   expect(query.items.map((item: any) => item.id).sort()).toEqual(expected);
+  }
+  const stale = await request(editor, 'POST', `/status/page/${target}`, { ...submitted, operationKey: createUlid() });
+  expect(stale.status).toBe(409);
+  for (const forbidden of ['draft', 'progress', null]) {
+   expect((await request(viewer, 'POST', `/status/page/${target}`, { operationKey: createUlid(), expectedRevisionId: after.page.revisionId, statusKey: forbidden })).status).toBe(404);
+  }
+  expect((await ok(editor, 'GET', `/pages/${target}`)).properties.statusKey).toBe(statusKey);
+  expect((await ok(editor, 'GET', `/pages/${target}`)).page.revisionId).toBe(after.page.revisionId);
+  expect(await activity()).toEqual(entries);
+ }
+ const before = await ok(editor, 'GET', `/pages/${target}`);
+ const attestation = await request(editor, 'POST', `/status/page/${target}`, { operationKey: createUlid(), expectedRevisionId: before.page.revisionId, statusKey: 'verified' });
+ expect(attestation.status).toBe(409);
+ expect(attestation.data.code).toBe('EXACT_REVISION_REQUIRED');
+ expect((await ok(editor, 'GET', `/pages/${target}`)).page.revisionId).toBe(before.page.revisionId);
+ expect((await ok(editor, 'GET', `/pages/${target}`)).properties.statusKey).toBeNull();
+ expect(await activity()).toHaveLength(3);
+}
+
 describe('content durable HTTP',()=>{
 it("content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state",async()=>{await runFoldCases([
 {name:"content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS",before:resetDeployment,run:async()=>{
@@ -104,6 +186,8 @@ it("publication, human verification and media enforce current reader authority",
  ]);
 }},
 {name:"content durable HTTP exact human opens gate verification and stale or forged attestations are refused",before:resetDeployment,run:async()=>{
+ await pageStatusHttpJourney();
+ await resetDeployment();
  await runContentCases([
 {name:"content durable HTTP comments retain revisions; exact human opens gate verification; revocation blocks replay",run:async()=>{const f=await fixture();const c=await f.request('POST','/api/pages',{operationKey:createUlid(),containerId:f.containerId,title:'Review'});const id=c.data.value.pageId;const comment=await f.request('POST',`/api/comments/page/${id}`,{operationKey:createUlid(),body:[{text:'Discuss'}]});expect(comment.status,JSON.stringify(comment.data)).toBe(200);const status=await f.request('POST','/api/status',{operationKey:createUlid(),key:'verified',label:'Verified',color:'#00aa00',requiresVerification:true});expect(status.status).toBe(200);const input={operationKey:createUlid(),expectedRevisionId:c.data.value.revisionId,statusKey:'verified',attestRevisionId:c.data.value.revisionId};expect((await f.request('POST',`/api/status/page/${id}`,input)).status).toBe(409);expect((await f.request('POST',`/api/pages/${id}/open`,{operationKey:createUlid(),revisionId:(await f.request('GET',`/api/pages/${id}`)).data.workingRevisionId})).status).toBe(200);expect((await f.request('POST',`/api/status/page/${id}`,input)).status).toBe(200);await env.DB.prepare('DELETE FROM container_grants WHERE container_id=? AND principal_kind=\'workspace\'').bind(f.containerId).run();expect((await f.request('GET',`/api/pages/${id}`,undefined,f.b)).status).toBe(404);}},
 {name:"creation rejects verified status and exact opens reject the stale delivered revision",run:async(fixture=repairFixture,page=repairPage,paragraph=repairParagraph)=>{

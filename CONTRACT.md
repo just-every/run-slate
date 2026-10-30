@@ -3978,9 +3978,9 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 33 | 193 | 0 | 226 |
+| Published | 34 | 192 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 49 | 248 | 40 | 337 |
+| All | 50 | 247 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4065,7 +4065,7 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 | `REV-006` | Deleting a version | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A member with `full` access can delete one intermediate version, which removes its content and leaves a numbered tombstone in history naming who deleted it and when."<br>No validated CI-run proof for this acceptance point: "The current revision and the published revision cannot be deleted, and deletion is offered only where `REV-007` says so." |
 | `REV-007` | Version profile | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a save/publish/history journey under both version profiles, including preserved imported numbering; the cited test parses imported ordinals without exercising history controls. |
 | `STAT-001` | The status vocabulary | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "The workspace holds a list of status entries, each with a key, a label, a color and an optional verification requirement."<br>No validated CI-run proof for this acceptance point: "It ships seeded with Rough draft, In progress, Ready for review and Verified under every value of `STAT-005`, and a workspace owner can add, rename, recolor and retire entries."<br>No validated CI-run proof for this acceptance point: "Retiring an entry keeps it on the pages that carry it and offers a bulk change (`CONT-006`)." |
-| `STAT-002` | A page's status | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A page carries at most one status."<br>No validated CI-run proof for this acceptance point: "Setting or clearing it is one action for anyone with edit access, writes one activity entry, and makes the page findable by that status in search (`SEARCH-003`) and in content queries (`BLOCK-010`)." |
+| `STAT-002` | A page's status | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — real core-wiki and touch-member journeys at 1440px, invoking `tests/qualification/ui-convergence/page-status-journey.mjs` (pageStatusJourney): acceptance 1–2 and the single-status invariant, native non-owner editor set/replace/clear, replay/activity reconciliation, reload and exact native search/persisted-query inclusion and exclusion; existing 390px caller captures the clause screens. `tests/flagship/content/http.test.ts` — content durable HTTP publication, human verification and media enforce current reader authority: real editor/viewer sessions, status replay, unchanged body, one activity entry, exact search/query read-back and preserved human-attestation gates. | |
 | `STAT-003` | Verification | published | done | `tests/e2e/review/verification-flow.test.ts` — "Verifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current" |  |
 | `STAT-004` | Verification lapses | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | Missing a complete public-door journey for verification lapses under the current authority, audience and company policy; prior quoted implementation and policy notes are retained in CHANGELOG.md. |
 | `STAT-005` | Status profile | published | partial | `tests/qualification/policies/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/emitted.mjs`. |

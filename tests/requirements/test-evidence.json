@@ -42,9 +42,10 @@
         "STAT-003",
         "SHARE-007",
         "BLOCK-008",
-        "CONT-007"
+        "CONT-007",
+        "STAT-002"
       ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
+      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance. STAT-002: real native member sessions set, replace and clear one status, replay each receipt, reconcile one activity entry per commit, preserve body content, and read exact inclusion and exclusion from search and persisted query definitions. Viewers and stale writers are refused unchanged; exact human verification gates remain enforced. Browser controls are covered separately by the existing responsive core-wiki journeys."
     },
     {
       "file": "tests/flagship/content/http.test.ts",

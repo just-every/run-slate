@@ -777,8 +777,13 @@
       "id": "STAT-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for STAT-002 — A page's status. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "The Workers-only evidence registry records supporting native HTTP status, replay, activity, search, persisted-query and authority assertions. Complete STAT-002 browser acceptance is recorded separately in CONTRACT.md through pageStatusJourney in the existing 1440px core-wiki registration, with 390px screen proof; this registry does not consume browser reports.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/content/http.test.ts",
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
+        }
+      ]
     },
     {
       "id": "STAT-003",
