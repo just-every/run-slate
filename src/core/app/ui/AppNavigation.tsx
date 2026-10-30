@@ -74,7 +74,7 @@ function MemberNavigation({ onNavigate }: { onNavigate?: () => void }) {
   }
   return (
     <aside className="sidebar" data-collapsed={navigation.data?.preferences.value.sidebarCollapsed}>
-      <SidebarHeader name={workspace.data?.name ?? member.workspaceName} collapsed={collapsed} onToggle={toggleSidebar} />
+      <SidebarHeader name={workspace.data?.name ?? member.workspaceName} mark={workspace.data?.mark ?? ""} collapsed={collapsed} onToggle={toggleSidebar} />
       <div className="sidebar-content">
       <nav
         className="primary"

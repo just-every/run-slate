@@ -5,6 +5,7 @@ import { accessible } from './browser-support.mjs';
 import { compactPage } from './browser-evidence.mjs';
 import {searchFiltersJourney} from './search-filters-journey.mjs';
 import {mixedSearchJourney} from './mixed-search-journey.mjs';
+import {workspaceIdentityJourney} from './workspace-identity-journey.mjs';
 
 export async function searchJourney(state, pageId) {
   const {page,origin,journeyTitle,searchTerm}=state;
@@ -87,5 +88,6 @@ export async function settingsJourney(state, width) {
   await expect(page.locator('.spaces-workspace').getByRole('heading', { name: 'Spaces', exact: true })).toBeVisible();
   await expect(page.locator('body')).not.toContainText(/\bContainers?\b/);
   await accessible(page, 'space settings');
+  await workspaceIdentityJourney(state, width);
   await guestConsoleJourney(state);
 }

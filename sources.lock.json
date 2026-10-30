@@ -5396,7 +5396,7 @@
       "executable": false
     },
     "src/core/app/styles/shell.css": {
-      "sha256": "b53a74f3811cabd78cf8c3d7ab0bb30d521e22c111c9bc659cfc6ced875418eb",
+      "sha256": "2ef4321bc8d106c2a29cdd29f202f3dd231cc3e48a17a2925e41b5321b26e9ef",
       "executable": false
     },
     "src/core/app/styles/theme.css": {
@@ -5428,11 +5428,11 @@
       "executable": false
     },
     "src/core/app/ui/AppNavigation.tsx": {
-      "sha256": "1f56cf4008f849823289600e11d459fa8a871bd59a8a95b4df251e56fc85f925",
+      "sha256": "9948e2f0236c392316aa60ded6092fa11f155a2736497b1a72b38f55b769ab6d",
       "executable": false
     },
     "src/core/app/ui/AppShell.tsx": {
-      "sha256": "e842ec44af36bee0c16e81b225974d204f7e171f6d530b93284b6d965b7bc6a7",
+      "sha256": "ebb9c65f71b7df58c3073e52309425da01820e4e668c1deb6f759864e5cdfd94",
       "executable": false
     },
     "src/core/app/ui/displayDate.ts": {
@@ -5508,7 +5508,7 @@
       "executable": false
     },
     "src/core/app/ui/SidebarHeader.tsx": {
-      "sha256": "f7d007ac6f2ae2bd7ba2c69f20522a7fd1f9bee32eca1a2762e588e96157e6c0",
+      "sha256": "1fa1486f3398628708918d223d8a5dc2d341c2ae264e663e42768dc4b390ae70",
       "executable": false
     },
     "src/core/app/ui/SpaceTrees.tsx": {
@@ -10812,7 +10812,7 @@
       "executable": false
     },
     "tests/flagship/core/owner-bootstrap.case.ts": {
-      "sha256": "c02a68bfa6bb4677fbc1ad4ab1366d27ad032bec594bcc397523062db1b1aa03",
+      "sha256": "c3ea5a837b125f5c059430f338566708ca26f302869a7ab329921460e13b007f",
       "executable": false
     },
     "tests/flagship/core/preview-owner-signin.test.ts": {
@@ -12012,7 +12012,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "28ed9bb06a30ee2426bfd16014f604bd091c52b7069d50980c4d175e834279f9",
+      "sha256": "070f820439f166d7fbb877146cacd986c0aa07065d20bcf895a1091ccd0c758e",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
@@ -12137,6 +12137,10 @@
     },
     "tests/qualification/ui-convergence/workspace-authority-journey.mjs": {
       "sha256": "c8cb752620b4789440e3e829599adb9827bb0d023fd1ee26b17b79b9978a062a",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/workspace-identity-journey.mjs": {
+      "sha256": "ea306190066879e644ef848d3430fdd654508800b9eb32ca19cbc9c9bf8c269b",
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {

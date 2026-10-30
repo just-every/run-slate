@@ -25,6 +25,8 @@
 .slate-app .brand { display: flex; align-items: center; gap: 10px; min-width: 0; color: var(--slate-ink-strong); font: 400 22px/1.2 var(--slate-serif); }
 .slate-app .brand-mark { flex: none; width: 30px; line-height: 0; }
 .slate-app .brand-mark svg { display: block; width: 100%; height: auto; }
+.slate-app .workspace-mark { flex: none; max-width: 2em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1.2; }
+.slate-app .mobile-workspace-identity { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .slate-app .brand-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .slate-app .sidebar-content { display: flex; flex: 1; flex-direction: column; min-height: 0; overflow-x: hidden; overflow-y: auto; }
 
@@ -105,6 +107,7 @@
 .slate-app .sidebar[data-collapsed="true"] .sidebar-content { display: none; }
 /* The name stays in the accessibility tree (it names the link) while only the mark shows. */
 .slate-app .sidebar[data-collapsed="true"] .brand-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.slate-app .sidebar[data-collapsed="true"] .brand { flex-direction: column; gap: 6px; }
 
 @media (max-width: 1200px) {
   .slate-app { --rail-width: 260px; }
@@ -120,6 +123,7 @@
   .slate-app .sidebar[data-collapsed="true"] { width: min(320px, 90vw); padding-inline: var(--rail-inset); }
   .slate-app .sidebar[data-collapsed="true"] .sidebar-content { display: flex; }
   .slate-app .sidebar[data-collapsed="true"] .brand-name { position: static; width: auto; height: auto; overflow: hidden; clip-path: none; }
+  .slate-app .sidebar[data-collapsed="true"] .brand { flex-direction: row; gap: 10px; }
   .slate-app .sidebar .sidebar-toggle { display: none; }
   .slate-app [data-navigation-open="true"] > .sidebar { display: flex; }
   .slate-app .sidebar[data-collapsed="true"] .sidebar-header { flex-direction: row; padding-left: var(--row-inset); }

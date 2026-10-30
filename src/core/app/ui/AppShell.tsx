@@ -10,7 +10,7 @@ import { Menu, X } from "lucide-react";
 import type { WorkspaceSnapshot } from "./workspaceSnapshot";
 import { AppNavigation } from "./AppNavigation";
 import { WorkspaceGate } from "./WorkspaceGate";
-import { WorkspaceProvider } from "./WorkspaceContext";
+import { WorkspaceProvider, useWorkspace } from "./WorkspaceContext";
 import { useAppearance } from "../../client/useAppearance";
 import { TooltipDismissal } from "../../ui/tooltip";
 
@@ -79,7 +79,7 @@ export function AppShell({
             >
               {open ? <X /> : <Menu />}
             </button>
-            <span data-rer-name>{member.workspaceName}</span>
+            <MobileWorkspaceIdentity />
           </div>
           <div className="app" data-navigation-open={open}>
             {open ? <button className="navigation-backdrop" aria-label="Close navigation" onClick={() => {setOpen(false);navigationTrigger.current?.focus();}} /> : null}
@@ -93,4 +93,12 @@ export function AppShell({
       </WorkspaceGate></InitialResourcesProvider>
     </WorkspaceProvider></LaunchProfileProvider>
   );
+}
+
+function MobileWorkspaceIdentity() {
+  const { member, workspace } = useWorkspace();
+  return <span className="mobile-workspace-identity">
+    {workspace.data?.mark ? <span className="workspace-mark" aria-hidden="true">{workspace.data.mark}</span> : null}
+    <span className="brand-name" data-rer-name>{workspace.data?.name ?? member.workspaceName}</span>
+  </span>;
 }
