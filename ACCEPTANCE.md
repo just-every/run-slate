@@ -2078,8 +2078,8 @@ Core · published · **partial** · Cites BASE-AUDIT-001, BASE-ROLE-001
 1. Filtering a populated timeline yields only matching wiki events in newest-first order, with stable page boundaries while new events arrive.
 2. Opening an entry retains the wiki record context and exposes no unreadable record.
 
-**Evidence.** `tests/qualification/core/audit-content.test.ts` — auditRetrievalProof in the existing content audit registration; `tests/qualification/ui-convergence/activity-retrieval-journey.mjs` — activityRetrievalJourney via the existing settingsJourney callers in `tests/qualification/ui-convergence/journeys.test.mjs`
-**Gap.** Populated native filters and stable cursor retrieval pass in the loaded Workers journey; candidate browser and exact-SHA Verify proof pending.
+**Evidence.** Acceptance 1: `tests/qualification/core/audit-content.test.ts` — auditRetrievalProof in the existing content audit registration, exact native filter results, inclusive dates, tied timestamps and four cursor pages with arriving events; `tests/qualification/ui-convergence/activity-retrieval-journey.mjs` — activityRetrievalJourney, all visible filters and three cursor pages over 61 native edits. Acceptance 2: the same journeys open the exact matching page and refuse stale links and timeline reads after native access revocation. Browser journey loaded by the existing settingsJourney callers in `tests/qualification/ui-convergence/journeys.test.mjs`: page outline follows headings and navigates long pages at 1440px; space tree title filtering preserves ancestors, access and expansion at 390px.
+**Gap.** Exact-SHA Verify proof on current main remains pending; retain main’s partial judgment.
 
 #### ACT-004 — Context
 
