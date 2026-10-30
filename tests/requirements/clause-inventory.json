@@ -29,8 +29,13 @@
       "id": "WORK-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WORK-001 — One workspace. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "This legacy Workers inventory records supporting regressions only; CONTRACT.md owns clause status. The loaded native bootstrap journey covers empty-store setup, token and signed-claim replay refusals, unavailable second-workspace creation routes and canonical ownership of populated containers, pages, records and comments. The existing responsive settings journeys cover editable name and mark, visible retained headers, owner reload and a fresh native member session; their browser proof is specified in tests/requirements/cli-journey.md. Exact-candidate Verify and guarded landing receipts remain separate.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/core/preview-owner-signin.test.ts",
+          "testName": "preview and bootstrap owner sign-in preserve identity and single-use authority"
+        }
+      ]
     },
     {
       "id": "WORK-003",
