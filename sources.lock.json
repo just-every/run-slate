@@ -8424,7 +8424,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageWorkspace.tsx": {
-      "sha256": "2c0085c138d85235b85801b400dafd89d91246e0d973817c1eda910c667127cd",
+      "sha256": "0466d84ee7c3fcc53f2a3f1a371c6820c9e983886e2344bbb357978def838c92",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PublicationReviewPanel.tsx": {
@@ -11791,6 +11791,10 @@
       "sha256": "7c29c683b2bc9add680e33d945636930c410c445a6820c9629dcb69e9168ae0e",
       "executable": false
     },
+    "tests/qualification/ui-convergence/draft-recovery-journey.mjs": {
+      "sha256": "7446a040f2024e6c199a72218d3203862f4706f9dd98284e225e5970acf5a5cb",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/embed-timeout-journey.mjs": {
       "sha256": "0b7fd34774321767263b99c59d31ad26af8db2a22282c30773c1a4c601ecf71e",
       "executable": false
@@ -11952,7 +11956,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "a4cd1c0483504a7bc234b5a821eeb9f3c238fc17c6428c0b9e44ddc34b0cb39f",
+      "sha256": "b6d11adf3ed4b981f5232643d5d5549898556818802b16d8818bad24c25943fb",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12120,7 +12124,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-editing.mjs": {
-      "sha256": "50375c770b0932c51ef85fa015e9ec3621c3d0741587c6ea8a4c0f7166718ea9",
+      "sha256": "fecae502f44221dbdb25c6035a27cbf661432c4462a0d6ed76a6c8938074e6f6",
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-history.mjs": {
@@ -12168,7 +12172,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "e17abf1c458b228f23915f27d37b5f63a0ea4add2909c61efe0631f53ca9dc31",
+      "sha256": "f77d8447ca0a06ba1545d9eba0b7cff00859e6aa3b33b9381cd13f812266497e",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
