@@ -3978,9 +3978,9 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 33 | 193 | 0 | 226 |
+| Published | 34 | 192 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 49 | 248 | 40 | 337 |
+| All | 50 | 247 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4028,7 +4028,7 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 | `BLOCK-001` | A body of blocks | published | partial | `tests/qualification/interface/routed.browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/routed.browser.mjs`. |
 | `BLOCK-002` | Inline text | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Text in a block carries bold, italic, underline, strikethrough, inline code, color, links, and mentions, and nothing else."<br>No validated CI-run proof for this acceptance point: "It is stored in one format, rendered under `BASE-INPUT-002`, and round-trips unchanged through page export, workspace export and import." |
 | `BLOCK-003` | The insert menu | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Typing `/` at the cursor opens an insert menu grouped by kind, filtered by what is typed, navigable and selectable by keyboard alone, and it inserts at the cursor without leaving the editor."<br>No validated CI-run proof for this acceptance point: "Every block type this contract names is reachable from it, and on a touch client the same list is reachable from a labeled control above the keyboard." |
-| `BLOCK-004` | Markdown shortcuts | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
+| `BLOCK-004` | Markdown shortcuts | published | done | `tests/qualification/ui-convergence/typed-shortcuts-journey.mjs` — "typedShortcutsJourney", through "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1, the complete accepted typed reference; acceptance 2, all fifteen native typing inputs, stored types and content, one undo retaining every character, durable literal read-back and reloaded reconversion with the same block identifier. `tests/ui/polish/editor-focus.mjs` — "editorFocusJourney", formatting scenario of "genuine insertion focus lifecycle at 1440px": retained rich headings, marks, link, mention and comment anchor. | |
 | `BLOCK-005` | Mentions | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Typing `@` offers people, pages and dates in one list."<br>No validated CI-run proof for this acceptance point: "A person mention notifies them (`NOTIF-001`) and renders their name; a page mention renders the page's current title and follows renames and moves (`LINK-003`); a date mention renders in the reader's locale." |
 | `BLOCK-006` | Structured blocks | published | partial | `tests/qualification/interface/blocks.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/blocks.mjs`. |
 | `BLOCK-007` | Task items | published | partial | `tests/flagship/content/repair.test.ts` | Missing a task journey through the body that checks the completion figure and database-view exclusion; the cited content flow checks completion attribution and undo only. |
