@@ -10772,7 +10772,7 @@
       "executable": false
     },
     "tests/flagship/content/status-vocabulary.case.ts": {
-      "sha256": "ffdd8b318b6c22fa2d6579de81a562ed45b8d13af22e28ac4c3645a746642903",
+      "sha256": "599dfdc4f2818b305d0137c35d5eaf9cef160cb33b0159005930b9dd713e55e2",
       "executable": false
     },
     "tests/flagship/content/structure-save-labels.case.ts": {
@@ -12052,7 +12052,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/status-vocabulary-journey.mjs": {
-      "sha256": "b2bb25de006a79cf0a3ef8168a9ad7682f40f05e7882d59e6f8f92efe565a831",
+      "sha256": "794ef3d971b968e616e04cf72c2c2a13cfb4961b1421d7e848f953dbe6d5c927",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
@@ -12176,7 +12176,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "e70dccf43905b7e9a11cebf6013a645a111386cbfedf851e4d7fa1b2daba70ef",
+      "sha256": "0fbea94c9932b86537c971285133b29cd62110e9b58439fea461fe9d4c16934d",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12192,7 +12192,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "ee1ed25aaf0c9e823e1c6a102afc3b477cb2d5c7f83af95162e63c11fa3e0113",
+      "sha256": "f050ee33adc0a62bad198552bf7e0cc826781f98d23f9af5cc968e926d30274d",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

@@ -27,9 +27,10 @@ export async function statusVocabularyJourney(state, width) {
     await page.goto(origin+'/app/settings',{waitUntil:'networkidle'});
     await page.getByRole('button',{name:'Edit workspace & policies',exact:true}).click();
     const dialog=page.getByRole('dialog',{name:'Workspace settings',exact:true});
-    await dialog.getByLabel('Page status',{exact:true}).selectOption(value);
+    await dialog.getByRole('combobox',{name:/^Page status\b/}).selectOption(value);
     await dialog.getByRole('button',{name:'Save settings',exact:true}).click();
     await expect(dialog).toHaveCount(0);
+    assert.equal((await api('/api/workspace')).policies['page.status.v1'],value);
   };
   const saveEntry = async ({label,color,retire=false}, existingLabel) => {
     if(existingLabel) await page.locator('.settings-list li').filter({hasText:existingLabel}).getByRole('button',{name:'Edit',exact:true}).click();
@@ -59,7 +60,7 @@ export async function statusVocabularyJourney(state, width) {
         const {value:{pageId}}=await ok(context,origin,'POST','/api/pages',{operationKey:randomUUID(),containerId:space.id,title:`Vocabulary ${index+1} page ${n}`,blocks:[{id:randomUUID(),blockType:'paragraph',treePosition:'1',content:{text:[{text:'Retain this content and its status until an explicit change.'}]}}]});
         ids.push(pageId);
         await page.goto(`${origin}/app/pages/${pageId}?detail=status`,{waitUntil:'networkidle'});
-        await page.getByLabel('Set page status',{exact:true}).selectOption(added.key);
+        await page.getByRole('combobox',{name:/^Set page status\b/}).selectOption(added.key);
         const verify=page.getByRole('dialog',{name:'Verify this exact revision',exact:true});
         await verify.getByLabel('No expiry',{exact:true}).check();
         await verify.getByRole('button',{name:'I reviewed this revision',exact:true}).click();
@@ -87,7 +88,7 @@ export async function statusVocabularyJourney(state, width) {
       await shot(`${value}-retired-settings`);
       await page.goto(`${origin}/app/pages/${ids[0]}?detail=status`,{waitUntil:'networkidle'});
       await expect(page.locator('.page-status-chip')).toContainText(renamed);
-      await expect(page.getByLabel('Set page status',{exact:true}).locator(`option[value="${added.key}"]`)).toHaveCount(0);
+      await expect(page.getByRole('combobox',{name:/^Set page status\b/}).locator(`option[value="${added.key}"]`)).toHaveCount(0);
       await shot(`${value}-retained-page`);
       if(width===1440) {
         await withSecondPerson(state,width,async people=>{
