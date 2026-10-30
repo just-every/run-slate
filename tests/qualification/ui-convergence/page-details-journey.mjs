@@ -107,9 +107,9 @@ export async function pageDetailsJourney(state,people) {
   const grantsBeforeRefusal=await api(`/api/sharing/pages/${pageId}`),activityBeforeRefusal=await timeline();
   const revisionsBeforeRefusal=await api(`/api/revisions/${pageId}`);
   const refused=await call(member.context,origin,'PATCH',`/api/pages/${pageId}`,{operationKey:randomUUID(),expectedRevisionId:editDoc.page.revisionId,properties:{ownerMemberId:'browser-owner'}});
-  assert.equal(refused.status,403);
+  assert.equal(refused.status,404);
   const staleReplay=await call(member.context,origin,'PATCH',`/api/pages/${pageId}`,request);
-  assert.equal(staleReplay.status,403,'A captured full-access owner change cannot replay with edit-only authority.');
+  assert.equal(staleReplay.status,404,'A captured full-access owner change cannot replay with edit-only authority.');
   assert.deepEqual(await ok(member.context,origin,'GET',`/api/pages/${pageId}`),editDoc,'Refusal leaves page content, owner and revision unchanged.');
   assert.deepEqual(await api(`/api/revisions/${pageId}`),revisionsBeforeRefusal);
   assert.deepEqual(await api(`/api/sharing/pages/${pageId}`),grantsBeforeRefusal);
