@@ -5,6 +5,7 @@ import { RequestState } from "../../../app/ui/RequestState";
 import { TopBar } from "../../../app/ui/header/TopBar";
 import { PageTitle } from "../../../app/ui/header/PageTitle";
 import { useWorkspace } from "../../../app/ui/WorkspaceContext";
+import { displayDate } from "../../../app/ui/displayDate";
 interface Notice {
   id: string;
   title: string | null;
@@ -48,7 +49,7 @@ export function WorkspaceInbox() {
       <TopBar trail={[{ label: "Inbox" }]} />
       <section className="main">
         <PageTitle>For your attention.</PageTitle><p className="page-lede">{resource.data?.unreadCount??0} unread notifications</p>
-        <div className="editor-actions">
+        <div className="control-row page-rule inbox-controls">
           <select
             aria-label="Notification audience"
             value={audience}
@@ -76,7 +77,7 @@ export function WorkspaceInbox() {
           <ul className="outcome-list">
             {resource.data?.items.map((item, index, items) => (
               <Fragment key={item.id}>
-              {index === 0 || items[index - 1].createdAt.slice(0, 10) !== item.createdAt.slice(0, 10) ? <li className="inbox-period"><h2>{new Date(`${item.createdAt.slice(0, 10)}T12:00:00Z`).toLocaleDateString(undefined, { dateStyle: "long", timeZone: "UTC" })}</h2></li> : null}
+              {index === 0 || items[index - 1].createdAt.slice(0, 10) !== item.createdAt.slice(0, 10) ? <li className="inbox-period"><h2 className="section-label"><span>{new Date(`${item.createdAt.slice(0, 10)}T12:00:00Z`).toLocaleDateString(undefined, { dateStyle: "long", timeZone: "UTC" })}</span></h2></li> : null}
               <li>
                 <a href={item.href} onClick={event => {event.preventDefault();void mutate("/api/notifications/actions",{operationKey:operationKey(),action:"read",id:item.id}).then(()=>window.location.assign(item.href)).catch(setError);}}>
                   <span className="outcome-kind">
@@ -86,7 +87,7 @@ export function WorkspaceInbox() {
                   <h3>{item.title ?? (item.detail?.verificationRules ? rulesSummary(item.detail.verificationRules) : "Workspace update")}</h3>
                   {item.detail?.verificationRules ? <p>{item.detail.verificationRules.pages.map(page => `${page.title} (${page.change})`).join(", ")}</p> : null}
                   {localDevelopment && item.detail?.outcome ? <p>{item.detail.outcome}</p> : null}
-                  <time dateTime={item.createdAt}>{new Date(item.createdAt).toLocaleString()}</time>
+                  <time dateTime={item.createdAt}>{displayDate(item.createdAt, true)}</time>
                 </a>
               </li>
               </Fragment>
@@ -96,12 +97,13 @@ export function WorkspaceInbox() {
             <p>You’re all caught up.</p>
           ) : null}
           {resource.data?.nextCursor ? (
-            <button
+            <div className="list-paging"><button
               type="button"
+              className="text-button"
               onClick={() => setCursor(resource.data!.nextCursor)}
             >
               Older notifications →
-            </button>
+            </button></div>
           ) : null}
         </RequestState>
         {error ? <p role="alert">{errorMessage(error)}</p> : null}

@@ -36,14 +36,13 @@ export async function searchFiltersJourney(state) {
  const titles=async expected=>{
   await expect.poll(async()=>(await page.locator('.search-results h2').allTextContents()).sort()).toEqual([...expected].sort());
   await expect(input).toHaveValue(query);
-  await expect(page.getByText(/^Filters:/)).toBeVisible();
+  await expect(page.locator('.search-filter-summary')).toBeVisible();
  };
  await titles(['Release handover checklist','Support rotation']);
- await expect(page.locator('.search-filter-summary')).toContainText('Space: Release operations');
- await page.locator('.search-options > summary').click();
+ await expect(page.locator('.search-filter-summary')).toContainText('In: Release operations');
+ await page.getByRole('button',{name:'Filter results',exact:true}).click();
  const kind=page.getByRole('combobox',{name:'Look in',exact:true});
  await kind.selectOption('record');await titles([]);await kind.selectOption('page');await titles(['Release handover checklist','Support rotation']);
- await page.getByText('Refine your search',{exact:true}).click();
  const source=page.getByRole('combobox',{name:'Space',exact:true});await expect(source).toHaveValue(space);
  await source.selectOption(emptySpace);await titles([]);await source.selectOption(other.id);await titles(['Another space handover checklist']);await source.selectOption(space);await titles(['Release handover checklist','Support rotation']);
  const contributor=page.getByRole('combobox',{name:'Contributor',exact:true});
@@ -55,20 +54,20 @@ export async function searchFiltersJourney(state) {
  await until.fill('2000-01-01');await titles([]);await until.fill('2099-01-01');await titles(['Release handover checklist','Support rotation']);
  await page.getByRole('checkbox',{name:'Include archive',exact:true}).check();await titles(['Archived checklist','Release handover checklist','Support rotation']);
  await page.getByRole('checkbox',{name:'Include trash',exact:true}).check();await titles(['Archived checklist','Removed checklist','Release handover checklist','Support rotation']);
- for(const visible of ['Release operations','Updated from 2000-01-01','Updated until 2099-01-01','Including archive','Including trash'])await expect(page.locator('.search-filter-summary')).toContainText(visible);
+ for(const visible of ['Release operations','Updated from 01 Jan 2000','Updated until 01 Jan 2099','Including archive','Including trash'])await expect(page.locator('.search-filter-summary')).toContainText(visible);
  await accessible(page,'search filters and retained results');
  await page.reload({waitUntil:'networkidle'});await titles(['Archived checklist','Removed checklist','Release handover checklist','Support rotation']);
- await page.locator('.search-options > summary').click();await page.getByText('Refine your search',{exact:true}).click();
+ await page.getByRole('button',{name:'Filter results',exact:true}).click();
  for(const [control,value]of [[source,space],[kind,'page'],[contributor,''],[status,''],[from,'2000-01-01'],[until,'2099-01-01']])await expect(control).toHaveValue(value);
  for(const name of ['Include archive','Include trash'])await expect(page.getByRole('checkbox',{name,exact:true})).toBeChecked();
  await contributor.selectOption('browser-owner');await titles(['Archived checklist','Removed checklist','Release handover checklist']);
  await status.selectOption('search-ready');await titles(['Release handover checklist']);
- const retained=['Pages','Space: Release operations','Contributor: Alex Owner','Status: Ready for release','Updated from 2000-01-01','Updated until 2099-01-01','Including archive','Including trash'];
+ const retained=['Pages','In: Release operations','By: Alex Owner','Status: Ready for release','Updated from 01 Jan 2000','Updated until 01 Jan 2099','Including archive','Including trash'];
  for(const visible of retained)await expect(page.locator('.search-filter-summary')).toContainText(visible);
  // The controls display every filter in force alongside real results, and reload retains them.
  await page.reload({waitUntil:'networkidle'});await titles(['Release handover checklist']);
  for(const visible of retained)await expect(page.locator('.search-filter-summary')).toContainText(visible);
- await page.locator('.search-options > summary').click();await page.getByText('Refine your search',{exact:true}).click();
+ await page.getByRole('button',{name:'Filter results',exact:true}).click();
  await expect(source).toHaveValue(space);await expect(kind).toHaveValue('page');await expect(from).toHaveValue('2000-01-01');await expect(until).toHaveValue('2099-01-01');
  await expect(contributor).toHaveValue('browser-owner');await expect(status).toHaveValue('search-ready');
  await expect(page.getByRole('checkbox',{name:'Include archive',exact:true})).toBeChecked();await expect(page.getByRole('checkbox',{name:'Include trash',exact:true})).toBeChecked();
@@ -81,6 +80,7 @@ export async function searchFiltersJourney(state) {
  await accessible(page,'quoted phrase excludes reordered words');
  // The empty state retains the exact query and every applied filter, then creates one real page.
  const missing='Unwritten release review brief';
+ await page.getByRole('button',{name:'Filter results',exact:true}).click();
  await contributor.selectOption('browser-owner');await status.selectOption('search-ready');
  await input.fill(missing);await page.getByRole('button',{name:'Search',exact:true}).click();
  const empty=page.locator('.search-empty');
@@ -94,8 +94,10 @@ export async function searchFiltersJourney(state) {
  await accessible(page,'no results restates the query and every applied filter');
  await page.getByRole('button',{name:'Clear all filters',exact:true}).click();
  await expect(empty).toContainText('Filters: None');await expect(input).toHaveValue(missing);
+ await page.getByRole('button',{name:'Filter results',exact:true}).click();
  for(const control of [source,kind,contributor,status,from,until])await expect(control).toHaveValue('');
  for(const name of ['Include archive','Include trash'])await expect(page.getByRole('checkbox',{name,exact:true})).not.toBeChecked();
+ await page.keyboard.press('Escape');
  await expect(page.locator('.search-results a')).toHaveCount(0);
  await expect(page.getByRole('region',{name:'Retained answer',exact:true})).toHaveCount(0);
  const before=new Set((await api('/api/pages')).items.map(item=>item.id));

@@ -2,12 +2,16 @@ import {TemplateSnapshotPreview,type TemplatePreviewSnapshot} from './TemplateSn
 import {DeletedTemplateActions} from './DeletedTemplateActions';
 import { TemplateActions } from "./TemplateActions";
 import { useEffect, useState } from "react";
+import { useSettled } from "../../../../app/ui/useSettled";
 import { useResource } from "../../../../client/useResource";
 import { mutate, operationKey } from "../../../../client/transport";
 import { RequestState } from "../../../../app/ui/RequestState";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import { TopBar } from "../../../../app/ui/header/TopBar";
 import { PageTitle } from "../../../../app/ui/header/PageTitle";
+import { FilterChips, FilterMenu } from "../../../../app/ui/FilterMenu";
+
+const shows: Record<string, string> = { active: "Active templates", archived: "Archived templates", deleted: "Deleted templates" };
 interface Template {
   id: string;
   title: string;
@@ -25,6 +29,7 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
   const [state, setState] = useState("active");
   const [query, setQuery] = useState("");
   const [category,setCategory]=useState("");
+  const [filtersOpen,setFiltersOpen]=useState(false);
   const [settledFilters,setSettledFilters]=useState({query:"",category:""});
   useEffect(()=>{
     const timer=setTimeout(()=>setSettledFilters({query,category}),200);
@@ -37,58 +42,65 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
   const items = useResource<{ items: Template[] }>(
     `/api/templates?state=${state}&query=${encodeURIComponent(settledFilters.query)}&category=${encodeURIComponent(settledFilters.category)}&containerId=${encodeURIComponent(container)}`,
   );
+  const shown = useSettled(items.data?.items);
   const [selected, setSelected] = useState<string | undefined>(templateId);
   const preview = useResource<Template>(
     selected&&state!=="deleted" ? `/api/templates/${selected}` : null,
   );
   const [apply, setApply] = useState(false);
   const body = <>
-        <div className="action-row template-filters">
-          <label>
-            Show
-            <select
-              value={state}
-              onChange={(event) => {
-                setState(event.target.value);
-                setSelected(undefined);
-              }}
-            >
-              <option value="active">Active templates</option>
-              <option value="archived">Archived templates</option>
-              <option value="deleted">Deleted templates</option>
-            </select>
-          </label>
-          <label>
-            Find a template
+        <div className="control-row page-rule template-filters">
+          <label className="template-search">
+            <span className="sr-only">Find a template</span>
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               type="search"
+              placeholder="Find a template"
             />
           </label>
-          <label>Category<input value={category} onChange={event=>setCategory(event.target.value)}/></label>
-          <label>
-            Collection
-            <select
-              value={container}
-              onChange={(e) => setContainer(e.target.value)}
-            >
-              <option value="">Workspace templates</option>
-              {containers.data?.items.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </label>
+          <FilterMenu open={filtersOpen} onOpenChange={setFiltersOpen} label="Filter templates">
+            <label>
+              Show
+              <select
+                value={state}
+                onChange={(event) => {
+                  setState(event.target.value);
+                  setSelected(undefined);
+                }}
+              >
+                {Object.entries(shows).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+              </select>
+            </label>
+            <label>Category<input value={category} onChange={event=>setCategory(event.target.value)}/></label>
+            <label>
+              Collection
+              <select
+                value={container}
+                onChange={(e) => setContainer(e.target.value)}
+              >
+                <option value="">Workspace templates</option>
+                {containers.data?.items.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </FilterMenu>
+          <FilterChips items={[
+            ...(state !== "active" ? [{ key: "state", label: shows[state] ?? state, remove: "Remove state filter", onRemove: () => { setState("active"); setSelected(undefined); } }] : []),
+            ...(category ? [{ key: "category", label: `Category: ${category}`, remove: "Remove category filter", onRemove: () => setCategory("") }] : []),
+            ...(container && container !== defaultContainerId ? [{ key: "collection", label: `In: ${containers.data?.items.find(item => item.id === container)?.name ?? "unavailable"}`, remove: "Remove collection filter", onRemove: () => setContainer(defaultContainerId ?? "") }] : []),
+          ]}/>
         </div>
         <RequestState
-          loading={items.loading}
+          loading={items.loading && !shown}
           error={items.error}
           retry={items.reload}
         >
-          <ul className="outcome-list">
-            {items.data?.items.map((item) => (
+          <ul className="template-list row-list">
+            {shown?.map((item) => (
               <li key={item.id}>
                 <button className="template-choice" aria-pressed={selected === item.id} onClick={() => setSelected(item.id)}>
                   <span className="eyebrow">{item.category}</span>
@@ -98,7 +110,7 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
               </li>
             ))}
           </ul>
-          {items.data?.items.length === 0 ? (
+          {shown?.length === 0 ? (
             <p className="muted">
               No templates match this search.
             </p>
@@ -177,7 +189,7 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
       <TopBar trail={[{ label: "Templates" }]} />
       <section className="main templates-workspace">
         <PageTitle>Templates</PageTitle>
-        <p className="page-lede">Reusable pages, with their structure intact. Create templates from a page’s More menu.</p>
+        <p className="page-lede">Reusable pages, with their structure intact.</p>
         {body}
       </section>
     </>
