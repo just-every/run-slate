@@ -11176,7 +11176,7 @@
       "executable": false
     },
     "tests/flagship/structured/http.test.ts": {
-      "sha256": "b51c5f6979d5b2d1383810b1d78b662a29e21f9ba34faa36d4937fc7e1ea448b",
+      "sha256": "7349a51853f786ef96347c2765b59da015955553a208d037962212b05b29caac",
       "executable": false
     },
     "tests/flagship/structured/migration.py": {
@@ -11780,7 +11780,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/database-journey.mjs": {
-      "sha256": "9c50af03238fa2f996c425a546c5815c2faf43c7b5cda1aa45dc8ab780692c7f",
+      "sha256": "e0f7d561a50471d8a8692145c20675e802227dcc8925f3dba3c7e07b75cfaae7",
       "executable": false
     },
     "tests/qualification/ui-convergence/developer-access-journey.mjs": {
@@ -11952,7 +11952,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "a4cd1c0483504a7bc234b5a821eeb9f3c238fc17c6428c0b9e44ddc34b0cb39f",
+      "sha256": "5379221b37b1835fe9c78b20252422e7d257bf8d1bedc82c8aaa05ba26b257de",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {

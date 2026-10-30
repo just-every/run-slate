@@ -41,7 +41,7 @@ import { withSecondPerson, call } from './two-people-support.mjs';
 import { concurrentEditingJourney } from './two-people-editing.mjs';
 import { accessChangeJourney } from './two-people-access.mjs';
 import { historyJourney } from './two-people-history.mjs';
-import { databaseJourney } from './database-journey.mjs';
+import { databaseJourney, databaseStructureLockJourney } from './database-journey.mjs';
 import { reviewRequestJourney } from './review-request-journey.mjs';
 import { hubJourney } from './hub-journey.mjs';
 import { blogJourney } from './blog-journey.mjs';
@@ -87,6 +87,7 @@ for (const width of [390, 1440]) {
         await state.runScheduled();
         await chatJourney(state, width);
         if (width === 390) {
+          await step('DB-009 — locked structure, editable records and full-access unlock on a phone', () => databaseStructureLockJourney(state));
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
           // One phone smoke visits the main screens; functional journeys use desktop
           // except where an assertion distinguishes the phone layout or touch input.
