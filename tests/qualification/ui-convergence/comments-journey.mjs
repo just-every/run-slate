@@ -99,9 +99,18 @@ export async function memberThreadsJourney(state, people) {
   // Native browser selection, with no synthetic application event or write.
   await paragraph.evaluate(element => {
     element.focus();
-    const text = element.firstChild;
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    const boundary = offset => {
+      for (const node of nodes) {
+        if (offset <= node.textContent.length) return [node, offset];
+        offset -= node.textContent.length;
+      }
+      throw new Error('The selected text must exist in the rendered paragraph.');
+    };
     const range = document.createRange();
-    range.setStart(text, 4); range.setEnd(text, 16);
+    range.setStart(...boundary(4)); range.setEnd(...boundary(16));
     getSelection().removeAllRanges(); getSelection().addRange(range);
   });
   await bob.getByRole('button', { name: 'Comment', exact: true }).click();
@@ -180,6 +189,7 @@ export async function memberThreadsJourney(state, people) {
       await expect(section.locator('.thread-heading > span')).toHaveText(threadId === inlineId ? 'Resolved' : 'Open');
     }
     await expect(view.locator(`#thread-${inlineId} blockquote`)).toHaveText('on-call lead');
+    await expect(view.locator(`[data-block-id="${blockIds[0]}"] mark`)).toHaveText('on-call lead');
     await expect(view.locator(`#thread-${inlineId}`).getByRole('button', { name: 'Jump to selected text', exact: true })).toBeVisible();
     await expect(view.locator(`#thread-${pageThreadId} blockquote`)).toHaveCount(0);
   }
@@ -196,15 +206,23 @@ export async function memberThreadsJourney(state, people) {
     ['PATCH',`/api/pages/${pageId}/blocks/${blockIds[0]}`,{expectedRevisionId:after.blocks[0].revisionId,content:{text:[{text:'Unauthorized body'}]}}],
     ['PUT',`/api/pages/${pageId}/blocks`,{expectedRevisionId:after.page.revisionId,blocks:[]}],
   ];
-  for (const [method,path,input] of denied) assert.equal((await call(people.bob.context,origin,method,path,{operationKey:crypto.randomUUID(),...input})).status,403);
+  for (const [method,path,input] of denied) {
+    const refusal = await call(people.bob.context,origin,method,path,{operationKey:crypto.randomUUID(),...input});
+    assert.equal(refusal.status,404,'Insufficient page authority uses the native non-disclosure response.');
+    assert.equal(refusal.body.code,'NOT_FOUND');
+  }
   const forged = await call(people.bob.context,origin,'POST',route,{...writes[0].input,operationKey:crypto.randomUUID(),anchor:{...writes[0].input.anchor,quote:'Unselected text'}});
   assert.equal(forged.status,409,'An anchor cannot claim text outside the actual readable selection.');
   assert.deepEqual(await api(route), resolved, 'Refused content writes and invalid anchors change no discussion.');
   assert.deepEqual(await api(`/api/pages/${pageId}`), after, 'Comment authority cannot change the page.');
   await grant(context,origin,pageId,people.bob.id,'view',{id:access.value.id});
   for (const input of [writes[0].input,writes[1].input,{operationKey:crypto.randomUUID(),threadId:inlineId,body:[{text:'Refused reply'}]}]) {
-    assert.equal((await call(people.bob.context,origin,'POST',route,input)).status,403,'Downgraded access refuses both new comments and replay.');
+    const refusal = await call(people.bob.context,origin,'POST',route,input);
+    assert.equal(refusal.status,404,'Downgraded access refuses both new comments and replay.');
+    assert.equal(refusal.body.code,'NOT_FOUND');
   }
   assert.deepEqual(await api(route),resolved,'A replay cannot recreate comments after comment authority is removed.');
-  console.log(`PROBE COMM-001 points 1-3: comment-level selection and page composers -> two threads, six ordered attributed comments, persisted Open and Resolved states; forbidden content edits, invalid selection and revoked replay refused at ${bob.viewportSize().width}px`);
+  console.log(`PROBE COMM-001 1: native comment route and rendered discussion -> six chronological comments with exact native author and timestamp at ${bob.viewportSize().width}px`);
+  console.log(`PROBE COMM-001 2: native selection and page composers -> inline anchor retained, page anchor absent, replies and persisted Open and Resolved states at ${bob.viewportSize().width}px`);
+  console.log(`PROBE COMM-001 3: comment-level session -> both thread kinds allowed; page edits, forged selection and revoked comment replay refused without changing state at ${bob.viewportSize().width}px`);
 }

@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { openPageAction } from './browser-support.mjs';
-import { memberThreadsJourney } from './comments-journey.mjs';
 import { grant } from './two-people-support.mjs';
 
 /** Filter the same discussion across authors, replies, kinds and states. */
@@ -69,5 +68,4 @@ export async function discussionsJourney(state, people, pageId, anchoredThread, 
   await bob.reload({ waitUntil: 'networkidle' });
   await expect(bob.getByText('Read-only discussion.', { exact: true })).toBeVisible();
   await expect(bob.getByRole('button', { name: 'Resolve all open threads', exact: true })).toHaveCount(0);
-  await memberThreadsJourney(state, people);
 }

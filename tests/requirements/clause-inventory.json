@@ -814,7 +814,7 @@
       "id": "COMM-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for COMM-001 — Two kinds of thread. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "This Workers-only inventory does not classify browser acceptance. COMM-001 is covered by memberThreadsJourney in tests/qualification/ui-convergence/comments-journey.mjs, loaded by the existing real core-wiki and touch-member journeys at 1440px and 390px in tests/qualification/ui-convergence/journeys.test.mjs. It checks comment-level creation of both thread kinds, native ordered authors and timestamps, retained anchors and states after reload, and refused page edits and revoked replay. CONTRACT.md is the status source; exact-SHA Verify and landing receipts remain the publication gates.",
       "supportingTests": []
     },
     {

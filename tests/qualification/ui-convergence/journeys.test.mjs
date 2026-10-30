@@ -36,6 +36,7 @@ async function step(name, run) {
 }
 import { accessible, setupWorkspace, withWorkspace } from './browser-support.mjs';
 import { commentJourney, searchJourney, settingsJourney, shareJourney, writeJourney } from './core-journeys.mjs';
+import { memberThreadsJourney } from './comments-journey.mjs';
 import { askDraftJourney } from './ask-journey.mjs';
 import { withSecondPerson, call } from './two-people-support.mjs';
 import { concurrentEditingJourney } from './two-people-editing.mjs';
@@ -81,6 +82,7 @@ for (const width of [390, 1440]) {
         assert.ok(pageId, 'Writing must complete before dependent journeys.');
         assert.ok(touch, 'Touch-member writing must complete before its dependent journeys.');
         await step('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await touchCommentJourney(touch,touch.pageId);});
+        await withSecondPerson(state, width, people => step('COMM-001 — comment access creates both thread kinds with retained chronology and attribution', () => memberThreadsJourney(state, people)));
         await step('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touchPublishShareJourney(touch,touch.pageId);});
         await step('query, highlighted results and opening exact page; touch Search, Inbox, My tasks and review queues', async () => {await searchJourney(state, pageId);await touchOperatorJourney(state,touch);});
         // Finish earlier page notifications before connecting the chat journey destinations.
