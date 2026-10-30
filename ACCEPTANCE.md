@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 49 | 248 | 34 | 331 |
+| Core | 50 | 247 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 49 | 248 | 40 | 337 |
+| Full target | 50 | 247 | 40 | 337 |
 
-Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `b160fa142014d0fc3ead903882fb3c4d73fb4b36` (30 October 2026); SAVE-004 native recovery source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -290,7 +290,7 @@ Core · published · **partial**
 
 #### SAVE-004 — Network loss
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** While the server is unreachable the editor shows Offline and keeps the unsent draft in browser storage as recovery only.
 
@@ -298,8 +298,8 @@ Core · published · **partial**
 1. A recovered draft is labeled unsaved and never appears in the tree, in lists, in search, or in export as workspace data.
 2. Offline editor shows Offline and keeps a labeled unsaved draft that never appears in tree, search or export.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "While the server is unreachable the editor shows Offline and keeps the unsent draft in browser storage as recovery only."<br>No validated CI-run proof for this acceptance point: "A recovered draft is labeled unsaved and never appears in the tree, in lists, in search, or in export as workspace data."
+**Evidence.** Acceptance 1–2: `tests/qualification/ui-convergence/journeys.test.mjs` — "two people edit at once, lose access mid-edit and restore history at 1440px" and "real core-wiki and touch-member journeys at 390px", through `tests/qualification/ui-convergence/draft-recovery-journey.mjs` — draftRecoveryJourney: native offline typing, persisted title and body journals, same-tab reload, explicitly unsaved recovery, canonical page and tree and list and search exclusions, decoded readable manifest and rendered-content exclusions, another reader, focus and Enter without committing, and explicit retry with durable read-back. The desktop caller retains `tests/qualification/ui-convergence/two-people-editing.mjs` — concurrentEditingJourney including unreachable-server recovery.
+**Gap.** None.
 
 #### SAVE-005 — Operation keys
 
