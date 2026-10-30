@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "7924bbe992ff013de999f80199c43fce75550d5e55c48b1e3979879a981b205b",
+      "sha256": "c6667403f4799b20dc03bf2f74ee0149a161393ba8d6c2b2e1f7b02be34dc7fd",
       "executable": false
     },
     "DEMO.md": {
@@ -12036,7 +12036,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/status-profile-journey.mjs": {
-      "sha256": "a71bdc245d06e58fac5aae55b6a81e9d6a750f6f91e56e554df2d549b89db418",
+      "sha256": "4b377cbec98a47540e63e13fde3b59a0a8dd0d628ad2684d3d01a05eb10f6337",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
