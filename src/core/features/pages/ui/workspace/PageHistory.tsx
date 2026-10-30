@@ -17,6 +17,7 @@ interface Revision {
   ordinal: number | null;
   label: string | null;
   deletedAt: string | null;
+  deletedByDisplayName?: string;
 }
 const revisionTime = new Intl.DateTimeFormat("en-GB", {
   day: "2-digit", month: "short", year: "numeric",
@@ -85,7 +86,7 @@ export function PageHistory({
                     {item.ordinal ? `Version ${item.ordinal}` : ""} {item.label}
                   </span>
                 ) : null}
-                {item.deletedAt ? <span>Deleted revision</span> : null}
+                {item.deletedAt ? <span>Deleted revision · Deleted by {item.deletedByDisplayName ?? "Former member"} · <time dateTime={item.deletedAt}>{displayRevisionTime(item.deletedAt)}</time></span> : null}
               </button>
             </li>
           ))}
