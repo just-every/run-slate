@@ -10744,7 +10744,7 @@
       "executable": false
     },
     "tests/flagship/content/http.test.ts": {
-      "sha256": "e20134bb0804f1e08406585d411ab2224abd7b1871d9063df74cd729d7b7f8c1",
+      "sha256": "912e9c1c8c3ce610cced974d995b49189d1edbc7303e72c7deadf8151242f230",
       "executable": false
     },
     "tests/flagship/content/journeys.ts": {
@@ -11404,7 +11404,7 @@
       "executable": false
     },
     "tests/qualification/core/audit-content.test.ts": {
-      "sha256": "e44cda18f8419c82ffa7d1ef25136da80a4f9425c584e937aca8f94594131b17",
+      "sha256": "fcd2b234059cf074975b324ba7720b8ff78d34ae31fa03d27886aebb9a1b11ff",
       "executable": false
     },
     "tests/qualification/core/audit-export-proof.ts": {
@@ -12131,6 +12131,10 @@
       "sha256": "8d0880c6adad3f66b63c9c66314ed5ddd6f3d1bcbd0ff8350c7fd64dd2c71bdf",
       "executable": false
     },
+    "tests/qualification/ui-convergence/version-deletion-journey.mjs": {
+      "sha256": "2dffb02cf858d4ffe39124a4e61ded1ec29345f24bb91cc75d9e61e558abd358",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/webhook-access-journey.mjs": {
       "sha256": "3f0dfbce6d93dd7be4879cce565407e42d24cc39454df0c47fbf22d40828fcba",
       "executable": false
@@ -12172,7 +12176,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "25665e13a94a7bbb1e49146e10e22c2a20348e97f4083aca9fa24bfc1c33874a",
+      "sha256": "79bb5423ea50f002d088c17c32a206ba03088277177a450270d765c17cc5f795",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
@@ -12184,7 +12188,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "10faa18b0662de1d1dd9782127bd0743be2273babd717e513e96d8e573dce5d1",
+      "sha256": "91d53abe54bc4fe0ee351290ed1c3c1f51aac054f066c27741d8129c3168d12c",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

@@ -91,3 +91,27 @@ The 16 October managed first-open case `a claimed RER owner signs in to a ready 
 The CLI flagship credential leg explicitly configures its private development profile and requests credentials:mint’s email proof through the native /auth/step-up door. It privately receives the message at the test-only paid network edge, previews the real confirmation page and submits its native form in that same dev session. Credential issuance then succeeds with the durable proof the commit requires. No proof is injected and no authorization route is bypassed.
 
 The guest invitation case removes its obsolete 24-hour lifetime pin; requested guest access expiry, pending/accepted grants, replay, expired access and revocation behavior remain checked.
+
+
+## Native version deletion
+
+The existing `two people edit at once, lose access mid-edit and restore history at 1440px`
+registration calls `historyJourney` in `./tests/qualification/ui-convergence/two-people-history.mjs`,
+which calls `versionDeletionJourney` in `./tests/qualification/ui-convergence/version-deletion-journey.mjs`.
+The existing `real core-wiki and touch-member journeys at 390px` registration calls the same
+helper for the phone proof. Both registrations run on push Verify through the existing shard assignments.
+
+For REV-006, actual publication review controls create three numbered versions with distinct
+content. An edit-only member sees no delete control and a direct deletion is refused. A full
+member cannot delete either the distinct working revision or the published revision. Under
+autosnapshot, deletion is hidden and refused. Refusals preserve all snapshots and deletion activity.
+Under labelled history, the full member confirms deletion of version 2. After reload its
+content and label are unavailable while its ordinal, deleting member and formatted deletion
+time remain visible. Every other revision, the working body and the published body are retained.
+An exact request replay returns the original receipt, keeps the original attribution and time,
+and creates no second activity entry.
+
+The existing content HTTP registration additionally reads back cleared durable revision content,
+all retained snapshots and the one deletion activity. The existing audit-content registration
+reconciles the tombstone's actor and time with the committed activity receipt under replay.
+These are local native-runtime proofs; they make no provider or release claim.
