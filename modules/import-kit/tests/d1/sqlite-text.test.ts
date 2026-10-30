@@ -1,10 +1,22 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { DatabaseSync } from 'node:sqlite';
+import { DatabaseSync } from '../../../container/adapters/d1-sqlite.mjs';
 import { sqlitePort } from './sqlite-runtime.ts';
 
 test('SQLite test port decodes complete TEXT bytes, types and bindings on Node 22 and 26', async t => {
   const native = new DatabaseSync(':memory:'); t.after(() => native.close());
+  const limits = sqlitePort(native);
+  const placeholders = n => `SELECT 1 WHERE 1 IN (${Array(n).fill('?').join(',')})`;
+  assert.equal((await limits.prepare(placeholders(100)).bind(...Array(100).fill(1)).first())!['1'], 1);
+  await assert.rejects(limits.prepare(placeholders(101)).bind(...Array(101).fill(1)).first(), /D1 limit exceeded: bound parameters maximum 100, measured 101/);
+  assert.equal((await limits.prepare(`SELECT max(${Array(32).fill(1).join(',')}) AS n`).first())!.n, 1);
+  await assert.rejects(limits.prepare(`SELECT max(${Array(33).fill(1).join(',')})`).first(), /D1 limit exceeded: SQL function arguments maximum 32, measured 33/);
+  await limits.batch([limits.prepare(`CREATE TABLE main.synthetic_base_columns(${Array.from({length:100},(_,i)=>`c${i} TEXT`).join(',')})`)]);
+  await limits.batch([limits.prepare(`CREATE VIRTUAL TABLE synthetic_base_search USING fts5(${Array.from({length:33},(_,i)=>`c${i}`).join(',')})`)]);
+  assert.equal((await limits.prepare('PRAGMA table_info(synthetic_base_search)').all()).results.length, 33, 'virtual-table module arguments are not SQL function arguments');
+  assert.ok(await limits.prepare('SELECT ' + 'NOT '.repeat(99) + '1 AS n').first());
+  await assert.rejects(limits.prepare('SELECT ' + 'NOT '.repeat(100) + '1').first(), /expression depth estimate.*maximum 100, measured 101/);
+  t.diagnostic('D1 public SQLite port: bound parameters 100 PASS, 101 rejected; function arguments 32 PASS, 33 rejected (preflight only on Node 22)');
   const db = sqlitePort(native), value = '🌱\u0000"\\\n漢', empty = '';
   await db.batch([db.prepare('CREATE TABLE text_values(id INTEGER PRIMARY KEY,value TEXT,other TEXT,bytes BLOB,n REAL,z TEXT)'), db.prepare('INSERT INTO text_values VALUES(?,?,?,?,?,?)').bind(1, value, empty, Buffer.from([0, 255, 42]), 1.5, null)]);
   const expected = { id: 1, value, other: empty, bytes: new Uint8Array([0, 255, 42]), n: 1.5, z: null };

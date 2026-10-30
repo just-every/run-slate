@@ -13,7 +13,7 @@ test('real D1: an original fits chunked atomic custody, with chunked-plan return
   const plan = await m.request('near-limit-plan', () => planD1Import(bundle, mapping, ctx));
   const admission = preflightD1ImportJob(plan, { ...ctx, reviewedFingerprint: plan.fingerprint });
   const job = await m.request('near-limit-create', () => createD1ImportJob(plan, { ...ctx, reviewedFingerprint: plan.fingerprint }));
-  assert.equal(m.snapshots.at(-1).count, admission.totalExecutions, 'creation executes exactly the admitted statements and return reads');
+  assert.equal(m.snapshots.at(-1).count, admission.totalExecutions, 'creation executes exactly the admitted D1 queries and return reads');
   assert.equal((await r.db().prepare('SELECT COUNT(*) AS n FROM ik_jobs WHERE id=?').bind(job.id).first())?.n, 1);
   assert.ok(((await r.db().prepare('SELECT COUNT(*) AS n FROM ik_d1_plan_chunks WHERE job_id=?').bind(job.id).first())?.n as number) > 1, 'the plan is retained in chunks');
   const [original] = await m.request('near-limit-read', () => readD1ImportOriginals(job.id, ctx));

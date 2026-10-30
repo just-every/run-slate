@@ -1,4 +1,5 @@
-import { DatabaseSync } from 'node:sqlite';
+import { DatabaseSync } from '../../../container/adapters/d1-sqlite.mjs';
+import { d1Preflight, d1NativeLimits } from '../../../container/adapters/d1-limits.mjs';
 import { sqliteRows } from './sqlite-text.ts';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
@@ -9,8 +10,8 @@ const sql = (sql: string, ...params: any[]) => ({ sql, params });
 /** Real SQLite D1-shaped SQL port, used for cheap transaction/race probes.
  * The provider suite separately runs the same engine against real workerd D1. */
 export function sqlitePort(native: DatabaseSync): D1Database {
-  const port = (query: string, values: any[] = []): any => ({ query, values, bind(...next: any[]) { return port(query, next); }, async first() { return sqliteRows(native, query, values, true)[0] ?? null; }, async all() { return { results: sqliteRows(native, query, values) }; } });
-  return { prepare(query) { return port(query); }, async batch(statements: any[]) { native.exec('BEGIN'); try { const result = statements.map(s => sqliteRows(native, s.query, s.values)); native.exec('COMMIT'); return result; } catch (e) { native.exec('ROLLBACK'); throw e; } } };
+  const port = (query: string, values: any[] = []): any => ({ query, values, bind(...next: any[]) { return port(query, next); }, async first() { d1Preflight(query, values); return sqliteRows(native, query, values, true)[0] ?? null; }, async all() { d1Preflight(query, values); return { results: sqliteRows(native, query, values) }; } });
+  return { prepare(query) { return port(query); }, async batch(statements: any[]) { native.exec('BEGIN'); try { const result = statements.map(s => { d1Preflight(s.query, s.values); return sqliteRows(native, s.query, s.values); }); native.exec('COMMIT'); return result; } catch (e) { native.exec('ROLLBACK'); throw e; } } };
 }
 export const sqliteTargets: D1TargetAdapter = {
   async read(db, destination, kind, id) { const r = await db.prepare('SELECT * FROM native_records WHERE destination=? AND kind=? AND id=?').bind(destination, kind, id).first(); return r ? { destination, targetKind: kind, targetId: id, revision: r.revision, value: JSON.parse(r.value_json) } : undefined; },
@@ -31,10 +32,10 @@ export function sqliteSource(count: number, label = 'original'): SourceBundle {
 }
 export async function sqliteRuntime(t: any) {
   const dir = mkdtempSync(join(tmpdir(), 'kit-sqlite-')), path = join(dir, 'data.sqlite');
-  let native = new DatabaseSync(path), db = sqlitePort(native);
+  let native = new DatabaseSync(path, { limits: d1NativeLimits }), db = sqlitePort(native);
   native.exec('PRAGMA foreign_keys=ON');
   await initializeD1ImportStorage(db);
   native.exec("CREATE TABLE native_records(destination TEXT,kind TEXT,id TEXT,revision TEXT,value_json TEXT,PRIMARY KEY(destination,kind,id));CREATE TABLE native_authority(id TEXT PRIMARY KEY,enabled INTEGER);INSERT INTO native_authority VALUES('owner',1)");
   t.after(() => { native.close(); rmSync(dir, { recursive: true, force: true }); });
-  return { db: () => db, native: () => native, reopen() { native.close(); native = new DatabaseSync(path); native.exec('PRAGMA foreign_keys=ON'); db = sqlitePort(native); }, context(): D1ImportContext { return { destination: 'workspace', namespace: 'archive', mappingVersion: 'v1', storage: { database: db, targets: sqliteTargets }, batchSize: 4, authorization: { principalId: 'owner', predicate: () => sql("EXISTS(SELECT 1 FROM native_authority WHERE id='owner' AND enabled=1)") } }; } };
+  return { db: () => db, native: () => native, reopen() { native.close(); native = new DatabaseSync(path, { limits: d1NativeLimits }); native.exec('PRAGMA foreign_keys=ON'); db = sqlitePort(native); }, context(): D1ImportContext { return { destination: 'workspace', namespace: 'archive', mappingVersion: 'v1', storage: { database: db, targets: sqliteTargets }, batchSize: 4, authorization: { principalId: 'owner', predicate: () => sql("EXISTS(SELECT 1 FROM native_authority WHERE id='owner' AND enabled=1)") } }; } };
 }

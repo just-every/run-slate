@@ -17,11 +17,11 @@ test('real D1: remaining request budget reserves paged creation return reads bef
   // No fake provider limit or special artifact-size cutoff is introduced.
   const invocation = requestContext(reviewed);
   await assert.rejects(m.request('remaining-budget-create', async () => {
-    await invocation.storage.database.batch(Array.from({ length: 1001 - admission.totalExecutions }, () => invocation.storage.database.prepare('SELECT 1')));
+    for (let n = 0; n < 1001 - admission.totalExecutions; n++) await invocation.storage.database.prepare('SELECT 1').first();
     return createD1ImportJob(plan, invocation);
   }), /IMPORT_D1_REQUEST_LIMIT/);
   const executed = m.snapshots.at(-1).count;
-  assert.ok(executed + admission.mutationStatements <= 1000, 'mutation itself would fit');
+  assert.ok(executed + admission.mutationExecutions <= 1000, 'mutation itself would fit');
   for (const table of ['ik_jobs', 'ik_d1_plan_chunks', 'ik_original_sets', 'ik_originals', 'ik_d1_original_chunks', 'ik_d1_assertions']) {
     assert.equal((await r.db().prepare(`SELECT COUNT(*) AS n FROM ${table}`).first())?.n, 0, `${table} must remain empty`);
   }

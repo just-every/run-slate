@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { DatabaseSync } from 'node:sqlite';
+import { sqlitePort } from './d1/sqlite-runtime.ts';
 import { buildImportPlan } from '../src/plan/index.ts';
 import { canonicalJson, sha256 } from '../src/provenance/identity.ts';
 import { partitionPlan } from '../src/d1/stream-partition.ts';
@@ -36,7 +38,7 @@ for (const length of [255, 256, 257]) test(`aggregate custody for ${length}-unit
   assert.deepEqual(restored, plan.entries);
 });
 
-test('coalesced normalized pages keep complete ordered custody and mapper decisions while sharing repeated metadata', async () => {
+test('coalesced normalized pages keep complete ordered custody and mapper decisions while sharing repeated metadata', async t => {
   const { amplifiedPlan, mergePlanPages } = await import('../src/d1/stream-working-set.ts');
   const { erasePlanRecords } = await import('../src/d1/erased-plan.ts');
   const { retainPlan, loadPlans } = await import('../src/d1/plans.ts');
@@ -55,8 +57,12 @@ test('coalesced normalized pages keep complete ordered custody and mapper decisi
   const envelope = JSON.parse(retained.body);
   assert.equal(envelope.d1Plan, 1);
   const chunks = retained.statements.flatMap(statement => JSON.parse(statement.params![0])).map(row => ({ ...row, job_id: 'job' }));
-  const database = { prepare() { return { bind() { return { async all() { return { results: chunks }; } }; } }; } };
-  const decoded = (await loadPlans([{ id: 'job', plan_json: retained.body }], database as any, codec)).get('job')!;
+  const native = new DatabaseSync(':memory:'); t.after(() => native.close());
+  native.exec('CREATE TABLE ik_d1_plan_chunks(job_id TEXT,ordinal INTEGER,body TEXT)');
+  const insert = native.prepare('INSERT INTO ik_d1_plan_chunks VALUES(?,?,?)');
+  for (const chunk of chunks) insert.run(chunk.job_id,chunk.ordinal,chunk.body);
+  const database = sqlitePort(native);
+  const decoded = (await loadPlans([{ id: 'job', plan_json: retained.body }], database, codec)).get('job')!;
   assert.deepEqual(decoded.entries[100].source.payload, { erased: true });
   assert.deepEqual(decoded.entries[100].effects, []);
   assert.deepEqual(decoded.entries.filter((_, i) => i !== 100), plan.entries.filter((_, i) => i !== 100));

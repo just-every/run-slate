@@ -42,6 +42,8 @@ export async function inspectContract(root = process.cwd()) {
   const manifest = JSON.parse(manifestText);
   const capabilityIds = new Set(manifest.capabilities.flatMap(({ clauses: mapped }) => mapped));
   const clauses = readClauses(contract, capabilityIds);
+  const sharedAgent = [...(await read('modules/agent-door/CLAUSES.md')).matchAll(/^#### (BASE-AGENT-\d{3}) — [^\n]+\n([\s\S]*?)(?=^#{1,4} |$(?![\s\S]))/gm)];
+  const canonicalShared=new Map(sharedAgent.map(([,id,body])=>[id,body.replace(/\s+/gu,' ').trim()]));
   const contractIds = clauses.map(({ id }) => id);
   const baselineIds = [...baseline.matchAll(/\*\*(BASE-[A-Z]+-\d{3}) —/g)].map((match) => match[1]);
   const contractPolicies = [...contract.matchAll(/Policy: `([^`]+)`/g)].map((match) => match[1]);
@@ -62,7 +64,7 @@ export async function inspectContract(root = process.cwd()) {
   check("every declared policy has a definition with values", [...manifestPolicies].every((id) => (policyDefinitions.get(id)?.values.length ?? 0) >= 2), {
     policies: Object.fromEntries([...policyDefinitions].map(([id, definition]) => [id, definition.values])),
   });
-  check("contract IDs are distinct from complete Base IDs", contractIds.every((id) => !baselineIds.includes(id) && !id.startsWith("BASE-")));
+  check("contract Base IDs match delivered shared requirements", clauses.every(({id,body})=> !id.startsWith('BASE-') ? !baselineIds.includes(id) : canonicalShared.has(id) && canonicalShared.get(id)===body));
   const retiredFindings = await retiredRuntimeFindings(root);
   check("retired runtimes have been removed", retiredFindings.length === 0, {findings: retiredFindings});
   check("operator and public paths follow the seed URL convention", manifest.deploy.operatorPath === "/app" && ["/", "/signin", "/health", "/api/auth/", "/assets/"].every((path) => manifest.deploy.publicPaths.includes(path)) && manifest.deploy.publicPaths.every((path) => path === "/" || path.startsWith("/")))
