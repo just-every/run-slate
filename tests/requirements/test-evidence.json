@@ -42,9 +42,10 @@
         "STAT-003",
         "SHARE-007",
         "BLOCK-008",
-        "CONT-007"
+        "CONT-007",
+        "WEB-005"
       ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
+      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance. Native anonymous HTTP reads cover default noindex and the first response header and served robots meta after enabling and disabling indexing. The responsive publicPageJourney supplies native publication-control and persisted-state acceptance through the existing core-wiki browser callers."
     },
     {
       "file": "tests/flagship/content/http.test.ts",

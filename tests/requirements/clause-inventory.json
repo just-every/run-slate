@@ -690,14 +690,19 @@
       "id": "WEB-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WEB-005 — Indexing is off until it is chosen. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "This legacy inventory classifies supporting Workers tests only; CONTRACT.md owns native clause status. The loaded HTTP publication journey covers default noindex and both crawler representations on the first request after enabling and disabling indexing. The existing responsive core-wiki callers invoke publicPageJourney for native controls, persisted exposure and anonymous document acceptance; no crawler service receipt is claimed.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/content/http.test.ts",
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
+        }
+      ]
     },
     {
       "id": "WEB-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WEB-006 — Unpublish. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "This legacy inventory classifies supporting Workers tests only; CONTRACT.md owns native clause status. The existing responsive core-wiki callers invoke publicPageJourney for native unpublish, the first content-free anonymous response within five seconds, unchanged versions and grants, reserved-address collision refusal and republication. No external deployment receipt is claimed.",
       "supportingTests": []
     },
     {
