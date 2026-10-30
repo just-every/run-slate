@@ -124,3 +124,21 @@ WORK-013 push coverage also uses the existing `real core-wiki and touch-member j
 The existing `preview and bootstrap owner sign-in preserve identity and single-use authority` Workers registration in `tests/flagship/core/preview-owner-signin.test.ts` invokes `tests/flagship/core/owner-bootstrap.case.ts`. It exercises verified bootstrap and a signed owner claim using an ephemeral test signing key. Both doors create the configured deployment name, General, Welcome and the completed marker; workspace, space, title and body edits persist through native HTTP. A real D1 trigger fails the final page-revision insert and the entire bootstrap rolls back, including owner authority. Invalid and foreign claims, replay and replay after membership and session revocation are refused without new records or authority.
 
 The existing emitted admission registration in `tests/e2e/production-artifact.test.mjs` invokes `tests/e2e/managed-first-open.mjs` in push Verify's contract job. It retains native bootstrap and email confirmation, checks the default General space and Welcome page without the wizard, returns a completed owner from setup to the workspace, and persists meaningful workspace, space, title and body edits through reload at 1440 and 390. Only the paid mail edge is substituted; these journeys make no live delivery or hosted-provider claim.
+
+The restore flow in `tests/qualification/ui-convergence/two-people-history.mjs`
+is invoked by the existing desktop two-person journey and the phone core
+journey in `tests/qualification/ui-convergence/journeys.test.mjs`. It uses
+native settings and publication commands to make a real anonymous address
+resolve before any restore. A non-owner with view access is refused without
+changing the page, history or activity; the same member with edit access
+restores through History. Reload and native reads reconcile the selected
+content and properties, a new revision with all prior history retained, and
+activity naming that member and the source revision.
+
+That flow retains a real incoming link, comment anchors including the existing
+retained-text and orphaned-text cases, child placement, complete grants and
+the public exposure. The copied link and anonymous address still open after
+reload. An exact restore retry creates neither another revision nor another
+activity entry; after access revocation the same retry is refused without
+changing either. These browser assertions support REV-003 through emitted
+Worker public doors; no additional test registration is introduced.
