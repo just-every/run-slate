@@ -22,14 +22,23 @@ async function paintedTheme(view, theme, target = view.getByRole('main').locator
     .map(animation => animation.finished)));
   await expect(target).toBeVisible();
   const palette = await target.evaluate(element => {
-    const canvas = document.createElement('canvas');
-    canvas.width = canvas.height = 1;
-    const context = canvas.getContext('2d');
+    let parser;
     const rgba = color => {
-      context.clearRect(0, 0, 1, 1);
-      context.fillStyle = color;
-      context.fillRect(0, 0, 1, 1);
-      return [...context.getImageData(0, 0, 1, 1).data];
+      const rgb = /^rgba?\(([^)]+)\)$/.exec(color);
+      const channels = rgb?.[1].split(',').map(Number);
+      if (channels && [3, 4].includes(channels.length) && channels.every(Number.isFinite)) {
+        return [...channels.slice(0, 3), Math.round((channels[3] ?? 1) * 255)];
+      }
+      // Retain support for any CSS color syntax without repeated GPU reads.
+      if (!parser) {
+        const canvas = document.createElement('canvas');
+        canvas.width = canvas.height = 1;
+        parser = canvas.getContext('2d', { willReadFrequently: true });
+      }
+      parser.clearRect(0, 0, 1, 1);
+      parser.fillStyle = color;
+      parser.fillRect(0, 0, 1, 1);
+      return [...parser.getImageData(0, 0, 1, 1).data];
     };
     let surface = element;
     while (surface.parentElement && rgba(getComputedStyle(surface).backgroundColor)[3] === 0) surface = surface.parentElement;
