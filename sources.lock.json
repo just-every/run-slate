@@ -12000,7 +12000,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/public-profile-journey.mjs": {
-      "sha256": "fc6a94cc459e57bfcb1dbdc6b598e87a51504c9abf496a79506c5c7dbaf4c919",
+      "sha256": "17d18390a21564a8b19ee330cd656117e9604f038914df6e30efa637d7202106",
       "executable": false
     },
     "tests/qualification/ui-convergence/publication-journey.mjs": {
