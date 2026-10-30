@@ -69,7 +69,7 @@ export function PageActionDialogs({
       {dialog === "publish" ? <WorkspacePublicationDialog document={document} revision={revision} onClose={onClose} onSaved={reload} /> : null}
       {dialog === "discard-draft" ? (
         <ActionDialog title="Discard this draft?" action="Discard draft" onClose={onClose} onSubmit={async () => {
-          await mutate(`/api/archive/${id}`, { operationKey: operationKey(), expectedRevisionId: revision, action: "trash" });
+          await mutate(`/api/archive/${id}`, { operationKey: operationKey(), expectedRevisionId: revision, action: "discard-draft" });
           window.dispatchEvent(new Event("slate:navigation-changed"));
           onCloseDraft();
         }}>
