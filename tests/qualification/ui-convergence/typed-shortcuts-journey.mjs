@@ -50,7 +50,7 @@ export async function typedShortcutsJourney(state) {
     const entry = typed.getByRole('listitem').filter({ has: page.getByText(shortcut.reference, { exact: true }) });
     await expect(entry.locator('kbd')).toHaveText(shortcut.keys);
   }
-  for (const keys of ['/', '@', 'Ctrl Z or ⌘ Z']) await expect(typed.locator('kbd').filter({ hasText: new RegExp(`^${keys.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`) })).toBeVisible();
+  for (const keys of ['/', '@', '//', 'Ctrl Z or ⌘ Z']) await expect(typed.locator('kbd').filter({ hasText: new RegExp(`^${keys.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`) })).toBeVisible();
   await accessible(page, 'complete typed formatting reference');
   await page.keyboard.press('Escape');
   await expect(reference).toHaveCount(0);
