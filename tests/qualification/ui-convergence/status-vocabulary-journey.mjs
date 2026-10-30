@@ -87,7 +87,9 @@ export async function statusVocabularyJourney(state, width) {
       await expect(row.getByRole('button',{name:'Change assigned pages',exact:true})).toBeVisible();
       await shot(`${value}-retired-settings`);
       await page.goto(`${origin}/app/pages/${ids[0]}?detail=status`,{waitUntil:'networkidle'});
-      await expect(page.locator('.page-status-chip')).toContainText(renamed);
+      const chips=page.locator('.page-status-chip:visible');
+      await expect(chips.first()).toBeVisible();
+      for(const chip of await chips.all()) await expect(chip).toContainText(renamed);
       await expect(page.getByRole('combobox',{name:/^Set page status\b/}).locator(`option[value="${added.key}"]`)).toHaveCount(0);
       await shot(`${value}-retained-page`);
       if(width===1440) {
@@ -135,7 +137,10 @@ export async function statusVocabularyJourney(state, width) {
       await page.locator('.settings-list li').filter({hasText:renamed}).getByRole('button',{name:'Change assigned pages',exact:true}).click();
       await expect(page.getByRole('region',{name:`Pages carrying ${renamed}`,exact:true}).locator('.bulk-page-list li')).toHaveCount(0);
       await accessible(page,'status vocabulary and explicit bulk change');
-      console.log(`PROBE STAT-001 profile=${value}: native owner controls, retained pages, non-owner refusals and explicit bulk receipts passed at ${width}px`);
+      console.log(`PROBE STAT-001 vocabulary record: GET /api/status under ${value} -> four seeded keys, labels, colors and verification flags reconciled at ${width}px`);
+      console.log(`PROBE STAT-001 acceptance 1 and 3: native Settings under ${value} -> owner add, rename, recolor and retirement persisted at ${width}px`);
+      console.log(`PROBE STAT-001 acceptance 2: retired assignment under ${value} -> unchanged page and history, visible retained status, explicit bulk receipts and reload passed at ${width}px`);
+      if(width===1440)console.log(`PROBE STAT-001 authority: non-owner POST /api/status under ${value} -> all four mutations refused with 403 and unchanged vocabulary and pages`);
     }
   } finally { await profile(originalProfile); }
 }

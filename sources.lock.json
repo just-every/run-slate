@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "830a48a24e48e4726a7b9f89b210073050d4005ca40f32f0aab4b039d49ba9e8",
+      "sha256": "d68bee85eec826f4c41cfdba726d135beeefb228abbff76ae3c7b00d82446373",
       "executable": false
     },
     "DEMO.md": {
@@ -12052,7 +12052,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/status-vocabulary-journey.mjs": {
-      "sha256": "794ef3d971b968e616e04cf72c2c2a13cfb4961b1421d7e848f953dbe6d5c927",
+      "sha256": "10ac83b03c6cf7dee161cf3b192e653665eefc1834ee0a3cc66048f89e7222dc",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
