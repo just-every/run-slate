@@ -8,7 +8,7 @@ import {call,grant,ok,restrictedPage} from './two-people-support.mjs';
 export async function pageDetailsJourney(state,people) {
   const {page,context,origin,api}=state;
   const member=people.bob,view=member.page,width=page.viewportSize().width;
-  const space=(await api('/api/containers')).items.find(item=>item.name==='Handbook');
+  const space=(await ok(context,origin,'POST','/api/containers',{operationKey:randomUUID(),name:'Response references',visibility:'private'})).value;
   const create=async(title,blocks=[],extra={})=>(await ok(context,origin,'POST','/api/pages',{
     operationKey:randomUUID(),containerId:space.id,title,blocks,...extra,
   })).value.pageId;
@@ -67,6 +67,9 @@ export async function pageDetailsJourney(state,people) {
   assert.equal(metrics.totalViews,2);assert.equal(metrics.uniqueViewers,1);
   await expect(panel.getByRole('region',{name:'Page readership',exact:true})).toContainText('2 views');
   await accessible(view,'populated page details');
+  await panel.getByRole('region',{name:'Page readership',exact:true}).scrollIntoViewIfNeeded();
+  await expect(panel.getByRole('region',{name:'Page readership',exact:true})).toBeVisible();
+  await accessible(view,'page details backlinks and readership');
   const before=await api(`/api/sharing/pages/${pageId}`);
   assert.ok(before.items.some(item=>item.principalId===member.id&&item.level==='full'&&item.effective));
   assert.ok(before.inheritedItems.some(item=>item.origin.id===parentId&&item.level==='comment'&&item.effective));
