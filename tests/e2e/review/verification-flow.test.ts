@@ -222,6 +222,32 @@ async function citationJourney(f: Awaited<ReturnType<typeof reviewFixture>>) {
   const privateRevision=await request('anonymous','GET',`/p/cited-handbook?revision=${working}`);
   expect(privateRevision.status).toBe(404);
   expect(privateRevision.text).not.toContain('Working-only private title');
+  // REV-005: removing an image from the next published body cannot break its committed citation.
+  const mediaPage=await success('owner','POST','/api/pages',{operationKey:op(),containerId:'c',title:'Historical image'});
+  const mediaId=mediaPage.value.pageId, svg='<svg xmlns="http://www.w3.org/2000/svg" width="32" height="24"><rect width="32" height="24" fill="blue"/></svg>';
+  const form=new FormData();
+  form.set('operationKey',op());form.set('pageId',mediaId);form.set('file',new File([svg],'revision.svg',{type:'image/svg+xml'}));
+  const uploaded=await api.request(origin+'/api/media',{method:'POST',headers:{origin,cookie:f.cookies.owner},body:form},bindings);
+  expect(uploaded.status).toBe(200);
+  const file=(await uploaded.json() as any).value;
+  const image=await success('owner','PUT',`/api/pages/${mediaId}/blocks`,{operationKey:op(),expectedRevisionId:mediaPage.receipt.revisionId,blocks:[{id:'synthetic-slate-historical-image',blockType:'media',treePosition:'0',content:{kind:'image',source:{fileId:file.id,url:file.url,name:file.name},caption:'Original committed image',alt:'Blue rectangle'}}]});
+  const live=await success('owner','POST',`/api/pages/${mediaId}/publish`,{operationKey:op(),expectedRevisionId:image.receipt.revisionId});
+  const mediaSnapshot=(await success('owner','GET',`/api/pages/${mediaId}`)).publishedRevisionId;
+  await success('owner','POST',`/api/publishing/${mediaId}`,{operationKey:op(),expectedRevisionId:live.receipt.revisionId,host:publicHost,slug:'historical-image',indexable:false});
+  const beforeImage=await request('anonymous','GET',`/p/historical-image/media/${file.id}?display=synthetic-slate-historical-image`);
+  expect(beforeImage.status).toBe(200);
+  const removed=await success('owner','PUT',`/api/pages/${mediaId}/blocks`,{operationKey:op(),expectedRevisionId:live.receipt.revisionId,blocks:[]});
+  await success('owner','POST',`/api/pages/${mediaId}/publish`,{operationKey:op(),expectedRevisionId:removed.receipt.revisionId});
+  const historical=await request('anonymous','GET',`/p/historical-image?revision=${mediaSnapshot}`);
+  expect(historical.status).toBe(200);
+  const imageHref=historical.text.match(/<figure><img src="([^"]+)"/)?.[1].replaceAll('&amp;','&');
+  expect(imageHref).toBe(`/p/historical-image/media/${file.id}?revision=${mediaSnapshot}&display=synthetic-slate-historical-image`);
+  const oldImage=await request('anonymous','GET',imageHref!);
+  expect(oldImage.status).toBe(200);
+  expect(oldImage.text).toBe(beforeImage.text);
+  expect(oldImage.text).toContain('<svg');
+  expect((await request('anonymous','GET',`/p/historical-image/media/${file.id}`)).status).toBe(404);
+  expect((await request('anonymous','GET',`/p/historical-image/media/${file.id}?revision=${working}`)).status).toBe(404);
   // A freshly proven native session authorizes deletion; no stale grant authorizes a replay.
   f.cookies.owner=await sessionFor('owner',{freshProof:true});
   await success('owner','POST',`/api/archive/${id}`,{operationKey:op(),expectedRevisionId:current.page.revisionId,action:'trash'});
