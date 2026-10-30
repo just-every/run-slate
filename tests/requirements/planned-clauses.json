@@ -1266,5 +1266,57 @@
   {
     "id": "KEEP-010",
     "name": "Team-built agents"
+  },
+  {
+    "id": "BASE-AGENT-001",
+    "name": "Shared agent door; normal rer verify owns conformance, full clause acceptance remains partial"
+  },
+  {
+    "id": "BASE-AGENT-002",
+    "name": "Shared agent door; normal rer verify owns conformance, full clause acceptance remains partial"
+  },
+  {
+    "id": "BASE-AGENT-003",
+    "name": "Shared agent door; normal rer verify owns conformance, full clause acceptance remains partial"
+  },
+  {
+    "id": "BASE-AGENT-004",
+    "name": "Shared agent door; normal rer verify owns conformance, full clause acceptance remains partial"
+  },
+  {
+    "id": "BASE-AGENT-005",
+    "name": "Shared agent door; normal rer verify owns conformance, full clause acceptance remains partial"
+  },
+  {
+    "id": "BASE-AGENT-006",
+    "name": "Shared agent door; normal rer verify owns conformance, full clause acceptance remains partial"
+  },
+  {
+    "id": "BASE-AGENT-007",
+    "name": "Shared agent door; normal rer verify owns conformance, full clause acceptance remains partial"
+  },
+  {
+    "id": "BASE-AGENT-008",
+    "name": "Shared agent door; normal rer verify owns conformance, full clause acceptance remains partial"
+  },
+  {
+    "id": "BASE-AGENT-009",
+    "name": "Shared agent door; normal rer verify owns conformance, full clause acceptance remains partial"
+  },
+  {
+    "id": "BASE-AGENT-010",
+    "name": "Shared agent door; normal rer verify owns conformance, full clause acceptance remains partial"
+  },
+  {
+    "id": "BASE-AGENT-011",
+    "name": "Shared agent door; normal rer verify owns conformance, full clause acceptance remains partial"
+  },
+  {
+    "id": "BASE-AGENT-012",
+    "name": "Shared agent door; normal rer verify owns conformance, full clause acceptance remains partial"
+  },
+  {
+    "id": "BASE-AGENT-013",
+    "name": "Shared agent door; normal rer verify owns conformance, full clause acceptance remains partial"
   }
 ]
