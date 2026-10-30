@@ -9,6 +9,7 @@ import { compactPage } from './browser-evidence.mjs';
 import {searchFiltersJourney} from './search-filters-journey.mjs';
 import {mixedSearchJourney} from './mixed-search-journey.mjs';
 import {containerIdentityJourney} from './container-identity-journey.mjs';
+import {containerCreationJourney} from './container-creation-journey.mjs';
 
 export async function searchJourney(state, pageId) {
   const {page,origin,journeyTitle,searchTerm}=state;
@@ -94,6 +95,7 @@ export async function settingsJourney(state, width) {
   await expect(page.locator('body')).not.toContainText(/\bContainers?\b/);
   await accessible(page, 'space settings');
   if(width===1440) await statusVocabularyJourney(state,width);
+  await containerCreationJourney(state, width);
   await guestConsoleJourney(state);
   await themeJourney(state, width);
   if(width===1440)await activityContextJourney(state);
