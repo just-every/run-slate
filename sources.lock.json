@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "92be2ffa631a3c7d2f972451aa1c65904cd31d9028169ee4aa108ec5bf5c04b3",
+      "sha256": "5c7930032c837d9edfa1efa2509f0e4d2893d85f5ef17847a44c80c5068cf668",
       "executable": false
     },
     "DEMO.md": {
@@ -12024,7 +12024,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/revision-deletion-journey.mjs": {
-      "sha256": "807a445dcca10c74f9668a46a2b9f347665234548a46c83337eb961533531a53",
+      "sha256": "b97951fd11a635631f754c852977febf1a34555d4b408bff13271a21aa506541",
       "executable": false
     },
     "tests/qualification/ui-convergence/saml-journey.mjs": {

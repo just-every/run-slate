@@ -3976,13 +3976,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
-REV-003 judged from the native browser proof source at commit `f2d954232e171f0802d54979a47a29ba0c11f3cd` (30 October 2026). Exact candidate and landing receipts remain with branch Verify and the guarded lander.
+REV-003 judged from the native browser proof source at commit `f2d954232e171f0802d54979a47a29ba0c11f3cd` (30 October 2026). Exact candidate and landing receipts remain with branch Verify and the guarded lander. REV-006 native deletion source reviewed at commit `6e0f2218c1e3f9f0822d1206d4765cca07c88641`; the final candidate includes the policy-aware refusal assertion exercised by both callers.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 34 | 192 | 0 | 226 |
+| Published | 35 | 191 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 50 | 247 | 40 | 337 |
+| All | 51 | 246 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4064,7 +4064,7 @@ REV-003 judged from the native browser proof source at commit `f2d954232e171f080
 | `REV-003` | Restore | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — two people edit at once, lose access mid-edit and restore history at 1440px; real core-wiki and touch-member journeys at 390px. Both invoke `tests/qualification/ui-convergence/two-people-history.mjs` — historyJourney: edit-only restore, new retained history, content and properties, actor and source revision, links, anchors, children, grants, native public address, retry and current-access refusal. | |
 | `REV-004` | Compare | published | partial | `tests/e2e/review/verification-flow.test.ts` | Missing a block-diff journey showing added, removed and changed blocks under both version profiles; the cited verification flow compares page title properties only. |
 | `REV-005` | A citation resolves to its revision | published | partial | `tests/e2e/review/verification-flow.test.ts` | Missing a citation journey that opens an exact old revision, revokes and expires access, then reads anonymous and erased states without disclosure; the cited verification flow reads an old revision and newer-version notice only. |
-| `REV-006` | Deleting a version | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A member with `full` access can delete one intermediate version, which removes its content and leaves a numbered tombstone in history naming who deleted it and when."<br>No validated CI-run proof for this acceptance point: "The current revision and the published revision cannot be deleted, and deletion is offered only where `REV-007` says so." |
+| `REV-006` | Deleting a version | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — two people edit at once, lose access mid-edit and restore history at 1440px; real core-wiki and touch-member journeys at 390px. Both invoke `tests/qualification/ui-convergence/revision-deletion-journey.mjs` — revisionDeletionJourney: full-access intermediate deletion, numbered tombstone with deleting member and time after reload, retained content, protected current and published revisions, both version profiles, retry and reduced-authority refusal. | |
 | `REV-007` | Version profile | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a save/publish/history journey under both version profiles, including preserved imported numbering; the cited test parses imported ordinals without exercising history controls. |
 | `STAT-001` | The status vocabulary | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "The workspace holds a list of status entries, each with a key, a label, a color and an optional verification requirement."<br>No validated CI-run proof for this acceptance point: "It ships seeded with Rough draft, In progress, Ready for review and Verified under every value of `STAT-005`, and a workspace owner can add, rename, recolor and retire entries."<br>No validated CI-run proof for this acceptance point: "Retiring an entry keeps it on the pages that carry it and offers a bulk change (`CONT-006`)." |
 | `STAT-002` | A page's status | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A page carries at most one status."<br>No validated CI-run proof for this acceptance point: "Setting or clearing it is one action for anyone with edit access, writes one activity entry, and makes the page findable by that status in search (`SEARCH-003`) and in content queries (`BLOCK-010`)." |
