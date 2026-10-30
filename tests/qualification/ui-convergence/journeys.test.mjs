@@ -46,6 +46,7 @@ import { reviewRequestJourney } from './review-request-journey.mjs';
 import { hubJourney } from './hub-journey.mjs';
 import { blogJourney } from './blog-journey.mjs';
 import { followingJourney } from './following-journey.mjs';
+import { treeOrderJourney } from './tree-order-journey.mjs';
 import { treeStructureJourney } from './tree-structure-journey.mjs';
 import { treeFilterJourney } from './tree-filter-journey.mjs';
 import { failedSaveJourney } from './failed-save-journey.mjs';
@@ -248,6 +249,10 @@ for (const width of [1440]) {
 
 for (const width of [1440]) {
   test(`page creation destinations and editor locks preserve readable content at ${width}px`, { timeout: 300000 }, async () => {
+    await withWorkspace({ width, height: 1000 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await treeOrderJourney(state);
+    });
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await treeStructureJourney(state);

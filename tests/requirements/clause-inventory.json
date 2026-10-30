@@ -376,7 +376,7 @@
       "id": "TREE-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for TREE-002 — Reordering and nesting. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "This legacy inventory classifies supporting regressions only; CONTRACT.md owns native clause status. The loaded treeOrderJourney in tests/qualification/ui-convergence/tree-order-journey.mjs exercises native drag reorder, reviewed re-parenting, retained descendants, identical stored and rendered order for two members after reload, committed rename, body edit and publication without placement changes, and view-only movement refusal without a changed revision, placement or activity. Independent landing acceptance is separate.",
       "supportingTests": []
     },
     {

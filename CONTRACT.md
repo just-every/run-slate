@@ -3978,9 +3978,9 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 34 | 192 | 0 | 226 |
+| Published | 35 | 191 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 50 | 247 | 40 | 337 |
+| All | 51 | 246 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4021,7 +4021,7 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 | `PAGE-013` | Analytics | published | done | `tests/qualification/ui-convergence/analytics-journey.mjs` — "analyticsJourney" |  |
 | `PAGE-014` | Reactions | published | done | `tests/qualification/ui-convergence/reactions-journey.mjs` — "reactionsJourney" |  |
 | `TREE-001` | A nested tree in a container | published | done | `tests/qualification/ui-convergence/tree-structure-journey.mjs` — "treeStructureJourney": acceptance 1, icons, titles, child indicators, native collapse and expansion with independent per-member preferences through reload and fresh sign-in sessions; acceptance 2, exact native page and rendered parent inventories, including duplicate titles and generated space homes; acceptance 3, a sixteen-level branching tree in two containers with no product depth cap. Loaded by the existing responsive callers in `tests/qualification/ui-convergence/journeys.test.mjs`; existing filter, inaccessible-ancestor and creation journeys remain loaded. | |
-| `TREE-002` | Reordering and nesting | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A member with edit access can reorder a page among its siblings and re-parent it by dragging or through `PAGE-004`."<br>No validated CI-run proof for this acceptance point: "Order is explicit and stored, is the same for every member, and never changes as a side effect of an edit, a rename or a publish." |
+| `TREE-002` | Reordering and nesting | published | done | `tests/qualification/ui-convergence/tree-order-journey.mjs` — "treeOrderJourney": acceptance 1 and 2, native drag reorder and reviewed re-parenting retain the subtree and one explicit sibling order for both members after reload; committed rename, body edit and publication preserve every stored parent and position; a view-only member cannot drag or confirm a move, and a refused request changes no revision, placement or activity. Loaded by the existing desktop caller in `tests/qualification/ui-convergence/journeys.test.mjs`. | |
 | `TREE-003` | Shared with me | published | done | `tests/qualification/ui-convergence/shared-navigation-journey.mjs` — "sharedNavigationJourney" |  |
 | `TREE-004` | Filter the tree | published | done | `tests/qualification/ui-convergence/tree-filter-journey.mjs` — "treeFilterJourney" |  |
 | `TREE-005` | Create in place | published | done | `tests/qualification/ui-convergence/create-in-place-journey.mjs` — "createInPlaceJourney" |  |
