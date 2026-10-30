@@ -71,6 +71,17 @@ export async function prepareArchivePage(ctx: FeatureContext, id: string, input:
     }
     return { statements, entity: { id, kind: 'page', revisionId: root.revision_id }, value: { pageId: id, revisionId: root.revision_id, action: input.action } };
 }
+/** Preview discloses only a cascade the current member can fully administer. */
+export async function previewPermanentDeletePage(ctx: FeatureContext, id: string) {
+    await requirePageLevel(ctx, id, 'full', { includeTrashed: true });
+    const pages = await descendants(ctx, id);
+    for (const page of pages) {
+        await requirePageLevel(ctx, page.id, 'full', { includeTrashed: true });
+        if (!page.trashed_at)
+            throw new ApiProblem(409, 'NOT_TRASHED', 'Only trash can be permanently deleted.');
+    }
+    return { items: pages.map(page => ({ id: page.id, title: page.title })) };
+}
 export async function permanentDeletePage(ctx: FeatureContext, id: string, input: {
     operationKey: string;
     confirmedPageIds: string[];

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useResource } from "../../../client/useResource";
-import { mutate, operationKey, errorMessage } from "../../../client/transport";
+import { mutate, operationKey, errorMessage, ApiError } from "../../../client/transport";
 import { RequestState } from "../../../app/ui/RequestState";
 import { ActionDialog } from "../../../app/ui/ActionDialog";
 import { TopBar } from "../../../app/ui/header/TopBar";
@@ -82,32 +82,12 @@ export function WorkspaceArchive({containerId,embedded}:{containerId?:string;emb
         </RequestState>
         {error ? <p role="alert">{errorMessage(error)}</p> : null}
         {selected ? (
-          <ActionDialog
-            title={`Permanently delete ${selected.title}?`}
-            action="Delete permanently"
+          <PermanentDeleteDialog
+            key={selected.id}
+            item={selected}
             onClose={() => setSelected(undefined)}
-            onSubmit={async (data) => {
-              if (data.get("confirm") !== selected.title)
-                throw new Error("Type the exact page title to confirm.");
-              await mutate(`/api/archive/${selected.id}/permanent-delete`, {
-                operationKey: operationKey(),
-                confirmedPageIds: [selected.id],
-              });
-              resource.reload();
-            }}
-          >
-            <p>
-              This removes the page’s content and revision content permanently.
-              If it has children, Slate will require confirmation of the full
-              list before any deletion. For imported content, this also removes
-              the retained source archive and its import recovery history. Other
-              native pages remain, but that import can no longer be retried or undone.
-            </p>
-            <label>
-              Type the page title
-              <input name="confirm" required autoComplete="off" />
-            </label>
-          </ActionDialog>
+            onDeleted={resource.reload}
+          />
         ) : null}
   </>;
   if (embedded) return <section className="archive-workspace">{tabs}{body}</section>;
@@ -121,4 +101,36 @@ export function WorkspaceArchive({containerId,embedded}:{containerId?:string;emb
       </section>
     </>
   );
+}
+
+function PermanentDeleteDialog({item,onClose,onDeleted}:{item:Archived;onClose:()=>void;onDeleted:()=>void}) {
+  const preview=useResource<{items:{id:string;title:string}[]}>(`/api/archive/${item.id}/permanent-delete-preview`);
+  return <ActionDialog
+    title={`Permanently delete ${item.title}?`}
+    action="Delete permanently"
+    onClose={onClose}
+    submitDisabled={preview.loading || !preview.data || !!preview.error}
+    onSubmit={async data=>{
+      if(data.get("confirm")!==item.title)throw new Error("Type the exact page title to confirm.");
+      const confirmedPageIds=data.getAll("pageId").map(String);
+      if(!preview.data || confirmedPageIds.length!==preview.data.items.length)throw new Error("Confirm every page to be destroyed.");
+      try {
+        await mutate(`/api/archive/${item.id}/permanent-delete`,{operationKey:operationKey(),confirmedPageIds});
+        onDeleted();
+      } catch(cause) {
+        if(cause instanceof ApiError && cause.code==="CONFIRM_CASCADE")preview.reload();
+        throw cause;
+      }
+    }}
+  >
+    <p>This permanently removes the named pages, every revision, uploaded files and comments. For imported content, it also removes the retained source archive and import recovery history. Other native pages remain, but that import can no longer be retried or undone.</p>
+    <RequestState loading={preview.loading} error={preview.error} retry={preview.reload}>
+      <p>Confirm every page to be destroyed:</p>
+      {preview.data?.items.map(page=><label key={page.id}>
+        <input type="checkbox" name="pageId" value={page.id} required />
+        {page.title}
+      </label>)}
+    </RequestState>
+    <label>Type the page title<input name="confirm" required autoComplete="off" /></label>
+  </ActionDialog>;
 }
