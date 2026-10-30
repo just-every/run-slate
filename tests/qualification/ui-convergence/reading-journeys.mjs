@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {statusVocabularyJourney} from './status-vocabulary-journey.mjs';
 import {guestConsoleJourney} from './guest-console-journey.mjs';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-support.mjs';
@@ -87,5 +88,6 @@ export async function settingsJourney(state, width) {
   await expect(page.locator('.spaces-workspace').getByRole('heading', { name: 'Spaces', exact: true })).toBeVisible();
   await expect(page.locator('body')).not.toContainText(/\bContainers?\b/);
   await accessible(page, 'space settings');
+  await statusVocabularyJourney(state,width);
   await guestConsoleJourney(state);
 }

@@ -1884,7 +1884,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "7f08a82007c71fa23e8caa86a890b6e1ce22795b15f0b76c6a473b193fce75e7",
+      "sha256": "6837eb14ebe96a79b67708233a475e048fdfbc1c470dc2dd552eaec3b6c4d82c",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
@@ -6164,7 +6164,7 @@
       "executable": false
     },
     "src/core/features/containers/ui/workspace/ContainerBulk.tsx": {
-      "sha256": "dd8fc60f19db9cc70db531aad45a9093d2b30bb35a0d100b14cd6caa6f8151e0",
+      "sha256": "22baf68555c266808b3c84c828524e25278c9dd8bb22939b27eb51c4538ca8b8",
       "executable": false
     },
     "src/core/features/containers/ui/workspace/ContainerHome.tsx": {
@@ -8208,7 +8208,7 @@
       "executable": false
     },
     "src/core/features/page-status/ui/workspace/StatusSettings.tsx": {
-      "sha256": "cc56db53f72fb46450e5b3ab31348fbac54d647e5f64ccc7ffc269e04ccf9868",
+      "sha256": "7d334a636408926397c61c5989e1cba92d3cebba74166bcc9450b30e318e5790",
       "executable": false
     },
     "src/core/features/page-status/ui/workspace/VerificationSummary.tsx": {
@@ -8308,7 +8308,7 @@
       "executable": false
     },
     "src/core/features/pages/tree.ts": {
-      "sha256": "e03f110154f38f4a7c2c76e56fb47e3667324fa4c99d91cb5f6f80d325a4094d",
+      "sha256": "082cba2532061a522b2cf63858577948d726df35e6688400800ff48e10c668bd",
       "executable": false
     },
     "src/core/features/pages/types.ts": {
@@ -9732,7 +9732,7 @@
       "executable": false
     },
     "src/core/features/workspace/bootstrap.ts": {
-      "sha256": "ebc9e9fb05fb305a0b3642e089f30d5c809734a7e21b7e80b290895c79ea8906",
+      "sha256": "ec55b0565cea2576b79050b2e1f3ceec33187c88ac338f6cc1efac3dd523883e",
       "executable": false
     },
     "src/core/features/workspace/configuration-history.ts": {
@@ -10744,7 +10744,7 @@
       "executable": false
     },
     "tests/flagship/content/http.test.ts": {
-      "sha256": "e20134bb0804f1e08406585d411ab2224abd7b1871d9063df74cd729d7b7f8c1",
+      "sha256": "bf7ae2f36a2594e6ebde92e0264d7d1ae3ca0d86c327aceab2a66b96cd539479",
       "executable": false
     },
     "tests/flagship/content/journeys.ts": {
@@ -10769,6 +10769,10 @@
     },
     "tests/flagship/content/sqlite-harness.mts": {
       "sha256": "359b70ad91cfbfc23aaa218179faf5b3b9e3ac66c10111e7e8e9b4032f7051bb",
+      "executable": false
+    },
+    "tests/flagship/content/status-vocabulary.case.ts": {
+      "sha256": "ffdd8b318b6c22fa2d6579de81a562ed45b8d13af22e28ac4c3645a746642903",
       "executable": false
     },
     "tests/flagship/content/structure-save-labels.case.ts": {
@@ -12012,7 +12016,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "28ed9bb06a30ee2426bfd16014f604bd091c52b7069d50980c4d175e834279f9",
+      "sha256": "8cc20b237479dadf99a03593ef43f72acfe983e27473dd0b9e0684dba2fe0fa4",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
@@ -12045,6 +12049,10 @@
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {
       "sha256": "711106639f580981c9c9a953fac1df157deb356e6c616ae639a99b43e09a19a2",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/status-vocabulary-journey.mjs": {
+      "sha256": "b2bb25de006a79cf0a3ef8168a9ad7682f40f05e7882d59e6f8f92efe565a831",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
@@ -12168,7 +12176,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "e17abf1c458b228f23915f27d37b5f63a0ea4add2909c61efe0631f53ca9dc31",
+      "sha256": "e70dccf43905b7e9a11cebf6013a645a111386cbfedf851e4d7fa1b2daba70ef",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12184,7 +12192,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "10faa18b0662de1d1dd9782127bd0743be2273babd717e513e96d8e573dce5d1",
+      "sha256": "ee1ed25aaf0c9e823e1c6a102afc3b477cb2d5c7f83af95162e63c11fa3e0113",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
