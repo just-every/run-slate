@@ -12172,7 +12172,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "3936db6aa60dbf840ec7bc24d8b8d29f730e7f189e4f76fe72fbc3262e8cad65",
+      "sha256": "f373ebb3dace7666214a392e67757473d676c283b031c0bc2623716893af0019",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
