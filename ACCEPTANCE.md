@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 49 | 248 | 34 | 331 |
+| Core | 50 | 247 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 49 | 248 | 40 | 337 |
+| Full target | 50 | 247 | 40 | 337 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -2149,7 +2149,7 @@ Core · published · **partial**
 
 #### TMPL-004 — Custom templates
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Members can create, edit, archive, restore and delete templates.
 
@@ -2157,8 +2157,8 @@ Core · published · **partial**
 1. Templates shipped with Slate cannot be edited or deleted and can be duplicated into an editable copy.
 2. Custom templates are created, edited, archived, restored and deleted; shipped templates are duplicate-only.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Members can create, edit, archive, restore and delete templates."<br>No validated CI-run proof for this acceptance point: "Templates shipped with Slate cannot be edited or deleted and can be duplicated into an editable copy."
+**Evidence.** `tests/qualification/ui-convergence/template-lifecycle-journey.mjs` — "templateLifecycleJourney", loaded by "real core-wiki and touch-member journeys at 390px" and "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: member create, authored update, archive, restore and delete with persisted state and an independent editable shipped copy. `tests/e2e/pages/starter-templates.test.ts` — "TMPL-007 — every starter template ships from the first sign-in, is found by category, previews, creates working pages and duplicates into an editable copy while the shipped one never changes": native lifecycle, view-only refusals, shipped edit, archive and delete refusals, and unchanged shipped content.
+**Gap.** None.
 
 #### TMPL-005 — Save a page as a template
 
