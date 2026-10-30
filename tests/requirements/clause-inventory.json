@@ -1454,7 +1454,7 @@
       "id": "TMPL-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of TMPL-003 — Snapshot on use. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "This Workers-only inventory records supporting regressions, not browser acceptance. The native templateSnapshotJourney in tests/qualification/ui-convergence/template-snapshot-journey.mjs runs through the existing desktop starter-template and phone core-wiki Verify callers, comparing the complete copied hierarchy and values with the saved snapshot and retaining both copies through template update, archive and deletion. CONTRACT.md owns the acceptance status and recorded candidate proof.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",

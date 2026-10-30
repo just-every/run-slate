@@ -12072,7 +12072,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/template-snapshot-journey.mjs": {
-      "sha256": "c289efcdf1fdc0cbf840d7b33ed80a5a12cbaebe0c5b749fe7695f5cd9cc4e50",
+      "sha256": "b0a3fc996f274a53b21125ae535fdc31c2362a31c40c14f4bcbeeccfd94e8da2",
       "executable": false
     },
     "tests/qualification/ui-convergence/today-outcomes-journey.mjs": {
@@ -12172,7 +12172,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "e17abf1c458b228f23915f27d37b5f63a0ea4add2909c61efe0631f53ca9dc31",
+      "sha256": "71428ca12976a9621e5c71729469d0f2853287fce08f74c64348540087d3d837",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
