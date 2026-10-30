@@ -14,14 +14,23 @@ const luminance = rgb => rgb.slice(0, 3).map(value => {
 
 /** Check the painted surface and text, including inherited editor backgrounds. */
 async function paintedTheme(view, theme, target = view.getByRole('main').locator('.main').first()) {
+  console.log(`Theme inspection ${theme} ${view.url()}: foreground`);
+  await view.bringToFront();
   await expect(view.locator('html')).toHaveAttribute('data-theme', theme);
   // Keep the real motion preference and wait for the application's color
   // transitions before measuring contrast or starting an accessibility scan.
+  console.log(`Theme inspection ${theme} ${view.url()}: transitions`);
   await view.evaluate(() => Promise.allSettled(document.getAnimations()
     .filter(animation => animation instanceof CSSTransition && ['color', 'background-color'].includes(animation.transitionProperty))
     .map(animation => animation.finished)));
   await expect(target).toBeVisible();
-  const palette = await target.evaluate(element => {
+  console.log(`Theme inspection ${theme} ${view.url()}: connected colors`);
+  let palette;
+  await expect.poll(async () => {
+    palette = await target.evaluate(element => {
+    // Client navigation can replace the locator's node before evaluation.
+    // Sample its connected successor instead of parsing an empty style as black.
+    if (!element.isConnected) return null;
     let parser;
     const rgba = color => {
       const rgb = /^rgba?\(([^)]+)\)$/.exec(color);
@@ -43,11 +52,14 @@ async function paintedTheme(view, theme, target = view.getByRole('main').locator
     let surface = element;
     while (surface.parentElement && rgba(getComputedStyle(surface).backgroundColor)[3] === 0) surface = surface.parentElement;
     return { background: rgba(getComputedStyle(surface).backgroundColor), ink: rgba(getComputedStyle(element).color) };
-  });
+    });
+    return palette !== null;
+  }, { message: 'Inspect the connected route surface.' }).toBe(true);
   assert.equal(palette.background[3], 255, 'The visible surface has an opaque background.');
   const background = luminance(palette.background), ink = luminance(palette.ink);
-  assert.ok(theme === 'light' ? background > .5 : background < .1, `${view.url()}: ${theme} paints the actual surface`);
-  assert.ok((Math.max(background, ink) + .05) / (Math.min(background, ink) + .05) >= 4.5, 'Theme text remains readable on its painted surface.');
+  assert.ok(theme === 'light' ? background > .5 : background < .1, `${view.url()}: ${theme} paints the actual surface: ${JSON.stringify(palette)}`);
+  assert.ok((Math.max(background, ink) + .05) / (Math.min(background, ink) + .05) >= 4.5, `${view.url()}: ${theme} text remains readable on its painted surface: ${JSON.stringify(palette)}`);
+  console.log(`Theme inspection ${theme} ${view.url()}: passed`);
 }
 
 async function choose(view, origin, theme) {
@@ -67,7 +79,7 @@ async function choose(view, origin, theme) {
   assert.equal((await ok(view.context(), origin, 'GET', '/api/members/current')).theme, theme, 'The native member record stores the selected preference.');
 }
 
-async function operatorDestination(view, origin, route) {
+async function operatorDestination(view, origin, route, inNavigation) {
   if (route.startsWith('/app/settings?') && new URL(view.url()).pathname === '/app/settings') {
     // Exercise the same native section links a member uses, retaining the
     // document-door check without rebuilding the whole browser document.
@@ -76,6 +88,19 @@ async function operatorDestination(view, origin, route) {
     await link.click();
     await expect(view).toHaveURL(origin + route);
     await expect(link).toHaveAttribute('aria-current', 'page');
+    return response;
+  }
+  if (inNavigation) {
+    // Cover the persistent operator shell as well as each document door.
+    const response = await view.context().request.get(origin + route);
+    const trigger = view.getByRole('button', { name: 'Open navigation', exact: true });
+    if (await trigger.isVisible()) await trigger.click();
+    const link = view.locator('nav[aria-label="Workspace navigation"]').locator(`a[href="${route}"]`);
+    await expect(link).toHaveCount(1);
+    await link.click();
+    await expect(view).toHaveURL(origin + route);
+    await expect(link).toHaveAttribute('aria-current', 'page');
+    await view.waitForLoadState('networkidle');
     return response;
   }
   return view.goto(origin + route, { waitUntil: 'networkidle' });
@@ -139,7 +164,8 @@ export async function themeJourney(state, width) {
       await accessible(page, `appearance ${preference}`);
       await shot(page, `appearance-${preference}`);
       for (const [index, route] of routes.entries()) {
-        const response = await operatorDestination(page, origin, route);
+        console.log(`Theme route ${width}px ${preference}: ${route}`);
+        const response = await operatorDestination(page, origin, route, destinations.includes(route));
         assert.equal(response.status(), 200, `Operator destination ${route} is served.`);
         await expect(page.getByRole('main')).toHaveCount(1);
         await paintedTheme(page, resolved);
