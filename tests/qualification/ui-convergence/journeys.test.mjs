@@ -88,6 +88,7 @@ for (const width of [390, 1440]) {
         await chatJourney(state, width);
         if (width === 390) {
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
+          await withSecondPerson(state, width, people => step('restore writes a new revision; citations resolve to theirs on a phone', () => historyJourney(state, people)));
           // One phone smoke visits the main screens; functional journeys use desktop
           // except where an assertion distinguishes the phone layout or touch input.
           for (const route of ['/app', `/app/pages/${pageId}`, '/app/search', '/app/inbox', '/app/tasks', '/app/review', '/app/templates', '/app/settings']) {

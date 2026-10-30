@@ -91,3 +91,21 @@ The 16 October managed first-open case `a claimed RER owner signs in to a ready 
 The CLI flagship credential leg explicitly configures its private development profile and requests credentials:mint’s email proof through the native /auth/step-up door. It privately receives the message at the test-only paid network edge, previews the real confirmation page and submits its native form in that same dev session. Credential issuance then succeeds with the durable proof the commit requires. No proof is injected and no authorization route is bypassed.
 
 The guest invitation case removes its obsolete 24-hour lifetime pin; requested guest access expiry, pending/accepted grants, replay, expired access and revocation behavior remain checked.
+
+The restore flow in `tests/qualification/ui-convergence/two-people-history.mjs`
+is invoked by the existing desktop two-person journey and the phone core
+journey in `tests/qualification/ui-convergence/journeys.test.mjs`. It uses
+native settings and publication commands to make a real anonymous address
+resolve before any restore. A non-owner with view access is refused without
+changing the page, history or activity; the same member with edit access
+restores through History. Reload and native reads reconcile the selected
+content and properties, a new revision with all prior history retained, and
+activity naming that member and the source revision.
+
+That flow retains a real incoming link, comment anchors including the existing
+retained-text and orphaned-text cases, child placement, complete grants and
+the public exposure. The copied link and anonymous address still open after
+reload. An exact restore retry creates neither another revision nor another
+activity entry; after access revocation the same retry is refused without
+changing either. These browser assertions support REV-003 through emitted
+Worker public doors; no additional test registration is introduced.
