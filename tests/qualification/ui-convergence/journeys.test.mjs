@@ -193,7 +193,7 @@ for (const width of [1440]) {
   });
 }
 
-for (const width of [1440]) {
+for (const width of [390]) {
   test(`readable exports retain discussions through HTML and Markdown re-import at ${width}px`, { timeout: 180000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);

@@ -5,6 +5,7 @@ import { createApi } from '../../../src/core/app/hono';
 import { contract } from '../contract';
 import { resetDeployment } from '../setup/reset-deployment';
 import { seedWorkspace, seedMember, seedContainer, seedContainerGrant, sessionFor } from '../setup/fixtures';
+import {archiveAgentFixture} from './archive-agent-fixture';
 
 beforeEach(resetDeployment);
 contract('PAGE-012', 'page display is shared, content preserving and retained by readable and complete workspace archives', async () => {
@@ -68,6 +69,11 @@ contract('PAGE-012', 'page display is shared, content preserving and retained by
       expect(document.blocks[0].content).toEqual(original.content);
     }
   }
+  const agents = await archiveAgentFixture(() => cookies.owner);
+  const sourceAgent = await agents.pair('synthetic-slate-source', false);
+  const sourceWrite = await agents.createContainer(sourceAgent.token);
+  expect(sourceWrite.status).toBe(200);
+  expect(sourceWrite.body.result.isError).toBe(false);
   const exported = await json('POST', '/exports/workspace', { operationKey: crypto.randomUUID() });
   const download = await request('GET', `/exports/${exported.id}/download`);
   expect(download.status).toBe(200);
@@ -78,10 +84,30 @@ contract('PAGE-012', 'page display is shared, content preserving and retained by
   const fresh = await seedWorkspace();
   const freshOwner = await seedMember(fresh.workspaceId, { role: 'owner', email: 'owner@slate.test', displayName: 'Alex Owner', isSetupOwner: true });
   cookies.owner = await sessionFor(freshOwner.memberId, { freshProof: true });
+  const destinationAgent = await agents.pair('synthetic-slate-destination', true);
+  const paused = await agents.createContainer(destinationAgent.token);
+  expect(paused.status).toBe(200);
+  expect(JSON.parse(paused.body.result.content[0].text).code).toBe('agents_paused');
+  const destinationSettings = await env.DB.prepare('SELECT * FROM bs_settings').all();
+  const destinationAgents = (await agents.request('GET', '/agents/api/agents')).body;
   const restore = new FormData(); restore.set('file', new File([bytes], 'workspace.zip'));
   expect((await json('POST', '/exports/restore', restore)).state).toBe('completed');
   // Restoring replaces the session table; sign in as the restored owner identity.
   cookies.owner = await sessionFor(owner, { freshProof: true });
+  expect((await agents.request('GET', '/agents/api/state')).body).toEqual(destinationAgent.state);
+  expect((await env.DB.prepare('SELECT * FROM bs_settings').all()).results).toEqual(destinationSettings.results);
+  expect((await agents.request('GET', '/agents/api/agents')).body).toEqual(destinationAgents);
+  const containersBefore = await json('GET', '/containers');
+  expect((await agents.createContainer(sourceAgent.token)).status).toBe(401);
+  // The retained agent cannot silently rebind from the discarded bootstrap
+  // person to the restored owner. A newly authorized destination agent still
+  // observes the destination's pause, rather than the source's autonomy.
+  expect((await agents.createContainer(destinationAgent.token)).status).toBe(401);
+  const refused = await agents.createContainer(await destinationAgent.freshToken());
+  expect(refused.status).toBe(200);
+  expect(refused.body.result.isError).toBe(true);
+  expect(JSON.parse(refused.body.result.content[0].text).code).toBe('agents_paused');
+  expect(await json('GET', '/containers')).toEqual(containersBefore);
   for (const original of originals) {
     const document = await json('GET', `/pages/${original.id}`);
     expect(document.properties).toMatchObject(original.display);

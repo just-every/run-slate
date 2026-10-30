@@ -15,14 +15,17 @@ try {
  const f=await effectFixture();
  const credential=await issueAgentCredential(f.context(),{operationKey:'custody-agent',subjectId:f.owner,expiresAt:'2099-01-01T00:00:00.000Z',scope:{tools:['prepare_effect'],sourceIds:[f.page.pageId],audience:[f.owner,f.reader],grantIds:[f.grant.value.id]}});
  expect(await env.DB.prepare('SELECT revoked_at FROM intelligence_grants WHERE id=?').bind(f.grant.value.id).first()).toEqual({revoked_at:null});
- const before={page:await readPage(f.context(),f.page.pageId),effects:await effects(f.workspaceId),receipts:await receipts(f.workspaceId),issue:{...f.issue},requests:f.requests.length};
+ const before={page:await readPage(f.context(),f.page.pageId),effects:await effects(f.workspaceId),receipts:await receipts(f.workspaceId),issue:{...f.issue},requests:f.requests.length,grant:await env.DB.prepare('SELECT * FROM intelligence_grants WHERE id=?').bind(f.grant.value.id).first()};
  const rest=await f.request('/api/effects',f.input);expect(rest.status).toBe(403);expect(rest.body.code).toBe('INQUIRY_IS_NOT_AUTHORITY');
  const mcp=await f.mcp(credential.token!,'prepare_effect',f.input);expect(mcp.status).toBe(200);expect(mcp.body.result.isError).toBe(true);expect(mcp.value.code).toBe('INQUIRY_IS_NOT_AUTHORITY');
  for(const operation of ['sso.activate','account.charge','happytohelp.reply.send','orbit.email.send']){
   const bad={...f.input,operation,operationKey:'unsupported-'+operation};
   const browser=await f.request('/api/effects',bad);expect(browser.status).toBe(400);
-  const agent=await f.mcp(credential.token!,'prepare_effect',bad);expect(agent.body.result.isError).toBe(true);expect(agent.value.code).toBe('INVALID_TOOL_INPUT');
+  // The adopted door validates the legacy schema before native classification or execution.
+  const agent=await f.mcp(credential.token!,'prepare_effect',bad);expect(agent.status).toBe(200);expect(agent.body.result.isError).toBe(true);expect(agent.value.code).toBe('invalid_arguments');
+  expect(agent.body.result._meta['com.runeditrun/decision']).toBeNull();expect(agent.body.result._meta['com.runeditrun/receipt']).toBeUndefined();
  }
+ expect(await env.DB.prepare('SELECT * FROM intelligence_grants WHERE id=?').bind(f.grant.value.id).first()).toEqual(before.grant);
  expect(await effects(f.workspaceId)).toEqual(before.effects);expect(await receipts(f.workspaceId)).toEqual(before.receipts);
  expect(await readPage(f.context(),f.page.pageId)).toEqual(before.page);expect(f.issue).toEqual(before.issue);expect(f.sends).toEqual([]);expect(f.requests).toHaveLength(before.requests);
 

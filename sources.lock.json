@@ -936,7 +936,7 @@
       "executable": false
     },
     ".github/scripts/journey-shards.json": {
-      "sha256": "1d8c2937a2d86efa81acec011d41b86948152186a3b7ed9566278a2201b8026d",
+      "sha256": "4d6a7d52438e3501b34dbf66ddec6888c7c41f1e5931fd250eb123002506691c",
       "executable": false
     },
     ".github/scripts/run-shard.sh": {
@@ -9700,7 +9700,7 @@
       "executable": false
     },
     "src/core/features/portability/tables.ts": {
-      "sha256": "85e46420da4e3eed32a5a900589a88ea58362124102d5f5e4dd4b706fd350397",
+      "sha256": "b7c04d1bc83eeba09632f308a9e742085226ed80cbf6f93c02bbc640dcacfbd0",
       "executable": false
     },
     "src/core/features/public-api/authentication.ts": {
@@ -11695,8 +11695,12 @@
       "sha256": "dd6d3db0892b06a3d83cbb5d886283cd73ba935612576fbd27efcef1854a4d08",
       "executable": false
     },
+    "tests/e2e/pages/archive-agent-fixture.ts": {
+      "sha256": "36fdcf5c570b37b9232552b063e8245793eb4cc78cfbd87355f8f141dee6cc5f",
+      "executable": false
+    },
     "tests/e2e/pages/display-options.test.ts": {
-      "sha256": "0c8773f47210425c818e27a80e52ba38a07e3acb3a0c6fef21bf72f119f32124",
+      "sha256": "772db2cfea1726a6f52170109365c54f25532dbf70b6804256e5da1e0bd7f9bd",
       "executable": false
     },
     "tests/e2e/pages/presentation.test.ts": {
@@ -12192,7 +12196,7 @@
       "executable": false
     },
     "tests/flagship/release-clauses/authority/inquiry-custody.test.ts": {
-      "sha256": "14d1703d5f29064332ffa3d92939bf9297fbab0874d390b99e9e0a062c40afe4",
+      "sha256": "a270dce8b40b1ebaf1b1335c9031301a49450ab1d1c8c4d44b72c7042f3e6b00",
       "executable": false
     },
     "tests/flagship/release-clauses/authority/maintenance-fixture.ts": {
@@ -13092,7 +13096,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "a4cd1c0483504a7bc234b5a821eeb9f3c238fc17c6428c0b9e44ddc34b0cb39f",
+      "sha256": "7465c7401125b61c01db65f8da2ccd9755ba10b8520d396f7c8ef036541ee4e9",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -13488,7 +13492,7 @@
       "executable": false
     },
     "vite.config.ts": {
-      "sha256": "91c2779cfb4a6540fcea3e55a7a04d327159bee2f2ad07da39fa2e17665e9761",
+      "sha256": "e14b0c0e4562cad20c3ec2c2fa7f84b05956cae9974e3bd1e4eb817188047979",
       "executable": false
     },
     "vite.site.config.ts": {

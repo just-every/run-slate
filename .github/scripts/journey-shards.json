@@ -2,7 +2,7 @@
   "spreadsheet tables merge, sort and round-trip through edited database records at 1440px": 2,
   "provider embeds load only on interaction and [EMBED-004] files respect reader access at 1440px": 3,
   "presentation paginates read-only slides; touch history, details and exports work at 1440px": 8,
-  "readable exports retain discussions through HTML and Markdown re-import at 1440px": 8,
+  "readable exports retain discussions through HTML and Markdown re-import at 390px": 8,
   "page and space readership show people, author views and inclusive dates at 1440px": 7,
   "page and comment reactions identify people without notifications or views at 1440px": 6,
   "page display settings are shared and survive export and import at 1440px": 4,
