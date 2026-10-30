@@ -12000,7 +12000,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/public-profile-journey.mjs": {
-      "sha256": "16448b548c0e27113a7bb80fcea3832fbd525ca8834bdb29eab7a5a658a7db7a",
+      "sha256": "d4fdc3b4b0397582b13c4564f36079067fa8bcfa441d003bbc1a791a451d4876",
       "executable": false
     },
     "tests/qualification/ui-convergence/publication-journey.mjs": {
@@ -12172,7 +12172,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "351d34f3bf3b60aa54277804f984aea0927b95402e5fe8dc943a20e54fe5dfb1",
+      "sha256": "a71dae91d344fb11867d8a44f3140db038c5e2af2a871919d4a7b47fd126cc9d",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
