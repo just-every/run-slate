@@ -12,7 +12,7 @@ export interface PageProperties {
   smallText?: boolean;
   fullWidth?: boolean;
 }
-export type DocumentView = PageDocument & { properties?: PageProperties; parentPageId?: string | null };
+export type DocumentView = PageDocument & { authorMemberId?: string; properties?: PageProperties; parentPageId?: string | null };
 export type ContentReceipt = {
   value: { pageId: string; revisionId: string; blockRevisionId?: string; previousRevisionId?: string };
   receipt: MutationReceipt;
