@@ -138,6 +138,7 @@ export async function publicPageJourney(state, sourcePageId) {
     await expect(stopDialog).not.toBeVisible();
     const unavailableAt = await firstDocument(false, 'unpublished', false);
     assert.ok(unavailableAt - revokedAt < 5000, 'The first anonymous request is content-free within five seconds.');
+    console.log('WEB-006 native unpublish response', JSON.stringify({ width: page.viewportSize().width, elapsedMs: unavailableAt - revokedAt }));
     assert.ok((await api(`/api/publishing/${id}`)).exposure.revokedAt);
     assert.deepEqual(await api(`/api/revisions/${id}`), versions, 'Unpublish deletes no version.');
     assert.deepEqual(await api(`/api/sharing/pages/${id}`), grants, 'Unpublish changes no grant.');
