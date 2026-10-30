@@ -29,6 +29,7 @@ export async function databaseStructureLockJourney(state) {
     const record = await mutate(alice, base + '/records', { title: 'Release checklist', values: { [field.id]: 'Ready for review' } });
     await grant(alice.context, origin, database.pageId, bob.id, 'edit');
     await grant(alice.context, origin, record.pageId, bob.id, 'edit');
+    const grants = await api(`/api/sharing/pages/${database.pageId}`);
     await alice.page.goto(`${origin}/app/databases/${database.id}`, { waitUntil: 'networkidle' });
     await alice.page.getByRole('button', { name: 'Fields', exact: true }).click();
     await alice.page.getByRole('menuitem', { name: 'Lock structure', exact: true }).click();
@@ -94,10 +95,12 @@ export async function databaseStructureLockJourney(state) {
     await bob.page.reload({ waitUntil: 'networkidle' });
     await expect(cell).toHaveValue('Ready to ship while locked');
     assert.deepEqual(await read(), locked, 'A successful record edit changes no structure.');
+    assert.deepEqual(await api(`/api/sharing/pages/${database.pageId}`), grants, 'Locking and record editing change no access grant.');
     await accessible(bob.page, 'database structure locked with editable record');
     await people.shot('bob', 'database-structure-locked');
 
     await grant(alice.context, origin, database.pageId, bob.id, 'full');
+    const fullAccessGrants = await api(`/api/sharing/pages/${database.pageId}`);
     await bob.page.reload({ waitUntil: 'networkidle' });
     await bob.page.getByRole('button', { name: 'Fields', exact: true }).click();
     await bob.page.getByRole('menuitem', { name: 'Unlock structure', exact: true }).click();
@@ -108,6 +111,7 @@ export async function databaseStructureLockJourney(state) {
     assert.equal(unlocked.database.structure_locked_by_member_id, null);
     assert.deepEqual(unlocked.fields, locked.fields);
     assert.deepEqual(unlocked.views, locked.views);
+    assert.deepEqual(await api(`/api/sharing/pages/${database.pageId}`), fullAccessGrants, 'Another member unlocking changes no access grant.');
     await bob.page.getByRole('button', { name: 'Fields', exact: true }).click();
     await expect(bob.page.getByRole('menuitem', { name: 'Add field', exact: true })).toBeEnabled();
     await expect(bob.page.getByRole('menuitem', { name: field.name, exact: true })).toBeEnabled();

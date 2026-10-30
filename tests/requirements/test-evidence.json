@@ -312,9 +312,10 @@
       "testName": "Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input",
       "kind": "supporting-regression",
       "clauses": [
-        "BASE-ACCESS-002"
+        "BASE-ACCESS-002",
+        "DB-009"
       ],
-      "reason": "Asserts Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Native Worker sessions create and populate a database, retain the locking member, refuse field and view creation, change and deletion plus filter, sort and layout changes without changing the structure, keep record edits durable, deny edit-only unlock and allow another full-access member to unlock and perform the same writes. Retains every original missing, expired, revoked and denied session assertion. Supporting registry status remains separate from the contract judgment."
     },
     {
       "file": "tests/flagship/structured/template-permissions.test.ts",
