@@ -212,7 +212,7 @@ async function invitedProviderJourney(fixture: Fixture, web: ReturnType<typeof h
       const destination = new URL(failed.headers.get('location')!, origin);
       expect(destination.pathname).toBe('/signin');
       expect(destination.searchParams.get('provider')).toBe('identity');
-      expect(destination.searchParams.get('notice')).toMatch(/^oidc_/);
+      expect(destination.searchParams.get('notice')).toBe(failure === 'signature' ? 'oidc_invalid_response' : 'oidc_provider_unavailable');
       expect(failed.headers.getSetCookie().some(value => value.startsWith('slate_session='))).toBe(false);
       expect(await snapshot()).toEqual(beforeFailure);
       expect((await web.send('POST', '/api/auth/magic', { email: newEmail })).status).toBe(200);
