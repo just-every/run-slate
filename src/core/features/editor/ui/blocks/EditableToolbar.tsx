@@ -74,7 +74,12 @@ export function EditableToolbar({
     element.addEventListener("keydown", key);
     return () => element.removeEventListener("keydown", key);
   });
-  if (!canEdit || !selection) return null;
+  if (!selection) return null;
+  if (!canEdit) return root.current?.closest('[data-page-commentable="true"]') ? (
+    <div ref={toolbar} className="inline-formatting" onMouseDown={event => event.preventDefault()}>
+      <button type="button" className="secondary-button" onClick={() => root.current?.dispatchEvent(new CustomEvent('slate-comment-selection', {bubbles:true,detail:retained.current}))}>Comment</button>
+    </div>
+  ) : null;
   const selectedSpans=sliceRichText(value,Math.min(selection.anchor,selection.focus),Math.max(selection.anchor,selection.focus)).filter(span=>!span.mention);
   const activeMarks:InlineMark[]=(["bold","italic","underline","strikethrough","code"] as InlineMark[]).filter(mark=>selectedSpans.length>0&&selectedSpans.every(span=>span.marks?.includes(mark)));
   const colour=selectedSpans.length&&selectedSpans.every(span=>span.colour===selectedSpans[0].colour)?selectedSpans[0].colour??null:null;

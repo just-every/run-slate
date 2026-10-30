@@ -194,7 +194,7 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
                 operationKey: commentKey.current.key,
                 threadId: reply,
                 body,
-                ...(selection && !reply ? {kind:"inline",blockId:selection.blockId,anchor:{anchorId:selection.anchorId,quote:selection.quote},anchorRevisionId:selection.revisionId} : {}),
+                ...(selection && !reply ? {kind:"inline",blockId:selection.blockId,anchor:{anchorId:selection.anchorId,quote:selection.quote,start:selection.start,end:selection.end},anchorRevisionId:selection.revisionId} : {}),
               });
               commentKey.current=null;setBody([]);
               setReply(undefined);

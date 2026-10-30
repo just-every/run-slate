@@ -20,6 +20,8 @@ export interface CommentInput {
     anchor?: {
         anchorId: string;
         quote: string;
+        start?: number;
+        end?: number;
     };
     anchorRevisionId?: string;
 }

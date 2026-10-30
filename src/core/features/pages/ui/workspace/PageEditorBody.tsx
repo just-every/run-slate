@@ -118,7 +118,7 @@ export function PageEditorBody({
       const block=editor.blocks.find(b=>b.id===blockId);
       if(!block || !('text' in block) || !range)return;
       const start=Math.min(range.anchor,range.focus),end=Math.max(range.anchor,range.focus),anchorId=crypto.randomUUID();
-      const value:PageSelection={blockId:block.id,blockRevisionId:document.blocks.find(b=>b.id===block.id)?.revisionId??'',revisionId:editor.workingRevisionId,anchorId,start,end,quote:richTextToPlain(block.text).slice(start,end)};
+      const value:PageSelection={blockId:block.id,blockRevisionId:document.blocks.find(b=>b.id===block.id)?.revisionId??'',revisionId:["edit","full"].includes(document.permissions.level)?editor.workingRevisionId:document.publishedRevisionId??editor.workingRevisionId,anchorId,start,end,quote:richTextToPlain(block.text).slice(start,end)};
       if(comment && !document.permissions.canEdit){onComment(value);return;}
       if(comment){setError(undefined);try{await editor.structure(editor.blocks.map(b=>b.id===block.id?{...block,text:formatSelection(block.text,start,end,span=>({...span,commentAnchorId:anchorId}))}:b));const fresh=await contentApi.document(document.page.id);value.revisionId=fresh.workingRevisionId;onComment(value);}catch(cause){setError(cause);}}
       else onAsk(value);
@@ -227,7 +227,7 @@ export function PageEditorBody({
     }
   }
   return (
-    <TaskPageProvider pageId={document.page.id} revisionId={insertion.pending?'':editor.workingRevisionId} canShare={document.permissions.canShare}><DocumentHeadings blocks={visibleBlocks}><div ref={wrapper} data-page-editor tabIndex={-1} onClick={event=>{const target=(event.target as HTMLElement).closest<HTMLElement>('[data-reminder-date]');if(target?.dataset.reminderDate){setDateReminder({date:target.dataset.reminderDate,blockId:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId});}}}>
+    <TaskPageProvider pageId={document.page.id} revisionId={insertion.pending?'':editor.workingRevisionId} canShare={document.permissions.canShare}><DocumentHeadings blocks={visibleBlocks}><div ref={wrapper} data-page-commentable={document.permissions.level !== "view"} data-page-editor tabIndex={-1} onClick={event=>{const target=(event.target as HTMLElement).closest<HTMLElement>('[data-reminder-date]');if(target?.dataset.reminderDate){setDateReminder({date:target.dataset.reminderDate,blockId:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId});}}}>
       {dateReminder?<ReminderDialog pageId={document.page.id} {...dateReminder} onClose={()=>setDateReminder(null)}/>:null}
       {insert ? (
         <InsertMenu

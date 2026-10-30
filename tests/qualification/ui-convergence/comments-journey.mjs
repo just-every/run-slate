@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
-import { accessible, closeDetails } from './browser-support.mjs';
+import { call, grant, ok, restrictedPage } from './two-people-support.mjs';
+import { accessible, closeDetails, openPageAction } from './browser-support.mjs';
 import { insideViewport, withinViewport } from './browser-evidence.mjs';
 
 export async function commentJourney({ page, origin, api }, pageId) {
@@ -78,4 +79,132 @@ export async function commentJourney({ page, origin, api }, pageId) {
   await closeDetails(page);
   await expect(page.locator('.right')).toHaveCount(0);
   await expect(paragraph).toBeFocused();
+}
+
+/** A comment-level member uses both native composers without content authority. */
+export async function memberThreadsJourney(state, people) {
+  const { page, context, origin, api } = state;
+  const bob = people.bob.page;
+  const { pageId, blockIds } = await restrictedPage(state, 'Shift review', ['The on-call lead owns escalation decisions.']);
+  const access = await grant(context, origin, pageId, people.bob.id, 'comment');
+  const route = `/api/comments/page/${pageId}`;
+  const before = await api(`/api/pages/${pageId}`);
+  const readable = await ok(people.bob.context, origin, 'GET', `/api/pages/${pageId}`);
+  assert.equal(readable.permissions.level, 'comment');
+  assert.equal(readable.permissions.canEdit, false);
+  await bob.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
+  await expect(bob.getByRole('textbox', { name: 'Page title', exact: true })).toHaveAttribute('readonly', '');
+  const paragraph = bob.getByRole('textbox', { name: 'Paragraph', exact: true }).first();
+  await expect(paragraph).toHaveAttribute('contenteditable', 'false');
+  // Native browser selection, with no synthetic application event or write.
+  await paragraph.evaluate(element => {
+    element.focus();
+    const text = element.firstChild;
+    const range = document.createRange();
+    range.setStart(text, 4); range.setEnd(text, 16);
+    getSelection().removeAllRanges(); getSelection().addRange(range);
+  });
+  await bob.getByRole('button', { name: 'Comment', exact: true }).click();
+  await expect(bob.locator('.comment-form blockquote')).toHaveText('on-call lead');
+  const writes = [];
+  async function send(view, text, reply = false) {
+    await view.getByRole('textbox', { name: reply ? 'Reply text' : 'Comment text', exact: true }).fill(text);
+    const response = view.waitForResponse(response => new URL(response.url()).pathname === route && response.request().method() === 'POST');
+    await view.getByRole('button', { name: 'Send comment', exact: true }).click();
+    const native = await response;
+    assert.equal(native.status(), 200, await native.text());
+    const result = await native.json();
+    writes.push({text, result, input:native.request().postDataJSON()});
+    await expect(view.locator(`#comment-${result.value.id}`)).toContainText(text);
+    return result.value.threadId;
+  }
+  const inlineId = await send(bob, 'Please confirm this selected responsibility.');
+  await expect(bob.locator('.comment-form blockquote')).toHaveCount(0);
+  await closeDetails(bob);
+  await bob.evaluate(() => getSelection().removeAllRanges());
+  await openPageAction(bob, 'Comments');
+  const pageThreadId = await send(bob, 'The whole handover needs a second review.');
+  for (const [threadId, reply] of [[inlineId, 'Confirmed by the outgoing shift.'], [pageThreadId, 'The outgoing shift reviewed the whole page.']]) {
+    await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
+    await openPageAction(page, 'Comments');
+    await page.locator(`#thread-${threadId}`).getByRole('button', { name: 'Reply', exact: true }).first().click();
+    await send(page, reply, true);
+  }
+  for (const [threadId, reply] of [[inlineId, 'The incoming shift accepts this responsibility.'], [pageThreadId, 'The incoming shift accepts the handover.']]) {
+    await bob.reload({ waitUntil: 'networkidle' });
+    await bob.locator(`#thread-${threadId}`).getByRole('button', { name: 'Reply', exact: true }).first().click();
+    await send(bob, reply, true);
+  }
+  const canonical = await api(route);
+  assert.equal(canonical.threads.length, 2);
+  assert.equal(canonical.comments.length, 6);
+  const inline = canonical.threads.find(thread => thread.id === inlineId);
+  const whole = canonical.threads.find(thread => thread.id === pageThreadId);
+  assert.equal(inline.kind, 'inline');
+  assert.equal(inline.block_id, blockIds[0]);
+  assert.equal(inline.anchor_revision_id, before.workingRevisionId);
+  assert.deepEqual(JSON.parse(inline.anchor_json), {anchorId:writes[0].input.anchor.anchorId,quote:'on-call lead',start:4,end:16});
+  assert.equal(inline.orphaned, 0);
+  assert.equal(whole.kind, 'page');
+  for (const key of ['block_id','anchor_json','anchor_revision_id']) assert.equal(whole[key], null);
+  for (const threadId of [inlineId,pageThreadId]) {
+    const rows = canonical.comments.filter(comment => comment.threadId === threadId);
+    const expected = writes.filter(write => write.result.value.threadId === threadId);
+    assert.deepEqual(rows.map(row => row.id), expected.map(write => write.result.value.id), 'Native chronological order matches the three actual sends.');
+    assert.deepEqual(rows.map(row => row.body.map(span => span.text).join('')), expected.map(write => write.text));
+    assert.deepEqual(rows.map(row => row.authorMemberId), [people.bob.id,'browser-owner',people.bob.id]);
+    assert.deepEqual(rows.map(row => row.authorDisplayName), ['Morgan Reader','Alex Owner','Morgan Reader']);
+    assert.ok(rows.every((row,index) => row.createdAt === expected[index].result.receipt.committedAt && row.updatedAt === row.createdAt));
+    assert.ok(rows.every((row,index) => index === 0 || row.createdAt > rows[index-1].createdAt), 'Each later send has a later native timestamp.');
+  }
+  assert.deepEqual(await ok(people.bob.context, origin, 'GET', route), canonical, 'Both members read the same threads and attribution.');
+  await bob.locator(`#thread-${inlineId}`).getByRole('button', { name: 'Resolve', exact: true }).click();
+  await expect(bob.locator(`#thread-${inlineId} .thread-heading`)).toContainText('Resolved');
+  const resolved = await api(route);
+  assert.equal(resolved.threads.find(thread => thread.id === inlineId).state, 'resolved');
+  assert.equal(resolved.threads.find(thread => thread.id === pageThreadId).state, 'open');
+  for (const view of [bob,page]) {
+    await view.reload({ waitUntil: 'networkidle' });
+    await expect(view.locator('.comment-thread')).toHaveCount(2);
+    for (const threadId of [inlineId,pageThreadId]) {
+      const section = view.locator(`#thread-${threadId}`);
+      const rows = canonical.comments.filter(comment => comment.threadId === threadId);
+      assert.deepEqual(await section.locator('article').evaluateAll(articles => articles.map(article => article.id)), rows.map(row => `comment-${row.id}`));
+      for (const row of rows) {
+        const article = section.locator(`#comment-${row.id}`);
+        await expect(article.locator('header strong')).toHaveText(row.authorDisplayName);
+        await expect(article.locator('header time')).toHaveAttribute('datetime', row.createdAt);
+        await expect(article.locator('header time')).toHaveText(/\S/);
+        await expect(article.locator(':scope > p')).toHaveText(row.body.map(span => span.text).join(''));
+      }
+      await expect(section.locator('.thread-heading > span')).toHaveText(threadId === inlineId ? 'Resolved' : 'Open');
+    }
+    await expect(view.locator(`#thread-${inlineId} blockquote`)).toHaveText('on-call lead');
+    await expect(view.locator(`#thread-${inlineId}`).getByRole('button', { name: 'Jump to selected text', exact: true })).toBeVisible();
+    await expect(view.locator(`#thread-${pageThreadId} blockquote`)).toHaveCount(0);
+  }
+  assert.deepEqual((await api(route)).comments, canonical.comments, 'Resolving and reloading retain all comments, authors and timestamps.');
+  await bob.screenshot({path:`.artifacts/ui-convergence/member-threads-${bob.viewportSize().width}.png`,fullPage:true});
+  // A valid comment selector annotates the read projection, never durable page content.
+  const after = await api(`/api/pages/${pageId}`);
+  assert.equal(after.page.revisionId, before.page.revisionId);
+  assert.equal(after.workingRevisionId, before.workingRevisionId);
+  assert.equal(after.permissions.canEdit, true);
+  await expect(bob.getByRole('textbox', { name: 'Paragraph', exact: true }).first()).toHaveAttribute('contenteditable','false');
+  const denied = [
+    ['PATCH',`/api/pages/${pageId}`,{expectedRevisionId:after.page.revisionId,properties:{title:'Unauthorized title'}}],
+    ['PATCH',`/api/pages/${pageId}/blocks/${blockIds[0]}`,{expectedRevisionId:after.blocks[0].revisionId,content:{text:[{text:'Unauthorized body'}]}}],
+    ['PUT',`/api/pages/${pageId}/blocks`,{expectedRevisionId:after.page.revisionId,blocks:[]}],
+  ];
+  for (const [method,path,input] of denied) assert.equal((await call(people.bob.context,origin,method,path,{operationKey:crypto.randomUUID(),...input})).status,403);
+  const forged = await call(people.bob.context,origin,'POST',route,{...writes[0].input,operationKey:crypto.randomUUID(),anchor:{...writes[0].input.anchor,quote:'Unselected text'}});
+  assert.equal(forged.status,409,'An anchor cannot claim text outside the actual readable selection.');
+  assert.deepEqual(await api(route), resolved, 'Refused content writes and invalid anchors change no discussion.');
+  assert.deepEqual(await api(`/api/pages/${pageId}`), after, 'Comment authority cannot change the page.');
+  await grant(context,origin,pageId,people.bob.id,'view',{id:access.value.id});
+  for (const input of [writes[0].input,writes[1].input,{operationKey:crypto.randomUUID(),threadId:inlineId,body:[{text:'Refused reply'}]}]) {
+    assert.equal((await call(people.bob.context,origin,'POST',route,input)).status,403,'Downgraded access refuses both new comments and replay.');
+  }
+  assert.deepEqual(await api(route),resolved,'A replay cannot recreate comments after comment authority is removed.');
+  console.log(`PROBE COMM-001 points 1-3: comment-level selection and page composers -> two threads, six ordered attributed comments, persisted Open and Resolved states; forbidden content edits, invalid selection and revoked replay refused at ${bob.viewportSize().width}px`);
 }

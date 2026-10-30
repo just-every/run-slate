@@ -1,3 +1,5 @@
+import {readPage} from '../pages/service';
+import {richTextToPlain, type RichText} from '../editor/ui/types';
 import {canonicalGroupLabels} from './group-labels';
 import { mentionEffects } from './group-mentions';
 import type {FeatureContext} from '../../app/feature-context';
@@ -32,6 +34,17 @@ export async function prepareCreateComment(ctx: FeatureContext, pageId: string, 
             const revision = await ctx.db.prepare('SELECT id FROM page_revisions WHERE id=? AND page_id=? AND deleted_at IS NULL').bind(input.anchorRevisionId, pageId).first();
             if (!block || !revision)
                 throw new ApiProblem(400, 'INVALID_ANCHOR', 'Anchor is not on this page.');
+            if (input.anchor.start !== undefined || input.anchor.end !== undefined) {
+                const document = await readPage(ctx,pageId);
+                const visibleRevision = ['edit','full'].includes(document.permissions.level) ? document.workingRevisionId : document.publishedRevisionId ?? document.workingRevisionId;
+                const selected = document.blocks.find(item => item.id === input.blockId);
+                const text = (selected?.content as {text?:RichText})?.text;
+                const {start,end,quote,anchorId} = input.anchor;
+                if (visibleRevision !== input.anchorRevisionId || !Array.isArray(text) || !Number.isInteger(start) || !Number.isInteger(end) || start! < 0 || end! <= start! || end! > richTextToPlain(text).length || richTextToPlain(text).slice(start,end) !== quote)
+                    throw new ApiProblem(409, 'INVALID_ANCHOR', 'Select text from the current readable revision.');
+                input = {...input,anchor:{anchorId,quote,start,end}};
+            }
+
         }
         statements.push(ctx.db.prepare('INSERT INTO comment_threads (id,workspace_id,page_id,kind,block_id,anchor_json,anchor_revision_id,created_at,updated_at,revision_id) VALUES (?,?,?,?,?,?,?,?,?,?)').bind(threadId, ctx.actor.workspaceId, pageId, input.kind ?? 'page', input.blockId ?? null, input.anchor ? JSON.stringify(input.anchor) : null, input.anchorRevisionId ?? null, ctx.now, ctx.now, revisionId));
     }

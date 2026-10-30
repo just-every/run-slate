@@ -391,7 +391,7 @@ function LoadedPage({
               document={{ ...document, page: {...document.page, revisionId: editor.revision}, workingRevisionId: editor.workingRevisionId }}
               revision={editor.revision}
               onClose={() => setDetail(null)}
-              onCommentSent={() => setSelection(undefined)}
+              onCommentSent={() => {setSelection(undefined);void reload();}}
               reload={reload}
             />
           </aside>
