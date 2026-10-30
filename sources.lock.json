@@ -8400,7 +8400,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PagePublication.tsx": {
-      "sha256": "84a5b4daf559318aed986b50f99c18e5e5dfe80e3d82db9be751676fbb1b7d5b",
+      "sha256": "15457f4192d974cabd394a186ccc4ecd993125efb7c4d0d34ddb47af3d4d19ca",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageReadMetadata.tsx": {
@@ -8656,7 +8656,7 @@
       "executable": false
     },
     "src/core/features/publishing/service.ts": {
-      "sha256": "37fb3f23cd73fb195fabe9bdefe5e0ed64ca08986b40e730510bde586b103db6",
+      "sha256": "debec4e6ca39eb50681b18a8cc83e3da9cb1cd49dcae15691dfcb4aeb6130e19",
       "executable": false
     },
     "src/core/features/publishing/toc-render.ts": {
@@ -11952,7 +11952,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "a4cd1c0483504a7bc234b5a821eeb9f3c238fc17c6428c0b9e44ddc34b0cb39f",
+      "sha256": "3baa224f4919af6c94b6df59def4c573eb5f53ffd07fafa89a2f8c06fadc5554",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -11997,6 +11997,10 @@
     },
     "tests/qualification/ui-convergence/provider-embeds-journey.mjs": {
       "sha256": "9cc5508ab36764183db8887a834ea605c8ea4c526dbb63fe50185e8077db9921",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/public-profile-journey.mjs": {
+      "sha256": "16448b548c0e27113a7bb80fcea3832fbd525ca8834bdb29eab7a5a658a7db7a",
       "executable": false
     },
     "tests/qualification/ui-convergence/publication-journey.mjs": {
@@ -12168,7 +12172,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "e17abf1c458b228f23915f27d37b5f63a0ea4add2909c61efe0631f53ca9dc31",
+      "sha256": "351d34f3bf3b60aa54277804f984aea0927b95402e5fe8dc943a20e54fe5dfb1",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
