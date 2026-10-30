@@ -980,7 +980,7 @@
       "executable": false
     },
     "agent-surface.json": {
-      "sha256": "de295020968ebafc4e8fa8b9aac0d0fec4d0fa2edaaf822472239046dcba19b2",
+      "sha256": "c13e9b2e88c7046a10da73b3527ee9d00b5f874b38889bed65fb9fafb370ad84",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -1132,7 +1132,7 @@
       "executable": false
     },
     "docs/site.json": {
-      "sha256": "3647652038bdfa3e53fe130324c5f44661f1ab97417e359cedd21dbbb7958a57",
+      "sha256": "4b0c8552de3cf75c2160c8a06a575293d8deb37c43b149de604bfb5a16c22662",
       "executable": false
     },
     "docs/TRUSTWORTHY-HANDBOOK.md": {
@@ -11428,7 +11428,7 @@
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
-      "sha256": "d6aa04d6a5d2ae289e01ba00536649a0a321d51dd066d13dd80eefd70dcaa575",
+      "sha256": "a581799a7761b20aca4cd919ee8dd9571fa28bb25cce1f0e1c1a223e5c3124ad",
       "executable": false
     },
     "tests/docs/docs-dev-sync.test.mjs": {

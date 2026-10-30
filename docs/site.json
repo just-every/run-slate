@@ -303,6 +303,18 @@
     {
       "source": "docs/agent-door.md",
       "reason": "Maintainer integration and declared agent subset limits; the product agent door supplies its live registry."
+    },
+    {
+      "source": "scripts/edition-authoring/ADOPTING.md",
+      "reason": "Copied Base authoring and parser integration reference for maintainers."
+    },
+    {
+      "source": "scripts/edition-authoring/vendor/babel-parser/README.md",
+      "reason": "Copied Base authoring and parser integration reference for maintainers."
+    },
+    {
+      "source": "scripts/edition-authoring/vendor/yaml/README.md",
+      "reason": "Copied Base authoring and parser integration reference for maintainers."
     }
   ]
 }

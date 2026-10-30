@@ -144,6 +144,7 @@ test("native Base provenance authenticates exact copies and refuses every forged
   const copy = changed.copies.find(entry => entry.path === 'CLAUDE.md');
   const [origin] = [...files.get(copy.revision)].find(([, id]) => !objects.has(id));
   copy.originPath = origin;
+  copy.originFiles = [origin];
   assert.throws(() => validateProof(proof, changed), /missing the recorded origin blob/);
 } }
   ];
