@@ -55,14 +55,20 @@ export async function contentQueryJourney(state, width) {
     const endpoint=`/api/pages/${target}/query`;
     const query=view=>view.getByRole('region',{name:'Content query',exact:true});
     const responseFor=view=>{
-      const pending=view.waitForResponse(response=>new URL(response.url()).pathname===endpoint&&response.request().method()==='POST');
+      // Match a newly started request rather than a late response from the page
+      // being left, and retain its body before a navigation can discard it.
+      const pending=view.waitForRequest(request=>new URL(request.url()).pathname===endpoint&&request.method()==='POST').then(async request=>{
+        const response=await request.response();
+        assert.ok(response,'The native query request receives a response.');
+        return {status:response.status(),body:await response.text()};
+      });
       void pending.catch(()=>{});
       return pending;
     };
     const checkResponse=async(view,pending,expected)=>{
       const response=await pending;
-      assert.equal(response.status(),200,await response.text());
-      const result=await response.json();
+      assert.equal(response.status,200,response.body);
+      const result=JSON.parse(response.body);
       assert.ok(Number.isFinite(Date.parse(result.ranAt)),'The native query records a valid last-run instant.');
       assert.deepEqual(result.items.map(item=>item.id),expected,'The native response has the exact ordered readable results.');
       await expect(query(view).locator('tbody tr button')).toHaveText(result.items.map(item=>item.title));
@@ -152,8 +158,8 @@ export async function contentQueryJourney(state, width) {
       const response=responseFor(view);
       await action();
       const refused=await response;
-      assert.equal(refused.status(),404);
-      assert.equal((await refused.json()).code,'QUERY_SOURCE_UNAVAILABLE');
+      assert.equal(refused.status,404);
+      assert.equal(JSON.parse(refused.body).code,'QUERY_SOURCE_UNAVAILABLE');
       await expect(query(view).getByText('The query source is unavailable.',{exact:true})).toBeVisible();
       await expect(query(view).locator('tbody tr')).toHaveCount(0);
     };
