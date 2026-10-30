@@ -1,4 +1,5 @@
 import { publicationJourney } from './publication-journey.mjs';
+import { draftDispositionJourney } from './draft-disposition-journey.mjs';
 import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} from './synced-custody.mjs';
 import {peopleJourney} from './people-journey.mjs';
 import {workspaceAuthorityJourney} from './workspace-authority-journey.mjs';
@@ -247,6 +248,7 @@ for (const width of [1440]) {
       await setupWorkspace(state);
       await step('TREE-005 — create in place names root and child destinations', () => createInPlaceJourney(state));
       await state.switchIdentity('owner');
+      await withSecondPerson(state, width, people => step('LIFE-007 — close and discard authored drafts without notifications or outsider tree entries', () => draftDispositionJourney(state, people)));
       await step('review, publish, edit and cancel a scheduled publication', () => publicationJourney(state));
       await state.switchIdentity('owner');
       await withSecondPerson(state, width, people => step('PAGE-015 — locks protect content while editors comment and unlock', () => pageLockBrowserJourney(state, people)));
