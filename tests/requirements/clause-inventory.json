@@ -1291,7 +1291,7 @@
       "id": "NAV-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for NAV-002 — Recents. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "This legacy inventory classifies Workers supporting tests only; CONTRACT.md owns native clause status. The recentsJourney helper in ./tests/qualification/ui-convergence/recents-journey.mjs is loaded by the existing desktop Home Following and phone core-wiki registrations. It opens five mutually readable pages as two members, ages only issued visits with the Worker stopped, checks exact local-day groups and newest-first API and Home lists through reload, and reopens an older page without duplication or changing the other member history.",
       "supportingTests": []
     },
     {

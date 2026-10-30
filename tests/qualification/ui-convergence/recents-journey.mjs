@@ -37,6 +37,10 @@ export async function recentsJourney(state, people) {
       assert.equal((await ok(person.context, origin, 'GET', `/api/pages/${id}`)).page.title, title, 'Both members can read every target independently of their visit history.');
     }
   }
+  for (const [, person] of members) {
+    const navigation = await ok(person.context, origin, 'GET', '/api/navigation');
+    assert.ok(!navigation.recents.some(row => pages.some(page => page.id === row.id)), 'Reading shared targets through the API never invents browser visits.');
+  }
   const open = async (name, person, target) => {
     await person.page.goto(`${origin}/app/pages/${target.id}`, { waitUntil: 'networkidle' });
     await expect(person.page.getByRole('textbox', { name: 'Page title', exact: true })).toHaveValue(target.title);

@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `4f9f1bc422a1bf813d142f57f2e754cdf2e6a64b` (30 October 2026); NAV-002 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 32 | 194 | 0 | 226 |
+| Published | 33 | 193 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 48 | 249 | 40 | 337 |
+| All | 49 | 248 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4118,7 +4118,7 @@ Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27
 | `SEARCH-008` | Search without AI | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
 | `SEARCH-009` | Default visibility | published | partial | `tests/qualification/core/discovery.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery.mjs`. |
 | `NAV-001` | Home | published | done | `tests/qualification/ui-convergence/home-journey.mjs` — "homeJourney", called by "CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: populated recents, page and container favourites, owned containers, opening every entry, personal visits and immediate removal of revoked entries. |  |
-| `NAV-002` | Recents | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Recently opened pages are listed per member, newest first and grouped by day, and a page appears there for no one but the member who opened it." |
+| `NAV-002` | Recents | published | done | `tests/qualification/ui-convergence/recents-journey.mjs` — "recentsJourney", called by "homeJourney" in `tests/qualification/ui-convergence/home-journey.mjs` and the existing desktop Home Following and phone core-wiki journeys in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2 use native page opens by two members who can read all five targets, exact newest-first API and Home rows grouped by personal local day before and after reload, and reopening an older page moves its single entry to the front without changing the other member history. Existing "homeJourney" also proves immediate removal after revocation. |  |
 | `NAV-003` | Favorites | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Favorited pages and containers (`PAGE-008`) are listed in the navigation, reorderable by the member, and removed from the list in one action." |
 | `NAV-004` | One navigation | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "The operator app has one sidebar holding the global destinations, the personal sections and the container trees, collapsible to leave the page full width."<br>No validated CI-run proof for this acceptance point: "Its order and which entries appear come from workspace configuration and from the navigation slot (`workspace.navigation.after.v1`); changing any policy value in this contract changes no entry in it and no entry's position."<br>No validated CI-run proof for this acceptance point: "A container's own navigation nests inside it rather than replacing it." |
 | `NAV-005` | Global create | published | done | `tests/qualification/ui-convergence/global-create-journey.mjs` — "globalCreateJourney" |  |
