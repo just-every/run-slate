@@ -1008,7 +1008,7 @@ Core · published · **partial** · Cites BASE-PUBLIC-001, BASE-ROLE-001
 1. Search-engine indexing is off for a newly published page: the response and the served document tell crawlers not to index it until a member turns indexing on, and turning it off again restores that state within one request.
 2. A new publication is noindex until indexing is turned on; turning it off restores noindex in one request.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Evidence.** `tests/qualification/ui-convergence/public-page-journey.mjs` — "publicPageJourney" via "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1–2 publish without choosing indexing, reload stored exposure and native controls, then enable and disable it; each first anonymous document checks X-Robots-Tag and the served robots meta element. `tests/flagship/content/http.test.ts` — "content durable HTTP publication, human verification and media enforce current reader authority" also proves the omitted indexing default and first-request directives through native HTTP.
 **Gap.** No validated CI-run proof for this acceptance point: "Search-engine indexing is off for a newly published page: the response and the served document tell crawlers not to index it until a member turns indexing on, and turning it off again restores that state within one request."
 
 #### WEB-006 — Unpublish
@@ -1021,7 +1021,7 @@ Core · published · **partial** · Cites BASE-PUBLIC-001, BASE-ROLE-001
 1. It deletes no version and changes no grant.
 2. Unpublish stops the address within 5 seconds with a content-free page and keeps the slug reserved.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Evidence.** `tests/qualification/ui-convergence/public-page-journey.mjs` — "publicPageJourney" via "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 compares complete version and grant projections before and after native unpublish and republication; acceptance 2 checks the first content-free anonymous response within five seconds, refuses another page using the reserved slug, and republishes at the original address. A read-only member cannot revoke or alter exposure, and replaying a prior publication cannot reopen revoked access.
 **Gap.** No validated CI-run proof for this acceptance point: "Unpublishing stops the address resolving within 5 seconds, returns a content-free page saying the link is no longer available, and keeps the slug reserved for that page so republishing restores the same address."<br>No validated CI-run proof for this acceptance point: "It deletes no version and changes no grant."
 
 #### WEB-007 — Public-link profile
