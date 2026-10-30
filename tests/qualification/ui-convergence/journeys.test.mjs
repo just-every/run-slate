@@ -1,3 +1,4 @@
+import {contentQueryJourney} from './content-query-journey.mjs';
 import { publicationJourney } from './publication-journey.mjs';
 import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} from './synced-custody.mjs';
 import {peopleJourney} from './people-journey.mjs';
@@ -371,6 +372,17 @@ for (const width of [1440]) {
       await outlineJourney(state);
       await settingsJourney(state,width);
       await workspaceAuthorityJourney(state,width);
+    });
+  });
+}
+
+// Give the complete query journey its own workspace and deadline, keeping the
+// established member journey's timeout and every query assertion unchanged.
+for (const width of [1440, 390]) {
+  test(`BLOCK-010 — native content queries retain criteria and current-reader results at ${width}px`, { timeout: 180000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await contentQueryJourney(state, width);
     });
   });
 }

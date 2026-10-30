@@ -920,7 +920,7 @@
       "executable": false
     },
     ".github/scripts/journey-shards.json": {
-      "sha256": "1d8c2937a2d86efa81acec011d41b86948152186a3b7ed9566278a2201b8026d",
+      "sha256": "aba4a3978cdd8f2e10a5b8ebd8fd9e2aec624d9f27b81ac5a0e47c5a2b538e6c",
       "executable": false
     },
     ".github/scripts/run-shard.sh": {
@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "e3e01bc2079fb71ea5a24c20b4146fed2e225b4ab4f74de6729c8f98454f9b67",
+      "sha256": "ad55916cc30dd55158caca87f863a0992a2dea8a580b3f47574bae72072e601a",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "187390d30703a7500674fc2a3e78a31507636c82cc2d2251287ac20d693fdd63",
+      "sha256": "c903854e1746fdc70c5490accbf2057c4b604f4a05e094f957aa2c2f9ac37274",
       "executable": false
     },
     "DEMO.md": {
@@ -11948,7 +11948,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "a4cd1c0483504a7bc234b5a821eeb9f3c238fc17c6428c0b9e44ddc34b0cb39f",
+      "sha256": "1e5f863182906876c1b8eb350c981014114240df94131c7481001c1af010aeb0",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12132,7 +12132,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {
-      "sha256": "1d022f99b17d4523ed94f11121a6af4b0a5b1c7c7f0faa27a0fb22f9d725dac5",
+      "sha256": "4766f4cc0b921ecf0d5148aa87659e63fda374320d1c1f7e8ffb41e6f36c6b81",
       "executable": false
     },
     "tests/release/delivery-runtime.mjs": {
@@ -12160,7 +12160,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "0779feffc94e86bd97d1db12df5994a7f3cad11e359ed025c777f875ab02c48f",
+      "sha256": "b7cbb6cbda36a7a177e51f66f00975189680b384901b71c5e7c8a9329a9bc46e",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {

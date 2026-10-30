@@ -487,7 +487,7 @@
       "id": "BLOCK-010",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Native browser coverage is loaded by the existing real core-wiki and touch-member journeys in tests/qualification/ui-convergence/journeys.test.mjs through contentQueryJourney: persisted criteria, ordered current-reader results, drafts, native timestamps, reopening, revocation and deleted sources. The Workers-only release acceptance register remains unproven independently of this browser proof.",
+      "unmetReason": "Native browser coverage is loaded by the named BLOCK-010 native content-query journeys in tests/qualification/ui-convergence/journeys.test.mjs through contentQueryJourney: persisted criteria, ordered current-reader results, drafts, native timestamps, reopening, revocation and deleted sources. The Workers-only release acceptance register remains unproven independently of this browser proof.",
       "supportingTests": []
     },
     {
