@@ -890,7 +890,7 @@
         "CONT-012",
         "CONT-010"
       ],
-      "reason": "Default-profile (SLATE_PROFILE unset) API/native-session Workers journey proves in-app container and page watch events, durable editing-session coalescing, deduplication, a blog post as one post-published item, Home Following data, draft/restricted suppression, moves, archive/trash, permission revocation and erasure. Digest delivery belongs to NOTIF-005."
+      "reason": "Default-profile (SLATE_PROFILE unset) API/native-session Workers journey proves in-app container and page watch events, durable editing-session coalescing, deduplication, a blog post as one post-published item, Home Following data, draft/restricted suppression, moves, archive/trash, permission revocation and erasure. Digest delivery belongs to NOTIF-005. The folded inboxJourney uses native grants, watches and comments across three stored periods, verifies newest-first ordering, global unread totals and both audiences, follows the precise comment link, reads one and all, archives only read items, then refuses foreign and revoked reads and replay without changing retained state, and erases the source and its notification history."
     },
     {
       "file": "tests/flagship/discovery/following.test.ts",

@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { useResource } from "../../../client/useResource";
 import { mutate, operationKey, errorMessage } from "../../../client/transport";
 import { RequestState } from "../../../app/ui/RequestState";
@@ -11,6 +11,7 @@ interface Notice {
   event: string;
   href: string;
   createdAt: string;
+  period: string;
   readAt: string | null;
   detail?: { outcome?: string; verificationRules?: { unverified: number; flagged: number; pages: { id: string; title: string; change: string }[] } };
 }
@@ -31,6 +32,12 @@ export function WorkspaceInbox() {
     `/api/notifications?audience=${audience}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`,
   );
   const [error, setError] = useState<unknown>();
+  const periods = new Map<string, Notice[]>();
+  for (const item of resource.data?.items ?? []) {
+    const entries = periods.get(item.period) ?? [];
+    entries.push(item);
+    periods.set(item.period, entries);
+  }
   async function act(action: string, id?: string) {
     try {
       await mutate("/api/notifications/actions", {
@@ -73,25 +80,27 @@ export function WorkspaceInbox() {
           error={resource.error}
           retry={resource.reload}
         >
-          <ul className="outcome-list">
-            {resource.data?.items.map((item, index, items) => (
-              <Fragment key={item.id}>
-              {index === 0 || items[index - 1].createdAt.slice(0, 10) !== item.createdAt.slice(0, 10) ? <li className="inbox-period"><h2>{new Date(`${item.createdAt.slice(0, 10)}T12:00:00Z`).toLocaleDateString(undefined, { dateStyle: "long", timeZone: "UTC" })}</h2></li> : null}
-              <li>
-                <a href={item.href} onClick={event => {event.preventDefault();void mutate("/api/notifications/actions",{operationKey:operationKey(),action:"read",id:item.id}).then(()=>window.location.assign(item.href)).catch(setError);}}>
-                  <span className="outcome-kind">
-                    {item.event.replaceAll("-", " ")}
-                    {!item.readAt ? " · Unread" : ""}
-                  </span>
-                  <h3>{item.title ?? (item.detail?.verificationRules ? rulesSummary(item.detail.verificationRules) : "Workspace update")}</h3>
-                  {item.detail?.verificationRules ? <p>{item.detail.verificationRules.pages.map(page => `${page.title} (${page.change})`).join(", ")}</p> : null}
-                  {localDevelopment && item.detail?.outcome ? <p>{item.detail.outcome}</p> : null}
-                  <time dateTime={item.createdAt}>{new Date(item.createdAt).toLocaleString()}</time>
-                </a>
-              </li>
-              </Fragment>
-            ))}
-          </ul>
+          {[...periods].map(([period, items]) => (
+            <section key={period} aria-label={`Notifications for ${period}`}>
+              <h2 className="inbox-period"><time dateTime={period}>{new Date(`${period}T12:00:00Z`).toLocaleDateString(undefined, { dateStyle: "long", timeZone: "UTC" })}</time></h2>
+              <ul className="outcome-list">
+                {items.map((item) => (
+                  <li key={item.id}>
+                    <a href={item.href} onClick={event => {event.preventDefault();void mutate("/api/notifications/actions",{operationKey:operationKey(),action:"read",id:item.id}).then(()=>window.location.assign(item.href)).catch(setError);}}>
+                      <span className="outcome-kind">
+                        {item.event.replaceAll("-", " ")}
+                        {!item.readAt ? " · Unread" : ""}
+                      </span>
+                      <h3>{item.title ?? (item.detail?.verificationRules ? rulesSummary(item.detail.verificationRules) : "Workspace update")}</h3>
+                      {item.detail?.verificationRules ? <p>{item.detail.verificationRules.pages.map(page => `${page.title} (${page.change})`).join(", ")}</p> : null}
+                      {localDevelopment && item.detail?.outcome ? <p>{item.detail.outcome}</p> : null}
+                      <time dateTime={item.createdAt}>{new Date(item.createdAt).toLocaleString()}</time>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
           {resource.data?.items.length === 0 ? (
             <p>You’re all caught up.</p>
           ) : null}
