@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { createPage } from '../interface/create-page.mjs';
 import { accessible, openNavigation } from './browser-support.mjs';
-import { call, ok } from './two-people-support.mjs';
+import { call, editable, ok } from './two-people-support.mjs';
 
 /** Native author actions, retained trash, and a populated outsider's unchanged view. */
 export async function draftDispositionJourney(state, people) {
@@ -77,7 +77,7 @@ export async function draftDispositionJourney(state, people) {
     await openDraft(closedId);
     await page.reload({ waitUntil: 'networkidle' });
     await expect(page.getByRole('textbox', { name: 'Page title', exact: true })).toHaveValue(closed.page.title);
-    await expect(page.getByRole('textbox', { name: 'Page body', exact: true })).toContainText('Retained content after closing');
+    await expect(editable(page, closed.blocks[0].id)).toContainText('Retained content after closing');
     const reopened = await read(closedId);
     assert.equal(reopened.page.lifecycle, 'draft');
     assert.equal(reopened.page.id, closedId);
@@ -121,6 +121,7 @@ export async function draftDispositionJourney(state, people) {
     assert.equal((await call(context, origin, 'GET', `/api/pages/${discardedId}`)).status, 404);
     assert.equal((await call(context, origin, 'POST', `/api/archive/${discardedId}`, submittedInput)).status, 200, 'Replaying the native discard is safe.');
     await page.goto(`${origin}/app/archive`, { waitUntil: 'networkidle' });
+    await page.getByRole('group', { name: 'Archive and trash', exact: true }).getByRole('button', { name: 'Trash', exact: true }).click();
     await expect(page.getByRole('main')).toContainText(discarded.page.title);
     await shot('retained-trash');
     await state.runScheduled();
@@ -140,7 +141,7 @@ export async function draftDispositionJourney(state, people) {
     assert.equal(restored.publishedRevisionId, null);
     assert.deepEqual(restored.blocks, discarded.blocks);
     assert.deepEqual(await history(discardedId), discardedHistory);
-    await expect(page.getByRole('textbox', { name: 'Page body', exact: true })).toContainText('Retained content after discarding');
+    await expect(editable(page, discarded.blocks[0].id)).toContainText('Retained content after discarding');
     await shot('restored');
     await state.runScheduled();
     assert.deepEqual(await outsiderTree(), beforeTree);

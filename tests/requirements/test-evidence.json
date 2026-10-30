@@ -44,7 +44,7 @@
         "BLOCK-008",
         "CONT-007"
       ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
+      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance. LIFE-007 also exercises the native archive route with a populated watched-page control: outsider refusal changes nothing, discard retains draft identity and history, replay is inert, restoration preserves every version, and scheduled processing adds no notification or outsider tree entry. The native author controls and close behaviour are covered by draftDispositionJourney in the loaded browser journey."
     },
     {
       "file": "tests/flagship/content/http.test.ts",

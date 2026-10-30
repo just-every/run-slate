@@ -563,7 +563,7 @@
       "id": "LIFE-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LIFE-007 — Discarding a draft. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "This registry records supporting Workers regressions only. Full LIFE-007 acceptance is adjudicated in CONTRACT.md using the loaded native browser draftDispositionJourney together with retained trash, authority and scheduled-notification checks in the supporting content journey.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
