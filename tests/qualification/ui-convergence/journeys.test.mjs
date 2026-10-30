@@ -114,7 +114,7 @@ for (const width of [390]) {
       await setupWorkspace(state);
       await treeFilterJourney(state);
       await state.switchIdentity('owner');
-      await settingsJourney(state,width);
+      await step('CONT-002 — native space creation and settings', () => settingsJourney(state,width));
       await workspaceAuthorityJourney(state,width);
     });
   });
@@ -369,7 +369,7 @@ for (const width of [1440]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await outlineJourney(state);
-      await settingsJourney(state,width);
+      await step('CONT-002 — native space creation and settings', () => settingsJourney(state,width));
       await workspaceAuthorityJourney(state,width);
     });
   });
