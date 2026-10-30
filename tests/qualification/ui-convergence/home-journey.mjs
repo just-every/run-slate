@@ -3,10 +3,12 @@ import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-evidence.mjs';
 import { openPageAction } from './browser-support.mjs';
+import { recentsJourney } from './recents-journey.mjs';
 import { grant, ok } from './two-people-support.mjs';
 
 /** Populated personal Home, real destinations, and current access after revocation. */
 export async function homeJourney(state, people) {
+  await recentsJourney(state, people);
   const { alice, bob } = people, { origin } = state;
   const space = (await ok(alice.context, origin, 'GET', '/api/containers')).items.find(item => item.name === 'Handbook');
   const privateSpace = (await ok(alice.context, origin, 'POST', '/api/containers', { operationKey: randomUUID(), name: 'Personal navigation', visibility: 'private' })).value.id;

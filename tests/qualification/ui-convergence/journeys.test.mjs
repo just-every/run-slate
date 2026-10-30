@@ -60,6 +60,7 @@ import { taskReportJourney } from './task-report-journey.mjs';
 import { myTasksJourney } from './my-tasks-journey.mjs';
 import { trustRankingJourney } from './trust-ranking-journey.mjs';
 import { chatJourney } from './chat-journey.mjs';
+import { recentsJourney } from './recents-journey.mjs';
 import { todayOutcomesJourney } from './today-outcomes-journey.mjs';
 
 // Retain both responsive branches: desktop sidebar visibility and horizontal
@@ -87,6 +88,7 @@ for (const width of [390, 1440]) {
         await state.runScheduled();
         await chatJourney(state, width);
         if (width === 390) {
+          await withSecondPerson(state, width, people => step('NAV-002 — personal recents across local days on a phone', () => recentsJourney(state, people)));
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
           // One phone smoke visits the main screens; functional journeys use desktop
           // except where an assertion distinguishes the phone layout or touch input.
