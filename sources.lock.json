@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "a464dffdcde41c85b44b810e9cce143349d30b6fa33c404235ecc3d0bb6e07a3",
+      "sha256": "b3b122e33b373d4e4e4edac9f278a26976c5973ebb2dd8ceaf2679600cf7a46a",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "830a48a24e48e4726a7b9f89b210073050d4005ca40f32f0aab4b039d49ba9e8",
+      "sha256": "0f0d3bb91b629fd42c18af235d6c8e3b2b58726cbe6bd6044d2ccebcb6c5056d",
       "executable": false
     },
     "DEMO.md": {
@@ -11952,7 +11952,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "a4cd1c0483504a7bc234b5a821eeb9f3c238fc17c6428c0b9e44ddc34b0cb39f",
+      "sha256": "46b39f47709aea63b7c0b5867cf1b191c9b23a1ca775698ef1a5998382ec0b8c",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12044,7 +12044,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {
-      "sha256": "711106639f580981c9c9a953fac1df157deb356e6c616ae639a99b43e09a19a2",
+      "sha256": "620d0f24a417fa98edbb0e2118296fdd12d503125166274644429c1b2187d935",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
@@ -12069,6 +12069,10 @@
     },
     "tests/qualification/ui-convergence/task-report-journey.mjs": {
       "sha256": "b0ee39ec453ddacfb5d458184d819693d2de7373524da20aa7bbcf6e56192fe1",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/template-gallery-journey.mjs": {
+      "sha256": "d68df5dac9d3b4677303052cd1348675e263ae81f8ad017435ecf82d72c9aa8b",
       "executable": false
     },
     "tests/qualification/ui-convergence/today-outcomes-journey.mjs": {
@@ -12168,7 +12172,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "e17abf1c458b228f23915f27d37b5f63a0ea4add2909c61efe0631f53ca9dc31",
+      "sha256": "3936db6aa60dbf840ec7bc24d8b8d29f730e7f189e4f76fe72fbc3262e8cad65",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {

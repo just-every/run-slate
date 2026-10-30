@@ -2118,8 +2118,8 @@ Core · published · **partial**
 1. A search with no match shows "No templates match this search."
 2. Template gallery search and category filter with the exact no-match text.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Members can search templates by title and description and filter them by category."<br>No validated CI-run proof for this acceptance point: "A search with no match shows "No templates match this search.""
+**Evidence.** `tests/qualification/ui-convergence/template-gallery-journey.mjs` — "templateGalleryJourney", loaded by the existing starter-template and phone core journeys in `tests/qualification/ui-convergence/journeys.test.mjs`: native template creation, independent title and description search, combined categories, exact results and explicit empty state.
+**Gap.** Exact candidate browser execution pending.
 
 #### TMPL-002 — Preview
 
