@@ -11988,7 +11988,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/public-page-journey.mjs": {
-      "sha256": "312ba628965a91a23edb052c82ec547b4d992031528c76b67b139a01c7628e81",
+      "sha256": "b0d8e8de815a0df21b8cde4a2011240e428ad18ca85e100e62f3d096fba3c1c0",
       "executable": false
     },
     "tests/qualification/ui-convergence/publication-journey.mjs": {
@@ -12160,7 +12160,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "075400979c16283b3de207f37725ad4322a09a93775c093198b5fed83fbd6b88",
+      "sha256": "b614b09ff46dc192ef02d3ed7b26aee66a8ddf675ce0590ffea5a083c0b7c42c",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {

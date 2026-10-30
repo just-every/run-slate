@@ -101,7 +101,7 @@ export async function publicPageUnpublishJourney(state) {
     assert.equal(response.status, 404);
     assert.match(response.html, /This link is no longer available\./);
     for (const marker of [title, body, oldTitle, oldBody]) assert.ok(!response.html.includes(marker), `Unavailable document excludes ${marker}.`);
-    assert.equal(response.headers['cache-control'], 'no-store');
+    assert.ok(response.headers['cache-control'].split(',').map(value => value.trim().toLowerCase()).includes('no-store'), 'Unavailable content cannot be cached.');
     assert.equal(response.headers['set-cookie'], undefined);
   };
   try {
