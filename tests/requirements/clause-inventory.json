@@ -770,19 +770,11 @@
       "id": "STAT-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Native HTTP and responsive Settings journeys cover the vocabulary record, both profiles, owner mutations, retained retired assignments and explicit bulk replacement. Independent acceptance and guarded landing receipts are established separately.",
+      "unmetReason": "The registered HTTP journey supports the vocabulary record, both profiles, owner mutations, retained retired assignments, explicit bulk replacement and current authority. Native browser acceptance and clause status are recorded separately in CONTRACT.md.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
           "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
-        },
-        {
-          "file": "tests/qualification/ui-convergence/journeys.test.mjs",
-          "testName": "page outline follows headings and navigates long pages at 1440px"
-        },
-        {
-          "file": "tests/qualification/ui-convergence/journeys.test.mjs",
-          "testName": "space tree title filtering preserves ancestors, access and expansion at 390px"
         }
       ]
     },
