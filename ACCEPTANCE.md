@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 49 | 248 | 34 | 331 |
+| Core | 50 | 247 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 49 | 248 | 40 | 337 |
+| Full target | 50 | 247 | 40 | 337 |
 
-Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `417f5fbb7a9566a7bb6fa8aafe82690b3550094e` (30 October 2026); TMPL-003 native snapshot and retained-copy proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -2136,7 +2136,7 @@ Core · published · **partial**
 
 #### TMPL-003 — Snapshot on use
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Using a template creates a page holding a copy of its body, properties and children in the destination the member chose.
 
@@ -2144,8 +2144,8 @@ Core · published · **partial**
 1. Editing, archiving or deleting the template afterwards changes no page already created from it.
 2. Using a template snapshots it; later template edits change no created page.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Using a template creates a page holding a copy of its body, properties and children in the destination the member chose."<br>No validated CI-run proof for this acceptance point: "Editing, archiving or deleting the template afterwards changes no page already created from it."
+**Evidence.** `tests/qualification/ui-convergence/template-snapshot-journey.mjs` — "templateSnapshotJourney": requirement and acceptance 1 and 2, native custom-template save and apply into the chosen destination, complete body, properties and nested hierarchy with fresh page and block identifiers, then unchanged content, properties, hierarchy and revisions after native template update, archive and deletion with reload. Loaded by `tests/qualification/ui-convergence/starter-templates-journey.mjs` — "starterTemplatesJourney" in `tests/qualification/ui-convergence/journeys.test.mjs` — "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px", and the same file — "real core-wiki and touch-member journeys at 390px". Supporting replay, independent assets and current authority remain in `tests/flagship/structured/structured.test.ts`, `tests/flagship/structured/template-repairs.test.ts` and `tests/flagship/structured/template-permissions.test.ts`.
+**Gap.** None.
 
 #### TMPL-004 — Custom templates
 
