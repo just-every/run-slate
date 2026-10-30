@@ -8400,7 +8400,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PagePublication.tsx": {
-      "sha256": "15457f4192d974cabd394a186ccc4ecd993125efb7c4d0d34ddb47af3d4d19ca",
+      "sha256": "40ff0f9b62d5fc0165cbf8786a96ac5f2cf363b04cd7caf0a69810ee8eb81edd",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageReadMetadata.tsx": {
@@ -12000,7 +12000,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/public-profile-journey.mjs": {
-      "sha256": "6579fa568c7a825ce5bc1af061078ced980da534097b283024d8f6c6e3c9ba92",
+      "sha256": "35c4b41de7dbd9e24e64e7206d289e8a135e975062b4b41297b65236d5389a2b",
       "executable": false
     },
     "tests/qualification/ui-convergence/publication-journey.mjs": {

@@ -56,7 +56,7 @@ export async function publicProfileJourney(state) {
       ['host','slug','theme','indexable','duplicate','header','header','header','socialTitle','socialDescription']);
     await expect(dialog.getByLabel('Host', {exact:true})).toHaveValue(new URL(origin).host);
     await dialog.getByLabel('Public address', {exact:true}).fill(slug);
-    await dialog.getByLabel('Theme', {exact:true}).selectOption('dark');
+    await dialog.getByRole('combobox', {name:'Theme',exact:true}).selectOption('dark');
     await dialog.locator('input[name="duplicate"]').check();
     await dialog.locator('input[name="header"][value="search"]').check();
     await dialog.locator('input[name="header"][value="duplicate"]').check();
@@ -74,6 +74,16 @@ export async function publicProfileJourney(state) {
     await expect(page.getByRole('complementary', {name:'Live public site', exact:true})).toBeVisible();
     await page.screenshot({path:path.join(directory,'site-banner.png'), fullPage:true});
     await anonymous(200);
+    const visitor = await context.browser().newContext();
+    try {
+      const publicPage = await visitor.newPage(), requests = [];
+      publicPage.on('request', request => requests.push(request.url()));
+      await publicPage.goto(publicUrl, {waitUntil:'networkidle'});
+      await expect(publicPage.getByRole('heading', {name:'Synthetic public profile page',exact:true})).toBeVisible();
+      assert.ok(requests.length > 0);
+      assert.ok(requests.every(url => new URL(url).origin === origin), 'Anonymous viewing loads only same-origin resources.');
+      assert.deepEqual(await visitor.cookies(), [], 'Anonymous viewing creates no visitor cookie.');
+    } finally { await visitor.close(); }
 
     // The import boundary can retain metadata unknown to today's settings form.
     // Only this stored import fixture is substituted; saves and reads remain native.
@@ -131,7 +141,7 @@ export async function publicProfileJourney(state) {
     await expect(page.getByRole('complementary', {name:'Live public site', exact:true})).toBeVisible();
     await page.getByRole('button', {name:'Edit public settings', exact:true}).click();
     await expect(dialog.getByLabel('Public address', {exact:true})).toHaveValue(slug);
-    await expect(dialog.getByLabel('Theme', {exact:true})).toHaveValue('dark');
+    await expect(dialog.getByRole('combobox', {name:'Theme',exact:true})).toHaveValue('dark');
     await expect(dialog.locator('input[name="duplicate"]')).toBeChecked();
     await expect(dialog.locator('input[name="header"][value="search"]')).toBeChecked();
     await expect(dialog.locator('input[name="header"][value="duplicate"]')).toBeChecked();

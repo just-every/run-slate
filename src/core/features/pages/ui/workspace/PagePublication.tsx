@@ -29,7 +29,8 @@ export function PagePublication({
   );
   const [action, setAction] = useState<"edit" | "revoke" | null>(null);
   const [key, setKey] = useState("");
-  const [savingLink, setSavingLink] = useState(false);
+  const [pendingLink, setPendingLink] = useState<{ revoke?: boolean; indexable?: boolean } | null>(null);
+  const savingLink = pendingLink !== null;
   const [linkError, setLinkError] = useState<unknown>();
   if (!document.permissions.canShare) return null;
   const exposure = resource.data?.exposure;
@@ -42,7 +43,7 @@ export function PagePublication({
     setAction(value);
   };
   const saveLink = async (changes: { revoke?: boolean; indexable?: boolean }) => {
-    setSavingLink(true);
+    setPendingLink(changes);
     setLinkError(undefined);
     try {
       await mutate(`/api/publishing/${document.page.id}`, {
@@ -57,7 +58,7 @@ export function PagePublication({
     } catch (cause) {
       setLinkError(cause);
     } finally {
-      setSavingLink(false);
+      setPendingLink(null);
     }
   };
   return (
@@ -78,7 +79,7 @@ export function PagePublication({
               <input
                 type="checkbox"
                 role="switch"
-                checked={!!exposure && !exposure.revokedAt}
+                checked={pendingLink?.revoke === undefined ? !!exposure && !exposure.revokedAt : !pendingLink.revoke}
                 disabled={blocked || resource.loading || savingLink}
                 onChange={(event) => void saveLink({ revoke: !event.currentTarget.checked })}
               />
@@ -93,7 +94,7 @@ export function PagePublication({
                 <label>
                   <input
                     type="checkbox"
-                    checked={exposure.indexable}
+                    checked={pendingLink?.indexable ?? exposure.indexable}
                     disabled={savingLink}
                     onChange={(event) => void saveLink({ indexable: event.currentTarget.checked })}
                   />
