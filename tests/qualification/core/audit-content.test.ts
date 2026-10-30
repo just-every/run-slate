@@ -1,7 +1,7 @@
 import {auditExportProof} from './audit-export-proof';
 import {test,expect,vi} from 'vitest';
 import {auditFixture,env,createUlid,pageDurabilityProof,activityContextProof} from './audit-support';
-test('ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor/time',async()=>{
+test('ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time',async()=>{
  const f=await auditFixture();
  await pageDurabilityProof(f);
  await activityContextProof(f);
