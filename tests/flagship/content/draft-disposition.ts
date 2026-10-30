@@ -32,7 +32,7 @@ export async function draftDispositionJourney(f: Fixture) {
   const before = await send('GET', `/api/pages/${id}`);
   const versions = await send('GET', `/api/revisions/${id}`);
   expect(versions.items.length).toBeGreaterThan(1);
-  const input = { operationKey: createUlid(), expectedRevisionId: before.page.revisionId, action: 'trash' };
+  const input = { operationKey: createUlid(), expectedRevisionId: before.page.revisionId, action: 'discard-draft' };
   expect((await f.request('POST', `/api/archive/${id}`, input, f.b)).status).toBe(404);
   expect((await send('GET', `/api/pages/${id}`)).blocks).toEqual(before.blocks);
   expect((await send('GET', '/api/archive')).items.some((row: any) => row.id === id)).toBe(false);
@@ -66,4 +66,53 @@ export async function draftDispositionJourney(f: Fixture) {
   await scheduledDiscovery(env);
   expect(await notifications()).toEqual(baseline);
   expect((await send('GET', '/api/pages', undefined, f.b)).items).toEqual(tree);
+
+  // Keep the inherited retained cascade, including a live child another member watches.
+  const parent = await send('POST', '/api/pages', {operationKey:createUlid(), containerId:f.containerId, title:'Draft parent'});
+  const parentId = parent.value.pageId;
+  const child = await send('POST', '/api/pages', {operationKey:createUlid(), containerId:f.containerId, parentPageId:parentId, title:'Published child', blocks:[{id:createUlid(), blockType:'paragraph', treePosition:'1', content:{text:[{text:'Retained child body'}]}}]});
+  const childId = child.value.pageId;
+  await send('POST', `/api/pages/${childId}/publish`, {operationKey:createUlid(), expectedRevisionId:child.value.revisionId});
+  expect((await send('GET', `/api/pages/${childId}`, undefined, f.b)).page.lifecycle).toBe('live');
+  const documents = await Promise.all([send('GET', `/api/pages/${parentId}`), send('GET', `/api/pages/${childId}`)]);
+  const histories = await Promise.all([send('GET', `/api/revisions/${parentId}`), send('GET', `/api/revisions/${childId}`)]);
+  await scheduledDiscovery(env);
+  const nestedBaseline = await notifications();
+  expect(nestedBaseline.inbox.some(row => row.source_page_id === childId && row.recipient_member_id === f.b)).toBe(true);
+  const nestedTree = (await send('GET', '/api/pages', undefined, f.b)).items;
+  const discard = {operationKey:createUlid(), expectedRevisionId:parent.value.revisionId, action:'discard-draft'};
+  expect((await f.request('POST', `/api/archive/${parentId}`, discard, f.b)).status).toBe(404);
+  const receipt = await send('POST', `/api/archive/${parentId}`, discard);
+  expect(await send('POST', `/api/archive/${parentId}`, discard)).toEqual(receipt);
+  for (const pageId of [parentId, childId]) {
+    expect((await send('GET', '/api/archive')).items.some((row:any) => row.id === pageId && row.trashedAt)).toBe(true);
+    expect((await f.request('GET', `/api/pages/${pageId}`)).status).toBe(404);
+  }
+  await scheduledDiscovery(env);
+  await scheduledDiscovery(env);
+  expect(await notifications()).toEqual(nestedBaseline);
+  expect((await send('GET', '/api/pages', undefined, f.b)).items).toEqual(nestedTree.filter((row:any) => row.id !== childId));
+  await send('POST', `/api/archive/${parentId}`, {...discard, operationKey:createUlid(), action:'restore'});
+  for (const [index, pageId] of [parentId, childId].entries()) {
+    const restored = await send('GET', `/api/pages/${pageId}`);
+    expect(restored.page.id).toBe(documents[index].page.id);
+    expect(restored.page.lifecycle).toBe(documents[index].page.lifecycle);
+    expect(restored.authorMemberId).toBe(documents[index].authorMemberId);
+    expect(restored.workingRevisionId).toBe(documents[index].workingRevisionId);
+    expect(restored.publishedRevisionId).toBe(documents[index].publishedRevisionId);
+    expect(restored.blocks).toEqual(documents[index].blocks);
+    expect(await send('GET', `/api/revisions/${pageId}`)).toEqual(histories[index]);
+  }
+  expect((await send('GET', `/api/pages/${childId}`)).parentPageId).toBe(parentId);
+  expect(await send('POST', `/api/archive/${parentId}`, discard)).toEqual(receipt);
+  expect((await send('GET', `/api/pages/${childId}`)).page.lifecycle).toBe('live');
+  const liveInput = {operationKey:createUlid(), expectedRevisionId:documents[1].page.revisionId, action:'discard-draft'};
+  expect((await f.request('POST', `/api/archive/${childId}`, liveInput)).status).toBe(409);
+  for (const action of ['archive', 'trash']) {
+    await send('POST', `/api/archive/${childId}`, {...liveInput, operationKey:createUlid(), action});
+    await scheduledDiscovery(env);
+    expect((await notifications()).inbox.some(row => row.source_page_id === childId && row.recipient_member_id === f.b && row.event === (action === 'archive' ? 'page-archived' : 'page-trashed'))).toBe(true);
+    await send('POST', `/api/archive/${childId}`, {...liveInput, operationKey:createUlid(), action:'restore'});
+  }
+
 }

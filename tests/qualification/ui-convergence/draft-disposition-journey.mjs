@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { createPage } from '../interface/create-page.mjs';
 import { accessible, openNavigation } from './browser-support.mjs';
-import { call, ok } from './two-people-support.mjs';
+import { call, editable, ok } from './two-people-support.mjs';
 
 /** Native author actions, retained trash, and a populated outsider's unchanged view. */
 export async function draftDispositionJourney(state, people) {
@@ -70,7 +70,6 @@ export async function draftDispositionJourney(state, people) {
     const closed = await read(closedId), closedHistory = await history(closedId);
     await more();
     await expect(page.getByRole('menuitem', { name: 'Close draft', exact: true })).toBeEnabled();
-    await page.getByRole('menuitem', { name: 'Discard draft', exact: true }).scrollIntoViewIfNeeded();
     await accessible(page, `Draft disposition actions ${width}`);
     await shot('author-actions');
     await page.getByRole('menuitem', { name: 'Close draft', exact: true }).click();
@@ -78,7 +77,7 @@ export async function draftDispositionJourney(state, people) {
     await openDraft(closedId);
     await page.reload({ waitUntil: 'networkidle' });
     await expect(page.getByRole('textbox', { name: 'Page title', exact: true })).toHaveValue(closed.page.title);
-    await expect(page.locator('[data-block-id="' + closed.blocks[0].id + '"] [contenteditable="true"]')).toHaveText('Retained content after closing');
+    await expect(editable(page, closed.blocks[0].id)).toHaveText('Retained content after closing');
     const reopened = await read(closedId);
     assert.equal(reopened.page.lifecycle, 'draft');
     assert.equal(reopened.page.id, closedId);
@@ -95,7 +94,7 @@ export async function draftDispositionJourney(state, people) {
 
     const discardedId = await createDraft('Discard retained draft', 'Retained content after discarding');
     const discarded = await read(discardedId), discardedHistory = await history(discardedId);
-    const input = { operationKey: crypto.randomUUID(), expectedRevisionId: discarded.page.revisionId, action: 'trash' };
+    const input = { operationKey: crypto.randomUUID(), expectedRevisionId: discarded.page.revisionId, action: 'discard-draft' };
     assert.equal((await call(bob.context, origin, 'POST', `/api/archive/${discardedId}`, input)).status, 404, 'An outsider cannot discard an authored private draft.');
     assert.deepEqual((await read(discardedId)).blocks, discarded.blocks);
     await more();
@@ -122,7 +121,7 @@ export async function draftDispositionJourney(state, people) {
     assert.equal((await call(context, origin, 'GET', `/api/pages/${discardedId}`)).status, 404);
     assert.equal((await call(context, origin, 'POST', `/api/archive/${discardedId}`, submittedInput)).status, 200, 'Replaying the native discard is safe.');
     await page.goto(`${origin}/app/archive`, { waitUntil: 'networkidle' });
-    await page.getByRole('button', { name: 'Trash', exact: true }).click();
+    await page.getByRole('group', { name: 'Archive and trash', exact: true }).getByRole('button', { name: 'Trash', exact: true }).click();
     await expect(page.getByRole('main')).toContainText(discarded.page.title);
     await shot('retained-trash');
     await state.runScheduled();
@@ -142,14 +141,96 @@ export async function draftDispositionJourney(state, people) {
     assert.equal(restored.publishedRevisionId, null);
     assert.deepEqual(restored.blocks, discarded.blocks);
     assert.deepEqual(await history(discardedId), discardedHistory);
-    await expect(page.locator('[data-block-id="' + discarded.blocks[0].id + '"] [contenteditable="true"]')).toHaveText('Retained content after discarding');
+    await expect(editable(page, discarded.blocks[0].id)).toHaveText('Retained content after discarding');
     await shot('restored');
     await state.runScheduled();
     assert.deepEqual(await outsiderTree(), beforeTree);
     assert.deepEqual(await notices(), beforeNotices);
     assert.deepEqual(await storedNotifications(), beforeStored);
+    await nestedDraftDiscardJourney(state, people);
     console.info(`PROBE LIFE-007 discard: native Discard draft, trash, replay and restore -> ${discardedId} retained with author, body and every version; outsider refusal and unchanged persisted notifications after scheduled processing`);
   } finally {
     await policy(original.policies['page.lifecycle.v1']);
   }
+}
+
+/** A published, watched descendant must share the dedicated draft disposition's silence. */
+export async function nestedDraftDiscardJourney(state, { bob }) {
+  const { page, context, origin, api } = state;
+  const space = (await api('/api/containers')).items.find(item => item.name === 'Handbook');
+  const send = (method, route, data) => ok(context, origin, method, route, data);
+  const read = id => api(`/api/pages/${id}`);
+  const history = id => api(`/api/revisions/${id}`);
+  const notices = () => ok(bob.context, origin, 'GET', '/api/notifications');
+  const tree = () => ok(bob.context, origin, 'GET', '/api/pages');
+  const create = async (title, parentPageId) => (await send('POST', '/api/pages', {
+    operationKey: crypto.randomUUID(), containerId: space.id, parentPageId, title,
+    blocks: [{ id: crypto.randomUUID(), blockType: 'paragraph', treePosition: 'a', content: { text: [{ text: `${title} retained body` }] } }],
+  })).value.pageId;
+  const parentId = await create('Nested retained draft');
+  const childId = await create('Watched published child', parentId);
+  await send('POST', `/api/pages/${childId}/publish`, { operationKey: crypto.randomUUID(), expectedRevisionId: (await read(childId)).page.revisionId });
+  const parent = await read(parentId), child = await read(childId);
+  const versions = await Promise.all([history(parentId), history(childId)]);
+  assert.equal(parent.page.lifecycle, 'draft');
+  assert.equal((await ok(bob.context, origin, 'GET', `/api/pages/${childId}`)).page.lifecycle, 'live');
+  await state.runScheduled();
+  const beforeNotices = await notices(), beforeTree = await tree();
+  assert.ok(beforeNotices.items.some(item => item.pageId === childId), 'The other member receives the published child notification.');
+  const stored = async () => {
+    await Promise.all([page.goto('about:blank'), bob.page.goto('about:blank')]);
+    return (await state.atRest('SELECT * FROM notifications ORDER BY id; SELECT * FROM notification_outbox ORDER BY id;')).map(row => row.results);
+  };
+  const beforeStored = await stored();
+  await page.goto(`${origin}/app/pages/${parentId}`, { waitUntil: 'networkidle' });
+  await page.getByRole('button', { name: 'More', exact: true }).click();
+  await page.getByRole('menuitem', { name: 'Discard draft', exact: true }).click();
+  const shot = label => page.screenshot({ path: `.artifacts/ui-convergence/draft-subtree-${page.viewportSize().width}-${label}.png`, fullPage: true });
+  await shot('confirmation');
+  const submitted = page.waitForResponse(response => response.request().method() === 'POST' && new URL(response.url()).pathname === `/api/archive/${parentId}`);
+  await page.getByRole('dialog', { name: 'Discard this draft?', exact: true }).getByRole('button', { name: 'Discard draft', exact: true }).click();
+  const response = await submitted;
+  assert.equal(response.status(), 200);
+  const input = response.request().postDataJSON();
+  await page.waitForURL(url => url.pathname === '/app');
+  await state.runScheduled();
+  const afterNotices = await notices();
+  const added = afterNotices.items.filter(item => !beforeNotices.items.some(prior => prior.id === item.id));
+  console.info(`PROBE LIFE-007 BLOCKING A width=${page.viewportSize().width} addedNotifications=${JSON.stringify(added.map(item => ({event:item.event, pageId:item.pageId, href:item.href})))}`);
+  assert.deepEqual(added, [], 'Discarding a draft with a published child delivers no notification to its watcher.');
+  assert.deepEqual(await stored(), beforeStored, 'The whole retained subtree creates no notification or queued intent.');
+  assert.deepEqual((await tree()).items, beforeTree.items.filter(item => item.id !== childId), 'No private draft trace appears in the other member tree.');
+  for (const id of [parentId, childId]) {
+    assert.ok((await api('/api/archive')).items.some(item => item.id === id && item.trashedAt));
+    assert.equal((await call(context, origin, 'GET', `/api/pages/${id}`)).status, 404);
+  }
+  assert.equal((await call(bob.context, origin, 'POST', `/api/archive/${parentId}`, input)).status, 404);
+  await send('POST', `/api/archive/${parentId}`, input);
+  await page.goto(`${origin}/app/archive`, { waitUntil: 'networkidle' });
+  await page.getByRole('group', { name: 'Archive and trash', exact: true }).getByRole('button', { name: 'Trash', exact: true }).click();
+  await expect(page.getByRole('main')).toContainText(child.page.title);
+  await shot('retained-trash');
+  await send('POST', `/api/archive/${parentId}`, { operationKey: crypto.randomUUID(), expectedRevisionId: parent.page.revisionId, action: 'restore' });
+  const restoredParent = await read(parentId), restoredChild = await read(childId);
+  for (const [before, after] of [[parent, restoredParent], [child, restoredChild]]) {
+    assert.equal(after.page.id, before.page.id);
+    assert.equal(after.page.lifecycle, before.page.lifecycle);
+    assert.equal(after.authorMemberId, before.authorMemberId);
+    assert.equal(after.workingRevisionId, before.workingRevisionId);
+    assert.equal(after.publishedRevisionId, before.publishedRevisionId);
+    assert.deepEqual(after.blocks, before.blocks);
+  }
+  assert.equal(restoredChild.parentPageId, parentId);
+  assert.deepEqual(await Promise.all([history(parentId), history(childId)]), versions);
+  await send('POST', `/api/archive/${parentId}`, input);
+  assert.equal((await read(childId)).page.lifecycle, 'live', 'Replaying disposal after restore cannot trash the child again.');
+  await page.goto(`${origin}/app/pages/${parentId}`, { waitUntil: 'networkidle' });
+  await expect(editable(page, parent.blocks[0].id)).toContainText('Nested retained draft retained body');
+  await shot('restored');
+  // Ordinary live-page trash still notifies, and cannot use the dedicated disposition.
+  assert.equal((await call(context, origin, 'POST', `/api/archive/${childId}`, {operationKey:crypto.randomUUID(), expectedRevisionId:child.page.revisionId, action:'discard-draft'})).status, 409);
+  await send('POST', `/api/archive/${childId}`, { operationKey: crypto.randomUUID(), expectedRevisionId: child.page.revisionId, action: 'trash' });
+  await state.runScheduled();
+  assert.ok((await notices()).items.some(item => item.pageId === childId && item.event === 'page-trashed'), 'Generic trash keeps its watcher notification.');
+  console.info(`PROBE LIFE-007 BLOCKING A PASS width=${page.viewportSize().width}: silent retained subtree, outsider refusal, replay, restored child lineage/body/history and generic trash notification`);
 }

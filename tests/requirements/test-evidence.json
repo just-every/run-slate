@@ -44,7 +44,7 @@
         "BLOCK-008",
         "CONT-007"
       ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance."
+      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance. LIFE-007 includes native draft disposal of a watched published-child subtree, unchanged durable notification stores after scheduled processing, retained cascade, outsider refusal, replay and restored lineage, body and history; generic archive and trash still notify, and a live page cannot use draft disposal."
     },
     {
       "file": "tests/flagship/content/http.test.ts",
