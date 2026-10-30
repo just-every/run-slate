@@ -951,7 +951,7 @@
       "id": "CONT-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of CONT-004 — Container settings. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "This legacy inventory classifies the native container metadata regression only; CONTRACT.md owns acceptance status. The loaded containerSettingsJourney in ./tests/qualification/ui-convergence/container-settings-journey.mjs exercises two ordinary administrators, complete scoped settings panes, native cross-container and workspace refusals with unchanged snapshots, retained workspace-owner administration and responsive browser proof through the existing journey registrations.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",

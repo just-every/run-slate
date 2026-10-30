@@ -32,7 +32,7 @@ async function snapshot(actor,containerId){
 async function shell(actor,container){
  await actor.page.goto(`${actor.origin}/app/containers/${container.containerId}`,{waitUntil:'networkidle'});
  const navigation=actor.page.getByRole('navigation',{name:'Space navigation',exact:true});
- await tap(navigation.getByRole('button',{name:'Settings',exact:true}));
+ await navigation.getByRole('button',{name:'Settings',exact:true}).click();
  return actor.page.getByRole('region',{name:`${container.name} settings`,exact:true});
 }
 
@@ -139,7 +139,12 @@ export async function containerSettingsJourney(state,touch,{screensOnly=false}={
   const b={...await corpus(second,secondSpace.id,'Secondary'),name:secondSpace.name,member:secondMember};
   for(const [admin,own,viewer] of [[first,a,b],[second,b,a]])await write(admin,'POST','/api/sharing',mutation({targetKind:'container',targetId:own.containerId,principalKind:'member',principalId:viewer.member.id,level:'view'}));
   const workspace=await state.api('/api/workspace');
-  if(screensOnly){await panes(first,a,b,{screensOnly:true});return;}
+  if(screensOnly){
+   await panes(first,a,b,{screensOnly:true});
+   await first.page.goto(`${origin}/app/containers/${b.containerId}`,{waitUntil:'networkidle'});
+   await accessible(first.page,'phone reader has no foreign container administration');
+   return;
+  }
   for(const [admin,own,foreign,foreignAdmin] of [[first,a,b,second],[second,b,a,first]]){
    const beforeOther=await snapshot(foreignAdmin,foreign.containerId);
    await panes(admin,own,foreign);
@@ -159,15 +164,15 @@ export async function containerSettingsJourney(state,touch,{screensOnly=false}={
    await accessible(admin.page,`${own.label} can read another container without administrative entry points`);
    const target=beforeOther.container;
    const attempts=[
-    ['GET',`/api/sharing/containers/${foreign.containerId}`],
-    ['PATCH',`/api/containers/${foreign.containerId}`,mutation({expectedRevisionId:target.revisionId,description:'Refused foreign administration'})],
-    ['POST','/api/sharing/container-settings',mutation({id:foreign.containerId,expectedRevisionId:target.revisionId,visibility:'open',guestAccess:'allowed',publicLinkAccess:'allowed',anonymousAccess:'allowed'})],
-    ['POST','/api/sharing',mutation({targetKind:'container',targetId:foreign.containerId,principalKind:'member',principalId:own.member.id,level:'full'})],
-    ['POST',`/api/containers/${foreign.containerId}/archive`,mutation({expectedRevisionId:target.revisionId})],
+    ['GET',`/api/sharing/containers/${foreign.containerId}`,undefined,403],
+    ['PATCH',`/api/containers/${foreign.containerId}`,mutation({expectedRevisionId:target.revisionId,description:'Refused foreign administration'}),403],
+    ['POST','/api/sharing/container-settings',mutation({id:foreign.containerId,expectedRevisionId:target.revisionId,visibility:'open',guestAccess:'allowed',publicLinkAccess:'allowed',anonymousAccess:'allowed'}),403],
+    ['POST','/api/sharing',mutation({targetKind:'container',targetId:foreign.containerId,principalKind:'member',principalId:own.member.id,level:'full'}),403],
+    ['POST',`/api/containers/${foreign.containerId}/archive`,mutation({expectedRevisionId:target.revisionId}),404],
    ];
-   for(const [method,route,data] of attempts){
+   for(const [method,route,data,status] of attempts){
     const response=await call(admin.context,origin,method,route,data);
-    assert.equal(response.status,403,`${method} ${route} refuses another container's administrator.`);
+    assert.equal(response.status,status,`${method} ${route} refuses another container's administrator.`);
    }
    const template=await read(foreignAdmin,`/api/templates/${foreign.templateId}`);
    assert.equal((await call(admin.context,origin,'POST',`/api/templates/${foreign.templateId}/change`,mutation({expectedRevisionId:template.revisionId,action:'delete'}))).status,404);
