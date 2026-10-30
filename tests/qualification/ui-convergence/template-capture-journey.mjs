@@ -96,6 +96,13 @@ export async function templateCaptureJourney(state) {
     snapshot.children.forEach((child, index) => inspectSnapshot(child, source.children[index], true));
   }
 
+  // Disable the creator's independent autowatch preference so a new implicit
+  // watch cannot be confused with copying either source subscriber.
+  const preferences = await api('/api/navigation/preferences');
+  await mutate('/api/navigation/preferences', { expectedRevisionId: preferences.revisionId, value: { ...preferences.value, autowatch: false } }, 'PUT');
+  const sourceWatches = (await api('/api/navigation')).watches;
+  assert.ok(sources.every(source => sourceWatches.includes(source.id)), 'Changing autowatch retains the explicitly selected source watches.');
+
   await withSecondPerson(state, width, async people => {
     for (const source of sources) {
       await ok(people.bob.context, origin, 'PUT', '/api/navigation/watches', { operationKey: randomUUID(), pageId: source.id, enabled: true });
