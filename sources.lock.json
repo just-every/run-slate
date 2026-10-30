@@ -8408,7 +8408,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageSharing.tsx": {
-      "sha256": "16e7e394c9bc398baab2fbb7903cffa43fe6a30637da1cce1b5f7dc6ca18dbcf",
+      "sha256": "6a21d69d0bbca306cc1f66030ee952a0b77e58276d67051ed982d30528e384d5",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageStatusBadge.tsx": {
@@ -12028,7 +12028,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-journey.mjs": {
-      "sha256": "e69a4fafd7067637f7f34c10d0dd7c3571d5cc6b8fbcbb132574e5201fcb992b",
+      "sha256": "b04b7ea3bfd4c7bb3828c35648652cfad5ee422a1d3aa52f6faee92402ecbab0",
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {
@@ -12156,7 +12156,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "075400979c16283b3de207f37725ad4322a09a93775c093198b5fed83fbd6b88",
+      "sha256": "29e069a5b6e9090d98fe20552a824642aeec791c314ca6f5a1bf3fda191a2c30",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
