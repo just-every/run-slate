@@ -325,6 +325,7 @@ function LoadedPage({
           extraItems={host?.moreItems}
           reload={reload}
           onPresent={() => {setPresent(true);setDetail(null);}}
+          onCloseDraft={() => {void navigate({href:"/app"}).catch(setError);}}
           onOpenPanel={(kind, returnTo) => {setSelection(undefined);requestedReturn.current=returnTo;setDetail(kind);}}
           onAddDescription={host?.database && document.permissions.canEdit && !description ? () => {addDescription.current=true;setDescribing(true);} : undefined}
         />}

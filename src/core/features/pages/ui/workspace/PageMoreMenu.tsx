@@ -27,6 +27,7 @@ import {
   Star,
   Trash2,
   Undo2,
+  X,
 } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { contentApi, type DocumentView } from "../../../../client/content";
@@ -35,6 +36,7 @@ import { PageActionDialogs, type PageDialog } from "./PageActionDialogs";
 import { usePageFollowing } from "./usePageFollowing";
 import { errorMessage } from "../../../../client/transport";
 import { ReminderDialog } from '../../../editor/ui/blocks/ReminderDialog';
+import { useWorkspace } from '../../../../app/ui/WorkspaceContext';
 
 /** A trailing mark on items that open a dialog or a panel; it is not part of the item's name. */
 const opens = <span aria-hidden="true">…</span>;
@@ -51,6 +53,7 @@ export function PageMoreMenu({
   extraItems,
   reload,
   onPresent,
+  onCloseDraft,
   onOpenPanel,
   onAddDescription,
 }: {
@@ -62,11 +65,13 @@ export function PageMoreMenu({
   extraItems?: ReactNode;
   reload: () => void;
   onPresent: () => void;
+  onCloseDraft: () => void;
   /** Opens a side panel; `returnTo` is where focus goes when it closes. */
   onOpenPanel: (kind: string, returnTo: HTMLElement | null) => void;
   /** A database's page with an empty body: shows its description and puts the caret in it (SL1, Q4). */
   onAddDescription?: () => void;
 }) {
+  const { member } = useWorkspace();
   const [dialog, setDialog] = useState<PageDialog | null>(null);
   const [reminder,setReminder]=useState(false);
   const [locking,setLocking]=useState(false);
@@ -102,6 +107,7 @@ export function PageMoreMenu({
     canEdit &&
     (document.policyProfile["page.lifecycle.v1"] === "draft-then-publish" || document.policyProfile["page.version.v1"] === "labelled" || document.page.lifecycle === "draft");
   const hasUnpublished = document.policyProfile["page.lifecycle.v1"] === "draft-then-publish" && !!document.publishedRevisionId && document.publishedRevisionId !== document.workingRevisionId;
+  const authoredDraft = document.page.lifecycle === "draft" && document.authorMemberId === member.id && document.policyProfile["page.lifecycle.v1"] === "draft-then-publish";
 
   /** An item that opens a dialog or panel takes focus there instead of back to the trigger. */
   function open(action: () => void) {
@@ -203,6 +209,15 @@ export function PageMoreMenu({
               {publishable && unsaved ? <p className="page-more-note">Save or resolve your current edits before reviewing publication.</p> : null}
               {document.page.lifecycle === "scheduled" ? item(<CalendarX aria-hidden="true" />, "Cancel scheduled publication", dialogItem("cancel-schedule")) : null}
               {hasUnpublished ? item(<Undo2 aria-hidden="true" />, "Discard unpublished changes", dialogItem("discard-changes")) : null}
+              {authoredDraft ? <>
+                <DropdownMenuItem disabled={unsaved} onSelect={open(onCloseDraft)}>
+                  <X aria-hidden="true" /><span>Close draft</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem disabled={unsaved} className="text-danger [&_svg]:text-danger" onSelect={dialogItem("discard-draft")}>
+                  <Trash2 aria-hidden="true" /><span>Discard draft{opens}</span>
+                </DropdownMenuItem>
+                {unsaved ? <p className="page-more-note">Save or resolve your current edits before closing or discarding this draft.</p> : null}
+              </> : null}
               {item(<Archive aria-hidden="true" />, "Archive page", dialogItem("archive"))}
               <DropdownMenuItem className="text-danger [&_svg]:text-danger" onSelect={dialogItem("trash")}>
                 <Trash2 aria-hidden="true" />
@@ -223,6 +238,7 @@ export function PageMoreMenu({
         document={document}
         revision={revision}
         reload={reload}
+        onCloseDraft={onCloseDraft}
         onClose={() => setDialog(null)}
       />
       {reminder?<ReminderDialog pageId={document.page.id} onClose={()=>setReminder(false)}/>:null}
