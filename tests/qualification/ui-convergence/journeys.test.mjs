@@ -1,3 +1,4 @@
+import { templateSnapshotJourney } from './template-snapshot-journey.mjs';
 import { publicationJourney } from './publication-journey.mjs';
 import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} from './synced-custody.mjs';
 import {peopleJourney} from './people-journey.mjs';
@@ -87,6 +88,7 @@ for (const width of [390, 1440]) {
         await state.runScheduled();
         await chatJourney(state, width);
         if (width === 390) {
+          await step('TMPL-003 — native snapshot copies survive template changes on a phone', () => templateSnapshotJourney(state));
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
           // One phone smoke visits the main screens; functional journeys use desktop
           // except where an assertion distinguishes the phone layout or touch input.

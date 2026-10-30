@@ -11952,7 +11952,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "a4cd1c0483504a7bc234b5a821eeb9f3c238fc17c6428c0b9e44ddc34b0cb39f",
+      "sha256": "88750dbeb510cc87691432d8883f0f2ac0fc18b9a9a9b0b798cd04daaf0f22e9",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12044,7 +12044,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {
-      "sha256": "711106639f580981c9c9a953fac1df157deb356e6c616ae639a99b43e09a19a2",
+      "sha256": "744b1e2f55dd5d5f3aa524426835fa3a5b2dccb2820d1bdc81c1e36d67f5acf4",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
@@ -12069,6 +12069,10 @@
     },
     "tests/qualification/ui-convergence/task-report-journey.mjs": {
       "sha256": "b0ee39ec453ddacfb5d458184d819693d2de7373524da20aa7bbcf6e56192fe1",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/template-snapshot-journey.mjs": {
+      "sha256": "c289efcdf1fdc0cbf840d7b33ed80a5a12cbaebe0c5b749fe7695f5cd9cc4e50",
       "executable": false
     },
     "tests/qualification/ui-convergence/today-outcomes-journey.mjs": {

@@ -1,3 +1,4 @@
+import { templateSnapshotJourney } from './template-snapshot-journey.mjs';
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import { expect } from '@playwright/test';
@@ -57,4 +58,5 @@ export async function starterTemplatesJourney(state) {
   await expect(choice('Team retro')).toBeVisible();
   await shot('duplicated');
   assert.deepEqual(await api(`/api/templates/${shipped.id}`), before, 'The shipped retrospective stays unchanged.');
+  await templateSnapshotJourney(state);
 }
