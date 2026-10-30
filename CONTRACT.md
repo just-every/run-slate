@@ -3976,6 +3976,8 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
+STAT-005 retains the current main judgment below. The native status-profile controls and responsive journeys have been reapplied as supporting implementation and assertions; this replay does not promote the clause or replace its recorded evidence gap.
+
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 33 | 193 | 0 | 226 |
