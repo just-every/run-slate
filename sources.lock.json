@@ -6184,7 +6184,7 @@
       "executable": false
     },
     "src/core/features/containers/ui/workspace/ContainerWorkspace.tsx": {
-      "sha256": "3c6d4197035c31b9268f008bcd4d1278d4d5699146603337eba8a045272aa553",
+      "sha256": "b8c500d068541a0fb5ccc1ee3d383ead2338d8a924aad2e530d8537e86b41a11",
       "executable": false
     },
     "src/core/features/databases/content-plan.ts": {
@@ -9512,7 +9512,7 @@
       "executable": false
     },
     "src/core/features/templates/ui/workspace/TemplatesWorkspace.tsx": {
-      "sha256": "cab3012f5d479d997cfe4eb18f88c415e998a3f699e2479e07126977ba9274e6",
+      "sha256": "523ecc535493e1bcbf27e603c5e835ac0326c40834397d13faa8ddf43a21e73f",
       "executable": false
     },
     "src/core/features/templates/validation.ts": {
@@ -11771,6 +11771,10 @@
       "sha256": "637efdb5ebd64f8c68bf1010877475a2a73719c199e5bdedf215161d8c4af602",
       "executable": false
     },
+    "tests/qualification/ui-convergence/container-settings-journey.mjs": {
+      "sha256": "944835f75a36067c32994236691dcf5c5ff54da5c217f4c1eb4bc78587da23de",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/core-journeys.mjs": {
       "sha256": "a4b51f7146984926b93f7098b1369caef983d2044619bdfc17a516d4428487c2",
       "executable": false
@@ -11952,7 +11956,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "a4cd1c0483504a7bc234b5a821eeb9f3c238fc17c6428c0b9e44ddc34b0cb39f",
+      "sha256": "1a28b65602c76f332c2b1d0a9d86b7d95ac4cd73feacde64d3bc784f33a3aa46",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12092,7 +12096,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-management-journey.mjs": {
-      "sha256": "0f4e621c714257d4fb7e1676a5c64d366da4e1e4d7fb6db676493c6caa42065a",
+      "sha256": "52989cf39b82d409a93bc93fb8aaf5c2b27a0b9735e6244395397cfde2953994",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-operator-journey.mjs": {

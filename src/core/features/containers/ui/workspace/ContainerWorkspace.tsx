@@ -161,6 +161,7 @@ export function ContainerWorkspace({containerId,embedded}:{containerId?:string;e
     </>
   );
 }
+const administrationTabs = ["settings", "templates", "trash", "bulk"];
 function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
   const resource = useResource<Container>(`/api/containers/${id}`);
   const pages = useResource<{ items: (TreePage&{labels?:string[]})[] }>(
@@ -171,6 +172,8 @@ function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
   const [exporting,setExporting]=useState(false);
   const [tab,setTab]=useState("home");
   useEffect(()=>setTab('home'),[id]);
+  const canManage = resource.data?.permissions.canManage ?? false;
+  const activeTab = !canManage && administrationTabs.includes(tab) ? "home" : tab;
   const available = pages.data?.items ?? [];
   const matched = new Set(
     available
@@ -196,12 +199,11 @@ function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
       {resource.data ? (
         <section className="space-detail">
           <h3>{resource.data.name}</h3><div className="space-actions"><FavouriteControl kind="container" id={id}/><ContainerWatch id={id}/><button className="secondary-button" onClick={()=>setExporting(true)}>Export space</button></div>{exporting?<ReadableExportDialog id={id} container onClose={()=>setExporting(false)}/>:null}
-          <nav className="tabs" aria-label="Space navigation">{['home','content','blog','settings','templates','trash','bulk'].map(value=><button aria-pressed={tab===value} key={value} onClick={()=>setTab(value)}>{value[0].toUpperCase()+value.slice(1)}</button>)}</nav>
+          <nav className="tabs" aria-label="Space navigation">{['home','content','blog','settings','templates','trash','bulk'].filter(value=>canManage||!administrationTabs.includes(value)).map(value=><button aria-pressed={activeTab===value} key={value} onClick={()=>setTab(value)}>{value[0].toUpperCase()+value.slice(1)}</button>)}</nav>
           <a href={`/app/search?containerId=${id}`}>Search this space</a>
-          {tab==='home'?<ContainerHome key={id} containerId={id} name={resource.data.name} onSaved={()=>{void resource.reload();void pages.reload();updated();}}/>:null}
-          {tab==='blog'?<ContainerBlog containerId={id}/>:null}
-          {tab==='templates'?<TemplatesWorkspace defaultContainerId={id} embedded/>:tab==='trash'?<WorkspaceArchive containerId={id} embedded/>:tab==='bulk'?<ContainerBulk pages={available} onSaved={pages.reload}/>:null}
-          {tab==='content'?<>
+          {activeTab==='home'?<ContainerHome key={id} containerId={id} name={resource.data.name} onSaved={()=>{void resource.reload();void pages.reload();updated();}}/>:null}
+          {activeTab==='blog'?<ContainerBlog containerId={id}/>:null}
+          {activeTab==='content'?<>
           <p>{resource.data.description}</p>
           <label>
             Filter page titles
@@ -216,13 +218,16 @@ function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
           {query||label?<button className="secondary-button" onClick={()=>{setQuery("");setLabel('');}}>Clear page filter</button>:null}<PageTree pages={available.filter((page) => matched.has(page.id))} />
           {resource.data.permissions.canCreatePages ? <TreeCreatePage containerId={id} name={resource.data.name} /> : null}
           </>:null}
-          {tab==='settings'?<ContainerSettings
+          {canManage && administrationTabs.includes(activeTab) ? <section aria-label={`${resource.data.name} settings`}>
+          {activeTab==='templates'?<TemplatesWorkspace key={id} defaultContainerId={id} embedded/>:activeTab==='trash'?<WorkspaceArchive key={id} containerId={id} embedded/>:activeTab==='bulk'?<ContainerBulk key={id} pages={available} onSaved={pages.reload}/>:null}
+          {activeTab==='settings'?<ContainerSettings
             container={resource.data}
             onSaved={async () => {
               await resource.reload();
               updated();
             }}
           />:null}
+          </section> : null}
           <details>
             <summary>Readership</summary>
             <AnalyticsPanel containerId={id} />

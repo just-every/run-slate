@@ -4,6 +4,7 @@ import {peopleJourney} from './people-journey.mjs';
 import {workspaceAuthorityJourney} from './workspace-authority-journey.mjs';
 import {syncedJourney} from './synced-journey.mjs';
 import {touchDatabaseToolsJourney} from './touch-database-tools-journey.mjs';
+import {containerSettingsJourney} from './container-settings-journey.mjs';
 import {touchManagementJourney} from './touch-management-journey.mjs';
 import {touchPageToolsJourney} from './touch-page-tools-journey.mjs';
 import {touchOperatorJourney} from './touch-operator-journey.mjs';
@@ -87,6 +88,7 @@ for (const width of [390, 1440]) {
         await state.runScheduled();
         await chatJourney(state, width);
         if (width === 390) {
+          await containerSettingsJourney(state,touch,{screensOnly:true});
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
           // One phone smoke visits the main screens; functional journeys use desktop
           // except where an assertion distinguishes the phone layout or touch input.

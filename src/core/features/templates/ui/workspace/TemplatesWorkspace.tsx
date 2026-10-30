@@ -71,6 +71,7 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
             Collection
             <select
               value={container}
+              disabled={embedded && !!defaultContainerId}
               onChange={(e) => setContainer(e.target.value)}
             >
               <option value="">Workspace templates</option>

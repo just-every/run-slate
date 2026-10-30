@@ -1,3 +1,4 @@
+import {containerSettingsJourney} from './container-settings-journey.mjs';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
@@ -74,5 +75,6 @@ export async function touchManagementJourney(state,touch){
   const current=await state.api('/api/workspace');
   await ownerContext.request.put(origin+'/api/workspace',{data:{operationKey:randomUUID(),expectedRevisionId:current.revisionId,name:current.name,mark:current.mark,description:before.description,guestAccess:current.guestAccess,publicLinkAccess:current.publicLinkAccess,anonymousAccess:current.anonymousAccess,policies:current.policies}}).then(async response=>assert.equal(response.status(),200,await response.text()));
  }finally{await ownerContext.close();}
+ await containerSettingsJourney(state,touch);
  console.log('NAV-006 touch space management, templates, archive and owner workspace settings passed');
 }
