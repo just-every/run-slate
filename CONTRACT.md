@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. BLOCK-007 source proof is judged from commit `f7d1e75acaaa9cc080e43614ff007cc130d0b5db` (30 October 2026); the exact candidate and its landing gates are reported with the branch handoff.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 33 | 193 | 0 | 226 |
+| Published | 34 | 192 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 49 | 248 | 40 | 337 |
+| All | 50 | 247 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4031,7 +4031,7 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 | `BLOCK-004` | Markdown shortcuts | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
 | `BLOCK-005` | Mentions | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Typing `@` offers people, pages and dates in one list."<br>No validated CI-run proof for this acceptance point: "A person mention notifies them (`NOTIF-001`) and renders their name; a page mention renders the page's current title and follows renames and moves (`LINK-003`); a date mention renders in the reader's locale." |
 | `BLOCK-006` | Structured blocks | published | partial | `tests/qualification/interface/blocks.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/blocks.mjs`. |
-| `BLOCK-007` | Task items | published | partial | `tests/flagship/content/repair.test.ts` | Missing a task journey through the body that checks the completion figure and database-view exclusion; the cited content flow checks completion attribution and undo only. |
+| `BLOCK-007` | Task items | published | done | `tests/qualification/ui-convergence/task-report-journey.mjs` — "taskBodyJourney", loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px" (another editor toggles body tasks, reloads the visible actor and server time, reconciles the completion figure, undoes completion, compares populated native table and list records, and refuses writes and captured replay after edit access is removed); `tests/flagship/content/repair.test.ts` — "content structure, task attribution, privacy and activity retain exact revisions" (server-owned attribution, idempotent replay, undo and native details counts with unchanged database records). | |
 | `BLOCK-008` | Media blocks | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Images, video, audio and file attachments are inserted by upload, by link, or from a configured stock source, each with an optional caption and an alt text field, and stored under `BASE-INPUT-003`."<br>No validated CI-run proof for this acceptance point: "A file requested for display — an image, video or audio block, a page icon or cover (`PAGE-006`), or either of those behind a published page (`WEB-003`) — is served inline with its declared content type; every other request for a stored file, including every file attachment and every direct request for a media file, is served with a download disposition."<br>No validated CI-run proof for this acceptance point: "Both dispositions send the declared content type and `X-Content-Type-Options: nosniff`, and an SVG is sanitized under `BASE-INPUT-002` before it is served inline."<br>No validated CI-run proof for this acceptance point: "Disposition changes nothing about access: a media file is readable only by a session that may read its page, or through that page's public link (`WEB-003`)." |
 | `BLOCK-009` | Link cards | published | partial | `tests/flagship/content/preview.test.ts` | Missing a paste-and-switch link-card journey through the editor plus allowed and refused preview requests; the cited test invokes the preview helper directly. |
 | `BLOCK-010` | Content queries | published | partial | `tests/qualification/interface/blocks.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/blocks.mjs`. |
