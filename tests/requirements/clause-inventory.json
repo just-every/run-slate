@@ -937,7 +937,7 @@
       "id": "CONT-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for CONT-002 — Creating a container. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "Native containerCreationJourney in tests/qualification/ui-convergence/container-creation-journey.mjs runs through the existing settings callers in journeys.test.mjs: all three purpose defaults, a pre-submit visibility override, canonical field read-back, ordinary home pages and identity/access edits after reload, owner creation with member creation forbidden, allowed member creation and refused member creation with unchanged state. The existing 390 registration carries screen proof; business assertions run at 1440. Independent acceptance and guarded landing receipts are separate.",
       "supportingTests": []
     },
     {

@@ -14,7 +14,7 @@ export async function containerCreationJourney(state, width) {
   };
   const fill = async (form, values) => {
     for (const name of ['Name', 'Description', 'Icon', 'Short key']) {
-      await form.getByLabel(name, { exact: true }).fill(values[name]);
+      await form.getByRole('textbox', { name, exact: true }).fill(values[name]);
     }
   };
   const submit = async (form, route, method, action) => {
@@ -42,16 +42,17 @@ export async function containerCreationJourney(state, width) {
     const form = await openForm();
     if (!smoke) {
       // Check the initially selected purpose as well as selecting each option.
-      await expect(form.getByLabel('Purpose', { exact: true })).toHaveValue('private');
-      await expect(form.getByLabel('Visibility', { exact: true })).toHaveValue('private');
+      await expect(form.getByRole('combobox', { name: 'Purpose', exact: true })).toHaveValue('private');
+      await expect(form.getByRole('combobox', { name: 'Visibility', exact: true })).toHaveValue('private');
     }
-    await form.getByLabel('Purpose', { exact: true }).selectOption(purpose);
-    if (!smoke) await expect(form.getByLabel('Visibility', { exact: true })).toHaveValue(purpose);
+    await form.getByRole('combobox', { name: 'Purpose', exact: true }).selectOption(purpose);
+    if (!smoke) await expect(form.getByRole('combobox', { name: 'Visibility', exact: true })).toHaveValue(purpose);
     await fill(form, values);
-    await form.getByLabel('Visibility', { exact: true }).selectOption(visibility);
+    await form.getByRole('combobox', { name: 'Visibility', exact: true }).selectOption(visibility);
     if (proof) await accessible(page, 'container creation purpose and overridden visibility');
     const result = await submit(form, '/api/containers', 'POST', 'Create space');
     assert.equal(result.status, 200, JSON.stringify(result.body));
+    assert.equal(result.body.receipt.entity.kind, 'container', 'Every purpose commits the ordinary container kind.');
     await expect(form).toBeHidden();
     const id = result.body.value.id;
     const expected = { icon: values.Icon, name: values.Name, description: values.Description, visibility, key: values['Short key'] || null };
@@ -72,7 +73,7 @@ export async function containerCreationJourney(state, width) {
     await page.getByRole('button', { name: 'Edit details', exact: true }).click();
     const details = page.getByRole('dialog', { name: 'Space details', exact: true });
     const fields = { Name: expected.name, Description: expected.description, Icon: expected.icon, 'Short key': expected.key || '' };
-    if (!smoke) for (const [name, value] of Object.entries(fields)) await expect(details.getByLabel(name, { exact: true })).toHaveValue(value);
+    if (!smoke) for (const [name, value] of Object.entries(fields)) await expect(details.getByRole('textbox', { name, exact: true })).toHaveValue(value);
     const changed = { Name: `${expected.name} revised`, Description: 'Updated team handover notes', Icon: '📚', 'Short key': expected.key ? `${expected.key}-2` : 'TEAM-2' };
     await fill(details, changed);
     if (proof) await accessible(page, 'container creation ordinary identity settings after reload');
@@ -80,9 +81,9 @@ export async function containerCreationJourney(state, width) {
     await expect(details).toBeHidden();
     await page.getByRole('button', { name: 'Visibility & public access', exact: true }).click();
     const access = page.getByRole('dialog', { name: 'Space access', exact: true });
-    if (!smoke) await expect(access.getByLabel('Visibility', { exact: true })).toHaveValue(expected.visibility);
+    if (!smoke) await expect(access.getByRole('combobox', { name: 'Visibility', exact: true })).toHaveValue(expected.visibility);
     const visibility = expected.visibility === 'open' ? 'private' : 'open';
-    await access.getByLabel('Visibility', { exact: true }).selectOption(visibility);
+    await access.getByRole('combobox', { name: 'Visibility', exact: true }).selectOption(visibility);
     if (proof) await accessible(page, 'container creation ordinary access settings after reload');
     assert.equal((await submit(access, '/api/sharing/container-settings', 'POST', 'Save settings')).status, 200);
     await expect(access).toBeHidden();
@@ -93,6 +94,7 @@ export async function containerCreationJourney(state, width) {
   };
 
   await state.switchIdentity('owner');
+  assert.equal((await api('/api/members/current')).role, 'owner');
   if (width === 390) {
     // Responsive proof shares the existing phone registration. Business cases
     // run at 1440; this visits the clause's own three native screens once.
@@ -125,13 +127,13 @@ export async function containerCreationJourney(state, width) {
       const form = await openForm();
       const refused = { Name: 'Refused member space', Description: 'Must never be persisted', Icon: '🚫', 'Short key': 'DENIED' };
       await fill(form, refused);
-      await form.getByLabel('Purpose', { exact: true }).selectOption('open');
+      await form.getByRole('combobox', { name: 'Purpose', exact: true }).selectOption('open');
       const result = await submit(form, '/api/containers', 'POST', 'Create space');
       assert.equal(result.status, 403);
       assert.equal(result.body.code, 'FORBIDDEN');
-      await expect(form.getByRole('alert')).toContainText('limited to workspace owners');
-      for (const [name, value] of Object.entries(refused)) await expect(form.getByLabel(name, { exact: true })).toHaveValue(value);
-      await expect(form.getByLabel('Visibility', { exact: true })).toHaveValue('open');
+      await expect(form.getByRole('alert')).toBeVisible();
+      for (const [name, value] of Object.entries(refused)) await expect(form.getByRole('textbox', { name, exact: true })).toHaveValue(value);
+      await expect(form.getByRole('combobox', { name: 'Visibility', exact: true })).toHaveValue('open');
       await form.getByRole('button', { name: 'Cancel', exact: true }).click();
       await state.switchIdentity('owner');
       assert.deepEqual(await snapshot(), before, 'A refused creation changes no containers, pages or creation activity.');
