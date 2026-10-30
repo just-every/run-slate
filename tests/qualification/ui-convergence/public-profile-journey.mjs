@@ -97,7 +97,7 @@ export async function publicProfileJourney(state) {
     await expect.poll(read).toEqual({...retained,indexable:true});
     await anonymous(200, true);
     await page.reload({waitUntil:'networkidle'});
-    await openPageAction(page, 'Public access');
+    await expect(settings).toBeVisible();
     await expect(indexing).toBeChecked();
     await indexing.uncheck();
     await expect.poll(read).toEqual(retained);
