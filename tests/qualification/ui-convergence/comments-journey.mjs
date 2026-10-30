@@ -183,7 +183,10 @@ export async function memberThreadsJourney(state, people) {
         const article = section.locator(`#comment-${row.id}`);
         await expect(article.locator('header strong')).toHaveText(row.authorDisplayName);
         await expect(article.locator('header time')).toHaveAttribute('datetime', row.createdAt);
-        await expect(article.locator('header time')).toHaveText(/\S/);
+        const displayedTime = await view.evaluate(instant => new Intl.DateTimeFormat('en-GB', {
+          day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',
+        }).format(new Date(instant)), row.createdAt);
+        await expect(article.locator('header time')).toHaveText(displayedTime);
         await expect(article.locator(':scope > p')).toHaveText(row.body.map(span => span.text).join(''));
       }
       await expect(section.locator('.thread-heading > span')).toHaveText(threadId === inlineId ? 'Resolved' : 'Open');

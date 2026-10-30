@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `f8a69195037b2b3e01dd520791a243ac8917a2ea` (30 October 2026); COMM-001 native member-thread proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 33 | 193 | 0 | 226 |
+| Published | 34 | 192 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 49 | 248 | 40 | 337 |
+| All | 50 | 247 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4069,7 +4069,7 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 | `STAT-003` | Verification | published | done | `tests/e2e/review/verification-flow.test.ts` — "Verifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current" |  |
 | `STAT-004` | Verification lapses | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | Missing a complete public-door journey for verification lapses under the current authority, audience and company policy; prior quoted implementation and policy notes are retained in CHANGELOG.md. |
 | `STAT-005` | Status profile | published | partial | `tests/qualification/policies/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/emitted.mjs`. |
-| `COMM-001` | Two kinds of thread | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A member with `comment` access or more can open an inline thread anchored to a selection in a block, and a page thread about the page as a whole."<br>No validated CI-run proof for this acceptance point: "A thread is chronological, is Open or Resolved, and records each comment's author and time."<br>No validated CI-run proof for this acceptance point: "Both kinds are threads; only their anchor differs." |
+| `COMM-001` | Two kinds of thread | published | done | `tests/qualification/ui-convergence/comments-journey.mjs` — "memberThreadsJourney", called by "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 reconciles six comments in native chronological order with exact authors and commit timestamps, and retains Open and Resolved states after both members reload; acceptance 2 compares the inline selection anchor with the absent page anchor and exercises replies in both kinds; acceptance 3 creates both kinds as a comment-level member while page edits, forged selections and downgraded comment replay are refused without changing content or discussions. | |
 | `COMM-002` | Editing and deletion | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A member can edit or delete only their own comments."<br>No validated CI-run proof for this acceptance point: "An edited comment shows the time it was last edited, a deleted comment leaves a tombstone in place, and both write an activity entry." |
 | `COMM-003` | Mentions | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "group mentions preview readers and refuse oversized groups at 1440px", including `tests/qualification/ui-convergence/comment-mentions.mjs` — "commentMentionsJourney" (one unread comment-linked notice, unreadable recipients excluded, new mentions only on edit and replay-safe delivery). |  |
 | `COMM-004` | Anchors survive editing | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — "page and comment reactions identify people without notifications or views at 1440px", including `tests/qualification/ui-convergence/comment-anchors.mjs` — "commentAnchorsJourney" (edits within selected text, splits, moves, retained orphaned discussion, named original revision and exact snapshot navigation). |  |
