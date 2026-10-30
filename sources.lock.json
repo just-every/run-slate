@@ -8408,7 +8408,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageSharing.tsx": {
-      "sha256": "6a21d69d0bbca306cc1f66030ee952a0b77e58276d67051ed982d30528e384d5",
+      "sha256": "935093a6919ddc3954dc5c8e88284819bc0a87d8703e36552647e397891e74f1",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageStatusBadge.tsx": {
@@ -12028,7 +12028,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-journey.mjs": {
-      "sha256": "b04b7ea3bfd4c7bb3828c35648652cfad5ee422a1d3aa52f6faee92402ecbab0",
+      "sha256": "e4303dc71b0e9f0a3349816349af5d07caf8ed0a1881fdbfa688f69a8c72a780",
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {
