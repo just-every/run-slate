@@ -28,10 +28,14 @@ export function ContentQueryDialog({
       "/api/status",
     ),
     saved=useResource<{items:{id:string;name:string;query:EmbeddedSearchQuery}[]}>('/api/search/saved');
+  const resources = [spaces, pages, members, statuses, saved];
+  const loading = resources.some(resource => resource.loading);
+  const error = resources.find(resource => resource.error)?.error;
   return (
     <ActionDialog
       title="Edit content query"
       action="Save query"
+      submitDisabled={loading || Boolean(error)}
       onClose={onClose}
       onSubmit={async (data) => {
         const definition: ContentQueryDefinition = {};
@@ -68,11 +72,12 @@ export function ContentQueryDialog({
         await onSave(definition);
       }}
     >
-      <RequestState loading={saved.loading} error={saved.error} retry={saved.reload}><label>Saved search<select aria-label="Saved search" name="savedSearch" defaultValue={block.definition.search?'embedded':''}>
+      <RequestState loading={loading} error={error} retry={() => { for (const resource of resources) void resource.reload(); }}>
+      <label>Saved search<select aria-label="Saved search" name="savedSearch" defaultValue={block.definition.search?'embedded':''}>
         <option value="">Use the filters below</option>
         {block.definition.search?<option value="embedded">{block.definition.searchName??'Embedded search'} (current criteria)</option>:null}
         {saved.data?.items.map(item=><option key={item.id} value={item.id}>{item.name}</option>)}
-      </select></label></RequestState>
+      </select></label>
       <p>This embeds a copy of the search criteria. Each reader sees only pages they can read.</p>
       <label>Label<input name="label" defaultValue={block.definition.label??''}/></label>
       <label>
@@ -186,6 +191,7 @@ export function ContentQueryDialog({
           required
         />
       </label>
+      </RequestState>
     </ActionDialog>
   );
 }
