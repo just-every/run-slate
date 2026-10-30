@@ -78,6 +78,7 @@ export async function contentQueryJourney(state, width) {
     await page.getByRole('option',{name:'Content query',exact:true}).click();
     assert.equal((await added).status(),200);
     let definition={container:space,ancestor:source,pageType:'page',status:'query-ready',contributor:'browser-owner',dateRange:'2000-01-01/2099-12-31',orderBy:'title',limit:2};
+    let criteriaCaptured=false;
     const edit=async(changes,expected)=>{
       definition={...definition,...changes};
       await query(page).getByRole('button',{name:'Edit the query',exact:true}).click();
@@ -98,6 +99,7 @@ export async function contentQueryJourney(state, width) {
       await expect(dialog.getByLabel('Updated from',{exact:true})).toHaveValue(from);
       await expect(dialog.getByLabel('Updated through',{exact:true})).toHaveValue(through);
       await expect(dialog.getByLabel('Maximum results',{exact:true})).toHaveValue(String(definition.limit));
+      if(!criteriaCaptured){await accessible(page,'content query retained native criteria');criteriaCaptured=true;}
       await dialog.getByRole('button',{name:'Cancel',exact:true}).click();
     };
     await edit({},[alpha,bravo]);
@@ -118,7 +120,7 @@ export async function contentQueryJourney(state, width) {
     await edit({dateRange:'2000-01-01/2099-12-31',orderBy:'updated',limit:2},[bravo,zulu]);
     // A real title commit changes both ordering and the visible result after reopening.
     await mutate('PATCH',`/api/pages/${alpha}`,{expectedRevisionId:(await api(`/api/pages/${alpha}`)).page.revisionId,properties:{title:'Omega updated query page'}});
-    await reopen(page,[alpha,zulu]);
+    await reopen(page,[alpha,bravo]);
     await edit({orderBy:'title',limit:100},[bravo,alpha,zulu]);
     await reopen(bob.page,[alpha,zulu]);
     const rerun=responseFor(bob.page);

@@ -8336,7 +8336,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/ContentQueryDialog.tsx": {
-      "sha256": "11139c0babb3dde307bc9ac955b25ae273c09bb53efe22afdd85474d62d51d87",
+      "sha256": "e6bf4ae5122ab017bc03cef7b731fe50023c9be152fd42a188c1ff42d56a9fd7",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/DiscussionFilters.tsx": {
@@ -11764,7 +11764,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/content-query-journey.mjs": {
-      "sha256": "7c0b6059fe9f2af0ae42e8eba8507148fea5eddbf5e6daaaeaa472f2c4bcfb91",
+      "sha256": "bb6053aa69efcfd3f1090e9d140209ab6d1bb54da680a723e3f93235690be0c9",
       "executable": false
     },
     "tests/qualification/ui-convergence/core-journeys.mjs": {
