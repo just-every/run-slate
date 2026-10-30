@@ -45,8 +45,8 @@ export async function revisionDeletionJourney(state, people) {
   assert.equal(beforeHistory.find(item => item.id === intermediate).ordinal, 2);
   assert.notEqual(current.workingRevisionId, published, 'Current working and published versions are distinct protected revisions.');
 
-  const unchanged = async () => {
-    assert.deepEqual(await read(), current, 'A refused deletion changes no current page state.');
+  const unchanged = async (version = 'labelled') => {
+    assert.deepEqual(await read(), { ...current, policyProfile: { ...current.policyProfile, 'page.version.v1': version } }, 'A refused deletion changes no current page state.');
     assert.deepEqual(await history(), beforeHistory, 'A refused deletion changes no retained revision.');
     assert.deepEqual(await activity(), [], 'A refused deletion writes no activity.');
   };
@@ -74,7 +74,7 @@ export async function revisionDeletionJourney(state, people) {
   result = await call(bob.context, origin, 'DELETE', `/api/revisions/${pageId}/${intermediate}`, { operationKey: randomUUID() });
   assert.equal(result.status, 409);
   assert.equal(result.body.code, 'POLICY_RESTRICTED');
-  await unchanged();
+  await unchanged('autosnapshot');
   await profile('labelled');
   await bob.page.reload({ waitUntil: 'networkidle' });
   await expect(deleteButton()).toBeVisible();
