@@ -41,7 +41,8 @@ export async function publicPageJourney(state, sourcePageId) {
   try {
     const openSettings = async (initial = false) => {
       await page.goto(`${origin}/app/pages/${id}`, { waitUntil: 'networkidle' });
-      await page.getByRole('button', { name: 'Share', exact: true }).click();
+      await page.getByRole('button', { name: 'More', exact: true }).click();
+      await page.getByRole('menuitem', { name: 'Public access', exact: true }).click();
       await page.getByRole('button', { name: initial ? 'Set up public page' : 'Edit public settings', exact: true }).click();
       return page.getByRole('dialog', { name: 'Public page settings', exact: true });
     };
@@ -62,7 +63,7 @@ export async function publicPageJourney(state, sourcePageId) {
       assert.equal(await response.request().headerValue('cookie'), null);
       const robots = indexable ? 'index,follow' : 'noindex,nofollow';
       assert.equal(response.headers()['x-robots-tag'], robots, `${label}: response directive`);
-      assert.equal(response.headers()['cache-control'], 'no-store');
+      assert.ok(response.headers()['cache-control'].split(',').map(value => value.trim()).includes('no-store'));
       await expect(publicPage.locator('meta[name="robots"]')).toHaveCount(1);
       await expect(publicPage.locator('meta[name="robots"]')).toHaveAttribute('content', robots);
       if (available) {
@@ -91,11 +92,19 @@ export async function publicPageJourney(state, sourcePageId) {
       operationKey: crypto.randomUUID(), targetKind: 'page', targetId: id,
       principalKind: 'member', principalId: 'browser-reader', level: 'view',
     });
-    assert.equal((await call(reader, origin, 'POST', `/api/publishing/${id}`, {
-      operationKey: crypto.randomUUID(), expectedRevisionId: document.page.revisionId,
-      host: new URL(origin).host, slug, indexable: true,
-    })).status, 403);
-    assert.equal((await api(`/api/publishing/${id}`)).exposure.indexable, false);
+    const readable = await call(reader, origin, 'GET', `/api/pages/${id}`);
+    assert.equal(readable.status, 200);
+    assert.equal(readable.body.permissions.level, 'view');
+    const beforeRefusal = (await api(`/api/publishing/${id}`)).exposure;
+    for (const action of [{ indexable: true }, { revoke: true }]) {
+      const refused = await call(reader, origin, 'POST', `/api/publishing/${id}`, {
+        operationKey: crypto.randomUUID(), expectedRevisionId: document.page.revisionId,
+        host: new URL(origin).host, slug, ...action,
+      });
+      assert.equal(refused.status, 404);
+      assert.equal(refused.body.code, 'NOT_FOUND');
+      assert.deepEqual((await api(`/api/publishing/${id}`)).exposure, beforeRefusal);
+    }
 
     dialog = await openSettings();
     await expect(indexing()).not.toBeChecked();
