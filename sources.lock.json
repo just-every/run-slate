@@ -12032,7 +12032,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {
-      "sha256": "711106639f580981c9c9a953fac1df157deb356e6c616ae639a99b43e09a19a2",
+      "sha256": "a352e02c8507fb2eec452d8410138c326b11eb741416ba8bfe41b36679c4d876",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {

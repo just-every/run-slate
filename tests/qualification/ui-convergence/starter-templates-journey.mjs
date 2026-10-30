@@ -53,7 +53,18 @@ export async function starterTemplatesJourney(state) {
   const update = page.getByRole('dialog', { name: 'Update this template', exact: true });
   await update.locator('select[name="sourcePageId"]').selectOption(pageId);
   await update.locator('input[name="title"]').fill('Team retro');
+  // Saving reloads the preview first, then the list. Keep the DOM assertion's
+  // deadline for rendering, rather than spending it on those network requests.
+  // Arm before Save so a fast list response cannot be missed.
+  const refreshed = page.waitForResponse(response => {
+    const url = new URL(response.url());
+    return response.request().method() === 'GET' && url.pathname === '/api/templates'
+      && url.searchParams.get('state') === 'active' && url.searchParams.get('category') === 'Meetings';
+  });
   await update.getByRole('button', { name: 'Save updated template', exact: true }).click();
+  const response = await refreshed;
+  assert.equal(response.status(), 200, 'The updated template list loads successfully.');
+  assert.equal(await response.finished(), null, 'The updated template list response completes.');
   await expect(choice('Team retro')).toBeVisible();
   await shot('duplicated');
   assert.deepEqual(await api(`/api/templates/${shipped.id}`), before, 'The shipped retrospective stays unchanged.');
