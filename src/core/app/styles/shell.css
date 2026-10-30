@@ -69,7 +69,7 @@
 .slate-app .tree-filter button { display: grid; place-items: center; flex: none; width: 32px; height: 32px; padding: 6px; border: 0; border-radius: 6px; background: transparent; color: var(--slate-ink-muted); }
 .slate-app .tree-filter button svg { width: 16px; height: 16px; }
 .slate-app .tree-filter button:hover { background: var(--slate-sidebar-hover); }
-.slate-app .page-tree { margin: 0; padding: 0; list-style: none; }
+.slate-app .page-tree { margin: 0; padding: 0; min-width: 240px; list-style: none; }
 .slate-app .page-tree .page-tree { margin-left: 20px; }
 .slate-app .tree-row { display: flex; align-items: center; gap: 0; min-width: 0; min-height: var(--row-height); }
 .slate-app .tree-row > .navlink { flex: 1; min-width: 0; padding-left: 8px; }

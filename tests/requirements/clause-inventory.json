@@ -364,7 +364,7 @@
       "id": "TREE-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of TREE-001 — A nested tree in a container. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "This legacy inventory classifies supporting regressions only; CONTRACT.md owns native clause status. The loaded treeStructureJourney in tests/qualification/ui-convergence/tree-structure-journey.mjs covers a sixteen-level branching native tree, complete node and parent inventories in two containers, icons, child indicators, collapse and expansion, and independent preferences for two equally authorized members through reload and new native sign-in sessions. Existing responsive Verify callers retain filtering, inaccessible-ancestor and creation assertions. Independent landing acceptance is separate.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
