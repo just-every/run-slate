@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 48 | 249 | 34 | 331 |
+| Core | 49 | 248 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 48 | 249 | 40 | 337 |
+| Full target | 49 | 248 | 40 | 337 |
 
 Judged from the code and tests at commit `451c33748edd44e86c19d960b31a1f5eaeac27bc` (29 October 2026); WORK-006 source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1013,7 +1013,7 @@ Core · published · **partial** · Cites BASE-PUBLIC-001, BASE-ROLE-001
 
 #### WEB-006 — Unpublish
 
-Core · published · **partial** · Cites BASE-PUBLIC-001, BASE-ROLE-001
+Core · published · **done** · Cites BASE-PUBLIC-001, BASE-ROLE-001
 
 **Requirement.** Unpublishing stops the address resolving within 5 seconds, returns a content-free page saying the link is no longer available, and keeps the slug reserved for that page so republishing restores the same address.
 
@@ -1021,8 +1021,8 @@ Core · published · **partial** · Cites BASE-PUBLIC-001, BASE-ROLE-001
 1. It deletes no version and changes no grant.
 2. Unpublish stops the address within 5 seconds with a content-free page and keeps the slug reserved.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Unpublishing stops the address resolving within 5 seconds, returns a content-free page saying the link is no longer available, and keeps the slug reserved for that page so republishing restores the same address."<br>No validated CI-run proof for this acceptance point: "It deletes no version and changes no grant."
+**Evidence.** `tests/qualification/ui-convergence/public-page-journey.mjs` — "publicPageUnpublishJourney", called by "shareJourney" in `tests/qualification/ui-convergence/sharing-journey.mjs` and the existing "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs` (push Verify, tooling and core shards). Acceptance 1: populated complete version bodies, history, direct grants and inherited container grants remain identical after unpublish and republish; existing workspace reader still reads. Acceptance 2 and the requirement: native confirmation, fresh anonymous content-free 404 measured below five seconds, reserved-slug takeover refused without changes, old publish replay remains inert, insufficient authority refused, and native republish restores the identical address after reload.
+**Gap.** None.
 
 #### WEB-007 — Public-link profile
 

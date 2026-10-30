@@ -171,6 +171,7 @@ export async function publicPageUnpublishJourney(state) {
     assert.deepEqual((await exposure(id)).exposure, revoked, 'Refused publication leaves the exposure revoked.');
     unavailable(await anonymousRead(address));
 
+    await page.getByRole('button', { name: 'Close details ×', exact: true }).click();
     await page.reload({ waitUntil: 'networkidle' });
     await openPageAction(page, 'Public access');
     await page.getByRole('button', { name: 'Set up public page', exact: true }).click();
