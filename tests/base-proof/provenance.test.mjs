@@ -31,6 +31,14 @@ function fixture(run) {
       fs.mkdirSync(path.dirname(filename), {recursive: true});
       fs.writeFileSync(filename, objects.get(files.get(copy.revision).get(origin)).data, { mode: copy.modes?.[local] === '100755' ? 0o755 : 0o644 });
     }
+    // A declared adaptation has reviewed edition bytes, while its retained
+    // native object remains the independently authenticated comparison source.
+    for (const copy of record.copies) for (const local of Object.keys(copy.adapted ?? {})) {
+      const adaptation = copy.acknowledged[local];
+      const bytes = fs.readFileSync(path.join(root, local));
+      assert.equal(sha256(bytes), adaptation.sha256, `Adapted fixture drift: ${local}`);
+      fs.writeFileSync(path.join(edition, local), bytes, {mode: adaptation.mode === '100755' ? 0o755 : 0o644});
+    }
     const writeRecord = value => fs.writeFileSync(path.join(edition, 'base-copies.json'), JSON.stringify(value));
     writeRecord(record);
     restoreProof(base, proof, record);
@@ -64,6 +72,16 @@ test("native Base provenance authenticates exact copies and refuses every forged
   const {status, report} = verify();
   assert.equal(status, 1);
   assert.ok(report.drift.some(row => row.kind === 'modified' && row.path === 'CLAUDE.md'));
+}) },
+    { name: "unchanged CLI rejects modified acknowledged adaptation bytes", run: () => fixture(({edition, verify}) => {
+  for (const copy of record.copies) for (const local of Object.keys(copy.adapted ?? {})) {
+    const filename = path.join(edition, local), original = fs.readFileSync(filename);
+    fs.appendFileSync(filename, '\nTEST ONLY unacknowledged adaptation\n');
+    const {status, report} = verify();
+    assert.equal(status, 1);
+    assert.ok(report.drift.some(row => row.kind === 'adaptation-modified' && row.path === local));
+    fs.writeFileSync(filename, original);
+  }
 }) },
     { name: "updating both local bytes and the record cannot forge the upstream source", run: () => fixture(({edition, writeRecord, verify}) => {
   const changed = clone(record), filename = path.join(edition, 'CLAUDE.md');
