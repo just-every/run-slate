@@ -67,8 +67,8 @@ export async function templateCaptureJourney(state) {
     const exposure = (await api(`/api/publishing/${id}`)).exposure;
     assert.equal(exposure.slug, `synthetic-slate-capture-${position}`);
     assert.equal(exposure.revokedAt, null);
-    const anonymous = await page.request.get(`${origin}/p/${exposure.slug}`);
-    assert.equal(anonymous.status(), 200);
+    const anonymous = await fetch(`${origin}/p/${exposure.slug}`, { headers: { connection: 'close' } });
+    assert.equal(anonymous.status, 200);
     assert.ok((await anonymous.text()).includes(`Authored heading ${position}`));
     for (const value of [id, ...revisions.map(row => row.id), ...comments.comments.map(row => row.id), ...comments.threads.map(row => row.id), ...grants.items.map(row => row.id), exposure.slug]) excluded.add(value);
     const source = { id, title, properties, blocks, children: [] };
@@ -130,7 +130,12 @@ export async function templateCaptureJourney(state) {
       await dismiss.focus();
       await expect.poll(() => dismiss.evaluate(element => getComputedStyle(element, '::after').opacity)).toBe('1');
       await shot(includeChildren ? 'saved-tree-tooltip' : 'saved-page-tooltip');
-      assert.equal(await dismiss.getAttribute('data-tooltip'), 'Dismiss notice');
+      await expect(dismiss).toHaveAttribute('data-tooltip', /\S+\s+\S+/);
+      await page.getByRole('textbox', { name: 'Page title', exact: true }).focus();
+      await page.mouse.move(0, 0);
+      await expect.poll(() => dismiss.evaluate(element => getComputedStyle(element, '::after').opacity)).toBe('0');
+      await dismiss.hover();
+      await expect.poll(() => dismiss.evaluate(element => getComputedStyle(element, '::after').opacity)).toBe('1');
       await dismiss.click();
       await expect(notice).toHaveCount(0);
       const retained = await api(`/api/templates/${id}`);
@@ -207,6 +212,15 @@ export async function templateCaptureJourney(state) {
       await expect(page.locator('[data-page-editor]')).toContainText('Authored heading 0');
       await shot(includeChildren ? 'applied-tree' : 'applied-page');
       assert.deepEqual(await api(`/api/templates/${id}`), retained, 'Applying leaves the retained template unchanged.');
+      for (const source of sources) {
+        const original = await api(`/api/pages/${source.id}`);
+        assert.deepEqual(propertiesOf(original), source.properties);
+        assert.deepEqual(bodyOf(original.blocks), bodyOf(source.blocks));
+        assert.equal(original.properties.statusKey, statusKey);
+        assert.equal((await api(`/api/comments/page/${source.id}`)).comments.length, 1);
+        assert.ok((await api(`/api/sharing/pages/${source.id}`)).items.some(item => item.principalId === 'browser-reader' && item.level === 'comment' && item.effective));
+        assert.ok((await api(`/api/publishing/${source.id}`)).exposure);
+      }
       console.log(`PROBE TMPL-005 ${includeChildren ? 'children on' : 'children off'}: More > Save as template, preview and Use this template -> ${copiedIds.length} exact copies, all seven source record families excluded at ${width}px`);
     }
   });

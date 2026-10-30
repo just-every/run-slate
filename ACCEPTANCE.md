@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 49 | 248 | 34 | 331 |
+| Core | 50 | 247 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 49 | 248 | 40 | 337 |
+| Full target | 50 | 247 | 40 | 337 |
 
-Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. TMPL-005 native capture proof is reviewed from source commit `4340465db598bff24827300e5b83fe145f19046b` (30 October 2026). Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -2162,7 +2162,7 @@ Core · published · **partial**
 
 #### TMPL-005 — Save a page as a template
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Saving a page as a template copies its body, its properties and, on request, its children.
 
@@ -2170,8 +2170,8 @@ Core · published · **partial**
 1. It copies no comment, version, grant, watcher, analytics figure, status or public link.
 2. Saving a page as a template copies body and properties and none of the excluded records.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Saving a page as a template copies its body, its properties and, on request, its children."<br>No validated CI-run proof for this acceptance point: "It copies no comment, version, grant, watcher, analytics figure, status or public link."
+**Evidence.** `tests/qualification/ui-convergence/template-capture-journey.mjs` — "templateCaptureJourney", called by "real core-wiki and touch-member journeys at 390px" and "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2, native authored body and properties with child capture off and on; retained snapshots and applied trees exclude comments, source revisions, grants, watches, readership, status and public exposure; copies have only their own creation history and visits, destination-derived access and fresh block identifiers; receipt retry creates no extra page and a view-only reader cannot inherit source comment authority.
+**Gap.** None.
 
 #### TMPL-006 — Where a template lives
 

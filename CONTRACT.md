@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. TMPL-005 native capture proof is reviewed from source commit `4340465db598bff24827300e5b83fe145f19046b` (30 October 2026). Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 33 | 193 | 0 | 226 |
+| Published | 34 | 192 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 49 | 248 | 40 | 337 |
+| All | 50 | 247 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4138,7 +4138,7 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 | `TMPL-002` | Preview | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A template preview shows the page it produces, including its body, properties and any child pages, before it is used."<br>No validated CI-run proof for this acceptance point: "A figure such as a team size or a duration appears only when the template's author wrote one; Slate never estimates, infers, or displays a placeholder for either." |
 | `TMPL-003` | Snapshot on use | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Using a template creates a page holding a copy of its body, properties and children in the destination the member chose."<br>No validated CI-run proof for this acceptance point: "Editing, archiving or deleting the template afterwards changes no page already created from it." |
 | `TMPL-004` | Custom templates | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Members can create, edit, archive, restore and delete templates."<br>No validated CI-run proof for this acceptance point: "Templates shipped with Slate cannot be edited or deleted and can be duplicated into an editable copy." |
-| `TMPL-005` | Save a page as a template | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Saving a page as a template copies its body, its properties and, on request, its children."<br>No validated CI-run proof for this acceptance point: "It copies no comment, version, grant, watcher, analytics figure, status or public link." |
+| `TMPL-005` | Save a page as a template | published | done | `tests/qualification/ui-convergence/template-capture-journey.mjs` — "templateCaptureJourney", called by "real core-wiki and touch-member journeys at 390px" and "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2, native authored body and properties with child capture off and on; retained snapshots and applied trees exclude comments, source revisions, grants, watches, readership, status and public exposure; copies have only their own creation history and visits, destination-derived access and fresh block identifiers; receipt retry creates no extra page and a view-only reader cannot inherit source comment authority. | |
 | `TMPL-006` | Where a template lives | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A template belongs to the workspace or to one container."<br>No validated CI-run proof for this acceptance point: "A container's templates are offered first inside that container and are not offered elsewhere, and moving a template between the two is one action." |
 | `IMP-001` | Import jobs | published | partial | `tests/e2e/imports/preview-undo.test.ts` | Missing a public preparation-cancellation and failed-document rollback journey; the cited reviewed-space journey covers preview, Apply, bounded resume and atomic tree visibility. |
 | `IMP-015` | Import original, Undo and erasure custody | published | partial | `tests/e2e/imports/preview-undo.test.ts` | Missing a public page-erasure journey retiring the exact retained original and all retry/resume/Undo custody; the cited flow demonstrates Undo conflicts and member erasure but not erasure of any one imported source. |
