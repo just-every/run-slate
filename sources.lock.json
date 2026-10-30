@@ -5288,7 +5288,7 @@
       "executable": false
     },
     "src/core/app/operator-document-gate.ts": {
-      "sha256": "af789a1cb202b2183965f697186df83d3c98a6278300aa2de15a9b22bcb9542f",
+      "sha256": "4994baf737e3b96cda099a054edc3de91850b8700178f4cbc26bc99405b737df",
       "executable": false
     },
     "src/core/app/preview-banner.tsx": {
@@ -10608,7 +10608,7 @@
       "executable": false
     },
     "tests/e2e/review/verification-flow.test.ts": {
-      "sha256": "98f510efad9755f50e4e1684da75e7a28f50029f9b75b1671b3d78c136de5ea7",
+      "sha256": "add8b0d836a6c9b12622568346529e79a032b26a1e86f1e7b2061946a1e1f6ed",
       "executable": false
     },
     "tests/e2e/review/verification-rules.test.ts": {
