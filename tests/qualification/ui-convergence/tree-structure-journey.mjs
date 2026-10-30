@@ -81,6 +81,7 @@ export async function treeStructureJourney(state) {
     await page.reload({ waitUntil: 'networkidle' });
     await openNavigation(page);
     for (const { id } of expected()) {
+      await expect(row(page, id)).toBeVisible();
       if (!(children.get(id)?.length)) continue;
       const expand = tree(page).getByRole('button', { name: `Expand ${titles.get(id)}`, exact: true });
       if (await expand.count()) { await expect(expand).toBeEnabled(); await expand.click(); }
@@ -107,7 +108,9 @@ export async function treeStructureJourney(state) {
       await checkpoint('initial populated tree', people);
       const action = id => tree(editor.page).getByRole('button', { name: `Move ${titles.get(id)} in tree`, exact: true });
       await row(editor.page, c).hover();
-      await action(c).focus();
+      await row(editor.page, c).locator('a').focus();
+      await editor.page.keyboard.press('Tab');
+      await expect(action(c)).toBeFocused();
       await expect(action(c)).toHaveAttribute('data-tooltip', 'Move page');
       const tooltip = await action(c).evaluate(element => getComputedStyle(element, '::after').opacity);
       assert.equal(Number(tooltip), 1, 'The icon action tooltip is immediate on keyboard focus.');
@@ -125,10 +128,23 @@ export async function treeStructureJourney(state) {
         return { preview, placement };
       };
       const confirm = async (id, reviewed, status = 200) => {
-        const pending = editor.page.waitForResponse(response => new URL(response.url()).pathname === `/api/pages/${id}/move` && response.request().method() === 'POST');
-        await editor.page.getByRole('dialog').getByRole('button', { name: 'Confirm tree move', exact: true }).click();
-        const response = await pending, submitted = response.request().postDataJSON(), body = await response.json();
-        assert.equal(response.status(), status, JSON.stringify(body));
+        const matches = url => url.pathname === `/api/pages/${id}/move`;
+        let captured;
+        // Read the genuine Worker receipt before the native successful action
+        // reloads the document and Chromium discards its response buffer.
+        const capture = async route => {
+          const response = await route.fetch({ maxRetries: 0 });
+          captured = { status: response.status(), submitted: route.request().postDataJSON(), body: await response.json() };
+          await route.fulfill({ response });
+        };
+        await editor.page.route(matches, capture);
+        try {
+          const pending = editor.page.waitForResponse(response => matches(new URL(response.url())) && response.request().method() === 'POST');
+          await editor.page.getByRole('dialog').getByRole('button', { name: 'Confirm tree move', exact: true }).click();
+          await pending;
+        } finally { await editor.page.unroute(matches, capture); }
+        const { submitted, body } = captured;
+        assert.equal(captured.status, status, JSON.stringify(body));
         assert.equal(submitted.orderPreviewHash, reviewed.preview.orderPreviewHash);
         assert.equal(submitted.accessPreviewHash, reviewed.preview.accessPreviewHash);
         for (const [name, value] of Object.entries(reviewed.placement)) assert.deepEqual(submitted[name], value);
@@ -259,6 +275,7 @@ export async function treeStructureJourney(state) {
       // previously successful operation replay must obey current authority.
       await ok(owner, origin, 'POST', '/api/sharing', { operationKey: randomUUID(), ...memberGrant, id: grant.value.id, level: 'view' });
       await reload(editor.page);
+      await row(editor.page, c).hover();
       await expect(action(c)).toBeDisabled();
       await expect(row(editor.page, c)).toHaveAttribute('draggable', 'false');
       const beforeViewer = await inventory(owner);

@@ -3978,9 +3978,9 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 33 | 193 | 0 | 226 |
+| Published | 34 | 192 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 49 | 248 | 40 | 337 |
+| All | 50 | 247 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4021,7 +4021,7 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 | `PAGE-013` | Analytics | published | done | `tests/qualification/ui-convergence/analytics-journey.mjs` — "analyticsJourney" |  |
 | `PAGE-014` | Reactions | published | done | `tests/qualification/ui-convergence/reactions-journey.mjs` — "reactionsJourney" |  |
 | `TREE-001` | A nested tree in a container | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Every container holds one tree of pages of unlimited depth."<br>No validated CI-run proof for this acceptance point: "A node shows its icon, title and whether it has children, expands and collapses, and remembers its expansion per member."<br>No validated CI-run proof for this acceptance point: "A page has exactly one parent — a page or the container root — and appears in exactly one place." |
-| `TREE-002` | Reordering and nesting | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A member with edit access can reorder a page among its siblings and re-parent it by dragging or through `PAGE-004`."<br>No validated CI-run proof for this acceptance point: "Order is explicit and stored, is the same for every member, and never changes as a side effect of an edit, a rename or a publish." |
+| `TREE-002` | Reordering and nesting | published | done | Editor moves, cross-member stored order and invariance through body edits, rename and publication: `tests/qualification/ui-convergence/tree-structure-journey.mjs` — "treeStructureJourney", loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "page creation destinations and editor locks preserve readable content at 1440px". The same helper shows the native move preview in "space tree title filtering preserves ancestors, access and expansion at 390px". Supporting access-preview and descendant mechanics: `tests/flagship/content/http.test.ts` — "content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state". | |
 | `TREE-003` | Shared with me | published | done | `tests/qualification/ui-convergence/shared-navigation-journey.mjs` — "sharedNavigationJourney" |  |
 | `TREE-004` | Filter the tree | published | done | `tests/qualification/ui-convergence/tree-filter-journey.mjs` — "treeFilterJourney" |  |
 | `TREE-005` | Create in place | published | done | `tests/qualification/ui-convergence/create-in-place-journey.mjs` — "createInPlaceJourney" |  |
