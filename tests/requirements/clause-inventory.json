@@ -1390,11 +1390,15 @@
       "id": "ACT-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of ACT-001 — Durable timeline. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Native HTTP audit proof covers durable page commits, real D1 rollback, scheduled publication and exact retained context. Recorded exact-candidate Verify and browser link proof remain required before counting full acceptance.",
       "supportingTests": [
         {
           "file": "tests/flagship/core/security.test.ts",
           "testName": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority"
+        },
+        {
+          "file": "tests/qualification/core/audit-content.test.ts",
+          "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor/time"
         }
       ]
     },
@@ -1416,11 +1420,15 @@
       "id": "ACT-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of ACT-004 — Context. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Native HTTP audit proof covers durable page commits, real D1 rollback, scheduled publication and exact retained context. Recorded exact-candidate Verify and browser link proof remain required before counting full acceptance.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
           "testName": "content structure, task attribution, privacy and activity retain exact revisions"
+        },
+        {
+          "file": "tests/qualification/core/audit-content.test.ts",
+          "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor/time"
         }
       ]
     },
