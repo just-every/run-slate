@@ -11960,7 +11960,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/lifecycle-profile-journey.mjs": {
-      "sha256": "22a2d1bd36f7353e916014b6ceef42c65917e7399a43a32e75c798ec3f1b93fc",
+      "sha256": "2133cedd2085c599aa10169e425bdfe40667c6c1fca142798e2fba3bec2df603",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {

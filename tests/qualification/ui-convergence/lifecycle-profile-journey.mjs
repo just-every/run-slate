@@ -43,16 +43,18 @@ export async function lifecycleProfileJourney(state,people) {
     if(await navigation.isVisible())await navigation.click();
     const tree=page.locator(`.page-tree a[href="/app/pages/${id}"]`);
     await expect(tree).toBeVisible();
+    await tree.scrollIntoViewIfNeeded();
     await expect(tree.locator('.draft-chip')).toHaveCount(controls&&storedState==='draft'?1:0);
     await expect(tree.locator('.scheduled-publication')).toHaveCount(controls&&storedState==='scheduled'?1:0);
     await page.screenshot({path:path.join(directory,`${lifecycle}-${storedState}-tree.png`),fullPage:true});
-    const closeNavigation=page.getByRole('button',{name:'Close navigation',exact:true});
+    const closeNavigation=page.locator('.mobile-bar').getByRole('button',{name:'Close navigation',exact:true});
     if(await closeNavigation.isVisible())await closeNavigation.click();
     await page.getByRole('button',{name:'More',exact:true}).click();
     const expected=[...(controls?['Publish workspace revision']:[]),...(controls&&storedState==='draft'?['Close draft','Discard draft']:[]),...(controls&&storedState==='scheduled'?['Cancel scheduled publication']:[]),...(controls&&storedState==='live-with-unpublished-changes'?['Discard unpublished changes']:[])];
     const names=['Publish workspace revision','Close draft','Discard draft','Cancel scheduled publication','Discard unpublished changes'];
     for(const name of names)await expect(page.getByRole('menuitem',{name,exact:true})).toHaveCount(expected.includes(name)?1:0);
     inventories.push({lifecycle,storedState,controls:expected});
+    await page.getByRole('menuitem',{name:expected[0]??'Archive page',exact:true}).scrollIntoViewIfNeeded();
     await page.screenshot({path:path.join(directory,`${lifecycle}-${storedState}-controls.png`),fullPage:true});
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog',{name:'Publish this revision',exact:true})).toHaveCount(0);
@@ -118,6 +120,7 @@ export async function lifecycleProfileJourney(state,people) {
     await expect(page.getByText('Private profile draft',{exact:true})).toBeVisible();
     // Retain every existing publication, schedule and discard assertion at both widths.
     const welcome=(await state.api('/api/pages')).items.find(p=>p.title==='Welcome');
+    await ok(context,origin,'POST','/api/sharing',{operationKey:crypto.randomUUID(),targetKind:'container',targetId:welcome.containerId,principalKind:'member',principalId:people.bob.id,level:'view'});
     await publicationChecks({page,context,runtime:{origin,directory},id:welcome.id,reader:people.bob,check:()=>{}});
     await settings('draft-then-publish','autosnapshot');
     await open(live);
