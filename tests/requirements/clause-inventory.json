@@ -1440,7 +1440,7 @@
       "id": "TMPL-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for TMPL-001 — Gallery. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "This legacy Workers inventory classifies supporting tests only; CONTRACT.md owns native clause status. The existing responsive browser registrations load templateGalleryJourney, which creates native templates and proves independent title and description matches, combined categories, exact ordered choices and the explicit empty result. Both responsive callers retain their existing assertions and registration count; exact landing-candidate execution is required before changing the retained partial judgment.",
       "supportingTests": []
     },
     {

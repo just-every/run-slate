@@ -3,6 +3,7 @@ import path from 'node:path';
 import { expect } from '@playwright/test';
 import { root } from '../../e2e/runtime-harness.mjs';
 import { accessible } from './browser-evidence.mjs';
+import { templateGalleryJourney } from './template-gallery-journey.mjs';
 
 const starters = { 'Meeting notes': 'Meetings', Retrospective: 'Meetings', Decision: 'Decisions', 'How-to guide': 'Documentation', 'Troubleshooting article': 'Documentation', 'Product requirements': 'Planning', 'Project plan': 'Planning', Runbook: 'Operations', 'Onboarding page': 'Teams', 'Team home': 'Teams', 'Policy page': 'Policies' };
 
@@ -13,6 +14,7 @@ export async function starterTemplatesJourney(state) {
   const shot = label => page.screenshot({ path: path.join(root, `.artifacts/ui-convergence/starter-templates-${width}-${label}.png`), fullPage: true });
   const choice = title => page.locator('.template-choice').filter({ has: page.getByRole('heading', { name: title, exact: true }) });
   const gallery = async () => { await page.goto(origin + '/app/templates', { waitUntil: 'networkidle' }); return page.getByLabel('Category', { exact: true }); };
+  await templateGalleryJourney(state);
   let category = await gallery();
   for (const [title, name] of Object.entries(starters)) {
     await category.fill(name);
