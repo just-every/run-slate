@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "a464dffdcde41c85b44b810e9cce143349d30b6fa33c404235ecc3d0bb6e07a3",
+      "sha256": "0806642e23ad7dfb73f38e8686f7202c1b29c35325b0d4159348b42d3f91f58b",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "0d6c955a404310421b33bded42e9c2c50b9df850bf6e34116d8c74702f07d05a",
+      "sha256": "ed2471d32c36bd0d4ecc11463dffe6be9b868e0254e98e7acd9494d2b44a1afb",
       "executable": false
     },
     "DEMO.md": {
@@ -12048,7 +12048,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {
-      "sha256": "711106639f580981c9c9a953fac1df157deb356e6c616ae639a99b43e09a19a2",
+      "sha256": "a332db4bea660e5fac9dbaf2ed73105c6fd500f91f00394aee024b08b8927c23",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
@@ -12073,6 +12073,10 @@
     },
     "tests/qualification/ui-convergence/task-report-journey.mjs": {
       "sha256": "b0ee39ec453ddacfb5d458184d819693d2de7373524da20aa7bbcf6e56192fe1",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/template-scope-journey.mjs": {
+      "sha256": "0c44c3d74b6f4388c3979bc2cd2ed2cb03871b73041f8f3f4833c5ccf8d1c7ea",
       "executable": false
     },
     "tests/qualification/ui-convergence/theme-journey.mjs": {
@@ -12180,7 +12184,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "a2a3c41366033d86edaa4ab9f051fe7e79229fa68e9da0c2270bdd5eddead3eb",
+      "sha256": "9b48f84713d121634a21b4c986d4ad30c50e922429efcb98f6aebd4bafb35d9f",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
