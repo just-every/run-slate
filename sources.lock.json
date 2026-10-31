@@ -12016,7 +12016,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "969b5ffb1cdffb604340ec62b700605543c194868ba8f11697352c8f3ad5b8ab",
+      "sha256": "7908d7b8a2090fb130664550582e9cb384118a3292a67cb2ff462c85b989b326",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
@@ -12052,7 +12052,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/status-vocabulary-journey.mjs": {
-      "sha256": "b2bb25de006a79cf0a3ef8168a9ad7682f40f05e7882d59e6f8f92efe565a831",
+      "sha256": "33257a007b117cffe8793503c1a539dbf5332bc6b96f39b19a67f06afdb8bf4e",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
