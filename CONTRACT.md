@@ -3974,19 +3974,19 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. HOME-003 built-page and native-publication proof reviewed from source commit `13677894e622de391016968d30bfb15365505320` (31 October 2026); the exact candidate is identified by this branch's Verify and guarded landing receipts.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 33 | 193 | 0 | 226 |
+| Published | 34 | 192 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 49 | 248 | 40 | 337 |
+| All | 50 | 247 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
 | `HOME-001` | Installed workspace lobby | published | partial | `tests/e2e/landing-styles.test.mjs` — "landing styles preserve the light palette, same-origin resources and reduced-motion access" | Missing a journey through the installed Lobby that reads both setup states, privacy and foreign-origin refusals; the cited stylesheet check reads CSS only. |
 | `HOME-002` | Run-site product landing | published | partial | `tests/e2e/landing-styles.test.mjs` — "landing styles preserve the light palette, same-origin resources and reduced-motion access" | Missing a browser journey through the complete run-site landing, configuration, links and capability sections; the cited stylesheet check reads CSS only. |
-| `HOME-003` | Run-site privacy and readable presentation | published | partial | `tests/e2e/landing-styles.test.mjs` — "landing styles preserve the light palette, same-origin resources and reduced-motion access" | Missing a public landing journey that observes private-data absence, resource requests and script-free rendering; the cited stylesheet check checks palette and motion declarations only. |
+| `HOME-003` | Run-site privacy and readable presentation | published | done | `tests/e2e/landing-styles.test.mjs` — "landing styles preserve the light palette, same-origin resources and reduced-motion access" observes every built section without scripts, reduced motion, fixed light colors, readable text, cookies and resource requests; `tests/e2e/production-artifact.test.mjs` — "emitted Worker admission serves configured public doors and protects native owner access" creates and reads a native anonymous publication, excludes it and populated native identities from both roots, and proves withdrawal replay cannot restore its content. | |
 | `DOCS-001` | Public documentation | published | partial | `tests/e2e/docs.test.ts` — "DOCS-001 public documentation supporting regressions public docs serve declared pages with accessible navigation and refuse unknown routes" | Missing a journey proving the complete published-document navigation, build-time bundle boundary, manifest refusals and both viewport accessibility; the cited HTTP regressions cover rendered pages and unknown slugs only. |
 | `WORK-001` | One workspace | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A deployment holds exactly one workspace and every container, page, record and comment belongs to it."<br>No validated CI-run proof for this acceptance point: "Its name and mark are editable in settings and shown in the app header."<br>No validated CI-run proof for this acceptance point: "No interface or endpoint creates a second workspace." |
 | `WORK-003` | Member management | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Members are invited by email address and removed in settings."<br>No validated CI-run proof for this acceptance point: "A workspace owner may invite any person and remove any member other than the setup member; a member may invite and may remove no one."<br>No validated CI-run proof for this acceptance point: "The member created at setup can be removed only by themselves, and `WORK-007` rejects removing the last workspace owner."<br>No validated CI-run proof for this acceptance point: "No policy value, extension, automation or AI action changes any of this." |

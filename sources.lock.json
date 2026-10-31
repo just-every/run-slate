@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "830a48a24e48e4726a7b9f89b210073050d4005ca40f32f0aab4b039d49ba9e8",
+      "sha256": "eda766a0718692fc59696acd5f6966008ad18038182085a6546ac8c4bbb91313",
       "executable": false
     },
     "DEMO.md": {
@@ -12180,7 +12180,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "cdc6b2b5d029c21128734c248cfaf36015cc64a054560515fa9e6c23cbc66886",
+      "sha256": "60f0a375a8aabb224d67a203f577069fb510564600a3721bfb6daa8b7937d59d",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
