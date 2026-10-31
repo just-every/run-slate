@@ -1,4 +1,4 @@
-import { publicPageSettingsJourney } from './public-page-journey.mjs';
+import { publicPageSettingsJourney, anonymousPublicPageJourney } from './public-page-journey.mjs';
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { accessible, closeDetails } from './browser-support.mjs';
@@ -88,6 +88,7 @@ export async function shareJourney(state, pageId) {
   assert.ok((await api(`/api/sharing/pages/${pageId}`)).items.find(item => item.principalId === 'browser-reader').revokedAt, 'Opening Activity leaves the removed page grant revoked.');
   await grantCorpusJourney(state);
   await publicPageSettingsJourney(state);
+  await anonymousPublicPageJourney(state);
 }
 
 /** Native grants, rather than seeded ACL rows, drive the loaded Share panel. */
