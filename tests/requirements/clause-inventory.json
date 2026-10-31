@@ -763,8 +763,13 @@
       "id": "REV-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for REV-007 — Version profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "The Workers inventory records supporting regressions only. REV-007 acceptance runs versionProfileJourney through the existing two-person history browser registration at 1440px; the existing core phone registration captures both profiles at 390px. The existing native ZIP roundtrip registration restores all numbered revisions, then switches both ways while comparing every ordinal, comment, committed status and snapshot. CONTRACT.md holds the acceptance judgment; exact candidate Verify and guarded landing remain required.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/content/http.test.ts",
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
+        }
+      ]
     },
     {
       "id": "STAT-001",

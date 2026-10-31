@@ -15,6 +15,7 @@ interface Revision {
   createdAt: string;
   ordinal: number | null;
   label: string | null;
+  statusKey: string | null;
   deletedAt: string | null;
 }
 const revisionTime = new Intl.DateTimeFormat("en-GB", {
@@ -48,10 +49,11 @@ export function PageHistory({
     newerRevisionExists?: boolean;
   }>(selected ? `/api/revisions/${document.page.id}/${selected}` : null);
   const labelled = document.policyProfile["page.version.v1"] === "labelled";
+  const statuses = useResource<{items: {key: string; label: string}[]}>(labelled ? "/api/status" : null);
   return (
     <section>
       <h2>Version history</h2>
-      {selected ? <label>Compare with<select aria-label="Compare with" value={compare} onChange={e=>setCompare(e.target.value)}><option value="">Choose another revision</option>{history.data?.items.filter(r=>r.id!==selected&&!r.deletedAt).map(r=><option key={r.id} value={r.id}>{r.label ? `${r.label} · ` : ""}{displayRevisionTime(r.createdAt)}{r.authorDisplayName ? ` · ${r.authorDisplayName}` : ""}</option>)}</select></label>:null}
+      {selected ? <label>Compare with<select aria-label="Compare with" value={compare} onChange={e=>setCompare(e.target.value)}><option value="">Choose another revision</option>{history.data?.items.filter(r=>r.id!==selected&&!r.deletedAt).map(r=><option key={r.id} value={r.id}>{labelled && r.label ? `${r.label} · ` : ""}{displayRevisionTime(r.createdAt)}{r.authorDisplayName ? ` · ${r.authorDisplayName}` : ""}</option>)}</select></label>:null}
       {compare ? <RequestState loading={comparison.loading} error={comparison.error} retry={comparison.reload}><section aria-label="Revision comparison"><h3>Before and after</h3>{comparison.data?.blocks.map(item=><section key={item.id}><h4>{item.change}</h4><div className="conflict-columns">{[item.before,item.after].map((block,index)=><div key={index}><strong>{index===0?'Before':'After'}</strong>{block ? <RenderBlock block={editorBlocks([block])[0]} canEdit={false} onChange={()=>{}}/>:<p>No block</p>}</div>)}</div></section>)}<details><summary>Property changes</summary><pre>{JSON.stringify(comparison.data?.properties,null,2)}</pre></details></section></RequestState>:null}
       <RequestState
         loading={history.loading}
@@ -60,7 +62,7 @@ export function PageHistory({
       >
         <ol className="history-list">
           {history.data?.items.map((item) => (
-            <li key={item.id}>
+            <li key={item.id} data-revision-id={item.id}>
               <button
                 type="button"
                 aria-pressed={selected === item.id}
@@ -70,10 +72,13 @@ export function PageHistory({
                   {displayRevisionTime(item.createdAt)}
                 </time>
                 <span>{item.authorDisplayName ?? item.origin}</span>
+                <span>Origin: {item.origin}</span>
                 {labelled ? (
-                  <span>
-                    {item.ordinal ? `Version ${item.ordinal}` : ""} {item.label}
-                  </span>
+                  <>
+                    <span>{item.ordinal ? `Version ${item.ordinal}` : "Unnumbered save"}</span>
+                    <span>Version comment: {item.label || "None"}</span>
+                    <span>Status at save: {statuses.data?.items.find(status => status.key === item.statusKey)?.label ?? item.statusKey ?? "None"}</span>
+                  </>
                 ) : null}
                 {item.deletedAt ? <span>Deleted revision</span> : null}
               </button>

@@ -88,6 +88,39 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-005 — actual native ZIP backup/rest
     const {requestWithHost}=await import('../e2e/runtime-harness.mjs');
     assert.equal((await requestWithHost(target.origin,'/p/research/portable',new URL(source.origin).host)).status,404);
     const reexport=await target.cli('export',second,targetCookie);const after=unpack(await readFile(second));
+    // REV-007: open the actual restored native archive, then switch presentation both ways.
+    // Compare every imported ordinal, comment, committed status and complete snapshot.
+    const restoredHistory = new Map(), restoredSnapshots = new Map();
+    for (const pageId of pageIds) {
+      const items = (await (await api(target,targetCookie,`/api/revisions/${pageId}`)).json()).items;
+      const archived = before.manifest.tables.page_revisions.filter(item=>item.page_id===pageId);
+      const metadata = item=>[item.id,item.ordinal,item.label,item.statusKey,item.origin];
+      assert.deepEqual(items.map(metadata).sort(),archived.map(item=>[item.id,item.ordinal,item.label,item.status_key,item.origin]).sort());
+      restoredHistory.set(pageId,items);
+      for (const item of items) {
+        const snapshot = await (await api(target,targetCookie,`/api/revisions/${pageId}/${item.id}`)).json();
+        const original = archived.find(row=>row.id===item.id);
+        assert.deepEqual(snapshot.blocks,JSON.parse(original.body_json));
+        assert.deepEqual(snapshot.properties,JSON.parse(original.properties_json));
+        restoredSnapshots.set(item.id,snapshot);
+      }
+    }
+    for (const version of ['labelled','autosnapshot','labelled','autosnapshot']) {
+      const workspace = await (await api(target,targetCookie,'/api/workspace')).json();
+      await api(target,targetCookie,'/api/workspace',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        operationKey:randomUUID(),expectedRevisionId:workspace.revisionId,
+        name:workspace.name,mark:workspace.mark,description:workspace.description,
+        guestAccess:workspace.guestAccess,publicLinkAccess:workspace.publicLinkAccess,anonymousAccess:workspace.anonymousAccess,
+        policies:{...workspace.policies,'page.version.v1':version},
+      })});
+      for (const pageId of pageIds) {
+        const document = await (await api(target,targetCookie,`/api/pages/${pageId}`)).json();
+        assert.equal(document.policyProfile['page.version.v1'],version);
+        const items = (await (await api(target,targetCookie,`/api/revisions/${pageId}`)).json()).items;
+        assert.deepEqual(items,restoredHistory.get(pageId),'Switching a restored archive retains every history field.');
+        for (const item of items) assert.deepEqual(await (await api(target,targetCookie,`/api/revisions/${pageId}/${item.id}`)).json(),restoredSnapshots.get(item.id),'The complete imported snapshot remains readable and unchanged.');
+      }
+    }
     await target.close();
     const [bootstrapAudit]=await target.sql(`SELECT a.* FROM activity_entries a WHERE ${bootstrapAuditPredicate};
       CREATE TABLE portability_unregistered_record(id TEXT PRIMARY KEY,body TEXT);
