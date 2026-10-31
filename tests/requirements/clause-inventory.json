@@ -664,11 +664,15 @@
       "id": "WEB-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of WEB-002 — What a published page carries. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "The Workers registry records native exposure support. Complete WEB-002 browser acceptance is publicPageSettingsJourney in tests/qualification/ui-convergence/public-page-journey.mjs, loaded by both existing core journeys. The native ZIP journey in tests/portability/roundtrip.test.mjs proves exact imported exposure settings and revoked delivery until explicit publication. CONTRACT.md owns the complete clause status.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
           "testName": "content structure, task attribution, privacy and activity retain exact revisions"
+        },
+        {
+          "file": "tests/flagship/content/http.test.ts",
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
         }
       ]
     },

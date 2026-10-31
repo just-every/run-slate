@@ -26,13 +26,15 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-005 — actual native ZIP backup/rest
       originals.push({id:uploaded.value.id,...attachment});
       const downloaded=await api(source,sourceCookie,`/api/media/${uploaded.value.id}`);assert.deepEqual(Buffer.from(await downloaded.arrayBuffer()),attachment.bytes);
     }
-    await api(source,sourceCookie,'/api/publishing/archive-root',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operationKey:randomUUID(),expectedRevisionId:'archive-root-current',host:new URL(source.origin).host,slug:'research/portable',theme:'dark',indexable:false,socialPreview:{title:'Portable knowledge',description:'Retain publication settings'}})});
+    const publication=await api(source,sourceCookie,'/api/publishing/archive-root',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operationKey:randomUUID(),expectedRevisionId:'archive-root-current',host:new URL(source.origin).host,slug:'research/portable',theme:'dark',indexable:true,headerControls:['search','breadcrumbs','duplicate'],duplicateAsTemplate:true,socialPreview:{title:'Portable knowledge',description:'Retain publication settings'}})});
+    assert.equal(publication.status,200,await publication.clone().text());
+    const sourceExposure=await(await api(source,sourceCookie,'/api/publishing/archive-root')).json();
     const published=await fetch(source.origin+'/p/research/portable');assert.equal(published.status,200);assert.match(await published.text(),/Restorable research/);
     const first=path.join(scratch,'source.zip'),second=path.join(scratch,'restored.zip');
     const exportReceipt=await source.cli('export',first,sourceCookie);const before=unpack(await readFile(first));
     assert.equal(exportReceipt.counts.pages,3);assert.equal(before.manifest.tables.containers.length,2);assert.equal(before.manifest.tables.page_revisions.length,6);assert.equal(before.manifest.tables.comments.length,2);assert.equal(before.manifest.tables.files.length,2);assert.equal(before.manifest.tables.groups.length,1);assert.equal(before.manifest.tables.members.length,3);assert.equal(before.manifest.tables.public_exposures.length,1);assert.equal(before.manifest.tables.public_exposures[0].revoked_at,null);
     await source.close();
-    target=await runtime(path.join(scratch,'target'));
+    target=await runtime(path.join(scratch,'target'),{publicPageHost:new URL(source.origin).host});
     assert.notEqual(target.persist,source.persist);
     const [empty]=await target.sql('SELECT (SELECT COUNT(*) FROM workspaces) AS workspaces,(SELECT COUNT(*) FROM members) AS members,(SELECT COUNT(*) FROM containers) AS containers,(SELECT COUNT(*) FROM pages) AS pages,(SELECT COUNT(*) FROM files) AS files');
     assert.deepEqual(empty.results,[{workspaces:0,members:0,containers:0,pages:0,files:0}]);
@@ -87,6 +89,9 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-005 — actual native ZIP backup/rest
     // Use the source publication Host: a different target Host alone cannot prove unpublication.
     const {requestWithHost}=await import('../e2e/runtime-harness.mjs');
     assert.equal((await requestWithHost(target.origin,'/p/research/portable',new URL(source.origin).host)).status,404);
+    const restoredExposure=(await(await api(target,targetCookie,'/api/publishing/archive-root')).json()).exposure;
+    assert.deepEqual({...restoredExposure,revokedAt:null},sourceExposure.exposure,'Import preserves the exact host, stored slug, settings and publication time.');
+    assert.ok(restoredExposure.revokedAt,'Restored public exposure remains revoked before explicit publication.');
     const reexport=await target.cli('export',second,targetCookie);const after=unpack(await readFile(second));
     await target.close();
     const [bootstrapAudit]=await target.sql(`SELECT a.* FROM activity_entries a WHERE ${bootstrapAuditPredicate};
@@ -94,6 +99,14 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-005 — actual native ZIP backup/rest
       INSERT INTO portability_unregistered_record VALUES ('unregistered','must not silently disappear')`);
     t.diagnostic(JSON.stringify(equivalent(before,after,ownerEmail,reexport.id,bootstrapAudit.results)));
     await target.start();
+    const republished=await api(target,targetCookie,'/api/publishing/archive-root',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...restoredExposure,operationKey:randomUUID(),expectedRevisionId:'archive-root-current'})});
+    assert.equal(republished.status,200,await republished.clone().text());
+    const active=(await(await api(target,targetCookie,'/api/publishing/archive-root')).json()).exposure;
+    assert.equal(active.revokedAt,null);
+    assert.deepEqual({...active,publishedAt:restoredExposure.publishedAt,revokedAt:restoredExposure.revokedAt},restoredExposure);
+    const available=await requestWithHost(target.origin,'/p/research/portable',new URL(source.origin).host);
+    assert.equal(available.status,200);assert.match(available.body,/Restorable research/);
+    console.log('PROBE WEB-002 import: native ZIP restore -> exact host, slug and settings retained; 404 until explicit publication, then 200');
     const refused=await fetch(target.origin+'/api/exports/workspace',{method:'POST',headers:{Cookie:targetCookie,Origin:target.origin,'Content-Type':'application/json'},body:JSON.stringify({operationKey:randomUUID()})});
     assert.equal(refused.status,409);assert.equal((await refused.json()).code,'UNREGISTERED_PORTABLE_TABLE','Populated unknown tables still fail closed.');
   }finally{

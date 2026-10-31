@@ -12,14 +12,14 @@ export const ownerEmail='archive-owner@example.invalid';
 export const root=path.resolve(import.meta.dirname,'../..');
 
 /** Separate real D1/R2 bindings; all configuration and state stay in caller scratch. */
-export async function runtime(directory){
+export async function runtime(directory,{publicPageHost}={}){
   const port=await availablePort(),inspector=await availablePort();
   const origin=`http://127.0.0.1:${port}`,persist=path.join(directory,'state');
   const emitted=JSON.parse(await readFile(path.join(root,'dist/server/wrangler.json'),'utf8'));
   const configPath=path.join(directory,'wrangler.json');
   const config={...emitted,main:path.resolve(root,'dist/server',emitted.main),assets:{...emitted.assets,directory:path.resolve(root,'dist/server',emitted.assets.directory)},
     d1_databases:emitted.d1_databases.map(db=>({...db,migrations_dir:path.join(root,'migrations/core')})),
-    vars:{APP_URL:origin,SETUP_OWNER_EMAIL:ownerEmail,SESSION_SECRET:randomUUID(),LOCAL_DEVELOPMENT:'true',MAIL_PROVIDER:'development',MAIL_FROM:'archive@example.invalid',AI_ENABLED:'false',SSO_ENABLED:'false',LINK_PREVIEWS_ENABLED:'false',RER_DEV_KEY:testDevKey},no_bundle:true};
+    vars:{...(publicPageHost ? {PUBLIC_PAGE_HOST:publicPageHost} : {}),APP_URL:origin,SETUP_OWNER_EMAIL:ownerEmail,SESSION_SECRET:randomUUID(),LOCAL_DEVELOPMENT:'true',MAIL_PROVIDER:'development',MAIL_FROM:'archive@example.invalid',AI_ENABLED:'false',SSO_ENABLED:'false',LINK_PREVIEWS_ENABLED:'false',RER_DEV_KEY:testDevKey},no_bundle:true};
   await writeFile(configPath,JSON.stringify(config),{mode:0o600});
   const cli=path.join(root,'node_modules/wrangler/bin/wrangler.js');
   const env={...safeEnvironment(),WRANGLER_LOG_PATH:path.join(directory,'logs')};

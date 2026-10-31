@@ -39,6 +39,7 @@ export function equivalent(before,after,ownerEmail,newExportId,bootstrapAuditRow
       if(table==='public_exposures'){
         const restored=actual.find(row=>row.id===expected.id);assert.ok(restored);
         assert.match(restored.revoked_at,/^\d{4}-\d{2}-\d{2}T/,'Restored public link is explicitly revoked.');
+        assert.deepEqual({...restored,revoked_at:original.revoked_at},original,'Every imported exposure field except its protective revocation is exact.');
         expected.revoked_at=original.revoked_at??restored.revoked_at;
       }
       if(table==='federation_exports'){
