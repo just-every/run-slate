@@ -5488,7 +5488,7 @@
       "executable": false
     },
     "src/core/app/ui/PageTree.tsx": {
-      "sha256": "b65990990801659f6c780af5b9e6f86e315cb9d38f0805cdae2b2bce11cc1ab6",
+      "sha256": "7808a268fc279de6623438d6e26307a2a69d1afc88c34bd326f722589204364d",
       "executable": false
     },
     "src/core/app/ui/PublicDuplicate.tsx": {
@@ -5500,7 +5500,7 @@
       "executable": false
     },
     "src/core/app/ui/ScheduledPublication.tsx": {
-      "sha256": "4b3bae2a2b838c5c2ed71c14dbad6055b58f3660f59260ba81a3fb8a81387773",
+      "sha256": "fad351e8cf2ad1d6470e1b6a776f414d09bf4701e610f29b92960e7897ea4dc2",
       "executable": false
     },
     "src/core/app/ui/SetupShell.tsx": {
@@ -8352,7 +8352,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageActionDialogs.tsx": {
-      "sha256": "2f4a7f7fa8aab436753a746467a11f936e9eb71876849f1d328213f7cde7c3cb",
+      "sha256": "2d3ce372ced4c711934ce2d9f8812ef0863c929e221a6ce462a882cf0186abfd",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageAppearance.tsx": {
@@ -8392,7 +8392,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageMoreMenu.tsx": {
-      "sha256": "b886b40ca35f90256d385ff02cf911500a527ea557b1b7243541c5f9ff904984",
+      "sha256": "9b73361dfb712590475ea90faf9d0af42964ee2201987716f25f65d352093d0e",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PagePresentation.tsx": {
@@ -8424,7 +8424,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageWorkspace.tsx": {
-      "sha256": "0e5f8c52482f15c0471f52068a84e970c153d8f636ac535b0a195ba6f3cf5177",
+      "sha256": "7b94ea6417c70e6f55256d248f4e3040233ee402461d96cb9f2e7d33ba5ef923",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PublicationReviewPanel.tsx": {
@@ -8476,7 +8476,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/WorkspacePublicationDialog.tsx": {
-      "sha256": "a44928cd513fb5713763c368d6250f5fcdad83681dd743e01150a430cce906ad",
+      "sha256": "2a634a769fcc0dc0006f7653e949276b138ed3db284b74b63153be18932787d3",
       "executable": false
     },
     "src/core/features/portability/archive-stream.ts": {
@@ -9892,7 +9892,7 @@
       "executable": false
     },
     "src/core/shared/api/content.ts": {
-      "sha256": "b1f62d18ebdaea667686360c74cc37f86752eca88452f8c9fe4b80e3e39a361e",
+      "sha256": "7592c290a747072f033389d6ff3ff87bd6c6c9cb5fcf560fc9c59edbc3be505c",
       "executable": false
     },
     "src/core/shared/api/intelligence.ts": {
@@ -11311,6 +11311,10 @@
       "sha256": "62a7c267d58992696ab3d6249eb6d191868643c4e0784d8cf4e4c05a551b4a48",
       "executable": false
     },
+    "tests/portability/lifecycle-profile.mjs": {
+      "sha256": "86f1d63ace66998cd9c93b9233ff37c6487088060fb2292c13852163fd2760b6",
+      "executable": false
+    },
     "tests/portability/restore-database.mjs": {
       "sha256": "da1df69978ebbfda1b35c33b26c5ad7b0027b45708cea30fd578d425a2d44e63",
       "executable": false
@@ -11320,7 +11324,7 @@
       "executable": false
     },
     "tests/portability/roundtrip.test.mjs": {
-      "sha256": "a794f32b6de95e0e247204b9a0f27adac420116ff2d7208a44247611b7087dc0",
+      "sha256": "dc6c3b4209ad49d7d68f4689811c20a1960c5ab6460b551f620d3fef4454ec43",
       "executable": false
     },
     "tests/portability/runtime.mjs": {
@@ -11952,7 +11956,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "966fea8a3e1e88118b8b2d2203ae0a762b53f4005e8a3588fbc81141e534931e",
+      "sha256": "af65c79fc38f0d0bfe9b6cb1aa4d516075b0239cb1edf6899b1d08189c3cab03",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/lifecycle-profile-journey.mjs": {
+      "sha256": "68f506d0aa886fefb76ebdbeff00dac1fa76d33a79eaeb67533f3a8070ddde7f",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {

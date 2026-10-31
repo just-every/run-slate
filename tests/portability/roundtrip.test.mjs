@@ -1,3 +1,4 @@
+import {prepareLifecycleArchive,restoredLifecycleProfiles} from './lifecycle-profile.mjs';
 import {devKeyHeaders} from '../e2e/dev-key.mjs';
 import {inbox} from '../e2e/outbox-auth.mjs';
 import assert from 'node:assert/strict';
@@ -28,9 +29,10 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-005 — actual native ZIP backup/rest
     }
     await api(source,sourceCookie,'/api/publishing/archive-root',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operationKey:randomUUID(),expectedRevisionId:'archive-root-current',host:new URL(source.origin).host,slug:'research/portable',theme:'dark',indexable:false,socialPreview:{title:'Portable knowledge',description:'Retain publication settings'}})});
     const published=await fetch(source.origin+'/p/research/portable');assert.equal(published.status,200);assert.match(await published.text(),/Restorable research/);
+    const lifecycleIds=await prepareLifecycleArchive(source,sourceCookie);
     const first=path.join(scratch,'source.zip'),second=path.join(scratch,'restored.zip');
     const exportReceipt=await source.cli('export',first,sourceCookie);const before=unpack(await readFile(first));
-    assert.equal(exportReceipt.counts.pages,3);assert.equal(before.manifest.tables.containers.length,2);assert.equal(before.manifest.tables.page_revisions.length,6);assert.equal(before.manifest.tables.comments.length,2);assert.equal(before.manifest.tables.files.length,2);assert.equal(before.manifest.tables.groups.length,1);assert.equal(before.manifest.tables.members.length,3);assert.equal(before.manifest.tables.public_exposures.length,1);assert.equal(before.manifest.tables.public_exposures[0].revoked_at,null);
+    assert.equal(exportReceipt.counts.pages,6);assert.equal(before.manifest.tables.containers.length,2);assert.equal(before.manifest.tables.page_revisions.length,12);assert.equal(before.manifest.tables.comments.length,2);assert.equal(before.manifest.tables.files.length,2);assert.equal(before.manifest.tables.groups.length,1);assert.equal(before.manifest.tables.members.length,3);assert.equal(before.manifest.tables.public_exposures.length,1);assert.equal(before.manifest.tables.public_exposures[0].revoked_at,null);
     await source.close();
     target=await runtime(path.join(scratch,'target'));
     assert.notEqual(target.persist,source.persist);
@@ -70,12 +72,14 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-005 — actual native ZIP backup/rest
     const restoreJob=await staged.json();
     assert.equal(staged.status,202,JSON.stringify(restoreJob));
     const imported=await(await api(target,localCookie,`/api/exports/jobs/${restoreJob.id}/run`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})).json();
-    assert.equal(imported.state,'completed');assert.equal(imported.counts.pages,3);assert.equal(imported.counts.files,2);
+    assert.equal(imported.state,'completed');assert.equal(imported.counts.pages,6);assert.equal(imported.counts.files,2);
     assert.equal((await fetch(target.origin+'/api/session',{headers:{Cookie:bootstrapCookie,...devKeyHeaders}})).status,401,'Restore revokes the original target session.');
     await target.close();
     const [index]=await target.sql('SELECT (SELECT COUNT(DISTINCT page_id) FROM search_text WHERE page_id IS NOT NULL) AS indexed,(SELECT COUNT(*) FROM search_dirty) AS pending');
-    assert.deepEqual(index.results,[{indexed:3,pending:0}],'Search is already rebuilt before a page or search request can repair it.');
+    assert.deepEqual(index.results,[{indexed:6,pending:0}],'Search is already rebuilt before a page or search request can repair it.');
     await target.start();const targetCookie=await signIn(target);
+    const lifecycleProof=await restoredLifecycleProfiles(target,targetCookie,lifecycleIds);
+    t.diagnostic(JSON.stringify({lifecycleProfiles:lifecycleProof.states,restoredStates:Object.keys(lifecycleProof.ids)}));
     const outboxBefore=await inbox(target.origin);
     for(const email of ['archive-member@example.invalid','archive-guest@example.invalid']){
       const inactive=await fetch(target.origin+'/api/auth/magic',{method:'POST',headers:{Origin:target.origin,'Content-Type':'application/json'},body:JSON.stringify({email,requestKey:randomUUID()})});

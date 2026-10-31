@@ -11,7 +11,7 @@ import { PageTransferDialog } from "./PageTransferDialog";
 import { WorkspacePublicationDialog } from "./WorkspacePublicationDialog";
 
 /** The dialogs the page's More menu opens. */
-export type PageDialog = "export" | "decision" | "move" | "duplicate" | "template" | "icon" | "cover" | "publish" | "cancel-schedule" | "discard-changes" | "archive" | "trash";
+export type PageDialog = "export" | "decision" | "move" | "duplicate" | "template" | "icon" | "cover" | "publish" | "discard-draft" | "cancel-schedule" | "discard-changes" | "archive" | "trash";
 
 /** Renders the dialog the menu asked for, and the notice a saved template leaves behind. */
 export function PageActionDialogs({
@@ -29,6 +29,7 @@ export function PageActionDialogs({
 }) {
   const [templateSaved, setTemplateSaved] = useState(false);
   const id = document.page.id;
+  const publicationControls = document.policyProfile["page.lifecycle.v1"] === "draft-then-publish";
   async function perform(path: string, extra: object = {}) {
     await mutate(path, { operationKey: operationKey(), expectedRevisionId: revision, ...extra });
     await reload();
@@ -39,7 +40,7 @@ export function PageActionDialogs({
       {templateSaved ? (
         <p role="status" className="page-notice">
           Template saved. <a href="/app/templates">Open templates</a>
-          <button type="button" aria-label="Dismiss" onClick={() => setTemplateSaved(false)}>
+          <button type="button" aria-label="Dismiss" data-tooltip="Dismiss notice" onClick={() => setTemplateSaved(false)}>
             <X aria-hidden="true" />
           </button>
         </p>
@@ -64,14 +65,17 @@ export function PageActionDialogs({
           }}
         />
       ) : null}
-      {dialog === "publish" ? <WorkspacePublicationDialog document={document} revision={revision} onClose={onClose} onSaved={reload} /> : null}
-      {dialog === "archive" || dialog === "trash" || dialog === "cancel-schedule" || dialog === "discard-changes" ? (
+      {publicationControls && dialog === "publish" ? <WorkspacePublicationDialog document={document} revision={revision} onClose={onClose} onSaved={reload} /> : null}
+      {dialog === "archive" || dialog === "trash" || publicationControls && (dialog === "discard-draft" || dialog === "cancel-schedule" || dialog === "discard-changes") ? (
         <ActionDialog
-          title={dialog === "archive" ? "Archive this page?" : dialog === "trash" ? "Move this page to trash?" : "Confirm this page change"}
+          title={dialog === "archive" ? "Archive this page?" : dialog === "trash" || dialog === "discard-draft" ? "Move this page to trash?" : "Confirm this page change"}
           action="Confirm"
           onClose={onClose}
           onSubmit={async (data) => {
-            if (dialog === "archive" || dialog === "trash") await perform(`/api/archive/${id}`, { action: dialog, reason: String(data.get("reason") ?? "") });
+            if (dialog === "archive" || dialog === "trash" || dialog === "discard-draft") {
+              await perform(`/api/archive/${id}`, { action: dialog === "discard-draft" ? "trash" : dialog, reason: String(data.get("reason") ?? "") });
+              if (dialog === "discard-draft") window.location.assign("/app");
+            }
             else await perform(`/api/pages/${id}/${dialog}`);
           }}
         >

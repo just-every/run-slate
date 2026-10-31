@@ -1,3 +1,4 @@
+import {useWorkspace} from './WorkspaceContext';
 export function ScheduledPublication({
   page,
 }: {
@@ -8,7 +9,8 @@ export function ScheduledPublication({
     scheduleFailure?: string | null;
   };
 }) {
-  if (!page.publishAt) return null;
+  const {workspace} = useWorkspace();
+  if (workspace.data?.policies["page.lifecycle.v1"] !== "draft-then-publish" || !page.publishAt) return null;
   return (
     <small className="scheduled-publication">
       {page.scheduleState === "failed"

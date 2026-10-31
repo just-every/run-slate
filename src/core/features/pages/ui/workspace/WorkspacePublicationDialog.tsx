@@ -10,6 +10,10 @@ import {BlockView} from '../../../editor/ui/blocks/BlockView';
 
 type Preview = DocumentView & {parentPageId?:string|null;treePosition?:string};
 export function WorkspacePublicationDialog({document,onClose,onSaved}:{document:DocumentView;revision:string;onClose:()=>void;onSaved:()=>void}){
+ if(document.policyProfile["page.lifecycle.v1"]!=="draft-then-publish")return null;
+ return <PublicationChoices document={document} onClose={onClose} onSaved={onSaved}/>;
+}
+function PublicationChoices({document,onClose,onSaved}:{document:DocumentView;onClose:()=>void;onSaved:()=>void}){
  const preview=useResource<Preview>(`/api/pages/${document.page.id}`);
  const members=useResource<{items:{id:string;displayName:string}[]}>('/api/members');
  const spaces=useResource<{items:{id:string;name:string}[]}>('/api/containers');
@@ -36,7 +40,7 @@ export function WorkspacePublicationDialog({document,onClose,onSaved}:{document:
  <div hidden={!!review}><RequestState loading={loading} error={preview.error??sharing.error} retry={()=>{void preview.reload();void sharing.reload();}}>{current?<>
  <section aria-label="Workspace publication preview"><h2>{current.page.title}</h2>{editorBlocks(current.blocks).map(block=><BlockView key={block.id} block={block} canEdit={false} onChange={()=>{}}/>)}</section>
  <p className="muted">Preview of the saved working revision. Any later change requires a new preview before publishing.</p>
- {current.policyProfile['page.version.v1']==='labelled'?<label>Version label<input name="label"/></label>:null}
+ <label>{current.policyProfile['page.version.v1']==='labelled'?'Version label':'Version comment'}<input name="label"/></label>
  <label><input type="checkbox" disabled={!current.permissions.canShare} checked={move} onChange={event=>setMove(event.target.checked)}/>Change destination when publishing</label>
  {move?<><label>Publish in space<select value={destination} onChange={event=>setDestination(event.target.value)}>{spaces.data?.items.map(space=><option key={space.id} value={space.id}>{space.name}</option>)}</select></label><label>Publish under page<select name="parent" key={destination} defaultValue={destination===current.page.containerId?current.parentPageId??'':''}><option value="">At the top of this space</option>{pages.data?.items.filter(page=>page.containerId===destination&&page.id!==current.page.id).map(page=><option key={page.id} value={page.id}>{page.title}</option>)}</select></label></>:null}
  <label>General access when published<select disabled={!current.permissions.canShare} value={general} onChange={event=>setGeneral(event.target.value)}><option value="keep">Keep current access</option><option value="restricted">Restricted — named grants only</option><option value={generalKind}>{generalKind==='container'?'Everyone in the destination space':'Everyone in this workspace'}</option></select></label>

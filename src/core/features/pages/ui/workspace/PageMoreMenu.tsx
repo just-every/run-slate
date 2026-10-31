@@ -4,6 +4,7 @@ import {
   BellOff,
   CalendarX,
   ChartColumn,
+  X,
   ChevronDown,
   CircleDot,
   Copy,
@@ -33,6 +34,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { PageActionDialogs, type PageDialog } from "./PageActionDialogs";
 import { usePageFollowing } from "./usePageFollowing";
 import { errorMessage } from "../../../../client/transport";
+import { useWorkspace } from "../../../../app/ui/WorkspaceContext";
 import { ReminderDialog } from '../../../editor/ui/blocks/ReminderDialog';
 
 /** A trailing mark on items that open a dialog or a panel; it is not part of the item's name. */
@@ -91,12 +93,13 @@ export function PageMoreMenu({
       trigger.current?.focus();
     }
   }, [dialog]);
+  const { member } = useWorkspace();
   const { canEdit, canShare } = document.permissions;
+  const publicationControls = document.policyProfile["page.lifecycle.v1"] === "draft-then-publish";
+  const ownDraft = publicationControls && document.page.lifecycle === "draft" && document.authorMemberId === member.id;
   const props = document.properties as (NonNullable<DocumentView["properties"]> & { cover?: unknown; coverFileId?: unknown }) | undefined;
   const hasCover = !!(props?.cover || props?.coverFileId);
-  const publishable =
-    canEdit &&
-    (document.policyProfile["page.lifecycle.v1"] === "draft-then-publish" || document.policyProfile["page.version.v1"] === "labelled" || document.page.lifecycle === "draft");
+  const publishable = canEdit && publicationControls;
   const hasUnpublished = document.policyProfile["page.lifecycle.v1"] === "draft-then-publish" && !!document.publishedRevisionId && document.publishedRevisionId !== document.workingRevisionId;
 
   /** An item that opens a dialog or panel takes focus there instead of back to the trigger. */
@@ -196,7 +199,9 @@ export function PageMoreMenu({
                 </DropdownMenuItem>
               ) : null}
               {publishable && unsaved ? <p className="page-more-note">Save or resolve your current edits before reviewing publication.</p> : null}
-              {document.page.lifecycle === "scheduled" ? item(<CalendarX aria-hidden="true" />, "Cancel scheduled publication", dialogItem("cancel-schedule")) : null}
+              {publicationControls && document.page.lifecycle === "scheduled" ? item(<CalendarX aria-hidden="true" />, "Cancel scheduled publication", dialogItem("cancel-schedule")) : null}
+              {ownDraft ? item(<X aria-hidden="true" />, "Close draft", open(() => window.location.assign("/app")), false) : null}
+              {ownDraft ? item(<Trash2 aria-hidden="true" />, "Discard draft", dialogItem("discard-draft")) : null}
               {hasUnpublished ? item(<Undo2 aria-hidden="true" />, "Discard unpublished changes", dialogItem("discard-changes")) : null}
               {item(<Archive aria-hidden="true" />, "Archive page", dialogItem("archive"))}
               <DropdownMenuItem className="text-danger [&_svg]:text-danger" onSelect={dialogItem("trash")}>

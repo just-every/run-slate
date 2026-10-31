@@ -1,6 +1,7 @@
 import {compareTreePages} from './treePosition';
 import type {TreeDestination} from './TreeMoveDialog';
 const TreeMoveDialog=lazy(()=>import('./TreeMoveDialog').then(module=>({default:module.TreeMoveDialog})));
+import {useWorkspace} from './WorkspaceContext';
 import {ScheduledPublication} from './ScheduledPublication';
 import {StoredIcon} from "../../features/pages/ui/workspace/PageAppearance";
 import {useResource} from "../../client/useResource";
@@ -73,6 +74,8 @@ function TreeItem({
   /** A temporary title filter never changes persisted expansion. */
   visibleIds?: Set<string>;
 }) {
+  const {workspace} = useWorkspace();
+  const publicationControls = workspace.data?.policies["page.lifecycle.v1"] === "draft-then-publish";
   const hasChildren = pages.some((item) => item.parentPageId === page.id && (!visibleIds || visibleIds.has(item.id)));
   const expansion = useResource<{expanded:boolean}>(hasChildren ? `/api/pages/${page.id}/expansion` : null);
   const open = visibleIds !== undefined || (expansion.data?.expanded ?? false);
@@ -104,7 +107,7 @@ function TreeItem({
         )}
         <a className="navlink" href={page.databaseId ? `/app/databases/${page.databaseId}` : `/app/pages/${page.id}`} aria-current={activePath === (page.databaseId ? `/app/databases/${page.databaseId}` : `/app/pages/${page.id}`) ? "page" : undefined}>
           {page.icon ? <StoredIcon icon={page.icon}/> : page.databaseId ? <Database aria-hidden="true" /> : <FileText aria-hidden="true" />}
-          <span>{page.title || "Untitled"}<ScheduledPublication page={page}/></span>
+          <span>{page.title || "Untitled"}{publicationControls && page.lifecycle === "draft" ? <small className="draft-chip"> · Draft</small> : null}<ScheduledPublication page={page}/></span>
         </a>
         <button className="iconbutton tree-action" aria-label={`Move ${page.title} in tree`} data-tooltip="Move page" data-tooltip-align="end" disabled={!canMove} onClick={()=>setMove({page})}><ArrowUpDown aria-hidden="true"/></button>
         <button className="iconbutton tree-action" aria-label={`Create child of ${page.title}`} data-tooltip="Add child" data-tooltip-align="end" disabled={!canMove} aria-busy={creation.pending||undefined} onClick={event=>{event.stopPropagation();void creation.create(async()=>({containerId:page.containerId,parentPageId:page.id,title:DEFAULT_PAGE_TITLE}));}}><Plus aria-hidden="true"/></button>
