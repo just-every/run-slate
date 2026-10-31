@@ -998,7 +998,7 @@
       "id": "CONT-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for CONT-008 — Container access profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "This legacy inventory classifies Workers supporting tests only; CONTRACT.md owns native clause status. The containerAccessProfileJourney in ./tests/qualification/ui-convergence/container-access-profile-journey.mjs is loaded by the existing phone tree-filter and desktop outline journeys. It covers populated native member, group and guest grants, both access presentations, all three switches and unchanged canonical access snapshots after switching profiles in both directions. Exact candidate CI and landing receipts remain separate from this inventory.",
       "supportingTests": []
     },
     {

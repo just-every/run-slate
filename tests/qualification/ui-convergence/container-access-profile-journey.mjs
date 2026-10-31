@@ -58,6 +58,12 @@ export async function containerAccessProfileJourney(state, width) {
       await expect(dialog).toHaveCount(0);
       const stored = await api(`/api/containers/${space}`);
       for (const name of switches) assert.equal(stored[name], values[name]);
+      if (profile === 'grant-led') {
+        const card = settings.getByRole('region', { name: 'External access', exact: true });
+        for (const [name, label] of [['guestAccess', 'Guest access'], ['publicLinkAccess', 'Public link access'], ['anonymousAccess', 'Anonymous access']]) {
+          await expect(card.locator('dl > div').filter({ has: page.getByText(label, { exact: true }) }).locator('dd')).toHaveText(values[name] === 'allowed' ? 'Allowed within workspace policy' : 'Forbidden');
+        }
+      }
       return stored;
     };
     const access = async values => {
@@ -96,7 +102,7 @@ export async function containerAccessProfileJourney(state, width) {
       await page.goto(origin + '/app/settings', { waitUntil: 'networkidle' });
       await page.getByRole('button', { name: 'Edit workspace & policies', exact: true }).click();
       const dialog = page.getByRole('dialog', { name: 'Workspace settings', exact: true });
-      await dialog.getByLabel('Space access', { exact: true }).selectOption(profile);
+      await dialog.locator('select[name="container.access.v1"]').selectOption(profile);
       await dialog.getByRole('button', { name: 'Save settings', exact: true }).click();
       await expect(dialog).toHaveCount(0);
       const after = await api('/api/workspace');
@@ -138,13 +144,17 @@ export async function containerAccessProfileJourney(state, width) {
           await tabs.getByRole('button', { name, exact: true }).click();
           await expect(tabs.getByRole('button', { name, exact: true })).toHaveAttribute('aria-pressed', 'true');
           await expect.poll(ids).toEqual(expected.map(item => item.id).sort());
-          for (const grant of expected) await expect(grants.locator(`li[data-grant-id="${grant.id}"]`)).toContainText(grant.principalLabel);
+          for (const grant of expected) {
+            const row = grants.locator(`li[data-grant-id="${grant.id}"]`);
+            await expect(row).toContainText(grant.principalLabel);
+            await expect(row).toContainText(grant.level);
+          }
         }
         const row = grants.locator(`li[data-grant-id="${guestGrant.id}"]`);
         await row.getByRole('button', { name: 'Edit access', exact: true }).click();
         const dialog = page.getByRole('dialog', { name: 'Space access grant', exact: true });
-        await expect(dialog.getByLabel('Person or group', { exact: true })).toHaveValue(`member:${guestMember.id}`);
-        await expect(dialog.getByLabel('Access', { exact: true })).toHaveValue('view');
+        await expect(dialog.getByRole('combobox', { name: 'Person or group', exact: true })).toHaveValue(`member:${guestMember.id}`);
+        await expect(dialog.getByRole('combobox', { name: 'Access', exact: true })).toHaveValue('view');
         await dialog.getByRole('button', { name: 'Cancel', exact: true }).click();
         await expect(settings.getByRole('region', { name: 'External access', exact: true })).toBeVisible();
         await expect(settings.locator('select[name=visibility]')).toHaveCount(0);
@@ -155,14 +165,21 @@ export async function containerAccessProfileJourney(state, width) {
       await settings.getByRole('button', { name: profile === 'class-led' ? 'Visibility & public access' : 'External access', exact: true }).click();
       const dialog = page.getByRole('dialog', { name: 'Space access', exact: true });
       if (profile === 'class-led') {
-        assert.deepEqual(await dialog.locator('select[name=visibility] option').evaluateAll(options => options.map(option => option.value)), ['default', 'open', 'closed', 'private']);
-        // Each choice explains actual grant-based admission instead of promising a new grant.
-        for (const option of await dialog.locator('select[name=visibility] option').allTextContents()) assert.match(option, /grant/i);
-        await expect(dialog.locator('select[name=visibility]')).toHaveValue('private');
+        for (const visibility of ['default', 'open', 'closed', 'private']) {
+          await dialog.locator('select[name=visibility]').selectOption(visibility);
+          const explanation = await dialog.locator('select[name=visibility]').evaluate(select => select.selectedOptions[0].textContent);
+          assert.match(explanation, /grant/i, 'The chosen visibility explains grant-based admission.');
+          await dialog.getByRole('button', { name: 'Save settings', exact: true }).click();
+          await expect(dialog).toHaveCount(0);
+          assert.equal((await api(`/api/containers/${space}`)).visibility, visibility, 'Every visibility choice persists through the native settings door.');
+          await settings.getByRole('button', { name: 'Visibility & public access', exact: true }).click();
+          await expect(dialog.locator('select[name=visibility]')).toHaveValue(visibility);
+        }
         await expect(settings.getByRole('region', { name: 'Space visibility' })).toContainText('who may see and join');
       } else await expect(dialog.locator('select[name=visibility]')).toHaveCount(0);
       for (const name of switches) await expect(dialog.locator(`select[name=${name}]`)).toBeVisible();
       const close = dialog.getByRole('button', { name: 'Close dialog', exact: true });
+      await page.keyboard.press('Tab');
       await close.focus();
       await expect(close).toHaveAttribute('data-tooltip', 'Close dialog');
       await expect.poll(() => close.evaluate(element => getComputedStyle(element, '::after').opacity)).toBe('1');
@@ -204,10 +221,17 @@ export async function containerAccessProfileJourney(state, width) {
     assert.deepEqual(await canonical(mixed), beforeClass, 'Grant-led to class-led preserves visibility, grants, switches, revisions and effective access after reload.');
     await inventory('class-led');
     await saveSwitches(allowed);
-    // The read-only member cannot manage settings under either presentation.
+    // Content editing grants do not confer access-management authority.
     const unchanged = await canonical(allowed);
     assert.equal((await call(reader, origin, 'POST', '/api/sharing/container-settings', { operationKey: randomUUID(), id: space, expectedRevisionId: unchanged.container.revisionId, visibility: 'open', ...allowed })).status, 403);
     assert.deepEqual(await canonical(allowed), unchanged, 'Refused management leaves both content and access unchanged.');
+    const personal = (await api('/api/containers')).items.find(item => item.visibility === 'personal');
+    assert.ok(personal);
+    await page.goto(`${origin}/app/containers/${personal.id}`, { waitUntil: 'networkidle' });
+    await page.getByRole('navigation', { name: 'Space navigation', exact: true }).getByRole('button', { name: 'Settings', exact: true }).click();
+    await expect(settings).toContainText('Only you may see or join it.');
+    await expect(settings.getByRole('button', { name: 'Grant access', exact: true })).toHaveCount(0);
+    await expect(settings.locator('select[name=visibility]')).toHaveCount(0);
     await post('/api/guests/revoke', { memberIds: [guestMember.id] });
     assert.equal((await call(guest, origin, 'GET', `/api/pages/${pageId}`)).status, 401);
     assert.equal((await guest.request.post(origin + '/api/auth/invitation/accept', { headers: { origin }, form: { token: invitation.searchParams.get('token') }, maxRedirects: 0 })).status(), 400, 'A profile journey never makes an accepted invitation reusable.');
