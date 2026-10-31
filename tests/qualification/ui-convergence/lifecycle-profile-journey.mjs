@@ -58,7 +58,7 @@ export async function lifecycleProfileJourney(state,people) {
     await page.screenshot({path:path.join(directory,`${lifecycle}-${storedState}-controls.png`),fullPage:true});
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog',{name:'Publish this revision',exact:true})).toHaveCount(0);
-    await expect(page.getByLabel('Publish as',{exact:true})).toHaveCount(0);
+    await expect(page.getByLabel('Publish as')).toHaveCount(0);
     await expect(page.locator('input[name="label"]')).toHaveCount(0);
   };
   try {
@@ -112,6 +112,7 @@ export async function lifecycleProfileJourney(state,people) {
     await open(draft);
     await page.getByRole('button',{name:'More',exact:true}).click();
     await page.getByRole('menuitem',{name:'Discard draft',exact:true}).click();
+    await page.screenshot({path:path.join(directory,'discard-draft-confirmation.png'),fullPage:true});
     await page.getByRole('dialog').getByRole('button',{name:'Confirm',exact:true}).click();
     await page.waitForURL(url=>url.pathname==='/app');
     assert.equal((await call(context,origin,'GET',`/api/pages/${draft}`)).status,404);
@@ -127,9 +128,11 @@ export async function lifecycleProfileJourney(state,people) {
     await page.getByRole('button',{name:'More',exact:true}).click();
     await page.getByRole('menuitem',{name:'Publish workspace revision',exact:true}).click();
     const dialog=page.getByRole('dialog',{name:'Publish this revision',exact:true});
-    await expect(dialog.locator('input[name="label"]')).toHaveCount(0);
-    await expect(dialog.getByLabel('Publish as',{exact:true})).toBeVisible();
+    await expect(dialog.getByRole('region',{name:'Workspace publication preview'})).toBeVisible();
+    await expect(dialog.getByLabel('Publish as')).toBeVisible();
     await expect(dialog.getByLabel('Schedule (optional)',{exact:true})).toBeVisible();
+    await expect(dialog.locator('input[name="label"]')).toHaveCount(0);
+    await dialog.getByLabel('Publish as').scrollIntoViewIfNeeded();
     await page.screenshot({path:path.join(directory,'draft-profile-autosnapshot-publication.png'),fullPage:true});
     await dialog.getByRole('button',{name:'Cancel',exact:true}).click();
     await writeFile(path.join(directory,'profiles.json'),JSON.stringify({width,inventories,before,after:await snapshot([live,scheduled,changed])},null,2));
