@@ -93,6 +93,13 @@ export async function publicPageSettingsJourney({ page, context, origin, api, re
   await expect.poll(async () => (await api(`/api/pages/${first}`)).page.title).toBe('Renamed independently of its address');
   await inspect(first, edited);
   assert.equal((await context.request.get(`${origin}/p/${edited.slug}`)).status(), 200);
+  await open(second);await edit(other);await save(second);
+  const activeCollision = [await projection(first), await projection(second)];
+  await edit({ ...other, slug: edited.slug });await save(second, 409);
+  await expect(dialog.getByRole('alert')).toContainText('This address is already reserved.');
+  assert.deepEqual([await projection(first), await projection(second)], activeCollision, 'An active address collision changes neither exposure.');
+  await dialog.getByRole('button', { name: 'Cancel', exact: true }).click();
+  await open(first);
   const beforeRevoke = Date.now();
   await panel.getByRole('button', { name: 'Stop public access', exact: true }).click();
   await page.getByRole('dialog', { name: 'Stop public access?', exact: true }).getByRole('button', { name: 'Stop public access', exact: true }).click();
@@ -103,7 +110,7 @@ export async function publicPageSettingsJourney({ page, context, origin, api, re
   await open(first); await page.reload({ waitUntil: 'networkidle' });
   assert.deepEqual(await projection(first), revoked, 'Reload retains the exact revocation time and every setting.');
   assert.equal((await context.request.get(`${origin}/p/${edited.slug}`)).status(), 404);
-  await open(second); await edit(other); await save(second);
+  await open(second);
   const beforeCollision = [await projection(first), await projection(second)];
   await edit({ ...other, slug: edited.slug }); await save(second, 409);
   await expect(dialog.getByRole('alert')).toContainText('This address is already reserved.');

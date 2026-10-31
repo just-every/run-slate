@@ -234,6 +234,10 @@ async function storedExposureJourney(f: Awaited<ReturnType<typeof fixture>>) {
  expect(await read(first.pageId)).toEqual(edited);
  const other={...input,operationKey:createUlid(),expectedRevisionId:second.revisionId,slug:'synthetic-slate-other'};
  expect((await f.request('POST',`/api/publishing/${second.pageId}`,other)).status).toBe(200);
+ const activeBefore=[await read(first.pageId),await read(second.pageId)];
+ const activeConflict=await f.request('POST',`/api/publishing/${second.pageId}`,{...other,operationKey:createUlid(),slug:update.slug});
+ expect(activeConflict.status).toBe(409);expect(activeConflict.data.code).toBe('SLUG_RESERVED');
+ expect([await read(first.pageId),await read(second.pageId)]).toEqual(activeBefore);
  const revoke={...update,operationKey:createUlid(),expectedRevisionId:renamed.data.value.revisionId,revoke:true};
  const revoked=await f.request('POST',`/api/publishing/${first.pageId}`,revoke);expect(revoked.status).toBe(200);
  const before=[await read(first.pageId),await read(second.pageId)];
