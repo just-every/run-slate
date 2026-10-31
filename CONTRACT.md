@@ -3978,9 +3978,9 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 33 | 193 | 0 | 226 |
+| Published | 34 | 192 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 49 | 248 | 40 | 337 |
+| All | 50 | 247 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4141,7 +4141,7 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 | `TMPL-005` | Save a page as a template | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Saving a page as a template copies its body, its properties and, on request, its children."<br>No validated CI-run proof for this acceptance point: "It copies no comment, version, grant, watcher, analytics figure, status or public link." |
 | `TMPL-006` | Where a template lives | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A template belongs to the workspace or to one container."<br>No validated CI-run proof for this acceptance point: "A container's templates are offered first inside that container and are not offered elsewhere, and moving a template between the two is one action." |
 | `IMP-001` | Import jobs | published | partial | `tests/e2e/imports/preview-undo.test.ts` | Missing a public preparation-cancellation and failed-document rollback journey; the cited reviewed-space journey covers preview, Apply, bounded resume and atomic tree visibility. |
-| `IMP-015` | Import original, Undo and erasure custody | published | partial | `tests/e2e/imports/preview-undo.test.ts` | Missing a public page-erasure journey retiring the exact retained original and all retry/resume/Undo custody; the cited flow demonstrates Undo conflicts and member erasure but not erasure of any one imported source. |
+| `IMP-015` | Import original, Undo and erasure custody | published | done | `tests/e2e/imports/preview-undo.test.ts` — "reviews, applies and reverses real Notion and Confluence content without losing native edits": acceptance 1 and 2, partial and completed native Undo, retained edits and additions with dependencies, conflict reports, exact original download and explicit deletion. Same file — "erases historical and shared imported people through confirmed native removal, atomically retires custody and keeps unrelated Undo": acceptance 3 through the folded native page-erasure journey, confirmed erasure of one imported source, original and recovery refusal, complete affected custody retirement, capture replay refusal and unchanged readable native siblings; retains historical and shared-member erasure and unrelated Undo. `tests/qualification/erasure-metadata/atomic-custody.test.ts` — "Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export": atomic rollback and durable erasure supporting proof. | |
 | `IMP-002` | Notion import | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a public import journey that opens the resulting Notion tree, database records, media and loss report; the cited incumbent-export test calls the import parser directly. |
 | `IMP-003` | Confluence import | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a public Confluence, Word and Google Docs import journey that opens the resulting tree, versions, links and loss report; the cited incumbent-export test calls parsers directly. |
 | `IMP-016` | Imported Confluence principal and restriction mapping | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a public reviewed-mapping journey that applies active and unresolved restrictions and tries unsafe principal mapping without widening; the cited incumbent-export test reads parsed source restrictions only. |

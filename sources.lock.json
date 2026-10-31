@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "830a48a24e48e4726a7b9f89b210073050d4005ca40f32f0aab4b039d49ba9e8",
+      "sha256": "3113f0df327c35bbdd99dcd9321dc1131979b7124ec55955299409487fd2c3b3",
       "executable": false
     },
     "DEMO.md": {
@@ -10447,6 +10447,10 @@
       "sha256": "06b5b8a10ac872b9156ceb16ce93b7ff6d6eb170fd41cbba02ed0c110113cfab",
       "executable": false
     },
+    "tests/e2e/imports/page-erasure-journey.ts": {
+      "sha256": "465c52b1b874251aa759256d81f38d55a24ca1917598c81606f9e5d5c32fc0b8",
+      "executable": false
+    },
     "tests/e2e/imports/page-lock.test.ts": {
       "sha256": "4ff9999fca1fb4bc9384fcd0c54385ecd1e08703862a02d85ecf37aa79a0cc9b",
       "executable": false
@@ -10455,8 +10459,12 @@
       "sha256": "dfeaeb267a3c512d913e766d2e552c6545f3ca23881ccb06fdbb232217d8cd0e",
       "executable": false
     },
+    "tests/e2e/imports/partial-undo-journey.ts": {
+      "sha256": "ed02ba1786555b079b9d5edb80d23d263aadec117d86e500a1553efa5ffdff61",
+      "executable": false
+    },
     "tests/e2e/imports/preview-undo.test.ts": {
-      "sha256": "6a9c3d94a7fd892c2224d08bf9bf3fd1bdb5b10bfbda9109036ce5f570ca47d5",
+      "sha256": "a795ec5763b47798753372b3d67a57a3195a5ac10920ff5412cdc6044dc499e2",
       "executable": false
     },
     "tests/e2e/imports/provider-folder-journey.ts": {
@@ -12180,7 +12188,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "97f6bd184c1f0689367e3e67eb22a16275f357d96f7a5309b830b5adb373a321",
+      "sha256": "0ddac70c5784a618be06d1efdf63f20deef430dd7730696b0d85e7ceca5f09d2",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12196,7 +12204,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "488098b3a30920549a0559835a4aab0e0b917baf15fb841c1846840973b767d4",
+      "sha256": "4e4a334c866b73578c76d3e46cad0a6ad4849f890e4f76ed00204eed4c917f02",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

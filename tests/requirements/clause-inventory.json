@@ -2921,7 +2921,7 @@
       "id": "IMP-015",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Missing a public page-erasure journey retiring the exact retained original and all retry/resume/Undo custody; the cited flow demonstrates Undo conflicts and member erasure but not erasure of any one imported source.",
+      "unmetReason": "This legacy registry classifies supporting regressions only; CONTRACT.md owns clause acceptance status. The loaded native HTTP journeys now cover partial and completed Undo, preservation of native edits and additions with dependencies, exact original retention and explicit deletion, and confirmed imported-page erasure with complete recovery refusal and native sibling preservation. No unrelated requirement or live-provider acceptance is claimed.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
