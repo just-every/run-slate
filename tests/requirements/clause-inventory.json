@@ -556,8 +556,13 @@
       "id": "LIFE-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for LIFE-006 — Lifecycle profile. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "The Workers registry records supporting lifecycle and authority outcomes only. Full LIFE-006 acceptance additionally uses lifecycleProfileJourney in the existing real core-wiki and touch-member journeys at 1440px and 390px, publicationJourney in the page-creation journey, and restoredLifecycleProfiles in the existing native ZIP round-trip. These cover exact policy controls, author-only draft placement, working publication and retained page, revision, schedule and grant snapshots with no publication of a native restored draft. CONTRACT.md owns the clause judgment and exact candidate Verify remains required.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/content/http.test.ts",
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
+        }
+      ]
     },
     {
       "id": "LIFE-007",
