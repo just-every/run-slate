@@ -97,6 +97,11 @@ export async function publicPageJourney({page, context, origin, api, readerCooki
   await content();
   await publish(parent);
   await inspect([]);
+  const unsigned = await context.browser().newContext();
+  try {
+    assert.equal((await call(unsigned,origin,'POST',`/api/publishing/${parent}`,await input(parent,[hidden]))).status,401);
+    await inventory([parent]);
+  } finally { await unsigned.close(); }
   const reader = await context.browser().newContext();
   try {
     await reader.addCookies([{name:'slate_session',value:readerCookie.split('=')[1],url:origin}]);
