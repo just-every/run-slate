@@ -2170,7 +2170,7 @@ Core · published · **partial**
 1. It copies no comment, version, grant, watcher, analytics figure, status or public link.
 2. Saving a page as a template copies body and properties and none of the excluded records.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.; no validated CI-run proof. Supporting native capture/apply journey: `tests/qualification/ui-convergence/template-capture-journey.mjs` — "templateCaptureJourney", loaded by the existing responsive core-wiki (390px) and starter-template (1440px) journeys in `tests/qualification/ui-convergence/journeys.test.mjs`; exercises authored body and properties, optional children, exclusion of source comments, revisions, grants, watchers, readership, status and public exposure, fresh identifiers, receipt retry and destination-derived authority. This supporting registration retains the current partial judgment and acceptance gaps.
 **Gap.** No validated CI-run proof for this acceptance point: "Saving a page as a template copies its body, its properties and, on request, its children."<br>No validated CI-run proof for this acceptance point: "It copies no comment, version, grant, watcher, analytics figure, status or public link."
 
 #### TMPL-006 — Where a template lives
