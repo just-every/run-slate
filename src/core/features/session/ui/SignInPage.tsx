@@ -134,7 +134,7 @@ export function SignInPage({ capabilities, requested = false, loginHint, ownerLi
             </div>
           ) : null}
 
-          {providerRefused ? <p className="paper-alert" role="alert">{providerNotice}</p> : null}
+          {providerRefused ? <div className="paper-alert" role="alert">{providerNotice}</div> : null}
 
           {failure ? <p className="paper-alert" role="alert">{failure}</p> : null}
         </div>
