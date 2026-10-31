@@ -132,7 +132,7 @@
       "id": "WORK-012",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WORK-012 — Theme. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "The Workers-only registry does not classify browser acceptance. CONTRACT.md owns WORK-012 status; themeJourney in tests/qualification/ui-convergence/theme-journey.mjs is loaded by the existing desktop outline and phone tree journeys. It exercises all offered preferences across operator destinations and editors, device changes, native preference read-back, new sign-ins on another viewport, independent members and anonymous exposure themes.",
       "supportingTests": []
     },
     {
@@ -544,7 +544,7 @@
       "id": "LIFE-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LIFE-005 — Unpublished changes. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "This Workers registry records supporting regressions only. LIFE-005 acceptance additionally runs unpublishedChangesJourney through the existing real core-wiki and touch-member browser journeys at 1440px and 390px, covering editor indication, reader reload, republish and lossless native discard; see the Status evidence in CONTRACT.md.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -575,7 +575,7 @@
       "id": "SHARE-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SHARE-001 — Grants. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "The Workers inventory does not certify browser acceptance. The existing real core-wiki and touch-member journeys at 1440px and 390px in ./tests/qualification/ui-convergence/journeys.test.mjs load shareJourney and its native grant corpus in ./tests/qualification/ui-convergence/sharing-journey.mjs: ordered person, group, container and workspace grants, configured levels, optional expiry, direct and inherited source reconciliation after reload, current restrictions, revocation, expiry and replay. CONTRACT.md carries the acceptance judgment; exact candidate Verify and guarded landing remain required.",
       "supportingTests": []
     },
     {
@@ -1216,8 +1216,13 @@
       "id": "SEARCH-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for SEARCH-001 — Global search. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "Native HTTP and responsive browser sanity journeys cover retained content across all five kinds, exact unfiltered ranking, totals, cursor stability under late arrivals and current revocation. A separate committed native capacity journey records first-page wall latency, raw samples and its canonical corpus manifest. Independent acceptance and guarded landing receipts are established separately.",
+      "supportingTests": [
+        {
+          "file": "tests/e2e/search/fts-permissions.test.ts",
+          "testName": "Indexed search uses current native authority for literal matches, totals, facets and cursors"
+        }
+      ]
     },
     {
       "id": "SEARCH-002",
@@ -1348,7 +1353,7 @@
       "id": "NOTIF-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for NOTIF-002 — Inbox. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "The native Following Workers journey and emitted core-wiki inboxJourney cover period ordering, unread totals, both audiences, the visible referenced comment, read state, read-all without archiving, archive-only-read persistence and current access. The requirement verdict is recorded in CONTRACT.md; this supporting-test registry does not replace exact-candidate Verify or guarded landing.",
       "supportingTests": [
         {
           "file": "tests/flagship/discovery/following.test.ts",

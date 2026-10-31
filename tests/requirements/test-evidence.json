@@ -45,7 +45,7 @@
         "CONT-007",
         "WEB-005"
       ],
-      "reason": "Preserves separately asserted cases of the same public flow; supports only the listed requirements and does not establish complete acceptance. Native anonymous HTTP reads cover default noindex and the first response header and served robots meta after enabling and disabling indexing. The responsive publicPageJourney supplies native publication-control and persisted-state acceptance through the existing core-wiki browser callers."
+      "reason": "Preserves separately asserted cases of the same public flow. LIFE-005 support performs published title and body reads, editor changes, republish, read-only discard refusal, lossless discard and duplicate-safe replay through native routes. Full LIFE-005 browser acceptance is the unpublishedChangesJourney in the existing responsive core journeys; the other named clauses retain supporting scope. Native anonymous HTTP reads cover default noindex and the first response header and served robots meta after enabling and disabling indexing. The responsive publicPageJourney supplies native publication-control and persisted-state acceptance through the existing core-wiki browser callers."
     },
     {
       "file": "tests/flagship/content/http.test.ts",
@@ -751,7 +751,7 @@
         "SEARCH-004",
         "SEARCH-005"
       ],
-      "reason": "Public HTTP search journey checks literal matches, exact phrases, refinements, live member and guest authority, private drafts, personal spaces, totals, facets and cursors. It also checks committed content changes, completed import indexing, erasure and refused import replay. Built browser results and filter controls run in the existing core-wiki journeys; hosted capacity remains separate."
+      "reason": "Public HTTP search journey independently matches retained page titles and bodies, scalar record fields, container names and descriptions, retained comment spans, template descriptions and snapshot bodies. One unfiltered mixed-kind corpus checks exact relevance, date and ID order, totals, facets and complete cursor traversal while native late creation and authority revocation change the live corpus. Existing member and guest authority, private drafts, personal spaces, committed changes, import completion, erasure and refused replay remain asserted. The existing responsive search callers also render all five kinds from native mutations. The separate committed capacity journey records complete HTTP first-page latency over canonical content at the declared seed capacity; its exact candidate receipt is outside push Verify."
     },
     {
       "file": "tests/e2e/search/fts-upgrade.test.ts",
@@ -891,7 +891,7 @@
         "CONT-012",
         "CONT-010"
       ],
-      "reason": "Default-profile (SLATE_PROFILE unset) API/native-session Workers journey proves in-app container and page watch events, durable editing-session coalescing, deduplication, a blog post as one post-published item, Home Following data, draft/restricted suppression, moves, archive/trash, permission revocation and erasure. Digest delivery belongs to NOTIF-005."
+      "reason": "Default-profile (SLATE_PROFILE unset) API/native-session Workers journey proves in-app container and page watch events, durable editing-session coalescing, deduplication, a blog post as one post-published item, Home Following data, draft/restricted suppression, moves, archive/trash, permission revocation and erasure. Digest delivery belongs to NOTIF-005. The folded inboxJourney uses native grants, watches and comments across three stored periods, verifies newest-first ordering, global unread totals and both audiences, follows the precise comment link, reads one and all, archives only read items, then refuses foreign and revoked reads and replay without changing retained state, and erases the source and its notification history."
     },
     {
       "file": "tests/flagship/discovery/following.test.ts",

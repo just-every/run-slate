@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 50 | 247 | 34 | 331 |
+| Core | 49 | 248 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 50 | 247 | 40 | 337 |
+| Full target | 49 | 248 | 40 | 337 |
 
-Judged from the code and tests at commit `2550bd65b93843734e0a32badc12cb0e44b4ecc8` (30 October 2026); WEB-005 and WEB-006 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -1000,7 +1000,7 @@ Core · published · **partial** · Cites BASE-PUBLIC-001, BASE-ROLE-001
 
 #### WEB-005 — Indexing is off until it is chosen
 
-Core · published · **done** · Cites BASE-PUBLIC-001, BASE-ROLE-001
+Core · published · **partial** · Cites BASE-PUBLIC-001, BASE-ROLE-001
 
 **Requirement.** Search-engine indexing is off for a newly published page: the response and the served document tell crawlers not to index it until a member turns indexing on, and turning it off again restores that state within one request.
 
@@ -1008,12 +1008,12 @@ Core · published · **done** · Cites BASE-PUBLIC-001, BASE-ROLE-001
 1. Search-engine indexing is off for a newly published page: the response and the served document tell crawlers not to index it until a member turns indexing on, and turning it off again restores that state within one request.
 2. A new publication is noindex until indexing is turned on; turning it off restores noindex in one request.
 
-**Evidence.** `tests/qualification/ui-convergence/public-page-journey.mjs` — "publicPageJourney" via "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1–2 publish without choosing indexing, reload stored exposure and native controls, then enable and disable it; each first anonymous document checks X-Robots-Tag and the served robots meta element. `tests/flagship/content/http.test.ts` — "content durable HTTP publication, human verification and media enforce current reader authority" also proves the omitted indexing default and first-request directives through native HTTP.
-**Gap.** None.
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Gap.** No validated CI-run proof for this acceptance point: "Search-engine indexing is off for a newly published page: the response and the served document tell crawlers not to index it until a member turns indexing on, and turning it off again restores that state within one request."
 
 #### WEB-006 — Unpublish
 
-Core · published · **done** · Cites BASE-PUBLIC-001, BASE-ROLE-001
+Core · published · **partial** · Cites BASE-PUBLIC-001, BASE-ROLE-001
 
 **Requirement.** Unpublishing stops the address resolving within 5 seconds, returns a content-free page saying the link is no longer available, and keeps the slug reserved for that page so republishing restores the same address.
 
@@ -1021,8 +1021,8 @@ Core · published · **done** · Cites BASE-PUBLIC-001, BASE-ROLE-001
 1. It deletes no version and changes no grant.
 2. Unpublish stops the address within 5 seconds with a content-free page and keeps the slug reserved.
 
-**Evidence.** `tests/qualification/ui-convergence/public-page-journey.mjs` — "publicPageJourney" via "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 compares complete version and grant projections before and after native unpublish and republication; acceptance 2 checks the first content-free anonymous response within five seconds, refuses another page using the reserved slug, and republishes at the original address. A read-only member cannot revoke or alter exposure, and replaying a prior publication cannot reopen revoked access.
-**Gap.** None.
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Gap.** No validated CI-run proof for this acceptance point: "Unpublishing stops the address resolving within 5 seconds, returns a content-free page saying the link is no longer available, and keeps the slug reserved for that page so republishing restores the same address."<br>No validated CI-run proof for this acceptance point: "It deletes no version and changes no grant."
 
 #### WEB-007 — Public-link profile
 
@@ -1745,7 +1745,7 @@ Core · published · **partial**
 
 #### SEARCH-001 — Global search
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** One search covers page titles and retained body text, record field values, container names and descriptions, comments and templates, and returns the first page of ranked results within 500ms with the total number of matches and an ordering stable across pages.
 
@@ -1753,8 +1753,8 @@ Core · published · **partial**
 1. One search covers page titles and retained body text, record field values, container names and descriptions, comments and templates, and returns the first page of ranked results within 500ms with the total number of matches and an ordering stable across pages.
 2. One search over titles, bodies, fields, containers, comments and templates returns ranked results within 500ms with stable paging.
 
-**Evidence.** `tests/qualification/core/discovery-browser.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`.
+**Evidence.** `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors", calling `tests/e2e/search/mixed-kinds-journey.ts` — "mixedKindsJourney" (all retained kinds, exact mixed ranking, totals and current-authority cursor traversal); `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", calling `tests/qualification/ui-convergence/reading-journeys.mjs` — "searchJourney" and `tests/qualification/ui-convergence/mixed-search-journey.mjs` — "mixedSearchJourney"; `tests/qualification/search/capacity-journey.mjs` — native emitted-Worker HTTP capacity journey with raw first-page latency samples and canonical corpus manifest (exact candidate receipt supplied at handoff).
+**Gap.** None.
 
 #### SEARCH-002 — Results
 
