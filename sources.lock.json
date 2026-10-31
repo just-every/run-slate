@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "830a48a24e48e4726a7b9f89b210073050d4005ca40f32f0aab4b039d49ba9e8",
+      "sha256": "0d6c955a404310421b33bded42e9c2c50b9df850bf6e34116d8c74702f07d05a",
       "executable": false
     },
     "DEMO.md": {
@@ -11372,7 +11372,7 @@
       "executable": false
     },
     "tests/qualification/authority/import-safety.test.ts": {
-      "sha256": "9dde72c7c48addc84de646015dc526b9c718e21bdb387cb6da00d9b75360bee7",
+      "sha256": "b129ae9057e9d4da2e11556e08f8246bae9fd1fa64c87c95a31f207c3c8c5e1f",
       "executable": false
     },
     "tests/qualification/authority/learned-provenance.test.ts": {

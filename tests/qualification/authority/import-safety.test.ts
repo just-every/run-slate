@@ -55,10 +55,13 @@ test('IMP-004 — native document and reviewed archive imports retain supplied m
     form.set('format', format); form.set('operationKey', crypto.randomUUID());
     return ok<Job>('/imports', form);
   };
-  const targetSnapshot = async () => Promise.all([
-    'containers', 'container_grants', 'pages', 'page_blocks', 'page_revisions', 'page_grants', 'files',
-    'databases', 'database_fields', 'database_records', 'search_text',
-  ].map(async table => [table, (await env.DB.prepare(`SELECT * FROM ${table} ORDER BY 1,2`).all()).results]));
+  const targetSnapshot = async () => ({
+    rows: await Promise.all([
+      'containers', 'container_grants', 'pages', 'page_blocks', 'page_revisions', 'page_grants', 'files',
+      'databases', 'database_fields', 'database_records', 'search_text',
+    ].map(async table => [table, (await env.DB.prepare(`SELECT * FROM ${table} ORDER BY 1,2`).all()).results])),
+    media: (await env.FILES.list({prefix: 'pages/'})).objects.map(object => [object.key, object.etag, object.size]),
+  });
   const losses = async (job: Job, section: 'unmapped' | 'warnings') => {
     const descriptor = job.report.sections?.[section];
     if (!descriptor) return job.report[section];
@@ -92,7 +95,7 @@ test('IMP-004 — native document and reviewed archive imports retain supplied m
   const svg = strToU8('<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script><rect width="1" height="1" onload="alert(1)"/><use href="https://outside.test/private.svg"/></svg>');
   const missing = Array.from({length: 52}, (_, n) => `https://outside.test/synthetic-slate-${n}.png`);
   const html = '<h1>Safe imported title</h1><script>alert("bad")</script><iframe src="https://outside.test/frame"></iframe>' +
-    '<p onclick="alert(1)">Retained safe words <a href="java&#10;script:alert(1)">label</a> <a href="https://outside.test/safe">safe link</a></p>' +
+    '<p onclick="alert(1)">Retained safe words <script>alert("nested")</script><a href="java&#10;script:alert(1)">label</a> <a href="https://outside.test/safe">safe link</a></p>' +
     missing.map(url => `<img src="${url}" onerror="alert(1)">`).join('');
   const archive = zipSync({
     'index.html': strToU8(html + '<img src="supplied.png"><img src="supplied.svg">'),
