@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {containerAccessProfileJourney} from './container-access-profile-journey.mjs';
 import {themeJourney} from './theme-journey.mjs';
 import {guestConsoleJourney} from './guest-console-journey.mjs';
 import { expect } from '@playwright/test';
@@ -88,6 +89,7 @@ export async function settingsJourney(state, width) {
   await expect(page.locator('.spaces-workspace').getByRole('heading', { name: 'Spaces', exact: true })).toBeVisible();
   await expect(page.locator('body')).not.toContainText(/\bContainers?\b/);
   await accessible(page, 'space settings');
+  await containerAccessProfileJourney(state, width);
   await guestConsoleJourney(state);
   await themeJourney(state, width);
 }

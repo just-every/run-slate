@@ -14,6 +14,8 @@ type Grant = {
   id: string;
   principalKind: string;
   principalId: string;
+  principalLabel: string;
+  principalMemberKind: "member" | "guest" | null;
   level: string;
   expiresAt: string | null;
   revokedAt: string | null;
@@ -34,27 +36,31 @@ export function ContainerSharing({ id }: { id: string }) {
   const [editing, setEditing] = useState<Grant | "new" | null>(null);
   const key = useRef("");
   const [error, setError] = useState<unknown>();
+  const principalTab = (grant: Grant) =>
+    grant.principalKind === "group" ? "group"
+      : grant.principalKind === "member" && grant.principalMemberKind === "guest" ? "guest"
+      : "member";
   const name = (grant: Grant) =>
     grant.principalKind === "workspace"
       ? "Everyone in workspace"
       : grant.principalKind === "container"
         ? "Space members"
-        : (members.data?.items.find((person) => person.id === grant.principalId)
+        : grant.principalLabel ?? (members.data?.items.find((person) => person.id === grant.principalId)
             ?.displayName ??
           groups.data?.items.find((group) => group.id === grant.principalId)
             ?.name ??
           "Unavailable person or group");
   return (
-    <section>
-      <h4>Who has access</h4>{grantLed?<nav className="tabs" aria-label="Access principals">{["member","group","guest"].map(value=><button key={value} aria-pressed={tab===value} onClick={()=>setTab(value)}>{value}s</button>)}</nav>:null}
+    <section aria-label="Space grants">
+      <h4>Who has access</h4>{grantLed?<nav className="tabs" aria-label="Access principals">{["member","group","guest"].map(value=><button key={value} aria-pressed={tab===value} onClick={()=>setTab(value)}>{value[0].toUpperCase()+value.slice(1)}s</button>)}</nav>:null}
       <RequestState
         loading={grants.loading}
         error={grants.error}
         retry={grants.reload}
       >
         <ul className="settings-list">
-          {grants.data?.items.filter(grant=>!grantLed||grant.principalKind===tab).map((grant) => (
-            <li key={grant.id}>
+          {grants.data?.items.filter(grant=>!grantLed||principalTab(grant)===tab).map((grant) => (
+            <li key={grant.id} data-grant-id={grant.id}>
               <span>
                 {name(grant)} · {grant.revokedAt ? "Revoked" : grant.level}
                 {grant.expiresAt
@@ -129,6 +135,9 @@ export function ContainerSharing({ id }: { id: string }) {
                 Everyone in workspace
               </option>
               <option value={`container:${id}`}>Space members</option>
+              {editing !== "new" && editing.principalMemberKind === "guest" ? (
+                <option value={`member:${editing.principalId}`}>{editing.principalLabel}</option>
+              ) : null}
               {members.data?.items.map((person) => (
                 <option key={person.id} value={`member:${person.id}`}>
                   {person.displayName}
