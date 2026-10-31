@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "3b374911938814a1ae721f0d8c0991d3ad90e77c3715a021fe4e0b861e7afc32",
+      "sha256": "0aa82aea69d45c1e5132dd949a64766b07a32e36585d2a0026ab4c5052d61bd6",
       "executable": false
     },
     "DEMO.md": {
@@ -9504,7 +9504,7 @@
       "executable": false
     },
     "src/core/features/templates/ui/workspace/TemplateActions.tsx": {
-      "sha256": "c08a5586c956ccaaa433677a6fe9ae5db15f7fd8676afd58b8fb21c3ccbe31c1",
+      "sha256": "d82304ff29849e12b2b6f3c44918c0c396215ab2a5cb741e44f0be483dc78448",
       "executable": false
     },
     "src/core/features/templates/ui/workspace/TemplateSnapshotPreview.tsx": {
@@ -9512,7 +9512,7 @@
       "executable": false
     },
     "src/core/features/templates/ui/workspace/TemplatesWorkspace.tsx": {
-      "sha256": "cab3012f5d479d997cfe4eb18f88c415e998a3f699e2479e07126977ba9274e6",
+      "sha256": "c3ca6bcbd2fbc0eb40d619a065587a8becbb772357f7f00c7ce189334dc7966b",
       "executable": false
     },
     "src/core/features/templates/validation.ts": {
@@ -10568,7 +10568,7 @@
       "executable": false
     },
     "tests/e2e/pages/starter-templates.test.ts": {
-      "sha256": "f9d25aa0c66ea2f727371d27dadcda8df8866742ea095ac474ee94419e637ccb",
+      "sha256": "49b3e0167b25c95f601dd7a6da279877af1240be67c9709355e3e611fcbfe49d",
       "executable": false
     },
     "tests/e2e/platform-adapters.test.ts": {
@@ -11952,7 +11952,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "5a46bc6cd2af711d1e30c8ceee1760770acf6964d7e4de7b88e5abbedab06bc3",
+      "sha256": "26cc6d9172166d5e85210f7db840f07a6a7b5312228515f9bb3a4b66e1f61e85",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12075,6 +12075,10 @@
       "sha256": "b0ee39ec453ddacfb5d458184d819693d2de7373524da20aa7bbcf6e56192fe1",
       "executable": false
     },
+    "tests/qualification/ui-convergence/template-lifecycle-journey.mjs": {
+      "sha256": "1badc2ea4a2798fe5a2c2f11c7afb12dab409a0359036416d70173b2a0664a95",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/template-scope-journey.mjs": {
       "sha256": "0c44c3d74b6f4388c3979bc2cd2ed2cb03871b73041f8f3f4833c5ccf8d1c7ea",
       "executable": false
@@ -12184,7 +12188,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "424870a59768efee060664f066d8c1f9c17e814cf1052a1ece0d03e8c361d33d",
+      "sha256": "1f0e73b529b2bc1461151ca19f1b51d2e5249259898647d8f3fda9fc35d4084b",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
