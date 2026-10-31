@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "3b374911938814a1ae721f0d8c0991d3ad90e77c3715a021fe4e0b861e7afc32",
+      "sha256": "caa186a232d4fe8250aa0c87b3eae156d29c35d8a2bb6ea584926b61d42dcab6",
       "executable": false
     },
     "DEMO.md": {
@@ -11320,11 +11320,11 @@
       "executable": false
     },
     "tests/portability/roundtrip.test.mjs": {
-      "sha256": "a794f32b6de95e0e247204b9a0f27adac420116ff2d7208a44247611b7087dc0",
+      "sha256": "2bc587262ac0be4511b0afd100470d9609bda38afa61a68fc48b1953d5e9d276",
       "executable": false
     },
     "tests/portability/runtime.mjs": {
-      "sha256": "4294ac40d079716872e6dc6438ae2bc0a3d7a3a7f4af33f61a8fab6695832052",
+      "sha256": "e5da42f4a262a927cb52f97438c3b6ebfef5d506ec160b11d31a13b71559fdac",
       "executable": false
     },
     "tests/profile/body-blocks-journey.ts": {
@@ -11356,7 +11356,7 @@
       "executable": false
     },
     "tests/qualification/authority/atomic-recovery.test.ts": {
-      "sha256": "a27057a8e8e421d5a96b4aa0ee9c91ecb7904f2b8b3473e4456b01f903f4b951",
+      "sha256": "e3b99a0134fbe2f8aac6de2fbdc9515c1442b277ca39dc5fd46a02f92239e224",
       "executable": false
     },
     "tests/qualification/authority/decision-authority.test.ts": {
@@ -12200,7 +12200,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "488098b3a30920549a0559835a4aab0e0b917baf15fb841c1846840973b767d4",
+      "sha256": "26a544b84d33ba75bdf72286de64719fd05f03bd33a657b405de9fe778d20cb9",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
