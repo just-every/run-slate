@@ -62,6 +62,22 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-005 — actual native ZIP backup/rest
     await target.start();
     const emptySearch=await(await api(target,bootstrapCookie,'/api/search?query=unmatched')).json();
     assert.equal(emptySearch.items.length,0,'A normal search before restore adds no product content.');
+    // The same native late-D1 failure used by atomic recovery, now through the public job door.
+    await target.fixtureSql(["CREATE TRIGGER qualification_transfer_abort BEFORE INSERT ON page_blocks BEGIN SELECT RAISE(ABORT,'labelled late recovery fault'); END"]);
+    const failedForm=new FormData();failedForm.set('operationKey',randomUUID());failedForm.set('file',new Blob([await readFile(first)],{type:'application/zip'}),'workspace.zip');
+    const failedStage=await fetch(target.origin+'/api/exports/jobs/restore',{method:'POST',headers:{Cookie:bootstrapCookie,Origin:target.origin},body:failedForm});
+    assert.equal(failedStage.status,202);
+    const failedJob=await failedStage.json();assert.equal(failedJob.state,'queued');
+    const failure=await(await api(target,bootstrapCookie,`/api/exports/jobs/${failedJob.id}/run`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})).json();
+    assert.equal(failure.state,'failed');assert.deepEqual(failure.counts,{});assert.equal(failure.restoreId,undefined);assert.equal(failure.downloadPath,undefined);
+    assert.equal(failure.report.code,'RESTORE_COMMIT_FAILED');assert.match(failure.report.message,/records could not be published.*destination was left unchanged/);
+    assert.doesNotMatch(JSON.stringify(failure.report),/labelled late recovery fault|INSERT INTO|qualification_transfer_abort/);
+    assert.deepEqual(await(await api(target,bootstrapCookie,`/api/exports/jobs/${failedJob.id}/run`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})).json(),failure,'A failed job is terminal under replay.');
+    await target.close();
+    const [unchanged]=await target.sql('SELECT (SELECT COUNT(*) FROM pages) AS pages,(SELECT COUNT(*) FROM containers) AS containers,(SELECT COUNT(*) FROM files) AS files');
+    assert.deepEqual(unchanged.results,[{pages:0,containers:0,files:0}],'A late native failure rolls back all restored canonical records.');
+    await target.sql('DROP TRIGGER qualification_transfer_abort');await target.start();
+    assert.deepEqual(await(await api(target,bootstrapCookie,`/api/exports/jobs/${failedJob.id}`)).json(),failure,'Failure reporting survives a full Worker restart.');
     await target.close();await target.start({localOwner:true});
     // The first-run page uses the real gated dev entry, not an emailed proof.
     const localCookie=await signIn(target);
