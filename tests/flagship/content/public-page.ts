@@ -81,6 +81,8 @@ export async function publicPageJourney(f: Fixture) {
     }
   };
   await check([]);
+  expect((await f.request('POST', `/api/publishing/${parent}`, await input(parent, [hidden]), 'missing')).status).toBe(401);
+  await check([]);
   // A read-only member cannot disclose either the parent or an included child.
   await env.DB.prepare("UPDATE container_grants SET level='view' WHERE container_id=? AND principal_kind='workspace'").bind(f.containerId).run();
   expect((await f.request('POST', `/api/publishing/${parent}`, await input(parent, [hidden]), f.b)).status).toBe(404);
