@@ -66,6 +66,28 @@ async function identityAndIcons(page, context, origin, identity, root) {
       assert.deepEqual(cardGeometry(`<span class="brand-mark">${body.toString()}</span>`, 'brand-mark'), cards);
     }
   }
+  const iconAgreement = await page.evaluate(async () => {
+    const load = async source => { const image = new Image(); image.src = source; await image.decode(); return image; };
+    const svg = await load('/favicon.svg');
+    const scores = [];
+    for (const [file, size, inset] of [['/favicon-32.png', 32, 0], ['/apple-touch-icon.png', 180, .16]]) {
+      const raster = await load(file);
+      const mask = (image, padding) => {
+        const canvas = document.createElement('canvas'); canvas.width = canvas.height = size;
+        const context = canvas.getContext('2d');
+        const side = Math.round(size * (1 - 2 * padding));
+        context.drawImage(image, (size - side) / 2, (size - side) / 2, side, side);
+        const pixels = context.getImageData(0, 0, size, size).data;
+        return Array.from({ length: size * size }, (_, index) => pixels[index * 4 + 3] > 127 && pixels[index * 4] + pixels[index * 4 + 1] + pixels[index * 4 + 2] < 300);
+      };
+      const expected = mask(svg, inset), actual = mask(raster, 0);
+      const union = expected.filter((ink, index) => ink || actual[index]).length;
+      const intersection = expected.filter((ink, index) => ink && actual[index]).length;
+      scores.push({ file, agreement: intersection / union });
+    }
+    return scores;
+  });
+  for (const icon of iconAgreement) assert.ok(icon.agreement > .85, `${icon.file} depicts the same two cards as the served SVG: ${icon.agreement}`);
   return cards;
 }
 
@@ -187,7 +209,7 @@ export async function landingProduct(browser, { root, site, origin, width, proof
       identity.showFooterCredit = enabled;
       await writeFile(path.join(scratch, 'src/ext/config.ts'), `export const ownerIdentity = ${JSON.stringify(identity)};\n`);
       await build(scratch);
-      const hosted = await serve(path.join(scratch, 'dist/site'));
+      const hosted = await serve(path.join(scratch, 'dist', 'site'));
       try { observations.push(await inspectLanding(browser, { root: scratch, origin: hosted.origin, width, proof, identity: { ...identity }, variant: enabled ? 'configured-credit' : 'configured-no-credit' })); }
       finally { await new Promise(resolve => hosted.server.close(resolve)); }
     }

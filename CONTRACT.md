@@ -3992,18 +3992,20 @@ Judged from the code and tests at commit `30886e55608596bb44862e4c6942dc1a24ef98
 
 CONT-001 is judged from source commit `12379d17957e993f2aa09d13a8df536aad5a41d8`; owners are read by members only, and a guest's container read carries none. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
+HOME-002 built-site proof reviewed from source commit `654610a6311d00f89447e5579123c7138f8457bb` (31 October 2026); its exact candidate and landing gates are identified by branch Verify and guarded landing receipts.
+
 STAT-005 retains the current main judgment below. The native status-profile controls and responsive journeys have been reapplied as supporting implementation and assertions; this replay does not promote the clause or replace its recorded evidence gap.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 38 | 188 | 1 | 227 |
+| Published | 39 | 187 | 1 | 227 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 54 | 243 | 41 | 338 |
+| All | 55 | 242 | 41 | 338 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
 | `HOME-001` | Installed workspace lobby | published | partial | `tests/e2e/landing-styles.test.mjs` — "landing styles preserve the light palette, same-origin resources and reduced-motion access" | Missing a journey through the installed Lobby that reads both setup states, privacy and foreign-origin refusals; the cited stylesheet check reads CSS only. |
-| `HOME-002` | Run-site product landing | published | partial | `tests/e2e/landing-styles.test.mjs` — "landing styles preserve the light palette, same-origin resources and reduced-motion access" | Missing a browser journey through the complete run-site landing, configuration, links and capability sections; the cited stylesheet check reads CSS only. |
+| `HOME-002` | Run-site product landing | published | done | `tests/e2e/landing-styles.test.mjs` — "landing styles preserve the light palette, same-origin resources and reduced-motion access" calls `tests/e2e/landing-product.mjs` — "landingProduct": built default and edited owner configurations prove identity, description, sole h1, same-origin card icons, every illustrated core-wiki section, both Run actions and commands, all documentation and source destinations, the complete permitted link inventory and both credit states (acceptance 1–6); `tests/e2e/production-artifact.test.mjs` — "emitted Worker admission serves configured public doors and protects native owner access" calls `tests/e2e/landing-browser.mjs` — "publishedRootPrivacy" to compare the built mark with native sign-in and the signed-in app (acceptance 1). | |
 | `HOME-003` | Run-site privacy and readable presentation | published | partial | `tests/e2e/landing-styles.test.mjs` — "landing styles preserve the light palette, same-origin resources and reduced-motion access" | Missing a public landing journey that observes private-data absence, resource requests and script-free rendering; the cited stylesheet check checks palette and motion declarations only. |
 | `DOCS-001` | Public documentation | published | partial | `tests/e2e/docs.test.ts` — "DOCS-001 public documentation supporting regressions public docs serve declared pages with accessible navigation and refuse unknown routes" | Missing a journey proving the complete published-document navigation, build-time bundle boundary, manifest refusals and both viewport accessibility; the cited HTTP regressions cover rendered pages and unknown slugs only. |
 | `WORK-001` | One workspace | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A deployment holds exactly one workspace and every container, page, record and comment belongs to it."<br>No validated CI-run proof for this acceptance point: "Its name and mark are editable in settings and shown in the app header."<br>No validated CI-run proof for this acceptance point: "No interface or endpoint creates a second workspace." |
