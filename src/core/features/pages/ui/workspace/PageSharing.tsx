@@ -1,6 +1,6 @@
 import { AccessExpiry } from "../../../../app/ui/AccessExpiry";
 import { displayDate } from "../../../../app/ui/displayDate";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useResource } from "../../../../client/useResource";
 import {
   mutate,
@@ -47,6 +47,8 @@ export function PageSharing({ document }: { document: DocumentView }) {
   const [pending, setPending] = useState(false);
   const [copied, setCopied] = useState(false);
   const [invited,setInvited]=useState("");
+  const referencedGrant = typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("grant");
+  useEffect(() => { if (referencedGrant) window.document.getElementById(`grant-${referencedGrant}`)?.scrollIntoView({block:"center"}); }, [referencedGrant, grants.data]);
   async function save(value: Partial<Grant> & { revoke?: boolean }) {
     setPending(true);
     setError(undefined);
@@ -124,7 +126,8 @@ export function PageSharing({ document }: { document: DocumentView }) {
           ) : null}
           <ul className="grant-list">
             {grants.data?.items.map((grant) => (
-              <li key={grant.id} data-grant-id={grant.id}>
+              <li key={grant.id} data-grant-id={grant.id} id={`grant-${grant.id}`} aria-current={referencedGrant === grant.id ? "true" : undefined}>
+                {referencedGrant === grant.id ? <strong>Referenced grant</strong> : null}
                 <span>{name(grant)}{grant.invitationId ? ` · ${grant.status??"Pending"} invitation` : ""}{grant.expiresAt ? ` · ${new Date(grant.expiresAt)<new Date()?"Expired":"Expires"} ${displayDate(grant.expiresAt, true)}` : ""}</span>
                 {grant.revokedAt ? (
                   <span>Revoked {!grant.invitationId?<button disabled={pending} onClick={()=>void save({...grant,expiresAt:null})}>Regrant access</button>:null}</span>
