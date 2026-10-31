@@ -9504,7 +9504,7 @@
       "executable": false
     },
     "src/core/features/templates/ui/workspace/TemplateActions.tsx": {
-      "sha256": "c08a5586c956ccaaa433677a6fe9ae5db15f7fd8676afd58b8fb21c3ccbe31c1",
+      "sha256": "d82304ff29849e12b2b6f3c44918c0c396215ab2a5cb741e44f0be483dc78448",
       "executable": false
     },
     "src/core/features/templates/ui/workspace/TemplateSnapshotPreview.tsx": {
@@ -9512,7 +9512,7 @@
       "executable": false
     },
     "src/core/features/templates/ui/workspace/TemplatesWorkspace.tsx": {
-      "sha256": "cab3012f5d479d997cfe4eb18f88c415e998a3f699e2479e07126977ba9274e6",
+      "sha256": "c3ca6bcbd2fbc0eb40d619a065587a8becbb772357f7f00c7ce189334dc7966b",
       "executable": false
     },
     "src/core/features/templates/validation.ts": {
@@ -12072,7 +12072,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/template-lifecycle-journey.mjs": {
-      "sha256": "af1931cacac743bf05a9bcc493ff81d1466cb0f049ff396ec1b89614667c72b4",
+      "sha256": "1badc2ea4a2798fe5a2c2f11c7afb12dab409a0359036416d70173b2a0664a95",
       "executable": false
     },
     "tests/qualification/ui-convergence/theme-journey.mjs": {
@@ -12180,7 +12180,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "d2efebe449b33c7a181fffcebc298b4f2b56f359a7b41764c7d055cd5375eb7f",
+      "sha256": "4c2e8ee7c141bafb231392dc883d241d9f8659ab5a35114a3980dbfc2e840912",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {

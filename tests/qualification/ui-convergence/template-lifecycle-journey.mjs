@@ -8,7 +8,7 @@ export async function templateLifecycleJourney({ page, origin, api, pageId, cont
   const choice = title => page.locator('.template-choice').filter({ has: page.getByRole('heading', { name: title, exact: true }) });
   const gallery = async (state = 'active') => {
     await page.goto(origin + '/app/templates', { waitUntil: 'networkidle' });
-    await page.getByRole('combobox', { name: 'Collection', exact: true }).selectOption(containerId);
+    await page.getByRole('combobox', { name: /^Collection/ }).selectOption(containerId);
     await page.getByRole('combobox', { name: 'Show', exact: true }).selectOption(state);
   };
   const listed = async state => (await api(`/api/templates?state=${state}&containerId=${containerId}`)).items;
@@ -20,7 +20,7 @@ export async function templateLifecycleJourney({ page, origin, api, pageId, cont
   await save.getByLabel('Template name', { exact: true }).fill('Response playbook');
   await save.getByLabel('Description', { exact: true }).fill('An authored response procedure.');
   await save.getByLabel('Category', { exact: true }).fill('Operations');
-  await save.getByLabel('Collection', { exact: true }).selectOption(containerId);
+  await save.locator('select[name=containerId]').selectOption(containerId);
   await accessible(page, 'member saves an authored template');
   await save.getByRole('button', { name: 'Save template', exact: true }).click();
   await expect(save).toBeHidden();
@@ -45,10 +45,10 @@ export async function templateLifecycleJourney({ page, origin, api, pageId, cont
   const updateFromPage = async title => {
     await page.getByRole('button', { name: 'Update from a page', exact: true }).click();
     const update = page.getByRole('dialog', { name: 'Update this template', exact: true });
-    await update.getByLabel('Source page', { exact: true }).selectOption(pageId);
+    await update.locator('select[name=sourcePageId]').selectOption(pageId);
     await update.getByLabel('Name', { exact: true }).fill(title);
-    await update.getByLabel('Description', { exact: true }).fill('Updated by its member author.');
-    await update.getByLabel('Collection', { exact: true }).selectOption(containerId);
+    await update.locator('textarea[name=description]').fill('Updated by its member author.');
+    await update.locator('select[name=containerId]').selectOption(containerId);
     await update.getByRole('button', { name: 'Save updated template', exact: true }).click();
     await expect(update).toBeHidden();
     await expect(choice(title)).toBeVisible();
@@ -71,6 +71,7 @@ export async function templateLifecycleJourney({ page, origin, api, pageId, cont
     const dialog = page.getByRole('dialog', { name: dialogName, exact: true });
     await dialog.getByRole('button', { name: action, exact: true }).click();
     await expect(dialog).toBeHidden();
+    await expect(page.locator('.template-preview')).toHaveCount(0);
   };
   await change('Archive', 'Archive template', 'Archive');
   await gallery();
@@ -115,7 +116,7 @@ export async function templateLifecycleJourney({ page, origin, api, pageId, cont
   await expect(page.getByRole('button', { name: 'Archive', exact: true })).toBeDisabled();
   await page.getByRole('button', { name: 'Duplicate', exact: true }).click();
   const duplicate = page.getByRole('dialog', { name: 'Duplicate template', exact: true });
-  await duplicate.getByLabel('Collection', { exact: true }).selectOption(containerId);
+  await duplicate.locator('select[name=containerId]').selectOption(containerId);
   await duplicate.getByRole('button', { name: 'Duplicate', exact: true }).click();
   await expect(duplicate).toBeHidden();
   await gallery();

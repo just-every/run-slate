@@ -118,8 +118,9 @@ export function TemplatesWorkspace({ templateId,defaultContainerId,embedded }: {
                   <TemplateActions
                     template={preview.data}
                     archived={state === "archived"}
-                    onChanged={async () => {
-                      await preview.reload();
+                    onChanged={async (action) => {
+                      if (["archive", "restore", "delete"].includes(action)) setSelected(undefined);
+                      else await preview.reload();
                       await items.reload();
                     }}
                   />
