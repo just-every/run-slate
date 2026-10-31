@@ -10,7 +10,19 @@ import type { BlockView } from '../../shared/api/content';
 import { safeUrl } from '../editor/validation';
 import { headingAnchor, tocEntries, type TableOfContentsSettings } from '../editor/table-of-contents';
 import { renderTocList } from './toc-render';
-function rich(value: any, links: Record<string, string>): string { if (!Array.isArray(value))
+/** Resolve native page URLs only through current anonymous publication targets. */
+function publicHref(value: unknown, links: Record<string, string>, appOrigin: string): string | undefined {
+    if (typeof value !== 'string') return undefined;
+    try {
+        const url = new URL(value, appOrigin);
+        if (url.origin === new URL(appOrigin).origin && url.pathname.startsWith('/app/')) {
+            const page = /^\/app\/pages\/([^/]+)\/?$/.exec(url.pathname);
+            return page ? links[page[1]!] : undefined;
+        }
+    } catch { return undefined; }
+    return safeUrl(value) || value.startsWith('/p/') ? value : undefined;
+}
+function rich(value: any, links: Record<string, string>, appOrigin: string): string { if (!Array.isArray(value))
     return html(value ?? ''); return value.map(span => { let text = (span.mention?.kind === 'person' ? '@' : '') + html(span.mention?.label ?? span.text ?? '').replace(/\r?\n/g, '<br>'); for (const mark of span.marks ?? []) {
     const tag = ({ bold: 'strong', italic: 'em', underline: 'u', strikethrough: 's', code: 'code' } as Record<string, string>)[mark];
     if (tag)
@@ -18,23 +30,22 @@ function rich(value: any, links: Record<string, string>): string { if (!Array.is
 } if (span.status && ['grey', 'blue', 'green', 'yellow', 'red', 'purple'].includes(span.status.colour))
     text = `<span class="status-label" data-slate-status="${span.status.colour}">${text}</span>`; if (span.colour && ['yellow', 'blue', 'green', 'red', 'purple'].includes(span.colour))
     text = `<mark class="${span.colour}">${text}</mark>`; let href = span.link?.href; if (span.mention?.kind === 'page')
-    href = links[span.mention.id]; if (typeof href === 'string' && href.startsWith('/app/'))
-    href = Object.entries(links).find(([id]) => href.includes(id))?.[1]; if (href && (safeUrl(href) || href.startsWith('/p/')))
+    href = links[span.mention.id]; href = publicHref(href, links, appOrigin); if (href)
     text = `<a${span.mention ? ' class="mention"' : ''} href="${html(href)}" rel="noopener noreferrer">${text}</a>`; else if (span.mention) text = `<span class="mention">${text}</span>`; return text; }).join(''); }
-function renderBlock(b: BlockView, slug: string, links: Record<string, string>, blocks: BlockView[], refusedHosts: Set<string>) { const c = b.content as Record<string, any>, id = html(b.id), text = rich(c.text, links); switch (b.blockType) {
+function renderBlock(b: BlockView, slug: string, links: Record<string, string>, blocks: BlockView[], refusedHosts: Set<string>, appOrigin: string) { const c = b.content as Record<string, any>, id = html(b.id), text = rich(c.text, links, appOrigin); switch (b.blockType) {
     case 'synced-source': return `<section id="${id}"><p>Synced source</p><p>${text}</p></section>`;
-    case 'synced-reference': return b.synced?.state==='ready'?`<section id="${id}"><p>Source: ${html(b.synced.sourceTitle)}</p><p>${rich(b.synced.text,links)}</p></section>`:`<aside id="${id}">Access needed</aside>`;
+    case 'synced-reference': return b.synced?.state==='ready'?`<section id="${id}"><p>Source: ${html(b.synced.sourceTitle)}</p><p>${rich(b.synced.text,links,appOrigin)}</p></section>`:`<aside id="${id}">Access needed</aside>`;
     case 'heading': return `<h${c.level} id="${html(headingAnchor(b.id))}">${text}</h${c.level}>`;
     case 'table-of-contents': return `<nav id="${id}" class="table-of-contents" aria-label="Table of contents">${renderTocList(tocEntries(blocks, c as TableOfContentsSettings))}</nav>`;
     case 'divider': return '<hr>';
     case 'code': return `<pre id="${id}"><code>${html(c.code)}</code></pre>`;
     case 'quote': return `<blockquote id="${id}">${text}${c.attribution ? `<cite>${html(c.attribution)}</cite>` : ''}</blockquote>`;
     case 'callout': return `<aside id="${id}">${html(c.icon)} ${text}</aside>`;
-    case 'expandable': return `<details id="${id}"><summary>${html(c.summary)}</summary>${rich(c.content, links)}</details>`;
+    case 'expandable': return `<details id="${id}"><summary>${html(c.summary)}</summary>${rich(c.content, links, appOrigin)}</details>`;
     case 'task': return `<p id="${id}" class="task" data-done="${!!c.done}"><span class="task-marker" role="img" aria-label="${c.done ? 'Completed' : 'Not completed'}">${c.done ? '☑' : '☐'}</span><span class="task-text">${text}</span></p>`;
     case 'list': {
         const tag = c.variant === 'numbered' ? 'ol' : 'ul';
-        return `<${tag} id="${id}">${(c.items ?? []).map((item: any) => `<li>${c.variant === 'toggle' ? `<details><summary>${rich(item.text, links)}</summary>${rich(item.detail, links)}</details>` : rich(item.text, links)}</li>`).join('')}</${tag}>`;
+        return `<${tag} id="${id}">${(c.items ?? []).map((item: any) => `<li>${c.variant === 'toggle' ? `<details><summary>${rich(item.text, links, appOrigin)}</summary>${rich(item.detail, links, appOrigin)}</details>` : rich(item.text, links, appOrigin)}</li>`).join('')}</${tag}>`;
     }
     case 'table': return renderTable(c as TableContent, b.id);
     case 'media': {
@@ -51,14 +62,14 @@ function renderBlock(b: BlockView, slug: string, links: Record<string, string>, 
           const name=`embed-${id}`,route=`/p/${encodeURIComponent(slug)}/embeds/${encodeURIComponent(b.id)}`;
           return `<section id="${id}"><p><a href="${html(c.url)}" rel="noreferrer">${html(c.preview?.title??embed.provider)}</a></p><form data-slate-embed action="${route}" target="${name}" method="get"><button type="submit" class="public-action">Load ${html(embed.provider)} embed</button><p data-embed-message>This connects to ${html(embed.provider)}. If unavailable, open the original link above.</p></form><iframe hidden name="${name}" title="${html(embed.provider)} embed" sandbox="${embed.sandbox}" referrerpolicy="no-referrer" allow="fullscreen" style="width:100%;height:420px;border:0"></iframe></section>`;
         }
-        const url = c.url.startsWith('/app/') ? Object.entries(links).find(([id]) => c.url.includes(id))?.[1] : c.url;
+        const url = publicHref(c.url, links, appOrigin);
         return url && (safeUrl(url) || url.startsWith('/p/')) ? `<p><a href="${html(url)}" rel="noopener noreferrer">${html(c.preview?.title ?? c.url)}</a></p>` : `<p>${html(c.preview?.title ?? c.url)}</p>`;
     }
     case 'task-report': return `<aside id="${id}">Sign in to view this task report.</aside>`;
     case 'content-query': return `<ul>${(c.results ?? []).map((r: any) => `<li><a href="${html(r.url)}">${html(r.title)}</a></li>`).join('')}</ul>`;
     default: return `<p id="${id}">${text}</p>`;
 } }
-export function renderPublicDocument(exposure: Record<string, any>, links: Record<string, string> = {}, refusedHosts: Set<string> = new Set()) {
+export function renderPublicDocument(exposure: Record<string, any>, links: Record<string, string> = {}, refusedHosts: Set<string> = new Set(), appOrigin = `https://${exposure.host}`) {
     const properties = JSON.parse(exposure.properties_json), blocks: BlockView[] = JSON.parse(exposure.body_json);
     const byParent = new Map<string | null, BlockView[]>();
     for (const block of blocks) {
@@ -68,7 +79,7 @@ export function renderPublicDocument(exposure: Record<string, any>, links: Recor
         byParent.set(parent, rows);
     }
     function tree(parent: string | null): string {
-        return (byParent.get(parent) ?? []).map(block => block.blockType==='columns' ? `<section class="slate-columns" style="--column-count:${Number((block.content as {count:number}).count)}">${tree(block.id)}</section>` : block.blockType==='column' ? `<div class="slate-column">${tree(block.id)}</div>` : `${renderBlock(block, exposure.slug, links, blocks, refusedHosts)}${byParent.has(block.id) ? `<section class="nested">${tree(block.id)}</section>` : ''}`).join('');
+        return (byParent.get(parent) ?? []).map(block => block.blockType==='columns' ? `<section class="slate-columns" style="--column-count:${Number((block.content as {count:number}).count)}">${tree(block.id)}</section>` : block.blockType==='column' ? `<div class="slate-column">${tree(block.id)}</div>` : `${renderBlock(block, exposure.slug, links, blocks, refusedHosts, appOrigin)}${byParent.has(block.id) ? `<section class="nested">${tree(block.id)}</section>` : ''}`).join('');
     }
     const media = (id: string) => `/p/${encodeURIComponent(exposure.slug)}/media/${encodeURIComponent(id)}`;
     const cover = properties.coverFileId ? `<img class="page-cover" src="${media(properties.coverFileId)}" alt="">` : '';
