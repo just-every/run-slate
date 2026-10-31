@@ -3974,13 +3974,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `e4b455ee6bbe29f8002074d8d2e7fce444c6eb13` (31 October 2026); LIFE-006 native and responsive source proof. Earlier SEARCH-001 native source proof was recorded at `65d6c569c06f0150648800f3eaecce4bc77e6612`. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 33 | 193 | 0 | 226 |
+| Published | 34 | 192 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 49 | 248 | 40 | 337 |
+| All | 50 | 247 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4040,7 +4040,7 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 | `LIFE-003` | Publish | published | done | `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`). |  |
 | `LIFE-004` | Scheduled publish | published | done | `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`). |  |
 | `LIFE-005` | Unpublished changes | published | done | `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`). |  |
-| `LIFE-006` | Lifecycle profile | published | partial | `tests/qualification/policies/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/policies/emitted.mjs`. |
+| `LIFE-006` | Lifecycle profile | published | done | `tests/qualification/ui-convergence/journeys.test.mjs` — real core-wiki and touch-member journeys at 390px and 1440px, including `tests/qualification/ui-convergence/lifecycle-profile-journey.mjs` — lifecycleProfileJourney (acceptance 1, 2 and 4: live creation and Share, author-only drafts, exact page, tree, Home and menu controls, publish, schedule, close and discard; acceptance 3: populated page, schedule, immutable revision and grant snapshots through both native settings switches); `tests/portability/roundtrip.test.mjs` — BASE-DATA-001 PORT-001 PORT-002 PORT-005 actual native ZIP round-trip, including `tests/portability/lifecycle-profile.mjs` — restoredLifecycleProfiles (acceptance 3: restored draft arrives unpublished under always-live and survives populated switches); `tests/qualification/ui-convergence/publication-journey.mjs` — publicationJourney, loaded by the page creation destinations and editor locks journey (retained publication and failed-schedule controls). |  |
 | `LIFE-007` | Discarding a draft | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "The author of a `draft` page can discard it, which moves it to trash (`ARCH-005`) rather than deleting it, and can close it, which leaves it a draft."<br>No validated CI-run proof for this acceptance point: "Neither action notifies anyone or leaves a trace in another member's tree." |
 | `SHARE-001` | Grants | published | partial | `tests/qualification/backend/emitted.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/backend/emitted.mjs`. |
 | `SHARE-002` | What the levels mean | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "`full` may read, edit, comment, share and change access; `edit` may read, edit and comment; `comment` may read and comment; `view` may read only."<br>No validated CI-run proof for this acceptance point: "Every server operation checks the level for the acting member (`BASE-ACCESS-004`), and no interface offers an action the level does not carry." |
