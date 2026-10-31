@@ -3986,7 +3986,7 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff.
+Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. IMP-004 native import proof was reviewed from source `df5b60feaf15f2cb4f8291ae1c2a82d0dd10d718` (31 October 2026); its exact final candidate is named by branch Verify and the guarded landing receipt.
 
 Judged from the code and tests at commit `30886e55608596bb44862e4c6942dc1a24ef982e` for STAT-001; both status profiles passed the native HTTP and responsive vocabulary journeys. The exact candidate and guarded landing receipts remain in the branch handoff.
 
@@ -3996,9 +3996,9 @@ STAT-005 retains the current main judgment below. The native status-profile cont
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 38 | 188 | 1 | 227 |
+| Published | 39 | 187 | 1 | 227 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 54 | 243 | 41 | 338 |
+| All | 55 | 242 | 41 | 338 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4164,7 +4164,7 @@ STAT-005 retains the current main judgment below. The native status-profile cont
 | `IMP-002` | Notion import | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a public import journey that opens the resulting Notion tree, database records, media and loss report; the cited incumbent-export test calls the import parser directly. |
 | `IMP-003` | Confluence import | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a public Confluence, Word and Google Docs import journey that opens the resulting tree, versions, links and loss report; the cited incumbent-export test calls parsers directly. |
 | `IMP-016` | Imported Confluence principal and restriction mapping | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a public reviewed-mapping journey that applies active and unresolved restrictions and tries unsafe principal mapping without widening; the cited incumbent-export test reads parsed source restrictions only. |
-| `IMP-004` | Import safety | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a public import journey that records network requests for an archive with missing and hostile media and reads the retained links and losses; the cited parser checks do not go through the import door. |
+| `IMP-004` | Import safety | published | done | `tests/qualification/authority/import-safety.test.ts` — "IMP-004 — native document and reviewed archive imports retain supplied media and reported links without network or unsafe writes": acceptance 1 and 2 through native multipart upload, document Run, reviewed Preview, Apply and Resume; zero outbound fetches; exact supplied media bytes; sanitized persisted blocks and SVG; safe missing-file links and complete paged losses; malformed, path and expansion refusals leave target rows and media unchanged. Retained `tests/e2e/imports/archive-safety.test.ts` — "archive and markup admission refuses unsafe paths, payloads, declarations and expansion" and `tests/e2e/imports/real-exports.test.ts` — "incumbent-produced archives preserve pages, relationships, media and explicit losses". | |
 | `IMP-005` | Importing into a page | published | partial | `tests/flagship/federation/federation.test.ts` | Missing a public page-import journey covering Markdown, HTML, Word, PDF, EPUB, plain text and CSV with headings, tables and losses; the cited federation flow invokes import services directly for a narrower document set. |
 | `PORT-001` | Export contents | published | partial | `tests/qualification/erasure-metadata/atomic-custody.test.ts` — "Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export" | Missing a public export journey that populates and opens every promised wiki record family, revisions, grants and original files; the cited erasure flow checks retained import custody through service-level export. |
 | `PORT-002` | Referential restore | published | partial | `tests/qualification/erasure-metadata/atomic-custody.test.ts` — "Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export" | Missing a public empty-install restore journey that opens all restored permanent links, revisions, grants, comments, public slugs and files; the cited erasure flow restores and checks a limited custody fixture through services. |
