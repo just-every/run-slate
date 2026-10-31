@@ -12072,7 +12072,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/template-capture-journey.mjs": {
-      "sha256": "0dce6558be11ec453a4584f0cd50b9acff462dd6374c983713f8280efe8cd603",
+      "sha256": "dc80e5039919264cb1adbf10b9112ebe5c3f258a48cec86f18a1c8136541504c",
       "executable": false
     },
     "tests/qualification/ui-convergence/theme-journey.mjs": {
