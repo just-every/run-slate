@@ -5,7 +5,7 @@
       "id": "HOME-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only what the installed Lobby answers and what the run site's landing renders and the resources its source may load for HOME-001 — Public landing. Full requirement-level browser, cookie, accessibility and profile evidence remains unproven.",
+      "unmetReason": "The native Worker supporting journey now performs HOME-001 state, request freshness, cookie privacy, foreign origin refusal and actual D1 read-boundary observations. The existing emitted Worker admission test invokes managedFirstOpen for script-free unclaimed and claimed Lobby screens, same-origin resources and native bootstrap at desktop and phone widths. CONTRACT.md carries the acceptance judgment; this Workers registry does not replace exact-candidate Verify or guarded landing receipts.",
       "supportingTests": [
         {
           "file": "tests/e2e/landing.test.ts",

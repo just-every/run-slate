@@ -728,7 +728,7 @@
         "HOME-002",
         "HOME-003"
       ],
-      "reason": "Controlled local Worker regression of the amended HOME-001 installed root: the shared Lobby and GET /setup/state before and after the first-run record, with no workspace data, cookie or script. No browser, accessibility or full clause acceptance claim. Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim. Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim. Controlled local Worker regression of the amended HOME-001 landing page: what the document renders and the resources its source may load. No browser, cookie, accessibility or full clause acceptance claim."
+      "reason": "The native Worker journey observes both setup states, every request state read, the single action, configured deployment identity, card mark and floor art, no-store headers, native-session cookie independence and foreign URL origin and Host refusal. Its D1 observer forwards to the real database and rejects unrelated workspace, member, integration and session reads. Existing static run-site regressions remain supporting evidence for HOME-002 and HOME-003. The emitted installed-Lobby browser and verified native bootstrap transition run in managedFirstOpen through the existing production artifact registration in the Verify contract job. CONTRACT.md owns acceptance judgments; guarded landing receipts remain separate."
     },
     {
       "file": "tests/e2e/docs.test.ts",

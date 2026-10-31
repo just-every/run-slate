@@ -3974,17 +3974,17 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
+Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. HOME-001 native Lobby source reviewed at commit `16d4e5820baefad24d866890e6dd748c5f876919` (31 October 2026), with native Worker and emitted browser journeys passing locally.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 33 | 193 | 0 | 226 |
+| Published | 34 | 192 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 49 | 248 | 40 | 337 |
+| All | 50 | 247 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
-| `HOME-001` | Installed workspace lobby | published | partial | `tests/e2e/landing-styles.test.mjs` — "landing styles preserve the light palette, same-origin resources and reduced-motion access" | Missing a journey through the installed Lobby that reads both setup states, privacy and foreign-origin refusals; the cited stylesheet check reads CSS only. |
+| `HOME-001` | Installed workspace lobby | published | done | `tests/e2e/landing.test.ts` — "HOME-001 landing page supporting regressions installed lobby and public landing preserve owner configuration, navigation and privacy": native setup states, per-request rendering, no-store, configured identity, single action, cookie independence, foreign URL origin and Host refusal, observed D1 read boundary; `tests/e2e/production-artifact.test.mjs` — "emitted Worker admission serves configured public doors and protects native owner access", invoking `tests/e2e/managed-first-open.mjs` — "managedFirstOpen": native owner claim, unclaimed and claimed Lobby, script-free rendering, same-origin resources and browser proof at 1440 and 390. |  |
 | `HOME-002` | Run-site product landing | published | partial | `tests/e2e/landing-styles.test.mjs` — "landing styles preserve the light palette, same-origin resources and reduced-motion access" | Missing a browser journey through the complete run-site landing, configuration, links and capability sections; the cited stylesheet check reads CSS only. |
 | `HOME-003` | Run-site privacy and readable presentation | published | partial | `tests/e2e/landing-styles.test.mjs` — "landing styles preserve the light palette, same-origin resources and reduced-motion access" | Missing a public landing journey that observes private-data absence, resource requests and script-free rendering; the cited stylesheet check checks palette and motion declarations only. |
 | `DOCS-001` | Public documentation | published | partial | `tests/e2e/docs.test.ts` — "DOCS-001 public documentation supporting regressions public docs serve declared pages with accessible navigation and refuse unknown routes" | Missing a journey proving the complete published-document navigation, build-time bundle boundary, manifest refusals and both viewport accessibility; the cited HTTP regressions cover rendered pages and unknown slugs only. |
