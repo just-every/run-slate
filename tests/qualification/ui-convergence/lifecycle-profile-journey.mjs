@@ -133,7 +133,10 @@ export async function lifecycleProfileJourney(state,people) {
     await page.screenshot({path:path.join(directory,'draft-profile-autosnapshot-publication.png'),fullPage:true});
     await dialog.getByRole('button',{name:'Cancel',exact:true}).click();
     await writeFile(path.join(directory,'profiles.json'),JSON.stringify({width,inventories,before,after:await snapshot([live,scheduled,changed])},null,2));
-    console.log(`PROBE LIFE-006 1-4: ${width}px settings, creation, share, publication, schedule, close and discard -> exact controls and unchanged retained states, revisions and grants`);
+    console.log(`PROBE LIFE-006 1: ${width}px always-live creation and Share -> live on arrival, named sharing works and publication-only controls hidden`);
+    console.log(`PROBE LIFE-006 2: ${width}px draft creation, publish, schedule, close and discard -> author-only draft tree and durable publication paths`);
+    console.log(`PROBE LIFE-006 3: ${width}px populated settings switches -> unchanged pages, immutable revisions, schedules and grants`);
+    console.log(`PROBE LIFE-006 4: ${width}px both lifecycle policies -> exact page, tree, Home and menu control inventories`);
   } finally {
     await settings(initial.policies['page.lifecycle.v1'],initial.policies['page.version.v1']);
   }
