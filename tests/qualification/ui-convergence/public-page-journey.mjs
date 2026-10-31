@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-support.mjs';
-import { ok } from './two-people-support.mjs';
+import { call, ok } from './two-people-support.mjs';
 
 /** Real site controls and native exposure projections share one publication flow. */
-export async function publicPageSettingsJourney({ page, context, origin, api }) {
+export async function publicPageSettingsJourney({ page, context, origin, api, readerCookie }) {
   const mutate = (route, input) => ok(context, origin, 'POST', route, { operationKey: crypto.randomUUID(), ...input });
   const containerId = (await api('/api/containers')).items.find(item => item.visibility !== 'personal').id;
   const create = async title => {
@@ -23,11 +23,15 @@ export async function publicPageSettingsJourney({ page, context, origin, api }) 
   const settings = ({ publishedAt, revokedAt, ...values }) => values;
   const panel = page.locator('.publication-settings');
   const dialog = page.getByRole('dialog', { name: 'Public page settings', exact: true });
-  async function open(id) {
-    await page.goto(`${origin}/app/pages/${id}`, { waitUntil: 'networkidle' });
+  async function showPanel() {
+    if (await panel.getByRole('heading', { name: 'Publish to the web', exact: true }).isVisible()) return;
     await page.getByRole('button', { name: 'More', exact: true }).click();
     await page.getByRole('menuitem', { name: 'Public access', exact: true }).click();
     await expect(panel.getByRole('heading', { name: 'Publish to the web', exact: true })).toBeVisible();
+  }
+  async function open(id) {
+    await page.goto(`${origin}/app/pages/${id}`, { waitUntil: 'networkidle' });
+    await showPanel();
   }
   async function edit(values) {
     await panel.getByRole('button', { name: /^(Set up public page|Edit public settings)$/ }).click();
@@ -55,8 +59,7 @@ export async function publicPageSettingsJourney({ page, context, origin, api }) 
   async function inspect(id, expected, label) {
     await open(id);
     await page.reload({ waitUntil: 'networkidle' });
-    await page.getByRole('button', { name: 'More', exact: true }).click();
-    await page.getByRole('menuitem', { name: 'Public access', exact: true }).click();
+    await showPanel();
     const stored = await projection(id);
     assert.deepEqual(settings(stored), expected, 'Every exposure field matches the submitted settings after reload.');
     assert.equal(stored.revokedAt, null);
@@ -99,6 +102,14 @@ export async function publicPageSettingsJourney({ page, context, origin, api }) 
   assert.deepEqual([await projection(first), await projection(second)], beforeCollision, 'A reserved slug changes neither exposure, even while its owner is revoked.');
   await dialog.getByRole('button', { name: 'Cancel', exact: true }).click();
   await inspect(second, other);
+  const reader = await context.browser().newContext();
+  try {
+    await reader.addCookies([{ name: 'slate_session', value: readerCookie.split('=')[1], url: origin }]);
+    const beforeDenied = [await projection(first), await projection(second)];
+    const refused = await call(reader, origin, 'POST', `/api/publishing/${first}`, { ...edited, operationKey: crypto.randomUUID(), expectedRevisionId: (await api(`/api/pages/${first}`)).page.revisionId });
+    assert.equal(refused.status, 404);
+    assert.deepEqual([await projection(first), await projection(second)], beforeDenied, 'A member without full access cannot reactivate or alter an exposure.');
+  } finally { await reader.close(); }
   console.log('PROBE WEB-002 settings: native site create, edit, reload and rename -> exact stored exposure retained');
   console.log('PROBE WEB-002 revocation and collision: native stop and second-page save -> retained revocation time; 409 with both records unchanged');
 }

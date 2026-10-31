@@ -11324,7 +11324,7 @@
       "executable": false
     },
     "tests/portability/runtime.mjs": {
-      "sha256": "d289cc7eb91c74d9c3ff3332655a77155e656d924a5438805f6b95eb1f579672",
+      "sha256": "07196c8def92d5c1dce5fcd43da0635bde94b99d543f3b8bc17440657cad6fdf",
       "executable": false
     },
     "tests/profile/body-blocks-journey.ts": {
@@ -12000,7 +12000,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/public-page-journey.mjs": {
-      "sha256": "9012015dcc7e292fba1a9c98c74efff9d74c8ad1f51ee4a241897625050d1a79",
+      "sha256": "1fbd19c648b40258c65a595cb2cb47afae9b07bd8c0d6b59e22624c8c05cd436",
       "executable": false
     },
     "tests/qualification/ui-convergence/publication-journey.mjs": {
