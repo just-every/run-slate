@@ -124,7 +124,7 @@ export async function lifecycleProfileJourney(state,people) {
     await page.getByRole('button',{name:'More',exact:true}).click();
     await page.getByRole('menuitem',{name:'Publish workspace revision',exact:true}).click();
     const dialog=page.getByRole('dialog',{name:'Publish this revision',exact:true});
-    await expect(dialog.getByLabel('Version comment',{exact:true})).toBeVisible();
+    await expect(dialog.locator('input[name="label"]')).toHaveCount(0);
     await expect(dialog.getByLabel('Publish as',{exact:true})).toBeVisible();
     await expect(dialog.getByLabel('Schedule (optional)',{exact:true})).toBeVisible();
     await page.screenshot({path:path.join(directory,'draft-profile-autosnapshot-publication.png'),fullPage:true});

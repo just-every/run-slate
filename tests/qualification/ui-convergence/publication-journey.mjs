@@ -49,6 +49,18 @@ export async function publicationJourney(state) {
     await state.page.goto(`${state.origin}/app/pages/${target}`,{waitUntil:'networkidle'});
     await expect(state.page.getByRole('alert')).toContainText(failed.schedule.failure);
     await state.page.screenshot({path:path.join(directory,'failed-publication.png'),fullPage:true});
+    await profile('always-live');
+    await state.page.reload({waitUntil:'networkidle'});
+    await expect(state.page.getByRole('alert').filter({hasText:'Scheduled publication needs attention'})).toHaveCount(0);
+    await state.page.getByRole('button',{name:'More',exact:true}).click();
+    await expect(state.page.getByRole('menuitem',{name:'Cancel scheduled publication',exact:true})).toHaveCount(0);
+    await state.page.keyboard.press('Escape');
+    const hidden=await read();
+    assert.deepEqual(hidden.schedule,failed.schedule);
+    assert.equal(hidden.page.revisionId,failed.page.revisionId);
+    await profile('draft-then-publish');
+    await state.page.reload({waitUntil:'networkidle'});
+    await expect(state.page.getByRole('alert')).toContainText(failed.schedule.failure);
     } finally {await profile(workspace.policies['page.lifecycle.v1']);}
   });
 }
