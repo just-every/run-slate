@@ -41,7 +41,6 @@ export function WorkspaceTransferJobs({
   useEffect(() => {
     if (
       !job ||
-      (!working && job.state !== "running") ||
       !["queued", "running"].includes(job.state)
     )
       return;

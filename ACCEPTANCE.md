@@ -2183,7 +2183,7 @@ Core · published · **partial**
 1. A container's templates are offered first inside that container and are not offered elsewhere, and moving a template between the two is one action.
 2. Container templates are offered first in their container only; moving scope is one action.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof. Supporting regression: `tests/qualification/ui-convergence/template-scope-journey.mjs` — "templateScopeJourney", invoked by the existing "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px" journey in `tests/qualification/ui-convergence/journeys.test.mjs`; populated workspace and two readable containers prove exact local-first lists after reload, and one Move collection submission each way retains identifier and snapshot and reconciles all three collections. Main's partial judgment is retained; this supporting proof does not promote acceptance.
 **Gap.** No validated CI-run proof for this acceptance point: "A template belongs to the workspace or to one container."<br>No validated CI-run proof for this acceptance point: "A container's templates are offered first inside that container and are not offered elsewhere, and moving a template between the two is one action."
 
 ### Import
