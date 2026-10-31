@@ -112,3 +112,21 @@ revisions and visits belong to the copies; effective access comes from the
 chosen destination. Native receipt retry creates no extra pages, and a reader
 with destination view access cannot acquire the source comment grant. Existing
 preview, starter-template and creation assertions remain in their registrations.
+
+## Typed formatting through the native editor
+
+`tests/qualification/ui-convergence/typed-shortcuts-journey.mjs` exports `typedShortcutsJourney`, called by `writeJourney` in the existing “real core-wiki and touch-member journeys” registrations at 1440 and 390. It opens the real reference and reconciles every accepted Markdown input with its displayed entry: three heading levels, both bullet aliases, numbered lists, both quote aliases, both task aliases, code fences, dividers, bold, italic and inline code. Insert and mention entries, the task due-date picker and the conversion-undo command remain present.
+
+For each input, native browser typing must produce its stored block type and content, with rendered inline marks where applicable. One keyboard undo must restore every character without a click that repairs focus. Native API read-back and reload must retain the unformatted literal text; retyping must convert again and survive another reload with the same block identifier. The divider case specifically keeps keyboard undo reachable after its textbox disappears. The reference and resulting editor are captured at both responsive widths.
+
+`tests/ui/polish/editor-focus.mjs` retains the existing rich-heading journey inside “genuine insertion focus lifecycle at 1440px”: heading levels one through three preserve bold, italic, underline, colour, a link, a date mention, the comment anchor and block identifier across conversion, keyboard undo, reinsertion and reload. These Node journeys are invoked by push Verify, outside the Workers-only evidence registry. The responsive writing deadline includes the additional conversion and reload corpus; no prior assertion or registration is removed.
+
+## One keyboard reference throughout the operator app
+
+`tests/qualification/ui-convergence/shortcut-reference-journey.mjs` exports `shortcutReferenceJourney`, folded into the existing responsive Settings callers in `tests/qualification/ui-convergence/journeys.test.mjs`. From every configured operator destination, each available Settings section, a space, a page editor, a database and a record editor, the same native keyboard command opens the reference and Escape returns to the unchanged destination. Every documented keyboard command remains in that reference. The real page editor then commits bold, italic and underline from native selection shortcuts; opening, searching and closing the reference preserves those blocks and restores editor focus. Subsequent typing saves and survives reload, workspace search opens from the focused editor, and Escape closes phone navigation with focus returned to its trigger.
+
+The complete typed catalog is exercised by `typedShortcutsJourney`. `tests/qualification/ui-convergence/tables-journey.mjs` retains all four native table structure commands. `tests/qualification/ui-convergence/presentation-journey.mjs` exercises both arrow keys and both page keys in the real read-only presentation, retaining its existing content, scroll, focus and unchanged-revision assertions. Existing focus and mention journeys retain the native insertion and mention doors. Settings caller deadlines include the added navigation and editing corpus; all existing assertions and registrations remain active.
+
+`tests/qualification/ui-convergence/task-assignment-journey.mjs` retains the native task assignment and dating flow at both widths. Typing `//` opens the real date picker; the reference lists that accepted input, opens while the picker has focus, and closes back to the unchanged task and date field before a native due date is committed.
+
+These supporting journeys retain main’s current partial judgments for BLOCK-004 and WORK-014; they do not replace the existing Status, Evidence or Gap rows in CONTRACT.md.

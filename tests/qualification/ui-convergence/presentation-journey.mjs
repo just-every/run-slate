@@ -39,6 +39,11 @@ export async function presentationJourney({ page, context, origin, api }) {
   await page.keyboard.press('ArrowRight');
   await expect(dialog.getByRole('status')).toHaveText('2 / 3');
   await expect(dialog).toContainText('Customer impact');
+  await page.keyboard.press('ArrowLeft');
+  await expect(dialog.getByRole('status')).toHaveText('1 / 3');
+  await page.keyboard.press('PageDown');
+  await expect(dialog.getByRole('status')).toHaveText('2 / 3');
+  await expect(dialog).toContainText('Customer impact');
   const article = dialog.getByRole('article');
   await article.evaluate(el => { el.scrollTop = el.scrollHeight; });
   await expect(dialog.getByRole('checkbox')).toBeDisabled();

@@ -47,6 +47,14 @@ export async function taskAssignmentJourney(state, people) {
   await alice.page.keyboard.type('//');
   const picked = alice.page.getByLabel('Task due date', { exact: true });
   await expect(picked).toBeVisible();
+  const beforeReference = await item.textContent();
+  await alice.page.keyboard.press('ControlOrMeta+/');
+  const reference = alice.page.getByRole('dialog', { name: 'Keyboard shortcuts', exact: true });
+  await expect(reference.getByRole('listitem').filter({ has: alice.page.getByText('Task due-date picker', { exact: true }) }).locator('kbd')).toHaveText('//');
+  await alice.page.keyboard.press('Escape');
+  await expect(reference).toHaveCount(0);
+  await expect(picked).toBeFocused();
+  assert.equal(await item.textContent(), beforeReference, 'The reference preserves a task while its typed date picker is open.');
   await picked.fill(due);
   await expect.poll(async () => (await task())?.dueDate).toBe(due);
   const dated = alice.page.locator('[data-task-item] time');
