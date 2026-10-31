@@ -132,7 +132,18 @@ export async function duplicatePage(ctx: FeatureContext, id: string, input: {
             }
             else
                 await requirePageLevel(ctx, id, 'view'); await destination(ctx, input.containerId, input.parentPageId); }, prepare: async ({ revisionId }) => {
-                const source = input.includeChildren ? await descendants(ctx, id) : [await pageRow(ctx, id)], ids = new Map(source.map(p => [p.id, createUlid()]));
+                const found = input.includeChildren ? await descendants(ctx, id) : [await pageRow(ctx, id)];
+                const root = found.find(page => page.id === id);
+                if (!root) throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
+                // Plan parents before their children so creation guards see the
+                // copied parent in the same batch. Retain each sibling position.
+                const children = new Map<string, PageRow[]>();
+                for (const page of found) if (page.parent_page_id && page.id !== id)
+                    children.set(page.parent_page_id, [...(children.get(page.parent_page_id) ?? []), page]);
+                const source = [root];
+                for (let index = 0; index < source.length; index++)
+                    source.push(...(children.get(source[index]!.id) ?? []).sort((a, b) => a.tree_position < b.tree_position ? -1 : a.tree_position > b.tree_position ? 1 : a.id.localeCompare(b.id)));
+                const ids = new Map(source.map(p => [p.id, createUlid()]));
                 const statements: D1PreparedStatement[] = [];
                 // Copied attachments count against the same deployment storage limit as uploads.
                 const used = (await ctx.db.prepare('SELECT COALESCE(SUM(size_bytes),0) AS bytes FROM files WHERE deleted_at IS NULL').first<{ bytes: number }>())?.bytes ?? 0;
@@ -164,7 +175,7 @@ export async function duplicatePage(ctx: FeatureContext, id: string, input: {
                             return Object.fromEntries(Object.entries(value).map(([key, val]) => [key, key === 'fileId' && typeof val === 'string' ? fileIds.get(val) ?? val : key === 'url' && typeof val === 'string' && val.startsWith('/api/media/') ? `/api/media/${fileIds.get(val.slice(11)) ?? val.slice(11)}` : key === 'commentAnchorId' ? undefined : remap(val)]));
                         return value;
                     }
-                    const plan = await prepareCreatePage(ctx, { operationKey: input.operationKey, id: ids.get(p.id)!, containerId: input.containerId, parentPageId: p.id === id ? input.parentPageId : ids.get(p.parent_page_id!) ?? null, title: s.properties.title, properties: { ...s.properties, statusKey: null, ownerMemberId: ctx.actor.id, icon: s.properties.icon?.startsWith('file:') ? `file:${fileIds.get(s.properties.icon.slice(5))}` : s.properties.icon, coverFileId: s.properties.coverFileId ? fileIds.get(s.properties.coverFileId) ?? null : null }, blocks: s.blocks.map(b => ({ ...b, content: remap(b.content), id: bid.get(b.id)!, parentBlockId: b.parentBlockId ? bid.get(b.parentBlockId) : null })) }, p.id === id ? revisionId : createUlid());
+                    const plan = await prepareCreatePage(ctx, { operationKey: input.operationKey, id: ids.get(p.id)!, containerId: input.containerId, parentPageId: p.id === id ? input.parentPageId : ids.get(p.parent_page_id!) ?? null, treePosition: p.id === id ? undefined : p.tree_position, title: s.properties.title, properties: { ...s.properties, statusKey: null, ownerMemberId: ctx.actor.id, icon: s.properties.icon?.startsWith('file:') ? `file:${fileIds.get(s.properties.icon.slice(5))}` : s.properties.icon, coverFileId: s.properties.coverFileId ? fileIds.get(s.properties.coverFileId) ?? null : null }, blocks: s.blocks.map(b => ({ ...b, content: remap(b.content), id: bid.get(b.id)!, parentBlockId: b.parentBlockId ? bid.get(b.parentBlockId) : null })) }, p.id === id ? revisionId : createUlid());
                     statements.push(...plan.statements, ...fileStatements);
                 }
                 if (copied)
