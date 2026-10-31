@@ -1616,7 +1616,7 @@
       "id": "PORT-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for PORT-003 — Visible jobs. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "This Workers-only inventory does not aggregate the native Node and browser transfer journeys. Requirement-level acceptance is tracked in CONTRACT.md and the retained workspace transfer specification in tests/requirements/cli-journey.md.",
       "supportingTests": []
     },
     {

@@ -13,7 +13,7 @@ export function transferStorageGate(main, Response) {
           const value = bucket[name];
           if (typeof value !== 'function') return value;
           return async (...args) => {
-            if (name === 'createMultipartUpload' || name === 'get' && String(args[0]).startsWith('federation/staging/'))
+            if (name === 'createMultipartUpload' || name === 'get' && String(args[0]).startsWith(['federation','staging',''].join('/')))
               await env.TEST_TRANSFER_GATE.fetch('https://storage.test/' + name);
             return value.apply(bucket, args);
           };

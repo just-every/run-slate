@@ -55,9 +55,11 @@ async function openRestore(state) {
   await state.page.getByRole('button',{name:'Restore an existing workspace',exact:true}).click();
 }
 
-/** Abort only the automatic run transport to retain a genuine native queued receipt across reload. */
+/** Hold the automatic run request, without substituting any response, while another document reloads Queued. */
 async function stage(state, kind, bytes) {
-  await state.page.route('**/api/exports/jobs/*/run',route=>route.abort('connectionfailed'),{times:1});
+  let resume;
+  const held=new Promise(resolve=>{resume=resolve;});
+  await state.page.route('**/api/exports/jobs/*/run',async route=>{await held;await route.continue();},{times:1});
   const staged=state.page.waitForResponse(response=>new URL(response.url()).pathname===`/api/exports/jobs/${kind==='export'?'workspace':'restore'}`&&response.request().method()==='POST');
   if(kind==='restore')await state.page.getByLabel('Slate archive',{exact:true}).setInputFiles({name:'workspace.zip',mimeType:'application/zip',buffer:bytes});
   await state.page.getByRole('button',{name:kind==='export'?'Export workspace':'Restore workspace',exact:true}).click();
@@ -65,12 +67,16 @@ async function stage(state, kind, bytes) {
   assert.equal(response.status(),202,await response.text());
   const job=await response.json();
   assert.equal(job.state,'queued');
-  await expect(jobPanel(state.page).getByRole('button',{name:'Run queued transfer',exact:true})).toBeEnabled();
   await shown(state,job,'queued');
-  await state.page.reload({waitUntil:'networkidle'});
-  if(kind==='restore')await state.page.getByRole('button',{name:'Restore an existing workspace',exact:true}).click();
-  await shown(state,job,'queued');
-  return job;
+  const viewer=await state.context.newPage();
+  try {
+    await viewer.goto(state.page.url(),{waitUntil:'networkidle'});
+    await viewer.reload({waitUntil:'networkidle'});
+    if(kind==='restore')await viewer.getByRole('button',{name:'Restore an existing workspace',exact:true}).click();
+    await shown({...state,page:viewer},job,'queued');
+    await expect(jobPanel(viewer).getByRole('button',{name:'Run queued transfer',exact:true})).toBeEnabled();
+  } finally {await viewer.close();}
+  return {...job,resume};
 }
 
 async function run(state,job,expected,shot) {
@@ -78,7 +84,7 @@ async function run(state,job,expected,shot) {
   let viewer;
   const finished=state.page.waitForResponse(response=>new URL(response.url()).pathname===jobPath(job.id)+'/run'&&response.request().method()==='POST');
   try {
-    await jobPanel(state.page).getByRole('button',{name:'Run queued transfer',exact:true}).click();
+    job.resume();
     await expect.poll(async()=>(await state.transferGate('status')).reached).toBe(true);
     await shown(state,job,'running');
     // Keep the native run request alive while an independent document reloads its durable receipt.
@@ -100,13 +106,21 @@ async function run(state,job,expected,shot) {
 
 /** Actual Settings export and first-run restore, with native D1 failures and a separate destination. */
 export async function transferJobsJourney(state) {
+  const returnUrl=state.page.url();
   const width=state.page.viewportSize().width;
-  const evidence=process.env.SLATE_TRANSFER_EVIDENCE_DIR??path.join(root,'.artifacts/ui-convergence/transfers');
+  const evidence=process.env.SLATE_TRANSFER_EVIDENCE_DIR??path.join(root,'.artifacts','ui-convergence','transfers');
   await mkdir(evidence,{recursive:true});
   const shot=async(page,label)=>{await jobPanel(page).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,`${width}-${label}.png`),fullPage:true});};
   const open=()=>state.page.goto(state.origin+'/app/settings?section=portability',{waitUntil:'networkidle'});
   await state.switchIdentity('owner');
   await open();
+  const spaces=await state.api('/api/containers');
+  const created=await call(state.context,state.origin,'POST','/api/pages',{operationKey:crypto.randomUUID(),containerId:spaces.items.find(item=>item.visibility!=='personal').id,title:'Transfer recovery notes',blocks:[{id:crypto.randomUUID(),blockType:'paragraph',content:{text:[{text:'synthetic-slate-301: retained recovery content'}]},treePosition:'a'}]});
+  assert.equal(created.status,200);
+  const original=Buffer.from('synthetic-slate-302: original recovery attachment');
+  const upload=await state.context.request.post(state.origin+'/api/media',{headers:{Origin:state.origin},multipart:{operationKey:crypto.randomUUID(),pageId:created.body.value.pageId,file:{name:'recovery-notes.txt',mimeType:'text/plain',buffer:original}}});
+  assert.equal(upload.status(),200,await upload.text());
+  const uploaded=await upload.json();
   await state.fixtureSql(["CREATE TRIGGER qualification_transfer_abort BEFORE UPDATE OF state ON federation_exports WHEN NEW.state='completed' BEGIN SELECT RAISE(ABORT,'labelled late recovery fault'); END"]);
   let failed;
   try {
@@ -114,6 +128,7 @@ export async function transferJobsJourney(state) {
     const result=await run(state,failed,'failed',shot);
     assert.equal(result.report.code,'EXPORT_COMMIT_FAILED');
     assert.match(result.report.message,/archive could not be committed/);
+    assert.deepEqual((await state.transferGate('objects',['federation','exports',failed.id,''].join('/'))).keys,[],'A failed export retains no downloadable archive.');
     await open();await shown(state,failed,'failed');await shot(state.page,'export-failed');
   } finally {await state.fixtureSql(['DROP TRIGGER qualification_transfer_abort']);}
   const exported=await stage(state,'export');
@@ -145,6 +160,7 @@ export async function transferJobsJourney(state) {
       const result=await run(destination,job,'failed',shot);
       assert.equal(result.report.code,'RESTORE_COMMIT_FAILED');
       assert.match(result.report.message,/records could not be published.*destination was left unchanged/);
+      assert.deepEqual((await target.transferGate('objects',['federation','restore',''].join('/'))).keys,[],'A late failed restore removes staged original files.');
       await openRestore(destination);await shown(destination,job,'failed');await shot(page,'restore-failed');
       await page.goto('about:blank');await target.close();
       const [retained]=await target.sql('SELECT (SELECT COUNT(*) FROM pages) AS pages,(SELECT COUNT(*) FROM containers) AS containers,(SELECT COUNT(*) FROM files) AS files');
@@ -166,7 +182,10 @@ export async function transferJobsJourney(state) {
       const current=await call(context,target.origin,'GET',`/api/pages/${original.id}`);
       assert.equal(current.status,200);assert.equal(current.body.page.title,original.title);
     }
+    const recoveredFile=await context.request.get(target.origin+`/api/media/${uploaded.value.id}`);
+    assert.equal(recoveredFile.status(),200);assert.deepEqual(await recoveredFile.body(),original);
     console.log(`PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action`);
     console.log(`PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures`);
   } finally {await context?.close();await target?.close();await rm(scratch,{recursive:true,force:true});}
+  await state.page.goto(returnUrl,{waitUntil:'networkidle'});
 }

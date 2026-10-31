@@ -52,12 +52,12 @@ const worker = { ...workerOptions, name: config.name,
     }
     return fetch(request);
   } };
+if (transferGate) worker.serviceBindings = {...worker.serviceBindings, TEST_TRANSFER_GATE: request => transferGate.service(request)};
 const options = miniflare.convertV4MiniflareOptions({ host: '127.0.0.1', port: Number(port),
   unsafeTriggerHandlers: triggerMode === 'scheduled', unsafeLocalExplorer: false, workers: [worker, ...selected.externalWorkers] });
-if (transferGate) options.workers[0].serviceBindings = {...options.workers[0].serviceBindings, TEST_TRANSFER_GATE: request => transferGate.service(request)};
 const runtime = new miniflare.Miniflare({ ...options, resourcePersistencePath: resolve(persistPath, 'v3') });
 let stopping;
-const stop = () => stopping ??= runtime.dispose();
+const stop = () => stopping ??= runtime.dispose().finally(() => {if(process.connected)process.disconnect();});
 process.once('SIGTERM', () => void stop());
 process.once('SIGINT', () => void stop());
 try { await runtime.ready; }
@@ -67,7 +67,9 @@ catch (cause) { await stop(); throw cause; }
 // persistence contention. No application route or application response is replaced.
 if (triggerMode === 'scheduled' && process.send) process.on('message', async message => {
   if (message?.type === 'fixture.transfer') {
-    try {const value=transferGate.control(message.action,message.method);process.send({type:'fixture.transfer.result',id:message.id,value});}
+    try {const value=message.action==='objects'
+      ? {keys:(await (await runtime.getR2Bucket('FILES')).list({prefix:message.method})).objects.map(object=>object.key)}
+      : transferGate.control(message.action,message.method);process.send({type:'fixture.transfer.result',id:message.id,value});}
     catch {process.send({type:'fixture.transfer.result',id:message.id,error:'Transfer storage control failed'});}
     return;
   }

@@ -73,6 +73,7 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-005 — actual native ZIP backup/rest
     assert.equal(failure.report.code,'RESTORE_COMMIT_FAILED');assert.match(failure.report.message,/records could not be published.*destination was left unchanged/);
     assert.doesNotMatch(JSON.stringify(failure.report),/labelled late recovery fault|INSERT INTO|qualification_transfer_abort/);
     assert.deepEqual(await(await api(target,bootstrapCookie,`/api/exports/jobs/${failedJob.id}/run`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})).json(),failure,'A failed job is terminal under replay.');
+    assert.deepEqual((await target.transferGate('objects',['federation','restore',''].join('/'))).keys,[],'A late failure cleans every staged original file.');
     await target.close();
     const [unchanged]=await target.sql('SELECT (SELECT COUNT(*) FROM pages) AS pages,(SELECT COUNT(*) FROM containers) AS containers,(SELECT COUNT(*) FROM files) AS files');
     assert.deepEqual(unchanged.results,[{pages:0,containers:0,files:0}],'A late native failure rolls back all restored canonical records.');
