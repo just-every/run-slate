@@ -1,0 +1,135 @@
+import assert from 'node:assert/strict';
+import { expect } from '@playwright/test';
+import { accessible } from './browser-evidence.mjs';
+
+/** An ordinary member manages native templates from their authored page. */
+export async function templateLifecycleJourney({ page, origin, api, pageId, containerId }) {
+  assert.equal((await api('/api/members/current')).role, 'member');
+  const choice = title => page.locator('.template-choice').filter({ has: page.getByRole('heading', { name: title, exact: true }) });
+  const gallery = async (state = 'active') => {
+    await page.goto(origin + '/app/templates', { waitUntil: 'networkidle' });
+    await page.getByRole('combobox', { name: 'Collection', exact: true }).selectOption(containerId);
+    await page.getByRole('combobox', { name: 'Show', exact: true }).selectOption(state);
+  };
+  const listed = async state => (await api(`/api/templates?state=${state}&containerId=${containerId}`)).items;
+  const source = await api(`/api/pages/${pageId}`);
+  await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
+  await page.getByRole('button', { name: 'More', exact: true }).click();
+  await page.getByRole('menuitem', { name: 'Save as template', exact: true }).click();
+  const save = page.getByRole('dialog', { name: 'Save as a template', exact: true });
+  await save.getByLabel('Template name', { exact: true }).fill('Response playbook');
+  await save.getByLabel('Description', { exact: true }).fill('An authored response procedure.');
+  await save.getByLabel('Category', { exact: true }).fill('Operations');
+  await save.getByLabel('Collection', { exact: true }).selectOption(containerId);
+  await accessible(page, 'member saves an authored template');
+  await save.getByRole('button', { name: 'Save template', exact: true }).click();
+  await expect(save).toBeHidden();
+  const created = (await listed('active')).filter(item => item.title === 'Response playbook');
+  assert.equal(created.length, 1);
+  const id = created[0].id;
+  const original = await api(`/api/templates/${id}`);
+  assert.equal(original.isShipped, false);
+  assert.equal(original.permissions.canManage, true);
+  assert.deepEqual(original.snapshot.blocks.map(block => block.content), source.blocks.map(block => block.content));
+  await gallery();
+  await choice('Response playbook').click();
+  await expect(page.locator('.template-preview')).toContainText('Notify the duty team.');
+
+  // Edit the actual source with native keystrokes, then capture that revision.
+  await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
+  await page.getByRole('textbox', { name: 'Paragraph', exact: true }).first().fill('Escalate to the response lead.');
+  await expect.poll(async () => JSON.stringify((await api(`/api/pages/${pageId}`)).blocks)).toContain('Escalate to the response lead.');
+  await page.reload({ waitUntil: 'networkidle' });
+  await expect(page.getByRole('textbox', { name: 'Paragraph', exact: true }).first()).toHaveText('Escalate to the response lead.');
+  const authored = await api(`/api/pages/${pageId}`);
+  const updateFromPage = async title => {
+    await page.getByRole('button', { name: 'Update from a page', exact: true }).click();
+    const update = page.getByRole('dialog', { name: 'Update this template', exact: true });
+    await update.getByLabel('Source page', { exact: true }).selectOption(pageId);
+    await update.getByLabel('Name', { exact: true }).fill(title);
+    await update.getByLabel('Description', { exact: true }).fill('Updated by its member author.');
+    await update.getByLabel('Collection', { exact: true }).selectOption(containerId);
+    await update.getByRole('button', { name: 'Save updated template', exact: true }).click();
+    await expect(update).toBeHidden();
+    await expect(choice(title)).toBeVisible();
+  };
+  await gallery();
+  await choice('Response playbook').click();
+  await updateFromPage('Updated response playbook');
+  await gallery();
+  await expect(choice('Response playbook')).toHaveCount(0);
+  await choice('Updated response playbook').click();
+  await expect(page.locator('.template-preview')).toContainText('Escalate to the response lead.');
+  const edited = await api(`/api/templates/${id}`);
+  assert.notEqual(edited.revisionId, original.revisionId);
+  assert.equal(edited.title, 'Updated response playbook');
+  assert.deepEqual(edited.snapshot.blocks.map(block => block.content), authored.blocks.map(block => block.content));
+  await accessible(page, 'member edited template preview');
+
+  const change = async (button, dialogName, action) => {
+    await page.getByRole('button', { name: button, exact: true }).click();
+    const dialog = page.getByRole('dialog', { name: dialogName, exact: true });
+    await dialog.getByRole('button', { name: action, exact: true }).click();
+    await expect(dialog).toBeHidden();
+  };
+  await change('Archive', 'Archive template', 'Archive');
+  await gallery();
+  await expect(choice(edited.title)).toHaveCount(0);
+  assert.ok(!(await listed('active')).some(item => item.id === id));
+  await gallery('archived');
+  await choice(edited.title).click();
+  const archived = await api(`/api/templates/${id}`);
+  assert.ok(archived.archivedAt);
+  assert.deepEqual(archived.snapshot, edited.snapshot);
+  await accessible(page, 'member archived template');
+  await change('Restore', 'Restore template', 'Restore');
+  await gallery('archived');
+  await expect(choice(edited.title)).toHaveCount(0);
+  assert.ok(!(await listed('archived')).some(item => item.id === id));
+  await gallery();
+  await choice(edited.title).click();
+  const restored = await api(`/api/templates/${id}`);
+  assert.equal(restored.archivedAt, null);
+  assert.deepEqual(restored.snapshot, edited.snapshot);
+  await change('Archive', 'Archive template', 'Archive');
+  await gallery('archived');
+  await choice(edited.title).click();
+  await change('Delete template', 'Delete template', 'Delete');
+  await gallery('archived');
+  await expect(choice(edited.title)).toHaveCount(0);
+  assert.ok(!(await listed('archived')).some(item => item.id === id));
+  assert.ok(!(await listed('active')).some(item => item.id === id));
+  const deleted = (await listed('deleted')).find(item => item.id === id);
+  assert.ok(deleted?.deletedAt);
+  await gallery('deleted');
+  await choice(edited.title).click();
+  await expect(page.locator('.deleted-template-actions')).toContainText('Deleted');
+  await accessible(page, 'member deleted template');
+
+  // The native duplicate is editable independently of the shipped snapshot.
+  await gallery();
+  await choice('Retrospective').click();
+  const shipped = (await listed('active')).find(item => item.title === 'Retrospective' && item.isShipped);
+  const shippedBefore = await api(`/api/templates/${shipped.id}`);
+  await expect(page.getByRole('button', { name: 'Update from a page', exact: true })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Archive', exact: true })).toBeDisabled();
+  await page.getByRole('button', { name: 'Duplicate', exact: true }).click();
+  const duplicate = page.getByRole('dialog', { name: 'Duplicate template', exact: true });
+  await duplicate.getByLabel('Collection', { exact: true }).selectOption(containerId);
+  await duplicate.getByRole('button', { name: 'Duplicate', exact: true }).click();
+  await expect(duplicate).toBeHidden();
+  await gallery();
+  await choice('Retrospective copy').click();
+  const copied = (await listed('active')).find(item => item.title === 'Retrospective copy');
+  assert.notEqual(copied.id, shipped.id);
+  assert.equal((await api(`/api/templates/${copied.id}`)).permissions.canManage, true);
+  await updateFromPage('Member retrospective');
+  await gallery();
+  await choice('Member retrospective').click();
+  await expect(page.locator('.template-preview')).toContainText('Escalate to the response lead.');
+  assert.deepEqual((await api(`/api/templates/${copied.id}`)).snapshot.blocks.map(block => block.content), authored.blocks.map(block => block.content));
+  assert.deepEqual(await api(`/api/templates/${shipped.id}`), shippedBefore);
+  await accessible(page, 'member editable duplicate with shipped original retained');
+  console.log('PROBE TMPL-004 lifecycle: member Save as template, update, archive, restore, archive and delete -> persisted active, archived and deleted states after reload');
+  console.log('PROBE TMPL-004 shipped: native duplicate updated from authored content -> independently editable copy and unchanged shipped snapshot');
+}

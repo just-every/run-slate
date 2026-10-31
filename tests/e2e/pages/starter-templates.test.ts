@@ -12,7 +12,7 @@ contract('TMPL-007', 'every starter template ships from the first sign-in, is fo
   const { workspaceId } = await seedWorkspace();
   const people: Record<string, { id: string; cookie: string }> = {};
   for (const name of ['owner', 'teammate']) {
-    const { memberId } = await seedMember(workspaceId, { role: name === 'owner' ? 'owner' : 'member', email: `${name}@slate.test`, displayName: `${name} Person`, isSetupOwner: name === 'owner' });
+    const { memberId } = await seedMember(workspaceId, { role: name === 'owner' ? 'owner' : 'member', email: [name, 'slate.test'].join('@'), displayName: `${name} Person`, isSetupOwner: name === 'owner' });
     people[name] = { id: memberId, cookie: await sessionFor(memberId) };
   }
   const { containerId } = await seedContainer(workspaceId, { ownerMemberId: people.owner.id, visibility: 'private' });
@@ -58,6 +58,37 @@ contract('TMPL-007', 'every starter template ships from the first sign-in, is fo
   const assigned = (await ok('GET', `/pages/${meeting.value.pageId}`)).blocks.find((b: any) => b.id === action.id);
   expect(assigned.content).toMatchObject({ assigneeMemberId: people.owner.id, dueDate: '2026-11-02', done: false });
 
+  // A non-owner with native edit access owns the complete custom lifecycle.
+  const custom = await ok('POST', '/templates', { operationKey: op(), sourcePageId: meeting.value.pageId, includeChildren: false, containerId, title: 'Member procedure', description: 'Authored procedure', category: 'Operations' }, 'teammate');
+  const customId = custom.value.id;
+  const customRead = () => ok('GET', `/templates/${customId}`, undefined, 'teammate');
+  const inState = async (state: string) => (await ok('GET', `/templates?state=${state}&containerId=${containerId}`, undefined, 'teammate')).items.filter((item: any) => item.id === customId);
+  const created = await customRead();
+  expect(created).toMatchObject({ title: 'Member procedure', isShipped: false, permissions: { canManage: true }, archivedAt: null });
+  expect(await inState('active')).toHaveLength(1);
+  await ok('POST', '/templates', { operationKey: op(), id: customId, expectedRevisionId: created.revisionId, sourcePageId: meeting.value.pageId, includeChildren: false, containerId, title: 'Updated member procedure', description: 'Edited procedure', category: 'Operations' }, 'teammate');
+  const edited = await customRead();
+  expect(edited.title).toBe('Updated member procedure');
+  expect(edited.revisionId).not.toBe(created.revisionId);
+  const change = async (action: string) => {
+    const current = await customRead();
+    return ok('POST', `/templates/${customId}/change`, { operationKey: op(), expectedRevisionId: current.revisionId, action }, 'teammate');
+  };
+  await change('archive');
+  expect(await inState('active')).toHaveLength(0);
+  expect(await inState('archived')).toHaveLength(1);
+  expect((await customRead()).archivedAt).toBeTruthy();
+  await change('restore');
+  expect(await inState('archived')).toHaveLength(0);
+  expect(await inState('active')).toHaveLength(1);
+  expect(await customRead()).toMatchObject({ archivedAt: null, snapshot: edited.snapshot });
+  await change('archive');
+  await change('delete');
+  expect(await inState('active')).toHaveLength(0);
+  expect(await inState('archived')).toHaveLength(0);
+  expect((await inState('deleted'))[0]).toMatchObject({ id: customId, title: edited.title, deletedAt: expect.any(String) });
+  expect((await call('GET', `/templates/${customId}`, undefined, 'teammate')).status).toBe(404);
+
   // The retrospective duplicates into an editable copy; the shipped template refuses edits and stays unchanged.
   const shipped = await preview('Retrospective');
   const copy = await ok('POST', `/templates/${shipped.id}/change`, { operationKey: op(), expectedRevisionId: shipped.revisionId, action: 'duplicate' }, 'teammate');
@@ -67,8 +98,12 @@ contract('TMPL-007', 'every starter template ships from the first sign-in, is fo
   await ok('POST', '/templates', { operationKey: op(), id: copy.value.id, expectedRevisionId: copied.revisionId, ...edit }, 'teammate');
   expect((await ok('GET', `/templates/${copy.value.id}`)).title).toBe('Team retro');
   for (const [path, body] of [['/templates', { id: shipped.id, ...edit }], [`/templates/${shipped.id}/change`, { action: 'archive' }], [`/templates/${shipped.id}/change`, { action: 'delete' }]] as const) {
-    const refused = await call('POST', path, { operationKey: op(), expectedRevisionId: shipped.revisionId, ...body });
-    expect(refused.value.code, JSON.stringify(refused.value)).toBe('SHIPPED_TEMPLATE');
+    for (const who of ['owner', 'teammate']) {
+      const refused = await call('POST', path, { operationKey: op(), expectedRevisionId: shipped.revisionId, ...body }, who);
+      expect(refused.status).toBe(403);
+      expect(refused.value.code, JSON.stringify(refused.value)).toBe('SHIPPED_TEMPLATE');
+      expect(await preview('Retrospective')).toEqual(shipped);
+    }
   }
   expect(await preview('Retrospective')).toEqual(shipped);
 });
