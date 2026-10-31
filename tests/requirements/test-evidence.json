@@ -42,9 +42,10 @@
         "STAT-003",
         "SHARE-007",
         "BLOCK-008",
-        "CONT-007"
+        "CONT-007",
+        "WEB-003"
       ],
-      "reason": "Preserves separately asserted cases of the same public flow. LIFE-005 support performs published title and body reads, editor changes, republish, read-only discard refusal, lossless discard and duplicate-safe replay through native routes. Full LIFE-005 browser acceptance is the unpublishedChangesJourney in the existing responsive core journeys; the other named clauses retain supporting scope."
+      "reason": "Preserves separately asserted cases of the same public flow. LIFE-005 support performs published title and body reads, editor changes, republish, read-only discard refusal, lossless discard and duplicate-safe replay through native routes. Full LIFE-005 browser acceptance is the unpublishedChangesJourney in the existing responsive core journeys; the other named clauses retain supporting scope. WEB-003 native support runs anonymousReadJourney through published pages, retained revisions, comments and analytics: populated public bytes survive distinguishable working changes, private references and operator identities are absent, visits reconcile to anonymous rows with no member identity, and revoked reads add no views. The existing responsive sharing journeys supply the browser, network, cookie and unloaded-provider proof."
     },
     {
       "file": "tests/flagship/content/http.test.ts",

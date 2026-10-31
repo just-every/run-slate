@@ -676,8 +676,13 @@
       "id": "WEB-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WEB-003 — The anonymous read view. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "This Workers registry records supporting regressions only. WEB-003 acceptance runs publicPageJourney in ./tests/qualification/ui-convergence/public-page-journey.mjs through the existing real core-wiki and touch-member journeys at 1440px and 390px: published bytes and explicit byline, private neighbouring references, withheld working changes and comments, fresh anonymous DOM, cookie and network observations, interaction-gated embed, and exact native analytics and unidentified at-rest rows. CONTRACT.md carries the acceptance judgment; exact candidate Verify and guarded landing remain required.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/content/http.test.ts",
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
+        }
+      ]
     },
     {
       "id": "WEB-004",
