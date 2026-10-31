@@ -2881,7 +2881,7 @@
       "id": "HOME-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Missing a browser journey through the complete run-site landing, configuration, links and capability sections; the cited stylesheet check reads CSS only.",
+      "unmetReason": "The existing platform registration now runs the built run-site browser journey in ./tests/e2e/landing-product.mjs for default and edited owner configurations, all capability sections, complete navigation and credit behavior. The existing emitted-Worker admission journey compares the shared sign-in and app mark. This supporting registry retains the native Worker regression; independent exact-candidate Verify and guarded landing receipts remain external.",
       "supportingTests": [
         {
           "file": "tests/e2e/landing.test.ts",

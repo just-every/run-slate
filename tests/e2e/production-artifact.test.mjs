@@ -278,7 +278,7 @@ test("emitted Worker admission serves configured public doors and protects nativ
     assert.equal(canonical.headers.get('set-cookie'), null);
     await confirmationFlow(baseUrl);
     let { cookie } = await signInLocally(baseUrl);
-    await publishedRootPrivacy(baseUrl, cookie);
+    await publishedRootPrivacy(baseUrl, cookie, signInLocally);
 
     // BASE-ACCESS-002, protected operator document.
     const anonymousApp = await fetch(`${baseUrl}/app`, { redirect: "manual" });

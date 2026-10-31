@@ -148,14 +148,15 @@ export async function landingBrowser({ width = 1440 } = {}) {
 }
 
 /** A nonempty native publication proves privacy, rather than an absence check against an empty workspace. */
-export async function publishedRootPrivacy(origin, cookie) {
+export async function publishedRootPrivacy(origin, cookie, signIn) {
   const request = async (route, data) => {
     const response = await fetch(origin + route, { method: data ? 'POST' : 'GET', headers: { cookie, origin, 'content-type': 'application/json' }, ...(data ? { body: JSON.stringify({ operationKey: randomUUID(), ...data }) } : {}) });
     const body = await response.json();
     assert.equal(response.status, 200, JSON.stringify(body));
     return body;
   };
-  const identities = (await request('/api/members')).items.flatMap(member => [member.id, member.displayName, member.email]);
+  const members = (await request('/api/members')).items;
+  const identities = members.flatMap(member => [member.id, member.displayName, member.email]);
   const workspace = await request('/api/workspace');
   assert.ok(identities.length > 0 && workspace.name, 'Privacy is checked against populated native identities');
   const container = await request('/api/containers', { name: 'synthetic-slate-private-record' });
@@ -189,11 +190,14 @@ export async function publishedRootPrivacy(origin, cookie) {
   const signin = await fetch(origin + '/signin');
   assert.equal(signin.status, 200);
   assert.deepEqual(cardGeometry(await signin.text(), 'paper-brand'), landingCards);
+  const member = members.find(member => member.role === 'member' && member.memberKind === 'member');
+  assert.ok(member, 'The existing full member can enter the app while the setup owner keeps the unfinished wizard');
+  const { cookie: memberCookie } = await signIn(origin, '/app', member.email);
   const browser = await chromium.launch({ headless: true, ...(process.env.SLATE_CHROMIUM_PATH ? { executablePath: process.env.SLATE_CHROMIUM_PATH } : {}), args: ['--no-sandbox', '--use-mock-keychain', '--password-store=basic'] });
   try {
     const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
     try {
-      await context.addCookies(cookie.split('; ').map(part => { const [name, ...value] = part.split('='); return { name, value: value.join('='), url: origin }; }));
+      await context.addCookies(memberCookie.split('; ').map(part => { const [name, ...value] = part.split('='); return { name, value: value.join('='), url: origin }; }));
       const page = await context.newPage();
       const app = await page.goto(origin + '/app');
       assert.equal(app.status(), 200);
