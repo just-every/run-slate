@@ -1493,7 +1493,7 @@
       "id": "TMPL-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for TMPL-006 — Where a template lives. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "The existing desktop starter-template registration invokes templateScopeJourney in tests/qualification/ui-convergence/template-scope-journey.mjs. Native creation populates workspace templates and distinct templates in two containers the same member can read. Exact API and browser lists prove local-first ordering and scope isolation; one Move collection submission in each direction retains the identifier and snapshot and reconciles all three collections after reload. Independent release acceptance remains separate.",
       "supportingTests": []
     },
     {
