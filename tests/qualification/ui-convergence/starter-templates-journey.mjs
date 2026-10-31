@@ -1,3 +1,4 @@
+import { templatePreviewJourney } from './template-preview-journey.mjs';
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import { expect } from '@playwright/test';
@@ -59,4 +60,5 @@ export async function starterTemplatesJourney(state) {
   await shot('duplicated');
   assert.deepEqual(await api(`/api/templates/${shipped.id}`), before, 'The shipped retrospective stays unchanged.');
   await templateScopeJourney(state);
+  await templatePreviewJourney(state);
 }
