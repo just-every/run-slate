@@ -5,8 +5,9 @@ import {TrustBadge} from '../TrustBadge';
 import type {PageTrust} from '../../trust-types';
 import {displayDate} from '../../../../app/ui/displayDate';
 import {personInitials} from '../../../../shared/person-identity';
+import {StoredCover, StoredIcon, type PageAppearanceView} from '../../../pages/ui/workspace/PageAppearance';
 
-export interface SearchResultView {
+export interface SearchResultView extends PageAppearanceView {
   id:string;title:string;snippet:string;kind:string;href:string;highlights:string[];updatedAt:string;
   containerId?:string|null;status?:string|null;
   trust?:PageTrust;
@@ -36,9 +37,10 @@ export function SearchResults({items,spaceName,statusLabel}:{items:SearchResultV
     const snippet=formatSearchSnippet(result.snippet).trim();
     return <li key={`${result.kind}:${result.id}`}>
       <div className="result-body">
+        {result.cover||result.coverFileId?<span className="search-result-cover"><StoredCover key={JSON.stringify([result.cover,result.coverFileId])} cover={result.cover} coverFileId={result.coverFileId} compact/></span>:null}
         <a href={highlightedHref(result.href,result.highlights)}>
           <span className="eyebrow">{kinds[result.kind]??result.kind}</span>
-          <h2>{result.kind==='comment-thread'?'Comment on ':''}<HighlightedText text={result.title} terms={result.highlights}/></h2>
+          <h2><StoredIcon icon={result.icon}/>{result.icon?' ':''}{result.kind==='comment-thread'?'Comment on ':''}<HighlightedText text={result.title} terms={result.highlights}/></h2>
           {status||snippet?<p>{status?<span className="status-tag">{status}</span>:null}<HighlightedText text={snippet} terms={result.highlights}/></p>:null}
         </a>
         {result.similarPages?.length?<details className="similar-pages">
