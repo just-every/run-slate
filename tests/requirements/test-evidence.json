@@ -375,12 +375,12 @@
     },
     {
       "file": "tests/qualification/authority/import-safety.test.ts",
-      "testName": "IMP-004 — persistent HTML import never fetches missing remote attachments and sanitizes executable markup",
+      "testName": "IMP-004 — native document and reviewed archive imports retain supplied media and reported links without network or unsafe writes",
       "kind": "supporting-regression",
       "clauses": [
         "IMP-004"
       ],
-      "reason": "Executed local D1/R2 semantic regression for the named boundary. Does not establish every clause obligation, measured skill quality, hosted provider behavior, or full release acceptance."
+      "reason": "Native multipart upload, document Run and reviewed Preview, Apply and Resume execute against real Workers D1 and R2 with an outbound fetch observer active throughout execution. Canonical page and persisted-block reads retain safe missing-file links; paged reports include all 52 remote images; media routes and R2 return exact supplied PNG bytes and sanitized SVG. The unchanged Confluence export retains all twelve remote image links and losses. Malformed XML, entity declarations, traversal, local-header mismatch and compressed expansion are refused without target writes. Fixture acquisition precedes observation. CONTRACT.md owns clause status; this registry retains its legacy supporting classification and makes no live provider or unrelated Base acceptance claim."
     },
     {
       "file": "tests/qualification/authority/learned-provenance.test.ts",

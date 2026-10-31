@@ -11372,7 +11372,7 @@
       "executable": false
     },
     "tests/qualification/authority/import-safety.test.ts": {
-      "sha256": "2c9276770bf1f5b1e2c96212627252b8bbe94154e96a026fb0916bd9e648faed",
+      "sha256": "9dde72c7c48addc84de646015dc526b9c718e21bdb387cb6da00d9b75360bee7",
       "executable": false
     },
     "tests/qualification/authority/learned-provenance.test.ts": {
@@ -12180,7 +12180,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "97f6bd184c1f0689367e3e67eb22a16275f357d96f7a5309b830b5adb373a321",
+      "sha256": "a2a3c41366033d86edaa4ab9f051fe7e79229fa68e9da0c2270bdd5eddead3eb",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12196,7 +12196,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "488098b3a30920549a0559835a4aab0e0b917baf15fb841c1846840973b767d4",
+      "sha256": "cc3605b77f58232b7c448fda1f9dcd8bb4de547de576025e85261f727595a80f",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

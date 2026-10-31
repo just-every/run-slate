@@ -1560,11 +1560,11 @@
       "id": "IMP-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for IMP-004 — Import safety. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "This legacy inventory classifies supporting tests only; CONTRACT.md owns native clause status. The loaded native import journey covers both import-safety acceptance points through multipart upload, document execution, reviewed archive application, canonical pages, media and paged losses with zero outbound fetches and unchanged targets on unsafe admission. It does not certify live provider migrations or unrelated Base acceptance.",
       "supportingTests": [
         {
           "file": "tests/qualification/authority/import-safety.test.ts",
-          "testName": "IMP-004 — persistent HTML import never fetches missing remote attachments and sanitizes executable markup"
+          "testName": "IMP-004 — native document and reviewed archive imports retain supplied media and reported links without network or unsafe writes"
         }
       ]
     },
