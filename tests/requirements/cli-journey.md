@@ -98,3 +98,17 @@ The guest invitation case removes its obsolete 24-hour lifetime pin; requested g
 WORK-012 is exercised by `themeJourney` in `tests/qualification/ui-convergence/theme-journey.mjs`, through `settingsJourney` in `tests/qualification/ui-convergence/reading-journeys.mjs`. The existing desktop outline and phone tree registrations in `tests/qualification/ui-convergence/journeys.test.mjs` load it in push Verify. No registration is added.
 
 The journey selects Light, Dark and Match device through Settings, observes each committed native preference, and checks painted backgrounds and readable text across every configured operator destination, each Settings section, page editing, database cells and record editing. Workspace destinations use their native navigation links, with separate document-door status checks; color inspection foregrounds the actual browser tab with motion enabled. Match device responds in place to both device schemes. Reload and a newly issued native identity session in a clean browser context at the other viewport preserve the preference; another member has independent durable choices. Two genuinely published exposures retain their own light and dark themes for signed-in and anonymous readers under both device schemes, including reload. Only identity and the mail-provider edge use the existing harness; application routes and responses are native. Captures remain outside product source. Existing polish assertions for settings, search and contrast remain intact.
+The existing responsive core journey at 390px and the existing starter-template
+journey at 1440px call `templateCaptureJourney` in
+`tests/qualification/ui-convergence/template-capture-journey.mjs` for TMPL-005.
+It authors a root, two children and a grandchild through native page mutations,
+with distinct body and appearance properties. Every source node also has a
+comment, historical body revision, direct grant, owner and reader watches,
+readership, a page status and an active public exposure. The page's More menu
+saves with child capture disabled and enabled. Retained previews and applied
+pages must contain exactly the requested body, properties and descendants,
+without those seven source record families or their identifiers. New creation
+revisions and visits belong to the copies; effective access comes from the
+chosen destination. Native receipt retry creates no extra pages, and a reader
+with destination view access cannot acquire the source comment grant. Existing
+preview, starter-template and creation assertions remain in their registrations.
