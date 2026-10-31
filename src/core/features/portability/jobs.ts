@@ -56,7 +56,21 @@ export async function runPortabilityJob(ctx:FeatureContext,id:string){
   const witness=await readJob(ctx,id);
   if(witness?.state==='completed'){await cleanupJob(ctx,id);return envelope(witness);}
   const code=error instanceof ApiProblem?error.code:job.kind==='export'?'EXPORT_FAILED':'RESTORE_FAILED';
-  await failJob(ctx,job,code,'The operation did not complete. Start a new operation with a fresh key.');
+  const messages:Record<string,string>={
+   EXPORT_COMMIT_FAILED:'The workspace archive could not be committed. No download was published.',
+   RESTORE_COMMIT_FAILED:'The staged workspace records could not be published. The destination was left unchanged.',
+   MISSING_EXPORT_FILE:'A referenced original file is missing. Restore the original file before exporting again.',
+   MISSING_RESTORE_SOURCE:'The staged archive is unavailable. Choose the archive again to start a new restore.',
+   STAGED_ARCHIVE_CHANGED:'The staged archive no longer matches the admitted archive. Choose the original archive again.',
+   RESTORE_NOT_EMPTY:'The destination contains existing data. Use an empty deployment for restoration.',
+   AUTHORITY_CHANGED:'Workspace access changed during the transfer. Review current access before starting again.',
+   ARCHIVE_TOO_LARGE:'The archive exceeds the supported transfer size.',
+   INTERRUPTED:'The transfer lost its active worker claim before completion.',
+  };
+  const message=messages[code]??(job.kind==='export'
+   ?'The workspace export failed while preparing its archive. No download was published.'
+   :'The workspace restore failed before publication. No restored workspace was published.');
+  await failJob(ctx,job,code,message);
   const failed=await readJob(ctx,id);if(!failed)throw new ApiProblem(404,'JOB_EXPIRED','The operation receipt expired.');return envelope(failed);
  }
  await cleanupJob(ctx,id);

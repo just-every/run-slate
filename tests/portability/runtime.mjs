@@ -1,3 +1,4 @@
+import {transferControl} from '../helpers/transfer-storage-gate.mjs';
 import {launchMailRuntime} from '../e2e/mail-runtime.mjs';
 import {signInWithOutbox} from '../e2e/outbox-auth.mjs';
 import {testDevKey,devKeyHeaders,sourceDevOrigins} from '../e2e/dev-key.mjs';
@@ -12,14 +13,14 @@ export const ownerEmail='archive-owner@example.invalid';
 export const root=path.resolve(import.meta.dirname,'../..');
 
 /** Separate real D1/R2 bindings; all configuration and state stay in caller scratch. */
-export async function runtime(directory){
+export async function runtime(directory, {email=ownerEmail}={}){
   const port=await availablePort(),inspector=await availablePort();
   const origin=`http://127.0.0.1:${port}`,persist=path.join(directory,'state');
   const emitted=JSON.parse(await readFile(path.join(root,'dist/server/wrangler.json'),'utf8'));
   const configPath=path.join(directory,'wrangler.json');
   const config={...emitted,main:path.resolve(root,'dist/server',emitted.main),assets:{...emitted.assets,directory:path.resolve(root,'dist/server',emitted.assets.directory)},
     d1_databases:emitted.d1_databases.map(db=>({...db,migrations_dir:path.join(root,'migrations/core')})),
-    vars:{APP_URL:origin,SETUP_OWNER_EMAIL:ownerEmail,SESSION_SECRET:randomUUID(),LOCAL_DEVELOPMENT:'true',MAIL_PROVIDER:'development',MAIL_FROM:'archive@example.invalid',AI_ENABLED:'false',SSO_ENABLED:'false',LINK_PREVIEWS_ENABLED:'false',RER_DEV_KEY:testDevKey},no_bundle:true};
+    vars:{APP_URL:origin,SETUP_OWNER_EMAIL:email,SESSION_SECRET:randomUUID(),LOCAL_DEVELOPMENT:'true',MAIL_PROVIDER:'development',MAIL_FROM:'archive@example.invalid',AI_ENABLED:'false',SSO_ENABLED:'false',LINK_PREVIEWS_ENABLED:'false',RER_DEV_KEY:testDevKey},no_bundle:true};
   await writeFile(configPath,JSON.stringify(config),{mode:0o600});
   const cli=path.join(root,'node_modules/wrangler/bin/wrangler.js');
   const env={...safeEnvironment(),WRANGLER_LOG_PATH:path.join(directory,'logs')};
@@ -40,14 +41,24 @@ export async function runtime(directory){
     }
   }
   await invoke(['d1','migrations','apply','DB']);
-  return {origin,persist,start,close,
+  return {origin,persist,start,close,email,
+    transferGate:(action,method)=>transferControl(worker.child,action,method),
+    async fixtureSql(statements){
+      const id=randomUUID();
+      return new Promise((resolve,reject)=>{
+        const timer=setTimeout(()=>finish(Error('Native fixture write timed out')),10000);
+        const finish=error=>{clearTimeout(timer);worker.child.off('message',receive);error?reject(error):resolve();};
+        const receive=message=>{if(message?.type==='fixture.sql.result'&&message.id===id)finish(message.error?Error(message.error):undefined);};
+        worker.child.on('message',receive);worker.child.send({type:'fixture.sql',id,statements});
+      });
+    },
     async scheduled(){const response=await fetch(origin+'/cdn-cgi/local/scheduled?cron='+encodeURIComponent('* * * * *'));assert.equal(response.status,200,'The emitted Worker runs its real scheduled handler.');},
     async sql(sql){assert.equal(worker,undefined,'Stop the Worker before opening D1 from the fixture helper.');return JSON.parse(await invoke(['d1','execute','DB','--command',sql,'--json']));},
     async cli(action,file,cookie){let output;try{output=await command('nice',['-n','15',process.execPath,'src/core/features/portability/command.mjs',action==='export'?'backup':'restore',file],{cwd:root,env:{...env,SLATE_APP_URL:origin,SLATE_SESSION_COOKIE:cookie}});}catch(cause){const code=cause.message.match(/\"code\":\"([A-Z_]+)\"/)?.[1]??'COMMAND_FAILED';throw Error(`Native ZIP ${action} failed against the local deployment: ${code}.`);}const line=output.trim().split('\n').at(-1);const receipt=JSON.parse(line);assert.equal(receipt.state,'completed');return receipt;}};
 }
 
 /** Confirmation still uses the production Worker; only the paid mail edge is fake. */
-export async function signIn(instance){return (await signInWithOutbox(instance.origin,ownerEmail)).cookie;}
+export async function signIn(instance){return (await signInWithOutbox(instance.origin,instance.email??ownerEmail)).cookie;}
 
 export async function api(instance,cookie,url,options={}){
   const response=await fetch(new URL(url,instance.origin),{...options,headers:{Cookie:cookie,Origin:instance.origin,...options.headers}});

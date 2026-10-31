@@ -8520,7 +8520,7 @@
       "executable": false
     },
     "src/core/features/portability/export-run.ts": {
-      "sha256": "194c0367daabbe346fff8814b47b39c4e67fc169ee96ee1939bf2ece9def4ec2",
+      "sha256": "f958c3205a7a7847547ae3f54744b2ff2af8603807a29ed9b7512be2158648b5",
       "executable": false
     },
     "src/core/features/portability/installation-routes.ts": {
@@ -8544,7 +8544,7 @@
       "executable": false
     },
     "src/core/features/portability/jobs.ts": {
-      "sha256": "13b6e662eeff7fe64d06c44efe4b547f3a64d2677885692d6a5ae6f824f91028",
+      "sha256": "86835da82f7618fbd541c2314e5ad7c74cee527b541fa898e1455a990f73ac1a",
       "executable": false
     },
     "src/core/features/portability/restore-plan.ts": {
@@ -8552,7 +8552,7 @@
       "executable": false
     },
     "src/core/features/portability/restore-run.ts": {
-      "sha256": "625e9fc6d03c634a03bddd83abf13dd5e33679b36e22d1195816b2b44665cab1",
+      "sha256": "b18b24453816ca1153fc46c3a0a269c9ff4ee734ed228b26f445a08d708ef99c",
       "executable": false
     },
     "src/core/features/portability/rows.ts": {
@@ -9260,7 +9260,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/TransferCounts.tsx": {
-      "sha256": "ee3ead9a59882966921b8ee44c9ca655804b16aaca96b9f1f19ebd6e2e36a94e",
+      "sha256": "d5f9e3a8faabf5d5f809fd805a829e1efa985869c70bc7716c1363e21a997417",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/WebhookAccess.tsx": {
@@ -10368,7 +10368,7 @@
       "executable": false
     },
     "tests/e2e/emitted-runtime.mjs": {
-      "sha256": "66e89a10cb1df3aa48f996ee7af67bd9da7490f40c7a02ea550485b57f317430",
+      "sha256": "30784c0ba30119d12a491418f9dea0d38a3e16087c855681a957fa697b2c78e9",
       "executable": false
     },
     "tests/e2e/foundation-runtime.test.mjs": {
@@ -10512,7 +10512,7 @@
       "executable": false
     },
     "tests/e2e/mail-runtime.mjs": {
-      "sha256": "3569617e5b4674a678ddec4bf8427b4dc698a6e927864821b2169540fa645e47",
+      "sha256": "01b967ba3456b9cffbf133c80a0a91c2a38da27d940cf2b880eb57846f1bd115",
       "executable": false
     },
     "tests/e2e/managed-first-open.mjs": {
@@ -11231,6 +11231,10 @@
       "sha256": "9c8196c062f6070fca7e84acb178694f5de81d7c44e65c13ff12ac4f03a5e227",
       "executable": false
     },
+    "tests/helpers/transfer-storage-gate.mjs": {
+      "sha256": "d431e490199dd54e6e78789ea53e4fcae281faca602c967e1e91153dbe645944",
+      "executable": false
+    },
     "tests/helpers/webhook-edge.mjs": {
       "sha256": "c7d46426691e5e0a4aff99c8014bad22425713ddf0d67921a8f7d86c80b5b288",
       "executable": false
@@ -11320,11 +11324,11 @@
       "executable": false
     },
     "tests/portability/roundtrip.test.mjs": {
-      "sha256": "a794f32b6de95e0e247204b9a0f27adac420116ff2d7208a44247611b7087dc0",
+      "sha256": "ec4b78f26763900fcccc315b1aa9da613922b00fb918b22b39f14d03d2f36a42",
       "executable": false
     },
     "tests/portability/runtime.mjs": {
-      "sha256": "4294ac40d079716872e6dc6438ae2bc0a3d7a3a7f4af33f61a8fab6695832052",
+      "sha256": "a5d543861df7713dc7f9f0fef6831a7225bc8fdd4f6eeb4f86c1083a8327be8f",
       "executable": false
     },
     "tests/profile/body-blocks-journey.ts": {
@@ -11748,7 +11752,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/browser-support.mjs": {
-      "sha256": "85dd98e7f8eeddeceaa44c412c5465ade318ea98e1744eca06eea7c001b74302",
+      "sha256": "37827f3b270862ff4d141934e4b69a240530f33dfd7451875d028722c641aff9",
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
@@ -11952,7 +11956,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "5a46bc6cd2af711d1e30c8ceee1760770acf6964d7e4de7b88e5abbedab06bc3",
+      "sha256": "98ab0fd4413e4993d834878bdb5173a52242bcf511e90b01b7a1bc628bbaef68",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12113,6 +12117,10 @@
     },
     "tests/qualification/ui-convergence/touch-page.mjs": {
       "sha256": "ee8f133a84566c32d5cacc773874e02e3be8d3623221b3a2c7eab05795701024",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/transfer-jobs-journey.mjs": {
+      "sha256": "13b5c05afeee3af78e59d0b4113838ff85cb74efb790bc860b13f423db8a441a",
       "executable": false
     },
     "tests/qualification/ui-convergence/tree-filter-journey.mjs": {

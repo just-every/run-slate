@@ -7,7 +7,7 @@ export async function launchMailRuntime({root,configPath,persist,port,variables=
   const varsPath=path.join(persist,'mail-vars.json');
   await mkdir(persist,{recursive:true});
   await writeFile(varsPath,JSON.stringify(variables),{mode:0o600});
-  return launch(process.execPath,[path.join(root,'tests/e2e/emitted-runtime.mjs'),configPath,persist,String(port),varsPath,...(scheduled?['scheduled']:[])],{cwd:root,...(env?{env}:{})});
+  return launch(process.execPath,[path.join(root,'tests/e2e/emitted-runtime.mjs'),configPath,persist,String(port),varsPath,...(scheduled?['scheduled']:[])],{cwd:root,...(env?{env}:{}),...(scheduled?{stdio:['ignore','pipe','pipe','ipc']}:{})});
 }
 
 /** Emitted production Worker with a real D1 and only the relay network edge replaced. */

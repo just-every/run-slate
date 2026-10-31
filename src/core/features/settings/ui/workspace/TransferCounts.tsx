@@ -9,7 +9,7 @@ const primary: Record<string, string> = {
 export function TransferCounts({ counts }: { counts: Record<string, number> }) {
   const entries = Object.entries(counts);
   const remaining = entries.filter(([key]) => !(key in primary));
-  if (!entries.length) return null;
+  if (!entries.length) return <p>0 records completed</p>;
   const rows = (items: [string, number][]) =>
     items.map(([key, count]) => (
       <div key={key}>

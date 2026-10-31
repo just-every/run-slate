@@ -1,3 +1,4 @@
+import {transferStorageGate} from '../helpers/transfer-storage-gate.mjs';
 import {embedEdge} from '../helpers/embed-edge.mjs';
 import { webhookEdge } from '../helpers/webhook-edge.mjs';
 import { createRequire } from 'node:module';
@@ -23,8 +24,11 @@ await mkdir(resolve('.artifacts/mail-edge'), {recursive:true});
 await writeFile(mailbox, '');
 const vars = {...workerOptions.bindings, ...JSON.parse(await readFile(varsPath, 'utf8'))};
 const mail = vars.MAIL_PROVIDER === 'development' ? {MAIL_PROVIDER:'resend',MAIL_API_KEY:'test-only-mail-key'} : {};
+const transferGate = triggerMode === 'scheduled' ? transferStorageGate(selected.main, miniflare.Response) : undefined;
+const emitted = await productionModules(selected.main, modulesRules, miniflare);
+if (transferGate) emitted.modules.unshift(transferGate.module);
 const worker = { ...workerOptions, name: config.name,
-  ...await productionModules(selected.main, modulesRules, miniflare),
+  ...emitted,
   bindings: { ...workerOptions.bindings, ...vars, ...mail },
   outboundService: async request => {
     const webhook = await webhookEdge(request,persistPath,miniflare.Response);
@@ -50,6 +54,7 @@ const worker = { ...workerOptions, name: config.name,
   } };
 const options = miniflare.convertV4MiniflareOptions({ host: '127.0.0.1', port: Number(port),
   unsafeTriggerHandlers: triggerMode === 'scheduled', unsafeLocalExplorer: false, workers: [worker, ...selected.externalWorkers] });
+if (transferGate) options.workers[0].serviceBindings = {...options.workers[0].serviceBindings, TEST_TRANSFER_GATE: request => transferGate.service(request)};
 const runtime = new miniflare.Miniflare({ ...options, resourcePersistencePath: resolve(persistPath, 'v3') });
 let stopping;
 const stop = () => stopping ??= runtime.dispose();
@@ -61,6 +66,11 @@ catch (cause) { await stop(); throw cause; }
 // Parent-only clock fixtures use the running native D1 binding, avoiding CLI/Worker
 // persistence contention. No application route or application response is replaced.
 if (triggerMode === 'scheduled' && process.send) process.on('message', async message => {
+  if (message?.type === 'fixture.transfer') {
+    try {const value=transferGate.control(message.action,message.method);process.send({type:'fixture.transfer.result',id:message.id,value});}
+    catch {process.send({type:'fixture.transfer.result',id:message.id,error:'Transfer storage control failed'});}
+    return;
+  }
   if (message?.type !== 'fixture.sql' || typeof message.id !== 'string'
       || !Array.isArray(message.statements) || !message.statements.every(sql => typeof sql === 'string')) return;
   try {

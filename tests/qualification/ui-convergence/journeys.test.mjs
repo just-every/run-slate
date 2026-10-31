@@ -1,3 +1,4 @@
+import {transferJobsJourney} from './transfer-jobs-journey.mjs';
 import { publicationJourney } from './publication-journey.mjs';
 import {unpublishedChangesJourney} from './unpublished-changes-journey.mjs';
 import {pageDetailsJourney} from './page-details-journey.mjs';
@@ -70,6 +71,7 @@ for (const width of [390, 1440]) {
   test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: 300000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
+      if(width===390)await transferJobsJourney(state);
       const refused = await state.context.request.get(state.origin + '/api/ai/availability');
       assert.equal(refused.status(), 403);
       assert.equal((await refused.json()).code, 'FEATURE_DISABLED');
@@ -204,7 +206,8 @@ for (const width of [1440]) {
       await withSecondPerson(state, width, people => exportCommentsJourney(state, people));
       await backupsJourney(state);
       await folderJourney(state);
-    }, {}, { backups: true, folders: true });
+      await transferJobsJourney(state);
+    }, {}, { backups: true, folders: true, scheduled: true });
   });
 }
 

@@ -42,5 +42,5 @@ export async function runWorkspaceRestore(ctx:FeatureContext,job:PortabilityJob)
  statements.push(ctx.db.prepare('INSERT INTO content_media_cleanup(storage_key,created_at) VALUES (?,?) ON CONFLICT DO NOTHING').bind(job.source_archive_key,now));
  statements.push(ctx.db.prepare("UPDATE portability_jobs SET state='completed',status_workspace_id=?,status_actor_id=?,counts_json=?,completed_at=?,updated_at=?,cleanup_json='[]',lease_id=NULL,lease_until=NULL WHERE id=?").bind(restoredOwner.workspace_id,restoredOwner.id,counts,now,now,job.id));
  // Canonical rows, native session reset, search, receipt and status remapping share one commit.
- await ctx.db.batch(statements);
+ try{await ctx.db.batch(statements);}catch{throw new ApiProblem(503,'RESTORE_COMMIT_FAILED','The staged workspace records could not be published. The destination was left unchanged.');}
 }
