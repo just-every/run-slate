@@ -8,12 +8,12 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 50 | 247 | 34 | 331 |
+| Core | 49 | 248 | 34 | 331 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 50 | 247 | 40 | 337 |
+| Full target | 49 | 248 | 40 | 337 |
 
-Judged from the code and tests at commit `a9620995651669c470de2df041f8bec05ad3dafa` (30 October 2026); TMPL-002 and TMPL-003 source proof, with final visible-copy reload assertions in the candidate. Prior WORK-006 source judgment at `451c33748edd44e86c19d960b31a1f5eaeac27bc` is retained. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
 ## Core
 
@@ -1745,7 +1745,7 @@ Core · published · **partial**
 
 #### SEARCH-001 — Global search
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** One search covers page titles and retained body text, record field values, container names and descriptions, comments and templates, and returns the first page of ranked results within 500ms with the total number of matches and an ordering stable across pages.
 
@@ -1753,8 +1753,8 @@ Core · published · **partial**
 1. One search covers page titles and retained body text, record field values, container names and descriptions, comments and templates, and returns the first page of ranked results within 500ms with the total number of matches and an ordering stable across pages.
 2. One search over titles, bodies, fields, containers, comments and templates returns ranked results within 500ms with stable paging.
 
-**Evidence.** `tests/qualification/core/discovery-browser.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/core/discovery-browser.mjs`.
+**Evidence.** `tests/e2e/search/fts-permissions.test.ts` — "Indexed search uses current native authority for literal matches, totals, facets and cursors", calling `tests/e2e/search/mixed-kinds-journey.ts` — "mixedKindsJourney" (all retained kinds, exact mixed ranking, totals and current-authority cursor traversal); `tests/qualification/ui-convergence/journeys.test.mjs` — "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px", calling `tests/qualification/ui-convergence/reading-journeys.mjs` — "searchJourney" and `tests/qualification/ui-convergence/mixed-search-journey.mjs` — "mixedSearchJourney"; `tests/qualification/search/capacity-journey.mjs` — native emitted-Worker HTTP capacity journey with raw first-page latency samples and canonical corpus manifest (exact candidate receipt supplied at handoff).
+**Gap.** None.
 
 #### SEARCH-002 — Results
 
@@ -2123,7 +2123,7 @@ Core · published · **partial**
 
 #### TMPL-002 — Preview
 
-Core · published · **done**
+Core · published · **partial**
 
 **Requirement.** A template preview shows the page it produces, including its body, properties and any child pages, before it is used.
 
@@ -2131,12 +2131,12 @@ Core · published · **done**
 1. A figure such as a team size or a duration appears only when the template's author wrote one; Slate never estimates, infers, or displays a placeholder for either.
 2. Preview shows the resulting page and children with only author-written figures.
 
-**Evidence.** `tests/qualification/ui-convergence/template-preview-journey.mjs` — "templatePreviewJourney", called by "starterTemplatesJourney" in `tests/qualification/ui-convergence/starter-templates-journey.mjs` and the existing "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px" Verify registration: requirement and acceptance 1–2, native saved snapshots of populated record properties and four-page ordered trees, complete visible preview before application, exact authored team size and duration with a no-figure counterpart, and resulting copy read-back. "templatePreviewSmoke" runs in the existing "real core-wiki and touch-member journeys at 390px" Verify registration for both preview screens, viewport and accessibility proof.
-**Gap.** None.
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Gap.** No validated CI-run proof for this acceptance point: "A template preview shows the page it produces, including its body, properties and any child pages, before it is used."<br>No validated CI-run proof for this acceptance point: "A figure such as a team size or a duration appears only when the template's author wrote one; Slate never estimates, infers, or displays a placeholder for either."
 
 #### TMPL-003 — Snapshot on use
 
-Core · published · **done**
+Core · published · **partial**
 
 **Requirement.** Using a template creates a page holding a copy of its body, properties and children in the destination the member chose.
 
@@ -2144,8 +2144,8 @@ Core · published · **done**
 1. Editing, archiving or deleting the template afterwards changes no page already created from it.
 2. Using a template snapshots it; later template edits change no created page.
 
-**Evidence.** `tests/qualification/ui-convergence/template-preview-journey.mjs` — "templatePreviewJourney", called by "starterTemplatesJourney" in `tests/qualification/ui-convergence/starter-templates-journey.mjs` and the existing "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px" Verify registration: requirement and acceptance 1–2, native apply dialog selects Handbook, exactly four fresh pages reconcile every body, property and ordered parent edge with the retained snapshot after reload, and later template replacement, archive and deletion leave every copied document unchanged and visibly readable.
-**Gap.** None.
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Gap.** No validated CI-run proof for this acceptance point: "Using a template creates a page holding a copy of its body, properties and children in the destination the member chose."<br>No validated CI-run proof for this acceptance point: "Editing, archiving or deleting the template afterwards changes no page already created from it."
 
 #### TMPL-004 — Custom templates
 
