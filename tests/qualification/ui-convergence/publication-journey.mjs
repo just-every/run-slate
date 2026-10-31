@@ -20,6 +20,13 @@ export async function publicationJourney(state) {
   await withSecondPerson(state,width,async people=>{
     const target=await publicationChecks({page:state.page,context:state.context,id,
       runtime:{origin:state.origin,directory},reader:people.bob,check:()=>{}});
+    const workspace=await state.api('/api/workspace');
+    const profile=async lifecycle=>{
+      const {id,revisionId,...fields}=await state.api('/api/workspace');
+      await ok(state.context,state.origin,'PUT','/api/workspace',{...fields,operationKey:crypto.randomUUID(),expectedRevisionId:revisionId,policies:{...fields.policies,'page.lifecycle.v1':lifecycle}});
+    };
+    await profile('draft-then-publish');
+    try {
     const read=()=>state.api(`/api/pages/${target}`);
     const current=await read();
     await ok(state.context,state.origin,'POST',`/api/pages/${target}/publish`,{
@@ -42,5 +49,6 @@ export async function publicationJourney(state) {
     await state.page.goto(`${state.origin}/app/pages/${target}`,{waitUntil:'networkidle'});
     await expect(state.page.getByRole('alert')).toContainText(failed.schedule.failure);
     await state.page.screenshot({path:path.join(directory,'failed-publication.png'),fullPage:true});
+    } finally {await profile(workspace.policies['page.lifecycle.v1']);}
   });
 }

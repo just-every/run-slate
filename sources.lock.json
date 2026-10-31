@@ -11324,7 +11324,7 @@
       "executable": false
     },
     "tests/portability/roundtrip.test.mjs": {
-      "sha256": "dc6c3b4209ad49d7d68f4689811c20a1960c5ab6460b551f620d3fef4454ec43",
+      "sha256": "a37bc654f760f538380713a9f5f778f3b85f8027d1548d3dd582dbd688db0c88",
       "executable": false
     },
     "tests/portability/runtime.mjs": {
@@ -12008,7 +12008,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/publication-journey.mjs": {
-      "sha256": "f913831f2bc701f9529566eb2a28b5ade4beefbed4fdf1e21353e0396281eba7",
+      "sha256": "a95a982eaa33593fd46d9f9fc9bee54f61ca53332da45ea076fa8a5b3a730f67",
       "executable": false
     },
     "tests/qualification/ui-convergence/reachability.test.mjs": {

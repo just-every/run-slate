@@ -78,8 +78,6 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-005 — actual native ZIP backup/rest
     const [index]=await target.sql('SELECT (SELECT COUNT(DISTINCT page_id) FROM search_text WHERE page_id IS NOT NULL) AS indexed,(SELECT COUNT(*) FROM search_dirty) AS pending');
     assert.deepEqual(index.results,[{indexed:6,pending:0}],'Search is already rebuilt before a page or search request can repair it.');
     await target.start();const targetCookie=await signIn(target);
-    const lifecycleProof=await restoredLifecycleProfiles(target,targetCookie,lifecycleIds);
-    t.diagnostic(JSON.stringify({lifecycleProfiles:lifecycleProof.states,restoredStates:Object.keys(lifecycleProof.ids)}));
     const outboxBefore=await inbox(target.origin);
     for(const email of ['archive-member@example.invalid','archive-guest@example.invalid']){
       const inactive=await fetch(target.origin+'/api/auth/magic',{method:'POST',headers:{Origin:target.origin,'Content-Type':'application/json'},body:JSON.stringify({email,requestKey:randomUUID()})});
@@ -98,6 +96,8 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-005 — actual native ZIP backup/rest
       INSERT INTO portability_unregistered_record VALUES ('unregistered','must not silently disappear')`);
     t.diagnostic(JSON.stringify(equivalent(before,after,ownerEmail,reexport.id,bootstrapAudit.results)));
     await target.start();
+    const lifecycleProof=await restoredLifecycleProfiles(target,targetCookie,lifecycleIds);
+    t.diagnostic(JSON.stringify({lifecycleProfiles:lifecycleProof.states,restoredStates:Object.keys(lifecycleProof.ids)}));
     const refused=await fetch(target.origin+'/api/exports/workspace',{method:'POST',headers:{Cookie:targetCookie,Origin:target.origin,'Content-Type':'application/json'},body:JSON.stringify({operationKey:randomUUID()})});
     assert.equal(refused.status,409);assert.equal((await refused.json()).code,'UNREGISTERED_PORTABLE_TABLE','Populated unknown tables still fail closed.');
   }finally{
