@@ -11,12 +11,13 @@ const named: Record<string, string> = { 'Meeting notes': 'Meetings', Retrospecti
 contract('TMPL-007', 'every starter template ships from the first sign-in, is found by category, previews, creates working pages and duplicates into an editable copy while the shipped one never changes', async () => {
   const { workspaceId } = await seedWorkspace();
   const people: Record<string, { id: string; cookie: string }> = {};
-  for (const name of ['owner', 'teammate']) {
+  for (const name of ['owner', 'teammate', 'viewer']) {
     const { memberId } = await seedMember(workspaceId, { role: name === 'owner' ? 'owner' : 'member', email: [name, 'slate.test'].join('@'), displayName: `${name} Person`, isSetupOwner: name === 'owner' });
     people[name] = { id: memberId, cookie: await sessionFor(memberId) };
   }
   const { containerId } = await seedContainer(workspaceId, { ownerMemberId: people.owner.id, visibility: 'private' });
   for (const name of ['owner', 'teammate']) await seedContainerGrant(containerId, { principalKind: 'member', principalId: people[name].id, level: name === 'owner' ? 'full' : 'edit' });
+  await seedContainerGrant(containerId, { principalKind: 'member', principalId: people.viewer.id, level: 'view' });
   const api = createApi();
   const call = async (method: string, path: string, body?: unknown, who = 'owner') => {
     const response = await api.request('https://slate.test/api' + path, { method, headers: { cookie: people[who].cookie, origin: 'https://slate.test', 'content-type': 'application/json' }, body: body ? JSON.stringify(body) : undefined }, { ...env, SLATE_PROFILE: undefined });
@@ -66,6 +67,15 @@ contract('TMPL-007', 'every starter template ships from the first sign-in, is fo
   const created = await customRead();
   expect(created).toMatchObject({ title: 'Member procedure', isShipped: false, permissions: { canManage: true }, archivedAt: null });
   expect(await inState('active')).toHaveLength(1);
+  expect((await ok('GET', `/templates/${customId}`, undefined, 'viewer')).permissions.canManage).toBe(false);
+  for (const action of ['archive', 'restore', 'delete']) {
+    const refused = await call('POST', `/templates/${customId}/change`, { operationKey: op(), expectedRevisionId: created.revisionId, action }, 'viewer');
+    expect(refused.status).toBe(404);
+    expect(await customRead()).toEqual(created);
+  }
+  const refusedEdit = await call('POST', '/templates', { operationKey: op(), id: customId, expectedRevisionId: created.revisionId, sourcePageId: meeting.value.pageId, includeChildren: false, containerId, title: 'Unpermitted change', description: '', category: 'Operations' }, 'viewer');
+  expect(refusedEdit.status).toBe(404);
+  expect(await customRead()).toEqual(created);
   await ok('POST', '/templates', { operationKey: op(), id: customId, expectedRevisionId: created.revisionId, sourcePageId: meeting.value.pageId, includeChildren: false, containerId, title: 'Updated member procedure', description: 'Edited procedure', category: 'Operations' }, 'teammate');
   const edited = await customRead();
   expect(edited.title).toBe('Updated member procedure');
