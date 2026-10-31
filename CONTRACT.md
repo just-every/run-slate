@@ -3976,11 +3976,13 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
+Judged from the code and tests at commit `30886e55608596bb44862e4c6942dc1a24ef982e` for STAT-001; both status profiles passed the native HTTP and responsive vocabulary journeys. The exact candidate and guarded landing receipts remain in the branch handoff.
+
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 33 | 193 | 0 | 226 |
+| Published | 34 | 192 | 0 | 226 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 49 | 248 | 40 | 337 |
+| All | 50 | 247 | 40 | 337 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4064,7 +4066,7 @@ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e66
 | `REV-005` | A citation resolves to its revision | published | partial | `tests/e2e/review/verification-flow.test.ts` | Missing a citation journey that opens an exact old revision, revokes and expires access, then reads anonymous and erased states without disclosure; the cited verification flow reads an old revision and newer-version notice only. |
 | `REV-006` | Deleting a version | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A member with `full` access can delete one intermediate version, which removes its content and leaves a numbered tombstone in history naming who deleted it and when."<br>No validated CI-run proof for this acceptance point: "The current revision and the published revision cannot be deleted, and deletion is offered only where `REV-007` says so." |
 | `REV-007` | Version profile | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a save/publish/history journey under both version profiles, including preserved imported numbering; the cited test parses imported ordinals without exercising history controls. |
-| `STAT-001` | The status vocabulary | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "The workspace holds a list of status entries, each with a key, a label, a color and an optional verification requirement."<br>No validated CI-run proof for this acceptance point: "It ships seeded with Rough draft, In progress, Ready for review and Verified under every value of `STAT-005`, and a workspace owner can add, rename, recolor and retire entries."<br>No validated CI-run proof for this acceptance point: "Retiring an entry keeps it on the pages that carry it and offers a bulk change (`CONT-006`)." |
+| `STAT-001` | The status vocabulary | published | done | `tests/qualification/ui-convergence/status-vocabulary-journey.mjs` — statusVocabularyJourney through the existing 1440px settings caller in `tests/qualification/ui-convergence/journeys.test.mjs` (all vocabulary fields, both profiles, owner controls, retained page chips and history, explicit bulk changes and reload); `tests/flagship/content/http.test.ts` — "publication, human verification and media enforce current reader authority" via statusVocabularyCase (native bootstrap, unchanged non-owner refusals, revoked-session refusal and duplicate-safe bulk receipts). | |
 | `STAT-002` | A page's status | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A page carries at most one status."<br>No validated CI-run proof for this acceptance point: "Setting or clearing it is one action for anyone with edit access, writes one activity entry, and makes the page findable by that status in search (`SEARCH-003`) and in content queries (`BLOCK-010`)." |
 | `STAT-003` | Verification | published | done | `tests/e2e/review/verification-flow.test.ts` — "Verifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current" |  |
 | `STAT-004` | Verification lapses | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | Missing a complete public-door journey for verification lapses under the current authority, audience and company policy; prior quoted implementation and policy notes are retained in CHANGELOG.md. |
