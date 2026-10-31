@@ -151,7 +151,7 @@
       "id": "WORK-014",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WORK-014 — Shortcut reference. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "The Workers-only registry does not collect Node browser journeys. WORK-014 native reference coverage is specified in tests/requirements/cli-journey.md: shortcutReferenceJourney reaches operator destinations and editors, typedShortcutsJourney exercises the typed catalog, and the existing table, presentation and focus journeys exercise their documented commands. No Workers assertion is claimed here.",
       "supportingTests": []
     },
     {
@@ -430,7 +430,7 @@
       "id": "BLOCK-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BLOCK-004 — Markdown shortcuts. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "The Workers-only registry does not collect Node browser journeys. BLOCK-004 supporting native browser coverage is specified in tests/requirements/cli-journey.md; the current partial judgment in CONTRACT.md is retained: typedShortcutsJourney runs in both existing responsive core-wiki registrations; editorFocusJourney retains rich-heading regression coverage. No Workers assertion is claimed here.",
       "supportingTests": []
     },
     {

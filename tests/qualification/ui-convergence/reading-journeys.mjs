@@ -1,3 +1,4 @@
+import { shortcutReferenceJourney } from './shortcut-reference-journey.mjs';
 import assert from 'node:assert/strict';
 import {themeJourney} from './theme-journey.mjs';
 import {guestConsoleJourney} from './guest-console-journey.mjs';
@@ -59,6 +60,7 @@ export async function searchJourney(state, pageId) {
 }
 
 export async function settingsJourney(state, width) {
+  await shortcutReferenceJourney(state);
   const {page,origin}=state;
   await page.goto(origin + '/app/settings', { waitUntil: 'networkidle' });
   const tabs = page.getByRole('navigation', { name: 'Settings sections' });
