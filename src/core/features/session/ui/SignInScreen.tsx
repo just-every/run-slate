@@ -67,7 +67,7 @@ export function SignInScreen({
 
           {state === "request" ? <p className="paper-lede">{lede ?? (samlAvailable ? 'Use your workspace sign-in method, or request an email sign-in link.' : 'Use your email address to get a one-time sign-in link.')}</p> : null}
 
-          {providerNotice ? <p className="paper-alert" role="status">{providerNotice}</p> : null}
+          {providerNotice ? <div className="paper-alert" role="status">{providerNotice}</div> : null}
 
           {state === "link-expired" ? (
             <p className="paper-lede">
