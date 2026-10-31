@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "0f8c6749dc8bc37fdf6ee8933fc6c1876fc98d9fbce31e180243d425813ad309",
+      "sha256": "b4847a08d253511553f4a24f17601adca0de2d20a1219efefef4dbae6257986e",
       "executable": false
     },
     "DEMO.md": {
@@ -12140,7 +12140,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/version-profile-journey.mjs": {
-      "sha256": "d3412d3bba2b28965954ec2653172fe1f0ff444906bf4d22f9b34744d07f1b9c",
+      "sha256": "12d877c7750e36c8db08720c82b07a00784097199d5d8ad2410e49f44a588ecd",
       "executable": false
     },
     "tests/qualification/ui-convergence/webhook-access-journey.mjs": {
