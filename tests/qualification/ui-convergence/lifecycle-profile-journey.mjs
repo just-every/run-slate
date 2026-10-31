@@ -43,7 +43,10 @@ export async function lifecycleProfileJourney(state,people) {
     if(await navigation.isVisible())await navigation.click();
     const tree=page.locator(`.page-tree a[href="/app/pages/${id}"]`);
     await expect(tree).toBeVisible();
+    await page.getByRole('navigation',{name:'Workspace navigation',exact:true}).hover();
+    await page.mouse.wheel(0,1000);
     await tree.scrollIntoViewIfNeeded();
+    await expect(tree).toBeInViewport({ratio:1});
     await expect(tree.locator('.draft-chip')).toHaveCount(controls&&storedState==='draft'?1:0);
     await expect(tree.locator('.scheduled-publication')).toHaveCount(controls&&storedState==='scheduled'?1:0);
     await page.screenshot({path:path.join(directory,`${lifecycle}-${storedState}-tree.png`),fullPage:true});

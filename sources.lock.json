@@ -11956,11 +11956,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "10dfde291a626a8829da8a8fe96d23a648f9abe25d976dc74c854bed29bc5cf5",
+      "sha256": "a21075464620e887386b5b512666c420b7465458c3e8c5edf7dda2a0559b2bf9",
       "executable": false
     },
     "tests/qualification/ui-convergence/lifecycle-profile-journey.mjs": {
-      "sha256": "c00f2636b1f3a858f9e535f2c78aa5200d5be885f85935e0e2c8895eacfc73c2",
+      "sha256": "e0c9feafc93f6000ec009f3c5aaa8baecb5783d04dab68bdf240277bced2213a",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {

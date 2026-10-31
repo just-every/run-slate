@@ -85,7 +85,7 @@ for (const width of [390, 1440]) {
         await step('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await touchCommentJourney(touch,touch.pageId);});
         await step('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touch.publicationProfile(()=>touchPublishShareJourney(touch,touch.pageId));});
         await step('query, highlighted results and opening exact page; touch Search, Inbox, My tasks and review queues', async () => {await searchJourney(state, pageId);await touchOperatorJourney(state,touch);});
-        await step('published readers, editor indication, republish and lossless discard', () => withSecondPerson(state, width, async people => {await unpublishedChangesJourney(state, people);await lifecycleProfileJourney(state, people);}));
+        await step('published readers, editor indication, republish and lossless discard', () => withSecondPerson(state, width, people => unpublishedChangesJourney(state, people)));
         // Finish earlier page notifications before connecting the chat journey destinations.
         await state.runScheduled();
         await chatJourney(state, width);
@@ -102,6 +102,12 @@ for (const width of [390, 1440]) {
         }
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
+    // Profile switching has its own native store so its publications and reads
+    // do not consume the earlier chat and touch journeys' request budgets.
+    await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{
+      await setupWorkspace(state);
+      await withSecondPerson(state,width,people=>lifecycleProfileJourney(state,people));
+    });
   });
 }
 
