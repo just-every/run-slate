@@ -10495,8 +10495,12 @@
       "sha256": "61fc02153205c636ee97a4fd411747196052064f5aad0284296f270de97fb339",
       "executable": false
     },
+    "tests/e2e/landing-browser.mjs": {
+      "sha256": "c65cb7b96b7a0fc2137824f9f71a2699b91cbf1a919fd0974acf5fa875d9b790",
+      "executable": false
+    },
     "tests/e2e/landing-styles.test.mjs": {
-      "sha256": "251d7dedef339c0ecf95920c27d3dcd6509e1e1550292b2bdfd56eca60019c15",
+      "sha256": "3ed3650bdafd0281c5a7e928dd1ed0a039b94db54de79ba13eecdcc4e9a0cef5",
       "executable": false
     },
     "tests/e2e/landing.test.ts": {
@@ -10576,7 +10580,7 @@
       "executable": false
     },
     "tests/e2e/production-artifact.test.mjs": {
-      "sha256": "ff33b4c4060d659054d6191bbe45a995147d7edd4b750f1c4d7be406e5c35bca",
+      "sha256": "cb8d68f85b64d345cbf7bc0662a272555d6482b359c359121053f46863e9aa2f",
       "executable": false
     },
     "tests/e2e/public-api/contract.test.ts": {
@@ -12176,7 +12180,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "d2efebe449b33c7a181fffcebc298b4f2b56f359a7b41764c7d055cd5375eb7f",
+      "sha256": "cdc6b2b5d029c21128734c248cfaf36015cc64a054560515fa9e6c23cbc66886",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
