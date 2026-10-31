@@ -920,7 +920,7 @@
       "executable": false
     },
     ".github/scripts/journey-shards.json": {
-      "sha256": "1d8c2937a2d86efa81acec011d41b86948152186a3b7ed9566278a2201b8026d",
+      "sha256": "aba4a3978cdd8f2e10a5b8ebd8fd9e2aec624d9f27b81ac5a0e47c5a2b538e6c",
       "executable": false
     },
     ".github/scripts/run-shard.sh": {
@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "11619c905a1a77b1a28090474ba6a285337bdbefbfeebbf5ae3e2a9d2f6aba37",
+      "sha256": "0901044f4d5d1e5ce81b56974fcecde783ff39dc1378dd3b18ee374eb2d56a33",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "96bca7a6c61fa841738f4bdb7e48407223ffd486dee8739f7724edf9a5ebe5b6",
+      "sha256": "1389813987f81c7cc0185049c5ba8bbcd56608fb6e0d82f2b8d5a4ba7d0a0e9b",
       "executable": false
     },
     "DEMO.md": {
@@ -8336,7 +8336,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/ContentQueryDialog.tsx": {
-      "sha256": "073def030ec1a18f1f41a42be1c5efdd4c4ed7f86dc7b75bc9dc4062cb8627eb",
+      "sha256": "e6bf4ae5122ab017bc03cef7b731fe50023c9be152fd42a188c1ff42d56a9fd7",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/DiscussionFilters.tsx": {
@@ -11775,6 +11775,10 @@
       "sha256": "637efdb5ebd64f8c68bf1010877475a2a73719c199e5bdedf215161d8c4af602",
       "executable": false
     },
+    "tests/qualification/ui-convergence/content-query-journey.mjs": {
+      "sha256": "2ab2f8440057bdbfd69f3590febfb549008a4000e4639746da674581ad5d99cf",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/core-journeys.mjs": {
       "sha256": "a4b51f7146984926b93f7098b1369caef983d2044619bdfc17a516d4428487c2",
       "executable": false
@@ -11956,7 +11960,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "a642f0fddfb1f9ced0949c6da6c5cf74105960f12b96c74fe1c9408bbbe0ba10",
+      "sha256": "f475c43cef72944f2232b958f4b177f8c33dbf84072eccaf9f17b84300980e5b",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12192,7 +12196,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "fd9088666d9e346242f4f433edc731df14335241e733536e56fc74dc2f102dd5",
+      "sha256": "1c509951f86bdff337d0e08c3c252692784ce1a9cbe5602065d535f2b529ddbc",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
