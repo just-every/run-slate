@@ -3974,7 +3974,7 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 ## Status
 
-Judged from the code and tests at commit `6b2b8eb3f9b7a6b1a8b3d6406d000523b84f129c` (31 October 2026). The PORT-003 candidate adds native queued-reload progress and complete transfer evidence. Exact candidate, branch Verify and guarded landing receipts accompany the handoff; other clause judgments are retained.
+Judged from the code and tests at commit `41d919eed69e9640104e1d1b2c834bb0249040c3` (31 October 2026). The PORT-003 candidate adds native queued-reload progress and complete transfer evidence. Exact candidate, branch Verify and guarded landing receipts accompany the handoff; other clause judgments are retained.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
