@@ -3,11 +3,11 @@ import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
+import { landingBrowser } from './landing-browser.mjs';
 
 /**
- * HOME-001 landing page stylesheets. Vitest replaces stylesheets with empty modules, so the landing's style rules are read
- * from disk here: every rule is scoped under .slate-landing, the palette is one fixed light palette, and nothing is loaded
- * from another origin. (tests/e2e/landing.test.ts covers the rendered document and the scripts.)
+ * HOME-003: retain stylesheet regressions, then observe the actual built run-site page in Chromium.
+ * The browser helper checks the complete script-free page, its painted styles and its resource requests.
  */
 const stylesDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "../../src/core/features/landing/styles");
 const files = readdirSync(stylesDir).filter((name) => name.endsWith(".css"));
@@ -45,4 +45,5 @@ test("landing styles preserve the light palette, same-origin resources and reduc
     try {  await scenario.run(); }
     catch (cause) { throw new Error(`Case ${scenario.name} failed`, { cause }); }
   }
+  await landingBrowser();
 });

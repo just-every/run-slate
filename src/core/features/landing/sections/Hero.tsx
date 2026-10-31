@@ -20,7 +20,6 @@ export function Hero() {
         <p className="fine hero-replaces">{replacesLine}</p>
         <div className="actions">
           <a className="pill pill--ink pill--large" href={runPath}>{hero.primary}</a>
-          <a className="pill pill--ink pill--large" href="https://demo.run-slate.com/">Try the demo</a>
           <DocsLink className="text-link" slug={docsHomeSlug}>{hero.secondary}</DocsLink>
         </div>
       </div>

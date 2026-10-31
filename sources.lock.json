@@ -7668,7 +7668,7 @@
       "executable": false
     },
     "src/core/features/landing/links.ts": {
-      "sha256": "03d9b6edb60ad31949e269c3649d972841b66809ef720b44bb43bbdb83b10907",
+      "sha256": "5a596871c5e85a977d3741ad5f744f7b567692ee5a9c6d778e61e733d03b5b8c",
       "executable": false
     },
     "src/core/features/landing/parts/Brand.tsx": {
@@ -7692,7 +7692,7 @@
       "executable": false
     },
     "src/core/features/landing/parts/SiteFooter.tsx": {
-      "sha256": "8f974e4872ce21e6122426df1481753ab8d1da0c5077d61ba1972faf66bd197a",
+      "sha256": "fb570e4c02c67f9c0aefa3e6a232c7c003a4925e6da6aef287d48a9100a05feb",
       "executable": false
     },
     "src/core/features/landing/parts/SiteHeader.tsx": {
@@ -7708,7 +7708,7 @@
       "executable": false
     },
     "src/core/features/landing/sections/Hero.tsx": {
-      "sha256": "aa9d51498ecd55bceb6cdbba58a35b76c6b4d1a8a49083a26d51c3bd7ff43a91",
+      "sha256": "ac0a6b1890fbf2118284ab112d9aa68b707b21634c5751488fb9f53ca940711d",
       "executable": false
     },
     "src/core/features/landing/sections/History.tsx": {
@@ -10495,8 +10495,16 @@
       "sha256": "61fc02153205c636ee97a4fd411747196052064f5aad0284296f270de97fb339",
       "executable": false
     },
+    "tests/e2e/landing-browser.mjs": {
+      "sha256": "ed852f0074bd9791d67b4bc510c1897cfb2f307277a32a3946ce0b03229ec91d",
+      "executable": false
+    },
+    "tests/e2e/landing-product.mjs": {
+      "sha256": "1654a203250dc81dc1c4fed9c7eec438694607658dcf450d532c340159c48356",
+      "executable": false
+    },
     "tests/e2e/landing-styles.test.mjs": {
-      "sha256": "251d7dedef339c0ecf95920c27d3dcd6509e1e1550292b2bdfd56eca60019c15",
+      "sha256": "3ed3650bdafd0281c5a7e928dd1ed0a039b94db54de79ba13eecdcc4e9a0cef5",
       "executable": false
     },
     "tests/e2e/landing.test.ts": {
@@ -10576,7 +10584,7 @@
       "executable": false
     },
     "tests/e2e/production-artifact.test.mjs": {
-      "sha256": "ff33b4c4060d659054d6191bbe45a995147d7edd4b750f1c4d7be406e5c35bca",
+      "sha256": "cb8d68f85b64d345cbf7bc0662a272555d6482b359c359121053f46863e9aa2f",
       "executable": false
     },
     "tests/e2e/public-api/contract.test.ts": {

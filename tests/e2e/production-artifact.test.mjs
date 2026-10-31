@@ -20,6 +20,7 @@ import { randomUUID } from 'node:crypto';
 import { confirmationFlow } from './confirmation-flow.mjs';
 import { signInHintFlow } from './signin-hint.mjs';
 import { healthRequest } from '@runeditrun/rer/internal/modules/deploy-kit/health-request.mjs';
+import { publishedRootPrivacy } from './landing-browser.mjs';
 
 const clientAssets = path.join(root, "dist", "client", "assets");
 const serverEntry = path.join(root, "dist", "server", "index.js");
@@ -277,6 +278,7 @@ test("emitted Worker admission serves configured public doors and protects nativ
     assert.equal(canonical.headers.get('set-cookie'), null);
     await confirmationFlow(baseUrl);
     let { cookie } = await signInLocally(baseUrl);
+    await publishedRootPrivacy(baseUrl, cookie);
 
     // BASE-ACCESS-002, protected operator document.
     const anonymousApp = await fetch(`${baseUrl}/app`, { redirect: "manual" });
