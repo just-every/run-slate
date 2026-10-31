@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "830a48a24e48e4726a7b9f89b210073050d4005ca40f32f0aab4b039d49ba9e8",
+      "sha256": "5a344ccfb40329ec3e801edbeb540e3f77c655aee67fdb2adab262d50aacd6e5",
       "executable": false
     },
     "DEMO.md": {
@@ -9128,11 +9128,11 @@
       "executable": false
     },
     "src/core/features/session/ui/SignInPage.tsx": {
-      "sha256": "09cdd1eccd2f34d63b88ee35acdcaa24ea1ee5a6dd95f110d4d764b0ea3a1ef1",
+      "sha256": "237e3cdee35c96153d12bf112d02abc0e071d5cf318d478b98a49b409386c55b",
       "executable": false
     },
     "src/core/features/session/ui/SignInScreen.tsx": {
-      "sha256": "a3c110f92c34a69201973fb7c6aa20bd484b2b7a1fe48bf0000d7f046839ff85",
+      "sha256": "659e9d926f035c2a4f92aa8e0b701f49a8df0b97a1165e2638bccec81f6f5da8",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/AppearancePanel.tsx": {
@@ -10800,7 +10800,7 @@
       "executable": false
     },
     "tests/flagship/core/identity-upgrade.test.ts": {
-      "sha256": "27f9b02f2f515e688a39d2de7c6a97ea02f84a6dd9b8740a86c06a149ac1ab99",
+      "sha256": "4006b9ae45001c2c159766f0c103ce41b15153f701f12cc22d9cf11b10f5c8bc",
       "executable": false
     },
     "tests/flagship/core/identity.test.ts": {
@@ -12188,7 +12188,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "eac1c888a2adf1f94afc2efcca0c12b804e80ce6afcc2deb944580c725be24db",
+      "sha256": "84d1e46b727bdf4f06a4df869b1ddb362a0f03899ba201442d353fa2a54204e6",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
