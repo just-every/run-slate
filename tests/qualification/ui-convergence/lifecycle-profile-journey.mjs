@@ -88,11 +88,16 @@ export async function lifecycleProfileJourney(state,people) {
     await publish(changed);
     await grant(context,origin,changed,people.bob.id,'view');
     await ok(context,origin,'PATCH',`/api/pages/${changed}`,{operationKey:crypto.randomUUID(),expectedRevisionId:(await get(changed)).page.revisionId,properties:{title:'Unpublished profile guide'}});
+    await ok(context,origin,'PUT','/api/navigation/favourites',{operationKey:crypto.randomUUID(),kind:'page',id:scheduled,enabled:true});
     const ids=[live,draft,scheduled,changed];
     const before=await snapshot(ids);
     for(const lifecycle of ['draft-then-publish','always-live','draft-then-publish']) {
       await settings(lifecycle);
       for(const [id,storedState] of [[live,'live'],[draft,'draft'],[scheduled,'scheduled'],[changed,'live-with-unpublished-changes']])await inventory(id,lifecycle,storedState);
+      await page.goto(origin+'/app',{waitUntil:'networkidle'});
+      const scheduleTimes=page.locator(`.personal-home a[href="/app/pages/${scheduled}"] .scheduled-publication`);
+      await expect(scheduleTimes).toHaveCount(lifecycle==='draft-then-publish'?2:0);
+      await page.screenshot({path:path.join(directory,`${lifecycle}-home.png`),fullPage:true});
       assert.deepEqual(await snapshot(ids),before,'Settings and visible controls change no stored page, schedule, immutable revision or grant.');
       assert.equal((await call(people.bob.context,origin,'GET',`/api/pages/${draft}`)).status,404);
       assert.equal((await call(people.bob.context,origin,'GET',`/api/pages/${scheduled}`)).status,404);

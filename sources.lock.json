@@ -11956,11 +11956,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "af65c79fc38f0d0bfe9b6cb1aa4d516075b0239cb1edf6899b1d08189c3cab03",
+      "sha256": "10dfde291a626a8829da8a8fe96d23a648f9abe25d976dc74c854bed29bc5cf5",
       "executable": false
     },
     "tests/qualification/ui-convergence/lifecycle-profile-journey.mjs": {
-      "sha256": "68f506d0aa886fefb76ebdbeff00dac1fa76d33a79eaeb67533f3a8070ddde7f",
+      "sha256": "67cd0b300addc93989a81dd920995ddf873c0cb422407626c93219dc7925b1f4",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12100,7 +12100,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-journey.mjs": {
-      "sha256": "586e7faffd3cdbe02dd9ad423907f1842a19d1cd16fffb51589a5facc8804133",
+      "sha256": "1ce4f84107eb657dd5223a0f6305244c9c1c40ea939114ead6abee67f2178ac7",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-management-journey.mjs": {

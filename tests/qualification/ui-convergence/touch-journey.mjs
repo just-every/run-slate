@@ -32,7 +32,13 @@ export async function beginTouchJourney(state,width,{writePage=true}={}) {
     };
     assert.equal((await api('/api/members/current')).role,'member');
     const container=(await ok(context,state.origin,'POST','/api/containers',{operationKey:randomUUID(),name:'Response operations',visibility:'private'})).value;
-    const touch={page,context,origin:state.origin,api,containerId:container.id,containerName:container.name};
+    const touch={page,context,origin:state.origin,api,containerId:container.id,containerName:container.name,
+      async publicationProfile(run) {
+        const previous=(await state.api('/api/workspace')).policies;
+        await policies({...previous,'page.lifecycle.v1':'draft-then-publish'});
+        try {return await run();} finally {await policies(previous);}
+      },
+    };
     if(writePage)touch.pageId=await touchWriteJourney(touch);
     touch.close=async()=>{try{assert.deepEqual(errors,[],'Touch surfaces have no browser errors or hydration mismatch.');}finally{await context.close();}};
     return touch;
