@@ -17,7 +17,7 @@ export function TemplateActions({
 }: {
   template: Template;
   archived: boolean;
-  onChanged: () => void;
+  onChanged: (action: string) => void;
 }) {
   const [action, setAction] = useState<string | null>(null);
   const key = useRef("");
@@ -86,7 +86,7 @@ export function TemplateActions({
                     }),
               },
             );
-            await onChanged();
+            await onChanged(action);
           }}
         >
           {action === "edit" ? (
