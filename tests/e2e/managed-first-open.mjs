@@ -4,23 +4,33 @@ import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { chromium } from '@playwright/test';
 import { inbox, newOutboxLink } from './outbox-auth.mjs';
+import { requestWithHost } from './runtime-harness.mjs';
 
 /** RER's bootstrap request, then the owner's own email sign-in and first edit. */
 export async function managedFirstOpen(origin, token, email = 'owner@example.test') {
-  const claim = await fetch(origin + '/auth/bootstrap', {
-    method: 'POST', redirect: 'manual', headers: { origin, 'content-type': 'application/json' },
-    body: JSON.stringify({ token, displayName: 'Owner', returnTo: '/' }),
-  });
-  assert.equal(claim.status, 303, 'RER claims the native owner');
-  const replay = await fetch(origin + '/auth/bootstrap', {
-    method: 'POST', redirect: 'manual', headers: { origin, 'content-type': 'application/json' },
-    body: JSON.stringify({ token, displayName: 'Owner', returnTo: '/' }),
-  });
-  assert.equal(replay.status, 409, 'The claim cannot replace an existing workspace');
   const shots = process.env.SLATE_OWNER_SHOTS;
   if (shots) await mkdir(shots, { recursive: true });
-  const browser = await chromium.launch({ headless: true, args: ['--use-mock-keychain', '--password-store=basic'] });
+  const browser = await chromium.launch({ headless: true, ...(process.env.SLATE_CHROMIUM_PATH ? { executablePath: process.env.SLATE_CHROMIUM_PATH } : {}), args: ['--no-sandbox', '--use-mock-keychain', '--password-store=basic'] });
   try {
+    // No client script or session is needed to see an unclaimed installation.
+    for (const width of [1440, 390]) {
+      const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width, height: width === 1440 ? 1000 : 844 } });
+      try {
+        const page = await context.newPage();
+        await lobbyScreen(page, context, origin, 'unclaimed', width, shots);
+      } finally { await context.close(); }
+    }
+    const claim = await fetch(origin + '/auth/bootstrap', {
+      method: 'POST', redirect: 'manual', headers: { origin, 'content-type': 'application/json' },
+      body: JSON.stringify({ token, displayName: 'Owner', returnTo: '/' }),
+    });
+    assert.equal(claim.status, 303, 'RER claims the native owner');
+    const replay = await fetch(origin + '/auth/bootstrap', {
+      method: 'POST', redirect: 'manual', headers: { origin, 'content-type': 'application/json' },
+      body: JSON.stringify({ token, displayName: 'Owner', returnTo: '/' }),
+    });
+    assert.equal(replay.status, 409, 'The claim cannot replace an existing workspace');
+
     for (const width of [1440, 390]) {
       const context = await browser.newContext({ viewport: { width, height: width === 1440 ? 1000 : 844 } });
       try {
@@ -29,7 +39,7 @@ export async function managedFirstOpen(origin, token, email = 'owner@example.tes
           assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
           if (shots) await page.screenshot({ path: path.join(shots, `${name}-${width}.png`), fullPage: true });
         };
-        await page.goto(origin + '/', { waitUntil: 'networkidle' });
+        await lobbyScreen(page, context, origin, 'claimed', width);
         assert.equal(await page.getByRole('link', { name: 'Finish setup' }).count(), 0);
         await page.getByRole('link', { name: 'Sign in', exact: true }).waitFor();
         await shot('claimed');
@@ -47,6 +57,12 @@ export async function managedFirstOpen(origin, token, email = 'owner@example.tes
         await page.waitForURL(url => url.pathname === '/app');
         const api = async url => { const response = await context.request.get(origin + url); assert.equal(response.status(), 200); return response.json(); };
         assert.equal((await api('/api/session')).member.email, email);
+        // A real native session still buys no identity disclosure at either public door.
+        const signedInState = await context.request.get(origin + '/setup/state');
+        assert.deepEqual(await signedInState.json(), { state: 'claimed' });
+        const signedInLobby = await context.request.get(origin + '/');
+        const anonymousLobby = await fetch(origin + '/');
+        assert.equal(await signedInLobby.text(), await anonymousLobby.text());
         assert.equal((await api('/api/workspace/first-run')).required, false);
         const workspace = await api('/api/workspace');
         assert.equal(workspace.name, 'Slate');
@@ -65,4 +81,42 @@ export async function managedFirstOpen(origin, token, email = 'owner@example.tes
       } finally { await context.close(); }
     }
   } finally { await browser.close(); }
+}
+
+/** Installed public doors, observed in the actual emitted Worker and browser. */
+async function lobbyScreen(page, context, origin, state, width, shots) {
+  const requests = [];
+  const observe = request => requests.push({ url: request.url(), kind: request.resourceType() });
+  page.on('request', observe);
+  try {
+    const response = await page.goto(origin + '/', { waitUntil: 'networkidle' });
+    await page.getByRole('link', { name: state === 'claimed' ? 'Sign in' : 'Finish setup', exact: true }).waitFor();
+    if (width === 1440) {
+      assert.equal(response.status(), 200);
+      assert.match(response.headers()['cache-control'], /no-store/);
+      assert.equal(response.headers()['set-cookie'], undefined);
+      assert.equal(await page.locator('.btn').count(), 1);
+      assert.equal(await page.locator('.btn').getAttribute('href'), state === 'claimed' ? '/signin' : '/setup');
+      assert.equal(await page.locator('[data-rer-name]').textContent(), 'Slate');
+      assert.match(await page.locator('.line').textContent(), /Slate/);
+      for (const selector of ['.mark', '.door-art img']) {
+        assert.equal(await page.locator(selector).evaluate(image => image.complete && image.naturalWidth > 0), true, selector);
+      }
+      assert.equal(await page.locator('script').count(), 0);
+      assert.equal(requests.every(request => new URL(request.url).origin === origin && request.kind !== 'script'), true, JSON.stringify(requests));
+      assert.deepEqual(await context.cookies(), []);
+      for (const requestPath of ['/', '/setup/state']) {
+        const current = await context.request.get(origin + requestPath);
+        assert.match(current.headers()['cache-control'], /no-store/);
+        assert.equal(current.headers()['set-cookie'], undefined);
+        if (requestPath === '/setup/state') assert.deepEqual(await current.json(), { state });
+        const foreign = await requestWithHost(origin, requestPath, 'foreign.test');
+        assert.equal(foreign.status, 404);
+        assert.equal(foreign.headers['set-cookie'], undefined);
+        assert.doesNotMatch(foreign.body, /claimed|Owner|example\.test/);
+      }
+    }
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+    if (shots) await page.screenshot({ path: path.join(shots, `${state}-${width}.png`), fullPage: true });
+  } finally { page.off('request', observe); }
 }

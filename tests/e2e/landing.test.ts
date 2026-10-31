@@ -1,10 +1,13 @@
-import { SELF, env } from "cloudflare:test";
+import { SELF, env, createExecutionContext, waitOnExecutionContext } from "cloudflare:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, test } from "vitest";
 import { ownerIdentity } from "../../src/core/app/ext-client";
 import { Landing } from "../../src/core/features/landing/Landing";
-import { seedWorkspace } from "./setup/fixtures";
+import { seedWorkspace, seedMember, seedContainer, seedPage, sessionFor } from "./setup/fixtures";
+import worker from "../../src/server";
+import type { AppBindings } from "../../src/core/app/types";
+import { identity } from "../../src/identity";
 
 /**
  * Supporting regressions for the amended HOME-001: an installed Slate answers `/` with the Lobby, and the landing page is
@@ -47,30 +50,117 @@ describe("HOME-001 landing page supporting regressions", () => {
   // Each row retains its original fixture and every assertion.
   const cases = [
     { name: "installed root: the Worker answers / with the Lobby, which offers setup until the owner finishes first-run setup and sign-in after", run: async () => {
-    const state = async () => (await SELF.fetch("https://slate.test/setup/state")).json();
-    const lobby = async () => {
-      const response = await SELF.fetch("https://slate.test/");
+    // Observe the real entry point and native D1, including reads that return no rows.
+    const reads: { sql: string; fields: string[] }[] = [];
+    const statement = (native: D1PreparedStatement, read: { sql: string; fields: string[] }): D1PreparedStatement => new Proxy(native, {
+      get(target, key) {
+        if (key === "bind") return (...values: unknown[]) => statement(target.bind(...values), read);
+        const value = Reflect.get(target, key);
+        if (typeof value !== "function") return value;
+        return async (...args: unknown[]) => {
+          const result = await value.apply(target, args);
+          const rows = key === "all" || key === "run" ? result.results : result === null ? [] : [result];
+          read.fields = [...new Set(rows.flatMap((row: object) => Object.keys(row)))] as string[];
+          return result;
+        };
+      },
+    });
+    const DB = new Proxy(env.DB, {
+      get(target, key) {
+        if (key === "prepare") return (sql: string) => {
+          const read = { sql, fields: [] as string[] };
+          reads.push(read);
+          return statement(target.prepare(sql), read);
+        };
+        const value = Reflect.get(target, key);
+        return typeof value === "function" ? value.bind(target) : value;
+      },
+    });
+    const native = async (path: string, headers: HeadersInit = {}, method = "GET", origin = "https://slate.test") => {
+      reads.length = 0;
+      const execution = createExecutionContext();
+      const response = await worker.fetch!(new Request(origin + path, { headers, method }) as Request<unknown, IncomingRequestCfProperties>, { ...env, DB } as AppBindings, execution);
+      await waitOnExecutionContext(execution);
+      return response;
+    };
+    const privateName = "synthetic-slate-private-workspace";
+    const { workspaceId } = await seedWorkspace({ name: privateName, description: "synthetic-slate-private-description" });
+    const { memberId } = await seedMember(workspaceId, { role: "owner", email: ["synthetic-slate-1", "example.test"].join("@"), displayName: "synthetic-slate-private-member" });
+    const { containerId } = await seedContainer(workspaceId, { ownerMemberId: memberId, visibility: "private", name: "synthetic-slate-private-container" });
+    await seedPage(containerId, { authorMemberId: memberId, title: "synthetic-slate-private-page" });
+    const cookie = await sessionFor(memberId, { freshProof: true });
+    const assertReads = (path: string, admitted = true) => {
+      const stateReads = reads.filter(read => /\bFROM\s+workspaces\b/i.test(read.sql));
+      expect(stateReads, `${path}: a fresh state read per request`).toHaveLength(admitted ? 1 : 0);
+      for (const read of reads) {
+        const tables = [...read.sql.matchAll(/\b(?:FROM|JOIN|INTO)\s+(\w+)/gi)].map(match => match[1]);
+        expect(tables.length, read.sql).toBeGreaterThan(0);
+        expect(tables.every(table => ["workspaces", "request_limits"].includes(table)), read.sql).toBe(true);
+        expect(read.fields.every(field => ["1", "count"].includes(field)), read.sql).toBe(true);
+        if (tables.includes("workspaces")) expect(read.sql).not.toMatch(/\*|\b(?:name|description|id|email|display_name)\b/i);
+      }
+    };
+    const state = async (expected: string, headers: HeadersInit = {}) => {
+      const response = await native("/setup/state", headers);
+      expect(response.status).toBe(200);
+      expect(response.headers.get("cache-control")).toContain("no-store");
+      expect(response.headers.get("set-cookie")).toBeNull();
+      expect(await response.json()).toEqual({ state: expected });
+      assertReads("/setup/state");
+    };
+    const lobby = async (expected: string, headers: HeadersInit = {}) => {
+      const response = await native("/", headers);
       expect(response.status).toBe(200);
       expect(response.headers.get("content-type")).toMatch(/text\/html/);
       const cacheDirectives = response.headers.get("cache-control")?.split(",").map(directive => directive.trim().toLowerCase()) ?? [];
       expect(cacheDirectives).toEqual(expect.arrayContaining(["no-store", "no-transform"]));
       expect(response.headers.get("set-cookie")).toBeNull();
-      return response.text();
+      const html = await response.text();
+      expect(html).toContain(`data-state="${expected}"`);
+      expect(html).toContain('synthetic-slate-deployment &amp; &lt;owner&gt;');
+      expect(html).not.toContain('<owner>');
+      expect(html).toContain(`src="${identity.mark}"`);
+      expect(html).toContain(`src="${identity.band}"`);
+      expect(html.match(/class="btn"/g)).toHaveLength(1);
+      expect(html).not.toContain(privateName);
+      expect(html).not.toMatch(/synthetic-slate-private|example\.test|<script[\s>]/);
+      assertReads("/");
+      return html;
     };
-    expect(await state()).toEqual({ state: "unclaimed" });
-    const unclaimed = await lobby();
-    expect(unclaimed).toContain('class="btn" href="/setup"');
-    expect(unclaimed).not.toContain('href="/signin"');
+    const originalDeployment = identity.deployment;
+    identity.deployment = "synthetic-slate-deployment & <owner>";
+    try {
+    for (const expected of ["unclaimed", "claimed", "unclaimed"] as const) {
+      await env.DB.prepare("UPDATE workspaces SET first_run_completed_at = ? WHERE id = ?").bind(expected === "claimed" ? "2026-10-31T00:00:00.000Z" : null, workspaceId).run();
+      await state(expected);
+      const html = await lobby(expected);
+      expect(html).toContain(`class="btn" href="${expected === "claimed" ? "/signin" : "/setup"}"`);
+      expect(html).not.toContain(`href="${expected === "claimed" ? "/setup" : "/signin"}"`);
+      await state(expected, { cookie });
+      expect(await lobby(expected, { cookie })).toBe(html);
+      // Both the URL origin and Host fence run before any installation read.
+      for (const path of ["/", "/setup/state"]) {
+        for (const [origin, headers] of [["https://foreign.test", {}], ["https://slate.test", { host: "foreign.test", cookie }]] as const) {
+          const refused = await native(path, headers, "GET", origin);
+          expect(refused.status).toBe(404);
+          expect(refused.headers.get("set-cookie")).toBeNull();
+          expect(await refused.text()).not.toMatch(/synthetic-slate-private|claimed|example\.test/);
+          assertReads(path, false);
+          expect(reads).toEqual([]);
+        }
+        const head = await native(path, { cookie }, "HEAD");
+        expect(head.status).toBe(200);
+        expect(head.headers.get("cache-control")).toContain("no-store");
+        expect(await head.text()).toBe("");
+        assertReads(path);
+      }
+    }
+    } finally { identity.deployment = originalDeployment; }
+    // The deployed SELF door uses the same completed native marker.
+    await env.DB.prepare("UPDATE workspaces SET first_run_completed_at = ? WHERE id = ?").bind("2026-10-31T00:00:00.000Z", workspaceId).run();
+    expect(await (await SELF.fetch("https://slate.test/setup/state")).json()).toEqual({ state: "claimed" });
+    expect(await (await SELF.fetch("https://slate.test/")).text()).toContain('class="btn" href="/signin"');
 
-    const { workspaceId } = await seedWorkspace({ name: "Aurora private workspace" });
-    await env.DB.prepare("UPDATE workspaces SET first_run_completed_at = ? WHERE id = ?").bind(new Date().toISOString(), workspaceId).run();
-    expect(await state()).toEqual({ state: "claimed" });
-    const claimed = await lobby();
-    expect(claimed).toContain('class="btn" href="/signin"');
-    expect(claimed).not.toContain('href="/setup"');
-    // The Lobby reveals the claim and nothing else about the installation.
-    expect(claimed).not.toContain("Aurora private workspace");
-    expect(claimed).not.toMatch(/<script[\s>]/);
   } },
     { name: "landing page: owner identity, description and the credit toggle are read from the owner configuration", run: async () => {
     const withCredit = await withIdentity({ name: "Qualified owner", description: "Owner sentence.", showFooterCredit: true }, renderLanding);

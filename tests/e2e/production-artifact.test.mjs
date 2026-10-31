@@ -209,8 +209,13 @@ test("emitted Worker admission serves configured public doors and protects nativ
     // say so rather than rendering the sample workspace to the open internet.
     for (const gatedPath of ["/health", "/", "/signin", "/docs", "/docs/install", "/app", "/auth/confirm", "/api/auth/capabilities"]) {
       const response = await requestWithHost(baseUrl, gatedPath, "slate.example");
-      assert.equal(response.status, 503, `${gatedPath} on a non-loopback host did not return 503.`);
-      assert.equal(JSON.parse(response.body).code, "CONFIGURATION_INVALID", gatedPath);
+      if (gatedPath === "/") {
+        assert.equal(response.status, 404, "The installed Lobby refuses a foreign Host before configuration or data access.");
+        assert.equal(response.body, "404 Not Found");
+      } else {
+        assert.equal(response.status, 503, `${gatedPath} on a non-loopback host did not return 503.`);
+        assert.equal(JSON.parse(response.body).code, "CONFIGURATION_INVALID", gatedPath);
+      }
       assert.doesNotMatch(response.body, /Jamie Park|jamie@aurora\.example/, gatedPath);
     }
 
