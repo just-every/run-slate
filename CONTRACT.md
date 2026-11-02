@@ -3996,6 +3996,8 @@ SHARE-003 is judged from source commit `f87d19a4e599e68cab8628356d735954ffaa561b
 
 STAT-005 retains the current main judgment below. The native status-profile controls and responsive journeys have been reapplied as supporting implementation and assertions; this replay does not promote the clause or replace its recorded evidence gap.
 
+REV-006 retains main's partial judgment, Evidence and Gap below. The candidate's native numbered-version deletion attribution, content-removal and duplicate-safe replay assertions have been reapplied as supporting implementation and tests in `tests/qualification/ui-convergence/version-deletion-journey.mjs`, `tests/flagship/content/http.test.ts` and `tests/qualification/core/audit-content.test.ts`; this conflict resolution does not promote the clause or replace its newer judgment.
+
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 39 | 187 | 1 | 227 |

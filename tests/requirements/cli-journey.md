@@ -124,3 +124,25 @@ WORK-013 push coverage also uses the existing `real core-wiki and touch-member j
 The existing `preview and bootstrap owner sign-in preserve identity and single-use authority` Workers registration in `tests/flagship/core/preview-owner-signin.test.ts` invokes `tests/flagship/core/owner-bootstrap.case.ts`. It exercises verified bootstrap and a signed owner claim using an ephemeral test signing key. Both doors create the configured deployment name, General, Welcome and the completed marker; workspace, space, title and body edits persist through native HTTP. A real D1 trigger fails the final page-revision insert and the entire bootstrap rolls back, including owner authority. Invalid and foreign claims, replay and replay after membership and session revocation are refused without new records or authority.
 
 The existing emitted admission registration in `tests/e2e/production-artifact.test.mjs` invokes `tests/e2e/managed-first-open.mjs` in push Verify's contract job. It retains native bootstrap and email confirmation, checks the default General space and Welcome page without the wizard, returns a completed owner from setup to the workspace, and persists meaningful workspace, space, title and body edits through reload at 1440 and 390. Only the paid mail edge is substituted; these journeys make no live delivery or hosted-provider claim.
+## Native version deletion
+
+The existing `two people edit at once, lose access mid-edit and restore history at 1440px`
+registration calls `historyJourney` in `./tests/qualification/ui-convergence/two-people-history.mjs`,
+which calls `versionDeletionJourney` in `./tests/qualification/ui-convergence/version-deletion-journey.mjs`.
+The existing `real core-wiki and touch-member journeys at 390px` registration calls the same
+helper for the phone proof. Both registrations run on push Verify through the existing shard assignments.
+
+For REV-006, actual publication review controls create three numbered versions with distinct
+content. An edit-only member sees no delete control and a direct deletion is refused. A full
+member cannot delete either the distinct working revision or the published revision. Under
+autosnapshot, deletion is hidden and refused. Refusals preserve all snapshots and deletion activity.
+Under labelled history, the full member confirms deletion of version 2. After reload its
+content and label are unavailable while its ordinal, deleting member and formatted deletion
+time remain visible. Every other revision, the working body and the published body are retained.
+An exact request replay returns the original receipt, keeps the original attribution and time,
+and creates no second activity entry.
+
+The existing content HTTP registration additionally reads back cleared durable revision content,
+all retained snapshots and the one deletion activity. The existing audit-content registration
+reconciles the tombstone's actor and time with the committed activity receipt under replay.
+These are local native-runtime proofs; they make no provider or release claim.
