@@ -3992,13 +3992,15 @@ Judged from the code and tests at commit `30886e55608596bb44862e4c6942dc1a24ef98
 
 CONT-001 is judged from source commit `12379d17957e993f2aa09d13a8df536aad5a41d8`; owners are read by members only, and a guest's container read carries none. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
+PORT-003 is judged from the candidate's source commit `db2f41ca92ca48d2d421ba25f89082a0fd95448e` (31 October 2026), replayed onto current main with every other clause judgment retained. The candidate adds native queued-reload progress and complete transfer evidence. Exact candidate, branch Verify and guarded landing receipts accompany the handoff.
+
 STAT-005 retains the current main judgment below. The native status-profile controls and responsive journeys have been reapplied as supporting implementation and assertions; this replay does not promote the clause or replace its recorded evidence gap.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 38 | 188 | 1 | 227 |
+| Published | 39 | 187 | 1 | 227 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 54 | 243 | 41 | 338 |
+| All | 55 | 242 | 41 | 338 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4168,7 +4170,7 @@ STAT-005 retains the current main judgment below. The native status-profile cont
 | `IMP-005` | Importing into a page | published | partial | `tests/flagship/federation/federation.test.ts` | Missing a public page-import journey covering Markdown, HTML, Word, PDF, EPUB, plain text and CSV with headings, tables and losses; the cited federation flow invokes import services directly for a narrower document set. |
 | `PORT-001` | Export contents | published | partial | `tests/qualification/erasure-metadata/atomic-custody.test.ts` — "Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export" | Missing a public export journey that populates and opens every promised wiki record family, revisions, grants and original files; the cited erasure flow checks retained import custody through service-level export. |
 | `PORT-002` | Referential restore | published | partial | `tests/qualification/erasure-metadata/atomic-custody.test.ts` — "Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export" | Missing a public empty-install restore journey that opens all restored permanent links, revisions, grants, comments, public slugs and files; the cited erasure flow restores and checks a limited custody fixture through services. |
-| `PORT-003` | Visible jobs | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Export and import show Queued, Running, Completed or Failed with record counts and, on failure, a report naming what failed."<br>No validated CI-run proof for this acceptance point: "A failed job is never shown as complete." |
+| `PORT-003` | Visible jobs | published | done | `tests/qualification/ui-convergence/transfer-jobs-journey.mjs` — "transferJobsJourney", called by "readable exports retain discussions through HTML and Markdown re-import at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2, native export and empty-deployment restore through Queued, Running, Completed and Failed, live progress after a queued reload, persisted counts, safe failure reports, terminal replay, refused failed downloads and completion actions, successful fresh operations and original files. `tests/portability/roundtrip.test.mjs` — "BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment": native late failure, Worker restart, empty destination and staged-file cleanup, then retained-table and original-byte reconciliation after successful retry. | |
 | `PORT-004` | Search rebuild | published | partial | `tests/e2e/imports/preview-undo.test.ts` | Missing an import completion journey that reads canonical search and dirty-generation state and checks the promised search behavior before lazy refresh; the cited reviewed-import flow counts indexed pages but does not check the complete search bar. |
 | `PORT-005` | Access boundary | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a public export/restore journey that checks all secret exclusions, sole active owner and unpublished restored pages, then tries an unsafe activation; the cited test parses historical actors only. |
 | `PORT-006` | Atomic import | published | partial | `tests/qualification/authority/atomic-recovery.test.ts` | Missing a public restore journey that completes and reads a valid restore and refuses a late-failing archive without changing the destination; the cited atomic-recovery test invokes restore services directly. |

@@ -75,22 +75,20 @@ async function stage(state, kind, bytes) {
     if(kind==='restore')await viewer.getByRole('button',{name:'Restore an existing workspace',exact:true}).click();
     await shown({...state,page:viewer},job,'queued');
     await expect(jobPanel(viewer).getByRole('button',{name:'Run queued transfer',exact:true})).toBeEnabled();
-  } finally {await viewer.close();}
-  return {...job,resume};
+  } catch(cause) {resume();await viewer.close();throw cause;}
+  return {...job,resume,viewer};
 }
 
 async function run(state,job,expected,shot) {
   await state.transferGate('arm',job.kind==='export'?'createMultipartUpload':'get');
-  let viewer;
+  const viewer=job.viewer;
   const finished=state.page.waitForResponse(response=>new URL(response.url()).pathname===jobPath(job.id)+'/run'&&response.request().method()==='POST');
   try {
     job.resume();
     await expect.poll(async()=>(await state.transferGate('status')).reached).toBe(true);
     await shown(state,job,'running');
-    // Keep the native run request alive while an independent document reloads its durable receipt.
-    viewer=await state.context.newPage();
-    await viewer.goto(state.page.url(),{waitUntil:'networkidle'});
-    if(job.kind==='restore')await viewer.getByRole('button',{name:'Restore an existing workspace',exact:true}).click();
+    // The reloaded Queued document must follow native progress without a manual refresh.
+    await shown({...state,page:viewer},job,'running');
     await viewer.reload({waitUntil:'networkidle'});
     if(job.kind==='restore')await viewer.getByRole('button',{name:'Restore an existing workspace',exact:true}).click();
     await shown({...state,page:viewer},job,'running');
