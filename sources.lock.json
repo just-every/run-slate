@@ -1013,7 +1013,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "82f562826c26d5fe34c3c354f3d16bc3e2474a2d70032a5c88844ab2b19a3f1c",
+      "sha256": "edc7f1c136add3e1f3025a958115b65b17f457d6b0f7dcd6f8be88760017298f",
       "executable": false
     },
     "DEMO.md": {
@@ -1921,7 +1921,7 @@
       "executable": false
     },
     "management/integration/source-provenance.json": {
-      "sha256": "1138c91c3c3b2eec6555782a372bb05dbee6e8435726cadaf1b26bc84b3cfd54",
+      "sha256": "61bde579ae5f16c1b3860742f9c235c3aca2827089ddf27be834faaadac26641",
       "executable": false
     },
     "migrations/core/0001_knowledge_foundation.sql": {
