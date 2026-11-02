@@ -3994,6 +3994,8 @@ CONT-001 is judged from source commit `12379d17957e993f2aa09d13a8df536aad5a41d8`
 
 STAT-005 retains the current main judgment below. The native status-profile controls and responsive journeys have been reapplied as supporting implementation and assertions; this replay does not promote the clause or replace its recorded evidence gap.
 
+Template preview and retained-copy supporting journeys from candidate `402cb330cfef427b15eb341429bd70c62f934ac7` were replayed linearly onto main `d6dd06516036f5604b139f2c8822d6121087d282`. TMPL-002 and TMPL-003 retain main's partial judgments pending fresh review; all other clause judgments are inherited.
+
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 38 | 188 | 1 | 227 |
