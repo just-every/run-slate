@@ -1461,7 +1461,7 @@ Core · published · **partial**
 1. Deleting the member archives it under `WORK-007` rather than exposing it.
 2. Personal container cannot be shared and is archived on member removal.
 
-**Evidence.** `tests/e2e/imports/real-exports.test.ts`
+**Evidence.** `tests/e2e/imports/real-exports.test.ts`; supporting replay coverage: `tests/qualification/ui-convergence/member-removal-journey.mjs` — memberRemovalJourney, loaded by the existing 1440px outline and 390px tree-filter journeys, adds repeated personal-container reads, refused sharing with unchanged grants, member and owner privacy, destination access after a move, and retained private archival body.
 **Gap.** Missing a personal-container journey that tries another member grant and reads the archived container after member removal; the cited test only parses personal-space metadata.
 
 #### CONT-006 — Bulk actions
