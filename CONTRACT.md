@@ -4000,6 +4000,8 @@ IMP-005 candidate source replayed from `f9473f297817db032e997eef963df8f87ec4c788
 
 HOME-003 retains main's partial Status, Evidence and Gap below. The built-site browser and native anonymous-publication assertions from candidate source `13677894e622de391016968d30bfb15365505320` have been reapplied in source `6eb540a0` as supporting proof: script-free readable sections, reduced motion, fixed light presentation, resource and cookie privacy, nonempty publication privacy at both roots, and withdrawal replay. This replay preserves the recorded judgment rather than promoting the clause. Exact-candidate Verify and guarded landing receipts remain external.
 
+ARCH-004 retains current main’s partial judgment, Evidence and Gap below. The populated archive retention and explicit cascade confirmation implementation and assertions from candidate `92b36ea2ca3f5625fc990af7f5251416346c6c0c` are reapplied as supporting work; this replay does not promote the clause.
+
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 40 | 186 | 1 | 227 |
