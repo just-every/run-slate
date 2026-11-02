@@ -1,5 +1,6 @@
 import {contentQueryJourney} from './content-query-journey.mjs';
 import {publicProfileJourney} from './public-profile-journey.mjs';
+import { resolveThreadsJourney } from './discussions-journey.mjs';
 import { publicationJourney } from './publication-journey.mjs';
 import {unpublishedChangesJourney} from './unpublished-changes-journey.mjs';
 import {pageDetailsJourney} from './page-details-journey.mjs';
@@ -126,6 +127,7 @@ for (const width of [390]) {
       await setupWorkspace(state);
       await treeFilterJourney(state);
       await state.switchIdentity('owner');
+      await withSecondPerson(state, width, people => resolveThreadsJourney(state, people));
       await settingsJourney(state,width);
       await workspaceAuthorityJourney(state,width);
     });

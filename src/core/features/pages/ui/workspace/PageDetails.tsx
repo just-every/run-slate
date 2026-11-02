@@ -47,7 +47,7 @@ export function PageDetails({
         Close details ×
       </button>
       {kind === "details" ? <PageMetadata document={document} revision={revision} reload={reload}/> : kind === "comments" ? (
-        <PageComments title="Comments" document={document} selection={selection} onSent={onCommentSent} />
+        <PageComments title="Comments" document={document} selection={selection} onSent={onCommentSent} onChanged={reload} />
       ) : kind === "history" ? (
         <PageHistory document={document} revision={revision} reload={reload} />
       ) : kind === "share" ? (

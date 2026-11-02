@@ -38,7 +38,7 @@ interface Thread {
   block_id: string | null;
   anchor_revision_id: string | null;
 }
-export function PageComments({ document, selection, onSent, title = "Discussion" }: { document: DocumentView; selection?:PageSelection; onSent?: () => void; title?: string }) {
+export function PageComments({ document, selection, onSent, onChanged, title = "Discussion" }: { document: DocumentView; selection?:PageSelection; onSent?: () => void; onChanged?: () => void; title?: string }) {
   const { member } = useWorkspace();
   const resource = useResource<{ threads: Thread[]; comments: Comment[]; reactions:{id:string;commentId:string;emoji:string;memberId:string;displayName:string}[] }>(
     `/api/comments/page/${document.page.id}`,
@@ -64,6 +64,7 @@ export function PageComments({ document, selection, onSent, title = "Discussion"
     try {
       await mutate(path, value, method);
       await resource.reload();
+      onChanged?.();
     } catch (cause) {
       setError(cause);
       throw cause;

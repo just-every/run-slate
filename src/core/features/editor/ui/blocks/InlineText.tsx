@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import { useContext, type ReactNode } from "react";
+import { ResolvedCommentAnchorsContext } from "./CommentAnchorContext";
 import { cn } from "../../../../ui";
 import type { InlineColour, InlineSpan, RichText } from "../types";
 
@@ -62,7 +63,7 @@ function withMarks(span: InlineSpan, node: ReactNode): ReactNode {
   return out;
 }
 
-function Span({ span }: { span: InlineSpan }) {
+function Span({ span, resolved }: { span: InlineSpan; resolved: boolean }) {
   if (span.mention) return <Mention span={span} />;
 
   let node: ReactNode = withMarks(span,span.status?<span className={cn("inline-block rounded-full border border-line px-2 py-0.5 text-[0.85em] font-medium leading-tight",span.status.colour==='grey'?'bg-sidebar-hover text-ink':colourClass[span.status.colour])}>{span.text}</span>:span.text);
@@ -75,7 +76,9 @@ function Span({ span }: { span: InlineSpan }) {
     );
   }
 
-  if (span.commentAnchorId) {
+  if (span.commentAnchorId && resolved) {
+    node = <span data-comment-anchor={span.commentAnchorId}>{node}</span>;
+  } else if (span.commentAnchorId) {
     // An anchored comment is marked by a highlight *and* an underline, never by
     // colour alone.
     node = (
@@ -91,13 +94,15 @@ function Span({ span }: { span: InlineSpan }) {
   return <>{node}</>;
 }
 
-export function InlineText({ value,canEdit=false }: { value: RichText;canEdit?:boolean }) {
+export function InlineText({ value,canEdit=false,resolvedCommentAnchorIds }: { value: RichText;canEdit?:boolean;resolvedCommentAnchorIds?:readonly string[] }) {
+  const context = useContext(ResolvedCommentAnchorsContext);
+  const resolved = resolvedCommentAnchorIds ?? context;
   return (
     <>
       {value.map((span, index) =>
         span.text.length === 0 && !span.mention ? null : (
           <span key={index} data-inline-span={index} data-slate-atomic-length={span.mention || span.status ? span.text.length : undefined} contentEditable={span.mention || span.status ? false : undefined} style={span.status?{border:0,padding:0,background:"transparent",font:"inherit"}:undefined} data-slate-status={span.status?"":undefined} data-status-colour={span.status?.colour} role={span.status&&canEdit?"button":undefined} tabIndex={span.status&&canEdit?0:undefined} aria-label={span.status&&canEdit?`Edit status label: ${span.text}`:undefined}>
-            <Span span={span} />
+            <Span span={span} resolved={!!span.commentAnchorId && resolved.includes(span.commentAnchorId)} />
           </span>
         ),
       )}

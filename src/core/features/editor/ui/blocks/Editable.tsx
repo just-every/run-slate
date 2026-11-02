@@ -1,4 +1,5 @@
-import type { ElementType } from "react";
+import { useContext, type ElementType } from "react";
+import { ResolvedCommentAnchorsContext } from "./CommentAnchorContext";
 import { renderToStaticMarkup } from "react-dom/server";
 import { richTextToPlain, type RichText } from "../types";
 import { InlineText } from "./InlineText";
@@ -28,7 +29,8 @@ export interface EditableProps {
 export function Editable(props: EditableProps) {
   // Serialize outside the hooked input component: nested server rendering must
   // finish before React enters that component's hook dispatcher.
-  const html = renderToStaticMarkup(<InlineText value={props.value} canEdit={props.canEdit} />) +
+  const resolvedCommentAnchorIds = useContext(ResolvedCommentAnchorsContext);
+  const html = renderToStaticMarkup(<InlineText value={props.value} canEdit={props.canEdit} resolvedCommentAnchorIds={resolvedCommentAnchorIds} />) +
     (richTextToPlain(props.value).endsWith("\n") ? '<br data-slate-caret-placeholder="">' : "");
   return <EditableElement {...props} html={html} />;
 }

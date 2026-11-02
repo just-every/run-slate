@@ -1,3 +1,4 @@
+import { ResolvedCommentAnchorsContext } from "../../../editor/ui/blocks/CommentAnchorContext";
 import { InitialResourcesContext } from "../../../../client/InitialResources";
 import { useFlagshipEnabled } from "../../../../app/ui/LaunchProfile";
 import { useLocation, useNavigate } from "@tanstack/react-router";
@@ -294,7 +295,7 @@ function LoadedPage({
     return()=>window.removeEventListener('pagehide',leaving);
   },[]);
   return (
-    <>
+    <ResolvedCommentAnchorsContext.Provider value={document.resolvedCommentAnchorIds ?? []}>
       <PageTopBar
         trail={[...trail, { label: document.page.title || "Untitled", suffix: document.policyProfile["page.status.v1"] === "verification-only" ? <PageStatusBadge document={document}/> : null }]}
         flagship={flagship}
@@ -420,6 +421,6 @@ function LoadedPage({
           </aside>
         ) : null}
       </div>
-    </>
+    </ResolvedCommentAnchorsContext.Provider>
   );
 }
