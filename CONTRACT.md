@@ -191,7 +191,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 - `DB-003`: *Tier:* Core
 - `DB-004`: *Tier:* Core
 - `DB-005`: *Tier:* Core
-- `DB-006`: *Tier:* Core
+- `DB-006`: *Tier:* Core · *Cites:* BASE-ACCESS-004
 - `DB-007`: *Tier:* Core
 - `DB-008`: *Tier:* Core
 - `DB-009`: *Tier:* Core
@@ -3993,6 +3993,8 @@ Judged from the code and tests at commit `30886e55608596bb44862e4c6942dc1a24ef98
 CONT-001 is judged from source commit `12379d17957e993f2aa09d13a8df536aad5a41d8`; owners are read by members only, and a guest's container read carries none. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
 
 STAT-005 retains the current main judgment below. The native status-profile controls and responsive journeys have been reapplied as supporting implementation and assertions; this replay does not promote the clause or replace its recorded evidence gap.
+
+DB-006 retains the current main judgment below. Typed saved-view grouping, native move controls and their HTTP and browser assertions are reapplied as supporting implementation and proof; this replay does not promote the clause or replace its recorded evidence gap.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |

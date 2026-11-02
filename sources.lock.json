@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "8958080d83ab6f7bc9bbeb0d8b7dba93f9060a662a4ac91aeb558d403e381fa1",
+      "sha256": "b0168f13c547f9d21ca12c8b85a0434213137aee1b62a68020d89ffe1e5e4a59",
       "executable": false
     },
     "DEMO.md": {
@@ -11232,7 +11232,7 @@
       "executable": false
     },
     "tests/flagship/structured/grouping-http.ts": {
-      "sha256": "1fb7606ed1aa3cd5081858efa7378af6ecc94db11873ccf27b360c4158840420",
+      "sha256": "a1d73e062abfe1aff1ed288e1a68e621ebdb4e48cb47afc47853e8a1603fc70d",
       "executable": false
     },
     "tests/flagship/structured/http.test.ts": {
@@ -11856,7 +11856,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/database-grouping-journey.mjs": {
-      "sha256": "07392440329ff82a45343f40ba6394231951dc372f7cfed0d34b6beb580c9939",
+      "sha256": "de4d7773e308c7167d80b856b7c64b598dd757891bbe3a72e1b114d7e0c70b5f",
       "executable": false
     },
     "tests/qualification/ui-convergence/database-journey.mjs": {
@@ -12300,7 +12300,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "9b71a866e75aad7d90ee86a90d5ccacc6da136c3e0c496b9997fb4bde24cd845",
+      "sha256": "02cacbf43f45a49dab10f5a4c55820aaf93e69e0b1cbde9f894e917e51b6bc14",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
