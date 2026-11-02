@@ -46,6 +46,7 @@ import { withSecondPerson, call } from './two-people-support.mjs';
 import { concurrentEditingJourney } from './two-people-editing.mjs';
 import { accessChangeJourney } from './two-people-access.mjs';
 import { historyJourney } from './two-people-history.mjs';
+import {versionProfileJourney, versionProfileScreens} from './version-profile-journey.mjs';
 import { databaseJourney } from './database-journey.mjs';
 import { recordDetailJourney } from './record-detail-journey.mjs';
 import { reviewRequestJourney } from './review-request-journey.mjs';
@@ -97,6 +98,7 @@ for (const width of [390, 1440]) {
         await chatJourney(state, width);
         await step('STAT-005 — status profiles preserve vocabulary and page revisions', () => statusProfileJourney(state, width));
         if (width === 390) {
+          await versionProfileScreens(state);
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
           await templateCaptureJourney(state);
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
@@ -201,6 +203,7 @@ for (const width of [1440]) {
         await step('different blocks, same block, title and unreachable server', () => concurrentEditingJourney(state, people));
         await step('removed, narrowed and expired access with unsaved typing', () => accessChangeJourney(state, people, width));
         await step('restore writes a new revision; citations resolve to theirs', () => historyJourney(state, people));
+        await step('version profiles retain saves, publication comments, status and history controls', () => versionProfileJourney(state, people));
       });
     });
   });
