@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "8958080d83ab6f7bc9bbeb0d8b7dba93f9060a662a4ac91aeb558d403e381fa1",
+      "sha256": "b31790a3b9213c37d189b305e55e80fca8bd71e5deb204936342dd2b4cf27897",
       "executable": false
     },
     "DEMO.md": {
@@ -11432,7 +11432,7 @@
       "executable": false
     },
     "tests/qualification/authority/import-safety.test.ts": {
-      "sha256": "2c9276770bf1f5b1e2c96212627252b8bbe94154e96a026fb0916bd9e648faed",
+      "sha256": "b129ae9057e9d4da2e11556e08f8246bae9fd1fa64c87c95a31f207c3c8c5e1f",
       "executable": false
     },
     "tests/qualification/authority/learned-provenance.test.ts": {
@@ -12276,7 +12276,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "4632359e043e4905e2a6e59921405db2f260d5ba4df24b83cbfabdeee8d48ef2",
+      "sha256": "7609b39cc9a47db9918b4745b53d795fee3ec2a783085f945600dd5d3f315ee8",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12292,7 +12292,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "a9bfdb72ca0d1cfb9210d49711f0f206251866dcc78cdf94ccca5081485cf746",
+      "sha256": "e182da74b3f21e9d7e292d9c1eadb39be0f4b1f2b83ea798bb80e6eb02b748b1",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
