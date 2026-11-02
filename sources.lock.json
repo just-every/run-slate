@@ -12168,7 +12168,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/template-preview-journey.mjs": {
-      "sha256": "182750eb234b0b427156df055339222451fb6eb65498aa06162b68e977e2d882",
+      "sha256": "709a75865244f78fa70372b554d03ef326428d74792850301ebfd1545b8498ea",
       "executable": false
     },
     "tests/qualification/ui-convergence/template-scope-journey.mjs": {
