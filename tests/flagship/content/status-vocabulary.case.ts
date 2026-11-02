@@ -74,7 +74,8 @@ export async function statusVocabularyCase() {
     const beforeRevocation=await entries();
     // Revoke the exact token through its digest, independent of session ordering.
     const {sessionDigest}=await import('../../../src/core/platform/auth/token');
-    await env.DB.prepare('UPDATE sessions SET revoked_at=? WHERE token_digest=?').bind(new Date().toISOString(),await sessionDigest(String(env.SESSION_SECRET),revocable.split('=')[1]!)).run();
+    if(!env.SESSION_SECRET)throw new Error('The session fixture requires its configured signing secret.');
+    await env.DB.prepare('UPDATE sessions SET revoked_at=? WHERE token_digest=?').bind(new Date().toISOString(),await sessionDigest(env.SESSION_SECRET,revocable.split('=')[1]!)).run();
     const refused=await request('POST','/api/status',own,revocable);expect(refused.status).toBe(401);
     expect((await entries()).length).toBe(saved.length+1);
     expect(await entries()).toEqual(beforeRevocation);
