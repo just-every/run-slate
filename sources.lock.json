@@ -10868,7 +10868,7 @@
       "executable": false
     },
     "tests/flagship/content/status-vocabulary.case.ts": {
-      "sha256": "d0b02e9955cad29fa9346c9c30ad1d5f143ff9e55a79c8d73acc1065ef36fab9",
+      "sha256": "e501b99c797af4dad451081235f4a69faea14dc52ac4075e409cba95511dd661",
       "executable": false
     },
     "tests/flagship/content/structure-save-labels.case.ts": {
@@ -12208,7 +12208,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/status-vocabulary-journey.mjs": {
-      "sha256": "33257a007b117cffe8793503c1a539dbf5332bc6b96f39b19a67f06afdb8bf4e",
+      "sha256": "a0d6c7d270eaa113d291ceaad45971238a6d45c3c5d4c807f2f379ad3a07f1e7",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
