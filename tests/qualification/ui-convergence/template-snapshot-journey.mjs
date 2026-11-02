@@ -84,13 +84,15 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
     const listing = (await api(`/api/pages?containerId=${containerId}`)).items;
     async function visit(id, parent) {
       const document = await api(`/api/pages/${id}`);
+      const listed = listing.find(item => item.id === id);
+      assert.ok(listed, 'Every copied page remains present in the chosen destination.');
       assert.equal(document.page.containerId, containerId);
       assert.equal(document.parentPageId, parent);
       const children = [];
       for (const child of listing.filter(item => item.parentPageId === id)) children.push(await visit(child.id, id));
       return { id, title: document.page.title, properties: document.properties, blocks: document.blocks,
         page: document.page, workingRevisionId: document.workingRevisionId, publishedRevisionId: document.publishedRevisionId,
-        parentPageId: document.parentPageId, children };
+        parentPageId: document.parentPageId, treePosition: listed.treePosition, children };
     }
     return visit(rootId, parentId);
   }
