@@ -7128,7 +7128,7 @@
       "executable": false
     },
     "src/core/features/imports/append.ts": {
-      "sha256": "7e36cfb1c726dc2470efa28bb322864473411a69129cd6ca97d82f32f8252f33",
+      "sha256": "dbb6c1a311e2172e04351caf074ecc2506f6e719d8fe6348269e7a495d9a23dd",
       "executable": false
     },
     "src/core/features/imports/apply-review.ts": {
@@ -7148,7 +7148,7 @@
       "executable": false
     },
     "src/core/features/imports/blocks.ts": {
-      "sha256": "c997ba34abf486ac2f89f3d706ff4f48f93ee723ca1cec6d44e757709dc696ce",
+      "sha256": "54afaf9443f6d56a6acd01da0518c80e2515d5cbc3e7a11e877be6c4c6858557",
       "executable": false
     },
     "src/core/features/imports/cancel-preparation.ts": {
@@ -7240,7 +7240,7 @@
       "executable": false
     },
     "src/core/features/imports/csv.ts": {
-      "sha256": "8beefca2350dae70beed158793bd83114de410c7defe42a7a456f1323510b20b",
+      "sha256": "b9230fc0f520ab175edb901790c1be47b4b477fa497c80f28b2807db36e51fc5",
       "executable": false
     },
     "src/core/features/imports/docx-tables.ts": {
@@ -7272,7 +7272,7 @@
       "executable": false
     },
     "src/core/features/imports/generic.ts": {
-      "sha256": "70eee21bea98e556e5b5facc28b384659ba30aba17854802bdf3c2dc2fc20478",
+      "sha256": "7c8420a92f8f78fc7bfa0f69bc0aa46ac2572909fad4e5bdf2e3ef17af97c790",
       "executable": false
     },
     "src/core/features/imports/HANDOVER.md": {
@@ -7408,7 +7408,7 @@
       "executable": false
     },
     "src/core/features/imports/persist.ts": {
-      "sha256": "edbe24a42751ec9d673687aa89dd60ab81e68c8a6f42f333d1b5281003d25595",
+      "sha256": "dbe6ee4808f7e25cd62d6029ad37d64f4a6caae9e58d69dc64ee2c56e7ff5749",
       "executable": false
     },
     "src/core/features/imports/portable-blocks.ts": {
@@ -10943,8 +10943,12 @@
       "sha256": "81cd600048024b69ad6f951d772ed176201a397a8ce907e1db98d803cc6106cf",
       "executable": false
     },
+    "tests/flagship/federation/document-import-journey.ts": {
+      "sha256": "43b5b7444b8b65707e6d5595e7f33686a47a77c288d9a2aee1f071e185d44183",
+      "executable": false
+    },
     "tests/flagship/federation/federation.test.ts": {
-      "sha256": "7d395d971893ac5e8b51dad251c5a8ab763aa2c34700f0c640435f42147df450",
+      "sha256": "d124362ab24c9f4691de5bae6934f9ba4defa7fbe9d76ff273aad6e759c2abc6",
       "executable": false
     },
     "tests/flagship/federation/fixtures/PROVENANCE.md": {
@@ -12276,7 +12280,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "4632359e043e4905e2a6e59921405db2f260d5ba4df24b83cbfabdeee8d48ef2",
+      "sha256": "6f4265e64becb9086838cb98a2dc0db3654be0edb8abfd67a920d85056aa65b9",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12292,7 +12296,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "a9bfdb72ca0d1cfb9210d49711f0f206251866dcc78cdf94ccca5081485cf746",
+      "sha256": "13705465a2b15e9c6d5c00fd05b03af0224b1d028348617a10b451e0dd4d2451",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
