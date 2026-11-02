@@ -6,6 +6,18 @@ import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import type { Container } from "./ContainerWorkspace";
 import { ContainerSharing } from "./ContainerSharing";
 import { VerificationRulesPanel } from "../../../page-status/rules/ui/VerificationRulesPanel";
+const visibilityOptions = [
+  ["default", "Default — Workspace grants admit members; others need a named grant."],
+  ["open", "Open — Workspace grants admit the team; others need a named grant."],
+  ["closed", "Closed — Granted people and groups may see and join."],
+  ["private", "Private — Granted people and groups may see and join."],
+] as const;
+const externalSettings = [
+  ["guestAccess", "Guest access"],
+  ["publicLinkAccess", "Public link access"],
+  ["anonymousAccess", "Anonymous access"],
+] as const;
+
 export function ContainerSettings({
   container,
   onSaved,
@@ -24,26 +36,40 @@ export function ContainerSettings({
   if (!container.permissions.canManage)
     return <p>You may read this space. Its owners manage its settings.</p>;
   return (
-    <section>
+    <section aria-label="Space settings">
       <h4>Space settings</h4>
+      {classLed && container.visibility !== "personal" ? (
+        <section aria-label="Space visibility">
+          <h4>Visibility</h4>
+          <p>{visibilityOptions.find(([value]) => value === container.visibility)?.[1]}</p>
+          <p>Current grants decide who may see and join. A workspace grant admits workspace members at any visibility; guests need a named grant and allowed guest access.</p>
+          <button className="secondary-button" onClick={() => start("access")}>Visibility &amp; public access</button>
+        </section>
+      ) : null}
       <ContainerWatchers id={container.id}/>
       <div className="action-row">
         <button className="secondary-button" onClick={() => start("details")}>Edit details</button>
         {container.visibility !== "personal" ? (
           <>
-            <button className="secondary-button" onClick={() => start("access")}>
-              {classLed ? "Visibility & public access" : "External access"}
-            </button>
             <button className="secondary-button" onClick={() => start("archive")}>
               {container.archivedAt ? "Restore space" : "Archive space"}
             </button>
           </>
         ) : (
-          <p>Your personal space stays private.</p>
+          <p>Your personal space stays private. Only you may see or join it.</p>
         )}
       </div>
       {container.visibility !== "personal" ? (
         classLed ? <details className="space-access-details"><summary>Manage access</summary><ContainerSharing id={container.id}/></details>:<ContainerSharing id={container.id}/>
+      ) : null}
+      {!classLed && container.visibility !== "personal" ? (
+        <section className="settings-panel" aria-label="External access">
+          <h4>External access</h4>
+          <dl className="settings-facts">{externalSettings.map(([setting, label]) => (
+            <div key={setting}><dt>{label}</dt><dd>{container[setting] === "allowed" ? "Allowed within workspace policy" : "Forbidden"}</dd></div>
+          ))}</dl>
+          <button className="secondary-button" onClick={() => start("access")}>External access</button>
+        </section>
       ) : null}
       <VerificationRulesPanel containerId={container.id} />
       {action ? (
@@ -127,20 +153,14 @@ export function ContainerSettings({
               {classLed ? <label>
                 Visibility
                 <select name="visibility" defaultValue={container.visibility}>
-                  {["default", "open", "closed", "private"].map((value) => (
-                    <option key={value}>{value}</option>
+                  {visibilityOptions.map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
                   ))}
                 </select>
               </label> : null}
-              {(
-                ["guestAccess", "publicLinkAccess", "anonymousAccess"] as const
-              ).map((setting, index) => (
+              {externalSettings.map(([setting, label]) => (
                 <label key={setting}>
-                  {
-                    ["Guest access", "Public link access", "Anonymous access"][
-                      index
-                    ]
-                  }
+                  {label}
                   <select name={setting} defaultValue={container[setting]}>
                     <option value="allowed">
                       Allowed within workspace policy
