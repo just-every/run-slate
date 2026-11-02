@@ -43,9 +43,10 @@
         "SHARE-007",
         "BLOCK-008",
         "CONT-007",
-        "STAT-001"
+        "STAT-001",
+        "WEB-003"
       ],
-      "reason": "Preserves separately asserted cases of the same public flow. LIFE-005 support performs published title and body reads, editor changes, republish, read-only discard refusal, lossless discard and duplicate-safe replay through native routes. Full LIFE-005 browser acceptance is the unpublishedChangesJourney in the existing responsive core journeys; the other named clauses retain supporting scope. STAT-001 support runs statusVocabularyCase through native bootstrap and authenticated routes under both profiles: complete seeded records, owner mutations, retained pages, explicit duplicate-safe bulk changes, unchanged non-owner refusals and revoked-session refusal. Full responsive controls are statusVocabularyJourney in the existing settings callers."
+      "reason": "Preserves separately asserted cases of the same public flow. LIFE-005 support performs published title and body reads, editor changes, republish, read-only discard refusal, lossless discard and duplicate-safe replay through native routes. Full LIFE-005 browser acceptance is the unpublishedChangesJourney in the existing responsive core journeys; the other named clauses retain supporting scope. STAT-001 support runs statusVocabularyCase through native bootstrap and authenticated routes under both profiles: complete seeded records, owner mutations, retained pages, explicit duplicate-safe bulk changes, unchanged non-owner refusals and revoked-session refusal. Full responsive controls are statusVocabularyJourney in the existing settings callers. WEB-003 native support runs anonymousReadJourney through published pages, retained revisions, comments and analytics: populated public bytes survive distinguishable working changes, private references and operator identities are absent, visits reconcile to anonymous rows with no member identity, and revoked reads add no views. The existing responsive core journeys supply the browser, network, cookie and unloaded-provider proof."
     },
     {
       "file": "tests/flagship/content/http.test.ts",

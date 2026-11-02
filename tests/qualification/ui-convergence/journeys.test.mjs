@@ -1,6 +1,7 @@
 import {contentQueryJourney} from './content-query-journey.mjs';
 import {publicProfileJourney} from './public-profile-journey.mjs';
 import { publicationJourney } from './publication-journey.mjs';
+import { publicPageJourney } from './public-page-journey.mjs';
 import {unpublishedChangesJourney} from './unpublished-changes-journey.mjs';
 import {pageDetailsJourney} from './page-details-journey.mjs';
 import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} from './synced-custody.mjs';
@@ -110,6 +111,7 @@ for (const width of [390, 1440]) {
           }
         }
       } finally {await touch?.close();}
+      await step('published snapshot privacy and anonymous accounting', () => publicPageJourney(state));
     }, {}, { scheduled: true, slack: true });
   });
 }
