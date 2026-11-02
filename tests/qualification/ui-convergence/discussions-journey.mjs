@@ -148,20 +148,31 @@ export async function resolveThreadsJourney(state, people) {
   await transition(inline, false);
   for (const thread of [inline, pageThread]) {
     await transition(thread, true);
-    const query = thread.kind === 'inline' ? 'escalation' : 'checklist';
+    const needle = thread.kind === 'inline' ? 'Morgan reviewed the inline discussion.' : 'checklist';
+    const query = encodeURIComponent(thread.kind === 'inline' ? `"${needle}"` : needle);
     const search = await ok(people.bob.context, origin, 'GET', `/api/search?kind=comment-thread&q=${query}`);
     assert.deepEqual(search.items.map(item => item.id), [thread.id]);
     assert.equal(search.total, 1);
-    assert.ok(search.items[0].snippet.includes(query));
+    assert.ok(search.items[0].snippet.includes(needle));
     assert.equal(new URL(search.items[0].href, origin).searchParams.get('thread'), thread.id);
     await bob.goto(`${origin}/app/search?kind=comment-thread&q=${query}`, { waitUntil: 'networkidle' });
-    const result = bob.locator('.search-results a').filter({ hasText: query });
+    const result = bob.locator('.search-results a').filter({ hasText: needle });
     await expect(result).toHaveCount(1);
     await result.click();
     await expect(panel(thread)).toContainText(thread.kind === 'inline' ? 'Please confirm the escalation owner.' : 'The handover checklist is ready for the next shift.');
     await expect(panel(thread).getByRole('button', { name: 'Reopen', exact: true })).toBeVisible();
     await retainedState(thread, true);
     await bob.screenshot({ path: `.artifacts/ui-convergence/resolve-${bob.viewportSize().width}-${thread.kind}.png`, fullPage: true });
+    if (thread.kind === 'inline') {
+      await bob.locator('.detail-close').click();
+      const anchor = bob.locator(`.page-document [data-comment-anchor="${anchorId}"]`);
+      await anchor.scrollIntoViewIfNeeded();
+      await expect(anchor).toBeInViewport({ ratio: 1 });
+      await expect(bob.locator('.page-document mark[data-comment-anchor]')).toHaveCount(0);
+      await bob.screenshot({ path: `.artifacts/ui-convergence/resolve-${bob.viewportSize().width}-body.png`, fullPage: true });
+      await openPageAction(bob, 'Comments');
+      await expect(panel(thread).getByRole('button', { name: 'Reopen', exact: true })).toBeVisible();
+    }
     await transition(thread, false);
     await transition(thread, true);
     console.log(`PROBE COMM-007 retained ${thread.kind}: native search ${query} -> exact retained thread, reopen and resolve persisted`);
@@ -171,21 +182,27 @@ export async function resolveThreadsJourney(state, people) {
   await expect(bob.getByText('Read-only discussion.', { exact: true })).toBeVisible();
   await expect(bob.locator('.comment-thread').getByRole('button', { name: /^(Resolve|Reopen)$/ })).toHaveCount(0);
   await expect(bob.getByRole('button', { name: 'Resolve all open threads', exact: true })).toHaveCount(0);
+  assert.equal((await ok(people.bob.context, origin, 'GET', `/api/pages/${pageId}`)).permissions.level, 'view');
   const beforeRefusal = await api(`/api/comments/page/${pageId}`);
+  const activityBeforeRefusal = await api('/api/activity?action=comments.resolve&limit=100');
   for (const thread of beforeRefusal.threads) {
     for (const resolved of [false, true]) {
       const refused = await call(people.bob.context, origin, 'POST', `/api/comments/thread/${thread.id}/resolve`, {
         operationKey: randomUUID(), expectedRevisionId: thread.revision_id, resolved,
       });
-      assert.equal(refused.status, 403);
+      assert.equal(refused.status, 404);
+      assert.equal(refused.body.code, 'NOT_FOUND');
       assert.deepEqual(await api(`/api/comments/page/${pageId}`), beforeRefusal);
     }
   }
   for (const capture of captures) {
     const replay = await call(people.bob.context, origin, 'POST', `/api/comments/thread/${capture.thread.id}/resolve`, capture.input);
-    assert.equal(replay.status, 403, 'Revoked comment authority cannot replay a captured transition.');
+    assert.equal(replay.status, 404, 'Revoked comment authority cannot replay a captured transition.');
+    assert.equal(replay.body.code, 'NOT_FOUND');
   }
-  assert.equal((await call(people.bob.context, origin, 'POST', `/api/comments/page/${pageId}/resolve-all`, { operationKey: randomUUID() })).status, 403);
+  assert.equal((await call(people.bob.context, origin, 'POST', `/api/comments/page/${pageId}/resolve-all`, { operationKey: randomUUID() })).status, 404);
   assert.deepEqual(await api(`/api/comments/page/${pageId}`), beforeRefusal, 'Viewer mutations and captured replays change nothing.');
-  console.log('PROBE COMM-007 authority: viewer resolve, reopen, resolve-all and captured transitions -> 403 with byte-equivalent retained discussions');
+  assert.deepEqual(await api('/api/activity?action=comments.resolve&limit=100'), activityBeforeRefusal, 'Refused transitions write no activity.');
+  assert.deepEqual((await api(`/api/pages/${pageId}`)).blocks, bodyBefore.blocks);
+  console.log('PROBE COMM-007 authority: viewer resolve, reopen, resolve-all and captured transitions -> 404 with byte-equivalent retained discussions');
 }
