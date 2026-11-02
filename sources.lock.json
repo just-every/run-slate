@@ -11840,7 +11840,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/container-settings-journey.mjs": {
-      "sha256": "944835f75a36067c32994236691dcf5c5ff54da5c217f4c1eb4bc78587da23de",
+      "sha256": "04523a54a9be289b1f6d3b16308fe944a1817a317ea0ce6accf7d18161db8bc8",
       "executable": false
     },
     "tests/qualification/ui-convergence/content-query-journey.mjs": {
@@ -12280,7 +12280,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "4632359e043e4905e2a6e59921405db2f260d5ba4df24b83cbfabdeee8d48ef2",
+      "sha256": "9b10ab153815c7490654d28e71bd57f2001cb7475f0593fa797c8dc2a4f774eb",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
