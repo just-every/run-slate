@@ -1,3 +1,4 @@
+import { databaseGroupingJourney } from './database-grouping-journey.mjs';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
@@ -85,4 +86,5 @@ export async function databaseJourney(state) {
   assert.equal(csv, '"Name","Notes"\r\n"Selected, ""quoted"" record","Fresh, ""quoted""\nsecond line"\r\n');
   assert.equal((await api(base + '/records/' + record.pageId)).values[keep.id], note);
   await recordDetailJourney(state, page.viewportSize().width);
+  await databaseGroupingJourney(state);
 }
