@@ -11524,7 +11524,7 @@
       "executable": false
     },
     "tests/qualification/core/archive-retention-proof.ts": {
-      "sha256": "2f901a7cd6c00e15f2c953a9ca88e6bb794a4f4e23d293e88d46657384a3a932",
+      "sha256": "8026fa14265267d315d3405f55dd98fae38bec433039681d6e25540bf944fd57",
       "executable": false
     },
     "tests/qualification/core/audit-content.test.ts": {
@@ -12372,7 +12372,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "31efe6e57c36b2a9d4d1c690c93e259014b35ff38f2def1d7772ae9b31bfabc9",
+      "sha256": "e592f89c5412e39534d04f71368082b9f6b3441bfae02ca43f427b7aadb1ae08",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12388,7 +12388,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "2bc30a570f4e7107f83234721665cd7e8eab8e6346d92143c526e2646f7d3471",
+      "sha256": "0d15efb1b7502824def5298f8d4fee54ab3d2f227c7fdcee369d47c95dcd9fe5",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
