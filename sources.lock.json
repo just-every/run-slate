@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "8958080d83ab6f7bc9bbeb0d8b7dba93f9060a662a4ac91aeb558d403e381fa1",
+      "sha256": "a615f163cf44fbdafecbf45b2ff07ca60901c918ca21b95b5da0dc60b0de4b81",
       "executable": false
     },
     "DEMO.md": {
@@ -12248,7 +12248,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/workspace-identity-journey.mjs": {
-      "sha256": "ea306190066879e644ef848d3430fdd654508800b9eb32ca19cbc9c9bf8c269b",
+      "sha256": "6bd717d701bfeba164eb60e65517a5083132915de29017f1e402e52b1febf6c2",
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {
@@ -12280,11 +12280,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "4632359e043e4905e2a6e59921405db2f260d5ba4df24b83cbfabdeee8d48ef2",
+      "sha256": "427149fa983440f80810f0e75a4b36a643fa06e65aeb6fcf0b7da9647a0adc3b",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "4ba3dfceec74ba607b1fce5bb7952605cc9e4bee95394a979fa91f197c30eb18",
+      "sha256": "9d42457f31c3815b5d6f2ca8b2609766f40a196b8e0ba6f172b00b881987f283",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
@@ -12296,7 +12296,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "a9bfdb72ca0d1cfb9210d49711f0f206251866dcc78cdf94ccca5081485cf746",
+      "sha256": "427125c3a2e718f757382f7f866b074353b3916e298c5234dd4f6d790d88f0a1",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
