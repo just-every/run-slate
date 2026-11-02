@@ -3994,6 +3994,8 @@ CONT-001 is judged from source commit `12379d17957e993f2aa09d13a8df536aad5a41d8`
 
 STAT-005 retains the current main judgment below. The native status-profile controls and responsive journeys have been reapplied as supporting implementation and assertions; this replay does not promote the clause or replace its recorded evidence gap.
 
+TREE-001 retains current main’s partial judgment and recorded evidence gap. The candidate’s native tree structure journey and readable deep-node styling are retained as supporting implementation and assertions; this replay does not promote the clause.
+
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 38 | 188 | 1 | 227 |
