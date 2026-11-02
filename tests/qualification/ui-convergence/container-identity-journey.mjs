@@ -144,7 +144,7 @@ async function showIdentity({page,origin},space,tree,width) {
     const parent=a.closest('li').parentElement.closest('li')?.querySelector(':scope > .tree-row a');
     const own=new URL(a.href).pathname;return [own,parent?new URL(parent.href).pathname:null];
   })));
-  const href=id=>`/app/pages/${id}`;
+  const href=id=>id===tree.database.pageId?`/app/databases/${tree.database.id}`:`/app/pages/${id}`;
   const expectedDom=Object.fromEntries(Object.entries(tree.parents).map(([id,parent])=>[href(id),parent?href(parent):null]));
   assert.deepEqual(await rendered(),expectedDom,'The rendered tree matches canonical identifiers and parentage.');
   await page.reload({waitUntil:'networkidle'});
