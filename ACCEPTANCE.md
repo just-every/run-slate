@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 54 | 243 | 35 | 332 |
+| Core | 55 | 242 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 54 | 243 | 41 | 338 |
+| Full target | 55 | 242 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -873,7 +873,7 @@ Core · published · **partial** · Cites BASE-ROLE-001
 
 #### SHARE-003 — Inheritance
 
-Core · published · **partial** · Cites BASE-ROLE-001
+Core · published · **done** · Cites BASE-ROLE-001
 
 **Requirement.** A page inherits its parent's grants, and a child added later inherits the parent's grants at that moment.
 
@@ -882,8 +882,8 @@ Core · published · **partial** · Cites BASE-ROLE-001
 2. Removing a restriction restores inheritance rather than copying the parent's grants.
 3. Children inherit at creation; restriction shown on descendants; removing it restores inheritance.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A page inherits its parent's grants, and a child added later inherits the parent's grants at that moment."<br>No validated CI-run proof for this acceptance point: "A page may add grants or be restricted, and a restriction is shown on the page and on every descendant it affects."<br>No validated CI-run proof for this acceptance point: "Removing a restriction restores inheritance rather than copying the parent's grants."
+**Evidence.** `tests/qualification/ui-convergence/sharing-inheritance-journey.mjs` — "inheritanceChainJourney", called last by "shareJourney" in `tests/qualification/ui-convergence/sharing-journey.mjs`, which "real core-wiki and touch-member journeys at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs` run through the native Share panel and an independent reader session: acceptance 1 and 3 — a parent is granted before its children exist, each later-created child, grandchild and sibling is readable by the reader at the parent's level the moment it is created with no grant row of its own, and its sharing projection lists exactly the traversed page and space grants with their origin names; one intermediate page is restricted through its native control, the restriction is reported and shown on that page ("Restricted: this page does not inherit") and on every descendant ("Restricted by Chain B") with only the restricting page's grants inherited, while its sibling subtree is unchanged and the reader loses exactly the restricted subtree; a person who manages a descendant but cannot read the restricting ancestor sees neither its title nor its identifier; acceptance 2 and 3 — restoring through the native control returns every descendant to the ancestor and space grants with the full stored grant-row snapshot equal to the one before the restriction (no copy, no rewrite), the reader returns through traversal, and narrowing then widening the ancestor grant moves every descendant's level on the next request and in the descendant's reloaded Share panel while no descendant row is written. `tests/qualification/ui-convergence/sharing-journey.mjs` — "grantCorpusJourney": direct grants, restriction and restoration of a page with its own grants.
+**Gap.** None.
 
 #### SHARE-004 — General access
 
