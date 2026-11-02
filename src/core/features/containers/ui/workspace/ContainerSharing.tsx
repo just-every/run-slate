@@ -18,6 +18,7 @@ type Grant = {
   expiresAt: string | null;
   revokedAt: string | null;
   principalLabel: string;
+  principalMemberKind: "member" | "guest" | null;
 };
 type Principal = {kind: "member" | "group"; id: string; label: string; memberKind?: "member" | "guest"};
 export function ContainerSharing({ id }: { id: string }) {
@@ -37,17 +38,21 @@ export function ContainerSharing({ id }: { id: string }) {
         ? "Space members"
         : grant.principalLabel;
   const principals = grants.data?.principals ?? [];
+  const principalTab = (grant: Grant) =>
+    grant.principalKind === "group" ? "group"
+      : grant.principalKind === "member" ? (grant.principalMemberKind ?? principals.find(person=>person.kind==="member"&&person.id===grant.principalId)?.memberKind ?? "member")
+      : "member";
   return (
-    <section>
-      <h4>Who has access</h4>{grantLed?<nav className="tabs" aria-label="Access principals">{["member","group","guest"].map(value=><button key={value} aria-pressed={tab===value} onClick={()=>setTab(value)}>{value}s</button>)}</nav>:null}
+    <section aria-label="Space grants">
+      <h4>Who has access</h4>{grantLed?<nav className="tabs" aria-label="Access principals">{["member","group","guest"].map(value=><button key={value} aria-pressed={tab===value} onClick={()=>setTab(value)}>{value[0].toUpperCase()+value.slice(1)}s</button>)}</nav>:null}
       <RequestState
         loading={grants.loading}
         error={grants.error}
         retry={grants.reload}
       >
         <ul className="settings-list">
-          {grants.data?.items.filter(grant=>!grantLed||(grant.principalKind==="member"?principals.find(person=>person.kind==="member"&&person.id===grant.principalId)?.memberKind??"member":grant.principalKind)===tab).map((grant) => (
-            <li key={grant.id}>
+          {grants.data?.items.filter(grant=>!grantLed||principalTab(grant)===tab).map((grant) => (
+            <li key={grant.id} data-grant-id={grant.id}>
               <span>
                 {name(grant)} · {grant.revokedAt ? "Revoked" : grant.level}
                 {grant.expiresAt
@@ -122,6 +127,9 @@ export function ContainerSharing({ id }: { id: string }) {
                 Everyone in workspace
               </option>
               <option value={`container:${id}`}>Space members</option>
+              {editing !== "new" && editing.principalMemberKind === "guest" && !principals.some(person=>person.kind==="member"&&person.id===editing.principalId) ? (
+                <option value={`member:${editing.principalId}`}>{editing.principalLabel}</option>
+              ) : null}
               {principals.filter(person=>person.kind==="member").map((person) => (
                 <option key={person.id} value={`member:${person.id}`}>
                   {person.label}

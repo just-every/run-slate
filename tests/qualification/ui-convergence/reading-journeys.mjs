@@ -1,6 +1,7 @@
 import {statusVocabularyJourney} from './status-vocabulary-journey.mjs';
 import { shortcutReferenceJourney } from './shortcut-reference-journey.mjs';
 import assert from 'node:assert/strict';
+import {containerAccessProfileJourney} from './container-access-profile-journey.mjs';
 import {themeJourney} from './theme-journey.mjs';
 import {activityContextJourney} from './activity-context-journey.mjs';
 import {guestConsoleJourney} from './guest-console-journey.mjs';
@@ -98,6 +99,7 @@ export async function settingsJourney(state, width) {
   await accessible(page, 'space settings');
   if(width===1440) await statusVocabularyJourney(state,width);
   await workspaceIdentityJourney(state, width);
+  await containerAccessProfileJourney(state, width);
   await guestConsoleJourney(state);
   await themeJourney(state, width);
   if(width===1440)await activityContextJourney(state);
