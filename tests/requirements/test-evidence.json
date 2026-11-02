@@ -43,9 +43,10 @@
         "SHARE-007",
         "BLOCK-008",
         "CONT-007",
-        "STAT-001"
+        "STAT-001",
+        "STAT-002"
       ],
-      "reason": "Preserves separately asserted cases of the same public flow. LIFE-005 support performs published title and body reads, editor changes, republish, read-only discard refusal, lossless discard and duplicate-safe replay through native routes. Full LIFE-005 browser acceptance is the unpublishedChangesJourney in the existing responsive core journeys; the other named clauses retain supporting scope. STAT-001 support runs statusVocabularyCase through native bootstrap and authenticated routes under both profiles: complete seeded records, owner mutations, retained pages, explicit duplicate-safe bulk changes, unchanged non-owner refusals and revoked-session refusal. Full responsive controls are statusVocabularyJourney in the existing settings callers."
+      "reason": "Preserves separately asserted cases of the same public flow. LIFE-005 support performs published title and body reads, editor changes, republish, read-only discard refusal, lossless discard and duplicate-safe replay through native routes. Full LIFE-005 browser acceptance is the unpublishedChangesJourney in the existing responsive core journeys; the other named clauses retain supporting scope. STAT-001 support runs statusVocabularyCase through native bootstrap and authenticated routes under both profiles: complete seeded records, owner mutations, retained pages, explicit duplicate-safe bulk changes, unchanged non-owner refusals and revoked-session refusal. Full responsive controls are statusVocabularyJourney in the existing settings callers. STAT-002 supporting assertions cover native member set, replace and clear, replay, one activity entry, unchanged body, exact search and persisted-query membership and viewer refusal; CONTRACT.md retains main's partial judgment."
     },
     {
       "file": "tests/flagship/content/http.test.ts",

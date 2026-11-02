@@ -3996,6 +3996,8 @@ SHARE-003 is judged from source commit `f87d19a4e599e68cab8628356d735954ffaa561b
 
 STAT-005 retains the current main judgment below. The native status-profile controls and responsive journeys have been reapplied as supporting implementation and assertions; this replay does not promote the clause or replace its recorded evidence gap.
 
+STAT-002 retains the current main judgment below. The candidate native member page-status, replay, activity, search and persisted-query journeys have been reapplied as supporting assertions; this replay does not promote the clause or replace its recorded evidence gap.
+
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 39 | 187 | 1 | 227 |
