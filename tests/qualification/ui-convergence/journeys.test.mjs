@@ -1,5 +1,6 @@
 import {contentQueryJourney} from './content-query-journey.mjs';
 import {publicProfileJourney} from './public-profile-journey.mjs';
+import { duplicatePageJourney } from './duplicate-page-journey.mjs';
 import { publicationJourney } from './publication-journey.mjs';
 import {unpublishedChangesJourney} from './unpublished-changes-journey.mjs';
 import {pageDetailsJourney} from './page-details-journey.mjs';
@@ -259,6 +260,8 @@ for (const width of [1440]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await step('TREE-005 — create in place names root and child destinations', () => createInPlaceJourney(state));
+      await state.switchIdentity('owner');
+      await withSecondPerson(state, width, people => step('PAGE-005 — populated pages duplicate only content and selected children', () => duplicatePageJourney(state, people)));
       await state.switchIdentity('owner');
       await step('review, publish, edit and cancel a scheduled publication', () => publicationJourney(state));
       await step('WEB-007 — public profiles retain exposure and current publication authority', () => publicProfileJourney(state));
