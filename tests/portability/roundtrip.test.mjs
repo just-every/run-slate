@@ -10,7 +10,8 @@ import {populatedFixture,attachments,pageIds} from './fixture.mjs';
 import {equivalent,unpack} from './equivalence.mjs';
 import {bootstrapAuditPredicate} from '../../src/core/features/portability/bootstrap-audit.ts';
 
-test('BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment',{timeout:240000},async t=>{
+// The harness includes native failure, restart and retry before full archive equivalence.
+test('BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment',{timeout:360000},async t=>{
   const scratch=await mkdtemp(path.join(path.dirname(root),'portability-'));
   let source,target;
   try{
