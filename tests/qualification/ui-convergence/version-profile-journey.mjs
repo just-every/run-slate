@@ -116,6 +116,7 @@ export async function versionProfileJourney(state, people) {
       assert.equal(await row.locator('time').getAttribute('datetime'), numbered.find(item => item.id === id).createdAt);
     }
     await expect(page.getByRole('button', {name: 'Delete this intermediate revision', exact: true})).toBeVisible();
+    await expect(page.getByRole('button', {name: 'Restore this revision', exact: true})).toBeVisible();
     await people.shot('alice', 'labelled history retains comments status and deletion');
     await accessible(page, 'labelled version history');
 
@@ -148,6 +149,9 @@ export async function versionProfileScreens(state) {
   const directory = `${root}/.artifacts/ui-convergence/`;
   try {
     await profile(state, 'draft-then-publish', 'labelled');
+    await ok(context, origin, 'POST', '/api/status', {operationKey: randomUUID(), key: 'phone-version-review', label: 'Ready for review', color: '#cc9900', requiresVerification: false});
+    const current = await ok(context, origin, 'GET', `/api/pages/${pageId}`);
+    await ok(context, origin, 'POST', `/api/status/page/${pageId}`, {operationKey: randomUUID(), expectedRevisionId: current.page.revisionId, statusKey: 'phone-version-review'});
     const publish = async label => {
       const current = await ok(context, origin, 'GET', `/api/pages/${pageId}`);
       return (await ok(context, origin, 'POST', `/api/pages/${pageId}/publish`, {operationKey: randomUUID(), expectedRevisionId: current.page.revisionId, label})).value.revisionId;
