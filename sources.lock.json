@@ -12024,7 +12024,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "cb6b1b4f0f7a02d964c7ae3f0cf68a0ef0d2b6487d2c7d35f59efbca3c804e16",
+      "sha256": "fdfd7215db612d6e3265ab832c10c1d0736b700135f4aecd22b9dc75392371ac",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12284,7 +12284,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "2108863111d667b54970adf6e0448a1ea676a849acf6f11d8a79433296c8d6ca",
+      "sha256": "5e605b34af460b5515e84f2fe40571848b8410945d679df42ccb2d64941b1b29",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {

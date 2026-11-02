@@ -100,7 +100,6 @@ for (const width of [390, 1440]) {
         if (width === 390) {
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
           await templateCaptureJourney(state);
-          await step('TMPL-003 — native snapshot copies survive template changes on a phone', () => templateSnapshotJourney(state));
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
           // One phone smoke visits the main screens; functional journeys use desktop
           // except where an assertion distinguishes the phone layout or touch input.
@@ -401,3 +400,12 @@ for (const width of [1440, 390]) {
     });
   });
 }
+
+// Snapshot retention owns its request budget instead of inheriting the complete
+// member journey's already-used native rate-limit bucket.
+test('TMPL-003 — native snapshot copies survive template changes at 390px', { timeout: 240000 }, async () => {
+  await withWorkspace({ width: 390, height: 844 }, 'core-wiki', async state => {
+    await setupWorkspace(state);
+    await templateSnapshotJourney(state);
+  });
+});
