@@ -191,7 +191,7 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
 
   {
     // Layout recovery still relies on server-side field, authority and lock checks.
-    const base = `/api/databases/${body.value.id}`;
+    let base = "";
     const call = async (method: string, path: string, actor = cookie, input?: unknown) => {
       const response = await SELF.fetch("http://localhost" + path, {
         method, headers: {cookie: actor, origin: "http://localhost", "content-type": "application/json"},
@@ -199,6 +199,10 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
       });
       return {status: response.status, body: await response.json() as any};
     };
+    // A separate database keeps the layout proof independent of the populated record above.
+    const layoutDatabase = await call("POST", "/api/databases", cookie, {operationKey: "case:layout-database", containerId, title: "Layout database"});
+    expect(layoutDatabase.status).toBe(201);
+    base = `/api/databases/${layoutDatabase.body.value.id}`;
     const structure = async () => (await call("GET", base)).body;
     const blank = await structure();
     const makeView = (layout: string) => ({
@@ -222,7 +226,7 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
       const saved = await call("POST", base + "/fields", cookie, {
         operationKey: `case:create-${field.id}`, expectedRevisionId: current.database.revision_id, field,
       });
-      expect(saved.status).toBeLessThan(300);
+      expect(saved.status, JSON.stringify(saved.body)).toBeLessThan(300);
     }
     const record = (await call("POST", base + "/records", cookie, {
       operationKey: "case:layout-record", title: "Response planning", values: {stage: "Open", due: "2026-03-15"},
