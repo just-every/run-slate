@@ -12228,7 +12228,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-journey.mjs": {
-      "sha256": "4a9d01676d1b6ab093b46b53e4693f92f200bd5a17a617e1898fe72429895074",
+      "sha256": "b5ad8a4ff8d1823901556a584c2f7043c3111b2bc64b91a19f725d25a25f5bc5",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-refresh.mjs": {
