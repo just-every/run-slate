@@ -21,14 +21,30 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
   const width = page.viewportSize().width;
   const receipts = [];
   async function nativeReceipt(route, submit) {
-    const pending = page.waitForResponse(response => response.request().method() === 'POST' && new URL(response.url()).pathname === route);
-    await submit();
-    const response = await pending;
-    assert.ok(response.ok(), `${route}: ${response.status()} ${await response.text()}`);
-    const result = await response.json();
-    assert.ok(result.receipt.revisionId && result.receipt.operationKey);
-    receipts.push({ route, ...result });
-    return result;
+    // Read the genuine Worker response before returning its unchanged bytes to
+    // the browser. Apply navigates immediately and Chromium can discard its
+    // response buffer before an external observer reads the committed receipt.
+    const match = url => url.pathname === route;
+    let captured;
+    const capture = async request => {
+      if (request.request().method() !== 'POST') return request.continue();
+      const response = await request.fetch({ maxRetries: 0 });
+      captured = { status: response.status(), body: await response.json() };
+      await request.fulfill({ response });
+    };
+    await page.route(match, capture);
+    try {
+      const pending = page.waitForResponse(response => response.request().method() === 'POST' && new URL(response.url()).pathname === route);
+      await submit();
+      const response = await pending;
+      assert.ok(response.ok(), `${route}: ${captured.status} ${JSON.stringify(captured.body)}`);
+      const result = captured.body;
+      assert.ok(result.receipt.revisionId && result.receipt.operationKey);
+      receipts.push({ route, ...result });
+      return result;
+    } finally {
+      await page.unroute(match, capture);
+    }
   }
   const sourceSpace = (await api('/api/containers')).items.find(item => item.name === 'Handbook');
   const destination = await ok(context, origin, 'POST', '/api/containers', {
@@ -41,21 +57,27 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
     { title: 'Escalation checklist', parent: 1, icon: '📋', typeface: 'default', fullWidth: true },
     { title: 'Close incident', parent: 0, icon: '✅', typeface: 'default', fullWidth: false },
   ];
-  const sourceIds = [];
+  const sourceIds = [], expectedSources = [];
   for (const [index, definition] of definitions.entries()) {
     const heading = randomUUID();
-    const created = await ok(context, origin, 'POST', '/api/pages', {
+    const input = {
       operationKey: randomUUID(), containerId: sourceSpace.id,
       parentPageId: definition.parent === null ? null : sourceIds[definition.parent],
       title: definition.title, treePosition: `snapshot-${index}`,
       properties: { icon: definition.icon, labels: [`snapshot-${index}`, 'template-proof'],
-        cover: { kind: 'gallery', id: 'ocean' }, typeface: definition.typeface, smallText: false, fullWidth: definition.fullWidth },
+        cover: { kind: 'gallery', id: 'ocean' }, typeface: definition.typeface, smallText: index % 2 === 1, fullWidth: definition.fullWidth },
       blocks: [
         { id: heading, blockType: 'heading', content: { text: [{ text: `${definition.title} procedure` }], level: 2 }, treePosition: 'a' },
         { id: randomUUID(), parentBlockId: heading, blockType: 'paragraph', content: { text: [{ text: `Retained instruction ${index}`, marks: ['bold'] }] }, treePosition: 'b' },
         { id: randomUUID(), blockType: 'paragraph', content: { text: [{ text: `Independent detail ${index}` }] }, treePosition: 'c' },
       ],
-    });
+    };
+    const created = await ok(context, origin, 'POST', '/api/pages', input);
+    const stored = await api(`/api/pages/${created.value.pageId}`);
+    assert.equal(stored.page.title, definition.title);
+    assert.deepEqual(copiedProperties(stored.properties), copiedProperties(input.properties));
+    assert.deepEqual(blocksWithoutIds(stored.blocks), blocksWithoutIds(input.blocks));
+    expectedSources.push(input);
     sourceIds.push(created.value.pageId);
   }
   async function readTree(rootId, parentId = null, containerId = destinationId) {
@@ -73,6 +95,7 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
     return visit(rootId, parentId);
   }
   const authored = await readTree(sourceIds[0], null, sourceSpace.id);
+  assert.deepEqual(flatten(authored).map(item => item.id), sourceIds, 'The source tree contains every seeded page in order, including the grandchild.');
   await page.goto(`${origin}/app/pages/${sourceIds[0]}`, { waitUntil: 'networkidle' });
   await page.getByRole('button', { name: 'More', exact: true }).click();
   await page.getByRole('menuitem', { name: 'Save as template', exact: true }).click();
@@ -90,9 +113,9 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
   const choice = () => page.locator('.template-choice').filter({ has: page.getByRole('heading', { name: 'Immutable incident template', exact: true }) });
   async function gallery(state = 'active') {
     await page.goto(origin + '/app/templates', { waitUntil: 'networkidle' });
-    await page.getByLabel('Show', { exact: true }).selectOption(state);
+    await page.getByRole('combobox', { name: /^Show/ }).selectOption(state);
     await choice().click();
-    await expect(page.locator('.template-preview h2')).toHaveText('Immutable incident template');
+    await expect(page.locator('.template-preview').getByRole('heading', { name: 'Immutable incident template', exact: true, level: 2 })).toBeVisible();
   }
   const usedIds = new Set();
   function retainSourceIds(tree) {
@@ -122,6 +145,7 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
   const copies = [];
   for (let useIndex = 0; useIndex < 2; useIndex++) {
     await gallery();
+    if (useIndex === 0) await accessible(page, 'custom template snapshot before use');
     await page.getByRole('button', { name: 'Use this template', exact: true }).click();
     const use = page.getByRole('dialog', { name: 'Use this template', exact: true });
     await use.getByRole('combobox', { name: /^Create in/ }).selectOption({ label: 'Snapshot destination' });
@@ -158,7 +182,7 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
   await gallery();
   await page.getByRole('button', { name: 'Update from a page', exact: true }).click();
   const update = page.getByRole('dialog', { name: 'Update this template', exact: true });
-  await update.getByLabel('Source page', { exact: true }).selectOption(replacement.value.pageId);
+  await update.locator('select[name="sourcePageId"]').selectOption(replacement.value.pageId);
   const updated = await nativeReceipt('/api/templates', () => update.getByRole('button', { name: 'Save updated template', exact: true }).click());
   assert.notEqual(updated.receipt.revisionId, saved.receipt.revisionId);
   assert.deepEqual(snapshotValues((await api(`/api/templates/${templateId}`)).snapshot), snapshotValues(await readTree(replacement.value.pageId, null, sourceSpace.id)));
@@ -182,7 +206,7 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
   assert.deepEqual(await readTree(sourceIds[0], null, sourceSpace.id), authored, 'Template use and management leave every original source page unchanged.');
   await accessible(page, 'template snapshot retained after deletion');
   await writeFile(`.artifacts/ui-convergence/template-snapshot-${width}.json`, JSON.stringify({
-    width, templateId, snapshot, receipts, copies, retained,
+    width, templateId, expectedSources, snapshot, receipts, copies, retained,
   }, null, 2));
   console.log(`PROBE TMPL-003 snapshot: native apply twice -> two independent four-page trees with complete body and properties at ${width}px`);
   console.log(`PROBE TMPL-003 retention: native update, archive and delete -> both copied trees, values, identifiers and revisions unchanged after reload at ${width}px`);
