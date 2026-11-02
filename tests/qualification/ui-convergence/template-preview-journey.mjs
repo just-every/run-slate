@@ -92,7 +92,9 @@ async function saveCorpus(state) {
 async function openPreview(state, item, inspect) {
   const { page, origin } = state;
   await page.goto(origin + '/app/templates', { waitUntil: 'networkidle' });
+  await page.getByRole('button', { name: 'Filter templates', exact: true }).click();
   await page.getByLabel('Category', { exact: true }).fill('Preview proof');
+  await page.keyboard.press('Escape');
   await page.locator('.template-choice').filter({ has: page.getByRole('heading', { name: item.retained.title, exact: true }) }).click();
   const preview = page.locator('.template-preview');
   await expect(preview.getByRole('heading', { name: item.retained.title, exact: true, level: 2 })).toBeVisible();
