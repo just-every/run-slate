@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "82f562826c26d5fe34c3c354f3d16bc3e2474a2d70032a5c88844ab2b19a3f1c",
+      "sha256": "74ebead9fbc56b6d4669ce0ad91e651ae6d3033f78582532b91cdc2f00e119c1",
       "executable": false
     },
     "DEMO.md": {
@@ -10792,7 +10792,7 @@
       "executable": false
     },
     "tests/flagship/content/http.test.ts": {
-      "sha256": "4343eb541cbe484936fdc18a6f9eb767393d20aef15a4884abbc6ab7d20e7218",
+      "sha256": "56aba65dd458ff352ce41dbb202ecdbe6701ed21a204ba43ac219322f7a4dced",
       "executable": false
     },
     "tests/flagship/content/journeys.ts": {
@@ -11832,7 +11832,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
-      "sha256": "637efdb5ebd64f8c68bf1010877475a2a73719c199e5bdedf215161d8c4af602",
+      "sha256": "dc70ca58e6c469eb47e699a33874a4a566b65bde18098fec475d107891fb9b7d",
       "executable": false
     },
     "tests/qualification/ui-convergence/container-identity-journey.mjs": {
@@ -12024,7 +12024,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "46243df2bea4af96cddd120c187781085279e0c2a51cc4901f87c6b1a8d08c05",
+      "sha256": "1734f503d7d10f80dbbdc0b4314095246c981c44aa04a78f1c1b70c39730dab4",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12280,7 +12280,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "4632359e043e4905e2a6e59921405db2f260d5ba4df24b83cbfabdeee8d48ef2",
+      "sha256": "822954e3c6f5b5e64483178dc93d5a20dd31be9c0bcb3a96d8f8e61537f41aaa",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12296,7 +12296,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "a9bfdb72ca0d1cfb9210d49711f0f206251866dcc78cdf94ccca5081485cf746",
+      "sha256": "dbe877359f457912149c9353860d95437b0c7b2b38cfd23161169637d63d2ba0",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
