@@ -354,8 +354,8 @@ function LoadedPage({
               }
             }}
           />
-          </div>
           {newPage && document.permissions.canEdit ? <script dangerouslySetInnerHTML={{__html:newPageArrivalScript}}/> : null}
+          </div>
           <PageReadMetadata document={document} />
           {recovered.current && title!==savedTitle ? <SaveStatus state="unsaved" recoveredDraft onRetry={()=>void saveTitle()}/> : null}
           {titleFailure ? <SaveStatus state="failed" failureMessage={titleFailure} onRetry={() => void saveTitle()} /> : null}

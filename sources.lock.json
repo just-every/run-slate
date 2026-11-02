@@ -8452,7 +8452,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageWorkspace.tsx": {
-      "sha256": "06c3d4f466ed5c7fd8a5d27657dfdec051912eee6115fc20819291d81800bd1d",
+      "sha256": "81ee23842fdc3ae403a8f2333ab440c0a9551f9516ff47f4aa8f3cc1246a7817",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PublicationReviewPanel.tsx": {
