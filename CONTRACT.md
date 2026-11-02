@@ -3996,6 +3996,8 @@ SHARE-003 is judged from source commit `f87d19a4e599e68cab8628356d735954ffaa561b
 
 STAT-005 retains the current main judgment below. The native status-profile controls and responsive journeys have been reapplied as supporting implementation and assertions; this replay does not promote the clause or replace its recorded evidence gap.
 
+COMM-007 retains the current main judgment and evidence gap below. The native resolve/reopen implementation and `resolveThreadsJourney` in `tests/qualification/ui-convergence/discussions-journey.mjs` are reapplied as supporting assertions: comment-level transitions on another author's inline and page threads, retained comments and reactions, undecorated stable inline anchors, panel and search navigation, and viewer mutation/replay refusals. This replay does not promote the clause; exact candidate and Verify receipts remain in the branch handoff.
+
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 39 | 187 | 1 | 227 |
