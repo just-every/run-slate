@@ -115,7 +115,9 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
   const choice = () => page.locator('.template-choice').filter({ has: page.getByRole('heading', { name: 'Immutable incident template', exact: true }) });
   async function gallery(state = 'active') {
     await page.goto(origin + '/app/templates', { waitUntil: 'networkidle' });
+    await page.getByRole('button', { name: 'Filter templates', exact: true }).click();
     await page.getByRole('combobox', { name: /^Show/ }).selectOption(state);
+    await page.keyboard.press('Escape');
     await choice().click();
     await expect(page.locator('.template-preview').getByRole('heading', { name: 'Immutable incident template', exact: true, level: 2 })).toBeVisible();
   }

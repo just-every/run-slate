@@ -12176,7 +12176,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/template-snapshot-journey.mjs": {
-      "sha256": "ad9ee1a206476203caee5c503c5361b8a0b6cf51821f911ba02938783e932b01",
+      "sha256": "3bdeb88b2e8c246e5e05c52db4f04fc27d1e3ea64a6e47c736253547bd091ac1",
       "executable": false
     },
     "tests/qualification/ui-convergence/theme-journey.mjs": {
