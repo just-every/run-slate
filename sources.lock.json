@@ -6208,7 +6208,7 @@
       "executable": false
     },
     "src/core/features/containers/ui/workspace/ContainerWorkspace.tsx": {
-      "sha256": "5b7b8e56053e42d116ee7638cf49722f069f0200284fbad2bc1fcb0e8b30e20d",
+      "sha256": "1d73c448cd52b2f6bcc14a322a6372a7b55e2713b623e1c509a03f3008c55aaf",
       "executable": false
     },
     "src/core/features/databases/content-plan.ts": {
@@ -9548,7 +9548,7 @@
       "executable": false
     },
     "src/core/features/templates/ui/workspace/TemplatesWorkspace.tsx": {
-      "sha256": "847fa732b1d23c351641833060279fc514229b155be1d52721540acdb2d2ab77",
+      "sha256": "ec2833a7e3ba55f0318dca18c64d38f61a60c1010f7a51f1ef2ca089510cc94d",
       "executable": false
     },
     "src/core/features/templates/validation.ts": {
@@ -11839,6 +11839,10 @@
       "sha256": "e90a01ae8d7ff0b37effb4bcb02436b06c47f67b480deca5c0ff399e82940b60",
       "executable": false
     },
+    "tests/qualification/ui-convergence/container-settings-journey.mjs": {
+      "sha256": "944835f75a36067c32994236691dcf5c5ff54da5c217f4c1eb4bc78587da23de",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/content-query-journey.mjs": {
       "sha256": "2ab2f8440057bdbfd69f3590febfb549008a4000e4639746da674581ad5d99cf",
       "executable": false
@@ -12024,7 +12028,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "46243df2bea4af96cddd120c187781085279e0c2a51cc4901f87c6b1a8d08c05",
+      "sha256": "527b944f3c738b0e669953b68fe203a757d979f5dfa013b45fd3ca62c48ef516",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12196,7 +12200,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-management-journey.mjs": {
-      "sha256": "2c4de1ceaa0d10c7f648abef6e772d2821ed96bb4ecddc5eebb10681714487b5",
+      "sha256": "aa412a796868f870ce6c1f23c822c3a280c67f306408e273ae5c28b15cd69ba8",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-operator-journey.mjs": {
