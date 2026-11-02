@@ -8,7 +8,7 @@ import {call,ok} from './two-people-support.mjs';
 /** Existing settings registrations own this identity flow; the phone shows its responsive proof. */
 export async function workspaceIdentityJourney(state, width) {
   const {page,context,origin,api}=state;
-  const name='Response team', mark='🌿';
+  const name='Field operations', mark='🌿';
   await page.goto(origin+'/app/settings?section=workspace',{waitUntil:'networkidle'});
   const before=await api('/api/workspace');
   await page.getByRole('button',{name:'Edit workspace & policies',exact:true}).click();
@@ -34,6 +34,7 @@ export async function workspaceIdentityJourney(state, width) {
     await expect(view.getByRole('button',{name:/^(Create|Add|New) workspace$/i})).toHaveCount(0);
     await expect(view.getByRole('link',{name:/^(Create|Add|New) workspace$/i})).toHaveCount(0);
     await view.locator('.workrow').click();
+    await view.evaluate(()=>{document.activeElement?.blur();window.scrollTo(0,0);});
     await accessible(view,label);
     if(width===390)await view.getByRole('button',{name:'Close navigation',exact:true}).first().click();
   }

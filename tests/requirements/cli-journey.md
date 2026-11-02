@@ -124,3 +124,37 @@ WORK-013 push coverage also uses the existing `real core-wiki and touch-member j
 The existing `preview and bootstrap owner sign-in preserve identity and single-use authority` Workers registration in `tests/flagship/core/preview-owner-signin.test.ts` invokes `tests/flagship/core/owner-bootstrap.case.ts`. It exercises verified bootstrap and a signed owner claim using an ephemeral test signing key. Both doors create the configured deployment name, General, Welcome and the completed marker; workspace, space, title and body edits persist through native HTTP. A real D1 trigger fails the final page-revision insert and the entire bootstrap rolls back, including owner authority. Invalid and foreign claims, replay and replay after membership and session revocation are refused without new records or authority.
 
 The existing emitted admission registration in `tests/e2e/production-artifact.test.mjs` invokes `tests/e2e/managed-first-open.mjs` in push Verify's contract job. It retains native bootstrap and email confirmation, checks the default General space and Welcome page without the wizard, returns a completed owner from setup to the workspace, and persists meaningful workspace, space, title and body edits through reload at 1440 and 390. Only the paid mail edge is substituted; these journeys make no live delivery or hosted-provider claim.
+
+## One workspace identity journey
+
+WORK-001's `workspaceIdentityJourney` in
+`tests/qualification/ui-convergence/workspace-identity-journey.mjs` is called by
+`settingsJourney` inside the existing registrations “page outline follows headings
+and navigates long pages at 1440px” and “space tree title filtering preserves
+ancestors, access and expansion at 390px” in
+`tests/qualification/ui-convergence/journeys.test.mjs`. The desktop journey saves
+a different name and mark through Settings, reads both persisted values, sees
+both in the operator header immediately and after reload, reopens both saved
+controls, then signs in a fresh native member session through the substituted
+mail network edge. That member sees the same identity and cannot change it;
+refusal preserves the saved workspace. Its setup route redirects to the app.
+The existing phone registration shows the edited Settings and visible operator
+identity with the navigation open. Slate's card mark remains visible beside the
+workspace identity. No browser registration is added.
+
+`ownerBootstrapCase` in `tests/flagship/core/owner-bootstrap.case.ts`, loaded by
+“preview and bootstrap owner sign-in preserve identity and single-use authority”
+in `tests/flagship/core/preview-owner-signin.test.ts`, supplies WORK-001 acceptance
+2 and 3 and the sole-workspace ownership proof through native HTTP. An empty
+store accepts the configured owner's bootstrap once; replay returns 409 without
+another session or a changed workspace, member, container or page. Real container,
+page, database record and comment creations are read through their public APIs
+and checked in populated canonical D1 snapshots: containers and pages use the
+sole workspace, records agree through their page and database, and comments agree
+through their thread, page and author. POSTs to the workspace creation paths
+return 404, and repeating first-run completion returns 409 without changing those
+snapshots. A separately emptied store accepts a genuinely ES256-signed native
+owner claim, then refuses claim replay and token bootstrap with unchanged records.
+The existing native first-run replay and WORK-013 custody assertions remain
+loaded and unchanged. These are local native runtime proofs with no hosted,
+live mailbox or provider acceptance claimed.
