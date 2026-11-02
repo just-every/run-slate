@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "d10dd05193c88d5f314150df9d4e1e515f69bb09c9f79d4b0532daea5d90017f",
+      "sha256": "1536eba45a16bfee51c79f00dc1dec484ff408e1ee2d6add87ad066b17a16611",
       "executable": false
     },
     "DEMO.md": {
@@ -12388,7 +12388,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "0d15efb1b7502824def5298f8d4fee54ab3d2f227c7fdcee369d47c95dcd9fe5",
+      "sha256": "0085b7f96634c91795168efc1ee421c1315bf90edfbdbfc2e5550e078a0fab60",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
