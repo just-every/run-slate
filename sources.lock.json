@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "8958080d83ab6f7bc9bbeb0d8b7dba93f9060a662a4ac91aeb558d403e381fa1",
+      "sha256": "6beeb86e73c3b9f0a4026d385858e9485864b9e1856f98bd391638f68045668e",
       "executable": false
     },
     "DEMO.md": {
@@ -12092,7 +12092,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "6159d2fa6eb17529a62c4b5e8b0ae93561de1ee2a28c865037917729966df20a",
+      "sha256": "1136054f9f8374617cf97844d81829aa0cff8b39bfd4b9417efd6d5c13fdfcf1",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-detail-journey.mjs": {
@@ -12109,6 +12109,10 @@
     },
     "tests/qualification/ui-convergence/saml-journey.mjs": {
       "sha256": "a4d843735fc1f991585f39ff1a0fa5a53edb9ff4a6d24d752ad7e19dc15e93ac",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/saved-search-journey.mjs": {
+      "sha256": "ca120ca7a11e2c2b9d8b28b285fdc3d30e5a510e51c970aa308f296ef10aa4b0",
       "executable": false
     },
     "tests/qualification/ui-convergence/scim-access-journey.mjs": {
@@ -12276,7 +12280,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "4632359e043e4905e2a6e59921405db2f260d5ba4df24b83cbfabdeee8d48ef2",
+      "sha256": "4eeeb6c91cad4eb5830efbeabd43376299011a9ea8b76f45a386bd22e290a63b",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12292,7 +12296,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "a9bfdb72ca0d1cfb9210d49711f0f206251866dcc78cdf94ccca5081485cf746",
+      "sha256": "1b5e9ce4887af4f83894eb32ece3d4ca1ae3a459435430e8d1850f1fdfa9846c",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
