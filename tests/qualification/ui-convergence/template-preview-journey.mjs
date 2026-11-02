@@ -170,18 +170,24 @@ export async function templatePreviewJourney(state) {
     const copy = await readCopy(state, copyId, item.expected, item.spaceId);
     assert.equal((await api('/api/pages')).items.filter(page => !before.includes(page.id)).length, 4, 'Apply creates exactly the previewed four-page tree.');
     assert.deepEqual(await api(`/api/templates/${item.id}`), item.retained);
+    const unchangedCopy = async () => {
+      assert.deepEqual(await readCopy(state, copyId, item.expected, item.spaceId), copy);
+      await page.reload({ waitUntil: 'networkidle' });
+      await expect(page.getByRole('textbox', { name: 'Page title', exact: true })).toHaveValue(item.expected.title);
+      await expect(page.locator('[data-page-editor]')).toContainText(item.expected.blocks[1].content.text[0].text);
+    };
     // The next same-file clause: a later template revision, archive and deletion leave the native copy intact.
     const replacement = (await api('/api/pages')).items.find(page => page.title === 'Welcome');
     let changed = await ok(context, origin, 'POST', '/api/templates', { operationKey: randomUUID(), id: item.id,
       expectedRevisionId: item.retained.revisionId, sourcePageId: replacement.id, includeChildren: false,
       containerId: null, title: 'Replaced session template', description: 'A different capture.', category: 'Preview proof' });
     assert.equal((await api(`/api/templates/${item.id}`)).snapshot.title, 'Welcome');
-    assert.deepEqual(await readCopy(state, copyId, item.expected, item.spaceId), copy);
+    await unchangedCopy();
     for (const action of ['archive', 'delete']) {
       changed = await ok(context, origin, 'POST', `/api/templates/${item.id}/change`, { operationKey: randomUUID(), expectedRevisionId: changed.value.revisionId, action });
       const listed = (await api(`/api/templates?state=${action === 'archive' ? 'archived' : 'deleted'}`)).items;
       assert.ok(listed.some(template => template.id === item.id), `The ${action} action is retained in its native collection.`);
-      assert.deepEqual(await readCopy(state, copyId, item.expected, item.spaceId), copy);
+      await unchangedCopy();
     }
   }
 }
