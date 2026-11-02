@@ -100,6 +100,10 @@ export async function searchFiltersJourney(state) {
  await page.keyboard.press('Escape');
  await expect(page.locator('.search-results a')).toHaveCount(0);
  await expect(page.getByRole('region',{name:'Retained answer',exact:true})).toHaveCount(0);
+ assert.equal((await api('/api/search?'+new URLSearchParams({q:missing}))).total,0,'No matching content exists before the explicit create action.');
+ // Scoping the empty search to one space makes that space the destination of the explicit create action.
+ await page.getByRole('button',{name:'Filter results',exact:true}).click();await source.selectOption(space);await page.keyboard.press('Escape');
+ await expect(empty.getByText(/^Filters:/)).toContainText('containerId: '+space);await expect(input).toHaveValue(missing);
  const before=new Set((await api('/api/pages')).items.map(item=>item.id));
  await page.getByRole('button',{name:'Create a page titled “'+missing+'”',exact:true}).click();
  await expect(page).toHaveURL(/\/app\/pages\/[^/?]+/);
@@ -108,8 +112,10 @@ export async function searchFiltersJourney(state) {
  const added=(await api('/api/pages')).items.filter(item=>!before.has(item.id));
  assert.equal(added.length,1,'One create action makes exactly one page.');assert.equal(added[0].id,createdId);
  const created=(await api('/api/pages/'+createdId)).page;assert.equal(created.title,missing);
+ assert.equal(created.containerId,space,'Creating from scoped empty search honors its writable space.');
  assert.equal((await api('/api/containers')).items.find(item=>item.id===created.containerId)?.permissions.canCreatePages,true,'The created page belongs to an authorized destination.');
  await page.reload({waitUntil:'networkidle'});await expect(page.getByRole('textbox',{name:'Page title',exact:true})).toHaveValue(missing);
+ await expect(page.getByRole('textbox',{name:'Page body',exact:true})).toBeVisible();
  const found=await api('/api/search?'+new URLSearchParams({q:'"'+missing+'"'}));
  assert.equal(found.total,1);assert.deepEqual(found.items.map(item=>item.id),[createdId]);
  await accessible(page,'no-results action creates exactly one readable page with the query title');
