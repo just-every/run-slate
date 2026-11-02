@@ -5312,7 +5312,7 @@
       "executable": false
     },
     "src/core/app/request-handler.ts": {
-      "sha256": "3dab3326c01822c4b981d2a697de6a9fbec5a49b6c8ad32f5da8910ffc67d2bf",
+      "sha256": "31d6e0d1797cced1330f9d08fdc140e04520b89b86aca61bfdf5c529c8e769a5",
       "executable": false
     },
     "src/core/app/request-hash.ts": {
@@ -10544,7 +10544,7 @@
       "executable": false
     },
     "tests/e2e/landing.test.ts": {
-      "sha256": "d2b4d6f88e1f29bf09a2ebf6ec68ce794fd36b10b61217a0db8b398bce5fcf7c",
+      "sha256": "c8925344b8d59069949918854f62d83f09b6d6f59777b387633342471899ce1b",
       "executable": false
     },
     "tests/e2e/local-outbox.node.test.mts": {
@@ -10560,7 +10560,7 @@
       "executable": false
     },
     "tests/e2e/managed-first-open.mjs": {
-      "sha256": "9dc0d0dfb917139ece78b7bbb383a16e7b838493a8b238c339b84f4802d06c6b",
+      "sha256": "9f565aa41f5fe366b691d12ca3305250b16d69fc8b256a305ec0090f33b14bc7",
       "executable": false
     },
     "tests/e2e/navigation/create-in-place.test.ts": {
@@ -10620,7 +10620,7 @@
       "executable": false
     },
     "tests/e2e/production-artifact.test.mjs": {
-      "sha256": "68574ba7e54c0c13d981f8724d0c5448efa301cc471acca5aae8bfebecc591f2",
+      "sha256": "715af135ea76f1bb457c53ea445ecd3b556c517b22851e92c8e295c478d2a30f",
       "executable": false
     },
     "tests/e2e/provider-fallback-flow.mjs": {
