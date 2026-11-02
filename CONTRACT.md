@@ -3994,6 +3994,8 @@ CONT-001 is judged from source commit `12379d17957e993f2aa09d13a8df536aad5a41d8`
 
 STAT-005 retains the current main judgment below. The native status-profile controls and responsive journeys have been reapplied as supporting implementation and assertions; this replay does not promote the clause or replace its recorded evidence gap.
 
+CONT-004 retains current main's partial judgment, Evidence and Gap below. The container administration implementation and `tests/qualification/ui-convergence/container-settings-journey.mjs` from candidate `0d14d52ab3d39e07188b2b4f579e620b3f810d3f` are reapplied as supporting proof: two ordinary administrators, scoped identity, members and grants, external switches, templates, trash and bulk tools, cross-container and workspace refusals with unchanged native snapshots, and retained workspace-owner authority. The existing desktop touch-management journey runs its assertions at 1440px; the existing phone journey captures its screens at 390px. This replay preserves CONT-001's identity card and main's newer judgments; it does not promote CONT-004.
+
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 38 | 188 | 1 | 227 |
