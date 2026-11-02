@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "8958080d83ab6f7bc9bbeb0d8b7dba93f9060a662a4ac91aeb558d403e381fa1",
+      "sha256": "b36c168c173e978c2aae5679a31914c0e91de8f3810501f810ea49a18540bad4",
       "executable": false
     },
     "DEMO.md": {
@@ -6416,7 +6416,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/workspace/DatabaseWorkspace.tsx": {
-      "sha256": "024f006b1c13a1000d39f5b44c240de7d1301dcc366ffc59c2d54c3be5704822",
+      "sha256": "1e0d69b36a0f3fe760928d1078d9f6f52a92578f1e35e061aca17e4c77f54ec5",
       "executable": false
     },
     "src/core/features/databases/ui/workspace/ExportViewCsv.tsx": {
@@ -6424,7 +6424,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/workspace/FieldDialog.tsx": {
-      "sha256": "53c6d4a0226d189499250b549288e452a6135baadd502a0bd18a608de258e942",
+      "sha256": "1f3cc52770cb9b1ee5d4e9a0dfd829d40636e2227552591d50d60abe97a943a0",
       "executable": false
     },
     "src/core/features/databases/ui/workspace/FilterBuilder.tsx": {
@@ -6440,7 +6440,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/workspace/RecordLayouts.tsx": {
-      "sha256": "f13b16b0d3b7b6c495068c33a8a76fde5d7a5200507bdf320f6d1e502e2c70fc",
+      "sha256": "b20f59fdaefb126be8ad7fa250f2017947e1caa917771b003053ebb91b9bbd93",
       "executable": false
     },
     "src/core/features/databases/ui/workspace/RecordPeek.tsx": {
@@ -6476,7 +6476,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/workspace/ViewDialog.tsx": {
-      "sha256": "d687ab9639948e32c80495b7611e4d67d521efcfd81745423f0097ee8e3698d8",
+      "sha256": "bd2564fc32ce02d504e6b1ac4b292276dd6a89cc1ef65e788000dd4f6c31e9d8",
       "executable": false
     },
     "src/core/features/databases/validation.ts": {
@@ -11232,7 +11232,7 @@
       "executable": false
     },
     "tests/flagship/structured/http.test.ts": {
-      "sha256": "022c948a3285c8043af2bfd1978aee0fb4e26b446b79c50b6c43401683f5feac",
+      "sha256": "95420bf4bef6c1970b0804f2cead5c2bd3ebdb65c7e15f4300a628689e9ecaf0",
       "executable": false
     },
     "tests/flagship/structured/migration.py": {
@@ -12024,7 +12024,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "46243df2bea4af96cddd120c187781085279e0c2a51cc4901f87c6b1a8d08c05",
+      "sha256": "dda2e83dc7367a20c4678f076aae63f64bfc913ea3007b1c79db27be14d82679",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/layout-creation-journey.mjs": {
+      "sha256": "2e25396a58a023fea2313a6a455988bb56c398a4e32d38ff1528b588b28c1451",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12276,7 +12280,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "4632359e043e4905e2a6e59921405db2f260d5ba4df24b83cbfabdeee8d48ef2",
+      "sha256": "89983e921be195de3860fcac8da977456dbaca733c10e780df44cdebcdeb1330",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12292,7 +12296,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "a9bfdb72ca0d1cfb9210d49711f0f206251866dcc78cdf94ccca5081485cf746",
+      "sha256": "1172223e1de0fb0df4f36e64e237e0249e6fd7fd4f742f1d0b68aca6f7db0fd2",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
