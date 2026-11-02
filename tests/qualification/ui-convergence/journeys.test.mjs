@@ -1,5 +1,6 @@
 import {contentQueryJourney} from './content-query-journey.mjs';
 import {publicProfileJourney} from './public-profile-journey.mjs';
+import { templateSnapshotJourney } from './template-snapshot-journey.mjs';
 import { publicationJourney } from './publication-journey.mjs';
 import {unpublishedChangesJourney} from './unpublished-changes-journey.mjs';
 import {pageDetailsJourney} from './page-details-journey.mjs';
@@ -99,6 +100,7 @@ for (const width of [390, 1440]) {
         if (width === 390) {
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
           await templateCaptureJourney(state);
+          await step('TMPL-003 — native snapshot copies survive template changes on a phone', () => templateSnapshotJourney(state));
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
           // One phone smoke visits the main screens; functional journeys use desktop
           // except where an assertion distinguishes the phone layout or touch input.

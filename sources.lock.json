@@ -12024,7 +12024,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "46243df2bea4af96cddd120c187781085279e0c2a51cc4901f87c6b1a8d08c05",
+      "sha256": "cb6b1b4f0f7a02d964c7ae3f0cf68a0ef0d2b6487d2c7d35f59efbca3c804e16",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12132,7 +12132,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {
-      "sha256": "f49b9904f9ca5517e663487efffaceb13f597a813882f7f2756e2a6717094b54",
+      "sha256": "f62bd71ad2b0545065463c2b0b932e3124934209e283b01dcfe9050e2397aa7d",
       "executable": false
     },
     "tests/qualification/ui-convergence/status-profile-journey.mjs": {
@@ -12173,6 +12173,10 @@
     },
     "tests/qualification/ui-convergence/template-scope-journey.mjs": {
       "sha256": "f5cefad4b72c11b14adae48a96d679f4add2e6c455f75f5250e6551056f86c5b",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/template-snapshot-journey.mjs": {
+      "sha256": "c289efcdf1fdc0cbf840d7b33ed80a5a12cbaebe0c5b749fe7695f5cd9cc4e50",
       "executable": false
     },
     "tests/qualification/ui-convergence/theme-journey.mjs": {
