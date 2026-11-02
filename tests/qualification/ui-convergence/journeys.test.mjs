@@ -25,6 +25,7 @@ import { presentationJourney } from './presentation-journey.mjs';
 import { analyticsJourney } from './analytics-journey.mjs';
 import { reactionsJourney } from './reactions-journey.mjs';
 import { pageDisplayJourney } from './page-display-journey.mjs';
+import { pageCreationJourney } from './page-creation-journey.mjs';
 import { createInPlaceJourney } from './create-in-place-journey.mjs';
 import { statusProfileJourney } from './status-profile-journey.mjs';
 import assert from 'node:assert/strict';
@@ -126,6 +127,7 @@ for (const width of [390]) {
       await setupWorkspace(state);
       await treeFilterJourney(state);
       await state.switchIdentity('owner');
+      await pageCreationJourney(state, { phoneProof: true });
       await settingsJourney(state,width);
       await workspaceAuthorityJourney(state,width);
     });
@@ -263,6 +265,7 @@ for (const width of [1440]) {
       await step('review, publish, edit and cancel a scheduled publication', () => publicationJourney(state));
       await step('WEB-007 — public profiles retain exposure and current publication authority', () => publicProfileJourney(state));
       await state.switchIdentity('owner');
+      await pageCreationJourney(state);
       await withSecondPerson(state, width, people => step('PAGE-015 — locks protect content while editors comment and unlock', () => pageLockBrowserJourney(state, people)));
     }, {}, {scheduled:true});
   });
