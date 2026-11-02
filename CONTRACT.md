@@ -3994,6 +3994,8 @@ CONT-001 is judged from source commit `12379d17957e993f2aa09d13a8df536aad5a41d8`
 
 STAT-005 retains the current main judgment below. The native status-profile controls and responsive journeys have been reapplied as supporting implementation and assertions; this replay does not promote the clause or replace its recorded evidence gap.
 
+HOME-001 retains current main’s partial judgment and recorded evidence gap. Reapplied native Lobby regressions observe setup-state freshness, cookie independence, foreign-origin refusal and the D1 read boundary in `tests/e2e/landing.test.ts`; `tests/e2e/managed-first-open.mjs`, invoked by `tests/e2e/production-artifact.test.mjs`, adds script-free unclaimed and claimed Lobby browser observations at 1440 and 390. These supporting assertions do not promote the clause or replace guarded landing receipts.
+
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 38 | 188 | 1 | 227 |
