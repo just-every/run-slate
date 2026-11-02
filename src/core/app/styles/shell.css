@@ -117,6 +117,8 @@
   .slate-app { --row-height: 44px; }
   .slate-app .sidebar-header a, .slate-app .mobile-bar a, .slate-app .skip-link { display: inline-flex; align-items: center; min-height: 44px; }
   .slate-app .mobile-bar button { width: 44px; height: 44px; }
+  /* Keep scrolled container controls below the 65px sticky phone navigation. */
+  .slate-app .space-detail :is(button, summary, input, select) { scroll-margin-block-start: 80px; }
   .slate-app .tree-row .iconbutton, .slate-app .tree-filter button { width: 44px; min-width: 44px; }
   .slate-app .sidebar { display: none; position: fixed; top: 65px; left: 0; z-index: 40; width: min(320px, 90vw); height: calc(100dvh - 65px); padding: 14px var(--rail-inset) 0; box-shadow: var(--slate-shadow-popover); }
   .slate-app .sidebar[data-collapsed="true"] { width: min(320px, 90vw); padding-inline: var(--rail-inset); }
