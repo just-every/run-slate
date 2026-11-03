@@ -24,6 +24,7 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
     // Read the genuine Worker response before returning its unchanged bytes to
     // the browser. Apply navigates immediately and Chromium can discard its
     // response buffer before an external observer reads the committed receipt.
+    // Context routing keeps cleanup outside the page being replaced by navigation.
     const match = url => url.pathname === route;
     let captured;
     const capture = async request => {
@@ -32,7 +33,7 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
       captured = { status: response.status(), body: await response.json() };
       await request.fulfill({ response });
     };
-    await page.route(match, capture);
+    await context.route(match, capture);
     try {
       const pending = page.waitForResponse(response => response.request().method() === 'POST' && new URL(response.url()).pathname === route);
       await submit();
@@ -43,7 +44,7 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
       receipts.push({ route, ...result });
       return result;
     } finally {
-      await page.unroute(match, capture);
+      await context.unroute(match, capture);
     }
   }
   const sourceSpace = (await api('/api/containers')).items.find(item => item.name === 'Handbook');

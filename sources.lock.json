@@ -12240,7 +12240,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/template-snapshot-journey.mjs": {
-      "sha256": "3bdeb88b2e8c246e5e05c52db4f04fc27d1e3ea64a6e47c736253547bd091ac1",
+      "sha256": "c92e9833cb4979085544f74ebff8b52504dc6f9e605416d22563c2f6a9b60486",
       "executable": false
     },
     "tests/qualification/ui-convergence/theme-journey.mjs": {
