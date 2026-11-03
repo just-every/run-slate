@@ -191,7 +191,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 - `DB-003`: *Tier:* Core
 - `DB-004`: *Tier:* Core
 - `DB-005`: *Tier:* Core
-- `DB-006`: *Tier:* Core
+- `DB-006`: *Tier:* Core · *Cites:* BASE-ACCESS-004
 - `DB-007`: *Tier:* Core
 - `DB-008`: *Tier:* Core
 - `DB-009`: *Tier:* Core
@@ -3997,6 +3997,8 @@ SHARE-003 is judged from source commit `f87d19a4e599e68cab8628356d735954ffaa561b
 STAT-005 retains the current main judgment below. The native status-profile controls and responsive journeys have been reapplied as supporting implementation and assertions; this replay does not promote the clause or replace its recorded evidence gap.
 
 IMP-005 candidate source replayed from `f9473f297817db032e997eef963df8f87ec4c788` and `568e19d3d8d4a5aa4e2dfcc064bd13d259004a53`; native HTTP format, content and authorization assertions are retained as supporting evidence. Main's current partial judgment and public journey gap remain pending review.
+
+DB-006 retains the current main judgment below. Typed saved-view grouping, native move controls and their HTTP and browser assertions are reapplied as supporting implementation and proof; this replay does not promote the clause or replace its recorded evidence gap.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
