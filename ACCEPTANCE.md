@@ -2233,7 +2233,7 @@ Core · published · **partial** · From IMP-001 · Cites BASE-INPUT-001, BASE-I
 2. The original remains downloadable until explicitly deleted or invalidated by privacy erasure.
 3. Erasing any imported source under `ARCH-006` invalidates the indivisible retained original and all import recovery custody, makes retry, resume and Undo unavailable with a plain reason, and leaves unaffected native pages in place.
 
-**Evidence.** `tests/e2e/imports/preview-undo.test.ts`
+**Evidence.** `tests/e2e/imports/preview-undo.test.ts`; retains historical and shared-member erasure and unrelated Undo. `tests/qualification/erasure-metadata/atomic-custody.test.ts` — "Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export": atomic rollback and durable erasure supporting proof. Supporting replay evidence only; main’s current partial judgment and acceptance gap are retained.
 **Gap.** Missing a public page-erasure journey retiring the exact retained original and all retry/resume/Undo custody; the cited flow demonstrates Undo conflicts and member erasure but not erasure of any one imported source.
 
 #### IMP-002 — Notion import
