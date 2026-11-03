@@ -2305,7 +2305,7 @@ Core · published · **partial** · Cites BASE-INPUT-001, BASE-INPUT-002, BASE-I
 1. The same report and the same safety rules apply.
 2. Markdown, HTML, Word, PDF, EPUB, text and CSV documents import into pages with headings and tables.
 
-**Evidence.** `tests/flagship/federation/federation.test.ts`
+**Evidence.** `tests/flagship/federation/federation.test.ts`; `tests/flagship/federation/document-import-journey.ts`; acceptance 2 imports all seven formats through native multipart and streaming uploads, reads exact headings, table cells and typed CSV records, retains existing append content and child hierarchy, and refuses CSV flattening. `tests/e2e/imports/parsers.test.ts` — "explicit import formats preserve their content and relationships" retains the format regressions.
 **Gap.** Missing a public page-import journey covering Markdown, HTML, Word, PDF, EPUB, plain text and CSV with headings, tables and losses; the cited federation flow invokes import services directly for a narrower document set.
 
 ### Portability
