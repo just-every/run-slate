@@ -24,7 +24,6 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
     // Read the genuine Worker response before returning its unchanged bytes to
     // the browser. Apply navigates immediately and Chromium can discard its
     // response buffer before an external observer reads the committed receipt.
-    // Context routing keeps cleanup outside the page being replaced by navigation.
     const match = url => url.pathname === route;
     let captured;
     const capture = async request => {
@@ -42,6 +41,11 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
       const result = captured.body;
       assert.ok(result.receipt.revisionId && result.receipt.operationKey);
       receipts.push({ route, ...result });
+      // Apply replaces the document. Keep interception stable until that navigation
+      // completes; disabling it mid-navigation can stall Chromium's response body.
+      if (route.endsWith('/apply')) {
+        await page.waitForURL(`${origin}/app/pages/${result.value.pageId}`, { waitUntil: 'networkidle' });
+      }
       return result;
     } finally {
       await context.unroute(match, capture);
