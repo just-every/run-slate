@@ -184,3 +184,26 @@ The complete typed catalog is exercised by `typedShortcutsJourney`. `tests/quali
 `tests/qualification/ui-convergence/task-assignment-journey.mjs` retains the native task assignment and dating flow at both widths. Typing `//` opens the real date picker; the reference lists that accepted input, opens while the picker has focus, and closes back to the unchanged task and date field before a native due date is committed.
 
 These supporting journeys retain main’s current partial judgments for BLOCK-004 and WORK-014; they do not replace the existing Status, Evidence or Gap rows in CONTRACT.md.
+
+## Native version deletion
+
+The existing `two people edit at once, lose access mid-edit and restore history at 1440px`
+registration calls `historyJourney` in `./tests/qualification/ui-convergence/two-people-history.mjs`,
+which calls `versionDeletionJourney` in `./tests/qualification/ui-convergence/version-deletion-journey.mjs`.
+The existing `real core-wiki and touch-member journeys at 390px` registration calls the same
+helper for the phone proof. Both registrations run on push Verify through the existing shard assignments.
+
+For REV-006, actual publication review controls create three numbered versions with distinct
+content. An edit-only member sees no delete control and a direct deletion is refused. A full
+member cannot delete either the distinct working revision or the published revision. Under
+autosnapshot, deletion is hidden and refused. Refusals preserve all snapshots and deletion activity.
+Under labelled history, the full member confirms deletion of version 2. After reload its
+content and label are unavailable while its ordinal, deleting member and formatted deletion
+time remain visible. Every other revision, the working body and the published body are retained.
+An exact request replay returns the original receipt, keeps the original attribution and time,
+and creates no second activity entry.
+
+The existing content HTTP registration additionally reads back cleared durable revision content,
+all retained snapshots and the one deletion activity. The existing audit-content registration
+reconciles the tombstone's actor and time with the committed activity receipt under replay.
+These are local native-runtime proofs; they make no provider or release claim.
