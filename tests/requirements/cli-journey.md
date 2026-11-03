@@ -132,3 +132,37 @@ PORT-003 uses `transferJobsJourney` in `tests/qualification/ui-convergence/trans
 The journey reconciles every rendered count with native persisted status and completed counts with the actual archive. Real D1 triggers force late export and restore publication failures. Failed receipts survive reload and replay, identify the failed publication without exposing internal SQL or raw exceptions, expose no download or successful-restore action, and refuse a guessed download route. A new operation succeeds after the fault is removed; the restored workspace requires fresh sign-in and retains the original pages. Queued and failed jobs explicitly show zero completed records. Captures cover the transfer screens at desktop and phone widths without another registration.
 
 The existing populated ZIP round-trip registration in `tests/portability/roundtrip.test.mjs`, loaded by the tooling Verify shard, additionally forces that late native restore failure after original R2 files have been staged. It restarts the Worker, reads the same terminal failure, checks that canonical pages, containers and files remain absent, and retries the original archive. Its existing full retained-table, identity, search, publication, grant and original-byte comparisons remain in place. The Workers-only supporting-evidence inventory does not aggregate these Node and browser registrations; the contract Status row names their public-door evidence directly.
+
+## One workspace identity journey
+
+WORK-001's `workspaceIdentityJourney` in
+`tests/qualification/ui-convergence/workspace-identity-journey.mjs` is called by
+`settingsJourney` inside the existing registrations “page outline follows headings
+and navigates long pages at 1440px” and “space tree title filtering preserves
+ancestors, access and expansion at 390px” in
+`tests/qualification/ui-convergence/journeys.test.mjs`. The desktop journey saves
+a different name and mark through Settings, reads both persisted values, sees
+both in the operator header immediately and after reload, reopens both saved
+controls, then signs in a fresh native member session through the substituted
+mail network edge. That member sees the same identity and cannot change it;
+refusal preserves the saved workspace. Its setup route redirects to the app.
+The existing phone registration shows the edited Settings and visible operator
+identity with the navigation open. Slate's card mark remains visible beside the
+workspace identity. No browser registration is added.
+
+`ownerBootstrapCase` in `tests/flagship/core/owner-bootstrap.case.ts`, loaded by
+“preview and bootstrap owner sign-in preserve identity and single-use authority”
+in `tests/flagship/core/preview-owner-signin.test.ts`, supplies WORK-001 acceptance
+2 and 3 and the sole-workspace ownership proof through native HTTP. An empty
+store accepts the configured owner's bootstrap once; replay returns 409 without
+another session or a changed workspace, member, container or page. Real container,
+page, database record and comment creations are read through their public APIs
+and checked in populated canonical D1 snapshots: containers and pages use the
+sole workspace, records agree through their page and database, and comments agree
+through their thread, page and author. POSTs to the workspace creation paths
+return 404, and repeating first-run completion returns 409 without changing those
+snapshots. A separately emptied store accepts a genuinely ES256-signed native
+owner claim, then refuses claim replay and token bootstrap with unchanged records.
+The existing native first-run replay and WORK-013 custody assertions remain
+loaded and unchanged. These are local native runtime proofs with no hosted,
+live mailbox or provider acceptance claimed.
