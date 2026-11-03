@@ -2147,7 +2147,7 @@ Core · published · **partial**
 1. A figure such as a team size or a duration appears only when the template's author wrote one; Slate never estimates, infers, or displays a placeholder for either.
 2. Preview shows the resulting page and children with only author-written figures.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Evidence.** `tests/qualification/ui-convergence/template-preview-journey.mjs` — "templatePreviewJourney", called by "starterTemplatesJourney" in `tests/qualification/ui-convergence/starter-templates-journey.mjs` and the existing "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px" Verify registration: requirement and acceptance 1–2, native saved snapshots of populated record properties and four-page ordered trees, complete visible preview before application, exact authored team size and duration with a no-figure counterpart, and resulting copy read-back. "templatePreviewSmoke" runs in the existing "real core-wiki and touch-member journeys at 390px" Verify registration for both preview screens, viewport and accessibility proof.
 **Gap.** No validated CI-run proof for this acceptance point: "A template preview shows the page it produces, including its body, properties and any child pages, before it is used."<br>No validated CI-run proof for this acceptance point: "A figure such as a team size or a duration appears only when the template's author wrote one; Slate never estimates, infers, or displays a placeholder for either."
 
 #### TMPL-003 — Snapshot on use
@@ -2160,7 +2160,7 @@ Core · published · **partial**
 1. Editing, archiving or deleting the template afterwards changes no page already created from it.
 2. Using a template snapshots it; later template edits change no created page.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Evidence.** `tests/qualification/ui-convergence/template-preview-journey.mjs` — "templatePreviewJourney", called by "starterTemplatesJourney" in `tests/qualification/ui-convergence/starter-templates-journey.mjs` and the existing "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px" Verify registration: requirement and acceptance 1–2, native apply dialog selects Handbook, exactly four fresh pages reconcile every body, property and ordered parent edge with the retained snapshot after reload, and later template replacement, archive and deletion leave every copied document unchanged and visibly readable.
 **Gap.** No validated CI-run proof for this acceptance point: "Using a template creates a page holding a copy of its body, properties and children in the destination the member chose."<br>No validated CI-run proof for this acceptance point: "Editing, archiving or deleting the template afterwards changes no page already created from it."
 
 #### TMPL-004 — Custom templates
