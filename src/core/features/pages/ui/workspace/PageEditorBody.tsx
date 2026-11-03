@@ -66,6 +66,7 @@ export function PageEditorBody({
     conversionFocus.current = null;
     const root = [...(wrapper.current?.querySelectorAll<HTMLElement>('[data-block-id]')??[])].find(element=>element.dataset.blockId===intent.id)?.querySelector<HTMLElement>('[data-slate-editable]');
     if (root) {root.focus();if(intent.selection)restoreEditableSelection(root,intent.selection);}
+    else wrapper.current?.focus({preventScroll:true});
   },[visibleBlocks]);
   const requestInsertFocus = useInsertedBlockFocus(wrapper, document.page.id, visibleBlocks, document.permissions.canEdit && (insertion.pending || editor.structureState !== "saving"));
   useEffect(() => {
