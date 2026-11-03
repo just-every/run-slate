@@ -4,10 +4,14 @@ import {createApi} from '../../../src/core/app/hono';
 import {parseImport,type ImportFormat} from '../../../src/core/features/imports';
 import {seedWorkspace,seedMember,sessionFor} from '../setup/fixtures';
 import {resetDatabase} from '../setup/reset-database';
+import {pageErasureJourney} from './page-erasure-journey';
+import {partialUndoJourney} from './partial-undo-journey';
 
 const resetCase=async()=>{vi.restoreAllMocks();await resetDatabase(env.DB);await env.DB.exec('DROP TABLE IF EXISTS _rer_deploy_migrations');};
 beforeEach(resetCase);
 it('reviews, applies and reverses real Notion and Confluence content without losing native edits',async()=>{
+ await partialUndoJourney();
+ await resetCase();
  for(const [index,[format,name]] of ([
   ['notion-workspace','notion-workspace-export.zip'],
   ['confluence-space','confluence-space-export.zip'],
@@ -75,19 +79,37 @@ it('reviews, applies and reverses real Notion and Confluence content without los
  const independent=await env.DB.prepare('SELECT p.id FROM pages p WHERE p.workspace_id=? AND p.id!=? AND NOT EXISTS(SELECT 1 FROM pages child WHERE child.parent_page_id=p.id) AND NOT EXISTS(SELECT 1 FROM files f WHERE f.page_id=p.id) AND NOT EXISTS(SELECT 1 FROM databases d WHERE d.page_id=p.id) ORDER BY p.id LIMIT 1').bind(workspaceId,edited.id).first<{id:string}>();expect(independent).toBeTruthy();
  const response=await app.request(`https://slate.example/api/pages/${edited.id}`,{method:'PATCH',headers:{Cookie:cookie,'Content-Type':'application/json'},body:JSON.stringify({operationKey:crypto.randomUUID(),expectedRevisionId:edited.revision_id,properties:{title:'Native edit survives import undo'}})},env);
  expect(response.status,await response.text()).toBe(200);
+ let addition:{parentId:string;before:unknown;read:()=>Promise<unknown>}|undefined;
+ if(format==='notion-workspace'){
+  const parent=pages.find(p=>p.id!==edited.id&&p.id!==independent!.id)!;
+  const containerId=await env.DB.prepare('SELECT container_id FROM pages WHERE id=?').bind(parent.id).first<string>('container_id');
+  const addedResponse=await app.request('https://slate.example/api/pages',{method:'POST',headers:{Cookie:cookie,'Content-Type':'application/json'},body:JSON.stringify({operationKey:crypto.randomUUID(),containerId,parentPageId:parent.id,title:'Native addition survives import undo'})},env);
+  expect(addedResponse.status).toBe(200);const added=(await addedResponse.json() as any).value.pageId;
+  const read=async()=>{const response=await app.request(`https://slate.example/api/pages/${added}`,{headers:{Cookie:cookie}},env);expect(response.status).toBe(200);return response.json();};
+  addition={parentId:parent.id,before:await read(),read};
+ }
  job=await call(`/${id}/undo`,{});
  for(let n=0;job.state!=='undone'&&n<100;n++)job=await call(`/${id}/resume`,{});
  expect(job.state).toBe('undone');
  const conflicts=[];for(let page=0;page<(job.report.sections?.conflicts?.pages??0);page++)conflicts.push(...(await call(`/${id}/report/conflicts?page=${page}`)).items);
  expect(conflicts.some((c:any)=>c.targetId===edited.id&&c.code==='NATIVE_EDIT_CONFLICT')).toBe(true);
  expect(await env.DB.prepare('SELECT title FROM pages WHERE id=?').bind(edited.id).first('title')).toBe('Native edit survives import undo');
+ if(addition){expect(await addition.read()).toEqual(addition.before);expect(conflicts.find((c:any)=>c.targetId===addition!.parentId)).toMatchObject({reason:'dependency'});}
  expect(await env.DB.prepare('SELECT id FROM pages WHERE id=?').bind(independent!.id).first('id')).toBeNull();
  expect((await app.request(`https://slate.example/api/pages/${independent!.id}`,{headers:{Cookie:cookie}},env)).status).toBe(404);
  expect(await env.DB.prepare('SELECT COUNT(*) AS n FROM pages WHERE workspace_id=?').bind(workspaceId).first<number>('n')).toBeLessThan(pages.length);
+ const retainedOriginal=await app.request(`https://slate.example/api/imports/${id}/original`,{headers:{Cookie:cookie}},env);
+ expect(retainedOriginal.status).toBe(200);expect(new Uint8Array(await retainedOriginal.arrayBuffer())).toEqual(new Uint8Array(bytes));
+ const deletedOriginal=await app.request(`https://slate.example/api/imports/${id}`,{method:'DELETE',headers:{Cookie:cookie,'Content-Type':'application/json'},body:JSON.stringify({operationKey:crypto.randomUUID(),expectedRevisionId:job.revisionId})},env);
+ expect(deletedOriginal.status,await deletedOriginal.text()).toBe(200);
+ expect((await app.request(`https://slate.example/api/imports/${id}/original`,{headers:{Cookie:cookie}},env)).status).toBe(404);
+ if(addition)expect(await addition.read()).toEqual(addition.before);
  }
 },120_000);
 
 it('erases historical and shared imported people through confirmed native removal, atomically retires custody and keeps unrelated Undo',async()=>{
+ await pageErasureJourney();
+ await resetCase();
  for(const [index,mode] of (['historical','shared across imports'] as const).entries()){
   if(index>0)await resetCase();
  const {captureMail}=await import('../helpers/mail-edge');

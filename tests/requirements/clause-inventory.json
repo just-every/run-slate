@@ -2965,7 +2965,7 @@
       "id": "IMP-015",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Missing a public page-erasure journey retiring the exact retained original and all retry/resume/Undo custody; the cited flow demonstrates Undo conflicts and member erasure but not erasure of any one imported source.",
+      "unmetReason": "Missing a public page-erasure journey retiring the exact retained original and all retry/resume/Undo custody; the cited flow demonstrates Undo conflicts and member erasure but not erasure of any one imported source. Supporting replay adds native page-erasure and partial/completed Undo assertions; main’s partial judgment is retained pending acceptance review.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
