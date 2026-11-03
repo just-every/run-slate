@@ -44,9 +44,10 @@
         "BLOCK-008",
         "CONT-007",
         "STAT-001",
-        "WEB-005"
+        "WEB-005",
+        "WEB-002"
       ],
-      "reason": "Preserves separately asserted cases of the same public flow. LIFE-005 support performs published title and body reads, editor changes, republish, read-only discard refusal, lossless discard and duplicate-safe replay through native routes. Full LIFE-005 browser acceptance is the unpublishedChangesJourney in the existing responsive core journeys; the other named clauses retain supporting scope. STAT-001 support runs statusVocabularyCase through native bootstrap and authenticated routes under both profiles: complete seeded records, owner mutations, retained pages, explicit duplicate-safe bulk changes, unchanged non-owner refusals and revoked-session refusal. Full responsive controls are statusVocabularyJourney in the existing settings callers. Native anonymous HTTP reads cover default noindex and first-response header and robots meta after enabling and disabling indexing; publicPageJourney supplies native controls and persisted-state supporting evidence."
+      "reason": "Preserves separately asserted cases of the same public flow. LIFE-005 support performs published title and body reads, editor changes, republish, read-only discard refusal, lossless discard and duplicate-safe replay through native routes. Full LIFE-005 browser acceptance is the unpublishedChangesJourney in the existing responsive core journeys; the other named clauses retain supporting scope. STAT-001 support runs statusVocabularyCase through native bootstrap and authenticated routes under both profiles: complete seeded records, owner mutations, retained pages, explicit duplicate-safe bulk changes, unchanged non-owner refusals and revoked-session refusal. Full responsive controls are statusVocabularyJourney in the existing settings callers. Native anonymous HTTP reads cover default noindex and first-response header and robots meta after enabling and disabling indexing; publicPageJourney supplies native controls and persisted-state supporting evidence. WEB-002 supporting assertions additionally retain all stored exposure settings, title-independent slug, reserved collision atomicity and revoked replay refusal. CONTRACT.md retains the current acceptance judgment."
     },
     {
       "file": "tests/flagship/content/http.test.ts",

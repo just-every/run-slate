@@ -185,6 +185,7 @@ it("publication, human verification and media enforce current reader authority",
    expect(await first.text()).toContain(`<meta name="robots" content="${robots}">`);
    expect((await f.request('GET', `/api/publishing/${pageId}`)).data.exposure.indexable).toBe(indexable);
  }
+ await storedExposureJourney(f);
  await env.DB.prepare("UPDATE containers SET public_link_access='forbidden' WHERE id=?").bind(f.containerId).run();expect((await f.app.request(`https://local.test/p/media-${pageId}`,{},env)).status).toBe(404);}},
 {name:"anonymous media rejects draft attachment but allows exact published attachment",run:async(fixture=repairFixture,page=repairPage,paragraph=repairParagraph)=>{
  const f=await fixture(),p=await page(f);const upload=async()=>{const form=new FormData();form.set('operationKey',createUlid());form.set('pageId',p.pageId);form.set('file',new File(['secret bytes'],'private.txt',{type:'text/plain'}));const r=await f.app.request('https://local.test/api/media',{method:'POST',headers:{'x-test-actor':f.a},body:form},env);expect(r.status).toBe(200);return(await r.json<any>()).value;};
@@ -234,3 +235,33 @@ it('idle sockets close within five seconds after direct-grant revocation or sess
   }
  ]){await resetDeployment();await run();}
 });
+
+/** The real publishing route persists settings and refuses a reserved address atomically. */
+async function storedExposureJourney(f: Awaited<ReturnType<typeof fixture>>) {
+ const create=async(title:string)=>{const r=await f.request('POST','/api/pages',{operationKey:createUlid(),containerId:f.containerId,title});expect(r.status).toBe(200);return r.data.value;};
+ const first=await create('Stored public address'),second=await create('Second public address');
+ const read=async(id:string)=>(await f.request('GET',`/api/publishing/${id}`)).data.exposure;
+ const input={operationKey:createUlid(),expectedRevisionId:first.revisionId,host:'local.test',slug:'synthetic-slate-original',indexable:false,theme:'light',headerControls:['search'],duplicateAsTemplate:false,socialPreview:{title:'Response handbook',description:'Original guidance'}};
+ const published=await f.request('POST',`/api/publishing/${first.pageId}`,input);expect(published.status,JSON.stringify(published.data)).toBe(200);
+ const initial=await read(first.pageId);
+ const {operationKey,expectedRevisionId,...settings}=input;
+ expect(initial).toEqual({...settings,publishedAt:published.data.receipt.committedAt,revokedAt:null});
+ const update={...input,operationKey:createUlid(),slug:'synthetic-slate-stored-address',indexable:true,theme:'dark',headerControls:['breadcrumbs','duplicate'],duplicateAsTemplate:true,socialPreview:{title:'Updated handbook',description:'Updated guidance'}};
+ expect((await f.request('POST',`/api/publishing/${first.pageId}`,update)).status).toBe(200);
+ const edited=await read(first.pageId);const {operationKey:editKey,expectedRevisionId:editRevision,...editedSettings}=update;
+ expect(edited).toEqual({...editedSettings,publishedAt:edited.publishedAt,revokedAt:null});
+ const renamed=await f.request('PATCH',`/api/pages/${first.pageId}`,{operationKey:createUlid(),expectedRevisionId:first.revisionId,properties:{title:'Different page title'}});expect(renamed.status).toBe(200);
+ expect(await read(first.pageId)).toEqual(edited);
+ const other={...input,operationKey:createUlid(),expectedRevisionId:second.revisionId,slug:'synthetic-slate-other'};
+ expect((await f.request('POST',`/api/publishing/${second.pageId}`,other)).status).toBe(200);
+ const revoke={...update,operationKey:createUlid(),expectedRevisionId:renamed.data.value.revisionId,revoke:true};
+ const revoked=await f.request('POST',`/api/publishing/${first.pageId}`,revoke);expect(revoked.status).toBe(200);
+ const before=[await read(first.pageId),await read(second.pageId)];
+ expect(before[0]).toEqual({...edited,publishedAt:revoked.data.receipt.committedAt,revokedAt:revoked.data.receipt.committedAt});
+ const conflict=await f.request('POST',`/api/publishing/${second.pageId}`,{...other,operationKey:createUlid(),slug:update.slug});
+ expect(conflict.status).toBe(409);expect(conflict.data.code).toBe('SLUG_RESERVED');
+ expect([await read(first.pageId),await read(second.pageId)]).toEqual(before);
+ const replay=await f.request('POST',`/api/publishing/${first.pageId}`,update);expect(replay.status).toBe(200);
+ expect(await read(first.pageId)).toEqual(before[0]);
+ expect((await f.app.request(`https://local.test/p/${update.slug}`,{},env)).status).toBe(404);
+}

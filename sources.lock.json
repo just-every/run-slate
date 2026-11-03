@@ -10836,7 +10836,7 @@
       "executable": false
     },
     "tests/flagship/content/http.test.ts": {
-      "sha256": "b140db6dded2bc9136cfdca563d6ea66332d344c6c07dba677442134fb7a4805",
+      "sha256": "9e372cdeae41ac2f878e9230bb7cdeaff982c531b39bb708c9dcab9812e37eb9",
       "executable": false
     },
     "tests/flagship/content/journeys.ts": {
@@ -11416,7 +11416,7 @@
       "executable": false
     },
     "tests/portability/equivalence.mjs": {
-      "sha256": "1c95984c1fb5241987e3f9eaaeed534542cb3f74cf4f3b71bd013e3b356d7abe",
+      "sha256": "f243277da338c38bd517d7ecd04dc6c4eeed40259d8e02b2dc0fa681012311f9",
       "executable": false
     },
     "tests/portability/fixture.mjs": {
@@ -11432,11 +11432,11 @@
       "executable": false
     },
     "tests/portability/roundtrip.test.mjs": {
-      "sha256": "949dff78bc790333cd550dd4fdb182feee68274c2a56aa381bf3d648c10f51b8",
+      "sha256": "1736244c7ec1ef8c84b6ac105231e1bcf884aad283047627784d8940b452f9f9",
       "executable": false
     },
     "tests/portability/runtime.mjs": {
-      "sha256": "e340bbb76ca3db87ebdab0b0d17b6b4fb5dda40c3e94414d32379ff84a4521a8",
+      "sha256": "8ad1992e0f87aff01dd2c0fe9c220e56452013a60bb73974ae3448a67a03400c",
       "executable": false
     },
     "tests/profile/body-blocks-journey.ts": {
@@ -12128,7 +12128,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/public-page-journey.mjs": {
-      "sha256": "b6c1498e590274f04b899c026f4b654b2963733c4cd109fa750cf9b2b09d9bca",
+      "sha256": "cc2415b8a87f38d95c5e0c49f1b4fba768c6b1fd7056453cf3dfcce8e3889035",
       "executable": false
     },
     "tests/qualification/ui-convergence/public-profile-journey.mjs": {
@@ -12184,7 +12184,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-journey.mjs": {
-      "sha256": "7910b718b3f2b183a8b6f3ae716a2f367db0e7e6d54a724fd020ec0a5680022b",
+      "sha256": "837e1b6570a5a156454fc3befabd31511052669e2ec696328e5aae6f9dca87d8",
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {
@@ -12340,7 +12340,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "e5984b1592c35647605411aa4d84b17c61432be9bb088fb75d93e9d09c097e6c",
+      "sha256": "715204cbfa45a2b9483dd3a0c042617e844bf679bbf6385935b8b166e118e5fd",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12356,7 +12356,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "5b48abbfb48a40dfe0b14c82577e758788e83641cee7b36474efba7be34239aa",
+      "sha256": "90d42bf3bb98487f56b357b89f5a03f608f41c16c0da465e67eb9085a30877b3",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
