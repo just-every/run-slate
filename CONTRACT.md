@@ -3988,6 +3988,8 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff.
 
+WEB-002 and WEB-003 retain current main’s partial judgments, Evidence and Gap below. Replayed stored-exposure settings, native ZIP restore and anonymous-reader journeys remain supporting assertions; this replay supplies no new validated CI acceptance ruling.
+
 Judged from the code and tests at commit `30886e55608596bb44862e4c6942dc1a24ef982e` for STAT-001; both status profiles passed the native HTTP and responsive vocabulary journeys. The exact candidate and guarded landing receipts remain in the branch handoff.
 
 CONT-001 is judged from source commit `12379d17957e993f2aa09d13a8df536aad5a41d8`; owners are read by members only, and a guest's container read carries none. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { accessible, closeDetails } from './browser-support.mjs';
-import { publicPageSettingsJourney, publicPageJourney } from './public-page-journey.mjs';
+import { publicPageSettingsJourney, anonymousPublicPageJourney, publicPageJourney } from './public-page-journey.mjs';
 import { expiryRegrantJourney } from './expiry-journey.mjs';
 import { inheritanceChainJourney } from './sharing-inheritance-journey.mjs';
 import { call, ok } from './two-people-support.mjs';
@@ -91,6 +91,7 @@ export async function shareJourney(state, pageId) {
   await grantCorpusJourney(state);
   await inheritanceChainJourney(state);
   await publicPageSettingsJourney(state);
+  await anonymousPublicPageJourney(state);
 }
 
 /** Native grants, rather than seeded ACL rows, drive the loaded Share panel. */

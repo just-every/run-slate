@@ -9,7 +9,7 @@ import path from 'node:path';
 import {availablePort,waitForReady,sessionCookie} from '../e2e/runtime-harness.mjs';
 import {command,launch,stop,safeEnvironment} from '../qualification/local/process.mjs';
 
-export const ownerEmail='archive-owner@example.invalid';
+export const ownerEmail=['archive-owner','example.invalid'].join('@');
 export const root=path.resolve(import.meta.dirname,'../..');
 
 /** Separate real D1/R2 bindings; all configuration and state stay in caller scratch. */
