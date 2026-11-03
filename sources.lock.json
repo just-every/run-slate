@@ -5408,7 +5408,7 @@
       "executable": false
     },
     "src/core/app/styles/shell.css": {
-      "sha256": "c8746f2f076da787291103d4a644ef7ba606653dc40a6ec6cce842e7a01d523a",
+      "sha256": "414cf9292a095819fec6c4cb946b45ff10530b5d64b7eb04a1fbefb5494eaf0d",
       "executable": false
     },
     "src/core/app/styles/theme.css": {
@@ -5440,11 +5440,11 @@
       "executable": false
     },
     "src/core/app/ui/AppNavigation.tsx": {
-      "sha256": "1f56cf4008f849823289600e11d459fa8a871bd59a8a95b4df251e56fc85f925",
+      "sha256": "9948e2f0236c392316aa60ded6092fa11f155a2736497b1a72b38f55b769ab6d",
       "executable": false
     },
     "src/core/app/ui/AppShell.tsx": {
-      "sha256": "597ff0f503d8eaee4f1db3a8e5216b19c3fcb7d2c664f112539c19473b60aeba",
+      "sha256": "c9229e975a0ba9668b657a2e6884ca61e3ccb3fddeb8e2015036724bfe76a3ee",
       "executable": false
     },
     "src/core/app/ui/displayDate.ts": {
@@ -5528,7 +5528,7 @@
       "executable": false
     },
     "src/core/app/ui/SidebarHeader.tsx": {
-      "sha256": "f7d007ac6f2ae2bd7ba2c69f20522a7fd1f9bee32eca1a2762e588e96157e6c0",
+      "sha256": "1fa1486f3398628708918d223d8a5dc2d341c2ae264e663e42768dc4b390ae70",
       "executable": false
     },
     "src/core/app/ui/SpaceTrees.tsx": {
@@ -10916,7 +10916,7 @@
       "executable": false
     },
     "tests/flagship/core/owner-bootstrap.case.ts": {
-      "sha256": "3e55099a9ad236bac6c6def95391f8e9cfc9cd3511f50a1445d38a7b961f3c98",
+      "sha256": "cf551f9acc738b2411424c17e3dc0789f1ee55fd224265b09ec5069671e8bf63",
       "executable": false
     },
     "tests/flagship/core/preview-owner-signin.test.ts": {
@@ -12156,7 +12156,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "6159d2fa6eb17529a62c4b5e8b0ae93561de1ee2a28c865037917729966df20a",
+      "sha256": "8e749dca43835daacecf0f167f92560bb86e47550a4b8fc58201328fb36577a8",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-detail-journey.mjs": {
@@ -12317,6 +12317,10 @@
     },
     "tests/qualification/ui-convergence/workspace-authority-journey.mjs": {
       "sha256": "2b3165cb2a450be99323d087d0e58329ff188c6b87959b434ef942171565cbf6",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/workspace-identity-journey.mjs": {
+      "sha256": "ea306190066879e644ef848d3430fdd654508800b9eb32ca19cbc9c9bf8c269b",
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {
