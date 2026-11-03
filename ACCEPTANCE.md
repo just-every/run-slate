@@ -45,7 +45,7 @@ Core · published · **partial** · From HOME-001 · Cites BASE-ACCESS-003, BASE
 5. It describes only capabilities the default `core-wiki` profile ships.
 6. It may show a static “Powered by Slate · runeditrun.com” link when the buyer-configured credit toggle is on, which is its default.
 
-**Evidence.** `tests/e2e/landing-styles.test.mjs` — "landing styles preserve the light palette, same-origin resources and reduced-motion access"
+**Evidence.** `tests/e2e/landing-styles.test.mjs` — "landing styles preserve the light palette, same-origin resources and reduced-motion access" calls `tests/e2e/landing-product.mjs` — "landingProduct": built default and edited owner configurations prove identity, description, sole h1, same-origin card icons, every illustrated core-wiki section, both Run actions and commands, all documentation and source destinations, the complete permitted link inventory and both credit states (acceptance 1–6); `tests/e2e/production-artifact.test.mjs` — "emitted Worker admission serves configured public doors and protects native owner access" calls `tests/e2e/landing-browser.mjs` — "publishedRootPrivacy" to compare the built mark with native sign-in and the signed-in app (acceptance 1).
 **Gap.** Missing a browser journey through the complete run-site landing, configuration, links and capability sections; the cited stylesheet check reads CSS only.
 
 #### HOME-003 — Run-site privacy and readable presentation
@@ -2346,7 +2346,7 @@ Core · published · **partial** · Cites BASE-DATA-001
 1. A failed job is never shown as complete.
 2. Export and import jobs show Queued, Running, Completed or Failed with counts and failure reports.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Evidence.** `tests/qualification/ui-convergence/transfer-jobs-journey.mjs` — "transferJobsJourney", called by "readable exports retain discussions through HTML and Markdown re-import at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2, native export and empty-deployment restore through Queued, Running, Completed and Failed, live progress after a queued reload, persisted counts, safe failure reports, terminal replay, refused failed downloads and completion actions, successful fresh operations and original files. `tests/portability/roundtrip.test.mjs` — "BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment": native late failure, Worker restart, empty destination and staged-file cleanup, then retained-table and original-byte reconciliation after successful retry.
 **Gap.** No validated CI-run proof for this acceptance point: "Export and import show Queued, Running, Completed or Failed with record counts and, on failure, a report naming what failed."<br>No validated CI-run proof for this acceptance point: "A failed job is never shown as complete."
 
 #### PORT-004 — Search rebuild
