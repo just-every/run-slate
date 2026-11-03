@@ -87,6 +87,7 @@ export function DatabaseList({
               query={query.data}
               rawFields={fields}
               rawRecords={list.records}
+              references={list.references}
               props={{
                 fields: list.shown.map(fieldView),
                 records: list.records.map((record) => recordView(record, fields, list.references)),
@@ -101,9 +102,20 @@ export function DatabaseList({
                 onOpenLink,
                 onNewRecord: () => onDialog({ kind: "new" }),
               }}
-              onGroupMove={(recordId, value) => {
+              onGroupMove={(recordId, value, sourceValue) => {
                 const record = list.records.find((item) => item.pageId === recordId), field = fields.find((item) => item.id === view.groups[0]?.field);
-                if (record && field) void list.saveValue(record, field, value).catch(onError);
+                if (record && field) {
+                  // Replace only the source assignment; No value explicitly clears people.
+                  const next = field.type === "person"
+                    ? value == null ? [] : [...new Set([
+                      ...(Array.isArray(record.values[field.id])
+                        ? (record.values[field.id] as string[]).filter(person => person !== sourceValue)
+                        : []),
+                      String(value),
+                    ])]
+                    : value;
+                  void list.saveValue(record, field, next).catch(onError);
+                }
               }}
               onHideEmpty={(hide) => void list.saveView({ ...view, groups: view.groups.map((group, index) => (index ? group : { ...group, hideEmpty: hide })) }).catch(onError)}
               onCalculation={(fieldId, kind) => void list.saveView({ ...view, calculations: { ...view.calculations, [fieldId]: kind } }).catch(onError)}

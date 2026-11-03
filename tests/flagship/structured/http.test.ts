@@ -1,3 +1,4 @@
+import { groupingHttpJourney } from "./grouping-http";
 import { env } from "cloudflare:test";
 import { beforeEach, test, expect } from "vitest";
 import { resetDeployment } from "../../e2e/setup/reset-deployment";
@@ -188,6 +189,12 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
     expect(retained.page.blocks).toEqual(edited.page.blocks);
     expect(retained.values).toEqual(edited.values);
   }
+  // Keep grouping's exact membership fixture independent of the populated
+  // record-detail fixture above; both journeys retain their full assertions.
+  const groupedDatabase = await mutate("POST", "/databases", {containerId, title: "HTTP grouped database"});
+  await seedContainerGrant(containerId, { principalKind: "member", principalId: reader.actor.id, level: "view" });
+  await groupingHttpJourney(groupedDatabase, cookie, memberCookie, ctx.actor.id, reader.actor.id);
+
 });
 
 test("database file references list only attachments the reader could open", async () => {
