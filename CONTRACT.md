@@ -3999,6 +3999,7 @@ STAT-005 retains the current main judgment below. The native status-profile cont
 IMP-005 candidate source replayed from `f9473f297817db032e997eef963df8f87ec4c788` and `568e19d3d8d4a5aa4e2dfcc064bd13d259004a53`; native HTTP format, content and authorization assertions are retained as supporting evidence. Main's current partial judgment and public journey gap remain pending review.
 
 HOME-003 retains main's partial Status, Evidence and Gap below. The built-site browser and native anonymous-publication assertions from candidate source `13677894e622de391016968d30bfb15365505320` have been reapplied in source `6eb540a0` as supporting proof: script-free readable sections, reduced motion, fixed light presentation, resource and cookie privacy, nonempty publication privacy at both roots, and withdrawal replay. This replay preserves the recorded judgment rather than promoting the clause. Exact-candidate Verify and guarded landing receipts remain external.
+REV-006 retains main's partial judgment, Evidence and Gap below. The candidate's native numbered-version deletion attribution, content-removal and duplicate-safe replay assertions have been reapplied as supporting implementation and tests in `tests/qualification/ui-convergence/version-deletion-journey.mjs`, `tests/flagship/content/http.test.ts` and `tests/qualification/core/audit-content.test.ts`; this conflict resolution does not promote the clause or replace its newer judgment.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
