@@ -18,7 +18,6 @@ import { seedWorkspace } from "./setup/fixtures";
 const sections = ["top", "open-source", "pages", "databases", "search", "sharing", "history", "included", "move-in", "start", "colophon"];
 // Every absolute address the landing may link to. All are navigation targets: the page loads nothing from them.
 const navigationTargets = new Set([
-  "https://demo.run-slate.com/",
   "https://github.com/just-every/run-slate",
   "https://github.com/just-every/run-slate#readme",
   "https://runeditrun.com",
