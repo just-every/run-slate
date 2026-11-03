@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "3fddaf1a9a1e04fd06cb938eeccdb309771ee21e8fa3519b376e3b949038cb4d",
+      "sha256": "1671f0e2103b9b65f0da2b8efce3a27b0eb22faa10144745f12d57dd2715504e",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "64be0bc4a4d2204d0893726d163a28501b4b6da07081578a6fe79472d67f2281",
+      "sha256": "f5fc4274c42da9ef957a9a112f9c3a9672fd444c29822fbb37c2279cd5a18f7c",
       "executable": false
     },
     "DEMO.md": {
@@ -6200,11 +6200,11 @@
       "executable": false
     },
     "src/core/features/containers/ui/workspace/ContainerSettings.tsx": {
-      "sha256": "57d772e4fcb9db22b89452e4bd3ccfc2c68c546ae568b267d31334e92b7a32ca",
+      "sha256": "8f0cffe328ffa168c08fcddd980735224e30ae72b4cfe9a47bc6afd643c9047d",
       "executable": false
     },
     "src/core/features/containers/ui/workspace/ContainerSharing.tsx": {
-      "sha256": "aba2d78e6b8112351aee020c5b233c8d362c038024555082456533deea94854a",
+      "sha256": "870ec59414ede2cf0b5439c86968d906e33770535fb614bd799d1f35e3114719",
       "executable": false
     },
     "src/core/features/containers/ui/workspace/ContainerWatch.tsx": {
@@ -9372,7 +9372,7 @@
       "executable": false
     },
     "src/core/features/sharing/listing.ts": {
-      "sha256": "b27c07e4586f89742b750fdc92ea54c2b4e39d2466d7a96cedae3474075f4960",
+      "sha256": "bd560e7ad3ef583793997e0545c26cdb968baec31d3e1cd0b9d83277a6e60fba",
       "executable": false
     },
     "src/core/features/sharing/recipients.ts": {
@@ -11871,6 +11871,10 @@
       "sha256": "637efdb5ebd64f8c68bf1010877475a2a73719c199e5bdedf215161d8c4af602",
       "executable": false
     },
+    "tests/qualification/ui-convergence/container-access-profile-journey.mjs": {
+      "sha256": "54fce55df38fbc54478ed4cec5d69babf9731fb54a5d0fb76743234f256cf837",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/container-identity-journey.mjs": {
       "sha256": "7259c87ea25297488cfafd3c9905bb9fb78a154d3e8d6c966cbe5d571bf13b3a",
       "executable": false
@@ -12132,7 +12136,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "6159d2fa6eb17529a62c4b5e8b0ae93561de1ee2a28c865037917729966df20a",
+      "sha256": "d069de9f0b523602845abe78230b73e1f906756467fdab8bf38272e76d5c44a7",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-detail-journey.mjs": {
@@ -12320,7 +12324,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "246210f82ded900859b137864def114f6c08e561a98854a9161acdf56e9adc86",
+      "sha256": "a37579149699027e583f8ce1f5d90816a971ee1d8d3f71fb11587a235b98659c",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {

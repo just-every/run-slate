@@ -1505,7 +1505,7 @@ Core · published · **partial**
 4. Both store visibility and the grant list, so switching relabels the surface and rewrites no grant.*
 5. Profile journeys for `class-led` and `grant-led` relabel without rewriting grants.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.; `tests/qualification/ui-convergence/container-access-profile-journey.mjs` — supporting native profile, populated member/group/guest grant, external-switch and canonical access-preservation journeys, loaded by the existing settings journeys. Main's partial judgment is retained pending independent acceptance and exact-candidate CI.
 **Gap.** No validated CI-run proof for this acceptance point: "`class-led` leads with the visibility values in `CONT-001`, each stating who may see and join, and folds the member, group and guest lists behind one manage-access view."<br>No validated CI-run proof for this acceptance point: "`grant-led` leads with tabbed lists of members, groups and guests and an external-access card, and hides the visibility dropdown."<br>No validated CI-run proof for this acceptance point: "Neither value hides the switches in `CONT-007`."<br>No validated CI-run proof for this acceptance point: "Both store visibility and the grant list, so switching relabels the surface and rewrites no grant."
 
 #### CONT-009 — Container grants
