@@ -187,9 +187,9 @@ These supporting journeys retain main’s current partial judgments for BLOCK-00
 
 ## Native version deletion
 
-The existing `two people edit at once, lose access mid-edit and restore history at 1440px`
-registration calls `historyJourney` in `./tests/qualification/ui-convergence/two-people-history.mjs`,
-which calls `versionDeletionJourney` in `./tests/qualification/ui-convergence/version-deletion-journey.mjs`.
+The existing `named review request, reviewer queue, exact verify and overdue escalation at 1440px`
+registration calls `versionDeletionJourney` in `./tests/qualification/ui-convergence/version-deletion-journey.mjs`
+with a second signed-in person after its review, synced-content and people journeys.
 The existing `real core-wiki and touch-member journeys at 390px` registration calls the same
 helper for the phone proof. Both registrations run on push Verify through the existing shard assignments.
 

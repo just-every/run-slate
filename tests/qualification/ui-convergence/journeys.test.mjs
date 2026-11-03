@@ -187,6 +187,8 @@ for (const width of [1440]) {
       await withSecondPerson(state, width, people => reviewRequestJourney(state, people));
       await syncedJourney(state,width);
       await peopleJourney(state,width);
+      // Publication reviews here do not race a suite lane starting beside the journeys.
+      await withSecondPerson(state, width, people => step('REV-006 — numbered deletion leaves an attributed tombstone', () => versionDeletionJourney(state, people)));
     }, {}, { scheduled: true });
   });
 }
