@@ -1249,7 +1249,7 @@ Core · published · **partial**
 1. An edited comment shows the time it was last edited, a deleted comment leaves a tombstone in place, and both write an activity entry.
 2. Members edit or delete only their own comments; edits are timestamped and deletions leave tombstones.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.; no validated CI-run proof. Supporting regressions: `tests/flagship/content/http.test.ts` and `tests/qualification/ui-convergence/comments-journey.mjs` (`commentAuthorshipJourney`, called by `journeys.test.mjs`) add two comment-level authors, cross-author and owner refusal, edited timestamps, in-place tombstones and duplicate-safe comment/activity replay. These additions retain the current main judgment and do not establish validated CI-run acceptance.; `tests/qualification/ui-convergence/journeys.test`
 **Gap.** No validated CI-run proof for this acceptance point: "A member can edit or delete only their own comments."<br>No validated CI-run proof for this acceptance point: "An edited comment shows the time it was last edited, a deleted comment leaves a tombstone in place, and both write an activity entry."
 
 #### COMM-003 — Mentions
