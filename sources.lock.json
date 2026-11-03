@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "35d9303b0f542a9d0806e3d71e1aae784d07fb64aeda5aff8232017c27aee31e",
+      "sha256": "10daa0767173ff4ff4d47a008e29582f70cc49a5d9ae90fe1524d0a3d8ebc961",
       "executable": false
     },
     "DEMO.md": {
@@ -10840,7 +10840,7 @@
       "executable": false
     },
     "tests/flagship/content/http.test.ts": {
-      "sha256": "5d8486c9279d5064e4c6cc457a0b33474783128c80d5694d925d4c389ce27a35",
+      "sha256": "8d6739b55abb3f02ad0468be0744e8254d5f1b12f5cc50fc2fd836676442327d",
       "executable": false
     },
     "tests/flagship/content/journeys.ts": {
@@ -12084,7 +12084,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "2a6c6cd95186d0900368b48ff4d3c6da25addecd83f0750d002fac8860414273",
+      "sha256": "db0670b3b6f6a7d53cf21363b30833570d861f3d6f6b634e46fa6f4ab3de2106",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12121,6 +12121,10 @@
     },
     "tests/qualification/ui-convergence/page-lock-journey.mjs": {
       "sha256": "4c2347fed6b4bfccb8160c2b1820b00d4b5d7c1fbe2f3cd8ea0f896d4037b9c1",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/page-status-journey.mjs": {
+      "sha256": "1744723cf5c0de229d0f62e0d1f454e1629a2fbda1f2877b8c7612ff8d20158e",
       "executable": false
     },
     "tests/qualification/ui-convergence/people-journey.mjs": {
@@ -12352,11 +12356,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "79565ad1a82b51fd07dd98ec20d2480de5ef210dfa511f92820c253ad641605d",
+      "sha256": "ebfca4e567baaf0480bd6715552dff64019eff97c5c5d6006ac859c3a589ce6c",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "bfdec3bd753b8815f3639043f4f056409c03e7375cd3d59748b793f6b34ee532",
+      "sha256": "5196d6c3239bccedb5df67921fd9cef08a6a1a646b0ff94acad8663c756d7a0c",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
@@ -12368,7 +12372,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "2bc30a570f4e7107f83234721665cd7e8eab8e6346d92143c526e2646f7d3471",
+      "sha256": "56b8cb4343afb753e8634bf59f9f362ffbd4303fc1f7cde1c06c502cf71a671a",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
