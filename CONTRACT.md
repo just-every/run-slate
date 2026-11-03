@@ -191,7 +191,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 - `DB-003`: *Tier:* Core
 - `DB-004`: *Tier:* Core
 - `DB-005`: *Tier:* Core
-- `DB-006`: *Tier:* Core
+- `DB-006`: *Tier:* Core · *Cites:* BASE-ACCESS-004
 - `DB-007`: *Tier:* Core
 - `DB-008`: *Tier:* Core
 - `DB-009`: *Tier:* Core
@@ -4003,6 +4003,7 @@ TMPL-003 retains the current main judgment below. The native template snapshot a
 ARCH-004 retains current main’s partial judgment, Evidence and Gap below. The populated archive retention and explicit cascade confirmation implementation and assertions from candidate `92b36ea2ca3f5625fc990af7f5251416346c6c0c` are reapplied as supporting work; this replay does not promote the clause. Supporting native HTTP assertions are `archiveRetentionProof` in `tests/qualification/core/archive-retention-proof.ts`, called by `tests/qualification/core/audit-content.test.ts`; supporting browser assertions are `archiveRetentionJourney` in `tests/qualification/ui-convergence/archive-retention-journey.mjs`, loaded by the existing desktop presentation touch-tools and phone core-wiki journeys. They cover populated page-tree, container and database retention, unsafe deletion refusals, cancellation, exact cascade confirmation, fresh-proof erasure and inert replay. The original candidate’s done judgment is not carried forward.
 REV-006 retains main's partial judgment, Evidence and Gap below. The candidate's native numbered-version deletion attribution, content-removal and duplicate-safe replay assertions have been reapplied as supporting implementation and tests in `tests/qualification/ui-convergence/version-deletion-journey.mjs`, `tests/flagship/content/http.test.ts` and `tests/qualification/core/audit-content.test.ts`; this conflict resolution does not promote the clause or replace its newer judgment.
 STAT-002 retains the current main judgment below. The candidate native member page-status, replay, activity, search and persisted-query journeys have been reapplied as supporting assertions; this replay does not promote the clause or replace its recorded evidence gap.
+DB-006 retains the current main judgment below. Typed saved-view grouping, native move controls and their HTTP and browser assertions are reapplied as supporting implementation and proof; this replay does not promote the clause or replace its recorded evidence gap.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
