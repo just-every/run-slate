@@ -60,7 +60,11 @@ async function commentAuthorshipJourney() {
   else expect(comment).toMatchObject({body:input.body,deletedAt:null});
   const entries=(await activity()).filter((entry:any)=>entry.operationKey===input.operationKey);
   expect(entries).toHaveLength(1);
-  expect(entries[0]).toMatchObject({id:receipt.activityId,action,actor:{id:actor},target:{kind:'comment-thread',id:comment.threadId},occurredAt:receipt.committedAt,context:{commentId:comment.id,revisionId:receipt.revisionId}});
+  expect(entries[0]).toMatchObject({id:receipt.activityId,action,actor:{id:actor},target:{kind:'comment-thread',id:comment.threadId},occurredAt:receipt.committedAt,context:{pageId,threadId:comment.threadId,commentId:comment.id}});
+  // Thread revisions remain durable evidence, but main exposes only page revisions as history links.
+  expect(entries[0].context.revisionId).toBeUndefined();
+  const stored=await env.DB.prepare('SELECT detail_json FROM activity_entries WHERE id=?').bind(receipt.activityId).first<{detail_json:string}>();
+  expect(JSON.parse(stored!.detail_json)).toMatchObject({commentId:comment.id,revisionId:receipt.revisionId});
   records.push({actor,method,path:route,input,result});return comment;
  };
  const comments:any[]=[];
