@@ -102,7 +102,7 @@ try {
   const refused={response,body:await response.json() as Awaited<ReturnType<typeof runRestoreThroughApi>>['body']};
   expect(refused.response.status).toBe(200);
   expect(refused.body.state).toBe('failed');
-  expect(refused.body.report.code).toBe('RESTORE_FAILED');
+  expect(refused.body.report.code).toBe('RESTORE_COMMIT_FAILED');
   expect(await tableCounts()).toEqual(before);
   const afterSnapshot=await portableSnapshot({omitSetupOwner:true,omitTables:['import_native_epoch']});
   expect(afterSnapshot.hash).toBe(beforeSnapshot.hash);
