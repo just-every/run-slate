@@ -3998,6 +3998,8 @@ STAT-005 retains the current main judgment below. The native status-profile cont
 
 IMP-005 candidate source replayed from `f9473f297817db032e997eef963df8f87ec4c788` and `568e19d3d8d4a5aa4e2dfcc064bd13d259004a53`; native HTTP format, content and authorization assertions are retained as supporting evidence. Main's current partial judgment and public journey gap remain pending review.
 
+HOME-001 retains current main’s partial judgment and recorded evidence gap. Reapplied native Lobby regressions observe setup-state freshness, cookie independence, foreign-origin refusal and the D1 read boundary in `tests/e2e/landing.test.ts`; `tests/e2e/managed-first-open.mjs`, invoked by `tests/e2e/production-artifact.test.mjs`, adds script-free unclaimed and claimed Lobby browser observations at 1440 and 390. These supporting assertions do not promote the clause or replace guarded landing receipts.
+
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | Published | 39 | 187 | 1 | 227 |
