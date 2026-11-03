@@ -1,3 +1,4 @@
+import { versionDeletionJourney } from './version-deletion-journey.mjs';
 import assert from 'node:assert/strict';
 import { randomBytes, randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
@@ -251,5 +252,6 @@ export async function historyJourney(state, people) {
   await expect(stranger.locator('body')).not.toContainText('Write the review within a day.');
   await anonymous.close();
   await saveWorkspace({publicLinkAccess:workspace.publicLinkAccess,anonymousAccess:workspace.anonymousAccess,policies:workspace.policies});
+  await versionDeletionJourney(state, people);
   record('history', { restoredFrom: target.revisionId, newRevision: after.revision, revisionsBefore: before.history, revisionsAfter: after.history, activity: { action: activity.action, actor: alice.name, restoredRevisionId: activity.context.revisionId } });
 }
