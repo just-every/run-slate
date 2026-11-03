@@ -2932,7 +2932,7 @@
       "id": "HOME-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Missing a public landing journey that observes private-data absence, resource requests and script-free rendering; the cited stylesheet check checks palette and motion declarations only.",
+      "unmetReason": "The built-site browser journey in tests/e2e/landing-styles.test.mjs now observes every section without scripts, reduced motion, fixed light presentation under dark preference, resources and cookies. The emitted-Worker admission journey in tests/e2e/production-artifact.test.mjs creates and anonymously reads a native published page, excludes populated member identities and records from both roots, and refuses a withdrawn publication under replay. Independent exact-candidate Verify and guarded landing receipts remain external to this supporting registry.",
       "supportingTests": [
         {
           "file": "tests/e2e/landing.test.ts",
