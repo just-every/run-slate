@@ -15,6 +15,13 @@ export function KeyboardReference({ onClose }: { onClose: () => void }) {
       ref={dialog}
       className="folio-dialog"
       aria-label="Keyboard shortcuts"
+      onKeyDown={(event) => {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          event.stopPropagation();
+          onClose();
+        }
+      }}
       onCancel={(event) => {
         event.preventDefault();
         onClose();
@@ -30,7 +37,7 @@ export function KeyboardReference({ onClose }: { onClose: () => void }) {
             {id:"insert",label:"Insert a block",keys:"/"},{id:"mention",label:"Mention a person, group, page or date",keys:"@"},
             {id:"heading",label:"Headings (then space)",keys:"# / ## / ###"},{id:"bullet",label:"Bulleted list (then space)",keys:"- or *"},
             {id:"number",label:"Numbered list (then space)",keys:"1."},{id:"quote",label:"Quote (then space)",keys:"> or \""},
-            {id:"task",label:"Task (then space)",keys:"[] or [ ]"},{id:"divider",label:"Divider",keys:"---"},{id:"codeblock",label:"Code block",keys:"```"},
+            {id:"task",label:"Task (then space)",keys:"[] or [ ]"},{id:"task-date",label:"Task due-date picker",keys:"//"},{id:"divider",label:"Divider",keys:"---"},{id:"codeblock",label:"Code block",keys:"```"},
             {id:"typed-bold",label:"Bold",keys:"**text**"},{id:"typed-italic",label:"Italic",keys:"*text*"},{id:"typed-code",label:"Inline code",keys:"`text`"},
             {id:"undo-conversion",label:"Undo a formatting conversion, retaining typed text",keys:"Ctrl Z or ⌘ Z"}
           ]},
