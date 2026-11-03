@@ -1,3 +1,4 @@
+import { publicPageJourney, publicPageSettingsJourney, anonymousPublicPageJourney } from './public-page-journey.mjs';
 import {contentQueryJourney} from './content-query-journey.mjs';
 import {publicProfileJourney} from './public-profile-journey.mjs';
 import {transferJobsJourney} from './transfer-jobs-journey.mjs';
@@ -399,6 +400,20 @@ for (const width of [1440, 390]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await contentQueryJourney(state, width);
+    });
+  });
+}
+
+// Keep publication assertions in their own real workspace so adding them does
+// not consume the established writing, sharing and touch-member deadline.
+for (const width of [1440, 390]) {
+  test(`stored public exposure and anonymous published revision at ${width}px`, { timeout: 240000 }, async () => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      const pageId = (await state.api('/api/pages')).items[0].id;
+      await publicPageJourney(state, pageId);
+      await publicPageSettingsJourney(state);
+      await anonymousPublicPageJourney(state);
     });
   });
 }

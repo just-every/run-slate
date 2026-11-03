@@ -132,3 +132,28 @@ PORT-003 uses `transferJobsJourney` in `tests/qualification/ui-convergence/trans
 The journey reconciles every rendered count with native persisted status and completed counts with the actual archive. Real D1 triggers force late export and restore publication failures. Failed receipts survive reload and replay, identify the failed publication without exposing internal SQL or raw exceptions, expose no download or successful-restore action, and refuse a guessed download route. A new operation succeeds after the fault is removed; the restored workspace requires fresh sign-in and retains the original pages. Queued and failed jobs explicitly show zero completed records. Captures cover the transfer screens at desktop and phone widths without another registration.
 
 The existing populated ZIP round-trip registration in `tests/portability/roundtrip.test.mjs`, loaded by the tooling Verify shard, additionally forces that late native restore failure after original R2 files have been staged. It restarts the Worker, reads the same terminal failure, checks that canonical pages, containers and files remain absent, and retries the original archive. Its existing full retained-table, identity, search, publication, grant and original-byte comparisons remain in place. The Workers-only supporting-evidence inventory does not aggregate these Node and browser registrations; the contract Status row names their public-door evidence directly.
+
+## Stored public exposure and anonymous publication journeys
+
+`stored public exposure and anonymous published revision at 1440px` and its
+390px counterpart in `tests/qualification/ui-convergence/journeys.test.mjs`
+run `publicPageJourney`, `publicPageSettingsJourney` and
+`anonymousPublicPageJourney` in independent native core-wiki workspaces. The
+new publication assertions no longer consume the existing core writing,
+sharing and touch-member journey's deadline; its assertions and timeout remain
+unchanged. The ordinary journey partitioner includes both new registrations in
+push Verify without changing the workflow or existing named assignments.
+
+The journeys create, edit, reload and rename a publication while retaining its
+stored host, slug, indexing, theme, header controls, duplication and social
+preview settings. Native revocation retains its timestamp and publication
+settings; a reserved-address collision changes neither exposure, and a reader
+cannot reactivate it. A fresh anonymous browser reads only the exact published
+revision and permitted public reference, has no cookie or browser storage,
+sends only same-origin GET requests before interaction, and adds one anonymous
+view without an identified viewer. Private working content, comments, private
+names and privileged APIs remain unavailable; replay cannot reopen a revoked
+publication. The native ZIP roundtrip separately preserves every exposure field
+while keeping restored delivery revoked until explicit publication. These are
+supporting assertions; CONTRACT.md retains WEB-002 and WEB-003's partial
+judgments and recorded gaps.

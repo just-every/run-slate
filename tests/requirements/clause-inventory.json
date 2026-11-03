@@ -675,7 +675,7 @@
       "id": "WEB-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "The Workers registry records native exposure support. Complete WEB-002 browser acceptance is publicPageSettingsJourney in tests/qualification/ui-convergence/public-page-journey.mjs, loaded by both existing core journeys. The native ZIP journey in tests/portability/roundtrip.test.mjs proves exact imported exposure settings and revoked delivery until explicit publication. CONTRACT.md owns the complete clause status.",
+      "unmetReason": "The Workers registry records native exposure support. Complete WEB-002 browser acceptance is publicPageSettingsJourney in tests/qualification/ui-convergence/public-page-journey.mjs, loaded by the responsive stored public exposure and anonymous published revision journeys. The native ZIP journey in tests/portability/roundtrip.test.mjs proves exact imported exposure settings and revoked delivery until explicit publication. CONTRACT.md owns the complete clause status.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/repair.test.ts",
@@ -691,7 +691,7 @@
       "id": "WEB-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "The Workers registry does not classify browser acceptance. CONTRACT.md owns WEB-003 status. anonymousPublicPageJourney in tests/qualification/ui-convergence/public-page-journey.mjs is loaded by the existing responsive core journeys and reads the exact published title and body while refusing working content, comments, private names, unpublished links and privileged API access. It checks initial same-origin GET requests, no cookies or browser storage, anonymous view accounting without a viewer identity, and content-free refusal after revoked publication replay.",
+      "unmetReason": "The Workers registry does not classify browser acceptance. CONTRACT.md owns WEB-003 status. anonymousPublicPageJourney in tests/qualification/ui-convergence/public-page-journey.mjs is loaded by the responsive stored public exposure and anonymous published revision journeys and reads the exact published title and body while refusing working content, comments, private names, unpublished links and privileged API access. It checks initial same-origin GET requests, no cookies or browser storage, anonymous view accounting without a viewer identity, and content-free refusal after revoked publication replay.",
       "supportingTests": []
     },
     {
