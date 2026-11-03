@@ -1,4 +1,3 @@
-import {archiveRetentionJourney} from './archive-retention-journey.mjs';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
@@ -52,7 +51,6 @@ export async function touchManagementJourney(state,touch){
  await expect(row).toHaveCount(0);
  assert.equal((await api(`/api/pages/${templatePage}`)).page.lifecycle,templateLifecycle);
  await checkpoint(page,'archive restored');
- await archiveRetentionJourney(state,touch);
 
  const ownerContext=await state.context.browser().newContext({viewport:page.viewportSize(),hasTouch:true,isMobile:page.viewportSize().width===390,storageState:await state.context.storageState(),locale:'en-US'});
  const errors=[];

@@ -381,7 +381,7 @@ for (const width of [1440]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await presentationJourney(state);
-      const touch=await beginTouchJourney(state,width);try{await touchPageToolsJourney(touch);}finally{await touch.close();}
+      const touch=await beginTouchJourney(state,width);try{await touchPageToolsJourney(touch);await step('ARCH-004 — populated archive retention and exact cascade confirmation by touch', () => archiveRetentionJourney(state,touch));}finally{await touch.close();}
     });
   });
 }
