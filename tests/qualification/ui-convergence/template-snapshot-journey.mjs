@@ -143,8 +143,9 @@ export async function templateSnapshotJourney({ page, context, origin, api }) {
   function flatten(tree) { return [tree, ...tree.children.flatMap(flatten)]; }
   async function visibleCopy(tree) {
     for (const document of flatten(tree)) {
+      // A fresh document load per page reads the persisted copy; repeating it with
+      // reload only doubled the member's requests against the per-minute limit.
       await page.goto(`${origin}/app/pages/${document.id}`, { waitUntil: 'networkidle' });
-      await page.reload({ waitUntil: 'networkidle' });
       await expect(page.getByRole('textbox', { name: 'Page title', exact: true })).toHaveValue(document.title);
       for (const block of document.blocks) {
         await expect(page.locator(`[data-block-id="${block.id}"]`).first()).toContainText(block.content.text.map(span => span.text).join(''));

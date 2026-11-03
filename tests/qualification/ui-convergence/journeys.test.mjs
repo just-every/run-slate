@@ -64,6 +64,7 @@ import { globalCreateJourney } from './global-create-journey.mjs';
 import { templateCaptureJourney } from './template-capture-journey.mjs';
 import { starterTemplatesJourney } from './starter-templates-journey.mjs';
 import { templateGalleryJourney } from './template-gallery-journey.mjs';
+import { templateSnapshotJourney } from './template-snapshot-journey.mjs';
 import { taskAssignmentJourney } from './task-assignment-journey.mjs';
 import { recordTemplatesJourney } from './record-templates-journey.mjs';
 import { pageLockBrowserJourney } from './page-lock-journey.mjs';
@@ -238,6 +239,10 @@ for (const width of [1440]) {
         console.error(cause);
         throw cause;
       });
+      // Template snapshots keep their own registration's time and request budget;
+      // globalCreateJourney ends signed in as the reader, so return to the owner.
+      await state.switchIdentity('owner');
+      await step('TMPL-003 — native template copies retain their snapshot through template update, archive and delete', () => templateSnapshotJourney(state));
     });
   });
 }

@@ -5,7 +5,6 @@ import { root } from '../../e2e/runtime-harness.mjs';
 import { accessible } from './browser-evidence.mjs';
 import { templateScopeJourney } from './template-scope-journey.mjs';
 import { templateGalleryJourney } from './template-gallery-journey.mjs';
-import { templateSnapshotJourney } from './template-snapshot-journey.mjs';
 
 const starters = { 'Meeting notes': 'Meetings', Retrospective: 'Meetings', Decision: 'Decisions', 'How-to guide': 'Documentation', 'Troubleshooting article': 'Documentation', 'Product requirements': 'Planning', 'Project plan': 'Planning', Runbook: 'Operations', 'Onboarding page': 'Teams', 'Team home': 'Teams', 'Policy page': 'Policies' };
 
@@ -64,5 +63,4 @@ export async function starterTemplatesJourney(state) {
   await shot('duplicated');
   assert.deepEqual(await api(`/api/templates/${shipped.id}`), before, 'The shipped retrospective stays unchanged.');
   await templateScopeJourney(state);
-  await templateSnapshotJourney(state);
 }
