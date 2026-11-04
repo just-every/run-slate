@@ -12132,11 +12132,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/page-identity-journey.mjs": {
-      "sha256": "0a2ba17a43cc4d29fa78fd7eee730e5b1b122c35e355bb2073f5547e111e934c",
+      "sha256": "c5e6975aedfd6e67752bd402d012812c0d15bea450eadf0caa9dc484fe50957b",
       "executable": false
     },
     "tests/qualification/ui-convergence/page-identity-support.mjs": {
-      "sha256": "90d9cfb0f9bd2f2b21971a3ba70e09be97acc5b9f4abb573d0e06069739ff193",
+      "sha256": "0c30d5074b3b3659b0dcac145834ae28d2478b1e1fad6291261601ba96cf7d9e",
       "executable": false
     },
     "tests/qualification/ui-convergence/page-lock-journey.mjs": {

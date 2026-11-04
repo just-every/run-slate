@@ -5,7 +5,7 @@ import path from 'node:path';
 import {expect} from '@playwright/test';
 import {root} from '../../e2e/runtime-harness.mjs';
 import {accessible,openPageAction} from './browser-support.mjs';
-import {identityCommit} from './page-identity-support.mjs';
+import {identityCommit,identityDialogShot} from './page-identity-support.mjs';
 import {call,editable,grant,ok,restrictedPage,savedAfterCommit,withSecondPerson} from './two-people-support.mjs';
 
 /** One populated page, retained references and independent readers across its lifetime. */
@@ -73,7 +73,7 @@ export async function pageIdentityJourney(state,width) {
   await query(page).getByRole('button',{name:'Edit the query',exact:true}).click();
   const edit=page.getByRole('dialog',{name:'Edit content query',exact:true});
   await edit.getByLabel('Saved search',{exact:true}).selectOption(saved.id);
-  await shot('saved-content-query');
+  await identityDialogShot(page,edit,shot,'saved-content-query');
   await edit.getByRole('button',{name:'Save query',exact:true}).click();
   await expect(edit).toBeHidden();
   const definition=(await api(`/api/pages/${reference}`)).blocks.find(block=>block.blockType==='content-query').content.definition;
@@ -182,7 +182,8 @@ export async function pageIdentityJourney(state,width) {
         await picker.getByRole('option',{name:parentPageId?`${name} Handbook`:name,exact:true}).click();
         await picker.getByRole('button',{name:'Move page',exact:true}).click();
         const review=page.getByRole('dialog',{name:'Review changed access',exact:true});
-        await shot(parentPageId?'move-within':'move-between');
+        await expect(review.getByRole('button',{name:'Move page',exact:true})).toBeEnabled();
+        await identityDialogShot(page,review,shot,parentPageId?'move-within':'move-between');
         await commit(`/api/pages/${id}/move`,()=>review.getByRole('button',{name:'Move page',exact:true}).click());
         await expect(review).toBeHidden();
         const moved=await api(`/api/pages/${id}`);
@@ -198,7 +199,7 @@ export async function pageIdentityJourney(state,width) {
         await page.getByRole('menuitem',{name:action==='archive'?'Archive page':'Move to trash',exact:true}).click();
         const dialog=page.getByRole('dialog',{name:action==='archive'?'Archive this page?':'Move this page to trash?',exact:true});
         await dialog.getByLabel('Reason',{exact:true}).fill('Retain the same guide and its references.');
-        await shot(action);
+        await identityDialogShot(page,dialog,shot,action);
         await commit(`/api/archive/${id}`,()=>dialog.getByRole('button',{name:'Confirm',exact:true}).click());
         await expect(dialog).toBeHidden();
       };
@@ -206,6 +207,7 @@ export async function pageIdentityJourney(state,width) {
         await page.goto(`${origin}/app/archive`,{waitUntil:'networkidle'});
         if(trash)await page.getByRole('button',{name:'Trash',exact:true}).click();
         const row=page.locator('.archive-list li').filter({hasText:title});
+        await expect(row).toBeVisible();
         await shot(trash?'restore-trash':'restore-archive');
         await commit(`/api/archive/${id}`,()=>row.getByRole('button',{name:'Restore',exact:true}).click());
         await expect(row).toHaveCount(0);
@@ -221,7 +223,8 @@ export async function pageIdentityJourney(state,width) {
       await page.getByRole('menuitem',{name:'Publish workspace revision',exact:true}).click();
       const publication=page.getByRole('dialog',{name:'Publish this revision',exact:true});
       await publication.getByRole('button',{name:'Review publication',exact:true}).click();
-      await shot('reviewed-publication');
+      await expect(publication.getByRole('button',{name:'Publish workspace revision',exact:true})).toBeEnabled();
+      await identityDialogShot(page,publication,shot,'reviewed-publication');
       await commit(`/api/pages/${id}/publish`,()=>publication.getByRole('button',{name:'Publish workspace revision',exact:true}).click());
       await expect(publication).toBeHidden();
       await reconcile('workspace published');
