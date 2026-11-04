@@ -95,6 +95,8 @@ export async function containerBulkJourney(state,width){
    assert.deepEqual(input.pages.map(p=>p.id),selected.map(p=>p.id));
    assert.deepEqual(result.items.map(p=>[p.id,p.success]),selected.map((p,index)=>[p.id,index!==0]));
    await expect(dialog).toBeHidden();
+   // Wait for the refreshed listing before checking names of pages that left it.
+   if(['archive','trash','move'].includes(action))for(const p of selected.slice(1))await expect(page.getByRole('checkbox',{name:p.title,exact:true})).toHaveCount(0);
    const results=page.getByRole('list',{name:'Bulk results',exact:true});
    for(const [index,p] of selected.entries())await expect(results.locator('li').filter({hasText:p.title})).toContainText(index?'Saved':': ');
    for(const p of selected.slice(1)){
