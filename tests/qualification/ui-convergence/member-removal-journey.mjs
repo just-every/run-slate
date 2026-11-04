@@ -70,6 +70,7 @@ async function confirmOwnerAction(state, context, wrongSession) {
     assert.equal(proofs.length,1);
     assert.equal(proofs[0].usedAt,proofs[0].proofAt);
     assert.equal(proofs[0].authorityVersion,proofs[0].proofVersion);
+    return link;
   } finally {await confirmation.close();}
 }
 
@@ -206,7 +207,7 @@ export async function setupMemberRemovalJourney(state,width,reader) {
     await accessible(otherPage,'another owner cannot remove the setup member');
     await otherPage.close();
 
-    await confirmOwnerAction(state,context,otherOwner);
+    const confirmationLink=await confirmOwnerAction(state,context,otherOwner);
     await page.goto(origin+'/app/settings?section=members',{waitUntil:'networkidle'});
     const ownRow=page.locator('.settings-list li').filter({has:page.getByText('Alex Owner',{exact:true})});
     await ownRow.getByRole('button',{name:'Remove yourself',exact:true}).click();
@@ -223,6 +224,11 @@ export async function setupMemberRemovalJourney(state,width,reader) {
     assert.ok(!remaining.items.some(item=>item.id==='browser-owner'));
     assert.equal(remaining.items.find(item=>item.id===person.id).role,'owner');
     assert.equal((await ok(otherOwner,origin,'GET','/api/session')).member.id,person.id);
+    const replayedProof=await context.request.post(origin+'/auth/confirm',{headers:{origin},form:{token:new URL(confirmationLink).searchParams.get('token')},maxRedirects:0});
+    assert.equal(replayedProof.status(),400,'The consumed owner proof cannot revive a removed setup member.');
+    assert.equal((await call(context,origin,'POST','/api/members/remove',{operationKey:removalKey,memberId:'browser-owner'})).status,401,'A revoked setup session cannot replay its removal receipt.');
+    assert.equal((await call(context,origin,'GET','/api/session')).status,401);
+    assert.deepEqual(await ok(otherOwner,origin,'GET','/api/members'),remaining,'Proof and operation replay leave every surviving member unchanged.');
     // Navigation intentionally retires the signed-in document, so read the
     // native durable receipt rather than a discarded browser body buffer.
     const [{results:[stored]},{results:[operation]},{results:entries}]=await state.atRest(`SELECT status,is_setup_owner AS setup FROM members WHERE id='browser-owner'; SELECT response_status AS status,response_json AS response FROM operation_receipts WHERE actor_member_id='browser-owner' AND operation_key='${removalKey}'; SELECT id,action,target_id AS target FROM activity_entries WHERE operation_key='${removalKey}'`);

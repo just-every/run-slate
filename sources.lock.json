@@ -12104,7 +12104,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/member-removal-journey.mjs": {
-      "sha256": "5b732d760d8f5c070978e8691aec7cd5531e942c4cc61c861f06e89e91fc8246",
+      "sha256": "581e1871b952ac5dd39c6788156f45c5a88d3389aab00e945789ce4704729865",
       "executable": false
     },
     "tests/qualification/ui-convergence/mixed-search-journey.mjs": {
@@ -12392,7 +12392,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "b3905f3ccf1f9322e4ea5480fafe1ddef885638ffd5a141b4ef4ab2fbf4dcdd3",
+      "sha256": "877b0bf3efad7afd326a0a870f39076e1de56b978a7d2ada751cb88d4843146f",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
