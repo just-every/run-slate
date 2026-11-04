@@ -1,3 +1,4 @@
+import {containerBulkJourney} from './container-bulk-journey.mjs';
 import {statusVocabularyJourney} from './status-vocabulary-journey.mjs';
 import { shortcutReferenceJourney } from './shortcut-reference-journey.mjs';
 import assert from 'node:assert/strict';
@@ -103,4 +104,5 @@ export async function settingsJourney(state, width) {
   if(width===1440)await activityContextJourney(state);
   // Last: the operator's per-minute request budget is spent by the many screens above, not by this reconciliation.
   await containerIdentityJourney(state,width);
+  await containerBulkJourney(state,width);
 }

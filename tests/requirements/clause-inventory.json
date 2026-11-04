@@ -1020,8 +1020,13 @@
       "id": "CONT-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for CONT-006 — Bulk actions. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "Native HTTP bulkPagesCase and the containerBulkJourney in the existing responsive settings callers cover the five bulk actions, independent authority, receipts, activity, retained names and replay. This supporting registry does not certify the guarded landing or external release.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/content/http.test.ts",
+          "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
+        }
+      ]
     },
     {
       "id": "CONT-007",

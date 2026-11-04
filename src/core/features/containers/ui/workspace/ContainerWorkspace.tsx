@@ -201,7 +201,7 @@ function ContainerDetail({ id, updated }: { id: string; updated: () => void }) {
           <a href={`/app/search?containerId=${id}`}>Search this space</a>
           {tab==='home'?<ContainerHome key={id} containerId={id} name={resource.data.name} onSaved={()=>{void resource.reload();void pages.reload();updated();}}/>:null}
           {tab==='blog'?<ContainerBlog containerId={id}/>:null}
-          {tab==='templates'?<TemplatesWorkspace defaultContainerId={id} embedded/>:tab==='trash'?<WorkspaceArchive containerId={id} embedded/>:tab==='bulk'?<ContainerBulk pages={available} onSaved={pages.reload}/>:null}
+          {tab==='templates'?<TemplatesWorkspace defaultContainerId={id} embedded/>:tab==='trash'?<WorkspaceArchive containerId={id} embedded/>:tab==='bulk'?<ContainerBulk key={id} containerId={id} pages={available} onSaved={pages.reload}/>:null}
           {tab==='content'?<>
           <p>{resource.data.description}</p>
           <label>

@@ -1,3 +1,4 @@
+import {bulkPagesCase} from './bulk.case';
 import {statusVocabularyCase} from './status-vocabulary.case';
 import { lifecycleJourney } from './lifecycle';
 import {runFoldCases} from '../fold-cases';
@@ -182,6 +183,7 @@ async function pageStatusHttpJourney() {
 
 describe('content durable HTTP',()=>{
 it("content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state",async()=>{await runFoldCases([
+{name:"member bulk actions commit independently with activity and replay",before:resetDeployment,run:bulkPagesCase},
 {name:"content durable HTTP block saves preserve rich text, actor-bound replay and concurrent CAS",before:resetDeployment,run:async()=>{
  await runContentCases([
 {name:"content durable HTTP round trips rich text, enforces CAS, deduplicates actor-bound operations and rejects missing sessions",run:async()=>{const f=await fixture(),id1=createUlid(),id2=createUlid(),op=createUlid();const created=await f.request('POST','/api/pages',{operationKey:op,containerId:f.containerId,title:'Notes',blocks:[block(id1,'First'),block(id2,'Second')]});expect(created.status,JSON.stringify(created.data)).toBe(200);const id=created.data.value.pageId;const read=await f.request('GET',`/api/pages/${id}`);expect(read.data.blocks[0].content.text[0].marks).toEqual(['bold']);const input={operationKey:createUlid(),expectedRevisionId:read.data.blocks.find((b:any)=>b.id===id1).revisionId,content:{text:[{text:'Changed'}]}};const saved=await f.request('PATCH',`/api/pages/${id}/blocks/${id1}`,input);expect(saved.status,JSON.stringify(saved.data)).toBe(200);expect((await f.request('PATCH',`/api/pages/${id}/blocks/${id1}`,input)).data).toEqual(saved.data);expect((await f.request('PATCH',`/api/pages/${id}/blocks/${id1}`,{...input,content:{text:[{text:'different'}]}})).status).toBe(409);expect((await f.request('PATCH',`/api/pages/${id}/blocks/${id1}`,{...input,operationKey:createUlid()})).status).toBe(409);expect((await f.request('GET',`/api/pages/${id}`,undefined,'missing')).status).toBe(401);const revisions=await f.request('GET',`/api/revisions/${id}`);expect(revisions.data.items).toHaveLength(2);}},

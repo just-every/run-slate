@@ -3,7 +3,7 @@ import { ApiProblem } from '../../app/problems';
 import { archivePage } from '../archive/service';
 import { updatePage } from './service';
 import { setPageStatus } from '../page-status/service';
-import { movePage, previewMove } from './tree';
+import { movePage } from './tree';
 export async function bulkPages(ctx: FeatureContext, input: {
     operationKey: string;
     pages: {
@@ -33,7 +33,7 @@ export async function bulkPages(ctx: FeatureContext, input: {
             else if (input.action === 'move') {
                 if (!input.containerId || !input.accessPreviewHashes?.[page.id])
                     throw new ApiProblem(409, 'MOVE_PREVIEW_REQUIRED', 'Preview each selected page access change first.');
-                result = await movePage(ctx, page.id, { ...base, containerId: input.containerId, parentPageId: input.parentPageId, treePosition: `${ctx.now}:${page.id}`, accessPreviewHash: input.accessPreviewHashes[page.id]! });
+                result = await movePage(ctx, page.id, { ...base, containerId: input.containerId, parentPageId: input.parentPageId, treePosition: `${input.operationKey}:${page.id}`, accessPreviewHash: input.accessPreviewHashes[page.id]! });
             }
             else
                 throw new ApiProblem(400, 'INVALID_ACTION', 'Unknown bulk action.');
