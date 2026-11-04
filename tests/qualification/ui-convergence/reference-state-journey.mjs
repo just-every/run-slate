@@ -23,7 +23,34 @@ export async function referenceStateJourney(state,people) {
   ];
   const host=(await api('POST','/api/pages',{operationKey:key(),containerId:space,title:'Retained native references',blocks})).value.pageId;
   await grant(alice.context,origin,host,bob.id,'view');
+  // No mention or relative link on this host can seed the absolute link's resolution.
+  const absoluteId=key();
+  const absoluteHost=(await api('POST','/api/pages',{operationKey:key(),containerId:space,title:'Standalone absolute reference',blocks:[
+    {id:absoluteId,blockType:'paragraph',treePosition:'0',content:{text:[{text:original,link:{href:origin+href}}]}},
+  ]})).value.pageId;
+  await grant(alice.context,origin,absoluteHost,bob.id,'view');
+  const absoluteBefore=await api('GET',`/api/pages/${absoluteHost}`);
   const hostBefore=await api('GET',`/api/pages/${host}`);
+  const checkAbsolute=async(person,expected,lifecycle)=>{
+    await person.page.goto(`${origin}/app/pages/${absoluteHost}`,{waitUntil:'networkidle'});
+    await person.page.reload({waitUntil:'networkidle'});
+    const body=person.page.locator('[data-page-editor]');
+    const block=body.locator(`[data-block-id="${absoluteId}"]`).first();
+    await expect(block.locator('[data-page-reference]')).toHaveCount(1);
+    if(lifecycle==='restricted') {
+      await expect(block).toContainText('Access needed');
+      await expect(block.getByRole('link')).toHaveCount(0);
+    } else {
+      await expect(block.getByRole('link',{name:expected,exact:true})).toHaveAttribute('href',origin+href);
+    }
+    if(lifecycle==='restricted')for(const text of [original,renamed,secret])await expect(body).not.toContainText(text);
+    const projected=await ok(person.context,origin,'GET',`/api/pages/${absoluteHost}`);
+    assert.equal(projected.blocks[0].content.text[0].text,expected);
+    const {label,available,state:projectedState}=projected.mentions[target];
+    assert.deepEqual({label,available,state:projectedState},{label:expected,available:lifecycle!=='restricted',state:lifecycle});
+    if(lifecycle==='restricted')for(const text of [original,renamed,secret])assert.ok(!JSON.stringify(projected).includes(text),'A denied absolute reference discloses no title.');
+    await accessible(person.page,`standalone absolute reference ${lifecycle}`);
+  };
   const check=async(title,lifecycle,{readerTitle=title,shot=false}={})=>{
     for(const [person,expected] of [[alice,title],[bob,readerTitle]]) {
       await person.page.goto(`${origin}/app/pages/${host}`,{waitUntil:'networkidle'});
@@ -65,6 +92,7 @@ export async function referenceStateJourney(state,people) {
   const rename=async title=>api('PATCH',`/api/pages/${target}`,{operationKey:key(),expectedRevisionId:(await read()).page.revisionId,properties:{title}});
   await rename(renamed);
   await check(renamed,'live');
+  for(const person of [alice,bob])await checkAbsolute(person,renamed,'live');
   const placement={containerId:destination,parentPageId:null,treePosition:'reference-destination'};
   const preview=await api('POST',`/api/pages/${target}/move-preview`,placement);
   await api('POST',`/api/pages/${target}/move`,{operationKey:key(),expectedRevisionId:(await read()).page.revisionId,...placement,accessPreviewHash:preview.accessPreviewHash});
@@ -90,6 +118,7 @@ export async function referenceStateJourney(state,people) {
   for(const text of [original,renamed,secret,'Stale icon'])await expect(body).not.toContainText(text);
   assert.equal((await call(bob.context,origin,'GET',`/api/pages/${target}/link-card`)).status,404);
   await people.shot('bob','retained references revoked');
+  await checkAbsolute(bob,'Restricted page','restricted');
   allowed=(await grant(alice.context,origin,target,bob.id,'view')).value.id;
   await api('POST',`/api/archive/${target}`,{operationKey:key(),expectedRevisionId:(await read()).page.revisionId,action:'trash'});
   const deletion={operationKey:key(),confirmedPageIds:[target]};
@@ -99,6 +128,9 @@ export async function referenceStateJourney(state,people) {
   const hostAfter=await api('GET',`/api/pages/${host}`);
   assert.equal(hostAfter.workingRevisionId,hostBefore.workingRevisionId,'The retained references were never repointed or rewritten.');
   assert.deepEqual(hostAfter.blocks.map(block=>block.id),hostBefore.blocks.map(block=>block.id));
+  const absoluteAfter=await api('GET',`/api/pages/${absoluteHost}`);
+  assert.equal(absoluteAfter.workingRevisionId,absoluteBefore.workingRevisionId,'The standalone absolute link was never rewritten.');
+  assert.deepEqual(absoluteAfter.blocks.map(block=>block.id),absoluteBefore.blocks.map(block=>block.id));
   await workspace(w.policies);
   people.record('referenceLifecycle',{target,host,states:['live','renamed','moved','archived','restored','trashed','restored','restricted','deleted'],receipt:deletion.operationKey});
 }

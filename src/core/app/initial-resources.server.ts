@@ -24,6 +24,8 @@ import { pageAddress } from '../shared/knowledge/addresses';
 
 /** Same authorized reads as the API, in parallel, scoped to one document. */
 export async function initialResources(ctx: FeatureContext, url: URL, member: MemberView, recordVisit=false): Promise<InitialResources> {
+  // Match API reference collection and labels to this document's request origin.
+  ctx = { ...ctx, appOrigin: url.origin };
   const resources: InitialResources = { '/api/members/current': member };
   const reads: Promise<void>[] = [];
   const add = (path: string, read: () => Promise<unknown>) => {
