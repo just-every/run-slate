@@ -51,7 +51,7 @@ import { concurrentEditingJourney } from './two-people-editing.mjs';
 import { accessChangeJourney } from './two-people-access.mjs';
 import { versionDeletionJourney } from './version-deletion-journey.mjs';
 import { historyJourney } from './two-people-history.mjs';
-import { databaseJourney } from './database-journey.mjs';
+import { databaseJourney, databaseLifecycleJourney } from './database-journey.mjs';
 import { recordDetailJourney } from './record-detail-journey.mjs';
 import { reviewRequestJourney } from './review-request-journey.mjs';
 import { hubJourney } from './hub-journey.mjs';
@@ -415,6 +415,17 @@ for (const width of [1440, 390]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await contentQueryJourney(state, width);
+    });
+  });
+}
+
+// DB-001 keeps its own member/request bucket. The complete phone journey above
+// still runs template capture/gallery, retention, handover, deletion and smoke.
+for (const width of [390]) {
+  test(`DB-001 — populated database lifecycle and destination access at ${width}px`, { timeout: 240000 }, async () => {
+    await withWorkspace({ width, height: 844 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await step('DB-001 populated database lifecycle and destination access', () => databaseLifecycleJourney(state, width));
     });
   });
 }

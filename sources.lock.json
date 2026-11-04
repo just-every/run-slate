@@ -11924,7 +11924,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/database-journey.mjs": {
-      "sha256": "2c637f6d1fa5389f933adf87c791944e8de436d60b4348cd96fda62edee321d0",
+      "sha256": "5235171e36e8b9077be1003b19868f7702b550522d8e24eac97671b883d17f39",
       "executable": false
     },
     "tests/qualification/ui-convergence/developer-access-journey.mjs": {
@@ -12096,7 +12096,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "4c17141e40e0c678955f7ab444f9db4bf8edccc29b183ced8af6c96385a1fcf3",
+      "sha256": "1f1f159ebbab2748ad89649ba7d9766ee4704d5c18da2eed22bf928f186deebf",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
