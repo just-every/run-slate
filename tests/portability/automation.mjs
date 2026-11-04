@@ -59,7 +59,23 @@ export async function restoredAutomation(instance, cookie, original) {
   // A fresh native event and cron cannot reactivate the restored delegation.
   const page = await post(instance, cookie, '/api/pages', { containerId: 'archive-container', title: 'After restore event', blocks: [] });
   await instance.scheduled();
-  assert.deepEqual(await automationInventory(api), restored, 'Neither profile switches nor a new event re-enable restored rules.');
+  const after = await automationInventory(api);
+  assert.equal(after.length, restored.length);
+  for (const { rule, runs } of after) {
+    const before = restored.find(item => item.rule.id === rule.id);
+    assert.deepEqual(rule, before.rule, 'A new event cannot change or reactivate the restored definition.');
+    const retainedIds = new Set(before.runs.map(run => run.id));
+    assert.deepEqual(runs.filter(run => retainedIds.has(run.id)), before.runs, 'Every archived execution remains unchanged.');
+    const refused = runs.filter(run => !retainedIds.has(run.id));
+    assert.equal(refused.length, 1, 'Each restored rule records the new refused event once.');
+    assert.equal(refused[0].state, 'disabled');
+    assert.equal(JSON.parse(refused[0].trigger_json).pageId, page.pageId);
+    assert.equal(JSON.parse(refused[0].trigger_json).event, 'created');
+    assert.deepEqual(JSON.parse(refused[0].records_json), []);
+    assert.deepEqual(refused[0].receipts, []);
+  }
   assert.deepEqual((await api(`/api/comments/page/${page.pageId}`)).comments, []);
+  await instance.scheduled();
+  assert.deepEqual(await automationInventory(api), after, 'Repeated delivery cannot duplicate a refused run or reactivate restored authority.');
   console.log('PROBE AUTO-005 3 archive: native ZIP restore and all native Settings profiles -> exact scopes, definitions and run history; new event has no restored effects');
 }

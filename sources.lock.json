@@ -11420,7 +11420,7 @@
       "executable": false
     },
     "tests/portability/automation.mjs": {
-      "sha256": "9c147c33985d10da0221ad0b7935ebccc2b9ba78cf4381522863d5e6b4fc446c",
+      "sha256": "707a7694db999ecb3896b39d24ab07ca9471fbd1393e87514478d76a34ba8dfd",
       "executable": false
     },
     "tests/portability/equivalence.mjs": {
