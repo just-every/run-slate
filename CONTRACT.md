@@ -3988,7 +3988,7 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff.
 
-BLOCK-005 native body and reader-locale proof is judged from source commit `8aea771278304c0943f1690f86e7a90d40e193ad`; its exact candidate Verify and guarded landing receipts are recorded in the branch handoff. The separate BLOCK-020 import duty and other clauses retain their current judgments.
+BLOCK-005 is judged from the code and tests at commit ba248eb30359751a9cd76c974805fd5eb1aa33e0 (4 November 2026) by ct judge ct-judge-slate-block-005-20261104-1200; the guarded lander's LANDED line records the final commit, its green exact-SHA Verify, the complete publication scan and Run site. The separate BLOCK-020 import duty and other clauses retain their current judgments.
 
 Judged from the code and tests at commit `30886e55608596bb44862e4c6942dc1a24ef982e` for STAT-001; both status profiles passed the native HTTP and responsive vocabulary journeys. The exact candidate and guarded landing receipts remain in the branch handoff.
 
