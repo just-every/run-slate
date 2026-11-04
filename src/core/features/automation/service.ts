@@ -6,11 +6,10 @@ import {
   requireContainerLevel,
   requireWorkspaceOwner,
   currentSubject,
-  requirePageLevel,
 } from "../sharing/current-access";
 import { database, revision } from "../databases/repository";
 import { createUlid } from "../../shared/ulid";
-import { readPage } from "../pages/service";
+import { readRunHistory } from "./run-log";
 import type { RuleDefinition, RuleRow } from "./types";
 export async function authorizeRule(
   ctx: FeatureContext,
@@ -208,85 +207,7 @@ export async function listRules(ctx: FeatureContext) {
   return { items };
 }
 export async function runLog(ctx: FeatureContext, id: string) {
-  const rule = await ruleRow(ctx, id);
-  const rows = await ctx.db
-    .prepare(
-      "SELECT * FROM automation_runs WHERE rule_id=? ORDER BY created_at DESC,id DESC LIMIT 100",
-    )
-    .bind(id)
-    .all<{
-      id: string;
-      rule_id: string;
-      workspace_id: string;
-      actor_member_id: string | null;
-      state: string;
-      trigger_json: string;
-      records_json: string;
-      detail_json: string;
-      parent_run_id: string | null;
-      chain_depth: number;
-      queued_at: string | null;
-      started_at: string | null;
-      finished_at: string | null;
-      created_at: string;
-    }>();
-  const items = [];
-  for (const row of rows.results) {
-    const readable: string[] = [];
-    const records: {id: string; title: string}[] = [];
-    for (const pageId of JSON.parse(String(row.records_json)) as string[]) {
-      try {
-        await requirePageLevel(ctx, pageId, "view");
-        const page = await readPage(ctx, pageId);
-        readable.push(pageId);
-        records.push({id: pageId, title: page.page.title});
-      } catch (e) {
-        if (!(e instanceof ApiProblem) || e.status !== 404) throw e;
-      }
-    }
-    const trigger = JSON.parse(String(row.trigger_json));
-    if (trigger.pageId) {
-      try {
-        await requirePageLevel(ctx, trigger.pageId, "view");
-      } catch (e) {
-        if (!(e instanceof ApiProblem) || e.status !== 404) throw e;
-        delete trigger.pageId;
-        delete trigger.databaseId;
-        delete trigger.containerId;
-      }
-    }
-    const receipts =
-      rule.actor_member_id === ctx.actor.id
-        ? (
-            await ctx.db
-              .prepare(
-                "SELECT action_index AS actionIndex,target_id AS targetId,state,receipt_json AS receipt FROM automation_action_receipts WHERE run_id=? ORDER BY action_index,target_id",
-              )
-              .bind(row.id)
-              .all<{
-                actionIndex: number;
-                targetId: string;
-                state: string;
-                receipt: string;
-              }>()
-          ).results
-            .filter((r) => !r.targetId || readable.includes(r.targetId))
-            .map((r) => ({ ...r, receipt: JSON.parse(r.receipt) }))
-        : [];
-    const actor = await ctx.db.prepare("SELECT display_name FROM members WHERE id=? AND workspace_id=?")
-      .bind(row.actor_member_id, ctx.actor.workspaceId).first<{display_name: string}>();
-    items.push({
-      ...row,
-      actor: {id: row.actor_member_id, name: actor?.display_name ?? "Former member"},
-      trigger,
-      records,
-      detail: JSON.parse(String(row.detail_json)),
-      records_json: JSON.stringify(readable),
-      trigger_json: JSON.stringify(trigger),
-      receipts,
-    });
-  }
-  return { items };
+  return readRunHistory(ctx, await ruleRow(ctx, id));
 }
 
 /** Delegated literal payloads belong to the actor, and remain gated by current destinations. */

@@ -5879,12 +5879,16 @@
       "sha256": "8b35643a8095de94c5bf121abe9cf440e9d5a67597d66619816ab509a34c7d14",
       "executable": false
     },
+    "src/core/features/automation/run-log.ts": {
+      "sha256": "b88ae634cf2130b79e5cc490da56a90b536039eab50b39803bcebffeafb64c0a",
+      "executable": false
+    },
     "src/core/features/automation/scope.ts": {
       "sha256": "110a11c878b7f83d5d0660266f0c3790ead437e2445cc95bbe2ee9fda766e133",
       "executable": false
     },
     "src/core/features/automation/service.ts": {
-      "sha256": "2fc1978e292ea59fb19ddfc81fcedb2d00a7c537586a2216c54d75f2b9105cb8",
+      "sha256": "606ec22404d26e4527ab89eabf2917519914a36eddd3a8646fd36b6193839417",
       "executable": false
     },
     "src/core/features/automation/types.ts": {
@@ -11284,7 +11288,7 @@
       "executable": false
     },
     "tests/flagship/structured/automation-run-log.case.ts": {
-      "sha256": "9b45c4c3aee6b29a00472b933eba23bb436cb098f45e6d2053586b27210a67f8",
+      "sha256": "9eb0aeeb324da1f6b8a6cb17c0a29ea2484f1d7d78d8f0df608dc58f1c63558a",
       "executable": false
     },
     "tests/flagship/structured/http.test.ts": {

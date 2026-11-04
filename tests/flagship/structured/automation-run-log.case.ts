@@ -12,8 +12,8 @@ export async function automationRunLogCase() {
   const { ctx, reader, containerId } = await setup();
   const app = createApi(), origin = new URL(String(env.APP_URL)).origin;
   const cookies = new Map(await Promise.all([ctx.actor.id, reader.actor.id].map(async id => [id, await sessionFor(id)] as const)));
-  const request = async (method: string, path: string, body?: unknown, actor = ctx.actor.id) => {
-    const response = await app.request(origin + path, { method, headers: { cookie: cookies.get(actor)!, origin, "content-type": "application/json" }, body: body === undefined ? undefined : JSON.stringify(body) }, env);
+  const request = async (method: string, path: string, body?: unknown, actor = ctx.actor.id, db = env.DB) => {
+    const response = await app.request(origin + path, { method, headers: { cookie: cookies.get(actor)!, origin, "content-type": "application/json" }, body: body === undefined ? undefined : JSON.stringify(body) }, { ...env, DB: db });
     return { status: response.status, body: await response.json<any>() };
   };
   const ok = async (method: string, path: string, body?: unknown) => {
@@ -116,7 +116,56 @@ export async function automationRunLogCase() {
   await runAutomationMaintenance({ ...ctx, now: rateClock });
   await observe("throttled", rateRule.id);
   expect([...observed].sort()).toEqual(["configuration-changed", "queued", "running", "success", "no-action", "condition-not-met", "throttled", "error", "failure", "disabled"].sort());
+  // Retained history must fit a single paid D1 request with a 90% margin.
+  // All runs and comment receipts are produced by the native schedule path.
+  const scheduledDb = (await mutate("/api/databases", { containerId, title: "Daily intake" })).value;
+  const dailyRecord = (await mutate(`/api/databases/${scheduledDb.id}/records`, { title: "Morning intake", values: {} })).value;
+  const scheduled = (await mutate("/api/automation", {
+    ...definition, name: "Daily comment", sourceDatabaseId: scheduledDb.id,
+    trigger: {event: "schedule", startsAt: ctx.now, intervalMinutes: 60},
+  })).value;
+  const readCounted = async () => {
+    const counted = countD1Requests(env.DB);
+    const result = await request("GET", `/api/automation/${scheduled.id}/runs`, undefined, ctx.actor.id, counted.db);
+    expect(result.status, JSON.stringify(result.body)).toBe(200);
+    return {items: result.body.items, requests: counted.requests};
+  };
+  await runAutomationMaintenance(ctx);
+  const small = await readCounted();
+  for (let index = 1; index < 100; index++) {
+    await runAutomationMaintenance({...ctx, now: new Date(Date.parse(ctx.now) + index * 3600000).toISOString()});
+  }
+  const retained = await readCounted();
+  expect(retained.items).toHaveLength(100);
+  const successes = retained.items.filter((run: any) => run.state === "success");
+  expect(successes.length).toBeGreaterThan(0);
+  expect(successes.every((run: any) => run.records.length === 1 && run.receipts.length === 1)).toBe(true);
+  expect(successes[0].records).toEqual([{id: dailyRecord.pageId, title: "Morning intake"}]);
+  expect(retained.requests).toBeLessThanOrEqual(100);
+  expect(retained.requests).toBe(small.requests);
+  await env.DB.prepare("UPDATE pages SET access_inheritance='restricted',author_member_id=?,owner_member_id=? WHERE id=?")
+    .bind(reader.actor.id, reader.actor.id, dailyRecord.pageId).run();
+  const restricted = await readCounted();
+  expect(restricted.items.every((run: any) => run.records.length === 0 && !run.trigger.pageId && run.receipts.length === 0)).toBe(true);
+  console.log(`PROBE AUTO-003 history budget: ${small.items.length} entries=${small.requests} D1 requests; 100 populated entries=${retained.requests}; current-access redaction=${restricted.requests}; paid limit=1000, reserved margin=90%`);
   console.log("PROBE AUTO-003 run-record: native rule and run HTTP plus real content outbox -> all ten states, readable trigger and records, actor and time, duplicate-safe receipts and activity, current-access redaction");
   console.log("PROBE AUTO-003 1: controlled native D1 action faults -> durable error retries, terminal failures, production repeated-failure disable reason and rule-list failure summary");
   console.log("PROBE AUTO-003 2: real native events at production rate boundary -> retained throttled and disabled logs; no duplicated effects after replay");
+}
+
+/** Count actual native D1 executions, including request/session batching. */
+function countD1Requests(db: D1Database) {
+  let requests = 0;
+  const wrap = <T extends object>(target: T): T => new Proxy(target, {get(target, key) {
+    const value = Reflect.get(target, key);
+    if (typeof value !== "function") return value;
+    if (["prepare", "bind", "withSession"].includes(String(key))) {
+      return (...args: unknown[]) => wrap(value.apply(target, args));
+    }
+    if (["first", "all", "run", "raw", "batch", "exec"].includes(String(key))) {
+      return (...args: unknown[]) => { requests++; return value.apply(target, args); };
+    }
+    return value.bind(target);
+  }});
+  return {db: wrap(db), get requests() { return requests; }};
 }
