@@ -214,7 +214,22 @@ export async function runLog(ctx: FeatureContext, id: string) {
       "SELECT * FROM automation_runs WHERE rule_id=? ORDER BY created_at DESC,id DESC LIMIT 100",
     )
     .bind(id)
-    .all<Record<string, unknown>>();
+    .all<{
+      id: string;
+      rule_id: string;
+      workspace_id: string;
+      actor_member_id: string | null;
+      state: string;
+      trigger_json: string;
+      records_json: string;
+      detail_json: string;
+      parent_run_id: string | null;
+      chain_depth: number;
+      queued_at: string | null;
+      started_at: string | null;
+      finished_at: string | null;
+      created_at: string;
+    }>();
   const items = [];
   for (const row of rows.results) {
     const readable: string[] = [];
