@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 56 | 241 | 35 | 332 |
+| Core | 57 | 240 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 56 | 241 | 41 | 338 |
+| Full target | 57 | 240 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1731,7 +1731,7 @@ Core · published · **partial** · Cites BASE-OPS-004
 
 #### AUTO-004 — Loops are bounded
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A rule never triggers itself, a chain of rules stops at the depth in `seed.json → limits`, and a run that would exceed the workspace's rate limit is throttled and logged rather than dropped silently.
 
@@ -1739,8 +1739,8 @@ Core · published · **partial**
 1. A rule never triggers itself, a chain of rules stops at the depth in `seed.json → limits`, and a run that would exceed the workspace's rate limit is throttled and logged rather than dropped silently.
 2. Self-trigger is impossible, chains stop at the declared depth and throttling is logged.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A rule never triggers itself, a chain of rules stops at the depth in `seed.json → limits`, and a run that would exceed the workspace's rate limit is throttled and logged rather than dropped silently."
+**Evidence.** `tests/flagship/structured/automation-repairs.test.ts` — “automation admission, resumed effects and schedules preserve current scope and exactly-once recovery”, calling `tests/flagship/structured/automation-bounds-journey.ts` — “automationBoundsJourney”: under source, container and site scopes, through native HTTP and the committed content outbox, a self-producing rule runs once and its descendant is throttled; a chain one rule longer than the depth declared in `seed.json` runs exactly that depth with causal D1 ancestry and its next generation throttled; the workspace rate limit admits its full number of runs and throttles the overflow with its reason, no action receipt and no comment; reprocessing leaves records, runs, receipts, activity and HTTP run logs unchanged (acceptance 1 and 2). `tests/qualification/ui-convergence/journeys.test.mjs` — “spreadsheet tables merge, sort and round-trip through edited database records at 1440px” and “real core-wiki and touch-member journeys at 390px”, calling `tests/qualification/ui-convergence/touch-database-tools-journey.mjs` — “automationBoundsBrowserJourney”: through the emitted Worker's scheduled handler and the database Automations tab, the run log shows the throttled self-effect run with “Automation chain limit reached.” and throttled rate-overflow runs with “Workspace automation rate limit reached.” after navigation and reload, with no overflow comment and unchanged logs on reprocessing (acceptance 1 and 2).
+**Gap.** None.
 
 #### AUTO-005 — Automation profile
 
