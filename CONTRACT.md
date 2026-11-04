@@ -4004,11 +4004,13 @@ ARCH-004 retains current main’s partial judgment, Evidence and Gap below. The 
 REV-006 retains main's partial judgment, Evidence and Gap below. The candidate's native numbered-version deletion attribution, content-removal and duplicate-safe replay assertions have been reapplied as supporting implementation and tests in `tests/qualification/ui-convergence/version-deletion-journey.mjs`, `tests/flagship/content/http.test.ts` and `tests/qualification/core/audit-content.test.ts`; this conflict resolution does not promote the clause or replace its newer judgment.
 STAT-002 retains the current main judgment below. The candidate native member page-status, replay, activity, search and persisted-query journeys have been reapplied as supporting assertions; this replay does not promote the clause or replace its recorded evidence gap.
 
+BLOCK-002 is judged from source commit `d2fc090054d7f71f1f1f3fd3596ae606e59a0c78`; native inline controls, readable page archives and separate-storage workspace round trips cover both acceptance points and BASE-INPUT-002. The exact candidate and guarded landing receipts are recorded by its branch handoff.
+
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 40 | 186 | 1 | 227 |
+| Published | 41 | 185 | 1 | 227 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 56 | 241 | 41 | 338 |
+| All | 57 | 240 | 41 | 338 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4055,7 +4057,7 @@ STAT-002 retains the current main judgment below. The candidate native member pa
 | `TREE-004` | Filter the tree | published | done | `tests/qualification/ui-convergence/tree-filter-journey.mjs` — "treeFilterJourney" |  |
 | `TREE-005` | Create in place | published | done | `tests/qualification/ui-convergence/create-in-place-journey.mjs` — "createInPlaceJourney" |  |
 | `BLOCK-001` | A body of blocks | published | partial | `tests/qualification/interface/routed.browser.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/routed.browser.mjs`. |
-| `BLOCK-002` | Inline text | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Text in a block carries bold, italic, underline, strikethrough, inline code, color, links, and mentions, and nothing else."<br>No validated CI-run proof for this acceptance point: "It is stored in one format, rendered under `BASE-INPUT-002`, and round-trips unchanged through page export, workspace export and import." |
+| `BLOCK-002` | Inline text | published | done | `tests/qualification/ui-convergence/inline-text-journey.mjs` — "inlineTextJourney" in the existing responsive writing callers: native marks, color, links, mentions, canonical reload and safe text with unchanged-state refusals (acceptance 1–2); `tests/qualification/ui-convergence/export-comments-journey.mjs` — "exportCommentsJourney": readable HTML and Markdown, every mark and color, exact page manifests and mapped re-import with retained comments and status labels (acceptance 1–2); `tests/portability/roundtrip.test.mjs` — "BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment": readable workspace imports with explicit identity mapping and exact native ZIP spans in separate storage (acceptance 1–2). |  |
 | `BLOCK-003` | The insert menu | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Typing `/` at the cursor opens an insert menu grouped by kind, filtered by what is typed, navigable and selectable by keyboard alone, and it inserts at the cursor without leaving the editor."<br>No validated CI-run proof for this acceptance point: "Every block type this contract names is reachable from it, and on a touch client the same list is reachable from a labeled control above the keyboard." |
 | `BLOCK-004` | Markdown shortcuts | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
 | `BLOCK-005` | Mentions | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Typing `@` offers people, pages and dates in one list."<br>No validated CI-run proof for this acceptance point: "A person mention notifies them (`NOTIF-001`) and renders their name; a page mention renders the page's current title and follows renames and moves (`LINK-003`); a date mention renders in the reader's locale." |
