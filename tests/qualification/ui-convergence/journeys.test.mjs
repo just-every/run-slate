@@ -1,4 +1,5 @@
 import {contentQueryJourney} from './content-query-journey.mjs';
+import {automationProfilePhoneProof} from './automation-profile-journey.mjs';
 import {publicProfileJourney} from './public-profile-journey.mjs';
 import {transferJobsJourney} from './transfer-jobs-journey.mjs';
 import { commentAuthorshipJourney } from './comments-journey.mjs';
@@ -106,6 +107,7 @@ for (const width of [390, 1440]) {
         await chatJourney(state, width);
         await step('STAT-005 — status profiles preserve vocabulary and page revisions', () => statusProfileJourney(state, width));
         if (width === 390) {
+          await automationProfilePhoneProof(state);
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
           await templateCaptureJourney(state);
           await templateGalleryJourney(state);
