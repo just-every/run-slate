@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 56 | 241 | 35 | 332 |
+| Core | 57 | 240 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 56 | 241 | 41 | 338 |
+| Full target | 57 | 240 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1718,7 +1718,7 @@ Core · published · **partial**
 
 #### AUTO-003 — Run log
 
-Core · published · **partial** · Cites BASE-OPS-004
+Core · published · **done** · Cites BASE-OPS-004
 
 **Requirement.** Every rule keeps a per-run log with the trigger, the actor, the records touched, the time and one of the states configuration-changed, queued, running, success, no-action, condition-not-met, throttled, error, failure and disabled.
 
@@ -1726,8 +1726,8 @@ Core · published · **partial** · Cites BASE-OPS-004
 1. A failed run is visible without a search (`BASE-OPS-004`), and a rule that fails repeatedly is disabled and says so.
 2. Run log records every listed state; repeated failures disable the rule visibly.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Every rule keeps a per-run log with the trigger, the actor, the records touched, the time and one of the states configuration-changed, queued, running, success, no-action, condition-not-met, throttled, error, failure and disabled."<br>No validated CI-run proof for this acceptance point: "A failed run is visible without a search (`BASE-OPS-004`), and a rule that fails repeatedly is disabled and says so."
+**Evidence.** `tests/flagship/structured/automation-repairs.test.ts` — "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery" calls `tests/flagship/structured/automation-run-log.case.ts` — "automationRunLogCase": native rule and run HTTP, real content events, all ten states, trigger, actor, current-readable touched records, time, production rate and failure thresholds, durable retry and canonical receipt, effect and activity reconciliation (requirement and acceptance 1–2). `tests/qualification/ui-convergence/journeys.test.mjs` — "spreadsheet tables merge, sort and round-trip through edited database records at 1440px" and "real core-wiki and touch-member journeys at 390px" call `tests/qualification/ui-convergence/automation-run-log-journey.mjs` — "automationRunLogJourney": real emitted Worker metadata, errors retaining retries, failure beside the rule without log search and persisted repeated-failure disable reason (acceptance 1–2 and BASE-OPS-004).
+**Gap.** None.
 
 #### AUTO-004 — Loops are bounded
 

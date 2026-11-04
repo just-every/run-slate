@@ -66,6 +66,8 @@ export interface RuleRow {
   actions_json: string;
   actor_member_id: string;
   disabled_at: string | null;
+  disabled_reason: string | null;
+  consecutive_failures: number;
   revision_id: string;
   created_at: string;
 }

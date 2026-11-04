@@ -1,3 +1,4 @@
+import {automationRunLogJourney} from "./automation-run-log-journey.mjs";
 import assert from 'node:assert/strict';
 import {expect} from '@playwright/test';
 import {tap,type,checkpoint} from './touch-controls.mjs';
@@ -56,5 +57,6 @@ export async function touchDatabaseToolsJourney(state,touch){
  const comments=await api(`/api/comments/page/${created.pageId}`);
  assert.equal(comments.comments.filter(comment=>JSON.stringify(comment.body).includes('The duty team should review this response.')).length,1);
  await checkpoint(page,'database automation completed');
+ await automationRunLogJourney(state,touch);
  console.log('NAV-006 touch database charts, templates and automations passed');
 }

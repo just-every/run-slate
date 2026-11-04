@@ -1222,7 +1222,7 @@
       "id": "AUTO-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AUTO-003 — Run log. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "The Workers registry retains supporting scope. AUTO-003 native rule and run HTTP, all ten states, production thresholds, durable recovery and current-access records are covered by automationRunLogCase in the existing automation-repairs registration. Visible run metadata, failure beside the rule and repeated-failure disable reason run through automationRunLogJourney in the existing desktop database and phone core registrations. CONTRACT.md owns the acceptance judgment; exact candidate Verify and guarded landing remain required.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/automation-repairs.test.ts",

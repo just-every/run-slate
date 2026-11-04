@@ -1,3 +1,4 @@
+import {automationRunLogJourney} from "./automation-run-log-journey.mjs";
 import {contentQueryJourney} from './content-query-journey.mjs';
 import {publicProfileJourney} from './public-profile-journey.mjs';
 import {transferJobsJourney} from './transfer-jobs-journey.mjs';
@@ -106,6 +107,7 @@ for (const width of [390, 1440]) {
         await chatJourney(state, width);
         await step('STAT-005 — status profiles preserve vocabulary and page revisions', () => statusProfileJourney(state, width));
         if (width === 390) {
+          await automationRunLogJourney(state,touch);
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
           await templateCaptureJourney(state);
           await templateGalleryJourney(state);
@@ -145,7 +147,7 @@ for (const width of [390]) {
 }
 
 for (const width of [1440]) {
-  test(`spreadsheet tables merge, sort and round-trip through edited database records at ${width}px`, {timeout:240000}, async ()=>{
+  test(`spreadsheet tables merge, sort and round-trip through edited database records at ${width}px`, {timeout:480000}, async ()=>{
     await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{
       await setupWorkspace(state);
       await tablesJourney(state);

@@ -41,6 +41,8 @@ export type RuleRow = {
   actions_json: string;
   revision_id: string;
   disabled_at: string | null;
+  disabled_reason: string | null;
+  latestFailure?: {state: string; createdAt: string; message?: string} | null;
   actor_member_id: string;
 };
 export function ruleDraft(rule?: RuleRow): RuleDraft {
