@@ -6856,7 +6856,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/InlineText.tsx": {
-      "sha256": "5293abbb5d35cc30ba90220d526fe3e65c24ea59281c289506f846a4f19ef0f0",
+      "sha256": "8f39a018712a052bea096a79a4f6d67d979ed57f35d223e2fadb35aa647d5e4b",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/insertEditableLineBreak.ts": {
@@ -6948,7 +6948,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/InlineToolbar.tsx": {
-      "sha256": "d62ddfef84b3f37163019aab38a4238423734b5f48449bec663d561e4370f971",
+      "sha256": "e69fa7418cd26b06ead73683bf224c98e215e9ec0b6445e524e7b37292d73e8c",
       "executable": false
     },
     "src/core/features/editor/ui/InsertMenu.tsx": {
@@ -6988,7 +6988,7 @@
       "executable": false
     },
     "src/core/features/editor/validation.ts": {
-      "sha256": "9c4179f01dfbbc2784e6d83a017db8768a7fc944daf1b7842881cc460b661f95",
+      "sha256": "e534802a66a481d6105f50fc928c186dce4939936de84ce111bd063da2ac2cdc",
       "executable": false
     },
     "src/core/features/effects/authority.ts": {
@@ -7184,7 +7184,7 @@
       "executable": false
     },
     "src/core/features/imports/canonical-block.ts": {
-      "sha256": "b544ab21e81b5c85ad4880fad3c9808f9add983ab7e5aa839bb8a18937638f22",
+      "sha256": "40e3486964572b9016c87e722816c30a26ea040bf1c984c973f3ff1ac037116e",
       "executable": false
     },
     "src/core/features/imports/comment-plan.ts": {
@@ -9764,7 +9764,7 @@
       "executable": false
     },
     "src/core/features/workspace-export/rich-text.ts": {
-      "sha256": "d693c347599074e8317e6daf11ef10a87b855d86d5358f60db81f60cca8707c5",
+      "sha256": "ee2656bbffc5bc3ee5a86cc169849f2392de6a81bbdef7a926f3ddcee614c2b9",
       "executable": false
     },
     "src/core/features/workspace-export/routes.ts": {
@@ -11424,7 +11424,7 @@
       "executable": false
     },
     "tests/portability/fixture.mjs": {
-      "sha256": "62a7c267d58992696ab3d6249eb6d191868643c4e0784d8cf4e4c05a551b4a48",
+      "sha256": "d20517eb03f3315637dfc86876aea9e369ab5a43657006a0866f489a295e853b",
       "executable": false
     },
     "tests/portability/restore-database.mjs": {
@@ -11436,7 +11436,7 @@
       "executable": false
     },
     "tests/portability/roundtrip.test.mjs": {
-      "sha256": "949dff78bc790333cd550dd4fdb182feee68274c2a56aa381bf3d648c10f51b8",
+      "sha256": "becc6e515edb0daf692467352afdd4820c4a7c4991959ae2a6b688d570572347",
       "executable": false
     },
     "tests/portability/runtime.mjs": {
@@ -12040,7 +12040,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/export-comments-journey.mjs": {
-      "sha256": "e3f2599e26e84596b02bca17ce7dcdbdd84aadc3b15752eb1986beed379c0f42",
+      "sha256": "0694220e564e4dccd680058c9b668ea971759fdb09c9a4cad94ad9f4d0d30c5a",
       "executable": false
     },
     "tests/qualification/ui-convergence/failed-save-journey.mjs": {
@@ -12089,6 +12089,10 @@
     },
     "tests/qualification/ui-convergence/inbox-journey.mjs": {
       "sha256": "2528f20e975d57e9177c693bfea760732a702b1ef102bd710bb047af486c0509",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/inline-text-journey.mjs": {
+      "sha256": "0f069bcfa250b7fd1f7c0793518af027d77f4234c650539b5dc175e6bb36bc20",
       "executable": false
     },
     "tests/qualification/ui-convergence/journey-shard.mjs": {
@@ -12360,7 +12364,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {
-      "sha256": "df069e4d6f8c48fa8baf45f513ee0090d3a99c9a49d55f17cb7278caeca76cc1",
+      "sha256": "37f1847ce97d3aa45e384aa0f6e408747534abe4b50ebcdeb557af058d5aae42",
       "executable": false
     },
     "tests/release/delivery-runtime.mjs": {
@@ -12388,11 +12392,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "9053dcefe5ec95583067c26717985777f3cb5e60b70b6926f70d03c04f3449d0",
+      "sha256": "fd69e80fff5e1f77cab747c494a9d57d556b853b85769884b219aa497dccf8ce",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "5460d6647a8589ec26bcd132707ecae70b683058e1338a6760c62b0c1fa88c9b",
+      "sha256": "8929e1bb8538a6f112d5d969111fe920dd7e38c13f6da5274b975c75c9d4fa29",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
