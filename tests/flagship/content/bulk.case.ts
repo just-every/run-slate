@@ -28,7 +28,9 @@ export async function bulkPagesCase(){
   revisions:(await env.DB.prepare('SELECT * FROM page_revisions WHERE page_id=? ORDER BY id').bind(id).all()).results,
   grants:(await env.DB.prepare('SELECT * FROM page_grants WHERE page_id=? ORDER BY id').bind(id).all()).results,
   activity:(await env.DB.prepare('SELECT * FROM activity_entries WHERE target_id=? ORDER BY id').bind(id).all()).results,
+  receipts:(await env.DB.prepare('SELECT * FROM operation_receipts WHERE target_id=? ORDER BY id').bind(id).all()).results,
  });
+ let erasedCapture:{input:any;id:string}|undefined;
  for(const action of ['archive','trash','move','owner','status']){
   const pages:any[]=[];
   for(const [index,level] of ['view','full','full'].entries()){
@@ -59,6 +61,9 @@ export async function bulkPagesCase(){
    const after=await snapshot(p.id),result=applied.items[index].result,receipt=result.receipt;
    expect(after.blocks).toEqual(before[index]!.blocks);
    expect(after.grants).toEqual(before[index]!.grants);
+   for(const revision of before[index]!.revisions)expect(after.revisions.find((row:any)=>row.id===revision.id)).toEqual(revision);
+   const stored=await env.DB.prepare('SELECT response_json FROM operation_receipts WHERE operation_key=? AND actor_member_id=?').bind(receipt.operationKey,member).first<{response_json:string}>();
+   expect(JSON.parse(stored!.response_json)).toEqual(result);
    expect(receipt.operationKey).toBe(`${input.operationKey}:${p.id}`);
    const entries=(await ok(owner,'GET','/api/activity?limit=100')).items.filter((e:any)=>e.operationKey===receipt.operationKey);
    expect(entries).toEqual([expect.objectContaining({id:receipt.activityId,actor:expect.objectContaining({id:member}),target:{kind:'page',id:p.id},occurredAt:receipt.committedAt})]);
@@ -69,6 +74,7 @@ export async function bulkPagesCase(){
    if(action==='owner')expect((await ok(member,'GET',`/api/pages/${p.id}`)).properties.ownerMemberId).toBe(member);
    if(action==='status')expect((await ok(member,'GET',`/api/pages/${p.id}`)).properties.statusKey).toBe('bulk-ready');
   }
+  if(action==='trash')erasedCapture={input,id:pages[1].id};
   const committed=await Promise.all(pages.map(p=>snapshot(p.id)));
   expect(await ok(member,'POST','/api/pages/bulk',input)).toEqual(applied);
   expect(await Promise.all(pages.map(p=>snapshot(p.id)))).toEqual(committed);
@@ -84,4 +90,13 @@ export async function bulkPagesCase(){
    expect(await Promise.all(pages.map(p=>snapshot(p.id)))).toEqual(beforeReplay);
   }
  }
+ const erased=erasedCapture!;
+ await post(`/api/archive/${erased.id}/permanent-delete`,{confirmedPageIds:[erased.id]});
+ const tombstone=await snapshot(erased.id);
+ expect(tombstone.blocks).toEqual([]);
+ expect((await request(member,'GET',`/api/pages/${erased.id}`)).status).toBe(404);
+ const replay=await ok(member,'POST','/api/pages/bulk',erased.input);
+ expect(replay.items.find((p:any)=>p.id===erased.id).success).toBe(false);
+ expect(await snapshot(erased.id)).toEqual(tombstone);
+ expect(await env.DB.prepare('SELECT page_id FROM content_tombstones WHERE page_id=?').bind(erased.id).first()).not.toBeNull();
 }

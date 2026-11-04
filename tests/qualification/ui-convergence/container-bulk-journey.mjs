@@ -30,7 +30,7 @@ export async function containerBulkJourney(state,width){
  }
  const ids=corpus.flatMap(c=>c.selected.flatMap(p=>[p.id,...(p.child?[p.child]:[])])),sqlIds=ids.map(id=>`'${id}'`).join(',');
  const snapshot=async()=>{
-  const tables=[['pages','id'],['page_blocks','page_id'],['page_revisions','page_id'],['page_grants','page_id'],['activity_entries','target_id']];
+  const tables=[['pages','id'],['page_blocks','page_id'],['page_revisions','page_id'],['page_grants','page_id'],['activity_entries','target_id'],['operation_receipts','target_id']];
   return Promise.all((await state.atRest(tables.map(([table,column])=>`SELECT * FROM ${table} WHERE ${column} IN (${sqlIds}) ORDER BY id;`).join('\n'))).map(result=>result.results));
  };
  const before=await snapshot(),commits=[],captures=[];
@@ -60,6 +60,14 @@ export async function containerBulkJourney(state,width){
      await preview.locator('summary').click();
      await expect(preview.locator('pre')).toContainText('accessPreviewHash');
     }
+   }
+   if(action==='move'){
+    const close=dialog.getByRole('button',{name:'Close dialog',exact:true});
+    await page.keyboard.press('Tab');
+    await close.focus();
+    await expect.poll(()=>close.evaluate(e=>getComputedStyle(e,'::after').opacity)).toBe('1');
+    const textSizes=await page.locator('.space-bulk,dialog').evaluateAll(roots=>roots.flatMap(root=>[...root.querySelectorAll('*')].filter(e=>e.getBoundingClientRect().height&&[...e.childNodes].some(n=>n.nodeType===Node.TEXT_NODE&&n.textContent.trim())).map(e=>parseFloat(getComputedStyle(e).fontSize))));
+    assert.ok(textSizes.length&&textSizes.every(size=>size>=13),'Bulk tools and confirmation use readable text.');
    }
    await accessible(page,`bulk ${action} member selection and preview`);
    const pending=page.waitForResponse(r=>new URL(r.url()).pathname==='/api/pages/bulk'&&r.request().method()==='POST');
@@ -103,11 +111,14 @@ export async function containerBulkJourney(state,width){
  const after=await snapshot();
  for(const {action,selected} of corpus){
   const refused=selected[0].id;
-  for(const [index,column] of ['id','page_id','page_id','page_id','target_id'].entries())assert.deepEqual(after[index].filter(row=>row[column]===refused),before[index].filter(row=>row[column]===refused),'A refused page retains its complete canonical state and activity.');
+  for(const [index,column] of ['id','page_id','page_id','page_id','target_id','target_id'].entries())assert.deepEqual(after[index].filter(row=>row[column]===refused),before[index].filter(row=>row[column]===refused),'A refused page retains its complete canonical state and activity.');
   for(const p of selected.slice(1)){
    const old=before[0].find(row=>row.id===p.id),row=after[0].find(row=>row.id===p.id),receipt=commits.find(c=>c.p.id===p.id).receipt;
    assert.equal(row.title,old.title);
    assert.equal(row.revision_id,receipt.revisionId);
+   const stored=after[5].find(r=>r.operation_key===receipt.operationKey);
+   assert.deepEqual(JSON.parse(stored.response_json).receipt,receipt);
+   for(const revision of before[2].filter(r=>r.page_id===p.id))assert.deepEqual(after[2].find(r=>r.id===revision.id),revision);
    assert.equal(row.container_id,action==='move'?destination:source);
    assert.equal(row.parent_page_id,null);
    assert.equal(row.owner_member_id,action==='owner'?'browser-reader':old.owner_member_id);
