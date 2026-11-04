@@ -258,8 +258,20 @@ export async function databaseLifecycleJourney(state, width) {
     for (const record of records) await expect(bob.page.getByRole('region', {name: 'Records table', exact: true}).getByRole('link', {name: record.title, exact: true})).toBeVisible();
     await expect(bob.page.locator('.db-actions').getByRole('button', {name: 'New record', exact: true})).toHaveCount(0);
     await expect(bob.page.getByRole('region', {name: 'Records table', exact: true}).getByRole('button', {name: 'New record', exact: true})).toBeDisabled();
+    const activity = async () => {
+      const items = [];
+      let cursor;
+      do {
+        const timeline = await api('/api/activity?limit=100' + (cursor ? `&cursor=${encodeURIComponent(cursor)}` : ''));
+        items.push(...timeline.items);
+        cursor = timeline.nextCursor;
+      } while (cursor);
+      // Cursor ceilings describe each read's clock, not a stored mutation. Read
+      // every page and compare every retained entry, including older activity.
+      return items;
+    };
     const snapshot = async () => ({database: await api(base), records: await Promise.all(records.map(record => api(`${base}/records/${record.pageId}`))),
-      pages: await api('/api/pages'), archive: await api('/api/archive'), history: await Promise.all(ids.map(id => api(`/api/revisions/${id}`))), activity: await api('/api/activity?limit=100')});
+      pages: await api('/api/pages'), archive: await api('/api/archive'), history: await Promise.all(ids.map(id => api(`/api/revisions/${id}`))), activity: await activity()});
     const before = await snapshot(), document = await api(pagePath), recordPath = `${base}/records/${records[0].pageId}`;
     for (const [method, route, data] of [
       ['POST', base + '/records', {title: 'Refused record', values: {}}],
