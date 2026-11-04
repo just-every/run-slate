@@ -86,6 +86,7 @@ export async function automationBoundsBrowserJourney(state, touch) {
  const log=page.getByRole('heading',{name:'Run log',exact:true}).locator('..');
  await expect(log.getByRole('status',{exact:true})).toHaveText('Automation chain limit reached.');
  await expect(log.locator('strong').filter({hasText:/^throttled$/})).toBeVisible();
+ await log.getByRole('status',{exact:true}).scrollIntoViewIfNeeded();
  await checkpoint(page,'automation self-effect throttled with reason');
  await mutate('/api/automation',{...definition,id:loop.id,expectedRevisionId:loop.revisionId,disabled:true});
  const rate=await mutate('/api/automation',{name:'Bounded intake rate',scope:'source',sourceDatabaseId:database.id,trigger:{event:'record-created'},conditions:[],actions:[{type:'comment',body:[{text:'Rate-limited intake acknowledgement'}]}]});
@@ -106,6 +107,7 @@ export async function automationBoundsBrowserJourney(state, touch) {
  await tap(rateCard.getByRole('button',{name:'Run log',exact:true}));
  await expect(log.getByRole('status').filter({hasText:/^Workspace automation rate limit reached\.$/}).first()).toBeVisible();
  await expect(log.locator('strong').filter({hasText:/^throttled$/}).first()).toBeVisible();
+ await log.getByRole('status').filter({hasText:/^Workspace automation rate limit reached\.$/}).first().scrollIntoViewIfNeeded();
  await checkpoint(page,'automation workspace rate throttled with reason');
  console.log(`PROBE AUTO-004 visible throttling ${page.viewportSize().width}: native scheduled door -> self and rate reasons retained after reload, no overflow effect`);
 }

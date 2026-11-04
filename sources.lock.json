@@ -11280,11 +11280,11 @@
       "executable": false
     },
     "tests/flagship/structured/automation-bounds-journey.ts": {
-      "sha256": "56e4afd6b691684155cb82048c6106661782a9828f8e356b7244c72a16f8945c",
+      "sha256": "efc8fc5cf24d9769d883ef029d5b3f9ac2297551c776069b7135812086b21a19",
       "executable": false
     },
     "tests/flagship/structured/automation-repairs.test.ts": {
-      "sha256": "5a2d413807ed2035fdb762e4fd743a9df1fb322ba97bd9e230dfd3d5b80419b9",
+      "sha256": "788ff59522cd04eccbf5a582ef9869c16ce72ce13d13dba0014cca21473627f7",
       "executable": false
     },
     "tests/flagship/structured/http.test.ts": {
@@ -12284,7 +12284,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-database-tools-journey.mjs": {
-      "sha256": "29992de73c38aa1a390ca6a2a0ee89a2d8836bc03ceabe7d41ef830948bb6eef",
+      "sha256": "3bd5d10d2483446084b5cbb88a0858c45cd5104b8b8b133dcb940afe4b8198db",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-database.mjs": {
@@ -12392,11 +12392,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "9053dcefe5ec95583067c26717985777f3cb5e60b70b6926f70d03c04f3449d0",
+      "sha256": "1adc9b4c4448fd40c48409ccf3251c3e495ca795ff169cd4415d2ef0b992a9d9",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "5460d6647a8589ec26bcd132707ecae70b683058e1338a6760c62b0c1fa88c9b",
+      "sha256": "01c9cad1d72128157c239ca93eaf9d09dd771f5540e84a2c2360256beb9575fb",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
@@ -12408,7 +12408,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "41abdbe07f29c20744c55efc62cd2e57d0820e267e0501f0ef52e394c68b527b",
+      "sha256": "96fb97caf1b7efb11149728cf0f712a759a993ada5fe87c541b6292211d686e5",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

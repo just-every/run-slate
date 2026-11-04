@@ -109,7 +109,7 @@ export async function automationBoundsJourney() {
         const boundary = all.filter(run => run.chain_depth === successful.length);
         expect(boundary).toHaveLength(rules.length);
         expect(boundary.every(run => run.state === "throttled" && run.parent_run_id === parent.id)).toBe(true);
-        const terminal = boundary.find(run => run.rule_id === rules.at(-1).id)!;
+        const terminal = boundary.find(run => run.rule_id === rules.at(-1)!.id)!;
         const log = await call("GET", `/automation/${terminal.rule_id}/runs`);
         expect(log.items.find((run:any)=>run.id===terminal.id)).toMatchObject({ state: "throttled", reason: "Automation chain limit reached.", receipts: [] });
         expect((await snapshot()).receipts).toHaveLength(successful.length);
