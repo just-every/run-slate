@@ -6,19 +6,22 @@ import { unzipSync } from 'fflate';
 import { XMLParser } from 'fast-xml-parser';
 import { expect } from '@playwright/test';
 import { grant, ok } from './two-people-support.mjs';
-import { openPageAction } from './browser-support.mjs';
+import { closeDetails, openPageAction } from './browser-support.mjs';
 
 export async function exportCommentsJourney(state, people) {
   const { page, context, origin, api } = state;
   const width = page.viewportSize().width;
   const space = (await api('/api/containers')).items.find(item => item.name === 'Handbook');
   const blockId = randomUUID(), anchorId = randomUUID();
+  const { value: { pageId: referenceId } } = await ok(context, origin, 'POST', '/api/pages', { operationKey: randomUUID(), containerId: space.id, title: 'Escalation policy', blocks: [{ id: randomUUID(), blockType: 'paragraph', content: { text: [{ text: 'Contact the recovery lead before changing the plan.' }] }, treePosition: 'a' }] });
+  const reference = [{text:'Consult '},{text:'Escalation policy',mention:{kind:'page',id:referenceId,label:'Escalation policy'}},{text:' during the customer handover.'}];
   const { value: { pageId } } = await ok(context, origin, 'POST', '/api/pages', { operationKey: randomUUID(), containerId: space.id, title: 'Customer incident handover', blocks: [{ id: blockId, blockType: 'paragraph', content: { text: [{ text: 'Confirm the recovery owner', commentAnchorId: anchorId }, { text: ' before handing the incident to the next shift.' }] }, treePosition: 'a' }] });
   await grant(context, origin, pageId, people.bob.id, 'comment');
   const original = await api(`/api/pages/${pageId}`);
   const spans = inlineSpans(people.bob.id, pageId).map(span => span.mention?.kind === 'page' ? {...span,text:'Customer incident handover',mention:{...span.mention,label:'Customer incident handover'}} : span);
-  await ok(context, origin, 'PUT', `/api/pages/${pageId}/blocks`, {operationKey:randomUUID(),expectedRevisionId:original.page.revisionId,blocks:[...original.blocks.map(({id,blockType,content,parentBlockId,treePosition})=>({id,blockType,content,parentBlockId,treePosition})),{id:randomUUID(),blockType:'paragraph',parentBlockId:null,treePosition:'b',content:{text:spans}}]});
+  await ok(context, origin, 'PUT', `/api/pages/${pageId}/blocks`, {operationKey:randomUUID(),expectedRevisionId:original.page.revisionId,blocks:[...original.blocks.map(({id,blockType,content,parentBlockId,treePosition})=>({id,blockType,content,parentBlockId,treePosition})),{id:randomUUID(),blockType:'paragraph',parentBlockId:null,treePosition:'b',content:{text:spans}},{id:randomUUID(),blockType:'paragraph',parentBlockId:null,treePosition:'c',content:{text:reference}}]});
   const source = await api(`/api/pages/${pageId}`);
+  assert.equal(source.mentions[referenceId].available, true);
   const first = (await ok(context, origin, 'POST', `/api/comments/page/${pageId}`, { operationKey: randomUUID(), kind: 'inline', blockId, anchor: { anchorId, quote: 'Confirm the recovery owner' }, anchorRevisionId: source.workingRevisionId, body: [{ text: 'Who will coordinate the next customer update?' }] })).value;
   await ok(people.bob.context, origin, 'POST', `/api/comments/page/${pageId}`, { operationKey: randomUUID(), threadId: first.threadId, parentCommentId: first.id, body: [{ text: 'Morgan will send the update at the next handover.' }] });
   await ok(context, origin, 'POST', `/api/comments/page/${pageId}`, { operationKey: randomUUID(), body: [{ text: 'Keep this timeline with the incident report.' }] });
@@ -56,6 +59,7 @@ export async function exportCommentsJourney(state, people) {
     const bytes = await download(format, format);
     const entries = unzipSync(bytes), manifest = JSON.parse(new TextDecoder().decode(entries['slate-readable.json']));
     const archivedPage = manifest.pages.find(p => p.id === pageId);
+    assert.deepEqual(manifest.pages.map(p => p.id), [pageId], 'The referenced policy is outside the page export.');
     assert.deepEqual(archivedPage.blocks.map(block => block.content), source.blocks.map(block => block.content), 'Every canonical mark and reference enters the page archive unchanged.');
     const archived = archivedPage.comments;
     const readable = new TextDecoder().decode(entries[`pages/${pageId}.${format === 'html' ? 'html' : 'md'}`]);
@@ -111,9 +115,20 @@ export async function exportCommentsJourney(state, people) {
     const author = restored.comments.find(comment => comment.authorDisplayName === 'Morgan Reader').authorMemberId;
     const expectedSpans = spans.map(span => span.mention?.kind === 'page' ? {...span,mention:{...span.mention,id:copy.id}} : span.mention?.kind === 'person' ? {...span,mention:{...span.mention,id:author}} : span.link?.href === `/app/pages/${pageId}?mode=read#details` ? {...span,link:{href:`/app/pages/${copy.id}?mode=read#details`}} : span);
     assert.deepEqual(copyDocument.blocks[1].content.text, expectedSpans, 'Page re-import changes only explicitly mapped native identities.');
+    assert.deepEqual(copyDocument.blocks[2].content.text, reference, 'An out-of-scope page mention keeps its original target and label.');
+    assert.equal(copyDocument.mentions[referenceId].available, true);
+    await expect(page.locator('[data-mention-kind=page] a').filter({hasText:'Customer incident handover'})).toHaveAttribute('href', `/app/pages/${encodeURIComponent(copy.id)}`);
+    const policyLink = page.locator('[data-mention-kind=page] a').filter({hasText:'Escalation policy'});
+    await expect(policyLink).toHaveAttribute('href', `/app/pages/${referenceId}`);
+    await expect(policyLink).toBeVisible();
     await expect(page.locator('[data-block-id]').nth(1).locator('strong').filter({hasText:'bold words'})).toBeVisible();
     assert.deepEqual(restored.comments.map(c => [c.authorDisplayName, c.createdAt, c.body]), discussion.comments.map(c => [c.authorDisplayName, c.createdAt, c.body]));
     await page.screenshot({ path: `.artifacts/ui-convergence/export-comments-${width}-${format}-restored.png`, fullPage: true });
+    await closeDetails(page);
+    await policyLink.click();
+    await expect(page).toHaveURL(`${origin}/app/pages/${referenceId}`);
+    await expect(page.locator('[data-block-id]')).toContainText('Contact the recovery lead before changing the plan.');
+    await page.screenshot({ path: `.artifacts/ui-convergence/export-comments-${width}-${format}-policy.png`, fullPage: true });
   }
   await ok(context, origin, 'POST', '/api/pages', { operationKey: randomUUID(), containerId: space.id, parentPageId: pageId, title: 'Recovery follow-up', blocks: [{ id: randomUUID(), blockType: 'paragraph', content: { text: [{ text: 'Review the incident after the next shift.' }] }, treePosition: 'a' }] });
   const xml = new XMLParser({ ignoreAttributes: false, removeNSPrefix: true });
