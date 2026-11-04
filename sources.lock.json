@@ -6188,7 +6188,7 @@
       "executable": false
     },
     "src/core/features/containers/ui/workspace/ContainerBulk.tsx": {
-      "sha256": "b4e05e2164e42741b2127075779d46d983f1b2b66aa8a33ce8e73ffae3e60b24",
+      "sha256": "3f8ef4095a3199a7c7b6bc2eed999f001dfcc5e096edc39a95c9c865897d7354",
       "executable": false
     },
     "src/core/features/containers/ui/workspace/ContainerHome.tsx": {
@@ -11908,7 +11908,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/container-bulk-journey.mjs": {
-      "sha256": "834a8f42612dc38a249a0b9cc4cdb66f7f7e683e2e74f31e0003d62852b30a9b",
+      "sha256": "a38ddd45e6290493e03ce2454037f0aef67855e28cde65c5a0e06f15279adce5",
       "executable": false
     },
     "tests/qualification/ui-convergence/container-grants-journey.mjs": {

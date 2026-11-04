@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
+import {signInWithOutbox} from '../../e2e/outbox-auth.mjs';
 import {accessible} from './browser-evidence.mjs';
 import {call,ok,withSecondPerson} from './two-people-support.mjs';
 
@@ -11,6 +12,8 @@ export async function containerBulkJourney(state,width){
  const source=(await post('/api/containers',{name:'Bulk handover',visibility:'private'})).value.id;
  const destination=(await post('/api/containers',{name:'Bulk destination',visibility:'private'})).value.id;
  for(const [targetId,level] of [[source,'view'],[destination,'edit']])await post('/api/sharing',{targetKind:'container',targetId,principalKind:'member',principalId:'browser-reader',level});
+ const ownerGrant=(await api(`/api/sharing/containers/${destination}`)).items.find(grant=>grant.principalId==='browser-owner');
+ await post('/api/sharing',{id:ownerGrant.id,targetKind:'container',targetId:destination,principalKind:'member',principalId:'browser-owner',level:'view'});
  await post('/api/status',{key:'bulk-ready',label:'Bulk ready',color:'#228855',requiresVerification:false});
  const corpus=[];
  for(const action of ['archive','trash','move','owner','status']){
@@ -58,7 +61,8 @@ export async function containerBulkJourney(state,width){
     for(const p of selected.slice(1)){
      const preview=dialog.locator('details').filter({has:page.locator('summary').filter({hasText:p.title})});
      await preview.locator('summary').click();
-     await expect(preview.locator('pre')).toContainText('accessPreviewHash');
+     await expect(preview).toContainText('Alex Owner: Full access → Can view');
+     await expect(preview).not.toContainText('accessPreviewHash');
     }
    }
    if(action==='move'){
@@ -70,12 +74,24 @@ export async function containerBulkJourney(state,width){
     assert.ok(textSizes.length&&textSizes.every(size=>size>=13),'Bulk tools and confirmation use readable text.');
    }
    await accessible(page,`bulk ${action} member selection and preview`);
+   let interrupted;
+   if(action==='archive')await page.route('**/api/pages/bulk',async route=>{
+    const committed=await route.fetch();
+    assert.equal(committed.status(),200);
+    interrupted={input:route.request().postDataJSON(),result:await committed.json()};
+    await route.abort('failed');
+   },{times:1});
    const pending=page.waitForResponse(r=>new URL(r.url()).pathname==='/api/pages/bulk'&&r.request().method()==='POST');
    await dialog.getByRole('button',{name:'Apply to selected pages',exact:true}).click();
+   if(action==='archive'){
+    await expect(dialog.getByRole('alert')).toContainText('The server could not be reached.');
+    await dialog.getByRole('button',{name:'Apply to selected pages',exact:true}).click();
+   }
    const response=await pending;
    assert.equal(response.status(),200);
    const input=response.request().postDataJSON(),result=await response.json();
    captures.push(input);
+   if(interrupted){assert.equal(input.operationKey,interrupted.input.operationKey);assert.deepEqual(result,interrupted.result);}
    assert.deepEqual(input.pages.map(p=>p.id),selected.map(p=>p.id));
    assert.deepEqual(result.items.map(p=>[p.id,p.success]),selected.map((p,index)=>[p.id,index!==0]));
    await expect(dialog).toBeHidden();
@@ -105,8 +121,13 @@ export async function containerBulkJourney(state,width){
    console.log(`PROBE CONT-006 ${action}: member native selection of three readable pages -> two commits with individual receipts and activity, one unchanged refusal named after reload; replay retains receipts at ${width}px`);
   }
   // A revoked session cannot replay a previously committed bulk request.
-  await member.request.post(origin+'/auth/signout',{headers:{origin}});
-  assert.equal((await call(member,origin,'POST','/api/pages/bulk',captures[4])).status,401);
+  const signedIn=await signInWithOutbox(origin,['reader','test.invalid'].join('@'));
+  const replayContext=await member.browser().newContext();
+  try{
+   await replayContext.addCookies([{name:'slate_session',value:signedIn.cookie.split('=')[1],url:origin}]);
+   await replayContext.request.post(origin+'/auth/signout',{headers:{origin}});
+   assert.equal((await call(replayContext,origin,'POST','/api/pages/bulk',captures[4])).status,401);
+  }finally{await replayContext.close();}
  });
  const after=await snapshot();
  for(const {action,selected} of corpus){
