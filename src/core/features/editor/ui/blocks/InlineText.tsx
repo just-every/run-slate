@@ -39,7 +39,7 @@ function Mention({ span }: { span: InlineSpan }) {
       {mentionPrefix[mention.kind]}
       {mention.kind==='page' && mention.id && mention.available!==false ? <a href={`/app/pages/${encodeURIComponent(mention.id)}`}>{mention.label}</a>:mention.kind==='date' ? new Date(`${mention.id}T12:00:00`).toLocaleDateString() : mention.label}
       {mention.kind==='page' && mention.state==='restricted' ? <button type="button" data-request-page-access={mention.id}>Request access</button>:null}
-      {mention.state && mention.state!=='live'?<small> · {mention.state==='restricted'?'Unavailable':mention.state}</small>:null}
+      {mention.state && mention.state!=='live'?<span className="text-small"> · {mention.state==='restricted'?'Unavailable':mention.state}</span>:null}
     </span>
   );
 }
@@ -62,6 +62,16 @@ function withMarks(span: InlineSpan, node: ReactNode): ReactNode {
   return out;
 }
 
+/** Editable markup is static; reference state arrives with its reader-safe text. */
+function PageLink({span,children}:{span:InlineSpan;children:ReactNode}) {
+  const link=span.link!;
+  if(!link.state)return <a className="text-accent underline underline-offset-2" href={link.href} rel="noreferrer" target="_blank">{children}</a>;
+  const restricted=link.state==='restricted'||link.state==='unavailable';
+  return <span data-page-reference="" data-slate-atomic-length={span.text.length} contentEditable={false}>
+    {restricted?<span>Access needed</span>:<><a className="text-accent underline underline-offset-2" href={link.href} rel="noreferrer" target="_blank">{children}</a>{link.state!=='live'?<span className="text-small"> · {link.state}</span>:null}</>}
+  </span>;
+}
+
 function Span({ span }: { span: InlineSpan }) {
   if (span.mention) return <Mention span={span} />;
 
@@ -69,9 +79,7 @@ function Span({ span }: { span: InlineSpan }) {
 
   if (span.link) {
     node = (
-      <a className="text-accent underline underline-offset-2" href={span.link.href} rel="noreferrer" target="_blank">
-        {node}
-      </a>
+      <PageLink span={span}>{node}</PageLink>
     );
   }
 
