@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 56 | 241 | 35 | 332 |
+| Core | 57 | 240 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 56 | 241 | 41 | 338 |
+| Full target | 57 | 240 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -660,7 +660,7 @@ Core · published · **partial**
 
 #### BLOCK-005 — Mentions
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** Typing `@` offers people, pages and dates in one list.
 
@@ -669,8 +669,8 @@ Core · published · **partial**
 2. `BLOCK-020` adds group mentions.
 3. `@` offers people, pages and dates; a person mention notifies; a page mention follows renames.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Typing `@` offers people, pages and dates in one list."<br>No validated CI-run proof for this acceptance point: "A person mention notifies them (`NOTIF-001`) and renders their name; a page mention renders the page's current title and follows renames and moves (`LINK-003`); a date mention renders in the reader's locale."
+**Evidence.** `tests/qualification/ui-convergence/body-mentions-journey.mjs` — "bodyMentionsJourney", loaded by "real core-wiki and touch-member journeys at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: requirement and acceptance 1 and 3, native body keystrokes in one picker, committed person, page and date spans after reload, one readable person notification under repetition and captured autosave replay, the current reader-safe page title and working link after rename and reviewed move, access revocation, and US and British date locales. `tests/qualification/ui-convergence/group-mentions-journey.mjs` — "groupMentionJourney", loaded by "group mentions preview readers and refuse oversized groups at 1440px" in the same caller: acceptance 2, native group preview, body insertion and readable recipient inbox with oversized-group refusal; retains "commentMentionsJourney" in `tests/qualification/ui-convergence/comment-mentions.mjs`. `tests/flagship/discovery/group-mentions.test.ts` — "BLOCK-020 — group mentions preview and notify only readers once, with owner-controlled administrator bounds": native delivery, replay and current-access refusals; no Confluence import completion is claimed.
+**Gap.** None.
 
 #### BLOCK-006 — Structured blocks
 
