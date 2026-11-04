@@ -3988,6 +3988,8 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff.
 
+PAGE-003 proof is reviewed from source commit `1c80985602ede6158cf6ef1ed9dbae2b5d3a0260`; its exact candidate, Verify and guarded landing receipts are named in the branch handoff. The native continuity sequence does not claim all of LINK-001.
+
 Judged from the code and tests at commit `30886e55608596bb44862e4c6942dc1a24ef982e` for STAT-001; both status profiles passed the native HTTP and responsive vocabulary journeys. The exact candidate and guarded landing receipts remain in the branch handoff.
 
 CONT-001 is judged from source commit `12379d17957e993f2aa09d13a8df536aad5a41d8`; owners are read by members only, and a guest's container read carries none. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander.
@@ -4006,9 +4008,9 @@ STAT-002 retains the current main judgment below. The candidate native member pa
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 40 | 186 | 1 | 227 |
+| Published | 41 | 185 | 1 | 227 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 56 | 241 | 41 | 338 |
+| All | 57 | 240 | 41 | 338 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4037,7 +4039,7 @@ STAT-002 retains the current main judgment below. The candidate native member pa
 | `PAGE-001` | What a page is | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a page creation, metadata editing and round-trip journey that reads the complete page identity and labels; the cited incumbent-archive test calls the parser and does not exercise the page door. |
 | `PAGE-002` | Creation | published | partial | `tests/qualification/interface/content.mjs` | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/content.mjs`. |
 | `PAGE-017` | Page creation is keyboard-complete on a phone and templates honour a locked destination | published | missing | None. | Supplied gate findings at d6ddfbb3: the 390px journey fails at line 66 after Tab then Shift+Tab because the create-child control is skipped; `src/core/app/styles/shell.css` lines 80–81 remove row actions from layout outside hover or focus-within. The member template fix at `src/core/features/templates/permissions.ts` line 14 works, but no Verify-loaded journey locks a page and lists, previews and applies a template. Missing the passing keyboard journeys at both widths and one Verify-loaded journey combining the phone sequence with writable-root success, locked-destination refusal and unchanged locked content. |
-| `PAGE-003` | Identity survives everything | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A page keeps its identifier for its lifetime."<br>No validated CI-run proof for this acceptance point: "Renaming it, editing it, moving it within or between containers, archiving, trashing, restoring, publishing and unpublishing never change it, and every link, mention, citation, content query and search result continues to resolve to it (`LINK-001`)." |
+| `PAGE-003` | Identity survives everything | published | done | `tests/qualification/ui-convergence/page-identity-journey.mjs` — "pageIdentityJourney", loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "BLOCK-010 — native content queries retain criteria and current-reader results at 1440px" and its 390px caller (Verify Slate: responsive UI shards): acceptance 1 and 2 retain one populated page and its copied permanent link, body mention, exact-revision citation, saved content query and search result across rename, edit, both moves, archive and trash with restoration, workspace publication, web publication and unpublication; native mutation receipts, independent-reader reloads, current-grant refusal and same-identifier reappearance. `tests/flagship/content/http.test.ts` — "content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state" supplies supporting native HTTP move, archive and revision regressions. | |
 | `PAGE-004` | Move | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A member with edit access on both places can move a page to another position, another parent, or another container, choosing the destination from a searchable picker."<br>No validated CI-run proof for this acceptance point: "Children move with it, grants are re-resolved against the new parent and the change is shown before it is applied, and comments, versions and links are unchanged." |
 | `PAGE-005` | Duplicate | published | partial | `tests/flagship/content/http.test.ts` | Missing a duplication journey that creates comments, versions, watchers, analytics, grants and publication before duplicating and reads their exclusion; the cited content flow checks some duplicate content and verification behavior only. |
 | `PAGE-006` | Icon and cover | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A page takes an icon from emoji, a supplied icon set or an upload, and a cover from a gallery, an upload or a link."<br>No validated CI-run proof for this acceptance point: "Both are removable, both render in the tree and in search results where the surface has room, and neither is required." |
