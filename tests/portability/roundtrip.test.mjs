@@ -134,7 +134,7 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, f
     const [bootstrapAudit]=await target.sql(`SELECT a.* FROM activity_entries a WHERE ${bootstrapAuditPredicate};
       CREATE TABLE portability_unregistered_record(id TEXT PRIMARY KEY,body TEXT);
       INSERT INTO portability_unregistered_record VALUES ('unregistered','must not silently disappear')`);
-    t.diagnostic(JSON.stringify(equivalent(before,after,ownerEmail,reexport.id,bootstrapAudit.results)));
+    t.diagnostic(JSON.stringify(equivalent(before,after,ownerEmail,reexport.id,bootstrapAudit.results,imported.completedAt)));
     await target.start();
     const refused=await fetch(target.origin+'/api/exports/workspace',{method:'POST',headers:{Cookie:targetCookie,Origin:target.origin,'Content-Type':'application/json'},body:JSON.stringify({operationKey:randomUUID()})});
     assert.equal(refused.status,409);assert.equal((await refused.json()).code,'UNREGISTERED_PORTABLE_TABLE','Populated unknown tables still fail closed.');

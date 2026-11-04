@@ -6,7 +6,7 @@ export function unpack(bytes){const entries=unzipSync(bytes);return {manifest:JS
 const stable=row=>JSON.stringify(Object.fromEntries(Object.entries(row).sort(([a],[b])=>a.localeCompare(b))));
 
 /** Every table and retained field is compared; recovery changes are checked explicitly. */
-export function equivalent(before,after,ownerEmail,newExportId,bootstrapAuditRows){
+export function equivalent(before,after,ownerEmail,newExportId,bootstrapAuditRows,restoredAt){
   assert.equal(bootstrapAuditRows.length,1,'Fresh owner sign-in adds exactly one bootstrap audit row.');
   const a=before.manifest,b=after.manifest;
   assert.equal(a.version,1);assert.equal(b.version,a.version);
@@ -40,6 +40,11 @@ export function equivalent(before,after,ownerEmail,newExportId,bootstrapAuditRow
         const restored=actual.find(row=>row.id===expected.id);assert.ok(restored);
         assert.match(restored.revoked_at,/^\d{4}-\d{2}-\d{2}T/,'Restored public link is explicitly revoked.');
         expected.revoked_at=original.revoked_at??restored.revoked_at;
+      }
+      if(table==='notification_outbox'){
+        assert.ok(Number.isFinite(Date.parse(restoredAt)), 'Restore receipt has its committed completion time.');
+        // Restored notifications stay inert, stamped by the same commit as its receipt.
+        expected.processed_at=restoredAt;
       }
       if(table==='federation_exports'){
         expected.archive_key=null;if(['queued','running'].includes(expected.state))expected.state='failed';
