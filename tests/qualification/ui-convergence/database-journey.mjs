@@ -208,22 +208,23 @@ export async function databaseLifecycleJourney(state, width) {
       await expect(toggle).toHaveAttribute('aria-expanded', 'true');
     }
     const tree = page.locator('.space-detail .page-tree').first();
+    const address = node => node === pageId ? `/app/databases/${id}` : `/app/databases/${id}/records/${node}`;
     for (const node of [pageId, ...records.map(record => record.pageId)])
-      await expect(tree.locator(`a[href="/app/pages/${node}"]`)).toHaveCount(1);
+      await expect(tree.locator(`a[href="${address(node)}"]`)).toHaveCount(1);
     const rendered = await tree.locator('a').evaluateAll(anchors => Object.fromEntries(anchors.map(anchor => {
       const parent = anchor.closest('li').parentElement.closest('li')?.querySelector(':scope > .tree-row a');
       return [new URL(anchor.href).pathname, parent ? new URL(parent.href).pathname : null];
     })));
-    assert.equal(rendered[`/app/pages/${pageId}`], document.parentPageId ? `/app/pages/${document.parentPageId}` : null);
-    for (const record of records) assert.equal(rendered[`/app/pages/${record.pageId}`], `/app/pages/${pageId}`);
-    const link = tree.locator(`a[href="/app/pages/${pageId}"]`);
+    assert.equal(rendered[address(pageId)], document.parentPageId ? `/app/pages/${document.parentPageId}` : null);
+    for (const record of records) assert.equal(rendered[address(record.pageId)], address(pageId));
+    const link = tree.locator(`a[href="${address(pageId)}"]`);
     await expect(link.locator('.stored-page-icon')).toHaveText('🧭');
     await link.click();
     await expect(page.getByRole('textbox', {name: 'Page title', exact: true})).toHaveValue(name);
     await page.goto(url, {waitUntil: 'networkidle'});
     await page.reload({waitUntil: 'networkidle'});
     await expect(page.getByRole('textbox', {name: 'Page title', exact: true})).toHaveValue(name);
-    for (const record of records) await expect(page.getByRole('link', {name: record.title, exact: true})).toBeVisible();
+    for (const record of records) await expect(page.getByRole('region', {name: 'Records table', exact: true}).getByRole('link', {name: record.title, exact: true})).toBeVisible();
     await accessible(page, `database ${label}`);
   };
   await inventory(source, null);
@@ -232,7 +233,7 @@ export async function databaseLifecycleJourney(state, width) {
 
   await withSecondPerson(state, width, async ({bob}) => {
     await sameRecords(bob.context);
-      await more('Move page');
+    await more('Move page');
     const picker = page.getByRole('dialog', {name: `Move “${name}”`, exact: true});
     await picker.getByRole('combobox').fill('Database destination parent');
     await picker.getByRole('option', {name: /Database destination parent/}).click();
@@ -254,7 +255,7 @@ export async function databaseLifecycleJourney(state, width) {
     await sameRecords(bob.context);
     assert.equal((await ok(bob.context, origin, 'GET', pagePath)).permissions.level, 'view');
     await bob.page.goto(url, {waitUntil: 'networkidle'});
-    for (const record of records) await expect(bob.page.getByRole('link', {name: record.title, exact: true})).toBeVisible();
+    for (const record of records) await expect(bob.page.getByRole('region', {name: 'Records table', exact: true}).getByRole('link', {name: record.title, exact: true})).toBeVisible();
     await expect(bob.page.locator('.db-actions').getByRole('button', {name: 'New record', exact: true})).toHaveCount(0);
     await expect(bob.page.getByRole('region', {name: 'Records table', exact: true}).getByRole('button', {name: 'New record', exact: true})).toBeDisabled();
     const snapshot = async () => ({database: await api(base), records: await Promise.all(records.map(record => api(`${base}/records/${record.pageId}`))),
@@ -285,7 +286,7 @@ export async function databaseLifecycleJourney(state, width) {
 
   for (const action of ['archive', 'trash']) {
     await page.goto(url, {waitUntil: 'networkidle'});
-      await more(action === 'archive' ? 'Archive page' : 'Move to trash');
+    await more(action === 'archive' ? 'Archive page' : 'Move to trash');
     const dialog = page.getByRole('dialog', {name: action === 'archive' ? 'Archive this page?' : 'Move this page to trash?', exact: true});
     const reason = `Database ${action} lifecycle proof`;
     await dialog.getByLabel('Reason', {exact: true}).fill(reason);

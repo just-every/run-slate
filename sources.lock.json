@@ -11924,7 +11924,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/database-journey.mjs": {
-      "sha256": "4d7e4fec86aae18cb7abca47162811cd48204489a89687c92ab1fe76d7e51f81",
+      "sha256": "da2025dc9fa96c5feaf12146887e453080a3857bcfef919e6d95c117dbf8fc7d",
       "executable": false
     },
     "tests/qualification/ui-convergence/developer-access-journey.mjs": {
