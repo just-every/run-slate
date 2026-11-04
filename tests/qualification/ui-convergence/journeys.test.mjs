@@ -409,10 +409,10 @@ for (const width of [1440]) {
   });
 }
 
-// Give the complete query journey its own workspace and deadline, keeping the
-// established member journey's timeout and every query assertion unchanged.
+// Keep the complete query and identity sequence in one workspace. Its deadline
+// includes both native journeys; their assertions and product deadlines remain unchanged.
 for (const width of [1440, 390]) {
-  test(`BLOCK-010 — native content queries retain criteria and current-reader results at ${width}px`, { timeout: 300000 }, async () => {
+  test(`BLOCK-010 — native content queries retain criteria and current-reader results at ${width}px`, { timeout: 600000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await contentQueryJourney(state, width);

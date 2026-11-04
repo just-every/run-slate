@@ -12096,7 +12096,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "d8f35875b6cf9e8cdda07508a499219c18cdb606a0d5bcba0a49ba183ae66885",
+      "sha256": "d3f8dac68aa32c94037b638c32a49dbeff5fa682d70ee2a59a927e9c1886f3d4",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
