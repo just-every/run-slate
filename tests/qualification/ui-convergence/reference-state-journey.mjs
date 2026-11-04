@@ -36,9 +36,12 @@ export async function referenceStateJourney(state,people) {
       await expect(inline.getByRole('link',{name:expected,exact:true})).toHaveCount(2);
       await expect(inline.getByRole('link').nth(0)).toHaveAttribute('href',href);
       await expect(inline.getByRole('link').nth(1)).toHaveAttribute('href',origin+href);
+      await expect(inline.locator('[data-page-reference]')).toHaveCount(2);
+      if(lifecycle!=='live')for(const reference of await inline.locator('[data-page-reference]').all())await expect(reference).toContainText(lifecycle);
       for(const block of cards) {
         const card=body.locator(`[data-block-id="${block.id}"]`).first();
-        await expect(card.getByRole('link',{name:expected,exact:true})).toHaveAttribute('href',href);
+        const name=block.content.display==='card'?`${expected} ${href}`:expected;
+        await expect(card.getByRole('link',{name,exact:true})).toHaveAttribute('href',href);
         if(lifecycle!=='live')await expect(card).toContainText(lifecycle);
         await expect(card).not.toContainText('Stale supplier preview');
       }

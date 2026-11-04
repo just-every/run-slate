@@ -213,3 +213,19 @@ These are local native-runtime proofs; they make no provider or release claim.
 `tests/qualification/ui-convergence/page-status-journey.mjs` runs inside the existing “real core-wiki and touch-member journeys at 1440px” registration. A native non-owner member with edit access chooses Rough draft, replaces it with In progress, then clears it through Page status. Each committed receipt is replayed unchanged, reconciled to exactly one member activity entry and checked after page reload: one current chip or none, the exact stored status and unchanged rich-text blocks. Two populated status filters compare exact inclusion and exclusion through native search, authenticated search read-back, retained content-query definitions and rendered query results. A member downgraded to view cannot find mutation controls or set, replace or clear by HTTP; state and activity stay unchanged. An editor cannot set Verified without its exact human attestation. Existing human-open and stale-attestation cases remain unchanged.
 
 Functional assertions run at 1440px. The existing 390px core-wiki registration supplies a native member status selection and captures the chip and controls. Both widths use the emitted Worker, ordinary isolated browser contexts, native sessions and real D1. Only identity is supplied by the harness; vocabulary, private space, permissions, pages, status mutations and retained queries use product APIs. No additional test registration is introduced. The existing Workers registration “content durable HTTP publication, human verification and media enforce current reader authority” independently repeats the status, replay, activity, body, search, query and viewer-refusal journey through the real session-authenticated API.
+
+The existing desktop shared-page invitation registration and phone tree-filter
+registration invoke `referenceStateJourney` in
+`tests/qualification/ui-convergence/reference-state-journey.mjs`. Two native
+sessions retain a page mention, relative and same-origin rich links, and plain,
+inline and block cards before the target is renamed, moved between private
+spaces, archived, restored, trashed, restored and permanently deleted. Each
+reload reconciles exact current titles, lifecycle labels and unchanged target
+addresses against native page and card projections. A published reader keeps
+the published title while the owner edits; revocation removes every target
+title and preview; confirmed deletion and its replay leave content-free
+references without rewriting the host revision. The existing Workers
+`tests/flagship/content/mention-access.test.ts` registration calls its native HTTP helper in
+`tests/flagship/content/reference-state-journey.ts`, retaining the original
+cross-door revocation and expiry assertions. Exact-revision citations retain
+the existing `tests/qualification/ui-convergence/two-people-history.mjs` journey and native verification-flow test.

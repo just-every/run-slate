@@ -1765,7 +1765,7 @@
       "id": "LINK-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for LINK-003 — References follow their target. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "This Workers-only inventory records supporting native reference lifecycle and current-authority assertions in referenceStateJourney, called by the existing LINK-004 registration. Retained mentions, relative and same-origin rich links and three native card forms follow rename, move, archive, trash, restore and confirmed deletion with published-reader titles, revoked disclosure and historical host readback. Complete responsive DOM proof is loaded by the existing desktop shared-page and phone tree-filter registrations; CONTRACT.md owns the clause status.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/mention-access.test.ts",
