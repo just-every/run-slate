@@ -24,6 +24,7 @@ export async function automationRunLogCase() {
   };
   const mutate = (path: string, body: object) => ok("POST", path, { operationKey: createUlid(), ...body });
   const db = (await mutate("/api/databases", { containerId, title: "Run history" })).value;
+  await mutate(`/api/databases/${db.id}/fields`, { expectedRevisionId: db.revisionId, field: { id: "run-state", name: "Run state", type: "text", config: {}, position: 0 } });
   const definition = { name: "Inspect intake", scope: "source", sourceDatabaseId: db.id, trigger: { event: "record-created" }, conditions: [], actions: [{ type: "comment", body: "Recorded exactly once" }] };
   const rule = (await mutate("/api/automation", definition)).value;
   const logs = async (id = rule.id) => (await ok("GET", `/api/automation/${id}/runs`)).items;
@@ -37,9 +38,9 @@ export async function automationRunLogCase() {
   };
   await observe("configuration-changed");
   const empty = (await mutate("/api/automation", { ...definition, name: "Empty action", actions: [] })).value;
-  const unmet = (await mutate("/api/automation", { ...definition, name: "Unmet condition", conditions: [{ field: "absent", op: "eq", value: "not present" }] })).value;
+  const unmet = (await mutate("/api/automation", { ...definition, name: "Unmet condition", conditions: [{ field: "run-state", op: "eq", value: "Ready" }] })).value;
   const disabled = (await mutate("/api/automation", { ...definition, name: "Paused", disabled: true })).value;
-  const record = (await mutate(`/api/databases/${db.id}/records`, { title: "Visible intake", values: {} })).value;
+  const record = (await mutate(`/api/databases/${db.id}/records`, { title: "Visible intake", values: { "run-state": "Pending" } })).value;
   // Observe genuine durable transitions at the storage boundary without replacing their writes.
   const observer = new Proxy(ctx.db, { get(target, key) {
     if (key === "prepare") return (sql: string) => {

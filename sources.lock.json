@@ -11284,7 +11284,7 @@
       "executable": false
     },
     "tests/flagship/structured/automation-run-log.case.ts": {
-      "sha256": "62c37da0b0e688a8d045ed1b6f951c367954eec0bff732a6ce8f7358814d4fe2",
+      "sha256": "9b45c4c3aee6b29a00472b933eba23bb436cb098f45e6d2053586b27210a67f8",
       "executable": false
     },
     "tests/flagship/structured/http.test.ts": {
@@ -12104,7 +12104,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "d38679fc1d1bc1af375f8064b8f378c726ef0b07535f47be47cad250e55d7f7c",
+      "sha256": "1bf1e2874f1f778023c17441c56163abe243bba86b206e5b20c2357071fafd6e",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
