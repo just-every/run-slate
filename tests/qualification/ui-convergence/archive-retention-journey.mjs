@@ -4,10 +4,18 @@ import {expect} from '@playwright/test';
 import {retentionFixture} from '../archive-retention-fixture.ts';
 import {call,ok} from './two-people-support.mjs';
 import {tap,type,checkpoint} from './touch-controls.mjs';
+import {signInWithOutbox} from '../../e2e/outbox-auth.mjs';
 
 /** Archive and deletion use the ordinary member's native controls and session. */
 export async function archiveRetentionJourney(state,touch) {
   const {page,context,origin,containerId}=touch;
+  // Earlier writing can outlast the native ten-minute confirmation window.
+  // Obtain a real mailbox proof before this journey's destructive actions.
+  const {member}=await touch.api('/api/session');
+  const confirmed=await signInWithOutbox(origin,member.email);
+  assert.equal(confirmed.body.member.id,member.id,'Confirmation retains the same native member.');
+  await context.addCookies([{name:'slate_session',value:confirmed.cookie.split('=')[1],url:origin}]);
+  state.readerCookie=confirmed.cookie;
   const f=await retentionFixture({containerId,memberId:'browser-reader',
     request:async(method,route,body)=>{
       // Vocabulary belongs to the workspace owner; all content uses the member.
