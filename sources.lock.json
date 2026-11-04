@@ -11880,7 +11880,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/browser-support.mjs": {
-      "sha256": "cc53a48b3fb77c63a39f196e8439a37cda39ef74596f26e38d29ea66fcd4d155",
+      "sha256": "c824ca72cbb2b4256864c1aa059fb863cae7bc7fbad5157c4210a397f67828c1",
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
@@ -12224,7 +12224,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/status-vocabulary-journey.mjs": {
-      "sha256": "a0d6c7d270eaa113d291ceaad45971238a6d45c3c5d4c807f2f379ad3a07f1e7",
+      "sha256": "a04b6d5a65e2c4d2d2f910d72bce1874171a2e51805927c71ea022b818e17346",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
@@ -12344,7 +12344,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/version-deletion-journey.mjs": {
-      "sha256": "2dffb02cf858d4ffe39124a4e61ded1ec29345f24bb91cc75d9e61e558abd358",
+      "sha256": "649cc3f16256147ee69a425b0694f9063ba1856620aee4e529827f25efab588c",
       "executable": false
     },
     "tests/qualification/ui-convergence/webhook-access-journey.mjs": {

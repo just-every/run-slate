@@ -132,41 +132,36 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       await context.clearCookies();
       await context.addCookies([{ name: 'slate_session', value: identity === 'reader' ? readerToken : token, url: runtime.baseUrl }]);
     };
-    const records = async () => {
-      // Unmount the page before the deliberate Worker restart so background
-      // presence/session requests cannot race the fixture's stopped listener.
-      await page.waitForLoadState('networkidle');
+    // A stopped listener must have no mounted views, including second-person
+    // contexts. Network-idle alone leaves presence/session timers running. Keep
+    // their addresses and native cookies, then remount only after health is ready.
+    const withStoppedWorker = async read => {
+      const views = browser.contexts().flatMap(view => view.pages())
+        .filter(view => new URL(view.url()).origin === runtime.baseUrl)
+        .map(view => ({ page: view, url: view.url() }));
+      await Promise.all(views.map(({ page }) => page.waitForLoadState('networkidle')));
+      await Promise.all(views.map(({ page }) => page.goto('about:blank')));
       await Promise.all([...captures]);
-      const checkpointUrl = page.url();
-      await page.goto('about:blank');
       await stop(runtime.child);
       runtime = undefined;
       let result, failure;
-      try {
-        [result] = await executeD1(state, "SELECT (SELECT COUNT(*) FROM workspaces) AS workspaces, (SELECT COUNT(*) FROM containers WHERE visibility!='personal') AS spaces, (SELECT COUNT(*) FROM pages) AS pages");
-      } catch (cause) {
-        failure = cause;
-      }
+      try { result = await read(); }
+      catch (cause) { failure = cause; }
       try {
         runtime = await startWorker();
+        await Promise.all(views.map(({ page, url }) => page.goto(url, { waitUntil: 'networkidle' })));
       } catch (cause) {
-        failure = failure ? new AggregateError([failure, cause], 'Persisted count checkpoint and Worker restart failed') : cause;
+        failure = failure ? new AggregateError([failure, cause], 'Persisted checkpoint and Worker restart failed') : cause;
       }
       if (failure) throw failure;
-      await page.goto(checkpointUrl, { waitUntil: 'networkidle' });
-      return result.results[0];
-    };
-    /** Stored clock state (a past reminder) written with the Worker stopped, as records() reads. */
-    const atRest = async statement => {
-      await page.waitForLoadState('networkidle');
-      await Promise.all([...captures]);
-      await stop(runtime.child);
-      runtime = undefined;
-      let result;
-      try { result = await executeD1(state, statement); }
-      finally { runtime = await startWorker(); }
       return result;
     };
+    const records = async () => {
+      const [result] = await withStoppedWorker(() => executeD1(state, "SELECT (SELECT COUNT(*) FROM workspaces) AS workspaces, (SELECT COUNT(*) FROM containers WHERE visibility!='personal') AS spaces, (SELECT COUNT(*) FROM pages) AS pages"));
+      return result.results[0];
+    };
+    /** Stored clock state (a past reminder) written with every browser view suspended. */
+    const atRest = statement => withStoppedWorker(() => executeD1(state, statement));
     const fixtureSql = async statements => {
       assert.ok(scheduled && runtime.child.connected, 'Clock fixtures require the scheduled test process IPC channel.');
       const child=runtime.child,id=crypto.randomUUID();
@@ -220,6 +215,36 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       }
     }
   }
+}
+
+/** Wait for the native modal and its resource-backed form, not just its SSR markup. */
+export async function waitForDialogReady(dialog) {
+  await dialog.waitFor({ state: 'visible' });
+  const element = await dialog.elementHandle();
+  try {
+    await dialog.page().waitForFunction(element => element.open &&
+      !element.querySelector('fieldset:disabled, .request-loading, [role="alert"]') &&
+      element.querySelector('button[type="submit"]')?.matches(':enabled'), element);
+  } finally { await element.dispose(); }
+}
+
+/** Follow the real write through its body and the dialog's settled UI before assertions. */
+export async function submitDialog(page, dialog, name, pathname, method = 'POST') {
+  await waitForDialogReady(dialog);
+  const element = await dialog.elementHandle();
+  try {
+    const [response] = await Promise.all([
+      page.waitForResponse(item => item.request().method() === method && new URL(item.url()).pathname === pathname),
+      dialog.getByRole('button', { name, exact: true }).click(),
+    ]);
+    assert.equal(response.status(), 200, `${pathname}: ${await response.text()}`);
+    // onSaved may still be reloading the document after the write has committed.
+    // Poll the real form state through that refresh; the original assertions keep
+    // their own 5 s budget once the action is no longer pending.
+    await page.waitForFunction(element => !element.isConnected || !element.open ||
+      !element.querySelector('fieldset:disabled, .request-loading, [role="alert"]'), element);
+    return response;
+  } finally { await element.dispose(); }
 }
 
 export async function setupWorkspace({ page, context, origin, api, records }) {

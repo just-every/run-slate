@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-evidence.mjs';
+import { submitDialog, waitForDialogReady } from './browser-support.mjs';
 import { call, grant, ok, restrictedPage } from './two-people-support.mjs';
 
 /** Native labelled history: a full member deletes one version, retaining the rest. */
@@ -40,10 +41,11 @@ export async function versionDeletionJourney(state, people) {
       await alice.page.getByRole('button', { name: 'More', exact: true }).click();
       await alice.page.getByRole('menuitem', { name: 'Publish workspace revision', exact: true }).click();
       const dialog = alice.page.getByRole('dialog');
+      await waitForDialogReady(dialog);
       await dialog.getByLabel('Version label', { exact: true }).fill(label);
-      await dialog.getByRole('button', { name: 'Review publication', exact: true }).click();
+      await submitDialog(alice.page, dialog, 'Review publication', `/api/pages/${pageId}/publish-preview`);
       await expect(dialog.getByRole('region', { name: 'Reviewed publication', exact: true })).toBeVisible();
-      await dialog.getByRole('button', { name: 'Publish workspace revision', exact: true }).click();
+      await submitDialog(alice.page, dialog, 'Publish workspace revision', `/api/pages/${pageId}/publish`);
       await expect(dialog).toBeHidden();
       return (await read()).publishedRevisionId;
     };
@@ -69,6 +71,7 @@ export async function versionDeletionJourney(state, people) {
 
     // Edit access can read the populated preview, but cannot delete it by either door.
     await bob.page.goto(citation(intermediate), { waitUntil: 'networkidle' });
+    await bob.page.locator('.revision-preview').waitFor({ state: 'visible' });
     await expect(bob.page.locator('.revision-preview')).toContainText('Remove only this intermediate content.');
     await expect(deleteControl(bob.page)).toHaveCount(0);
     const forbidden = await call(bob.context, origin, 'DELETE', `/api/revisions/${pageId}/${intermediate}`, { operationKey: randomUUID() });
@@ -79,6 +82,7 @@ export async function versionDeletionJourney(state, people) {
     await grant(alice.context, origin, pageId, bob.id, 'full', { id: bobGrant.id });
     for (const id of [working, published]) {
       await bob.page.goto(citation(id), { waitUntil: 'networkidle' });
+      await bob.page.locator('.revision-preview').waitFor({ state: 'visible' });
       await expect(bob.page.locator('.revision-preview')).toBeVisible();
       await expect(deleteControl(bob.page)).toHaveCount(0);
       const refused = await call(bob.context, origin, 'DELETE', `/api/revisions/${pageId}/${id}`, { operationKey: randomUUID() });
@@ -88,6 +92,7 @@ export async function versionDeletionJourney(state, people) {
     }
     await profile({ 'page.version.v1': 'autosnapshot' });
     await bob.page.goto(citation(intermediate), { waitUntil: 'networkidle' });
+    await bob.page.locator('.revision-preview').waitFor({ state: 'visible' });
     await expect(bob.page.locator('.revision-preview')).toContainText('Remove only this intermediate content.');
     await expect(deleteControl(bob.page)).toHaveCount(0);
     const hidden = await call(bob.context, origin, 'DELETE', `/api/revisions/${pageId}/${intermediate}`, { operationKey: randomUUID() });
@@ -101,12 +106,14 @@ export async function versionDeletionJourney(state, people) {
 
     // A full member confirms exactly one native destructive action.
     await bob.page.goto(citation(intermediate), { waitUntil: 'networkidle' });
+    await bob.page.locator('.revision-preview').waitFor({ state: 'visible' });
     const rowBefore = bob.page.locator('.history-list li').filter({ hasText: 'Version 2' });
+    await rowBefore.waitFor({ state: 'visible' });
     await expect(rowBefore).toContainText('Intermediate publication');
     await deleteControl(bob.page).click();
     const dialog = bob.page.getByRole('dialog', { name: 'Delete this intermediate revision?', exact: true });
     const response = bob.page.waitForResponse(item => item.request().method() === 'DELETE' && new URL(item.url()).pathname === `/api/revisions/${pageId}/${intermediate}`);
-    await dialog.getByRole('button', { name: 'Delete revision', exact: true }).click();
+    await submitDialog(bob.page, dialog, 'Delete revision', `/api/revisions/${pageId}/${intermediate}`, 'DELETE');
     const committed = await response;
     assert.equal(committed.status(), 200);
     const input = committed.request().postDataJSON(), receipt = await committed.json();
@@ -142,11 +149,13 @@ export async function versionDeletionJourney(state, people) {
 
     await bob.page.reload({ waitUntil: 'networkidle' });
     const row = bob.page.locator('.history-list li').filter({ hasText: 'Version 2' });
+    await row.waitFor({ state: 'visible' });
     await expect(row).toContainText(`Deleted by ${bob.name} on`);
     const deletedTime = row.locator('time').nth(1);
     await expect(deletedTime).toHaveAttribute('datetime', tombstone.deletedAt);
     assert.match(await deletedTime.innerText(), /\d{2} \w{3} \d{4}, \d{2}:\d{2}:\d{2}/);
     await expect(row).not.toContainText('Intermediate publication');
+    await bob.page.getByText('This exact revision has been deleted. Its content is unavailable.', { exact: true }).waitFor({ state: 'visible' });
     await expect(bob.page.locator('.revision-preview')).toHaveCount(0);
     await expect(bob.page.getByText('This exact revision has been deleted. Its content is unavailable.', { exact: true })).toBeVisible();
     await expect(bob.page.locator('.history-list li')).toHaveCount(before.length);

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-evidence.mjs';
+import { submitDialog, waitForDialogReady } from './browser-support.mjs';
 import { call, ok, withSecondPerson } from './two-people-support.mjs';
 
 const seeded = [
@@ -21,6 +22,7 @@ export async function statusVocabularyJourney(state, width) {
   const shot = label => page.screenshot({path:`.artifacts/ui-convergence/status-vocabulary-${width}-${label}.png`,fullPage:false});
   const settings = async () => {
     await page.goto(origin+'/app/settings?section=statuses',{waitUntil:'networkidle'});
+    await page.locator('.settings-list').waitFor({state:'visible'});
     await expect(page.getByRole('heading',{name:'Name the state of the work.'})).toBeVisible();
   };
   const profile = async value => {
@@ -28,7 +30,7 @@ export async function statusVocabularyJourney(state, width) {
     await page.getByRole('button',{name:'Edit workspace & policies',exact:true}).click();
     const dialog=page.getByRole('dialog',{name:'Workspace settings',exact:true});
     await dialog.getByRole('combobox',{name:/^Page status\b/}).selectOption(value);
-    await dialog.getByRole('button',{name:'Save settings',exact:true}).click();
+    await submitDialog(page,dialog,'Save settings','/api/workspace','PUT');
     await expect(dialog).toHaveCount(0);
     assert.equal((await api('/api/workspace')).policies['page.status.v1'],value);
   };
@@ -40,7 +42,7 @@ export async function statusVocabularyJourney(state, width) {
     await dialog.getByLabel('Colour',{exact:true}).fill(color);
     await dialog.getByLabel('Require a human to verify the exact revision').check();
     if(retire) await dialog.getByLabel('Retire this status',{exact:true}).check();
-    await dialog.getByRole('button',{name:'Save status',exact:true}).click();
+    await submitDialog(page,dialog,'Save status','/api/status');
     await expect(dialog).toHaveCount(0);
     return (await api('/api/status')).items.find(s=>s.label===label);
   };
@@ -63,8 +65,9 @@ export async function statusVocabularyJourney(state, width) {
         await page.goto(`${origin}/app/pages/${pageId}?detail=status`,{waitUntil:'networkidle'});
         await page.getByRole('combobox',{name:/^Set page status\b/}).selectOption(added.key);
         const verify=page.getByRole('dialog',{name:'Verify this exact revision',exact:true});
+        await waitForDialogReady(verify);
         await verify.getByLabel('No expiry',{exact:true}).check();
-        await verify.getByRole('button',{name:'I reviewed this revision',exact:true}).click();
+        await submitDialog(page,verify,'I reviewed this revision',`/api/status/page/${pageId}`);
         await expect(verify).toHaveCount(0);
         assert.equal((await api(`/api/pages/${pageId}`)).properties.statusKey,added.key);
       }
@@ -84,11 +87,13 @@ export async function statusVocabularyJourney(state, width) {
       }
       await page.reload({waitUntil:'networkidle'});
       const row=page.locator('.settings-list li').filter({hasText:renamed});
+      await row.waitFor({state:'visible'});
       await expect(row).toContainText('Retired');
       await expect(row.getByRole('button',{name:'Change assigned pages',exact:true})).toBeVisible();
       await shot(`${value}-retired-settings`);
       await page.goto(`${origin}/app/pages/${ids[0]}?detail=status`,{waitUntil:'networkidle'});
       const chips=page.locator('.page-status-chip');
+      await chips.first().waitFor({state:'visible'});
       await expect(chips).not.toHaveCount(0);
       for(const chip of await chips.all()) await expect(chip).toContainText(renamed);
       await expect(page.getByRole('combobox',{name:/^Set page status\b/}).locator(`option[value="${added.key}"]`)).toHaveCount(0);
@@ -96,6 +101,7 @@ export async function statusVocabularyJourney(state, width) {
       if(width===1440) {
         await withSecondPerson(state,width,async people=>{
           await people.bob.page.goto(origin+'/app/settings?section=statuses',{waitUntil:'networkidle'});
+          await people.bob.page.locator('.settings-list').waitFor({state:'visible'});
           await expect(people.bob.page.getByRole('button',{name:'Add status',exact:true})).toHaveCount(0);
           await expect(people.bob.page.getByRole('button',{name:'Edit',exact:true})).toHaveCount(0);
           const before=await api('/api/status');
@@ -122,7 +128,7 @@ export async function statusVocabularyJourney(state, width) {
       await dialog.getByLabel('New status').selectOption('in-progress');
       await shot(`${value}-explicit-bulk`);
       const responsePromise=page.waitForResponse(r=>new URL(r.url()).pathname==='/api/pages/bulk'&&r.request().method()==='POST');
-      await dialog.getByRole('button',{name:'Apply to selected pages',exact:true}).click();
+      await submitDialog(page,dialog,'Apply to selected pages','/api/pages/bulk');
       const response=await responsePromise,receipt=await response.json();
       assert.equal(response.status(),200);
       assert.deepEqual(receipt.items.map(r=>[r.id,r.success]).sort(),ids.map(id=>[id,true]).sort());
@@ -136,6 +142,7 @@ export async function statusVocabularyJourney(state, width) {
       }
       await page.reload({waitUntil:'networkidle'});
       await page.locator('.settings-list li').filter({hasText:renamed}).getByRole('button',{name:'Change assigned pages',exact:true}).click();
+      await page.getByRole('region',{name:`Pages carrying ${renamed}`,exact:true}).locator('.bulk-page-list').waitFor({state:'attached'});
       await expect(page.getByRole('region',{name:`Pages carrying ${renamed}`,exact:true}).locator('.bulk-page-list li')).toHaveCount(0);
       await accessible(page,'status vocabulary and explicit bulk change');
       console.log(`PROBE STAT-001 profile=${value}: native owner controls, retained pages, non-owner refusals and explicit bulk receipts passed at ${width}px`);
