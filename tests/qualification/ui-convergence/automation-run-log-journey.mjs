@@ -34,7 +34,7 @@ export async function automationRunLogJourney(state,touch) {
   await expect(row.getByRole('link',{name:'Inspected intake',exact:true})).toHaveAttribute('href',`/app/pages/${record.pageId}`);
   await expect(row).toContainText(new Date(success.created_at).toLocaleString('en-US'));
   await expect(row).toContainText('Action 1: confirmed');
-  assert.equal((await api(`/api/comments/page/${record.pageId}`)).comments.filter(comment=>comment.body==='Intake recorded once.').length,1);
+  assert.deepEqual((await api(`/api/comments/page/${record.pageId}`)).comments.map(comment=>comment.body),[[{text:'Intake recorded once.'}]]);
   await checkpoint(page,'automation trigger actor time and touched record');
   // A native storage fault aborts the action transaction. Only the retry clock moves.
   await state.fixtureSql(["CREATE TRIGGER synthetic_slate_browser_fault BEFORE INSERT ON comments BEGIN SELECT RAISE(ABORT,'synthetic-slate-2'); END"]);

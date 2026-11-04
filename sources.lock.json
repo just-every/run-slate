@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "495e770ed8870445b489c3d35dafeda6f878a8a61966c506a443b3f3003a8f8d",
+      "sha256": "6a30cfa0188e20e864500309bb008103db981ab8ba9c36f4af4f1dc45c2c4fcd",
       "executable": false
     },
     "DEMO.md": {
@@ -11280,7 +11280,7 @@
       "executable": false
     },
     "tests/flagship/structured/automation-repairs.test.ts": {
-      "sha256": "c2895f8b91f3c6694abf99500c1f16ed93fed45978ba6f149630d0e6968bb793",
+      "sha256": "4a0dc5514b84f023fa5b76f2beb6bdfc7085dbd473a4863e0deb87bf91bcb5f5",
       "executable": false
     },
     "tests/flagship/structured/automation-run-log.case.ts": {
@@ -11872,7 +11872,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/automation-run-log-journey.mjs": {
-      "sha256": "c183c049f98a7c4d560b9014c2c69e81ebbde4582498c74fd67c96dbb4be17ee",
+      "sha256": "125e3e49ec01156d499071407370f164ac141ddd8a554eb3e0c0e2960ff79dd8",
       "executable": false
     },
     "tests/qualification/ui-convergence/backups-journey.mjs": {
@@ -12396,7 +12396,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "30217b10d2e1cda2aa6a4fc5c73e10ace28b2548937f67ba037e70f1ae446b8c",
+      "sha256": "ee876664d412132e8ac2663c28ae846d81996b4e0fd337e5f67495f8b089aef5",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12412,7 +12412,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "f93bbb4a08f6049ec124c1eb1521676dde01909b4271cd6297ecc48cd17eb691",
+      "sha256": "54c3360727e60ee295f060b158222954493dd6331620fca9fe5362c19dec26c3",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

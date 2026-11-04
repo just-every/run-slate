@@ -6,7 +6,7 @@ import { env } from "cloudflare:test";
 import { test,expect } from "vitest";
 import { setup,databaseWith,field } from "./repair-fixture";
 import { seedContainer,seedContainerGrant,seedMember } from "../../e2e/setup/fixtures";
-import { saveRule,listRules } from "../../../src/core/features/automation/service";
+import { saveRule,listRules,runLog } from "../../../src/core/features/automation/service";
 import { enqueueAutomationEvent,processAutomationJob,runAutomationSchedule } from "../../../src/core/features/automation/jobs";
 import { createRecord } from "../../../src/core/features/databases/service";
 import { readPage } from "../../../src/core/features/pages/service";
@@ -98,8 +98,12 @@ try {
   // Original variant: AUTO-003 durable recovery reconciles commit-before-confirm and completes ordered actions exactly once
   await (async () => {
  const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"retry",[]);
- await saveRule(ctx,{operationKey:"retry-rule-save",name:"Retry",scope:"source",sourceDatabaseId:db.id,trigger:{event:"schedule",startsAt:ctx.now,intervalMinutes:60},conditions:[],actions:[{type:"create-record",databaseId:db.id,title:"One",values:{}},{type:"create-record",databaseId:db.id,title:"Two",values:{}}]});
+ const rule=await saveRule(ctx,{operationKey:"retry-rule-save",name:"Retry",scope:"source",sourceDatabaseId:db.id,trigger:{event:"schedule",startsAt:ctx.now,intervalMinutes:60},conditions:[],actions:[{type:"create-record",databaseId:db.id,title:"One",values:{}},{type:"create-record",databaseId:db.id,title:"Two",values:{}}]});
  const fault={...ctx,db:confirmationFailure(ctx.db)};await runAutomationSchedule(fault,adapters);
+ const interrupted=(await runLog(ctx,rule.value.id)).items.find(run=>run.state==="error");
+ expect(interrupted).toBeTruthy();
+ expect(interrupted!.records.map(record=>record.title)).toEqual(["One"]);
+ expect(interrupted!.finished_at).toBeNull();
  let records=await env.DB.prepare("SELECT page_id FROM database_records WHERE database_id=?").bind(db.id).all();expect(records.results).toHaveLength(1);
  await runAutomationSchedule({...ctx,now:new Date(Date.parse(ctx.now)+120000).toISOString()},adapters);
  records=await env.DB.prepare("SELECT page_id FROM database_records WHERE database_id=?").bind(db.id).all();expect(records.results).toHaveLength(2);
