@@ -17,7 +17,7 @@
       "id": "DOCS-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only what the documentation routes render and what the docs build checks for DOCS-001 — Public documentation. Full requirement-level browser, cookie, accessibility and emitted-artifact evidence remains unproven.",
+      "unmetReason": "This legacy Workers inventory records supporting regressions only; CONTRACT.md owns clause status. The native documentation HTTP journey covers public rendering, populated valid and revoked sessions with observed native database statements, configuration refusal and the shared public-document budget. Complete acceptance also uses the existing emitted Worker admission and bundle checks in tests/e2e/production-artifact.test.mjs, docsBrowserJourney in tests/e2e/docs-browser.mjs, and the real Vite build and development-sync journeys in ./tests/docs/. The browser traversal covers every manifest page, navigation, labeled table regions, accessibility and resource and cookie privacy at 1440px; the same journey provides separate 390px browser proof. Exact-candidate Verify and guarded landing receipts remain separate.",
       "supportingTests": [
         {
           "file": "tests/e2e/docs.test.ts",
