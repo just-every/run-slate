@@ -59,6 +59,16 @@ Placement: API-004 owns administration visibility only and cites API-001 custody
 
 Engineering/proof retained: False positive policy ask: missing OAuth applications and MCP clients remain engineering work. Status changes require the normal judge, not this ruling.
 
+### RL-103 — CONT-009: Container-grant Gap reconcile
+
+Date: 2026-11-04 · Ruled by: ct · Governs: CONT-009
+
+Outcome: **rewrite Gap; retain partial**. Replace the generic missing-proof text with the one remaining slice: inherited AI-answer removal under SHARE-007 in the ADMIN-007/ANSWER-001 default-profile Ask journey. With a provider fake at the network edge and `SLATE_PROFILE` unset, a member must receive an answer citing a page readable only through a container grant, then lose that access through an owner or container-administrator grant change, and see the page excluded from the next answer, follow-up and citations within five seconds.
+
+Why: Rechecked main `68d315a24b380354d1a9ab483e2d74ffd758c07c`. `tests/qualification/ui-convergence/container-grants-journey.mjs` proves principals and configured levels, inherited existing and later descendants, restricted branches, owner/administrator-only edits, replay-safe activity, next-write refusal, retained unsaved text and measured page/tree/search/inbox access changes. It is loaded through `workspace-authority-journey.mjs` and `journeys.test.mjs` by Verify's `run-shard.sh`. The suite asserts no model requests in `browser-support.mjs`; `ask-journey.mjs` exercises only a disabled no-provider draft, so it supplies no AI-answer removal proof.
+
+Placement: Add the container-grant access-loss step to the ADMIN-007/ANSWER-001 default-profile Ask journey. Do not queue another CONT-009-only implementation slice. Acceptance text, Evidence, partial status and all clause counts stay unchanged; this ruling authorizes no scope carve or status promotion.
+
 ### RL-4 — Complete category target
 
 Date: 2026-10-16 · Ruled by: owner · Governs: SAVE-006, PAGE-001, PAGE-009, BLOCK-005, BLOCK-006, BLOCK-007, BLOCK-008, SEARCH-001, WORK-015, NAV-006, NOTIF-003, MAIL-001, IMP-003, PORT-007, FLAG-001, ADMIN-007
