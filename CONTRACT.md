@@ -4004,7 +4004,7 @@ ARCH-004 retains current main’s partial judgment, Evidence and Gap below. The 
 REV-006 retains main's partial judgment, Evidence and Gap below. The candidate's native numbered-version deletion attribution, content-removal and duplicate-safe replay assertions have been reapplied as supporting implementation and tests in `tests/qualification/ui-convergence/version-deletion-journey.mjs`, `tests/flagship/content/http.test.ts` and `tests/qualification/core/audit-content.test.ts`; this conflict resolution does not promote the clause or replace its newer judgment.
 STAT-002 retains the current main judgment below. The candidate native member page-status, replay, activity, search and persisted-query journeys have been reapplied as supporting assertions; this replay does not promote the clause or replace its recorded evidence gap.
 
-AUTO-005 is judged from source commit `c233a5a29f8c4bdef314205e67bb1d1d2311a85c`; native profile and ZIP recovery journeys passed locally, with all three forms captured at 1440 and 390. The exact candidate and guarded landing receipts are recorded by its branch handoff.
+AUTO-005 is judged from the code and tests at commit d8864e113c0f0f25fbba744d34df8c46c2cf5657 (4 November 2026), whose source and tests are byte-identical to source commit c233a5a29f8c4bdef314205e67bb1d1d2311a85c, by ct judge ct-judge-slate-auto-005-20261104-1200: the native profile journey at 1440, the phone profile capture at 390 and the native ZIP recovery journey passed on that commit; the guarded lander records the final commit, its green exact-commit Verify, the complete publication scan and Run site.
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |

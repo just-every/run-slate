@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 56 | 241 | 35 | 332 |
+| Core | 57 | 240 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 56 | 241 | 41 | 338 |
+| Full target | 57 | 240 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1744,7 +1744,7 @@ Core · published · **partial**
 
 #### AUTO-005 — Automation profile
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** *Policy: `automation.scope.v1`; default: `source`, following Notion.
 
@@ -1754,8 +1754,8 @@ Core · published · **partial**
 3. The scope field and the run log are stored under every value, so an imported container or site rule keeps its scope and its history.*
 4. Profile journeys for `source`, `container` and `site` scopes show and hide exactly the listed controls.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "`source` creates rules from a database's own toolbar, scopes them to that database, shows one When-and-Do form, scopes the run log to that database, and hides the scope selector, the site option, the branch rail and the cross-container rule list."<br>No validated CI-run proof for this acceptance point: "`container` and `site` create rules from a rule list, expose the scope selector and the branch rail, and hide nothing from each other."<br>No validated CI-run proof for this acceptance point: "The scope field and the run log are stored under every value, so an imported container or site rule keeps its scope and its history."
+**Evidence.** `tests/qualification/ui-convergence/automation-profile-journey.mjs` — "automationProfileJourney", called by "spreadsheet tables merge, sort and round-trip through edited database records at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1, 2 and 4 through native creation, exact controls, populated rules and distinct execution inventories across two spaces; acceptance 3 through native Settings changes and unchanged stored definitions and histories. `tests/portability/roundtrip.test.mjs` — "BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment", using "populateAutomation" and "restoredAutomation" in `tests/portability/automation.mjs`: acceptance 3 with actual container and site execution histories, native Settings changes after restore, disabled execution, logged refusal and duplicate-safe delivery. "automationProfilePhoneProof" in `tests/qualification/ui-convergence/automation-profile-journey.mjs`, called by "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: all three forms and immediate keyboard tooltips at the phone width.
+**Gap.** None.
 
 ### Search
 
