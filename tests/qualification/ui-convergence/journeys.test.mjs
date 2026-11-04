@@ -51,7 +51,7 @@ import { concurrentEditingJourney } from './two-people-editing.mjs';
 import { accessChangeJourney } from './two-people-access.mjs';
 import { versionDeletionJourney } from './version-deletion-journey.mjs';
 import { historyJourney } from './two-people-history.mjs';
-import { databaseJourney } from './database-journey.mjs';
+import { databaseJourney, databaseLifecycleJourney } from './database-journey.mjs';
 import { recordDetailJourney } from './record-detail-journey.mjs';
 import { reviewRequestJourney } from './review-request-journey.mjs';
 import { hubJourney } from './hub-journey.mjs';
@@ -107,6 +107,7 @@ for (const width of [390, 1440]) {
         await step('STAT-005 — status profiles preserve vocabulary and page revisions', () => statusProfileJourney(state, width));
         if (width === 390) {
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
+          await step('DB-001 populated database lifecycle and destination access', () => databaseLifecycleJourney(state, width));
           await templateCaptureJourney(state);
           await templateGalleryJourney(state);
           await archiveRetentionJourney(state,touch);
