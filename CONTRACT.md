@@ -3988,7 +3988,7 @@ Contributed tree node kinds beyond pages, databases, cards and posts, and cross-
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff.
 
-PAGE-003 proof is reviewed from source commit `1c80985602ede6158cf6ef1ed9dbae2b5d3a0260`; its exact candidate, Verify and guarded landing receipts are named in the branch handoff. The native continuity sequence does not claim all of LINK-001.
+PAGE-003 proof is reviewed from source commit `9f020bb5e7ccf1562cf0e6c2cf29737c6bcdbd95` (4 November 2026); its exact candidate, Verify and guarded landing receipts are named in the branch handoff. The native continuity sequence does not claim all of LINK-001.
 
 Judged from the code and tests at commit `30886e55608596bb44862e4c6942dc1a24ef982e` for STAT-001; both status profiles passed the native HTTP and responsive vocabulary journeys. The exact candidate and guarded landing receipts remain in the branch handoff.
 
