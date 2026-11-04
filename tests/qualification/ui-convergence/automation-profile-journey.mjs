@@ -3,6 +3,19 @@ import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
 import { ok } from './two-people-support.mjs';
 
+/** Return to the form's scope controls and show its close tooltip by keyboard. */
+async function captureAutomationForm(page, form, scope, width) {
+  await form.getByRole('textbox', { name: 'Name', exact: true }).focus();
+  await page.keyboard.press('Shift+Tab');
+  const close = form.getByRole('button', { name: 'Close dialog', exact: true });
+  await expect(close).toBeFocused();
+  await expect(close).toBeInViewport();
+  const tooltip = await close.evaluate(element => ({ content: getComputedStyle(element, '::after').content, opacity: getComputedStyle(element, '::after').opacity }));
+  assert.equal(tooltip.content, '"Close dialog"');
+  assert.equal(tooltip.opacity, '1', 'Keyboard focus shows the icon-only close control help immediately.');
+  await page.screenshot({ path: `.artifacts/ui-convergence/automation-${scope}-${width}.png`, fullPage: true });
+}
+
 /** Read definitions and populated histories independently of the presentation policy. */
 export async function automationInventory(api) {
   const rules = (await api('/api/automation')).items;
@@ -68,7 +81,7 @@ export async function automationProfileJourney(state) {
     await form.getByRole('combobox', { name: 'When', exact: true }).selectOption('record-created');
     await form.getByRole('button', { name: 'Add action', exact: true }).click();
     await form.getByRole('textbox', { name: 'Comment', exact: true }).fill(`Recorded by ${name}`);
-    await page.screenshot({ path: `.artifacts/ui-convergence/automation-${scope}-1440.png`, fullPage: true });
+    await captureAutomationForm(page, form, scope, 1440);
     await form.getByRole('button', { name: 'Save automation', exact: true }).click();
     await expect(form).toBeHidden();
     const saved = (await api('/api/automation')).items.find(rule => rule.name === name);
@@ -148,7 +161,7 @@ export async function automationProfilePhoneProof(state) {
     if (scope === 'container') await form.getByRole('combobox', { name: 'Space', exact: true }).selectOption(space.id);
     await form.getByRole('button', { name: 'Add action', exact: true }).click();
     await form.getByRole('textbox', { name: 'Comment', exact: true }).fill('Review this intake.');
-    await page.screenshot({ path: `.artifacts/ui-convergence/automation-${scope}-390.png`, fullPage: true });
+    await captureAutomationForm(page, form, scope, 390);
     await form.getByRole('button', { name: 'Cancel', exact: true }).click();
   }
   await switchAutomationProfile(state, 'source');

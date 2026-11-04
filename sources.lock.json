@@ -11424,7 +11424,7 @@
       "executable": false
     },
     "tests/portability/equivalence.mjs": {
-      "sha256": "7682324249438f074f846a168ef3d9f43d4dd06a0689c1e9318ed8db014c5989",
+      "sha256": "2438a63e748deddb37ae330e25edf8fa65893781d54bb614590b50bfce3c4420",
       "executable": false
     },
     "tests/portability/fixture.mjs": {
@@ -11872,7 +11872,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/automation-profile-journey.mjs": {
-      "sha256": "ca34832421045de7b45569adb5dcdf2e6c74f8c78b13dad068eefc8c7ce5bfce",
+      "sha256": "47fa549a32feac3212e7f760606f87b9ec7fcc26d14a56071b1e9ca28eefca4a",
       "executable": false
     },
     "tests/qualification/ui-convergence/backups-journey.mjs": {
