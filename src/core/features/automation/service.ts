@@ -248,8 +248,10 @@ export async function runLog(ctx: FeatureContext, id: string) {
             .filter((r) => !r.targetId || readable.includes(r.targetId))
             .map((r) => ({ ...r, receipt: JSON.parse(r.receipt) }))
         : [];
+    const detail = JSON.parse(String(row.detail_json));
     items.push({
       ...row,
+      reason: typeof detail.reason === "string" ? detail.reason : undefined,
       records_json: JSON.stringify(readable),
       trigger_json: JSON.stringify(trigger),
       receipts,

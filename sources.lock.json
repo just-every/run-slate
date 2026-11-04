@@ -5884,7 +5884,7 @@
       "executable": false
     },
     "src/core/features/automation/service.ts": {
-      "sha256": "9df67472d9fcdf24430149e5633c83efaa58f1a2e7b2da635156b3e0310d41ca",
+      "sha256": "d00e9bca86f3729249da7f7d75da96c8d4c5e2645853fcefeb22ac2859ad99a4",
       "executable": false
     },
     "src/core/features/automation/types.ts": {
@@ -11279,8 +11279,12 @@
       "sha256": "1a1716e371fd9d588775021a34743b6471777c1d445bf501ae38a05f81f40941",
       "executable": false
     },
+    "tests/flagship/structured/automation-bounds-journey.ts": {
+      "sha256": "56e4afd6b691684155cb82048c6106661782a9828f8e356b7244c72a16f8945c",
+      "executable": false
+    },
     "tests/flagship/structured/automation-repairs.test.ts": {
-      "sha256": "f9b369a0292369ac859963f9e13435a4c4cfe6d3e740f17fca9a76511392d818",
+      "sha256": "5a2d413807ed2035fdb762e4fd743a9df1fb322ba97bd9e230dfd3d5b80419b9",
       "executable": false
     },
     "tests/flagship/structured/http.test.ts": {
@@ -12096,7 +12100,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "4c17141e40e0c678955f7ab444f9db4bf8edccc29b183ced8af6c96385a1fcf3",
+      "sha256": "8326154291ec6e02da2b7019e15ce4623f336e3cc8c1c076692110e8982eb1c1",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12280,7 +12284,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-database-tools-journey.mjs": {
-      "sha256": "65f75d721224b96ef0e853113539778dd4b92fa5307d971a845a0c9b046dd3fe",
+      "sha256": "29992de73c38aa1a390ca6a2a0ee89a2d8836bc03ceabe7d41ef830948bb6eef",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-database.mjs": {

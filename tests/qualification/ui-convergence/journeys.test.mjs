@@ -10,7 +10,7 @@ import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} fr
 import {peopleJourney} from './people-journey.mjs';
 import {workspaceAuthorityJourney} from './workspace-authority-journey.mjs';
 import {syncedJourney} from './synced-journey.mjs';
-import {touchDatabaseToolsJourney} from './touch-database-tools-journey.mjs';
+import {touchDatabaseToolsJourney,automationBoundsBrowserJourney} from './touch-database-tools-journey.mjs';
 import {archiveRetentionJourney} from './archive-retention-journey.mjs';
 import {touchManagementJourney} from './touch-management-journey.mjs';
 import {touchPageToolsJourney} from './touch-page-tools-journey.mjs';
@@ -106,6 +106,7 @@ for (const width of [390, 1440]) {
         await chatJourney(state, width);
         await step('STAT-005 — status profiles preserve vocabulary and page revisions', () => statusProfileJourney(state, width));
         if (width === 390) {
+          await automationBoundsBrowserJourney(state,touch);
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
           await templateCaptureJourney(state);
           await templateGalleryJourney(state);
