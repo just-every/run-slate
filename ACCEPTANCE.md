@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 56 | 241 | 35 | 332 |
+| Core | 57 | 240 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 56 | 241 | 41 | 338 |
+| Full target | 57 | 240 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -378,7 +378,7 @@ Core · published · **missing** · From PAGE-002
 
 #### PAGE-003 — Identity survives everything
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A page keeps its identifier for its lifetime.
 
@@ -386,8 +386,8 @@ Core · published · **partial**
 1. Renaming it, editing it, moving it within or between containers, archiving, trashing, restoring, publishing and unpublishing never change it, and every link, mention, citation, content query and search result continues to resolve to it (`LINK-001`).
 2. Rename, move, archive, restore, publish and unpublish keep the page identifier and every link resolving.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A page keeps its identifier for its lifetime."<br>No validated CI-run proof for this acceptance point: "Renaming it, editing it, moving it within or between containers, archiving, trashing, restoring, publishing and unpublishing never change it, and every link, mention, citation, content query and search result continues to resolve to it (`LINK-001`)."
+**Evidence.** `tests/qualification/ui-convergence/page-identity-journey.mjs` — "pageIdentityJourney", loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "BLOCK-010 — native content queries retain criteria and current-reader results at 1440px" and its 390px caller (Verify Slate: responsive UI shards): acceptance 1 and 2 retain one populated page and its copied permanent link, body mention, exact-revision citation, saved content query and search result across rename, edit, both moves, archive and trash with restoration, workspace publication, web publication and unpublication; native mutation receipts, independent-reader reloads, current-grant refusal and same-identifier reappearance. `tests/flagship/content/http.test.ts` — "content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state" supplies supporting native HTTP move, archive and revision regressions.
+**Gap.** None.
 
 #### PAGE-004 — Move
 

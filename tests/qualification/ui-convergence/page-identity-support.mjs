@@ -17,14 +17,20 @@ export async function identityDialogShot(page, dialog, capture, name) {
   await capture(name);
 }
 
-/** Read the genuine commit before forwarding it to a control that may navigate. */
-export async function identityCommit(page, pageId, routePath, action) {
-  const captured = Promise.withResolvers();
-  const matches = url => url.pathname === routePath;
+/**
+ * Read each genuine commit before forwarding it to a control that may navigate.
+ * The interception is installed once, while the page is idle, and stays for the journey: removing a
+ * route while the page issues its follow-up read (the list or page GET that follows every commit)
+ * can strand that read inside the browser, so the committed state never reaches the screen.
+ */
+export async function identityCommits(page, pageId) {
+  let current = null;
   const intercept = async route => {
-    if (route.request().method() !== 'POST') return route.continue();
+    const request = route.request();
+    if (!current || request.method() !== 'POST' || new URL(request.url()).pathname !== current.routePath) return route.continue();
+    const {routePath, captured} = current;
     try {
-      const input = route.request().postDataJSON();
+      const input = request.postDataJSON();
       const response = await route.fetch({ maxRetries: 0 });
       assert.equal(response.status(), 200, await response.text());
       const result = await response.json();
@@ -41,11 +47,16 @@ export async function identityCommit(page, pageId, routePath, action) {
       await route.abort().catch(() => {});
     }
   };
-  await page.route(matches, intercept);
-  try {
-    const [commit] = await Promise.all([captured.promise, action()]);
-    return commit;
-  } finally {
-    await page.unroute(matches, intercept);
-  }
+  await page.waitForLoadState('networkidle');
+  await page.route(url => url.pathname.startsWith('/api/'), intercept);
+  return async (routePath, action) => {
+    const captured = Promise.withResolvers();
+    current = { routePath, captured };
+    try {
+      const [commit] = await Promise.all([captured.promise, action()]);
+      return commit;
+    } finally {
+      current = null;
+    }
+  };
 }

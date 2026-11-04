@@ -5,7 +5,7 @@ import path from 'node:path';
 import {expect} from '@playwright/test';
 import {root} from '../../e2e/runtime-harness.mjs';
 import {accessible,openPageAction} from './browser-support.mjs';
-import {identityCommit,identityDialogShot} from './page-identity-support.mjs';
+import {identityCommits,identityDialogShot} from './page-identity-support.mjs';
 import {call,editable,grant,ok,restrictedPage,savedAfterCommit,withSecondPerson} from './two-people-support.mjs';
 
 /** One populated page, retained references and independent readers across its lifetime. */
@@ -85,7 +85,8 @@ export async function pageIdentityJourney(state,width) {
   };
   const retained={links:[permanent,citation.href],mentions:[{kind:'page',id}],query:definition};
   const snapshots=[],commits=[];
-  const commit=async(route,action)=>{const result=await identityCommit(page,id,route,action);commits.push(result);return result;};
+  const captureCommit=await identityCommits(page,id);
+  const commit=async(route,action)=>{const result=await captureCommit(route,action);commits.push(result);return result;};
   try {
     await withSecondPerson(state,width,async people=>{
       const {bob}=people;
