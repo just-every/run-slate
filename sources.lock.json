@@ -12132,7 +12132,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/page-identity-journey.mjs": {
-      "sha256": "c37d707303695e123055d70a78bcf736bb71c4388c54b73ad8fde59e897254af",
+      "sha256": "0a2ba17a43cc4d29fa78fd7eee730e5b1b122c35e355bb2073f5547e111e934c",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/page-identity-support.mjs": {
+      "sha256": "90d9cfb0f9bd2f2b21971a3ba70e09be97acc5b9f4abb573d0e06069739ff193",
       "executable": false
     },
     "tests/qualification/ui-convergence/page-lock-journey.mjs": {

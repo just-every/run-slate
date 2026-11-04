@@ -5,6 +5,7 @@ import path from 'node:path';
 import {expect} from '@playwright/test';
 import {root} from '../../e2e/runtime-harness.mjs';
 import {accessible,openPageAction} from './browser-support.mjs';
+import {identityCommit} from './page-identity-support.mjs';
 import {call,editable,grant,ok,restrictedPage,savedAfterCommit,withSecondPerson} from './two-people-support.mjs';
 
 /** One populated page, retained references and independent readers across its lifetime. */
@@ -83,7 +84,8 @@ export async function pageIdentityJourney(state,width) {
     return {links:spans.filter(span=>span.link).map(span=>span.link.href),mentions:spans.filter(span=>span.mention).map(span=>({kind:span.mention.kind,id:span.mention.id})),query:doc.blocks.find(block=>block.blockType==='content-query').content.definition};
   };
   const retained={links:[permanent,citation.href],mentions:[{kind:'page',id}],query:definition};
-  const snapshots=[];
+  const snapshots=[],commits=[];
+  const commit=async(route,action)=>{const result=await identityCommit(page,id,route,action);commits.push(result);return result;};
   try {
     await withSecondPerson(state,width,async people=>{
       const {bob}=people;
@@ -155,17 +157,20 @@ export async function pageIdentityJourney(state,width) {
         await page.reload({waitUntil:'networkidle'});
         await expect(page.locator('.search-results h2')).toHaveText(!trashed&&!archived?[title]:[]);
         if(trashed||archived)await expect(page.locator('.search-empty')).toContainText(`No matches for “${marker}”.`);
+        await shot(label.replaceAll(' ','-')+'-search');
+        await bob.page.screenshot({path:path.join(directory,label.replaceAll(' ','-')+'-references.png'),fullPage:true});
         snapshots.push({label,id,title,revisionId:trashed?current.revisionId:(await api(`/api/pages/${id}`)).page.revisionId,retained,reader:{mention,search:found.items.map(item=>item.id),query:results.items.map(item=>item.id)}});
-        await writeFile(path.join(directory,'snapshots.json'),JSON.stringify({id,permanent,citation:citation.href,revision,savedSearch:saved,reference,snapshots},null,2));
+        await writeFile(path.join(directory,'snapshots.json'),JSON.stringify({id,permanent,citation:citation.href,revision,savedSearch:saved,reference,commits,snapshots},null,2));
         console.log(`PROBE PAGE-003 ${label}: retained addresses, mention, exact revision, saved query and search -> ${id}; readable=${readable}; listed=${listed}`);
       };
       await reconcile('created');
       await page.goto(permanent,{waitUntil:'networkidle'});
-      await savedAfterCommit(page,null,()=>page.getByRole('textbox',{name:'Page title',exact:true}).fill(renamedTitle));
+      commits.push(await savedAfterCommit(page,null,()=>page.getByRole('textbox',{name:'Page title',exact:true}).fill(renamedTitle)));
       title=renamedTitle;
       await reconcile('renamed');
       await page.goto(permanent,{waitUntil:'networkidle'});
       const edited=await savedAfterCommit(page,bodyId,()=>editable(page,bodyId).fill(`${originalBody} Follow the updated escalation step.`));
+      commits.push(edited);
       body=`${originalBody} Follow the updated escalation step.`;
       await reconcile('edited');
       const move=async(name,containerId,parentPageId)=>{
@@ -177,10 +182,8 @@ export async function pageIdentityJourney(state,width) {
         await picker.getByRole('option',{name:parentPageId?`${name} Handbook`:name,exact:true}).click();
         await picker.getByRole('button',{name:'Move page',exact:true}).click();
         const review=page.getByRole('dialog',{name:'Review changed access',exact:true});
-        const committed=page.waitForResponse(response=>new URL(response.url()).pathname===`/api/pages/${id}/move`&&response.request().method()==='POST');
         await shot(parentPageId?'move-within':'move-between');
-        await review.getByRole('button',{name:'Move page',exact:true}).click();
-        assert.equal((await committed).status(),200);
+        await commit(`/api/pages/${id}/move`,()=>review.getByRole('button',{name:'Move page',exact:true}).click());
         await expect(review).toBeHidden();
         const moved=await api(`/api/pages/${id}`);
         assert.equal(moved.page.id,id);assert.equal(moved.page.containerId,containerId);assert.equal(moved.parentPageId,parentPageId);
@@ -195,20 +198,16 @@ export async function pageIdentityJourney(state,width) {
         await page.getByRole('menuitem',{name:action==='archive'?'Archive page':'Move to trash',exact:true}).click();
         const dialog=page.getByRole('dialog',{name:action==='archive'?'Archive this page?':'Move this page to trash?',exact:true});
         await dialog.getByLabel('Reason',{exact:true}).fill('Retain the same guide and its references.');
-        const committed=page.waitForResponse(response=>new URL(response.url()).pathname===`/api/archive/${id}`&&response.request().method()==='POST');
         await shot(action);
-        await dialog.getByRole('button',{name:'Confirm',exact:true}).click();
-        assert.equal((await committed).status(),200);
+        await commit(`/api/archive/${id}`,()=>dialog.getByRole('button',{name:'Confirm',exact:true}).click());
         await expect(dialog).toBeHidden();
       };
       const restore=async(trash)=>{
         await page.goto(`${origin}/app/archive`,{waitUntil:'networkidle'});
         if(trash)await page.getByRole('button',{name:'Trash',exact:true}).click();
         const row=page.locator('.archive-list li').filter({hasText:title});
-        const committed=page.waitForResponse(response=>new URL(response.url()).pathname===`/api/archive/${id}`&&response.request().method()==='POST');
         await shot(trash?'restore-trash':'restore-archive');
-        await row.getByRole('button',{name:'Restore',exact:true}).click();
-        assert.equal((await committed).status(),200);
+        await commit(`/api/archive/${id}`,()=>row.getByRole('button',{name:'Restore',exact:true}).click());
         await expect(row).toHaveCount(0);
       };
       await remove('archive');await reconcile('archived',{archived:true});
@@ -222,15 +221,13 @@ export async function pageIdentityJourney(state,width) {
       await page.getByRole('menuitem',{name:'Publish workspace revision',exact:true}).click();
       const publication=page.getByRole('dialog',{name:'Publish this revision',exact:true});
       await publication.getByRole('button',{name:'Review publication',exact:true}).click();
-      const published=page.waitForResponse(response=>new URL(response.url()).pathname===`/api/pages/${id}/publish`&&response.request().method()==='POST');
       await shot('reviewed-publication');
-      await publication.getByRole('button',{name:'Publish workspace revision',exact:true}).click();
-      assert.equal((await published).status(),200);
+      await commit(`/api/pages/${id}/publish`,()=>publication.getByRole('button',{name:'Publish workspace revision',exact:true}).click());
       await expect(publication).toBeHidden();
       await reconcile('workspace published');
       await page.goto(permanent,{waitUntil:'networkidle'});
       await openPageAction(page,'Public access');
-      await page.getByRole('switch',{name:'Public link',exact:true}).click();
+      await commit(`/api/publishing/${id}`,()=>page.getByRole('switch',{name:'Public link',exact:true}).click());
       await expect(page.getByRole('switch',{name:'Public link',exact:true})).toBeChecked();
       await shot('web-published');
       const exposure=(await api(`/api/publishing/${id}`)).exposure;
@@ -239,7 +236,7 @@ export async function pageIdentityJourney(state,width) {
       await reconcile('web published');
       await page.goto(permanent,{waitUntil:'networkidle'});
       await openPageAction(page,'Public access');
-      await page.getByRole('switch',{name:'Public link',exact:true}).click();
+      await commit(`/api/publishing/${id}`,()=>page.getByRole('switch',{name:'Public link',exact:true}).click());
       await expect(page.getByRole('switch',{name:'Public link',exact:true})).not.toBeChecked();
       await shot('web-unpublished');
       const stopped=await fetch(publicAddress);
@@ -276,7 +273,7 @@ export async function pageIdentityJourney(state,width) {
       await accessible(page,'page identity retained guide');
       await bob.page.goto(`${origin}/app/pages/${reference}`,{waitUntil:'networkidle'});
       await accessible(bob.page,'page identity retained references and query');
-      await writeFile(path.join(directory,'snapshots.json'),JSON.stringify({id,permanent,citation:citation.href,revision,savedSearch:saved,reference,snapshots},null,2));
+      await writeFile(path.join(directory,'snapshots.json'),JSON.stringify({id,permanent,citation:citation.href,revision,savedSearch:saved,reference,commits,snapshots},null,2));
     });
   } finally {
     await settings({publicLinkAccess:workspace.publicLinkAccess,anonymousAccess:workspace.anonymousAccess,policies:workspace.policies});
