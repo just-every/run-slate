@@ -48,9 +48,10 @@ export async function automationProfileJourney(state) {
   const { page, origin, context, api } = state;
   const post = (route, data) => ok(context, origin, 'POST', route, { operationKey: randomUUID(), ...data });
   const space = (await api('/api/containers')).items.find(item => item.name === 'Handbook');
+  const otherSpace = (await post('/api/containers', { name: 'Other profile space', visibility: 'private' })).value;
   const databases = [];
-  for (const title of ['Profile intake', 'Other intake']) {
-    databases.push((await post('/api/databases', { containerId: space.id, title })).value);
+  for (const [title, containerId] of [['Profile intake', space.id], ['Other intake', otherSpace.id]]) {
+    databases.push((await post('/api/databases', { containerId, title })).value);
   }
   const [database, other] = databases;
   const toolbar = async id => {
@@ -105,12 +106,19 @@ export async function automationProfileJourney(state) {
     await expect(row('Other database rule')).toHaveCount(1);
     rules.push(await create(`${scope} intake`, scope));
   }
-  for (const id of [database.id, other.id]) await post(`/api/databases/${id}/records`, { title: `Intake ${id}`, values: {} });
+  const events = [];
+  for (const id of [database.id, other.id, other.id]) {
+    const record = (await post(`/api/databases/${id}/records`, { title: `Intake ${events.length + 1}`, values: {} })).value;
+    events.push({ databaseId: id, pageId: record.pageId });
+  }
   await state.runScheduled();
   const inventory = await automationInventory(api);
   for (const rule of [...rules, { id: foreign.id }]) {
     const stored = inventory.find(item => item.rule.id === rule.id);
-    assert.ok(stored.runs.some(run => run.state === 'success' && JSON.parse(run.records_json).length === 1), 'Every scope has real successful execution history.');
+    const expected = events.filter(event => rule.id === foreign.id ? event.databaseId === other.id
+      : rule.id === rules.find(item => item.scope === 'site').id || event.databaseId === database.id).map(event => event.pageId).sort();
+    assert.deepEqual(stored.runs.filter(run => run.state === 'success').flatMap(run => JSON.parse(run.records_json)).sort(), expected,
+      'Source and container rules stay within their populated boundary; the site rule spans both spaces.');
   }
   for (const scope of ['container', 'site']) {
     await switchAutomationProfile(state, scope);

@@ -11872,7 +11872,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/automation-profile-journey.mjs": {
-      "sha256": "47fa549a32feac3212e7f760606f87b9ec7fcc26d14a56071b1e9ca28eefca4a",
+      "sha256": "abcaded73de6fe238182d3c7dcb6dcc87eede383302347c10525233ce44380ec",
       "executable": false
     },
     "tests/qualification/ui-convergence/backups-journey.mjs": {
