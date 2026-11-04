@@ -1,4 +1,5 @@
 import test from "node:test";
+import { isFlagshipPath } from "../../src/core/platform/config/launch-profile.ts";
 import { build } from "vite";
 import { docsSite } from "../../src/core/features/docs/build/plugin.ts";
 import assert from "node:assert/strict";
@@ -101,8 +102,50 @@ test("docs build renders declared pages and refuses invalid manifests, markup, l
     [/source:lock|integration:sync|publish-check|artifact:delivery/, "maintainer command"],
     [/sources\.lock|edition\.json|Base Mail/i, "maintainer record"], [/\b[A-Z]{2,8}-\d{3}\b/, "requirement ID"],
   ];
+  // Derive consent surfaces from controls that call the real launch-profile gate.
+  // Pair the provider with the summary/button's shared consent vocabulary,
+  // independent of word order. The provider's bot-token setup remains valid.
+  const consentSurfaces = [];
+  const words = text => text.toLowerCase().match(/[a-z]+/g) ?? [];
+  const controls = execFileSync("git", ["ls-files", "--", "src/core/features/settings/ui/**/*.tsx"], { cwd: root, encoding: "utf8" }).trim().split("\n");
+  for (const file of controls) {
+    const source = readFileSync(join(root, file), "utf8");
+    for (const [, disclosure] of source.matchAll(/<details\b[^>]*>([\s\S]*?)<\/details>/g)) {
+      const summary = /<summary>([^<]+)<\/summary>/.exec(disclosure)?.[1];
+      if (!summary) continue;
+      const buttons = [...disclosure.matchAll(/>([^<>]+)<\/button>/g)].map(([, label]) => words(label));
+      for (const [, endpoint] of disclosure.matchAll(/["'`](\/api\/[^"'`\s]+)["'`]/g)) {
+        if (!isFlagshipPath(endpoint)) continue;
+        const route = endpoint.split("/");
+        const flow = route.indexOf("oauth");
+        if (flow < 0 || !route[flow + 1]) continue;
+        const provider = route[flow + 1];
+        const terms = new Set(words(summary).filter(word =>
+          word !== provider && buttons.some(button => word !== button[0] && button.includes(word))));
+        consentSurfaces.push({ endpoint, provider, terms: [...terms] });
+      }
+    }
+  }
+  assert.ok(consentSurfaces.length, "derive consent controls from gated settings routes");
+  const assertCoreContent = (html, source) => {
+    for (const block of html.split(/<\/(?:p|li|h[1-6]|td|th)>/i)) {
+      const tokens = new Set(words(block.replace(/<[^>]+>/g, " ")));
+      for (const { endpoint, provider, terms } of consentSurfaces) {
+        assert.ok(!tokens.has(provider) || !terms.some(term => tokens.has(term)),
+          `${source} advertises a consent surface gated by ${endpoint}`);
+      }
+    }
+  };
+  // Equivalent wording must not evade the same check used for published HTML.
+  for (const text of ["Connect through Slack consent", "Connect Slack with consent",
+    "Choose a connected identity and private channel after Slack source-consent",
+    "Approve consent in Slack, then choose an identity"]) {
+    assert.throws(() => assertCoreContent(render(text).html, "fixture"), /advertises a consent surface gated by/);
+  }
+  assert.doesNotThrow(() => assertCoreContent(render("Enter your Slack app's Bot User OAuth Token and private channel ID.").html, "fixture"));
   const nonPublished = /FLAGSHIP|FRONTIER|USER-JOURNEYS|HANDOVER|ACCEPTANCE|PROOF|local-agent/;
   for (const page of site.pages) {
+    assertCoreContent(page.html, page.source);
     const text = page.html.replace(/<[^>]+>/g, " ");
     for (const [pattern, name] of forbidden) assert.doesNotMatch(text, pattern, `${page.source} mentions ${name}`);
     for (const [, href] of page.html.matchAll(/<a href="([^"]+)"/g)) assert.doesNotMatch(href, nonPublished, `${page.source} links ${href}`);

@@ -466,7 +466,8 @@ test("emitted Worker admission serves configured public doors and protects nativ
       }
     }
 
-    await docsBrowserJourney(baseUrl, manifest);
+    await docsBrowserJourney(baseUrl, manifest, { width: 1440 });
+    await docsBrowserJourney(baseUrl, manifest, { width: 390 });
 
     // Unknown, miscased and nested slugs are real 404s, with and without a navigation request.
     for (const unknownPath of ["/docs/nothing-here", "/docs/Install", "/docs/install/extra", "/docs/index"]) {

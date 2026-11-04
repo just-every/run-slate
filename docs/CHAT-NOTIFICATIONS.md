@@ -10,8 +10,6 @@ Create or choose a private channel that is not shared with another Slack workspa
 
 In your Slack app's **OAuth & Permissions**, grant bot scopes `chat:write`, `groups:read`, `groups:history`, `users:read` and `users:read.email`. Install or reinstall the app, then invite it to the channel. Find the channel ID in its details. Enter that ID and the app's Bot User OAuth Token in Slate, select events, then choose **Save chat delivery**. The default wiki needs no connected Slack source identity.
 
-Where the separately configured Slack source-consent surface is available, an owner can also choose a connected identity and private channel through **Connect through Slack consent**. That destination has the same private-channel, membership and access checks. Revoking or replacing its source authorization stops it until reconnected.
-
 ## Microsoft Teams
 
 Use an Entra application with delegated Microsoft Graph permissions `ChannelMessage.Send`, `ChannelMessage.ReadWrite`, `Channel.ReadBasic.All`, `Team.ReadBasic.All`, `ChannelMember.Read.All`, `TeamMember.Read.All`, `User.Read`, `User.Read.All` and `TeamsAppInstallation.ReadForTeam`, with the tenant's required consent. Sign in as a licensed Teams user who can read the destination roster and post to the channel. Obtain a delegated Graph access token through that application's normal authorization flow. An application-only client-credentials token is not a channel-message posting credential for this feature.

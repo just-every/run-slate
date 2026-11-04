@@ -1032,7 +1032,7 @@
       "executable": false
     },
     "docs/CHAT-NOTIFICATIONS.md": {
-      "sha256": "f7d3099d55ae0d6408c07d1dc8860862ed721366bd3a74b8d163b3a6540def9b",
+      "sha256": "4fe638940d2e9e25e4236f41358329a8e801370cadcc82bd8d8d852a9ccc8339",
       "executable": false
     },
     "docs/CLAIMS.md": {
@@ -10380,7 +10380,7 @@
       "executable": false
     },
     "tests/docs/docs-site.test.mjs": {
-      "sha256": "0e6a4fd96365f6e1ebd59a9a47cacb6ef60438129cb4e5bf81c4e71bc4a529c1",
+      "sha256": "3bc92e4da30ec5d2696d5d7a2a119e62a7fce90afaf1c75c0609bdc5a87a2c78",
       "executable": false
     },
     "tests/e2e/auth-paths.test.js": {
@@ -10668,7 +10668,7 @@
       "executable": false
     },
     "tests/e2e/production-artifact.test.mjs": {
-      "sha256": "65f2ed03a6ec78a922afc053165cb3ab877312b6ed125b7afc80f57f3b07eb1c",
+      "sha256": "64117472f389d4a3af8182512544e2b94226d08f5894a3a2d9debd7bc7fe6b06",
       "executable": false
     },
     "tests/e2e/provider-fallback-flow.mjs": {
