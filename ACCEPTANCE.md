@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 56 | 241 | 35 | 332 |
+| Core | 57 | 240 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 56 | 241 | 41 | 338 |
+| Full target | 57 | 240 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1466,7 +1466,7 @@ Core · published · **partial**
 
 #### CONT-006 — Bulk actions
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A member can select several pages, in a tree or in a container's content list, and archive, trash, move, change owner or change status for all of them in one action.
 
@@ -1474,8 +1474,8 @@ Core · published · **partial**
 1. Each selected page records its own change with its own activity entry, each is checked against the acting member's access, and a partial failure names the pages that failed and applies the rest.
 2. Bulk archive, trash, move, owner and status changes check each page and report partial failures by name.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A member can select several pages, in a tree or in a container's content list, and archive, trash, move, change owner or change status for all of them in one action."<br>No validated CI-run proof for this acceptance point: "Each selected page records its own change with its own activity entry, each is checked against the acting member's access, and a partial failure names the pages that failed and applies the rest."
+**Evidence.** `tests/flagship/content/http.test.ts` — "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state" calls `tests/flagship/content/bulk.case.ts` — bulkPagesCase for acceptance 1–2: every action, per-page authority, committed receipts and activity, duplicate-safe replay, revoked destination access and erased-page refusal. `tests/qualification/ui-convergence/container-bulk-journey.mjs` — containerBulkJourney covers native member selection in the space's Bulk tools list, all five actions, individual access previews, named partial outcomes after reload, retained successful titles, unchanged refusals and canonical descendants. Loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "page outline follows headings and navigates long pages at 1440px" and "space tree title filtering preserves ancestors, access and expansion at 390px".
+**Gap.** None.
 
 #### CONT-007 — External-access switches
 
