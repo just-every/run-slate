@@ -350,3 +350,21 @@ export async function openPageAction(page, name) {
     await page.getByRole('menu').getByRole('menuitem', { name, exact: true }).click();
   }
 }
+
+/** Confirm a sensitive fixture action through the asking session's public email door. */
+export async function confirmEmailStepUp({ page, context, origin }, action) {
+  const before = await inbox(origin);
+  const current = new URL(page.url());
+  const returnTo = current.pathname + current.search;
+  const challenge = await context.request.post(origin + '/auth/step-up', {
+    headers: { origin }, data: { action, returnTo },
+  });
+  assert.equal(challenge.status(), 202, await challenge.text());
+  const confirmation = await context.newPage();
+  try {
+    const preview = await confirmation.goto(await newOutboxLink(origin, before));
+    assert.equal(preview.status(), 200);
+    await confirmation.getByRole('button', { name: 'Confirm', exact: true }).click();
+    await confirmation.waitForURL(url => url.origin === origin && url.pathname === current.pathname);
+  } finally { await confirmation.close(); }
+}

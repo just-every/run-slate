@@ -11880,11 +11880,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/browser-support.mjs": {
-      "sha256": "cc53a48b3fb77c63a39f196e8439a37cda39ef74596f26e38d29ea66fcd4d155",
+      "sha256": "f48531bfd56e2d2c169875ad6ef54d2afccac39373dfe6c0b5b93abef264994e",
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
-      "sha256": "06f823a4a1cdb62da3d1fbb553e7014d5ce92a2145411a236c24bc1e3a47e69d",
+      "sha256": "dd9fa1dab37180ed7008f3675418fe3f2a10a81d7a38e0ac484e49226cc4efb5",
       "executable": false
     },
     "tests/qualification/ui-convergence/columns-journey.mjs": {

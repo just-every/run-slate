@@ -5,6 +5,7 @@ import path from 'node:path';
 import { expect } from '@playwright/test';
 import { root } from '../../e2e/runtime-harness.mjs';
 import { accessible } from './browser-evidence.mjs';
+import { confirmEmailStepUp } from './browser-support.mjs';
 import { ok } from './two-people-support.mjs';
 
 /** NOTIF-003: owner token setup, actual comment events and production cron, Slack HTTP edge only. */
@@ -43,6 +44,10 @@ export async function chatJourney(state, width = state.page.viewportSize().width
   const history = async () => (await api('GET', '/api/notifications/chat/deliveries')).items;
   const count = async () => (await readSlackMessages()).length;
 
+  // Earlier phone steps can outlive the native email proof. Confirm again
+  // through the same session, without changing auth clocks or API responses.
+  await confirmEmailStepUp(state, 'credentials:mint');
+  console.log('PROBE chat setup: native email confirmation refreshed the asking owner session');
   await open();
   await expect(page.getByText('No chat delivery is connected.', { exact: true })).toBeVisible();
   await shot('not-connected');
