@@ -1,4 +1,7 @@
 import test from "node:test";
+import { isFlagshipPath } from "../../src/core/platform/config/launch-profile.ts";
+import { build } from "vite";
+import { docsSite } from "../../src/core/features/docs/build/plugin.ts";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -99,8 +102,50 @@ test("docs build renders declared pages and refuses invalid manifests, markup, l
     [/source:lock|integration:sync|publish-check|artifact:delivery/, "maintainer command"],
     [/sources\.lock|edition\.json|Base Mail/i, "maintainer record"], [/\b[A-Z]{2,8}-\d{3}\b/, "requirement ID"],
   ];
+  // Derive consent surfaces from controls that call the real launch-profile gate.
+  // Pair the provider with the summary/button's shared consent vocabulary,
+  // independent of word order. The provider's bot-token setup remains valid.
+  const consentSurfaces = [];
+  const words = text => text.toLowerCase().match(/[a-z]+/g) ?? [];
+  const controls = execFileSync("git", ["ls-files", "--", "src/core/features/settings/ui/**/*.tsx"], { cwd: root, encoding: "utf8" }).trim().split("\n");
+  for (const file of controls) {
+    const source = readFileSync(join(root, file), "utf8");
+    for (const [, disclosure] of source.matchAll(/<details\b[^>]*>([\s\S]*?)<\/details>/g)) {
+      const summary = /<summary>([^<]+)<\/summary>/.exec(disclosure)?.[1];
+      if (!summary) continue;
+      const buttons = [...disclosure.matchAll(/>([^<>]+)<\/button>/g)].map(([, label]) => words(label));
+      for (const [, endpoint] of disclosure.matchAll(/["'`](\/api\/[^"'`\s]+)["'`]/g)) {
+        if (!isFlagshipPath(endpoint)) continue;
+        const route = endpoint.split("/");
+        const flow = route.indexOf("oauth");
+        if (flow < 0 || !route[flow + 1]) continue;
+        const provider = route[flow + 1];
+        const terms = new Set(words(summary).filter(word =>
+          word !== provider && buttons.some(button => word !== button[0] && button.includes(word))));
+        consentSurfaces.push({ endpoint, provider, terms: [...terms] });
+      }
+    }
+  }
+  assert.ok(consentSurfaces.length, "derive consent controls from gated settings routes");
+  const assertCoreContent = (html, source) => {
+    for (const block of html.split(/<\/(?:p|li|h[1-6]|td|th)>/i)) {
+      const tokens = new Set(words(block.replace(/<[^>]+>/g, " ")));
+      for (const { endpoint, provider, terms } of consentSurfaces) {
+        assert.ok(!tokens.has(provider) || !terms.some(term => tokens.has(term)),
+          `${source} advertises a consent surface gated by ${endpoint}`);
+      }
+    }
+  };
+  // Equivalent wording must not evade the same check used for published HTML.
+  for (const text of ["Connect through Slack consent", "Connect Slack with consent",
+    "Choose a connected identity and private channel after Slack source-consent",
+    "Approve consent in Slack, then choose an identity"]) {
+    assert.throws(() => assertCoreContent(render(text).html, "fixture"), /advertises a consent surface gated by/);
+  }
+  assert.doesNotThrow(() => assertCoreContent(render("Enter your Slack app's Bot User OAuth Token and private channel ID.").html, "fixture"));
   const nonPublished = /FLAGSHIP|FRONTIER|USER-JOURNEYS|HANDOVER|ACCEPTANCE|PROOF|local-agent/;
   for (const page of site.pages) {
+    assertCoreContent(page.html, page.source);
     const text = page.html.replace(/<[^>]+>/g, " ");
     for (const [pattern, name] of forbidden) assert.doesNotMatch(text, pattern, `${page.source} mentions ${name}`);
     for (const [, href] of page.html.matchAll(/<a href="([^"]+)"/g)) assert.doesNotMatch(href, nonPublished, `${page.source} links ${href}`);
@@ -171,7 +216,7 @@ test("docs build renders declared pages and refuses invalid manifests, markup, l
 } },
     { name: "a page has one H1, first, and a description from its first real paragraph", run: () => {
   assert.deepEqual(renderPage("Intro first.\n\n# Title\n", fixtureContext()).problems, ["the first block must be the page's H1", "an H1 that is not the first block (a page has exactly one H1, first)"]);
-  assert.deepEqual(renderPage("<b>x</b>\n\n# Title\n", fixtureContext()).problems, ["the first block must be the page's H1", "an H1 that is not the first block (a page has exactly one H1, first)"]);
+  assert.deepEqual(renderPage("<b>x</b>\n\n# Title\n", fixtureContext()).problems, ["raw HTML is not allowed in published Markdown", "raw HTML is not allowed in published Markdown", "the first block must be the page's H1", "an H1 that is not the first block (a page has exactly one H1, first)"]);
   assert.deepEqual(renderPage("# One\n\n# Two\n", fixtureContext()).problems, ["an H1 that is not the first block (a page has exactly one H1, first)"]);
   const page = render(`**Short line.**\n\nThis paragraph explains what the page covers in more than eight words, ${"and keeps going ".repeat(12)}until the end.`);
   assert.ok(page.description.startsWith("This paragraph explains what the page covers in more than eight words, and keeps going"));
@@ -200,6 +245,39 @@ test("docs build renders declared pages and refuses invalid manifests, markup, l
   } finally {
     await rm(fixture, { recursive: true, force: true });
   }
+} }
+    , { name: "the real Vite build emits valid docs and refuses unsafe repository inputs", run: async () => {
+  const fixture = await realpath(await mkdtemp(join(tmpdir(), "slate-docs-boundary-")));
+  try {
+    await mkdir(join(fixture, "docs"));
+    await writeFile(join(fixture, "package.json"), JSON.stringify({ repository: { url: "https://example.test/source.git" } }));
+    await writeFile(join(fixture, "docs/site.json"), JSON.stringify({ sections: [{ title: "Guide", pages: [{ slug: "", source: "README.md", label: "Home" }] }], githubOnly: [] }));
+    await writeFile(join(fixture, "entry.js"), 'export * from "virtual:slate-docs";');
+    const valid = "# Guide\n\n## Start\n\nA safe document with a [working anchor](#start).\n";
+    const compile = () => build({ root: fixture, configFile: false, logLevel: "silent", plugins: [docsSite()], build: { write: false, minify: false, lib: { entry: join(fixture, "entry.js"), formats: ["es"] } } });
+    await writeFile(join(fixture, "README.md"), valid);
+    const output = await compile();
+    assert.ok([output].flat().flatMap(result => result.output).some(item => item.type === "chunk" && item.code.includes('<h2 id=')), "valid Markdown becomes emitted HTML");
+    for (const unlisted of ["UNLISTED.md", "docs/NESTED.md", "guide/README.md"]) {
+      await mkdir(join(fixture, unlisted.split("/").slice(0, -1).join("/")), { recursive: true });
+      await writeFile(join(fixture, unlisted), "# Unlisted\n");
+      await assert.rejects(compile, error => error.message.includes(`unlisted Markdown \"${unlisted}\"`), unlisted);
+      await rm(join(fixture, unlisted));
+    }
+    for (const [input, diagnostic] of [
+      ["[Missing](MISSING.md)", /MISSING\.md.*does not exist/],
+      ["[Missing heading](#absent)", /no such heading in README\.md/],
+      ["Inline <b>raw</b> HTML", /raw HTML is not allowed/],
+      ["<script>tracking()</script>", /raw HTML is not allowed/],
+      ["![Outside](outside.png)", /images must be files in docs\/media/],
+      ["Build folder: " + "/" + "home/synthetic-slate-1/private", /absolute machine path/],
+    ]) {
+      await writeFile(join(fixture, "README.md"), valid + "\n" + input + "\n");
+      await assert.rejects(compile, diagnostic, input);
+    }
+    await writeFile(join(fixture, "README.md"), valid);
+    await compile();
+  } finally { await rm(fixture, { recursive: true, force: true }); }
 } }
   ];
   for (const scenario of cases) {

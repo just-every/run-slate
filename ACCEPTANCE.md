@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 56 | 241 | 35 | 332 |
+| Core | 57 | 240 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 56 | 241 | 41 | 338 |
+| Full target | 57 | 240 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -63,7 +63,7 @@ Core · published · **partial** · From HOME-001 · Cites BASE-ACCESS-003, BASE
 
 #### DOCS-001 — Public documentation
 
-Core · published · **partial** · Cites BASE-ACCESSIBILITY-001, BASE-DOCS-001, BASE-PUBLIC-001 · Register R-9
+Core · published · **done** · Cites BASE-ACCESSIBILITY-001, BASE-DOCS-001, BASE-PUBLIC-001 · Register R-9
 
 **Requirement.** The public paths documentation index and the documented public door serve Slate's first-party documentation: the Markdown files that `docs/site.json` lists as published, in the sections and order it gives, which is the only navigation. Protocol and representation details are in [wiki doors](docs/wiki-doors.md).
 
@@ -76,8 +76,8 @@ Core · published · **partial** · Cites BASE-ACCESSIBILITY-001, BASE-DOCS-001,
 6. An unknown, miscased or nested slug answers the branded `404`, a misconfigured deployment answers documentation index with the same `503` as the landing, and documentation index shares the landing's public-document rate limit.
 7. GET the documented public door and each published slug render from `docs/site.json`; unknown slug answers the branded 404; the build fails on an unlisted Markdown file or a broken link.
 
-**Evidence.** `tests/e2e/docs.test.ts` — "DOCS-001 public documentation supporting regressions public docs serve declared pages with accessible navigation and refuse unknown routes"
-**Gap.** Missing a journey proving the complete published-document navigation, build-time bundle boundary, manifest refusals and both viewport accessibility; the cited HTTP regressions cover rendered pages and unknown slugs only.
+**Evidence.** `tests/e2e/production-artifact.test.mjs` — "emitted bundles keep server internals and Markdown tooling off the client": acceptance 1, emitted HTML, a lazy chunk per source and no Markdown or highlighting library. "emitted Worker admission serves configured public doors and protects native owner access" calls `tests/e2e/docs-browser.mjs` — "docsBrowserJourney": acceptance 2, 5, 6 and 7, every manifest page in order through its real menu, anchors, pager and GitHub destination, one heading and current-page marker, labeled table regions, browser privacy and branded refusals; 1440px and 390px, both loaded by Verify. `tests/docs/docs-site.test.mjs` — "docs build renders declared pages and refuses invalid manifests, markup, links and images", including "published pages describe only the default core-wiki profile and carry no maintainer material": acceptance 3, 4 and 7, the corrected `docs/CHAT-NOTIFICATIONS.md` page and every published page checked against launch-gated settings consent controls (the old paragraph and equivalent wording fail), and actual Vite build refusal for unlisted Markdown, broken links and anchors, raw HTML, outside-media images and machine paths. `tests/docs/docs-dev-sync.test.mjs` — "the docs plugin follows edits to Markdown and docs/site.json in a running dev server": acceptance 1, live Markdown and manifest freshness and visible diagnostics. `tests/e2e/docs.test.ts` — "DOCS-001 public documentation supporting regressions public docs serve declared pages with accessible navigation and refuse unknown routes": acceptance 5, 6 and 7, populated valid and revoked sessions with observed native database statements, no content or identity reads, matching configuration failures and shared public-document limits with clock-pinned recovery.
+**Gap.** None.
 
 ### Workspace and members
 
