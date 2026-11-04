@@ -10,6 +10,7 @@ import {
 } from "../sharing/current-access";
 import { database, revision } from "../databases/repository";
 import { createUlid } from "../../shared/ulid";
+import { readPage } from "../pages/service";
 import type { RuleDefinition, RuleRow } from "./types";
 export async function authorizeRule(
   ctx: FeatureContext,
@@ -188,12 +189,18 @@ export async function listRules(ctx: FeatureContext) {
     )
     .bind(ctx.actor.workspaceId)
     .all<RuleRow>();
-  const items: RuleRow[] = [];
+  const items = [];
   for (const r of rows.results) {
     try {
       await authorizeRule(ctx, r);
       await authorizeDefinition(ctx,r);
-      items.push(r);
+      const failure = await ctx.db.prepare(
+        "SELECT state,created_at,detail_json FROM automation_runs WHERE rule_id=? AND state IN ('error','failure') ORDER BY created_at DESC,id DESC LIMIT 1",
+      ).bind(r.id).first<{state: string; created_at: string; detail_json: string}>();
+      items.push({...r, latestFailure: failure ? {
+        state: failure.state, createdAt: failure.created_at,
+        message: JSON.parse(failure.detail_json).message,
+      } : null});
     } catch (e) {
       if (!(e instanceof ApiProblem) || ![403, 404].includes(e.status)) throw e;
     }
@@ -211,10 +218,13 @@ export async function runLog(ctx: FeatureContext, id: string) {
   const items = [];
   for (const row of rows.results) {
     const readable: string[] = [];
+    const records: {id: string; title: string}[] = [];
     for (const pageId of JSON.parse(String(row.records_json)) as string[]) {
       try {
         await requirePageLevel(ctx, pageId, "view");
+        const page = await readPage(ctx, pageId);
         readable.push(pageId);
+        records.push({id: pageId, title: page.page.title});
       } catch (e) {
         if (!(e instanceof ApiProblem) || e.status !== 404) throw e;
       }
@@ -248,8 +258,14 @@ export async function runLog(ctx: FeatureContext, id: string) {
             .filter((r) => !r.targetId || readable.includes(r.targetId))
             .map((r) => ({ ...r, receipt: JSON.parse(r.receipt) }))
         : [];
+    const actor = await ctx.db.prepare("SELECT display_name FROM members WHERE id=? AND workspace_id=?")
+      .bind(row.actor_member_id, ctx.actor.workspaceId).first<{display_name: string}>();
     items.push({
       ...row,
+      actor: {id: row.actor_member_id, name: actor?.display_name ?? "Former member"},
+      trigger,
+      records,
+      detail: JSON.parse(String(row.detail_json)),
       records_json: JSON.stringify(readable),
       trigger_json: JSON.stringify(trigger),
       receipts,

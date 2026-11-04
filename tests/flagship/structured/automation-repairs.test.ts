@@ -1,3 +1,4 @@
+import { automationRunLogCase } from "./automation-run-log.case";
 import {runFoldCases} from '../fold-cases';
 import {resetDeployment as resetFoldDeployment} from '../../e2e/setup/reset-deployment';
 import { resetDeployment } from "../../e2e/setup/reset-deployment";
@@ -92,6 +93,8 @@ try {
 {name:"AUTO-003 durable recovery before and after commit retains admitted conditions and completes ordered effects exactly once",before:async()=>{await resetFoldDeployment();},run:async()=>{
 try {
 
+  await automationRunLogCase();
+  await resetDeployment();
   // Original variant: AUTO-003 durable recovery reconciles commit-before-confirm and completes ordered actions exactly once
   await (async () => {
  const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"retry",[]);

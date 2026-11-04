@@ -77,7 +77,7 @@ export async function enqueueAutomationEvent(
       reason: string | null = null;
     if (r.disabled_at) {
       state = "disabled";
-      reason = "Rule is disabled.";
+      reason = r.disabled_reason ?? "Rule is disabled.";
     } else if (
       event.chainRuleIds?.includes(r.id) ||
       (event.depth ?? 0) >= limits.chainDepth

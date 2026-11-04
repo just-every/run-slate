@@ -62,7 +62,7 @@ export async function processAutomationJob(
     touched: string[] = [];
   await ctx.db
     .prepare(
-      "UPDATE automation_runs SET state='running',started_at=? WHERE id=?",
+      "UPDATE automation_runs SET state='running',started_at=COALESCE(started_at,?) WHERE id=?",
     )
     .bind(ctx.now, job.run_id)
     .run();
@@ -200,12 +200,6 @@ export async function processAutomationJob(
                 await assertActionScope(fresh, rule, prepared.action, prepared.pageId);
                 result = await executeAction(scopedActionContext(fresh,rule,prepared.action,prepared.pageId), prepared, adapters);
               }
-              await ctx.db
-                .prepare(
-                  "UPDATE automation_action_receipts SET state='confirmed',receipt_json=? WHERE run_id=? AND action_index=? AND target_id=?",
-                )
-                .bind(JSON.stringify(result), job.run_id, index, target)
-                .run();
               if (target) touched.push(target);
               if (result && typeof result === "object" && "receipt" in result) {
                 const receipt = result.receipt as {
@@ -214,6 +208,12 @@ export async function processAutomationJob(
                 if (receipt.entity?.kind === "page")
                   touched.push(receipt.entity.id);
               }
+              await ctx.db
+                .prepare(
+                  "UPDATE automation_action_receipts SET state='confirmed',receipt_json=? WHERE run_id=? AND action_index=? AND target_id=?",
+                )
+                .bind(JSON.stringify(result), job.run_id, index, target)
+                .run();
             } catch (e) {
               if (
                 e instanceof ApiProblem &&
@@ -246,7 +246,7 @@ export async function processAutomationJob(
     }
   } catch (e) {
     const transient = !(e instanceof ApiProblem) || e.status >= 500;
-    state = transient && job.cursor < 2 ? "running" : e instanceof ApiProblem && e.status === 429 ? "throttled" : "failure";
+    state = transient && job.cursor < 2 ? "error" : e instanceof ApiProblem && e.status === 429 ? "throttled" : "failure";
     detail = {
       ...detail,
       error: e instanceof ApiProblem ? e.code : "ACTION_FAILED",
@@ -265,6 +265,7 @@ export async function processAutomationJob(
       .first<{ n: number }>();
     if (!confirmed?.n) state = "no-action";
   }
+  const retrying = state === "error";
   await ctx.db.batch([
     mutationGuard(
       ctx.db,
@@ -275,7 +276,7 @@ export async function processAutomationJob(
       .prepare(
         "UPDATE automation_jobs SET state=?,lease_until=? WHERE id=? AND lease_until=?",
       )
-      .bind(state, state === "running" ? new Date(Date.parse(ctx.now) + 60000 * 2 ** job.cursor).toISOString() : null, jobId, token),
+      .bind(retrying ? "running" : state, retrying ? new Date(Date.parse(ctx.now) + 60000 * 2 ** job.cursor).toISOString() : null, jobId, token),
     ctx.db
       .prepare(
         "UPDATE automation_runs SET state=?,records_json=?,detail_json=?,finished_at=? WHERE id=?",
@@ -284,15 +285,16 @@ export async function processAutomationJob(
         state,
         JSON.stringify([...new Set(touched)]),
         JSON.stringify(detail),
-        state === "running" ? null : new Date().toISOString(),
+        retrying ? null : new Date().toISOString(),
         job.run_id,
       ),
     ctx.db
       .prepare(
-        "UPDATE automation_rules SET consecutive_failures=CASE WHEN ? THEN consecutive_failures+1 ELSE 0 END,disabled_at=CASE WHEN ? AND consecutive_failures+1>=? THEN ? ELSE disabled_at END,disabled_reason=CASE WHEN ? AND consecutive_failures+1>=? THEN ? ELSE disabled_reason END WHERE id=?",
+        "UPDATE automation_rules SET consecutive_failures=CASE WHEN ? THEN consecutive_failures+1 WHEN ? THEN 0 ELSE consecutive_failures END,disabled_at=CASE WHEN ? AND consecutive_failures+1>=? THEN ? ELSE disabled_at END,disabled_reason=CASE WHEN ? AND consecutive_failures+1>=? THEN ? ELSE disabled_reason END WHERE id=?",
       )
       .bind(
         +(state === "failure"),
+        +["success", "no-action", "condition-not-met"].includes(state),
         +(state === "failure"),
         limits.consecutiveFailures,
         ctx.now,
