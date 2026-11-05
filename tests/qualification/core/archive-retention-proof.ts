@@ -106,6 +106,8 @@ async function runArchiveRetentionProof(f:Awaited<ReturnType<typeof auditFixture
   expect(deniedSearch.data.items.filter((item:any)=>ids.includes(item.id))).toEqual([]);
   console.info('PROBE ARCH-002 current access: revoke all retained target grants -> saved references, comments, exact revisions and archive search reveal no target content');
   await write(`/api/archive/${root.pageId}`,await body(root.pageId,'restore'));
+  // Restore full access through the root only; descendants inherit it while the member's proof stays stale.
+  await write('/api/sharing',{targetKind:'page',targetId:root.pageId,principalKind:'member',principalId:f.readerId,level:'full'});
 
   const marks=ids.map(()=>'?').join(',');
   const stored=async()=>{
@@ -135,8 +137,14 @@ async function runArchiveRetentionProof(f:Awaited<ReturnType<typeof auditFixture
   const mail=captureMail();
   const stale=f.cookies[f.ownerId];
   try {
-    expect((await destroy(ids,f.readerId)).data.code).toBe('STEP_UP_REQUIRED');
+    const memberPreview=await f.request('GET',`/api/archive/${root.pageId}/permanent-delete-preview`,undefined,f.readerId);
+    expect(memberPreview.status,'the stale nonowner has full access to every page in the cascade').toBe(200);
+    expect(memberPreview.data.items.map((item:any)=>item.id).sort()).toEqual([...ids].sort());
+    const memberDeletion=await destroy(ids,f.readerId);
+    expect(memberDeletion.status).toBe(403);
+    expect(memberDeletion.data.code).toBe('STEP_UP_REQUIRED');
     expect(await stored(),'full access without fresh mailbox proof changes nothing').toEqual(retained);
+    console.info('PROBE ARCH-002 deletion safeguard: stale member with inherited full cascade access -> preview 200, permanent deletion 403 STEP_UP_REQUIRED, retained state unchanged');
     f.cookies[f.ownerId]=await sessionFor(f.ownerId);
     expect((await destroy(ids)).data.code).toBe('STEP_UP_REQUIRED');
     expect(await stored(),'owner without fresh proof changes nothing').toEqual(retained);
