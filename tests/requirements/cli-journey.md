@@ -217,3 +217,21 @@ Functional assertions run at 1440px. The existing 390px core-wiki registration s
 AUTO-003 run history uses `automationRunLogCase` in `tests/flagship/structured/automation-run-log.case.ts`, invoked by the existing automation recovery Workers registration. Native authenticated rule and run HTTP reads observe every named state from real rule configuration and committed record events, including queued and running at their actual storage transitions. A real D1 trigger aborts comment writes; durable retries reach terminal failure and the production repeated-failure threshold, preserving exactly-once receipts and activity. Native events also reach the production rate boundary. Current-access loss removes touched titles, trigger record references and target receipts from the projection.
 
 `automationRunLogJourney` in `tests/qualification/ui-convergence/automation-run-log-journey.mjs` runs through the existing desktop database-tools caller and phone core caller. It reads the real emitted Worker, checks trigger, actor, record link, recorded time and action receipt, then induces native storage failures and advances only the durable retry clock. Error and failure appear beside the rule before opening its log; repeated failures persist the disabled reason across navigation and a later event. Browser captures use the existing evidence helper at 1440 and 390. No run row or successful application response is fabricated, and no test registration is added.
+
+
+REV-002 page-family proof uses `historyInventoryJourney` in
+`tests/qualification/ui-convergence/history-inventory-journey.mjs`, called by the
+existing two-person desktop registration and phone core registration. Ordinary
+pages, database pages and record pages use real mutation receipts under both
+version profiles. Every retained row and snapshot is reconciled; visible actor,
+time, origin and applicable ordinal and label remain after editor reload. A
+published-only reader reopens both permitted revisions after reload. Full-access
+and read-only attempts to rewrite historical content or metadata change nothing;
+read-only and revoked attempts through the supported restore and delete routes
+also refuse without changing history. Current revocation denies the native list,
+exact snapshot and copied browser URL. The existing audit Workers registration
+calls `revisionHistoryProof` for independent persisted-row comparisons and the
+same authority refusals. The separate version-deletion journey retains its
+full-access success and protected-current-version checks. This supporting slice
+does not establish container, comment, template or decision-record history and
+does not promote the full clause.

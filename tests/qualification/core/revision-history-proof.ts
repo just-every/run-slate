@@ -69,7 +69,15 @@ export async function revisionHistoryProof(f: Awaited<ReturnType<typeof auditFix
           expect(denied.status).toBe(404);
           expect(await stored()).toEqual(before);
         }
+        const refuseVersionActions = async () => {
+          for (const [method, route] of [['DELETE', `${historyPath}/${first.receipt.revisionId}`], ['POST', `${historyPath}/${first.receipt.revisionId}/restore`]]) {
+            expect(await f.request(method, route, {operationKey: createUlid(), expectedRevisionId: await f.revision(pageId)}, f.readerId)).toEqual({status: 404, data: {code: 'NOT_FOUND', message: 'Not found.'}});
+            expect(await stored()).toEqual(before);
+          }
+        };
+        await refuseVersionActions();
         await native('POST', '/api/sharing', {targetKind: 'page', targetId: pageId, id: grant.value.id, principalKind: 'member', principalId: f.readerId, level: 'view', revoke: true});
+        await refuseVersionActions();
         for (const route of [historyPath, ...before.map(r => `${historyPath}/${r.id}`)]) {
           const denied = await f.request('GET', route, undefined, f.readerId);
           expect(denied).toEqual({status: 404, data: {code: 'NOT_FOUND', message: 'Not found.'}});

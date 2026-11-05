@@ -120,19 +120,32 @@ export async function historyInventoryJourney(state, people) {
           const snapshot = await native('GET', `${historyPath}/${first.receipt.revisionId}`);
           assert.deepEqual({blocks: snapshot.blocks, properties: snapshot.properties}, committed.find(item => item.id === first.receipt.revisionId).snapshot);
         }
+        // Supported destructive and restore doors retain their distinct authority checks.
+        const protectedRevision = `${historyPath}/${first.receipt.revisionId}`;
+        const refuseVersionActions = async () => {
+          for (const [method, door, data] of [
+            ['DELETE', protectedRevision, {operationKey: randomUUID()}],
+            ['POST', `${protectedRevision}/restore`, {operationKey: randomUUID(), expectedRevisionId: (await read()).page.revisionId}],
+          ]) {
+            assert.deepEqual(await call(bob.context, origin, method, door, data), {status: 404, body: {code: 'NOT_FOUND', message: 'Not found.'}});
+            assert.deepEqual(await native('GET', historyPath), before);
+          }
+        };
+        await refuseVersionActions();
         // A copied URL and the native list and detail doors disclose nothing after revocation.
         await grant(alice.context, origin, pageId, bob.id, 'view', {id: allowed.value.id, revoke: true});
         for (const door of [historyPath, `${historyPath}/${first.receipt.revisionId}`]) {
           const refused = await call(bob.context, origin, 'GET', door);
           assert.deepEqual(refused, {status: 404, body: {code: 'NOT_FOUND', message: 'Not found.'}});
         }
+        await refuseVersionActions();
         await bob.page.goto(url, {waitUntil: 'networkidle'});
         await bob.page.reload({waitUntil: 'networkidle'});
         const refusedScreen = family === 'database' ? bob.page.getByRole('alert') : bob.page.getByRole('heading', {name: 'Access needed', exact: true});
         await expect(refusedScreen).toBeVisible();
         await expect(bob.page.locator('.history-list, .revision-preview')).toHaveCount(0);
         await expect(bob.page.locator('main')).not.toContainText(`Original ${family} history body`);
-        record(`history-${policy}-${family}`, {receipts, committed, visible, editorReload: true, publishedReload: [first.receipt.revisionId, second.receipt.revisionId], refusedRewrites: {actors: ['full', 'view'], methods: ['PATCH', 'PUT', 'POST']}, revoked: 404});
+        record(`history-${policy}-${family}`, {receipts, committed, visible, editorReload: true, publishedReload: [first.receipt.revisionId, second.receipt.revisionId], refusedRewrites: {actors: ['full', 'view'], methods: ['PATCH', 'PUT', 'POST']}, refusedVersionActions: {actors: ['view', 'revoked'], actions: ['restore', 'delete']}, revoked: 404});
         console.log(`PROBE REV-002 ${policy} ${family}: native commits -> ${history.length} exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed`);
       }
     }
