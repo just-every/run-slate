@@ -12052,7 +12052,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/export-comments-journey.mjs": {
-      "sha256": "c860174a51397a380e86789b444b018f8639300ac1a1d423ef322c76ef1e0da9",
+      "sha256": "1efa9104d81818c2ad78c13e31500b8d7969e8e05aa83bce31cf0b304f6fb28c",
       "executable": false
     },
     "tests/qualification/ui-convergence/failed-save-journey.mjs": {
@@ -12240,7 +12240,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/structured-blocks-journey.mjs": {
-      "sha256": "8c5030ed4f78858ff336be0fff613df893f06ed619aad2c181227cafb07134dd",
+      "sha256": "64d6a312dabc9c83ca391ff87c563b51b0948b6981691011f47c6f77ce66f005",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {

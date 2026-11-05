@@ -1,7 +1,7 @@
 import { authorStructuredBlocks, inspectStructuredArchive, inspectStructuredEditor, assertCanonicalCopy } from './structured-blocks-journey.mjs';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { unzipSync } from 'fflate';
 import { XMLParser } from 'fast-xml-parser';
 import { expect } from '@playwright/test';
@@ -81,7 +81,9 @@ export async function exportCommentsJourney(state, people) {
     assert.ok(copy);
     await page.goto(`${origin}/app/pages/${copy.id}`, { waitUntil: 'networkidle' });
     await page.reload({ waitUntil: 'networkidle' });
-    assertCanonicalCopy(source, await api(`/api/pages/${copy.id}`));
+    const copyDocument = await api(`/api/pages/${copy.id}`);
+    assertCanonicalCopy(source, copyDocument);
+    await writeFile(`.artifacts/ui-convergence/structured-blocks-${format}-comparison.json`, JSON.stringify({source:source.blocks,copy:copyDocument.blocks}, null, 2));
     await inspectStructuredEditor(state);
     await openPageAction(page, 'Comments');
     await expect(page.locator('.comment-thread')).toHaveCount(2);

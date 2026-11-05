@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { writeFile } from 'node:fs/promises';
 import { expect } from '@playwright/test';
 
 const plain = spans => (spans ?? []).map(span => span.text).join('');
@@ -23,8 +24,8 @@ export async function authorStructuredBlocks(state, pageId) {
     await page.getByRole('button', { name: '＋ Add block', exact: true }).click();
     const search = page.getByPlaceholder('Type to search', { exact: true });
     await search.fill(name);
-    await search.press('ArrowDown');
-    await search.press('Enter');
+    const hints = { 'Heading 1': '#', 'Heading 2': '##', 'Heading 3': '###', 'Bulleted list': '-', 'Numbered list': '1.', Quote: '>', Divider: '---', Code: '```' };
+    await page.getByRole('option', { name: hints[name] ? `${name} ${hints[name]}` : name, exact: true }).click();
     await expect.poll(async () => (await api(`/api/pages/${pageId}`)).blocks.length, { message: `Native insertion of ${name}` }).toBe(before + 1);
   };
   const fill = async (label, text) => {
@@ -72,14 +73,23 @@ export async function inspectStructuredEditor({ page, context }) {
   const value = structuredContent;
   for (const [i, heading] of value.headings.entries()) await expect(page.getByRole('textbox', { name: `Heading level ${i + 1}`, exact: true })).toHaveText(heading);
   for (const [label, text] of [['Bulleted list item', value.bullet], ['Numbered list item', value.numbered], ['Toggle item', value.toggle], ['Toggle item content', value.detail], ['Quote', value.quote], ['Callout text', value.callout], ['Expandable section summary', value.summary], ['Expandable section content', value.expanded], ['Column 1 heading', value.columns[0]], ['Column 2 heading', value.columns[1]], ['Row 1, Owner', value.cells[0]], ['Row 1, Next action', value.cells[1]], ['Code, typescript', value.code]]) await expect(page.getByRole('textbox', { name: label, exact: true })).toHaveText(text);
+  await expect(page.locator('[data-block-id] hr')).toHaveCount(1);
+  const quote = page.getByRole('textbox', { name: 'Quote', exact: true });
+  const parent = page.getByRole('textbox', { name: 'Toggle item', exact: true });
+  const contentEdge = field => field.locator('xpath=ancestor::*[@data-block-id][1]').locator(':scope > .block-content').evaluate(element => element.getBoundingClientRect().x + Number.parseFloat(getComputedStyle(element).paddingLeft));
+  assert.ok(await contentEdge(quote) > await contentEdge(parent), 'The reloaded quote remains visibly nested under its parent.');
   await expect(page.getByRole('columnheader').filter({ hasText: 'Owner' })).toHaveCount(1);
   await expect(page.getByRole('combobox', { name: 'Code language', exact: true })).toHaveText('typescript');
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.evaluate(() => navigator.clipboard.writeText('synthetic-slate-clipboard-before-copy'));
   await page.getByRole('button', { name: 'Copy', exact: true }).click();
   assert.equal(await page.evaluate(() => navigator.clipboard.readText()), value.code);
   for (const [name, tooltip] of [['Collapse this item', 'Collapse item'], [`Collapse ${value.summary}`, 'Collapse section']]) {
     const control = page.getByRole('button', { name, exact: true });
     await control.focus();
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Shift+Tab');
+    await expect(control).toBeFocused();
     await expect(control).toHaveAttribute('data-tooltip', tooltip);
     assert.equal(await control.evaluate(element => getComputedStyle(element, '::after').opacity), '1', 'Disclosure tooltips appear immediately on keyboard focus.');
   }
@@ -90,7 +100,10 @@ export async function inspectStructuredArchive({ context }, entries, format, pag
   const value = structuredContent, decode = path => new TextDecoder().decode(entries[path]);
   const manifest = JSON.parse(decode('slate-readable.json'));
   assert.deepEqual(manifest.pages.find(p => p.id === pageId).blocks, source.blocks);
-  const document = decode(`pages/${pageId}.${format === 'html' ? 'html' : 'md'}`);
+  const extension = format === 'html' ? 'html' : 'md';
+  const document = decode(`pages/${pageId}.${extension}`);
+  await writeFile(`.artifacts/ui-convergence/structured-blocks-readable.${extension}`, document);
+  await writeFile(`.artifacts/ui-convergence/structured-blocks-${format}-manifest.json`, JSON.stringify(manifest, null, 2));
   if (format === 'markdown') {
     for (const [i, heading] of value.headings.entries()) assert.ok(document.includes(`${'#'.repeat(i + 1)} ${heading}`));
     assert.ok(document.includes(`- ${value.bullet}`)); assert.ok(document.includes(`1. ${value.numbered}`));
@@ -121,7 +134,9 @@ export async function inspectStructuredArchive({ context }, entries, format, pag
       await expect(output.locator('tbody td')).toHaveText(value.cells);
       await expect(output.locator('pre code.language-typescript')).toHaveText(value.code);
     }
-    await output.screenshot({ path: `.artifacts/ui-convergence/structured-blocks-${format}-readable.png`, fullPage: true });
+    await output.screenshot({ path: `.artifacts/ui-convergence/structured-blocks-${format}-readable-1440.png`, fullPage: true });
+    await output.setViewportSize({ width: 390, height: 844 });
+    await output.screenshot({ path: `.artifacts/ui-convergence/structured-blocks-${format}-readable-390.png`, fullPage: true });
   } finally { await output.close(); }
 }
 
