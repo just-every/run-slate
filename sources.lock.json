@@ -11532,7 +11532,7 @@
       "executable": false
     },
     "tests/qualification/core/archive-retention-proof.ts": {
-      "sha256": "e9dfeea253f8d6c14ab55e6fe7aaa54ef1ca338613c7652dd434ad71df2387f9",
+      "sha256": "92608a813e659a96310133642e62f1d9df76f356a312d89035e65469ee886ee9",
       "executable": false
     },
     "tests/qualification/core/audit-content.test.ts": {
