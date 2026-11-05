@@ -744,8 +744,13 @@
       "id": "REV-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for REV-002 — History. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "Supporting native HTTP and loaded responsive browser journeys cover ordinary page, database page and record page history under both version profiles, including complete rows, immutable stored snapshots, current grants, published-only filtering, reload and revocation. Container, comment, template and decision record histories and complete cross-family acceptance remain unproven; decision, default-surface and AI duties retain ADMIN-007 and shared company-policy prerequisites. CONTRACT.md owns the partial judgment.",
+      "supportingTests": [
+        {
+          "file": "tests/qualification/core/audit-content.test.ts",
+          "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time"
+        }
+      ]
     },
     {
       "id": "REV-003",
