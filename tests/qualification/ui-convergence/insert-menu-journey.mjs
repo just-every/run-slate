@@ -182,6 +182,30 @@ async function runInsertMenuJourney(state,{touch=false}={}) {
       assert.deepEqual(projection(blocks),projection(expected),'Insertion retains preceding blocks and exact native order and content.');
     } catch(cause) {throw new Error(`${touch?'Touch':'Keyboard'} insert ${entry.kind} failed`,{cause});}
   }
+  // Revisit an earlier paragraph: the focused control must not append after
+  // all the blocks just written, or replace any of those later blocks.
+  const first=expected[0],firstText=plain(first.content.text),offset=firstText.indexOf('left');
+  const source=page.locator(`[data-block-id="${first.id}"] [data-slate-editable]`);
+  await act(source);
+  await page.keyboard.press('ControlOrMeta+Home');
+  for(let count=0;count<offset;count++)await page.keyboard.press('ArrowRight');
+  if(touch)await act(page.getByRole('button',{name:'＋ Add block',exact:true}));
+  else await page.keyboard.press('/');
+  if(touch)await act(option(page,'text'));
+  else await page.keyboard.press('Enter');
+  const middle=page.locator('[data-page-editor] [data-block-id]').nth(1).getByRole('textbox',{name:'Paragraph',exact:true});
+  await expect(middle).toBeFocused();
+  await page.keyboard.type('synthetic-slate-middle');
+  await expect.poll(async()=>plain((await read(api,pageId))[1]?.content.text)).toBe('synthetic-slate-middle');
+  const blocks=await read(api,pageId);
+  assert.equal(blocks[0].id,first.id);
+  assert.equal(plain(blocks[0].content.text),firstText.slice(0,offset));
+  assertInserted(blocks[1],basics[0],'synthetic-slate-middle');
+  assert.equal(blocks[2].blockType,'paragraph');
+  assert.equal(plain(blocks[2].content.text),firstText.slice(offset));
+  const retained=items=>projection(items).map(({treePosition,...block})=>block);
+  assert.deepEqual(retained(blocks.slice(3)),retained(expected.slice(1)),'Inserting into an earlier paragraph preserves every following block in order.');
+  expected.splice(0,expected.length,...blocks);
   assert.equal(new Set(expected.map(block=>block.id)).size,expected.length,'Every inserted block has a distinct durable identifier.');
   await page.reload({waitUntil:'networkidle'});
   assert.deepEqual(projection(await read(api,pageId)),projection(expected),'Reload retains every selected basic type, position and value.');
