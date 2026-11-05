@@ -8,6 +8,8 @@ import {tap,type,checkpoint} from './touch-controls.mjs';
 /** Archive and deletion use the ordinary member's native controls and session. */
 export async function archiveRetentionJourney(state,touch) {
   const {page,context,origin,containerId}=touch;
+  // The existing caller has already exercised many native doors. Pace this batch into a fresh admission window.
+  await page.waitForTimeout(60000-Date.now()%60000);
   const f=await retentionFixture({containerId,memberId:'browser-reader',
     request:async(method,route,body)=>{
       // Vocabulary belongs to the workspace owner; all content uses the member.
@@ -38,7 +40,8 @@ export async function archiveRetentionJourney(state,touch) {
     }
     for(const ref of f.references.filter(ref=>archived.includes(ref.id))) {
       for(const [kind,name]of [['link','Open '+ref.title],['mention',ref.title],['citation','Cite '+ref.title]]) {
-        await page.goto(`${origin}/app/pages/${f.report.pageId}`,{waitUntil:'networkidle'});
+        if(new URL(page.url()).pathname!==`/app/pages/${f.report.pageId}`)
+          await page.goto(`${origin}/app/pages/${f.report.pageId}`,{waitUntil:'networkidle'});
         const source=page.locator('[data-page-editor]');
         const link=kind==='mention'?source.locator('[data-mention-kind=page]').getByRole('link',{name,exact:true}):source.getByRole('link',{name,exact:true});
         await expect(link).toHaveAttribute('href',kind==='citation'?ref.citation.href:ref.href);
