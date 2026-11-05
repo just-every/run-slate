@@ -39,6 +39,7 @@ export async function pageDurabilityProof(f:Awaited<ReturnType<typeof auditFixtu
  const committed=await f.mutation('atomic native body','pages.blocks.replace','PUT',path,{expectedRevisionId:await f.revision(id),blocks:[{id:blockId,blockType:'paragraph',treePosition:'1',content:{text:[{text:'synthetic-slate-committed-body'}]}}]});
  await assertCommitted(committed,'synthetic-slate-committed-body');
  const snapshot=async()=>({
+  inventory:await nativeReplayInventory(f.workspaceId),
   document:(await f.request('GET',`/api/pages/${id}`)).data,
   page:await env.DB.prepare('SELECT * FROM pages WHERE id=?').bind(id).first(),
   blocks:(await env.DB.prepare('SELECT * FROM page_blocks WHERE page_id=? ORDER BY id').bind(id).all()).results,
@@ -80,4 +81,25 @@ export async function activityContextProof(f:Awaited<ReturnType<typeof auditFixt
  const denied=await f.request('GET','/api/activity?limit=100',undefined,f.readerId);expect(denied.status).toBe(200);
  expect(denied.data.items.some((row:any)=>row.context.pageId===page.id||row.target.id===page.id||row.target.id===comment.value.threadId)).toBe(false);
  expect((await f.request('POST',`/api/comments/page/${page.id}`,{operationKey:comment.receipt.operationKey,body:[{text:'synthetic-slate-thread'}]},f.readerId)).status).toBe(404);
+}
+
+/** Independent D1 facts shared by native replay and late-rollback journeys. */
+export async function nativeReplayInventory(workspaceId:string) {
+ const selects={
+  pages:'SELECT * FROM pages WHERE workspace_id=? ORDER BY id',
+  blocks:'SELECT b.* FROM page_blocks b JOIN pages p ON p.id=b.page_id WHERE p.workspace_id=? ORDER BY b.id',
+  pageRevisions:'SELECT r.* FROM page_revisions r JOIN pages p ON p.id=r.page_id WHERE p.workspace_id=? ORDER BY r.id',
+  threads:'SELECT * FROM comment_threads WHERE workspace_id=? ORDER BY id',
+  comments:'SELECT c.* FROM comments c JOIN comment_threads t ON t.id=c.thread_id WHERE t.workspace_id=? ORDER BY c.id',
+  grants:'SELECT g.* FROM page_grants g JOIN pages p ON p.id=g.page_id WHERE p.workspace_id=? ORDER BY g.id',
+  identityRevisions:'SELECT * FROM core_entity_revisions WHERE workspace_id=? ORDER BY id',
+  notifications:'SELECT * FROM notifications WHERE workspace_id=? ORDER BY id',
+  outbox:'SELECT * FROM notification_outbox WHERE workspace_id=? ORDER BY id',
+  receipts:'SELECT * FROM operation_receipts WHERE workspace_id=? ORDER BY id',
+  activity:'SELECT * FROM activity_entries WHERE workspace_id=? ORDER BY id',
+  contentEvents:'SELECT e.* FROM content_events e JOIN pages p ON p.id=e.page_id WHERE p.workspace_id=? ORDER BY e.sequence',
+ };
+ const names=Object.keys(selects) as (keyof typeof selects)[];
+ const results=await env.DB.batch(names.map(name=>env.DB.prepare(selects[name]).bind(workspaceId)));
+ return Object.fromEntries(names.map((name,index)=>[name,results[index]!.results])) as Record<keyof typeof selects,Record<string,unknown>[]>;
 }

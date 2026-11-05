@@ -274,9 +274,9 @@ function LoadedPage({
     try {
       const attempt = titleAttempt.current?.title === title ? titleAttempt.current : {title, revision: editor.revision, key: operationKey()};
       titleAttempt.current = attempt;
-      const result = await request<{value:{revisionId:string};document:DocumentView}>(`/api/pages/${document.page.id}`, {method:"PATCH",keepalive:true,body:JSON.stringify({operationKey:attempt.key, expectedRevisionId:attempt.revision, properties:{title:attempt.title}})});
+      const result = await request<{value:{revisionId:string}}>(`/api/pages/${document.page.id}`, {method:"PATCH",keepalive:true,body:JSON.stringify({operationKey:attempt.key, expectedRevisionId:attempt.revision, properties:{title:attempt.title}})});
       editor.setRevision(result.value.revisionId);
-      await read(async () => result.document);
+      await read(signal => contentApi.document(document.page.id, signal));
       setSavedTitle(attempt.title);
       window.dispatchEvent(new Event("slate:navigation-changed"));
       if(titleAttempt.current?.key===attempt.key){localStorage.removeItem(titleKey);titleAttempt.current=undefined;titleDirty.current=false;recovered.current=null;}
