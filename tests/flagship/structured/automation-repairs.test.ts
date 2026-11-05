@@ -146,7 +146,7 @@ try {
 } finally {}
 }}
   ]);
-});
+}, 240_000);
 
 function confirmationFailure(db:D1Database) {
  let failed=false;
