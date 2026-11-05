@@ -25,7 +25,7 @@ export interface InsertMenuProps {
 function Row({ entry, onInsert }: { entry: InsertEntry; onInsert: (kind: InsertKind) => void }) {
   const Icon = entry.icon;
   return (
-    <CommandItem hint={entry.shortcut} onSelect={() => onInsert(entry.kind)} value={entry.kind}>
+    <CommandItem data-insert-kind={entry.kind} hint={entry.shortcut} onSelect={() => onInsert(entry.kind)} value={entry.kind}>
       <Icon aria-hidden="true" className="size-4 shrink-0 text-ink-muted" />
       {entry.name}
     </CommandItem>
@@ -81,6 +81,10 @@ export function InsertMenu({ open, anchor, query, onQueryChange, onInsert, onClo
   return (
     <div
       ref={menu}
+      onKeyUp={(event) => {
+        if (event.key === "ArrowDown" || event.key === "ArrowUp")
+          menu.current?.querySelector('[aria-selected="true"]')?.scrollIntoView({block: "nearest"});
+      }}
       style={anchor ? position : undefined}
       className={cn(
         "insert-menu w-80 overflow-hidden rounded-card border border-line bg-surface shadow-[0_16px_48px_rgb(15_15_15/0.16)]",
@@ -104,7 +108,7 @@ export function InsertMenu({ open, anchor, query, onQueryChange, onInsert, onClo
           ) : null}
 
           {groups.map((group) => (
-            <CommandGroup heading={group.heading} key={group.id}>
+            <CommandGroup data-insert-group={group.id} heading={group.heading} key={group.id}>
               {group.entries.map((entry) => (
                 <Row entry={entry} key={entry.kind} onInsert={onInsert} />
               ))}

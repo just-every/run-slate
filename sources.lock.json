@@ -6844,7 +6844,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/ExpandableBlock.tsx": {
-      "sha256": "1d6d640f3eff3f78f8094841eebc4621889a44955c2985ddebd988a0a42cfeb7",
+      "sha256": "ba13464521b0f997bdfe38fab9ad464862c652b709e7b5633186c943952d6005",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/FileCardBlock.tsx": {
@@ -6872,7 +6872,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/ListBlock.tsx": {
-      "sha256": "4e88eb3de145421b0d00d035968161981a6a55a520c8e10afb30d1bf81d8a373",
+      "sha256": "4269fd9de29ccbaa8bbf5be21bf9345718ce893590673c53eef9dd705899686a",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/MediaBlock.tsx": {
@@ -6956,7 +6956,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/InsertMenu.tsx": {
-      "sha256": "ab9ce777b639ad5bb1179553a6ab0e4a9d9580f2acc005221df584e009fa9c88",
+      "sha256": "3bf75ea2b5545d5862a2f2314e78b867fa678c2c29ad0aaeccb0299e82833074",
       "executable": false
     },
     "src/core/features/editor/ui/insertStatusLabel.ts": {
@@ -8440,7 +8440,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageEditorBody.tsx": {
-      "sha256": "43f0b2eb75d4e01d3e04cef32ff286302b7009b9e3fe8709c855fd0eb8010f71",
+      "sha256": "213acb539a9ea30c44ba0db54b6d6a3a6b15aeafec0e6e76d14f18cb24d78925",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
@@ -8516,7 +8516,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/useInsertedBlockFocus.ts": {
-      "sha256": "8a75ad55284e9f517b0a560aa9611347596640dbf5f70fd830e44b37e696d0c3",
+      "sha256": "cdb666d5ab608617768ad36ff958d0360212a10bb7d595e1fcd3cc927e17f552",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/useNewPageArrival.ts": {
@@ -12103,6 +12103,10 @@
       "sha256": "2528f20e975d57e9177c693bfea760732a702b1ef102bd710bb047af486c0509",
       "executable": false
     },
+    "tests/qualification/ui-convergence/insert-menu-journey.mjs": {
+      "sha256": "be575abbe9df3433f6660d2fe2845b7bf92112fea7e9e711a600a6625f579ae4",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/journey-shard.mjs": {
       "sha256": "447883aa8d1402927a61b0cabfe3e2a66ae8e4e472a5d59518e18f98a5f12128",
       "executable": false
@@ -12316,7 +12320,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page.mjs": {
-      "sha256": "ee8f133a84566c32d5cacc773874e02e3be8d3623221b3a2c7eab05795701024",
+      "sha256": "111cb6b0035b7e5cfaaf7cbfa0d9db68dc77cf347ef5c48efaf8800e2d34d4de",
       "executable": false
     },
     "tests/qualification/ui-convergence/transfer-jobs-journey.mjs": {
@@ -12372,7 +12376,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/write-journey.mjs": {
-      "sha256": "df069e4d6f8c48fa8baf45f513ee0090d3a99c9a49d55f17cb7278caeca76cc1",
+      "sha256": "1fdeaaad8fd96a089d15e3f34338198a2c17be7272be91fdfa0fdce52377b253",
       "executable": false
     },
     "tests/release/delivery-runtime.mjs": {

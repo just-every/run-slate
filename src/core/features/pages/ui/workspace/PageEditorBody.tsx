@@ -159,6 +159,18 @@ export function PageEditorBody({
       return false;
     }
   }
+  function closeInsert() {
+    if (!insert) return;
+    const row = [...(wrapper.current?.querySelectorAll<HTMLElement>('[data-block-id]') ?? [])]
+      .find(element => element.dataset.blockId === insert.after);
+    const editable = row?.querySelector<HTMLElement>('[data-slate-editable]');
+    if (insert.range && editable) {
+      editable.focus();
+      restoreEditableSelection(editable, insert.range);
+    } else if (insert.anchor instanceof HTMLElement) insert.anchor.focus();
+    setInsert(null);
+    setQuery("");
+  }
   function add(kind: InsertKind) {
     if(kind==='synced-reference'){setSyncedInsert({after:insert?.after??null});setInsert(null);setQuery('');return;}
     if(kind==='file-card'){setFileInsert({after:insert?.after??null});setInsert(null);setQuery('');return;}
@@ -237,7 +249,7 @@ export function PageEditorBody({
           query={query}
           onQueryChange={setQuery}
           onInsert={add}
-          onClose={() => setInsert(null)}
+          onClose={closeInsert}
         />
       ) : null}
       {syncedInsert?<ActionDialog title="Insert synced block" action="Insert synced copy" onClose={()=>setSyncedInsert(null)} onSubmit={async data=>{

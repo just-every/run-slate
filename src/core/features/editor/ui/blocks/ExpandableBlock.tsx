@@ -12,6 +12,7 @@ export function ExpandableBlock({ block, canEdit, onChange }: BlockRenderProps<E
     <section className="my-1 rounded-card border border-line">
       <div className="flex items-start gap-2 p-2">
         <button
+          data-tooltip={open ? "Collapse item" : "Expand item"}
           aria-expanded={open}
           className="mt-0.5 rounded-control p-0.5 text-ink-muted transition-colors hover:bg-sidebar-hover hover:text-ink"
           onClick={() => canEdit?onChange({ ...block, open: !open }):setReaderOpen(!open)}

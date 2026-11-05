@@ -1,3 +1,4 @@
+import { insertMenuJourney } from './insert-menu-journey.mjs';
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { accessible, openNavigation } from './browser-support.mjs';
@@ -141,6 +142,7 @@ export async function writeJourney(state, width) {
   await accessible(page, 'two blocks saved in order');
   await firstWordsJourney(state);
   await typedShortcutsJourney(state);
+  if(width===1440)await insertMenuJourney(state);
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   return pageId;
 }

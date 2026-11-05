@@ -1,3 +1,4 @@
+import { insertMenuJourney } from './insert-menu-journey.mjs';
 import assert from 'node:assert/strict';
 import {expect} from '@playwright/test';
 import {tap,type,reachable,checkpoint,touchReorder} from './touch-controls.mjs';
@@ -33,6 +34,7 @@ export async function touchWriteJourney({page,origin,api,containerName}) {
   await expect(page.getByRole('textbox',{name:'Paragraph',exact:true}).first()).toHaveText('Notify the duty team.');
   await checkpoint(page,'touch drag persists block order');
   console.log('NAV-006 touch create, type, insert and drag persisted');
+  if(page.viewportSize().width===390)await insertMenuJourney({page,origin,api},{touch:true});
 
   return id;
 }

@@ -23,6 +23,7 @@ function ToggleItem({
     <li className="text-body leading-relaxed text-ink">
       <div className="flex items-start gap-1">
         <button
+          data-tooltip={open ? "Collapse item" : "Expand item"}
           aria-expanded={open}
           className="mt-1 rounded-control p-0.5 text-ink-muted transition-colors hover:bg-sidebar-hover hover:text-ink"
           onClick={() => canEdit?onChange({ ...item, open: !open }):setReaderOpen(!open)}
