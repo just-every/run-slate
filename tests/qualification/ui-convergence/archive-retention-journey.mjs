@@ -14,7 +14,8 @@ export async function archiveRetentionJourney(state,touch) {
   const signedIn=await signInWithOutbox(origin,identity.member.email);
   await context.addCookies([{name:'slate_session',value:signedIn.cookie.split('=')[1],url:origin}]);
   // The existing caller has already exercised many native doors. Pace this batch into a fresh admission window.
-  await page.waitForTimeout(60000-Date.now()%60000);
+  const freshAdmissionWindow=()=>page.waitForTimeout(60000-Date.now()%60000);
+  await freshAdmissionWindow();
   const f=await retentionFixture({containerId,memberId:'browser-reader',
     request:async(method,route,body)=>{
       // Vocabulary belongs to the workspace owner; all content uses the member.
@@ -96,6 +97,7 @@ export async function archiveRetentionJourney(state,touch) {
   await f.assertSurfaces(f.ids);
   await f.refuseWrites(f.ids);
   assert.deepEqual(await f.snapshot(),f.before,'Native archive controls and refused writes preserve populated content.');
+  await freshAdmissionWindow();
   await references(f.ids);
   for(const kind of ['page','record']) {
     await page.goto(`${origin}/app/search?q=Retained&containerId=${containerId}&kind=${kind}`,{waitUntil:'networkidle'});
@@ -123,6 +125,7 @@ export async function archiveRetentionJourney(state,touch) {
   await page.goto(`${origin}/app/pages/${f.root.pageId}`,{waitUntil:'networkidle'});
   await expect(page.getByText('Current retained body',{exact:true})).toBeVisible();
   await checkpoint(page,'retained archive restored');
+  await freshAdmissionWindow();
   const recordDoc=await f.read(`/api/pages/${f.record.pageId}`);
   await ok(context,origin,'POST',`/api/archive/${f.record.pageId}`,{operationKey:randomUUID(),expectedRevisionId:recordDoc.page.revisionId,action:'archive'});
   await f.assertSurfaces([f.record.pageId]);
