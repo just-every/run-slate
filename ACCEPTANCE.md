@@ -1596,7 +1596,7 @@ Core · published · **partial**
 
 #### DB-006 — Group
 
-Core · published · **partial**
+Core · published · **partial** · Cites BASE-ACCESS-004
 
 **Requirement.** A view groups its records by a select, status, person, checkbox or date field, shows the count in each group, allows a record to be moved between groups where the field permits it, and hides empty groups on request.
 
