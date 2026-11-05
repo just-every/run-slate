@@ -22,6 +22,10 @@ An owner claimed through RER’s verified bootstrap or signed claim receives the
 
 Typing `/` at the cursor opens an insert menu grouped by kind, filtered by what is typed, navigable and selectable by keyboard alone, and it inserts at the cursor without leaving the editor. Every block type this contract names is reachable from it, and on a touch client the same list is reachable from a labeled control above the keyboard.
 
+Place the cursor in a paragraph and type `/`. Search matches a block's name, description or Markdown shortcut. Use the up and down arrows to choose a result and Enter to insert it. Escape closes the menu and restores the paragraph's cursor without changing its text. An empty result keeps the menu open until the search changes or it is closed.
+
+On touch screens, the labeled **Add block** control below the body opens the same grouped catalog. It appends the selected block and returns focus to its first writing field; a divider keeps focus within the editor. The basic group contains text, headings 1–3, bulleted, numbered and toggle lists, to-dos, quotes, dividers, callouts, expandable sections, tables and code. Inserting into a paragraph with `/` retains the text on either side as neighboring paragraphs.
+
 ## REV-001 — What a revision is
 
 Every page, record, container, comment, template and decision record (`DEC-001`) carries a revision identifier that changes on every committed edit and is never reused. A page revision is immutable: it holds the body and properties as committed, its author, its time, its origin of `autosave` or `publish`, and a content hash, being SHA-256 of the revision's extracted text after Unicode NFC normalization and whitespace collapse. A retried write whose hash matches the latest revision commits nothing. Wherever another clause names a revision, it means this identifier.

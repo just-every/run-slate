@@ -82,7 +82,7 @@ export function PageEditorBody({
       // real line carets (zero width, positive height) anchored to the Range.
       const anchor=caret && caretRect && (caretRect.width>0 || caretRect.height>0) ? caret : target;
       const detail=(event as CustomEvent<{anchor:number;focus:number;inlineLabels?:boolean;onInlineInsert?:(span:InlineSpan)=>void}>).detail;
-      setInsert({after:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId ?? null,range:detail,inlineLabels:detail.inlineLabels,onInlineInsert:detail.onInlineInsert,anchor});
+      setInsert({after:target.closest<HTMLElement>('[data-block-id]')?.dataset.blockId ?? null,range:detail,source:target,inlineLabels:detail.inlineLabels,onInlineInsert:detail.onInlineInsert,anchor});
     };
     const split = (event: Event) => {
       if (!document.permissions.canEdit) return;
@@ -135,7 +135,7 @@ export function PageEditorBody({
       element.removeEventListener("slate-ask-selection", ask);
     };
   }, [onAsk, onComment,editor, insertion, visibleBlocks]);
-  const [insert, setInsert] = useState<{ after: string | null; range?:{anchor:number;focus:number}; inlineLabels?:boolean; onInlineInsert?:(span:InlineSpan)=>void; anchor: HTMLElement | Range } | null>(null);
+  const [insert, setInsert] = useState<{ after: string | null; range?:{anchor:number;focus:number}; source?:HTMLElement; inlineLabels?:boolean; onInlineInsert?:(span:InlineSpan)=>void; anchor: HTMLElement | Range } | null>(null);
   const [syncedInsert,setSyncedInsert]=useState<{after:string|null}|null>(null);
   const [fileInsert,setFileInsert]=useState<{after:string|null}|null>(null);
   const [statusInsert,setStatusInsert]=useState<typeof insert>(null);
@@ -163,7 +163,7 @@ export function PageEditorBody({
     if (!insert) return;
     const row = [...(wrapper.current?.querySelectorAll<HTMLElement>('[data-block-id]') ?? [])]
       .find(element => element.dataset.blockId === insert.after);
-    const editable = row?.querySelector<HTMLElement>('[data-slate-editable]');
+    const editable = insert.source?.isConnected ? insert.source : row?.querySelector<HTMLElement>('[data-slate-editable]');
     if (insert.range && editable) {
       editable.focus();
       restoreEditableSelection(editable, insert.range);

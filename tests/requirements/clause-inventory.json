@@ -439,7 +439,7 @@
       "id": "BLOCK-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for BLOCK-003 — The insert menu. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "The Workers-only registry does not collect Node browser journeys. Supporting basic-catalog proof is loaded by the existing responsive core-wiki registrations through insertMenuJourney; tests/requirements/cli-journey.md specifies its keyboard and touch scope. BLOCK-003 remains partial: reachability and full acceptance for media, advanced and every other contract-named type remain unproven, including BLOCK-013 and BLOCK-019. No Workers assertion or full-clause acceptance is claimed here.",
       "supportingTests": []
     },
     {

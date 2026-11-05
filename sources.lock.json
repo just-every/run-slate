@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "fb28d2bde5e2c155c31059c8427daf87715443ffae27db31e268cbc8d3c64903",
+      "sha256": "1ad0681adad10eb2cca94c36d720408d0ffc43f6abf57d49a3cde53ae9d91dc9",
       "executable": false
     },
     "DEMO.md": {
@@ -1124,7 +1124,7 @@
       "executable": false
     },
     "docs/wiki-doors.md": {
-      "sha256": "8df6883cc3b9da3e2846c58404c6f553fd05069b1b74e7211d5c00b54cac5a06",
+      "sha256": "aea3e71ab2ce67f050ee2c11f036622acb5f76909404139687a31a632885e5f1",
       "executable": false
     },
     "edition.json": {
@@ -8440,7 +8440,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageEditorBody.tsx": {
-      "sha256": "213acb539a9ea30c44ba0db54b6d6a3a6b15aeafec0e6e76d14f18cb24d78925",
+      "sha256": "08e6dd6ef5435361b338827099433df2cf14c18d6fd3fd9abb2d3a3c80da8a37",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
@@ -12104,7 +12104,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/insert-menu-journey.mjs": {
-      "sha256": "be575abbe9df3433f6660d2fe2845b7bf92112fea7e9e711a600a6625f579ae4",
+      "sha256": "be965fd626b9dd0955e704c574ee712903239a57b3a214b1e2b8b3fd9aed9d18",
       "executable": false
     },
     "tests/qualification/ui-convergence/journey-shard.mjs": {
@@ -12404,11 +12404,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "d8ad0100fa08c30858cf5893e13ccdd87e45f3ef2df4e1db12a3c58be489b4ae",
+      "sha256": "3fdf57c09e4f9f8783f42a2b7a6dbb324e168614629f1012796a25bdf5724f01",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "1bba214e8e1ff07ec8370bb6059586e18567259f2f16456c958fcb8960b073d3",
+      "sha256": "bca64668fcc997430708a72c80b19f3e0368598d58d0bfe1a590ba5314009281",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

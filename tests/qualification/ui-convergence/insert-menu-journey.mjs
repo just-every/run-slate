@@ -41,7 +41,11 @@ async function inventory(page) {
 export async function insertMenuJourney(state,{touch=false}={}) {
   const {page,api,origin}=state;
   const returnTo=page.url();
-  const act=touch?tap:locator=>locator.click();
+  const act=touch?async locator=>{
+    // Center before tapping; browser edge intersection can round a fraction of a pixel.
+    await locator.evaluate(element=>element.scrollIntoView({block:'center',inline:'nearest'}));
+    await tap(locator);
+  }:locator=>locator.click();
   await openNavigation(page);
   await act(page.getByRole('button',{name:'Create',exact:true}));
   await act(page.getByRole('menuitem',{name:'Page',exact:true}));
@@ -70,13 +74,13 @@ export async function insertMenuJourney(state,{touch=false}={}) {
       for(let count=0;count<before.length;count++)await page.keyboard.press('ArrowRight');
       if(touch) {
         const add=page.getByRole('button',{name:'＋ Add block',exact:true});
-        await expect(source).toBeFocused();await reachable(add);await tap(add);
+        await expect(source).toBeFocused();await act(add);
       } else await page.keyboard.press('/');
       if(index===0) {
         await inventory(page);
         if(!touch) {
           await page.keyboard.type('HeAdInG');
-          assert.deepEqual(await page.locator('.insert-menu [role="option"]').evaluateAll(rows=>rows.map(row=>row.dataset.insertKind)),['heading-1','heading-2','heading-3']);
+          assert.deepEqual(await page.locator('.insert-menu [role="option"]').evaluateAll(rows=>rows.map(row=>row.dataset.insertKind)),['heading-1','heading-2','heading-3','table-of-contents']);
           await page.keyboard.press('ControlOrMeta+a');await page.keyboard.type('synthetic-slate-no-match');
           await expect(page.locator('.insert-menu [role="option"]')).toHaveCount(0);
           await expect(page.locator('.insert-menu')).toContainText('No block matches');
@@ -92,7 +96,7 @@ export async function insertMenuJourney(state,{touch=false}={}) {
         await accessible(page,touch?'touch basic insert menu':'keyboard basic insert menu',{fullPage:false});
       }
       if(touch) {
-        await tap(option(page,entry.kind));
+        await act(option(page,entry.kind));
       } else {
         await expect(option(page,'text')).toHaveAttribute('aria-selected','true');
         for(let count=0;count<index;count++)await page.keyboard.press('ArrowDown');
@@ -117,7 +121,7 @@ export async function insertMenuJourney(state,{touch=false}={}) {
           await act(inserted.getByRole('textbox',{name:`Row 1, ${marker}`,exact:true}));await page.keyboard.type(`${marker} cell`);
         }
       }
-      await expect.poll(async()=>{try{assertInserted((await read(api,pageId))[touch?expected.length+1:expected.length+1],entry,marker);return true;}catch{return false;}},{message:`Native committed ${entry.kind}`}).toBe(true);
+      await expect.poll(async()=>{try{assertInserted((await read(api,pageId))[expected.length+1],entry,marker);return true;}catch{return false;}},{message:`Native committed ${entry.kind}`}).toBe(true);
       const blocks=await read(api,pageId);
       if(touch) {
         assert.equal(blocks[expected.length].id,sourceId);
