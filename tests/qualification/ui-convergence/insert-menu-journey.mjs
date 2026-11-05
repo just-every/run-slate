@@ -56,11 +56,12 @@ async function inventory(page) {
 export async function insertMenuJourney(state,options={}) {
   if(!options.touch)return runInsertMenuJourney(state,options);
   // Resizing this probe must not change the original writing tab's viewport or history.
+  const originalPages=(await state.api('/api/pages')).items.map(item=>item.id).sort();
   const page=await state.page.context().newPage(),errors=[];
   page.on('pageerror',cause=>errors.push(String(cause)));
   page.on('console',message=>{if(message.type()==='error')errors.push(message.text());});
   try {
-    await page.goto(state.page.url(),{waitUntil:'networkidle'});
+    await page.goto(state.origin+'/app',{waitUntil:'networkidle'});
     const pageId=await runInsertMenuJourney({...state,page},options);
     // Retire this probe's own page after durable readback, preserving the writing fixture.
     const document=await state.api(`/api/pages/${pageId}`);
@@ -68,6 +69,7 @@ export async function insertMenuJourney(state,options={}) {
       headers:{origin:state.origin},data:{operationKey:crypto.randomUUID(),expectedRevisionId:document.page.revisionId,action:'trash'},
     });
     assert.equal(retired.status(),200,await retired.text());
+    assert.deepEqual((await state.api('/api/pages')).items.map(item=>item.id).sort(),originalPages,'The proof leaves the original visible page inventory unchanged.');
     assert.deepEqual(errors,[],'The native touch insert page has no browser errors.');
   } finally {await page.close();}
 }

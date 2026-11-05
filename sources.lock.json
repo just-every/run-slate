@@ -8516,7 +8516,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/useInsertedBlockFocus.ts": {
-      "sha256": "cdb666d5ab608617768ad36ff958d0360212a10bb7d595e1fcd3cc927e17f552",
+      "sha256": "85cf7218dfc376869b8b947f6c0d9448beb8345f8ae14a7434c42d9c94105c84",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/useNewPageArrival.ts": {
@@ -12104,7 +12104,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/insert-menu-journey.mjs": {
-      "sha256": "5a07e54c3b59e7afc222af0f1cd4b8913d2f9e85cb8da9d3acbd02bbc2104d3c",
+      "sha256": "6dfc397e4ef372f852e119477d5c48e361a7e0dca94b816811baba79e1e61ba5",
       "executable": false
     },
     "tests/qualification/ui-convergence/journey-shard.mjs": {
@@ -12408,7 +12408,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "8c41fa733f613c73d95b57e18101913a7698e8b97683993cea5bd82ade481dde",
+      "sha256": "a16a77283520d795ba64c79c3d8a5a1b2db427f61758484b78f17cf0b276f9a2",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

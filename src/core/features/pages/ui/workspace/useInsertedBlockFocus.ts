@@ -46,7 +46,10 @@ export function useInsertedBlockFocus(
     // React has committed the saved block and enabled its editable. Consume
     // once, including blocks without a text input, before focus dispatches.
     pending.current = null;
-    (row.querySelector<HTMLElement>('[contenteditable="true"]') ?? root.current)?.focus();
+    const editable = row.querySelector<HTMLElement>('[contenteditable="true"]');
+    if (editable) editable.focus();
+    else if (blocks.some(block => block.id === ready.blockId && block.type === "divider"))
+      root.current?.focus({preventScroll: true});
   }, [ready, blocks, canEdit, pageId, root]);
 
   return (blockId: string) => {
