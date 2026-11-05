@@ -311,8 +311,8 @@ Core · published · **partial**
 1. Repeating a key with the same body within 24 hours returns the first response and creates no second record, notification, AI run, publish, import, or activity entry; repeating it with a different body is rejected with 409.
 2. A repeated operation key returns the first response and creates nothing twice; a different body is refused with 409.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Every mutation accepts an operation key."<br>No validated CI-run proof for this acceptance point: "Repeating a key with the same body within 24 hours returns the first response and creates no second record, notification, AI run, publish, import, or activity entry; repeating it with a different body is rejected with 409."
+**Evidence.** `tests/flagship/content/http.test.ts` — content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state: operationReplayCase covers native page creation, title changes, body changes, comment creation and page grants; `tests/flagship/core/security.test.ts` — first-run, operation replay, atomic rollback and membership policies preserve authority; `tests/qualification/core/audit-content.test.ts` — ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time.
+**Gap.** Native cookie-session proof covers acceptance 1–2 for page creation, title changes, body changes, comment creation and page grants: concurrent identical requests, immediate and original-expiry-minus-one-millisecond replay return the exact first HTTP response and receipt, changed bodies return 409, and populated canonical, revision, notification and activity inventories remain unchanged. All other mutation families and requirement-wide every-mutation coverage remain unproved, including publish, import and AI-run outcomes; ADMIN-007 and shared company-policy prerequisites remain authoritative. Exact-SHA green Verify and guarded landing proof remain pending.
 
 #### SAVE-006 — Concurrent editing and optional co-editing
 
