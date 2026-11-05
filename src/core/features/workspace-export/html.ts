@@ -13,14 +13,18 @@ import { statusLabelStyles } from '../publishing/block-styles';
 
 import {layoutStyles} from '../editor/layout';
 
-export function htmlBlock(block: BlockView, blocks: BlockView[]): string {
+export function htmlBlock(block: BlockView, blocks: BlockView[], embeddedMarkdown = false): string {
   const c = block.content as Record<string, any>, text = htmlText(c.text);
   switch (block.blockType) {
-    case 'columns': return `<section class="slate-columns" data-slate-columns="${c.count}" style="--column-count:${c.count}">${blocks.filter(child=>child.parentBlockId===block.id).map(child=>htmlBlock(child,blocks)).join('')}</section>`;
-    case 'column': return `<div class="slate-column" data-slate-column="true">${blocks.filter(child=>child.parentBlockId===block.id).map(child=>htmlBlockTree(child,blocks)).join('')}</div>`;
+    case 'columns': return `<section class="slate-columns" data-slate-columns="${c.count}" style="--column-count:${c.count}">${blocks.filter(child=>child.parentBlockId===block.id).map(child=>htmlBlock(child,blocks,embeddedMarkdown)).join('')}</section>`;
+    case 'column': return `<div class="slate-column" data-slate-column="true">${blocks.filter(child=>child.parentBlockId===block.id).map(child=>htmlBlockTree(child,blocks,embeddedMarkdown)).join('')}</div>`;
     case 'table-of-contents': return `<nav aria-label="Table of contents" data-slate-table-of-contents="${html(JSON.stringify(c))}">${renderTocList(tocEntries(blocks, c as TableOfContentsSettings))}</nav>`;
     case 'heading': return `<h${c.level} id="${html(headingAnchor(block.id))}">${text}</h${c.level}>`;
-    case 'code': return `<pre><code class="language-${html(c.language ?? '')}">${html(c.code ?? '')}</code></pre>`;
+    case 'code': {
+      const code = html(c.code ?? '');
+      // Character references keep blank code lines inside Markdown's raw HTML block.
+      return `<pre><code class="language-${html(c.language ?? '')}">${embeddedMarkdown ? code.replaceAll('\r', '&#13;').replaceAll('\n', '&#10;') : code}</code></pre>`;
+    }
     case 'divider': return '<hr>';
     case 'quote': return `<blockquote>${text}</blockquote>`;
     case 'callout': return `<aside data-slate-callout-tone="${html(c.tone ?? 'neutral')}">${text}</aside>`;
@@ -40,9 +44,9 @@ export function htmlBlock(block: BlockView, blocks: BlockView[]): string {
 }
 
 /** Render ordinary descendants inside their parent; layout blocks own their columns. */
-export function htmlBlockTree(block: BlockView, blocks: BlockView[]): string {
+export function htmlBlockTree(block: BlockView, blocks: BlockView[], embeddedMarkdown = false): string {
   const children = ['columns', 'column'].includes(block.blockType) ? [] : blocks.filter(child => child.parentBlockId === block.id);
-  return `<div id="${html(blockAnchor(block.id))}">${htmlBlock(block, blocks)}${children.length ? `<div class="slate-block-children" style="margin-inline-start:20px">${children.map(child => htmlBlockTree(child, blocks)).join('')}</div>` : ''}</div>`;
+  return `<div id="${html(blockAnchor(block.id))}">${htmlBlock(block, blocks, embeddedMarkdown)}${children.length ? `<div class="slate-block-children" style="margin-inline-start:20px">${children.map(child => htmlBlockTree(child, blocks, embeddedMarkdown)).join('')}</div>` : ''}</div>`;
 }
 
 export function htmlDocument(title: string, blocks: BlockView[], display: PageDisplay, comments?: CommentArchive): string {

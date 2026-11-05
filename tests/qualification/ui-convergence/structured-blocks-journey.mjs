@@ -1,6 +1,19 @@
 import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
 import { writeFile } from 'node:fs/promises';
 import { expect } from '@playwright/test';
+
+// Use the installed Markdown parser and GFM extensions to read the downloaded body.
+const require = createRequire(import.meta.url);
+const markdownRequire = createRequire(require.resolve('react-markdown'));
+const parserRequire = createRequire(markdownRequire.resolve('remark-parse'));
+const gfmRequire = createRequire(require.resolve('remark-gfm'));
+const gfmHtml = createRequire(gfmRequire.resolve('micromark-extension-gfm'))('./html.js');
+const renderMarkdown = source => parserRequire('micromark')(source, {
+  allowDangerousHtml: true,
+  extensions: [gfmRequire('micromark-extension-gfm')()],
+  htmlExtensions: [gfmHtml],
+});
 
 const plain = spans => (spans ?? []).map(span => span.text).join('');
 export const structuredContent = {
@@ -11,6 +24,7 @@ export const structuredContent = {
   summary: 'Escalation notes', expanded: 'Keep the complete escalation history.',
   columns: ['Owner', 'Next action'], cells: ['Morgan', 'Confirm <recovery> & retain | notes'],
   code: 'const recovered = count < 3;\nconsole.log("recovered", recovered);',
+  python: 'print("recovery <ready> & retained")\n\n# preserve this comment\nprint("complete")',
 };
 
 /** Populate every selected kind through the editor, including a genuinely nested quote. */
@@ -35,10 +49,21 @@ export async function authorStructuredBlocks(state, pageId) {
     assert.equal(response.status(), 200);
   };
   for (const [i, heading] of value.headings.entries()) { await add(`Heading ${i + 1}`); await fill(`Heading level ${i + 1}`, heading); }
+  await add('Code');
+  await page.getByRole('combobox', { name: 'Code language', exact: true }).click();
+  let [response] = await Promise.all([page.waitForResponse(r => r.request().method() === 'PATCH' && new URL(r.url()).pathname.startsWith(`/api/pages/${pageId}/blocks/`)), page.getByRole('option', { name: 'python', exact: true }).click()]);
+  assert.equal(response.status(), 200);
+  await fill('Code, python', value.python);
+  const python = page.getByRole('textbox', { name: 'Code, python', exact: true }).locator('xpath=ancestor::*[@data-block-id][1]');
+  await python.getByRole('button', { name: /Block actions for/ }).click();
+  [response] = await Promise.all([save('PUT', `/api/pages/${pageId}/blocks`), page.getByRole('menuitem', { name: /^Indent/ }).click()]);
+  assert.equal(response.status(), 200);
+  const nested = await api(`/api/pages/${pageId}`);
+  assert.equal(nested.blocks.find(b => b.blockType === 'code').parentBlockId, nested.blocks.find(b => b.blockType === 'heading' && b.content.level === 3).id);
   await add('Bulleted list'); await fill('Bulleted list item', value.bullet);
   await add('Numbered list'); await fill('Numbered list item', value.numbered);
   await add('Toggle list'); await fill('Toggle item', value.toggle);
-  let [response] = await Promise.all([page.waitForResponse(r => r.request().method() === 'PATCH' && new URL(r.url()).pathname.startsWith(`/api/pages/${pageId}/blocks/`)), page.getByRole('button', { name: 'Expand this item', exact: true }).click()]);
+  [response] = await Promise.all([page.waitForResponse(r => r.request().method() === 'PATCH' && new URL(r.url()).pathname.startsWith(`/api/pages/${pageId}/blocks/`)), page.getByRole('button', { name: 'Expand this item', exact: true }).click()]);
   assert.equal(response.status(), 200);
   await fill('Toggle item content', value.detail);
   const toggle = (await api(`/api/pages/${pageId}`)).blocks.find(b => b.content.variant === 'toggle');
@@ -54,14 +79,15 @@ export async function authorStructuredBlocks(state, pageId) {
   await fill('Column 1 heading', value.columns[0]); await fill('Column 2 heading', value.columns[1]);
   await fill('Row 1, Owner', value.cells[0]); await fill('Row 1, Next action', value.cells[1]);
   await add('Code');
-  await page.getByRole('combobox', { name: 'Code language', exact: true }).click();
+  await page.getByRole('combobox', { name: 'Code language', exact: true }).last().click();
   [response] = await Promise.all([page.waitForResponse(r => r.request().method() === 'PATCH' && new URL(r.url()).pathname.startsWith(`/api/pages/${pageId}/blocks/`)), page.getByRole('option', { name: 'typescript', exact: true }).click()]);
   assert.equal(response.status(), 200);
   await fill('Code, typescript', value.code);
   const source = await api(`/api/pages/${pageId}`);
   const authored = source.blocks.filter(block => !previous.has(block.id));
-  assert.deepEqual(authored.map(b => b.blockType), ['heading', 'heading', 'heading', 'list', 'list', 'list', 'quote', 'divider', 'callout', 'expandable', 'table', 'code']);
-  assert.equal(authored[6].parentBlockId, authored[5].id);
+  assert.deepEqual(authored.map(b => b.blockType), ['heading', 'heading', 'heading', 'code', 'list', 'list', 'list', 'quote', 'divider', 'callout', 'expandable', 'table', 'code']);
+  assert.equal(authored[3].parentBlockId, authored[2].id);
+  assert.equal(authored[7].parentBlockId, authored[6].id);
   await page.reload({ waitUntil: 'networkidle' });
   assert.deepEqual((await api(`/api/pages/${pageId}`)).blocks, source.blocks);
   await inspectStructuredEditor(state);
@@ -79,11 +105,14 @@ export async function inspectStructuredEditor({ page, context }) {
   const contentEdge = field => field.locator('xpath=ancestor::*[@data-block-id][1]').locator(':scope > .block-content').evaluate(element => element.getBoundingClientRect().x + Number.parseFloat(getComputedStyle(element).paddingLeft));
   assert.ok(await contentEdge(quote) > await contentEdge(parent), 'The reloaded quote remains visibly nested under its parent.');
   await expect(page.getByRole('columnheader').filter({ hasText: 'Owner' })).toHaveCount(1);
-  await expect(page.getByRole('combobox', { name: 'Code language', exact: true })).toHaveText('typescript');
+  await expect(page.getByRole('textbox', { name: 'Code, python', exact: true })).toHaveText(value.python);
+  await expect(page.getByRole('combobox', { name: 'Code language', exact: true })).toHaveText(['python', 'typescript']);
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.evaluate(() => navigator.clipboard.writeText('synthetic-slate-clipboard-before-copy'));
-  await page.getByRole('button', { name: 'Copy', exact: true }).click();
+  await page.getByRole('button', { name: 'Copy', exact: true }).last().click();
   assert.equal(await page.evaluate(() => navigator.clipboard.readText()), value.code);
+  await page.getByRole('button', { name: 'Copy', exact: true }).first().click();
+  assert.equal(await page.evaluate(() => navigator.clipboard.readText()), value.python);
   for (const [name, tooltip] of [['Collapse this item', 'Collapse item'], [`Collapse ${value.summary}`, 'Collapse section']]) {
     const control = page.getByRole('button', { name, exact: true });
     await control.focus();
@@ -105,7 +134,11 @@ export async function inspectStructuredArchive({ context }, entries, format, pag
   await writeFile(`.artifacts/ui-convergence/structured-blocks-readable.${extension}`, document);
   await writeFile(`.artifacts/ui-convergence/structured-blocks-${format}-manifest.json`, JSON.stringify(manifest, null, 2));
   if (format === 'markdown') {
-    for (const [i, heading] of value.headings.entries()) assert.ok(document.includes(`${'#'.repeat(i + 1)} ${heading}`));
+    for (const [i, heading] of value.headings.entries()) {
+      const block = source.blocks.find(b => b.blockType === 'heading' && plain(b.content.text) === heading);
+      if (!source.blocks.some(child => child.parentBlockId === block.id)) assert.ok(document.includes(`${'#'.repeat(i + 1)} ${heading}`));
+      else assert.ok(document.includes(`<h${i + 1} id="block-${block.id}">${heading}</h${i + 1}>`));
+    }
     assert.ok(document.includes(`- ${value.bullet}`)); assert.ok(document.includes(`1. ${value.numbered}`));
     assert.ok(document.includes(`<blockquote>${value.quote}</blockquote>`)); assert.ok(document.includes('\n---\n'));
     assert.ok(document.includes('| Owner | Next action |\n| --- | --- |\n| Morgan | Confirm \\<recovery\\> & retain \\| notes |'));
@@ -113,8 +146,11 @@ export async function inspectStructuredArchive({ context }, entries, format, pag
   }
   const output = await context.newPage();
   try {
-    // Raw HTML is the Markdown equivalent for disclosure and callout blocks.
-    await output.setContent(document);
+    await output.setContent(format === 'markdown' ? renderMarkdown(document) : document);
+    const heading = source.blocks.find(block => block.blockType === 'heading' && block.content.level === 3);
+    const nestedCode = output.locator(`[id="slate-block-${heading.id}"] > .slate-block-children pre code.language-python`);
+    await expect(nestedCode).toHaveCount(1);
+    assert.equal(await nestedCode.textContent(), value.python, 'Readable code retains every character, including blank lines and the Python comment marker.');
     for (const summary of [value.toggle, value.summary]) {
       const details = output.locator('details').filter({ has: output.locator('summary').filter({ hasText: summary }) });
       await expect(details).toHaveCount(1);
@@ -124,7 +160,7 @@ export async function inspectStructuredArchive({ context }, entries, format, pag
     await expect(output.locator('aside')).toHaveText(value.callout);
     const toggle = source.blocks.find(block => block.content.variant === 'toggle');
     await expect(output.locator(`[id="slate-block-${toggle.id}"] > .slate-block-children blockquote`)).toHaveText(value.quote);
-    if (format === 'html') {
+    {
       for (const [i, heading] of value.headings.entries()) await expect(output.locator(`h${i + 1}`).filter({ hasText: heading })).toHaveCount(1);
       await expect(output.locator('ul > li').filter({ hasText: value.bullet })).toHaveCount(1);
       await expect(output.locator('ol > li')).toHaveText(value.numbered);

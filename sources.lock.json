@@ -9740,7 +9740,7 @@
       "executable": false
     },
     "src/core/features/workspace-export/html.ts": {
-      "sha256": "f87a2f35a27d3b287c00fa38af062ce9be87895a602472292bea6bb93eddcbab",
+      "sha256": "e9da447d84c896f0d7689231734ec2ee05855cb8eea5045b821192ffd9e12826",
       "executable": false
     },
     "src/core/features/workspace-export/jobs-routes.ts": {
@@ -9748,7 +9748,7 @@
       "executable": false
     },
     "src/core/features/workspace-export/markdown.ts": {
-      "sha256": "c43134756d47af2f0d00494e6e87278e9e28fbb9a25b75d9936f55240731b428",
+      "sha256": "7896075f48a9db4bf7c62cad40aa776b76b8e7de9d9a2fa36177c79613748abf",
       "executable": false
     },
     "src/core/features/workspace-export/pdf-content.ts": {
@@ -12240,7 +12240,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/structured-blocks-journey.mjs": {
-      "sha256": "64d6a312dabc9c83ca391ff87c563b51b0948b6981691011f47c6f77ce66f005",
+      "sha256": "340582660ceb0590591ed11951a630fd131939fef9a3ebd65e534050691b5567",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
@@ -12408,7 +12408,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "6b48fa9d3ed4931f3adb2be080b8232186a73048bea5826ec2bcacfcd334e1cb",
+      "sha256": "d38215a7c81e8dfc31c3c3c8827b3462cd13b5e790f4fe971c12cfe9ca402fb4",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

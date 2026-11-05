@@ -225,7 +225,9 @@ AUTO-003 run history uses `automationRunLogCase` in `tests/flagship/structured/a
 `exportCommentsJourney` callers. Native insertion and editing populate headings
 at levels one through three, bulleted and numbered lists, a toggle and its detail,
 a nested quote, a divider, a callout, an expandable summary and body, a table's
-header row and cells, and TypeScript code. Reload reconciles every authored
+header row and cells, TypeScript code, and Python code nested under a heading.
+The Python body includes a blank line followed by a hash-prefixed comment.
+Reload reconciles every authored
 block, its ordered hierarchy and content. Copy reads the actual clipboard.
 Disclosure controls show tooltips immediately on keyboard focus. The existing
 writing registrations retain proof and captures at 1440 and 390.
@@ -233,7 +235,10 @@ writing registrations retain proof and captures at 1440 and 390.
 The existing readable-discussion journey downloads the actual HTML and Markdown
 archives through Export page. It opens their readable documents, checks semantic
 HTML and Markdown structures and all populated content independently of the
-manifest, then uploads the downloaded bytes through Settings. Fresh native block
+manifest, then uploads the downloaded bytes through Settings. The installed GFM
+parser renders the downloaded Markdown before the browser inspects it; the
+nested Python code must retain every character, including its blank line and
+comment marker. Fresh native block
 identities must retain source types, parent relationships, positions, text, list
 details, table headers and cells, and code language and content after reload.
 Existing comment authorship, resolution, anchors, Word exports and workspace
