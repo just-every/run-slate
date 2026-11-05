@@ -6420,7 +6420,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/workspace/DatabaseChart.tsx": {
-      "sha256": "953a397f39f780f17c906ce0e602f51365480ce0d8d430a32eae716f8b0a206d",
+      "sha256": "ebbb7c128c322976c255431a678251960e2a0589f29c447a7cc56472fa2d309f",
       "executable": false
     },
     "src/core/features/databases/ui/workspace/DatabaseDialogs.tsx": {
@@ -6428,7 +6428,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/workspace/DatabaseList.tsx": {
-      "sha256": "85dc254d8132ec02e6c9d1b19b2d475f17a750b8100c8c4c7c374a29d2178d33",
+      "sha256": "dde254bd5551d9d6ac088c16c66b2c988bb83094a0f3dd6b7aa084d4feb022f4",
       "executable": false
     },
     "src/core/features/databases/ui/workspace/DatabaseMenus.tsx": {
@@ -11292,7 +11292,7 @@
       "executable": false
     },
     "tests/flagship/structured/http.test.ts": {
-      "sha256": "022c948a3285c8043af2bfd1978aee0fb4e26b446b79c50b6c43401683f5feac",
+      "sha256": "37935876933faff57e017bfb0dc27946ff8239b2079794b44d95026460acea77",
       "executable": false
     },
     "tests/flagship/structured/migration.py": {
@@ -12108,7 +12108,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "1bf1e2874f1f778023c17441c56163abe243bba86b206e5b20c2357071fafd6e",
+      "sha256": "83a6646c6f85f826cf73362b2d8d1cf45403cc089b5ebc8cc8eec2c428e74b04",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12292,7 +12292,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-database-tools-journey.mjs": {
-      "sha256": "1ce9f3c0ef75c7dc6962c5aeb14b87f0196f1a1911f6355d937cba991c79e749",
+      "sha256": "62cf675f32a27497a88c66bb9635917ce5a4c5633dc826e1c9a162c56def7d4b",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-database.mjs": {
