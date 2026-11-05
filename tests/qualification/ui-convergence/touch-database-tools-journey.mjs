@@ -80,6 +80,9 @@ export async function standaloneChartJourney(state, { proofOnly = false } = {}) 
   const container=(await api('/api/containers')).items.find(item=>item.name==='Handbook');
   const database=await mutate('POST','/api/databases',{containerId:container.id,title:'Saved-view chart reconciliation'});
   const base=`/api/databases/${database.id}`;
+  await grant(context,origin,database.pageId,'browser-owner','full');
+  const databasePage=await api(`/api/pages/${database.pageId}`);
+  await mutate('PUT',`/api/sharing/pages/${database.pageId}/inheritance`,{expectedRevisionId:databasePage.page.revisionId,restricted:true});
   const definitions=[
    {id:randomUUID(),name:'Stage',type:'status',config:{options:['Open','Closed']},position:0},
    {id:randomUUID(),name:'Region',type:'select',config:{options:['North','South']},position:1},
@@ -109,9 +112,10 @@ export async function standaloneChartJourney(state, { proofOnly = false } = {}) 
    }
    rows.push({...record,title,values,restricted});
   }
-  const memberGrant=await grant(context,origin,database.pageId,'browser-reader','view');
-  let minimum=null;
-  const expectedRows=(source,reader)=>rows.filter(row=>row.values[included.id]&&(!reader||!row.restricted)&&(source.id!==other.id||row.values[region.id]==='South')&&(source.id!==view.id||minimum==null||(row.values[amount.id]!=null&&row.values[amount.id]>=minimum)));
+  const memberGrant=(await grant(context,origin,database.pageId,'browser-reader','view')).value;
+  assert.ok(memberGrant.id,'The native grant receipt identifies the grant to revoke.');
+  let selectedStage=null;
+  const expectedRows=(source,reader)=>rows.filter(row=>row.values[included.id]&&(!reader||!row.restricted)&&(source.id!==other.id||row.values[region.id]==='South')&&(source.id!==view.id||selectedStage==null||row.values[stage.id]===selectedStage));
   const figure=visitor=>visitor.getByRole('figure',{name:'Chart of the current filtered view',exact:true});
   async function open(visitor,source) {
    await visitor.goto(`${origin}/app/databases/${database.id}?view=${source.id}`,{waitUntil:'networkidle'});
@@ -162,13 +166,13 @@ export async function standaloneChartJourney(state, { proofOnly = false } = {}) 
   await settings.getByRole('textbox',{name:'Name',exact:true}).fill('Approved included work');
   await settings.getByRole('button',{name:'Add condition',exact:true}).click();
   const condition=settings.locator('fieldset').filter({has:page.locator('legend').filter({hasText:/^Condition$/})}).last();
-  await condition.getByRole('combobox',{name:'Field',exact:true}).selectOption(amount.id);
-  await condition.getByRole('combobox',{name:'Condition',exact:true}).selectOption('gte');
-  await condition.getByRole('spinbutton',{name:'Value',exact:true}).fill('15');
+  await condition.getByRole('combobox',{name:'Field',exact:true}).selectOption(stage.id);
+  await condition.getByRole('combobox',{name:'Condition',exact:true}).selectOption('eq');
+  await condition.getByRole('combobox',{name:'Value',exact:true}).selectOption('Open');
   await settings.getByRole('button',{name:'Save view',exact:true}).click();
   await expect(settings).toBeHidden();
   view.name='Approved included work';
-  minimum=15;
+  selectedStage='Open';
   await reconcile(page,context,view,false,stage,true,'sum');
   await accessible(page,'DB-008 named saved-view chart');
   await page.reload({waitUntil:'networkidle'});
@@ -177,13 +181,12 @@ export async function standaloneChartJourney(state, { proofOnly = false } = {}) 
   await page.getByRole('navigation',{name:'Saved views'}).getByRole('button',{name:other.name,exact:true}).click();
   await page.getByRole('navigation',{name:'Saved views'}).getByRole('button',{name:'Chart',exact:true}).click();
   // The extra source-view criterion does not change the other saved view.
-
   await reconcile(page,context,other,false,region,true,'average');
   await withSecondPerson(state,page.viewportSize().width,async({bob})=>{
    await open(bob.page,other);
    await reconcile(bob.page,bob.context,other,true,stage,false,'count');
+   await reconcile(bob.page,bob.context,other,true,stage,true,'average');
    await open(bob.page,view);
-
    await reconcile(bob.page,bob.context,view,true,stage,true,'sum');
    const before=await api(`${base}/views/${view.id}`);
    await mutate('POST','/api/sharing',{id:memberGrant.id,targetKind:'page',targetId:database.pageId,principalKind:'member',principalId:'browser-reader',level:'view',revoke:true});
