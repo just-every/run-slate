@@ -76,12 +76,14 @@ export async function readRunHistory(ctx: FeatureContext, rule: RuleRow) {
     const receipts = (receiptsByRun.get(row.id) ?? [])
       .filter(receipt => !receipt.targetId || readable.has(receipt.targetId))
       .map(({runId, ...receipt}) => ({...receipt, receipt: JSON.parse(receipt.receipt)}));
+    const detail = JSON.parse(row.detail_json);
     return {
       ...row,
+      reason: typeof detail.reason === "string" ? detail.reason : undefined,
       actor: {id: row.actor_member_id, name: actorName ?? "Former member"},
       trigger,
       records,
-      detail: JSON.parse(row.detail_json),
+      detail,
       records_json: JSON.stringify(records.map(record => record.id)),
       trigger_json: JSON.stringify(trigger),
       receipts,

@@ -1,3 +1,4 @@
+import {automationBoundsJourney} from "./automation-bounds-journey";
 import { automationRunLogCase } from "./automation-run-log.case";
 import {runFoldCases} from '../fold-cases';
 import {resetDeployment as resetFoldDeployment} from '../../e2e/setup/reset-deployment';
@@ -16,6 +17,8 @@ import { activity } from "../../../src/core/features/activity/service";
 import type { AutomationAdapters } from "../../../src/core/features/automation/actions";
 const adapters:AutomationAdapters={archive:(ctx,id,input)=>archivePage(ctx,id,{...input,action:"archive"}),notify:async()=>{throw Error("Unused notification adapter");}};
 test("automation admission, resumed effects and schedules preserve current scope and exactly-once recovery", async () => {
+  await automationBoundsJourney();
+  await resetFoldDeployment();
   await runFoldCases([
 {name:"AUTO-002 admission, movement, branch and resumed actions enforce current container scope and private definitions",before:async()=>{await resetFoldDeployment();},run:async()=>{
 try {

@@ -58,5 +58,56 @@ export async function touchDatabaseToolsJourney(state,touch){
  assert.equal(comments.comments.filter(comment=>JSON.stringify(comment.body).includes('The duty team should review this response.')).length,1);
  await checkpoint(page,'database automation completed');
  await automationRunLogJourney(state,touch);
+ await automationBoundsBrowserJourney(state,touch);
  console.log('NAV-006 touch database charts, templates and automations passed');
+}
+
+/** The native outbox produces the refusal shown to the member, without injected run metadata. */
+export async function automationBoundsBrowserJourney(state, touch) {
+ const {page,origin,context,api,containerId}=touch;
+ const {ok}=await import('./two-people-support.mjs');
+ const mutate=async(route,data)=>(await ok(context,origin,'POST',route,{operationKey:crypto.randomUUID(),...data})).value;
+ const database=await mutate('/api/databases',{containerId,title:'Bounded intake'});
+ const base=`/api/databases/${database.id}`;
+ const definition={name:'Bounded intake loop',scope:'source',sourceDatabaseId:database.id,trigger:{event:'record-created'},conditions:[],actions:[{type:'create-record',databaseId:database.id,title:'One generated intake',values:{}}]};
+ const loop=await mutate('/api/automation',definition);
+ await mutate(`${base}/records`,{title:'Native intake',values:{}});
+ await state.runScheduled();
+ await state.runScheduled();
+ const loopLog=await api(`/api/automation/${loop.id}/runs`);
+ assert.equal(loopLog.items.filter(run=>run.state==='success').length,1);
+ assert.equal(loopLog.items.filter(run=>run.state==='throttled').length,1);
+ assert.equal(loopLog.items.find(run=>run.state==='throttled').parent_run_id,loopLog.items.find(run=>run.state==='success').id);
+ const unchanged=await api(`/api/automation/${loop.id}/runs`);
+ await state.runScheduled();
+ assert.deepEqual(await api(`/api/automation/${loop.id}/runs`),unchanged);
+ await page.goto(`${origin}/app/databases/${database.id}`,{waitUntil:'networkidle'});
+ await tap(page.getByRole('navigation',{name:'Saved views'}).getByRole('button',{name:'Automations',exact:true}));
+ const loopCard=page.locator('.settings-list > li').filter({has:page.locator('strong').filter({hasText:/^Bounded intake loop$/})});
+ await tap(loopCard.getByRole('button',{name:'Run log',exact:true}));
+ const log=page.getByRole('heading',{name:'Run log',exact:true}).locator('..');
+ await expect(log.getByRole('status',{exact:true})).toHaveText('Automation chain limit reached.');
+ await expect(log.locator('strong').filter({hasText:/^throttled$/})).toBeVisible();
+ await checkpoint(page,'automation self-effect throttled with reason');
+ await mutate('/api/automation',{...definition,id:loop.id,expectedRevisionId:loop.revisionId,disabled:true});
+ const rate=await mutate('/api/automation',{name:'Bounded intake rate',scope:'source',sourceDatabaseId:database.id,trigger:{event:'record-created'},conditions:[],actions:[{type:'comment',body:[{text:'Rate-limited intake acknowledgement'}]}]});
+ // Production admission retains overflow even with other genuine runs in this workspace's window.
+ for(let index=0;index<101;index++)await mutate(`${base}/records`,{title:`Rate intake ${index}`,values:{}});
+ for(let turn=0;turn<4;turn++)await state.runScheduled();
+ const rateLog=await api(`/api/automation/${rate.id}/runs`);
+ const throttled=rateLog.items.filter(run=>run.state==='throttled');
+ assert.ok(throttled.length>0,'The production workspace rate boundary must retain overflow.');
+ assert.ok(throttled.every(run=>run.reason==='Workspace automation rate limit reached.'&&run.receipts.length===0));
+ const noEffect=await api(`/api/comments/page/${JSON.parse(throttled[0].trigger_json).pageId}`);
+ assert.deepEqual(noEffect.comments,[]);
+ await state.runScheduled();
+ assert.deepEqual(await api(`/api/automation/${rate.id}/runs`),rateLog);
+ await page.reload({waitUntil:'networkidle'});
+ await tap(page.getByRole('navigation',{name:'Saved views'}).getByRole('button',{name:'Automations',exact:true}));
+ const rateCard=page.locator('.settings-list > li').filter({has:page.locator('strong').filter({hasText:/^Bounded intake rate$/})});
+ await tap(rateCard.getByRole('button',{name:'Run log',exact:true}));
+ await expect(log.getByRole('status').filter({hasText:/^Workspace automation rate limit reached\.$/}).first()).toBeVisible();
+ await expect(log.locator('strong').filter({hasText:/^throttled$/}).first()).toBeVisible();
+ await checkpoint(page,'automation workspace rate throttled with reason');
+ console.log(`PROBE AUTO-004 visible throttling ${page.viewportSize().width}: native scheduled door -> self and rate reasons retained after reload, no overflow effect`);
 }
