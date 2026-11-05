@@ -1082,8 +1082,8 @@ Core · published · **partial**
 1. History is readable by anyone who may read the record and is never editable.
 2. History lists revisions newest first with actor, time and origin, readable by readers and never editable.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Each of those records has a history listing its revisions newest first with the actor, the time, the origin, and, where `REV-007` assigns them, an ordinal and a label."<br>No validated CI-run proof for this acceptance point: "History is readable by anyone who may read the record and is never editable."
+**Evidence.** `tests/qualification/core/audit-content.test.ts` — ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time (revisionHistoryProof: ordinary page, database page and record page receipts, exact stored rows and snapshots, refused rewrites and revoked reads under both profiles); `tests/qualification/ui-convergence/journeys.test.mjs` — two people edit at once, lose access mid-edit and restore history at 1440px; real core-wiki and touch-member journeys at 390px (historyInventoryJourney: complete rendered rows, actor, time, origin, ordinals and labels, published-only reader reload and revocation); `tests/qualification/ui-convergence/record-detail-journey.mjs` — recordDetailJourney (retained snapshots and both record parity values).
+**Gap.** Container, comment, template and decision record histories remain omitted and unproven; complete cross-family acceptance 1–2 remains unproven. Decision, default-surface and AI duties retain the ADMIN-007 and shared company-policy prerequisites. This ordinary-page, database-page and record-page proof grants no wider historical-content access and releases no Slate clause.
 
 #### REV-003 — Restore
 
