@@ -1,4 +1,4 @@
-import {expect} from 'vitest';
+import {expect,vi} from 'vitest';
 import {retentionFixture} from '../archive-retention-fixture';
 import {env,createUlid,auditFixture} from './audit-support';
 import {captureMail} from '../../e2e/helpers/mail-edge';
@@ -6,6 +6,18 @@ import {sessionFor} from '../../e2e/setup/fixtures';
 
 /** Native HTTP writes; storage readback also observes data hidden by trash. */
 export async function archiveRetentionProof(f:Awaited<ReturnType<typeof auditFixture>>) {
+  // Model ordinary browsing across rate windows without disabling admission or waiting a real minute.
+  let count=0,clock=Date.now()+61000;
+  vi.useFakeTimers({toFake:['Date'],now:clock});
+  const request=f.request;
+  try {
+    await runArchiveRetentionProof({...f,request:async(...args:Parameters<typeof request>)=>{
+      if(++count%200===0)vi.setSystemTime(clock+=61000);
+      return request(...args);
+    }});
+  } finally {vi.useRealTimers();}
+}
+async function runArchiveRetentionProof(f:Awaited<ReturnType<typeof auditFixture>>) {
   const origin=new URL(String(env.APP_URL)).origin;
   const fixture=await retentionFixture({request:f.request,containerId:f.containerId,memberId:f.readerId,
     upload:async(pageId,bytes)=>{
@@ -36,11 +48,23 @@ export async function archiveRetentionProof(f:Awaited<ReturnType<typeof auditFix
     expect(after.length).toBe(prior.length+1);
   };
   const lifecycles=await Promise.all(ids.map(async id=>(await read(`/api/pages/${id}`)).page.lifecycle));
-  for(const [label,id,affected] of [['page tree',root.pageId,ids],['database',database.pageId,[database.pageId,fixture.record.pageId]]] as const) {
-    await transition('archive.archive',id,async()=>expect((await f.request('POST',`/api/archive/${id}`,await body(id,'archive'))).status).toBe(200));
+  for(const [label,id,affected] of [['page',fixture.child.pageId,[fixture.child.pageId]],['page tree',root.pageId,ids],['database record',fixture.record.pageId,[fixture.record.pageId]],['database',database.pageId,[database.pageId,fixture.record.pageId]]] as const) {
+    await transition('archive.archive',id,async()=>{
+      const input=await body(id,'archive'),result=await f.request('POST',`/api/archive/${id}`,input);
+      expect(result.status).toBe(200);
+      expect(result.data.value).toMatchObject({pageId:id,action:'archive'});
+      expect(result.data.receipt).toMatchObject({operationKey:input.operationKey,entity:{kind:'page',id}});
+    });
     const locations=(await env.DB.prepare(`SELECT page_id,actor_member_id,reason FROM content_archive_locations WHERE page_id IN (${affected.map(()=>'?').join(',')}) ORDER BY page_id`).bind(...affected).all()).results;
     expect(locations).toEqual([...affected].sort().map(page_id=>({page_id,actor_member_id:f.ownerId,reason:'Retained by explicit archive'})));
-    expect(await snapshot(),`${label} archive keeps populated content`).toEqual(before);
+    await fixture.assertSurfaces([...affected]);
+    const writesBefore=(await env.DB.prepare('SELECT * FROM operation_receipts WHERE workspace_id=? ORDER BY id').bind(f.workspaceId).all()).results;
+    const activityBefore=(await env.DB.prepare('SELECT * FROM activity_entries WHERE workspace_id=? ORDER BY id').bind(f.workspaceId).all()).results;
+    await fixture.refuseWrites([...affected]);
+    expect((await env.DB.prepare('SELECT * FROM operation_receipts WHERE workspace_id=? ORDER BY id').bind(f.workspaceId).all()).results,'refused archived writes issue no receipt').toEqual(writesBefore);
+    expect((await env.DB.prepare('SELECT * FROM activity_entries WHERE workspace_id=? ORDER BY id').bind(f.workspaceId).all()).results,'refused archived writes add no activity').toEqual(activityBefore);
+    expect(await snapshot(),`${label} archive and refused writes keep populated content`).toEqual(before);
+    console.info(`PROBE ARCH-002 native ${label}: populated tree, default search and content query exclude archived targets; archive filter, retained links, mentions and exact citations resolve; refused writes change no content, history, discussion, grants, receipts or activity`);
     for(const pageId of affected)expect((await read(`/api/pages/${pageId}`)).page.lifecycle).toBe('archived');
     await transition('archive.restore',id,async()=>expect((await f.request('POST',`/api/archive/${id}`,await body(id,'restore'))).status).toBe(200));
     expect(await snapshot(),`${label} restore keeps populated content`).toEqual(before);
@@ -56,6 +80,32 @@ export async function archiveRetentionProof(f:Awaited<ReturnType<typeof auditFix
   expect(await snapshot(),'container restore retains the entire populated tree').toEqual(before);
   expect(await Promise.all(ids.map(async id=>(await read(`/api/pages/${id}`)).page.lifecycle))).toEqual(lifecycles);
   console.info('PROBE ARCH-004 retention: native container archive and restore -> populated tree and uploaded bytes unchanged');
+
+  await write(`/api/archive/${root.pageId}`,await body(root.pageId,'archive'));
+  await write('/api/sharing',{targetKind:'page',targetId:fixture.report.pageId,principalKind:'member',principalId:f.readerId,level:'view'});
+  for(const id of ids) {
+    const grant=(await read(`/api/sharing/pages/${id}`)).items.find((item:any)=>item.principalId===f.readerId);
+    expect(grant,'the reader has a real direct grant to revoke').toBeTruthy();
+    await write('/api/sharing',{id:grant.id,targetKind:'page',targetId:id,principalKind:'member',principalId:f.readerId,level:'full',revoke:true});
+  }
+  const containerGrants=await read(`/api/sharing/containers/${f.containerId}`);
+  for(const grant of containerGrants.items.filter((item:any)=>item.principalId===f.readerId))
+    await write('/api/sharing',{id:grant.id,targetKind:'container',targetId:f.containerId,principalKind:'member',principalId:f.readerId,level:grant.level,revoke:true});
+  const source=await f.request('GET',`/api/pages/${fixture.report.pageId}`,undefined,f.readerId);
+  expect(source.status).toBe(200);
+  for(const ref of fixture.references) {
+    expect(source.data.mentions[ref.id]).toEqual({label:'Restricted page',available:false,state:'restricted'});
+    for(const path of [`/api/pages/${ref.id}`,`/api/pages/${ref.id}/link-card?revision=${ref.exact.id}`,`/api/revisions/${ref.id}/${ref.exact.id}`,`/api/comments/page/${ref.id}`]) {
+      const refused=await f.request('GET',path,undefined,f.readerId);
+      expect(refused.status).toBe(404);
+      expect(JSON.stringify(refused.data)).not.toContain(ref.title);
+    }
+  }
+  const deniedSearch=await f.request('GET',`/api/search?query=Retained&includeArchived=true`,undefined,f.readerId);
+  expect(deniedSearch.status).toBe(200);
+  expect(deniedSearch.data.items.filter((item:any)=>ids.includes(item.id))).toEqual([]);
+  console.info('PROBE ARCH-002 current access: revoke all retained target grants -> saved references, comments, exact revisions and archive search reveal no target content');
+  await write(`/api/archive/${root.pageId}`,await body(root.pageId,'restore'));
 
   const marks=ids.map(()=>'?').join(',');
   const stored=async()=>{

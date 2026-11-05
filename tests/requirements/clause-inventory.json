@@ -916,8 +916,13 @@
       "id": "ARCH-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for ARCH-002 — What archived means. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "Native supporting HTTP and existing responsive browser journeys cover archived pages, subtrees and database records: read-only content, populated tree and search and content-query exclusion, archived discovery, retained links and mentions and exact-revision citations, unchanged complete comments and versions and grants, and current-access refusals. AI-grounding exclusion remains held under ADMIN-007 and shared company-policy prerequisites. Archived record families beyond this selected corpus remain unproven; full ARCH-002 acceptance is retained.",
+      "supportingTests": [
+        {
+          "file": "tests/qualification/core/audit-content.test.ts",
+          "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time"
+        }
+      ]
     },
     {
       "id": "ARCH-003",
