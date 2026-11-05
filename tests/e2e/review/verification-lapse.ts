@@ -45,13 +45,20 @@ export async function verificationLapse(f: Awaited<ReturnType<typeof reviewFixtu
         expect(result.items.map((item: any) => item.id)).toEqual(definition.status === (state === 'current' ? 'verified' : 'lapsed') ? [id] : []);
         if (result.items.length) expect(result.items[0].trust.state).toBe(state === 'current' ? 'verified' : 'lapsed');
       }
-      for (const format of ['html', 'markdown']) {
+      for (const format of ['html', 'markdown', 'pdf', 'docx']) {
         const response = await createApi().request('http://localhost:8787/api/exports/readable', { method: 'POST', headers: { cookie: f.cookies.owner!, 'content-type': 'application/json' }, body: JSON.stringify({ scope: 'page', id, format }) }, env);
         expect(response.status).toBe(200);
         const entries = unzipSync(new Uint8Array(await response.arrayBuffer()));
+        if (format === 'docx') {
+          const body = strFromU8(entries['word/document.xml']!);
+          expect(body).toContain('Retain the original incident escalation procedure.');
+          expect(body).not.toContain('Verified');
+          continue;
+        }
         const exported = JSON.parse(strFromU8(entries['slate-readable.json']!)).pages.find((page: any) => page.id === id);
         expect(exported.verification).toEqual({ state, verifiedBy: 'owner', verifiedAt: before.created_at, expiresAt, revisionId: revision });
-        const body = strFromU8(entries[`pages/${id}.${format === 'html' ? 'html' : 'md'}`]!);
+        if (format === 'pdf') expect(strFromU8(entries[`pages/${id}.pdf`]!.slice(0, 5))).toBe('%PDF-');
+        const body = strFromU8(entries[`pages/${id}.${format === 'markdown' ? 'md' : 'html'}`]!);
         expect(body).toContain('Retain the original incident escalation procedure.');
         expect(body).not.toContain('Verified');
       }

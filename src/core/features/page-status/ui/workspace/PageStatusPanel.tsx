@@ -33,6 +33,14 @@ export function PageStatusPanel({
   const verificationOnly=workspace.data?.policies["page.status.v1"] === "verification-only";
   const statuses = useResource<{ items: StatusEntry[] }>("/api/status");
   const verification = useResource<{ verification: null | VerificationView }>(`/api/status/page/${pageId}`);
+  const attested = verification.data?.verification;
+  // Refresh the native read at expiry; this never writes or renews an attestation.
+  useEffect(() => {
+    if (!attested?.state || attested.state === "lapsed" || !attested.expires_at) return;
+    const remaining = Date.parse(attested.expires_at) - Date.now();
+    const timer = setTimeout(() => void verification.reload(), Math.min(Math.max(remaining, 1000), 2_147_483_647));
+    return () => clearTimeout(timer);
+  }, [attested, verification.reload]);
   const [again, setAgain] = useState(false);
   // The page records its opening after this panel may have loaded; refresh so the dialog knows.
   useEffect(() => {

@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 import { unzipSync, strFromU8 } from 'fflate';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-evidence.mjs';
 import { ok } from './two-people-support.mjs';
+import { root } from '../../e2e/runtime-harness.mjs';
 
 const attestation = v => Object.fromEntries(['id', 'page_id', 'revision_id', 'status_key', 'owner_member_id', 'verified_by_member_id', 'expires_at', 'created_at'].map(key => [key, v[key]]));
 
@@ -14,7 +16,7 @@ export async function verificationLapseJourney(state) {
   const start = Date.now(), expiresAt = new Date(start + 60_000).toISOString();
   const mutate = (route, data) => ok(context, origin, 'POST', route, { operationKey: randomUUID(), ...data });
   await state.setClock(start);
-  await page.clock.setFixedTime(new Date(start));
+  await page.clock.install({ time: new Date(start) });
   try {
     const statuses = await api('/api/status');
     if (!statuses.items.some(item => item.key === 'verified' && item.requiresVerification)) {
@@ -56,10 +58,15 @@ export async function verificationLapseJourney(state) {
     await state.runScheduled();
     await state.runScheduled();
     assert.equal((await notices()).length, 0, 'A future expiry sends no lapse notice.');
+    await page.goto(`${origin}/app/pages/${id}?detail=status`, { waitUntil: 'networkidle' });
+    await expect(page.locator('.verification-summary')).toHaveAttribute('data-state', 'current');
 
     // Advance time only. The stored attestation, expiry and revision are never edited.
     await state.setClock(start + 60_001);
-    await page.clock.setFixedTime(new Date(start + 60_001));
+    await page.clock.fastForward(60_001);
+    await expect(page.locator('.verification-summary')).toHaveAttribute('data-state', 'lapsed');
+    await expect(page.locator('.page-status-chip')).toHaveText('Verification lapsed');
+    await accessible(page, 'verification lapse on an already open page');
     for (let run = 0; run < 4; run++) await state.runScheduled();
     const lapsed = (await api(`/api/status/page/${id}`)).verification;
     assert.equal(lapsed.state, 'lapsed');
@@ -100,7 +107,7 @@ export async function verificationLapseJourney(state) {
     await expect(page.getByRole('region', { name: 'Content query', exact: true }).nth(1).locator('tbody tr button')).toHaveText(['Lapseneedle escalation procedure']);
     await accessible(page, 'verification lapse persisted content queries');
 
-    for (const format of ['html', 'markdown']) {
+    for (const format of ['html', 'markdown', 'pdf', 'docx']) {
       await page.goto(`${origin}/app/pages/${id}`, { waitUntil: 'networkidle' });
       await page.getByRole('button', { name: 'More', exact: true }).click();
       await page.getByRole('menuitem', { name: 'Export page', exact: true }).click();
@@ -108,10 +115,21 @@ export async function verificationLapseJourney(state) {
       await dialog.getByLabel('Format', { exact: true }).selectOption(format);
       const pending = page.waitForEvent('download');
       await dialog.getByRole('button', { name: 'Download export', exact: true }).click();
-      const download = await pending, entries = unzipSync(await readFile(await download.path()));
+      const download = await pending;
+      const saved = path.join(root, '.artifacts/ui-convergence/evidence', `verification-lapse-${page.viewportSize().width}-${format}.${format === 'docx' ? 'docx' : 'zip'}`);
+      await download.saveAs(saved);
+      const entries = unzipSync(await readFile(saved));
+      if (format === 'docx') {
+        const body = strFromU8(entries['word/document.xml']);
+        assert.match(body, /Contact the incident lead before escalating the service outage\./);
+        assert.doesNotMatch(body, /Verified/);
+        await expect(dialog).toHaveCount(0);
+        continue;
+      }
       const manifest = JSON.parse(strFromU8(entries['slate-readable.json']));
       assert.deepEqual(manifest.pages.find(item => item.id === id).verification, { state: 'lapsed', verifiedBy: 'Alex Owner', verifiedAt: original.created_at, expiresAt, revisionId: revision });
-      const body = strFromU8(entries[`pages/${id}.${format === 'html' ? 'html' : 'md'}`]);
+      if (format === 'pdf') assert.equal(strFromU8(entries[`pages/${id}.pdf`].slice(0, 5)), '%PDF-');
+      const body = strFromU8(entries[`pages/${id}.${format === 'markdown' ? 'md' : 'html'}`]);
       assert.match(body, /Contact the incident lead before escalating the service outage\./);
       assert.doesNotMatch(body, /Verified/);
       await expect(dialog).toHaveCount(0);
@@ -122,9 +140,10 @@ export async function verificationLapseJourney(state) {
     await page.reload({ waitUntil: 'networkidle' });
     await expect(notice).toHaveCount(1);
     await accessible(page, 'verification lapse one retained inbox notice');
-    console.log(`PROBE STAT-004 native-lapse width=${page.viewportSize().width}: future exact-revision attestation -> lapsed; cron=6 ownerNotices=1; history unchanged; search and persisted queries lapsed; downloaded HTML and Markdown manifests lapsed`);
+    console.log(`PROBE STAT-004 native-lapse width=${page.viewportSize().width}: future exact-revision attestation -> lapsed on open page and reload; cron=6 ownerNotices=1; history unchanged; search and persisted queries lapsed; downloaded HTML, Markdown and PDF manifests lapsed; Word body retains content without a current trust claim`);
   } finally {
     await state.setClock(null);
-    await page.clock.setFixedTime(new Date());
+    await page.clock.setSystemTime(new Date());
+    await page.clock.resume();
   }
 }
