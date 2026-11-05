@@ -24,7 +24,7 @@ Typing `/` at the cursor opens an insert menu grouped by kind, filtered by what 
 
 Place the cursor in a paragraph and type `/`. Search matches a block's name, description or Markdown shortcut. Use the up and down arrows to choose a result and Enter to insert it. Escape closes the menu and restores the paragraph's cursor without changing its text. An empty result keeps the menu open until the search changes or it is closed.
 
-On touch screens, the labeled **Add block** control below the body opens the same grouped catalog. It appends the selected block and returns focus to its first writing field; a divider keeps focus within the editor. The basic group contains text, headings 1–3, bulleted, numbered and toggle lists, to-dos, quotes, dividers, callouts, expandable sections, tables and code. Inserting into a paragraph with `/` retains the text on either side as neighboring paragraphs.
+On touch screens, the labeled **Add block** control below the body opens the same grouped catalog. When a paragraph is focused, it inserts at that paragraph’s cursor and retains the text on either side as neighboring paragraphs. With no focused body field it appends the selected block. It returns focus to the first writing field; a divider keeps focus within the editor. The basic group contains text, headings 1–3, bulleted, numbered and toggle lists, to-dos, quotes, dividers, callouts, expandable sections, tables and code. Inserting into a paragraph with `/` retains the text on either side as neighboring paragraphs.
 
 ## REV-001 — What a revision is
 

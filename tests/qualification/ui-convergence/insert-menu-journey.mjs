@@ -98,6 +98,8 @@ async function runInsertMenuJourney(state,{touch=false}={}) {
       let source;
       if(index===0)source=page.getByRole('textbox',{name:'Page body',exact:true});
       else {
+        // With no body caret, Add block still appends a fresh source paragraph.
+        await act(title);
         await act(page.getByRole('button',{name:'＋ Add block',exact:true}));
         await act(option(page,'text'));
         source=page.getByRole('textbox',{name:'Paragraph',exact:true}).last();
@@ -109,7 +111,7 @@ async function runInsertMenuJourney(state,{touch=false}={}) {
       const sourceId=(await read(api,pageId)).at(-1).id;
       source=page.locator(`[data-block-id="${sourceId}"] [data-slate-editable]`);
       // Actual key presses establish the cursor; no DOM selection or focus injection.
-      await page.keyboard.press('Home');
+      await page.keyboard.press('ControlOrMeta+Home');
       for(let count=0;count<before.length;count++)await page.keyboard.press('ArrowRight');
       if(touch) {
         const add=page.getByRole('button',{name:'＋ Add block',exact:true});
@@ -117,19 +119,30 @@ async function runInsertMenuJourney(state,{touch=false}={}) {
       } else await page.keyboard.press('/');
       if(index===0) {
         await inventory(page);
-        if(!touch) {
-          await page.keyboard.type('HeAdInG');
+        {
+          const query=async value=>{
+            if(touch)await type(page,search(page),value);
+            else {await page.keyboard.press('ControlOrMeta+a');await page.keyboard.type(value);}
+          };
+          await query('HeAdInG');
           assert.deepEqual(await page.locator('.insert-menu [role="option"]').evaluateAll(rows=>rows.map(row=>row.dataset.insertKind)),['heading-1','heading-2','heading-3','table-of-contents']);
-          await page.keyboard.press('ControlOrMeta+a');await page.keyboard.type('synthetic-slate-no-match');
+          await query('horizontal');
+          await expect(option(page,'divider')).toHaveCount(1);
+          await expect(page.locator('.insert-menu [role="option"]')).toHaveCount(1);
+          await query('##');
+          assert.deepEqual(await page.locator('.insert-menu [role="option"]').evaluateAll(rows=>rows.map(row=>row.dataset.insertKind)),['heading-2','heading-3']);
+          await query('synthetic-slate-no-match');
           await expect(page.locator('.insert-menu [role="option"]')).toHaveCount(0);
           await expect(page.locator('.insert-menu')).toContainText('No block matches');
           await page.keyboard.press('Enter');
           await expect(search(page)).toBeFocused();
           assert.equal(plain((await read(api,pageId)).at(-1).content.text),before+after);
-          await page.keyboard.press('Escape');
+          if(touch)await act(page.locator('.insert-menu').getByRole('button',{name:'Close menu',exact:false}));
+          else await page.keyboard.press('Escape');
           await expect(source).toBeFocused();
           await expect(source).toHaveText(before+after);
-          await page.keyboard.press('/');
+          if(touch)await act(page.getByRole('button',{name:'＋ Add block',exact:true}));
+          else await page.keyboard.press('/');
           await expect(search(page)).toHaveValue('');
         }
         await accessible(page,touch?'touch basic insert menu':'keyboard basic insert menu',{fullPage:false});
@@ -147,7 +160,7 @@ async function runInsertMenuJourney(state,{touch=false}={}) {
         await page.keyboard.press('Enter');
       }
       await expect(search(page)).toHaveCount(0);
-      const inserted=touch?page.locator('[data-page-editor] [data-block-id]').last():page.locator('[data-page-editor] [data-block-id]').nth(expected.length+1);
+      const inserted=page.locator('[data-page-editor] [data-block-id]').nth(expected.length+1);
       const marker=`synthetic-slate-${touch?'touch':'keyboard'}-${index}`;
       if(entry.type==='divider')await expect(page.locator('[data-page-editor]')).toBeFocused();
       else {
@@ -162,16 +175,10 @@ async function runInsertMenuJourney(state,{touch=false}={}) {
       }
       await expect.poll(async()=>{try{assertInserted((await read(api,pageId))[expected.length+1],entry,marker);return true;}catch{return false;}},{message:`Native committed ${entry.kind}`}).toBe(true);
       const blocks=await read(api,pageId);
-      if(touch) {
-        assert.equal(blocks[expected.length].id,sourceId);
-        assert.equal(plain(blocks[expected.length].content.text),before+after);
-        expected.push(blocks[expected.length],blocks[expected.length+1]);
-      } else {
-        assert.equal(blocks[expected.length].id,sourceId);
-        assert.equal(plain(blocks[expected.length].content.text),before);
-        assert.equal(plain(blocks[expected.length+2].content.text),after);
-        expected.push(...blocks.slice(expected.length,expected.length+3));
-      }
+      assert.equal(blocks[expected.length].id,sourceId);
+      assert.equal(plain(blocks[expected.length].content.text),before,'The source keeps the text before the insertion cursor.');
+      assert.equal(plain(blocks[expected.length+2].content.text),after,'The following paragraph keeps the text after the insertion cursor.');
+      expected.push(...blocks.slice(expected.length,expected.length+3));
       assert.deepEqual(projection(blocks),projection(expected),'Insertion retains preceding blocks and exact native order and content.');
     } catch(cause) {throw new Error(`${touch?'Touch':'Keyboard'} insert ${entry.kind} failed`,{cause});}
   }

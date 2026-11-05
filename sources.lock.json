@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "1ad0681adad10eb2cca94c36d720408d0ffc43f6abf57d49a3cde53ae9d91dc9",
+      "sha256": "735f7139fe009e1321f503dbf4b4b9d65d6cbb1fa159ac55710393c0a62d9b4c",
       "executable": false
     },
     "DEMO.md": {
@@ -1124,7 +1124,7 @@
       "executable": false
     },
     "docs/wiki-doors.md": {
-      "sha256": "aea3e71ab2ce67f050ee2c11f036622acb5f76909404139687a31a632885e5f1",
+      "sha256": "507ac433221da91d6a6fedff14adf42caa63c432e502f4b1231341a50a44906a",
       "executable": false
     },
     "edition.json": {
@@ -8440,7 +8440,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageEditorBody.tsx": {
-      "sha256": "08e6dd6ef5435361b338827099433df2cf14c18d6fd3fd9abb2d3a3c80da8a37",
+      "sha256": "fad63e6549a247f85b5e23e1bb0bfbba968a1246b83dff94a660db8cb1b87c1a",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageHistory.tsx": {
@@ -12104,7 +12104,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/insert-menu-journey.mjs": {
-      "sha256": "6dfc397e4ef372f852e119477d5c48e361a7e0dca94b816811baba79e1e61ba5",
+      "sha256": "e792f47a15991d380799ce2130448dc7445184ce4473189a611431b104416b80",
       "executable": false
     },
     "tests/qualification/ui-convergence/journey-shard.mjs": {
@@ -12320,7 +12320,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-page.mjs": {
-      "sha256": "111cb6b0035b7e5cfaaf7cbfa0d9db68dc77cf347ef5c48efaf8800e2d34d4de",
+      "sha256": "99cbb74ef1d78f4eda66c976f5d4e7a6d540ef3552ba88f01c1616cae6d71f46",
       "executable": false
     },
     "tests/qualification/ui-convergence/transfer-jobs-journey.mjs": {
@@ -12408,7 +12408,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "a16a77283520d795ba64c79c3d8a5a1b2db427f61758484b78f17cf0b276f9a2",
+      "sha256": "00b81b51c832bcc32472035012752f201d2c7ae3002ed7eb3d4a4df8784e8be4",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

@@ -16,6 +16,7 @@ export async function touchWriteJourney({page,origin,api,containerName}) {
   await expect.poll(async()=>JSON.stringify((await api(`/api/pages/${id}`)).blocks)).toContain('Confirm the response owner.');
   // Focus the editor first: the labeled insert control must remain reachable above the keyboard.
   await tap(page.getByRole('textbox',{name:'Paragraph',exact:true}).first());
+  await page.keyboard.press('ControlOrMeta+End');
   const add=page.getByRole('button',{name:/Add block/});
   await reachable(add);await tap(add);
   await tap(page.getByRole('option',{name:'Text',exact:true}));

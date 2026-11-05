@@ -53,6 +53,7 @@ export function PageEditorBody({
   const undoConversion = useRef<{block:EditorBlock;removed:number} | null>(null);
   const conversionFocus = useRef<{id:string;selection:EditableSelection|null}|null>(null);
   const wrapper = useRef<HTMLDivElement>(null);
+  const addSelection = useRef<{after:string;range:EditableSelection;source:HTMLElement}|null>(null);
   function changeKind(block:EditorBlock, removed=0) {
     if (!document.permissions.canEdit) return;
     const root = [...(wrapper.current?.querySelectorAll<HTMLElement>('[data-block-id]')??[])].find(element=>element.dataset.blockId===block.id)?.querySelector<HTMLElement>('[data-slate-editable]');
@@ -361,7 +362,17 @@ export function PageEditorBody({
         placeholder="Write something, or press / for blocks"
       />
       <div className="page-footer">
-        {document.permissions.canEdit && !insertion.conflicts.length ? <div className="editor-actions"><button type="button" onClick={(event) => setInsert({ after: null, anchor: event.currentTarget })}>＋ Add block</button></div> : null}
+        {document.permissions.canEdit && !insertion.conflicts.length ? <div className="editor-actions"><button type="button" onPointerDown={() => {
+          // Capture before the labeled control takes focus from the editor.
+          const source=wrapper.current?.ownerDocument.activeElement;
+          const after=source?.closest<HTMLElement>('[data-block-id]')?.dataset.blockId;
+          const range=source instanceof HTMLElement && source.matches('[data-slate-editable]') ? readEditableSelection(source) : null;
+          addSelection.current=source instanceof HTMLElement && wrapper.current?.contains(source) && after && range ? {after,range,source} : null;
+        }} onClick={(event) => {
+          const selection=event.detail ? addSelection.current : null;
+          addSelection.current=null;
+          setInsert({after:null,...selection,anchor:event.currentTarget});
+        }}>＋ Add block</button></div> : null}
         {footer}
       </div>
       {media && editor.blocks.some((block) => block.id === media.id) ? (
