@@ -10860,7 +10860,7 @@
       "executable": false
     },
     "tests/flagship/content/operation-replay.case.ts": {
-      "sha256": "929f185165b16857a19e9b3f142d70d0f3c2a5b542c5e73e12b34cd065045e9c",
+      "sha256": "3eb4d9b4e69eed16700f4d70ff202abc8e7f4332be987cb7333219a0ae3c22ac",
       "executable": false
     },
     "tests/flagship/content/preview.test.ts": {
@@ -12408,7 +12408,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "8f1110ecc1f78843590b2fb35941e6e9bf5dc2f0d1620c4d0fa4720c8fa16477",
+      "sha256": "cc1d30ef974e8bd14bed654bfb5a60d5c1e5ad2087ccab9a013080e94ebcf458",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

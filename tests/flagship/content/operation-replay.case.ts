@@ -130,20 +130,23 @@ export async function operationReplayCase() {
    if(scenario==='lost authority')await ok('POST','/api/sharing',{operationKey:createUlid(),...grantInput,id:authority.data.value.id},f.ownerId);
    console.info(`PROBE SAVE-005 overlapping ${scenario}: native HTTP retry resumes after a competing commit -> ${resumed.status}; exact committed inventories unchanged`);
   }
+  const staleInput={operationKey:createUlid(),expectedRevisionId:document.blocks[0].revisionId,content:{text:[{text:'synthetic-slate-uncommitted-stale-body'}]}};
+  const beforeStale=await snapshot();
+  const stale=await request('PATCH',`/api/pages/${pageId}/blocks/${blockId}`,staleInput);
+  expect(stale).toMatchObject({status:409,data:{code:'BLOCK_CONFLICT',details:{blockId}}});
+  expect(await snapshot(),'a stale edit with no committed matching operation still changes nothing').toEqual(beforeStale);
   for(const record of records){
    vi.setSystemTime(record.createdAt+24*60*60*1000-1);
    const retained=await snapshot();
    expect(await ok(record.method,record.path,record.input),`${record.family}: last millisecond of original window`).toEqual(record.response);
    expect((await request(record.method,record.path,{...record.input,...record.changed},writer)).status).toBe(409);
    expect(await snapshot(),`${record.family}: original expiry and inventories unchanged`).toEqual(retained);
+   vi.setSystemTime(record.createdAt+24*60*60*1000);
+   const expired=await snapshot();
+   expect(await request(record.method,record.path,record.input,writer)).toMatchObject({status:409,data:{code:'OPERATION_KEY_CONFLICT'}});
+   expect(await snapshot(),`${record.family}: replay cannot renew the original window`).toEqual(expired);
    console.info(`PROBE SAVE-005 ${record.family}: native cookie HTTP, two concurrent requests, immediate and original-expiry-minus-1ms replay -> exact first response; changed body 409; populated canonical, revision, inbox and activity inventories unchanged`);
   }
-  // The last replay must not extend the original window.
-  const last=records.at(-1)!;
-  vi.setSystemTime(last.createdAt+24*60*60*1000);
-  const expired=await snapshot();
-  expect((await request(last.method,last.path,last.input,writer)).status).toBe(409);
-  expect(await snapshot()).toEqual(expired);
   // Current authorization precedes every stored response, including its sensitive body.
   await ok('POST','/api/sharing',{operationKey:createUlid(),...grantInput,id:authority.data.value.id,revoke:true},f.ownerId);
   const revoked=await nativeReplayInventory(f.workspaceId);
