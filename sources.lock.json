@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "495e770ed8870445b489c3d35dafeda6f878a8a61966c506a443b3f3003a8f8d",
+      "sha256": "0e33052c7e13ece8b60abf2d13df3f3216c4bd8b957748e8c4f3aa239e653275",
       "executable": false
     },
     "DEMO.md": {
@@ -12096,7 +12096,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "4c17141e40e0c678955f7ab444f9db4bf8edccc29b183ced8af6c96385a1fcf3",
+      "sha256": "153fef4a9ac9ae783513ca07e869f988656619cdb317bb041a41bb818c1afbcb",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12216,7 +12216,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/starter-templates-journey.mjs": {
-      "sha256": "e62e846a6c1a5c6e8bb3789148deb2ef146c88d00b57b4ebfa4cc478f0c1feb8",
+      "sha256": "1833c8d20fee56ce414e82db43f6ac624143d1936d3f2446bec97106918fc176",
       "executable": false
     },
     "tests/qualification/ui-convergence/status-profile-journey.mjs": {
@@ -12257,6 +12257,10 @@
     },
     "tests/qualification/ui-convergence/template-gallery-journey.mjs": {
       "sha256": "6e8a029db8fb1bea656ef6aba74d185b8cd40cb3df0c924d69ad1e683c2c05ec",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/template-preview-journey.mjs": {
+      "sha256": "2e117ae5e120d2e92f624c8f071763edeed38392fce7446f1b60991c8ef8ab54",
       "executable": false
     },
     "tests/qualification/ui-convergence/template-scope-journey.mjs": {
@@ -12388,11 +12392,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "7f726c22fa8af44bd0967b6505d66e049475257092810ad4ec21056496745194",
+      "sha256": "b3e6a921e42a953703fa5f310fe49d488a4057490bee58af64fbf9f67f68238f",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "5460d6647a8589ec26bcd132707ecae70b683058e1338a6760c62b0c1fa88c9b",
+      "sha256": "2be14e1c593022d101197b97dcc9351a83faeb51ddf809e8cfd9393485ea017f",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
