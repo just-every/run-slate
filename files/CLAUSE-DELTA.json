@@ -1,0 +1,32 @@
+{
+  "before": "| `REV-002` | History | published | partial | `CONTRACT.md` \u2014 requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: \"Each of those records has a history listing its revisions newest first with the actor, the time, the origin, and, where `REV-007` assigns them, an ordinal and a label.\"<br>No validated CI-run proof for this acceptance point: \"History is readable by anyone who may read the record and is never editable.\" |",
+  "after": "| `REV-002` | History | published | partial | `tests/qualification/core/audit-content.test.ts` \u2014 ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time (revisionHistoryProof: ordinary page, database page and record page receipts, exact stored rows and snapshots, full-access and published-only reader rewrites refused without storage changes, and revoked reads under both profiles); `tests/qualification/ui-convergence/journeys.test.mjs` \u2014 two people edit at once, lose access mid-edit and restore history at 1440px; real core-wiki and touch-member journeys at 390px (historyInventoryJourney: complete rendered rows after editor reload, visible actor, time, origin, ordinals and labels, both permitted published snapshots after reader reload, refused rewrites and revocation); `tests/qualification/ui-convergence/record-detail-journey.mjs` \u2014 recordDetailJourney (retained snapshots and both record parity values). | Container, comment, template and decision record histories remain omitted and unproven; complete cross-family acceptance 1\u20132 remains unproven. Decision, default-surface and AI duties retain the ADMIN-007 and shared company-policy prerequisites. This ordinary-page, database-page and record-page proof grants no wider historical-content access and releases no Slate clause. |",
+  "status_before": "partial",
+  "status_after": "partial",
+  "counts_before": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "counts_after": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "registrations_before": 207,
+  "registrations_after": 207,
+  "files": [
+    "CONTRACT.md",
+    "sources.lock.json",
+    "src/core/features/pages/ui/workspace/PageHistory.tsx",
+    "tests/qualification/core/audit-content.test.ts",
+    "tests/qualification/core/revision-history-proof.ts",
+    "tests/qualification/ui-convergence/history-inventory-journey.mjs",
+    "tests/qualification/ui-convergence/journeys.test.mjs",
+    "tests/qualification/ui-convergence/record-detail-journey.mjs",
+    "tests/qualification/ui-convergence/two-people-history.mjs",
+    "tests/requirements/clause-inventory.json",
+    "tests/requirements/cli-journey.md",
+    "tests/requirements/test-evidence.json"
+  ]
+}

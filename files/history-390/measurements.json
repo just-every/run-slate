@@ -1,0 +1,2588 @@
+{
+  "width": 390,
+  "timings": {
+    "history-autosnapshot-page": {
+      "receipts": [
+        {
+          "operationKey": "774d88e4-eca9-4e96-9d8c-eb0f83dd098c",
+          "entity": {
+            "id": "01M6PWNMT9ES14STHK68QJQMA0",
+            "kind": "page",
+            "revisionId": "01M6PWNMXD631GY14QB6961JG0"
+          },
+          "revisionId": "01M6PWNMXD631GY14QB6961JG0",
+          "activityId": "01M6PWNMXDJE0K9QKVC2VMJQ0K",
+          "committedAt": "2026-11-05T22:18:33.258Z"
+        },
+        {
+          "operationKey": "37a8a287-8b80-4887-b1a1-5b7b6435d4b9",
+          "entity": {
+            "id": "01M6PWNMT9ES14STHK68QJQMA0",
+            "kind": "page",
+            "revisionId": "01M6PWNMT9H5ZP0HAJSZ86E707"
+          },
+          "revisionId": "01M6PWNMT9H5ZP0HAJSZ86E707",
+          "activityId": "01M6PWNMT9A2SE7ZZR3H5Y3YKR",
+          "committedAt": "2026-11-05T22:18:33.159Z"
+        },
+        {
+          "operationKey": "46190c05-3399-462d-a139-258bece2dde6",
+          "entity": {
+            "id": "01M6PWNMT9ES14STHK68QJQMA0",
+            "kind": "page",
+            "revisionId": "01M6PWNMZG4ZY6XAM8HMED7VH0"
+          },
+          "revisionId": "01M6PWNMZG4ZY6XAM8HMED7VH0",
+          "activityId": "01M6PWNMZG06PVVJDT5E8E5963",
+          "committedAt": "2026-11-05T22:18:33.326Z"
+        },
+        {
+          "operationKey": "295f0fef-aa17-4ffa-aec8-fd0c0ea1ffb0",
+          "entity": {
+            "id": "01M6PWNMT9ES14STHK68QJQMA0",
+            "kind": "page",
+            "revisionId": "01M6PWNN0X03SVDWEJQFS297YK"
+          },
+          "revisionId": "01M6PWNN0X03SVDWEJQFS297YK",
+          "activityId": "01M6PWNN0X7FJ2JYN9MD6HGJKP",
+          "committedAt": "2026-11-05T22:18:33.367Z"
+        },
+        {
+          "operationKey": "b1f540a4-926a-41ba-97bb-3e32c8dca0fc",
+          "entity": {
+            "id": "01M6PWNMT9ES14STHK68QJQMA0",
+            "kind": "page",
+            "revisionId": "01M6PWNN29NVG928GA3YABZCED"
+          },
+          "revisionId": "01M6PWNN29NVG928GA3YABZCED",
+          "activityId": "01M6PWNN29PXSX6TKKVVW9CTPZ",
+          "committedAt": "2026-11-05T22:18:33.416Z"
+        },
+        {
+          "operationKey": "2a7baccc-241f-4180-a0bb-6b9dca14be93",
+          "entity": {
+            "id": "01M6PWNMT9ES14STHK68QJQMA0",
+            "kind": "page",
+            "revisionId": "01M6PWNN409NAM9353NM2B9341"
+          },
+          "revisionId": "01M6PWNN409NAM9353NM2B9341",
+          "activityId": "01M6PWNN40Y8EXJCJ2X97WMFVP",
+          "committedAt": "2026-11-05T22:18:33.466Z"
+        },
+        {
+          "operationKey": "0d5fe054-44ab-4704-b483-bca57732662d",
+          "entity": {
+            "id": "01M6PWNMT9ES14STHK68QJQMA0",
+            "kind": "page",
+            "revisionId": "01M6PWNN5HRFBQP3D7RMP9WCV6"
+          },
+          "revisionId": "01M6PWNN5HRFBQP3D7RMP9WCV6",
+          "activityId": "01M6PWNN5H4H6TFBDXEHVV6X0P",
+          "committedAt": "2026-11-05T22:18:33.520Z"
+        }
+      ],
+      "committed": [
+        {
+          "id": "01M6PWNMT9H5ZP0HAJSZ86E707",
+          "createdAt": "2026-11-05T22:18:33.159Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [],
+            "properties": {
+              "title": "History page autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWNMXD631GY14QB6961JG0",
+          "createdAt": "2026-11-05T22:18:33.258Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [],
+            "properties": {
+              "title": "History page autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWNMZG4ZY6XAM8HMED7VH0",
+          "createdAt": "2026-11-05T22:18:33.326Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "df6e48b6-889a-4fa1-8814-4e32ca006f35",
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Original page history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "pageId": "01M6PWNMT9ES14STHK68QJQMA0",
+                "parentBlockId": null,
+                "revisionId": "01M6PWNMZJVS4EZE7XM5FMAKN6"
+              }
+            ],
+            "properties": {
+              "title": "History page autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWNN0X03SVDWEJQFS297YK",
+          "createdAt": "2026-11-05T22:18:33.367Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "publish",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "df6e48b6-889a-4fa1-8814-4e32ca006f35",
+                "pageId": "01M6PWNMT9ES14STHK68QJQMA0",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Original page history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWNMZJVS4EZE7XM5FMAKN6"
+              }
+            ],
+            "properties": {
+              "title": "History page autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWNN29NVG928GA3YABZCED",
+          "createdAt": "2026-11-05T22:18:33.416Z",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "df6e48b6-889a-4fa1-8814-4e32ca006f35",
+                "pageId": "01M6PWNMT9ES14STHK68QJQMA0",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current page history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWNN2BNG07HSH2B59E9K79"
+              }
+            ],
+            "properties": {
+              "title": "History page autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWNN409NAM9353NM2B9341",
+          "createdAt": "2026-11-05T22:18:33.466Z",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "origin": "publish",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "df6e48b6-889a-4fa1-8814-4e32ca006f35",
+                "pageId": "01M6PWNMT9ES14STHK68QJQMA0",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current page history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWNN2BNG07HSH2B59E9K79"
+              }
+            ],
+            "properties": {
+              "title": "History page autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWNN5HRFBQP3D7RMP9WCV6",
+          "createdAt": "2026-11-05T22:18:33.520Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "df6e48b6-889a-4fa1-8814-4e32ca006f35",
+                "pageId": "01M6PWNMT9ES14STHK68QJQMA0",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current page history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWNN2BNG07HSH2B59E9K79"
+              }
+            ],
+            "properties": {
+              "title": "Unpublished page history title",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        }
+      ],
+      "visible": [
+        {
+          "id": "01M6PWNN409NAM9353NM2B9341",
+          "origin": "publish",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "ordinal": null,
+          "label": null,
+          "statusKey": null,
+          "createdAt": "2026-11-05T22:18:33.466Z",
+          "deletedAt": null,
+          "deletedByMemberId": null,
+          "deletedByDisplayName": null
+        },
+        {
+          "id": "01M6PWNN0X03SVDWEJQFS297YK",
+          "origin": "publish",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "ordinal": null,
+          "label": null,
+          "statusKey": null,
+          "createdAt": "2026-11-05T22:18:33.367Z",
+          "deletedAt": null,
+          "deletedByMemberId": null,
+          "deletedByDisplayName": null
+        }
+      ],
+      "editorReload": true,
+      "publishedReload": [
+        "01M6PWNN0X03SVDWEJQFS297YK",
+        "01M6PWNN409NAM9353NM2B9341"
+      ],
+      "refusedRewrites": {
+        "actors": [
+          "full",
+          "view"
+        ],
+        "methods": [
+          "PATCH",
+          "PUT",
+          "POST"
+        ]
+      },
+      "refusedVersionActions": {
+        "actors": [
+          "view",
+          "revoked"
+        ],
+        "actions": [
+          "restore",
+          "delete"
+        ]
+      },
+      "revoked": 404
+    },
+    "history-autosnapshot-database": {
+      "receipts": [
+        {
+          "operationKey": "eeb6f8ad-4a55-4ea3-9f5a-cc39da2eee52",
+          "entity": {
+            "id": "01M6PWNMRTQC8WWXZQX0M89EM2",
+            "kind": "page",
+            "revisionId": "01M6PWNWTR2Z644NTT9E9S3QQ7"
+          },
+          "revisionId": "01M6PWNWTR2Z644NTT9E9S3QQ7",
+          "activityId": "01M6PWNWTRWCT6VCV9X1VQ367D",
+          "committedAt": "2026-11-05T22:18:41.366Z"
+        },
+        {
+          "operationKey": "91f51e9f-be65-4595-9037-bd56ed798d06",
+          "entity": {
+            "id": "01M6PWNMRSMKS4J3C4E4WSQ4TM",
+            "kind": "database",
+            "revisionId": "01M6PWNMRS4VD9RBTHB3HP90FB"
+          },
+          "revisionId": "01M6PWNMRS4VD9RBTHB3HP90FB",
+          "activityId": "01M6PWNMRSZAW4XZCD2YV0WCEP",
+          "committedAt": "2026-11-05T22:18:33.112Z"
+        },
+        {
+          "operationKey": "6835877d-2600-4818-8989-b117e8b58e87",
+          "entity": {
+            "id": "01M6PWNMRTQC8WWXZQX0M89EM2",
+            "kind": "page",
+            "revisionId": "01M6PWNWWZ9Q5S994N3RCN43EX"
+          },
+          "revisionId": "01M6PWNWWZ9Q5S994N3RCN43EX",
+          "activityId": "01M6PWNWWZ55BES319EQZAVZF2",
+          "committedAt": "2026-11-05T22:18:41.437Z"
+        },
+        {
+          "operationKey": "c7ac88cf-732e-4bce-b3b8-cc02fb83ce08",
+          "entity": {
+            "id": "01M6PWNMRTQC8WWXZQX0M89EM2",
+            "kind": "page",
+            "revisionId": "01M6PWNWYEAMGZAKRGKYCXHTK6"
+          },
+          "revisionId": "01M6PWNWYEAMGZAKRGKYCXHTK6",
+          "activityId": "01M6PWNWYE00B0T8FKWPGTERKE",
+          "committedAt": "2026-11-05T22:18:41.480Z"
+        },
+        {
+          "operationKey": "6253479f-7f67-4f50-9af3-44242f1f5953",
+          "entity": {
+            "id": "01M6PWNMRTQC8WWXZQX0M89EM2",
+            "kind": "page",
+            "revisionId": "01M6PWNX017EN4PTVXN05T9Y54"
+          },
+          "revisionId": "01M6PWNX017EN4PTVXN05T9Y54",
+          "activityId": "01M6PWNX01X0HQE9ZZHMT74F61",
+          "committedAt": "2026-11-05T22:18:41.535Z"
+        },
+        {
+          "operationKey": "78fa7035-c54b-414c-8d10-64849e0167fc",
+          "entity": {
+            "id": "01M6PWNMRTQC8WWXZQX0M89EM2",
+            "kind": "page",
+            "revisionId": "01M6PWNX1VD5ZKAM20A8JABV9B"
+          },
+          "revisionId": "01M6PWNX1VD5ZKAM20A8JABV9B",
+          "activityId": "01M6PWNX1VJRJSPZWKEQ8WJNK8",
+          "committedAt": "2026-11-05T22:18:41.588Z"
+        },
+        {
+          "operationKey": "4b18304c-3edd-4d4c-8375-3f261c30eead",
+          "entity": {
+            "id": "01M6PWNMRTQC8WWXZQX0M89EM2",
+            "kind": "page",
+            "revisionId": "01M6PWNX3F8RMMQNEP32YEZCXD"
+          },
+          "revisionId": "01M6PWNX3F8RMMQNEP32YEZCXD",
+          "activityId": "01M6PWNX3FRX00K5QZYFPYHYZ9",
+          "committedAt": "2026-11-05T22:18:41.645Z"
+        }
+      ],
+      "committed": [
+        {
+          "id": "01M6PWNMRS4VD9RBTHB3HP90FB",
+          "createdAt": "2026-11-05T22:18:33.112Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [],
+            "properties": {
+              "title": "History database autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWNWTR2Z644NTT9E9S3QQ7",
+          "createdAt": "2026-11-05T22:18:41.366Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [],
+            "properties": {
+              "title": "History database autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWNWWZ9Q5S994N3RCN43EX",
+          "createdAt": "2026-11-05T22:18:41.437Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "14068a88-67f8-4472-bb96-cb86dedd7f5d",
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Original database history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "pageId": "01M6PWNMRTQC8WWXZQX0M89EM2",
+                "parentBlockId": null,
+                "revisionId": "01M6PWNWX1HT7759MF23QCQ4Z5"
+              }
+            ],
+            "properties": {
+              "title": "History database autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWNWYEAMGZAKRGKYCXHTK6",
+          "createdAt": "2026-11-05T22:18:41.480Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "publish",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "14068a88-67f8-4472-bb96-cb86dedd7f5d",
+                "pageId": "01M6PWNMRTQC8WWXZQX0M89EM2",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Original database history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWNWX1HT7759MF23QCQ4Z5"
+              }
+            ],
+            "properties": {
+              "title": "History database autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWNX017EN4PTVXN05T9Y54",
+          "createdAt": "2026-11-05T22:18:41.535Z",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "14068a88-67f8-4472-bb96-cb86dedd7f5d",
+                "pageId": "01M6PWNMRTQC8WWXZQX0M89EM2",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current database history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWNX02TTYCW07KDBE52CBN"
+              }
+            ],
+            "properties": {
+              "title": "History database autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWNX1VD5ZKAM20A8JABV9B",
+          "createdAt": "2026-11-05T22:18:41.588Z",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "origin": "publish",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "14068a88-67f8-4472-bb96-cb86dedd7f5d",
+                "pageId": "01M6PWNMRTQC8WWXZQX0M89EM2",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current database history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWNX02TTYCW07KDBE52CBN"
+              }
+            ],
+            "properties": {
+              "title": "History database autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWNX3F8RMMQNEP32YEZCXD",
+          "createdAt": "2026-11-05T22:18:41.645Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "14068a88-67f8-4472-bb96-cb86dedd7f5d",
+                "pageId": "01M6PWNMRTQC8WWXZQX0M89EM2",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current database history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWNX02TTYCW07KDBE52CBN"
+              }
+            ],
+            "properties": {
+              "title": "Unpublished database history title",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        }
+      ],
+      "visible": [
+        {
+          "id": "01M6PWNX1VD5ZKAM20A8JABV9B",
+          "origin": "publish",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "ordinal": null,
+          "label": null,
+          "statusKey": null,
+          "createdAt": "2026-11-05T22:18:41.588Z",
+          "deletedAt": null,
+          "deletedByMemberId": null,
+          "deletedByDisplayName": null
+        },
+        {
+          "id": "01M6PWNWYEAMGZAKRGKYCXHTK6",
+          "origin": "publish",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "ordinal": null,
+          "label": null,
+          "statusKey": null,
+          "createdAt": "2026-11-05T22:18:41.480Z",
+          "deletedAt": null,
+          "deletedByMemberId": null,
+          "deletedByDisplayName": null
+        }
+      ],
+      "editorReload": true,
+      "publishedReload": [
+        "01M6PWNWYEAMGZAKRGKYCXHTK6",
+        "01M6PWNX1VD5ZKAM20A8JABV9B"
+      ],
+      "refusedRewrites": {
+        "actors": [
+          "full",
+          "view"
+        ],
+        "methods": [
+          "PATCH",
+          "PUT",
+          "POST"
+        ]
+      },
+      "refusedVersionActions": {
+        "actors": [
+          "view",
+          "revoked"
+        ],
+        "actions": [
+          "restore",
+          "delete"
+        ]
+      },
+      "revoked": 404
+    },
+    "history-autosnapshot-record": {
+      "receipts": [
+        {
+          "operationKey": "2afd2313-186e-4173-8a60-8232432b966a",
+          "entity": {
+            "id": "01M6PWNMV9ZNWSX9004PPMN3C9",
+            "kind": "page",
+            "revisionId": "01M6PWP4A4BJNEY8GSRF2MMPFH"
+          },
+          "revisionId": "01M6PWP4A4BJNEY8GSRF2MMPFH",
+          "activityId": "01M6PWP4A4NEHD1AD5C9CBJ331",
+          "committedAt": "2026-11-05T22:18:49.026Z"
+        },
+        {
+          "operationKey": "3fd1d497-6c01-41e7-bb74-cb2fdcc9b8ea",
+          "entity": {
+            "id": "01M6PWNMV9ZNWSX9004PPMN3C9",
+            "kind": "page",
+            "revisionId": "01M6PWNMTYDEBV6KSJ3TZJNFZV"
+          },
+          "revisionId": "01M6PWNMTYDEBV6KSJ3TZJNFZV",
+          "activityId": "01M6PWNMTYNQF0BM0KZECYCJ1X",
+          "committedAt": "2026-11-05T22:18:33.180Z"
+        },
+        {
+          "operationKey": "1f26d1e6-76ac-434b-b89a-0136fb55d091",
+          "entity": {
+            "id": "01M6PWNMV9ZNWSX9004PPMN3C9",
+            "kind": "page",
+            "revisionId": "01M6PWP4CDQW1P1SR46DRMGSFT"
+          },
+          "revisionId": "01M6PWP4CDQW1P1SR46DRMGSFT",
+          "activityId": "01M6PWP4CD2BY672ZD95GT4H0J",
+          "committedAt": "2026-11-05T22:18:49.099Z"
+        },
+        {
+          "operationKey": "ae873dac-e99b-46ed-9c64-dbd8671c47df",
+          "entity": {
+            "id": "01M6PWNMV9ZNWSX9004PPMN3C9",
+            "kind": "page",
+            "revisionId": "01M6PWP4E4BERD97TY32CAX7AZ"
+          },
+          "revisionId": "01M6PWP4E4BERD97TY32CAX7AZ",
+          "activityId": "01M6PWP4E4BSJK4MKN7GTRQPQG",
+          "committedAt": "2026-11-05T22:18:49.149Z"
+        },
+        {
+          "operationKey": "70654fcc-be3e-4635-ad73-09a38cf53908",
+          "entity": {
+            "id": "01M6PWNMV9ZNWSX9004PPMN3C9",
+            "kind": "page",
+            "revisionId": "01M6PWP4FWEFGW6E9Y3TC3P9F2"
+          },
+          "revisionId": "01M6PWP4FWEFGW6E9Y3TC3P9F2",
+          "activityId": "01M6PWP4FWPGPFBZ9B1H5PJZWK",
+          "committedAt": "2026-11-05T22:18:49.210Z"
+        },
+        {
+          "operationKey": "704c8ce4-461d-4476-8b9d-6cac47527c6e",
+          "entity": {
+            "id": "01M6PWNMV9ZNWSX9004PPMN3C9",
+            "kind": "page",
+            "revisionId": "01M6PWP4HR212SD1GM6E5XMZ7F"
+          },
+          "revisionId": "01M6PWP4HR212SD1GM6E5XMZ7F",
+          "activityId": "01M6PWP4HRZCGZ7D3PWFF1Z9P1",
+          "committedAt": "2026-11-05T22:18:49.270Z"
+        },
+        {
+          "operationKey": "8312f7be-8ec8-41e4-8de8-f1a28a0c0dfa",
+          "entity": {
+            "id": "01M6PWNMV9ZNWSX9004PPMN3C9",
+            "kind": "page",
+            "revisionId": "01M6PWP4KJ9D67FB05VVDZCW87"
+          },
+          "revisionId": "01M6PWP4KJ9D67FB05VVDZCW87",
+          "activityId": "01M6PWP4KJCN88W81DC8PB2HZ5",
+          "committedAt": "2026-11-05T22:18:49.323Z"
+        },
+        {
+          "operationKey": "59ac6a39-ebe8-4e28-9f9a-ef644630d17c",
+          "entity": {
+            "id": "01M6PWNMV9ZNWSX9004PPMN3C9",
+            "kind": "page",
+            "revisionId": "01M6PWP4NDGX5XCC1DY0YP33AV"
+          },
+          "revisionId": "01M6PWP4NDGX5XCC1DY0YP33AV",
+          "activityId": "01M6PWP4ND989FT851P7DAX66P",
+          "committedAt": "2026-11-05T22:18:49.387Z"
+        }
+      ],
+      "committed": [
+        {
+          "id": "01M6PWNMTYDEBV6KSJ3TZJNFZV",
+          "createdAt": "2026-11-05T22:18:33.180Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [],
+            "properties": {
+              "title": "History record autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false,
+              "databaseFields": {
+                "e22195f4-06ce-43b6-b0a0-771efb1cbaab": 7
+              }
+            }
+          }
+        },
+        {
+          "id": "01M6PWP4A4BJNEY8GSRF2MMPFH",
+          "createdAt": "2026-11-05T22:18:49.026Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [],
+            "properties": {
+              "title": "History record autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false,
+              "databaseFields": {
+                "e22195f4-06ce-43b6-b0a0-771efb1cbaab": 7
+              }
+            }
+          }
+        },
+        {
+          "id": "01M6PWP4CDQW1P1SR46DRMGSFT",
+          "createdAt": "2026-11-05T22:18:49.099Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "cd096ae4-1136-4980-868f-d6607d0fded7",
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Original record history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "pageId": "01M6PWNMV9ZNWSX9004PPMN3C9",
+                "parentBlockId": null,
+                "revisionId": "01M6PWP4CEVCX376TNQVHKMWXQ"
+              }
+            ],
+            "properties": {
+              "databaseFields": {
+                "e22195f4-06ce-43b6-b0a0-771efb1cbaab": 7
+              },
+              "title": "History record autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWP4E4BERD97TY32CAX7AZ",
+          "createdAt": "2026-11-05T22:18:49.149Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "publish",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "cd096ae4-1136-4980-868f-d6607d0fded7",
+                "pageId": "01M6PWNMV9ZNWSX9004PPMN3C9",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Original record history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWP4CEVCX376TNQVHKMWXQ"
+              }
+            ],
+            "properties": {
+              "databaseFields": {
+                "e22195f4-06ce-43b6-b0a0-771efb1cbaab": 7
+              },
+              "title": "History record autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWP4FWEFGW6E9Y3TC3P9F2",
+          "createdAt": "2026-11-05T22:18:49.210Z",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "cd096ae4-1136-4980-868f-d6607d0fded7",
+                "pageId": "01M6PWNMV9ZNWSX9004PPMN3C9",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current record history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWP4FYY86ZA74HG22MH6XX"
+              }
+            ],
+            "properties": {
+              "databaseFields": {
+                "e22195f4-06ce-43b6-b0a0-771efb1cbaab": 7
+              },
+              "title": "History record autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWP4HR212SD1GM6E5XMZ7F",
+          "createdAt": "2026-11-05T22:18:49.270Z",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "cd096ae4-1136-4980-868f-d6607d0fded7",
+                "pageId": "01M6PWNMV9ZNWSX9004PPMN3C9",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current record history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWP4FYY86ZA74HG22MH6XX"
+              }
+            ],
+            "properties": {
+              "databaseFields": {
+                "e22195f4-06ce-43b6-b0a0-771efb1cbaab": 11
+              },
+              "title": "History record autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWP4KJ9D67FB05VVDZCW87",
+          "createdAt": "2026-11-05T22:18:49.323Z",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "origin": "publish",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "cd096ae4-1136-4980-868f-d6607d0fded7",
+                "pageId": "01M6PWNMV9ZNWSX9004PPMN3C9",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current record history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWP4FYY86ZA74HG22MH6XX"
+              }
+            ],
+            "properties": {
+              "databaseFields": {
+                "e22195f4-06ce-43b6-b0a0-771efb1cbaab": 11
+              },
+              "title": "History record autosnapshot",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWP4NDGX5XCC1DY0YP33AV",
+          "createdAt": "2026-11-05T22:18:49.387Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "cd096ae4-1136-4980-868f-d6607d0fded7",
+                "pageId": "01M6PWNMV9ZNWSX9004PPMN3C9",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current record history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWP4FYY86ZA74HG22MH6XX"
+              }
+            ],
+            "properties": {
+              "databaseFields": {
+                "e22195f4-06ce-43b6-b0a0-771efb1cbaab": 11
+              },
+              "title": "Unpublished record history title",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        }
+      ],
+      "visible": [
+        {
+          "id": "01M6PWP4KJ9D67FB05VVDZCW87",
+          "origin": "publish",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "ordinal": null,
+          "label": null,
+          "statusKey": null,
+          "createdAt": "2026-11-05T22:18:49.323Z",
+          "deletedAt": null,
+          "deletedByMemberId": null,
+          "deletedByDisplayName": null
+        },
+        {
+          "id": "01M6PWP4E4BERD97TY32CAX7AZ",
+          "origin": "publish",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "ordinal": null,
+          "label": null,
+          "statusKey": null,
+          "createdAt": "2026-11-05T22:18:49.149Z",
+          "deletedAt": null,
+          "deletedByMemberId": null,
+          "deletedByDisplayName": null
+        }
+      ],
+      "editorReload": true,
+      "publishedReload": [
+        "01M6PWP4E4BERD97TY32CAX7AZ",
+        "01M6PWP4KJ9D67FB05VVDZCW87"
+      ],
+      "refusedRewrites": {
+        "actors": [
+          "full",
+          "view"
+        ],
+        "methods": [
+          "PATCH",
+          "PUT",
+          "POST"
+        ]
+      },
+      "refusedVersionActions": {
+        "actors": [
+          "view",
+          "revoked"
+        ],
+        "actions": [
+          "restore",
+          "delete"
+        ]
+      },
+      "revoked": 404
+    },
+    "history-labelled-page": {
+      "receipts": [
+        {
+          "operationKey": "24ff4f97-4435-4fc3-9550-9d0b8784c0db",
+          "entity": {
+            "id": "01M6PWPC8N67FJPD0H8TCZGM3Y",
+            "kind": "page",
+            "revisionId": "01M6PWPCBHTK30STM1P1FRT4QG"
+          },
+          "revisionId": "01M6PWPCBHTK30STM1P1FRT4QG",
+          "activityId": "01M6PWPCBHKQRA75R9RB2Z4Y13",
+          "committedAt": "2026-11-05T22:18:57.263Z"
+        },
+        {
+          "operationKey": "bd8281c2-5922-4ed9-88fa-b54f74cf4c08",
+          "entity": {
+            "id": "01M6PWPC8N67FJPD0H8TCZGM3Y",
+            "kind": "page",
+            "revisionId": "01M6PWPC8NDKV18NJ0A4MVD466"
+          },
+          "revisionId": "01M6PWPC8NDKV18NJ0A4MVD466",
+          "activityId": "01M6PWPC8N0JT6W8XSBJRZEMAH",
+          "committedAt": "2026-11-05T22:18:57.172Z"
+        },
+        {
+          "operationKey": "7916f6a0-54b9-4e07-adfc-4f8d133ab8df",
+          "entity": {
+            "id": "01M6PWPC8N67FJPD0H8TCZGM3Y",
+            "kind": "page",
+            "revisionId": "01M6PWPCDP8FX9FQV2NZAJ778G"
+          },
+          "revisionId": "01M6PWPCDP8FX9FQV2NZAJ778G",
+          "activityId": "01M6PWPCDPTRWZGTS11PVMJC4R",
+          "committedAt": "2026-11-05T22:18:57.332Z"
+        },
+        {
+          "operationKey": "6d916d83-d66b-4f8a-90b3-0ce7c35d2e30",
+          "entity": {
+            "id": "01M6PWPC8N67FJPD0H8TCZGM3Y",
+            "kind": "page",
+            "revisionId": "01M6PWPCF5GDD5PQBTCYABEYQW"
+          },
+          "revisionId": "01M6PWPCF5GDD5PQBTCYABEYQW",
+          "activityId": "01M6PWPCF5Y295GX49KB35RRJ0",
+          "committedAt": "2026-11-05T22:18:57.374Z"
+        },
+        {
+          "operationKey": "badafc11-678b-472e-abe2-a0f0905dc55b",
+          "entity": {
+            "id": "01M6PWPC8N67FJPD0H8TCZGM3Y",
+            "kind": "page",
+            "revisionId": "01M6PWPCH4161CZ90K0DQCBKMY"
+          },
+          "revisionId": "01M6PWPCH4161CZ90K0DQCBKMY",
+          "activityId": "01M6PWPCH4RR6XSK8VRMWASMPN",
+          "committedAt": "2026-11-05T22:18:57.442Z"
+        },
+        {
+          "operationKey": "95a5a3bd-c4e5-4867-a27a-e9bbf0f0268b",
+          "entity": {
+            "id": "01M6PWPC8N67FJPD0H8TCZGM3Y",
+            "kind": "page",
+            "revisionId": "01M6PWPCJVTJ0BPG3SN9YD1AEE"
+          },
+          "revisionId": "01M6PWPCJVTJ0BPG3SN9YD1AEE",
+          "activityId": "01M6PWPCJVSPTF5MGDVF5BWSWW",
+          "committedAt": "2026-11-05T22:18:57.492Z"
+        },
+        {
+          "operationKey": "a0b11d6f-2537-41a4-8ad1-c2f5197b88ab",
+          "entity": {
+            "id": "01M6PWPC8N67FJPD0H8TCZGM3Y",
+            "kind": "page",
+            "revisionId": "01M6PWPCMMDEYGEQ45H2MF7853"
+          },
+          "revisionId": "01M6PWPCMMDEYGEQ45H2MF7853",
+          "activityId": "01M6PWPCMMA1V3XW6E2JDAY1CF",
+          "committedAt": "2026-11-05T22:18:57.555Z"
+        }
+      ],
+      "committed": [
+        {
+          "id": "01M6PWPC8NDKV18NJ0A4MVD466",
+          "createdAt": "2026-11-05T22:18:57.172Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [],
+            "properties": {
+              "title": "History page labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPCBHTK30STM1P1FRT4QG",
+          "createdAt": "2026-11-05T22:18:57.263Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [],
+            "properties": {
+              "title": "History page labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPCDP8FX9FQV2NZAJ778G",
+          "createdAt": "2026-11-05T22:18:57.332Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "7a6580ad-488a-4ae6-9c3c-e3a98dca4e6b",
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Original page history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "pageId": "01M6PWPC8N67FJPD0H8TCZGM3Y",
+                "parentBlockId": null,
+                "revisionId": "01M6PWPCDQ9JZNKRFDVYBSSK3Q"
+              }
+            ],
+            "properties": {
+              "title": "History page labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPCF5GDD5PQBTCYABEYQW",
+          "createdAt": "2026-11-05T22:18:57.374Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "publish",
+          "ordinal": 1,
+          "label": "Original release",
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "7a6580ad-488a-4ae6-9c3c-e3a98dca4e6b",
+                "pageId": "01M6PWPC8N67FJPD0H8TCZGM3Y",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Original page history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWPCDQ9JZNKRFDVYBSSK3Q"
+              }
+            ],
+            "properties": {
+              "title": "History page labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPCH4161CZ90K0DQCBKMY",
+          "createdAt": "2026-11-05T22:18:57.442Z",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "7a6580ad-488a-4ae6-9c3c-e3a98dca4e6b",
+                "pageId": "01M6PWPC8N67FJPD0H8TCZGM3Y",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current page history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWPCH6NW6P26TVTY4KPGEN"
+              }
+            ],
+            "properties": {
+              "title": "History page labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPCJVTJ0BPG3SN9YD1AEE",
+          "createdAt": "2026-11-05T22:18:57.492Z",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "origin": "publish",
+          "ordinal": 2,
+          "label": "Current release",
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "7a6580ad-488a-4ae6-9c3c-e3a98dca4e6b",
+                "pageId": "01M6PWPC8N67FJPD0H8TCZGM3Y",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current page history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWPCH6NW6P26TVTY4KPGEN"
+              }
+            ],
+            "properties": {
+              "title": "History page labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPCMMDEYGEQ45H2MF7853",
+          "createdAt": "2026-11-05T22:18:57.555Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "7a6580ad-488a-4ae6-9c3c-e3a98dca4e6b",
+                "pageId": "01M6PWPC8N67FJPD0H8TCZGM3Y",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current page history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWPCH6NW6P26TVTY4KPGEN"
+              }
+            ],
+            "properties": {
+              "title": "Unpublished page history title",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        }
+      ],
+      "visible": [
+        {
+          "id": "01M6PWPCJVTJ0BPG3SN9YD1AEE",
+          "origin": "publish",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "ordinal": 2,
+          "label": "Current release",
+          "statusKey": null,
+          "createdAt": "2026-11-05T22:18:57.492Z",
+          "deletedAt": null,
+          "deletedByMemberId": null,
+          "deletedByDisplayName": null
+        },
+        {
+          "id": "01M6PWPCF5GDD5PQBTCYABEYQW",
+          "origin": "publish",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "ordinal": 1,
+          "label": "Original release",
+          "statusKey": null,
+          "createdAt": "2026-11-05T22:18:57.374Z",
+          "deletedAt": null,
+          "deletedByMemberId": null,
+          "deletedByDisplayName": null
+        }
+      ],
+      "editorReload": true,
+      "publishedReload": [
+        "01M6PWPCF5GDD5PQBTCYABEYQW",
+        "01M6PWPCJVTJ0BPG3SN9YD1AEE"
+      ],
+      "refusedRewrites": {
+        "actors": [
+          "full",
+          "view"
+        ],
+        "methods": [
+          "PATCH",
+          "PUT",
+          "POST"
+        ]
+      },
+      "refusedVersionActions": {
+        "actors": [
+          "view",
+          "revoked"
+        ],
+        "actions": [
+          "restore",
+          "delete"
+        ]
+      },
+      "revoked": 404
+    },
+    "history-labelled-database": {
+      "receipts": [
+        {
+          "operationKey": "208c6edd-9c1e-4abb-a1ac-275c68cc21b5",
+          "entity": {
+            "id": "01M6PWPC7H65KA0G9TXEF20AE3",
+            "kind": "page",
+            "revisionId": "01M6PWPKYD53BJ3MS5KQQGMBZZ"
+          },
+          "revisionId": "01M6PWPKYD53BJ3MS5KQQGMBZZ",
+          "activityId": "01M6PWPKYDBQR6CMQT95NYX1XP",
+          "committedAt": "2026-11-05T22:19:05.032Z"
+        },
+        {
+          "operationKey": "65e14384-21fe-4f72-968a-5789a0efdc0e",
+          "entity": {
+            "id": "01M6PWPC7HEBP5DRRTJP2TBV92",
+            "kind": "database",
+            "revisionId": "01M6PWPC7HSQXV00XZZENQKHG5"
+          },
+          "revisionId": "01M6PWPC7HSQXV00XZZENQKHG5",
+          "activityId": "01M6PWPC7HB3Q665X010AHSYFW",
+          "committedAt": "2026-11-05T22:18:57.136Z"
+        },
+        {
+          "operationKey": "299ce6de-43ce-4ec4-89e5-45a2f92c560f",
+          "entity": {
+            "id": "01M6PWPC7H65KA0G9TXEF20AE3",
+            "kind": "page",
+            "revisionId": "01M6PWPM0NKSA1JGA16RRSCMNF"
+          },
+          "revisionId": "01M6PWPM0NKSA1JGA16RRSCMNF",
+          "activityId": "01M6PWPM0NKG86964XCVFY39HR",
+          "committedAt": "2026-11-05T22:19:05.107Z"
+        },
+        {
+          "operationKey": "9a50296a-eec4-460c-a727-1243bbab6599",
+          "entity": {
+            "id": "01M6PWPC7H65KA0G9TXEF20AE3",
+            "kind": "page",
+            "revisionId": "01M6PWPM25B3J1VX815SHGCG12"
+          },
+          "revisionId": "01M6PWPM25B3J1VX815SHGCG12",
+          "activityId": "01M6PWPM251MSTZH0MJX3M2A7C",
+          "committedAt": "2026-11-05T22:19:05.150Z"
+        },
+        {
+          "operationKey": "e3e76537-606d-450c-a3c7-8d1b8b2d24e7",
+          "entity": {
+            "id": "01M6PWPC7H65KA0G9TXEF20AE3",
+            "kind": "page",
+            "revisionId": "01M6PWPM3RBXZR4JPX1XBJ6KMN"
+          },
+          "revisionId": "01M6PWPM3RBXZR4JPX1XBJ6KMN",
+          "activityId": "01M6PWPM3R11HHKPCSKX0FE8Y8",
+          "committedAt": "2026-11-05T22:19:05.204Z"
+        },
+        {
+          "operationKey": "a3b5e08f-cef1-4632-ae25-e76e23e1c003",
+          "entity": {
+            "id": "01M6PWPC7H65KA0G9TXEF20AE3",
+            "kind": "page",
+            "revisionId": "01M6PWPM5FHQR5ZCEERGG13M7T"
+          },
+          "revisionId": "01M6PWPM5FHQR5ZCEERGG13M7T",
+          "activityId": "01M6PWPM5FF89VN3NJQ5VZB8KB",
+          "committedAt": "2026-11-05T22:19:05.257Z"
+        },
+        {
+          "operationKey": "8ac21b3a-a2d1-4bb2-9bb7-f6b25dbbd84e",
+          "entity": {
+            "id": "01M6PWPC7H65KA0G9TXEF20AE3",
+            "kind": "page",
+            "revisionId": "01M6PWPM7PC26X2RA164M41HXY"
+          },
+          "revisionId": "01M6PWPM7PC26X2RA164M41HXY",
+          "activityId": "01M6PWPM7PS6DR895BBFTW3QMV",
+          "committedAt": "2026-11-05T22:19:05.331Z"
+        }
+      ],
+      "committed": [
+        {
+          "id": "01M6PWPC7HSQXV00XZZENQKHG5",
+          "createdAt": "2026-11-05T22:18:57.136Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [],
+            "properties": {
+              "title": "History database labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPKYD53BJ3MS5KQQGMBZZ",
+          "createdAt": "2026-11-05T22:19:05.032Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [],
+            "properties": {
+              "title": "History database labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPM0NKSA1JGA16RRSCMNF",
+          "createdAt": "2026-11-05T22:19:05.107Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "2ea6380b-3f91-4d9f-beb8-db456941b8cc",
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Original database history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "pageId": "01M6PWPC7H65KA0G9TXEF20AE3",
+                "parentBlockId": null,
+                "revisionId": "01M6PWPM0PNHQ8FS7PBDJ5TE4Q"
+              }
+            ],
+            "properties": {
+              "title": "History database labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPM25B3J1VX815SHGCG12",
+          "createdAt": "2026-11-05T22:19:05.150Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "publish",
+          "ordinal": 1,
+          "label": "Original release",
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "2ea6380b-3f91-4d9f-beb8-db456941b8cc",
+                "pageId": "01M6PWPC7H65KA0G9TXEF20AE3",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Original database history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWPM0PNHQ8FS7PBDJ5TE4Q"
+              }
+            ],
+            "properties": {
+              "title": "History database labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPM3RBXZR4JPX1XBJ6KMN",
+          "createdAt": "2026-11-05T22:19:05.204Z",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "2ea6380b-3f91-4d9f-beb8-db456941b8cc",
+                "pageId": "01M6PWPC7H65KA0G9TXEF20AE3",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current database history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWPM3TBWMXEC2F86CZQK03"
+              }
+            ],
+            "properties": {
+              "title": "History database labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPM5FHQR5ZCEERGG13M7T",
+          "createdAt": "2026-11-05T22:19:05.257Z",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "origin": "publish",
+          "ordinal": 2,
+          "label": "Current release",
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "2ea6380b-3f91-4d9f-beb8-db456941b8cc",
+                "pageId": "01M6PWPC7H65KA0G9TXEF20AE3",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current database history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWPM3TBWMXEC2F86CZQK03"
+              }
+            ],
+            "properties": {
+              "title": "History database labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPM7PC26X2RA164M41HXY",
+          "createdAt": "2026-11-05T22:19:05.331Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "2ea6380b-3f91-4d9f-beb8-db456941b8cc",
+                "pageId": "01M6PWPC7H65KA0G9TXEF20AE3",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current database history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWPM3TBWMXEC2F86CZQK03"
+              }
+            ],
+            "properties": {
+              "title": "Unpublished database history title",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        }
+      ],
+      "visible": [
+        {
+          "id": "01M6PWPM5FHQR5ZCEERGG13M7T",
+          "origin": "publish",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "ordinal": 2,
+          "label": "Current release",
+          "statusKey": null,
+          "createdAt": "2026-11-05T22:19:05.257Z",
+          "deletedAt": null,
+          "deletedByMemberId": null,
+          "deletedByDisplayName": null
+        },
+        {
+          "id": "01M6PWPM25B3J1VX815SHGCG12",
+          "origin": "publish",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "ordinal": 1,
+          "label": "Original release",
+          "statusKey": null,
+          "createdAt": "2026-11-05T22:19:05.150Z",
+          "deletedAt": null,
+          "deletedByMemberId": null,
+          "deletedByDisplayName": null
+        }
+      ],
+      "editorReload": true,
+      "publishedReload": [
+        "01M6PWPM25B3J1VX815SHGCG12",
+        "01M6PWPM5FHQR5ZCEERGG13M7T"
+      ],
+      "refusedRewrites": {
+        "actors": [
+          "full",
+          "view"
+        ],
+        "methods": [
+          "PATCH",
+          "PUT",
+          "POST"
+        ]
+      },
+      "refusedVersionActions": {
+        "actors": [
+          "view",
+          "revoked"
+        ],
+        "actions": [
+          "restore",
+          "delete"
+        ]
+      },
+      "revoked": 404
+    },
+    "history-labelled-record": {
+      "receipts": [
+        {
+          "operationKey": "e01c669f-ca2d-40f1-817e-b542c54eceb6",
+          "entity": {
+            "id": "01M6PWPC9Z33R417JSDYC9GPAE",
+            "kind": "page",
+            "revisionId": "01M6PWPVKCHNNH8M32Q8BKBE2R"
+          },
+          "revisionId": "01M6PWPVKCHNNH8M32Q8BKBE2R",
+          "activityId": "01M6PWPVKCDEC6MFPQM4REFSS1",
+          "committedAt": "2026-11-05T22:19:12.874Z"
+        },
+        {
+          "operationKey": "3276e1b0-49ff-480b-befa-cdae9b8beacf",
+          "entity": {
+            "id": "01M6PWPC9Z33R417JSDYC9GPAE",
+            "kind": "page",
+            "revisionId": "01M6PWPC9N1MEC5YFMNRNA8ZM0"
+          },
+          "revisionId": "01M6PWPC9N1MEC5YFMNRNA8ZM0",
+          "activityId": "01M6PWPC9ND5BR4BEVC75MZE1V",
+          "committedAt": "2026-11-05T22:18:57.203Z"
+        },
+        {
+          "operationKey": "0382ce1b-78d4-4c80-bfdf-111fb122ee46",
+          "entity": {
+            "id": "01M6PWPC9Z33R417JSDYC9GPAE",
+            "kind": "page",
+            "revisionId": "01M6PWPVNR63CE5G02KCKAXFTQ"
+          },
+          "revisionId": "01M6PWPVNR63CE5G02KCKAXFTQ",
+          "activityId": "01M6PWPVNRCFRT94YGM6TNS3Q1",
+          "committedAt": "2026-11-05T22:19:12.950Z"
+        },
+        {
+          "operationKey": "30d393b4-de67-41dd-8d80-0a87eb5233fd",
+          "entity": {
+            "id": "01M6PWPC9Z33R417JSDYC9GPAE",
+            "kind": "page",
+            "revisionId": "01M6PWPVQBJ3H1PQNGC5D797J4"
+          },
+          "revisionId": "01M6PWPVQBJ3H1PQNGC5D797J4",
+          "activityId": "01M6PWPVQBJ13KSMJA798Q4ZZ9",
+          "committedAt": "2026-11-05T22:19:12.997Z"
+        },
+        {
+          "operationKey": "f57dc1f6-e701-424c-89d7-4fcb937069b6",
+          "entity": {
+            "id": "01M6PWPC9Z33R417JSDYC9GPAE",
+            "kind": "page",
+            "revisionId": "01M6PWPVS2KAV19SJXEM4GYG1G"
+          },
+          "revisionId": "01M6PWPVS2KAV19SJXEM4GYG1G",
+          "activityId": "01M6PWPVS2KRN4HVKEN79E8DSV",
+          "committedAt": "2026-11-05T22:19:13.056Z"
+        },
+        {
+          "operationKey": "aa2e1165-4038-4a42-afa2-fa89f395c040",
+          "entity": {
+            "id": "01M6PWPC9Z33R417JSDYC9GPAE",
+            "kind": "page",
+            "revisionId": "01M6PWPVTRWKR79N59CX6C95NN"
+          },
+          "revisionId": "01M6PWPVTRWKR79N59CX6C95NN",
+          "activityId": "01M6PWPVTR9T5WV2XM5BSPE93N",
+          "committedAt": "2026-11-05T22:19:13.110Z"
+        },
+        {
+          "operationKey": "9a7c1f3c-af06-42ef-a8ed-5802845d3919",
+          "entity": {
+            "id": "01M6PWPC9Z33R417JSDYC9GPAE",
+            "kind": "page",
+            "revisionId": "01M6PWPVWEGNM3SVN119QY5DNB"
+          },
+          "revisionId": "01M6PWPVWEGNM3SVN119QY5DNB",
+          "activityId": "01M6PWPVWEHBPX7K1C0QFEYRPJ",
+          "committedAt": "2026-11-05T22:19:13.160Z"
+        },
+        {
+          "operationKey": "442e258b-c265-4ce7-8855-211f30040616",
+          "entity": {
+            "id": "01M6PWPC9Z33R417JSDYC9GPAE",
+            "kind": "page",
+            "revisionId": "01M6PWPVY8E59JXHE99WXC2ZAP"
+          },
+          "revisionId": "01M6PWPVY8E59JXHE99WXC2ZAP",
+          "activityId": "01M6PWPVY84HBH0P0JYYEDHW4A",
+          "committedAt": "2026-11-05T22:19:13.222Z"
+        }
+      ],
+      "committed": [
+        {
+          "id": "01M6PWPC9N1MEC5YFMNRNA8ZM0",
+          "createdAt": "2026-11-05T22:18:57.203Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [],
+            "properties": {
+              "title": "History record labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false,
+              "databaseFields": {
+                "a3cf0aac-bfc0-42e6-8726-5f0c14757e61": 7
+              }
+            }
+          }
+        },
+        {
+          "id": "01M6PWPVKCHNNH8M32Q8BKBE2R",
+          "createdAt": "2026-11-05T22:19:12.874Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [],
+            "properties": {
+              "title": "History record labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false,
+              "databaseFields": {
+                "a3cf0aac-bfc0-42e6-8726-5f0c14757e61": 7
+              }
+            }
+          }
+        },
+        {
+          "id": "01M6PWPVNR63CE5G02KCKAXFTQ",
+          "createdAt": "2026-11-05T22:19:12.950Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "48aa9e2a-92a8-4715-96d4-fa4cfbfb6e1b",
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Original record history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "pageId": "01M6PWPC9Z33R417JSDYC9GPAE",
+                "parentBlockId": null,
+                "revisionId": "01M6PWPVNT3EZVTXMGBSNNNJT8"
+              }
+            ],
+            "properties": {
+              "databaseFields": {
+                "a3cf0aac-bfc0-42e6-8726-5f0c14757e61": 7
+              },
+              "title": "History record labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPVQBJ3H1PQNGC5D797J4",
+          "createdAt": "2026-11-05T22:19:12.997Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "publish",
+          "ordinal": 1,
+          "label": "Original release",
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "48aa9e2a-92a8-4715-96d4-fa4cfbfb6e1b",
+                "pageId": "01M6PWPC9Z33R417JSDYC9GPAE",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Original record history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWPVNT3EZVTXMGBSNNNJT8"
+              }
+            ],
+            "properties": {
+              "databaseFields": {
+                "a3cf0aac-bfc0-42e6-8726-5f0c14757e61": 7
+              },
+              "title": "History record labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPVS2KAV19SJXEM4GYG1G",
+          "createdAt": "2026-11-05T22:19:13.056Z",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "48aa9e2a-92a8-4715-96d4-fa4cfbfb6e1b",
+                "pageId": "01M6PWPC9Z33R417JSDYC9GPAE",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current record history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWPVS4VW0CJR5MT0Y4B2T6"
+              }
+            ],
+            "properties": {
+              "databaseFields": {
+                "a3cf0aac-bfc0-42e6-8726-5f0c14757e61": 7
+              },
+              "title": "History record labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPVTRWKR79N59CX6C95NN",
+          "createdAt": "2026-11-05T22:19:13.110Z",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "48aa9e2a-92a8-4715-96d4-fa4cfbfb6e1b",
+                "pageId": "01M6PWPC9Z33R417JSDYC9GPAE",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current record history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWPVS4VW0CJR5MT0Y4B2T6"
+              }
+            ],
+            "properties": {
+              "databaseFields": {
+                "a3cf0aac-bfc0-42e6-8726-5f0c14757e61": 11
+              },
+              "title": "History record labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPVWEGNM3SVN119QY5DNB",
+          "createdAt": "2026-11-05T22:19:13.160Z",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "origin": "publish",
+          "ordinal": 2,
+          "label": "Current release",
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "48aa9e2a-92a8-4715-96d4-fa4cfbfb6e1b",
+                "pageId": "01M6PWPC9Z33R417JSDYC9GPAE",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current record history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWPVS4VW0CJR5MT0Y4B2T6"
+              }
+            ],
+            "properties": {
+              "databaseFields": {
+                "a3cf0aac-bfc0-42e6-8726-5f0c14757e61": 11
+              },
+              "title": "History record labelled",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        },
+        {
+          "id": "01M6PWPVY8E59JXHE99WXC2ZAP",
+          "createdAt": "2026-11-05T22:19:13.222Z",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "origin": "autosave",
+          "ordinal": null,
+          "label": null,
+          "snapshot": {
+            "blocks": [
+              {
+                "id": "48aa9e2a-92a8-4715-96d4-fa4cfbfb6e1b",
+                "pageId": "01M6PWPC9Z33R417JSDYC9GPAE",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Current record history body"
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6PWPVS4VW0CJR5MT0Y4B2T6"
+              }
+            ],
+            "properties": {
+              "databaseFields": {
+                "a3cf0aac-bfc0-42e6-8726-5f0c14757e61": 11
+              },
+              "title": "Unpublished record history title",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            }
+          }
+        }
+      ],
+      "visible": [
+        {
+          "id": "01M6PWPVWEGNM3SVN119QY5DNB",
+          "origin": "publish",
+          "authorMemberId": "browser-reader",
+          "authorDisplayName": "Morgan Reader",
+          "ordinal": 2,
+          "label": "Current release",
+          "statusKey": null,
+          "createdAt": "2026-11-05T22:19:13.160Z",
+          "deletedAt": null,
+          "deletedByMemberId": null,
+          "deletedByDisplayName": null
+        },
+        {
+          "id": "01M6PWPVQBJ3H1PQNGC5D797J4",
+          "origin": "publish",
+          "authorMemberId": "browser-owner",
+          "authorDisplayName": "Alex Owner",
+          "ordinal": 1,
+          "label": "Original release",
+          "statusKey": null,
+          "createdAt": "2026-11-05T22:19:12.997Z",
+          "deletedAt": null,
+          "deletedByMemberId": null,
+          "deletedByDisplayName": null
+        }
+      ],
+      "editorReload": true,
+      "publishedReload": [
+        "01M6PWPVQBJ3H1PQNGC5D797J4",
+        "01M6PWPVWEGNM3SVN119QY5DNB"
+      ],
+      "refusedRewrites": {
+        "actors": [
+          "full",
+          "view"
+        ],
+        "methods": [
+          "PATCH",
+          "PUT",
+          "POST"
+        ]
+      },
+      "refusedVersionActions": {
+        "actors": [
+          "view",
+          "revoked"
+        ],
+        "actions": [
+          "restore",
+          "delete"
+        ]
+      },
+      "revoked": 404
+    }
+  },
+  "refusals": [
+    {
+      "person": "bob",
+      "method": "GET",
+      "path": "/api/pages/01M6PWNMT9ES14STHK68QJQMA0",
+      "status": 404,
+      "at": "2026-11-05T22:18:40.137Z",
+      "code": "NOT_FOUND"
+    },
+    {
+      "person": "bob",
+      "method": "GET",
+      "path": "/api/pages/01M6PWNMT9ES14STHK68QJQMA0",
+      "status": 404,
+      "at": "2026-11-05T22:18:40.789Z",
+      "code": "NOT_FOUND"
+    },
+    {
+      "person": "bob",
+      "method": "GET",
+      "path": "/api/databases/01M6PWNMRSMKS4J3C4E4WSQ4TM",
+      "status": 404,
+      "at": "2026-11-05T22:18:47.788Z",
+      "code": "NOT_FOUND"
+    },
+    {
+      "person": "bob",
+      "method": "GET",
+      "path": "/api/databases/01M6PWNMRSMKS4J3C4E4WSQ4TM",
+      "status": 404,
+      "at": "2026-11-05T22:18:48.428Z",
+      "code": "NOT_FOUND"
+    },
+    {
+      "person": "bob",
+      "method": "GET",
+      "path": "/api/databases/01M6PWNMRSMKS4J3C4E4WSQ4TM/records/01M6PWNMV9ZNWSX9004PPMN3C9",
+      "status": 404,
+      "at": "2026-11-05T22:18:55.883Z",
+      "code": "NOT_FOUND"
+    },
+    {
+      "person": "bob",
+      "method": "GET",
+      "path": "/api/databases/01M6PWNMRSMKS4J3C4E4WSQ4TM/records/01M6PWNMV9ZNWSX9004PPMN3C9",
+      "status": 404,
+      "at": "2026-11-05T22:18:56.573Z",
+      "code": "NOT_FOUND"
+    },
+    {
+      "person": "bob",
+      "method": "GET",
+      "path": "/api/pages/01M6PWPC8N67FJPD0H8TCZGM3Y",
+      "status": 404,
+      "at": "2026-11-05T22:19:03.798Z",
+      "code": "NOT_FOUND"
+    },
+    {
+      "person": "bob",
+      "method": "GET",
+      "path": "/api/pages/01M6PWPC8N67FJPD0H8TCZGM3Y",
+      "status": 404,
+      "at": "2026-11-05T22:19:04.447Z",
+      "code": "NOT_FOUND"
+    },
+    {
+      "person": "bob",
+      "method": "GET",
+      "path": "/api/databases/01M6PWPC7HEBP5DRRTJP2TBV92",
+      "status": 404,
+      "at": "2026-11-05T22:19:11.639Z",
+      "code": "NOT_FOUND"
+    },
+    {
+      "person": "bob",
+      "method": "GET",
+      "path": "/api/databases/01M6PWPC7HEBP5DRRTJP2TBV92",
+      "status": 404,
+      "at": "2026-11-05T22:19:12.274Z",
+      "code": "NOT_FOUND"
+    },
+    {
+      "person": "bob",
+      "method": "GET",
+      "path": "/api/databases/01M6PWPC7HEBP5DRRTJP2TBV92/records/01M6PWPC9Z33R417JSDYC9GPAE",
+      "status": 404,
+      "at": "2026-11-05T22:19:19.769Z",
+      "code": "NOT_FOUND"
+    },
+    {
+      "person": "bob",
+      "method": "GET",
+      "path": "/api/databases/01M6PWPC7HEBP5DRRTJP2TBV92/records/01M6PWPC9Z33R417JSDYC9GPAE",
+      "status": 404,
+      "at": "2026-11-05T22:19:20.449Z",
+      "code": "NOT_FOUND"
+    }
+  ],
+  "screenshots": [
+    {
+      "person": "alice",
+      "state": "page autosnapshot full newest-first history",
+      "file": "01-alice-page-autosnapshot-full-newest-first-history.png"
+    },
+    {
+      "person": "bob",
+      "state": "page autosnapshot complete history after reload",
+      "file": "02-bob-page-autosnapshot-complete-history-after-reload.png"
+    },
+    {
+      "person": "alice",
+      "state": "database autosnapshot full newest-first history",
+      "file": "03-alice-database-autosnapshot-full-newest-first-history.png"
+    },
+    {
+      "person": "bob",
+      "state": "database autosnapshot complete history after reload",
+      "file": "04-bob-database-autosnapshot-complete-history-after-reload.png"
+    },
+    {
+      "person": "alice",
+      "state": "record autosnapshot full newest-first history",
+      "file": "05-alice-record-autosnapshot-full-newest-first-history.png"
+    },
+    {
+      "person": "bob",
+      "state": "record autosnapshot complete history after reload",
+      "file": "06-bob-record-autosnapshot-complete-history-after-reload.png"
+    },
+    {
+      "person": "alice",
+      "state": "page labelled full newest-first history",
+      "file": "07-alice-page-labelled-full-newest-first-history.png"
+    },
+    {
+      "person": "bob",
+      "state": "page labelled complete history after reload",
+      "file": "08-bob-page-labelled-complete-history-after-reload.png"
+    },
+    {
+      "person": "alice",
+      "state": "database labelled full newest-first history",
+      "file": "09-alice-database-labelled-full-newest-first-history.png"
+    },
+    {
+      "person": "bob",
+      "state": "database labelled complete history after reload",
+      "file": "10-bob-database-labelled-complete-history-after-reload.png"
+    },
+    {
+      "person": "alice",
+      "state": "record labelled full newest-first history",
+      "file": "11-alice-record-labelled-full-newest-first-history.png"
+    },
+    {
+      "person": "bob",
+      "state": "record labelled complete history after reload",
+      "file": "12-bob-record-labelled-complete-history-after-reload.png"
+    }
+  ],
+  "pageErrors": []
+}

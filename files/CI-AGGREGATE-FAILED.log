@@ -1,0 +1,18 @@
+verify	Require the plan and every expected job	﻿2026-11-05T22:12:10.6648324Z ##[group]Run set -euo pipefail
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6649242Z [36;1mset -euo pipefail[0m
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6649999Z [36;1mtest "$PLAN" = success[0m
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6650860Z [36;1mif [ "$SKIP" = true ]; then exit 0; fi[0m
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6651879Z [36;1m# Dispatch has always been the installer/local-only entry point.[0m
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6652868Z [36;1mif [ "$EVENT" != workflow_dispatch ]; then[0m
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6654091Z [36;1m  for result in "$APP" "$SHARDS" "$CONTRACT"; do test "$result" = success; done[0m
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6655036Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6655875Z [36;1mif [ "$EVENT" = schedule ] || [ "$EVENT" = workflow_dispatch ] || [[ "$REF" == refs/tags/* ]]; then[0m
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6657061Z [36;1m  test "$LOCAL" = success[0m
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6657864Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6658592Z [36;1mif [ "$EVENT" = schedule ] || [[ "$REF" == refs/tags/* ]]; then[0m
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6659509Z [36;1m  test "$SCALE" = success[0m
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6660244Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6983512Z shell: /usr/bin/bash -e {0}
+[Runner environment section omitted from public report.]
+verify	Require the plan and every expected job	2026-11-05T22:12:10.6991749Z ##[endgroup]
+verify	Require the plan and every expected job	2026-11-05T22:12:10.7262787Z ##[error]Process completed with exit code 1.

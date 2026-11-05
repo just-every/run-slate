@@ -1,0 +1,26 @@
+{
+  "head": "1fb17a98246beff632c9f0a8164ba98e5f5c4790",
+  "checks": [
+    {
+      "commit": "1fb17a98246beff632c9f0a8164ba98e5f5c4790",
+      "parent": "1b0a652c4ad90b111d8f804cf19f500c4595a599",
+      "parent_table_lines": 698,
+      "child_table_lines": 698,
+      "status_rows_retained": true
+    },
+    {
+      "commit": "1b0a652c4ad90b111d8f804cf19f500c4595a599",
+      "parent": "905951a00ec1c61683c78f5c91ba15ec40b0f6ed",
+      "parent_table_lines": 698,
+      "child_table_lines": 698,
+      "status_rows_retained": true
+    },
+    {
+      "commit": "905951a00ec1c61683c78f5c91ba15ec40b0f6ed",
+      "parent": "51162d87a91a4556ab68fdee79caa26e1b747a29",
+      "parent_table_lines": 698,
+      "child_table_lines": 698,
+      "status_rows_retained": true
+    }
+  ]
+}

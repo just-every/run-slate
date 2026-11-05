@@ -1,0 +1,41 @@
+{
+  "head": "1fb17a98246beff632c9f0a8164ba98e5f5c4790",
+  "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1800 node --test --test-concurrency=1 --test-name-pattern='two people edit at once|real core-wiki and touch-member journeys at 390px' tests/qualification/ui-convergence/journeys.test.mjs",
+  "node": "22.20.0",
+  "chromium": "/usr/bin/chromium",
+  "exit": 0,
+  "registrations": {
+    "real core-wiki and touch-member journeys at 390px": {
+      "exit": 0,
+      "duration_ms": 566515.878947
+    },
+    "two people edit at once, lose access mid-edit and restore history at 1440px": {
+      "exit": 0,
+      "duration_ms": 204995.867238
+    }
+  },
+  "pass": 2,
+  "fail": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "cases": [
+    {
+      "width": 1440,
+      "receipt": "history-1440/measurements.json",
+      "sha256": "8166deaad68d53916253affe2b7fa6b4e1077021ede63d0843591a54e5cd6b17",
+      "cases": 6,
+      "committed_snapshots": 44,
+      "page_errors": 0
+    },
+    {
+      "width": 390,
+      "receipt": "history-390/measurements.json",
+      "sha256": "21855581f30ed336202d9b15174c2fb816d85c527219800868f51783b0a4a00c",
+      "cases": 6,
+      "committed_snapshots": 44,
+      "page_errors": 0
+    }
+  ],
+  "log_sha256": "239b6bed89d06659ce000943793cec7234d6b8eb862552babcfc5e2b418e3cc7",
+  "build_provenance": "BUILD-PROVENANCE.json"
+}

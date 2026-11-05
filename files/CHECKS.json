@@ -1,0 +1,111 @@
+{
+  "head": "1fb17a98246beff632c9f0a8164ba98e5f5c4790",
+  "node": "22.20.0",
+  "results": [
+    {
+      "id": "setup",
+      "command": "cloud_run npx -y @runeditrun/rer setup --owner-email fleet@runeditrun.com --non-interactive",
+      "exit": 0,
+      "local_log": "/tmp/slate-setup.log",
+      "log_sha256": "2dd2799caa22b6554becbb390df0923be52dc3f0d73a37c349c650c7ddd6e79f"
+    },
+    {
+      "id": "worker",
+      "command": "cloud_run pnpm exec vitest run tests/qualification/core/audit-content.test.ts",
+      "exit": 0,
+      "local_log": "/tmp/slate-final-worker.log",
+      "log_sha256": "6fc4d6d5abb5fa88e9f1865d49ef7240c309d04efdc204be540d710d1644bb2b"
+    },
+    {
+      "id": "typecheck",
+      "command": "cloud_run pnpm typecheck",
+      "exit": 0,
+      "local_log": "/tmp/slate-final-typecheck.log",
+      "log_sha256": "9e7afa8c50ce7609ddd44761a004282069884d3252b72dfa64a11467e5a00da6"
+    },
+    {
+      "id": "first_party",
+      "command": "cloud_run pnpm exec rer check --profile first-party",
+      "exit": 0,
+      "local_log": "/tmp/slate-final-first-party.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "integration",
+      "command": "pnpm integration:sync",
+      "exit": 0,
+      "local_log": "/tmp/slate-integration.log",
+      "log_sha256": "10a0208e08facae67b75113ee6ff14b0be1c6b0ebbf7778f3d66bb752a19efff"
+    },
+    {
+      "id": "views_write",
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0,
+      "local_log": "/tmp/slate-views-write.log",
+      "log_sha256": "df91012bf66fb476e9cd1a30c002829398beb55f869e07cc7be477197fa5a276"
+    },
+    {
+      "id": "views_check",
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "local_log": "/tmp/slate-views-check.log",
+      "log_sha256": "c21aae40192141751d6d5c7a3a1d0eb701a6852f305d592d77b4dcab9c2536ab"
+    },
+    {
+      "id": "lock",
+      "command": "pnpm source:lock",
+      "exit": 0,
+      "local_log": "/tmp/slate-lock.log",
+      "log_sha256": "180959ac562e4d13a38c5af72d3a9d5a5cac9de484dfb69cab04a8c3ca8fb602"
+    },
+    {
+      "id": "lock_check",
+      "command": "pnpm source:check",
+      "exit": 0,
+      "local_log": "/tmp/slate-final-source-check.log",
+      "log_sha256": "67a7f35b14659c1942cfbf68e4ae70ef279b6d923ba2641f6ea9028937b8aa8c",
+      "exact_committed_head": true
+    },
+    {
+      "id": "build",
+      "command": "cloud_run npx -y @runeditrun/rer build",
+      "exit": 0,
+      "local_log": "/tmp/slate-final-build.log",
+      "log_sha256": "329fed97e4c296b1b9e3d9215e11c6e6eded671176c486c79be8114e70169e09",
+      "exact_committed_head": true
+    }
+  ],
+  "note": "Setup ran before proof commits. Worker, typecheck and first-party ran on this head. Mechanical generation and locking ran on its exact staged content before commit; generated views were restored from main. Browser and CI outcomes will be recorded separately.",
+  "mechanical": "MECHANICAL lock=pnpm source:lock and pnpm source:check exit=0; views=node src/base/runtime/contract-docs.mjs write and check, then restore generated views from origin/main exit=0; ledger=none exit=0",
+  "initial_main": {
+    "head": "51162d87a91a4556ab68fdee79caa26e1b747a29",
+    "verify_run": 41977421463,
+    "run_site": 41977421457,
+    "status": "success"
+  },
+  "candidate_ci": {
+    "run": 42119312166,
+    "event": "push",
+    "status": "completed",
+    "conclusion": "failure",
+    "failed_app_job": 127567288981,
+    "failed_aggregate_job": 127567611727,
+    "permitted_exception": "generated ACCEPTANCE.md freshness only; dependent jobs skipped",
+    "product_assertion_failure": false,
+    "rerun": false,
+    "dispatch": false,
+    "github_invocations": 6
+  },
+  "custody": {
+    "branch": "cloud/sd-slate-c-f166",
+    "head": "1fb17a98246beff632c9f0a8164ba98e5f5c4790",
+    "product_pushed": true,
+    "main_pushed": false,
+    "pr": null,
+    "bundle": "/home/agent/rer-consolidation/work/sd-slate-c-f166/product-1fb17a98246b.bundle",
+    "bundle_sha256": "42e41a0213e859750fde87a5cceaeb62ff1c005302f85009b658cde1ae226aee",
+    "bundle_verified": true
+  },
+  "browser_receipt": "BROWSER-RECEIPT.json",
+  "browser_exit": 0
+}
