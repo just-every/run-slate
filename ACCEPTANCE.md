@@ -682,8 +682,8 @@ Core · published · **partial**
 1. Each survives export and import and each has a Markdown or import equivalent named in `IMP-002` and `IMP-003`. a table-of-contents block (`BLOCK-017`), status labels (`BLOCK-018`) and diagrams.net diagrams (`BLOCK-019`) join them, and `IMP-010` names the Confluence macro each one replaces.
 2. Each structured block type survives export and import with its named import equivalent.
 
-**Evidence.** `tests/qualification/interface/blocks.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/blocks.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/structured-blocks-journey.mjs` — authorStructuredBlocks and inspectStructuredArchive, loaded by the responsive writeJourney and readable exportCommentsJourney; `tests/e2e/imports/readable-comments.test.ts` — HTML and Markdown exports restore authored page and inline replies, tombstones, resolution and block anchors in a fresh deployment.
+**Gap.** Native authoring and readable HTML and Markdown archive round trips cover the selected structured kinds. Complete named IMP-002 and IMP-003 incumbent-equivalent qualification, BLOCK-017, BLOCK-018, BLOCK-019 and IMP-010 macro obligations remain unproved. Genuine Confluence fixtures require owner source; BLOCK-018 still needs the ct ruling on table-cell colour, and diagrams.net remains missing. Native round trips do not satisfy these omitted duties.
 
 #### BLOCK-007 — Task items
 
