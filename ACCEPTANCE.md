@@ -2428,8 +2428,8 @@ Core · published · **partial**
 1. A link to a deleted or erased record resolves to a tombstone naming the record kind and the time it was deleted, not an error page or an empty view, and exposes no erased content or personal metadata.
 2. Deleted or erased records resolve to content-free tombstones.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A link to a deleted or erased record resolves to a tombstone naming the record kind and the time it was deleted, not an error page or an empty view, and exposes no erased content or personal metadata."
+**Evidence.** `tests/e2e/review/verification-flow.test.ts` — “Verifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current”, native citationJourney; `tests/qualification/ui-convergence/two-people-history.mjs` — erasedPageLinksJourney, loaded by “two people edit at once, lose access mid-edit and restore history at 1440px” and “real core-wiki and touch-member journeys at 390px” in `tests/qualification/ui-convergence/journeys.test.mjs`: permanently erased native page and revision URLs, exact kind and deletion time, content-free reads, inline quote removal, current-access refusal and refused capture replay.
+**Gap.** Acceptance 1–2 remain unproven for deleted-but-not-erased outcomes and database, record, container, comment-thread, template, decision and all other record-kind URLs. Native page and page-revision permanent-erasure supporting proof does not establish the full clause; exact-candidate Verify and guarded landing remain pending.
 
 #### LINK-003 — References follow their target
 
