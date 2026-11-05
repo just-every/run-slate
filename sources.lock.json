@@ -12104,7 +12104,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/insert-menu-journey.mjs": {
-      "sha256": "be965fd626b9dd0955e704c574ee712903239a57b3a214b1e2b8b3fd9aed9d18",
+      "sha256": "5a07e54c3b59e7afc222af0f1cd4b8913d2f9e85cb8da9d3acbd02bbc2104d3c",
       "executable": false
     },
     "tests/qualification/ui-convergence/journey-shard.mjs": {
@@ -12408,7 +12408,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "bca64668fcc997430708a72c80b19f3e0368598d58d0bfe1a590ba5314009281",
+      "sha256": "8c41fa733f613c73d95b57e18101913a7698e8b97683993cea5bd82ade481dde",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

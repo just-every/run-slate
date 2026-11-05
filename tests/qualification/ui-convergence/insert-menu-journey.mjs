@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { accessible, openNavigation } from './browser-support.mjs';
-import { tap, type, reachable } from './touch-controls.mjs';
+import { tap, type } from './touch-controls.mjs';
 
 // The writer's selected basic inventory, independent of the implementation catalog.
 const basics = [
@@ -31,16 +31,53 @@ function assertInserted(block,entry,marker) {
   else {assert.equal(plain(content.text),marker);if(entry.type==='task')assert.equal(content.done,false);if(entry.type==='callout')assert.equal(content.tone,'neutral');}
 }
 
+async function visibleWithoutScrolling(locator) {
+  await expect.poll(()=>locator.evaluate(element=>{
+    const r=element.getBoundingClientRect(),v=window.visualViewport;
+    const left=v?.offsetLeft??0,top=v?.offsetTop??0;
+    const list=element.closest('[role="listbox"]')?.getBoundingClientRect();
+    const hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);
+    return r.width>0&&r.height>0&&r.left>=left&&r.top>=top
+      &&r.right<=left+(v?.width??innerWidth)&&r.bottom<=top+(v?.height??innerHeight)
+      &&(!list||(r.top>=list.top&&r.bottom<=list.bottom))
+      &&(hit===element||element.contains(hit));
+  }),{message:'Keyboard selection stays wholly visible without a test scrolling or focusing it.'}).toBe(true);
+}
+
 async function inventory(page) {
   await expect(search(page)).toBeFocused();
+  await visibleWithoutScrolling(search(page));
+  await visibleWithoutScrolling(page.locator('.insert-menu').getByRole('button',{name:'Close menu',exact:false}));
   assert.deepEqual(await page.locator('.insert-menu [data-insert-group]').evaluateAll(groups=>groups.map(group=>group.dataset.insertGroup)),['basic','media','advanced']);
   assert.deepEqual(await page.locator('.insert-menu [data-insert-group="basic"] [role="option"]').evaluateAll(rows=>rows.map(row=>row.dataset.insertKind)),basics.map(entry=>entry.kind));
 }
 
 /** One populated native page, selected by keyboard at the cursor or by the touch control. */
-export async function insertMenuJourney(state,{touch=false}={}) {
+export async function insertMenuJourney(state,options={}) {
+  if(!options.touch)return runInsertMenuJourney(state,options);
+  // Resizing this probe must not change the original writing tab's viewport or history.
+  const page=await state.page.context().newPage(),errors=[];
+  page.on('pageerror',cause=>errors.push(String(cause)));
+  page.on('console',message=>{if(message.type()==='error')errors.push(message.text());});
+  try {
+    await page.goto(state.page.url(),{waitUntil:'networkidle'});
+    const pageId=await runInsertMenuJourney({...state,page},options);
+    // Retire this probe's own page after durable readback, preserving the writing fixture.
+    const document=await state.api(`/api/pages/${pageId}`);
+    const retired=await page.context().request.post(`${state.origin}/api/archive/${pageId}`,{
+      headers:{origin:state.origin},data:{operationKey:crypto.randomUUID(),expectedRevisionId:document.page.revisionId,action:'trash'},
+    });
+    assert.equal(retired.status(),200,await retired.text());
+    assert.deepEqual(errors,[],'The native touch insert page has no browser errors.');
+  } finally {await page.close();}
+}
+
+async function runInsertMenuJourney(state,{touch=false}={}) {
   const {page,api,origin}=state;
   const returnTo=page.url();
+  const viewport=page.viewportSize();
+  // A reduced visual viewport exercises menu scrolling while the touch editor is focused.
+  if(touch)await page.setViewportSize({...viewport,height:520});
   const act=touch?async locator=>{
     // Center before tapping; browser edge intersection can round a fraction of a pixel.
     await locator.evaluate(element=>element.scrollIntoView({block:'center',inline:'nearest'}));
@@ -101,7 +138,7 @@ export async function insertMenuJourney(state,{touch=false}={}) {
         await expect(option(page,'text')).toHaveAttribute('aria-selected','true');
         for(let count=0;count<index;count++)await page.keyboard.press('ArrowDown');
         await expect(option(page,entry.kind)).toHaveAttribute('aria-selected','true');
-        await reachable(option(page,entry.kind));
+        await visibleWithoutScrolling(option(page,entry.kind));
         // Reverse direction too, without using the pointer to repair selection.
         await page.keyboard.press('ArrowDown');await page.keyboard.press('ArrowUp');
         await expect(option(page,entry.kind)).toHaveAttribute('aria-selected','true');
@@ -140,7 +177,9 @@ export async function insertMenuJourney(state,{touch=false}={}) {
   await page.reload({waitUntil:'networkidle'});
   assert.deepEqual(projection(await read(api,pageId)),projection(expected),'Reload retains every selected basic type, position and value.');
   assert.deepEqual(await page.locator('[data-page-editor] [data-block-id]').evaluateAll(rows=>rows.map(row=>row.dataset.blockId)),expected.map(block=>block.id));
+  if(touch)await page.setViewportSize(viewport);
   await accessible(page,touch?'touch inserted basic catalog':'keyboard inserted basic catalog',{fullPage:false});
   console.log(`PROBE BLOCK-003 ${touch?'touch inventory and taps':'slash, filters and keyboard cursor insertion'}: fourteen native types and values persist after reload at ${page.viewportSize().width}px`);
   await page.goto(returnTo,{waitUntil:'networkidle'});
+  return pageId;
 }
