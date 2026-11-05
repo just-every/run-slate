@@ -274,10 +274,10 @@ async function chartHttpJourney({call, mutate, cookie, memberCookie, readerId, o
     }
   }
   source.name = "Renamed native source";
-  source.filters.push({field: "chart-amount", op: "gte", value: 15} as any);
+  source.filters.push({field: "chart-stage", op: "eq", value: "Open"} as any);
   await mutate("POST", base + "/views", {expectedRevisionId: revision, view: source});
   const renamed = await call("GET", path + "/chart?group=chart-stage&numeric=chart-amount&calculation=sum", memberCookie);
-  expect(renamed.body).toEqual({viewId: source.id, viewName: source.name, series: [{label: "Open", value: 20}, {label: "Closed", value: 30}, {label: null, value: 15}]});
+  expect(renamed.body).toEqual({viewId: source.id, viewName: source.name, series: [{label: "Open", value: 30}]});
   const before = (await call("GET", path)).body;
   await mutate("POST", "/sharing", {id: grant.id, targetKind: "page", targetId: created.pageId, principalKind: "member", principalId: readerId, level: "view", revoke: true});
   for (const route of [path, path + "/chart?group=chart-stage&numeric=chart-amount&calculation=sum"]) {

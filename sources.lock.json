@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "fb28d2bde5e2c155c31059c8427daf87715443ffae27db31e268cbc8d3c64903",
+      "sha256": "621ea9eb0421673ee5744328d51b7847cba26ecc528142e61476b3ef4bdf37b0",
       "executable": false
     },
     "DEMO.md": {
@@ -11292,7 +11292,7 @@
       "executable": false
     },
     "tests/flagship/structured/http.test.ts": {
-      "sha256": "37935876933faff57e017bfb0dc27946ff8239b2079794b44d95026460acea77",
+      "sha256": "00d081511aa7707897fefeb27259f692f68925b852f3b3c37d3ccc9da4d6a354",
       "executable": false
     },
     "tests/flagship/structured/migration.py": {
@@ -12292,7 +12292,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-database-tools-journey.mjs": {
-      "sha256": "62cf675f32a27497a88c66bb9635917ce5a4c5633dc826e1c9a162c56def7d4b",
+      "sha256": "dc36da60b616cbd567292997ff4e0fe51edd89f588862a8504d75e82f34a7915",
       "executable": false
     },
     "tests/qualification/ui-convergence/touch-database.mjs": {
@@ -12400,7 +12400,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "d8ad0100fa08c30858cf5893e13ccdd87e45f3ef2df4e1db12a3c58be489b4ae",
+      "sha256": "440dfa38a002fcf8fa34f4e98aad25806e6a4845f497ef086a09efb3f9c12207",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12416,7 +12416,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "b0e4e7212c33ea023f6639517ba5549cdf95ad583cdd877ccff8b893ee4d13f2",
+      "sha256": "ffb949f78d69c0c0ed561a4df72523f5f90ece3710acc042a8d5606a7daf7897",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
