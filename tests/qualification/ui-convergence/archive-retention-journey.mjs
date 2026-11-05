@@ -3,11 +3,16 @@ import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
 import {retentionFixture} from '../archive-retention-fixture.ts';
 import {call,ok} from './two-people-support.mjs';
+import {signInWithOutbox} from '../../e2e/outbox-auth.mjs';
 import {tap,type,checkpoint} from './touch-controls.mjs';
 
 /** Archive and deletion use the ordinary member's native controls and session. */
 export async function archiveRetentionJourney(state,touch) {
   const {page,context,origin,containerId}=touch;
+  // Refresh mailbox proof through native sign-in before the long caller reaches confirmed erasure.
+  const identity=await ok(context,origin,'GET','/api/session');
+  const signedIn=await signInWithOutbox(origin,identity.member.email);
+  await context.addCookies([{name:'slate_session',value:signedIn.cookie.split('=')[1],url:origin}]);
   // The existing caller has already exercised many native doors. Pace this batch into a fresh admission window.
   await page.waitForTimeout(60000-Date.now()%60000);
   const f=await retentionFixture({containerId,memberId:'browser-reader',

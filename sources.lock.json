@@ -11860,7 +11860,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/archive-retention-journey.mjs": {
-      "sha256": "7fbf2bf6eb5b404fbbccd774d0e275831b92bd4a78b9e2a452f8b7ffdcd4c79d",
+      "sha256": "1b35308c61ad0784fd9249fc7b151c2cce939d43eea83ed96387ad6252ae51d6",
       "executable": false
     },
     "tests/qualification/ui-convergence/ask-draft.test.ts": {
