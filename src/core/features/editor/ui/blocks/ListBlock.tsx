@@ -24,6 +24,8 @@ function ToggleItem({
       <div className="flex items-start gap-1">
         <button
           aria-expanded={open}
+          aria-label={open ? "Collapse this item" : "Expand this item"}
+          data-tooltip={open ? "Collapse item" : "Expand item"}
           className="mt-1 rounded-control p-0.5 text-ink-muted transition-colors hover:bg-sidebar-hover hover:text-ink"
           onClick={() => canEdit?onChange({ ...item, open: !open }):setReaderOpen(!open)}
           type="button"

@@ -1,3 +1,4 @@
+import { authorStructuredBlocks } from './structured-blocks-journey.mjs';
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { accessible, openNavigation } from './browser-support.mjs';
@@ -142,5 +143,6 @@ export async function writeJourney(state, width) {
   await firstWordsJourney(state);
   await typedShortcutsJourney(state);
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
+  await authorStructuredBlocks(state, pageId);
   return pageId;
 }

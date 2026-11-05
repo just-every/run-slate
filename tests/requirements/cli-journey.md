@@ -217,3 +217,33 @@ Functional assertions run at 1440px. The existing 390px core-wiki registration s
 AUTO-003 run history uses `automationRunLogCase` in `tests/flagship/structured/automation-run-log.case.ts`, invoked by the existing automation recovery Workers registration. Native authenticated rule and run HTTP reads observe every named state from real rule configuration and committed record events, including queued and running at their actual storage transitions. A real D1 trigger aborts comment writes; durable retries reach terminal failure and the production repeated-failure threshold, preserving exactly-once receipts and activity. Native events also reach the production rate boundary. Current-access loss removes touched titles, trigger record references and target receipts from the projection.
 
 `automationRunLogJourney` in `tests/qualification/ui-convergence/automation-run-log-journey.mjs` runs through the existing desktop database-tools caller and phone core caller. It reads the real emitted Worker, checks trigger, actor, record link, recorded time and action receipt, then induces native storage failures and advances only the durable retry clock. Error and failure appear beside the rule before opening its log; repeated failures persist the disabled reason across navigation and a later event. Browser captures use the existing evidence helper at 1440 and 390. No run row or successful application response is fabricated, and no test registration is added.
+
+## Structured authoring and readable archives
+
+`tests/qualification/ui-convergence/structured-blocks-journey.mjs` exports
+`authorStructuredBlocks`, called by the existing responsive `writeJourney` and
+`exportCommentsJourney` callers. Native insertion and editing populate headings
+at levels one through three, bulleted and numbered lists, a toggle and its detail,
+a nested quote, a divider, a callout, an expandable summary and body, a table's
+header row and cells, and TypeScript code. Reload reconciles every authored
+block, its ordered hierarchy and content. Copy reads the actual clipboard.
+Disclosure controls show tooltips immediately on keyboard focus. The existing
+writing registrations retain proof and captures at 1440 and 390.
+
+The existing readable-discussion journey downloads the actual HTML and Markdown
+archives through Export page. It opens their readable documents, checks semantic
+HTML and Markdown structures and all populated content independently of the
+manifest, then uploads the downloaded bytes through Settings. Fresh native block
+identities must retain source types, parent relationships, positions, text, list
+details, table headers and cells, and code language and content after reload.
+Existing comment authorship, resolution, anchors, Word exports and workspace
+exports remain asserted. The existing Workers readable-comment registration also
+checks closed disclosures, multiple list items, a non-default numbered start,
+escaped table content and code with a final newline, then restores both formats
+into a fresh deployment and reconciles the complete canonical body.
+
+This supports BLOCK-006's native portion only. Named incumbent-equivalent
+qualification under IMP-002 and IMP-003, BLOCK-017, BLOCK-018, BLOCK-019 and the
+IMP-010 macro obligations remain open. Genuine incumbent fixtures and their
+provenance are unchanged; these native archives do not substitute for them. No
+new test registration, acceptance sentence or DONE claim is added.

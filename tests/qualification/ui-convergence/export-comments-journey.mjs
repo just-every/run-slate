@@ -1,3 +1,4 @@
+import { authorStructuredBlocks, inspectStructuredArchive, inspectStructuredEditor, assertCanonicalCopy } from './structured-blocks-journey.mjs';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
@@ -14,7 +15,7 @@ export async function exportCommentsJourney(state, people) {
   const blockId = randomUUID(), anchorId = randomUUID();
   const { value: { pageId } } = await ok(context, origin, 'POST', '/api/pages', { operationKey: randomUUID(), containerId: space.id, title: 'Customer incident handover', blocks: [{ id: blockId, blockType: 'paragraph', content: { text: [{ text: 'Confirm the recovery owner', commentAnchorId: anchorId }, { text: ' before handing the incident to the next shift.' }] }, treePosition: 'a' }] });
   await grant(context, origin, pageId, people.bob.id, 'comment');
-  const source = await api(`/api/pages/${pageId}`);
+  const source = await authorStructuredBlocks(state, pageId);
   const first = (await ok(context, origin, 'POST', `/api/comments/page/${pageId}`, { operationKey: randomUUID(), kind: 'inline', blockId, anchor: { anchorId, quote: 'Confirm the recovery owner' }, anchorRevisionId: source.workingRevisionId, body: [{ text: 'Who will coordinate the next customer update?' }] })).value;
   await ok(people.bob.context, origin, 'POST', `/api/comments/page/${pageId}`, { operationKey: randomUUID(), threadId: first.threadId, parentCommentId: first.id, body: [{ text: 'Morgan will send the update at the next handover.' }] });
   await ok(context, origin, 'POST', `/api/comments/page/${pageId}`, { operationKey: randomUUID(), body: [{ text: 'Keep this timeline with the incident report.' }] });
@@ -51,6 +52,7 @@ export async function exportCommentsJourney(state, people) {
     await openExport();
     const bytes = await download(format, format);
     const entries = unzipSync(bytes), manifest = JSON.parse(new TextDecoder().decode(entries['slate-readable.json']));
+    await inspectStructuredArchive(state, entries, format, pageId, source);
     const archived = manifest.pages.find(p => p.id === pageId).comments;
     assert.equal(archived.threads.length, 2);
     assert.equal(archived.threads.find(t => t.kind === 'inline').state, 'resolved');
@@ -78,6 +80,9 @@ export async function exportCommentsJourney(state, people) {
     const copy = (await api('/api/pages')).items.find(p => !previous.has(p.id) && p.title === 'Customer incident handover');
     assert.ok(copy);
     await page.goto(`${origin}/app/pages/${copy.id}`, { waitUntil: 'networkidle' });
+    await page.reload({ waitUntil: 'networkidle' });
+    assertCanonicalCopy(source, await api(`/api/pages/${copy.id}`));
+    await inspectStructuredEditor(state);
     await openPageAction(page, 'Comments');
     await expect(page.locator('.comment-thread')).toHaveCount(2);
     await expect(page.locator('.right')).toContainText('Morgan Reader');
