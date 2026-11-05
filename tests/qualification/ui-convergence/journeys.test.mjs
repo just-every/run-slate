@@ -4,6 +4,7 @@ import {publicProfileJourney} from './public-profile-journey.mjs';
 import {transferJobsJourney} from './transfer-jobs-journey.mjs';
 import { commentAuthorshipJourney } from './comments-journey.mjs';
 import { pageStatusJourney } from './page-status-journey.mjs';
+import { verificationLapseJourney } from './verification-lapse-journey.mjs';
 import { publicationJourney } from './publication-journey.mjs';
 import {unpublishedChangesJourney} from './unpublished-changes-journey.mjs';
 import {pageDetailsJourney} from './page-details-journey.mjs';
@@ -102,6 +103,7 @@ for (const width of [390, 1440]) {
         await step('query, highlighted results and opening exact page; touch Search, Inbox, My tasks and review queues', async () => {await searchJourney(state, pageId);await touchOperatorJourney(state,touch);});
         await step('published readers, editor indication, republish and lossless discard', () => withSecondPerson(state, width, people => unpublishedChangesJourney(state, people)));
         await step('STAT-002 — member status changes retain one status, activity and exact search/query membership', () => pageStatusJourney(state));
+        await step('STAT-004 — authored expiry retains history, one notice and lapsed native projections', () => verificationLapseJourney(state));
         // Finish earlier page notifications before connecting the chat journey destinations.
         await state.runScheduled();
         await chatJourney(state, width);

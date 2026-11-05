@@ -31,7 +31,7 @@ export function VerificationSummary({ pageId, verification: v, canEdit }: { page
   const expiry = v.expires_at ? (v.lapsed ? `It lapsed on ${when(v.expires_at)}.` : `It expires on ${when(v.expires_at)}.`) : "It has no expiry.";
   const changes = v.changedSince
     ? `The verified revision is not the current one${v.revisionsSince ? `: ${v.revisionsSince} ${v.revisionsSince === 1 ? "revision" : "revisions"} since${v.editorsSince.length ? ` by ${people(v.editorsSince)}` : ""}` : ""}.`
-    : "The verified revision is the current one.";
+    : v.state === "lapsed" ? "The page still has the attested revision." : "The verified revision is the current one.";
   return (
     <div className="verification-summary" data-state={v.state ?? "superseded"}>
       <p>
@@ -49,9 +49,9 @@ export function VerificationSummary({ pageId, verification: v, canEdit }: { page
         </>
       )}
       {!v.verifier.active ? <p>{v.verifier.displayName} is no longer an active member. Workspace owners see this page under Needs review.</p> : null}
-      {v.changedSince && canEdit ? (
+      {(v.changedSince || v.state === "lapsed") && canEdit ? (
         <p className="verification-links">
-          <a href={historyHref(pageId, v.revision_id, v.workingRevisionId)}>See what changed</a>
+          {v.changedSince ? <a href={historyHref(pageId, v.revision_id, v.workingRevisionId)}>See what changed</a> : null}
           <a href={historyHref(pageId, v.revision_id)}>Open the verified revision</a>
         </p>
       ) : null}

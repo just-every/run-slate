@@ -1,4 +1,5 @@
 import {transferStorageGate} from '../helpers/transfer-storage-gate.mjs';
+import { workerClock } from '../helpers/worker-clock.mjs';
 import {embedEdge} from '../helpers/embed-edge.mjs';
 import { webhookEdge } from '../helpers/webhook-edge.mjs';
 import { createRequire } from 'node:module';
@@ -28,6 +29,8 @@ const mail = vars.MAIL_PROVIDER === 'development' ? {MAIL_PROVIDER:'resend',MAIL
 const transferGate = triggerMode === 'scheduled' ? transferStorageGate(selected.main, miniflare.Response) : undefined;
 const emitted = await productionModules(selected.main, modulesRules, miniflare);
 if (transferGate) emitted.modules.unshift(transferGate.module);
+const clock = triggerMode === 'scheduled' ? workerClock(emitted.modules[0].path, miniflare.Response) : undefined;
+if (clock) emitted.modules.unshift(clock.module);
 const worker = { ...workerOptions, name: config.name,
   ...emitted,
   bindings: { ...workerOptions.bindings, ...vars, ...mail },
@@ -56,6 +59,7 @@ const worker = { ...workerOptions, name: config.name,
     return fetch(request);
   } };
 if (transferGate) worker.serviceBindings = {...worker.serviceBindings, TEST_TRANSFER_GATE: request => transferGate.service(request)};
+if (clock) worker.serviceBindings = {...worker.serviceBindings, TEST_CLOCK: () => clock.service()};
 const options = miniflare.convertV4MiniflareOptions({ host: '127.0.0.1', port: Number(port),
   unsafeTriggerHandlers: triggerMode === 'scheduled', unsafeLocalExplorer: false, workers: [worker, ...selected.externalWorkers] });
 const runtime = new miniflare.Miniflare({ ...options, resourcePersistencePath: resolve(persistPath, 'v3') });
@@ -69,6 +73,11 @@ catch (cause) { await stop(); throw cause; }
 // Parent-only clock fixtures use the running native D1 binding, avoiding CLI/Worker
 // persistence contention. No application route or application response is replaced.
 if (triggerMode === 'scheduled' && process.send) process.on('message', async message => {
+  if (message?.type === 'fixture.clock') {
+    try { clock.set(message.now); process.send({ type: 'fixture.clock.result', id: message.id }); }
+    catch { process.send({ type: 'fixture.clock.result', id: message.id, error: 'Worker clock control failed' }); }
+    return;
+  }
   if (message?.type === 'fixture.transfer') {
     try {const value=message.action==='objects'
       ? {keys:(await (await runtime.getR2Bucket('FILES')).list({prefix:message.method})).objects.map(object=>object.key)}

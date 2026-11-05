@@ -6,6 +6,7 @@ import { createApi } from '../../../src/core/app/hono';
 import { handleApplicationRequest } from '../../../src/core/app/request-handler';
 import { scheduledDiscovery } from '../../../src/core/features/notifications/jobs';
 import type { AppBindings } from '../../../src/core/app/types';
+import { verificationLapse } from './verification-lapse';
 
 // STAT-003 through the status route: the server sets 7/30/90-day expiries from its own
 // clock, accepts a future date or none, refuses a past date and an unopened revision,
@@ -128,6 +129,7 @@ test('Verifying offers 7, 30 or 90 days, a date or none, only on the opened revi
   expect((await request('owner', 'POST', `/api/pages/${id}/open`, {operationKey: op(), revisionId: changed.workingRevisionId})).status).toBe(200);
   const bulk = await request('owner', 'POST', '/api/status/review/bulk-verify', {items: [{pageId: id, operationKey: op(), pageRevisionId: revision, attestRevisionId: changed.workingRevisionId, statusKey: 'verified'}]});
   expect(bulk.data.items).toEqual([{pageId: id, verified: true}]);
+  await verificationLapse(f);
   await citationJourney(f);
 }, 60_000);
 
