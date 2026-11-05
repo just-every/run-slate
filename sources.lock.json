@@ -12088,7 +12088,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/guest-scope-journey.mjs": {
-      "sha256": "8a142fba54b1302e6d89f34d9732505e9454250cc1a73202f31fc75902bcb0e1",
+      "sha256": "3c7676fa135d1b7715ceb6d66502a52f9d8fef15c637f63d3168bb801944b326",
       "executable": false
     },
     "tests/qualification/ui-convergence/home-journey.mjs": {
