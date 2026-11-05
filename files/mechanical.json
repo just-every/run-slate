@@ -1,0 +1,30 @@
+{
+  "views": {
+    "command": "node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check; generated views restored from origin/main",
+    "exit": 0,
+    "checkOutput": "Contract documents are current.",
+    "committed": false
+  },
+  "lock": {
+    "command": "pnpm source:lock && pnpm source:check",
+    "exit": 0,
+    "ok": true,
+    "manifest": "0d4cac919c752d0042cb3c8875c10123307be6312687dce799b0ae9290c51bd9"
+  },
+  "ledger": {
+    "command": null,
+    "exit": 0,
+    "reason": "No migration changed"
+  },
+  "integration": {
+    "command": "pnpm integration:sync",
+    "exit": 0,
+    "output": "> slate@0.4.0 integration:sync /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate\n> node scripts/sync-integration.mjs --write\n\nIntegration resource, migration and source identities match."
+  },
+  "counts": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "tableLines": 698
+}

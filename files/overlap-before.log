@@ -1,0 +1,90 @@
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate
+
+exception = workerd/api/unsafe.c++:229: failed: jsg.Error: Application called deleteAllDurableObjects().
+stack: /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@381fda0 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@24274b0 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@588570a /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5a392a8 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5884dd0 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@359b5a0 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@359bac0 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@3418c70 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@3419026 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5a392a8 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@3183fc1 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@318449e
+exception = kj/compat/http.c++:4798: disconnected: other end of WebSocketPipe was destroyed
+stack: /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5897d6a /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@589b959 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@35ebf3d /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5a3e640 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@2673d30
+exception = kj/compat/http.c++:4798: disconnected: other end of WebSocketPipe was destroyed
+stack: /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5897d6a /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@589b959 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@35ebf3d /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5a3e640 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@2673d30
+ ❯ tests/flagship/content/http.test.ts (4 tests | 1 failed) 17707ms
+     × content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state 6644ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/flagship/content/http.test.ts > content durable HTTP > content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state
+Error: [native operation keys retain exact responses and populated inventories through the original expiry] overlapping retry after the first commit returns the original response: expected { status: 409, data: { …(3) }, …(1) } to deeply equal { status: 200, data: { …(2) }, …(1) }
+ ❯ runFoldCases tests/flagship/fold-cases.ts:13:21
+     11|       await point.run();
+     12|     } catch (cause) {
+     13|       failures.push(new Error(`[${point.name}] ${cause instanceof Erro…
+       |                     ^
+     14|     }
+     15|   }
+ ❯ tests/flagship/content/http.test.ts:185:116
+
+Caused by: AssertionError: overlapping retry after the first commit returns the original response: expected { status: 409, data: { …(3) }, …(1) } to deeply equal { status: 200, data: { …(2) }, …(1) }
+
+- Expected
++ Received
+
+  {
+-   "body": "{\"value\":{\"pageId\":\"01R1YJ65G0TQP8CBZP078WFZ9V\",\"revisionId\":\"01R1YKJ3R0T6JCPDD672A9QDME\",\"blockRevisionId\":\"01R1YKJ3R0ETW74203GNFEEDZQ\",\"previousRevisionId\":\"01R1YJW4M0R7QCYNYJ7ZBBH1GN\"},\"receipt\":{\"operationKey\":\"01R1YKJ3R0DPYKB85133TXBR0D\",\"entity\":{\"id\":\"01R1YJ65G0TQP8CBZP078WFZ9V\",\"kind\":\"page\",\"revisionId\":\"01R1YKJ3R0T6JCPDD672A9QDME\"},\"revisionId\":\"01R1YKJ3R0T6JCPDD672A9QDME\",\"activityId\":\"01R1YKJ3R037XNPJFAH8FV0NG5\",\"committedAt\":\"2031-01-15T12:24:00.000Z\"}}",
++   "body": "{\"code\":\"BLOCK_CONFLICT\",\"message\":\"This block changed. Keep your unsaved text and compare.\",\"details\":{\"blockId\":\"01R1YJ65G0NV8F6R7MG63GRMZ9\",\"currentRevisionId\":\"01R1YKJ3R0ETW74203GNFEEDZQ\",\"serverContent\":{\"text\":[{\"text\":\"synthetic-slate-overlap-body\"}]}}}",
+    "data": {
+-     "receipt": {
+-       "activityId": "01R1YKJ3R037XNPJFAH8FV0NG5",
+-       "committedAt": "2031-01-15T12:24:00.000Z",
+-       "entity": {
+-         "id": "01R1YJ65G0TQP8CBZP078WFZ9V",
+-         "kind": "page",
+-         "revisionId": "01R1YKJ3R0T6JCPDD672A9QDME",
++     "code": "BLOCK_CONFLICT",
++     "details": {
++       "blockId": "01R1YJ65G0NV8F6R7MG63GRMZ9",
++       "currentRevisionId": "01R1YKJ3R0ETW74203GNFEEDZQ",
++       "serverContent": {
++         "text": [
++           {
++             "text": "synthetic-slate-overlap-body",
+            },
+-       "operationKey": "01R1YKJ3R0DPYKB85133TXBR0D",
+-       "revisionId": "01R1YKJ3R0T6JCPDD672A9QDME",
++         ],
+        },
+-     "value": {
+-       "blockRevisionId": "01R1YKJ3R0ETW74203GNFEEDZQ",
+-       "pageId": "01R1YJ65G0TQP8CBZP078WFZ9V",
+-       "previousRevisionId": "01R1YJW4M0R7QCYNYJ7ZBBH1GN",
+-       "revisionId": "01R1YKJ3R0T6JCPDD672A9QDME",
+      },
++     "message": "This block changed. Keep your unsaved text and compare.",
+    },
+-   "status": 200,
++   "status": 409,
+  }
+
+ ❯ Object.operationReplayCase [as run] tests/flagship/content/operation-replay.case.ts:119:92
+ ❯ runFoldCases tests/flagship/fold-cases.ts:11:7
+ ❯ tests/flagship/content/http.test.ts:185:116
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  21:48:58
+   Duration  28.63s (transform 5.30s, setup 523ms, import 9.85s, tests 17.71s, environment 0ms)
+

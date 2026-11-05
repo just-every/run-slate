@@ -1,0 +1,339 @@
+{
+  "head": "9d63bae1099e54ddf922c1d0df75c1770bc8682c",
+  "branch": "cloud/sd-slate-c-f165",
+  "repository": "just-every/run-slate",
+  "base": "52b6d73b83c0cf8c326a104ff052c95e8aa0ca4a",
+  "main": "51162d87a91a4556ab68fdee79caa26e1b747a29",
+  "workers": {
+    "command": "pnpm exec vitest run tests/flagship/content/http.test.ts tests/flagship/core/security.test.ts tests/qualification/core/audit-content.test.ts --reporter=default --reporter=json --outputFile.json=../packet/candidate-workers.json",
+    "exit": 0,
+    "passed": 6,
+    "files": 3,
+    "node": "22.20.0",
+    "registrations": [
+      {
+        "file": "tests/flagship/content/http.test.ts",
+        "name": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state",
+        "status": "passed"
+      },
+      {
+        "file": "tests/flagship/content/http.test.ts",
+        "name": "content durable HTTP publication, human verification and media enforce current reader authority",
+        "status": "passed"
+      },
+      {
+        "file": "tests/flagship/content/http.test.ts",
+        "name": "native collaboration sockets deliver durable edits and retain shared cursors across refreshes",
+        "status": "passed"
+      },
+      {
+        "file": "tests/flagship/content/http.test.ts",
+        "name": "idle sockets close within five seconds after direct-grant revocation or session expiry",
+        "status": "passed"
+      },
+      {
+        "file": "tests/flagship/core/security.test.ts",
+        "name": "core durable authority first-run, operation replay, atomic rollback and membership policies preserve authority",
+        "status": "passed"
+      },
+      {
+        "file": "tests/qualification/core/audit-content.test.ts",
+        "name": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time",
+        "status": "passed"
+      }
+    ]
+  },
+  "typecheck": {
+    "command": "pnpm typecheck",
+    "exit": 0,
+    "node": "22.20.0"
+  },
+  "firstParty": {
+    "command": "pnpm exec rer check --profile first-party",
+    "exit": 0
+  },
+  "build": {
+    "command": "npx -y @runeditrun/rer build",
+    "exit": 0
+  },
+  "browser": {
+    "command": ". /tmp/rer-cloud-toolchain.sh && export PATH=\"$HOME/.rer/node/node-v22.20.0-linux-x64/bin:$PATH\" && export SLATE_CHROMIUM_PATH=/usr/bin/chromium && cloud_run perl -e 'alarm 1200; exec @ARGV' -- node .artifacts/save005-browser.mjs",
+    "exit": 0,
+    "widths": [
+      1440,
+      390
+    ],
+    "journey": "Existing writeJourney, through withWorkspace and setupWorkspace",
+    "productionSourceAndBrowserHelpersEqualToBuildHead": "4796853a",
+    "screens": [
+      "editor-1440.png",
+      "editor-390.png"
+    ]
+  },
+  "mechanical": {
+    "views": {
+      "command": "node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check; generated views restored from origin/main",
+      "exit": 0,
+      "checkOutput": "Contract documents are current.",
+      "committed": false
+    },
+    "lock": {
+      "command": "pnpm source:lock && pnpm source:check",
+      "exit": 0,
+      "ok": true,
+      "manifest": "0d4cac919c752d0042cb3c8875c10123307be6312687dce799b0ae9290c51bd9"
+    },
+    "ledger": {
+      "command": null,
+      "exit": 0,
+      "reason": "No migration changed"
+    },
+    "integration": {
+      "command": "pnpm integration:sync",
+      "exit": 0,
+      "output": "> slate@0.4.0 integration:sync /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate\n> node scripts/sync-integration.mjs --write\n\nIntegration resource, migration and source identities match."
+    },
+    "counts": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    },
+    "tableLines": 698
+  },
+  "productPush": {
+    "exit": 0,
+    "branch": "cloud/sd-slate-c-f165",
+    "attempts": 1
+  },
+  "ciDiscovery": {
+    "conclusion": null,
+    "event": "push",
+    "head_sha": "9d63bae1099e54ddf922c1d0df75c1770bc8682c",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42117340648",
+    "id": 42117340648,
+    "name": "Verify Slate",
+    "status": "queued"
+  },
+  "publicationScan": {
+    "performed": false,
+    "owner": "Guarded Mac lander"
+  },
+  "pr": null,
+  "clause": {
+    "id": "SAVE-005",
+    "before": "partial",
+    "after": "partial",
+    "selectedPoints": "Acceptance 1 and 2 for native page creation, title changes, body changes, comment creation and page grants",
+    "remaining": "All other mutation families and requirement-wide every-mutation coverage remain unproved, including publish, import and AI-run outcomes; ADMIN-007 and shared company-policy prerequisites remain authoritative."
+  },
+  "countsBefore": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "countsAfter": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "assertionsRemovedOrNarrowed": false,
+  "newRegistrations": 0,
+  "verifyRepairRounds": 0,
+  "localReproduction": {
+    "source": "52b6d73b83c0cf8c326a104ff052c95e8aa0ca4a plus the new public-door probe",
+    "command": "pnpm exec vitest run tests/flagship/content/http.test.ts",
+    "exit": 1,
+    "test": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state",
+    "failure": "overlapping retry after the first commit returns the original response: expected status 200, received status 409 BLOCK_CONFLICT",
+    "report": "overlap-before.log"
+  },
+  "ciFinal": {
+    "conclusion": "failure",
+    "head_sha": "9d63bae1099e54ddf922c1d0df75c1770bc8682c",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42117340648",
+    "status": "completed",
+    "id": 42117340648,
+    "jobs": [
+      {
+        "conclusion": "success",
+        "id": 127560382266,
+        "name": "plan",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v5",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run set -euo pipefail",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v5",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "conclusion": "failure",
+        "id": 127560443020,
+        "name": "verify (app)",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v5",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm/action-setup@v4",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v5",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm install --frozen-lockfile",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Install Chromium",
+            "status": "completed"
+          },
+          {
+            "conclusion": "failure",
+            "name": "Run node src/base/runtime/contract-docs.mjs check",
+            "status": "completed"
+          },
+          {
+            "conclusion": "skipped",
+            "name": "Run node scripts/sync-project-setup.mjs --check && pnpm verify",
+            "status": "completed"
+          },
+          {
+            "conclusion": "skipped",
+            "name": "Run actions/upload-artifact@v4",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Retain failures",
+            "status": "completed"
+          },
+          {
+            "conclusion": "skipped",
+            "name": "Post Run actions/setup-node@v5",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run pnpm/action-setup@v4",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v5",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "conclusion": "skipped",
+        "id": 127560445320,
+        "name": "import-scale",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "failure",
+        "id": 127560776473,
+        "name": "verify",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "status": "completed"
+          },
+          {
+            "conclusion": "failure",
+            "name": "Require the plan and every expected job",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "conclusion": "skipped",
+        "id": 127560777987,
+        "name": "local-journeys",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "skipped",
+        "id": 127560778083,
+        "name": "contract",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "skipped",
+        "id": 127560778490,
+        "name": "verify (${{ matrix.suite }})",
+        "status": "completed",
+        "steps": []
+      }
+    ],
+    "classification": "Expected generated-view freshness only, plus dependent aggregate failure; application and contract test shards were skipped. No product assertion failed in this run.",
+    "eligibleHandoffException": true,
+    "logCommands": [
+      {
+        "command": "gh run view 42117340648 --repo just-every/run-slate --job 127560443020 --log-failed",
+        "exit": 0
+      },
+      {
+        "command": "gh run view 42117340648 --repo just-every/run-slate --job 127560776473 --log-failed",
+        "exit": 0
+      }
+    ]
+  },
+  "githubBudget": {
+    "callsCounted": 6,
+    "limit": 10,
+    "watchers": 1,
+    "statusPollIntervalSeconds": 301
+  }
+}

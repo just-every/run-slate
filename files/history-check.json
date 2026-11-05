@@ -1,0 +1,53 @@
+{
+  "commits": [
+    {
+      "head": "981debabad2b11bf5914c8346c9d9642944e6275",
+      "parents": [
+        "51162d87a91a4556ab68fdee79caa26e1b747a29"
+      ],
+      "tableLines": 698,
+      "rowsRetained": true
+    },
+    {
+      "head": "52b6d73b83c0cf8c326a104ff052c95e8aa0ca4a",
+      "parents": [
+        "981debabad2b11bf5914c8346c9d9642944e6275"
+      ],
+      "tableLines": 698,
+      "rowsRetained": true
+    },
+    {
+      "head": "4796853afd3da3fb015f180841e3157a885db87d",
+      "parents": [
+        "52b6d73b83c0cf8c326a104ff052c95e8aa0ca4a"
+      ],
+      "tableLines": 698,
+      "rowsRetained": true
+    },
+    {
+      "head": "9d63bae1099e54ddf922c1d0df75c1770bc8682c",
+      "parents": [
+        "4796853afd3da3fb015f180841e3157a885db87d"
+      ],
+      "tableLines": 698,
+      "rowsRetained": true
+    }
+  ],
+  "changedFiles": [
+    "CONTRACT.md",
+    "sources.lock.json",
+    "src/core/app/operations.ts",
+    "src/core/features/pages/routes.ts",
+    "src/core/features/pages/ui/workspace/PageWorkspace.tsx",
+    "tests/flagship/content/http.test.ts",
+    "tests/flagship/content/operation-replay.case.ts",
+    "tests/qualification/core/audit-support.ts",
+    "tests/requirements/clause-inventory.json",
+    "tests/requirements/cli-journey.md",
+    "tests/requirements/test-evidence.json"
+  ],
+  "generatedViewsCommitted": false,
+  "workflowEdited": false,
+  "newRegistration": false,
+  "addedEmailShapedText": false
+}

@@ -1,0 +1,178 @@
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate
+
+stdout | tests/flagship/content/http.test.ts > content durable HTTP > content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state
+PROBE SAVE-005 overlapping identical: native HTTP retry resumes after a competing commit -> 200; exact committed inventories unchanged
+
+stdout | tests/flagship/content/http.test.ts > content durable HTTP > content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state
+PROBE SAVE-005 overlapping changed body: native HTTP retry resumes after a competing commit -> 409; exact committed inventories unchanged
+
+stdout | tests/flagship/content/http.test.ts > content durable HTTP > content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state
+PROBE SAVE-005 overlapping lost authority: native HTTP retry resumes after a competing commit -> 404; exact committed inventories unchanged
+
+stdout | tests/flagship/content/http.test.ts > content durable HTTP > content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state
+PROBE SAVE-005 page creation: native cookie HTTP, two concurrent requests, immediate and original-expiry-minus-1ms replay -> exact first response; changed body 409; populated canonical, revision, inbox and activity inventories unchanged
+
+stdout | tests/flagship/content/http.test.ts > content durable HTTP > content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state
+PROBE SAVE-005 title changes: native cookie HTTP, two concurrent requests, immediate and original-expiry-minus-1ms replay -> exact first response; changed body 409; populated canonical, revision, inbox and activity inventories unchanged
+
+stdout | tests/flagship/content/http.test.ts > content durable HTTP > content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state
+PROBE SAVE-005 body changes: native cookie HTTP, two concurrent requests, immediate and original-expiry-minus-1ms replay -> exact first response; changed body 409; populated canonical, revision, inbox and activity inventories unchanged
+
+stdout | tests/flagship/content/http.test.ts > content durable HTTP > content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state
+PROBE SAVE-005 comment creation: native cookie HTTP, two concurrent requests, immediate and original-expiry-minus-1ms replay -> exact first response; changed body 409; populated canonical, revision, inbox and activity inventories unchanged
+
+stdout | tests/flagship/content/http.test.ts > content durable HTTP > content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state
+PROBE SAVE-005 page grants: native cookie HTTP, two concurrent requests, immediate and original-expiry-minus-1ms replay -> exact first response; changed body 409; populated canonical, revision, inbox and activity inventories unchanged
+
+stdout | tests/flagship/content/http.test.ts > content durable HTTP > content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state
+PROBE SAVE-005 authority: revoke native container grant then sign out -> every old mutation refuses 404 then 401, no canonical or notification changes
+
+stdout | tests/flagship/content/http.test.ts > content durable HTTP > publication, human verification and media enforce current reader authority
+PROBE COMM-002 HTTP: two comment-level members and owner use native sessions -> own edits/deletes 200; eight cross-author mutations 403 with unchanged comments/activity; exact receipts replay without resurrection or duplicate activity
+
+exception = workerd/api/unsafe.c++:229: failed: jsg.Error: Application called deleteAllDurableObjects().
+stack: /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@381fda0 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@24274b0 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@588570a /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5a392a8 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5884dd0 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@359b5a0 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@359bac0 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@3418c70 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@3419026 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5a392a8 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@3183fc1 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@318449e
+exception = kj/compat/http.c++:4798: disconnected: other end of WebSocketPipe was destroyed
+stack: /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5897d6a /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@589b959 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@35ebf3d /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5a3e640 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@2673d30
+exception = kj/compat/http.c++:4798: disconnected: other end of WebSocketPipe was destroyed
+stack: /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5897d6a /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@589b959 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@35ebf3d /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5a3e640 /home/agent/rer-consolidation/work/sd-slate-c-f165/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@2673d30
+ ✓ tests/flagship/content/http.test.ts (4 tests) 22476ms
+     ✓ content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state  10234ms
+     ✓ publication, human verification and media enforce current reader authority  7313ms
+   ✓ native collaboration sockets deliver durable edits and retain shared cursors across refreshes  1721ms
+   ✓ idle sockets close within five seconds after direct-grant revocation or session expiry  3206ms
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic page creation","id":"01M6PV9WCNZMFF38SHTZ1GYAF8","action":"pages.create","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9WCN2CS084AHT4NGJFNV","occurred_at":"2026-11-05T21:54:39.123Z","operation_key":"01M6PV9WCHG5CC8CJR43GYSWQY"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic page creation","id":"01M6PV9WCNZMFF38SHTZ1GYAF8","action":"pages.create","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9WCN2CS084AHT4NGJFNV","occurred_at":"2026-11-05T21:54:39.123Z","operation_key":"01M6PV9WCHG5CC8CJR43GYSWQY"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic native body","id":"01M6PV9WDZW2KRP8KDGQ890NWW","action":"pages.blocks.replace","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9WCN2CS084AHT4NGJFNV","occurred_at":"2026-11-05T21:54:39.165Z","operation_key":"01M6PV9WDWE2NGZMVA6ZPNGGZJ"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic native body","id":"01M6PV9WDZW2KRP8KDGQ890NWW","action":"pages.blocks.replace","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9WCN2CS084AHT4NGJFNV","occurred_at":"2026-11-05T21:54:39.165Z","operation_key":"01M6PV9WDWE2NGZMVA6ZPNGGZJ"}
+
+stderr | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+Slate request failed with an internal error.
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact comment context","id":"01M6PV9WK02FDD11MMD24EP7KP","action":"comments.create","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"comments","target_kind":"comment-thread","target_id":"01M6PV9WK248EASDG1YYKGN2RF","occurred_at":"2026-11-05T21:54:39.326Z","operation_key":"01M6PV9WJWQYVCCYQJWSCZ0DD4"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact comment context","id":"01M6PV9WK02FDD11MMD24EP7KP","action":"comments.create","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"comments","target_kind":"comment-thread","target_id":"01M6PV9WK248EASDG1YYKGN2RF","occurred_at":"2026-11-05T21:54:39.326Z","operation_key":"01M6PV9WJWQYVCCYQJWSCZ0DD4"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact grant context","id":"01M6PV9WKS7XD8JB95YGKTQJTB","action":"sharing.grant","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"sharing","target_kind":"page","target_id":"01M6PV9WJGZRPYT2N4FV6HS806","occurred_at":"2026-11-05T21:54:39.349Z","operation_key":"01M6PV9WKK21177GF4XD4JYEHR"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact grant context","id":"01M6PV9WKS7XD8JB95YGKTQJTB","action":"sharing.grant","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"sharing","target_kind":"page","target_id":"01M6PV9WJGZRPYT2N4FV6HS806","occurred_at":"2026-11-05T21:54:39.349Z","operation_key":"01M6PV9WKK21177GF4XD4JYEHR"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"revoke context access","id":"01M6PV9WNPYG6R9V0D7FD11PF3","action":"sharing.grant","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"sharing","target_kind":"page","target_id":"01M6PV9WJGZRPYT2N4FV6HS806","occurred_at":"2026-11-05T21:54:39.412Z","operation_key":"01M6PV9WNJJ75Q6DTQJH91E2CT"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"revoke context access","id":"01M6PV9WNPYG6R9V0D7FD11PF3","action":"sharing.grant","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"sharing","target_kind":"page","target_id":"01M6PV9WJGZRPYT2N4FV6HS806","occurred_at":"2026-11-05T21:54:39.412Z","operation_key":"01M6PV9WNJJ75Q6DTQJH91E2CT"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"page creation","id":"01M6PV9WPPR761CMXWJE5EHX4C","action":"pages.create","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9WPP562RD35XBAHTZQQ2","occurred_at":"2026-11-05T21:54:39.445Z","operation_key":"01M6PV9WPM4T2KC5YJ99ZVFJWC"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"page creation","id":"01M6PV9WPPR761CMXWJE5EHX4C","action":"pages.create","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9WPP562RD35XBAHTZQQ2","occurred_at":"2026-11-05T21:54:39.445Z","operation_key":"01M6PV9WPM4T2KC5YJ99ZVFJWC"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"body changes","id":"01M6PV9WQ6R9M9PFWA3R8KG5RF","action":"pages.blocks.replace","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9WPP562RD35XBAHTZQQ2","occurred_at":"2026-11-05T21:54:39.461Z","operation_key":"01M6PV9WQ3SP2TVCY6J81QMG9J"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"body changes","id":"01M6PV9WQ6R9M9PFWA3R8KG5RF","action":"pages.blocks.replace","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9WPP562RD35XBAHTZQQ2","occurred_at":"2026-11-05T21:54:39.461Z","operation_key":"01M6PV9WQ3SP2TVCY6J81QMG9J"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"property changes","id":"01M6PV9WQZTGKYBVCK1EDZHNXG","action":"pages.update","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9WPP562RD35XBAHTZQQ2","occurred_at":"2026-11-05T21:54:39.485Z","operation_key":"01M6PV9WQV0X124P6MH8GKACA7"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"property changes","id":"01M6PV9WQZTGKYBVCK1EDZHNXG","action":"pages.update","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9WPP562RD35XBAHTZQQ2","occurred_at":"2026-11-05T21:54:39.485Z","operation_key":"01M6PV9WQV0X124P6MH8GKACA7"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"page moves","id":"01M6PV9WSG943T1NDPFNGVAV53","action":"pages.move","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9WPP562RD35XBAHTZQQ2","occurred_at":"2026-11-05T21:54:39.529Z","operation_key":"01M6PV9WS8XAE5QWZW6PSCGDM8"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"page moves","id":"01M6PV9WSG943T1NDPFNGVAV53","action":"pages.move","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9WPP562RD35XBAHTZQQ2","occurred_at":"2026-11-05T21:54:39.529Z","operation_key":"01M6PV9WS8XAE5QWZW6PSCGDM8"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"publish","id":"01M6PV9WV69CPXRQDQP83R92J4","action":"pages.publish","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9WTTKTM5HFDHPANFW1BM","occurred_at":"2026-11-05T21:54:39.585Z","operation_key":"01M6PV9WTZC51Y1J7JYBXS6HGW"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"publish","id":"01M6PV9WV69CPXRQDQP83R92J4","action":"pages.publish","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9WTTKTM5HFDHPANFW1BM","occurred_at":"2026-11-05T21:54:39.585Z","operation_key":"01M6PV9WTZC51Y1J7JYBXS6HGW"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"archive","id":"01M6PV9WYH8TWF7ZQ895DTDAWC","action":"archive.archive","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"archive","target_kind":"page","target_id":"01M6PV9WY928QM5C84KJ0GEGJD","occurred_at":"2026-11-05T21:54:39.696Z","operation_key":"01M6PV9WYEXRXDYM0WD68Z0G3S"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"archive","id":"01M6PV9WYH8TWF7ZQ895DTDAWC","action":"archive.archive","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"archive","target_kind":"page","target_id":"01M6PV9WY928QM5C84KJ0GEGJD","occurred_at":"2026-11-05T21:54:39.696Z","operation_key":"01M6PV9WYEXRXDYM0WD68Z0G3S"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"restore","id":"01M6PV9WZ1MMQH2Y846BPCPSKB","action":"archive.restore","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"archive","target_kind":"page","target_id":"01M6PV9WY928QM5C84KJ0GEGJD","occurred_at":"2026-11-05T21:54:39.712Z","operation_key":"01M6PV9WYYRNSPAEW1YQTYSVX4"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"restore","id":"01M6PV9WZ1MMQH2Y846BPCPSKB","action":"archive.restore","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"archive","target_kind":"page","target_id":"01M6PV9WY928QM5C84KJ0GEGJD","occurred_at":"2026-11-05T21:54:39.712Z","operation_key":"01M6PV9WYYRNSPAEW1YQTYSVX4"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"trash","id":"01M6PV9WZG96WKJT57S9882NXX","action":"archive.trash","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"archive","target_kind":"page","target_id":"01M6PV9WY928QM5C84KJ0GEGJD","occurred_at":"2026-11-05T21:54:39.727Z","operation_key":"01M6PV9WZEZ1Z79DAQVWR6GPN2"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"trash","id":"01M6PV9WZG96WKJT57S9882NXX","action":"archive.trash","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"archive","target_kind":"page","target_id":"01M6PV9WY928QM5C84KJ0GEGJD","occurred_at":"2026-11-05T21:54:39.727Z","operation_key":"01M6PV9WZEZ1Z79DAQVWR6GPN2"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"permanent deletion","id":"01M6PV9X0CAJ95PPD3JJEN107N","action":"archive.permanent-delete","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"archive","target_kind":"page","target_id":"01M6PV9WY928QM5C84KJ0GEGJD","occurred_at":"2026-11-05T21:54:39.751Z","operation_key":"01M6PV9WZZ0CCZVPRWN58DAX0G"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"permanent deletion","id":"01M6PV9X0CAJ95PPD3JJEN107N","action":"archive.permanent-delete","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"archive","target_kind":"page","target_id":"01M6PV9WY928QM5C84KJ0GEGJD","occurred_at":"2026-11-05T21:54:39.751Z","operation_key":"01M6PV9WZZ0CCZVPRWN58DAX0G"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"version restores","id":"01M6PV9X3CHR8445NG8MCHTHRG","action":"pages.restore","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9X2RHNCWW2ZKBAMKF828","occurred_at":"2026-11-05T21:54:39.849Z","operation_key":"01M6PV9X38X9D40AKJ6R6XSF95"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"version restores","id":"01M6PV9X3CHR8445NG8MCHTHRG","action":"pages.restore","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"pages","target_kind":"page","target_id":"01M6PV9X2RHNCWW2ZKBAMKF828","occurred_at":"2026-11-05T21:54:39.849Z","operation_key":"01M6PV9X38X9D40AKJ6R6XSF95"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"version deletions","id":"01M6PV9X3YG8532ZKRPF9PC5S6","action":"versions.delete","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"versions","target_kind":"page","target_id":"01M6PV9X2RHNCWW2ZKBAMKF828","occurred_at":"2026-11-05T21:54:39.868Z","operation_key":"01M6PV9X3V4VVQH3QZ37HA84EP"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"version deletions","id":"01M6PV9X3YG8532ZKRPF9PC5S6","action":"versions.delete","actor_member_id":"01M6PV9WB50NSPNANDGYK8Z82W","feature":"versions","target_kind":"page","target_id":"01M6PV9X2RHNCWW2ZKBAMKF828","occurred_at":"2026-11-05T21:54:39.868Z","operation_key":"01M6PV9X3V4VVQH3QZ37HA84EP"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+PROBE ARCH-004 retention: native page tree archive and restore -> bodies, history, comments, grants, status, definitions, records and bytes unchanged
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+PROBE ARCH-004 retention: native database archive and restore -> bodies, history, comments, grants, status, definitions, records and bytes unchanged
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+PROBE ARCH-004 retention: native container archive and restore -> populated tree and uploaded bytes unchanged
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+PROBE ARCH-004 confirmation: native delete -> untrashed, archived, incomplete cascade and stale-proof requests refused unchanged; exact fresh-proof cascade erased, replay cannot resurrect
+
+ ✓ tests/qualification/core/audit-content.test.ts (1 test) 2925ms
+   ✓ ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time  2925ms
+ ✓ tests/flagship/core/security.test.ts (1 test) 2260ms
+     ✓ first-run, operation replay, atomic rollback and membership policies preserve authority  2259ms
+
+ Test Files  3 passed (3)
+      Tests  6 passed (6)
+   Start at  21:53:56
+   Duration  50.85s (transform 6.27s, setup 1.54s, import 19.63s, tests 27.66s, environment 0ms)
+
+JSON report written to /home/agent/rer-consolidation/work/sd-slate-c-f165/packet/final-workers.json

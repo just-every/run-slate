@@ -1,0 +1,45 @@
+{
+  "head": "9d63bae1099e54ddf922c1d0df75c1770bc8682c",
+  "files": [
+    {
+      "path": "src/core/app/operations.ts",
+      "bytes": 8654,
+      "sha256": "358c9c0cc9d40adf04ba7a1b361e23f6282341f0c5ffdac52e237ec631635320"
+    },
+    {
+      "path": "src/core/features/pages/routes.ts",
+      "bytes": 6429,
+      "sha256": "50cfa330da0d5173e3c063a355491a3293d799beaed89de9f5ea24bca942048f"
+    },
+    {
+      "path": "src/core/features/pages/ui/workspace/PageWorkspace.tsx",
+      "bytes": 26613,
+      "sha256": "97c72c63ab3fac30473cee43db63a360865acb19d10a9191f34f54b042cfec92"
+    },
+    {
+      "path": "tests/flagship/content/http.test.ts",
+      "bytes": 65801,
+      "sha256": "096a51a75119de0797e7ad14eb6ea9da9351ccee9494e461140ab8aaab80c9c9"
+    },
+    {
+      "path": "tests/flagship/content/operation-replay.case.ts",
+      "bytes": 13134,
+      "sha256": "3eb4d9b4e69eed16700f4d70ff202abc8e7f4332be987cb7333219a0ae3c22ac"
+    },
+    {
+      "path": "tests/qualification/core/audit-support.ts",
+      "bytes": 12753,
+      "sha256": "51cb297675611448cf5854f4dfbb43f022973c6586980151ff7f07a6c95523ae"
+    },
+    {
+      "path": "tests/qualification/ui-convergence/write-journey.mjs",
+      "bytes": 10177,
+      "sha256": "df069e4d6f8c48fa8baf45f513ee0090d3a99c9a49d55f17cb7278caeca76cc1"
+    },
+    {
+      "path": "tests/qualification/ui-convergence/browser-support.mjs",
+      "bytes": 25042,
+      "sha256": "cc53a48b3fb77c63a39f196e8439a37cda39ef74596f26e38d29ea66fcd4d155"
+    }
+  ]
+}
