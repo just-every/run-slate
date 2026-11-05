@@ -10700,7 +10700,7 @@
       "executable": false
     },
     "tests/e2e/review/verification-flow.test.ts": {
-      "sha256": "dd1fe8dfbf4eaa352c5f50403d220fbfa4f78a0a5c1a6c5ae51321d6acecfb85",
+      "sha256": "55937f9c379e6525b43d5a94e2af797e287d0e3678f52280563ce9c175bd969f",
       "executable": false
     },
     "tests/e2e/review/verification-rules.test.ts": {
@@ -12340,7 +12340,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-history.mjs": {
-      "sha256": "7c8b46aae72200dcc90443c6efec1d4d5cb21c0dcf630f7edd213d39c8f8830e",
+      "sha256": "58a88e4dcc8325c89ec34a075ec5404b811b19693f1bd7903220782e36941fd2",
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-support.mjs": {
@@ -12404,7 +12404,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "e64e076a598a28c591f6195664f662097dbae277fdb0068f7e99beca8d75b246",
+      "sha256": "e451366a3ca7aeacaf1159bd15f43648ee5c4a49037355287272b277780055a5",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
@@ -12416,7 +12416,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "bdd583cc7797815647f530639506168b13269cffb3690470ace938af9c2bc937",
+      "sha256": "8d4a4801f020f4fa339904d3d099982f5d0d8017cd0edb4769db30a105c3459b",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

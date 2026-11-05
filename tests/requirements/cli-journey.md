@@ -226,11 +226,15 @@ creates a restricted native page with body text and a stored inline quote and co
 plain URL through Share, obtains its exact revision URL, confirms native erasure,
 and follows both addresses after reload. The rendered kind and exact deletion
 time agree with the receipt and retained activity; both tombstones omit title,
-body, quote and personal target metadata. A formerly admitted reader with a
+body, quote and personal target metadata, including in the reloaded document's
+hydration data. A formerly admitted reader with a
 revoked grant receives an opaque API refusal and an access-needed screen with no
-target details. A captured successful comment request refuses after erasure without exposing its old receipt.
+target details in its API, visible screen and document hydration data. The focused
+read and refusal receipt is retained separately from later shared journey steps.
+A captured successful comment request refuses after erasure without exposing its old receipt.
 Replay retains one deletion event and an attempted restore cannot
 resurrect content. `tests/e2e/review/verification-flow.test.ts` reconciles the same
-native read projections with the committed D1 tombstone. These are supporting
+native read projections with the committed D1 tombstone and checks that refused
+write replays and restore leave cleared page data, revision content and activity unchanged. These are supporting
 LINK-002 acceptance 1–2 assertions only: deleted-but-not-erased outcomes and all
 other record-kind URLs remain open under the complete contract requirement.

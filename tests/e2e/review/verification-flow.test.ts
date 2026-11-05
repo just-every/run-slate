@@ -281,11 +281,25 @@ async function citationJourney(f: Awaited<ReturnType<typeof reviewFixture>>) {
     }
     for(const text of ['Cited handbook','Working-only private title','Committed citation body.','owner_member_id','author_member_id']) expect(tombstone.text).not.toContain(text);
   }
+  const erasedState=async()=>({
+    page:await env.DB.prepare('SELECT title,icon,cover_file_id,owner_member_id,deleted_at FROM pages WHERE id=?').bind(id).first(),
+    blocks:(await env.DB.prepare('SELECT id FROM page_blocks WHERE page_id=? ORDER BY id').bind(id).all()).results,
+    revisions:(await env.DB.prepare('SELECT id,body_json,properties_json,author_member_id,label,deleted_at FROM page_revisions WHERE page_id=? ORDER BY id').bind(id).all()).results,
+    activity:(await env.DB.prepare('SELECT id,action,detail_json,actor_member_id FROM activity_entries WHERE target_id=? ORDER BY id').bind(id).all()).results,
+  });
+  const beforeReplay=await erasedState();
+  expect(beforeReplay.page).toEqual({title:'',icon:null,cover_file_id:null,owner_member_id:null,deleted_at:committed!.deletedAt});
+  expect(beforeReplay.blocks).toEqual([]);
+  expect(beforeReplay.revisions.length).toBeGreaterThan(0);
+  for(const revision of beforeReplay.revisions) expect(revision).toMatchObject({body_json:'[]',properties_json:'{}',author_member_id:null,label:null,deleted_at:committed!.deletedAt});
   const capturedReplay=await request('owner','PATCH',`/api/pages/${id}`,capturedEdit);
   expect(capturedReplay.status).toBe(404);
   expect(capturedReplay.data).toEqual({code:'NOT_FOUND',message:'Not found.'});
   const replay=await request('owner','PATCH',`/api/pages/${id}`,{operationKey:op(),expectedRevisionId:working,properties:{title:'Resurrected content'}});
   expect(replay.status).toBe(404);
+  const restore=await request('owner','POST',`/api/archive/${id}`,{operationKey:op(),expectedRevisionId:erased.receipt.revisionId,action:'restore'});
+  expect(restore.status).toBe(404);
+  expect(await erasedState()).toEqual(beforeReplay);
   expect((await request('denied','GET',`/api/revisions/${id}/${snapshot}`)).data.code).toBe('NOT_FOUND');
   const erasedPublic=await request('anonymous','GET',`/p/cited-handbook?revision=${snapshot}`);
   expect(erasedPublic.status).toBe(404);

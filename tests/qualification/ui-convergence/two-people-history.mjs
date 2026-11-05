@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { randomBytes, randomUUID } from 'node:crypto';
+import { writeFile } from 'node:fs/promises';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-evidence.mjs';
 import { blockText, call, editable, grant, ok, restrictedPage, savedAfterCommit } from './two-people-support.mjs';
@@ -302,7 +303,9 @@ export async function erasedPageLinksJourney(state, people) {
     const read = await call(alice.context,origin,'GET',route);
     assert.deepEqual(read,{status:404,body:{code:'PAGE_ERASED',message:'This record was permanently deleted.',details:expected}});
     await alice.page.goto(url,{waitUntil:'networkidle'});
-    await alice.page.reload({waitUntil:'networkidle'});
+    const ownerDocument = await alice.page.reload({waitUntil:'networkidle'});
+    const ownerHtml = await ownerDocument.text();
+    for (const text of [title,body,quote,commentText]) assert.ok(!ownerHtml.includes(text), 'The tombstone document carries no erased content in hydration data.');
     const tombstone = alice.page.getByRole('article',{name:'Deleted record',exact:true});
     await expect(tombstone.getByRole('heading')).toHaveText(`Deleted ${expected.kind}`);
     await expect(tombstone.locator('time')).toHaveAttribute('datetime',expected.deletedAt);
@@ -316,7 +319,9 @@ export async function erasedPageLinksJourney(state, people) {
     const refused = await call(bob.context,origin,'GET',route);
     assert.deepEqual(refused,{status:404,body:{code:'NOT_FOUND',message:'Not found.'}});
     await bob.page.goto(url,{waitUntil:'networkidle'});
-    await bob.page.reload({waitUntil:'networkidle'});
+    const refusedDocument = await bob.page.reload({waitUntil:'networkidle'});
+    const refusedHtml = await refusedDocument.text();
+    for (const text of [title,body,quote,commentText,expected.deletedAt]) assert.ok(!refusedHtml.includes(text), 'The refused document carries no target details in hydration data.');
     await expect(bob.page.getByRole('heading',{name:'Access needed',exact:true})).toBeVisible();
     await expect(bob.page.getByRole('article',{name:'Deleted record',exact:true})).toHaveCount(0);
     const refusedText = await bob.page.getByRole('main').innerText();
@@ -330,7 +335,10 @@ export async function erasedPageLinksJourney(state, people) {
   const resurrect = await call(alice.context,origin,'POST',`/api/archive/${pageId}`,{operationKey:randomUUID(),expectedRevisionId:trash.receipt.revisionId,action:'restore'});
   assert.equal(resurrect.status,404);
   assert.equal((await call(alice.context,origin,'GET',`/api/pages/${pageId}`)).body.details.deletedAt,expected.deletedAt);
-  record('erasedNativeLinks',{pageId,revision,deletion:erased,activity:entries[0],snapshots,capturedReplay});
+  const proof = {width:alice.page.viewportSize().width,pageId,revision,deletion:erased,activity:entries[0],snapshots,capturedReplay};
+  record('erasedNativeLinks',proof);
+  // Later two-person steps share this directory; retain this clause's read and refusal receipt.
+  await writeFile(`${people.evidence}/erased-native-links.json`,JSON.stringify(proof,null,2));
   console.log(`PROBE LINK-002 1: copied page and pre-erasure revision URLs after confirmed deletion and reload -> Deleted page at ${expected.deletedAt}, matching receipt and activity`);
   console.log('PROBE LINK-002 2: authorized and revoked-reader native URLs -> content-free tombstones and opaque NOT_FOUND; deletion replay leaves one event and restore refuses');
 }
